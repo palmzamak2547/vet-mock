@@ -21,6 +21,37 @@
 
 /** Course/deck metadata: real information, but not a scientific claim. */
 export const METADATA_SECTIONS = new Set([
+  // A Thai Department of Livestock Development administrative procedure. Six
+  // PubMed searches for it returned nothing, which is the expected result: it is
+  // a government workflow, not a research finding. Sourcing it properly needs the
+  // DLD standard document itself, not the literature.
+  "milk-meat-hygiene--milk-biosec-dairy--farm-standard-application-workflow",
+
+  // Judged individually after the gap-filling pass. Each is real information a
+  // student wants, but no paper can support "this is worth 15 marks" or "the
+  // MSc route in the EU differs from the USA".
+  "epidemiology--epidem-intro--pretest-แยกให้ออกว่างานไหนเป็นศาสตร์ใด", // an in-class quiz, answers not printed
+  "epidemiology--epidem-intro--practical-modules-1-ถึง-4-และเส้นทางการส่งรายงาน", // assignment logistics and submission route
+  "epidemiology--epidem-intro--หนังสืออ่านประกอบ-learning-pyramid-และเว็บอ้างอิง", // reading list
+  "engprof--summary-writing--summary-marking-rubric-final-15-pts", // this course marking scheme
+  "engprof--paraphrasing--paraphrasing-score-3-points-ใน-final", // this course marking scheme
+  "engprof--summary-writing--sample-summary-จาก-key-veterinary-medicine-bats", // a worked example from the answer key
+  "engprof--paraphrasing--lead-in-techniques-สำหรับอ้าง-source", // phrasing conventions taught by the instructor
+  "repro-lect--exotic-repro--exam-note", // an exam tip from the lecturer
+  "exotic--wildlife-career--phd-usa-vs-eu-aus", // education pathways, not veterinary science
+  "exotic--wildlife-career--funding-sources", // career funding routes
+  "equine-medicine--equine-poa--poa-infectious-dz-station-final-exam-2-questions", // exam-station logistics
+  "equine-medicine--equine-tumors--cases-02-n-detail-per-tumor-type", // case slides, no extractable claim
+  "equine-medicine--equine-gi--lecture-2-exam-techniques-for-equine-alimentary", // a deck section header
+  "exotic--field-vet--veterinary-analogy-body-to-ecosystem", // the lecturer's teaching analogy
+  "cliapprum--hoof-health-fleet--tli-framework-4-elements", // a framework taught by this lecturer
+  "poultry--quality-assurance--bqm-4-มิติ-better-quality-management", // a framework taught by this lecturer
+  "poa-clinical--poa-edema--ย้อนกลับมาที่เคส-ผล-ultrasound-และการ-localize", // walkthrough of the lecture's own case
+  "one-health--oh-vet-role--บทสรุป-อุปสรรค-โอกาส-และข้อเสนอแนะปิดท้าย", // the lecturer's closing remarks
+  "epidemiology--epidem-intro--bloom-s-taxonomy-ระดับการเรียนรู้ที่วิชานี้ตั้งไว้", // the pedagogy framing this course chose for itself
+  "exotic--wildlife-career--msc-master-s-degree-usa-vs-eu-aus", // education pathways, not veterinary science
+  "one-health--oh-global-network--module-4-5-stakeholders-policy-briefing-จริยธรรม-และ-digital-too", // workshop module logistics
+
   "cliapprum--gi-surgery-sawita--past-exam-mapping-sunsun84-gi-sx-15-q", // Past Exam Mapping (Sunsun84 GI Sx 15+ Q)
   "cliapprum--gi-vdtt--past-exam-mapping-sunsun84-gi-vdtt", // Past Exam Mapping (Sunsun84 GI VDTT)
   "cliapprum--hoof-health-fleet--past-exam-mapping-sunsun84-ploy83-hoof", // Past Exam Mapping (Sunsun84 + Ploy83 hoof)

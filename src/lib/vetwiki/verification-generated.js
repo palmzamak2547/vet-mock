@@ -181,6 +181,106 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com5--rabies--clinical-signs-3-phases": {
+      "claims": [
+        {
+          "id": "com5--rabies--clinical-signs-3-phases--v1",
+          "statement": "ไม่มี clinical sign ใดที่จำเพาะและคงที่ (specific and constant) สำหรับ rabies — การสังเกตอาการทำได้แค่ \"สงสัย\" เท่านั้น การยืนยันโรคต้องทำในห้องปฏิบัติการ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2023",
+              "locator": "Chapter 3.1.18, Summary (p. 1); Section A Introduction (p. 2); Section B.1 (p. 3)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "As there are neither gross pathognomonic lesions nor specific and constant clinical signs for rabies, confirmatory diagnosis can only be made in the laboratory."
+          }
+        },
+        {
+          "id": "com5--rabies--clinical-signs-3-phases--v2",
+          "statement": "ในสัตว์ที่เป็น rabies จริง สุนัขมีแนวโน้มแสดงอาการแบบ paralytic มากกว่าแมว ส่วนแมวมีแนวโน้มแสดง aggressive behaviour มากกว่า (55% vs 31%) และระยะเวลาตั้งแต่เริ่มแสดงอาการจนตาย median = 3 วัน (range < 1 ถึง 10 วัน)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2384321",
+              "locator": "J Am Vet Med Assoc 1990;197(2):201-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although the clinical signs of rabies varied, rabid cats were more likely than dogs to have had aggressive behavior (55 vs 31%, odds ratio = 2.8). In contrast, rabid dogs were more likely than cats to have had an illness consistent with a p"
+          }
+        }
+      ]
+    },
+    "com5--rabies--prevention-pre-exposure-thai-rabies-cpg": {
+      "claims": [
+        {
+          "id": "com5--rabies--prevention-pre-exposure-thai-rabies-cpg--v1",
+          "statement": "ในพื้นที่ที่ rabies เป็นโรคประจำถิ่น วัคซีนพิษสุนัขบ้าถือเป็น core vaccine ทั้งในสุนัขและแมว แม้กฎหมายท้องถิ่นจะไม่ได้บังคับก็ตาม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "Executive summary / vaccine categories section (p. 3 of the WSAVA PDF edition); feline rabies statement p. 19. J Small Anim Pract 2024;65:277-316",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In areas of the world where rabies is endemic, vaccination against rabies virus should be considered essential for both dogs and cats (i.e. rabies vaccines are core in those places), even if there is no legal requirement for this."
+          }
+        },
+        {
+          "id": "com5--rabies--prevention-pre-exposure-thai-rabies-cpg--v2",
+          "statement": "เข็มแรกของวัคซีนพิษสุนัขบ้าในลูกสุนัขมักไม่ให้ก่อนอายุ 12 สัปดาห์ และต้องมี revaccination ที่อายุ 1 ปี (หรือ 1 ปีหลัง primary vaccination) จากนั้นระยะห่างของ booster กำหนดตาม licensed DOI (1 หรือ 3 ปี) หรือตามที่กฎหมายท้องถิ่นบังคับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "Table 1 (Vaccines for pet dogs, non-shelter), rabies row, p. 12 of the WSAVA PDF edition; narrative rabies paragraph p. 15. J Small Anim Pract 2024;65:277-316",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In some countries, the first dose is generally not given before 12 weeks of age ... Revaccination at 1 year of age (or in some countries 1 year after the primary vaccination) is required. Canine rabies vaccines with either a 1- or 3-year DO"
+          }
+        }
+      ]
     }
   },
   "com5--cve": {
@@ -334,6 +434,202 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Early finishing of the primary vaccination series was significantly associated with CPV-2 infection (P < 0.001), whereas vaccinal strain and number of doses were not. ... Finishing the primary vaccination series at >= 16 weeks of age, in ac"
+          }
+        }
+      ]
+    },
+    "com5--cve--agents-3-viruses": {
+      "claims": [
+        {
+          "id": "com5--cve--agents-3-viruses--v1",
+          "statement": "CPV-2 อุบัติขึ้นช่วงปลายทศวรรษ 1970 แล้ววิวัฒนาการเป็น antigenic variant CPV-2a และ CPV-2b ที่ค่อย ๆ แทนที่สายพันธุ์เดิม ต่อมาปี 2000 พบ CPV-2c ที่อิตาลีแล้วแพร่ไปหลายประเทศ โดย variant เหล่านี้ก่อโรคได้รุนแรงกว่าและมี host range กว้างขึ้นจนติดและก่อโรคในแมวได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21962408",
+              "locator": "Vet Microbiol 2011;155(1):1-12",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Canine parvovirus type 2 (CPV-2) emerged in late 1970s causing severe epizootics in kennels and dog shelters worldwide. Soon after its emergence, CPV-2 underwent genetic evolution giving rise consecutively to two antigenic variants, CPV-2a "
+          }
+        },
+        {
+          "id": "com5--cve--agents-3-viruses--v2",
+          "statement": "Canine coronavirus (CCoV) เป็นเชื้อที่รู้จักตั้งแต่ทศวรรษ 1970 ในฐานะสาเหตุของ mild enteritis ในสุนัข และวิวัฒนาการต่อมาจนเกิด genotype ใหม่ (CCoV type I), biotype ใหม่ (pantropic CCoV) และ host variant คือ canine respiratory coronavirus",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18635322",
+              "locator": "Vet Microbiol 2008;132(3-4):221-34",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In dogs, a CoV associated with mild enteritis, canine coronavirus (CCoV), has been known since 1970s. ... that led to the emergence of new genotypes (CCoV type I), biotypes (pantropic CCoV) and host variants (canine respiratory coronavirus)"
+          }
+        },
+        {
+          "id": "com5--cve--agents-3-viruses--v3",
+          "statement": "Canine rotavirus group A พบได้จริงในสุนัขไทยแต่พบน้อย — ตรวจพบ 0.70% (5/710) จาก rectal swab ของสุนัขทั้งที่แข็งแรงและที่ป่วย โดย genotype ที่พบคือ G3P[3] ซึ่งเป็น genotype หลักที่รายงานในสุนัข",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32772501",
+              "locator": "Transbound Emerg Dis 2021;68(3):1240-1252",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "From September 2016 to January 2019, we collected 710 rectal swabs from both healthy and sick dogs from small animal hospitals in 5 provinces of Thailand. ... Our results showed that 0.70% (5/710) were positive for CRV. ... Our results show"
+          }
+        }
+      ]
+    },
+    "com5--cve--risk-factors-cpv": {
+      "claims": [
+        {
+          "id": "com5--cve--risk-factors-cpv--v1",
+          "statement": "การไม่ได้รับวัคซีนเป็น risk factor ที่สำคัญที่สุด — สุนัขที่ไม่ได้ฉีดวัคซีนตามกำหนดมีโอกาสเข้ารักษาด้วย CPV enteritis สูงกว่าถึง 12.7 เท่า และมีความแตกต่างตามสายพันธุ์ โดย Rottweiler, American Pit Bull Terrier, Doberman Pinscher และ German Shepherd Dog เสี่ยงสูงกว่าสุนัขพันทาง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-8603904",
+              "locator": "J Am Vet Med Assoc 1996;208(4):542-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Rottweilers, American Pit Bull Terriers, Doberman Pinschers, and German Shepherd Dogs were at increased risk and Toy Poodles and Cocker Spaniels were at decreased risk for developing CPV enteritis, compared with that for mixed-breed dogs. ."
+          }
+        },
+        {
+          "id": "com5--cve--risk-factors-cpv--v2",
+          "statement": "อายุน้อยเป็น risk factor ที่ชัดเจน — สุนัขในกลุ่มอายุน้อยทั้งสามกลุ่มมีโอกาสตรวจพบ CPV สูงกว่าสุนัขที่อายุมากกว่าอย่างน้อย 12 เท่า และการถ่ายพยาธิ (anthelminthic treatment) ช่วยลดโอกาสติดเชื้อ CPV (OR = 0.45)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26294318",
+              "locator": "Vet Microbiol 2015;180(1-2):59-64",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Statistical analysis showed that animals in the three age categories (p<0.001) were at list 12 times more likely to be CPV-positive than older animals. The anthelminthic treatment [OR=0.45, p=0.04] and the rectal temperature (hypothermia, ["
+          }
+        }
+      ]
+    },
+    "com5--cve--clinical-signs-cpv": {
+      "claims": [
+        {
+          "id": "com5--cve--clinical-signs-cpv--v1",
+          "statement": "อาการที่พบใน CPV enteritis ได้แก่ dull mentation, hemorrhagic gastroenteritis และ hypothermia โดยทั้งสามอาการนี้พบบ่อยกว่าในการติดเชื้อ CPV-2c เมื่อเทียบกับ CPV-2a",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23850438",
+              "locator": "Vet Microbiol 2013;166(1-2):214-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The associations of Ecuadorian CPV-2c and CPV-2a with clinical symptoms indicate that dull mentation, hemorrhagic gastroenteritis and hypothermia occurred more frequently in infection with CPV-2c than with CPV-2a."
+          }
+        },
+        {
+          "id": "com5--cve--clinical-signs-cpv--v2",
+          "statement": "อาการทางคลินิกที่ทำนายการติดเชื้อ CPV ได้คือ depression (OR = 4.4) และ dehydration (OR = 2.38) และแม้ morbidity จะสูง แต่ในประชากรที่ศึกษามีอัตราการตายเพียง 18%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26294318",
+              "locator": "Vet Microbiol 2015;180(1-2):59-64",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "On the other hand, clinical signs such as depression [OR=4.4, p=0.02] and dehydration status [OR=2.38, p=0.001] made dogs more likely to be CPV-infected. The results indicate that although having a high morbidity, only 18% of the Portuguese"
+          }
+        },
+        {
+          "id": "com5--cve--clinical-signs-cpv--v3",
+          "statement": "สุนัขที่ป่วย CPV สามารถดำเนินโรคเข้าสู่ sepsis และ septic shock ได้ และระดับความรุนแรงตามเกณฑ์ Sepsis-3 สัมพันธ์กับอัตราการตายที่เพิ่มขึ้น รวมทั้งสัมพันธ์กับ leukopenia และ neutropenia",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36815748",
+              "locator": "J Vet Emerg Crit Care (San Antonio) 2023;33(2):208-216",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Greater illness severity based on mSepsis-3 criteria (ie, infection only, sepsis, septic shock) was associated with an increase in mortality (P < 0.05), increase in average length of stay (P < 0.001), increase in average cost of stay (P < 0"
           }
         }
       ]
@@ -493,6 +789,275 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com5--feline-uri--overview": {
+      "claims": [
+        {
+          "id": "com5--feline-uri--overview--v1",
+          "statement": "FURTD เป็น multifactorial disease ที่เกิดจากเชื้อได้หลายชนิด และ co-infection พบบ่อยในสภาพแวดล้อมที่แออัด (shelter, cattery) ซึ่งทำให้ความรุนแรงของโรคเพิ่มขึ้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24580994",
+              "locator": "Vet Clin North Am Small Anim Pract 2014;44(2):331-42",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infectious feline upper respiratory tract disease (URTD) continues to be a widespread and important cause of morbidity and mortality in kittens. Multiple pathogens can contribute to URTD in kittens, and coinfections are common in overcrowde"
+          }
+        },
+        {
+          "id": "com5--feline-uri--overview--v2",
+          "statement": "ในแมวที่มี upper respiratory tract infection การตรวจพบเชื้อเป็นเรื่องปกติมาก — 396 จาก 400 ตัว (99.0%) ตรวจพบเชื้ออย่างน้อยหนึ่งชนิด และพบ mixed infection 22.0% (88/400)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39147982",
+              "locator": "Arch Virol 2024;169(9):177",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A total of 400 cats with upper respiratory tract infections from animal hospitals in 12 provinces in China were examined from November 2022 to October 2023 ... 396 of the 400 samples tested were positive for at least one of these pathogens,"
+          }
+        }
+      ]
+    },
+    "com5--feline-uri--5-pathogens-overview": {
+      "claims": [
+        {
+          "id": "com5--feline-uri--5-pathogens-overview--v1",
+          "statement": "เชื้อที่ตรวจพบในทางเดินหายใจส่วนต้นของแมวป่วยเรียงตามความชุก ได้แก่ FCV 36.00%, Mycoplasma felis 34.00%, FHV-1 21.50%, Chlamydia felis 15.75% และ Bordetella bronchiseptica 13.00%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39147982",
+              "locator": "Arch Virol 2024;169(9):177",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The detection rates were as follows: FCV, 36.00% (144/400); M. felis, 34.00% (136/400); FHV-1, 21.50% (86/400); C. felis, 15.75% (63/400); B. b, 13.00% (52/400); IAV, 4.50% (18/400)."
+          }
+        },
+        {
+          "id": "com5--feline-uri--5-pathogens-overview--v2",
+          "statement": "FHV ทำให้เกิด acute rhinitis และ conjunctivitis ร่วมกับไข้ ซึม เบื่ออาหาร และแมวที่ป่วยอาจเกิด ulcerative dendritic keratitis ที่เป็นลักษณะเฉพาะ โดยแมวส่วนใหญ่จะกลายเป็น lifelong latent carrier หลังหายป่วย และความเครียดหรือ corticosteroid กระตุ้นให้เชื้อกลับมา shedding ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19481034",
+              "locator": "J Feline Med Surg 2009;11(7):547-55, Disease signs and Latency sections",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Feline herpesvirus infections cause acute rhinitis and conjunctivitis, usually accompanied by fever, depression and anorexia. Affected cats may also develop typical ulcerative, dendritic keratitis. ... In most cats, FHV remains latent after"
+          }
+        },
+        {
+          "id": "com5--feline-uri--5-pathogens-overview--v3",
+          "statement": "FCV ก่ออาการหลักคือ oral ulcer, อาการทางเดินหายใจส่วนต้น และไข้สูง และสามารถแยกเชื้อได้จากแมวเกือบทุกตัวที่มี chronic stomatitis หรือ gingivitis ส่วน virulent systemic FCV disease แสดง pyrexia, cutaneous oedema, ulcerative lesions ที่หัวและขา และดีซ่าน โดยมีอัตราการตายสูงและรุนแรงกว่าในแมวโตเต็มวัย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19481035",
+              "locator": "J Feline Med Surg 2009;11(7):556-64, Disease signs section",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The main clinical signs are oral ulcers, upper respiratory signs and a high fever. Feline calicivirus may be isolated from nearly all cats with chronic stomatitis or gingivitis. Cats with 'virulent systemic FCV disease' variably show pyrexi"
+          }
+        }
+      ]
+    },
+    "com5--feline-uri--diagnosis": {
+      "claims": [
+        {
+          "id": "com5--feline-uri--diagnosis--v1",
+          "statement": "การระบุชนิดเชื้อไม่จำเป็นในทุกราย แต่มีประโยชน์เมื่อต้องการป้องกันการแพร่เชื้อใน shelter หรือเมื่อต้องจัดการแมวที่มี URTD เป็น ๆ หาย ๆ เพราะเชื้อแต่ละตัวเป็นได้ทั้ง primary pathogen และก่อ subclinical infection",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26324635",
+              "locator": "Vet J 2015;206(2):149-53",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Each of these agents can either act as primary pathogens or cause subclinical infections, and pathogen identification can be used to prevent disease transmission in shelters, or to manage individual cats with recurrent URTD."
+          }
+        },
+        {
+          "id": "com5--feline-uri--diagnosis--v2",
+          "statement": "การส่ง oropharyngeal swab ร่วมกับ conjunctival หรือ nasal swab ตรวจด้วย PCR สามารถตรวจพบเชื้อได้ครบทุกชนิดที่ทดสอบในแมวทุกตัว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26324635",
+              "locator": "Vet J 2015;206(2):149-53",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A combination of an oropharyngeal swab and either a conjunctival or a nasal swab submitted for PCR testing was able to detect all infectious agents tested for in each cat. PCR testing was a sensitive and convenient method of detection of in"
+          }
+        },
+        {
+          "id": "com5--feline-uri--diagnosis--v3",
+          "statement": "ผล PCR ที่เป็นบวกต้องแปลผลด้วยความระมัดระวัง เพราะอาจเกิดจาก low-level shedding หรือ viral latency และไม่ควรเก็บตัวอย่างจากแมวที่เพิ่งได้รับวัคซีนชนิด modified-live",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19481034",
+              "locator": "J Feline Med Surg 2009;11(7):547-55, Diagnosis section",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Samples consist of conjunctival, corneal or oropharyngeal swabs, corneal scrapings or biopsies. It is not recommended that cats recently vaccinated with a modified-live virus vaccine are sampled. Positive PCR results should be interpreted w"
+          }
+        }
+      ]
+    },
+    "com5--feline-uri--differential-by-feature": {
+      "claims": [
+        {
+          "id": "com5--feline-uri--differential-by-feature--v1",
+          "statement": "Ulcerative dendritic keratitis เป็นรอยโรคที่ \"typical\" ของ FHV-1 ในแมวที่ป่วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19481034",
+              "locator": "J Feline Med Surg 2009;11(7):547-55, Disease signs section",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Affected cats may also develop typical ulcerative, dendritic keratitis."
+          }
+        },
+        {
+          "id": "com5--feline-uri--differential-by-feature--v2",
+          "statement": "Chlamydia felis มีเป้าหมายหลักคือ conjunctiva และเป็นเชื้อที่สัมพันธ์กับ conjunctivitis บ่อยที่สุด โดยทำให้เกิด conjunctivitis รุนแรงกับ hyperaemia ของหนังตาที่สามอย่างมาก แต่แมวส่วนใหญ่ยังสบายดีและกินอาหารได้ตามปกติ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19481040",
+              "locator": "J Feline Med Surg 2009;11(7):605-9, Agent properties and Disease signs sections",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Chlamydophila felis is a Gram-negative bacterium and its primary target is the conjunctiva. ... Chlamydophila felis is the infectious organism most frequently associated with conjunctivitis. ... There can be intense conjunctivitis with extr"
+          }
+        },
+        {
+          "id": "com5--feline-uri--differential-by-feature--v3",
+          "statement": "Bordetella bronchiseptica ทำให้เกิดอาการทางเดินหายใจตั้งแต่ไม่รุนแรง (ไข้ ไอ จาม ขี้ตา ต่อมน้ำเหลืองโต) ไปจนถึง pneumonia รุนแรงที่หายใจลำบากและตายได้ โดยสุนัขที่มีโรคทางเดินหายใจเป็นแหล่งเสี่ยงต่อการติดเชื้อของแมว และควรถือว่าเป็นสาเหตุของ zoonotic infection ที่พบได้ไม่บ่อย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19481041",
+              "locator": "J Feline Med Surg 2009;11(7):610-4, Agent properties, Epidemiology and Disease signs sections",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is sensible to consider B bronchiseptica as a rare cause of zoonotic infections. ... Dogs with respiratory disease are an infection risk for cats. ... A wide range of respiratory signs has been associated with B bronchiseptica infection,"
+          }
+        }
+      ]
     }
   },
   "com5--gi-protozoa": {
@@ -646,6 +1211,202 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Oocyst counts were reduced by 90.2 - 100 % while the control groups continued to exhibit an adequate infection ... Faecal oocyst counts were reduced by 91.5 - 100 %. In all three studies the number of days with diarrhoea was significantly l"
+          }
+        }
+      ]
+    },
+    "com5--gi-protozoa--classification": {
+      "claims": [
+        {
+          "id": "com5--gi-protozoa--classification--v1",
+          "statement": "Toxoplasma gondii oocyst ที่ออกมากับอุจจาระแมวสด ๆ ยังเป็น unsporulated และไม่ก่อการติดเชื้อ ต้องผ่านการ sporulate ในสิ่งแวดล้อมก่อน (sporulation สูงสุดที่ 48 ชั่วโมง) จึงจะติดเชื้อได้ และภายใน oocyst ประกอบด้วย sporocyst และ sporozoite",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-4927658",
+              "locator": "J Exp Med 1970;132(4):636-62",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Unsporulated oocysts in fresh cat feces were noninfectious to mice, but oocyst sporulation was associated quantitatively with the development of infectivity at different temperatures and conditions of oxygenation. Maximum oocyst sporulation"
+          }
+        },
+        {
+          "id": "com5--gi-protozoa--classification--v2",
+          "statement": "Cryptosporidium ต่างจาก coccidia อื่น — oocyst ของมัน sporulate ตั้งแต่อยู่ใน parasitophorous vacuole ในโฮสต์แล้ว จึงผ่านลำไส้ออกมาในสภาพที่ติดเชื้อได้ทันที และมี sporozoite 4 ตัวอยู่ภายในเยื่อ oocyst ชั้นเดียวโดยไม่มี sporocyst แยกต่างหาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-3959014",
+              "locator": "J Protozool 1986;33(1):98-108",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Approximately 80% of the oocysts observed in enterocytes had a thick, two-layered wall. After sporulating within the parasitophorous vacuole, these thick-walled oocysts passed through the gut unaltered and were the resistant forms that tran"
+          }
+        },
+        {
+          "id": "com5--gi-protozoa--classification--v3",
+          "statement": "ในสุนัขและแมวที่มาโรงพยาบาลสัตว์ Giardia duodenalis เป็น enteric protozoan ที่พบมากที่สุดในสุนัข (40.9%) รองลงมาคือ Cystoisospora sp. (7.1%) และตรวจพบ Cryptosporidium canis กับ C. parvum ด้วย โดยลูกสุนัขและลูกแมวมีโอกาสติดพยาธิในลำไส้และแสดงอาการสูงกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37725371",
+              "locator": "Vet Med Sci 2023;9(6):2542-2558",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In dogs, G. duodenalis was the most prevalent species (40.9%), followed by Cystoisospora sp. (7.1%), and Toxocara canis (5.2%). ... Pups and kittens were more likely to harbour intestinal parasites and develop clinical signs. Sequence analy"
+          }
+        }
+      ]
+    },
+    "com5--gi-protozoa--toxoplasma-gondii": {
+      "claims": [
+        {
+          "id": "com5--gi-protozoa--toxoplasma-gondii--v1",
+          "statement": "แมวเป็น definitive host เพียงชนิดเดียวและจึงเป็นแหล่งเดียวของ infective oocyst ส่วนสัตว์เลี้ยงลูกด้วยนมและนกชนิดอื่นเป็น intermediate host ที่สร้าง tissue cyst ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20202907",
+              "locator": "Trends Parasitol 2010;26(4):190-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Toxoplasma gondii is a parasite of birds and mammals. Cats are the only definitive host and thus the only source of infective oocysts, but other mammals and birds can develop tissue cysts."
+          }
+        },
+        {
+          "id": "com5--gi-protozoa--toxoplasma-gondii--v2",
+          "statement": "แมวปล่อย oocyst เพียงครั้งเดียวในชีวิต และโดยทั่วไปนาน 3-10 วันหลังกิน tissue cyst ดังนั้นแมวที่มี antibody ต่อ T. gondii แล้วจะไม่ปล่อย oocyst อีกและไม่เป็นความเสี่ยงต่อคน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23813830",
+              "locator": "J Feline Med Surg 2013;15(7):631-7, Human infection section",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cats can pose a risk for humans when they shed oocysts. However, this happens only once in their lifetime, usually only for 3-10 days after ingestion of tissue cysts. Thus, cats that have antibodies to T gondii no longer shed oocysts, and d"
+          }
+        },
+        {
+          "id": "com5--gi-protozoa--toxoplasma-gondii--v3",
+          "statement": "วงจร sexual stage ของ T. gondii (schizont และ gametocyte ทั้งเพศผู้และเพศเมีย) เกิดขึ้นใน epithelium ของลำไส้เล็กของแมว ซึ่งเป็นเหตุผลที่แมวเป็น definitive host",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-4927658",
+              "locator": "J Exp Med 1970;132(4):636-62",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Typical coccidian stages, schizonts, and male and female gametocytes were found in the epithelium of the small intestine of kittens fed Toxoplasma cysts."
+          }
+        }
+      ]
+    },
+    "com5--gi-protozoa--differentiating-bowel-diarrhea": {
+      "claims": [
+        {
+          "id": "com5--gi-protozoa--differentiating-bowel-diarrhea--v1",
+          "statement": "Tritrichomonas foetus อาศัยอยู่ในลำไส้ใหญ่ของแมว ทำให้เกิด chronic large-bowel diarrhea และพบบ่อยในแมวอายุน้อยที่เลี้ยงรวมกันหนาแน่น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16301576",
+              "locator": "Vet Pathol 2005;42(6):797-804",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In domestic cats, T. foetus colonizes the colon, resulting in chronic, large-bowel diarrhea. The infection is prevalent among young, densely housed cats, and there is no effective treatment."
+          }
+        },
+        {
+          "id": "com5--gi-protozoa--differentiating-bowel-diarrhea--v2",
+          "statement": "Feline trichomonosis ถือเป็นหนึ่งในสาเหตุติดเชื้อที่พบบ่อยที่สุดของ colitis ในแมวบ้าน และแม้อาการท้องเสียอาจทุเลาไปเองเมื่อเวลาผ่านไป แต่การติดเชื้อมักคงอยู่ต่อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28245739",
+              "locator": "J Feline Med Surg 2017;19(3):261-274",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Feline trichomonosis is recognized to occur worldwide and is regarded as one of the most common infectious causes of colitis in the domestic cat. The infection is widespread in catteries and shelters; and, while remission of diarrhea may oc"
           }
         }
       ]
@@ -813,6 +1574,225 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com5--sporo-crypto--sporotrichosis-overview": {
+      "claims": [
+        {
+          "id": "com5--sporo-crypto--sporotrichosis-overview--v1",
+          "statement": "Sporothrix schenckii sensu lato เป็น species complex โดยมี 4 species ที่ก่อโรคในแมว ได้แก่ S. brasiliensis, S. schenckii sensu stricto, S. globosa และ S. pallida",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32363567",
+              "locator": "Abstract, first sentence; Braz J Microbiol 52(1):125-134",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sporothrix schenckii sensu lato is currently recognized as a species complex with only Sporothrix brasiliensis, Sporothrix schenckii sensu stricto, Sporothrix globosa and Sporothrix pallida identified to cause disease in the cat."
+          }
+        },
+        {
+          "id": "com5--sporo-crypto--sporotrichosis-overview--v2",
+          "statement": "ในไทย เชื้อก่อโรค feline sporotrichosis คือ S. schenckii sensu stricto ยืนยันด้วย PCR-sequencing ของยีน calmodulin และ β-tubulin จาก 38 feline isolates ในภาคใต้ (2018-2021)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36130102",
+              "locator": "Abstract, results and conclusion; Med Mycol 60(9)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Based on partial CAL and Bt2-PCR sequencing, all isolates were identified as S. schenckii sensu stricto. ... This study indicated that S. schenckii sensu stricto is the causative agent responsible for feline sporotrichosis in Southern Thail"
+          }
+        },
+        {
+          "id": "com5--sporo-crypto--sporotrichosis-overview--v3",
+          "statement": "เคสแรกของ feline sporotrichosis ที่รายงานในไทยเป็นแมวจรจัด DSH เพศผู้ไม่ทำหมัน อายุ 3 ปี ในกรุงเทพฯ และรายงานเน้นบทบาทของแมวจรในการเป็นพาหะของโรคติดต่อสู่คน (zoonosis)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30619683",
+              "locator": "Abstract; Med Mycol Case Rep 23:46-49",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This is a case report of feline sporotrichosis in a 3-year-old male intact DSH stray cat in Bangkok, Thailand. ... The case report emphasizes the role of stray cats as this zoonotic disease carrier."
+          }
+        }
+      ]
+    },
+    "com5--sporo-crypto--sporotrichosis-diagnosis": {
+      "claims": [
+        {
+          "id": "com5--sporo-crypto--sporotrichosis-diagnosis--v1",
+          "statement": "Fungal culture คือ definitive diagnosis ของ feline sporotrichosis ส่วน cytology และ histopathology ใช้เป็น routine เพราะ culture ใช้เวลานานจนอาจทำให้เริ่มการรักษาช้า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29729723",
+              "locator": "Abstract, background and methods; J Comp Pathol 160:72-78",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although the definitive diagnosis of feline sporotrichosis is made by fungal culture, cytopathological and histopathological examinations are used routinely, because the long culture period may delay treatment onset."
+          }
+        },
+        {
+          "id": "com5--sporo-crypto--sporotrichosis-diagnosis--v2",
+          "statement": "Cytopathological examination มี sensitivity 84.9% และ accuracy 82.8% ในการวินิจฉัย feline sporotrichosis (แมว 244 ตัว) โดยมี inter-observer reliability ระดับ substantial ขณะที่ fungal culture ใช้เวลาได้ถึง 4 สัปดาห์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26092106",
+              "locator": "Abstract, methods and results; Med Mycol 53(8):880-4",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The definitive diagnosis of sporotrichosis is obtained by the isolation of the fungus in culture; however, the result can take up to four weeks, which may delay the beginning of antifungal treatment in some cases. ... Test sensitivity was 8"
+          }
+        },
+        {
+          "id": "com5--sporo-crypto--sporotrichosis-diagnosis--v3",
+          "statement": "Meta-analysis (8 studies, แมว 1,920 ตัว) พบว่า PCR แม่นยำที่สุด (sensitivity 90%, specificity 94%) ส่วน cytological methods ได้ sensitivity 89% แต่ specificity เพียง 22%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39933645",
+              "locator": "Abstract, results; Acta Trop 263:107549",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "PCR tests had the highest accuracy (90 % sensitivity, 94 % specificity, area under the curve 0.950), while cytological methods demonstrated moderate diagnostic accuracy (89 %, 22 % and 0.879, respectively)."
+          }
+        }
+      ]
+    },
+    "com5--sporo-crypto--cryptococcosis-4-clinical-forms": {
+      "claims": [
+        {
+          "id": "com5--sporo-crypto--cryptococcosis-4-clinical-forms--v1",
+          "statement": "Cryptococcosis ในแมวแสดงออกได้ 4 รูปแบบ คือ nasal, central nervous system, cutaneous และ systemic โดย CNS form อาจต่อเนื่องมาจาก nasal form หรือเกิดขึ้นเองโดยอิสระก็ได้ และโรคจาก C. neoformans กับ C. gattii แยกจากกันไม่ได้ด้วยลักษณะทางคลินิก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23813826",
+              "locator": "Abstract, \"Infection\" and \"Disease signs\" sections; J Feline Med Surg 15(7):611-8",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cryptococcosis caused by C neoformans or C gattii is indistinguishable clinically. The disease can present in nasal, central nervous system (which can derive from the nasal form or occur independently), cutaneous and systemic forms."
+          }
+        },
+        {
+          "id": "com5--sporo-crypto--cryptococcosis-4-clinical-forms--v2",
+          "statement": "แมวส่วนใหญ่แสดงอาการที่โพรงจมูก (nasal cavity) ซึ่งมักอยู่เฉพาะที่เป็นระยะเวลานานพอสมควรก่อนลุกลามเข้าโครงสร้างข้างเคียงหรือกระจายทั่วร่างกาย (แมว 155 ตัว, ออสเตรเลีย 1981-2001)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15552647",
+              "locator": "Abstract, feline results; Med Mycol 42(5):449-60",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most cats had signs of nasal cavity infection, which was typically localised for a substantial period before invasion of adjacent structures or dissemination."
+          }
+        },
+        {
+          "id": "com5--sporo-crypto--cryptococcosis-4-clinical-forms--v3",
+          "statement": "ในแมวและสุนัข upper respiratory tract เป็น primary site ของการติดเชื้อที่พบบ่อยที่สุด ขณะที่ม้าและอัลปาก้ามักมี lower respiratory involvement (สัตว์ป่วย 155 ตัว รวมแมว 72 ตัว, ออสเตรเลียตะวันตก 1995-2006)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19306217",
+              "locator": "Abstract, results; Med Mycol 47(6):625-39",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In cats and dogs the upper respiratory tract was the most common primary site of infection, while horses and alpacas tended to have lower respiratory involvement."
+          }
+        }
+      ]
     }
   },
   "com5--vaccine": {
@@ -977,6 +1957,225 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com5--vaccine--canine-vaccines-summary-wsava-2024": {
+      "claims": [
+        {
+          "id": "com5--vaccine--canine-vaccines-summary-wsava-2024--v1",
+          "statement": "WSAVA 2024: core vaccine ของสุนัขในทุกประเทศทั่วโลกคือวัคซีนที่ป้องกัน CDV, CAV และ CPV variants ส่วน rabies vaccine ถือเป็น core ในทุกประเทศหรือภูมิภาคที่โรคเป็น endemic",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "INTRODUCTION section, p.4 of the WSAVA 2024 PDF at wsava.org/wp-content/uploads/2024/04/WSAVA-Vaccination-guidelines-2024.pdf; J Small Anim Pract 65(5):277-316",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Core vaccines are those that ALL dogs and cats should receive, after considering their lifestyle and the geographical locations where they live or to which they travel. Core vaccines for dogs in all countries of the world are those that pro"
+          }
+        },
+        {
+          "id": "com5--vaccine--canine-vaccines-summary-wsava-2024--v2",
+          "statement": "WSAVA 2024 จัด Leptospirosis vaccine เป็น core ในพื้นที่ที่ครบ 3 เงื่อนไข คือ โรคเกิดในพื้นที่นั้น ทราบ serogroups ที่เกี่ยวข้อง และมีวัคซีนที่เหมาะสมจำหน่าย ซึ่งเป็นการเปลี่ยนจากที่เคยจัดเป็น non-core ใน guideline ฉบับก่อน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "INTRODUCTION section, p.4, and Table 1, p.12, of the WSAVA 2024 PDF; J Small Anim Pract 65(5):277-316",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Vaccines to protect dogs against leptospirosis were categorised as non-core in previous versions of these guidelines. In countries or regions where canine leptospirosis occurs, where implicated serogroups are known and where suitable vaccin"
+          }
+        },
+        {
+          "id": "com5--vaccine--canine-vaccines-summary-wsava-2024--v3",
+          "statement": "WSAVA 2024 จัดวัคซีนสุนัขต่อไปนี้เป็น not recommended ได้แก่ killed CPV-2 (สำหรับใช้ทั่วไปในที่ที่มี MLV), canine coronavirus (CCoV), Giardia spp. และ Microsporum canis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "Table 1, \"Vaccines not recommended for pet dogs\", p.14 of the WSAVA 2024 PDF; J Small Anim Pract 65(5):277-316",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Vaccines not recommended for pet dogs. Canine parvovirus-2 (CPV; killed, parenteral): Not recommended for general use in pet dogs where MLV vaccines are available ... Canine coronavirus (CCoV; killed and MLV, parenteral): Not recommended .."
+          }
+        }
+      ]
+    },
+    "com5--vaccine--feline-vaccines-summary-wsava-2024": {
+      "claims": [
+        {
+          "id": "com5--vaccine--feline-vaccines-summary-wsava-2024--v1",
+          "statement": "WSAVA 2024: core vaccine ของแมวในทุกประเทศทั่วโลกคือวัคซีนที่ป้องกัน FPV, FCV และ FHV โดย rabies เป็น core ในพื้นที่ที่โรคเป็น endemic ส่วน FeLV ถือเป็น core ในพื้นที่ที่ FeLV ยังชุกหรือยังเป็นที่กังวล สำหรับแมวอายุน้อยกว่า 1 ปี และแมวโตที่ออกนอกบ้านได้หรืออยู่ร่วมกับแมวที่ออกนอกบ้านได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "INTRODUCTION section, p.4 of the WSAVA 2024 PDF; J Small Anim Pract 65(5):277-316",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Core vaccines for cats in all countries of the world are those that protect against FPV, FCV and FHV. For both cats and dogs, rabies virus vaccines should be considered core in all countries or regions where the disease is endemic. ... In p"
+          }
+        },
+        {
+          "id": "com5--vaccine--feline-vaccines-summary-wsava-2024--v2",
+          "statement": "WSAVA 2024 จัดวัคซีนแมวที่เป็น non-core ได้แก่ Chlamydia felis, Bordetella bronchiseptica และ Feline Immunodeficiency Virus (FIV)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "\"Non-core vaccines for pet cats\" section, p.20 of the WSAVA 2024 PDF, with Table 2 on p.19; J Small Anim Pract 65(5):277-316",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Non-core vaccines for cats include those that protect against Chlamydia felis, Bordetella bronchiseptica and Feline Immunodeficiency Virus (FIV)."
+          }
+        },
+        {
+          "id": "com5--vaccine--feline-vaccines-summary-wsava-2024--v3",
+          "statement": "WSAVA 2024 จัดวัคซีน FIP, Giardia spp. และ Microsporum canis ในแมวเป็น not recommended เนื่องจากหลักฐานทางวิทยาศาสตร์ไม่เพียงพอว่าให้ประโยชน์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "\"Not recommended vaccines for cats\" section, p.21 of the WSAVA 2024 PDF; J Small Anim Pract 65(5):277-316",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The vaccine against feline infectious peritonitis (FIP) is not recommended for cats. There is insufficient evidence that this FIP vaccine induces clinically relevant protection. ... Feline vaccines intended to protect against Giardia spp. a"
+          }
+        }
+      ]
+    },
+    "com5--vaccine--vpat-2024-ไทย-ความต่างจาก-wsava": {
+      "claims": [
+        {
+          "id": "com5--vaccine--vpat-2024-ไทย-ความต่างจาก-wsava--v1",
+          "statement": "VPAT 2024 (ไทย) จัด FeLV เป็น core vaccine ในแมวอายุน้อยกว่า 2 ปี ทุกตัว และในแมวโตที่มีความเสี่ยงต่อการได้รับเชื้อ (พร้อมกำหนดให้ตรวจ FeLV antigen test kit หรือ PCR ก่อนให้วัคซีนเข็มแรกและก่อนกระตุ้นทุกครั้ง)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide--vpat-wsava-2024",
+              "locator": "หน้า \"โปรแกรมการให้วัคซีนสำหรับแมวที่เลี้ยงในประเทศไทย\" (หน้าที่ 4 ของไฟล์ PDF 5 หน้า) แถว FeLV คอลัมน์ หมายเหตุ",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "เป็น core vaccine ในแมวอายุน้อยกว่า 2 ปี ทุกตัว และแมวโตที่มีความเสี่ยงในการได้รับเชื้อ"
+          }
+        },
+        {
+          "id": "com5--vaccine--vpat-2024-ไทย-ความต่างจาก-wsava--v2",
+          "statement": "เกณฑ์อายุของ WSAVA 2024 ที่ VPAT ต่างออกไปคือ WSAVA ให้ FeLV เป็น core เฉพาะในแมวอายุ < 1 ปี (และแมวโตที่ออกนอกบ้านหรืออยู่ร่วมกับแมวที่ออกนอกบ้าน) ในพื้นที่ที่ FeLV เป็นโรคประจำถิ่น ไม่ใช่ < 2 ปีแบบ VPAT",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38568777",
+              "locator": "หัวข้อ vaccine categories / core with conditions (หน้า 3-4 ของไฟล์ PDF ฉบับ WSAVA); บทความตีพิมพ์ J Small Anim Pract 2024;65(5):277-316 แต่ไม่ทราบเลขหน้าวารสารที่ตรงกับประโยคนี้ จึงไม่ระบุ",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In places where FeLV is prevalent or remains of concern, FeLV vaccines should be considered core in cats less than 1 year of age and in adult cats that have outdoor access or live with other cats that have outdoor access."
+          }
+        },
+        {
+          "id": "com5--vaccine--vpat-2024-ไทย-ความต่างจาก-wsava--v3",
+          "statement": "VPAT 2024 วางเข็มกระตุ้นหลักไว้ที่ 1 ปีหลังวัคซีนเข็มสุดท้ายของปีแรก แล้วกระตุ้นซ้ำทุกปีหรืออาจเว้นระยะทุก 3 ปีตามคำแนะนำของสัตวแพทย์ ส่วนการกระตุ้นซ้ำที่อายุ 26 สัปดาห์ (6 เดือน) VPAT ระบุไว้เป็นเงื่อนไข คือช่วงที่มีการระบาดสูงหรือลูกสัตว์ความเสี่ยงสูง ไม่ได้เป็นคำแนะนำทั่วไป",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide--vpat-wsava-2024",
+              "locator": "ตารางโปรแกรมวัคซีนสุนัข (หน้า 2) และแมว (หน้า 4) คอลัมน์ \"การกระตุ้นซ้ำ\" + หมายเหตุใต้หน้าตัวอย่างโปรแกรมลูกสุนัข (หน้า 3) และลูกแมว (หน้า 5) ของไฟล์ PDF 5 หน้า",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "กระตุ้นซ้ำที่ 1 ปี หลังจากการให้วัคซีนเข็มสุดท้ายในช่วงปีแรก จากนั้นกระตุ้นซ้ำทุกปี หรืออาจเว้นระยะทุกสามปี ตามคำแนะนำของสัตวแพทย์"
+          }
+        }
+      ]
     }
   },
   "com3--triage": {
@@ -1076,6 +2275,179 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "This study shows that apparently healthy adult dogs generally have SRR(mean) <30 breaths/min and rarely exceed this rate at any time."
+          }
+        }
+      ]
+    },
+    "com3--triage--approach-to-emergency-patients": {
+      "claims": [
+        {
+          "id": "com3--triage--approach-to-emergency-patients--v1",
+          "statement": "Veterinary triage list ที่ดัดแปลงจากระบบ 5 ระดับของคน จัดผู้ป่วยเป็นกลุ่มสี red, orange, yellow และ green ซึ่งผูกกับ target waiting time 0, 15, 30-60 และ 120 นาที ตามลำดับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22702436",
+              "locator": "Abstract; 22(3):303-12",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "TWT categories included 0, 15, 30-60, and 120 minutes, and were associated with triage categories red, orange, yellow, and green, respectively."
+          }
+        },
+        {
+          "id": "com3--triage--approach-to-emergency-patients--v2",
+          "statement": "การ triage ด้วย list มาตรฐานให้ผลตรงกับ gold standard มากกว่าการ triage ด้วยสัญชาตญาณอย่างมีนัยสำคัญ และการตรวจร่างกายสั้น ๆ ในผู้ป่วยฉุกเฉินทุกรายจำเป็นต่อการจับ critical disease ให้ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22702436",
+              "locator": "Abstract, Results and Conclusions; 22(3):303-12",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A short physical examination in all emergency patients appears to be essential in recognizing critical disease. The use of a standardized VTL can help to categorize veterinary emergency patients."
+          }
+        }
+      ]
+    },
+    "com3--triage--primary-survey-abcde": {
+      "claims": [
+        {
+          "id": "com3--triage--primary-survey-abcde--v1",
+          "statement": "ABCDE ย่อมาจาก Airway, Breathing, Circulation, Disability และ Exposure เป็นแนวทางประเมินและรักษาผู้ป่วยวิกฤตแบบเรียงตามลำดับความสำคัญที่ใช้ได้ทั่วไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36510149",
+              "locator": "Abstract, Background; 22(1):202",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The Airway, Breathing, Circulation, Disability and Exposure (ABCDE) approach is a universal, priority-based approach for the assessment and treatment of critically ill patients."
+          }
+        },
+        {
+          "id": "com3--triage--primary-survey-abcde--v2",
+          "statement": "ในสุนัขบาดเจ็บ คะแนน animal trauma triage ที่คิดจากเฉพาะหมวด perfusion, respiratory และ neurological ทำนายการเสียชีวิตได้เทียบเท่าคะแนนเต็ม 6 หมวด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29687940",
+              "locator": "Abstract, Conclusions; 28(3):192-200 (n=3,599 dogs)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In external validation on a large, multicenter dataset, the ATT score showed excellent discrimination and calibration; however, a more parsimonious score calculated on only the perfusion, respiratory, and neurological categories showed equi"
+          }
+        }
+      ]
+    },
+    "com3--triage--hr-ปกติตามขนาดสุนัข": {
+      "claims": [
+        {
+          "id": "com3--triage--hr-ปกติตามขนาดสุนัข--v1",
+          "statement": "การศึกษา 24-h ambulatory ECG (Holter) ในสุนัขสุขภาพดี 60 ตัว น้ำหนัก 2-80 kg พบว่า minimum, average และ maximum HR ไม่ correlate กับน้ำหนักตัว (median minimum 42 bpm, median average 73 bpm, median maximum 190 bpm) จึงไม่สนับสนุนการแบ่ง normal HR ตามขนาดตัวสุนัข",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20634163",
+              "locator": "12(2):107-10",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Minimum, maximum and average heart rate did not correlate to body weight. For all dogs, the median minimum heart rate was 42 bpm (beats per minute), median average heart rate was 73 bpm, and median maximum heart rate was 190. ... The presen"
+          }
+        },
+        {
+          "id": "com3--triage--hr-ปกติตามขนาดสุนัข--v2",
+          "statement": "ความสัมพันธ์แบบ allometric ระหว่าง HR กับน้ำหนักตัวที่พบระหว่าง species ไม่ปรากฏภายในสุนัขด้วยกัน; ปัจจัยที่มีผลต่อ HR อย่างมีนัยสำคัญคือ temperament, อายุ และเพศ ส่วนน้ำหนักตัวมีผลต่อ ECG variables อื่น ไม่ใช่ HR",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28992907",
+              "locator": "32(2):66-71",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "an allometric relationship was not observed between HR and BW in the dogs. Our results indicated that weight was associated with variations in the ECG variables; age and sex were associated with variations in HR; and temperament had a signi"
+          }
+        },
+        {
+          "id": "com3--triage--hr-ปกติตามขนาดสุนัข--v3",
+          "statement": "Reference intervals จาก 24-h ambulatory ECG ในสุนัขสุขภาพดี 44 ตัว: mean HR 50-93 bpm, minimum HR 15-42 bpm, maximum HR 194-294 bpm; ตัวแปรที่ correlate เชิงบวกกับน้ำหนักตัวคือ PR interval ไม่ใช่ HR",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40814194",
+              "locator": "67(1):16-23 (epub 2025 Aug 14)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Reference intervals for minimum, maximum and mean heart rates, respectively, were 15 to 42, 194 to 294 and 50 to 93 bpm. PR intervals were positively correlated with body weight."
           }
         }
       ]
@@ -1231,6 +2603,156 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com3--shock--definition": {
+      "claims": [
+        {
+          "id": "com3--shock--definition--v1",
+          "statement": "Shock นิยามที่ระดับ cellular = การส่ง O₂ ไปเลี้ยงเซลล์ไม่เพียงพอ (inadequate oxygen delivery, DO₂) เพราะ O₂ เป็นสารอาหารเดียวที่เซลล์เก็บสำรองไว้ไม่ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11727329",
+              "locator": "Abstract; 31(6):1115-28",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Shock is now being defined at the cellular level as the inadequate delivery of nutrients to the cells of the body. Because oxygen is the only nutrient that cells cannot store in any appreciable quantity, shock is also equivalent to inadequa"
+          }
+        },
+        {
+          "id": "com3--shock--definition--v2",
+          "statement": "Shock นิยามได้ดีที่สุดว่าเป็น acute circulatory failure คือภาวะที่ระบบไหลเวียนเลือดส่ง O₂ ให้เซลล์ไม่พอต่อการทำงานตามปกติ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23171699",
+              "locator": "Section 'Clinical identification of shock states'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Shock is best defined as 'acute circulatory failure', as Dr Weil proposed, a situation in which the circulation fails to provide cells with sufficient oxygen to be able to perform optimally."
+          }
+        }
+      ]
+    },
+    "com3--shock--5-types-of-shock": {
+      "claims": [
+        {
+          "id": "com3--shock--5-types-of-shock--v1",
+          "statement": "การจำแนก shock ตาม pathophysiology ที่เป็นมาตรฐาน (Shubin และ Weil) มี 4 กลไก คือ hypovolemic, cardiogenic, obstructive และ distributive",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23171699",
+              "locator": "Section 'Classification of shock states', Table 1",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Shubin and Weil defined the pathophysiological states of circulatory shock many years ago, using a classification based on four mechanisms"
+          }
+        },
+        {
+          "id": "com3--shock--5-types-of-shock--v2",
+          "statement": "3 ชนิดแรก (hypovolemic, cardiogenic, obstructive) มี cardiac output ต่ำ โดยแต่ละชนิดสอดคล้องกับตัวกำหนด CO หนึ่งตัว (preload ลด, contractility เสีย, afterload เพิ่ม) ส่วน distributive เกิดจาก mediators รวมทั้ง cytokines ที่ทำให้ vasodilate",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23171699",
+              "locator": "Section 'Classification of shock states'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In the first three types, cardiac output is low. In fact, each of the three types is represented by one of the determinants of cardiac output: decreased preload (hypovolemic), altered contractility (cardiogenic), and increased afterload (ob"
+          }
+        }
+      ]
+    },
+    "com3--shock--stages": {
+      "claims": [
+        {
+          "id": "com3--shock--stages--v1",
+          "statement": "ในระยะ compensatory ความดันโลหิตอาจยังปกติได้ เพราะ vasoconstriction จาก sympathetic ที่ถูกกระตุ้นไปบดบังการตกของ BP ดังนั้น hypotension แม้เป็น cardinal sign แต่ไม่ได้พบเสมอไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23171699",
+              "locator": "Section 'Clinical identification of shock states'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Clinically, arterial hypotension is a cardinal sign, but not always present because general vasoconstriction caused by the activated sympathetic nervous system may mask the fall in blood pressure."
+          }
+        },
+        {
+          "id": "com3--shock--stages--v2",
+          "statement": "Compensated shock ในผู้ป่วย trauma ที่ยัง normotensive ตรวจจับได้ยากกว่าผู้ป่วยที่ hypotensive แล้ว และ shock index (HR/SBP) ที่สูงขึ้นสัมพันธ์กับโอกาสต้องให้เลือดภายใน 1 ชั่วโมงที่เพิ่มขึ้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40379507",
+              "locator": "Abstract; 56(9):112419",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although shock is easily discernible in the hypotensive patient, compensated shock in the \"normotensive\" patient is not."
+          }
+        }
+      ]
     }
   },
   "com3--cpcr": {
@@ -1380,6 +2902,106 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "early electrical defibrillation for animals experiencing CPA due to ventricular fibrillation or pulseless ventricular tachycardia, preferentially using a biphasic defibrillator"
+          }
+        }
+      ]
+    },
+    "com3--cpcr--recognition-team": {
+      "claims": [
+        {
+          "id": "com3--cpcr--recognition-team--v1",
+          "statement": "RECOVER ยังคงสนับสนุนให้เริ่ม chest compression ทันทีโดยไม่ต้องคลำ pulse ก่อน และแนะนำ multimodal monitoring ในสัตว์ที่เสี่ยงต่อ cardiopulmonary arrest เสี่ยง re-arrest หรืออยู่ภายใต้ general anesthesia",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38924672",
+              "locator": "J Vet Emerg Crit Care 34(Suppl 1):76-103 (Monitoring domain) ไม่ระบุเลขข้อ recommendation เพราะไม่ได้ตรวจสอบตัวเอกสารเต็ม",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The Monitoring Domain authors continue to support initiation of chest compressions without pulse palpation."
+          }
+        },
+        {
+          "id": "com3--cpcr--recognition-team--v2",
+          "statement": "การฝึก CPR ปีละครั้งอาจไม่เพียงพอ ในโรงพยาบาลที่จัด RECOVER-based training แบบรายปี อัตรา ROSC ก่อนและหลังนำแนวทางมาใช้ไม่ต่างกันอย่างมีนัยสำคัญ (23% เทียบกับ 28%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36562427",
+              "locator": "64(4):270-279",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Unchanged odds of return of spontaneous circulation observed in this study could suggest that once-yearly cardiopulmonary resuscitation training is insufficient"
+          }
+        }
+      ]
+    },
+    "com3--cpcr--post-cardiac-arrest-care": {
+      "claims": [
+        {
+          "id": "com3--cpcr--post-cardiac-arrest-care--v1",
+          "statement": "หลักฐานสำหรับ post-cardiac arrest care ในสัตว์เล็กสนับสนุน mild therapeutic hypothermia และ controlled reoxygenation ขณะที่ mannitol และ seizure prophylaxis ได้ข้อสรุปเป็นกลาง โดยแทบไม่มี clinical veterinary studies รองรับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22676288",
+              "locator": "J Vet Emerg Crit Care 22(Suppl 1):S85-101",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the process allowed the formulation of statements for several postcardiac arrest treatments that were either supportive, such as mild therapeutic hypothermia or controlled reoxygenation, or neutral, such as for mannitol administration or se"
+          }
+        },
+        {
+          "id": "com3--cpcr--post-cardiac-arrest-care--v2",
+          "statement": "ช่วงหลัง ROSC คือจุดที่สัตว์ส่วนใหญ่เสียชีวิต ในสุนัข 172 ตัวและแมว 47 ตัว มี ROSC 44% และ 55% ตามลำดับ แต่รอดจนออกจากโรงพยาบาลเพียง 7% และ 19% โดยสาเหตุการตายที่พบบ่อยที่สุดในกลุ่มที่มี ROSC นานกว่า 20 นาทีคือการุณยฆาต",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31921901",
+              "locator": "6:439",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Seventy-five (44%) dogs and 26 (55%) cats attained return of spontaneous circulation (ROSC)... 12 dogs (7%) and 9 cats (19%) survived to hospital discharge. The most common cause of death in animals with ROSC >= 20 min was euthanasia."
           }
         }
       ]
@@ -1535,6 +3157,129 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com3--resp-cv-er--respiratory-patterns": {
+      "claims": [
+        {
+          "id": "com3--resp-cv-er--respiratory-patterns--v1",
+          "statement": "การ localize จาก breathing pattern มีหลักฐานเชิงปริมาณรองรับ ในสุนัข 115 ตัวและแมว 49 ตัวที่มี abnormal breathing pattern พบว่า inspiratory effort สัมพันธ์กับ extra-thoracic airway disease (OR 9.1, 95% CI 3.0-27.2), expiratory effort สัมพันธ์กับ intra-thoracic airway disease (OR 6.5, 95% CI 2.3-18.1) และ stridor สัมพันธ์กับ laryngeal disease (OR 39.9) หรือ tracheal disease (OR 32.4)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34655790",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Confirmed associations included: inspiratory effort with extra-thoracic airway disease (odds ratio [OR], 9.1; 95% confidence interval [95% CI] 3.0-27.2); expiratory effort with intra-thoracic airway disease (OR, 6.5; 95% CI, 2.3-18.1)... st"
+          }
+        },
+        {
+          "id": "com3--resp-cv-er--respiratory-patterns--v2",
+          "statement": "Paradoxical breathing สัมพันธ์กับ pleural space disease จริง (OR 4.5, 95% CI 1.7-12.1) และ attenuation ของ heart หรือ lung sound สัมพันธ์แรงกว่า (OR 11.5, 95% CI 4.0-33.3) ส่วน crackles สัมพันธ์กับ pulmonary disease (OR 5.4) หรือ bronchial disease (OR 3.9)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34655790",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "paradoxical breathing and attenuation of heart/lung sounds with pleural space disease (paradoxical breathing: OR, 4.5; 95% CI 1.7-12.1; sound attenuation: OR, 11.5; 95% CI 4.0-33.3)... crackles with pulmonary or bronchial disease (pulmonary"
+          }
+        },
+        {
+          "id": "com3--resp-cv-er--respiratory-patterns--v3",
+          "statement": "ต้องระวังสองจุด คือ (1) การรวม asynchronous หรือ inverse breathing pattern กับ decreased lung sound ไวมากสำหรับ pleural space disease (sensitivity 99%) แต่จำเพาะต่ำ (specificity 45%) และ (2) fast and shallow breathing ไม่สัมพันธ์กับ pleural space disease ในการศึกษาสุนัข 73 ตัวและแมว 103 ตัวที่มี respiratory distress",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21288289",
+              "locator": "Abstract, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "An asynchronous or inverse breathing pattern and decreased lung auscultation results were significantly associated with pleural space disease in both dogs and cats (P<0.001). The combination is highly sensitive (99%) but not very specific ("
+          }
+        }
+      ]
+    },
+    "com3--resp-cv-er--common-arrhythmias": {
+      "claims": [
+        {
+          "id": "com3--resp-cv-er--common-arrhythmias--v1",
+          "statement": "แถว Atrial fibrillation ที่เขียนว่า \"Diltiazem (rate control)\" ยังไม่ครบตามหลักฐาน ใน randomized crossover study ในสุนัข 18 ตัวที่มี chronic AF พบว่า digoxin ร่วมกับ diltiazem ลด ventricular rate (median 126 bpm) ได้ดีกว่า diltiazem เดี่ยว (median 158 bpm) หรือ digoxin เดี่ยว (median 164 bpm) โดยยาผสมคุม rate ต่ำกว่า 140 bpm ได้ 85% ของเวลาบันทึก ขณะที่ยาเดี่ยวอยู่เหนือ 140 bpm ถึง 88% ของเวลา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19645836",
+              "locator": "Abstract, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Digoxin (median, 164 bpm) and diltiazem (median, 158 bpm) decreased VR from baseline (median, 194 bpm) less than the digoxin-diltiazem combination (median, 126 bpm) (P < .008 for each comparison). With digoxin-diltiazem, VR remained <140 bp"
+          }
+        },
+        {
+          "id": "com3--resp-cv-er--common-arrhythmias--v2",
+          "statement": "แถว 3rd degree AV block ที่ระบุ Pacemaker ตรงกับคำแนะนำปัจจุบัน คือ pacemaker implantation ถือเป็น standard procedure สำหรับ symptomatic bradycardia ทั้งในสุนัขและแมว และ advanced second-degree กับ third-degree atrioventricular block เป็นหนึ่งใน rhythm disturbance ที่พบบ่อยที่สุดที่ต้อง pacing เพื่อลดอาการหรือยืดชีวิต",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30709617",
+              "locator": "Abstract, Introduction",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Pacemaker implantation is considered as a standard procedure for treatment of symptomatic bradycardia in both dogs and cats. Advanced second-degree and third-degree atrioventricular blocks, sick sinus syndrome, persistent atrial standstill,"
+          }
+        }
+      ]
     }
   },
   "com3--neuro-er": {
@@ -1664,6 +3409,106 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com3--neuro-er--common-emergencies": {
+      "claims": [
+        {
+          "id": "com3--neuro-er--common-emergencies--v1",
+          "statement": "status epilepticus เป็นภาวะฉุกเฉินที่มีอัตราตายระยะสั้นสูง จากสุนัข 124 ตัว พบ short-term mortality (การุณยฆาตหรือตายเอง) 29.8% และเกิดซ้ำ 27% ในกลุ่มที่รอดออกจากโรงพยาบาล",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34994484",
+              "locator": "36(2):656-662",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Short-term mortality for affected dogs was 29.8%... Status epilepticus recurred in 27% of dogs that survived to discharge."
+          }
+        },
+        {
+          "id": "com3--neuro-er--common-emergencies--v2",
+          "statement": "head trauma เป็นภาวะฉุกเฉินทางประสาทที่พยากรณ์ได้ด้วย modified Glasgow Coma Scale โดยสุนัขที่ได้คะแนน 8 มีโอกาสรอดใน 48 ชั่วโมงแรกประมาณ 50% ขณะที่เพศ น้ำหนัก และการมี calvarial fracture ทำนายการรอดไม่ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11817064",
+              "locator": "15(6):581-4",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The MGCS could predict the probability of survival in the 1st 48 hrs after head trauma with 50% probability in a patient with a score of 8. Gender, weight, and presence of skull fractures did not predict survival."
+          }
+        }
+      ]
+    },
+    "com3--neuro-er--brain-herniation": {
+      "claims": [
+        {
+          "id": "com3--neuro-er--brain-herniation--v1",
+          "statement": "brain herniation อาจไม่แสดงอาการทางคลินิกที่ชี้เฉพาะ ในสัตว์ที่มีรอยโรค supratentorial พบว่า 67 จาก 89 ราย (75%) ไม่มีอาการที่โยงกับ herniation ได้โดยตรง และพบ herniation ใน 119 จาก 1,564 ราย (7.6%) ที่ทำ brain MRI โดยระดับความรุนแรงของ caudal transtentorial herniation สัมพันธ์กับการรอดใน 24 ชั่วโมง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27616749",
+              "locator": "30(5):1672-1680",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "67/89 (75%) cases with supratentorial lesions had no signs directly attributable to brain herniation... Clinical signs directly attributable to brain herniation commonly are absent, and more severe CTH based on TTX is associated with a wors"
+          }
+        },
+        {
+          "id": "com3--neuro-er--brain-herniation--v2",
+          "statement": "อาการคลาสสิกของ caudal transtentorial herniation เช่น oculomotor nerve palsy พบเพียง 7 ราย (14%) จากผู้ป่วย herniation ทั้งหมด และพบเพียง 1 รายในกลุ่ม CTH เดี่ยว ส่วน caudal cranial nerve deficits พบ 39% ในกลุ่ม foramen magnum herniation สรุปได้ว่าสมองเคลื่อนรุนแรงเกิดขึ้นได้โดยไม่มี localising signs",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16014332",
+              "locator": "172(2):258-64",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Clinical signs classically associated with CTH, e.g., oculomotor nerve palsy, were seen in only one case of isolated CTH and seven (14%) of all herniation cases... We conclude that severe shifts in brain parenchyma can exist in the absence "
+          }
+        }
+      ]
     }
   },
   "com3--neuro-exam": {
@@ -1736,6 +3581,206 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "deep pain-negative dogs were less likely to recover ambulation than dogs with intact pain perception (12/29 recovered vs 71/75"
+          }
+        }
+      ]
+    },
+    "com3--neuro-exam--goals-workflow": {
+      "claims": [
+        {
+          "id": "com3--neuro-exam--goals-workflow--v1",
+          "statement": "เป้าหมาย \"localize lesion location\" คือผลลัพธ์หลักของ neurological examination และทำซ้ำได้จริง โดยนิสิตที่ตรวจผ่าน video/live stream ให้ neuroanatomic localization ตรงกับ board-certified neurologist ที่ตรวจตัวจริง ที่ Cohen kappa 0.84 (95% CI 0.69-0.98) และ 0.85 (95% CI 0.66-1.00) แต่ยังคลาดเคลื่อน 12-13% ของ case",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42526502",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Both teleneurology modalities demonstrated strong agreement with the in-person neuroanatomic localization. For group 1, κ was 0.84 (95% CI, 0.69 to 0.98). For group 2 (live stream), κ was 0.85 (95% CI, 0.66 to 1.00). Discrepancies in neuroa"
+          }
+        },
+        {
+          "id": "com3--neuro-exam--goals-workflow--v2",
+          "statement": "เป้าหมาย \"estimate severity → prognosis\" มีหลักฐานรองรับแต่ไม่สมบูรณ์ ใน 60 สุนัขที่มี acute thoracolumbar IVD herniation clinical neurological grade สัมพันธ์กับปริมาณ white matter damage อย่างมีนัยสำคัญ (P<0.001) แต่สุนัข 6/31 ตัว (19%) ที่สูญเสีย nociception กลับมี histological change เพียงเล็กน้อย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23702280",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Clinical neurological grades correlated significantly with the extent of white matter damage (P<0.001). However, loss of nociception also occurred in 6/31 (19%) dogs with relatively mild histological changes."
+          }
+        }
+      ]
+    },
+    "com3--neuro-exam--hand-off-examination": {
+      "claims": [
+        {
+          "id": "com3--neuro-exam--hand-off-examination--v1",
+          "statement": "Schiff-Sherrington posture พบใน acute thoracolumbar spinal cord injury จริง แต่ในการศึกษาที่เทียบ clinical sign กับ histopathology พบว่า Schiff-Sherrington posture **ไม่** สัมพันธ์อย่างมีนัยสำคัญกับความรุนแรงของ spinal cord damage ดังนั้นการเห็นท่านี้บอกตำแหน่ง ไม่ได้บอกว่า lesion รุนแรงกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23702280",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The duration of clinical signs, Schiff-Sherrington posture, loss of reflexes and pain on spinal palpation were not significantly associated with the severity of spinal cord damage."
+          }
+        },
+        {
+          "id": "com3--neuro-exam--hand-off-examination--v2",
+          "statement": "การให้ระดับ mentation แบบ graded มีค่าเชิง prognosis จริง ในสุนัข 72 ตัวที่มี head trauma คะแนน modified Glasgow Coma Scale (ซึ่งรวม level of consciousness) ที่ลดลงเป็นตัวทำนาย nonsurvival ที่แรงที่สุด โดยคะแนน <= 11 มี sensitivity 84% และ specificity 73%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26112259",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Decreased MGCS score was the strongest predictor of nonsurvival; a score ≤ 11 was 84% sensitive and 73% specific for predicting nonsurvival."
+          }
+        }
+      ]
+    },
+    "com3--neuro-exam--umn-vs-lmn": {
+      "claims": [
+        {
+          "id": "com3--neuro-exam--umn-vs-lmn--v1",
+          "statement": "Canine degenerative myelopathy แสดงทั้งสองรูปแบบตามลำดับในสัตว์ตัวเดียวกัน คือ upper motor neuron degeneration ระยะแรกทำให้เกิด spastic paraparesis กับ proprioceptive ataxia และเมื่อโรคดำเนินต่อจะเกิด lower motor neuron signs คือ flaccid paralysis กับ widespread muscle atrophy ซึ่ง histopathology ยืนยันว่าเป็น atrophy แบบ denervation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22542607",
+              "locator": "Abstract, Introduction and Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The initial upper motor neuron degeneration produces spastic paraparesis and affected dogs develop general proprioceptive ataxia in the pelvic limbs... When euthanasia is delayed, lower motor neuron signs including ascending tetraparesis, f"
+          }
+        },
+        {
+          "id": "com3--neuro-exam--umn-vs-lmn--v2",
+          "statement": "การจับกลุ่มอาการตามตารางตรงกับที่ใช้ในเวชปฏิบัติจริง โดยรายงาน case สุนัขที่มี spinal cord disease บรรยาย lower motor neuron signs ว่าคือ reduced muscle mass กับ decreased withdrawal reflexes และ long tract (UMN) signs ว่าคือ conscious proprioceptive deficits, crossed extensor response และ increased myotatic reflexes",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33260206",
+              "locator": "Abstract, Case description",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Both dogs had a combination of lower motor neuron signs (reduced muscle mass, decreased withdrawal reflexes, low tail carriage) and long tract signs (conscious proprioceptive deficits, crossed extensor response, increased myotatic reflexes)"
+          }
+        }
+      ]
+    },
+    "com3--neuro-exam--spinal-localization": {
+      "claims": [
+        {
+          "id": "com3--neuro-exam--spinal-localization--v1",
+          "statement": "การใช้ withdrawal reflex ของขาหน้าแยก C1-C5 ออกจาก C6-T2 ตามตารางไม่น่าเชื่อถือเท่าที่ตารางทำให้เข้าใจ ในสุนัข 35 ตัวที่มี cervical disk herniation ชั้นเดียว การ localize ทาง neurologic ตรงกับ MRI เพียง 65.8% และสุนัข 11 ตัวที่ถูก localize เป็น C6-T2 เพราะ withdrawal reflex ขาหน้าลดลง จริง ๆ มี lesion ที่ C1-C5 เท่านั้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18279092",
+              "locator": "Abstract, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Agreement between neurologic and MRI diagnoses was 65.8%. In 11 dogs in which the lesion was clinically localized to the C6-T2 segment on the basis of a decreased withdrawal reflex in the forelimbs, MRI revealed an isolated C1-C5 disk lesio"
+          }
+        },
+        {
+          "id": "com3--neuro-exam--spinal-localization--v2",
+          "statement": "การแยก T3-L3 (UMN ขาหลัง) ออกจาก L4-S3 (LMN ขาหลัง) มีผลทาง prognosis จริง ในสุนัขที่เดินไม่ได้ 61 ตัว กลุ่ม L4-S3 กลับมา urinary continence น้อยกว่ากลุ่ม T3-L3 (64% เทียบกับ 85%, P=0.0033) และ LMN incontinence เป็น negative prognostic factor (P=0.004) ขณะที่โอกาสกลับมาเดินได้ไม่ต่างกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28370379",
+              "locator": "Abstract, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fewer L4-S3 dogs regained continence compared to T3-L3 dogs (64 vs 85%, P = .0033), but no difference existed for regaining ambulation (66 vs 75%, P = .1306). In L4-S3 SCI dogs, fewer dogs regained continence with loss of CPP (P < .001), LM"
           }
         }
       ]
@@ -1922,6 +3967,129 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com3--seizure--classification-ivetf-2015": {
+      "claims": [
+        {
+          "id": "com3--seizure--classification-ivetf-2015--v1",
+          "statement": "IVETF 2015 classification มีสององค์ประกอบ ไม่ใช่แค่ seizure type คือ (a) aetiological element ซึ่งแบ่งเป็น idiopathic epilepsy กับ structural epilepsy และ (b) seizure type classification ซึ่งแบ่งเป็น focal, generalized และ focal evolving into generalized",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26316133",
+              "locator": "Section 'Proposal' and section 'Classification'",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We propose a classification system which reflects new thoughts from the human ILAE but also has its roots in former well accepted terminology... The classification has two elements: (a) an aetiological element and (b) a seizure type classif"
+          }
+        },
+        {
+          "id": "com3--seizure--classification-ivetf-2015--v2",
+          "statement": "Generalized epileptic seizure นิยามด้วย bilateral involvement คือทั้งสองซีกของร่างกายและสมองทั้งสอง hemisphere ในสุนัขและแมวส่วนใหญ่แสดงเป็น tonic, clonic หรือ tonic-clonic และตามกฎแล้วสัตว์จะสูญเสีย consciousness ระหว่าง convulsive seizure โดยยกเว้น myoclonic seizure",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26316133",
+              "locator": "Section 'Classification by seizure semiology (seizure type classification)', subsection 'Generalized epileptic seizures'",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Generalized epileptic seizures are characteried by bilateral involvement (both sides of body and therefore both cerebral hemispheres involved)... In dogs and cats generalized epileptic seizures predominantly present as tonic, clonic or toni"
+          }
+        },
+        {
+          "id": "com3--seizure--classification-ivetf-2015--v3",
+          "statement": "บรรทัด \"Consciousness retained or impaired\" ใต้ Focal ขัดกับคำแนะนำของ IVETF 2015 ซึ่งระบุว่าไม่ควรพยายามประเมินว่า consciousness ถูกรบกวนหรือไม่ และเลิกใช้การแบ่ง simple กับ complex focal seizure เพราะประเมินใน animal อย่าง objective ไม่ได้ นอกจากนี้ focal epileptic seizure ที่ evolve เป็น generalized คือ seizure type ที่พบบ่อยที่สุดในสุนัข",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26316133",
+              "locator": "Section 'Consciousness in focal epileptic seizures' and section 'Focal epileptic seizures evolving into generalized epileptic seizures'",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "However, we propose that no attempt should be made to evaluate if consciousness is unimpaired or impaired (previously described as simple or complex focal (or partial) seizures respectively)... Therefore it is not meaningful to subclassify "
+          }
+        }
+      ]
+    },
+    "com3--seizure--approach-when-to-start-aed": {
+      "claims": [
+        {
+          "id": "com3--seizure--approach-when-to-start-aed--v1",
+          "statement": "เกณฑ์เริ่ม AED ในโน้ตตรงกับ panel recommendation ของ 2015 ACVIM consensus 4 ข้อ คือ (i) มี identifiable structural lesion หรือประวัติ brain disease หรือ brain injury (ii) acute repetitive seizures หรือ status epilepticus (ictal event นานกว่าหรือเท่ากับ 5 นาที หรือ generalized seizure ตั้งแต่ 3 ครั้งขึ้นไปใน 24 ชั่วโมง) (iii) seizure ตั้งแต่ 2 ครั้งขึ้นไปในช่วง 6 เดือน และ (iv) postictal period ที่ยาวนาน รุนแรง หรือผิดปกติ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26899355",
+              "locator": "Panel recommendations to initiate AED treatment, in the section immediately preceding 'Which Drug Should Be Used First?'. Exact section heading not captured from the full text, so it is not stated here.",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The panel recommendations to initiate AED treatment are summarized as follows: (i) Identifiable structural lesion present or prior history of brain disease or injury; (ii) Acute repetitive seizures or, status epilepticus (ictal event ≥5 min"
+          }
+        },
+        {
+          "id": "com3--seizure--approach-when-to-start-aed--v2",
+          "statement": "เกณฑ์ข้อ cluster seizure และ status epilepticus สมเหตุสมผลเพราะทั้งสองถือเป็น seizure emergency ที่มี pathophysiology ซับซ้อน ดื้อยาและ self-sustaining อย่างรวดเร็ว และมี morbidity กับ mortality สูง จึงควรจัดการแบบ early, rapid และ stage-based",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37921621",
+              "locator": "Abstract, Background and Conclusions",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Seizure emergencies (ie, status epilepticus [SE] and cluster seizures [CS]), are common challenging disorders with complex pathophysiology, rapidly progressive drug-resistant and self-sustaining character, and high morbidity and mortality.."
+          }
+        }
+      ]
     }
   },
   "com3--ataxia-tremor": {
@@ -2052,6 +4220,56 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Macroscopic lesions included thymic atrophy in animals examined at 4 to 14 DPI and cerebellar hypoplasia and degeneration in animals examined at 22 to 43 DPI. ... Specific fluorescence was demonstrated with panleukopenia antiglobulin conjug"
+          }
+        }
+      ]
+    },
+    "com3--ataxia-tremor--head-tilt-nystagmus": {
+      "claims": [
+        {
+          "id": "com3--ataxia-tremor--head-tilt-nystagmus--v1",
+          "statement": "degree ของ head tilt และจำนวน beats ของ postrotatory nystagmus ใช้แยก central จาก peripheral vestibular disease ไม่ได้ แต่ rate ของ resting nystagmus อาจช่วยแยกได้ โดยสุนัขกลุ่ม peripheral มี resting nystagmus บ่อยกว่าและมี median rate สูงกว่าอย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16117064",
+              "locator": "227(4):570-4",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although neither the degree of head tilt nor the number of beats of postrotatory nystagmus could be used to distinguish CVD from PVD, rate of resting nystagmus may be useful in distinguishing the 2 conditions."
+          }
+        },
+        {
+          "id": "com3--ataxia-tremor--head-tilt-nystagmus--v2",
+          "statement": "การแยก central กับ peripheral vestibular dysfunction จาก neurologic examination มี interobserver agreement ดี (kappa 0.72) แต่ไม่ตรงกับ MRI โดยสุนัขที่ผู้ตรวจสรุปตรงกันว่าเป็น peripheral มีรอยโรค peripheral บน MRI เพียง 7 จาก 24 ตัว (29%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29553894",
+              "locator": "252(7):830-838",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Despite this agreement, only 29% (7/24) of dogs with a consensus clinical interpretation of peripheral vestibular dysfunction had MRI-identified peripheral lesions."
           }
         }
       ]
@@ -2211,6 +4429,179 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com3--spinal--terminology": {
+      "claims": [
+        {
+          "id": "com3--spinal--terminology--v1",
+          "statement": "Paresis กับ plegia ใช้บอกระดับความรุนแรงที่ต่อเนื่องกัน โดยสัตว์ป่วยมักเริ่มด้วย paraparesis แล้วดำเนินไปเป็น paraplegia",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33134360",
+              "locator": "Section on acute IVD extrusion with extensive epidural hemorrhage, 'Clinical Presentation and Diagnosis'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Typically, affected dogs develop acute paraparesis that rapidly progresses to paraplegia, often associated with severe spinal pain"
+          }
+        },
+        {
+          "id": "com3--spinal--terminology--v2",
+          "statement": "คำนำหน้าบอกการกระจายของรอยโรค: รอยโรคที่ cervical ทำให้เกิด tetraparesis หรือ tetraplegia (4 ขา) ส่วนรอยโรคที่ thoracolumbar ทำให้เกิด paraparesis หรือ paraplegia (ขาหลัง)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33134360",
+              "locator": "Section on HNPE, 'Clinical Presentation and Diagnosis'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The vast majority of reported cases of canine HNPE in the veterinary literature have occurred in the cervical vertebral column, suggesting an anatomical predisposition reflected in the typical clinical signs. Dogs therefore most often prese"
+          }
+        }
+      ]
+    },
+    "com3--spinal--hansen-type-ii-ivdd": {
+      "claims": [
+        {
+          "id": "com3--spinal--hansen-type-ii-ivdd--v1",
+          "statement": "Hansen Type II คือ IVD protrusion หมายถึงการเคลื่อนของ annulus fibrosus ออกนอกขอบเขตปกติ ซึ่งโดยทั่วไปสัมพันธ์กับ fibroid metaplasia",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33134360",
+              "locator": "Table 1 (terminology)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "IVD protrusion Used to describe the prolapse/herniation/displacement of the annulus fibrosus beyond its normal boundaries Typically associated with fibroid metaplasia (often referred to as Hansen Type II IVD herniation)"
+          }
+        },
+        {
+          "id": "com3--spinal--hansen-type-ii-ivdd--v2",
+          "statement": "ภาพทางคลินิกของ IVD protrusion คือ myelopathy ที่ค่อย ๆ ดำเนินไปอย่างช้า ๆ มักไม่เจ็บ ในสุนัขอายุมากที่มักเป็นพันธุ์ non-chondrodystrophic และมี neurological deficit อ่อนกว่า IVD extrusion",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33134360",
+              "locator": "Section '(Hansen Type II/Chronic) IVD protrusion', 'Clinical Presentation and Diagnosis'",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The characteristic clinical picture is therefore that of a slowly progressive, often non-painful myelopathy in an older, usually non-chondrodystrophic dog"
+          }
+        },
+        {
+          "id": "com3--spinal--hansen-type-ii-ivdd--v3",
+          "statement": "ในสุนัข 74 ตัวที่ผ่าตัด Hansen type 2 hernia พบบ่อยกว่าที่ตำแหน่ง lumbosacral ขณะที่ type 1 พบบ่อยกว่าที่ cervical และ thoracolumbar และ type 1 เกิดในสุนัข chondrodystrophic มากกว่า non-chondrodystrophic",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22795604",
+              "locator": "Abstract; 195(2):164-71",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Hansen type 1 hernias were more common in the cervical and thoracolumbar segments and Hansen type 2 hernias were more common in the lumbosacral segment. Type 1 hernias occurred more often in CD dogs than in NCD dogs, and CD dogs were clinic"
+          }
+        }
+      ]
+    },
+    "com3--spinal--decompressive-surgery-techniques": {
+      "claims": [
+        {
+          "id": "com3--spinal--decompressive-surgery-techniques--v1",
+          "statement": "เทคนิคผ่าตัดที่มีรายงานสำหรับ thoracolumbar IVDE ได้แก่ hemilaminectomy, mini-hemilaminectomy/pediculectomy, dorsal laminectomy, partial corpectomy, fenestration และ laminectomy ร่วมกับ durotomy โดยการผ่าตัดที่ใช้บ่อยที่สุดคือ decompression ด้วย hemilaminectomy",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35880267",
+              "locator": "Section 5 (Surgery); and Section 4 (Medical vs surgical management)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Several surgical approaches for dogs with TL-IVDE have been published. These include hemilaminectomy, mini-hemilaminectomy/pediculectomy, dorsal laminectomy, partial corpectomy, fenestration of the intervertebral disc with or without concur"
+          }
+        },
+        {
+          "id": "com3--spinal--decompressive-surgery-techniques--v2",
+          "statement": "การผ่าตัด decompression สำหรับ chronic (type II) herniation มักต้องใช้ ventral approach ร่วมกับ partial corpectomy และโดยทั่วไปควรเลือกวิธีที่เข้าถึงด้าน ventrolateral ของ spinal cord ได้ดีที่สุดเพื่อเอา disc material ออกให้หมด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29074335",
+              "locator": "Abstract; 48(1):169-186",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In most cases, a procedure that optimizes access to the ventrolateral aspect of the spinal cord will be advantageous but it is important to tailor the details of the surgical procedure to suit individual patients. Decompressive surgery for "
+          }
+        }
+      ]
     }
   },
   "com3--acute-abdomen": {
@@ -2337,6 +4728,179 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "69 of 70 (99%) dogs with plasma lactate concentration < 6.0 mmol/L survived, compared with 18 of 31 (58%) dogs with plasma lactate concentration > 6.0 mmol/L ... Gastric necrosis was identified in 38 (37%) dogs. ... Sixty-two of 63 (98%) do"
+          }
+        }
+      ]
+    },
+    "com3--acute-abdomen--causes": {
+      "claims": [
+        {
+          "id": "com3--acute-abdomen--causes--v1",
+          "statement": "การรั่วของ GI tract (leakage/perforation) เป็นสาเหตุที่พบบ่อยที่สุดของ septic peritonitis ในสุนัข พบ 75% ของ 28 ตัว และ overall mortality rate อยู่ที่ 46%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11204482",
+              "locator": "37(1):87-92",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The overall mortality rate was 46%, with most cases of peritonitis being caused by leakage of the gastrointestinal tract (75%)."
+          }
+        },
+        {
+          "id": "com3--acute-abdomen--causes--v2",
+          "statement": "ในแมวก็เช่นกัน GI tract leakage เป็นสาเหตุอันดับหนึ่งของ septic peritonitis (24 จาก 51 ตัว) และมี 7 ตัวที่หา definitive source ไม่พบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15485050",
+              "locator": "225(6):897-902",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most common cause of peritonitis was gastrointestinal tract leakage (24 cats). No definitive source could be identified in 7 cats."
+          }
+        }
+      ]
+    },
+    "com3--acute-abdomen--recognition-posture": {
+      "claims": [
+        {
+          "id": "com3--acute-abdomen--recognition-posture--v1",
+          "statement": "การคลำท้องแล้วไม่เจ็บ ไม่สามารถตัด acute abdomen ออกได้ ในแมวที่ยืนยันว่าเป็น septic peritonitis พบ signs of pain ตอน abdominal palpation เพียง 29 จาก 47 ตัว (62%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15485050",
+              "locator": "225(6):897-902",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Signs of pain during palpation of the abdomen were reported for only 29 of 47 (62%) cats."
+          }
+        },
+        {
+          "id": "com3--acute-abdomen--recognition-posture--v2",
+          "statement": "posture เป็น 1 ใน 7 behaviour categories ของ composite pain scale ที่พัฒนาและ validate ในสุนัข ร่วมกับ demeanour and response to people, mobility, activity, response to touch, attention to painful area และ vocalisation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11354645",
+              "locator": "148(17):525-31",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "47 words and expressions which were allocated into seven behaviour categories: demeanour and response to people, posture, mobility, activity, response to touch, attention to painful area and vocalisation."
+          }
+        }
+      ]
+    },
+    "com3--acute-abdomen--pain-management": {
+      "claims": [
+        {
+          "id": "com3--acute-abdomen--pain-management--v1",
+          "statement": "แนวทาง AAHA แนะนำ pain management แบบ proactive และ preemptive multimodal analgesia แทนการรอแก้ปัญหาเมื่อสัตว์เจ็บแล้ว พร้อม tiered decision tree ที่จัดลำดับวิธีที่ได้ผลที่สุดก่อน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35195712",
+              "locator": "J Am Anim Hosp Assoc 58(2):55-76 ไม่ทราบเลขหัวข้อย่อยที่แน่นอน จึงไม่ระบุ",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Expert consensus emphasizes proactive, preemptive pain management rather than a reactive, \"damage control\" approach. The guidelines discuss treatment options centered on preemptive, multimodal analgesic therapies."
+          }
+        },
+        {
+          "id": "com3--acute-abdomen--pain-management--v2",
+          "statement": "MLK CRI (morphine + lidocaine + ketamine) ให้ระดับ analgesia ที่ยอมรับได้ในสุนัข โดย pain score, ความต้องการ rescue analgesia และเวลาก่อนต้อง rescue ไม่ต่างจาก lumbosacral epidural (morphine + ropivacaine) หรือ morphine IM ตลอด 24 ชั่วโมงหลังผ่าตัด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24739113",
+              "locator": "244(9):1041-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "No differences in pain score, sedation score, rescue analgesia requirement, or time to first rescue analgesia after surgery were detected... All 4 analgesic protocols provided acceptable analgesia for 24 hours after stifle joint surgery."
+          }
+        },
+        {
+          "id": "com3--acute-abdomen--pain-management--v3",
+          "statement": "NSAIDs อาจทำให้เกิด colonic ulceration และ perforation จนเกิด septic peritonitis ได้ในสุนัข มีรายงาน 4 ตัวที่เกิด colonic perforation หลังได้ meloxicam ซึ่งสนับสนุนการหลีกเลี่ยง NSAIDs ในสัตว์ที่มีพยาธิสภาพในช่องท้องหรือมีปัจจัยเสี่ยงร่วม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35043544",
+              "locator": "32(3):413-419",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Colonic perforation associated with NSAIDs administration may be more commonly identified in dogs with concurrent morbidities. Caution may be warranted when using NSAIDs in dogs with colonic pathology or possible risk factors to develop suc"
           }
         }
       ]
@@ -2489,6 +5053,129 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Electrocardiographic abnormalities were observed in 21/33 (63.63%) of the felines on admission day. The electrocardiographic abnormalities were no longer observed on the subsequent days. ... This study suggests the sum and severity of elect"
+          }
+        }
+      ]
+    },
+    "com3--metabolic-er--acute-kidney-injury-aki": {
+      "claims": [
+        {
+          "id": "com3--metabolic-er--acute-kidney-injury-aki--v1",
+          "statement": "ในสุนัข AKI ที่รุนแรงจนต้องทำ renal replacement therapy สาเหตุหลักคือ leptospirosis 74.4% รองลงมาคือ nephrotoxins 15.4% โดยอัตรารอดโดยรวมอยู่ที่ 54%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30971317",
+              "locator": "61(1):17",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The main AKI causes were leptospirosis (74.4%) and nephrotoxins (15.4%)."
+          }
+        },
+        {
+          "id": "com3--metabolic-er--acute-kidney-injury-aki--v2",
+          "statement": "AKI ในสุนัขไม่ได้แปลว่าไตพังถาวรเสมอไป สุนัข 132 ตัวที่รอดจาก AKI มี serum creatinine กลับมาปกติ 75% (55% ตั้งแต่วันออกจากโรงพยาบาล อีก 20% ระหว่างติดตาม) และ etiology สัมพันธ์กับผลลัพธ์ระยะยาว โดยความสามารถในการฟื้นของไตสำคัญกว่าความรุนแรงของการบาดเจ็บ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35478193",
+              "locator": "36(3):1024-1031",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Etiology is an important factor determining sCr normalization and long-term survival, emphasizing the importance of the reversibility of renal injury rather than its severity."
+          }
+        },
+        {
+          "id": "com3--metabolic-er--acute-kidney-injury-aki--v3",
+          "statement": "serum creatinine ไม่ไวพอสำหรับการตรวจจับ acute kidney injury จึงควรประเมิน urine output, urinalysis และ urine chemistry ร่วมด้วย และการได้รับ nephrotoxicants เป็นหนึ่งในปัจจัยเสี่ยงที่แก้ไขได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21757089",
+              "locator": "41(4):727-44",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Measurement of serum creatinine is insensitive for the detection of acute kidney injury, and clinicians should consider assessment of other parameters such as urine output, urinalysis, and urine chemistry results."
+          }
+        }
+      ]
+    },
+    "com3--metabolic-er--uop-guidelines": {
+      "claims": [
+        {
+          "id": "com3--metabolic-er--uop-guidelines--v1",
+          "statement": "urine output เป็นตัวชี้พยากรณ์โรคจริงใน AKI สุนัขที่รอดมี UOP ตอนรับเข้าเฉลี่ย 0.5 mL/kg/hr ขณะที่กลุ่มที่ไม่รอดมี 0 mL/kg/hr (P = 0.02) และ UOP ระหว่างนอนโรงพยาบาลสัมพันธ์กับผลลัพธ์ (OR 0.2)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30971317",
+              "locator": "61(1):17",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Age (4.0 vs 5.4 years; P = 0.04), admission urine output (0.5 mL/kg/h vs 0 mL/kg/h; P = 0.02) and hospitalization length (10 vs 4 days; P < 0.001) differed between survivors and non-survivors."
+          }
+        },
+        {
+          "id": "com3--metabolic-er--uop-guidelines--v2",
+          "statement": "เหตุผลที่ต้องวัด urine output เป็นกิจวัตรในสัตว์ป่วยวิกฤต คือ serum creatinine ไม่ไวพอที่จะจับ acute kidney injury ได้ทัน จึงต้องอาศัยพารามิเตอร์อื่นรวมถึง urine output ประกอบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21757089",
+              "locator": "41(4):727-44",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Measurement of serum creatinine is insensitive for the detection of acute kidney injury, and clinicians should consider assessment of other parameters such as urine output, urinalysis, and urine chemistry results."
           }
         }
       ]
@@ -2645,6 +5332,106 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Treatment P resulted in a significant decrease in MAP between 45 and 75 s during the induction period... During induction, hypotension was detected in 3/12 (25%) dogs in Group P and 1/14 (8%) in Group A. In healthy premedicated dogs, propof"
+          }
+        }
+      ]
+    },
+    "com3--er-anes--pre-anesthesia-stabilization": {
+      "claims": [
+        {
+          "id": "com3--er-anes--pre-anesthesia-stabilization--v1",
+          "statement": "สถานะของสัตว์ก่อนวางยาเป็นตัวกำหนดความเสี่ยงตายอย่างชัดเจน ความเสี่ยง anaesthetic-related death ในสุนัขป่วย (ASA 3-5) อยู่ที่ 1.33% (1 ใน 75) เทียบกับสุนัขสุขภาพดี 0.05% (1 ใน 1849) และในแมวป่วย 1.40% เทียบกับแมวสุขภาพดี 0.11%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18466167",
+              "locator": "35(5):365-73",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In sick dogs, cats and rabbits, the risks were 1.33%, (1 in 75, 95% CI 1.07-1.60%), 1.40% (1 in 71, 95% CI 1.12-1.68%) and 7.37% (1 in 14, 95% CI 5.20-9.54%), respectively."
+          }
+        },
+        {
+          "id": "com3--er-anes--pre-anesthesia-stabilization--v2",
+          "statement": "การ preoxygenate ด้วย face mask นาน 3 นาทีก่อน induction ยืดเวลาก่อนเกิด desaturation ในสุนัขได้อย่างมีนัยสำคัญ (187 บวกลบ 67 วินาที) เทียบกับเทคนิค flow-by (66 บวกลบ 17 วินาที)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29739649",
+              "locator": "45(4):452-458",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Time to desaturation was significantly longer after mask treatment compared with flow-by (187 +/- 66 versus 66 +/- 17 seconds)."
+          }
+        }
+      ]
+    },
+    "com3--er-anes--proptosis-head-trauma": {
+      "claims": [
+        {
+          "id": "com3--er-anes--proptosis-head-trauma--v1",
+          "statement": "ปัจจัยพยากรณ์ที่ดีของ traumatic proptosis ที่ทำ surgical replacement คือเป็นสุนัขพันธุ์ brachycephalic, มี direct หรือ consensual pupillary light response, posterior segment ปกติ และตายังมองเห็นตอนตรวจครั้งแรก ส่วนปัจจัยที่ไม่ดีคือ ไม่ใช่ brachycephalic, เป็นแมว, hyphema, มองไม่เห็นรูม่านตา, facial fractures, optic nerve damage และ extraocular muscle ขาดตั้งแต่ 3 มัดขึ้นไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-7768741",
+              "locator": "206(8):1186-90",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Favorable prognostic indicators for eyes undergoing surgical replacement included proptosis in a brachycephalic dog, positive direct or consensual pupillary light response, normal findings on posterior segment examination, and a proptosed e"
+          }
+        },
+        {
+          "id": "com3--er-anes--proptosis-head-trauma--v2",
+          "statement": "พยากรณ์การมองเห็นในแมวแย่กว่าสุนัขมาก ในแมว 18 ตัวที่มี traumatic proptosis ไม่มีตาข้างใดกลับมามองเห็นได้เลย ขณะที่ในสุนัข 66 ตัวมี 18 ตาที่ยังมองเห็นตอนประเมินซ้ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-7768741",
+              "locator": "206(8):1186-90",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In 18 cats, no eyes regained vision after traumatic proptosis: 12 cats had the affected eye enucleated, 2 had an eye that was considered blind, and 4 cats were euthanatized."
           }
         }
       ]
@@ -2805,6 +5592,179 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Near-adult cats, fasted overnight, and given a single meal of a complete amino acid diet without arginine, developed hyperammonemia and showed clinical symptoms of ammonia toxicity within 2 hours. One cat (2.7 kilograms) died 4.5 hours afte"
+          }
+        }
+      ]
+    },
+    "com3--nutrition--simple-vs-stress-starvation": {
+      "claims": [
+        {
+          "id": "com3--nutrition--simple-vs-stress-starvation--v1",
+          "statement": "คอลัมน์ Stress starvation ตรงกับหลักฐาน คือสัตว์ป่วยวิกฤตมี metabolism เปลี่ยนแบบเฉียบพลันที่เรียกว่า hypermetabolism ซึ่งเมื่อรวมกับ anorexia ทำให้เกิด negative energy และ negative nitrogen balance และระหว่าง hypermetabolism นั้น protein breakdown เพิ่มขึ้นจนต้องเสริม protein ในอาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10486874",
+              "locator": "English abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Critically ill patients are characterized by acute changes in their metabolism, which are described by the term 'hypermetabolism'. In combination with anorexia, hypermetabolism leads to a negative energy and nitrogen balance... During hyper"
+          }
+        }
+      ]
+    },
+    "com3--nutrition--rer-calculation": {
+      "claims": [
+        {
+          "id": "com3--nutrition--rer-calculation--v1",
+          "statement": "exponent 0.75 ในสูตร RER = 70 x BW^0.75 เป็นขอบบน ไม่ใช่ค่าที่วัดได้ การวัด heat output ของสุนัขโต 22 ตัว 7 สายพันธุ์ (BW 5.8-48.8 kg) ด้วย whole-body calorimeter ได้ resting energy expenditure = 678 x W^0.64 และผู้วิจัยสรุปว่า allometry ของ energy requirement ในสุนัขโต \"ไม่น่าเกิน W^0.75 และอาจใกล้ W^0.67 มากกว่า\"",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1941223",
+              "locator": "Abstract, Results and Discussion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Regression of log energy output against log W gave the equation 678 W0.64 (r = 0.96; P less than 0.001), which is considered to represent resting energy expenditure (REE) as kJ/d... From these results we suggest that the allometry of energy"
+          }
+        },
+        {
+          "id": "com3--nutrition--rer-calculation--v2",
+          "statement": "คำแนะนำ \"start at RER, not MER\" สอดคล้องกับหลักฐาน คือการปรับ caloric target ในสัตว์ป่วยวิกฤตให้ต่ำลงช่วยลด complication ที่เกิดจาก overfeeding แม้ regimen ที่เหมาะสมที่สุดยังต้องศึกษาเพิ่ม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32814627",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Some refinement of appropriate caloric targets in critically ill animals has decreased complications relating to overfeeding, but further work is required to establish optimal feeding regimes."
+          }
+        },
+        {
+          "id": "com3--nutrition--rer-calculation--v3",
+          "statement": "ต้องระวังว่าสูตรและ target ของ nutritional support ในสัตว์ป่วยวิกฤตยังขาด veterinary study รองรับ คำแนะนำปัจจุบันอิงกับ clinical judgment ร่วมกับข้อมูลจาก experimental animal model และการศึกษาในคนเป็นหลัก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15025191",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Because of a lack in veterinary studies evaluating the nutritional requirements of critically ill small animals, current recommendations for nutritional support of veterinary patients are based largely on sound clinical judgment and the bes"
+          }
+        }
+      ]
+    },
+    "com3--nutrition--parenteral-nutrition-pn": {
+      "claims": [
+        {
+          "id": "com3--nutrition--parenteral-nutrition-pn--v1",
+          "statement": "เหตุผลที่ PPN ต้องเจือจางและมีข้อจำกัดด้านเวลาเป็นเรื่องจริงจากข้อมูล การให้ three-in-one PPN ความเข้มข้น 840 mOsmol/L ทาง peripheral vein ในสุนัข เกิด mechanical complication คือ thrombus หรือ thrombophlebitis จน infusion ล้มเหลวที่ median 36 ชั่วโมง และการลดเวลา infusion เหลือ 10 ชั่วโมงช่วยลดอัตรา line failure",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16961469",
+              "locator": "Abstract, Methods and Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The objective of this study was to examine the use of a three-in-one, 840 mOsmol/l peripheral parenteral nutrition product containing amino acids, lipids and glucose in separate compartments in dogs... Mechanical complications (apparent thr"
+          }
+        },
+        {
+          "id": "com3--nutrition--parenteral-nutrition-pn--v2",
+          "statement": "ตัวเลข PPN = partial 50-70% RER ใกล้เคียงกับที่ทำได้จริง ในสุนัข 70 ตัวที่ได้ lipid-free ready-made PN solution ค่ามัธยฐานของพลังงานที่ให้ได้คือ 57% ของ resting energy requirement (range 9-100%) และ mechanical complication 28 ตัว เกิดกับ peripheral catheter เกือบทั้งหมด ยกเว้นเพียงรายเดียว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23461694",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The PN provided a median of 5.5 g/100 kcal of protein (range 1-9.5 g/100 kcal) and a median of 2.2 mg/kg of bodyweight per minute (range 0.8-5.2 mg/kg/min) of glucose, which reflected a median of 57% of the resting energy requirement (range"
+          }
+        },
+        {
+          "id": "com3--nutrition--parenteral-nutrition-pn--v3",
+          "statement": "ใน callout ความเสี่ยงของ PN ข้อ hyperglycemia มีน้ำหนักที่สุด จากสุนัข 319 ตัวและแมว 112 ตัวที่ได้ PN พบว่า hyperglycemia เป็น metabolic complication ที่พบบ่อยที่สุด (สุนัข 96/158, แมว 31/37) ขณะที่ mechanical และ septic complication ไม่สัมพันธ์กับการตาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21457322",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Mechanical (81/319 dogs, 16/112 cats) and septic (20/319 dogs, 6/112 cats) complications were not associated with death (P > .05). Hyperglycemia was the most common metabolic complication (96/158 dogs, 31/37 cats)."
           }
         }
       ]
@@ -3113,6 +6073,79 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Treatment with chlorhexidine products resulted in resolution of clinical signs in all dogs including those infected with MRSP. ... Topical therapy with chlorhexidine digluconate products may be as effective as systemic therapy with amoxicil"
+          }
+        }
+      ]
+    },
+    "com4--derm-bacterial--classification-by-depth": {
+      "claims": [
+        {
+          "id": "com4--derm-bacterial--classification-by-depth--v1",
+          "statement": "การจำแนก bacterial skin infection ในสุนัขและแมวออกเป็น 3 ระดับคือ surface, superficial และ deep เป็นกรอบมาตรฐานของแนวทาง antimicrobial stewardship โดยแต่ละระดับมี clinical presentation ต่างกัน และใช้ร่วมกับ cytology และ culture ในการวินิจฉัย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23292951",
+              "locator": "Vet Rec 2013;172(3):72-8 — scope statement in abstract; exact section/page of the depth descriptions not verified from the abstract",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This article covers diagnosis, including descriptions of the different clinical presentations of surface, superficial and deep bacterial skin infections, how to perform and interpret cytology, and how to best use bacterial culture and sensi"
+          }
+        },
+        {
+          "id": "com4--derm-bacterial--classification-by-depth--v2",
+          "statement": "Superficial bacterial folliculitis (SBF) ซึ่งเป็น pyoderma ระดับ superficial มักเกิดจาก Staphylococcus pseudintermedius และเป็นผลตามมาจาก skin barrier ที่ผิดปกติร่วมกับ underlying disease จึงมักเป็นซ้ำและต้องรักษาซ้ำ ทำให้การเลือกยาต้องแบ่งเป็น tier และทำ susceptibility testing เมื่อมี risk factor ของการดื้อยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24720433",
+              "locator": "Vet Dermatol 2014;25(3):163-e43 — background and recommendations summarised in abstract",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Superficial bacterial folliculitis (SBF) is usually caused by Staphylococcus pseudintermedius and routinely treated with systemic antimicrobial agents. Infection is a consequence of reduced immunity associated with alterations of the skin b"
+          }
+        },
+        {
+          "id": "com4--derm-bacterial--classification-by-depth--v3",
+          "statement": "ใน superficial pyoderma การใช้ topical 4% chlorhexidine digluconate อย่างเดียว (shampoo 2 ครั้งต่อสัปดาห์ ร่วมกับ solution วันละครั้ง) นาน 4 สัปดาห์ ให้ผลไม่ต่างจาก systemic amoxicillin-clavulanic acid และทำให้อาการหายแม้ในตัวที่ติด meticillin-resistant S. pseudintermedius",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26140535",
+              "locator": "Vet Dermatol 2015;26(5):339-44, e72 — conclusions in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Topical therapy with chlorhexidine digluconate products may be as effective as systemic therapy with amoxicillin-clavulanic acid. This finding supports the current recommendations to use topical antiseptics alone for the management of super"
           }
         }
       ]
@@ -3576,6 +6609,79 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com4--derm-allergic--canine-atopic-dermatitis-cad-ad-definition": {
+      "claims": [
+        {
+          "id": "com4--derm-allergic--canine-atopic-dermatitis-cad-ad-definition--v1",
+          "statement": "Canine atopic dermatitis (CAD) ถูกนิยามในแนวทางของ ICADA ว่าเป็นโรคผิวหนังที่พบบ่อย มี genetic predisposition และมีลักษณะ inflammatory ร่วมกับ pruritic",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26260508",
+              "locator": "BMC Vet Res 2015;11:196 — opening definition sentence of the abstract (Background)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Canine atopic dermatitis (AD) is a common, genetically predisposed, inflammatory and pruritic skin disease."
+          }
+        },
+        {
+          "id": "com4--derm-allergic--canine-atopic-dermatitis-cad-ad-definition--v2",
+          "statement": "Breed predisposition ของ CAD แตกต่างกันมากตามภูมิภาค จากการศึกษา multicentre 552 ตัวใน 5 ศูนย์ 3 ทวีป golden retriever และ German shepherd dog predisposed ใน 3 จาก 5 คลินิก และรอยโรคพบบ่อยที่สุดที่ paws 62%, ventrum 51%, ears 48%, face 39%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20187918",
+              "locator": "Vet Dermatol 2010;21(1):118-22 — results in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Breed predispositions varied from geographical site, although golden retrievers and German shepherd dogs were predisposed in three of five practices. Lesions were present most commonly on the paws (62%), ventrum (51%), ears (48%) and face ("
+          }
+        },
+        {
+          "id": "com4--derm-allergic--canine-atopic-dermatitis-cad-ad-definition--v3",
+          "statement": "Atopic dermatitis เป็นโรค multifactorial ที่เกิดจาก interaction ที่ซับซ้อนระหว่าง genetic factors และ environmental factors",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29056696",
+              "locator": "Vet Sci 2017;4(3):37 — abstract (review article)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Atopic dermatitis is multifactorial and results from complex interactions between genetic and environmental factors."
+          }
+        }
+      ]
     }
   },
   "com4--derm-autoimmune": {
@@ -3881,6 +6987,79 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Twenty-nine neutered, euthyroid, and normo-cortisolemic dogs were enrolled in the study (23 Pomeranians, three keeshonds, two miniature poodles, and one Siberian husky). ... Melatonin was administered initially at 3-6 mg, every 12 h. ... In"
+          }
+        }
+      ]
+    },
+    "com4--derm-endocrine--pattern-recognition-endocrine-alopecia": {
+      "claims": [
+        {
+          "id": "com4--derm-endocrine--pattern-recognition-endocrine-alopecia--v1",
+          "statement": "อาการทางผิวหนังที่พบบ่อยที่สุดของ hyperadrenocorticism คือ bilaterally symmetrical alopecia ที่เว้นหัวและปลายขา (คือรูปแบบ truncal) และ hypothyroidism เป็น endocrinopathy ที่พบบ่อยที่สุดในสุนัข โดยมักมาด้วย alopecia บริเวณที่เสียดสี, seborrhea และการติดเชื้อซ้ำ ๆ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16828413",
+              "locator": "Clin Dermatol 2006;24(4):317-25 — abstract (review article)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most common dermatological manifestation of hyperadrenocorticism is bilaterally symmetrical alopecia sparing the head and distal extremities."
+          }
+        },
+        {
+          "id": "com4--derm-endocrine--pattern-recognition-endocrine-alopecia--v2",
+          "statement": "Hair cycle arrest เป็นกลไกที่ใช้เรียกกลุ่มอาการขนร่วงแบบไม่อักเสบนี้โดยตรง (hair cycle arrest หรือ Alopecia X) และการวินิจฉัยต้องอาศัยการตัดสาเหตุทาง endocrine อื่นออกด้วย hormone testing กล่าวคือสุนัขที่เข้าเกณฑ์ต้อง euthyroid และ normo-cortisolemic",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15500479",
+              "locator": "Vet Dermatol 2004;15(5):278-84 — study population and conclusion in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Twenty-nine neutered, euthyroid, and normo-cortisolemic dogs were enrolled in the study (23 Pomeranians, three keeshonds, two miniature poodles, and one Siberian husky)."
+          }
+        },
+        {
+          "id": "com4--derm-endocrine--pattern-recognition-endocrine-alopecia--v3",
+          "statement": "ในสุนัขที่ยืนยันว่า hypothyroid 50 ตัว พบ dermatological abnormalities 80% โดยเป็น alopecia 56%, poor coat quality 30% และ hyperpigmentation 20% ส่วน metabolic signs พบ 84% (lethargy 76%, obesity หรือ weight gain 44%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10596870",
+              "locator": "Vet Rec 1999;145(17):481-7 — clinical characteristics in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most common clinical characteristics associated with hypothyroidism were metabolic signs (84 per cent of cases), particularly lethargy (76 per cent), obesity or weight gain (44 per cent), and exercise intolerance (24 per cent); and derm"
           }
         }
       ]
@@ -4337,6 +7516,79 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "There is moderately strong evidence that the use of a single IV administration of vincristine at the appropriate dosage of 0.02 mg/kg or a single hIVIg infusion at a minimum dosage of 0.5 g/kg IV over 6-12 hours in dogs with presumed pITP, "
+          }
+        }
+      ]
+    },
+    "com4--imha--pathogenesis": {
+      "claims": [
+        {
+          "id": "com4--imha--pathogenesis--v1",
+          "statement": "IMHA จัดเป็น secondary เมื่อระบุโรคพื้นฐานที่เป็นสาเหตุได้ และเป็น primary (idiopathic) เมื่อหาสาเหตุไม่พบ โดยสาเหตุพื้นฐานที่ต้อง screen ได้แก่ infections, cancer, drugs, vaccines และ inflammatory processes",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30806491",
+              "locator": "J Vet Intern Med 2019;33(2):313-334 — definitions and comorbidity statements summarised in abstract",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "IMHA is considered secondary when it can be attributed to an underlying disease, and as primary (idiopathic) if no cause is found. Infections, cancer, drugs, vaccines, and inflammatory processes may be underlying causes of IMHA."
+          }
+        },
+        {
+          "id": "com4--imha--pathogenesis--v2",
+          "statement": "IMHA ในสุนัขมี breed predisposition จริง แต่สายพันธุ์ที่ over-represented ต่างกันตามประชากร ในสุนัข 110 ตัวที่ Victoria ประเทศออสเตรเลีย Maltese คิดเป็น 18.2% ของเคสเทียบกับ 7.4% ในกลุ่มควบคุม (P < 0.001) ส่วน Springer Spaniel, Hungarian Vizsla และ Airedale Terrier ก็ over-represented เช่นกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20148823",
+              "locator": "Aust Vet J 2010;88(1-2):25-8 — breed results in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Springer Spaniels (P = 0.02), Hungarian Vizslas (P = 0.02) and Airedale Terriers (P < 0.001) were also over-represented compared with the control sample."
+          }
+        },
+        {
+          "id": "com4--imha--pathogenesis--v3",
+          "statement": "Primary IMHA ในแมวพบบ่อยกว่าที่เคยเข้าใจกันมา และมี prognosis ดีกว่าในสุนัข โดยในแมวที่ Coombs positive 18 ตัว มี 15 ตัวที่ไม่พบโรคพื้นฐาน และในกลุ่ม primary IMHA 19 ตัวมี mortality 23.5% (4/17) กับ relapse 31% (5/16)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16496936",
+              "locator": "J Vet Intern Med 2006;20(1):159-66 — results and conclusion in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Thus, pIMHA appears to occur more frequently than recognized previously, with a more favorable prognosis in cats than in dogs."
           }
         }
       ]
@@ -4800,6 +8052,79 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com4--sle--treatment": {
+      "claims": [
+        {
+          "id": "com4--sle--treatment--v1",
+          "statement": "สำหรับรอยโรคเฉพาะที่ของ discoid lupus erythematosus (DLE) การทา topical 0.1% tacrolimus ทำให้ 8 ใน 10 ตัวดีขึ้นหลังใช้ 8 สัปดาห์ และ 6 ใน 8 ตัวที่ดีขึ้นสามารถหยุดยาตัวอื่นได้ โดยไม่พบผลข้างเคียงทาง clinical หรือ laboratory",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14736903",
+              "locator": "J Am Anim Hosp Assoc 2004;40(1):29-41 — results in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Eight of 10 dogs with DLE and both dogs with PE were improved following 8 weeks of topical application. In six of the eight dogs that improved, other medications were discontinued."
+          }
+        },
+        {
+          "id": "com4--sle--treatment--v2",
+          "statement": "การรักษา canine SLE เริ่มด้วย induction corticotherapy เป็นฐาน ในชุดผู้ป่วย 75 ตัว มีสุนัข 27 ตัวที่ได้ levamisole ร่วมด้วยหลัง induction แล้ว 55.6% ได้ long-term remission นานถึง 9 ปีโดยไม่ต้องใช้ยาต่อ และผลข้างเคียงพบไม่บ่อยและเป็นชั่วคราว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1301973",
+              "locator": "Lupus 1992;1(3):133-9 — therapy statement in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "As for therapy, long-term remissions (up to 9 years without treatment) were obtained in 55.6% of 27 SLE dogs treated by levamisole. At first, levamisole was associated with induction corticotherapy, then administered alone and finally disco"
+          }
+        },
+        {
+          "id": "com4--sle--treatment--v3",
+          "statement": "ใน cutaneous lupus erythematosus ชนิด vesicular การรักษาเริ่มต้นประกอบด้วยการหลีกเลี่ยงแสงแดดจัด ร่วมกับ ciclosporin วันละครั้ง (median 5.8 mg/kg) และ oral glucocorticoid ที่ค่อย ๆ taper โดย 73% เข้าสู่ complete remission ระหว่างวันที่ 35 ถึง 70 และ relapse พบบ่อยเมื่อลดขนาดยาหรือหยุดยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28439997",
+              "locator": "Vet Dermatol 2017;28(5):493-e115 — results and conclusion in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Initial therapy included the avoidance of excessive sun exposure, oral glucocorticoids [six of 11 dogs (55%); progressively tapered over a month] and once daily ciclosporin [11 dogs (100%); median 5.8 mg/kg]."
+          }
+        }
+      ]
     }
   },
   "com4--peds-geri": {
@@ -4956,6 +8281,79 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "com4--peds-geri--geriatric-definition-screening": {
+      "claims": [
+        {
+          "id": "com4--peds-geri--geriatric-definition-screening--v1",
+          "statement": "แนวทาง AAFP 2021 กำหนดให้ blood pressure assessment เป็น minimum diagnostic procedure ทั้งในแมวที่ดูสุขภาพดีและแมวป่วย และแนะนำให้เพิ่มความถี่ของการตรวจวินิจฉัยเมื่ออายุมากขึ้น เพราะแมวแก่เร็วกว่าคนมาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34167339",
+              "locator": "J Feline Med Surg 2021;23(7):613-638 — minimum database diagnostics as summarised in the abstract; exact page of the testing-frequency table not verified",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For example, blood pressure assessment is included as a minimum diagnostic procedure in both apparently healthy and ill cats. Cats age at a much faster rate than humans, so practical timelines for testing frequency are included and suggest "
+          }
+        },
+        {
+          "id": "com4--peds-geri--geriatric-definition-screening--v2",
+          "statement": "การแบ่ง life stage ของแมวฉบับปัจจุบัน (2021) ใช้ 5 กลุ่มคือ 4 ช่วงตามอายุ (kitten, young adult, mature adult, senior) บวก end-of-life stage แทนระบบเดิม 6 ช่วงของปี 2010",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33627003",
+              "locator": "J Feline Med Surg 2021;23(3):211-233 (simultaneously J Am Anim Hosp Assoc 2021;57(2):51-72) — life-stage change described in abstract",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A noteworthy change from the earlier guidelines is the division of the cat's lifespan into a five-stage grouping with four distinct age-related stages (kitten, young adult, mature adult, and senior) as well as an end-of-life stage, instead "
+          }
+        },
+        {
+          "id": "com4--peds-geri--geriatric-definition-screening--v3",
+          "statement": "การตรวจคัดกรองสุนัขสูงวัยที่เจ้าของเชื่อว่าสุขภาพดี 100 ตัว พบความผิดปกติได้บ่อยมาก เช่น systolic BP เฉลี่ย 170 ± 38 mmHg โดย 53 ตัวมี SBP มากกว่า 160 mmHg, 32 ตัว creatinine สูง, 22 ตัวมี heart murmur, 56 ตัวมีก้อนใต้ผิวหนัง และ 13 ใน 97 ตัวมี overt proteinuria จึงสนับสนุนการทำ PE ร่วมกับ BP, CBC, chemistry และ UA เป็นชุดคัดกรอง senior",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27747924",
+              "locator": "J Vet Intern Med 2017;31(1):81-92 (Epub 2016) — results and conclusion in abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Physical and laboratory abnormalities are common in apparently healthy elderly dogs. Veterinarians play a key role in implementing health screening and improving health care for elderly pets."
+          }
+        }
+      ]
     }
   },
   "equine-medicine--equine-gi": {
@@ -5105,6 +8503,160 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Five horses survived (survival at writing ranged from 2 to 11 years after discharge) and all nonsurvivors were <1 year of age and presented with concurrent problems or developed complications including megaesophagus, unresolved esophageal o"
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-gi--lecture-1-gi-anatomy-physiology": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-gi--lecture-1-gi-anatomy-physiology--v1",
+          "statement": "Hindgut ของม้าไม่ได้เป็นถังหมักเนื้อเดียวกัน — digesta จาก cecum, left ventral colon, right dorsal colon และ rectum ให้ fermentation activity (total VFA, butyrate, BCFA, pH, NH3) ต่างกันอย่างมีนัยสำคัญ ดังนั้นการใช้ rectal content เป็นตัวแทนของทั้ง hindgut อาจ overestimate total tract digestibility",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32076715",
+              "locator": "J Anim Sci 2020;98(3):skaa050 — abstract, results + conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Inocula had a significant effect on total VFA (P = 0.0002), butyrate (Bu) (P = 0.015), branched chain fatty acids (P < 0.0001), pH (P < 0.0001), and ammonia (NH3) (P = 0.0024). In conclusion, based on observed results from this study, total"
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-gi--overview-horses-grazing-hindgut-fermenters": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-gi--overview-horses-grazing-hindgut-fermenters--v1",
+          "statement": "Equids เป็นสัตว์กินพืชที่พึ่งการกินอาหารปริมาณมาก มี adaptation ทั้งเชิงพฤติกรรมและ morphophysiology ต่อ high feed intake และต่างจาก ruminant กับ hindgut fermenter ที่กินอุจจาระตรงที่ equids ไม่ได้ใช้ microbial biomass ที่เจริญอยู่ใน GI tract ของตัวเองเป็นแหล่งอาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36893821",
+              "locator": "J Equine Vet Sci 2023;124:104265 — review, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "in contrast to many other herbivores including ruminants and coprophageous hindgut fermenters, equids do not use the microbial biomass growing in their gastrointestinal tract. Equids display behavioral and morphophysiological adaptations to"
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-gi--foregut-vs-hindgut-anatomic-split": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-gi--foregut-vs-hindgut-anatomic-split--v1",
+          "statement": "Hindgut ทำหน้าที่เป็นห้องกักอาหารเพื่อการหมักจริง — ในม้าที่กิน grass hay mean retention time ใน hindgut = 22.2 ± 2.4 ชม. สำหรับ solute marker (Co) และ 25.0-26.3 ชม. สำหรับ particle markers และไม่พบการคัดแยกกักอนุภาคตามขนาด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35894118",
+              "locator": "J Anim Physiol Anim Nutr (Berl) 2022;106(6):1356-1363 — abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The MRT in the hindgut was 22.2 ± 2.4 h for Co, 25.0 ± 3.4 h for Yb, 26.2 ± 1.6 h for Cr and 26.3 ± 1.5 h for Ce."
+          }
+        },
+        {
+          "id": "equine-medicine--equine-gi--foregut-vs-hindgut-anatomic-split--v2",
+          "statement": "การหมักของ hindgut วัดได้จริงที่ caecum และ right ventral colon — การเติม concentrate ลงในหญ้าแห้งทำให้ pH ใน caecum, right ventral colon และอุจจาระลดลง พร้อม VFA ในอุจจาระเพิ่มขึ้น (P<0.01) โดย pH ลดและ VFA เพิ่มในช่วง 4-8 ชม. หลังมื้อเช้า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27927263",
+              "locator": "Animal 2016 (online) — ตีพิมพ์ในเล่ม 11(7):1146-1152; abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Adding concentrate to the hay was associated with a decrease of pH value in the caecum, right ventral colon and faeces and an increase of faecal VFA concentrations (P<0.01)."
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-gi--gi-tx-by-anatomic-site-slides-4": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-gi--gi-tx-by-anatomic-site-slides-4--v1",
+          "statement": "การรักษาแผลในกระเพาะม้าด้วย omeprazole ให้ผลไม่เท่ากันระหว่างสองบริเวณของกระเพาะ — ที่ 28 วัน squamous ulceration หาย 86% แต่ glandular ulceration หายเพียง 14% (P<0.0001) และ 36% ของม้ามี glandular ulcer grade แย่ลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24761780",
+              "locator": "Equine Vet J 2015;47(3):285-290 — abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Healing was greater in squamous ulceration than glandular ulceration (86% vs. 14%; P<0.0001). Improvement in ulcer grade was more likely in squamous lesions than glandular lesions (96% vs. 34%; P<0.0001). Worsening of the glandular ulcer gr"
+          }
+        },
+        {
+          "id": "equine-medicine--equine-gi--gi-tx-by-anatomic-site-slides-4--v2",
+          "statement": "หัวข้อ stomach ในส่วนนี้มี consensus statement ระดับ specialty college รองรับอยู่แล้ว — ECEIM ออก consensus statement เรื่อง Equine Gastric Ulcer Syndrome ในม้าโต ซึ่งครอบคลุมทั้ง squamous, glandular, การรักษา และการจัดการ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26340142",
+              "locator": "J Vet Intern Med 2015;29(5):1288-1299 — ไม่ระบุเลขหัวข้อย่อย เพราะยังไม่ได้อ่านตัวเอกสารเต็ม",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": ""
           }
         }
       ]
@@ -5510,6 +9062,56 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "equine-medicine--equine-lameness--definition-history": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-lameness--definition-history--v1",
+          "statement": "การตัดสิน lameness ด้วยตาเปล่าเชื่อถือได้จำกัด — สัตวแพทย์ม้าที่มีประสบการณ์ 3 คนจัดม้าเข้ากลุ่ม lameness ตรงกันเพียง 58.8% (κ = 0.37) สำหรับขาหน้า และ 54.7% (κ = 0.31) สำหรับขาหลัง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23270341",
+              "locator": "Am J Vet Res 2013;74(1):17-24 — abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Evaluators agreed on classification of horses into 3 mutually exclusive lameness categories (right limb lameness severity greater than left limb lameness severity, left limb lameness severity greater than right limb lameness severity, or eq"
+          }
+        },
+        {
+          "id": "equine-medicine--equine-lameness--definition-history--v2",
+          "statement": "นอกจาก inter-observer แล้ว intraobserver agreement ของการประเมิน lameness แบบ subjective ก็ไม่สูง และการรู้จัก compensatory effect ของ lameness ปฐมภูมิเป็นสิ่งจำเป็น มิฉะนั้นจะสรุปผิดว่าขาที่ชดเชยคือขาที่เป็นโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17616320",
+              "locator": "Vet Clin North Am Equine Pract 2007;23(2):403-423 — review, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Subjective analyses have been shown to be somewhat flawed, and there does not seem to be a high degree of intraobserver agreement when evaluating individual horses. In addition, recognition of the compensatory effects of primary lameness ma"
+          }
+        }
+      ]
     }
   },
   "equine-medicine--equine-hoof": {
@@ -5605,6 +9207,106 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "There was high specificity, but low sensitivity of scintigraphy for detection of MR lesions of the navicular bone, the DDFT and the CLs of the DIP joint. ... However, a negative scintigraphic result does not preclude significant injuries."
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-hoof--external-structure-of-the-hoof-lateral-view": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-hoof--external-structure-of-the-hoof-lateral-view--v1",
+          "statement": "จุดกายวิภาคภายนอกที่มองจากด้านข้าง (toe length/angle, heel length/angle, wall height/angle, foot width, frog base width/length) วัดได้จริงจาก radiograph และภาพถ่าย และสัมพันธ์กับ lameness — ใน American Quarter Horse อายุ 3 ปี ขาหน้าที่เจ็บมี foot width, toe length และ wall height ทั้ง lateral และ medial น้อยกว่าขาที่ปกติ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36572927",
+              "locator": "Equine Vet J 2023;55(5):765-776 — abstract, methods + results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Hoof measurements (palmar/plantar angles, frog base width/length, toe length/angle, heel length/angle, heel and foot width, wall height/angle) from radiographs and photographs were recorded."
+          }
+        },
+        {
+          "id": "equine-medicine--equine-hoof--external-structure-of-the-hoof-lateral-view--v2",
+          "statement": "toe กับ heel รับน้ำหนักไม่เท่ากันและปรับได้ด้วยการเปลี่ยนรูปกีบภายนอก — ในม้า laminitis ที่ใส่ hoof cast with heel wedge, vertical force และ contact area ที่ heel region = 63% และ 61% แล้วลดเหลือ 43% และ 28% หลังถอด และ breakover phase สั้นลงจาก 6% เหลือ 2% ของ stance phase",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33004040",
+              "locator": "BMC Vet Res 2020;16(1):370 — abstract, results + conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The VF and CA were higher in the heel region (63 and 61%, respectively) and decreased significantly after removal of the HCHW (43 and 28% after removal, respectively). The breakover phase in horses with HCHW lasted 2% of stance phase and wa"
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-hoof--ground-surface-structure-sole-view": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-hoof--ground-surface-structure-sole-view--v1",
+          "statement": "การแยก frog ออกจาก sole บนพื้นกีบมีความหมายทางคลินิกจริง — ในแผลทะลุกีบ 96 ตัว ตำแหน่งที่ของแปลกปลอมทะลุเข้าอยู่ที่บริเวณ frog เป็นหลัก (dorsal 38.9%, central 17.9%, palmar/plantar 36.8%) มีเพียง 6.3% ที่อยู่ในบริเวณ sole และการมี synovial structure เกี่ยวข้องพบมากที่สุดเมื่อทะลุที่ palmar/plantar frog",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41921941",
+              "locator": "Tierarztl Prax Ausg G Grosstiere Nutztiere 2026;54(3):159-167 — English abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In only 6/95 (6.3%) cases, the penetration site of the foreign body was located in the area of the sole. The dorsal region of the frog was affected in 37 (38.9%) cases, the central region in 17 (17.9%) cases, and the palmar/plantar region i"
+          }
+        },
+        {
+          "id": "equine-medicine--equine-hoof--ground-surface-structure-sole-view--v2",
+          "statement": "การแยกตัวของผนังกีบตรงแนว white line สะท้อนความล้มเหลวของ laminar structures และลุกลามจนเกิด palmar rotation กับการเคลื่อนของ coffin bone (distal phalanx) ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32741999",
+              "locator": "Can Vet J 2020;61(8):895-898 — abstract (case report)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The defect began as progressive toe separation affecting the dorsal hoof wall, which was eventually resected by a farrier... Radiographs showed hoof wall separation, palmar rotation, and displacement of the coffin bone, consistent with fail"
           }
         }
       ]
@@ -6435,6 +10137,79 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "equine-medicine--equine-respi--respiratory-examination-methods": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-respi--respiratory-examination-methods--v1",
+          "statement": "Ultrasound ที่สไลด์ระบุว่า 'ใช้เยอะ' มีข้อมูลรองรับในม้าโต — ระบบให้คะแนน thoracic ultrasound แยกม้าที่เป็น bacterial pneumonia ออกจากม้าปกติได้ (median score 126 เทียบกับ 20, p = 0.01) โดยมี sensitivity 66.7% และ specificity 92.3% ที่ cut-off 37 และใช้เป็น modality เดี่ยวได้เมื่อการถ่าย radiograph ไม่สะดวก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36311667",
+              "locator": "Front Vet Sci 2022;9:991634 — abstract, results + conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "TUS had moderate sensitivity and high specificity for identification of bacterial pneumonia in adult horses. TUS appears to be an acceptable stand-alone imaging modality for diagnosis of bacterial pneumonia in horses when radiography is not"
+          }
+        },
+        {
+          "id": "equine-medicine--equine-respi--respiratory-examination-methods--v2",
+          "statement": "'History taking' ที่เป็นข้อแรกของสไลด์ให้ข้อมูลที่การตรวจร่างกายอาจพลาด — ในม้า equine asthma เจ้าของตรวจพบอาการไอได้บ่อยกว่าสัตวแพทย์ และการที่ไอลดลงเป็นสิ่งที่เจ้าของสังเกตเห็นบ่อยที่สุดหลังการรักษา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37958142",
+              "locator": "Animals (Basel) 2023;13(21):3387 — abstract, results + conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A comparison between the CS and ES showed that the owners were more likely than veterinarians to detect cough, and a decrease in cough was the most common owner observation after treatment. ... Owners can be astute observers of clinical sig"
+          }
+        },
+        {
+          "id": "equine-medicine--equine-respi--respiratory-examination-methods--v3",
+          "statement": "รายการวิธีตรวจในสไลด์ยังขาดสองอย่างที่ consensus definition ของ mild-moderate equine asthma ใช้เป็นเกณฑ์วินิจฉัย คือการส่องกล้องดู tracheobronchial mucus ที่เพิ่มขึ้น และ bronchoalveolar lavage (BAL) cytology",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35817389",
+              "locator": "Vet J 2022;286:105865 — scoping review, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Current consensus defines mild-moderate equine asthma (mEA; previously inflammatory airway disease) by a hierarchy of indicators of lung pathology: cough, poor performance, increased tracheobronchial mucus, inflammatory bronchoalveolar lava"
+          }
+        }
+      ]
     }
   },
   "equine-medicine--equine-neonatal": {
@@ -7175,6 +10950,110 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "equine-medicine--equine-nutrition--equine-well-being-triad": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-nutrition--equine-well-being-triad--v1",
+          "statement": "หลักที่ว่าสุขภาพม้าเกิดจากพันธุกรรมที่เลือกไม่ได้ร่วมกับปัจจัยแวดล้อม/การจัดการนั้นมีหลักฐานรองรับ — Equine metabolic syndrome เป็นโรคที่มีทั้ง environmental และ genetic factors ร่วมกำหนด phenotype โดย 8 ใน 9 metabolic traits มี heritability ระดับปานกลางถึงสูง (h² ประมาณ 0.31-0.91) ใน Welsh pony และ Morgan",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30472742",
+              "locator": "Equine Vet J 2019;51(4):475-480 — abstract, results + conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Equine metabolic syndrome (EMS) is a complex clinical disorder with both environmental and genetic factors contributing to EMS phenotypes... This study provides the first concrete evidence of a genetic contribution to key phenotypes associa"
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-nutrition--importance-of-equine-nutrition": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-nutrition--importance-of-equine-nutrition--v1",
+          "statement": "ม้าที่อยู่อิสระใช้เวลาส่วนใหญ่ของวันไปกับการกิน — meta-analysis 14 การศึกษา ม้า 364 ตัว พบสัดส่วนเวลากิน 56% ในม้า free-ranging เทียบกับ 38% ในม้าที่เลี้ยงในคอก (p < 0.0001) และ 56% ในม้าที่แทะเล็มหญ้าเทียบกับ 39% ในม้าที่กินหญ้าแห้ง (p = 0.0003)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40912378",
+              "locator": "J Equine Vet Sci 2025;154:105684 — systematic review + meta-analysis, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Feeding was greater in free-ranging (56 %) than stabled horses (38 %; p < 0.0001), in grouped (54 %) vs. isolated (39 %; p = 0.0052), in females (64 %) vs. males (48 %; p = 0.0253), and in grazing (56 %) vs. hay-fed horses (39 %; p = 0.0003"
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-nutrition--individual-variation-same-parameters-different-needs": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-nutrition--individual-variation-same-parameters-different-needs--v1",
+          "statement": "เหตุการณ์ในครรภ์ (intrauterine event) ตามที่สไลด์ระบุมีหลักฐานรองรับ — โภชนาการของแม่ม้าขณะตั้งท้องส่งผลต่อลูก โดยแม่ที่ได้รับอาหารเกินความต้องการให้ colostrum IgG ต่ำลง และลูกม้ามี insulin AUC กับ peak insulin สูงขึ้นเมื่อแม่ได้รับ concentrate",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26439994",
+              "locator": "J Anim Sci 2015;93(7):3261-3267 — review, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Maternal overnutrition resulted in lower colostrum IgG concentrations but did not cause failure of passive transfer in foals... Foal insulin AUC and peak insulin concentrations were increased when mares were fed concentrate"
+          }
+        },
+        {
+          "id": "equine-medicine--equine-nutrition--individual-variation-same-parameters-different-needs--v2",
+          "statement": "ม้าที่มีค่าที่วัดได้เหมือนกันอาจมีความต้องการต่างกันจริง — ในโพนีพันธุ์พื้นเมือง 734 ตัว BCS สัมพันธ์กับ total adiponectin เพียงระดับอ่อน (Spearman ρ 0.14-0.29) และโพนีน้ำหนักอุดมคติกลับมี hypoadiponectinaemia มากกว่าโพนีอ้วน (38.6% เทียบกับ 16.5%) จึงควรตรวจ adiponectin และ basal insulin ในสัตว์ที่มีปัจจัยเสี่ยงทุกตัวไม่ว่าอ้วนหรือไม่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37800870",
+              "locator": "Equine Vet J 2024;56(2):264-272 — abstract, results + conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Morphometric measures such as BCS do not closely reflect [TA]. Circulating [TA] and [basal insulin] should be determined in all animals with predisposing factors, regardless of obesity status."
+          }
+        }
+      ]
     }
   },
   "equine-medicine--equine-dentistry": {
@@ -7589,6 +11468,56 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Uneventful outcomes occurred in 53 cases (86.9%) and complications were recorded in 8 cases (13.1%). Seven complications were reported for upper eyelid systems (23.3%) and 1 complication for lower eyelid systems (4.2%). The complication rat"
+          }
+        }
+      ]
+    },
+    "equine-medicine--equine-ophth--key-principle": {
+      "claims": [
+        {
+          "id": "equine-medicine--equine-ophth--key-principle--v1",
+          "statement": "'A horse is NOT a big dog' มีฐานทางโรคจริง — equine recurrent uveitis (ERU) เป็นสาเหตุอันดับหนึ่งของตาบอดในม้า และมีปัจจัยเสี่ยงทางพันธุกรรมที่จำเพาะกับม้า คือ leopard complex allele (LP) โดยใน Knabstrupper พบ insidious uveitis 20.7% และ LP homozygote มี odds สูงกว่าม้าสีพื้น (OR 7.64)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36199161",
+              "locator": "Equine Vet J 2023;55(5):820-830 — abstract, background + results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Equine recurrent uveitis (ERU) is the leading cause of blindness for horses; previous research implicated the leopard complex spotting allele (LP) as a genetic risk factor for insidious uveitis in the Appaloosa."
+          }
+        },
+        {
+          "id": "equine-medicine--equine-ophth--key-principle--v2",
+          "statement": "โครงสร้าง cornea ต่างกันชัดเจนระหว่างสปีชีส์ — การเทียบ 10 สปีชีส์พบว่าจำนวนชั้นเซลล์และความหนาของ corneal epithelium ต่างกันอย่างมีนัยสำคัญ และพบ supranuclear melanin cap ที่ limbal basal epithelium (ตำแหน่งที่คาดว่าเป็น corneal epithelial stem cell) ในม้า แต่ไม่ได้รายงานในสุนัข (Doberman) ที่ตรวจในชุดเดียวกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35920126",
+              "locator": "J Vet Sci 2022;23(4):e62 — abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The number of corneal epithelial cell layers and the overall corneal epithelial thickness varied significantly among the species... Presumed supranuclear melanin caps were noted in four species (orangutans, macaws, red pandas, and horses) i"
           }
         }
       ]
@@ -8127,6 +12056,202 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "poultry--first-week-mortality--avian-immune-system-anatomy": {
+      "claims": [
+        {
+          "id": "poultry--first-week-mortality--avian-immune-system-anatomy--v1",
+          "statement": "**Bursa of Fabricius คือ primary lymphoid organ สำหรับ B cell development ที่พบเฉพาะในนก** (found only in birds) โดยจำนวน bursal B cells เพิ่มขึ้นอย่างรวดเร็วในช่วงท้ายของ embryonic stage และช่วงรอบ ๆ ฟักออก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30442912",
+              "locator": "Abstract, opening sentences",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The bursa of Fabricius, the primary lymphoid organ for B cell development found only in birds, offers novel approaches to study B cell differentiation at various developmental stages. The bursal B cells rapidly increased in the late embryon"
+          }
+        },
+        {
+          "id": "poultry--first-week-mortality--avian-immune-system-anatomy--v2",
+          "statement": "**Harderian gland เป็น mucosal effector site จริง** ของทางเดินหายใจส่วนบนในไก่ โดยตรวจพบ **IgA-secreting cell responses** ที่จำเพาะต่อเชื้อ รวมทั้ง IgM+ B cells และ CD4+/CD8+ T cells และเชื้อ immunosuppressive (CAV, IBDV) ทำให้ IgA response ที่ Harderian gland ลดลงหรือช้าลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19166051",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Enzyme-linked immuno-spot forming assays on cells in the Harderian glands and cecal tonsils of IBV-infected chickens indicated that maximum IBV-specific IgA-secreting cell responses were reduced in chickens infected with CAV. IBDV co-infect"
+          }
+        },
+        {
+          "id": "poultry--first-week-mortality--avian-immune-system-anatomy--v3",
+          "statement": "ในไก่อายุน้อย พบเซลล์ที่ express **IgY และ IgA** ในอวัยวะน้ำเหลืองน้อยมาก และ **bursa involution** เกิดขึ้นตามอายุ โดยการเปลี่ยนไปสร้าง class-switched B cells เพิ่มขึ้นอย่างมีนัยสำคัญ **หลังการทำวัคซีน**",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39640270",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "As only very few IgY and IgA expressing cells were detected in lymphoid organs of young chickens, we used CD40L and IL-10 to establish a prolonged culture system ... Surprisingly, bursa involution, laying and age had no distinct effects on "
+          }
+        }
+      ]
+    },
+    "poultry--first-week-mortality--antibodies-maternal-immunity": {
+      "claims": [
+        {
+          "id": "poultry--first-week-mortality--antibodies-maternal-immunity--v1",
+          "statement": "**IgY (เรียกอีกชื่อว่า IgG ในไก่) ถ่ายทอดจากไข่แดง (yolk) เข้าสู่กระแสเลือดของตัวอ่อน** ส่วน **IgA, IgG และ IgM ถ่ายทอดจาก egg albumen (ไข่ขาว)** เข้าสู่ allantoic fluid และ amniotic fluid โดย maternal antibodies ปกป้อง avian embryo จากเชื้อที่ถ่ายทอดทางแนวดิ่งและปกป้องลูกไก่หลังฟักด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16537160",
+              "locator": "Abstract, opening sentences",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Maternal antibodies can protect avian embryos against vertically transmitted pathogens during embryogenesis and also young birds after hatching. In contrast to the well-known transfer of maternal immunoglobulin (Ig) G (also termed IgY) from"
+          }
+        },
+        {
+          "id": "poultry--first-week-mortality--antibodies-maternal-immunity--v2",
+          "statement": "**MDA ของลูกไก่จากแม่พันธุ์ที่ทำวัคซีนมีระดับสูงมากในวันแรก (titre ~6,400) และลดลงต่ำกว่าระดับ positive ภายใน 21 วัน** ซึ่งตรงกับที่โน้ตระบุว่า MDA คุ้มครองลูกไก่ในช่วง 1-3 สัปดาห์แรก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26018110",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It was noticed that on day 1 the chicks contained a high level (6400.54 +/- 2993.67) of maternally derived antibody that gradually decreased below a positive level within 21 days (365.86 +/- 634.46)."
+          }
+        }
+      ]
+    },
+    "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept": {
+      "claims": [
+        {
+          "id": "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept--v1",
+          "statement": "**Live vaccine virus แพร่จากไก่ที่ได้รับวัคซีนไปยังไก่ที่ไม่ได้รับวัคซีนที่อยู่ร่วมฝูงได้จริง** — ในการทดลอง CEO ILT vaccine ไก่ที่ไม่ได้ทำวัคซีนซึ่งถูกนำเข้าไปสัมผัสในวันที่ 0, 4, 8, 12 และ 16 ตรวจพบเชื้อวัคซีนได้ และการให้วัคซีนทาง drinking-water สัมพันธ์กับ **non-uniform protection** (ภูมิคุ้มกันไม่สม่ำเสมอทั้งฝูง)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22845327",
+              "locator": "Abstract, Background and Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Drinking-water vaccination has been associated with non-uniform protection. ... Groups of four or five unvaccinated birds were placed in contact with vaccinated birds at regular intervals. ... Birds exposed to ILTV by contact with eye-drop "
+          }
+        },
+        {
+          "id": "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept--v2",
+          "statement": "ความเสี่ยงของการที่ live vaccine วนแพร่ในฝูงคือ **การกลับมามีความรุนแรงเพิ่มขึ้น (reversion to virulence)** — CEO ILT vaccine ที่ผ่าน bird-to-bird passage 20 ครั้ง ทำให้เกิด **อัตราตายสูงขึ้น และโรคทางเดินหายใจรุนแรงและนานขึ้น** ในขณะที่ TCO vaccine ที่ผ่าน passage เดียวกันทำให้เกิดอาการทางเดินหายใจเพียงเล็กน้อยและไม่มีการตาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1649591",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "After serial bird-to-bird passage, increased virulence was observed for CEO virus but not TCO virus. Increased mortality and increased severity and duration of respiratory disease were observed in chickens inoculated with chicken-passaged C"
+          }
+        },
+        {
+          "id": "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept--v3",
+          "statement": "**MDA ระดับสูงรบกวน live vaccine จนไม่เกิด immune response** จึงควรเลื่อนการทำวัคซีนไปที่ **วันที่ 21** (ช่วงที่ MDA ลดลงและ uniformity แย่ CV > 30%) แล้ว **boost วันที่ 28** โดยต้องทำ 2 ครั้งจึงจะคุ้มครองทั้งฝูงได้ดี — ตรงกับหลัก prime + boost และ MDA decay window ในโน้ต",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26018110",
+              "locator": "Abstract, Results and Conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It was found that a high level of MDA interferes with the vaccine virus, resulting in no immune response. For better immune response, it is suggested that the chickens should be vaccinated at day 21, as the uniformity of MDA is poor (coeffi"
+          }
+        }
+      ]
     }
   },
   "poultry--biosecurity": {
@@ -8280,6 +12405,152 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Results suggested that after 10 and 100 infected hens were seeded, the likelihood of detecting an infected parent flock within the three first weeks after the infection was strongly influenced by the taking of five boot swabs (95% CI 70-100"
+          }
+        }
+      ]
+    },
+    "poultry--biosecurity--production-metrics": {
+      "claims": [
+        {
+          "id": "poultry--biosecurity--production-metrics--v1",
+          "statement": "**Hen-day (HD) production สูงกว่า hen-housed (HH) production เสมอเมื่อฝูงมี mortality** เพราะ HD หารด้วยจำนวนแม่ไก่ที่ยังมีชีวิตในวันนั้น ส่วน HH หารด้วยจำนวนแม่ไก่ตอนเริ่มเลี้ยง — ข้อมูลจริงในฝูง free-range (mortality 8.1-11.0%) แสดงคู่ค่า HD/HH เป็น 56.4/55.4%, 40.4/40.2% และช่วง peak 90.1/89.2% (ถ้า mortality = 0 ทั้งสองค่าจะเท่ากัน)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34069516",
+              "locator": "Materials and Methods (Data Collection) and Results, section 3, first paragraph",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "At 19-24 weeks of age, Atak-S hens showed higher hen-day and hen-house EP levels (56.4% and 55.4%, respectively) than Atabey hens (40.4% and 40.2%, respectively) ... Atabey hens reached a peak level at 25-30 weeks of age, with an EP level o"
+          }
+        },
+        {
+          "id": "poultry--biosecurity--production-metrics--v2",
+          "statement": "**European production (efficiency) index / EPEF** ถูกใช้เป็น performance outcome มาตรฐานในการ benchmark ฝูงไก่เนื้อ ควบคู่กับ mortality (overall, first week, after first week), growth และ feed conversion",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32787841",
+              "locator": "Abstract, Methods",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Three different models were used to investigate mortality (overall, first week, after first week), three models for performance variables (growth, feed conversion, European production index) and two models were related to slaughterhouse dat"
+          }
+        },
+        {
+          "id": "poultry--biosecurity--production-metrics--v3",
+          "statement": "**FCR = feed consumed / weight gain** ในไก่เนื้อ โดยค่าจริงในการทดลองอยู่ราว **1.77-1.78 g/g** ที่อายุ 42 วัน (total feed intake ~5,000 g ต่อ total body weight gain ~2,800 g ต่อตัว) และ European production efficiency factor ~375-377 ในฝูงเดียวกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38477705",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the Co-FFM diet had no significant differences (P > 0.05) in total body weight gain (2,827 vs. 2,791 g/chick), total feed intake (5,018 vs. 4,991 g/chick), European production efficiency factor (375 vs. 377), European Broiler Index (371 vs."
+          }
+        }
+      ]
+    },
+    "poultry--biosecurity--disease-prevention-vs-control-vs-eradication": {
+      "claims": [
+        {
+          "id": "poultry--biosecurity--disease-prevention-vs-control-vs-eradication--v1",
+          "statement": "สำหรับ **HPAI ประเทศส่วนใหญ่ใช้ stamping-out เพื่อ eradicate** และยุทธศาสตร์หลักของทั้ง HPAI และ H5/H7 LPAI ที่ต้องรายงาน คือ **immediate eradication ด้วย 4 องค์ประกอบ** = (1) education (2) biosecurity (3) rapid diagnostics + surveillance (4) elimination of infected poultry โดย vaccination เป็นเครื่องมือเสริมเมื่อ immediate eradication ทำไม่ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23402099",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most countries have used stamping-out programs in poultry to eradicate H5N1 HPAI. ... The primary strategy for HPAI and H5/H7 low pathogenicity notifiable avian influenza control will continue to be immediate eradication using a four-compon"
+          }
+        },
+        {
+          "id": "poultry--biosecurity--disease-prevention-vs-control-vs-eradication--v2",
+          "statement": "การ **stamping out ไม่ได้เหมาะกับทุกบริบท** โดยเฉพาะประเทศกำลังพัฒนาที่ต้องรักษาความมั่นคงทางอาหาร OIE/FAO จึงแนะนำให้ใช้ vaccination ร่วมกับกลยุทธ์ **DIVA (differentiating infected from vaccinated animals)** เมื่อมีความเสี่ยงแพร่กระจายวงกว้างและการ depopulation ทำไม่ได้หรือไม่เหมาะสม พร้อมทั้ง **การชดเชยเกษตรกร** เป็นส่วนสำคัญของยุทธศาสตร์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17169466",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The recent joint OIE/FAO summits recommended applying vaccination, using the differentiating infected from vaccinated animals (DIVA) strategy when there is risk of major spread and depopulation is not feasible or desirable. Particularly in "
+          }
+        },
+        {
+          "id": "poultry--biosecurity--disease-prevention-vs-control-vs-eradication--v3",
+          "statement": "Avian influenza (ทั้ง HPAI และ H5/H7 LPAI) และ Newcastle disease เป็น **listed / notifiable diseases** ที่ประเทศสมาชิกต้องรายงานต่อ WOAH ส่วนโรคอื่นที่โน้ตระบุ (Salmonellosis, Mycoplasmosis, ILT) สถานะการรายงานขึ้นกับกฎหมายของแต่ละประเทศ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "List of WOAH-listed diseases, infections and infestations, avian disease section. I have not verified the exact chapter or article number, so none is given here.",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Not quoted. Cited for the fact that avian influenza and Newcastle disease appear on the WOAH list of notifiable terrestrial animal diseases."
           }
         }
       ]
@@ -8443,6 +12714,79 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "poultry--avian-drugs--amr-5-rs-responsible-use": {
+      "claims": [
+        {
+          "id": "poultry--avian-drugs--amr-5-rs-responsible-use--v1",
+          "statement": "\"5R framework\" ของ antimicrobial stewardship ในทางสัตวแพทย์ที่ตีพิมพ์จริง คือ Responsibility, Review, Reduce, Replace, Refine (ไม่ใช่ Right Drug / Dose / Duration / Time / Patient ตามที่โน้ตเขียน) โดยเน้น executive support, ทีมที่รับผิดชอบ, การ review สถานะเริ่มต้นและตั้งตัวชี้วัด, และการ reduce/replace/refine การใช้ยาต้านจุลชีพ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29916349",
+              "locator": "Abstract, final paragraph",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The 5R framework of continuous improvement that is described recognizes the importance of executive support; highly motivated organizations and teams (responsibility); the need to review the starting position, set objectives, and determine "
+          }
+        },
+        {
+          "id": "poultry--avian-drugs--amr-5-rs-responsible-use--v2",
+          "statement": "WHO guidelines 2017 แนะนำให้ **ห้ามใช้ antimicrobial เพื่อ growth promotion และเพื่อ disease prevention ในสัตว์สุขภาพดีโดยสิ้นเชิง** และ antimicrobial ที่จัดเป็น critically important สำหรับคน **ไม่ควรใช้ใน food-producing animals** เพื่อ treatment หรือ disease control เว้นแต่ susceptibility testing พิสูจน์ว่าเป็นทางเลือกเดียว — รองรับหลัก \"Right Drug (culture-guided)\" และ \"หลีกเลี่ยง prophylactic mass medication\"",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29375825",
+              "locator": "Recommendations section of the abstract; corresponds to the WHO 2017 guideline recommendations (I have not verified individual recommendation numbers in the full guideline document, so no clause number is given)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These guidelines recommend reductions in the overall use of medically important antimicrobials in food-producing animals, including complete restriction of use of antimicrobials for growth promotion and for disease prevention (i.e., in heal"
+          }
+        },
+        {
+          "id": "poultry--avian-drugs--amr-5-rs-responsible-use--v3",
+          "statement": "WHO แนะนำให้ **หลีกเลี่ยงการใช้ highest priority critically important antimicrobials (HP-CIAs) ใน food-producing animals** ซึ่งรวมสัตว์ปีก โดยข้อบ่งใช้ HP-CIA ที่พบบ่อยที่สุดในสัตว์ปีกคือ enteric และ respiratory infections และยังขาดทางเลือกที่ได้ผลสำหรับบางโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32240295",
+              "locator": "Abstract, Background and Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Among the measures taken to preserve the clinical efficacy of highest priority critically important antimicrobials (HP-CIAs), the WHO has recommended avoiding their use in food-producing animals. ... The most common indications for use of H"
+          }
+        }
+      ]
     }
   },
   "poultry--quality-assurance": {
@@ -8599,6 +12943,133 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "poultry--quality-assurance--quality-assurance-5-ด้าน": {
+      "claims": [
+        {
+          "id": "poultry--quality-assurance--quality-assurance-5-ด้าน--v1",
+          "statement": "Traceability (การตามสอบย้อนกลับ) หมายถึงความสามารถติดตามการเคลื่อนย้ายของอาหารตลอดขั้นตอนการผลิต การแปรรูป และการกระจายสินค้า และถูกกำหนดให้เป็นเครื่องมือหนึ่งในระบบตรวจสอบและรับรองอาหาร",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-codex-alimentarius-fao-2006",
+              "locator": "Definition of traceability/product tracing (นิยามรับมาจาก Codex Procedural Manual) และหลักการ one step forward/one step back",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the ability to follow the movement of a food through specified stage(s) of production, processing and distribution"
+          }
+        },
+        {
+          "id": "poultry--quality-assurance--quality-assurance-5-ด้าน--v2",
+          "statement": "ห่วงโซ่การผลิตเนื้อไก่มีความซับซ้อนและมีจุดเสี่ยงปนเปื้อนหลายจุด จึงต้องมีระบบ traceability ที่มีประสิทธิภาพเพื่อระบุแหล่งปนเปื้อนได้รวดเร็วและดำเนินมาตรการแก้ไขได้ทันการณ์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32413072",
+              "locator": "Abstract, introduction",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "To ensure a safe product for the consumer, an efficient traceability system is required that enables a quick and efficient identification of the potential sources of contamination and proper implementation of mitigation actions."
+          }
+        }
+      ]
+    },
+    "poultry--quality-assurance--pdca-cycle-deming-wheel": {
+      "claims": [
+        {
+          "id": "poultry--quality-assurance--pdca-cycle-deming-wheel--v1",
+          "statement": "PDCA (Plan-Do-Check-Act) เป็นวงจรปรับปรุงต่อเนื่องที่ ISO 9001:2015 ใช้เป็นโครงของระบบบริหารคุณภาพ โดย Plan = ตั้งวัตถุประสงค์ของระบบและกระบวนการพร้อมทรัพยากรที่ต้องใช้ และระบุความเสี่ยง, Do = ลงมือทำตามที่วางแผน, Check = ติดตามและวัดผลเทียบกับนโยบาย วัตถุประสงค์ และแผน แล้วรายงานผล, Act = ลงมือปรับปรุงผลการดำเนินงานตามความจำเป็น และใช้ได้กับทุกกระบวนการรวมถึงทั้งระบบ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-iso-international-orga-2015",
+              "locator": "Introduction, clause 0.3.2 Plan-Do-Check-Act cycle",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Plan: establish the objectives of the system and its processes, and the resources needed to deliver results in accordance with customers' requirements and the organization's policies, and identify and address risks and opportunities; Do: im"
+          }
+        }
+      ]
+    },
+    "poultry--quality-assurance--five-freedoms-welfare": {
+      "claims": [
+        {
+          "id": "poultry--quality-assurance--five-freedoms-welfare--v1",
+          "statement": "Five Freedoms ที่ WOAH รับรองในระดับสากลประกอบด้วย freedom from hunger, thirst and malnutrition; freedom from fear and distress; freedom from physical and thermal discomfort; freedom from pain, injury and disease; และ freedom to express normal patterns of behaviour",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-woah-world-organisatio-na",
+              "locator": "Article 7.1.2, guiding principles for animal welfare, principle 2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the internationally recognised 'five freedoms' (freedom from hunger, thirst and malnutrition; freedom from fear and distress; freedom from physical and thermal discomfort; freedom from pain, injury and disease; and freedom to express normal"
+          }
+        },
+        {
+          "id": "poultry--quality-assurance--five-freedoms-welfare--v2",
+          "statement": "กรอบ Five Freedoms มีข้อจำกัดที่ได้รับการวิจารณ์ในเชิงวิชาการ 2 ข้อ คือ คำว่า freedom ทำให้เข้าใจผิดว่าปลอดจากสภาวะลบได้อย่างสมบูรณ์ ทั้งที่ในความเป็นจริงทำได้แค่ลดให้เหลือน้อยที่สุด และการเน้นเฉพาะประสบการณ์ด้านลบไม่ครอบคลุมการส่งเสริมประสบการณ์ด้านบวก จึงมีการปรับเป็น Five Provisions/Welfare Aims และ Five Domains Model",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27669313",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the focus on \"freedom\" from a range of negative experiences and states has been misunderstood in a number of quarters to mean that complete freedom from these experiences and states is possible, when in fact the best that can be achieved is"
+          }
+        }
+      ]
     }
   },
   "poultry--avian-zoonosis": {
@@ -8748,6 +13219,129 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Humans are rarely affected; those who are predominantly experience mild conjunctivitis. We report a fatal case of neurologic disease in a 2-year-old immunocompromised child in Australia."
+          }
+        }
+      ]
+    },
+    "poultry--avian-zoonosis--major-avian-zoonoses-fungal-parasitic": {
+      "claims": [
+        {
+          "id": "poultry--avian-zoonosis--major-avian-zoonoses-fungal-parasitic--v1",
+          "statement": "มูลนกโดยเฉพาะ **มูลนกพิราบ** ถือเป็น environmental reservoir ของ **Cryptococcus neoformans** ในเขตเมือง และสามารถ isolate เชื้อได้จริงจากตัวอย่างมูลนกพิราบ — เชื้อนี้ก่อ fatal neurological infection และเป็น fungal infection ของ CNS ที่พบบ่อยที่สุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27184613",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cryptococcus neoformans and Cryptococcus gattii are encapsulated yeasts able to cause fatal neurological infections in both human and other mammals. Cryptococcosis is the most common fungal infection of the central nervous system ... Bird e"
+          }
+        },
+        {
+          "id": "poultry--avian-zoonosis--major-avian-zoonoses-fungal-parasitic--v2",
+          "statement": "**Histoplasma capsulatum** ตรวจพบ DNA ได้ในวัสดุอินทรีย์ดิบ เช่น **มูลไก่ (chicken manure)**, ดินในถ้ำ, และมูลนก/มูลค้างคาว โดยกลุ่มเสี่ยงสูงรวมถึง **คนเก็บมูลไก่ (poultry manure collectors)** เกษตรกร และคนสำรวจถ้ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35292592",
+              "locator": "Abstract, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "we identified H. capsulatum DNA in 80% of samples of raw organic materials, such as chicken manure, soil from caves, and bird and bat guano ... especially in people with the higher risk of exposure, such as spelunkers, farmers, poultry manu"
+          }
+        },
+        {
+          "id": "poultry--avian-zoonosis--major-avian-zoonoses-fungal-parasitic--v3",
+          "statement": "**Cryptosporidium meleagridis** คือ species ของ Cryptosporidium ในสัตว์ปีกที่เป็น zoonotic จริง โดยพบ subtypes (IIIbA26G1R1b, IIIbA22G1R1c) ในไก่ฟาร์มที่ตรงกับ subtypes ที่พบในเด็กที่มีอาการท้องเสีย = cross-transmissible ระหว่างไก่กับคน ส่วน **C. baileyi** พบบ่อยกว่าในไก่แต่ไม่ใช่ตัวหลักที่ติดคน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30157928",
+              "locator": "Abstract, Background and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Birds are typically infected with C. avium, C. baileyi, C. galli and/or C. meleagridis, the latter of which is recognised as being zoonotic. ... The findings suggest that C. meleagridis subtypes IIIbA26G1R1b and IIIbA22G1R1c are cross-trans"
+          }
+        }
+      ]
+    },
+    "poultry--avian-zoonosis--one-health-concept": {
+      "claims": [
+        {
+          "id": "poultry--avian-zoonosis--one-health-concept--v1",
+          "statement": "จากการทบทวนเชื้อก่อโรคในคน 1,415 species พบว่า **868 species (61%) เป็น zoonotic** และในกลุ่มเชื้อที่จัดเป็น emerging pathogens 175 species นั้น **132 species (75%) เป็น zoonotic** โดย zoonotic pathogens มีโอกาสเป็น emerging disease มากกว่า non-zoonotic ประมาณ 2 เท่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11516376",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A comprehensive literature review identifies 1415 species of infectious organism known to be pathogenic to humans ... Out of these, 868 (61%) are zoonotic ... Out of the emerging pathogens, 132 (75%) are zoonotic, and overall, zoonotic path"
+          }
+        },
+        {
+          "id": "poultry--avian-zoonosis--one-health-concept--v2",
+          "statement": "**One Health** = ความร่วมมือของหลายวิชาชีพด้านสุขภาพเพื่อสุขภาพที่ดีที่สุดของ **คน สัตว์เลี้ยง สัตว์ป่า พืช และสิ่งแวดล้อม** โดยเฉพาะกับปัญหา AMR ที่ตัวขับเคลื่อนอยู่ทั้งภาคคน สัตว์ และสิ่งแวดล้อม จึงต้องแก้แบบ One Health",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29600770",
+              "locator": "Abstract, opening sentences",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "One Health is the collaborative effort of multiple health science professions to attain optimal health for people, domestic animals, wildlife, plants, and our environment. ... Given the important and interdependent human, animal, and enviro"
           }
         }
       ]
@@ -8911,6 +13505,479 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "poultry--nutrition--ภาพรวม-l8-3-ส่วนหลักของวิชา": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--ภาพรวม-l8-3-ส่วนหลักของวิชา--v1",
+          "statement": "การจัดการคุณภาพอาหารสัตว์ปีกครอบคลุมทั้งห่วงโซ่อาหาร ไม่ใช่แค่การตั้งสูตร คือ ตั้งแต่การจัดหาวัตถุดิบ การผลิต การเก็บรักษา จนถึงการกระจายอาหารสัตว์ ซึ่งตรงกับกรอบ 3 ส่วน (แหล่งอาหาร วัตถุดิบ กระบวนการผลิตและการจัดการหลังผลิต) ที่สไลด์ใช้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-codex-alimentarius-fao-2004",
+              "locator": "Scope/objective of the Code (exact section number not verified from the source PDF)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "establishes a feed safety system for food producing animals which covers the whole food chain"
+          }
+        }
+      ]
+    },
+    "poultry--nutrition--fat-essential-fatty-acid": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--fat-essential-fatty-acid--v1",
+          "statement": "Linoleic acid (18:2 n-6) เป็น essential fatty acid ที่ไก่สังเคราะห์เองไม่ได้ ต้องได้จากอาหาร และเป็นสารตั้งต้นของ long-chain n-6 PUFA เช่น arachidonic acid (20:4 n-6) ซึ่งเป็นองค์ประกอบของ membrane phospholipid และเป็น precursor ของ eicosanoids",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36117183",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Alpha-linolenic acid (18:3 n-3) and linoleic acid (18:2 n-6) are essential n-3 and n-6 fatty acids and cannot be synthesized by the vertebrates including chickens."
+          }
+        }
+      ]
+    },
+    "poultry--nutrition--dietary-electrolyte-balance-deb-trace-minerals-vitamins": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--dietary-electrolyte-balance-deb-trace-minerals-vitamins--v1",
+          "statement": "DEB คำนวณเป็น Na⁺ + K⁺ − Cl⁻ (mEq/kg) และค่าที่ให้การเจริญเติบโตดีที่สุดในไก่เนื้ออยู่ราว 200-250 mEq/kg โดย regression ให้จุด inflection ที่ DEB 250 สำหรับน้ำหนักเพิ่มช่วง 21 วัน และ DEB 201 สำหรับช่วง 42 วัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12705404",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The predicted maximum point of inflection for 21- and 42-d weight gains were DEB 250 and 201, with highest 42-d feed intake at 220."
+          }
+        },
+        {
+          "id": "poultry--nutrition--dietary-electrolyte-balance-deb-trace-minerals-vitamins--v2",
+          "statement": "DEB สูงเกินไปทำให้ไก่กินน้ำมากขึ้นแบบเชิงเส้น วัสดุรองพื้นชื้นขึ้น (wet litter) และที่ DEB 360 mEq/kg เกิด respiratory alkalosis (เลือด HCO₃ และ pH สูงขึ้น)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12619809",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Water intake increased linearly with increasing DEB, giving higher litter moistures and lower rectal temperatures. Blood HCO3 and pH increased with the highest DEB (360 mEq/kg) causing respiratory alkalosis."
+          }
+        }
+      ]
+    },
+    "poultry--nutrition--dietary-fiber-feed-additives-enzymes-probiotics-botanicals": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--dietary-fiber-feed-additives-enzymes-probiotics-botanicals--v1",
+          "statement": "การเสริม insoluble fiber (rice hulls, oat hulls, sunflower hulls 3%) ในอาหารไก่เนื้อ เพิ่มน้ำหนัก gizzard ลด gizzard pH ยืดเวลาผ่านของ digesta และเพิ่ม ileal digestibility ของไขมันและแคลเซียม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33847001",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fibre inclusion increased ileal fat and Ca digestibility (p < 0.01), gizzard weight (p < 0.01), digesta transit time (p < 0.01) and length of duodenum and small intestine (p < 0.01)."
+          }
+        },
+        {
+          "id": "poultry--nutrition--dietary-fiber-feed-additives-enzymes-probiotics-botanicals--v2",
+          "statement": "Phytate ในอาหารเป็น antinutritional factor จริง คือเมื่อเพิ่ม phytate P จาก 0.24 เป็น 0.45% ทำให้ apparent ileal digestibility ของกรดอะมิโนลดลงเฉลี่ย 6-7 percentage points และการเสริม phytase เพิ่ม digestibility ของกรดอะมิโน Ca และ P ที่ทุกระดับ phytate",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32416813",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Phytase supplementation was predicted to increase the AID of amino acids, Ca, or P in a non-linear-log or log-linear manner at all levels of phytate P, with the greatest response at higher doses of phytase in diets containing 0.345 or 0.45%"
+          }
+        },
+        {
+          "id": "poultry--nutrition--dietary-fiber-feed-additives-enzymes-probiotics-botanicals--v3",
+          "statement": "การเสริม mannan-oligosaccharide (MOS) 2 g/kg ร่วมกับ probiotic (Pediococcus acidilactici) และ butyric acid ลดจำนวน Salmonella ใน cecum ของไก่เนื้อที่ถูก challenge ด้วย S. Typhimurium ที่ 14 และ 21 วันหลัง challenge",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29514269",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Birds on the MA treatment exhibited similar performance to birds on the NC treatment (P > 0.05) and had a lower population of Salmonella in the ceca compared with birds on the PC treatment, at d 14 and 21 post-challenge (P < 0.05)."
+          }
+        }
+      ]
+    },
+    "poultry--nutrition--feed-qc-post-production-management": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--feed-qc-post-production-management--v1",
+          "statement": "การตรวจ mixing uniformity ของโรงงานอาหารสัตว์ใช้ค่า coefficient of variation (CV) ของ marker ที่ผสมลงในอาหาร และค่า CV ที่วัดได้ขึ้นกับทั้งเวลาผสมและวิธี/marker ที่เลือกใช้ โดยการเลือก marker แหล่งเดียวให้การประเมิน CV ที่แม่นยำกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37832185",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These data indicated that mixer CV differed depending on total mix time and methodology used and diets with a reduced mix time may not necessarily influence growth performance and BW uniformity during the starter, grower, and finisher perio"
+          }
+        },
+        {
+          "id": "poultry--nutrition--feed-qc-post-production-management--v2",
+          "statement": "การตรวจการปนเปื้อน Salmonella ในโรงงานอาหารสัตว์เป็นงาน QC ที่จำเป็นจริง จากการสุ่มตัวอย่างสิ่งแวดล้อม 237 ตัวอย่างใน 11 โรงงานของสหรัฐฯ พบเชื้อโดยการเพาะ 66% และทุกโรงงานมีอย่างน้อย 1 จุดที่ผลบวก โดยจำนวนจุดบวกลดลงเมื่อไล่ตามสายการผลิตจากจุดรับวัตถุดิบไปยังผลิตภัณฑ์สำเร็จรูป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30156384",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The total number of environmental samples collected was 237: 66% resulted culture positive and 13.1% were PCR positive. All sampled feed mills had at least one culture positive site and following production flow the number of positive sampl"
+          }
+        }
+      ]
+    },
+    "poultry--nutrition--heat-stress-nutrition-management": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--heat-stress-nutrition-management--v1",
+          "statement": "การเสริม electrolyte ร่วมกับ betaine ไม่ว่าจะผสมในอาหารหรือในน้ำ ช่วยให้ FCR ดีขึ้น เพิ่มการกินน้ำ และเพิ่มการเก็บกัก K⁺ และ Na⁺ ในไก่เนื้อที่เจอ cyclic heat stress (32 ถึง 24°C) ช่วงอายุ 31-40 วัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25558900",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Adding El-Be supplements in feed or water improved feed conversion ratio (FCR), enhanced water consumption and increased K(+) and sodium (Na(+)) retention."
+          }
+        },
+        {
+          "id": "poultry--nutrition--heat-stress-nutrition-management--v2",
+          "statement": "การจัดการด้านอาหาร เช่น การปรับสูตร การให้อาหารช่วงกลางคืน และการให้อาหารเปียก ร่วมกับการแก้ไขสภาพแวดล้อมให้ทันเวลา ช่วยลดผลกระทบของ heat stress ได้ทั้งในลูกไก่และไก่โต",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37841463",
+              "locator": "Abstract, review of mitigation strategies",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nutritional management such as dietary manipulations, nighttime feeding, and wet feeding often, applied with timely and effective correction of environmental conditions have been proven to ameliorate the effect of heat stress in chicks and "
+          }
+        },
+        {
+          "id": "poultry--nutrition--heat-stress-nutrition-management--v3",
+          "statement": "หลักฐานเรื่องการเสริม Vit C ร่วมกับ Vit E ไม่ได้ไปทางเดียวกันทั้งหมด ในการทดลองสุ่มหนึ่งชิ้นที่ให้ vitamin C 257-288 mg/kg ร่วมกับ vitamin E 93-109 mg/kg ในไก่เนื้อที่เจอ constant heat stress 32°C การเสริมไม่ได้ลดผลเสียต่อ performance, carcass หรือ meat quality เลย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26677935",
+              "locator": "Abstract, conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Diet supplementation with vitamins C and E as antioxidants did not mitigate any of these negative effects."
+          }
+        }
+      ]
+    },
+    "poultry--nutrition--broiler-diet-phases-starter-grower-finisher": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--broiler-diet-phases-starter-grower-finisher--v1",
+          "statement": "โปรแกรมให้อาหารไก่เนื้อแบ่งเป็นเฟสตามอายุ และระดับ crude protein ลดลงตามอายุ เช่น โปรแกรม 4 เฟส (prestarter 1-7 วัน, starter 8-21 วัน, grower 22-35 วัน, finisher 36-48 วัน) ใช้ CP 24.5, 23.0, 21.5 และ 20.5% ตามลำดับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22334744",
+              "locator": "Abstract, materials and methods",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "a 4-phase feeding program: prestarter (1-7 d), starter (8-21 d), grower (22-35 d), and finisher (36-48 d). Three experimental diets were formulated for each phase: a control diet with a CP level of 24.5, 23.0, 21.5, and 20.5%, respectively"
+          }
+        },
+        {
+          "id": "poultry--nutrition--broiler-diet-phases-starter-grower-finisher--v2",
+          "statement": "ในไก่เนื้อ Ross 308 อาหาร grower และ finisher มี CP ลดหลั่นกัน (208 และ 198 g/kg) และสามารถลด CP ลงได้อีกราว 2.2-2.3 percentage units โดยไม่กระทบการเจริญเติบโต พร้อมทั้งได้วัสดุรองพื้นที่แห้งกว่าและรอยโรคฝ่าเท้าน้อยลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30995304",
+              "locator": "Abstract, results and conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This study demonstrated that the CP content of grower and finisher diets can be reduced by 2.2-2.3% units without adverse effects on growth performance of broilers"
+          }
+        }
+      ]
+    },
+    "poultry--nutrition--layer-diet-phases-starter-grower-developer-pre-lay-production": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--layer-diet-phases-starter-grower-developer-pre-lay-production--v1",
+          "statement": "หลักการของ Developer diet ที่ใช้ high fiber และ coarse particle เพื่อกระตุ้น GI organ development มีหลักฐานรองรับ คือการเสริม oat hulls 3% ในอาหารไก่สาว (pullet) เพิ่มน้ำหนักสัมพัทธ์ของ gizzard ในทุกช่วงอายุ (0-16 สัปดาห์) โดยไม่กระทบการเจริญเติบโต",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31287890",
+              "locator": "Abstract, results and conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Independent of the initial BW of the pullets, OH inclusion improved gizzard development at all ages without affecting growth performance."
+          }
+        },
+        {
+          "id": "poultry--nutrition--layer-diet-phases-starter-grower-developer-pre-lay-production--v2",
+          "statement": "การเสริม insoluble fiber (sunflower hulls 3%) ในอาหารไก่สาวและไก่เนื้อช่วงแรก เพิ่มน้ำหนัก gizzard และลด gizzard pH ทั้งสองช่วงอายุ และเพิ่มค่า AMEn ของอาหาร โดยไม่ทำให้ประสิทธิภาพการเลี้ยงแย่ลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27578883",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Dietary SFH increased gizzard weight and reduced gizzard pH (P < 0.001) at both ages."
+          }
+        }
+      ]
+    },
+    "poultry--nutrition--egg-quality-production-diet": {
+      "claims": [
+        {
+          "id": "poultry--nutrition--egg-quality-production-diet--v1",
+          "statement": "การเสริม ascorbic acid (Vit C) ที่ระดับ 200 ppm ในไก่ไข่ที่เจอ heat stress ต่อเนื่อง 31.1°C เพิ่มค่า Haugh unit และลดอัตราการตาย แต่ผลต่อคุณภาพไข่โดยรวมถือว่าเล็กน้อย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2367269",
+              "locator": "Abstract, results and conclusion",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Values (in Haugh units) were increased by ascorbic-acid supplementation at the 200 ppm level and by the lower relative humidity."
+          }
+        },
+        {
+          "id": "poultry--nutrition--egg-quality-production-diet--v2",
+          "statement": "สีไข่แดงควบคุมด้วย carotenoid ในอาหาร การเสริมสารสกัดกลีบดาวเรือง (marigold petal extract) พริกหวาน (paprika) หรือผงสาหร่าย ทำให้ค่า Roche Yolk Colour Fan และปริมาณ lutein/zeaxanthin ในไข่แดงเปลี่ยนแปลงอย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35615052",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Regarding the Roche Yolk Color Fan values, only the effect of diet was significant."
+          }
+        },
+        {
+          "id": "poultry--nutrition--egg-quality-production-diet--v3",
+          "statement": "ในไก่ไข่แก่ (73 สัปดาห์) การใช้แหล่งแคลเซียมชนิดหยาบ (coarse eggshell 3-5 mm) เป็นแหล่ง Ca หลัก เพิ่มน้ำหนักไข่เฉลี่ย เพิ่ม egg mass ต่อวัน ลด FCR และเพิ่ม bone mineral density ของกระดูก tibia แต่ในการทดลองนี้ไม่พบความแตกต่างของ Haugh unit และคุณสมบัติเปลือกไข่ระหว่างแหล่ง Ca",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34168210",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "dietary inclusion of coarse ES particles significantly increased average egg weight (P < 0.001) and daily egg mass (P < 0.05), and decreased feed conversion ratio (P < 0.001) as compared with the other treatments"
+          }
+        }
+      ]
     }
   },
   "repro-lect--semen-ai": {
@@ -9068,6 +14135,225 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Overall, pregnancy rate was greater (P < 0.05) in the EIU group (65%) than in the SIU group (45%). ... Complications in the SIU group included anesthetic-induced bradycardia during surgery, significant postsurgery pain, seroma formation ove"
+          }
+        }
+      ]
+    },
+    "repro-lect--semen-ai--collection-methods-aj-tt": {
+      "claims": [
+        {
+          "id": "repro-lect--semen-ai--collection-methods-aj-tt--v1",
+          "statement": "การรีดน้ำเชื้อสุนัขทำได้ด้วย digital manipulation และน้ำเชื้อที่ได้แยกเป็น 3 fractions โดย fraction ที่ 2 เป็นส่วนที่ใช้ประเมิน motility, concentration, viability และ morphology (sperm-rich) ส่วน fraction ที่ 1 และ 3 เป็นสารคัดหลั่งจาก prostate",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37999469",
+              "locator": "Abstract, materials and methods; Vet Sci 10(11):646",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ejaculates were collected once by digital manipulation from 39 male dogs aged between 2 and 4 years and older. The first and third fractions of the ejaculate were centrifuged ... Meanwhile, the second fractions were evaluated for sperm moti"
+          }
+        },
+        {
+          "id": "repro-lect--semen-ai--collection-methods-aj-tt--v2",
+          "statement": "UrCaPI (urethral catheterization after pharmacological induction) ในแมว ใช้ medetomidine 130 µg/kg IM ให้คุณภาพน้ำเชื้อดีกว่าขนาด 50 µg/kg ทั้ง volume, concentration, total sperm number และ progressive motility",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26482317",
+              "locator": "Abstract, experiment 1 and conclusion; Reprod Domest Anim 50(6):999-1002",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In the first experiment, 18 cats were sedated with the recommended dosage of medetomidine (130 μg/kg i.m.) while the other 18 were sedated with a lower dose of the same drug (50 μg/kg i.m.) ... a sedation with 130 μg/kg of medetomidine lead"
+          }
+        },
+        {
+          "id": "repro-lect--semen-ai--collection-methods-aj-tt--v3",
+          "statement": "ในแมว การเก็บน้ำเชื้อด้วย urethral catheterization หลังให้ medetomidine ได้ปริมาตรน้อยกว่าแต่ความเข้มข้นสเปิร์มสูงกว่า electroejaculation และให้น้ำเชื้อคุณภาพดีพอสำหรับ freezing เท่ากัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18082880",
+              "locator": "Abstract, results and conclusion; Theriogenology 69(4):485-490",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "semen collected by CT was characterized by lower volume (10.5+/-5.3 microL, P<0.05), higher sperm concentration (1868.4+/-999.8 x 10(6)/mL, P<0.05) and lower pH (7.0+/-0.4, P<0.05) than that collected by EE ... good quality freezable semen "
+          }
+        }
+      ]
+    },
+    "repro-lect--semen-ai--major-vs-minor-sperm-defects-blom-classification": {
+      "claims": [
+        {
+          "id": "repro-lect--semen-ai--major-vs-minor-sperm-defects-blom-classification--v1",
+          "statement": "Proximal cytoplasmic droplet เป็นความผิดปกติที่กระทบการเจริญพันธุ์จริง โดยสุนัขที่มี proximal droplet 84% ผสมไม่ติดในแม่สุนัข 3 ตัว และสเปิร์มขาดความสามารถในการ capacitate และจับ zona pellucida",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17845602",
+              "locator": "Abstract, case description and conclusion; Reprod Domest Anim 42(5):471-478",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the dog failed to impregnate the three bitches he had mated ... 96% had morphologically abnormal sperm of which 84% had proximal cytoplasmic droplet ... dog sperm with proximal cytoplasmic droplets seem to lack normal capacitating ability i"
+          }
+        },
+        {
+          "id": "repro-lect--semen-ai--major-vs-minor-sperm-defects-blom-classification--v2",
+          "statement": "ในการประเมิน sperm morphology ตามมาตรฐาน จะนับสเปิร์ม 200 ตัวแล้วจัดความผิดปกติเป็น 2 กลุ่ม คือ major defects และ minor defects",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19786333",
+              "locator": "Abstract, methods; Anim Reprod Sci 118(2-4):176-181",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For both methods, 200 sperm were counted in random fields with defects categorized as major (MAD) and minor (MID)."
+          }
+        },
+        {
+          "id": "repro-lect--semen-ai--major-vs-minor-sperm-defects-blom-classification--v3",
+          "statement": "การจัดกลุ่ม sperm defects ที่เรียกกันว่า Blom classification มีต้นทางจากข้อเสนอของ Blom (1973) ที่เสนอระบบจำแนก bull spermiogram แบบใหม่โดยอาศัย ultrastructure ของความผิดปกติที่พบบ่อย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-4768226",
+              "locator": "Title only; Nord Vet Med 25(7):383-391. No abstract is present in the PubMed record",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "[The ultrastructure of some characteristic sperm defects and a proposal for a new classification of the bull spermiogram (author's transl)]"
+          }
+        }
+      ]
+    },
+    "repro-lect--semen-ai--cat-ai-specifics": {
+      "claims": [
+        {
+          "id": "repro-lect--semen-ai--cat-ai-specifics--v1",
+          "statement": "hCG 250 IU เหนี่ยวนำให้แมวเพศเมียตกไข่ได้ 100% ซึ่งสูงกว่า GnRH (gonadorelin 50 µg) ที่ 73.1% และการกระตุ้นช่องคลอด (vaginal stimulation) ที่ 46.2%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41579561",
+              "locator": "Abstract, results; Theriogenology 255:117849",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "78 queens induced to ovulate by vaginal stimulation (VS), GnRH (50 μg gonadorelin), and human chorionic gonadotropin (hCG, 250 IU) ... The proportion of ovulated queens differed (p < 0.05) among treatments (VS; 46.2 %, GnRH; 73.1 %, hCG; 10"
+          }
+        },
+        {
+          "id": "repro-lect--semen-ai--cat-ai-specifics--v2",
+          "statement": "การให้ hCG 3 วันหลังเริ่มแสดงอาการ estrus เหนี่ยวนำการตกไข่ได้ 95% ของแมวที่ได้รับยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17920113",
+              "locator": "Abstract, results; Theriogenology 68(9):1326-1333",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Treatment with 100 IU of hCG 3 days after the onset of estrus induced ovulation in 95% of treated queens."
+          }
+        },
+        {
+          "id": "repro-lect--semen-ai--cat-ai-specifics--v3",
+          "statement": "การผสมเทียมเข้าช่องคลอด (intravaginal AI) ในแมวใช้ได้กับน้ำเชื้อสด โดยได้อัตราการตั้งท้อง 33% แต่ใช้กับน้ำเชื้อแช่แข็งไม่ได้ผลเลย (0%) ขณะที่ transcervical intrauterine insemination ด้วยน้ำเชื้อแช่แข็งได้ 41.7%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17920113",
+              "locator": "Abstract, results and conclusion; Theriogenology 68(9):1326-1333",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "overall 33% (5/15) of the queens became pregnant. For frozen-thawed semen, AI was consistently done 28h after hCG administration; IUI and IVI resulted in pregnancy rates of 41.7% (5/12), whereas no queen (0/12) became pregnant by IVI (P=0.0"
           }
         }
       ]
@@ -9361,6 +14647,152 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Hypoluteoidism, defined as inadequate progesterone production, significantly increases the risk of pregnancy loss and reproductive failure... The experimental group received treatment with exogenous progesterone [medroxyprogesterone acetate"
+          }
+        }
+      ]
+    },
+    "repro-lect--hormonal-applications--hormone-groups-จำให้ได้": {
+      "claims": [
+        {
+          "id": "repro-lect--hormonal-applications--hormone-groups-จำให้ได้--v1",
+          "statement": "กลุ่ม prolactin antagonist ที่ใช้รักษา pseudopregnancy ในสุนัขได้ผล ได้แก่ cabergoline (5 µg/kg/วัน นาน 5-10 วัน) และ bromocriptine (10-100 µg/kg/วัน นาน 10-14 วัน) โดยออกฤทธิ์ยับยั้งการหลั่ง prolactin",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11928922",
+              "locator": "Abstract, treatment section; Reprod Domest Anim 36(6):283-288",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Inhibition of PRL release by ergot derivatives [bromocriptine (10-100 microg/kg per day for 10-14 days], cabergoline (5 microg/kg per day during 5-10 days), metergoline (0.2 mg/kg per day during 8-10 days) has proved to be effective for the"
+          }
+        },
+        {
+          "id": "repro-lect--hormonal-applications--hormone-groups-จำให้ได้--v2",
+          "statement": "Aglepristone คือ progesterone receptor antagonist ที่จำหน่ายในชื่อการค้า Alizine ใช้ขนาด 10 mg/kg SC ติดต่อกัน 2 วัน สำหรับยุติการตั้งท้องในแม่สุนัข",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20477983",
+              "locator": "Abstract, materials and methods; Reprod Domest Anim 46(2):197-204",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "pregnancy was terminated in 10 bitches at mid-gestation with the progesterone receptor antagonist aglepristone (10 mg/kg body weight, sc, Alizine®; Virbac, France) at two subsequent days"
+          }
+        },
+        {
+          "id": "repro-lect--hormonal-applications--hormone-groups-จำให้ได้--v3",
+          "statement": "GnRH agonist ชนิดฝัง (deslorelin implant) กระตุ้นระบบสืบพันธุ์ในช่วงแรก (initial flare) โดยแม่สุนัขที่ฝัง implant แสดงอาการ estrus ครบทุกตัวภายใน 6 วัน และตกไข่ระหว่างวันที่ 12-15",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36670799",
+              "locator": "Abstract, results; Animals 13(2):258",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Six days following treatment, all bitches showed estrus signs. Ovulation took place between days 12 and 15."
+          }
+        }
+      ]
+    },
+    "repro-lect--hormonal-applications--clinical-drug-matching": {
+      "claims": [
+        {
+          "id": "repro-lect--hormonal-applications--clinical-drug-matching--v1",
+          "statement": "Pyometra ที่รักษาด้วยยา ใช้ aglepristone เดี่ยว ๆ หรือ aglepristone ร่วมกับ prostaglandin ก็ได้ ทั้งสองสูตรแก้ไขอาการทางคลินิกและความผิดปกติของ CBC ได้ผล",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33142944",
+              "locator": "Abstract, methods and conclusion; Animals 10(11):2011",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "10 bitches with pyometra were assigned to two groups: Aglepristone Group (n = 5) and Associative Group (aglepristone + prostaglandin; n = 5) ... In conclusion, both medical treatments are effective in reversing clinical and CBC changes of p"
+          }
+        },
+        {
+          "id": "repro-lect--hormonal-applications--clinical-drug-matching--v2",
+          "statement": "การยุติการตั้งท้องด้วย aglepristone 10 mg/kg SC ห่างกัน 24 ชั่วโมง 2 ครั้ง ทำให้ยุติการตั้งท้องได้ 14 จาก 15 ตัว ในแม่สุนัขที่ตั้งท้อง 25-45 วัน โดยเฉลี่ยแท้งภายใน 4.3 วันหลังให้ยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15911178",
+              "locator": "Abstract, methods and results; Anim Reprod Sci 87(3-4):295-299",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fifteen purebred and crossbred, 25-45 days pregnant, were included in this study ... Treated bitches were administered two applications of aglepristone (10 mg/kg SC) 24 h apart for pregnancy termination ... Pregnancy was terminated in 14 tr"
+          }
+        },
+        {
+          "id": "repro-lect--hormonal-applications--clinical-drug-matching--v3",
+          "statement": "Feline fibroadenomatous hyperplasia (FAH/MFH) ตอบสนองต่อ aglepristone ซึ่งเป็น progesterone receptor blocker โดยแมว 21 จาก 22 ตัวหายสนิทและไม่กลับเป็นซ้ำภายใน 1-4 สัปดาห์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12465769",
+              "locator": "Abstract, results; J Vet Intern Med 16(6):710-713",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cats were treated with subcutaneous injections of the progesterone receptor blocker aglépristone on 1 (7 cats, 20 mg/kg) or 2 consecutive days (15 cats, 10 mg/kg/d) once weekly. All but 1 cat responded with a complete and lasting remiss"
           }
         }
       ]
@@ -9669,6 +15101,129 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Surgical complications with OVH were hemorrhage from an ovarian pedicle requiring reoperation (1 dog), dehiscence of the abdominal wall (1), and seroma (1)."
+          }
+        }
+      ]
+    },
+    "repro-lect--surgical-neutering--definitions": {
+      "claims": [
+        {
+          "id": "repro-lect--surgical-neutering--definitions--v1",
+          "statement": "Gonadectomy ในสุนัขเพศเมียครอบคลุมทั้ง ovariectomy (OVE) และ ovariohysterectomy (OVH) โดย OVH ทำยากกว่า ใช้เวลานานกว่า และน่าจะมี morbidity สูงกว่า ส่วนอุบัติการณ์ pyometra และ urinary incontinence ระยะยาวไม่ต่างกัน ทำให้ OVE เป็นวิธีที่แนะนำในสุนัขเพศเมียที่สุขภาพดี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16472293",
+              "locator": "Abstract, results and conclusion; Vet Surg 35(2):136-143",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "OVH is technically more complicated, time consuming, and is probably associated with greater morbidity (larger incision, more intraoperative trauma, increased discomfort) compared with OVE. No significant differences between techniques were"
+          }
+        },
+        {
+          "id": "repro-lect--surgical-neutering--definitions--v2",
+          "statement": "Cystic endometrial hyperplasia-pyometra complex เป็นข้อบ่งชี้เชิงการรักษา (therapeutic indication) ของการผ่าตัดทำหมัน โดย ovariohysterectomy เป็นการรักษาที่เลือกใช้เป็นอันดับแรก ส่วนการรักษาด้วยยาเป็นทางเลือก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33142944",
+              "locator": "Abstract, introduction; Animals 10(11):2011",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cystic endometrial hyperplasia-pyometra complex is a canine endometrial disorder, considered the most common and important among uterine diseases. The treatment of choice is ovariohysterectomy, but medical treatments have become an alternat"
+          }
+        },
+        {
+          "id": "repro-lect--surgical-neutering--definitions--v3",
+          "statement": "การเอามดลูกออกโดยเก็บรังไข่ไว้ (ovary-sparing hysterectomy) เป็นทางเลือกที่พิจารณาได้ในตัวที่มีความเสี่ยงสูงต่อผลข้างเคียงของการทำหมัน แต่ยังไม่มีการประเมินความปลอดภัยในกรณี pyometra",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37270345",
+              "locator": "Abstract; Vet Clin North Am Small Anim Pract 53(5):1223-1254",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ovary-sparing surgical options such as hysterectomy could be considered in individuals with high-risk for detrimental side effects of spaying but has not yet been evaluated for safety in pyometra."
+          }
+        }
+      ]
+    },
+    "repro-lect--surgical-neutering--male-techniques": {
+      "claims": [
+        {
+          "id": "repro-lect--surgical-neutering--male-techniques--v1",
+          "statement": "Pre-scrotal castration เป็นวิธีมาตรฐานสำหรับ orchiectomy ในสุนัข โดยในสุนัขเพศผู้ 91 ตัวที่ผ่าตัดด้วยวิธีนี้ไม่พบภาวะแทรกซ้อนรุนแรงเลย มีเพียง minor complications 6/91 (7%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25849629",
+              "locator": "Abstract, results; N Z Vet J 63(5):272-275",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "There were no recorded perioperative or major post-operative complications in either group. There were 3/51 (6%) minor post-operative complications in the CSC group compared to 6/91 (7%) in the PSC group."
+          }
+        },
+        {
+          "id": "repro-lect--surgical-neutering--male-techniques--v2",
+          "statement": "Cryptorchid ที่อัณฑะค้างอยู่ในช่องท้อง (abdominal cryptorchid) ต้องเข้าถึงทางช่องท้อง โดยการทำ laparoscopic-assisted abdominal cryptorchidectomy สามารถหาและนำอัณฑะออกได้ด้วย morbidity ต่ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37424154",
+              "locator": "Abstract, methods and results; Vet Surg 53(3):460-467",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The abdominal testis was endoscopically located and grasped, the cannula was retracted, the capnoperitoneum was reversed to allow exteriorization of the testis, and the spermatic cord was ligated extracorporeally ... The SP-LAC procedure en"
           }
         }
       ]
@@ -10296,6 +15851,79 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "repro-lect--repro-ultrasound--clinical-pitfall": {
+      "claims": [
+        {
+          "id": "repro-lect--repro-ultrasound--clinical-pitfall--v1",
+          "statement": "มดลูกโตหรือมีของเหลวคั่งจาก imaging อย่างเดียว ยังไม่พอสรุปว่าเป็น pyometra: ในแม่สุนัข 60 ตัวที่วินิจฉัยทางคลินิกว่าเป็น pyometra หรือพบมดลูกโตจาก radiograph/ultrasound ยืนยันด้วย histopathology ว่าเป็น pyometra เพียง 48/60 (80%) อีก 8 ตัวเป็นภาวะมดลูกอื่น (endometrial hyperplasia, adenomyosis, mucometra, hydrometra) และ 4 ตัว (6%) มดลูกไม่มีพยาธิสภาพเลย ส่วน CBC ช่วยเสริมได้ เพราะกลุ่มที่ติดเชื้อ gram-negative มี total WBC สูงกว่าและ left shift ชัดกว่า พร้อม toxic degeneration ของ neutrophil",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9360470",
+              "locator": "Zentralbl Veterinarmed A 1997;44(7):417-426; abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Uteri from 60 bitches with a clinical diagnosis of pyometra, or with an enlarged uterus as revealed radiographically or ultrasonographically, underwent histopathological examination, at which a diagnosis of pyometra was established in 48 of"
+          }
+        },
+        {
+          "id": "repro-lect--repro-ultrasound--clinical-pitfall--v2",
+          "statement": "การเห็น uterine luminal content จาก U/S อย่างเดียวแยก CEH-pyometra ออกจาก CEH ที่ไม่แสดงอาการไม่ได้ งานที่จำแนกแม่สุนัข diestrus 90 ตัวต้องใช้อาการทางคลินิก ผลเลือด (leukocytosis) และ U/S ร่วมกัน จึงมีทั้งกลุ่ม CEH-pyometra (มีอาการ + leukocytosis + CEH + luminal content, n=31) และกลุ่ม asymptomatic ที่มี CEH + uterine content เหมือนกันแต่ไม่ป่วย (n=15)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26810829",
+              "locator": "Theriogenology 2016;85(7):1258-1261 (epub 2015 Dec 20); abstract, group definitions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ninety diestrous bitches were clinically, hematologically, and ultrasonographically classified into four groups: (1) clinical signs, leukocytosis, CEH, and uterine luminal contents (CEH-P, n = 31); (2) asymptomatic bitches with CEH and uter"
+          }
+        },
+        {
+          "id": "repro-lect--repro-ultrasound--clinical-pitfall--v3",
+          "statement": "U/S ระบบสืบพันธุ์เป็นองค์ประกอบสำคัญของการตรวจแม่สุนัข/แมวที่มีปัญหาสืบพันธุ์ ให้ข้อมูลทั้ง normal events (ovulation, pregnancy) และพยาธิสภาพ (เช่น ovarian cyst, metritis) แต่ภาพของ female reproductive tract เปลี่ยนไปตาม phase ของ cycle ตามปกติอยู่แล้ว จึงต้องแปลผลร่วมกับ reproductive timing (ตำแหน่งใน ovarian cycle) เสมอ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19501343",
+              "locator": "Top Companion Anim Med 2009;24(2):55-63; abstract (review article)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ultrasonographic evaluation of the reproductive tract is an important component in the evaluation of the bitch and queen. Information is obtained concerning normal events involving the reproductive system (eg, ovulation, pregnancy) as well "
+          }
+        }
+      ]
     }
   },
   "repro-lect--exotic-repro": {
@@ -10573,6 +16201,371 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "cliapprum--gi-surgery-sawita--pre-op-assessment-priority": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-surgery-sawita--pre-op-assessment-priority--v1",
+          "statement": "Plasma L-lactate ที่วัดก่อนผ่าตัดในแม่โคที่มี acute abdominal emergency สัมพันธ์กับ outcome (median 6.81 mM ในกลุ่มที่ outcome แย่ vs 3.66 mM ในกลุ่มที่รอด, overall survival 66%) แต่ค่าก่อนผ่าตัดค่าเดียวมี discriminating power จำกัด (AUC 0.66) และ persistent hyper-L-lactatemia ในช่วง 12 ชม.แรกหลังผ่าตัดเป็นตัวบ่งชี้ที่เชื่อถือได้มากกว่า (AUC 0.89 ที่ 6 ชม.)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32981725",
+              "locator": "Abstract; retrospective population n=754, prospective n=98",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cows with a negative outcome (median: 6.81 mmol/L) had significantly higher L-LAC than cows with a positive outcome (3.66 mmol/L) of therapy... The present analyses confirmed previous findings in calves and show that persistent hyper-l-lact"
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--pre-op-assessment-priority--v2",
+          "statement": "Swinging/percussion auscultation ร่วมกับ rectal palpation เป็นเครื่องมือวินิจฉัยหลักในการตรวจช่องท้องโคก่อนตัดสินใจผ่าตัด (ในโค caecal dilatation 461 ตัว: percussion auscultation ด้านขวาเป็นบวก 82.6%, วินิจฉัยได้จาก rectal palpation 88.0%, ruminal motility ลดลงหรือหายไป 78.3%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22656369",
+              "locator": "Abstract, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ruminal motility was reduced or absent in 78.3% of cattle. In 82.6% of cases, swinging and/or percussion auscultation were positive on the right side... Caecal dilatation could be diagnosed via rectal palpation in 405 (88.0%) cattle... Swin"
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--pre-op-assessment-priority--v3",
+          "statement": "Flank laparotomy ในท่ายืนภายใต้ local anaesthesia เป็นวิธีมาตรฐานสำหรับข้อบ่งชี้หลักทางศัลยกรรมช่องท้องโค (displaced abomasum, caecal disorders, rumenotomy, exploratory laparotomy) และ proximal paravertebral anaesthesia ให้ analgesia ดีกว่า modified infiltration (inverted L + line block) อย่างมีนัยสำคัญ (p=0.01) โดยใช้ยาชาน้อยกว่า (144 vs 195 ml procaine, p<0.001)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22688737",
+              "locator": "English abstract; 100 cattle, 50 per group",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Indications for laparotomy were displaced abomasum, caecal disorders, rumenotomy and exploratory laparotomy... The PPVA required significantly (p<0.001) less procaine than the MIA (144 vs. 195ml)... PPVA provided significantly (p=0.01) bett"
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-surgery-sawita--diagnostic-ping-sound-map": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-surgery-sawita--diagnostic-ping-sound-map--v1",
+          "statement": "Ping เกิดจาก gas distension ของอวัยวะในช่องท้อง ตรวจด้วย simultaneous auscultation and percussion แต่ตำแหน่ง ping ไม่จำเพาะต่อโรค: ping ด้านซ้ายอาจเกิดจาก rumen collapse ซึ่งถูกวินิจฉัยผิดเป็น LDA ได้ง่าย ทั้งที่ rumen collapse ต้องการแค่ medical therapy ไม่ต้องผ่าตัด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-3677707",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A previously unreported condition--rumen collapse--may also cause a left-side abdominal ping that can easily be misdiagnosed as left displacement of the abomasum... cattle with rumen collapse require only medical therapy, and surgical inter"
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--diagnostic-ping-sound-map--v2",
+          "statement": "ในโคโตเต็มวัย 366 ตัวที่มี right-side ping แหล่งกำเนิดเสียงคือ abomasum 137 ตัว, ส่วนต่าง ๆ ของลำไส้ 157 ตัว, peritoneal gas 2 ตัว และระบุไม่ได้ 70 ตัว โดยการระบุ cecum และ/หรือ ascending colon ทางคลินิกมี sensitivity และ predictive value 87% ทั้งคู่ ที่สำคัญคือ final diagnosis ที่พบมากที่สุดในโคที่มี ping ด้านขวาคือ LDA (116 ตัว) มากกว่า RDA (77) และ abomasal/omasal volvulus (60)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-7083866",
+              "locator": "Abstract; 3-year case-record review, 366 cattle ≥2 years old",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The source of the ping was identified as abomasum in 137 cattle, various segments of the intestinal tract in 157 cattle, and peritoneal gas in 2 cattle... for cecum and/or ascending colon, the sensitivity and predictive value were both 87%."
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--diagnostic-ping-sound-map--v3",
+          "statement": "Positive ballottement และ/หรือ percussion ร่วมกับ auscultation ด้านขวาพบได้บ่อยมากในภาวะอื่นที่ไม่ใช่ abomasum หรือ cecum เช่น torsion of the spiral colon (87.9% ของ 58 ตัว) และ mesenteric torsion (91.7% ของ 61 ตัว) ทำให้ ping ด้านขวาไม่จำเพาะ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38622685",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most common intestinal abnormalities were an empty or almost empty rectum (96.6%), reduced or absent rumen motility (93.2%), positive ballottement and/or percussion and simultaneous auscultation on the right side of the abdomen (87.9%)."
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-surgery-sawita--cecal-dilatation-dislocation-cdd": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-surgery-sawita--cecal-dilatation-dislocation-cdd--v1",
+          "statement": "ในโค 461 ตัวที่เป็น caecal dilatation ตำแหน่งของ cecum ที่พบคือ caudal displacement 291 ตัว, torsion รอบ longitudinal axis 20 ตัว และ retroflexion 94 ตัว โดยวินิจฉัยได้จาก rectal palpation 405 ตัว (88.0%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22656369",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Caecal dilatation could be diagnosed via rectal palpation in 405 (88.0%) cattle. There was caudal displacement of the dilated caecum in 291 patients, torsion around the longitudinal axis in 20 and retroflexion in 94."
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--cecal-dilatation-dislocation-cdd--v2",
+          "statement": "อาการทางคลินิกที่พบคือ general condition/demeanour ผิดปกติ 93.1%, colic 32.1%, ruminal motility ลดหรือหายไป 78.3%, มีอุจจาระน้อยหรือไม่มีใน rectum 82.4% และ percussion auscultation ด้านขวาเป็นบวก 82.6% ส่วนความผิดปกติทาง lab ที่สำคัญที่สุดคือ hypocalcaemia (85.1%)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22656369",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The general condition and demeanor were abnormal in 93.1% of cases, and 32.1% of the patients had colic. Ruminal motility was reduced or absent in 78.3% of cattle... 82.4% had little or no faeces in the rectum... The most important laborato"
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--cecal-dilatation-dislocation-cdd--v3",
+          "statement": "Conservative treatment (IV fluids, neostigmine, calcium borogluconate) ใช้ได้ผลในบางราย (122/461 เริ่มด้วยวิธีนี้ แต่ 42 รายไม่ตอบสนองใน 1-2 วันแล้วต้องผ่าตัด) โดยรวม 403/461 (87.4%) หายจากการรักษาแบบ conservative หรือ surgical แต่ conservative treatment ไม่ได้ผลในรายที่สงสัย caecal torsion หรือ retroflexion และไม่ควรเลื่อนการผ่าตัด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22656369",
+              "locator": "Abstract, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Conservative treatment is not rewarding in cattle considered surgical candidates with suspected caecal torsion or retroflexion and surgery should not be delayed in these patients."
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-surgery-sawita--rumenotomy-overlap-with-vet-prac-rum-aj-ea": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-surgery-sawita--rumenotomy-overlap-with-vet-prac-rum-aj-ea--v1",
+          "statement": "ข้อบ่งชี้ของ rumenotomy จากชุดผู้ป่วยจริง 53 ตัว เรียงตามความถี่คือ traumatic reticuloperitonitis 31 ตัว, bloat 9 ตัว, foreign body 6 ตัว, choke 5 ตัว และอื่น ๆ 2 ตัว โดย TRP เป็นข้อบ่งชี้อันดับหนึ่ง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26331425",
+              "locator": "Abstract, Results; 2 veterinary teaching hospitals, 1999-2011",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Indications for rumenotomy included traumatic reticuloperitonitis (n = 31), bloat (9), foreign body (6), choke (5), and other (2)."
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--rumenotomy-overlap-with-vet-prac-rum-aj-ea--v2",
+          "statement": "Rumen เป็น viscus ที่ปนเปื้อนเชื้อสูง จึงต้องระวังเป็นพิเศษเพื่อป้องกัน peritoneal contamination จาก rumen contents ระหว่างผ่าตัด ซึ่งเป็นเหตุผลของขั้นตอน rumen wall fixation ก่อนเปิดกระเพาะ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27719764",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The rumen is a highly contaminated viscus and special care should be taken to avoid peritoneal contamination from rumen contents."
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--rumenotomy-overlap-with-vet-prac-rum-aj-ea--v3",
+          "statement": "Prognosis หลัง rumenotomy: จาก 38 ตัวที่ติดตามผลระยะยาวได้ มี 13 ตัว (34%) ยังอยู่ในฝูง, 14 ตัว (37%) ถูกคัดออก และ 11 ตัว (29%) ตายหรือถูกการุณยฆาต สรุปว่า prognosis ต่อการรอดชีวิตอยู่ในเกณฑ์ favorable แต่ prognosis ต่อการกลับไปให้ผลผลิตเป็นเพียง fair",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26331425",
+              "locator": "Abstract, Results and Conclusions",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Of those 38 animals, 13 (34%) were still in the herd, 14 (37%) had been culled, and 11 (29%) had died or been euthanized... Bovids undergoing rumen surgery had a favorable prognosis for survival and a fair prognosis for potential return to "
+          }
+        }
+      ]
+    },
+    "cliapprum--gi-surgery-sawita--intussusception": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-surgery-sawita--intussusception--v1",
+          "statement": "จาก 336 รายในโค การจำแนกตำแหน่งคือ small intestinal 281 ราย, colocolic 36 ราย, cecocolic 12 ราย และ ileocolic เพียง 7 ราย โดยลูกโคอายุ <2 เดือนมีความเสี่ยงต่อ small intestinal intussusception สูงกว่าโคที่โตกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9040842",
+              "locator": "Abstract; case-control study across 17 North American veterinary teaching hospitals",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "336 cattle with intussusception were identified, 281 had small intestinal, 7 had ileocolic, 12 had cecocolic, and 36 had colocolic intussusceptions... calves < 2 months old were at greater risk of developing small intestinal intussusception"
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--intussusception--v2",
+          "statement": "การแก้ไขทางศัลยกรรมที่ใช้บ่อยที่สุดคือ right flank laparotomy ในท่ายืน ตามด้วย intestinal resection และ end-to-end anastomosis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9040842",
+              "locator": "Abstract; detailed record analysis of 57 cattle",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Right flank laparotomy with a cow in a standing position, followed by intestinal resection and end-to-end anastomosis was the most common means of surgical correction."
+          }
+        },
+        {
+          "id": "cliapprum--gi-surgery-sawita--intussusception--v3",
+          "statement": "Survival rate ต่ำ: overall survival 20/57 (35%) และ postoperative survival 20/46 (43%) ซึ่งต่ำกว่ารายงานก่อนหน้ามาก โคที่เป็น intussusception มักมี hyponatremia, hypochloremia, hypocalcemia, azotemia และ hyperglycemia เล็กน้อย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9040842",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "these cattle were mildly hyponatremic, hypochloremic, hypocalcemic, azotemic, and hyperglycemic... Overall survival rate (20/57; 35%) and postoperative survival rate (20/46; 43%) for cattle with intussusception were much lower than previous"
+          }
+        }
+      ]
     }
   },
   "cliapprum--gi-vdtt": {
@@ -10733,6 +16726,79 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "cliapprum--gi-vdtt--bloat-tympany": {
+      "claims": [
+        {
+          "id": "cliapprum--gi-vdtt--bloat-tympany--v1",
+          "statement": "Frothy bloat เกิดจาก forage ที่มีโปรตีนสูงร่วมกับการเปลี่ยนแปลงของ microbial population ทำให้เกิด stable foam ที่ขัดขวางการ eructate การควบคุมใช้ forage ความเสี่ยงต่ำ การจัดการแทะเล็ม และ nonionic surfactant แบบให้ต่อเนื่อง เช่น poloxalene",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42309844",
+              "locator": "Abstract, frothy bloat section",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Frothy bloat arises from high-protein forages and microbial shifts causing stable foam that blocks eructation; mitigation includes lower-risk forages, graze management, and continuous nonionic surfactants such as poloxalene."
+          }
+        },
+        {
+          "id": "cliapprum--gi-vdtt--bloat-tympany--v2",
+          "statement": "Legume ที่ก่อ bloat (alfalfa, red clover, white clover) สร้าง foam ในการย่อย in vitro ด้วย rumen microorganisms มากกว่า legume ที่ปลอด bloat (birdsfoot trefoil, sainfoin, cicer milkvetch) สนับสนุนว่าอัตราการแตกสลายและย่อยของพืชโดยแบคทีเรียในกระเพาะเป็นตัวกำหนดสำคัญของ pasture bloat",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-7419778",
+              "locator": "Abstract, Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The amount of foam produced on chewed herbage and homogenized leaves of bloat-causing legumes was greater than on those of bloat-safe legumes. These results are consistent with the rate of disintegration and digestion of legumes by rumen ba"
+          }
+        },
+        {
+          "id": "cliapprum--gi-vdtt--bloat-tympany--v3",
+          "statement": "Ruminal tympany ตรวจพบได้จากการดูและคลำ left sub-lumbar fossa ซึ่งเปลี่ยนจากเว้าเป็นนูน และแก้ไขได้ด้วยการใส่ gastric tube ทางปาก หรือ percutaneous trocharisation ของ rumen โดยแรงดันที่เพิ่มขึ้นจะดัน diaphragm ('splints' the diaphragm) ทำให้ ventilation แย่ลง และหากสูงมากจะลด venous return",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42274360",
+              "locator": "Part III (Monitoring anaesthesia), subsection 'Rumen pressure'",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ruminal tympany is a potentially lethal complication of ruminant anaesthesia. Ruminal gas accumulation, which depends on time, the volume and type of recently ingested feed, progressively 'splints' the diaphragm impairing ventilation... Tym"
+          }
+        }
+      ]
     }
   },
   "cliapprum--hoof-health-fleet": {
@@ -10889,6 +16955,152 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "cliapprum--hoof-health-fleet--interpretation-tree-decision-logic": {
+      "claims": [
+        {
+          "id": "cliapprum--hoof-health-fleet--interpretation-tree-decision-logic--v1",
+          "statement": "Abnormal claw shape สัมพันธ์อย่างชัดเจนกับ sole ulcer ในระดับตัวสัตว์ (Spearman rs = 0.41) จากการสำรวจโคนม 4,899 ตัวใน 101 ฟาร์ม ซึ่งสนับสนุนตรรกะที่ว่าฟาร์มที่ไม่มี Routine Trimming ควรสงสัย overgrowth/claw shape ผิดปกติเป็นปัจจัยของ sole ulcer",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12114012",
+              "locator": "Abstract, Results; cross-sectional study 1996-1998",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Abnormal claw shape was strongly associated with sole ulcer (r(s)=0.41 at cow level)-suggesting the importance of maintaining a correct claw shape for the prevention of hoof-horn lesions."
+          }
+        },
+        {
+          "id": "cliapprum--hoof-health-fleet--interpretation-tree-decision-logic--v2",
+          "statement": "ในแบบจำลอง bioeconomic ของฝูงโคนม preventive trimming ลด lameness prevalence ได้ดีกว่าการทุ่มเวลาไปกับการตรวจจับแต่เนิ่น ๆ และสัดส่วนสาเหตุของ lameness คือ digital dermatitis ราวครึ่งหนึ่งของทุกเคส ตามด้วย interdigital dermatitis 28%, sole ulcer 19%, white line disease 13% และ interdigital phlegmon 4%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36894430",
+              "locator": "Abstract, Results; 880 simulations, DairyHealthSim model",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Interestingly, the results showed that preventive trimming allowed a better reduction in lameness prevalence than spending time on early detection... Digital dermatitis represented half of the total lameness cases, followed by interdigital "
+          }
+        },
+        {
+          "id": "cliapprum--hoof-health-fleet--interpretation-tree-decision-logic--v3",
+          "statement": "การกำหนดจังหวะและความถี่ที่เหมาะสมของ preventive hoof trimming ยังเป็นคำถามวิจัยที่เปิดอยู่ แม้ว่า 82.4% ของฟาร์มโคนมในบริเตนใหญ่จะทำ preventive trimming แล้ว (72.2% ทำที่ช่วง drying off) โดยคำถามที่เกษตรกรถามบ่อยที่สุดคือ timing, frequency และ method ที่เหมาะสม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34997601",
+              "locator": "Abstract, Results and Conclusions; online survey, 338 valid responses",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most frequent questions related to optimal trimming timing, frequency and method... Despite this, farmers still want to know when they should undertake preventive hoof trimming and which technique they should use."
+          }
+        }
+      ]
+    },
+    "cliapprum--hoof-health-fleet--block-application": {
+      "claims": [
+        {
+          "id": "cliapprum--hoof-health-fleet--block-application--v1",
+          "statement": "การรักษา sole ulcer และ white line disease ให้ได้ผลต้องใส่ orthopedic foot block บนกีบข้างที่ปกติ (healthy claw) ร่วมกับ corrective trimming ของรอยโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28442154",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Successful treatment requires an orthopedic foot block to the healthy claw and corrective trimming of the lesion."
+          }
+        },
+        {
+          "id": "cliapprum--hoof-health-fleet--block-application--v2",
+          "statement": "ใน randomized controlled trial 34 เดือนในโคนม multiparous 412 ตัว กลุ่มที่ได้ NSAID อย่างเดียวโดยไม่ได้ therapeutic trim และ orthopedic block มีโอกาสถูกตรวจพบว่าเดินกะเผลกสูงกว่ากลุ่มที่ได้ therapeutic trim + block อย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39947595",
+              "locator": "Abstract, Results and Conclusions; 425 recruited, 412 analysed",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Compared with animals in group 1, animals in group 4 were significantly more likely to be identified as lame throughout the study period... Our results highlight the importance of frequent therapeutic trimming and the application of orthope"
+          }
+        },
+        {
+          "id": "cliapprum--hoof-health-fleet--block-application--v3",
+          "statement": "การคงอยู่ของ block ต่างกันตามชนิดวัสดุ: เทียบกับ plastic shoe โคที่ใส่ wooden block มีโอกาสทำ block หลุดสูงกว่า 4.8 เท่า (95% CI 1.8-12.4) และ foam block สูงกว่า 9.5 เท่า (95% CI 3.6-24.4) ในการศึกษาผู้วิจัยประเมิน block ซ้ำที่วันที่ 14 และ 28 แล้วถอดออกหากไม่ต้องยกกีบต่อ และสรุปว่ายังต้องการข้อมูลเพิ่มเพื่อกำหนดระยะเวลาที่ควรคง block ไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37222341",
+              "locator": "Abstract, Results and Conclusions; 67 cows, randomised to 3 block products",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Compared to PS, cows in the WB group were five times more likely to lose the block (HR = 4.8 (95% CI = 1.8-12.4)), while cows in the FB group were 9.5 times more likely to lose the block (HR = 9.5 (95% CI = 3.6-24.4))... More data are neede"
+          }
+        }
+      ]
     }
   },
   "cliapprum--metabolism-nutrition": {
@@ -11038,6 +17250,79 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "For many production and health variables, the association with BCS is nonlinear, with an optimum calving BCS of 3.0 to 3.25 (5-point scale); lower calving BCS is associated with reduced production and reproduction, whereas calving BCS >/=3."
+          }
+        }
+      ]
+    },
+    "cliapprum--metabolism-nutrition--clinical-dashboard-5-sections": {
+      "claims": [
+        {
+          "id": "cliapprum--metabolism-nutrition--clinical-dashboard-5-sections--v1",
+          "statement": "Dry matter intake ที่แสดงเป็นเปอร์เซ็นต์ของน้ำหนักตัว (DMI%BW) เป็นตัวชี้วัดที่ใช้ทำนายโรคช่วง transition ได้จริง: DMI%BW เฉลี่ยที่ลดลงทุก 0.1 percentage point ใน 3 วันสุดท้ายก่อนคลอด เพิ่ม odds ของ ketosis 8% และ clinical mastitis 10% โดยมี cut-off ที่ ≤1.5%/วัน สำหรับทำนาย ketosis และ ≤1.2%/วัน สำหรับ clinical mastitis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31326169",
+              "locator": "Abstract, Results; 476 cows compiled from 9 experiments",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Each 0.1-percentage point decrease in the average DMI%BW and each 1-Mcal decrease in the average of EB in the last 3 d prepartum increased the odds of having ketosis by 8 and 5%, respectively. Cut-offs for DMI%BW and EB during the last 3 d "
+          }
+        },
+        {
+          "id": "cliapprum--metabolism-nutrition--clinical-dashboard-5-sections--v2",
+          "statement": "การวัดขนาดอนุภาคของ TMR ด้วย Penn State Particle Separator เป็นตัวแปรระดับคอก (pen level) ที่สัมพันธ์กับ NEFA, BHB, haptoglobin, อุบัติการณ์โรค, milk yield และ pregnancy risk หลังคลอด โดยข้อมูลจาก 72 ฟาร์มสนับสนุนการ เพิ่ม สัดส่วนอนุภาคบนตะแกรง 19 mm ในสูตรอาหารช่วงก่อนคลอด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36543646",
+              "locator": "Abstract, Results; prospective cohort, 72 farms",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For the prepartum period, our results support increasing the proportion of particles on the 19-mm sieve of the Penn State Particle Separator, optimizing bunk space, and not overfeeding metabolizable energy (ME), to decrease the prevalence o"
+          }
+        },
+        {
+          "id": "cliapprum--metabolism-nutrition--clinical-dashboard-5-sections--v3",
+          "statement": "Physically effective NDF (peNDF) เป็นตัวเชื่อมระหว่างองค์ประกอบ particle size กับ rumen pH: ความต้องการ peNDF>1.18 ในโคนมผลผลิตสูงที่กิน TMR แบบ ad libitum ประมาณ 19% ของ DM ในสูตร (หรือ 4.1 kg/วัน หรือ 0.6 kg/100 kg น้ำหนักตัว) เพื่อรักษา ruminal pH ราว 6.0 และวิธี peNDF>1.18 ทำนาย pH ได้ดีกว่าวิธีที่ใช้ตะแกรง Penn State 19 และ 8 mm (R²=0.67 vs 0.27)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16428635",
+              "locator": "Abstract, Results; quantitative analysis of Latin-square studies",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the requirements for physically effective fiber in high-yielding dairy cows fed TMR in an ad libitum intake were estimated to be about 19% of ration DM or 4.1 kg/d or 0.6 kg/100 kg of body weight to maintain a ruminal pH of about 6.0. When "
           }
         }
       ]
@@ -11220,6 +17505,129 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "cliapprum--ruminant-anesthesia--general-considerations": {
+      "claims": [
+        {
+          "id": "cliapprum--ruminant-anesthesia--general-considerations--v1",
+          "statement": "Local, regional และ spinal anaesthesia ปลอดภัย ได้ผล และมักเป็นทางเลือกที่พึงประสงค์มากกว่า general anaesthesia ในสัตว์เคี้ยวเอื้อง โดยหัตถการจำนวนมากทำได้อย่างปลอดภัยและมีมนุษยธรรมด้วยการผสม physical restraint, mild sedation และ local/regional/spinal block",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27719762",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Local, regional, and spinal anesthesias are safe, effective, often more desirable procedures for ruminants than general anesthesia. Many procedures can be performed safely and humanely in ruminants using a combination of physical restraint,"
+          }
+        },
+        {
+          "id": "cliapprum--ruminant-anesthesia--general-considerations--v2",
+          "statement": "ความเสี่ยงจากการวางยาสลบในสัตว์เคี้ยวเอื้องสูงกว่าสัตว์กระเพาะเดี่ยว แต่สามารถวางยาสลบได้ค่อนข้างปลอดภัยแม้ในภาคสนาม หากเข้าใจความเสี่ยงและมีการวางแผนกับมาตรการป้องกันที่เพียงพอ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27614776",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although anesthesia-associated risks are greater in ruminants than monogastrics, ruminants can be anesthetized relatively safely in a field setting if the risks are understood, and adequate planning and precautions are in place."
+          }
+        },
+        {
+          "id": "cliapprum--ruminant-anesthesia--general-considerations--v3",
+          "statement": "ในสัตว์ใหญ่ (โคและสุกรโตเต็มวัย) ตำแหน่งและแรงตึงของขา ข้อ และกล้ามเนื้อต้องได้รับการตรวจสอบเป็นระยะ โดยในหัตถการที่ยาวนานอาจต้องเปลี่ยนท่าขาเป็นระยะเพื่อเลี่ยง ischaemic muscle damage และ/หรือ postoperative myalgia และต้องให้ความสนใจแบบเดียวกันกับเส้นประสาทที่เสี่ยงต่อ positional trauma",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42274360",
+              "locator": "Part III (Monitoring anaesthesia), subsection 'Limb position and muscle compression'",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In large animals (cattle and adult pigs) the position of, and tension in limbs, joints and muscles require periodic attention, particularly with respect to the surface upon which they lie. In prolonged procedures periodic limb repositioning"
+          }
+        }
+      ]
+    },
+    "cliapprum--ruminant-anesthesia--patient-preparation": {
+      "claims": [
+        {
+          "id": "cliapprum--ruminant-anesthesia--patient-preparation--v1",
+          "statement": "การอดอาหารและน้ำก่อนผ่าตัดต้องพิจารณาอย่างเข้มงวดกว่าในสัตว์เคี้ยวเอื้องเมื่อเทียบกับสุกร เพราะ functional rumen ก่อปัญหา ptyalism, tympany และ regurgitation-aspiration ซึ่งแทบไม่พบในสัตว์กระเพาะเดี่ยว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42274360",
+              "locator": "Part II (General principles of anaesthesia), subsection 'Physiology' under species characteristics",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The functional rumen which develops in growing calves, lambs and kids creates problems, e.g., ptyalism, tympany, regurgitation-aspiration, that are seldom encountered in monogastric species. Preoperative food and water deprivation requires "
+          }
+        },
+        {
+          "id": "cliapprum--ruminant-anesthesia--patient-preparation--v2",
+          "statement": "การสะสมของแก๊สในกระเพาะรูเมนขึ้นกับเวลา ปริมาณ และชนิดของอาหารที่เพิ่งกินเข้าไป และจะค่อย ๆ ดัน diaphragm ทำให้ ventilation แย่ลง หากความดันสูงจะลด venous return กลับสู่หัวใจ และหากไม่ได้รับการแก้ไขจะทำให้สัตว์เจ็บปวดในช่วงฟื้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42274360",
+              "locator": "Part III (Monitoring anaesthesia), subsection 'Rumen pressure'",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ruminal tympany is a potentially lethal complication of ruminant anaesthesia. Ruminal gas accumulation, which depends on time, the volume and type of recently ingested feed, progressively 'splints' the diaphragm impairing ventilation. High "
+          }
+        }
+      ]
     }
   },
   "exotic--bird-infect": {
@@ -11384,6 +17792,202 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "exotic--bird-infect--viral-diseases-top-5-ที่ออกข้อสอบบ่อย": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--viral-diseases-top-5-ที่ออกข้อสอบบ่อย--v1",
+          "statement": "PBFD เกิดจาก beak and feather disease virus ซึ่งอยู่ในวงศ์ Circoviridae และเป็น infection ที่สำคัญที่สุดในนกตระกูล psittacine ทั่วโลก ส่วน Pacheco's disease เกิดจาก psittacid herpesvirus type 1 เป็นโรคเฉียบพลันที่ทำให้ตายโดยไม่มี prodrome นำมาก่อน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20424393",
+              "locator": "Abstract; J Vet Med Sci 72(9):1099-1106",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Psittacine beak and feather disease (PBFD) is characterized by symmetric feather dystrophy and loss and development of beak deformities. PBFD is caused by beak and feather virus, which belongs to the Circoviridae, and is the most important "
+          }
+        },
+        {
+          "id": "exotic--bird-infect--viral-diseases-top-5-ที่ออกข้อสอบบ่อย--v2",
+          "statement": "Avian pox lesion มี eosinophilic intracytoplasmic inclusion bodies ที่เรียกว่า Bollinger bodies ใน hyperplastic epidermal epithelium ตามที่ตารางระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32378644",
+              "locator": "Abstract; J Vet Med Sci 82(6):817-822",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Histopathologically, these nodules consisted of marked epidermal hyperplasia with ballooning degeneration of spinous cells and eosinophilic intracytoplasmic inclusions (Bollinger bodies)."
+          }
+        },
+        {
+          "id": "exotic--bird-infect--viral-diseases-top-5-ที่ออกข้อสอบบ่อย--v3",
+          "statement": "PBFD ไม่ได้ให้เฉพาะ intracytoplasmic inclusion อย่างเดียว รายงานที่ยืนยันด้วย PCR, viral sequencing และ in situ hybridization พบ botryoid inclusion bodies ทั้งแบบ intracytoplasmic และ intranuclear ใน cloacal bursa ดังนั้นการใช้ 'intracytoplasmic เท่านั้น' แยก PBFD ออกจาก Polyoma จึงเป็นการสรุปที่ง่ายเกินไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40237412",
+              "locator": "Abstract; J Vet Diagn Invest 37(4):666-673",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Microscopic lesions in the bird whose tissues were examined histologically included bronchopneumonia and severe lymphoid depletion with intracytoplasmic and intranuclear botryoid inclusion bodies in the cloacal bursa."
+          }
+        }
+      ]
+    },
+    "exotic--bird-infect--fungal-candidiasis-thrush": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--fungal-candidiasis-thrush--v1",
+          "statement": "Candidiasis พบบ่อยที่ oropharynx, esophagus และ crop ของนกวัยอ่อนที่ระบบภูมิคุ้มกันยังไม่สมบูรณ์ และในนกโตที่ได้รับ antibiotic ต่อเนื่องเป็นเวลานาน ตรงกับ predisposing factors ที่ note ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21657184",
+              "locator": "Abstract, opening sentence; J Avian Med Surg 25(1):23-31",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Candidiasis frequently affects the oropharynx, esophagus, and crop of juvenile birds with immature immune systems and adult birds that have received long-term antibiotic treatment."
+          }
+        },
+        {
+          "id": "exotic--bird-infect--fungal-candidiasis-thrush--v2",
+          "statement": "Candida spp. แยกได้จาก oral cavity, crop และ cloaca ของนก cockatiel โดย C. albicans เป็นชนิดที่พบมากที่สุด แต่ในการทดสอบ broth microdilution พบ C. albicans ดื้อต่อ itraconazole ถึง 14/39 isolates (35.89%) จึงไม่ควรถือว่า itraconazole ได้ผลเสมอไปโดยไม่ทำ susceptibility testing",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20493645",
+              "locator": "Abstract; Vet Microbiol 145(3-4):324-328",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sixty cockatiels were assessed and samples were collected from oral cavity, crop and cloaca ... For amphotericin B, itraconazole and fluconazole, MICs were 0.25-1 microg/mL, 0.03125 to >=16 microg/mL and 0.5 to >=64 microg/mL, respectively,"
+          }
+        }
+      ]
+    },
+    "exotic--bird-infect--vaccine-availability-summary": {
+      "claims": [
+        {
+          "id": "exotic--bird-infect--vaccine-availability-summary--v1",
+          "statement": "ยังไม่มีวัคซีนหรือวิธีรักษา BFDV (PBFD) ที่ใช้ได้จริงจนถึงปัจจุบัน ตรงกับที่ note ระบุว่า PBFD ไม่มี commercial vaccine",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40560236",
+              "locator": "Abstract, background; Arch Virol 170(7):163",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "To date, there is no vaccine or cure available for BFDV."
+          }
+        },
+        {
+          "id": "exotic--bird-infect--vaccine-availability-summary--v2",
+          "statement": "มีวัคซีน avian polyomavirus ที่ขึ้นทะเบียนกับ USDA จริง และพิสูจน์แล้วว่าปลอดภัย กระตุ้นภูมิ และป้องกันโรคได้ในนก psittacine หลายสายพันธุ์ แต่วัคซีนที่ศึกษาและขึ้นทะเบียนเป็นชนิด inactivated ไม่ใช่ recombinant ตามที่ note เขียนไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9492926",
+              "locator": "Abstract; Am J Vet Res 59(2):143-148",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Avian polyomavirus vaccine is safe, immunogenic, and efficacious for use in multiple species of mature and immature psittacines. ... The USDA-registered inactivated avian polyomavirus vaccine can safely be used to protect vaccinates from in"
+          }
+        },
+        {
+          "id": "exotic--bird-infect--vaccine-availability-summary--v3",
+          "statement": "Avian pox ในสัตว์ปีกเชิงพาณิชย์ควบคุมด้วย live attenuated vaccine เป็นหลักตามที่ note ระบุ แต่มีรายงาน outbreak เกิดขึ้นในฝูงที่ได้รับวัคซีนแล้วหลายครั้ง รวมถึง clade E avipoxvirus ที่ทำให้อัตราตายสูงถึง 8.48% ในฝูงพ่อแม่พันธุ์ที่ฉีดวัคซีน fowlpox แล้ว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35458503",
+              "locator": "Abstract; Viruses 14(4):773",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In poultry farming, avian pox is usually controlled by live attenuated vaccines. However, there have been many reports of outbreaks, even in flocks of vaccinated birds."
+          }
+        }
+      ]
     }
   },
   "exotic--bird-noninfect": {
@@ -11514,6 +18118,206 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Birds are highly sensitive to inhaled toxicants owing to the high efficiency of their respiratory systems, and PTFE toxicosis is known to cause pulmonary edema and hemorrhage in pet birds after exposure to overheated nonstick cookware."
+          }
+        }
+      ]
+    },
+    "exotic--bird-noninfect--handling-blood-collection": {
+      "claims": [
+        {
+          "id": "exotic--bird-noninfect--handling-blood-collection--v1",
+          "statement": "ในนก การเก็บตัวอย่างเลือดมักทำจาก jugular vein, medial metatarsal vein และ basilic vein ตรงกับสามตำแหน่งที่ note ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26771320",
+              "locator": "Abstract, opening sentence; J Avian Med Surg 29(4):303-312",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In birds, blood samples are often collected from the jugular, medial metatarsal, and basilic vein."
+          }
+        },
+        {
+          "id": "exotic--bird-noninfect--handling-blood-collection--v2",
+          "statement": "การจับบังคับและเจาะเลือดทำให้นกเกิด lactic acidemia ทุกตัวที่ศึกษา และนกขนาดเล็กกว่า 30 กรัมไวต่อ respiratory acidosis เป็นพิเศษ จึงต้องระวังไม่ให้การจับไปรบกวนการหายใจ ซึ่งสนับสนุนคำเตือนเรื่องห้ามกดบริเวณ keel",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22448512",
+              "locator": "Abstract; J Zoo Wildl Med 43(1):77-84",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "All birds captured by mist net and handled for banding and venipuncture experienced some degree of lactic acidemia ... House sparrows were more susceptible to respiratory acidosis, warranting particular care in handling birds <30 g to minim"
+          }
+        }
+      ]
+    },
+    "exotic--bird-noninfect--anesthesia": {
+      "claims": [
+        {
+          "id": "exotic--bird-noninfect--anesthesia--v1",
+          "statement": "Isoflurane ทาง face mask ให้ induction และ recovery เร็วกว่า intramuscular alfaxalone อย่างมีนัยสำคัญใน budgerigar โดยเวลาถึง initial effects, recumbency และ complete recovery ของกลุ่ม alfaxalone ยาวกว่ากลุ่ม isoflurane อย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31149875",
+              "locator": "Abstract, results; J Am Vet Med Assoc 254(12):1427-1435",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Times to initial effects, recumbency, and complete recovery were significantly longer, yet clinically practical, in group A than in group I."
+          }
+        },
+        {
+          "id": "exotic--bird-noninfect--anesthesia--v2",
+          "statement": "ในการเปรียบเทียบ sevoflurane กับ isoflurane ในนก psittacine 10 ตัว เวลา recovery (extubation, sternal, standing) ไม่ต่างกันอย่างมีนัยสำคัญ และนกที่ฟื้นจาก sevoflurane มี ataxia น้อยกว่า ดังนั้น isoflurane จึงเป็นตัวเลือกที่ใช้ได้ดี แต่ไม่ใช่ตัวเลือกเดียวที่เหมาะสม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10484153",
+              "locator": "Abstract; J Zoo Wildl Med 30(2):308-309",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although recovery times (time to extubation, sternal, and standing) were not significantly different, birds recovering from sevoflurane were less ataxic. Sevoflurane is a suitable inhalant agent for use in these psittacines and merits furth"
+          }
+        }
+      ]
+    },
+    "exotic--bird-noninfect--crop-stasis-delayed-crop-emptying": {
+      "claims": [
+        {
+          "id": "exotic--bird-noninfect--crop-stasis-delayed-crop-emptying--v1",
+          "statement": "เวลาที่ crop ว่างสมบูรณ์วัดได้จริงด้วย contrast fluoroscopy โดยใน red-tailed hawk ที่ไม่ถูกครอบหัวใช้เวลาเฉลี่ย 83 ± 49 นาที (พิสัย 30-180 นาที) และการครอบหัวแบบ falconry hood ทำให้ crop emptying ช้าลงอย่างมีนัยสำคัญเป็น 133 ± 48 นาที แสดงว่าปัจจัยด้านความเครียดและการจับบังคับทำให้ crop เคลื่อนตัวช้าลงได้จริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29035663",
+              "locator": "Abstract, results and conclusions; J Am Vet Med Assoc 251(9):1064-1069",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In nonhooded birds, overall gastrointestinal transit time ranged from 30 to 180 minutes (mean +/- SD, 100 +/- 52 min). Time to complete crop emptying ranged from 30 to 180 minutes (83 +/- 49 min). ... Hooding of red-tailed hawks resulted in"
+          }
+        }
+      ]
+    },
+    "exotic--bird-noninfect--feather-plucking-self-mutilation": {
+      "claims": [
+        {
+          "id": "exotic--bird-noninfect--feather-plucking-self-mutilation--v1",
+          "statement": "Feather damaging behaviour สัมพันธ์กับความเครียดเรื้อรังอย่างวัดได้ โดย hand-reared African grey parrot ที่มี FDB ขับ corticosterone metabolites ในมูลเฉลี่ย 1,744 ng/g สูงกว่ากลุ่ม parent-reared (587 ng/g) และกลุ่ม hand-reared ที่ปกติ (494 ng/g) อย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27672512",
+              "locator": "Abstract, results; PeerJ 4:e2462",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The mean CM value was 587 ng/g in the PR parrots, 494 ng/g in the H-HR parrots and 1,744 ng/g in the FDB-HR parrots, irrespective of the season. The excretion of CM in FDB-HR was significantly higher than in PR or H-HR parrots."
+          }
+        },
+        {
+          "id": "exotic--bird-noninfect--feather-plucking-self-mutilation--v2",
+          "statement": "ปัจจัยด้านอาหารและการเลี้ยงดูเป็นสาเหตุร่วมที่พิสูจน์ได้ในระดับ species โดยการวิเคราะห์ phylogenetic comparative ในนก 50 species / 1,378 ตัว พบว่า species ที่ในธรรมชาติกินอาหารซึ่งต้องใช้การจัดการด้วยปากมาก มีแนวโน้มเกิด feather-damaging behaviour มากที่สุด ชี้ว่าองค์ประกอบและรูปแบบการให้อาหารในกรงเลี้ยงไม่เหมาะสม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34610768",
+              "locator": "Abstract; Proc Biol Sci 288(1960):20211952",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Species naturally reliant on diets requiring substantial handling were most prone to feather-damaging behaviours (e.g. self-plucking), indicating inadequacies in the composition or presentation of feed (often highly processed)."
+          }
+        },
+        {
+          "id": "exotic--bird-noninfect--feather-plucking-self-mutilation--v3",
+          "statement": "การทำ medical workup ก่อนสรุปว่าเป็นปัญหาพฤติกรรมมีเหตุผลรองรับ เพราะ African grey parrot ที่มี feather damaging behaviour (n=24) มีผลตรวจต่างจากนกขนปกติอย่างมีนัยสำคัญหลายรายการ ได้แก่ lymphocyte count ต่ำกว่า, heterophil:lymphocyte ratio สูงกว่าหลังกระตุ้นด้วย TSH, การเพิ่มขึ้นของ T4 หลัง TSH น้อยกว่า, alpha-1 และ alpha-2 globulin สูงกว่า, gamma globulin ต่ำกว่า และ Aspergillus antibody titer สูงกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18351004",
+              "locator": "Abstract; J Avian Med Surg 21(4):259-264",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Birds with FDB had significantly lower lymphocyte counts and higher heterophil: lymphocyte ratios after thyroid-stimulating hormone injection than did normal birds. ... Alpha-1 and alpha-2 globulin fractions were significantly higher and ga"
           }
         }
       ]
@@ -11666,6 +18470,133 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Globally, capture myopathy-a malignant outcome of stress during capture operations-accounts for the highest number of deaths associated with wildlife translocation."
+          }
+        }
+      ]
+    },
+    "exotic--field-vet--what-is-conservation-medicine": {
+      "claims": [
+        {
+          "id": "exotic--field-vet--what-is-conservation-medicine--v1",
+          "statement": "Conservation medicine เป็นสาขาที่กำลังก่อตัวขึ้น ซึ่งเชื่อมโยงสุขภาพคนและสัตว์เข้ากับ ecosystem health และการเปลี่ยนแปลงสิ่งแวดล้อมระดับโลก โดยแรงกดดันหลักที่ทำงานร่วมกันคือ climate change, biological impoverishment (การสูญเสีย biodiversity และ ecological processes), emerging infectious diseases และมลพิษระดับโลก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20128469",
+              "locator": "Abstract; Rev Sci Tech 28(2):597-603",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Conservation medicine is an emerging discipline that links human and animal health with ecosystem health and global environmental change. The biosphere is threatened by several pervasive and synergistic phenomena that are the result of incr"
+          }
+        },
+        {
+          "id": "exotic--field-vet--what-is-conservation-medicine--v2",
+          "statement": "การอนุรักษ์สมัยใหม่ต้องอาศัยการทำงานแบบ interdisciplinary และสัตวแพทย์ถูกยอมรับมากขึ้นว่าเป็นส่วนหนึ่งของทีมที่จำเป็น โดยมีบทบาทหลักสามด้านคือ wildlife capture และ immobilization, การจัดการปัญหาสุขภาพสัตว์ป่า และการจัดการปัญหาโรคสัตว์ป่า รวมถึงการใช้สัตว์ป่าเป็น sentinel เพื่อตรวจจับโรคอุบัติใหม่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24331552",
+              "locator": "Abstract; Top Companion Anim Med 28(4):131-134",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We see at least 3 major areas in which veterinarians can immediately offer great assistance to conservation efforts: (1) participation in wildlife capture and immobilization, (2) leadership or assistance in addressing wildlife health issues"
+          }
+        }
+      ]
+    },
+    "exotic--field-vet--4-interfaces-wegner-et-al-2022": {
+      "claims": [
+        {
+          "id": "exotic--field-vet--4-interfaces-wegner-et-al-2022--v1",
+          "statement": "Wegner และคณะ (2022) สรุปว่าแบบจำลองเชิงทฤษฎีของการป้องกัน spillover ชี้ว่า การใช้ biosecurity และ physical distancing ที่ wildlife-human interface เป็นกลยุทธ์ที่ได้ผลมากกว่าการเข้าจัดการที่ตัวสัตว์ป่าและสัตว์เลี้ยงโดยตรงด้วยการรักษาทางสัตวแพทย์หรือการกำจัด (culling)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35465645",
+              "locator": "Full text, section on breaking transmission pathways; EClinicalMedicine 47:101386",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Overall, theoretical models of spillover prevention indicate that implementing biosecurity and physical distancing at the wildlife-human interface is a more effective strategy than targeting wild and domestic animals through veterinary trea"
+          }
+        }
+      ]
+    },
+    "exotic--field-vet--surveillance-research": {
+      "claims": [
+        {
+          "id": "exotic--field-vet--surveillance-research--v1",
+          "statement": "เป้าหมายของ wildlife health surveillance เป็น action-oriented และใช้สนับสนุนการตัดสินใจ ต่างจากงานวิจัย โดย national wildlife health programme มีเป้าหมายเพื่อระบุ สื่อสาร และจัดการความเสี่ยงต่อหรือจากประชากรสัตว์ป่าของประเทศ และสร้างองค์ความรู้ที่จำเป็นเพื่อเพิ่มประสิทธิผลของนโยบายและระบบด้านสัตว์ป่า ซึ่งเอื้อต่อ early warning, preparedness และมาตรการป้องกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30964459",
+              "locator": "Abstract; Rev Sci Tech 37(3):925-936",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A national wildlife health programme should aim to identify, effectively communicate and manage the risk to or from a country's wildlife populations. It should generate the appropriate knowledge required to improve the effectiveness of wild"
+          }
+        },
+        {
+          "id": "exotic--field-vet--surveillance-research--v2",
+          "statement": "การเฝ้าระวังแบบ passive ที่อาศัยซากสัตว์ป่าใช้เป็นระบบเตือนภัยล่วงหน้าได้จริง โดยเครือข่ายรายงานการตายของสัตว์ป่าครอบคลุมพื้นที่ 50,000 ตารางกิโลเมตรทางตอนเหนือของสาธารณรัฐคองโก ทำให้ลดเวลาการวินิจฉัย Ebola เหลือ 3 วัน และตรวจยืนยันว่าไม่พบเชื้อในซาก 58 ตัวอย่าง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31401969",
+              "locator": "Abstract; Philos Trans R Soc Lond B Biol Sci 374(1782):20180339",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We established in-country diagnostics for EBOV testing, reducing diagnostic turnaround time to 3 days and demonstrated the absence of EBOV in 58 carcasses. ... This effort continues to function as an untested early warning system in RoC, wh"
           }
         }
       ]
@@ -11825,6 +18756,252 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "exotic--zoo-vet--in-situ-vs-ex-situ-conservation": {
+      "claims": [
+        {
+          "id": "exotic--zoo-vet--in-situ-vs-ex-situ-conservation--v1",
+          "statement": "การฟื้นฟูประชากรสัตว์ใกล้สูญพันธุ์อาจต้องอาศัยการตั้ง ex situ population ขึ้นมาเพื่อป้อนสัตว์ให้โครงการ augmentation หรือ reintroduction ในธรรมชาติ และเมื่อประชากรที่เลี้ยงในความดูแลของมนุษย์มีขนาดเล็ก ก็จะจำกัดจำนวนสัตว์ที่ส่งกลับไปสนับสนุนงาน in situ conservation ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40719253",
+              "locator": "Abstract, background and objectives; Zoo Biol 2025;44(6):572-588",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Species recovery efforts may require establishment of ex situ populations to supply augmentation or reintroduction projects. ... Small population size in human care has restricted the supply of animals for in situ conservation, thus, the de"
+          }
+        },
+        {
+          "id": "exotic--zoo-vet--in-situ-vs-ex-situ-conservation--v2",
+          "statement": "ประชากร ex situ ในสวนสัตว์อาจมีความหลากหลายทางพันธุกรรมต่ำกว่าประชากรในธรรมชาติ จึงต้องอาศัยความร่วมมือระหว่างโครงการ ex situ และ in situ อย่างต่อเนื่อง เพราะการเติมสัตว์ระหว่างกันน่าจะจำเป็นต่อความอยู่รอดระยะยาวของทั้งสองฝั่ง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40404672",
+              "locator": "Abstract, results and conclusion; Sci Rep 2025;15(1):17835",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We found low diversity in situ and lower diversity ex situ, with positive inbreeding coefficients indicating assortative mating in both wild and zoo populations. ... The patterns we uncover support continued collaboration of ex situ and in "
+          }
+        }
+      ]
+    },
+    "exotic--zoo-vet--zoo-vet-roles-4-บทบาท": {
+      "claims": [
+        {
+          "id": "exotic--zoo-vet--zoo-vet-roles-4-บทบาท--v1",
+          "statement": "บทบาท practitioner/herd health ของสัตวแพทย์สวนสัตว์คือการป้องกันไม่ให้โรคเข้าสู่ collection โดยเครื่องมือสำคัญได้แก่ preshipment examination, quarantine และ necropsy protocol ที่เข้มงวด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29655471",
+              "locator": "Abstract (review); Vet Clin North Am Exot Anim Pract 2018;21(2):297-309",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In addition to the classic examples of group treatment involving chemotherapeutics, zoo clinicians also practice herd health by preventing disease from entering the collection. Thorough disease screening via preshipment examinations, quaran"
+          }
+        },
+        {
+          "id": "exotic--zoo-vet--zoo-vet-roles-4-บทบาท--v2",
+          "statement": "Genome Resource Bank (GRB) เก็บ spermatozoa แช่แข็ง embryo ของสัตว์เลี้ยงลูกด้วยนม spermatozoa ของสัตว์สะเทินน้ำสะเทินบก และ cultured somatic cells ไว้ใช้ในโครงการ conservation breeding เพื่อลดผลเสียของ inbreeding ต่อ fitness และการอยู่รอดของประชากร แต่ความแตกต่างทางชีววิทยาระหว่างชนิดทำให้เทคนิคมาตรฐานอย่าง artificial insemination และ embryo transfer ยังมีข้อจำกัด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35366296",
+              "locator": "Abstract (review); Cryo Letters 2021;42(6):309-320",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nowadays, live mammalian embryos, amphibian spermatozoa and cultured somatic cells can also be stored for future use in conservation breeding programmes, where the overarching aim is to mitigate the deleterious impacts of inbreeding on the "
+          }
+        },
+        {
+          "id": "exotic--zoo-vet--zoo-vet-roles-4-บทบาท--v3",
+          "statement": "การวัด fecal sex steroids แบบ non-invasive ใช้ติดตามวงรอบสืบพันธุ์ของสัตว์ในสวนสัตว์ได้จริง เช่นในนกอินทรีฮาร์ปี fecal estrogens ขึ้นสูงช่วง 31 ถึง 18 วันก่อนวางไข่ ส่วน fecal progestagens ขึ้นช่วง 20 วันก่อนถึง 1 วันหลังวางไข่ ซึ่งใช้เป็นข้อมูลอ้างอิงสำหรับพัฒนา breeding program ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33464632",
+              "locator": "Abstract, results; Zoo Biol 2020;39(5):315-324",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Assessment of six egg-lay cycles from three females demonstrated that fecal estrogens peaked predominantly between 31 and 18 days before oviposition (-31 to -18 days) ... In contrast, fecal progestagens raised mostly between -20 and +1 day,"
+          }
+        }
+      ]
+    },
+    "exotic--zoo-vet--quarantine-protocol": {
+      "claims": [
+        {
+          "id": "exotic--zoo-vet--quarantine-protocol--v1",
+          "statement": "มาตรฐาน AZA ฉบับปัจจุบันไม่ได้บังคับ quarantine แบบอิงเวลาเป็นทางเลือกเดียว แต่ระบุว่าให้ใช้ quarantine หรือ risk assessment/mitigation หรือทั้งสองอย่างร่วมกัน เพื่อลดความเสี่ยงการนำโรคเข้าสถาบัน โดยจะใช้ quarantine แบบ time-based ก็ต่อเมื่อไม่สามารถประเมินและลดความเสี่ยงก่อนการเคลื่อนย้ายได้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-association-of-zoos-aq-2026",
+              "locator": "Standard 2.7 Quarantine, §2.7.1.0 including its Explanation",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "2.7.1.0. In order to reduce the risk of disease introduction associated with the transfer of animals into an institution, practices of quarantine or risk assessment/mitigation, or a combination of the two should be utilized. Explanation: Wh"
+          }
+        },
+        {
+          "id": "exotic--zoo-vet--quarantine-protocol--v2",
+          "statement": "ข้อมูลย้อนหลัง 5 ปีของ San Diego Zoo พบว่าไม่มีสัตว์เลี้ยงลูกด้วยนมหรือสัตว์เลื้อยคลาน/สะเทินน้ำสะเทินบกตัวใดไม่ผ่านการกักโรคด้วยเหตุโรคติดต่อที่เฝ้าระวัง ส่วนนกไม่ผ่านประมาณ 2.5% ซึ่งทั้ง 14 ตัวมาจากแหล่งที่ไม่ได้รับ accreditation เท่านั้น จึงเสนอว่าแนวทางอิงความเสี่ยงอาจลดหรือยกเลิกการกักโรคสำหรับสัตว์ที่ย้ายมาจากสถาบันที่มีระบบเฝ้าระวังโรคครบถ้วนได้ แต่การกักโรคพร้อมตรวจยังจำเป็นเมื่อไม่ทราบประวัติสุขภาพของสัตว์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27010290",
+              "locator": "Abstract, results and conclusion; J Zoo Wildl Med 2016;47(1):291-296",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "No mammal or herptile failed quarantine due to transmissible diseases of concern. Approximately 2.5% of incoming birds failed quarantine due to transmissible disease; however, all 14 failed individuals were obtained from three nonaccredited"
+          }
+        }
+      ]
+    },
+    "exotic--zoo-vet--vaccination-protocols": {
+      "claims": [
+        {
+          "id": "exotic--zoo-vet--vaccination-protocols--v1",
+          "statement": "วัคซีนพิษสุนัขบ้าที่ขึ้นทะเบียนและจำหน่ายในสหรัฐฯ ทุกตัวเป็นชนิด inactivated (killed) และ NASPHV ระบุว่าความปลอดภัยและประสิทธิภาพของการฉีดวัคซีนพิษสุนัขบ้าแบบ parenteral ในสัตว์ป่าและลูกผสมยังไม่มีการพิสูจน์ ไม่มีวัคซีนตัวใดขึ้นทะเบียนสำหรับสัตว์กลุ่มนี้ แต่สวนสัตว์หรือสถาบันวิจัยอาจจัดโปรแกรมวัคซีนเพื่อพยายามปกป้องสัตว์ที่มีคุณค่าได้ โดยต้องไม่ใช้แทนมาตรการสาธารณสุขที่ปกป้องมนุษย์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-national-association-o-2005",
+              "locator": "Part II, section D 'WILDLIFE AND HYBRID ANIMAL VACCINATION'; vaccine product types listed in Part III 'Rabies Vaccines Licensed and Marketed in the U.S., 2005'",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "D. WILDLIFE AND HYBRID ANIMAL VACCINATION: The safety and efficacy of parenteral rabies vaccination of wildlife and hybrids (the offspring of wild animals crossbred to domestic animals) have not been established, and no rabies vaccines are "
+          }
+        },
+        {
+          "id": "exotic--zoo-vet--vaccination-protocols--v2",
+          "statement": "Hepatitis B virus ติดเชื้อได้เฉพาะมนุษย์และ great apes เท่านั้น และเคยเกิดการระบาดในอุรังอุตังที่กำลังฟื้นฟูเพื่อปล่อยคืนธรรมชาติจนมีสัตว์ตายหลายตัว จึงมีการทำโปรแกรมวัคซีนป้องกัน แต่พบว่าอุรังอุตังตอบสนองต่อวัคซีน hepatitis B เชิงพาณิชย์ต่ำกว่ามนุษย์และชิมแปนซีมาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10699341",
+              "locator": "Abstract, background and results; Vaccine 2000;18(18):1920-1924",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The hepatitis B virus (HBV) infects only humans and great apes and appears to exist among wild chimpanzees and orangutans. An outbreak of HBV among orangutans being rehabilitated for re-introduction to the jungle caused the death of several"
+          }
+        },
+        {
+          "id": "exotic--zoo-vet--vaccination-protocols--v3",
+          "statement": "ในเสือโคร่งที่เลี้ยงในกรง วัคซีน canine distemper ชนิด live attenuated กระตุ้น serologic response ได้แรงกว่าและสม่ำเสมอกว่าชนิด recombinant canarypox-vectored อย่างชัดเจน โดยวัคซีนทั้งสองชนิดไม่พบผลข้างเคียงรุนแรง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27468029",
+              "locator": "Abstract, results and conclusion; J Zoo Wildl Med 2016;47(2):558-563",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "No tigers had detectable antibodies at days 0 or 26, and only two tigers had low (16 and 32) antibody titers at day 66. Eight additional tigers received a live, attenuated CDV vaccine ... all animals had titers of >128 (range 128-1,024) at "
+          }
+        }
+      ]
     }
   },
   "exotic--wildlife-career": {
@@ -11851,6 +19028,129 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "conceptual problems with the Five Freedoms framework led to the formulation of the Five Provisions and Welfare Aims paradigm and development of the Five Domains Model for assessing nutritional, environmental, health, behavioural and mental "
+          }
+        }
+      ]
+    },
+    "exotic--wildlife-career--residency-aczm-usa-vs-eczm-eu": {
+      "claims": [
+        {
+          "id": "exotic--wildlife-career--residency-aczm-usa-vs-eczm-eu--v1",
+          "statement": "ECZM กำหนดว่า residency programme มาตรฐานต้องเป็น full-time postgraduate training อย่างน้อย 3 ปี ภายใต้การกำกับของ Diplomate ในสาขานั้น ส่วนเส้นทาง alternate programme (สำหรับผู้ที่ไม่สามารถเข้า standard residency ได้) มีความยาวรวมไม่เกิน 6 ปี",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-european-college-of-zo-2024",
+              "locator": "Chapter 5, §5.3.1 (standard residency) and §5.3.2 (alternate programmes)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The residency programme shall comprise at least three years of full-time postgraduate training under the supervision of a Diplomate of the appropriate specialty of ECZM and located at an approved training centre. ... The total time of an al"
+          }
+        },
+        {
+          "id": "exotic--wildlife-career--residency-aczm-usa-vs-eczm-eu--v2",
+          "statement": "ECZM กำหนดว่าผู้สมัครต้องสอบผ่าน examination ภายใน 8 ปีนับจากจบ residency programme และสอบแต่ละส่วนได้ไม่เกิน 4 ครั้ง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-european-college-of-zo-2024",
+              "locator": "Chapter 7, §7.9",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "7.9. Candidates must pass the examination within eight years of completion of the residency programme. They may sit each different part of the examination on a maximum of four (4) occasions."
+          }
+        },
+        {
+          "id": "exotic--wildlife-career--residency-aczm-usa-vs-eczm-eu--v3",
+          "statement": "ACZM กำหนดให้ผู้สมัครต้องเป็น first author ของ publication ใน refereed journal อย่างน้อย 3 เรื่องที่เกี่ยวข้องกับ zoological medicine โดยเป็น case report ได้ไม่เกิน 2 เรื่อง ส่วนที่เหลือต้องเป็น original investigation และต้องผ่าน professional training ด้าน zoological medicine 3 ปี (100%) ในโปรแกรมที่ ACZM รับรอง หรือใช้เส้นทางประสบการณ์ 6 ปี (100%) แทน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-american-college-of-zo-2025",
+              "locator": "Certification page, credentialing requirements (residency/training and publication requirements)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Be first author on at least three (3) publications relevant to the field of zoological medicine in refereed journals, no more than two (2) of which are case reports. The remaining publication is to be an original investigation."
+          }
+        }
+      ]
+    },
+    "exotic--wildlife-career--eczm-5-specialty-boards": {
+      "claims": [
+        {
+          "id": "exotic--wildlife-career--eczm-5-specialty-boards--v1",
+          "statement": "ECZM ประกอบด้วย 5 specialties คือ Avian Medicine and Surgery, Herpetological Medicine and Surgery, Small Mammal Medicine and Surgery, Zoo Health Management และ Wildlife Population Health",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-european-college-of-zo-2024",
+              "locator": "Introductory section 'PART 2: Specialty information'; specialties enumerated in Chapter 1 ('Currently, acknowledged specialties of the college are')",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The European College of Zoological Medicine (ECZM) consists of five specialties: Avian Medicine and Surgery, Herpetological Medicine and Surgery, Small Mammal Medicine and Surgery, Zoo Health Management, and Wildlife Population Health."
+          }
+        },
+        {
+          "id": "exotic--wildlife-career--eczm-5-specialty-boards--v2",
+          "statement": "WPH เป็น specialty แบบ discipline-based ที่ทำงานกับโรคและการจัดการสุขภาพของ free-ranging wildlife ทุก taxon ในระดับประชากร (population level) รวมถึง ecosystem health, conservation medicine และ One Health ขณะที่ ZHM ทำงานกับสัตว์ป่าที่เลี้ยงใน zoological institution โดยองค์ประกอบหลักคือ herd and flock health management, preventative medicine และ zoo management (welfare, housing, nutrition, shipment, legislation, captive population management)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-european-college-of-zo-2024",
+              "locator": "Chapter 1, specialty descriptions no. 4 (Wildlife Population Health) and no. 5 (Zoo Health Management)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Diplomates of the discipline-based ECZM (Wildlife Population Health) work predominantly with the diseases and health management of free-ranging wildlife (of any taxon) at the population level, including ecosystem health, conservation medici"
           }
         }
       ]
@@ -12158,6 +19458,129 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "practrum--dehorning--method-by-age": {
+      "claims": [
+        {
+          "id": "practrum--dehorning--method-by-age--v1",
+          "statement": "วิธีเอาเขาออกแปรตามอายุจริงในทางปฏิบัติ จากการสำรวจฟาร์มโคนม 217 ราย caustic paste เป็นวิธีหลัก (61% ของผู้ตอบ) และ 53% ทาในวันที่ลูกโคเกิด, hot iron (32%) ทำมากที่สุดช่วง 4-8 wk (41%) และ 1-4 wk (33%) ส่วน surgical method (gouge, scoop, wire saw) 73% ทำเมื่ออายุ 8 wk ขึ้นไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34364646",
+              "locator": "104(11):11995-12008",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most respondents (61%) used caustic paste as their primary method, which was most commonly applied on the day the calf was born (53%). Hot iron was used by 32% of respondents, and surgical methods (gouge, scoop, or wire saw) were used by 6%"
+          }
+        },
+        {
+          "id": "practrum--dehorning--method-by-age--v2",
+          "statement": "เหตุผลที่ต้อง disbud ตั้งแต่เล็กแทนการ dehorn ตอนโตคือความเจ็บ: cortisol response ต่อ cautery disbudding ต่ำกว่า amputation dehorning อย่างมีนัยสำคัญ ซึ่งบ่งว่า amputation dehorning เจ็บกว่า และเพื่อบรรเทาปวดให้ดีที่สุดควรใช้ xylazine sedation + local anaesthesia + NSAID ร่วมกันในทั้งสองวิธี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15848777",
+              "locator": "169(3):337-49",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cortisol response to cautery disbudding is significantly smaller than that to amputation dehorning which infers that the latter is more painful... Cautery disbudding is preferable to amputation dehorning, but for optimal pain relief xyl"
+          }
+        },
+        {
+          "id": "practrum--dehorning--method-by-age--v3",
+          "statement": "ในฟาร์มโคนม 639 แห่งที่สำรวจ ฟาร์มที่เอาเขาออกใช้วิธี disbudding ทั้งหมด โดย hot-iron cauterization เป็นวิธีที่นิยมที่สุด (91%) และทำที่อายุเฉลี่ย 32 วัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22032397",
+              "locator": "94(11):5724-34",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The outcomes of the study showed that dehorning was carried out on 80% of the surveyed farms, and disbudding was the method reported by all the interviewed farmers. Hot-iron cauterization was the preferred method for disbudding (91%). On av"
+          }
+        }
+      ]
+    },
+    "practrum--dehorning--decision-tree-when-to-dehorn-vs-not": {
+      "claims": [
+        {
+          "id": "practrum--dehorning--decision-tree-when-to-dehorn-vs-not--v1",
+          "statement": "เหตุผลที่รองรับการ dehorn คือความปลอดภัยของผู้ปฏิบัติงานและการลดความเสี่ยงบาดเจ็บระหว่างโคในฝูง ส่วนฟาร์มที่เลือกเก็บเขาไว้ให้เหตุผลด้านความสวยงามเป็นหลัก (54%) รองลงมาคือไม่มีเวลา (24%) และ 74% ของกลุ่มนี้รายงานว่าไม่มีปัญหาในการจัดการโคที่มีเขา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22032397",
+              "locator": "94(11):5724-34",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Calf dehorning is a routine husbandry practice on dairy farms that is justified by safety reasons for stockpersons and by a reduced risk of injures among herdmates... Aesthetic motivations (54% of respondents) and lack of time (24%) were th"
+          }
+        },
+        {
+          "id": "practrum--dehorning--decision-tree-when-to-dehorn-vs-not--v2",
+          "statement": "Disbudding และ dehorning ทำเพื่อป้องกันการบาดเจ็บของทั้งสัตว์และคน แต่เป็นหัตถการที่ไม่พึงประสงค์ มีต้นทุน และถูกจับตามากขึ้นในแง่ animal welfare ทางเลือกที่ตัดความจำเป็นในการเอาเขาออกทั้งหมดคือการคัดเลือกพันธุ์ polled เพราะ horn เป็น recessively inherited trait แต่การนำไปใช้ยังจำกัดเพราะพ่อพันธุ์ polled มี genetic merit ต่ำและหายาก (มีนาคม 2018 มีพ่อพันธุ์ homozygous polled ที่ active ขึ้นทะเบียนกับ NAAB เพียง 3 ตัวใน Holstein และ 0 ตัวใน Jersey)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30852022",
+              "locator": "102(5):4215-4226",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Disbudding and dehorning are commonly used cattle management practices to protect animals and humans from injury. They are unpleasant, costly processes subject to increased public scrutiny as an animal welfare issue. Horns are a recessively"
+          }
+        }
+      ]
     }
   },
   "practrum--hoof-trim": {
@@ -12458,6 +19881,152 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "practrum--bovine-anesthesia--block-decision-tree-clinical-scenario": {
+      "claims": [
+        {
+          "id": "practrum--bovine-anesthesia--block-decision-tree-clinical-scenario--v1",
+          "statement": "หัตถการผ่าตัดในสัตว์เคี้ยวเอื้องหลายอย่างทำได้อย่างปลอดภัยและ humane โดยใช้ physical restraint + mild sedation + local/regional/spinal anesthesia แทน general anesthesia และเลือก block ให้ตรงกับหัตถการ (dehorning, หัตถการจมูกและตา, laparotomy, หัตถการระบบสืบพันธุ์, teat repair, หัตถการที่ distal limb)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27719762",
+              "locator": "32(3):535-552",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Local, regional, and spinal anesthesias are safe, effective, often more desirable procedures for ruminants than general anesthesia. Many procedures can be performed safely and humanely in ruminants using a combination of physical restraint,"
+          }
+        },
+        {
+          "id": "practrum--bovine-anesthesia--block-decision-tree-clinical-scenario--v2",
+          "statement": "Caudal epidural ในโคฉีดที่ sacrococcygeal intervertebral space (S5-Co1) หรือ first intercoccygeal space (Co1-Co2) โดย lidocaine ที่ใช้บ่อยที่สุดในวรรณกรรมคือ 0.22-0.5 mg/kg และใช้คุมปวดสำหรับหัตถการบริเวณหาง ทวารหนัก vulva perineum เต้านมส่วนท้าย scrotum และขาหลังส่วนบน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28096620",
+              "locator": "9(12):1450-1455",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The most common sites for epidural administration in cattle, camels, and buffalos were the sacrococcygeal intervertebral space (S5-Co1) and first intercoccygeal intervertebral space (Co1-Co2). The most frequently used drugs and dosages were"
+          }
+        },
+        {
+          "id": "practrum--bovine-anesthesia--block-decision-tree-clinical-scenario--v3",
+          "statement": "IV regional anesthesia (Bier block) ของ distal limb ในโคใต้ tourniquet ให้ complete anesthesia ได้ 22 จาก 23 ราย (96%) ในชุดที่ใช้ 2% lidocaine 15-20 ml แต่มี serious post-surgical complication 2 จาก 15 ราย (13%) จาก extensive thrombosis ของ vein ทั้งหมดที่อยู่ distal ต่อ tourniquet",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2202047",
+              "locator": "132(5):227-37",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Complete anesthesia of the treated limb was achieved in 22 out of 23 cases (96%). The successfully treated animals did not express any symptoms of pain for the entire surgical procedure. In 2 out of 15 patients (13%) we observed serious pos"
+          }
+        }
+      ]
+    },
+    "practrum--bovine-anesthesia--ga-risks-in-ruminants": {
+      "claims": [
+        {
+          "id": "practrum--bovine-anesthesia--ga-risks-in-ruminants--v1",
+          "statement": "ในโค 125 ตัวที่วางยาสลบด้วย xylazine/halothane พบ anesthetic complication 10 ตัว (8%) โดยส่วนใหญ่สัมพันธ์กับ regurgitation ของ ruminal content ร่วมกับหรือไม่ร่วมกับ aspiration และมีโคตายจากการวางยา 3 ตัว ผู้เขียนสรุปว่า general anesthesia ใน ruminant มีความเสี่ยงอย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17422450",
+              "locator": "25(9):342-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Anesthetic complications were recorded for ten cattle (8%) in the series and were mainly associated with regurgitation of ruminal contents, with or without aspiration. Three animals died as a result of the anesthetic procedure... it is evid"
+          }
+        },
+        {
+          "id": "practrum--bovine-anesthesia--ga-risks-in-ruminants--v2",
+          "statement": "ความเสี่ยงที่สัมพันธ์กับการวางยาสลบใน ruminant สูงกว่าสัตว์ monogastric แต่ถ้าเข้าใจความเสี่ยง วางแผนและเตรียมมาตรการป้องกันเพียงพอ ก็สามารถวางยาสลบ ruminant ในภาคสนามได้ค่อนข้างปลอดภัย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27614776",
+              "locator": "32(3):553-570",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although anesthesia-associated risks are greater in ruminants than monogastrics, ruminants can be anesthetized relatively safely in a field setting if the risks are understood, and adequate planning and precautions are in place."
+          }
+        },
+        {
+          "id": "practrum--bovine-anesthesia--ga-risks-in-ruminants--v3",
+          "statement": "Regurgitation ระหว่างวางยาสลบใน Bos นำไปสู่ aspiration pneumonia ได้จริง มีรายงานใน Tibetan yak bull 2 ตัวที่วางยาด้วย ketamine-xylazine-butorphanol เพื่อตอนในท่านอน โดยในโคบ้าน aspiration pneumonia มักเป็นผลตามมาจากการป้อนของเหลวหรือยาทางปาก และจากการ aspiration ระหว่างหัตถการที่วางยาสลบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29517446",
+              "locator": "49(1):242-246",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In these species, aspiration pneumonia is most commonly a sequelae to oral administration of fluids or medications, as well as aspiration during procedures under anesthesia."
+          }
+        }
+      ]
     }
   },
   "practrum--rumenotomy": {
@@ -12611,6 +20180,79 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "All the cows had numerous thin sharp pieces of metal attached to a magnet in the reticulum, giving the magnet a hedgehog-like appearance."
+          }
+        }
+      ]
+    },
+    "practrum--rumenotomy--pre-op-post-op": {
+      "claims": [
+        {
+          "id": "practrum--rumenotomy--pre-op-post-op--v1",
+          "statement": "ขนาด flunixin meglumine ที่ใช้ศึกษาในโคคือ 2.2 mg/kg IV และใน Holstein calves พบว่า clearance ที่อายุ 2 เดือนช้ากว่าที่อายุ 8 เดือน ผู้เขียนจึงสรุปว่าการให้ flunixin ในลูกโคอาจต้องปรับ dose และ dosing interval ตามอายุ รวมทั้งยืด withdrawal interval ออกไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29688783",
+              "locator": "79(5):568-575",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "At 2 months of age, all calves received an injectable solution of flunixin (2.2 mg/kg, IV)... In calves, the clearance of flunixin at 2 months of age was slower than that at 8 months of age following IV administration. Flunixin administrati"
+          }
+        },
+        {
+          "id": "practrum--rumenotomy--pre-op-post-op--v2",
+          "statement": "Procaine penicillin G ขนาด extra-label 24,000 และ 66,000 IU/kg IM วันละครั้ง 5 วันในโคเนื้อรุ่น ต้องใช้ withdrawal 10 วันและ 21 วันตามลำดับ (ขนาดที่ขึ้นทะเบียนในแคนาดาคือ 7,500 IU/kg IM วันละครั้ง withdrawal 5 วัน) และเมื่อให้ 66,000 IU/kg ทาง SC พบ drug deposit ที่ตำแหน่งฉีดนานถึง 10 วัน พร้อม inflammation และ hemorrhage มากกว่าการฉีด IM ขนาดเดียวกัน ผู้เขียนจึงสรุปว่าไม่ควรให้ procaine penicillin G ทาง SC ที่ขนาดสูง และไม่ได้กำหนด withdrawal สำหรับ route SC",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-8269359",
+              "locator": "57(4):223-30",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Based on the tissue residue data from this study, the appropriate withdrawal period is ten days for the 24,000 IU/kg body weight dose and 21 days for the 66,000 IU/kg body weight dose when administered intramuscularly... These results sugge"
+          }
+        },
+        {
+          "id": "practrum--rumenotomy--pre-op-post-op--v3",
+          "statement": "ในโค 503 ตัวที่เป็น traumatic reticuloperitonitis การรักษาประกอบด้วย magnet ร่วมกับ antibiotic, anti-inflammatory drug และ intravenous fluid โดยทำ rumenotomy เมื่อ foreign body ไม่ติดแม่เหล็กหรือยังทิ่มทะลุ reticulum ผลคือกลุ่มผ่าตัด 206 ตัว discharge 90% ซึ่งสูงกว่ากลุ่มที่รักษาทางยา 232 ตัวที่ 82% อย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30223863",
+              "locator": "60(1):55",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "cattle with a foreign body attached to a magnet were treated conservatively using antibiotics, anti-inflammatory drugs and intravenous fluids... Surgical treatment was significantly more successful than conservative treatment; 90% of 206 op"
           }
         }
       ]
@@ -13722,6 +21364,79 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "zoonoses--zoo-protozoal--major-zoonotic-protozoal-diseases-list": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-protozoal--major-zoonotic-protozoal-diseases-list--v1",
+          "statement": "Cryptosporidium, Giardia และ Toxoplasma เป็นโปรโตซัวจากสัตว์สู่คนที่มีรายงานการระบาดผ่านน้ำและอาหารชัดเจน โดยระยะติดต่อมีขนาดเล็ก ทนต่อสิ่งแวดล้อม และไม่ไวต่อสารฆ่าเชื้อที่ใช้ทั่วไปในระบบประปา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16881407",
+              "locator": "Parassitologia 2006;48(1-2):101-4, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Outbreaks of water- and foodborne diseases caused by Cryptosporidium, Giardia and Toxoplasma are well documented. ... their transmissive stages are small in size and environmentally robust and thirdly are insensitive to the disinfectants co"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-protozoal--major-zoonotic-protozoal-diseases-list--v2",
+          "statement": "สุนัขถูกระบุมานานว่าเป็น domestic reservoir หลักของ Leishmania (Leishmania) infantum ซึ่งเป็นสาเหตุของ zoonotic visceral leishmaniasis โดยสัตว์เลี้ยงในบ้านทำหน้าที่เป็นแหล่งเชื้อให้ phlebotomine sand fly vectors",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17703890",
+              "locator": "Vet Parasitol 2007;149(3-4):139-46, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Under certain circumstances, particularly in peridomestic and domestic transmission foci, synanthropic and domestic animals can act as source of infection for phlebotomine sand fly vectors. Dogs have long been implicated as the main domesti"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-protozoal--major-zoonotic-protozoal-diseases-list--v3",
+          "statement": "Toxoplasma gondii, Cryptosporidium parvum และ Giardia intestinalis ถูกจัดอยู่ในกลุ่ม \"significant importance\" ของ foodborne zoonotic agents จากการจัดลำดับความสำคัญโดยผู้เชี่ยวชาญ 35 คนต่อเชื้อ 51 ชนิด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19715429",
+              "locator": "Foodborne Pathog Dis 2009;6(9):1083-96, abstract (Results)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A second group of \"significant importance\" included Toxoplasma gondii, the agent of bovine spongiform encephalopathy, Clostridium botulinum, Staphylococcus aureus, Cryptosporidium parvum, Mycobacterium bovis, Echinococcus granulosus, Strept"
+          }
+        }
+      ]
     }
   },
   "zoonoses--zoo-mycoses": {
@@ -13844,6 +21559,79 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "The disease has a unique history in South Africa, due to an association with gold mines, where large numbers of mine workers were infected in the 1930s and 1940s. This was likely driven by hot humid conditions and timber supports used in th"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-mycoses--yeast-appearance-culture-microscopic": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-mycoses--yeast-appearance-culture-microscopic--v1",
+          "statement": "Yeast ตรวจพบได้ 2 ระดับควบคู่กัน คือระดับ culture ขึ้นเป็น yeast colony บนอาหารเลี้ยงเชื้อ และระดับ microscopic เห็นเป็น budding yeast cells ในตัวอย่างจากผู้ป่วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37803881",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Subxiphoid aspirates and biopsied tissues showed budding yeast cells and yeast colonies grew on culture media identified as Candida albicans."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-mycoses--yeast-appearance-culture-microscopic--v2",
+          "statement": "ลักษณะ colony ของ yeast ขึ้นกับชนิดอาหารเลี้ยงเชื้อที่ใช้ เช่น yeast ที่แยกได้จากเลือดขึ้นเป็น colony สีชมพูจางบน CHROMagar Candida และเมื่อเลี้ยงบน cornmeal agar แล้วดูด้วยกล้องจุลทรรศน์เห็นเป็นเซลล์รูปไข่ที่แตกหน่อ (oval budding yeast cells) ปนกับ rudimentary pseudohyphae เป็นบางส่วน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31471347",
+              "locator": "49(4):546-549",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It formed pale pink colonies on CHROMagar Candida medium and produced predominantly oval budding yeast cells with the occasional rudimentary pseudohyphae on cornmeal agar."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-mycoses--yeast-appearance-culture-microscopic--v3",
+          "statement": "ภาพ microscopic ของ yeast คือเซลล์เดี่ยวทรงกลม/รี ที่เพิ่มจำนวนแบบ budding เช่น Cryptococcus ใน CSF เห็นเป็น yeast ทรงกลมขนาด 4-11 µm มี capsule หนา และพบ budding แบบ narrow-based โดยไม่พบ true hyphae หรือ pseudohyphae",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29069886",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A cytology slide that was prepared using the ThinPrep method showed numerous spherical yeast-form organisms with diameters of 4-11 μm and thick capsules. Occasional asymmetrical, narrow-based budding but no true hyphae or pseudohyphae were "
           }
         }
       ]
@@ -14280,6 +22068,471 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "poa-clinical--poa-edema--edema-คืออะไร-และแรงตาม-starling": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--edema-คืออะไร-และแรงตาม-starling--v1",
+          "statement": "สมดุลของของเหลวในเนื้อเยื่อ การควบคุมปริมาตร plasma และการเกิด edema ทางคลินิก ถูกกำกับด้วย Starling principle ของ microvascular fluid exchange โดยแรงหลักคือผลต่างของ hydrostatic pressure และผลต่างของ colloid osmotic (oncotic) pressure คร่อมผนัง microvessel ร่วมกับ hydraulic conductance และพื้นที่ผิวของผนังหลอดเลือดที่กำหนดอัตราการกรอง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33889604",
+              "locator": "Starling Forces section",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Tissue fluid balance, plasma volume regulation and clinical oedema formation are governed by the Starling principle of microvascular fluid exchange."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--edema-คืออะไร-และแรงตาม-starling--v2",
+          "statement": "ของเหลวที่ถูกกรองออกไปคั่งอยู่ใน interstitium กลับเข้าสู่ระบบไหลเวียนโดยเส้นทางหลักคือ lymphatics โดย efferent lymph ถูกส่งต่อไปยัง thoracic duct แล้วคืนสู่กระแสเลือดที่หลอดเลือดดำใหญ่ ทำให้สมดุลของเหลวในเนื้อเยื่อส่วนใหญ่ขึ้นกับการทำงานของ lymphatics อย่างวิกฤต",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33889604",
+              "locator": "The Extravascular Circulation of Extracellular Fluid section",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The remainder is propelled as efferent lymph to the thoracic duct, and thereby returned to the blood stream in the great veins."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--edema-คืออะไร-และแรงตาม-starling--v3",
+          "statement": "แผนภาพ capillary ที่ HP ลดจากปลาย arterial ไปปลาย venous โดย OP คงที่ และสรุปว่า HP เป็นตัวเปลี่ยนทิศทางการไหลของของเหลว (คือมีการดูดกลับที่ปลาย venous) เป็นคำอธิบายแบบดั้งเดิม หลักฐานปัจจุบันชี้ว่าในเนื้อเยื่อส่วนใหญ่ microvascular absorption เกิดขึ้นเพียงชั่วคราว และในภาวะ steady state มี filtration เล็กน้อยตลอด แม้กระทั่งที่ venule",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20200043",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sum-of-forces evidence and direct observations show that microvascular absorption is transient in most tissues; slight filtration prevails in the steady state, even in venules."
+          }
+        }
+      ]
+    },
+    "poa-clinical--poa-edema--subcutaneous-edema-localized-กับ-generalized": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--subcutaneous-edema-localized-กับ-generalized--v1",
+          "statement": "impaired lymphatic drainage ทำให้เกิดการบวมเฉพาะที่ ตามนิยามของ lymphedema ซึ่งเป็นความผิดปกติของระบบ lymphatic vascular ที่มีลักษณะเด่นคือการไหลกลับของ lymph บกพร่องร่วมกับการบวมของรยางค์ สนับสนุนการวาง impaired lymphatic drainage ไว้ใต้กลุ่ม localized subcutaneous edema",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16952986",
+              "locator": "Abstract, opening sentence",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Lymphedema is a disorder of the lymphatic vascular system characterized by impaired lymphatic return and swelling of the extremities."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--subcutaneous-edema-localized-กับ-generalized--v2",
+          "statement": "ในสุนัข ความผิดปกติของระบบ lymphatic แสดงออกเป็นการบวมเฉพาะที่ของรยางค์ (limb edema) ได้จริง ดังรายงานในสุนัขพันธุ์ whippet เพศผู้อายุ 2 ปี 2 ตัวที่เป็นพี่น้องกัน ซึ่งได้รับการวินิจฉัยว่ามีทั้ง idiopathic chylothorax และ limb edema",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22547848",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Idiopathic chylothorax and limb edema was diagnosed in two 2-year-old male whippet siblings."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--subcutaneous-edema-localized-กับ-generalized--v3",
+          "statement": "แม้สไลด์จะวาง hypoalbuminemia ไว้ใต้ generalized subcutaneous edema เพียงกลุ่มเดียว แต่ระดับ albumin ที่ต่ำไม่ได้ทำให้เกิดบวมเสมอไป เพราะ albumin คิดเป็นราว 65% ของ plasma colloid osmotic pressure ส่วน globulins มีส่วนอีกราว 35% และ hypoalbuminaemia ที่พบบ่อยในผู้ป่วยวิกฤตก็ไม่ได้มาพร้อมกับ colloid osmotic pressure ที่ลดลงเสมอไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33889604",
+              "locator": "Starling Forces section, discussion of plasma colloid osmotic pressure",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Hypoalbuminaemia is a common finding in critical illness, but is not invariably accompanied by reduced plasma colloid osmotic pressure."
+          }
+        }
+      ]
+    },
+    "poa-clinical--poa-edema--pulmonary-edema": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--pulmonary-edema--v1",
+          "statement": "pulmonary edema ที่ไม่ได้เกิดจากหัวใจ (noncardiogenic pulmonary edema) ในสุนัขและแมว คือการคั่งของของเหลวผิดปกติใน lung interstitium หรือ alveoli ที่เกิดจากการเปลี่ยนแปลงของ vascular permeability, hydrostatic pressure ในหลอดเลือดปอด หรือทั้งสองอย่างร่วมกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36815753",
+              "locator": "Abstract, Data sources/Summary",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It can be due to changes in vascular permeability, hydrostatic pressure in the pulmonary vasculature, or a combination thereof."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--pulmonary-edema--v2",
+          "statement": "สาเหตุของ noncardiogenic pulmonary edema ในสุนัขและแมว รวมถึงภาวะอักเสบทั้งภายในปอดและในเนื้อเยื่อที่อยู่ห่างออกไป (ARDS), การอุดกั้นทางเดินหายใจ, โรคทางระบบประสาทเช่นบาดเจ็บที่ศีรษะหรือชัก, electrocution, การขยายปอดที่แฟบกลับ และการจมน้ำ ซึ่งครอบคลุมสาเหตุ inflammation, electrocution และ trauma ที่สไลด์จัดไว้ใต้ impaired vascular permeability",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36815753",
+              "locator": "Abstract, list of possible causes",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Possible causes include inflammatory states within the lung or in remote tissues (acute respiratory distress syndrome [ARDS]), airway obstruction (post-obstructive pulmonary edema), neurologic disease such as head trauma or seizures (neurog"
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--pulmonary-edema--v3",
+          "statement": "เมื่อสงสัยสาเหตุจากหัวใจ แนวทาง consensus ของ ACVIM แนะนำให้ทำ thoracic radiography ในผู้ป่วยทุกรายเพื่อประเมินความสำคัญทาง hemodynamic ของโรคลิ้นหัวใจ และแนะนำ echocardiography โดยผู้ตรวจที่มีประสบการณ์เพื่อระบุสาเหตุของเสียงฟู่และความรุนแรงของการขยายของห้องหัวใจ ซึ่งรองรับลำดับ radiography แล้วตามด้วย echocardiography ที่สไลด์วางไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30974015",
+              "locator": "Section 6.2.1 Recommendations for diagnosis and further categorization of Stage B",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Echocardiography, performed by an experienced operator, is recommended to definitively identify the cause of the murmur, answer specific questions regarding the severity of cardiac chamber enlargement, and identify comorbidities."
+          }
+        }
+      ]
+    },
+    "poa-clinical--poa-edema--effusion-และ-7-fs-ของ-abdominal-enlargement": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--effusion-และ-7-fs-ของ-abdominal-enlargement--v1",
+          "statement": "การจำแนก effusion ตามช่องลำตัวเป็น abdominal, thoracic (pleural) และ pericardial effusion เป็นกรอบมาตรฐาน และการประเมินทางห้องปฏิบัติการของน้ำจากทั้งสามช่องเป็นเครื่องมือวินิจฉัยที่มีประโยชน์ในการประเมินโรคที่ทำให้เกิดการคั่งของของเหลว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12512378",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The laboratory evaluation of abdominal, thoracic, and pericardial effusions is a useful diagnostic tool for the assessment of disease states that result in fluid accumulation."
+          }
+        }
+      ]
+    },
+    "poa-clinical--poa-edema--abdominal-effusion-4-สาขาสาเหตุ-และ-cut-off-ของ-albumin": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--abdominal-effusion-4-สาขาสาเหตุ-และ-cut-off-ของ-albumin--v1",
+          "statement": "ในสุนัขที่มี transudative abdominal effusion portal hypertension คือแรงหลักที่ทำให้เกิดน้ำในช่องท้อง ทั้งในกลุ่มที่มีโรคตับและทางเดินน้ำดี และในกลุ่มที่มีสาเหตุอื่น สนับสนุนการวาง increased hydrostatic pressure ซึ่งก็คือ portal hypertension ไว้เป็นสาขาแรกของสาเหตุ abdominal effusion",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11110383",
+              "locator": "Abstract, conclusions; J Vet Intern Med 2000;14(6):613-8",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These findings suggest that portal hypertension is a predominant force in formation of transudative abdominal effusion in dogs with hepatobiliary disease and in dogs with other disorders."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--abdominal-effusion-4-สาขาสาเหตุ-และ-cut-off-ของ-albumin--v2",
+          "statement": "การใช้ hypoalbuminemia เป็นตัวชี้สาเหตุของน้ำในช่องท้องมีความแม่นยำต่ำ ในสุนัข 49 ตัวที่มี transudative abdominal effusion ความแม่นยำโดยรวมของ hypoalbuminemia ในการทำนาย portal hypertension อยู่ที่ 57.1% ซึ่งต่ำกว่า serum albumin-effusion albumin gradient ที่ 69.4%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11110383",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The overall diagnostic accuracy of the SA-EA gradient in predicting portal hypertension in dogs with and without hepatobiliary disease (69.4%) exceeded that of hypoalbuminemia (57.1%)."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--abdominal-effusion-4-สาขาสาเหตุ-และ-cut-off-ของ-albumin--v3",
+          "statement": "ค่า albumin ต่ำกว่า 1.5 g/dl ถูกใช้จริงในเวชปฏิบัติสัตว์เล็กเป็นเกณฑ์ของ hypoalbuminemia ระดับปานกลางถึงรุนแรง เช่นเกณฑ์คัดเข้าของการศึกษาสุนัข protein-losing enteropathy ที่ใช้ serum albumin ต่ำกว่า 15.0 g/L (ต่ำกว่า 1.5 g/dl) หรือมีของเหลวคั่งนอกหลอดเลือด แต่ไม่พบงานวิจัยที่พิสูจน์ว่าต้องต่ำกว่า 1.5 g/dl เท่านั้น hypoalbuminemia จึงจะทำให้เกิด abdominal effusion ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27159733",
+              "locator": "Abstract, Animals/inclusion criteria",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Dogs were included in the study if they had panhypoproteinemia, serum albumin concentration < 15.0 g/L [< 1.5 g/dL] or extravascular fluid accumulation, idiopathic IBD confirmed on histopathology, and complete medical records."
+          }
+        }
+      ]
+    },
+    "poa-clinical--poa-edema--portal-hypertension-จำแนกตามตำแหน่งกายวิภาค": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--portal-hypertension-จำแนกตามตำแหน่งกายวิภาค--v1",
+          "statement": "portal hypertension เกิดจากความต้านทานของหลอดเลือดใน portal circulation ที่เพิ่มขึ้น หรือปริมาณเลือดที่ไหลผ่าน portal vein ที่เพิ่มขึ้น หรือทั้งสองอย่างร่วมกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21382073",
+              "locator": "Abstract, opening sentence; J Vet Intern Med 2011;25(2):169-86",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Portal hypertension (PH) is the result of increased vascular resistance in the portal circulation, increased portal venous blood flow, or both."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--portal-hypertension-จำแนกตามตำแหน่งกายวิภาค--v2",
+          "statement": "ในทางสัตวแพทย์แทบไม่มีการวัด portal pressure โดยตรง การวินิจฉัย portal hypertension จึงมักอนุมานจากภาวะแทรกซ้อนที่พบร่วม ได้แก่ multiple acquired portosystemic shunts, ascites และ hepatic encephalopathy",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21382073",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In veterinary medicine, where portal pressure is seldom measured directly, the diagnosis of PH often is inferred from identification of associated complications including multiple acquired portosystemic shunts, ascites, and hepatic encephal"
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--portal-hypertension-จำแนกตามตำแหน่งกายวิภาค--v3",
+          "statement": "ความผิดปกติของทางออกของเลือดจากตับ (outflow disturbance) ทำให้ตับคั่งเลือดแบบ passive congestion และในสุนัขและแมวมีสาเหตุหลักจากภาวะหัวใจล้มเหลว ซึ่งตรงกับการจัด right-sided heart failure, hepatic vein และ caudal vena cava ไว้ในกลุ่ม posthepatic",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-7571284",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Outflow disturbances result in passive congestion of the liver and in both species are mainly due to cardiac failure."
+          }
+        }
+      ]
+    },
+    "poa-clinical--poa-edema--สรุปเคส-heartworm-ร่วมกับ-right-sided-chf": {
+      "claims": [
+        {
+          "id": "poa-clinical--poa-edema--สรุปเคส-heartworm-ร่วมกับ-right-sided-chf--v1",
+          "statement": "ในโรคพยาธิหนอนหัวใจของสุนัข การมี Dirofilaria immitis อยู่เรื้อรังทำให้เกิด proliferative endoarteritis, thromboembolism, pulmonary hypertension และ right-sided congestive heart failure",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25224789",
+              "locator": "Abstract, discussion of disease mechanism",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In canine heartworm disease, chronic presence of D. immitis causes a proliferative endoarteritis, thromboembolisms, pulmonary hypertension, and right-sided congestive heart failure."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--สรุปเคส-heartworm-ร่วมกับ-right-sided-chf--v2",
+          "statement": "สุนัขที่ติดพยาธิหนอนหัวใจส่วนใหญ่ไม่แสดงอาการหรือมีอาการเล็กน้อย แต่อาการแสดงที่รุนแรงเช่นภาวะหัวใจล้มเหลวและ caval syndrome อาจถึงแก่ชีวิตได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32521392",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Severe manifestations such as heart failure and caval syndrome may prove fatal."
+          }
+        },
+        {
+          "id": "poa-clinical--poa-edema--สรุปเคส-heartworm-ร่วมกับ-right-sided-chf--v3",
+          "statement": "จากการผ่าซากสุนัข 1,617 ตัวในระยะ 13 ปี พบติด Dirofilaria immitis 249 ตัว ในจำนวนนี้ 33 ตัว (13.2%) เป็น caval syndrome และกลุ่มนี้พบรอยโรคมหภาคทั้งที่ระบบหัวใจและปอด และที่ตับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25280391",
+              "locator": "Abstract, results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Among the 249 positive cases, 33 (13.2%) of the dogs had caval syndrome. Caval syndrome cases presented with concurrent clinical signs and were associated with cardio-pulmonary and hepatic gross lesions at necropsy."
+          }
+        }
+      ]
     }
   },
   "engprof--research-paper-structure": {
@@ -14440,6 +22693,106 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "engprof--research-paper-structure--what-is-a-research-paper": {
+      "claims": [
+        {
+          "id": "engprof--research-paper-structure--what-is-a-research-paper--v1",
+          "statement": "original scientific article เป็นสิ่งพิมพ์คนละประเภทกับ narrative review, systematic review, meta-analysis และ editorial และงานเขียนทางการแพทย์ใช้โครงสร้างมาตรฐาน IMRAD (Introduction, Methods, Results, and Discussion)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29974882",
+              "locator": "Abstract; J Minim Access Surg. 2019;15(3):242-248",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Various types of surgical publications that exist nowadays are case report, cohort study, case-control study, randomised controlled trial narrative review, systematic review, Cochrane review, meta-analysis, editorials and leading articles. "
+          }
+        },
+        {
+          "id": "engprof--research-paper-structure--what-is-a-research-paper--v2",
+          "statement": "งานวิจัยต้นฉบับต้องบอกได้ว่าตัวมันเพิ่มอะไรให้กับองค์ความรู้ที่มีอยู่ (add to the existing knowledge) ซึ่งเป็นสิ่งที่ผู้ประเมินบทความมองหา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23478739",
+              "locator": "Abstract; JNMA J Nepal Med Assoc. 2012;52(186):95-101",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The introduction describes work already conducted in the particular area and briefly mentions how the manuscript will add to the existing knowledge."
+          }
+        }
+      ]
+    },
+    "engprof--research-paper-structure--1-introduction-what-to-look-for": {
+      "claims": [
+        {
+          "id": "engprof--research-paper-structure--1-introduction-what-to-look-for--v1",
+          "statement": "Introduction ทำหน้าที่อธิบาย rationale ของการทำการศึกษา และระบุ main purpose ของงานให้ชัดเจน โดยควรกระชับ ข้อผิดพลาดที่พบบ่อยคือทบทวนวรรณกรรมยืดยาวเกินไป และไม่ระบุ objectives หรือสมมติฐานให้ชัด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26731827",
+              "locator": "Abstract; J Assoc Physicians India. 2015;63(7):44-46",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The Introduction section explains the rationale for undertaking the study and clearly describes the main purpose of conducting it. It should be focused, succinct and crisp. Providing an extensive and detailed literature review, not stating "
+          }
+        },
+        {
+          "id": "engprof--research-paper-structure--1-introduction-what-to-look-for--v2",
+          "statement": "หน้าที่สำคัญของ Introduction คือแสดงให้เห็นว่าทำไมการศึกษานี้จึงสำคัญ (why the study matters) ซึ่งเป็นจุดที่ผู้เขียนจำนวนมากทำได้ไม่ดี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33240363",
+              "locator": "Abstract; Can J Dent Hyg. 2020;54(1):42-44",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Specifically, they should demonstrate why the study matters in the introduction section of their text. Our experience in mentoring dental and dental hygiene faculty shows that some have difficulty justifying the importance of their studies "
+          }
+        }
+      ]
     }
   },
   "engprof--academic-writing": {
@@ -14512,6 +22865,160 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "It provides further information about each of the 21 items in ARRIVE 2.0, including the rationale and supporting evidence for their inclusion in the guidelines, elaboration of details to report, and examples of good reporting from the publi"
+          }
+        }
+      ]
+    },
+    "engprof--academic-writing--5-steps-to-write-a-review-article": {
+      "claims": [
+        {
+          "id": "engprof--academic-writing--5-steps-to-write-a-review-article--v1",
+          "statement": "กระบวนการเขียน review article ตามคำแนะนำที่ตีพิมพ์ คือ เลือก topic ที่ผู้เขียนมีความรู้และสนใจจริง แล้วสืบค้นวรรณกรรมพร้อมวิเคราะห์เชิงวิจารณ์ จากนั้นจึงเขียนตัวบทความซึ่งประกอบด้วย abstract, introduction, body และ conclusion พร้อมตารางและรูปประกอบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38416900",
+              "locator": "Abstract; J Breast Imaging. 2023;5(4):480-485",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The process involves selecting a topic about which the authors are knowledgeable and enthusiastic, conducting a literature search and critical analysis of the literature, and writing the article, which is composed of an abstract, introducti"
+          }
+        },
+        {
+          "id": "engprof--academic-writing--5-steps-to-write-a-review-article--v2",
+          "statement": "การเขียน narrative review ทางชีวเวชศาสตร์มีขั้นตอนหลักที่ระบุได้ชัดเจน และต้องอาศัยความรู้ความเข้าใจในสาขานั้นอย่างลึกซึ้ง ไม่ใช่แค่การรวบรวมบทความมาต่อกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21800117",
+              "locator": "Abstract; Rheumatol Int. 2011;31(11):1409-1417",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Writing a review requires deep knowledge and understanding of a field. The aim of this review is to analyze the main steps in writing a narrative biomedical review and to consider points that may increase the chances of success."
+          }
+        }
+      ]
+    },
+    "engprof--academic-writing--writing-introduction-4-components-lester-lester": {
+      "claims": [
+        {
+          "id": "engprof--academic-writing--writing-introduction-4-components-lester-lester--v1",
+          "statement": "Introduction ควรทบทวนเรื่องที่ศึกษา (subject และ background) ให้ครอบคลุมก่อน แล้วจึงระบุ aim ของงานให้ชัดเจนทันทีหลังจากกล่าวถึง references พื้นฐาน โดยมีเป้าหมายให้ผู้อ่านเข้าใจพื้นเรื่องได้โดยไม่ต้องไปตามอ่านงานเก่าเอง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26328128",
+              "locator": "Abstract; Turk J Urol. 2013;39(Suppl 1):8-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The main goal of the introduction is to convey basic information to the readers without obligating them to investigate previous publications and to provide clues as to the results of the present study. To do this, the subject of the article"
+          }
+        }
+      ]
+    },
+    "engprof--academic-writing--writing-conclusion-body-paragraphs": {
+      "claims": [
+        {
+          "id": "engprof--academic-writing--writing-conclusion-body-paragraphs--v1",
+          "statement": "การระบุ limitations ของงานตนเองเป็นส่วนที่จำเป็นในบทสรุป เพราะผู้อ่านต้องใช้ข้อมูลนี้ตีความผลให้ถูกต้อง และควรถูกมองว่าเป็น due diligence ไม่ใช่จุดอ่อนของงาน อย่างไรก็ตามการรายงาน limitations จริงในวารสารยังทำได้ไม่ดีพอ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37414393",
+              "locator": "Abstract; J Dent. 2023;136:104603",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Adequate reporting of limitations is crucial to enable clinicians to accurately interpret the clinical trial findings. ... The reporting of limitations should not be viewed as a weakness of a trial but due diligence, so clinicians can fully"
+          }
+        },
+        {
+          "id": "engprof--academic-writing--writing-conclusion-body-paragraphs--v2",
+          "statement": "การ paraphrase ความคิดของผู้อื่นโดยไม่ให้เครดิตแหล่งที่มา ถือเป็น plagiarism เช่นเดียวกับการลอกคำต่อคำ และขอบเขตของคำว่า common knowledge เองก็ยังเป็นประเด็นที่สับสนกันอยู่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15381625",
+              "locator": "Abstract; Arch Surg. 2004;139(9):1022-1024",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Other acts of plagiarism are paraphrasing without crediting the source, using \"blanket\" references, \"second-generation\" references, and duplicate or repetitive publication of one's own previously published work. ... The requirement of many "
+          }
+        }
+      ]
+    },
+    "engprof--academic-writing--ama-citation-style-ที่ต้องรู้": {
+      "claims": [
+        {
+          "id": "engprof--academic-writing--ama-citation-style-ที่ต้องรู้--v1",
+          "statement": "รายการอ้างอิงในวารสารการแพทย์ควรใส่ persistent identifier เช่น DOI, PMID หรือ ISBN และเลือกใช้ชื่อวารสารอย่างสม่ำเสมอ เพื่อให้ผู้อ่านตามไปหาต้นฉบับได้จริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39513084",
+              "locator": "Abstract; JMA J. 2024;7(4):461-470",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Key proposals include the use of persistent identifiers (Digital Object Identifier, PubMed Identifier, and International Standard Book Number), proper citation of online content, and the inclusion of romanized Japanese article titles. The s"
           }
         }
       ]
@@ -14618,6 +23125,33 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "The title was reported with spin in 13 articles (18.0%; 95% CI, 10.0%-28.9%). Spin was identified in the Results and Conclusions sections of the abstracts of 27 (37.5%; 95% CI, 26.4%-49.7%) and 42 (58.3%; 95% CI, 46.1%-69.8%) reports, respe"
+          }
+        }
+      ]
+    },
+    "engprof--summary-writing--procedure-for-writing-summaries": {
+      "claims": [
+        {
+          "id": "engprof--summary-writing--procedure-for-writing-summaries--v1",
+          "statement": "การสอนกลยุทธ์สรุปความอย่างชัดเจนช่วยให้เขียน summary ได้ดีขึ้นจริง โดยกลยุทธ์ generalization (รวมความคิดที่คล้ายกันขึ้นเป็นข้อความเดียว) ช่วยให้เขียนประโยคใจความหลักได้ดีกว่าอย่างมีนัยสำคัญ และกลยุทธ์สรุปความทั้งสองแบบช่วยให้ตัดสินได้ดีกว่าว่าเนื้อหาส่วนไหนสำคัญ เมื่อเทียบกับการให้ผู้เรียนใช้ความรู้สึกส่วนตัวตัดสินความสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11161637",
+              "locator": "Abstract; Contemp Educ Psychol. 2001;26(1):3-24",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Analysis of test summaries showed instruction in generalization was significantly more effective for stating a thesis statement. Both argument repetition and generalization were significantly more effective than the control condition in jud"
           }
         }
       ]
@@ -14918,6 +23452,3080 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "The average plagiarism rate in the texts generated by ChatGPT was 45% (SD 10%). ChatGPT exhibited a substantial reduction in plagiarism for the provided texts (mean difference -0.51, 95% CI -0.54 to -0.48; P<.001). ... Although ChatGPT demo"
+          }
+        }
+      ]
+    },
+    "engprof--paraphrasing--5-paraphrasing-techniques": {
+      "claims": [
+        {
+          "id": "engprof--paraphrasing--5-paraphrasing-techniques--v1",
+          "statement": "การสลับ active กับ passive voice ใช้เป็นเทคนิค paraphrase ได้จริง และ passive voice พบมากในงานเขียนวิทยาศาสตร์ แต่ตัวกำหนดว่าควรเลือก voice ไหนคือลำดับข้อมูลในประโยค (ข้อมูลเดิมมาก่อน ข้อมูลใหม่ตามหลัง) ไม่ใช่เพราะ passive เป็นทางการกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25754358",
+              "locator": "Abstract; Keio J Med. 2015;64(1):1-10",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the key factor in voice selection is sentence word order as determined by the natural tendency in English for the topic of discourse (\"old\" information) to take subject position and for \"new\" information to come later. Authors who submit to"
+          }
+        },
+        {
+          "id": "engprof--paraphrasing--5-paraphrasing-techniques--v2",
+          "statement": "ในการเขียนบทความวิชาการ ควรหลีกเลี่ยงการยกข้อความจากบทความอ้างอิงมาตรงๆ และให้ paraphrase เป็นคำพูดของตัวเองแทน เพื่อไม่ให้เป็น plagiarism",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23478739",
+              "locator": "Abstract; JNMA J Nepal Med Assoc. 2012;52(186):95-101",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Language should be simple, active voice should be used and jargon avoided. Avoid directly quoting from reference articles and paraphrase these in your own words to avoid plagiarism."
+          }
+        }
+      ]
+    }
+  },
+  "epidemiology--epidem-basic-concepts": {
+    "epidemiology--epidem-basic-concepts--ระบาดวิทยาศึกษาอะไร-และการแบ่งเชิงคุณภาพกับเชิงปริมาณ": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-basic-concepts--ระบาดวิทยาศึกษาอะไร-และการแบ่งเชิงคุณภาพกับเชิงปริมาณ--v1",
+          "statement": "หน่วยของการศึกษาทางระบาดวิทยาสัตวแพทย์คือ animal population ไม่ใช่สัตว์รายตัว โดยงานครอบคลุมตั้งแต่ลักษณะของประชากรที่มีผลต่อสุขภาพและโรค ไปจนถึงการวิเคราะห์สถานการณ์ โครงสร้าง พลวัต การวินิจฉัย และผลที่ตามมาในประชากรนั้น รวมถึงการเตรียม ประเมินต้นทุน และประเมินผลโปรแกรมสุขภาพประชากรสัตว์ และเทคนิคทางสถิติ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-7704930",
+              "locator": "73(1):77-83, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The program is based on action-oriented animal population health/disease analyses and programming. ... animal population characteristics of health/disease importance; analysis of animal population health and disease situations, structures, "
+          }
+        },
+        {
+          "id": "epidemiology--epidem-basic-concepts--ระบาดวิทยาศึกษาอะไร-และการแบ่งเชิงคุณภาพกับเชิงปริมาณ--v2",
+          "statement": "หัวข้อ Economic assessment of disease and its control ที่สไลด์วางไว้ในฝั่ง quantitative epidemiology เป็นศาสตร์ที่แยกจากระบาดวิทยาแต่ทำงานเสริมกัน โดยการวิเคราะห์ทางเศรษฐศาสตร์ของโรคและมาตรการแทรกแซงต้องใช้ข้อมูลนำเข้าทางระบาดวิทยาเสมอ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9025136",
+              "locator": "15(3):797-812, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Animal health economics has two interrelated branches: economics for the planning and management of animal health services and economic analysis of diseases and interventions. Epidemiology and economics, although separate scientific areas, "
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-basic-concepts--การประยุกต์ใช้หลักและวิธีการทางระบาดวิทยาสัตวแพทย์": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-basic-concepts--การประยุกต์ใช้หลักและวิธีการทางระบาดวิทยาสัตวแพทย์--v1",
+          "statement": "หลักและวิธีการทางระบาดวิทยาสัตวแพทย์ถูกนำไปใช้จริงในงานสอบสวนโรคภาคสนาม (field investigation) และการตรวจจับโรค โดยประสิทธิผลของการตรวจจับและควบคุมโรคติดต่อร้ายแรงในสัตว์ขึ้นกับการเข้าใจธรรมชาติของโรคและการใช้วิธีการที่หนักแน่นทางวิชาการโดยคนที่ผ่านการฝึกมาแล้ว และงานนี้ส่งผลย้อนกลับไปที่โครงการสุขภาพสัตว์ระดับชาติ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19781798",
+              "locator": "92(4):284-287, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The effectiveness of detection and control of highly contagious animal diseases is dependent on a solid understanding of their nature and implementation of scientifically sound methods by people who are well trained. ... a training program "
+          }
+        },
+        {
+          "id": "epidemiology--epidem-basic-concepts--การประยุกต์ใช้หลักและวิธีการทางระบาดวิทยาสัตวแพทย์--v2",
+          "statement": "การเฝ้าระวัง (surveillance) เป็นการประยุกต์ใช้ระบาดวิทยาที่หน่วยงานสัตวแพทย์ของแต่ละประเทศต้องทำ เพื่อให้มีข้อมูลการเกิดโรคในพื้นที่ของตนที่หนักแน่นพอ ปกป้องสถานะสุขภาพสัตว์ของประเทศ และใช้เป็นฐานของการวิเคราะห์ความเสี่ยงที่ถูกต้องตามหลักวิชาการ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15737427",
+              "locator": "67(2-3):125-140, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "More than ever, veterinary services worldwide are faced with having to fulfill a crucial role in protecting their country's animal health status, provide sound surveillance information on the occurrence of diseases within their territories,"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-basic-concepts--7-เรื่องที่ระบาดวิทยาครอบคลุม": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-basic-concepts--7-เรื่องที่ระบาดวิทยาครอบคลุม--v1",
+          "statement": "Risk factor หรือปัจจัยกำหนดการเกิดโรค เป็น concept ทางระบาดวิทยาที่ใช้อธิบายการกระจายของโรค และหาได้จากการเปรียบเทียบลักษณะของประชากรที่ป่วยกับประชากรที่ไม่ป่วย ซึ่งเป็นเหตุผลว่าทำไมการดู distribution อย่างเดียวจึงหยุดอยู่แค่ descriptive ส่วนการนำ determinants เข้ามาแปลผลร่วมจึงเป็น analytic",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30895182",
+              "locator": "6:66, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Risk factors are key epidemiological concepts that are used to explain disease distributions. Identifying disease risk factors is generally done by comparing the characteristics of diseased and non-diseased populations."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-basic-concepts--7-เรื่องที่ระบาดวิทยาครอบคลุม--v2",
+          "statement": "การป้องกันและควบคุมโรคเป็นส่วนหนึ่งของศาสตร์ระบาดวิทยาสัตวแพทย์เอง ไม่ใช่แค่ผลพลอยได้ เพราะในสัตว์มีมาตรการควบคุมให้เลือกใช้กว้างกว่าในคน และมาตรการเหล่านั้นย้อนกลับมามีผลโดยตรงต่อระบาดวิทยาของโรคนั้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1775701",
+              "locator": "39(5):477-486, English abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "it differs from human epidemiology by: the broad spectrum of animal species and its differences in longevity, pathology and genetics, the extend of control measures available and their direct effect on the epidemiology of the diseases, the "
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-basic-concepts--ขอบเขต-วัตถุประสงค์-และประโยชน์ของการศึกษาระบาดวิทยา": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-basic-concepts--ขอบเขต-วัตถุประสงค์-และประโยชน์ของการศึกษาระบาดวิทยา--v1",
+          "statement": "ระบาดวิทยาสัตวแพทย์มีขอบเขต (domain) และวัตถุประสงค์เฉพาะของตัวเอง แม้จะยืมวิธีการที่พัฒนาในระบาดวิทยาของคนมาใช้ โดยให้ลำดับความสำคัญกับความคุ้มค่าของการควบคุมโรคและการเฝ้าระวังทางระบาดวิทยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1775701",
+              "locator": "39(5):477-486, English abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The author describes the specifics of veterinary epidemiology, in particular its domain and objectives. ... Even if veterinary epidemiology benefits from methods developed in the last thirty years in human epidemiology, it differs from huma"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-basic-concepts--ขอบเขต-วัตถุประสงค์-และประโยชน์ของการศึกษาระบาดวิทยา--v2",
+          "statement": "ประโยชน์ข้อที่ว่าระบาดวิทยาเป็นประโยชน์ต่องานวิจัยทางสัตวแพทย์และงานวิจัยร่วมระหว่างสัตวแพทยศาสตร์กับแพทยศาสตร์ มีหลักฐานรองรับ โดยนักระบาดวิทยาสัตวแพทย์มีส่วนทั้งในงานวิจัยและงานปฏิบัติด้านสาธารณสุข ไม่เฉพาะการป้องกันควบคุมโรคสัตว์สู่คน แต่รวมถึงงานวิจัยทางการแพทย์เชิงเปรียบเทียบและงานวิจัยพื้นฐาน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18375003",
+              "locator": "86(3-4):250-259, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Veterinary medicine contributes to public health not only in the area of zoonotic disease prevention and control, but also through contributions to animal health, comparative and basic medical research, and population and environmental heal"
+          }
+        }
+      ]
+    }
+  },
+  "epidemiology--epidem-intro": {
+    "epidemiology--epidem-intro--แผนที่สถานการณ์การระบาดของ-wahid-oie": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-intro--แผนที่สถานการณ์การระบาดของ-wahid-oie--v1",
+          "statement": "WAHID ที่ปรากฏบนสไลด์คือ World Animal Health Information Database ซึ่งเป็นหน้าฐานข้อมูลของ WAHIS หรือ World Animal Health Information System ซึ่งเป็นระบบแจ้งโรคออนไลน์แบบปลอดภัยของ OIE ผลของระบบนี้ทำให้รู้การกระจายของโรคสัตว์ทั่วโลกได้ดีขึ้น ซึ่งคือสิ่งที่แผนที่หน้านี้แสดง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22947122",
+              "locator": "107(3-4):149-159, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "introduction and use of a secure online notification system World Animal Health Information System (WAHIS) and its database interface World Animal Health Information Database (WAHID) ... Consequently, there is a greater knowledge of animal "
+          }
+        },
+        {
+          "id": "epidemiology--epidem-intro--แผนที่สถานการณ์การระบาดของ-wahid-oie--v2",
+          "statement": "การที่ legend ของแผนที่แยกสถานะเป็น domestic กับ wild สอดคล้องกับขอบเขตข้อมูลของ WAHIS ซึ่งเก็บข้อมูลการระบาดรายประเทศของโรคที่อยู่ในบัญชีของ WOAH รวมถึงโรคอุบัติใหม่ ทั้งในสัตว์เลี้ยงและสัตว์ป่า และเก็บโรคที่ไม่อยู่ในบัญชีเฉพาะกรณีที่เกิดในสัตว์ป่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37232300",
+              "locator": "42:242-251, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The World Animal Health Information System (WAHIS) collects and publishes a wealth of information gathered by individual countries' Veterinary Services, including detailed country-specific information on outbreaks of diseases listed by the "
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-intro--covid-19-สถานะรายประเทศและ-epidemic-curve-ของไทย": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-intro--covid-19-สถานะรายประเทศและ-epidemic-curve-ของไทย--v1",
+          "statement": "Triukose และคณะ (2021) ซึ่งเป็นที่มาของ epidemic curve บนสไลด์ แบ่งการระบาดระลอกแรกของไทยเป็น 5 ระยะ คือ (A) Early, (B) Spreading, (C) Intervention I, (D) Intervention II และ (E) Easing โดยระยะ Easing กินเวลา 3 พฤษภาคม ถึง 31 กรกฎาคม 2563",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33606734",
+              "locator": "16(2):e0246274, section \"Classification of the five time periods\"",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the first-wave period was classified into five epidemic stages: (A) Early; (B) Spreading; (C) Intervention I; (D) Intervention II; (E) Easing. This classification was based on critical events as well as public health interventions and polic"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-intro--covid-19-สถานะรายประเทศและ-epidemic-curve-ของไทย--v2",
+          "statement": "จุดสูงสุดของการระบาดระลอกแรกของไทยคือผู้ป่วยยืนยัน 188 ราย ในวันที่ 22 มีนาคม 2563 ซึ่งห่างจากเหตุการณ์ super-spreading สองครั้งประมาณ 14 วัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33606734",
+              "locator": "16(2):e0246274, section \"Effect of public health interventions and key events\"",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The pinnacle of this outbreak, 188 confirmed cases on 22 March 2020, was approximately 14 days after the two super-spreading events."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-intro--covid-19-สถานะรายประเทศและ-epidemic-curve-ของไทย--v3",
+          "statement": "มาตรการที่สไลด์ทำเครื่องหมายไว้บนกราฟมีวันที่ที่ตรวจสอบได้ คือ Bangkok shutdown วันที่ 22 มีนาคม 2563, nation-wide curfew เริ่ม 2 เมษายน 2563, กพท. (CAAT) ห้ามเที่ยวบินระหว่างประเทศเข้าไทยตั้งแต่ 6 เมษายน 2563 และห้ามจำหน่ายเครื่องดื่มแอลกอฮอล์ตั้งแต่ 12 เมษายน 2563 ตลอดช่วง Intervention II",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33606734",
+              "locator": "16(2):e0246274, section \"Classification of the five time periods\", Intervention II stage",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A nationwide curfew was implemented on 2 April 2020, and the Civil Aviation Authority of Thailand (CAAT) banned all international flights to Thailand starting from 6 April 2020. A mandatory state quarantine was established on 3 April 2020, "
+          }
+        }
+      ]
+    }
+  },
+  "epidemiology--epidem-outbreak-investigation": {
+    "epidemiology--epidem-outbreak-investigation--วัตถุประสงค์ของการสอบสวนโรคระบาด-7-ข้อ": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--วัตถุประสงค์ของการสอบสวนโรคระบาด-7-ข้อ--v1",
+          "statement": "การสอบสวนการระบาดมีเป้าหมายทั้งระยะสั้นและระยะยาว คือ ช่วยระบุ source ของการระบาดที่กำลังดำเนินอยู่และป้องกันไม่ให้เกิด case เพิ่ม และแม้การระบาดจะจบไปแล้ว การสอบสวนทางระบาดวิทยาและสิ่งแวดล้อมอย่างละเอียดก็ยังเพิ่มองค์ความรู้เกี่ยวกับโรคนั้นและป้องกันการระบาดในอนาคตได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9452395",
+              "locator": "Emerg Infect Dis 1998;4(1):21-7, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Outbreak investigations, an important and challenging component of epidemiology and public health, can help identify the source of ongoing outbreaks and prevent additional cases. Even when an outbreak is over, a thorough epidemiologic and e"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--วัตถุประสงค์ของการสอบสวนโรคระบาด-7-ข้อ--v2",
+          "statement": "เมื่อเกิด outbreak มักมีความจำเป็นเร่งด่วนที่จะต้องระบุ source และ/หรือสาเหตุของปัญหา เพื่อใช้เป็นฐานของการควบคุมโรค ซึ่งเป็นเหตุผลหลักที่งานสอบสวนภาคสนามทางระบาดวิทยาต้องทำเพื่อตอบสนองปัญหาสาธารณสุขเฉียบพลัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2356818",
+              "locator": "Am J Epidemiol 1990;132(1):9-16, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "When outbreaks of disease occur, there usually is an urgent need to identify the source and/or cause of the problem as a basis for control."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-outbreak-investigation--กรอบคิด-4-ws-1-h-epidemiologic-triad-และ-fmd": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--กรอบคิด-4-ws-1-h-epidemiologic-triad-และ-fmd--v1",
+          "statement": "สัตว์ที่ติดเชื้อ FMD สามารถขับไวรัสได้ตั้งแต่ยังไม่แสดงอาการ โดยตรวจพบ FMDV RNA ใน nasal และ mouth swab ของสัตว์ contact ได้หลายวันก่อนที่สัตว์ตัวนั้นจะแสดงอาการอื่นของการติดเชื้อ ซึ่งสนับสนุนว่าสัตว์ในระยะฟักตัวเป็น source ของเชื้อได้จริง และระยะฟักตัวสัมพันธ์กับ dose ที่ได้รับอย่างชัดเจน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14554125",
+              "locator": "J Comp Pathol 2003;129(4):268-82, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "FMDV RNA in nasal and mouth swabs from contact animals could be detected several days before they showed other signs of infection, indicating the possibility of detecting exposed animals during the incubation period."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--กรอบคิด-4-ws-1-h-epidemiologic-triad-และ-fmd--v2",
+          "statement": "สิ่งแวดล้อมที่ปนเปื้อนสารคัดหลั่งและสิ่งขับถ่ายของสัตว์ติดเชื้อมีส่วนต่อการแพร่ FMD อย่างมีนัยสำคัญ ในการทดลองในลูกโคพบว่าประมาณ 44% ของการแพร่เชื้อเกิดผ่านสิ่งแวดล้อม (R0 ทางสิ่งแวดล้อม 2.0 จากผลรวม 4.6) ผู้วิจัยจึงสรุปว่ามาตรการสุขอนามัยมีบทบาทสำคัญมากในการควบคุม FMD",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25928658",
+              "locator": "Vet Res 2015;46(1):43, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The study shows that roughly 44% of transmission occurs via the environment, as indicated by the reproduction ratio R0(2R)environment that equalled 2.0, whereas the sum of R0(2R)contact and R0(2R)environment equalled 4.6."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--กรอบคิด-4-ws-1-h-epidemiologic-triad-และ-fmd--v3",
+          "statement": "การแพร่ FMD ทางอากาศ (ซึ่งเข้าทาง portal of entry แบบ inspiration) เกิดขึ้นได้จริงในภาคสนาม โดยการประเมินสภาพบรรยากาศช่วงต้นการระบาดปี 2001 ในสหราชอาณาจักรสอดคล้องกับสมมติฐานว่าเชื้อแพร่จาก Burnside Farm ไปยังฟาร์มข้างเคียง 7 จาก 12 ฟาร์ม ที่ระยะทางตั้งแต่ต่ำกว่า 1 กม. ถึง 9 กม.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12739601",
+              "locator": "Vet Rec 2003;152(17):525-33, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The results of a detailed assessment of the atmospheric conditions when foot-and-mouth disease (FMD) virus was released from Burnside Farm, Heddon-on-the-Wall, Northumberland at the start of the 2001 epidemic in the UK are consistent with t"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-outbreak-investigation--ประเภทของ-outbreak-สาเหตุ-และ-iceberg-concept": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--ประเภทของ-outbreak-สาเหตุ-และ-iceberg-concept--v1",
+          "statement": "ปัจจัยที่ทำให้โรคติดเชื้ออุบัติขึ้นหรือเพิ่มขึ้นสามารถระบุได้แทบทุกกรณี และประกอบด้วยปัจจัยทาง ecological, environmental หรือ demographic ที่ทำให้คนสัมผัสกับเชื้อที่ไม่คุ้นเคยหรือ natural host ของเชื้อมากขึ้น หรือส่งเสริมการแพร่กระจาย ร่วมกับวิวัฒนาการของสายพันธุ์ไวรัสและจุลชีพและการคัดเลือกเชื้อดื้อยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-8903148",
+              "locator": "Emerg Infect Dis 1995;1(1):7-15, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These include ecological, environmental, or demographic factors that place people at increased contact with a previously unfamiliar microbe or its natural host or promote dissemination."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--ประเภทของ-outbreak-สาเหตุ-และ-iceberg-concept--v2",
+          "statement": "Iceberg concept ในโรคสัตว์หมายถึงการที่การตรวจพบทางคลินิกเป็นเพียงยอดของภูเขาน้ำแข็ง ตัวอย่างเช่น Johne's disease ที่ดำเนินโรคเป็น 4 ระยะ (silent, subclinical, clinical, advanced) แต่การตรวจวินิจฉัยที่มีอยู่ sensitivity ต่ำจนตรวจพบได้เฉพาะระยะ clinical และ advanced เท่านั้น อย่างไรก็ตามสัดส่วนระหว่างระยะที่นิยมอ้างกัน (1 advanced ต่อ 1-2 clinical ต่อ 4-8 subclinical ต่อ 10-14 silent) มีหลักฐานรองรับน้อยและแบบจำลองไม่สามารถทำให้สัดส่วนนี้เป็นจริงได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24167547",
+              "locator": "PLoS One 2013;8(10):e76636, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Available diagnostic tests have poor sensitivity and cannot detect early stages of the infection; as a result, only animals in the clinical and advanced stages, which represent the tip of the 'iceberg', are identified through testing... The"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-outbreak-investigation--step-1-3-เตรียมงาน-ยืนยันว่าเป็น-outbreak-จริง-และยืนยันการวินิจ": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--step-1-3-เตรียมงาน-ยืนยันว่าเป็น-outbreak-จริง-และยืนยันการวินิจ--v1",
+          "statement": "สัญญาณที่ดูเหมือน outbreak ส่วนใหญ่ไม่ผ่านการยืนยันว่าเป็น outbreak จริง ในการเฝ้าระวังของ CDC ปี 2016 จาก possible multistate outbreak 118 เหตุการณ์ที่นำมาวิเคราะห์ มีเพียง 50 เหตุการณ์ (42%) ที่มีข้อมูลเพียงพอจนถือว่าเป็น outbreak จริง และบางเหตุการณ์ถูกตัดออกเพราะเป็น pseudo-outbreak เช่น กลุ่ม isolate ที่คล้ายกันซึ่งเกิดจากการปนเปื้อนของอาหารเลี้ยงเชื้อในห้องปฏิบัติการ ไม่ใช่การติดเชื้อในผู้ป่วยจริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33180756",
+              "locator": "MMWR Surveill Summ 2020;69(6):1-14, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "were pseudo-outbreaks (e.g., a group of similar isolates resulting from laboratory media contamination rather than infection in patients)... Fewer than half (42%) of the 118 possible outbreaks investigated were determined to have sufficient"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-outbreak-investigation--step-8-11-การศึกษาเพิ่มเติม-การควบคุม-การสื่อสาร-และการติดตาม": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--step-8-11-การศึกษาเพิ่มเติม-การควบคุม-การสื่อสาร-และการติดตาม--v1",
+          "statement": "การศึกษาเพิ่มเติมด้วย whole-genome sequencing และ phylogenetics ร่วมกับการเก็บตัวอย่างสิ่งแวดล้อม ช่วยยืนยัน source และ transmission pathway ของการระบาดได้ ในการระบาดของ carbapenem-resistant Klebsiella pneumoniae ในโรงพยาบาล การวิเคราะห์นี้ยืนยันผู้ป่วยต้นทาง เพิ่มสัดส่วนเส้นทางการแพร่ที่ยืนยันได้จาก 11 เป็น 20 จาก 89 ราย และสนับสนุนว่าหมอนจัดท่าที่ปนเปื้อนเป็นแหล่งคงอยู่ของเชื้อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28935481",
+              "locator": "Am J Infect Control 2017;46(1):54-59, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A patient from Greece was confirmed as the source of the outbreak... The phylogenetic analysis supported the assumption that a contaminated positioning pillow served as a reservoir for the persistence of KPC-2-Kp."
+          }
+        },
+        {
+          "id": "epidemiology--epidem-outbreak-investigation--step-8-11-การศึกษาเพิ่มเติม-การควบคุม-การสื่อสาร-และการติดตาม--v2",
+          "statement": "มาตรการควบคุมในการระบาดจากอาหาร (Step 9) รวมถึงการเรียกคืนผลิตภัณฑ์จริง โดยปี 2016 มี 13 จาก 18 การระบาดหลายรัฐที่ยืนยัน source แล้วนำไปสู่ product action (recall 10, market withdrawal 2 และ public health alert ของ FSIS 1) ส่วนการสื่อสาร (Step 10) ใช้ช่องทางเว็บไซต์และ social media และการสรุปผลการสอบสวนย้อนหลัง (Step 11) ช่วยชี้ช่องว่างด้านความปลอดภัยอาหารและปรับปรุงการสอบสวนครั้งถัดไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33180756",
+              "locator": "MMWR Surveill Summ 2020;69(6):1-14, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Thirteen of 18 multistate foodborne disease outbreaks with confirmed sources resulted in product action, including 10 outbreaks with recalls, two with market withdrawals, and one with an FSIS public health alert... Summarizing investigation"
+          }
+        }
+      ]
+    }
+  },
+  "epidemiology--epidem-surveillance": {
+    "epidemiology--epidem-surveillance--structured-population-based-survey-และการสุ่มตัวอย่าง": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-surveillance--structured-population-based-survey-และการสุ่มตัวอย่าง--v1",
+          "statement": "WOAH แบ่งวิธีสุ่มตัวอย่างใน survey ของงานเฝ้าระวังเป็น probability-based sampling ได้แก่ simple random selection, cluster sampling, stratified sampling, systematic sampling และ risk-based sampling กับ non-probability-based sampling ซึ่งขึ้นกับ convenience, expert choice, quota และ risk โดยเมื่อต้องการ representative sample ควรใช้ probability-based sampling เช่น simple random selection",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.4.4 Surveillance methods, point 2 Surveys, b) Sampling, iii) Sample selection",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Probability-based sampling methods, such as: simple random selection; cluster sampling; stratified sampling; systematic sampling; risk-based sampling. Non-probability-based sampling methods, depending on: convenience; expert choice; quota; "
+          }
+        },
+        {
+          "id": "epidemiology--epidem-surveillance--structured-population-based-survey-และการสุ่มตัวอย่าง--v2",
+          "statement": "การติดเชื้อในประเทศ zone หรือ compartment มักกระจายแบบเป็นกลุ่ม (cluster) ไม่ได้กระจายอย่างสม่ำเสมอหรือแบบสุ่มทั่วประชากร และการเกิด cluster เกิดได้หลายระดับ เช่น กลุ่มสัตว์ติดเชื้อภายในฝูงเดียวกัน กลุ่มคอกในอาคารเดียวกัน หรือกลุ่มฟาร์มใน compartment เดียวกัน จึงต้องนำมาคิดทั้งในการออกแบบงานเฝ้าระวังและในการวิเคราะห์ทางสถิติ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.4.3 Surveillance systems, point 1 Design of surveillance system, e) Clustering",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Infection or infestation in a country, zone or compartment usually clusters rather than being uniformly or randomly distributed through a population... Clustering should be taken into account in the design of surveillance activities and con"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-surveillance--structured-population-based-survey-และการสุ่มตัวอย่าง--v3",
+          "statement": "WOAH ระบุแหล่งข้อมูลเฝ้าระวังที่ไม่ได้มาจากการสุ่มไว้หลายแหล่ง ได้แก่ disease reporting systems, ante-mortem และ post-mortem inspections ที่โรงฆ่าสัตว์, sentinel units, clinical surveillance, syndromic surveillance และข้อมูลอื่นที่เป็นประโยชน์ เช่น ข้อมูลจาก control programmes and health schemes, laboratory investigation records และ biological specimen banks",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.4.4 Surveillance methods, points 1 and 4-8 (Disease reporting systems; Ante-mortem and post-mortem inspections; Surveillance of sentinel units; Clinical surveillance; Syndromic surveillance; Other useful data)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Surveillance systems routinely use data collected by probability-based or non-probability-based methods, either alone or in combination. A wide variety of surveillance sources may be available."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-surveillance--วงจร-กลยุทธ์-และกระบวนการเฝ้าระวัง": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-surveillance--วงจร-กลยุทธ์-และกระบวนการเฝ้าระวัง--v1",
+          "statement": "Public health surveillance นิยามว่าเป็นการเก็บ วิเคราะห์ แปลผล และเผยแพร่ข้อมูลสุขภาพอย่างเป็นระบบและต่อเนื่อง เพื่อใช้ในการวางแผน การดำเนินการ และการประเมินผลการปฏิบัติงานสาธารณสุข ซึ่งเป็นที่มาของวงจรเฝ้าระวังที่ไล่จาก data collection ไป data analysis ไป data interpretation ไป result dissemination และจบที่การนำไปสู่การลงมือทำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24278752",
+              "locator": "Scientifica (Cairo) 2012;2012:875253, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "public health surveillance-the ongoing systematic collection, analysis, interpretation, and dissemination of health data for the planning, implementation, and evaluation of public health action"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-surveillance--วงจร-กลยุทธ์-และกระบวนการเฝ้าระวัง--v2",
+          "statement": "ขั้นแปลผลของงานเฝ้าระวังต้องระวัง bias เป็นหลัก เพราะผลจากระบบเฝ้าระวังสุขภาพสัตว์ย่อมมี bias ที่เป็นไปได้อย่างน้อยหนึ่งอย่างเสมอ และต้องตรวจหา bias เหล่านั้นให้เจอ เนื่องจาก bias อาจทำให้ค่าพารามิเตอร์ที่สนใจถูกประเมินสูงเกินไปหรือต่ำเกินไปโดยไม่ตั้งใจ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.4.4 Surveillance methods, point 9 Combination and interpretation of surveillance results",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Results from animal health surveillance systems are subject to one or more potential biases. When assessing the results, care should be taken to identify potential biases that can inadvertently lead to an over-estimate or an under-estimate "
+          }
+        },
+        {
+          "id": "epidemiology--epidem-surveillance--วงจร-กลยุทธ์-และกระบวนการเฝ้าระวัง--v3",
+          "statement": "ขั้น link to action ไม่ใช่สิ่งที่ค่อยมาคิดตอนได้ผลแล้ว แต่ WOAH กำหนดให้การออกแบบระบบเฝ้าระวังต้องรวมการพิจารณาตั้งแต่ต้นว่าจะดำเนินการอะไรบนพื้นฐานของข้อมูลที่ระบบนั้นจะสร้างขึ้นมา",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.4.3 Surveillance systems, point 1 Design of surveillance system, i) Follow up actions",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The design of the surveillance system should include consideration of what actions will be taken on the basis of the information generated."
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-surveillance--surveillance-checklist-10-ข้อ": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-surveillance--surveillance-checklist-10-ข้อ--v1",
+          "statement": "แนวทางการรายงานงานเฝ้าระวังสุขภาพสัตว์ที่ตีพิมพ์เป็นมาตรฐานคือ AHSURED (Animal Health Surveillance Reporting Guidelines) ซึ่งฉบับแรกเป็น checklist 40 ข้อ จัดกลุ่มเป็น 11 sections ตาม surveillance system building blocks ไม่ใช่ checklist 10 ข้อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31828080",
+              "locator": "Front Vet Sci 2019;6:426, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This first version of the AHSURED guidelines consists of a checklist of 40 items organized in 11 sections (i.e., surveillance system building blocks)"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-surveillance--surveillance-checklist-10-ข้อ--v2",
+          "statement": "สองรายการในเช็คลิสต์มีข้อกำหนดสากลรองรับตรงตัว คือ case definition เป็นองค์ประกอบที่ต้องกำหนดตั้งแต่ขั้นออกแบบระบบเฝ้าระวัง โดยใช้ case definition จากบทที่เกี่ยวข้องของ Terrestrial Code ถ้ามี และ testing protocol ที่ใช้การ pooling ต้องแปลผลด้วยค่า sensitivity และ specificity ที่กำหนดหรือประมาณไว้สำหรับขนาด pool และวิธีทดสอบนั้นโดยเฉพาะ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.4.3 Surveillance systems, point 1(c) Case definition and point 2(a) Diagnostic tests",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Samples from a number of animals or units may be pooled and subjected to a testing protocol. The results should be interpreted using sensitivity and specificity values that have been determined or estimated for that particular pool size and"
+          }
+        }
+      ]
+    },
+    "epidemiology--epidem-surveillance--ทรัพยากรและการวางแผนเฝ้าระวัง": {
+      "claims": [
+        {
+          "id": "epidemiology--epidem-surveillance--ทรัพยากรและการวางแผนเฝ้าระวัง--v1",
+          "statement": "เมื่อออกแบบระบบเฝ้าระวังต้องพิจารณาขอบเขตของระบบโดยคำนึงถึงข้อจำกัดของข้อมูลที่จะได้ รวมถึง representativeness ของ study population, แหล่งของ bias ที่อาจเกิด และความพร้อมของทรัพยากรด้านการเงิน ด้านเทคนิค และด้านกำลังคน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.4.3 Surveillance systems, point 1(h) Scope of the surveillance system",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "consideration should be given to the purposes of surveillance and how the information it generates will be used, the limitations of the information it will generate, including representativeness of the study population and potential sources"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-surveillance--ทรัพยากรและการวางแผนเฝ้าระวัง--v2",
+          "statement": "ทรัพยากรด้านห้องปฏิบัติการ กำลังคน และการสื่อสาร เป็นองค์ประกอบบังคับของ early warning system ตามข้อกำหนดของ WOAH ซึ่งต้องมีการเข้าถึงห้องปฏิบัติการที่วินิจฉัยและแยกโรคที่เกี่ยวข้องได้ มีโปรแกรมฝึกอบรมและสร้างความตระหนักให้สัตวแพทย์ สัตวแพทย์ผู้ช่วย และเจ้าของหรือผู้ดูแลสัตว์ มีระบบสื่อสารที่มีประสิทธิภาพระหว่าง Veterinary Authority กับผู้มีส่วนได้ส่วนเสีย และมี national chain of command",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.4.5 Early warning systems, points 2, 3, 6 and 7",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "access to laboratories capable of diagnosing and differentiating relevant infections or infestations; training and awareness programmes for veterinarians, veterinary paraprofessionals, animal owners or keepers... effective systems of commun"
+          }
+        },
+        {
+          "id": "epidemiology--epidem-surveillance--ทรัพยากรและการวางแผนเฝ้าระวัง--v3",
+          "statement": "การปรับระบบให้ทันสมัยด้วย electronic case reporting คือการรับรายงานแบบมาตรฐานทางอิเล็กทรอนิกส์จากห้องปฏิบัติการและผู้ให้บริการสุขภาพ ซึ่งทำให้กระบวนการเก็บ case เป็นอัตโนมัติและเข้าถึงข้อมูล case แบบ real-time ได้ ต่างจากงานเดิมที่ต้องทำด้วยมือหลายขั้นตอนจนเกิดความล่าช้าในการวิเคราะห์และใช้ข้อมูล",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33411623",
+              "locator": "JCO Clin Cancer Inform 2021;5:24-29, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "To modernize and automate cancer data collection and reporting, the Centers for Disease Control and Prevention is planning, developing, and piloting a cancer surveillance cloud-based computing platform (CS-CBCP) with standardized electronic"
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--meat-ante-post-mortem": {
+    "milk-meat-hygiene--meat-ante-post-mortem--meat-inspection-objectives": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-ante-post-mortem--meat-inspection-objectives--v1",
+          "statement": "วัตถุประสงค์ของ meat inspection ในโรงฆ่าสัตว์คือการรับประกันความปลอดภัยของเนื้อเพื่อคุ้มครองสุขภาพผู้บริโภค และเป็นเครื่องมือสำคัญในการควบคุมโรคสัตว์ไปพร้อมกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36851472",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "From the point of public health, the objective of the slaughterhouse is to guarantee the safety of meat in which meat inspection represent an essential tool to control animal diseases and guarantee the public health."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--meat-ante-post-mortem--meat-inspection-objectives--v2",
+          "statement": "AM inspection ตรวจจับความผิดปกติของสัตว์ก่อนฆ่าได้จริง (ผิวหนังสกปรก 69.1%, BCS ต่ำ 24.3%, น้ำมูก 19.5%) และ PM inspection ตรวจพบรอยโรคในอวัยวะ (ตับ 39.7%, ปอด 37.2%) จึงเป็นสองขั้นที่ทำงานต่อเนื่องกันเพื่อคัดแยกสัตว์และซากที่ผิดปกติออกจากห่วงโซ่อาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38903683",
+              "locator": "Results",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Soiled skin (69.1%), poor body condition (24.3%), and nostril discharge (19.5%) were common among both species at ante-mortem examination. Gross lesions were frequent in livers (39.7%) and lungs (37.2%)"
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--meat-ante-post-mortem--meat-inspection-objectives--v3",
+          "statement": "การตรวจก่อนฆ่า (ante-mortem) และหลังฆ่า (post-mortem) ร่วมกับการชำแหละอย่างถูกสุขลักษณะเพื่อให้ปนเปื้อนน้อยที่สุด เป็นข้อกำหนดตามหลักปฏิบัติสากลด้านสุขลักษณะเนื้อสัตว์ ไม่ใช่แค่แนวทางของผู้สอน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-codex-alimentarius-com-2005",
+              "locator": "Sections covering ante-mortem and post-mortem inspection and hygienic dressing. I did not re-verify the clause numbers against the current edition, so no clause number is given here.",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": ""
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--meat-molecular": {
+    "milk-meat-hygiene--meat-molecular--what-is-molecular-biology-technique": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-molecular--what-is-molecular-biology-technique--v1",
+          "statement": "ในงาน meat science เทคนิคระดับโมเลกุลหมายถึงวิธีที่วัดโมเลกุล DNA หรือโปรตีนโดยตรง และปัจจุบันวิธี DNA-based ได้เข้ามาแทนที่วิธีเดิม (anatomical, histological, chemical, electrophoretic, immunological) เป็นส่วนใหญ่ เพราะมี specificity และ sensitivity สูงกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24915324",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "However, by virtue of their inherent limitations, most of these techniques have been replaced by the recent DNA-based molecular techniques."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--meat-molecular--what-is-molecular-biology-technique--v2",
+          "statement": "วิธีวิเคราะห์เพื่อระบุชนิดสัตว์ในเนื้อแบ่งตามโมเลกุลเป้าหมายได้เป็น protein-based กับ DNA-based โดย protein-based (electrophoretic, immunological) มักแยกสปีชีส์ที่ใกล้ชิดกันได้ไม่ดี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32380410",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Various analytical methods often based on protein or DNA measurements are utilized to identify meat species. Protein-based methods, including electrophoretic and immunological techniques, are at times unsuitable for discriminating closely r"
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-molecular--genomic-techniques-combination-of-4-sub-disciplines": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-molecular--genomic-techniques-combination-of-4-sub-disciplines--v1",
+          "statement": "งาน genomics ในปศุสัตว์เป็นการทำงานร่วมกันของหลายสาขาจริง คือ genome sequencing และ assembly ร่วมกับ bioinformatics, การคัดเลือกลักษณะเชิงปริมาณ (quantitative production traits) และการกำจัด deleterious recessive variant ซึ่งเป็นงานฝั่ง Mendelian genetics",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32331872",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cattle reference genome assembly has underpinned major innovations in beef and dairy genetics through genome-enabled selection, including removal of deleterious recessive variants and selection for favorable alleles affecting quantitati"
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--meat-seafood": {
+    "milk-meat-hygiene--meat-seafood--chemical-composition-of-seafood": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-seafood--chemical-composition-of-seafood--v1",
+          "statement": "seafood ครอบคลุมสัตว์หลายกลุ่มที่ต่างไฟลัมกัน (ปลา, กุ้ง, หอยสองฝา) และองค์ประกอบทางเคมีต่างกันมากระหว่างกลุ่ม โดยในการศึกษาเดียวกัน moisture อยู่ในช่วง 74.6-89.5 g/100 g และ protein 6.8-21 g/100 g",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23894993",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the moisture content ranged from 74.6-80.6g/100g for snook 76.9-80.0g/100g for shrimp and 77.9-89.5g/100g for green mussel. After the moisture, the protein was the most abundant chemical fraction (6.8 to 21g/100g)"
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-seafood--composition-comparison-fish-vs-other-proteins": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-seafood--composition-comparison-fish-vs-other-proteins--v1",
+          "statement": "ในปลาทะเล ปริมาณ ash ค่อนข้างคงที่ (1.10-1.61%) ขณะที่ moisture (48.01-83.05%) และ fat (0.87-30.48%) แปรผันกว้างมากระหว่างชนิด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20874243",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Moisture, fat, ash, and carbohydrate contents of raw fish ranged between 48.01% and 83.05%, 0.87% and 30.48%, 1.10% and 1.61%, and 0.09% and 8.70%, respectively."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--meat-seafood--composition-comparison-fish-vs-other-proteins--v2",
+          "statement": "ไขมันคือองค์ประกอบหลักที่แปรผันมากที่สุดระหว่างชนิดปลา ซึ่งอธิบายว่าทำไมช่วง lipid ของปลาในตารางจึงกว้างกว่าองค์ประกอบอื่น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28231154",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The lipid content was the most varying main component within the different species, ranging between 1.2% to 2.0% and 0.3% to 3.0% for farmed turbot and barramundi, respectively. Pangasius flesh had a mean lipid content of 7.8%."
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--meat-slaughter": {
+    "milk-meat-hygiene--meat-slaughter--slaughterhouse-abattoir-definition-5-design-factors": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-slaughter--slaughterhouse-abattoir-definition-5-design-factors--v1",
+          "statement": "โรงฆ่าสัตว์ (slaughterhouse หรือ abattoir) หมายถึงสถานที่ที่ใช้ฆ่าและชำแหละสัตว์ซึ่งเนื้อนั้นมีจุดประสงค์เพื่อการบริโภคของมนุษย์ ซึ่งเป็นนิยามตามหลักปฏิบัติสากลด้านสุขลักษณะเนื้อสัตว์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-codex-alimentarius-com-2005",
+              "locator": "Definitions section. I could not verify the clause number against the current edition, so none is given rather than guessed.",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": ""
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--meat-slaughter--slaughterhouse-abattoir-definition-5-design-factors--v2",
+          "statement": "วิธีปฏิบัติระหว่างการถลกหนังและควักไส้ (the practice to be followed) เป็นตัวกำหนดการปนเปื้อนจุลินทรีย์ของซากได้มากกว่าการล้างหรือทำความสะอาดสัตว์และซากภายหลัง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-14968981",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "of the various actions that can be taken to obtain carcasses that are free of visible contamination, only minimizing the visible contamination of meat during skinning and eviscerating operations may also ensure a degree of control over the "
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-slaughter--location-requirements": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-slaughter--location-requirements--v1",
+          "statement": "สถานที่ผลิตอาหารรวมถึงโรงฆ่าสัตว์ต้องตั้งอยู่ห่างจากพื้นที่ที่มีมลพิษหรือพื้นที่เสี่ยงต่อการปนเปื้อน และต้องมีน้ำสะอาดเพียงพอพร้อมระบบระบายน้ำและกำจัดของเสียที่ใช้ได้จริง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-codex-alimentarius-com-2020",
+              "locator": "Chapter on Good Hygiene Practices, sections on establishment design and facilities (water supply, drainage and waste disposal). Section numbers changed in the 2020 revision and I did not re-verify them, so none is quoted.",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": ""
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--meat-storage": {
+    "milk-meat-hygiene--meat-storage--what-to-think-when-designing-storage-6-dimensions": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-storage--what-to-think-when-designing-storage-6-dimensions--v1",
+          "statement": "การเลือกวิธีเก็บรักษาต้องชั่งน้ำหนักระหว่าง safety กับ meat quality พร้อมกัน เพราะสภาวะที่คุมการเจริญของจุลินทรีย์ได้ดีที่สุดอาจให้คุณภาพด้านสีแย่กว่า โดย MAP 100% CO2 ยืดอายุการเก็บได้ประมาณ 7 วันเทียบกับ vacuum แต่ vacuum กลับให้สีที่น่าพอใจกว่า แลกกับ weight loss ที่สูงกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27376249",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The HC atmosphere inhibited microbial growth and delayed changes in the microbial community composition, extending the lamb's shelf life by approximately 7days compared with the VP atmosphere. Lamb packaged in the VP atmosphere had a more d"
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--milk-borne-pathogens": {
+    "milk-meat-hygiene--milk-borne-pathogens--types-of-microorganisms-in-milk-products-4-functional-groups": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--milk-borne-pathogens--types-of-microorganisms-in-milk-products-4-functional-groups--v1",
+          "statement": "จุลินทรีย์ในน้ำนมแบ่งตามบทบาทได้เป็นกลุ่มที่ใช้หมัก (Lactococcus, Lactobacillus, Streptococcus, Propionibacterium และเชื้อรา), กลุ่มที่ทำให้เสื่อมเสีย (Pseudomonas, Clostridium, Bacillus และกลุ่มสร้างสปอร์หรือทนความร้อน) และกลุ่มก่อโรค (Listeria, Salmonella, Escherichia coli, Campylobacter รวมถึงราที่สร้าง mycotoxin)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23808865",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "once in milk, can play a number of roles, such as facilitating dairy fermentations (e.g. Lactococcus, Lactobacillus, Streptococcus, Propionibacterium and fungal populations), causing spoilage (e.g. Pseudomonas, Clostridium, Bacillus and oth"
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--milk-cleaning": {
+    "milk-meat-hygiene--milk-cleaning--9-ข้อกำหนดขั้นพื้นฐาน": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--milk-cleaning--9-ข้อกำหนดขั้นพื้นฐาน--v1",
+          "statement": "ข้อกำหนดพื้นฐานด้านสุขลักษณะส่วนใหญ่ที่ระบุไว้ ได้แก่ สถานประกอบการและสิ่งอำนวยความสะดวก, การควบคุมการปฏิบัติงาน, การบำรุงรักษาและการสุขาภิบาล, สุขลักษณะส่วนบุคคล, การขนส่ง และการฝึกอบรม ตรงกับหัวข้อหลักของหลักการทั่วไปด้านสุขลักษณะอาหารของ Codex",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-codex-alimentarius-com-2020",
+              "locator": "Chapter on Good Hygiene Practices, top-level section headings (primary production, establishment design of facilities and equipment, training and competence, establishment maintenance cleaning disinfection and pest control, personal hygiene, control of operation, product information and consumer awareness, transportation). Numbering changed in the 2020 revision and is not quoted here because I did not re-verify it.",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": ""
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--milk-microbiology": {
+    "milk-meat-hygiene--milk-microbiology--why-milk-good-microbial-growth-medium": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--milk-microbiology--why-milk-good-microbial-growth-medium--v1",
+          "statement": "น้ำนมมีคุณค่าทางโภชนาการสูง จึงรองรับการเจริญของจุลินทรีย์ได้หลากหลายชนิด (rich microbiota)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23808865",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Milk, due to its high nutritional content, can support a rich microbiota."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--milk-microbiology--why-milk-good-microbial-growth-medium--v2",
+          "statement": "น้ำนมและผลิตภัณฑ์จากน้ำนมสามารถมีจุลินทรีย์ได้หลายชนิดและเป็นแหล่งสำคัญของเชื้อก่อโรคที่มากับอาหาร ถ้าไม่ผ่านกระบวนการฆ่าเชื้อ โดยมีรายงานการระบาดในคนที่สืบย้อนไปถึงการดื่มนมดิบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15992306",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Milk and products derived from milk of dairy cows can harbor a variety of microorganisms and can be important sources of foodborne pathogens."
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--milk-processing": {
+    "milk-meat-hygiene--milk-processing--standard-processing-workflow-8-unit-operations": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--milk-processing--standard-processing-workflow-8-unit-operations--v1",
+          "statement": "Homogenization คือ mechanical treatment หลักที่ใช้ในอุตสาหกรรมนม ทำให้ milk fat globule มีขนาดเล็กลง และเปลี่ยนสถาปัตยกรรม (องค์ประกอบและการจัดเรียง) ของ fat/water interface",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26568788",
+              "locator": "Vol 95(6):863-893, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The main mechanical treatment used in the dairy industry, homogenization, decreases the size of milk fat globules, changes the architecture (composition and organization) of the fat/water interface and affects the interactions between lipid"
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--milk-processing--standard-processing-workflow-8-unit-operations--v2",
+          "statement": "Heat treatment แบบ HTST pasteurization และ Cleaning In Place (CIP) เป็น unit operation มาตรฐานของโรงงานแปรรูปน้ำนมพร้อมดื่ม โดยการปนเปื้อนหลัง pasteurization (post-pasteurization contamination) ด้วย gram-negative bacteria ทำให้คุณภาพและ shelf-life ของนมเสียไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32475674",
+              "locator": "Vol 103(8):7569-7584, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Postpasteurization contamination (PPC) with gram-negative bacteria adversely affects the quality and shelf-life of milk through the development of flavor, odor, texture, and visual defects."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--milk-processing--dairy-processing-diagram": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--milk-processing--dairy-processing-diagram--v1",
+          "statement": "Evaporation ร่วมกับ spray drying เป็นขั้นตอนการผลิตจริงของผลิตภัณฑ์นมชนิดเข้มข้น/ผง โดยผลิตภัณฑ์อย่าง milk protein concentrate ผลิตจาก skim milk ผ่านลำดับขั้นตอน pasteurization ตามด้วย membrane filtration, evaporation และ spray drying",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33856251",
+              "locator": "Vol 62(25):6973-6989, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Milk protein concentrates (MPCs), which are produced from skim milk following a series of manufacturing steps including pasteurization, membrane filtration, evaporation and spray drying, represent a relatively new category of dairy ingredie"
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--milk-processing--dairy-processing-diagram--v2",
+          "statement": "หลักการของ diagram ที่ว่า unit operations ต่าง ๆ แปลงน้ำนมไปเป็นผลิตภัณฑ์นมหลากชนิด ตรงกับนิยามสากล ซึ่งกำหนดว่า milk product คือผลิตภัณฑ์ที่ได้จากการแปรรูปน้ำนมด้วยกระบวนการใดก็ตาม",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-who-codex-alimenta-1999",
+              "locator": "Section 2.2 (Definitions, Milk product)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Milk product is a product obtained by any processing of milk, which may contain food additives, and other ingredients functionally necessary for the processing."
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--milk-products-storage": {
+    "milk-meat-hygiene--milk-products-storage--dairy-milk-products-definition": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--milk-products-storage--dairy-milk-products-definition--v1",
+          "statement": "นิยามสากล: milk คือ normal mammary secretion ของสัตว์รีดนม ที่ได้จากการรีดหนึ่งครั้งหรือมากกว่า โดยไม่มีการเติมหรือแยกสิ่งใดออก และ milk product คือผลิตภัณฑ์ที่ได้จากการแปรรูปน้ำนมด้วยกระบวนการใดก็ตาม",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-who-codex-alimenta-1999",
+              "locator": "Section 2.1 (Milk) and Section 2.2 (Milk product)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "2.1 Milk is the normal mammary secretion of milking animals obtained from one or more milkings without either addition to it or extraction from it, intended for consumption as liquid milk or for further processing."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--milk-products-storage--dairy-milk-products-definition--v2",
+          "statement": "วัวเป็นแหล่งน้ำนมหลักของโลกจริง โดยผลิตประมาณ 83% ของน้ำนมและผลิตภัณฑ์นมที่มนุษย์บริโภคทั่วโลก ส่วนที่เหลือมาจาก buffalo, goat, sheep, camel และ equine species",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34955249",
+              "locator": "Vol 105(3):2132-2152, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Bovines produce about 83% of the milk and dairy products consumed by humans worldwide, the rest represented by bubaline, caprine, ovine, camelid, and equine species, which are particularly important in areas of extensive pastoralism."
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--milk-quality-determination": {
+    "milk-meat-hygiene--milk-quality-determination--objectives-of-milk-quality-determination": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--milk-quality-determination--objectives-of-milk-quality-determination--v1",
+          "statement": "การป้องกัน milk adulteration และความผิดปกติในทารกเป็นวัตถุประสงค์ที่มีเหตุผลรองรับจริง: การปนเปื้อน melamine ใน milk-based infant formula ที่ประเทศจีน ทำให้เกิดการระบาดของ nephrolithiasis และ acute kidney injury ในเด็ก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19212415",
+              "locator": "Vol 75(8):774-9, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Recent outbreaks of nephrolithiasis and acute kidney injury among children in China have been linked to ingestion of milk-based infant formula contaminated with melamine."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--milk-quality-determination--objectives-of-milk-quality-determination--v2",
+          "statement": "การป้องกัน zoonosis เป็นวัตถุประสงค์ที่มีเหตุผลรองรับ: brucellosis จัดเป็นหนึ่งใน neglected zoonotic diseases หลัก และผู้ป่วยส่วนใหญ่สัมพันธ์กับการบริโภคผลิตภัณฑ์นมที่ไม่ผ่าน pasteurization",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27185403",
+              "locator": "Vol 14(3):182-99, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Brucellosis is one of the main neglected zoonotic diseases. ... Most imported cases were associated with traditional risk factors such as travel/consumption of unpasteurized dairy products in endemic countries."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--milk-quality-determination--objectives-of-milk-quality-determination--v3",
+          "statement": "ความเสี่ยง milk-borne disease ยังเป็นประเด็นปัจจุบัน: มีการตรวจพบ viral load ของ highly pathogenic avian influenza H5N1 ในปริมาณสูงในน้ำนมดิบจากโคนม ทำให้เกิดความกังวลเรื่อง zoonotic transmission",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40137763",
+              "locator": "Vol 14(3), article 278, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Alarmingly, significant virus loads have been discovered in raw milk, raising worries about potential zoonotic transmission."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--milk-quality-determination--three-goals": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--milk-quality-determination--three-goals--v1",
+          "statement": "เป้าหมาย consumer protection มีฐานรองรับในมาตรฐานสากล: หลักการทั่วไปของ Codex กำหนดให้อาหารต้องถูกบรรยายหรือนำเสนอในลักษณะที่ปกป้องผู้บริโภคจากความสับสนหรือการถูกทำให้เข้าใจผิด และประกันการค้าที่เป็นธรรม",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-who-codex-alimenta-1999",
+              "locator": "Section 3, General Principles",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Foods shall be described or presented in such a manner as to ensure the correct use of dairy terms intended for milk and milk products, to protect consumers from being confused or misled and to ensure fair practices in the food trade."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--milk-quality-determination--three-goals--v2",
+          "statement": "กรอบเป้าหมายของระบบมาตรฐานอาหารสากลคือ 2 เป้าหมายหลัก ได้แก่ การคุ้มครองสุขภาพผู้บริโภค และการประกันการค้าที่เป็นธรรม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21382429",
+              "locator": "Vol 60(1):161-4, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Codex has two primary aims: to protect consumers' health and assure fair practices in food trade."
+          }
+        },
+        {
+          "id": "milk-meat-hygiene--milk-quality-determination--three-goals--v3",
+          "statement": "เป้าหมาย milk price assurance สอดคล้องกับการปฏิบัติจริงในอุตสาหกรรม: สหกรณ์โคนมจ่าย premium quality payment ให้เกษตรกรเพื่อจูงใจให้ค่า somatic cell count ต่ำ แต่ยังไม่มีข้อมูลทางวิทยาศาสตร์ที่ชัดเจนว่าระดับ SCC ใดใน bulk tank milk ที่ให้ประโยชน์ด้านคุณภาพน้ำนมเพิ่มขึ้นจริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16569277",
+              "locator": "Vol 73(3):299-305, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "dairy cooperatives give farmers a premium quality payment to encourage low SCC although there is no clear scientific data defining the level of SCC in bulk tank milk that is associated with additional benefits in terms of milk quality"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-bacterial": {
+    "zoonoses--zoo-bacterial--bacterial-zoonoses-main-groups": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-bacterial--bacterial-zoonoses-main-groups--v1",
+          "statement": "ในการจัดลำดับความสำคัญของ foodborne zoonoses 51 agents โดยผู้เชี่ยวชาญ 35 คน กลุ่มที่ถูกจัดเป็น \"most important\" คือ Salmonella spp., Campylobacter spp., Listeria monocytogenes และ verocytotoxigenic Escherichia coli ส่วน Mycobacterium bovis และ Streptococcus spp. อยู่ในกลุ่ม \"significant importance\"",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19715429",
+              "locator": "Foodborne Pathog Dis 2009;6(9):1083-96, abstract (Results)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The following foodborne zoonotic pathogens were classified as \"most important\": Salmonella spp., Campylobacter spp., Listeria monocytogenes, and verocytotoxigenic Escherichia coli. A second group of \"significant importance\" included Toxopla"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-bacterial--bacterial-zoonoses-main-groups--v2",
+          "statement": "Leptospirosis เป็น spirochaetal zoonosis และเป็นหนึ่งใน zoonotic causes of morbidity ที่สำคัญที่สุดของโลก โดยประมาณการทั่วโลกอยู่ที่ 1.03 ล้านราย (95% CI 434,000-1,750,000) และ 58,900 รายเสียชีวิตต่อปี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26379143",
+              "locator": "PLoS Negl Trop Dis 2015;9(9):e0003898, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Leptospirosis, a spirochaetal zoonosis, occurs in diverse epidemiological settings and affects vulnerable populations ... We estimate that there were annually 1.03 million cases (95% CI 434,000-1,750,000) and 58,900 deaths (95% CI 23,800-95"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-bacterial--taxonomic-hierarchy-example-colibacillosis-vs-q-fever": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-bacterial--taxonomic-hierarchy-example-colibacillosis-vs-q-fever--v1",
+          "statement": "Coxiella burnetii (สาเหตุของ Q fever) อยู่ใน gamma subdivision ของ Proteobacteria และมีความสัมพันธ์เชิงวิวัฒนาการกับ genus Legionella ไม่ได้อยู่ใน alpha subdivision ร่วมกับ genus Rickettsia ทั้งที่เดิมเคยถูกจัดอยู่ในวงศ์ Rickettsiaceae เดียวกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2753854",
+              "locator": "J Bacteriol 1989;171(8):4202-6, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The three representatives of the genus Rickettsia form a tight monophyletic cluster within the alpha subdivision of the purple bacteria. ... However, the family as a whole is not monophyletic, in that C. burnetii and W. persica are members "
+          }
+        },
+        {
+          "id": "zoonoses--zoo-bacterial--taxonomic-hierarchy-example-colibacillosis-vs-q-fever--v2",
+          "statement": "ชื่อ order ที่ถูกต้องของ Escherichia coli ตามการวิเคราะห์ genome-based คือ Enterobacterales ord. nov. (ไม่ใช่ \"Enterobacteriales\") ซึ่งแบ่งออกเป็น 7 วงศ์ โดย Escherichia ยังคงอยู่ในวงศ์ Enterobacteriaceae",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27620848",
+              "locator": "Int J Syst Evol Microbiol 2016;66(12):5575-5599, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "a proposal is made here for the order Enterobacterales ord. nov. which consists of seven families: Enterobacteriaceae, Erwiniaceae fam. nov., Pectobacteriaceae fam. nov., Yersiniaceae fam. nov., Hafniaceae fam. nov., Morganellaceae fam. nov"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-epi-approach": {
+    "zoonoses--zoo-epi-approach--definition-of-epidemiology-3-องค์ประกอบ": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-epi-approach--definition-of-epidemiology-3-องค์ประกอบ--v1",
+          "statement": "จากการทบทวนนิยามของ epidemiology ที่เผยแพร่ระหว่างปี 1978-2017 จำนวน 102 นิยาม มีคำที่ปรากฏในนิยามมากกว่า 50% อยู่ 5 คำ คือ population, study, disease, health และ distribution และคำว่า control กับ health มีน้ำหนักเพิ่มขึ้นเมื่อเทียบกับนิยามยุคก่อน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30532230",
+              "locator": "PLoS One 2018;13(12):e0208442, abstract (Results)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "102 definitions of epidemiology were retained. They helped to highlight 20 terms and concepts related to epidemiology. ... Five terms were present in more than 50% of definitions from the period 1978 to 2017: \"population\", \"study\", \"disease"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-epi-approach--type-of-epidemiological-study-2-main-branches": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-epi-approach--type-of-epidemiological-study-2-main-branches--v1",
+          "statement": "งานวิจัยทางคลินิกและระบาดวิทยาแบ่งเป็น 2 กลุ่มใหญ่ คือ experimental กับ observational โดยใช้เกณฑ์ว่าผู้วิจัยเป็นผู้กำหนด exposure ให้หรือไม่ และ observational study ยังแบ่งย่อยเป็น analytical กับ descriptive โดย analytical จะมีกลุ่มเปรียบเทียบ (control group) ส่วน descriptive ไม่มี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11809203",
+              "locator": "Lancet 2002;359(9300):57-61, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Clinical research falls into two general categories: experimental and observational, based on whether the investigator assigns the exposures or not. ... Observational studies can be either analytical or descriptive. Analytical studies featu"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-epi-approach--type-of-epidemiological-study-2-main-branches--v2",
+          "statement": "Cohort study ติดตามกลุ่มตั้งแต่ 2 กลุ่มขึ้นไปไปข้างหน้าจาก exposure ไปสู่ outcome และเป็นดีไซน์ที่คำนวณ incidence rate และ relative risk พร้อม 95% CI ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11830217",
+              "locator": "Lancet 2002;359(9303):341-5, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A cohort study tracks two or more groups forward from exposure to outcome. ... Strengths of a cohort study include the ability to calculate incidence rates, relative risks, and 95% CIs."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-epi-approach--type-of-epidemiological-study-2-main-branches--v3",
+          "statement": "Descriptive study ได้แก่ case report, case-series report, cross-sectional (prevalence) study, surveillance และ ecological correlational study ซึ่งไม่มีกลุ่มเปรียบเทียบ จึงสรุปความสัมพันธ์ระหว่าง exposure กับ outcome ไม่ได้ ใช้ได้เพียงเพื่อ trend analysis, health-care planning และ hypothesis generation",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11809274",
+              "locator": "Lancet 2002;359(9301):145-9, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Case reports, case-series reports, cross-sectional studies, and surveillance studies deal with individuals, whereas ecological correlational studies examine populations. ... Three important uses of descriptive studies include trend analysis"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-vbz": {
+    "zoonoses--zoo-vbz--vector-borne-viral-zoonosis-overview": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-vbz--vector-borne-viral-zoonosis-overview--v1",
+          "statement": "Zoonotic arboviruses ที่ถูกเฝ้าระวังแบ่งตาม vector เป็น 2 กลุ่มหลัก คือ mosquito-borne (Japanese encephalitis virus, West Nile virus, Rift Valley fever virus) และ tick-borne (Crimean-Congo haemorrhagic fever virus, tick-borne encephalitis virus, louping-ill virus) โดยการคงอยู่ของเชื้อขึ้นกับปฏิสัมพันธ์ระหว่างไวรัส vertebrate host, arthropod vector และสิ่งแวดล้อม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31133059",
+              "locator": "Parasit Vectors 2019;12(1):265, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "we systematically review the ecological risk factors associated with the circulation of six arboviruses that are of considerable concern to northwestern Europe. These include three mosquito-borne viruses (Japanese encephalitis virus, West N"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-vbz--vector-borne-viral-zoonosis-overview--v2",
+          "statement": "Rift Valley fever virus (RVFV) เป็น zoonotic arbovirus ที่ก่อโรครุนแรงทั้งในปศุสัตว์และในคน และมีการระบาดซ้ำในทวีปแอฟริกาและคาบสมุทรอาหรับตั้งแต่ถูกค้นพบในปี 1931",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30036382",
+              "locator": "PLoS Negl Trop Dis 2018;12(7):e0006627, abstract (Background)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Rift Valley fever virus (RVFV) is a zoonotic arbovirus that causes severe disease in livestock and humans. The virus has caused recurrent outbreaks in Africa and the Arabian Peninsula since its discovery in 1931."
+          }
+        },
+        {
+          "id": "zoonoses--zoo-vbz--vector-borne-viral-zoonosis-overview--v3",
+          "statement": "Severe fever with thrombocytopenia syndrome (SFTS) เป็นโรคไวรัสที่ติดผ่านเห็บ (tick-borne haemorrhagic viral disease) ซึ่งถูกระบุทางคลินิกครั้งแรกในปี 2009 ปัจจุบันจำกัดการกระจายอยู่ในเอเชียตะวันออก และมี case fatality rate ในระยะแรกอยู่ในช่วงประมาณ 5% ถึง 40%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33225100",
+              "locator": "JMA J 2020;3(4):295-302, abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Severe fever with thrombocytopenia syndrome (SFTS), first clinically identified in 2009, is an emerging tick-borne hemorrhagic viral disease, currently limited in distribution to East Asia. Relatively little is known about the disease with "
+          }
+        }
+      ]
+    }
+  },
+  "food-industry--fiqc-aquatic": {
+    "food-industry--fiqc-aquatic--ความสำคัญของการควบคุมคุณภาพสัตว์น้ำ": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--ความสำคัญของการควบคุมคุณภาพสัตว์น้ำ--v1",
+          "statement": "ในปี 2022 ผลผลิต aquaculture คิดเป็น 51% (94.4 ล้านตัน) ของผลผลิตสัตว์น้ำทั้งหมด 185 ล้านตัน ซึ่งเป็นครั้งแรกที่ aquaculture แซง capture fisheries ในการผลิตสัตว์น้ำ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-food-and-agricultu-2024",
+              "locator": "Part 1 World review, บท Total fisheries and aquaculture production และ Key messages (ไม่ได้ยืนยันเลขหน้าใน PDF ฉบับเต็ม ตัวเลขยืนยันจากบทออนไลน์ของ SOFIA 2024 และข่าวเผยแพร่ของ FAO)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "51 percent of the total aquatic animal production"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--ความสำคัญของการควบคุมคุณภาพสัตว์น้ำ--v2",
+          "statement": "อาหารจากสัตว์น้ำให้โปรตีนจากสัตว์ประมาณ 15% ของโลก และในปี 2021 ให้โปรตีนจากสัตว์อย่างน้อย 20% ต่อหัวแก่ประชากร 3.2 พันล้านคน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-food-and-agricultu-2024",
+              "locator": "Key messages และ Executive summary (ไม่ได้ยืนยันเลขหน้า)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "they contributed at least 20 percent of the per capita protein supply from all animal sources to 3.2 billion people"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--ความสำคัญของการควบคุมคุณภาพสัตว์น้ำ--v3",
+          "statement": "สิ่งแวดล้อมบริเวณปากแม่น้ำที่เชื่อมกับการเพาะเลี้ยงสัตว์น้ำของไทยเป็นแหล่งสะสมเชื้อดื้อยา โดยพบ Salmonella 96.9% และ E. coli 91.4% ดื้อยาอย่างน้อยหนึ่งชนิด ผู้วิจัยจึงเสนอให้ใช้กรอบ One Health เพื่อป้องกันการแพร่ของเชื้อดื้อยา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37115770",
+              "locator": "Abstract, ประโยคสรุปท้าย",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "One Health should be implemented to prevent AMR bacteria spreading."
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--ภาพรวมการเพาะเลี้ยงและประมงระดับโลก": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--ภาพรวมการเพาะเลี้ยงและประมงระดับโลก--v1",
+          "statement": "ในปี 2022 การค้าสินค้าสัตว์น้ำระหว่างประเทศมีมูลค่าสูงเป็นประวัติการณ์ที่ USD 195 พันล้าน โดยมีการส่งออก 70 ล้านตัน (live weight equivalent) คิดเป็น 38% ของผลผลิตสัตว์น้ำทั้งหมด",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-food-and-agricultu-2024",
+              "locator": "Part 1 World review, บท Trade of aquatic products (ไม่ได้ยืนยันเลขหน้าใน PDF ฉบับเต็ม)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Seventy million tonnes (live weight equivalent) of aquatic animal products, representing 38 percent of the total production, were exported worldwide in 2022"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--ภาพรวมการเพาะเลี้ยงและประมงระดับโลก--v2",
+          "statement": "ในช่วง 1997 ถึง 2017 การเพาะเลี้ยงสัตว์น้ำในแหล่งน้ำจืด (inland aquaculture) โดยเฉพาะในเอเชีย เป็นกลุ่มที่มีส่วนต่อปริมาณผลผลิตของโลกและต่อความมั่นคงทางอาหารมากที่สุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33762770",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Inland aquaculture-especially in Asia-has contributed the most to global production volumes and food security."
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--ภาพรวมการเพาะเลี้ยงและประมงระดับโลก--v3",
+          "statement": "การเลี้ยง molluscs และ seaweed ได้รับการยอมรับมากขึ้นในแง่ ecosystem services และศักยภาพของสองกลุ่มนี้ต่อความมั่นคงทางโภชนาการของโลกยังถูกใช้ประโยชน์ไม่เต็มที่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33762770",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The potential for molluscs and seaweed to support global nutritional security is underexploited."
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--อุตสาหกรรมสัตว์น้ำไทย-พัฒนาการและอันดับโลก": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--อุตสาหกรรมสัตว์น้ำไทย-พัฒนาการและอันดับโลก--v1",
+          "statement": "ตั้งแต่ปี 2003 กุ้งขาว Penaeus (Litopenaeus) vannamei ที่มาจากสายพันธุ์คัดเลือกและเลี้ยงในระบบปิด เข้ามาแทนที่กุ้งกุลาดำ Penaeus monodon ในฐานะชนิดกุ้งที่เพาะเลี้ยงเป็นหลักในเอเชีย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22429834",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "domesticated and genetically selected stocks of the American whiteleg shrimp Penaeus (Litopenaeus) vannamei ... replaced the formerly dominant giant tiger or black tiger shrimp"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--อุตสาหกรรมสัตว์น้ำไทย-พัฒนาการและอันดับโลก--v2",
+          "statement": "EMS/AHPND ทำให้อุตสาหกรรมกุ้งในเอเชียสูญเสียผลผลิตอย่างมหาศาล โดยอาจทำให้กุ้งในบ่อตายสะสมถึง 100% ภายในหนึ่งสัปดาห์ และการศึกษาแบบ case-control ในฟาร์มกุ้ง 4 จังหวัดของไทยระบุปัจจัยด้านการจัดการฟาร์มและการเตรียมน้ำที่สัมพันธ์กับการเกิดโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27594170",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The disease can cause up to 100% cumulative pond mortality within a week."
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--ตัวเลขผลผลิตสัตว์น้ำของไทยรายชนิดและวิธีเลี้ยง": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--ตัวเลขผลผลิตสัตว์น้ำของไทยรายชนิดและวิธีเลี้ยง--v1",
+          "statement": "กุ้งขาวเป็นชนิดกุ้งที่เพาะเลี้ยงเป็นหลักแทนกุ้งกุลาดำ ซึ่งสอดคล้องกับภาพรวมในสไลด์ที่ผลผลิต Pacific white shrimp ของไทยสูงกว่า tiger prawn ประมาณหนึ่งลำดับขั้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22429834",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "replaced the formerly dominant giant tiger or black tiger shrimp Penaeus (Penaeus) monodon ... as the dominant cultivated species"
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--ชนิดสัตว์น้ำเศรษฐกิจหลักและระบบการเลี้ยงสมัยใหม่": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--ชนิดสัตว์น้ำเศรษฐกิจหลักและระบบการเลี้ยงสมัยใหม่--v1",
+          "statement": "ประมาณ 60% ของความสูญเสียจากโรคในการเลี้ยงกุ้งเกิดจากเชื้อไวรัส และ 20% จากเชื้อแบคทีเรีย โดย white spot syndrome virus (WSSV) และ yellow head virus (YHV) เป็นไวรัสที่ทำให้ตายรุนแรงที่สุดทั้งในกุ้งขาวและกุ้งกุลาดำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22429834",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For both species, white spot syndrome virus (WSSV) and yellow head virus (YHV) are the most lethal."
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--ชนิดสัตว์น้ำเศรษฐกิจหลักและระบบการเลี้ยงสมัยใหม่--v2",
+          "statement": "Streptococcus spp. เป็นแบคทีเรียก่อโรคหลักที่ทำให้ปลานิลตายเป็นจำนวนมาก โดยในภาคเหนือของไทยแยกเชื้อได้จากฟาร์มกระชังในแม่น้ำ 4 จาก 33 ฟาร์ม ขณะที่ฟาร์มบ่อดิน 28 ฟาร์มตรวจไม่พบ และ Streptococcus agalactiae เป็นชนิดเด่น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31984538",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Streptococcus spp. are major pathogenic bacteria associated with massive mortality in tilapia."
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--ชนิดสัตว์น้ำเศรษฐกิจหลักและระบบการเลี้ยงสมัยใหม่--v3",
+          "statement": "Biofloc technology (BFT) เลี้ยงที่ความหนาแน่นสูงโดยเปลี่ยนถ่ายน้ำน้อยที่สุด ช่วยเพิ่มประสิทธิภาพการเปลี่ยนอาหารและ biosecurity กำจัด inorganic nitrogen ออกจากน้ำทิ้ง และหมุนเวียนสารอาหารกลับมาใช้ใหม่อย่างต่อเนื่อง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35096936",
+              "locator": "Abstract",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "aquaculture with highest stocking density and minimal water exchange"
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--ห่วงโซ่คุณค่า-การจับ-การแปรรูป-บรรจุ-และ-cold-chain": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--ห่วงโซ่คุณค่า-การจับ-การแปรรูป-บรรจุ-และ-cold-chain--v1",
+          "statement": "การปล่อยให้สินค้าอยู่ที่อุณหภูมิสูงเพียงช่วงสั้นระหว่างการแปรรูป (temperature abuse) ก็ทำให้อายุการเก็บของปลาแช่เย็นสั้นลงอย่างวัดได้ โดยการถือฟิลเลต saithe ไว้ที่ 16 องศาเซลเซียส นาน 1 และ 2 ชั่วโมงก่อนบรรจุ ทำให้สูญเสียอายุการเก็บ 22% (2 วัน) และ 44% (4 วัน) ตามลำดับ เทียบกับฟิลเลตที่บรรจุทันทีหลังแปรรูป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29030860",
+              "locator": "82(11):2690-2699",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The 1- and 2-h holding before packing and storage caused a 22% (2 d) and 44% (4 d) loss of shelf life, respectively, compared to fillets that were packed immediately after processing."
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--ห่วงโซ่คุณค่า-การจับ-การแปรรูป-บรรจุ-และ-cold-chain--v2",
+          "statement": "การจัดการก่อนฆ่าและวิธีทำสลบมีผลต่อคุณภาพเนื้อโดยตรง ปลานิลที่ผ่านความหนาแน่นสูง (300 กก. น้ำหนักมีชีวิตต่อลูกบาศก์เมตร) ร่วมกับการทำให้ตายด้วยการขาดอากาศ (asphyxia) มีความเครียดมากกว่า เนื้อฟิลเลตแน่นน้อยกว่า สูญเสียน้ำหนักจากการปรุงมากกว่า และมีความเสียหายของกล้ามเนื้อมากกว่า ขณะที่ความหนาแน่นต่ำ (50 กก./ลบ.ม.) ร่วมกับการทำสลบด้วยการลดอุณหภูมิ (thermonarcosis) ทำให้อยู่ในระยะ pre rigor mortis นานกว่าและได้ profile ทางประสาทสัมผัสที่ดีกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38995936",
+              "locator": "19(7):e0306880",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "High depuration density (300 kg m-3), combined with the asphyxiation stunning method, promotes changes in respiratory dynamics and provides greater stress, less firm fillet texture and greater weight loss due to cooking ... On the other han"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--ห่วงโซ่คุณค่า-การจับ-การแปรรูป-บรรจุ-และ-cold-chain--v3",
+          "statement": "ปลาสดเป็นอาหารที่เน่าเสียง่ายมากและมีอายุการเก็บสั้น จึงต้องผ่านการจัดการและเก็บรักษาอย่างถูกต้องเพื่อชะลอการเสื่อมสภาพและประกันความปลอดภัยทางจุลชีววิทยา โดยวิธีเก็บรักษาแบบดั้งเดิมคือการแช่เย็น (refrigeration) และการแช่เยือกแข็ง (freezing)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33916441",
+              "locator": "10(4):780",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fresh fish is a highly perishable food characterized by a short shelf-life, and for this reason, it must be properly handled and stored to slow down its deterioration and to ensure microbial safety and marketable shelf-life."
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--อันตรายทางชีวภาพในสัตว์น้ำ": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--อันตรายทางชีวภาพในสัตว์น้ำ--v1",
+          "statement": "Vibrio เป็นแบคทีเรียที่พบทั่วไปในแหล่งน้ำและทะเล โดย V. cholerae ทำให้เกิดอหิวาตกโรคซึ่งเป็นโรคท้องร่วงรุนแรงที่อาจถึงตายอย่างรวดเร็วถ้าไม่รักษา และมักติดต่อผ่านน้ำที่ปนเปื้อน ส่วน Vibrio กลุ่ม non-cholera เช่น V. parahaemolyticus และ V. vulnificus ทำให้เกิด vibriosis จากการสัมผัสน้ำทะเลหรือกินอาหารทะเลดิบหรือปรุงไม่สุก โดย V. vulnificus เป็น opportunistic pathogen ที่มีอัตราตายสูงและทำให้เกิด wound infection ที่ลุกลามเป็น septicaemia ได้เร็ว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30002421",
+              "locator": "4(1):8",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Non-cholera Vibrio spp. (for example, Vibrio parahaemolyticus, Vibrio alginolyticus and Vibrio vulnificus) cause vibriosis - infections normally acquired through exposure to sea water or through consumption of raw or undercooked contaminate"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--อันตรายทางชีวภาพในสัตว์น้ำ--v2",
+          "statement": "ผลิตภัณฑ์ ready-to-eat อย่าง cold smoked salmon มีอายุการเก็บสั้นแม้อยู่ในสภาพแช่เย็น และยังรองรับการเจริญของ Listeria monocytogenes ได้ การพึ่ง cold chain อย่างเดียวจึงไม่เพียงพอ ต้องใช้เวลาและอุณหภูมิร่วมกันเป็นเกณฑ์ควบคุมความเสี่ยง listeriosis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37803703",
+              "locator": "173(Pt 2):113362",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cold smoked salmon (CSS) is a high-value ready-to-eat product, but it generally has a short shelf-life even under refrigeration and can support the growth of Listeria monocytogenes."
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--อันตรายทางชีวภาพในสัตว์น้ำ--v3",
+          "statement": "Opisthorchis viverrini เป็นพยาธิใบไม้ตับที่คนติดจากการกินปลาน้ำจืดวงศ์ cyprinid ดิบหรือปรุงไม่สุกทั่วถึง ประมาณ 10 ล้านคนในเอเชียตะวันออกเฉียงใต้ติดเชื้อชนิดนี้ และพยาธิใบไม้ตับกลุ่มนี้ได้รับการพิสูจน์แล้วว่าเป็นสาเหตุของมะเร็งท่อน้ำดี (cholangiocarcinoma)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33158552",
+              "locator": "135:404-411",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "At least 680 million people worldwide are at risk of infection of these liver flukes through the consumption of raw or partially cooked freshwater cyprinid fish ... 10 million with O. viverrini in Southeast Asia ... These liver flukes have "
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--อันตรายทางเคมี-กายภาพ-สารก่อภูมิแพ้-และ-amr": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--อันตรายทางเคมี-กายภาพ-สารก่อภูมิแพ้-และ-amr--v1",
+          "statement": "Histamine ในปลาเกิดจากการที่แบคทีเรีย decarboxylate free L-histidine หลังการจัดการที่ไม่เหมาะสม จึงเกิดได้เฉพาะปลาที่มี free L-histidine สูงซึ่งพบในปลาผิวน้ำ (pelagic) บางชนิดเท่านั้น และเนื่องจากต้องอาศัย time-and-temperature abuse การควบคุมจึงเป็นการจัดการที่ถูกต้องโดยระบุอันตรายและจุดวิกฤต (HACCP) ร่วมกับการรักษา cold chain ตั้งแต่จับจนถึงผู้บริโภค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34419509",
+              "locator": "201:115-126",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Since time-and-temperature abuse is required to produce high levels of histamine in fish, management consists of ensuring proper handling by identifying hazards and critical control points (HACCP) and maintaining a \"cold chain\" from catch t"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--อันตรายทางเคมี-กายภาพ-สารก่อภูมิแพ้-และ-amr--v2",
+          "statement": "Malachite green เป็นสารที่ห้ามใช้ในสัตว์ที่ใช้เป็นอาหาร แต่ยังตรวจพบสารตกค้างของ malachite green และ metabolite หลักคือ leucomalachite green ในปลา จากการลักลอบใช้ในการเพาะเลี้ยงสัตว์น้ำและจากน้ำทิ้งอุตสาหกรรม ซึ่งเป็นความเสี่ยงต่อความปลอดภัยอาหารและสิ่งแวดล้อม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38325623",
+              "locator": "106:104382",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although banned in food-producing animals, residues of malachite green (MG) and its primary metabolite, leucomalachite green (LMG), have been found in fish due to illegal use in aquaculture and the release of industrial wastewater, which re"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--อันตรายทางเคมี-กายภาพ-สารก่อภูมิแพ้-และ-amr--v3",
+          "statement": "มีรายงานจำนวนมากว่า V. vulnificus และ V. parahaemolyticus แสดงการดื้อยาหลายขนาน (multiple-antibiotic resistance) อันเป็นผลจากการใช้ยาปฏิชีวนะอย่างไม่เหมาะสมเพื่อควบคุมโรคในการเพาะเลี้ยงสัตว์น้ำ และการมีเชื้อดื้อยาหลายขนานในอาหารทะเลและสิ่งแวดล้อมทางน้ำเป็นประเด็นสำคัญทั้งต่อการเลี้ยงปลากับหอยและต่อสุขภาพคน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27052711",
+              "locator": "57:128-134",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "However, many studies reported that V. vulnificus and V. parahaemolyticus showed multiple-antibiotic resistance due to misuse of antibiotics to control infections in aquaculture production ... The presence of multiple-antibiotic resistant b"
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--ระบบควบคุมคุณภาพ-gap-และมาตรฐานสินค้าเกษตรของไทย": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--ระบบควบคุมคุณภาพ-gap-และมาตรฐานสินค้าเกษตรของไทย--v1",
+          "statement": "การจัดการระดับฟาร์มที่ GAP ครอบคลุม โดยเฉพาะการจัดการน้ำและ biosecurity ลดการเกิดโรคได้จริงในบริบทไทย การศึกษาระยะยาวในฟาร์มกุ้งทะเลที่ระยองพบว่าการแยกบ่อออกเป็น 3 ประเภทคือบ่อเลี้ยง บ่อบำบัดน้ำ และบ่อพักน้ำ เป็นปัจจัยป้องกันการเกิดโรคตัวแดงดวงขาว (white spot disease) อย่างมีนัยสำคัญ (OR = 0.0828)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35356468",
+              "locator": "10:e13182",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Second, the separation of ponds into three specific types (cultured, water treatment, and pond for water reservoir) was significantly associated with WSD occurrence. Likewise, the presence of this ponding system was a protective factor agai"
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--gmp-haccp-iso-traceability-และ-codex": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--gmp-haccp-iso-traceability-และ-codex--v1",
+          "statement": "สุขลักษณะการผลิตพื้นฐานคือจุดที่ระบบล้มเหลวมากที่สุดจริง จากการทบทวนการเรียกคืนสินค้าประมงในสหรัฐกว่า 2,400 ครั้ง ระหว่างตุลาคม 2002 ถึงมีนาคม 2022 พบว่า 74% ของการเรียกคืนเกิดจากการละเมิดข้อกำหนด current Good Manufacturing Practices (cGMPs) และผู้เขียนสรุปว่าการนำหลัก HACCP ไปใช้อย่างถูกต้องเป็นสิ่งจำเป็นในการระบุความเสี่ยงด้านความปลอดภัยอาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37024092",
+              "locator": "86(6):100090",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Independent of the recall classification, 74% of the recalls were due to violations of the Current Good Manufacturing Practices (cGMPs) regulations ... Properly applying the Hazard Analysis Critical Control Points (HACCP) approach and proce"
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--gmp-haccp-iso-traceability-และ-codex--v2",
+          "statement": "Codex Alimentarius Commission ดำเนินการร่วมกันโดย FAO และ WHO และความตกลง SPS กับ TBT ขององค์การการค้าโลกอาศัยมาตรฐาน แนวปฏิบัติ และข้อแนะนำของ Codex ที่อิงวิทยาศาสตร์ เป็น benchmark ในการตัดสินข้อพิพาททางการค้าอาหารระหว่างประเทศ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12180779",
+              "locator": "42(4):403-415",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "At the international level the work of the FAO/ WHO Codex Alimentarius Commission (Codex) and the World Trade Organization Agreements on Sanitary and Phytosanitary Measures (SPS) and on Technical Barriers to Trade (TBT) ... The SPS and TBT "
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--gmp-haccp-iso-traceability-และ-codex--v3",
+          "statement": "ระบบตรวจสอบย้อนกลับของห่วงโซ่สินค้าประมงมีเป้าหมายติดตามและสอบกลับผลิตภัณฑ์ตลอดตั้งแต่การจับ การแปรรูป การบรรจุ การขนส่ง จนถึงการกระจายสินค้าปลายทาง และยืนยันความถูกต้องแท้จริงของสินค้าตลอดห่วงโซ่ โดยมีการนำ blockchain และ IoT มาสร้างระบบที่โปร่งใสและช่วยป้องกันกับตรวจจับการทำประมงผิดกฎหมาย ขาดการรายงาน และไร้การควบคุม (IUU)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37299864",
+              "locator": "23(11):5136",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Blockchain technology and the Internet of Things (IoT) are expected to transform the fish supply chain (SC) by incorporating distributed ledger technology (DLT) to build trustworthy, transparent, decentralized traceability systems that prom"
+          }
+        }
+      ]
+    },
+    "food-industry--fiqc-aquatic--การเข้าถึงตลาดส่งออกและกรอบกำกับดูแล": {
+      "claims": [
+        {
+          "id": "food-industry--fiqc-aquatic--การเข้าถึงตลาดส่งออกและกรอบกำกับดูแล--v1",
+          "statement": "สหภาพยุโรปบังคับใช้ข้อกำหนดผ่านการตรวจ ณ ด่านและระบบแจ้งเตือน RASFF โดยประเภทการแจ้งมีทั้ง alert, information และ border rejection กลุ่มสินค้าที่ถูกแจ้งรวมถึงปลา หอย และ crustaceans และไทยเป็นหนึ่งในประเทศต้นทางของสินค้าที่ถูกแจ้ง ผลที่ตามมาคือสินค้าถูกส่งกลับ ไม่อนุญาตให้นำเข้า ถูกถอนออกจากตลาด ถูกทำลาย หรือถูกเรียกคืน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30736316",
+              "locator": "16(3):477",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Microorganisms were reported mainly in poultry meat, meat, fish, molluscs, crustaceans ... The notification basis were official controls, border controls and company's checks ... The reported products originated from Brazil, European Union "
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--การเข้าถึงตลาดส่งออกและกรอบกำกับดูแล--v2",
+          "statement": "อุตสาหกรรมประมงเผชิญกิจกรรมการทำประมงผิดกฎหมาย ขาดการรายงาน และไร้การควบคุม (IUU) ในระดับที่มีนัยสำคัญภายในระบบห่วงโซ่อุปทานแบบดั้งเดิม ซึ่งเป็นเหตุผลที่ระบบตรวจสอบย้อนกลับและเอกสารกำกับการจับถูกออกแบบมาเพื่อป้องกันและตรวจจับ IUU",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37299864",
+              "locator": "23(11):5136",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The fish industry experiences substantial illegal, unreported, and unregulated (IUU) activities within traditional supply chain systems."
+          }
+        },
+        {
+          "id": "food-industry--fiqc-aquatic--การเข้าถึงตลาดส่งออกและกรอบกำกับดูแล--v3",
+          "statement": "WOAH (World Organisation for Animal Health) จัดทำ Aquatic Animal Health Code เป็นมาตรฐานสากลด้านสุขภาพสัตว์น้ำสำหรับการค้าระหว่างประเทศอย่างปลอดภัย ซึ่งรวมถึงแนวทางการออกใบรับรองสุขภาพ (health certificate) สำหรับสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ และบทบาทการกำหนดมาตรฐานของ WOAH ได้รับการรับรองอย่างเป็นทางการในความตกลง SPS ขององค์การการค้าโลก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-woah-world-organisatio-na",
+              "locator": "ไม่ได้ตรวจสอบเลขบทหรือข้อย่อย ระบุเฉพาะชื่อเอกสารเพื่อไม่ให้เป็นการเดา locator",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The OIE role in setting standards for the sanitary safety of international trade in animals and animal products is formally recognised in the World Trade Organization Agreement on the Application of Sanitary and Phytosanitary Measures (the "
+          }
+        }
+      ]
+    }
+  },
+  "one-health--oh-global-network": {
+    "one-health--oh-global-network--โครงสร้างเครือข่าย-บทบาทผู้เข้าร่วม-และ-reporting-protocol": {
+      "claims": [
+        {
+          "id": "one-health--oh-global-network--โครงสร้างเครือข่าย-บทบาทผู้เข้าร่วม-และ-reporting-protocol--v1",
+          "statement": "การซ้อมแผนรับมือ outbreak แบบข้ามภาคส่วน (One Health simulation exercise) ที่ให้ผู้เข้าร่วมสวมบทบาทของภาค public health, animal health และ food safety เป็นวิธีที่ใช้จริงในการฝึกและประเมินขีดความสามารถของเครือข่าย One Health โดยการซ้อมระดับชาติใน 11 ประเทศยุโรป (ผู้เข้าร่วม 255 คน ปี 2022) สรุปข้อเสนอแนะร่วมกันว่าต้องตั้ง formal communication channels ระหว่างภาคส่วน และมี common data sharing platform",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37383258",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A total of 255 participants from 11 European countries (Belgium, Denmark, Estonia, Finland, France, Italy, Norway, Poland, Portugal, Sweden, the Netherlands) took part in national level two-day exercises during 2022. National evaluations id"
+          }
+        },
+        {
+          "id": "one-health--oh-global-network--โครงสร้างเครือข่าย-บทบาทผู้เข้าร่วม-และ-reporting-protocol--v2",
+          "statement": "ในระบบจริง ประเทศสมาชิก WOAH มีพันธะต้องแจ้งเหตุการณ์โรคที่อยู่ในบัญชี (listed diseases) และโรคอุบัติใหม่ต่อ WOAH ผ่านระบบ WAHIS โดยการแจ้งครั้งแรก (immediate notification) ต้องทำภายใน 24 ชั่วโมงนับจากที่ยืนยันเหตุการณ์ ซึ่งเป็นคนละกรอบเวลากับ 48 ชั่วโมงที่สไลด์กำหนดไว้สำหรับกิจกรรมในชั้นเรียน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-na",
+              "locator": "Section 1, Chapter 1.1 Notification of diseases, infections and infestations, and provision of epidemiological information — ไม่ได้ยืนยันเลข article ย่อยกับฉบับปัจจุบัน",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": ""
+          }
+        }
+      ]
+    },
+    "one-health--oh-global-network--ตัวอย่างจริง-อุปสรรคที่พบบ่อย-และ-key-takeaways": {
+      "claims": [
+        {
+          "id": "one-health--oh-global-network--ตัวอย่างจริง-อุปสรรคที่พบบ่อย-และ-key-takeaways--v1",
+          "statement": "การฉีดวัคซีนสุนัขจำนวนมากลดการตายจากพิษสุนัขบ้าในคนได้จริง จากข้อมูลรายปี 1995-2005 ของ 7 ประเทศละตินอเมริกา ประเมินว่าการเพิ่มการฉีดวัคซีนสุนัข 10% ทำให้เคสพิษสุนัขบ้าในสุนัขลดลง 2.3% และทำให้ผู้เสียชีวิตในคนลดลงราว 12.4% แต่ประสิทธิผลส่วนเพิ่มจะลดลงเมื่ออุบัติการณ์ในสุนัขต่ำลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31557160",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(i) A 10% increase in dog vaccinations decreases dog rabies cases by 2.3%. ... The net effect is that a 10% increase in dog vaccination reduces human deaths by 12.4% overall, although marginal effectiveness declines as dog rabies incidence "
+          }
+        },
+        {
+          "id": "one-health--oh-global-network--ตัวอย่างจริง-อุปสรรคที่พบบ่อย-และ-key-takeaways--v2",
+          "statement": "การเฝ้าระวังเชิงกลุ่มอาการในปศุสัตว์ที่ผูกกับสัญญาณสิ่งแวดล้อม (คำเตือนฝน El Nino ปี 2015-2016) ใช้เป็นระบบเตือนภัยล่วงหน้าของ Rift Valley fever ได้จริง โดยกรมปศุสัตว์เคนยาเฝ้าระวัง 22 จังหวัดเสี่ยงสูงนาน 14 สัปดาห์ พบ 69 ฝูงเข้านิยามสงสัย และ 24 ฝูงเข้านิยาม probable แต่ไม่มีฝูงใดยืนยันผลทางห้องปฏิบัติการ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29698487",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Of the 69 herds that met the suspect RVF herd definition (abortion in flooded area), 24 (34.8%) were defined as probable (abortions, mortalities in the young ones, and/or hemorrhagic signs) but none were confirmed. This surveillance activit"
+          }
+        },
+        {
+          "id": "one-health--oh-global-network--ตัวอย่างจริง-อุปสรรคที่พบบ่อย-และ-key-takeaways--v3",
+          "statement": "ข้อมูลดาวเทียมด้านอุณหภูมิผิวน้ำทะเล ปริมาณฝน และดัชนีพืชพรรณ ถูกใช้พยากรณ์พื้นที่เสี่ยงการระบาดของ Rift Valley fever ล่วงหน้า 2-4 เดือน ในแอฟริกาตะวันออก ซูดาน และแอฟริกาตอนใต้ ช่วงปี 2006-2008 และคำพยากรณ์ได้รับการยืนยันด้วยการสำรวจกีฏวิทยาภาคสนามและรายงานเคสจริงในคนและปศุสัตว์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20682905",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Using satellite measurements of global and regional elevated sea surface temperatures, elevated rainfall, and satellite derived-normalized difference vegetation index data, we predicted with lead times of 2-4 months areas where outbreaks of"
+          }
+        }
+      ]
+    }
+  },
+  "one-health--oh-vet-role": {
+    "one-health--oh-vet-role--ภาพรวม-8-ประเด็น-one-health-ที่สัตวแพทย์เกี่ยวข้อง": {
+      "claims": [
+        {
+          "id": "one-health--oh-vet-role--ภาพรวม-8-ประเด็น-one-health-ที่สัตวแพทย์เกี่ยวข้อง--v1",
+          "statement": "เชื้อก่อโรคในคนที่มีการทบทวนอย่างเป็นระบบมี 1,415 ชนิด โดย 868 ชนิด (61%) เป็น zoonotic และในกลุ่มที่จัดว่าเป็นเชื้ออุบัติใหม่ 175 ชนิด มี 132 ชนิด (75%) ที่เป็น zoonotic ทั้งนี้เชื้อ zoonotic มีโอกาสสัมพันธ์กับโรคอุบัติใหม่มากกว่าเชื้อที่ไม่ใช่ zoonotic ประมาณ 2 เท่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11516376",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A comprehensive literature review identifies 1415 species of infectious organism known to be pathogenic to humans ... Out of these, 868 (61%) are zoonotic ... Out of the emerging pathogens, 132 (75%) are zoonotic, and overall, zoonotic path"
+          }
+        },
+        {
+          "id": "one-health--oh-vet-role--ภาพรวม-8-ประเด็น-one-health-ที่สัตวแพทย์เกี่ยวข้อง--v2",
+          "statement": "จากฐานข้อมูลเหตุการณ์โรคอุบัติใหม่ 335 เหตุการณ์ระหว่างปี 1940-2004 พบว่า 60.3% เป็น zoonoses และ 71.8% ของ zoonoses เหล่านั้นมีต้นกำเนิดจากสัตว์ป่า อีกทั้งจุดกำเนิดของโรคอุบัติใหม่สัมพันธ์อย่างมีนัยสำคัญกับปัจจัยด้านเศรษฐกิจสังคม สิ่งแวดล้อม และนิเวศวิทยา ซึ่งเป็นเหตุผลเชิงหลักฐานที่ทำให้วาระ One Health ของสัตวแพทย์ต้องครอบคลุมทั้งโรคอุบัติใหม่ สัตว์ป่า และมิติสิ่งแวดล้อม ไม่ใช่แค่โรคติดเชื้อในสัตว์เลี้ยง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18288193",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "EID events are dominated by zoonoses (60.3% of EIDs): the majority of these (71.8%) originate in wildlife ... Our results confirm that EID origins are significantly correlated with socio-economic, environmental and ecological factors"
+          }
+        }
+      ]
+    },
+    "one-health--oh-vet-role--ประเด็นที่-2-บทบาทด้านสาธารณสุขของสัตวแพทย์": {
+      "claims": [
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-2-บทบาทด้านสาธารณสุขของสัตวแพทย์--v1",
+          "statement": "Veterinary public health (VPH) เป็นคำที่ WHO ใช้อย่างเป็นทางการสำหรับกิจกรรมสาธารณสุขที่นำความรู้ ความเชี่ยวชาญ และทรัพยากรทางสัตวแพทยศาสตร์มาปกป้องและยกระดับสุขภาพคน โดยทำหน้าที่เป็นข้อต่อ (linkage) ระหว่างภาคเกษตรกับภาคสาธารณสุข และการควบคุมกำจัด zoonoses กับ food protection ยังคงเป็นหน้าที่หลักของ VPH",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1525421",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Veterinary public health (VPH) is a term officially used by the World Health Organisation (WHO) to provide a conceptual framework and programmatic structure for those public health activities which involve the application of knowledge, expe"
+          }
+        },
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-2-บทบาทด้านสาธารณสุขของสัตวแพทย์--v2",
+          "statement": "งาน biomedical models หรือ comparative medicine เป็นองค์ประกอบหนึ่งของโปรแกรม veterinary public health อย่างเป็นทางการ ร่วมกับงาน zoonoses, foot and mouth disease, food protection, การศึกษาและฝึกอบรม และการพัฒนาระบบบริการ VPH",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1525421",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The programme of technical cooperation covers the following components: zoonoses, foot and mouth disease, food protection, biomedical models, education and training in veterinary public health, and the development of veterinary public healt"
+          }
+        }
+      ]
+    },
+    "one-health--oh-vet-role--ประเด็นที่-4-สัตว์เลี้ยงเป็นเพื่อน-companion-animals": {
+      "claims": [
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-4-สัตว์เลี้ยงเป็นเพื่อน-companion-animals--v1",
+          "statement": "การฉีดวัคซีนพิษสุนัขบ้าในสุนัขเป็นมาตรการที่ตรงจุดที่สุดสำหรับสุขภาพคน เพราะมีผู้เสียชีวิตจากพิษสุนัขบ้ามากกว่า 50,000 รายต่อปี ส่วนใหญ่เป็นเด็กในประเทศกำลังพัฒนา และเกือบทั้งหมดถูกสุนัขกัด ทั้งนี้ประสบการณ์จากประเทศพัฒนาแล้วและโครงการที่ดำเนินอยู่ในละตินอเมริกา แอฟริกา และเอเชีย แสดงว่าการกำจัดโรคพิษสุนัขบ้าในสุนัขเป็นเป้าหมายที่ทำได้จริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23523768",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "More than 50,000 people die of rabies each year; most are children in developing countries, and almost all have been bitten by dogs. ... Lengthy experience in the industrialized countries and ongoing programs in Latin America, Africa, and A"
+          }
+        },
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-4-สัตว์เลี้ยงเป็นเพื่อน-companion-animals--v2",
+          "statement": "การถ่ายพยาธิสัตว์เลี้ยงตามความเสี่ยงเป็นมาตรการลด zoonotic risk ที่มีตัวเลขกำกับ โดยความถี่ที่แสดงว่าจำเป็นต่อการลดการปล่อยไข่ Toxocara spp. ที่ติดสู่คนคือ 4 ครั้งต่อปี แต่จากการสำรวจเจ้าของสัตว์เลี้ยง 5,001 รายใน 5 ประเทศยุโรป สุนัขถ่ายพยาธิเฉลี่ยเพียง 2.3 ครั้งต่อปีและแมว 2.2 ครั้งต่อปี ทั้งที่ 93% ของสุนัขและ 54% ของแมวจัดอยู่ในกลุ่มเสี่ยงสูงสุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30382932",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Despite the majority of dogs and cats falling into a risk category where ESCCAP recommends monthly deworming, dogs and cats averaged 2.3 and 2.2 dewormings per year, respectively. This frequency was less than the four times a year dosing fr"
+          }
+        },
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-4-สัตว์เลี้ยงเป็นเพื่อน-companion-animals--v3",
+          "statement": "การตรวจพบ leptospirosis ในสัตว์แต่เนิ่นสามารถใช้เป็นตัวชี้การปนเปื้อนของสิ่งแวดล้อม และเป็นตัวจุดชนวนมาตรการป้องกัน เช่น การฉีดวัคซีนในสัตว์เลี้ยงและปศุสัตว์ การใช้น้ำสะอาด และการสวมชุดกันน้ำเมื่อต้องสัมผัสแหล่งน้ำที่อาจปนเปื้อน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32358619",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The early identification of leptospirosis in animals may serve as an indicator of environmental contamination and trigger prevention measures, such as vaccinating companion animals and livestock, use of potable water, and the wearing of wat"
+          }
+        }
+      ]
+    },
+    "one-health--oh-vet-role--ประเด็นที่-6-bioterrorism": {
+      "claims": [
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-6-bioterrorism--v1",
+          "statement": "เหตุการณ์ที่สไลด์ยกว่า 'จงใจปนเปื้อน Salmonella ในสลัดบาร์' คือการระบาดจริงที่เมือง The Dalles รัฐ Oregon ปี 1984 มีผู้ป่วย 751 ราย จากเชื้อ Salmonella Typhimurium และการสอบสวนทางอาญาภายหลังพบว่าสมาชิกของชุมชนศาสนาแห่งหนึ่งจงใจปนเปื้อนสลัดบาร์ โดยเชื้อที่พบในห้องปฏิบัติการของชุมชนนั้นแยกไม่ออกจากสายพันธุ์ที่ก่อการระบาด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9244330",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A subsequent criminal investigation revealed that members of a religious commune had deliberately contaminated the salad bars. An S Typhimurium strain found in a laboratory at the commune was indistinguishable from the outbreak strain."
+          }
+        },
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-6-bioterrorism--v2",
+          "statement": "เหตุผลที่สัตวแพทย์ถูกวางไว้ในบทบาท surveillance และ early warning ของงาน bioterrorism คือ เชื้อก่อโรคอุบัติใหม่และเชื้อที่ใช้ก่อการร้ายชีวภาพส่วนใหญ่เป็น zoonotic และสัตว์ไวต่อสารชีวภาพบางชนิดมากกว่าคน จึงใช้เป็น clinical sentinel เพื่อการตรวจจับล่วงหน้าได้ ทั้งนี้การเฝ้าระวัง zoonotic ที่แยกส่วนกันเป็นข้อจำกัดสำคัญ ต้องอาศัยความร่วมมือระหว่างหน่วยงานทุกระดับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19006972",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The majority of emerging infectious diseases and bioterrorist agents are zoonotic. Animals are more sensitive to certain biological agents, and their use as clinical sentinels, as a means of early detection, is warranted. ... To rapidly det"
+          }
+        }
+      ]
+    },
+    "one-health--oh-vet-role--ประเด็นที่-8-การเปลี่ยนแปลงสภาพภูมิอากาศและความรับผิดชอบด้านสิ่ง": {
+      "claims": [
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-8-การเปลี่ยนแปลงสภาพภูมิอากาศและความรับผิดชอบด้านสิ่ง--v1",
+          "statement": "แบบจำลองที่พารามิเตอร์มาจากข้อมูลจริงของ Aedes aegypti และ Ae. albopictus คาดว่าการเปลี่ยนแปลงสภาพภูมิอากาศจะทำให้พื้นที่เสี่ยงการถ่ายทอดไวรัสที่มียุงลายเป็นพาหะ เช่น dengue, chikungunya และ Zika เคลื่อนไปทางขั้วโลกและเพิ่มขึ้นอย่างมาก โดยในกรณีเลวร้ายที่สุดจะมีประชากรเกือบหนึ่งพันล้านคนถูกเพิ่มความเสี่ยงใหม่ภายในศตวรรษนี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30921321",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Our results show that if mosquito range shifts track optimal temperature ranges for transmission (21.3-34.0°C for Ae. aegypti; 19.9-29.4°C for Ae. albopictus), we can expect poleward shifts in Aedes-borne virus distributions. ... Within the"
+          }
+        },
+        {
+          "id": "one-health--oh-vet-role--ประเด็นที่-8-การเปลี่ยนแปลงสภาพภูมิอากาศและความรับผิดชอบด้านสิ่ง--v2",
+          "statement": "climate change กระทบสุขภาพสัตว์ผ่าน 4 ทาง คือ โรคและความเครียดจากความร้อน เหตุการณ์สภาพอากาศรุนแรง การปรับระบบการผลิตสัตว์เข้าสู่สภาพแวดล้อมใหม่ และการอุบัติหรืออุบัติซ้ำของโรคติดเชื้อโดยเฉพาะโรคที่มีแมลงเป็นพาหะ ซึ่งขึ้นกับสภาพภูมิอากาศอย่างมาก จึงต้องมี Veterinary Services ที่เข้มแข็งและประสานกับงานสาธารณสุข เพราะจุดอ่อนของ Veterinary Services บั่นทอนเครือข่ายเฝ้าระวังระดับโลกที่จำเป็นต่อการตรวจจับภัยแต่เนิ่น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18819679",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Animal health may be affected by climate change in four ways: heat-related diseases and stress, extreme weather events, adaptation of animal production systems to new environments, and emergence or re-emergence of infectious diseases, espec"
+          }
+        }
+      ]
+    }
+  },
+  "zoonoses--zoo-rabies": {
+    "zoonoses--zoo-rabies--niah-national-institute-of-animal-health": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-rabies--niah-national-institute-of-animal-health--v1",
+          "statement": "NIAH (National Institute of Animal Health) สังกัด Department of Livestock Development (กรมปศุสัตว์) กรุงเทพฯ เป็นหน่วยงานที่ทำงานตรวจและเฝ้าระวังทางพันธุกรรมของ rabies virus ในสัตว์ของไทยจริง โดยถอดรหัสยีน nucleoprotein (N) และ glycoprotein (G) จากตัวอย่างที่ให้ผลบวก rabies 8 ตัวอย่างจากสุนัข ช่วงปี 2022-2024",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41665403",
+              "locator": "",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Rabies remains a major public health concern in Thailand. Nucleoprotein (N) and glycoprotein (G) genes from eight rabies-positive specimens collected during 2022 to 2024 were sequenced using Oxford Nanopore. Assemblies and phylogenetic anal"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-rabies--niah-national-institute-of-animal-health--v2",
+          "statement": "ISO/IEC 17025 คือมาตรฐานที่ห้องปฏิบัติการทางสัตวแพทย์ใช้แสดง competency ตามที่ WOAH ระบุว่า ห้องปฏิบัติการที่ต้องการการรับรองความสามารถในการตรวจอย่างเป็นทางการ และ WOAH Reference Laboratories ทุกแห่ง จำเป็นต้องใช้ ISO/IEC 17025 หรือมาตรฐานเทียบเท่า โดยห้องปฏิบัติการที่ได้ accreditation ถือว่ามี competence",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-woah-world-organisatio-2024",
+              "locator": "Chapter 1.1.5, Section A.2 \"Standards, guides, and references\" (ตรวจสอบจากไฟล์ PDF ฉบับ Terrestrial Manual 2024 หน้า 2 โดยตรง)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-02",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "For laboratories seeking formal recognition of testing competency, and for all WOAH Reference Laboratories, the use of ISO/IEC 17025 (ISO/IEC, 2017b) or equivalent is essential. This standard specifies managerial and technical requirements "
           }
         }
       ]

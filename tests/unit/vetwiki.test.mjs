@@ -152,7 +152,15 @@ test('answer validator: a model cannot invent a citation', async () => {
 
   const dxId = 'com5--rabies--diagnosis';       // has reference-verified claims
   const overviewId = 'com5--rabies--overview';  // also verified (taxonomy)
-  const draftOnly = k.sections.find((s) => !(s.claims || []).some((c) => c.reviewStatus === 'verified'));
+
+  // A draft-only section, injected rather than found. This test is about the
+  // VALIDATOR refusing to call a draft "verified", not about the corpus
+  // happening to contain an unverified section — and it no longer does, since
+  // every rabies section now carries a sourced claim. Depending on corpus state
+  // meant this test broke the moment the corpus got better, which is exactly
+  // backwards.
+  const draftOnlyId = 'com5--rabies--synthetic-draft-only';
+  allowed.set(draftOnlyId, { sectionId: draftOnlyId, topicId: k.id, verified: false });
 
   const { claims, dropped, downgraded } = validateAnswer([
     // 1. legitimately grounded in a verified section
@@ -160,7 +168,7 @@ test('answer validator: a model cannot invent a citation', async () => {
     // 2. cites a section that was never supplied → must lose the citation
     { id: 'b', text: 'อ้างมั่ว', supportType: 'vetwiki-verified', support: [{ sectionId: 'com5--rabies--NOT-REAL' }] },
     // 3. claims "verified" but cites a draft-only section → downgraded
-    { id: 'c', text: 'เกินจริง', supportType: 'vetwiki-verified', support: [{ sectionId: draftOnly.id }] },
+    { id: 'c', text: 'เกินจริง', supportType: 'vetwiki-verified', support: [{ sectionId: draftOnlyId }] },
     // 4. empty text → dropped
     { id: 'd', text: '   ', supportType: 'vetmock-analysis', support: [] },
     // 5. unknown supportType → treated as analysis
