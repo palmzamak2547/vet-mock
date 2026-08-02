@@ -33,8 +33,8 @@ export const NOTES_COM5 = {
                 'Family: **Parvoviridae**, Genus: Parvovirus',
                 'Small, **non-enveloped**, single-stranded **DNA** virus',
                 'Highly resistant in environment — 5-7 เดือน',
-                '**CPV-1** (original): ส่วนใหญ่ subclinical, อาจรุนแรงในลูกสุนัข **5-21 วัน**',
-                '**CPV-2** (a/b/c): highly contagious — **2c รุนแรงสุด**',
+                '**CPV-1** = **Minute virus of canines** — parvovirus คนละชนิดทางอนุกรมวิธาน **ไม่ใช่ต้นกำเนิดของ CPV-2**, ส่วนใหญ่ subclinical, อาจรุนแรงในลูกสุนัข **5-21 วัน** (เลกเชอร์เขียนว่า CPV-1 คือ original ของ CPV-2)',
+                '**CPV-2** (a/b/c): highly contagious — variant ทุกตัวก่อโรครุนแรงกว่าสายพันธุ์เดิมและมี host range กว้างขึ้นจนติดและก่อโรคในแมวได้ ส่วน **2c มักสัมพันธ์กับโรครุนแรงในสุนัขโตและในสุนัขที่ฉีดวัคซีนครบแล้ว** (เลกเชอร์เขียนว่า 2c รุนแรงสุด)',
               ] },
             ] },
           { sub: 'Canine Coronavirus (CCV / CCoV)',
@@ -104,7 +104,7 @@ export const NOTES_COM5 = {
             'Dehydration → **hypovolemic shock**: tachycardia, poor pulse, pale MM, prolonged CRT',
             'Fever **หรือ** hypothermia, abdominal pain',
           ] },
-          { callout: 'Mortality: puppy ≈ 70% / adult ≈ 1%', kind: 'warn' },
+          { callout: 'Mortality: puppy ≈ 70% = ตัวเลขของลูกสุนัขที่**ไม่ได้รับการรักษา** / adult ≈ 1% — ถ้ารักษาแบบ hospitalised, case fatality ต่ำกว่ามาก (18% ในการศึกษาแบบ clinic-based, PMID 26294318)', kind: 'warn' },
         ],
       },
       {
@@ -124,9 +124,9 @@ export const NOTES_COM5 = {
           { sub: 'Viral antigen detection',
             body: [
               { bullets: [
-                'Fecal **ELISA test kit** — POC, ง่าย, ไว',
+                'Fecal **ELISA test kit** — POC, ง่าย, **specificity สูงมาก (100%) แต่ sensitivity ต่ำ** (22.2% ในตัวอย่างทั้งหมด และ 76.5% เมื่อตรวจทันทีหลังเก็บ) เลกเชอร์เขียนว่าเป็นชุดตรวจที่ไว',
                 '**False neg:** low viral load, neutralizing Ab จับ Ag ใน bloody stool',
-                '**False pos:** 3-10 วันหลัง MLV vaccine → แยกด้วย **PCR**',
+                '**False pos:** หลังฉีด MLV vaccine — เลกเชอร์เขียน 3-10 วัน แต่ qPCR ตรวจพบ CPV DNA ได้นานถึง **28 วัน** และ **PCR เดี่ยวแยก vaccine strain ออกจาก field virus ไม่ได้อย่างน่าเชื่อถือ** ต้องทำ VP2 sequencing ซึ่งสำเร็จเพียงบางตัวอย่าง',
                 'Negative ELISA ≠ ไม่มีเชื้อ — ถ้าสงสัย ส่ง PCR ต่อ',
               ] },
             ] },
@@ -154,7 +154,7 @@ export const NOTES_COM5 = {
           { sub: '2. Early enteral nutrition',
             body: [
               { bullets: [
-                'ช่วย healing ของ GI tract',
+                'ทำให้ demeanor, appetite, vomiting และ diarrhea กลับสู่ปกติเร็วกว่ากลุ่ม NPO ประมาณ 1 วัน และน้ำหนักขึ้นอย่างมีนัยสำคัญ — ส่วนผลต่อ gut barrier เป็นหลักฐานทางอ้อม และ survival ไม่ต่างกันอย่างมีนัยสำคัญ (13/15 vs 15/15, P = .48) เลกเชอร์เขียนว่าช่วย healing ของ GI tract',
                 'ถ้ากินเองไม่ได้ → feeding tube (esophageal / NG)',
               ] },
             ] },
@@ -479,7 +479,7 @@ export const NOTES_COM5 = {
           { sub: 'Treatment',
             body: [
               { bullets: [
-                '**Ronidazole 30 mg/kg PO q24h × 10 d** — ใช้ caution: **neurologic AE**',
+                '**Ronidazole 30 mg/kg PO q24h × 14 d** — โปรโตคอลที่พิสูจน์ efficacy คือ 30-50 mg/kg q12h นาน 14 วัน ส่วนการลดเป็น q24h มาจากข้อมูล pharmacokinetics ภายหลัง (bioavailability ประมาณ 99.6%, half-life ประมาณ 10 ชม. ทำให้ q12h เสี่ยง **neurologic AE**) เลกเชอร์เขียน 10 วัน ซึ่งไม่มีหลักฐานรองรับ',
                 'ไม่มี approved drug',
                 'Sanitation cattery สำคัญ',
               ] },
@@ -550,7 +550,7 @@ export const NOTES_COM5 = {
           { bullets: [
             '**Cat = definitive host** (ตัวเดียว!), warm-blooded animals = intermediate host',
             'Oocyst: **10 × 12 μm**, ratio **1:2:4**',
-            '**Cat shed oocyst หลัง primary infection ครั้งเดียวในชีวิต** × 7-10 วัน (millions)',
+            '**Cat shed oocyst หลัง primary infection ครั้งเดียวในชีวิต** × **3-10 วัน** (millions) — เลกเชอร์เขียน 7-10 วัน',
             'Stages: tachyzoite (acute) ↔ bradyzoite (chronic, in tissue cyst)',
             'Reactivation จาก immunosuppression (AIDS, steroids)',
           ] },
@@ -649,7 +649,7 @@ export const NOTES_COM5 = {
           { sub: 'Pathogenesis',
             body: [
               'Bite → **virus replicate ใน muscle** → **centripetal/retrograde** ขึ้น nerve → spinal cord → brain',
-              '→ **centrifugal/anterograde** ลงไป **salivary gland** → shedding 1-7 วันก่อนแสดงอาการ',
+              '→ **centrifugal/anterograde** ลงไป **salivary gland** → shedding ก่อนแสดงอาการ นานถึง **7 วันใน Mexican strain และนานถึง 13 วันใน Ethiopian strain** (เลกเชอร์เขียน 1-7 วัน)',
             ] },
         ],
       },
@@ -838,8 +838,8 @@ export const NOTES_COM5 = {
           { bullets: [
             'Launched: 12 มิ.ย. 2024 ที่ VRVC',
             '**Cat FeLV**: VPAT ใช้ **< 2 ปี** (WSAVA ใช้ < 1 ปี)',
-            'Booster แรก: 6 เดือน เหมือน WSAVA',
-            'ความต่อเนื่อง: VPAT แนะนำ **เข็มกระตุ้น 1 ปี (1 ขวบครึ่ง)** → annually หรือ q3y (WSAVA q3y เลย)',
+            'Booster แรก: **WSAVA แนะนำเข็มที่อายุตั้งแต่ 26 สัปดาห์เป็นการทั่วไป ส่วน VPAT ระบุเข็ม 26 สัปดาห์เป็นเงื่อนไข** คือช่วงที่มีการระบาดสูง หรือลูกสัตว์ความเสี่ยงสูง (แม่ตาย ไม่ได้กินนมน้ำเหลือง หรืออยู่พื้นที่ระบาด) โดย VPAT ยังคงเข็มกระตุ้น 1 ปีไว้ (เลกเชอร์เขียนว่า 6 เดือน เหมือน WSAVA)',
+            'ความต่อเนื่อง: VPAT เขียนว่า **กระตุ้น 1 ปีหลังวัคซีนเข็มสุดท้ายของปีแรก** → annually หรืออาจเว้นทุก 3 ปีตามคำแนะนำสัตวแพทย์ (WSAVA q3y เลย) — คำว่า 1 ขวบครึ่ง ในเลกเชอร์เป็นการคำนวณต่อยอด (เข็มสุดท้าย 16-26 สัปดาห์ + 1 ปี ประมาณอายุ 1.3-1.5 ปี) ไม่ได้เขียนไว้ในเอกสาร VPAT',
           ] },
         ],
       },
@@ -873,7 +873,7 @@ export const NOTES_COM5 = {
                 '⚠️ Commercial vaccines (2-/4-serovar) **ไม่ครอบคลุม Sejroe + Bataviae** ที่เป็นกลุ่มหลัก!',
               ] },
             ] },
-          { callout: 'Top 3 breeds เกิด VAE: French Bulldog, Dachshund, Boston Terrier, ≤ 5 kg, young, multiple vaccines, 25% เพิ่มต่อวัคซีนเข็มที่เพิ่ม', kind: 'warn' },
+          { callout: 'VAE ภายใน 3 วันหลังฉีด (Moore JAVMA 2005): อัตรารวม 38.2 ต่อสุนัข 10,000 ตัวที่ได้วัคซีน — เสี่ยงเพิ่ม **27% ต่อวัคซีน 1 เข็มที่เพิ่ม ในสุนัข ≤ 10 kg** และ 12% ในสุนัข > 10 kg, risk factor = น้ำหนักตัวน้อย, สถานะทำหมัน, อายุ 1-3 ปี. เลกเชอร์เขียน ≤ 5 kg และ 25% ส่วนอันดับสายพันธุ์ (French Bulldog, Dachshund, Boston Terrier) ไม่พบในเปเปอร์นี้ ถือเป็นข้อมูลที่ยังไม่ยืนยัน', kind: 'warn' },
         ],
       },
       {
@@ -913,7 +913,7 @@ export const NOTES_COM5 = {
           'MDA decay graph: HI titer drop ตามอายุ',
           { bullets: [
             '**HI ≥ 80**: protective (MDA ป้องกันได้ + อาจ neutralize vaccine)',
-            '**HI ≤ 10**: ไม่ interfere vaccine แต่ไม่ป้องกันโรค',
+            '**HI ≥ 10 (ระดับที่ตรวจพบได้)**: ยัง **interfere vaccine** อยู่ แต่ไม่ป้องกันโรค — มีเฉพาะ titer ที่ต่ำกว่าระดับตรวจพบ (< 1:10) เท่านั้นที่ไม่รบกวน (เลกเชอร์เขียนกลับด้านว่า HI ≤ 10 ไม่ interfere)',
             '**Window** = ช่วง MDA ลดต่ำกว่า protective แต่ยัง interfere vaccine',
             '→ **ฉีดซ้ำ q2-4 wk จน 16 wk** เพื่อคล่อม window นี้',
           ] },
@@ -999,7 +999,7 @@ export const NOTES_COM5 = {
             body: [
               { bullets: [
                 'Mutant strain, core vaccine **ไม่ป้องกัน**',
-                '**Mortality 30-70%**, รุนแรงใน adult > kitten',
+                '**Mortality ประมาณ 33-86% แล้วแต่ outbreak** (epizootic แรกรายงาน 33-50%, outbreak ปี 2024 รายงานสูงถึง 86%) เลกเชอร์เขียน 30-70%, รุนแรงใน adult > kitten',
                 'Severe vasculitis → cutaneous edema (head + limbs)',
                 'Crusts/ulcers (philtrum, palate, tongue, lip commissure)',
                 'Hepatic necrosis, pancreatitis, DIC, sepsis',
@@ -1015,7 +1015,7 @@ export const NOTES_COM5 = {
           { bullets: [
             'dsDNA enveloped — **easily killed by disinfectants** (ต่าง FCV ที่ทน)',
             'Replicate ใน cold mucosa: URT, ocular epithelium, neurons',
-            'Latency: **trigeminal ganglia + cornea**, stress → reactivation',
+            'Latency: **trigeminal ganglion = primary site** (cornea เป็น proposed/secondary site ที่ยังเป็นข้อถกเถียงในวรรณกรรม, เลกเชอร์เขียนรวมว่า trigeminal ganglia + cornea), stress → reactivation',
             'Shed via ocular/nasal/oral secretion',
           ] },
           { sub: 'Classical signs',
@@ -1023,7 +1023,7 @@ export const NOTES_COM5 = {
               { bullets: [
                 'Sneezing, nasal discharge, congestion, stertor, fever',
                 'Conjunctivitis, hyperemia, chemosis, ocular discharge (อาจเลือดปน)',
-                '**Dendritic corneal ulceration ⭐** (pathognomonic!)',
+                '**Dendritic corneal ulceration ⭐** — characteristic / highly suggestive ของ FHV-1 (ABCD ใช้คำว่า typical และเสริมว่า may also develop, เลกเชอร์เขียนว่า pathognomonic)',
                 'Stromal keratitis, chronic rhinosinusitis (turbinate damage permanent)',
                 'Ulceration on lips/nares (cytolysis)',
                 'Adult: recrudescent — milder',
@@ -1075,7 +1075,7 @@ export const NOTES_COM5 = {
                 '**Amoxicillin-clavulanate** — สำหรับ 2° infection, **ineffective** ต่อ Mycoplasma + C. felis',
                 'Azithromycin → Mycoplasma',
                 'Pradofloxacin (oral suspension) — safer in cats',
-                '⚠️ **Enrofloxacin > 5 mg/kg → retinopathy / blindness** ในแมว',
+                '⚠️ **Enrofloxacin เป็น retinotoxic ในแมวบางตัว** (acute diffuse retinal degeneration จนตาบอด) → ห้ามใช้เกินขนาดที่ผู้ผลิตแนะนำคือ **5 mg/kg q24h**, ปัจจัยเสี่ยงร่วม = ขนาดยาสูง, ให้ IV เร็ว, ให้ยานาน, อายุมาก (เลกเชอร์เขียนเป็น cutoff ตายตัวที่ > 5 mg/kg)',
                 '⚠️ ห้าม Cefazolin/Cefadroxil/Cephalexin ใน FRDC (ineffective ต่อ Bordetella + Myco + C. felis)',
               ] },
             ] },

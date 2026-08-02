@@ -486,7 +486,8 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                 "bullets": [
                   "การศึกษาการกระจายของการเกิดโรคและการเปลี่ยนแปลงในประชากร ซึ่งแปรผันไปตาม **เวลาและสถานที่**",
                   "รวมถึงการวิเคราะห์ปัจจัย (disease agents) และปฏิสัมพันธ์ของปัจจัยเหล่านั้น ที่คุกคามหรือส่งผลต่อสภาวะและสุขภาพทั้งทางตรงและทางอ้อม",
-                  "และชี้แนวทางลดความเสี่ยงเพื่อรักษาสุขภาพให้ดีและแข็งแรง"
+                  "และชี้แนวทางลดความเสี่ยงเพื่อรักษาสุขภาพให้ดีและแข็งแรง",
+                  "หมายเหตุเรื่องการอ้างอิง สไลด์ระบุว่านิยามชุดนี้เป็นของ WHO ปี 1990 แต่ตรวจสอบแล้วไม่พบเอกสาร WHO ปีนั้นที่ใช้ถ้อยคำนี้ นิยามเชิงปฏิบัติการที่ยืนยันต้นทางได้คือของ **US CDC** ใน Principles of Epidemiology in Public Health Practice ฉบับพิมพ์ครั้งที่ 3 ว่าเป็นการศึกษา **distribution** และ **determinants** ของภาวะหรือเหตุการณ์ที่เกี่ยวข้องกับสุขภาพใน **specified populations** และการนำผลการศึกษานั้นไปประยุกต์ใช้ควบคุมปัญหาสุขภาพ เนื้อความหลักตรงกับสไลด์ ต่างกันที่เจ้าของนิยาม"
                 ]
               }
             ]
@@ -836,6 +837,7 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
                   "(2) **Cross-sectional studies** การศึกษาที่จุดเวลาใดเวลาหนึ่ง",
                   "(3) **Retrospective หรือ case-control studies** การศึกษาย้อนหลัง",
                   "(4) **Prospective หรือ cohort studies** การศึกษาไปข้างหน้า",
+                  "ข้อควรระวัง retrospective กับ case-control และ prospective กับ cohort **ไม่ได้เป็นคำเหมือนกันเสมอไป** เกณฑ์ที่ใช้แยก case-control ออกจาก cohort คือจังหวะที่วัด outcome ส่วน retrospective กับ prospective คือทิศทางของเวลาที่เก็บข้อมูล โดยทั่วไป cohort มักเป็น prospective และ case-control เป็น retrospective แต่ **retrospective cohort study มีอยู่จริง**",
                   "cross-sectional, retrospective และ prospective รวมกันเป็น **observational studies (การศึกษาเชิงสังเกต)** ส่วน **experimental studies ไม่ใช่ observational**"
                 ]
               }

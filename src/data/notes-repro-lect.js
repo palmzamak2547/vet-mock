@@ -49,7 +49,7 @@ export const NOTES_REPRO_LECT = {
             '↑ appetite + weight gain',
             'Mammary enlargement + nodules, ในแมวกระตุ้น **mammary fibroadenomatous hyperplasia (FEH/MFH)** ★',
             'Hair coat changes ที่ injection site (สีจาง, alopecia)',
-            'GH-stimulating effect → acromegaly + diabetes mellitus ★',
+            'GH-stimulating effect (GH หลั่งจาก **mammary gland** ไม่ใช่ pituitary ★) → acromegaly + **insulin resistance** → เสี่ยงต่อ diabetes mellitus ★',
             'CEH (Cystic Endometrial Hyperplasia) → pyometra ในเพศเมีย ★',
             'Pseudopregnancy (เมื่อหยุดยา)',
           ] },
@@ -79,7 +79,7 @@ export const NOTES_REPRO_LECT = {
         source: 'Kimchii85 p.32',
         body: [
           { bullets: [
-            'P4 < 5 ng/mL ในแม่ท้อง wk 4-5 → bloody discharge / abortion risk',
+            'P4 < 5 ng/mL ในแม่ท้อง wk 4-5 → bloody discharge / abortion risk (งานวิจัยจับ luteal insufficiency ได้ตั้งแต่วันตั้งท้อง 18-22 คือราวสัปดาห์ 3 กลุ่มที่ขาดมี P4 ~3.1 ng/mL เทียบกลุ่มปกติ ~17.5 ng/mL จึงควรเริ่มเฝ้าระวังเร็วกว่า wk 4-5)',
             { label: 'Tx', value: 'MPA 0.1 mg/kg PO sid' },
             { label: '⚠️ Stop', value: '2 days ก่อนคาดว่า parturition (ให้ P4 drop normal)' },
           ] },
@@ -103,7 +103,7 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             { label: 'MOA', value: 'D2 dopamine agonist → ↓ prolactin' },
-            { label: 'Dose', value: '5 µg/kg PO sid × 5-7 days' },
+            { label: 'Dose', value: '5 µg/kg PO sid × 5-7 days (review ให้ช่วง 5-10 วัน)' },
             { label: 'Side effect ★', value: 'อาเจียน (vomit) — ลดได้โดยให้พร้อมอาหาร' },
             'Bromocriptine = older alternative (vomit + ataxia ก็พบบ่อยกว่า)',
           ] },
@@ -164,7 +164,7 @@ export const NOTES_REPRO_LECT = {
               { bullets: [
                 '**Concentration** (sperm count/ml) — hemocytometer formula: N × df × 50 / 1000 × 10⁶',
                 '**Motility** % moving + **Progressive motility** +0 ถึง +5 (most important functional ★)',
-                '**Morphology** — head + midpiece + tail, dog ≥ 80% normal, cat ≥ 60% normal',
+                '**Morphology** — head + midpiece + tail, dog ≥ 80% normal, cat ≥ 60% normal (80% = เกณฑ์ ideal ของ AI-grade semen ส่วนจุดที่ fertility เริ่มตกจริงในสุนัขคือ normal morphology < 60%)',
                 '**Viability** (eosin-nigrosin) — live/dead',
               ] },
             ] },
@@ -216,8 +216,8 @@ export const NOTES_REPRO_LECT = {
             headers: ['P4 (ng/mL)', 'Stage'],
             rows: [
               ['< 1.0', 'Anestrus / early proestrus'],
-              ['**1.5-2.5**', '**LH surge** = Day 0'],
-              ['**4-10**', '**Ovulation** (LH+2) — eggs immature ยัง'],
+              ['**2-3 (lect: 1.5-2.5)**', '**LH surge** = Day 0 — ค่าวัดจริง 2.7 ± 0.6 ng/mL'],
+              ['**~4.8 ± 0.9 (lect: 4-10)**', '**Ovulation** (LH+2) — eggs immature ยัง'],
               ['10-20', '**Fertilization period (LH+4 to +6)** — best AI window!'],
               ['> 20', 'Post-ovulation, late'],
             ],
@@ -256,7 +256,7 @@ export const NOTES_REPRO_LECT = {
           { bullets: [
             'IVAI (intravaginal) — simplest, no anesthesia, fresh semen only',
             'TCAI (transcervical) ★ — Scandinavian หรือ Norwegian catheter, **no anesthesia**, ใช้ frozen ได้',
-            'Surgical / Laparoscopic IUAI — anesthesia required, best for marginal frozen quality, ผิดกฎหมายในยุโรป/ออสเตรเลีย',
+            'Surgical / Laparoscopic IUAI — anesthesia required, lect ว่า best for marginal frozen quality แต่ข้อมูลคลินิกให้ TCAI ชนะ จึงควรสงวน surgical ไว้เมื่อ TCAI ทำไม่ได้ทางกายวิภาค, ผิดกฎหมายในยุโรป/ออสเตรเลีย',
           ] },
         ],
       },
@@ -307,7 +307,7 @@ export const NOTES_REPRO_LECT = {
             '**LN₂ -196°C** = standard storage ★ (below glass transition → indefinite preservation)',
             'Cell damage จาก **ice crystal** ขนาดใหญ่ (intracellular ice เสียหายเด่น)',
             'Extracellular ice forms first → osmotic shift → cell shrink',
-            'CPA (glycerol 6-8%, DMSO, EG) ลด ice formation, permeable + non-permeable',
+            'CPA (DMSO, EG, glycerol — lect ว่า 6-8% แต่ canine protocol มาตรฐานใช้ glycerol ~5% final; 7-10% คือความเข้มข้นใน second-step extender ก่อนเจือจาง 1:1 จนเหลือ ~5%) ลด ice formation, permeable + non-permeable',
             'CPA เติมช้า → ลด osmotic shock (cell shrink → swell)',
           ] },
         ],
@@ -422,7 +422,7 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             'Small populations: inbreeding, low genetic diversity, ↓ fertility, poor sperm viability, ↑ offspring mortality',
-            '**Wild felids → teratospermia** (high abnormal sperm) → cryopreservation + IVF helps',
+            '**Wild felids → teratospermia** (normal morphology < 40%, พบราว 70% ของชนิด/ชนิดย่อยที่ศึกษา) → cryopreservation + IVF ช่วยได้บางส่วน แต่แม้อสุจิรูปร่างปกติจากตัวที่ teratospermic ก็ยัง functional capacity ลดลง จึงมักต้องใช้ **ICSI**',
             '**One Plan Approach**: link ex-situ breeding กับ in-situ conservation goals',
             'Zoo programs: welfare + enrichment + genetics + ART rolled together',
           ] },
@@ -454,8 +454,8 @@ export const NOTES_REPRO_LECT = {
             rows: [
               ['Day 0', 'Fertilization', '**Oviduct ampulla** ★'],
               ['Day 1-3', 'Cleavage (2→4→8 cell)', 'Oviduct'],
-              ['Day 5', 'Morula', 'Uterus'],
-              ['**Day 7**', '**Blastocyst** ★', 'Uterus'],
+              ['Day 11-13 (lect: Day 5)', 'Morula — embryo ยังอยู่ใน oviduct จนราววันที่ 11', 'Oviduct → Uterus'],
+              ['**Day 14 (lect: Day 7)**', '**Blastocyst** ★ (canine data, post-LH surge)', 'Uterus'],
               ['Day 8-9', 'Hatching blastocyst', 'Uterus'],
               ['Day 16-21', 'Implantation', 'Uterine wall'],
             ],
@@ -503,7 +503,7 @@ export const NOTES_REPRO_LECT = {
           { bullets: [
             { label: 'Guinea pig (older female) ★', value: '**Ovarian cyst** — recurring high-yield exam item' },
             { label: 'Ferret (intact female) ★', value: 'Prolonged estrus → **estrogen toxicity** → alopecia + bone marrow suppression' },
-            { label: 'Marmoset / primates', value: 'Singleton oversized fetus → dystocia risk' },
+            { label: 'Marmoset / primates', value: 'lect ว่า singleton oversized fetus → dystocia แต่ marmoset (callitrichid) ออกลูก**แฝด**เป็นปกติ และ case series 3/3 ตัวที่ dystocia เป็น twin fetuses — จัดการด้วย **C-section** เพราะตัวเล็กเกินกว่าจะทำ obstetrical manipulation' },
             { label: 'Reptile', value: 'Phallus / hemipenis prolapse — acute: ลด swelling + replace, chronic/necrotic: amputate' },
           ] },
         ],
@@ -535,7 +535,7 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             { label: 'P = G + E', value: 'Phenotype shaped by Genetics + Environment ★' },
-            { label: 'Heritability h²', value: 'h² = V_genetic / V_phenotype' },
+            { label: 'Heritability h²', value: 'Narrow-sense **h² = V_A (additive) / V_P** — ส่วน V_genetic ทั้งก้อน / V_phenotype ที่ lect ให้คือ broad-sense **H²** (รวม dominance + epistasis)' },
             'Breeding selection = ใช้คนเลือกตัว parent เพื่อปรับปรุง population ในทิศทางที่ต้องการ',
           ] },
         ],
@@ -583,7 +583,7 @@ export const NOTES_REPRO_LECT = {
         body: [
           { bullets: [
             '**Neutered** = testicles or ovaries removed → no offspring',
-            '**Spay** = OVH (Ovariohysterectomy) ในเพศเมีย',
+            '**Spay** = OVH (Ovariohysterectomy) ในเพศเมีย — แต่ **OVE (ovariectomy)** ก็เป็นการทำหมันเพศเมียเช่นกัน และ literature review แนะนำให้ OVE เป็นวิธีหลักในตัวที่สุขภาพดี',
             '**Gonadectomy** = umbrella term: orchiectomy/castration, ovariectomy, OVH',
             'Therapeutic indications: ovarian cyst/tumor, CEH/pyometra, testicular tumor, cryptorchidism, BPH, pseudopregnancy, diestrus DM, recurrent vaginal hyperplasia, alopecia X',
           ] },
@@ -621,7 +621,7 @@ export const NOTES_REPRO_LECT = {
             body: [
               { bullets: [
                 'Persistence ของ functional ovarian tissue หลัง OVH/OVE',
-                'Time to dx: **1-2 years post-spay** (when estrus signs return)',
+                'Time to dx: **1-2 years post-spay** (when estrus signs return) — case series เตือนว่าอาการอาจไม่ถูกสังเกตจนหลายปีหลัง OVH จึงห้ามตัด ORS ทิ้งเพราะทำหมันมานาน; ในสุนัข remnant พบข้าง**ขวา**บ่อยกว่าข้างซ้ายอย่างมีนัยสำคัญ',
               ] },
             ] },
           { sub: 'Causes ★',
@@ -636,7 +636,7 @@ export const NOTES_REPRO_LECT = {
             body: [
               { bullets: [
                 'Vaginal cytology during suspected estrus → cornified cells (estrogen present)',
-                '**AMH (Anti-Mullerian Hormone)** ★ — best practical lab dx, single sample any cycle',
+                '**AMH (Anti-Mullerian Hormone)** ★ — practical lab dx, single sample ได้ทุกช่วง cycle รวมตอนสงสัยเป็นสัด (ข้อได้เปรียบตัวจริงของ AMH) แต่ LH assay จำแนก intact ได้ดีกว่าเมื่อไม่นับตัวที่กำลังเป็นสัด และค่าตัวเลขอ้างอิงขึ้นกับชุดตรวจที่ใช้',
                 '  - Normal intact: 0.5-3 ng/mL',
                 '  - OVH: undetectable < 0.05 ng/mL',
                 '  - **ORS: > 0.1 ng/mL** = ovarian tissue present',
@@ -662,7 +662,7 @@ export const NOTES_REPRO_LECT = {
           { bullets: [
             'OVH = removed uterus + ovaries, cervix remains',
             'Brown-red vaginal discharge in OVH dog → **Cervical stump infection/inflammation** ★',
-            '⛔ Pyometra ก็ดี CEH ก็ดี — เป็นไปไม่ได้ใน OVH dog (uterus removed!)',
+            'Pyometra/CEH ของมดลูกทั้งอัน — เป็นไปไม่ได้ใน OVH dog (uterus removed) **แต่ stump pyometra ที่ uterine stump เกิดได้** และมักสัมพันธ์กับ ORS ⛔ ห้ามตัดออกจาก differential',
             'Tx: ATB + possible re-excision of stump',
           ] },
         ],
@@ -686,7 +686,7 @@ export const NOTES_REPRO_LECT = {
             'Complete uterine removal (incl. cervix) prevents/cures uterine disease',
             'BPH common in intact male dog → gonadectomy resolves in 4-6 wks',
             'Vaginal hyperplasia/prolapse remit + recurrence prevented',
-            'Eliminate mammary tumor risk if before 1st estrus (small breed), partial benefit if after 1st-2nd estrus',
+            'ลด mammary tumor risk ถ้าทำก่อน 1st estrus (small breed), partial benefit if after 1st-2nd estrus — systematic review ตัดสินว่าหลักฐานยัง weak จึงไม่ควรใช้คำว่า eliminate',
           ] },
         ],
       },
@@ -700,7 +700,7 @@ export const NOTES_REPRO_LECT = {
             rows: [
               ['**Mammary tumor**', 'Springer + Cocker spaniel + **Boxer** + Poodle + Dachshund, large > small'],
               ['**BPH**', 'Doberman + Rottweiler + GSD + Labrador (large breeds, age > 5 yr)'],
-              ['**MCT (Mast Cell Tumor)**', 'Female 2.6× ↑, age > 7 yr, BW 20-30 kg, GR + LR + Boxer + Pug + GSD'],
+              ['**MCT (Mast Cell Tumor)**', 'lect: Female 2.6× ↑ + GSD — แต่ UK primary-care study (n = 168,636) ไม่พบความสัมพันธ์กับเพศ และ GSD กลับมี odds **ต่ำกว่า**พันธุ์ผสม; ที่ตรงกัน = Boxer (1.95%) + GR (1.39%) + Pug, age > 7 yr, BW 20-30 kg'],
               ['**Osteosarcoma**', 'Male + large/giant + early gonadectomy (< 6 mo) ↑ risk'],
               ['**Hemangiosarcoma**', 'Female gonadectomy > 12 mo → ↑ risk'],
               ['**Lymphoma**', 'Australian Shepherd + GR, gonadectomized female ↑'],
@@ -717,7 +717,7 @@ export const NOTES_REPRO_LECT = {
           { bullets: [
             'Tumor risk: prostate (slight ↑), MCT, TCC, OSA, lymphoma, hemangiosarcoma',
             '**USMI** in female dog (3-20%), estrogen-dependent sphincter tone loss',
-            'Orthopedic disease ↑ if early gonadectomy < 6 mo + large/heavy breed',
+            'Orthopedic disease ↑ if early gonadectomy (lect: < 6 mo; หลักฐานในพันธุ์ผสมใช้จุดตัด **ก่อนอายุ 1 ปี**) + ตัวที่ **BW ≥ 20 kg** — ต่ำกว่า 20 kg ไม่พบความเสี่ยงเพิ่ม และในกลุ่มพันธุ์ผสมนี้ไม่พบมะเร็งเพิ่มในทุกช่วงน้ำหนัก จึงห้ามเหมารวมความเสี่ยงข้อกับมะเร็ง',
             'Pediatric gonadectomy 6-16 wks, slide ไม่แนะนำ routine ใน owned pet (case-by-case)',
             { label: '**Springer Spaniel ★**', value: 'Post-neuter aggression to owner (male > female) — discuss before procedure' },
           ] },
@@ -766,12 +766,12 @@ export const NOTES_REPRO_LECT = {
             rows: [
               ['16-20', 'Implantation begins'],
               ['**20-22**', '**Gestational sac** (1st U/S sign) ★'],
-              ['25-30', 'Fetal pole + heartbeat (250 bpm)'],
+              ['25-30 (ตรวจพบได้เร็วสุด 23-25)', 'Fetal pole + heartbeat (250 bpm)'],
               ['30-35', 'Fetal body recognizable, count fetuses (US)'],
               ['45-50', 'Skeletal mineralization → radiograph fetal count better'],
               ['**55-58**', '**Fetal sex determination** ★'],
               ['60+', 'Fetal monitoring (HR, viability)'],
-              ['**63-65**', '**Parturition** (mean: 63 d post-LH)'],
+              ['**63-65**', '**Parturition** — 65 d **post-LH surge** (63 วันคือนับจาก **ovulation** ซึ่งตามหลัง LH surge ราว 2 วัน)'],
             ],
           } },
         ],
@@ -781,7 +781,7 @@ export const NOTES_REPRO_LECT = {
         source: 'Kimchii85 Q (Lect 24)',
         body: [
           { bullets: [
-            'Optimal: **Day 55-58** in dog ★, Day 38-43 in cat',
+            'Optimal: **Day 55-58** in dog ★ (เทคนิคดู external genitalia ที่สร้างเสร็จแล้ว), Day 38-43 in cat — ถ้าดูตำแหน่ง **genital tubercle** ระบุเพศได้ตั้งแต่วันที่ 33-50 (มองไม่เห็น tubercle ก่อนวันที่ 26)',
             'Female: vulva visible at perineum, prepuce absent',
             'Male: prepuce visible (caudal to umbilicus), testes may be visible later',
             'Best in lateral recumbency, sagittal scan along ventral abdomen',
@@ -815,7 +815,7 @@ export const NOTES_REPRO_LECT = {
         heading: 'Clinical Pitfall',
         source: 'Ultrasound.pdf + Kimchii85',
         body: [
-          { callout: 'Fluid-filled uterus around D30 — pregnancy vs **pyometra**? Combine U/S + CBC inflammation + discharge + reproductive timing, don\'t rely on imaging alone', kind: 'warn' },
+          { callout: 'Fluid-filled uterus — pregnancy vs **pyometra**? หน้าต่างที่สับสนจริงคือก่อนราว D20-25 เพราะที่ D25-30 เห็น fetal pole + heartbeat แล้ว และทิศทางที่พลาดคือ over-call pyometra (ยืนยัน histopath เป็น pyometra จริงเพียง 48/60 = 80%). Combine U/S + CBC inflammation + discharge + reproductive timing, don\'t rely on imaging alone', kind: 'warn' },
           { bullets: [
             'Use U/S in infertility cases: ovary, uterus, early fetal death, prostate/testicular/epididymal lesions',
           ] },

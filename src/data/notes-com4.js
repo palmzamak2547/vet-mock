@@ -29,7 +29,7 @@ export const NOTES_COM4 = {
         body: [
           { bullets: [
             'MOA: ↓ phospholipase A2 → ↓ prostaglandin/leukotriene, suppress T cell + macrophage, stabilize lysosome',
-            'Immunosuppressive dose: **2-4 mg/kg/day** (dog), 4-8 mg/kg/day (cat — แมวต้องการสูงกว่า)',
+            'Immunosuppressive dose: **2-3 mg/kg/day** (dog, ตาม ACVIM; สุนัข > 25 kg คิดเป็น 40 mg/m2/day และถ้าเริ่มเกิน 2 mg/kg/day ต้องลดลงมา ≤ 2 mg/kg/day ภายใน 1-2 สัปดาห์แรกเมื่อสัตว์ตอบสนอง — lecture ให้ 2-4 mg/kg/day), 4-8 mg/kg/day (cat — แมวต้องการสูงกว่า)',
             'Taper หลัง remission ~2-4 wk (ลดทีละ 25%) — หยุดทันทีไม่ได้ → adrenal crisis',
           ] },
           { sub: 'Side effects (chronic high dose)',
@@ -51,9 +51,9 @@ export const NOTES_COM4 = {
             headers: ['Drug', 'MOA', 'Species', 'Key adverse'],
             rows: [
               ['**Cyclosporine** (Atopica)', 'Calcineurin inhibitor → ↓ IL-2 → T-cell selective', 'Dog + Cat', 'GI (V/D), gingival hyperplasia, papilloma, monitor cyclosporine level'],
-              ['**Azathioprine**', 'Purine analog → ↓ T cell, purine inhibitor', '**Dog only ★★**', 'BM suppression, hepatotoxic, ในแมวห้าม (TPMT deficiency → severe pancytopenia + pancreatic necrosis)'],
+              ['**Azathioprine**', 'Purine analog → ↓ T cell, purine inhibitor', '**Dog only ★★**', 'BM suppression, hepatotoxic, ในแมวห้าม (TPMT deficiency → azathioprine toxicity, severe pancytopenia). ACVIM รายงาน pancreatitis เป็น case report ใน **สุนัข** ที่ได้ azathioprine และยังสรุปเหตุ-ผลไม่ได้ ไม่ได้บรรยาย pancreatic necrosis ในแมวอย่างที่ lecture ระบุ'],
               ['**Mycophenolate (MMF)**', 'IMPDH inhibitor → ↓ B/T cell proliferation', 'Dog + Cat', 'GI (V/D, hemorrhagic), myelosuppression'],
-              ['**Chlorambucil**', 'Alkylating agent → DNA crosslink', '**Cat first choice** (steroid-sparing IMHA/IBD/PF)', 'BM suppression, ใน dog ใช้น้อย'],
+              ['**Chlorambucil**', 'Alkylating agent → DNA crosslink', 'Cat (steroid-sparing IMHA/IBD/PF) — ACVIM ITP consensus ให้ **พิจารณา chlorambucil หรือ modified cyclosporine** อย่างใดอย่างหนึ่ง (weak recommendation, ไม่มีหลักฐานตรง) ไม่ได้ระบุว่าเป็น first choice อย่างที่ lecture เขียน', 'BM suppression, ใน dog ใช้น้อย'],
               ['**Leflunomide**', 'Pyrimidine inhibitor', 'Dog + Cat (refractory)', 'Diarrhea, BM suppression'],
               ['**IVIG (human IgG)**', 'Block FcR, saturate macrophage', 'Severe refractory IMHA/ITP', 'Anaphylaxis, expensive, short effect'],
             ] } },
@@ -92,7 +92,7 @@ export const NOTES_COM4 = {
             'Primary IMHA (idiopathic) ~60-75%, Secondary = drug, infection (Babesia/Mycoplasma/Ehrlichia), neoplasia, vaccination, transfusion',
             'Predisposed breeds: **Cocker Spaniel, Poodle, English Springer Spaniel, Old English Sheepdog, Irish Setter**, female > male, 2-8 yr',
           ] },
-          { callout: 'แมว IMHA มักเป็น **secondary** — Mycoplasma haemofelis, FeLV/FIV, lymphoma, primary cat IMHA หายาก', kind: 'tip' },
+          { callout: 'แมว IMHA มี secondary cause ได้ — Mycoplasma haemofelis, FeLV/FIV, lymphoma (lecture เน้นว่า primary cat IMHA หายาก) แต่ case series ของแมว primary IMHA 19 ตัว พบว่าแมว Coombs positive 15 ใน 18 ตัวไม่มีโรคพื้นฐานเลย จึงต้องนึกถึง primary IMHA ในแมวด้วยเสมอ', kind: 'tip' },
         ],
       },
       {
@@ -110,7 +110,7 @@ export const NOTES_COM4 = {
           { sub: 'Lab — IMHA triad',
             body: [
               { bullets: [
-                '**1) Spherocytes** บน blood smear ★ (small + dense + no central pallor) — pathognomonic ใน dog',
+                '**1) Spherocytes** บน blood smear ★ (small + dense + no central pallor) — ใช้เป็น diagnostic criterion **ในสุนัขเท่านั้น** (RBC แมวไม่มี central pallor สม่ำเสมอ) และเกณฑ์ ≥ 5 ตัวต่อ ×100 oil field ได้ sensitivity เพียง 63% specificity 95% จึง **ไม่ใช่ pathognomonic** อย่างที่ lecture ระบุ — ต้องแยก oxidative injury (zinc, acetaminophen), envenomation, hypersplenism, PK deficiency และ transfusion เลือดเก่าออกก่อน',
                 '**2) Autoagglutination** in-saline test (1 drop blood + 4 drops saline) — true agglutination ≠ rouleaux',
                 '**3) Coombs test (DAT)** — direct antiglobulin, positive in 60-80%',
                 'Other: regenerative anemia (reticulocytosis), ↑ bilirubin, ↑ LDH, ghost cells, hemoglobinemia',
@@ -126,7 +126,7 @@ export const NOTES_COM4 = {
             { label: '1st line', value: '**Prednisolone 2-3 mg/kg/day** (dog) / 4 mg/kg/day (cat) — taper หลัง PCV stable ≥ 4 wk' },
             { label: '2nd line', value: 'Add cyclosporine 5 mg/kg/day OR azathioprine 2 mg/kg/day **(dog only ★★)** OR MMF 10 mg/kg q12h' },
             { label: 'Cat refractory', value: '**Chlorambucil** + Pred (Azathioprine ห้าม)' },
-            { label: 'Antithrombotic ★', value: '**Clopidogrel (Plavix) 1-3 mg/kg/d** ± low-dose aspirin 0.5 mg/kg/day — thromboembolism prophylaxis' },
+            { label: 'Antithrombotic ★', value: '**Clopidogrel (Plavix) 1.1-4.0 mg/kg PO q24h** — ACVIM แนะนำ clopidogrel **แทน** aspirin ไม่ใช่ให้คู่กัน และถ้าเลือก aspirin ให้ 1-2 mg/kg q24h (lecture ให้ clopidogrel 1-3 mg/kg/d ± aspirin 0.5 mg/kg/day); ให้ thromboprophylaxis ทุกตัว **ยกเว้น platelet < 30,000/µL** และช่วง 2 สัปดาห์แรกอาจเลือก anticoagulant (unfractionated heparin ปรับ dose รายตัว) มากกว่า antiplatelet' },
             { label: 'Acute crisis', value: 'pRBC transfusion (cross-match!) + IV fluid + IVIG (severe) + LMWH' },
           ] },
           { callout: 'Mortality 30-70% in first 2 weeks, main cause = **pulmonary thromboembolism (PTE)** → ใช้ antiplatelet เสมอ', kind: 'warn' },
@@ -204,7 +204,7 @@ export const NOTES_COM4 = {
               { bullets: [
                 'Rule out: parasites (fecal × 3), GI panel (cobalamin, folate), Giardia, TLI (EPI)',
                 'Imaging: US (thickened wall, layering, lymphadenopathy)',
-                '**Histopath = gold standard** — endoscopic biopsy (duodenum + colon), WSAVA scoring 2008',
+                '**Histopath** — endoscopic biopsy (duodenum + colon), WSAVA scoring 2008 จำเป็นเพื่อบอกชนิดการอักเสบ แต่ CIE เป็น **diagnosis of exclusion**: ACVIM ให้ทำ dietary trial ก่อน invasive test ถ้าสัตว์ยัง stable และไม่ hypo-/anorexic และอาจต้องลองอาหารถึง 3 สูตร สูตรละอย่างน้อย 2 wk แบบ exclusive (lecture ให้ histopath = gold standard)',
                 'CCECAI score (clinical activity index) for severity',
               ] },
             ] },
@@ -216,7 +216,7 @@ export const NOTES_COM4 = {
         body: [
           { bullets: [
             { label: '**Step 1: Diet (FRE)**', value: 'Hydrolyzed protein (Hill\'s z/d, Royal Canin Hypo) OR novel protein × 2-4 wk' },
-            { label: '**Step 2: Antibiotic (ARE)**', value: 'Metronidazole 10-15 mg/kg q12h × 4-6 wk OR tylosin 25 mg/kg/day' },
+            { label: '**Step 2: Antibiotic (ARE)**', value: 'Metronidazole 10-15 mg/kg q12h × **21 d** OR tylosin 25 mg/kg q24h × 7 d OR rifaximin 25 mg/kg q12h × 21 d — ACVIM ให้ **สงวนยาปฏิชีวนะไว้ใช้หลังล้มเหลวจากวิธีอื่น** (relapse เร็วหลังหยุดยา + dysbiosis ระยะยาว) ไม่ได้ให้ใช้นำหน้า immunosuppressant ตามลำดับใน lecture' },
             { label: '**Step 3: Immunosuppressive (IRE)**', value: 'Pred 1-2 mg/kg/day → taper, refractory → cyclosporine OR chlorambucil (cat)' },
             { label: 'Adjunct', value: 'Probiotic, cobalamin SC if deficient, psyllium for colitis, ω-3 FA' },
           ] },
@@ -257,6 +257,7 @@ export const NOTES_COM4 = {
                 'อย่างน้อย **2 organ systems** affected (skin, joint, kidney, blood, etc.)',
                 '**ANA positive** (Antinuclear antibody)',
                 '**Histopathologic / immunopathologic** evidence',
+                'หมายเหตุ: เกณฑ์ชุดนี้เป็นหนึ่งใน scheme ที่มีผู้เสนอ — รายงานใน JVIM 2023 ระบุว่ายังไม่มีระบบเกณฑ์วินิจฉัย canine SLE ที่ยอมรับเป็นสากล งานที่ผ่านมามักดัดแปลงเกณฑ์ของคน (ACR/EULAR ปัจจุบันต้อง ANA positive + คะแนนถ่วงน้ำหนักรวม ≥ 10)',
               ] },
             ] },
           { sub: 'Probable SLE',
@@ -292,7 +293,7 @@ export const NOTES_COM4 = {
         body: [
           { bullets: [
             '**ANA (Antinuclear antibody)** ★ — primary screen, sensitive but not specific (titer ≥ 1:160)',
-            '**LE cell** — neutrophil engulfing nuclear material, classic but less sensitive (~60%)',
+            '**LE cell** — neutrophil engulfing nuclear material, classic: **specific แต่ไม่ sensitive** (แหล่งอ้างอิงไม่ได้ให้ตัวเลข, lecture ให้ ~60%); การแปลผล ANA ต้องดู **titer ร่วมกับ staining pattern** ไม่ใช่ titer อย่างเดียว',
             'Coombs test (if hemolytic component)',
             'Joint tap: non-septic, non-erosive synovitis (high TNCC, neutrophilic)',
             'CBC: cytopenia, ↑ globulin, proteinuria, ↑ ALP/ALT (mild)',
@@ -385,8 +386,8 @@ export const NOTES_COM4 = {
               ['Skin scraping (superficial)', 'Sarcoptes, Cheyletiella', 'Wide area, multiple sites'],
               ['**Tape impression**', 'Malassezia, surface bacteria', 'Press tape on lesion → DiffQuick → microscope'],
               ['**KOH 10%**', 'Dermatophyte hair shaft (ectothrix)', 'Pluck hair → KOH 10-20 min → microscope'],
-              ['**Wood\'s lamp**', 'Microsporum canis (~50% fluoresce apple-green)', 'Dark room, 5+ min warm-up'],
-              ['**Fungal culture (DTM)**', 'Definitive dermatophyte', 'Pluck hair → DTM → red color change ใน 7-14 d (positive)'],
+              ['**Wood\'s lamp**', 'Microsporum canis fluoresce apple-green — เป็น screening test, yield ขึ้นกับประชากร (sens 37.5-71%), lecture ให้ ~50%', 'Dark room, 5+ min warm-up'],
+              ['**Fungal culture (DTM)**', 'Definitive dermatophyte', 'Pluck hair → DTM → positive = **colony ของ dermatophyte + red color change** (สีแดงอย่างเดียวไม่พอ เพราะเชื้อปนเปื้อนทำสีแดงได้เมื่อบ่มนาน) เชื้อจากแมวที่ติดจริงขึ้น colony ก่อน 7 d (median 4 d); lecture ให้ 7-14 d'],
               ['**Skin biopsy**', 'Autoimmune, neoplasia, deep pyoderma', 'Punch 6-8 mm, multi-site, immerse formalin'],
             ],
           } },
@@ -458,7 +459,7 @@ export const NOTES_COM4 = {
             '**Rhipicephalus sanguineus** (brown dog tick) = #1 ในไทย — vector for Ehrlichia, Babesia, Anaplasma',
             'Lifecycle 3-host (egg → larva → nymph → adult) ~2-4 mo',
             'Risk: tick paralysis (rare in dogs), tick-borne disease',
-            'Tx: isoxazoline (kill within 8-12 hr — prevent transmission of most pathogens), permethrin (cat ห้าม!), environmental treatment',
+            'Tx: isoxazoline (ฆ่าเห็บเร็ว ~8-12 hr แต่ **เร็วไม่เท่ากับบล็อกการถ่ายทอดเชื้อ** — ต่อ Ehrlichia canis ใน R. sanguineus afoxolaner ติด 4/8 fluralaner 2/8 ขณะที่ permethrin/imidacloprid หยดหลังบล็อกได้หมด 0/8; lecture ให้ว่า prevent transmission of most pathogens), permethrin (cat ห้าม!), environmental treatment',
           ] },
           { callout: '**Permethrin ห้ามใน cat** ★★ — fatal toxicity (tremor, seizure), ใช้ fipronil หรือ selamectin แทน', kind: 'flag' },
         ],
@@ -479,7 +480,7 @@ export const NOTES_COM4 = {
         source: 'Derm__4_Bacterial_skin_diseases.pdf',
         body: [
           { bullets: [
-            '**Staphylococcus pseudintermedius** ★ — #1 cause of canine pyoderma (≥ 90%)',
+            '**Staphylococcus pseudintermedius** ★ — สาเหตุอันดับ 1 ของ canine pyoderma (ISCAID guideline ใช้คำว่า usually caused by ไม่ได้ให้ตัวเลข, lecture ให้ ≥ 90%)',
             'S. aureus — less common, more concerning (zoonotic potential, MRSA)',
             'Other: S. schleiferi, Pseudomonas (otitis, deep), Corynebacterium, Bacillus',
           ] },
@@ -526,7 +527,7 @@ export const NOTES_COM4 = {
               { bullets: [
                 'Chlorhexidine 2-4% shampoo q24-72h × 4 wk',
                 'Mupirocin (focal), benzoyl peroxide (greasy seborrheic)',
-                'Surface pyoderma → topical ALONE มักพอ',
+                'Surface pyoderma → topical ALONE มักพอ (RCT พบว่า **superficial** pyoderma รวมรายที่ติด MRSP ก็หายได้ด้วย chlorhexidine 4% shampoo 2 ครั้ง/สัปดาห์ + solution วันละครั้ง 4 wk เดี่ยว ๆ ไม่ต่างจาก amox-clav — antimicrobial stewardship)',
               ] },
             ] },
           { callout: 'อย่าหยุดยาก่อน clinical cure + 7 days (superficial) หรือ 14-28 d (deep) — relapse + induced resistance', kind: 'flag' },
@@ -572,9 +573,9 @@ export const NOTES_COM4 = {
         source: 'Derm__5_Fungal_skin_diseases.pdf',
         body: [
           { bullets: [
-            '**Wood\'s lamp** — M. canis ~50% fluoresce apple-green (pteridine in hair), false negative common',
+            '**Wood\'s lamp** — M. canis fluoresce apple-green (pteridine in hair), false negative ยังพบได้; yield ขึ้นกับประชากรที่ตรวจ ไม่ใช่ตัวเลขตายตัว — ในแมวศูนย์พักพิงที่เพาะเชื้อขึ้น sensitivity 71% specificity 92% และในแมวที่มีรอยโรค 81.58% เรืองแสง (lecture ให้ ~50%)',
             '**KOH 10-20%** — see ectothrix arthroconidia on hair shaft',
-            '**DTM (Dermatophyte Test Medium) culture** ★ = **gold standard** — pluck hair, place on DTM (Sabouraud + phenol red + cycloheximide), positive = **red color change + white fluffy colony within 7-14 d**',
+            '**DTM (Dermatophyte Test Medium) culture** ★ — วิธีอ้างอิงที่ใช้บ่อยที่สุด แต่ WAVD consensus ระบุว่า **ไม่มี test เดี่ยวใดเป็น gold standard** (lecture ให้ DTM = gold standard) — pluck hair, place on DTM (Sabouraud + phenol red + cycloheximide), positive = **colony ที่ระบุได้ว่าเป็น dermatophyte ร่วมกับ red color change** (สีแดงอย่างเดียวไม่ใช่เกณฑ์บวก)',
             'PCR (definitive species) — research/reference labs',
             'Biopsy with PAS stain for refractory',
           ] },
@@ -655,7 +656,7 @@ export const NOTES_COM4 = {
             'Dermatologic: bilateral truncal alopecia, **thin skin** ★, comedone, calcinosis cutis, hyperpigmentation',
             'Systemic: PU/PD, polyphagia, pot-belly, hepatomegaly, panting, muscle weakness',
             'Dx: ALP ↑↑↑, low USG, **ACTH stim test** + **LDDST**, UCCR (screen)',
-            'Tx: **Trilostane 1-3 mg/kg q12h** (1st line), mitotane (older), adrenalectomy (ADH)',
+            'Tx: **Trilostane q12h** (1st line) — เริ่ม dose ต่ำ ~0.2-1 mg/kg q12h แล้ว titrate ขึ้นตามการตอบสนอง (mean 1.7 mg/kg q12h ที่ 1 ปีในกลุ่ม PDH ที่คุมได้; lecture ให้เริ่ม 1-3 mg/kg q12h), mitotane (older), adrenalectomy (ADH)',
           ] },
           { callout: 'Calcinosis cutis (firm dystrophic mineralization in skin) = pathognomonic of HAC', kind: 'tip' },
         ],
@@ -707,7 +708,7 @@ export const NOTES_COM4 = {
                 'Defective intestinal Zn absorption, adult onset, chronic',
                 'Lesion: crust, scale, alopecia at **mucocutaneous junctions** (lip, eye, ear, scrotum, footpad) + pressure points',
                 'Dx: skin biopsy (parakeratosis, basket-weave keratin) + response to Zn supplementation',
-                'Tx: Zinc methionine 1.5-2 mg/kg/day OR Zinc sulfate 10 mg/kg/day, **lifelong**',
+                'Tx: **elemental zinc 2-3 mg/kg/day PO** (lecture ให้ Zinc methionine 1.5-2 mg/kg/day OR Zinc sulfate 10 mg/kg/day — ต้องบอกให้ชัดว่าเป็นเกลือหรือ elemental เพราะแปลงกันตรง ๆ ไม่ได้), ส่วนใหญ่ **lifelong** แต่บางตัวไม่ตอบสนองต่อ oral zinc ต้องใช้ zinc ฉีดหรือ retinoid',
               ] },
             ] },
           { sub: 'Type II (Dietary — puppy)',
@@ -857,7 +858,7 @@ export const NOTES_COM4 = {
           { sub: 'Food allergy / adverse food reaction',
             body: [
               { bullets: [
-                '~10-25% ของ allergic dog, year-round, non-seasonal pruritus',
+                'year-round, non-seasonal pruritus; สัดส่วนที่รายงานกว้างกว่าตัวเลขใน lecture (~10-25%) มาก — CAT review รายงาน 8-62% ในสุนัขที่มี allergic skin disease และ 9-50% ในสุนัขที่วินิจฉัยว่าเป็น atopic dermatitis',
                 'Top allergens: beef, dairy, chicken, wheat (dog), beef, fish, chicken (cat)',
                 'GI sign in 30% (chronic diarrhea, vomit)',
                 'Dx: **8-week elimination diet trial** with hydrolyzed/novel protein → re-challenge',
@@ -886,7 +887,7 @@ export const NOTES_COM4 = {
               { table: {
                 headers: ['Form', 'AutoAg', 'Lesion', 'Severity'],
                 rows: [
-                  ['**PF (Pemphigus foliaceus)** ★ #1', 'Dsg1 (superficial)', 'Pustule → **crust + alopecia ใน nasal planum, ear, periocular, footpad**', 'Mild-moderate'],
+                  ['**PF (Pemphigus foliaceus)** ★ #1', '**DSC1 (desmocollin-1)** — lecture ให้ Dsg1', 'Pustule → **crust + alopecia ใน nasal planum, ear, periocular, footpad**', 'Mild-moderate'],
                   ['PE (erythematosus)', 'Dsg1 + ANA', 'Mild PF + DLE features (face only)', 'Mild'],
                   ['PV (vulgaris)', 'Dsg3 (deeper)', 'Vesicle + erosion + ulcer **mucocutaneous + oral**', 'Severe'],
                   ['PVeg (vegetans)', 'Dsg3', 'Hyperplastic verrucous lesion', 'Rare'],
@@ -966,7 +967,7 @@ export const NOTES_COM4 = {
               ['**Hypohydration**', 'Skin turgor + mm', 'Pink moist mm', 'Quick deteriorate → SC/IO fluid'],
             ],
           } },
-          { callout: 'Neonate **cannot shiver** ก่อน 6 days, **cannot urinate/defecate** without dam stimulation, gut sterile at birth → maternal Ab via colostrum (first 24 hr critical)', kind: 'tip' },
+          { callout: 'Neonate **cannot shiver** ก่อน 6 days, **cannot urinate/defecate** without dam stimulation, gut sterile at birth → maternal Ab via colostrum — **ชั่วโมงแรก ๆ สำคัญที่สุด** ไม่ใช่ทั้ง 24 hr เท่ากันอย่างที่ lecture เขียน (gut closure เริ่ม 4-8 hr สมบูรณ์ 16-24 hr; serum IgG ที่ 48 hr = 1.68 vs 0.79 vs 0.35 g/L เมื่อได้ colostrum ที่ 0-4, 8-12, 16-24 hr)', kind: 'tip' },
         ],
       },
       {
@@ -1031,7 +1032,7 @@ export const NOTES_COM4 = {
                 ],
               } },
             ] },
-          { callout: 'Senior cat **CKD = #1 cause of death** (> 30%), screen with USG + UPC + SDMA + creatinine', kind: 'flag' },
+          { callout: 'Senior cat CKD — screen with USG + UPC + SDMA + creatinine. **Prevalence สูงกว่าตัวเลขในตาราง**: แมวที่สุ่มจาก 4 ช่วงอายุพบ CKD 50% และพบตั้งแต่อายุ 1-15 ปี ไม่จำกัดเฉพาะแมวแก่. ส่วน **สาเหตุการตาย** เป็นคนละ metric — O\'Neill 2014 รายงาน renal disorder 12.1% ของการตาย ใกล้เคียง trauma 12.2% ไม่ใช่ > 30% อย่างที่ lecture ระบุ', kind: 'flag' },
         ],
       },
     ],

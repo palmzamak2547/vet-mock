@@ -65,7 +65,7 @@ export const NOTES_Y5_ZOONOSES = {
           { bullets: [
             '**1918 H1N1 Pandemic: "The Unknown Killer"** — case study เปิดหัวข้อ emerging disease',
             'มาจาก animal source (influenza)',
-            'คนตายเยอะมาก (≈ 1/5 ของประชากรโลก)',
+            'คนตายทั่วโลกราว **50 ล้านคน** (เป็นค่าประมาณ และอาจต่ำกว่าความจริง) คิดเป็นราว 3% ของประชากรโลกในเวลานั้น ส่วนสัดส่วน 1/5 ถึง 1/3 ที่มักอ้างกันคือสัดส่วนคน **ติดเชื้อ** ไม่ใช่คนตาย — สไลด์เขียนว่าตาย ≈ 1/5 ของประชากรโลก',
             'ใช้เป็น model ของ emerging zoonotic disease ตลอด course',
           ] },
         ],
@@ -114,7 +114,7 @@ export const NOTES_Y5_ZOONOSES = {
             body: [
               { bullets: [
                 'Gamma: avian + สัตว์น้ำ (เช่น dolphin)',
-                'Delta: PED (Porcine Epidemic Diarrhea) — หมูท้องเสีย',
+                'Delta: **PDCoV (Porcine Deltacoronavirus)** — ลูกหมูท้องเสีย อาเจียน ขาดน้ำ ⚠️ **PEDV ไม่ได้อยู่ใน Delta แต่เป็น Alphacoronavirus** เป็นคนละตัวกันแม้อาการคล้ายกัน — สไลด์เขียนว่า Delta คือ PED',
               ] },
             ] },
         ],
@@ -343,7 +343,7 @@ export const NOTES_Y5_ZOONOSES = {
         body: [
           { bullets: [
             '**1918**: "Spanish flu" — human influenza pandemic (start ของ flu pandemic ในคน)',
-            '**1930**: First SIV in pigs in **USA**',
+            '**1930-1931**: First SIV in pigs in **USA** (สไลด์เขียน 1930 ซึ่งเป็นช่วง outbreak ที่ศึกษา ส่วนงานที่พิสูจน์ว่าเกิดจาก filtrable virus คือ Shope ตีพิมพ์ปี 1931 และ model เดิมเป็น co-infection ของ virus ร่วมกับ Haemophilus influenzae suis)',
             '**1997-98**: Mix กันกับของ NA',
             '**2003-05**: δ1 H1N2, δ2 H1N1 emerge',
             '**2009**: pH1N1 pandemic',
@@ -451,10 +451,10 @@ export const NOTES_Y5_ZOONOSES = {
         body: [
           { bullets: [
             '**Family**: Rhabdoviridae · **Genus**: *Lyssavirus*',
-            'Negative-sense single-stranded RNA · 11 kb · 5 genes (N, P, M, G, L)',
+            'Negative-sense single-stranded RNA, ~12 kb (วัดได้ 11,923 nt), 5 genes (N, P, M, G, L) — สไลด์เขียนว่า 11 kb',
             'Linear RNA genome · ใช้ตามใจไหน + dx ทาง molecular ตามเชื่อ',
             'Shape: **Bullet shape** · size ~180 nm × 75 nm (เล็ก)',
-            '11 kb ประกอบด้วย: nucleoprotein (N), phosphoprotein (P), matrix protein (M), glycoprotein (G), RNA-dependent RNA polymerase (L)',
+            'genome ~12 kb ประกอบด้วย: nucleoprotein (N), phosphoprotein (P), matrix protein (M), glycoprotein (G), RNA-dependent RNA polymerase (L) โดยความยาวของ 5 coding region ค่อนข้างคงที่ระหว่าง strain',
           ] },
           { sub: 'Pathogenesis',
             body: [
@@ -518,7 +518,7 @@ export const NOTES_Y5_ZOONOSES = {
             body: [
               { bullets: [
                 '**Fluorescent Antibody Viral Neutralization Test (FAVN)** — gold standard for export',
-                '**ELISA** — commercial kit · ราคาถูกกว่าและ specific สูงเท่า FAVN',
+                '**ELISA** — commercial kit ราคาถูกกว่า ใช้ได้เฉพาะการติดตาม immune status หลังฉีดวัคซีนและงานสนับสนุนนโยบายกำจัดโรค ⚠️ WOAH **ไม่รับ ELISA** สำหรับการเคลื่อนย้ายสัตว์ระหว่างประเทศและการค้า ต้องเป็น VN method เท่านั้น คือ FAVN หรือ RFFIT — สไลด์เขียนว่า ELISA specific สูงเท่า FAVN',
                 'ผลต้องมี ≥ 0.5 IU = มากกว่า standard ที่ทศก.กำหนด',
                 'ใช้กรณี export สัตว์เลี้ยงไปประเทศ free of rabies (เช่น EU, AU)',
               ] },
@@ -658,7 +658,7 @@ export const NOTES_Y5_ZOONOSES = {
         source: '11 - Z_Mycoses_3_Present.pdf p.3',
         body: [
           { bullets: [
-            '**Yeast culture**: colony บน agar (e.g. blood agar) — กลม นูน เรียบ',
+            '**Yeast culture**: ลักษณะ colony ขึ้นกับ **ชนิดอาหารเลี้ยงเชื้อ** เสมอ — บน blood agar ตามสไลด์คือ กลม นูน เรียบ ส่วนบน CHROMagar Candida ขึ้นเป็น colony สีชมพูจาง จึงควรระบุ media กำกับทุกครั้งเวลาบรรยาย colony',
             '**Microscopic**: cell เดี่ยว, เพิ่ม จำนวนแบบ **budding** (แตกหน่อ)',
           ] },
         ],
@@ -792,7 +792,7 @@ export const NOTES_Y5_ZOONOSES = {
               ['Domain', 'Bacteria', 'Bacteria'],
               ['Phylum', 'Proteobacteria', 'Proteobacteria'],
               ['Class', 'Gammaproteobacteria', 'Gammaproteobacteria'],
-              ['Order', 'Enterobacteriales', 'Legionellales'],
+              ['Order', 'Enterobacterales (สไลด์เขียน Enterobacteriales)', 'Legionellales'],
               ['Family', 'Enterobacteriaceae', 'Coxiellaceae'],
               ['Genus', '*Escherichia*', '*Coxiella*'],
               ['Species', '*E. coli*', '*C. burnetii*'],

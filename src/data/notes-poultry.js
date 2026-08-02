@@ -66,6 +66,7 @@ export const NOTES_POULTRY = {
             '  3. **Threonine** — สำคัญต่อ mucin (gut)',
             '**Ideal AA Profile** เทียบเป็น % ของ Lysine ทุกช่วงอายุ:',
             '  • Met+Cys = 72, Threonine = 67-68.5, Tryptophan = 16-17, Arginine = 105-108',
+            'ℹ️ ค่า ideal ratio เป็นช่วง ไม่ใช่ค่าตายตัว ขึ้นกับวิธีประเมิน สายพันธุ์ และเกณฑ์ที่ใช้ optimize (BWG หรือ FCR) — งาน N balance ใน ROSS 308 ได้ Arginine 105 และ Tryptophan 17-19 ตรงกับโน้ตดี แต่ได้ **Threonine เพียง 60-62** ขณะที่อีกงานได้ digestible Thr ต่อ Lys 66-70 ซึ่งใกล้เคียงโน้ต',
             '**Semi-essential AAs** = Cysteine + Tyrosine',
             '  • ปกติ Non-essential แต่สังเคราะห์จาก Met (→Cys) + Phe (→Tyr)',
             '  • ถ้าได้ Cys/Tyr ตรง → ลดความต้องการ Met + Phe',
@@ -217,7 +218,7 @@ export const NOTES_POULTRY = {
             '  • Reduce feed wastage',
             '  • Increase bulk density',
             '  • Better body weight gains + improve **FCR**',
-            '  • Better gizzard development',
+            '  • ⚠️ Better gizzard development — จุดนี้กล่าวเกินหลักฐาน สิ่งที่กระตุ้น gizzard คือ **อนุภาคหยาบ (coarse particle)** ไม่ใช่การอัดเม็ด: การทดลอง 14 วันพบน้ำหนัก gizzard ไม่เปลี่ยนตามข้าวโพดบดหยาบในสูตร crumble แต่เพิ่มขึ้นแบบเชิงเส้นในสูตร mash',
             '**3. Crumbling** (เม็ดบดละเอียด)',
             '  • ใช้สำหรับ starter (ไก่เล็กกินเม็ดใหญ่ไม่ได้)',
             '⭐ **Pellet > mash** สำหรับ feed intake ในไก่เนื้อ (Abdollahi 2018)',
@@ -432,7 +433,9 @@ export const NOTES_POULTRY = {
         source: 'Pasgar+© commercial framework',
         body: [
           { bullets: [
-            'Score **5 categories**, each 0-1, total 0-5 (perfect = 5)',
+            '⚠️ **สเกลไม่ใช่ 0-5** — งานตีพิมพ์รายงานค่าเฉลี่ย Pasgar score 9.21 ± 0.89 ซึ่งเป็นไปไม่ได้ถ้าคะแนนเต็มคือ 5 แปลว่าคะแนนเต็มจริงอย่างน้อย 10 และข้อบกพร่องที่ตรวจพบเป็นตัวหักคะแนนลง',
+            'ℹ️ งานร่วมชุดระบุว่าคะแนนที่ต่ำลงมาจาก poor navel quality, red hocks และ red beaks เป็นหลัก ซึ่งไม่ตรงกับคำที่โน้ตกางไว้',
+            'ตามที่เลกเชอร์ให้ (ใช้ตอบข้อสอบ): Score **5 categories**, each 0-1, total 0-5 (perfect = 5) — สังเกตว่าโน้ตขัดกันเอง เพราะระบุ 5 หมวด แต่ไล่ 6 ตัวอักษร P-A-S-G-A-R',
             '**P** — Posture (legs steady, alert)',
             '**A** — Activity (responsive)',
             '**S** — Skin (navel closure)',
@@ -464,6 +467,7 @@ export const NOTES_POULTRY = {
         body: [
           { bullets: [
             '**Rolling reaction** = vaccine mild local infection rolls through flock + boosts immunity',
+            '⚠️ คำว่า rolling reaction เป็นศัพท์ภาคสนามและการค้า ไม่ใช่คำที่มีนิยามในวารสาร (ค้น PubMed ไม่พบบทความที่ใช้เป็น defined term) — ส่วนตัวกลไก คือวัคซีนเชื้อเป็นแพร่จากตัวสู่ตัว, take ไม่สม่ำเสมอทั้งฝูง, ปฏิกิริยาลากยาว มีหลักฐานทดลองยืนยันจริง',
             'Live vaccine spreads bird-to-bird → entire flock immunized even if some birds skip dose',
             'Risk: rolling reaction too strong → reaction stronger than disease → respiratory or production loss',
             'Mitigate: titer match, hatchery vs farm timing, MDA decay window',
@@ -488,6 +492,7 @@ export const NOTES_POULTRY = {
               { bullets: [
                 'MDA high (early week 1) → live vaccine neutralized → ineffective',
                 'MDA decay (week 2-3) → optimal vaccination window',
+                'ℹ️ แม่นกว่าคือ **คำนวณจาก MDA titre ที่วัดจริงของฝูงนั้น** (Deventer/Kouwenhoven formula) ไม่ยึดปฏิทินตายตัว — งาน IBD ในแอลจีเรียได้ผลดีที่สุดเมื่อทำวัคซีนวันที่ 21 แล้ว boost วันที่ 28 คือปลายสัปดาห์ 3 ต่อสัปดาห์ 4',
                 'Multi-dose schedule: prime + boost, monitor seroconversion (HI, ELISA)',
               ] },
             ] },
@@ -546,7 +551,7 @@ export const NOTES_POULTRY = {
             headers: ['Disease', 'Pathogen', 'Pandemic Risk'],
             rows: [
               ['**Avian Influenza (HPAI)**', 'Influenza A H5N1, H7N9, H5N6', '⭐ Highest, pandemic potential, 2024-2026 H5N1 dairy outbreak US'],
-              ['**Newcastle disease (NDV)**', 'Paramyxovirus type 1', 'Conjunctivitis ใน handler, self-limiting'],
+              ['**Newcastle disease (NDV)**', 'Paramyxovirus type 1', 'Conjunctivitis ใน handler, ส่วนใหญ่ self-limiting ⚠️ แต่ไม่ใช่ทุกราย มีรายงานเด็ก 2 ขวบที่ภูมิคุ้มกันบกพร่องติด pigeon variant ของ avian paramyxovirus type 1 แล้วเกิด neurologic infection จนเสียชีวิต'],
               ['**West Nile (WNV)**', 'Flavivirus', 'Mosquito-borne, birds = reservoir, neurologic in human'],
               ['**Eastern/Western EE**', 'Alphavirus', 'Mosquito vector, neurologic'],
               ['**Japanese encephalitis**', 'Flavivirus', 'Mosquito, pigs amplify'],
@@ -698,7 +703,7 @@ export const NOTES_POULTRY = {
           { bullets: [
             '**Hen Housed (HH) production** = total eggs / hens housed at start',
             '**Hen Day (HD) production** = eggs that day / hens alive that day',
-            'HD > HH always (HD ignores mortality)',
+            'HD ≥ HH — HD จะสูงกว่า HH **เมื่อฝูงมี mortality** เท่านั้น (ถ้า mortality = 0 ทั้งสองค่าเท่ากันพอดี) ยิ่ง cumulative mortality สูง ช่องว่างยิ่งกว้าง',
             '**Mortality % cumulative** = critical KPI',
             '**Feed Conversion Ratio (FCR)** = feed consumed / weight gain (broiler) or per dozen eggs (layer)',
             '**EPEF (European Production Efficiency Factor)** = (livability × BW × 100) / (FCR × age), broiler benchmarking',
@@ -843,7 +848,7 @@ export const NOTES_POULTRY = {
           { bullets: [
             '**Withdrawal time** = period drug must be stopped before slaughter / egg sales, safe MRL',
             'Examples (broiler):',
-            '  • Enrofloxacin: 8-10 days',
+            '  • Enrofloxacin: 8-10 days — ⚠️ ไม่มีค่าเดียวที่ใช้ได้ทุกสายพันธุ์ งานในไก่ 5 สายพันธุ์ (ป้อน 10 mg/kg นาน 5 วัน) ได้ WT สายขนขาวประมาณ 2.30-2.64 วัน แต่สายขนเหลืองและไก่กระดูกดำได้ 8.16-39.74 วัน โดย skin with fat เป็น limiting tissue ทั้งนี้ตัวเลขชุดนี้อ้าง MRL ของจีน ใช้แทนค่าที่ขึ้นทะเบียนในไทยไม่ได้',
             '  • Doxycycline: 5-7 days',
             '  • Tylosin: 1-5 days',
             '  • Amoxicillin: 1-7 days',
@@ -857,6 +862,7 @@ export const NOTES_POULTRY = {
         source: 'WHO + OIE + FAO Tripartite',
         body: [
           { bullets: [
+            '⚠️ ชื่อกรอบและที่มา: กรอบ **5R ของ antimicrobial stewardship ทางสัตวแพทย์ที่ตีพิมพ์จริง** คือ Responsibility, Review, Reduce, Replace, Refine ไม่ใช่ชุด Right ข้างล่างนี้ และไม่ได้ออกโดย WHO, WOAH หรือ FAO — ชุด Right 5 ข้อยืมมาจากหลัก rights of medication administration ทางการพยาบาลและเภสัชกรรม แต่ละข้อยังเป็น stewardship ที่ถูกต้อง',
             '**Right Drug** (narrow spectrum if possible, culture-guided)',
             '**Right Dose** (full therapeutic, ไม่ underdose → resistance selection)',
             '**Right Duration** (ไม่ short course, complete treatment)',

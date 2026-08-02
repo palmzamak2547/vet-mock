@@ -17,6 +17,7 @@
 
 import { topicId, sectionId, wikiTitle, wikiSummary } from './schema.js';
 import { verificationFor } from './verification.js';
+import { correctionsFor } from './corrections.js';
 
 /**
  * @param {string} subject   e.g. 'com5'
@@ -57,6 +58,10 @@ export function noteToKnowledge(subject, topic, noteTopic) {
       sourceRefs: noteRef ? [noteRef] : [],
       review: v.review || null,
       claims,
+      // Places where a resolved source disagrees with what the lecture taught.
+      // Carried alongside the corrected text so a reader can see both — the
+      // exam is marked by the lecturer, so the taught answer still matters.
+      corrections: correctionsFor(sId),
     };
   });
 

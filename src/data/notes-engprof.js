@@ -59,7 +59,7 @@ export const NOTES_ENGPROF = {
                 'Interpretation, **implications**, comparison vs prior studies, **limitations**, **recommendations for further research**'],
             ],
           } },
-          { callout: 'จำให้แม่น: ข้อมูลที่อยู่ใน Methods (เช่น sample size, statistical test) จะ**ไม่อยู่ใน Results** หรือ Discussion, ถ้าโจทย์ถาม "what statistical test was used?" คำตอบมาจาก Methods', kind: 'flag' },
+          { callout: 'จำให้แม่น: ข้อมูลที่อยู่ใน Methods (เช่น sample size, statistical test) จะ**ไม่อยู่ใน Results** หรือ Discussion, ถ้าโจทย์ถาม "what statistical test was used?" คำตอบมาจาก Methods, หมายเหตุชื่อย่อ: ตำราเรียกรูปแบบนี้ว่า **IMRD** แต่วรรณกรรมที่ตีพิมพ์ใช้ **IMRAD** (Introduction, Methods, Results AND Discussion) ซึ่งคือสี่ส่วนเดียวกัน', kind: 'flag' },
         ],
       },
       {
@@ -98,7 +98,7 @@ export const NOTES_ENGPROF = {
           { bullets: [
             'Often arranged เรียงตาม research objectives',
             'Includes both **text** + **illustrative materials** (tables, figures)',
-            'Statistical significance values: **p < 0.05** = significant',
+            'Statistical significance values: **p < 0.05** = significant (เป็น convention ที่ใช้อ่านผล ไม่ใช่คุณสมบัติของข้อมูล และ **nonsignificant ไม่ได้แปลว่าไม่มี effect**)',
             'Tables มักใส่ Mean / SD / Median / p-value',
           ] },
           { callout: 'Part I T/F questions ส่วนใหญ่ดึงจาก Results — อ่านตาราง + ตัวเลขดีๆ ก่อนตอบ', kind: 'warn' },
@@ -186,7 +186,7 @@ export const NOTES_ENGPROF = {
           { sub: 'Cohort Study',
             body: [
               { bullets: [
-                'ตามกลุ่มคน/สัตว์ ผ่านเวลา = **Prospective**',
+                'ตามกลุ่มคน/สัตว์ ผ่านเวลา = **Prospective** (โดยทั่วไป แต่ cohort นิยามด้วย **ทิศทาง** exposure → outcome จึงมี **retrospective cohort** ที่ข้อมูล exposure ถูกเก็บไว้แล้วในอดีตด้วย)',
                 'ดี risk + incidence ของโรค',
                 'แบ่งเป็น exposed vs non-exposed → ตามดูว่าใครเป็นโรค',
                 'ตัวอย่าง: "ตามหมาที่กิน raw food vs commercial 5 ปี → ใครเป็น GI disease บ่อยกว่า"',
@@ -227,7 +227,7 @@ export const NOTES_ENGPROF = {
               { bullets: [
                 'Controlled CT **+ random assignment** ไป arms',
                 'หลีกเลี่ยง **selection bias** — ทุก subject มีโอกาสได้แต่ละ arm เท่ากัน',
-                'Random ใช้ machine-generated tables (ไม่ใช่ coin toss = pseudo-randomization)',
+                'Random ใช้ machine-generated tables (ตำราบอกว่า coin toss = pseudo-randomization) แต่ตามวรรณกรรม การโยนเหรียญที่ยุติธรรมคือ **simple randomisation จริง** ที่นับว่าไม่สุ่มคือวิธี **systematic** เช่น สลับกลุ่ม วันเกิด เลขเวชระเบียน, ข้อเสียจริงของ coin toss คือ **audit ย้อนหลังไม่ได้**',
                 '**Gold standard** ของ clinical research',
               ] },
             ] },
@@ -385,7 +385,7 @@ export const NOTES_ENGPROF = {
                 '**Paraphrase / summary** — ใช้บ่อยกว่า (ดู topic ถัดไป)',
               ] },
             ] },
-          { callout: '⚠️ ความคิด/ข้อมูลที่ไม่ใช่ของเรา + ไม่ใช่ common knowledge ต้อง cite — ไม่งั้น = **PLAGIARISM** → fail paper', kind: 'flag' },
+          { callout: '⚠️ ความคิด/ข้อมูลที่ไม่ใช่ของเรา + ไม่ใช่ common knowledge ต้อง cite — ไม่งั้น = **PLAGIARISM** → fail paper, เพิ่มเติมจากหลักฐาน: การ **paraphrase** ความคิดของคนอื่นโดยไม่อ้างอิงก็นับเป็น plagiarism เท่ากับลอกคำต่อคำ และเส้นแบ่ง common knowledge ไม่ได้ชัดเจนตายตัว วรรณกรรมระบุว่ายังเป็นประเด็นที่สับสนกันอยู่ ถ้าไม่แน่ใจให้ cite ไว้ก่อน', kind: 'flag' },
         ],
       },
       {
@@ -463,7 +463,7 @@ export const NOTES_ENGPROF = {
               { bullets: [
                 'Active: "Researchers **collected** 234 questionnaires"',
                 'Passive: "234 questionnaires **were collected** by researchers"',
-                'มักใช้ใน Methods section (passive voice ฟังเป็น formal กว่า)',
+                'มักใช้ใน Methods section (ตำราให้เหตุผลว่า passive voice ฟังเป็น formal กว่า) แต่หลักฐานชี้ว่าตัวกำหนดจริงคือ **ลำดับข้อมูลในประโยค** ข้อมูลเดิมมาก่อน ข้อมูลใหม่ตามหลัง ไม่ใช่เพราะ passive เป็นทางการกว่า',
               ] },
             ] },
           { sub: '3. Changing parts of speech (พจน์)',

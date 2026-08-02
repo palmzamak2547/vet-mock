@@ -339,7 +339,8 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'จุดรับน้ำนมขนาดเล็ก → รับน้ำนมจากเกษตรกร เพื่อรอการนำส่ง MCC',
-            'โค 1 ตัวจะรีดน้ำนมได้ไม่เกิน **10 ลิตร/วัน** (slide reference number)',
+            'โค 1 ตัวจะรีดน้ำนมได้ไม่เกิน **10 ลิตร/วัน** (slide reference number) — ตัวเลขนี้เป็นเกณฑ์เชิงปฏิบัติของจุดรับน้ำนมขนาดเล็ก ไม่ใช่เพดานทางสรีรวิทยาของแม่โครีดนม',
+            '⚠️ ในระบบการผลิตจริง โคนม Holstein ให้ผลผลิตสูงกว่านี้มาก (milk yield เฉลี่ย 36 ± 7.8 kg/วัน, PMID 30879826) จึงไม่ควรจำว่า 10 ลิตร/วัน คือความสามารถสูงสุดในการให้นมของโค 1 ตัว',
             'ตรวจคุณภาพเบื้องต้น: **ชั่งน้ำหนัก · ดมกลิ่น · ดูสี · วัดความถ่วงจำเพาะ · อุณหภูมิ**',
           ] },
         ],
@@ -391,6 +392,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             'Definition: food produced from the milk of mammals',
             'Usually **high energy-yielding food products**',
             'Primary sources: milk of **cows** (หลัก) · goats · sheep · yaks · camels',
+            '⚠️ เพิ่มจากหลักฐาน: โคให้ราว **83%** ของน้ำนมและผลิตภัณฑ์นมที่มนุษย์บริโภคทั่วโลก ที่เหลือมาจาก **buffalo (กระบือ)**, goat, sheep, camel และ **donkey/equine** สไลด์ไม่ได้ระบุ buffalo ซึ่งเป็นแหล่งน้ำนมสำคัญมากในเอเชีย ส่วน yak ไม่มีข้อมูลในแหล่งอ้างอิงนี้',
           ] },
         ],
       },
@@ -507,7 +509,8 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
                 '**Enterobacteriaceae** — Salmonella, Escherichia coli',
                 '**Staphylococci** — *Staphylococcus aureus*',
                 '*Streptococcus agalactiae*',
-                '**Mycobacterium tuberculosis**',
+                '**Mycobacterium bovis** — mycobacterium ที่เป็น milk-borne zoonosis จากโคคือ M. bovis (สาเหตุของ bovine TB) หรือเขียนกว้างเป็น *Mycobacterium tuberculosis* complex',
+                '⚠️ สไลด์เขียนว่า **Mycobacterium tuberculosis** ซึ่งมีคนเป็น reservoir หลัก ไม่ใช่เชื้อที่ติดมากับน้ำนมโค',
                 '**Listeria monocytogenes**',
               ] },
             ] },
@@ -644,7 +647,8 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         body: [
           { bullets: [
             'หน่วยงาน: **National Bureau of Agricultural Commodity and Food Standards** (มกอช.) · กระทรวงเกษตรและสหกรณ์',
-            'มาตรฐาน: **มกษ. 6401(G) – 2560** — "การปฏิบัติที่ดีสำหรับศูนย์รวบรวมน้ำนมดิบ" (Good manufacturing practices for milk collection center)',
+            'มาตรฐาน: **มกษ. 6401-2558** — "การปฏิบัติที่ดีสำหรับศูนย์รวบรวมน้ำนมดิบ" (Good manufacturing practices for milk collection center) ออกโดย มกอช. ภายใต้ พ.ร.บ. มาตรฐานสินค้าเกษตร พ.ศ. 2551',
+            '⚠️ สไลด์เขียนว่าตัวมาตรฐานคือ **มกษ. 6401(G) – 2560** แต่เอกสารเลขนั้นคือ "แนวปฏิบัติในการใช้มาตรฐานสินค้าเกษตร มกษ. 6401(G)-2560" ซึ่งเป็นคู่มือประกอบการใช้มาตรฐาน ไม่ใช่ตัวมาตรฐาน ส่วนสถานะบังคับ/ไม่บังคับ ยังยืนยันจากตัวบทกฎหมายไม่ได้ (ไฟล์ของกรมปศุสัตว์เป็นภาพสแกน) จึงคงข้อความบรรทัดถัดไปของอาจารย์ไว้ตามเดิม',
             'ลักษณะ: แนวปฏิบัติ (G = guidance) — ไม่บังคับ แต่ใช้ขอตราเครื่องหมาย Q',
           ] },
         ],
@@ -924,7 +928,8 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
         source: '4 - Microbiology_of_Meat___Meat_Hygiene_2567.pdf p.3',
         body: [
           { bullets: [
-            'Meat from a healthy animal = should be free of bacteria or other contaminants',
+            'Meat from a healthy animal = should be free of bacteria or other contaminants — จริงเฉพาะกับ **muscle tissue** ตัวสัตว์ที่สุขภาพดีเองมักมี Salmonella อยู่ในทางเดินอาหารตามปกติ',
+            'จึงเป็นเหตุผลว่าทำไม **hide removal + evisceration** คือขั้นตอนวิกฤตของการปนเปื้อน และเชื้อเพิ่มขึ้นตามสายการผลิต (beef carcass 18% → beef chunk 39% → ground beef 71%, PMID 26125489)',
             'Sources of contamination **start at farm**',
             'Contamination mainly occurs during **slaughter, storage, and distribution**',
             'Most important microorganism on meat = **bacteria** (spoilage + pathogenic)',
@@ -1020,6 +1025,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
           { bullets: [
             'Meat that has undergone chemical & physical change that follow slaughter',
             'But has been only **minimally processed** — e.g. fabrication into retail cuts · cubing · grinding · marination · freezing',
+            '⚠️ นี่คือนิยามฝั่ง meat science ซึ่งกว้างกว่า Codex ตาม **Codex Code of Hygienic Practice for Meat** fresh meat = เนื้อที่นอกจาก refrigeration แล้วไม่ผ่านการ treat เพื่อถนอมอาหารด้วยวิธีอื่นนอกจาก protective packaging และยังคง natural characteristics ไว้ ถ้าเติมเครื่องปรุงหรือ additive จะกลายเป็น **meat preparation** ส่วน minced meat และ mechanically separated meat นิยามแยกไว้ใต้ raw meat',
             'Examples: **roasts · chops · stew · ground beef**',
           ] },
         ],
@@ -1085,6 +1091,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
             '**Quantitative genetics**',
             '**Mendelian genetics**',
             '**Bioinformatics** (software · whole-genome sequencing analysis)',
+            '⚠️ หัวข้อเขียนว่า combination of **4** sub-disciplines แต่สไลด์ไล่มา **5** ข้อ และ Genetics ก็ครอบ molecular/quantitative/Mendelian genetics อยู่แล้ว ควรทวนจำนวนกับสไลด์ต้นฉบับก่อนท่อง',
           ] },
         ],
       },

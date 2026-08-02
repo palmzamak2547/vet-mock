@@ -84,7 +84,7 @@ export const NOTES_PRACTRUM = {
             headers: ['Condition', 'Cause', 'Notes'],
             rows: [
               ['Laminitis', 'Carb overload → acidosis → endotoxemia', 'Subclinical → P3 sinks → sole ulcer 2-3 mo later'],
-              ['Sole ulcer (Pododermatitis circumcripta, Rusterholz)', 'Lateral claw hindlimb, zone 4', 'Corrective trim + block on medial claw'],
+              ['Sole ulcer (Pododermatitis circumscripta, Rusterholz)', 'Lateral claw hindlimb, zone 4 (axial heel-sole junction)', 'Corrective trim + block on medial claw'],
               ['Interdigital fibroma (Corn)', 'Chronic friction', 'ตัดเฉพาะเนื้องอก ไม่ตัดนิ้ว'],
             ],
           } },
@@ -130,7 +130,7 @@ export const NOTES_PRACTRUM = {
               ['1', 'Toe (abaxial white line)', 'White line disease'],
               ['2', 'Axial white line', 'White line abscess'],
               ['3', 'Abaxial sole (lateral side)', 'Bruise / sole hemorrhage'],
-              ['4', '**Sole-heel junction (Rusterholz)** ⭐', '**Sole ulcer** ⭐ (most common, lateral claw hindlimb)'],
+              ['4', '**Sole-heel junction (Rusterholz)** ⭐ — แหล่งอ้างอิงระบุเจาะจงว่าเป็นรอยต่อ **axial** heel กับ sole', '**Sole ulcer** ⭐ (most common, lateral claw hindlimb; มักเป็นทั้งสองข้างและกลับเป็นซ้ำได้บ่อย)'],
               ['5', 'Mid sole', 'Foreign body penetration'],
               ['6', 'Heel bulb', 'Heel horn erosion, DD'],
             ],
@@ -186,7 +186,7 @@ export const NOTES_PRACTRUM = {
             '**Lactating: R:C = 60:40** ⭐',
             'Early lactation high producer: อาจ 40:60 ชั่วคราว, Late/dry: 70:30-80:20',
             '⚠️ R:C ต่ำกว่า 40:60 → SARA, laminitis, LDA, milk fat depression',
-            '**peNDF (physically effective NDF) ≥21% ของ DM**',
+            '**peNDF (physically effective NDF) ≥21% ของ DM** — ⚠️ ค่า peNDF ต้องบอก basis ของตะแกรงที่ใช้วัดเสมอ: บน basis >1.18 mm งานทดลองในโครีดนมให้ ~19% ของ ration DM (4.1 kg/วัน หรือ 0.6 kg ต่อ BW 100 kg) เพื่อคุม ruminal pH เฉลี่ย ~6.0 ขณะที่ meta-analysis บน basis เดียวกันให้ 30-33% ส่วน basis >8 mm (สองชั้นบนของ Penn State) ทำนาย ruminal pH ได้แม่นน้อยกว่า (R² 0.27 เทียบกับ 0.67)',
           ] },
           { sub: 'Penn State Particle Separator (4 ชั้น)',
             body: [
@@ -247,7 +247,7 @@ export const NOTES_PRACTRUM = {
         source: 'Temple Grandin handling principles',
         body: [
           { bullets: [
-            'Flight zone: ~5-15 m radius depending on cow domestication',
+            'Flight zone: ไม่ใช่ค่าคงที่ — ตั้งแต่ ~1 เมตรจนถึงหลายเมตร ขึ้นกับชนิดสัตว์ ตัวสัตว์แต่ละตัว และความคุ้นเคยกับคน (โคที่คนจับบ่อยมี flight zone เล็ก, โคเลี้ยงปล่อยหรือระบบ extensive ใหญ่กว่ามาก) และห้ามรุกล้ำแบบฉับพลันเพราะสัตว์จะตื่นตกใจ — เลกเชอร์ให้ตัวเลข ~5-15 m',
             '**Point of balance** = หัวไหล่ของ cow',
             'เข้าหา **ด้านหลัง point of balance** → cow เดินไปข้างหน้า ⭐',
             'เข้าหา **ด้านหน้า point of balance** → cow ถอย/หยุด',
@@ -278,7 +278,7 @@ export const NOTES_PRACTRUM = {
           { sub: 'Mechanism + Side effects',
             body: [
               { bullets: [
-                'Phase 1 (vasoconstriction): BP สูง → reflex bradycardia, CO ลด',
+                'Phase 1 (vasoconstriction): เลกเชอร์ว่า BP สูง → reflex bradycardia, CO ลด — แต่ในลูกโค total peripheral resistance เพิ่มขึ้นจริงขณะที่ arterial BP, heart rate และ cardiac output ลดลงทั้งหมด (ไม่พบ hypertensive response) ให้จำว่า vasoconstriction เกิดขึ้น แต่ความดันโลหิตอาจไม่สูงตามที่คาด ส่วน bradycardia และ CO ลด ตรงกับเลกเชอร์',
                 'กดหลั่ง insulin → hyperglycemia, กด ADH → diuresis',
                 '⚠️ ระวัง **hypoxia + pulmonary edema**',
                 'Reversal: **Yohimbine** หรือ atipamezole',
@@ -450,7 +450,8 @@ export const NOTES_PRACTRUM = {
             '**Pre-op**: PE + lab, weight measurement (cow weight tape), fasting (calf NOT, adult 12-24 hr, large bull 24-36 hr)',
             '**Post-op medication**:',
             '  • NSAID: **Flunixin meglumine 1.1-2.2 mg/kg IV**',
-            '  • Antibiotic: **Procaine penicillin 22,000-66,000 U/kg IM/SC** (NOT IV) ≥ 3 วัน',
+            '  • Antibiotic: **Procaine penicillin 22,000-66,000 U/kg IM/SC** (NOT IV) ≥ 3 วัน — ช่วงขนาดสูงนี้หลักฐานรองรับทาง **IM** เท่านั้น',
+            '  • ⚠️ 22,000-66,000 U/kg เป็นขนาด **extra-label** (ขนาดขึ้นทะเบียน 7,500 IU/kg IM, withdrawal 5 วัน) → ที่ 24,000 IU/kg ต้อง withdrawal 10 วัน, ที่ 66,000 IU/kg ต้อง 21 วัน; ถ้าให้ทาง SC ที่ 66,000 IU/kg พบยาค้างตำแหน่งฉีดนานถึง 10 วัน ร่วมกับ inflammation + hemorrhage จึงไม่มีการกำหนด withdrawal ไว้',
             '⚠️ Cefazolin = NOT used in cattle (no label, withdrawal undefined)',
             'Complications: lack of improvement, peritonitis, incisional infection',
           ] },
@@ -594,7 +595,7 @@ export const NOTES_PRACTRUM = {
               ['Hot iron (cautery)', '<6 wk', 'No bleeding, cheap, fast', 'Pain, heat damage, need restraint'],
               ['Hoof knife / scoop', '<6 wk', 'Cheap, simple', 'Bleeding, regrowth if incomplete'],
               ['Calf dehorner gauge (cup)', '2-6 wk', 'Quick, sharp removal', 'Bleeding'],
-              ['50% CaCl2 caustic paste', '<2 wk only', 'Painless if used early', 'Caustic spread risk, eye damage if rubs'],
+              ['50% CaCl2 caustic paste', '<2 wk only', 'ไม่มีเลือดออก ทำเร็ว ไม่ต้องใช้ความร้อน (เลกเชอร์เขียนว่า painless if used early)', 'เจ็บเฉียบพลันอย่างน้อย 180 นาที → ต้องให้ cornual nerve block + NSAID ร่วมด้วย, caustic spread risk, eye damage if rubs'],
               ['Tube/Robert dehorner (adult)', 'Adult', 'Full removal', 'Frontal sinus exposed → sinusitis risk'],
               ['Obstetric wire (Gigli)', 'Adult', 'Clean cut, controlled', 'Slow, need anesthesia + analgesia'],
               ['Trephine + saw', 'Adult', 'Surgical control', 'Most invasive, longest recovery'],

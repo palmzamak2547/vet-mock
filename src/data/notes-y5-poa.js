@@ -387,8 +387,8 @@ export const NOTES_Y5_POA = {
             "body": [
               {
                 "bullets": [
-                  "ลักษณะน้ำคล้าย transudate",
-                  "จุดวินิจฉัยคือ **urea ในน้ำสูงกว่าใน plasma**"
+                  "ลักษณะน้ำคล้าย transudate ตามเลกเชอร์ แต่ข้อมูลในสุนัขพบว่าส่วนใหญ่จัดเป็น transudate หรือ exudate ไม่ได้เลย",
+                  "จุดวินิจฉัยตามเลกเชอร์คือ **urea ในน้ำสูงกว่าใน plasma** แต่ค่าที่มี cut-off ยืนยันในสุนัขคือ **creatinine** ในน้ำ ≥ 2.1 mg/dL ร่วมกับ fluid:serum creatinine ratio ≥ 1.25 เพราะ urea เป็นโมเลกุลเล็กที่ equilibrate ข้าม peritoneum ได้เร็ว gradient จึงหายไป ส่วน creatinine ค้างอยู่ในน้ำนานกว่า"
                 ]
               }
             ]
@@ -479,7 +479,7 @@ export const NOTES_Y5_POA = {
             ]
           },
           {
-            "callout": "septic กับ non-septic exudate ใช้ cell count, protein และ Sp.Gr. ชุดเดียวกันเป๊ะ สิ่งเดียวที่แยกทั้งสองออกจากกันคือ **cytology** คือ degenerate neutrophils ที่มีเชื้อ ตอบด้วยตัวเลขอย่างเดียวไม่ได้",
+            "callout": "septic กับ non-septic exudate ใช้ cell count, protein และ Sp.Gr. ชุดเดียวกันเป๊ะ ตัวที่เลกเชอร์ให้ใช้แยกคือ **cytology** คือ degenerate neutrophils ที่มีเชื้อ ตอบด้วยตัวเลขชุดนี้อย่างเดียวไม่ได้ แต่ cytology ไม่ใช่ตัวเดียวที่แยกได้ เพราะ **blood-to-fluid glucose difference > 20 mg/dL** ก็แยก septic ออกจาก non-septic ได้ และ degenerate neutrophils พบใน septic effusion แบบ often but not always จึงมักต้องส่ง culture ยืนยัน",
             "kind": "warn"
           },
           {
@@ -488,7 +488,7 @@ export const NOTES_Y5_POA = {
               {
                 "bullets": [
                   "**Transudate** = decreased oncotic pressure หรือ hypoproteinemia",
-                  "**Modified transudate** = increased hydrostatic pressure จาก CHF หรือ lymphatic obstruction",
+                  "**Modified transudate** = increased hydrostatic pressure จาก CHF หรือ lymphatic obstruction ตามเลกเชอร์ โดยตำราอ้างอิงนับ **increased vascular permeability** เป็นสาเหตุหลักอีกตัวหนึ่งด้วย และระบุ hydrostatic pressure ตัวนี้เป็นชนิด intrahepatic",
                   "**Non-septic exudate** = ติดเชื้อเช่น **FIP** หรือไม่ติดเชื้อเช่น neoplasia, bile, pancreatitis",
                   "**Septic exudate** = การติดเชื้อเช่น peritonitis, pyothorax"
                 ]

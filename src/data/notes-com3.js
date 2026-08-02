@@ -112,7 +112,7 @@ export const NOTES_COM3 = {
           { bullets: [
             'Triage = ภาษาฝรั่งเศส "to sort"',
             'ขั้นตอน: Brief history → Primary survey → Triage decision → Resuscitation → Secondary survey',
-            { label: 'Triage หลัก 3 สี', value: '🔴 Red (immediate), 🟡 Yellow (stable but critical), 🟢 Green (รอได้ 24h)' },
+            { label: 'Triage หลัก 3 สี', value: '🔴 Red (immediate), 🟡 Yellow (stable but critical), 🟢 Green (บรรยายว่ารอได้ 24h) — ระบบที่ validate แล้วในสุนัขและแมว 485 ตัว ใช้ 4 สี คือ red, orange, yellow, green ผูกกับ target waiting time 0, 15, 30-60 และ 120 นาที ตามลำดับ ไม่ใช่ 24 ชั่วโมง' },
           ] },
         ],
       },
@@ -139,7 +139,7 @@ export const NOTES_COM3 = {
             '**Mentation** — alert / obtunded / stuporous / comatose',
             '**MM color** — pink (normal) / pale (vasoconstrict, anemia) / brick red (sepsis vasodilate) / cyanotic (hypoxemia) / icteric (hemolysis)',
             '**CRT** — กดที่ inner lip 4s, normal 1-2s, prolonged > 2s = poor perfusion',
-            '**HR** — สุนัข shock = tachy, ⚠️ **แมว shock = brady** (paradox)',
+            '**HR** — สุนัข shock = tachy, ⚠️ **แมว shock = brady** (paradox) — หลักฐานยืนยันเฉพาะแมวที่มี severe sepsis (29 ตัว ยืนยันด้วย necropsy) ซึ่งมาด้วย bradycardia ร่วมกับ pale MM, weak pulse, hypothermia และ tachypnea ยังไม่ได้พิสูจน์กับ shock ทุกชนิดในแมว',
             '**Pulse quality** — bounding (sepsis signature), thready (vasoconstriction), normal (sys-dias gap)',
             '**Extremity temp** — เย็นปลายมือ-เท้า = poor distal perfusion',
           ] },
@@ -157,6 +157,7 @@ export const NOTES_COM3 = {
               ['สุนัขใหญ่', '100-180'],
               ['ลูกสัตว์ / แมว', '120-240'],
             ] } },
+          'ตารางนี้ตามที่บรรยาย (ใช้ตอบข้อสอบ) แต่หลักฐานไม่รองรับการแบ่ง normal HR ตามขนาดตัวสุนัข: Holter 24 ชม. ในสุนัขสุขภาพดี 60 ตัว น้ำหนัก 2-80 kg พบว่า minimum, average และ maximum HR ไม่ correlate กับน้ำหนักตัว (median minimum 42, average 73, maximum 190 bpm) และทิศทางในตารางที่ตัวใหญ่ HR สูงขึ้น ยังสวนทางกับ allometry ที่ HR ลดลงเมื่อ body mass เพิ่ม (PMID 20634163)',
         ],
       },
       {
@@ -204,8 +205,8 @@ export const NOTES_COM3 = {
               ['**Hypovolemic** (cold shock)', 'Volume ↓ → VR ↓ → CO ↓', 'Hemorrhage, severe vomit/diarrhea, 3rd-spacing'],
               ['**Cardiogenic** (forward failure)', 'Pump failure → SV ↓ → DO₂ ↓, ⚠️ fluid ทำให้แย่ลง', 'DCM, HCM, arrhythmia, valve dz, tamponade'],
               ['**Obstructive**', 'Block ขัดการไหลเวียน → VR/CO ↓', 'GDV, pericardial effusion, tension pneumothorax, PE, ATE'],
-              ['**Distributive** (warm shock)', 'NO/cytokines → vasodilation → VR ↓', 'Sepsis, SIRS, anaphylaxis'],
-              ['**Metabolic / Hypoxic**', 'O₂ delivery ปกติแต่ใช้ไม่ได้ / Hb ขนส่งไม่พอ', 'Cyanide, hypoglycemia (metabolic), anemia, pneumonia (hypoxic)'],
+              ['**Distributive** (warm shock)', 'NO/cytokines → vasodilation → SVR ↓ (โน้ตเขียน VR ↓ ซึ่งสื่อว่า CO ลดลง แต่หลักฐานระบุว่า distributive shock มักมาพร้อม CO ที่ **สูงขึ้น** คือ high CO + low SVR แม้จะมี myocardial depression ร่วมด้วย)', 'Sepsis, SIRS, anaphylaxis'],
+              ['**Metabolic / Hypoxic**', 'O₂ delivery ปกติแต่ใช้ไม่ได้ / Hb ขนส่งไม่พอ (เป็นหมวดที่ตำรา veterinary emergency บางเล่มเพิ่มเข้ามา ไม่ได้อยู่ใน classification มาตรฐานของ Shubin และ Weil ซึ่งมี 4 กลไก คือ hypovolemic, cardiogenic, obstructive, distributive)', 'Cyanide, hypoglycemia (metabolic), anemia, pneumonia (hypoxic)'],
             ] } },
         ],
       },
@@ -228,6 +229,7 @@ export const NOTES_COM3 = {
                 'Common: gram-negative (E. coli)',
                 'Pancreatitis, severe trauma, metastatic cancer, autoimmune ก็ทำให้เกิด SIRS ได้',
                 'MODS = lamination ของ inflammation ไปอวัยวะอื่น (kidney, heart, brain)',
+                '⚠️ นิยาม Sepsis-3 ต่างจากที่บรรยาย: septic shock = sepsis ที่ **ต้องใช้ vasopressor** เพื่อคง MAP ≥ 65 mmHg ร่วมกับ lactate > 2 mmol/L หลังแก้ hypovolemia แล้ว ไม่ใช่แค่วัด MAP ได้ ≤ 65 (mortality > 40%) และ Sepsis-3 นิยาม sepsis ใหม่เป็น organ dysfunction (SOFA เพิ่ม ≥ 2) จาก dysregulated host response พร้อมยกเลิกคำว่า severe sepsis เป็นนิยามของคน ยังไม่ validate ในสุนัขและแมว',
               ] },
             ] },
         ],
@@ -273,7 +275,7 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 '**Crystalloid** (LRS, NSS) — bolus 60-90 ml/kg dog, 30-60 ml/kg cat (titrate by response)',
-                '**Hypertonic saline 7%** — 4 ml/kg ใน 5-10 min — ใช้ปริมาณน้อย แต่ดึง fluid เข้า vasc, ตามด้วย crystalloid',
+                '**Hypertonic saline 7%** — 4 ml/kg ใน 5-10 min — ใช้ปริมาณน้อย แต่ดึง fluid เข้า vasc, ตามด้วย crystalloid (ความเข้มข้นที่ใช้จริงในงานวิจัยและในคลินิกคือ **7.5%** ส่วนขนาด 4 ml/kg ตรงกับโน้ต)',
                 '**Colloid** (HES) — controversial — ทำให้ stay in vasc นานกว่า',
                 'Goal: HR < 150, SBP > 90, lactate ↓',
               ] },
@@ -462,7 +464,7 @@ export const NOTES_COM3 = {
               ['**CC** (cystocolic)', 'UB + colon'],
               ['**HR** (hepatorenal)', 'Liver + R kidney'],
             ] } },
-          'Score แต่ละจุด: 0 (no fluid), 1 (มี fluid เล็กน้อย), 2-3, 4 (เยอะมาก) — sum = AFS, sensitive แต่ specificity ต่ำ',
+          'Score แต่ละจุด: 0 (no fluid), 1 (มี fluid เล็กน้อย), 2-3, 4 (เยอะมาก) — sum = AFS, sensitive แต่ specificity ต่ำ (ตามที่บรรยาย) — ในระบบต้นฉบับแต่ละจุดให้ผลเป็น positive หรือ negative เท่านั้น และ AFS คือ **จำนวนจุดที่พบ fluid** (AFS 0 = ไม่พบเลย ถึง AFS 4 = พบครบทั้ง 4 จุด) โดยสุนัขที่ AFS 3-4 มี PCV และ total plasma protein ลดลงมากกว่า และต้องการ blood transfusion มากกว่า',
         ],
       },
       {
@@ -474,7 +476,7 @@ export const NOTES_COM3 = {
             rows: [
               ['**Hemoabdomen**', 'Fluid PCV ≈ Blood PCV, ไม่ clot (factors used)'],
               ['**Uroabdomen**', 'Fluid Cr : Serum Cr **> 2 : 1**, K+ ratio: dog > 1.4, cat > 1.9'],
-              ['**Septic peritonitis**', 'Degenerate neutrophil ± bacteria, **Fluid glucose < 50 mg/dL** OR fluid-blood glucose gap > 20'],
+              ['**Septic peritonitis**', 'Degenerate neutrophil ± bacteria, **Fluid glucose < 50 mg/dL** OR fluid-blood glucose gap > 20 — เกณฑ์ที่มีหลักฐานรองรับคือ **blood-to-fluid glucose difference > 20 mg/dL** (สุนัข sens 100% spec 100%, แมว sens 86% spec 100%) และแม่นกว่าการดู fluid glucose อย่างเดียว ส่วน cutoff < 50 mg/dL ไม่ได้มาจากงานวิจัยนี้ จึงไม่ควรถือว่าเท่ากัน'],
               ['**Bile peritonitis**', 'Bilirubin in fluid > 2 × serum'],
               ['**Food material**', 'GI perforation'],
               ['**Neoplastic cells**', 'Cytology — malignant cells (ระบุ type ยาก)'],
@@ -539,7 +541,7 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 'Pink frothy sputum, soft murmur, gallop rhythm, cardiomegaly',
-                'Tx: **Furosemide 1-4 mg/kg IV bolus**, ทำซ้ำหรือ CRI, O₂ supplement, minimize stress',
+                'Tx: **Furosemide 1-4 mg/kg IV bolus**, ทำซ้ำหรือ CRI, O₂ supplement, minimize stress — ACVIM consensus (MMVD ในสุนัข) ระบุ bolus **2 mg/kg** IV/IM แล้วซ้ำ 2 mg/kg ทุก 1 ชม. จนกว่า respiratory rate และ effort จะดีขึ้นชัดเจน โดยมีเพดานรวม **8 mg/kg ใน 4 ชม.** ซึ่งเป็น safety limit ที่โน้ตยังไม่ได้ระบุ',
                 '⚠️ **ห้าม IV crystalloid** — ทำให้แย่ลง',
               ] },
             ] },
@@ -594,7 +596,7 @@ export const NOTES_COM3 = {
               ['**Sustained / unstable VT**', '**Lidocaine 2 mg/kg IV bolus** (dog), 0.25 mg/kg cat (ระวัง!), CRI 25-75 μg/kg/min'],
               ['**Symptomatic bradycardia**', '**Atropine 0.04 mg/kg IV/IM**'],
               ['**SVT** (supraventricular tachy)', 'Vagal maneuver, Diltiazem 0.05-0.25 mg/kg slow IV'],
-              ['**Atrial fibrillation**', 'Diltiazem (rate control)'],
+              ['**Atrial fibrillation**', 'Diltiazem (rate control) — หลักฐาน randomized crossover ในสุนัข chronic AF 18 ตัว: digoxin + diltiazem คุม ventricular rate ได้ดีกว่า diltiazem เดี่ยว หรือ digoxin เดี่ยว (median 126 vs 158 vs 164 bpm)'],
               ['**3rd degree AV block**', 'Pacemaker (refractory to atropine)'],
             ] } },
         ],
@@ -650,7 +652,7 @@ export const NOTES_COM3 = {
         source: 'Animal_Emerg_Anes 1 hr.pdf + master p.46',
         body: [
           { bullets: [
-            '**HyperK ก่อน sedation** — Ca gluconate stabilize myocardium, dextrose+insulin shift K, fluid',
+            '**HyperK ก่อน sedation** — Ca gluconate stabilize myocardium, dextrose+insulin shift K, fluid — RCT ในแมวเพศผู้ 34 ตัวที่ K+ > 7.5 mEq/L พบว่า IV fluid + calcium gluconate + ปลดการอุดตันโดยเร็ว ลด K+ จาก median 9.1 เหลือ 5.4 mEq/L ใน 4 ชม. โดยการเติม insulin-dextrose, terbutaline หรือ NaHCO₃ ไม่ได้ประโยชน์เพิ่มอย่างมีนัยสำคัญ ลำดับที่ควรจำคือ fluid + calcium + decompression มาก่อน',
             'Sedate: ketamine + benzo + buprenorphine',
             'Maintain: inhalation + IPPV (PaCO₂ 38-42), ป้องกัน respiratory acidosis (จะเพิ่ม K)',
             '⚠️ NSAIDs contraindicated (renal compromise)',
@@ -769,7 +771,7 @@ export const NOTES_COM3 = {
           { sub: 'Lab — classic',
             body: [
               { bullets: [
-                'HypoNa + hyperK + hypoCl, **Na : K ratio < 25** (suspect, < 20 strong)',
+                'HypoNa + hyperK + hypoCl, **Na : K ratio < 25** (suspect, < 20 strong) — cutoff ที่มี sensitivity และ specificity ตีพิมพ์คือ **Na : K ≤ 22** (sens 92%, spec 91%, ROC AUC 0.905) และถ้ารวมกับ neutrophil-to-lymphocyte ratio ≤ 2.3 จะจำเพาะพอจะ rule in โรคได้',
                 'Hypoglycemia, prerenal azotemia, metabolic acidosis, mild anemia',
               ] },
             ] },
@@ -1248,7 +1250,7 @@ export const NOTES_COM3 = {
             headers: ['Phase', 'Duration', 'Description'],
             rows: [
               ['**Prodromal**', 'Hours-days', 'Behavior change ก่อนชัก'],
-              ['**Pre-ictal / aura**', 'Sec-min', 'Anxiety, vocalization, hide, ขนลุก'],
+              ['**Pre-ictal / aura** (ตามที่บรรยาย)', 'Sec-min', 'Anxiety, vocalization, hide, ขนลุก — IVETF 2015 ไม่แนะนำให้ใช้คำว่า aura ในสัตว์ และไม่แยกระยะนี้ออกมา เพราะอาการที่เจ้าของเห็นก่อนชักคือ focal seizure onset ซึ่งเป็นส่วนหนึ่งของ ictus แล้ว โดย IVETF แบ่งเป็น prodrome, ictus, postictal'],
               ['**Ictal**', 'Sec-min', 'During seizure activity'],
               ['**Post-ictal**', 'Min-hr', 'Confusion, blindness, ataxia (transient)'],
             ] } },
@@ -1261,7 +1263,7 @@ export const NOTES_COM3 = {
           { sub: 'Generalized',
             body: [
               { bullets: [
-                'Tonic, clonic, tonic-clonic (most common in dog)',
+                'Tonic, clonic, tonic-clonic (บรรยายว่า most common in dog) — IVETF 2015 ระบุว่า seizure type ที่พบบ่อยที่สุดในสุนัขคือ focal seizure ที่ลามเป็น generalized ไม่ใช่ generalized tonic-clonic ตั้งแต่แรก',
                 'Atonic, myoclonic, absence (rare)',
                 'Loss of consciousness',
               ] },
@@ -1270,7 +1272,7 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 'Motor (twitching face/limb), autonomic (drool, vomit), sensory (fly-biting), psychological (fear, hide)',
-                'Consciousness retained or impaired',
+                'Consciousness retained or impaired (ตามที่บรรยาย) — IVETF 2015 ที่โน้ตอ้างเป็น source แนะนำว่าไม่ควรพยายามประเมินว่า consciousness ถูกรบกวนหรือไม่ และให้เลิกแบ่ง simple กับ complex focal seizure เพราะประเมินในสัตว์อย่าง objective ไม่ได้',
                 'อาจ secondarily generalize',
               ] },
             ] },
@@ -1281,7 +1283,7 @@ export const NOTES_COM3 = {
         source: 'seizure 1 hr.pdf + ACVIM consensus',
         body: [
           { bullets: [
-            '**Cluster seizure** = ≥ 2 seizures in 24 hr, **recover between** episodes',
+            '**Cluster seizure** = ≥ 2 seizures in 24 hr, **recover between** episodes (ACVIM consensus ใช้ถ้อยคำว่า > 2 ครั้งใน 24 ชม. ขณะที่ตำราหลายเล่มและคำบรรยายใช้ ≥ 2 จึงต่างกันตรงเคสที่ชักพอดี 2 ครั้ง)',
             '**Status epilepticus** = > 5 min single OR ≥ 2 seizures **without complete recovery between**',
             'Both = emergency',
           ] },
@@ -1335,7 +1337,7 @@ export const NOTES_COM3 = {
             body: [
               { bullets: [
                 'IV access ASAP',
-                '**Diazepam 0.5 mg/kg IV bolus** (or 1-2 mg/kg per rectum if no IV)',
+                '**Diazepam 0.5 mg/kg IV bolus** (or 1-2 mg/kg per rectum if no IV) — ขนาด per rectum ที่เพิ่มเป็นสองเท่านี้ใช้กับสุนัขที่กิน phenobarbital อยู่เดิม เพราะ phenobarbital เหนี่ยวนำ cytochrome P450 ทำให้ระดับ benzodiazepine ลดลง ส่วนสุนัขที่ไม่ได้กิน phenobarbital ขนาด per rectum ต้นทางคือ 0.5 mg/kg',
                 'Repeat q5-10 min × 2 ถ้าไม่หยุด',
               ] },
             ] },

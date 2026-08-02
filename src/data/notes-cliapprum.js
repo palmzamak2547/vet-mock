@@ -31,7 +31,7 @@ export const NOTES_CLIAPPRUM = {
             '**2. Nutritional values** — CP / NDF / ADF / NE — analyze ทั้ง forage + TMR',
             '**3. Nutrient requirements** — match supply to need (NRC 2001 dairy tables)',
             '**4. R:C ratio + Milk fat** — 60:40 standard, MFD ที่ <40:60',
-            '**5. Particle size** — Penn State 4-layer, ชั้น 1 (>19mm) 2-8%, ชั้น 4 (pan) <30%',
+            '**5. Particle size** — Penn State 4-layer, ชั้น 1 (>19mm) 2-8% (เป้าของ TMR โครีดนม), ชั้น 4 (pan) <30% — สูตรช่วงก่อนคลอด (close-up) หลักฐานหนุนให้เพิ่มสัดส่วนบนตะแกรง 19 mm',
           ] },
         ],
       },
@@ -50,7 +50,7 @@ export const NOTES_CLIAPPRUM = {
                 headers: ['Marker', 'Cutoff', 'Meaning'],
                 rows: [
                   ['BHBA', '≥1.2 mM (subclinical), ≥3.0 (clinical ketosis)', 'Ketone body, cowside test (Precision Xtra)'],
-                  ['NEFA', '>0.4 pre-partum, >0.7 post-partum', 'Excessive lipolysis'],
+                  ['NEFA', '>0.4 pre-partum (เลกเชอร์; หลักฐานใช้ 0.27-0.30), >0.7 post-partum', 'Excessive lipolysis'],
                   ['Glucose', '<2.2 mM = hypoglycemia', 'Below normal in ketosis'],
                   ['BCS drop', '>0.5 unit in transition', 'Body condition loss'],
                   ['Feces Score', '1-5 scale (3 ideal pancake)', 'GI health'],
@@ -67,7 +67,7 @@ export const NOTES_CLIAPPRUM = {
           { bullets: [
             'R:C ลด → fermentable CHO เพิ่ม → rumen acidosis (SARA)',
             '→ Lactic acid + propionate เพิ่ม, acetate (milk fat precursor) ลด',
-            '→ trans-10 C18:1 fatty acid form → inhibit milk fat synthesis directly',
+            '→ biohydrogenation เปลี่ยนทาง เกิด trans-10 C18:1 (marker) + trans-10,cis-12 CLA ซึ่งเป็นตัวยับยั้ง de novo fatty acid synthesis ที่เต้านมโดยตรง [เลกเชอร์เขียนว่า trans-10 C18:1 ยับยั้งโดยตรง]',
             'Other consequences: laminitis, LDA, subclinical milk loss',
           ] },
           { sub: 'Diagnostic clue',
@@ -88,7 +88,7 @@ export const NOTES_CLIAPPRUM = {
             headers: ['Stage', 'Target BCS', 'Reason'],
             rows: [
               ['Dry-off (60d before calving)', '3.25-3.50', 'Avoid fat cow syndrome'],
-              ['Calving day', '3.25-3.50', 'Same as dry-off'],
+              ['Calving day', '3.25-3.50 (เลกเชอร์) / optimum 3.00-3.25 ตามหลักฐาน', 'ตั้งแต่ 3.5 ขึ้นไป DMI + น้ำนมต้นระยะให้นมลด, metabolic disorders เพิ่ม'],
               ['Peak lactation (~60d)', '2.50-2.75', 'Mobilize fat for milk'],
               ['Mid-late lactation', '3.00-3.25', 'Rebuild reserves'],
             ],
@@ -159,7 +159,7 @@ export const NOTES_CLIAPPRUM = {
         body: [
           { bullets: [
             '⛔ **Atropine** — limited use ในวัว: saliva เหนียวข้น (ไม่ลด), GI motility ลด → bloat risk',
-            '**Xylazine (alpha-2)** — 0.05-0.1 mg/kg IM/IV, Brahman > Hereford > Holstein sensitivity, reverse: yohimbine 0.125 mg/kg IV',
+            '**Xylazine (alpha-2)** — 0.05-0.1 mg/kg IM/IV, Brahman > Hereford > Holstein sensitivity, reverse: yohimbine 0.125 mg/kg IV (งานวิจัยใช้ 0.25 mg/kg IV แก้ rumen atony + bradycardia ได้ แต่ไม่ทำให้ sedation สั้นลง)',
             '**Diazepam/Midazolam (benzo)** — muscle relaxation, minimal CV depression, ไม่มี analgesic, reverse: flumazenil',
             '⚠️ **Acepromazine (phenothiazine)** — penile prolapse risk in bulls (vasodilation), ห้าม pre-anesthesia bull semen-collecting',
             '**Ketamine** — dissociative, 1-2 mg/kg IV, combine with xylazine (≈ "ketamine stun"), short procedures',
@@ -200,7 +200,7 @@ export const NOTES_CLIAPPRUM = {
               ['Eye surgery (eyelid only)', 'Auriculopalpebral', 'Block motor only, eyeball still moves'],
               ['Eye surgery (deep, enucleation)', 'Peterson', 'Block CN III/IV/VI/V, complete akinesia'],
               ['Standing flank sx (rumenotomy, LDA, c-section)', 'Paravertebral T13/L1/L2', 'Proximal or distal Magda'],
-              ['Perineal sx, c-section, dystocia', 'Caudal epidural sacrococcygeal (S5-Co1)', 'Lidocaine 1 ml/100 kg, max 6 ml'],
+              ['Perineal sx, c-section, dystocia', 'Caudal epidural sacrococcygeal (S5-Co1) หรือ Co1-Co2', 'Lidocaine 1 ml/100 kg, max 6 ml (≈0.2 mg/kg) — วรรณกรรมรายงานช่วงที่ใช้บ่อย 0.22-0.5 mg/kg'],
               ['Distal limb (digit, foot abscess)', 'IV regional (Bier block)', 'Lidocaine 20-30 ml, NO epi, ≤90 min'],
               ['Dehorning', 'Cornual nerve block', 'Lidocaine 5-10 ml at frontal ridge'],
               ['Teat surgery', 'Inverted L block / Ring block', 'Lidocaine 2%, multiple SQ injections'],
@@ -268,7 +268,7 @@ export const NOTES_CLIAPPRUM = {
         source: 'อ.ศวิตา + Sunsun84 p.2 + Smith LA Internal',
         body: [
           { bullets: [
-            '**Epidemiology**: first 30 days post-partum peak, 50-90% concurrent ketosis, Holstein > others, high-grain TMR risk',
+            '**Epidemiology**: first 30 days post-partum peak (ภาคสนาม incidence risk 5.1%, median วินิจฉัยวันที่ 11 หลังคลอด), 50-90% concurrent ketosis (ตัวเลขตามเลกเชอร์), Holstein > others, high-grain TMR risk',
             '**Pathophysiology**: hypomotile abomasum + gas accumulation → "floats" on rumen left',
             '**Mortality**: <10% with surgery, 50-90% without',
           ] },
@@ -328,7 +328,7 @@ export const NOTES_CLIAPPRUM = {
                 '**Hypochloremic + hypokalemic metabolic alkalosis** (Cl<85, K<3, HCO3>32)',
                 'Sequestration of HCl in obstructed abomasum → systemic alkalosis',
                 'Hemoconcentration: PCV>40%, TP>8',
-                '**Lactate >4 mM = poor prognosis** (tissue ischemia)',
+                '**Lactate >4 mM = poor prognosis** (ตามเลกเชอร์) — งานวิจัยต้นทางใช้จุดตัด 2 และ 6 mmol/L: ≤2 ผลลัพธ์ดี, ≥6 ทำนาย negative outcome (tissue ischemia)',
                 'Pre-renal azotemia (BUN ↑ disproportionate to Cr)',
               ] },
             ] },
@@ -358,7 +358,7 @@ export const NOTES_CLIAPPRUM = {
             headers: ['Location', 'Cause'],
             rows: [
               ['Left flank rib 9-13 upper third', 'LDA ⭐'],
-              ['Right flank rib 9-13 upper third', 'RDA / RAV'],
+              ['Right flank rib 9-13 upper third', 'RDA / RAV (ตามเลกเชอร์) — ping ขวาไม่จำเพาะ ต้องยืนยันด้วย rectal + อาการร่วม'],
               ['Right flank lower posterior', 'Cecal dilatation / dislocation'],
               ['Wide area both flanks', 'Pneumoperitoneum'],
               ['Left dorsal, diffuse', 'Free gas bloat (frothy bloat = no ping)'],
@@ -443,7 +443,7 @@ export const NOTES_CLIAPPRUM = {
         source: 'อ.ศวิตา + อ.เอกพล Rumenotomy lecture 2026',
         body: [
           { bullets: [
-            '**Indications**: TRP (FB removal), grain engorgement (lactic acidosis evacuation), rumen impaction, plant toxin removal',
+            '**Indications**: TRP (FB removal) ⭐ อันดับ 1, bloat, foreign body, choke, rumen impaction, grain engorgement (lactic acidosis evacuation), plant toxin removal',
             'Standing left paralumbar fossa, paravertebral block',
             'Vertical skin incision 20-25 cm',
             '**Rumen wall fixation** เพื่อกัน contamination — Weingarth ring, skin-to-rumen suture, stay sutures',
@@ -458,7 +458,7 @@ export const NOTES_CLIAPPRUM = {
         body: [
           { bullets: [
             'Telescoping of bowel into adjacent segment → obstruction + ischemia',
-            'Most common: jejunojejunal, ileocolic',
+            'Most common: small intestinal (jejunojejunal) พบมากที่สุด รองลงมา colocolic [เลกเชอร์เขียน jejunojejunal + ileocolic แต่ ileocolic จริง ๆ พบน้อยที่สุด]',
             'Adult cow: linked to neoplasia, trauma',
             'Calf: parasitism, enteritis',
             'Signs: anorexia, scant feces, abdominal pain, "doughnut" on rectal',
@@ -581,7 +581,7 @@ export const NOTES_CLIAPPRUM = {
             body: [
               { bullets: [
                 'Normal: active motile protozoa (Entodinium, Diplodinium, Holotrichs)',
-                'No protozoa = severe acidosis or post-antibiotic',
+                'No protozoa = severe acidosis or post-antibiotic — protozoa ที่ลดลงพบได้ทั้ง acute และ subacute acidosis เป็น indicator ที่ดี แต่ไม่ได้แปลว่ารุนแรงเสมอไป',
                 'Sluggish motility = early dysfunction',
                 'Examine fresh fluid <30 min, keep at 39°C',
               ] },
@@ -813,7 +813,7 @@ export const NOTES_CLIAPPRUM = {
             'Apply on **healthy claw** (transfer weight away from injured)',
             'Glue: methacrylate, cure 5-10 min',
             'Block height: 2-3 cm, trimming flush to ground every 2-4 wk',
-            'Duration: 3-6 weeks usually',
+            'Duration: 3-6 weeks usually (ตามเลกเชอร์) — ระยะเวลาที่เหมาะสมยังไม่มีข้อสรุปในวรรณกรรม และการคงอยู่ขึ้นกับชนิดวัสดุมาก',
             'Remove if: gait abnormal, loosening, wound healed',
           ] },
         ],

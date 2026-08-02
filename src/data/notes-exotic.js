@@ -44,7 +44,7 @@ export const NOTES_EXOTIC = {
         source: 'การรักษานกสวยงาม.pptx',
         body: [
           { bullets: [
-            '**Isoflurane** = drug of choice, safety ดี, rapid induction + recovery',
+            '**Isoflurane** = drug of choice ตาม lecture, safety ดี, rapid induction + recovery — sevoflurane ก็เหมาะสมเช่นกัน recovery ไม่ต่างกันและ ataxia น้อยกว่า',
             '**Fasting**: นกตัวเล็ก 2-3 ชม. (อดนานเสี่ยง hypoglycemia เพราะ BMR สูง)',
             'นกตัวใหญ่ (raptor, parrot) อด 6-12 ชม.',
           ] },
@@ -68,7 +68,7 @@ export const NOTES_EXOTIC = {
             ] },
           { sub: 'Hypocalcemia (African Grey ที่พบบ่อย)',
             body: [
-              'African Grey ไวต่อ low Ca, seizure, ตอบสนองดีต่อ Ca gluconate IV',
+              'African Grey ไวต่อ low Ca, seizure, มักตอบสนองดีต่อ Ca gluconate IV — เคสที่ดื้อต่อ calcium ให้นึกถึง hypomagnesemia ร่วมด้วย (plasma Ca ขณะชักมักต่ำกว่า 6.0 mg/dL)',
             ] },
         ],
       },
@@ -88,7 +88,7 @@ export const NOTES_EXOTIC = {
         source: 'โรคไม่ติดเชื้อ.pptx + EXOTIC FINAL 86',
         body: [
           { bullets: [
-            'Mass-like lesion ที่ cloaca, associated กับ **Herpesvirus + Papillomavirus**',
+            'Mass-like lesion ที่ cloaca, associated กับ **Psittacid herpesvirus (PsHV)** เป็นตัวหลัก (lecture เขียนว่า Herpesvirus + Papillomavirus แต่ไม่พบหลักฐานฝั่ง papillomavirus)',
             '**Diagnosis**: 5% acetic acid → tissue เปลี่ยนสีขาว (acetowhite test)',
             '**Treatment**: Silver nitrate (AgNO₃) จี้ chemical cauterization, อาจ recur',
             'พบบ่อยใน New World psittacine (macaw, conure)',
@@ -184,7 +184,7 @@ export const NOTES_EXOTIC = {
             rows: [
               ['Pacheco\'s', 'Psittacid Herpesvirus (PsHV)', 'Intranuclear', 'Acyclovir', '❌'],
               ['PDD', 'Avian Bornavirus (ABV)', 'Lymphoplasmacytic infiltrate', 'Supportive (NSAIDs)', '❌'],
-              ['PBFD', 'Beak & Feather Disease Virus (Circovirus)', 'Intracytoplasmic', 'Supportive', '❌'],
+              ['PBFD', 'Beak & Feather Disease Virus (Circovirus)', 'Intracytoplasmic (botryoid) เป็นแบบคลาสสิก แต่พบ intranuclear ได้ด้วย ยืนยันด้วย PCR', 'Supportive', '❌'],
               ['Polyoma', 'Avian Polyomavirus', 'Intranuclear', 'Supportive', '✅ available'],
               ['Avian Pox', 'Poxvirus', 'Bollinger bodies (cytoplasmic)', 'Supportive', '✅ Fowl pox'],
             ],
@@ -238,7 +238,7 @@ export const NOTES_EXOTIC = {
             'Affects **young birds** (esp. budgies, macaws) — high mortality',
             'Feather abnormalities + liver necrosis + sudden death',
             'Inclusion: **intranuclear** (vs PBFD intracytoplasmic)',
-            'Vaccine: **available** (commercial) — recombinant',
+            'Vaccine: **available** (commercial) — เป็น **inactivated (killed)** ที่ขึ้นทะเบียน USDA (lecture เขียนว่า recombinant)',
           ] },
         ],
       },
@@ -250,7 +250,7 @@ export const NOTES_EXOTIC = {
           { bullets: [
             'Conjunctivitis + nasal/ocular discharge + diarrhea + lethargy',
             '**Antibiotic of choice**: **Doxycycline**',
-            '**Duration**: **45 วัน** (4-6 สัปดาห์) — สำคัญมาก สั้นกว่านี้ relapse',
+            '**Duration**: **45 วัน** (4-6 สัปดาห์) ตาม lecture และ Compendium ฉบับ 2005/2010 — ฉบับ 2017 ลดระยะเวลาลง และมีงานที่กำจัดเชื้อได้ภายใน 21 วัน จึงไม่ควรยืนยันว่าสั้นกว่า 45 วันแล้วต้อง relapse',
             'Penetrates intracellular pathogen ได้ดี, macrolide (azithromycin) เป็น alternative',
             'Notify owner re: zoonosis precautions',
           ] },
@@ -302,7 +302,7 @@ export const NOTES_EXOTIC = {
         body: [
           { bullets: [
             '✅ **Pox** (fowl pox, live attenuated)',
-            '✅ **Polyomavirus** (recombinant)',
+            '✅ **Polyomavirus** — วัคซีนที่ขึ้นทะเบียน USDA เป็น **inactivated (killed)** ไม่ใช่ recombinant ตามที่ lecture ระบุ',
             '❌ PBFD, PDD, Pacheco, Chlamydophila — ไม่มี commercial vaccine',
           ] },
         ],
@@ -387,7 +387,7 @@ export const NOTES_EXOTIC = {
         source: 'ZOO_VET_CU2026.pdf p.20',
         body: [
           { bullets: [
-            '**Period**: 30 days minimum (ขึ้นกับ species)',
+            '**Period**: **30 days minimum** (ขึ้นกับ species) ตาม lecture และแนวทางเดิมของ AAZV — มาตรฐาน AZA ปัจจุบันให้ใช้ quarantine หรือ risk assessment/mitigation หรือทั้งสองอย่าง โดย time-based quarantine ใช้เมื่อประเมินและลดความเสี่ยงก่อนเคลื่อนย้ายไม่ได้',
             '**All in - all out**: รับสัตว์เป็น batch, ไม่ผสมกับ batch อื่น',
             'Separate area from main collection',
             'Disease testing + behavior recording during quarantine',
@@ -432,7 +432,7 @@ export const NOTES_EXOTIC = {
             '1. **Nutrition** — ให้อาหารคุณภาพดี + เพียงพอ',
             '2. **Environment** — กรง/ที่อยู่/อุณหภูมิ',
             '3. **Health** — ป้องกันโรค + รักษา',
-            '4. **Behaviour** — แสดงพฤติกรรมตามธรรมชาติได้',
+            '4. **Behaviour** — แสดงพฤติกรรมตามธรรมชาติได้ (ฉบับปรับปรุง 2020 เรียก **Behavioural Interactions** และเพิ่มปฏิสัมพันธ์กับคนเข้ามาด้วย)',
             '5. **Mental state** — ภาวะจิตใจ (positive/negative experience)',
           ] },
           { callout: 'Senior cat **CKD = #1 cause of death** (> 30%), screen with USG + UPC + SDMA + creatinine', kind: 'flag' },
@@ -722,7 +722,7 @@ export const NOTES_EXOTIC = {
         source: 'RolesVeterinarians.pdf p.13-22',
         body: [
           { sub: 'LSD (Lumpy Skin Disease) ใน Wild Bovids',
-            body: ['Livestock disease spillover into threatened wildlife (gaur)', 'Concept: protected areas not isolated from production systems'] },
+            body: ['Livestock disease spillover into threatened wildlife — lecture ยกตัวอย่าง gaur (กระทิง) ส่วนหลักฐานที่ค้นได้รองรับเฉพาะระดับกว้างว่า wild ruminants เป็น potential reservoir', 'Concept: protected areas not isolated from production systems'] },
           { sub: 'Rabies ใน Golden Jackals',
             body: ['Fatal zoonosis beyond domestic dog cycle', 'Strategy: oral rabies vaccination + roadkill surveillance'] },
           { sub: 'HPAI ใน Captive Threatened Carnivores',
@@ -847,7 +847,7 @@ export const NOTES_EXOTIC = {
           { bullets: [
             '1. **Avian** Medicine and Surgery',
             '2. **Herpetological** Medicine and Surgery',
-            '3. **Wildlife Population Health (WPH)** — free-ranging wildlife, disease surveillance + epi (minimal clinical)',
+            '3. **Wildlife Population Health (WPH)** — free-ranging wildlife ทุก taxon, disease surveillance + epi ที่ระดับประชากร (population level) รวม ecosystem health, conservation medicine, One Health (lecture สรุปสั้นว่า minimal clinical)',
             '4. **Small Mammal** Medicine and Surgery',
             '5. **Zoo Health Management (ZHM)** — captive collection + preventive medicine + studbook',
           ] },

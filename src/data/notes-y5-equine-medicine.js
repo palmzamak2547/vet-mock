@@ -506,9 +506,9 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             '"**Bowed tendon**" / sprain — common in racehorse / training',
-            '**18% (Japan) – 48% (Marr et al. 1993)** of horses in training; possibly **80%?**',
+            '**11.1% (Japan, JRA 1999) – 48% (Marr et al. 1993)** of horses in training; possibly **80%?** — สไลด์เขียน 18% สำหรับตัวเลขญี่ปุ่น แต่งานที่ตรวจสอบได้รายงาน forelimb SDF tendonitis ที่ 11.1%',
             'True incidence unclear (อาจ underreport)',
-            '**Recurrence 30-87.5%** — ผ่านครั้งแรกแล้วเสี่ยงเป็นซ้ำสูง',
+            '**Recurrence 30-87.5%** — ผ่านครั้งแรกแล้วเสี่ยงเป็นซ้ำสูง (ตัวเลขที่ตรวจสอบได้คือราว 56% เมื่อรักษาแบบเดิม และ 18% หลังฉีด autologous MSC โดยไม่พบแหล่งที่รองรับขอบบน 87.5%)',
             'มักเจอใน "ม้าฝึก/training" → กระดูก vs เอ็นการลดสมดุล',
           ] },
         ],
@@ -722,7 +722,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
             '**Physical examination / Auscultation** — short sounds vs runs vs silent (HR ~40 normal, ม้ามาก = pain)',
             '**Examination of mouth/teeth** — ดูฟันโกง',
             '**Fecal exam** — ก่อน check ว่าเป็นซีกอะไรบ้าง · normal ไม่เหลือเศษเนื้อ + ตรวจพยาธิ',
-            '**Nasogastric intubation** — vital! ม้า vomit ไม่ได้ → ต้อง decompress + check reflux (>2L = sig)',
+            '**Nasogastric intubation** — vital! ม้า vomit ไม่ได้ → ต้อง decompress + check reflux (>2L = sig ตามนิยาม postoperative ileus ที่ต้องมี pulse ตั้งแต่ 60 ครั้งต่อนาที หรืออาการปวดร่วมด้วย)',
             '**Rectal palpation** — มั่งมือใน rectum, สำคัญสุดในประเทศ',
             '**Abdominocentesis** — peritoneal fluid; sepsis → น้ำในช่องท้องจะเปลี่ยน',
             '**Radiography** — sand, enteroliths, gas pattern (ม้าเด็กทำได้, ม้าใหญ่ทำ x)',
@@ -814,7 +814,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '11 - colic_Best_fit.pdf p.2+',
         body: [
           { bullets: [
-            '🚧 รอเติม — initial triage · medical vs surgical decision criteria (HR > 60 = ผ่า; pain not controllable; gastric reflux > 4L; rectal palpation findings; abdominocentesis values [WBC, TP, lactate]) · fluid therapy · analgesia (NSAIDs, α-2, butorphanol) · sedation · NGT decompression · pain management protocol · referral timing',
+            '🚧 รอเติม — initial triage · medical vs surgical decision criteria (HR > 60 = ผ่า ตามที่สไลด์สอน แต่หลักฐานรองรับ HR ตั้งแต่ 60 ในฐานะตัวบอก prognosis ที่แย่มากกว่าเป็นเกณฑ์สั่งผ่าเดี่ยว ๆ; pain not controllable; gastric reflux > 4L; rectal palpation findings; abdominocentesis values [WBC, TP, lactate]) · fluid therapy · analgesia (NSAIDs, α-2, butorphanol) · sedation · NGT decompression · pain management protocol · referral timing',
           ] },
         ],
       },
@@ -1222,7 +1222,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '21 - Equine Ophthalmology_67_NT.pdf p.4+',
         body: [
           { bullets: [
-            '🚧 รอเติม — orbit · adnexa (eyelids, third eyelid, NLD) · conjunctiva · cornea (ulcer, melting, abscess) · uvea (ERU/uveitis — leptospirosis link, moon blindness) · lens (cataract) · retina · optic nerve · medical mgmt vs surgical mgmt (lavage system, sub-palpebral lavage)',
+            '🚧 รอเติม — orbit · adnexa (eyelids, third eyelid, NLD) · conjunctiva · cornea (ulcer, melting, abscess) · uvea (ERU/uveitis — leptospirosis link ที่พบชัดในม้ายุโรปกลาง คือ MAT 83% และ PCR 72% แต่ไม่พบความสัมพันธ์นี้ในม้าสหรัฐฯ ตะวันออกเฉียงใต้, moon blindness) · lens (cataract) · retina · optic nerve · medical mgmt vs surgical mgmt (lavage system, sub-palpebral lavage)',
           ] },
         ],
       },
@@ -1331,7 +1331,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           { bullets: [
             '**Gestation length: 320-380 days (~11 months)**',
             '**Pony breeds**: 320-345 days (pony สั้นกว่า)',
-            '**Thoroughbred**: 320-360 days (เทบาลง)',
+            '**Thoroughbred**: 320-360 days (เทบาลง) — งานตีพิมพ์รายงานพิสัยกว้างกว่านี้มาก คือ 315-388 วัน mean 344.1 วัน และ 306-390 วัน mean 347 วัน โดยยัง viable ตลอดช่วง',
             '**Donkeys**: 360-380 days (นานสุด)',
             'Implication: ดู signalment ก่อนตัดสินใจ "เกินกำหนด" หรือไม่',
           ] },
@@ -1404,7 +1404,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
           { sub: 'Diagnostic interpretation',
             body: [
               { bullets: [
-                'PD ⊕ at coffin → ทำได้/ไม่ได้ทำ navicular block:',
+                'PD ⊕ at coffin → ทำได้/ไม่ได้ทำ navicular block: (perineural block บอกได้แค่ว่า pain อยู่ในเท้า แยก distal interphalangeal joint ออกจาก navicular bursa ไม่ได้ ต้องใช้ intra-synovial block และอ่านผลตั้งแต่นาทีที่ 2-5)',
                 'Lower limb = fetlock down → ⊕ VV แสดงว่า pain ตรงนี้!',
                 'Carpus = ตรงกะดูราย (negative)',
                 'Upper limb = ขนกะดูส (negative)',
@@ -1419,7 +1419,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: 'POA.pdf p.3',
         body: [
           { bullets: [
-            'Congratulations sheet เปิดเฉลย: hoof testers used → bar shoe identified → flexion tests → palmar digital nerve block (using mepivacaine or carbocaine sciatic block) → radiograph จะ confirm navicular disease',
+            'Congratulations sheet เปิดเฉลย: hoof testers used → bar shoe identified → flexion tests → palmar digital nerve block (สไลด์เขียน using mepivacaine or carbocaine sciatic block ซึ่ง carbocaine คือชื่อการค้าของ mepivacaine ตัวเดียวกัน และ PD block เป็น perineural block ที่ pastern ไม่ใช่ sciatic block ควรอ่านผลช่วง 15 นาที ถึง 1 ชั่วโมงหลังฉีด) → radiograph จะ confirm navicular disease',
             'Station 2: ดูม้าวิ่ง → answer "ใช้เทคนิคไหนต่อ" (Lunge in circle / Lunge in soft ground (check tendon) / Hand palpation per leg / Plantar nerve block / Abaxial nerve block / Low 6-points nerve block / Tell owner horse fine + go shopping ❌)',
             'Note: lameness scoring 4/5, 5/5 grades visible',
           ] },
