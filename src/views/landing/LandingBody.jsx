@@ -444,7 +444,11 @@ function LabSection({ p }) {
         <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 38 }}><div style={label()}>{t.labSecLabel}</div><h2 style={h2}>{t.labSecHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '60ch', margin: '14px 0 0' }}>{t.labSecSub}</p></div>
         <div className="lp-stack lp-reveal" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 22, display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 22 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {/* wrap: the station badge is deliberately nowrap and non-shrinking,
+                so on a phone it took 220 of the 316px available and pushed the
+                timer clean outside the card. Wrapping drops the timer to a
+                second line instead; on desktop it still fits on one. */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
               {/* letterSpacing:normal overrides the shared vmx-qtype-badge's
                   .1em tracking, which would otherwise sit on the Thai
                   labStation string in the TH locale. */}

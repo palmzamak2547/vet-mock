@@ -400,7 +400,12 @@ html, body {
 }
 
 @media (min-width: 1024px) {
-  .vmx-app {
+  /* Reserve the sidebar gutter only where a sidebar is actually rendered.
+     App.jsx skips <Sidebar> for FOCUS_VIEWS (exam, results, review, auth,
+     year-select), so an unconditional padding-left left those five views
+     pushed 256px right of centre on desktop — the gutter was held open for
+     something that was not there. */
+  .vmx-app:not(.is-focus) {
     padding-left: 272px; /* 256px sidebar + 16px gap */
   }
 

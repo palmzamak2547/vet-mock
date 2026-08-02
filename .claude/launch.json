@@ -4,8 +4,8 @@
     {
       "name": "vetmock-preview",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite", "preview", "--port", "4174"],
-      "port": 4174
+      "runtimeArgs": ["vite", "preview", "--port", "4310", "--strictPort"],
+      "port": 4310
     }
   ]
 }

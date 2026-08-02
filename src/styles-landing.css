@@ -452,7 +452,29 @@ html.lp-active { background: var(--clr-bg); }
   #cta .lp-reveal > div::before { display: none; }
   #cta .lp-reveal > div::after  { inset: 0; border-radius: 26px; }
 }
-@media (max-width: 384px) {
+/* The nav row needs more room than the rest of the medium-width layout does.
+   Measured natural width of the full desktop row: 1101px in Thai, 1146px in
+   English. Collapsing it only below 1000px left the 1000-1146 band with a row
+   too wide for its container — and because .lp-root clips horizontal overflow,
+   the part that fell off the end was the primary CTA, silently. It did not
+   scroll into reach; it was just gone.
+
+   So the nav collapses to the burger on its own, earlier breakpoint, while the
+   page's other medium-width choices stay at 1000px. 1180px leaves headroom
+   over the English measurement for font-loading and locale variance. */
+@media (max-width: 1180px) {
+  .lp-nav .lp-only-desktop { display: none !important; }
+  .lp-nav .lp-only-mobile { display: inline-flex !important; }
+  .lp-nav-burger { display: inline-flex !important; }
+}
+
+/* Was max-width: 384px, which covered the iPhone SE and little else. Every
+   common phone since sits just above it — 390 (iPhone 12 through 15), 393
+   (14/15 Pro), 414 and 428 (Plus and Max) — so they got the roomy treatment on
+   a screen with no room, and the nav row overflowed by 12px. What fell off the
+   end was the burger: the only navigation a phone has. It was clipped rather
+   than scrollable, so those 12px were simply unreachable. */
+@media (max-width: 430px) {
   .lp-pad { padding-left: 14px !important; padding-right: 14px !important; }
   .vmx-btn-sm { padding: 8px 11px !important; font-size: 11px !important; }
   .lp-nav .lp-pad { gap: 9px !important; padding-top: 9px !important; padding-bottom: 9px !important; }
