@@ -1,7 +1,7 @@
 // ============================================================
-// Y5 ระบาดวิทยาและเวชศาสตร์ป้องกันทางการสัตวแพทย์ (3107508) — Study Notes
+// ระบาดวิทยา — Study Notes
 // ============================================================
-// เขียนจาก lecture 2569 ที่แจกจริงในรายวิชา ทุก section อ้างอิงสไลด์
+// เขียนจาก lecture 3107508 ที่แจกจริงในรายวิชา ทุก section อ้างอิงสไลด์
 // พร้อมเลขหน้า ไม่ได้เขียนจากความจำ และไม่ได้เติมเนื้อหานอกสไลด์
 //
 // ที่ไหนสไลด์ไม่ได้บอก จะเขียนกำกับไว้ตรงๆ ว่าสไลด์ไม่ได้บอก แทนที่จะเดาให้
@@ -1823,7 +1823,1631 @@ export const NOTES_Y5_EPIDEMIOLOGY = {
         ]
       }
     ]
+  },
+  "epidem-causation": {
+    "topic": "epidem-causation",
+    "title": "Concept of Causation and Association",
+    "lecturer": "Thanicha Chanchaidechachai",
+    "icon": "🔗",
+    "summary": "เลกเชอร์ว่าด้วยการแยก association ออกจาก causation ในงานระบาดวิทยา เริ่มจากนิยาม association และ cause แล้วแบ่ง association เป็น 3 ชนิด (spurious, indirect, direct) พร้อมตัวอย่างสัตวแพทย์ (mortality โรงพยาบาลส่งต่อ, แมวเลี้ยงในบ้านกับ CKD, PRDC, web of causation) ต่อด้วย Koch's postulates และข้อจำกัดของมัน จากนั้นเข้าสู่ The Bradford Hill criteria (1965) ทั้ง 9 ข้อ โดยลงรายละเอียดการวัด strength ด้วย Relative Risk และ Odds ratio และปิดท้ายด้วย causal inference ที่ใช้ decision tree ไล่ตัด chance, bias, confounding ก่อนจะสรุปว่าเป็นความสัมพันธ์เชิงสาเหตุ",
+    "sections": [
+      {
+        "heading": "หัวข้อในเลกเชอร์ (Contents)",
+        "source": "Concept_of_causation p.2",
+        "body": [
+          {
+            "bullets": [
+              "Introduction",
+              "Type of association",
+              "Guideline to assess causality (The Bradford Hill criteria)",
+              "Causal inference"
+            ]
+          },
+          {
+            "text": "รหัสวิชา **3107508** ระบาดวิทยาและเวชศาสตร์ป้องกันทางการสัตวแพทย์ ผู้บรรยาย Thanicha Chanchaidechachai (Thanicha.c@chula.ac.th)"
+          }
+        ]
+      },
+      {
+        "heading": "ระบาดวิทยาศึกษาอะไร (Introduction)",
+        "source": "Concept_of_causation p.3",
+        "body": [
+          {
+            "text": "Epidemiology is the study of the **causes and determinants** of disease to prevent, control, and improve population health."
+          },
+          {
+            "text": "แกนกลางของงานคือ **Identification of causal relationship between disease and suspected factor** โดยสไลด์วางแผนภาพเป็น Risk factor (ภาพโรงงานและรถยนต์) ชี้ลูกศรไปยัง Disease or health-related problem (ภาพปอด)"
+          },
+          {
+            "callout": "สไลด์พิมพ์คำว่า \"casual relationship\" ทั้งที่บริบทหมายถึง causal relationship (ความสัมพันธ์เชิงสาเหตุ) คำนี้พิมพ์ผิดซ้ำอีกครั้งในสไลด์หน้า 4 ด้วย",
+            "kind": "flag"
+          }
+        ]
+      },
+      {
+        "heading": "ลำดับขั้นจากการสังเกตไปสู่การทดสอบสมมติฐาน",
+        "source": "Concept_of_causation p.4",
+        "body": [
+          {
+            "text": "สไลด์เป็นแผนภาพไหลตามลำดับ ไม่มีข้อความอธิบายเพิ่มนอกจากกล่องเหล่านี้"
+          },
+          {
+            "bullets": [
+              "Identify disease ไปสู่ Descriptive study",
+              "Related to risk factors ไปสู่ Suggest an aetiological hypothesis",
+              "Analytical and experimental studies ไปสู่ Test the hypothesis",
+              "ปลายทาง: **Which either confirm or refute the observed association causal or not?**"
+            ]
+          },
+          {
+            "callout": "ข้อความในกล่องสุดท้ายบนสไลด์สะกดว่า \"assciation\" และ \"casual\" ซึ่งเป็นการพิมพ์ตกหล่น ความหมายที่ตั้งใจคือ observed association นั้น causal หรือไม่",
+            "kind": "flag"
+          }
+        ]
+      },
+      {
+        "heading": "Association และการวัดด้วย correlation",
+        "source": "Concept_of_causation p.5",
+        "body": [
+          {
+            "text": "Association คือ **Concurrence of two variables more often than would be expected by chance** (การเกิดร่วมกันของสองตัวแปรบ่อยกว่าที่ควรจะเป็นโดยบังเอิญ)"
+          },
+          {
+            "text": "**Correlation indicates the degree of association** สไลด์แสดง scatter plot 5 แบบเรียงตามค่า correlation"
+          },
+          {
+            "bullets": [
+              "Positive association: correlation = **1** และ **0.3**",
+              "No association: correlation = **0**",
+              "Negative association: correlation = **-0.3** และ **-1**"
+            ]
+          },
+          {
+            "callout": "สไลด์เขียนป้ายกำกับว่า \"assocaition\" ทั้งสามป้าย ตัวสะกดที่ถูกคือ association",
+            "kind": "flag"
+          }
+        ]
+      },
+      {
+        "heading": "Association ไม่เท่ากับ Causation",
+        "source": "Concept_of_causation p.6",
+        "body": [
+          {
+            "text": "When studies find an **ASSOCIATION** between two things (เครื่องหมาย ไม่เท่ากับ) It does not mean one thing **CAUSED** the one to happen."
+          },
+          {
+            "text": "สไลด์ใช้การ์ตูนประกอบเป็นบทสนทนา ทำนองว่าทุกคนที่ไปดวงจันทร์เคยกินไก่ จึงสรุปว่ากินไก่ทำให้ได้ไปดวงจันทร์ ที่มาของภาพระบุเป็นลิงก์ linkedin.com/pulse/stop-confusing-correlation-causation-david-thomson/"
+          }
+        ]
+      },
+      {
+        "heading": "Causation และนิยามของ Cause",
+        "source": "Concept_of_causation p.7",
+        "body": [
+          {
+            "text": "**Cause** is an event, condition, characteristic (or a combination) which plays an important role / regular / predictable change in occurrence of the outcome."
+          },
+          {
+            "text": "ภาพประกอบแสดงหลายปัจจัย (บุหรี่ ไฟป่า มลพิษจากโรงงานและรถยนต์ พันธุกรรมที่แทนด้วย DNA) ชี้ไปยังผลลัพธ์เดียวคือปอดที่เป็นโรค"
+          }
+        ]
+      },
+      {
+        "heading": "ชนิดของ association (Type of association)",
+        "source": "Concept_of_causation p.8",
+        "body": [
+          {
+            "bullets": [
+              "**Spurious association**",
+              "**Indirect association**",
+              "**Direct association** ซึ่งแบ่งย่อยเป็น One-to-one causal relationship และ Multifactorial causation"
+            ]
+          },
+          {
+            "callout": "สไลด์หน้านี้ให้แค่หัวข้อ ไม่ได้ให้คำนิยามของแต่ละชนิด รายละเอียดอยู่ในสไลด์ถัดไปทีละชนิด",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "Spurious association (ความสัมพันธ์ลวง)",
+        "source": "Concept_of_causation p.9",
+        "body": [
+          {
+            "text": "Some observed association between suspected factor and outcome **may not be real** สไลด์ระบุสาเหตุไว้ 2 อย่าง"
+          },
+          {
+            "bullets": [
+              "**Chance** คือ the pattern arose from random variation",
+              "**Bias** คือ a systematic error in selection or measurement"
+            ]
+          },
+          {
+            "sub": "ตัวอย่างบนสไลด์",
+            "body": [
+              {
+                "text": "คำถามคือ Is treatment at referral hospital associated with mortality of dogs?"
+              },
+              {
+                "bullets": [
+                  "โรงพยาบาล (referral hospital): Mortality **50 from 1,000 cases (5%)**",
+                  "คลินิกขนาดเล็ก: Mortality **1 from 50 cases (2%)**"
+                ]
+              },
+              {
+                "text": "สไลด์แสดงเฉพาะตัวเลขและคำถาม **ไม่ได้เขียนคำเฉลยหรือคำอธิบายว่าตัวเลขที่ต่างกันนี้เกิดจาก chance หรือ bias ตัวใด** จึงไม่ควรเติมข้อสรุปเอง"
+              }
+            ]
+          },
+          {
+            "callout": "สไลด์พิมพ์คำว่า \"tereatment\" ในกล่องคำถาม ตัวสะกดที่ถูกคือ treatment",
+            "kind": "flag"
+          }
+        ]
+      },
+      {
+        "heading": "Indirect association",
+        "source": "Concept_of_causation p.10",
+        "body": [
+          {
+            "text": "A statistical association between a suspected factor and an outcome **is not causal**; it occurs because a third factor (**a confounding factor**) is involved."
+          },
+          {
+            "text": "แผนภาพบนสไลด์: Confounding factor มีลูกศรทึบชี้ลงไปทั้งที่ Suspected factor และที่ Outcome ส่วนเส้นระหว่าง Suspected factor กับ Outcome เป็น **เส้นประ** (แสดงว่าไม่ใช่ความสัมพันธ์เชิงสาเหตุจริง)"
+          }
+        ]
+      },
+      {
+        "heading": "Confounding factor และตัวอย่างแมวเลี้ยงในบ้านกับ CKD",
+        "source": "Concept_of_causation p.11",
+        "body": [
+          {
+            "bullets": [
+              "Hidden third variables that **affect both the suspected factor and outcome** in a study",
+              "They **create false links or hide real connections** between the main association you want to measure"
+            ]
+          },
+          {
+            "sub": "ตัวอย่างบนสไลด์",
+            "body": [
+              {
+                "bullets": [
+                  "**Age** คือ Confounding factor",
+                  "**Indoor cat** คือ Suspected factor",
+                  "**Chronic kidney disease (CKD)** คือ Outcome"
+                ]
+              },
+              {
+                "text": "เส้นเชื่อมบนสไลด์เขียนกำกับว่า Old cat tends to stay indoor (อายุไปยังการเลี้ยงในบ้าน) และ Old cat develops CKD (อายุไปยัง CKD) ทำให้ Indoor cat will appear to be linked with CKD ทั้งที่เส้นนั้นเป็นเส้นประ"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Direct association แบบ One-to-one causal association",
+        "source": "Concept_of_causation p.12",
+        "body": [
+          {
+            "text": "**One-to-one causal association** คือ The factors A and B exhibit one-to-one relationship"
+          },
+          {
+            "text": "แผนภาพเป็นวงกลม A (cause) ลูกศรทึบชี้ไปยังวงกลม B (effect) เพียงเส้นเดียว"
+          },
+          {
+            "callout": "สไลด์พิมพ์ว่า \"reationship\" ตัวสะกดที่ถูกคือ relationship",
+            "kind": "flag"
+          }
+        ]
+      },
+      {
+        "heading": "Koch's postulates (Germ theory disease) และข้อจำกัด",
+        "source": "Concept_of_causation p.13",
+        "body": [
+          {
+            "bullets": [
+              "**Rule 1**: Found in all sick animals, not healthy ones.",
+              "**Rule 2**: Isolated and grown in the lab.",
+              "**Rule 3**: Causes the same disease in a healthy animal.",
+              "**Rule 4**: Recovered from the newly infected animal."
+            ]
+          },
+          {
+            "callout": "But this model does not fit well with many diseases. Many disease may require multiple contributing factors",
+            "kind": "warn"
+          },
+          {
+            "sub": "ตัวอย่างโรคที่ต้องอาศัยหลายปัจจัย",
+            "body": [
+              {
+                "text": "สไลด์ยกกรณี **Swine respiratory disease complex (PRDC)** โดยมีลูกศรจากหลายปัจจัยเข้าหากล่องเดียวกัน"
+              },
+              {
+                "bullets": [
+                  "PRRSV",
+                  "Swine influenza",
+                  "Mycoplasma",
+                  "High density",
+                  "Poor ventilation"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Direct association แบบ Multifactorial causation",
+        "source": "Concept_of_causation p.14",
+        "body": [
+          {
+            "bullets": [
+              "In modern disease studies, **more than one factor is implicated in the web of causation**",
+              "As our knowledge of disease increases, we may discover **common biochemical events**, which can be altered by each of these factors"
+            ]
+          },
+          {
+            "text": "ภาพประกอบแสดงหลายปัจจัยรอบหัวใจ ได้แก่ อาหารหวานและอาหารแปรรูป พันธุกรรม การสูบบุหรี่ ภาวะอ้วน และความเครียด"
+          }
+        ]
+      },
+      {
+        "heading": "Web of causation ของโรคในสัตว์",
+        "source": "Concept_of_causation p.15",
+        "body": [
+          {
+            "text": "แผนภาพระบุหลักการว่า An animal disease results from the complex interaction of multiple factors. **No single cause acts alone.** โดยมี DISEASE OCCURS อยู่ตรงกลางและมีลูกศรโยงไปมาระหว่างทุกกล่อง"
+          },
+          {
+            "sub": "กล่องปัจจัยทั้ง 7 กลุ่มบนแผนภาพ",
+            "body": [
+              {
+                "bullets": [
+                  "**INFECTIOUS AGENT**: Virulence, Infectious dose, Survival in environment, Antigenic variation",
+                  "**HOST (ANIMAL)**: Age, Breed / genetics, Immune status, Physiological state, Nutrition status",
+                  "**MANAGEMENT PRACTICES**: Housing / stocking density, Biosecurity, Animal movement, Hygiene / sanitation, Stress / handling",
+                  "**ENVIRONMENT**: Temperature, Humidity, Season, Ventilation, Water quality",
+                  "**AGENT-HOST INTERACTION**: Entry route, Site of infection, Pathogenicity, Immune evasion",
+                  "**POPULATION / HERD LEVEL**: Herd size, Age structure, Animal replacement, Mixing with other herds",
+                  "**HUMAN FACTORS**: Knowledge / awareness, Compliance, Decision making, Economic constraints",
+                  "**OTHER STRESSORS**: Poor nutrition, Other diseases / co-infections, Parasites, Transport / weaning / heat stress"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Guideline to assess causality: The Bradford Hill criteria",
+        "source": "Concept_of_causation p.16",
+        "body": [
+          {
+            "text": "Criteria by **Bradford Hill (1965)** to assess causality สไลด์แสดงเป็นวงล้อ 9 วง ล้อมรอบคำว่า Bradford Hill Criteria"
+          },
+          {
+            "bullets": [
+              "Strength",
+              "Consistency",
+              "Specificity",
+              "Temporality",
+              "Dose-response relationship",
+              "Plausibility",
+              "Coherence",
+              "Experiment",
+              "Analogy"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "เกณฑ์ที่ 1 Strength",
+        "source": "Concept_of_causation p.17",
+        "body": [
+          {
+            "bullets": [
+              "A small association does not mean that there is no causal effect, though **the larger the association, the more likely it is causal**",
+              "The strength of association (**effect size**) can be calculated by **Relative Risk** และ **Odds ratio**"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Relative risk (RR)",
+        "source": "Concept_of_causation p.18",
+        "body": [
+          {
+            "sub": "ตาราง 2x2 บนสไลด์",
+            "body": [
+              {
+                "bullets": [
+                  "Exposed: Disease = **A**, Healthy = **B**",
+                  "Non-exposed: Disease = **C**, Healthy = **D**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "สูตร",
+            "body": [
+              {
+                "bullets": [
+                  "Relative Risk = incidence among exposed หารด้วย incidence among non-exposed",
+                  "Relative Risk = **[A/(A+B)] / [C/(C+D)]**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "การแปลผล",
+            "body": [
+              {
+                "bullets": [
+                  "**RR > 1** ; positive association",
+                  "**RR = 1** ; no association",
+                  "**RR < 1** ; negative association"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Odds ratio (OR)",
+        "source": "Concept_of_causation p.19",
+        "body": [
+          {
+            "text": "ใช้ตาราง 2x2 ชุดเดียวกับ Relative risk (Exposed = A, B และ Non-exposed = C, D)"
+          },
+          {
+            "sub": "สูตร",
+            "body": [
+              {
+                "bullets": [
+                  "Odds ratio = Odds of disease in exposed หารด้วย Odds of disease in non-exposed",
+                  "Odds ratio = **(A/B) / (C/D)**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "การแปลผล",
+            "body": [
+              {
+                "bullets": [
+                  "**OR > 1** ; positive association",
+                  "**OR = 1** ; no association",
+                  "**OR < 1** ; negative association"
+                ]
+              }
+            ]
+          },
+          {
+            "callout": "จุดต่างที่ควรจำจากสไลด์คือตัวส่วนของสูตร RR ใช้ทั้งแถว (A+B และ C+D) ส่วน OR ใช้เฉพาะกลุ่ม Healthy (B และ D)",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "เกณฑ์ที่ 2 Dose-response relationship",
+        "source": "Concept_of_causation p.20",
+        "body": [
+          {
+            "bullets": [
+              "As the **dose of exposure increases**, the risk of disease also increases",
+              "In some cases, a **threshold** may exist. Disease may not develop until exposure reaches a certain threshold"
+            ]
+          },
+          {
+            "text": "แผนภาพแสดง A (cause) มีลูกศรชี้ขึ้น และ B (effect) มีลูกศรชี้ขึ้นเช่นกัน สื่อว่าเมื่อ cause เพิ่ม effect ก็เพิ่มตาม"
+          }
+        ]
+      },
+      {
+        "heading": "เกณฑ์ที่ 3 Temporality",
+        "source": "Concept_of_causation p.21",
+        "body": [
+          {
+            "bullets": [
+              "The presumed cause **must absolutely occur before the observed effect** (exposure before disease)",
+              "Length of interval between exposure and disease **may vary a lot**"
+            ]
+          },
+          {
+            "sub": "ช่วงเวลาระหว่าง exposure กับ disease ที่สไลด์ยกมา",
+            "body": [
+              {
+                "bullets": [
+                  "Foot-and-Mouth Disease (FMD): **2 to 10 days**",
+                  "Brucellosis: **21 to 180 days**",
+                  "Rabies: **9 days to 450 days**",
+                  "Bovine Spongiform Encephalopathy (BSE): **2 to 8 years**"
+                ]
+              }
+            ]
+          },
+          {
+            "text": "ภาพประกอบเปรียบเทียบ Healthy cow brain under microscope กับ Cow brain with bovine spongiform encephalopathy ที่มา texasfarmbureau.org/bse-case-alabama-announced/"
+          }
+        ]
+      },
+      {
+        "heading": "เกณฑ์ที่ 4 Specificity",
+        "source": "Concept_of_causation p.22",
+        "body": [
+          {
+            "bullets": [
+              "The more specific an association between a factor and an effect is, **the bigger the probability of a causal relationship**",
+              "**Not mandatory. Lack of specificity does not negate causation**"
+            ]
+          },
+          {
+            "sub": "ตัวอย่างบนสไลด์",
+            "body": [
+              {
+                "bullets": [
+                  "Not everyone who smokes develops lung cancer",
+                  "Not everyone who develops lung cancer smokes"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "เกณฑ์ที่ 5 Consistency",
+        "source": "Concept_of_causation p.23",
+        "body": [
+          {
+            "text": "**Consistent findings observed by different persons in different places with different samples strengthen the likelihood of an effect**"
+          },
+          {
+            "sub": "ตัวอย่างงานวิจัยที่สไลด์อ้าง",
+            "body": [
+              {
+                "text": "Studies from the Netherlands (**Gonzales et al. 2021**), Italy (**Galleti et al., 2018**), and France (**Guinat et al., 2025**) show that **outdoor flocks have a higher risk of HPAI introduction than indoor flocks**"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "เกณฑ์ที่ 6 Biological plausibility และเกณฑ์ที่ 7 Coherence",
+        "source": "Concept_of_causation p.24",
+        "body": [
+          {
+            "sub": "6. Biological plausibility",
+            "body": [
+              {
+                "text": "The association must be **consistent with the current knowledge of disease** (e.g. mechanism of action, evidence from experiments etc.)"
+              }
+            ]
+          },
+          {
+            "sub": "7. Coherence",
+            "body": [
+              {
+                "bullets": [
+                  "**Coherence between epidemiological and laboratory findings increases the likelihood of causation**",
+                  "Sometimes the lacks of plausibility and coherence are **limited by current knowledge**"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "เมื่อความรู้ปัจจุบันจำกัด plausibility: กรณี BSE และ prion",
+        "source": "Concept_of_causation p.25",
+        "body": [
+          {
+            "text": "Sometimes the **lack of plausibility is limited by current knowledge**"
+          },
+          {
+            "text": "**Bovine Spongiform Encephalopathy (BSE)**: In the early 1980s, it seemed biologically implausible that an infectious disease could occur without bacteria, viruses, fungi, or parasites. Scientists later discovered **prions** คือ infectious misfolded proteins which completely changed our understanding of disease mechanisms"
+          },
+          {
+            "text": "ภาพประกอบเป็นโครงสร้างโปรตีนและภาพเปรียบเทียบสมองวัวปกติกับสมองวัวที่เป็น BSE ที่มา texasfarmbureau.org/bse-case-alabama-announced/"
+          }
+        ]
+      },
+      {
+        "heading": "เกณฑ์ที่ 8 Experiment และเกณฑ์ที่ 9 Analogy",
+        "source": "Concept_of_causation p.26",
+        "body": [
+          {
+            "sub": "8. Experiment",
+            "body": [
+              {
+                "text": "**Occasionally, it is possible to appeal to experimental evidence**"
+              }
+            ]
+          },
+          {
+            "sub": "9. Analogy",
+            "body": [
+              {
+                "text": "**Similar cause-and-effect relationships have already been established in other, similar situations or exposures**"
+              }
+            ]
+          },
+          {
+            "callout": "สไลด์ทั้งสองเกณฑ์นี้ให้เพียงคำนิยามสั้น ไม่มีตัวอย่างประกอบ",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "Causal inference คืออะไร",
+        "source": "Concept_of_causation p.27",
+        "body": [
+          {
+            "bullets": [
+              "**The process of drawing a valid conclusion about a cause-and-effect relationship**",
+              "Deriving causal inference from association should be done through **the decision tree approach**"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Decision tree ของ causal inference",
+        "source": "Concept_of_causation p.28",
+        "body": [
+          {
+            "text": "สไลด์เรียงคำถามเป็นขั้นบันได โดยต้องตอบ **No** ในทุกขั้นจึงจะเดินต่อไปได้ ขั้นสุดท้ายตอบ **Yes**"
+          },
+          {
+            "bullets": [
+              "เริ่มที่ **Observed association**",
+              "**Could it be due to chance?** ตอบ No แล้วไปต่อ",
+              "**Could it be due to bias?** ตอบ No แล้วไปต่อ",
+              "**Could it be due to confounding?** ตอบ No แล้วไปต่อ",
+              "**Could it be due to a causal relation?** ตอบ **Yes** แล้วไปยังขั้นสุดท้าย",
+              "**Apply the guideline and make a judgment**"
+            ]
+          },
+          {
+            "callout": "ลำดับ chance ไปสู่ bias ไปสู่ confounding ตรงกับสาเหตุของ spurious association (chance, bias) และ indirect association (confounding) ที่เรียนไปในช่วงต้นของสไลด์",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "สรุป (Conclusion)",
+        "source": "Concept_of_causation p.29",
+        "body": [
+          {
+            "bullets": [
+              "**Association does not imply causation**",
+              "The causal inferences resulting from epidemiological studies are **important for designing prevention and control of diseases**"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "epidem-disease-transmission": {
+    "topic": "epidem-disease-transmission",
+    "title": "Concept of disease transmission (แนวคิดการแพร่ของโรค)",
+    "lecturer": "Thanicha Chanchaidechachai",
+    "icon": "🔗",
+    "summary": "เลคเชอร์ปูพื้นว่าโรคติดเชื้อเคลื่อนจากสัตว์ตัวหนึ่งไปอีกตัวหนึ่งได้อย่างไร เริ่มจาก epidemiological triad (agent, host, environment) ไป natural history of disease (ระยะฟักตัว ระยะแฝง ระยะแพร่เชื้อ) แล้วเจาะ chain of infection ทั้ง 6 ข้อต่อ (infectious agent, reservoir, portal of exit, mode of transmission, portal of entry, susceptible host) พร้อมปัจจัยของ host และของเชื้อ (infectivity, pathogenicity, virulence, infective dose, ID50, viability, host range, transmissibility, R0) ต่อด้วยชนิดของ carrier และรูปแบบการแพร่โรคแบบ direct และ indirect ปิดท้ายด้วยการเชื่อมโยงไปสู่การป้องกันและควบคุม (primary/secondary/tertiary prevention, การตัดข้อต่อของ chain of infection, ตารางจับคู่ mode of transmission กับมาตรการควบคุม และ internal/external biosecurity)",
+    "sections": [
+      {
+        "heading": "เปิดเรื่อง: ทำไมต้องรู้ว่าโรคแพร่อย่างไร",
+        "source": "concept_of_disease_transmission p.2-3",
+        "body": [
+          {
+            "text": "สไลด์เปิดด้วยรูปเคสสุนัขที่ถ่าย/อาเจียนเป็นเลือด (ที่มาภาพระบุเป็นเคส canine parvovirus) แล้วตั้งคำถามที่สัตวแพทย์ต้องตอบหน้างาน 3 ข้อ"
+          },
+          {
+            "bullets": [
+              "Where did this come from?",
+              "Which other animals are already infected but not yet showing signs?",
+              "What do I tell the owner to do today?"
+            ]
+          },
+          {
+            "callout": "You cannot answer any of them without knowing how the disease spreads คือถ้าไม่รู้กลไกการแพร่ ก็ตอบทั้ง 3 ข้อไม่ได้เลย",
+            "kind": "flag"
+          },
+          {
+            "text": "นิยามบนสไลด์: Disease transmission คือ **the movement of an infectious agent from one host to another** (การเคลื่อนที่ของเชื้อก่อโรคจากโฮสต์หนึ่งไปอีกโฮสต์หนึ่ง)"
+          },
+          {
+            "sub": "ทำไมเรื่องนี้สำคัญ (3 เหตุผลบนสไลด์)",
+            "body": [
+              {
+                "bullets": [
+                  "**Outbreak control** คุมการระบาดไม่ได้ถ้ายังไม่รู้ว่ามันแพร่อย่างไร",
+                  "**Biosecurity and herd health decisions** ทุก farm protocol สร้างขึ้นบนพื้นฐานของ transmission routes",
+                  "**Public health and zoonoses** เชื้อจากสัตว์หลายตัวติดคนได้ด้วย"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "หัวข้อทั้งหมดของเลคเชอร์ (Contents)",
+        "source": "concept_of_disease_transmission p.4",
+        "body": [
+          {
+            "bullets": [
+              "Epidemiological triad",
+              "Natural history of disease",
+              "The chain of infection",
+              "Modes of transmission",
+              "From transmission to prevention and control"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Epidemiological triad (สามเหลี่ยมการเกิดโรค)",
+        "source": "concept_of_disease_transmission p.6",
+        "body": [
+          {
+            "text": "สไลด์วางสามเหลี่ยม **Agent - Host - Environment** โดยมี Disease อยู่ตรงกลาง แต่ละมุมมีตัวอย่างปัจจัยกำกับไว้"
+          },
+          {
+            "sub": "Agent",
+            "body": [
+              {
+                "bullets": [
+                  "**Biological**: bacteria, virus, parasite",
+                  "**Chemical**: Poison, alcohol, smoke",
+                  "**Physical**: trauma, nutrition lack/excess"
+                ]
+              },
+              {
+                "text": "จุดที่ควรจำคือ agent ในความหมายนี้ไม่ได้แปลว่าเชื้อโรคอย่างเดียว สารเคมีและปัจจัยทางกายภาพก็นับเป็น agent ด้วย"
+              }
+            ]
+          },
+          {
+            "sub": "Host",
+            "body": [
+              {
+                "bullets": [
+                  "specie, age, sex, breed, genetic profile, immune status"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Environment",
+            "body": [
+              {
+                "bullets": [
+                  "temperature, humidity, altitude, housing, water, air pollution, habitat, crowding"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ตัวอย่าง Epidemiological triad 3 โรค (FMD, Rabies, Avian influenza)",
+        "source": "concept_of_disease_transmission p.7-9",
+        "body": [
+          {
+            "sub": "Foot and mouth disease (p.7)",
+            "body": [
+              {
+                "bullets": [
+                  "Agent: **Foot and mouth disease virus (Aphthovirus)**",
+                  "Host: Cattle, goat, sheep, pig",
+                  "Environment: High livestock density, high humidity, poor biosecurity"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Rabies (p.8)",
+            "body": [
+              {
+                "bullets": [
+                  "Agent: **Rabies virus (Lyssavirus)**",
+                  "Host: Dogs, cats, other mammals",
+                  "Environment: Urban areas attracting stray animals, low vaccination coverage"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Avian influenza (p.9)",
+            "body": [
+              {
+                "bullets": [
+                  "Agent: **Influenza A virus**",
+                  "Host: Avian",
+                  "Environment: Water areas, bird migration, live bird markets"
+                ]
+              }
+            ]
+          },
+          {
+            "callout": "ทั้ง 3 ตัวอย่างใช้โครงเดียวกันหมด คือแยกให้ออกว่าอะไรเป็น agent อะไรเป็น host และอะไรคือเงื่อนไขสิ่งแวดล้อมที่ทำให้โรคเกิดขึ้นได้",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "Natural history of disease: 4 ระยะของโรคในสัตว์ 1 ตัว",
+        "source": "concept_of_disease_transmission p.11",
+        "body": [
+          {
+            "text": "นิยามบนสไลด์: **How the disease progresses in the individual animal over time without treatment** คือการดำเนินโรคในสัตว์รายตัวตามเวลาโดยไม่ได้รับการรักษา"
+          },
+          {
+            "sub": "แถบเวลา 4 ระยะ (เรียงซ้ายไปขวา)",
+            "body": [
+              {
+                "bullets": [
+                  "**Stage of susceptibility**",
+                  "**Stage of subclinical disease**",
+                  "**Stage of clinical disease**",
+                  "**Stage of recovery, disability or death**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "จุดเวลาที่ชี้ลงบนแถบ (ลูกศรสีเหลือง)",
+            "body": [
+              {
+                "bullets": [
+                  "**Exposure** ชี้ที่รอยต่อระหว่าง susceptibility กับ subclinical disease",
+                  "**Pathological change** ชี้อยู่ในช่วง subclinical disease",
+                  "**Onset of symptom** ชี้ที่รอยต่อเข้าสู่ clinical disease",
+                  "**Usual time of diagnosis** ชี้อยู่ในช่วง clinical disease"
+                ]
+              },
+              {
+                "text": "ประเด็นที่ภาพนี้สื่อคือ พยาธิสภาพเกิดก่อนที่จะเห็นอาการ และการวินิจฉัยตามปกติเกิดหลังอาการปรากฏไปแล้ว"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Timeline: latency, incubation, infectiousness",
+        "source": "concept_of_disease_transmission p.12",
+        "body": [
+          {
+            "text": "สไลด์นี้เป็นเส้นเวลาที่เริ่มจาก **Exposure** แล้วแยกช่วงเวลาไว้เหนือเส้นและใต้เส้น"
+          },
+          {
+            "sub": "เหนือเส้นเวลา",
+            "body": [
+              {
+                "bullets": [
+                  "จาก exposure สัตว์ **becomes asymptomatic** แล้วเข้าช่วง **Latency**",
+                  "เมื่อ **becomes infectious** จบช่วง latency แล้วเข้าช่วง **Infectiousness**",
+                  "ถัดจากนั้นคือ **Period leading to health outcome** จนกระทั่ง **recovers or dies**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "ใต้เส้นเวลา",
+            "body": [
+              {
+                "bullets": [
+                  "ช่วง **Incubation** นับจาก exposure จนกระทั่งสัตว์ **becomes symptomatic**"
+                ]
+              }
+            ]
+          },
+          {
+            "callout": "ในภาพนี้จุด becomes infectious อยู่ก่อนจุด becomes symptomatic แปลว่าสัตว์แพร่เชื้อได้ก่อนที่จะแสดงอาการ",
+            "kind": "warn"
+          }
+        ]
+      },
+      {
+        "heading": "ขั้นตอนของโรคและช่วงเวลา 3 ช่วงที่ต้องวัด",
+        "source": "concept_of_disease_transmission p.13",
+        "body": [
+          {
+            "sub": "ขั้นตอน (stages)",
+            "body": [
+              {
+                "bullets": [
+                  "**Exposure** the animal contacts the agent",
+                  "**Infection** the agent establishes and multiplies",
+                  "**Clinical signs** the animal starts to look sick",
+                  "**Outcome** recovery, carrier state, chronic disease or death"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Three time periods are measured across these stages",
+            "body": [
+              {
+                "bullets": [
+                  "Incubation period",
+                  "Latent period",
+                  "Infectious period"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "นิยาม Incubation period, Latent period, Infectious period",
+        "source": "concept_of_disease_transmission p.14",
+        "body": [
+          {
+            "bullets": [
+              "**Incubation period (ระยะฟักตัว)**: From exposure to the first clinical signs",
+              "**Latent period (ระยะแฝงหรือระยะซ่อนเร้น)**: From exposure to the point the animal becomes infectious to others",
+              "**Infectious period (ระยะแพร่เชื้อ)**: The window during which the animal can transmit the agent"
+            ]
+          },
+          {
+            "callout": "สองบรรทัดปิดท้ายของสไลด์: An animal is often infectious BEFORE it looks sick และ Some animals stay infectious AFTER clinical recovery",
+            "kind": "warn"
+          }
+        ]
+      },
+      {
+        "heading": "Incubation period ของแต่ละโรคต่างกันมาก (ตาราง)",
+        "source": "concept_of_disease_transmission p.15",
+        "body": [
+          {
+            "text": "หัวเรื่องบนสไลด์คือ Incubation periods vary widely ตารางมี 3 คอลัมน์ Disease, Species, Typical incubation period"
+          },
+          {
+            "bullets": [
+              "Foot-and-mouth disease, Cattle, pigs, sheep, **2-14 days**",
+              "Avian influenza, Chickens, **3-5 days**",
+              "Canine parvovirus, Dogs, **3-7 days**",
+              "Rabies, Dogs, cattle, humans, **Weeks to months**",
+              "Johne's disease, Cattle, **Months to years**"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ใช้ incubation period ในการสอบสวนโรค (outbreak investigation)",
+        "source": "concept_of_disease_transmission p.16",
+        "body": [
+          {
+            "text": "สไลด์แสดง epidemic curve (แกน y = Number of cases, แกน x = วันที่ 1/1/2020 ถึง 1/15/2020) พร้อมเส้นประสีแดง 3 เส้นและลูกศรกำกับ"
+          },
+          {
+            "bullets": [
+              "จุด **Exposure** ทำเครื่องหมายไว้ที่ราวช่วง 1/2/2020",
+              "**Minimum incubation** = ระยะจาก exposure ถึงเคสแรกที่ปรากฏ (เส้นประที่ราว 1/6/2020)",
+              "**Maximum incubation** = ระยะจาก exposure ถึงเคสสุดท้ายที่ปรากฏ (เส้นประที่ราว 1/12/2020)",
+              "ยอดกราฟ (จำนวนเคสสูงสุด) อยู่ที่แท่งวันที่ 1/9/2020"
+            ]
+          },
+          {
+            "callout": "สไลด์ไม่ได้ติดตัวเลขกำกับบนแท่งกราฟ จึงอ่านจำนวนเคสรายวันเป็นตัวเลขที่แน่นอนจากภาพไม่ได้ อ่านได้แค่วันที่บนแกน x และรูปทรงของกราฟ",
+            "kind": "flag"
+          },
+          {
+            "text": "ไอเดียของสไลด์คือ ถ้ารู้ incubation period ของโรคอยู่แล้ว จะย้อนจากวันเริ่มป่วยของเคสไปหาช่วงเวลาที่น่าจะเกิด exposure ได้"
+          }
+        ]
+      },
+      {
+        "heading": "Chain of infection: ข้อต่อทั้ง 6 ของวงจรการติดเชื้อ",
+        "source": "concept_of_disease_transmission p.18",
+        "body": [
+          {
+            "text": "สไลด์เป็นวงโซ่ 6 ข้อต่อ พร้อมกล่องตัวอย่างกำกับแต่ละข้อต่อ"
+          },
+          {
+            "bullets": [
+              "**INFECTIOUS AGENT**: Bacteria, Virus, Fungus, Parasite",
+              "**RESERVOIR**: People, Animals, Soil, Food, Water, Equipments",
+              "**PORTAL OF EXIT**: Blood, Secretion, Excretion, Skin",
+              "**MODE OF TRANSMISSION**: Direct contact, Indirect contact",
+              "**PORTAL OF ENTRY**: Respiratory system, Digestive system, Mucous membrane, Broken skin",
+              "**SUSCEPTIBLE HOST**: Age, Breed, Immune status, Physiological state"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Susceptible host: ปัจจัยด้านตัวสัตว์ (age, breed, sex, genetics)",
+        "source": "concept_of_disease_transmission p.19",
+        "body": [
+          {
+            "text": "หัวข้อบนสไลด์คือ Factors related to susceptibility of hosts"
+          },
+          {
+            "bullets": [
+              "**Age**: young animals (immature immune system) and old animals (**immunosenescence**) are more susceptible",
+              "**Breed**: some breeds have documented susceptibility differences (e.g. **Holstein vs Bos indicus for FMD, tick resistance**)",
+              "**Sex**: relevant for reproductive tract disease and for exposure differences",
+              "**Genetics**: inherited resistance or susceptibility; also selection for traits correlated with disease risk"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Susceptible host: ภูมิคุ้มกัน (passive, active, immunosuppression)",
+        "source": "concept_of_disease_transmission p.20",
+        "body": [
+          {
+            "sub": "Passive immunity",
+            "body": [
+              {
+                "bullets": [
+                  "**Maternal antibody level (colostrum quantity, quality, timing)**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Active immunity",
+            "body": [
+              {
+                "text": "นิยามบนสไลด์: **immunity that is triggered by a pathogen to produce antibodies to that pathogen**"
+              },
+              {
+                "bullets": [
+                  "Previous natural exposure",
+                  "Vaccination (**correct product, timing, boosters, cold chain**)"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "ปัจจัยที่กดภูมิ",
+            "body": [
+              {
+                "bullets": [
+                  "Immunosuppression from concurrent infection (e.g. **FIV in cat, BVD in cow**) or stress"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Herd immunity (ภูมิคุ้มกันหมู่)",
+        "source": "concept_of_disease_transmission p.21",
+        "body": [
+          {
+            "text": "นิยามบนสไลด์: Herd immunity **occurs when a sufficient percentage of a population has become immune to an infection, whether through previous infections or vaccination** (ที่มา Wikipedia)"
+          },
+          {
+            "sub": "ภาพประกอบ 3 สถานการณ์",
+            "body": [
+              {
+                "bullets": [
+                  "**No one is immunized** ผลคือ Contagious disease spreads through the population",
+                  "**Some of the population gets immunized** ผลคือ Contagious disease spreads through some of the population",
+                  "**Most of the population gets immunized** ผลคือ Spread of contagious disease is contained"
+                ]
+              },
+              {
+                "text": "สไลด์ไม่ได้ระบุตัวเลขเปอร์เซ็นต์ว่า sufficient percentage คือเท่าไหร่ บอกแค่ว่าต้องมากพอ"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Susceptible host: ปัจจัยด้านการผลิต (production factors)",
+        "source": "concept_of_disease_transmission p.22",
+        "body": [
+          {
+            "bullets": [
+              "**Stage of production**: transition period (**3 weeks before and after calving**) is the highest-risk window in dairy cattle",
+              "**Pregnancy status**",
+              "**Body condition score**"
+            ]
+          },
+          {
+            "callout": "สไลด์ไม่ได้อธิบายว่า pregnancy status และ body condition score ส่งผลต่อความไวรับโรคด้วยกลไกอะไร ระบุไว้เป็นหัวข้อเปล่าเท่านั้น",
+            "kind": "flag"
+          }
+        ]
+      },
+      {
+        "heading": "Infectious agent: infectivity, pathogenicity, virulence",
+        "source": "concept_of_disease_transmission p.23",
+        "body": [
+          {
+            "text": "หัวข้อบนสไลด์คือ Factors related to infectious agents"
+          },
+          {
+            "bullets": [
+              "**Infectivity (ความสามารถในการติดเชื้อ)**: The ability of an infectious agent to cause infection",
+              "**Pathogenicity (ความสามารถในการก่อโรค)**: The ability of an agent to cause disease after infection",
+              "**Virulence (ความรุนแรงของเชื้อโรค)**: Degree of severity of disease caused by the agent"
+            ]
+          },
+          {
+            "callout": "ลำดับของ 3 คำนี้คือ ติดเชื้อได้ไหม (infectivity) ติดแล้วก่อโรคไหม (pathogenicity) ก่อโรคแล้วรุนแรงแค่ไหน (virulence)",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "Infectious agent: infective dose, threshold level, ID50",
+        "source": "concept_of_disease_transmission p.24",
+        "body": [
+          {
+            "bullets": [
+              "**Infective dose (ขนาดการติดเชื้อ)**: the amount of a pathogen needed to cause an infection in a host",
+              "**Threshold level**: The exact number of organisms required to beat the body's immune system and start an active infection",
+              "**ID50 (Median Infectious Dose)**: The specific dose that will infect **50%** of an exposed group or population"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Infectious agent: viability และ host range",
+        "source": "concept_of_disease_transmission p.25",
+        "body": [
+          {
+            "bullets": [
+              "**Viability (ความสามารถในการมีชีวิตรอด)**: The ability to stay alive, active, and capable of growing or spreading disease **outside of a host**",
+              "**Host range (จำนวนชนิดของโฮสท์)**: The total number of different species that a specific pathogen (such as a virus, bacterium, or parasite) can infect"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ตัวอย่าง Viability: เวลารอดของเชื้อ avian influenza ที่ 20 องศาเซลเซียส",
+        "source": "concept_of_disease_transmission p.26",
+        "body": [
+          {
+            "text": "ภาพ infographic ชื่อ Survival Time of Avian Influenza at 20°C โดยระบุกำกับว่า The following times are approximate and may consider various AI sub-types (ที่มา inspection.canada.ca)"
+          },
+          {
+            "bullets": [
+              "Skin **5 hours**",
+              "Fabrics **1 day**",
+              "Litter, Plastic, Rubber **3 days**",
+              "Cardboard **6 days**",
+              "Feces **7 days**",
+              "Feathers **15 days**",
+              "Soil **18 days**",
+              "Water **21 days**"
+            ]
+          },
+          {
+            "sub": "กล่องข้อความด้านขวาของภาพ",
+            "body": [
+              {
+                "bullets": [
+                  "Waterfowl excrete the virus up to **11 days** after infection through respiratory droplets and feces, thus contaminating their environment",
+                  "Waterfowl defecate approximately **30 times per day**"
+                ]
+              }
+            ]
+          },
+          {
+            "callout": "ตัวเลขชุดนี้บอกว่าน้ำและดินเก็บเชื้อได้นานที่สุด ซึ่งเชื่อมกับข้อ Environment ของ avian influenza ในสไลด์ triad ที่ระบุ water areas ไว้",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "ตัวอย่าง Host range: influenza viruses แยกตามชนิดสัตว์",
+        "source": "concept_of_disease_transmission p.27",
+        "body": [
+          {
+            "text": "ภาพเป็นวงกลมซ้อนทับกัน 4 วง แสดงว่า influenza แต่ละ type ติดสัตว์ชนิดใดได้บ้าง (ที่มา doi.org/10.3390/vetsci5030071)"
+          },
+          {
+            "bullets": [
+              "**Influenza A viruses** (วงใหญ่ที่สุด): Duck, Turkey, Leopard, Tiger, Chicken, Emu, Quail, Raccoon, Ferret, Bat, Water fowl, Ostrich, Whale, Dog, Cat, Horse, Seal",
+              "**Influenza D viruses**: Horse, Cattle, Camel, Sheep, Goat",
+              "**Influenza B viruses** และ **Influenza C viruses**: วงที่เล็กกว่า",
+              "ตรงกลางที่ทุกวงมาซ้อนทับกันคือ **Man** และ **Pig**"
+            ]
+          },
+          {
+            "callout": "ประเด็นของภาพคือ Influenza A มี host range กว้างที่สุด ส่วน Man และ Pig อยู่ในตำแหน่งที่ overlap ของหลาย type",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "Infectious agent: Transmissibility",
+        "source": "concept_of_disease_transmission p.28",
+        "body": [
+          {
+            "text": "**Transmissibility (ความสามารถในการแพร่โรค)**: The capacity of a pathogen to spread from one host to another"
+          },
+          {
+            "sub": "Influenced by",
+            "body": [
+              {
+                "bullets": [
+                  "Amount of agent shed by the infected host",
+                  "Survival of the agent in the environment",
+                  "Route of exit and route of entry",
+                  "Contact rate between infected and susceptible animals"
+                ]
+              }
+            ]
+          },
+          {
+            "callout": "ข้อความปิดท้ายสไลด์ที่ต้องแยกให้ออก: Distinct from infectivity คือ **infectivity is about establishing infection in a host, transmissibility is about moving between hosts**",
+            "kind": "warn"
+          }
+        ]
+      },
+      {
+        "heading": "Basic reproduction number (R0)",
+        "source": "concept_of_disease_transmission p.29",
+        "body": [
+          {
+            "text": "นิยามบนสไลด์: **The average number of new infections caused by one infected animal introduced into a fully susceptible population**"
+          },
+          {
+            "bullets": [
+              "**R0 greater than 1**: infection spreads and an outbreak grows",
+              "**R0 equal to 1**: infection persists at a stable level",
+              "**R0 less than 1**: infection dies out"
+            ]
+          },
+          {
+            "text": "ภาพประกอบด้านขวาแสดงกรณี **R0 = 4** โดยที่เวลา t มีสัตว์ป่วย 1 ตัว แล้วที่ t+1 กลายเป็น 4 ตัว และที่ t+2 แต่ละตัวก็แพร่ต่ออีก (ที่มา sciencedirect.com)"
+          }
+        ]
+      },
+      {
+        "heading": "Reservoir (แหล่งรังโรค)",
+        "source": "concept_of_disease_transmission p.30-31",
+        "body": [
+          {
+            "text": "นิยามบนสไลด์: **Reservoir (แหล่งรังโรค) คือ The natural habitat where a pathogen normally lives, grows, and multiplies**"
+          },
+          {
+            "bullets": [
+              "**Animal reservoirs**: bats, wildlife, rodents",
+              "**Environmental reservoirs**: soil, water, bedding"
+            ]
+          },
+          {
+            "sub": "ตัวอย่าง: ค้างคาว (p.31)",
+            "body": [
+              {
+                "text": "ข้อความบนสไลด์: Bats are **reservoir hosts** for multiple diseases, such as rabies, Nipah virus, Ebola virus, SARs-CoV, MERS-CoV, and Hendra virus"
+              },
+              {
+                "text": "ภาพประกอบวาดเส้นทาง spillover จาก Reservoir (Wildlife) ผ่านสัตว์ตัวกลางไปสู่คน โดยกำกับว่า Spillover 1 คือจากค้างคาวไปยังสัตว์ชนิดอื่น และ Spillover 2 คือจากสัตว์นั้นไปสู่คน สัตว์ตัวกลางที่ปรากฏในภาพ ได้แก่ วัว (Rabies), หมู (SADS-CoV, Nipah virus), ลิง (Ebolavirus), ตัวสัตว์กินเนื้อขนาดเล็ก (SARS-CoV), อูฐ (MERS-CoV), ม้า (Hendra) และตัวนิ่ม (SARS-CoV-2) (ที่มา mednexus.org)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ชนิดของ carrier ชุดที่ 1: incubatory, convalescent, latent",
+        "source": "concept_of_disease_transmission p.32",
+        "body": [
+          {
+            "bullets": [
+              "**Incubatory carrier (พาหะฟักเชื้อ)**: an infected animal that can transmit a pathogen to others **during the incubation period, before any clinical signs or symptoms of the disease appear**",
+              "**Convalescent carrier (พาหะฟื้นตัว)**: an animal that **has recovered from an illness but still spreads germs**",
+              "**Latent carrier (พาหะแฝงเชื้อ)**: an animal that **does not shed the pathogen until it experiences stress or pregnancy**, which can reactivate the infection"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ตัวอย่าง Incubation carrier: FMD ในโค",
+        "source": "concept_of_disease_transmission p.33",
+        "body": [
+          {
+            "bullets": [
+              "**Days 2-3 after infection**, the cow begins shedding FMD virus in **saliva, breath, and milk** but looks completely healthy",
+              "The clinical signs typically shows around **Day 2-14**"
+            ]
+          },
+          {
+            "sub": "แผนภาพประกอบด้านบน (2 แถวเทียบกัน)",
+            "body": [
+              {
+                "bullets": [
+                  "แถวบน (สถานะทางคลินิก): Susceptible ไป Incubating ไป Clinical ไป Clinically recovered โดยมีลูกศร Effective exposure ชี้เข้าจุดเริ่ม Incubating",
+                  "แถวล่าง (สถานะการแพร่เชื้อ): Susceptible ไป Latent ไป Infectious ไป Non-infectious recovered",
+                  "มีดาวสีแดงทำเครื่องหมายไว้ตรงจุดที่สัตว์เข้าสู่ช่วง Infectious แล้วแต่ยังอยู่ในช่วง Incubating ทางคลินิก"
+                ]
+              },
+              {
+                "text": "ที่มา cfsph.iastate.edu"
+              }
+            ]
+          },
+          {
+            "callout": "นี่คือภาพที่อธิบายว่าทำไม latent period จบก่อน incubation period ได้ วัวยังดูปกติแต่ปล่อยเชื้อออกมาแล้ว",
+            "kind": "warn"
+          }
+        ]
+      },
+      {
+        "heading": "ชนิดของ carrier ชุดที่ 2: asymptomatic (healthy) และ chronic",
+        "source": "concept_of_disease_transmission p.34",
+        "body": [
+          {
+            "bullets": [
+              "**Asymptomatic or Healthy carrier (พาหะปกติ)**: an infected animal that **shows no signs or symptoms of the disease but can still pass the infection to others**",
+              "**Chronic carrier (พาหะเรื้อรัง)**: an infected animal that **harbors a specific infectious agent for a long duration, and remains capable of transmitting the pathogen to others**"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ตัวอย่าง Chronic carrier: ลูกโค persistently infected จาก BVD",
+        "source": "concept_of_disease_transmission p.35",
+        "body": [
+          {
+            "text": "ข้อความบนสไลด์: When an early pregnant (**fetus less than 4 months**) uninfected cow gets infected with BVD, the resulting calf is often born a **chronic carrier** for BVD"
+          },
+          {
+            "sub": "ลำดับเหตุการณ์ในภาพประกอบ A ถึง F",
+            "body": [
+              {
+                "bullets": [
+                  "(A) Cow and fetus infected with **noncytopathic** bovine viral diarrhea virus in early pregnancy",
+                  "(B) Cow becomes immune. Fetus becomes **tolerant and unable to make antibody**",
+                  "(C) Calf remains infected with virus **for life**",
+                  "(D) Mutation of virus to **cytopathic** form may occur",
+                  "(E)(F) **Superinfection** of this and other viremic animals with cytopathic virus causes **fatal mucosal disease**"
+                ]
+              },
+              {
+                "text": "ที่มา doi.org/10.1016/B978-012263951-7/50017-X"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Chain of infection: Portal of Exit และ Portal of Entry",
+        "source": "concept_of_disease_transmission p.36",
+        "body": [
+          {
+            "bullets": [
+              "**Portal of exit (ทางออกของเชื้อ)**: Respiratory secretions, milk, faeces, urine, saliva, semen, skin lesions, blood",
+              "**Portal of Entry (ทางเข้าของเชื้อ)**: Mucous membranes, respiratory tract, gastrointestinal tract, urinary tract, teat canal, skin wounds, placenta"
+            ]
+          },
+          {
+            "text": "ภาพประกอบชื่อ HOW ORGANISMS ENTER AND LEAVE THE PIG ชี้ตำแหน่งบนตัวหมู ได้แก่ Skin, Eyes, Nose, Saliva Aerosol, Mouth, Ruptured vestibs, Prepuce Semen Urine และ Faeces (ที่มา thepigsite.com)"
+          }
+        ]
+      },
+      {
+        "heading": "Mode of transmission: ภาพรวม direct และ indirect",
+        "source": "concept_of_disease_transmission p.37",
+        "body": [
+          {
+            "sub": "Direct transmission",
+            "body": [
+              {
+                "text": "นิยาม: **agent passes straight from an infected to a susceptible host**"
+              },
+              {
+                "bullets": [
+                  "Direct contact",
+                  "Droplet spread",
+                  "Venereal transmission",
+                  "Vertical transmission"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Indirect transmission",
+            "body": [
+              {
+                "text": "นิยาม: **agent passes via an intermediate**"
+              },
+              {
+                "bullets": [
+                  "Vehicle-borne (fomites, feed, water)",
+                  "Vector-borne (mechanical or biological)",
+                  "Airborne (air currents, dust particles)"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Direct transmission: direct contact และ droplet spread",
+        "source": "concept_of_disease_transmission p.39",
+        "body": [
+          {
+            "bullets": [
+              "**Direct contact**: licking, biting, nose-to-nose contact, mounting. Example: **dermatophytosis (ringworm), rabies**",
+              "**Droplet spread**: large droplets travelling short distances, **usually under one metre**. Example: **swine influenza in crowded pens**"
+            ]
+          },
+          {
+            "sub": "ภาพประกอบขนาดอนุภาคและระยะทาง (ที่มา airsteril.co.uk)",
+            "body": [
+              {
+                "bullets": [
+                  "Droplets (**<100 microns**) ระยะ **0-2 m**",
+                  "Particles (**<50 microns**) ระยะ **2-4 m**",
+                  "Droplet nuclei (**<5 microns**) ระยะ **<10 m** และถูกกำกับว่าเป็น Aerosol"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Direct transmission: venereal และ vertical",
+        "source": "concept_of_disease_transmission p.40",
+        "body": [
+          {
+            "bullets": [
+              "**Venereal transmission**: during mating, and **can be passed through artificial insemination if the donor semen is infected**. Example: **brucellosis, Equine Herpesvirus type 3, Canine Transmissible Venereal Tumor**",
+              "**Vertical transmission**: Mother to offspring, ผ่านทาง **Transplacental, at birth, or through colostrum and milk**. Example: **BVD persistently infected calves, PRRS**"
+            ]
+          },
+          {
+            "text": "มีรูปประกอบรอยโรคที่อวัยวะสืบพันธุ์ 2 ภาพกำกับ A และ B (ที่มา doi.org/10.3390/ani15121675) สไลด์ไม่ได้ระบุว่ารอยโรคในภาพเป็นของโรคใด"
+          }
+        ]
+      },
+      {
+        "heading": "Indirect transmission: Vehicle transmission",
+        "source": "concept_of_disease_transmission p.41",
+        "body": [
+          {
+            "sub": "Fomites",
+            "body": [
+              {
+                "text": "นิยาม: **inanimate objects that carry the agent**"
+              },
+              {
+                "bullets": [
+                  "ตัวอย่างวัตถุ: Milking equipment, needles, boots, clothing, buckets, vehicles, halters",
+                  "Example: **contagious mastitis spread by the milking cluster and shared cloths**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Feed-borne",
+            "body": [
+              {
+                "bullets": [
+                  "Contaminated concentrate or feed. Example: **salmonellosis, botulism**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Water-borne",
+            "body": [
+              {
+                "bullets": [
+                  "Shared troughs and ponds. Example: **leptospirosis, cryptosporidiosis**"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Indirect transmission: Vector-borne (mechanical vs biological vector)",
+        "source": "concept_of_disease_transmission p.42",
+        "body": [
+          {
+            "text": "สไลด์เปรียบเทียบเป็นตาราง 4 แถว"
+          },
+          {
+            "sub": "Agent development",
+            "body": [
+              {
+                "bullets": [
+                  "Mechanical vector: **No multiplication or development in the vector**",
+                  "Biological vector: **Agent multiplies or develops inside the vector**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Vector role",
+            "body": [
+              {
+                "bullets": [
+                  "Mechanical vector: **Simple physical carrier**",
+                  "Biological vector: **Essential part of the agent's life cycle**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Delay before spread",
+            "body": [
+              {
+                "bullets": [
+                  "Mechanical vector: **Immediate**",
+                  "Biological vector: **Extrinsic incubation period required**"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Examples",
+            "body": [
+              {
+                "bullets": [
+                  "Mechanical vector: **Stable flies carrying anaplasmosis; needles carrying bovine leukosis**",
+                  "Biological vector: **Culicoides and bluetongue virus; ticks and Babesia; mosquitoes and Rift Valley fever**"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Indirect transmission: Airborne",
+        "source": "concept_of_disease_transmission p.43",
+        "body": [
+          {
+            "bullets": [
+              "**Small droplet nuclei or dust particles that stay suspended and travel long distances**",
+              "Favoured by **high humidity, low temperature, low wind speed, high animal density**",
+              "**Different from droplet spread, which is short-range and falls quickly**"
+            ]
+          },
+          {
+            "callout": "ข้อสอบชอบถามการแยก droplet spread (จัดเป็น direct transmission ระยะสั้นกว่า 1 เมตร) ออกจาก airborne (จัดเป็น indirect transmission ลอยได้ไกล)",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "ตัวอย่าง Airborne: การพัดพาละอองเชื้อ FMD ระยะไกล",
+        "source": "concept_of_disease_transmission p.44",
+        "body": [
+          {
+            "text": "ข้อความบนสไลด์: The factors required for airborne transport of foot-and-mouth disease virus aerosols over long distances (**up to 50 km over land and 200km over water**)"
+          },
+          {
+            "sub": "ปัจจัย 4 ข้อในภาพประกอบ (ที่มา doi.org/10.3390/v14051009)",
+            "body": [
+              {
+                "bullets": [
+                  "(i) **High virus emission**: most likely from **pigs in the acute stages of disease**",
+                  "(ii) **Low dispersal rate**: gentle winds and a stable atmosphere",
+                  "(iii) **High virus survival**: **relative humidity > 55%**",
+                  "(iv) **Large numbers of susceptible livestock**: often **cattle due to their low infectivity threshold**"
+                ]
+              }
+            ]
+          },
+          {
+            "callout": "ตัวเลขที่ควรจำจากสไลด์นี้คือ 50 km ทางบก, 200 km ทางน้ำ และ relative humidity มากกว่า 55%",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "Type of prevention: primary, secondary, tertiary",
+        "source": "concept_of_disease_transmission p.46",
+        "body": [
+          {
+            "text": "สไลด์นำแถบ natural history of disease เดิม (จาก p.11) มาวางแล้วชี้ว่าการป้องกันแต่ละระดับเข้าไปแทรกที่ระยะใด"
+          },
+          {
+            "bullets": [
+              "**Primary prevention** เข้าที่ **Stage of susceptibility**: remove risk factors, avoid disease occurring",
+              "**Secondary prevention** เข้าที่ **Stage of subclinical disease**: early detection, prevent progression",
+              "**Tertiary prevention** เข้าที่ **Stage of clinical disease**: prevent complications and disability"
+            ]
+          },
+          {
+            "text": "จุดเวลาบนแถบยังเป็นชุดเดิม คือ Exposure, Pathological change, Onset of symptom และ Usual time of diagnosis ส่วนระยะสุดท้ายคือ Stage of recovery, disability or death ซึ่งสไลด์ไม่ได้ระบุการป้องกันระดับใดกำกับไว้"
+          }
+        ]
+      },
+      {
+        "heading": "Breaking the chain of infection: ตัดข้อต่อไหนก็หยุดการแพร่ได้",
+        "source": "concept_of_disease_transmission p.47",
+        "body": [
+          {
+            "callout": "ประโยคหลักของสไลด์: **Break any one link and transmission stops!**",
+            "kind": "tip"
+          },
+          {
+            "text": "สไลด์ยิงสายฟ้าเข้าที่ข้อต่อทั้ง 6 พร้อมมาตรการกำกับ"
+          },
+          {
+            "bullets": [
+              "**Infectious Agent**: Diagnosis and treatment, antimicrobial stewardship",
+              "**Reservoir**: Environmental คือ cleaning, disinfection, sanitization และ Biological คือ pest control, culling carriers",
+              "**Portal of Exit**: Isolate sick animal, waste management",
+              "**Mode of Transmission**: Biosecurity measures",
+              "**Portal of Entry**: Distancing, ventilation, wound care, teat dipping",
+              "**Susceptible Host**: Vaccination, genetic selection, feed management"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "จับคู่ Mode of transmission กับ Control measure (ตาราง)",
+        "source": "concept_of_disease_transmission p.48",
+        "body": [
+          {
+            "bullets": [
+              "**Direct contact**: Quarantine of new arrivals, isolation of cases, separate age groups",
+              "**Droplet**: Reduce stocking density and group size, limit mixing",
+              "**Venereal**: Artificial insemination, testing of breeding bulls",
+              "**Vertical**: Test and remove infected dams, screen replacements, colostrum management",
+              "**Fomite / vehicle**: Cleaning and disinfection, dedicated equipment, milking order, needle hygiene",
+              "**Vector-borne**: Acaricides and insecticides, housing during vector activity, drainage, netting",
+              "**Airborne**: Ventilation, lower stocking density, distance between units"
+            ]
+          },
+          {
+            "callout": "ตารางนี้คือหัวใจของเลคเชอร์ทั้งบท คือรู้ mode of transmission แล้วเลือกมาตรการที่ตรงกับ mode นั้น",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "Biosecurity in practice: internal และ external",
+        "source": "concept_of_disease_transmission p.49",
+        "body": [
+          {
+            "sub": "Internal biosecurity",
+            "body": [
+              {
+                "text": "นิยาม: **limiting spread within the farm** (จำกัดการแพร่ภายในฟาร์ม)"
+              },
+              {
+                "bullets": [
+                  "Separate age groups and health status groups",
+                  "Isolating sick animals",
+                  "Proper sanitation and hygiene",
+                  "Monitoring animal movement",
+                  "Vaccination program"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "External biosecurity",
+            "body": [
+              {
+                "text": "นิยาม: **keeping agents from entering a farm or facility** (กันเชื้อไม่ให้เข้าฟาร์ม)"
+              },
+              {
+                "bullets": [
+                  "Quarantine and test purchased animals before mixing",
+                  "Control visitors, vehicles, and shared equipment",
+                  "Fencing and control of wildlife access"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Exercise ท้ายคาบ",
+        "source": "concept_of_disease_transmission p.51-52",
+        "body": [
+          {
+            "bullets": [
+              "Work in groups of **2-3 persons**",
+              "Select one animal disease",
+              "**Draw the chain of infection and factors associated with each link**",
+              "**Plan the control and prevention to break these links**"
+            ]
+          }
+        ]
+      }
+    ]
   }
 };
-
-export default NOTES_Y5_EPIDEMIOLOGY;
