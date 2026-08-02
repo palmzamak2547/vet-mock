@@ -185,10 +185,33 @@ export async function sendPasswordReset(email) {
   if (error) throw error;
 }
 
-export async function updatePassword(newPassword) {
+// ─── Reauthentication for sensitive changes ─────────────────────
+// Changing the password or the recovery email used to need nothing but a live
+// session. Leave the app open on a shared library machine, or lend a phone for
+// two minutes, and whoever is at the keyboard can take the account and its
+// whole exam history permanently.
+//
+// The check is an emailed OTP rather than a "current password" field, because a
+// large share of these accounts signed in with Google and have no password to
+// type. The repo already ships supabase/email-templates/05-reauthentication.html
+// for exactly this and nothing was calling it.
+export async function requestReauthOtp() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
-  const { error } = await supabase.auth.updateUser({ password: newPassword });
+  const { error } = await supabase.auth.reauthenticate();
+  if (error) throw error;
+}
+
+// `nonce` is the code from that email. Supabase only demands it when the
+// project has security_update_password_require_reauthentication on, but it is
+// accepted either way — so the client can send it before the flag is flipped,
+// and flipping the flag cannot strand anyone mid-release.
+export async function updatePassword(newPassword, nonce) {
+  const supabase = await getSupabase();
+  if (!supabase) throw new Error('Supabase not configured');
+  const payload = { password: newPassword };
+  if (nonce) payload.nonce = nonce;
+  const { error } = await supabase.auth.updateUser(payload);
   if (error) throw error;
 }
 

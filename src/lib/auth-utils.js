@@ -63,7 +63,7 @@ export function validateUsername(value) {
 export function passwordStrength(password) {
   const p = String(password || '');
   if (p.length === 0) return { score: 0, label: '', color: 'var(--clr-border)', percent: 0 };
-  if (p.length < 6) return { score: 0, label: 'สั้นเกินไป', color: 'var(--clr-rose)', percent: 15 };
+  if (p.length < 8) return { score: 0, label: 'สั้นเกินไป', color: 'var(--clr-rose)', percent: 15 };
 
   let score = 0;
   if (p.length >= 8) score++;

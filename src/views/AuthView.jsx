@@ -292,7 +292,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
         if (!email.trim()) throw new Error('กรุณาใส่อีเมล');
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) throw new Error('รูปแบบอีเมลไม่ถูกต้อง');
         if (!username.trim()) throw new Error('กรุณาใส่ชื่อ username');
-        if (password.length < 6) throw new Error('รหัสผ่านต้องยาว 6 ตัวขึ้นไป');
+        if (password.length < 8) throw new Error('รหัสผ่านต้องยาว 8 ตัวขึ้นไป');
         const result = await signUpWithEmail(email, password, username.trim());
         // If Supabase returned a session → email confirmation is OFF, user is in.
         // Run the anon→cloud migration FIRST (before any pullUserData fires
@@ -332,7 +332,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
         await sendPasswordReset(email.trim());
         setInfo(`✓ ส่งลิงก์รีเซ็ตรหัสผ่านไปที่ ${email} แล้ว — เช็คอีเมล (รวม junk folder)`);
       } else if (mode === 'update-password') {
-        if (newPassword.length < 6) throw new Error('รหัสผ่านใหม่ต้องยาว 6 ตัวขึ้นไป');
+        if (newPassword.length < 8) throw new Error('รหัสผ่านใหม่ต้องยาว 8 ตัวขึ้นไป');
         if (newPassword !== newPasswordConfirm) throw new Error('รหัสผ่านยืนยันไม่ตรงกัน');
         await updatePassword(newPassword);
         setInfo('✓ เปลี่ยนรหัสผ่านสำเร็จ');
@@ -652,7 +652,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder={mode === 'signup' ? 'อย่างน้อย 6 ตัว' : ''}
+                  placeholder={mode === 'signup' ? 'อย่างน้อย 8 ตัว' : ''}
                   autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
                   style={{ paddingRight: 44, width: '100%', boxSizing: 'border-box' }}
                 />
@@ -690,7 +690,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                   type={showPassword ? 'text' : 'password'}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="อย่างน้อย 6 ตัว"
+                  placeholder="อย่างน้อย 8 ตัว"
                   autoComplete="new-password"
                 />
                 {newPassword && <PasswordStrengthBar password={newPassword} />}

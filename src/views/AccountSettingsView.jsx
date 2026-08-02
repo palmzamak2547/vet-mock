@@ -16,6 +16,7 @@
 import { useState } from 'react';
 import {
   updatePassword,
+  requestReauthOtp,
   updateEmail,
   signOut,
   signOutAllDevices,
@@ -41,6 +42,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
   // Form state
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
+  // Emailed reauth code, and whether we have asked for one yet.
+  const [reauthCode, setReauthCode] = useState('');
+  const [reauthSent, setReauthSent] = useState(false);
   const [newEmail, setNewEmail] = useState('');
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
@@ -145,16 +149,36 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
     } finally { setLoading(false); }
   };
 
-  const handleChangePassword = async (e) => {
+  // Step 1: prove the person at the keyboard owns the inbox, before letting
+  // them set a new password. Without this a borrowed session is a permanent
+  // account takeover — see requestReauthOtp in lib/supabase.js.
+  const handleRequestReauth = async (e) => {
     e?.preventDefault();
     reset();
-    if (newPassword.length < 6) { setError('รหัสผ่านใหม่ต้องยาว 6 ตัวขึ้นไป'); return; }
+    if (newPassword.length < 8) { setError('รหัสผ่านใหม่ต้องยาว 8 ตัวขึ้นไป'); return; }
     if (newPassword !== newPasswordConfirm) { setError('รหัสผ่านยืนยันไม่ตรงกัน'); return; }
     setLoading(true);
     try {
-      await updatePassword(newPassword);
+      await requestReauthOtp();
+      setReauthSent(true);
+      setInfo('ส่งรหัสยืนยันไปที่อีเมลของคุณแล้ว กรอกรหัสเพื่อยืนยันการเปลี่ยนรหัสผ่าน');
+    } catch (err) {
+      setError(thaiAuthError(err));
+    } finally { setLoading(false); }
+  };
+
+  // Step 2: the code from that email travels with the change as `nonce`.
+  const handleChangePassword = async (e) => {
+    e?.preventDefault();
+    reset();
+    if (newPassword.length < 8) { setError('รหัสผ่านใหม่ต้องยาว 8 ตัวขึ้นไป'); return; }
+    if (newPassword !== newPasswordConfirm) { setError('รหัสผ่านยืนยันไม่ตรงกัน'); return; }
+    if (!reauthCode.trim()) { setError('กรอกรหัสยืนยันที่ส่งไปทางอีเมล'); return; }
+    setLoading(true);
+    try {
+      await updatePassword(newPassword, reauthCode.trim());
       setInfo('✓ เปลี่ยนรหัสผ่านสำเร็จ');
-      setNewPassword(''); setNewPasswordConfirm('');
+      setNewPassword(''); setNewPasswordConfirm(''); setReauthCode(''); setReauthSent(false);
       setTimeout(() => { setSection(null); setInfo(''); }, 1500);
     } catch (err) {
       setError(thaiAuthError(err));
@@ -388,21 +412,38 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
               เปลี่ยนรหัสผ่าน →
             </button>
           ) : (
-            <form onSubmit={handleChangePassword}>
+            /* Two steps on purpose. A live session alone used to be enough to
+               set a new password, so a borrowed phone or a shared library
+               machine handed over the account for good. The second step proves
+               whoever is typing can also read the account's email. */
+            <form onSubmit={reauthSent ? handleChangePassword : handleRequestReauth}>
               <div className="vmx-form-group">
                 <label>รหัสผ่านใหม่</label>
-                <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="อย่างน้อย 6 ตัว" autoComplete="new-password" />
+                <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="อย่างน้อย 8 ตัว" autoComplete="new-password" disabled={reauthSent} />
                 {newPassword && <PasswordStrengthBar password={newPassword} />}
               </div>
               <div className="vmx-form-group">
                 <label>ยืนยันรหัสผ่านใหม่</label>
-                <input type="password" value={newPasswordConfirm} onChange={(e) => setNewPasswordConfirm(e.target.value)} autoComplete="new-password" />
+                <input type="password" value={newPasswordConfirm} onChange={(e) => setNewPasswordConfirm(e.target.value)} autoComplete="new-password" disabled={reauthSent} />
               </div>
+              {reauthSent && (
+                <div className="vmx-form-group">
+                  <label>รหัสยืนยันจากอีเมล</label>
+                  <input
+                    type="text" inputMode="numeric" autoComplete="one-time-code"
+                    value={reauthCode} onChange={(e) => setReauthCode(e.target.value)}
+                    placeholder="กรอกรหัสที่ส่งไปทางอีเมล" autoFocus
+                  />
+                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
+                    ส่งไปที่ {email} หากไม่พบ ลองดูในกล่องสแปม
+                  </div>
+                </div>
+              )}
               <div style={{ display: 'flex', gap: 8 }}>
                 <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={loading}>
-                  {loading ? '…' : 'บันทึก'}
+                  {loading ? '…' : reauthSent ? 'ยืนยันและเปลี่ยนรหัสผ่าน' : 'ส่งรหัสยืนยัน'}
                 </button>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); reset(); }}>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); setReauthSent(false); setReauthCode(''); reset(); }}>
                   ยกเลิก
                 </button>
               </div>
