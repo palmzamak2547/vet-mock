@@ -95,10 +95,29 @@ window.addEventListener('load', () => {
 let waitingWorker = null
 let reloadAfterActivation = false
 
-const announceWaitingWorker = (worker) => {
+// Ask a worker which build it is, so the UI can tell a genuinely new update
+// apart from the one the user already said no to. Resolves to null rather than
+// hanging if the worker does not answer.
+const workerVersion = (worker) => new Promise((resolve) => {
+  if (!worker) return resolve(null)
+  let done = false
+  const finish = (v) => { if (!done) { done = true; resolve(v) } }
+  try {
+    const ch = new MessageChannel()
+    ch.port1.onmessage = (e) => finish(e.data?.version || null)
+    setTimeout(() => finish(null), 1500)
+    worker.postMessage('GET_VERSION', [ch.port2])
+  } catch { finish(null) }
+})
+
+const announceWaitingWorker = async (worker) => {
   if (!worker || !navigator.serviceWorker.controller) return
   waitingWorker = worker
-  const detail = { state: 'ready', reason: 'service-worker' }
+  // A waiting worker stays waiting until the user acts, and this runs on every
+  // page load — so without a version to key on, the same pending update
+  // re-announced itself every single load and the banner looked broken.
+  const version = await workerVersion(worker)
+  const detail = { state: 'ready', reason: 'service-worker', version }
   window.__VMX_UPDATE_STATUS__ = detail
   document.documentElement.dataset.vmxUpdateStatus = 'ready'
   window.dispatchEvent(new CustomEvent('vmx-sw-update', { detail }))

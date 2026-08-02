@@ -13,7 +13,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 import { confirmDialog } from '../lib/dialog.js';
 
-export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard }) {
+export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, onAccount }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const USER_MENU_W = 200;
@@ -65,19 +65,51 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard })
           minWidth: USER_MENU_W, maxWidth: 'calc(100vw - 24px)',
           padding: 6, zIndex: 20,
         }}>
-          <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4 }}>
-            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-              Signed in as
+          {/* The header block doubles as the way into the profile — it is
+              already the thing showing your name and avatar, so it is where
+              people reach for to change them. */}
+          {onAccount ? (
+            <button
+              type="button" role="menuitem"
+              onClick={() => { setOpen(false); onAccount(); }}
+              style={{
+                all: 'unset', boxSizing: 'border-box', cursor: 'pointer', display: 'block', width: '100%',
+                padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4, borderRadius: 8,
+              }}
+            >
+              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                Signed in as
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 600, marginTop: 2 }}>
+                <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {profile.avatar_emoji || '🐾'} {profile.username}
+                </span>
+                <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)', fontSize: 12 }}>›</span>
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 3 }}>ดูและแก้ไขโปรไฟล์</div>
+            </button>
+          ) : (
+            <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4 }}>
+              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                Signed in as
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
+                {profile.avatar_emoji || '🐾'} {profile.username}
+              </div>
             </div>
-            <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
-              {profile.avatar_emoji || '🐾'} {profile.username}
-            </div>
-          </div>
+          )}
           {onGroups && (
             <MenuItem icon="👥" onClick={() => { setOpen(false); onGroups(); }}>Study Groups</MenuItem>
           )}
           {onLeaderboard && (
             <MenuItem icon="🏆" onClick={() => { setOpen(false); onLeaderboard(); }}>Leaderboard</MenuItem>
+          )}
+          {/* Until now the only route to this screen was the ⌘K palette — a
+              shortcut most students never learn and cannot press on a phone.
+              Everything about an account lives behind it: profile, password,
+              passkeys, sign-out-everywhere, export, delete. */}
+          {onAccount && (
+            <MenuItem icon="⚙" onClick={() => { setOpen(false); onAccount(); }}>ตั้งค่าบัญชี</MenuItem>
           )}
           <div style={{ height: 1, background: 'var(--clr-border)', margin: '4px 0' }} />
           <MenuItem icon="⎋" danger onClick={async () => {

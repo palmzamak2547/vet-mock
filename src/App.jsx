@@ -467,12 +467,32 @@ export default function App() {
   // Service worker update available — true after a new SW finishes
   // installing while an old one is still controlling the page. We show
   // a small toast (NOT during exam) with a "Refresh" button.
+  // A waiting worker keeps waiting until the user acts, and main.jsx announces
+  // it on every page load — so an update someone chose to ignore came back on
+  // every single load with no way to make it stop. The dismissal is keyed to
+  // the build being offered, so saying "later" silences THAT update and a
+  // genuinely newer one still gets through.
   const [swUpdateReady, setSwUpdateReady] = useState(false);
+  const [swUpdateVersion, setSwUpdateVersion] = useState(null);
   useEffect(() => {
-    const handler = () => setSwUpdateReady(true);
+    const handler = (e) => {
+      const version = e?.detail?.version || null;
+      let dismissed = null;
+      try { dismissed = window.localStorage.getItem('vmx-update-dismissed'); } catch {}
+      if (version && dismissed === version) return;
+      setSwUpdateVersion(version);
+      setSwUpdateReady(true);
+    };
     window.addEventListener('vmx-sw-update', handler);
     return () => window.removeEventListener('vmx-sw-update', handler);
   }, []);
+
+  const dismissSwUpdate = () => {
+    try {
+      if (swUpdateVersion) window.localStorage.setItem('vmx-update-dismissed', swUpdateVersion);
+    } catch {}
+    setSwUpdateReady(false);
+  };
 
   // SR-card graded — listen defensively at App level so XP/quest credit
   // applies no matter which surface dispatches it (SRSessionView today,
@@ -1794,6 +1814,20 @@ export default function App() {
                 }}
               >
                 🔄 รีเฟรช
+              </button>
+              <button
+                type="button"
+                onClick={dismissSwUpdate}
+                aria-label="ปิดการแจ้งเตือนอัปเดตนี้"
+                title="ไว้ทีหลัง"
+                style={{
+                  all: 'unset', cursor: 'pointer', flexShrink: 0,
+                  minWidth: 32, minHeight: 32, display: 'inline-flex',
+                  alignItems: 'center', justifyContent: 'center',
+                  color: 'var(--clr-sage, #4a6b4a)', fontSize: 14,
+                }}
+              >
+                ✕
               </button>
             </div>
           )}

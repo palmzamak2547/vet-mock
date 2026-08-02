@@ -136,7 +136,7 @@ export default function HeaderBar({
         </Suspense>
 
         {user && profile && (
-          <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} />
+          <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} onAccount={() => setView('account-settings')} />
         )}
         {!user && hasSupabase && (
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('auth')}>เข้าสู่ระบบ</button>
