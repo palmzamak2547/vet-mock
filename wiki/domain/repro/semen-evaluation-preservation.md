@@ -48,7 +48,7 @@ sectionSourceRefs:
 - **Standard Evaluation Parameters (ตัวแปรประเมินคุณภาพน้ำอสุจิ):**
   - **Motility:** Progressive motility ควร > 70%
   - **Concentration:** คำนวณด้วย Hemocytometer หรือ Spectrophotometer (ปกติ 300–2,000 × 10⁶ total sperms per ejaculate)
-  - **Morphology:** Eosin-Nigrosin stain, อัตราส่วน Normal sperms ควร > 80% (จำแนก Primary defects จาก Spermatogenesis และ Secondary defects จาก Epididymal maturation / Handling)
+  - **Morphology:** Eosin-Nigrosin stain, อัตราส่วน Normal sperms ควร > 80% (จำแนก Primary defects จาก Spermatogenesis และ Secondary defects จาก Epididymal maturation / Handling) เกณฑ์ > 80% เป็นระดับ AI-grade ตามที่บรรยายไว้ ส่วนข้อมูลผลผสมจริงในสุนัขพบว่าอัตราการผสมติดลดลงชัดเจนเมื่อ Normal morphology < 60%
 
 ---
 

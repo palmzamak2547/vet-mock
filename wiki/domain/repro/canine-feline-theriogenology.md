@@ -96,11 +96,11 @@ sectionSourceRefs:
 การพิจารณาช่วงอายุที่เหมาะสมในการทำหมัน (Surgical Neutering) แบบปรับตามสายพันธุ์และขนาดร่างกาย:
 
 - **Benefits of Gonadectomy (ประโยชน์):**
-  - ลดความเสี่ยงการเกิด Mammary gland tumor (โดยเฉพาะหากทำหมันก่อนการเป็นสัดครั้งแรก ลดความเสี่ยงเหลือ 0.05%)
-  - ขจัดความเสี่ยงการเกิด Pyometra (มดลูกอักเสบเป็นหนอง) และ Ovarian/Uterine tumors 100%
+  - ลดความเสี่ยงการเกิด Mammary gland tumor โดยหลักฐานเชิงระบบยังจัดว่า weak (งานส่วนใหญ่มี risk of bias สูง) จึงไม่ควรเขียนว่าการทำหมันกำจัดความเสี่ยงนี้ได้ทั้งหมด (คำบรรยายให้จำว่าทำหมันก่อนเป็นสัดครั้งแรกได้ประโยชน์สูงสุด เหลือความเสี่ยง 0.05%)
+  - ขจัดความเสี่ยง Pyometra ของมดลูกทั้งอัน (มดลูกอักเสบเป็นหนอง) และ Ovarian/Uterine tumors ได้เกือบทั้งหมด แต่ **uterine stump ที่เหลือหลัง OVH ยังเกิด stump pyometra ได้** โดยเฉพาะเมื่อมี Ovarian remnant syndrome (คำบรรยายสอนว่าขจัดความเสี่ยงได้ 100%)
   - ขจัดความเสี่ยง Benign Prostatic Hyperplasia (BPH) และ Testicular tumors ในสุนัขตัวผู้
 - **Risks & Timing Considerations (ความเสี่ยงและการพิจารณาช่วงอายุ):**
-  - **Large / Giant Breeds:** การทำหมันเร็วเกินไป (ก่อนปิดของ Growth plates / อายุ < 12–18 เดือน) เพิ่มความเสี่ยงของ Cranial Cruciate Ligament (CCL) rupture, Hip dysplasia และมะเร็งบางชนิด (Osteosarcoma, Hemangiosarcoma)
+  - **Large / Giant Breeds:** การทำหมันเร็วเกินไป (ก่อนปิดของ Growth plates / อายุ < 12–18 เดือน) เพิ่มความเสี่ยงของ Cranial Cruciate Ligament (CCL) rupture และ Hip dysplasia โดยจุดตัดที่มีข้อมูลรองรับในสุนัขพันธุ์ผสมคือ **น้ำหนัก ≥ 20 กก. และทำหมันก่อนอายุ 1 ปี** (เสี่ยงข้อราว 3 เท่า) ส่วนกลุ่ม < 20 กก. ไม่พบความเสี่ยงเพิ่ม ขณะที่มะเร็ง (Osteosarcoma, Hemangiosarcoma) ขึ้นกับสายพันธุ์ ไม่พบเพิ่มในสุนัขพันธุ์ผสม แต่พบเพิ่ม 2–4 เท่าใน Golden Retriever เพศเมีย (คำบรรยายให้จำจุดตัด < 6 เดือนในพันธุ์ใหญ่หรือน้ำหนักมาก)
   - ความเสี่ยงของการเกิด Urinary Incontinence (USMI) ในแม่สุนัขตัวเมียพันธุ์ใหญ่ที่ทำหมันอายุน้อย
 
 `NEEDS_VERIFICATION`: ข้อมูลสกัดจาก `notes-repro-lect.js` และสไลด์บรรยาย `Infertility` & `Gonadectomy` ขนาดยาและคำแนะนำช่วงเวลาการทำหมันต้องได้รับการรับรองจาก Domain Owner

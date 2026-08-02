@@ -53,8 +53,8 @@ review:
    - Family: *Parvoviridae*, Genus: *Parvovirus*
    - ไวรัสขนาดเล็ก **Non-enveloped**, Single-stranded **DNA** virus
    - มีความทนทานในสิ่งแวดล้อมสูงมาก (ทนทานนาน 5–7 เดือน)
-   - **CPV-1** (Original strain): มักเป็นแบบ Subclinical อาจก่อโรครุนแรงในลูกสุนัขช่วงอายุ 5–21 วัน
-   - **CPV-2** (Variants 2a, 2b, 2c): Highly contagious โดยสายพันธุ์ **CPV-2c มีความรุนแรงที่สุด**
+   - **CPV-1** (เลกเชอร์เรียกว่า Original strain): แท้จริงคือ *Minute virus of canines* ซึ่งเป็นพาร์โวไวรัสคนละชนิดทางอนุกรมวิธาน ไม่ใช่บรรพบุรุษของ CPV-2 มักเป็นแบบ Subclinical อาจก่อโรครุนแรงในลูกสุนัขช่วงอายุ 5–21 วัน
+   - **CPV-2** (Variants 2a, 2b, 2c): Highly contagious โดย variant ทุกตัวก่อโรครุนแรงกว่าสายพันธุ์ CPV-2 ดั้งเดิมและมี host range กว้างขึ้นจนติดแมวได้ ส่วน **CPV-2c** เด่นที่มักสัมพันธ์กับโรครุนแรงในสุนัขโตและสุนัขที่ได้วัคซีนครบแล้ว (เลกเชอร์สอนว่า CPV-2c รุนแรงที่สุด)
 
 2. **Canine Coronavirus (CCV / CCoV):**
    - Family: *Coronaviridae*, **Enveloped**, Single-stranded **RNA** virus
@@ -172,7 +172,7 @@ review:
 -->
 
 - **Fecal CPV Antigen SNAP Test (ELISA/IC):**
-  - ตรวจหา CPV-2 antigen ในอุจจาระ มีความไวและความจำเพาะสูง
+  - ตรวจหา CPV-2 antigen ในอุจจาระ ความจำเพาะสูงมาก (ผลบวกแทบยืนยันการติดเชื้อ) แต่ความไวต่ำกว่าที่เข้าใจกัน มีรายงานราว 22% ในภาพรวมและราว 77% เมื่อตรวจทันทีหลังเก็บตัวอย่าง ผลลบจึงตัด CPV ออกจาก differential ไม่ได้ (เลกเชอร์สอนว่าไวและจำเพาะสูงทั้งคู่)
   - **False Negative Window:** อาจเกิดผลลบปลอมได้หากตรวจในช่วงแรกสุดของการติดเชื้อ (ก่อนเชื้อขับออก) หรือหลังติดเชื้อ 10–12 วัน (เนื่องจากมี neutralizing antibody มาจับกับเชื้อในลำไส้)
   - **False Positive:** อาจพบผลบวกปลอมสั้นๆ หลังการฉีดวัคซีน Modified Live Virus (MLV) ภายใน 4–10 วัน
 - **CBC / Blood Chemistry:**
@@ -211,6 +211,6 @@ review:
 1. **Fluid Therapy:** IV Isotonic Crystalloid (เช่น LRS) กู้ภาวะช็อกและขาดน้ำ ควบคู่การเสริม Potassium Chloride (KCl) และ Glucose 5% หากมีภาวะ Hypoglycemia
 2. **Broad-Spectrum Antibiotics:** ป้องกัน Bacterial translocation และ Sepsis จากภาวะ Neutropenia (เช่น Cefazolin, Ampicillin ร่วมกับ Aminoglycoside หรือ Fluoroquinolone เมื่อได้น้ำสมบูรณ์)
 3. **Antiemetics & Gastroprotectants:** Maropitant (Cerenia), Ondansetron ช่วยระงับการอาเจียน
-4. **Early Enteral Nutrition:** การให้สารอาหารผ่านทางเดินอาหารระยะแรก (Early microenteral nutrition) ช่วยฟื้นฟู Villous integrity และลดระยะเวลาครองเตียงในโรงพยาบาล
+4. **Early Enteral Nutrition:** การให้สารอาหารผ่านทางเดินอาหารระยะแรก (Early microenteral nutrition) ช่วยฟื้นฟู Villous integrity และลดระยะเวลาครองเตียงในโรงพยาบาล (การศึกษาพบว่าความซึม ความอยากอาหาร การอาเจียนและท้องเสียกลับสู่ปกติเร็วกว่ากลุ่มงดอาหารราว 1 วัน และน้ำหนักขึ้นดีกว่า ส่วนผลต่อ gut barrier เป็นหลักฐานทางอ้อม และอัตรารอดชีวิตไม่ต่างกันอย่างมีนัยสำคัญ)
 
 `NEEDS_VERIFICATION`: สรุปข้อมูลทั้งหมดสกัดจาก `notes-com5.js` และสไลด์บรรยาย `CVE.pdf` ขนาดยาและรายละเอียดการรักษาต้องได้รับการอนุมัติจากสัตวแพทย์ผู้เชี่ยวชาญก่อนเปลี่ยนสถานะเป็น Approved

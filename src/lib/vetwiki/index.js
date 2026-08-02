@@ -11,6 +11,7 @@
 // second source of truth to keep in sync and no migration.
 // ============================================================
 
+import { QUESTION_LINKS } from './question-links.generated.js';
 import { NOTES_COM5 } from '../../data/notes-com5.js';
 import { NOTES_COM4 } from '../../data/notes-com4.js';
 import { NOTES_COM3 } from '../../data/notes-com3.js';
@@ -96,6 +97,25 @@ export function listTopics() {
 
 export function hasTopic(subject, topic) {
   return REGISTRY.some((r) => r.subject === subject && r.topic === topic);
+}
+
+/** Which governed article a question should send its reader to, or null.
+ *
+ *  Normally that is the question's own topic. It is not, for anything drawn
+ *  from a past-paper compilation: those carry the compilation's name as their
+ *  topic ("vca/dogcat", "mahahon-*"), which matches no article, so the reader
+ *  gets a question wrong and is offered nothing — while the article they need
+ *  already exists. QUESTION_LINKS closes that gap with a judged mapping.
+ *
+ *  Own topic wins. A derived link is a fallback, never an override. */
+export function articleForQuestion(q) {
+  if (!q) return null;
+  if (hasTopic(q.subject, q.topic)) {
+    return { subject: q.subject, topic: q.topic, derived: false };
+  }
+  const link = QUESTION_LINKS[String(q.id)];
+  if (!link || !hasTopic(link.subject, link.topic)) return null;
+  return { ...link, derived: true };
 }
 
 /** Load a governed KnowledgeTopic (adapter + verification overlay). Returns

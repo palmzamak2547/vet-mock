@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
-import { hasTopic } from '../lib/vetwiki/index.js';
+import { articleForQuestion } from '../lib/vetwiki/index.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
@@ -449,19 +449,29 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </>
             )}
             {q.explain && <div className="vmx-review-explain"><span className="k">Why</span><RichText text={q.explain} /></div>}
-            {/* For a missed question whose topic is governed, offer the checked
-                VetWiki summary — the highest-value moment to read the verified
-                version. Correct answers don't need the nudge. */}
-            {onOpenWiki && !correct && FEATURE_FLAGS.VETWIKI_ENABLED !== false && hasTopic(q.subject, q.topic) && (
-              <button
-                type="button"
-                onClick={() => onOpenWiki(q.subject, q.topic)}
-                style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: 'var(--clr-sage-text)', fontSize: 12.5, fontWeight: 600 }}
-                title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้"
-              >
-                🧬 อ่านสรุปเรื่องนี้ใน VetWiki →
-              </button>
-            )}
+            {/* For a missed question, offer the checked VetWiki summary — the
+                highest-value moment to read the verified version. Correct
+                answers don't need the nudge.
+
+                articleForQuestion, not hasTopic: questions pulled from
+                past-paper compilations carry the compilation's name as their
+                topic, so matching on topic alone leaves them with nowhere to
+                go even when the right article exists. */}
+            {(() => {
+              if (!onOpenWiki || correct || FEATURE_FLAGS.VETWIKI_ENABLED === false) return null;
+              const article = articleForQuestion(q);
+              if (!article) return null;
+              return (
+                <button
+                  type="button"
+                  onClick={() => onOpenWiki(article.subject, article.topic)}
+                  style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: 'var(--clr-sage-text)', fontSize: 12.5, fontWeight: 600 }}
+                  title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้"
+                >
+                  🧬 อ่านสรุปเรื่องนี้ใน VetWiki →
+                </button>
+              );
+            })()}
             {q && q.id && (
               <ReviewNoteEditor qId={q.id} noteText={notes?.[q.id]} setNote={setNote} />
             )}

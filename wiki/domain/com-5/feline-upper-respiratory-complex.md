@@ -91,7 +91,7 @@ review:
 ลักษณะรอยโรคจำเพาะที่ใช้ในการแยกโรคทางคลินิก:
 
 - **Feline Herpesvirus 1 (FHV-1):**
-  - **Dendritic Corneal Ulcers:** แผลกระจกตาติดสีเรืองแสงเป็นรูปกิ่งไม้ (Pathognomonic sign)
+  - **Dendritic Corneal Ulcers:** แผลกระจกตาติดสีเรืองแสงเป็นรูปกิ่งไม้ (รอยโรคที่บ่งชี้ FHV-1 อย่างมาก แนวทาง ABCD จัดเป็น typical lesion ไม่ถึงระดับ pathognomonic ส่วนเลกเชอร์สอนว่าเป็น Pathognomonic sign)
   - กระจกตาอักเสบรุนแรง (Keratitis), Symblepharon (เนื้อเยื่อพืดผูกติดระหว่างเยื่อตาและกระจกตาในลูกแมว)
   - อาเจียน จาม มีน้ำมูกใสจนถึงเป็นมูกหนอง (Mucopurulent nasal discharge) และมีไข้สูง
 - **Feline Calicivirus (FCV):**

@@ -31,7 +31,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "virology-and-agents",
-                "contentHash": "sha256:55491fec17dac991",
+                "contentHash": "sha256:45175eded54f4e8b",
                 "label": "Canine Viral Enteritis Virology & Agents",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -90,7 +90,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "diagnosis-and-antigen-testing",
-                "contentHash": "sha256:9463e60086df0ebf",
+                "contentHash": "sha256:0659b2dbecdead30",
                 "label": "Diagnosis & Antigen Testing",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -110,7 +110,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "supportive-treatment-protocol",
-                "contentHash": "sha256:827594454f0a204e",
+                "contentHash": "sha256:ad3b2c69b85396a2",
                 "label": "Supportive Treatment Protocol",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -130,7 +130,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "virology-and-agents",
-                "contentHash": "sha256:55491fec17dac991",
+                "contentHash": "sha256:45175eded54f4e8b",
                 "label": "Canine Viral Enteritis Virology & Agents",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -169,7 +169,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -189,7 +189,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "virology-and-agents",
-                "contentHash": "sha256:55491fec17dac991",
+                "contentHash": "sha256:45175eded54f4e8b",
                 "label": "Canine Viral Enteritis Virology & Agents",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -269,7 +269,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "diagnosis-and-antigen-testing",
-                "contentHash": "sha256:9463e60086df0ebf",
+                "contentHash": "sha256:0659b2dbecdead30",
                 "label": "Diagnosis & Antigen Testing",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -289,7 +289,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "diagnosis-and-antigen-testing",
-                "contentHash": "sha256:9463e60086df0ebf",
+                "contentHash": "sha256:0659b2dbecdead30",
                 "label": "Diagnosis & Antigen Testing",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -309,7 +309,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "supportive-treatment-protocol",
-                "contentHash": "sha256:827594454f0a204e",
+                "contentHash": "sha256:ad3b2c69b85396a2",
                 "label": "Supportive Treatment Protocol",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -344,18 +344,7 @@ export const QB_COM5 = [
     options: ["Quaternary ammonium","NaOCl 1:30 หรือ peroxide","Alcohol 70%","Chlorhexidine 2%"],
     answer: 1,
     explain: "CPV เป็น non-enveloped → ทนต่อ alcohol/chlorhex/QUAT\nต้องใช้ NaOCl 1:30-32 หรือ accelerated H2O2\n\n❌ ทำไมข้ออื่นผิด\n— QUAT / Alcohol 70% / Chlorhexidine 2% = ไม่ effective ต่อ non-enveloped virus (ทน lipid solvents)",
-    verified: "CVE.pdf p.20 + COM V FINAL 86",
-    wikiRefs: [
-          {
-                "pageId": "com5-canine-viral-enteritis",
-                "anchorId": "virology-and-agents",
-                "contentHash": "sha256:55491fec17dac991",
-                "label": "Canine Viral Enteritis Virology & Agents",
-                "wikiVersion": "1.0.0",
-                "status": "approved",
-                "mappingStatus": "verified"
-          }
-    ] },
+    verified: "CVE.pdf p.20 + COM V FINAL 86", },
 
   {
     id: 544, subject: 'com5', topic: 'cve', year: 4, source: "CVE.pdf",
@@ -369,7 +358,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -389,7 +378,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -428,7 +417,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-canine-viral-enteritis",
                 "anchorId": "virology-and-agents",
-                "contentHash": "sha256:55491fec17dac991",
+                "contentHash": "sha256:45175eded54f4e8b",
                 "label": "Canine Viral Enteritis Virology & Agents",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -443,18 +432,7 @@ export const QB_COM5 = [
     options: ["Recombinant IL-2 + GM-CSF infusion ทางหลอดเลือด","IV immunoglobulin จากมนุษย์ขนาดสูง","Recombinant feline interferon omega + oseltamivir","High-dose steroid pulse therapy ต่อเนื่อง"],
     answer: 2,
     explain: "rFeIFN-ω 2.5 MU/kg IV × 3 d, Oseltamivir 2 mg/kg PO q12 × 5 d\nongoing: nitazoxanide, mAb, FMT\n\n❌ ทำไมข้ออื่นผิด\n— IL-2 = no role\n— IVIG human = ไม่ใช่ standard\n— Steroid pulse = immunosuppress → แย่ลง",
-    verified: "CVE.pdf p.18 + COM V FINAL 86 p.5",
-    wikiRefs: [
-          {
-                "pageId": "com5-canine-viral-enteritis",
-                "anchorId": "supportive-treatment-protocol",
-                "contentHash": "sha256:827594454f0a204e",
-                "label": "Supportive Treatment Protocol",
-                "wikiVersion": "1.0.0",
-                "status": "approved",
-                "mappingStatus": "verified"
-          }
-    ] },
+    verified: "CVE.pdf p.18 + COM V FINAL 86 p.5", },
 
   {
     id: 508, subject: 'com5', topic: 'sporo-crypto', year: 4, source: "Com_5_final_TJ.pdf",
@@ -1573,7 +1551,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1612,7 +1590,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1627,18 +1605,7 @@ export const QB_COM5 = [
     options: ["C. felis, B. bronchiseptica, FIV","FHV, FCV (core ทั้งคู่ — ไม่ใช่ non-core)","FeLV, Rabies (always core)","FPV เดี่ยว"],
     answer: 0,
     explain: "Non-core แมว (WSAVA 2024): C. felis, B. bronchiseptica, FIV\nFIP/Giardia/Microsporum = Not Recommended\n\n❌ ทำไมข้ออื่นผิด\n— FHV/FCV = core ทั้งคู่ ไม่ใช่ non-core\n— FeLV/Rabies = core (with conditions)\n— FPV เดี่ยว = core ไม่ใช่ non-core",
-    verified: "Vaccination_guideline.pdf p.20",
-    wikiRefs: [
-          {
-                "pageId": "com5-rabies-and-vaccine-guidelines",
-                "anchorId": "wsava-vpat-cat-vaccination",
-                "contentHash": "sha256:86e62f34301c25fe",
-                "label": "WSAVA / VPAT 2024 Feline Vaccination Guidelines",
-                "wikiVersion": "1.0.0",
-                "status": "approved",
-                "mappingStatus": "verified"
-          }
-    ] },
+    verified: "Vaccination_guideline.pdf p.20", },
 
   {
     id: 530, subject: 'com5', topic: 'vaccine', year: 4, source: "Com_5_final_TJ.pdf",
@@ -1652,7 +1619,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1663,16 +1630,16 @@ export const QB_COM5 = [
   {
     id: 531, subject: 'com5', topic: 'vaccine', year: 4, source: "Com_5_final_TJ.pdf",
     tags: ["vaccine","core","thailand"], type: 'mcq',
-    q: "Core vaccine สำหรับสุนัขในไทย (VPAT 2024)",
+    q: "วัคซีนที่สุนัขทุกตัวในไทยควรได้รับตาม VPAT 2024 (core รวม conditional core ของพื้นที่ระบาด)",
     options: ["CPV, CDV, Rabies","CPV, CDV, Bordetella, Rabies","CPV, CDV, CAV, Rabies","CPV, CDV, CAV, Leptospirosis, Rabies","CPV, CDV, CAV, CCV, Rabies"],
     answer: 3,
-    explain: "VPAT 2024: CDV/CPV/CAV (core) + Rabies* (endemic = ไทยเป็น) + Lepto** (endemic country with known serogroups & available vaccine)\n\n❌ ทำไมข้ออื่นผิด\n— \"CPV+CDV+Rabies\" = ขาด CAV\n— \"+ Bordetella\" = Bordetella ไม่ใช่ core\n— \"+ CCV\" = CCV ไม่ใช่ core\n— ขาด Lepto = ผิดของไทย\n\n💡 conditional",
+    explain: "VPAT 2024: CDV/CPV/CAV (core) + Rabies* (endemic = ไทยเป็น) + Lepto** (endemic country with known serogroups & available vaccine)\n\n❌ ทำไมข้ออื่นผิด\n— \"CPV+CDV+Rabies\" = ขาด CAV\n— \"+ Bordetella\" = Bordetella ไม่ใช่ core\n— \"+ CCV\" = CCV ไม่ใช่ core\n— ขาด Lepto = ผิดของไทย\n\n⚠️ core ตามนิยามเคร่งครัดของ WSAVA คือ CDV, CPV, CAV เท่านั้น ส่วน Rabies เป็น core เฉพาะพื้นที่ระบาด และ Lepto จัดเป็น conditional core ไม่ใช่ core แท้ ข้อนี้ถามรายการที่สุนัขในไทยควรได้รับจริง จึงรวม Lepto ด้วย\n\n💡 conditional",
     verified: "Vaccination_guideline.pdf p.26",
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1683,17 +1650,17 @@ export const QB_COM5 = [
   {
     id: 532, subject: 'com5', topic: 'vaccine', year: 4, source: "Com_5_final_TJ.pdf",
     tags: ["vaccine","core","thailand","cat"], type: 'mcq',
-    q: "Core vaccine สำหรับแมวในไทย (VPAT 2024) ครอบคลุมกลุ่มใดบ้าง",
+    q: "วัคซีนที่แมวในไทยควรได้รับตาม VPAT 2024 (core รวม conditional core ตามพื้นที่และความเสี่ยง) ครอบคลุมกลุ่มใดบ้าง",
     options: ["FPV, FIV, FIP, Rabies","FPV, FCV, FHV, Bordetella","FPV, FHV, FCV + Rabies + FeLV","FPV, FHV, FeLV, Rabies","FPV, FIV, FeLV, Rabies"],
     answer: 2,
-    explain: "VPAT 2024: FPV/FCV/FHV always core + Rabies* (endemic) + FeLV*** (endemic + อายุ < 2 ปี หรือเสี่ยง expose)\nตรวจ FeLV-ve ก่อนฉีด FeLV\n\n❌ ทำไมข้ออื่นผิด\n— \"FPV+FIV+FIP+Rabies\" = FIV/FIP ไม่ใช่ core\n— \"+ Bordetella\" = ผิด\n— ขาด FCV / FHV = ผิด core list\n\n💡 conditional FeLV/Rabies",
+    explain: "VPAT 2024: FPV/FCV/FHV always core + Rabies* (endemic) + FeLV*** (endemic + อายุ < 2 ปี หรือเสี่ยง expose)\nตรวจ FeLV-ve ก่อนฉีด FeLV\n\n⚠️ core ตามนิยามเคร่งครัดคือ FPV, FHV, FCV เท่านั้น ส่วน Rabies เป็น core เฉพาะพื้นที่ระบาด และ FeLV เป็น conditional core สำหรับลูกแมวและแมวที่เสี่ยงสัมผัส ไม่ใช่ core แท้\n\n❌ ทำไมข้ออื่นผิด\n— \"FPV+FIV+FIP+Rabies\" = FIV/FIP ไม่ใช่ core\n— \"+ Bordetella\" = ผิด\n— ขาด FCV / FHV = ผิด core list\n\n💡 conditional FeLV/Rabies",
     verified: "Vaccination_guideline.pdf p.26 (VPAT 2024)",
     flag: {"note":"ข้อสอบข้อสอบเก่าบางฉบับเฉลย \"FPV/FHV/FCV/Rabies\" — ตาม VPAT 2024 ใหม่ FeLV ก็เป็น core ด้วย (with conditions), ระวังด้วย: WSAVA ใช้ <1ปี, VPAT ใช้ <2ปี","sources":["VPAT 2024 (vpatthailand.org)","WSAVA 2024 §FeLV","Vaccination_guideline.pdf p.22, 26"],"severity":"major"},
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-cat-vaccination",
-                "contentHash": "sha256:86e62f34301c25fe",
+                "contentHash": "sha256:eaf060971287f785",
                 "label": "WSAVA / VPAT 2024 Feline Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1713,7 +1680,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1733,7 +1700,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1753,7 +1720,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1774,7 +1741,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1794,7 +1761,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-cat-vaccination",
-                "contentHash": "sha256:86e62f34301c25fe",
+                "contentHash": "sha256:eaf060971287f785",
                 "label": "WSAVA / VPAT 2024 Feline Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1814,7 +1781,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1834,7 +1801,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1854,7 +1821,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1874,7 +1841,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1894,7 +1861,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1914,7 +1881,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1933,7 +1900,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1953,7 +1920,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1973,7 +1940,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-cat-vaccination",
-                "contentHash": "sha256:86e62f34301c25fe",
+                "contentHash": "sha256:eaf060971287f785",
                 "label": "WSAVA / VPAT 2024 Feline Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -1992,7 +1959,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -2012,7 +1979,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -2047,18 +2014,7 @@ export const QB_COM5 = [
     options: ["Trigeminal ganglia (sensory neurons)","Spleen และ lymphoid tissue","Bone marrow precursor cells","Salivary gland epithelium"],
     answer: 0,
     explain: "FHV-1 = dsDNA enveloped\nLatency: trigeminal ganglia (sensory neurons) เป็นหลัก\nstress/glucocorticoid → reactivation → axonal transport → epithelial recurrence (cornea, oronasal) → intermittent shedding\neasily killed by disinfectants\n\n❌ ทำไมข้ออื่นผิด\n— Spleen / BM / Salivary gland = ไม่ใช่ neural latency site\n\n💡 cornea = recurrence site, ไม่ใช่ latency reservoir",
-    verified: "Feline_Upper_Respiratory_Infection.pdf p.6, 21",
-    wikiRefs: [
-          {
-                "pageId": "com5-feline-upper-respiratory-complex",
-                "anchorId": "clinical-distinction-fhv-vs-fcv",
-                "contentHash": "sha256:3e486db6c7937a8c",
-                "label": "Clinical Distinction: FHV-1 vs FCV",
-                "wikiVersion": "1.0.0",
-                "status": "approved",
-                "mappingStatus": "verified"
-          }
-    ] },
+    verified: "Feline_Upper_Respiratory_Infection.pdf p.6, 21", },
 
   {
     id: 607, subject: 'com5', topic: 'feline-uri', year: 4, source: "Feline_Upper_Respiratory_Infection.pdf",
@@ -2072,7 +2028,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",
                 "anchorId": "clinical-distinction-fhv-vs-fcv",
-                "contentHash": "sha256:3e486db6c7937a8c",
+                "contentHash": "sha256:a62a97d5e5236374",
                 "label": "Clinical Distinction: FHV-1 vs FCV",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -2107,18 +2063,7 @@ export const QB_COM5 = [
     options: ["10–20%","30–70%","90–100%","< 5%"],
     answer: 1,
     explain: "VS-FCV mortality ≈ 30-70%\nsevere vasculitis → cutaneous edema/ulcer (head, limbs), hepatic necrosis, DIC\nรุนแรงในแมวโต > kitten\ncore vaccine ไม่ป้องกัน\n\n❌ ทำไมข้ออื่นผิด\n— 10-20% = uncomplicated FCV\n— 90-100% = unrealistic\n— < 5% = mild form",
-    verified: "Feline_Upper_Respiratory_Infection.pdf p.8",
-    wikiRefs: [
-          {
-                "pageId": "com5-feline-upper-respiratory-complex",
-                "anchorId": "clinical-distinction-fhv-vs-fcv",
-                "contentHash": "sha256:3e486db6c7937a8c",
-                "label": "Clinical Distinction: FHV-1 vs FCV",
-                "wikiVersion": "1.0.0",
-                "status": "approved",
-                "mappingStatus": "verified"
-          }
-    ] },
+    verified: "Feline_Upper_Respiratory_Infection.pdf p.8", },
 
   {
     id: 610, subject: 'com5', topic: 'feline-uri', year: 4, source: "Feline_Upper_Respiratory_Infection.pdf",
@@ -2251,7 +2196,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",
                 "anchorId": "clinical-distinction-fhv-vs-fcv",
-                "contentHash": "sha256:3e486db6c7937a8c",
+                "contentHash": "sha256:a62a97d5e5236374",
                 "label": "Clinical Distinction: FHV-1 vs FCV",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -2388,7 +2333,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",
                 "anchorId": "clinical-distinction-fhv-vs-fcv",
-                "contentHash": "sha256:3e486db6c7937a8c",
+                "contentHash": "sha256:a62a97d5e5236374",
                 "label": "Clinical Distinction: FHV-1 vs FCV",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -2468,7 +2413,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",
@@ -2488,7 +2433,7 @@ export const QB_COM5 = [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
                 "anchorId": "wsava-vpat-dog-vaccination",
-                "contentHash": "sha256:d27dc67b6f1725d4",
+                "contentHash": "sha256:7f05698ce505e834",
                 "label": "WSAVA / VPAT 2024 Canine Vaccination Guidelines",
                 "wikiVersion": "1.0.0",
                 "status": "approved",

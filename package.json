@@ -38,7 +38,9 @@
     "prerender:wiki": "node scripts/prerender-wiki.mjs",
     "wiki:hashes": "node scripts/backfill-wiki-hashes.mjs --write",
     "verify:sources": "node scripts/verify-wiki-sources.mjs",
-    "wiki:coverage": "node scripts/wiki-coverage.mjs"
+    "wiki:coverage": "node scripts/wiki-coverage.mjs",
+    "wiki:gap": "node scripts/wiki-gap.mjs",
+    "wiki:link-candidates": "node scripts/wiki-link-candidates.mjs"
   },
   "browserslist": [
     "defaults",

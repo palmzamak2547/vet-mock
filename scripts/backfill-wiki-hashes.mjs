@@ -61,7 +61,14 @@ console.log(`Loaded ${pages.size} wiki pages.`);
 // have silently backfilled half the refs and reported success.
 const REF_RE = /\{\s*"?pageId"?\s*:\s*['"]([^'"]+)['"]\s*,\s*"?anchorId"?\s*:\s*['"]([^'"]+)['"][\s\S]*?\}/g;
 
-let totalRefs = 0, stamped = 0, alreadyHad = 0, unresolved = [];
+// --restamp refreshes hashes that have DRIFTED, for the case where a section was
+// deliberately edited and the citing questions have been re-checked against the
+// new text. It is opt-in on purpose: the hash is only worth having because it
+// does not quietly follow the content around. Running this is a statement that
+// somebody looked.
+const RESTAMP = process.argv.includes('--restamp');
+
+let totalRefs = 0, stamped = 0, alreadyHad = 0, restamped = 0, unresolved = [];
 const changedFiles = [];
 
 for (const file of fs.readdirSync(DATA_DIR)) {
@@ -73,13 +80,19 @@ for (const file of fs.readdirSync(DATA_DIR)) {
   let fileStamped = 0;
   const updated = original.replace(REF_RE, (block, pageId, anchorId) => {
     totalRefs++;
-    if (/"?contentHash"?\s*:/.test(block)) { alreadyHad++; return block; }
+    const existing = block.match(/"?contentHash"?\s*:\s*['"]([^'"]+)['"]/);
 
     const content = pages.get(pageId);
     if (!content) { unresolved.push(`${file}: unknown pageId '${pageId}'`); return block; }
 
     const hash = sectionContentHash(content, anchorId);
     if (!hash) { unresolved.push(`${file}: '${pageId}#${anchorId}' has no resolvable section body`); return block; }
+
+    if (existing) {
+      if (!RESTAMP || existing[1] === hash) { alreadyHad++; return block; }
+      restamped++; fileStamped++;
+      return block.replace(existing[0], existing[0].replace(existing[1], hash));
+    }
 
     // Insert as a sibling key, matching the block's own indentation and its
     // key-quoting style so the file stays internally consistent.
@@ -102,6 +115,7 @@ for (const file of fs.readdirSync(DATA_DIR)) {
 console.log(`\nwikiRefs seen        : ${totalRefs}`);
 console.log(`already had a hash   : ${alreadyHad}`);
 console.log(`stamped              : ${stamped}`);
+if (RESTAMP) console.log(`re-stamped (drifted) : ${restamped}`);
 console.log(`unresolved           : ${unresolved.length}`);
 for (const u of unresolved.slice(0, 20)) console.log(`   - ${u}`);
 if (changedFiles.length) console.log(`\nfiles: ${changedFiles.join(', ')}`);
