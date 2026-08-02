@@ -340,6 +340,13 @@ export default function App() {
     try {
       const params = new URLSearchParams(window.location.search);
       if (params.get('auth') === 'reset') return 'auth';
+      // An email link that has expired or been opened twice comes back as
+      // error=/error_description= in the hash (or query). AuthView already
+      // parses exactly that and says so in Thai — but it only got the chance
+      // when it happened to be mounted, and nothing routed here on an error,
+      // so the usual outcome was an ordinary signed-out page that explained
+      // nothing. The student cannot tell a dead link from a broken app.
+      if (/[#?&]error(_code)?=/.test(window.location.hash + window.location.search)) return 'auth';
       // VetWiki owns a real path namespace so its articles are shareable and
       // citable (/wiki, /wiki/<subject>/<topic>[#section]). vercel.json
       // rewrites /wiki/* to the SPA; see src/lib/vetwiki/url.js.

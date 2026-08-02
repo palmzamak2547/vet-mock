@@ -212,12 +212,22 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
     setLoading(true);
     try {
       const result = await deleteAccountData();
-      if (result.errors.length > 0) {
+      // Branch on ok, not on errors.length. Both arms used to show a checkmark
+      // and sign the user out, so a delete that touched nothing at all still
+      // read as "✓ ลบข้อมูลแล้ว" — and the Edge Function deliberately skips the
+      // auth.users delete whenever any table errored, meaning "บางส่วนอาจคงเหลือ"
+      // was the copy shown for a fully live account. Of everything in this
+      // screen, a destructive privacy action is the one that must not lie: the
+      // student walks away believing their history is gone and never checks.
+      if (result.ok !== true) {
         console.warn('Delete errors:', result.errors);
-        setInfo('✓ ลบข้อมูลแล้ว — บางส่วนอาจคงเหลือ, email vetmock เพื่อล้างถาวร');
-      } else {
-        setInfo('✓ ลบ account สำเร็จ — Logout แล้ว');
+        const networkOnly = (result.errors || []).some((e) => e.table === '__network__');
+        setError(networkOnly
+          ? 'ลบไม่สำเร็จ — ติดต่อเซิร์ฟเวอร์ไม่ได้ ข้อมูลของคุณยังอยู่ครบ โปรดลองใหม่อีกครั้ง'
+          : 'ลบไม่สำเร็จ — บัญชีและข้อมูลยังอยู่ โปรดลองใหม่ หรือ email vetmock เพื่อให้ลบให้');
+        return;
       }
+      setInfo('✓ ลบ account สำเร็จ — Logout แล้ว');
       setTimeout(() => {
         if (onSignedOut) onSignedOut();
       }, 2000);

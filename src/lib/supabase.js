@@ -14,6 +14,8 @@
 // share one fetch and one createClient() call.
 // ============================================================
 
+import { createAuthStorage, hasStoredAuthToken } from './auth-storage.js';
+
 const url = import.meta.env.VITE_SUPABASE_URL;
 const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
@@ -21,8 +23,11 @@ export const hasSupabase = !!(url && key);
 
 let _clientPromise = null;
 
-// Lazily import the SDK and instantiate the client. Subsequent calls
-// return the same promise, so all consumers see one shared client.
+// Routes the session token to localStorage or sessionStorage depending on the
+// "จดจำ session" choice. See auth-storage.js for why it is an adapter and not a
+// constructor flag.
+const authStorage = createAuthStorage();
+
 export function getSupabase() {
   if (!hasSupabase) return Promise.resolve(null);
   if (!_clientPromise) {
@@ -32,25 +37,33 @@ export function getSupabase() {
           autoRefreshToken: true,
           persistSession: true,
           detectSessionInUrl: true,
+          storage: authStorage,
         },
       })
-    );
+    // Drop the memo on failure, or one bad chunk load poisons auth for the
+    // rest of the page. The dynamic import fails for ordinary reasons —
+    // campus wifi dropping, or a deploy landing mid-session so the hashed
+    // chunk this tab remembers is already gone — and without this every
+    // later caller re-awaits the same rejected promise. The user sees every
+    // sign-in attempt fail until they think to reload, which nothing tells
+    // them to do. Same shape as the reset in line-liff.js.
+    ).catch((err) => { _clientPromise = null; throw err; });
   }
   return _clientPromise;
 }
 
-// Cheap synchronous check — does localStorage already have a Supabase
-// auth token? If yes, useAuth should pull the SDK at boot. If no, we
-// can skip the SDK load entirely until the user opts in.
+// Cheap synchronous check — is a Supabase auth token already stored? If yes,
+// useAuth should pull the SDK at boot. If no, we can skip the SDK load
+// entirely until the user opts in.
+//
+// Both stores are scanned, because authStorage above puts the token in
+// sessionStorage for anyone who unticked "จดจำ session". Checking only
+// localStorage would read those users as signed out at boot and skip the
+// hydrate, so they would land on the signed-out UI while holding a perfectly
+// good session.
 export function hasSavedSession() {
   if (!hasSupabase || typeof window === 'undefined') return false;
-  try {
-    for (let i = 0; i < window.localStorage.length; i++) {
-      const k = window.localStorage.key(i);
-      if (k && k.startsWith('sb-') && k.endsWith('-auth-token')) return true;
-    }
-  } catch {}
-  return false;
+  return hasStoredAuthToken();
 }
 
 // Did we land here from an email/OAuth redirect that needs the SDK to

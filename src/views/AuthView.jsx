@@ -60,16 +60,21 @@ export default function AuthView({ onBack, onSuccess, user }) {
   const [mode, setMode] = useState(initialMode); // signin | signup | reset | update-password | magic-link
 
   // Stay signed in (persist session). Default true (most users want).
-  // Stored in localStorage so the choice survives refresh / OAuth bounce.
+  // Stored in localStorage so the choice survives refresh / OAuth bounce, and
+  // read by the storage adapter in lib/auth-storage.js, which is what decides
+  // whether the token goes to localStorage or sessionStorage. Sharing the key
+  // constant keeps the checkbox and the thing it controls from drifting — for
+  // a long time it wrote this flag and nothing read it, so unticking the box
+  // did nothing at all.
   const [staySignedIn, setStaySignedIn] = useState(() => {
     if (typeof window === 'undefined') return true;
     try {
-      const saved = window.localStorage.getItem('vmx-stay-signed-in');
-      return saved === null ? true : saved === '1';
+      const saved = window.localStorage.getItem(STAY_SIGNED_IN_KEY);
+      return saved === null ? true : saved !== '0';
     } catch { return true; }
   });
   useEffect(() => {
-    try { window.localStorage.setItem('vmx-stay-signed-in', staySignedIn ? '1' : '0'); } catch {}
+    try { window.localStorage.setItem(STAY_SIGNED_IN_KEY, staySignedIn ? '1' : '0'); } catch {}
   }, [staySignedIn]);
 
   // Track recent failed attempts (rate-limit hint UI)
