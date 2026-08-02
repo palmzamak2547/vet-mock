@@ -17,6 +17,7 @@
 
 import { listTopics, loadTopic } from '../src/lib/vetwiki/index.js';
 import { SOURCES } from '../src/lib/vetwiki/sources.js';
+import { METADATA_SECTIONS, PLACEHOLDER_SECTIONS, NON_VERIFIABLE } from '../src/lib/vetwiki/non-verifiable.js';
 
 const bar = (frac, width = 22) => {
   const n = Math.round(frac * width);
@@ -25,6 +26,11 @@ const bar = (frac, width = 22) => {
 
 const rows = new Map();
 let totalSections = 0, totalVerified = 0, totalClaims = 0;
+// Sections that literature cannot verify (deck metadata, empty placeholders) are
+// excluded from the denominator and reported separately. Leaving them in would
+// make 100% unreachable for a reason nobody could see; hiding them entirely
+// would flatter the number. See src/lib/vetwiki/non-verifiable.js.
+let excludedMeta = 0, excludedPlaceholder = 0;
 const danglingSourceIds = new Set();
 
 for (const t of listTopics()) {
@@ -33,6 +39,10 @@ for (const t of listTopics()) {
   const r = rows.get(t.subject) || { subject: t.subject, topics: 0, sections: 0, verified: 0, claims: 0 };
   r.topics++;
   for (const s of full.sections) {
+    if (NON_VERIFIABLE.has(s.id)) {
+      if (PLACEHOLDER_SECTIONS.has(s.id)) excludedPlaceholder++; else excludedMeta++;
+      continue;
+    }
     r.sections++; totalSections++;
     const claims = s.claims || [];
     // only count a claim whose source actually exists in the registry
