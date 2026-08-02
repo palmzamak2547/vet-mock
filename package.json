@@ -40,7 +40,9 @@
     "verify:sources": "node scripts/verify-wiki-sources.mjs",
     "wiki:coverage": "node scripts/wiki-coverage.mjs",
     "wiki:gap": "node scripts/wiki-gap.mjs",
-    "wiki:link-candidates": "node scripts/wiki-link-candidates.mjs"
+    "wiki:link-candidates": "node scripts/wiki-link-candidates.mjs",
+    "wiki:unverified": "node scripts/wiki-unverified.mjs .wiki-unverified",
+    "lint:wiki-coverage": "node scripts/lint-wiki-coverage.mjs"
   },
   "browserslist": [
     "defaults",

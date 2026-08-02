@@ -98,6 +98,12 @@ export const BANK_REGISTRY = [
   { file: 'questions-vet-juris.js', export: 'QB_VET_JURIS', year: 4, count: 47,
     subjects: ['vet-juris'],
     load: () => import('./questions-vet-juris.js').then((m) => m.QB_VET_JURIS) },
+  { file: 'questions-y5-avian-2026.js', export: 'QB_Y5_AVIAN_2026', year: 5, count: 68,
+    subjects: ['avian-medicine'],
+    load: () => import('./questions-y5-avian-2026.js').then((m) => m.QB_Y5_AVIAN_2026) },
+  { file: 'questions-y5-epidemiology-2026-b.js', export: 'QB_Y5_EPIDEMIOLOGY_2026B', year: 5, count: 33,
+    subjects: ['epidemiology'],
+    load: () => import('./questions-y5-epidemiology-2026-b.js').then((m) => m.QB_Y5_EPIDEMIOLOGY_2026B) },
   { file: 'questions-y5-epidemiology-2026.js', export: 'QB_Y5_EPIDEMIOLOGY_2026', year: 5, count: 43,
     subjects: ['epidemiology'],
     load: () => import('./questions-y5-epidemiology-2026.js').then((m) => m.QB_Y5_EPIDEMIOLOGY_2026) },
@@ -151,4 +157,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-08-01T06:19:54.167Z — 47 banks · 3195 Qs
+// Built: 2026-08-02T17:53:54.588Z — 49 banks · 3296 Qs

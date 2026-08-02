@@ -10,11 +10,11 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 3195;
+export const QB_TOTAL = 3296;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
-  'avian-medicine': 4,
+  'avian-medicine': 72,
   'biochem-1': 272,
   'cliapprum': 136,
   'com1': 31,
@@ -25,7 +25,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 71,
   'engprof1': 30,
-  'epidemiology': 43,
+  'epidemiology': 76,
   'exotic': 151,
   'food-industry': 16,
   'food-safety-y4': 31,
@@ -59,7 +59,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 5,
-  'avian-medicine': 4,
+  'avian-medicine': 72,
   'biochem-1': 272,
   'cliapprum': 134,
   'com1': 31,
@@ -70,7 +70,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 71,
   'engprof1': 30,
-  'epidemiology': 43,
+  'epidemiology': 76,
   'exotic': 108,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
@@ -100,7 +100,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
   4: 2095,
-  5: 802,
+  5: 903,
 };
 
-// Built: 2026-08-01T06:20:09.816Z
+// Built: 2026-08-02T17:55:29.630Z
