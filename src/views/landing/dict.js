@@ -125,7 +125,10 @@ export const DICT = {
   th: {
     start: 'เริ่มฝึกเลย', signIn: 'เข้าสู่ระบบ', muteLabel: 'เสียง',
     nav: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'ความคืบหน้า', href: '#progress' }, { label: 'แล็บ', href: '#lab' }, { label: 'Panic Mode', href: '#panic' }, { label: 'รายวิชา', href: '#subjects' }],
-    ctxChip: 'CUVET / ปี 5 / เทอม 1 กลางภาค',
+    // Abbreviated to match the in-app header, which already shows this as
+    // "ทม.1 กลาง". The long form pushed the Thai nav row past its 1200px cap,
+    // so the chip rendered permanently ellipsised.
+    ctxChip: 'CUVET / ปี 5 / ทม.1 กลาง',
     heroEyebrow: 'สร้างเพื่อนักศึกษาสัตวแพทย์',
     heroPre: 'ลุยโจทย์ให้ชิน ก่อนเข้า', heroEm: 'ห้องสอบจริง', heroPost: '',
     heroSub: 'อ่านและฝึกจากคลังข้อสอบสัตวแพทย์ ใช้โหมดสอบแบบจับเวลา อ่านเฉลย ติดตามความคืบหน้า และฝึกสถานีภาพ — ทุกอย่างนี้เปิดใช้งานได้จริงใน VetMock',

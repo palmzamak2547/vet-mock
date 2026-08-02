@@ -245,13 +245,25 @@ export default function LandingView({
 
       {/* ---- NAV ---- */}
       <header id="vm-nav" className={`lp-nav ${navScrolled ? 'is-scrolled' : ''}`}>
-        <div className="lp-pad" style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 16, padding: '11px 24px' }}>
+        {/* gap 12, not 16: the Thai row sits right on the 1200px cap, and the
+            four extra pixels per gap were enough to keep the context chip
+            permanently ellipsised. Three gaps buy back 12px, which is more than
+            the 7px it was short by. */}
+        <div className="lp-pad" style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 24px' }}>
           <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)' }}>
             <img src="/vetmock-logo.svg" width={30} height={30} style={{ borderRadius: 7, display: 'block' }} alt="VetMock logo" />
             Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span>
           </a>
-          <span className="lp-only-desktop lp-ctx" title="Your study context" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, flexShrink: 0, padding: '6px 11px', marginLeft: 2, border: '1px solid var(--clr-border)', borderRadius: 10, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)' }} />{t.ctxChip}
+          {/* The one item in this row allowed to give way. Everything else is a
+              control and stays rigid, so without an elastic member the row's
+              width is fixed by its text — and that text is not a fixed width:
+              the same Thai string measures wider on Linux than on Windows, which
+              burst the 1200px cap on CI while fitting locally. This chip is
+              context, not a control, and it is repeated in the mobile drawer,
+              so it is the right thing to compress. */}
+          <span className="lp-only-desktop lp-ctx" title="Your study context" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, flexShrink: 1, minWidth: 0, overflow: 'hidden', whiteSpace: 'nowrap', padding: '6px 11px', marginLeft: 2, border: '1px solid var(--clr-border)', borderRadius: 10, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)', flexShrink: 0 }} />
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{t.ctxChip}</span>
           </span>
           <nav className="lp-only-desktop" style={{ display: 'flex', alignItems: 'center', gap: 2, marginLeft: 10 }}>
             {t.nav.map((l) => <a key={l.href} href={l.href} className="lp-navlink">{l.label}</a>)}
