@@ -671,13 +671,18 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
     const out = [];
     if (autoQs.length === 0) return out;
     if (wrongCount > 0) {
+      // This used to read "ข้อที่ผิด N ข้อถูกเพิ่มเข้า SR queue แล้ว", which was
+      // not true: promotion needs the SAME question missed twice (threshold 2
+      // in App.jsx), so a first miss is never queued. One miss is noise, two is
+      // a pattern — the rule is right, the sentence was wrong. It now states
+      // the rule instead of announcing something that did not happen.
       out.push({
         icon: '🧠',
-        text: `ข้อที่ผิด ${wrongCount} ข้อถูกเพิ่มเข้า SR queue แล้ว`,
+        text: `ผิด ${wrongCount} ข้อ — ข้อไหนที่พลาดซ้ำเป็นครั้งที่สอง จะถูกดึงเข้าคิวทบทวนอัตโนมัติ`,
       });
       out.push({
         icon: '🕒',
-        text: 'ทำซ้ำอีก ~3 วันจะจำติด — ระบบจะปล่อยมาให้ทบทวนตาม spacing-repetition',
+        text: 'คิวทบทวนจะปล่อยข้อนั้นกลับมาเองตามจังหวะ spaced repetition ไม่ต้องจำเองว่าต้องกลับมาเมื่อไหร่',
       });
     }
     // Topic-level pattern: ≥2 wrong in same topic → flag it

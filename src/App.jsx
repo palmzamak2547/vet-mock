@@ -887,6 +887,10 @@ export default function App() {
     let saved;
     try { saved = JSON.parse(raw); } catch { return; }
     if (!saved?.questions?.length) return;
+    // A submitted set is kept only so a failed ResultsView chunk load stays
+    // recoverable (see finishExam). It is finished work, so never offer it back
+    // as something to resume.
+    if (saved.submitted) return;
     const ageMs = Date.now() - (saved.savedAt || 0);
     if (ageMs > 6 * 60 * 60 * 1000) {
       try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
@@ -1544,15 +1548,42 @@ export default function App() {
   // component. Identical behavior; same closure rules; the only
   // change is that they read state from the hook's own setters.
 
+  // Open a governed article, landing on an exact section when the caller knows
+  // one. The repo already decides which section answers each linked question
+  // (QUESTION_LINKS carries a sectionId), and that judgement used to be thrown
+  // away one call from delivery — dropping the reader at the top of an article
+  // averaging a dozen sections, at the exact moment they had just lost a mark.
+  // KnowledgeView reads window.location.hash on mount, so setting it here is
+  // all the plumbing that is needed.
+  const openWiki = (subj, top, sectionId) => {
+    try {
+      const url = new URL(window.location.href);
+      url.hash = sectionId ? `#${sectionId}` : '';
+      window.history.replaceState(null, '', url);
+    } catch { /* hash is a nicety; never block the navigation on it */ }
+    setSubject(subj);
+    setTopic(top);
+    setView('knowledge');
+  };
+
   const goHome = () => {
     setView('home');
     finishingRef.current = false; // clear the finish latch on leaving
     // Reset exam runtime (clears questions/answers/currentIdx + timer)
     session.resetSession();
     setPracticeMode('all'); setMode('quick'); setActiveGroup(null); setTopic(null);
-    // Clear in-flight exam state — user explicitly chose to leave
-    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
-    setPendingResume(null); // the saved set is gone; don't offer to resume it
+    // The parked exam is deliberately LEFT ALONE here.
+    //
+    // This used to `removeItem('vmx-inflight-exam')` on the grounds that the
+    // user "explicitly chose to leave". They did not: goHome is what the home
+    // tab and every BackBar in the app call (see lib/nav.js), so tapping home
+    // from a stat screen silently destroyed a half-finished mock — 31 of 50
+    // answered, no prompt, no undo. Discarding the set is a real action with a
+    // real confirmation, and it already exists: dismissPendingExam.
+    //
+    // Leaving the key costs nothing. It expires after 6 hours, ResultsView
+    // clears it once a score has actually been rendered, and the resume offer
+    // is opt-in.
     // Strip share-link query so a refresh from home doesn't bounce
     // back into the shared exam.
     try {
@@ -1917,13 +1948,13 @@ export default function App() {
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, qbReady }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist }} />}
-              {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={(subj, top) => { setSubject(subj); setTopic(top); setView('knowledge'); }} />}
+              {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
-              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: (subj, top) => { setSubject(subj); setTopic(top); setView('knowledge'); } }} />}
+              {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
@@ -2009,7 +2040,7 @@ export default function App() {
             openInstructor={(ins) => setOpenInstructor(ins)}
             openVoiceSettings={() => setVoiceSettingsOpen(true)}
             onSketch={() => setSketchOpen(true)}
-            onOpenWiki={(subj, top) => { setSubject(subj); setTopic(top); setView('knowledge'); }}
+            onOpenWiki={openWiki}
             onPractice={(inv) => {
               setMode(inv.mode || 'quick');
               setSubject(inv.subject || 'all');

@@ -23,6 +23,9 @@ import { NOTES_Y5_EQUINE_MEDICINE } from '../data/notes-y5-equine-medicine.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import { hasTopic } from '../lib/vetwiki/index.js';
+import { correctionsFor } from '../lib/vetwiki/corrections.js';
+import { sectionId } from '../lib/vetwiki/schema.js';
+import ConflictNote from '../components/ConflictNote.jsx';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import BackBar from '../components/BackBar.jsx';
 import ImageAnnotator from '../components/ImageAnnotator.jsx';
@@ -314,7 +317,13 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               re-walk every text node on every keystroke. The visible
               <input> still reads `search` for instant feedback. */}
           {filteredSections.map((section, idx) => (
-            <SectionBlock key={idx} section={section} idx={idx} highlight={debouncedSearch} />
+            <SectionBlock
+              key={idx}
+              section={section}
+              idx={idx}
+              highlight={debouncedSearch}
+              conflicts={correctionsFor(sectionId(subject, validTopic, section.heading))}
+            />
           ))}
         </div>
       </div>
@@ -338,8 +347,9 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 }
 
 // ── Single section ─────────────────────────────────────────────
-function SectionBlock({ section, idx, highlight }) {
+function SectionBlock({ section, idx, highlight, conflicts = [] }) {
   const [open, setOpen] = useState(true);
+  const hasConflict = conflicts.length > 0;
 
   return (
     <div style={{ marginBottom: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', overflow: 'hidden' }}>
@@ -354,6 +364,15 @@ function SectionBlock({ section, idx, highlight }) {
           <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>
             <RichText text={section.heading} highlight={highlight} />
           </div>
+          {/* The note body below has already been corrected to match the
+              evidence. Without this marker a student revising here would read
+              the corrected version and never learn the lecturer marks it
+              differently — which is the opposite of useful before an exam. */}
+          {hasConflict && (
+            <div style={{ marginTop: 5, fontSize: 11, fontWeight: 700, color: 'var(--clr-rose-text)' }}>
+              {conflicts.length === 1 ? 'มี 1 จุดที่หลักฐานไม่ตรงกับที่บรรยาย' : `มี ${conflicts.length} จุดที่หลักฐานไม่ตรงกับที่บรรยาย`}
+            </div>
+          )}
         </div>
         <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 10 }}>{open ? '▾' : '▸'}</div>
       </button>
@@ -361,6 +380,7 @@ function SectionBlock({ section, idx, highlight }) {
       {open && (
         <div style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
           {section.body.map((item, i) => <BodyItem key={i} item={item} highlight={highlight} />)}
+          {conflicts.map((c, i) => <ConflictNote key={i} item={c} />)}
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
               ดึงจาก: {section.source}

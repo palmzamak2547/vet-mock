@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
 import { articleForQuestion } from '../lib/vetwiki/index.js';
+import { conflictsForTopic } from '../lib/vetwiki/conflict-index.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
@@ -461,14 +462,23 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               if (!onOpenWiki || correct || FEATURE_FLAGS.VETWIKI_ENABLED === false) return null;
               const article = articleForQuestion(q);
               if (!article) return null;
+              // Say what is waiting on the other side. A topic where the
+              // lecturer and the literature disagree is the single most
+              // exam-useful thing this corpus holds, and a generic "read the
+              // summary" link gives a student no reason to tap it.
+              const conflicts = conflictsForTopic(article.subject, article.topic).total;
               return (
                 <button
                   type="button"
-                  onClick={() => onOpenWiki(article.subject, article.topic)}
-                  style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: 'var(--clr-sage-text)', fontSize: 12.5, fontWeight: 600 }}
-                  title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้"
+                  onClick={() => onOpenWiki(article.subject, article.topic, article.sectionId)}
+                  style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: conflicts > 0 ? 'var(--clr-rose-text)' : 'var(--clr-sage-text)', fontSize: 12.5, fontWeight: 600 }}
+                  title={conflicts > 0
+                    ? 'หัวข้อนี้มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย พร้อมคำแนะนำว่าเวลาสอบควรตอบอะไร'
+                    : 'อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้'}
                 >
-                  🧬 อ่านสรุปเรื่องนี้ใน VetWiki →
+                  {conflicts > 0
+                    ? `🧬 หัวข้อนี้มี ${conflicts} จุดที่หลักฐานไม่ตรงกับที่บรรยาย →`
+                    : '🧬 อ่านสรุปเรื่องนี้ใน VetWiki →'}
                 </button>
               );
             })()}

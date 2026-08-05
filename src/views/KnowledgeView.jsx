@@ -25,6 +25,8 @@ import {
   listTopics, loadTopic, provenanceSummary, resolveSource,
   EVIDENCE_LABEL, REVIEW_LABEL,
 } from '../lib/vetwiki/index.js';
+import ConflictNote from '../components/ConflictNote.jsx';
+import { conflictsForTopic } from '../lib/vetwiki/conflict-index.js';
 import { copyText } from '../lib/clipboard.js';
 import { searchTopics } from '../lib/vetwiki/search.js';
 import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
@@ -99,26 +101,6 @@ function NoteBody({ item }) {
 // Both sides are shown on purpose. The exam is written by the lecturer, so the
 // taught answer is still the one that scores — the reader needs to know the
 // conflict exists without being told to answer against their own paper.
-function ConflictNote({ item }) {
-  const strong = item.severity === 'contradicts';
-  return (
-    <div style={{ marginTop: 12, padding: '11px 13px', borderRadius: 10, background: 'var(--clr-surface-2)', borderLeft: `3px solid ${strong ? 'var(--clr-rose)' : 'var(--clr-gold)'}` }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: strong ? 'var(--clr-rose-text)' : 'var(--clr-gold-text)', marginBottom: 6 }}>
-        {strong ? 'หลักฐานขัดกับที่บรรยาย' : 'ที่บรรยายกว้างกว่าที่หลักฐานรองรับ'}
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 5, fontSize: 13, lineHeight: 1.6 }}>
-        <div><span style={{ color: 'var(--clr-ink-soft)' }}>ที่บรรยายสอน: </span><RichText text={item.lectureSays} /></div>
-        <div><span style={{ color: 'var(--clr-ink-soft)' }}>ที่แหล่งอ้างอิงพบ: </span><RichText text={item.evidenceSays} /></div>
-        {item.examAdvice && (
-          <div style={{ marginTop: 2, paddingTop: 6, borderTop: '1px solid var(--clr-border)', color: 'var(--clr-ink)' }}>
-            <span style={{ fontWeight: 700 }}>เวลาสอบ: </span><RichText text={item.examAdvice} />
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
 function VerifiedClaim({ claim }) {
   const ev = EVIDENCE_LABEL[claim.evidenceStatus];
   return (
@@ -266,7 +248,19 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                         A thin subject-toned rule anchors the row instead. */}
                     <span aria-hidden="true" style={{ alignSelf: 'stretch', width: 3, flexShrink: 0, borderRadius: 2, background: 'var(--clr-sage-soft)' }} />
                     <span style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: 'var(--clr-ocean)', lineHeight: 1.35 }}>{t.title}</span>
+                      <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: 'var(--clr-ocean)', lineHeight: 1.35 }}>
+                        {t.title}
+                        {/* Counted from corrections.js, so a row can only claim
+                            a disagreement that is actually written down. */}
+                        {conflictsForTopic(t.subject, t.topic).total > 0 && (
+                          <span
+                            title="มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย"
+                            style={{ marginLeft: 7, fontSize: 11, fontWeight: 700, color: 'var(--clr-rose-text)', fontFamily: 'var(--vmx-mono)' }}
+                          >
+                            !{conflictsForTopic(t.subject, t.topic).total}
+                          </span>
+                        )}
+                      </span>
                       {t.summary && <span style={{ display: 'block', fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5, marginTop: 2 }}>{t.summary}</span>}
                       {/* Which sections matched — a hit is only useful if you
                           can see where in the article it landed. */}
@@ -321,6 +315,17 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
     return dates.sort().pop() || null;
   }, [knowledge]);
 
+  // Counted off the sections themselves rather than a second index, so the
+  // headline number and the notes below it can never disagree.
+  const conflictCount = useMemo(
+    () => knowledge.sections.reduce((n, s) => n + (s.corrections?.length || 0), 0),
+    [knowledge],
+  );
+  const firstConflictId = useMemo(
+    () => knowledge.sections.find((s) => s.corrections?.length)?.id || '',
+    [knowledge],
+  );
+
   return (
     <div className="vmx-view" style={{ maxWidth: 780, margin: '0 auto' }}>
       {/* Breadcrumb */}
@@ -340,6 +345,15 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
         {knowledge.lecturer && <span>บรรยาย: {knowledge.lecturer}</span>}
         <span>{knowledge.sections.length} หัวข้อย่อย</span>
         {prov?.verifiedClaimCount > 0 && <span style={{ color: 'var(--clr-sage-text)' }}>ตรวจทานแล้ว {prov.verifiedClaimCount} จุด</span>}
+        {conflictCount > 0 && (
+          <a
+            href={`#${firstConflictId}`}
+            onClick={(e) => { e.preventDefault(); document.getElementById(firstConflictId)?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }}
+            style={{ color: 'var(--clr-rose-text)', fontWeight: 700 }}
+          >
+            หลักฐานไม่ตรงกับที่บรรยาย {conflictCount} จุด
+          </a>
+        )}
         {lastReviewed && <span>ตรวจทานล่าสุด {lastReviewed}</span>}
       </div>
 
@@ -383,6 +397,9 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
                 </a>
                 {(s.claims || []).some((c) => c.reviewStatus === 'verified') && (
                   <span title="มีจุดที่ตรวจทานกับแหล่งอ้างอิงแล้ว" style={{ color: 'var(--clr-sage-text)', fontSize: 11, marginLeft: 6 }}>✓</span>
+                )}
+                {s.corrections?.length > 0 && (
+                  <span title="หลักฐานไม่ตรงกับที่บรรยาย" style={{ color: 'var(--clr-rose-text)', fontSize: 11, marginLeft: 5, fontWeight: 700 }}>!</span>
                 )}
               </li>
             ))}

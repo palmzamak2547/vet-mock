@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { QB, SUBJECTS } from '../data/questions.js';
-import { updateCard, initCard, getDueCards, getCardStats } from '../hooks/sm2.js';
+import { updateCard, initCard, getDueCards, getCardStats, previewInterval } from '../hooks/sm2.js';
 import { isFlashcardCompatible } from '../hooks/sr-filter.js';
 import { fmtDate } from '../hooks/utils.js';
 import { safeImageUrl } from '../lib/safe-url.js';
@@ -318,15 +318,31 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       ) || allQuestions.find((q) => q.id === currentCard.questionId)
     : null;
 
+  // Pressing Again is the one moment the app has proof of a gap. Hiding the
+  // card for 24 hours at exactly that moment is backwards — every other SRS
+  // shows it again before the session ends. The long-term schedule is still
+  // written by updateCard, so this only changes what happens in the next few
+  // minutes; the card is re-queued at most RELEARN_CAP times so a student who
+  // keeps pressing Again can always finish.
+  const RELEARN_CAP = 2;
+
   const handleGrade = (quality) => {
     const updated = updateCard(currentCard, quality);
     setSrCards({ ...srCards, [currentCard.questionId]: updated });
     if (quality >= 2) setCorrectCount(correctCount + 1);
     setReviewedCount(reviewedCount + 1);
     setShowAnswer(false);
+
+    const relearned = (currentCard._relearn || 0);
+    if (quality === 0 && relearned < RELEARN_CAP) {
+      setSessionCards([...sessionCards, { ...currentCard, _relearn: relearned + 1 }]);
+    }
+
     if (currentIdx < sessionCards.length - 1) setCurrentIdx(currentIdx + 1);
     else setCurrentIdx(sessionCards.length);
   };
+
+  const relearnLeft = RELEARN_CAP - (currentCard?._relearn || 0);
 
   // Session complete
   if (!currentQ || currentIdx >= sessionCards.length) {
@@ -521,22 +537,26 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </button>
         </div>
       ) : (
+        // Every sublabel is computed by the scheduler itself. They used to be
+        // written by hand and had drifted: Again promised "< 1 min" while
+        // hiding the card for a full day, Easy multiplied by a hardcoded 2.5
+        // instead of the card's own ease, and Good showed a range.
         <div className="vmx-sr-grade">
           <button className="vmx-sr-btn again" onClick={() => handleGrade(0)}>
             <div className="label">Again</div>
-            <div className="sub">&lt; 1 min</div>
+            <div className="sub">{relearnLeft > 0 ? 'ท้ายรอบนี้' : `${previewInterval(currentCard, 0)} วัน`}</div>
           </button>
           <button className="vmx-sr-btn hard" onClick={() => handleGrade(1)}>
             <div className="label">Hard</div>
-            <div className="sub">~1 day</div>
+            <div className="sub">{previewInterval(currentCard, 1)} วัน</div>
           </button>
           <button className="vmx-sr-btn good" onClick={() => handleGrade(2)}>
             <div className="label">Good</div>
-            <div className="sub">{currentCard.interval || 1}-6 days</div>
+            <div className="sub">{previewInterval(currentCard, 2)} วัน</div>
           </button>
           <button className="vmx-sr-btn easy" onClick={() => handleGrade(3)}>
             <div className="label">Easy</div>
-            <div className="sub">{Math.round((currentCard.interval || 1) * 2.5)} days</div>
+            <div className="sub">{previewInterval(currentCard, 3)} วัน</div>
           </button>
         </div>
       )}
