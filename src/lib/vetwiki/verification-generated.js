@@ -35218,6 +35218,8382 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     }
+  },
+  "aquatic-clinic--aqua-disease-control": {
+    "aquatic-clinic--aqua-disease-control--ตัวพระราชบัญญัติและการยกเลิกกฎหมายเดิม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--ตัวพระราชบัญญัติและการยกเลิกกฎหมายเดิม--v1",
+          "statement": "พระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ประกาศในราชกิจจานุเบกษา เล่ม 132 ตอนที่ 14 ก หน้า 22 วันที่ 2 มีนาคม 2558 ให้ไว้ ณ วันที่ 25 กุมภาพันธ์ พ.ศ. 2558 เป็นปีที่ 70 ในรัชกาลปัจจุบัน และมาตรา 2 ให้ใช้บังคับตั้งแต่วันถัดจากวันประกาศในราชกิจจานุเบกษา",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "เล่ม 132 ตอนที่ 14 ก หน้า 22, หัวกระดาษและมาตรา 1-2",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "เล่ม ๑๓๒ ตอนที่ ๑๔ ก ราชกิจจานุเบกษา ๒ มีนาคม ๒๕๕๘ ... ให้ไว้ ณ วันที่ ๒๕ กุมภาพันธ์ พ.ศ. ๒๕๕๘"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--ตัวพระราชบัญญัติและการยกเลิกกฎหมายเดิม--v2",
+          "statement": "มาตรา 3 ของพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ยกเลิกกฎหมายเดิม 2 ฉบับ คือ พระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2499 และพระราชบัญญัติโรคระบาดสัตว์ (ฉบับที่ 2) พ.ศ. 2542 ตรงตามที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "มาตรา 3, เล่ม 132 ตอนที่ 14 ก หน้า 22",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "มาตรา ๓ ให้ยกเลิก (๑) พระราชบัญญัติโรคระบาดสัตว์ พ.ศ. ๒๔๙๙ (๒) พระราชบัญญัติโรคระบาดสัตว์ (ฉบับที่ ๒) พ.ศ. ๒๕๔๒"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--นิยาม-สัตว์-ตามพระราชบัญญัติ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--นิยาม-สัตว์-ตามพระราชบัญญัติ--v1",
+          "statement": "นิยาม \"สัตว์\" ตามมาตรา 4 แบ่งเป็น 3 อนุมาตรา และครอบคลุมวัสดุสืบพันธุ์ด้วยจริง อนุมาตรา (1) เป็นสัตว์บกที่ระบุชื่อ 16 ชนิด รวมน้ำเชื้อสำหรับผสมพันธุ์และเอ็มบริโอ ส่วนอนุมาตรา (2) เป็นสัตว์ปีกจำพวกนก ไก่ เป็ด ห่าน รวมน้ำเชื้อสำหรับผสมพันธุ์และไข่สำหรับใช้ทำพันธุ์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "มาตรา 4 บทนิยาม \"สัตว์\" (1)-(2), เล่ม 132 ตอนที่ 14 ก หน้า 22",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๑) ช้าง ม้า โค กระบือ ลา ล่อ แพะ แกะ กวาง สุกร หมูป่า สุนัข แมว กระต่าย ลิง ชะนี และให้หมายความรวมถึงน้ำเชื้อสำหรับผสมพันธุ์และเอ็มบริโอของสัตว์เหล่านี้ด้วย"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--นิยาม-สัตว์-ตามพระราชบัญญัติ--v2",
+          "statement": "อนุมาตรา (3) เขียนเปิดไว้ว่า \"สัตว์ชนิดอื่นตามที่รัฐมนตรีประกาศกำหนด\" พร้อมน้ำเชื้อ เอ็มบริโอ และไข่สำหรับใช้ทำพันธุ์ของสัตว์ชนิดนั้น ซึ่งเป็นช่องทางเดียวในนิยามที่ทำให้สัตว์น้ำถูกดึงเข้ามาอยู่ใต้พระราชบัญญัติได้โดยประกาศกระทรวง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "มาตรา 4 บทนิยาม \"สัตว์\" (3), เล่ม 132 ตอนที่ 14 ก หน้า 23",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๓) สัตว์ชนิดอื่นตามที่รัฐมนตรีประกาศกำหนด และให้หมายความรวมถึงน้ำเชื้อสำหรับผสมพันธุ์ เอ็มบริโอ และไข่สำหรับใช้ทำพันธุ์ของสัตว์ชนิดนั้นด้วย"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--นิยาม-ซากสัตว์": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--นิยาม-ซากสัตว์--v1",
+          "statement": "นิยาม \"ซากสัตว์\" ตามมาตรา 4 กินความถึงร่างกายหรือส่วนของร่างกายสัตว์ที่ตายแล้ว สิ่งใด ๆ ที่ได้จากสัตว์ที่มีชีวิตหรือสัตว์ที่ตายแล้ว และรวมถึงอาหารสุกที่ทำ ประกอบ หรือปรุงจากซากสัตว์ หรือสิ่งประดิษฐ์สำเร็จรูปที่ทำจากซากสัตว์ตามที่รัฐมนตรีประกาศกำหนด ดังนั้นของที่ปรุงสุกแล้วยังนับเป็นซากสัตว์ตามกฎหมายนี้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "มาตรา 4 บทนิยาม \"ซากสัตว์\", เล่ม 132 ตอนที่ 14 ก หน้า 23",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "และให้หมายความรวมถึงอาหารสุกที่ทำ ประกอบ หรือปรุงจากซากสัตว์ หรือสิ่งประดิษฐ์สำเร็จรูปที่ทำจากซากสัตว์ตามที่รัฐมนตรีประกาศกำหนด"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--นิยาม-โรคระบาด-ที่ระบุชื่อไว้ในตัวพระราชบัญญัติ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--นิยาม-โรคระบาด-ที่ระบุชื่อไว้ในตัวพระราชบัญญัติ--v1",
+          "statement": "บทนิยาม \"โรคระบาด\" ในมาตรา 4 ระบุชื่อโรคไว้ 17 โรค เริ่มจากกาฬโรคเป็ด โรคไข้หวัดนก โรคแซลโมเนลลา โรคทริคิเนลลา ไปจนถึงโรคเฮโมรายิกเซปทิซีเมีย และวัณโรค แล้วปิดท้ายด้วยวรรค \"และโรคอื่นตามที่รัฐมนตรีประกาศกำหนด\" ตรงตามรายชื่อที่สไลด์แสดง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "มาตรา 4 บทนิยาม \"โรคระบาด\", เล่ม 132 ตอนที่ 14 ก หน้า 23",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "\"โรคระบาด\" หมายความว่า กาฬโรคเป็ด โรคไข้หวัดนก โรคแซลโมเนลลา ... วัณโรค และโรคอื่นตามที่รัฐมนตรีประกาศกำหนด"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--นิยาม-โรคระบาด-ที่ระบุชื่อไว้ในตัวพระราชบัญญัติ--v2",
+          "statement": "ไม่มีโรคของสัตว์น้ำอยู่ในรายชื่อที่ตัวพระราชบัญญัติระบุไว้เลย ทั้ง 17 โรคเป็นโรคของสัตว์บก สัตว์ปีก หรือโรคติดต่อระหว่างสัตว์กับคน โรคของสัตว์น้ำทั้งหมดจึงเข้ามาโดยอาศัยวรรคเปิด \"โรคอื่นตามที่รัฐมนตรีประกาศกำหนด\" ผ่านประกาศกระทรวงเกษตรและสหกรณ์ที่ออกตามมาตรา 4 ประกอบมาตรา 5",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "วรรคอาศัยอำนาจ, เล่ม 132 ตอนพิเศษ 347 ง หน้า 10",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "อาศัยอำนาจตามความในคำนิยามคำว่า \"โรคระบาด\" ตามมาตรา ๔ ประกอบมาตรา ๕ แห่งพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. ๒๕๕๘ ... ฉ. โรคระบาดในสัตว์น้ำ"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--มาตรา-11-หน้าที่แจ้งของเจ้าของสัตว์": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--มาตรา-11-หน้าที่แจ้งของเจ้าของสัตว์--v1",
+          "statement": "มาตรา 11 กำหนดให้เจ้าของสัตว์แจ้งต่อพนักงานเจ้าหน้าที่ สารวัตร หรือสัตวแพทย์ ภายในเวลาสิบสองชั่วโมงนับแต่เวลาที่ทราบว่าสัตว์ป่วยหรือตาย ผู้รับแจ้งมี 3 กลุ่มตามที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "มาตรา 11 วรรคหนึ่ง, เล่ม 132 ตอนที่ 14 ก หน้า 25",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "มาตรา ๑๑ ให้เจ้าของสัตว์แจ้งต่อพนักงานเจ้าหน้าที่ สารวัตร หรือสัตวแพทย์ ภายในเวลาสิบสองชั่วโมงนับแต่เวลาที่ทราบว่าสัตว์ป่วยหรือตาย"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--มาตรา-11-หน้าที่แจ้งของเจ้าของสัตว์--v2",
+          "statement": "เหตุที่ต้องแจ้งมี 3 กรณี คือ (1) สัตว์ป่วยหรือตายโดยรู้ว่าเป็นโรคระบาด (2) สัตว์ป่วยหรือตายโดยไม่รู้สาเหตุ และ (3) ในหมู่บ้านเดียวกันหรือบริเวณใกล้เคียงกันมีสัตว์ป่วยหรือตายมีอาการคล้ายคลึงกันในระยะเวลาห่างกันไม่เกินเจ็ดวัน ยืนยันตัวเลข 7 วันตามที่สไลด์เน้น",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "มาตรา 11 (1)-(3), เล่ม 132 ตอนที่ 14 ก หน้า 25",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๓) ในหมู่บ้านเดียวกัน หรือบริเวณใกล้เคียงกัน มีสัตว์ป่วยหรือตายมีอาการคล้ายคลึงกัน ในระยะเวลาห่างกันไม่เกินเจ็ดวัน"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--ประกาศกระทรวงเกษตรและสหกรณ์-เรื่อง-กำหนดสัตว์ชนิดอื่น": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--ประกาศกระทรวงเกษตรและสหกรณ์-เรื่อง-กำหนดสัตว์ชนิดอื่น--v1",
+          "statement": "ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดสัตว์ชนิดอื่น ออกโดยอาศัยอำนาจตามความในบทนิยามคำว่า \"สัตว์\" ตามมาตรา 4 ประกอบกับมาตรา 5 แห่งพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 โดยรัฐมนตรีว่าการกระทรวงเกษตรและสหกรณ์ ตรงตามฐานอำนาจที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2561",
+              "locator": "วรรคอาศัยอำนาจ, เล่ม 135 ตอนพิเศษ 306 ง หน้า 12, 30 พฤศจิกายน 2561",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "อาศัยอำนาจตามความในบทนิยามคำว่า \"สัตว์\" ตามมาตรา ๔ ประกอบกับมาตรา ๕ แห่งพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. ๒๕๕๘"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--ประกาศกระทรวงเกษตรและสหกรณ์-เรื่อง-กำหนดสัตว์ชนิดอื่น--v2",
+          "statement": "บัญชีสัตว์ชนิดอื่นครอบคลุมสัตว์น้ำและสัตว์กึ่งน้ำจริงตามที่สไลด์เน้น ได้แก่ กบและสัตว์จำพวกสัตว์สะเทินน้ำสะเทินบก กุ้งและสัตว์จำพวกครัสเตเชียน (Crustacean) ตะพาบน้ำ เต่า ปลา รวมทั้งจระเข้ (Family Crocodylidae) ตะโขง (Family Gavialidae) ปลิงทะเล เพรียงทรายและสัตว์จำพวกโพลีคีท (Polychaete) พะยูน แมวน้ำ โลมา วาฬ สิงโตทะเล หมึก และหอย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2561",
+              "locator": "ข้อ 3 บัญชีรายชื่อ, เล่ม 135 ตอนพิเศษ 306 ง หน้า 12-13",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๑) กบ และรวมถึงสัตว์จำพวกสัตว์สะเทินน้ำสะเทินบก ... (๖) กุ้ง และรวมถึงสัตว์จำพวกครัสเตเชียน (Crustacean) ... (๑๘) ปลา"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--ประกาศกระทรวงเกษตรและสหกรณ์-เรื่อง-กำหนดโรคระบาดสัตว์เพิ่มเติม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--ประกาศกระทรวงเกษตรและสหกรณ์-เรื่อง-กำหนดโรคระบาดสัตว์เพิ่มเติม--v1",
+          "statement": "ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดโรคระบาดสัตว์เพิ่มเติม ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ลงในราชกิจจานุเบกษา เล่ม 132 ตอนพิเศษ 347 ง หน้า 10 วันที่ 29 ธันวาคม 2558 ออกโดยอาศัยอำนาจตามความในคำนิยามคำว่า \"โรคระบาด\" ตามมาตรา 4 ประกอบมาตรา 5 ตรงตามที่สไลด์ระบุทุกจุด",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "หัวกระดาษและวรรคอาศัยอำนาจ, เล่ม 132 ตอนพิเศษ 347 ง หน้า 10",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "เล่ม ๑๓๒ ตอนพิเศษ ๓๔๗ ง ราชกิจจานุเบกษา ๒๙ ธันวาคม ๒๕๕๘ ... อาศัยอำนาจตามความในคำนิยามคำว่า \"โรคระบาด\" ตามมาตรา ๔ ประกอบมาตรา ๕"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--ประกาศกระทรวงเกษตรและสหกรณ์-เรื่อง-กำหนดโรคระบาดสัตว์เพิ่มเติม--v2",
+          "statement": "ประกาศฉบับนี้แบ่งโรคออกเป็น 6 หมวดตามกลุ่มสัตว์ คือ ก. โรคระบาดในสัตว์ปีก (10 โรค เริ่มด้วยโรคอหิวาต์สัตว์ปีก fowl cholera และโรคหลอดลมอักเสบติดเชื้อในสัตว์ปีก avian infectious bronchitis) ข. โรคระบาดในสัตว์เคี้ยวเอื้อง (25 โรค) ค. โรคระบาดในสัตว์กระเพาะเดี่ยว (18 โรค) ง. โรคระบาดในผึ้ง (11 โรค) จ. โรคระบาดในสัตว์หลายชนิด และ ฉ. โรคระบาดในสัตว์น้ำ ซึ่งเติมช่องว่างหมวด ข. ค. ง. ที่สไลด์ตัดออกไป",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "ข้อ 2 หมวด ก. ถึง ฉ., เล่ม 132 ตอนพิเศษ 347 ง หน้า 10-15",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "ก. โรคระบาดในสัตว์ปีก ... ข. โรคระบาดในสัตว์เคี้ยวเอื้อง ... ค. โรคระบาดในสัตว์กระเพาะเดี่ยว ... ง. โรคระบาดในผึ้ง ... จ. โรคระบาดในสัตว์หลายชนิด ... ฉ. โรคระบาดในสัตว์น้ำ"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-1-ถึง-5": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-1-ถึง-5--v1",
+          "statement": "ห้าข้อแรกของหมวด ฉ. ตรงกับสไลด์ทุกข้อ คือ (1) โรคเครฟิชเพลก (crayfish plague) (2) โรคเคเอชวี (KHV disease หรือ koi herpesvirus disease) (3) โรคไคทริดฟังกัส (chytrid fungus disease หรือ infection with Batrachochytrium dendrobatidis) (4) โรคไจโรแด็กทีโลซิส (gyrodactylosis หรือ infection with Gyrodactylus salaris) และ (5) โรคซีโนฮาลิโอทิส (xenohaliotis disease หรือ infection with Xenohaliotis californiensis)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "ข้อ 2 ฉ. (1)-(5), เล่ม 132 ตอนพิเศษ 347 ง หน้า 13",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๑) โรคเครฟิชเพลก (crayfish plague) (๒) โรคเคเอชวี (KHV disease หรือ koi herpesvirus disease) (๓) โรคไคทริดฟังกัส"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-1-ถึง-5--v2",
+          "statement": "ลำดับในหมวด ฉ. เรียงตามพยัญชนะต้นของชื่อโรคภาษาไทย ไม่ได้เรียงตามชนิดสัตว์หรือชนิดเชื้อ เห็นได้จากลำดับ ค เครฟิชเพลก เคเอชวี ไคทริดฟังกัส แล้วต่อด้วย จ ไจโรแด็กทีโลซิส ซ ซีโนฮาลิโอทิส ต ท บ ฝ พ ฟ ม ร ว ห และปิดท้ายด้วย อ ตรงตามที่สไลด์ตั้งข้อสังเกต",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "ข้อ 2 ฉ. (1)-(34), เล่ม 132 ตอนพิเศษ 347 ง หน้า 13-15",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๔) โรคไจโรแด็กทีโลซิส ... (๕) โรคซีโนฮาลิโอทิส ... (๗) โรคตัวแดงดวงขาว ... (๑๐) โรคโบนาเมีย ... (๓๔) โรคไอเอสเอ"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-6-ถึง-21": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-6-ถึง-21--v1",
+          "statement": "ข้อ (6) ถึง (21) ของหมวด ฉ. ปรากฏบนหน้า 14 ของราชกิจจานุเบกษา เล่ม 132 ตอนพิเศษ 347 ง และตรงกับสไลด์ทุกข้อ ตั้งแต่โรคติดเชื้อซาลโมนิด แอลฟาไวรัส โรคตัวแดงดวงขาว โรคทีเอส โรคเททระฮีดรัลแบคูโลไวรัส โรคโบนาเมีย โรคฝีดาษจระเข้ โรคเพอร์คินซัส โรคฟูรังคูโลซีส โรคเมกาโลไซติไวรัส โรคมาร์ทีเลีย โรครานาไวรัส โรควีเอชเอส โรควีเอ็นเอ็น โรคหัวเหลือง โรคหางขาว ถึงโรคอาร์เอสไอวี",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "ข้อ 2 ฉ. (6)-(21), เล่ม 132 ตอนพิเศษ 347 ง หน้า 14",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๖) โรคติดเชื้อซาลโมนิด แอลฟาไวรัส (infection with salmonid alphavirus) ... (๒๑) โรคอาร์เอสไอวี (RSIV disease หรือ red sea bream iridoviral disease)"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-6-ถึง-21--v2",
+          "statement": "หมวด ฉ. รวมโรคจากหลายกลุ่มโฮสต์ปนกันในรายการเดียว โดย WOAH จัดโรคตัวแดงดวงขาว (white spot syndrome virus) โรคทีเอส (Taura syndrome virus) โรคหัวเหลือง (yellow head virus genotype 1) และโรคหางขาว (Macrobrachium rosenbergii nodavirus) เป็นโรคของครัสเตเชียน ขณะที่โรคติดเชื้อซาลโมนิด แอลฟาไวรัส โรควีเอชเอส และโรคเมกาโลไซติไวรัส (Megalocytivirus pagrus 1 ซึ่งครอบคลุม RSIV) เป็นโรคของปลา ส่วนโรครานาไวรัสจัดเป็นโรคของสัตว์สะเทินน้ำสะเทินบก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Articles 1.3.1, 1.3.3 and 1.3.4 (26th edition, 2024)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The following diseases of crustaceans are listed diseases: ... Infection with Taura syndrome virus, Infection with white spot syndrome virus, Infection with yellow head virus genotype 1."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-22-ถึง-32": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-22-ถึง-32--v1",
+          "statement": "ข้อ (22) ถึง (32) ตรงกับสไลด์ทุกข้อ ได้แก่ โรคอียูเอส (EUS) โรคอีเอชเอ็น (EHN) โรคเอเอชพีเอ็นดี (AHPND) โรคเอชพีวี (HPV) โรคเอสวีซี (SVC) โรคเอ็นเอชพี (NHP) โรคเอ็มบีวี (MBV) โรคแอบาโลนีเฮอร์พีสไวรัส โรคไอพีเอ็น (IPN) โรคไอเอชเอชเอ็น (IHHN) และโรคไอเอชเอ็น (IHN)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "ข้อ 2 ฉ. (22)-(32), เล่ม 132 ตอนพิเศษ 347 ง หน้า 14",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๓๑) โรคไอเอชเอชเอ็น (IHHN หรือ infectious hypodermal and haematopoietic necrosis) (๓๒) โรคไอเอชเอ็น (IHN หรือ infectious haematopoietic necrosis)"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-22-ถึง-32--v2",
+          "statement": "ตัวย่อที่หน้าตาใกล้กันแยกได้ด้วยกลุ่มโฮสต์ IHHN (infectious hypodermal and haematopoietic necrosis virus) และ IMN (infectious myonecrosis virus) เป็นโรคของครัสเตเชียนตามบัญชี WOAH ส่วน IHN (infectious haematopoietic necrosis virus) เป็นโรคของปลา จึงเป็นคนละกลุ่มสัตว์กันชัดเจน ทั้งนี้ IPN ไม่ได้อยู่ในบัญชีโรคของ WOAH แม้ประกาศไทยจะกำหนดไว้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.3.1 (fish) and Article 1.3.3 (crustaceans), 26th edition 2024",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Crustaceans: Infection with infectious hypodermal and haematopoietic necrosis virus, Infection with infectious myonecrosis virus. Fish: Infection with infectious haematopoietic necrosis virus."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-33-ถึง-34-และผู้ลงนาม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-33-ถึง-34-และผู้ลงนาม--v1",
+          "statement": "หมวด ฉ. ปิดท้ายด้วย (33) โรคไอเอ็มเอ็น (IMN หรือ infectious myonecrosis) และ (34) โรคไอเอสเอ (ISA หรือ infection with infectious salmon anaemia virus) บนหน้า 15 ประกาศ ณ วันที่ 24 ธันวาคม พ.ศ. 2558 ลงนามโดยพลเอก ฉัตรชัย สาริกัลยะ รัฐมนตรีว่าการกระทรวงเกษตรและสหกรณ์ ขณะที่ลงราชกิจจานุเบกษาวันที่ 29 ธันวาคม 2558 ตรงตามที่สไลด์ระบุทุกจุด",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "ข้อ 2 ฉ. (33)-(34) และท้ายประกาศ, เล่ม 132 ตอนพิเศษ 347 ง หน้า 15",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(๓๔) โรคไอเอสเอ (ISA หรือ infection with infectious salmon anaemia virus) ประกาศ ณ วันที่ ๒๔ ธันวาคม พ.ศ. ๒๕๕๘ พลเอก ฉัตรชัย สาริกัลยะ"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-disease-control--หมวด-จ-โรคระบาดในสัตว์หลายชนิด": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-จ-โรคระบาดในสัตว์หลายชนิด--v1",
+          "statement": "โรคสเตรปโทค็อกคัส (streptococcosis) ถูกจัดเป็นข้อ (10) ของหมวด จ. โรคระบาดในสัตว์หลายชนิด ไม่ได้อยู่ในหมวด ฉ. สัตว์น้ำ ตรงตามที่สไลด์เน้น",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2558",
+              "locator": "ข้อ 2 จ. (10), เล่ม 132 ตอนพิเศษ 347 ง หน้า 13",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "จ. โรคระบาดในสัตว์หลายชนิด ... (๑๐) โรคสเตรปโทค็อกคัส (streptococcosis)"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-disease-control--หมวด-จ-โรคระบาดในสัตว์หลายชนิด--v2",
+          "statement": "เหตุผลเชิงวิชาการที่ทำให้ streptococcosis สำคัญกับงานสัตว์น้ำ คือ Streptococcus agalactiae ถือเป็นเชื้อแบคทีเรียก่อโรคหลักของปลาเลี้ยง โดยการระบาดในปลานิล (Nile tilapia, Oreochromis niloticus) ก่อความสูญเสียทางเศรษฐกิจอย่างมีนัยสำคัญ ซึ่งอธิบายได้ว่าทำไมโรคนี้จึงถูกจัดไว้ในหมวดสัตว์หลายชนิดแทนที่จะผูกกับกลุ่มสัตว์กลุ่มเดียว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36717067",
+              "locator": "Vol 134, article 108563, Abstract, opening sentence",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Streptococcus agalactiae is regarded as a major bacterial pathogen of farmed fish, with outbreaks in Nile tilapia causing significant losses."
+          }
+        }
+      ]
+    }
+  },
+  "aquatic-clinic--aqua-fish-biology": {
+    "aquatic-clinic--aqua-fish-biology--ตำแหน่งของปลาใน-tree-of-life": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ตำแหน่งของปลาใน-tree-of-life--v1",
+          "statement": "Cyclostomes (lamprey และ hagfish) คือ jawless vertebrates ที่แยกสายออกจาก gnathostomes มากกว่า 500 ล้านปีก่อน จึงอยู่ที่ฐานของ vertebrate tree ตรงกับที่สไลด์วางปลาไว้ที่ฐานของกิ่งสัตว์มีกระดูกสันหลัง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26878236",
+              "locator": "Vol. 531, No. 7592, pp. 97-100, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the latest vertebrate ancestor before the divergence of cyclostomes and gnathostomes more than 500 million years ago"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--จำแนกตามโครงสร้าง-structure": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามโครงสร้าง-structure--v1",
+          "statement": "Cyclostome ในสไลด์หมายถึงกลุ่ม jawless vertebrates ซึ่งประกอบด้วย lamprey และ hagfish สองกลุ่มนี้เป็น cyclostomes ที่ยังมีชีวิตอยู่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26878236",
+              "locator": "Vol. 531, No. 7592, pp. 97-100, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the brain of the inshore hagfish (Eptatretus burgeri), another cyclostome group ... the lamprey, a jawless vertebrate"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามโครงสร้าง-structure--v2",
+          "statement": "ปลาที่มีขากรรไกร (gnathostomes) ในปัจจุบันแบ่งเป็น Chondrichthyes คือปลากระดูกอ่อน ได้แก่ ฉลาม กระเบน และ ratfish กับ Osteichthyes คือปลากระดูกแข็งและ tetrapods ตรงกับที่สไลด์แยก cartilaginous fish ออกจาก bony fish",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22699617",
+              "locator": "Vol. 486, No. 7402, pp. 247-250, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "modern gnathostomes: jawed vertebrates comprising Chondrichthyes (sharks, rays and ratfish) and Osteichthyes (bony fishes and tetrapods)"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--จำแนกตามแหล่งน้ำที่อยู่อาศัย-และความทนเค็ม-habitat-salt-toleranc": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามแหล่งน้ำที่อยู่อาศัย-และความทนเค็ม-habitat-salt-toleranc--v1",
+          "statement": "ปลากะพงขาว Lates calcarifer ซึ่งเป็นภาพตัวอย่างบนสไลด์ เป็นปลากระดูกแข็งกลุ่ม euryhaline คืออยู่ได้ทั้งน้ำทะเล น้ำกร่อย และน้ำจืด และเคลื่อนย้ายระหว่างสองสภาวะได้อย่างรวดเร็ว จึงครอบทั้งสามหมวด habitat ที่สไลด์แยกไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32630108",
+              "locator": "Vol. 11, No. 7, article 733, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Asian seabass (or commonly known as barramundi) is a bony euryhaline teleost ... The species lives in both marine and freshwater habitats and can move quickly between the two; thus, the species' ability to tolerate changes in salinity"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามแหล่งน้ำที่อยู่อาศัย-และความทนเค็ม-habitat-salt-toleranc--v2",
+          "statement": "อวัยวะหลักที่ทำให้ปลาทนเค็มต่างกันได้คือเหงือก ซึ่งเป็นตำแหน่งหลักของ osmoregulation และ ionic regulation ในปลาทุกกลุ่ม ทั้งที่ปลามีไตทำงานอยู่แล้ว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15618479",
+              "locator": "Vol. 85, No. 1, pp. 97-177, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The fish gill is a multipurpose organ that, in addition to providing for aquatic gas exchange, plays dominant roles in osmotic and ionic regulation ... despite the fact that all fish groups have functional kidneys"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--จำแนกตามรูปแบบการสืบพันธุ์-reproductive-pattern": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามรูปแบบการสืบพันธุ์-reproductive-pattern--v1",
+          "statement": "ปลาหางนกยูงในวงศ์ Poeciliidae ที่สไลด์ยกเป็นตัวอย่าง livebearer เป็นปลาที่ออกลูกเป็นตัวจริง (viviparous) และยังแยกย่อยได้อีกเป็นแบบ lecithotrophic คือลูกใช้ไข่แดงเลี้ยงตัวเอง กับ matrotrophic คือแม่ส่งอาหารผ่านรกให้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34081811",
+              "locator": "Vol. 34, No. 7, pp. 1144-1155, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "a shift from lecithotrophic (yolk-nourished) to matrotrophic (mother-nourished or placental) viviparity"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามรูปแบบการสืบพันธุ์-reproductive-pattern--v2",
+          "statement": "ภาพปลาที่อมไข่ไว้ในปากบนสไลด์ p.9 ตรงกับพฤติกรรม mouthbrooding ซึ่งนิยามว่าเป็นการฟักไข่และลูกปลาไว้ใน buccal cavity ของพ่อแม่ปลา และจัดเป็นกลยุทธ์การสืบพันธุ์แบบหนึ่งของปลา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37217600",
+              "locator": "Vol. 13, article 8284, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Mouthbrooding, when eggs and fry are incubated in the buccal cavity of the parent, is one of the reproductive strategies in fish."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--จำแนกตามอายุ-age": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามอายุ-age--v1",
+          "statement": "ลำดับ larva ไป fry ไป fingerling ตามที่สไลด์เรียงตรงกับ glossary ของ FAO/EIFAC ซึ่งนิยาม larva ว่าเป็นระยะระหว่างไข่กับตัวเต็มวัย fry ว่าเป็นระยะอ่อนโดยเฉพาะหลังจากถุงไข่แดงถูกดูดซึมหมดแล้ว และ fingerling ว่าเป็นปลาตั้งแต่ระยะ advanced fry จนถึงอายุ 1 ปีนับจากวันฟัก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-food-and-agriculture-o-1978",
+              "locator": "Section I, entries 398 (fingerling), 514 (fry), 662 (larva)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "fry: the young stage of fishes, particularly after the yolk sac has been absorbed ... fingerling: any fish from advanced fry to the age of one year from date of hatching, regardless of size"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--จำแนกตามรูปแบบการอพยพ-migration-pattern": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามรูปแบบการอพยพ-migration-pattern--v1",
+          "statement": "การจับคู่ของสไลด์ถูกต้องในระดับกลุ่ม Diadromous เป็นคำรวมของปลาที่อพยพข้ามระหว่างน้ำจืดกับน้ำทะเล และวงศ์ที่ยกเป็นตัวอย่างมาตรฐานของกลุ่มนี้คือ Salmonidae และ Anguillidae",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22803729",
+              "locator": "Vol. 81, No. 2, pp. 664-695, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Diadromous species, such as the Salmonidae and Anguillidae, which undertake large-scale migrations through coastal and offshore waters"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามรูปแบบการอพยพ-migration-pattern--v2",
+          "statement": "Catadromous ที่สไลด์จับคู่กับ Anguillidae หมายถึงทิศทางที่ปลาโตในน้ำจืดแล้วย้อนกลับลงไปวางไข่ในทะเล ปลาไหลสกุล Anguilla ใช้ชีวิตส่วนใหญ่ในน้ำจืดจนกระทั่งกลับไปยังแหล่งวางไข่ในเขตร้อนกลางมหาสมุทร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33083623",
+              "locator": "Vol. 6, No. 10, article e05176, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "As catadromous fishes, anguillid eels spend most of their lives in freshwater until they return to their spawning grounds in the tropics"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--รูปร่างลำตัว-body-shape": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--รูปร่างลำตัว-body-shape--v1",
+          "statement": "คำว่า anguilliform ที่สไลด์ใช้กับปลาไหลเป็นคำที่ใช้จริงในวรรณกรรม โดยหมายถึงรูปแบบลำตัวและการว่ายน้ำของปลาลำตัวยาวเรียว ซึ่งใช้ปลาไหล Anguilla เป็นตัวแทนมาตรฐานของกลุ่มนี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17886889",
+              "locator": "Vol. 269, No. 1, pp. 29-44, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Eel locomotion is considered typical of the anguilliform swimming mode of elongate fishes"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ส่วนของลำตัว-และการวัดขนาดปลา-body-regions": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ส่วนของลำตัว-และการวัดขนาดปลา-body-regions--v1",
+          "statement": "นิยามการวัดความยาวปลาตามคู่มือ FAO ตรงกับแผนภาพบนสไลด์ total length วัดถึงปลายก้านครีบหางที่ยาวที่สุด fork length วัดถึงปลายก้านครีบหางเส้นกลางที่สั้นที่สุดคือตำแหน่งง่ามหาง และ standard length วัดถึงปลาย hypural bone หรือ urostyle ซึ่งเป็นตำแหน่งโคนหาง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-food-and-agriculture-o-1974",
+              "locator": "Section 3 The measurement of fish and shellfish, Appendix 3.1 Definition of linear measurements",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Total length ... measured from U or L to the tips of the longest caudal fin rays ... Fork length ... measured from U or L to the cartilaginous tip of the shortest, or median, caudal fin ray ... Standard length ... measured from U to the tip"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ส่วนของลำตัว-และการวัดขนาดปลา-body-regions--v2",
+          "statement": "หมายเหตุบนสไลด์ที่ให้ปิดปากปลาและวัดเป็นเส้นตรงไม่วัดตามความโค้งของลำตัว ตรงกับข้อกำหนดของ FAO ที่ระบุว่าการวัดความยาวทั้งตัวทำตามแนวแกนกลางลำตัวตามยาว โดยให้ปากปลาปิด",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-food-and-agriculture-o-1974",
+              "locator": "Section 3.1.1 and Figure 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "All overall length measurements are made along the median longitudinal body axis with the mouth closed"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ลักษณะภายนอก-external-features": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ลักษณะภายนอก-external-features--v1",
+          "statement": "Lateral line ที่ปรากฏบนแผนภาพ external anatomy เป็นระบบรับความรู้สึกเชิงกล ปลาใช้ตรวจจับความผันผวนเล็ก ๆ ของการเคลื่อนไหวของน้ำรอบตัว โดยมีหน่วยรับสัญญาณคือ neuromast",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28396354",
+              "locator": "Vol. 220, Pt 12, pp. 2265-2276, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fishes use their mechanoreceptive lateral line system to sense nearby objects by detecting slight fluctuations in hydrodynamic motion within their immediate environment"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--กายวิภาคปลากลุ่ม-salmonid-ภาพจาก-stoskopf-fish-medicine": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคปลากลุ่ม-salmonid-ภาพจาก-stoskopf-fish-medicine--v1",
+          "statement": "Pyloric ceca ที่เห็นเด่นในภาพ salmonid ทำหน้าที่เพิ่มพื้นที่ผิวของทางเดินอาหารเพื่อการดูดซึม ไม่ใช่ถุงเก็บอาหารหรือถุงหมักแบบ cecum ของสัตว์เลี้ยงลูกด้วยนมและนก โดยเป็นตำแหน่งสำคัญของการดูดซึมน้ำตาล กรดอะมิโน และ dipeptide",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-3464017",
+              "locator": "Vol. 83, No. 20, pp. 8012-8014, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the caeca prove to be a major site of sugar, amino acid, and dipeptide uptake ... whereas the caeca of mammals and birds serve as fermentation chambers, fish caeca are an adaptation to increase gut surface area"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--กายวิภาคปลาหนัง-catfish": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคปลาหนัง-catfish--v1",
+          "statement": "การที่สไลด์แยกไตเป็น cranial kidney กับ caudal kidney ไม่ใช่แค่การแบ่งตามตำแหน่ง เพราะปลาไม่มีไขกระดูกและไม่มีต่อมน้ำเหลือง ส่วน head kidney หรือไตส่วนหน้าจึงทำหน้าที่เป็นอวัยวะ haematopoietic และ lymphoid หลักของปลาตัวเต็มวัยแทน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15714279",
+              "locator": "Vol. 320, No. 1, pp. 61-68, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "fish lack both bone marrow and lymph nodes; in their place, the head-kidney acts as a major haematopoietic and lymphoid organ in adult fish"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--กายวิภาคปลาทอง-goldfish": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคปลาทอง-goldfish--v1",
+          "statement": "ปลาทองอยู่ในวงศ์ Cyprinidae ซึ่งมี swim bladder แบ่งเป็นสองห้องตามที่สไลด์ระบุ โดยห้องหลัง (posterior chamber) พองก่อนราววันที่ 6 หลังปฏิสนธิ ส่วนห้องหน้า (anterior chamber) พองทีหลังราววันที่ 14 และห้องหน้าเกี่ยวข้องกับการสร้างและรับเสียง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26852267",
+              "locator": "Vol. 173, pp. 192-203, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "inflation of the posterior chamber of the swim bladder, which typically inflates around 6 days post fertilization (dpf) ... inflation of the anterior swim bladder, which occurs around 14dpf ... involvement of the anterior chamber in sound p"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--กายวิภาคม้าน้ำ-seahorse": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคม้าน้ำ-seahorse--v1",
+          "statement": "Pouch ของม้าน้ำตัวผู้ตามที่สไลด์ชี้ไว้ คือถุงฟักไข่ที่ทำให้เกิด male pregnancy ในวงศ์ Syngnathidae โดยมีระดับความซับซ้อนไล่ตั้งแต่ไข่เกาะติดผิวหนังเฉย ๆ ไปจนถึงการตั้งท้องภายใน brood pouch ที่มีโครงสร้างคล้ายมดลูกและรกของสัตว์เลี้ยงลูกด้วยนม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37298663",
+              "locator": "Vol. 24, No. 11, article 9712, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Seahorses and other species have a very peculiar feature: male pregnancy ... to the internal pregnancy within a brood pouch, which resembles mammalian uterus with the placenta"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--กายวิภาคปลากระดูกอ่อน-shark-และ-ray": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคปลากระดูกอ่อน-shark-และ-ray--v1",
+          "statement": "Spiral colon หรือ spiral intestine ที่สไลด์ชี้ไว้ทั้งในฉลามและกระเบน เป็นโครงสร้างร่วมของปลากระดูกอ่อน ทำหน้าที่ชะลออัตราการเคลื่อนของอาหารผ่านลำไส้และเพิ่มพื้นที่ผิวสำหรับการดูดซึมสารอาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34284626",
+              "locator": "Vol. 288, No. 1955, article 20211359, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the spiral intestine present in sharks, skates and rays slows the transit rate of digesta through the gut and provides increased surface area for the absorption of nutrients"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคปลากระดูกอ่อน-shark-และ-ray--v2",
+          "statement": "Rectal gland ที่สไลด์ชี้ในกระเบนเป็นอวัยวะขับเกลือเฉพาะของปลากระดูกอ่อน หลั่งสารละลาย sodium chloride ที่เกือบบริสุทธิ์และมี osmolality เท่ากับเลือด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38433340",
+              "locator": "Vol. 5, No. 3, pp. 471-480, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the rectal gland of Squalus acanthias secreted an almost pure solution of sodium chloride, isosmotic with blood"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ช่องลำตัว-coelomic-cavity": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ช่องลำตัว-coelomic-cavity--v1",
+          "statement": "Transverse septum เป็นแผ่นกั้นระหว่าง pericardial cavity กับ peritoneal หรือ coelomic cavity ตามที่สไลด์จัดไว้ในกลุ่มเดียวกัน แต่ในปลาสเตอร์เจียนการกั้นนี้ไม่สมบูรณ์ เพราะยังมี pericardioperitoneal canal เชื่อมสองช่องเข้าด้วยกันโดยอยู่ถัดจาก transverse septum ไปทางท้าย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39110021",
+              "locator": "Vol. 10, No. 5, article e1563, abstract and results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A small PPC was observed, which communicated between the pericardial cavity, and the peritoneal (coelomic) cavity. The cranial part of this channel, which was located immediately after the transverse septum, was on the midline of the body"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--หน้าที่ของระบบผิวหนัง-the-integumentary-system-function": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--หน้าที่ของระบบผิวหนัง-the-integumentary-system-function--v1",
+          "statement": "หน้าที่ osmoregulation และ excretion ที่สไลด์ list ไว้มีหลักฐานรองรับ ผิวหนังปลาไม่ได้เป็นแค่ barrier แต่ทำงานเป็น transport epithelium สำหรับแก๊ส ไอออน ของเสียไนโตรเจน และสารอาหารด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23660826",
+              "locator": "Vol. 183, No. 7, pp. 877-891, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the importance of fish skin as a transport epithelium for gases, ions, nitrogenous waste products, and nutrients was reviewed"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--หน้าที่ของระบบผิวหนัง-the-integumentary-system-function--v2",
+          "statement": "ข้อ Breathing in larva ที่สไลด์ระบุถูกต้อง ปลาระยะแรกของชีวิตมักใช้ผิวหนังทำหน้าที่แทนเหงือกก่อนที่ branchial epithelium จะพัฒนาจนทำงานได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23660826",
+              "locator": "Vol. 183, No. 7, pp. 877-891, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "early life stages often utilising the skin as a surrogate gill, prior to the development of a functional branchial epithelium"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--หน้าที่ของระบบผิวหนัง-the-integumentary-system-function--v3",
+          "statement": "ข้อ Body protection และ Sensory organ ที่สไลด์ list ไว้ตรงกับ review ที่สรุปว่าผิวหนังปลาเป็นเนื้อเยื่ออเนกประสงค์ ทำทั้งการป้องกันเชิงเคมีและเชิงกายภาพ การรับความรู้สึก พฤติกรรม และ metabolism ของฮอร์โมน อีกทั้งเป็นด่านป้องกันเชื้อโรคด่านแรก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20158518",
+              "locator": "Vol. 19, No. 4, pp. 313-324, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fish skin is a multi-purpose tissue that serves numerous vital functions including chemical and physical protection, sensory activity, behavioural purposes or hormone metabolism. Further, it is an important first-line defense system against"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ชั้น-dermis": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ชั้น-dermis--v1",
+          "statement": "การที่สไลด์แบ่ง dermis เป็น loose connective tissue layer กับ dense connective tissue layer และระบุว่าองค์ประกอบหลักคือ collagen ตรงกับรายงานทางสัณฐานวิทยา ซึ่งเรียกชั้นหลวมว่า stratum spongiosum และชั้นแน่นว่า stratum compactum ที่ประกอบด้วยเส้นใย collagen เรียงตัวเป็นระเบียบราว 30 ชั้น สลับทิศ caudodorsal และ caudoventral",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17886889",
+              "locator": "Vol. 269, No. 1, pp. 29-44, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The stratum compactum of the dermis consists of approximately 30 layers of highly ordered collagen fibers of alternating caudodorsal and caudoventral direction ... fiber bundles that pass through the loose connective tissue of the stratum s"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ภาพจุลกายวิภาคผิวหนังเปรียบเทียบระหว่างชนิดปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพจุลกายวิภาคผิวหนังเปรียบเทียบระหว่างชนิดปลา--v1",
+          "statement": "การใช้สีย้อม alcian blue ดู mucous cell ตามที่สไลด์ระบุเป็นวิธีมาตรฐานจริง โดยนิยมย้อมคู่กับ periodic acid-Schiff บนผิวหนัง เหงือก และลำไส้ปลา เพื่อแยก goblet cell ที่มี acidic mucin ออกจากที่มี mixed mucin",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32830331",
+              "locator": "Vol. 43, No. 10, pp. 1249-1258, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Skin, gill and intestine were sampled ... and stained with haematoxylin/eosin and Alcian Blue/periodic acid-Schiff ... goblet cells containing acidic mucins significantly increased in the intestine, while those containing mixed mucins incre"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ชนิดของเกล็ด-scales": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ชนิดของเกล็ด-scales--v1",
+          "statement": "การจับคู่ placoid กับฉลามตามลำดับที่สไลด์พิมพ์ไว้ถูกต้อง ผิวหนังฉลามปกคลุมด้วย placoid scale ซึ่งเรียกอีกชื่อว่า dermal denticle",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29808939",
+              "locator": "Vol. 279, No. 8, pp. 1132-1154, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Shark skin is covered with numerous placoid scales or dermal denticles."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ชนิดของเกล็ด-scales--v2",
+          "statement": "การจับคู่ ganoid กับปลาการ์ตามที่สไลด์พิมพ์ไว้ถูกต้อง ปลาการ์ Lepisosteus oculatus มีเกล็ดชนิด ganoid ที่เคลือบผิวด้วยเนื้อเยื่อแข็งชื่อ ganoine",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27139791",
+              "locator": "Vol. 326, No. 3, pp. 193-209, title and abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "normally developing and experimentally regenerating ganoine from ganoid scales of Lepisosteus oculatus (spotted gar), an actinopterygian fish species"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ชนิดของเกล็ด-scales--v3",
+          "statement": "เกล็ด cycloid และ ctenoid ของปลากระดูกแข็งจัดรวมกันเป็นเกล็ดชนิด elasmoid scale ในวรรณกรรมพัฒนาการของ dermal skeleton ซึ่งพิจารณา ganoid scale และ elasmoid scale เป็นคนละประเภทกันแต่มีความสัมพันธ์เชิงวิวัฒนาการ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12803422",
+              "locator": "Vol. 78, No. 2, pp. 219-249, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Our studies support the evolutionary affinities ... between the ganoid scales of polypterids and the elasmoid scales of teleosts"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--scute": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--scute--v1",
+          "statement": "Scute เป็นสมาชิกของ dermal skeleton จริงตามที่สไลด์นำเสนอคู่กับเกล็ด โดยวรรณกรรมจัด postcranial dermal plates and scutes ไว้เป็นหนึ่งในองค์ประกอบของโครงกระดูกชั้นหนัง ร่วมกับ odontodes, teeth and dermal denticles, cranial dermal bones และ elasmoid กับ ganoid scales",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12803422",
+              "locator": "Vol. 78, No. 2, pp. 219-249, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the development of a number of dermal skeletal elements (odontodes, teeth and dermal denticles, cranial dermal bones, postcranial dermal plates and scutes, elasmoid and ganoid scales, and fin rays)"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--chromatophore-และชนิดของเซลล์เม็ดสี": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--chromatophore-และชนิดของเซลล์เม็ดสี--v1",
+          "statement": "รายชื่อ chromatophore 5 ชนิดบนสไลด์ตรงกับวรรณกรรม คือ melanophore, xanthophore, erythrophore, iridophore และ leucophore ซึ่งพบร่วมกันในผิวหนังปลาและร่วมกันกำหนดสีและลวดลาย โดยสะกดมาตรฐานคือ xanthophore และ erythrophore ไม่ใช่ Xanthrophore และ Erythorophore ตามที่พิมพ์บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12242705",
+              "locator": "Vol. 58, No. 6, pp. 481-487, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Chromatophores in flatfish are dermal and epidermal melanophores, as well as dermal xanthophores, erythrophores, iridophores, and leucophores, combinations of which contribute to the color and patterning"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--chromatophore-และชนิดของเซลล์เม็ดสี--v2",
+          "statement": "สไลด์บอกแค่ว่ามี 2 แบบ แต่วรรณกรรมนิยามชัดเจนว่า physiological colour change คือการตอบสนองเร็วโดยรวมกลุ่มหรือกระจาย pigment organelle ภายในเซลล์เม็ดสีที่มีอยู่แล้ว ส่วน morphological colour change คือการตอบสนองช้าโดยเปลี่ยนชนิดหรือความหนาแน่นของเซลล์เม็ดสีในผิวหนัง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32898924",
+              "locator": "Vol. 34, No. 3, pp. 564-574, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A fast \"physiological response\" that aggregates/disperses the pigment organelles of skin chromatophores, and a slow \"morphological response\" that alters the type and/or density of pigment cells in the skin"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--การเปลี่ยนสีตามสภาพแวดล้อมและ-melanophore": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--การเปลี่ยนสีตามสภาพแวดล้อมและ-melanophore--v1",
+          "statement": "แผนภาพบนสไลด์ที่บอกว่า melanosome กระจายทั่วเซลล์ทำให้ดูเข้ม และ melanosome รวมกลุ่มกลางเซลล์ทำให้ดูจาง ตรงกับกลไกที่รายงานไว้ โดยเมื่อปลาอยู่บนพื้นหลังสีขาวจะมีการหลั่ง MCH-like hormone เข้ากระแสเลือดไปเหนี่ยวนำให้ melanosome รวมกลุ่มอย่างรวดเร็วและผิวจางลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32898924",
+              "locator": "Vol. 34, No. 3, pp. 564-574, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "With a white background MCHL is released into the circulation to induce rapid melanosome aggregation and skin lightening"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ภาพ-chromatophore-ในเนื้อเยื่อจริงและ-camouflage": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพ-chromatophore-ในเนื้อเยื่อจริงและ-camouflage--v1",
+          "statement": "การพรางตัว (camouflage) ของปลาเกิดจาก chromatophore ในชั้น dermis โดยเฉพาะ melanophore ที่ aggregate หรือ disperse เม็ดสี melanosome ตามระดับแสงและพื้นหลัง ทำให้สีลำตัวกลมกลืนกับสภาพแวดล้อม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24489905",
+              "locator": "Abstract, opening paragraph",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In aquatic vertebrates, this reaction is mediated through aggregation or dispersion of melanin-filled vesicles (melanosomes) in dermal pigment cells (melanophores). The adaptive value of this behavior is usually seen in camouflage by allowi"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพ-chromatophore-ในเนื้อเยื่อจริงและ-camouflage--v2",
+          "statement": "แถบเม็ดสีที่เรียงตัวในชั้น dermis ตามที่เห็นในภาพจุลกายวิภาค สอดคล้องกับรายงานว่าปลาน้ำลึกบางกลุ่มมีชั้น melanosome เรียงตัวหนาแน่นต่อเนื่องในชั้นนอกสุดของ dermis ทำให้ผิวหนังสะท้อนแสงน้อยกว่า 0.5 เปอร์เซ็นต์ ซึ่งเป็นกลไกพรางตัวอย่างหนึ่ง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32679102",
+              "locator": "Abstract, results paragraph",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Histological data suggest this low reflectance is mediated by a continuous layer of densely packed melanosomes in the exterior-most layer of the dermis."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--the-musculoskeletal-system-โครงกระดูกปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-musculoskeletal-system-โครงกระดูกปลา--v1",
+          "statement": "Pterygiophore เป็นกระดูกฐานที่รองรับก้านครีบ โดยเฉพาะ anal-fin pterygiophore ที่สอดแทรกระหว่าง haemal spine ของกระดูกสันหลังส่วนหาง ซึ่งเป็นลักษณะที่ใช้จำแนกชนิดปลาได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27460961",
+              "locator": "Abstract, characters for phylogenetic inference",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These results document and describe characters useful for phylogenetic inference of the family, including the insertion pattern of anal-fin pterygiophores between haemal spines."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--หน้าที่ของระบบกล้ามเนื้อและกระดูก-function-support": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--หน้าที่ของระบบกล้ามเนื้อและกระดูก-function-support--v1",
+          "statement": "หน้าที่ feeding and respiration ของระบบกล้ามเนื้อและกระดูกในปลาเกิดจากกลไก dual pump คือ buccal (orobranchial) pressure pump ดันน้ำผ่านเหงือก ร่วมกับ opercular (parabranchial) suction pump ดูดน้ำผ่านช่องเหงือก ซึ่งอาศัยกระดูกและกล้ามเนื้อบริเวณหัวทั้งหมด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20233606",
+              "locator": "Abstract, 1960 biomechanical model",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "He showed that both bony and cartilaginous fishes breathe through the use of a dual-pumping mechanism: a buccal or orobranchial pressure pump to force water over the gills and an opercular or parabranchial suction pump to pull water through"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--muscle-fiber-type-white-red-intermediate": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--muscle-fiber-type-white-red-intermediate--v1",
+          "statement": "ปฏิกิริยา succinate dehydrogenase (SDH) ซึ่งสะท้อนความสามารถ oxidative ของเส้นใยกล้ามเนื้อ ใช้แยกกล้ามเนื้อ red, intermediate และ white ในกล้ามเนื้อลำตัว (myotome) ของปลาได้จริง โดย red muscle ติดสีเข้มที่สุด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-3158569",
+              "locator": "Abstract, SDH results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "When the SDH method was used, red, tonic, intermediate, and white muscle fibers were easily observed."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--circulatory-system-เปรียบเทียบปลา-สัตว์ครึ่งบกครึ่งน้ำ-และสัตว์เ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--circulatory-system-เปรียบเทียบปลา-สัตว์ครึ่งบกครึ่งน้ำ-และสัตว์เ--v1",
+          "statement": "ในปลา เลือดจาก ventricle ออกทาง outflow tract ไปสู่ ventral aorta แล้วเข้าสู่หลอดเลือดฝอยที่เหงือกโดยตรง โดยมีลิ้นกันเลือดไหลย้อนกลับจากหลอดเลือดเหงือกสู่ ventricle ซึ่งเป็นวงจรเลือดเดียว ต่างจาก amphibian และ mammal ที่เลือดผ่าน lung capillaries",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29575373",
+              "locator": "Abstract, opening sentences",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The outflow tract of the fish heart is the segment interposed between the ventricle and the ventral aorta. It holds the valves that prevent blood backflow from the gill vasculature to the ventricle."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--หัวใจปลา-heart": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--หัวใจปลา-heart--v1",
+          "statement": "หัวใจปลาประกอบด้วยส่วนเรียงต่อกัน คือ sinus venosus ซึ่งมีเนื้อเยื่อ pacemaker แล้วต่อเป็น atrium, ventricle และ outflow tract ที่ประกอบด้วย conus arteriosus กับ bulbus arteriosus ซึ่งเชื่อมไปยัง ventral aorta ตรงกับ 4 ส่วนที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29575373",
+              "locator": "Abstract, primitive gnathostome heart design",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the primitive anatomical heart of the jawed vertebrates consisted of a sinus venosus containing the pacemaker tissue, an atrium possessing trabeculated myocardium, an atrioventricular region with compact myocardium ... a ventricle composed "
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--หัวใจปลา-heart--v2",
+          "statement": "เหตุผลที่นับหัวใจปลาเป็น two chamber ทั้งที่มี 4 ส่วน คือ bulbus arteriosus ไม่มีกล้ามเนื้อหัวใจ (devoid of myocardium) ประกอบด้วย elastin และ smooth muscle เป็นหลัก จึงไม่ใช่ห้องบีบตัว เหลือเพียง atrium และ ventricle ที่เป็นห้องกล้ามเนื้อหัวใจแท้จริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29575373",
+              "locator": "Abstract, recent work on fish heart morphology",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A conus arteriosus and a bulbus arteriosus, devoid of myocardium and mainly composed of elastin and smooth muscle, are usually present in cartilaginous and ray-finned fish."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--หลอดเลือดของปลาและตำแหน่งเจาะเลือดที่-caudal-vein": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--หลอดเลือดของปลาและตำแหน่งเจาะเลือดที่-caudal-vein--v1",
+          "statement": "caudal vein เป็นตำแหน่งเจาะเลือดมาตรฐานในปลา งานวิจัยที่เปรียบเทียบตำแหน่งเจาะเลือดทางเลือกในฉลามระบุว่าใช้ standard method กับ caudal vein และค่าชีวเคมีในซีรัมไม่แตกต่างจากหลอดเลือดอื่น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32336040",
+              "locator": "Abstract, methods and results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Venipuncture of the LAV (n = 16) was easily accomplished using ultrasound guidance with a 38 mm/18-gauge needle, whereas standard methods were used with the CV (n = 30) ... none of the biochemical analytes differed significantly between the"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--หลอดเลือดของปลาและตำแหน่งเจาะเลือดที่-caudal-vein--v2",
+          "statement": "การเจาะเลือดจาก caudal vein ใช้ได้จริงในปลากระดูกแข็ง เช่น rainbow trout (Oncorhynchus mykiss) และเม็ดเลือดแดงที่ได้ยังคงตอบสนองทางสรีรวิทยาได้ตามปกติ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16713317",
+              "locator": "Abstract, methods",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Whole blood drawn from cannulated, resting rainbow trout was compared with RBCs obtained from the caudal vein rinsed and stored at 4 degrees C."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--เม็ดเลือดแดงของปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--เม็ดเลือดแดงของปลา--v1",
+          "statement": "เม็ดเลือดแดงของปลากระดูกแข็งมีนิวเคลียส (nucleated erythrocytes) ต่างจากสัตว์เลี้ยงลูกด้วยนม และยังมี mitochondria ที่ทำงานได้อยู่ภายในเซลล์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12729919",
+              "locator": "Abstract, aim of study",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The aim of this study was to investigate the mitochondrial toxicity and proapoptotic activity of tributyltin chloride (TBTC) in teleost leukocytes and nucleated erythrocytes."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--เม็ดเลือดแดงของปลา--v2",
+          "statement": "นิวเคลียสของเม็ดเลือดแดงปลาเป็นโครงสร้างที่วัดขนาดได้จริงและเปลี่ยนแปลงตามอุณหภูมิ โดยงานในปลา brook trout และ rainbow trout วัดทั้ง erythrocyte cell volume, nucleus volume และ nucleocytoplasmatic ratio",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35636891",
+              "locator": "Abstract, erythrocyte morphometry results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The erythrocyte cell volume, nucleus volume, cell surface, and nucleocytoplasmatic ratio were significantly lower at 20 °C than at 9 °C in all investigated species/ploidy levels."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--the-respiratory-system-องค์ประกอบและกลไกหลัก": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-respiratory-system-องค์ประกอบและกลไกหลัก--v1",
+          "statement": "suction pump และ ram ventilation เป็นสองรูปแบบการระบายน้ำผ่านเหงือกที่ต่างกัน โดย suction pump คือ opercular pump ที่ดูดน้ำผ่านช่องเหงือกร่วมกับ buccal pressure pump ส่วน ram ventilation ถูกอธิบายและวัดปริมาณขึ้นจากความแตกต่างของการหายใจระหว่างปลาผิวน้ำ (pelagic) กับปลาหน้าดิน (benthic)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20233606",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Differences noted in the respiration of pelagic and benthic species largely led to the description and quantification of ram ventilation."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-respiratory-system-องค์ประกอบและกลไกหลัก--v2",
+          "statement": "secondary lamellae เป็นแผ่นบางที่ให้พื้นที่แลกเปลี่ยนก๊าซส่วนใหญ่ของเหงือกปลากระดูกแข็ง และการที่น้ำไหลผ่าน secondary lamellae สวนทางกับเลือดที่ไหลอยู่ภายในคือระบบ counter-current แบบต้นแบบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23999283",
+              "locator": "Abstract, opening sentences",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The gills of most teleost fishes are covered by plate-like structures, the secondary lamellae, that provide the bulk of the respiratory surface area. Water passing over the secondary lamellae exchanges gases with blood passing through the s"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-respiratory-system-องค์ประกอบและกลไกหลัก--v3",
+          "statement": "pharyngeal bone หรือ pharyngeal jaw เป็นชุดกระดูกที่จัดอยู่ในแนวเดียวกับ gill arch ชุดหลัง ทำหน้าที่บดเคี้ยวอาหาร แยกจากขากรรไกรปาก (oral jaw) ที่ทำหน้าที่จับเหยื่อ ซึ่งสนับสนุนที่สไลด์ระบุว่าคู่สุดท้ายของ gill arch เปลี่ยนไปเป็น pharyngeal bone",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32579214",
+              "locator": "Abstract, methods",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "we performed RNA-seq on the serially homologous-toothed oral and pharyngeal jaws as well as the fourth toothless gill arch of Astatoreochromis alluaudi."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--โครงสร้างเหงือกและ-counter-current-system": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--โครงสร้างเหงือกและ-counter-current-system--v1",
+          "statement": "การไหลของน้ำสวนทางกับเลือดในเหงือกปลา (counter-current system) จัดเป็นรูปแบบการแลกเปลี่ยนก๊าซที่มีประสิทธิภาพสูงสุดในบรรดาอวัยวะแลกเปลี่ยนก๊าซของสัตว์มีกระดูกสันหลัง สูงกว่าระบบ cross-current ของปอดนก และ ventilated pool ของปอดสัตว์เลี้ยงลูกด้วยนม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11892241",
+              "locator": "Abstract, exposure of blood to respiratory medium",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The countercurrent presentation between water and blood in fish gills is the most efficient design in the evolved gas exchangers: It was imperative for survival in water, a medium that contains relatively less O2 and is more expensive to br"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--โครงสร้างเหงือกและ-counter-current-system--v2",
+          "statement": "ระบบของสัตว์มีกระดูกสันหลังแบ่งตามทิศทางการไหลของตัวกลางเทียบกับเลือดได้ 4 แบบ โดย counter-current system คือแบบของเหงือกปลา ซึ่งวิเคราะห์ประสิทธิภาพได้จากผลต่างความดันย่อยของก๊าซตลอดแนวแลกเปลี่ยน ตรงกับตัวเลขบนแผนภาพที่ค่าฝั่งน้ำสูงกว่าฝั่งเลือดทุกระดับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1144942",
+              "locator": "Abstract, construction principles",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "According to the arrangement of external medium flow relative to capillary blood flow four construction principles may be distinguished: (a) counter-current system (fish gills), (b) cross-current system (avian lungs), (c) ventilated pool sy"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--โครงสร้างเหงือกและ-counter-current-system--v3",
+          "statement": "Gill raker คือโครงสร้างซี่ที่ด้านในของ gill arch ทำหน้าที่กรองและดักจับอาหาร ไม่ใช่ส่วนแลกเปลี่ยนก๊าซ ดังเช่นในปลาลิ่น (silver carp) ที่ใช้ gill raker ที่ดัดแปลงมากรองแพลงก์ตอนขนาด 4 ถึง 85 ไมโครเมตร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30111555",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Silver carp utilize modified gill rakers to capture a specific range of food; however, their greatly modified filtering morphology allows them to feed on phytoplankton and zooplankton ranging in size from 4 to 85 µm."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--รูปแบบทางเดินอาหารแตกต่างกันตามชนิดปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--รูปแบบทางเดินอาหารแตกต่างกันตามชนิดปลา--v1",
+          "statement": "Spiral colon หรือ spiral intestine ที่พบในฉลาม กระเบน และโรนัน ทำหน้าที่ชะลออัตราการเคลื่อนของอาหารผ่านลำไส้และเพิ่มพื้นที่ผิวสำหรับการดูดซึมสารอาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34284626",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is supposed that the spiral intestine present in sharks, skates and rays slows the transit rate of digesta through the gut and provides increased surface area for the absorption of nutrients."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--รูปแบบทางเดินอาหารแตกต่างกันตามชนิดปลา--v2",
+          "statement": "ปลากระดูกแข็งหลายกลุ่มไม่มีกระเพาะอาหาร (agastric หรือ stomachless) ซึ่งเกิดจากการสูญเสียยีนกระเพาะ 4 ยีนคือ atp4a, atp4b, pgc และ pga2 ร่วมกัน สอดคล้องกับแผนภาพที่ม้าน้ำและกลุ่มปลาคาร์พไม่มีคำกำกับ Stomach ขณะที่ปลาดุกและปลาลิ้นหมามี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38570609",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Several teleost groups display secondary loss of the stomach, and four gastric genes, atp4a, atp4b, pgc, and pga2 have been co-deleted in agastric (stomachless) fish."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--การสลาย-hemoglobin-ไปเป็น-biliverdin-และ-bilirubin": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--การสลาย-hemoglobin-ไปเป็น-biliverdin-และ-bilirubin--v1",
+          "statement": "ในปลา (zebrafish) เอนไซม์ heme oxygenase สลาย heme ได้เป็น biliverdin แล้ว biliverdin ถูกเปลี่ยนต่อเป็น bilirubin ด้วยเอนไซม์ biliverdin reductase ยืนยันว่าเส้นทางของ PISCES ในแผนภาพมีขั้น reduction จริงเช่นเดียวกับ mammal",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27671773",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Heme oxygenase enzymes (HMOX1 and HMOX2) degrade heme into biliverdin and carbon monoxide, with biliverdin subsequently being converted to bilirubin by biliverdin reductase (BVRa or BVRb)."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--swim-bladder": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--swim-bladder--v1",
+          "statement": "Swim bladder เป็นอวัยวะควบคุมการลอยตัว (hydrostatic organ) โดยปลากลุ่ม physoclist หลั่งก๊าซเข้าสู่ swim bladder เมื่อดำลงลึกและดูดซึมก๊าซกลับเมื่อลอยขึ้น ซึ่งอธิบายหน้าที่ buoyancy ที่สไลด์ก่อนหน้าระบุไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23979722",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Physoclist fish are able to regulate their buoyancy by secreting gas into their hydrostatic organ, the swim bladder, as they descend through the water column and by resorbing gas from their swim bladder as they ascend."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--swim-bladder--v2",
+          "statement": "Gas gland เป็นกลุ่มเซลล์ที่ผนัง swim bladder ทำหน้าที่หลั่งก๊าซโดยเฉพาะออกซิเจนเข้าสู่ช่องว่างของ swim bladder ส่วน pneumatic duct เป็นท่อที่ทำให้ปลากลุ่ม physostome ฮุบอากาศจากผิวน้ำได้ ต่างจากปลากลุ่ม physoclist ที่ท่อนี้ปิดไป",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34882794",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the swimbladder is filled by diffusion of gases, mainly oxygen and CO2, from the blood and the gas gland cells into the swimbladder lumen ... the aquaporin protein has been considered important for the diffusion of water, which may accident"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--swim-bladder--v3",
+          "statement": "กลไกที่ gas gland ใช้หลั่งออกซิเจน คือเซลล์ gas gland สร้างกรดแลกติกจาก anaerobic glycolysis แล้ววนกลับผ่าน rete mirabile ซึ่งเป็นกลุ่มหลอดเลือดฝอยแบบ countercurrent ทำให้เลือดเป็นกรดเฉพาะที่และปล่อยออกซิเจนออกจาก hemoglobin ผ่าน Root effect",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22496829",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In the swimbladder, lactic acid generation by anaerobic glycolysis in the gas gland epithelial cells and its recycling through the rete mirabile bundles of countercurrent capillaries are essential for local blood acidification and oxygen li"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--the-reproductive-system-ลักษณะภายนอกและโครงสร้างภายใน": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-reproductive-system-ลักษณะภายนอกและโครงสร้างภายใน--v1",
+          "statement": "Pearl organ หรือ breeding tubercle เป็นตุ่มเคราตินบนผิวหนัง จัดเป็นลักษณะเพศทุติยภูมิ (secondary sexual characteristic) ของปลาเพศผู้ ใช้แยกเพศในปลาโตเต็มวัยได้ เช่นในปลาม้าลายที่ตุ่มอยู่บนก้านครีบอกคู่หน้า 5 ก้านแรก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34037242",
+              "locator": "Abstract, opening and results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The presence of breeding tubercles (BTs) on the pectoral fins has been investigated as a typical male secondary sexual characteristic (SSC) that distinguish males from females in adult zebrafish."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-reproductive-system-ลักษณะภายนอกและโครงสร้างภายใน--v2",
+          "statement": "Gonopodium คือครีบก้น (anal fin) ที่ถูกดัดแปลงในปลาเพศผู้กลุ่ม Poeciliidae เช่นปลาหางนกยูง และการได้รับแอนโดรเจนทำให้ปลาเพศเมียเกิดทั้งสีสันแบบเพศผู้และครีบก้นเปลี่ยนเป็นโครงสร้างคล้าย gonopodium ยืนยันว่าทั้ง Colour และ Gonopodium เป็นลักษณะภายนอกที่ควบคุมด้วยฮอร์โมนเพศ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12051803",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Methyltestosterone induced male-like coloration and transformation of the anal fin into a gonopodium-like structure."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--prespawning-และ-postspawning": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--prespawning-และ-postspawning--v1",
+          "statement": "ความแตกต่างของขนาดช่องท้องระหว่างระยะ prespawning และ postspawning สะท้อนการเปลี่ยนแปลงของรังไข่ ซึ่งวัดได้เป็นค่า gonadosomatic index โดยการพัฒนาของรังไข่แปรผันตามค่าดัชนีนี้ตลอดรอบสืบพันธุ์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36671823",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Throughout the year, oocytes in the previtellogenic and vitellogenic stages were present in the ovaries, and the development of the ovaries followed the values of the gonadosomatic index."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--reproduction-รูปแบบการปฏิสนธิและการออกลูก": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--reproduction-รูปแบบการปฏิสนธิและการออกลูก--v1",
+          "statement": "Hermaphroditism ในปลาเป็นลักษณะที่เกิดขึ้นแบบ polyphyletic พบประมาณ 2 เปอร์เซ็นต์ของปลากระดูกแข็งที่มีชีวิตอยู่ กระจายในกว่า 20 วงศ์ 9 อันดับ จึงเป็นรูปแบบสืบพันธุ์ส่วนน้อยเมื่อเทียบกับ bisexual reproduction",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19684459",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Hermaphroditism is a derived and polyphyletic condition in fishes, documented in about 2% of all extant teleost species scattered across more than 20 taxonomic families in 9 orders."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--reproduction-รูปแบบการปฏิสนธิและการออกลูก--v2",
+          "statement": "Oviparity เป็นรูปแบบดั้งเดิมของปลากระดูกอ่อน ส่วน viviparity เกิดขึ้นแยกกันอย่างน้อย 12 ครั้งในสายวิวัฒนาการ และ matrotrophy คือการที่แม่ให้สารอาหารระหว่างตั้งท้องเกิดขึ้นอย่างน้อย 6 ครั้ง ยืนยันว่าการแบ่ง oviparous กับ viviparous ในสไลด์เป็นการจำแนกที่ใช้จริงในวรรณกรรม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38562006",
+              "locator": "Abstract, phylogenetic reconstructions",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Viviparity has originated at least 12 times, with 10 origins among sharks, one in batoids ... Substantial matrotrophy has evolved at least six times."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--hermaphroditism": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--hermaphroditism--v1",
+          "statement": "การแบ่ง hermaphroditism ในปลาเป็น sequential กับ synchronous ตรงกับสไลด์ โดย protogynous คือเริ่มเป็นเพศเมียแล้วเปลี่ยนเป็นเพศผู้ ส่วน protandrous คือเริ่มเป็นเพศผู้แล้วเปลี่ยนเป็นเพศเมีย ตรงกับทิศทางลูกศรบนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19684459",
+              "locator": "Abstract, categories of hermaphroditism",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Among the sequential hermaphrodites are protogynous species in which an individual begins reproductive life as a female and later may switch to male, protandrous species in which a fish starts as a male and later may switch to female."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--hermaphroditism--v2",
+          "statement": "ปลาการ์ตูน (Clownfish สกุล Amphiprion) เป็น protandrous hermaphrodite จริง โดยปลาเพศผู้เปลี่ยนเป็นเพศเมียได้ภายใต้เงื่อนไขทางสังคมที่เหมาะสม ตรงกับสัญลักษณ์เพศผู้เปลี่ยนเป็นเพศเมียบนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26605075",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The anemonefish, Amphiprion clarkii, is a protandrous hermaphrodite. Under appropriate social conditions, male fish can become female."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--the-excretory-system-osmoregulation-และ-kidney": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-excretory-system-osmoregulation-และ-kidney--v1",
+          "statement": "ปลาน้ำจืดมีความเข้มข้นของสารละลายในร่างกายสูงกว่าน้ำ (hyperosmotic) จึงต้องดูดซึม NaCl จากสิ่งแวดล้อม ส่วนปลาทะเลมีความเข้มข้นต่ำกว่าน้ำทะเล (hyposmotic) จึงต้องดื่มน้ำทะเลแล้วขับเกลือส่วนเกินออกทางเหงือก ซึ่งเป็นกลไก osmoregulation ที่สไลด์ไม่ได้อธิบาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18525009",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "teleost fishes were hyperosmotic to fresh water and hyposmotic to seawater ... freshwater teleosts extract NaCl from the environment, while marine teleosts ingest seawater, absorb intestinal water by absorbing NaCl, and excrete the excess s"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-excretory-system-osmoregulation-และ-kidney--v2",
+          "statement": "ไตของปลากระดูกแข็งแบ่งเป็น head kidney และ trunk kidney โดย head kidney เป็นอวัยวะน้ำเหลืองและสร้างเม็ดเลือดที่สำคัญ ส่วน trunk kidney ทำหน้าที่ควบคุมแรงดันออสโมติกและขับของเสียเป็นหลัก ซึ่งเป็นความต่างของหน้าที่ที่สไลด์ไม่ได้ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36560667",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A teleost's kidney was divided into head kidney and trunk kidney. The head kidney is an important lymphatic organ, while the trunk kidney mainly performs osmotic pressure regulation and excretion functions."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--the-nervous-system": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-nervous-system--v1",
+          "statement": "Telencephalon ของปลาเป็นศูนย์รับกลิ่น โดยเซลล์รับกลิ่น (olfactory receptor neuron) ส่งใยประสาทไปยัง olfactory bulb แล้วต่อไปยัง telencephalon ตรงกับที่สไลด์กำกับว่า telencephalon (smell)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23468224",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Recently, progress was made in understanding crypt cell function with ... the dissection of crypt cell connectivity within the telecephalon. Here, we review recent findings on the molecular properties, functions, and associated neural pathw"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-nervous-system--v2",
+          "statement": "Mesencephalon ของปลาบรรจุ optic tectum ซึ่งเป็นศูนย์รับภาพหลักและเป็นจุดเริ่มของวิถีการเห็นที่ส่งขึ้นไปยัง telencephalon ตรงกับที่สไลด์กำกับว่า mesencephalon (vision)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37042690",
+              "locator": "Abstract and keywords",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Visual pathways to the telencephalon in teleost fishes have been studied in detail only in a few species ... retinotopic organization of the ascending connections is maintained at least to the level of the diencephalon in the yellowfin goby"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-nervous-system--v3",
+          "statement": "Cerebellum ของปลาเกี่ยวข้องกับการทรงตัวและการประสานการเคลื่อนไหว โดยการทำลาย cerebellum ในปลาม้าลายเปลี่ยนแปลงการประสานงานระหว่างครีบอกกับลำตัวอย่างเป็นระบบ และการรับรู้การทรงตัว (vestibular sense) เป็นตัวขับให้เกิดการประสานงานนี้ ตรงกับที่สไลด์กำกับว่า metencephalon (balance)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31591962",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This fin-body synergy was absent in vestibular mutants, suggesting sensed imbalance promotes coordinated movements. Similarly, synergies were systematically altered following cerebellar lesions, identifying a neural substrate regulating fin"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--the-endocrine-system-รายชื่อต่อมและตำแหน่งในตัวปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-endocrine-system-รายชื่อต่อมและตำแหน่งในตัวปลา--v1",
+          "statement": "Corpuscles of Stannius (ที่สไลด์หน้าแรกเขียนว่า Stanius body) สร้างฮอร์โมน stanniocalcin 1 ซึ่งเป็นฮอร์โมนลดระดับแคลเซียม (hypocalcemic hormone) ที่มีบทบาทสำคัญในเมแทบอลิซึมของแคลเซียมในปลากระดูกแข็ง โดยยับยั้งการขนส่งแคลเซียมที่เหงือก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25878057",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Stanniocalcin 1 (STC1) is a hypocalcemic hormone that is known to play an important role in calcium metabolism in teleost fish ... The biological action of STC1 inhibits gill Ca2+ transport."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-endocrine-system-รายชื่อต่อมและตำแหน่งในตัวปลา--v2",
+          "statement": "Corpuscles of Stannius เป็นอวัยวะที่ควบคุมสมดุลแคลเซียมของปลาจริง โดยในปลาม้าลายพบว่ามีการแสดงออกของทั้ง stanniocalcin 1 และ FGF23 ซึ่งเป็นฮอร์โมนลดแคลเซียม ร่วมกับ calcium-sensing receptor ที่อวัยวะนี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28323996",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "FGF23 is specifically expressed in the corpuscles of Stannius (CS), an organ involved in Ca2+ homeostasis in fish."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--thyroid-hormone-production-และโครงสร้างสมองปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--thyroid-hormone-production-และโครงสร้างสมองปลา--v1",
+          "statement": "แกน pituitary ถึง thyroid ที่แผนภาพแสดงมีอยู่จริงในปลา โดยเซลล์ thyrotrope ในต่อมใต้สมองของปลาม้าลายแสดงออกยีน tshb และมี negative feedback จากฮอร์โมนไทรอยด์ที่สร้างจาก thyroid follicle มายับยั้งการถอดรหัส tshb ตั้งแต่ระยะตัวอ่อน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24316972",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We found that thyroid-stimulating hormone β subunit (tshb) and type 2 deiodinase (dio2) are coexpressed in zebrafish thyrotropes by 48 hours after fertilization and that TH-driven negative feedback regulation of tshb transcription appears i"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--the-sensory-system-หัวข้อรวม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-sensory-system-หัวข้อรวม--v1",
+          "statement": "Taste bud หรือ gustatory organ ของปลาไม่ได้จำกัดอยู่แค่ในช่องปาก แต่กระจายอยู่ที่ริมฝีปาก ข้างลำตัว ครีบหาง และหนวด (barbel) ขึ้นกับชนิดของปลา ซึ่งเป็นรายละเอียดที่สไลด์ในช่วงนี้ไม่ได้ขยายความ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27513962",
+              "locator": "Abstract, opening",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In fish, taste buds occur on the lips, the flanks, and the caudal (tail) fins of some species and on the barbels of others."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--lateral-line-system": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--lateral-line-system--v1",
+          "statement": "หน่วยรับความรู้สึกของ lateral line คือ neuromast ซึ่งห่อหุ้มด้วย cupula ที่เป็นวุ้น วางอยู่ระหว่างรูเปิด (canal pore) แต่ละคู่ตามแนวท่อ lateral line ที่ฝังอยู่ใต้ผิวหนังทั้งสองข้างของลำตัว ตรงกับคำกำกับ cupula, neuromast, external opening และ lateral-line canal บนแผนภาพ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18926967",
+              "locator": "Abstract, description of the LLTC",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The LLTC consists of a long tube no more than a few millimetres in diameter embedded immediately under the skin of the fish on each side of its body. In most fishes, pore-like openings are regularly distributed along the LLTC, and a minute "
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--lateral-line-system--v2",
+          "statement": "กลไกกระตุ้นของ lateral line คือการเคลื่อนที่ของน้ำภายนอกทำให้เกิดความผันผวนของความดันที่รูเปิด ก่อให้เกิดการไหลของของเหลวภายในท่อ และแรงต้าน (drag force) ที่กระทำต่อ cupula ของ neuromast จึงเป็นตัวกระตุ้น ตรงกับลูกศร water displacement บนแผนภาพที่สไลด์ไม่ได้อธิบายเป็นข้อความ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18926967",
+              "locator": "Abstract, stimulation mechanism",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Drag forces resulting from fluid motions induced inside the LLTC by pressure fluctuations in the external flow stimulate the neuromasts."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--internal-ear": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--internal-ear--v1",
+          "statement": "ในปลากลุ่ม otophysan เช่นปลาม้าลาย โครงสร้าง Weberian apparatus ซึ่งประกอบด้วยกระดูกชิ้นเล็ก เอ็น หูชั้นใน และ swim bladder ทำงานร่วมกันเพื่อเพิ่มความสามารถในการได้ยิน ซึ่งอธิบายว่าทำไมคำที่อ่านได้บนแผนภาพจึงมีทั้ง Gas bladder และ Weberian apparatus",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32243643",
+              "locator": "Abstract, background and results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The Weberian apparatus enhances hearing in otophysan fishes, including Zebrafish (Danio rerio) ... Histological development of hard and soft tissues of the Weberian apparatus, including ossicles, ear, swim bladder, and ligaments are describ"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--internal-ear--v2",
+          "statement": "Otolith ในหูชั้นในของปลาเกี่ยวข้องกับการรับรู้เสียง โดยขนาดสัมพัทธ์ของ otolith แต่ละชิ้นสัมพันธ์กับการตรวจจับความดันเสียง (sound pressure) และการเคลื่อนที่ของอนุภาค (particle motion)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30443931",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Among ecological groups, we observed differences in relative sizes of otoliths associated with sound pressure and particle motion detection, and variation in Weberian ossicle size that may impact sound transmission."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--otolith-กับขนาดของปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--otolith-กับขนาดของปลา--v1",
+          "statement": "การโยงเส้นจากตำแหน่งต่าง ๆ บน otolith ไปหาปลาขนาดต่างกันสื่อถึงหลักการ back-calculation คือ otolith สร้างชั้นการเจริญเติบโตรายวัน (daily growth increments) ทำให้ย้อนคำนวณอายุและขนาดตัวของปลาในแต่ละช่วงชีวิตได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38168734",
+              "locator": "Abstract, methods",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We coupled otolith daily growth increments and laser ablation inductively-coupled plasma mass spectrometry measurements ... from hatching to an age of 100 days ... A back-calculation allowed us to estimate the size of juveniles at the entra"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--vision": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--vision--v1",
+          "statement": "เลนส์ตาของปลามีรูปทรงกลม (spherical crystalline lens) และมีค่าดัชนีหักเหแบบไล่ระดับ (gradient refractive index) จากผิวเลนส์เข้าสู่ใจกลาง สอดคล้องกับที่แผนภาพวาด Crystalline Lens เป็นทรงกลมขนาดใหญ่กลางลูกตา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15770979",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We present an iterative tomographic algorithm to reconstruct refractive-index profiles for meridional planes of the lens of the spherical fish eye ... An experimental demonstration is given by applying the algorithm to retrieve the refracti"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--vision--v2",
+          "statement": "Tapetum เป็นชั้นสะท้อนแสงที่อยู่หลังชั้นรับแสงของจอตาในปลาบางชนิด ทำหน้าที่สะท้อนแสงกลับไปข้างหน้าให้โฟตอนมีโอกาสชนเซลล์รับแสงอีกครั้ง จึงเพิ่มความไวต่อแสงในสภาพแสงน้อยอย่างมาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36028472",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The tapetum lucidum is a photoreflective structure located posterior to the photoreceptors in the eyes of some fish and terrestrial animals. The tapetum reflects light forward, giving incident photons a \"second chance\" to collide with a pho"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--เกณฑ์การจำแนกปลา-classification-of-fish": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--เกณฑ์การจำแนกปลา-classification-of-fish--v1",
+          "statement": "เกณฑ์ Migration pattern ที่สไลด์ list ไว้เป็นเกณฑ์จำแนกที่ใช้จริงในวรรณกรรม โดย diadromy คือการย้ายถิ่นระหว่างทะเลกับน้ำจืด และแยกเป็นรูปแบบย่อยที่สำคัญคือ anadromous กับ catadromous",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24430843",
+              "locator": "Vol 281(1778):20132081, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "diadromy, a life-history behaviour in which individuals move between oceans and freshwater habitats for feeding and reproduction"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--จำแนกตามการกินอาหาร-food-consumption": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามการกินอาหาร-food-consumption--v1",
+          "statement": "การจำแนกปลาตามอาหารที่กิน (herbivore, omnivore, carnivore หรือ trophic level) เป็นเกณฑ์ที่ใช้จริงและสัมพันธ์กับกายวิภาค โดยความยาวลำไส้สัมพันธ์กับ trophic level และลำไส้ที่ยาวขึ้นในกลุ่มกินพืชคือตัวอย่างคลาสสิกของการปรับตัวต่ออาหารที่มีสารอาหารต่ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40418733",
+              "locator": "Vol 230(3):iyaf102, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Gut length generally correlates with trophic level, and increased gut length in herbivores is a classic example of adaptation to cope with diets having a lower nutrient content and a higher proportion of refractory material."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--จำแนกตามวัตถุประสงค์การเลี้ยง-และระบบการเลี้ยง-culture-purpose-c": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามวัตถุประสงค์การเลี้ยง-และระบบการเลี้ยง-culture-purpose-c--v1",
+          "statement": "ระบบการเลี้ยงที่สไลด์ list ไว้ (บ่อดิน กระชัง บ่อปูนหรือถัง) ตรงกับระบบที่ FAO อธิบายสำหรับปลานิล คือเลี้ยงในบ่อ เลี้ยงหนาแน่นในกระชังลอยในแหล่งน้ำขนาดใหญ่ และเลี้ยงในถังหรือรางน้ำขนาด 10 ถึง 1000 ลูกบาศก์เมตร",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-fisheries-and-aqua-2009",
+              "locator": "Production, Grow-out techniques section",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Tilapia are cultured in tanks and raceways of varying sizes (10-1 000 m3) and shapes (circular, rectangular, square and oval)."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--จำแนกตามวัตถุประสงค์การเลี้ยง-และระบบการเลี้ยง-culture-purpose-c--v2",
+          "statement": "วัตถุประสงค์การเลี้ยงแบบ Ornament หรือ pet เป็นภาคการผลิตที่แยกจากการเลี้ยงเพื่อบริโภคจริง โดยการค้าปลาสวยงามมีมูลค่าส่งออกราว 5 พันล้านดอลลาร์สหรัฐในปี 2018 และมีปัญหาเฉพาะทางของตัวเอง เช่น ความเครียดจากการขนส่งและการระบาดของโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37238012",
+              "locator": "Vol 13(10):1583, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ornamental fish trade represents an important economic sector with an export turnover that reached approximately 5 billion US dollars in 2018."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ระนาบและทิศทางของลำตัว-body-planes": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ระนาบและทิศทางของลำตัว-body-planes--v1",
+          "statement": "คำบอกทิศทางของลำตัวปลาที่สไลด์ list ไว้ตรงกับคู่มือผ่าซากปลาของ EAFP คือปลามีด้านข้าง 2 ข้าง (lateral) ด้านบน (dorsal) ตรงข้ามกับด้านล่าง (ventral) และ medial หมายถึงเข้าหาแนวกึ่งกลางลำตัว ส่วน lateral หมายถึงออกห่างจากแนวนั้น โดยแกนหน้าหลังเรียก anterior หรือ cranial เทียบกับ posterior หรือ caudal",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-european-association-o-2015",
+              "locator": "Teleosts anatomy, General appearance page",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "two lateral flanks (sides) and a dorsal or upper part, opposite a ventral or lower part"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--กายวิภาคภายนอกของ-sturgeon": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคภายนอกของ-sturgeon--v1",
+          "statement": "Barbels ที่ปรากฏบนแผนภาพ sturgeon เป็นอวัยวะรับความรู้สึกจริง โดยในปลาสเตอร์เจียนขาว (Acipenser transmontanus) เยื่อบุผิวของ barbels เป็น sensory epithelium ร่วมกับอวัยวะรับกลิ่น และการถูกทำลายของเยื่อบุนี้ทำให้ปลาหยุดกินอาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9676244",
+              "locator": "Vol 32(3):173-184, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Similar changes to epithelial cells of the barbels, olfactory organs and esophagus were also observed. Destruction of the sensory epithelium is suggested as a cause for cessation of feeding"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคภายนอกของ-sturgeon--v2",
+          "statement": "ปลาสเตอร์เจียนมี urogenital opening เป็นช่องเปิดภายนอกที่ระบุได้แยกต่างหาก จนถูกใช้เป็นดัชนีหนึ่งในการตรวจเพศจากภายนอก (แม้ในการศึกษานี้รูปร่างของช่องเปิดไม่ต่างกันระหว่างเพศ) สอดคล้องกับที่สไลด์แยก anus ออกจาก urogenital pore",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23565575",
+              "locator": "Vol 43(2):81-89, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The urogenital opening had no difference in shapes for both sexes."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--กายวิภาคปลาลำตัวแบนข้างและปลาลำตัวลึก": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคปลาลำตัวแบนข้างและปลาลำตัวลึก--v1",
+          "statement": "ป้ายชื่อหัวใจในภาพปลาเทวดาที่แยกเป็น Atrium, Conus และ Ventricle มีหลักฐานทางกายวิภาครองรับ เพราะ conus arteriosus ไม่ได้หายไปจากปลากระดูกแข็ง แต่ยังพบเป็นส่วนที่แยกได้ชัดระหว่าง ventricle กับ bulbus และเป็นที่ยึดของลิ้นหัวใจส่วน outflow tract",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16835938",
+              "locator": "Vol 288(8):900-908, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the conus arteriosus has not been lost in evolution and constitutes a fundamental part of the teleost OFT. In all the species studied, the conus supports the OFT valves"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--กายวิภาคปลาลำตัวแบนข้างและปลาลำตัวลึก--v2",
+          "statement": "ในปลากลุ่ม actinopterygian ทั้ง conus arteriosus (มีกล้ามเนื้อหัวใจ) และ bulbus arteriosus (ไม่มีกล้ามเนื้อหัวใจ ประกอบด้วย elastin และ smooth muscle) มีอยู่ร่วมกัน โดยวิวัฒนาการของปลากระดูกแข็งทำให้ conus เล็กลงและ bulbus พัฒนาเด่นขึ้น จึงควรอ่านป้าย Conus บนสไลด์ควบคู่กับความรู้เรื่อง bulbus",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29575373",
+              "locator": "Vol 93(3):1604-1619, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "a decrease in size of the conus in combination with a remarkable development of the bulbus, especially in teleosts"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--โครงสร้างผิวหนังและชั้น-epidermis": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--โครงสร้างผิวหนังและชั้น-epidermis--v1",
+          "statement": "ข้อความว่า Epidermis บางกว่า Dermis และมี mucous cell กับ club cell อยู่จริง มีข้อมูลเชิงปริมาณรองรับในปลาดุกแอฟริกา (Clarias gariepinus) คือ epidermis หนาราว 240 ไมโครเมตร ประกอบด้วย club cell 25.7% และ mucous cell 10.5% ขณะที่ dermis หนา 1.3 ถึง 2.3 มิลลิเมตร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16677206",
+              "locator": "Vol 35(3):144-146, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The African catfish epidermis is composed of epithelial cells representing 62.3% of volumetric density (Vv), club cells (Vv = 25.7%), mucous cells (Vv = 10.5%) and melanocytes (Vv = 1.4%). Its thickness amounts to approximately 240 microm."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--แผนภาพชั้นผิวหนังปลา-diagram-of-fish-skin": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--แผนภาพชั้นผิวหนังปลา-diagram-of-fish-skin--v1",
+          "statement": "ผิวหนังปลากระดูกแข็งประกอบด้วย epidermis และ dermis คั่นด้วย basement membrane และมีชั้นกล้ามเนื้อรองอยู่ด้านล่าง โดยใน epidermis พบทั้ง basal cells, club cells และ mucous cell ตรงตามที่แผนภาพกำกับไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42113373",
+              "locator": "56(1); Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In all examined regions, the skin of L. petersii exhibited the general structure as in other teleost fishes, consisting of an epidermis and dermis separated by a distinct basement membrane with underlying skeletal muscle. The epidermis was "
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--แผนภาพชั้นผิวหนังปลา-diagram-of-fish-skin--v2",
+          "statement": "ชั้น dermis ของปลาแบ่งเป็นชั้นเนื้อเยื่อเกี่ยวพันหลวม (stratum laxum) และชั้นเนื้อเยื่อเกี่ยวพันหนาแน่นที่มีเส้นใยคอลลาเจนเรียงตัวแน่น (stratum compactum) ตรงกับที่แผนภาพแบ่งเป็น loose connective tissue และ dense connective tissue",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42113373",
+              "locator": "56(1); Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "However, some histological findings differed from the typical teleost fishes: I), the dermis was mainly characterized by a well-developed stratum compactum with an almost complete absence of the stratum laxum"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--แผนภาพชั้นผิวหนังปลา-diagram-of-fish-skin--v3",
+          "statement": "เกล็ด (scale) ฝังอยู่ในชั้น dermis และมี epidermis คลุมทับอยู่ด้านนอก ซึ่งเป็นเหตุผลที่แผนภาพวาง scale และ scale sac ไว้ใต้ชั้น epithelium",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24212706",
+              "locator": "73(3):637-44; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The fish body is entirely covered by a thin, smooth and glandular epidermis, closely attached to the scales inserted on the dermis."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--แผนภาพชั้นผิวหนังปลา-diagram-of-fish-skin--v4",
+          "statement": "ในชั้นหนังแท้ของปลาพบ melanophore เรียงเป็นชั้น และใต้ชั้นหนังแท้ลงไปเป็นชั้นไขมัน (hypodermis หรือ subdermal adipose tissue) ที่มีหลอดเลือดมาเลี้ยง ตรงกับป้าย melanophores และ subdermal adipose tissue ในแผนภาพ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19256451",
+              "locator": "56(2):885-93; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We observed fibroblasts, two layers of melanophors and some blood vessels; the hypodermis has vascularized adipose tissue."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--cycloid-scale-ctenoid-scale-และ-scale-pocket": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--cycloid-scale-ctenoid-scale-และ-scale-pocket--v1",
+          "statement": "ความต่างของ ctenoid scale กับ cycloid scale อยู่ที่ ctenoid scale มี ctenial spine (ctenii) เป็นหนามแข็งเรียงอยู่บน posterior field ซึ่งเป็นส่วนของเกล็ดที่โผล่พ้นออกมาสัมผัสสิ่งแวดล้อม ขณะที่ cycloid scale มีแร่ธาตุสะสมต่อเนื่องขอบเรียบไม่มีหนาม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31075517",
+              "locator": "92:305-314; Abstract and Statement of Significance",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Using scanning electron microscopy and micro-computed tomography, three-dimensional asymmetric structures of the stacked mineralized ctenial spines in the posterior field, which is a part of the scales exposed to the environment, were exami"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--cycloid-scale-ctenoid-scale-และ-scale-pocket--v2",
+          "statement": "scale pocket คือช่องในชั้นหนังแท้ที่เกล็ดฝังอยู่ โดยเกล็ดถูกคลุมด้วยเยื่อบุผิวทั้งใบ ด้านฐาน (proximal end) มีเยื่อบุผิวหนากว่า จึงเห็นเป็นถุงรอบเกล็ดในภาพจุลกายวิภาค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24212706",
+              "locator": "73(3):637-44; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The observations show that the scale is completely covered by epithelium thicker on the proximal end of the scale, multilayered on the dorsal surface and undifferentiated on the ventral surface, and covered by mucous producing cells, mostly"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ภาพผ่าเหงือก-gill-ในตัวปลาและซี่เหงือกที่แยกออกมา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพผ่าเหงือก-gill-ในตัวปลาและซี่เหงือกที่แยกออกมา--v1",
+          "statement": "แผงสีแดงที่ลูกศรใน p.71 ชี้คือ gill filament ซึ่งเป็นส่วนที่มี respiratory lamellae ทำหน้าที่แลกเปลี่ยนก๊าซ จึงมีเลือดมาเลี้ยงมากและเห็นเป็นสีแดงเข้ม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31899351",
+              "locator": "274:103366; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We report regeneration of gill filaments and respiratory lamellae in adult zebrafish (Danio rerio)."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพผ่าเหงือก-gill-ในตัวปลาและซี่เหงือกที่แยกออกมา--v2",
+          "statement": "แท่งเรียวสีชมพูอ่อนที่เรียงเป็นซี่อยู่อีกด้านของ gill arch ใน p.72 คือ gill raker ซึ่งมีรูปร่างคล้ายหวี (comb-like) แยกได้ชัดจากแผงเส้นใยเหงือกสีแดง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24443216",
+              "locator": "297(4):701-15; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The first is a robust, flattened filter pad akin to a colander (e.g., whale sharks, mantas and devil rays) while the second more closely resembles the comb-like gill raker structure found in bony fishes (e.g., basking and megamouth sharks)."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพผ่าเหงือก-gill-ในตัวปลาและซี่เหงือกที่แยกออกมา--v3",
+          "statement": "gill raker ไม่ได้ทำหน้าที่หายใจ แต่ทำหน้าที่กรองและคัดแยกอนุภาคอาหารออกจากน้ำที่ผ่านช่องปาก จึงเป็นโครงสร้างด้านการกินอาหาร คนละหน้าที่กับ gill filament ในภาพเดียวกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37487501",
+              "locator": "18(5); Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ram suspension-feeding fish, such as herring, use gill rakers to separate small food particles from large water volumes while swimming forward with an open mouth."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพผ่าเหงือก-gill-ในตัวปลาและซี่เหงือกที่แยกออกมา--v4",
+          "statement": "เหงือกปลาไม่ได้ทำหน้าที่แลกเปลี่ยนก๊าซอย่างเดียว แต่ยังเป็นอวัยวะหลักของ osmoregulation, acid-base regulation และการขับของเสียไนโตรเจน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15618479",
+              "locator": "85(1):97-177; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The fish gill is a multipurpose organ that, in addition to providing for aquatic gas exchange, plays dominant roles in osmotic and ionic regulation, acid-base regulation, and excretion of nitrogenous wastes."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--the-digestive-system-สไลด์เปิดหัวข้อ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-digestive-system-สไลด์เปิดหัวข้อ--v1",
+          "statement": "ทางเดินอาหารส่วน foregut ของปลากระดูกแข็งเริ่มจากขอบหลังของเหงือก ประกอบด้วยหลอดอาหาร กระเพาะอาหาร และ pylorus ซึ่งเป็นลำดับโครงสร้างที่เห็นได้เมื่อผ่าเปิดช่องท้องปลาอย่างในภาพ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-undp-aquaculture-d-1980",
+              "locator": "Chapter 1, anatomy of the digestive tract",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "begins at the posterior edge of the gills and includes the oesophagus, the stomach, and the pylorus"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--the-digestive-system-สไลด์เปิดหัวข้อ--v2",
+          "statement": "ส่วนต้นของทางเดินอาหารที่แตกเป็นแขนงหลายแฉกแล้วต่อกับท่อยาวขดไปมาในภาพล่าง ตรงกับ pyloric caeca (pyloric appendages) ซึ่งเป็นถุงตันจำนวนไม่แน่นอนที่อยู่ใกล้ pylorus บนส่วน midgut และทำหน้าที่เพิ่มพื้นที่ผิวของ midgut",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-undp-aquaculture-d-1980",
+              "locator": "Chapter 1, midgut and pyloric caecae",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The midgut often includes a variable number of pyloric caecae (pyloric appendages) near the pylorus"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ภาพประกอบลักษณะภายนอกที่ใช้แยกเพศ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพประกอบลักษณะภายนอกที่ใช้แยกเพศ--v1",
+          "statement": "ตุ่มนูนเล็ก ๆ บนผิวหนัง (nuptial หรือ breeding tubercles) บนหัว ลำตัว และครีบ เป็นลักษณะ sexual dimorphism ของปลาเพศผู้ที่พร้อมสืบพันธุ์ และจะฝ่อหายไปเมื่อพ้นฤดูสืบพันธุ์ จึงใช้แยกเพศจากภายนอกได้เฉพาะช่วงฤดูผสมพันธุ์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31291277",
+              "locator": "14(7):e0217915; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The species presents notable sexual dimorphism consisting of densely concentrated nuptial tubercles on head, body, and fins, gill-gland, and bony hooks in the anal fin of mature males. It was found that these sexually dimorphic features are"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพประกอบลักษณะภายนอกที่ใช้แยกเพศ--v2",
+          "statement": "รูเปิดใต้ท้องที่มีรูปร่างต่างกันระหว่างตัวที่กำกับว่า Male และ Female ใน p.83 คือ genital papilla ซึ่งรูปร่างของมันใช้แยกเพศปลาแบบไม่ต้องผ่าตัวปลา (non-invasive sex determination)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21039514",
+              "locator": "77(6):1432-8; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Information on the genital morphology of male and female Lipophrys pholis is provided, as well as for two other sympatric blenniid species, Coryphoblennius galerita and Lipophrys trigloides. The use of non-invasive sex determination procedu"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพประกอบลักษณะภายนอกที่ใช้แยกเพศ--v3",
+          "statement": "ปลาหางนกยูงเพศผู้มีครีบก้นดัดแปลงเป็น gonopodium ซึ่งเป็นอวัยวะสืบพันธุ์ภายนอกของตัวผู้ ใช้เป็นลักษณะแยกเพศจากภายนอกได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33976831",
+              "locator": "11(9):4564-4576; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Here, we examine the potential of a pervasive ecological factor (predation) to influence the length and allometry of the male genitalia in guppies. We sampled guppies from pairs of low-predation (LP) and high-predation (HP) populations in s"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพประกอบลักษณะภายนอกที่ใช้แยกเพศ--v4",
+          "statement": "ในปลาหางนกยูง สีสันบนตัวเป็นลักษณะประดับของเพศผู้ที่ตัวเมียใช้ประเมินความน่าดึงดูด ตัวที่สีสดเข้มจึงเป็นตัวผู้ ซึ่งอธิบายภาพ p.84 ที่ตัวหนึ่งเรียวและสีสดกว่าอีกตัว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23407839",
+              "locator": "280(1756):20123072; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In this paper, we provide a comprehensive test of this hypothesis in the guppy (Poecilia reticulata), a species where a female's perception of a male's attractiveness depends on his coloration relative to that of surrounding males."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ภาพอวัยวะสืบพันธุ์และการรีดเซลล์สืบพันธุ์": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพอวัยวะสืบพันธุ์และการรีดเซลล์สืบพันธุ์--v1",
+          "statement": "การรีดไข่ปลาดุกทำโดยจับแม่ปลาที่ตกไข่แล้วรีดหน้าท้องด้วยนิ้วหัวแม่มือไล่จากด้านหน้าครีบอกลงมาที่ genital papilla ตรงกับภาพ p.85 ที่มีเม็ดสีส้มอมแดง (ไข่) ไหลออกจากรูเปิดใต้ท้อง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-undp-african-regio-1987",
+              "locator": "Section 3, stripping of the ovulated female",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The main operator who holds the spawner's head with one hand, presses gently the abdomen with the thumb of his other hand from anterior the pectoral fin onto the genital papilla."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพอวัยวะสืบพันธุ์และการรีดเซลล์สืบพันธุ์--v2",
+          "statement": "ปลาดุกเพศผู้รีดน้ำเชื้อไม่ได้ ต้องผ่าเอา testis ออกมา ซึ่งเป็นพูสีขาวครีม จึงเป็นเหตุผลที่ภาพเพศผู้เป็นการผ่าเปิดช่องท้องเห็นอวัยวะสีขาวแบ่งเป็นพูหลายแฉก ต่างจากภาพเพศเมียที่ใช้วิธีรีด",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-undp-african-regio-1987",
+              "locator": "Section 3, collection of milt",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Therefore, milt is obtained by sacrificing one male and dissecting the testis. Some small incisions are made into the cream coloured lobes of the testis. Milt can easily be squeezed out and collected into a vial or small bottle."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพอวัยวะสืบพันธุ์และการรีดเซลล์สืบพันธุ์--v3",
+          "statement": "อัณฑะของปลาดุก (Clarias gariepinus) แต่ละข้างแบ่งเป็นสองส่วน คือส่วนด้านข้างที่มีขอบเป็นชายครุยแตกเป็นแฉก และส่วนกลางที่ผิวเรียบ ซึ่งอธิบายลักษณะ อวัยวะสีขาวแบ่งเป็นพูหลายแฉก ในภาพ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24505985",
+              "locator": "16(13):624-9; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Each testis consisted of two regions, a fringed outer lateral region and a smooth sagittal-medial region."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-fish-biology--ภาพจุลกายวิภาคผิวหนังปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพจุลกายวิภาคผิวหนังปลา--v1",
+          "statement": "เซลล์ทรงกลมใสขนาดใหญ่ที่กระจายอยู่ในชั้นเยื่อบุผิวหลายชั้นของภาพ คือ mucous cell ซึ่งเรียงตัวอยู่ในชั้นนอกของ epidermis และสร้างเมือกเป็นเกราะป้องกันผิวหนังปลา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42113373",
+              "locator": "56(1); Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Mucous cells, suggesting the formation of a protective mucosal barrier on the skin surface, were distributed in the outer epidermal layer; IV), club cells, implying retention of chemical defense mechanisms against environmental stress, were"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพจุลกายวิภาคผิวหนังปลา--v2",
+          "statement": "แถบเม็ดสีน้ำตาลเข้มถึงดำที่เรียงเป็นแนวอยู่ใต้ชั้นเยื่อบุผิว ตรงกับ melanophore ซึ่งในผิวหนังปลาพบเรียงเป็นชั้นอยู่ในหนังแท้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19256451",
+              "locator": "56(2):885-93; Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We observed fibroblasts, two layers of melanophors and some blood vessels; the hypodermis has vascularized adipose tissue."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-fish-biology--ภาพจุลกายวิภาคผิวหนังปลา--v3",
+          "statement": "ชั้นล่างสุดที่เป็นเส้นใยสีชมพูเรียงขนานกันเป็นแนวหนา คือ stratum compactum ของ dermis ซึ่งเป็นชั้นคอลลาเจนหนาแน่นของผิวหนังปลา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42113373",
+              "locator": "56(1); Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the dermis was mainly characterized by a well-developed stratum compactum with an almost complete absence of the stratum laxum"
+          }
+        }
+      ]
+    }
+  },
+  "aquatic-clinic--aqua-intro-thailand": {
+    "aquatic-clinic--aqua-intro-thailand--ชนิดสัตว์น้ำที่เลี้ยงในแหล่งน้ำจืด-inland-aquaculture-species": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ชนิดสัตว์น้ำที่เลี้ยงในแหล่งน้ำจืด-inland-aquaculture-species--v1",
+          "statement": "การสำรวจฟาร์มสัตว์น้ำจืดใน 6 จังหวัดของไทยเก็บภาพปลาป่วยจากชนิดที่เลี้ยงจริง ได้แก่ ปลากะพงขาว (Asian seabass) ปลานิลแดง (red tilapia) ปลาสลิด (snakeskin gourami) และปลาช่อน (snakehead) ยืนยันว่ากลุ่มปลานิล ปลาสลิด/กระดี่ และปลาช่อน เป็นชนิดที่เลี้ยงในระบบน้ำจืดของไทยตามที่สไลด์ระบุ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42046675",
+              "locator": "Materials and Methods, dataset description (19:1215-1228)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Images from clinically infected freshwater fish were collected during routine farm inspections across six provinces in Thailand. The dataset included 424 images of four species: Asian seabass, red tilapia, snakeskin gourami, and snakeheads."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การจัดการฟาร์ม-farm-management-practice": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การจัดการฟาร์ม-farm-management-practice--v1",
+          "statement": "หัวข้อการจัดการฟาร์มบนสไลด์ตรงกับข้อกำหนดในมาตรฐาน GAP ของไทยสำหรับฟาร์มกุ้งทะเล ซึ่งกำหนดทั้งทะเบียนเกษตรกรผู้เพาะเลี้ยงสัตว์น้ำ การเก็บข้อมูล (record keeping) ความหนาแน่นการปล่อยลูกกุ้ง การจัดการดูแลสุขภาพสัตว์น้ำ การเก็บเกี่ยวและการขนส่ง และการปฏิบัติตามกฎหมายและระเบียบที่เกี่ยวข้อง โดยมาตรฐานแห่งชาติปัจจุบันสำหรับฟาร์มเลี้ยงกุ้งทะเลคือ มกษ.7401-2562",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2563",
+              "locator": "ฉบับที่ 3/พฤษภาคม หน้า 2-4 ตารางเปรียบเทียบข้อกำหนดของแต่ละมาตรฐาน",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "ทะเบียนเกษตรกรผู้เพาะเลี้ยงสัตว์น้ำ ... ความหนาแน่นการปล่อยลูกกุ้ง ... การเก็บเกี่ยวและการขนส่ง ... การเก็บข้อมูล ... การปฏิบัติตามกฎหมายและระเบียบต่างๆ ที่เกี่ยวข้อง"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลานิล-tilapia": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลานิล-tilapia--v1",
+          "statement": "ปลานิลที่เลี้ยงคือ Oreochromis niloticus และการเลี้ยงที่ความหนาแน่นสูง (เช่นในกระชังอนุบาลที่สไลด์แสดง) เป็นเงื่อนไขที่ทำให้โรค francisellosis จาก Francisella orientalis และโรค columnaris จาก Flavobacterium oreochromis กระทบผลผลิตอย่างชัดเจน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37182796",
+              "locator": "Abstract, opening sentence (138:108813)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The occurrence of francisellosis caused by Francisella orientalis sp. nov. (Fo) and columnaris disease caused by Flavobacterium oreochromis (For) is negatively impacting Nile tilapia (Oreochromis niloticus) production, especially when high "
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลาดุก-walking-catfish-clarias-spp": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลาดุก-walking-catfish-clarias-spp--v1",
+          "statement": "ปลาดุกที่เลี้ยงเชิงพาณิชย์ในไทยเป็นลูกผสม Clarias macrocephalus x Clarias gariepinus และมีรายงานโรค enteric septicaemia of catfish (ESC) จากเชื้อ Edwardsiella ictaluri ในปลาดุกลูกผสมที่เลี้ยงในภาคใต้ของไทย โดยพบรอยโรคในตับ ไต ม้าม หัวใจ และสมอง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23763374",
+              "locator": "Abstract and histopathology findings (37:385-395)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This study reports ESC in hybrid catfish, Clarias macrocephalus (Gunther) x Clarias gariepinus (Burchell), cultured in southern Thailand."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลาช่อน-snakehead-fish-channa-striatus": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลาช่อน-snakehead-fish-channa-striatus--v1",
+          "statement": "ปลาช่อนเป็นปลากินเนื้อที่สูตรอาหารตั้งต้นอิงโปรตีนจากปลาป่นและผลพลอยได้จากปลา สอดคล้องกับภาพฟาร์มไทยที่ผสมอาหารเองจากปลาสด และสามารถทดแทนปลาป่นด้วย fish condensate ได้ถึงราว 50 เปอร์เซ็นต์ของโปรตีนโดยไม่เสียการเจริญเติบโต",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27589981",
+              "locator": "Abstract, experimental design and conclusion (43:217-228)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The optimal protein replacement of fish meal (FM) by fish condensate (FC) was investigated in striped snakehead, Channa striata (Bloch) ... a 500 g/kg protein replacement of FM by FC is near optimal for striped snakehead"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลาแรด-giant-gourami": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลาแรด-giant-gourami--v1",
+          "statement": "ปลาแรด (giant gourami) มีชื่อวิทยาศาสตร์ว่า Osphronemus goramy ซึ่งสไลด์ไม่ได้ระบุไว้ และตั้งแต่ปี 2011 megalocytivirus ที่เรียกว่า giant gourami iridovirus (GGIV) เป็นเชื้อก่อโรคหลักของปลาชนิดนี้ ทำให้ตาย 100 เปอร์เซ็นต์ภายใน 7-11 วันหลังฉีดเชื้อในการทดลอง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32512618",
+              "locator": "Abstract, introduction and challenge results (43:829-838)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Since 2011, megalocytivirus (giant gourami iridovirus (GGIV)) has become the main pathogen in giant gourami (Osphronemus goramy)"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--กุ้งก้ามกราม-freshwater-prawn-m-rosenbergii": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--กุ้งก้ามกราม-freshwater-prawn-m-rosenbergii--v1",
+          "statement": "ชื่อสกุลเต็มของ M. rosenbergii คือ Macrobrachium rosenbergii หรือ giant freshwater prawn และในฟาร์มกุ้งก้ามกรามของไทยมีรายงานโรค white tail disease ที่เกิดจาก M. rosenbergii nodavirus (MrNV) ร่วมกับ extra small virus (XSV) โดยพ่อแม่พันธุ์ที่ติดเชื้อทั้งสองชนิดอาจถ่ายทอดไวรัสสู่ลูกกุ้งได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16724570",
+              "locator": "Abstract (69:255-258)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "White tail disease (WTD) of the freshwater prawn Macrobrachium rosenbergii has recently been the cause of high mortalities in Thai prawn farms."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--สัตว์สะเทินน้ำสะเทินบกและสัตว์เลื้อยคลาน-amphibian-and-reptile": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--สัตว์สะเทินน้ำสะเทินบกและสัตว์เลื้อยคลาน-amphibian-and-reptile--v1",
+          "statement": "กบที่เลี้ยงเป็นสัตว์น้ำเศรษฐกิจในไทยคือกบนา Hoplobatrachus rugulosus (rice field frog) ซึ่งเลี้ยงในระบบกักขัง (captive) และการศึกษาระดับ corticosterone ในกบเลี้ยงพบความแปรปรวนตามช่วงเวลาของวันและตามฤดู ซึ่งเป็นข้อมูลที่ใช้ปรับปรุงการเลี้ยงกบในไทยได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41997378",
+              "locator": "Abstract and conclusion (380:114933)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These findings highlight seasonal and sex-specific physiological adjustments in captive H. rugulosus, providing insights that could improve frog rearing practices in Thailand."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลาสวยงาม-ornamental-fish": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลาสวยงาม-ornamental-fish--v1",
+          "statement": "ไทยเป็นหนึ่งในประเทศต้นทางหลักของการค้าปลาสวยงามระหว่างประเทศ และงานตรวจปลานำเข้า 1,020 ตัวจากสิงคโปร์ มาเลเซีย ไทย และศรีลังกา พบพยาธิ monogenean 14 ชนิดมากกว่า 950 ตัว แม้ปลาจะผ่านการรับรองสุขภาพจากประเทศต้นทางและการตรวจด้วยสายตาที่ด่านแล้ว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29427156",
+              "locator": "Abstract and results (117:995-1011)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We examined a total of 1020 fish imported from Singapore, Malaysia, Thailand, or Sri Lanka to Australia ... Over 950 individual parasites were detected in five imported fish species, representing 14 monogenean species."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ชนิดสัตว์น้ำชายฝั่ง-coastal-aquaculture-species": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ชนิดสัตว์น้ำชายฝั่ง-coastal-aquaculture-species--v1",
+          "statement": "กุ้งทะเลถูกประกาศให้เป็นสัตว์น้ำควบคุมตามพระราชกำหนดการประมง พ.ศ. 2558 หมวด 6 การส่งเสริมการเพาะเลี้ยงสัตว์น้ำ ดังนั้นการเลี้ยงกุ้งทะเลซึ่งเป็นชนิดแรกในรายการสัตว์น้ำชายฝั่งบนสไลด์ อยู่ภายใต้การควบคุมทางกฎหมายต่างจากสัตว์น้ำชายฝั่งชนิดอื่นในรายการเดียวกัน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2563",
+              "locator": "ฉบับที่ 3/พฤษภาคม หน้า 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "ประกอบกับกุ้งทะเลได้ถูกประกาศให้เป็นสัตว์น้ำควบคุมตามพระราชกำหนดการประมง พ.ศ. 2558 หมวด 6 การส่งเสริมการเพาะเลี้ยงสัตว์น้ำ"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ประวัติการเลี้ยงกุ้งทะเลในไทย-shrimp-farming-in-thailand-history": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ประวัติการเลี้ยงกุ้งทะเลในไทย-shrimp-farming-in-thailand-history--v1",
+          "statement": "EMS ที่สไลด์เขียนเป็นตัวย่อลอยๆ ย่อมาจาก early mortality syndrome รายงานครั้งแรกในปี 2009 และระยะเฉียบพลันของโรคเรียกว่า acute hepatopancreatic necrosis syndrome (AHPNS) โดยพิสูจน์ตาม Koch's postulates ในปี 2013 ว่าสาเหตุเป็นแบคทีเรียใน Vibrio harveyi clade ที่ใกล้เคียง V. parahaemolyticus มากที่สุด ไม่ใช่ไวรัสเหมือน YHV และ WSSV ในไทม์ไลน์เดียวกัน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23836769",
+              "locator": "Abstract (105:45-55)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A new emerging disease in shrimp, first reported in 2009, was initially named early mortality syndrome (EMS). In 2011, a more descriptive name for the acute phase of the disease was proposed as acute hepatopancreatic necrosis syndrome (AHPN"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ประวัติการเลี้ยงกุ้งทะเลในไทย-shrimp-farming-in-thailand-history--v2",
+          "statement": "บทปริทัศน์ที่ตีพิมพ์ในปี 2012 ระบุว่าความสูญเสียจาก AHPNS เพิ่มขึ้นตั้งแต่ปี 2009 ในจีนและเวียดนาม และเพิ่งลามมาถึงไทยในช่วงที่เขียนบทความ ซึ่งสอดคล้องกับปี 2012 บนไทม์ไลน์ของสไลด์ และระบุว่า WSSV กับ YHV เป็นไวรัสที่ร้ายแรงที่สุดทั้งในกุ้งกุลาดำและกุ้งขาว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22429834",
+              "locator": "Abstract (110:166-173)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Since 2009 increasing losses with P. vannamei in China, Vietnam and now Thailand are associated with acute hepatopancreatic necrosis syndrome (AHPNS) of presently unknown cause."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ประวัติการเลี้ยงกุ้งทะเลในไทย-shrimp-farming-in-thailand-history--v3",
+          "statement": "YHV ที่ระบาดในไทยตามไทม์ไลน์เป็นชนิด YHV-1a ซึ่งเป็นชนิดดั้งเดิมที่รายงานจากประเทศไทย และหลังจากนั้น YHV ยังไม่หายไป ปลายปี 2007 ถึงต้นปี 2008 เกิดการระบาดของ YHV-1b ในกุ้งขาวที่ภาคกลางของไทย 20 ฟาร์ม อัตราตาย 60-70 เปอร์เซ็นต์ มูลค่าความเสียหายราว 3 ล้านดอลลาร์สหรัฐ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20158577",
+              "locator": "Abstract (33:421-430)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The estimated economic loss for these farms according to the Thai Animal Aquaculture Association was approximately US$3 million ... the absence of YHV Type 1a (YHV-1a), the original YHV type reported from Thailand."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--กุ้งทะเลชนิดหลักที่เลี้ยง-major-shrimp-culture-species": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--กุ้งทะเลชนิดหลักที่เลี้ยง-major-shrimp-culture-species--v1",
+          "statement": "การเปลี่ยนชนิดกุ้งหลักจากกุ้งกุลาดำเป็นกุ้งขาวเกิดขึ้นจริงตามที่สไลด์ระบุ แต่บทปริทัศน์ระบุปีไว้ที่ 2003 (สำหรับเอเชียโดยรวม) ไม่ใช่ 2002 โดยระบุว่าเป็นการเข้ามาแทนที่ด้วยสายพันธุ์กุ้งขาวที่ผ่านการเลี้ยงในบ้านและคัดเลือกพันธุ์แล้ว และเขียนชื่อวิทยาศาสตร์เป็น Penaeus (Litopenaeus) vannamei คือถือ Litopenaeus เป็นสกุลย่อยของ Penaeus",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22429834",
+              "locator": "Abstract (110:166-173)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "importance has changed since 2003 when domesticated and genetically selected stocks of the American whiteleg shrimp Penaeus (Litopenaeus) vannamei (Boone 1931) replaced the formerly dominant giant tiger or black tiger shrimp Penaeus (Penaeu"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--กุ้งทะเลชนิดหลักที่เลี้ยง-major-shrimp-culture-species--v2",
+          "statement": "ข้อมูลกรมประมงยืนยันว่ากุ้งขาวแวนนาไมเป็นชนิดหลักจริง ในปี พ.ศ. 2558 ไทยมีฟาร์มกุ้งทะเล 21,082 ฟาร์ม พื้นที่รวม 299,844 ไร่ ผลผลิตรวม 294,780 ตัน โดยเป็นกุ้งขาวแวนนาไม 281,918 ตัน ขณะที่กุ้งกุลาดำเหลือเพียง 12,098 ตัน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide---2563",
+              "locator": "ฉบับที่ 3/พฤษภาคม หน้า 1 (อ้างกองนโยบายและยุทธศาสตร์พัฒนาการประมง 2560)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "ผลผลิตกุ้งขาวแวนนาไม มีปริมาณมากที่สุด 281,918 ตัน รองลงมากุ้งกุลาดำ 12,098 ตัน กุ้งแชบ๊วย 237 ตัน ตามลำดับ"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--โรงเพาะฟักกุ้ง-hatchery": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--โรงเพาะฟักกุ้ง-hatchery--v1",
+          "statement": "ชุดคลุม หมวกคลุมผม และรองเท้าบูทที่ผู้เข้าชมโรงเพาะฟักสวมในภาพ ตรงกับข้อแนะนำด้าน biosecurity ของ WOAH ที่ให้ควบคุมการเข้าออกของบุคลากรและผู้เยี่ยมชม โดยแบ่งเขต outer risk area กับ inner biosecure area และมีการเปลี่ยนเสื้อผ้ารองเท้าหรือใช้ชุดคลุมแบบใช้ครั้งเดียว การฆ่าเชื้อมือ และอ่างจุ่มเท้า",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 7 Personnel and visitors",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "changing of clothes and shoes, or use of disposable coverings (e.g. hoods, coats, gloves, shoe coverings); disinfection of hands, and the use of foot baths."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ระบบน้ำของโรงเพาะฟัก-water-supply": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ระบบน้ำของโรงเพาะฟัก-water-supply--v1",
+          "statement": "น้ำเป็นเส้นทางนำเชื้อเข้าฟาร์มที่ WOAH ระบุไว้ชัดเจน และการสูบน้ำทะเลเข้าฟาร์มโดยตรงตามที่สไลด์แสดง ต้องมีการกรอง คัดกรอง หรือฆ่าเชื้อในระดับที่เหมาะสมก่อนใช้ รวมทั้งต้องวางตำแหน่งทางน้ำเข้าและน้ำออกให้ลดการปนเปื้อนจากฟาร์มอื่นหรือประชากรสัตว์น้ำในธรรมชาติ ซึ่งเป็นขั้นตอนที่สไลด์ไม่ได้กล่าวถึง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 3 Water, mitigation measures b) and d)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Water may present a risk of the introduction of pathogenic agents into, spread within, and release from aquaculture establishments ... Provide an appropriate level of screening, filtration or disinfection (in accordance with Chapter 4.4.) o"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การจัดการพ่อแม่พันธุ์-การผสมและฟัก-broodstock-management-spawnin": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การจัดการพ่อแม่พันธุ์-การผสมและฟัก-broodstock-management-spawnin--v1",
+          "statement": "หลักการจัดการพ่อแม่พันธุ์ตามมาตรฐาน WOAH คือให้นำเข้าเฉพาะสัตว์น้ำที่ทราบสถานะสุขภาพและมีสถานะเท่ากันหรือสูงกว่าสัตว์ที่มีอยู่เดิมในฟาร์ม ถ้าสถานะโรคไม่ทราบต้องกักโรคก่อน และให้แยกประชากรที่แสดงอาการป่วยออกจนกว่าจะทราบสาเหตุ ซึ่งเป็นรายละเอียดที่สไลด์เขียนหัวข้อไว้แต่ไม่ได้อธิบาย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 1 Aquatic animals, mitigation measures a), b) and f)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Only introduce into the aquaculture establishment aquatic animals with a known health status, which is of equal or higher status than the existing animals in the establishment ... If aquatic animals of unknown disease status are introduced,"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลากะพงขาว-seabass-barramundi-lates-calcarifer": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลากะพงขาว-seabass-barramundi-lates-calcarifer--v1",
+          "statement": "ปลากะพงขาว Lates calcarifer ในไทยไม่ได้เลี้ยงเฉพาะในกระชังน้ำกร่อยหรือชายฝั่งตามภาพบนสไลด์ แต่การเลี้ยงในน้ำจืดเป็นภาคที่กำลังเติบโต และในปี 2018 มีรายงานการตายของลูกปลากะพงในบ่อดินน้ำจืดจากการติดเชื้อร่วมของ scale drop disease virus (SDDV) กับ Flavobacterium columnare",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32759470",
+              "locator": "Abstract (140:119-128)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Freshwater farming of barramundi Lates calcarifer in Thailand is a growing sector in aquaculture, but mortalities due to infectious diseases are still a major threat to this industry."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลากะพงเอเชียกับปลากะพงยุโรป-asean-seabass-vs-european-seabass": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลากะพงเอเชียกับปลากะพงยุโรป-asean-seabass-vs-european-seabass--v1",
+          "statement": "แผนที่การกระจายบนสไลด์สอดคล้องกับข้อมูลพันธุกรรม โดย Lates calcarifer เป็น species complex ที่กระจายกว้าง แบ่งเป็น 3 สายพันธุกรรมหลักตามภูมิภาคชีวภูมิศาสตร์ คือ ออสเตรเลียกับนิวกินี เอเชียตะวันออกเฉียงใต้ และอนุทวีปอินเดีย จึงไม่ใช่ประชากรเดียวกันทั้งช่วงการกระจาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38934850",
+              "locator": "Abstract (14, issue 8)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The Barramundi Perch (BP; Lates calcarifer) is a widespread species complex with 3 main genetic lineages located in the biogeographic regions of Australia and New Guinea (AUS + NG), Southeast Asia (SEA), and the Indian Subcontinent (IND)."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--หอยแมลงภู่และหอยนางรม-green-mussel-and-oyster": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--หอยแมลงภู่และหอยนางรม-green-mussel-and-oyster--v1",
+          "statement": "หอยแมลงภู่ Perna viridis ตรงตามที่สไลด์ระบุ และการเลี้ยงในอ่าวไทยยังต้องพึ่งลูกหอยที่ลงเกาะเองตามธรรมชาติ (natural spat) ซึ่งเชื่อว่ามาจากแหล่งวางไข่ใกล้ปากแม่น้ำสายหลัก ไม่ได้มาจากโรงเพาะฟัก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19941027",
+              "locator": "Abstract, opening sentence (12:506-515)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The culture of green mussel (Perna viridis) in the Gulf of Thailand depends on natural spat which are believed to come from spawning grounds adjacent to major river mouths."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--หอยแครงและหอยหวาน-cockle-and-babylon-snail": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--หอยแครงและหอยหวาน-cockle-and-babylon-snail--v1",
+          "statement": "หอยแครงที่สไลด์ไม่ได้ให้ชื่อวิทยาศาสตร์คือ Anadara granosa (blood cockle) เลี้ยงทั้งแบบแปลงชายฝั่งและในบ่อดินรอบอ่าวไทยตอนบน และเนื่องจากเป็นหอยสองฝากรองกินแพลงก์ตอน จึงสะสมจุลชีพและโลหะหนักไว้ในเนื้อเยื่อ ทำให้เชื้อแบคทีเรียรอดในเปลือกและก่อโรคในคนได้เมื่อบริโภค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32215305",
+              "locator": "Abstract (30:105393)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Bivalve molluscs are filter feeders upon plankton, and so they may bioaccumulate microbes and heavy metals in their tissues. Bacteria survival can be enhanced by living inside the shell and they can subsequently infect humans and higher ver"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--หอยแครงและหอยหวาน-cockle-and-babylon-snail--v2",
+          "statement": "หอยหวานที่สไลด์ไม่ได้ให้ชื่อวิทยาศาสตร์คือ Babylonia areolata หรือ ivory shell เป็นหอยฝาเดียวที่อาศัยหน้าดินในทะเล มีความสำคัญทางเศรษฐกิจจากการโตเร็วและคุณค่าทางอาหารสูง กระจายในเอเชียตะวันออกเฉียงใต้และชายฝั่งตะวันออกเฉียงใต้ของจีน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39505919",
+              "locator": "Abstract, opening sentences (11:1201)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The ivory shell Babylonia areolata is an economically important marine benthic gastropod known for its rapid growth and high nutritional value. B. areolata is distributed in Southeast Asia and the southeast coastal areas of China."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--หอยเป๋าฮื้อ-abalone": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--หอยเป๋าฮื้อ-abalone--v1",
+          "statement": "หอยเป๋าฮื้อของไทยคือ Haliotis asinina ซึ่งมีการเพาะเลี้ยงเป็นฝูงเลี้ยง (domesticated stock) ในโรงเพาะฟัก และประชากรฝั่งอ่าวไทยกับฝั่งอันดามันแยกกันทางพันธุกรรมอย่างชัดเจน (FST 0.876 ถึง 0.892) โดยฝูงเลี้ยงเกือบทั้งหมด (97 เปอร์เซ็นต์ของ 135 ตัวอย่าง) เป็นจีโนไทป์ฝั่งตะวันออก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20568059",
+              "locator": "Abstract (9:1136-1152)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Significant genetic differentiation (P<0.0001 for the exact test and F(ST) = 0.8759-0.8919, P<0.001) between abalone from the Gulf of Thailand ... and the Andaman Sea ... were observed."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--รูปแบบฟาร์มหอยและโครงสร้างในทะเล-shellfish-farming-and-hanging-r": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--รูปแบบฟาร์มหอยและโครงสร้างในทะเล-shellfish-farming-and-hanging-r--v1",
+          "statement": "การเลี้ยงหอยแมลงภู่ (green mussel, Perna viridis) แบบแขวน (suspended culture) ด้วยเชือกที่ห้อยจากแพหรือทุ่นลอย เป็นวิธีที่มีการศึกษาและใช้จริงในน่านน้ำไทย ตรงกับภาพแนวเชือกลอยที่ใช้ทุ่นและมีหอยเกาะเป็นกระจุกในสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-0044-8486-87-90225-0",
+              "locator": "Vol. 66, Issue 2, pp. 97-107, title and study design",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Experimental suspended culture of green mussel, Perna viridis (Linn.), using spat transplanted from a distant settlement ground in Thailand"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปูทะเลและปูม้า-muddy-crab-and-swimming-crab": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปูทะเลและปูม้า-muddy-crab-and-swimming-crab--v1",
+          "statement": "ไข่ที่ปูทะเลเพศเมียวางแล้วจะติดอยู่กับขนของ pleopods ใต้จับปิ้ง (abdominal flap) ซึ่งอธิบายภาพปูตัวเมียหงายท้องที่มีไข่นอกกระดองเป็นก้อนติดใต้จับปิ้งในสไลด์ และ pleopods ของตัวเมียมีหน้าที่ใช้ฟักไข่โดยเฉพาะ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-seafdec-aquaculture-de-2003",
+              "locator": "Life History and Habitat, p. 6; Crab Anatomy, p. 3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Spawned eggs attach to the pleopod hairs of the abdominal flap."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปูทะเลและปูม้า-muddy-crab-and-swimming-crab--v2",
+          "statement": "ปูทะเลสกุล Scylla ที่ใช้ในการเพาะเลี้ยงมี 4 ชนิด คือ S. serrata, S. tranquebarica, S. olivacea และ S. paramamosain โดยแยกชนิดจากรูปร่างและความสูงของ frontal spines จำนวนหนามบน chelipeds และสีกับลวดลายของกระดอง ซึ่งเป็นเกณฑ์ที่ละเอียดกว่าการดูสีกระดองเข้มทึบอย่างเดียวตามที่สไลด์แสดง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-seafdec-aquaculture-de-2003",
+              "locator": "Identification, Table 1, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The genus Scylla includes S. serrata, S. tranquebarica, S. olivacea and S. paramamosain. The four species can be distinguished by the external characters listed in Table 1."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปูนิ่มและระบบเลี้ยงแบบคอนโด-softshell-crab-and-condo-system": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปูนิ่มและระบบเลี้ยงแบบคอนโด-softshell-crab-and-condo-system--v1",
+          "statement": "หลักการของการเลี้ยงปูนิ่มคือ นำปูกระดองแข็งมาขังไว้จนลอกคราบแล้วจับทันที โดยขังเดี่ยวในกล่องพลาสติกเจาะรู (ซึ่งคือระบบกล่องซ้อนชั้นหรือคอนโดในสไลด์) หรือขังรวมในกระชังใหญ่แต่ต้องเด็ดขาปูทิ้งเพื่อกันการกินกันเอง เพราะปูที่เพิ่งลอกคราบตัวนิ่มและถูกกินได้ง่าย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-seafdec-aquaculture-de-2009",
+              "locator": "Introduction, p. 4; Molting, p. 6",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Production of soft-shell crabs is done by allowing the hard-shelled crabs held individually in perforated plastic boxes or communally in big cages in ponds or in tanks to molt. In the communal rearing, the limbs of the crabs are removed to "
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปูนิ่มและระบบเลี้ยงแบบคอนโด-softshell-crab-and-condo-system--v2",
+          "statement": "ฟาร์มปูนิ่มกระจุกตัวมากที่สุดที่จังหวัดระนองของไทย และปูที่ใช้เลี้ยงส่วนใหญ่เป็นปูทะเลสกุล Scylla กับปูม้า Portunus pelagicus ที่จับจากธรรมชาติ ซึ่งเชื่อมโยงสองสไลด์ก่อนหน้า (ปูทะเลกับปูม้า) เข้ากับระบบเลี้ยงปูนิ่มโดยตรง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-seafdec-aquaculture-de-2009",
+              "locator": "Introduction, p. 4",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The crabs used are mostly wild-sourced Scylla species and blue swimming crabs, Portunus pelagicus. ... The greatest number of soft-shell crab farms is in Ranong, Thailand"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--สัดส่วนอุตสาหกรรมเพาะเลี้ยงสัตว์น้ำ-กุ้งครองตลาด": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--สัดส่วนอุตสาหกรรมเพาะเลี้ยงสัตว์น้ำ-กุ้งครองตลาด--v1",
+          "statement": "ข้อมูลผลผลิตกุ้งของไทยจาก Fisheries Statistics of Thailand Yearbooks ยืนยันว่ากุ้งขาว Penaeus (Litopenaeus) vannamei เข้ามาแทนที่กุ้งกุลาดำ P. monodon เป็นชนิดหลักตั้งแต่ราวปี 2004 เช่น ปี 2011 ผลผลิตกุ้งรวม 611,194 ตัน เป็น P. vannamei 603,227 ตัน แต่เป็น P. monodon เพียง 6,514 ตัน ตัวเลขระดับ 392,600 ตันที่สไลด์เน้นจึงอยู่ในช่วงหลังการระบาดของโรค ไม่ใช่ระดับสูงสุดของอุตสาหกรรม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-33997-j-afs-2018-31-s1-003",
+              "locator": "Table 2, p. 35 (shrimp industry production data for Thailand 2000-2014)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Table 2. Shrimp industry production data for Thailand over the period 2000 to 2014 giving the number of farms in operation, total land area used for culture (ha) and total shrimp production (tonnes) with details given for Penaeus monodon (P"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การประเมินสุขภาพสัตว์น้ำในฟาร์ม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การประเมินสุขภาพสัตว์น้ำในฟาร์ม--v1",
+          "statement": "พฤติกรรมการกินที่ลดลงเป็นอาการที่สังเกตได้จริงในภาวะโรคของสัตว์น้ำ เช่น กุ้งขาวที่เป็น white feces syndrome จะกินอาหารลดลงและโตช้า จึงรองรับแนวคิดของสไลด์ที่ใช้อาหารและน้ำหนักเป็นตัวแทนในการประเมินสุขภาพแทนการตรวจตัวสัตว์โดยตรง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27530403",
+              "locator": "Abstract, gross signs",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The gross signs of affected shrimp include the appearance of a whitish hindgut and loose carapace, and it is associated with reduced feeding and growth retardation."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--อัตราแลกเนื้อ-fcr-feed-conversion-ratio": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--อัตราแลกเนื้อ-fcr-feed-conversion-ratio--v1",
+          "statement": "งานที่สไลด์อ้างให้ค่าจริงว่า beef cattle มี FCR สูงสุดที่ 6.0-10.0 รองลงมาคือ pigs 2.7-5.0 ส่วน chickens 1.7-2.0 ใกล้เคียงกับ aquaculture weighted average ที่ 1.6 ตรงกับลำดับที่กราฟในสไลด์สื่อ และเหตุผลคือสัตว์น้ำใช้พลังงานในการเคลื่อนที่ ทรงตัว และควบคุมอุณหภูมิร่างกายน้อยกว่า",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1088-1748-9326-aaa273",
+              "locator": "Vol. 13, No. 2, 024017, FCR comparison of aquaculture and terrestrial livestock",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Aquatic animals have lower (more efficient) FCRs than large terrestrial animals in part because they expend less energy to move, stay upright, and regulate their body temperatures due to buoyancy and because most are ectothermic."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--อาหารสัตว์น้ำและส่วนประกอบเสริม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--อาหารสัตว์น้ำและส่วนประกอบเสริม--v1",
+          "statement": "กลุ่มสารอาหารที่กำหนดความต้องการของปลาและกุ้งประกอบด้วย proteins, lipids, carbohydrates, vitamins และ minerals ตรงกับรายการบนสไลด์ และโภชนาการมีบทบาทสำคัญต่อทั้งการเจริญเติบโตและสุขภาพของสัตว์น้ำ ตรงกับเป้าหมายสองด้าน growth และ health ที่สไลด์ระบุ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-national-research-coun-2011",
+              "locator": "Report in Brief, p. 1, Fish Nutrition and Feeding",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the report provides an extensive discussion of each of the nutrient classes, including proteins, lipids, carbohydrates, vitamins, and minerals ... Nutrition plays a key role in the aquaculture industry by influencing the growth and health o"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--โภชนพันธุศาสตร์-nutrigenomics-และจุลินทรีย์ในทางเดินอาหาร-gut-mi": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--โภชนพันธุศาสตร์-nutrigenomics-และจุลินทรีย์ในทางเดินอาหาร-gut-mi--v1",
+          "statement": "ปัจจัยที่สไลด์ระบุว่าเกี่ยวข้องกับ microbiome คือ อาหารและสภาวะแวดล้อม ได้รับการยืนยันในงานทบทวนที่สไลด์อ้างเอง ว่า dysbiosis ในระบบเพาะเลี้ยงถูกกระตุ้นโดย environmental stressors หรือการเลือกสูตรอาหาร และการเปลี่ยนแปลงของ bacterial microbiome เกี่ยวข้องกับ performance และการเกิดโรค",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1111-raq-12513",
+              "locator": "Vol. 13, Issue 2, pp. 1077-1096, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "changes in bacterial microbiomes are implicated in animal performance, in disease development associated with both bacterial and viral origin, and in dysbiosis triggered by environmental stressors or diet choice"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--gut-microbiome-ในกุ้ง": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--gut-microbiome-ในกุ้ง--v1",
+          "statement": "งานทบทวนที่สไลด์อ้าง สรุปว่า Proteobacteria เป็นกลุ่มเด่นที่สุดใน gut microbiota ของกุ้ง และองค์ประกอบของ gut microbiota เปลี่ยนไปเมื่อมีเชื้อก่อโรคที่สำคัญทางเศรษฐกิจของกุ้งเข้ามา ซึ่งเป็นข้อสรุปที่กราฟแท่งในสไลด์แสดงไว้แต่ไม่ได้เขียนเป็นตัวอักษร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32330478",
+              "locator": "Vol. 186, 107387, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "we review current knowledge of information reported on the shrimp gut microbiota, highlighting the most frequently observed taxa and emphasizing the dominance of Proteobacteria within this community. We discuss involvement of the microbiome"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--gut-microbiome-ในปลา-habitat-เป็นตัวกำหนดหลัก": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--gut-microbiome-ในปลา-habitat-เป็นตัวกำหนดหลัก--v1",
+          "statement": "ตัวเลขบนสไลด์ตรงกับต้นฉบับ คือ gut microbiota ของปลาถูกครองโดย Proteobacteria 51.7% และ Firmicutes 13.5% และ habitat ของ host มีอิทธิพลกำหนดชุมชนจุลินทรีย์มากกว่า taxonomy หรือ trophic level ของปลา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34332628",
+              "locator": "Vol. 9, Issue 1, article 166, abstract and Fig. 1b",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The fish gut microbiota was dominated by Proteobacteria (51.7%) and Firmicutes (13.5%) ... The gut microbial community in fish was more strongly shaped by host habitat than by host taxonomy or trophic level."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--gut-microbiome-ในปลา-habitat-เป็นตัวกำหนดหลัก--v2",
+          "statement": "สไลด์ไม่ได้ขยายตัวย่อ FWF และ SWF แต่ในงานต้นฉบับการเปรียบเทียบคือระหว่าง freshwater fish กับ seawater fish และผลสำคัญอีกข้อคือ taxa เด่นของปลาต่างจากสัตว์มีกระดูกสันหลังบนบก ซึ่งเด่นด้วย Firmicutes และ Bacteroidetes",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34332628",
+              "locator": "Vol. 9, Issue 1, article 166, abstract and keywords (Freshwater fish, Seawater fish)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "different from the dominant taxa reported in terrestrial vertebrates (Firmicutes and Bacteroidetes)"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--microbiome-diversity-vs-สุขภาพสัตว์น้ำ-และภาวะ-gut-dysbiosis": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--microbiome-diversity-vs-สุขภาพสัตว์น้ำ-และภาวะ-gut-dysbiosis--v1",
+          "statement": "นิยามของ gut dysbiosis ที่สไลด์วาดเป็นตราชั่งระหว่าง pathogenic microbes กับ beneficial microbes ตรงกับต้นฉบับ ซึ่งระบุว่า dysbiosis คือการสูญเสียแบคทีเรียที่เป็นประโยชน์ หรือการขยายตัวของเชื้อก่อโรค และสามารถใช้เป็นตัวชี้วัดในการติดตามผลผลิตของฟาร์มได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1111-raq-12513",
+              "locator": "Vol. 13, Issue 2, pp. 1077-1096, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Dysbiosis, whether in the form of the loss of beneficial bacteria, or the expansion of pathogens or potentially harmful microorganisms, can be used as an indicator tool for productivity monitoring purposes."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--microbiome-diversity-vs-สุขภาพสัตว์น้ำ-และภาวะ-gut-dysbiosis--v2",
+          "statement": "งานทบทวนอีกฉบับที่สไลด์อ้าง ยืนยันว่า microbiome ของทั้งตัวสัตว์และสิ่งแวดล้อมรอบตัวมีบทบาทสำคัญต่อสุขภาพของกุ้ง จึงรองรับกรอบสีเขียวของสไลด์ที่ใช้ probiotics prebiotics และ synbiotics เพื่อดันสมดุลกลับสู่ภาวะ healthy",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1111-raq-12471",
+              "locator": "Vol. 13, Issue 1, pp. 238-258, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the microbiome of the host and its surroundings play a vital role in its health and well-being"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--โรคในสัตว์น้ำ-สามเหลี่ยมการเกิดโรค": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--โรคในสัตว์น้ำ-สามเหลี่ยมการเกิดโรค--v1",
+          "statement": "แนวคิดสามเหลี่ยมการเกิดโรคที่ประกอบด้วย host, pathogen และ environment เป็นกรอบที่ใช้จริงในวิชาสุขภาพสัตว์น้ำ โดยผลลัพธ์ของโรคติดเชื้อเกิดจากปฏิสัมพันธ์ของทั้งสามส่วนพร้อมกัน ไม่ใช่ปัจจัยใดปัจจัยหนึ่งเดี่ยว ๆ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38022499",
+              "locator": "Vol. 14, article 1305784, opening paragraphs",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The epidemiologic triads, consisting of host, pathogen, and environment, exert a profound influence on health measures."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--สัตว์น้ำป่วยหรือตาย-vs-การใช้ยา-และปัญหา-amr": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--สัตว์น้ำป่วยหรือตาย-vs-การใช้ยา-และปัญหา-amr--v1",
+          "statement": "รายงาน No Time to Wait ที่สไลด์นำอินโฟกราฟิกมาใช้ เป็นรายงานของ Interagency Coordination Group on Antimicrobial Resistance (IACG) เสนอต่อเลขาธิการสหประชาชาติเมื่อเดือนเมษายน 2019 และระบุว่าการตอบสนองแบบ One Health ที่ต่อเนื่องและมีวิสัยทัศน์ร่วมกันเป็นสิ่งจำเป็นในการจัดการเชื้อดื้อยา ครอบคลุมทั้งคน สัตว์บกและสัตว์น้ำ พืช อาหาร และสิ่งแวดล้อม",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-interagency-coordinati-2019",
+              "locator": "Executive summary and recommendations",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A sustained One Health response with a shared vision and goals is essential to tackle antimicrobial resistance and achieve the Sustainable Development Goals."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--โปรไบโอติก-probiotic-vs-สุขภาพสัตว์น้ำ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--โปรไบโอติก-probiotic-vs-สุขภาพสัตว์น้ำ--v1",
+          "statement": "นิยามที่สไลด์ยกมาจาก FAO/WHO ถูกต้องตามถ้อยคำต้นฉบับ คือ live microorganisms which when administered in adequate amounts confer a health benefit on the host และคณะผู้เชี่ยวชาญนานาชาติได้ทบทวนซ้ำในปี 2013 แล้วยืนยันว่านิยามนี้ยังใช้ได้และครอบคลุมการประยุกต์ใช้ในปัจจุบันและอนาคต",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24912386",
+              "locator": "Vol. 11, Issue 8, pp. 506-514, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The FAO/WHO definition of a probiotic--\"live microorganisms which when administered in adequate amounts confer a health benefit on the host\"--was reinforced as relevant and sufficiently accommodating for current and anticipated applications"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--water-probiotics-aqueous-probiotics": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--water-probiotics-aqueous-probiotics--v1",
+          "statement": "เป้าหมายสองข้อของ water probiotics ที่สไลด์ระบุ คือ competitive exclusion ของเชื้อก่อโรคและการปรับปรุงคุณภาพน้ำ ตรงกับกลไกการออกฤทธิ์ของ probiotic bacteria ในการเพาะเลี้ยงสัตว์น้ำที่มีการทบทวนไว้ ได้แก่ การสร้างสารยับยั้งเชื้อก่อโรค การแย่งสารอาหารและพลังงาน การแย่งตำแหน่งเกาะยึด การกระตุ้นภูมิคุ้มกันของสัตว์ และการปรับปรุงคุณภาพน้ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11104813",
+              "locator": "Vol. 64, Issue 4, pp. 655-671, abstract (modes of action)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "a detailed description is given of their possible modes of action, i.e., production of compounds that are inhibitory toward pathogens, competition with harmful microorganisms for nutrients and energy, competition with deleterious species fo"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ภาพรวม-probiotics-prebiotics-synbiotics-postbiotics": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ภาพรวม-probiotics-prebiotics-synbiotics-postbiotics--v1",
+          "statement": "จุดที่สไลด์เน้นว่า postbiotic ติดป้าย DEAD ต่างจาก probiotic ที่ติดป้าย LIVE ตรงกับนิยามฉันทามติสากลของ postbiotic คือ preparation of inanimate microorganisms and/or their components that confers a health benefit on the host และต้องมีเซลล์จุลชีพที่ถูกทำให้ตายแล้วหรือส่วนประกอบของเซลล์อยู่ด้วยเสมอ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33948025",
+              "locator": "Vol. 18, Issue 9, pp. 649-667, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The panel defined a postbiotic as a \"preparation of inanimate microorganisms and/or their components that confers a health benefit on the host\". Effective postbiotics must contain inactivated microbial cells or cell components, with or with"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--พรีไบโอติก-prebiotic-นิยาม-ชนิด-และกลไก": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--พรีไบโอติก-prebiotic-นิยาม-ชนิด-และกลไก--v1",
+          "statement": "งานที่สไลด์อ้าง (Hutkins et al.) ชี้ว่านิยามของ prebiotic ถูกปรับแก้หลายครั้งตลอด 20 ปี และงานยุคใหม่ด้าน sequencing และ glycomics แสดงว่าปฏิสัมพันธ์ระหว่างสารที่อ้างว่าเป็น prebiotic กับ gut microbiota ซับซ้อนกว่าที่เคยเข้าใจ จึงต้องระวังการเรียกสารใดว่าเป็น prebiotic โดยไม่มีหลักฐานผลต่อสุขภาพ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26431716",
+              "locator": "Vol. 37, pp. 1-7, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Recent developments in community-wide sequencing and glycomics have revealed that more complex interactions occur between putative prebiotic substrates and the gut microbiota than previously considered."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ตารางงานวิจัย-prebiotic-mixtures-ต่อการเจริญเติบโต": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตารางงานวิจัย-prebiotic-mixtures-ต่อการเจริญเติบโต--v1",
+          "statement": "ตารางในสไลด์มาจากบทความทบทวนเรื่องผลของ prebiotic แบบผสม (mixed prebiotics) ในการเพาะเลี้ยงสัตว์น้ำ ซึ่งรวบรวมงานที่ให้ prebiotic ผสมเป็นอาหารเสริมและวัดผลด้าน growth performance ของสัตว์น้ำหลายชนิด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-j-aaf-2022-02-005",
+              "locator": "Vol. 9, pp. 28-34, table of effects of prebiotic mixtures on growth performance",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The effects of mixed prebiotics in aquaculture: A review"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ตารางงานวิจัย-prebiotic-mixtures-ในบทบาท-immunostimulant": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตารางงานวิจัย-prebiotic-mixtures-ในบทบาท-immunostimulant--v1",
+          "statement": "การใช้ prebiotic เป็น immunostimulant ในสัตว์น้ำสอดคล้องกับฉันทามติสากลที่ระบุว่านิยาม prebiotic ใช้กับสัตว์ด้วย และกลยุทธ์ที่มุ่งไปที่จุลินทรีย์เพื่อรักษาสุขภาพและป้องกันโรคมีความสำคัญในสัตว์ไม่น้อยไปกว่าในคน อย่างไรก็ตามการจะเรียกสารใดว่าเป็น prebiotic ต้องมีเอกสารหลักฐานผลต่อสุขภาพรองรับ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28611480",
+              "locator": "Vol. 14, Issue 8, pp. 491-502, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The consensus definition applies also to prebiotics for use by animals, in which microbiota-focused strategies to maintain health and prevent disease is as relevant as for humans. Beneficial health effects must be documented for a substance"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ตารางงานวิจัย-prebiotic-mixtures-ต่อความต้านทานโรค": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตารางงานวิจัย-prebiotic-mixtures-ต่อความต้านทานโรค--v1",
+          "statement": "ตารางความต้านทานโรคในสไลด์มาจากบทความทบทวนเดียวกัน ซึ่งรวบรวมการทดลองที่ให้ prebiotic แบบผสมแล้วทดสอบเชื้อเป้าหมาย โดยเชื้อที่ปรากฏซ้ำมากที่สุดคือ Aeromonas hydrophila กลุ่ม Vibrio และ white spot syndrome virus ซึ่ง WSSV เป็นโรคที่อยู่ในบัญชีโรคสัตว์น้ำที่ต้องแจ้งของ WOAH",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-j-aaf-2022-02-005",
+              "locator": "Vol. 9, pp. 28-34, table of effects of prebiotic mixtures on disease resistance",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The effects of mixed prebiotics in aquaculture: A review"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ซินไบโอติก-synbiotic": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ซินไบโอติก-synbiotic--v1",
+          "statement": "นิยาม synbiotic ที่สไลด์ให้ไว้ว่าเป็นการรวมกันของ prebiotic กับ probiotic ตรงกับงานที่สไลด์อ้าง และกลไกคือ prebiotic ถูกย่อยเป็นน้ำตาลโมเลกุลเดี่ยวหรือคู่ใช้เป็นแหล่งคาร์บอนให้แบคทีเรีย probiotic เพิ่ม biomass และการเข้าอยู่อาศัย (colonization) บนผิวเซลล์เยื่อบุลำไส้ของ host",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28336489",
+              "locator": "Vol. 64, pp. 367-382, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Synbiotics, a conjunction between prebiotics and probiotics, have been used in aquaculture for over 10 years. ... a prebiotic as part of a synbiotic is hydrolyzed to mono- or disaccharides as the sole carbon source with diverse mechanisms, "
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--โพสไบโอติก-postbiotic": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--โพสไบโอติก-postbiotic--v1",
+          "statement": "ข้อความบนสไลด์ที่ว่า postbiotics ให้ผลคล้าย probiotics แต่มีความเสี่ยงน้อยกว่า ตรงกับงานที่สไลด์อ้าง ซึ่งอธิบายเหตุผลไว้ว่าเพราะ postbiotics ไม่มีจุลชีพที่มีชีวิตอยู่ ความเสี่ยงจากการได้รับจึงลดลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32717965",
+              "locator": "Vol. 12, Issue 8, article 2189, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "As postbiotics do not contain live microorganisms, the risks associated with their intake are minimized."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปัญหาการเกิดโรคระบาดในกุ้งของไทย": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปัญหาการเกิดโรคระบาดในกุ้งของไทย--v1",
+          "statement": "ตัวเลขลดลง 54% ที่สไลด์วงไว้ตรงกับข้อมูลจริงจาก Fisheries Statistics of Thailand Yearbooks คือผลผลิตกุ้งขาว Penaeus vannamei ของไทยทั้งประเทศลดลง 53.91% เมื่อเทียบปี 2009 ก่อน AHPND (575,098 ตัน กุ้งรวม) กับปี 2014 ระหว่างการระบาด (279,907 ตัน กุ้งรวม โดยเป็น P. vannamei 263,245 ตัน) พร้อมกับจำนวนฟาร์มลดลง 16.16% และพื้นที่เลี้ยงลดลง 10.45%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-33997-j-afs-2018-31-s1-003",
+              "locator": "Table 3 total row, pp. 36-37; Table 2, p. 35",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Table 3. A comparison of the number of farms, the land area used and the tonnage resulting from shrimp production in the main shrimp-producing provinces of Thailand in 2009 (pre-AHPND) and 2014 (on-going AHPND infection ...) ... Total 25 13"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปัญหาการเกิดโรคระบาดในกุ้งของไทย--v2",
+          "statement": "มูลค่าความเสียหายจริงที่ประเมินไว้สูงกว่าตัวเลข 7 หมื่นล้านบาทบนสไลด์มาก โดยประเมินความสูญเสียของไทยจากผลผลิตที่ลดลงในช่วงปี 2010 ถึง 2017 ไว้ที่ 7.38 พันล้านดอลลาร์สหรัฐ บวกกับความสูญเสียจากการส่งออกอีก 4.2 พันล้านดอลลาร์สหรัฐ โดยโรคที่เป็นสาเหตุคือ AHPND ที่เกิดจาก Vibrio parahaemolyticus สายพันธุ์ก่อโรค ร่วมกับ EHP และ WSSV",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-33997-j-afs-2018-31-s1-003",
+              "locator": "Abstract, p. 29",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The economic loss from decreased production is followed through the volume of product traded through Mahachai Market, one of Thailand's principal seafood markets, throughout 2010-2017 and is estimated to be US$ 7.38 billion with a further U"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปัญหาการเกิดโรคระบาดในกุ้งของไทย--v3",
+          "statement": "โรคขี้ขาว (white feces syndrome) ที่สไลด์จับคู่กับ EHP มีหลักฐานรองรับว่าในขี้ขาวของกุ้งที่เป็นโรคพบสปอร์ของ Enterocytozoon hepatopenaei อัดแน่น ร่วมกับแบคทีเรียรูปแท่งจำนวนน้อยกว่า และกุ้งที่เป็นโรคทุกตัวที่ตรวจมี EHP ร่วมกับภาวะ septic hepatopancreatic necrosis",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27530403",
+              "locator": "Vol. 140, pp. 1-7, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Within the white feces, we found densely packed spores of the microsporidian Enterocytozoon hepatopenaei (abbreviated as EHP) and relatively fewer numbers of rod-shaped bacteria. ... The results showed that all of the shrimp examined were i"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--โรคสำคัญใน-penaeus-vannamei-จัดกลุ่มตามอาการทางคลินิก": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--โรคสำคัญใน-penaeus-vannamei-จัดกลุ่มตามอาการทางคลินิก--v1",
+          "statement": "เชื้อทั้ง 7 ตัวในกลุ่มตายยกบ่อของสไลด์ (WSSV, DIV 1, YHV, TSV, IMNV, AHPND, NHP) ล้วนอยู่ในบัญชีโรคของสัตว์จำพวก crustaceans ที่ WOAH กำหนดให้ต้องแจ้ง ตาม Article 1.3.3 ของ Aquatic Animal Health Code โดย NHP คือ infection with Hepatobacter penaei และ YHV ที่อยู่ในบัญชีคือ genotype 1 เท่านั้น ขณะที่ EHP ในกลุ่มโตช้าและขี้ขาวไม่ได้อยู่ในบัญชีนี้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 1.3.3, p. 1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The following diseases of crustaceans are listed diseases: Acute hepatopancreatic necrosis disease; Infection with Aphanomyces astaci (crayfish plague); Infection with decapod iridescent virus 1; Infection with Hepatobacter penaei (necrotis"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--infection-with-enterocytozoon-hepatopenaei-ehp-ลักษณะเชื้อและอาก": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--infection-with-enterocytozoon-hepatopenaei-ehp-ลักษณะเชื้อและอาก--v1",
+          "statement": "EHP เป็น microsporidian ที่เป็น spore-forming unicellular parasite อยู่ใน Family Enterocytozoonidae และ Phylum Microsporidia และสปอร์ที่พบในเนื้อเยื่อ hepatopancreas มีขนาด 1.1 ± 0.2 x 0.6-0.7 ± 0.1 µm ตรงกับตัวเลขบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section 1.4 Taxonomic affiliation and Section 5.3 Microscopic lesions and tissue abnormality",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "EHP is a microsporidian, spore forming unicellular parasite belonging to the Family Enterocytozoonidae and Phylum Microsporidia. ... clusters of elliptical to somewhat ovoid spores of 1.1 ± 0.2 by 0.6-0.7 ± 0.1 µm (Tourtip et al., 2009)."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--infection-with-enterocytozoon-hepatopenaei-ehp-ลักษณะเชื้อและอาก--v2",
+          "statement": "ตัวเลข polar filament 4-5 coils มาจากการ redescribe เชื้อสายพันธุ์ที่แยกจาก Penaeus vannamei ซึ่งพบว่าเรียงเป็นสองแถว แต่รายงานเดียวกันวัดสปอร์ได้ 1.65 ± 0.15 x 0.92 ± 0.05 µm ซึ่งใหญ่กว่าตัวเลขบนสไลด์ และเสนอย้ายเชื้อไปสกุลใหม่ชื่อ Ecytonucleospora",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37657756",
+              "locator": "Abstract; vol 201:107988",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Mature spores of EHP were oval and monokaryotic, measuring 1.65 ± 0.15 μm × 0.92 ± 0.05 μm. Spores possessed many polyribosomes around a bipartite polaroplast and the polar filament with 4-5 coils in two rows."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--infection-with-enterocytozoon-hepatopenaei-ehp-ลักษณะเชื้อและอาก--v3",
+          "statement": "มีรายงานยืนยัน EHP ในกุ้งก้ามกราม Macrobrachium rosenbergii จริง โดยพบใน 8 จาก 22 ฟาร์มในเกาหลีใต้ ความชุกในฟาร์มที่ติดเชื้ออยู่ที่ 4.9-18.2% และเห็นการเพิ่มจำนวนของเชื้อในเซลล์ hepatopancreatic epithelium",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36428377",
+              "locator": "Abstract; vol 12(22):3149",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In EHP-infected prawn farms, the prevalence ranged from 4.9% to 18.2%. ... The proliferation of EHP was observed within the hepatopancreatic epithelial cells of prawns using H&E and Giemsa staining."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--infection-with-enterocytozoon-hepatopenaei-ehp-ลักษณะเชื้อและอาก--v4",
+          "statement": "อาการที่สไลด์เน้น คือ โตช้า ขนาดไม่สม่ำเสมอ (CV% สูง) และ FCR สูง ตรงกับมาตรฐานสากล และเครื่องหมายคำถามหลัง White feces ก็สมเหตุสมผล เพราะพบ white faecal strings ในบางกรณีเท่านั้น ความสัมพันธ์ระหว่าง EHP กับ WFS จึงเป็นแบบมีเงื่อนไข",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Sections 5.2 Gross observations and 6 Social and economic significance",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "White faecal strings existed in some cases but not in others indicating that the relationship between EHP and WFS appears to be conditional ... Infected populations show different growth rates, sizes of individual animals within the same gr"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--infection-with-enterocytozoon-hepatopenaei-ehp-ลักษณะเชื้อและอาก--v5",
+          "statement": "ไส้เดือนทะเล Marphysa gravelyi เป็น passive carrier ของ EHP จริง แต่เป็นการพาแบบไม่ขยายเชื้อ เมื่อหยุดสัมผัสเชื้อ ไส้เดือนจะกำจัดเชื้อออกได้เอง และไม่พบหลักฐาน vertical transmission จากแม่ไปสู่ลูก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-j-aquaculture-2021-737187",
+              "locator": "Abstract; vol 545:737187",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "polychaetes act as a passive carrier of EHP, the microsporidian getting cleared from worms once the exposure stops, and no evidence of vertical transmission of EHP from gravid worms to their progeny was discernible"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--infection-with-enterocytozoon-hepatopenaei-ehp-ลักษณะเชื้อและอาก--v6",
+          "statement": "สัตว์หน้าดินและสัตว์ที่ใช้เป็นอาหารสดในบ่อกุ้งเป็นพาหะของ EHP ได้จริง โดยการสุ่ม macrofauna 82 ตัวอย่างใน 3 ไฟลัม (Arthropoda, Mollusca, Chordata) จากบ่อ P. vannamei ในมาเลเซีย ตรวจพบ EHP เฉลี่ย 82.93% ด้วย PCR ต่อยีน spore wall protein",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36889458",
+              "locator": "Abstract; vol 198:107910",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The PCR results showed an average prevalence of EHP (82.93%) from three phyla (Arthropoda, Mollusca and Chordata). ... certain macrofauna species in shrimp ponds of P. vannamei are carriers of EHP spores and could be potential transmission "
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ehp-กลไกการเข้าเซลล์ผ่าน-polar-tube-extrusion": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ehp-กลไกการเข้าเซลล์ผ่าน-polar-tube-extrusion--v1",
+          "statement": "การงอกของสปอร์ microsporidia เริ่มจากสิ่งกระตุ้นภายนอกซึ่งรวม pH ทำให้น้ำไหลเข้าสปอร์ เพิ่ม intracellular osmotic pressure ส่งผลให้ polaroplast เสียระเบียบและ posterior vacuole บวม แล้วดัน polar filament ออกมา ตรงกับขั้น Trigger และ Swelling บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37649053",
+              "locator": "Section on polar tube germination; vol 16(1):305",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "under a series of stimuli, the water from the environment flows into mature spores to increase the intracellular osmotic pressure, which results in the disordering of the polaroplasts and swelling of the posterior vacuole, pushing the disch"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ehp-กลไกการเข้าเซลล์ผ่าน-polar-tube-extrusion--v2",
+          "statement": "PTP2 ของ EHP มีบทบาทจริงในการงอกและการติดเชื้อ โดยพบเป็นโปรตีนปริมาณมากในสปอร์ที่ยิง polar tube แล้ว และการฉีด dsRNA ที่จำเพาะต่อ EhPTP2 ลดจำนวน copy ของ EHP ในกุ้งและลดอัตราการถ่ายทอดเชื้อสู่กุ้งปกติอย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38413745",
+              "locator": "Abstract; vol 14(1):4830",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "polar tube protein 2 of EHP (EhPTP2) was found abundantly in protein extracts obtained from extruded spores ... we injected EhPTP2-specific double-stranded RNA (dsRNA) and found that it significantly diminished EHP copy numbers in infected "
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ehp-กลไกการเข้าเซลล์ผ่าน-polar-tube-extrusion--v3",
+          "statement": "polar tube ของ microsporidia ต่ออยู่ที่ปลายด้านหน้าของสปอร์ เมื่อถูกกระตุ้นจะยิงออกมาอย่างรวดเร็ว เจาะทะลุ cell membrane ของเซลล์เป้าหมาย และทำหน้าที่เป็นท่อส่ง sporoplasm เข้าสู่เซลล์เจ้าบ้าน ตรงกับขั้น Discharge บนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16005007",
+              "locator": "Abstract; vol 35(9):941-953",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In the spore, the polar tube is connected at the anterior end, and then coils around the sporoplasm. Upon appropriate environmental stimulation the polar tube rapidly discharges out of the spore pierces a cell membrane and serves as a condu"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การควบคุม-ehp-ด้วย-ph-สูงและปูน": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การควบคุม-ehp-ด้วย-ph-สูงและปูน--v1",
+          "statement": "หลักการที่สไลด์ใช้ คือ บังคับให้สปอร์ยิง polar tube ทิ้งนอกตัวกุ้ง มีหลักฐานทดลองรองรับ กุ้ง PL12 ที่แช่กับสปอร์ที่ถูกกระตุ้นให้งอกล่วงหน้าไม่ติดเชื้อเลย ขณะที่กลุ่มควบคุมติดเชื้อ 60% แต่สารที่ใช้กระตุ้นในงานนี้คือ potassium hydrogen phthalate, sodium hydrogen phthalate และ phloxine B ไม่ใช่ปูนหรือ NaOH",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40825518",
+              "locator": "Abstract; vol 213:108431",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The results showed that all pre-germinated spore groups had no infection, while the infection rate was 60 % in the control group. ... Our results suggest that pre-germinated EHP spores lose their infectivity in the laboratory setting."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การควบคุม-ehp-ด้วย-ph-สูงและปูน--v2",
+          "statement": "การฆ่าเชื้อพื้นบ่อเพื่อทำลายสปอร์ EHP เป็นมาตรการที่มาตรฐานสากลแนะนำจริง โดยเน้นบ่อหรือโรงเพาะฟักที่เคยมีประวัติการติดเชื้อ EHP มาก่อน แต่เอกสารมาตรฐานไม่ได้ระบุอัตราปูนหรือค่า pH เป้าหมายเป็นตัวเลข",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section 9 Control methods",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Appropriate biosecurity measures in aquaculture establishments before and after stocking are important to prevent introduction of EHP. This includes disinfection to inactivate EHP spores, particularly in ponds or hatcheries with a previous "
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การควบคุม-ehp-ด้วยการจัดการคุณภาพน้ำและของเสีย": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การควบคุม-ehp-ด้วยการจัดการคุณภาพน้ำและของเสีย--v1",
+          "statement": "การจัดการน้ำและของเสียตามสไลด์สอดคล้องกับมาตรฐานสากล ที่กำหนดให้เลือกแหล่งน้ำที่ปลอดเชื้อ กรองหรือฆ่าเชื้อน้ำเข้าและน้ำทิ้ง และให้เก็บกุ้งป่วยหรือกุ้งตายออกจากบ่อโดยเร็วที่สุดพร้อมกำจัดอย่างปลอดภัยทางชีวภาพ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, points 1(g) and 3(a)-(c)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Remove moribund or dead aquatic animals from production units as soon as possible and dispose of them in a biosecure manner ... Where possible, choose a water source that is entirely free of susceptible aquatic animal populations and pathog"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การควบคุม-ehp-ด้วยสารเคมี-in-vitro": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การควบคุม-ehp-ด้วยสารเคมี-in-vitro--v1",
+          "statement": "การทดสอบ in vitro ที่ตีพิมพ์ยืนยันว่า potassium permanganate, chlorine และ ethanol ยับยั้งการยิง polar tube ของสปอร์ EHP ได้สมบูรณ์ ส่วน formalin ลดได้ 95.33% แต่จุดวัดผลของงานนั้น คือ การยับยั้ง polar tube extrusion ไม่ใช่การทำลาย DNA และไม่ใช่ระยะสัมผัส 12-18 ชั่วโมงตามตารางบนสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-j-aquaculture-2018-02-039",
+              "locator": "Abstract; vol 490:156-161",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "freezing at −20 °C for 2+ hours or specific chemical treatments including potassium permanganate, chlorine solutions, and ethanol achieved complete inhibition of polar tube extrusion, with formalin reaching 95.33% reduction"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การควบคุม-ehp-ด้วยสารเคมี-in-vitro--v2",
+          "statement": "นอกจากสารเคมี วิธีทางกายภาพก็ทำลายสปอร์ EHP ได้และเป็นสิ่งที่มาตรฐานสากลอ้างถึง โดยการแช่แข็งสปอร์บริสุทธิ์ที่ -20 องศาเซลเซียสอย่างน้อย 2 ชั่วโมงทำให้เชื้อหมดฤทธิ์ และอาหารสดสำหรับพ่อแม่พันธุ์ควรผ่าน -20 องศาเซลเซียส 48 ชั่วโมง หรือ 70 องศาเซลเซียส 15 นาที",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Sections 9 Control methods and 10 Transmission risk",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Inactivation of purified EHP spores was achieved by exposure to freezing at -20°C for at least 2 hours (Aldama-Cano et al., 2018). ... Fresh feed should be pre-treated at -20 °C for at least 48 h or 70 °C for 15 min before they are fed to b"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--หลักการ-6-cleans-ในการป้องกันโรคกุ้ง": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--หลักการ-6-cleans-ในการป้องกันโรคกุ้ง--v1",
+          "statement": "กรอบ 6 Cleans สอดคล้องกับ transmission pathways ที่มาตรฐานสากลกำหนดให้ต้องประเมินและควบคุมในแผน biosecurity ของฟาร์มสัตว์น้ำ ได้แก่ สัตว์น้ำ ผลิตภัณฑ์และของเสียจากสัตว์น้ำ น้ำ อาหาร fomites vectors และคน (personnel and visitors)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7 Transmission pathways and mitigation measures",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The risks associated with the introduction into, spread within, and release of pathogenic agents from the aquaculture establishment need to be considered for each of the following transmission pathways. 1. Aquatic animals ... 2. Aquatic ani"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--หลักการ-6-cleans-ในการป้องกันโรคกุ้ง--v2",
+          "statement": "เป้าหมายของมาตรการ biosecurity ตรงกับกรอบบนสไลด์ คือ ลดความเสี่ยงที่เชื้อก่อโรคจะเข้าสู่ฟาร์ม และถ้าเข้ามาแล้วก็ลดความเสี่ยงที่จะแพร่กระจายภายในหรือหลุดออกจากฟาร์ม",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.1 Purpose",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "To provide recommendations on the development and implementation of biosecurity measures primarily to mitigate the risk of the introduction of specific pathogenic agents into aquaculture establishments, and if pathogenic agents are introduc"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--c1-clean-facilities-สถานที่และโครงสร้างฟาร์ม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c1-clean-facilities-สถานที่และโครงสร้างฟาร์ม--v1",
+          "statement": "มาตรการเชิงกายภาพที่สไลด์ระบุ ได้แก่ รั้ว ตาข่าย และการจำกัดผู้เข้าฟาร์ม ตรงกับมาตรการป้องกัน vectors ตามมาตรฐานสากล ที่ให้ล้อมฟาร์มบนบกด้วยรั้วหรือกำแพงพร้อมประตูควบคุมการเข้าออกสำหรับผู้ได้รับอนุญาต และคลุมบ่อกลางแจ้งด้วยตาข่ายเพื่อกันนก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 6 Vectors, sub-point a)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "surrounding land-based aquaculture production systems by a fence or a wall to prevent entry of animals and people, with a gate for controlled access for authorized personnel and visitors ... covering outdoor or unenclosed aquaculture produc"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c1-clean-facilities-สถานที่และโครงสร้างฟาร์ม--v2",
+          "statement": "หลัก site selection ที่ให้เลี่ยงพื้นที่เลี้ยงสัตว์น้ำหนาแน่นมีฐานรองรับ เพราะฟาร์มระบบกึ่งเปิดหรือกึ่งปิดที่อยู่ใกล้กันในแหล่งน้ำเดียวกัน อาจควบคุมการแพร่เชื้อระหว่างกันไม่ได้ และตำแหน่งทางน้ำเข้าออกต้องวางให้ลดการปนเปื้อนจากฟาร์มอื่นหรือสัตว์น้ำธรรมชาติ โดยคำนึงถึงระยะทางและกระแสน้ำ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.6 Area management and Article 4.1.7 point 3(d)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It may not be possible to control the transmission of pathogenic agents among semi-open or semi-closed aquaculture establishments that are in close proximity within shared water bodies. ... Ensure the position of water intakes and outlets ."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--c2-clean-water-หรือ-water-quality-management": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c2-clean-water-หรือ-water-quality-management--v1",
+          "statement": "การใช้น้ำ free-pathogens และการกรองหรือฆ่าเชื้อน้ำตามสไลด์ ตรงกับมาตรการลดความเสี่ยงทางน้ำในมาตรฐานสากล ซึ่งกำหนดให้กรอง คัดกรอง หรือฆ่าเชื้อน้ำจากแหล่งที่อาจมี susceptible species และให้ฆ่าเชื้อน้ำทิ้งด้วย ไม่ใช่แค่น้ำเข้า",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 3 Water, sub-points b) and c)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Provide an appropriate level of screening, filtration or disinfection ... of water from sources that are likely to contain susceptible species and which may present a risk of pathogenic agent transmission ... Provide an appropriate level of"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--c3-clean-seed-หรือ-free-pathogens-in-fry-ลูกพันธุ์สะอาด": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c3-clean-seed-หรือ-free-pathogens-in-fry-ลูกพันธุ์สะอาด--v1",
+          "statement": "หลักการลูกพันธุ์สะอาดและการกักโรคตามสไลด์ตรงกับมาตรฐานสากล ซึ่งกำหนดให้นำเข้าเฉพาะสัตว์น้ำที่ทราบสถานะสุขภาพและมีสถานะเท่ากันหรือดีกว่าสัตว์ในฟาร์ม และถ้าสถานะโรคไม่ทราบต้องเข้า quarantine ก่อน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 1 Aquatic animals, sub-points a) and b)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Only introduce into the aquaculture establishment aquatic animals with a known health status, which is of equal or higher status than the existing animals in the establishment. If aquatic animals of unknown disease status are introduced, th"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c3-clean-seed-หรือ-free-pathogens-in-fry-ลูกพันธุ์สะอาด--v2",
+          "statement": "สำหรับ EHP โดยเฉพาะ มาตรฐานสากลแนะนำให้ใช้พ่อแม่พันธุ์และลูกกุ้ง (PLs) ที่ปลอดเชื้อ EHP และให้ทำ targeted surveillance ในสัตว์น้ำระยะแรกของการเลี้ยง โดยเฉพาะก่อนย้ายลงบ่อ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section 9 Control methods",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The use of EHP-free broodstock and post-larvae (PLs) is encouraged. ... Targeted surveillance for infection with EHP in early life stages of cultured susceptible species, especially before transferring to the ponds, is recommended."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--c4-clean-feed-and-materials-อาหารและวัสดุสะอาด": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c4-clean-feed-and-materials-อาหารและวัสดุสะอาด--v1",
+          "statement": "อาหารเป็นเส้นทางแพร่เชื้อที่สำคัญจริง มาตรฐานสากลกำหนดให้ใช้อาหารและวัตถุดิบที่ผ่านกระบวนการเพียงพอที่จะทำลายเชื้อก่อโรค หรือมาจากแหล่งที่ประกาศว่าปลอดเชื้อหรือผ่านการตรวจยืนยันแล้ว ซึ่งเป็นเหตุผลเบื้องหลังการเลือกโรงงานที่ได้รับการรับรองตามสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 4 Feed, sub-points a)-c)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Feed can be an important pathway for transmission of pathogenic agents to aquatic animals. ... using feed and feed ingredients that: a) have undergone sufficient processing to inactivate pathogenic agents of concern; b) are from sources tha"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c4-clean-feed-and-materials-อาหารและวัสดุสะอาด--v2",
+          "statement": "การจำกัดอาหารมีชีวิตให้มาจาก inhouse เท่านั้นตามสไลด์มีเหตุผลรองรับ เพราะมาตรฐานสากลระบุว่าไม่ควรใช้สัตว์มีชีวิตที่จับจากธรรมชาติ เช่น polychaetes หอยกาบ หรือหอยนางรม เป็นอาหารพ่อแม่พันธุ์กุ้ง",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2022",
+              "locator": "Section 9 Control methods",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Captured, live animals (e.g. live polychaetes, clams, oysters, etc.) from the wild should not be used as feed for broodstock."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--c5-clean-fomites-อุปกรณ์และสิ่งของที่เป็นพาหะ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c5-clean-fomites-อุปกรณ์และสิ่งของที่เป็นพาหะ--v1",
+          "statement": "การแยกอุปกรณ์ประจำแต่ละบ่อตามสไลด์เป็นมาตรการที่มาตรฐานสากลกำหนด โดยระบุว่าอุปกรณ์ ยานพาหนะ วัสดุหีบห่อ เสื้อผ้า รองเท้า และตะกอน สามารถพาเชื้อเชิงกลได้ จึงให้กันอุปกรณ์ที่ทำความสะอาดยากหรือเสี่ยงปนเปื้อนสูงไว้ประจำจุดเดียว แทนการเคลื่อนย้ายหลังฆ่าเชื้อ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 5 Fomites, sub-points b) and c)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Equipment, vehicles, packaging material, clothing, footwear, sediments, infrastructure and other fomites can mechanically transfer pathogenic agents into, within and from an aquaculture establishment. ... Dedicate items that are difficult t"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--c6-clean-personnel-หรือ-personal-hygiene-คน": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c6-clean-personnel-หรือ-personal-hygiene-คน--v1",
+          "statement": "การเปลี่ยนชุดก่อนเข้าบ่อและการทำ hand-foot disinfection ตามสไลด์ตรงกับมาตรฐานสากล ซึ่งกำหนดให้สร้างเส้นแบ่งระหว่างพื้นที่เสี่ยงภายนอกกับพื้นที่ biosecure ภายใน พร้อมจุดลงทะเบียน จุดเปลี่ยนเสื้อผ้าและรองเท้า และจุดฆ่าเชื้อมือกับอ่างจุ่มเท้า",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.7, point 7 Personnel and visitors, sub-point a)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Access of personnel and visitors to aquaculture establishments should be controlled by creating a defined border between the outer risk area and the inner biosecure area comprising facilities for: i) completion of a register ... ii) changin"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--c6-clean-personnel-หรือ-personal-hygiene-คน--v2",
+          "statement": "การอบรมพนักงานเรื่อง biosecurity ตามสไลด์เป็นข้อกำหนดในมาตรฐานสากล ซึ่งระบุให้แผน biosecurity ต้องมีโปรแกรมฝึกอบรมเพื่อให้พนักงานทุกคนทำหน้าที่ของตนในระบบ biosecurity ได้ และให้ฝึกตาม SOPs รวมถึงการกรอกแบบฟอร์มและ checklist",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.9, point 2(b) Training of personnel",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Personnel should be trained in the application of the SOPs including completion of forms, checklists and other records associated with each procedure ... The biosecurity plan should include a training programme to ensure that all personnel "
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--monitors-and-plans-การเฝ้าระวังและแผนรับมือ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--monitors-and-plans-การเฝ้าระวังและแผนรับมือ--v1",
+          "statement": "การเฝ้าระวังสุขภาพสัตว์น้ำตามสไลด์มีข้อกำหนดชัดเจนในมาตรฐานสากล โดยต้องทำทั้งระดับหน่วยผลิตและระดับฟาร์ม กิจกรรมรวมถึง disease surveillance การตรวจสอบฝูงตามปกติ การบันทึกอาการทางคลินิกและการตาย ผลตรวจทางห้องปฏิบัติการ และการวิเคราะห์อัตราป่วยกับอัตราตาย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.9, point 2(e) Health monitoring",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Monitoring should be performed at a production unit and establishment level. Activities may include disease surveillance, routine monitoring of stock for important health and production parameters ... recording of clinical signs of disease,"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--monitors-and-plans-การเฝ้าระวังและแผนรับมือ--v2",
+          "statement": "แผนรับมือเหตุฉุกเฉินที่รวมการ culling ตามสไลด์ ตรงกับข้อกำหนดที่ให้มี emergency procedures พร้อม threshold ที่ชัดเจนสำหรับเปิดใช้ response protocol และมาตรการกำจัดเชื้อ เช่น การ depopulation กำจัดซาก และการฆ่าเชื้อพื้นที่",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.9, points 1(f) and 2(d) Emergency procedures",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "emergency procedures in the event of a biosecurity failure. These may include reporting requirements, and emergency measures to eradicate pathogenic agents such as aquatic animal depopulation and disposal, and site disinfection ... These pr"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--fish-ปลา-คุณค่าอาหารและความสูญเสียทางเศรษฐกิจ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--fish-ปลา-คุณค่าอาหารและความสูญเสียทางเศรษฐกิจ--v1",
+          "statement": "ข้อความ High nutrition and Good source of protein บนสไลด์มีตัวเลขระดับโลกรองรับ อาหารจากสัตว์น้ำให้โปรตีนคุณภาพสูงคิดเป็น 15% ของโปรตีนจากสัตว์ และ 6% ของโปรตีนทั้งหมดของโลก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-food-and-agriculture-o-2024",
+              "locator": "Key messages on nutrition and consumption",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Aquatic foods provide high-quality proteins – 15 percent of animal proteins and 6 percent of total proteins worldwide"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--fish-ปลา-คุณค่าอาหารและความสูญเสียทางเศรษฐกิจ--v2",
+          "statement": "ภาพ Economic loss บนสไลด์สะท้อนสถานการณ์จริง เพราะการเติบโตของอุตสาหกรรมเพาะเลี้ยงถูกฉุดด้วยอัตราการตายของปลาที่เพิ่มขึ้น โดยเฉพาะการระบาดของโรคติดเชื้อ ซึ่งส่งผลต่อเศรษฐกิจของหลายประเทศจากผลผลิตและความสามารถในการจำหน่ายที่ลดลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34827079",
+              "locator": "Abstract; vol 10(11):1086",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the progression of this industry is being dampened by the increasing rate of fish mortality, mainly the outbreak of infectious diseases. Consequently, the regress in aquaculture ultimately results in the economy of multiple countries being "
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--fish-culture-กรอบหัวข้อที่จะพูดถึง": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--fish-culture-กรอบหัวข้อที่จะพูดถึง--v1",
+          "statement": "นิยามของระบบปิดตามมาตรฐานสากล คือ ระบบที่ควบคุมน้ำเข้าออกได้เพียงพอที่จะกันสัตว์น้ำ vectors และเชื้อก่อโรคออกไปได้ เช่น recirculating aquaculture systems ส่วนระบบกึ่งเปิด เช่น กระชังหรือ net pen ไม่สามารถควบคุมน้ำหรือสภาพแวดล้อมที่เข้าออกได้",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.5, definitions of semi-open and closed systems",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In a closed aquaculture production system, there is sufficient control over water entering and exiting the system to exclude aquatic animals, vectors and pathogenic agents. ... Examples of semi-open aquaculture production systems are net pe"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--fish-disease-pathogens-สัดส่วนเชื้อก่อโรคในปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--fish-disease-pathogens-สัดส่วนเชื้อก่อโรคในปลา--v1",
+          "statement": "สัดส่วนบนสไลด์ตรงกับตัวเลขที่ตีพิมพ์เมื่อปัดเศษ คือ แบคทีเรีย 54.9% ไวรัส 22.6% ปรสิต 19.4% และเชื้อรา 3.1% แต่ตัวเลขชุดนี้ในต้นฉบับระบุว่าเป็นการติดเชื้อในสัตว์น้ำทะเล (marine species) ไม่ใช่ปลาทุกระบบการเลี้ยง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34827079",
+              "locator": "Introduction; vol 10(11):1086",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The main pathogen that infects marine species is bacteria, which comprises 54.9% of the total infection followed by virus infection (22.6%), parasites (19.4%), and fungi (3.1%)"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--prevention-and-control-diseases-แนวทางป้องกันและควบคุมโรคในปลา": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--prevention-and-control-diseases-แนวทางป้องกันและควบคุมโรคในปลา--v1",
+          "statement": "การจัดวางลำดับให้ farm management มาก่อนยาและสารเคมีตามสไลด์สอดคล้องกับมาตรฐานสากล ที่ระบุว่าผลของการทำ biosecurity ในฟาร์ม คือ สุขภาพและสวัสดิภาพสัตว์น้ำดีขึ้น ผลผลิตดีขึ้น และการใช้ผลิตภัณฑ์ยาสัตว์รวมถึงยาต้านจุลชีพลดลง ซึ่งลดทั้งต้นทุนและอัตราการเกิดเชื้อดื้อยา",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-organisation-for-2024",
+              "locator": "Article 4.1.3 Introduction",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The benefits may include improved market access, increased productivity (through improved survival, growth rates and feed conversion), and a reduction in the use of veterinary medicinal products (including antimicrobial agents), thus leadin"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--prevention-and-control-diseases-แนวทางป้องกันและควบคุมโรคในปลา--v2",
+          "statement": "เหตุผลที่สไลด์ย้ำเรื่อง Dose type and time และการทำ antimicrobial susceptibility test มีน้ำหนัก เพราะระบบเพาะเลี้ยงสัตว์น้ำมีแบคทีเรียหลากหลายจำนวนมากอยู่ร่วมกับประวัติการใช้ยาปฏิชีวนะ probiotics และ prebiotics จนถูกจัดว่าเป็น genetic hotspots ของการถ่ายทอดยีน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28587172",
+              "locator": "Abstract; vol 15(6):158",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "By their nature, aquaculture systems contain high numbers of diverse bacteria, which exist in combination with the current and past use of antibiotics, probiotics, prebiotics, and other treatment regimens-singularly or in combination. These"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--problems-use-of-drugs-and-chemicals-เชื้อดื้อยา-drug-resistant-b": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--problems-use-of-drugs-and-chemicals-เชื้อดื้อยา-drug-resistant-b--v1",
+          "statement": "แผนภาพ 4 ขั้นบนสไลด์ตรงกับกลไกที่ยอมรับกัน คือ การดื้อยาแพร่หลายส่วนหนึ่งจากการใช้ยาเกินความจำเป็นและใช้ผิดวิธี ร่วมกับกระบวนการตามธรรมชาติ 2 อย่าง ได้แก่ horizontal gene transfer และ mutation ที่ทำให้เกิดการแลกเปลี่ยนสารพันธุกรรมภายในประชากรจุลชีพ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28587172",
+              "locator": "Abstract; vol 15(6):158",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Antibiotic resistance is widespread due in part to clinical overuse and misuse; however, the natural processes of horizontal gene transfer and mutation events that allow genetic exchange within microbial populations have been ongoing since "
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--problems-use-of-drugs-and-chemicals-เชื้อดื้อยา-drug-resistant-b--v2",
+          "statement": "หน่วยงานสุขภาพระดับโลกยืนยันว่าการใช้ยาต้านจุลชีพผิดวิธีและใช้มากเกินไปเป็นตัวขับเคลื่อนการเกิดและการแพร่กระจายของเชื้อดื้อยา ซึ่งเป็นแกนของขั้นที่ 2 และ 3 บนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-world-health-organizat-2026",
+              "locator": "Fact sheet, section on drivers of AMR (updated 16 July 2026)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The misuse and overuse of antimicrobial are driving the development and spread of drug-resistant pathogens."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--vaccine-นิยาม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--vaccine-นิยาม--v1",
+          "statement": "นิยามบนสไลด์ตรงกับคำอธิบายในวรรณกรรม คือ วัคซีนทำงานโดยกระตุ้น innate immune response และกระตุ้น antigen-presenting cells นำไปสู่ adaptive immune response ที่จำเพาะต่อ antigen ของเชื้อก่อโรคนั้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38591323",
+              "locator": "Abstract and Introduction; vol 12(17):4118-4137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "a vaccine functions by triggering the innate immune response and stimulating antigen-presenting cells, leading to a defensive adaptive immune response against a specific pathogen's antigen"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--vaccine-type-ภาพรวมชนิดวัคซีน-และความสัมพันธ์-immunogenicity-กับ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--vaccine-type-ภาพรวมชนิดวัคซีน-และความสัมพันธ์-immunogenicity-กับ--v1",
+          "statement": "ความสัมพันธ์แบบแลกกันระหว่าง immunogenicity กับ tolerability ตามกราฟบนสไลด์มีหลักฐานรองรับ วัคซีนชนิด subunit ปลอดภัยกว่าแต่กระตุ้นภูมิคุ้มกันได้ไม่ดี จึงต้องใช้ adjuvant ร่วมด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27274998",
+              "locator": "Abstract; vol 2016:1459394",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Although safer, subunit vaccines are poorly immunogenic and for this reason the use of adjuvants is strongly recommended."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--vaccine-type-ภาพรวมชนิดวัคซีน-และความสัมพันธ์-immunogenicity-กับ--v2",
+          "statement": "ปลายที่ immunogenicity สูงของกราฟตรงกับลักษณะของ live-attenuated vaccine ซึ่งเป็นเชื้อที่ถูกทำให้อ่อนฤทธิ์ สามารถ replicate ในร่างกายได้โดยไม่ก่อโรค และกระตุ้นภูมิคุ้มกันได้แรงและอยู่นาน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38591323",
+              "locator": "Section on vaccine types; vol 12(17):4118-4137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Live-attenuated: Weakened forms of viruses that replicate in the body without causing disease, eliciting strong and long-lasting immune responses"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--vaccine-type-1-5-และวิธีผลิตของแต่ละชนิด": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--vaccine-type-1-5-และวิธีผลิตของแต่ละชนิด--v1",
+          "statement": "หลักการผลิต inactivated vaccine ตามสไลด์ถูกต้อง คือ ทำให้เชื้อหมดความสามารถในการก่อโรค (non-infectious) แต่ยังคงคุณสมบัติในการกระตุ้นภูมิคุ้มกัน (antigenic) ไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38591323",
+              "locator": "Section on vaccine types; vol 12(17):4118-4137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Inactivated: Produced from virus-infected cells and rendered non-infectious while retaining antigenic properties"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--vaccine-type-1-5-และวิธีผลิตของแต่ละชนิด--v2",
+          "statement": "หลักการของ DNA vaccine ตามสไลด์ถูกต้อง คือ ใช้ plasmid vector นำยีนที่เข้ารหัส antigen เข้าสู่เซลล์ของ host แล้วให้เซลล์สังเคราะห์โปรตีนนั้นขึ้นมาเอง ส่วน subunit vaccine ประกอบด้วยโปรตีนจำเพาะของเชื้อเท่านั้น ไม่ใช่เชื้อทั้งตัว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38591323",
+              "locator": "Section on vaccine types; vol 12(17):4118-4137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "DNA vaccines: Utilize plasmid vectors to transfer antigen-encoding genes into host cells ... Protein subunit: Contain only specific pathogen proteins rather than whole pathogens"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--fish-vaccination-ช่องทางการให้วัคซีน-3-แบบ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--fish-vaccination-ช่องทางการให้วัคซีน-3-แบบ--v1",
+          "statement": "วัคซีนสัตว์น้ำส่วนใหญ่ให้โดยการฉีด และการฉีดเป็นวิธีที่ได้ผลดีที่สุดเมื่อเทียบกับการให้ทางปากหรือการแช่ ตรงกับลำดับที่สไลด์วางไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21414351",
+              "locator": "Abstract; vol 35(12):1256-1262",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The majority of aquatic vaccines are delivered by injection, which is by far the most effective method when compared to oral or immersion deliveries."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--fish-vaccination-ช่องทางการให้วัคซีน-3-แบบ--v2",
+          "statement": "คำกำกับ Antigen degradation ที่สไลด์ใส่ไว้ที่ oral vaccine ถูกต้อง เพราะประสิทธิภาพที่จำกัดของวัคซีนแบบกินสัมพันธ์กับการที่ antigen ถูกทำลายในสภาวะรุนแรงของทางเดินอาหาร ร่วมกับการเกิด tolerance ต่อ antigen",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Section on oral vaccine delivery; vol 11(8):1356",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The limited effectiveness of oral vaccines has been associated with the breakdown of antigens by the harsh conditions within the gastric tract and the development of tolerance to the antigen."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--fish-vaccination-ข้อดีและข้อเสียของแต่ละวิธี": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--fish-vaccination-ข้อดีและข้อเสียของแต่ละวิธี--v1",
+          "statement": "ข้อดีของ immersion vaccine ที่สไลด์ระบุว่าใช้กับปลาเล็กและทำ mass vaccination ได้นั้นถูกต้อง แต่มีข้อจำกัดเพิ่มเติมที่สไลด์ไม่ได้กล่าวถึง คือ ต้นทุนของการแช่ปลาขนาดใหญ่จำนวนมากสูงเกินกว่าที่เกษตรกรจะรับได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Section on vaccine strategies for farmed tilapia; vol 11(8):1356",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Immersion vaccination is widely used to vaccinate small fish, while the cost of mass vaccinating larger fish via this route is prohibitive for the tilapia farmer."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--vaccine-ส่วนประกอบอื่นนอกเหนือจาก-antigen": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--vaccine-ส่วนประกอบอื่นนอกเหนือจาก-antigen--v1",
+          "statement": "บทบาทของ adjuvant ตามสไลด์ถูกต้อง คือ เป็นสารเติมแต่งที่ใส่เข้าไปเพื่อเพิ่มประสิทธิภาพและ immunogenicity ของวัคซีน โดยทำหน้าที่เสริม ปรับเปลี่ยน และยืดระยะเวลาของ immune response",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38591323",
+              "locator": "Abstract; vol 12(17):4118-4137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "adjuvants are chemical materials often employed as additives to increase a vaccine's efficacy and immunogenicity ... improving their efficacy by enhancing, modulating, and prolonging the immune response"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--adjuvant-functions-บทบาทของ-adjuvant": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--adjuvant-functions-บทบาทของ-adjuvant--v1",
+          "statement": "บทบาทข้อ ประหยัดต้นทุนโดยลดขนาด antigen ที่ต้องใช้ บนสไลด์ตรงกับ antigen dose sparing ซึ่งเป็นหน้าที่หลักที่ยอมรับกันของ adjuvant คือ ลดปริมาณวัคซีนที่ต้องใช้ต่อโดส",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38591323",
+              "locator": "Section on roles of adjuvants; vol 12(17):4118-4137",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "enabling \"antigen dose sparing\" to reduce required vaccine amounts"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--adjuvant-functions-บทบาทของ-adjuvant--v2",
+          "statement": "บทบาทข้อ เพิ่ม immunogenicity ของ antigen ที่อ่อน บนสไลด์มีหลักฐานตรง เพราะ adjuvant คือสิ่งที่ทำให้ subunit antigen ซึ่งกระตุ้นภูมิคุ้มกันได้ไม่ดี สามารถสร้างภูมิคุ้มกันที่ป้องกันโรคได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27274998",
+              "locator": "Abstract and Introduction; vol 2016:1459394",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Since their discovery in the beginning of the 20th century, adjuvants have been used to improve immune responses that ultimately lead to protection against disease."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--adjuvant-types-ชนิดของ-adjuvant-และบทบาท": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--adjuvant-types-ชนิดของ-adjuvant-และบทบาท--v1",
+          "statement": "บทบาทของ emulsion adjuvants ตามสไลด์ที่ว่าเพิ่ม APC antigen uptake และเพิ่มจำนวน APCs ที่ต่อมน้ำเหลืองมีหลักฐานรองรับ เพราะ MF59 กระตุ้น macrophages monocytes และ dendritic cells ให้หลั่ง chemokines ซึ่งเหนี่ยวนำการเรียก leukocyte เข้ามาและเพิ่มการเก็บ antigen",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27274998",
+              "locator": "Section on emulsions (MF59); vol 2016:1459394",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "MF59 is able to stimulate macrophages, resident monocytes, and DCs to secrete several chemokines...that in turn induce leukocyte recruitment and antigen uptake."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--adjuvant-types-ชนิดของ-adjuvant-และบทบาท--v2",
+          "statement": "ข้อ 7 บนสไลด์ที่ว่า adjuvant จากแบคทีเรียออกฤทธิ์ผ่าน TLR-like receptors มีตัวอย่างจริง คือ CpG ODNs ซึ่งเป็น oligodeoxynucleotide สังเคราะห์ยาว 18-25 เบส และถูกจดจำโดย TLR9 ที่อยู่ใน endosome",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27274998",
+              "locator": "Section on TLR agonists; vol 2016:1459394",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "CpG ODNs are 18–25 base synthetic oligodeoxynucleotides...recognized by endosomal TLR9."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--adjuvant-กลไกการทำงาน": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--adjuvant-กลไกการทำงาน--v1",
+          "statement": "ขั้น Inflammasome activation บนแผนภาพมีหลักฐานรองรับ เพราะ alum ถูกตรวจจับโดย NOD-like receptors (NLRs) ผ่านการกระตุ้น NLRP3 หรือ NALP3 inflammasome complex โดยตรง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27274998",
+              "locator": "Section on mechanisms of action of alum; vol 2016:1459394",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Alum...are sensed by NOD-like receptors (NLRs) through direct activation of NLRP3/NALP3 inflammasome complex."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--nanotechnology-adjuvant-and-delivery-system": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--nanotechnology-adjuvant-and-delivery-system--v1",
+          "statement": "อนุภาคนาโนกลุ่ม polymeric ที่สไลด์ระบุ (chitosan และ PLGA) เป็นระบบนำส่งที่ใช้จริงในปลา โดย chitosan ถูกใช้อย่างกว้างขวางในฐานะ biodegradable polymeric nanoparticle ที่เพิ่ม mucosal immunity ในปลาที่ได้รับวัคซีนทางปาก และมีการทดสอบ PLGA กับ PLA ด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Section on polymeric nanoparticles; vol 11(8):1356",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Chitosan has been widely used as a biodegradable polymeric nanoparticle that has been shown to enhance mucosal immunity in orally vaccinated fish. ... poly lactic-co-glycolic acid (PLGA) and poly-lactic acid (PLA) have also been tested as o"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--nanotechnology-adjuvant-and-delivery-system--v2",
+          "statement": "เหตุผลที่ต้องบรรจุ antigen ไว้ในอนุภาคนาโนตามแผนภาพบนสไลด์ คือ antigen ที่ถูกห่อหุ้มจะรอดจากการย่อยสลายในสภาวะรุนแรงของทางเดินอาหารปลา ทำให้เป็นตัวเลือกที่ดีสำหรับการให้วัคซีนทางปาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Section on nanoparticle-based delivery; vol 11(8):1356",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Antigens encapsulated within the nanoparticle are protected from degradation by the harsh conditions of the fish's gastric tract, making them attractive candidates for oral delivery."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ขนาดของ-nanoparticle-เทียบกับขนาดเชื้อก่อโรค": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ขนาดของ-nanoparticle-เทียบกับขนาดเชื้อก่อโรค--v1",
+          "statement": "เหตุผลที่ต้องเทียบขนาดอนุภาคกับขนาดเชื้อ คือ ขนาดของอนุภาคสัมพันธ์กับความสามารถในการกระตุ้น immune response โดยอนุภาคเล็กกว่าให้การตอบสนองที่ดีกว่า แต่อนุภาคที่ใหญ่กว่า (50-100 nm) ถูก dendritic cells เก็บไว้ได้นานกว่าอนุภาคเล็ก (5-15 nm)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Section on nanoparticle properties; vol 11(8):1356",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The size of the particle is related to its ability to induce an effective immune response, with smaller particles exerting a better immune response than larger particles."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ตัวอย่างงานวิจัย-nanovaccine-แบบแช่ต้านโรค-columnaris": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตัวอย่างงานวิจัย-nanovaccine-แบบแช่ต้านโรค-columnaris--v1",
+          "statement": "งานวิจัยที่สไลด์อ้างถึงมีอยู่จริงและตีพิมพ์แล้ว โดยเคลือบผิวอนุภาคนาโนด้วย chitosan ให้มีคุณสมบัติ pathogen-like ที่เกาะเยื่อเมือกปลาได้ ผลคือปลานิลแดงที่ได้รับวัคซีนแบบแช่ 30 นาทีมี relative percent survival มากกว่า 60% ขณะที่วัคซีนแบบ whole-cell ไม่สามารถป้องกันโรคได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31585248",
+              "locator": "Abstract; vol 95:213-219",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The relative percent survival (RPS) of vaccinated fish was greater than 60% for mucoadhesive nanovaccine. Our results also suggested that whole-cell vaccines failed to protect fish from columnaris infection."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตัวอย่างงานวิจัย-nanovaccine-แบบแช่ต้านโรค-columnaris--v2",
+          "statement": "ภาพอนุภาคเกาะชั้นเยื่อเมือกบนสไลด์สะท้อนผลจริง งานต่อยอดพบว่าอนุภาค chitosan-complexed nanoemulsion เกาะผิวเยื่อเมือกได้ดีกว่าและกระตุ้น MALT ได้ดีกว่าวัคซีน whole cell-killed โดยหลังทดลองให้เชื้อที่ 30 วันหลังฉีดวัคซีน กลุ่มควบคุมตาย 89% ขณะที่กลุ่มวัคซีนนาโนมี relative percent survival 78%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33675991",
+              "locator": "Abstract; vol 112:81-91",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The experimental infection was performed 30-days post-vaccination (dpv), which resulted in 89% of the unvaccinated control fish dying, while the relative percentage survival (RPS) of the CS-NE vaccinated group was 78%."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--columnaris-disease": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--columnaris-disease--v1",
+          "statement": "เชื้อสาเหตุและรอยโรคตามสไลด์ถูกต้อง Flavobacterium columnare เป็นสาเหตุของ columnaris disease ซึ่งพบทั้งในปลาน้ำจืดที่เพาะเลี้ยงและปลาธรรมชาติ ทำให้เกิด skin lesions, fin erosion และ gill necrosis พร้อมอัตราการตายสูงและความสูญเสียทางเศรษฐกิจรุนแรง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23617544",
+              "locator": "Abstract; vol 44(1):27",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Flavobacterium columnare (F. columnare) is the causative agent of columnaris disease. This bacterium affects both cultured and wild freshwater fish including many susceptible commercially important fish species. F. columnare infections may "
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--columnaris-disease--v2",
+          "statement": "ลักษณะ Gram negative และ Long rod shape ตามสไลด์ถูกต้อง โดยเชื้อเป็นแท่งยาวเรียวขนาด 4-10 ไมโครเมตร กว้าง 0.3-0.5 ไมโครเมตร และมีคุณสมบัติ gliding motility ซึ่งเป็นลักษณะเฉพาะที่สไลด์ไม่ได้กล่าวถึง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23617544",
+              "locator": "Section on the agent; vol 44(1):27",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Long, slender gliding rods of 4 to 10 μm and 0.3 to 0.5 μm wide"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--pathogenesis-ของ-columnaris-disease": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--pathogenesis-ของ-columnaris-disease--v1",
+          "statement": "ขั้น Colonization ที่สไลด์แยกเป็น Attraction, Adhesion และ Aggregation ตรงกับลำดับที่รายงานไว้ โดยแบคทีเรียตอบสนองเชิง chemotaxis ต่อเมือกปลา เกาะที่เนื้อเยื่อเหงือกเป็นหลัก แล้วรวมกลุ่มเป็นแผ่นหนาที่ขัดขวางการแลกเปลี่ยนออกซิเจน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23617544",
+              "locator": "Section on pathogenesis and colonisation; vol 44(1):27",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "attraction, adhesion and aggregation (bacteria respond chemotactically to mucus, adhere preferentially to gill tissue, then form thick bacterial mats impeding oxygen absorption)"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--pathogenesis-ของ-columnaris-disease--v2",
+          "statement": "สารที่สไลด์ระบุไว้ใต้หัวข้อ exotoxins คือ chondroitin AC lyase และ protease เป็นปัจจัยความรุนแรงจริง โดย chondroitin AC lyase ย่อย polysaccharide ของเนื้อเยื่อเกี่ยวพัน และ protease หลายชนิดขนาด 44.5-59.5 กิโลดาลตันทำลายเนื้อเยื่อและช่วยการรุกราน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23617544",
+              "locator": "Section on virulence factors; vol 44(1):27",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The bacterium produces \"chondroitin AC lyase\" degrading connective tissue polysaccharides and multiple proteases (44.5-59.5 kilodaltons) that damage tissue and facilitate invasion."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การป้องกันและควบคุมโรค-columnaris-prevention-and-control": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การป้องกันและควบคุมโรค-columnaris-prevention-and-control--v1",
+          "statement": "วัคซีนเชื้อเป็นอ่อนฤทธิ์ (modified live / attenuated) ของ Flavobacterium columnare ที่ได้จากการ passage ซ้ำใน rifampicin ให้โดยวิธี immersion และมีสถานะเป็น licensed product จริง โดยให้ RPS 57-94% ในลูกปลา channel catfish และ 74-94% ใน largemouth bass ตามขนาดโดสวัคซีน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21059396",
+              "locator": "Vol 30(1):304-8, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A modified live F. columnare vaccine was developed by repeated passage of a virulent strain on increasing concentrations of rifampicin that resulted in attenuation... immersion vaccination of channel catfish (Ictalurus punctatus) fry betwee"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การป้องกันและควบคุมโรค-columnaris-prevention-and-control--v2",
+          "statement": "มาตรการควบคุม columnaris ครบทั้ง 3 ขา ตรงตามสไลด์ คือ (1) การจัดการฟาร์ม เช่น ลดความหนาแน่นปลาและคุมไนไตรท์กับ organic load (2) สารเคมี/ยา เช่น KMnO4 ประมาณ 2 mg/L และ oxytetracycline แบบให้กิน และ (3) วัคซีนแบบแช่ที่ขึ้นทะเบียนใช้ในสหรัฐฯ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23617544",
+              "locator": "Vol 44:27, prevention and treatment section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Rogers suggested the addition of potassium permanganate (KMnO4) to the water at 2 mg/L... Oxytetracycline given orally for up to 10 days proved effective in early as well as advanced outbreaks... reduction of fish density could be used in t"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--immersion-vaccine-ข้อดีและข้อเสีย": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--immersion-vaccine-ข้อดีและข้อเสีย--v1",
+          "statement": "ข้อดีของวัคซีนแบบแช่ตรงตามสไลด์ คือ ให้ในปลาขนาดเล็กได้ง่าย ใช้แรงงานน้อย และทำ mass vaccination ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36351543",
+              "locator": "Vol 131:972-979, Abstract (conclusion)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The newly developed immersion-based nanovaccine is easy to administer in small fish, is less labor-intensive, and allows for mass vaccination to protect fish from TiLV infection."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--immersion-vaccine-ข้อดีและข้อเสีย--v2",
+          "statement": "ข้อเสียของวัคซีนแบบแช่ตรงตามสไลด์ทั้ง 3 ข้อ คือ ประสิทธิภาพต่ำกว่าการฉีดเข้าช่องท้องเพราะแอนติเจนผ่านเข้า MALT (ผิวหนัง เหงือก nasopharynx lateral line pores) ได้ไม่ดี ระยะเวลาคุ้มโรคสั้นกว่า และต้องใช้ปริมาณวัคซีนมากจนต้นทุนสูงเกินไปเมื่อปลาโตขึ้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Vol 11(8):1356, section on vaccine delivery routes",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The efficacy of immersion vaccines tends to be lower than that of IP-administered vaccines because of poor antigen uptake through the mucosa-associated lymphoid tissue (MALT), including skin, gills, nasopharynx, and lateral line pores. They"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--immersion-vaccine-development-แก้ปัญหาด้วยนาโนเทคโนโลยี": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--immersion-vaccine-development-แก้ปัญหาด้วยนาโนเทคโนโลยี--v1",
+          "statement": "โจทย์ตั้งต้นตรงตามสไลด์ คือ วิธี immersion แบบเดิมมีความแรงต่ำเพราะแอนติเจนถูกดูดซึมผ่านเนื้อเยื่อเมือกได้ไม่ดี จึงต้องพัฒนาระบบนำส่งด้วยนาโนเทคโนโลยีเข้ามาแก้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35988712",
+              "locator": "Vol 129:30-35, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "However, the conventional immersion method suffers from a low potency due to the inefficient uptake of antigens across mucosal tissue. Here, we developed a chitosan-polymer based nanovaccine together with an efficient delivery vehicle to en"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--cationic-polymer-และ-electrostatic-interaction": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--cationic-polymer-และ-electrostatic-interaction--v1",
+          "statement": "กลไกที่ทำให้อนุภาคเกาะตัวปลาได้คือ electrostatic interaction จริง โดยประจุบวกบนผิวอนุภาคนาโนวัคซีนเพิ่มความสามารถในการเกาะยึดกับพื้นผิวเมือกของปลา",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Vol 11(8):1356, section on mucoadhesive nanoparticles",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The presence of a positive charge on nanovaccine particles improves their capacity to adhere to the mucosal surface by utilising the electrostatic mechanism."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--immersion-nanovaccine-เป้าหมายของวัคซีนแช่ในอุดมคติ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--immersion-nanovaccine-เป้าหมายของวัคซีนแช่ในอุดมคติ--v1",
+          "statement": "แนวคิด ideal killed immersion vaccine แบบ mucoadhesive nanoparticle ตรงตามสไลด์ คือ เคลือบผิวอนุภาคด้วย mucoadhesive chitosan biopolymer ให้มีคุณสมบัติเลียนแบบเชื้อ (pathogen-like) เพื่อให้อนุภาคเกาะเยื่อเมือกปลาได้ และให้โดยการแช่ 30 นาที",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31585248",
+              "locator": "Vol 95:213-219, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "we describe an effective approach to targeted antigen delivery by coating the surface of nanoparticles with mucoadhesive chitosan biopolymer to provide \"pathogen-like\" properties that ensure nanoparticles binding on fish mucosal membrane..."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ข้อดีของ-nanovaccine-5-ข้อ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ข้อดีของ-nanovaccine-5-ข้อ--v1",
+          "statement": "ข้อดี 3 ใน 5 ข้อของสไลด์ (protection of antigen, site specific delivery, enhanced immune response) ตรงกับแหล่งอ้างอิง คือ อนุภาคนาโนปกป้องแอนติเจนจากการย่อยสลายในทางเดินอาหาร นำส่งตรงจุดไปยังเนื้อเยื่อเมือก และกระตุ้นภูมิคุ้มกันทั้ง innate humoral cellular และ mucosal ได้แรงกว่าแอนติเจนที่ไม่ถูกห่อหุ้ม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Vol 11(8):1356, section on advantages of nanoparticle vaccine delivery",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Antigens encapsulated within the nanoparticle are protected from degradation by the harsh conditions of the fish's gastric tract... Nanoparticles can provide targeted delivery of the vaccine to the mucosal tissues... Compared with unconjuga"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ข้อดีของ-nanovaccine-5-ข้อ--v2",
+          "statement": "ข้อสรุปของสไลด์ที่ว่านาโนวัคซีนทำหน้าที่พร้อมกันทั้งเป็น adjuvant และ delivery system รวมถึงข้อดีเรื่องลดโดส เป็นไปตามแหล่งอ้างอิง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Vol 11(8):1356, section on adjuvanting properties and reduced dosage",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The adjuvating properties of nanoparticles enhance the immunogenicity of weakly immunogenic proteins, such as recombinant proteins... Reduced Dosage: Nanovaccines may require smaller vaccine doses due to their increased potency and targeted"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ขั้นตอนการพัฒนา-nanovaccine-และเกณฑ์-characterization": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ขั้นตอนการพัฒนา-nanovaccine-และเกณฑ์-characterization--v1",
+          "statement": "เกณฑ์ PDI < 0.3 ที่สไลด์ระบุตรงกับแหล่งอ้างอิง โดยค่า PDI ตั้งแต่ 0.3 ลงมาถือว่ายอมรับได้และบ่งชี้ว่าอนุภาคมีการกระจายขนาดสม่ำเสมอ ส่วนค่าที่มากกว่า 0.7 บ่งชี้การกระจายขนาดที่กว้างมาก และความเหมาะสมของสูตรต่อช่องทางการให้ยาขึ้นกับขนาดเฉลี่ย PDI และความคงตัวของขนาด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29783687",
+              "locator": "Vol 10(2):57, section on polydispersity index",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "a PDI of 0.3 and below is considered to be acceptable and indicates a homogenous population of phospholipid vesicles... PDI values bigger than 0.7 indicate that the sample has a very broad particle size distribution"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--methods-5-ขั้นตอนของงานวิจัยนาโนวัคซีน": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--methods-5-ขั้นตอนของงานวิจัยนาโนวัคซีน--v1",
+          "statement": "ขั้นตอนหลักตามสไลด์ตรงกับงานวิจัยจริง คือ นำ Flavobacterium columnare ที่ถูกทำให้ตายมาเคลือบด้วย mucoadhesive chitosan biopolymer ได้อนุภาค pathogen-like แล้ววัดคุณสมบัติทางเคมีกายภาพ ทดสอบ mucoadhesive ในตัวปลา และประเมินประสิทธิภาพด้วย relative percent survival (RPS) จาก challenge test",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31585248",
+              "locator": "Vol 95:213-219, Abstract (methods and results)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The physiochemical properties of nanovaccines were analyzed, and their mucoadhesive characteristics and immune response against pathogens were also evaluated... The relative percent survival (RPS) of vaccinated fish was greater than 60% for"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--physicochemical-characterization-ของแต่ละสูตรวัคซีน": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--physicochemical-characterization-ของแต่ละสูตรวัคซีน--v1",
+          "statement": "รูปแบบผลในตารางของสไลด์ตรงกับแหล่งอ้างอิง คือ หลังเคลือบด้วย chitosan อนุภาคจะเปลี่ยนจากประจุลบเป็นประจุบวก และมีเส้นผ่านศูนย์กลางโดยรวมเพิ่มขึ้น ซึ่งใช้เป็นหลักฐานว่าการดัดแปลงผิวอนุภาคสำเร็จ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31585248",
+              "locator": "Vol 95:213-219, Abstract (physicochemical characterization)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The analysis of hydrodynamic diameter and zeta-potential also suggested the successful modification of nanovaccines by chitosan as indicated by positively charged and the overall increased diameter of chitosan-modified nanovaccines."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--mucoadhesive-property-และ-permeability-test": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--mucoadhesive-property-และ-permeability-test--v1",
+          "statement": "ผลที่สไลด์แสดงเป็นสัญญาณเรืองแสงเข้มในกลุ่มที่เคลือบ chitosan ตรงกับแหล่งอ้างอิง คือ อนุภาคที่ดัดแปลงด้วย chitosan จับกับเหงือกปลาได้ดีเยี่ยม ยืนยันด้วย bioluminescence imaging กล้อง fluorescence และการวัดเชิงปริมาณ ขณะที่แบคทีเรียทั้งเซลล์ (whole cell) จับกับพื้นผิวเมือกไม่ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31585248",
+              "locator": "Vol 95:213-219, Abstract (in vivo mucoadhesive study)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In vivo mucoadhesive study demonstrated the excellent affinity of the chitosan-modified nanovaccines toward fish gills as confirmed by bioluminescence imaging, fluorescent microscopy, and spectrophotometric quantitative measurement... whole"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--efficacy-test-laboratory-trial": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--efficacy-test-laboratory-trial--v1",
+          "statement": "แนวโน้มในกราฟของสไลด์ที่ว่ากลุ่ม nanovaccine อยู่สูงสุดเสมอ ส่วนกลุ่ม formalin killed (WC) ลงมาทับกลุ่มควบคุม ตรงกับผลตีพิมพ์ โดย challenge ที่ 30 และ 60 วันหลังวัคซีน ได้ RPS ของ mucoadhesive nanovaccine มากกว่า 60% ขณะที่วัคซีน whole-cell ป้องกันโรค columnaris ไม่ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31585248",
+              "locator": "Vol 95:213-219, Abstract (challenge test)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the challenge test was then carried out 30 and 60 days post-vaccination and resulted in high mortalities in the control. The relative percent survival (RPS) of vaccinated fish was greater than 60% for mucoadhesive nanovaccine. Our results a"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--efficacy-test-laboratory-trial--v2",
+          "statement": "อีกการทดลองในห้องปฏิบัติการยืนยันช่องว่างระหว่างกลุ่ม คือ อัตราตายสะสมของกลุ่มควบคุมที่ไม่ได้วัคซีนเท่ากับ 87% ส่วนกลุ่ม chitosan complex nanoemulsion (CS-NE) เท่ากับ 24% ซึ่งต่ำกว่ากลุ่ม formalin-killed และกลุ่มควบคุมอย่างมีนัยสำคัญ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34835184",
+              "locator": "Vol 9(11):1253, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cumulative mortality of the unvaccinated control fish was 87% after challenging fish with the pathogen, while the cumulative mortality of the CS-NE vaccinated group was 24%, which was significantly lower than the formalin-killed vaccina"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ตารางรวม-experimental-nanovaccines-for-tilapia": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตารางรวม-experimental-nanovaccines-for-tilapia--v1",
+          "statement": "แถว Flavobacterium columnare ในตารางตรงกับตารางต้นฉบับ คือ chitosan-coated mucoadhesive แบบ immersion ให้ RPS 78%, 85% และ 72% ส่วนสูตร alginate แบบให้กิน (oral) ไม่พบความแตกต่างระหว่างปลาที่ได้วัคซีนกับไม่ได้วัคซีน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Vol 11(8):1356, Table 3 (Experimental nanovaccines for tilapia)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Flavobacterium columnare / chitosan-coated mucoadhesive / immersion: \"78%, 85%, and 72%, respectively\"; Flavobacterium columnare / alginate / oral: \"No difference between vaccinated and unvaccinated fish\""
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตารางรวม-experimental-nanovaccines-for-tilapia--v2",
+          "statement": "แถว Streptococcus agalactiae แบบ cationic nanoemulsion ผสมเกลือน้ำดีเคลือบ chitosan ให้กิน ได้ RPS 96% เมื่อ challenge ด้วย S. agalactiae ตรงตามสไลด์ โดยงานต้นฉบับรายงานว่ากลุ่มวัคซีนเชื้อตาย (IB) ได้ 48% ส่วนกลุ่ม NEB-CS ได้ 96% และอนุภาคมีประจุบวก +47.6 mV",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37393062",
+              "locator": "Vol 139:108913, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The NEB-CS vaccine appeared spherical, with the nanoparticles having a size of 454.37 nm and a positive charge (+47.6 mV)... The relative percent survival (RPS) of IB and NEB-CS, when administered orally to fish, was 48% and 96%, respective"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตารางรวม-experimental-nanovaccines-for-tilapia--v3",
+          "statement": "แถว Tilapia lake virus ตรงตามสไลด์ คือ chitosan nanoparticle immersion vaccine ให้ RPS 68.17% ในการทดสอบแบบ cohabitation challenge ในห้องปฏิบัติการ เทียบกับวัคซีนเชื้อตายธรรมดา 25.01% และให้ RPS 52.2% ในการทดสอบภาคสนาม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36351543",
+              "locator": "Vol 131:972-979, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The fish that received the nanovaccine showed better relative percent survival (RPS) at 68.17% compared with the RPS of the inactivated virus vaccine (KV) group at 25.01%... under field conditions, the fish receiving the CN-KV nanovaccine h"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ตารางรวม-experimental-nanovaccines-for-tilapia--v4",
+          "statement": "แถว Aeromonas veronii ที่สไลด์ระบุ RPS 75% ตรงกับตารางต้นฉบับ และงานตีพิมพ์ในภายหลังของกลุ่มเดียวกันยืนยันขนาดของผลใกล้เคียงกัน คือ chitosan polymer-based nanovaccine ให้ RPS 71% ขณะที่วัคซีน formalin-killed ได้เพียง 15.12%",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38246266",
+              "locator": "Vol 146:109383, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Importantly, the Relative Percentage Survival (RPS) value of the CS-NV group (71 %) was significantly higher than that of the FKV (15.12 %) and PC (2.33 %) groups, respectively."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--สถานการณ์โรคทิลาเปียเลคไวรัส-tilv-ในปลานิล": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--สถานการณ์โรคทิลาเปียเลคไวรัส-tilv-ในปลานิล--v1",
+          "statement": "อัตราตาย 20-90% ที่สไลด์ระบุ ตรงกับรายงานการระบาดในฟาร์มปลานิลของไทยปี 2558-2559 โดยฟาร์มที่ตายสูงกว่ามักมีการติดเชื้อแบคทีเรียและปรสิตแทรกซ้อนร่วมด้วย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28518020",
+              "locator": "Vol 23(6):1031-1033",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Mortality rates among tilapia farms were 20%-90%; higher rates were associated with secondary bacterial and parasitic infections."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การพัฒนาวัคซีน-tilv-ขั้นตอนการพัฒนาดีเอ็นเอนาโนวัคซีน": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การพัฒนาวัคซีน-tilv-ขั้นตอนการพัฒนาดีเอ็นเอนาโนวัคซีน--v1",
+          "statement": "การที่สไลด์สร้าง recombinant plasmid แยกตามหมายเลข segment (DNA9, DNA10) สอดคล้องกับโครงสร้างจีโนมของไวรัส คือ จีโนมมี 10 segments แต่ละ segment มีอย่างน้อย 1 open reading frame โดย RNA1-3 เข้ารหัส viral polymerase 3 หน่วยย่อย และ RNA4 เข้ารหัส nucleoprotein",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37873742",
+              "locator": "Vol 104(10), Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The amnoonvirid genome consists of 10 segments, each with at least 1 open reading frame (ORF). The RNA1-3 ORFs encode the three subunits of the viral polymerase. The RNA4 ORF encodes a nucleoprotein."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--นาโนเทคโนโลยี-องค์ประกอบของอนุภาคและการแบ่งชนิด": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นาโนเทคโนโลยี-องค์ประกอบของอนุภาคและการแบ่งชนิด--v1",
+          "statement": "การจัดกลุ่ม non-viral organic nanoparticle ตามสไลด์ (liposome, solid lipid nanoparticle, nanostructured lipid carrier, nanoemulsion) ตรงกับแหล่งอ้างอิงที่ระบุว่ากลุ่ม lipidic carrier ที่ใช้บ่อยได้แก่ liposomes, nanoliposomes, vesicular phospholipid gels, solid lipid nanoparticles, transfersomes และ tocosomes ซึ่งบรรจุได้ทั้งโมเลกุลชอบไขมันและชอบน้ำ พร้อมปกป้องจากการสลายตัว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29783687",
+              "locator": "Vol 10(2):57, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "They have the ability to incorporate both lipophilic and hydrophilic molecules and protecting them against degradation in vitro and in vivo... Liposomes, nanoliposomes, vesicular phospholipid gels, solid lipid nanoparticles, transfersomes a"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--type-of-organic-nanoparticle": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--type-of-organic-nanoparticle--v1",
+          "statement": "แนวคิดของสไลด์ที่ว่าอนุภาคอินทรีย์ออกแบบให้บรรจุได้ทั้งยาที่ชอบน้ำและไม่ชอบน้ำ ตรงกับแหล่งอ้างอิง คือ ระบบนำส่งยาชนิดลิพิดถูกใช้เพื่อเพิ่ม bioavailability ของยาที่ละลายน้ำได้ไม่ดี และสามารถบรรจุโมเลกุลได้ทั้งสองแบบพร้อมปกป้องจากการสลายตัว",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29783687",
+              "locator": "Vol 10(2):57, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Lipid-based drug delivery systems, or lipidic carriers, are being extensively employed to enhance the bioavailability of poorly-soluble drugs. They have the ability to incorporate both lipophilic and hydrophilic molecules and protecting the"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--i-herbal-medicine-plant-based-alternative-antibiotic": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--i-herbal-medicine-plant-based-alternative-antibiotic--v1",
+          "statement": "เหตุผลของสไลด์ที่ต้องหา plant-based alternative antibiotic ตรงกับแหล่งอ้างอิง คือ การเพาะเลี้ยงสัตว์น้ำเผชิญปัญหาโรคติดเชื้อแบคทีเรียและการใช้ยาปฏิชีวนะอย่างกว้างขวางซึ่งก่อการดื้อยา และการนำสารสำคัญจากพืชที่ไม่ชอบน้ำ (carvacrol ในน้ำมันออริกาโน) บรรจุใน cationic nanostructured lipid carrier ให้ฤทธิ์ฆ่าเชื้อจริงและปลอดภัยกว่าน้ำมันอิสระในปลานิล",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42278073",
+              "locator": "Vol 16(11):1639, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Aquaculture faces increasing challenges from bacterial diseases and the widespread use of antibiotics, which contribute to antimicrobial resistance and environmental concerns... In vivo toxicity assessment showed that OE-LNLCs exhibited a h"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--i-herbal-medicine-plant-based-alternative-antibiotic--v2",
+          "statement": "ความจำเป็นของทางเลือกนอกเหนือจากยาปฏิชีวนะมีหลักฐานเชิงเชื้อรองรับ คือ Flavobacterium columnare แสดงการดื้อยาหลายขนานต่อยาปฏิชีวนะที่สำคัญทางคลินิก เช่น กลุ่ม quinolones และ tetracyclines ซึ่งเป็นสองในกลุ่มยาที่สไลด์แสดงตำแหน่งออกฤทธิ์ไว้ (DNA synthesis และ ribosome 30S)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23617544",
+              "locator": "Vol 44:27, antimicrobial resistance section",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "multiple resistance...toward several clinically important antibiotics, such as quinolones and tetracyclines"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--curcumin-nano-และกลุ่มสารสำคัญจากพืช": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--curcumin-nano-และกลุ่มสารสำคัญจากพืช--v1",
+          "statement": "การทำ curcumin ให้อยู่ในรูปอนุภาคนาโนตามสไลด์มีหลักฐานรองรับในปลานิล คือ nano-curcumin เหนือกว่า curcumin รูปอิสระในการเพิ่มการเจริญเติบโต กระตุ้น innate immunity ลดตัวชี้วัดความเครียด และเพิ่มความทนต่อความเครียดจากความร้อน โดยขนาดที่ดีที่สุดคือ 100 mg/kg อาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36781934",
+              "locator": "Vol 13(1):2523, Abstract (conclusion)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Thus, nano-curcumin is more effective than its free-form in enhancing the resistance to heat stress, inducing innate immunity, lowering the stress indicators and promoting growth performance of Nile tilapia with the best concentration at 10"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ii-vaccines-immersion-และ-oral-vaccination": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ii-vaccines-immersion-และ-oral-vaccination--v1",
+          "statement": "เหตุผลที่ต้องมุ่งไปทาง immersion และ oral แบบไร้เข็มตามสไลด์ ตรงกับแหล่งอ้างอิง คือ เกษตรกรผู้เลี้ยงปลานิลจำนวนมากไม่ยอมฉีดวัคซีนปลาหลังย้ายลงบ่อเลี้ยง จึงต้องมีกลยุทธ์การให้วัคซีนทางเลือก และอนุภาคนาโนช่วยการนำส่งทางปากและทางแช่ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Vol 11(8):1356, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "many tilapia farmers are often unwilling to vaccinate their fish by injection once the fish have been moved to their grow-out site. Alternative vaccination strategies are needed to help tilapia farmers accept and use vaccines. There is incr"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การพัฒนาวัคซีนด้วยนาโนเทคโนโลยี": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การพัฒนาวัคซีนด้วยนาโนเทคโนโลยี--v1",
+          "statement": "แผนภาพของสไลด์ที่แยกตัวแปรเป็นขนาด รูปร่าง โครงสร้าง ประจุผิว หมู่ฟังก์ชัน และ targeting ligand สอดคล้องกับหลักการที่ว่าคุณสมบัติทางกายภาพของอนุภาคเป็นตัวกำหนดความปลอดภัย ความคงตัว ประสิทธิภาพ และความเหมาะสมของสูตรต่อช่องทางการให้ยา จึงต้องควบคุมและตรวจสอบค่าเหล่านี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29783687",
+              "locator": "Vol 10(2):57, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "There is a number of physical attributes of lipid-based nanocarriers that determine their safety, stability, efficacy, as well as their in vitro and in vivo behaviour... Controlling and validating these parameters are of key importance for "
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--polymeric-nanocarrier-แพลตฟอร์มที่ใช้ได้กับหลายเชื้อ": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--polymeric-nanocarrier-แพลตฟอร์มที่ใช้ได้กับหลายเชื้อ--v1",
+          "statement": "ข้ออ้างของสไลด์ว่าเป็น versatile platform ใช้ได้หลายเชื้อมีหลักฐานรองรับ โดยแพลตฟอร์ม chitosan polymer-based nanoplatform ถูกอธิบายว่าเป็นระบบนำส่งวัคซีนทางเยื่อเมือกที่ได้รับการยอมรับเพิ่มขึ้นในปลา และใช้ได้จริงกับ Aeromonas veronii ซึ่งเป็นเชื้อที่สไลด์ตีกรอบเน้นไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38246266",
+              "locator": "Vol 146:109383, Abstract (opening sentence and conclusion)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A mucoadhesive chitosan polymer-based nanoplatform has been increasingly recognized as an effective mucosal vaccine delivery system for fish... This indicates that the chitosan polymer-based nanovaccine platform is an effective delivery sys"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--polymeric-nanocarrier-แพลตฟอร์มที่ใช้ได้กับหลายเชื้อ--v2",
+          "statement": "แพลตฟอร์ม mucoadhesive nanovaccine ถูกพัฒนาต่อเป็นสูตร bivalent ที่บรรจุแอนติเจนสองเชื้อพร้อมกัน (Francisella orientalis และ Flavobacterium oreochromis) และให้ทางการแช่ได้ ซึ่งสนับสนุนข้ออ้างเรื่องความยืดหยุ่นของแพลตฟอร์มในสไลด์",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37182796",
+              "locator": "Vol 138:108813, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A new and innovative bivalent mucoadhesive nanovaccine was developed in this study for immersion vaccination of tilapia against francisellosis and columnaris disease... fish vaccinated with the mucoadhesive nanovaccine showed higher surviva"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--iii-anesthesia-clove-oil": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--iii-anesthesia-clove-oil--v1",
+          "statement": "บริบทการใช้ยาสลบตามสไลด์ (handling and transport management) ตรงกับแหล่งอ้างอิง คือ ยาสลบถูกใช้เพื่อทำให้ปลาสงบระหว่างการจับต้อง การขนส่ง การคัดขนาด และการทำวัคซีน รวมทั้งลดความเครียดจากหัตถการเหล่านั้น",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-canadian-council-on-an-2005",
+              "locator": "Introductory section, p.1",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sedation with the use of anesthetics is also used for the manipulation of animals during procedures such as transport, grading or vaccination... anesthetics are also used to lower the level of stress associated with such procedures."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--iii-anesthesia-clove-oil--v2",
+          "statement": "การเลือก clove oil เป็นยาสลบตามสไลด์มีหลักฐานรองรับ คือ clove oil ถูกใช้เป็นยาสลบปลามาโดยตลอด และการวิเคราะห์ด้วย GC-MS ชี้ว่า eugenol เป็นสารหลักในน้ำมันกานพลู",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28867749",
+              "locator": "Vol 11(4):181-185, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Clove oil ethanolic solution (CL-EtOH) have always been used for fish anesthesia... GC-MS analysis indicated that eugenol was the main compound in clove oil."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--anesthetic-clove-cannabis-nanoparticle-และ-stages-of-anesthesia": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--anesthetic-clove-cannabis-nanoparticle-และ-stages-of-anesthesia--v1",
+          "statement": "การทำ clove oil ให้อยู่ในรูป nanoemulsion ตามแนวคิดของสไลด์มีหลักฐานรองรับ คือ nanoemulsion ทำให้ clove oil ผสมน้ำได้โดยไม่ต้องใช้เอทานอล (ซึ่งทำให้ปลาไวเกิน) และให้ induction time สั้นกว่าสูตรเอทานอลที่ความเข้มข้น eugenol เท่ากัน โดยมีขนาดหยด 63.2 nm, PDI 0.31 และ zeta potential -30.3 mV",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28867749",
+              "locator": "Vol 11(4):181-185, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This CLN has internal droplet size of 63.2 +/- 1.0 nm, PDI of 0.31 +/- 0.04, and zeta potential of - 30.3 +/- 8.1 mV... It was found that the induction time to anesthesia for Nile tilapia that received this CLN was shorter than that receive"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--anesthetic-clove-cannabis-nanoparticle-และ-stages-of-anesthesia--v2",
+          "statement": "Stage IV ของสไลด์ (การให้ยาเกินขนาดทำให้หายใจและหัวใจหยุดจนตาย) ตรงกับแหล่งอ้างอิง คือ การให้ยาสลบเกินขนาดถูกใช้เป็นวิธีการุณยฆาตปลาเป็นประจำ และการคงระดับ stage III ไว้นานโดยไม่มีการล้างน้ำผ่านเหงือกจะทำให้ปลาตาย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-canadian-council-on-an-2005",
+              "locator": "Introductory section p.1 and \"Anesthesia as a Potential Stressor\" p.3",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Overdose of anesthetics is also used routinely as an effective and humane means of euthanizing fish... In most cases, prolonged maintenance of Stage III anesthesia without gill irrigation will result in death."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--iv-probiotic-lactobacillus-rhamnosus-gg": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--iv-probiotic-lactobacillus-rhamnosus-gg--v1",
+          "statement": "งานวิจัยที่สไลด์อ้าง (Fish Shellfish Immunol 2019, PMID 30439500) รายงานว่าอาหารเสริม synbiotic แก่นตะวัน (Jerusalem artichoke) ร่วมกับ Lactobacillus rhamnosus GG ทำให้ปลานิลแดงวัยรุ่นมี FCR, SGR และ ADG ดีขึ้น มีพื้นที่ดูดซึมของลำไส้และจำนวน goblet cell เพิ่มขึ้น มี lysozyme activity สูงขึ้น และมีอัตราตายสะสมต่ำลงหลัง challenge ด้วย Aeromonas veronii",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30439500",
+              "locator": "Vol 86:260-268, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "fish fed with synbiotic-supplemented diets had a significantly higher (P < 0.05) feed conversion ratio (FCR), specific growth rate (SGR), and average daily gain (ADG) than fish fed with a control diet... Fish fed the synbiotic-supplemented "
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--probiotic-prebiotic-nano-microencapsulation": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--probiotic-prebiotic-nano-microencapsulation--v1",
+          "statement": "แนวคิดของสไลด์ที่รวม probiotic กับ prebiotic ไว้ในระบบห่อหุ้มเดียวกันเพื่อให้รอดผ่านทางเดินอาหาร มีหลักฐานรองรับ คือ การห่อหุ้ม Lactobacillus rhamnosus GG ด้วย alginate ร่วมกับนมผงและแก่นตะวัน (Jerusalem artichoke) ทำให้จำนวนเซลล์ที่รอดหลังการอบแห้งสูงกว่าสูตรที่ไม่มีแก่นตะวัน และรอดได้ดีขึ้นภายใต้สภาวะจำลองของกรดในกระเพาะและเกลือน้ำดี รวมทั้งยังรอดผ่านกระบวนการอัดเม็ดอาหาร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34094798",
+              "locator": "Vol 11(6):279, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The result showed that the number of viable cells in AMJ was significantly higher than AM and AL after drying. The number of viable cells under both simulated gastric and bile salt fluids was improved with the increasing of Jerusalem artich"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--nano-delivery-preparation-and-particle-decoration": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--nano-delivery-preparation-and-particle-decoration--v1",
+          "statement": "แนวคิดของสไลด์ที่ว่าอนุภาคต้องถูกตกแต่งต่างกันตามเส้นทางการนำส่ง มีหลักฐานรองรับสำหรับเส้นทาง oral คือ สูตรที่ให้ทางปากต้องผ่านการทดสอบ acid-base tolerance ร่วมกับ mucoadhesive property และ permeability ในลำไส้ ซึ่งทำได้โดยเคลือบ nanoemulsion ด้วย chitosan ให้มีประจุบวก (+47.6 mV) แล้วผสมลงในอาหารเม็ด",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37393062",
+              "locator": "Vol 139:108913, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "this study aimed to develop a novel cationic-based nanoemulsion vaccine containing bile salts (NEB) coated by chitosan (CS) and determined its physicochemical characterization, morphology, in vitro mucoadhesive property, permeability, and a"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--nano-delivery-preparation-and-particle-decoration--v2",
+          "statement": "สำหรับเส้นทางเหงือกและผิวหนัง อนุภาคที่ดัดแปลงด้วย chitosan ให้มีประจุบวกแสดงความจำเพาะต่อเหงือกปลาสูง ยืนยันด้วยการถ่ายภาพเรืองแสงและการวัดเชิงปริมาณ ซึ่งเป็นหลักฐานว่าการตกแต่งประจุผิวคือกลไกที่กำหนดตำแหน่งเป้าหมายตามที่สไลด์แสดง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31585248",
+              "locator": "Vol 95:213-219, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In vivo mucoadhesive study demonstrated the excellent affinity of the chitosan-modified nanovaccines toward fish gills as confirmed by bioluminescence imaging, fluorescent microscopy, and spectrophotometric quantitative measurement."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลาสวาย-striped-catfish-pangasius-sutchi": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลาสวาย-striped-catfish-pangasius-sutchi--v1",
+          "statement": "ชื่อ Pangasius sutchi Fowler, 1937 ที่พิมพ์บนสไลด์เป็น junior synonym ของ Pangasianodon hypophthalmus (Sauvage, 1878) ซึ่งเป็นชื่อวิทยาศาสตร์ที่ยอมรับในปัจจุบันของ striped catfish (ปลาสวาย)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fishbase-froese-r-and--2016",
+              "locator": "Synonyms list, entry \"Pangasius sutchi Fowler, 1937\"",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Pangasius sutchi Fowler, 1937 synonym"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลาสวาย-striped-catfish-pangasius-sutchi--v2",
+          "statement": "ปลาสวาย (striped catfish, Pangasianodon hypophthalmus) เป็นหนึ่งในสัตว์น้ำที่สำคัญที่สุดของการเพาะเลี้ยงสัตว์น้ำในประเทศไทย จึงพบวางจำหน่ายเป็นปลาบริโภคในตลาดตามภาพบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fishbase-froese-r-and--2016",
+              "locator": "Species summary, Biology section",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "One of the most important aquaculture species in Thailand"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลาสวาย-striped-catfish-pangasius-sutchi--v3",
+          "statement": "งานวิจัยจากสถาบันในประเทศไทยยืนยันว่า striped catfish (Pangasianodon hypophthalmus) เป็นสปีชีส์เพาะเลี้ยงเชิงพาณิชย์ที่สำคัญ ใช้เป็นสัตว์ทดลองด้านโภชนาการและภูมิคุ้มกันในระบบการเลี้ยงจริง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29589277",
+              "locator": "11(2):427-437, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This study investigated the effects of dietary probiotic Saccharomyces cerevisiae in the striped catfish, Pangasianodon hypophthalmus, which is an important aquaculture species."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--รูปแบบโรงเรือนและบ่อของฟาร์มปลาสวยงาม-variety-of-ornamental-fish": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--รูปแบบโรงเรือนและบ่อของฟาร์มปลาสวยงาม-variety-of-ornamental-fish--v1",
+          "statement": "การเลี้ยงปลาสวยงามในประเทศไทยใช้ระบบที่ต่างจากการเลี้ยงปลาเนื้อทั่วไป คือเลี้ยงในบ่อขนาดเล็กมาก หรือแม้แต่ในถังและตู้กระจก ซึ่งตรงกับสไลด์ที่เทียบฟาร์มบ่อซีเมนต์กลางแจ้งกับฟาร์มปลาปอมปาดัวร์ที่ใช้ตู้กระจกเรียงชั้นในอาคาร (ตัวเลขความลึกบ่อ 60 ซม. และ 1.2 ม. บนสไลด์เป็นของฟาร์มเฉพาะราย ไม่มีในเอกสารอ้างอิง)",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-network-of-aquaculture-1981",
+              "locator": "Freshwater aquaculture systems section",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Exceptions chiefly apply to the culture of some ornamental fish which are reared in very small ponds, or even in vats or aquaria."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การเลี้ยงชายฝั่งยุคใหม่-new-era-coastal-aquaculture-in-thailand": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การเลี้ยงชายฝั่งยุคใหม่-new-era-coastal-aquaculture-in-thailand--v1",
+          "statement": "พื้นที่เลี้ยงสัตว์น้ำชายฝั่งของไทยขยายเป็นบ่อจำนวนมากหนาแน่นจนตรวจนับและวัดพื้นที่ได้จากภาพถ่ายดาวเทียม โดยปี ค.ศ. 2015 ประเมินพื้นที่ผิวน้ำที่มีความน่าจะเป็นสูงว่าเป็นบ่อกุ้งราว 377 ตารางกิโลเมตร และการสร้างบ่อกุ้งได้เปลี่ยนสภาพพื้นที่ธรรมชาติเดิม เช่น ป่าชายเลน ไปแล้ว 552 ตารางกิโลเมตร",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-j-rsase-2020-100416",
+              "locator": "Vol. 20, article 100416, Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We estimated that in 2015 an area of 377 km2 had a high likelihood of being shrimp pond water area. Further, we show that the construction of shrimp ponds in Thailand was responsible for the transformation of 552 km2 primary habitat, such a"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--วงจรชีวิตกุ้งทะเล-life-cycle": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--วงจรชีวิตกุ้งทะเล-life-cycle--v1",
+          "statement": "ลำดับระยะตัวอ่อนของกุ้งทะเลกลุ่ม penaeid เป็นไปตามที่สไลด์เรียงไว้ คือ nauplius แล้วลอกคราบเป็น protozoea (zoea) ต่อเป็น mysis และเปลี่ยนรูปเป็น postlarvae",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-network-of-aquaculture-1985",
+              "locator": "Section on biology and life cycle of penaeid shrimp",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The nauplius undergoes six moltings within 50 hours into a protozoea. ... The mysis remain drifting in the water column until they metamorphose into post larvae within 10-12 days."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--วงจรชีวิตกุ้งทะเล-life-cycle--v2",
+          "statement": "กุ้งทะเลกลุ่ม penaeid วางไข่ในทะเลนอกชายฝั่ง และกลับออกสู่ทะเลนอกชายฝั่งอีกครั้งเมื่อเข้าสู่วัยเจริญพันธุ์ ตรงกับสไลด์ที่วาง Broodstock พร้อมกลุ่มไข่ไว้ฝั่งทะเลลึก",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-network-of-aquaculture-1985",
+              "locator": "Section on biology and life cycle of penaeid shrimp",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Penaeid shrimps generally spawn in offshore waters. ... eventually returning to offshore water when they attain sexual maturity."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ขนาดพ่อแม่พันธุ์และลูกกุ้ง-broodstock-and-larvae-size": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ขนาดพ่อแม่พันธุ์และลูกกุ้ง-broodstock-and-larvae-size--v1",
+          "statement": "ความต่างของขนาดที่สไลด์เทียบด้วยภาพมีตัวเลขรองรับ คือพ่อแม่พันธุ์กุ้งที่คัดมาใช้ควรมีน้ำหนักอย่างน้อย 100 กรัม ขณะที่ลูกกุ้งระยะ Nauplius 1 มีความยาวลำตัวเฉลี่ยเพียง 0.32 มิลลิเมตร จึงต้องใช้กล้องจุลทรรศน์ในการตรวจนับและประเมินคุณภาพ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-network-of-aquaculture-1985",
+              "locator": "Broodstock selection section and larval development table (Table 8)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "size should at least be 100 gm. ... Nauplius 1 ... Mean Body Length (mm) 0.32"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--บ่ออนุบาลลูกกุ้งและบ่อเลี้ยงพ่อแม่พันธุ์-larval-rearing-pond-and": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--บ่ออนุบาลลูกกุ้งและบ่อเลี้ยงพ่อแม่พันธุ์-larval-rearing-pond-and--v1",
+          "statement": "บ่ออนุบาลลูกกุ้งในโรงเพาะฟักใช้ถังหรือบ่อพื้นเรียบ หรือดีกว่านั้นคือทรงตัว V หรือ U ปริมาตร 4-100 ลูกบาศก์เมตร สร้างจากคอนกรีต ไฟเบอร์กลาส หรือวัสดุปูพลาสติก ตรงกับสไลด์ที่แสดงทั้งบ่อซีเมนต์ทรงกลมและบ่อสี่เหลี่ยม",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-fisheries-and-aqua-2009",
+              "locator": "Production cycle, Hatchery production section (text by Briggs, M.)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nauplii are stocked into flat, or preferably 'V' or 'U' shaped tanks with a volume of 4-100 m3, made from concrete, fibreglass or other plastic lined material."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--บ่ออนุบาลลูกกุ้งและบ่อเลี้ยงพ่อแม่พันธุ์-larval-rearing-pond-and--v2",
+          "statement": "บ่อเลี้ยงพ่อแม่พันธุ์กุ้งเป็นบ่อในอาคารที่ควบคุมแสง (ห้องมืด) และรับน้ำทะเลที่ผ่านการกรอง สอดคล้องกับภาพบ่อในอาคารพร้อมสายอากาศจำนวนมากบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-fisheries-and-aqua-2009",
+              "locator": "Production cycle, Broodstock and maturation section (text by Briggs, M.)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Broodstock are stocked in maturation tanks in dark rooms supplied with clean, filtered seawater."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--บ่ออนุบาลลูกกุ้งและบ่อเลี้ยงพ่อแม่พันธุ์-larval-rearing-pond-and--v3",
+          "statement": "ความหนาแน่นในบ่อเลี้ยงพ่อแม่พันธุ์ที่สไลด์ไม่ได้ระบุ มีค่าอ้างอิงในคู่มือโรงเพาะฟักคือ 5-6 ตัวต่อตารางเมตร โดยใช้อัตราส่วนเพศผู้ต่อเพศเมีย 1 ต่อ 1",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-network-of-aquaculture-1985",
+              "locator": "Broodstock maturation section",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The ablated animals are stocked in maturation tanks at a density of 5-6 per square meter and a sex ratio of one male to one female"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--บ่อเลี้ยงกุ้งจนถึงจับ-grow-out-pond-pe-growout-pond-harvesting": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--บ่อเลี้ยงกุ้งจนถึงจับ-grow-out-pond-pe-growout-pond-harvesting--v1",
+          "statement": "บ่อเลี้ยงกุ้งระยะ grow out ส่วนใหญ่เป็นบ่อดิน แต่มีการใช้แผ่นปูบ่อ (liner) ด้วย โดยเหตุผลคือลดการกัดเซาะของคันบ่อและช่วยให้คุณภาพน้ำดีขึ้น ซึ่งเป็นข้อดีของบ่อ PE ที่สไลด์เทียบไว้ด้วยภาพแต่ไม่ได้เขียนอธิบาย",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-fisheries-and-aqua-2009",
+              "locator": "Production systems, Grow-out techniques section (text by Briggs, M.)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ponds are often earthen, but liners are also used to reduce erosion and enhance water quality."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--บ่อเลี้ยงกุ้งจนถึงจับ-grow-out-pond-pe-growout-pond-harvesting--v2",
+          "statement": "เครื่องตีน้ำหลายชุดที่เห็นในภาพบ่อ grow out มีหน้าที่หมุนเวียนน้ำและเติมออกซิเจน โดยมีเกณฑ์อ้างอิงคือให้อากาศอย่างหนักที่ 1 แรงม้าต่อกุ้งที่จับได้ 400-600 กิโลกรัม",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-fisheries-and-aqua-2009",
+              "locator": "Production systems, Grow-out techniques section (text by Briggs, M.)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Heavy aeration at 1 HP/400-600 kg of harvested shrimp is necessary for water circulation and oxygenation."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--บ่อเลี้ยงกุ้งจนถึงจับ-grow-out-pond-pe-growout-pond-harvesting--v3",
+          "statement": "การจับกุ้งจากบ่อแบบ extensive และ semi-intensive ทำโดยระบายน้ำออกช่วงน้ำลงผ่านถุงอวนที่ติดไว้ที่ประตูระบายน้ำ ก่อนนำมาคัดขนาดตามภาพ white shrimp harvesting and sorting บนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-fao-fisheries-and-aqua-2009",
+              "locator": "Production systems, Harvesting techniques section (text by Briggs, M.)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Extensive and semi-intensive ponds are harvested by draining the pond at low tide through a bag net installed in the outlet sluice gate."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ปลากะรัง-grouper-และโรงเพาะฟักปลาทะเล": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลากะรัง-grouper-และโรงเพาะฟักปลาทะเล--v1",
+          "statement": "ปลากะรังที่เลี้ยงในไทยเป็นปลาในสกุล Epinephelus หลายชนิด (E. malabaricus, E. coioides, E. tauvina, E. salmonoides, E. lanceolatus, E. fuscoguttatus) และประมาณ 90% ของเกษตรกรเลี้ยงในกระชัง (cage culture) ที่วางในน้ำทะเลธรรมชาติตามชายฝั่งภาคใต้และภาคตะวันออกของไทย ซึ่งตรงกับภาพแพกระชังกลางทะเลบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-national-institute-of--1994",
+              "locator": "Cultured species and culture system sections",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ninety percent of the fish farmers culture grouper in cage which set in natural sea-water along the coastal areas at the southern and eastern part of Thailand."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ปลากะรัง-grouper-และโรงเพาะฟักปลาทะเล--v2",
+          "statement": "โรงเพาะฟักปลาทะเล (marine finfish hatchery) ใช้บ่ออนุบาลลูกปลาวัยอ่อนที่สร้างด้วยคอนกรีต รูปสี่เหลี่ยมผืนผ้าหรือจัตุรัส ความจุราว 6-10 ลูกบาศก์เมตร ตรงกับภาพบ่อซีเมนต์ยาวในโรงเพาะฟักบนสไลด์",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-network-of-aquaculture-2005",
+              "locator": "Section 2 Tank design and description, Larval rearing tanks, p. 5",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Larval rearing tanks are generally concrete tanks, rectangular or square in shape. They range in size from 6 to 10 m3 capacity."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การเพาะเลี้ยงสัตว์น้ำจืด-ปลานิลเป็นตัวหลัก": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การเพาะเลี้ยงสัตว์น้ำจืด-ปลานิลเป็นตัวหลัก--v1",
+          "statement": "สถิติกรมประมงปี 2023 ยืนยันตัวเลขบนสไลด์ ผลผลิตการเพาะเลี้ยงสัตว์น้ำจืดของไทยรวม 459,980 ตัน มูลค่า 28,260 ล้านบาท โดยปลานิลเป็นชนิดหลักที่ 266,480 ตัน (ประมาณ 57.9% ของผลผลิตน้ำจืด) มูลค่า 12,711 ล้านบาท รองลงมาคือปลาดุก 91,001 ตัน และกุ้งก้ามกราม 41,919 ตัน",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-department-of-fisherie-2024",
+              "locator": "Slide: Aquaculture Production in 2023, Freshwater panel",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Aquaculture Production in 2023. Freshwater: Quantity 459,980 tons, Value 28,260 million baht. Tilapia 266,480 (tons), 12,711 (Value MB); Walking catfish 91,001; Giant prawn 41,919; Others 60,580."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การเพาะเลี้ยงสัตว์น้ำจืด-ปลานิลเป็นตัวหลัก--v2",
+          "statement": "ข้อสังเกตของสไลด์เรื่องส่วนต่างของมูลค่าระหว่างกุ้งกับปลานิลมีข้อมูลรองรับ ในปี 2023 การเพาะเลี้ยงชายฝั่งของไทยผลิตกุ้ง 392,470 ตัน มูลค่า 57,430 ล้านบาท เทียบกับปลานิล 266,480 ตัน มูลค่าเพียง 12,711 ล้านบาท คือปริมาณต่างกันประมาณ 1.5 เท่า แต่มูลค่าต่างกันประมาณ 4.5 เท่า",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-department-of-fisherie-2024",
+              "locator": "Slide: Aquaculture Production in 2023, Coastal panel",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Coastal: Quantity 541,166 tons, Value 69,221 million baht. Shrimp 392,470 (tons), 57,430 (Value MB)."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--อัตราการเจริญเติบโต-adg-average-daily-gain": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--อัตราการเจริญเติบโต-adg-average-daily-gain--v1",
+          "statement": "สูตร ADG บนสไลด์ตรงกับนิยามที่ใช้ในงานวิจัยการเจริญเติบโตของปลานิล คือ average daily gain เท่ากับน้ำหนักตัวสุดท้ายลบน้ำหนักตัวเริ่มต้น หารด้วยจำนวนวันของการทดลองหรือการเลี้ยง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32362832",
+              "locator": "Materials and Methods, growth performance calculations; vol 11, article 286",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Average daily gain (ADG) = (final body weight - initial body weight)/experimental days."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--อัตราการเจริญเติบโต-adg-average-daily-gain--v2",
+          "statement": "การเจริญเติบโตของปลาเมื่อพล็อตขนาดตัวเทียบกับเวลาเป็นเส้นโค้งรูป sigmoid คือโตช้าในช่วงต้น เร่งเร็วในช่วงกลาง แล้วชะลอจนแบนราบเมื่อเข้าใกล้ความยาวสูงสุด สอดคล้องกับสามช่วง lag, exponential และ stationary ที่สไลด์แสดง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24498574",
+              "locator": "Model validation in zebrafish; vol 2, article e244",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In the experiment of Gomez-Requeni et al. (2010), zebrafish growth as a function of age fits a sigmoid curve"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--อัตราการเจริญเติบโต-adg-average-daily-gain--v3",
+          "statement": "ปัจจัยเรื่องอาหารและสภาพแวดล้อมที่สไลด์ระบุไว้ในกล่องปัจจัยกำหนดการเจริญเติบโตมีข้อมูลรองรับ การเจริญเติบโตของปลาแปรผันสูงมากตามปริมาณอาหารที่ได้รับและสภาพแวดล้อมที่เลี้ยง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24498574",
+              "locator": "Abstract; vol 2, article e244",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "However, growth in fish is highly variable depending on food availability and environmental conditions."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--นิยาม-microbiome-และการตรวจด้วย-16s-rrna": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นิยาม-microbiome-และการตรวจด้วย-16s-rrna--v1",
+          "statement": "นิยาม microbiome บนสไลด์ตรงกับที่ใช้ในงานทบทวนด้าน microbiome ของการเพาะเลี้ยงสัตว์น้ำ คือชุมชนของจุลชีพซึ่งประกอบด้วยแบคทีเรีย ไวรัส เชื้อรา ยูคาริโอตขนาดเล็กและปรสิต รวมทั้ง Archaea เรียกรวมกันว่า microbiota",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37426003",
+              "locator": "Introduction; vol 14, article 1200997",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A microbiome comprises a community of microbes including bacteria, viruses, fungi, microeukaryotic and metazoan parasites and Archaea (collectively known as the microbiota)"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นิยาม-microbiome-และการตรวจด้วย-16s-rrna--v2",
+          "statement": "วิธีศึกษาที่สไลด์ระบุมีข้อมูลรองรับ ยีน 16S rRNA มีทั้งบริเวณที่อนุรักษ์และบริเวณ hypervariable ทำให้ความแปรผันของลำดับเบสในยีนนี้ใช้จำแนกและอธิบายองค์ประกอบของชุมชนจุลินทรีย์ได้กว้าง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42112774",
+              "locator": "Introduction; vol 26, issue 4, article e70138",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Its unique structure, comprising both conserved and hypervariable regions, enables broad taxonomic coverage across Bacteria and Archaea."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นิยาม-microbiome-และการตรวจด้วย-16s-rrna--v3",
+          "statement": "เอกสารอ้างอิงที่สไลด์ระบุมีอยู่จริงและตรงกับหัวข้อ คือบทความทบทวนเรื่องความหลากหลายของ microbiome และภาวะ dysbiosis ในการเพาะเลี้ยงสัตว์น้ำ ซึ่งเชื่อมโยง microbiome กับผลผลิต สุขภาพและโรค อาหาร และสภาพแวดล้อมของการเลี้ยง ตรงกับสี่มุมที่สไลด์ระบุไว้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1111-raq-12513",
+              "locator": "vol 13, issue 2, pp. 1077-1096",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "development of management strategies towards preserving the microbial balance"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--biofloc-system": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--biofloc-system--v1",
+          "statement": "ระบบ biofloc ที่สไลด์แสดงเป็นภาพบ่อน้ำสีน้ำตาลขุ่นพร้อมเครื่องตีน้ำในโรงเรือน สอดคล้องกับหลักการของเทคโนโลยีนี้ คือใช้จุลินทรีย์ที่เป็นประโยชน์ดูดซับแอมโมเนียและไนไตรท์ที่เกิดจากเศษอาหาร มูลและของเสียของสัตว์น้ำ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36829957",
+              "locator": "Introduction; vol 12, issue 2, article 398",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "uses beneficial microorganisms to absorb the ammonia and nitrite produced by feed waste, feces, and urine"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--biofloc-system--v2",
+          "statement": "ระบบ biofloc ต้องการการเติมอากาศอย่างแรงและแหล่งคาร์บอน เช่น ซูโครส กลูโคส หรือกากน้ำตาล เพื่อรักษาคุณภาพน้ำ ซึ่งอธิบายว่าทำไมภาพบนสไลด์จึงเห็นเครื่องตีน้ำทำงานในบ่อที่น้ำมีสีน้ำตาลขุ่น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36829957",
+              "locator": "Introduction; vol 12, issue 2, article 398",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "requires strong aeration and carbon sources such as sucrose, glucose, and molasses, and it helps to maintain the water quality"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--วัฏจักรไนโตรเจน-the-nitrogen-cycle": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--วัฏจักรไนโตรเจน-the-nitrogen-cycle--v1",
+          "statement": "ลำดับที่สไลด์ให้จำถูกต้อง กระบวนการ nitrification คือการออกซิไดซ์แอมโมเนียไปเป็นไนเตรตโดยผ่านไนไตรท์ และแต่ละขั้นดำเนินการโดยกลุ่มจุลินทรีย์คนละกลุ่ม ได้แก่ ammonia-oxidizing bacteria และ archaea กับ nitrite-oxidizing bacteria",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35402889",
+              "locator": "Abstract; vol 15, article 100131",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nitrification, the oxidation of ammonia to nitrate via nitrite, is important for many engineered water treatment systems."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--ฟาร์มกุ้ง": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ฟาร์มกุ้ง--v1",
+          "statement": "ภาพเครื่องตีน้ำในบ่อกุ้งบนสไลด์สะท้อนหลักปฏิบัติจริงของฟาร์มกุ้งไทย การเติมอากาศเป็นสิ่งจำเป็นเพื่อรักษาระดับออกซิเจนในน้ำบ่อให้เพียงพอสำหรับการเลี้ยงกุ้งขาวและกุ้งกุลาดำ",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-department-of-fisherie-2005",
+              "locator": "Section 3.2 Farm management, culture techniques, pp. 74-80",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "As P. monodon culture, aeration is necessary to maintain adequate oxygen concentration in pond water."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--ฟาร์มกุ้ง--v2",
+          "statement": "ฟาร์มกุ้งไทยที่สไลด์แสดงเป็นบ่อเรียงเป็นแปลงมุมสูงคือระบบเลี้ยงแบบหนาแน่น (intensive) โดยปล่อยลูกกุ้งมากกว่า 120,000 ตัวต่อไร่ หรือประมาณ 75 ตัวต่อตารางเมตร ให้ผลผลิตราว 2,000 กิโลกรัมต่อไร่ (12,000 กิโลกรัมต่อเฮกตาร์) ที่อัตรารอด 80%",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-department-of-fisherie-2005",
+              "locator": "Section 3.2 Farm management, normal salinity culture system, pp. 74-80",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Shrimp fry are stocked in higher densities of more than 120,000 shrimps per rai (75 shrimps/m2). Production is at 2,000 kg per rai (12,000 kg per ha) with 80% survival rate."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การให้-immersion-nanovaccine-จริงในฟาร์ม-ภาพขั้นตอน": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การให้-immersion-nanovaccine-จริงในฟาร์ม-ภาพขั้นตอน--v1",
+          "statement": "โปรโตคอลตัวเลขที่สไลด์ไม่ได้เขียนไว้มีระบุในงานตีพิมพ์ของกลุ่มเดียวกัน การให้ nanovaccine แบบแช่ในปลานิลแดงทำโดยเจือจางวัคซีน 1 ต่อ 100 ในน้ำบ่อ (10^6 CFU ต่อมิลลิลิตร) แล้วแช่ปลานาน 30 นาที พร้อมให้อากาศตลอดเวลา ตรงกับภาพการเทวัคซีนผสมลงในภาชนะ เทลงบ่อ และการให้อากาศระหว่างแช่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34835184",
+              "locator": "Materials and Methods, vaccination procedure; vol 9, issue 11, article 1253",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Fish were immersed in the vaccine solutions, diluted 1:100 with tank water (106 CFU mL-1) for 30 min with aeration"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การให้-immersion-nanovaccine-จริงในฟาร์ม-ภาพขั้นตอน--v2",
+          "statement": "ค่าที่เครื่อง EcoSense DO200A แสดงบนสไลด์ (6.17 และ 28.5) ตรงกับช่วงคุณภาพน้ำที่รายงานไว้ในการทำ immersion vaccination ปลานิล คือออกซิเจนละลายน้ำ 5.8 ถึง 6.8 ppm ที่อุณหภูมิ 25 ถึง 28 องศาเซลเซียส ภายใต้การให้อากาศต่อเนื่อง จึงอ่านได้ว่า 6.17 คือค่า DO หน่วย ppm หรือ mg ต่อลิตร และ 28.5 คืออุณหภูมิน้ำหน่วยองศาเซลเซียส",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34835184",
+              "locator": "Materials and Methods, fish husbandry and water quality; vol 9, issue 11, article 1253",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "maintained under continuous aeration at 25-28 degrees C, 5.8-6.8 ppm dissolved oxygen (DO), pH 7.5-8"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การให้-immersion-nanovaccine-จริงในฟาร์ม-ภาพขั้นตอน--v3",
+          "statement": "เหตุผลที่ภาพบนสไลด์เป็นการแช่ลูกปลาในบ่อหรือกระชัง คือ immersion vaccination ใช้กันแพร่หลายกับปลาขนาดเล็ก ขณะที่การใช้เส้นทางนี้กับปลาใหญ่จำนวนมากมีต้นทุนสูงเกินไปสำหรับเกษตรกรผู้เลี้ยงปลานิล เพราะต้องใช้วัคซีนปริมาณมาก",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-37631924",
+              "locator": "Vaccine delivery routes section; vol 11, issue 8, article 1356",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Immersion vaccination is widely used to vaccinate small fish, while the cost of mass vaccinating larger fish via this route is prohibitive for the tilapia farmer because of the amount of vaccine that would be required."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--field-test-ของ-flavobacterium-nanovaccine": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--field-test-ของ-flavobacterium-nanovaccine--v1",
+          "statement": "ทิศทางของผลบนสไลด์มีข้อมูลตีพิมพ์รองรับ ปลานิลแดงที่ได้ mucoadhesive chitosan nanovaccine แบบแช่แล้ว challenge ด้วย Flavobacterium columnare ที่ 30 วันหลังให้วัคซีน มีปลากลุ่มควบคุมที่ไม่ได้วัคซีนตาย 89% ขณะที่กลุ่มวัคซีนมี relative percent survival 78% ซึ่งอยู่ในระดับเดียวกับค่าเฉลี่ย RPS 61.97 ที่สไลด์รายงาน อย่างไรก็ตามตัวเลขรายฟาร์มเฉพาะเจาะจงบนสไลด์ (86 ต่อ 52 และ 73 ต่อ 32) ไม่ปรากฏในเอกสารตีพิมพ์ที่ค้นได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33675991",
+              "locator": "Abstract and challenge results; vol 112, pp. 81-91",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The experimental infection was performed 30-days post-vaccination (dpv), which resulted in 89% of the unvaccinated control fish dying, while the relative percentage survival (RPS) of the CS-NE vaccinated group was 78%."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--field-test-ของ-flavobacterium-nanovaccine--v2",
+          "statement": "ค่า RPS ระดับ 60% ขึ้นไปที่สไลด์รายงานสอดคล้องกับผลตีพิมพ์ครั้งแรกของวัคซีนนี้ ปลาที่ได้ mucoadhesive nanovaccine แบบแช่ 30 นาที แล้ว challenge ที่ 30 และ 60 วันหลังให้วัคซีน มี relative percent survival มากกว่า 60% ขณะที่วัคซีนเซลล์ทั้งตัวแบบดั้งเดิมไม่สามารถป้องกันการติดเชื้อ columnaris ได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31585248",
+              "locator": "Abstract, challenge test results; vol 95, pp. 213-219",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The relative percent survival (RPS) of vaccinated fish was greater than 60% for mucoadhesive nanovaccine."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--efficacy-test-field-ฟาร์มปกติเทียบฟาร์มที่มีการระบาด": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--efficacy-test-field-ฟาร์มปกติเทียบฟาร์มที่มีการระบาด--v1",
+          "statement": "การทดสอบวัคซีน streptococcal ระดับฟาร์มจริงในไทยพบว่ากลุ่มปลานิลที่ได้รับวัคซีนมี survival rate สูงกว่ากลุ่มไม่ได้รับวัคซีนชัดเจน และช่องว่างกว้างที่สุดในฟาร์มที่มีการระบาดของ streptococcosis (97.1% เมื่อฉีดกระตุ้น เทียบกับ 60.2% ในกลุ่มไม่ฉีด) ซึ่งสนับสนุนหลักการที่สไลด์สื่อว่าประโยชน์ของวัคซีนเห็นชัดตอนมี disease pressure",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36298490",
+              "locator": "Vol 10(10):1625, farm trial (field evaluation) section, Nong Khai March crop",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the vaccinated groups clearly showed a significant increase in survival rate over the non-vaccinated group at 97.1, 89.0 and 60.2%, respectively"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--efficacy-test-field-ฟาร์มปกติเทียบฟาร์มที่มีการระบาด--v2",
+          "statement": "ช่วงของ survival ที่วัดได้ในฟาร์มจริงคาบเกี่ยวกันระหว่างกลุ่มฉีดและไม่ฉีดวัคซีน (60.7 ถึง 90.7% เมื่อฉีดครั้งเดียว, 77.4 ถึง 97.1% เมื่อมี booster เทียบกับ 53.0 ถึง 88.0% ในกลุ่มไม่ฉีด) จึงอธิบายได้ว่าทำไมในฟาร์มที่ไม่มีการระบาดส่วนต่างจึงแคบ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36298490",
+              "locator": "Vol 10(10):1625, farm trial results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "our bivalent vaccine exhibited percent survival ranging from 60.7 to 90.7% survival by single vaccination and 77.4 to 97.1% survival by vaccination with a booster. Meanwhile, the unvaccinated group showed only 53.0-88.0% survival"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--efficacy-test-field-ฟาร์มปกติเทียบฟาร์มที่มีการระบาด--v3",
+          "statement": "ประสิทธิภาพวัคซีนในปลานิลถูกวัดเป็น relative percent survival ภายใต้การ challenge ที่ควบคุมได้ (78 ถึง 84% สำหรับวัคซีนผสมอาหารที่มี adjuvant) ควบคู่กับการประเมินในฟาร์มกระชังจริง แสดงว่าการเทียบ lab challenge กับ on-farm เป็นวิธีมาตรฐานของการทำ efficacy test",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38641215",
+              "locator": "Vol 149:109567, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Under both injection and immersion challenge conditions, the relative percent survival for the feed-based adjuvanted vaccine groups ranged from 78 % to 84 %."
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--การจำลองการก่อโรค-tilv-ในห้องปฏิบัติการ-on-process": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การจำลองการก่อโรค-tilv-ในห้องปฏิบัติการ-on-process--v1",
+          "statement": "TiLV แยกได้จากตัวอย่างภาคสนามและเพิ่มจำนวนใน cell line E-11 เกิด cytopathic effect ภายใน 3 ถึง 5 วัน แล้วนำไป challenge ปลานิลและปลานิลแดงจนเกิดการตายสูง (86% และ 66%) ครบตาม Koch's postulates ซึ่งคือขั้นตอนเดียวกับที่สไลด์แสดง (ปลานิลแดง ตรวจ TiLV แล้วส่งต่อไป cell culture)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28757020",
+              "locator": "Vol 207:170-177, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "TiLV was isolated from field samples and propagated in the permissive E-11 cell line, with cytopathic effect (CPE) development within 3-5days post-inoculation."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--การจำลองการก่อโรค-tilv-ในห้องปฏิบัติการ-on-process--v2",
+          "statement": "ค่าตรวจ TiLV แบบ real-time (ที่สไลด์แสดงเป็น 3.58E+05, 7.05E+05 และ 5.60E+05 โดยไม่ระบุหน่วย) สอดคล้องกับผลของ TaqMan RT-qPCR ซึ่งรายงานเป็นจำนวน viral copies และสามารถตรวจ TiLV ได้ทั้งในเนื้อเยื่อปลาที่ challenge และในเซลล์ E-11 ที่เกิด CPE",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36546687",
+              "locator": "Vol 152:147-158, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "it successfully detected TiLV RNA in SSN-1 (E-11 clone) cell cultures displaying cytopathic effects following their inoculation with TiLV-infected tissue homogenates"
+          }
+        }
+      ]
+    },
+    "aquatic-clinic--aqua-intro-thailand--นวัตกรรมระบบนำส่งนาโนและการประยุกต์ใช้ในสัตว์น้ำ-ภาพรวม-4-กลุ่ม": {
+      "claims": [
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นวัตกรรมระบบนำส่งนาโนและการประยุกต์ใช้ในสัตว์น้ำ-ภาพรวม-4-กลุ่ม--v1",
+          "statement": "แนวคิดรวมของสไลด์ (Nano-encapsulation and Nano-delivery of bioactive components) ตรงกับหลักการที่รายงานในสัตว์น้ำ คือการห่อหุ้มระดับนาโนช่วยปกป้องสารออกฤทธิ์ระหว่างการผลิตอาหารและระหว่างให้อาหาร และช่วยให้ร่างกายปลานำสารไปใช้ได้ดีขึ้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29911270",
+              "locator": "Vol 44(5):1375-1391, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Delivery through nano-encapsulation of minerals and feed additives would protect the bioactive molecules during feed manufacturing and fish feeding and allow an efficient acquisition of active substances into biological system."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นวัตกรรมระบบนำส่งนาโนและการประยุกต์ใช้ในสัตว์น้ำ-ภาพรวม-4-กลุ่ม--v2",
+          "statement": "กลุ่ม Herbal medicine (Curcumin nanoparticle) มีข้อมูลรองรับในปลานิล คือ curcumin nanoparticles ผสมอาหาร 45 ถึง 55 mg/kg เพิ่ม growth performance, digestive enzyme, antioxidant และ humoral immunity",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35380335",
+              "locator": "Vol 48(3):585-601, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the current study recommends using the dietary C-NP with optimum values of 45-55 mg/kg diet to improve the performance, digestive enzymes, antioxidant activities, and immunity response of Nile tilapia"
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นวัตกรรมระบบนำส่งนาโนและการประยุกต์ใช้ในสัตว์น้ำ-ภาพรวม-4-กลุ่ม--v3",
+          "statement": "กลุ่ม Vaccine (Nano-vaccine immersion) มีข้อมูลรองรับ คือ chitosan nanoparticle TiLV immersion vaccine ให้ relative percent survival 68.17% ในห้องปฏิบัติการ และ 52.2% ในฟาร์มจริง สูงกว่าวัคซีนเชื้อตายแบบเดิม",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36351543",
+              "locator": "Vol 131:972-979, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The fish that received the nanovaccine showed better relative percent survival (RPS) at 68.17% compared with the RPS of the inactivated virus vaccine (KV) group at 25.01%."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นวัตกรรมระบบนำส่งนาโนและการประยุกต์ใช้ในสัตว์น้ำ-ภาพรวม-4-กลุ่ม--v4",
+          "statement": "Lactobacillus rhamnosus GG ที่สไลด์ระบุในกลุ่ม Probiotic มีหลักฐานในปลานิลว่าเสริมโครงสร้างลำไส้และ mucosal immunity โดยเพิ่มความสูงของ villi, intraepithelial lymphocyte, complement activity และการแสดงออกของ TNF alpha กับ IL-1 (งานนี้มีผู้บรรยายของสไลด์ A. Ponpornpisit เป็นผู้ร่วมวิจัย)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21536310",
+              "locator": "Vol 91(3):e92-e97, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The results suggested that supplementation of L. rhamnosus gave an advantage in promoting the intestinal structure and the mucosal immunity of tilapia."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นวัตกรรมระบบนำส่งนาโนและการประยุกต์ใช้ในสัตว์น้ำ-ภาพรวม-4-กลุ่ม--v5",
+          "statement": "แนวคิด Probiotic-Prebiotic encapsulation ที่ใช้ LGG คู่กับ prebiotic มีข้อมูลรองรับในอาหารปลานิล คือการห่อหุ้ม LGG ร่วมกับแก่นตะวัน (Jerusalem artichoke) เพิ่มการรอดชีวิตของเซลล์หลังทำแห้ง หลังอัดเม็ด และเมื่อเจอสภาวะกรดกับน้ำดีจำลอง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34094798",
+              "locator": "Vol 11(6):279, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The study indicates that JA enhanced LGG viability after drying and exposure to simulated gastrointestinal conditions."
+          }
+        },
+        {
+          "id": "aquatic-clinic--aqua-intro-thailand--นวัตกรรมระบบนำส่งนาโนและการประยุกต์ใช้ในสัตว์น้ำ-ภาพรวม-4-กลุ่ม--v6",
+          "statement": "กลุ่ม Anesthetic (nanoparticle ของน้ำมันกานพลู) มีหลักฐานว่าน้ำมันกานพลูที่ห่อหุ้มด้วย beta-cyclodextrin ลดเวลาเหนี่ยวนำการสลบ ลดการตอบสนองต่อความเครียด (glucose และ cortisol) ในปลาเลี้ยงหลายชนิดทั้งน้ำจืดและน้ำทะเล",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33256099",
+              "locator": "Vol 9(12):1750, abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-04",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "CO + beta-CD reduces the time required to induce anesthesia, independently of water salinity, habitat or water temperature. The plasmatic glucose and cortisol levels decreased in all four species"
+          }
+        }
+      ]
+    }
   }
 };
 

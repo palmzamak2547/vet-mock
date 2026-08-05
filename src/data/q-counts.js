@@ -10,10 +10,10 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 3296;
+export const QB_TOTAL = 3395;
 
 export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 5,
+  'aquatic-clinic': 104,
   'avian-medicine': 72,
   'biochem-1': 272,
   'cliapprum': 136,
@@ -58,7 +58,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // HomeView SubjectGrid renders these for the per-card Q badges so
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 5,
+  'aquatic-clinic': 104,
   'avian-medicine': 72,
   'biochem-1': 272,
   'cliapprum': 134,
@@ -100,7 +100,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
   4: 2095,
-  5: 903,
+  5: 1002,
 };
 
-// Built: 2026-08-02T17:55:29.630Z
+// Built: 2026-08-04T10:35:04.842Z

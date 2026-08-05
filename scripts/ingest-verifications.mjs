@@ -5,6 +5,7 @@
 // Usage:
 //   node scripts/ingest-verifications.mjs <claims.json> --subject <id>
 //   node scripts/ingest-verifications.mjs <claims.json> --subject <id> --write
+//   ... --conflicts <out.json>   keep the claims whose source contradicts the slide
 //
 // <claims.json> is either an array of claims or a workflow result envelope
 // containing one. Each claim looks like:
@@ -29,6 +30,12 @@
 //   • its identifier resolves to nothing
 //   • its identifier resolves to a different work
 //   • its sectionHeading matches no section in that topic
+//
+// A claim marked supported:false is NOT a failure — it means the source was
+// found and it DISAGREES with the slide, which is the most valuable thing this
+// pass can return. Those are resolved like everything else and then split off
+// via --conflicts, because they belong in the conflict overlay, not in the
+// overlay that asserts a section is backed up.
 // Anything the network could not settle is reported as inconclusive and also
 // dropped — for ingestion, "unproven" and "unchecked" are treated the same,
 // because both mean we cannot yet stand behind it.
@@ -41,6 +48,7 @@ const [, , FILE] = process.argv;
 const argOf = (flag) => { const i = process.argv.indexOf(flag); return i === -1 ? null : process.argv[i + 1]; };
 const SUBJECT = argOf('--subject');
 const WRITE = process.argv.includes('--write');
+const CONFLICT_OUT = argOf('--conflicts');
 const TODAY = argOf('--date') || new Date().toISOString().slice(0, 10);
 
 if (!FILE || !SUBJECT) {
@@ -103,8 +111,6 @@ for (const c of claims) {
 const accepted = [], dropped = [];
 
 for (const c of claims) {
-  if (!c.supported) { dropped.push({ c, why: 'agent reported no source found' }); continue; }
-
   const secs = sectionsByTopic.get(c.topicId);
   if (!secs) { dropped.push({ c, why: `topic '${c.topicId}' not in subject '${SUBJECT}'` }); continue; }
   const sId = secs.get(c.sectionHeading);
@@ -163,9 +169,31 @@ for (const c of claims) {
   dropped.push({ c, why: 'no pmid, doi, and not a named guideline or textbook' });
 }
 
-console.log(`accepted : ${accepted.length}`);
+// A claim whose source CONTRADICTS the slide is resolved exactly like any
+// other — a disagreement backed by a citation that does not exist is worth
+// nothing — but it does not belong in the verification overlay, which says
+// "this section is backed up". It belongs in the conflict overlay, which says
+// "the lecture and the literature disagree, and here is what to do in the
+// exam". Splitting only after resolution is deliberate: it means an agent
+// cannot smuggle an unresolvable identifier in by labelling it a contradiction.
+const conflicts = accepted.filter((c) => !c.supported);
+const verified = accepted.filter((c) => c.supported);
+
+console.log(`accepted : ${verified.length}`);
+console.log(`conflicts: ${conflicts.length}  (source disagrees with the slide)`);
 console.log(`dropped  : ${dropped.length}`);
 for (const d of dropped.slice(0, 25)) console.log(`   ✗ [${d.c.topicId}] ${d.why}`);
+
+if (CONFLICT_OUT) {
+  fs.writeFileSync(CONFLICT_OUT, JSON.stringify(conflicts, null, 2));
+  console.log(`\nwrote ${conflicts.length} resolved contradiction(s) to ${CONFLICT_OUT}`);
+} else if (conflicts.length) {
+  console.log('\nthe contradictions are NOT merged here. Pass --conflicts <file> to keep them,');
+  console.log('then turn them into conflict notes with scripts/apply-note-corrections.mjs.');
+}
+
+accepted.length = 0;
+accepted.push(...verified);
 
 if (!accepted.length) { console.log('\nnothing to merge.'); process.exitCode = dropped.length ? 1 : 0; }
 

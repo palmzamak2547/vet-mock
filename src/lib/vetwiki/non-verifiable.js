@@ -146,6 +146,20 @@ export const METADATA_SECTIONS = new Set([
   "epidemiology--epidem-disease-transmission--หัวข้อทั้งหมดของเลคเชอร์-contents", // lecture outline slide
   "epidemiology--epidem-disease-transmission--exercise-ท้ายคาบ", // in-class exercise, not a factual claim
   "avian-medicine--avian-mpv--ภาพอาการจากตำรา", // caption for a textbook photograph
+
+  // Aquatic medicine 3107520. A second sourcing round went back over the 41
+  // sections a first pass had left bare and found sources for 33 of them, which
+  // is the reason this list is eight names long rather than forty-one: "hard to
+  // source" and "impossible to source" are different, and only the second one
+  // belongs here.
+  "aquatic-clinic--aqua-intro-thailand--ข้อมูลรายวิชา-course-syllabus", // course code, credits, coordinator, teaching staff
+  "aquatic-clinic--aqua-intro-thailand--course-outline-หัวข้อทั้งรายวิชา", // this course's running order and where the midterm falls
+  "aquatic-clinic--aqua-intro-thailand--การวัดผลและงานที่มอบหมาย", // marking scheme and assignment deadlines
+  "aquatic-clinic--aqua-intro-thailand--หัวเรื่องบรรยาย-aquaculture-in-thailand", // deck title slide
+  "aquatic-clinic--aqua-intro-thailand--หัวข้อบรรยายและผู้บรรยาย", // deck cover: title, speaker, affiliation
+  "aquatic-clinic--aqua-intro-thailand--สัตว์น้ำ-vs-สัตว์บก-และลักษณะการเลี้ยงสัตว์น้ำ", // side-by-side photographs; the slide states no conclusion
+  "aquatic-clinic--aqua-fish-biology--ภาพรวมของบทเรียน-principal-concepts", // cover plus the three headings the lecture will cover
+  "aquatic-clinic--aqua-fish-biology--สไลด์วิดีโอประกอบเรื่อง-reproduction", // four video thumbnails; the content was on screen, not on the slide
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */

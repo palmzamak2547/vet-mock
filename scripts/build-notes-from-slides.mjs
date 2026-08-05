@@ -31,14 +31,40 @@ if (!FILE) { console.error('usage: build-notes-from-slides.mjs <topics.json> [--
 const incoming = JSON.parse(fs.readFileSync(FILE, 'utf8'));
 
 const TARGETS = {
-  'avian-medicine': { file: 'src/data/notes-y5-avian-medicine.js', symbol: 'NOTES_Y5_AVIAN_MEDICINE', existing: null },
+  'avian-medicine': { file: 'src/data/notes-y5-avian-medicine.js', symbol: 'NOTES_Y5_AVIAN_MEDICINE', existing: 'NOTES_Y5_AVIAN_MEDICINE' },
   epidemiology: { file: 'src/data/notes-y5-epidemiology.js', symbol: 'NOTES_Y5_EPIDEMIOLOGY', existing: 'NOTES_Y5_EPIDEMIOLOGY' },
+  'aquatic-clinic': { file: 'src/data/notes-y5-aquatic.js', symbol: 'NOTES_Y5_AQUATIC', existing: null },
+};
+
+// Two decks can belong to one course block — 3107520 writes its first block as
+// "AQUACULTURE IN THAILAND / AQUACULTURE INDUSTRY & TECHNOLOGY" and hands out a
+// deck for each half. They are extracted separately so neither overwrites the
+// other's output file, then folded into the single topic the curriculum has.
+const MERGE_INTO = {
+  'aqua-intro-thailand-b': 'aqua-intro-thailand',
 };
 
 // which subject each incoming topic belongs to, taken from the curriculum
 // rather than trusted from the extraction
 const subjectOf = new Map();
 for (const s of SUBJECTS) for (const t of (s.topics || [])) subjectOf.set(t.id, s.id);
+
+// fold companion decks into the topic the curriculum actually has, keeping the
+// order they were listed in so the article reads in lecture order
+const folded = new Map();
+for (const t of Object.values(incoming)) {
+  const target = MERGE_INTO[t.topicId];
+  if (!target) continue;
+  const host = Object.values(incoming).find((x) => x.topicId === target);
+  if (!host) { console.log(`✗ ${t.topicId}: nothing to merge into (${target} missing)`); continue; }
+  host.sections = [...(host.sections || []), ...(t.sections || [])];
+  if (t.unreadable?.length) host.unreadable = [...(host.unreadable || []), ...t.unreadable];
+  folded.set(t.topicId, target);
+}
+for (const [from, to] of folded) {
+  delete incoming[from];
+  console.log(`merged ${from} into ${to}`);
+}
 
 const bySubject = new Map();
 const rejected = [];

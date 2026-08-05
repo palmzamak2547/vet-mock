@@ -17,6 +17,299 @@
 
 /** @type {Record<string, Array<{severity: string, lectureSays: string, evidenceSays: string, examAdvice: string, sourceRef: string}>>} */
 export const CORRECTIONS = {
+  "aquatic-clinic--aqua-disease-control--ประกาศกระทรวงเกษตรและสหกรณ์-เรื่อง-กำหนดสัตว์ชนิดอื่น": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์อ้างบัญชีท้ายประกาศฉบับ \"เล่ม 132 ตอนพิเศษ 251 ง ราชกิจจานุเบกษา 13 ตุลาคม 2558\" แล้วให้จำเลขข้อของสัตว์น้ำว่า \"(1) กบ และรวมถึงสัตว์จำพวกสะเทินน้ำสะเทินบก\" \"(9) กุ้ง และรวมถึงสัตว์จำพวกครัสเตเชียน (Crustacean)\" \"(20) ตะพาบน้ำ\" \"(22) เต่า\" \"(26) ปลา\" โดยอาจารย์ตีกรอบสีแดงเน้นรายการเหล่านี้ไว้",
+      "evidenceSays": "บัญชีชุดนั้นถูกแทนที่ไปแล้ว ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดสัตว์ชนิดอื่น ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ประกาศ ณ วันที่ 14 พฤศจิกายน 2561 ข้อ 2 เขียนไว้ว่า \"ให้ยกเลิกประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดสัตว์ชนิดอื่น ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. ๒๕๕๘ ลงวันที่ ๑๐ กุมภาพันธ์ ๒๕๕๙\" แล้วออกบัญชีใหม่ทั้งชุดในข้อ 3 รวม 44 รายการ ซึ่งสัตว์น้ำเรียงลำดับใหม่เป็น กบ (1) กุ้ง (6) ตะพาบน้ำ (13) เต่า (14) ปลา (18) ชุดเลข 9, 20, 22, 26 บนสไลด์จึงเป็นเลขของบัญชีรุ่นก่อน ไม่ใช่เลขของบัญชีที่ออกตามประกาศฉบับ 14 พฤศจิกายน 2561 ซึ่งเป็นฉบับที่ยกเลิกบัญชีเดิมและออกบัญชีใหม่ทั้งชุด หลักฐานที่ชัดที่สุดคือในบัญชีปัจจุบัน เลข 9 คือ ค่าง เลข 20 คือ ผึ้ง เลข 22 คือ เพรียงทราย และเลข 26 คือ แรด ทั้งนี้ยังไม่ได้ตรวจจากตัวบทว่าประกาศฉบับลงวันที่ 10 กุมภาพันธ์ 2559 เกี่ยวข้องอย่างไรกับฉบับที่สไลด์อ้าง (เล่ม 132 ตอนพิเศษ 251 ง 13 ตุลาคม 2558) ส่วนสาระหลักที่สไลด์ต้องการสื่อ คือ ปลา กุ้ง กบ เต่า ตะพาบน้ำ เข้ามาอยู่ใต้ พ.ร.บ. โดยประกาศกระทรวงไม่ใช่โดยนิยามในตัว พ.ร.บ. เอง ยังคงถูกต้องทุกประการ (ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดสัตว์ชนิดอื่น ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ลงวันที่ 14 พฤศจิกายน 2561 ราชกิจจานุเบกษา เล่ม 135 ตอนพิเศษ 306 ง หน้า 12 วันที่ 30 พฤศจิกายน 2561)",
+      "examAdvice": "ถ้าข้อสอบถามเลขข้อในบัญชี ให้ตอบตามชุดที่อาจารย์สอน คือ กบ 1 กุ้ง 9 ตะพาบน้ำ 20 เต่า 22 ปลา 26 เพราะสไลด์ผูกกับฉบับที่อาจารย์นำมาแสดง สิ่งที่ควรจำให้แน่นกว่าตัวเลขคือหลักการว่าสัตว์น้ำกลุ่มนี้เข้ามาอยู่ใต้ พ.ร.บ. ผ่านประกาศกระทรวง ซึ่งเป็นประเด็นที่ออกสอบได้มากกว่า เก็บชุดเลขปัจจุบัน (กบ 1 กุ้ง 6 ตะพาบน้ำ 13 เต่า 14 ปลา 18) ไว้ใช้ตอนอ้างกฎหมายจริงในการทำงาน และจำไว้ว่าเลขลำดับในบัญชีนี้เปลี่ยนได้ทุกครั้งที่ออกประกาศฉบับใหม่",
+      "sourceRef": "ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดสัตว์ชนิดอื่น ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ลงวันที่ 14 พฤศจิกายน 2561 (ราชกิจจานุเบกษา เล่ม 135 ตอนพิเศษ 306 ง หน้า 12, 30 พฤศจิกายน 2561)"
+    }
+  ],
+  "aquatic-clinic--aqua-disease-control--หมวด-จ-โรคระบาดในสัตว์หลายชนิด": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตสรุปตามสไลด์ว่าหมวด จ. \"คือโรคระบาดในสัตว์หลายชนิด 17 โรค\" แล้วไล่รายชื่อตั้งแต่ \"(1) โรคไวรัสอีโบลา (Ebola virus disease)\" จบลงที่ \"(17) โรคปากอักเสบพุพอง (vesicular stomatitis)\"",
+      "evidenceSays": "ในประกาศฉบับเดียวกันที่สไลด์ใช้ หมวด จ. ไม่ได้จบที่ (17) แต่มีต่ออีก 4 ข้อบนหน้าเดียวกัน คือ \"(๑๘) โรคเวสต์ไนล์ (west Nile fever)\" \"(๑๙) โรคเฮนดรา (infection with Hendra virus infectious disease)\" \"(๒๐) กลุ่มอาการทางเดินหายใจตะวันออกกลาง (เมอร์ส - โควี) [Middle East respiratory syndrome (MERS - CoV)]\" และ \"(๒๑) โรคเฮอร์พีส์ (herpes virus infectious disease)\" รวมหมวด จ. เท่ากับ 21 โรค ไม่ใช่ 17 โรค รายชื่อ (1) ถึง (17) ที่ปรากฏในโน้ตตรงกับตัวประกาศทุกข้อ ต่างกันตรงที่รายการในโน้ตหยุดอยู่ที่ (17) แต่ตัวประกาศเดินต่อถึง (21) (ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดโรคระบาดสัตว์เพิ่มเติม ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ลงวันที่ 24 ธันวาคม 2558 ราชกิจจานุเบกษา เล่ม 132 ตอนพิเศษ 347 ง หน้า 13 วันที่ 29 ธันวาคม 2558)",
+      "examAdvice": "จำนวนที่ถูกต้องตามตัวประกาศคือ 21 โรค ถ้าโจทย์ถามอิงสไลด์ที่แสดงในห้องซึ่งไล่ถึง (17) ให้ตอบ 17 ตามนั้น แล้วเขียนกำกับไว้ว่าตัวประกาศฉบับเดียวกันมีถึง (21) เพื่อให้ผู้ตรวจเห็นว่าเรารู้ทั้งสองชั้น ถ้าโจทย์อ้างตัวประกาศตรง ๆ ให้ตอบ 21 และไม่ว่าจะเจอแบบไหนต้องจำสี่ชื่อท้ายให้ได้ คือ West Nile, Hendra, MERS-CoV และ herpes virus infectious disease เพราะเป็น zoonosis ที่ถูกถามแยกเป็นข้อ ๆ ได้ และถ้าโจทย์ถามว่า \"ข้อใดเป็นโรคระบาดสัตว์ตามประกาศ\" ทั้งสี่ชื่อนี้เป็นคำตอบที่ถูกต้อง",
+      "sourceRef": "ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดโรคระบาดสัตว์เพิ่มเติม ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ลงวันที่ 24 ธันวาคม 2558 (ราชกิจจานุเบกษา เล่ม 132 ตอนพิเศษ 347 ง หน้า 13, 29 ธันวาคม 2558)"
+    }
+  ],
+  "aquatic-clinic--aqua-disease-control--หมวด-ฉ-โรคระบาดในสัตว์น้ำ-ข้อ-33-ถึง-34-และผู้ลงนาม": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตสรุปปิดท้ายหมวดนี้ว่า \"รวมโรคระบาดในสัตว์น้ำตามหมวด ฉ. ทั้งหมด 34 โรค (ข้อ 1 ถึง 34)\" โดยไล่จบที่ \"(33) โรคไอเอ็มเอ็น (IMN หรือ infectious myonecrosis)\" และ \"(34) โรคไอเอสเอ (ISA หรือ infection with infectious salmon anaemia virus)\"",
+      "evidenceSays": "ตัวเลข 34 ถูกต้องสำหรับประกาศฉบับลงวันที่ 24 ธันวาคม 2558 ตามที่ออกครั้งแรก (ตรวจแล้วหมวด ฉ. จบที่ (34) ISA จริง และผู้ลงนามคือ พลเอก ฉัตรชัย สาริกัลยะ ตรงตามสไลด์) แต่บัญชีนี้ถูกเพิ่มเติมภายหลัง ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดโรคระบาดสัตว์เพิ่มเติม ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 (ฉบับที่ 3) พ.ศ. 2562 ข้อ 2 ระบุว่า \"ให้เพิ่มความต่อไปนี้ เป็น (๓๙) และ (๔๐) ของข้อ ๒ ฉ. ของประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดโรคระบาดสัตว์เพิ่มเติม ... ลงวันที่ ๒๔ ธันวาคม ๒๕๕๘\" คือ \"(๓๙) โรคอีเอชพี (Hepatopancreatic microsporidioisis caused by Enterocytozoon hepatopenaei หรือ EHP)\" และ \"(๔๐) โรคเอสเอชไอวี (Shrimp hemocyte iridescent virus หรือ SHIV)\" แสดงว่าหมวด ฉ. เดินเลขไปถึง (40) แล้ว ไม่ได้หยุดอยู่ที่ 34 ข้อควรระวังคือยังไม่ได้ตรวจว่ารายการ (35) ถึง (38) คือโรคใด เพราะถูกเพิ่มโดยประกาศฉบับแก้ไขก่อนหน้าที่ยังไม่ได้เปิดดูตัวบท จึงพูดได้เพียงว่าเลขในหมวด ฉ. เดินไปถึง (40) แล้ว ไม่ควรสรุปเป็นจำนวนโรครวมว่ามี 40 โรค (ราชกิจจานุเบกษา เล่ม 136 ตอนพิเศษ 94 ง หน้า 26 วันที่ 11 เมษายน 2562)",
+      "examAdvice": "ตอบ 34 โรคตามสไลด์ ถ้าโจทย์อ้างถึงประกาศฉบับลงวันที่ 24 ธันวาคม 2558 เพราะนั่นคือสิ่งที่อาจารย์วัด ให้เติมความจำอีกชั้นว่า EHP และ SHIV ถูกประกาศเป็นโรคระบาดสัตว์ตามกฎหมายแล้วตั้งแต่ปี 2562 ทั้งคู่เป็นโรคกุ้งที่มีความสำคัญกับฟาร์มไทย ถ้าเจอคำถามลอย ๆ ว่า EHP เป็นโรคระบาดสัตว์ตามกฎหมายหรือไม่ คำตอบคือใช่",
+      "sourceRef": "ประกาศกระทรวงเกษตรและสหกรณ์ เรื่อง กำหนดโรคระบาดสัตว์เพิ่มเติม ตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 (ฉบับที่ 3) พ.ศ. 2562 ลงวันที่ 3 เมษายน 2562 (ราชกิจจานุเบกษา เล่ม 136 ตอนพิเศษ 94 ง หน้า 26, 11 เมษายน 2562)"
+    }
+  ],
+  "aquatic-clinic--aqua-fish-biology--hermaphroditism": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์แบ่ง hermaphroditism เป็น synchronous กับ sequential แล้วกำกับตัวอย่างบนภาพลายเส้นว่า \"Synchronous - Three spined stickleback\" คือใช้ปลา three-spined stickleback เป็นตัวแทนของ synchronous hermaphrodite ซึ่งหมายถึงปลาที่มี ovary และ testis ทำงานพร้อมกันในตัวเดียวเป็นสภาวะปกติ",
+      "evidenceSays": "งานที่เสนอ juvenile three-spined stickleback (Gasterosteus aculeatus L.) เป็น model organism ของ endocrine disruption ระบุว่าปลาชนิดนี้มี genetic sex ที่ตรวจได้ด้วย male sex-linked PCR marker และภาวะ intersex กับ gonadal sex reversal เป็นสิ่งที่ต้องถูกเหนี่ยวนำขึ้น โดยผู้วิจัยเหนี่ยวนำด้วย 17 beta-oestradiol 0.01, 1.0 และ 10.0 ug/L, 17 alpha-ethinylestradiol 0.05 ug/L และ 17 alpha-methyltestosterone 1.0 ug/L ผลคือ intersex ที่เกิดจากกลุ่ม oestrogen ทั้งหมดเป็น genetic male ที่ถูก feminise และ marker ยังจับสิ่งที่เปเปอร์เรียกว่า apparent total reversal of the gonad type of genetic males ได้ ส่วนในปลาธรรมชาติรายงาน intersex เฉพาะกรณี feminisation จาก xenoestrogen ในสิ่งแวดล้อมเท่านั้น ข้อสังเกตเชิงขอบเขตคือเปเปอร์นี้ไม่ได้ใช้คำว่า gonochoristic เอง ข้อสรุปว่า stickleback เป็นปลาแยกเพศชัดเจนจึงมาจากการที่ intersex ต้องถูกเหนี่ยวนำขึ้น บวกกับหลักฐาน XY sex determination ในวรรณกรรม stickleback แยกต่างหาก ซึ่งทั้งสองทางชี้ตรงกันว่าไม่ใช่ synchronous hermaphrodite (The juvenile three-spined stickleback (Gasterosteus aculeatus L.) as a model organism for endocrine disruption. I. Sexual differentiation., PMID 15588641)",
+      "examAdvice": "ในข้อสอบวิชานี้ให้จับคู่ตามภาพบนสไลด์ คือ synchronous กับ three-spined stickleback, protandrous กับ clownfish (ผู้เปลี่ยนเป็นเมีย) และ protogynous กับ Haplochromis cichlid (เมียเปลี่ยนเป็นผู้) เพราะอาจารย์ออกจากภาพนี้ตรงตัว แต่ให้จำเพิ่มไว้ใช้จริงว่า stickleback เป็นปลาแยกเพศที่ใช้เป็น model ของ induced intersex และตัวอย่าง synchronous hermaphrodite ที่ถูกต้องซึ่งควรจำไว้ตอบคือปลากลุ่ม Serranus, Hypoplectrus (hamlet) และ Kryptolebias marmoratus ถ้าเจอโจทย์ประยุกต์เรื่อง endocrine disruptor หรือ EDC ที่มี stickleback อยู่ในโจทย์ ให้คิดถึง intersex ที่ถูกเหนี่ยวนำด้วยฮอร์โมนหรือสารรบกวนต่อมไร้ท่อ ไม่ใช่ hermaphroditism ตามธรรมชาติ",
+      "sourceRef": "PMID 15588641 (doi 10.1016/j.aquatox.2004.10.003)"
+    }
+  ],
+  "aquatic-clinic--aqua-fish-biology--โครงสร้างผิวหนังและชั้น-epidermis": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์ระบุคุณสมบัติของ Epidermis ว่า \"Transparent, no pigment\" และโน้ตย้ำเป็นจุดจำว่า \"Epidermis ใสไม่มีเม็ดสี (เม็ดสีอยู่ที่ Dermis)\"",
+      "evidenceSays": "บทความทบทวนเรื่อง chromatophore ในปลาลิ้นหมา (order Pleuronectiformes) ระบุว่า \"Chromatophores in flatfish are dermal and epidermal melanophores, as well as dermal xanthophores, erythrophores, iridophores, and leucophores\" คือมี melanophore อยู่ในชั้น epidermis ด้วยจริง ไม่ได้จำกัดอยู่แต่ใน dermis อย่างเดียว ข้อมูลนี้เป็นของปลากลุ่ม flatfish โดยเฉพาะ ส่วนภาพรวมที่ว่าเม็ดสีส่วนใหญ่อยู่ใน dermis ยังใช้ได้กับปลาทั่วไป (The physiology of flatfish chromatophores, PMID 12242705, doi 10.1002/jemt.10166)",
+      "examAdvice": "ตอบตามสไลด์ว่า epidermis ใสไม่มีเม็ดสี และเม็ดสีอยู่ที่ dermis เพราะเป็นภาพรวมที่ใช้ได้กับปลาส่วนใหญ่และเป็นสิ่งที่อาจารย์วัด ให้จำข้อยกเว้นไว้ว่าปลาบางกลุ่ม เช่น ปลาลิ้นหมา มี epidermal melanophore จริง เวลาไปอ่านพยาธิวิทยาผิวหนังปลาหรือเรื่องการเปลี่ยนสีตามพื้นจะได้ไม่สับสน",
+      "sourceRef": "PMID 12242705 (doi 10.1002/jemt.10166)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--adjuvant-types-ชนิดของ-adjuvant-และบทบาท": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์สรุปกลุ่ม Mineral adjuvants ว่า \"increase IgE และ IgG1\" และ \"เปลี่ยนสัดส่วน IgG1 : IgG2α\" แล้วลงท้ายว่า \"นำไปสู่ immune response ทาง Th1 pathway\"",
+      "evidenceSays": "รีวิว adjuvant ระบุตรงกันข้ามว่า \"aluminum-containing adjuvants preferentially induce Th2 responses (characterized by antibody production)\" และเสริมว่าเชื้อบางชนิดต้องการ Th1 รวมถึง cytotoxic CD8 T cells ดังนั้น \"for such vaccines alum should not be used, at least not alone\" ซึ่งสอดคล้องกับ profile ที่สไลด์เขียนเอง เพราะ IgE และ IgG1 ที่สูงขึ้นคือลายเซ็นของ Th2 ส่วน IgG2a คือฝั่ง Th1 (Adjuvants: Classification, Modus Operandi, and Licensing, PMID 27274998)",
+      "examAdvice": "ข้อสอบของอาจารย์ท่านนี้ให้ตอบตามตารางในสไลด์ ส่วนความจำระยะยาวให้ผูกไว้ว่า alum เป็น Th2 dominant เน้น antibody ถ้าต้องการ Th1 หรือ CTL ต้องใช้ adjuvant อื่นหรือใช้ร่วม เช่น AS04 (MPL + alum) และให้จำคู่ IgG1 กับ IgE เท่ากับ Th2 ส่วน IgG2a เท่ากับ Th1 โดยต้องรู้ด้วยว่า IgE, IgG1 และ IgG2a เป็น isotype ของสัตว์เลี้ยงลูกด้วยนม (คู่ IgG1 กับ IgG2a เป็นระบบของหนูโดยเฉพาะ) ปลาไม่มี IgG subclass และไม่มี IgE ตารางแผ่นนี้จึงเป็นตารางฝั่ง mammalian immunology ที่อาจารย์ยกมาประกอบการสอนวัคซีนปลา ไม่ใช่ profile ภูมิคุ้มกันของปลาเอง คู่ความจำนี้จึงใช้ได้ในบริบทสัตว์เลี้ยงลูกด้วยนมเท่านั้น",
+      "sourceRef": "PMID 27274998 (doi 10.1155/2016/1459394)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--การพัฒนาวัคซีน-tilv-ขั้นตอนการพัฒนาดีเอ็นเอนาโนวัคซีน": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ระบุว่าไวรัสอยู่ในวงศ์ Orthomyxoviridae พร้อมภาพ EM ของอนุภาคไวรัส",
+      "evidenceSays": "แหล่งอ้างอิงระบุว่า \"TiLV is an orthomyxo-like, negative sense segmented RNA virus, belonging to genus Tilapinevirus, family Amnoonviridae.\" คือคำว่า orthomyxo-like หมายถึงมีลักษณะคล้ายเท่านั้น ส่วนการจัดจำแนกจริงคือ genus Tilapinevirus วงศ์ Amnoonviridae (Efficiency, sensitivity and specificity of a quantitative real-time PCR assay for Tilapia Lake virus (TiLV), PMID 35709972)",
+      "examAdvice": "ในข้อสอบของอาจารย์ท่านนี้ให้ตอบ Orthomyxoviridae ตามสไลด์ แต่จำ Amnoonviridae และ genus Tilapinevirus ไว้ใช้ตอนอ่าน paper หรือทำงานวิจัย ลักษณะที่ทำให้เคยถูกจัดใกล้ orthomyxo คือเป็น negative-sense segmented RNA virus 10 segments ถ้าเป็นคำถามปลายเปิดให้เขียนทั้งลักษณะและวงศ์ปัจจุบันกำกับได้",
+      "sourceRef": "PMID 35709972 (doi 10.1016/j.jviromet.2022.114567)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--ตารางรวม-experimental-nanovaccines-for-tilapia": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "หัวข้อย่อยในตารางเขียนว่า \"Francisella orientalis (Fo) และ/หรือ Flavobacterium columnare (For)\" คือขยายตัวย่อ For เป็น Flavobacterium columnare ก่อนจะรายงาน RPS ของกลุ่ม Fo, For และ bivalent",
+      "evidenceSays": "งานต้นฉบับของแถวนี้เปิดบทคัดย่อว่า \"The occurrence of francisellosis caused by Francisella orientalis sp. nov. (Fo) and columnaris disease caused by Flavobacterium oreochromis (For)\" คือ For = Flavobacterium oreochromis ไม่ใช่ F. columnare และคำสำคัญของ paper ก็ระบุ Flavobacterium oreochromis ไว้ชัด (Development of a bivalent mucoadhesive nanovaccine to prevent francisellosis and columnaris diseases in Nile tilapia, PMID 37182796) ที่มาของความต่างคือปี 2022 มีการแยกกลุ่ม F. columnare เดิมออกเป็น 4 สปีชีส์ ได้แก่ F. columnare, F. covae, F. davisii และ F. oreochromis โดยกลุ่มที่แยกได้จากปลานิลคือ F. oreochromis ส่วนชื่อโรคยังเป็น columnaris เหมือนเดิม",
+      "examAdvice": "ตอบตามสไลด์ในข้อสอบของอาจารย์ท่านนี้ และการเรียกโรคว่า columnaris ก็ยังถูกต้องทุกกรณี แต่ถ้าโจทย์ถามชื่อเชื้อในงาน bivalent nanovaccine นี้ หรือจะอ้าง paper นี้ในรายงานหรือ senior project ให้ใช้ Flavobacterium oreochromis และจำไว้ว่า F. columnare complex ถูกแยกเป็น 4 สปีชีส์แล้ว",
+      "sourceRef": "PMID 37182796 (doi 10.1016/j.fsi.2023.108813)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--นิยาม-microbiome-และการตรวจด้วย-16s-rrna": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์นิยามว่า \"Microbiome: the community of microorganisms (bacteria, archaea, fungi, viruses and protozoa)\" คือให้ microbiome เท่ากับตัวชุมชนจุลินทรีย์อย่างเดียว และให้วิธีศึกษาเป็น sequence variation of the 16S rRNA gene",
+      "evidenceSays": "ฉันทามติสากลปี 2020 จากคณะผู้เชี่ยวชาญประมาณ 40 คนภายใต้โครงการ MicrobiomeSupport ระบุว่า We clearly separate the terms microbiome and microbiota โดยให้ microbiota คือ the assemblage of living microorganisms present in a defined environment ส่วน microbiome ใช้นิยามตาม Whipps et al. 1988 ที่เป็น a characteristic microbial community occupying a reasonably well-defined habitat which has distinct physio-chemical properties ซึ่งไม่ได้หมายถึงเฉพาะตัวจุลินทรีย์ แต่รวม theatre of activity คือถิ่นที่อยู่ องค์ประกอบเชิงโครงสร้าง เมแทบอไลต์ และสภาพแวดล้อมรอบตัวด้วย (ข้อความ theatre of activity และคำนิยาม microbiota ที่ยกมานี้ตรงกับ full text แล้ว) เอกสารนี้ยังระบุชัดว่า mobile genetic elements เช่น phage, virus, relic DNA และ extracellular DNA นับเป็นส่วนหนึ่งของ microbiome แต่ไม่ใช่ส่วนหนึ่งของ microbiota ข้อสังเกตที่ตามมาคือ นิยามบนสไลด์ก็ไม่ได้ตรงกับ microbiota เป๊ะ เพราะสไลด์ใส่ viruses ไว้ในรายการด้วย ขณะที่ Berg et al. 2020 จัด phage, virus, plasmid, prion, viroid และ free DNA ว่าไม่ใช่สิ่งมีชีวิตจึงไม่นับเป็นสมาชิกของ microbiota แต่นับรวมอยู่ใน microbiome ดังนั้นสไลด์เป็นนิยามลูกผสม คือใช้กรอบของ microbiota แต่ใส่สมาชิกที่จัดอยู่ฝั่ง microbiome เข้าไป (Microbiome definition re-visited: old concepts and new challenges., PMID 32605663)",
+      "examAdvice": "ถ้าอาจารย์ถามนิยาม microbiome ในข้อสอบให้ตอบตามสไลด์ คือชุมชนจุลินทรีย์ที่ประกอบด้วย bacteria, archaea, fungi, viruses และ protozoa และวิธีศึกษาคือ sequence variation ของยีน 16S rRNA แต่ให้จำส่วนต่างไว้ตอบข้อเขียนหรือใช้ทำ senior project ว่า microbiota คือตัวชุมชนจุลินทรีย์ที่มีชีวิต ส่วน microbiome คือชุมชนบวก theatre of activity และจำข้อจำกัดของ 16S ไว้ด้วยว่าจับได้เฉพาะ bacteria กับ archaea ไม่ครอบคลุม fungi, virus หรือ protozoa ที่สไลด์ลิสต์ไว้",
+      "sourceRef": "PMID 32605663 (doi 10.1186/s40168-020-00875-0)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--ปลาช่อน-snakehead-fish-channa-striatus": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์พิมพ์ชื่อปลาช่อนว่า \"SNAKEHEAD FISH CHANNA STRIATUS\" ทั้งในหน้าลูกปลาในบ่ออนุบาลและหน้าการเลี้ยงในบ่อซีเมนต์กับบ่อดิน",
+      "evidenceSays": "ประเด็นนี้เป็นเรื่องการเขียนชื่อวิทยาศาสตร์ (nomenclature) ไม่ใช่การขัดกันเชิงข้อเท็จจริง ชื่อที่ถูกต้องคือ Channa striata (Bloch, 1793) เพราะ Channa เป็นเพศหญิงในทางไวยากรณ์ คำระบุชนิดจึงต้องลงท้ายให้สอดคล้องกันเป็น striata ตามหลัก ICZN ไม่ใช่ striatus งานที่ทดลองแทนโปรตีนปลาป่นด้วย fish condensate ในปลาช่อนของไทยแสดงการใช้ชื่อนี้ในหัวเรื่องว่า striped snakehead, Channa striata (Bloch) (Fish condensate as effective replacer of fish meal protein in diet for striped snakehead, Channa striata (Bloch)., PMID 27589981) ทั้งนี้เปเปอร์ดังกล่าวเป็นหลักฐานเพียงว่ามีการใช้ชื่อ Channa striata (Bloch) ในวรรณกรรม ส่วนข้อที่ว่า Channa striatus ไม่ใช่ชื่อที่ยอมรับมาจากฐานข้อมูล WoRMS และ FishBase ไม่ได้มาจากเปเปอร์นี้ และตามจริง Channa striatus ยังพบใช้อยู่มากในวรรณกรรม ทั้งสองแบบหมายถึงปลาช่อนชนิดเดียวกัน",
+      "examAdvice": "ตอบตามสไลด์ได้เลย คือ Channa striatus ในข้อสอบของอาจารย์ท่านนี้ ไม่ต้องแก้ให้ท่าน แต่เวลาเขียนรายงาน โปสเตอร์ หรือส่งงานที่มีการตรวจ nomenclature ให้เขียน Channa striata (Bloch, 1793) และให้รู้ว่าทั้งสองแบบหมายถึงปลาช่อนตัวเดียวกัน จะได้ไม่หลงเวลาเจอชื่อสองแบบในโจทย์",
+      "sourceRef": "PMID 27589981 (doi 10.1007/s10695-016-0281-8)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--ปลาสวาย-striped-catfish-pangasius-sutchi": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์พิมพ์ชื่อปลาสวายว่า \"STRIPED CATFISH PANGASIUS SUTCHI\" และในรายชื่อ inland species หน้า 5 เรียกกลุ่มนี้ว่า STRIPED CATFISH OR PANGASIUS CATFISH",
+      "evidenceSays": "ชื่อที่ใช้อยู่จริงในวรรณกรรมปัจจุบันของปลาสวายคือ Pangasianodon hypophthalmus งานวิจัยที่ทำในอ่างเก็บน้ำเขตร้อนของไทยร่วมกับกองวิจัยและพัฒนาการเพาะเลี้ยงสัตว์น้ำจืด กรมประมง เขียนไว้ตรงตัวว่า This study examines feeding habits of striped catfish (Pangasianodon hypophthalmus) at both adult and juvenile stages within a tropical reservoir (Striped catfish (Pangasianodon hypophthalmus) exploit food sources across anaerobic decomposition- and primary photosynthetic production-based food chains., PMID 37634023) เปเปอร์นี้สนับสนุนเฉพาะข้อที่ว่าวรรณกรรมปัจจุบันใช้ชื่อ Pangasianodon hypophthalmus ส่วนสถานะของ Pangasius sutchi Fowler, 1937 ว่าเป็นชื่อพ้อง (junior synonym) มาจากฐานข้อมูลอนุกรมวิธาน ได้แก่ FishBase, Catalog of Fishes และ GBIF ไม่ได้มาจากเปเปอร์นี้ ประเด็นนี้จึงเป็นเรื่องชื่อพ้องที่ล้าสมัย ไม่ใช่การชี้ผิดชนิด เพราะทั้งสองชื่อหมายถึงปลาตัวเดียวกัน",
+      "examAdvice": "ข้อสอบวิชานี้ให้ตอบตามสไลด์ คือปลาสวาย striped catfish, Pangasius sutchi เพราะอาจารย์ตรวจตามที่พิมพ์ไว้ แต่เวลาไปค้นเปเปอร์ ทำรายงาน หรือเขียน senior project ต้องใช้ Pangasianodon hypophthalmus ไม่งั้นจะหาวรรณกรรมยุคหลังไม่เจอ และถ้าโจทย์ให้ชื่อ Pangasianodon hypophthalmus มาต้องรู้ทันทีว่าคือปลาสวายตัวเดียวกัน",
+      "sourceRef": "PMID 37634023 (doi 10.1038/s41598-023-41209-y)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--พรีไบโอติก-prebiotic-นิยาม-ชนิด-และกลไก": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์นิยามว่า \"Prebiotics are indigestible food ingredients that any compound, substrate, long chain sugar, nutrient, or fiber that serves as food to the beneficial microorganisms in a host digestive system\" และเสริมว่า \"Most prebiotics are a subset of carbohydrate groups\" คือผูกนิยามไว้กับสารในอาหารที่ย่อยไม่ได้และอยู่ในทางเดินอาหาร",
+      "evidenceSays": "ฉันทามติ ISAPP ปี 2017 ปรับนิยามใหม่เป็น a substrate that is selectively utilized by host microorganisms conferring a health benefit และระบุว่า This definition expands the concept of prebiotics to possibly include non-carbohydrate substances, applications to body sites other than the gastrointestinal tract, and diverse categories other than food โดยเก็บเงื่อนไข The requirement for selective microbiota-mediated mechanisms ไว้ และย้ำว่าต้องมีหลักฐาน health benefit จึงจะเรียก prebiotic ได้ นิยามนี้ครอบคลุมสัตว์ด้วย เอกสารระบุว่า The consensus definition applies also to prebiotics for use by animals แปลว่ากรอบ indigestible food ingredient ในทางเดินอาหารบนสไลด์แคบกว่านิยามสากลปัจจุบัน ส่วนประโยคที่ว่าส่วนใหญ่เป็นคาร์โบไฮเดรตยังใช้ได้ (Expert consensus document: The International Scientific Association for Probiotics and Prebiotics (ISAPP) consensus statement on the definition and scope of prebiotics., PMID 28611480)",
+      "examAdvice": "ถ้าข้อสอบให้เขียนนิยาม prebiotic ให้ตอบตามสไลด์ก่อน คือ indigestible food ingredient ที่เป็นอาหารของจุลินทรีย์ที่ดีในทางเดินอาหาร และท่องตัวอย่างตามสไลด์ให้ครบ beta-glucan, inulin, AXOS, MOS, FOS, GOS, starch และ glucose-derived oligosaccharides กับกลไก 4 ข้อ ทั้งนี้สไลด์ไม่ได้เงียบเรื่อง selectivity เสียทีเดียว เพราะกลไกข้อ 2 บนสไลด์เขียนคำว่า selective fermentation ไว้อยู่แล้ว ช่องว่างจริงอยู่ที่ตัวนิยาม คือขาดคำว่า selectively utilized ขาดเงื่อนไขว่าต้องมีหลักฐาน health benefit และไปผูกไว้กับ indigestible food ingredient ในทางเดินอาหารเท่านั้น อีกจุดที่ควรเห็นคือสไลด์อ้าง Hutkins et al. 2016 Prebiotics: Why definitions matter ซึ่งเป็นงานที่นำไปสู่ฉันทามติ ISAPP 2017 แต่ตัวนิยามบนสไลด์ยังเป็นรุ่นก่อนหน้านั้น ดังนั้นถ้าเจอข้อสอบอัตนัยหรือถูกซักในคลินิก ให้เติมคำว่า selectively utilized และ conferring a health benefit เข้าไปด้วย และจำไว้ว่านิยามปี 2017 ไม่จำกัดเฉพาะคาร์โบไฮเดรตและไม่จำกัดเฉพาะทางเดินอาหาร",
+      "sourceRef": "PMID 28611480 (doi 10.1038/nrgastro.2017.75)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--วัฏจักรไนโตรเจน-the-nitrogen-cycle": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์ขั้นที่ 3 เขียนว่า \"**Nitrobacter** bacteria metabolize the nitrites to produce **nitrates (NO3)**, a key nutrient necessary for green growth.\" และ [!] ท้ายหน้าย้ำให้จำคู่ \"**Nitrobacter** ที่ขั้นไนไตรท์ไปไนเตรต\" คือยกให้ Nitrobacter เป็นตัวทำขั้นนี้ในระบบตู้และบ่อเลี้ยงที่กำลัง cycling",
+      "evidenceSays": "งานที่โคลนยีน rRNA จาก biofilm ของตู้ปลาน้ำจืดหลายตู้ พบว่าตัวที่ oxidize nitrite จริงคือแบคทีเรียกลุ่ม Nitrospira โดย Nitrospira-like rRNA คิดเป็นเกือบ 5% ของ rRNA ทั้งหมดในช่วงที่ nitrification กำลังตั้งตัว ส่วน nitrite-oxidizing bacteria กลุ่ม alpha-Proteobacteria ซึ่งรวม Nitrobacter spp. ตรวจไม่พบเลยในตัวอย่างเหล่านี้ และตู้ที่เติมผลิตภัณฑ์การค้าที่มี Nitrobacter ลงไปก็ไม่พบว่า Nitrobacter เจริญขึ้น กลับได้ประชากร Nitrospira-like แทน ผู้วิจัยสรุปว่า \"the data suggest that Nitrobacter winogradskyi and close relatives were not the dominant nitrite-oxidizing bacteria in freshwater aquaria. Instead, nitrite oxidation in freshwater aquaria appeared to be mediated by bacteria closely related to Nitrospira moscoviensis and Nitrospira marina.\" (Nitrospira-like bacteria associated with nitrite oxidation in freshwater aquaria, PMID 16349486)",
+      "examAdvice": "ในข้อสอบของอาจารย์ท่านนี้ให้ตอบตามสไลด์ คือ Nitrosomonas ที่ขั้นแอมโมเนียไปไนไตรท์ และ Nitrobacter ที่ขั้นไนไตรท์ไปไนเตรต ทิศทางของวงจร ammonia ไป nitrite ไป nitrate ถูกต้องแน่นอนอยู่แล้ว สิ่งที่ควรจำเพิ่มไว้ใช้หน้างานจริงคือในตู้และระบบกรองน้ำจืด ตัวหลักที่ทำขั้นนี้มักเป็น Nitrospira ไม่ใช่ Nitrobacter ซึ่งอธิบายได้ว่าทำไมการเทหัวเชื้อสำเร็จรูปที่โฆษณาว่ามี Nitrobacter ลงบ่อใหม่จึงมักไม่ช่วยเร่ง cycling",
+      "sourceRef": "PMID 16349486 (doi 10.1128/AEM.64.1.258-264.1998)"
+    },
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์ขั้นที่ 2 เขียนว่า \"**Nitrosomonas** bacteria colonize the system and metabolize the toxic ammonia to produce **nitrites (NO2)**\" และ [!] ให้จำคู่ \"**Nitrosomonas** ที่ขั้นแอมโมเนียไปไนไตรท์\" เป็นชื่อเชื้อเดียวโดยไม่แยกว่าเป็นระบบน้ำจืดหรือน้ำเค็ม",
+      "evidenceSays": "งานที่ใช้ nucleic acid probe เทียบ biofilter ของระบบน้ำจืดกับน้ำเค็มพบว่า \"Nitrosomonas europaea and related species were detected in all nitrifying seawater systems and accounted for as much as 20% of the total eubacterial rRNA\" คือในระบบน้ำเค็มสไลด์ถูกต้องชัดเจน แต่ในตู้น้ำจืดที่ nitrification ทำงานดี กลับตรวจพบ beta-proteobacteria กลุ่มนี้เพียง 2 ตัวอย่าง และสรุปว่า \"The data obtained indicate that chemolithotrophic ammonia oxidation in the freshwater aquaria was not due to beta-proteobacterial phylotypes related to members of the genus Nitrosomonas\" (Comparative analysis of nitrifying bacteria associated with freshwater and marine aquaria, PMID 8702281)",
+      "examAdvice": "ตอบตามสไลด์ว่า Nitrosomonas เป็นตัว oxidize ammonia ไปเป็น nitrite เพราะเป็นคำตอบที่อาจารย์ตรวจ และเป็นคำตอบที่ถูกต้องสำหรับระบบน้ำเค็มด้วย ที่ควรจำเพิ่มคือชื่อสกุลของเชื้อขึ้นกับความเค็มของระบบ ถ้าเจอโจทย์ที่ถามเชิงระบบจริงหรือถามแบบปลายเปิด การตอบเป็นกลุ่มหน้าที่ว่า ammonia-oxidizing bacteria (AOB) จะปลอดภัยกว่าการฟันธงชื่อสกุลเดียว",
+      "sourceRef": "PMID 8702281 (doi 10.1128/aem.62.8.2888-2896.1996)"
+    }
+  ],
+  "aquatic-clinic--aqua-intro-thailand--หอยแมลงภู่และหอยนางรม-green-mussel-and-oyster": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์พิมพ์ว่า \"OYSTER CRASSOSTREA GIGAS\" ในหัวข้อสัตว์น้ำเพาะเลี้ยงของไทย และโน้ตย้ำว่า \"ชื่อวิทยาศาสตร์ 2 ตัวนี้พิมพ์ชัดบนสไลด์ Perna viridis (หอยแมลงภู่) และ Crassostrea gigas (หอยนางรม) ให้จำตามที่พิมพ์\" เท่ากับสอนว่าหอยนางรมในระบบเพาะเลี้ยงของไทยคือ Crassostrea gigas",
+      "evidenceSays": "หลักฐานสองชิ้นชี้ตรงกันว่าหอยนางรมของไทยไม่ใช่ Crassostrea gigas ชิ้นแรก งานพัฒนา microsatellite marker สำหรับการจัดการพันธุกรรมหอยนางรมของไทยเปิดบทคัดย่อไว้ว่า White scar oyster Crassostrea belcheri is a commercially important bivalve species in Thailand และเก็บตัวอย่างจากแหล่งเลี้ยงจริงในน่านน้ำไทย 7 พื้นที่ พร้อม genotype ตัวอย่างจากสุราษฎร์ธานี อ่าวไทย 50 ตัว แปลว่าหอยนางรมที่มีความสำคัญเชิงพาณิชย์ของไทยคือหอยนางรมปากจีบ Crassostrea belcheri (Development of polymorphic microsatellites for genetic studies of white scar oyster (Crassostrea belcheri) using paired-end shotgun sequencing., PMID 34057686) ชิ้นที่สอง งานที่พัฒนา species-specific marker ของหอยนางรมในน่านน้ำไทยด้วย RAPD ตรวจหอยนางรมพื้นเมืองของไทย 5 ชนิด คือ Crassostrea belcheri, Crassostrea iredalei, Saccostrea cucullata, Saccostrea forskali และ Striostrea (Parastriostrea) mytiloides และทดสอบความจำเพาะของ primer กับหอยพื้นเมืองไทย 135 ตัว โดยใช้ Saccostrea commercialis และ Perna viridis เป็น outgroup ไม่มี Crassostrea gigas อยู่ในรายชื่อหอยนางรมของไทยเลย ซึ่ง C. gigas เป็นหอยนางรมเขตอบอุ่นของแปซิฟิกเหนือ (Development of Species-Specific Markers of the Tropical Oyster (Crassostrea belcheri) in Thailand., PMID 11246414) ส่วนชื่อหอยแมลงภู่ Perna viridis บนสไลด์ถูกต้อง งานหลังนี้ก็ใช้ชื่อเดียวกัน",
+      "examAdvice": "ในข้อสอบให้ตอบตามที่สไลด์พิมพ์ คือหอยแมลงภู่ Perna viridis และหอยนางรม Crassostrea gigas เพราะอาจารย์เฉลยตามสไลด์ แต่ให้จำไว้ใช้จริงว่าหอยนางรมเชิงพาณิชย์ของไทยคือหอยนางรมปากจีบหรือ white scar oyster Crassostrea belcheri และหอยนางรมพื้นเมืองของไทยมีกลุ่ม C. belcheri, C. iredalei, Saccostrea cucullata และ S. forskali ถ้าเจอโจทย์คลินิก กรณีศึกษาเรื่องโรคหอยนางรมในไทย หรือโจทย์ประยุกต์ว่าฟาร์มหอยนางรมภาคใต้เลี้ยงชนิดใด ให้ตอบด้วยชนิดพื้นเมืองเหล่านี้ โดยเฉพาะ C. belcheri ไม่ใช่ C. gigas",
+      "sourceRef": "PMID 34057686 (doi 10.1007/s11033-021-06442-6) และ PMID 11246414 (doi 10.1007/s101260000028)"
+    }
+  ],
+  "avian-medicine--avian-lt--recombinant-vaccine-virus-vector-vaccine": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์เขียนใต้หัวข้อ \"Turkey herpesvirus (HVT-ILT)\" รวบเป็นบรรทัดเดียวว่า \"บรรจุ GaHV-1 glycoprotein I, D and B protein\" โดยไม่ได้แยกว่าเป็นคนละผลิตภัณฑ์ และวางขนานกับหัวข้อ Fowlpox virus (FPV-ILT) ซึ่งเป็นผลิตภัณฑ์เดียว จึงชวนให้เข้าใจว่า HVT-ILT คือวัคซีนตัวเดียวที่บรรจุ glycoprotein ครบทั้งสามชนิด (สไลด์ไม่ได้เขียนคำว่าผลิตภัณฑ์เดียวออกมาตรงตัว)",
+      "evidenceSays": "review ระบุว่ามี \"two HVT vector vaccines, one containing ILTV glycoproteins I and D, and another containing ILTV glycoprotein B\" ส่วนข้อมูล FPV-ILT ในสไลด์ (gB และ UL32) ตรงกับ review ที่เขียนว่า \"FPV vector vaccine expressing glycoprotein B and UL32 genes of ILTV\" รายชื่อ glycoprotein ในสไลด์จึงถูกต้องเมื่อพูดถึงกลุ่ม HVT-vectored ILT vaccine โดยรวม แต่ในตลาดจริงเป็นคนละผลิตภัณฑ์สองตัว ตัวหนึ่งบรรจุ gI กับ gD อีกตัวบรรจุ gB ไม่มีตัวใดบรรจุครบทั้งสาม (PMID 32315579)",
+      "examAdvice": "ตอบตามสไลด์ คือ HVT-ILT บรรจุ gI, gD, gB และ FPV-ILT บรรจุ gB กับ UL32 ให้จำเพิ่มไว้ว่าในตลาดจริง HVT vector เป็นสองผลิตภัณฑ์แยกกัน (กลุ่ม gI+gD และกลุ่ม gB) ซึ่งจะมีผลตอนต้องเลือกวัคซีนหรืออ่านฉลากผลิตภัณฑ์จริง ไม่ใช่ตอนสอบ",
+      "sourceRef": "PMID 32315579 (doi 10.1080/01652176.2020.1759845)"
+    }
+  ],
+  "avian-medicine--avian-lt--การวินิจฉัย-diagnosis": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ระบุใต้หัวข้อการวินิจฉัยจากรอยโรคว่า \"Histopathology: Eosinophilic cytoplasmic inclusion body in epithelial cell\" คือวาง inclusion body ไว้ใน cytoplasm",
+      "evidenceSays": "WOAH ระบุว่า \"Intranuclear inclusions may be seen in the epithelial cells of the trachea after staining with haematoxylin and eosin\" และ \"Inclusion bodies are the classical Cowdry type A inclusions of herpesviruses, but they may be present for only 3-5 days after infection\" คือ inclusion body ของ ILT อยู่ในนิวเคลียส เป็น Cowdry type A ตามแบบฉบับของ herpesvirus และพบได้เพียงประมาณ 3-5 วันแรกหลังติดเชื้อเท่านั้น จุดนี้สำคัญเพราะโรคที่สไลด์เองให้วินิจฉัยแยกคือ avian poxvirus ซึ่งเป็นเชื้อที่ให้ inclusion body ใน cytoplasm (Bollinger body) ตำแหน่ง nucleus กับ cytoplasm จึงเป็นตัวแยกสองโรคนี้ (WOAH Terrestrial Manual 2021, Chapter 3.3.3, Section B.1.4)",
+      "examAdvice": "ถ้าเป็นข้อสอบตัวเลือกที่ลอกมาจากสไลด์ ให้ตอบตามที่อาจารย์สอน แต่ถ้าเป็นข้อเขียนที่ต้องอธิบาย ให้เขียนคำว่า eosinophilic inclusion body ใน epithelial cell ของหลอดลม แล้วเน้นที่เนื้อหาอื่นแทนการระบุตำแหน่ง และให้จำหลักที่ถูกไว้ใช้ตอนแยกโรค คือ herpesvirus (ILT) เป็น intranuclear Cowdry type A ส่วน poxvirus (fowlpox) เป็น intracytoplasmic Bollinger body อีกจุดที่ควรจำคือ inclusion body อยู่ให้เห็นแค่ช่วงต้นของการติดเชื้อ ถ้าเก็บตัวอย่างช้าจะหาไม่เจอ ไม่ได้แปลว่าไม่ใช่ ILT",
+      "sourceRef": "WOAH Terrestrial Manual 2021, Chapter 3.3.3 Avian infectious laryngotracheitis, Section B.1.4 Histopathology"
+    },
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ระบุว่า \"Histopathology: Eosinophilic cytoplasmic inclusion body in epithelial cell\" คำว่า eosinophilic ถูก แต่ตำแหน่งที่ระบุคือ cytoplasm",
+      "evidenceSays": "review ยืนยันตรงกับ WOAH ว่า \"Intranuclear basophilic or eosinophilic inclusion bodies surrounded by a halo are usually seen during initial stages of infection (1-5 days) and disappear later due to necrosis and denudation of epithelial cells\" คือ inclusion body อยู่ในนิวเคลียส ติดสีได้ทั้ง basophilic และ eosinophilic มี halo ล้อมรอบ และพบในช่วง 1-5 วันแรกแล้วหายไปเมื่อเยื่อบุตายและหลุดลอก ในคำบรรยายภาพ histopath ของ review เองก็เขียนว่า \"intranuclear eosinophilic inclusion bodies\" ดังนั้นคำว่า eosinophilic ในสไลด์ใช้ได้ แต่ต้องเป็น intranuclear ไม่ใช่ cytoplasmic (PMID 32315579)",
+      "examAdvice": "ตอบตามสไลด์ในห้องสอบของอาจารย์ แล้วจำคำเต็มที่ถูกต้องไว้ว่า intranuclear eosinophilic inclusion body with halo in tracheal epithelial cell พร้อมกับข้อมูลที่ใช้ได้จริงคือ inclusion body จะเห็นเฉพาะช่วง 1-5 วันแรกของการติดเชื้อ เวลาส่งชิ้นเนื้อจึงต้องเลือกไก่ที่เพิ่งป่วย ไม่ใช่ไก่ที่ป่วยมานาน",
+      "sourceRef": "PMID 32315579 (doi 10.1080/01652176.2020.1759845)"
+    }
+  ],
+  "avian-medicine--avian-lt--ข้อควรระวังในการใช้วัคซีนเชื้อเป็น": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์ระบุว่า \"ไม่ควรให้วัคซีนเชื้อเป็น ILT ในช่วงเดียวกับที่ให้วัคซีนป้องกันโรคระบบหายใจอื่นๆ ควรให้ห่างกันประมาณ 7 วัน\"",
+      "evidenceSays": "review ระบุว่า \"no interference has been reported between ILT and other vaccines if the vaccine interval is more than 2 weeks\" คือช่วงห่างที่มีรายงานว่าไม่เกิดการรบกวนกันคือมากกว่า 2 สัปดาห์ ไม่ใช่ 7 วัน review ไม่ได้พิสูจน์ว่าเว้น 7 วันแล้วจะเกิด interference แน่ๆ แต่ 7 วันคือช่วงที่ยังไม่มีข้อมูลรองรับว่าปลอดภัย หลักการวัคซีนของสไลด์จึงถูก เพียงแต่ตัวเลขที่ให้ไว้สั้นกว่าที่หลักฐานรองรับ (PMID 32315579)",
+      "examAdvice": "ตอบ 7 วัน ตามสไลด์ในข้อสอบของอาจารย์ ส่วนเวลาวางโปรแกรมวัคซีนจริงในฟาร์ม ให้เว้นเกิน 2 สัปดาห์จะปลอดภัยกว่า และจำหลักไว้ว่าเหตุผลของการเว้นระยะคือกันไม่ให้วัคซีนตัวอื่นที่ลงระบบหายใจไปรบกวนการติดเชื้อของวัคซีน ILT ที่หลอดลม",
+      "sourceRef": "PMID 32315579 (doi 10.1080/01652176.2020.1759845)"
+    }
+  ],
+  "avian-medicine--avian-lt--อาการ-clinical-signs": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ระบุว่า \"อัตราการป่วยสูง 90-100%\" และ \"อัตราการตายปานกลาง 5-20%\"",
+      "evidenceSays": "ตัวเลข morbidity ตรงกัน แต่ mortality ไม่ตรง review เขียนว่า severe epizootic form มี \"high morbidity (90-100%) or variable mortality ranging from 5 to 70% (average of 10-20%)\" คือค่าเฉลี่ย 10-20% ตรงกับสไลด์ แต่ช่วงที่รายงานจริงกว้างถึง 70% และในพื้นที่เลี้ยงไก่หนาแน่นเคยมีรายงาน overall mortality สูงถึง 70% (PMID 32315579) สอดคล้องกับ WOAH ที่ระบุว่ารูปแบบ peracute อัตราการตายอาจเกิน 50% ส่วนรูปแบบ subacute อยู่ที่ 10-30% (WOAH Terrestrial Manual 2021, Chapter 3.3.3)",
+      "examAdvice": "ตอบ 5-20% ตามสไลด์ในข้อสอบของอาจารย์ แต่ให้จำ 5-70% (เฉลี่ย 10-20%) ไว้ใช้ตอนเจอเคสจริง ถ้าฟาร์มตาย 40-50% อย่าเพิ่งตัด ILT ทิ้งเพียงเพราะตัวเลขเกิน 20%",
+      "sourceRef": "PMID 32315579 (doi 10.1080/01652176.2020.1759845)"
+    }
+  ],
+  "avian-medicine--avian-lt--เชื้อสาเหตุ-etiology": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ไล่อนุกรมวิธานของ ILTV ว่า \"Genus Iltovirus\" \"Subfamily Alphaherpesvirinae\" \"Family Herpesviridae\" โดยระบุ family เป็น Herpesviridae และเรียกเชื้อว่า Gallid herpesvirus type 1 (GaHV-1)",
+      "evidenceSays": "ICTV ให้สัตยาบันการเปลี่ยนชื่อในปี 2023 family ที่ ILTV สังกัดปัจจุบันชื่อ Orthoherpesviridae ซึ่งอยู่ใน order Herpesvirales ร่วมกับ Alloherpesviridae (ปลาและสัตว์สะเทินน้ำสะเทินบก) และ Malacoherpesviridae (สัตว์ไม่มีกระดูกสันหลัง) family นี้มี 3 subfamilies คือ Alphaherpesvirinae, Betaherpesvirinae และ Gammaherpesvirinae genus Iltovirus อยู่ใน Alphaherpesvirinae ตามที่สไลด์เขียนถูกต้อง แต่ชื่อสปีชีส์ทางการปัจจุบันคือ Iltovirus gallidalpha1 ไม่ใช่ Gallid herpesvirus 1 ประเด็นนี้เป็นการเปลี่ยนชื่อทางอนุกรมวิธาน ไม่ใช่ชีววิทยาของไวรัสเปลี่ยน (ICTV Report: Orthoherpesviridae, ictv.global, ให้สัตยาบัน 2023)",
+      "examAdvice": "ในข้อสอบของอาจารย์ให้ตอบตามสไลด์ คือ Family Herpesviridae, Subfamily Alphaherpesvirinae, Genus Iltovirus, GaHV-1 ซึ่งเป็นชื่อที่ตำรา Diseases of Poultry และสไลด์ใช้ ให้จำเพิ่มไว้เฉยๆ ว่าถ้าอ่าน paper หรือเขียนงานวิชาการหลังปี 2023 จะเจอชื่อ Orthoherpesviridae และ Iltovirus gallidalpha1 อย่าไปแก้คำตอบในห้องสอบ",
+      "sourceRef": "ICTV Report: Orthoherpesviridae (ictv.global, ratified 2023)"
+    }
+  ],
+  "avian-medicine--avian-lt--เซลล์เป้าหมาย-การติดต่อ-และระยะฟักตัว": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ระบุว่า \"ระยะฟักตัวของโรค: 3-7 วัน\"",
+      "evidenceSays": "review รวบรวมไว้ว่า \"The incubation period of ILTV varies between 6 and 14 days\" คือ 6 ถึง 14 วัน เพดานบนสูงกว่าสไลด์เท่าตัว และขอบล่าง 3 วันของสไลด์ต่ำกว่าที่รายงานไว้ ตัวเลขระยะฟักตัวสั้นราว 2-5 วันเป็นค่าที่ได้จากการให้เชื้อทดลองเข้าหลอดลมโดยตรงหรือทางอากาศ ไม่ใช่การติดเชื้อตามธรรมชาติในฟาร์ม จึงน่าจะเป็นที่มาของช่วงที่สั้นกว่า (Infectious laryngotracheitis: Etiology, epidemiology, pathobiology, and advances in diagnosis and control, PMID 32315579)",
+      "examAdvice": "ข้อสอบของอาจารย์ให้ตอบ 3-7 วัน ตามสไลด์ ส่วนเวลาไปคิดงานจริงหรือเจอโจทย์ระบาดวิทยาที่ต้องไล่ timeline ว่าเชื้อเข้าฝูงวันไหน ให้เผื่อระยะฟักตัวได้ถึง 14 วัน ไม่งั้นจะตัดช่วงเวลาที่เชื้อเข้าจริงทิ้งไป",
+      "sourceRef": "PMID 32315579 (doi 10.1080/01652176.2020.1759845)"
+    }
+  ],
+  "avian-medicine--avian-mpv--subtypes-ของ-ampv": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์จำกัดทั้งพื้นที่และ host ของ subtype C ไว้ว่า \"subtype C พบเฉพาะในสหรัฐอเมริกาและฝรั่งเศส และพบเฉพาะในไก่งวง\"",
+      "evidenceSays": "บทความทบทวนระบุว่า AMPV-C ถูกตรวจพบนอกไก่งวงและนอกสองประเทศนั้นชัดเจน \"Virus isolates or RT-PCR positive samples obtained from a Muscovy duck in France in 1999, in pheasants from a live bird market in Korea in 2005, and in Muscovy ducks and chickens from China\" และยังแบ่ง AMPV-C ออกเป็น 2 lineage คือ American turkey lineage กับ Eurasian duck lineage ที่ติดเชื้อในเป็ดเป็นหลัก โดยมีรายงานการระบาดที่ทำให้ไก่ในจีนแสดงอาการทางระบบหายใจรุนแรงเมื่อปี 2012 (Zoonotic Origins of Human Metapneumovirus: A Journey from Birds to Humans, PMID 35458407, doi 10.3390/v14040677) สอดคล้องกับ WOAH ที่ระบุว่าไวรัส subgroup C สัมพันธ์กับอาการทางระบบหายใจและไข่ลดในเป็ดที่ฝรั่งเศส (Toquin et al., 2006)",
+      "examAdvice": "ข้อสอบของอาจารย์ท่านนี้ให้ตอบตามสไลด์ คือ subtype C พบที่สหรัฐฯ กับฝรั่งเศส และผูกกับไก่งวง แต่ให้จำความจริงไว้ด้วยว่า host range ของ subtype C กว้างกว่านั้นมาก โดยเฉพาะเป็ด Muscovy รวมถึงไก่ฟ้าที่เกาหลีและเป็ดกับไก่ที่จีน ถ้าเจอโจทย์เชิงระบาดวิทยาหรือกรณีศึกษาที่ถามว่า subtype C พบในเป็ดได้หรือไม่ คำตอบทางวิชาการคือได้",
+      "sourceRef": "PMID 35458407 (doi 10.3390/v14040677)"
+    }
+  ],
+  "avian-medicine--avian-mpv--การเก็บตัวอย่าง-จากสัตว์เป็นและจากการผ่าซาก": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์ตั้งเกณฑ์เลือกตัวสัตว์ไว้ว่า \"Collect sample at early stage of infection or from severely sick animal\" คือเสนอสัตว์ที่ป่วยหนักเป็นทางเลือกที่ดีพอกันกับสัตว์ในระยะต้นของการติดเชื้อ",
+      "evidenceSays": "WOAH ระบุว่าตัวที่ควรเก็บคือทางเดินหายใจส่วนต้นของนกเป็นในระยะ acute ของโรค \"Ideally, the upper respiratory tract of live birds in the acute phase of the disease should be sampled\" และเตือนต่อทันทีว่า \"Isolation of virus is rarely successful from birds showing severe chronic signs as the extreme clinical signs are usually due to secondary adventitious agents\" พร้อมย้ำว่าข้อนี้ใช้กับ SHS ในไก่โดยตรง เพราะอาการหัวบวมที่เห็นเด่นชัดเกิดจากแบคทีเรียแทรกซ้อนเช่น Escherichia coli ไม่ใช่จากตัวไวรัสที่ยังอยู่ จุดที่ต่างจากสไลด์คือ WOAH แยกชัดระหว่าง severe acute กับ severe chronic แต่สไลด์เขียนเพียง severely sick animal โดยไม่มีเงื่อนไขกำกับ ทำให้อ่านได้ว่าสัตว์ที่ป่วยหนักทุกตัวใช้ได้พอกันกับสัตว์ระยะต้น ซึ่งเป็นกับดักที่ WOAH เตือนไว้ตรงตัว (Manual of Diagnostic Tests and Vaccines for Terrestrial Animals, Chapter 3.3.11, WOAH 2022, Section B.1.1 Collection and selection of diagnostic specimens)",
+      "examAdvice": "ตอบตามสไลด์ได้ คือเก็บที่ระยะต้นของการติดเชื้อหรือจากสัตว์ที่ป่วยชัดเจน แต่ให้เข้าใจเงื่อนไขว่า สัตว์ป่วยหนักที่ใช้ได้คือตัวที่อยู่ในระยะ acute ไม่ใช่ตัวที่ป่วยรุนแรงเรื้อรัง ถ้าเจอโจทย์ถามว่าทำไมเก็บจากไก่ที่หัวบวมมากแล้วแยกเชื้อไม่ขึ้น คำตอบคือรอยโรครุนแรงนั้นเกิดจาก secondary bacteria ขณะที่ไวรัสหมดไปจาก sinus และ turbinate แล้ว",
+      "sourceRef": "WOAH Terrestrial Manual 2022, Chapter 3.3.11 Turkey rhinotracheitis (avian metapneumovirus infections)"
+    }
+  ],
+  "avian-medicine--avian-mpv--การเก็บตัวอย่าง-ชนิดตัวอย่างและจังหวะเวลา": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์ให้กรอบเวลาไว้แคบว่า \"ต้องเก็บทันทีในช่วงที่ไก่ติดเชื้อ หรือมีอาการ เพราะไวรัสจะอยู่บริเวณ sinus, turbinate แค่ 6-7 วัน\"",
+      "evidenceSays": "WOAH เห็นตรงกับสไลด์ว่าต้องเก็บเร็ว โดยระบุว่า nasal exudate, choanal cleft swab และ turbinate ที่เก็บ 2 ถึง 7 วันหลังสัมผัสเชื้อคือตัวอย่างที่ดีที่สุด แต่กรอบการตรวจพบยาวกว่า 6-7 วัน คือ \"Infectious virus can only usually be isolated for approximately ten days after infection\" และ \"viral RNA persists for 9 days in the trachea and up to 14 days in the nasal turbinates (Velayudhan et al., 2005)\" อีกทั้งระบุว่า aMPV ยังตรวจพบได้จากตัวอย่างที่เก็บ 7 ถึง 10 วันหลังสัมผัสเชื้อ เพียงแต่ปริมาณไวรัสน้อยลงมากจนโอกาสตรวจเจอลดลง (Manual of Diagnostic Tests and Vaccines for Terrestrial Animals, Chapter 3.3.11, WOAH 2022, Summary และ Section B.1.3 Molecular identification)",
+      "examAdvice": "ตอบตามสไลด์คือ 6-7 วัน เพราะแก่นที่อาจารย์ต้องการคือ ต้องเก็บให้เร็วในช่วงที่ยังแสดงอาการ แต่ให้แยกให้ออกในหัวว่า 6-7 วันคือช่วงที่เก็บแล้วได้ผลดีที่สุด ไม่ใช่เส้นตายของการตรวจพบ เพราะการแยกเชื้อยังทำได้ราว 10 วัน และ RT-PCR ยังจับ viral RNA ได้ถึง 14 วันใน nasal turbinate ประเด็นนี้ใช้ตอบเวลาโจทย์ถามว่าทำไมเลือกส่ง RT-PCR แทน virus isolation ในเคสที่มาช้า",
+      "sourceRef": "WOAH Terrestrial Manual 2022, Chapter 3.3.11 Turkey rhinotracheitis (avian metapneumovirus infections)"
+    }
+  ],
+  "avian-medicine--avian-mpv--โรคหัวบวมคืออะไร-ภาพรวม": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์วางเพดานอัตราการตายไว้ที่ 50% โดยเขียนว่า \"อัตราการป่วยอาจสูง 100% อัตราการตายอาจถึง 50% ในลูกไก่งวง\" คือให้ 50% เป็นค่าสูงสุดของ mortality ในลูกไก่งวง",
+      "evidenceSays": "WOAH ให้ตัวเลข morbidity ตรงกับสไลด์ แต่ช่วง mortality กว้างกว่า คือ \"Morbidity can be as high as 100%, with mortality ranging from 0.5% in adult turkeys to 80% in young poults (Van De Zande et al., 1999)\" นั่นคือต่ำเพียง 0.5% ในไก่งวงโตเต็มวัย แต่สูงได้ถึง 80% ในลูกไก่งวง ซึ่งเกินเพดาน 50% ที่สไลด์ระบุ (Manual of Diagnostic Tests and Vaccines for Terrestrial Animals, Chapter 3.3.11 Turkey rhinotracheitis (avian metapneumovirus infections), WOAH 2022, Section A. Introduction)",
+      "examAdvice": "ในข้อสอบของอาจารย์ท่านนี้ให้ตอบตามสไลด์ คือ morbidity ถึง 100% และ mortality ถึง 50% ในลูกไก่งวง แต่จำไว้ว่าตัวเลขนี้ไม่ได้มีค่าเดียวในวรรณกรรม Merck ให้ช่วง 1 ถึง 50% ส่วน WOAH ให้ 0.5% ในตัวโตถึง 80% ในลูกไก่งวง สิ่งที่ต้องตอบให้ได้เสมอไม่ว่าเจอตัวเลขไหนคือ mortality ขึ้นกับอายุและการมี secondary infection ส่วน morbidity สูงเสมอ",
+      "sourceRef": "WOAH Terrestrial Manual 2022, Chapter 3.3.11 Turkey rhinotracheitis (avian metapneumovirus infections)"
+    }
+  ],
+  "avian-medicine--avian-nd--การเก็บรักษาตัวอย่างตามวิธีตรวจ-virus-culture-vs-molecular": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์ให้เพดานเวลาที่ตู้เย็นสั้นกว่าคู่มือ โดยสำหรับ virus culture เขียนว่า \"Put swab or organ in Viral Transport Media (VTM)\" แล้ว \"Keep sample in refrigerator (4°C) for 1-2 day\" และ \"Not recommend to keep in the freezer\"",
+      "evidenceSays": "คู่มือ WOAH บทนิวคาสเซิล หัวข้อตัวอย่างสำหรับ virus isolation เขียนกำกับไว้ในย่อหน้าเดียวกันว่าให้ process ตัวอย่างให้เร็วที่สุด แล้วจึงต่อด้วย \"When immediate processing is impracticable, samples may be stored at 4°C for up to 4 days.\" ตัวเลข 4 วันจึงเป็นเพดานสำหรับกรณีส่งตรวจไม่ทัน ไม่ใช่ระยะเวลาที่แนะนำให้ถือไว้เป็นปกติ ดังนั้น 1-2 วันของสไลด์ไม่ใช่ตัวเลขผิด แต่เป็นเกณฑ์ปฏิบัติที่รัดกุมกว่าคู่มือ จุดที่ต่างกันจริงคือเพดานสูงสุดที่ 4°C เท่านั้น ส่วนประเด็นห้ามแช่แข็งของสไลด์ไม่ได้ถูกค้าน เพราะคู่มือระบุต่อว่าถ้าจะเก็บยาวต้องเก็บที่ -80°C และขนส่งบน dry ice (ไม่เกิน -50°C) พร้อมเลี่ยง freeze-thaw ซ้ำ ซึ่งไม่ใช่ช่องแช่แข็งธรรมดา (Chapter 3.3.14 Newcastle disease, Manual of Diagnostic Tests and Vaccines for Terrestrial Animals, WOAH Terrestrial Manual 2021, Section B.1.1)",
+      "examAdvice": "ข้อสอบวิชานี้ตอบ 1-2 วัน ตามสไลด์ และตอบจุดต่างที่สไลด์เน้นไว้ให้ครบ (virus culture ห้ามแช่แข็ง, molecular แช่แข็งได้ 3-5 วัน, อวัยวะสำหรับ molecular ไม่ต้องแช่ VTM) ส่วนตัวเลขที่ควรจำไว้ใช้จริงคือ 4°C ถือได้ถึง 4 วัน ตามคู่มือ WOAH เวลาเจอเคสที่ส่งตัวอย่างล่าช้าเกิน 2 วัน ตัวอย่างยังมีค่าอยู่ ไม่ต้องทิ้ง และการเก็บยาวต้องเป็น -80°C ไม่ใช่ช่องแช่แข็งตู้เย็นทั่วไป",
+      "sourceRef": "WOAH Terrestrial Manual 2021, Chapter 3.3.14 Newcastle disease, Section B.1.1 Samples for virus isolation (p.4)"
+    }
+  ],
+  "avian-medicine--avian-nd--เชื้อก่อโรค-ชื่อเรียก-การจัดจำแนก-และโครงสร้างไวรัส": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์บรรยายรูปร่างและขนาดไวรัสไว้ค่าเดียวว่า \"Enveloped, spherical. Diameter of about 150 nm\" โดยใช้รูปประกอบจาก viralzone.expasy.org",
+      "evidenceSays": "บทความทบทวน NDV ระบุในหัวข้อ Newcastle disease virus ว่า \"NDV is a pleomorphic enveloped virus around 200-300 nm in diameter\" คือรูปร่างไม่คงที่ ไม่ใช่ทรงกลมอย่างเดียว (Newcastle disease virus: current status and our understanding, PMID 24589707, doi 10.1016/j.virusres.2014.02.016) ประเด็นที่ขัดกันจริงและตอบได้ชัดคือคำว่ารูปร่าง เพราะสไลด์ตัดเหลือ spherical คำเดียว ส่วนตัวเลขขนาดนั้นให้เข้าใจว่าทั้ง 150 nm และ 200-300 nm ต่างอยู่ในช่วงที่วรรณกรรมรายงานสำหรับอนุภาค paramyxovirus ที่ pleomorphic ซึ่งวัดได้ตั้งแต่ราว 100 ถึง 500 nm ไม่ใช่ว่าค่าใดค่าหนึ่งผิด แต่การให้ค่าเดียวโดยไม่บอกว่าแปรผันคือสิ่งที่ทำให้เข้าใจคลาดเคลื่อน",
+      "examAdvice": "ในข้อสอบของอาจารย์ท่านนี้ให้ตอบตามสไลด์ คือ enveloped, spherical, ประมาณ 150 nm แต่ถ้าโจทย์เปิดให้บรรยาย morphology เอง ให้ใส่คำว่า pleomorphic ลงไปด้วย และจำไว้ว่าค่าขนาดที่รายงานในวรรณกรรมกว้างกว่าค่าเดี่ยว 150 nm มาก โครงสร้างส่วนที่ห้ามพลาดและไม่มีข้อขัดแย้งคือ negative sense ssRNA มีเปลือกหุ้ม และมี HN กับ F เป็น surface glycoprotein",
+      "sourceRef": "PMID 24589707 (doi 10.1016/j.virusres.2014.02.016)"
+    }
+  ],
+  "avian-medicine--avian-nd--เซลล์และอวัยวะเป้าหมาย-การติดต่อ-และระยะฟักตัว": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์พูดแบบปิดประตูว่า \"No evident of vertical transmission because NDV cause embryonic dead & dead-in-shell\" คือไม่มีหลักฐานการติดต่อแนวดิ่งเลย เพราะไวรัสทำให้ตัวอ่อนตายและตายคาเปลือกไปก่อน",
+      "evidenceSays": "WOAH Technical Disease Card ชื่อ Newcastle Disease (Avian Paramyxovirus Serotype 1) ท้ายเล่มระบุ Last updated 2019 เขียนโดยได้รับความช่วยเหลือจาก USGS National Wildlife Health Center และต้นเล่มประกาศว่าใช้กับการรายงานโรคในสัตว์ป่าที่ไม่ใช่สัตว์ปีกเลี้ยง แต่หัวข้อ Transmission เขียนไว้เป็นข้อความไวรัสวิทยาทั่วไปว่า \"Vertical transmission has been documented for lentogenic strains.\" ซึ่งวรรณกรรมสัตว์ปีกบันทึกตรงกันว่ามีลูกไก่ติดเชื้อฟักออกจากไข่ที่มีไวรัส เหตุผลของสไลด์จึงใช้ได้กับสายพันธุ์รุนแรง (velogenic และ mesogenic) ที่ทำให้ embryo ตายและ dead-in-shell แต่ไปไม่ถึง lentogenic ทั้งนี้เป็นเหตุการณ์ที่พบไม่บ่อยและยังเป็นประเด็นถกเถียง ไม่ใช่เส้นทางติดต่อหลัก",
+      "examAdvice": "ตอบตามสไลด์ว่าไม่มี vertical transmission เพราะ embryo ตายคาเปลือก นั่นคือคำตอบที่อาจารย์ตรวจ ส่วนข้อยกเว้น lentogenic strain เก็บไว้เติมเฉพาะข้อสอบอัตนัยที่เปิดให้ขยายความ หรือไว้ใช้เวลาทำงานจริง อย่าเอาไปตอบสวนในข้อปรนัย",
+      "sourceRef": "WOAH Technical Disease Card, Newcastle Disease (Avian Paramyxovirus Serotype 1), last updated 2019, หัวข้อ Epidemiology, Transmission"
+    }
+  ],
+  "avian-medicine--avian-pox--recombinant-vaccine": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ยกตัวอย่างยีนที่ตัดมาใส่ใน poxvirus vector ว่า \"F gene ของ NDV, HN gene ของ ILT\" แล้วย้ำอีกครั้งว่าไก่จะสร้างภูมิคุ้มกัน \"ทั้งต่อ Poxvirus และ F gene ของ NDV หรือ HN gene ของ ILT\" คือระบุชัดว่า HN เป็นยีนของ ILT",
+      "evidenceSays": "F (fusion) และ HN (hemagglutinin-neuraminidase) เป็นยีนของ Newcastle disease virus ทั้งคู่ ส่วนยีนของ infectious laryngotracheitis virus ที่ใส่ใน recombinant fowlpox vaccine คือ glycoprotein B (gB) งานที่สร้าง rFPV ตัวนี้เขียนไว้ตรงว่า \"A recombinant fowlpox virus (rFPV) coexpressing the Newcastle disease virus (NDV) fusion and hemagglutinin-neuraminidase genes and infectious laryngothracheitis virus (ILTV) glycoprotein B gene was constructed.\" เหตุผลเชิงชีววิทยาคือ ILTV เป็น herpesvirus (Gallid alphaherpesvirus 1) ซึ่งไม่มียีน HN แบบ paramyxovirus (Protection of chickens from Newcastle disease and infectious laryngotracheitis with a recombinant fowlpox virus co-expressing the F, HN genes of Newcastle disease virus and gB gene of infectious laryngotracheitis virus, PMID 18459306, doi 10.1637/7998-041807-Reg)",
+      "examAdvice": "ในห้องสอบให้ตอบตามที่อาจารย์สอนไว้ก่อน เพราะข้อสอบตรวจตามสไลด์ แต่จำของจริงไว้แน่น ๆ ว่า F และ HN คือยีนของ NDV ส่วน ILTV ใช้ gB ถ้ามีจังหวะถามอาจารย์นอกห้องสอบ จุดนี้ควรถามให้เคลียร์ เพราะน่าจะเป็นคำพิมพ์ตกบนสไลด์มากกว่าความตั้งใจ",
+      "sourceRef": "PMID 18459306 (doi 10.1637/7998-041807-Reg)"
+    }
+  ],
+  "avian-medicine--avian-pox--การตรวจสอบผลการให้วัคซีนที่-wing-web": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์เปิดหน้าต่างการอ่านผล take ตั้งแต่วันที่ 5 โดยระบุว่า \"หากวัคซีนได้ผล จะพบ ตุ่มนูนแข็งบริเวณที่ให้วัคซีน 5-10 วัน หลังทำวัคซีน\" และให้ \"สุ่มตรวจไก่อย่างน้อย 50 ตัว ต่อ 1 โรงเรือน\" ถ้าไม่พบตุ่มมากกว่า 10% ให้ทำวัคซีนใหม่ทั้งโรงเรือน",
+      "evidenceSays": "คู่มือ WOAH ใช้หน้าต่าง 7-10 วัน ไม่ใช่ 5-10 วัน ในหัวข้อ serological tests เขียนว่า \"Evidence of successful immunisation with vaccine can be determined by examining a flock 7-10 days after vaccination for 'takes'. A take consists of a swelling of the skin or a scab at the site where the vaccine was applied and its presence is evidence of successful immunisation.\" และในหัวข้อ safety test ของวัคซีน (C.2.1.3) ก็ใช้หน้าต่างเดียวกันว่า \"The birds are observed for 7-10 days for evidence of 'takes'\" ขอบบนตรงกันที่ 10 วัน ต่างกันที่ขอบล่าง คือสไลด์เริ่มอ่านผลเร็วกว่าคู่มือ 2 วัน (Manual of Diagnostic Tests and Vaccines for Terrestrial Animals, Chapter 3.3.10 Fowlpox, WOAH Terrestrial Manual 2023, Section B.2 และ C.2.1.3)",
+      "examAdvice": "ข้อสอบวิชานี้ตอบ 5-10 วัน ตามสไลด์ และตอบเกณฑ์ทำวัคซีนซ้ำตามที่สไลด์เขียนไว้ ส่วนหน้างานจริงให้จำ 7-10 วัน ประเด็นที่ใช้ได้จริงคือ ถ้าไปสุ่มดู wing web ตั้งแต่วันที่ 5 แล้วยังเห็นตุ่มไม่ครบ อย่าเพิ่งสรุปว่าวัคซีนไม่ take เพราะยังไม่ถึงหน้าต่างที่ WOAH ใช้ ควรรอถึงวันที่ 7 ก่อนตัดสินใจทำวัคซีนใหม่ทั้งโรงเรือน",
+      "sourceRef": "WOAH Terrestrial Manual 2023, Chapter 3.3.10 Fowlpox, Section B.2 (p.4) และ Section C.2.1.3 (p.6)"
+    }
+  ],
+  "avian-medicine--avian-pox--การวินิจฉัย-diagnosis": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์จัด RFLP ไว้ในหัวข้อการวินิจฉัยทางไวรัสวิทยา โดยเขียนสามวิธีเรียงบรรทัดเดียวกันว่า \"Molecular techniques; PCR, RFLP, DNA probes\" ซึ่งไม่ได้จัดลำดับความสำคัญ นิสิตจึงอ่านได้ว่าทั้งสามใช้ตรวจวินิจฉัยได้เท่ากัน",
+      "evidenceSays": "คู่มือ WOAH บทฝีดาษไก่ หัวข้อ Molecular methods เขียนไว้ตรงว่า \"Restriction fragment length polymorphism (RFLP) analysis has been reported for comparison of field isolates and vaccine strains of FPV (Ghildyal et al., 1989; Schnitzlein et al., 1988); however this procedure is not routinely used for detection or diagnosis.\" คือ RFLP ใช้เปรียบเทียบเชื้อภาคสนามกับเชื้อวัคซีน ประโยคนี้และ primer ที่จับ conserved region ของ major core protein P4b อยู่ใน Section B.1.3 Molecular methods หน้า 4 ส่วนวิธี molecular ที่เป็นงานประจำของแล็บสัตว์ปีกคือ PCR และ real-time PCR โดยคู่มือเขียนไว้ในย่อหน้าเปิดของ Section B.1 Detection of the agent หน้า 3 ว่า \"Molecular detection methods designed to amplify FPV DNA by polymerase chain reaction (PCR) or real-time PCR have become routine in many avian diagnostic laboratories\" (Manual of Diagnostic Tests and Vaccines for Terrestrial Animals, Chapter 3.3.10 Fowlpox, WOAH 2023)",
+      "examAdvice": "ถ้าโจทย์ถามว่า molecular techniques ของ fowlpox มีอะไรบ้าง ให้ตอบ PCR, RFLP, DNA probes ตามสไลด์ แต่ถ้าเป็นข้อเขียนที่ถามว่าจะ \"ตรวจวินิจฉัย\" ด้วยวิธีใด ให้ชู PCR และ real-time PCR เป็นหลักแล้วค่อยเสริมว่า RFLP มีบทบาทในการแยกเชื้อภาคสนามออกจากเชื้อวัคซีน จะได้ทั้งคะแนนตามสไลด์และตรงกับของจริง",
+      "sourceRef": "WOAH Terrestrial Manual 2023, Chapter 3.3.10 Fowlpox, Section B.1 Detection of the agent (p.3) และ Section B.1.3 Molecular methods (p.4)"
+    }
+  ],
+  "avian-medicine--avian-pox--พยาธิกำเนิด-pathogenesis-เทียบ-2-form-ตาม-dpi": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์วางไทม์ไลน์ cutaneous form ว่า \"2 DPI: replicate in skin\", \"4 DPI found in lung\", \"5 DPI viremia\" แล้วปิดท้ายว่า \"5-10 DPI พบ Nodular lesion\" คือให้กรอบเดียวสำหรับการเกิดรอยโรคที่ผิวหนัง",
+      "evidenceSays": "งานที่ให้ตัวเลขชุดเดียวกับสไลด์ทั้งชุด (i.d. พบเชื้อที่ผิวหนังวันที่ 2 ปอดวันที่ 4 viremia วันที่ 5 และแยกเชื้อได้จากตับ ม้าม ไต สมอง แต่ไม่พบที่หัวใจ ส่วน i.t. พบที่ปอดวันที่ 2 และ viremia วันที่ 4) ระบุเรื่องรอยโรคละเอียดกว่าว่า \"Initiation of pocks at the inoculation site in i.d. infected birds was observed on days 3 to 4 p.i., generalized cutaneous pock lesions appeared from 7 to 8 days p.i.\" คือตุ่มแรกที่ตำแหน่งได้รับเชื้อขึ้นตั้งแต่วันที่ 3 ถึง 4 ส่วนตุ่มที่กระจายทั่วตัวขึ้นวันที่ 7 ถึง 8 กรอบ 5-10 DPI ของสไลด์จึงครอบคลุมรอยโรคที่กระจายแล้ว แต่ช้ากว่าตุ่มแรกที่ตำแหน่งได้รับเชื้อ (Studies on pathogenesis of fowl pox: virological study, PMID 2891281, Acta Virol 1987;31(5):417-423)",
+      "examAdvice": "ข้อสอบของอาจารย์ใช้กรอบ 5-10 DPI ให้ตอบตามนั้น และสิ่งที่ควรท่องคือคู่เทียบที่สไลด์เน้น คือ cutaneous 2/4/5 DPI เทียบกับ diphtheritic 2/4 DPI ส่วนตัวเลข 3-4 วันของตุ่มแรกที่ตำแหน่งได้รับเชื้อ กับ 7-8 วันของตุ่มที่กระจายทั่วตัว เก็บไว้ตอบเวลามีคนถามว่ารอยโรคเร็วที่สุดกี่วัน อย่าเอาไปเขียนแทนกรอบของสไลด์ในข้อปรนัย",
+      "sourceRef": "PMID 2891281"
+    }
+  ],
   "cliapprum--gi-surgery-sawita--diagnostic-ping-sound-map": [
     {
       "severity": "narrows",
@@ -708,6 +1001,83 @@ export const CORRECTIONS = {
       "evidenceSays": "แหล่งอ้างอิงระบุว่าเป็นเพียงรูปแบบที่พบบ่อย ไม่ใช่กฎ โดยเขียนว่า cohort study ส่วนใหญ่เป็น prospective study แม้จะมี retrospective cohort ได้ ส่วน case-control study เป็น retrospective ดังนั้นความเท่ากันนี้ไม่สัมบูรณ์ เกณฑ์จริงของการจำแนก observational analytical study คือจังหวะที่วัด outcome ได้แก่ วัดตั้งแต่เริ่มการศึกษาเป็น case-control, วัดหลังติดตามไประยะหนึ่งเป็น cohort, วัดพร้อมกับ exposure เป็น cross-sectional (Study designs: Part 1 An overview and classification, PMID 30319950, doi 10.4103/picr.PICR_124_18)",
       "examAdvice": "ถ้าข้อสอบให้จับคู่ ให้จับ retrospective กับ case-control และ prospective กับ cohort ตามที่อาจารย์สอน แต่ถ้าเจอตัวเลือกที่มีคำว่า retrospective cohort study อย่าตัดทิ้งว่าไม่มีจริง",
       "sourceRef": "PMID 30319950, doi 10.4103/picr.PICR_124_18"
+    }
+  ],
+  "epidemiology--epidem-causation--causal-inference-คืออะไร": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์วาง decision tree ไว้เป็นวิธีมาตรฐานสำหรับสรุปเหตุและผล โดยเขียนว่า \"Deriving causal inference from association should be done through the decision tree approach\" ต่อจากนิยาม \"The process of drawing a valid conclusion about a cause-and-effect relationship\" คือให้เดินตามเกณฑ์เป็นขั้น ๆ จนได้คำตัดสินว่า association ที่พบเป็น causal หรือไม่",
+      "evidenceSays": "Rothman และ Greenland ไม่ได้เอ่ยถึง decision tree โดยตรง สิ่งที่ทั้งสองโต้แย้งคือการมอง causal inference เป็นกระบวนการไล่เกณฑ์เพื่อชี้ขาดว่ามี effect หรือไม่ ตามประโยคในบทคัดย่อว่า \"Causal inference in epidemiology is better viewed as an exercise in measurement of an effect rather than as a criterion-guided process for deciding whether an effect is present or not.\" และ \"Philosophers agree that causal propositions cannot be proved\" ข้อขัดแย้งจึงอยู่ที่ช่องสุดท้ายของ decision tree ที่ให้คำตัดสินว่า causal หรือไม่ causal ส่วนขั้นตัด chance, bias และ confounding ออกไปเป็นการประเมิน validity ที่ทั้งสองสำนักเห็นตรงกัน กล่าวคือเป็นความต่างของสำนักคิดทางระเบียบวิธี ไม่ใช่ข้อผิดพลาดบนสไลด์ (Causation and causal inference in epidemiology, PMID 16030331)",
+      "examAdvice": "ในข้อสอบของอาจารย์ท่านนี้ให้ตอบตามสไลด์ คือ decision tree approach และถ้าโจทย์ถามลำดับขั้นการสรุปเหตุและผลจาก association ให้ไล่ตามที่สอน เก็บประเด็นนี้ไว้ใช้ตอนอ่าน paper และตอนทำวิจัยจริง ว่า causal inference สมัยใหม่เน้นการวัดขนาดของ effect พร้อมช่วงความเชื่อมั่น มากกว่าการตัดสินแบบผ่านหรือไม่ผ่านเกณฑ์",
+      "sourceRef": "PMID 16030331 (doi 10.2105/AJPH.2004.059204)"
+    }
+  ],
+  "epidemiology--epidem-causation--decision-tree-ของ-causal-inference": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์วางลำดับการไล่ตัดเป็นขั้นบันไดที่ต้องเดินตามลำดับ เริ่มจาก \"Could it be due to chance?\" ตอบ No แล้วไปต่อ จากนั้น \"Could it be due to bias?\" แล้วจึง \"Could it be due to confounding?\" คือให้พิจารณา chance เป็นด่านแรกก่อน bias และ confounding",
+      "evidenceSays": "Grimes และ Schulz แนะลำดับตรงข้าม คือให้ไล่ selection bias, information bias และ confounding ให้จบก่อน แล้วค่อยพิจารณา chance เป็นลำดับสุดท้าย \"If a reader cannot explain away study results on the basis of selection, information, or confounding bias, then chance might be another explanation. Chance should be examined last, however, since these biases can account for highly significant, though bogus results.\" เหตุผลคือ bias ทำให้ได้ผลที่ p-value ต่ำมากได้ทั้งที่ผลนั้นลวง การเห็นว่า significant ตั้งแต่ด่านแรกจึงไม่ช่วยตัดสินอะไรเลย ทั้งสองแหล่งใช้ตัวเลือกชุดเดียวกันครบสามตัว ต่างกันแค่ลำดับที่ควรไล่ (Bias and causal associations in observational research, PMID 11812579)",
+      "examAdvice": "ถ้าข้อสอบให้เรียงขั้นของ decision tree ให้ตอบตามสไลด์คือ chance ก่อน แล้ว bias แล้ว confounding เพราะลำดับนี้ผูกกับที่อาจารย์สอนเรื่อง spurious association (chance, bias) และ indirect association (confounding) ไว้ก่อนหน้า ส่วนหลักของ Grimes และ Schulz ให้จำไว้ใช้ตอนอ่านงานวิจัยจริง คือเห็น p ต่ำอย่าเพิ่งเชื่อ ให้ไล่ bias ก่อนเสมอ",
+      "sourceRef": "PMID 11812579 (doi 10.1016/S0140-6736(02)07451-2)"
+    }
+  ],
+  "epidemiology--epidem-causation--เกณฑ์ที่-1-strength": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์วางกฎกว้างว่า \"A small association does not mean that there is no causal effect, though the larger the association, the more likely it is causal\" และให้วัด strength of association (effect size) ด้วย Relative Risk และ Odds ratio ประโยคหลังพูดเหมือนเป็นกฎทั่วไปว่ายิ่งค่าใหญ่ยิ่งเป็นเหตุมากขึ้น",
+      "evidenceSays": "ประโยคแรกของสไลด์ที่ว่า association ขนาดเล็กไม่ได้แปลว่าไม่มี causal effect ตรงกับ Rothman และ Greenland อยู่แล้ว ข้อขัดแย้งอยู่เฉพาะประโยคหลังที่วางเป็นกฎว่ายิ่ง association ใหญ่ยิ่งน่าจะเป็น causal ทั้งสองชี้ว่าขนาดของ effect ไม่ใช่คุณสมบัติของตัวสาเหตุ แต่ขึ้นกับประชากรที่วัด บทคัดย่อระบุว่าแบบจำลอง sufficient cause กับ component cause ทำให้เห็นหลักการสำคัญ ได้แก่ multi-causality และ \"the dependence of the strength of component causes on the prevalence of complementary component causes\" นั่นคือสาเหตุตัวเดียวกันจะให้ RR ใหญ่หรือเล็กก็ได้ ขึ้นกับความชุกของปัจจัยร่วมในประชากรนั้น และปิดท้ายว่า \"Causal inference in epidemiology is better viewed as an exercise in measurement of an effect rather than as a criterion-guided process for deciding whether an effect is present or not.\" ขนาดของ association จึงใช้เป็นกฎตัดสินความเป็นเหตุไม่ได้อย่างที่สไลด์วางไว้ ทั้งนี้แหล่งอ้างอิงไม่ได้บอกว่าค่าที่ใหญ่ไม่มีน้ำหนักเชิงหลักฐานเลย ค่าที่ใหญ่ยังช่วยในแง่ที่ confounding และ bias อธิบายได้ยากขึ้น สิ่งที่ผู้เขียนค้านคือการใช้ความแรงเป็นเกณฑ์ตัดสิน เพราะความแรงไม่ใช่คุณสมบัติของตัวสาเหตุ แต่ขึ้นกับความชุกของปัจจัยร่วมในประชากรที่วัด (Causation and causal inference in epidemiology, PMID 16030331)",
+      "examAdvice": "ข้อสอบวิชานี้ตอบตามสไลด์ คือ association ยิ่งใหญ่ยิ่งน่าจะเป็น causal และวัด strength ด้วย RR กับ OR ส่วนที่ควรจำไว้ตอบข้อสอบอัตนัยหรือใช้อ่านงานวิจัยจริงคือ ค่าที่ใหญ่ช่วยได้แค่ในแง่ที่ confounding หรือ bias อธิบายได้ยากขึ้น ไม่ได้แปลว่าเป็นเหตุมากขึ้นโดยตัวมันเอง และ RR ที่เล็กในประชากรหนึ่งอาจใหญ่ในอีกประชากรหนึ่งเพราะความชุกของปัจจัยร่วมต่างกัน ถ้าโจทย์ให้เทียบ RR ข้ามประชากร ให้ระวังจุดนี้",
+      "sourceRef": "PMID 16030331 (doi 10.2105/AJPH.2004.059204)"
+    }
+  ],
+  "epidemiology--epidem-causation--เกณฑ์ที่-3-temporality": [
+    {
+      "severity": "narrows",
+      "lectureSays": "สไลด์ยกช่วงเวลาระหว่าง exposure กับ disease ของหลายโรคมาเทียบกัน และใช้ BSE เป็นตัวอย่างโรคที่ incubation period ยาวที่สุด โดยระบุว่า \"Bovine Spongiform Encephalopathy (BSE): 2 to 8 years\" ภายใต้หัวข้อ Temporality ที่ว่า \"Length of interval between exposure and disease may vary a lot\"",
+      "evidenceSays": "WOAH ให้ขอบบนของช่วงฟักตัวกว้างกว่าสไลด์ คือ \"The time between the moment an animal gets infected with a BSE agent and the onset of clinical signs can range from two to more than ten years.\" ขอบล่างที่ 2 ปีตรงกับสไลด์ ต่างกันเฉพาะขอบบน คือสไลด์ปิดไว้ที่ 8 ปี ส่วน WOAH เปิดไว้ที่มากกว่า 10 ปี (Bovine spongiform encephalopathy disease information page, World Organisation for Animal Health, 2025)",
+      "examAdvice": "ในข้อสอบของอาจารย์ท่านนี้ให้ตอบ 2 to 8 years ตามสไลด์ เพราะประเด็นที่ถูกวัดคือหลักการ temporality และการที่ interval แปรผันมากระหว่างโรค ซึ่งไม่เปลี่ยนไม่ว่าจะใช้ตัวเลขชุดไหน ส่วนตัวเลข 2 ปีถึงมากกว่า 10 ปี ของ WOAH ให้เก็บไว้ใช้ตอนเขียนรายงานหรืออ้างอิงงานจริง",
+      "sourceRef": "WOAH Bovine spongiform encephalopathy disease information page (2025)"
+    }
+  ],
+  "epidemiology--epidem-disease-transmission--direct-transmission-direct-contact-และ-droplet-spread": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์นิยาม droplet spread ว่า \"large droplets travelling short distances, usually under one metre\" และภาพประกอบแบ่งเป็นชั้นตามขนาดพร้อมกำหนดระยะทางประกบไว้ คือ Droplets (<100 microns) ระยะ 0-2 m, Particles (<50 microns) ระยะ 2-4 m และ Droplet nuclei (<5 microns) ระยะ <10 m ที่กำกับว่าเป็น Aerosol คือใช้เกณฑ์ 5 ไมครอนเป็นเส้นแบ่งเส้นทางการแพร่ และผูกระยะทางเข้ากับขนาดอนุภาคโดยตรง",
+      "evidenceSays": "Randall และคณะไล่ที่มาทางประวัติศาสตร์ของเกณฑ์ชุดนี้ตั้งแต่คริสต์ศตวรรษที่ 19 แล้วสรุปว่าข้อตั้ง 4 ข้อที่คำแนะนำเดิมยืนอยู่ ได้แก่ \"(i) respiratory disease transmission routes can be viewed mostly in a binary manner of 'droplets' versus 'aerosols'; (ii) this dichotomy depends on droplet size alone; (iii) the cut-off size between these routes of transmission is 5 microns; and (iv) there is a dichotomy in the distance at which transmission by each route is relevant. Yet, a relationship between these assertions is not supported by current scientific knowledge.\" นั่นคือขนาดอนุภาคเป็นสเปกตรัมต่อเนื่อง และระยะที่อนุภาคเดินทางได้ขึ้นกับ exhaled puff, การระเหย และการไหลเวียนอากาศด้วย ไม่ใช่ขนาดอย่างเดียว ที่น่าสังเกตคือรีวิว FMD ปี 2022 ที่สไลด์ชุดเดียวกันอ้างในหัวข้อ airborne ระบุไว้เองว่านิยาม droplet กับ aerosol ถูกโต้แย้งหลัง COVID-19 และนิยามใหม่ที่ถูกเสนอใช้ 100 ไมครอนเป็นเส้นแบ่ง ไม่ใช่ 5 ไมครอน แต่รีวิวฉบับนั้นก็เลือกใช้เกณฑ์ 5 ไมครอนต่อในงานของตัวเอง จึงเป็นการยอมรับว่าเกณฑ์ถูกโต้แย้ง ไม่ใช่การเลิกใช้ อีกข้อสังเกตหนึ่งคือตารางในสไลด์ซ้อนกันเองอยู่แล้ว เพราะอนุภาคที่เล็กกว่า 50 ไมครอนก็เข้าเงื่อนไขเล็กกว่า 100 ไมครอนด้วย ซึ่งยิ่งชี้ว่าภาพนี้เป็นข้อตกลงเพื่อการสอน ไม่ใช่การจำแนกทางฟิสิกส์ (How did we get here: what are droplets and aerosols and how far do they go? A historical perspective on the transmission of respiratory infectious diseases, PMID 34956601)",
+      "examAdvice": "ในข้อสอบให้ใช้เกณฑ์ตามสไลด์ คือ droplet ขนาดใหญ่ระยะไม่เกิน 1 เมตรจัดเป็น direct transmission ส่วน droplet nuclei ที่เล็กกว่า 5 ไมครอนจัดเป็น airborne และท่องตารางขนาดกับระยะตามภาพที่อาจารย์ให้ จำไว้ว่าเส้นแบ่ง 5 ไมครอนเป็นข้อตกลงที่สืบทอดกันมาทางประวัติศาสตร์ ไม่ใช่ขอบเขตทางฟิสิกส์ และเวลาประเมินความเสี่ยงในโรงเรือนจริง การระบายอากาศ ความหนาแน่นสัตว์ และระยะเวลาที่อยู่ร่วมกัน มีน้ำหนักไม่แพ้ขนาดอนุภาค",
+      "sourceRef": "PMID 34956601 (doi 10.1098/rsfs.2021.0049)"
+    }
+  ],
+  "epidemiology--epidem-disease-transmission--ตัวอย่าง-incubation-carrier-fmd-ในโค": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ใช้ FMD ในโคเป็นตัวอย่างของ incubation carrier โดยระบุว่า \"Days 2-3 after infection, the cow begins shedding FMD virus in saliva, breath, and milk but looks completely healthy\" และแผนภาพปักดาวแดงไว้ตรงช่วงที่โคเข้าสู่ Infectious แล้วแต่ยังอยู่ใน Incubating ทางคลินิก พร้อมสรุปว่า \"วัวยังดูปกติแต่ปล่อยเชื้อออกมาแล้ว\"",
+      "evidenceSays": "การทดลองแพร่เชื้อโดยตรงในโคแยกให้เห็นว่าการตรวจเจอไวรัสในสารคัดหลั่งไม่เท่ากับการแพร่เชื้อได้จริง \"We performed experimental studies of foot-and-mouth disease transmission in cattle and estimated this fraction at less than half the value expected from detecting virus in body fluids, the standard proxy measure of infectiousness. This is because the infectious period is shorter (mean 1.7 days) than currently realized, and animals are not infectious until, on average, 0.5 days after clinical signs appear.\" นั่นคือสัดส่วนการแพร่เชื้อก่อนแสดงอาการต่ำกว่าที่ประมาณจากการตรวจพบไวรัสมากกว่าเท่าตัว และใน FMD ของโค latent period สิ้นสุดหลัง incubation period ดาวแดงบนแผนภาพจึงไม่ตรงกับข้อมูลการทดลอง (Relationship between clinical signs and transmission of an infectious disease and the implications for control, PMID 21551063)",
+      "examAdvice": "ตอบตามสไลด์ คือ FMD ในโคเป็นตัวอย่างคลาสสิกของ incubation carrier เริ่มปล่อยเชื้อวันที่ 2-3 ขณะยังดูปกติ เพราะนี่คือสิ่งที่อาจารย์ตรวจ ส่วนที่ต้องจำไว้ใช้จริงคือแยกให้ออกระหว่าง virus detection ในสารคัดหลั่ง กับ infectiousness ที่พิสูจน์ด้วยการแพร่เชื้อจริง สองอย่างนี้ไม่เท่ากัน และตัวเลขที่ควรจำคู่กันคือ infectious period เฉลี่ย 1.7 วัน และเริ่มแพร่เชื้อเฉลี่ย 0.5 วันหลังอาการปรากฏ",
+      "sourceRef": "PMID 21551063 (doi 10.1126/science.1199884)"
+    }
+  ],
+  "epidemiology--epidem-disease-transmission--ตัวอย่าง-viability-เวลารอดของเชื้อ-avian-influenza-ที่-20-องศาเซ": [
+    {
+      "severity": "narrows",
+      "lectureSays": "infographic ในสไลด์เรียง Water 21 days ไว้สูงกว่า Feathers 15 days และกล่องสรุปท้ายหัวข้อระบุว่า \"ตัวเลขชุดนี้บอกว่าน้ำและดินเก็บเชื้อได้นานที่สุด\" คือใช้ชุดตัวเลขนี้จัดลำดับว่าวัสดุใดเก็บเชื้อได้นานกว่ากัน",
+      "evidenceSays": "ตัวเลข feathers 15 days ที่ 20 องศาเซลเซียส ตรงกับผลของ Yamamoto และคณะพอดี แต่ในงานนั้นซึ่งเก็บ feathers, drinking water และ feces จากเป็ดชุดเดียวกันที่ติด H5N1 แล้ววัดคู่ขนานถึง 360 วัน ผลลำดับกลับกัน \"Infectious viruses persisted for the longest period in feathers, compared with drinking water and feces, at both 4 degrees C and 20 degrees C\" คือ 15 วันที่ 20 องศา และ 160 วันที่ 4 องศา โดยตรวจพบไตเตอร์ตั้งแต่ 10^4.3 EID50/ml ขึ้นไปนานถึง 120 วันที่ 4 องศา ผู้วิจัยสรุปว่าขนที่หลุดจากตัวเป็ดทำหน้าที่เป็น fomite ที่มี viral load สูง ลำดับใน infographic จึงเกิดจากการนำตัวเลขต่างการทดลองและต่างสภาพน้ำมาวางเรียงกัน ไม่ใช่ผลเปรียบเทียบภายใต้เงื่อนไขเดียวกัน (Persistence of avian influenza virus (H5N1) in feathers detached from bodies of infected domestic ducks, PMID 20581177)",
+      "examAdvice": "ตอบตามสไลด์ คือ water 21 days และ feathers 15 days และถ้าถามว่าวัสดุใดเก็บเชื้อได้นานที่สุดตาม infographic ก็ตอบ water กับ soil ตามที่สอน ส่วนตอนคุมโรคจริงอย่ามองข้ามขนสัตว์ปีก เพราะเป็นตัวพาเชื้อที่ viral load สูงและปลิวกระจายได้ง่าย และเวลาเทียบตัวเลข persistence ให้ดูก่อนเสมอว่ามาจากการทดลองเดียวกันหรือคนละงาน",
+      "sourceRef": "PMID 20581177 (doi 10.1128/AEM.00563-10)"
+    },
+    {
+      "severity": "narrows",
+      "lectureSays": "infographic ระบุ Water 21 days ที่ 20 องศาเซลเซียส โดยกำกับว่า \"The following times are approximate and may consider various AI sub-types\" และกล่องสรุปในสไลด์ใช้ตัวเลขนี้เป็นหลักฐานว่าน้ำเก็บเชื้อได้นานที่สุด และเชื่อมเข้ากับข้อ Environment ของ avian influenza ในสไลด์ triad",
+      "evidenceSays": "Stallknecht และคณะวัด AIV 5 สายพันธุ์จากนกน้ำ 4 ชนิดใน distilled water ที่ 17 และ 28 องศาเซลเซียส แล้วสร้าง linear regression ได้ว่า \"an initial concentration of 1 x 10(6) TCID50/ml water could remain infective for up to 207 days at 17 C and up to 102 days at 28 C\" ซึ่งขนาบ 20 องศาที่สไลด์อ้าง คือระดับหลายเดือน ไม่ใช่ 3 สัปดาห์ ข้อควรระวังที่ต้องพูดให้ครบคือตัวเลข 207 วันเป็นค่าที่ extrapolate จากการวัดจริง 60 วัน และทำในน้ำกลั่นปลอดเชื้อที่เริ่มด้วยไตเตอร์สูง น้ำในสภาพจริงที่มีสารอินทรีย์และจุลชีพย่อมสั้นกว่านั้นมาก แต่ก็ยังยาวเกินกว่าที่จะใช้ 21 วันเป็นเพดานได้ คำกำกับว่า approximate ครอบคลุมเรื่องความคลาดเคลื่อนและ subtype แต่ไม่ครอบคลุมส่วนต่างเกือบสิบเท่า (Persistence of avian influenza viruses in water, PMID 2142420)",
+      "examAdvice": "ข้อสอบให้ตอบ 21 days ตาม infographic ที่อาจารย์ใช้ จำสาระที่เอาไปใช้จริงไว้ว่า AIV อยู่ในน้ำเย็นได้เป็นเดือน ยิ่งอุณหภูมิต่ำยิ่งอยู่นาน ซึ่งเป็นเหตุผลว่าทำไมแหล่งน้ำที่นกน้ำใช้ร่วมกับสัตว์ปีกเลี้ยงจึงเป็นจุดเสี่ยงหลักของ environment leg และเป็นเหตุผลของมาตรการกันนกน้ำออกจากแหล่งน้ำในฟาร์ม",
+      "sourceRef": "PMID 2142420"
+    },
+    {
+      "severity": "narrows",
+      "lectureSays": "กล่องข้อความข้างภาพระบุว่า \"Waterfowl excrete the virus up to 11 days after infection through respiratory droplets and feces, thus contaminating their environment\" โดยเขียนเป็นข้อเท็จจริงทั่วไปของนกน้ำ ไม่ได้กำกับว่าเป็นไวรัสสายพันธุ์ใดหรือนกชนิดใด",
+      "evidenceSays": "Carranza-Flores และคณะ ให้เป็ดปักกิ่งและไก่ Leghorn ติด LPAI H5N2 สายพันธุ์ A/chicken/Mexico/2007 แล้วตามการขับเชื้อจาก oropharyngeal และ cloacal swab พบว่า \"We observed prolonged excretion from both species of birds lasting for at least 21 days\" และผู้วิจัยเองระบุว่า \"Prolonged excretion of LPAIV A/chicken/Mexico/2007 is atypical\" ข้อควรระวังที่ต้องพูดให้ครบคืองานนี้วัดด้วย real-time RT-PCR ซึ่งตรวจ viral RNA ไม่ได้พิสูจน์ว่าเป็นเชื้อที่ยังติดต่อได้ตลอด 21 วัน สรุปได้ว่า 11 วันใช้เป็นค่ากลางที่พบบ่อยได้ แต่ใช้เป็นเพดานตายตัวของนกน้ำทุกกรณีไม่ได้ เพราะระยะขับเชื้อขึ้นกับสายพันธุ์ไวรัสและชนิดนก (Prolonged excretion of a low-pathogenicity H5N2 avian influenza virus strain in the Pekin duck, PMID 23820212)",
+      "examAdvice": "ตอบ 11 days ตามสไลด์ เวลาวางแผน quarantine หรือ surveillance จริงให้เผื่อไว้ว่าบางสายพันธุ์และบางชนิดนกขับเชื้อได้นานกว่านั้น และแยกให้ชัดเสมอระหว่างผลบวก PCR กับการยังแพร่เชื้อได้ เพราะเป็นคนละคำถามกันและมักถูกถามต่อในข้อสอบอัตนัย",
+      "sourceRef": "PMID 23820212 (doi 10.4142/jvs.2013.14.4.487)"
     }
   ],
   "equine-medicine--equine-colic-bestfit--approach-classification-decision-tree": [

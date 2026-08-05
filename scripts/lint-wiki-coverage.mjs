@@ -32,10 +32,12 @@ import { SOURCES } from '../src/lib/vetwiki/sources.js';
 import { NON_VERIFIABLE } from '../src/lib/vetwiki/non-verifiable.js';
 
 const unsourced = [];
+const seenIds = new Set();
 let verifiable = 0, verified = 0, exempt = 0;
 
 for (const t of listTopics()) {
   for (const s of loadTopic(t.subject, t.topic)?.sections || []) {
+    seenIds.add(s.id);
     if (NON_VERIFIABLE.has(s.id)) { exempt++; continue; }
     verifiable++;
     const backed = (s.claims || []).some((c) => (c.sourceRefs || []).some((r) => SOURCES[r.sourceId]));
@@ -44,15 +46,29 @@ for (const t of listTopics()) {
   }
 }
 
+// An exemption id that matches no section exempts nothing. It is not a
+// harmless typo: the author believed they had excused a section, the section
+// stays in the denominator, and the entry sits in the file looking like a
+// decision somebody made. Mistyping one Thai slug is enough — that is exactly
+// how this check came to exist.
+const dangling = [...NON_VERIFIABLE].filter((id) => !seenIds.has(id));
+
 const pct = verifiable ? (100 * verified / verifiable) : 100;
 console.log('VetWiki verification gate');
 console.log(`  verifiable sections : ${verifiable}`);
 console.log(`  source-backed       : ${verified}  (${pct.toFixed(1)}%)`);
 console.log(`  exempt              : ${exempt}  (declared in non-verifiable.js)`);
 
+if (dangling.length) {
+  console.log(`\n❌ ${dangling.length} exemption(s) in non-verifiable.js match no section:\n`);
+  for (const id of dangling) console.log(`     - ${id}`);
+  console.log('\nEither the section was renamed or removed, or the id is mistyped.');
+  console.log('Fix the id or delete the entry — as written it excuses nothing.');
+}
+
 if (!unsourced.length) {
-  console.log('\n✅ Every verifiable section carries a resolvable source.');
-  process.exit(0);
+  if (!dangling.length) console.log('\n✅ Every verifiable section carries a resolvable source.');
+  process.exit(dangling.length ? 1 : 0);
 }
 
 // group so the report is a work list, not a wall
@@ -71,4 +87,4 @@ for (const [k, list] of [...byTopic].sort((a, b) => b[1].length - a[1].length)) 
 }
 console.log('\nSource them, or declare them in src/lib/vetwiki/non-verifiable.js with a reason.');
 console.log('List them all with: npm run wiki:unverified');
-process.exitCode = 1;
+process.exit(1);

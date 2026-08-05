@@ -14,6 +14,7 @@ import { NOTES_CLIAPPRUM } from '../data/notes-cliapprum.js';
 import { NOTES_Y5_ZOONOSES } from '../data/notes-y5-zoonoses.js';
 import { NOTES_Y5_EPIDEMIOLOGY } from '../data/notes-y5-epidemiology.js';
 import { NOTES_Y5_AVIAN_MEDICINE } from '../data/notes-y5-avian-medicine.js';
+import { NOTES_Y5_AQUATIC } from '../data/notes-y5-aquatic.js';
 import { NOTES_Y5_ONE_HEALTH } from '../data/notes-y5-one-health.js';
 import { NOTES_Y5_FIQC } from '../data/notes-y5-fiqc.js';
 import { NOTES_Y5_POA } from '../data/notes-y5-poa.js';
@@ -55,6 +56,7 @@ const NOTES_BY_SUBJECT = {
   // Y5 term-1 midterm subjects, written from the 2569 lecture decks
   epidemiology: NOTES_Y5_EPIDEMIOLOGY,
   'avian-medicine': NOTES_Y5_AVIAN_MEDICINE,
+  'aquatic-clinic': NOTES_Y5_AQUATIC,
   'one-health': NOTES_Y5_ONE_HEALTH,
   'food-industry': NOTES_Y5_FIQC,
   'poa-clinical': NOTES_Y5_POA,
