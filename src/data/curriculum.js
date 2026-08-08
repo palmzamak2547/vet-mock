@@ -1445,7 +1445,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'equine-medicine', code: '3106510', name: 'เวชปฏิบัติม้า + ศัลย์',
       name_en: 'Equine Medicine & Surgery',
-      icon: '🐎', color: '#8b5a3d', semester: 1, has_questions: false, scaffold: true, has_notes: true,
+      icon: '🐎', color: '#8b5a3d', semester: 1, has_questions: true, scaffold: false, has_notes: true,
       vault_lecturers: ['teerapol-chinkangsadarn', 'piyanan-taweethavonsawat', 'weerapongse-tangjitjaroen', 'theerawat-tharasanit', 'sumit-durongphongtorn'],
       examFormat: {
         weight: 'TBD',
@@ -1483,7 +1483,7 @@ export const SUBJECTS_BY_YEAR = {
 
     { id: 'equine-repro', code: '3108515', name: 'การสืบพันธุ์ในม้า',
       name_en: 'Equine Reproduction',
-      icon: '🐴', color: '#b88940', semester: 1, has_questions: false, scaffold: true,
+      icon: '🐴', color: '#b88940', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['theerawat-tharasanit', 'nawapen-phutikanit'],
       examFormat: {
         weight: 'Mid + Final separate',

@@ -10,11 +10,11 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 3395;
+export const QB_TOTAL = 4251;
 
 export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 104,
-  'avian-medicine': 72,
+  'aquatic-clinic': 169,
+  'avian-medicine': 173,
   'biochem-1': 272,
   'cliapprum': 136,
   'com1': 31,
@@ -26,13 +26,15 @@ export const Q_COUNTS_BY_SUBJECT = {
   'engprof': 71,
   'engprof1': 30,
   'epidemiology': 76,
+  'equine-medicine': 216,
+  'equine-repro': 144,
   'exotic': 151,
   'food-industry': 16,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'milk-meat-hygiene': 136,
-  'one-health': 20,
+  'milk-meat-hygiene': 264,
+  'one-health': 87,
   'poa-clinical': 42,
   'poultry': 191,
   'practrum': 118,
@@ -43,14 +45,14 @@ export const Q_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 20,
   'surg3': 40,
-  'swine-clinic': 26,
+  'swine-clinic': 94,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 340,
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
-  'zoonoses': 18,
+  'zoonoses': 85,
 };
 
 // Visible counts exclude hidden-topic Qs (midterm leftovers,
@@ -58,8 +60,8 @@ export const Q_COUNTS_BY_SUBJECT = {
 // HomeView SubjectGrid renders these for the per-card Q badges so
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 104,
-  'avian-medicine': 72,
+  'aquatic-clinic': 169,
+  'avian-medicine': 173,
   'biochem-1': 272,
   'cliapprum': 134,
   'com1': 31,
@@ -71,12 +73,14 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'engprof': 71,
   'engprof1': 30,
   'epidemiology': 76,
+  'equine-medicine': 216,
+  'equine-repro': 144,
   'exotic': 108,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'milk-meat-hygiene': 136,
-  'one-health': 20,
+  'milk-meat-hygiene': 264,
+  'one-health': 87,
   'poa-clinical': 42,
   'poultry': 134,
   'practrum': 114,
@@ -87,20 +91,20 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 20,
   'surg3': 40,
-  'swine-clinic': 26,
+  'swine-clinic': 94,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 340,
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
-  'zoonoses': 18,
+  'zoonoses': 85,
 };
 
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
   4: 2095,
-  5: 1002,
+  5: 1858,
 };
 
-// Built: 2026-08-04T10:35:04.842Z
+// Built: 2026-08-08T16:23:50.716Z

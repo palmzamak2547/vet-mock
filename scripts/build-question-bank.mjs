@@ -70,7 +70,11 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
     const mean = others.reduce((a, b) => a + b, 0) / others.length;
     if (mean > 0 && correct / mean > 1.5) { fail(`answer ${Math.round(correct / mean * 100)}% of distractor mean length`); continue; }
 
-    if (!q.verified) { fail('no slide citation'); continue; }
+    // A question must say where it came from. Slide-derived items cite the
+    // slide page in `verified`; senior-material items may instead carry
+    // `examOrigin` (the provenance string the corpus already uses on 1,305
+    // questions). Either satisfies the citation rule — having neither fails.
+    if (!q.verified && !q.examOrigin) { fail('no citation (verified or examOrigin)'); continue; }
 
     kept.push({
       id: ++maxId,
@@ -82,7 +86,13 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
       options: q.options,
       answer: q.answer,
       explain: q.explain,
-      verified: q.verified,
+      verified: q.verified || q.examOrigin,
+      // Provenance pass-through: these two fields are how the app has always
+      // distinguished past-paper and student-compilation items from
+      // lecture-derived ones. Dropping them here would silently launder the
+      // provenance the extraction was careful to record.
+      ...(q.sourceType ? { sourceType: q.sourceType } : {}),
+      ...(q.examOrigin ? { examOrigin: q.examOrigin } : {}),
     });
   }
 }
