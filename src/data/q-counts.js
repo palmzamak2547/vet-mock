@@ -10,11 +10,11 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4251;
+export const QB_TOTAL = 4454;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 169,
-  'avian-medicine': 173,
+  'avian-medicine': 201,
   'biochem-1': 272,
   'cliapprum': 136,
   'com1': 31,
@@ -29,13 +29,13 @@ export const Q_COUNTS_BY_SUBJECT = {
   'equine-medicine': 216,
   'equine-repro': 144,
   'exotic': 151,
-  'food-industry': 16,
+  'food-industry': 50,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'milk-meat-hygiene': 264,
+  'milk-meat-hygiene': 296,
   'one-health': 87,
-  'poa-clinical': 42,
+  'poa-clinical': 58,
   'poultry': 191,
   'practrum': 118,
   'rec-adv-bioscience': 5,
@@ -52,7 +52,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
-  'zoonoses': 85,
+  'zoonoses': 178,
 };
 
 // Visible counts exclude hidden-topic Qs (midterm leftovers,
@@ -61,7 +61,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 169,
-  'avian-medicine': 173,
+  'avian-medicine': 201,
   'biochem-1': 272,
   'cliapprum': 134,
   'com1': 31,
@@ -76,12 +76,13 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'equine-medicine': 216,
   'equine-repro': 144,
   'exotic': 108,
+  'food-industry': 34,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'milk-meat-hygiene': 264,
+  'milk-meat-hygiene': 296,
   'one-health': 87,
-  'poa-clinical': 42,
+  'poa-clinical': 58,
   'poultry': 134,
   'practrum': 114,
   'rec-adv-bioscience': 5,
@@ -98,13 +99,13 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
-  'zoonoses': 85,
+  'zoonoses': 178,
 };
 
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
   4: 2095,
-  5: 1858,
+  5: 2061,
 };
 
-// Built: 2026-08-08T16:23:50.716Z
+// Built: 2026-08-09T01:26:32.695Z
