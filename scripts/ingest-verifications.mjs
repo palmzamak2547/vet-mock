@@ -216,7 +216,15 @@ for (const [id, c] of sources) {
   srcLines.push(`    title: '${esc(c._title)}',`);
   srcLines.push(`    organization: '${esc(c._org || '')}',`);
   srcLines.push(`    kind: '${c.sourceKind || 'primary-literature'}',`);
-  if (c._year) srcLines.push(`    year: ${c._year},`);
+  // A year is not always a number: guideline sources return things like
+  // 'n.d. (accessed 2026)'. Emitting that raw produced a sources.js that would
+  // not parse, which takes the whole app down, so anything non-numeric is quoted.
+  if (c._year) {
+    const y = Number(c._year);
+    srcLines.push(Number.isFinite(y) && String(y) === String(c._year).trim()
+      ? `    year: ${y},`
+      : `    year: '${esc(c._year)}',`);
+  }
   if (c.pmid) srcLines.push(`    pmid: '${esc(c.pmid)}',`);
   if (c.doi) srcLines.push(`    doi: '${esc(c.doi)}',`);
   const url = c.url || (c.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${c.pmid}/` : null);

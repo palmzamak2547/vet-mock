@@ -30,6 +30,16 @@ import { NOTES_Y5_AQUATIC } from '../../data/notes-y5-aquatic.js';
 import { NOTES_Y5_ONE_HEALTH } from '../../data/notes-y5-one-health.js';
 import { NOTES_Y5_FIQC } from '../../data/notes-y5-fiqc.js';
 import { NOTES_Y5_POA } from '../../data/notes-y5-poa.js';
+import { NOTES_85_AQUATIC_CLINIC } from '../../data/notes-85-aquatic-clinic.js';
+import { NOTES_85_AVIAN_MEDICINE } from '../../data/notes-85-avian-medicine.js';
+import { NOTES_85_EQUINE_MEDICINE } from '../../data/notes-85-equine-medicine.js';
+import { NOTES_85_EQUINE_REPRO } from '../../data/notes-85-equine-repro.js';
+import { NOTES_85_FOOD_INDUSTRY } from '../../data/notes-85-food-industry.js';
+import { NOTES_85_MILK_MEAT_HYGIENE } from '../../data/notes-85-milk-meat-hygiene.js';
+import { NOTES_85_ONE_HEALTH } from '../../data/notes-85-one-health.js';
+import { NOTES_85_POA_CLINICAL } from '../../data/notes-85-poa-clinical.js';
+import { NOTES_85_SWINE_CLINIC } from '../../data/notes-85-swine-clinic.js';
+import { NOTES_85_ZOONOSES } from '../../data/notes-85-zoonoses.js';
 import { noteToKnowledge, verifiedClaimCount } from './adapter.js';
 import { validateTopic } from './validate.js';
 import { resolveSource } from './sources.js';
@@ -37,7 +47,20 @@ import { EVIDENCE_LABEL, REVIEW_LABEL, wikiTitle, wikiSummary } from './schema.j
 
 // subject id → its notes module. Mirrors NotesView's NOTES_BY_SUBJECT (kept a
 // local copy rather than refactoring the live, actively-edited NotesView).
-const NOTES_BY_SUBJECT = {
+const NOTES_85_BY_SUBJECT = {
+  'aquatic-clinic': NOTES_85_AQUATIC_CLINIC,
+  'avian-medicine': NOTES_85_AVIAN_MEDICINE,
+  'equine-medicine': NOTES_85_EQUINE_MEDICINE,
+  'equine-repro': NOTES_85_EQUINE_REPRO,
+  'food-industry': NOTES_85_FOOD_INDUSTRY,
+  'milk-meat-hygiene': NOTES_85_MILK_MEAT_HYGIENE,
+  'one-health': NOTES_85_ONE_HEALTH,
+  'poa-clinical': NOTES_85_POA_CLINICAL,
+  'swine-clinic': NOTES_85_SWINE_CLINIC,
+  'zoonoses': NOTES_85_ZOONOSES,
+};
+
+const NOTES_BY_SUBJECT_BASE = {
   com5: NOTES_COM5,
   com4: NOTES_COM4,
   com3: NOTES_COM3,
@@ -57,6 +80,25 @@ const NOTES_BY_SUBJECT = {
   'food-industry': NOTES_Y5_FIQC,
   'poa-clinical': NOTES_Y5_POA,
 };
+
+// Fold the Vet 85 summaries in so their topics become governed articles too.
+// A topic in both keeps the lecture sections first; the senior ones append,
+// each still carrying its own source line.
+const NOTES_BY_SUBJECT = (() => {
+  const out = {};
+  for (const k of new Set([...Object.keys(NOTES_BY_SUBJECT_BASE), ...Object.keys(NOTES_85_BY_SUBJECT)])) {
+    const own = NOTES_BY_SUBJECT_BASE[k] || {};
+    const s85 = NOTES_85_BY_SUBJECT[k] || {};
+    const merged = { ...own };
+    for (const [id, t] of Object.entries(s85)) {
+      merged[id] = merged[id]
+        ? { ...merged[id], sections: [...(merged[id].sections || []), ...(t.sections || [])] }
+        : t;
+    }
+    out[k] = merged;
+  }
+  return out;
+})();
 
 const FLAGSHIP = 'com5--rabies';
 

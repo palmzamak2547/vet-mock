@@ -7,6 +7,7 @@ import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_COUNTS_BY
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject } from '../data/curriculum.js';
+import { hasNotes } from '../data/notes-registry.generated.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
@@ -1081,7 +1082,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           //   3. has_questions → topic-select normally.
           const totalQ = (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0)
             + (customQuestions || []).filter((q) => q.subject === s.id).length;
-          const hasUsableContent = totalQ > 0 || s.has_notes === true;
+          const hasUsableContent = totalQ > 0 || hasNotes(s.id);
           if (!hasUsableContent) {
             if (setFeedbackPrefill) {
               const reason = s.scaffold
@@ -1647,7 +1648,7 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
         // Scaffold subjects that have notes available are still useful —
         // user can read 📖 Notes even though Q bank is empty. Render
         // them at normal opacity so they don't look "abandoned".
-        const hasUsableContent = count > 0 || s.has_notes === true;
+        const hasUsableContent = count > 0 || hasNotes(s.id);
 
         // Per-subject progress (Phase 3) — readingChecklist + bookmarks
         // are local-storage backed and cheap to compute.

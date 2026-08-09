@@ -20,6 +20,17 @@ import { NOTES_Y5_FIQC } from '../data/notes-y5-fiqc.js';
 import { NOTES_Y5_POA } from '../data/notes-y5-poa.js';
 import { NOTES_Y5_MILK_MEAT_HYGIENE } from '../data/notes-y5-milk-meat-hygiene.js';
 import { NOTES_Y5_EQUINE_MEDICINE } from '../data/notes-y5-equine-medicine.js';
+// สรุปรุ่นพี่ Vet 85 — เก็บแยกจากโน้ตที่เขียนจากสไลด์ปีนี้ และไม่เข้า VetWiki
+import { NOTES_85_AQUATIC_CLINIC } from '../data/notes-85-aquatic-clinic.js';
+import { NOTES_85_AVIAN_MEDICINE } from '../data/notes-85-avian-medicine.js';
+import { NOTES_85_EQUINE_MEDICINE } from '../data/notes-85-equine-medicine.js';
+import { NOTES_85_EQUINE_REPRO } from '../data/notes-85-equine-repro.js';
+import { NOTES_85_FOOD_INDUSTRY } from '../data/notes-85-food-industry.js';
+import { NOTES_85_MILK_MEAT_HYGIENE } from '../data/notes-85-milk-meat-hygiene.js';
+import { NOTES_85_ONE_HEALTH } from '../data/notes-85-one-health.js';
+import { NOTES_85_POA_CLINICAL } from '../data/notes-85-poa-clinical.js';
+import { NOTES_85_SWINE_CLINIC } from '../data/notes-85-swine-clinic.js';
+import { NOTES_85_ZOONOSES } from '../data/notes-85-zoonoses.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import { hasTopic } from '../lib/vetwiki/index.js';
@@ -65,6 +76,46 @@ const NOTES_BY_SUBJECT = {
   'poa-clinical': NOTES_Y5_POA,
 };
 
+// สรุปรุ่นพี่ Vet 85 ต่อวิชา. เก็บเป็น map แยกเพราะ (1) มันมาจากคนละแหล่งกับ
+// สไลด์ปีนี้ และผู้อ่านควรรู้ (2) VetWiki ดึงจาก map ของตัวเองที่ไม่มีชุดนี้
+// ซึ่งทำให้คำสัญญาว่า 'ทุก section มีแหล่งอ้างอิงภายนอกที่ resolve ได้' ยังจริงอยู่
+const NOTES_85_BY_SUBJECT = {
+  'aquatic-clinic': NOTES_85_AQUATIC_CLINIC,
+  'avian-medicine': NOTES_85_AVIAN_MEDICINE,
+  'equine-medicine': NOTES_85_EQUINE_MEDICINE,
+  'equine-repro': NOTES_85_EQUINE_REPRO,
+  'food-industry': NOTES_85_FOOD_INDUSTRY,
+  'milk-meat-hygiene': NOTES_85_MILK_MEAT_HYGIENE,
+  'one-health': NOTES_85_ONE_HEALTH,
+  'poa-clinical': NOTES_85_POA_CLINICAL,
+  'swine-clinic': NOTES_85_SWINE_CLINIC,
+  zoonoses: NOTES_85_ZOONOSES,
+};
+
+/** Lecture notes for a subject, with the Vet 85 summaries folded in.
+ *
+ *  A topic present in both keeps the lecture sections FIRST and appends the
+ *  senior ones after, each still carrying its own source line, so a reader can
+ *  always tell which half they are looking at. A topic only the seniors covered
+ *  appears on its own — that is the whole point, since several subjects had no
+ *  notes at all before this. */
+function mergeNotes(subject) {
+  const own = NOTES_BY_SUBJECT[subject] || {};
+  const senior = NOTES_85_BY_SUBJECT[subject];
+  if (!senior) return own;
+  const out = { ...own };
+  for (const [id, s85] of Object.entries(senior)) {
+    const mine = out[id];
+    if (!mine) { out[id] = s85; continue; }
+    out[id] = {
+      ...mine,
+      sections: [...(mine.sections || []), ...(s85.sections || [])],
+      has85: true,
+    };
+  }
+  return out;
+}
+
 // Walk a section's structured body and collect all searchable text
 // into a single lower-cased string. Done once per (topic, section)
 // pair via a WeakMap cache, so the filter never re-stringifies the
@@ -101,7 +152,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   // version recomputed topicIds + subjectMeta on every render
   // (including every keystroke in the search box).
   const { notes, subjectMeta, topicIds } = useMemo(() => {
-    const n = NOTES_BY_SUBJECT[subject] || {};
+    const n = mergeNotes(subject);
     const sm = SUBJECTS.find((s) => s.id === subject);
     const ids = (sm?.topics || []).map((t) => t.id).filter((id) => n[id]);
     Object.keys(n).forEach((id) => { if (!ids.includes(id)) ids.push(id); });
@@ -127,13 +178,13 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     setActiveSubjectLocal(next);
     // Use curriculum order to pick first topic
     const nextSubject = SUBJECTS.find((s) => s.id === next);
-    const nextNotes = NOTES_BY_SUBJECT[next] || {};
+    const nextNotes = mergeNotes(next);
     const nextTopics = (nextSubject?.topics || []).map((t) => t.id).filter((id) => nextNotes[id]);
     if (nextTopics.length > 0) setActiveTopic(nextTopics[0]);
     if (setSubjectProp) setSubjectProp(next);
   };
 
-  const availableSubjects = Object.keys(NOTES_BY_SUBJECT);
+  const availableSubjects = [...new Set([...Object.keys(NOTES_BY_SUBJECT), ...Object.keys(NOTES_85_BY_SUBJECT)])];
 
   const topic = notes[validTopic];
   const mainRef = useRef(null);

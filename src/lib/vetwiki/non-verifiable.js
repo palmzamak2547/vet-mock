@@ -159,7 +159,32 @@ export const METADATA_SECTIONS = new Set([
   "aquatic-clinic--aqua-intro-thailand--หัวข้อบรรยายและผู้บรรยาย", // deck cover: title, speaker, affiliation
   "aquatic-clinic--aqua-intro-thailand--สัตว์น้ำ-vs-สัตว์บก-และลักษณะการเลี้ยงสัตว์น้ำ", // side-by-side photographs; the slide states no conclusion
   "aquatic-clinic--aqua-fish-biology--ภาพรวมของบทเรียน-principal-concepts", // cover plus the three headings the lecture will cover
-  "aquatic-clinic--aqua-fish-biology--สไลด์วิดีโอประกอบเรื่อง-reproduction", // four video thumbnails; the content was on screen, not on the slide
+  "aquatic-clinic--aqua-fish-biology--สไลด์วิดีโอประกอบเรื่อง-reproduction",
+
+  "avian-medicine--avian-intro--บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้-ให้ไปหาคำตอบเอง", // บันทึกจากรุ่นพี่ที่ยังหาคำตอบไม่ได้ ให้ไปหาคำตอบเอง
+  "equine-medicine--equine-poa--เคสก้อนขนาดเท่าลูกเชอร์รี่ข้างแก้ม", // เคสก้อนขนาดเท่าลูกเชอร์รี่ข้างแก้ม
+  "swine-clinic--swine-asf--รายการหัวข้อ-asf-และ-csf-ที่ออกข้อเขียน", // รายการหัวข้อ ASF และ CSF ที่ออกข้อเขียน
+  "swine-clinic--swine-pcv2--exudative-epidermitis-และ-mycoplasma-suis-ที่บันทึกไว้โดยไม่มีคำ", // Exudative epidermitis และ Mycoplasma suis ที่บันทึกไว้โดยไม่มีคำตอบ
+
+  // Vet 85 handover, the exam-recall half. These sections say what appeared on
+  // last year's paper and how it was marked. That is real and useful to a
+  // student, and it is also the one thing no literature can confirm: there is
+  // no paper to cite for "this came up last year, worth 4 marks". The
+  // veterinary content from the same documents is sourced like everything else;
+  // only the bookkeeping about the exam itself sits here.
+  "aquatic-clinic--aqua-fish-diseases--การคำนวณยาแช่-ออกสอบคำนวณ-4-ข้อ", // การคำนวณยาแช่ (ออกสอบคำนวณ 4 ข้อ)
+  "equine-medicine--equine-colic-bestfit--รูปแบบข้อสอบส่วน-gi-ที่รุ่นพี่บันทึกไว้", // รูปแบบข้อสอบส่วน GI ที่รุ่นพี่บันทึกไว้
+  "equine-medicine--equine-intro--สิ่งที่รุ่นพี่บันทึกไว้ว่าออกสอบ-ข้อมูลจากปีก่อน", // สิ่งที่รุ่นพี่บันทึกไว้ว่าออกสอบ (ข้อมูลจากปีก่อน)
+  "equine-medicine--equine-poa--หลักการให้คะแนน-poa-ที่รุ่นพี่บันทึกไว้", // หลักการให้คะแนน POA ที่รุ่นพี่บันทึกไว้
+  "equine-medicine--equine-poa--คาบเคสจริง-แนวการทำงานที่ผู้สอนเน้น", // คาบเคสจริง: แนวการทำงานที่ผู้สอนเน้น
+  "equine-medicine--equine-poa--หัวข้อที่รุ่นก่อนเจอในข้อสอบแล้วบันทึกไว้", // หัวข้อที่รุ่นก่อนเจอในข้อสอบแล้วบันทึกไว้
+  "equine-repro--eqrepro-endometritis--สิ่งที่รุ่นพี่บันทึกไว้เกี่ยวกับข้อสอบส่วน-endometritis", // สิ่งที่รุ่นพี่บันทึกไว้เกี่ยวกับข้อสอบส่วน endometritis
+  "equine-repro--eqrepro-pregnancy--สิ่งที่รุ่นพี่บันทึกไว้เกี่ยวกับข้อสอบส่วน-pregnancy-และ-parturi", // สิ่งที่รุ่นพี่บันทึกไว้เกี่ยวกับข้อสอบส่วน pregnancy และ parturition
+  "one-health--oh-amr--รูปแบบข้อสอบของรุ่นก่อนหน้า", // รูปแบบข้อสอบของรุ่นก่อนหน้า
+  "one-health--oh-concept--รูปแบบข้อสอบของรุ่นก่อนหน้า", // รูปแบบข้อสอบของรุ่นก่อนหน้า
+  "one-health--oh-disease-prevention--รูปแบบข้อสอบของรุ่นก่อนหน้า", // รูปแบบข้อสอบของรุ่นก่อนหน้า
+  "one-health--oh-foodborne--รูปแบบข้อสอบของรุ่นก่อนหน้า", // รูปแบบข้อสอบของรุ่นก่อนหน้า
+  "one-health--oh-risk-analysis--รูปแบบข้อสอบของรุ่นก่อนหน้า", // รูปแบบข้อสอบของรุ่นก่อนหน้า // four video thumbnails; the content was on screen, not on the slide
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */
