@@ -1,7 +1,8 @@
 # VetMock — Vercel Analytics 2-week Summary
 
-> Update 2026-08-11: `#lab` was externalized to `imaging.cuvetsmo.com`; any
-> Lab-specific bundle or INP observations below describe the retired local copy.
+> Update 2026-08-11: `#lab` remains the focused VetMock Imaging Practical;
+> `imaging.cuvetsmo.com` is the separate Pro product. Continue measuring the
+> Practical's bundle and interaction performance independently.
 
 Window: **2026-05-04 → 2026-05-18** (2 weeks ending today).
 Project: `vetmock` · `prj_8162VUdjMNKmjIiHLYsKID7zwTnC` · team `team_GZDXlQmo6KrpaaO0zJ16w9oB` · Hobby plan.

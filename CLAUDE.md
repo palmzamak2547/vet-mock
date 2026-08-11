@@ -9,19 +9,19 @@
 ## 🧭 Ecosystem role (canonical · locked 2026-05-29)
 - **Role:** Standalone vet study platform — own brand, may consume cuvetsmo-source/mcp, NOT part of the council site.
 - **Layer:** Product · **Live:** https://vetmock.vercel.app
-- **OWNS:** the question-bank (2,948 Qs across 41 banks + lint/fix tooling) + the exam/SRS engine (MCQ/TF/Fill/Match · Quick/Exam/SM-2 · analytics · groups).
+- **OWNS:** the question-bank (4,454 Qs across 63 banks + lint/fix tooling) + the exam/SRS engine (MCQ/TF/Fill/Match · Quick/Exam/SM-2 · analytics · groups) + a deliberately simple educational Imaging Practical.
 
 ### ⛔ No-duplication — see `cuvetsmo-docs/NO_DUPLICATION.md`
-Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp) · AI inference (→ shared ai-chat) · DICOM viewer (→ cuvetsmo-imaging).
+Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp) · AI inference (→ shared ai-chat) · the full clinical/pro DICOM workstation (→ cuvetsmo-imaging).
 
-> ✅ RESOLVED 2026-08-11: the duplicate DICOM viewer was retired. Every Imaging Lab entry now opens the canonical owner at `https://imaging.cuvetsmo.com`; VetMock no longer ships Cornerstone/DICOM viewer code.
+> 🩻 PRODUCT SPLIT 2026-08-11: VetMock keeps its own approachable **Imaging Practical** for quick study, local files, public teaching cases, and basic measurements. `https://imaging.cuvetsmo.com` is the separate **Imaging Pro** product for the full toolset. Keep the Practical intentionally narrow; advanced workflows belong in Pro.
 
 ---
 
 ## 🎯 Project At a Glance
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
-- **Stack**: React 18 + Vite 5 + Supabase (auth/DB) + PWA · plain JSX (no TypeScript)
+- **Stack**: React 18 + Vite 6.4 + Supabase (auth/DB) + PWA · plain JSX (no TypeScript)
 - **Hosting**: Vercel (auto-deploy on push to `main`)
 - **Production**: https://vetmock.vercel.app
 - **Audience**: ~50-100 vet students at Chulalongkorn (Vet 86 cohort) · Thai-language

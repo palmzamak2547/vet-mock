@@ -1,8 +1,8 @@
 # VetMock — Design System Master Doc
 
-> Update 2026-08-11: the local DICOM `LabView` was retired and now opens the
-> canonical `imaging.cuvetsmo.com` product. Lab-specific measurements in this
-> historical audit are no longer part of VetMock's shipped UI.
+> Update 2026-08-11: Imaging is an intentional product split. The local
+> `LabView` is VetMock's approachable Practical; `imaging.cuvetsmo.com` is the
+> full Pro tool. Lab-specific measurements remain active for the Practical.
 
 Audit date: 2026-05-18 · Read-only.
 Current Source of Truth: `src/styles.css` + `src/styles-landing.css` + component inline `style={{...}}`.

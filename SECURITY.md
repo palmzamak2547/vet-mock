@@ -6,10 +6,13 @@ maintainer (Vet 86). Not user-facing.
 ## Hardening pass — 2026-08-11
 
 - `npm audit` reports **0 vulnerabilities** across production and development dependencies.
-- Retired the duplicated local DICOM/Cornerstone viewer. Imaging entry points now
-  open the canonical product at `https://imaging.cuvetsmo.com`.
-- Removed Cornerstone, VTK, codec, `dicom-parser`, and the legacy CommonJS Vite
-  bridge from VetMock's dependency graph.
+- Kept VetMock's focused Imaging Practical at `#lab` and the full Imaging Pro
+  workstation as a distinct handoff to `https://imaging.cuvetsmo.com`.
+- Pinned the compatible Cornerstone 4.22.13 line and `dicom-parser` 1.8.21.
+  Patched transitive `js-yaml` and unused loader `uuid` advisories with audited
+  package overrides; the legacy CommonJS Vite bridge remains removed.
+- Cornerstone, codecs, workers, and WASM stay in a lazy chunk excluded from
+  module preload, so ordinary study sessions do not download the imaging stack.
 - Upgraded the build chain to Vite 6.4.3 and Sharp 0.35.3.
 - Production counts, registries, curriculum links, and generated docs are checked
   by `npm run lint:all`; connected study paths are covered by Playwright.
@@ -45,7 +48,7 @@ Applied with zero UX impact:
 - (Optional) Auth → Email → Set rate limits per email/IP
 
 **Historical npm audit state:** 2 moderate findings existed at this point and
-were cleared by the 2026-08-11 hardening pass above.
+were cleared by the 2026-08-11 overrides documented above.
 
 ## Hardening pass — 2026-05-20 (Palm 10/10 audit)
 

@@ -3,6 +3,21 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  // Cornerstone's image loader owns its web workers. Keep it out of Vite's
+  // dependency pre-bundle. Vite 6 handles dicom-parser's CJS conversion.
+  optimizeDeps: {
+    exclude: ['@cornerstonejs/dicom-image-loader'],
+    // The loader owns its workers, but its WASM glue files are UMD/CommonJS.
+    // Prebundle those deep imports explicitly so `npm run dev` gets the same
+    // default-export interop Rollup provides in production builds.
+    include: [
+      'dicom-parser',
+      '@cornerstonejs/codec-libjpeg-turbo-8bit/decodewasmjs',
+      '@cornerstonejs/codec-openjpeg/decodewasmjs',
+      '@cornerstonejs/codec-charls/decodewasmjs',
+      '@cornerstonejs/codec-openjph/wasmjs',
+    ],
+  },
   worker: { format: 'es' },
   build: {
     // Palm compat audit 2026-05-24: was 'esnext' which emits whatever
@@ -40,6 +55,7 @@ export default defineConfig({
       polyfill: true,
       resolveDependencies(_filename, deps) {
         const SKIP_PRELOAD_PATTERNS = [
+          /vendor-cornerstone/,        // Practical Imaging Lab only
           /data-q-/,                   // Q banks · 16 chunks · ~2 MB (Phase 2+3 will lazy them)
           /data-video-summaries/,      // VideoView only · 2 MB
           /data-notes-/,               // NotesView only · per-subject
@@ -62,6 +78,13 @@ export default defineConfig({
               /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)
             ) return 'vendor-react'
             if (id.includes('@supabase')) return 'vendor-supabase'
+            if (
+              id.includes('@cornerstonejs') ||
+              id.includes('@kitware/vtk.js') ||
+              id.includes('dicom-parser') ||
+              id.includes('gl-matrix') ||
+              id.includes('comlink')
+            ) return 'vendor-cornerstone'
             return 'vendor'
           }
           // Question banks are heavy + only needed once user starts a quiz.

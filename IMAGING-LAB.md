@@ -1,25 +1,38 @@
-# Imaging Lab ownership handoff
+# Imaging products: Practical + Pro
 
-**Status:** externalized from VetMock on 2026-08-11.
+**Status:** intentional two-product split, confirmed 2026-08-11.
 
-The canonical Imaging Lab is [imaging.cuvetsmo.com](https://imaging.cuvetsmo.com),
-owned by the `cuvetsmo-imaging` product. VetMock keeps discovery links in its
-feature registry, command palette, floating tools menu, and landing page; each
-opens the canonical app directly.
+VetMock and [CUVETSMO Imaging](https://imaging.cuvetsmo.com) solve different
+jobs. They are not redirects or interchangeable shells.
 
-## Why the local viewer was retired
+## VetMock Imaging Practical
 
-- One owner now controls DICOM parsing, measurements, privacy fixes, and releases.
-- VetMock no longer ships the duplicated Cornerstone, VTK, codec, and DICOM stack.
-- The public study app has a smaller dependency and attack surface.
-- Imaging users always receive the current Norberg/VHS workflow instead of a fork.
+Owned by this repository and reached through `#lab`.
 
-## VetMock integration contract
+- Fast, approachable practice for students and general use.
+- Public teaching cases plus local DICOM import.
+- Essential viewing controls and learning-oriented Norberg/VHS workflows.
+- Mobile-friendly guidance and low-friction defaults.
+- No account or advanced workstation knowledge required for the core flow.
 
-- Canonical URL: `IMAGING_URL` in `src/lib/feature-registry.js`.
-- Feature descriptor: `FEATURES[id="lab"]` with `invoke.kind = "external"`.
-- Consumers must execute the registry descriptor; do not add a local `/lab` view.
-- Imaging-specific code and dependencies belong in `cuvetsmo-imaging`.
+The Practical must stay intentionally focused. A feature belongs here only
+when it makes routine study clearer or easier.
 
-The former implementation remains recoverable from Git history before the
-VetMock v5.26.0 release.
+## CUVETSMO Imaging Pro
+
+Owned by the dedicated imaging product at `imaging.cuvetsmo.com`.
+
+- Full imaging toolset and deeper professional workflows.
+- The destination for advanced tooling that would make VetMock's Practical
+  slower, denser, or harder to learn.
+- Linked from the Practical and from a separate `Imaging Pro` feature entry.
+
+## Architecture boundary
+
+- VetMock may own its compact viewer UI and educational workflow.
+- Shared imaging services, advanced algorithms, and professional workflow
+  expansion belong in CUVETSMO Imaging Pro.
+- Keep the two feature descriptors and labels distinct: `lab` is local
+  Practical; `imaging-pro` is external Pro.
+- Do not silently redirect one product into the other.
+- Test `#lab` locally and verify the Pro link independently before release.

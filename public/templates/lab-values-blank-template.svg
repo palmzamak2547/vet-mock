@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <rect width="800" height="1000" fill="#ffffff"/>
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif">
+    <text x="400" y="60" text-anchor="middle" font-size="22" font-weight="600">Lab values — บันทึกผลตรวจ</text>
+    <text x="400" y="85" text-anchor="middle" font-size="13" fill="#777">เปรียบเทียบค่าปกติ vs ผู้ป่วย — Δ = ความต่าง (↑ / ↓ / —)</text>
+  </g>
+
+  <!-- Patient header block -->
+  <g fill="none" stroke="#ddd" stroke-width="1">
+    <rect x="40" y="120" width="720" height="80" rx="8"/>
+    <line x1="270" y1="120" x2="270" y2="200"/>
+    <line x1="510" y1="120" x2="510" y2="200"/>
+  </g>
+  <g fill="#888" font-family="JetBrains Mono, monospace" font-size="11">
+    <text x="55" y="145">PATIENT</text>
+    <text x="285" y="145">SPECIES / BREED</text>
+    <text x="525" y="145">DATE</text>
+  </g>
+  <g fill="none" stroke="#999" stroke-width="0.6">
+    <line x1="55" y1="180" x2="255" y2="180"/>
+    <line x1="285" y1="180" x2="495" y2="180"/>
+    <line x1="525" y1="180" x2="745" y2="180"/>
+  </g>
+
+  <!-- Main table -->
+  <g fill="none" stroke="#555" stroke-width="1.5">
+    <rect x="40" y="240" width="720" height="640" rx="8"/>
+  </g>
+
+  <!-- Header row -->
+  <g fill="none" stroke="#555" stroke-width="1.2">
+    <line x1="40" y1="295" x2="760" y2="295"/>
+  </g>
+  <g stroke="#999" stroke-width="1" fill="none">
+    <line x1="180" y1="240" x2="180" y2="880"/>
+    <line x1="380" y1="240" x2="380" y2="880"/>
+    <line x1="580" y1="240" x2="580" y2="880"/>
+  </g>
+
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-size="14" font-weight="600">
+    <text x="110" y="275" text-anchor="middle">Test</text>
+    <text x="280" y="275" text-anchor="middle">ค่าปกติ</text>
+    <text x="480" y="275" text-anchor="middle">ค่าผู้ป่วย</text>
+    <text x="670" y="275" text-anchor="middle">Δ</text>
+  </g>
+
+  <!-- 8 hairline dividers and 8 row labels -->
+  <g stroke="#ddd" stroke-width="1" fill="none">
+    <line x1="40" y1="365" x2="760" y2="365"/>
+    <line x1="40" y1="435" x2="760" y2="435"/>
+    <line x1="40" y1="505" x2="760" y2="505"/>
+    <line x1="40" y1="575" x2="760" y2="575"/>
+    <line x1="40" y1="645" x2="760" y2="645"/>
+    <line x1="40" y1="715" x2="760" y2="715"/>
+    <line x1="40" y1="785" x2="760" y2="785"/>
+  </g>
+
+  <g fill="#333" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-size="14">
+    <text x="58" y="332">HCT</text>
+    <text x="58" y="402">WBC</text>
+    <text x="58" y="472">BUN</text>
+    <text x="58" y="542">Crea</text>
+    <text x="58" y="612">ALT</text>
+    <text x="58" y="682">ALP</text>
+    <text x="58" y="752">Ca</text>
+    <text x="58" y="822">P</text>
+  </g>
+  <!-- Subtle units hints -->
+  <g fill="#aaa" font-family="JetBrains Mono, monospace" font-size="10">
+    <text x="58" y="348">%</text>
+    <text x="58" y="418">×10⁹/L</text>
+    <text x="58" y="488">mg/dL</text>
+    <text x="58" y="558">mg/dL</text>
+    <text x="58" y="628">U/L</text>
+    <text x="58" y="698">U/L</text>
+    <text x="58" y="768">mg/dL</text>
+    <text x="58" y="838">mg/dL</text>
+  </g>
+
+  <!-- Note section -->
+  <g fill="none" stroke="#ddd" stroke-width="1">
+    <rect x="40" y="900" width="720" height="80" rx="8"/>
+  </g>
+  <text x="55" y="925" fill="#888" font-family="system-ui, -apple-system, 'IBM Plex Sans Thai', sans-serif" font-size="12">Assessment / impression:</text>
+</svg>

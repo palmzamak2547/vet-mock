@@ -15,6 +15,7 @@
 //     which VetCalculator listens for (controlled-from-outside mode).
 //   • Sketchpad open: calls `onSketch()` so App.jsx can mount
 //     ImageAnnotator in sketch mode.
+//   • View tools: call `onView(view)` so App owns URL/history routing.
 //
 // Mounted in App.jsx alongside `<VetCalculator showFab={false} />`.
 // ============================================================
@@ -25,25 +26,25 @@ import { useEffect, useRef, useState } from 'react';
 // quick tool = set fab:true on its registry entry; nothing here changes.
 import { fabFeatures } from '../lib/feature-registry.js';
 
-export default function ToolsFAB({ onSketch }) {
+export default function ToolsFAB({ onSketch, onView }) {
   const [open, setOpen] = useState(false);
   const popRef = useRef(null);
   const btnRef = useRef(null);
 
-  // Dispatch a registry invoke descriptor. The dedicated Imaging site opens
-  // directly; calc fires its window event; sketch calls onSketch. Mirrors
-  // FeatureMenu/CommandPalette dispatch.
+  // Dispatch a registry invoke descriptor. App owns internal view routing;
+  // external tools still open directly. Mirrors FeatureMenu/CommandPalette.
   const dispatch = (inv) => {
     setOpen(false);
     if (!inv) return;
     switch (inv.kind) {
       case 'event': try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
       case 'sketch': onSketch?.(); return;
+      case 'view': if (inv.view) onView?.(inv.view); return;
       case 'external': if (inv.url) window.location.assign(inv.url); return;
       default: return;
     }
   };
-  const items = fabFeatures();
+  const items = fabFeatures().filter((feature) => feature.invoke?.kind !== 'view' || !!onView);
 
   // Outside-click + Esc close. Only attach the listeners while open
   // so the dormant FAB has zero global event cost.
@@ -108,7 +109,7 @@ export default function ToolsFAB({ onSketch }) {
         ref={btnRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
-        title={open ? 'ปิดเครื่องมือ' : 'เครื่องมือ — เครื่องคิดเลข + กระดานวาด'}
+        title={open ? 'ปิดเครื่องมือ' : 'เครื่องมือ — เครื่องคิดเลข + กระดานวาด + Imaging Practical'}
         aria-label="เครื่องมือ"
         aria-expanded={open}
         style={{

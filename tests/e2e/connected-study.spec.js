@@ -17,6 +17,86 @@ async function openVisible(locator) {
   throw new Error('No visible matching control');
 }
 
+function evenText(value, pad = 0x20) {
+  const raw = Buffer.from(String(value), 'ascii');
+  return raw.length % 2 === 0 ? raw : Buffer.concat([raw, Buffer.from([pad])]);
+}
+
+function uint16(value) {
+  const bytes = Buffer.alloc(2);
+  bytes.writeUInt16LE(value);
+  return bytes;
+}
+
+function uint32(value) {
+  const bytes = Buffer.alloc(4);
+  bytes.writeUInt32LE(value);
+  return bytes;
+}
+
+function dicomElement(group, element, vr, value) {
+  const longVr = ['OB', 'OD', 'OF', 'OL', 'OW', 'SQ', 'UC', 'UN', 'UR', 'UT'].includes(vr);
+  const header = Buffer.alloc(longVr ? 12 : 8);
+  header.writeUInt16LE(group, 0);
+  header.writeUInt16LE(element, 2);
+  header.write(vr, 4, 2, 'ascii');
+  if (longVr) header.writeUInt32LE(value.length, 8);
+  else header.writeUInt16LE(value.length, 6);
+  return Buffer.concat([header, value]);
+}
+
+// Tiny deidentified Explicit-VR Little-Endian Secondary Capture image.
+// Building it in-memory keeps the repository free of opaque binary fixtures
+// while proving the real Cornerstone loader, worker and renderer can decode.
+function minimalDicomFixture() {
+  const sopClass = '1.2.840.10008.5.1.4.1.1.7';
+  const sopInstance = '1.2.826.0.1.3680043.8.498.2026081101';
+  const studyInstance = '1.2.826.0.1.3680043.8.498.2026081102';
+  const seriesInstance = '1.2.826.0.1.3680043.8.498.2026081103';
+  const ui = (value) => evenText(value, 0x00);
+  const text = (value) => evenText(value);
+
+  const meta = Buffer.concat([
+    dicomElement(0x0002, 0x0001, 'OB', Buffer.from([0x00, 0x01])),
+    dicomElement(0x0002, 0x0002, 'UI', ui(sopClass)),
+    dicomElement(0x0002, 0x0003, 'UI', ui(sopInstance)),
+    dicomElement(0x0002, 0x0010, 'UI', ui('1.2.840.10008.1.2.1')),
+    dicomElement(0x0002, 0x0012, 'UI', ui('1.2.826.0.1.3680043.8.498.1')),
+    dicomElement(0x0002, 0x0013, 'SH', text('VETMOCK_5261')),
+  ]);
+
+  const dataSet = Buffer.concat([
+    dicomElement(0x0008, 0x0016, 'UI', ui(sopClass)),
+    dicomElement(0x0008, 0x0018, 'UI', ui(sopInstance)),
+    dicomElement(0x0008, 0x0060, 'CS', text('OT')),
+    dicomElement(0x0010, 0x0010, 'PN', text('ANONYMOUS')),
+    dicomElement(0x0010, 0x0020, 'LO', text('E2E-FIXTURE')),
+    dicomElement(0x0020, 0x000d, 'UI', ui(studyInstance)),
+    dicomElement(0x0020, 0x000e, 'UI', ui(seriesInstance)),
+    dicomElement(0x0020, 0x0013, 'IS', text('1')),
+    dicomElement(0x0028, 0x0002, 'US', uint16(1)),
+    dicomElement(0x0028, 0x0004, 'CS', text('MONOCHROME2')),
+    dicomElement(0x0028, 0x0010, 'US', uint16(2)),
+    dicomElement(0x0028, 0x0011, 'US', uint16(2)),
+    dicomElement(0x0028, 0x0030, 'DS', text('1\\1')),
+    dicomElement(0x0028, 0x0100, 'US', uint16(8)),
+    dicomElement(0x0028, 0x0101, 'US', uint16(8)),
+    dicomElement(0x0028, 0x0102, 'US', uint16(7)),
+    dicomElement(0x0028, 0x0103, 'US', uint16(0)),
+    dicomElement(0x0028, 0x1050, 'DS', text('127')),
+    dicomElement(0x0028, 0x1051, 'DS', text('256')),
+    dicomElement(0x7fe0, 0x0010, 'OB', Buffer.from([0, 64, 128, 255])),
+  ]);
+
+  return Buffer.concat([
+    Buffer.alloc(128),
+    Buffer.from('DICM', 'ascii'),
+    dicomElement(0x0002, 0x0000, 'UL', uint32(meta.length)),
+    meta,
+    dataSet,
+  ]);
+}
+
 test.describe('connected study experience', () => {
   // These tests exercise lazy network boundaries directly. A previously
   // activated app service worker can satisfy chunks before Playwright routes
@@ -72,7 +152,13 @@ test.describe('connected study experience', () => {
     releaseWikiChunk();
     await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 15_000 });
 
-    await page.goBack();
+    // Trigger the product's real same-document history path. Playwright's
+    // protocol-level page.goBack can intermittently no-op for pushState-only
+    // entries in WebKit when the suite is highly parallel.
+    await page.evaluate(() => new Promise((resolve) => {
+      window.addEventListener('popstate', resolve, { once: true });
+      window.history.back();
+    }));
     await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);
     await expect(page.locator('.vmx-topic-card').filter({ hasText: /Rabies/ }).first()).toBeVisible();
   });
@@ -94,6 +180,62 @@ test.describe('connected study experience', () => {
     await expect(globalVideos).toBeVisible();
     await globalVideos.click();
     await expect(page.locator('.vmx-chip').first()).toHaveClass(/active/);
+  });
+
+  test('Practical Imaging stays local while Pro remains a separate handoff', async ({ page }) => {
+    test.setTimeout(60_000);
+    const pageErrors = [];
+    page.on('pageerror', (error) => pageErrors.push(error.message));
+
+    // The upload smoke is deliberately local-only. Stub the optional public
+    // case catalogue so a third-party CORS/network wobble cannot masquerade
+    // as a Cornerstone regression (especially in parallel WebKit runs).
+    await page.route(/\/rest\/v1\/imaging_cases(?:\?|$)/, async (route) => {
+      const corsHeaders = {
+        'access-control-allow-origin': '*',
+        'access-control-allow-methods': 'GET, OPTIONS',
+        'access-control-allow-headers': 'apikey, authorization, content-type, prefer, x-client-info',
+      };
+      if (route.request().method() === 'OPTIONS') {
+        await route.fulfill({ status: 204, headers: corsHeaders });
+        return;
+      }
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        headers: corsHeaders,
+        body: '[]',
+      });
+    });
+    await page.goto('/');
+
+    const practical = page.locator('.vmx-feature-card').filter({ hasText: /Imaging Practical/ }).first();
+    await expect(practical).toBeVisible({ timeout: 15_000 });
+    await practical.click();
+
+    await expect(page).toHaveURL(/\/#lab$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Practical Imaging Lab' })).toBeVisible({ timeout: 15_000 });
+
+    // #lab is a genuine reload-safe VetMock route, not an external redirect.
+    await page.reload();
+    await expect(page.getByRole('heading', { level: 1, name: 'Practical Imaging Lab' })).toBeVisible({ timeout: 15_000 });
+
+    const pro = page.getByRole('link', { name: /CUVETSMO Imaging Pro/ });
+    await expect(pro).toHaveAttribute('href', 'https://imaging.cuvetsmo.com');
+    await expect(pro).toHaveAttribute('target', '_blank');
+
+    await page.locator('input[type="file"][accept*="dcm"]').setInputFiles({
+      name: 'vetmock-e2e.dcm',
+      mimeType: 'application/dicom',
+      buffer: minimalDicomFixture(),
+    });
+    await expect(page.getByText(/2 × 2 pixels/)).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator('.vmx-lab-shell canvas').first()).toBeVisible();
+    expect(pageErrors).toEqual([]);
+
+    await page.getByRole('button', { name: '← Home' }).click();
+    await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Practical Imaging Lab' })).toBeHidden();
   });
 });
 

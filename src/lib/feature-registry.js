@@ -46,7 +46,9 @@ export const FEATURE_FLAGS = {
   VETWIKI_ENABLED: true,
 };
 
-export const IMAGING_URL = 'https://imaging.cuvetsmo.com';
+export const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
+// Compatibility alias for integrations that imported the original name.
+export const IMAGING_URL = IMAGING_PRO_URL;
 
 export const FEATURE_CATEGORIES = [
   { id: 'practice', label: 'ฝึก & สอบ',        labelEn: 'Practice & Exam', icon: '📝' },
@@ -203,10 +205,17 @@ export const FEATURES = [
   },
   {
     id: 'lab', category: 'tools', fab: true, fabHint: 'DICOM, Norberg, VHS',
-    label: 'Imaging Lab', labelEn: 'Imaging Lab', icon: '🔬',
-    hint: 'DICOM, Norberg, VHS · imaging.cuvetsmo.com',
-    kw: 'lab imaging dicom norberg vhs xray รังสี ภาพ ฝึกอ่าน',
-    invoke: { kind: 'external', url: IMAGING_URL },
+    label: 'Imaging Practical', labelEn: 'VetMock Imaging Practical', icon: '🔬',
+    hint: 'ฝึกอ่านง่าย · DICOM, Norberg, VHS',
+    kw: 'lab practical imaging dicom norberg vhs xray รังสี ภาพ ฝึกอ่าน ง่าย',
+    invoke: { kind: 'view', view: 'lab' },
+  },
+  {
+    id: 'imaging-pro', category: 'tools',
+    label: 'Imaging Pro', labelEn: 'CUVETSMO Imaging Pro', icon: '🩻',
+    hint: 'เครื่องมือ imaging เต็มรูปแบบ สำหรับ workflow ขั้นสูง',
+    kw: 'cuvetsmo imaging pro dicom workstation advanced เครื่องมือ เต็ม ขั้นสูง',
+    invoke: { kind: 'external', url: IMAGING_PRO_URL },
   },
   {
     id: 'image-occlusion', category: 'tools',

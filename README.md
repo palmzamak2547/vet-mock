@@ -69,7 +69,7 @@ npm run dev
 - **สัดส่วนคะแนนรายวิชา**, **Leaderboard**, **Phase Wrapped**
 
 ### เครื่องมือ
-เครื่องคิดเลขทางสัตวแพทย์, กระดานวาด, Imaging Lab (เชื่อมระบบเฉพาะทาง), Image Occlusion,
+เครื่องคิดเลขทางสัตวแพทย์, กระดานวาด, Imaging Practical (ฝึกเร็ว ใช้ง่าย), Imaging Pro (เครื่องมือเต็ม), Image Occlusion,
 PDF + Annotate, Pomodoro, กลุ่มติว, ช่วยเติมเนื้อหา, เพิ่ม/แก้ข้อสอบเอง
 
 ### ทั่วทั้งแอป

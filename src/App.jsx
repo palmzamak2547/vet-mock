@@ -39,7 +39,6 @@ import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
-import { IMAGING_URL } from './lib/feature-registry.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -76,6 +75,11 @@ import BottomNav from './components/BottomNav.jsx';
 // Lazy because it includes canvas + image processing only used when
 // the user opens the pad.
 const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
+
+// VetMock's practical Imaging Lab intentionally stays separate from the
+// full CUVETSMO imaging workstation. Keep it lazy: the Cornerstone/DICOM
+// stack is only downloaded when a learner opens #lab.
+const LabView = lazy(() => import('./views/LabView.jsx'));
 
 // PinboardView — personal pin grid (Qs / summaries / flashcards /
 // notes). Lazy because most sessions never open it.
@@ -212,7 +216,7 @@ const SpeedInsights = lazy(() =>
 // comfortable line length.
 const WIDE_VIEWS = new Set([
   'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
-  'reading-checklist', 'faculty', 'pinboard', 'pdf-annotate',
+  'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate',
   'image-occlusion', 'knowledge', 'wiki',
 ]);
 
@@ -367,6 +371,9 @@ export default function App() {
         // bail to home if none resolve.
         if (shared.length > 0) return 'exam';
       }
+      // VetMock Practical Imaging Lab owns the lightweight, shareable #lab
+      // route. It is deliberately independent from the full Pro workstation.
+      if (window.location.hash === '#lab') return 'lab';
     } catch {}
     try {
       // Parse the stored value — `null` is a valid serialized state
@@ -526,6 +533,7 @@ export default function App() {
   const setView = useCallback((next, navigationState = null) => {
     if (!next || next === viewRef.current) return;
     const previous = viewRef.current;
+    const enteringLab = next === 'lab';
     const nextVideoSubject = next === 'videos'
       ? navigationState?.subject || null
       : null;
@@ -544,12 +552,23 @@ export default function App() {
         // Hand back the root path when leaving it.
         const leavingWiki = next !== 'knowledge'
           && parseWikiPath(window.location.pathname).isWiki;
+        const leavingLab = next !== 'lab' && window.location.hash === '#lab';
         // Some lazy views own a real, shareable URL. Push that URL in the
         // same event as the view state so slow chunk downloads never leave
         // the address bar pointing at the previous screen.
-        const url = navigationState?.path
-          || (leavingWiki ? `/${window.location.search}${window.location.hash}` : '');
-        if (previous === 'exam') {
+        const url = enteringLab
+          ? '/#lab'
+          : navigationState?.path
+            || ((leavingWiki || leavingLab) ? '/' : '');
+        // Assigning #lab manually already created a history entry. Stamp the
+        // view state onto it rather than creating a duplicate Back step.
+        const labHashAlreadyCreated = enteringLab && window.location.hash === '#lab';
+        // LabView's own Back control removes the hash first. Replace that
+        // just-cleaned entry so one Back click does not create two Home rows.
+        const labHashAlreadyRemoved = previous === 'lab'
+          && !enteringLab
+          && window.location.hash !== '#lab';
+        if (previous === 'exam' || labHashAlreadyCreated || labHashAlreadyRemoved) {
           window.history.replaceState(state, '', url || undefined);
         } else {
           window.history.pushState(state, '', url || undefined);
@@ -604,6 +623,33 @@ export default function App() {
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
+
+  // Keep the Practical Lab's shareable hash and React view in lockstep.
+  // Covers pasted hashes in an already-open tab and users who manually
+  // remove #lab from the address bar.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const onHash = () => {
+      if (window.location.hash === '#lab') {
+        setView('lab');
+        return;
+      }
+      if (viewRef.current !== 'lab') return;
+      const next = 'home';
+      try {
+        window.history.replaceState(
+          { ...(window.history.state || {}), vmxView: next, vmxVideoSubject: null },
+          '',
+          window.location.pathname + window.location.search,
+        );
+      } catch {}
+      setVideoSubject(null);
+      viewRef.current = next;
+      withTransition(() => setViewRaw(next));
+    };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, [setView]);
 
   // Scroll to top when view changes — without this, navigating to a
   // long page (e.g. NotesView) keeps you scrolled at the previous
@@ -1655,13 +1701,12 @@ export default function App() {
   const runLandingIntent = (intent) => {
     if (intent?.kind === 'mock-exam') { startMockExam(); return; }
     if (intent?.kind === 'panic') { startPanicSession(intent.timeKey); return; }
-    if (intent?.kind === 'lab') { window.location.assign(IMAGING_URL); return; }
+    if (intent?.kind === 'lab') { setView('lab'); return; }
   };
   const goLanding = (intent) => {
     try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
-    // Imaging has its own production app and does not depend on a VetMock
-    // year selection. Open it directly while this click is still a trusted
-    // user gesture.
+    // Practical Imaging is year-agnostic, so first-time visitors can use it
+    // immediately. Question-based intents still wait for a year selection.
     if (intent?.kind === 'lab') {
       runLandingIntent(intent);
       return;
@@ -1966,6 +2011,7 @@ export default function App() {
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'race' && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
+              {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
               {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
@@ -2003,6 +2049,7 @@ export default function App() {
           {!FOCUS_VIEWS.has(view) && (
             <ToolsFAB
               onSketch={() => setSketchOpen(true)}
+              onView={setView}
             />
           )}
           {sketchOpen && (

@@ -44,6 +44,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.26.1',
+    date: '2026-08-11',
+    headline: '🩻 Imaging แยก Practical กับ Pro ชัดเจน ใช้ง่ายและไม่ทับบทบาทกัน',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '🐾', title: 'Imaging Practical ของ VetMock กลับมาครบ',
+        desc: 'พื้นที่ฝึกอ่านภาพแบบเบาและตรงไปตรงมายังอยู่ใน VetMock เหมือนเดิม ทั้งเคสฝึก ไฟล์ DICOM ส่วนตัว และเครื่องมือพื้นฐานสำหรับ Norberg กับ VHS',
+      },
+      { scope: 'system', kind: 'feature', icon: '🩻', title: 'แยกทางเข้า Imaging Pro สำหรับงานเต็มรูปแบบ',
+        desc: 'เพิ่มทางไป CUVETSMO Imaging Pro แบบแยกชัดเจน เมื่อต้องการเครื่องมือขั้นสูง โดย Practical ใน VetMock ยังเน้นฝึกเร็ว ใช้ง่าย และเหมาะกับการเรียนทั่วไป',
+      },
+    ],
+  },
+  {
     version: '5.26.0',
     date: '2026-08-11',
     headline: '🧭 ทุกหัวข้อเชื่อมข้อสอบ Notes, VetWiki และคลิปไว้ในจุดเดียวแล้ว',
@@ -57,8 +70,8 @@ export const CHANGELOG = [
       { scope: 'system', kind: 'fix', icon: '📱', title: 'หน้าแรกบนมือถือคล่องและเข้าถึงง่ายขึ้น',
         desc: 'กล่องตั้งค่าความเป็นส่วนตัวกินพื้นที่น้อยลง เนื้อหาไม่หายระหว่างเลื่อน และหน้าต่างเข้าสู่ระบบจัดการโฟกัสคีย์บอร์ดกับตัวอ่านหน้าจอได้ครบขึ้น',
       },
-      { scope: 'system', kind: 'feature', icon: '🩻', title: 'Imaging Lab เปิดระบบเฉพาะทางตัวเต็ม',
-        desc: 'ทุกทางเข้า Imaging Lab เชื่อมไปยัง imaging.cuvetsmo.com ซึ่งเป็นพื้นที่หลักสำหรับ DICOM, Norberg และ VHS โดยตรง โหลดเบากว่าและได้เครื่องมือเวอร์ชันเดียวกันทุกจุด',
+      { scope: 'system', kind: 'feature', icon: '🩻', title: 'เพิ่มทางเข้า Imaging Pro',
+        desc: 'เปิดทางไปยัง imaging.cuvetsmo.com สำหรับคนที่ต้องการเครื่องมือ imaging แบบเต็ม โดยแยกจากพื้นที่ฝึก Practical ของ VetMock',
       },
     ],
   },
