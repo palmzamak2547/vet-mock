@@ -7,11 +7,12 @@
 //
 //   npm run stats           print to stdout
 //   npm run stats -- --write  regenerate docs/content-inventory.md
+//   npm run stats:check     fail if generated docs/README stats are stale
 //
 // Why this exists: the project's numbers had drifted across notes, vault
 // entries and docs (1700+ / 2650 / 2956 / 2948 all appear somewhere for the
-// same thing). A generated inventory can't go stale — if you want the number,
-// you run the command.
+// same thing). The checked generated inventory is the durable source for
+// documentation; `stats:check` prevents it silently drifting again.
 // ============================================================
 
 import fs from 'node:fs';
@@ -21,6 +22,14 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = path.join(ROOT, 'src', 'data');
 const WRITE = process.argv.includes('--write');
+const CHECK = process.argv.includes('--check');
+
+if (WRITE && CHECK) throw new Error('Choose either --write or --check, not both.');
+
+const INVENTORY_PATH = path.join(ROOT, 'docs', 'content-inventory.md');
+const README_PATH = path.join(ROOT, 'README.md');
+const README_STATS_START = '<!-- content-stats:start -->';
+const README_STATS_END = '<!-- content-stats:end -->';
 
 const ls = (re) => fs.readdirSync(DATA).filter((f) => re.test(f)).sort();
 const imp = (f) => import(new URL(`../src/data/${f}`, import.meta.url).href);
@@ -89,6 +98,9 @@ for (const t of govTopics) {
 
 // ---- report --------------------------------------------------------------
 const consistent = qTotal === qc.QB_TOTAL && qTotal === registryTotal && notInRegistry.length === 0;
+const fmt = (n) => n.toLocaleString('en-US');
+const sourcedPercent = noteSections ? Math.round((noteSourced / noteSections) * 100) : 0;
+const governedPercent = noteSections ? ((govSections / noteSections) * 100).toFixed(1) : '0.0';
 
 const lines = [];
 const L = (s = '') => lines.push(s);
@@ -103,11 +115,11 @@ L('## Questions');
 L();
 L('| | |');
 L('|---|---|');
-L(`| **Total questions** | **${qTotal.toLocaleString()}** |`);
+L(`| **Total questions** | **${fmt(qTotal)}** |`);
 L(`| Question banks (files) | ${qFiles.length} |`);
 L(`| Subjects with questions | ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} |`);
 L(`| Years covered | ${years.join(', ')} |`);
-for (const [y, n] of Object.entries(qc.Q_COUNTS_BY_YEAR)) L(`| — year ${y} | ${n.toLocaleString()} |`);
+for (const [y, n] of Object.entries(qc.Q_COUNTS_BY_YEAR)) L(`| — year ${y} | ${fmt(n)} |`);
 L();
 L(`Consistency: counted **${qTotal}**, \`q-counts.js\` says **${qc.QB_TOTAL}**, registry sums to **${registryTotal}**, files missing from the registry: **${notInRegistry.length}** → ${consistent ? '✅ consistent' : '❌ DRIFT'}`);
 L();
@@ -118,7 +130,7 @@ L('|---|---|');
 L(`| Note files | ${nFiles.length} |`);
 L(`| Topics | ${noteTopics} |`);
 L(`| Sections | ${noteSections} |`);
-L(`| Sections carrying a source locator | ${noteSourced} (${Math.round((noteSourced / noteSections) * 100)}%) |`);
+L(`| Sections carrying a source locator | ${noteSourced} (${sourcedPercent}%) |`);
 L();
 L('## Video summaries');
 L();
@@ -136,18 +148,66 @@ L(`| Governed topics | ${govTopics.length} |`);
 L(`| Governed sections | ${govSections} |`);
 L(`| Claims verified against an external source | ${govVerified} |`);
 L(`| Distinct external sources cited | ${govSources.size} |`);
-L(`| Share of note sections governed | ${((govSections / noteSections) * 100).toFixed(1)}% |`);
+L(`| Share of note sections governed | ${governedPercent}% |`);
 L();
 
 const md = lines.join('\n');
+const yearSummary = Object.entries(qc.Q_COUNTS_BY_YEAR)
+  .map(([year, count]) => `ปี ${year} (${fmt(count)})`)
+  .join(', ');
+const readmeStats = [
+  README_STATS_START,
+  '| | |',
+  '|---|---|',
+  `| ข้อสอบ | **${fmt(qTotal)} ข้อ** ใน ${qFiles.length} bank files, ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} วิชา |`,
+  `| ชั้นปีที่มีเนื้อหา | ${yearSummary} |`,
+  `| สรุปโน้ต | ${nFiles.length} ไฟล์, ${fmt(noteTopics)} หัวข้อ, ${fmt(noteSections)} sections, อ้างอิงแหล่งที่มาครบ ${sourcedPercent}% |`,
+  `| สรุปคลิป | ${fmt(videos)} คลิป ใน ${vFiles.length} ไฟล์ |`,
+  `| VetWiki (governed) | ${fmt(govTopics.length)} หัวข้อ, ${fmt(govSections)} sections = ${governedPercent}% ของ note sections |`,
+  `| Taxonomy | ${fmt(subjects)} วิชา, ${fmt(curTopics)} หัวข้อ |`,
+  '| ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |',
+  README_STATS_END,
+].join('\n');
+const normalizeEol = (source) => source.replace(/\r\n/g, '\n');
+
+function replaceReadmeStats(source) {
+  const start = source.indexOf(README_STATS_START);
+  const end = source.indexOf(README_STATS_END);
+  if (start === -1 || end === -1 || end < start) {
+    throw new Error('README generated stats markers are missing or out of order.');
+  }
+  const eol = source.includes('\r\n') ? '\r\n' : '\n';
+  const renderedStats = readmeStats.replace(/\n/g, eol);
+  return source.slice(0, start) + renderedStats + source.slice(end + README_STATS_END.length);
+}
+
+let generatedDrift = false;
 if (WRITE) {
-  const out = path.join(ROOT, 'docs', 'content-inventory.md');
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  fs.writeFileSync(out, md, 'utf8');
-  console.log(`✓ wrote docs/content-inventory.md`);
+  fs.mkdirSync(path.dirname(INVENTORY_PATH), { recursive: true });
+  fs.writeFileSync(INVENTORY_PATH, md, 'utf8');
+  const readme = fs.readFileSync(README_PATH, 'utf8');
+  fs.writeFileSync(README_PATH, replaceReadmeStats(readme), 'utf8');
+  console.log('✓ wrote docs/content-inventory.md and README stats block');
+}
+if (CHECK) {
+  const inventoryCurrent = fs.existsSync(INVENTORY_PATH)
+    ? fs.readFileSync(INVENTORY_PATH, 'utf8')
+    : '';
+  const readmeCurrent = fs.readFileSync(README_PATH, 'utf8');
+  const expectedReadme = replaceReadmeStats(readmeCurrent);
+  const stale = [];
+  if (normalizeEol(inventoryCurrent) !== md) stale.push('docs/content-inventory.md');
+  if (readmeCurrent !== expectedReadme) stale.push('README.md stats block');
+  if (stale.length) {
+    generatedDrift = true;
+    console.error(`\n❌ generated stats are stale: ${stale.join(', ')}`);
+    console.error('   run: npm run stats -- --write');
+  } else {
+    console.log('\n✓ generated stats are current');
+  }
 }
 console.log(md);
 if (!consistent) {
   console.error('\n❌ content stats are INCONSISTENT — run `npm run regen:q-counts` and `npm run regen:registry`');
-  process.exit(1);
 }
+if (!consistent || generatedDrift) process.exit(1);

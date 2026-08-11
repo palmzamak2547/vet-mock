@@ -4,17 +4,14 @@
 // Per request from user "pppppvet86" — เชื่อกับ pain point ของ COM
 // ที่มี 14+ คาบ ลืมว่าอ่านไปถึงไหน
 //
-// Data shape (state owned by App.jsx):
-//   readingChecklist[topicId] = unix-ms-when-ticked (or undefined)
-//
-// IDs are guaranteed unique across subjects in curriculum.js (no
-// collisions between, e.g., com3.imha and com4.imha — those don't
-// exist; each topic-id appears in only one subject), so a flat
-// keyed-by-topicId object is enough.
+// Data shape (state owned by App.jsx): canonical subject/topic keys with a
+// legacy bare-topic fallback handled by study-progress.js.
 // ============================================================
 
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import { hasNoteTopic } from '../data/notes-registry.generated.js';
 import NavIcon from '../components/NavIcon.jsx';
+import { isTopicRead, setTopicRead } from '../lib/study-progress.js';
 
 export default function ReadingChecklistView({
   selectedYear = 4,
@@ -23,6 +20,7 @@ export default function ReadingChecklistView({
   goHome,
   goBack,
   setSubject,
+  setTopic,
   setView,
 }) {
   // Filter out hidden topics globally — the same `hidden: true` flag that
@@ -33,22 +31,17 @@ export default function ReadingChecklistView({
     .map((s) => ({ ...s, topics: Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden) : [] }))
     .filter((s) => s.topics.length > 0);
 
-  const toggle = (topicId) => {
-    setReadingChecklist((prev) => {
-      const next = { ...prev };
-      if (next[topicId]) delete next[topicId];
-      else next[topicId] = Date.now();
-      return next;
-    });
+  const toggle = (subjectId, topicId) => {
+    setReadingChecklist((prev) => setTopicRead(prev, subjectId, topicId));
   };
 
   const setSubjectAll = (subj, value) => {
     setReadingChecklist((prev) => {
-      const next = { ...prev };
+      let next = prev;
+      const completedAt = Date.now();
       // subj.topics is already filtered (no hidden topics) — safe to iterate
       subj.topics.forEach((t) => {
-        if (value) next[t.id] = next[t.id] || Date.now();
-        else delete next[t.id];
+        next = setTopicRead(next, subj.id, t.id, value, completedAt);
       });
       return next;
     });
@@ -56,7 +49,7 @@ export default function ReadingChecklistView({
 
   // Overall stats (counts visible topics only — hidden already filtered above)
   const totalTopics = subjects.reduce((acc, s) => acc + s.topics.length, 0);
-  const totalDone = subjects.reduce((acc, s) => acc + s.topics.filter((t) => readingChecklist[t.id]).length, 0);
+  const totalDone = subjects.reduce((acc, s) => acc + s.topics.filter((t) => isTopicRead(readingChecklist, s.id, t.id)).length, 0);
   const overallPct = totalTopics > 0 ? Math.round((totalDone / totalTopics) * 100) : 0;
 
   return (
@@ -89,7 +82,7 @@ export default function ReadingChecklistView({
 
       {/* Per-subject groups */}
       {subjects.map((subj) => {
-        const done = subj.topics.filter((t) => readingChecklist[t.id]).length;
+        const done = subj.topics.filter((t) => isTopicRead(readingChecklist, subj.id, t.id)).length;
         const total = subj.topics.length;
         const pct = total > 0 ? Math.round((done / total) * 100) : 0;
         const allDone = done === total;
@@ -128,7 +121,7 @@ export default function ReadingChecklistView({
 
             <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
               {subj.topics.map((t) => {
-                const checked = !!readingChecklist[t.id];
+                const checked = isTopicRead(readingChecklist, subj.id, t.id);
                 return (
                   <div
                     key={t.id}
@@ -148,7 +141,7 @@ export default function ReadingChecklistView({
                       type="button"
                       className="vmx-tap"
                       aria-pressed={checked}
-                      onClick={() => toggle(t.id)}
+                      onClick={() => toggle(subj.id, t.id)}
                       aria-label={checked ? `ยกเลิก ${t.label}` : `อ่านแล้ว ${t.label}`}
                       style={{
                         all: 'unset',
@@ -182,11 +175,12 @@ export default function ReadingChecklistView({
                       </div>
                     </button>
 
-                    {/* Quick jump to NotesView (only com3/4/5 have notes) */}
-                    {['com3', 'com4', 'com5'].includes(subj.id) && (
+                    {/* Quick jump to the exact note topic when one exists. */}
+                    {hasNoteTopic(subj.id, t.id) && (
                       <button
                         type="button"
-                        onClick={() => { setSubject(subj.id); setView('notes'); }}
+                        onClick={() => { setSubject(subj.id); setTopic?.(t.id); setView('notes'); }}
+                        aria-label={`เปิด Notes ${t.label}`}
                         title="ไปดูสรุปหัวข้อนี้"
                         style={{
                           all: 'unset',

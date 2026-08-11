@@ -1,7 +1,6 @@
 import { lazy, Suspense, useState } from 'react';
-import { QB } from '../data/questions.js';
-import { SUBJECTS, hiddenTopicIdsFor } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
+import { createStudyCatalog } from '../lib/study-catalog.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -19,7 +18,7 @@ const VCA_NOTES_MAP = {
   dogcat:   { subject: 'com5',     label: 'Notes COM V (Dog-Cat)' },
 };
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {} }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos }) {
   const [openInstructor, setOpenInstructor] = useState(null);
   // Palm bug 2026-05-20: subjects with 50+ topics in curriculum but only
   // ~30 with Qs (e.g. COM I has 31 filled + 26 empty) flooded the view
@@ -36,47 +35,56 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     if (found) setOpenInstructor(found);
   };
 
-  const subjectMeta = SUBJECTS.find((s) => s.id === subject);
-  // Filter out topics flagged hidden:true — used to defer topics that
-  // aren't yet in scope (e.g. exotic midterm weeks while everyone
-  // focuses on Final). Questions assigned to those topics still exist
-  // in QB; they just don't appear as a selectable topic until the
-  // flag flips.
-  const topics = (subjectMeta?.topics || []).filter((t) => !t.hidden);
-  const allQuestions = [...QB, ...customQuestions];
+  const catalog = createStudyCatalog({ customQuestions, readingChecklist });
+  const subjectPage = catalog.browse({ subject });
+  const subjectMeta = subjectPage.subject;
+  const topics = subjectPage.topics || [];
+  const resources = subjectPage.resources || {};
 
   // Reading-checklist summary for this subject
-  const subjReadDone = topics.filter((t) => readingChecklist[t.id]).length;
+  const subjReadDone = subjectPage.progress?.read || 0;
 
   // Collections: virtual "ทำรวม" cards that bundle topics by prefix
   // (e.g. รวมหมาหอน covers 9 mahahon-* topics, รวม Term Paper covers 12 group* topics).
-  const collections = subjectMeta?.collections || [];
+  const collections = subjectPage.collections || [];
 
-  // For "all" topicId we exclude Qs whose topic is hidden — keeps the
-  // header count consistent with the visible topic tiles below it.
-  const _hiddenTopics = hiddenTopicIdsFor(subject);
+  // Counts are generated metadata plus a tiny custom-question overlay. This
+  // view no longer scans or forces the full Q bank to load just to render.
   const countFor = (topicId) => {
-    if (topicId === 'all') {
-      return allQuestions.filter((q) => q.subject === subject && !_hiddenTopics.has(q.topic)).length;
-    }
-    // Collection card: count by topic prefix
+    if (topicId === 'all') return resources.questions?.count || 0;
     const coll = collections.find((c) => c.id === topicId);
-    if (coll?.topicPrefix) {
-      return allQuestions.filter((q) => q.subject === subject && q.topic?.startsWith(coll.topicPrefix)).length;
-    }
-    return allQuestions.filter((q) => q.subject === subject && q.topic === topicId).length;
+    if (coll) return coll.questionCount || 0;
+    return topics.find((topic) => topic.id === topicId)?.questionCount || 0;
   };
 
-  // Past paper detection — `source` field starts with "ข้อสอบเก่า" or
-  // contains "FINAL 86" / "FRDC" master compilation keywords.
-  const isPastPaperQ = (q) => {
-    if (!q?.source) return false;
-    const s = String(q.source);
-    return /ข้อสอบเก่า|FINAL\s*86|past\s*paper/i.test(s);
-  };
   const pastPaperCountFor = (topicId) => {
-    if (topicId === 'all') return allQuestions.filter((q) => q.subject === subject && isPastPaperQ(q)).length;
-    return allQuestions.filter((q) => q.subject === subject && q.topic === topicId && isPastPaperQ(q)).length;
+    if (topicId === 'all') return resources.questions?.pastPaperCount || 0;
+    return topics.find((topic) => topic.id === topicId)?.pastPaperCount || 0;
+  };
+
+  const hasTopicContent = (entry) => Boolean(
+    entry?.questionCount > 0
+    || entry?.resources?.notes?.enabled
+    || entry?.resources?.wiki?.enabled
+    || (subject === 'vca' && VCA_NOTES_MAP[entry?.id]),
+  );
+
+  const runStudyAction = (studyAction) => {
+    const next = catalog.open(studyAction);
+    if (next.status !== 'ready') return;
+    const state = next.state || {};
+    if (state.subject && setSubject) setSubject(state.subject);
+    if (Object.prototype.hasOwnProperty.call(state, 'topic') && setTopic) setTopic(state.topic);
+    if (state.mode && setMode) setMode(state.mode);
+    if (next.view === 'knowledge' && onOpenWiki) {
+      onOpenWiki(state.subject || subject, state.topic || null);
+      return;
+    }
+    if (next.view === 'videos' && onOpenVideos) {
+      onOpenVideos(state.subject || subject);
+      return;
+    }
+    setView(next.view);
   };
 
   const choose = (topicId) => {
@@ -91,8 +99,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         <h1>เลือก <em>หัวข้อ</em></h1>
         <p>{subjectMeta?.icon} {subjectMeta?.name}, เลือกเฉพาะหัวข้อที่จะสอบ หรือทั้งหมดก็ได้</p>
         {topics.length > 0 && (
-          <div
+          <button
+            type="button"
             onClick={() => setView('reading-checklist')}
+            aria-label={`เปิดรายการอ่าน อ่านแล้ว ${subjReadDone} จาก ${topics.length} หัวข้อ`}
             title="เปิดรายการอ่าน"
             style={{
               display: 'inline-flex',
@@ -110,7 +120,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             }}
           >
             อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong>
-          </div>
+          </button>
         )}
       </div>
 
@@ -121,20 +131,22 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       <div className="vmx-mode-grid" style={{ marginBottom: 20 }}>
         <button
           className="vmx-mode-card"
+          disabled={!resources.questions?.available}
           onClick={() => {
             if (setMode) setMode('quick');
             setTopic(null);
             setView('config');
           }}
-          style={{ borderColor: subjectMeta?.color }}
+          style={{ borderColor: subjectMeta?.color, opacity: resources.questions?.available ? 1 : 0.55 }}
         >
           <div className="icon">📝</div>
           <div className="title">ฝึกซ้อม</div>
-          <div className="sub">สุ่ม {countFor('all')} ข้อในวิชานี้, ปรับจำนวน/เวลาได้</div>
+          <div className="sub">{resources.questions?.available ? `สุ่ม ${countFor('all')} ข้อในวิชานี้, ปรับจำนวน/เวลาได้` : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
         </button>
 
         <button
           className="vmx-mode-card"
+          disabled={!resources.questions?.available}
           onClick={() => {
             if (setMode) setMode('exam');
             if (setNumQuestions) setNumQuestions(50);
@@ -143,29 +155,44 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             setTopic(null);
             setView('config');
           }}
-          style={{ borderColor: subjectMeta?.color }}
+          style={{ borderColor: subjectMeta?.color, opacity: resources.questions?.available ? 1 : 0.55 }}
         >
           <div className="icon">🎓</div>
           <div className="title">สอบจริง</div>
-          <div className="sub">50 ข้อ × 60 วิ, เลียนข้อสอบจริง</div>
+          <div className="sub">{resources.questions?.available ? '50 ข้อ × 60 วิ, เลียนข้อสอบจริง' : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
         </button>
 
         <button
           className="vmx-mode-card"
-          onClick={() => setView('notes')}
+          disabled={!resources.notes?.available}
+          onClick={() => runStudyAction(resources.notes?.action)}
+          style={{ opacity: resources.notes?.available ? 1 : 0.55 }}
         >
           <div className="icon">📖</div>
           <div className="title">Notes / สรุป</div>
-          <div className="sub">อ่าน slide สรุป, อ้างอิง slide จริง</div>
+          <div className="sub">{resources.notes?.available ? `${resources.notes.count} หัวข้อ, อ้างอิงแหล่งที่มา` : 'ยังไม่มี Notes ในวิชานี้'}</div>
         </button>
 
         <button
           className="vmx-mode-card"
-          onClick={() => setView('videos')}
+          disabled={!resources.videos?.available}
+          onClick={() => runStudyAction(resources.videos?.action)}
+          style={{ opacity: resources.videos?.available ? 1 : 0.55 }}
         >
           <div className="icon">🎥</div>
           <div className="title">คลิปย้อนหลัง</div>
-          <div className="sub">Video library, YouTube playlist</div>
+          <div className="sub">{resources.videos?.available ? `${resources.videos.count} playlist / แหล่งวิดีโอ` : 'ยังไม่มีคลิปในวิชานี้'}</div>
+        </button>
+
+        <button
+          className="vmx-mode-card"
+          disabled={!resources.wiki?.available}
+          onClick={() => runStudyAction(resources.wiki?.action)}
+          style={{ opacity: resources.wiki?.available ? 1 : 0.55 }}
+        >
+          <div className="icon">🧠</div>
+          <div className="title">VetWiki</div>
+          <div className="sub">{resources.wiki?.available ? `${resources.wiki.count} บทความ เชื่อมจาก Notes` : 'ยังไม่มีบทความในวิชานี้'}</div>
         </button>
       </div>
 
@@ -234,7 +261,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               className="vmx-mode-card"
               onClick={() => {
                 if (setMode) setMode('quick');
-                if (setNumQuestions) setNumQuestions(316);
+                if (setNumQuestions) setNumQuestions(countFor('all'));
                 if (setUseTimer) setUseTimer(false);
                 setTopic(null);
                 setView('config');
@@ -242,7 +269,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               style={{ borderColor: '#5db4d3' }}
             >
               <div className="icon">📚</div>
-              <div className="title">All 316</div>
+              <div className="title">All {countFor('all')}</div>
               <div className="sub">ทุกข้อ, ไม่จับเวลา, ฝึกล้วน</div>
             </button>
           </div>
@@ -255,7 +282,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         <button
           key="all"
           className="vmx-subject-card"
+          disabled={!resources.questions?.available}
           onClick={() => choose('all')}
+          style={{ opacity: resources.questions?.available ? 1 : 0.5, cursor: resources.questions?.available ? 'pointer' : 'not-allowed' }}
         >
           <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
           <div className="icon">📚</div>
@@ -284,137 +313,109 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           );
         })}
 
-        {/* Split topics into filled (have Qs) vs empty (curriculum
-            placeholder, no Qs yet). Empty topics are hidden behind a
-            disclosure so subjects with long planning scaffolds don't
-            look broken. */}
+        {/* A topic is useful when any connected resource is ready. Notes-only
+            topics stay visible instead of being disabled just because the Q
+            bank is still empty. */}
         {(() => {
           const topicEntries = topics.map((t) => ({ t, count: countFor(t.id) }));
-          const filled = topicEntries.filter((x) => x.count > 0);
-          const empty = topicEntries.filter((x) => x.count === 0);
-          const visible = showEmptyTopics ? topicEntries : filled;
+          const ready = topicEntries.filter(({ t }) => hasTopicContent(t));
+          const empty = topicEntries.filter(({ t }) => !hasTopicContent(t));
+          const visible = showEmptyTopics ? [...ready, ...empty] : ready;
           return visible.map(({ t, count }) => {
           const ppCount = pastPaperCountFor(t.id);
           const ppPct = count > 0 ? Math.round((ppCount / count) * 100) : 0;
-          const isEmpty = count === 0;
-          const isRead = !!readingChecklist[t.id];
+          const hasQuestions = count > 0;
+          const hasNotesForTopic = t.resources?.notes?.enabled;
+          const hasWikiForTopic = t.resources?.wiki?.enabled;
+          const isEmpty = !hasTopicContent(t);
+          const isRead = t.read;
+          const primaryLabelBase = hasQuestions
+            ? `ฝึกข้อสอบ ${t.label} ${count} ข้อ`
+            : hasNotesForTopic
+              ? `อ่าน Notes ${t.label}`
+              : `หัวข้อ ${t.label} ยังไม่มีเนื้อหาพร้อมใช้`;
+          const primaryLabel = `${primaryLabelBase}${isRead ? ', อ่านแล้ว' : ''}`;
+          const openPrimary = () => {
+            if (hasQuestions) choose(t.id);
+            else if (hasNotesForTopic) runStudyAction(t.resources.notes);
+          };
           return (
-            <button
+            <article
               key={t.id}
-              className="vmx-subject-card"
-              disabled={isEmpty}
-              onClick={() => { if (!isEmpty) choose(t.id); }}
+              className="vmx-topic-card"
               style={{
                 opacity: isEmpty ? 0.5 : 1,
-                cursor: isEmpty ? 'not-allowed' : 'pointer',
                 position: 'relative',
               }}
-              title={isEmpty ? 'ยังไม่มีข้อสอบในหัวข้อนี้' : ''}
             >
               <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
-              {isRead && (
-                <div
-                  aria-label="อ่านแล้ว"
-                  title="อ่านแล้ว"
-                  style={{
-                    position: 'absolute',
-                    top: 8,
-                    right: 8,
-                    width: 22,
-                    height: 22,
-                    borderRadius: '50%',
-                    background: 'var(--clr-sage)',
-                    color: 'var(--clr-bg)',
-                    fontSize: 12,
-                    fontWeight: 800,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
-                  }}
-                >
-                  ✓
+              <button
+                type="button"
+                className="vmx-topic-main"
+                disabled={isEmpty}
+                onClick={openPrimary}
+                aria-label={primaryLabel}
+                title={isEmpty ? 'ยังไม่มีข้อสอบ, Notes หรือ VetWiki ในหัวข้อนี้' : primaryLabel}
+              >
+                {isRead && <span className="vmx-topic-read" aria-hidden="true" title="อ่านแล้ว">✓</span>}
+                <span className="icon">{t.icon || '📑'}</span>
+                <span className="title">{t.label}</span>
+                <span className="count" style={{ color: isEmpty ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
+                  {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? '📖 มี Notes + VetWiki' : '🚧 รอเนื้อหาเพิ่ม'}
+                </span>
+                {ppCount > 0 && hasQuestions && (
+                  <span className="vmx-topic-past" title={`มีข้อสอบเก่า ${ppCount}/${count} ข้อ (${ppPct}% ของหัวข้อนี้)`}>
+                    อิงแนวเดิม {ppCount}/{count}, {ppPct}%
+                  </span>
+                )}
+                {t.lecturerNote && !isEmpty && (
+                  <span className="vmx-topic-note">⚠️ {t.lecturerNote}</span>
+                )}
+              </button>
+
+              {!isEmpty && (t.lecturer || hasNotesForTopic || hasWikiForTopic || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
+                <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
+                  {t.lecturer && (
+                    <button type="button" className="vmx-topic-action" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
+                      👤 Aj. {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`}
+                    </button>
+                  )}
+                  {hasNotesForTopic && (
+                    <button type="button" className="vmx-topic-action" onClick={() => runStudyAction(t.resources.notes)}>
+                      📖 Notes
+                    </button>
+                  )}
+                  {hasWikiForTopic && (
+                    <button type="button" className="vmx-topic-action" onClick={() => runStudyAction(t.resources.wiki)}>
+                      🧠 VetWiki
+                    </button>
+                  )}
+                  {subject === 'vca' && VCA_NOTES_MAP[t.id] && (
+                    <button
+                      type="button"
+                      className="vmx-topic-action"
+                      onClick={() => {
+                        if (setSubject) setSubject(VCA_NOTES_MAP[t.id].subject);
+                        if (setTopic) setTopic(null);
+                        setView('notes');
+                      }}
+                      title={`เปิด Notes: ${VCA_NOTES_MAP[t.id].label}`}
+                    >
+                      📖 {VCA_NOTES_MAP[t.id].label}
+                    </button>
+                  )}
                 </div>
               )}
-              <div className="icon">{t.icon || '📑'}</div>
-              <div className="title">{t.label}</div>
-              {t.lecturer && (
-                <div
-                  className="sub"
-                  style={{ fontStyle: 'italic', cursor: 'pointer', textDecoration: 'underline dotted', textUnderlineOffset: 3 }}
-                  onClick={(e) => { e.stopPropagation(); openInstructorFor(t.lecturer); }}
-                  title="ดูโปรไฟล์อาจารย์ + งานวิจัย"
-                >
-                  by Aj. {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`} 🔗
-                </div>
-              )}
-              <div className="count" style={{ color: isEmpty ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
-                {isEmpty ? '🚧 รอข้อสอบเพิ่ม' : `${count} ข้อ`}
-              </div>
-              {ppCount > 0 && !isEmpty && (
-                <div
-                  title={`มีข้อสอบเก่า ${ppCount}/${count} ข้อ (${ppPct}% ของหัวข้อนี้) — ส่วนใหญ่หัวข้อนี้น่าจะออกในข้อสอบจริง`}
-                  style={{
-                    marginTop: 6,
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 4,
-                    padding: '2px 8px',
-                    borderRadius: 999,
-                    background: 'rgba(184, 137, 64, 0.12)',
-                    border: '1px solid var(--clr-gold)',
-                    fontSize: 11,
-                    fontFamily: 'var(--vmx-mono)',
-                    color: 'var(--clr-gold-text)',
-                  }}
-                >
-                  อิงแนวเดิม {ppCount}/{count}, {ppPct}%
-                </div>
-              )}
-              {t.lecturerNote && !isEmpty && (
-                <div style={{ marginTop: 8, padding: '6px 8px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'left', lineHeight: 1.4 }}>
-                  ⚠️ {t.lecturerNote}
-                </div>
-              )}
-              {/* VCA-only: cross-link chip → matched NotesView subject */}
-              {subject === 'vca' && VCA_NOTES_MAP[t.id] && !isEmpty && (
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (setSubject) setSubject(VCA_NOTES_MAP[t.id].subject);
-                    if (setTopic) setTopic(null);
-                    setView('notes');
-                  }}
-                  title={`เปิด Notes: ${VCA_NOTES_MAP[t.id].label}`}
-                  style={{
-                    marginTop: 6,
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 4,
-                    padding: '2px 8px',
-                    borderRadius: 999,
-                    background: 'rgba(93, 180, 211, 0.12)',
-                    border: '1px solid #5db4d3',
-                    fontSize: 11,
-                    fontFamily: 'var(--vmx-mono)',
-                    color: '#3a8aa8',
-                    cursor: 'pointer',
-                  }}
-                >
-                  📖 {VCA_NOTES_MAP[t.id].label}
-                </div>
-              )}
-            </button>
+            </article>
           );
         });
         })()}
       </div>
 
-      {/* Empty-topic disclosure — only render the toggle when there ARE
-          empties to hide. Shows count + call-to-action so users know
-          they can request content. */}
+      {/* Content-empty topic disclosure — only render when curriculum topics
+          have no connected questions, Notes, or VetWiki article yet. */}
       {(() => {
-        const emptyCount = topics.filter((t) => countFor(t.id) === 0).length;
+        const emptyCount = topics.filter((t) => !hasTopicContent(t)).length;
         if (emptyCount === 0) return null;
         return (
           <div style={{
@@ -444,10 +445,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               aria-expanded={showEmptyTopics}
             >
               <span aria-hidden="true">{showEmptyTopics ? '▾' : '▸'}</span>
-              {showEmptyTopics ? 'ซ่อนหัวข้อที่ยังไม่มีข้อสอบ' : `แสดงหัวข้อที่ยังไม่มีข้อสอบ (${emptyCount} หัวข้อ)`}
+              {showEmptyTopics ? 'ซ่อนหัวข้อที่ยังไม่มีเนื้อหา' : `แสดงหัวข้อที่ยังไม่มีเนื้อหา (${emptyCount} หัวข้อ)`}
             </button>
             <div style={{ fontSize: 12, lineHeight: 1.5 }}>
-              หัวข้อในแผนการสอนที่ยังไม่ได้เติมข้อสอบ — ขอเพิ่มได้ที่ปุ่ม "ส่งคำถามเข้า Q bank" หน้าแรก
+              หัวข้อในแผนการสอนที่ยังไม่มีข้อสอบ, Notes หรือ VetWiki — ขอเพิ่มได้ที่ปุ่ม "ส่งคำถามเข้า Q bank" หน้าแรก
             </div>
           </div>
         );

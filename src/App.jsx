@@ -32,12 +32,14 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 import './styles.css';
 import './styles-landing.css';
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
-import { parseWikiPath } from './lib/vetwiki/url.js';
+import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
 import { saveExamResult } from './lib/api.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
+import { migrateUniqueTopicProgress } from './lib/study-progress.js';
+import { IMAGING_URL } from './lib/feature-registry.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -74,11 +76,6 @@ import BottomNav from './components/BottomNav.jsx';
 // Lazy because it includes canvas + image processing only used when
 // the user opens the pad.
 const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
-
-// LabView — Imaging Practice Lab (Phase 1: DICOM viewer). Hidden
-// behind the URL hash #lab so it doesn't appear in nav. Lazy import
-// pulls Cornerstone3D into its own chunk only when a user opens it.
-const LabView = lazy(() => import('./views/LabView.jsx'));
 
 // PinboardView — personal pin grid (Qs / summaries / flashcards /
 // notes). Lazy because most sessions never open it.
@@ -215,7 +212,7 @@ const SpeedInsights = lazy(() =>
 // comfortable line length.
 const WIDE_VIEWS = new Set([
   'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
-  'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate',
+  'reading-checklist', 'faculty', 'pinboard', 'pdf-annotate',
   'image-occlusion', 'knowledge', 'wiki',
 ]);
 
@@ -370,9 +367,6 @@ export default function App() {
         // bail to home if none resolve.
         if (shared.length > 0) return 'exam';
       }
-      // Hidden Imaging Practice Lab entry — #lab in the URL fragment.
-      // Not surfaced in nav; only opens if someone knows the hash.
-      if (window.location.hash === '#lab') return 'lab';
     } catch {}
     try {
       // Parse the stored value — `null` is a valid serialized state
@@ -401,6 +395,11 @@ export default function App() {
   const _wikiEntry = typeof window !== 'undefined' ? parseWikiPath(window.location.pathname) : { subject: null, topic: null };
   const [subject, setSubject] = useState(_wikiEntry.subject || 'all');
   const [topic, setTopic] = useState(_wikiEntry.topic || null);
+  // Videos may be opened either globally (show every subject) or from a
+  // subject page (start scoped to that subject). Keep this navigation
+  // context separate from the last exam subject so global Videos never
+  // inherits a stale filter.
+  const [videoSubject, setVideoSubject] = useState(null);
   const [practiceMode, setPracticeMode] = useState('all');
   const [activeGroup, setActiveGroup] = useState(null);
   // selectedYear persists in localStorage. Fallback `null` means "user
@@ -524,13 +523,20 @@ export default function App() {
   // Wrap navigation in View Transitions and mirror it into browser history.
   // Leaving an active exam replaces its history entry, so Back cannot revive
   // a stale/completed session; browser Back while still in an exam asks first.
-  const setView = useCallback((next) => {
+  const setView = useCallback((next, navigationState = null) => {
     if (!next || next === viewRef.current) return;
     const previous = viewRef.current;
+    const nextVideoSubject = next === 'videos'
+      ? navigationState?.subject || null
+      : null;
+    setVideoSubject(nextVideoSubject);
     if (typeof window !== 'undefined') {
       try {
-        const state = { ...(window.history.state || {}), vmxView: next };
-        const labHashAlreadyCreated = next === 'lab' && window.location.hash === '#lab';
+        const state = {
+          ...(window.history.state || {}),
+          vmxView: next,
+          vmxVideoSubject: nextVideoSubject,
+        };
         // KnowledgeView owns the /wiki/* path. Every other view is state-only,
         // and pushState was called without a URL — so once you had opened the
         // wiki, the address bar kept saying /wiki/... on every later screen,
@@ -538,10 +544,12 @@ export default function App() {
         // Hand back the root path when leaving it.
         const leavingWiki = next !== 'knowledge'
           && parseWikiPath(window.location.pathname).isWiki;
-        const url = leavingWiki
-          ? `/${window.location.search}${window.location.hash}`
-          : '';
-        if (previous === 'exam' || labHashAlreadyCreated) {
+        // Some lazy views own a real, shareable URL. Push that URL in the
+        // same event as the view state so slow chunk downloads never leave
+        // the address bar pointing at the previous screen.
+        const url = navigationState?.path
+          || (leavingWiki ? `/${window.location.search}${window.location.hash}` : '');
+        if (previous === 'exam') {
           window.history.replaceState(state, '', url || undefined);
         } else {
           window.history.pushState(state, '', url || undefined);
@@ -564,6 +572,9 @@ export default function App() {
     } catch {}
     const onPopState = (event) => {
       const next = event.state?.vmxView || 'home';
+      const nextVideoSubject = next === 'videos'
+        ? event.state?.vmxVideoSubject || null
+        : null;
       if (viewRef.current === 'exam' && next !== 'exam') {
         // The app's own dialog is async, and popstate can't be un-fired, so
         // put the exam entry back straight away and only navigate once they
@@ -580,48 +591,19 @@ export default function App() {
           confirmLabel: 'ออกจากชุด',
         }).then((leave) => {
           if (!leave) return;
+          setVideoSubject(nextVideoSubject);
           viewRef.current = next;
           withTransition(() => setViewRaw(next));
         });
         return;
       }
+      setVideoSubject(nextVideoSubject);
       viewRef.current = next;
       withTransition(() => setViewRaw(next));
     };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
-
-  // Imaging Practice Lab — open when the user navigates to #lab at
-  // runtime (e.g. pastes the link in an already-open tab). The
-  // initial-mount case is handled by the initialView IIFE above.
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const onHash = () => {
-      if (window.location.hash === '#lab') setView('lab');
-    };
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
-  }, [setView]);
-
-  // Universal hash cleanup: whenever the active view moves AWAY from
-  // 'lab', strip #lab from the URL bar so it doesn't lie to the user
-  // about where they are. Earlier we only cleared hash on LabView's
-  // own back button — but FAB→Lab→browser-back, Home logo click,
-  // or any other setView('home') path was leaving #lab stuck in the
-  // URL. This effect catches every such transition in one place.
-  // replaceState doesn't fire hashchange so it won't loop back into
-  // the onHash listener above.
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (view !== 'lab' && window.location.hash === '#lab') {
-      window.history.replaceState(
-        null,
-        '',
-        window.location.pathname + window.location.search,
-      );
-    }
-  }, [view]);
 
   // Scroll to top when view changes — without this, navigating to a
   // long page (e.g. NotesView) keeps you scrolled at the previous
@@ -795,6 +777,15 @@ export default function App() {
     },
     sync: userDataSync,
   } = useUserDataSync(user?.id ?? null);
+
+  // Legacy reading progress used bare topic ids, which collide across
+  // subjects (for example `nutrition`). Safely promote only globally unique
+  // ids; ambiguous keys remain readable until the learner makes an explicit
+  // subject-scoped choice.
+  useEffect(() => {
+    const migrated = migrateUniqueTopicProgress(readingChecklist, SUBJECTS);
+    if (migrated !== readingChecklist) setReadingChecklist(migrated);
+  }, [readingChecklist, setReadingChecklist]);
 
   // Google Fonts moved to index.html with media=print + onload swap so
   // they download in parallel with the HTML and don't block first paint.
@@ -1553,17 +1544,13 @@ export default function App() {
   // (QUESTION_LINKS carries a sectionId), and that judgement used to be thrown
   // away one call from delivery — dropping the reader at the top of an article
   // averaging a dozen sections, at the exact moment they had just lost a mark.
-  // KnowledgeView reads window.location.hash on mount, so setting it here is
-  // all the plumbing that is needed.
+  // Push the article path before the large lazy KnowledgeView chunk mounts.
+  // Besides making the link immediately shareable, this keeps history as one
+  // atomic entry instead of relying on a later effect to rewrite `/`.
   const openWiki = (subj, top, sectionId) => {
-    try {
-      const url = new URL(window.location.href);
-      url.hash = sectionId ? `#${sectionId}` : '';
-      window.history.replaceState(null, '', url);
-    } catch { /* hash is a nicety; never block the navigation on it */ }
     setSubject(subj);
     setTopic(top);
-    setView('knowledge');
+    setView('knowledge', { path: wikiPath(subj, top, sectionId) });
   };
 
   const goHome = () => {
@@ -1668,10 +1655,17 @@ export default function App() {
   const runLandingIntent = (intent) => {
     if (intent?.kind === 'mock-exam') { startMockExam(); return; }
     if (intent?.kind === 'panic') { startPanicSession(intent.timeKey); return; }
-    if (intent?.kind === 'lab') { setView('lab'); return; }
+    if (intent?.kind === 'lab') { window.location.assign(IMAGING_URL); return; }
   };
   const goLanding = (intent) => {
     try { window.localStorage?.setItem('vmx-seen-landing', '1'); } catch {}
+    // Imaging has its own production app and does not depend on a VetMock
+    // year selection. Open it directly while this click is still a trusted
+    // user gesture.
+    if (intent?.kind === 'lab') {
+      runLandingIntent(intent);
+      return;
+    }
     if (selectedYearStored == null) {
       landingIntentRef.current = intent;   // replayed on arrival at home
       setView('year-select');
@@ -1947,7 +1941,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, qbReady }} />}
-              {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist }} />}
+              {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} />}
@@ -1960,19 +1954,18 @@ export default function App() {
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
-              {view === 'videos' && <VideoView {...{ goHome }} />}
+              {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} />}
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}
               {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }} />}
-              {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setView }} />}
+              {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'race' && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
-              {view === 'lab' && <LabView goHome={goHome} />}
               {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
@@ -2010,10 +2003,6 @@ export default function App() {
           {!FOCUS_VIEWS.has(view) && (
             <ToolsFAB
               onSketch={() => setSketchOpen(true)}
-              onLab={() => {
-                if (window.location.hash !== '#lab') window.location.hash = '#lab';
-                setView('lab');
-              }}
             />
           )}
           {sketchOpen && (

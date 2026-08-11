@@ -1,5 +1,9 @@
 # VetMock — Design System Master Doc
 
+> Update 2026-08-11: the local DICOM `LabView` was retired and now opens the
+> canonical `imaging.cuvetsmo.com` product. Lab-specific measurements in this
+> historical audit are no longer part of VetMock's shipped UI.
+
 Audit date: 2026-05-18 · Read-only.
 Current Source of Truth: `src/styles.css` + `src/styles-landing.css` + component inline `style={{...}}`.
 > 💡 **Migration Note (2026-05-27):** Styles originally exported from `src/styles.js` were migrated to `src/styles.css` and `src/styles-landing.css`. Historical line number references below (`styles.js:N`) refer to audit declarations now residing in `src/styles.css`.

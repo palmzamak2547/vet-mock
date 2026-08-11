@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect } from '../hooks/utils.js';
-import { articleForQuestion } from '../lib/vetwiki/index.js';
+import { articleForQuestion } from '../lib/vetwiki/registry.js';
 import { conflictsForTopic } from '../lib/vetwiki/conflict-index.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';

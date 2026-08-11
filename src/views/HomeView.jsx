@@ -14,6 +14,7 @@ import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } f
 // Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap once
 // a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
 import { getCompletedPhase, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
+import { isTopicRead } from '../lib/study-progress.js';
 
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
 // and most users will see it after some interaction. Keeps HomeView's
@@ -1653,7 +1654,7 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
         // Per-subject progress (Phase 3) — readingChecklist + bookmarks
         // are local-storage backed and cheap to compute.
         const topics = Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden) : [];
-        const readDone = topics.filter((t) => readingChecklist[t.id]).length;
+        const readDone = topics.filter((t) => isTopicRead(readingChecklist, s.id, t.id)).length;
         // O(1) lookup using bookmarksBySubject precomputed above
         const bookmarkCount = isScaffold ? 0 : (bookmarksBySubject[s.id] || 0);
         const readPct = topics.length > 0 ? Math.round((readDone / topics.length) * 100) : 0;

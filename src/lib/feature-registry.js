@@ -46,6 +46,8 @@ export const FEATURE_FLAGS = {
   VETWIKI_ENABLED: true,
 };
 
+export const IMAGING_URL = 'https://imaging.cuvetsmo.com';
+
 export const FEATURE_CATEGORIES = [
   { id: 'practice', label: 'ฝึก & สอบ',        labelEn: 'Practice & Exam', icon: '📝' },
   { id: 'learn',    label: 'เรียน & ทบทวน',     labelEn: 'Learn & Review',  icon: '📚' },
@@ -202,9 +204,9 @@ export const FEATURES = [
   {
     id: 'lab', category: 'tools', fab: true, fabHint: 'DICOM, Norberg, VHS',
     label: 'Imaging Lab', labelEn: 'Imaging Lab', icon: '🔬',
-    hint: 'DICOM, Norberg, VHS',
+    hint: 'DICOM, Norberg, VHS · imaging.cuvetsmo.com',
     kw: 'lab imaging dicom norberg vhs xray รังสี ภาพ ฝึกอ่าน',
-    invoke: { kind: 'view', view: 'lab' },
+    invoke: { kind: 'external', url: IMAGING_URL },
   },
   {
     id: 'image-occlusion', category: 'tools',

@@ -34,6 +34,18 @@ for (const block of ['const NOTES_BY_SUBJECT = {', 'const NOTES_85_BY_SUBJECT = 
 }
 
 const list = [...subjects].sort();
+// Topic-level availability comes from the browser-light governed registry.
+// `lint:wiki-registry` runs first and proves this metadata still matches the
+// canonical notes corpus, while this artifact keeps only compact ids/counts.
+const { listTopics } = await import('../src/lib/vetwiki/registry.js');
+const topicRows = listTopics()
+  .map(({ subject, topic }) => ({ subject, topic }))
+  .sort((a, b) => a.subject.localeCompare(b.subject) || a.topic.localeCompare(b.topic));
+const topicKeys = topicRows.map(({ subject, topic }) => `${encodeURIComponent(subject)}/${encodeURIComponent(topic)}`);
+const topicCounts = Object.fromEntries(list.map((subject) => [
+  subject,
+  topicRows.filter((row) => row.subject === subject).length,
+]));
 const body = `// ============================================================
 // notes-registry.generated.js — DO NOT EDIT BY HAND
 // ============================================================
@@ -45,8 +57,22 @@ const body = `// ============================================================
 /** Subject ids that have at least one notes topic. */
 export const SUBJECTS_WITH_NOTES = new Set(${JSON.stringify(list, null, 2)});
 
+/** Canonical subject/topic ids with at least one readable notes section. */
+export const NOTE_TOPIC_KEYS = new Set(${JSON.stringify(topicKeys, null, 2)});
+
+/** Number of readable note topics per subject. */
+export const NOTE_TOPIC_COUNTS_BY_SUBJECT = Object.freeze(${JSON.stringify(topicCounts, null, 2)});
+
+export function noteTopicKey(subjectId, topicId) {
+  return \`${'${encodeURIComponent(subjectId)}/${encodeURIComponent(topicId)}'}\`;
+}
+
 export function hasNotes(subjectId) {
   return SUBJECTS_WITH_NOTES.has(subjectId);
+}
+
+export function hasNoteTopic(subjectId, topicId) {
+  return NOTE_TOPIC_KEYS.has(noteTopicKey(subjectId, topicId));
 }
 `;
 
@@ -61,5 +87,5 @@ if (CHECK) {
 }
 
 fs.writeFileSync(OUT, body);
-console.log(`✓ ${list.length} subjects with notes → ${OUT}`);
+console.log(`✓ ${list.length} subjects / ${topicRows.length} topics with notes → ${OUT}`);
 console.log(`  ${list.join(', ')}`);

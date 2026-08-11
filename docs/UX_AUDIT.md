@@ -66,7 +66,7 @@ sprawl + missing token scales) that blocks any systematic restyle.
    **added 2026-07-24**; utility layer + card base + migration next).
 5. **233 hardcoded hex in JSX won't dark-flip.** Worst: `LabView.jsx` (~50, a
    *deliberate* dark clinical theme = intentional exception), `LandingBody.jsx` (18),
-   `PomodoroView.jsx` (15). → **Phase 2** bulk hex→var, quarantining the DICOM lab.
+   `PomodoroView.jsx` (15). → **Phase 2** bulk hex→var. The duplicated DICOM lab was externalized in v5.26.0.
 6. **Sarabun double-loaded + redundant second Thai family.** `styles.css:267-313`
    self-host 6 TTF `@font-face` while `index.html:52-67` *also* pulls Sarabun from
    Google Fonts; `public/Sarabun` ships 17 TTF (~1.4MB, 6 referenced) + a duplicate at
@@ -103,7 +103,7 @@ sprawl + missing token scales) that blocks any systematic restyle.
   fight the existing stack unless the `--z` ladder is adopted first (**added 2026-07-24**).
 - 2,634 inline styles mean a broad restyle touches JSX, not CSS — migrate incrementally
   (top-5 files pilot), keep builds green.
-- The DICOM lab dark theme is intentional — quarantine before any bulk hex→var.
+- Imaging now opens the dedicated `imaging.cuvetsmo.com` product; do not recreate its clinical theme inside VetMock.
 - Touching the exam submit keybinding or `finishExam` risks the autosave/resume/
   leaderboard contract — add confirm/latch **additively**, regression-test resume + score.
 - Per-view URLs must preserve the `FOCUS_VIEWS` gate + mid-exam popstate confirm, or

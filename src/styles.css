@@ -680,6 +680,8 @@ html, body {
 .vmx-mode-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
 .vmx-mode-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.15s; text-align: left; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; color: var(--clr-ink); font-family: inherit; }
 .vmx-mode-card:hover { border-color: var(--clr-ink); background: var(--clr-surface-2); }
+.vmx-mode-card:disabled { cursor: not-allowed; }
+.vmx-mode-card:disabled:hover { border-color: var(--clr-border); background: var(--clr-surface); }
 .vmx-mode-card .icon { font-size: 20px; line-height: 1; }
 .vmx-mode-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 16px; color: var(--clr-ink); }
 .vmx-mode-card .sub { font-size: 12px; color: var(--clr-ink-soft); line-height: 1.4; }
@@ -693,6 +695,116 @@ html, body {
 .vmx-subject-card .sub { font-size: 12px; color: var(--clr-ink-soft); font-style: normal; }
 .vmx-subject-card .count { font-size: 12px; color: var(--clr-ink-soft); margin-top: 2px; }
 .vmx-subject-card .accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+
+/* Unified topic cards keep the main destination and secondary resources as
+   sibling buttons — no nested interactive controls, and Notes/Wiki can remain
+   reachable even before a topic has questions. */
+.vmx-topic-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--clr-border);
+  border-radius: 12px;
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  transition: border-color .15s, background .15s, box-shadow .15s;
+}
+.vmx-topic-card:hover {
+  border-color: var(--clr-ink);
+  background: var(--clr-surface-2);
+}
+.vmx-topic-card .accent {
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  inset: 0 auto 0 0;
+  width: 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+.vmx-topic-main {
+  position: relative;
+  width: 100%;
+  padding: 16px 16px 14px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+.vmx-topic-main:disabled { cursor: not-allowed; }
+.vmx-topic-main:focus-visible,
+.vmx-topic-action:focus-visible {
+  outline: 2px solid var(--clr-ink);
+  outline-offset: -3px;
+}
+.vmx-topic-card .icon { font-size: 24px; line-height: 1; }
+.vmx-topic-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-size: 16px; font-weight: 600; line-height: 1.25; }
+.vmx-topic-card .count { margin-top: 2px; color: var(--clr-ink-soft); font-size: 12px; }
+.vmx-topic-read {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--clr-sage);
+  color: var(--clr-bg);
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 22px;
+  text-align: center;
+}
+.vmx-topic-past {
+  display: inline-flex;
+  margin-top: 4px;
+  padding: 3px 8px;
+  border: 1px solid var(--clr-gold);
+  border-radius: 999px;
+  background: rgba(184,137,64,.12);
+  color: var(--clr-gold-text);
+  font-family: var(--vmx-mono);
+  font-size: 11px;
+}
+.vmx-topic-note {
+  margin-top: 2px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--clr-surface-2);
+  color: var(--clr-ink-soft);
+  font-size: 11px;
+  font-style: italic;
+  line-height: 1.4;
+}
+.vmx-topic-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 10px 10px 12px;
+  border-top: 1px solid var(--clr-border);
+}
+.vmx-topic-action {
+  min-height: 44px;
+  flex: 1 1 86px;
+  padding: 7px 9px;
+  border: 1px solid var(--clr-border);
+  border-radius: 9px;
+  background: var(--clr-bg);
+  color: var(--clr-ink-soft);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+}
+.vmx-topic-action:hover { border-color: var(--clr-sage); color: var(--clr-ink); }
 
 /* Progressive feature directory */
 .vmx-feature-menu { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--clr-border); }

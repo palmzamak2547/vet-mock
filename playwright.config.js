@@ -17,6 +17,13 @@
 
 import { defineConfig, devices } from '@playwright/test';
 
+// Keep local E2E isolated from ordinary Vite previews. Reusing whatever owns
+// port 4173 once made a green suite test a different app entirely. A dedicated
+// strict port fails loudly instead; PLAYWRIGHT_PORT remains available for
+// parallel local runs.
+const localE2ePort = Number(process.env.PLAYWRIGHT_PORT || 41731);
+const localE2eUrl = `http://127.0.0.1:${localE2ePort}`;
+
 export default defineConfig({
   testDir: './tests/e2e',
   timeout: 30_000,
@@ -30,7 +37,7 @@ export default defineConfig({
     // Tests default to a local Vite preview server (see webServer
     // below). Override via PLAYWRIGHT_BASE_URL=https://vetmock.vercel.app
     // to smoke-test the actual production build.
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:4173',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || localE2eUrl,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
@@ -61,14 +68,14 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'], viewport: { width: 1280, height: 800 } },
     },
   ],
-  // Spin up `npm run preview` automatically. Reuses an existing
-  // server if one is already running (useful for iteration).
+  // Spin up a fresh production preview automatically. Never reuse an unknown
+  // listener: stale/wrong-app previews must make the gate fail, not pass.
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
     : {
-        command: 'npm run preview',
-        port: 4173,
-        reuseExistingServer: !process.env.CI,
+        command: `npm run preview -- --host 127.0.0.1 --port ${localE2ePort} --strictPort`,
+        port: localE2ePort,
+        reuseExistingServer: false,
         timeout: 60_000,
       },
 });

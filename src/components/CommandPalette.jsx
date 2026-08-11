@@ -36,7 +36,7 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 // shows up in BOTH the home grid and search (no more hand-synced drift,
 // which had left 7 navigable features unsearchable).
 import { FEATURES, visibleFeatures, FEATURE_FLAGS } from '../lib/feature-registry.js';
-import { listTopics } from '../lib/vetwiki/index.js';
+import { listTopics } from '../lib/vetwiki/registry.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -299,6 +299,7 @@ function runItem(item, handlers) {
         case 'practice':  onPractice?.(inv); return;
         case 'event':     try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
         case 'sketch':    onSketch?.(); return;
+        case 'external':  if (inv.url) window.location.assign(inv.url); return;
         // voice-settings opens an overlay instead of navigating — keeps
         // the user on the current Q if they triggered from ExamView.
         case 'voice':     openVoiceSettings?.(); return;

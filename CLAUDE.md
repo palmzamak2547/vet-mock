@@ -14,7 +14,7 @@
 ### ⛔ No-duplication — see `cuvetsmo-docs/NO_DUPLICATION.md`
 Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp) · AI inference (→ shared ai-chat) · DICOM viewer (→ cuvetsmo-imaging).
 
-> ⚠️ DRIFT 2026-05-29: a duplicate DICOM viewer lives here (`src/lib/dicom/*`, `src/views/LabView.jsx`, cornerstone deps) — canonical owner is cuvetsmo-imaging. Consider extracting/retiring it so the viewer lives in one place.
+> ✅ RESOLVED 2026-08-11: the duplicate DICOM viewer was retired. Every Imaging Lab entry now opens the canonical owner at `https://imaging.cuvetsmo.com`; VetMock no longer ships Cornerstone/DICOM viewer code.
 
 ---
 

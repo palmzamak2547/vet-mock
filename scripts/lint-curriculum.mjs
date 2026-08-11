@@ -40,9 +40,11 @@ const UTILITY_SUBJECTS = new Set(['short', 'mahahon', 'termpaper']);
 const qm = await imp('src/data/questions.js');
 const cur = await imp('src/data/curriculum.js');
 const counts = await imp('src/data/q-counts.js');
+const metadata = await imp('src/lib/question-metadata.js');
 
 const { QB, loadQB } = qm;
 const { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, yearForSubject } = cur;
+const { isPastPaperQuestion, questionTopicId } = metadata;
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 await loadQB();
 
@@ -59,13 +61,25 @@ const yearMismatch = new Map();
 const orphanTopics = new Map();
 const bySubject = {};
 const byYear = {};
+const byTopic = {};
+const byPastPaperTopic = {};
 let missingFields = 0;
+
+const incrementNested = (index, subject, topic) => {
+  index[subject] ||= {};
+  index[subject][topic] = (index[subject][topic] || 0) + 1;
+};
 
 for (const q of QB) {
   const subj = q.subject;
   if (!subj) { missingFields++; continue; }
   bySubject[subj] = (bySubject[subj] || 0) + 1;
   if (Number.isFinite(q.year)) byYear[q.year] = (byYear[q.year] || 0) + 1;
+  const topic = questionTopicId(q);
+  incrementNested(byTopic, subj, topic);
+  if (isPastPaperQuestion(q)) {
+    incrementNested(byPastPaperTopic, subj, topic);
+  }
 
   if (!subjectIds.has(subj)) {
     if (UTILITY_SUBJECTS.has(subj)) utilitySubjects.set(subj, (utilitySubjects.get(subj) || 0) + 1);
@@ -90,6 +104,8 @@ if (missingFields) errors.push(`${missingFields} question(s) missing a 'subject'
 
 const storedSub = counts.Q_COUNTS_BY_SUBJECT || {};
 const storedYr = counts.Q_COUNTS_BY_YEAR || {};
+const storedTopic = counts.Q_COUNTS_BY_TOPIC || {};
+const storedPastPaperTopic = counts.Q_PAST_PAPER_COUNTS_BY_TOPIC || {};
 if (counts.QB_TOTAL !== QB.length)
   errors.push(`q-counts QB_TOTAL=${counts.QB_TOTAL} but live=${QB.length} → run: npm run regen:q-counts`);
 for (const k of new Set([...Object.keys(bySubject), ...Object.keys(storedSub)]))
@@ -98,6 +114,35 @@ for (const k of new Set([...Object.keys(bySubject), ...Object.keys(storedSub)]))
 for (const k of new Set([...Object.keys(byYear), ...Object.keys(storedYr)]))
   if ((byYear[k] || 0) !== (storedYr[k] || 0))
     errors.push(`q-counts year ${k}=${storedYr[k] || 0} but live=${byYear[k] || 0} → regen:q-counts`);
+for (const subject of new Set([...Object.keys(byTopic), ...Object.keys(storedTopic)])) {
+  for (const topic of new Set([
+    ...Object.keys(byTopic[subject] || {}),
+    ...Object.keys(storedTopic[subject] || {}),
+  ])) {
+    if ((byTopic[subject]?.[topic] || 0) !== (storedTopic[subject]?.[topic] || 0)) {
+      errors.push(
+        `q-counts topic '${subject}/${topic}'=${storedTopic[subject]?.[topic] || 0} ` +
+        `but live=${byTopic[subject]?.[topic] || 0} → regen:q-counts`,
+      );
+    }
+  }
+}
+for (const subject of new Set([
+  ...Object.keys(byPastPaperTopic),
+  ...Object.keys(storedPastPaperTopic),
+])) {
+  for (const topic of new Set([
+    ...Object.keys(byPastPaperTopic[subject] || {}),
+    ...Object.keys(storedPastPaperTopic[subject] || {}),
+  ])) {
+    if ((byPastPaperTopic[subject]?.[topic] || 0) !== (storedPastPaperTopic[subject]?.[topic] || 0)) {
+      errors.push(
+        `q-counts past-paper topic '${subject}/${topic}'=${storedPastPaperTopic[subject]?.[topic] || 0} ` +
+        `but live=${byPastPaperTopic[subject]?.[topic] || 0} → regen:q-counts`,
+      );
+    }
+  }
+}
 
 for (const s of SUBJECTS) {
   const n = bySubject[s.id] || 0;

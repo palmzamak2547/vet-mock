@@ -484,7 +484,10 @@ export default function KnowledgeView({ subject, topic, setView, setSubject, set
   const backToIndex = () => { setOpenId(null); syncUrl(null); };
 
   // Normalise the URL on first paint (e.g. entering from the app's feature
-  // button, which arrives at "/"), and follow Back/Forward.
+  // button, which arrives at "/"), and follow Back/Forward. Topic buttons
+  // already sync their own URL. A popstate-derived openId must not sync again:
+  // doing so while this view unmounts would rewrite the destination `/` as
+  // `/wiki`, leaving the address bar out of step with the restored app view.
   useEffect(() => {
     syncUrl(openId, true);
     const onPop = () => {
@@ -494,8 +497,8 @@ export default function KnowledgeView({ subject, topic, setView, setSubject, set
     };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount + openId only
-  }, [openId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount only; URL-owning actions sync explicitly
+  }, []);
 
   if (!current || !knowledge) {
     return <WikiIndex topics={topics} onOpen={openTopic} goHome={goHome} />;

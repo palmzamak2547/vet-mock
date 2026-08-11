@@ -1,6 +1,10 @@
 # VetMock — A11y Backlog (WCAG 2.1 AA)
 
 Audit date: 2026-05-18 · Method: `preview_start` (vite preview, port 5179) → `preview_resize` 375×812 → `preview_snapshot` accessibility tree + `preview_inspect` for measured styles + source grep.
+
+> Update 2026-08-11: the local `#lab`/`LabView` implementation was retired in
+> favor of `imaging.cuvetsmo.com`. Lab-specific findings below are preserved as
+> historical audit evidence and no longer apply to the VetMock bundle.
 Surfaces audited:
 - `/` (gated by `YearSelectView` → `PhaseSelectView` → `HomeView` / `ConfigView`)
 - exam config (`ConfigView.jsx` — the "ตั้งค่า การฝึก" surface)

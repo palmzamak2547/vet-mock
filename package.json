@@ -1,7 +1,7 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.25.1",
+  "version": "5.26.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,10 +17,11 @@
     "lint:registry": "node scripts/regen-bank-registry.mjs --check",
     "validate:wiki": "node scripts/validate-wiki.mjs",
     "sync:wiki-unmapped": "node scripts/sync-wiki-unmapped.mjs",
-    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:registry && npm run lint:notes-registry && npm run lint:curriculum && npm run validate:wiki && npm run lint:wiki-coverage",
+    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:registry && npm run lint:wiki-registry && npm run lint:notes-registry && npm run lint:curriculum && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check",
     "regen:q-counts": "node scripts/regen-q-counts.mjs",
     "regen:registry": "node scripts/regen-bank-registry.mjs",
     "regen:video-meta": "node scripts/regen-video-meta.mjs",
+    "regen:wiki-registry": "node scripts/regen-vetwiki-topic-registry.mjs",
     "fix:academic-safety": "node scripts/lint-academic-safety.mjs --apply",
     "fix:questions": "node scripts/fix-question-bias.cjs",
     "fix:length": "node scripts/fix-length-bias.cjs",
@@ -35,6 +36,7 @@
     "test:unit": "node --test tests/unit/*.test.mjs",
     "test": "npm run test:unit && npm run test:e2e",
     "stats": "node scripts/stats.mjs",
+    "stats:check": "node scripts/stats.mjs --check",
     "prerender:wiki": "node scripts/prerender-wiki.mjs",
     "wiki:hashes": "node scripts/backfill-wiki-hashes.mjs --write",
     "verify:sources": "node scripts/verify-wiki-sources.mjs",
@@ -44,7 +46,8 @@
     "wiki:unverified": "node scripts/wiki-unverified.mjs .wiki-unverified",
     "lint:wiki-coverage": "node scripts/lint-wiki-coverage.mjs",
     "regen:notes-registry": "node scripts/regen-notes-registry.mjs",
-    "lint:notes-registry": "node scripts/regen-notes-registry.mjs --check"
+    "lint:notes-registry": "node scripts/regen-notes-registry.mjs --check",
+    "lint:wiki-registry": "node scripts/regen-vetwiki-topic-registry.mjs --check"
   },
   "browserslist": [
     "defaults",
@@ -54,14 +57,10 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@cornerstonejs/core": "4.22.4",
-    "@cornerstonejs/dicom-image-loader": "4.22.4",
-    "@cornerstonejs/tools": "4.22.4",
     "@line/liff": "^2.29.0",
     "@supabase/supabase-js": "^2.111.0",
     "@vercel/analytics": "1.5.0",
     "@vercel/speed-insights": "1.2.0",
-    "dicom-parser": "1.8.21",
     "drizzle-orm": "^0.45.2",
     "msedge-tts": "^2.0.5",
     "pdfjs-dist": "^4.10.38",
@@ -69,11 +68,10 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@originjs/vite-plugin-commonjs": "1.0.3",
     "@playwright/test": "^1.60.0",
     "@vitejs/plugin-react": "^4.3.1",
-    "sharp": "^0.34.5",
-    "vite": "^5.4.8",
+    "sharp": "^0.35.3",
+    "vite": "^6.4.3",
     "youtube-transcript": "^1.3.1",
     "youtubei.js": "^17.0.1"
   }

@@ -1,16 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 export default defineConfig({
-  plugins: [react(), viteCommonjs()],
-  // Cornerstone3D's dicom-image-loader ships its own web workers and
-  // must NOT be pre-bundled by Vite; dicom-parser is CJS and needs
-  // explicit inclusion so esbuild rewrites it cleanly.
-  optimizeDeps: {
-    exclude: ['@cornerstonejs/dicom-image-loader'],
-    include: ['dicom-parser'],
-  },
+  plugins: [react()],
   worker: { format: 'es' },
   build: {
     // Palm compat audit 2026-05-24: was 'esnext' which emits whatever
@@ -23,14 +15,8 @@ export default defineConfig({
     // Keeps optional chaining / nullish coalescing native (no transpile
     // weight) but transpiles anything newer down to ES2020 syntax.
     target: 'es2020',
-    // Palm perf audit 2026-05-20: two chunks legitimately exceed 700KB
-    // and we KNOW they're lazy:
-    //   • data-video-summaries (~2.2MB) — only loaded after user clicks
-    //     "📝 อ่านสรุปคลิป" inside VideoView's PlayerModal
-    //   • vendor-cornerstone (~1.7MB) — only loaded on /lab visit
-    // Both are excluded from modulePreload (below) so they don't bloat
-    // first-paint. 2300KB cap silences the warning without disabling
-    // visibility for accidental regressions in the main bundle.
+    // Keep visibility for any new multi-megabyte chunk. VetWiki's canonical
+    // article renderer is intentionally lazy and tracked separately.
     chunkSizeWarningLimit: 2300,
     // ── Phase 1 perf rework (2026-05-17) ─────────────────────────
     // Vite's default behaviour is to emit <link rel="modulepreload">
@@ -40,9 +26,8 @@ export default defineConfig({
     // screen only needs ~500 KB of code.
     //
     // resolveDependencies trims the preload list per-entry. Filter out
-    // chunks that only run on routes the average user never visits
-    // (vendor-cornerstone for /lab) or load on demand later in the
-    // session (Q banks fetch when the user actually starts a quiz —
+    // chunks that load on demand later in the session (Q banks fetch when
+    // the user actually starts a quiz —
     // currently they're statically imported via data/questions.js
     // barrel but Phase 2+3 will lazy them; preload-trim is harmless
     // in the interim because the static imports still work — just
@@ -50,14 +35,11 @@ export default defineConfig({
     //
     // Excluded chunks still ship + chunk-split as before; the browser
     // just fetches them when actually imported, not as a speculative
-    // pre-warm. For lazy-loaded chunks (cornerstone) this is a pure
-    // win. For statically-imported chunks (Q banks) it's neutral
-    // until Phase 3 ships.
+    // pre-warm. For statically-imported chunks (Q banks) it's neutral.
     modulePreload: {
       polyfill: true,
       resolveDependencies(_filename, deps) {
         const SKIP_PRELOAD_PATTERNS = [
-          /vendor-cornerstone/,        // /lab only · 1.69 MB
           /data-q-/,                   // Q banks · 16 chunks · ~2 MB (Phase 2+3 will lazy them)
           /data-video-summaries/,      // VideoView only · 2 MB
           /data-notes-/,               // NotesView only · per-subject
@@ -80,17 +62,6 @@ export default defineConfig({
               /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)
             ) return 'vendor-react'
             if (id.includes('@supabase')) return 'vendor-supabase'
-            // Cornerstone3D + its dep tree (vtk.js, gl-matrix, comlink,
-            // dicom-parser) all funnel into a single lab-only chunk so
-            // they never ship with the main bundle. LabView lazy-loads
-            // this chunk on first /lab visit.
-            if (
-              id.includes('@cornerstonejs') ||
-              id.includes('@kitware/vtk.js') ||
-              id.includes('dicom-parser') ||
-              id.includes('gl-matrix') ||
-              id.includes('comlink')
-            ) return 'vendor-cornerstone'
             return 'vendor'
           }
           // Question banks are heavy + only needed once user starts a quiz.

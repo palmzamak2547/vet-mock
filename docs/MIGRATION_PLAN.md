@@ -56,7 +56,7 @@ Goal: fix the destinations users can't reach or that lose data.
   Wiki + Analytics duplicates now covered by the navs, saved-chip only when
   non-empty, year+phase as one segmented control, line icons, no ACADEMY badge);
   footer rebuilt as three labelled groups, no italic/emoji/middle-dots.
-- [ ] **Bulk hex→var** for dark mode, quarantining the DICOM lab (finding 5).
+- [ ] **Bulk hex→var** for dark mode. The duplicated DICOM lab was externalized to `imaging.cuvetsmo.com` in v5.26.0, so it no longer needs a local quarantine (finding 5).
 
 ## Phase 3 — Secondary surfaces (lab · search · progress · profile · states)
 - [ ] LabView mobile clip fix (finding 16).

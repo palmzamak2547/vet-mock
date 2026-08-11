@@ -3,6 +3,17 @@
 This file documents the security posture of vet-mock and is meant for the
 maintainer (Vet 86). Not user-facing.
 
+## Hardening pass — 2026-08-11
+
+- `npm audit` reports **0 vulnerabilities** across production and development dependencies.
+- Retired the duplicated local DICOM/Cornerstone viewer. Imaging entry points now
+  open the canonical product at `https://imaging.cuvetsmo.com`.
+- Removed Cornerstone, VTK, codec, `dicom-parser`, and the legacy CommonJS Vite
+  bridge from VetMock's dependency graph.
+- Upgraded the build chain to Vite 6.4.3 and Sharp 0.35.3.
+- Production counts, registries, curriculum links, and generated docs are checked
+  by `npm run lint:all`; connected study paths are covered by Playwright.
+
 ## Hardening pass — 2026-05-10
 
 Applied with zero UX impact:
@@ -33,11 +44,12 @@ Applied with zero UX impact:
 - (Optional) Enable Auth → Settings → MFA / TOTP for admin-tier users
 - (Optional) Auth → Email → Set rate limits per email/IP
 
-**npm audit** state: 2 moderate (esbuild + vite, dev-only). Production bundle unaffected (esbuild is build-time). Dependabot already configured.
+**Historical npm audit state:** 2 moderate findings existed at this point and
+were cleared by the 2026-08-11 hardening pass above.
 
 ## Hardening pass — 2026-05-20 (Palm 10/10 audit)
 
-**npm audit** state (post `npm audit fix`):
+**Historical npm audit state (superseded 2026-08-11):**
 - 7 moderate (was 10 before fix) — ALL in the Cornerstone3D dependency chain (`@kitware/vtk.js` → `xmlbuilder2` → `js-yaml`; plus `uuid <11.1.1` in dicom-image-loader). No upstream fixes available yet.
 - **Containment**: Cornerstone is loaded ONLY on `/lab` (Imaging Lab, accessed via `#lab` hash — not surfaced in nav). The `vendor-cornerstone` chunk is excluded from `modulePreload` (see `vite.config.js`) so unaffected users never download the vulnerable code.
 - **Usage**: lab opens user-provided local DICOM files in-browser; no network exfil from cornerstone.

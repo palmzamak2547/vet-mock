@@ -9,24 +9,24 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Total questions** | **2,948** |
-| Question banks (files) | 41 |
-| Subjects with questions | 34 |
+| **Total questions** | **4,454** |
+| Question banks (files) | 63 |
+| Subjects with questions | 40 |
 | Years covered | 1, 4, 5 |
 | — year 1 | 298 |
 | — year 4 | 2,095 |
-| — year 5 | 555 |
+| — year 5 | 2,061 |
 
-Consistency: counted **2948**, `q-counts.js` says **2948**, registry sums to **2948**, files missing from the registry: **0** → ✅ consistent
+Consistency: counted **4454**, `q-counts.js` says **4454**, registry sums to **4454**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
 | | |
 |---|---|
-| Note files | 12 |
-| Topics | 159 |
-| Sections | 745 |
-| Sections carrying a source locator | 745 (100%) |
+| Note files | 29 |
+| Topics | 271 |
+| Sections | 1764 |
+| Sections carrying a source locator | 1764 (100%) |
 
 ## Video summaries
 
@@ -34,14 +34,14 @@ Consistency: counted **2948**, `q-counts.js` says **2948**, registry sums to **2
 
 ## Curriculum
 
-86 subjects, 628 topics in the taxonomy.
+86 subjects, 652 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 
 | | |
 |---|---|
-| Governed topics | 143 |
-| Governed sections | 679 |
-| Claims verified against an external source | 30 |
-| Distinct external sources cited | 34 |
-| Share of note sections governed | 91.1% |
+| Governed topics | 200 |
+| Governed sections | 1655 |
+| Claims verified against an external source | 3064 |
+| Distinct external sources cited | 1996 |
+| Share of note sections governed | 93.8% |

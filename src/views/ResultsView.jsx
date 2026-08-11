@@ -4,7 +4,7 @@ import BackBar from '../components/BackBar.jsx';
 import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
-import { hasTopic } from '../lib/vetwiki/index.js';
+import { hasTopic } from '../lib/vetwiki/registry.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a

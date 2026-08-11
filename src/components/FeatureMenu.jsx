@@ -41,6 +41,7 @@ export default function FeatureMenu({
       case 'event': try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
       case 'sketch': onSketch?.(); return;
       case 'voice': onVoiceSettings?.(); return;
+      case 'external': if (inv.url) window.location.assign(inv.url); return;
       default: return;
     }
   };

@@ -20,7 +20,7 @@
 // State: local component state only, matching the design's state model.
 // ============================================================
 
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
 import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import { DICT } from './landing/dict.js';
@@ -123,9 +123,35 @@ export default function LandingView({
   const [loginEmail, setLoginEmail] = useState('');
   const [loginSending, setLoginSending] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const cookiePanelRef = useRef(null);
+  const loginDialogRef = useRef(null);
+  const loginReturnFocusRef = useRef(null);
+  const mobileMenuButtonRef = useRef(null);
+  const closeLogin = useCallback(() => setLoginOpen(false), []);
 
   // sync language from prop
   useEffect(() => { if (langProp && langProp !== lang) setLang(langProp); }, [langProp]); // eslint-disable-line
+
+  // Progressive enhancement: the page remains fully visible when JS or the
+  // observer is unavailable. With motion enabled, this class adds only a
+  // gentle translate that the reveal observer removes before each section
+  // enters the viewport.
+  useLayoutEffect(() => {
+    reduce.current = !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const motionReady = !reduce.current && 'IntersectionObserver' in window;
+    if (motionReady) document.documentElement.classList.add('lp-motion-ready');
+    return () => document.documentElement.classList.remove('lp-motion-ready');
+  }, []);
+
+  // The compact consent summary swaps to a preferences panel. Move focus to
+  // the first switch because the trigger itself is removed by that swap.
+  useEffect(() => {
+    if (!cookieOpen || !cookiePrefs) return undefined;
+    const frame = window.requestAnimationFrame(() => {
+      cookiePanelRef.current?.querySelector('[role="switch"]')?.focus();
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [cookieOpen, cookiePrefs]);
 
   // ---- mount-only: flag <html> so it paints the landing background
   // (the landing renders before .vmx-app, which normally paints it) and
@@ -168,7 +194,7 @@ export default function LandingView({
     onScroll();
     let wordTimer;
     if (!reduce.current) wordTimer = setInterval(() => { if (!document.hidden) setHeroWord((w) => (w + 1) % L.heroWords.length); }, 2600);
-    const onKey = (e) => { if (e.key === 'Escape') { setLoginOpen(false); setMobileOpen(false); } };
+    const onKey = (e) => { if (e.key === 'Escape') setMobileOpen(false); };
     window.addEventListener('keydown', onKey);
     return () => {
       if (io) io.disconnect();
@@ -178,6 +204,71 @@ export default function LandingView({
     };
     // eslint-disable-next-line
   }, [lang]);
+
+  // Focus-managed login dialog: focus moves inside, Tab stays inside, body
+  // scroll is locked, and closing returns focus to the control that opened it.
+  useEffect(() => {
+    if (!loginOpen) return undefined;
+    const dialog = loginDialogRef.current;
+    if (!dialog) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const focusableSelector = 'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])';
+    const focusables = () => Array.from(dialog.querySelectorAll(focusableSelector));
+    const onDialogKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeLogin();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const items = focusables();
+      if (items.length === 0) {
+        event.preventDefault();
+        dialog.focus();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (!dialog.contains(document.activeElement)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    // Listen at document scope too: changing from the email form to the
+    // confirmation step unmounts the focused submit button, and browsers may
+    // briefly place focus on <body>. The trap still recovers on the next Tab.
+    document.addEventListener('keydown', onDialogKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onDialogKeyDown);
+      document.body.style.overflow = previousOverflow;
+      loginReturnFocusRef.current?.focus?.();
+    };
+  }, [closeLogin, loginOpen]);
+
+  // Put focus on the meaningful control for each dialog step. This is kept
+  // separate from the trap lifecycle so changing steps does not restore focus
+  // to the opener before the dialog has actually closed.
+  useEffect(() => {
+    if (!loginOpen) return undefined;
+    const frame = window.requestAnimationFrame(() => {
+      const dialog = loginDialogRef.current;
+      if (!dialog) return;
+      const target = loginStep === 'email'
+        ? dialog.querySelector('#vm-login-email')
+        : dialog.querySelector('#vmx-login-title');
+      (target || dialog).focus();
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [loginOpen, loginStep]);
 
   const beep = useCallback(() => {
     if (muted) return;
@@ -211,7 +302,19 @@ export default function LandingView({
   const onCheckLab = () => { if (labPicked === null) return; setLabRevealed(true); beep(); };
 
   // ---- real login ----
-  const openLogin = () => { setLoginError(''); setLoginStep('email'); setLoginOpen(true); setMobileOpen(false); };
+  const openLogin = (event) => {
+    // Mobile Safari/WebKit does not focus a button when it is tapped, so
+    // document.activeElement can still be <body>. The click target is the
+    // reliable opener across pointer and keyboard activation.
+    const opener = event?.currentTarget || document.activeElement;
+    loginReturnFocusRef.current = opener?.closest?.('.lp-only-mobile')
+      ? mobileMenuButtonRef.current
+      : opener;
+    setLoginError('');
+    setLoginStep('email');
+    setLoginOpen(true);
+    setMobileOpen(false);
+  };
   const doGoogle = () => { if (!hasSupabase) { onOpenAuth && onOpenAuth(); return; } onGoogle && onGoogle(); };
   const doMagic = async () => {
     const email = loginEmail.trim();
@@ -277,7 +380,7 @@ export default function LandingView({
             <button type="button" onClick={onToggleTheme} aria-label="Toggle theme" className="lp-iconbtn" style={{ fontSize: 16 }}>{themeIcon}</button>
             <button type="button" onClick={openLogin} className="lp-only-desktop vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ flexShrink: 0 }}>{t.signIn}</button>
             <button type="button" onClick={onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ flexShrink: 0 }}>{t.start}</button>
-            <button type="button" className="lp-nav-burger lp-iconbtn" onClick={() => setMobileOpen((o) => !o)} aria-label="Menu" aria-expanded={mobileOpen} style={{ fontSize: 16 }}>☰</button>
+            <button ref={mobileMenuButtonRef} type="button" className="lp-nav-burger lp-iconbtn" onClick={() => setMobileOpen((o) => !o)} aria-label="Menu" aria-expanded={mobileOpen} style={{ fontSize: 16 }}>☰</button>
           </div>
         </div>
         {mobileOpen && (
@@ -310,29 +413,29 @@ export default function LandingView({
 
       {/* ---- Cookie consent (real) ---- */}
       {cookieOpen && (
-        <div className="lp-pad" style={{ position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 95, display: 'flex', justifyContent: 'center', padding: 16, paddingBottom: 'calc(16px + env(safe-area-inset-bottom, 0px))', pointerEvents: 'none' }}>
-          <div style={{ pointerEvents: 'auto', width: 430, maxWidth: '100%', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 18, boxShadow: 'var(--shadow-lg)', padding: 20, animation: reduce.current ? 'none' : 'lp-rise .5s cubic-bezier(.16,1,.3,1)' }}>
+        <div className="lp-cookie-dock" role="region" aria-labelledby="lp-cookie-title">
+          <div ref={cookiePanelRef} className="lp-cookie-card" style={{ animation: reduce.current ? 'none' : 'lp-rise .5s cubic-bezier(.16,1,.3,1)' }}>
             {!cookiePrefs ? (
-              <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-                <svg width={46} height={46} viewBox="0 0 44 44" fill="none" style={{ flexShrink: 0, marginTop: 2 }} aria-hidden="true">
+              <div className="lp-cookie-summary">
+                <svg className="lp-cookie-icon" width={38} height={38} viewBox="0 0 44 44" fill="none" aria-hidden="true">
                   <circle cx={22} cy={22} r={18} fill="var(--clr-gold-soft)" stroke="var(--clr-gold)" strokeWidth={1.5} />
                   <circle cx={15} cy={17} r={2.4} fill="var(--clr-sage)" /><circle cx={27} cy={14.5} r={2} fill="var(--clr-ink)" />
                   <circle cx={30} cy={26} r={2.6} fill="var(--clr-sage)" /><circle cx={16} cy={28} r={1.8} fill="var(--clr-ink)" />
                   <path d="M18.5 22.5l2.4 2.4 4.4-4.8" stroke="var(--clr-sage)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 6 }}>{t.ckHead}</div>
-                  <p style={{ fontSize: 12.5, lineHeight: 1.55, color: 'var(--clr-ink-soft)', margin: '0 0 14px' }}>{t.ckBody}</p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
+                <div className="lp-cookie-copy">
+                  <div id="lp-cookie-title" className="lp-cookie-title">{t.ckHead}</div>
+                  <p className="lp-cookie-body">{t.ckBody}</p>
+                  <div className="lp-cookie-actions">
                     <button type="button" onClick={cookieAccept} className="vmx-btn vmx-btn-primary vmx-btn-sm">{t.ckAccept}</button>
                     <button type="button" onClick={cookieEssential} className="vmx-btn vmx-btn-ghost vmx-btn-sm">{t.ckEssential}</button>
-                    <button type="button" onClick={() => setCookiePrefs(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 600, color: 'var(--clr-sage)', padding: '8px 4px' }}>{t.ckPrefs}</button>
+                    <button type="button" onClick={() => setCookiePrefs(true)} className="lp-cookie-prefs">{t.ckPrefs}</button>
                   </div>
                 </div>
               </div>
             ) : (
               <div>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 8 }}>{t.ckPrefs}</div>
+                <div id="lp-cookie-title" className="lp-cookie-title" style={{ marginBottom: 8 }}>{t.ckPrefs}</div>
                 <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 0', borderTop: '1px dashed var(--clr-border)' }}>
                   <div style={{ flex: 1 }}><div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--clr-ink)' }}>{t.ckEssentialT}</div><div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{t.ckEssentialD}</div></div>
                   <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-sage)', flexShrink: 0, marginTop: 3 }}>{t.ckAlways}</span>
@@ -351,8 +454,8 @@ export default function LandingView({
 
       {/* ---- Login modal (real auth) ---- */}
       {loginOpen && (
-        <div onClick={() => setLoginOpen(false)} style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,25,.5)', zIndex: 110, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px))' }}>
-          <div onClick={(e) => e.stopPropagation()} className="lp-stack" role="dialog" aria-modal="true" aria-label={t.lgHead} style={{ width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise .45s cubic-bezier(.16,1,.3,1)' }}>
+        <div onClick={closeLogin} style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,25,.5)', zIndex: 110, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px))' }}>
+          <div ref={loginDialogRef} tabIndex={-1} onClick={(e) => e.stopPropagation()} className="lp-stack" role="dialog" aria-modal="true" aria-labelledby="vmx-login-title" style={{ width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise .45s cubic-bezier(.16,1,.3,1)' }}>
             <div className="lp-hide-md" style={{ background: 'var(--clr-bg)', borderRight: '1px solid var(--clr-border)', padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
               <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 14, padding: 18 }}>
@@ -366,26 +469,26 @@ export default function LandingView({
             <div style={{ padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 20 }}>Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
-                <button type="button" onClick={() => setLoginOpen(false)} aria-label="Close" className="lp-iconbtn" style={{ width: 34, height: 34, fontSize: 14, background: 'var(--clr-bg)' }}>✕</button>
+                <button type="button" onClick={closeLogin} aria-label="Close" className="lp-iconbtn" style={{ width: 34, height: 34, fontSize: 14, background: 'var(--clr-bg)' }}>✕</button>
               </div>
               {loginStep === 'email' ? (
                 <div>
-                  <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px' }}>{t.lgHead}</h3>
+                  <h3 id="vmx-login-title" style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px' }}>{t.lgHead}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--clr-ink-soft)', margin: '0 0 18px' }}>{t.lgBody}</p>
                   <button type="button" onClick={doGoogle} className="vmx-btn vmx-btn-ghost" style={{ width: '100%', justifyContent: 'center' }}>{t.lgGoogle}</button>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0', color: 'var(--clr-ink-soft)', fontSize: 11, fontFamily: 'var(--vmx-mono)' }}><span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} />{t.lgOr}<span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} /></div>
                   <label htmlFor="vm-login-email" style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink)', display: 'block', marginBottom: 6 }}>{t.lgEmailLabel}</label>
-                  <input id="vm-login-email" type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="you@example.com" className="vmx-fill-input" style={{ marginBottom: loginError ? 6 : 12 }} onKeyDown={(e) => { if (e.key === 'Enter') doMagic(); }} />
-                  {loginError && <div role="alert" style={{ fontSize: 12, color: 'var(--clr-rose-text)', margin: '0 0 12px', lineHeight: 1.4 }}>{loginError}</div>}
+                  <input id="vm-login-email" type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="you@example.com" className="vmx-fill-input" style={{ marginBottom: loginError ? 6 : 12 }} aria-invalid={Boolean(loginError)} aria-describedby={loginError ? 'vm-login-error' : undefined} onKeyDown={(e) => { if (e.key === 'Enter') doMagic(); }} />
+                  {loginError && <div id="vm-login-error" role="alert" style={{ fontSize: 12, color: 'var(--clr-rose-text)', margin: '0 0 12px', lineHeight: 1.4 }}>{loginError}</div>}
                   <button type="button" onClick={doMagic} disabled={loginSending} className="vmx-btn vmx-btn-primary" style={{ width: '100%', justifyContent: 'center', marginBottom: 10 }}>{loginSending ? t.lgSending : t.lgSend}</button>
-                  <button type="button" onClick={() => { setLoginOpen(false); onOpenAuth && onOpenAuth(); }} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ width: '100%', justifyContent: 'center', marginBottom: 6 }}>{t.lgPassword}</button>
-                  <button type="button" onClick={() => setLoginOpen(false)} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ width: '100%', justifyContent: 'center' }}>{t.lgGuest}</button>
+                  <button type="button" onClick={() => { closeLogin(); onOpenAuth && onOpenAuth(); }} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ width: '100%', justifyContent: 'center', marginBottom: 6 }}>{t.lgPassword}</button>
+                  <button type="button" onClick={closeLogin} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ width: '100%', justifyContent: 'center' }}>{t.lgGuest}</button>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 14, fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)' }}><span>✓</span>{t.lgSaved}</div>
                   <p style={{ fontSize: 11, color: 'var(--clr-ink-soft)', margin: '8px 0 0', lineHeight: 1.5 }}>{t.lgIndependent}</p>
                 </div>
               ) : (
                 <div>
-                  <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px' }}>{t.lgSentHead}</h3>
+                  <h3 id="vmx-login-title" tabIndex={-1} style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px', outline: 'none' }}>{t.lgSentHead}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--clr-ink-soft)', margin: '0 0 18px' }}>{t.lgSentBody} <strong style={{ color: 'var(--clr-ink)' }}>{loginEmail}</strong>. {t.lgSentHint}</p>
                   <div style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '16px 18px', borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', marginBottom: 16 }}>
                     <span style={{ fontSize: 26 }}>📬</span>
@@ -417,4 +520,3 @@ function CookieRow({ title, desc, on, onToggle, border }) {
     </div>
   );
 }
-

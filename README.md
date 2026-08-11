@@ -6,9 +6,9 @@ Made with ♡ by **Vet 86**
 🌐 **Live:** [vetmock.vercel.app](https://vetmock.vercel.app)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
-> ตัวเลขทุกตัวในไฟล์นี้นับจาก source จริงด้วย `npm run stats`
-> ถ้าเลขในนี้ไม่ตรงกับที่ตัวนับบอก แปลว่าเลขในนี้ค้าง ไม่ใช่ตัวนับผิด
-> รายละเอียดเต็ม auto-generated อยู่ที่ [`docs/content-inventory.md`](./docs/content-inventory.md)
+> ตัวเลข content inventory ด้านล่าง auto-generated จาก source จริงด้วย `npm run stats -- --write`
+> ตรวจ drift ด้วย `npm run stats:check`; รายละเอียดเต็มอยู่ที่
+> [`docs/content-inventory.md`](./docs/content-inventory.md)
 
 ---
 
@@ -28,15 +28,17 @@ npm run dev
 
 ## 📊 มีอะไรอยู่ในนี้บ้าง
 
+<!-- content-stats:start -->
 | | |
 |---|---|
-| ข้อสอบ | **2,948 ข้อ** ใน 41 bank files, 34 วิชา |
-| ชั้นปีที่มีเนื้อหา | ปี 1 (298), ปี 4 (2,095), ปี 5 (555) |
-| สรุปโน้ต | 12 ไฟล์, 159 หัวข้อ, 745 sections, อ้างอิงแหล่งที่มาครบ 100% |
+| ข้อสอบ | **4,454 ข้อ** ใน 63 bank files, 40 วิชา |
+| ชั้นปีที่มีเนื้อหา | ปี 1 (298), ปี 4 (2,095), ปี 5 (2,061) |
+| สรุปโน้ต | 29 ไฟล์, 271 หัวข้อ, 1,764 sections, อ้างอิงแหล่งที่มาครบ 100% |
 | สรุปคลิป | 400 คลิป ใน 27 ไฟล์ |
-| VetWiki (governed) | 143 หัวข้อ, 679 sections = 91.1% ของ note sections |
-| Taxonomy | 86 วิชา, 628 หัวข้อ |
+| VetWiki (governed) | 200 หัวข้อ, 1,655 sections = 93.8% ของ note sections |
+| Taxonomy | 86 วิชา, 652 หัวข้อ |
 | ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |
+<!-- content-stats:end -->
 
 **เทอมปัจจุบัน:** ภาคการศึกษาต้น 2569 — Vet 86 = ชั้นปีที่ 5
 ย้ายรุ่นทุกต้นปีการศึกษาที่ `CURRENT_YEAR` ใน `src/data/curriculum.js` ที่เดียว
@@ -67,7 +69,7 @@ npm run dev
 - **สัดส่วนคะแนนรายวิชา**, **Leaderboard**, **Phase Wrapped**
 
 ### เครื่องมือ
-เครื่องคิดเลขทางสัตวแพทย์, กระดานวาด, Imaging Lab (DICOM), Image Occlusion,
+เครื่องคิดเลขทางสัตวแพทย์, กระดานวาด, Imaging Lab (เชื่อมระบบเฉพาะทาง), Image Occlusion,
 PDF + Annotate, Pomodoro, กลุ่มติว, ช่วยเติมเนื้อหา, เพิ่ม/แก้ข้อสอบเอง
 
 ### ทั่วทั้งแอป
@@ -85,17 +87,17 @@ vet-mock/
 │   ├── main.jsx
 │   ├── styles.css                  ← design tokens (--vmx-*, --clr-*)
 │   ├── styles-landing.css
-│   ├── data/          (99 ไฟล์)
+│   ├── data/
 │   │   ├── curriculum.js           ← YEARS + CURRENT_YEAR + SUBJECTS_BY_YEAR
 │   │   ├── schedule.js             ← ตารางเรียน/สอบ/ปฏิทินการศึกษา
 │   │   ├── questions.js            ← lazy Q-bank loader
 │   │   ├── bank-registry.generated.js ← auto-generated (npm run lint:registry)
 │   │   ├── q-counts.js             ← auto-generated counts
-│   │   ├── questions-*.js          ← 41 Q banks
-│   │   ├── notes-*.js              ← 12 note files
-│   │   ├── video-summaries-*.js    ← 27 files
+│   │   ├── questions-*.js          ← Q banks
+│   │   ├── notes-*.js              ← study-note sources
+│   │   ├── video-summaries-*.js    ← per-subject video summaries
 │   │   └── changelog.js, videos.js, sources.js, instructors.js, images.js
-│   ├── lib/           (41 ไฟล์)
+│   ├── lib/
 │   │   ├── feature-registry.js     ← single source ของฟีเจอร์ทั้งหมด
 │   │   ├── nav.js                  ← ป้อนทั้ง Sidebar และ BottomNav
 │   │   ├── dialog.js               ← confirm/alert ของแอปเอง (ไม่ใช้ของเบราว์เซอร์)
@@ -103,10 +105,10 @@ vet-mock/
 │   │   ├── vetwiki/                ← governed knowledge runtime
 │   │   └── supabase.js, api.js, xp.js, pinboard.js, ...
 │   ├── hooks/                      ← useAuth, useStorage, useExamSession, sm2, ...
-│   ├── components/    (62 ไฟล์)
-│   └── views/         (41 ไฟล์)
-├── api/                            ← 6 Vercel functions
-├── scripts/           (24 ไฟล์)    ← lint + regen + stats
+│   ├── components/
+│   └── views/
+├── api/                            ← Vercel functions
+├── scripts/                        ← lint + regen + stats
 ├── tests/                          ← unit (node:test) + e2e (Playwright)
 ├── docs/                           ← content-inventory, UX audit, design system
 └── supabase-schema.sql
@@ -119,12 +121,11 @@ vet-mock/
 ทุก commit ต้องผ่านทั้งหมดนี้:
 
 ```bash
-npm run lint:all    # 7 gates: ids, dupes, academic-safety, questions,
-                    #          registry, curriculum, validate:wiki
+npm run lint:all    # consistency + content-quality gates
 npm run build
-npm run test:unit   # node:test, 117 tests
-npm run test:e2e    # Playwright, 32 tests (chromium/webkit/firefox, desktop+mobile)
-npm run stats       # นับเนื้อหาจาก source, fail ถ้าเลข drift
+npm run test:unit   # node:test suite
+npm run test:e2e    # Playwright (desktop + mobile)
+npm run stats:check # fail ถ้า README/docs inventory drift จาก source
 ```
 
 `lint:all` fail = ห้าม push

@@ -175,8 +175,11 @@ async function prefetchAll(playlistIds, concurrency = 3) {
 // VideoView — main page (grid of subject cards / playlist tiles)
 // ============================================================
 
-export default function VideoView({ goHome }) {
-  const [filter, setFilter] = useState('all');
+export default function VideoView({ goHome, initialSubject = null }) {
+  const initialFilter = initialSubject && VIDEO_LIBRARY.some((video) => video.subject === initialSubject)
+    ? initialSubject
+    : 'all';
+  const [filter, setFilter] = useState(initialFilter);
   const [playing, setPlaying] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
   const [editingIdx, setEditingIdx] = useState(null);

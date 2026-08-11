@@ -33,7 +33,7 @@ import { NOTES_85_SWINE_CLINIC } from '../data/notes-85-swine-clinic.js';
 import { NOTES_85_ZOONOSES } from '../data/notes-85-zoonoses.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
-import { hasTopic } from '../lib/vetwiki/index.js';
+import { hasTopic } from '../lib/vetwiki/registry.js';
 import { correctionsFor } from '../lib/vetwiki/corrections.js';
 import { sectionId } from '../lib/vetwiki/schema.js';
 import ConflictNote from '../components/ConflictNote.jsx';
@@ -77,8 +77,8 @@ const NOTES_BY_SUBJECT = {
 };
 
 // สรุปรุ่นพี่ Vet 85 ต่อวิชา. เก็บเป็น map แยกเพราะ (1) มันมาจากคนละแหล่งกับ
-// สไลด์ปีนี้ และผู้อ่านควรรู้ (2) VetWiki ดึงจาก map ของตัวเองที่ไม่มีชุดนี้
-// ซึ่งทำให้คำสัญญาว่า 'ทุก section มีแหล่งอ้างอิงภายนอกที่ resolve ได้' ยังจริงอยู่
+// สไลด์ปีนี้ และผู้อ่านควรรู้. VetWiki ใช้ merge policy เดียวกัน แต่คง
+// provenance/review state ของแต่ละ section ไว้เพื่อบอกระดับการตรวจทานตามจริง
 const NOTES_85_BY_SUBJECT = {
   'aquatic-clinic': NOTES_85_AQUATIC_CLINIC,
   'avian-medicine': NOTES_85_AVIAN_MEDICINE,

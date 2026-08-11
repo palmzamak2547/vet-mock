@@ -30,14 +30,14 @@ Classification: **reuse** · **improve** · **complete** · **integrate** ·
 | In-browser ML | grep transformers/onnx/web-llm = **none** | **build** (if ever needed) |
 | Auth + data | Supabase, 15 tables, 24 RLS policies all `auth.uid()`-scoped; `useAuth.js` lazy SDK | **reuse** |
 | Offline/PWA | service worker (cache-first hashed assets, network-first HTML) | **reuse** |
-| Imaging/DICOM | Cornerstone3D 4.22 viewer + pure client-side Norberg / VHS / Length / Angle math | **reuse** → expose as deterministic tools |
-| Imaging adoption | 17 seeded cases, **0** saved attempts | **complete** — loop built, unproven |
+| Imaging/DICOM | Dedicated canonical app at `imaging.cuvetsmo.com` | **link** → do not duplicate inside VetMock |
+| Imaging adoption | Owned and measured by `cuvetsmo-imaging` | **externalized** — one product owner |
 
 ## UX / IA
 
 | Capability | Evidence | Verdict |
 |---|---|---|
-| Routing | single `view` string, ~37 destinations, no per-view URLs (only `#lab`) | **improve** |
+| Routing | single `view` string with governed `/wiki/*` URLs; Imaging is an external product link | **improve** |
 | Feature registry | `lib/feature-registry.js` — 30 features/4 categories, feeds home grid + ⌘K + FAB | **reuse** — the IA backbone |
 | Home | 2067-line `HomeView`, ~16 stacked sections (the code itself calls it รก) | **improve** |
 | Context actions | `NextActionCard` — proven pattern, but only on home | **reuse + generalise** |
