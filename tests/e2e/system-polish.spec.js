@@ -107,7 +107,7 @@ test('key public forms expose an accessible name for every visible control', asy
 
   await page.goto('/app/account');
   await page.locator('section[aria-labelledby="vmx-auth-required-title"]').getByRole('button', { name: /เข้าสู่ระบบ/ }).click();
-  await expect(page.getByRole('heading', { name: /ยินดีต้อนรับ VetMock/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /ยินดีต้อนรับ VetMock/ })).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
   await expectNoUnnamedFormControls(page, 'authentication');
 });
 
