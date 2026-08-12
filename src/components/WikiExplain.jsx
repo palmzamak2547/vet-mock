@@ -45,7 +45,7 @@ export default function WikiExplain({ knowledge, onJumpToSection }) {
       });
       if (res.status === 503) {
         setState('error');
-        setMessage('ยังไม่ได้เปิดใช้ผู้ช่วย AI — เนื้อหาในหน้านี้อ่านได้ตามปกติ');
+        setMessage('ยังไม่ได้เปิดใช้ฟีเจอร์ถามจากบทความ — เนื้อหาในหน้านี้อ่านได้ตามปกติ');
         return;
       }
       if (res.status === 429) {
@@ -55,7 +55,7 @@ export default function WikiExplain({ knowledge, onJumpToSection }) {
       // SPA shell. Say that plainly instead of a generic failure.
       if (!(res.headers.get('content-type') || '').includes('application/json')) {
         setState('error');
-        setMessage('ผู้ช่วย AI ใช้ได้เฉพาะบนเว็บจริง — เนื้อหาในหน้านี้อ่านได้ตามปกติ');
+        setMessage('ฟีเจอร์ถามจากบทความใช้ได้เฉพาะบนเว็บจริง — เนื้อหาในหน้านี้อ่านได้ตามปกติ');
         return;
       }
       if (!res.ok) { setState('error'); setMessage('ตอบไม่สำเร็จ ลองใหม่อีกครั้ง'); return; }

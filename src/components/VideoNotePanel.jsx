@@ -192,6 +192,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
           </div>
           <textarea
             ref={composeRef}
+            aria-label="โน้ต ณ เวลานี้"
             value={composeText}
             onChange={(e) => setComposeText(e.target.value)}
             onKeyDown={(e) => {
@@ -247,6 +248,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
                 {isEditing ? (
                   <textarea
                     ref={editRef}
+                    aria-label={`แก้ไขโน้ตที่ ${formatTimestamp(n.t)}`}
                     value={editingText}
                     onChange={(e) => setEditingText(e.target.value)}
                     onBlur={saveEdit}

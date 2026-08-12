@@ -636,12 +636,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           </button>
           <button
             type="button"
+            className="vmx-icon-close"
             aria-label="ปิดข้อความต้อนรับ"
             onClick={() => setWelcomeDismissed(true)}
             style={{
               all: 'unset',
               cursor: 'pointer',
-              padding: '4px 8px',
               fontSize: 14,
               color: 'var(--clr-ink-soft)',
             }}
@@ -683,12 +683,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
 
       {nextExam && nextExam.daysLeft > 7 && nextExam.daysLeft <= 30 && (
-        <div onClick={() => setView('schedule')} style={{
+        <button type="button" className="vmx-pressable-card" onClick={() => setView('schedule')} style={{
           padding: 16, borderRadius: 16, marginBottom: 24, cursor: 'pointer',
           background: countdown ? 'var(--clr-rose-soft)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose-soft)' : 'var(--clr-surface)'),
           border: `2px solid ${countdown ? 'var(--clr-rose)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-border)')}`,
           display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap',
-        }}>
+        }} aria-label={`ดูตารางสอบ ${nextExam.title}`}>
           <div style={{ flex: 1, minWidth: 200 }}>
             <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               สอบถัดไป
@@ -716,7 +716,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               </>
             )}
           </div>
-        </div>
+        </button>
       )}
 
       {(bannerWinner === 'announcement' || forceChangelogOpen) && (

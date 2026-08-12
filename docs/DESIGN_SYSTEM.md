@@ -65,10 +65,12 @@ inputs (no zoom) · `env(safe-area-inset)` on app/modals/FABs ·
 
 ## Components (state today → target)
 Strong: buttons (`.vmx-btn*`, 3D press), `BackBar`, `ViewFallback` skeleton,
-`vmx-modal-overlay`, feature cards. **Debt** (Phase 1-3): 2,634 inline
+`vmx-modal-overlay`, `useModalFocus`, `StatePanel`, feature cards. Dialogs use
+`data-vmx-modal="true"` so nested focus/Escape ownership is deterministic;
+remote loading/empty/error views reuse `StatePanel`. **Debt** (Phase 1-3): 2,634 inline
 `style={{}}` with no utility layer; 8 duplicate card families → one `.vmx-card`
-base; 4× reimplemented press interaction → one `.vmx-pressable`; 42 native
-`alert/confirm` → one styled primitive; text "กำลังโหลด…" → reusable Skeleton.
+base; remaining press interactions → `.vmx-pressable-card`; long-list skeleton
+patterns can still converge further.
 
 ## Rules
 1. New visual value → a token, never a magic number.

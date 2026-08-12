@@ -13,8 +13,9 @@
 //   • Possibly a tiny ⚙ next to the 🔊 button later
 // ============================================================
 
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { getTtsPrefs, setTtsPrefs, DEFAULT_TTS_PREFS } from '../lib/tts.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 export default function VoiceSettings({ onClose }) {
   // Local state so dragging a slider doesn't write to localStorage on
@@ -22,13 +23,8 @@ export default function VoiceSettings({ onClose }) {
   // — we commit on input release via the slider's onChange-after-pointerup
   // flow, which fires once per "settled" value).
   const [prefs, setPrefs] = useState(() => getTtsPrefs());
-
-  // Esc to close — matches every other modal in the app.
-  useEffect(() => {
-    const handle = (e) => { if (e.key === 'Escape') onClose?.(); };
-    window.addEventListener('keydown', handle);
-    return () => window.removeEventListener('keydown', handle);
-  }, [onClose]);
+  const firstControlRef = useRef(null);
+  const dialogRef = useModalFocus({ onClose, initialFocusRef: firstControlRef });
 
   const update = (patch) => {
     const next = { ...prefs, ...patch };
@@ -44,9 +40,13 @@ export default function VoiceSettings({ onClose }) {
   return (
     <div className="vmx-modal-overlay" onClick={onClose}>
       <div
+        ref={dialogRef}
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
+        tabIndex={-1}
+        data-vmx-modal="true"
         role="dialog"
+        aria-modal="true"
         aria-label="Voice settings"
         style={{ maxWidth: 480 }}
       >
@@ -62,6 +62,7 @@ export default function VoiceSettings({ onClose }) {
         </div>
 
         <SliderRow
+          inputRef={firstControlRef}
           label="ความเร็วเสียงพูด"
           hint="0.8 = ช้า, 1.0 = ปกติ, 1.2 = เร็ว"
           value={prefs.speed}
@@ -118,16 +119,17 @@ export default function VoiceSettings({ onClose }) {
   );
 }
 
-function SliderRow({ label, hint, value, min, max, step, format, onChange }) {
+function SliderRow({ label, hint, value, min, max, step, format, onChange, inputRef }) {
   return (
     <div style={{ marginBottom: 14 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
-        <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>{label}</label>
+        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>{label}</span>
         <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-sage)' }}>
           {format(value)}
         </span>
       </div>
       <input
+        ref={inputRef}
         type="range"
         min={min}
         max={max}

@@ -116,6 +116,10 @@
     {
       "source": "/wiki/:path*",
       "destination": "/"
+    },
+    {
+      "source": "/app/:path*",
+      "destination": "/"
     }
   ]
 }

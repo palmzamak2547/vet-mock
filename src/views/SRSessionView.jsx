@@ -153,17 +153,19 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           {/* Year scope toggle — default to current year so cross-year
               cards don't leak into focused review sessions */}
           {subjectFilter === 'all' && (
-            <div className="vmx-config-row">
-              <label className="vmx-label">ขอบเขตปี</label>
+            <div className="vmx-config-row" role="group" aria-labelledby="vmx-srs-year-label">
+              <div id="vmx-srs-year-label" className="vmx-label">ขอบเขตปี</div>
               <div className="vmx-chip-row">
                 <button
                   className={`vmx-chip ${yearScope === 'current' ? 'active' : ''}`}
+                  aria-pressed={yearScope === 'current'}
                   onClick={() => setYearScope('current')}
                 >
                   ปี {selectedYear} เท่านั้น
                 </button>
                 <button
                   className={`vmx-chip ${yearScope === 'all' ? 'active' : ''}`}
+                  aria-pressed={yearScope === 'all'}
                   onClick={() => setYearScope('all')}
                 >
                   🌐 ทุกปี
@@ -174,13 +176,14 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
           {/* Subject filter */}
           {subjectsWithCards.length > 2 && (
-            <div className="vmx-config-row">
-              <label className="vmx-label">วิชา</label>
+            <div className="vmx-config-row" role="group" aria-labelledby="vmx-srs-subject-label">
+              <div id="vmx-srs-subject-label" className="vmx-label">วิชา</div>
               <div className="vmx-chip-row">
                 {subjectsWithCards.map((s) => (
                   <button
                     key={s.id}
                     className={`vmx-chip ${subjectFilter === s.id ? 'active' : ''}`}
+                    aria-pressed={subjectFilter === s.id}
                     onClick={() => setSubjectFilter(s.id)}
                   >
                     {s.icon} {s.name}
@@ -191,13 +194,14 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           )}
 
           {/* Session size */}
-          <div className="vmx-config-row">
-            <label className="vmx-label">จำนวนวันนี้</label>
+          <div className="vmx-config-row" role="group" aria-labelledby="vmx-srs-size-label">
+            <div id="vmx-srs-size-label" className="vmx-label">จำนวนวันนี้</div>
             <div className="vmx-chip-row">
               {SIZE_PRESETS.map((n) => (
                 <button
                   key={n}
                   className={`vmx-chip ${sessionSize === n ? 'active' : ''}`}
+                  aria-pressed={sessionSize === n}
                   onClick={() => setSessionSize(n)}
                   disabled={n > dueCount && dueCount > 0}
                   title={n > dueCount ? `มี due แค่ ${dueCount}` : ''}
@@ -207,6 +211,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               ))}
               <button
                 className={`vmx-chip ${sessionSize === 'all' ? 'active' : ''}`}
+                aria-pressed={sessionSize === 'all'}
                 onClick={() => setSessionSize('all')}
               >
                 ทั้งหมด ({dueCount})

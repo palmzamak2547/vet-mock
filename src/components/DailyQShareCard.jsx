@@ -34,6 +34,7 @@ import {
   DAILY_Q_EMOJI,
 } from '../lib/daily-q-history.js';
 import { dailyQStreak, todayKey } from '../lib/daily-q.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 // Pick a soft Thai motivational line based on today's result + streak.
 // Mirrors the tone used in ResultsView's score card.
@@ -163,6 +164,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
   const [busy, setBusy] = useState(false);
   const [imgUrl, setImgUrl] = useState(null);
   const imgUrlRef = useRef(null);
+  const dialogRef = useModalFocus({ onClose });
 
   const shareText = useMemo(
     () => buildShareText({ history, streak, todayDate, todayStatus }),
@@ -171,15 +173,6 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
   const grid = useMemo(() => formatEmojiGrid(history), [history]);
   const correct = daysCorrect(history);
   const completed = daysCompleted(history);
-
-  // Esc closes
-  useEffect(() => {
-    function onKey(e) {
-      if (e.key === 'Escape') onClose?.();
-    }
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
 
   // Release blob URLs on unmount — prevents leaks if the user toggles
   // image preview and closes without downloading.
@@ -303,20 +296,24 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
     <div
       className="vmx-modal-overlay"
       onClick={onClose}
-      role="dialog"
-      aria-label="Share Daily Q"
       style={{ zIndex: 1100 /* sit above TodaysQModal */ }}
     >
       <div
+        ref={dialogRef}
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
         style={{ maxWidth: 480, paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }}
+        tabIndex={-1}
+        data-vmx-modal="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vmx-daily-share-title"
       >
         <div style={{ marginBottom: 10 }}>
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             แชร์ผลลัพธ์, DAILY Q
           </div>
-          <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>{formatThaiShortDate(todayDate)}</h2>
+          <h2 id="vmx-daily-share-title" style={{ margin: '4px 0 0', fontSize: 22 }}>{formatThaiShortDate(todayDate)}</h2>
           <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             แชร์ history 7 วันแบบ Wordle — ชวนเพื่อนมาเล่นด้วย
           </p>

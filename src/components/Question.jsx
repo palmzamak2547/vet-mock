@@ -287,7 +287,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               }}
             />
           </div>
-          <textarea className="vmx-note-textarea" value={note || ''} onChange={(e) => onNoteChange(e.target.value.slice(0, 5000))} placeholder="จดโน้ตที่นี่..." maxLength={5000} />
+          <textarea className="vmx-note-textarea" aria-label="บันทึกส่วนตัวสำหรับข้อนี้" value={note || ''} onChange={(e) => onNoteChange(e.target.value.slice(0, 5000))} placeholder="จดโน้ตที่นี่..." maxLength={5000} />
         </div>
       )}
 
@@ -339,7 +339,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       {/* Short answer — free-form text input. Auto-grade does loose
           keyword matching against q.keywords; user can also self-grade
-          or AI-grade in Review since open-text grading is fuzzy. */}
+          or self-grade in Review since open-text grading is fuzzy. */}
       {currentQ.type === 'short' && (
         <div className="vmx-fill-row">
           <div className="vmx-fill-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>

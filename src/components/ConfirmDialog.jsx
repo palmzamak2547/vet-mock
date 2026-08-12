@@ -13,6 +13,7 @@
 // ============================================================
 
 import { useEffect, useRef, useState } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 export default function ConfirmDialog({
   open,
@@ -32,20 +33,11 @@ export default function ConfirmDialog({
   const confirmRef = useRef(null);
   const inputRef = useRef(null);
   const [value, setValue] = useState(input?.initial || '');
-
-  useEffect(() => {
-    if (!open) return undefined;
-    const onKey = (e) => {
-      if (e.key === 'Escape') { e.stopPropagation(); onCancel?.(); }
-    };
-    document.addEventListener('keydown', onKey);
-    // Focus the field when there is one to type in, otherwise the confirm so
-    // keyboard users can act immediately; the exam's global shortcuts already
-    // stand down while a .vmx-modal-overlay is open.
-    if (input) inputRef.current?.focus();
-    else confirmRef.current?.focus();
-    return () => document.removeEventListener('keydown', onKey);
-  }, [open, onCancel, input]);
+  const dialogRef = useModalFocus({
+    active: open,
+    onClose: onCancel,
+    initialFocusRef: input ? inputRef : confirmRef,
+  });
 
   // A fresh open starts from the caller's initial value, not the last answer.
   useEffect(() => { if (open) setValue(input?.initial || ''); }, [open, input]);
@@ -56,9 +48,12 @@ export default function ConfirmDialog({
   return (
     <div className="vmx-modal-overlay" onClick={onCancel}>
       <div
+        ref={dialogRef}
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
         style={{ maxWidth: 420 }}
+        tabIndex={-1}
+        data-vmx-modal="true"
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
@@ -78,6 +73,7 @@ export default function ConfirmDialog({
           input.multiline ? (
             <textarea
               ref={inputRef}
+              aria-label={input.label || input.placeholder || 'รายละเอียด'}
               value={value}
               onChange={(e) => setValue(e.target.value)}
               maxLength={input.maxLength || 500}
@@ -89,6 +85,7 @@ export default function ConfirmDialog({
             <input
               ref={inputRef}
               type="text"
+              aria-label={input.label || input.placeholder || 'รายละเอียด'}
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); onConfirm?.(value); } }}

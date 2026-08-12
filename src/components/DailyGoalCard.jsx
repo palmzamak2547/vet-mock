@@ -93,6 +93,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
         {editing ? (
           <span style={{ display: 'flex', gap: 4 }}>
             <input
+              aria-label="จำนวนข้อเป้าหมายต่อวัน"
               type="number"
               inputMode="numeric"
               value={inputGoal}
@@ -132,6 +133,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
         </div>
         <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
           <input
+            aria-label="เพิ่มรายการสิ่งที่ต้องทำวันนี้"
             type="text"
             value={taskInput}
             onChange={(e) => setTaskInput(e.target.value)}
@@ -164,7 +166,8 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
                   type="button"
                   onClick={() => deleteTask(t.id)}
                   aria-label="ลบรายการ"
-                  style={{ background: 'transparent', border: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: 13, padding: '2px 4px' }}
+                  className="vmx-icon-close"
+                  style={{ background: 'transparent', border: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: 13 }}
                 >
                   ลบ
                 </button>

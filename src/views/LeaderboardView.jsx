@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getLeaderboard } from '../lib/api.js';
 import { SUBJECTS } from '../data/questions.js';
+import StatePanel from '../components/StatePanel.jsx';
 
 export default function LeaderboardView({ user, goHome, selectedYear }) {
   // Raw rows from the API — 1 row per exam attempt. The display below
@@ -124,16 +125,11 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
       )}
 
       {loading ? (
-        <div className="vmx-empty">กำลังโหลด...</div>
+        <StatePanel kind="loading" title="กำลังโหลด Leaderboard…" />
       ) : error ? (
-        <div className="vmx-empty" style={{ background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', color: 'var(--clr-ink)' }}>
-          โหลด Leaderboard ไม่สำเร็จ — {error}
-          <div style={{ marginTop: 12 }}>
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={load}>🔄 ลองอีกครั้ง</button>
-          </div>
-        </div>
+        <StatePanel kind="error" title="โหลด Leaderboard ไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : scores.length === 0 ? (
-        <div className="vmx-empty">ยังไม่มีคะแนน — ลองเป็นคนแรกกันเถอะ 💪</div>
+        <StatePanel title="ยังไม่มีคะแนน" body="ลองทำชุดแรก แล้วกลับมาดูอันดับของ cohort ได้ที่นี่" />
       ) : (
         <div>
           {scores.map((r, idx) => (

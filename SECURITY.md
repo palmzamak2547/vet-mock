@@ -17,6 +17,21 @@ maintainer (Vet 86). Not user-facing.
 - Production counts, registries, curriculum links, and generated docs are checked
   by `npm run lint:all`; connected study paths are covered by Playwright.
 
+## Whole-system release pass — 2026-08-12
+
+- `npm audit` reports **0 vulnerabilities** across 503 production/development/
+  optional/peer dependencies on the v5.27.0 release tree.
+- Public auth errors no longer lazy-load or expose provider-dashboard setup help.
+- Auth-required direct routes retain their URL and render a sign-in boundary;
+  protected Race and Review Queue views do not mount while signed out.
+- Unknown `/app/*` routes canonicalize to Home instead of reviving a stale view
+  stored by a previous session.
+- VetWiki browser chunks are generated from the canonical evidence corpus and
+  checked for missing, changed and extra stale projection files in `lint:all`.
+- Cross-engine release coverage includes direct routes, focus containment,
+  WebKit focus return, accessible form names, DICOM Practical, Wiki evidence and
+  deliberate network-failure recovery.
+
 ## Hardening pass — 2026-05-10
 
 Applied with zero UX impact:

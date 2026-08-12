@@ -12,6 +12,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { OSCE_CHECKLISTS } from '../data/osce-checklists.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const ATTEMPTS_KEY = 'vmx-osce-attempts';
 
@@ -45,6 +46,7 @@ export default function OSCEDrill({ onClose }) {
   const startRef = useRef(0);
   const tickRef = useRef(null);
   const [attempts, setAttempts] = useState({});
+  const dialogRef = useModalFocus({ onClose });
 
   useEffect(() => { setAttempts(readAttempts()); }, []);
 
@@ -103,11 +105,11 @@ export default function OSCEDrill({ onClose }) {
   const liveScore = totalW > 0 ? Math.round((earnedW / totalW) * 100) : 0;
 
   return (
-    <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label="OSCE Drill">
-      <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 640, maxHeight: 'min(90vh, calc(100dvh - 24px))', overflowY: 'auto' }}>
+    <div className="vmx-modal-overlay" onClick={onClose}>
+      <div ref={dialogRef} className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 640, maxHeight: 'min(90vh, calc(100dvh - 24px))', overflowY: 'auto' }} role="dialog" aria-modal="true" aria-labelledby="vmx-osce-title" tabIndex={-1} data-vmx-modal="true">
         <div style={{ marginBottom: 12 }}>
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>OSCE Drill</div>
-          <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>ฝึก station จับเวลา + checklist</h2>
+          <h2 id="vmx-osce-title" style={{ margin: '4px 0 0', fontSize: 22 }}>ฝึก station จับเวลา + checklist</h2>
         </div>
 
         {!station && (

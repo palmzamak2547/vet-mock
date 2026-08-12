@@ -24,14 +24,15 @@ import { SUBJECTS } from '../data/curriculum.js';
 import {
   listTopics, loadTopic, provenanceSummary, resolveSource,
   EVIDENCE_LABEL, REVIEW_LABEL,
-} from '../lib/vetwiki/index.js';
-import ConflictNote from '../components/ConflictNote.jsx';
-import { conflictsForTopic } from '../lib/vetwiki/conflict-index.js';
+} from '../lib/vetwiki/runtime.js';
+import { conflictCountFor } from '../lib/vetwiki/conflict-summary.generated.js';
 import { copyText } from '../lib/clipboard.js';
-import { searchTopics } from '../lib/vetwiki/search.js';
 import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
-import WikiExplain from '../components/WikiExplain.jsx';
 import ReportConcern from '../components/ReportConcern.jsx';
+import { useModalFocus } from '../hooks/useModalFocus.js';
+import StatePanel from '../components/StatePanel.jsx';
+
+const ConflictNote = React.lazy(() => import('../components/ConflictNote.jsx'));
 
 const TONE = {
   strong: 'var(--clr-sage-text)',
@@ -134,9 +135,10 @@ function VerifiedClaim({ claim }) {
 }
 
 function ProvenancePanel({ prov, onClose }) {
+  const dialogRef = useModalFocus({ onClose });
   return (
-    <div className="vmx-modal-overlay" onClick={onClose} onKeyDown={(e) => { if (e.key === 'Escape') onClose(); }}>
-      <div className="vmx-modal" role="dialog" aria-modal="true" aria-label="ที่มาของเนื้อหา" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 560 }}>
+    <div className="vmx-modal-overlay" onClick={onClose}>
+      <div ref={dialogRef} className="vmx-modal" role="dialog" aria-modal="true" aria-label="ที่มาของเนื้อหา" tabIndex={-1} data-vmx-modal="true" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 560 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, marginBottom: 12 }}>
           <h2 style={{ margin: 0, fontSize: 19 }}>VetMock รู้เรื่องนี้ได้อย่างไร?</h2>
           <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} aria-label="ปิด">✕</button>
@@ -179,10 +181,45 @@ function ProvenancePanel({ prov, onClose }) {
 function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
   const [q, setQ] = useState('');
   const query = q.trim();
+  const [searchState, setSearchState] = useState(() => ({
+    query: '',
+    loading: false,
+    results: topics.map((entry) => ({ topic: entry, matchedSections: [], inTitle: false })),
+  }));
 
-  // Full-text across headings + body, so Thai queries hit English-titled
-  // topics (the corpus has English titles over Thai bodies).
-  const results = useMemo(() => searchTopics(query), [query]);
+  // Opening the index stays metadata-only. Full note bodies are imported only
+  // after someone starts typing, then cached by the browser for the session.
+  useEffect(() => {
+    if (!query) {
+      setSearchState({
+        query: '',
+        loading: false,
+        results: topics.map((entry) => ({ topic: entry, matchedSections: [], inTitle: false })),
+      });
+      return undefined;
+    }
+    let active = true;
+    const normalized = query.toLocaleLowerCase();
+    const metadataHits = topics
+      .filter((entry) => `${entry.title} ${entry.summary}`.toLocaleLowerCase().includes(normalized))
+      .map((entry) => ({ topic: entry, matchedSections: [], inTitle: true }));
+    setSearchState({ query, loading: true, results: metadataHits });
+    const timer = window.setTimeout(() => {
+      import('../lib/vetwiki/runtime-search.js')
+        .then(({ searchTopics }) => searchTopics(query))
+        .then((results) => {
+          if (active) setSearchState({ query, loading: false, results });
+        })
+        .catch(() => {
+          if (active) setSearchState({ query, loading: false, results: metadataHits });
+        });
+    }, 120);
+    return () => {
+      active = false;
+      window.clearTimeout(timer);
+    };
+  }, [query, topics]);
+  const results = searchState.results;
   const matchById = useMemo(() => {
     const m = new Map();
     for (const r of results) m.set(r.topic.id, r.matchedSections);
@@ -218,7 +255,9 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
         style={{ width: '100%', marginBottom: 8, boxSizing: 'border-box' }}
       />
       <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 18, fontFamily: 'var(--vmx-mono)' }}>
-        {query ? `${shown} / ${total} หัวข้อ` : `${total} หัวข้อ`}
+        {query
+          ? searchState.loading ? 'กำลังค้นหาในเนื้อหาทุกหัวข้อ…' : `${shown} / ${total} หัวข้อ`
+          : `${total} หัวข้อ`}
       </div>
 
       {groups.length === 0 && (
@@ -252,12 +291,12 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                         {t.title}
                         {/* Counted from corrections.js, so a row can only claim
                             a disagreement that is actually written down. */}
-                        {conflictsForTopic(t.subject, t.topic).total > 0 && (
+                        {conflictCountFor(t.subject, t.topic) > 0 && (
                           <span
                             title="มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย"
                             style={{ marginLeft: 7, fontSize: 11, fontWeight: 700, color: 'var(--clr-rose-text)', fontFamily: 'var(--vmx-mono)' }}
                           >
-                            !{conflictsForTopic(t.subject, t.topic).total}
+                            !{conflictCountFor(t.subject, t.topic)}
                           </span>
                         )}
                       </span>
@@ -425,16 +464,17 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
               </div>
               {s.body.map((item, i) => <NoteBody key={i} item={item} />)}
               {noteRef && <div style={{ marginTop: 4, fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>ที่มา: {noteRef.locator}</div>}
-              {(s.corrections || []).map((c, i) => <ConflictNote key={i} item={c} />)}
+              {(s.corrections || []).map((c, i) => (
+                <React.Suspense key={i} fallback={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>
+                  <ConflictNote item={c} />
+                </React.Suspense>
+              ))}
               {(s.claims || []).map((c) => <VerifiedClaim key={c.id} claim={c} />)}
               <ReportConcern topicId={knowledge.id} sectionId={s.id} sectionHeading={s.heading} />
             </section>
           );
         })}
       </div>
-
-      {/* Grounded AI — answers only from this article, every claim sourced */}
-      <WikiExplain knowledge={knowledge} onJumpToSection={(id) => document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'smooth' })} />
 
       {/* Related topics in the same subject */}
       {related.length > 0 && (
@@ -461,9 +501,34 @@ export default function KnowledgeView({ subject, topic, setView, setSubject, set
   // article itself.
   const [openId, setOpenId] = useState(() => (subject && topic && topics.some((t) => t.id === `${subject}--${topic}`) ? `${subject}--${topic}` : null));
   const [showProv, setShowProv] = useState(false);
+  const [articleLoad, setArticleLoad] = useState({ id: null, status: 'idle', data: null, error: '' });
 
   const current = openId ? topics.find((t) => t.id === openId) : null;
-  const knowledge = useMemo(() => (current ? loadTopic(current.subject, current.topic) : null), [current]);
+  useEffect(() => {
+    if (!current) {
+      setArticleLoad({ id: null, status: 'idle', data: null, error: '' });
+      return undefined;
+    }
+    let active = true;
+    setArticleLoad({ id: current.id, status: 'loading', data: null, error: '' });
+    loadTopic(current.subject, current.topic)
+      .then((data) => {
+        if (!active) return;
+        if (!data) throw new Error('ไม่พบบทความนี้ในคลังความรู้');
+        setArticleLoad({ id: current.id, status: 'ready', data, error: '' });
+      })
+      .catch((error) => {
+        if (!active) return;
+        setArticleLoad({
+          id: current.id,
+          status: 'error',
+          data: null,
+          error: error?.message || 'โหลดบทความไม่สำเร็จ',
+        });
+      });
+    return () => { active = false; };
+  }, [current]);
+  const knowledge = articleLoad.id === current?.id ? articleLoad.data : null;
   const prov = useMemo(() => provenanceSummary(knowledge), [knowledge]);
   const related = useMemo(
     () => (current ? topics.filter((t) => t.subject === current.subject && t.id !== current.id) : []),
@@ -500,8 +565,26 @@ export default function KnowledgeView({ subject, topic, setView, setSubject, set
     // eslint-disable-next-line react-hooks/exhaustive-deps -- mount only; URL-owning actions sync explicitly
   }, []);
 
-  if (!current || !knowledge) {
+  if (!current) {
     return <WikiIndex topics={topics} onOpen={openTopic} goHome={goHome} />;
+  }
+
+  if (!knowledge) {
+    const failed = articleLoad.id === current.id && articleLoad.status === 'error';
+    return (
+      <div>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={backToIndex} style={{ marginBottom: 16 }}>
+          ← สารบัญ VetWiki
+        </button>
+        <StatePanel
+          kind={failed ? 'error' : 'loading'}
+          title={failed ? 'โหลดบทความไม่สำเร็จ' : `กำลังเปิด ${current.title}…`}
+          body={failed ? articleLoad.error : 'กำลังโหลดเฉพาะเนื้อหาของวิชานี้'}
+          actionLabel={failed ? 'ลองอีกครั้ง' : undefined}
+          onAction={failed ? () => window.location.reload() : undefined}
+        />
+      </div>
+    );
   }
 
   const goPractice = () => {

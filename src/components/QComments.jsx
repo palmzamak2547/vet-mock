@@ -159,7 +159,9 @@ export default function QComments({ qSubject, qId, user, setView }) {
                       type="button"
                       onClick={() => handleDelete(c.id)}
                       title="ลบ"
-                      style={{ marginLeft: 'auto', background: 'transparent', border: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: 12, padding: 0 }}
+                      aria-label="ลบความคิดเห็น"
+                      className="vmx-icon-close"
+                      style={{ marginLeft: 'auto', background: 'transparent', border: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: 12 }}
                     >🗑</button>
                   )}
                 </div>
@@ -175,6 +177,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
       {/* Composer */}
       <div style={{ display: 'flex', gap: 6 }}>
         <textarea
+          aria-label="ความคิดเห็นหรือคำแนะนำสำหรับข้อนี้"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           placeholder={user ? 'พิมพ์ความเห็น/แก้ไข/แชร์ tip…' : 'login เพื่อโพสต์ — อ่านได้ไม่ต้อง login'}

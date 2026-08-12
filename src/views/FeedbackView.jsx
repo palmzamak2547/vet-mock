@@ -138,8 +138,8 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
 
         <form onSubmit={submit} noValidate>
           <div className="vmx-form-group">
-            <label>ประเภท</label>
-            <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
+            <label htmlFor="vmx-feedback-type">ประเภท</label>
+            <select id="vmx-feedback-type" value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
               <option value="Bug">🐛 Bug Report</option>
               <option value="Feature">Feature Request</option>
               <option value="Question">❓ Question</option>
@@ -149,13 +149,14 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
           </div>
 
           <div className="vmx-form-group">
-            <label>ชื่อ (optional)</label>
-            <input type="text" value={formData.fromName} onChange={(e) => setFormData({ ...formData, fromName: e.target.value })} placeholder="เช่น Vet86_PingP" maxLength={100} />
+            <label htmlFor="vmx-feedback-name">ชื่อ (optional)</label>
+            <input id="vmx-feedback-name" type="text" value={formData.fromName} onChange={(e) => setFormData({ ...formData, fromName: e.target.value })} placeholder="เช่น Vet86_PingP" maxLength={100} />
           </div>
 
           <div className="vmx-form-group">
-            <label>Email (optional, ใส่ถ้าอยากให้ตอบกลับ)</label>
+            <label htmlFor="vmx-feedback-email">Email (optional, ใส่ถ้าอยากให้ตอบกลับ)</label>
             <input
+              id="vmx-feedback-email"
               type="text"
               inputMode="email"
               autoComplete="email"
@@ -167,13 +168,14 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
           </div>
 
           <div className="vmx-form-group">
-            <label>หัวข้อ</label>
-            <input type="text" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} placeholder="เช่น ข้อสอบ COM IV ตอบไม่ถูก" maxLength={200} />
+            <label htmlFor="vmx-feedback-subject">หัวข้อ</label>
+            <input id="vmx-feedback-subject" type="text" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} placeholder="เช่น ข้อสอบ COM IV ตอบไม่ถูก" maxLength={200} />
           </div>
 
           <div className="vmx-form-group">
-            <label>ข้อความ * <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 'normal' }}>({formData.message.length}/5000)</span></label>
+            <label htmlFor="vmx-feedback-message">ข้อความ * <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 'normal' }}>({formData.message.length}/5000)</span></label>
             <textarea
+              id="vmx-feedback-message"
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value.slice(0, 5000) })}
               placeholder="อธิบายปัญหา/ข้อเสนอแนะ..."

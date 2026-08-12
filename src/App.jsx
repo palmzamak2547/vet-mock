@@ -39,6 +39,7 @@ import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
+import { appPathForView, isAppPath, viewForAppPath } from './lib/view-route.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -190,11 +191,8 @@ const ImageOcclusionView = lazy(() => import('./views/ImageOcclusionView.jsx'));
 // Only shown after a phase ends or opened via command palette,
 // so lazy-load is appropriate.
 const PhaseWrappedView = lazy(() => import('./views/PhaseWrappedView.jsx'));
-const DomainDetailView = lazy(() => import('./views/DomainDetailView.jsx'));
 // (Removed MockExamView/MockResultsView — an unwired English "DEMO ONLY" stub.
 //  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
-const PublicWikiView = lazy(() => import('./views/PublicWikiView.jsx'));
-const AdminView = lazy(() => import('./views/AdminView.jsx'));
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 import DialogHost from './components/DialogHost.jsx';
@@ -229,6 +227,8 @@ const AUTH_REQUIRED_VIEWS = new Set([
   'group-detail',
   'leaderboard-global',
   'account-settings',
+  'race',
+  'review-queue',
 ]);
 
 function isInteractiveKeyTarget(target) {
@@ -374,6 +374,12 @@ export default function App() {
       // VetMock Practical Imaging Lab owns the lightweight, shareable #lab
       // route. It is deliberately independent from the full Pro workstation.
       if (window.location.hash === '#lab') return 'lab';
+      // Stable, self-contained app views use readable /app/* paths. Stateful
+      // exam/config/topic flows remain history-only because a URL cannot
+      // safely reconstruct their in-memory question set.
+      const routedView = viewForAppPath(window.location.pathname);
+      if (routedView) return routedView;
+      if (isAppPath(window.location.pathname)) return 'home';
     } catch {}
     try {
       // Parse the stored value — `null` is a valid serialized state
@@ -545,21 +551,23 @@ export default function App() {
           vmxView: next,
           vmxVideoSubject: nextVideoSubject,
         };
-        // KnowledgeView owns the /wiki/* path. Every other view is state-only,
-        // and pushState was called without a URL — so once you had opened the
-        // wiki, the address bar kept saying /wiki/... on every later screen,
-        // and a refresh from the dashboard dropped you back into the wiki.
-        // Hand back the root path when leaving it.
+        // Wiki, Practical, and stable app destinations own canonical URLs.
+        // Stateful flows return to root so refresh never reconstructs a
+        // partial exam/config session from an unrelated previous route.
         const leavingWiki = next !== 'knowledge'
           && parseWikiPath(window.location.pathname).isWiki;
         const leavingLab = next !== 'lab' && window.location.hash === '#lab';
+        const leavingAppPath = !appPathForView(next) && isAppPath(window.location.pathname);
+        const appPath = appPathForView(next);
         // Some lazy views own a real, shareable URL. Push that URL in the
         // same event as the view state so slow chunk downloads never leave
         // the address bar pointing at the previous screen.
         const url = enteringLab
           ? '/#lab'
           : navigationState?.path
-            || ((leavingWiki || leavingLab) ? '/' : '');
+            || (next === 'knowledge' ? '/wiki' : '')
+            || appPath
+            || ((leavingWiki || leavingLab || leavingAppPath) ? '/' : '');
         // Assigning #lab manually already created a history entry. Stamp the
         // view state onto it rather than creating a duplicate Back step.
         const labHashAlreadyCreated = enteringLab && window.location.hash === '#lab';
@@ -590,7 +598,10 @@ export default function App() {
       );
     } catch {}
     const onPopState = (event) => {
-      const next = event.state?.vmxView || 'home';
+      const next = event.state?.vmxView
+        || viewForAppPath(window.location.pathname)
+        || (parseWikiPath(window.location.pathname).isWiki ? 'knowledge' : null)
+        || (window.location.hash === '#lab' ? 'lab' : 'home');
       const nextVideoSubject = next === 'videos'
         ? event.state?.vmxVideoSubject || null
         : null;
@@ -622,6 +633,16 @@ export default function App() {
     };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  // Unknown /app/* paths must not revive an unrelated stored screen. Repair
+  // the address bar to Home once, while known app routes keep their URL.
+  useEffect(() => {
+    try {
+      if (isAppPath(window.location.pathname) && !viewForAppPath(window.location.pathname)) {
+        window.history.replaceState({ vmxView: 'home' }, '', '/');
+      }
+    } catch {}
   }, []);
 
   // Keep the Practical Lab's shareable hash and React view in lockstep.
@@ -1371,7 +1392,7 @@ export default function App() {
     if (finishingRef.current) return; // guard against timer+submit double-fire
     finishingRef.current = true;
     // Only count auto-graded questions in history/percentage —
-    // writing Qs need self/AI grading and shouldn't penalize the
+    // writing Qs need self-grading and shouldn't penalize the
     // correctness percentage by always being marked wrong.
     const autoQs = questions.filter((q) => !isWritingType(q));
     const correct = autoQs.filter((q) => isCorrect(q, answers[q.id])).length;
@@ -1560,7 +1581,7 @@ export default function App() {
     // Split auto-graded vs writing for honest score reporting.
     // Writing questions are open-ended → counted separately so the
     // percentage reflects only what the engine could grade. Writing
-    // gets graded in Review (Self assess or 🤖 Smart AI grade).
+    // gets graded against its rubric in Review.
     const autoQs = questions.filter((q) => !isWritingType(q));
     const writingQs = questions.filter((q) => isWritingType(q));
     const correct = autoQs.filter((q) => isCorrect(q, answers[q.id])).length;
@@ -1643,7 +1664,7 @@ export default function App() {
   // pops back to 'mock-exam'/'mock-results', bounce to home instead of a
   // dead/blank view. (New Mock Exam nav goes through 'config' → real exam.)
   useEffect(() => {
-    if (view === 'mock-exam' || view === 'mock-results') goHome();
+    if (['mock-exam', 'mock-results', 'domain-detail', 'admin', 'wiki-public'].includes(view)) goHome();
   }, [view]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // "Mock Exam" preset — one handler shared by the desktop Sidebar and the
@@ -1888,12 +1909,11 @@ export default function App() {
               <button
                 type="button"
                 onClick={dismissSwUpdate}
+                className="vmx-icon-close"
                 aria-label="ปิดการแจ้งเตือนอัปเดตนี้"
                 title="ไว้ทีหลัง"
                 style={{
                   all: 'unset', cursor: 'pointer', flexShrink: 0,
-                  minWidth: 32, minHeight: 32, display: 'inline-flex',
-                  alignItems: 'center', justifyContent: 'center',
                   color: 'var(--clr-sage, #4a6b4a)', fontSize: 14,
                 }}
               >
@@ -2010,17 +2030,15 @@ export default function App() {
               {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
-              {view === 'race' && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
+              {view === 'race' && user && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
               {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions }} />}
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
-              {view === 'review-queue' && <ReviewQueueView {...{ goHome, setView, user }} />}
-              {view === 'domain-detail' && <DomainDetailView onBack={goHome} onStartPractice={(count, time) => { setNumQuestions(count); setUseTimer(!!time); startExam(); }} />}
+              {view === 'review-queue' && user && <ReviewQueueView {...{ goHome, setView, user }} />}
               {(view === 'mock-exam' || view === 'mock-results') && <ViewFallback />}
-              {view === 'admin' && <AdminView user={user} onBack={goHome} />}
             </Suspense>
             </ErrorBoundary>
           )}

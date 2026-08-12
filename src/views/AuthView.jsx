@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   signUpWithEmail,
   signInWithEmail,
@@ -16,10 +16,6 @@ import {
   getSupabase,
 } from '../lib/supabase.js';
 
-// OAuth setup help — opens when LINE/Apple errors with
-// PROVIDER_NOT_CONFIGURED. Lazy so the main signin path doesn't
-// pay the bundle cost.
-const OAuthSetupHelp = lazy(() => import('../components/OAuthSetupHelp.jsx'));
 import { thaiAuthError } from '../lib/auth-errors.js';
 import {
   deriveUsernameFromEmail,
@@ -373,11 +369,9 @@ export default function AuthView({ onBack, onSuccess, user }) {
     }
   };
 
-  // OAuth providers that may not be configured in Supabase yet (LINE,
-  // Discord). Surface a friendly Thai inline message PLUS open a setup-
-  // help modal that walks through every dashboard step with the exact
-  // callback URL to paste. The modal is reusable across all providers.
-  const [oauthHelp, setOauthHelp] = useState(null); // null | {provider, rawError}
+  // Optional OAuth providers may not be configured in Supabase yet. Keep
+  // provider setup details out of the public app and point users to the
+  // sign-in methods that are available now.
 
   // OAuth click → safety timeout. signInWithOAuth normally redirects
   // the browser away (so this state doesn't matter), but if the SDK
@@ -430,8 +424,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     try { await signInWithLine(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
-        setError('LINE login ยังไม่เปิด — ดูขั้นตอนตั้งค่าด้านล่าง 👇');
-        setOauthHelp({ provider: 'line', rawError: err.rawMessage || err.message });
+        setError('LINE login ยังไม่เปิดในตอนนี้ — ใช้ Google, email หรือ magic link แทนได้');
       } else {
         setError(thaiAuthError(err));
       }
@@ -443,8 +436,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     try { await signInWithDiscord(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
-        setError('Discord login ยังไม่เปิด — ดูขั้นตอนตั้งค่าด้านล่าง 👇');
-        setOauthHelp({ provider: 'discord', rawError: err.rawMessage || err.message });
+        setError('Discord login ยังไม่เปิดในตอนนี้ — ใช้ Google, email หรือ magic link แทนได้');
       } else {
         setError(thaiAuthError(err));
       }
@@ -636,11 +628,12 @@ export default function AuthView({ onBack, onSuccess, user }) {
         <form onSubmit={submit} noValidate>
           {mode === 'signup' && (
             <div className="vmx-form-group">
-              <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label htmlFor="vmx-auth-username" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>ชื่อแสดง (Username)</span>
                 <UsernameStatusBadge status={usernameStatus} username={username} />
               </label>
               <input
+                id="vmx-auth-username"
                 type="text"
                 value={username}
                 onChange={(e) => {
@@ -666,8 +659,9 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
           {mode !== 'update-password' && (
             <div className="vmx-form-group">
-              <label>อีเมล</label>
+              <label htmlFor="vmx-auth-email">อีเมล</label>
               <input
+                id="vmx-auth-email"
                 type="text"
                 inputMode="email"
                 autoComplete="email"
@@ -681,7 +675,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
           {mode === 'signin' || mode === 'signup' ? (
             <div className="vmx-form-group">
-              <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label htmlFor="vmx-auth-password" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span>รหัสผ่าน</span>
                 {mode === 'signin' && (
                   <a
@@ -694,6 +688,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
               </label>
               <div style={{ position: 'relative' }}>
                 <input
+                  id="vmx-auth-password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -730,8 +725,9 @@ export default function AuthView({ onBack, onSuccess, user }) {
           {mode === 'update-password' && (
             <>
               <div className="vmx-form-group">
-                <label>รหัสผ่านใหม่</label>
+                <label htmlFor="vmx-auth-new-password">รหัสผ่านใหม่</label>
                 <input
+                  id="vmx-auth-new-password"
                   type={showPassword ? 'text' : 'password'}
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
@@ -741,8 +737,9 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 {newPassword && <PasswordStrengthBar password={newPassword} />}
               </div>
               <div className="vmx-form-group">
-                <label>ยืนยันรหัสผ่านใหม่</label>
+                <label htmlFor="vmx-auth-new-password-confirm">ยืนยันรหัสผ่านใหม่</label>
                 <input
+                  id="vmx-auth-new-password-confirm"
                   type={showPassword ? 'text' : 'password'}
                   value={newPasswordConfirm}
                   onChange={(e) => setNewPasswordConfirm(e.target.value)}
@@ -777,9 +774,9 @@ export default function AuthView({ onBack, onSuccess, user }) {
           {mode === 'signin' && attemptCount >= 3 && (
             <div style={{ padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', color: 'var(--clr-ink)', fontSize: 12, marginBottom: 12, lineHeight: 1.5 }}>
               ลองผิดมาแล้ว <strong>{attemptCount} ครั้ง</strong> — ถ้าลืมรหัส {' '}
-              <a onClick={() => setMode('reset')} style={{ ...linkStyle, fontSize: 12 }}>กดที่นี่</a>
+              <button type="button" className="vmx-inline-action" onClick={() => setMode('reset')} style={{ fontSize: 12 }}>กดที่นี่</button>
               {' '}เพื่อรีเซ็ต หรือใช้ {' '}
-              <a onClick={() => setMode('magic-link')} style={{ ...linkStyle, fontSize: 12 }}>magic link</a>
+              <button type="button" className="vmx-inline-action" onClick={() => setMode('magic-link')} style={{ fontSize: 12 }}>magic link</button>
               {' '}แทน
             </div>
           )}
@@ -817,16 +814,16 @@ export default function AuthView({ onBack, onSuccess, user }) {
         {/* Mode switch links */}
         <div style={{ textAlign: 'center', marginTop: 16, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
           {mode === 'signin' && (
-            <>ยังไม่มี account? <a onClick={() => setMode('signup')} style={{ ...linkStyle, cursor: 'pointer' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } }}>สมัครเลย</a></>
+            <>ยังไม่มี account? <button type="button" className="vmx-inline-action" onClick={() => setMode('signup')}>สมัครเลย</button></>
           )}
           {mode === 'signup' && (
-            <>มี account แล้ว? <a onClick={() => setMode('signin')} style={{ ...linkStyle, cursor: 'pointer' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } }}>Login</a></>
+            <>มี account แล้ว? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>Login</button></>
           )}
           {mode === 'reset' && (
-            <>จำได้แล้ว? <a onClick={() => setMode('signin')} style={{ ...linkStyle, cursor: 'pointer' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } }}>กลับไป Login</a></>
+            <>จำได้แล้ว? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>กลับไป Login</button></>
           )}
           {mode === 'magic-link' && (
-            <>อยากใช้รหัสผ่าน? <a onClick={() => setMode('signin')} style={{ ...linkStyle, cursor: 'pointer' }} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } }}>กลับไป Login ปกติ</a></>
+            <>อยากใช้รหัสผ่าน? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>กลับไป Login ปกติ</button></>
           )}
         </div>
       </div>
@@ -837,23 +834,9 @@ export default function AuthView({ onBack, onSuccess, user }) {
         </button>
       </div>
 
-      {/* OAuth setup help modal — opens when LINE/Apple errors with
-          PROVIDER_NOT_CONFIGURED. Shows exact callback URL + dashboard
-          steps so Palm (or any admin) can fix it inline. */}
-      {oauthHelp && (
-        <Suspense fallback={null}>
-          <OAuthSetupHelp
-            provider={oauthHelp.provider}
-            rawError={oauthHelp.rawError}
-            onClose={() => setOauthHelp(null)}
-          />
-        </Suspense>
-      )}
     </>
   );
 }
-
-const linkStyle = { cursor: 'pointer', color: 'var(--clr-sage)', textDecoration: 'underline' };
 
 // ── Username availability badge (shown next to the label) ───────
 function UsernameStatusBadge({ status, username }) {

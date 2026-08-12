@@ -1,5 +1,32 @@
 # VetMock — Launch Readiness
 
+## Current release gate — v5.27.0 (2026-08-12)
+
+VetMock is production-ready as a public study app. The current gate covers the
+whole product, not only Imaging:
+
+- 4,454 questions / 63 banks / 40 subjects; all generated counts, IDs,
+  curriculum links, registries and VetWiki projections pass drift checks.
+- Stable destinations now own readable `/app/*` URLs with direct-load,
+  refresh, Back/Forward and auth-boundary coverage. Stateful exam screens stay
+  deliberately in-memory and return to `/` rather than restoring half a session.
+- VetWiki opens metadata-first and lazy-loads one subject at a time. Its index
+  chunk is about 11.7 KB gzip instead of loading the former ~1 MB corpus, and a
+  failed article chunk has a tested reload/retry path.
+- Shared modal focus management now covers the app dialogs: initial focus,
+  Tab containment, Escape, nested dialogs and WebKit-safe focus restoration.
+  Core public forms have programmatic labels and touch controls keep a 44px floor.
+- Remote views use a shared loading/empty/recoverable-error language; a failed
+  request no longer masquerades as an empty success state.
+- The public sign-in view no longer exposes provider-dashboard setup details.
+  Dormant article-assistant UI is not rendered in VetWiki.
+- Release evidence: unit 196/196, `lint:all` green, production build + 201 Wiki
+  prerenders, full Playwright 120 passed / 28 intentional skips across Chromium
+  desktop/mobile, WebKit mobile and Firefox, and `npm audit` 0 vulnerabilities.
+
+The 2026-07-26 audit below remains as historical rationale; superseded counts
+and open findings should not be read as the current release state.
+
 > Source: a 5-dimension grounded audit of the live repo (landing promises vs
 > reality · runtime bugs · cross-platform · first-run clarity · data accuracy),
 > every serious finding re-checked by an adversarial verifier, then fixed and

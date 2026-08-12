@@ -510,6 +510,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
             aria-modal="true"
             aria-labelledby="vmx-lab-shortcuts-title"
             tabIndex={-1}
+            data-vmx-modal="true"
             style={shortcutsContentStyle}
             onClick={(e) => e.stopPropagation()}
           >

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createGroup, joinGroupByCode, getMyGroups, leaveGroup } from '../lib/api.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import StatePanel from '../components/StatePanel.jsx';
 
 export default function GroupsView({ user, profile, goHome, setActiveGroup, setView }) {
   const [groups, setGroups] = useState([]);
@@ -10,11 +11,13 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
   const [newName, setNewName] = useState('');
   const [joinCode, setJoinCode] = useState('');
   const [error, setError] = useState('');
+  const [loadError, setLoadError] = useState('');
 
   const load = async () => {
     setLoading(true);
+    setLoadError('');
     try { setGroups(await getMyGroups(user.id)); }
-    catch (e) { setError(e.message); }
+    catch (e) { setLoadError(e?.message || 'โหลดกลุ่มไม่สำเร็จ'); }
     finally { setLoading(false); }
   };
 
@@ -65,8 +68,8 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
         <div className="vmx-config-panel">
           <form onSubmit={handleCreate}>
             <div className="vmx-form-group">
-              <label>ชื่อกลุ่ม</label>
-              <input value={newName} onChange={(e) => setNewName(e.target.value.slice(0, 60))} placeholder="เช่น Vet 86 Final Exam" maxLength={60} required autoFocus />
+              <label htmlFor="vmx-group-name">ชื่อกลุ่ม</label>
+              <input id="vmx-group-name" value={newName} onChange={(e) => setNewName(e.target.value.slice(0, 60))} placeholder="เช่น Vet 86 Final Exam" maxLength={60} required autoFocus />
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowCreate(false)}>ยกเลิก</button>
@@ -80,8 +83,8 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
         <div className="vmx-config-panel">
           <form onSubmit={handleJoin}>
             <div className="vmx-form-group">
-              <label>รหัส Invite (6 ตัวอักษร)</label>
-              <input value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="ABC123" maxLength={6} required autoFocus style={{ fontFamily: 'var(--vmx-mono)', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
+              <label htmlFor="vmx-group-code">รหัส Invite (6 ตัวอักษร)</label>
+              <input id="vmx-group-code" value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="ABC123" maxLength={6} required autoFocus style={{ fontFamily: 'var(--vmx-mono)', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowJoin(false)}>ยกเลิก</button>
@@ -96,20 +99,28 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       <div className="vmx-section-label">กลุ่มของฉัน ({groups.length})</div>
 
       {loading ? (
-        <div className="vmx-empty">กำลังโหลด...</div>
+        <StatePanel kind="loading" title="กำลังโหลดกลุ่มของคุณ…" />
+      ) : loadError ? (
+        <StatePanel kind="error" title="โหลดกลุ่มไม่สำเร็จ" body={loadError} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : groups.length === 0 ? (
-        <div className="vmx-empty">ยังไม่ได้อยู่ในกลุ่มใดๆ — สร้างกลุ่มใหม่ หรือ join ด้วย code</div>
+        <StatePanel title="ยังไม่มีกลุ่ม" body="สร้างกลุ่มใหม่ หรือ join ด้วย invite code เพื่อเริ่มติวกับเพื่อน" />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {groups.map((g) => (
-            <div key={g.id} className="vmx-dash-card" style={{ cursor: 'pointer' }}>
+            <div key={g.id} className="vmx-dash-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
-                <div onClick={() => { setActiveGroup(g); setView('group-detail'); }} style={{ flex: 1, cursor: 'pointer' }}>
+                <button
+                  type="button"
+                  className="vmx-pressable-card"
+                  onClick={() => { setActiveGroup(g); setView('group-detail'); }}
+                  style={{ flex: '1 1 220px', padding: 0 }}
+                  aria-label={`เปิดกลุ่ม ${g.name}, code ${g.code}`}
+                >
                   <h3 style={{ margin: 0 }}>{g.name}</h3>
                   <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                     Code: <strong style={{ color: 'var(--clr-gold-text)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 Admin' : 'Member'}
                   </div>
-                </div>
+                </button>
                 <div style={{ display: 'flex', gap: 6 }}>
                   <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setActiveGroup(g); setView('group-detail'); }}>เปิด →</button>
                   <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => handleLeave(g.id)}>ออก</button>

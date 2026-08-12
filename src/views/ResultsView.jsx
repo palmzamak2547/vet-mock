@@ -224,7 +224,7 @@ export default function ResultsView({
   }, [score.correct, score.total, questions]);
 
   // Split writing from auto-graded for the result counts so writing
-  // questions don't show up as "wrong" — they need Self/AI grading.
+  // questions don't show up as "wrong" — they need self-grading.
   const autoQs = questions.filter((q) => !isWritingType(q));
   const writingQs = questions.filter((q) => isWritingType(q));
   const wrongCount = autoQs.filter((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id])).length;
@@ -252,7 +252,7 @@ export default function ResultsView({
   const isExam = mode === 'exam';
   // pass/fail only meaningful for auto-graded sessions; pure-writing
   // mocks (autoQs.length === 0) get neither banner since the engine
-  // can't actually compute pass/fail without manual/AI grading
+  // can't actually compute pass/fail without manual grading
   const passed = autoQs.length > 0 && score.pct >= 60;
   const showPassFail = isExam && autoQs.length > 0;
 
@@ -315,7 +315,7 @@ export default function ResultsView({
         )}
         {writingQs.length > 0 && autoQs.length > 0 && (
           <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)', fontFamily: 'var(--vmx-mono)' }}>
-            ✍️ มีข้อเขียน {writingQs.length} ข้อ — ตรวจใน "ดูเฉลย" (Self / 🤖 AI)
+            ✍️ มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
           </div>
         )}
         <div className="vmx-score-msg">{msg}</div>
@@ -453,7 +453,7 @@ function NextPlayPanel({
     ? (questions[0]?.topic_label || ctx.topic).replace(/^[\d\s.·\-]+/, '').trim().slice(0, 28)
     : '';
 
-  // Pure-writing → keep classic flow (review needed for AI grade)
+  // Pure-writing → keep classic flow (review needed for self-grading)
   if (autoQs.length === 0) {
     return (
       <div className="vmx-btn-row" style={{ flexWrap: 'wrap', marginTop: 16 }}>

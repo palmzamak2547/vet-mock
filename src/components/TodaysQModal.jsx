@@ -19,6 +19,7 @@ import { recordTodaysQAnswer } from '../lib/daily-q.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { buildShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 // Lazy-load the share card — it pulls a 1080×1920 canvas helper and
 // isn't needed until the user actually picks an answer + taps share.
@@ -31,6 +32,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
   const [shareOpen, setShareOpen] = useState(false);
   const [todayResult, setTodayResult] = useState(null);
   const [challengeHint, setChallengeHint] = useState('');
+  const dialogRef = useModalFocus({ active: Boolean(q), onClose });
 
   if (!q) return null;
   const correctIdx = q.answer;
@@ -52,13 +54,23 @@ export default function TodaysQModal({ q, onClose, onDone }) {
   }
 
   return (
-    <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label="Today's Q">
-      <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 580 }}>
+    <div className="vmx-modal-overlay" onClick={onClose}>
+      <div
+        ref={dialogRef}
+        className="vmx-modal"
+        onClick={(e) => e.stopPropagation()}
+        style={{ maxWidth: 580 }}
+        tabIndex={-1}
+        data-vmx-modal="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vmx-todays-q-title"
+      >
         <div style={{ marginBottom: 10 }}>
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             ข้อวันนี้, {subjectMeta?.icon || ''} {subjectMeta?.name || q.subject}
           </div>
-          <h2 style={{ margin: '4px 0 0', fontSize: 20 }}>1 ข้อ ใน 1 วัน</h2>
+          <h2 id="vmx-todays-q-title" style={{ margin: '4px 0 0', fontSize: 20 }}>1 ข้อ ใน 1 วัน</h2>
           <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             ลอง 1 ข้อ — ถูกผิดไม่นับเข้า history หลัก, แค่สร้าง habit
           </p>

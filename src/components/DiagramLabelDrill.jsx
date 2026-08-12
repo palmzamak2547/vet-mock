@@ -9,20 +9,22 @@
 
 import { useMemo, useState } from 'react';
 import { DIAGRAM_DRILLS } from '../data/diagram-drills.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 export default function DiagramLabelDrill({ onClose }) {
   const [drillId, setDrillId] = useState(null);
   const drill = useMemo(() => DIAGRAM_DRILLS.find((d) => d.id === drillId), [drillId]);
+  const dialogRef = useModalFocus({ active: !drill, onClose });
 
   if (!drill) {
     return (
-      <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label="Diagram label drill">
-        <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 540 }}>
+      <div className="vmx-modal-overlay" onClick={onClose}>
+        <div ref={dialogRef} className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 540 }} role="dialog" aria-modal="true" aria-labelledby="vmx-diagram-picker-title" tabIndex={-1} data-vmx-modal="true">
           <div style={{ marginBottom: 12 }}>
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Diagram label drill
             </div>
-            <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>เลือก diagram ที่จะฝึก</h2>
+            <h2 id="vmx-diagram-picker-title" style={{ margin: '4px 0 0', fontSize: 22 }}>เลือก diagram ที่จะฝึก</h2>
             <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               ฝึก label anatomy แบบ active recall — แตะจุดที่ diagram → เลือก label ที่ตรง
             </p>
@@ -59,6 +61,7 @@ function DrillRunner({ drill, onBack, onClose }) {
   // Map anchor id → { picked: labelText, correct: bool }
   const [progress, setProgress] = useState({});
   const [revealed, setRevealed] = useState(false);
+  const dialogRef = useModalFocus({ onClose });
 
   // Build pool from this drill's labels (shuffled deterministically per
   // mount so the order isn't always the same).
@@ -92,8 +95,8 @@ function DrillRunner({ drill, onBack, onClose }) {
   const remainingLabels = labelPool.filter((l) => !usedCorrectly.has(l));
 
   return (
-    <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label={drill.title}>
-      <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, maxHeight: '90vh', overflow: 'auto' }}>
+    <div className="vmx-modal-overlay" onClick={onClose}>
+      <div ref={dialogRef} className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, maxHeight: '90vh', overflow: 'auto' }} role="dialog" aria-modal="true" aria-labelledby="vmx-diagram-drill-title" tabIndex={-1} data-vmx-modal="true">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
           <button type="button" onClick={onBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← เปลี่ยน diagram</button>
           <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13 }}>
@@ -102,7 +105,7 @@ function DrillRunner({ drill, onBack, onClose }) {
           </span>
         </div>
 
-        <h2 style={{ margin: '0 0 8px', fontSize: 18 }}>{drill.icon} {drill.title}</h2>
+        <h2 id="vmx-diagram-drill-title" style={{ margin: '0 0 8px', fontSize: 18 }}>{drill.icon} {drill.title}</h2>
 
         <div style={{ background: 'var(--clr-surface-2)', borderRadius: 12, padding: 8, marginBottom: 14 }}>
           <svg
@@ -115,7 +118,7 @@ function DrillRunner({ drill, onBack, onClose }) {
                 ? (p?.correct ? '#27ae60' : (p?.picked ? '#c0392b' : '#888'))
                 : (p?.correct ? '#27ae60' : (p?.picked ? '#c0392b' : (activeAnchor === a.id ? '#b88940' : '#3d6b82')));
               const stroke = activeAnchor === a.id ? '#000' : '#fff';
-              return `<g class="anchor" data-id="${a.id}">
+              return `<g class="anchor" data-id="${a.id}" tabindex="0" role="button" aria-label="เลือกจุด ${a.id}">
                 <circle cx="${a.x}" cy="${a.y}" r="11" fill="${fill}" stroke="${stroke}" stroke-width="2" style="cursor:pointer"/>
                 <text x="${a.x}" y="${a.y + 4}" text-anchor="middle" font-size="11" font-family="monospace" font-weight="700" fill="white">${p?.correct ? '✓' : (p?.picked ? '✗' : '?')}</text>
               </g>`;
@@ -128,6 +131,13 @@ function DrillRunner({ drill, onBack, onClose }) {
                 if (revealed) return;
                 setActiveAnchor((prev) => prev === el.dataset.id ? null : el.dataset.id);
               }
+            }}
+            onKeyDown={(e) => {
+              if (e.key !== 'Enter' && e.key !== ' ') return;
+              const id = e.target?.dataset?.id;
+              if (!id || revealed) return;
+              e.preventDefault();
+              setActiveAnchor((previous) => previous === id ? null : id);
             }}
           />
         </div>

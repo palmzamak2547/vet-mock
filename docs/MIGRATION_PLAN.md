@@ -27,13 +27,15 @@ place so later phases edit CSS / one map instead of 100+ JSX files.
 - [ ] **Utility layer** — ~10 classes (`vmx-row/col/stack`, `vmx-gap-*`,
   `vmx-card` base) + migrate the top-5 inline-style files as the pilot (finding 4).
 - [ ] **`.vmx-card` base** — collapse the 8 near-identical card families to deltas.
-- [ ] **VIEW↔PATH map** — generalize `parseWikiPath` + pushState so `setView` writes
+- [x] **VIEW↔PATH map** — generalize `parseWikiPath` + pushState so `setView` writes
   a readable path and `initialView` reads it back; keep `FOCUS_VIEWS` gate + mid-exam
-  popstate confirm (finding 9, **risk-gated**).
+  popstate confirm (finding 9, **risk-gated**). Shipped as `lib/view-route.js`
+  with direct-load/history/auth-boundary E2E coverage (2026-08-12).
 - [ ] **Font consolidation** — one Sarabun woff2 source + preload, drop the Google
   Fonts duplicate + unused weights; Thai glyph QA (finding 6).
-- [ ] **Orphan cleanup** — gate/remove `admin` (stale Clerk stub) + `domain-detail`
-  (finding 15).
+- [x] **Orphan cleanup** — `admin`, `domain-detail` and the competing public-wiki
+  runtime routes no longer ship in the app bundle; stale history entries return
+  Home safely (finding 15, 2026-08-12).
 
 ## Phase 2 — Critical workflows (nav shell · exam · results · review · states)
 Goal: fix the destinations users can't reach or that lose data.
@@ -69,19 +71,26 @@ Goal: fix the destinations users can't reach or that lose data.
       calls left are that module's own fallback for when the host is unmounted)
   Dashboard/QuestionManager resets first (findings 10, 11).
 - [ ] In-view error/empty + retry for empty-pool / QB-load-failure (finding 11).
-- [ ] Clarify the two wiki destinations (finding 13).
+- [x] Clarify the two wiki destinations (finding 13) — VetWiki is canonical;
+  the competing runtime route was removed. Its article data is now lazy per subject.
 - [ ] Reduce HomeView overload to one primary action + progressive disclosure (finding 8).
 
 ## Phase 4 — Polish (motion · a11y · perf · QA)
 - [ ] `React.memo` + stabilized props on HomeView (finding 7).
-- [ ] Reusable Skeleton components for data views + boot gate (finding 12).
-- [ ] Restore 44px exam bookmark/note hit areas (finding 16).
+- [x] Shared `StatePanel` for remote loading, empty and recoverable-error states;
+  applied to Groups, Group Detail, Leaderboard, Review Queue and VetWiki (finding 12).
+- [x] Restore 44px floors for migrated icon, close, footer and compact controls
+  while preserving existing exam touch guards (finding 16).
 - [ ] `content-visibility:auto` on long-scroll card lists.
-- [ ] **Dedicated WCAG 2.2 AA pass** (the audit's a11y gap) + final Playwright sweep
-  across breakpoints for skip-link/focus/reduced-motion/44px/overflow invariants.
+- [x] **Dedicated WCAG 2.2 interaction pass** — shared modal focus/Tab/Escape/
+  restore behavior, programmatic labels on core forms, native pressable cards,
+  44px targets and cross-engine Playwright coverage (2026-08-12).
 - [ ] Decide the two-visual-languages question (quarantined marketing glass vs app).
 
 ## Status log
+- **2026-08-12** — v5.27.0 whole-system production polish: readable routes,
+  metadata-first VetWiki, generated runtime drift gates, shared modal focus,
+  consistent remote states, public auth boundary cleanup and cross-engine QA.
 - **2026-07-24** — Audit complete. Shipped (each gated + prod-verified):
   - de-slop: home Duolingo-blue → sage + dead glass CSS removed + Thai font restored
   - wiki: emoji + note-metadata stripped from derived titles/summaries

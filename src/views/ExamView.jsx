@@ -3,12 +3,17 @@ import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
 import { fmtTime } from '../hooks/utils.js';
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const [confirmExit, setConfirmExit] = useState(false);
+  const submitDialogRef = useModalFocus({
+    active: confirmSubmit,
+    onClose: () => setConfirmSubmit(false),
+  });
   const answeredCount = questions.filter((q) => answers[q.id] !== undefined).length;
   const isLast = currentIdx === questions.length - 1;
   // Keyboard on the last Q (Space/Enter/J in App) asks to submit — surface
@@ -139,18 +144,15 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
         />
       )}
 
-      {/* Honest copy: leaving here DISCARDS the set — goHome() clears
-          `vmx-inflight-exam` on purpose. (The old native confirm promised
-          "คำตอบจะถูกเก็บไว้ กลับมาทำต่อได้" which was never true for this
-          path; resume only covers a refresh/crash, not an explicit exit.) */}
+      {/* Leaving parks the current set. App.goHome resets only the active
+          runtime and deliberately preserves vmx-inflight-exam until it is
+          completed, explicitly discarded, or expires. */}
       <ConfirmDialog
         open={confirmExit}
         title="ออกจากชุดนี้?"
-        body="ชุดนี้จะถูกยกเลิก คำตอบที่ตอบไปแล้วจะไม่ถูกบันทึกลงประวัติ"
-        note={answeredCount > 0 ? `ตอบไปแล้ว ${answeredCount} จาก ${questions.length} ข้อ` : null}
-        confirmLabel="ออกจากชุดนี้"
+        body={`ความคืบหน้า${answeredCount > 0 ? ` ${answeredCount} จาก ${questions.length} ข้อ` : ''} จะถูกเก็บไว้ที่หน้าแรก กดทำต่อเพื่อกลับมาข้อเดิมได้ภายใน 6 ชั่วโมง`}
+        confirmLabel="เก็บไว้แล้วออก"
         cancelLabel="ทำต่อ"
-        tone="danger"
         onConfirm={() => { setConfirmExit(false); goHome(); }}
         onCancel={() => setConfirmExit(false)}
       />
@@ -158,12 +160,15 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
       {confirmSubmit && (
         <div className="vmx-modal-overlay" onClick={() => setConfirmSubmit(false)}>
           <div
+            ref={submitDialogRef}
             className="vmx-modal"
             onClick={(e) => e.stopPropagation()}
             style={{ maxWidth: 420 }}
             role="dialog"
             aria-modal="true"
             aria-labelledby="vmx-submit-title"
+            tabIndex={-1}
+            data-vmx-modal="true"
           >
             {(() => {
               const answered = questions.filter((q) => answers[q.id] !== undefined).length;
@@ -181,6 +186,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
                   )}
                   <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>
                     <button
+                      type="button"
                       className="vmx-btn vmx-btn-primary"
                       onClick={() => { setConfirmSubmit(false); nextQ(); }}
                       style={{ flex: '1 1 140px' }}
@@ -189,6 +195,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
                       ส่งข้อสอบ
                     </button>
                     <button
+                      type="button"
                       className="vmx-btn vmx-btn-ghost"
                       onClick={() => setConfirmSubmit(false)}
                       style={{ flex: '1 1 140px' }}
@@ -209,16 +216,20 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
 function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose }) {
   const answered = questions.filter((q) => answers[q.id] !== undefined).length;
   const remaining = questions.length - answered;
+  const dialogRef = useModalFocus({ onClose });
 
   return (
     <div className="vmx-modal-overlay" onClick={onClose}>
       <div
+        ref={dialogRef}
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
         style={{ maxWidth: 720 }}
         role="dialog"
         aria-modal="true"
         aria-labelledby="vmx-nav-grid-title"
+        tabIndex={-1}
+        data-vmx-modal="true"
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
           <h2 id="vmx-nav-grid-title" style={{ margin: 0 }}>ข้ามไปข้อ</h2>
@@ -245,6 +256,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
             return (
               <button
                 key={q.id}
+                type="button"
                 onClick={() => onJump(i)}
                 title={`ข้อ ${i + 1}${isAnswered ? ', ตอบแล้ว' : ''}${isBookmarked ? ', ★' : ''}`}
                 style={{
@@ -287,7 +299,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
         </div>
 
         <div className="vmx-btn-row" style={{ marginTop: 16 }}>
-          <button className="vmx-btn vmx-btn-ghost" onClick={onClose}>ปิด</button>
+          <button type="button" className="vmx-btn vmx-btn-ghost" onClick={onClose}>ปิด</button>
         </div>
       </div>
     </div>

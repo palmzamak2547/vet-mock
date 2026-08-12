@@ -37,6 +37,7 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 // which had left 7 navigable features unsearchable).
 import { FEATURES, visibleFeatures, FEATURE_FLAGS } from '../lib/feature-registry.js';
 import { listTopics } from '../lib/vetwiki/registry.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -369,6 +370,7 @@ export default function CommandPalette({
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef(null);
+  const dialogRef = useModalFocus({ active: open, onClose, initialFocusRef: inputRef });
   const listRef = useRef(null);
 
   // Static index lives at module scope — first call builds it (lazy),
@@ -418,10 +420,8 @@ export default function CommandPalette({
       setQuery('');
       setDebouncedQuery('');
       setActiveIdx(0);
-      // Defer focus until modal is in DOM
-      const t = setTimeout(() => inputRef.current?.focus(), 0);
-      return () => clearTimeout(t);
     }
+    return undefined;
   }, [open]);
 
   // Reset active index when filter changes
@@ -460,10 +460,14 @@ export default function CommandPalette({
       style={{ alignItems: 'flex-start', paddingTop: 'min(15vh, 100px)' }}
     >
       <div
+        ref={dialogRef}
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
         style={{ maxWidth: 600, padding: 0, overflow: 'hidden' }}
         role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        data-vmx-modal="true"
         aria-label="Command palette"
       >
         {/* Search input */}
@@ -482,6 +486,7 @@ export default function CommandPalette({
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKey}
             placeholder="ค้นหาทุกอย่าง — subject, summary, เมนู…"
+            aria-label="ค้นหาใน VetMock"
             style={{
               all: 'unset',
               flex: 1,

@@ -279,14 +279,14 @@ export default function RaceView({ goHome, setView, user, profile }) {
           <div style={{ marginBottom: 16, padding: 12, borderRadius: 10, border: '1px solid var(--clr-border)' }}>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'var(--vmx-mono)', marginBottom: 8 }}>Host: ตั้งค่า</div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 8 }}>
-              <label style={{ fontSize: 13 }}>วิชา:</label>
-              <select value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }}>
+              <label htmlFor="vmx-race-subject" style={{ fontSize: 13 }}>วิชา:</label>
+              <select id="vmx-race-subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }}>
                 {SUBJECTS.filter((s) => !s.scaffold).map((s) => (
                   <option key={s.id} value={s.id}>{s.icon} {s.name}</option>
                 ))}
               </select>
-              <label style={{ fontSize: 13, marginLeft: 12 }}>จำนวนข้อ:</label>
-              <input type="number" min="5" max="50" value={count} onChange={(e) => setCount(Math.max(5, Math.min(50, parseInt(e.target.value || 0, 10))))} style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }} />
+              <label htmlFor="vmx-race-count" style={{ fontSize: 13, marginLeft: 12 }}>จำนวนข้อ:</label>
+              <input id="vmx-race-count" type="number" min="5" max="50" value={count} onChange={(e) => setCount(Math.max(5, Math.min(50, parseInt(e.target.value || 0, 10))))} style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }} />
             </div>
             <button className="vmx-btn vmx-btn-primary" onClick={startRace} disabled={others.length === 0} style={{ width: '100%' }}>
               {others.length === 0 ? '🕐 รอเพื่อนเข้าห้อง…' : `🏁 เริ่ม! (${others.length + 1} คน)`}

@@ -1,5 +1,15 @@
 # VetMock — UX / Frontend Audit
 
+> **Implementation update 2026-08-12 (v5.27.0):** the original audit below is
+> historical. Vite is now 6.4.3. Readable `/app/*` routes resolve finding 9;
+> shared `StatePanel` plus retry states address the highest-value part of 11/12;
+> legacy public/admin/orphan runtime routes were removed from the bundle (13/15);
+> app-wide modal focus behavior, form labels and 44px touch fixes complete the
+> scoped WCAG pass. Full release proof: 196 unit tests and 120 cross-engine E2E
+> tests passed, with 28 layout tests intentionally skipped on inapplicable mobile
+> projects. Remaining inline-style/font consolidation items are maintainability
+> debt, not launch blockers.
+
 > Grounded audit of the live codebase (read-only, `file:line` evidence).
 > Method: 6 parallel dimension auditors over the real repo + a synthesis pass.
 > Date: 2026-07-24. Stack (verified): **React 18.3.1 + Vite 5.4.8**, plain JS/JSX

@@ -11,8 +11,9 @@
 // blockquote, bold, italic, code) — เขียนเองเพื่อไม่เพิ่ม
 // dependency, summary content เราเขียนเองทั้งหมด ไม่ห่วง XSS
 
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import PinButton from './PinButton.jsx';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 // ─────────────────────────────────────────────────────────────
 // Mini markdown → HTML renderer
@@ -148,12 +149,7 @@ function renderMarkdown(md) {
 // ─────────────────────────────────────────────────────────────
 export default function SummaryModal({ summary, onClose }) {
   const html = useMemo(() => renderMarkdown(summary?.summary || ''), [summary]);
-
-  useEffect(() => {
-    const handler = (e) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [onClose]);
+  const dialogRef = useModalFocus({ active: Boolean(summary), onClose });
 
   if (!summary) return null;
 
@@ -178,6 +174,7 @@ export default function SummaryModal({ summary, onClose }) {
           desktop. Grid with template-rows `auto 1fr auto` gives the
           body exactly the leftover space, no min-height tricks. */}
       <div
+        ref={dialogRef}
         className="vmx-modal vmx-summary-modal"
         style={{
           maxWidth: 820,
@@ -190,6 +187,11 @@ export default function SummaryModal({ summary, onClose }) {
           gridTemplateRows: 'auto minmax(0, 1fr) auto',
         }}
         onClick={(e) => e.stopPropagation()}
+        tabIndex={-1}
+        data-vmx-modal="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vmx-summary-title"
       >
         {/* Header */}
         <div style={{
@@ -205,7 +207,7 @@ export default function SummaryModal({ summary, onClose }) {
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               สรุปจากคลิปอาจารย์
             </div>
-            <h2 style={{ margin: '4px 0 0', fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
+            <h2 id="vmx-summary-title" style={{ margin: '4px 0 0', fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
               {summary.title}
             </h2>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 3, fontStyle: 'italic' }}>
@@ -221,6 +223,7 @@ export default function SummaryModal({ summary, onClose }) {
             style={{ flexShrink: 0 }}
           />
           <button
+            type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={downloadMd}
             title="ดาวน์โหลด .md เพื่ออ่านใน Notability/Obsidian/etc"
@@ -229,9 +232,11 @@ export default function SummaryModal({ summary, onClose }) {
             💾 .md
           </button>
           <button
+            type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={onClose}
             title="ปิด (Esc)"
+            aria-label="ปิดสรุปคลิป"
             style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px' }}
           >
             ✕

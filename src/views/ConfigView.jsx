@@ -12,7 +12,7 @@ import BackBar from '../components/BackBar.jsx';
 //   • # of questions (presets + custom)
 //   • Timer toggle + time-per-question
 //
-// Smart-AI grading was removed from the writing-review flow per
+// Remote grading was removed from the writing-review flow per
 // user request; ConfigView no longer carries a "writing grading
 // mode" picker. SelfGradeHint in ReviewView is the only output.
 // ============================================================
@@ -99,13 +99,14 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             that actually has writing items). For other subjects, the
             picker would be inert noise. */}
         {showCategoryPicker && (
-          <div className="vmx-config-row">
-            <label className="vmx-label">ประเภทข้อสอบ</label>
+          <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-category-label">
+            <div id="vmx-config-category-label" className="vmx-label">ประเภทข้อสอบ</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {CATEGORIES.map((c) => (
                 <button
                   key={c.id}
                   onClick={() => setCat && setCat(c.id)}
+                  aria-pressed={(cat || 'all') === c.id}
                   style={{
                     all: 'unset',
                     cursor: 'pointer',
@@ -131,11 +132,11 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
         )}
 
         {/* Number of questions */}
-        <div className="vmx-config-row">
-          <label className="vmx-label">จำนวนข้อ</label>
+        <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-count-label">
+          <div id="vmx-config-count-label" className="vmx-label">จำนวนข้อ</div>
           <div className="vmx-chip-row">
             {QCOUNT_PRESETS.map((n) => (
-              <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} onClick={() => { questionCountRef.current = n; setNumQuestions(n); }}>
+              <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} aria-pressed={numQuestions === n} onClick={() => { questionCountRef.current = n; setNumQuestions(n); }}>
                 {n}
               </button>
             ))}
@@ -172,11 +173,11 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
 
         {/* Time per question — only when timer on */}
         {useTimer && (
-          <div className="vmx-config-row">
-            <label className="vmx-label">เวลาต่อข้อ</label>
+          <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-time-label">
+            <div id="vmx-config-time-label" className="vmx-label">เวลาต่อข้อ</div>
             <div className="vmx-chip-row">
               {SECONDS_PRESETS.map((t) => (
-                <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} onClick={() => { timePerQuestionRef.current = t; setTimePerQ(t); }}>
+                <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} aria-pressed={timePerQ === t} onClick={() => { timePerQuestionRef.current = t; setTimePerQ(t); }}>
                   {t}s
                 </button>
               ))}

@@ -168,7 +168,7 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         💡 <strong>Tip:</strong> คลิก "ฝึกข้อสอบวิชานี้" เพื่อเริ่มทำข้อสอบวิชานั้นเลย<br/>
         ข้อมูลตารางอาจเปลี่ยนแปลง — เช็คกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
-        🔄 ถ้าข้อมูลผิด/ล้าสมัย → ส่งไปที่ <a href="#" onClick={(e) => { e.preventDefault(); setView('feedback'); }} style={{ color: 'var(--clr-sage)', textDecoration: 'underline' }}>ฟอร์มแจ้ง</a>
+        🔄 ถ้าข้อมูลผิด/ล้าสมัย → ส่งไปที่ <button type="button" className="vmx-inline-action" onClick={() => setView('feedback')}>ฟอร์มแจ้ง</button>
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

@@ -3,6 +3,7 @@ import { getGroupMembers, getSharedQuestions, getLeaderboard, deleteSharedQuesti
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/questions.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import StatePanel from '../components/StatePanel.jsx';
 
 export default function GroupDetailView({ group, user, goBack }) {
   const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'questions' | 'members'
@@ -10,9 +11,11 @@ export default function GroupDetailView({ group, user, goBack }) {
   const [questions, setQuestions] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const load = async () => {
     setLoading(true);
+    setError('');
     try {
       const [m, q, lb] = await Promise.all([
         getGroupMembers(group.id),
@@ -20,6 +23,8 @@ export default function GroupDetailView({ group, user, goBack }) {
         getLeaderboard(group.id),
       ]);
       setMembers(m); setQuestions(q); setLeaderboard(lb);
+    } catch (err) {
+      setError(err?.message || 'โหลดข้อมูลกลุ่มไม่สำเร็จ');
     } finally { setLoading(false); }
   };
 
@@ -43,7 +48,7 @@ export default function GroupDetailView({ group, user, goBack }) {
         <h1><em>{group.name}</em></h1>
         <p>
           Code: <strong style={{ color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)' }}>{group.code}</strong>
-          {', '}<a onClick={copyCode} style={{ cursor: 'pointer', textDecoration: 'underline' }}>คัดลอก</a>
+          {', '}<button type="button" className="vmx-footer-link" onClick={copyCode} style={{ border: 0, background: 'transparent', padding: 0, color: 'inherit', font: 'inherit', textDecoration: 'underline' }}>คัดลอก</button>
           {', '}สมาชิก {members.length} คน
         </p>
       </div>
@@ -54,9 +59,10 @@ export default function GroupDetailView({ group, user, goBack }) {
         <button className={`vmx-nav-btn ${tab === 'members' ? 'active' : ''}`} onClick={() => setTab('members')}>👤 Members ({members.length})</button>
       </div>
 
-      {loading && <div className="vmx-empty">กำลังโหลด...</div>}
+      {loading && <StatePanel kind="loading" title="กำลังโหลดข้อมูลกลุ่ม…" />}
+      {!loading && error && <StatePanel kind="error" title="โหลดข้อมูลกลุ่มไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />}
 
-      {!loading && tab === 'leaderboard' && (
+      {!loading && !error && tab === 'leaderboard' && (
         <div>
           {leaderboard.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีใครทำข้อสอบในกลุ่มนี้ — ลองเป็นคนแรกกันเถอะ 💪</div>
@@ -87,7 +93,7 @@ export default function GroupDetailView({ group, user, goBack }) {
         </div>
       )}
 
-      {!loading && tab === 'questions' && (
+      {!loading && !error && tab === 'questions' && (
         <div>
           <div style={{ marginBottom: 20, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
             ข้อสอบที่สมาชิกในกลุ่มแชร์มา — ทุกคนในกลุ่มใช้ทำข้อสอบได้<br/>
@@ -116,7 +122,7 @@ export default function GroupDetailView({ group, user, goBack }) {
         </div>
       )}
 
-      {!loading && tab === 'members' && (
+      {!loading && !error && tab === 'members' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>

@@ -15,7 +15,7 @@
 // CORS taint when composited onto the annotator canvas).
 // ============================================================
 
-import { useEffect } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const TEMPLATES = [
   {
@@ -69,22 +69,15 @@ const TEMPLATES = [
 ];
 
 export default function TemplateLibrary({ onPick, onClose }) {
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'Escape') onClose?.();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
+  const dialogRef = useModalFocus({ onClose });
 
   return (
     <div
       className="vmx-modal-overlay"
       onClick={onClose}
-      role="dialog"
-      aria-label="คลัง template — anatomy / diagram"
     >
       <div
+        ref={dialogRef}
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -94,6 +87,11 @@ export default function TemplateLibrary({ onPick, onClose }) {
           display: 'flex',
           flexDirection: 'column',
         }}
+        tabIndex={-1}
+        data-vmx-modal="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vmx-template-library-title"
       >
         <div style={{ marginBottom: 12 }}>
           <div
@@ -107,7 +105,7 @@ export default function TemplateLibrary({ onPick, onClose }) {
           >
             🩻 Template library
           </div>
-          <h2 style={{ margin: '4px 0 0', fontSize: 20 }}>เลือก template เพื่อวาดทับ</h2>
+          <h2 id="vmx-template-library-title" style={{ margin: '4px 0 0', fontSize: 20 }}>เลือก template เพื่อวาดทับ</h2>
           <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
             แต่ละ template เป็น outline เปล่า — เปิดในกระดานวาด แล้วทำ label / mark lesion / hatch
             anatomy ได้ตามต้องการ

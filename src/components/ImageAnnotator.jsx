@@ -18,6 +18,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { alertDialog } from '../lib/dialog.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const PEN_COLORS = [
   { id: 'red',    rgb: '#c0392b', name: 'แดง' },
@@ -37,6 +38,7 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
   const wrapRef = useRef(null);
   const baseRef = useRef(null);
   const drawRef = useRef(null);
+  const dialogRef = useModalFocus({ onClose });
   const [tool, setTool] = useState('pen');         // pen | highlighter | eraser
   const [color, setColor] = useState('red');
   const [size, setSize] = useState(3);
@@ -321,8 +323,18 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
   }
 
   return (
-    <div className="vmx-modal-overlay" onClick={onClose} role="dialog" aria-label={alt || 'Image annotator'}>
-      <div className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 960, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+    <div className="vmx-modal-overlay" onClick={onClose}>
+      <div
+        ref={dialogRef}
+        className="vmx-modal"
+        onClick={(e) => e.stopPropagation()}
+        style={{ maxWidth: 960, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={alt || 'Image annotator'}
+        tabIndex={-1}
+        data-vmx-modal="true"
+      >
         <div style={{ marginBottom: 10 }}>
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             ✏️ {mode === 'sketch' ? 'กระดานวาด' : mode === 'template' ? 'Template + วาดทับ' : 'ภาพ + วาดทับ'}
@@ -352,7 +364,7 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
           <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
           <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
             ขนาด
-            <input type="range" min="1" max="10" value={size} onChange={(e) => setSize(parseInt(e.target.value, 10))} style={{ width: 80 }} />
+            <input type="range" min="1" max="10" value={size} onChange={(e) => setSize(parseInt(e.target.value, 10))} aria-label="ขนาดปากกา" style={{ width: 80 }} />
           </label>
           <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
           <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={undo} disabled={history.length <= 1}>↶ Undo</button>

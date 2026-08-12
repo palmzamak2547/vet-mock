@@ -7,7 +7,7 @@
 // bindings themselves live in App.jsx so the gating logic stays
 // centralised (view + input-target guards).
 
-import { useEffect } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const SHORTCUTS = [
   {
@@ -67,25 +67,12 @@ function Kbd({ children }) {
 }
 
 export default function ShortcutSheet({ open, onClose }) {
-  useEffect(() => {
-    if (!open) return;
-    const handleKey = (e) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        onClose?.();
-      }
-    };
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, [open, onClose]);
+  const dialogRef = useModalFocus({ active: open, onClose });
 
   if (!open) return null;
 
   return (
     <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="แป้นพิมพ์ลัด (keyboard shortcuts)"
       onClick={onClose}
       style={{
         position: 'fixed',
@@ -103,7 +90,13 @@ export default function ShortcutSheet({ open, onClose }) {
       }}
     >
       <div
+        ref={dialogRef}
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="แป้นพิมพ์ลัด (keyboard shortcuts)"
+        tabIndex={-1}
+        data-vmx-modal="true"
         style={{
           background: 'var(--clr-surface)',
           border: '1px solid var(--clr-border)',

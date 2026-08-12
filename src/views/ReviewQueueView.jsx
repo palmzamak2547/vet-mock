@@ -30,6 +30,7 @@ import {
 } from '../lib/contributions.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
+import StatePanel from '../components/StatePanel.jsx';
 
 const STEM_PREVIEW_CHARS = 150;
 const FEEDBACK_MIN_CHARS = 10;
@@ -227,16 +228,16 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       </div>
 
       {/* Queue */}
-      {queueError && (
+      {queueError && queue.length > 0 && (
         <div style={{ padding: 14, borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', marginBottom: 14, fontSize: 13 }}>
           ⚠️ {queueError}
         </div>
       )}
 
       {queueLoading && queue.length === 0 ? (
-        <div style={{ ...emptyPanelStyle, color: 'var(--clr-ink-soft)' }}>
-          กำลังโหลด queue...
-        </div>
+        <StatePanel kind="loading" title="กำลังโหลด Review Queue…" />
+      ) : queueError && queue.length === 0 ? (
+        <StatePanel kind="error" title="โหลด Review Queue ไม่สำเร็จ" body={queueError} actionLabel="ลองอีกครั้ง" onAction={loadQueue} />
       ) : queue.length === 0 ? (
         <div style={emptyPanelStyle}>
           <div style={{ fontSize: 40, marginBottom: 10 }}>🎉</div>
@@ -635,6 +636,7 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
         {config.hint}
       </div>
       <textarea
+        aria-label={`${config.label} feedback`}
         value={feedback}
         onChange={(e) => onFeedbackChange(e.target.value.slice(0, 1500))}
         placeholder={config.placeholder}

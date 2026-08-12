@@ -18,6 +18,7 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const TABS = [
   { id: 'rer',          label: 'RER',         icon: '🔥' },
@@ -358,9 +359,9 @@ function ConvertTab() {
 function Field({ label, value, onChange, placeholder, type = 'text', suffix }) {
   return (
     <div style={{ marginBottom: 12 }}>
-      <label style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+      <div style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
         {label}
-      </label>
+      </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
         <input
           type={type}
@@ -368,6 +369,7 @@ function Field({ label, value, onChange, placeholder, type = 'text', suffix }) {
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
+          aria-label={label}
           style={{
             flex: 1,
             padding: '8px 10px',
@@ -429,10 +431,10 @@ function Note({ children }) {
 
 function ChipRow({ label, options, value, onChange }) {
   return (
-    <div style={{ marginBottom: 12 }}>
-      <label style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+    <div style={{ marginBottom: 12 }} role="group" aria-label={label}>
+      <div style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
         {label}
-      </label>
+      </div>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         {options.map((o) => (
           <button
@@ -440,6 +442,7 @@ function ChipRow({ label, options, value, onChange }) {
             onClick={() => onChange(o.id)}
             className={`vmx-chip ${value === o.id ? 'active' : ''}`}
             type="button"
+            aria-pressed={value === o.id}
           >
             {o.label}
           </button>
@@ -457,15 +460,7 @@ function ChipRow({ label, options, value, onChange }) {
 export default function VetCalculator({ showFab = true } = {}) {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('rer');
-
-  // Esc closes modal, only attach when open so we don't waste a
-  // global listener on every page when the calc is dormant.
-  useEffect(() => {
-    if (!open) return;
-    const handle = (e) => { if (e.key === 'Escape') setOpen(false); };
-    document.addEventListener('keydown', handle);
-    return () => document.removeEventListener('keydown', handle);
-  }, [open]);
+  const dialogRef = useModalFocus({ active: open, onClose: () => setOpen(false) });
 
   // External open trigger — lets a unified ToolsFAB (or any other
   // surface) open the calculator without depending on this component's
@@ -524,6 +519,7 @@ export default function VetCalculator({ showFab = true } = {}) {
       {open && (
         <div className="vmx-modal-overlay" onClick={() => setOpen(false)}>
           <div
+            ref={dialogRef}
             className="vmx-modal"
             onClick={(e) => e.stopPropagation()}
             style={{
@@ -533,13 +529,16 @@ export default function VetCalculator({ showFab = true } = {}) {
               WebkitOverflowScrolling: 'touch',
             }}
             role="dialog"
-            aria-label="Vet Calculator"
+            aria-modal="true"
+            aria-labelledby="vmx-vetcalc-title"
+            tabIndex={-1}
+            data-vmx-modal="true"
           >
             <div style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 Vet Calculator
               </div>
-              <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>คำนวณคลินิก</h2>
+              <h2 id="vmx-vetcalc-title" style={{ margin: '4px 0 0', fontSize: 22 }}>คำนวณคลินิก</h2>
               <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', margin: '4px 0 0' }}>
                 สูตรพื้นฐานที่นิสิต/สัตวแพทย์ใช้บ่อย, ทุกผลลัพธ์มีสูตรกำกับให้ตรวจมือซ้ำได้
               </p>

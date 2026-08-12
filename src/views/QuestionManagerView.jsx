@@ -239,8 +239,8 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
 
         <div className="vmx-config-panel">
           <div className="vmx-form-group">
-            <label>วิชา</label>
-            <select value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })}>
+            <label htmlFor="vmx-custom-subject">วิชา</label>
+            <select id="vmx-custom-subject" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })}>
               {SUBJECTS.filter((s) => s.id !== 'all').map((s) => (
                 <option key={s.id} value={s.id}>{s.icon} {s.name}</option>
               ))}
@@ -248,8 +248,8 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           </div>
 
           <div className="vmx-form-group">
-            <label>ชนิด</label>
-            <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
+            <label htmlFor="vmx-custom-type">ชนิด</label>
+            <select id="vmx-custom-type" value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
               <option value="mcq">Multiple Choice</option>
               <option value="tf">True / False</option>
               <option value="fill">Fill in the Blank</option>
@@ -258,28 +258,28 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           </div>
 
           <div className="vmx-form-group">
-            <label>Tags (คั่นด้วย comma)</label>
-            <input value={formData.tags} onChange={(e) => setFormData({ ...formData, tags: e.target.value })} placeholder="e.g. ortho, plate, fracture" />
+            <label htmlFor="vmx-custom-tags">Tags (คั่นด้วย comma)</label>
+            <input id="vmx-custom-tags" value={formData.tags} onChange={(e) => setFormData({ ...formData, tags: e.target.value })} placeholder="e.g. ortho, plate, fracture" />
           </div>
 
           <div className="vmx-form-group">
-            <label>คำถาม</label>
-            <textarea value={formData.q} onChange={(e) => setFormData({ ...formData, q: e.target.value })} />
+            <label htmlFor="vmx-custom-question">คำถาม</label>
+            <textarea id="vmx-custom-question" value={formData.q} onChange={(e) => setFormData({ ...formData, q: e.target.value })} />
           </div>
 
           <div className="vmx-form-group">
-            <label>รูปภาพ (URL - optional)</label>
-            <input value={formData.image} onChange={(e) => setFormData({ ...formData, image: e.target.value })} placeholder="https://... หรือ data:image/..." />
+            <label htmlFor="vmx-custom-image">รูปภาพ (URL - optional)</label>
+            <input id="vmx-custom-image" value={formData.image} onChange={(e) => setFormData({ ...formData, image: e.target.value })} placeholder="https://... หรือ data:image/..." />
           </div>
 
           {formData.type === 'mcq' && (
-            <div className="vmx-form-group">
-              <label>ตัวเลือก (เลือก radio ที่ถูก)</label>
+            <div className="vmx-form-group" role="group" aria-labelledby="vmx-custom-options-label">
+              <div id="vmx-custom-options-label">ตัวเลือก (เลือก radio ที่ถูก)</div>
               {formData.options.map((opt, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6, alignItems: 'center' }}>
-                  <input type="radio" name="answer" checked={formData.answer == i} onChange={() => setFormData({ ...formData, answer: i })} />
+                  <input type="radio" name="answer" checked={formData.answer == i} onChange={() => setFormData({ ...formData, answer: i })} aria-label={`ตั้งตัวเลือก ${String.fromCharCode(65 + i)} เป็นคำตอบที่ถูก`} />
                   <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, minWidth: 20 }}>{String.fromCharCode(65 + i)}.</span>
-                  <input value={opt} onChange={(e) => { const opts = [...formData.options]; opts[i] = e.target.value; setFormData({ ...formData, options: opts }); }} />
+                  <input value={opt} onChange={(e) => { const opts = [...formData.options]; opts[i] = e.target.value; setFormData({ ...formData, options: opts }); }} aria-label={`ข้อความตัวเลือก ${String.fromCharCode(65 + i)}`} />
                 </div>
               ))}
             </div>
@@ -287,8 +287,8 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
 
           {formData.type === 'tf' && (
             <div className="vmx-form-group">
-              <label>คำตอบ</label>
-              <select value={formData.answer === true ? 'true' : 'false'} onChange={(e) => setFormData({ ...formData, answer: e.target.value === 'true' })}>
+              <label htmlFor="vmx-custom-tf-answer">คำตอบ</label>
+              <select id="vmx-custom-tf-answer" value={formData.answer === true ? 'true' : 'false'} onChange={(e) => setFormData({ ...formData, answer: e.target.value === 'true' })}>
                 <option value="true">True</option>
                 <option value="false">False</option>
               </select>
@@ -296,45 +296,45 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           )}
 
           {formData.type === 'fill' && (
-            <div className="vmx-form-group">
-              <label>คำตอบแต่ละช่อง (ใส่ ____ ในคำถามตรงตำแหน่งที่ต้องการให้เติม)</label>
+            <div className="vmx-form-group" role="group" aria-labelledby="vmx-custom-blanks-label">
+              <div id="vmx-custom-blanks-label">คำตอบแต่ละช่อง (ใส่ ____ ในคำถามตรงตำแหน่งที่ต้องการให้เติม)</div>
               {formData.blanks.map((b, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
                   <span style={{ minWidth: 70, fontSize: 12, alignSelf: 'center' }}>ช่องที่ {i + 1}</span>
-                  <input value={b} onChange={(e) => { const bs = [...formData.blanks]; bs[i] = e.target.value; setFormData({ ...formData, blanks: bs }); }} />
+                  <input value={b} onChange={(e) => { const bs = [...formData.blanks]; bs[i] = e.target.value; setFormData({ ...formData, blanks: bs }); }} aria-label={`คำตอบช่องที่ ${i + 1}`} />
                 </div>
               ))}
               <div style={{ display: 'flex', gap: 6 }}>
-                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, blanks: [...formData.blanks, ''] })}>+ ช่อง</button>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, blanks: [...formData.blanks, ''] })}>+ ช่อง</button>
                 {formData.blanks.length > 1 && (
-                  <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, blanks: formData.blanks.slice(0, -1) })}>− ช่อง</button>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, blanks: formData.blanks.slice(0, -1) })}>− ช่อง</button>
                 )}
               </div>
             </div>
           )}
 
           {formData.type === 'match' && (
-            <div className="vmx-form-group">
-              <label>คู่ matching (ซ้าย ↔ ขวา)</label>
+            <div className="vmx-form-group" role="group" aria-labelledby="vmx-custom-pairs-label">
+              <div id="vmx-custom-pairs-label">คู่ matching (ซ้าย ↔ ขวา)</div>
               {formData.pairs.map((p, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
-                  <input style={{ flex: 1 }} value={p.left} placeholder="ซ้าย" onChange={(e) => { const ps = [...formData.pairs]; ps[i] = { ...ps[i], left: e.target.value }; setFormData({ ...formData, pairs: ps }); }} />
+                  <input style={{ flex: 1 }} value={p.left} placeholder="ซ้าย" aria-label={`คู่ที่ ${i + 1} ด้านซ้าย`} onChange={(e) => { const ps = [...formData.pairs]; ps[i] = { ...ps[i], left: e.target.value }; setFormData({ ...formData, pairs: ps }); }} />
                   <span style={{ alignSelf: 'center' }}>↔</span>
-                  <input style={{ flex: 1 }} value={p.right} placeholder="ขวา" onChange={(e) => { const ps = [...formData.pairs]; ps[i] = { ...ps[i], right: e.target.value }; setFormData({ ...formData, pairs: ps }); }} />
+                  <input style={{ flex: 1 }} value={p.right} placeholder="ขวา" aria-label={`คู่ที่ ${i + 1} ด้านขวา`} onChange={(e) => { const ps = [...formData.pairs]; ps[i] = { ...ps[i], right: e.target.value }; setFormData({ ...formData, pairs: ps }); }} />
                 </div>
               ))}
               <div style={{ display: 'flex', gap: 6 }}>
-                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, pairs: [...formData.pairs, { left: '', right: '' }] })}>+ คู่</button>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, pairs: [...formData.pairs, { left: '', right: '' }] })}>+ คู่</button>
                 {formData.pairs.length > 1 && (
-                  <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, pairs: formData.pairs.slice(0, -1) })}>− คู่</button>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, pairs: formData.pairs.slice(0, -1) })}>− คู่</button>
                 )}
               </div>
             </div>
           )}
 
           <div className="vmx-form-group">
-            <label>คำอธิบาย (Why)</label>
-            <textarea value={formData.explain} onChange={(e) => setFormData({ ...formData, explain: e.target.value })} placeholder="เพราะเซลล์ไตจะ..." />
+            <label htmlFor="vmx-custom-explanation">คำอธิบาย (Why)</label>
+            <textarea id="vmx-custom-explanation" value={formData.explain} onChange={(e) => setFormData({ ...formData, explain: e.target.value })} placeholder="เพราะเซลล์ไตจะ..." />
           </div>
         </div>
 

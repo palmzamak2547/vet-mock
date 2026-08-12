@@ -22,6 +22,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { saveUserFlashcard } from '../lib/user-flashcards.js';
 import ClozeEditor from './ClozeEditor.jsx';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const MIN_CHARS = 10;
 const DEBOUNCE_MS = 200;
@@ -89,6 +90,7 @@ export default function HighlightToCard() {
   const debounceRef = useRef(null);
   const backRef = useRef(null);
   const toastTimer = useRef(null);
+  const dialogRef = useModalFocus({ active: modalOpen, onClose: closeModal, initialFocusRef: backRef });
 
   // Subject options (drop "all" — flashcard belongs to a specific subject or none)
   const subjectOptions = useMemo(
@@ -142,25 +144,8 @@ export default function HighlightToCard() {
     return () => document.removeEventListener('pointerdown', onPointerDown, true);
   }, [anchor, modalOpen]);
 
-  // Esc closes modal
-  useEffect(() => {
-    if (!modalOpen) return undefined;
-    const onKey = (e) => { if (e.key === 'Escape') closeModal(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [modalOpen]);
-
   // Autofocus the back textarea when modal opens (manual mode only —
   // ClozeEditor handles its own focus).
-  useEffect(() => {
-    if (modalOpen && mode === 'manual' && backRef.current) {
-      // Defer one frame so the textarea is mounted + paintable
-      const id = requestAnimationFrame(() => { backRef.current?.focus(); });
-      return () => cancelAnimationFrame(id);
-    }
-    return undefined;
-  }, [modalOpen, mode]);
-
   // Toast auto-dismiss
   useEffect(() => {
     if (!toast) return undefined;
@@ -269,6 +254,7 @@ export default function HighlightToCard() {
           style={{ zIndex: 1600 }}
         >
           <div
+            ref={dialogRef}
             className="vmx-modal"
             onClick={(e) => e.stopPropagation()}
             style={{
@@ -280,14 +266,20 @@ export default function HighlightToCard() {
               flexDirection: 'column',
               gap: 14,
             }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="vmx-highlight-card-title"
+            tabIndex={-1}
+            data-vmx-modal="true"
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <h2 style={{ margin: 0, flex: 1, fontSize: 20 }}>ทำ flashcard</h2>
+              <h2 id="vmx-highlight-card-title" style={{ margin: 0, flex: 1, fontSize: 20 }}>ทำ flashcard</h2>
               <button
                 type="button"
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 onClick={closeModal}
                 title="ปิด (Esc)"
+                aria-label="ปิดหน้าต่างทำ flashcard"
                 style={{ fontSize: 18, padding: '4px 10px' }}
               >
                 ✕

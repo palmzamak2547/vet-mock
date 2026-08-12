@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import dicomParser from 'dicom-parser';
 import { TAG_DICT } from '../../lib/dicom/tag-dict.js';
+import { useModalFocus } from '../../hooks/useModalFocus.js';
 
 // PII-sensitive tag names — highlighted with a warning badge so users
 // know what would be stripped by the anonymizer.
@@ -15,28 +16,13 @@ const PII_TAGS = new Set([
 ]);
 
 export default function TagInspector({ file, onClose }) {
-  const panelRef = useRef(null);
   const searchRef = useRef(null);
   const [tags, setTags] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
   const [piiOnly, setPiiOnly] = useState(false);
-
-  useEffect(() => {
-    const previousFocus = document.activeElement;
-    searchRef.current?.focus();
-    const onKey = (event) => {
-      if (event.key !== 'Escape') return;
-      event.preventDefault();
-      onClose?.();
-    };
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      if (previousFocus?.isConnected) previousFocus.focus();
-    };
-  }, [onClose]);
+  const panelRef = useModalFocus({ onClose, initialFocusRef: searchRef });
 
   useEffect(() => {
     if (!file) return;
@@ -57,11 +43,13 @@ export default function TagInspector({ file, onClose }) {
           } catch {
             value = `(${el.length} bytes binary)`;
           }
+          const displayValue = value.slice(0, 400);
           arr.push({
             tagId,
             tagPretty: tagId.replace(/^x(....)(....)$/, '($1,$2)').toUpperCase(),
             name,
-            value: value.slice(0, 400),
+            value: displayValue,
+            searchText: `${name}\n${tagId}\n${displayValue}`.toLocaleLowerCase(),
             length: el.length,
             isPii: PII_TAGS.has(name),
           });
@@ -83,11 +71,7 @@ export default function TagInspector({ file, onClose }) {
     if (piiOnly) list = list.filter((t) => t.isPii);
     if (filter) {
       const f = filter.toLowerCase();
-      list = list.filter((t) =>
-        t.name.toLowerCase().includes(f) ||
-        t.tagId.includes(f) ||
-        t.value.toLowerCase().includes(f),
-      );
+      list = list.filter((t) => t.searchText.includes(f));
     }
     return list;
   }, [tags, filter, piiOnly]);
@@ -95,16 +79,16 @@ export default function TagInspector({ file, onClose }) {
   const piiPresent = useMemo(() => tags.filter((t) => t.isPii && t.value.trim() && !/^[\s\0]*$/.test(t.value)).length, [tags]);
 
   return (
-    <div ref={panelRef} role="dialog" aria-labelledby="vmx-dicom-tags-title" style={panelStyle}>
+    <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby="vmx-dicom-tags-title" tabIndex={-1} data-vmx-modal="true" style={panelStyle}>
       <div style={panelHeaderStyle}>
         <strong id="vmx-dicom-tags-title">DICOM Tag Inspector</strong>
         <button type="button" onClick={onClose} className="vmx-tap" aria-label="Close DICOM Tag Inspector" style={closeBtnStyle}>✕</button>
       </div>
 
       <div style={subHeaderStyle}>
-        <div style={{ fontSize: '0.75rem', color: '#666' }}>
+        <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)' }}>
           📄 {file?.name}, {tags.length} tags, {piiPresent > 0 && (
-            <span style={{ color: '#c33' }}>⚠️ {piiPresent} PII tag(s) present (un-anonymized)</span>
+            <span style={{ color: 'var(--clr-rose-text)' }}>⚠️ {piiPresent} PII tag(s) present (un-anonymized)</span>
           )}
         </div>
       </div>
@@ -119,7 +103,7 @@ export default function TagInspector({ file, onClose }) {
           onChange={(e) => setFilter(e.target.value)}
           style={searchInputStyle}
         />
-        <label style={{ fontSize: '0.75rem', color: '#555', whiteSpace: 'nowrap', cursor: 'pointer' }}>
+        <label style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap', cursor: 'pointer' }}>
           <input
             type="checkbox"
             checked={piiOnly}
@@ -138,7 +122,7 @@ export default function TagInspector({ file, onClose }) {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.75rem' }}>
             <caption className="vmx-sr-only">DICOM metadata tags</caption>
             <thead>
-              <tr style={{ background: '#f0f0f0', position: 'sticky', top: 0 }}>
+              <tr style={{ background: 'var(--clr-surface-2)', position: 'sticky', top: 0 }}>
                 <th style={thStyle}>Tag</th>
                 <th style={thStyle}>Name</th>
                 <th style={thStyle}>Value</th>
@@ -146,19 +130,19 @@ export default function TagInspector({ file, onClose }) {
             </thead>
             <tbody>
               {filtered.map((t) => (
-                <tr key={t.tagId} style={{ borderBottom: '1px solid #eee', background: t.isPii ? '#fff8f0' : 'transparent' }}>
+                <tr key={t.tagId} style={{ borderBottom: '1px solid var(--clr-border)', background: t.isPii ? 'var(--clr-gold-soft)' : 'transparent' }}>
                   <td style={tdStyle}><code>{t.tagPretty}</code></td>
                   <td style={tdStyle}>
                     {t.name}
                     {t.isPii && <span style={piiBadgeStyle}>PII</span>}
                   </td>
-                  <td style={{ ...tdStyle, fontFamily: 'monospace', wordBreak: 'break-all', color: t.value === '' || /^[\s\0]*$/.test(t.value) ? '#aaa' : '#333' }}>
+                  <td style={{ ...tdStyle, fontFamily: 'monospace', wordBreak: 'break-all', color: t.value === '' || /^[\s\0]*$/.test(t.value) ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
                     {t.value === '' || /^[\s\0]*$/.test(t.value) ? '(empty)' : t.value}
                   </td>
                 </tr>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={3} style={{ padding: 16, textAlign: 'center', color: '#888' }}>ไม่พบ tag</td></tr>
+                <tr><td colSpan={3} style={{ padding: 16, textAlign: 'center', color: 'var(--clr-ink-soft)' }}>ไม่พบ tag</td></tr>
               )}
             </tbody>
           </table>
@@ -174,8 +158,9 @@ const panelStyle = {
   right: 20,
   width: 'min(620px, 90vw)',
   maxHeight: '90vh',
-  background: '#fff',
-  border: '1px solid #ccc',
+  background: 'var(--clr-surface)',
+  color: 'var(--clr-ink)',
+  border: '1px solid var(--clr-border)',
   borderRadius: 8,
   boxShadow: '0 8px 28px rgba(0,0,0,0.2)',
   zIndex: 1000,
@@ -188,16 +173,17 @@ const panelHeaderStyle = {
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '10px 14px',
-  borderBottom: '1px solid #eee',
-  background: '#f8f8f8',
+  borderBottom: '1px solid var(--clr-border)',
+  background: 'var(--clr-surface-2)',
   borderRadius: '8px 8px 0 0',
 };
 
 const closeBtnStyle = {
   width: 26,
   height: 26,
-  border: '1px solid #ccc',
-  background: '#fff',
+  border: '1px solid var(--clr-border)',
+  background: 'var(--clr-surface)',
+  color: 'var(--clr-ink)',
   borderRadius: 4,
   cursor: 'pointer',
   fontSize: '0.85rem',
@@ -206,7 +192,7 @@ const closeBtnStyle = {
 
 const subHeaderStyle = {
   padding: '6px 14px',
-  borderBottom: '1px solid #f0f0f0',
+  borderBottom: '1px solid var(--clr-border)',
 };
 
 const searchRowStyle = {
@@ -214,14 +200,16 @@ const searchRowStyle = {
   gap: 10,
   padding: '8px 14px',
   alignItems: 'center',
-  borderBottom: '1px solid #f0f0f0',
+  borderBottom: '1px solid var(--clr-border)',
 };
 
 const searchInputStyle = {
   flex: 1,
   padding: '5px 8px',
   fontSize: '0.8rem',
-  border: '1px solid #ccc',
+  border: '1px solid var(--clr-border)',
+  background: 'var(--clr-bg)',
+  color: 'var(--clr-ink)',
   borderRadius: 4,
 };
 
@@ -234,9 +222,9 @@ const tableWrapStyle = {
 const thStyle = {
   textAlign: 'left',
   padding: '6px 8px',
-  borderBottom: '1px solid #ddd',
+  borderBottom: '1px solid var(--clr-border)',
   fontWeight: 600,
-  color: '#444',
+  color: 'var(--clr-ink)',
   fontSize: '0.72rem',
 };
 
@@ -250,11 +238,11 @@ const piiBadgeStyle = {
   marginLeft: 6,
   padding: '0 5px',
   fontSize: '0.65rem',
-  background: '#c33',
+  background: 'var(--clr-rose)',
   color: '#fff',
   borderRadius: 2,
   fontWeight: 700,
 };
 
-const loadingStyle = { padding: 30, textAlign: 'center', color: '#888' };
-const errorStyle = { padding: 16, color: '#c33' };
+const loadingStyle = { padding: 30, textAlign: 'center', color: 'var(--clr-ink-soft)' };
+const errorStyle = { padding: 16, color: 'var(--clr-rose-text)' };

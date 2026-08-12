@@ -14,6 +14,7 @@
 // ============================================================
 
 import { useEffect, useState } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const DISMISS_KEY = 'vmx-pwa-install-dismissed';
 
@@ -46,6 +47,7 @@ function isIOSSafari() {
 export default function PWAInstallChip() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showIosTip, setShowIosTip] = useState(false);
+  const dialogRef = useModalFocus({ active: showIosTip, onClose: () => setShowIosTip(false) });
   const [dismissed, setDismissed] = useState(() => {
     try { return window.localStorage.getItem(DISMISS_KEY) === '1'; } catch { return false; }
   });
@@ -126,15 +128,19 @@ export default function PWAInstallChip() {
         <div
           className="vmx-modal-overlay"
           onClick={() => setShowIosTip(false)}
-          role="dialog"
-          aria-label="วิธีติดตั้งบน iOS"
         >
           <div
+            ref={dialogRef}
             className="vmx-modal"
             onClick={(e) => e.stopPropagation()}
             style={{ maxWidth: 420 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="vmx-pwa-ios-title"
+            tabIndex={-1}
+            data-vmx-modal="true"
           >
-            <h3 style={{ margin: '0 0 8px', fontSize: 18 }}>ติดตั้งบน iPhone / iPad</h3>
+            <h3 id="vmx-pwa-ios-title" style={{ margin: '0 0 8px', fontSize: 18 }}>ติดตั้งบน iPhone / iPad</h3>
             <ol style={{ paddingLeft: 20, margin: 0, fontSize: 14, lineHeight: 1.7 }}>
               <li>กดปุ่ม <strong>Share</strong> ⬆ ที่แถบล่าง Safari</li>
               <li>เลื่อนหา <strong>"Add to Home Screen"</strong> (เพิ่มที่หน้าจอโฮม)</li>

@@ -27,12 +27,9 @@ const SUBJECT_BY_ID = new Map(SUBJECTS.map((s) => [s.id, s]));
 // hasSupabase internally and renders a sign-in CTA otherwise.
 const QComments = lazy(() => import('../components/QComments.jsx'));
 
-// NOTE: Smart AI grading was temporarily removed from the UI per user
-// request — the model + rubric + self-assessment workflow alone is
-// sufficient for the Final exam mock practice and avoids the friction
-// of asking every user to set up an Anthropic API key. The supporting
-// code (src/lib/ai-grade.js + api/grade-summary.js) remains in place
-// so re-enabling the feature is a one-line UI change later.
+// Remote grading stays outside the product. The local rubric and
+// self-assessment workflow keep review dependable and require no provider
+// configuration; the old server path remains dormant for compatibility.
 
 // Phase label map — mirrors header pill in App.jsx
 const PHASE_LABEL_REV = {

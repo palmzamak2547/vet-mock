@@ -353,8 +353,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
           ) : (
             <form onSubmit={handleSaveProfile}>
               <div className="vmx-form-group">
-                <label>Username</label>
+                <label htmlFor="vmx-account-username">Username</label>
                 <input
+                  id="vmx-account-username"
                   type="text"
                   value={editUsername}
                   onChange={(e) => setEditUsername(sanitizeUsername(e.target.value))}
@@ -368,8 +369,8 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
               </div>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                 <div className="vmx-form-group" style={{ flex: '0 0 100px' }}>
-                  <label>ชั้นปี</label>
-                  <select value={editYear} onChange={(e) => setEditYear(e.target.value)}>
+                  <label htmlFor="vmx-account-year">ชั้นปี</label>
+                  <select id="vmx-account-year" value={editYear} onChange={(e) => setEditYear(e.target.value)}>
                     <option value="">—</option>
                     <option value="1">ปี 1</option>
                     <option value="2">ปี 2</option>
@@ -380,8 +381,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
                   </select>
                 </div>
                 <div className="vmx-form-group" style={{ flex: 1, minWidth: 140 }}>
-                  <label>Cohort</label>
+                  <label htmlFor="vmx-account-cohort">Cohort</label>
                   <input
+                    id="vmx-account-cohort"
                     type="text"
                     value={editCohort}
                     onChange={(e) => setEditCohort(e.target.value.slice(0, 30))}
@@ -390,8 +392,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
                   />
                 </div>
                 <div className="vmx-form-group" style={{ flex: '0 0 90px' }}>
-                  <label>Avatar</label>
+                  <label htmlFor="vmx-account-avatar">Avatar</label>
                   <input
+                    id="vmx-account-avatar"
                     type="text"
                     value={editAvatar}
                     onChange={(e) => setEditAvatar(e.target.value.slice(0, 4))}
@@ -402,8 +405,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
                 </div>
               </div>
               <div className="vmx-form-group">
-                <label>Bio (≤140 ตัว)</label>
+                <label htmlFor="vmx-account-bio">Bio (≤140 ตัว)</label>
                 <textarea
+                  id="vmx-account-bio"
                   value={editBio}
                   onChange={(e) => setEditBio(e.target.value.slice(0, 140))}
                   placeholder="แนะนำตัวสั้น ๆ — อะไรที่อยากให้คนรู้"
@@ -498,18 +502,19 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
                whoever is typing can also read the account's email. */
             <form onSubmit={reauthSent ? handleChangePassword : handleRequestReauth}>
               <div className="vmx-form-group">
-                <label>รหัสผ่านใหม่</label>
-                <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="อย่างน้อย 8 ตัว" autoComplete="new-password" disabled={reauthSent} />
+                <label htmlFor="vmx-account-password">รหัสผ่านใหม่</label>
+                <input id="vmx-account-password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="อย่างน้อย 8 ตัว" autoComplete="new-password" disabled={reauthSent} />
                 {newPassword && <PasswordStrengthBar password={newPassword} />}
               </div>
               <div className="vmx-form-group">
-                <label>ยืนยันรหัสผ่านใหม่</label>
-                <input type="password" value={newPasswordConfirm} onChange={(e) => setNewPasswordConfirm(e.target.value)} autoComplete="new-password" disabled={reauthSent} />
+                <label htmlFor="vmx-account-password-confirm">ยืนยันรหัสผ่านใหม่</label>
+                <input id="vmx-account-password-confirm" type="password" value={newPasswordConfirm} onChange={(e) => setNewPasswordConfirm(e.target.value)} autoComplete="new-password" disabled={reauthSent} />
               </div>
               {reauthSent && (
                 <div className="vmx-form-group">
-                  <label>รหัสยืนยันจากอีเมล</label>
+                  <label htmlFor="vmx-account-reauth-code">รหัสยืนยันจากอีเมล</label>
                   <input
+                    id="vmx-account-reauth-code"
                     type="text" inputMode="numeric" autoComplete="one-time-code"
                     value={reauthCode} onChange={(e) => setReauthCode(e.target.value)}
                     placeholder="กรอกรหัสที่ส่งไปทางอีเมล" autoFocus
@@ -541,8 +546,8 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
           ) : (
             <form onSubmit={handleChangeEmail}>
               <div className="vmx-form-group">
-                <label>อีเมลใหม่</label>
-                <input type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="new@example.com" autoComplete="email" />
+                <label htmlFor="vmx-account-email">อีเมลใหม่</label>
+                <input id="vmx-account-email" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="new@example.com" autoComplete="email" />
                 <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)' }}>
                   เราจะส่งลิงก์ยืนยันไปที่อีเมลใหม่ — ต้องกดลิงก์เพื่อยืนยันก่อน
                 </div>
@@ -613,8 +618,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
                 </ul>
               </div>
               <div className="vmx-form-group">
-                <label>พิมพ์ <code>ลบ account</code> เพื่อยืนยัน</label>
+                <label htmlFor="vmx-account-delete-confirm">พิมพ์ <code>ลบ account</code> เพื่อยืนยัน</label>
                 <input
+                  id="vmx-account-delete-confirm"
                   type="text"
                   value={deleteConfirmText}
                   onChange={(e) => setDeleteConfirmText(e.target.value)}

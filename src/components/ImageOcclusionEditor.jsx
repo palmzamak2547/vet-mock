@@ -16,6 +16,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { genMaskId } from '../lib/image-occlusion.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const ACCEPT_TYPES = 'image/png,image/jpeg,image/jpg,image/webp,image/svg+xml';
 const WARN_SIZE_BYTES = 2 * 1024 * 1024; // 2 MB → warn but allow
@@ -56,6 +57,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
   const imgRef = useRef(null);
   const fileInputRef = useRef(null);
   const drag = useRef(null); // { kind: 'create' | 'move' | 'resize', maskId?, handle?, startX, startY, startMask }
+  const dialogRef = useModalFocus({ onClose });
 
   // Toast auto-dismiss
   useEffect(() => {
@@ -288,6 +290,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
       style={{ alignItems: 'flex-start', padding: 'env(safe-area-inset-top) 0 env(safe-area-inset-bottom)', overflow: 'auto' }}
     >
       <div
+        ref={dialogRef}
         className="vmx-modal"
         style={{
           maxWidth: 980,
@@ -297,11 +300,17 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
           maxHeight: 'none',
         }}
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="แก้ไข Image Occlusion deck"
+        tabIndex={-1}
+        data-vmx-modal="true"
       >
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
           <input
             type="text"
+            aria-label="ชื่อ Image Occlusion deck"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="ชื่อ deck (เช่น Cardiac anatomy lateral)"
@@ -512,6 +521,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
             </div>
             <input
               type="text"
+              aria-label="ชื่อกล่องที่เลือก"
               value={selectedMask.label}
               onChange={(e) => updateMask(selectedMask.id, { label: e.target.value })}
               placeholder="Label (สั้น เช่น 'A1', 'aorta')"
@@ -527,6 +537,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
               }}
             />
             <textarea
+              aria-label="คำตอบของกล่องที่เลือก"
               value={selectedMask.answer}
               onChange={(e) => updateMask(selectedMask.id, { answer: e.target.value })}
               placeholder="คำตอบเต็ม (เช่น 'aortic arch — left subclavian origin')"

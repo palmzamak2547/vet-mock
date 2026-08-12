@@ -256,8 +256,9 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           {/* Year + Subject */}
           <div style={{ display: 'grid', gridTemplateColumns: '110px 1fr', gap: 12, ...FIELD_WRAP }}>
             <div>
-              <label style={LABEL_STYLE}>ชั้นปี</label>
+              <label htmlFor="vmx-contribute-year" style={LABEL_STYLE}>ชั้นปี</label>
               <select
+                id="vmx-contribute-year"
                 value={payload.year}
                 onChange={(e) => patch({ year: Number(e.target.value), subject: '', topic: '' })}
                 style={{ width: '100%', minHeight: 44 }}
@@ -268,8 +269,9 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
               </select>
             </div>
             <div>
-              <label style={LABEL_STYLE}>วิชา *</label>
+              <label htmlFor="vmx-contribute-subject" style={LABEL_STYLE}>วิชา *</label>
               <select
+                id="vmx-contribute-subject"
                 value={payload.subject}
                 onChange={(e) => patch({ subject: e.target.value, topic: '' })}
                 style={{ width: '100%', minHeight: 44 }}
@@ -288,8 +290,9 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           {/* Topic (optional, filtered by subject) */}
           {topicOptions.length > 0 && (
             <div style={FIELD_WRAP}>
-              <label style={LABEL_STYLE}>หัวข้อย่อย (optional)</label>
+              <label htmlFor="vmx-contribute-topic" style={LABEL_STYLE}>หัวข้อย่อย (optional)</label>
               <select
+                id="vmx-contribute-topic"
                 value={payload.topic}
                 onChange={(e) => patch({ topic: e.target.value })}
                 style={{ width: '100%', minHeight: 44 }}
@@ -305,8 +308,8 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           )}
 
           {/* Question type */}
-          <div style={FIELD_WRAP}>
-            <label style={LABEL_STYLE}>รูปแบบคำถาม</label>
+          <div style={FIELD_WRAP} role="group" aria-labelledby="vmx-contribute-type-label">
+            <div id="vmx-contribute-type-label" style={LABEL_STYLE}>รูปแบบคำถาม</div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               {[
                 { id: 'mcq', label: 'MCQ (เลือก 1)' },
@@ -319,6 +322,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                     key={t.id}
                     type="button"
                     onClick={() => patch({ q_type: t.id })}
+                    aria-pressed={active}
                     style={{
                       flex: '1 1 100px',
                       minHeight: 44,
@@ -341,12 +345,13 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
 
           {/* Question stem */}
           <div style={FIELD_WRAP}>
-            <label style={LABEL_STYLE}>
+            <label htmlFor="vmx-contribute-question" style={LABEL_STYLE}>
               โจทย์ * <span style={{ fontWeight: 'normal', textTransform: 'none', letterSpacing: 0 }}>
                 ({payload.q_text.length}/2000)
               </span>
             </label>
             <textarea
+              id="vmx-contribute-question"
               value={payload.q_text}
               onChange={(e) => patch({ q_text: e.target.value.slice(0, 2000) })}
               placeholder="เช่น สุนัขพันธุ์ Doberman 7 ปี เพศผู้ มาด้วยอาการ syncope ออกกำลังกายแล้วเป็นลม ผล echo พบ..."
@@ -357,12 +362,12 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           </div>
 
           {/* Options + correct-answer radio */}
-          <div style={FIELD_WRAP}>
-            <label style={LABEL_STYLE}>
+          <div style={FIELD_WRAP} role="group" aria-labelledby="vmx-contribute-options-label">
+            <div id="vmx-contribute-options-label" style={LABEL_STYLE}>
               ตัวเลือก * <span style={{ fontWeight: 'normal', textTransform: 'none', letterSpacing: 0 }}>
                 ({payload.options.length}/6, กดวงกลมเพื่อระบุข้อที่ถูก)
               </span>
-            </label>
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {payload.options.map((opt, i) => {
                 const isCorrect = payload.answer_idx === i;
@@ -379,7 +384,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                       onClick={() => patch({ answer_idx: i })}
                       aria-label={`ทำเครื่องหมายตัวเลือก ${i + 1} เป็นคำตอบที่ถูก`}
                       style={{
-                        width: 28, height: 28, borderRadius: '50%',
+                        width: 44, height: 44, borderRadius: '50%',
                         border: `2px solid ${isCorrect ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
                         background: isCorrect ? 'var(--clr-sage)' : 'transparent',
                         color: isCorrect ? 'white' : 'var(--clr-ink-soft)',
@@ -391,6 +396,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                     </button>
                     <input
                       type="text"
+                      aria-label={`ข้อความตัวเลือก ${String.fromCharCode(65 + i)}`}
                       value={opt}
                       onChange={(e) => setOption(i, e.target.value)}
                       placeholder={`ตัวเลือก ${String.fromCharCode(65 + i)}`}
@@ -403,7 +409,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                         onClick={() => removeOption(i)}
                         aria-label={`ลบตัวเลือก ${i + 1}`}
                         style={{
-                          width: 32, height: 32, borderRadius: 8,
+                          width: 44, height: 44, borderRadius: 8,
                           border: '1px solid var(--clr-border)',
                           background: 'var(--clr-surface)',
                           color: 'var(--clr-ink-soft)', fontSize: 16,
@@ -433,12 +439,13 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
 
           {/* Explain / rationale */}
           <div style={FIELD_WRAP}>
-            <label style={LABEL_STYLE}>
+            <label htmlFor="vmx-contribute-explanation" style={LABEL_STYLE}>
               เฉลย + อธิบายเหตุผล * <span style={{ fontWeight: 'normal', textTransform: 'none', letterSpacing: 0 }}>
                 ({payload.explain_text.length} ตัวอักษร, ขั้นต่ำ 30)
               </span>
             </label>
             <textarea
+              id="vmx-contribute-explanation"
               value={payload.explain_text}
               onChange={(e) => patch({ explain_text: e.target.value.slice(0, 5000) })}
               placeholder="ทำไมข้อ X ถึงถูก, ทำไมข้อ Y, Z ถึงผิด, อ้างอิงสไลด์/ตำราหน้าไหน"
@@ -450,12 +457,13 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
 
           {/* Difficulty slider */}
           <div style={FIELD_WRAP}>
-            <label style={LABEL_STYLE}>
+            <label htmlFor="vmx-contribute-difficulty" style={LABEL_STYLE}>
               ความยาก: <span style={{ color: 'var(--clr-ink)' }}>
                 {['', '⭐ ง่ายมาก', '⭐⭐ ง่าย', '⭐⭐⭐ กลาง', '⭐⭐⭐⭐ ยาก', '⭐⭐⭐⭐⭐ ยากมาก'][payload.difficulty]}
               </span>
             </label>
             <input
+              id="vmx-contribute-difficulty"
               type="range"
               min={1}
               max={5}
@@ -475,8 +483,9 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
 
           {/* Source type + ref */}
           <div style={FIELD_WRAP}>
-            <label style={LABEL_STYLE}>ประเภทแหล่งที่มา *</label>
+            <label htmlFor="vmx-contribute-source-type" style={LABEL_STYLE}>ประเภทแหล่งที่มา *</label>
             <select
+              id="vmx-contribute-source-type"
               value={payload.source_type}
               onChange={(e) => patch({ source_type: e.target.value })}
               style={{ width: '100%', minHeight: 44 }}
@@ -490,8 +499,9 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           </div>
 
           <div style={FIELD_WRAP}>
-            <label style={LABEL_STYLE}>อ้างอิงแหล่งที่มา *</label>
+            <label htmlFor="vmx-contribute-source-ref" style={LABEL_STYLE}>อ้างอิงแหล่งที่มา *</label>
             <input
+              id="vmx-contribute-source-ref"
               type="text"
               value={payload.source_ref}
               onChange={(e) => patch({ source_ref: e.target.value.slice(0, 300) })}
@@ -504,8 +514,9 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
 
           {/* Contributor note */}
           <div style={FIELD_WRAP}>
-            <label style={LABEL_STYLE}>โน้ตถึง reviewer (optional)</label>
+            <label htmlFor="vmx-contribute-note" style={LABEL_STYLE}>โน้ตถึง reviewer (optional)</label>
             <textarea
+              id="vmx-contribute-note"
               value={payload.contributor_note}
               onChange={(e) => patch({ contributor_note: e.target.value.slice(0, 1000) })}
               placeholder="เช่น 'จุดที่ไม่แน่ใจคือ option C — ขอ peer ช่วยเช็คให้หน่อย'"

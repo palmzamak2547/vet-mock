@@ -8,15 +8,10 @@
 // `INSTRUCTORS` data from src/data/instructors.js (separate chunk).
 // ============================================================
 
-import { useEffect } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 export default function InstructorModal({ instructor, onClose }) {
-  // Esc to close
-  useEffect(() => {
-    const handle = (e) => { if (e.key === 'Escape') onClose(); };
-    document.addEventListener('keydown', handle);
-    return () => document.removeEventListener('keydown', handle);
-  }, [onClose]);
+  const dialogRef = useModalFocus({ active: Boolean(instructor), onClose });
 
   if (!instructor) return null;
 
@@ -25,6 +20,7 @@ export default function InstructorModal({ instructor, onClose }) {
   return (
     <div className="vmx-modal-overlay" onClick={onClose}>
       <div
+        ref={dialogRef}
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
         // Explicit max-height + overflow re-asserts the .vmx-modal
@@ -37,7 +33,10 @@ export default function InstructorModal({ instructor, onClose }) {
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
         }}
+        tabIndex={-1}
+        data-vmx-modal="true"
         role="dialog"
+        aria-modal="true"
         aria-label={`Instructor profile: ${nameEn}`}
       >
         {/* Header */}

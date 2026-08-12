@@ -26,6 +26,7 @@ import VideoNotePanel from '../components/VideoNotePanel.jsx';
 // per-subject loader returns no entry (e.g. mis-tagged data).
 import { loadVideoSummariesForSubject, loadAllVideoSummaries } from '../data/video-summaries.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 
 async function loadVideoSummaryEntry(videoId) {
   if (!videoId) return null;
@@ -496,6 +497,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   const sidebarRef = useRef(null);
   const activeItemRef = useRef(null);
   const searchInputRef = useRef(null);
+  const dialogRef = useModalFocus({ onClose });
 
   // Fetch playlist items
   useEffect(() => {
@@ -560,7 +562,6 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   useEffect(() => {
     const handleKey = (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      if (e.key === 'Escape') { onClose(); return; }
       if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
       if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
       if (e.key === '/' && playlistItems.length > 0) { e.preventDefault(); searchInputRef.current?.focus(); }
@@ -703,12 +704,22 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           button + Footer actions on shorter desktop screens. The old
           `overflow: 'hidden'` clipped everything below the iframe and
           users couldn't reach the summary button at all. */}
-      <div className="vmx-modal" style={{ maxWidth: showList && playlistItems.length > 0 ? 1200 : 800, width: '100%', padding: 0, overflowX: 'hidden', overflowY: 'auto' }} onClick={(e) => e.stopPropagation()}>
+      <div
+        ref={dialogRef}
+        className="vmx-modal"
+        style={{ maxWidth: showList && playlistItems.length > 0 ? 1200 : 800, width: '100%', padding: 0, overflowX: 'hidden', overflowY: 'auto' }}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vmx-player-title"
+        tabIndex={-1}
+        data-vmx-modal="true"
+      >
 
         {/* Header bar */}
         <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <h2 style={{ margin: 0, fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>{video.topic}</h2>
+            <h2 id="vmx-player-title" style={{ margin: 0, fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>{video.topic}</h2>
             {playlistItems.length > 0 && (
               <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                 📋 {playlistItems.length} คลิป
@@ -718,6 +729,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           </div>
           {playlistId && playlistItems.length > 0 && (
             <button
+              type="button"
               className="vmx-btn vmx-btn-ghost vmx-btn-sm"
               onClick={() => setShowList(!showList)}
               style={{ flexShrink: 0 }}
@@ -726,7 +738,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               {showList ? 'ซ่อน list' : `ดู list (${playlistItems.length})`}
             </button>
           )}
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px' }} title="ปิด (Esc)">✕</button>
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px' }} title="ปิด (Esc)" aria-label="ปิดเครื่องเล่นวิดีโอ">✕</button>
         </div>
 
         <div className="vmx-player-grid" style={{ display: 'grid', gridTemplateColumns: showList && playlistItems.length > 0 ? 'minmax(0, 2.2fr) minmax(280px, 1fr)' : '1fr', gap: 0 }}>
@@ -952,19 +964,22 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 // AddEditModal — form to add/edit custom video
 // ============================================================
 function AddEditModal({ form, setForm, save, onClose, editing }) {
+  const urlRef = useRef(null);
+  const dialogRef = useModalFocus({ onClose, initialFocusRef: urlRef });
   return (
     <div className="vmx-modal-overlay" onClick={onClose}>
-      <div className="vmx-modal" onClick={(e) => e.stopPropagation()}>
-        <h2>{editing ? 'แก้ไขคลิป' : 'เพิ่มคลิป YouTube'}</h2>
+      <div ref={dialogRef} className="vmx-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="vmx-video-edit-title" tabIndex={-1} data-vmx-modal="true">
+        <h2 id="vmx-video-edit-title">{editing ? 'แก้ไขคลิป' : 'เพิ่มคลิป YouTube'}</h2>
 
         <div className="vmx-form-group">
-          <label>YouTube URL *</label>
+          <label htmlFor="vmx-video-url">YouTube URL *</label>
           <input
+            ref={urlRef}
+            id="vmx-video-url"
             type="url"
             value={form.url}
             onChange={(e) => setForm({ ...form, url: e.target.value })}
             placeholder="https://youtu.be/xxx หรือ playlist link"
-            autoFocus
           />
           {form.url && (
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 6 }}>
@@ -977,13 +992,13 @@ function AddEditModal({ form, setForm, save, onClose, editing }) {
         </div>
 
         <div className="vmx-form-group">
-          <label>หัวข้อ *</label>
-          <input type="text" value={form.topic} onChange={(e) => setForm({ ...form, topic: e.target.value })} placeholder="เช่น Cherry eye surgery" />
+          <label htmlFor="vmx-video-topic">หัวข้อ *</label>
+          <input id="vmx-video-topic" type="text" value={form.topic} onChange={(e) => setForm({ ...form, topic: e.target.value })} placeholder="เช่น Cherry eye surgery" />
         </div>
 
         <div className="vmx-form-group">
-          <label>วิชา</label>
-          <select value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })}>
+          <label htmlFor="vmx-video-subject">วิชา</label>
+          <select id="vmx-video-subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })}>
             {SUBJECTS.filter((s) => s.id !== 'all').map((s) => (
               <option key={s.id} value={s.id}>{s.icon} {s.name}</option>
             ))}
@@ -992,18 +1007,18 @@ function AddEditModal({ form, setForm, save, onClose, editing }) {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
           <div className="vmx-form-group">
-            <label>ผู้สร้าง (optional)</label>
-            <input value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} placeholder="Dai" />
+            <label htmlFor="vmx-video-author">ผู้สร้าง (optional)</label>
+            <input id="vmx-video-author" value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} placeholder="Dai" />
           </div>
           <div className="vmx-form-group">
-            <label>ความยาว (optional)</label>
-            <input value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} placeholder="10:30 หรือ Playlist" />
+            <label htmlFor="vmx-video-duration">ความยาว (optional)</label>
+            <input id="vmx-video-duration" value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} placeholder="10:30 หรือ Playlist" />
           </div>
         </div>
 
         <div className="vmx-btn-row">
-          <button className="vmx-btn vmx-btn-ghost" onClick={onClose}>ยกเลิก</button>
-          <button className="vmx-btn vmx-btn-primary" onClick={save}>บันทึก</button>
+          <button type="button" className="vmx-btn vmx-btn-ghost" onClick={onClose}>ยกเลิก</button>
+          <button type="button" className="vmx-btn vmx-btn-primary" onClick={save}>บันทึก</button>
         </div>
       </div>
     </div>

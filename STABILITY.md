@@ -8,6 +8,32 @@ optimizations. When in doubt, choose the boring stable pattern.
 
 ---
 
+## 0. Shared dialogs use `useModalFocus` — DO NOT reimplement focus traps
+
+**Rule:** every modal dialog uses `src/hooks/useModalFocus.js`, carries
+`data-vmx-modal="true"`, a dialog name, `tabIndex={-1}`, and lets the hook own
+Escape/Tab/focus restoration. Nested dialogs depend on that marker to ensure
+only the top-most dialog responds.
+
+**Why:** local `keydown` handlers repeatedly lost focus when a conditional step
+unmounted its focused control, and iOS/WebKit taps can leave `activeElement` on
+`body`. The shared hook captures the real pointer launcher and has cross-engine
+regression coverage.
+
+## 0.1 Stable views own canonical routes; stateful flows do not
+
+**Rule:** add shareable destinations through `src/lib/view-route.js`. Do not add
+active config/exam/results screens to the map unless their complete state can be
+reconstructed from the URL. Add the matching Vercel rewrite and route tests.
+
+## 0.2 Browser projections are generated, never hand-edited
+
+**Rule:** canonical VetWiki notes/evidence remain the editing source. Update
+browser chunks with `npm run regen:wiki-runtime`; `lint:wiki-runtime` must catch
+changed, missing and extra generated files before release.
+
+---
+
 ## 1. `::before` / `::after` pseudo-elements with negative `inset` to
 ##    expand hit-zone — BANNED
 

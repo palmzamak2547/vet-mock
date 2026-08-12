@@ -1,7 +1,7 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.26.1",
+  "version": "5.27.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,11 +17,13 @@
     "lint:registry": "node scripts/regen-bank-registry.mjs --check",
     "validate:wiki": "node scripts/validate-wiki.mjs",
     "sync:wiki-unmapped": "node scripts/sync-wiki-unmapped.mjs",
-    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:registry && npm run lint:wiki-registry && npm run lint:notes-registry && npm run lint:curriculum && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check",
+    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:registry && npm run lint:wiki-registry && npm run lint:notes-registry && npm run lint:conflict-summary && npm run lint:wiki-runtime && npm run lint:curriculum && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check",
     "regen:q-counts": "node scripts/regen-q-counts.mjs",
     "regen:registry": "node scripts/regen-bank-registry.mjs",
     "regen:video-meta": "node scripts/regen-video-meta.mjs",
     "regen:wiki-registry": "node scripts/regen-vetwiki-topic-registry.mjs",
+    "regen:conflict-summary": "node scripts/regen-conflict-summary.mjs",
+    "regen:wiki-runtime": "node scripts/regen-vetwiki-runtime-data.mjs",
     "fix:academic-safety": "node scripts/lint-academic-safety.mjs --apply",
     "fix:questions": "node scripts/fix-question-bias.cjs",
     "fix:length": "node scripts/fix-length-bias.cjs",
@@ -47,7 +49,9 @@
     "lint:wiki-coverage": "node scripts/lint-wiki-coverage.mjs",
     "regen:notes-registry": "node scripts/regen-notes-registry.mjs",
     "lint:notes-registry": "node scripts/regen-notes-registry.mjs --check",
-    "lint:wiki-registry": "node scripts/regen-vetwiki-topic-registry.mjs --check"
+    "lint:wiki-registry": "node scripts/regen-vetwiki-topic-registry.mjs --check",
+    "lint:conflict-summary": "node scripts/regen-conflict-summary.mjs --check",
+    "lint:wiki-runtime": "node scripts/regen-vetwiki-runtime-data.mjs --check"
   },
   "browserslist": [
     "defaults",
