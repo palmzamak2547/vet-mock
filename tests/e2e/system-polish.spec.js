@@ -107,8 +107,10 @@ test('key public forms expose an accessible name for every visible control', asy
 
   await page.goto('/app/account');
   await page.locator('section[aria-labelledby="vmx-auth-required-title"]').getByRole('button', { name: /เข้าสู่ระบบ/ }).click();
-  await expect(page.getByRole('heading', { name: /ยินดีต้อนรับ VetMock/ })).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
-  await expectNoUnnamedFormControls(page, 'authentication');
+  const authHeading = page.getByRole('heading', { name: /ยินดีต้อนรับ VetMock/ });
+  const unavailableHeading = page.getByRole('heading', { name: /เข้าสู่ระบบไม่พร้อมใช้งานชั่วคราว/ });
+  await expect(authHeading.or(unavailableHeading)).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
+  await expectNoUnnamedFormControls(page, await authHeading.isVisible() ? 'authentication' : 'auth unavailable state');
 });
 
 test('a failed VetWiki article chunk offers a working retry', async ({ page, browserName, isMobile }) => {

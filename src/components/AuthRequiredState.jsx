@@ -23,3 +23,24 @@ export default function AuthRequiredState({ onSignIn, onHome }) {
     </section>
   );
 }
+
+export function AuthUnavailableState({ onHome }) {
+  return (
+    <section
+      className="vmx-empty"
+      aria-labelledby="vmx-auth-unavailable-title"
+      style={{ maxWidth: 480, margin: '48px auto', textAlign: 'center' }}
+    >
+      <div aria-hidden style={{ fontSize: 36, marginBottom: 12 }}>🌿</div>
+      <h1 id="vmx-auth-unavailable-title" style={{ fontSize: 22, margin: '0 0 8px' }}>
+        เข้าสู่ระบบไม่พร้อมใช้งานชั่วคราว
+      </h1>
+      <p style={{ margin: '0 0 20px', color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+        ยังฝึกข้อสอบ อ่านโน้ต และใช้เครื่องมือแบบ Guest ได้ตามปกติ แล้วค่อยลองเข้าสู่ระบบอีกครั้งภายหลัง
+      </p>
+      <button type="button" className="vmx-btn vmx-btn-primary" onClick={onHome}>
+        กลับหน้าแรก
+      </button>
+    </section>
+  );
+}
