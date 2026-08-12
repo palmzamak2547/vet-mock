@@ -483,11 +483,11 @@ Cross-ref VetMock Q1785-1790, Q1825-1826`
   subject: 'poultry',
   date: '31 Mar 69',
   durationMin: 110,
-  instructor: 'Aj. Ekasingh Sareung (เอกสิงห์ สาเรือง, Betagro) — L14-15',
+  instructor: 'Aj. Ekasingh Sarueng (เอกสิงห์ สาเรือง, Betagro) — L14-15',
   examFormat: 'T/F ~10 ข้อ + MCQ',
   summary: `# L14-15 — Poultry Farm QA, Aj. Ekasingh
 
-> Lecturer: Aj. Ekasingh Sareung — Betagro Vet '52, ตำแหน่งผู้ช่วยกรรมการผู้จัดการใหญ่ ดูงาน **สัตวแพทย์ + ประกันคุณภาพฟาร์มสัตว์ปีกทั้งเครือ Betagro** [28:51]
+> Lecturer: Aj. Ekasingh Sarueng — Betagro Vet '52, ตำแหน่งผู้ช่วยกรรมการผู้จัดการใหญ่ ดูงาน **สัตวแพทย์ + ประกันคุณภาพฟาร์มสัตว์ปีกทั้งเครือ Betagro** [28:51]
 > Style: ลุยเร็ว, ใช้ตัวอย่างจากเชนจริง (ฟาร์มปู่ย่า → พ่อแม่พันธุ์ → โรงฟัก → ไก่เนื้อ/ไก่ไข่ → โรงเชือด/Further), เน้น regulator + customer requirement, Cross-ref VetMock Q1751-1758, Q1806-1810, Q1819-1822
 
 ---

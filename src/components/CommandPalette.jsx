@@ -210,10 +210,10 @@ function buildStaticItems() {
     push({
       type: 'instructor',
       payload: ins,
-      label: `Aj. ${ins.nameEn}`,
-      hint: `👨‍🏫 ${ins.nameTh || ''}, ${(ins.subjects || []).join('/').toUpperCase()}`,
+      label: `อ. ${ins.nameTh || ins.nameEn}`,
+      hint: `👨‍🏫 ${ins.nameEn}, ${(ins.subjects || []).join('/').toUpperCase()}`,
       icon: '👨‍🏫',
-      kw: `${ins.nameEn} ${ins.nameTh || ''} ${ins.position || ''} ${(ins.areas || []).join(' ')} instructor faculty อาจารย์`,
+      kw: `${ins.nameEn} ${ins.nameTh || ''} ${(ins.aliases || []).join(' ')} ${ins.position || ''} ${(ins.areas || []).join(' ')} instructor faculty อาจารย์`,
     });
   }
 

@@ -29,19 +29,19 @@ const SUBJECT_META = SUBJECTS.reduce((acc, s) => { acc[s.id] = s; return acc; },
 // Department grouping — simplifies long dept names to chip labels
 // ─────────────────────────────────────────────────────────────
 const DEPT_RULES = [
-  { id: 'medicine',     label: 'Medicine',      icon: '🩺', match: (d) => /medicine/i.test(d) && !/aquatic|public health/i.test(d) },
-  { id: 'surgery',      label: 'Surgery',       icon: '🔪', match: (d) => /surgery/i.test(d) },
-  { id: 'pathology',    label: 'Pathology',     icon: '🔬', match: (d) => /pathology/i.test(d) },
-  { id: 'microbiology', label: 'Microbiology',  icon: '🦠', match: (d) => /microbiology/i.test(d) },
-  { id: 'parasitology', label: 'Parasitology',  icon: '🪲', match: (d) => /parasitology/i.test(d) },
-  { id: 'pharmacology', label: 'Pharmacology',  icon: '💊', match: (d) => /pharmacology/i.test(d) },
-  { id: 'physiology',   label: 'Physiology',    icon: '❤️', match: (d) => /physiology/i.test(d) },
-  { id: 'biochem',      label: 'Biochemistry',  icon: '🧪', match: (d) => /biochem/i.test(d) },
-  { id: 'anatomy',      label: 'Anatomy',       icon: '🦴', match: (d) => /anatomy/i.test(d) },
-  { id: 'vph',          label: 'VPH',           icon: '🧫', match: (d) => /public health|vph/i.test(d) },
-  { id: 'reproduction', label: 'Reproduction',  icon: '🐎', match: (d) => /obstetrics|reproduction|theriogenology/i.test(d) },
-  { id: 'husbandry',    label: 'Husbandry',     icon: '🌾', match: (d) => /husbandry/i.test(d) },
-  { id: 'external',     label: 'External',      icon: '🌍', match: (d) => /zpot|betagro|industry/i.test(d) },
+  { id: 'medicine',     label: 'Medicine',      icon: '🩺', match: (d) => /medicine|อายุรศาสตร์/i.test(d) && !/aquatic|public health|สาธารณสุข/i.test(d) },
+  { id: 'surgery',      label: 'Surgery',       icon: '🔪', match: (d) => /surgery|ศัลยศาสตร์/i.test(d) },
+  { id: 'pathology',    label: 'Pathology',     icon: '🔬', match: (d) => /pathology|พยาธิวิทยา/i.test(d) },
+  { id: 'microbiology', label: 'Microbiology',  icon: '🦠', match: (d) => /microbiology|จุลชีววิทยา/i.test(d) },
+  { id: 'parasitology', label: 'Parasitology',  icon: '🪲', match: (d) => /parasitology|ปรสิตวิทยา/i.test(d) },
+  { id: 'pharmacology', label: 'Pharmacology',  icon: '💊', match: (d) => /pharmacology|เภสัชวิทยา/i.test(d) },
+  { id: 'physiology',   label: 'Physiology',    icon: '❤️', match: (d) => /physiology|สรีรวิทยา/i.test(d) },
+  { id: 'biochem',      label: 'Biochemistry',  icon: '🧪', match: (d) => /biochem|ชีวเคมี/i.test(d) },
+  { id: 'anatomy',      label: 'Anatomy',       icon: '🦴', match: (d) => /anatomy|กายวิภาคศาสตร์/i.test(d) },
+  { id: 'vph',          label: 'VPH',           icon: '🧫', match: (d) => /public health|vph|สัตวแพทยสาธารณสุข/i.test(d) },
+  { id: 'reproduction', label: 'Reproduction',  icon: '🐎', match: (d) => /obstetrics|reproduction|theriogenology|สูติศาสตร์|สืบพันธุ์/i.test(d) },
+  { id: 'husbandry',    label: 'Husbandry',     icon: '🌾', match: (d) => /husbandry|สัตวบาล/i.test(d) },
+  { id: 'external',     label: 'External',      icon: '🌍', match: (d) => /zpot|betagro|industry|animal space|kasetsart|mahidol/i.test(d) },
 ];
 
 function classifyDept(deptString) {
@@ -56,6 +56,14 @@ const DEPT_META = DEPT_RULES.reduce((acc, r) => { acc[r.id] = r; return acc; }, 
   other: { id: 'other', label: 'Other', icon: '📂' },
 });
 
+const STATUS_META = {
+  faculty: { label: 'บุคลากรปัจจุบัน', icon: '🏛️' },
+  emeritus: { label: 'ศาสตราจารย์กิตติคุณ', icon: '🎓' },
+  researcher: { label: 'โปรไฟล์นักวิจัย', icon: '🔬' },
+  external: { label: 'วิทยากรภายนอก', icon: '🌍' },
+  historical: { label: 'ข้อมูลผู้สอนย้อนหลัง', icon: '🗂️' },
+};
+
 export default function FacultyView({ goHome }) {
   const [openInstructor, setOpenInstructor] = useState(null);
   const [filter, setFilter] = useState('');
@@ -64,6 +72,7 @@ export default function FacultyView({ goHome }) {
   const [debouncedFilter, setDebouncedFilter] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('all');
   const [deptFilter, setDeptFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('all');
 
   useEffect(() => {
     if (filter === debouncedFilter) return;
@@ -81,6 +90,7 @@ export default function FacultyView({ goHome }) {
       _deptId: classifyDept(ins.department),
       _hayLc: [
         ins.nameEn, ins.nameTh, ins.position, ins.department,
+        ins.institution, ins.nickname, ...(ins.aliases || []),
         ...(ins.areas || []),
       ].filter(Boolean).join(' ').toLowerCase(),
       // Pre-lowered English name used as sort key. localeCompare is
@@ -108,6 +118,14 @@ export default function FacultyView({ goHome }) {
       .sort((a, b) => b.count - a.count);
   }, [departmentCounts]);
 
+  const statusChips = useMemo(() => {
+    const counts = {};
+    for (const { ins } of instructorIndex) counts[ins.status] = (counts[ins.status] || 0) + 1;
+    return Object.entries(counts)
+      .filter(([id]) => STATUS_META[id])
+      .map(([id, count]) => ({ id, count, ...STATUS_META[id] }));
+  }, [instructorIndex]);
+
   const filtered = useMemo(() => {
     const q = debouncedFilter.trim().toLowerCase();
     const out = [];
@@ -115,6 +133,7 @@ export default function FacultyView({ goHome }) {
       const { ins } = entry;
       if (subjectFilter !== 'all' && !(ins.subjects || []).includes(subjectFilter)) continue;
       if (deptFilter !== 'all' && entry._deptId !== deptFilter) continue;
+      if (statusFilter !== 'all' && ins.status !== statusFilter) continue;
       if (q && !entry._hayLc.includes(q)) continue;
       out.push(entry);
     }
@@ -122,7 +141,7 @@ export default function FacultyView({ goHome }) {
     // give the same order as localeCompare at ~20× the speed.
     out.sort((a, b) => (a._sortKey < b._sortKey ? -1 : a._sortKey > b._sortKey ? 1 : 0));
     return out.map((e) => e.ins);
-  }, [instructorIndex, debouncedFilter, subjectFilter, deptFilter]);
+  }, [instructorIndex, debouncedFilter, subjectFilter, deptFilter, statusFilter]);
 
   const subjectFilters = [
     { id: 'all', label: 'ทุกวิชา', icon: '👥' },
@@ -138,8 +157,8 @@ export default function FacultyView({ goHome }) {
       <BackBar onBack={goHome} label="หน้าแรก" />
 
       <div className="vmx-hero">
-        <h1>อาจารย์ <em>ผู้สอน</em></h1>
-        <p>{ALL_INSTRUCTORS.length} ท่านที่มีโปรไฟล์ในฐานข้อมูล, กดที่การ์ดเพื่อดูประวัติ + งานวิจัย</p>
+        <h1>คณาจารย์และ<em>ผู้สอน</em></h1>
+        <p>{ALL_INSTRUCTORS.length} โปรไฟล์ · ผลงานวิจัยคัดเลือก {ALL_INSTRUCTORS.reduce((sum, ins) => sum + (ins.papers?.length || 0), 0)} รายการ · ตรวจสอบล่าสุด 12 ส.ค. 2569</p>
       </div>
 
       {/* Search */}
@@ -233,6 +252,42 @@ export default function FacultyView({ goHome }) {
         })}
       </div>
 
+      {/* Source/status filter chip row */}
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
+        <span style={{
+          fontSize: 11, fontFamily: 'var(--vmx-mono)',
+          color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
+          letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
+        }}>by status</span>
+        <button
+          onClick={() => setStatusFilter('all')}
+          className="vmx-nav-btn"
+          style={{
+            padding: '4px 10px', fontSize: 12,
+            background: statusFilter === 'all' ? 'var(--clr-ink)' : 'transparent',
+            color: statusFilter === 'all' ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
+            borderColor: statusFilter === 'all' ? 'var(--clr-ink)' : 'var(--clr-border)',
+          }}
+        >
+          👥 ทุกสถานะ
+        </button>
+        {statusChips.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setStatusFilter(item.id)}
+            className="vmx-nav-btn"
+            style={{
+              padding: '4px 10px', fontSize: 12,
+              background: statusFilter === item.id ? 'var(--clr-ink)' : 'transparent',
+              color: statusFilter === item.id ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
+              borderColor: statusFilter === item.id ? 'var(--clr-ink)' : 'var(--clr-border)',
+            }}
+          >
+            {item.icon} {item.label} <span style={{ opacity: 0.6 }}>,{item.count}</span>
+          </button>
+        ))}
+      </div>
+
       {/* Result count */}
       <div style={{
         fontSize: 12,
@@ -242,7 +297,7 @@ export default function FacultyView({ goHome }) {
         letterSpacing: '0.08em',
         marginBottom: 12,
       }}>
-        {filtered.length} / {ALL_INSTRUCTORS.length} instructors
+        แสดง {filtered.length} / {ALL_INSTRUCTORS.length} โปรไฟล์
       </div>
 
       {/* Faculty grid */}
@@ -278,7 +333,7 @@ export default function FacultyView({ goHome }) {
 }
 
 function FacultyCard({ instructor, onClick }) {
-  const { nameEn, nameTh, position, department, areas, papers, subjects } = instructor;
+  const { nameEn, nameTh, position, department, areas, papers, subjects, status, verification } = instructor;
   const deptId = classifyDept(department);
   const deptMeta = DEPT_META[deptId];
 
@@ -354,14 +409,14 @@ function FacultyCard({ instructor, onClick }) {
 
       {/* Name */}
       <div style={{ marginRight: 110 /* room for pills */ }}>
-        <div style={{ fontFamily: 'Fraunces, serif', fontSize: 18, fontWeight: 600, color: 'var(--clr-ink)', lineHeight: 1.2 }}>
-          {nameEn}
-        </div>
         {nameTh && (
-          <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+          <div style={{ fontSize: 17, fontWeight: 650, color: 'var(--clr-ink)', lineHeight: 1.3 }}>
             {nameTh}
           </div>
         )}
+        <div style={{ fontFamily: 'Fraunces, serif', fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.2 }}>
+          {nameEn}
+        </div>
       </div>
 
       {/* Position */}
@@ -406,7 +461,9 @@ function FacultyCard({ instructor, onClick }) {
         alignItems: 'center',
         gap: 6,
       }}>
-        📑 {papers?.length || 0} notable papers
+        <span>📑 ผลงานคัดเลือก {papers?.length || 0}</span>
+        <span>·</span>
+        <span>{verification?.status === 'verified' ? '✓ ยืนยันตัวตนและผลงาน' : STATUS_META[status]?.label || 'ตรวจสอบบางส่วน'}</span>
       </div>
     </button>
   );

@@ -458,7 +458,7 @@ export const VIDEO_META = {
     "subject": "poultry",
     "date": "31 Mar 69",
     "durationMin": 110,
-    "instructor": "Aj. Ekasingh Sareung (เอกสิงห์ สาเรือง, Betagro) — L14-15",
+    "instructor": "Aj. Ekasingh Sarueng (เอกสิงห์ สาเรือง, Betagro) — L14-15",
     "examFormat": "T/F ~10 ข้อ + MCQ"
   },
   'M64_XJhnZ-Y': {
