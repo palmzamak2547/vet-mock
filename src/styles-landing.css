@@ -113,7 +113,7 @@ html.lp-active { background: var(--clr-bg); }
 .lp-navlink:hover, .lp-navlink.is-active { color: var(--clr-ink); }
 .lp-ctx { transition: border-color .15s, transform .15s; }
 .lp-ctx:hover { border-color: var(--clr-sage); transform: translateY(-1px); }
-.lp-iconbtn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--clr-ink); flex-shrink: 0; transition: border-color .2s, background .2s, box-shadow .2s, transform .15s; }
+.lp-iconbtn { width: var(--touch-min, 44px); height: var(--touch-min, 44px); border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--clr-ink); flex-shrink: 0; transition: border-color .2s, background .2s, box-shadow .2s, transform .15s; }
 .lp-iconbtn:hover { border-color: var(--clr-sage); background: color-mix(in srgb, var(--clr-sage) 8%, var(--clr-surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--clr-sage) 12%, transparent); transform: scale(1.05); }
 
 /* Primary CTA button — shine sweep */
@@ -557,6 +557,8 @@ html.lp-active { background: var(--clr-bg); }
   .lp-nav .lp-pad { gap: 9px !important; padding-top: 9px !important; padding-bottom: 9px !important; }
 }
 @media (max-width: 340px) {
+  .lp-nav .lp-wordmark { display: none; }
+  .lp-nav .lp-pad { padding-left: 10px !important; padding-right: 10px !important; }
   .lp-tile-grid { grid-template-columns: 1fr !important; }
 }
 @media (hover: none) {

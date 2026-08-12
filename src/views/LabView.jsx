@@ -462,7 +462,7 @@ export default function LabView({ goHome }) {
       {subView === 'viewer' && files.length > 0 && (
         <div>
           <div style={viewerHeaderStyle}>
-            <div style={{ fontSize: '0.88rem', color: '#555' }}>
+            <div style={{ flex: '1 1 220px', minWidth: 0, overflowWrap: 'anywhere', fontSize: '0.88rem', color: '#555' }}>
               {currentCase ? (
                 <>
                   <strong>Case: {currentCase.title}</strong>,
@@ -510,7 +510,7 @@ export default function LabView({ goHome }) {
           {caseAttributionLine}
 
           {/* Single viewport or 2-up grid depending on file count */}
-          <div style={files.length >= 2 ? studyGridStyle : undefined}>
+          <div style={files.length >= 2 ? studyGridStyle(isMobile) : undefined}>
             {files.map((f, idx) => (
               <ViewerPane
                 key={`${f.name}-${f.size}-${f.lastModified || 0}`}
@@ -547,7 +547,7 @@ function ViewerPane({ file, index, canRemove, onRemove, caseId, syncEnabled }) {
   return (
     <div style={paneStyle}>
       <div style={paneHeaderStyle}>
-        <span>
+        <span style={{ flex: '1 1 180px', minWidth: 0, overflowWrap: 'anywhere' }}>
           <strong>View {index + 1}:</strong>{' '}
           <span style={{ color: '#888', fontSize: '0.75rem' }}>{file.name}</span>
         </span>
@@ -828,11 +828,11 @@ const kbdInlineStyle = {
   fontSize: '0.78rem',
 };
 
-const studyGridStyle = {
+const studyGridStyle = (isMobile) => ({
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(420px, 1fr))',
+  gridTemplateColumns: isMobile ? 'minmax(0, 1fr)' : 'repeat(auto-fit, minmax(420px, 1fr))',
   gap: 12,
-};
+});
 
 const paneStyle = {
   border: '1px solid #ddd',

@@ -511,6 +511,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
             aria-labelledby="vmx-lab-shortcuts-title"
             tabIndex={-1}
             data-vmx-modal="true"
+            className="vmx-lab-shortcuts-dialog"
             style={shortcutsContentStyle}
             onClick={(e) => e.stopPropagation()}
           >
@@ -728,7 +729,12 @@ const kbdStyle = {
 
 const shortcutsModalStyle = {
   position: 'fixed',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
   inset: 0,
+  padding: 'max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left))',
   background: 'rgba(0,0,0,0.4)',
   display: 'flex',
   alignItems: 'center',
@@ -740,9 +746,8 @@ const shortcutsContentStyle = {
   background: '#fff',
   borderRadius: 8,
   padding: '16px 18px',
-  minWidth: 320,
-  maxWidth: '90vw',
-  maxHeight: '85vh',
+  width: 'min(520px, 100%)',
+  minWidth: 0,
   overflow: 'auto',
   boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
 };

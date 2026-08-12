@@ -151,7 +151,7 @@ export default function AboutView({ goHome, setView }) {
               <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, marginBottom: 4 }}>
                 {s.icon} {s.name}
               </div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6, overflowWrap: 'anywhere' }}>
                 <strong>หัวข้อ:</strong> {src.topics}<br/>
                 <strong>ดึงจาก:</strong> {src.files.join(', ')}<br/>
                 <strong>ต้องขอบคุณ:</strong> {src.contributors.join(', ')}<br/>

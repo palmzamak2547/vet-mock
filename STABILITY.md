@@ -216,7 +216,7 @@ Current setting: `target: 'es2020'` + `browserslist` includes `ios >= 14`.
 but indexes them by URL — without a bump, returning users get a mix
 of new code referencing old chunks → cryptic errors.
 
-Format: `vN-YYYY-MM-DD`. Current: `v30-2026-07-31`.
+Format: `vN-YYYY-MM-DD`. Current: `v64-2026-08-12`.
 
 ---
 

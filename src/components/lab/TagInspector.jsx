@@ -79,7 +79,7 @@ export default function TagInspector({ file, onClose }) {
   const piiPresent = useMemo(() => tags.filter((t) => t.isPii && t.value.trim() && !/^[\s\0]*$/.test(t.value)).length, [tags]);
 
   return (
-    <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby="vmx-dicom-tags-title" tabIndex={-1} data-vmx-modal="true" style={panelStyle}>
+    <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby="vmx-dicom-tags-title" tabIndex={-1} data-vmx-modal="true" className="vmx-dicom-tags-dialog" style={panelStyle}>
       <div style={panelHeaderStyle}>
         <strong id="vmx-dicom-tags-title">DICOM Tag Inspector</strong>
         <button type="button" onClick={onClose} className="vmx-tap" aria-label="Close DICOM Tag Inspector" style={closeBtnStyle}>✕</button>
@@ -154,10 +154,9 @@ export default function TagInspector({ file, onClose }) {
 
 const panelStyle = {
   position: 'fixed',
-  top: '5vh',
-  right: 20,
-  width: 'min(620px, 90vw)',
-  maxHeight: '90vh',
+  top: 'max(12px, env(safe-area-inset-top))',
+  right: 'max(12px, env(safe-area-inset-right))',
+  width: 'min(620px, calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)))',
   background: 'var(--clr-surface)',
   color: 'var(--clr-ink)',
   border: '1px solid var(--clr-border)',
@@ -205,6 +204,7 @@ const searchRowStyle = {
 
 const searchInputStyle = {
   flex: 1,
+  minWidth: 0,
   padding: '5px 8px',
   fontSize: '0.8rem',
   border: '1px solid var(--clr-border)',

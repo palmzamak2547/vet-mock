@@ -17,6 +17,48 @@ async function openVisible(locator) {
   throw new Error('No visible matching control');
 }
 
+async function visibleViewportEscapes(page, rootSelector) {
+  return page.evaluate((selector) => {
+    const root = document.querySelector(selector);
+    if (!root) return [{ selector, problem: 'root not found' }];
+    const viewportWidth = document.documentElement.clientWidth;
+    const describe = (el) => {
+      let value = el.tagName.toLowerCase();
+      if (el.id) value += `#${el.id}`;
+      const classes = [...el.classList].filter(Boolean).slice(0, 3);
+      if (classes.length) value += `.${classes.join('.')}`;
+      return value;
+    };
+    const insideFittingScroller = (el) => {
+      for (let parent = el.parentElement; parent && root.contains(parent); parent = parent.parentElement) {
+        const style = getComputedStyle(parent);
+        const rect = parent.getBoundingClientRect();
+        if (/^(auto|scroll)$/.test(style.overflowX)
+          && parent.scrollWidth > parent.clientWidth + 1
+          && rect.left >= -1 && rect.right <= viewportWidth + 1) return true;
+      }
+      return false;
+    };
+    return [root, ...root.querySelectorAll('*')].filter((el) => {
+      const style = getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
+      if (!el.getClientRects().length || insideFittingScroller(el)) return false;
+      if (el.matches('path, circle, rect, line, defs') || el.closest('.vmx-sr-only')) return false;
+      const bounds = el.getBoundingClientRect();
+      return bounds.width > 1 && bounds.height > 1 && (bounds.left < -1 || bounds.right > viewportWidth + 1);
+    }).map((el) => {
+      const bounds = el.getBoundingClientRect();
+      return {
+        selector: describe(el),
+        text: (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80),
+        left: Math.round(bounds.left * 10) / 10,
+        right: Math.round(bounds.right * 10) / 10,
+        width: Math.round(bounds.width * 10) / 10,
+      };
+    }).slice(0, 16);
+  }, rootSelector);
+}
+
 function evenText(value, pad = 0x20) {
   const raw = Buffer.from(String(value), 'ascii');
   return raw.length % 2 === 0 ? raw : Buffer.concat([raw, Buffer.from([pad])]);
@@ -184,6 +226,7 @@ test.describe('connected study experience', () => {
 
   test('Practical Imaging stays local while Pro remains a separate handoff', async ({ page }) => {
     test.setTimeout(60_000);
+    await page.setViewportSize({ width: 320, height: 740 });
     const pageErrors = [];
     page.on('pageerror', (error) => pageErrors.push(error.message));
 
@@ -224,13 +267,41 @@ test.describe('connected study experience', () => {
     await expect(pro).toHaveAttribute('href', 'https://imaging.cuvetsmo.com');
     await expect(pro).toHaveAttribute('target', '_blank');
 
-    await page.locator('input[type="file"][accept*="dcm"]').setInputFiles({
-      name: 'vetmock-e2e.dcm',
-      mimeType: 'application/dicom',
-      buffer: minimalDicomFixture(),
-    });
-    await expect(page.getByText(/2 × 2 pixels/)).toBeVisible({ timeout: 30_000 });
+    await page.locator('input[type="file"][accept*="dcm"]').setInputFiles([
+      {
+        name: 'vetmock-e2e-a.dcm',
+        mimeType: 'application/dicom',
+        buffer: minimalDicomFixture(),
+      },
+      {
+        name: 'vetmock-e2e-b.dcm',
+        mimeType: 'application/dicom',
+        buffer: minimalDicomFixture(),
+      },
+    ]);
+    await expect(page.getByText(/2 × 2 pixels/).first()).toBeVisible({ timeout: 30_000 });
+    await expect(page.locator('.vmx-lab-shell canvas')).toHaveCount(2, { timeout: 30_000 });
     await expect(page.locator('.vmx-lab-shell canvas').first()).toBeVisible();
+    expect(
+      await visibleViewportEscapes(page, '.vmx-lab-shell'),
+      'the decoded Practical viewer must fit a 320px phone without silent clipping',
+    ).toEqual([]);
+
+    await page.getByRole('button', { name: 'Keyboard shortcuts (?)' }).first().click();
+    await expect(page.getByRole('dialog', { name: /Keyboard shortcuts/ })).toBeVisible();
+    expect(
+      await visibleViewportEscapes(page, '.vmx-lab-shell'),
+      'the Practical shortcuts dialog must fit a 320px phone',
+    ).toEqual([]);
+    await page.getByRole('button', { name: 'Close keyboard shortcuts' }).click();
+
+    await page.getByRole('button', { name: 'Info', exact: true }).first().click();
+    await expect(page.getByRole('dialog', { name: 'DICOM Tag Inspector' })).toBeVisible();
+    expect(
+      await visibleViewportEscapes(page, '.vmx-lab-shell'),
+      'the DICOM tag inspector must fit a 320px phone',
+    ).toEqual([]);
+    await page.getByRole('button', { name: 'Close DICOM Tag Inspector' }).click();
     expect(pageErrors).toEqual([]);
 
     await page.getByRole('button', { name: '← Home' }).click();

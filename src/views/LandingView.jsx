@@ -355,7 +355,7 @@ export default function LandingView({
         <div className="lp-pad" style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 24px' }}>
           <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)' }}>
             <img src="/vetmock-logo.svg" width={30} height={30} style={{ borderRadius: 7, display: 'block' }} alt="VetMock logo" />
-            Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span>
+            <span className="lp-wordmark">Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
           </a>
           {/* The one item in this row allowed to give way. Everything else is a
               control and stays rigid, so without an elastic member the row's

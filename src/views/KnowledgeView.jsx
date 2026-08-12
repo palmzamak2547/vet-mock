@@ -300,7 +300,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                           </span>
                         )}
                       </span>
-                      {t.summary && <span style={{ display: 'block', fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5, marginTop: 2 }}>{t.summary}</span>}
+                      {t.summary && <span style={{ display: 'block', fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5, marginTop: 2, overflowWrap: 'anywhere' }}>{t.summary}</span>}
                       {/* Which sections matched — a hit is only useful if you
                           can see where in the article it landed. */}
                       {query && (matchById.get(t.id) || []).length > 0 && (

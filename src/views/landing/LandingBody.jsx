@@ -194,8 +194,8 @@ export default function LandingBody(p) {
                 <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.labFName}</h3>
               </div>
               <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.labFDesc}</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 4 }}>
-                {t.labExamples.map((e) => <div key={e.label} style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '11px 12px', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 11, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ fontSize: 16, flexShrink: 0 }}>{e.emoji}</span>{e.label}</div>)}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 10, marginTop: 4 }}>
+                {t.labExamples.map((e) => <div key={e.label} style={{ minWidth: 0, display: 'flex', alignItems: 'center', gap: 9, padding: '11px 12px', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 11, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ fontSize: 16, flexShrink: 0 }}>{e.emoji}</span><span style={{ minWidth: 0, overflowWrap: 'anywhere' }}>{e.label}</span></div>)}
               </div>
             </div>
           </div>

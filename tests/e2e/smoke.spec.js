@@ -66,6 +66,7 @@ test.describe('VetMock smoke flow', () => {
   //   • Vercel Analytics scripts (404 in preview / CSP block in prod)
   //   • Permissions-Policy unknown features (browser-side warning)
   //   • /_vercel/* resources (only served by Vercel edge, not vite preview)
+  //   • Google Fonts CDN 404s (the UI has local/system font fallbacks)
   //   • CSP violations from va.vercel-scripts (handled in vercel.json
   //     for prod; preview just 404s the script)
   //   • __cf_bm cookie rejection — Firefox-only. Cloudflare sets a bot-
@@ -75,7 +76,7 @@ test.describe('VetMock smoke flow', () => {
   //     a VetMock bug — chromium/webkit don't surface it. (Added 2026-05-27
   //     when cross-engine smoke first ran firefox-desktop.)
   const isExpectedNoise = (msg) =>
-    /Vercel Web Analytics|Vercel Speed Insights|va\.vercel-scripts|vitals\.vercel-insights|Unrecognized feature|_vercel\/(insights|speed-insights)|Failed to load resource.*404.*\/_vercel\/|Unexpected token '<'|expected expression, got '<'|__cf_bm|rejected for invalid domain/i.test(msg);
+    /Vercel Web Analytics|Vercel Speed Insights|va\.vercel-scripts|vitals\.vercel-insights|Unrecognized feature|_vercel\/(insights|speed-insights)|Failed to load resource.*404.*\/_vercel\/|Failed to load resource.*404.*fonts\.gstatic\.com|Unexpected token '<'|expected expression, got '<'|__cf_bm|rejected for invalid domain/i.test(msg);
   // ↑ "Unexpected token '<'" comes from `vite preview` returning the
   //   HTML 404 page when /_vercel/insights/script.js is requested.
   //   The browser tries to parse the HTML as JS → SyntaxError. This
