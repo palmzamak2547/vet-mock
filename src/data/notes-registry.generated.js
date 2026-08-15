@@ -27,6 +27,7 @@ export const SUBJECTS_WITH_NOTES = new Set([
   "practrum",
   "repro-lect",
   "swine-clinic",
+  "vet-neuroanat",
   "zoonoses"
 ]);
 
@@ -216,6 +217,14 @@ export const NOTE_TOPIC_KEYS = new Set([
   "swine-clinic/swine-pcv2",
   "swine-clinic/swine-pornchalit-set",
   "swine-clinic/swine-resp-viral",
+  "vet-neuroanat/neuroanat--basal-nuclei",
+  "vet-neuroanat/neuroanat--diencephalon",
+  "vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon",
+  "vet-neuroanat/neuroanat--metencephalon",
+  "vet-neuroanat/neuroanat--midbrain",
+  "vet-neuroanat/neuroanat--myelencephalon",
+  "vet-neuroanat/neuroanat--neuro-exam-anatomy2024",
+  "vet-neuroanat/neuroanat--visual-vestibular-systems",
   "zoonoses/zoo-ai-basic",
   "zoonoses/zoo-bacterial",
   "zoonoses/zoo-corona",
@@ -255,6 +264,7 @@ export const NOTE_TOPIC_COUNTS_BY_SUBJECT = Object.freeze({
   "practrum": 7,
   "repro-lect": 10,
   "swine-clinic": 7,
+  "vet-neuroanat": 8,
   "zoonoses": 16
 });
 

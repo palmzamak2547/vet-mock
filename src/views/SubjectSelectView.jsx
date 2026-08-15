@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { QB } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount } from '../data/curriculum.js';
+import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, qbReady = true }) {
@@ -87,7 +88,12 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           // visible" confusion). For 'all' subject, sum visible per
           // subject across the bank.
           const count = visibleQuestionCount(s.id, allQuestions);
-          const isEmpty = count === 0;
+          // A subject with notes and no questions is still worth opening —
+          // this selector is also where the Notes feature lands, and gating
+          // it on the question count locked students out of written material
+          // that was sitting right there.
+          const subjectHasNotes = hasNotes(s.id);
+          const isEmpty = count === 0 && !subjectHasNotes;
           const isScaffold = !!s.scaffold;
 
           return (
@@ -117,11 +123,13 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               <div className="count" style={{ color: (isEmpty && !qbLoading) ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
                 {qbLoading
                   ? 'กำลังโหลด…'
-                  : isScaffold
-                    ? 'รอเติมเนื้อหา'
-                    : isEmpty
-                      ? '🚧 รอข้อสอบเพิ่ม'
-                      : `${count} ข้อ`}
+                  : count === 0 && subjectHasNotes
+                    ? 'มีสรุปให้อ่าน'
+                    : isScaffold
+                      ? 'รอเติมเนื้อหา'
+                      : isEmpty
+                        ? '🚧 รอข้อสอบเพิ่ม'
+                        : `${count} ข้อ`}
               </div>
               {/* Drop the 7-digit course code on the card — already
                   searchable via ⌘K; redundant visual noise here. */}

@@ -19,6 +19,7 @@ const LOADERS = {
   "practrum": () => import('./runtime-data/subject-practrum.generated.js'),
   "repro-lect": () => import('./runtime-data/subject-repro-lect.generated.js'),
   "swine-clinic": () => import('./runtime-data/subject-swine-clinic.generated.js'),
+  "vet-neuroanat": () => import('./runtime-data/subject-vet-neuroanat.generated.js'),
   "zoonoses": () => import('./runtime-data/subject-zoonoses.generated.js'),
 };
 

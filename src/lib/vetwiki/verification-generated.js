@@ -70895,6 +70895,3580 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     }
+  },
+  "vet-neuroanat--neuroanat--basal-nuclei": {
+    "vet-neuroanat--neuroanat--basal-nuclei--basal-nuclei-อยู่ตรงไหนใน-telencephalon": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--basal-nuclei-อยู่ตรงไหนใน-telencephalon--v1",
+          "statement": "The basal nuclei are the deep gray matter of the cerebral hemisphere, as opposed to the superficial gray matter of the cerebral cortex.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23071379",
+              "locator": "Introduction, first paragraph",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The term basal ganglia in the strictest sense refers to nuclei embedded deep in the brain hemispheres (striatum or caudate-putamen and globus pallidus), whereas related nuclei consist of structures located in the diencephalon (subthalamic n"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--รายชื่อและการจัดกลุ่มของ-basal-nuclei": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--รายชื่อและการจัดกลุ่มของ-basal-nuclei--v1",
+          "statement": "Caudate nucleus, accumbens nucleus and putamen are grouped together as the striatum, while putamen and globus pallidus together form the lentiform (lenticular) nucleus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23071379",
+              "locator": "Section 'Basal Ganglia Nuclei' (input nuclei) and Introduction (lenticular nucleus)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The caudate nucleus (CN), the putamen (Put), and the accumbens nucleus (Acb) are all considered input nuclei."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--caudate-nucleus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--caudate-nucleus--v1",
+          "statement": "The caudate nucleus participates in the control of eye movements.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17167079",
+              "locator": "Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Electrical stimulation in the oculomotor region of the caudate immediately after saccades to a fixed direction led to selective facilitation of saccades in that direction."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--accumbens-nucleus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--accumbens-nucleus--v1",
+          "statement": "The accumbens nucleus is an emotion-related nucleus, sitting at the interface between limbic and motor systems.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23913108",
+              "locator": "Abstract, background",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The Nucleus accumbens (Acc) is the main structure of the ventral striatum. It acts as a motor-limbic interface, being involved in emotional and psychomotor functions, frequently disturbed in neuropsychiatric disorders such as obsessive comp"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--accumbens-nucleus--v2",
+          "statement": "The accumbens nucleus sends efferent axons to the hypothalamus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2057066",
+              "locator": "Abstract, hypothalamic projections",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Whereas the core projects primarily to the entopeduncular nucleus including a part that invades the lateral hypothalamus, the shell, in addition, projects diffusely throughout the rostrocaudal extent of the lateral hypothalamus as well as t"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--putamen": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--putamen--v1",
+          "statement": "The putamen is the sensorimotor territory of the striatum and controls movement of the limbs and trunk with a somatotopic organisation.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23071379",
+              "locator": "Section on striatal functional territories (human activation studies)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Thus, activation in the posterior (i.e., sensorimotor) putamen was consistently encountered for movements and presented a somatotopical organization, with the leg lying dorsal, face ventral, and arm in between, as expected"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--pallidum-globus-pallidus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--pallidum-globus-pallidus--v1",
+          "statement": "The pallidum receives striatal (caudate and putamen) input via the striatopallidal projections.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23071379",
+              "locator": "Section 'Classic Basal Ganglia Model'",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The basis of the model resides in the striatopallidal connections via the direct and the indirect projections"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--claustrum": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--claustrum--v1",
+          "statement": "The claustrum is a thin plate of gray matter lying lateral to the lentiform nucleus and adjacent to the external capsule, and its function has not been established.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15852751",
+              "locator": "Abstract, opening sentences",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Claustrum is a thin sheet of gray matter located between external and extreme capsules of lentiform nucleus (basal ganglia). Functions of claustrum are still not clear."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--หน้าที่รวมของ-basal-nuclei": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--หน้าที่รวมของ-basal-nuclei--v1",
+          "statement": "The overall function of the basal nuclei is motor co-ordination, operating by selecting and filtering competing motor signals rather than generating movement itself.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23071379",
+              "locator": "Section 'Functional Anatomy — Corticostriatal Connections'",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This arrangement is probably the anatomical basis for fundamental striatal function, that is, selection and filtering of incoming/outgoing signals."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--basal-nuclei-circuit-direct-และ-indirect-pathway": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--basal-nuclei-circuit-direct-และ-indirect-pathway--v1",
+          "statement": "The direct pathway turns motor activity up and the indirect pathway turns it down; the two have opposite effects on movement.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23071379",
+              "locator": "Section 'Classic Basal Ganglia Model'",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the direct and indirect pathways are viewed as opposite functional projection systems that facilitate and inhibit movements and behaviors, respectively"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--basal-nuclei-circuit-direct-และ-indirect-pathway--v2",
+          "statement": "Dopamine arriving from the substantia nigra supervises both pathways, activating the direct pathway and suppressing the indirect pathway.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23071379",
+              "locator": "Section 'Classic Basal Ganglia Model', nigrostriatal modulation",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the nigrostriatal projection exerts a differential effect on D1R/D2R MSNs, facilitating and inhibiting the direct and indirect circuits, respectively"
+          }
+        }
+      ]
+    }
+  },
+  "vet-neuroanat--neuroanat--diencephalon": {
+    "vet-neuroanat--neuroanat--diencephalon--learning-objectives-ของเลกเชอร์นี้": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--learning-objectives-ของเลกเชอร์นี้--v1",
+          "statement": "The diencephalon is made up of five named subdivisions — thalamus, metathalamus, epithalamus, subthalamus and hypothalamus — which is exactly the set the note reconstructs from scattered slides even though no single slide lists all five.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-elsevier-2021",
+              "locator": "Chapter 19, Diencephalon, opening paragraphs",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The diencephalon is the intermediate brain that consists of the thalamencephalon, hypothalamus, and subthalamus."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--diencephalon--geniculate-nuclei": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--geniculate-nuclei--v1",
+          "statement": "The medial geniculate nucleus is the thalamic relay for hearing and projects to the auditory cortex, while the lateral geniculate nucleus is the relay for vision and projects to the primary visual cortex.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31751098",
+              "locator": "Structure and Function, lateral nuclear group",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The medial geniculate nucleus, on the other hand, relays auditory sensory information from the superior olive and inferior colliculus of the tectum. Auditory information then travels to the auditory cortex of the temporal lobe."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--diencephalon--epithalamus-habenula-กับ-pineal-body": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--epithalamus-habenula-กับ-pineal-body--v1",
+          "statement": "The habenula signals failure to obtain reward and aversive outcomes, is involved in emotional and value-based behavioural choice, and its dysfunction is linked to depression — which is what the slide compresses into 'reward-negative', 'emotive decision making' and 'depression!!'.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20559337",
+              "locator": "Abstract; Nat Rev Neurosci 11(7):503-13",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "By inhibiting dopamine-releasing neurons, habenula activation leads to the suppression of motor behaviour when an animal fails to obtain a reward or anticipates an aversive outcome. Moreover, the habenula is involved in behavioural response"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--epithalamus-habenula-กับ-pineal-body--v2",
+          "statement": "The pineal body is the main site of melatonin synthesis and melatonin is the signal that conveys time-of-day and time-of-year information, which is the slide's 'melatonin / circadian rhythm' pairing.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16817850",
+              "locator": "Abstract; FEBS J 273(13):2813-38",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In most vertebrates, including humans, melatonin is synthesized primarily in the pineal gland and is regulated by the environmental light/dark cycle via the suprachiasmatic nucleus."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--diencephalon--subthalamus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--subthalamus--v1",
+          "statement": "The subthalamus is the diencephalic region lying between the thalamus and the substantia nigra, and its two named components are the subthalamic nucleus (subthalamic body) and the zona incerta — the exact pair the slide labels on its figure.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-elsevier-2021",
+              "locator": "Chapter 19, Diencephalon, subthalamus section",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The subthalamus is between the thalamus and substantia nigra of the mesencephalon. It is composed of the subthalamic body and zona incerta."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--subthalamus--v2",
+          "statement": "The zona incerta, despite its name, is a functionally characterised diencephalic cell group implicated in visceral control, arousal, attention and posture-locomotion, so the slide's 'สไลด์ไม่ได้บอกหน้าที่' gap is a gap in the deck, not in the literature.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15561420",
+              "locator": "Abstract; Neuroscience 130(1):1-15",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The zona incerta (ZI), first described over a century ago by Auguste Forel as a \"region of which nothing certain can be said,\" forms a collection of cells that derives from the diencephalon."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--diencephalon--thalamus-กลุ่มนิวเคลียสหลัก": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--thalamus-กลุ่มนิวเคลียสหลัก--v1",
+          "statement": "The thalamic nuclei are grouped into anterior, medial and lateral groups by the internal medullary lamina, and the two thalami are joined across the midline by the interthalamic adhesion — the four labels on the slide.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31194341",
+              "locator": "Structure and Function",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The internal medullary laminae divide the thalamic nuclei into anterior, medial, and lateral groups."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--diencephalon--lateral-nuclei-ของ-thalamus-ส่วนบนกับส่วนล่าง": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--lateral-nuclei-ของ-thalamus-ส่วนบนกับส่วนล่าง--v1",
+          "statement": "VPM relays somatic sensation from the head (trigeminal and taste input) and VPL relays somatic sensation from the body (spinothalamic and dorsal column input), which is the slide's VPM = head / VPL = body pair.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31751098",
+              "locator": "Structure and Function, ventral posterior nuclei",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The ventral posteromedial nucleus receives inputs from the trigeminal pathway and gustatory, or taste, pathway."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--lateral-nuclei-ของ-thalamus-ส่วนบนกับส่วนล่าง--v2",
+          "statement": "The ventral anterior and ventral lateral nuclei are the motor relay territory of the thalamus, receiving basal ganglia and cerebellar output on its way to frontal motor cortex, which is what the slide means by VA = initiation/planning and VL = co-ordination of movement (relay-motor).",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29224175",
+              "locator": "Abstract; Brain Struct Funct 223(2):569-587",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Four regions come into question to contain converging inputs: (1) lateral parts of medial dorsal nucleus (MD); (2) parts of anterior intralaminar nuclei and centromedian and parafascicular nuclei (CM/Pf); (3) ventromedial nucleus (VM); and "
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--lateral-nuclei-ของ-thalamus-ส่วนบนกับส่วนล่าง--v3",
+          "statement": "The pulvinar governs visual attention by regulating information transmission between visual cortical areas according to attentional demands, supporting the slide's 'visual attention (associate-sensory)' label on the pulvinar/LD/LP group.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22879517",
+              "locator": "Abstract; Science 337(6095):753-6",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The pulvinar synchronized activity between interconnected cortical areas according to attentional allocation, suggesting a critical role for the thalamus not only in attentional selection but more generally in regulating information transmi"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--diencephalon--hypothalamus-แบ่งเป็น-3-regions": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--hypothalamus-แบ่งเป็น-3-regions--v1",
+          "statement": "The hypothalamus is divided rostrocaudally into three regions, which the literature names chiasmatic, tuberal and mamillary — the same three the slide calls anterior, tuberal and posterior.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-1480754",
+              "locator": "Abstract, opening sentence; Prog Brain Res 93:3-14",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The hypothalamus sensu stricto consists of the chiasmatic, the tuberal and the mamillary region."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--diencephalon--ตาราง-hypothalamic-nuclei-กับหน้าที่": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--ตาราง-hypothalamic-nuclei-กับหน้าที่--v1",
+          "statement": "The supraoptic and paraventricular nuclei are the magnocellular nuclei that produce oxytocin and vasopressin (ADH) for release from the posterior pituitary, as the slide's anterior-region rows state.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30252249",
+              "locator": "Structure and Function, paraventricular and supraoptic nuclei",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The paraventricular and supraoptic nuclei both produce the peptides oxytocin and ADH, which are released from neuronal axons into the capillaries of the posterior pituitary."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--ตาราง-hypothalamic-nuclei-กับหน้าที่--v2",
+          "statement": "The ventromedial nucleus mediates satiety while the lateral hypothalamic area drives hunger and feeding, which is exactly the opposing pair the slide's tip callout asks students to memorise.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30252249",
+              "locator": "Structure and Function, ventromedial nucleus and lateral hypothalamus",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The lateral hypothalamus perceives hunger and increases eating. Destruction of the lateral area causes anorexia."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--ตาราง-hypothalamic-nuclei-กับหน้าที่--v3",
+          "statement": "The mammillary nuclei belong to the limbic system as part of the Papez circuit and are involved in memory, matching the slide's posterior-region row 'Mammillary nuclei = memory, limbic'.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30252249",
+              "locator": "Structure and Function, mamillary nucleus",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The mamillary nucleus contributes to the limbic system as part of the Papez circuit. It is also involved in memory formation and controls exploratory behavior."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--ตาราง-hypothalamic-nuclei-กับหน้าที่--v4",
+          "statement": "GnRH neurons are located in the preoptic area, so the slide's assignment of GnRH release to the preoptic nucleus holds in a veterinary species (sheep).",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16650943",
+              "locator": "Abstract; Neuroscience 140(3):791-800",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The male or its odor significantly increases the number and the proportion of gonadotropin-releasing hormone cells expressing Fos-immunoreactivity in the preoptic area and the organum vasculosum of the lamina terminalis"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--ตาราง-hypothalamic-nuclei-กับหน้าที่--v5",
+          "statement": "Heat-loss responses (cutaneous vasodilation, suppressed thermogenesis) are driven from the preoptic area of the anterior hypothalamus, which is the mechanism behind the slide's 'AH = Thermoregulation (panting, sweating)' row.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-21900642",
+              "locator": "Abstract; Am J Physiol Regul Integr Comp Physiol 301(5):R1207-28",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Warming signals enhance the descending inhibition from the POA to inhibit the motor outputs, resulting in cutaneous vasodilation and inhibited thermogenesis."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--diencephalon--obesity-และ-narcolepsy": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--diencephalon--obesity-และ-narcolepsy--v1",
+          "statement": "Narcolepsy belongs on a hypothalamus slide because it is a disease of the hypocretin (orexin) system of the lateral hypothalamus, proven in the dog where canine narcolepsy is caused by a mutation of the hypocretin receptor 2 gene.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10458611",
+              "locator": "Abstract; Cell 98(3):365-76",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "We have determined that canine narcolepsy is caused by disruption of the hypocretin (orexin) receptor 2 gene (Hcrtr2). This result identifies hypocretins as major sleep-modulating neurotransmitters and opens novel potential therapeutic appr"
+          }
+        }
+      ]
+    }
+  },
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon": {
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--ทำไมถึงเรียกว่า-limbic-system": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--ทำไมถึงเรียกว่า-limbic-system--v1",
+          "statement": "The name \"limbic\" derives from the Latin limbus, meaning border or edge, and was applied to the curved rim of cortex on the medial surface of the cerebral hemisphere.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20711399",
+              "locator": "Historical background section (49(2):132-9)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "(from the Latin limbus for border) to the curved rim of the cortex"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--background-rhinencephalon-และการแบ่ง-cerebral-cortex": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--background-rhinencephalon-และการแบ่ง-cerebral-cortex--v1",
+          "statement": "The primary olfactory (paleopallial) part of the rhinencephalon is anatomically distinct from the limbic structures it projects to, so the hippocampus and the bulk of the amygdala are non-olfactory limbic cortex rather than primary olfactory cortex.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27097007",
+              "locator": "Primary olfactory cortex, connections (74(4):329-36)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The primary olfactory cortex sends projections to various brain regions, including diencephalic structures (thalamus and hypothalamus), limbic cortex (mainly larger parts of the amygdala and also the hippocampus) and neocortex."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon--v1",
+          "statement": "The limbic cortex on the medial surface of the hemisphere is arranged as two concentric rings around the corpus callosum, a larger outer ring and a smaller inner ring.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20711399",
+              "locator": "Anatomy of the limbic lobe (49(2):132-9)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The limbic lobe situated at the inferomedial aspect of the cerebral hemispheres, consists of two concentric gyri surrounding the corpus callosum."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon--v2",
+          "statement": "The hippocampus and the amygdala are the two principal components of the inner limbic ring, the hippocampus serving memory and the amygdala emotion and drive.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25217299",
+              "locator": "Abstract (35(5):459-73)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Its 2 principle components are the hippocampus (involved in memory as part of the Papez circuit) and the amygdala (involved in emotional responses, memories and drives)."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--amygdaloid-body-และ-stria-terminalis": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--amygdaloid-body-และ-stria-terminalis--v1",
+          "statement": "The stria terminalis carries amygdalar output to the bed nucleus in the septal region, which in turn projects heavily into the rostral hypothalamus and sends a return projection back to the amygdala.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12717713",
+              "locator": "Abstract (460(4):542-62)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The BSTp sends its strongest outputs to the periventricular zone of the hypothalamus and innervates structures thought to play important roles in regulating hormone secretion from the anterior pituitary, but it also provides strong inputs t"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--amygdaloid-body-และ-stria-terminalis--v2",
+          "statement": "Damage to the amygdala or its pathways produces loss of fear and anger, altered sexual behaviour and altered food intake, matching the three amygdalar functions the slide lists.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17566885",
+              "locator": "Abstract (18(2):184-8)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Klüver-Bucy syndrome is a rare neurobehavioral condition characterized by placidity, visual agnosia, hypersexuality, hyperorality, and hypermetamorphosis (the tendency to react to or to touch every visual stimulus). The syndrome is usually "
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--hippocampus-รูปร่างและตำแหน่ง": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--hippocampus-รูปร่างและตำแหน่ง--v1",
+          "statement": "The hippocampus lies immediately against the wall of the lateral ventricle, its efferent fibres collecting on the ventricular surface as the alveus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32132227",
+              "locator": "Anatomy of the fornix (91(5):547-559)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Medial to the floor of the temporal horn of the lateral ventricle, hippocampal fibres collect into a thin lamina known as the alveus."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--hippocampus-รูปร่างและตำแหน่ง--v2",
+          "statement": "The hippocampi of the two hemispheres are joined across the midline beneath the splenium of the corpus callosum by the hippocampal commissure.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32132227",
+              "locator": "Anatomy of the fornix, crura (91(5):547-559)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The crura arch supero-anteriorly under the splenium of the corpus callosum and project contralaterally via the thin triangular forniceal commissure, also known as the psalterum or dorsal hippocampal commissure."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--fornix-ทางเดิน-axon-ของ-hippocampus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--fornix-ทางเดิน-axon-ของ-hippocampus--v1",
+          "statement": "Hippocampal axons run as fimbria into the crura, which merge into the body of the fornix and then divide into columns that split at the rostral (anterior) commissure into pre-commissural fibres running to the septal/basal forebrain and post-commissural fibres running to the mammillary bodies and thalamus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32132227",
+              "locator": "Anatomy of the fornix, columns (91(5):547-559)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "fibres travelling anteriorly form the pre-commissural fornix, while those curving posteriorly make up the post-commissural fornix"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--หน้าที่ของ-hippocampus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--หน้าที่ของ-hippocampus--v1",
+          "statement": "The hippocampus and adjacent medial temporal cortex are required only temporarily for a new memory, which is progressively consolidated into long-term storage elsewhere in the brain.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-8041742",
+              "locator": "Abstract (91(15):7041-5)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "memories are initially dependent on this system but gradually become established in other areas of the brain"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--septal-area": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--septal-area--v1",
+          "statement": "The septal area is a grey-matter region lying just above the rostral (anterior) commissure with extensive reciprocal connections to the hippocampus through the fornix.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20711399",
+              "locator": "Septal area section (49(2):132-9)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The septal area is a gray matter structure, immediately above the anterior commissure, has extensive reciprocal connections with the hippocampus (via the fornix)."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--septal-area--v2",
+          "statement": "The septal area acts as a reward or pleasure centre, since electrical stimulation there is positively reinforcing.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-13233369",
+              "locator": "Title (47(6):419-27)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Positive reinforcement produced by electrical stimulation of septal area and other regions of rat brain"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--cingulate-gyrus-และ-cingulum": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--cingulate-gyrus-และ-cingulum--v1",
+          "statement": "The cingulum is a long association bundle in the white matter of the cingulate gyrus that interconnects frontal and medial temporal (parahippocampal) regions and links subcortical nuclei to the cingulate gyrus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29753752",
+              "locator": "Abstract (92:104-127)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cingulum bundle is a prominent white matter tract that interconnects frontal, parietal, and medial temporal sites, while also linking subcortical nuclei to the cingulate gyrus."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--cingulate-gyrus-และ-cingulum--v2",
+          "statement": "The cingulum is implicated in emotion and in pain, consistent with the slide's list of cingulate functions.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29753752",
+              "locator": "Abstract, functional imaging (92:104-127)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "non-invasive imaging implicates the cingulum bundle in executive control, emotion, pain (dorsal cingulum), and episodic memory (parahippocampal cingulum)"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--cingulate-gyrus-และ-cingulum--v3",
+          "statement": "The cingulate cortex is required for normal maternal behaviour, since lesioning it disturbs maternal behaviour in the rat.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-6073421",
+              "locator": "Title (29(2):204-36)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Disturbances of maternal behavior in the rat following lesions of the cingulate cortex"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--limbic-system-ส่วน-diencephalon-habenular-nucleus-และ-rostral-th": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--limbic-system-ส่วน-diencephalon-habenular-nucleus-และ-rostral-th--v1",
+          "statement": "The habenular complex is an epithalamic structure of the dorsal diencephalic conduction system whose axons run in the fasciculus retroflexus (habenulointercrural tract) to the interpeduncular nucleus, and it receives input from septal regions.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25086313",
+              "locator": "Abstract (277:595-609)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "strong expression is visible in the MHb, fasciculus retroflexus (fr) and interpeduncular nucleus (IPN), indicating that MOR is mainly present in the MHb-IPN pathway"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--limbic-system-ส่วน-diencephalon-habenular-nucleus-และ-rostral-th--v2",
+          "statement": "The rostral (anterior) thalamic nuclei receive input from the mammillary bodies and pass it on to the cingulate cortex.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26072239",
+              "locator": "Abstract (219:163-85)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "passing information on to the anterior thalamic nuclei and from there to the cingulate cortex"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--mamillary-body": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--mamillary-body--v1",
+          "statement": "The mammillary bodies are the relay through which hippocampal (subicular) output carried in the post-commissural fornix reaches the thalamus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32132227",
+              "locator": "Post-commissural fornix (91(5):547-559)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Post-commissural tracts originate from the subiculum and project to the thalamus, forming the direct subiculothalamic pathway, and the indirect subiculothalamic pathway which relays via the mammillary bodies."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--limbic-system-ส่วน-mesencephalon-intercrural-nucleus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--limbic-system-ส่วน-mesencephalon-intercrural-nucleus--v1",
+          "statement": "The intercrural (interpeduncular) nucleus of the midbrain is the postsynaptic target of habenular axons.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29107475",
+              "locator": "Abstract (78:107-115)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "directs the posterior outgrowth of their newly emerging axons towards their postsynaptic target, the midbrain interpeduncular nucleus"
+          }
+        }
+      ]
+    }
+  },
+  "vet-neuroanat--neuroanat--metencephalon": {
+    "vet-neuroanat--neuroanat--metencephalon--metencephalon-อยู่ตรงไหนใน-rhombencephalon": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--metencephalon-อยู่ตรงไหนใน-rhombencephalon--v1",
+          "statement": "The rhombencephalon (hindbrain) divides into metencephalon and myelencephalon, and within the metencephalon the dorsal portion becomes the cerebellum while the ventral portion becomes the pons.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32809424",
+              "locator": "Embryology section; chapter last updated 30 January 2023 (NBK560589)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The pontine flexure divides the hindbrain into the metencephalon (future pons and cerebellum) and the myelencephalon (future medulla). The dorsal portion of the metencephalon gives rise to the cerebellum, whereas the ventral part becomes th"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--โครงสร้างมหภาคของ-cerebellum-และเยื่อหุ้มรอบ-ๆ": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--โครงสร้างมหภาคของ-cerebellum-และเยื่อหุ้มรอบ-ๆ--v1",
+          "statement": "The cerebellum has an outer grey cerebellar cortex overlying a branched core of white matter called the arbor vitae.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30844194",
+              "locator": "Structure and Function, Nuclei subsection; chapter last updated 24 July 2023 (NBK538167)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cerebellum consists of an outer layer of highly convoluted gray matter (cerebellar cortex) surrounding a highly branched body of white matter known as the arbor vitae"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--โครงสร้างมหภาคของ-cerebellum-และเยื่อหุ้มรอบ-ๆ--v2",
+          "statement": "The tentorium cerebelli, a dural extension, is the membrane that separates the cerebellum from the cerebrum.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30844194",
+              "locator": "Structure and Function, first paragraph; chapter last updated 24 July 2023 (NBK538167)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Tentorium cerebelli, an extension of the dura matter, separates the cerebellum from the cerebrum."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--developmental-classification": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--developmental-classification--v1",
+          "statement": "Phylogenetically the cerebellum splits into archicerebellum = flocculonodular lobe, paleocerebellum = anterior (rostral) lobe, and neocerebellum = posterior (caudal) lobe.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33580287",
+              "locator": "Introduction, first paragraph (vol 50, article 6)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The anatomical location of the anterior lobe is called the palecerebellum, the posterior lobe is called the neocerebellum and the flocculonodular lobe is called the archicerebellum."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--anatomical-classification": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--anatomical-classification--v1",
+          "statement": "Externally the cerebellum consists of two hemispheres joined by the vermis and attaches to the brainstem by three paired cerebellar peduncles (rostral/superior, middle, caudal/inferior).",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30844194",
+              "locator": "Nerves section; chapter last updated 24 July 2023 (NBK538167)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cerebellum attaches to the brainstem by three groups of nerve fibers called the superior, middle, and inferior cerebellar peduncles, through which efferent and afferent fibers pass to connect with the rest of the nervous system."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--anatomical-classification--v2",
+          "statement": "The internal grey matter of the cerebellum consists of three paired deep nuclei named, from medial to lateral, fastigial, interposed and dentate (lateral).",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30844194",
+              "locator": "Structure and Function, Nuclei subsection; chapter last updated 24 July 2023 (NBK538167)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "From medial to lateral, the deep nuclei are the fastigial, interposed (consisting of globose and emboliform nuclei), and dentate nuclei, which is the largest nuclei."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--cerebellar-nuclei-กับ-afferent-และ-efferent-ของแต่ละนิวเคลียส": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--cerebellar-nuclei-กับ-afferent-และ-efferent-ของแต่ละนิวเคลียส--v1",
+          "statement": "The dentate nucleus, the nucleus of the cerebellar hemisphere, sends its efferent output to the contralateral thalamus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29226020",
+              "locator": "Abstract, Background (vol 7, article 515)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The dentatothalamic tract connects the dentate nucleus of the cerebellum with the contralateral thalamus and plays a major role in the pathogenesis of tremor."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--cerebellar-nuclei-กับ-afferent-และ-efferent-ของแต่ละนิวเคลียส--v2",
+          "statement": "The interposed and dentate nuclei are the relay through which cerebellar cortical output reaches the red nucleus and the thalamus, matching the slide's efferent targets for those two nuclei.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31424835",
+              "locator": "Structure and Function, Cerebrocerebellum subsection; chapter last updated 25 July 2023 (NBK545251)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The Purkinje cells send outputs to the dentate and interposed nuclei which project fibers to the contralateral red nucleus (via the cerebellorubral fibers) and ventrolateral thalamic nuclei (via the cerebellothalamic fibers)."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--functional-zones-และ-functional-classification": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--functional-zones-และ-functional-classification--v1",
+          "statement": "The cerebellum is divided functionally into three zones - vestibulocerebellum (flocculonodular lobe), spinocerebellum (vermis plus paravermis) and cerebrocerebellum (hemispheres), the last of which handles motor planning and the timing of voluntary movement.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31424835",
+              "locator": "Structure and Function, functional zones; chapter last updated 25 July 2023 (NBK545251)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Functionally, the cerebellum divides into three zones, the vestibulocerebellum, cerebrocerebellum, and spinocerebellum"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--functional-zones-และ-functional-classification--v2",
+          "statement": "The cerebrocerebellum (cerebellar hemispheres) controls voluntary movement in terms of planning, timing and coordination, as the slide states for the (D) zone.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31424835",
+              "locator": "Structure and Function, Cerebrocerebellum subsection; chapter last updated 25 July 2023 (NBK545251)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cerebellar hemispheres function in motor planning, the timing of the onset of movements, and their coordination."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--cerebellar-lobules-และ-fissures": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--cerebellar-lobules-และ-fissures--v1",
+          "statement": "The cerebellar vermis is divided into nine named lobules - lingula, centralis, culmen, declive, folium, tuber, pyramis, uvula and nodulus - separated by fissures including the primary, preculminate and prepyramidal fissures.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-2773740",
+              "locator": "Abstract (vol 153, issue 4, pp 829-835)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the corpus medullare and primary white-matter branches to the vermian lobules, including the lingula, centralis, culmen, declive, folium, tuber, pyramis, uvula, and nodulus"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--cerebellar-peduncles-ทั้งสามคู่": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--cerebellar-peduncles-ทั้งสามคู่--v1",
+          "statement": "The caudal (inferior) peduncle carries the spinocerebellar, cuneocerebellar, olivocerebellar and vestibulocerebellar afferents, the middle peduncle carries pontocerebellar afferents from the contralateral pontine nuclei, and the rostral (superior) peduncle carries efferents from the deep nuclei to the thalamus and red nucleus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31424835",
+              "locator": "Structure and Function, cerebellar peduncles paragraph; chapter last updated 25 July 2023 (NBK545251)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The inferior cerebellar peduncle contains afferent fibers, including dorsal spinocerebellar tract, cuneocerebellar tract, olivocerebellar tract, and vestibulocerebellar tract. The superior cerebellar peduncle conveys efferent information fr"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--afferent-tract-to-cerebellum": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--afferent-tract-to-cerebellum--v1",
+          "statement": "The dorsal spinocerebellar tract carries unconscious proprioception from the trunk and hindlimb (lower limb) to the cerebellum.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32310473",
+              "locator": "Structure and Function, first paragraph; chapter last updated 8 August 2023 (NBK556013)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The DSCT transmits proprioception information from Golgi tendon organs and muscle spindles of the trunk and lower limb."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--afferent-tract-to-cerebellum--v2",
+          "statement": "Proprioception from the forelimb reaches the cerebellum by a separate route, the cuneocerebellar tract, rather than by the dorsal spinocerebellar tract.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32310473",
+              "locator": "Cellular Level / development paragraph; chapter last updated 8 August 2023 (NBK556013)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "ATOH-1 lineage neurons contribute to the reception of unconscious proprioceptive information from both the hindbrain (non-Clarke's division of the dorsal spinocerebellar tract) and those from the forelimb (cuneocerebellar tract)."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--efferent-tract-from-cerebellum": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--efferent-tract-from-cerebellum--v1",
+          "statement": "One major cerebellar efferent target is the red nucleus, reached by projections from the contralateral interposed nuclei, which then gives rise to the rubrospinal tract.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31869092",
+              "locator": "Structure and Function; chapter last updated 24 July 2023 (NBK551628)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the contralateral interposed nuclei of the deep cerebellum project neurons that travel directly to the RNm, which thereby gives rise to the rubrospinal tract and subsequently relays into the spinal cord"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--cerebellar-functions": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--cerebellar-functions--v1",
+          "statement": "The cerebellum's core functions are coordination of movement and the maintenance of posture and muscle tone.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30844194",
+              "locator": "Introduction; chapter last updated 24 July 2023 (NBK538167)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cerebellum coordinates gait and maintains posture, controls muscle tone and voluntary muscle activity but is unable to initiate muscle contraction."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--cerebellar-disorders": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--cerebellar-disorders--v1",
+          "statement": "Cerebellar disease in the dog presents as a wide-based stance with dysmetria and intention tremor.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-20384950",
+              "locator": "Abstract, Results (vol 24, issue 3, pp 565-570)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Clinical signs included wide based stance, dysmetria, intention tremor, and difficulty negotiating stairs and running."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--pons-ภาพรวม": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--pons-ภาพรวม--v1",
+          "statement": "The pons is subdivided into two parts, a ventral (basal) portion and a dorsal portion called the tegmentum.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32809424",
+              "locator": "Internal Morphology; chapter last updated 30 January 2023 (NBK560589)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Morphologically and physiologically, the pons are subdivided into 2 segments: the anterior basilar pons and the posterior tegmentum."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--ventral-basal-portion-ของ-pons": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--ventral-basal-portion-ของ-pons--v1",
+          "statement": "The ventral (basal) pons contains the pontine nuclei plus longitudinal corticopontine and corticospinal fibres, and its transverse fibres arise from those pontine nuclei and cross to the opposite cerebellum through the middle cerebellar peduncle.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32809424",
+              "locator": "Introduction; chapter last updated 30 January 2023 (NBK560589)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The ventral portion of pons contains pontine nuclei, vertically traversing corticopontine and corticospinal tracts, and transversely crossing fibers arising from pontine nuclei that project to the opposite cerebellum through the middle cere"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--metencephalon--dorsal-portion-หรือ-pontine-tegmentum": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--dorsal-portion-หรือ-pontine-tegmentum--v1",
+          "statement": "The lateral lemniscus in the pontine tegmentum is an ascending auditory pathway formed from trapezoid body fibres travelling toward the midbrain colliculus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32809424",
+              "locator": "White Matter, ascending fibers paragraph; chapter last updated 30 January 2023 (NBK560589)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The lateral lemniscus forms from fibers of the trapezoid body that ascend toward the inferior colliculus. This lateral lemniscus is part of the acoustic pathway"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--metencephalon--dorsal-portion-หรือ-pontine-tegmentum--v2",
+          "statement": "The medial lemniscus is made of decussated axons originating from the nucleus gracilis and nucleus cuneatus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30252296",
+              "locator": "Introduction; chapter last updated 6 July 2025 (NBK526040)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The medial lemniscus (2nd-order neuron of DCML) commences at the nucleus gracilis and nucleus cuneatus at the caudal medulla."
+          }
+        }
+      ]
+    }
+  },
+  "vet-neuroanat--neuroanat--midbrain": {
+    "vet-neuroanat--neuroanat--midbrain--development-ของ-midbrain": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--development-ของ-midbrain--v1",
+          "statement": "The cavity of the embryonic mesencephalon narrows to become the cerebral (mesencephalic) aqueduct, which is therefore the ventricular space of the midbrain.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31082032",
+              "locator": "Embryology section",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cavity of the mesencephalon narrows forming the cerebral aqueduct."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--ตำแหน่งของ-midbrain-dorsal-part": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--ตำแหน่งของ-midbrain-dorsal-part--v1",
+          "statement": "The midbrain lies between the diencephalon and the pons, and its dorsal surface (tectum) carries the corpora quadrigemina, whose rostral (superior) colliculi serve vision and caudal (inferior) colliculi serve hearing.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31855353",
+              "locator": "Structure and Function",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "On the other hand, the midbrain tectum consists of the corpora quadrigemina and is responsible for auditory and visual reflexes."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--ตำแหน่งของ-midbrain-ventral-part": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--ตำแหน่งของ-midbrain-ventral-part--v1",
+          "statement": "On the ventral aspect of the midbrain the oculomotor nerve (CN III) emerges between the cerebral peduncles in the interpeduncular fossa, whereas the trochlear nerve leaves dorsally.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31855353",
+              "locator": "Structure and Function, cranial nerves of the midbrain",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The oculomotor nerve has a portion that lies between the cerebral peduncles located in the ventral midbrain while the trochlear nerve comes out of the midbrain dorsally."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--โครงสร้างภายใน-midbrain": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--โครงสร้างภายใน-midbrain--v1",
+          "statement": "Internally the midbrain is divided into a dorsal tectum and a ventral tegmentum with the cerebral peduncle/crus cerebri anteriorly, arranged around the centrally placed cerebral aqueduct.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31855353",
+              "locator": "Structure and Function, Cerebral Aqueduct of Sylvius",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In practical terms, the midbrain is distinguishable into the tegmentum, the ventral part, and the tectum, the dorsal part."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--tectum-rostral-และ-caudal-colliculi": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--tectum-rostral-และ-caudal-colliculi--v1",
+          "statement": "The caudal (inferior) colliculus sends its output through the brachium of the caudal colliculus to the medial geniculate body, and mediates the startle response to a loud sound.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32119355",
+              "locator": "Structure and Function",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The major output from the IC runs through the brachium of the inferior colliculus to excite the medial geniculate nucleus of the thalamus."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน--v1",
+          "statement": "The structures labelled on this figure (cochlear nuclei, trapezoid nuclei, lateral lemniscus, caudal colliculus, medial geniculate body) are successive relay stations of the ascending auditory pathway from the inner ear to the auditory cortex.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32119355",
+              "locator": "Introduction",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The inferior colliculus (IC; plural: colliculi) is a paired structure in the midbrain, which serves as an important relay point for auditory information as it travels from the inner ear to the auditory cortex."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--tegmentum-และของที่อยู่ในนั้น": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--tegmentum-และของที่อยู่ในนั้น--v1",
+          "statement": "The tegmentum is the core of the midbrain and contains the reticular formation, the eye-movement cranial nerve nuclei, the periaqueductal gray, the red nucleus and the substantia nigra.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31855353",
+              "locator": "Structure and Function, tegmentum",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The former includes different structures, such as the cranial part of the reticular formation, cranial nerve nuclei (which control eye movements,) the periaqueductal gray (PAG) matter, the red nucleus, the substantia nigra, and the ventral "
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--reticular-formation-rf": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--reticular-formation-rf--v1",
+          "statement": "The ascending reticular activating system, a component of the brainstem reticular formation, governs the sleep-wake cycle, arousal and the state of consciousness.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31751025",
+              "locator": "Structure and Function",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the nuclei that form the RAS play a significant role in coordinating both the sleep-wake cycle and wakefulness"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--oculomotor-nucleus-และ-edinger-wesphal-nucleus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--oculomotor-nucleus-และ-edinger-wesphal-nucleus--v1",
+          "statement": "The oculomotor nucleus supplies the dorsal (superior) rectus, ventral (inferior) rectus, medial rectus and ventral (inferior) oblique muscles of the eye.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30725811",
+              "locator": "Structure and Function, extraocular muscle innervation",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "it supplies the superior rectus, which elevates the eye; the medial rectus, which adducts the eye toward the nose; the inferior rectus, which depresses the eye; and the inferior oblique, which contributes to elevation and extorsion of the e"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--oculomotor-nucleus-และ-edinger-wesphal-nucleus--v2",
+          "statement": "The Edinger-Westphal nucleus is the parasympathetic nucleus of CN III and drives the constrictor (sphincter) pupillae and the ciliary muscle for pupil constriction and lens accommodation.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32119442",
+              "locator": "Structure and Function",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "innervation of the sphincter pupillae (causing miosis) and ciliary muscles (ocular accommodation)"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--trochlear-nuclei-cn-iv-และ-mlf": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--trochlear-nuclei-cn-iv-และ-mlf--v1",
+          "statement": "The trochlear nucleus lies in the midbrain at the level of the caudal (inferior) colliculus, its fibres decussate before leaving the midbrain dorsally, and the nerve supplies only the dorsal (superior) oblique muscle.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30725929",
+              "locator": "Structure and Function",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The trochlear nerve pair originates from a pair of symmetrical trochlear nuclei within the medial midbrain at the level of the inferior colliculus."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--trochlear-nuclei-cn-iv-และ-mlf--v2",
+          "statement": "The medial longitudinal fasciculus links the vestibular nuclei to the motor nuclei of CN III, IV and VI to coordinate eye movement.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31424881",
+              "locator": "Structure and Function, vestibulo-ocular pathway",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The medial longitudinal fasciculus is used to send second-order sensory neuron signals ipsi- and contra-laterally to oculomotor cranial nerves III, IV, and VI."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--trigeminal-nerve-cn-v-nuclei": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--trigeminal-nerve-cn-v-nuclei--v1",
+          "statement": "The mesencephalic nucleus of CN V carries proprioception from the head, while the spinal tract nucleus carries pain and temperature, the pontine sensory nucleus touch, and the motor nucleus supplies the muscles of mastication.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30969645",
+              "locator": "Structure and Function, mesencephalic nucleus",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is responsible for unconscious proprioception that stems from muscle spindles in the muscles of mastication and other muscles of the head and neck."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--red-nucleus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--red-nucleus--v1",
+          "statement": "The red nucleus receives axons from the contralateral deep cerebellar nuclei and gives rise to the rubrospinal tract descending to the spinal cord.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31869092",
+              "locator": "Structure and Function, magnocellular red nucleus",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Regarding the RNm, the contralateral interposed nuclei of the deep cerebellum project neurons that travel directly to the RNm, which thereby gives rise to the rubrospinal tract and subsequently relays into the spinal cord."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--periaqueductal-gray-pag": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--periaqueductal-gray-pag--v1",
+          "statement": "The periaqueductal gray surrounds the cerebral aqueduct and carries opioid receptors that make it a key node of the descending pain-modulating system.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36045708",
+              "locator": "Abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Opioid receptors are expressed on a subset of vlPAG neurons, as well as on both GABAergic and glutamatergic presynaptic terminals that impinge on vlPAG neurons."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--substantia-nigra": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--substantia-nigra--v1",
+          "statement": "The substantia nigra sits deep to the crus cerebri of the cerebral peduncle, between the crus and the tegmentum containing the red nucleus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30725680",
+              "locator": "Structure and Function",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Located within the midbrain posterior to the crus cerebri fibers of the cerebral peduncle, the substantia nigra can be functionally and morphologically divided into 2 regions"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--substantia-nigra--v2",
+          "statement": "The substantia nigra contains pigmented dopamine-producing neurons whose loss causes Parkinson disease in humans.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30725680",
+              "locator": "Clinical Significance",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A loss of the dopaminergic neurons of the substantia nigra leads to Parkinson disease, and the symptoms of this disease can be treated using dopamine-supplementation approaches."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--crus-cerebri-interpeduncular-fossa-และ-caudal-perforated-substan": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--crus-cerebri-interpeduncular-fossa-และ-caudal-perforated-substan--v1",
+          "statement": "The crus cerebri is the white-matter mass that carries descending fibres arriving from the internal capsule, including the corticonuclear (corticobulbar) and corticospinal tracts.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32310351",
+              "locator": "Structure and Function, course of the tract",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "From the internal capsule, these fibers enter into crus cerebri of the cerebral peduncles in the midbrain."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--clinical-correlations": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--clinical-correlations--v1",
+          "statement": "A lesion of the oculomotor nerve in the dog produces mydriasis with a reduced pupillary light reflex together with a ventrolateral strabismus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-38329273",
+              "locator": "Abstract, case description",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "mydriasis associated with reduced pupillary light reflex, ventrolateral strabismus, and absence of physiologic nystagmus in the left eye"
+          }
+        }
+      ]
+    }
+  },
+  "vet-neuroanat--neuroanat--myelencephalon": {
+    "vet-neuroanat--neuroanat--myelencephalon--ventral-external-surface": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--ventral-external-surface--v1",
+          "statement": "After the pyramidal decussation the crossed corticospinal axons form the lateral corticospinal tract in the lateral funiculus, with the remaining uncrossed axons forming the ventral corticospinal tract.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-elsevier-de-lahunta-a--n.d.",
+              "locator": "Ch. 8 'Upper Motor Neuron', lateral and ventral corticospinal tracts",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "At the caudal end of the pyramid, 75% or more of these axons cross in the pyramidal decussation and pass through the gray matter to the dorsal portion of the lateral funiculus."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--lateral-external-surface": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--lateral-external-surface--v1",
+          "statement": "The spinal tract (and nucleus) of the trigeminal nerve on the lateral surface of the medulla conveys pain and temperature sensation from the face.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12646316",
+              "locator": "Discussion / abstract, final sentence",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The caudal parts of the spinal trigeminal nucleus, which has been demonstrated as a center of pain and temperature sensations of the head and face, transmits limited information from the STA to higher nervous centers."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--lateral-external-surface--v2",
+          "statement": "The dorsal spinocerebellar tract carries unconscious proprioception from the trunk and pelvic limb to the cerebellum.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26527010",
+              "locator": "Abstract, opening lines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Unconscious proprioceptive information travels through cerebellar-projecting neurons in the spinal cord and medulla."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--internal-structure-nuclei-แบ่ง-3-กลุ่ม": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--internal-structure-nuclei-แบ่ง-3-กลุ่ม--v1",
+          "statement": "The reticular formation nuclei group of the medulla oblongata houses cardiovascular and respiratory control centres.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-12798209",
+              "locator": "Abstract, labeling results item (3)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "cells and fibers in other medullary areas related to autonomic and respiratory control, including the dorsal motor nucleus of the vagus, nucleus ambiguus complex/ventral respiratory group, rostral ventrolateral medulla (RVLM) and caudal ven"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--internal-structure-tracts": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--internal-structure-tracts--v1",
+          "statement": "The medial longitudinal fasciculus (MLF), listed among the motor tracts of the medulla, carries abducens internuclear axons that drive conjugate horizontal gaze.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28842421",
+              "locator": "Abstract, opening lines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Medial rectus motoneurons receive two main pontine inputs: abducens internuclear neurons, whose axons course through the medial longitudinal fasciculus (MLF), and neurons in the lateral vestibular nucleus, whose axons project through the as"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--nuclei-ของ-cranial-nerves-v-xii": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--nuclei-ของ-cranial-nerves-v-xii--v1",
+          "statement": "CN XII (hypoglossal) has a motor nucleus in the medulla oblongata.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-elsevier-fletcher-tf-b-n.d.",
+              "locator": "Ch. 18 'The Brain', cranial nerve nuclei of the medulla",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The motor nucleus of the hypoglossal nerve (nucleus motorius n. hypoglossi) is evident dorsally beside the midline"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--nuclei-ของ-cranial-nerves-v-xii--v2",
+          "statement": "CN X (vagus) has a parasympathetic nucleus in the medulla oblongata, as the slide's list of motor, sensory and parasympathetic nuclei for CN X states.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-elsevier-fletcher-tf-b-n.d.",
+              "locator": "Ch. 18 'The Brain', cranial nerve nuclei of the medulla",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The parasympathetic nucleus of the vagus nerve (nucleus parasympathicus n. vagi) is located dorsolateral to the hypoglossal nucleus"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--reticular-formation-aras-และ-reticulospinal-pathway": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--reticular-formation-aras-และ-reticulospinal-pathway--v1",
+          "statement": "The ascending reticular activating system (ARAS) keeps the cerebrum in a state of alert consciousness and governs the sleep-wake cycle.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41896020",
+              "locator": "Abstract, opening lines (vol 216, pp 91-95)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The brainstem is crucial for maintaining wakefulness, sleep regulation, and consciousness. It orchestrates alertness through the ascending reticular activating system, integrating sensory information and projecting to the cortex."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--nucleus-cuneatus-และ-nucleus-gracilis": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--nucleus-cuneatus-และ-nucleus-gracilis--v1",
+          "statement": "The nucleus cuneatus receives the fasciculus cuneatus and the nucleus gracilis receives the fasciculus gracilis, the cuneate nucleus lying lateral to the gracile nucleus.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-statpearls-publishing--2026",
+              "locator": "Bookshelf ID NBK507888, Structure and Function",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The nucleus cuneatus, which receives axons from the fasciculus cuneatus, is located laterally to the nucleus gracilis, which receives axons from the fasciculus gracilis."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--trapezoid-nucleus-และ-olivary-nucleus-relay-nuclei": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--trapezoid-nucleus-และ-olivary-nucleus-relay-nuclei--v1",
+          "statement": "The olivary nucleus is a relay station that passes input descending from higher forebrain and midbrain centres on to the cerebellum.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-42184133",
+              "locator": "Abstract, opening lines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It relays cerebral projections to the rostral subnuclei of the inferior olive (IO), which, in turn, send climbing fibers to the cerebellar hemisphere and receive nucleo-olivary projections from the cerebellar nuclei (CN), forming a parallel"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--nucleus-ambiguous-และ-solitary-nucleus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--nucleus-ambiguous-และ-solitary-nucleus--v1",
+          "statement": "The nucleus ambiguus is a motor nucleus whose neurons innervate the skeletal muscles of the pharynx, larynx and oesophagus and control swallowing.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39868939",
+              "locator": "Abstract, opening sentence",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Motor neurons (MNs) within the nucleus ambiguus innervate the skeletal muscles of the larynx, pharynx and oesophagus, which are essential for swallow."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--nucleus-ambiguous-และ-solitary-nucleus--v2",
+          "statement": "The solitary nucleus is a sensory nucleus that receives visceral afferent input from internal organs carried by the cranial nerves including the vagus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29118020",
+              "locator": "Abstract, opening lines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The nucleus of the solitary tract (NTS) is the primary sensory nucleus for cranial visceral sensory afferents."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-รูปร่างและขอบเขต": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-รูปร่างและขอบเขต--v1",
+          "statement": "The fourth ventricle is a diamond (rhomboid) shaped cavity, its floor being the rhomboid fossa.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-elsevier-fletcher-tf-b-n.d.",
+              "locator": "Ch. 18 'The Brain', fourth ventricle",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The floor of the fourth ventricle, designated rhomboid fossa (fossa rhomboidea), has a median sulcus"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-roof-wall-และ-floor": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-roof-wall-และ-floor--v1",
+          "statement": "The roof of the fourth ventricle is formed by the tela choroidea, which carries the choroid plexus.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-elsevier-fletcher-tf-b-n.d.",
+              "locator": "Ch. 18 'The Brain', roof of the fourth ventricle",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The roof of the fourth ventricle (tegmen ventriculi quarti) is formed by the tela choroidea"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-roof-wall-และ-floor--v2",
+          "statement": "The choroid plexus in the roof of the fourth ventricle produces cerebrospinal fluid.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29956324",
+              "locator": "Abstract, opening sentence of the technical summary",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The choroid plexus epithelium (CPE) is located in the brain ventricles where it produces the majority of the cerebrospinal fluid (CSF)."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-roof-wall-และ-floor--v3",
+          "statement": "The area postrema lies in the wall of the fourth ventricle immediately rostral (cranial) to the obex.",
+          "evidenceStatus": "expert-consensus",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-elsevier-fletcher-tf-b-n.d.",
+              "locator": "Ch. 18 'The Brain', wall of the fourth ventricle",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Immediately rostral to the obex, the wall of the ventricle is formed by the area postrema, a densely vascularized gray matter"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-roof-wall-และ-floor--v4",
+          "statement": "The area postrema acts as the emetic centre / chemoreceptor trigger zone because its permeable blood-brain barrier lets it sample the blood.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40724523",
+              "locator": "Abstract, opening lines",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The area postrema (AP) is a circumventricular organ (CVO) at the base of the fourth ventricle. It has a crucial role in regulating nausea and vomiting due to its unique blood-brain barrier (BBB)-permeability and extensive neural connectivit"
+          }
+        }
+      ]
+    }
+  },
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024": {
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--ทำไมต้องตรวจระบบประสาท": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--ทำไมต้องตรวจระบบประสาท--v1",
+          "statement": "The purpose of the neurological examination is to decide whether the problem is neurological, to localize the lesion to a region of the nervous system, and to inform prognosis.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10680207",
+              "locator": "Volume 30, issue 1, pages 1-24; abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Based on these results, the disease is localized to a particular region of the nervous system."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--mental-status-and-behaviour": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--mental-status-and-behaviour--v1",
+          "statement": "Obtundation is a recognized graded level of mental status in dogs and an obtunded mentation points to a forebrain neurolocalisation.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33724496",
+              "locator": "Volume 62, issue 7, pages 531-539; abstract, conclusions",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Obtunded mentation and forebrain neurolocalisation were the main neurological manifestations."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--posture-and-body-position-at-rest-ศีรษะและลำตัว": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--posture-and-body-position-at-rest-ศีรษะและลำตัว--v1",
+          "statement": "Head tilt is an abnormality of head posture assessed at rest and is a cardinal sign of vestibular system dysfunction.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19942058",
+              "locator": "Volume 40, issue 1, pages 81-100; abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Clinical signs of vestibular disease include asymmetric ataxia, head tilt, and pathologic nystagmus."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--posture-and-body-position-at-rest-ขา": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--posture-and-body-position-at-rest-ขา--v1",
+          "statement": "Schiff-Sherrington posture is one of the abnormal resting limb postures recorded in dogs with thoracolumbar spinal cord injury.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-23702280",
+              "locator": "Volume 198, issue 1, pages 70-75; abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The duration of clinical signs, Schiff-Sherrington posture, loss of reflexes and pain on spinal palpation were not significantly associated with the severity of spinal cord damage."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--gait-ataxia-paresis-paralysis-lameness": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--gait-ataxia-paresis-paralysis-lameness--v1",
+          "statement": "Ataxia arises from dysfunction of sensory systems, the vestibular system being one such sensory system that maintains position of the eyes, body and limbs.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22847320",
+              "locator": "Volume 34, issue 7, page E1; abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is a sensory system that maintains the position of the eyes, body, and limbs in reference to the position of the head."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements--v1",
+          "statement": "Feline hyperesthesia syndrome is a recognized clinical entity in cats and belongs on the list of abnormal involuntary movement presentations.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32680665",
+              "locator": "Volume 50, issue 5, pages 1157-1181; abstract",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Addressing environmental needs and underlying triggers is more important than pharmacotherapy when dealing with feline orofacial pain syndrome or feline hyperesthesia syndrome."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--spinal-reflexes-reflex-กับ-nerve-กับ-spinal-cord-segment": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--spinal-reflexes-reflex-กับ-nerve-กับ-spinal-cord-segment--v1",
+          "statement": "Spinal reflexes are segmental and do not require the animal's conscious perception of the stimulus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34041291",
+              "locator": "Volume 8, article 664150; Introduction",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A reflex in the thoracic or pelvic limbs does not depend on the animal's conscious perception of the stimuli"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--spinal-reflexes-reflex-กับ-nerve-กับ-spinal-cord-segment--v2",
+          "statement": "The patellar reflex tests the femoral nerve and the L4-L6 spinal cord segments, exactly as the slide's table states.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-34041291",
+              "locator": "Volume 8, article 664150; Introduction",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "provides information on the integrity of the L4-L6 spinal cord segments and the femoral nerve"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cutaneous-trunci-reflex": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cutaneous-trunci-reflex--v1",
+          "statement": "The cutaneous trunci reflex is used to localize thoracolumbar spinal cord lesions, with the cut-off lying a short distance caudal to the lesion.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22845846",
+              "locator": "Volume 53, issue 8, pages 470-475; abstract, conclusions",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cutaneous trunci reflex allows localisation of thoracolumbar spinal cord lesions within four vertebrae"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cranial-nerve-examination-afferent-efferent-effect": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cranial-nerve-examination-afferent-efferent-effect--v1",
+          "statement": "Cranial nerve tests such as the menace response and the pupillary light reflex map abnormalities onto specific named cranial nerves, an absent menace response and slow pupillary light reflexes implicating the optic and oculomotor nerves.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-24657877",
+              "locator": "Volume 16, issue 12, pages 1010-1015; case description",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Multifocal central nervous system disease was suspected based on optic, trigeminal sensory (ophthalmic branch), vestibulocochlear and possible oculomotor nerve dysfunction."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cranial-nerve-examination-afferent-efferent-effect--v2",
+          "statement": "The blink that ends both the palpebral reflex and the menace response is produced by the facial nerve, since blocking its auriculopalpebral branch abolishes eyelid movement while the animal is otherwise normal.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-39207170",
+              "locator": "Volume 28, issue 4, pages 691-698; abstract, conclusions",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Auriculopalpebral nerve block using lidocaine demonstrated efficient eyelid akinesia, peaking at 30 min postinjection."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--palpebral-reflex-และ-pathological-nystagmus": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--palpebral-reflex-และ-pathological-nystagmus--v1",
+          "statement": "Vertical nystagmus is a form of pathological nystagmus that occurs with central (here cerebellar) lesions and is accompanied by other central signs such as a decreased menace response.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-35361210",
+              "locator": "Volume 18, article 123; case presentation",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The menace response was decreased, and vertical nystagmus was observed."
+          }
+        }
+      ]
+    }
+  },
+  "vet-neuroanat--neuroanat--visual-vestibular-systems": {
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--retina-receptors-และ-transduction": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--retina-receptors-และ-transduction--v1",
+          "statement": "Visual signal in the retina passes from the rod and cone photoreceptors to bipolar cells and then to the ganglion cells whose axons leave the eye.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31985982",
+              "locator": "Structure and Function — Visual Sensory Pathway, Retina",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Rods and cones convert light into electrical signals that are processed through bipolar, horizontal, and amacrine cells before converging on retinal ganglion cells (RGCs)."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--visual-field-nasal-half-กับ-temporal-half": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--visual-field-nasal-half-กับ-temporal-half--v1",
+          "statement": "Fibres from the nasal half of the retina cross at the optic chiasm to the contralateral side, while fibres from the temporal half stay ipsilateral.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31985982",
+              "locator": "Structure and Function — Optic chiasm",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Nasal retinal fibers decussate at this level, whereas temporal retinal fibers remain ipsilateral."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--visual-pathway-ตั้งแต่-photoreceptor-ถึง-visual-cortex": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--visual-pathway-ตั้งแต่-photoreceptor-ถึง-visual-cortex--v1",
+          "statement": "The conscious visual pathway runs retina → optic nerve → optic chiasm → optic tract → lateral geniculate nucleus → optic radiation → primary visual cortex in the occipital lobe.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31985982",
+              "locator": "Structure and Function — Gross Anatomy",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These structures extend from the globe through the optic nerve (cranial nerve II), optic chiasm, optic tracts, lateral geniculate nuclei (LGN), and optic radiations, ultimately terminating in the occipital lobe."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--20-ของ-fibres-จาก-optic-tract-ไปไหนบ้าง": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--20-ของ-fibres-จาก-optic-tract-ไปไหนบ้าง--v1",
+          "statement": "A minority of optic tract fibres bypass the lateral geniculate nucleus and project instead to the rostral (superior) colliculus and the pretectal nuclei, the latter driving the pupillary light reflex.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31985982",
+              "locator": "Structure and Function — Optic tract",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Most fibers synapse within the LGN, while collateral projections extend to the superior colliculus, pretectal nuclei, and suprachiasmatic nucleus."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--20-ของ-fibres-จาก-optic-tract-ไปไหนบ้าง--v2",
+          "statement": "The tectospinal tract is one of the destinations of this reflex branch: it arises from the superior (rostral) colliculus and turns the eyes and head toward a visual or auditory stimulus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31751106",
+              "locator": "Introduction",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "It is involved in orienting the eyes and the head towards sounds as part of the auditory and visual reflex. It originates from the superior colliculus, which is involved in both the auditory and visual pathways."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--monocular-vs-binocular-vision": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--monocular-vs-binocular-vision--v1",
+          "statement": "The predator/prey contrast on the slide reflects a real pattern: predatory mammals have more convergent (forward-facing) orbits and greater binocular field overlap than non-predatory taxa.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-17878718",
+              "locator": "Abstract, results and conclusion",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "These results are consistent with the hypothesis that mammalian predators evolved higher orbit convergence, binocular vision, and stereopsis to counter camouflage in prey inhabiting a nocturnal environment."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--รายการตรวจ-neuro-ophthalmology": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--รายการตรวจ-neuro-ophthalmology--v1",
+          "statement": "Menace response, dazzle reflex, palpebral reflex and the pupillary light reflex are the standard components of a neuro-ophthalmic evaluation in dogs, as the slide's checklist states.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25648149",
+              "locator": "Materials and Methods (case selection)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "neuro-ophthalmic evaluation (menace response, dazzle reflex, palpebral reflex and PLR)"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--รูม่านตา-miosis-mydriasis-และ-plr": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--รูม่านตา-miosis-mydriasis-และ-plr--v1",
+          "statement": "Miosis is produced by the sphincter pupillae under parasympathetic control and mydriasis by the dilator pupillae under sympathetic control.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31985962",
+              "locator": "Structure and Function — Iris and Pupil",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the sphincter pupillae, which constricts the pupil under parasympathetic control, and the dilator pupillae, which dilates the pupil via sympathetic innervation"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--รูม่านตา-miosis-mydriasis-และ-plr--v2",
+          "statement": "The Edinger-Westphal nucleus named on the PLR slide is the parasympathetic relay of the reflex, receiving bilateral input from the pretectal nuclei.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31985962",
+              "locator": "Structure and Function — Mechanism of the Pupillary Light Reflex",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Each pretectal nucleus projects bilaterally to the Edinger-Westphal nuclei of the oculomotor nerve."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--รูม่านตา-miosis-mydriasis-และ-plr--v3",
+          "statement": "The mydriasis in the slide's oculomotor-paralysis case is explained by loss of the parasympathetic supply to the sphincter pupillae.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30725811",
+              "locator": "Clinical Significance — Clinical Signs",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A dilated pupil may be present if parasympathetic fibers are involved, reflecting loss of sphincter pupillae function."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--รูม่านตา-miosis-mydriasis-และ-plr--v4",
+          "statement": "The ptosis in the same oculomotor-paralysis case is caused by paralysis of the muscle that raises the upper eyelid, which cranial nerve III supplies.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30725811",
+              "locator": "Clinical Significance — Clinical Signs",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Ptosis is common and results from paralysis of the levator palpebrae superioris muscle."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--horner-syndrome": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--horner-syndrome--v1",
+          "statement": "Horner syndrome is caused by loss of the sympathetic nerve supply to the eye and classically presents with ptosis and miosis.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-29763176",
+              "locator": "Introduction",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Horner syndrome is a rare condition classically presenting with partial ptosis (drooping or falling of upper eyelid), miosis (constricted pupil), and facial anhidrosis (loss of sweating) due to a disruption in the sympathetic nerve supply."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--horner-syndrome--v2",
+          "statement": "In dogs the four signs listed on the slide occur together: miosis, ptosis of the upper eyelid, enophthalmos and protrusion of the third eyelid.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-11397204",
+              "locator": "Abstract, case description",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Five males and two females presented with unilateral miosis, ptosis of the upper eyelid, enophthalmos and protrusion of the third eyelid."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibular-receptors": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibular-receptors--v1",
+          "statement": "The vestibular sensory receptors are hair cells housed in the utricle, saccule and the semicircular canals.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30855919",
+              "locator": "Nerves — Vestibular Nerve",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Sensory receptors are located within the utricle, saccule, and semicircular canals."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibular-pathway-จาก-hair-cell-ไป-5-ปลายทาง": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibular-pathway-จาก-hair-cell-ไป-5-ปลายทาง--v1",
+          "statement": "The cell bodies of the vestibular afferents that carry hair-cell signals in CN VIII lie in the vestibular (Scarpa) ganglion, and their central fibres reach the vestibular nuclei and cerebellum.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30855919",
+              "locator": "Nerves — Vestibular Nerve",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The cell bodies of vestibular afferent neurons are located within the Scarpa (vestibular) ganglion."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibular-pathway-จาก-hair-cell-ไป-5-ปลายทาง--v2",
+          "statement": "Output from the vestibular nuclei fans out to the eye-movement (vestibulo-ocular) pathway, the vestibulospinal tract, the cerebellum and the cortex, matching the branching on the slide.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30855919",
+              "locator": "Central Auditory Pathways (vestibular projections)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Outputs from the vestibular nuclei contribute to the vestibulo-ocular reflex, vestibulospinal tracts, cerebellar pathways, and cortical vestibular networks."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibulo-ocular-reflex-vor": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibulo-ocular-reflex-vor--v1",
+          "statement": "The vestibulo-ocular reflex holds gaze steady while the head moves, which is the definition given on the slide.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30855919",
+              "locator": "Introduction",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The vestibulo-ocular reflex, one of the most clinically important reflex pathways in medicine, stabilizes visual fixation during head movement and provides the physiologic basis for many bedside vestibular examinations."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--extra-ocular-muscles-กับ-innervation": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--extra-ocular-muscles-กับ-innervation--v1",
+          "statement": "Cranial nerve III supplies the dorsal (superior) rectus which elevates the eye, the medial rectus which adducts it, the ventral (inferior) rectus which depresses it, and the ventral (inferior) oblique.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30725811",
+              "locator": "Structure and Function — somatic functions",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The superior rectus elevates the eye from the primary (straight-ahead) position. The medial rectus adducts the eye toward the nose from the primary position. The inferior rectus depresses the eye from the primary position."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--extra-ocular-muscles-กับ-innervation--v2",
+          "statement": "The two exceptions on the slide's table hold: the lateral rectus is innervated by the abducens nerve (CN VI) and the dorsal (superior) oblique by the trochlear nerve (CN IV).",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-30725811",
+              "locator": "Clinical Significance — Clinical Signs",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the unopposed action of the lateral rectus muscle (innervated by the abducens nerve), which abducts the eye, and the superior oblique muscle (innervated by the trochlear nerve), which depresses and intorts the eye when adducted"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--อาการของ-vestibular-diseases": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--อาการของ-vestibular-diseases--v1",
+          "statement": "Ataxia, head tilt, pathological nystagmus and strabismus are the cardinal clinical signs of vestibular disease, as listed on the slide.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32776616",
+              "locator": "Introduction, first paragraph",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The diagnosis of VD is based on cardinal neurological examination abnormalities such as ataxia, head tilt, and pathological nystagmus and strabismus."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--อาการของ-vestibular-diseases--v2",
+          "statement": "Vomiting, the last item on the slide's list, is a common clinical sign of vestibular disease in dogs.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32776616",
+              "locator": "Discussion (clinical signs)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Vomiting is a common clinical sign of VD in dogs"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--visual-vestibular-systems--central-vs-peripheral-vestibular-disease": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--visual-vestibular-systems--central-vs-peripheral-vestibular-disease--v1",
+          "statement": "The slide's central column is correct in principle: proprioceptive deficits, altered mentation, cranial nerve deficits other than CN VII, and vertical nystagmus point to a central lesion.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32776616",
+              "locator": "Introduction, first paragraph",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-15",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Neurological signs associated with central involvement include proprioception deficits, altered mentation, cranial nerve (CN) deficits other than CN VII or VIII, and vertical or dysconjugate nystagmus."
+          }
+        }
+      ]
+    }
   }
 };
 

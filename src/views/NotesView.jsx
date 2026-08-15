@@ -31,6 +31,7 @@ import { NOTES_85_ONE_HEALTH } from '../data/notes-85-one-health.js';
 import { NOTES_85_POA_CLINICAL } from '../data/notes-85-poa-clinical.js';
 import { NOTES_85_SWINE_CLINIC } from '../data/notes-85-swine-clinic.js';
 import { NOTES_85_ZOONOSES } from '../data/notes-85-zoonoses.js';
+import { NOTES_Y2_NEUROANAT } from '../data/notes-y2-neuroanat.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import { hasTopic } from '../lib/vetwiki/registry.js';
@@ -54,6 +55,7 @@ import TemplateLibrary from '../components/TemplateLibrary.jsx';
 // ============================================================
 
 const NOTES_BY_SUBJECT = {
+  'vet-neuroanat': NOTES_Y2_NEUROANAT,
   com5: NOTES_COM5,
   com4: NOTES_COM4,
   com3: NOTES_COM3,
@@ -297,9 +299,13 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 <div style={{ fontSize: 13, fontWeight: active ? 600 : 500, lineHeight: 1.3 }}>
                   {t.icon} {t.title}
                 </div>
-                <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
-                  by Aj. {t.lecturer}
-                </div>
+                {/* Some decks never name their lecturer, and a bare "by Aj."
+                    reads as a rendering failure rather than a missing field. */}
+                {t.lecturer && (
+                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
+                    by Aj. {t.lecturer}
+                  </div>
+                )}
                 <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                   {t.sections.length} sections
                 </div>
@@ -317,7 +323,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         <div ref={mainRef}>
           <div style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}>
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
-              Topic, by Aj. {topic.lecturer}
+              {topic.lecturer ? `Topic, by Aj. ${topic.lecturer}` : 'Topic'}
             </div>
             <h2 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 600 }}>
               {topic.icon} {topic.title}

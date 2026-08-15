@@ -38,3 +38,4 @@ ds-bundle/
 .design-sync/node_modules
 .ds-entry.tsx
 .wiki-unverified
+.y2-work/

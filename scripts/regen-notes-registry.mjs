@@ -34,11 +34,37 @@ for (const block of ['const NOTES_BY_SUBJECT = {', 'const NOTES_85_BY_SUBJECT = 
 }
 
 const list = [...subjects].sort();
-// Topic-level availability comes from the browser-light governed registry.
-// `lint:wiki-registry` runs first and proves this metadata still matches the
-// canonical notes corpus, while this artifact keeps only compact ids/counts.
-const { listTopics } = await import('../src/lib/vetwiki/registry.js');
-const topicRows = listTopics()
+
+// Which notes module each subject reads from, recovered by pairing the map
+// entries with NotesView's own imports. Used to enumerate topics from the
+// notes themselves rather than from the wiki.
+const moduleOf = new Map();
+for (const [, konst, file] of view.matchAll(/import \{ (NOTES_[A-Z0-9_]+) \} from '\.\.\/data\/(notes-[^']+)'/g)) {
+  moduleOf.set(konst, file);
+}
+const notesFileOf = new Map();
+for (const block of ['const NOTES_BY_SUBJECT = {', 'const NOTES_85_BY_SUBJECT = {']) {
+  const start = view.indexOf(block);
+  if (start === -1) continue;
+  const body = view.slice(start + block.length, view.indexOf('\n};', start));
+  for (const m of body.matchAll(/^\s*'?([\w-]+)'?\s*:\s*(NOTES_[A-Z0-9_]+)/gm)) {
+    const file = moduleOf.get(m[2]);
+    if (file) notesFileOf.set(`${m[1]}::${m[2]}`, file);
+  }
+}
+// Topic-level availability is read from the notes modules themselves. It used
+// to come from the wiki's governed registry, which agreed for every subject
+// then in the app because all of them were governed — but a subject can have
+// notes and not yet be governed, and that one reported zero topics and told
+// students "ยังไม่มี Notes ในวิชานี้" while its notes sat in the bundle.
+const topicRowSet = new Map();
+for (const [key, file] of notesFileOf) {
+  const subject = key.split('::')[0];
+  const mod = await import(`../src/data/${file}`);
+  const konst = key.split('::')[1];
+  for (const topic of Object.keys(mod[konst] || {})) topicRowSet.set(`${subject}/${topic}`, { subject, topic });
+}
+const topicRows = [...topicRowSet.values()]
   .map(({ subject, topic }) => ({ subject, topic }))
   .sort((a, b) => a.subject.localeCompare(b.subject) || a.topic.localeCompare(b.topic));
 const topicKeys = topicRows.map(({ subject, topic }) => `${encodeURIComponent(subject)}/${encodeURIComponent(topic)}`);

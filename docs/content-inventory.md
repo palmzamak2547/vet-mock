@@ -23,10 +23,10 @@ Consistency: counted **4454**, `q-counts.js` says **4454**, registry sums to **4
 
 | | |
 |---|---|
-| Note files | 29 |
-| Topics | 271 |
-| Sections | 1764 |
-| Sections carrying a source locator | 1764 (100%) |
+| Note files | 30 |
+| Topics | 279 |
+| Sections | 1881 |
+| Sections carrying a source locator | 1881 (100%) |
 
 ## Video summaries
 
@@ -44,4 +44,4 @@ Consistency: counted **4454**, `q-counts.js` says **4454**, registry sums to **4
 | Governed sections | 1655 |
 | Claims verified against an external source | 3064 |
 | Distinct external sources cited | 1996 |
-| Share of note sections governed | 93.8% |
+| Share of note sections governed | 88.0% |
