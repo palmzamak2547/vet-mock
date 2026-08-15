@@ -36,7 +36,7 @@ npm run dev
 | สรุปโน้ต | 29 ไฟล์, 271 หัวข้อ, 1,764 sections, อ้างอิงแหล่งที่มาครบ 100% |
 | สรุปคลิป | 400 คลิป ใน 27 ไฟล์ |
 | VetWiki (governed) | 200 หัวข้อ, 1,655 sections = 93.8% ของ note sections |
-| Taxonomy | 86 วิชา, 652 หัวข้อ |
+| Taxonomy | 86 วิชา, 1,032 หัวข้อ |
 | ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |
 <!-- content-stats:end -->
 

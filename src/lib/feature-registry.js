@@ -29,6 +29,7 @@
 // Flags:
 //   auth: true            → only meaningful when signed in
 //   hideOnScaffold: true  → hide on scaffold (no-Q) years
+//   needsTopics: true     → hide on years whose curriculum has no topics
 //   years: [4]            → only meaningful for the listed curriculum years
 //   primary: true         → big hero card on home (the 3 study modes)
 //
@@ -42,6 +43,8 @@
 // Feature flags — a one-line rollback for in-progress features. An entry with
 // `flag: 'X'` is hidden from home + ⌘K (and thus unreachable, since there is
 // no direct URL routing) when FEATURE_FLAGS.X === false.
+import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+
 export const FEATURE_FLAGS = {
   VETWIKI_ENABLED: true,
 };
@@ -129,7 +132,10 @@ export const FEATURES = [
     label: 'Reading Checklist', labelEn: 'Reading Checklist', icon: '📖',
     hint: 'เช็กหัวข้อที่อ่านแล้ว',
     kw: 'reading checklist อ่าน หัวข้อ เช็ก progress',
-    hideOnScaffold: true,
+    // Not hideOnScaffold: that flag tracks questions, and a reading checklist
+    // is built from curriculum topics. Year 2 carries 386 topics and no
+    // questions, so questions are the wrong thing to gate it on.
+    needsTopics: true,
     invoke: { kind: 'view', view: 'reading-checklist' },
   },
   {
@@ -330,12 +336,16 @@ export function fabFeatures() {
  * @param {boolean} opts.hasSupabase — drop auth features when backend absent
  * @param {number} opts.selectedYear — drop features scoped to another year
  */
+const yearHasTopics = (year) =>
+  (SUBJECTS_BY_YEAR[year] || []).some((s) => (s.topics || []).length > 0);
+
 export function visibleFeatures(list, { signedIn, scaffold, hasSupabase, selectedYear } = {}) {
   return list.filter((f) => {
     if (f.flag && FEATURE_FLAGS[f.flag] === false) return false;
     if (f.auth && !signedIn) return false;
     if (f.auth && hasSupabase === false) return false;
     if (f.hideOnScaffold && scaffold) return false;
+    if (f.needsTopics && !yearHasTopics(selectedYear)) return false;
     if (Array.isArray(f.years) && selectedYear != null && !f.years.includes(Number(selectedYear))) return false;
     return true;
   });

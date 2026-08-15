@@ -34,7 +34,7 @@ Consistency: counted **4454**, `q-counts.js` says **4454**, registry sums to **4
 
 ## Curriculum
 
-86 subjects, 652 topics in the taxonomy.
+86 subjects, 1032 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 
