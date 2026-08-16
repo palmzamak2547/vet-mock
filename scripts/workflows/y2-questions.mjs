@@ -20,15 +20,16 @@ const Q_SCHEMA = {
       type: 'array',
       items: {
         type: 'object',
-        required: ['topic', 'q', 'options', 'answer', 'explain', 'verified'],
+        required: ['topic', 'q', 'options', 'answer', 'explain', 'verified', 'tags'],
         additionalProperties: false,
         properties: {
           topic: { type: 'string', description: 'MUST be the topic id exactly as given, not the section heading' },
           q: { type: 'string' },
-          options: { type: 'array', minItems: 4, maxItems: 4, items: { type: 'string' } },
-          answer: { type: 'number', minimum: 0, maximum: 3 },
+          options: { type: 'array', minItems: 4, maxItems: 5, items: { type: 'string' } },
+          answer: { type: 'number', minimum: 0, maximum: 4 },
           explain: { type: 'string' },
           verified: { type: 'string', description: 'deck name and slide page the answer comes from' },
+          tags: { type: 'array', minItems: 2, maxItems: 3, items: { type: 'string' }, description: 'concept tags, lowercase, e.g. ["bursa-fabricius","avian-lymphoid"]' },
         },
       },
     },
@@ -68,23 +69,59 @@ Read the article's sections in that file (grep for "${t.topicId}"). Write about
 ${perTopic} questions covering its examinable content — fewer if the article is
 thin, and none at all if it is purely administrative.
 
+THE STANDARD YOU ARE WRITING TO
+------------------------------
+The Year-4 semester-2 banks in this repo (1,746 questions) are the quality bar.
+Measured against them, the first Year-2 batch fell short in four specific ways.
+Do not repeat them.
+
+1. THE STEM NEVER NAMES THE SOURCE. The deck is where the ANSWER came from; it
+   is a citation, not part of what is asked. 106 stems in the first batch said
+   "ตามสไลด์", "สไลด์ระบุว่า", "ตามตารางในสไลด์". Zero of the 1,746 benchmark
+   questions do. Write "Eccrine glands ในสุนัขและแมว พบที่ไหน", never "ตามสไลด์
+   eccrine glands พบที่ไหน". A student who has never seen the deck must be able
+   to answer.
+
+2. THE EXPLANATION DOES NOT NARRATE THE SOURCE EITHER. 92% of the first batch
+   wrote "สไลด์ให้ไทม์ไลน์ไว้ว่า…" / "ตารางเขียน X เท่ากับ…". The benchmark:
+   0 of 1,746. State the fact as a fact. The citation lives in "verified".
+
+3. THE EXPLANATION HAS THREE PARTS. The benchmark's shape, which you must
+   follow:
+
+       <why the answer is right — the mechanism or the number, stated plainly>
+
+       ❌ ทำไมข้ออื่นผิด
+       — "<distractor>" = <what it actually is, or where it actually belongs>
+       — "<distractor>" = <…>
+
+       💡 <a short memory hook, when one honestly exists>
+
+   Address EVERY wrong option, not just the tempting one. Skip the 💡 line
+   rather than inventing a forced mnemonic.
+
+4. TAGS. Two or three lowercase concept tags per question. 86% of the benchmark
+   carries them; none of the first Year-2 batch did.
+
 Every question:
 - tests something the ARTICLE states. Never test outside it, and never test
-  course logistics (dates, room numbers, marking schemes) — those are not
-  veterinary knowledge.
+  course logistics (dates, room numbers, attendance, marking schemes) — those
+  are not veterinary knowledge. Never test the document's own layout either
+  ("ข้อที่ 7 ของ checklist", "ตำแหน่งหมายเลข 11 ในแผนภาพ").
 - Thai stem and options, anatomical and physiological terms in English exactly
   as the article spells them.
-- exactly 4 options, one correct.
+- 4 or 5 options, one correct. Vary it — a bank where every question has
+  exactly 4 reads as generated. The benchmark is 28% five-option.
 - "topic" is the topic id above, copied exactly. Not the section heading —
   a question filed under a heading is dropped by the bank builder.
 - "verified" cites the deck and slide the answer sits on, copied from the
-  section's own source line.
-- "explain" says why the answer is right AND why the tempting wrong one is
-  wrong.
+  section's own source line. Where the article's own source line names an
+  external authority (a textbook, WOAH, a paper), carry that too — 15% of the
+  benchmark does, and it is what lets a student check us.
 
 What makes a question worthless, and what this pass is judged on:
 
-1. The correct option must not be the longest. Keep all four within roughly a
+1. The correct option must not be the longest. Keep the options within roughly a
    fifth of each other in length. When the right answer needs detail, give the
    wrong ones equally specific detail — a wrong drug, a wrong number, a wrong
    mechanism — so length carries no signal.
@@ -93,8 +130,8 @@ What makes a question worthless, and what this pass is judged on:
 4. Distractors must be plausible and real. A named structure in the wrong
    place beats an invented structure. Numbers must be the same order of
    magnitude as the right one.
-5. Vary which index is correct across your set — spread them over 0, 1, 2 and 3
-   rather than settling on one.
+5. Vary which index is correct across your set — spread them across the
+   available positions rather than settling on one.
 6. The stem must not contain the answer, and grammar must fit all four options.
 
 BEFORE returning, write your JSON to ${outDir}/${t.topicId}.q.json.`;

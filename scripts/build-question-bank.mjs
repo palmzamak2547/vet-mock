@@ -61,9 +61,20 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
     const fail = (why) => dropped.push({ topic: q.topic, why, q: (q.q || '').slice(0, 56) });
 
     if (!validTopics.has(q.topic)) { fail(`topic '${q.topic}' not in ${SUBJECT}`); continue; }
-    if (!Array.isArray(q.options) || q.options.length !== 4) { fail('needs exactly 4 options'); continue; }
-    if (typeof q.answer !== 'number' || q.answer < 0 || q.answer > 3) { fail('answer index out of range'); continue; }
-    if (new Set(q.options.map((o) => o.trim())).size !== 4) { fail('duplicate options'); continue; }
+    // 4 or 5. The Year-4 semester-2 banks, which are the quality Palm points
+    // at, are 28% five-option; a bank that is uniformly four reads generated.
+    const nOpts = Array.isArray(q.options) ? q.options.length : 0;
+    if (nOpts < 4 || nOpts > 5) { fail('needs 4 or 5 options'); continue; }
+    if (typeof q.answer !== 'number' || q.answer < 0 || q.answer >= nOpts) { fail('answer index out of range'); continue; }
+    if (new Set(q.options.map((o) => o.trim())).size !== nOpts) { fail('duplicate options'); continue; }
+
+    // The stem must stand on its own: the deck is where the ANSWER came from,
+    // never part of what is asked. Same for the explanation — 92% of the first
+    // Year-2 batch narrated the slide ("สไลด์ให้ไทม์ไลน์ไว้ว่า…") where all
+    // 1,746 Year-4 semester-2 questions state the fact and move on.
+    const NARRATES = /สไลด์|เด็ค|เดค|เอกสารนี้|คู่มือนี้|บทเรียนนี้|ตารางเขียน|handout|\bdeck\b/i;
+    if (NARRATES.test(q.q)) { fail('stem names the source document'); continue; }
+    if (NARRATES.test(q.explain || '')) { fail('explanation narrates the source document'); continue; }
 
     let bad = null;
     for (const o of q.options) for (const b of BANNED_IN_OPTION) if (b.re.test(o)) bad = b.why;
@@ -106,6 +117,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
       // lecture-derived ones. Dropping them here would silently launder the
       // provenance the extraction was careful to record.
       ...(q.source ? { source: q.source } : {}),
+      ...(Array.isArray(q.tags) && q.tags.length ? { tags: q.tags } : {}),
       ...(q.sourceType ? { sourceType: q.sourceType } : {}),
       ...(q.examOrigin ? { examOrigin: q.examOrigin } : {}),
     });

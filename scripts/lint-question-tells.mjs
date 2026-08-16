@@ -27,7 +27,7 @@ const words = (s) => new Set(norm(s).split(' ').filter((w) => w.length > 3));
 function tellsFor(q) {
   const out = [];
   const opts = q.options || [];
-  if (opts.length !== 4) return ['malformed'];
+  if (opts.length < 4 || opts.length > 5) return ['malformed'];
 
   if (opts.some((o) => CATCH_ALL.test(o))) out.push('catch-all-option');
 
