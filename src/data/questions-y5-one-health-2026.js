@@ -10,7 +10,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102000, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'จากสไลด์ (AVMA 2008; Gibbs and Gibbs 2012) ในบรรดาโรคของมนุษย์ทั้งหมด 1,461 โรค มีสัดส่วนเท่าใดที่เกิดจาก multi-host pathogens',
+    q: "ในบรรดาโรคของมนุษย์ทั้งหมด 1,461 โรค (AVMA 2008; Gibbs and Gibbs 2012) มีสัดส่วนเท่าใดที่เกิดจาก multi-host pathogens",
     options: [
       '60% ของโรคทั้งหมด',
       '50% ของโรคทั้งหมด',
@@ -26,7 +26,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102001, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'ข้อใดไม่ได้ถูกจัดเป็น 1 ใน 8 major One Health issues of veterinary concern ที่ระบุไว้ในสไลด์ภาพรวมของบทเรียน',
+    q: "ข้อใดไม่ได้ถูกจัดเป็น 1 ใน 8 major One Health issues of veterinary concern",
     options: [
       'การก่อการร้ายทางชีวภาพ (Bioterrorism)',
       'สวัสดิภาพและจริยธรรมสัตว์ (Animal welfare)',
@@ -42,7 +42,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102002, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ One Health Zoonotic Disease Prioritization (OHZDP) เหตุผลที่ Nipah virus ถูกจัดให้เป็นโรคลำดับความสำคัญสูงคือข้อใด',
+    q: "ตาม One Health Zoonotic Disease Prioritization (OHZDP) เหตุผลที่ Nipah virus ถูกจัดให้เป็นโรคลำดับความสำคัญสูงคือข้อใด",
     options: [
       'แพร่กระจายทั่วโลกได้เร็วและมีผลกระทบทางเศรษฐกิจสังคมมหาศาล',
       'มีอัตราตายในคนสูงและอาจเกิด reassortment เป็นสายพันธุ์ระบาดใหญ่',
@@ -58,7 +58,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102003, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'ข้อใดไม่ใช่หนึ่งใน 4 บทบาทด้านสาธารณสุข (public health) ของสัตวแพทย์ที่ระบุไว้ในสไลด์',
+    q: "ข้อใดไม่ใช่หนึ่งใน 4 บทบาทด้านสาธารณสุข (public health) ของสัตวแพทย์",
     options: [
       'พัฒนาระบบเกษตรกรรมและระบบการผลิตอาหาร',
       'ส่งเสริมงานวิจัยชีวเวชศาสตร์และการแพทย์เปรียบเทียบ',
@@ -74,7 +74,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102004, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ ความรับผิดชอบด้านอาหารของสัตวแพทย์ประกอบด้วย 3 กิจกรรม (การผลิตสัตว์ที่มีสุขภาพดี การฆ่าและแปรรูปสัตว์ และการตรวจสอบผลิตภัณฑ์จากสัตว์) ซึ่งครอบคลุมมิติใดของอาหาร',
+    q: "ความรับผิดชอบด้านอาหารของสัตวแพทย์ประกอบด้วย 3 กิจกรรม (การผลิตสัตว์ที่มีสุขภาพดี การฆ่าและแปรรูปสัตว์ และการตรวจสอบผลิตภัณฑ์จากสัตว์) ซึ่งครอบคลุมมิติใดของอาหาร",
     options: [
       'ปริมาณอาหาร คุณภาพอาหาร และความปลอดภัยของอาหาร',
       'ปริมาณอาหาร ราคาอาหาร และความปลอดภัยของอาหาร',
@@ -90,7 +90,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102005, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์เรื่อง companion animals สัดส่วนของครัวเรือนในสหรัฐอเมริกาที่เลี้ยงสุนัข แมว หรือทั้งสองอย่าง คือเท่าใด',
+    q: "สัดส่วนของครัวเรือนในสหรัฐอเมริกาที่เลี้ยงสุนัข แมว หรือทั้งสองอย่าง คือเท่าใด",
     options: [
       '37% ของครัวเรือนทั้งหมด',
       '57% ของครัวเรือนทั้งหมด',
@@ -122,7 +122,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102007, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ บทบาทของสัตวแพทย์ในประเด็นการก่อการร้ายทางชีวภาพ (bioterrorism) ประกอบด้วย 3 ข้อใด',
+    q: "บทบาทของสัตวแพทย์ในประเด็นการก่อการร้ายทางชีวภาพ (bioterrorism) ประกอบด้วย 3 ข้อใด",
     options: [
       'เฝ้าระวังเชื้อก่อการร้ายชีวภาพ สอบสวนคดีอาชญากรรม และเก็บรักษาพยานหลักฐาน',
       'รักษาและควบคุมโรค ระบบเตือนภัยล่วงหน้า และการรักษาความสงบเรียบร้อยของสังคม',
@@ -138,7 +138,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102008, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ (Barrett et al., 2011) สัดส่วนของ global burden of disease ที่มาจากสิ่งแวดล้อม และสัดส่วนของการเสียชีวิตทั่วโลกที่เกิดจากปัจจัยสิ่งแวดล้อม คือเท่าใดตามลำดับ',
+    q: "ตาม Barrett et al., 2011 สัดส่วนของ global burden of disease ที่มาจากสิ่งแวดล้อม และสัดส่วนของการเสียชีวิตทั่วโลกที่เกิดจากปัจจัยสิ่งแวดล้อม คือเท่าใดตามลำดับ",
     options: [
       '24% ของ global burden of disease และ 23% ของการเสียชีวิตทั้งหมด',
       '13% ของ global burden of disease และ 30% ของการเสียชีวิตทั้งหมด',
@@ -154,7 +154,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102009, subject: 'one-health', topic: 'oh-vet-role', year: 5,
     type: 'mcq',
-    q: 'สไลด์เรื่อง global climate change ระบุว่าอุณหภูมิที่สูงขึ้นและฤดูหนาวที่สั้นลงทำให้ขอบเขตการระบาดของโรคเขตร้อนคู่ใดขยายกว้างขึ้น',
+    q: "อุณหภูมิที่สูงขึ้นและฤดูหนาวที่สั้นลงทำให้ขอบเขตการระบาดของโรคเขตร้อนคู่ใดขยายกว้างขึ้น",
     options: [
       'ไข้เหลือง (yellow fever) และสมองอักเสบ (encephalitis)',
       'โรคไข้เลือดออก (dengue) และโรคมาลาเรีย (malaria)',
@@ -184,73 +184,9 @@ export const QB_Y5_ONE_HEALTH_2026 = [
     tags: ['one-health-network', 'participant-roles', 'collaboration'],
   },
   {
-    id: 102011, subject: 'one-health', topic: 'oh-global-network', year: 5,
-    type: 'mcq',
-    q: 'ลำดับขั้นตอนของ communication and reporting workflow ทั้ง 5 ขั้นตามสไลด์คือข้อใด',
-    options: [
-      'Detect ไปยัง Share ไปยัง Report ไปยัง Respond ไปยัง Convene',
-      'Report ไปยัง Detect ไปยัง Convene ไปยัง Share ไปยัง Respond',
-      'Detect ไปยัง Report ไปยัง Convene ไปยัง Share ไปยัง Respond',
-      'Detect ไปยัง Report ไปยัง Share ไปยัง Convene ไปยัง Respond',
-    ],
-    answer: 3,
-    explain: 'สไลด์กำหนดลำดับไว้ว่า Detect (node ท้องถิ่นพบความผิดปกติ) ไปยัง Report (ส่งแบบฟอร์มมาตรฐานไปยัง regional hub) ไปยัง Share (hub กระจายการแจ้งเตือนไปยัง node ที่เกี่ยวข้อง) ไปยัง Convene (ทีมสหสาขาประชุมทบทวนร่วมกัน) ไปยัง Respond (ออกข้อเสนอแนะที่ประสานกันแล้วสู่ผู้มีส่วนได้ส่วนเสีย) จุดที่มักผิดคือการสลับ Share กับ Convene เพราะการรวมทีมต้องเกิดหลังจากการกระจายข้อมูลแล้ว',
-    source: 'Global One Health Activity Network 2026 (SJ)',
-    verified: 'Global One Health Activity Network 2026 (SJ) p.8',
-    tags: ['reporting-workflow', 'surveillance', 'one-health-network'],
-  },
-  {
-    id: 102012, subject: 'one-health', topic: 'oh-global-network', year: 5,
-    type: 'mcq',
-    q: 'จาก dashboard รายงานสัตว์ป่วยรายสัปดาห์ของ regional node ในสไลด์ ค่าที่รายงานในสัปดาห์ที่ 3 และสัปดาห์ที่ 5 คือเท่าใดตามลำดับ',
-    options: [
-      'สัปดาห์ที่ 3 = 12 และสัปดาห์ที่ 5 = 15',
-      'สัปดาห์ที่ 3 = 9 และสัปดาห์ที่ 5 = 12',
-      'สัปดาห์ที่ 3 = 7 และสัปดาห์ที่ 5 = 11',
-      'สัปดาห์ที่ 3 = 15 และสัปดาห์ที่ 5 = 12',
-    ],
-    answer: 0,
-    explain: 'ค่าบนแผนภูมิแท่งของสไลด์คือ Wk1 = 4, Wk2 = 7, Wk3 = 12, Wk4 = 9, Wk5 = 15 และ Wk6 = 11 ดังนั้นสัปดาห์ที่ 3 เท่ากับ 12 และสัปดาห์ที่ 5 เท่ากับ 15 ข้อสังเกตสำคัญคือแม้สไลด์จะตั้งคำถามชวนคิดถึงการพุ่งขึ้นในสัปดาห์ที่ 3 แต่ค่าสูงสุดเชิงตัวเลขอยู่ที่สัปดาห์ที่ 5 ตัวเลือกอื่นนำค่าของสัปดาห์อื่นมาสลับตำแหน่ง',
-    source: 'Global One Health Activity Network 2026 (SJ)',
-    verified: 'Global One Health Activity Network 2026 (SJ) p.9',
-    tags: ['surveillance-dashboard', 'outbreak-detection', 'data-interpretation'],
-  },
-  {
-    id: 102013, subject: 'one-health', topic: 'oh-global-network', year: 5,
-    type: 'mcq',
-    q: 'ตามสไลด์กรณีศึกษาระดับภูมิภาค (regional case studies) Middle East Node ได้รับมอบหมายกรณีศึกษาเรื่องใด',
-    options: [
-      'การระบาดของ Rift Valley Fever ที่สัมพันธ์กับการค้าปศุสัตว์',
-      'การเฝ้าระวังเชื้อ MERS-CoV ในประชากรอูฐของภูมิภาค',
-      'การขยายพื้นที่ของโรคที่นำโดยเห็บซึ่งสัมพันธ์กับภาวะโลกร้อน',
-      'ปัญหา AMR ในฟาร์มโคนมที่ส่งผลกระทบต่อชุมชนใกล้เคียง',
-    ],
-    answer: 1,
-    explain: 'สไลด์จับคู่กรณีศึกษาไว้ดังนี้ Africa Node ได้ Rift Valley Fever ที่สัมพันธ์กับการค้าปศุสัตว์และรูปแบบฝน, Asia-Pacific Node ได้ไข้หวัดนกที่แพร่ผ่านตลาดค้าสัตว์ปีกมีชีวิตและเส้นทางนกอพยพ, Americas Node ได้ AMR ในฟาร์มโคนม, Europe Node ได้โรคที่นำโดยเห็บซึ่งขยายพื้นที่จากภาวะโลกร้อน และ Middle East Node ได้การเฝ้าระวัง MERS-CoV ในประชากรอูฐ ตัวลวงทั้งสามจึงเป็นกรณีของ node อื่นในสไลด์เดียวกัน',
-    source: 'Global One Health Activity Network 2026 (SJ)',
-    verified: 'Global One Health Activity Network 2026 (SJ) p.11',
-    tags: ['regional-case-study', 'mers-cov', 'one-health-network'],
-  },
-  {
-    id: 102014, subject: 'one-health', topic: 'oh-global-network', year: 5,
-    type: 'mcq',
-    q: 'ตามสไลด์ cross-node outbreak simulation การจัดสรรเวลาของ briefing, investigation and planning, cross-node presentation และ facilitated debrief เป็นเท่าใดตามลำดับ',
-    options: [
-      '15 นาที, 30 นาที, 10 นาที และ 15 นาที',
-      '10 นาที, 20 นาที, 20 นาที และ 10 นาที',
-      '10 นาที, 30 นาที, 15 นาที และ 15 นาที',
-      '5 นาที, 45 นาที, 15 นาที และ 10 นาที',
-    ],
-    answer: 2,
-    explain: 'สไลด์ระบุการจัดสรรเวลาไว้ว่า briefing 10 นาที, investigation and planning 30 นาที, cross-node presentation 15 นาที และ facilitated debrief 15 นาที โดยทีมประกอบด้วยสมาชิก 4 คนที่แทน node ต่างภูมิภาค และต้องร่างแผนตอบสนองแบบ One Health ที่ครอบคลุมปัจจัยด้านสัตว์ คน และสิ่งแวดล้อมให้เสร็จภายใน 30 นาที ตัวเลือกอื่นสลับหรือเปลี่ยนค่าเวลาเหล่านี้',
-    source: 'Global One Health Activity Network 2026 (SJ)',
-    verified: 'Global One Health Activity Network 2026 (SJ) p.12',
-    tags: ['outbreak-simulation', 'cross-node-exercise', 'one-health-network'],
-  },
-  {
     id: 102015, subject: 'one-health', topic: 'oh-global-network', year: 5,
     type: 'mcq',
-    q: 'ข้อใดไม่ใช่หนึ่งใน 4 ประเด็นด้านจริยธรรมและวัฒนธรรมของเครือข่ายสุขภาพระดับโลกที่ระบุในสไลด์',
+    q: "ข้อใดไม่ใช่หนึ่งใน 4 ประเด็นด้านจริยธรรมและวัฒนธรรมของเครือข่ายสุขภาพระดับโลก",
     options: [
       'ความอ่อนไหวทางวัฒนธรรมต่อวิถีชีวิตและความเชื่อท้องถิ่น',
       'การแบ่งปันข้อมูลอย่างเท่าเทียมกันระหว่าง node ทุกแห่ง',
@@ -266,7 +202,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102016, subject: 'one-health', topic: 'oh-global-network', year: 5,
     type: 'mcq',
-    q: 'จากรูป CDC เรื่อง Priority Zoonoses around the Globe ที่ฝังอยู่ในสไลด์ โรคใดถูกจัดเป็นลำดับความสำคัญบ่อยที่สุด และปรากฏในการประชุมเชิงปฏิบัติการกี่ครั้ง',
+    q: "จากรูป CDC เรื่อง Priority Zoonoses around the Globe โรคใดถูกจัดเป็นลำดับความสำคัญบ่อยที่สุด และปรากฏในการประชุมเชิงปฏิบัติการกี่ครั้ง",
     options: [
       'Rabies ปรากฏใน 24 จาก 25 workshops',
       'Anthrax ปรากฏใน 24 จาก 25 workshops',
@@ -280,25 +216,9 @@ export const QB_Y5_ONE_HEALTH_2026 = [
     tags: ['priority-zoonoses', 'rabies', 'cdc'],
   },
   {
-    id: 102017, subject: 'one-health', topic: 'oh-global-network', year: 5,
-    type: 'mcq',
-    q: 'ตามสไลด์การประเมินผล สัดส่วนคะแนนของ case investigation report, cross-node response plan, policy briefing presentation และ peer review and participation เป็นเท่าใดตามลำดับ',
-    options: [
-      '40%, 30%, 20% และ 10%',
-      '30%, 30%, 20% และ 20%',
-      '30%, 40%, 10% และ 20%',
-      '25%, 25%, 25% และ 25%',
-    ],
-    answer: 1,
-    explain: 'สไลด์กำหนดน้ำหนักคะแนนไว้ที่ case investigation report 30%, cross-node response plan 30%, policy briefing presentation 20% และ peer review and participation 20% นั่นคืองานเขียนรายบุคคลและงานกลุ่มมีน้ำหนักเท่ากันที่ 30% ส่วนอีกสองส่วนเท่ากันที่ 20% ตัวเลือกอื่นปรับให้ส่วนใดส่วนหนึ่งเด่นเกินจริงหรือกระจายเท่ากันทั้งสี่ส่วน',
-    source: 'Global One Health Activity Network 2026 (SJ)',
-    verified: 'Global One Health Activity Network 2026 (SJ) p.19',
-    tags: ['assessment', 'course-design', 'one-health-network'],
-  },
-  {
     id: 102018, subject: 'one-health', topic: 'oh-global-network', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ กรอบความร่วมมือ One Health ระดับโลกที่เรียกว่า Quadripartite ประกอบด้วยองค์กรใดบ้าง',
+    q: "กรอบความร่วมมือ One Health ระดับโลกที่เรียกว่า Quadripartite ประกอบด้วยองค์กรใดบ้าง",
     options: [
       'WHO, WOAH, FAO และ UNICEF',
       'WHO, WOAH, UNEP และ World Bank',
@@ -314,7 +234,7 @@ export const QB_Y5_ONE_HEALTH_2026 = [
   {
     id: 102019, subject: 'one-health', topic: 'oh-global-network', year: 5,
     type: 'mcq',
-    q: 'ตามภาพหน้าเว็บไซต์ WOAH ที่ปรากฏในสไลด์ WAHIS (World Animal Health Information System) ถูกอธิบายว่าเป็นอะไร',
+    q: "WAHIS (World Animal Health Information System) คืออะไร",
     options: [
       'ฐานข้อมูลกลางสำหรับขึ้นทะเบียนยาสัตว์และสารตกค้างระหว่างประเทศ',
       'ระบบแจ้งเตือนภัยพิบัติทางการเกษตรร่วมระหว่าง FAO และ UNEP',

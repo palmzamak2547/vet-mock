@@ -96,7 +96,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "source": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "นิวเคลียสใดใน tuberal region ที่ตารางกำกับหน้าที่ไว้ว่า satiety",
+    "q": "นิวเคลียสใดใน tuberal region ทำหน้าที่เกี่ยวกับ satiety",
     "options": [
       "Lateral hypothalamic area (LHA)",
       "Arcuate nucleus (AR)",

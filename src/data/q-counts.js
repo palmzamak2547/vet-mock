@@ -10,7 +10,7 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4521;
+export const QB_TOTAL = 4507;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 144,
@@ -25,7 +25,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 71,
   'engprof1': 30,
-  'epidemiology': 66,
+  'epidemiology': 62,
   'equine-medicine': 190,
   'equine-repro': 144,
   'exotic': 151,
@@ -33,9 +33,9 @@ export const Q_COUNTS_BY_SUBJECT = {
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'milk-meat-hygiene': 296,
-  'one-health': 81,
-  'poa-clinical': 58,
+  'milk-meat-hygiene': 292,
+  'one-health': 76,
+  'poa-clinical': 57,
   'poultry': 191,
   'practrum': 118,
   'rec-adv-bioscience': 5,
@@ -74,7 +74,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 71,
   'engprof1': 30,
-  'epidemiology': 66,
+  'epidemiology': 62,
   'equine-medicine': 190,
   'equine-repro': 144,
   'exotic': 108,
@@ -82,9 +82,9 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'milk-meat-hygiene': 296,
-  'one-health': 81,
-  'poa-clinical': 58,
+  'milk-meat-hygiene': 292,
+  'one-health': 76,
+  'poa-clinical': 57,
   'poultry': 134,
   'practrum': 114,
   'rec-adv-bioscience': 5,
@@ -110,7 +110,7 @@ export const Q_COUNTS_BY_YEAR = {
   1: 298,
   2: 145,
   4: 2095,
-  5: 1983,
+  5: 1969,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -326,9 +326,9 @@ export const Q_COUNTS_BY_TOPIC = {
     "epidem-basic-concepts": 10,
     "epidem-causation": 8,
     "epidem-disease-transmission": 15,
-    "epidem-intro": 8,
+    "epidem-intro": 5,
     "epidem-outbreak-investigation": 12,
-    "epidem-surveillance": 13,
+    "epidem-surveillance": 12,
   },
   "equine-medicine": {
     "equine-anesthesia": 4,
@@ -436,11 +436,11 @@ export const Q_COUNTS_BY_TOPIC = {
     "milk-biosec-dairy": 12,
     "milk-borne-pathogens": 24,
     "milk-cleaning": 10,
-    "milk-industry-std": 27,
+    "milk-industry-std": 26,
     "milk-mastitis": 27,
-    "milk-microbiology": 21,
+    "milk-microbiology": 20,
     "milk-overview": 10,
-    "milk-processing": 38,
+    "milk-processing": 36,
     "milk-products-storage": 10,
     "milk-quality-composition": 37,
     "milk-quality-determination": 11,
@@ -453,13 +453,13 @@ export const Q_COUNTS_BY_TOPIC = {
     "oh-concept": 8,
     "oh-disease-prevention": 3,
     "oh-foodborne": 6,
-    "oh-global-network": 12,
+    "oh-global-network": 7,
     "oh-risk-analysis": 17,
     "oh-vet-role": 19,
   },
   "poa-clinical": {
     "poa-collapse": 26,
-    "poa-edema": 16,
+    "poa-edema": 15,
     "poa-red-urine": 3,
     "poa-respiratory": 13,
   },
@@ -920,4 +920,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-16T16:11:11.942Z
+// Built: 2026-08-16T16:38:51.127Z

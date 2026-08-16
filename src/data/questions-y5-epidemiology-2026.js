@@ -8,25 +8,9 @@
 
 export const QB_Y5_EPIDEMIOLOGY_2026 = [
   {
-    id: 100000, subject: 'epidemiology', topic: 'epidem-intro', year: 5,
-    type: 'mcq',
-    q: 'ตาม Bloom\'s taxonomy ที่แสดงในสไลด์แนะนำรายวิชา ลำดับ 6 ระดับจากต่ำไปสูงข้อใดถูกต้อง',
-    options: [
-      'Remember, Understand, Apply, Analyze, Evaluate, Create',
-      'Remember, Understand, Analyze, Apply, Evaluate, Create',
-      'Understand, Remember, Apply, Evaluate, Analyze, Create',
-      'Remember, Apply, Understand, Analyze, Create, Evaluate',
-    ],
-    answer: 0,
-    explain: 'สไลด์พิมพ์ Bloom\'s taxonomy ไว้ 6 ระดับจากต่ำไปสูงคือ Remember ไป Understand ไป Apply ไป Analyze ไป Evaluate ไป Create โดย Remember คือการจำและระลึกข้อเท็จจริง Understand คือเข้าใจความหมาย Apply คือนำข้อเท็จจริงกฎและแนวคิดไปใช้ Analyze คือแยกข้อมูลเป็นส่วนประกอบย่อย Evaluate คือตัดสินคุณค่าของข้อมูล และ Create คือรวมส่วนย่อยเป็นสิ่งใหม่ ตัวเลือกอื่นสลับตำแหน่ง Analyze กับ Apply หรือสลับ Remember กับ Understand หรือสลับ Create กับ Evaluate',
-    source: 'Introduction to Epidemiology 2569 (NC)',
-    verified: 'Introduction to Epidemiology 2569 (NC) p.2',
-    tags: ['blooms-taxonomy', 'course-framing'],
-  },
-  {
     id: 100001, subject: 'epidemiology', topic: 'epidem-intro', year: 5,
     type: 'mcq',
-    q: 'เส้นโค้งการระบาดของ COVID-19 ในประเทศไทย (Triukose et al. 2021) ถูกแบ่งเป็น 5 ระยะ ลำดับใดถูกต้องตามสไลด์',
+    q: "เส้นโค้งการระบาดของ COVID-19 ในประเทศไทย (Triukose et al. 2021) ถูกแบ่งเป็น 5 ระยะ ลำดับใดถูกต้อง",
     options: [
       'Early, Super Spreading, Intervention II, Intervention I, Easing',
       'Early, Super Spreading, Intervention I, Intervention II, Easing',
@@ -58,7 +42,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
   {
     id: 100003, subject: 'epidemiology', topic: 'epidem-intro', year: 5,
     type: 'mcq',
-    q: 'สไลด์ระบุภาระโรคไข้หวัดนก H5N1 ว่ามีผู้ป่วย 433 ราย เสียชีวิต 262 ราย คิดเป็น case fatality rate ประมาณเท่าใด',
+    q: "ภาระโรคไข้หวัดนก H5N1 มีผู้ป่วย 433 ราย เสียชีวิต 262 ราย คิดเป็น case fatality rate ประมาณเท่าใด",
     options: [
       'ประมาณ 0.5%',
       'ประมาณ 30%',
@@ -104,41 +88,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
     tags: ['course-schedule', 'examination'],
   },
   {
-    id: 100006, subject: 'epidemiology', topic: 'epidem-intro', year: 5,
-    type: 'mcq',
-    q: 'ตามเกณฑ์ที่ระบุในสไลด์ นิสิตต้องเข้าเรียนอย่างน้อยกี่เปอร์เซ็นต์ของคาบเรียนจึงจะมีสิทธิ์เข้าสอบ',
-    options: [
-      '60%',
-      '70%',
-      '80%',
-      '75%',
-    ],
-    answer: 2,
-    explain: 'สไลด์ระบุว่ามีการเช็กชื่อทุกคาบโดยเฉพาะคาบปฏิบัติการ และนิสิตต้องเข้าเรียนอย่างน้อย 80% ของคาบเรียนจึงจะมีสิทธิ์เข้าสอบ ค่า 60%, 70% และ 75% ไม่ใช่เกณฑ์ที่พิมพ์ไว้',
-    source: 'Introduction to Epidemiology 2569 (NC)',
-    verified: 'Introduction to Epidemiology 2569 (NC) p.13',
-    tags: ['attendance-rule', 'number-threshold'],
-  },
-  {
-    id: 100007, subject: 'epidemiology', topic: 'epidem-intro', year: 5,
-    type: 'mcq',
-    q: 'ตามสไลด์ Learning Pyramid ข้อใดจับคู่กิจกรรมกับอัตราการจดจำได้ถูกต้อง',
-    options: [
-      'Discussion 20%',
-      'Demonstration 50%',
-      'Audio and Visual 10%',
-      'Practice doing 75%',
-    ],
-    answer: 3,
-    explain: 'สไลด์ Learning Pyramid ระบุอัตราการจดจำไว้ว่า Lecture 10%, Reading 10%, Audio and Visual 20%, Demonstration 30%, Discussion 50%, Practice doing 75% และ Teach other 90% ดังนั้น Practice doing 75% จึงเป็นคู่ที่ถูกต้อง ส่วน Discussion ที่ถูกคือ 50% ไม่ใช่ 20%, Demonstration ที่ถูกคือ 30% ไม่ใช่ 50% และ Audio and Visual ที่ถูกคือ 20% ไม่ใช่ 10%',
-    source: 'Introduction to Epidemiology 2569 (NC)',
-    verified: 'Introduction to Epidemiology 2569 (NC) p.22',
-    tags: ['learning-pyramid', 'retention', 'number-threshold'],
-  },
-  {
     id: 100008, subject: 'epidemiology', topic: 'epidem-basic-concepts', year: 5,
     type: 'mcq',
-    q: 'คำว่า Epidemiology มาจากภาษากรีก 3 คำ ข้อใดให้ความหมายของแต่ละคำได้ถูกต้องตามสไลด์',
+    q: "คำว่า Epidemiology มาจากภาษากรีก 3 คำ ข้อใดให้ความหมายของแต่ละคำได้ถูกต้อง",
     options: [
       'Epi = On, Upon; Demos = People; Logos = Knowledge',
       'Epi = People; Demos = On, Upon; Logos = Knowledge',
@@ -154,7 +106,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
   {
     id: 100009, subject: 'epidemiology', topic: 'epidem-basic-concepts', year: 5,
     type: 'mcq',
-    q: 'ข้อใดคือรายการที่จัดอยู่ใน qualitative epidemiology ทั้งหมดตามที่สไลด์แบ่งไว้',
+    q: "ข้อใดคือรายการที่จัดอยู่ใน qualitative epidemiology ทั้งหมด",
     options: [
       'Disease measuring, observational studies และ mathematical modelling of disease',
       'Natural history of disease, causal studies และ characterization of microbes',
@@ -170,7 +122,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
   {
     id: 100010, subject: 'epidemiology', topic: 'epidem-basic-concepts', year: 5,
     type: 'mcq',
-    q: 'กรณีศึกษาภาคสนามในสไลด์ กระบือประมาณ 30 ตัวตายรอบสระน้ำในหมู่บ้านภายในครึ่งเดือนหลังฝนตกหนัก ผ่าซากพบเลือดเปลี่ยนแปลงแบบ septicaemia การเพาะแยกเชื้อได้เชื้อใด',
+    q: "กรณีศึกษาภาคสนาม กระบือประมาณ 30 ตัวตายรอบสระน้ำในหมู่บ้านภายในครึ่งเดือนหลังฝนตกหนัก ผ่าซากพบเลือดเปลี่ยนแปลงแบบ septicaemia การเพาะแยกเชื้อได้เชื้อใด",
     options: [
       'Bacillus anthracis',
       'Clostridium chauvoei',
@@ -234,7 +186,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
   {
     id: 100014, subject: 'epidemiology', topic: 'epidem-basic-concepts', year: 5,
     type: 'mcq',
-    q: 'ด่านกักกันสัตว์ของประเทศไทยตามสไลด์แบ่งออกเป็นกี่เขต และคำอธิบายสัญลักษณ์แบ่งด่านออกเป็นกี่ประเภท',
+    q: "ด่านกักกันสัตว์ของประเทศไทยแบ่งออกเป็นกี่เขต และแบ่งด่านออกเป็นกี่ประเภท",
     options: [
       '9 เขต และ 4 ประเภท',
       '7 เขต และ 3 ประเภท',
@@ -282,7 +234,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
   {
     id: 100017, subject: 'epidemiology', topic: 'epidem-basic-concepts', year: 5,
     type: 'mcq',
-    q: 'การศึกษาทางระบาดวิทยา 4 รูปแบบตามสไลด์ ข้อใดไม่จัดอยู่ในกลุ่ม observational studies',
+    q: "การศึกษาทางระบาดวิทยา 4 รูปแบบ ข้อใดไม่จัดอยู่ในกลุ่ม observational studies",
     options: [
       'cross-sectional studies (ณ จุดเวลาหนึ่ง)',
       'experimental studies (การศึกษาเชิงทดลอง)',
@@ -394,7 +346,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
   {
     id: 100024, subject: 'epidemiology', topic: 'epidem-surveillance', year: 5,
     type: 'mcq',
-    q: 'ในสไลด์เรื่อง cluster sampling อธิบายลักษณะของข้อมูลภายในและระหว่าง cluster ไว้อย่างไร',
+    q: "ใน cluster sampling ลักษณะของข้อมูลภายในและระหว่าง cluster เป็นอย่างไร",
     options: [
       'heterogonous ภายใน cluster และ homogenous ระหว่าง cluster ทำให้ลดค่าใช้จ่าย',
       'homogenous ภายใน cluster และ heterogonous ระหว่าง cluster ทำให้ลดค่าใช้จ่ายในการสุ่ม',
@@ -422,22 +374,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
     source: 'Animal Disease Surveillance and Monitoring 2026 (SJ)',
     verified: 'Animal Disease Surveillance and Monitoring 2026 (SJ) p.22',
     tags: ['surveillance-cycle', 'process'],
-  },
-  {
-    id: 100026, subject: 'epidemiology', topic: 'epidem-surveillance', year: 5,
-    type: 'mcq',
-    q: 'checklist ของแผนเฝ้าระวังข้อที่ 7 (Timelines) กำหนดให้วัดช่วงเวลา 2 ช่วง คือข้อใด',
-    options: [
-      'เวลาจากสัตว์แสดงอาการถึงการเก็บตัวอย่าง และเวลาจากการรายงานถึงการยืนยันผล',
-      'เวลาจากการรับแจ้งถึงการลงพื้นที่ และเวลาจากการลงพื้นที่ถึงการส่งตัวอย่างเข้าแล็บ',
-      'เวลาจากการเก็บตัวอย่างถึงการรายงาน และเวลาจากการยืนยันผลถึงการลงมือปฏิบัติ',
-      'เวลาจากการเก็บตัวอย่างถึงการยืนยันผล และเวลาจากการลงมือปฏิบัติถึงการประเมินผล',
-    ],
-    answer: 2,
-    explain: 'สไลด์ระบุว่า checklist ข้อ 7 (Timelines) มีการวัดเวลาเพียง 2 ช่วงเท่านั้น คือ time from sampling to report และ time from confirmation to action ตัวเลือกอื่นเป็นช่วงเวลาที่ฟังดูสมเหตุสมผลในงานเฝ้าระวัง แต่ไม่ใช่สองตัวชี้วัดที่กำหนดไว้ในข้อนี้ของ checklist',
-    source: 'Animal Disease Surveillance and Monitoring 2026 (SJ)',
-    verified: 'Animal Disease Surveillance and Monitoring 2026 (SJ) p.38',
-    tags: ['surveillance-checklist', 'timeliness'],
   },
   {
     id: 100027, subject: 'epidemiology', topic: 'epidem-surveillance', year: 5,

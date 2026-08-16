@@ -29,7 +29,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่าม้ามีต่อมเหงื่อ 2 ชนิด โดย apocrine gland กระจายอยู่ทั่วผิวหนังที่มีขน เหงื่อเหนียวข้นและมีกลิ่นมากกว่า ส่วน eccrine gland จำกัดอยู่ที่ glabrous skin และกีบ อยู่ตื้นกว่า เหงื่อใส ทำหน้าที่ระบายความร้อน จึงไม่ใช่ชนิดหลักของผิวหนังที่มีขน sebaceous gland เป็นต่อมไขมันไม่ใช่ต่อมเหงื่อ และ ceruminous gland เป็นต่อมดัดแปลงในช่องหู",
     "verified": "Equine Dermatology น.4",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105217,
@@ -48,7 +48,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Permanent hair คือแผงคอ หาง และขนตา ไม่ผลัด และงอกต่อเนื่อง 2 ถึง 5 มิลลิเมตรต่อเดือน ส่วน temporary hair คือขนส่วนใหญ่ของลำตัวและขาซึ่งผลัดตามความยาวของแสงกลางวัน tylotrich hair ใหญ่กว่าขนปกติและทำหน้าที่รับความรู้สึก และ tactile sinus hair อยู่ที่ใบหน้า เปลือกตา ใบหู เชื่อมกับปลายประสาท",
     "verified": "Equine Dermatology น.5",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105218,
@@ -67,7 +67,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่าผิวหนังที่มีขนหนาที่สุดที่ dorsum และด้านข้างของขา และบางที่สุดที่เปลือกตา ventrum และด้านในของต้นขา ตัวเลือกอื่นเป็นบริเวณที่ผิวหนังหนาหรือมี subcutis หนา จึงไม่ใช่บริเวณที่บางที่สุด",
     "verified": "Equine Dermatology น.2",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105219,
@@ -86,7 +86,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่า surface adhesive tape ใช้เก็บไข่ Oxyuris equi และจุลชีพที่อยู่บนผิว รวมถึง chorioptic mange เชื้อรา และยีสต์ การเก็บก้อนในชั้น dermis ต้องใช้ needle aspirate หรือ biopsy ไรที่ฝังตัวลึกต้องใช้ skin scraping และการเพาะเชื้อจากกระแสเลือดไม่ใช่หน้าที่ของเทคนิคนี้",
     "verified": "Equine Dermatology น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105221,
@@ -105,7 +105,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ตาราง 2.2 จับคู่สี grey กับ melanoma โดยตรง ส่วน actinic dermatitis สัมพันธ์กับ albino หรือ cremello และผิวไม่มีเม็ดสี epidermolysis bullosa เป็นโรคแต่กำเนิดในลูกม้าและสัมพันธ์กับสายพันธุ์ Belgian และ reticulated leukotrichia อยู่ในตารางสายพันธุ์ Quarterhorse ไม่ใช่ตารางสีขน",
     "verified": "Equine Dermatology น.9",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105222,
@@ -124,7 +124,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "PVAS เป็นสเกล 0 ถึง 10 ที่ไล่ระดับความคันตามผลกระทบต่อพฤติกรรม ตั้งแต่ไม่คันเลย จนถึงคันตลอดเวลาจนกินและใช้งานไม่ได้ จึงเป็นการวัดอาการคัน ไม่ใช่วัดแผล ปริมาณสะเก็ด หรือความเจ็บของก้อนเนื้องอก",
     "verified": "Equine Dermatology น.15",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105223,
@@ -143,7 +143,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่ากีบของลูกม้าแรกเกิดนุ่มแล้วแข็งตัวอย่างรวดเร็วหลังคลอด ผู้จดเสริมเหตุผลว่าเพื่อไม่ให้บาดมดลูกแม่ และส่วนที่นุ่มจะหลุดใน 1 ถึง 2 วัน ตัวเลือกอื่นสลับลำดับหรือขัดกับข้อเท็จจริงที่ลูกม้ายืนได้ตั้งแต่ชั่วโมงแรก",
     "verified": "Equine Dermatology น.4",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105224,
@@ -162,7 +162,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่า chorioptic mange เกิดที่ขาส่วนปลายโดยเฉพาะขาหลัง รอยโรคอยู่ที่ pastern fetlock และ cannon แนวสันหลังเป็นตำแหน่งของ Culicoides hypersensitivity รอบทวารหนักและฝีเย็บเป็นของ Oxyuris equi ส่วนใบหน้าและใบหูไม่ใช่ตำแหน่งเด่นของไรชนิดนี้",
     "verified": "Equine Dermatology น.17",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105227,
@@ -181,7 +181,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุเหาของม้าคือ Haematopinus asini และ Bovicola equi และอาการอาจลุกลามเป็นอาการทางระบบคือโลหิตจาง Chorioptes และ Psoroptes เป็นไรไม่ใช่เหา Damalinia และ Linognathus เป็นเหาของโค ส่วน Culicoides และ Stomoxys เป็นแมลงบินที่กัดแต่ไม่ได้อาศัยอยู่บนตัวสัตว์แบบเหา",
     "verified": "Equine Dermatology น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105228,
@@ -200,7 +200,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Oxyuris equi ทำให้คันรอบทวารหนักและฝีเย็บ ม้าจึงถูหางเป็นอาการนำ และวินิจฉัยด้วย scotch tape technique coital exanthema แม้อยู่ที่ฝีเย็บได้แต่มาด้วย papule ไปเป็น vesicle และแผลหลุมหลังผสมพันธุ์ ไม่ได้มาด้วยการถูหาง sarcoid ชนิด occult เป็นแผ่นแบนขนร่วงและไม่คัน ส่วน rain scald อยู่ที่ลำตัวด้านบนในช่วงฝนตก",
     "verified": "Equine Dermatology น.19",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105229,
@@ -219,7 +219,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์จัด Culicoides hypersensitivity ไว้ใต้หัวข้อ hypersensitivity type I และ IV และระบุว่ารอยโรคเด่นที่แนวสันหลัง แต่พบที่แนวกลางท้องได้ด้วย ขาส่วนปลายเป็นตำแหน่งของ chorioptic mange และ mud fever ส่วนฝีเย็บกับโคนหางเป็นของ oxyuriasis",
     "verified": "Equine Dermatology น.21",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105231,
@@ -238,7 +238,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่าตัวแก่อยู่ในกระเพาะม้า ไข่หรือตัวอ่อนออกมากับอุจจาระ แมลงวัน Musca domestica และ Stomoxys calcitrans กินเข้าไปแล้วนำตัวอ่อนระยะติดต่อไปวางบนผิวหนังชื้นหรือบาดแผล รอยโรคผิวหนังจึงเป็น aberrant parasitism ตัวเลือกอื่นเปลี่ยนทั้งตำแหน่งตัวแก่และพาหะ",
     "verified": "Equine Dermatology น.28",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105232,
@@ -257,7 +257,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุ ivermectin 200 ug/kg หรือ moxidectin 400 ug/kg กิน 2 ครั้ง ห่างกัน 3 สัปดาห์ เพื่อฆ่าตัวอ่อน แล้วรอยโรคจะยุบ ยากลุ่ม benzimidazole อย่าง fenbendazole praziquantel และ levamisole ไม่ได้ถูกระบุไว้สำหรับตัวอ่อนที่อยู่ในผิวหนัง และสไลด์ยังเสริม glucocorticoid เพื่อลดปฏิกิริยาภูมิไวเกินร่วมด้วย",
     "verified": "Equine Dermatology น.29",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105233,
@@ -276,7 +276,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุผลชิ้นเนื้อของ habronemiasis ว่าเป็น eosinophilic dermatitis ร่วมกับ coagulation necrosis และพบตัวอ่อนพยาธิ ส่วน ballooning degeneration กับ intranuclear inclusion body เป็นของ coital exanthema จาก EHV-3 epidermal hyperplasia กับ koilocyte เป็นของ viral papillomatosis และ flame figure กับ dystrophic mineralization เป็นของ eosinophilic granuloma",
     "verified": "Equine Dermatology น.29",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105236,
@@ -295,7 +295,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุ 2 กลุ่มอาการของ dermatophilosis คือ rain scald ที่ลำตัวด้านบนและด้านข้างตรงที่น้ำไหลผ่าน และ mud fever ที่ขาส่วนปลาย sweet itch คือ insect bite hypersensitivity summer sore คือ habronemiasis greasy heel เป็นกลุ่มอาการที่ต้องแยกโรค และ sarcoid เป็นเนื้องอกคนละกลุ่ม",
     "verified": "Equine Dermatology น.26",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105237,
@@ -314,7 +314,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์บรรยายว่ารอยโรคเริ่มเป็นจุดที่ขนตั้งเป็นกระจุกแบบ paintbrush แล้วกลายเป็นสะเก็ดหนาที่ด้านล่างเว้าและมีหนองบางเคลือบอยู่ ตุ่มน้ำที่อวัยวะสืบพันธุ์เป็นของ coital exanthema ก้อนแข็งไม่คันไม่เจ็บที่อานม้าเป็นของ eosinophilic granuloma และแผ่นแบนขนร่วงมีสะเก็ดเป็นของ occult sarcoid",
     "verified": "Equine Dermatology น.26",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105238,
@@ -333,7 +333,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุระยะฟักตัวของ EHV-3 ที่ 5 ถึง 9 วัน และให้พักการใช้พ่อพันธุ์แม่พันธุ์ 3 ถึง 4 สัปดาห์ ระยะ 19 ถึง 67 วันเป็นระยะฟักตัวของ viral papillomatosis ส่วนตัวเลือกที่เหลือสั้นหรือยาวเกินกว่าที่บรรยาย",
     "verified": "Equine Dermatology น.30-31",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105239,
@@ -352,7 +352,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุตรง ๆ ว่า latent carrier ยังไม่มีวิธีตรวจในปัจจุบัน PCR จากรอยโรคผิวหนังมีให้บริการเพียงบางห้องปฏิบัติการและใช้กับรอยโรคที่แสดงออก ไม่ใช่การค้นหาพาหะแฝง การแยกเชื้อทำได้จาก vesicle สะเก็ด หรือชิ้นเนื้อ และระดับแอนติบอดีที่สูงขึ้นใช้ยืนยันการติดเชื้อที่กำลังดำเนินอยู่",
     "verified": "Equine Dermatology น.31",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105240,
@@ -371,7 +371,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่าหูดพบบ่อยในม้าอายุน้อยกว่า 3 ปี ไม่จำเพาะสายพันธุ์หรือเพศ และรอยโรคไม่คันไม่เจ็บ ม้าอายุมากกว่า 15 ปีสัมพันธ์กับ Cushing's syndrome และ SCC ม้าสีเทาสัมพันธ์กับ melanoma และการลุกลามเข้าต่อมน้ำเหลืองเป็นลักษณะของ SCC ไม่ใช่หูด",
     "verified": "Equine Dermatology น.36",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105241,
@@ -390,7 +390,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่าหูดมักหายเองใน 2 ถึง 3 เดือนจาก cell-mediated immunity ซึ่งให้ภูมิคุ้มกันตลอดชีวิต และถ้าเป็นนานเกิน 12 เดือนให้สงสัยภาวะภูมิคุ้มกันบกพร่อง การผ่าตัดหรือ cryotherapy สงวนไว้สำหรับรอยโรคที่ไม่ยุบ ไม่ใช่ทำทุกราย",
     "verified": "Equine Dermatology น.37",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105242,
@@ -409,7 +409,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่า sarcoid เป็นเนื้องอกที่พบบ่อยที่สุดในม้าและสัมพันธ์กับ BPV-1 เป็นหลักหรือ BPV-2 SCC พบเป็นอันดับสองและ EcPV-2 สัมพันธ์กับรอยโรคที่องคชาต melanoma สัมพันธ์กับม้าสีเทาไม่ใช่ herpesvirus และ eosinophilic granuloma สงสัยว่าเกิดจาก insect bite hypersensitivity",
     "verified": "Equine Dermatology น.34",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105243,
@@ -428,7 +428,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุ fibroblastic ว่าเป็นเนื้อแดง มีแผลหลุม มีก้านหรือฐานแบน ส่วน occult เป็นแผ่นแบนขนร่วงมีสะเก็ด verrucose คล้ายหูดผิวหนาเป็นขุย และ nodular เป็นก้อนใน dermis หรือใต้ dermis ตัวเลือกที่ผิดสลับลักษณะของ occult verrucose และ nodular",
     "verified": "Equine Dermatology น.34",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105246,
@@ -447,7 +447,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุ SCC ว่าเป็นเนื้องอกที่พบมากเป็นอันดับสอง ราว 20% ของเคส อายุเฉลี่ยประมาณ 12 ปี และพบในเพศผู้มากกว่าเพราะรอยโรคที่อวัยวะเพศ อันดับหนึ่งคือ sarcoid ม้าสีเทากับโคนหางเป็นภาพของ melanoma และการหายเองภายในสามเดือนเป็นลักษณะของหูดจากไวรัส",
     "verified": "Equine Dermatology น.38",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105247,
@@ -466,7 +466,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุปัจจัยเสี่ยงของ SCC ว่าเป็นแสง UV บนผิวที่ไม่มีเม็ดสี และ EcPV-2 ที่สัมพันธ์กับรอยโรคที่องคชาตและหนังหุ้ม selenium เกินขนาดทำให้ keratin ของแผงคอและหางเสียหาย dermatophilosis เป็นการติดเชื้อแบคทีเรียที่ไม่ได้ระบุว่าเพิ่มความเสี่ยงมะเร็ง และ Culicoides สัมพันธ์กับภูมิไวเกินและ eosinophilic granuloma",
     "verified": "Equine Dermatology น.38",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105248,
@@ -485,7 +485,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่า melanoma พบบ่อยมากในม้าสีเทาที่อายุมากและพบน้อยในม้าสีอื่น ตำแหน่งเด่นคือโคนหาง ฝีเย็บ ปากช่องคลอด หนังหุ้มองคชาต ริมฝีปาก และต่อมน้ำลาย parotid ม้าขาวเผือกสัมพันธ์กับ actinic dermatitis และ SCC ส่วนรอยโรครอบตาเป็นภาพเด่นของ SCC",
     "verified": "Equine Dermatology น.39",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105249,
@@ -504,7 +504,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่าการผ่าตัดหรือใช้เลเซอร์ตัดออกตั้งแต่ระยะแรกได้ผลดีที่สุดและช่วยกันการแพร่กระจาย ฉีด cisplatin เข้าก้อนเป็นทางเลือก ส่วน cimetidine ระบุไว้ชัดว่าผลไม่น่าเชื่อถือ การฉายรังสีทั้งตัวและยาต้านฮิสตามีนไม่ได้อยู่ในแนวทางที่บรรยาย",
     "verified": "Equine Dermatology น.39",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105250,
@@ -523,7 +523,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่า eosinophilic granuloma เป็นก้อนที่ขอบเขตชัด แข็ง ขนไม่ร่วง ไม่เจ็บ และไม่คัน โดยผิวหนังและขนที่คลุมอยู่ปกติเว้นแต่ถูกเสียดสี ก้อนนิ่มมีหนองเข้าได้กับฝีหรือการติดเชื้อ แผ่นแบนขนร่วงมีสะเก็ดเป็นของ occult sarcoid และตุ่มน้ำที่หายใน 14 วันเป็นของ coital exanthema",
     "verified": "Equine Dermatology น.40",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105252,
@@ -542,7 +542,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุว่า PPID เกิดจากการเสื่อมของเซลล์ประสาทที่หลั่ง dopamine จาก hypothalamus ทำให้ pars intermedia หนาตัวหรือเกิด adenoma และ ACTH สูงขึ้น จึงต่างจาก Cushing's ในคนและสุนัขที่มักเป็นที่ต่อมใต้สมองส่วนหน้าหรือต่อมหมวกไต ส่วนไทรอยด์และ insulin ไม่ใช่ต้นเหตุ แม้จะพบ hyperinsulinemia ร่วมได้",
     "verified": "Equine Dermatology น.32",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105253,
@@ -561,7 +561,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "สไลด์ระบุ pergolide เริ่มที่ 2 ug/kg กินวันละครั้ง และปรับเพิ่มได้ถึง 6 ถึง 10 ug/kg ถ้าจำเป็น cyproheptadine เป็นยาที่เพิ่มเข้าไปเมื่อตอบสนองไม่ดี ไม่ใช่ยาหลัก ส่วน levothyroxine และ metformin ไม่ได้ถูกระบุไว้ในแนวทางนี้",
     "verified": "Equine Dermatology น.33",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
+    "source": "Equine Dermatology lecture deck (Vet 85)"
   },
   {
     "id": 105254,
@@ -1017,7 +1017,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ near side = left of horse เป็นฝั่งที่เราขึ้นม้า ส่วน far side = right of horse",
     "verified": "Equine Med 85 น.3",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105283,
@@ -1036,7 +1036,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าวัด height (cm) จากพื้นถึง highest point of wither โดยใช้ไม้วัดเฉพาะของม้า ส่วน croup, poll",
     "verified": "Equine Med 85 น.3",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105284,
@@ -1093,7 +1093,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Dun หรือ buckskin มีเส้นดำพาดกลางหลังและลายบั้งที่ขาเรียก leg barring ซึ่งเป็นสีที่เจอบ่อยในไทย ลักษณะในตัวเลือกอื่นตรงกับ grey แบบ flea bitten, piebald",
     "verified": "Equine Med 85 น.3",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105287,
@@ -1112,7 +1112,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Piebald คือสีขาวปนดำ ส่วน skewbald คือขาวปนสีอื่นที่ห้ามเป็นสีดำ roan คือขนสีหนึ่งมีขนอีกสีแซมทั่วตัว",
     "verified": "Equine Med 85 น.3",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105288,
@@ -1131,7 +1131,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุให้ฝังที่ nuchal ligament ด้านซ้ายของคอ ตรงกึ่งกลางระหว่าง poll กับ wither ปักตั้งฉากกับ ligament แล้วยืนยันด้วย microchip reader ตำแหน่งที่ผิดข้าง ผิดระดับ หรือฝังในกล้ามเนื้ออื่นจะทำให้อ่านชิปไม่เจอตามมาตรฐาน",
     "verified": "Equine Med 85 น.4",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105289,
@@ -1150,7 +1150,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ 4 ตัวคือ tetanus, influenza, rabies และ japanese encephalitis โดย JE เป็นตัวที่เอกสารระบุว่าฉีดทาง SC",
     "verified": "Equine Med 85 น.4",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105290,
@@ -1169,7 +1169,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ตาม้าอยู่ข้างหัวจึงมี peripheral vision กว้าง แต่มี blind spot 2 จุดคือ directly in front ใต้จมูก",
     "verified": "Equine Med 85 น.5",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105291,
@@ -1188,7 +1188,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า gelding คือตัวผู้ที่ทำหมันแล้วและอยู่ลำดับต่ำสุด ส่วนฝูงมักมี stallion หรือ alpha mare เป็นจ่าฝูง ลูกม้ายังอยู่ในความดูแลของแม่จึงไม่ได้ถูกจัดอันดับในความหมายเดียวกัน",
     "verified": "Equine Med 85 น.4",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105292,
@@ -1207,7 +1207,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า the horses should be approached from the left side ซึ่งเป็นฝั่งเดียวกับ near side ที่ใช้ขึ้นม้า การเข้าจากด้านหลังและด้านหน้าตรงจมูกเป็นจุด blind spot ทั้งคู่จึงต้องหลีกเลี่ยง",
     "verified": "Equine Med 85 น.5",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105293,
@@ -1226,7 +1226,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารห้ามผูกเงื่อนตายเพราะถ้าม้าตกใจแล้วแก้ไม่ทันจะอันตราย ต้องผูกให้กระตุกแก้ได้เร็วที่สุด",
     "verified": "Equine Med 85 น.5",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105294,
@@ -1245,7 +1245,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารทำเครื่องหมายเน้นว่าต้อง aware for induction persistent penile prolapse หรือ paralysis ถ้า dose สูงเกิน จุดเด่นอีกอย่างของ acepromazine คือให้ sedation without significant ataxia",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105295,
@@ -1264,7 +1264,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า xylazine เป็นยาที่ถูกที่สุดในกลุ่มนี้และนิยมใช้ทำฟัน มี onset 1-2 นาที duration 15-30 นาที และ maximum dose 1.1 mg/kg",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105296,
@@ -1283,7 +1283,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า detomidine แรงกว่าและแพงกว่า xylazine ประมาณ 100 เท่า เวลาม้าล้มจะ smooth กว่า ให้ได้ทั้ง IV, IM",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105297,
@@ -1302,7 +1302,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารเตือนว่าต้องระวัง common carotid artery และ vagosympathetic nerve trunk ที่ทอดขนานกับหลอดเลือดดำ โดยเฉพาะถ้าฉีดยาซึมพลาดเข้า artery ยาจะขึ้นสมองและทำให้ม้าช็อกได้ทันที จึงแนะนำให้แทงที่ค่อนไปทางส่วนบนของคอซึ่งหลอดเลือดทั้งสองแยกจากกันชัดกว่า",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105298,
@@ -1321,7 +1321,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ max volume per site เท่ากับ 15 ml ถ้าต้องให้มากกว่านี้ต้องแบ่งฉีดหลายตำแหน่ง โดยตำแหน่งที่นิยมที่สุดคือ brachiocephalicus ที่คอ",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105299,
@@ -1340,7 +1340,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุเทคนิคว่า insert syringe in diastema ซึ่งเป็นช่องว่างระหว่าง incisors กับ molars เป็นตำแหน่งที่ไม่มีฟันจึงสอดได้ปลอดภัย การสอดลึกถึงหลังฟันกรามเสี่ยงกระตุ้นการสำลัก",
     "verified": "Equine Med 85 น.7",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105300,
@@ -1359,7 +1359,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ complications ไว้ 2 ข้อคือ epistaxis จากการบาดเจ็บของเยื่อบุจมูก และ aspiration pneumonia ซึ่งเกิดเมื่อมีน้ำค้างที่ปลายท่อแล้วไหลลงปอดตอนดึงท่อขึ้น",
     "verified": "Equine Med 85 น.7",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105301,
@@ -1378,7 +1378,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า show jumping มัก lesion ที่ขาหน้า navicular bone และเอ็นต่างๆ และถ้าใช้งานหนักจนเครียดยังเกิด gastric ulcer ได้",
     "verified": "Equine Med 85 น.7",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105302,
@@ -1397,7 +1397,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า equine passport ออกโดยสัตวแพทย์เท่านั้น เพราะต้องระบุ diagram ลักษณะม้า การฝังไมโครชิพ ประวัติวัคซีน การตรวจโรค",
     "verified": "Equine Med 85 น.3",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105303,
@@ -1416,7 +1416,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า cecum รวมกับลำไส้ใหญ่เป็น hindgut fermenter สร้างพลังงานได้ถึง 70% และ hindgut คิดเป็น 60% ของปริมาตรทางเดินอาหาร โดยดูดซึมในรูป VFA ตัวเลข 30% เป็นสัดส่วนปริมาตรของลำไส้เล็ก ไม่ใช่สัดส่วนพลังงานจาก hindgut",
     "verified": "Equine Med 85 น.8",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105304,
@@ -1435,7 +1435,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า microbial population ใช้เวลา 2-3 วันในการปรับตัวกับอาหารชนิดใหม่ แม้จะเป็นหญ้าคนละล็อตก็ตาม จึงเป็นเหตุผลที่การเปลี่ยนอาหารต้องค่อยเป็นค่อยไป",
     "verified": "Equine Med 85 น.8",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105305,
@@ -1454,7 +1454,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารแยกขีดจำกัดตามความเสี่ยงไว้ 3 ระดับ คือ starch overload ใน hindgut ที่ 2 g/kg BW/meal, gastric ulcer syndrome ที่ 1 g/kg BW/meal",
     "verified": "Equine Med 85 น.9",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105306,
@@ -1473,7 +1473,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "กลุ่ม metabolic disease เป็นกลุ่มที่เข้มงวดที่สุดคือ 0.3 g/kg BW/meal เพราะไวต่อการเพิ่มขึ้นของอินซูลิน ตัวเลข 1",
     "verified": "Equine Med 85 น.9",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105307,
@@ -1492,7 +1492,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุตรงว่า lysine = limiting amino acid และในภาพยังกำกับว่า lysine เกี่ยวกับ growth",
     "verified": "Equine Med 85 น.9",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105308,
@@ -1530,7 +1530,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า C และ D ม้าสังเคราะห์ได้เอง ส่วน K และ B ได้จาก microbes ในทางเดินอาหาร ซึ่งเป็นคนละกลไกกับการสังเคราะห์เอง",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105310,
@@ -1549,7 +1549,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าการเก็บหญ้ามีผลต่อ nutrient loss เช่น protein, vitamin A และ E จึงควรเสริมสองวิตามินนี้เพราะม้าสังเคราะห์เองไม่ได้ ต่างจาก vitamin C",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105311,
@@ -1568,7 +1568,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าถ้าเก็บที่ความชื้นเกิน 20% จะบูดและขึ้นราแน่นอน ซึ่งเป็นจุดที่ต้องระวังคู่กับการสูญเสีย protein",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105312,
@@ -1587,7 +1587,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ RFV = (DDM x DMI) / 1.29 โดย 1.29 เป็นค่าคงที่ที่ปรับสเกลให้ RFV ประมาณ 100 เท่ากับคุณภาพหญ้าแห้ง alfalfa มาตรฐาน",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105313,
@@ -1606,7 +1606,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ DMI (%BW) = 120 / NDF% โดยค่า NDF ได้จากผลวิเคราะห์อาหารหยาบ จุดที่มักสับสนคือ NDF เข้าสูตร DMI",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105314,
@@ -1625,7 +1625,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ DDM (%) = 88.9 - (0.779 x ADF%) เป็นการลบ เพราะยิ่ง ADF สูงคือมี lignin และ cellulose มาก การย่อยได้ยิ่งลดลง ถ้าจำเป็นบวกจะได้ผลกลับด้านกับความจริงทางโภชนาการ",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105315,
@@ -1644,7 +1644,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ forage minimum of 1% BW ซึ่งคิดเป็น 50% ของอาหารทั้งหมด แต่ระดับที่ดีกว่าคือ 1.5-2% BW ซึ่งคิดเป็น 70-90% ของอาหาร สอดคล้องกับหลักที่ว่า forage ต้องเป็นอาหารหลัก ไม่ใช่อาหารเม็ด",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105316,
@@ -1663,7 +1663,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุให้เริ่มวันละ 15 นาทีแล้วเพิ่มวันละ 15 นาที ครบ 20 วันจะได้วันละ 5 ชั่วโมง หลังจากนั้นจึงปล่อยได้ตลอด เหตุผลคือการย้ายจากหญ้าแห้งไปแปลงถือเป็นการเปลี่ยนอาหาร ซึ่งจุลชีพต้องใช้เวลาปรับ",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105317,
@@ -1682,7 +1682,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าหญ้าตอนบ่ายมีน้ำตาลสูงมากเพราะสังเคราะห์แสงเต็มที่มาทั้งวัน ถ้าปล่อยม้าไปกินตอนนั้นจะทำให้ท้องเสียได้ ซึ่งกลไกเชื่อมกับ hindgut acidosis จากการได้ NSC ปริมาณมากในครั้งเดียว",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105318,
@@ -1720,7 +1720,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารกำกับไว้ว่า Ca 1-2 : 1 P คือแคลเซียมต้องมากกว่าหรือเท่ากับฟอสฟอรัสเสมอ ถ้ากลับด้านจนฟอสฟอรัสมากกว่า เช่น การให้รำข้าวมากเกิน จะทำให้เกิดภาวะพาราไทรอยด์ทุติยภูมิจากอาหารและเกิด big head",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105320,
@@ -1739,7 +1739,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่ารำข้าวมี P สูงมาก ถ้าใช้จน Ca:P เสียสมดุลจะเกิดภาวะพาราไทรอยด์ทุติยภูมิจากอาหาร แสดงออกเป็น big head หรือม้าหน้าโป",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105321,
@@ -1758,7 +1758,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า 1 L of sweat contain ประมาณ 10 g of electrolyte เมื่อคูณกับอัตราการหลั่งเหงื่อ 10-12 ลิตรต่อชั่วโมงและสูงได้ถึง 30 ลิตรต่อชั่วโมง จะเห็นว่าความต้องการ Na",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105322,
@@ -1777,7 +1777,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าไม่แนะนำแบบ paste เพราะอาจทำให้เกิด dehydration มากกว่า ในทางกลับกันแบบผงกระตุ้นให้ม้าอยากกินน้ำและแตกตัวได้ดีเมื่อกินพร้อมน้ำ ซึ่งเป็นเหตุผลว่าทำไมแบบผงจึงเหมาะกว่า",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105323,
@@ -1815,7 +1815,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า BCS 5 คือกำลังดี เห็นซี่โครงได้บ้างในขณะหายใจ และคลำแล้วต้องเจอ ส่วน BCS 3 คือผอมจนเห็นซี่โครงและ hip bone ชัด",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105325,
@@ -1834,7 +1834,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารไล่สาเหตุไว้ว่า diet ที่โปรตีนหรือแคลอรีต่ำ, โรคอย่าง Cushing's หรือ insulin resistance, ความเจ็บปวดจากอานไม่พอดีหรือขาเจ็บ, poor dental care, ปรสิต, แผลในกระเพาะ",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105326,
@@ -1853,7 +1853,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า small intestine คิดเป็น 30% ของทางเดินอาหาร ยาว 15-25 เมตร ย่อยได้ทุกอย่างยกเว้นไฟเบอร์ และอาหารอยู่ในนั้น 2-3 ชั่วโมง",
     "verified": "Equine Med 85 น.8",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105327,
@@ -1872,7 +1872,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าติดจากการกิน oribatid mite ที่มี cysticercoid ซึ่งเป็น intermediate host การติดผ่านแมลงวันตอมแผลเป็นกลไกของ Habronema",
     "verified": "Equine Med 85 น.12",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105328,
@@ -1891,7 +1891,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าเกิด ulcer ที่ ileocecal valve แล้วนำไปสู่ enteritis และ colic ซึ่งสอดคล้องกับตำแหน่งที่พยาธิอยู่คือ ileum และ cecum",
     "verified": "Equine Med 85 น.12",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105329,
@@ -1910,7 +1910,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ praziquantel 1 mg/kg PO หรือสอดท่อให้ bithionol 7 mg/kg PO ยากลุ่ม macrocyclic lactone อย่าง ivermectin",
     "verified": "Equine Med 85 น.12",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105330,
@@ -1929,7 +1929,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารกำกับไว้ชัดว่า Trichostrongylus axei เป็น zoonosis และพบใน ruminant มี PPP ประมาณ 3 สัปดาห์ วินิจฉัยด้วย fecal floatation",
     "verified": "Equine Med 85 น.12",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105331,
@@ -1948,7 +1948,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า Musca domestica หรือแมลงวันบ้าน เป็นพาหะของ H. muscae และ D. megastoma ส่วน Stomoxys calcitrans หรือแมลงวันคอกเป็นพาหะของ H. microstoma",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105332,
@@ -1967,7 +1967,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารแยกไว้เป็นคู่ว่า Musca domestica เป็นพาหะของ H. muscae และ S. megastoma ส่วน Stomoxys calcitrans เป็นพาหะของ H. microstoma การจำเป็นคู่แบบนี้ช่วยกันสับสนเวลาข้อสอบถามสลับกัน",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105333,
@@ -1986,7 +1986,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าเป็น eosinophilic granuloma เกิดเป็นแผลหลุมบริเวณหัวตาที่แมลงวันตอม โดยแมลงวันนำ L3 ของ Habronema หรือ Draschia มาชอนไชผิวหนัง การพบ eosinophil เด่นสอดคล้องกับการตอบสนองต่อปรสิต",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105334,
@@ -2005,7 +2005,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า ivermectin รับจบทุกกรณี และเตือนด้วยว่าการให้ยาปฏิชีวนะจะรักษาแผล cutaneous form ไม่หายเพราะไม่ได้แก้ที่ตัวพยาธิ",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105335,
@@ -2024,7 +2024,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารกำกับ Strongyloides westeri ไว้ว่าติดแบบ transmammary infection และทำให้เกิด acute diarrhea in foal ที่ 2-3 สัปดาห์ ตัวอ่อนยังชอนไชผิวหนังทำให้เกิด dermatitis ได้",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105336,
@@ -2043,7 +2043,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ scotch tape technique เพราะตัวเมียออกมาวางไข่รอบรูก้นในช่วงเช้า ไข่จึงไม่ได้ปนออกมากับอุจจาระอย่างสม่ำเสมอ ทำให้ fecal floatation ไวไม่พอ",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105337,
@@ -2062,7 +2062,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าไข่ Oxyuris เป็น asymmetrical egg คือด้านหนึ่งแบนอีกด้านโค้งนูน ส่วนไข่กลมเปลือกหนาเป็นลักษณะของ Parascaris equorum",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105338,
@@ -2081,7 +2081,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ PPP ประมาณ 3 เดือน จาก hepatic-tracheal migration ซึ่งเป็นเหตุผลที่ลูกม้ามีน้ำมูกและปอดบวมได้",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105339,
@@ -2100,7 +2100,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ PPP ประมาณ 6 เดือน จึงกำกับไว้ว่าให้ยาถ่ายทุก 6 เดือน และย้ำว่า S. vulgaris ตัวเล็กแต่อันตรายที่สุด",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105340,
@@ -2119,7 +2119,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าระยะตัวอ่อนของสองชนิดนี้ทำให้เกิด peritonitis และเลือดออกที่ตับกับตับอ่อน นำไปสู่ colic",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105341,
@@ -2138,7 +2138,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า small strongyles พบบ่อยกว่า large strongyles มี non-migratory life cycle PPP 6-12 สัปดาห์ ไข่เปลือกบาง 2 ชั้นภายในมี segmented embryo L4 กระตุ้นการสร้าง nodule ใน colonic mucosa",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105342,
@@ -2157,7 +2157,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารแบ่งเกณฑ์ไว้ว่า 500 = mild, 500-1,000 = moderate และมากกว่า 1,000 = severe ค่า 1,500 จึงเป็น severe",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105343,
@@ -2176,7 +2176,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าถ้าน้อยกว่า 200 EPG ไม่ต้องให้ยาถ่าย เพื่อให้ฝูงยังสร้างภูมิต้านทานได้และชะลอการดื้อยา",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105344,
@@ -2195,7 +2195,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า fecal culture ใช้แยก large กับ small strongyle จาก L3 เพราะดูแค่ไข่ไม่สามารถแยกชนิดได้ ถ้าดู L3 แล้วยังแยกไม่ออกจึงค่อยใช้ molecular diagnosis",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105345,
@@ -2214,7 +2214,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า metabarcoding ใช้ NGS วิเคราะห์ nemabiome ซึ่งคือกลุ่มพยาธิในลำไส้ ได้ละเอียดกว่าการดูแค่ morphology",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105346,
@@ -2233,7 +2233,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารกำกับไว้ว่า Babesia equi ติดต่อในเห็บแบบ transtadial transmission ซึ่งไม่เหมือน Babesia ชนิดอื่นที่ส่วนใหญ่เป็น transovarian transmission คือส่งเชื้อจากแม่เห็บไปที่ไข่จนถึงระยะต่างๆ ได้",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105347,
@@ -2252,7 +2252,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ vector คือ Rhipicephalus microplus ซึ่งเป็น one host tick และเสริมว่าโรคนี้ติดผ่าน mechanical transmission ได้ด้วย เช่น เข็มฉีดยาและการถ่ายเลือด เห็บสกุลอื่นที่ยกมาเป็นเห็บจริงแต่ไม่ใช่พาหะของ equine piroplasmosis ที่เด็คระบุ",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105348,
@@ -2271,7 +2271,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ Tx คือ imidocarb ซึ่งเป็นยาสำหรับ babesiosis โดยเฉพาะ ส่วน ivermectin และ moxidectin เป็น macrocyclic lactone สำหรับพยาธิตัวกลม",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105349,
@@ -2290,7 +2290,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ neuropathology ไว้ 4 อย่างคือ ataxia, blindness, circling และ meningoencephalitis ร่วมกับ intermittent fever และ anemia",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105350,
@@ -2309,7 +2309,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ vector ของ Trypanosoma evansi คือ Tabanus ส่วน Musca domestica และ Stomoxys calcitrans เป็นพาหะของ Habronema คนละชนิดกัน การวินิจฉัยใช้ blood smear ย้อม Giemsa ซึ่งมี specificity สูง",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105351,
@@ -2328,7 +2328,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุอาการว่ากลัวแสง น้ำตาไหล cornea ขุ่นมัว และตาอาจบอด โดยปกติตัวเต็มวัยอยู่ในช่องท้อง แต่ L4",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105352,
@@ -2347,7 +2347,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ Damalinia equi เป็น chewing louse หัวใหญ่กว่าอก low virulence และชอบอยู่ที่ dorso-lateral trunk หน้าผาก",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105353,
@@ -2366,7 +2366,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า Haematopinus asini เป็น sucking louse ตัวใหญ่ราว 3 มม. ไม่มีตาแต่มี ocular point เห็น thoracic sternal plate ชัดที่ด้าน ventral",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105354,
@@ -2385,7 +2385,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารเปรียบเทียบไว้ว่า Psoroptes มี jointed pretarsi และ funnel-shaped sucker ส่วน Chorioptes มี unjointed pretarsi",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105355,
@@ -2404,7 +2404,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า Chorioptes equi ปากไม่แหลม ไม่แทงผิวหนัง จึงกินเศษ tissue บริเวณ fetlock",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105356,
@@ -2423,7 +2423,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า Psoroptes ปากแหลมจึงก่อโรคมากกว่า Chorioptes และกำกับลักษณะทางสัณฐานไว้ว่า epimere ของขาคู่แรกไม่ fuse กัน ทั้งสองสกุลเป็น non-burrowing mite จึงไม่ขุดรู",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105357,
@@ -2442,7 +2442,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า Babesia caballi ซึ่งเป็น large babesia มี incubation period 10-30 วัน ส่วน Babesia equi ซึ่งเป็น small babesia มี 12-19 วัน",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105358,
@@ -2461,7 +2461,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารเปิดบทกายวิภาคด้วยประโยคว่า GI = shock organ of horse ซึ่งอธิบายว่าทำไมโรคทางเดินอาหารในม้าจึงกลายเป็นภาวะฉุกเฉินได้เร็ว",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105359,
@@ -2480,7 +2480,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารให้เหตุผล 2 ข้อคือมุมที่หลอดอาหารต่อกับกระเพาะแหลมมาก และ LES หรือ cardiac sphincter แข็งแรงมาก ทำให้การบีบตัวเป็นแบบทางเดียว",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105360,
@@ -2499,7 +2499,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่ากระเพาะมี 2 ส่วนแบ่งกันด้วย margo plicatus โดยส่วน non-glandular เป็น squamous cell บางๆ",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105361,
@@ -2518,7 +2518,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า cecum ใหญ่มาก จุได้ถึง 30 ลิตร อยู่ด้านขวาเป็นหลัก และแบ่งเป็น 3 ส่วนคือ base, body",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105362,
@@ -2537,7 +2537,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ลำดับตามเอกสารคือ cecum แล้วเข้า ventral colon ฝั่งขวาไปซ้ายผ่าน sternal flexure ถึง pelvic flexure แล้วย้อนกลับทาง dorsal colon จากซ้ายไปขวาผ่าน diaphragmatic flexure ก่อนเข้า small colon",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105363,
@@ -2556,7 +2556,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า ileocecal fold หรือ mesentery เป็นเยื่อบางๆ ที่เชื่อมกัน ใช้ระบุตำแหน่ง ileum ได้ ส่วน margo plicatus อยู่ในกระเพาะ",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105364,
@@ -2575,7 +2575,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ 4 จุดคือ ซ้ายบนเป็น small intestine ซ้ายล่างเป็น left colon แต่แยกไม่ได้ว่า LVC หรือ LDC ขวาบนเป็น base of cecum กับ RDC",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105365,
@@ -2594,7 +2594,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุให้วัดจากซี่โครงที่ 9-12 ซึ่งเป็นตำแหน่งของกระเพาะ ไล่ขึ้นมาถึงจมูก ท่ออาจยาวถึง 2 เมตร เพราะระยะจากหลอดอาหารถึงกระเพาะเองก็เกือบ 1-1.5 เมตรแล้ว",
     "verified": "Equine Med 85 น.16-17",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105366,
@@ -2613,7 +2613,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุให้สอดท่อด้าน ventral และ medial ซึ่งเป็นช่องทางที่นำเข้าสู่หลอดอาหารโดยไม่ไปกระทบโครงสร้างด้านบนของโพรงจมูก การสอดทาง dorsal เพิ่มความเสี่ยงต่อการบาดเจ็บและ epistaxis",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105367,
@@ -2632,7 +2632,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าถ้าม้ากลืนตามให้ดันไปจนสุด แต่ถ้าเข้าหลอดลมม้าจะไอ นอกจากนี้ยังยืนยันตำแหน่งได้ด้วยการดม เป่า หรือดูดออกมา",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105368,
@@ -2651,7 +2651,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุความจุกระเพาะประมาณ 8-15 ลิตร ซึ่งถือว่าเล็กเมื่อเทียบกับขนาดตัว คิดเป็นราว 10% ของทางเดินอาหาร",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105369,
@@ -2670,7 +2670,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุลำดับว่า chewing นำไปสู่ saliva ที่มี pH 8-9 จึงทำหน้าที่ buffer และเป็นเหตุผลว่าทำไมการกินหญ้าซึ่งต้องเคี้ยวเกือบ 3,500 ครั้งต่อ 1 กก. จึงช่วยป้องกันแผลในกระเพาะได้ดีกว่าอาหารเม็ด",
     "verified": "Equine Med 85 น.8, น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105370,
@@ -2689,7 +2689,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ตามชื่อ ESGD เกิดที่ squamous region ซึ่งเป็นส่วน non-glandular ที่ไม่มีเมือกคลุม จึงถูกกรดทำลายโดยตรง",
     "verified": "Equine Med 85 น.19",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105371,
@@ -2708,7 +2708,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารแบ่งเกรดไว้ว่า 0 คือปกติ 1 คือ hyperkeratosis ล้างแล้วไม่หลุด 2 และ 3 คือเกิด ulcer เยื่อบุแหว่ง",
     "verified": "Equine Med 85 น.19",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105372,
@@ -2727,7 +2727,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ Dx ด้วย gastroscope โดยต้องฉีดน้ำล้างก่อนเพื่อให้เห็นเยื่อบุชัด ซึ่งเป็นวิธีเดียวที่ให้เกรดรอยโรคได้",
     "verified": "Equine Med 85 น.19",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105373,
@@ -2746,7 +2746,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ Tx คือ acid suppression ด้วย omeprazole ร่วมกับการจัดการ และแนะนำให้กิน alfalfa เพื่อให้เคี้ยวเยอะและได้น้ำลายเป็น buffer",
     "verified": "Equine Med 85 น.19",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105374,
@@ -2765,7 +2765,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุสาเหตุว่าเคี้ยวไม่ละเอียด น้ำน้อย และหญ้าแห้ง โดยมักติดตรงส่วนต้นของหลอดอาหาร จะพบคอนเทนต์ไหลออกทางจมูก",
     "verified": "Equine Med 85 น.19",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105375,
@@ -2784,7 +2784,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าม้าไม่มี gallbladder น้ำดีเข้าลำไส้เล็กผ่าน major orifice โดยตรง และในบทโภชนาการเสริมว่าม้าหลั่งน้ำดีได้ตลอดเวลา ซึ่งเป็นเหตุผลที่ม้ายังย่อยไขมันได้ดี โดยมี digestibility 85-100% ที่ลำไส้เล็ก",
     "verified": "Equine Med 85 น.9, น.16",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105376,
@@ -2803,7 +2803,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าม้าปกติมี lactate น้อยกว่า 1 mmol/L และการเจาะ peritoneal fluid ให้ค่าแม่นกว่าการเจาะเลือด",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105377,
@@ -2879,7 +2879,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า flunixin meglumine เป็นยาสามัญประจำม้า ให้ analgesia นาน 12 ชั่วโมงและลด endotoxemia ได้ดี แต่ข้อเสียคืออาจปิดบังอาการ",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105381,
@@ -2898,7 +2898,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า xylazine ออกฤทธิ์แค่ 30 นาที จึงไม่ปิดบังอาการ และใช้ดีกับ spasmodic colic การไม่ปิดบังอาการสำคัญมากเพราะต้องประเมินซ้ำเพื่อคิดคะแนน CCS",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105382,
@@ -2917,7 +2917,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารกำกับไว้ว่า phenylbutazone ให้ IV only ห้าม IM เพราะยาระคายเคือง และห้ามให้ยารั่วออกนอกหลอดเลือด ซึ่งเป็นจุดที่แตกต่างจาก flunixin meglumine ที่ให้ได้หลายทาง",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105383,
@@ -2936,7 +2936,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า buscopan เป็น smooth muscle relaxant ใช้ดีกับ spasmodic colic และอาการปวดไม่รุนแรง ซึ่งสมเหตุสมผลเพราะ spasmodic colic เกิดจากการบีบเกร็งของลำไส้",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105384,
@@ -2955,7 +2955,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า spasmodic colic เจอบ่อย เกิดจาก pain from intestinal spasm ระหว่างการ peristalsis",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105385,
@@ -2993,7 +2993,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า colon ขยับขึ้นไปอยู่ในช่องว่างระหว่างไตซ้ายกับม้าม ซึ่งเป็นที่มาของชื่อ nephrosplenic",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105387,
@@ -3012,7 +3012,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า Dx ด้วย ultrasound จะไม่เจอม้ามและไต แต่เจอแก๊สใน colon เพราะลำไส้ที่เข้าไปแทรกอยู่บังโครงสร้างด้านหลังไว้ ปกติ spleen ต้องอยู่ติดไตซ้ายและติดกับกระเพาะ ตับ",
     "verified": "Equine Med 85 น.17-18",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105388,
@@ -3050,7 +3050,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่า ultrasound สำคัญมากในม้าและใช้ FLASH protocol ซาวน์ 6 ตำแหน่ง โดยต้องรวม cranial ventral thorax ด้วยเพราะม้าเกิด diaphragmatic hernia ได้",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105390,
@@ -3069,7 +3069,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุ referred pain จากตับ ไต กระเพาะปัสสาวะ กระดูก และระบบสืบพันธุ์ เช่น การตกไข่ มดลูกบิด การเป็นสัด การตั้งท้อง การคลอด รวมถึงโรคติดเชื้ออย่างบาดทะยักและเรบีส์",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105391,
@@ -3088,7 +3088,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เอกสารระบุว่าเมื่อเกิด GI rupture ถือว่าเย็บไม่ทันแล้ว เพราะสิ่งที่ออกมาจะทำให้เกิด peritonitis จึงเป็นจุดตัดสินใจ",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Med deck (Vet 85), lecture-derived"
+    "source": "Equine Med deck (Vet 85)"
   },
   {
     "id": 105392,

@@ -26,7 +26,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105001, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ ปัจจัยที่ทำให้เกิด edema มี 4 ข้อ ข้อใดระบุปัจจัยได้ครบและถูกต้อง',
+    q: "ปัจจัยที่ทำให้เกิด edema มี 4 ข้อ ข้อใดระบุปัจจัยได้ครบและถูกต้อง",
     options: [
       'increased hydrostatic pressure, decreased oncotic pressure, lymphatic obstruction, decreased renal perfusion',
       'increased hydrostatic pressure, decreased oncotic pressure, lymphatic obstruction, impaired vascular permeability',
@@ -40,25 +40,9 @@ export const QB_Y5_POA_2026 = [
     tags: ['edema-mechanism', 'classification', 'four-factors'],
   },
   {
-    id: 105002, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
-    type: 'mcq',
-    q: 'ในสไลด์ pulmonary edema อาจารย์กากบาททับกล่องกลไกหนึ่งไว้ หมายความว่ากลไกนั้นไม่ใช่กลไกการเกิด pulmonary edema กลไกใด',
-    options: [
-      'increased hydrostatic pressure จาก PV pressure สูง',
-      'decreased oncotic pressure จาก hypoproteinemia',
-      'lymphatic obstruction ของ pulmonary lymphatics',
-      'impaired vascular permeability จาก sepsis หรือ uremia',
-    ],
-    answer: 2,
-    explain: 'สไลด์หน้า 7 กากบาททับกล่อง lymphatic obstruction ทิ้ง จึงเหลือกลไกของ pulmonary edema เพียง 3 ข้อคือ increased hydrostatic pressure, decreased oncotic pressure และ impaired vascular permeability ทั้งสามข้อที่เหลือจึงเป็นกลไกที่ยังใช้ได้ โดย increased hydrostatic pressure หมายถึง PV และ PA pressure ที่สูงขึ้น decreased oncotic pressure หมายถึง hypoproteinemia และ sepsis กับ uremia อยู่ในรายการ impaired vascular permeability',
-    source: 'Edema / Effusion 2026 (POA)',
-    verified: 'Edema / Effusion 2026 (POA) p.7',
-    tags: ['pulmonary-edema', 'mechanism', 'lymphatic-obstruction'],
-  },
-  {
     id: 105003, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'แนวทางการวินิจฉัย pulmonary edema ตามสไลด์ประกอบด้วยขั้นตอนใดบ้าง',
+    q: "แนวทางการวินิจฉัย pulmonary edema ประกอบด้วยขั้นตอนใดบ้าง",
     options: [
       'check albumin, radiography, contrast study',
       'check blood parasite, radiography, ultrasound',
@@ -74,7 +58,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105004, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'abdominal enlargement ตามสไลด์อธิบายด้วย 7 Fs ร่วมกับ organomegaly ข้อใดไม่ใช่หนึ่งใน 7 Fs ที่พิมพ์ไว้',
+    q: "abdominal enlargement อธิบายด้วย 7 Fs ร่วมกับ organomegaly ข้อใดไม่ใช่หนึ่งใน 7 Fs",
     options: [
       'Fibrosis (พังผืดในช่องท้อง)',
       'Flatus (แก๊สในทางเดินอาหาร)',
@@ -90,7 +74,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105005, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ hypoproteinemia จะถูกยอมรับว่าเป็นสาเหตุของ abdominal effusion ก็ต่อเมื่อค่า albumin ต่ำกว่าเท่าใด',
+    q: "hypoproteinemia จะถูกยอมรับว่าเป็นสาเหตุของ abdominal effusion ก็ต่อเมื่อค่า albumin ต่ำกว่าเท่าใด",
     options: [
       '< 2.0 g/dl',
       '< 1.5 g/dl',
@@ -106,7 +90,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105006, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'สาเหตุของ hypoalbuminemia ตามที่สไลด์แบ่งไว้ 4 กลุ่ม ข้อใดถูกต้อง',
+    q: "สาเหตุของ hypoalbuminemia แบ่งไว้ 4 กลุ่ม ข้อใดถูกต้อง",
     options: [
       'decreased synthesis, increased loss, redistribution, increased catabolism',
       'decreased synthesis, increased loss, dehydration, diluting (hemodilution)',
@@ -122,7 +106,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105007, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'ตารางแยกชนิด portal hypertension ในสไลด์ ระบุขนาดตับ (liver size) ของแต่ละกลุ่มไว้อย่างไร',
+    q: "ในการแยกชนิด portal hypertension ขนาดตับ (liver size) ของแต่ละกลุ่มเป็นอย่างไร",
     options: [
       'Prehepatic โต, Hepatic ปกติ/โต/เล็กได้ทั้งสามแบบ, Posthepatic ปกติ',
       'Prehepatic เล็ก, Hepatic โตเสมอ, Posthepatic ปกติ/โต/เล็กได้ทั้งสามแบบ',
@@ -154,7 +138,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105009, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'intrahepatic portal hypertension ถูกแบ่งเป็น 3 ระดับตามสไลด์ ข้อใดจับคู่ระดับกับพยาธิสภาพได้ถูกต้อง',
+    q: "intrahepatic portal hypertension ถูกแบ่งเป็น 3 ระดับ ข้อใดจับคู่ระดับกับพยาธิสภาพได้ถูกต้อง",
     options: [
       'presinusoidal = fibrotic hepatopathies, sinusoidal = intrahepatic portal veins, postsinusoidal = veno-occlusive disease',
       'presinusoidal = intrahepatic portal veins, sinusoidal = fibrotic hepatopathies, postsinusoidal = veno-occlusive disease',
@@ -186,7 +170,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105011, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'septic exudate และ non-septic exudate ต่างกันด้วยเกณฑ์ใดตามตารางในสไลด์',
+    q: "septic exudate และ non-septic exudate ต่างกันด้วยเกณฑ์ใด",
     options: [
       'cell count ที่ต่างกัน โดย septic > 3000 cells/ml ส่วน non-septic < 3000 cells/ml',
       'specific gravity ที่ต่างกัน โดย septic > 1.025 ส่วน non-septic 1.018-1.025',
@@ -202,7 +186,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105012, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'น้ำในช่องลำตัวที่มีลักษณะขาวขุ่นแบบ chyle ตามสไลด์มีเกณฑ์ใด',
+    q: "น้ำในช่องลำตัวที่มีลักษณะขาวขุ่นแบบ chyle มีเกณฑ์ใด",
     options: [
       'protein 2-6 g/dl, Sp.Gr. > 1.018, ขุ่นหลังปั่น, cellularity 0.4-10.0 x 10^9 cells/L',
       'protein 2-6 g/dl, Sp.Gr. < 1.018, ใสขึ้นหลังปั่น, cellularity 0.4-10.0 x 10^9 cells/L',
@@ -234,7 +218,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105014, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ สาเหตุใดของ pleural effusion ถูกจัดไว้ในกลุ่ม altered alveolar-capillary permeability',
+    q: "สาเหตุใดของ pleural effusion ถูกจัดไว้ในกลุ่ม altered alveolar-capillary permeability",
     options: [
       'blockage of vena cava และ lung lobe torsion',
       'protein losing enteropathy และ volume overload',
@@ -250,7 +234,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105015, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'สาเหตุของ pericardial effusion ที่สไลด์ระบุไว้ 4 ข้อ ข้อใดถูกต้อง',
+    q: "สาเหตุของ pericardial effusion ที่ระบุไว้ 4 ข้อ ข้อใดถูกต้อง",
     options: [
       'idiopathic hemorrhage, cardiac neoplasia, congenital defect, lymphatic obstruction',
       'idiopathic hemorrhage, cardiac neoplasia, hypoalbuminemia, infectious causes',

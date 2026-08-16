@@ -122,7 +122,7 @@ export const QB_Y5_FIQC_2026 = [
   {
     id: 103007, subject: 'food-industry', topic: 'fiqc-aquatic', year: 5,
     type: 'mcq',
-    q: 'ตามข้อมูลในสไลด์ Vibrio infective dose ของ Vibrio cholerae ที่ทำให้เกิดโรคคือประมาณเท่าใด',
+    q: "infective dose ของ Vibrio cholerae ที่ทำให้เกิดโรคคือประมาณเท่าใด",
     options: [
       'ประมาณ 1,000 organisms',
       'ประมาณ 100,000 organisms',

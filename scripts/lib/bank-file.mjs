@@ -26,6 +26,58 @@ export async function readBank(file) {
   return { file, questions };
 }
 
+/** Locate `id: N`. Some banks are JSON-shaped ("id": 5), others are plain JS
+ *  object literals ({ id: 5 ). Matching only the quoted form made a drop
+ *  silently do nothing — which the caller's count check caught. */
+function idAt(src, id) {
+  return src.search(new RegExp(String.raw`(?:"id"|\bid)\s*:\s*${id}\b`));
+}
+
+/** Scan forward from the opening quote at `i` to its unescaped partner.
+ *  Returns the index just past the closing quote, or -1. */
+function endOfString(src, i) {
+  const quote = src[i];
+  for (i++; i < src.length; i++) {
+    if (src[i] === '\\') { i++; continue; }
+    if (src[i] === quote) return i + 1;
+  }
+  return -1;
+}
+
+/** Find the string literal that follows `key:` (quoted or bare) after `from`.
+ *  Returns [start, end] spanning the literal including its quotes.
+ *
+ *  The corpus is written four ways — bare or quoted keys, single or double
+ *  quoted values — and single-quoted Thai carries escaped apostrophes
+ *  ("Bloom\'s taxonomy"). Assuming double quotes made this return null, which
+ *  the caller reads as "not found". */
+function stringAfter(src, from, key) {
+  const m = new RegExp(String.raw`(?:"${key}"|'${key}'|\b${key})\s*:\s*`).exec(src.slice(from));
+  if (!m) return null;
+  const start = from + m.index + m[0].length;
+  if (src[start] !== '"' && src[start] !== "'") return null;   // not a plain string
+  const end = endOfString(src, start);
+  return end === -1 ? null : [start, end];
+}
+
+/** Replace the `q` of each id. Values are re-encoded with JSON.stringify, so
+ *  quotes and backslashes in Thai prose cannot break the file. */
+export function updateStems(file, stems) {
+  if (!stems.size) return 0;
+  let src = fs.readFileSync(file, 'utf8');
+  let n = 0;
+  for (const [id, q] of stems) {
+    const at = idAt(src, id);
+    if (at === -1) continue;
+    const span = stringAfter(src, at, 'q');
+    if (!span) continue;
+    src = src.slice(0, span[0]) + JSON.stringify(q) + src.slice(span[1]);
+    n++;
+  }
+  if (n) fs.writeFileSync(file, src);
+  return n;
+}
+
 /** Cut the objects carrying these ids out of the file's text.
  *
  *  Brace counting, skipping anything inside a string so a `{` in Thai prose or
@@ -36,24 +88,19 @@ export function removeQuestions(file, ids) {
   let removed = 0;
 
   for (const id of ids) {
-    const at = src.search(new RegExp(`"id"\\s*:\\s*${id}\\b`));
+    const at = idAt(src, id);
     if (at === -1) continue;
 
     // walk back to the '{' that opens this object
     let start = src.lastIndexOf('{', at);
     if (start === -1) continue;
 
-    // walk forward to its matching '}'
-    let depth = 0, i = start, inStr = false, esc = false;
+    // walk forward to its matching '}', skipping string contents so a '{' in
+    // Thai prose cannot close the object early. Both quote styles are in use.
+    let depth = 0, i = start;
     for (; i < src.length; i++) {
       const c = src[i];
-      if (inStr) {
-        if (esc) esc = false;
-        else if (c === '\\') esc = true;
-        else if (c === '"') inStr = false;
-        continue;
-      }
-      if (c === '"') { inStr = true; continue; }
+      if (c === '"' || c === "'") { const e = endOfString(src, i); if (e === -1) break; i = e - 1; continue; }
       if (c === '{') depth++;
       else if (c === '}') { depth--; if (depth === 0) break; }
     }

@@ -19,6 +19,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { BANK_REGISTRY } from '../src/data/bank-registry.generated.js';
 import { SUBJECTS } from '../src/data/curriculum.js';
+import { namesDocument, narratesDocument, examOriginIsADeck } from './lib/question-standard.mjs';
 
 const args = process.argv.slice(2);
 const DIR = args[0];
@@ -72,9 +73,8 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
     // never part of what is asked. Same for the explanation — 92% of the first
     // Year-2 batch narrated the slide ("สไลด์ให้ไทม์ไลน์ไว้ว่า…") where all
     // 1,746 Year-4 semester-2 questions state the fact and move on.
-    const NARRATES = /สไลด์|เด็ค|เดค|เอกสารนี้|คู่มือนี้|บทเรียนนี้|ตารางเขียน|handout|\bdeck\b/i;
-    if (NARRATES.test(q.q)) { fail('stem names the source document'); continue; }
-    if (NARRATES.test(q.explain || '')) { fail('explanation narrates the source document'); continue; }
+    if (namesDocument(q)) { fail('stem names the source document'); continue; }
+    if (narratesDocument(q)) { fail('explanation narrates the source document'); continue; }
 
     let bad = null;
     for (const o of q.options) for (const b of BANNED_IN_OPTION) if (b.re.test(o)) bad = b.why;
@@ -97,9 +97,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
     // deck is a `source`. Filling examOrigin with a deck name (which a
     // house-style pass did to all 145 Year-2 questions) makes a slide-derived
     // question wear the authority of a past exam. Refuse it rather than guess.
-    if (/lecture deck|lecture-derived|\.pdf|\.pptx/i.test(q.examOrigin || '')) {
-      fail(`examOrigin names a deck, not an exam: ${q.examOrigin}`); continue;
-    }
+    if (examOriginIsADeck(q)) { fail(`examOrigin names a deck, not an exam: ${q.examOrigin}`); continue; }
 
     kept.push({
       id: ++maxId,

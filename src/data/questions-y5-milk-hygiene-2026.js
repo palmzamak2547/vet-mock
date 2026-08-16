@@ -651,7 +651,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101040, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ องค์ประกอบของน้ำนมโดยน้ำหนักแบ่งเป็นน้ำและ total solid ในสัดส่วนใด',
+    q: "องค์ประกอบของน้ำนมโดยน้ำหนักแบ่งเป็นน้ำและ total solid ในสัดส่วนใด",
     options: [
       'น้ำ 87.3% และ total solid 12.7%',
       'น้ำ 82.7% และ total solid 17.3%',
@@ -667,7 +667,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101041, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
     type: 'mcq',
-    q: 'ข้อใดระบุปริมาณองค์ประกอบหลัก (major components) ของน้ำนมได้ตรงกับสไลด์',
+    q: "ข้อใดระบุปริมาณองค์ประกอบหลัก (major components) ของน้ำนมได้ถูกต้อง",
     options: [
       'butter fat 4.6% lactose 3.9% protein 3.3%',
       'butter fat 3.9% lactose 4.6% protein 3.3%',
@@ -747,7 +747,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101046, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
     type: 'mcq',
-    q: 'ตามตัวเลขในสไลด์ แร่ธาตุใดในน้ำนมมีปริมาณสูงที่สุด',
+    q: "แร่ธาตุใดในน้ำนมมีปริมาณสูงที่สุด",
     options: [
       'Calcium',
       'Chloride',
@@ -763,7 +763,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101047, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
     type: 'mcq',
-    q: 'ข้อใดจับคู่เอนไซม์ในน้ำนมกับบทบาทได้ถูกต้องตามสไลด์',
+    q: "ข้อใดจับคู่เอนไซม์ในน้ำนมกับบทบาทได้ถูกต้อง",
     options: [
       'Lactase ย่อยโปรตีนเป็นเปปโตน',
       'Protease ย่อยแลคโตสเป็นกลูโคส',
@@ -779,7 +779,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101048, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
     type: 'mcq',
-    q: 'ข้อใดเปรียบเทียบองค์ประกอบน้ำนมโคกับน้ำนมคนได้ถูกต้องตามตารางในสไลด์',
+    q: "ข้อใดเปรียบเทียบองค์ประกอบน้ำนมโคกับน้ำนมคนได้ถูกต้อง",
     options: [
       'น้ำนมคนมี lactose 6.9% สูงกว่าน้ำนมโคที่ 4.6%',
       'น้ำนมโคมี lactose 6.9% สูงกว่าน้ำนมคนที่ 4.6%',
@@ -795,7 +795,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101049, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
     type: 'mcq',
-    q: 'จากภาพ Tyndall effect ในสไลด์ ข้อใดถูกต้อง',
+    q: "ข้อใดถูกต้องเกี่ยวกับ Tyndall effect",
     options: [
       'เห็นลำแสงในสารละลาย แต่ไม่เห็นในคอลลอยด์และซัสเพนชัน',
       'ไม่เห็นลำแสงในสารละลาย แต่เห็นได้ในคอลลอยด์และซัสเพนชัน',
@@ -827,7 +827,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101051, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์เรื่องปัจจัยที่มีผลต่อองค์ประกอบและคุณภาพน้ำนม กำหนดอุณหภูมิเก็บรักษาน้ำนมไว้ที่เท่าใด',
+    q: "อุณหภูมิที่กำหนดสำหรับเก็บรักษาน้ำนมคือเท่าใด",
     options: [
       'ต่ำกว่า 10 องศาเซลเซียส',
       'ต่ำกว่า 7 องศาเซลเซียส',
@@ -1195,7 +1195,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101074, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
     type: 'mcq',
-    q: 'สไลด์ระบุว่าน้ำนมเป็นอาหารเลี้ยงเชื้อที่ดีของแบคทีเรียส่วนหนึ่งเพราะมีค่า pH ระดับปานกลาง ค่า pH ของน้ำนมที่ระบุไว้อยู่ในช่วงใด',
+    q: "น้ำนมเป็นอาหารเลี้ยงเชื้อที่ดีของแบคทีเรียส่วนหนึ่งเพราะมีค่า pH ระดับปานกลาง ค่า pH ของน้ำนมอยู่ในช่วงใด",
     options: [
       '4.6-4.8',
       '5.6-5.8',
@@ -1211,7 +1211,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101075, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
     type: 'mcq',
-    q: 'สไลด์แบ่งแบคทีเรียในน้ำนมและผลิตภัณฑ์นมออกเป็น 4 กลุ่ม ข้อใดคือทั้ง 4 กลุ่มดังกล่าว',
+    q: "แบคทีเรียในน้ำนมและผลิตภัณฑ์นมแบ่งออกเป็น 4 กลุ่ม ข้อใดคือทั้ง 4 กลุ่มดังกล่าว",
     options: [
       'pathogenic bacteria, thermoduric bacteria, halophilic bacteria, starter cultures',
       'indicator bacteria, spoilage bacteria, probiotic bacteria, psychrotrophic bacteria',
@@ -1243,7 +1243,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101077, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
     type: 'mcq',
-    q: 'การตรวจ coliform count ในน้ำนมตามสไลด์ใช้วิธีใด และมีนัยสำคัญอย่างไร',
+    q: "การตรวจ coliform count ในน้ำนมใช้วิธีใด และมีนัยสำคัญอย่างไร",
     options: [
       'นับบน nutrient agar หลัง serial dilution และควรตรวจไม่พบในนมพาสเจอไรซ์',
       'ใช้ violet red bile agar หรือ MPN และควรตรวจไม่พบในนมพาสเจอไรซ์',
@@ -1255,22 +1255,6 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     source: 'SJ 3 Milk microbiology 2026',
     verified: 'SJ 3 Milk microbiology 2026 p.13',
     tags: ['coliform-count', 'vrba', 'milk-quality-test'],
-  },
-  {
-    id: 101078, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
-    type: 'mcq',
-    q: 'สไลด์เรื่อง somatic cell count (SCC) ระบุค่าที่มีนัยสำคัญต่อการบ่งชี้สุขภาพเต้านมไว้ที่ระดับใด',
-    options: [
-      '100,000-200,000 cells/ml',
-      '200,000-300,000 cells/ml',
-      '400,000-500,000 cells/ml',
-      '800,000-900,000 cells/ml',
-    ],
-    answer: 2,
-    explain: 'สไลด์ระบุค่า SCC ที่มีนัยสำคัญไว้ที่ 400,000-500,000 cells/ml โดย SCC ใช้เป็นตัวบ่งชี้สุขภาพเต้านม (mastitis) และตรวจด้วย direct microscopic count หรือ California mastitis test ตัวเลือกอื่นเป็นช่วงตัวเลขใกล้เคียงที่ไม่ตรงกับที่พิมพ์ไว้ในสไลด์',
-    source: 'SJ 3 Milk microbiology 2026',
-    verified: 'SJ 3 Milk microbiology 2026 p.14',
-    tags: ['somatic-cell-count', 'udder-health', 'milk-quality-test'],
   },
   {
     id: 101079, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
@@ -1307,7 +1291,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101081, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
     type: 'mcq',
-    q: 'แบคทีเรียที่ทำให้น้ำนมเสื่อมเสียถูกแบ่งเป็น 5 กลุ่มในสไลด์ ข้อใดไม่ใช่หนึ่งใน 5 กลุ่มดังกล่าว',
+    q: "แบคทีเรียที่ทำให้น้ำนมเสื่อมเสียถูกแบ่งเป็น 5 กลุ่ม ข้อใดไม่ใช่หนึ่งใน 5 กลุ่มดังกล่าว",
     options: [
       'psychrotrophic bacteria',
       'halophilic bacteria',
@@ -1324,7 +1308,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101082, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
     type: 'mcq',
-    q: 'Psychrotrophic bacteria ตามคำจำกัดความในสไลด์ คือแบคทีเรียที่เจริญได้ที่อุณหภูมิระดับใด',
+    q: "Psychrotrophic bacteria คือแบคทีเรียที่เจริญได้ที่อุณหภูมิระดับใด",
     options: [
       'อุณหภูมิแช่เย็นที่ ≤15°C',
       'อุณหภูมิห้องที่ ≤25°C',
@@ -1340,7 +1324,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101083, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
     type: 'mcq',
-    q: 'ตามตารางลักษณะการเสื่อมเสียของน้ำนมในสไลด์ ข้อใดจับคู่ลักษณะการเสื่อมเสียกับสาเหตุได้ถูกต้อง',
+    q: "ข้อใดจับคู่ลักษณะการเสื่อมเสียของน้ำนมกับสาเหตุได้ถูกต้อง",
     options: [
       'Souring เกิดจาก Pseudomonas ทำให้น้ำนมมีรสขมค้างในปาก',
       'Rancidity เกิดจาก coliforms ทำให้เกิดฟองแก๊สในน้ำนม',
@@ -1356,7 +1340,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101084, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
     type: 'mcq',
-    q: 'มาตรการควบคุม spoilage bacteria ในสไลด์ระบุให้ลดอุณหภูมิน้ำนมดิบอย่างรวดเร็วลงถึงระดับใด',
+    q: "มาตรการควบคุม spoilage bacteria ระบุให้ลดอุณหภูมิน้ำนมดิบอย่างรวดเร็วลงถึงระดับใด",
     options: [
       'ลดลงถึง ≤4°C',
       'ลดลงถึง ≤10°C',
@@ -1388,7 +1372,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101086, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์เรื่องแหล่งปนเปื้อนของน้ำนม เชื้อกลุ่มใดที่ระบุว่าพบภายในเต้านม (inside the udder)',
+    q: "ในแหล่งปนเปื้อนของน้ำนม เชื้อกลุ่มใดที่พบภายในเต้านม (inside the udder)",
     options: [
       'Micrococcus, Staphylococcus, Enterococcus, Bacillus',
       'E. coli, Listeria, Salmonella และ Mycobacterium',
@@ -1404,7 +1388,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101087, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'ระยะฟักตัว (incubation period) ของการติดเชื้อ Salmonella จากน้ำนมตามสไลด์คือเท่าใด',
+    q: "ระยะฟักตัว (incubation period) ของการติดเชื้อ Salmonella จากน้ำนมคือเท่าใด",
     options: [
       '1-6 ชั่วโมง โดยทั่วไป 2-4 ชั่วโมง',
       '6-15 ชั่วโมง โดยทั่วไป 8-12 ชั่วโมง',
@@ -1420,7 +1404,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101088, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'ข้อใดอธิบายกลไกการเกิด staphylococcal food poisoning (SFP) จากน้ำนมได้ถูกต้องตามสไลด์',
+    q: "ข้อใดอธิบายกลไกการเกิด staphylococcal food poisoning (SFP) จากน้ำนมได้ถูกต้อง",
     options: [
       'เกิดจากสารพิษที่ถูกสร้างไว้ก่อนในน้ำนม และการพาสเจอไรซ์ไม่ทำลายสารพิษนั้น',
       'เกิดจากเชื้อมีชีวิตที่เพิ่มจำนวนในลำไส้ และการพาสเจอไรซ์ทำลายทั้งเชื้อและสารพิษ',
@@ -1436,7 +1420,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101089, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'ข้อใดเปรียบเทียบ Bacillus cereus ชนิด emetic กับชนิด diarrheal ได้ถูกต้องตามสไลด์',
+    q: "ข้อใดเปรียบเทียบ Bacillus cereus ชนิด emetic กับชนิด diarrheal ได้ถูกต้อง",
     options: [
       'emetic ฟักตัว 6-15 ชั่วโมงจากสารพิษทนความร้อน ส่วน diarrheal ฟักตัว 1-6 ชั่วโมงจากสารพิษไม่ทนความร้อน',
       'emetic ฟักตัว 1-6 ชั่วโมงจากสารพิษทนความร้อน ส่วน diarrheal ฟักตัว 6-15 ชั่วโมงจากสารพิษไม่ทนความร้อน',
@@ -1452,7 +1436,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101090, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'ระยะฟักตัวของ listeriosis จากการบริโภคน้ำนมหรือผลิตภัณฑ์นมตามสไลด์คือช่วงใด',
+    q: "ระยะฟักตัวของ listeriosis จากการบริโภคน้ำนมหรือผลิตภัณฑ์นมคือช่วงใด",
     options: [
       '3-70 ชั่วโมง ขึ้นกับปริมาณเชื้อและตัวโฮสต์',
       '1-3 สัปดาห์ ขึ้นกับปริมาณเชื้อและตัวโฮสต์',
@@ -1468,7 +1452,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101091, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'คำแนะนำในการชงนมผงสำหรับทารก (PIF) เพื่อลดความเสี่ยงจาก Cronobacter sakazakii ตามสไลด์คือข้อใด',
+    q: "คำแนะนำในการชงนมผงสำหรับทารก (PIF) เพื่อลดความเสี่ยงจาก Cronobacter sakazakii คือข้อใด",
     options: [
       'ใช้น้ำอุณหภูมิ ≥50°C แล้วเก็บที่ <10°C ใช้ภายใน 12 ชั่วโมง',
       'ใช้น้ำอุณหภูมิ ≥40°C แล้วเก็บที่ <7°C ใช้ภายใน 48 ชั่วโมง',
@@ -1484,7 +1468,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101092, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'สไลด์ระบุว่า Shiga toxin-producing E. coli (STEC) มีขนาดเชื้อที่ทำให้เกิดโรค (infective dose) ต่ำเพียงใด',
+    q: "Shiga toxin-producing E. coli (STEC) มีขนาดเชื้อที่ทำให้เกิดโรค (infective dose) ต่ำเพียงใด",
     options: [
       'น้อยกว่า 10 แบคทีเรีย',
       'น้อยกว่า 1,000 แบคทีเรีย',
@@ -1500,7 +1484,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101093, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'hemolytic uremic syndrome (HUS) ที่เกิดตามหลังการติดเชื้อ EHEC O157:H7 นิยามไว้ในสไลด์ว่าประกอบด้วยอะไรบ้าง',
+    q: "hemolytic uremic syndrome (HUS) ที่เกิดตามหลังการติดเชื้อ EHEC O157:H7 ประกอบด้วยอะไรบ้าง",
     options: [
       'ไตวายเรื้อรัง, leukocytosis และ autoimmune hemolytic anemia ในผู้ป่วยเด็ก',
       'ไตวายเฉียบพลัน, thrombocytopenia และ microangiopathic hemolytic anemia',
@@ -1516,7 +1500,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101094, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'ภาวะแทรกซ้อนทางระบบประสาทที่เกิดตามหลังการติดเชื้อ Campylobacter ตามสไลด์คือข้อใด',
+    q: "ภาวะแทรกซ้อนทางระบบประสาทที่เกิดตามหลังการติดเชื้อ Campylobacter คือข้อใด",
     options: [
       'meningitis ที่ทำให้เยื่อหุ้มสมองอักเสบและมีอาการคอแข็ง',
       'encephalitis ที่ทำให้เนื้อสมองอักเสบและผู้ป่วยซึมลง',
@@ -1532,7 +1516,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101095, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'บทบาทของ Streptococcus agalactiae ในโคนมตามสไลด์คือข้อใด',
+    q: "บทบาทของ Streptococcus agalactiae ในโคนมคือข้อใด",
     options: [
       'เป็นเชื้อประจำถิ่นบนผิวหนังโคที่ก่อ environmental mastitis เป็นครั้งคราว',
       'เป็นเชื้อในดินที่ปนเปื้อนน้ำนมและก่อ mastitis ภายหลังการรีดนมเสร็จ',
@@ -1548,7 +1532,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101096, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'มาตรการควบคุม Mycobacterium bovis ในฟาร์มโคนมตามสไลด์ใช้การตรวจคัดกรองสัตว์ด้วยวิธีใด',
+    q: "มาตรการควบคุม Mycobacterium bovis ในฟาร์มโคนมใช้การตรวจคัดกรองสัตว์ด้วยวิธีใด",
     options: [
       'ตรวจด้วย tuberculin skin test แล้วคัดโคที่ให้ผลบวกออก',
       'ตรวจด้วย California mastitis test แล้วคัดโคที่ให้ผลบวกออก',
@@ -1564,7 +1548,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101097, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'ระยะฟักตัวของ brucellosis ในคนที่ติดจากผลิตภัณฑ์นมดิบตามสไลด์คือช่วงใด',
+    q: "ระยะฟักตัวของ brucellosis ในคนที่ติดจากผลิตภัณฑ์นมดิบคือช่วงใด",
     options: [
       '1-3 วัน และบางรายอาจนานกว่านั้น',
       '1-3 สัปดาห์ และบางรายอาจนานกว่านั้น',
@@ -1596,7 +1580,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101099, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
     type: 'mcq',
-    q: 'ข้อมูล CDC ช่วงปี 2007-2012 ในสไลด์ระบุว่าเชื้อใดเป็นสาเหตุของการระบาดจากน้ำนมดิบมากที่สุด และคิดเป็นสัดส่วนเท่าใด',
+    q: "ข้อมูล CDC ช่วงปี 2007-2012 ระบุว่าเชื้อใดเป็นสาเหตุของการระบาดจากน้ำนมดิบมากที่สุด และคิดเป็นสัดส่วนเท่าใด",
     options: [
       'Shiga toxin-producing E. coli คิดเป็นร้อยละ 81 ของการระบาด',
       'Salmonella คิดเป็นร้อยละ 17 ของการระบาดทั้งหมด',
@@ -1850,25 +1834,9 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     tags: ['haccp', 'decision-tree', 'ccp'],
   },
   {
-    id: 101115, subject: 'milk-meat-hygiene', topic: 'milk-industry-std', year: 5,
-    type: 'mcq',
-    q: 'จากตัวอย่างการผลิตนม UHT ในเดค จุดวิกฤตที่ต้องควบคุมจุดที่ 2 (CCP2) คือขั้นตอนใด และมีค่าวิกฤตอย่างไร',
-    options: [
-      'Milk reception มีค่าวิกฤตคือ ตรวจไม่พบยาปฏิชีวนะตกค้าง',
-      'Aseptic filling มีค่าวิกฤตคือ บรรจุภัณฑ์ต้องปิดผนึกสนิท',
-      'Homogenization มีค่าวิกฤตคือ ความดันไม่ต่ำกว่า 200 บาร์',
-      'UHT sterilization มีค่าวิกฤตคือ >133°C นาน >4 วินาที',
-    ],
-    answer: 3,
-    explain: 'ตัวอย่างแผนภูมิการผลิตนม UHT 13 ขั้นตอนในเดคกำหนด CCP ไว้ 3 จุด คือ CCP1 milk reception ค่าวิกฤตคือตรวจไม่พบยาปฏิชีวนะตกค้าง CCP2 UHT sterilization ค่าวิกฤตคืออุณหภูมิสูงกว่า 133 องศาเซลเซียส นานกว่า 4 วินาที และ CCP3 aseptic filling ค่าวิกฤตคือบรรจุภัณฑ์ปิดผนึกสนิท ส่วน homogenization เป็นขั้นตอนหนึ่งในแผนภูมิแต่ไม่ได้ถูกกำหนดเป็น CCP และค่าความดันดังกล่าวไม่ปรากฏในตัวอย่างนี้',
-    source: 'SJ 5 Standard of milk industry and milk products 2026',
-    verified: 'SJ 5 Standard of milk industry and milk products 2026 p.86',
-    tags: ['haccp', 'uht-milk', 'critical-limit'],
-  },
-  {
     id: 101116, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ตามสไลด์ Basic requirement for milk production industry ทั้ง 8 ขั้นตอน ข้อใดไม่ได้ถูกจัดอยู่ในรายการดังกล่าว',
+    q: "ใน Basic requirement for milk production industry ทั้ง 8 ขั้นตอน ข้อใดไม่ได้ถูกจัดอยู่ในรายการดังกล่าว",
     options: [
       'การหมักด้วยกล้าเชื้อ (fermentation)',
       'การปั่นแยกสิ่งสกปรก (clarification)',
@@ -1884,7 +1852,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101117, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'จากโจทย์ตัวอย่าง Pearson\'s square ในสไลด์ ต้องการปรับครีม 23 แกลลอน ที่มีไขมัน 23% ให้เหลือไขมัน 18% โดยใช้ skim milk ไขมัน 0% ต้องผสมในสัดส่วนใด',
+    q: "จากโจทย์ตัวอย่าง Pearson's square ต้องการปรับครีม 23 แกลลอน ที่มีไขมัน 23% ให้เหลือไขมัน 18% โดยใช้ skim milk ไขมัน 0% ต้องผสมในสัดส่วนใด",
     options: [
       'ครีม 23% จำนวน 5 แกลลอน กับ skim milk 18 แกลลอน',
       'ครีม 23% จำนวน 18 แกลลอน กับ skim milk 5 แกลลอน',
@@ -1900,7 +1868,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101118, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ในแผนภาพหัว homogenizer (forcer และ seat) สไลด์ระบุขนาดช่องว่าง (gap) ที่นมถูกอัดผ่านไว้ประมาณเท่าใด',
+    q: "ในหัว homogenizer (forcer และ seat) ช่องว่าง (gap) ที่นมถูกอัดผ่านมีขนาดประมาณเท่าใด",
     options: [
       'ประมาณ 0.01 mm',
       'ประมาณ 1 mm',
@@ -1916,7 +1884,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101119, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ตามตาราง heat treatment ในสไลด์ Thermisation ใช้อุณหภูมิและเวลาเท่าใด',
+    q: "Thermisation ใช้อุณหภูมิและเวลาเท่าใด",
     options: [
       '63 องศาเซลเซียส นาน 30 นาที',
       '72-75 องศาเซลเซียส นาน 15-20 วินาที',
@@ -1932,7 +1900,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101120, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ตามตาราง heat treatment ในสไลด์ Ultra pasteurization ใช้อุณหภูมิและเวลาเท่าใด',
+    q: "Ultra pasteurization ใช้อุณหภูมิและเวลาเท่าใด",
     options: [
       '125-138 องศาเซลเซียส นาน 2-4 วินาที',
       '115-120 องศาเซลเซียส นาน 20-30 นาที',
@@ -1948,7 +1916,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101121, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ตารางเปรียบเทียบ heat exchanger ในสไลด์ ระบุอุณหภูมิใช้งานของ Tubular heat exchanger (THE) ไว้เท่าใด',
+    q: "อุณหภูมิใช้งานของ Tubular heat exchanger (THE) คือเท่าใด",
     options: [
       'น้อยกว่า 150 องศาเซลเซียส',
       'น้อยกว่า 285 องศาเซลเซียส',
@@ -1964,7 +1932,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101122, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ตามการแบ่งชนิดของ evaporator ในสไลด์ ข้อใดจัดอยู่ในกลุ่ม Force circulation evaporator',
+    q: "ตามการแบ่งชนิดของ evaporator ข้อใดจัดอยู่ในกลุ่ม Force circulation evaporator",
     options: [
       'Short tube evaporator (ท่อสั้น)',
       'Climbing-film evaporator (ฟิล์มไต่)',
@@ -1980,7 +1948,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101123, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ลำดับกระบวนการผลิตนมพาสเจอร์ไรส์ตามสไลด์ ขั้นตอนใดอยู่ถัดจากการตรวจคุณภาพน้ำนมดิบทันที',
+    q: "ในลำดับกระบวนการผลิตนมพาสเจอร์ไรส์ ขั้นตอนใดอยู่ถัดจากการตรวจคุณภาพน้ำนมดิบทันที",
     options: [
       'Homogenization ที่ช่องว่าง 0.1 mm',
       'Pasteurization ที่ 72-75 องศาเซลเซียส 15 วินาที',
@@ -1994,25 +1962,9 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     tags: ['pasteurized-milk', 'process-flow', 'thermization'],
   },
   {
-    id: 101124, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
-    type: 'mcq',
-    q: 'ในแผนภาพสายการผลิตนมพาสเจอร์ไรส์ ตำแหน่งหมายเลข 11 สไลด์ระบุ holding time ไว้กี่วินาที',
-    options: [
-      '16 วินาที',
-      '6 วินาที',
-      '30 วินาที',
-      '60 วินาที',
-    ],
-    answer: 0,
-    explain: 'แผนภาพระบุหมายเลข 11 เป็น holding time for 16 sec โดยแผ่น plate heat exchanger ในภาพเดียวกันแบ่งเป็นหมายเลข 7 heat section, 8 regenerative section และ 9 cooling section ตัวเลขที่เหลือเป็นค่าที่ไม่ปรากฏในแผนภาพนี้',
-    source: 'SJ 6 Processing and manufacturing technologies 2026',
-    verified: 'SJ 6 Processing and manufacturing technologies 2026 p.27',
-    tags: ['pasteurized-milk', 'holding-tube', 'number-threshold'],
-  },
-  {
     id: 101125, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'การเก็บรักษานม UHT ตามสไลด์ เก็บได้นานเท่าใดและที่อุณหภูมิเท่าใด',
+    q: "การเก็บรักษานม UHT เก็บได้นานเท่าใดและที่อุณหภูมิเท่าใด",
     options: [
       'นาน 5-6 สัปดาห์ ที่อุณหภูมิต่ำกว่า 45 องศาเซลเซียส',
       'นาน 5-6 เดือน ที่อุณหภูมิต่ำกว่า 45 องศาเซลเซียส',
@@ -2026,25 +1978,9 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     tags: ['uht-milk', 'storage', 'number-threshold'],
   },
   {
-    id: 101126, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
-    type: 'mcq',
-    q: 'ในสายการผลิตนม UHT ตามสไลด์ ขั้น Pasteurization ที่อยู่ก่อนขั้น Sterilization ใช้อุณหภูมิและเวลาเท่าใด',
-    options: [
-      '72-75 องศาเซลเซียส นาน 15-20 วินาที',
-      '135-150 องศาเซลเซียส นาน 2-3 วินาที',
-      '83-85 องศาเซลเซียส นาน 15-16 วินาที',
-      '63-65 องศาเซลเซียส นาน 15 วินาที',
-    ],
-    answer: 2,
-    explain: 'สายการผลิต UHT ในสไลด์เรียงเป็น thermization 63-65 องศาเซลเซียส 15 วินาที แล้ว homogenization ตามด้วย pasteurization ที่ 83-85 องศาเซลเซียส 15-16 วินาที ก่อนเข้าสู่ sterilization ร่วมกับ homogenization ที่ 135-150 องศาเซลเซียส 2-3 วินาที ตัวเลือกอื่นจึงเป็นค่าของขั้นตอนอื่นในสายเดียวกันหรือของ HTST milk',
-    source: 'SJ 6 Processing and manufacturing technologies 2026',
-    verified: 'SJ 6 Processing and manufacturing technologies 2026 p.28',
-    tags: ['uht-milk', 'process-flow', 'number-threshold'],
-  },
-  {
     id: 101127, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ลำดับการผลิตนมผงตามสไลด์ ขั้นตอนใดอยู่ระหว่าง Pasteurization กับ Homogenization',
+    q: "ในลำดับการผลิตนมผง ขั้นตอนใดอยู่ระหว่าง Pasteurization กับ Homogenization",
     options: [
       'Standardization ปรับไขมันให้ได้มาตรฐาน',
       'Dehydration ด้วย spray drier',
@@ -2060,7 +1996,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101128, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ตามส่วนประกอบของนมข้นหวาน (sweetened condensed milk) ในสไลด์ น้ำตาลคิดเป็นสัดส่วนเท่าใด',
+    q: "ตามส่วนประกอบของนมข้นหวาน (sweetened condensed milk) น้ำตาลคิดเป็นสัดส่วนเท่าใด",
     options: [
       '50%',
       '24%',
@@ -2076,7 +2012,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101129, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'กระบวนการผลิตนมข้นจืด (evaporated milk) ตามสไลด์ มีลักษณะเด่นตรงกับข้อใด',
+    q: "กระบวนการผลิตนมข้นจืด (evaporated milk) มีลักษณะเด่นตรงกับข้อใด",
     options: [
       'เติมน้ำตาลลงไปก่อนขั้นการระเหยน้ำออก',
       'ทำ sterilization หลังบรรจุกระป๋องและปิดผนึก',
@@ -2092,7 +2028,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101130, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ขั้นตอนการทำชีสตามสไลด์ ขั้นตอนใดอยู่ถัดจาก Acidify milk',
+    q: "ในขั้นตอนการทำชีส ขั้นตอนใดอยู่ถัดจาก Acidify milk",
     options: [
       'Cut the curd แยก whey ออกจากส่วนที่เป็นก้อน',
       'Aging the cheese เพื่อพัฒนากลิ่นและรส',
@@ -2108,7 +2044,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101131, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'บทบาทของ Lactobacillus bulgaricus ในการผลิตโยเกิร์ตตามสไลด์คือข้อใด',
+    q: "บทบาทของ Lactobacillus bulgaricus ในการผลิตโยเกิร์ตคือข้อใด",
     options: [
       'ใช้ glucose และ lactose ผลิต lactic acid เป็นหลัก',
       'สร้างก๊าซ CO2 ทำให้เนื้อโยเกิร์ตขึ้นฟูและนุ่ม',
@@ -2124,7 +2060,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101132, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ในขั้น heat treatment ของ fermented milk ตามสไลด์ หลังผ่านความร้อนที่ 72 องศาเซลเซียสขึ้นไป นาน 15 วินาที ต้องลดอุณหภูมิลงมาที่ช่วงใดจึงเติมกล้าเชื้อเพื่อหมัก',
+    q: "ในขั้น heat treatment ของ fermented milk หลังผ่านความร้อนที่ 72 องศาเซลเซียสขึ้นไป นาน 15 วินาที ต้องลดอุณหภูมิลงมาที่ช่วงใดจึงเติมกล้าเชื้อเพื่อหมัก",
     options: [
       '37-45 องศาเซลเซียส',
       '50-60 องศาเซลเซียส',
@@ -2172,7 +2108,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
   {
     id: 101135, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ขั้น Acid wash ในระบบ CIP ของโรงงานตามสไลด์ ใช้สารเคมี ความเข้มข้น และอุณหภูมิเท่าใด',
+    q: "ขั้น Acid wash ในระบบ CIP ของโรงงานใช้สารเคมี ความเข้มข้น และอุณหภูมิเท่าใด",
     options: [
       'NaOH 1-3% ที่ 70-80 องศาเซลเซียส',
       'HNO3 1-3% ที่ 70-80 องศาเซลเซียส',

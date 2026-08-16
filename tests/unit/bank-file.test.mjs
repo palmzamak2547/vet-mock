@@ -12,7 +12,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { readBank, removeQuestions, bankFiles } from '../../scripts/lib/bank-file.mjs';
+import { readBank, removeQuestions, updateStems, bankFiles } from '../../scripts/lib/bank-file.mjs';
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'bank-'));
 const write = (name, body) => { const p = path.join(tmp, name); fs.writeFileSync(p, body); return p; };
@@ -60,6 +60,45 @@ test('a brace inside a string does not end the object early', async () => {
   // id 2's stem holds an unmatched "{". If brace counting ignored strings it
   // would swallow the rest of the file when cutting its neighbour.
   assert.deepEqual(questions.map((q) => q.id), [2, 3]);
+});
+
+test('rewrites a stem without disturbing its neighbours', async () => {
+  const p = write('questions-stem.js', COMMENTED);
+  assert.equal(updateStems(p, new Map([[2, 'สองใหม่ มี "อัญประกาศ" และ \\ ด้วย']])), 1);
+
+  const { questions } = await readBank(p);
+  assert.equal(questions.length, 3, 're-encoding must not break the file');
+  assert.equal(questions[1].q, 'สองใหม่ มี "อัญประกาศ" และ \\ ด้วย');
+  assert.equal(questions[0].q, 'หนึ่ง', 'neighbours untouched');
+  assert.equal(questions[1].answer, 1, 'only the stem changes');
+});
+
+test('handles banks written as plain JS object literals, not JSON', async () => {
+  // questions-engprof.js is `{ id: 51045, subject: 'engprof', ...}` — bare keys
+  // and single quotes. Matching only `"id":` made a drop return 0 and change
+  // nothing, which looked exactly like a question that was not there.
+  const p = write('questions-literal.js', `export const Q = [
+  { id: 7, subject: 'x', q: 'ตาม Bloom\\'s taxonomy วง { นี้', options: ['a','b'], answer: 0 },
+  { id: 8, subject: 'x', q: 'แปด', options: ['a','b'], answer: 1 },
+];
+`);
+  assert.equal(updateStems(p, new Map([[7, 'เจ็ดใหม่']])), 1, 'unquoted key must be found');
+  assert.equal(removeQuestions(p, new Set([8])), 1);
+  const { questions } = await readBank(p);
+  assert.deepEqual(questions.map((q) => [q.id, q.q]), [[7, 'เจ็ดใหม่']]);
+});
+
+test('single-quoted values with escaped apostrophes and a stray brace', async () => {
+  const p = write('questions-sq.js', `export const Q = [
+  { id: 1, q: 'Bloom\\'s taxonomy { ไม่ปิด', explain: 'x', options: ['a','b'], answer: 0 },
+  { id: 2, q: 'สอง', explain: 'y', options: ['a','b'], answer: 1 },
+];
+`);
+  // If the escaped apostrophe ended the string early, the brace inside it would
+  // be counted and cutting id 1 would swallow id 2.
+  assert.equal(removeQuestions(p, new Set([1])), 1);
+  const { questions } = await readBank(p);
+  assert.deepEqual(questions.map((q) => q.id), [2]);
 });
 
 test('every shipped bank is readable — none may be skipped', async () => {

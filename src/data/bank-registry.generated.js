@@ -122,7 +122,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-epidemiology-2026-b.js', export: 'QB_Y5_EPIDEMIOLOGY_2026B', year: 5, count: 23,
     subjects: ['epidemiology'],
     load: () => import('./questions-y5-epidemiology-2026-b.js').then((m) => m.QB_Y5_EPIDEMIOLOGY_2026B) },
-  { file: 'questions-y5-epidemiology-2026.js', export: 'QB_Y5_EPIDEMIOLOGY_2026', year: 5, count: 43,
+  { file: 'questions-y5-epidemiology-2026.js', export: 'QB_Y5_EPIDEMIOLOGY_2026', year: 5, count: 39,
     subjects: ['epidemiology'],
     load: () => import('./questions-y5-epidemiology-2026.js').then((m) => m.QB_Y5_EPIDEMIOLOGY_2026) },
   { file: 'questions-y5-eqrepro-2026.js', export: 'QUESTIONS_Y5_EQREPRO_2026', year: 5, count: 144,
@@ -146,13 +146,13 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-milk-2026-c.js', export: 'QUESTIONS_Y5_MILK_2026_C', year: 5, count: 32,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-y5-milk-2026-c.js').then((m) => m.QUESTIONS_Y5_MILK_2026_C) },
-  { file: 'questions-y5-milk-hygiene-2026.js', export: 'QB_Y5_MILK_HYGIENE_2026', year: 5, count: 136,
+  { file: 'questions-y5-milk-hygiene-2026.js', export: 'QB_Y5_MILK_HYGIENE_2026', year: 5, count: 132,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-y5-milk-hygiene-2026.js').then((m) => m.QB_Y5_MILK_HYGIENE_2026) },
   { file: 'questions-y5-one-health-2026-b.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_B', year: 5, count: 61,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-b.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_B) },
-  { file: 'questions-y5-one-health-2026.js', export: 'QB_Y5_ONE_HEALTH_2026', year: 5, count: 20,
+  { file: 'questions-y5-one-health-2026.js', export: 'QB_Y5_ONE_HEALTH_2026', year: 5, count: 15,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026.js').then((m) => m.QB_Y5_ONE_HEALTH_2026) },
   { file: 'questions-y5-osce-med.js', export: 'QB_Y5_OSCE_MED', year: 5, count: 14,
@@ -167,7 +167,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-poa-2026-b.js', export: 'QUESTIONS_Y5_POA_2026_B', year: 5, count: 16,
     subjects: ['poa-clinical'],
     load: () => import('./questions-y5-poa-2026-b.js').then((m) => m.QUESTIONS_Y5_POA_2026_B) },
-  { file: 'questions-y5-poa-2026.js', export: 'QB_Y5_POA_2026', year: 5, count: 16,
+  { file: 'questions-y5-poa-2026.js', export: 'QB_Y5_POA_2026', year: 5, count: 15,
     subjects: ['poa-clinical'],
     load: () => import('./questions-y5-poa-2026.js').then((m) => m.QB_Y5_POA_2026) },
   { file: 'questions-y5-repro-clinic.js', export: 'QB_Y5_REPRO_CLINIC', year: 5, count: 48,
@@ -205,4 +205,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-08-16T16:11:11.154Z — 65 banks · 4521 Qs
+// Built: 2026-08-16T16:38:51.842Z — 65 banks · 4507 Qs

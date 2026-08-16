@@ -122,7 +122,7 @@ export const QB_Y5_ZOONOSES_2026 = [
   {
     id: 104007, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
     type: 'mcq',
-    q: 'ในโมเดล SIR ค่า reproductive ratio (r) คำนวณจากอะไร และตัวอย่างในสไลด์ที่ r เท่ากับ 3 หมายความว่าอย่างไร',
+    q: "ในโมเดล SIR ค่า reproductive ratio (r) คำนวณจากอะไร และเมื่อ r เท่ากับ 3 หมายความว่าอย่างไร",
     options: [
       'r = gamma หารด้วย beta และมีผู้ติดเชื้อรายใหม่ 3 คน ต่อผู้หายป่วย 1 คน',
       'r = beta คูณด้วย gamma และมีผู้หายป่วย 3 คน ต่อผู้ติดเชื้อรายใหม่ 1 คน',

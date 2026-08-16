@@ -24,6 +24,7 @@
 // ============================================================
 
 import { bankFiles, readBank, removeQuestions } from './lib/bank-file.mjs';
+import { namesDocument } from './lib/question-standard.mjs';
 
 const WRITE = process.argv.includes('--write');
 
@@ -46,7 +47,7 @@ for (const file of bankFiles()) {
   const { questions } = await readBank(file);
   banks++;
   total += questions.length;
-  const bad = questions.filter((q) => names(q.q));
+  const bad = questions.filter(namesDocument);
   if (!bad.length) continue;
   flagged += bad.length;
   rows.push({ file, n: questions.length, bad: bad.length });
