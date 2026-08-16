@@ -61,7 +61,24 @@ for (const r of resolved) {
     continue;
   }
 
-  const files = fs.readdirSync(dir).map((f) => path.join(dir, f));
+  let files = fs.readdirSync(dir).map((f) => path.join(dir, f));
+
+  // A vector chart is drawn, not embedded, so pdfimages returns nothing —
+  // which is exactly what happened to the efficacy graph Palm asked about.
+  // Rendering the page is right ONLY when the page IS the figure. The test is
+  // its own text: p.82 carries "Efficacy test (Laboratory trial)" and nothing
+  // else, while a text slide would carry the prose that made an earlier
+  // page-render pass read as "เอาสไลด์ทั้งดุ้นมาแปะ".
+  if (!files.length) {
+    let text = '';
+    try { text = execFileSync('pdftotext', ['-f', String(r.page), '-l', String(r.page), src, '-'], { encoding: 'utf8' }); } catch {}
+    if (text.replace(/\s+/g, ' ').trim().length <= 200) {
+      try {
+        execFileSync('pdftoppm', ['-f', String(r.page), '-l', String(r.page), '-r', '110', '-png', src, path.join(dir, 'page')], { stdio: 'ignore' });
+        files = fs.readdirSync(dir).map((f) => path.join(dir, f));
+      } catch {}
+    }
+  }
   const scored = [];
   for (const f of files) {
     let meta, stats;

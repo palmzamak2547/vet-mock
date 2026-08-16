@@ -647,6 +647,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105171,
+    "image": "/figures/questions/q105171.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -681,6 +682,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105176,
+    "image": "/figures/questions/q105176.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -698,6 +700,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105177,
+    "image": "/figures/questions/q105177.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -919,6 +922,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105193,
+    "image": "/figures/questions/q105193.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1004,6 +1008,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105198,
+    "image": "/figures/questions/q105198.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1152,6 +1157,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105208,
+    "image": "/figures/questions/q105208.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
