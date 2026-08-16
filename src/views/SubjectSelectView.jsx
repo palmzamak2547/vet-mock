@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
@@ -43,6 +43,28 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
            (s.code || '').toLowerCase().includes(q);
   });
 
+  // Year and term are the layer a student thinks in — "ปี 2 เทอม 1" is one
+  // shelf, not thirteen loose subjects. The whole-year card and the handful of
+  // subjects that run across both terms sit outside the split rather than
+  // being filed under a term they do not belong to.
+  const subjectGroups = useMemo(() => {
+    const bySemester = new Map();
+    const unsorted = [];
+    for (const s of visibleSubjects) {
+      if (s.id === 'all' || !s.semester) { unsorted.push(s); continue; }
+      if (!bySemester.has(s.semester)) bySemester.set(s.semester, []);
+      bySemester.get(s.semester).push(s);
+    }
+    const groups = [];
+    if (unsorted.length) groups.push({ key: 'any', label: null, items: unsorted });
+    for (const sem of [...bySemester.keys()].sort()) {
+      groups.push({ key: `sem${sem}`, label: `เทอม ${sem}`, items: bySemester.get(sem) });
+    }
+    // One unlabelled group when nothing splits — a lone "เทอม 1" header over
+    // every subject is noise, not structure.
+    return groups.length === 1 ? [{ ...groups[0], label: null }] : groups;
+  }, [visibleSubjects]);
+
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
@@ -79,15 +101,36 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
         />
       </div>
 
-      <div className="vmx-subject-grid">
-        {visibleSubjects.length === 0 ? (
+      {visibleSubjects.length === 0 && (
+        <div className="vmx-subject-grid">
           <div className="vmx-empty" style={{ gridColumn: '1 / -1' }}>ไม่พบวิชาที่ค้นหา</div>
-        ) : visibleSubjects.map((s) => {
+        </div>
+      )}
+
+      {subjectGroups.map((group) => (
+        <div key={group.key}>
+          {group.label && (
+            <div style={{
+              margin: '20px 20px 8px', display: 'flex', alignItems: 'baseline', gap: 10,
+              fontSize: 13, fontFamily: 'var(--vmx-mono)', letterSpacing: '0.06em',
+              textTransform: 'uppercase', color: 'var(--clr-ink-soft)',
+            }}>
+              <span>{group.label}</span>
+              <span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} />
+              <span style={{ fontSize: 11 }}>{group.items.length} วิชา</span>
+            </div>
+          )}
+          <div className="vmx-subject-grid">
+            {group.items.map((s) => {
           // Count only Qs in non-hidden topics — matches what user
           // actually sees in TopicSelectView (avoids "127 promised, 70
           // visible" confusion). For 'all' subject, sum visible per
           // subject across the bank.
-          const count = visibleQuestionCount(s.id, allQuestions);
+          // The all-card counts this year only, matching the pool the exam
+          // will actually draw from.
+          const count = s.id === 'all' && selectedYear
+            ? yearSubjects.reduce((n, y) => n + visibleQuestionCount(y.id, allQuestions), 0)
+            : visibleQuestionCount(s.id, allQuestions);
           // A subject with notes and no questions is still worth opening —
           // this selector is also where the Notes feature lands, and gating
           // it on the question count locked students out of written material
@@ -156,8 +199,10 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               )}
             </button>
           );
-        })}
-      </div>
+            })}
+          </div>
+        </div>
+      ))}
 
       {isScaffoldYear && (
         <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>

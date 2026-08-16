@@ -1297,7 +1297,13 @@ export default function App() {
       pool = examQuestions.filter((q) => wrongSet.has(q.subject + ':' + q.id));
     }
     else {
-      pool = _subject === 'all' ? examQuestions : examQuestions.filter((q) => q.subject === _subject);
+      // "รวมทุกวิชา" means every subject in THIS year, not every subject in
+      // the app. The bank is one flat array, so before Year 2 had questions
+      // this card silently mixed years — a second-year student would have
+      // been handed Year 5 clinical items.
+      pool = _subject === 'all'
+        ? examQuestions.filter((q) => !selectedYear || yearForSubject(q.subject) === selectedYear)
+        : examQuestions.filter((q) => q.subject === _subject);
       if (_topic) {
         // Collection IDs (prefix `_<name>-all`) bundle multiple topics by
         // a shared topic prefix — used for "รวมหมาหอน" / "รวม Term Paper"
