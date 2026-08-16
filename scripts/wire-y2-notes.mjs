@@ -22,7 +22,9 @@ const WRITE = process.argv.includes('--write');
 
 // Subjects whose sections are all externally sourced. Everything else renders
 // in NotesView and stays out of the wiki until its coverage gate is clean.
-const GOVERNED = new Set([]);
+const GOVERNED = new Set([
+  'vet-neuroanat',
+]);
 
 const NOTES_VIEW = 'src/views/NotesView.jsx';
 const WIKI_INDEX = 'src/lib/vetwiki/index.js';

@@ -70913,7 +70913,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -70940,7 +70940,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -70967,7 +70967,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -70994,7 +70994,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71017,7 +71017,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71044,7 +71044,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71071,7 +71071,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71098,7 +71098,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71125,7 +71125,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71152,7 +71152,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71175,13 +71175,86 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
               "assessment"
             ],
             "rationale": "the nigrostriatal projection exerts a differential effect on D1R/D2R MSNs, facilitating and inhibiting the direct and indirect circuits, respectively"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--basal-nuclei--blood-supply-of-basal-nuclei": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--blood-supply-of-basal-nuclei--v1",
+          "statement": "Perforating branches of the middle cerebral artery supply the striatum, perfusing the superolateral part of the head and body of the caudate nucleus and most of the putamen.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26596401",
+              "locator": "J Clin Neurosci. 2016;25:19-26 — Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The MCA vessels perfused the superolateral part of the head and body of the caudate nucleus, the superior part of the entire internal capsule, most of the putamen and part of the globus pallidus."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--blood-supply-of-basal-nuclei--v2",
+          "statement": "The pallidum (globus pallidus) draws its supply from the internal carotid artery, whose own perforators together with those of its branch the anterior choroidal artery supply the medial segment of the globus pallidus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26596401",
+              "locator": "J Clin Neurosci. 2016;25:19-26 — Abstract, results",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The AChA perforators perfused the medial segment of the globus pallidus, the inferior part of the posterior limb, the retrolenticular and sublenticular portions of the internal capsule, and occasionally its genu. The same segment of the glo"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--basal-nuclei--blood-supply-of-basal-nuclei--v3",
+          "statement": "The lenticulostriate perforating arteries, the vessels that carry supply into the striatum, reach the lateral half of the head of the caudate nucleus and the entire putamen, along with the anterior limb, genu and superior part of the internal capsule.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-32435049",
+              "locator": "Rinsho Shinkeigaku. 2020;60(6):397-406 — Abstract, opening sentence",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The lenticulostriate arteries (LSA) supply the lateral half of the head of the caudate nucleus, entire putamen, anterior limb, genu and the superior part of the internal capsule (IC) and a part of the corona radiata."
           }
         }
       ]
@@ -71204,7 +71277,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71231,7 +71304,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71258,7 +71331,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71281,7 +71354,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71308,7 +71381,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71331,7 +71404,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71358,7 +71431,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71385,7 +71458,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71408,7 +71481,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71431,7 +71504,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71458,7 +71531,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71485,7 +71558,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71508,7 +71581,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71531,7 +71604,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71554,7 +71627,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71577,7 +71650,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71604,7 +71677,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71633,7 +71706,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71660,63 +71733,13 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
               "assessment"
             ],
             "rationale": "The primary olfactory cortex sends projections to various brain regions, including diencephalic structures (thalamus and hypothalamus), limbic cortex (mainly larger parts of the amygdala and also the hippocampus) and neocortex."
-          }
-        }
-      ]
-    },
-    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon": {
-      "claims": [
-        {
-          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon--v1",
-          "statement": "The limbic cortex on the medial surface of the hemisphere is arranged as two concentric rings around the corpus callosum, a larger outer ring and a smaller inner ring.",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-20711399",
-              "locator": "Anatomy of the limbic lobe (49(2):132-9)",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The limbic lobe situated at the inferomedial aspect of the cerebral hemispheres, consists of two concentric gyri surrounding the corpus callosum."
-          }
-        },
-        {
-          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon--v2",
-          "statement": "The hippocampus and the amygdala are the two principal components of the inner limbic ring, the hippocampus serving memory and the amygdala emotion and drive.",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-25217299",
-              "locator": "Abstract (35(5):459-73)",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Its 2 principle components are the hippocampus (involved in memory as part of the Papez circuit) and the amygdala (involved in emotional responses, memories and drives)."
           }
         }
       ]
@@ -71737,7 +71760,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71760,7 +71783,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71787,7 +71810,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71810,7 +71833,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71837,7 +71860,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71864,7 +71887,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71891,7 +71914,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71914,7 +71937,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71941,7 +71964,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71964,7 +71987,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -71987,7 +72010,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72014,7 +72037,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72037,7 +72060,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72064,7 +72087,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72091,13 +72114,40 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
               "assessment"
             ],
             "rationale": "directs the posterior outgrowth of their newly emerging axons towards their postsynaptic target, the midbrain interpeduncular nucleus"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon--v1",
+          "statement": "The telencephalic components of the limbic system are arranged as two cortical rings at the diencephalic-telencephalic junction: an inner ring of the amygdaloid body, the hippocampus and its fornix, and an outer ring of the cingulate gyrus with its cingulum and the septal area (septal nuclei).",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-b978-0-7216-6706-5-00017-2",
+              "locator": "Chapter 17, section 'Anatomy — Telencephalon', pp. 448-453 (see also Box 17-1 and Fig. 17-1)",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The telencephalic components of the limbic system form two “cortical rings” at the border of the diencephalic-telencephalic junction (see Fig. 17-1 ). The inner ring consists of the amygdaloid body, the hippocampus, and its fornix. The oute"
           }
         }
       ]
@@ -72120,7 +72170,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72147,7 +72197,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72170,7 +72220,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72197,7 +72247,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72224,7 +72274,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72247,7 +72297,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72274,7 +72324,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72297,7 +72347,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72324,7 +72374,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72347,7 +72397,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72374,7 +72424,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72401,7 +72451,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72428,7 +72478,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72451,7 +72501,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72478,7 +72528,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72505,7 +72555,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72532,7 +72582,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72559,7 +72609,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72586,7 +72636,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72613,7 +72663,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72636,7 +72686,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72665,7 +72715,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72692,7 +72742,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72719,7 +72769,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72746,7 +72796,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72773,40 +72823,13 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
               "assessment"
             ],
             "rationale": "The major output from the IC runs through the brachium of the inferior colliculus to excite the medial geniculate nucleus of the thalamus."
-          }
-        }
-      ]
-    },
-    "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน": {
-      "claims": [
-        {
-          "id": "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน--v1",
-          "statement": "The structures labelled on this figure (cochlear nuclei, trapezoid nuclei, lateral lemniscus, caudal colliculus, medial geniculate body) are successive relay stations of the ascending auditory pathway from the inner ear to the auditory cortex.",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-32119355",
-              "locator": "Introduction",
-              "kind": "textbook"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "The inferior colliculus (IC; plural: colliculi) is a paired structure in the midbrain, which serves as an important relay point for auditory information as it travels from the inner ear to the auditory cortex."
           }
         }
       ]
@@ -72827,7 +72850,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72854,7 +72877,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72881,7 +72904,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72904,7 +72927,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72931,7 +72954,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72954,7 +72977,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -72981,7 +73004,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73008,7 +73031,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73035,7 +73058,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73062,7 +73085,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73085,7 +73108,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73112,7 +73135,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73139,13 +73162,40 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
               "assessment"
             ],
             "rationale": "mydriasis associated with reduced pupillary light reflex, ventrolateral strabismus, and absence of physiologic nystagmus in the left eye"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน--v1",
+          "statement": "โครงสร้างทั้ง 5 ที่ label ไว้ในภาพ (cochlear nuclei, trapezoid nuclei, lateral lemniscus, caudal colliculus และ medial geniculate body) เป็นสถานีของ central auditory pathway เรียงจาก caudal ไป rostral โดย cochlear nuclei อยู่ล่างสุด ถัดขึ้นมาคือ trapezoid body ระดับ pons แล้วจึงเป็น lateral lemniscus ขึ้นสู่ caudal (inferior) colliculus และ medial geniculate body",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-25726288",
+              "locator": "Vol. 129, pp. 509-536; abstract (levels of the auditory pathway from cochlear nuclei to medial geniculate body)",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Lesions below or within the cochlear nuclei result in ipsilateral auditory-processing abnormalities detected in routine testing; disorders rostral to the cochlear nuclei may result in bilateral abnormalities or may be silent. Lesions in the"
           }
         }
       ]
@@ -73168,7 +73218,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73195,7 +73245,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73218,7 +73268,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73245,7 +73295,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73272,7 +73322,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73299,7 +73349,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73322,7 +73372,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73349,7 +73399,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73376,7 +73426,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73403,7 +73453,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73430,7 +73480,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73453,7 +73503,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73480,7 +73530,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73507,7 +73557,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73530,7 +73580,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73553,7 +73603,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73576,13 +73626,90 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
               "assessment"
             ],
             "rationale": "The area postrema (AP) is a circumventricular organ (CVO) at the base of the fourth ventricle. It has a crucial role in regulating nausea and vomiting due to its unique blood-brain barrier (BBB)-permeability and extensive neural connectivit"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--ขอบเขต-boundaries-ของ-medulla-oblongata": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--ขอบเขต-boundaries-ของ-medulla-oblongata--v1",
+          "statement": "The caudal landmark of the medulla is not uniform across reference works: rather than the first cervical nerve, StatPearls places the caudal end of the medulla approximately at the level of the foramen magnum.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-31869070",
+              "locator": "Section 'Structure and Function', first paragraph; Bookshelf ID NBK551589",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The medulla is the most caudal aspect of the brainstem, approximately at the level of the foramen magnum."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--myelencephalon--dorsal-external-surface": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--dorsal-external-surface--v1",
+          "statement": "On the dorsal surface of the medulla oblongata the fasciculus gracilis is the medial dorsal-funicular bundle, carrying afferents that entered the cord from about the sixth thoracic segment caudally (the slide's T6-S3, pelvic limb and caudal trunk) before ending in the gracile nucleus.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-b978-0-7216-6706-5-00009-3",
+              "locator": "Chapter 9 'General Sensory Systems', section 'Fasciculus Gracilis and Fasciculus Cuneatus', pp. 221-242",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The GP axons from the pelvic limbs and the trunk caudal to about the level of the sixth thoracic spinal cord segment course cranially in the medial portion of this funiculus in the fasciculus gracilis"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--myelencephalon--dorsal-external-surface--v2",
+          "statement": "The fasciculus cuneatus, lateral to the fasciculus gracilis and raising the cuneate tubercle on the dorsal medullary surface, carries the general proprioceptive afferents that entered the cord cranial to about T6 (the slide's C1-T5, thoracic limb and cranial trunk).",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "doi-10-1016-b978-0-7216-6706-5-00009-3",
+              "locator": "Chapter 9 'General Sensory Systems', section 'Fasciculus Gracilis and Fasciculus Cuneatus', pp. 221-242",
+              "kind": "textbook"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cranial to this level, the GP axons are situated more laterally and comprise the fasciculus cuneatus"
           }
         }
       ]
@@ -73605,7 +73732,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73632,7 +73759,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73659,7 +73786,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73686,7 +73813,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73713,40 +73840,13 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
               "assessment"
             ],
             "rationale": "It is a sensory system that maintains the position of the eyes, body, and limbs in reference to the position of the head."
-          }
-        }
-      ]
-    },
-    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements": {
-      "claims": [
-        {
-          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements--v1",
-          "statement": "Feline hyperesthesia syndrome is a recognized clinical entity in cats and belongs on the list of abnormal involuntary movement presentations.",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-32680665",
-              "locator": "Volume 50, issue 5, pages 1157-1181; abstract",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Addressing environmental needs and underlying triggers is more important than pharmacotherapy when dealing with feline orofacial pain syndrome or feline hyperesthesia syndrome."
           }
         }
       ]
@@ -73767,7 +73867,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73790,7 +73890,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73817,7 +73917,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73844,7 +73944,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73867,7 +73967,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73894,13 +73994,286 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
               "assessment"
             ],
             "rationale": "The menace response was decreased, and vertical nystagmus was observed."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--โครงของการตรวจ-hands-off-กับ-hands-on": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--โครงของการตรวจ-hands-off-กับ-hands-on--v1",
+          "statement": "การตรวจระบบประสาทแบ่งเป็น 2 ส่วนใหญ่ คือ ส่วน observation ที่ไม่ต้องจับตัวสัตว์ (hands-off examination) และส่วนที่ต้องลงมือตรวจ (hands-on examination)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19389634",
+              "locator": "J Feline Med Surg. 2009;11(5):340-348, section \"How practically can the problem be localised within the nervous system?\"",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The neurological examination can be divided into two main parts — a hands-off examination and a hands-on examination, which evaluate and assess the following:"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--โครงของการตรวจ-hands-off-กับ-hands-on--v2",
+          "statement": "ส่วน hands-off (observation) คือการเฝ้าดูสัตว์โดยไม่จับตัว ครอบคลุมระดับความรู้สึกตัวและพฤติกรรม ท่าทางขณะอยู่นิ่ง และการเดิน",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-19389634",
+              "locator": "J Feline Med Surg. 2009;11(5):340-348, section \"Hands-off examination\"",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "This gives the clinician the opportunity to observe its awareness and behaviour, posture and gait."
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--hands-on-examination-ภาพรวมและ-postural-reactions": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--hands-on-examination-ภาพรวมและ-postural-reactions--v1",
+          "statement": "Postural reactions are a conscious response whose pathway is referred to the contralateral forebrain, so a forebrain (cerebral) lesion produces postural reaction deficits in the limbs on the opposite side of the body.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36078049",
+              "locator": "Section 3.6.2 Hop Test (Clinical Assessment > Postural Reactions); Cells 11(17):2641",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Cerebral lesions produce contralateral deficits, whilst brainstem and spinal cord lesions produce ipsilateral deficits"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--hands-on-examination-ภาพรวมและ-postural-reactions--v2",
+          "statement": "Postural reactions are grouped with the hands-on tests because, unlike a segmental spinal reflex, they depend on long proprioceptive and motor pathways that traverse essentially the whole nervous system.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36977215",
+              "locator": "Introduction, final paragraph; Vet Sci 10(3):176",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Postural reactions require the function of proprioceptive and motor systems, which generally involve the entire nervous system"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--palpation-and-sensory-testing": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--palpation-and-sensory-testing--v1",
+          "statement": "Palpation and testing of pain perception (nociception) are components of the complete hands-on neurological examination, performed alongside gait assessment, cranial nerve evaluation and postural reaction testing.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33178727",
+              "locator": "Materials and Methods, 'Patient Selection and Randomization'; Front Vet Sci 7:571778",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the included dogs underwent an initial complete neurological examination, which included gait assessment, cranial nerve evaluation, postural reaction testing, evaluation of nociception, and paraspinal palpation"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--palpation-and-sensory-testing--v2",
+          "statement": "Pain perception (nociception) is assessed at two levels, superficial and deep, and the two are graded separately, with loss of deep nociception representing the more severe deficit than loss of superficial nociception.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33178727",
+              "locator": "Materials and Methods, 'Neurological Examination' (modified Frankel score definitions); Front Vet Sci 7:571778",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Grade 0 corresponds to paraplegia without deep nociception, grade 1 to paraplegia without superficial nociception, grade 2 to paraplegia with nociception"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--palpation-and-sensory-testing--v3",
+          "statement": "Palpating the vertebral column and the paraspinal musculature is how areas of discomfort (hyperesthesia) are localized during the neurological examination, and that localization contributes to deciding where the lesion is.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-41737678",
+              "locator": "Section on neuroanatomical localization (T3-L3 with spinal shock vs L4-S3); Front Vet Sci 13:1703941",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the localization of hyperesthesia on palpation of the vertebral column and paraspinal musculature"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--postural-reaction-tests-ที่สไลด์ระบุ": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--postural-reaction-tests-ที่สไลด์ระบุ--v1",
+          "statement": "การตรวจ postural reactions ในการตรวจระบบประสาทสัตว์เล็กประกอบด้วย 5 การทดสอบตามที่สไลด์ระบุ ได้แก่ paw replacement (paw placement) response, tactile placing response, hopping response, extensor postural thrust และ wheelbarrowing",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36790148",
+              "locator": "Materials and methods, 'Neurological examination' subsection; J Feline Med Surg 2023;25(2):1098612X221149384",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The hands-on examination included assessment of postural reactions (paw placement, table tactile placement, hopping, wheelbarrowing and extensor postural thrust), cranial nerves"
+          }
+        }
+      ]
+    },
+    "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements": {
+      "claims": [
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements--v1",
+          "statement": "Feline hyperesthesia belongs on the slide's list of abnormal involuntary movements to look for during the hands-off observation stage of the neurological examination, because its recognised clinical signs are motor phenomena visible on inspection: muscle spasms of the dorsal lumbar region, tail and anal areas, and a rippling motion of the overlying skin.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-40524652",
+              "locator": "39(4):e70174, Introduction, first paragraph",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "the main clinical signs observed have included licking or biting the flank and lumbar areas; muscle spasms in the dorsal lumbar region, as well as in the tail and anal areas; and a rippling motion of the skin"
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements--v2",
+          "statement": "Feline hyperesthesia syndrome sits in the same observational differential list as tremor, i.e. it is one of the conditions to consider when a cat is seen to have involuntary muscle fasciculations or tremors.",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28491446",
+              "locator": "3(1):2055116916686427, Abstract, Relevance and novel information",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Muscle fasciculations and tremors in cats can be caused by intoxications, metabolic derangements, encephalomyelitis, feline hyperaesthesia syndrome and cerebellar diseases."
+          }
+        },
+        {
+          "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements--v3",
+          "statement": "Myoclonus, the second item on the slide's list, is an abnormal involuntary movement defined as a sudden brief involuntary muscle jerk (a definition the slide itself does not give).",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28557061",
+              "locator": "31(4):979-987, Abstract, first sentence",
+              "kind": "journal"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-08-16",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Myoclonus is a sudden brief, involuntary muscle jerk."
           }
         }
       ]
@@ -73923,7 +74296,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73950,7 +74323,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -73977,7 +74350,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74004,7 +74377,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74027,7 +74400,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74054,7 +74427,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74081,7 +74454,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74108,7 +74481,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74131,7 +74504,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74154,7 +74527,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74177,7 +74550,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74204,7 +74577,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74227,7 +74600,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74254,7 +74627,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74281,7 +74654,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74304,7 +74677,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74331,7 +74704,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74358,7 +74731,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74381,7 +74754,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74408,7 +74781,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74431,7 +74804,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",
@@ -74458,7 +74831,7 @@ export const GENERATED_VERIFICATIONS = {
           ],
           "review": {
             "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-15",
+            "reviewedAt": "2026-08-16",
             "method": "reference-cross-check",
             "approvedScopes": [
               "learning",

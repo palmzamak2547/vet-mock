@@ -40,6 +40,7 @@ import { NOTES_85_ONE_HEALTH } from '../../data/notes-85-one-health.js';
 import { NOTES_85_POA_CLINICAL } from '../../data/notes-85-poa-clinical.js';
 import { NOTES_85_SWINE_CLINIC } from '../../data/notes-85-swine-clinic.js';
 import { NOTES_85_ZOONOSES } from '../../data/notes-85-zoonoses.js';
+import { NOTES_Y2_NEUROANAT } from '../../data/notes-y2-neuroanat.js';
 import { noteToKnowledge, verifiedClaimCount } from './adapter.js';
 import { validateTopic } from './validate.js';
 import { resolveSource } from './sources.js';
@@ -61,6 +62,7 @@ const NOTES_85_BY_SUBJECT = {
 };
 
 const NOTES_BY_SUBJECT_BASE = {
+  'vet-neuroanat': NOTES_Y2_NEUROANAT,
   com5: NOTES_COM5,
   com4: NOTES_COM4,
   com3: NOTES_COM3,

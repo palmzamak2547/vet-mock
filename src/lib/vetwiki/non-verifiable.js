@@ -185,6 +185,120 @@ export const METADATA_SECTIONS = new Set([
   "one-health--oh-disease-prevention--รูปแบบข้อสอบของรุ่นก่อนหน้า", // รูปแบบข้อสอบของรุ่นก่อนหน้า
   "one-health--oh-foodborne--รูปแบบข้อสอบของรุ่นก่อนหน้า", // รูปแบบข้อสอบของรุ่นก่อนหน้า
   "one-health--oh-risk-analysis--รูปแบบข้อสอบของรุ่นก่อนหน้า", // รูปแบบข้อสอบของรุ่นก่อนหน้า // four video thumbnails; the content was on screen, not on the slide
+
+  // Year-2 Neuroanatomy. Each of these was put to a sourcing pass that came
+  // back saying there is nothing to source: a figure legend, an inventory of
+  // which slides carry no text, a fill-in-the-blank exercise, or a lab pointing
+  // checklist. The reason below is the one that pass gave.
+  // This section is a legend for the lecturer's own figure, mapping the
+  // digits 1-7 printed on slides p.5 and p.6 to nucleus names. Which number
+  // the lecturer chose to put on which structure is an arbitrary labelling
+  // convention local to this deck, so no external source can confirm or
+  // refute it. The nucleus names themselves are covered by the grouping
+  // section (p.3).
+  "vet-neuroanat--neuroanat--basal-nuclei--เลขกำกับนิวเคลียส",
+
+  // This section makes no anatomical or physiological assertion at all. It is
+  // a note about the deck's own coverage, recording that the amygdala and
+  // endopeduncular nucleus appear in the name list without an explanatory
+  // slide and that slide p.14 contains only a YouTube link. There is no claim
+  // for literature to agree or disagree with.
+  "vet-neuroanat--neuroanat--basal-nuclei--สิ่งที่เด็คเอ่ยชื่อแต่ไม่ได้อธิบาย",
+
+  // This slide is a blank-label practice exercise, not a statement of fact.
+  // Four labels are already printed (thalamus & metathalamus, epithalamus,
+  // subthalamus, lamina terminalis) and the rest are unanswered blanks (CN
+  // _?_, __?__ ventricle, ________ nucleus, S___ h______ thalami, ___________
+  // adhesion, ____ ____). There is no assertion here to check against
+  // literature; the note's own warn callout records that the deck never
+  // supplies the answers. Any citation attached to this section would be
+  // sourcing the labels of the other slides, not this one.
+  "vet-neuroanat--neuroanat--diencephalon--แผนผัง-diencephalon-สไลด์เติมคำ",
+
+  // This section is an inventory of the deck itself — it records that p.3,
+  // p.4, p.6, p.7, p.9, p.17, p.18 and p.22 are image-only slides with no
+  // text, that p.10 carries only a heading, and that p.23 is a 'Questions?'
+  // closing slide. It makes no anatomical or physiological claim, so there is
+  // nothing for a paper, textbook or guideline to agree or disagree with.
+  "vet-neuroanat--neuroanat--diencephalon--สไลด์ที่ไม่มีข้อความให้สรุป",
+
+  // Not a knowledge claim. This section is an inventory of label text from
+  // photographic and sectional brain images (deck p.7-9) plus the deck's
+  // single bibliography entry. It asserts no proposition about anatomy or
+  // function that literature could agree or disagree with, so there is
+  // nothing to verify; any citation here would be decoration rather than
+  // evidence.
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--สไลด์รูปที่มีแต่ชื่อ-label-และ-reference",
+
+  // Slides p.32-37 are labelled dissection photographs used as a lab pointing
+  // checklist. The section states no anatomical proposition of its own - it
+  // is a list of structure names (Ventral paraflocculus, CN IX-XI, Crus
+  // cerebri, Pyramids, Nodulus, 1o/2o/caudolateral fissures, etc.) attached
+  // to images - so there is no claim that literature could confirm or refute.
+  // Which structures a given course requires students to identify in the lab
+  // is a local curriculum decision, not a published finding.
+  "vet-neuroanat--neuroanat--metencephalon--cerebellum-pons-laboratory-guide",
+
+  // Slides 14-15 are an unannotated cross-sectional image plus its label list
+  // (mesencephalic nucleus of CN V, medial geniculate body, brachium of
+  // caudal colliculus, spinothalamic tract, crus cerebri, rostral colliculus,
+  // periaqueductal gray, RF, red nuclei). The section states no proposition
+  // about these structures, only where they sit on one particular figure, so
+  // there is nothing a published source can confirm or refute.
+  "vet-neuroanat--neuroanat--midbrain--cross-section-ที่ระดับ-rostral-colliculi-ภาพ-label",
+
+  // Slides 17-19 are three figure titles (Level of caudal colliculus, Level
+  // of caudal part of caudal colliculus) and a bare label list, with the note
+  // that no explanatory text accompanies them. There is no claim to check
+  // against literature, only image orientation on the lecturer's own figures.
+  "vet-neuroanat--neuroanat--midbrain--ภาพระดับ-caudal-colliculus-label-ล้วน",
+
+  // The slide is an image page of cranial nerve nuclei carrying only three
+  // bare symptom headings (MEDIAL STRABISMUS, FACIAL PARALYSIS, NYSTAGMUS
+  // with Circling/Falling/Head tilt) plus a YouTube link. It states no
+  // relationship between any sign and any nucleus, nerve or lesion site, so
+  // there is no proposition to check against the literature — the note itself
+  // already flags this gap. Sourcing the sign-to-lesion links (CN VI, CN VII,
+  // vestibular) would be adding content the lecturer never asserted, not
+  // verifying the slide.
+  "vet-neuroanat--neuroanat--myelencephalon--อาการทางคลินิกที่สไลด์ยกหัวข้อไว้",
+
+  // The slide (p.2) carries only the headings 'Equipments' and 'Neurological
+  // examination sheet' over images; the note itself records that the
+  // equipment list is a picture with no text, so there is no stated factual
+  // claim to check against literature. Which items a school puts on its own
+  // examination trolley and form is a local teaching artefact, not a
+  // literature question.
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--อุปกรณ์และแบบฟอร์มการตรวจ",
+
+  // p.26-29 are a case-study title slide with images or video only, a repeat
+  // of the examination form from p.2, and a suggested-reading slide whose
+  // book list is an image. No case details, findings or conclusions are
+  // stated in text, so there is nothing to verify. The one book named in text
+  // (Jaggy, Small Animal Neurology An Illustrated Text, 2010) is a
+  // bibliographic pointer rather than a claim.
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--case-study-examination-sheet-และ-suggested-reading",
+
+  // The section records only that two slides carry the words 'menace
+  // response' as a heading, plus a slide that is nothing but a link to a
+  // Cornell teaching video. The note itself states that no pathway, no
+  // criterion and no interpretation is written on the slides, so there is no
+  // proposition to check against literature — only a statement about what the
+  // deck does not contain.
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--menace-response",
+
+  // The section reports a single image slide bearing the two words
+  // 'heterochromia iridis' with no definition, no mechanism and no stated
+  // link to any other topic in the deck. The only checkable content would be
+  // a claim the slide never makes.
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--heterochromia-iridis",
+
+  // Two title-only slides at the end of the deck, each a single word over
+  // images or video clips. The note explicitly says no classification and no
+  // interpretation is written out, so the section asserts nothing that a
+  // source could confirm or contradict.
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--สไลด์ท้ายเด็ค-strabismus-และ-nystagmus",
+
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */

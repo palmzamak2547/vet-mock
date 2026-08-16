@@ -9,6 +9,7 @@ import { loadRuntimeData } from './runtime-data.generated.js';
 const loadedSources = new Map();
 
 const LOADERS = {
+  'vet-neuroanat': async () => [(await import('../../data/notes-y2-neuroanat.js')).NOTES_Y2_NEUROANAT],
   com5: async () => [(await import('../../data/notes-com5.js')).NOTES_COM5],
   com4: async () => [(await import('../../data/notes-com4.js')).NOTES_COM4],
   com3: async () => [(await import('../../data/notes-com3.js')).NOTES_COM3],

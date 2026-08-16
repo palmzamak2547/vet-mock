@@ -1662,6 +1662,78 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "vet-neuroanat--neuroanat--basal-nuclei",
+    "subject": "vet-neuroanat",
+    "topic": "neuroanat--basal-nuclei",
+    "title": "Basal nuclei (Telencephalon)",
+    "icon": "📖",
+    "summary": "เด็คนี้ว่าด้วย basal nuclei ในฐานะ deep gray matter ของ telencephalon ครอบคลุมรายชื่อและการจัดกลุ่มนิวเคลียส ลักษณะรายตัวของ caudate nucleus, accumbens nucleus, putamen, pallidum และ claustrum ตามด้วยหน้าที่รวม (movement co-ordination), basal nuclei circuit แบบ direct/indirect pathway ที่มี dopamine กำกับ และ blood supply สองเส้น มี 1 สไลด์เป็นลิงก์วิดีโอ YouTube ล้วน (p.14) ส่วน amygdala กับ endopeduncular nucleus ถูกเอ่ยชื่อในรายการแต่ไม่มีสไลด์อธิบายรายละเอียด",
+    "flagship": false
+  },
+  {
+    "id": "vet-neuroanat--neuroanat--diencephalon",
+    "subject": "vet-neuroanat",
+    "topic": "neuroanat--diencephalon",
+    "title": "Diencephalon",
+    "icon": "📖",
+    "summary": "เด็ค 23 สไลด์เรื่อง diencephalon แต่เนื้อความจริง ๆ กระจุกอยู่ไม่กี่หน้า สไลด์ที่มีข้อความคือ learning objectives (p.2), แผนผังเติมคำ (p.5), ตาราง geniculate nuclei (p.8), epithalamus (p.11-13), subthalamus (p.14), thalamus (p.15-16), hypothalamus 3 regions + ตารางนิวเคลียส (p.19-20) และหัวข้อ Obesity/Narcolepsy (p.21) ส่วนสไลด์ p.3, p.4, p.6, p.7, p.9, p.17, p.18, p.22 เป็นรูปล้วน ไม่มีข้อความให้สรุป และ p.5 เป็นสไลด์ฝึกเติมชื่อโครงสร้างที่ไม่ได้เฉลยไว้ในเด็ค โน้ตนี้จึงสั้นตามที่สไลด์บอกจริง ไม่เติมกลไกหรือรายละเอียดจากที่อื่น",
+    "flagship": false
+  },
+  {
+    "id": "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon",
+    "subject": "vet-neuroanat",
+    "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
+    "title": "Limbic System (Nonolfactory Rhinencephalon)",
+    "icon": "📖",
+    "summary": "เด็คนี้เป็น anatomy ล้วนของ limbic system ตามหนังสือ de Lahunta ไล่จากที่มาของชื่อ (limbus = ขอบ) แล้วแยกองค์ประกอบตามส่วนของสมองเป็น 3 ชุด คือ telencephalon (amygdaloid body, hippocampus และ fornix, septal area, cingulate gyrus และ cingulum), diencephalon (habenular nucleus, rostral thalamic nucleus, mamillary body) และ mesencephalon (intercrural nucleus) โดยแต่ละโครงสร้างบอกตำแหน่ง เส้นทางที่เชื่อมออกไป และหน้าที่สั้น ๆ เน้นด้าน emotion และ behavior เนื้อหาส่วน function ถูกให้ไว้เป็นหัวข้อสั้นมาก ไม่มีการอธิบายกลไก และไม่มีเนื้อหา clinical case เลย มีสไลด์รูปสัตว์และรูป schematic หลายแผ่นที่ไม่มีข้อความ ส่วนหน้า 8 และหน้า 9 เป็นสไลด์รูป section ของสมองที่มีแต่ชื่อ label โครงสร้าง ไม่มีคำอธิบายประกอบ และสไลด์สุดท้ายเป็น reference เล่มเดียว",
+    "flagship": false
+  },
+  {
+    "id": "vet-neuroanat--neuroanat--metencephalon",
+    "subject": "vet-neuroanat",
+    "topic": "neuroanat--metencephalon",
+    "title": "Metencephalon",
+    "icon": "📖",
+    "summary": "เด็คนี้ครอบคลุม Metencephalon ทั้งสองส่วน คือ cerebellum (dorsal) และ pons (ventral) โดยเน้นที่ cerebellum เป็นหลัก ไล่ตั้งแต่การแบ่งแบบ developmental, anatomical และ functional classification, cerebellar nuclei พร้อม afferent/efferent, lobules, peduncles, afferent/efferent tracts, หน้าที่ ไปจนถึง cerebellar disorders แล้วจึงต่อด้วย pons แยกเป็น ventral (basal) portion และ dorsal portion (pontine tegmentum) ปิดท้ายด้วย Laboratory Guide 6 สไลด์ที่เป็นภาพติดป้ายชื่อโครงสร้างล้วน ไม่มีคำบรรยาย ข้อควรรู้คือมีสไลด์ที่เป็นภาพล้วนไม่มีข้อความอยู่หลายหน้า (p.12, 14, 16, 21, 27) และอีกหลายหน้าเป็นเพียง label ของรูป เช่น p.6, 9, 10, 15, 17, 25, 29, 31 เนื้อหาที่เป็นตัวหนังสือจริงจึงกระจุกอยู่ไม่กี่สไลด์",
+    "flagship": false
+  },
+  {
+    "id": "vet-neuroanat--neuroanat--midbrain",
+    "subject": "vet-neuroanat",
+    "topic": "neuroanat--midbrain",
+    "title": "Midbrain (Mesencephalon)",
+    "icon": "📖",
+    "summary": "เด็คนี้ไล่ midbrain แบบกายวิภาคล้วน เริ่มจาก development แล้วต่อด้วยขอบเขต dorsal/ventral, โครงสร้างภายใน 4 ส่วน (aqueduct, tectum, tegmentum, cerebral peduncle), รายละเอียดของ tectum (rostral/caudal colliculi กับ reflex ที่คุม), nuclei ใน tegmentum (reticular formation, CN III, Edinger Wesphal, CN IV, mesencephalic nucleus ของ CN V, red nucleus, PAG, substantia nigra), องค์ประกอบของ crus cerebri และปิดท้ายด้วย clinical correlations 1 สไลด์ ประมาณ 12 จาก 28 สไลด์เป็นภาพหรือ label ล้วน (หน้า 4, 6, 9, 13, 14, 15, 17, 18, 19, 21, 23, 28) จึงไม่มีคำอธิบายเป็นข้อความให้จด สไลด์ไม่ได้ลงรายละเอียดกลไกหรือการรักษาใด ๆ",
+    "flagship": false
+  },
+  {
+    "id": "vet-neuroanat--neuroanat--myelencephalon",
+    "subject": "vet-neuroanat",
+    "topic": "neuroanat--myelencephalon",
+    "title": "Myelencephalon (Medulla oblongata)",
+    "icon": "📖",
+    "summary": "เด็คนี้ไล่ medulla oblongata ตามลำดับ external surface (dorsal, ventral, lateral) ต่อด้วย boundaries แล้วเข้า internal structure แยกเป็น nuclei 3 กลุ่ม กับ tracts จากนั้นลง nuclei ของ cranial nerve V-XII, reticular formation กับ ARAS, relay nuclei (cuneatus, gracilis, trapezoid, olivary), nucleus ambiguous, solitary nucleus และปิดท้ายด้วย fourth ventricle (ขอบเขต roof wall floor) เนื้อหาเป็น bullet ล้วน ไม่มีการอธิบาย mechanism เพิ่ม สไลด์หน้า 4 เป็นรูปกับหัวข้ออาการ (medial strabismus, facial paralysis, nystagmus) พร้อมลิงก์ YouTube โดยไม่มีข้อความอธิบายว่าอาการแต่ละอย่างมาจาก lesion ที่ไหน",
+    "flagship": false
+  },
+  {
+    "id": "vet-neuroanat--neuroanat--neuro-exam-anatomy2024",
+    "subject": "vet-neuroanat",
+    "topic": "neuroanat--neuro-exam-anatomy2024",
+    "title": "Basic Neurological Examination (Neuro exam anatomy 2024)",
+    "icon": "🔬",
+    "summary": "สไลด์ lab วางโครงการตรวจระบบประสาทเบื้องต้นในสัตว์เล็ก แบ่งเป็น Observation (hands-off) กับ Hands-on examination แล้วไล่หัวข้อย่อยทีละอัน เนื้อหาที่เป็นข้อมูลจริงหนักที่สุดอยู่ที่ตาราง 2 ตาราง คือ spinal reflexes (reflex กับ peripheral nerve กับ spinal cord segment) และ cranial nerve examination (afferent, efferent, effect) นอกนั้นสไลด์ส่วนใหญ่เป็นชื่อหัวข้อกับรูปหรือคลิปสาธิตที่ไม่มีข้อความ ได้แก่ mental status p.5-6, ataxia p.11-12, involuntary movements p.13-14, spinal reflexes p.19, palpebral reflex p.23 และ case study p.26-27 หน้า 21 กับ 22 เป็นสไลด์ตาราง cranial nerve เดียวกันซ้ำกัน 2 หน้า",
+    "flagship": false
+  },
+  {
+    "id": "vet-neuroanat--neuroanat--visual-vestibular-systems",
+    "subject": "vet-neuroanat",
+    "topic": "neuroanat--visual-vestibular-systems",
+    "title": "Visual และ Vestibular systems",
+    "icon": "📖",
+    "summary": "เด็คนี้มี 59 สไลด์ แต่เกือบทั้งหมดเป็นภาพและแผนภาพที่ไม่มีชั้นข้อความ ส่วนที่อ่านเป็นตัวอักษรได้จริงมีไม่มาก และเป็นแบบคำหลักหรือลิสต์สั้น ๆ เนื้อหาที่จับได้คือ receptor ใน retina และ transduction, การแบ่ง visual field เป็น nasal half กับ temporal half, visual pathway จาก photoreceptor ไป primary visual cortex พร้อมการแตกแขนง 80/20, รายการตรวจ neuro-ophthalmology, PLR กับกล้ามเนื้อม่านตา, Horner syndrome, receptor และ pathway ของ vestibular system, VOR, ตาราง extra-ocular muscles กับ innervation และตารางเทียบ central กับ peripheral vestibular disease ส่วนคำอธิบายกลไกโดยละเอียดอยู่ในภาพหรือคำบรรยายปากเปล่า ไม่ได้อยู่บนสไลด์",
+    "flagship": false
+  },
+  {
     "id": "zoonoses--zoo-ai-basic",
     "subject": "zoonoses",
     "topic": "zoo-ai-basic",

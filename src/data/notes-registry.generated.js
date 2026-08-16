@@ -28,6 +28,9 @@ export const SUBJECTS_WITH_NOTES = new Set([
   "repro-lect",
   "swine-clinic",
   "vet-neuroanat",
+  "vet-parasit-1",
+  "vet-physio-lab-1",
+  "vet-physio-lab-2",
   "zoonoses"
 ]);
 
@@ -225,6 +228,26 @@ export const NOTE_TOPIC_KEYS = new Set([
   "vet-neuroanat/neuroanat--myelencephalon",
   "vet-neuroanat/neuroanat--neuro-exam-anatomy2024",
   "vet-neuroanat/neuroanat--visual-vestibular-systems",
+  "vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma",
+  "vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques",
+  "vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa",
+  "vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates",
+  "vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates",
+  "vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final",
+  "vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa",
+  "vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa",
+  "vet-physio-lab-1/physio-lab-1--duke-physiology",
+  "vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp",
+  "vet-physio-lab-1/physio-lab-1--monash-skeletal-muscle-experiments",
+  "vet-physio-lab-1/physio-lab-1--pbl-ans-for-student",
+  "vet-physio-lab-1/physio-lab-1--pbl-blood-system",
+  "vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology",
+  "vet-physio-lab-1/physio-lab-1--pbl-neuro-down-frenchie",
+  "vet-physio-lab-1/physio-lab-1--pbl-skeletal-muscle-for-student",
+  "vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal",
+  "vet-physio-lab-2/physio-lab-2--lab-physio-intro",
+  "vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential",
+  "vet-physio-lab-2/physio-lab-2--pbl-kidney",
   "zoonoses/zoo-ai-basic",
   "zoonoses/zoo-bacterial",
   "zoonoses/zoo-corona",
@@ -265,6 +288,9 @@ export const NOTE_TOPIC_COUNTS_BY_SUBJECT = Object.freeze({
   "repro-lect": 10,
   "swine-clinic": 7,
   "vet-neuroanat": 8,
+  "vet-parasit-1": 8,
+  "vet-physio-lab-1": 8,
+  "vet-physio-lab-2": 4,
   "zoonoses": 16
 });
 
