@@ -3685,19 +3685,6 @@ export const NOTES_Y2_PHYSIO_3 = {
         ]
       },
       {
-        "heading": "Meal pattern ในแพะนม: แยก light phase กับ dark phase",
-        "source": "Food intake & body weight control p.3",
-        "body": [
-          {
-            "text": "มี 2 สไลด์คู่กันคือ Light phase (day) meal pattern in dairy goat และ Dark phase (night) meal pattern in dairy goat กำกับที่มาว่า ThammacharoenS15, Unpublished Data"
-          },
-          {
-            "callout": "ทั้งสองสไลด์เป็นกราฟล้วน ไม่มีข้อความสรุปว่ากลางวันกับกลางคืนต่างกันอย่างไร สไลด์ไม่ได้บอก ต้องฟังคำอธิบายจากอาจารย์ในห้อง",
-            "kind": "warn"
-          }
-        ]
-      },
-      {
         "heading": "The controls of eating: เริ่ม กินต่อ และหยุด",
         "source": "Food intake & body weight control p.3",
         "body": [
@@ -6343,19 +6330,6 @@ export const NOTES_Y2_PHYSIO_3 = {
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "heading": "เส้นทางลำเลียง Ig และการเปลี่ยนแปลงของน้ำนมช่วงแรก",
-        "source": "Lactation Physiology II p.6",
-        "body": [
-          {
-            "text": "หน้านี้เป็นแผนภาพ transcytosis ข้าม mammary epithelial cell มีเพียงป้ายกำกับสั้น ๆ คือฝั่ง Basal pH 7.4 ผ่าน vesicle ที่ pH 6.0 แล้วออกทางฝั่ง Apical ที่ pH 7.4 พร้อมป้าย IgA กำกับ"
-          },
-          {
-            "callout": "สไลด์หน้านี้ไม่ได้อธิบายกลไกเป็นข้อความ บอกได้เท่าที่ป้ายกำกับเขียนไว้เท่านั้น ส่วน p.7 (colostrum) และ p.8 (Change in milk volume and composition, อ้าง Neville MC., 2001) เป็นรูปล้วน ไม่มีข้อความให้สรุป",
-            "kind": "flag"
           }
         ]
       },
@@ -10451,23 +10425,6 @@ export const NOTES_Y2_PHYSIO_3 = {
           },
           {
             "text": "ทั้งสองหน้าเป็นกราฟ **สไลด์ไม่ได้เขียนคำอธิบายเป็นข้อความ** ว่ารูปแบบของแต่ละชนิดสัตว์ต่างกันอย่างไร"
-          }
-        ]
-      },
-      {
-        "heading": "ปัจจัยที่สไลด์ยกมาว่ามีผลต่อระบบสืบพันธุ์",
-        "source": "UnderGrad Reproductive 2023 (Female Repro) p.16",
-        "body": [
-          {
-            "bullets": [
-              "Hormonal ได้แก่ GnRH, melatonin และ sex hormones",
-              "Genetics",
-              "Environment ได้แก่ light กับ dark cycle",
-              "Nutritional ได้แก่ under-nutrition กับ over-weight"
-            ]
-          },
-          {
-            "text": "หน้านี้เป็นรายการปัจจัยล้วน ไม่มีหัวเรื่องและไม่มีคำอธิบายกลไกในสไลด์"
           }
         ]
       },

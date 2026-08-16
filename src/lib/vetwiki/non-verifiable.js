@@ -215,12 +215,6 @@ export const METADATA_SECTIONS = new Set([
   // sourcing the labels of the other slides, not this one.
   "vet-neuroanat--neuroanat--diencephalon--แผนผัง-diencephalon-สไลด์เติมคำ",
 
-  // This section is an inventory of the deck itself — it records that p.3,
-  // p.4, p.6, p.7, p.9, p.17, p.18 and p.22 are image-only slides with no
-  // text, that p.10 carries only a heading, and that p.23 is a 'Questions?'
-  // closing slide. It makes no anatomical or physiological claim, so there is
-  // nothing for a paper, textbook or guideline to agree or disagree with.
-  "vet-neuroanat--neuroanat--diencephalon--สไลด์ที่ไม่มีข้อความให้สรุป",
 
   // Not a knowledge claim. This section is an inventory of label text from
   // photographic and sectional brain images (deck p.7-9) plus the deck's
@@ -247,11 +241,6 @@ export const METADATA_SECTIONS = new Set([
   // there is nothing a published source can confirm or refute.
   "vet-neuroanat--neuroanat--midbrain--cross-section-ที่ระดับ-rostral-colliculi-ภาพ-label",
 
-  // Slides 17-19 are three figure titles (Level of caudal colliculus, Level
-  // of caudal part of caudal colliculus) and a bare label list, with the note
-  // that no explanatory text accompanies them. There is no claim to check
-  // against literature, only image orientation on the lecturer's own figures.
-  "vet-neuroanat--neuroanat--midbrain--ภาพระดับ-caudal-colliculus-label-ล้วน",
 
   // The slide is an image page of cranial nerve nuclei carrying only three
   // bare symptom headings (MEDIAL STRABISMUS, FACIAL PARALYSIS, NYSTAGMUS

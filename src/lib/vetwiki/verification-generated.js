@@ -73172,33 +73172,6 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
-    },
-    "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน": {
-      "claims": [
-        {
-          "id": "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน--v1",
-          "statement": "โครงสร้างทั้ง 5 ที่ label ไว้ในภาพ (cochlear nuclei, trapezoid nuclei, lateral lemniscus, caudal colliculus และ medial geniculate body) เป็นสถานีของ central auditory pathway เรียงจาก caudal ไป rostral โดย cochlear nuclei อยู่ล่างสุด ถัดขึ้นมาคือ trapezoid body ระดับ pons แล้วจึงเป็น lateral lemniscus ขึ้นสู่ caudal (inferior) colliculus และ medial geniculate body",
-          "evidenceStatus": "established",
-          "reviewStatus": "verified",
-          "sourceRefs": [
-            {
-              "sourceId": "pmid-25726288",
-              "locator": "Vol. 129, pp. 509-536; abstract (levels of the auditory pathway from cochlear nuclei to medial geniculate body)",
-              "kind": "journal"
-            }
-          ],
-          "review": {
-            "reviewedBy": "reference-verified",
-            "reviewedAt": "2026-08-16",
-            "method": "reference-cross-check",
-            "approvedScopes": [
-              "learning",
-              "assessment"
-            ],
-            "rationale": "Lesions below or within the cochlear nuclei result in ipsilateral auditory-processing abnormalities detected in routine testing; disorders rostral to the cochlear nuclei may result in bilateral abnormalities or may be silent. Lesions in the"
-          }
-        }
-      ]
     }
   },
   "vet-neuroanat--neuroanat--myelencephalon": {

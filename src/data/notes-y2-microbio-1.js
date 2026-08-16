@@ -5983,27 +5983,6 @@ export const NOTES_Y2_MICROBIO_1 = {
         ]
       },
       {
-        "heading": "หัวข้อย่อยของ bacterial adherence",
-        "source": "Fundamental of Host Microbe interaction p.13",
-        "body": [
-          {
-            "text": "สไลด์แตกเรื่อง adherence ออกเป็นหัวข้อย่อยตามนี้ ซึ่งเป็นโครงของสไลด์ถัดไป"
-          },
-          {
-            "bullets": [
-              "Mechanisms involved in bacterial adhesion ได้แก่ pre-adhesion event, adhesive interactions หรือ specific interaction, bacterial structures involved in adhesion, host molecules functioning as receptors",
-              "Tissue tropism",
-              "Consequences of bacterial adhesion",
-              "Prevention of bacterial adhesion"
-            ]
-          },
-          {
-            "callout": "หัวข้อ Prevention of bacterial adhesion ถูกลิสต์ไว้ในสไลด์นี้ แต่สไลด์ที่เหลือของ deck ไม่มีเนื้อหาส่วนนี้เป็นตัวหนังสือ สไลด์ไม่ได้บอกว่าป้องกันอย่างไร",
-            "kind": "flag"
-          }
-        ]
-      },
-      {
         "heading": "Pre-adhesion events: ระยะห่างกำหนดว่าแรงใดทำงาน",
         "source": "Fundamental of Host Microbe interaction p.14",
         "body": [
@@ -8473,22 +8452,6 @@ export const NOTES_Y2_MICROBIO_1 = {
             "kind": "tip"
           }
         ]
-      },
-      {
-        "heading": "further readings ที่อาจารย์แนะนำ",
-        "source": "Immune Responses to viral infections p.23",
-        "body": [
-          {
-            "bullets": [
-              "Cellular and Molecular Immunology, 9th edition, Saunders",
-              "Principles of Virology, 4th edition, ASM press",
-              "Viral Pathogenesis and Immunity, 1st edition, Lippincott Williams & Wilkins"
-            ]
-          },
-          {
-            "text": "หน้านี้เป็นหน้าอ้างอิงล้วน ไม่มีเนื้อหาวิชาการเพิ่ม"
-          }
-        ]
       }
     ]
   },
@@ -9299,19 +9262,6 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "callout": "สไลด์เตือน 2 จุดในขั้นตอนนี้: **do not insert the needle too deep** เพราะจะทำ CA membrane เสียหาย และ **do not turn the eggs** ทั้งหลัง inoculation และตลอดช่วง incubation ซึ่งต่างจากช่วงก่อน inoculate ที่ต้องกลับไข่วันละ 2-4 ครั้ง",
             "kind": "warn"
-          }
-        ]
-      },
-      {
-        "heading": "สไลด์ที่เป็นหน้าคั่นหรือรูปล้วน",
-        "source": "Lab Virus isolation propagation embryonated egg Handout p.4, p.11-13, p.19",
-        "body": [
-          {
-            "text": "บันทึกไว้ตามตรงว่าเด็คนี้มีสไลด์ที่ text layer ไม่มีเนื้อหาให้สรุป ได้แก่ p.4 เป็นหน้าคั่นชื่อ Virus isolation in embryonated eggs, p.11 และ p.13 ชื่อ Route of inoculation แต่มีเพียง URL ที่มาของรูป, p.12 ชื่อ Development of chick embryo มีเพียง URL, และ p.19 อยู่ในหัวข้อ Recognition of virus-infected eggs แต่ไม่มีข้อความเลย"
-          },
-          {
-            "callout": "รูป development of chick embryo (p.12) กับ route of inoculation (p.11, p.13) น่าจะเป็นรูปที่ต้องดูจากไฟล์สไลด์จริงตอนอ่านทบทวน เพราะข้อความในเด็คไม่ได้บรรยายรูปไว้",
-            "kind": "tip"
           }
         ]
       }

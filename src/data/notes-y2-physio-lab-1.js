@@ -1415,18 +1415,6 @@ export const NOTES_Y2_PHYSIO_LAB_1 = {
             "kind": "warn"
           }
         ]
-      },
-      {
-        "heading": "รูปประกอบและหน้าที่เหลือของไฟล์",
-        "source": "PBL Case 6 Endocrinology p.2",
-        "body": [
-          {
-            "text": "หน้า 2 มีเพียงคำว่า Figure 2 และ Figure 3 ไม่มีข้อความอธิบายใด ๆ เพิ่ม (Figure 1 อยู่ท้ายหน้า 1) ส่วนหน้า 3 ถึงหน้า 5 ไม่มีข้อความเลย"
-          },
-          {
-            "text": "รายละเอียดของรูปต้องดูจากภาพจริงในไฟล์ต้นฉบับ เพราะ text layer ไม่ได้บรรยายว่าในรูปมีอะไร นอกจากคำอธิบายสั้น ๆ ที่แทรกอยู่ในเนื้อเคสหน้า 1 (pot belly, bruising, hyperpigmentation, hepatomegaly)"
-          }
-        ]
       }
     ]
   },

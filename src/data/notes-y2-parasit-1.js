@@ -3218,19 +3218,6 @@ export const NOTES_Y2_PARASIT_1 = {
             ]
           }
         ]
-      },
-      {
-        "heading": "สรุปท้าย lecture",
-        "source": "Lect 8 Amoeba Histomonas Balantidium (final) p.22",
-        "body": [
-          {
-            "text": "สไลด์สรุปทวน outline เดิมทั้งหมด คือ intestinal flagellates (Giardia, Trichomonads: Trichomonas, Tritrichomonas, Pentatrichomonas), Amoeba (intestinal amebas: Entamoeba histolytica, Entamoeba coli และ facultative amebas), Histomonas meleagridis และ Ciliates (Balantidium coli)"
-          },
-          {
-            "callout": "หน้าสรุปเป็นการทวนหัวข้อล้วน ไม่มี take-home message หรือประเด็นเน้นเพิ่มเติม และส่วน intestinal flagellates ที่อยู่ในลิสต์ไม่มีเนื้อหาในเด็คนี้",
-            "kind": "warn"
-          }
-        ]
       }
     ]
   },

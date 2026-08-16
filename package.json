@@ -18,7 +18,7 @@
     "lint:registry": "node scripts/regen-bank-registry.mjs --check",
     "validate:wiki": "node scripts/validate-wiki.mjs",
     "sync:wiki-unmapped": "node scripts/sync-wiki-unmapped.mjs",
-    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:deck-refs && npm run lint:registry && npm run lint:wiki-registry && npm run lint:notes-registry && npm run lint:conflict-summary && npm run lint:wiki-runtime && npm run lint:curriculum && npm run lint:instructors && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check",
+    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:deck-refs && npm run lint:empty-sections && npm run lint:registry && npm run lint:wiki-registry && npm run lint:notes-registry && npm run lint:conflict-summary && npm run lint:wiki-runtime && npm run lint:curriculum && npm run lint:instructors && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check",
     "regen:q-counts": "node scripts/regen-q-counts.mjs",
     "regen:registry": "node scripts/regen-bank-registry.mjs",
     "regen:video-meta": "node scripts/regen-video-meta.mjs",
@@ -56,7 +56,8 @@
     "lint:wiki-registry": "node scripts/regen-vetwiki-topic-registry.mjs --check",
     "lint:conflict-summary": "node scripts/regen-conflict-summary.mjs --check",
     "lint:wiki-runtime": "node scripts/regen-vetwiki-runtime-data.mjs --check",
-    "lint:deck-refs": "node scripts/lint-deck-references.mjs"
+    "lint:deck-refs": "node scripts/lint-deck-references.mjs",
+    "lint:empty-sections": "node scripts/lint-empty-sections.mjs"
   },
   "browserslist": [
     "defaults",

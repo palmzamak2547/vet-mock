@@ -1611,19 +1611,6 @@ export const NOTES_Y2_HISTO = {
         ]
       },
       {
-        "heading": "คำถามที่สไลด์ตั้งไว้แต่ไม่ได้ตอบ",
-        "source": "Bone Marrow p.39",
-        "body": [
-          {
-            "text": "สไลด์หน้านี้มีเพียงหัวข้อว่า THE MAIN DIFFERENCE BETWEEN ORIGINATING CELL OF ERYTHROPOIESIS AND ORIGINATING CELL OF GRANULOPOIESIS"
-          },
-          {
-            "callout": "สไลด์ไม่ได้บอกคำตอบของหัวข้อนี้ไว้ มีแต่หัวข้อเปล่า ๆ ต้องไปถามอาจารย์หรือจดจากในคาบ",
-            "kind": "warn"
-          }
-        ]
-      },
-      {
         "heading": "Agranulopoiesis: Monocytopoiesis",
         "source": "Bone Marrow p.40",
         "body": [
@@ -1831,19 +1818,6 @@ export const NOTES_Y2_HISTO = {
               "**M:E เพิ่ม (มากกว่า 1) และ WBC ปกติ** เช่น 4:1 อาจหมายถึง decrease in erythropoiesis หรือส่วนใหญ่คือ acute infection, granulocytic leukemia เป็นต้น",
               "**M:E ลด (น้อยกว่า 1) และ WBC ปกติ** เช่น 1:4 อาจหมายถึง increase in erythropoiesis เช่น severe blood loss หรือ erythrocyte destruction, hemorrhagic anemia, hemolytic anemia"
             ]
-          }
-        ]
-      },
-      {
-        "heading": "สไลด์ที่เป็นรูปภาพล้วน",
-        "source": "Bone Marrow p.9, 13, 26, 30, 48, 54-56",
-        "body": [
-          {
-            "text": "หน้า 9, 26, 30, 48, 55 และ 56 เป็นรูปภาพที่ไม่มีข้อความประกอบเลย หน้า 13 มีเพียงคำกำกับว่า (Pluripotential stem cells) และหน้า 54 เป็นหน้าคั่นชื่อ Histological slides for Bone Marrow"
-          },
-          {
-            "callout": "เนื้อหาของรูปเหล่านี้อ่านจากตัวหนังสือไม่ได้ ต้องดูสไลด์จริงหรือ histological slide ในคาบปฏิบัติการเอง",
-            "kind": "tip"
           }
         ]
       }
@@ -5069,28 +5043,6 @@ export const NOTES_Y2_HISTO = {
               "**Endoderm → the lining of digestive & respiratory tracts**",
               "**Mesoderm → the lining of body cavity, urogenital system, blood & lymph vessels**"
             ]
-          }
-        ]
-      },
-      {
-        "heading": "Functions ของ epithelium",
-        "source": "Epithelium p.6",
-        "body": [
-          {
-            "bullets": [
-              "Protection underlying tissues",
-              "Sensory reception ผ่าน nerve endings หรือ receptors",
-              "Selective diffusion (move molecules → conc.)",
-              "Absorption (molecules → cells)",
-              "Secretion (molecules ← cells)",
-              "Ion transport (charged ions เข้าออกเนื้อเยื่อ)",
-              "Filtration (molecules ← fluid)",
-              "Forms slippery surfaces (mucus)"
-            ]
-          },
-          {
-            "callout": "สไลด์ใช้ทิศทางลูกศรแยก absorption (เข้าเซลล์) ออกจาก secretion (ออกจากเซลล์) ตรงนี้อ่านจากลูกศรอย่างเดียว ไม่มีคำอธิบายกลไกเพิ่ม",
-            "kind": "tip"
           }
         ]
       },
@@ -9774,21 +9726,6 @@ export const NOTES_Y2_HISTO = {
         ]
       },
       {
-        "heading": "ภาพ aggregated lymphatic nodules",
-        "source": "Lymphatic organs II p.4",
-        "body": [
-          {
-            "text": "สไลด์นี้เป็นภาพประกอบพร้อมคีย์ตัวย่อ ไม่มีคำบรรยายเชิงเนื้อหาเพิ่ม"
-          },
-          {
-            "bullets": [
-              "V = villi, N = lymphoid nodules จากภาพ ileum ย้อม H&E ดูด้วย light microscope",
-              "ภาพ SEM ที่ลอก epithelial cells ออก แสดง lymphoid nodules (N)"
-            ]
-          }
-        ]
-      },
-      {
         "heading": "M cell ใน Peyer's patch",
         "source": "Lymphatic organs II p.5",
         "body": [
@@ -11059,19 +10996,6 @@ export const NOTES_Y2_HISTO = {
             "text": "สองกลุ่มที่สไลด์ระบุชื่อไว้คือ **SUBMUCOSAL PLEXUS** และ **MYENTERIC PLEXUS** แต่สไลด์ไม่ได้บอกว่าแต่ละ plexus อยู่ชั้นไหนหรือคุมอะไรต่างกัน"
           }
         ]
-      },
-      {
-        "heading": "ข้อจำกัดของชีตนี้",
-        "source": "Nervous System",
-        "body": [
-          {
-            "text": "หน้าที่ไม่มีข้อความให้อ่านเลย (เป็นภาพล้วนหรือหน้าปก) ได้แก่ p.1-4, p.6-11, p.15, p.18, p.23, p.30 และ p.37-45 รวมแล้วเกินครึ่งของชีต"
-          },
-          {
-            "callout": "เนื้อหาที่หายไปเยอะที่สุดคือช่วง p.6-11 (ต่อจากโครงสร้าง neuron) และ p.37-45 (ท้ายชีต) ถ้าจะอ่านสอบต้องเปิดไฟล์สไลด์จริงหรือคลิปเรียนย้อนหลังประกอบ โน้ตนี้ครอบคลุมเฉพาะส่วนที่มีตัวอักษร",
-            "kind": "flag"
-          }
-        ]
       }
     ]
   },
@@ -11742,19 +11666,6 @@ export const NOTES_Y2_HISTO = {
           {
             "callout": "ตัวเลข 97% กับ 3% เป็นสัดส่วนที่สไลด์ระบุไว้ตรง ๆ ต้องจำคู่กับชนิดเซลล์",
             "kind": "tip"
-          }
-        ]
-      },
-      {
-        "heading": "หน้าที่เป็นภาพ histology ล้วน",
-        "source": "Respiratory System p.4-10, 12-14, 16-17, 21-29",
-        "body": [
-          {
-            "text": "หน้าเหล่านี้ไม่มีข้อความใด ๆ ใน text layer เลย เป็นสไลด์ภาพ histology ล้วน ซึ่งน่าจะเป็นภาพประกอบของหัวข้อข้างเคียง เช่น ภาพช่วงหลังหน้า Tubular structure ภาพช่วงหลอดลม และภาพช่วงท้ายหลัง interalveolar septum"
-          },
-          {
-            "callout": "จำเป็นต้องเปิดไฟล์สไลด์จริงเพื่อดูภาพเหล่านี้ เพราะเนื้อหาที่อาจารย์สอนจากภาพไม่ปรากฏเป็นตัวหนังสือ และโน้ตนี้ไม่ได้เดาแทน",
-            "kind": "warn"
           }
         ]
       }

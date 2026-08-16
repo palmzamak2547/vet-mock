@@ -569,19 +569,6 @@ export const NOTES_Y2_NEUROANAT = {
             "kind": "warn"
           }
         ]
-      },
-      {
-        "heading": "สไลด์ที่ไม่มีข้อความให้สรุป",
-        "source": "Diencephalon p.3",
-        "body": [
-          {
-            "text": "สไลด์ p.3, p.4, p.6, p.7, p.9, p.17, p.18 และ p.22 เป็นรูปภาพล้วน ไม่มีข้อความในสไลด์เลย ส่วน p.10 มีแค่หัวข้อ Epithalamus-thalamus-subthalamus และ p.23 คือ Questions? ปิดท้าย"
-          },
-          {
-            "callout": "เนื้อหาที่อยู่บนภาพเปล่าเหล่านี้จึงอยู่ที่คำบรรยายในคาบเท่านั้น โน้ตนี้ไม่เดาแทน",
-            "kind": "flag"
-          }
-        ]
       }
     ]
   },
@@ -1555,24 +1542,6 @@ export const NOTES_Y2_NEUROANAT = {
         ]
       },
       {
-        "heading": "ภาพ auditory pathway (label ล้วน)",
-        "source": "Midbrain p.9",
-        "body": [
-          {
-            "text": "หน้านี้เป็นภาพ มี label ดังนี้ ไม่มีคำอธิบายเป็นข้อความ"
-          },
-          {
-            "bullets": [
-              "Medial geniculate body",
-              "Caudal colliculus",
-              "Trapezoid nuclei",
-              "Cochlear nuclei",
-              "Lateral lemniscus"
-            ]
-          }
-        ]
-      },
-      {
         "heading": "Tegmentum และของที่อยู่ในนั้น",
         "source": "Midbrain p.10",
         "body": [
@@ -1685,22 +1654,6 @@ export const NOTES_Y2_NEUROANAT = {
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "heading": "ภาพระดับ caudal colliculus (label ล้วน)",
-        "source": "Midbrain p.17-19",
-        "body": [
-          {
-            "bullets": [
-              "หน้า 17: ภาพชื่อ Level of caudal colliculus",
-              "หน้า 18: ภาพชื่อ Level of caudal part of caudal colliculus",
-              "หน้า 19: ภาพที่มี label Rostral colliculus, Medial geniculate body, Caudal colliculus และ Middle cerebellar peduncle"
-            ]
-          },
-          {
-            "text": "ทั้งสามหน้าไม่มีข้อความอธิบายเพิ่ม เป็นภาพให้ดูตำแหน่ง"
           }
         ]
       },
