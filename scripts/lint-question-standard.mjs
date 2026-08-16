@@ -35,6 +35,17 @@ for (const f of bankFiles()) {
 }
 
 
+// An exemption that no longer applies is a decision nobody made. The wiki
+// governance gate shipped exactly this bug once: a mistyped id sat in the
+// exemption file looking deliberate while the section it named stayed counted.
+const { FIGURE_EXEMPT } = await import('../src/data/figure-exempt.js');
+const allIds = new Set([...byYear.values()].flat().map((q) => q.id));
+const dangling = Object.keys(FIGURE_EXEMPT).map(Number).filter((id) => !allIds.has(id));
+if (dangling.length) {
+  console.error(`✗ figure-exempt.js names ${dangling.length} question(s) that do not exist: ${dangling.join(', ')}`);
+  process.exitCode = 1;
+}
+
 const years = [...byYear.keys()].sort((a, b) => a - b);
 const pct = (n, d) => (d ? `${Math.round((100 * n) / d)}%` : '—');
 const col = (s) => String(s).padStart(7);
@@ -81,7 +92,12 @@ if (process.argv.includes('--ratchet')) {
   const base = JSON.parse(fs.readFileSync(BASELINE, 'utf8'));
   let worse = false, better = false;
   for (const [label, n] of Object.entries(counts)) {
-    const was = base[label] ?? 0;
+    // A row the baseline has never seen is a NEW MEASUREMENT, not a
+    // regression. Those 26 figure-less questions were always there; counting
+    // them for the first time is progress. Adopt the current number as its
+    // ceiling — from here it can only fall.
+    if (!(label in base)) { console.log(`+ ${label}: first measured at ${n}`); better = true; continue; }
+    const was = base[label];
     if (n > was) { console.error(`✗ ${label}: ${was} → ${n}. The standard does not move backwards.`); worse = true; }
     else if (n < was) { console.log(`✓ ${label}: ${was} → ${n}`); better = true; }
   }

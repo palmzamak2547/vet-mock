@@ -167,6 +167,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105129,
+    "image": "/figures/questions/q105129.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -184,6 +185,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105130,
+    "image": "/figures/questions/q105130.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -337,6 +339,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105143,
+    "image": "/figures/questions/q105143.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -388,6 +391,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105147,
+    "image": "/figures/questions/q105147.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,

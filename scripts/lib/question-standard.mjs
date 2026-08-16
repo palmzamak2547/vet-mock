@@ -44,12 +44,41 @@ export const hasCitation = (q) => Boolean(q?.verified || q?.examOrigin || q?.sou
 export const DECK_SHAPED = /lecture deck|lecture-derived|\.pdf|\.pptx/i;
 export const examOriginIsADeck = (q) => DECK_SHAPED.test(String(q?.examOrigin || ''));
 
+/** Phrases that only make sense while looking at something. Palm, reading
+ *  "จากผล efficacy test ... เส้นของ Formalin killed vaccine (WC) เป็นอย่างไร":
+ *  "ทำไมบางคำถามที่ต้องใช้รูปตอบถึงไม่เอารูปมาด้วย หรือบางคำถามแค่นี้ไม่สามารถ
+ *  ตอบได้". A question about a line on a graph, with no graph, cannot be
+ *  answered by anyone.
+ *
+ *  NOT "ในรูป X" on its own — that is the ordinary Thai idiom "in the form of"
+ *  ("cholesterol ในรูป LDL", "premix ในรูปของสารผสมล่วงหน้า"), and it accounts
+ *  for a third of what a first cut of this rule flagged. */
+export const NEEDS_FIGURE = new RegExp([
+  'จากภาพ(?!รวม)', 'จากรูป(?!แบบ)',
+  '(?:จาก|ตาม|ใน)กราฟ', 'เส้นของ',
+  'แผนภาพ', 'ลูกศร', 'ที่ชี้',
+  '(?:ภาพ|รูป)นี้', '(?:ภาพ|รูป)ที่\\s*\\d',
+  'ในภาพ(?!รวม)',
+  '\\b(?:figure \\d|fig\\.|shown below|pictured)\\b',
+].join('|'), 'i');
+
+export const carriesFigure = (q) => Boolean(q?.image || q?.imagePath);
+
+// A handful of stems mention an image while still stating everything it would
+// have shown. They are listed with a reason in src/data/figure-exempt.js
+// rather than carved out of the pattern, so the judgement stays arguable.
+const { FIGURE_EXEMPT } = await import('../../src/data/figure-exempt.js');
+
+export const needsFigure = (q) =>
+  NEEDS_FIGURE.test(String(q?.q || '')) && !carriesFigure(q) && !FIGURE_EXEMPT[q?.id];
+
 /** Defects: every one of these must be zero. */
 export const DEFECTS = [
   ['stem names the source doc', namesDocument],
   ['explain narrates the doc', narratesDocument],
   ['no citation at all', (q) => !hasCitation(q)],
   ['examOrigin is a deck', examOriginIsADeck],
+  ['needs a figure, has none', needsFigure],
 ];
 
 /** Coverage: the habits that separate the Year-4 semester-2 banks from the

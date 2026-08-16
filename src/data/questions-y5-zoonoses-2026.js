@@ -153,6 +153,7 @@ export const QB_Y5_ZOONOSES_2026 = [
   },
   {
     id: 104009, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
+    image: '/figures/questions/q104009.webp',
     type: 'mcq',
     q: 'ในแผนภาพ chain of infection ส่วนที่เป็น reservoir ถูกระบุไว้ว่าประกอบด้วยอะไรบ้าง',
     options: [
