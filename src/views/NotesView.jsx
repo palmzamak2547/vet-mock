@@ -41,6 +41,7 @@ import { RichText } from '../lib/richtext.jsx';
 import { hasTopic } from '../lib/vetwiki/registry.js';
 import { correctionsFor } from '../lib/vetwiki/corrections.js';
 import { sectionId } from '../lib/vetwiki/schema.js';
+import { slidesFor } from '../data/slide-images.generated.js';
 import ConflictNote from '../components/ConflictNote.jsx';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import BackBar from '../components/BackBar.jsx';
@@ -388,6 +389,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               idx={idx}
               highlight={debouncedSearch}
               conflicts={correctionsFor(sectionId(subject, validTopic, section.heading))}
+              slides={slidesFor(sectionId(subject, validTopic, section.heading))}
             />
           ))}
         </div>
@@ -412,7 +414,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 }
 
 // ── Single section ─────────────────────────────────────────────
-function SectionBlock({ section, idx, highlight, conflicts = [] }) {
+function SectionBlock({ section, idx, highlight, conflicts, slides = [] }) {
   const [open, setOpen] = useState(true);
   const hasConflict = conflicts.length > 0;
 
@@ -446,6 +448,26 @@ function SectionBlock({ section, idx, highlight, conflicts = [] }) {
         <div style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
           {section.body.map((item, i) => <BodyItem key={i} item={item} highlight={highlight} />)}
           {conflicts.map((c, i) => <ConflictNote key={i} item={c} />)}
+          {slides?.length > 0 && (
+            // The slide itself, for the subjects whose decks are photographs —
+            // a histology note describing a stain is worth much less than the
+            // stain. Lazy so opening a 30-section article does not fetch 30
+            // images, and the caption repeats the page so a reader can find it
+            // in their own copy of the deck.
+            <div style={{ marginTop: 14, display: 'grid', gap: 10 }}>
+              {slides.map((src) => (
+                <figure key={src} style={{ margin: 0 }}>
+                  <img
+                    src={src}
+                    alt={`สไลด์ ${section.source || ''}`}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ display: 'block', width: '100%', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}
+                  />
+                </figure>
+              ))}
+            </div>
+          )}
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
               ดึงจาก: {section.source}
