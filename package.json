@@ -58,7 +58,8 @@
     "lint:wiki-runtime": "node scripts/regen-vetwiki-runtime-data.mjs --check",
     "lint:deck-refs": "node scripts/lint-deck-references.mjs",
     "lint:empty-sections": "node scripts/lint-empty-sections.mjs",
-    "lint:question-standard": "node scripts/lint-question-standard.mjs --ratchet"
+    "lint:question-standard": "node scripts/lint-question-standard.mjs --ratchet",
+    "prep:explain-rewrite": "node scripts/batch-narrating-explains.mjs"
   },
   "browserslist": [
     "defaults",
