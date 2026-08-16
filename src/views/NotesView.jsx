@@ -493,11 +493,17 @@ function SectionBlock({ section, idx, highlight, conflicts, slides = [] }) {
                 <figure key={src} style={{ margin: 0 }}>
                   <img
                     src={src}
-                    alt={`สไลด์ ${section.source || ''}`}
+                    alt={`ภาพจากสไลด์ ${section.source || ''}`}
                     loading="lazy"
                     decoding="async"
                     style={{ display: 'block', width: '100%', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}
                   />
+                  {/* The file is already served as a plain image, so saving it
+                      costs nothing extra to host — this only spares the reader
+                      a right-click. */}
+                  <figcaption style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
+                    <a href={src} download style={{ color: 'inherit' }}>⬇ บันทึกภาพ</a>
+                  </figcaption>
                 </figure>
               ))}
             </div>

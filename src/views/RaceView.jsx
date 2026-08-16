@@ -23,7 +23,7 @@ import { hasSupabase, getSupabase } from '../lib/supabase.js';
 import { recordRaceResult } from '../lib/api.js';
 import { QB } from '../data/questions.js';
 import { isCorrect } from '../hooks/utils.js';
-import { SUBJECTS } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
@@ -32,6 +32,14 @@ const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const randomCode = () => Array.from({ length: 5 }, () => CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]).join('');
 
 export default function RaceView({ goHome, setView, user, profile }) {
+  const raceSubjectsByYear = YEARS
+    .map((y) => ({
+      year: y.id,
+      label: y.label,
+      items: (SUBJECTS_BY_YEAR[y.id] || []).filter((s) => !s.scaffold),
+    }))
+    .filter((shelf) => shelf.items.length > 0);
+
   const [phase, setPhase] = useState('lobby');     // lobby | run | done
   const [code, setCode] = useState('');
   const [isHost, setIsHost] = useState(false);
@@ -281,8 +289,16 @@ export default function RaceView({ goHome, setView, user, profile }) {
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 8 }}>
               <label htmlFor="vmx-race-subject" style={{ fontSize: 13 }}>วิชา:</label>
               <select id="vmx-race-subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }}>
-                {SUBJECTS.filter((s) => !s.scaffold).map((s) => (
-                  <option key={s.id} value={s.id}>{s.icon} {s.name}</option>
+                {/* Grouped by year. Flat, this listed every subject in the app
+                    together, so a second-year host picking a race scrolled
+                    past Year 5 clinical subjects with nothing to say they
+                    belong to a different year. */}
+                {raceSubjectsByYear.map((shelf) => (
+                  <optgroup key={shelf.year} label={shelf.label}>
+                    {shelf.items.map((s) => (
+                      <option key={s.id} value={s.id}>{s.icon} {s.name}</option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
               <label htmlFor="vmx-race-count" style={{ fontSize: 13, marginLeft: 12 }}>จำนวนข้อ:</label>
