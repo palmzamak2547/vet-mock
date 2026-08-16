@@ -33,9 +33,9 @@ npm run dev
 |---|---|
 | ข้อสอบ | **4,454 ข้อ** ใน 63 bank files, 40 วิชา |
 | ชั้นปีที่มีเนื้อหา | ปี 1 (298), ปี 4 (2,095), ปี 5 (2,061) |
-| สรุปโน้ต | 33 ไฟล์, 299 หัวข้อ, 2,232 sections, อ้างอิงแหล่งที่มาครบ 100% |
+| สรุปโน้ต | 34 ไฟล์, 325 หัวข้อ, 2,751 sections, อ้างอิงแหล่งที่มาครบ 100% |
 | สรุปคลิป | 400 คลิป ใน 27 ไฟล์ |
-| VetWiki (governed) | 208 หัวข้อ, 1,772 sections = 79.4% ของ note sections |
+| VetWiki (governed) | 208 หัวข้อ, 1,772 sections = 64.4% ของ note sections |
 | Taxonomy | 86 วิชา, 1,032 หัวข้อ |
 | ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |
 <!-- content-stats:end -->
