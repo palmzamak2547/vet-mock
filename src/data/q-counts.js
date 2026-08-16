@@ -10,7 +10,7 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4521;
+export const QB_TOTAL = 4707;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 169,
@@ -50,6 +50,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'swine-repro': 29,
   'vca': 340,
   'vet-dev-anat': 26,
+  'vet-histo': 186,
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 67,
@@ -98,6 +99,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'swine-repro': 29,
   'vca': 340,
   'vet-dev-anat': 26,
+  'vet-histo': 186,
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 67,
@@ -106,7 +108,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
-  2: 67,
+  2: 253,
   4: 2095,
   5: 2061,
 };
@@ -644,6 +646,34 @@ export const Q_COUNTS_BY_TOPIC = {
     "vd-git": 9,
     "vd-pharyngeal": 7,
   },
+  "vet-histo": {
+    "histo--avian": 7,
+    "histo--bone-marrow": 5,
+    "histo--bone-marrow-laboratory": 8,
+    "histo--circulatory-system": 9,
+    "histo--cytology": 9,
+    "histo--cytology-lab-11aug23": 7,
+    "histo--digestive-system-i": 5,
+    "histo--digestive-system-iii": 8,
+    "histo--endocrine": 9,
+    "histo--epithelium": 5,
+    "histo--female-lab-manual": 10,
+    "histo--female-reproductive-organ": 11,
+    "histo--fish": 7,
+    "histo--histo-lab-block-ii": 9,
+    "histo--integument": 4,
+    "histo--laboratory-of-nervous-system-histology": 7,
+    "histo--lymphatic-organ-i": 3,
+    "histo--lymphatic-organs-ii": 9,
+    "histo--male-reproductive-system": 11,
+    "histo--nervous-system": 6,
+    "histo--placenta": 2,
+    "histo--placenta-lab-manual": 7,
+    "histo--respiratory-system": 6,
+    "histo--special-sense": 8,
+    "histo--tissue-preparation": 6,
+    "histo--urinary-system": 8,
+  },
   "vet-imaging": {
     "abdomen-radiograph": 3,
     "ct-basics": 5,
@@ -891,4 +921,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-16T12:47:08.640Z
+// Built: 2026-08-16T13:17:00.091Z

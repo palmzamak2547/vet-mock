@@ -1024,7 +1024,7 @@ export const SUBJECTS_BY_YEAR = {
   2: [
     { id: 'vet-histo', code: '3101206', name: 'จุลกายวิภาคสัตวแพทย์',
       name_en: 'Veterinary Histology',
-      icon: '🔬', color: '#7d5a8b', semester: 1, has_questions: false, scaffold: true,
+      icon: '🔬', color: '#7d5a8b', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['kongkiat-srisuwattanaskul', 'wuthichai-klomkliao', 'damri-daraviroj'],
       topics: [
         { id: 'histo--cytology-lab-11aug23', label: 'Cytology Lab 11Aug23', icon: '🔬' },
