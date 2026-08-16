@@ -10,7 +10,7 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4454;
+export const QB_TOTAL = 4521;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 169,
@@ -52,6 +52,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
+  'vet-neuroanat': 67,
   'zoonoses': 178,
 };
 
@@ -99,11 +100,13 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 47,
+  'vet-neuroanat': 67,
   'zoonoses': 178,
 };
 
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
+  2: 67,
   4: 2095,
   5: 2061,
 };
@@ -658,6 +661,16 @@ export const Q_COUNTS_BY_TOPIC = {
     "slaughter-act-2559": 3,
     "wildlife-act-2562": 5,
   },
+  "vet-neuroanat": {
+    "neuroanat--basal-nuclei": 9,
+    "neuroanat--diencephalon": 8,
+    "neuroanat--limbic-system-nonolfactory-rhinencephalon": 5,
+    "neuroanat--metencephalon": 8,
+    "neuroanat--midbrain": 7,
+    "neuroanat--myelencephalon": 10,
+    "neuroanat--neuro-exam-anatomy2024": 7,
+    "neuroanat--visual-vestibular-systems": 13,
+  },
   "zoonoses": {
     "zoo-ai-basic": 6,
     "zoo-bacterial": 36,
@@ -878,4 +891,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-11T04:10:41.939Z
+// Built: 2026-08-16T12:47:08.640Z

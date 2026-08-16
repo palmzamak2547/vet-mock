@@ -23,7 +23,7 @@ const Q_SCHEMA = {
         required: ['topic', 'q', 'options', 'answer', 'explain', 'verified'],
         additionalProperties: false,
         properties: {
-          topic: { type: 'string' },
+          topic: { type: 'string', description: 'MUST be the topic id exactly as given, not the section heading' },
           q: { type: 'string' },
           options: { type: 'array', minItems: 4, maxItems: 4, items: { type: 'string' } },
           answer: { type: 'number', minimum: 0, maximum: 3 },
@@ -75,6 +75,8 @@ Every question:
 - Thai stem and options, anatomical and physiological terms in English exactly
   as the article spells them.
 - exactly 4 options, one correct.
+- "topic" is the topic id above, copied exactly. Not the section heading —
+  a question filed under a heading is dropped by the bank builder.
 - "verified" cites the deck and slide the answer sits on, copied from the
   section's own source line.
 - "explain" says why the answer is right AND why the tempting wrong one is
@@ -134,7 +136,6 @@ const results = await pipeline(
         label: `attack:${t.topicId.split('--')[1] || t.topicId}`,
         phase: 'Attack',
         schema: ATTACK_SCHEMA,
-        effort: 'high',
       }).then((a) => ({ topicId: t.topicId, n: drafted.questions.length, attack: a }))
     : null,
 );

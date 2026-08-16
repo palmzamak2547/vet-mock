@@ -36,7 +36,7 @@
 // because the cohort below is now sitting in it.
 export const YEARS = [
   { id: 1, label: 'ปี 1', available: true,  current: false, scaffold: false, desc: 'Pre-clinic, Foundation' },
-  { id: 2, label: 'ปี 2', available: true,  current: false, scaffold: true,  desc: 'Pre-clinic, Body Systems' },
+  { id: 2, label: 'ปี 2', available: true,  current: false, scaffold: false, desc: 'Pre-clinic, Body Systems' },
   { id: 3, label: 'ปี 3', available: true,  current: false, scaffold: true,  desc: 'Paraclinic, Disease & Diagnostics' },
   { id: 4, label: 'ปี 4', available: true,  current: false, scaffold: false, desc: 'Clinical Medicine, Paraclinic' },
   { id: 5, label: 'ปี 5', available: true,  current: true,  scaffold: false, desc: 'Vet 86, ปัจจุบัน' },
@@ -1262,7 +1262,7 @@ export const SUBJECTS_BY_YEAR = {
       ] },
     { id: 'vet-neuroanat', code: '3101209', name: 'ประสาทกายวิภาคสัตว์',
       name_en: 'Veterinary Neuroanatomy',
-      icon: '🧠', color: '#c26d6d', semester: 2, has_questions: false, scaffold: true,
+      icon: '🧠', color: '#c26d6d', semester: 2, has_questions: true, scaffold: false,
       vault_lecturers: [], topics: [
         { id: 'neuroanat--brain-surgery', label: 'Brain Surgery', icon: '🔬' },
         { id: 'neuroanat--neuro-exam-anatomy2024', label: 'Neuro exam anatomy2024', icon: '🔬' },

@@ -32,6 +32,12 @@ if (!DIR || !SUBJECT || !OUT || !SYMBOL) {
   process.exit(2);
 }
 
+const { SUBJECTS_BY_YEAR } = await import('../src/data/curriculum.js');
+// The bank used to hardcode year 5, which was true of every subject that had
+// one. A Year-2 bank inherits the same field and then fails lint:curriculum.
+const subjectYear = Number(Object.entries(SUBJECTS_BY_YEAR)
+  .find(([, list]) => list.some((s) => s.id === SUBJECT))?.[0]) || 5;
+
 const validTopics = new Set((SUBJECTS.find((s) => s.id === SUBJECT)?.topics || []).map((t) => t.id));
 
 // highest id in use anywhere, so a new bank cannot collide with an old one
@@ -80,7 +86,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
       id: ++maxId,
       subject: SUBJECT,
       topic: q.topic,
-      year: 5,
+      year: subjectYear,
       type: 'mcq',
       q: q.q,
       options: q.options,
