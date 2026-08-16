@@ -59,7 +59,16 @@ export const NEEDS_FIGURE = new RegExp([
   'แผนภาพ', 'ลูกศร', 'ที่ชี้',
   '(?:ภาพ|รูป)นี้', '(?:ภาพ|รูป)ที่\\s*\\d',
   'ในภาพ(?!รวม)',
-  '\\b(?:figure \\d|fig\\.|shown below|pictured)\\b',
+  // Palm found this hole by asking about one question: the list had แผนภาพ but
+  // not แผนผัง, and the two are the same thing. Same for แผนภูมิ and the
+  // ตาม-/ดัง- forms. A word list is only as good as the words somebody
+  // happened to think of, which is why it is one file and not three.
+  'แผนผัง', 'ผังงาน', 'แผนภูมิ', 'ไดอะแกรม',
+  'ตามผัง', 'ตามภาพ', 'ตามรูป', 'ดังภาพ', 'ดังรูป',
+  '\\b(?:figure \\d|fig\\.|shown below|pictured|flow ?chart)\\b',
+  // NOT bare "plot" or "chart": "Lineweaver-Burk plot" names a standard plot
+  // any biochemistry student can reason about without seeing one, and a
+  // "dental chart" is a record form, not an illustration.
 ].join('|'), 'i');
 
 export const carriesFigure = (q) => Boolean(q?.image || q?.imagePath);

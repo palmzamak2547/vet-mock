@@ -13,4 +13,6 @@
 export const FIGURE_EXEMPT = {
   105022: 'the clinical picture IS the stem — 60% mortality with airsaculitis, pericarditis and perihepatitis are all stated; "ภาพนี้" means this presentation, not a photograph',
   106291: 'the radiograph finding is given ("ยืนยันจากภาพรังสีว่าแมวมี pleural effusion"); the question is what to do next',
+  2202: '"แผนผังโครงสร้างฟาร์ม" is part of the DEFINITION being tested — conceptual biosecurity IS farm layout. No diagram is referred to',
+  105755: 'asks what a HACCP flow diagram must COVER, which is the standard scope of that artefact, not a reading off one printed on a slide',
 };

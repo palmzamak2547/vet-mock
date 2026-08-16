@@ -79,13 +79,31 @@ console.log(`\n${defective} defect(s) across ${total} questions`);
 // while allowing them silently is how 354 deck-naming stems accumulated. A
 // ceiling that can only fall is the honest middle.
 const BASELINE = 'docs/question-standard-baseline.json';
-if (process.argv.includes('--ratchet')) {
+if (process.argv.includes('--ratchet') || process.argv.includes('--rebaseline')) {
   const counts = Object.fromEntries(DEFECTS.map(([label, test]) =>
     [label, [...byYear.values()].flat().filter(test).length]));
 
   if (!fs.existsSync(BASELINE)) {
     fs.writeFileSync(BASELINE, `${JSON.stringify(counts, null, 2)}\n`);
     console.log(`\nwrote first baseline to ${BASELINE}`);
+    process.exit(0);
+  }
+
+  // Widening a detector makes a row go UP without the corpus getting worse:
+  // adding "แผนผัง" beside "แผนภาพ" found 9 more questions that were always
+  // broken. That is the ruler improving, not a regression — but it looks
+  // identical to one, so it may only be waved through on purpose and on the
+  // record. The reason belongs in the changelog in docs/QUESTION-STANDARD.md.
+  const rb = process.argv.indexOf('--rebaseline');
+  if (rb !== -1) {
+    const reason = process.argv[rb + 1];
+    if (!reason || reason.startsWith('--')) {
+      console.error('✗ --rebaseline needs a reason: --rebaseline "widened the figure pattern to include แผนผัง"');
+      process.exit(2);
+    }
+    fs.writeFileSync(BASELINE, `${JSON.stringify(counts, null, 2)}\n`);
+    console.log(`baseline rewritten — ${reason}`);
+    console.log('record it in the changelog in docs/QUESTION-STANDARD.md, and commit both.');
     process.exit(0);
   }
 
