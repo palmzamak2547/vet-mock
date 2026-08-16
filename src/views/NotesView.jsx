@@ -37,7 +37,7 @@ import { NOTES_Y2_PHYSIO_LAB_1 } from '../data/notes-y2-physio-lab-1.js';
 import { NOTES_Y2_PHYSIO_LAB_2 } from '../data/notes-y2-physio-lab-2.js';
 import { NOTES_Y2_HISTO } from '../data/notes-y2-histo.js';
 import { NOTES_Y2_MICROBIO_1 } from '../data/notes-y2-microbio-1.js';
-import { SUBJECTS } from '../data/curriculum.js';
+import { SUBJECTS, YEARS, yearForSubject } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import { hasTopic } from '../lib/vetwiki/registry.js';
 import { correctionsFor } from '../lib/vetwiki/corrections.js';
@@ -199,6 +199,34 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 
   const availableSubjects = [...new Set([...Object.keys(NOTES_BY_SUBJECT), ...Object.keys(NOTES_85_BY_SUBJECT)])];
 
+  // Every subject that has notes used to sit in one flat row of chips, so a
+  // second-year reading histology saw Year 5 clinical subjects as immediate
+  // neighbours. Year is the shelf; term is the shelf within it. The year being
+  // read comes first so the switcher opens on the reader's own year.
+  const subjectShelves = useMemo(() => {
+    const here = yearForSubject(subject);
+    const byYear = new Map();
+    for (const sid of availableSubjects) {
+      const y = yearForSubject(sid) ?? 0;
+      if (!byYear.has(y)) byYear.set(y, []);
+      byYear.get(y).push(sid);
+    }
+    const order = [...byYear.keys()].sort((a, b) => {
+      if (a === here) return -1;
+      if (b === here) return 1;
+      return a - b;
+    });
+    return order.map((y) => {
+      const label = YEARS.find((x) => x.id === y)?.label || 'ไม่ระบุชั้นปี';
+      const items = byYear.get(y).slice().sort((a, b) => {
+        const sa = SUBJECTS.find((s) => s.id === a)?.semester ?? 9;
+        const sb = SUBJECTS.find((s) => s.id === b)?.semester ?? 9;
+        return sa - sb;
+      });
+      return { year: y, label, items };
+    });
+  }, [availableSubjects.join('|'), subject]);
+
   const topic = notes[validTopic];
   const mainRef = useRef(null);
   const sectionRefs = useRef({});
@@ -255,11 +283,13 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           {/* Subject switcher */}
           {availableSubjects.length > 1 && (
             <>
+              {subjectShelves.map((shelf) => (
+              <div key={shelf.year}>
               <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
-                วิชา
+                {shelf.label}
               </div>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
-                {availableSubjects.map((sid) => {
+                {shelf.items.map((sid) => {
                   const meta = SUBJECTS.find((s) => s.id === sid);
                   const active = sid === subject;
                   return (
@@ -283,6 +313,8 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                   );
                 })}
               </div>
+              </div>
+              ))}
             </>
           )}
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
