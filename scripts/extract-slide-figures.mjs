@@ -26,8 +26,19 @@ const argOf = (f, d) => { const i = process.argv.indexOf(f); return i === -1 ? d
 const SUBJECT = argOf('--subject', null);
 const FOLDER = argOf('--folder', null);
 const ROOT = argOf('--root', 'C:/Users/palmz/Desktop/📚 เรียน/CUVET ปี 2');
-const WIDTH = Number(argOf('--width', 900));
-const QUALITY = Number(argOf('--quality', 75));
+const WIDTH = Number(argOf('--width', 1400));
+const QUALITY = Number(argOf('--quality', 82));
+// WebP at the same visible quality runs about 30% smaller than JPEG, measured
+// on this corpus. At this volume that is the difference between shipping the
+// sharp version and having to shrink it.
+const FORMAT = argOf('--format', 'webp');
+// Anything this flat carries no picture. Nearly half of a first run turned out
+// to be the alpha masks pdfimages writes alongside a transparent image — real
+// files, real dimensions, and entirely blank.
+const MIN_ENTROPY = Number(argOf('--min-entropy', 2));
+const MIN_STDEV = Number(argOf('--min-stdev', 6));
+// A banner, a rule, a gradient strip. No photomicrograph is this shape.
+const MAX_ASPECT = Number(argOf('--max-aspect', 4));
 const MIN_PX = Number(argOf('--min-px', 250));
 const MAX_COVER = Number(argOf('--max-cover', 0.7));
 const PER_PAGE = Number(argOf('--per-page', 3));
@@ -70,7 +81,7 @@ const OUT_DIR = path.join('public', 'figures', SUBJECT);
 const tmpPdf = path.join(os.tmpdir(), `vmx-fig-${process.pid}.pdf`);
 const tmpDir = path.join(os.tmpdir(), `vmx-fig-${process.pid}`);
 const manifest = {};
-let kept = 0, bytes = 0, skippedScan = 0, skippedSmall = 0;
+let kept = 0, bytes = 0, skippedScan = 0, skippedSmall = 0, skippedBlank = 0, skippedShape = 0;
 
 for (const [topicId, topic] of Object.entries(NOTES)) {
   const deckName = (topic.sections.find((s) => s.source) || {}).source?.replace(/\s*p\..*$/, '').trim();
@@ -143,19 +154,34 @@ for (const [topicId, topic] of Object.entries(NOTES)) {
     picks.sort((a, b) => b.px - a.px);
 
     const rels = [];
-    for (const [n, pick] of picks.slice(0, PER_PAGE).entries()) {
-      const rel = `/figures/${SUBJECT}/${topicId}/p${page}-${n}.jpg`;
-      const abs = path.join(OUT_DIR, topicId, `p${page}-${n}.jpg`);
+    let n = 0;
+    for (const pick of picks) {
+      if (n >= PER_PAGE) break;
+      // Read the pixels before believing the metadata. The list says these are
+      // images and gives real dimensions; only opening them reveals the blank
+      // masks and the flat colour blocks.
+      let meta, stats;
+      try {
+        meta = await sharp(pick.file).metadata();
+        stats = await sharp(pick.file).stats();
+      } catch { continue; }
+      const aspect = meta.width / meta.height;
+      if (aspect > MAX_ASPECT || aspect < 1 / MAX_ASPECT) { skippedShape++; continue; }
+      const stdev = stats.channels.reduce((a, c) => a + c.stdev, 0) / stats.channels.length;
+      if ((stats.entropy ?? 0) < MIN_ENTROPY || stdev < MIN_STDEV) { skippedBlank++; continue; }
+
+      const rel = `/figures/${SUBJECT}/${topicId}/p${page}-${n}.${FORMAT}`;
+      const abs = path.join(OUT_DIR, topicId, `p${page}-${n}.${FORMAT}`);
       if (WRITE) {
         fs.mkdirSync(path.dirname(abs), { recursive: true });
         try {
           await sharp(pick.file).resize({ width: WIDTH, withoutEnlargement: true })
-            .jpeg({ quality: QUALITY }).toFile(abs);
+            .toFormat(FORMAT, { quality: QUALITY, chromaSubsampling: '4:4:4' }).toFile(abs);
         } catch { continue; }
         bytes += fs.statSync(abs).size;
       }
       rels.push(rel);
-      kept++;
+      kept++; n++;
     }
     if (!rels.length) continue;
     for (const id of ids) (manifest[id] ||= []).push(...rels);
@@ -166,9 +192,9 @@ fs.rmSync(tmpDir, { recursive: true, force: true });
 if (fs.existsSync(tmpPdf)) fs.unlinkSync(tmpPdf);
 
 console.log(`${kept} figure(s) for ${Object.keys(manifest).length} section(s)`);
-console.log(`  skipped: ${skippedScan} page-scan(s), ${skippedSmall} too small`);
+console.log(`  skipped: ${skippedScan} page-scan(s), ${skippedSmall} too small, ${skippedBlank} blank/flat, ${skippedShape} banner-shaped`);
 if (WRITE) {
-  console.log(`  ${(bytes / 1024 / 1024).toFixed(1)} MB at ${WIDTH}px q${QUALITY}`);
+  console.log(`  ${(bytes / 1024 / 1024).toFixed(1)} MB at ${WIDTH}px ${FORMAT} q${QUALITY}`);
   const out = 'src/data/slide-images.generated.js';
   const existing = fs.existsSync(out) ? (await import(`../${out}?t=${Date.now()}`)).SLIDE_IMAGES || {} : {};
   const merged = { ...existing, ...manifest };
