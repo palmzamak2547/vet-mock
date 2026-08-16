@@ -217,23 +217,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP2_Fish_bio p.25"
   },
   {
-    "id": 105132,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "โครงสร้างของทางเดินอาหารข้อใดที่สไลด์ชี้ไว้ทั้งในแผนภาพฉลามและแผนภาพปลากระเบน",
-    "options": [
-      "Pyloric ceca",
-      "Rectal gland",
-      "Urinary bladder",
-      "Spiral colon"
-    ],
-    "answer": 3,
-    "explain": "Spiral colon ปรากฏเป็นป้ายชื่อทั้งในภาพภายในของฉลามและของปลากระเบน ส่วน rectal gland ถูกชี้เฉพาะในแผนภาพปลากระเบนเท่านั้น pyloric ceca อยู่ในแผนภาพปลากลุ่ม salmonid และ urinary bladder อยู่ในแผนภาพปลาหนัง",
-    "verified": "AP2_Fish_bio p.31-32"
-  },
-  {
     "id": 105133,
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
@@ -249,23 +232,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 1,
     "explain": "สไลด์จัด transverse septum ไว้ในกลุ่มเดียวกับ abdominal (pleuroperitoneal) cavity และ pericardial cavity ในฐานะแผ่นกั้นระหว่างสองช่องนี้ ส่วน basal membrane และ dense connective tissue layer เป็นโครงสร้างในชั้นผิวหนัง และ median เป็นคำบอกระนาบลำตัว ไม่ใช่ชื่อแผ่นกั้นช่องลำตัว",
     "verified": "AP2_Fish_bio p.33-36"
-  },
-  {
-    "id": 105135,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "ข้อใดตรงกับลักษณะของชั้น epidermis ในผิวหนังปลาตามที่สไลด์ระบุ",
-    "options": [
-      "กำเนิดจาก mesoderm หนากว่า dermis และมีคอลลาเจนเป็นหลัก",
-      "กำเนิดจาก mesoderm เป็นที่ฝังตัวของเกล็ดและ chromatophore",
-      "กำเนิดจาก ectoderm ใสไม่มีเม็ดสี และบางกว่าชั้น dermis",
-      "กำเนิดจาก ectoderm มีหลอดเลือดและเส้นประสาทอยู่หนาแน่น"
-    ],
-    "answer": 2,
-    "explain": "สไลด์ระบุว่า epidermis เป็น ectodermal origin, thinner than dermis layer, transparent no pigment และ metabolically active ตลอดชีวิต ส่วนคุณสมบัติ mesodermal origin, คอลลาเจนเป็นองค์ประกอบหลัก, หลอดเลือดกับเส้นประสาท และการมีเกล็ดกับ chromatophore ฝังอยู่ ล้วนเป็นของชั้น dermis",
-    "verified": "AP2_Fish_bio p.38-39"
   },
   {
     "id": 105137,
@@ -540,40 +506,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP2_Fish_bio p.101"
   },
   {
-    "id": 105155,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "ข้อใดเป็นสัตว์น้ำที่สไลด์จัดไว้ในกลุ่ม inland aquaculture species",
-    "options": [
-      "หอยเป๋าฮื้อ (abalone)",
-      "ปลากะพงขาว (seabass)",
-      "กุ้งกุลาดำ (black tiger shrimp)",
-      "กุ้งก้ามกราม (freshwater prawn)"
-    ],
-    "answer": 3,
-    "explain": "รายชื่อสัตว์น้ำในแหล่งน้ำจืดมีกุ้งก้ามกราม (freshwater prawn) รวมอยู่ด้วย ส่วนหอยเป๋าฮื้อ ปลากะพงขาว และกุ้งกุลาดำ ทั้งสามชนิดอยู่ในรายชื่อ coastal aquaculture species คนละสไลด์กัน",
-    "verified": "AP1_Aquaculture_in_Thailand p.5"
-  },
-  {
-    "id": 105156,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "ในหัวข้อ farm management practice สไลด์ระบุว่า document management ครอบคลุมเรื่องใด",
-    "options": [
-      "การขึ้นทะเบียนฟาร์ม เอกสาร GAP การเก็บบันทึกและการวิเคราะห์ข้อมูล",
-      "ใบอนุญาตเคลื่อนย้ายสัตว์น้ำ ใบรับรองสุขภาพ และบันทึกการใช้ยาปฏิชีวนะ",
-      "ทะเบียนพ่อแม่พันธุ์ ผลตรวจคุณภาพน้ำรายวัน และบันทึกอัตรารอดของลูกพันธุ์",
-      "สัญญาซื้อขายผลผลิต ใบกำกับอาหารสัตว์ และรายงานผลกระทบสิ่งแวดล้อมรายปี"
-    ],
-    "answer": 0,
-    "explain": "สไลด์เขียน document management ไว้ว่า farm registration, GAP document, record keeping and data analysis ส่วนใบอนุญาตเคลื่อนย้ายและบันทึกการใช้ยา รวมถึงผลตรวจน้ำรายวันและเอกสารเชิงพาณิชย์ เป็นเอกสารที่พบได้จริงในฟาร์มแต่ไม่ใช่รายการที่สไลด์นี้ระบุไว้",
-    "verified": "AP1_Aquaculture_in_Thailand p.6"
-  },
-  {
     "id": 105159,
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -623,23 +555,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 3,
     "explain": "แผนภาพเรียงระยะไว้เป็น Nauplius แล้วต่อด้วย Zoea หรือ protozoea ตามด้วย Mysis และ Postlarvae ก่อนถึง Broodstock โดยสามระยะแรกกำกับไว้ฝั่งป่าชายเลน Postlarvae อยู่ระหว่างชายฝั่งกับทะเล และ Broodstock อยู่ฝั่งทะเลลึก ข้ออื่นสลับตำแหน่งของ Zoea หรือ Mysis ให้มาก่อน Nauplius ซึ่งไม่ตรงกับแผนภาพ",
     "verified": "AP1_Aquaculture_in_Thailand p.35"
-  },
-  {
-    "id": 105163,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "PE growout pond ที่สไลด์แสดงไว้ มีลักษณะต่างจากบ่อดินธรรมดาอย่างไร",
-    "options": [
-      "เป็นบ่อวงซีเมนต์ทรงกลมที่มีท่อระบายน้ำอยู่ตรงกลางบ่อ",
-      "เป็นบ่อในโรงเรือนที่คลุมด้วยตาข่ายพรางแสงเป็นชั้น",
-      "เป็นบ่อที่ปูพื้นและคันบ่อด้วยแผ่นพลาสติกสีดำทั้งบ่อ",
-      "เป็นกระชังตาข่ายที่ขึงลอยอยู่ภายในบ่อดินขนาดใหญ่"
-    ],
-    "answer": 2,
-    "explain": "สไลด์ PE GROWOUT POND แสดงบ่อที่ปูพื้นและคันบ่อด้วยแผ่นพลาสติกสีดำ โดยภาพที่พร่องน้ำจะเห็นแผ่นปูเต็มทั้งบ่อ ส่วนบ่อวงซีเมนต์กลมและบ่อซีเมนต์ที่มีท่อระบายกลางบ่ออยู่ในสไลด์ฟาร์มปลาสวยงาม กระชังตาข่ายในบ่อดินคือระบบอนุบาลปลานิล และบ่อคลุมตาข่ายพรางแสงคือโรงเพาะฟักปลาทะเล",
-    "verified": "AP1_Aquaculture_in_Thailand p.47"
   },
   {
     "id": 105165,
@@ -744,57 +659,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "Aquaculture_Industry_Tech p.8"
   },
   {
-    "id": 105172,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "ตามชื่อบทความที่สไลด์อ้างไว้ ปัจจัยใดเป็นตัวกำหนดหลักของ gut microbiome ในปลา",
-    "options": [
-      "แหล่งที่อยู่อาศัยของโฮสต์ (host habitat)",
-      "ชนิดของอาหารเม็ดที่ใช้เลี้ยงปลา",
-      "อายุและระยะการเจริญของโฮสต์",
-      "สายพันธุ์ทางพันธุกรรมของโฮสต์"
-    ],
-    "answer": 0,
-    "explain": "ชื่อบทความบนสไลด์ระบุตรงตัวว่า Host habitat is the major determinant of the gut microbiome of fish และแผงเปรียบเทียบก็แยกกลุ่มตัวอย่างตามแหล่งน้ำ ส่วนอาหาร อายุ และพันธุกรรมเป็นปัจจัยที่เกี่ยวข้องกับ microbiome แต่สไลด์หน้านี้ไม่ได้ยกให้เป็นตัวกำหนดหลัก",
-    "verified": "Aquaculture_Industry_Tech p.12"
-  },
-  {
-    "id": 105173,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "วิธีที่สไลด์ระบุว่าใช้ศึกษา microbiome คือข้อใด",
-    "options": [
-      "การเพาะเชื้อบนอาหารเลี้ยงเชื้อชนิดเลือกสรร",
-      "การย้อมสีแกรมจากสิ่งขูดผนังลำไส้",
-      "การตรวจความแปรผันของลำดับยีน 16S rRNA",
-      "การตรวจแอนติบอดีในซีรัมด้วยวิธี ELISA"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนว่าใช้ sequence variation of the 16S rRNA gene จากสิ่งมีชีวิตและสิ่งแวดล้อมที่สนใจ ซึ่งจับได้ทั้งเชื้อที่เพาะไม่ขึ้น การเพาะเชื้อและการย้อมแกรมเห็นได้เฉพาะบางกลุ่ม ส่วน ELISA เป็นการตรวจการตอบสนองทางภูมิคุ้มกัน ไม่ใช่การจำแนกประชากรจุลชีพ",
-    "verified": "Aquaculture_Industry_Tech p.13"
-  },
-  {
-    "id": 105174,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "แผนภาพเรื่อง gut dysbiosis วางทางเลือกจัดการไว้สองกรอบ ข้อใดตรงกับสไลด์",
-    "options": [
-      "กรอบเขียวใช้ยาต้านจุลชีพ ส่วนกรอบแดงใช้โปรไบโอติกและพรีไบโอติก",
-      "กรอบเขียวใช้วัคซีนเชื้อตาย ส่วนกรอบแดงใช้การถ่ายน้ำและลดความหนาแน่น",
-      "กรอบเขียวใช้การลดปริมาณอาหาร ส่วนกรอบแดงใช้โปรไบโอติกและซินไบโอติก",
-      "กรอบเขียวใช้โปรไบโอติกและพรีไบโอติก ส่วนกรอบแดงใช้ยาต้านจุลชีพ"
-    ],
-    "answer": 3,
-    "explain": "กรอบสีเขียวคือเส้นทางกลับสู่สภาวะ healthy ใช้ probiotics prebiotics และ synbiotics ส่วนกรอบสีแดงคือเมื่อสัตว์ป่วยแล้วจึงใช้ drugs ตัวเลือกที่สลับสองกรอบกันจึงผิด และวัคซีนกับการลดอาหารไม่ได้ปรากฏในแผนภาพหน้านี้",
-    "verified": "Aquaculture_Industry_Tech p.14"
-  },
-  {
     "id": 105175,
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -861,23 +725,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 0,
     "explain": "สไลด์นิยาม prebiotic ว่าเป็นส่วนประกอบในอาหารที่ย่อยไม่ได้ และเป็นอาหารของจุลินทรีย์ที่มีประโยชน์ในทางเดินอาหาร โดยเน้นว่าพรีไบโอติกส่วนใหญ่เป็น subset ของกลุ่มคาร์โบไฮเดรต ตัวอย่างที่ยกไว้เช่น beta-glucan, inulin, MOS, FOS และ GOS ส่วนจุลินทรีย์ที่มีชีวิตคือ probiotic",
     "verified": "Aquaculture_Industry_Tech p.20"
-  },
-  {
-    "id": 105179,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "ในวัฏจักรไนโตรเจน แบคทีเรียคู่ใดทำหน้าที่ตรงตามลำดับการเปลี่ยนรูปที่สไลด์อธิบาย",
-    "options": [
-      "Nitrobacter เปลี่ยนแอมโมเนียเป็นไนไตรท์ และ Nitrosomonas เปลี่ยนไนไตรท์เป็นไนเตรต",
-      "Bacillus subtilis เปลี่ยนแอมโมเนียเป็นไนไตรท์ และ Nitrobacter เปลี่ยนไนไตรท์เป็นไนเตรต",
-      "Nitrosomonas เปลี่ยนแอมโมเนียเป็นไนเตรต และ Nitrobacter เปลี่ยนไนเตรตเป็นไนไตรท์",
-      "Nitrosomonas เปลี่ยนแอมโมเนียเป็นไนไตรท์ และ Nitrobacter เปลี่ยนไนไตรท์เป็นไนเตรต"
-    ],
-    "answer": 3,
-    "explain": "ลำดับบนสไลด์คือแอมโมเนียไปไนไตรท์ด้วย Nitrosomonas แล้วไนไตรท์ไปไนเตรตด้วย Nitrobacter รวมเรียกว่า nitrification ตัวเลือกที่สลับชื่อแบคทีเรียหรือสลับทิศทางไนไตรท์กับไนเตรตจึงผิด ส่วน Bacillus subtilis สไลด์กล่าวถึงในฐานะ water probiotic ไม่ใช่แบคทีเรียในขั้น nitrification",
-    "verified": "Aquaculture_Industry_Tech p.27"
   },
   {
     "id": 105180,
@@ -1031,23 +878,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 2,
     "explain": "fomites คือสิ่งของหรืออุปกรณ์ที่เป็นพาหะนำเชื้อ สไลด์ C5 ระบุการแยกอุปกรณ์ของแต่ละบ่อและการฆ่าเชื้อ boots, dip nets, transport containers และ vehicle ส่วน C2 เป็นเรื่องน้ำและอากาศ C4 เป็นอาหารมีชีวิตกับอาหารสำเร็จรูป และ C6 เป็นเรื่องชุดและสุขอนามัยของคน",
     "verified": "Aquaculture_Industry_Tech p.37"
-  },
-  {
-    "id": 105190,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "ระบบบำบัดและกรองน้ำที่สไลด์ยกไว้ในหัวข้อ Clean water คือข้อใด",
-    "options": [
-      "ultrafiltration, double layers of fishing net และ filtrated aeration system",
-      "reverse osmosis, single layer of fishing net และ ozone generator",
-      "ultrafiltration, activated carbon column และ UV sterilizer",
-      "sand filtration, double layers of fishing net และ ozone generator"
-    ],
-    "answer": 0,
-    "explain": "สไลด์ C2 ระบุระบบที่ใช้คือ ultrafiltration, double layers of fishing net และ filtrated aeration system เพื่อให้น้ำและอากาศปราศจาก pollutants และ pathogens ส่วน reverse osmosis, activated carbon, UV sterilizer, ozone generator และ sand filtration เป็นระบบกรองที่มีจริงแต่ไม่ได้ถูกระบุไว้ในสไลด์นี้",
-    "verified": "Aquaculture_Industry_Tech p.41-42"
   },
   {
     "id": 105191,
@@ -1388,23 +1218,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 1,
     "explain": "สไลด์ระบุอัตราตาย 20-90% และการเลี้ยงแบบกระชังพบระบาดมากกว่าบ่อดินหรือ PE โดยมีปัจจัยเรื่องความเครียดและคุณภาพน้ำ ตัวเลือกที่สลับรูปแบบการเลี้ยงหรือเปลี่ยนช่วงอัตราตายเป็น 5-20% หรือ 90-100% จึงไม่ตรงกับสไลด์",
     "verified": "Aquaculture_Industry_Tech p.87"
-  },
-  {
-    "id": 105212,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "tilapia lake virus (TiLV) จัดอยู่ในวงศ์ (family) ใดตามที่สไลด์ระบุ",
-    "options": [
-      "Orthomyxoviridae",
-      "Alloherpesviridae",
-      "Paramyxoviridae",
-      "Iridoviridae"
-    ],
-    "answer": 0,
-    "explain": "สไลด์การพัฒนาวัคซีน TiLV ระบุชัดว่าไวรัสอยู่ในวงศ์ Orthomyxoviridae พร้อมภาพ EM ของอนุภาคไวรัส ส่วนอีก 3 วงศ์เป็นวงศ์ไวรัสอื่นที่ไม่ได้ถูกระบุว่าเป็นวงศ์ของ TiLV ในสไลด์นี้",
-    "verified": "Aquaculture_Industry_Tech p.88-89"
   },
   {
     "id": 105213,

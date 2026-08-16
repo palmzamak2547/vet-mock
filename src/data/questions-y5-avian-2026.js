@@ -234,23 +234,6 @@ export const QB_Y5_AVIAN_2026 = [
     "verified": "1.2_IBV p.23"
   },
   {
-    "id": 105029,
-    "subject": "avian-medicine",
-    "topic": "avian-ib",
-    "year": 5,
-    "type": "mcq",
-    "q": "การให้วัคซีนเชื้อเป็นของ IB ไม่ทั่วทั้งฝูง อาจก่อให้เกิดปัญหาใดตามที่สไลด์เตือนไว้",
-    "options": [
-      "เกิด rolling infection โดยไวรัสวัคซีนแพร่และก่อโรครุนแรงกว่าต้นฉบับ",
-      "เกิด MDA ในระดับสูงผิดปกติจนกดการตอบสนองของไก่ทั้งฝูง",
-      "ไวรัสในวัคซีนกลายสภาพเป็นเชื้อตายและไม่กระตุ้นภูมิคุ้มกันอีกเลย",
-      "เกิดการ interfere กับวัคซีน ND และ aMPV ที่ให้ในเวลาพร้อมกัน"
-    ],
-    "answer": 0,
-    "explain": "สไลด์ระบุว่าการให้วัคซีนไม่ทั่วทั้งฝูงอาจทำให้เกิด rolling infection คือไวรัสในวัคซีนพัฒนาและแพร่ไปยังตัวที่ไม่ได้รับวัคซีนแล้วก่อโรค โดยไวรัสที่ก่อโรคนี้พัฒนาตัวเองให้รุนแรงกว่าไวรัสในวัคซีนต้นฉบับ ส่วนการ interfere กับ ND และ aMPV เป็นข้อควรระวังคนละข้อ ซึ่งเกิดจากการให้วัคซีนหลายชนิดพร้อมกัน ไม่ใช่จากการให้ไม่ทั่วฝูง",
-    "verified": "1.2_IBV p.25"
-  },
-  {
     "id": 105030,
     "subject": "avian-medicine",
     "topic": "avian-lt",
@@ -438,23 +421,6 @@ export const QB_Y5_AVIAN_2026 = [
     "verified": "1.3_ILT p.20"
   },
   {
-    "id": 105041,
-    "subject": "avian-medicine",
-    "topic": "avian-mpv",
-    "year": 5,
-    "type": "mcq",
-    "q": "ข้อใดกล่าวถูกต้องเกี่ยวกับลักษณะสำคัญของโรคหัวบวม (Avian Metapneumovirus) ตามที่สไลด์ระบุ",
-    "options": [
-      "เป็นโรคที่ติดต่อยาก พบ low morbidity แต่ high mortality ในไก่ทุกช่วงอายุ",
-      "มีสัตว์ปีกเลี้ยงเป็น natural reservoir ส่วนนกป่าไม่มีบทบาทเก็บเชื้อในธรรมชาติ",
-      "เป็นโรคติดต่อง่าย พบ high morbidity แต่ low mortality และนกป่าเป็นแหล่งรังโรค",
-      "ก่อโรคเฉพาะระบบทางเดินหายใจเท่านั้น ไม่มีผลต่อระบบสืบพันธุ์ของสัตว์ปีก"
-    ],
-    "answer": 2,
-    "explain": "สไลด์ระบุว่าเป็น highly contagious infectious respiratory disease ที่มี high morbidity แต่ low mortality (ยกเว้นมี secondary infection) และ wild birds are natural reservoirs ข้อที่กลับด้าน morbidity กับ mortality จึงผิด ข้อที่ยกให้สัตว์ปีกเลี้ยงเป็นรังโรคผิดเพราะสไลด์ระบุนกป่า และข้อสุดท้ายผิดเพราะสไลด์ระบุว่าแสดงออกได้ 2 ระบบคือ respiratory disease และ reproductive disorder",
-    "verified": "1.4_AMPV p.2"
-  },
-  {
     "id": 105042,
     "subject": "avian-medicine",
     "topic": "avian-mpv",
@@ -487,23 +453,6 @@ export const QB_Y5_AVIAN_2026 = [
     "answer": 1,
     "explain": "สไลด์ระบุว่า AMPV มี 4 subtypes (A, B, C, D) โดยมักพบ subtype A และ B ส่วน subtype C พบเฉพาะในสหรัฐอเมริกาและฝรั่งเศสและพบเฉพาะในไก่งวง และ subtype D พบเฉพาะในฝรั่งเศส ตัวเลือกอื่นสลับที่ subtype ที่พบบ่อยกับที่พบจำกัด และเนเธอร์แลนด์เป็นเพียงประเทศที่พบเชื้อในนกน้ำตามธรรมชาติ ไม่ใช่ประเทศที่จำกัดการพบ subtype C",
     "verified": "1.4_AMPV p.5"
-  },
-  {
-    "id": 105044,
-    "subject": "avian-medicine",
-    "topic": "avian-mpv",
-    "year": 5,
-    "type": "mcq",
-    "q": "ระยะฟักตัวของ AMPV และระยะเวลาที่สัตว์ป่วยฟื้นตัวตามที่สไลด์ระบุคือข้อใด",
-    "options": [
-      "ฟักตัว 7-10 วัน และฟื้นตัวภายใน 21-28 วัน",
-      "ฟักตัว 1-2 วัน และฟื้นตัวภายใน 3-5 วัน",
-      "ฟักตัว 14-21 วัน และฟื้นตัวภายใน 28-35 วัน",
-      "ฟักตัว 3-5 วัน และฟื้นตัวภายใน 10-14 วัน"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุระยะฟักตัว 3-5 วัน และ recovery within 10-14 days พร้อมกับระบุว่าติดต่อทาง direct contact และ aerosol และไก่ทุกอายุติดเชื้อได้ ตัวเลขในตัวเลือกอื่นเป็นช่วงเวลาที่ยาวหรือสั้นเกินกว่าที่สไลด์ระบุ",
-    "verified": "1.4_AMPV p.6"
   },
   {
     "id": 105045,
@@ -540,40 +489,6 @@ export const QB_Y5_AVIAN_2026 = [
     "verified": "1.4_AMPV p.8, p.10"
   },
   {
-    "id": 105047,
-    "subject": "avian-medicine",
-    "topic": "avian-mpv",
-    "year": 5,
-    "type": "mcq",
-    "q": "อาการ Torticollis, disorientation และ opisthotonos ในฝูงที่ติด AMPV สไลด์ระบุว่าสัมพันธ์กับเชื้อแทรกซ้อนชนิดใด",
-    "options": [
-      "Mycoplasma gallisepticum",
-      "lentogenic NDV",
-      "Escherichia coli",
-      "Avian influenza virus"
-    ],
-    "answer": 2,
-    "explain": "ในหัวข้อเชื้อแทรกซ้อน สไลด์วงเล็บกำกับไว้กับ E. coli ว่าทำให้เกิด Torticollis, disorientation, opisthotonos ส่วน Mycoplasma gallisepticum, M. synoviae, lentogenic NDV, Avian Influenza และ IB ถูกระบุเป็นเชื้อแทรกซ้อนเช่นกัน แต่สไลด์ไม่ได้ผูกอาการทางประสาทกลุ่มนี้ไว้กับเชื้อเหล่านั้น",
-    "verified": "1.4_AMPV p.10"
-  },
-  {
-    "id": 105048,
-    "subject": "avian-medicine",
-    "topic": "avian-mpv",
-    "year": 5,
-    "type": "mcq",
-    "q": "ผลของการติดเชื้อ AMPV ต่อระบบสืบพันธุ์และไข่ในไก่ตามที่สไลด์ระบุคือข้อใด",
-    "options": [
-      "ไข่ลดได้ถึง 50-60% พบไข่เปลือกหนาผิดปกติ และพบ ovarian cyst",
-      "ไข่ลดเพียง 2-5% โดยคุณภาพเปลือกและสีของเปลือกไข่ยังปกติดี",
-      "ไข่ลดได้ถึง 70-80% พบไข่ไม่มีเปลือก และพบ oviduct hypoplasia",
-      "ไข่ลดได้ถึง 15-30% พบไข่เปลือกบาง สีซีด และพบ egg peritonitis"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุว่าไข่ลดอาจถึง 15-30% ในไก่ พบไข่เปลือกบาง สีซีด และพบ peritonitis ส่วนรอยโรคระบบสืบพันธุ์ระบุ egg peritonitis, misshapen eggs, thin shell, discolor, rough egg และ salphingitis ตัวเลข 50-60% และ 70-80% สูงเกินกว่าที่สไลด์ระบุ และเปลือกหนาผิดปกติขัดกับ thin shell ที่สไลด์บันทึกไว้",
-    "verified": "1.4_AMPV p.10-11"
-  },
-  {
     "id": 105049,
     "subject": "avian-medicine",
     "topic": "avian-mpv",
@@ -589,57 +504,6 @@ export const QB_Y5_AVIAN_2026 = [
     "answer": 0,
     "explain": "สไลด์ระบุการเพาะแยกเชื้อในไก่ปลอดเชื้อ ไข่ไก่ฟัก cell culture และ tracheal organ culture พร้อมกำกับว่าเพาะเชื้อได้ยาก จึงใช้ RT-PCR ทาง molecular และใช้ ELISA กับ virus neutralization test ทางซีรั่มวิทยา สไลด์ไม่ได้ระบุ HI test หรือ AGID ไว้เป็นวิธีวินิจฉัยของโรคนี้",
     "verified": "1.4_AMPV p.12"
-  },
-  {
-    "id": 105050,
-    "subject": "avian-medicine",
-    "topic": "avian-mpv",
-    "year": 5,
-    "type": "mcq",
-    "q": "เหตุใดสไลด์จึงเน้นว่าต้องเก็บตัวอย่างทันทีในช่วงที่ไก่ติดเชื้อหรือกำลังแสดงอาการ",
-    "options": [
-      "เพราะแอนติบอดีจะขึ้นสูงจนรบกวนการอ่านผล ELISA ภายใน 6-7 วัน",
-      "เพราะไวรัสจะอยู่บริเวณ sinus และ turbinate เพียงประมาณ 6-7 วัน",
-      "เพราะไวรัสจะย้ายไปเพิ่มจำนวนที่ไขกระดูกหลังจากนั้นราว 3 สัปดาห์",
-      "เพราะเชื้อแบคทีเรียแทรกซ้อนจะทำให้ผลการเพาะแยกไวรัสเป็นบวกลวง"
-    ],
-    "answer": 1,
-    "explain": "สไลด์เตือนไว้ตรงหัวข้อการเก็บตัวอย่างว่าไวรัสจะอยู่บริเวณ sinus และ turbinate แค่ 6-7 วัน จึงต้องเก็บทันทีในช่วงติดเชื้อหรือมีอาการ และให้เก็บจากสัตว์ที่ป่วยระยะแรกหรือป่วยหนัก คำอธิบายเรื่องแอนติบอดีรบกวน ELISA การย้ายไปไขกระดูก และผลบวกลวงจากแบคทีเรีย ไม่ปรากฏในสไลด์",
-    "verified": "1.4_AMPV p.13"
-  },
-  {
-    "id": 105051,
-    "subject": "avian-medicine",
-    "topic": "avian-mpv",
-    "year": 5,
-    "type": "mcq",
-    "q": "ข้อใดคือแนวทางการควบคุมโรคหัวบวมในฝูงที่กำลังป่วยตามที่สไลด์ระบุ",
-    "options": [
-      "แยกตัวป่วยออกจากฝูง ให้ยาปฏิชีวนะคุมเชื้อแทรกซ้อน และเลี่ยงการตัดปาก",
-      "เร่งตัดปากและทำวัคซีนเชื้อเป็นซ้ำทันทีในช่วงที่ไก่กำลังแสดงอาการป่วย",
-      "งดยาปฏิชีวนะทุกชนิด และคงตัวป่วยไว้ในฝูงเดิมจนกว่าอาการจะหายเอง",
-      "ทำลายไก่ทั้งฝูงทันทีที่พบอาการ และพักโรงเรือนอย่างน้อยหกเดือน"
-    ],
-    "answer": 0,
-    "explain": "สไลด์ระบุ 3 ข้อคือแยกตัวป่วยออกจากฝูง ให้ยาปฏิชีวนะเพื่อควบคุมหรือลดการติดเชื้อแบคทีเรียแทรกซ้อน และหลีกเลี่ยงการตัดปากและการให้วัคซีนในช่วงที่ไก่ป่วย ตัวเลือกที่ให้ตัดปากหรือทำวัคซีนระหว่างป่วยจึงตรงข้ามกับคำแนะนำ การงดยาปฏิชีวนะขัดกับข้อคุมเชื้อแทรกซ้อน และสไลด์ไม่ได้ระบุการทำลายทั้งฝูง",
-    "verified": "1.4_AMPV p.15"
-  },
-  {
-    "id": 105052,
-    "subject": "avian-medicine",
-    "topic": "avian-mpv",
-    "year": 5,
-    "type": "mcq",
-    "q": "น้ำยาฆ่าเชื้อที่สไลด์ระบุว่าใช้ได้กับ AMPV คือกลุ่มใด",
-    "options": [
-      "Formalin, Ethanol 70%, Hydrogen peroxide, Potassium permanganate",
-      "Chlorhexidine, Glutaraldehyde, Peracetic acid, Calcium hydroxide",
-      "Quaternary ammonium compounds, Iodophore, Phenol, Sodium hypochloride",
-      "Copper sulfate, Boric acid, Sodium bicarbonate, Zinc oxide powder"
-    ],
-    "answer": 2,
-    "explain": "สไลด์ระบุน้ำยาฆ่าเชื้อไว้ 4 กลุ่มคือ quaternary ammonium compounds (Quats), Iodophore, Phenol และ Sodium hypochloride โดยไม่ได้ระบุความเข้มข้นหรือ contact time สารในตัวเลือกอื่นเป็นสารฆ่าเชื้อที่มีใช้จริงในงานสัตวแพทย์ แต่ไม่ใช่รายการที่สไลด์บันทึกไว้สำหรับโรคนี้",
-    "verified": "1.4_AMPV p.18"
   },
   {
     "id": 105053,
@@ -759,23 +623,6 @@ export const QB_Y5_AVIAN_2026 = [
     "answer": 3,
     "explain": "สไลด์ระบุว่า NDV (AMPV-1) มี serotype เดียว แต่จำแนกได้ 21 genotypes ทุก genotype อยู่ใน serotype เดียวกัน และแอนติบอดีที่กระตุ้นจาก genotype หนึ่งสามารถ cross protect genotype อื่นได้ ตัวเลข 21 serotypes เป็นของ AMPV1-21 ทั้งกลุ่ม ไม่ใช่ของ NDV และการบอกว่าไม่ cross protect ขัดกับสไลด์โดยตรง",
     "verified": "1.1_NDV p.9"
-  },
-  {
-    "id": 105060,
-    "subject": "avian-medicine",
-    "topic": "avian-nd",
-    "year": 5,
-    "type": "mcq",
-    "q": "genotype ใดที่สไลด์ระบุว่าเป็นสายพันธุ์วัคซีน และ genotype ใดที่สำคัญในเอเชียตะวันออกเฉียงใต้",
-    "options": [
-      "วัคซีนคือ genotype III และ IV ส่วน genotype VII สำคัญในเอเชียตะวันออกเฉียงใต้",
-      "วัคซีนคือ genotype I และ II ส่วน genotype VII สำคัญในเอเชียตะวันออกเฉียงใต้",
-      "วัคซีนคือ genotype I และ II ส่วน genotype IV สำคัญในเอเชียตะวันออกเฉียงใต้",
-      "วัคซีนคือ genotype VII และ VIII ส่วน genotype II สำคัญในเอเชียตะวันออกเฉียงใต้"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุตรงว่า genotype I และ II คือกลุ่มที่ใช้เป็นวัคซีน และ genotype VII (แบ่งย่อยเป็น VII.1.1, VII.1.2, VII.2) เป็น genotype ที่สำคัญในเอเชียตะวันออกเฉียงใต้ genotype IV เป็นของสายพันธุ์ Mukteswar ในตารางวัคซีน mesogenic ไม่ใช่สายพันธุ์เด่นของภูมิภาค และ genotype VII ไม่ได้ถูกใช้เป็นสายพันธุ์วัคซีนตามสไลด์",
-    "verified": "1.1_NDV p.10"
   },
   {
     "id": 105061,

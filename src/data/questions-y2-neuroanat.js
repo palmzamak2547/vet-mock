@@ -70,44 +70,6 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "examOrigin": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
   },
   {
-    "id": 106815,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--diencephalon",
-    "year": 2,
-    "type": "mcq",
-    "q": "หน้าที่ initiation and planning of movement ซึ่งสไลด์จัดชนิดไว้ว่า relay-motor เป็นของนิวเคลียสใด",
-    "options": [
-      "ventral lateral (VL)",
-      "ventral posteromedial (VPM)",
-      "lateral dorsal (LD)",
-      "ventral anterior (VA)"
-    ],
-    "answer": 3,
-    "explain": "สไลด์เขียน ventral anterior (VA) เท่ากับ initiation and planning of movement ชนิด relay-motor ส่วน ventral lateral (VL) ถูกกำกับว่า co-ordination of movement และเป็น relay-motor เหมือนกัน จึงเป็นตัวลวงหลักเพราะต่างกันแค่ริเริ่มและวางแผนกับประสานการเคลื่อนไหว",
-    "verified": "Diencephalon น.16",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
-  },
-  {
-    "id": 106816,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--diencephalon",
-    "year": 2,
-    "type": "mcq",
-    "q": "กลุ่ม lateral nuclei ส่วนบนซึ่งประกอบด้วย pulvinar, lateral dorsal และ lateral posterior สไลด์กำกับหน้าที่ไว้ว่าอย่างไร",
-    "options": [
-      "co-ordination of movement แบบ relay-motor",
-      "initiation and planning of movement แบบ relay-motor",
-      "visual attention แบบ associate-sensory",
-      "somatic sense from head แบบ sensory"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนหน้าที่ให้กลุ่มส่วนบนทั้งกลุ่มเพียงบรรทัดเดียวคือ visual attention ชนิด associate-sensory ส่วน relay-motor เป็นชนิดของ VA และ VL ซึ่งอยู่ในกลุ่มส่วนล่าง ไม่ใช่ส่วนบน",
-    "verified": "Diencephalon น.16",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
-  },
-  {
     "id": 106817,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
@@ -488,25 +450,6 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "examOrigin": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
   },
   {
-    "id": 106837,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--midbrain",
-    "year": 2,
-    "type": "mcq",
-    "q": "Nucleus ใดของ CN V ที่สไลด์ระบุว่ารับ pain และ temperature จาก face, nasal และ oral cavities",
-    "options": [
-      "Mesencephalic nucleus of CN V",
-      "Pontine sensory nucleus of CN V",
-      "Motor nucleus of CN V",
-      "Nucleus of spinal tract of CN V"
-    ],
-    "answer": 3,
-    "explain": "สไลด์แบ่งงานของ nuclei CN V ไว้ชัด โดย nucleus of spinal tract รับ pain และ temp จาก face, nasal และ oral cavities ข้อที่ล่อใจคือ pontine sensory nucleus เพราะเป็น sensory nucleus เหมือนกัน แต่สไลด์ให้รับ touch จาก face เท่านั้น ส่วน mesencephalic nucleus รับ proprioception",
-    "verified": "Midbrain น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
-  },
-  {
     "id": 106838,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
@@ -678,25 +621,6 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
   },
   {
-    "id": 106848,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--myelencephalon",
-    "year": 2,
-    "type": "mcq",
-    "q": "area postrema บน wall ของ fourth ventricle สไลด์ระบุว่าเป็นศูนย์ใด และอยู่ตำแหน่งใดเทียบกับ obex",
-    "options": [
-      "respiratory center อยู่ทาง cranial ต่อ obex",
-      "emetic center และ CTZ อยู่ cranial ต่อ obex",
-      "emetic center และ CTZ อยู่ caudal ต่อ obex",
-      "cardiovascular center อยู่ caudal ต่อ obex"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ในส่วน wall เขียนว่า area postrema คือ emetic center และ CTZ อยู่ cranial ต่อ obex ตัวเลือกที่ให้ caudal ต่อ obex ล่อด้วยความจำว่า obex เป็นขอบ caudal ของ fourth ventricle จึงเผลอวาง area postrema ไว้หลัง obex ส่วน respiratory center กับ cardiovascular center สไลด์ยกไว้ที่กลุ่ม reticular formation nuclei",
-    "verified": "Myelencephalon น.7",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
-  },
-  {
     "id": 106850,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
@@ -735,25 +659,6 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "examOrigin": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
   },
   {
-    "id": 106853,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--neuro-exam-anatomy2024",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตามตาราง spinal reflexes ของสไลด์ patellar reflex อาศัยเส้นประสาทใดและตรงกับ spinal cord segment ใด",
-    "options": [
-      "Femoral nerve, segment L4-L6",
-      "Sciatic nerve, segment L7-S1",
-      "Tibial nerve, segment L6-S1",
-      "Peroneal nerve, segment L6-S1"
-    ],
-    "answer": 0,
-    "explain": "ตารางจับคู่ patellar reflex กับ femoral nerve และ segment L4-L6 ข้อที่ล่อใจคือ sciatic nerve L7-S1 เพราะเป็นแถวของ withdrawal reflex ขาหลังที่อยู่ในตารางเดียวกัน ส่วน tibial nerve L6-S1 เป็นของ gastrocnemius reflex และ peroneal nerve L6-S1 เป็นของ cranial tibial reflex",
-    "verified": "Neuro exam anatomy2024 น.18-19",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
-  },
-  {
     "id": 106855,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
@@ -771,44 +676,6 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Neuro exam anatomy2024 น.21",
     "sourceType": "lecture-derived",
     "examOrigin": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
-  },
-  {
-    "id": 106858,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--visual-vestibular-systems",
-    "year": 2,
-    "type": "mcq",
-    "q": "VISUAL FIELD และสไลด์ถัดมา retina ส่วน nasal half กับ temporal half ส่งสัญญาณไปสมองฝั่งใด",
-    "options": [
-      "nasal half ไป ipsilateral ส่วน temporal half ไป contralateral",
-      "nasal half ไป contralateral ส่วน temporal half ไป ipsilateral",
-      "ทั้ง nasal half และ temporal half ไป contralateral เหมือนกันทั้งคู่",
-      "ทั้ง nasal half และ temporal half ไป ipsilateral เหมือนกันทั้งคู่"
-    ],
-    "answer": 1,
-    "explain": "สไลด์เขียนกำกับไว้ตรง ๆ ว่า nasal half เท่ากับ contralateral และ temporal half เท่ากับ ipsilateral ซึ่งสอดคล้องกับผัง visual pathway ที่ระบุว่า nasal half คือส่วนที่ decussation ที่ optic chiasma ข้อที่สลับสองฝั่งกันเป็นตัวล่อที่พบบ่อย เพราะถ้าจำสลับจะทำให้อ่านตำแหน่งรอยโรคจาก visual field ผิดข้าง",
-    "verified": "visual vestibular systems น.18, น.21",
-    "sourceType": "lecture-derived",
-    "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
-  },
-  {
-    "id": 106859,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--visual-vestibular-systems",
-    "year": 2,
-    "type": "mcq",
-    "q": "บนผัง visual pathway ของสไลด์ fibres จาก optic tract แตกออกเป็นสองทาง สัดส่วนและปลายทางตรงกับข้อใด",
-    "options": [
-      "80% ไป rostral colliculus และ 20% ไป lateral geniculate nucleus",
-      "80% ไป lateral geniculate nucleus และ 20% ไป medial geniculate nucleus",
-      "50% ไป lateral geniculate nucleus และ 50% ไป rostral colliculus",
-      "80% ไป lateral geniculate nucleus และ 20% ไป rostral colliculus"
-    ],
-    "answer": 3,
-    "explain": "ผังบนสไลด์เขียนเลขกำกับไว้ว่า lateral geniculate nucleus ได้ 80% และ rostral colliculus ได้ 20% ข้อที่ใช้ medial geniculate nucleus เป็นตัวล่อที่ดี เพราะ medial geniculate nucleus มีอยู่จริงแต่เป็นสถานีของทางเดินการได้ยิน ไม่ใช่ทางเดินการเห็น ส่วนเลข 50% บนสไลด์เป็นตัวเลขของ visual field ในคน ไม่ใช่สัดส่วนการแตกแขนงของ optic tract",
-    "verified": "visual vestibular systems น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
   },
   {
     "id": 106860,
@@ -864,25 +731,6 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "answer": 1,
     "explain": "สไลด์นิยามไว้ตรง ๆ ว่า Horner syndrome เท่ากับ decreased sympathetic supply to the eye และลิสต์อาการไว้สี่อย่างคือ miosis, ptosis, enophthalmos และ protrusion of the nictitating membrane ข้อที่บอกว่า sympathetic เพิ่มขึ้นเป็นตัวล่อที่ดี เพราะถ้า sympathetic ทำงานมากขึ้นจะได้ mydriasis และตาโปน ซึ่งเป็นภาพตรงข้ามกับที่สไลด์ลิสต์ไว้",
     "verified": "visual vestibular systems น.41",
-    "sourceType": "lecture-derived",
-    "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
-  },
-  {
-    "id": 106866,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--visual-vestibular-systems",
-    "year": 2,
-    "type": "mcq",
-    "q": "สรุป vestibular pathway ข้อใดจับคู่เส้นทางที่ออกจาก vestibular nuclei กับปลายทางได้ตรงกับสไลด์",
-    "options": [
-      "medial longitudinal fasciculus ไปยัง nuclei ของ CN III, IV และ CN VI",
-      "vestibulospinal tract ไปยัง nuclei ของ CN III, IV และ CN VI",
-      "caudal peduncle ไปยัง reticular formation ของก้านสมองส่วนล่าง",
-      "medial longitudinal fasciculus ไปยัง temporal lobe ผ่าน diencephalon"
-    ],
-    "answer": 0,
-    "explain": "สไลด์แจกแจงห้าทางที่ออกจาก vestibular nuclei และเขียนไว้ว่าทางที่สองคือผ่าน medial longitudinal fasciculus ไปยัง nuclei ของ CN III, IV, VI ซึ่งเป็นฐานของ vestibulo-ocular reflex ข้อ caudal peduncle เป็นตัวล่อที่ดีเพราะสไลด์เขียน caudal peduncle ไว้จริง แต่จับคู่กับ cerebellum ผ่าน vestibulocerebellar tract ไม่ใช่ reticular formation ซึ่งเป็นทางที่สามที่แยกออกไปต่างหาก",
-    "verified": "visual vestibular systems น.48",
     "sourceType": "lecture-derived",
     "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
   },

@@ -30,23 +30,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "verified": "Concept_of_causation p.5"
   },
   {
-    "id": 105085,
-    "subject": "epidemiology",
-    "topic": "epidem-causation",
-    "year": 5,
-    "type": "mcq",
-    "q": "เลกเชอร์ยกกรณี mortality ของสุนัขที่รักษาในโรงพยาบาลส่งต่อ 50 จาก 1,000 ราย เทียบกับคลินิกขนาดเล็ก 1 จาก 50 ราย เป็นตัวอย่างของ spurious association ซึ่งสไลด์ระบุว่าเกิดจากสาเหตุใดได้บ้าง",
-    "options": [
-      "ตัวแปรกวน (confounding) และความคลาดเคลื่อนอย่างเป็นระบบ (bias)",
-      "ความแปรผันแบบสุ่ม (chance) และความสัมพันธ์แบบ dose-response",
-      "ความแปรผันแบบสุ่ม (chance) และความคลาดเคลื่อนอย่างเป็นระบบ (bias)",
-      "ตัวแปรกวน (confounding) และการขาด biological plausibility"
-    ],
-    "answer": 2,
-    "explain": "สไลด์ระบุว่า spurious association คือความสัมพันธ์ที่อาจไม่จริง โดยมีสาเหตุสองอย่างคือ chance ซึ่งเกิดจาก random variation และ bias ซึ่งเป็น systematic error ในการคัดเลือกหรือการวัด ส่วน confounding เป็นสาเหตุของ indirect association ไม่ใช่ spurious ขณะที่ dose-response และ plausibility เป็นเกณฑ์ประเมินความเป็นสาเหตุคนละส่วนกัน",
-    "verified": "Concept_of_causation p.9"
-  },
-  {
     "id": 105086,
     "subject": "epidemiology",
     "topic": "epidem-causation",
@@ -62,23 +45,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "answer": 0,
     "explain": "สไลด์วาง age เป็น confounding factor ที่มีลูกศรทึบไปทั้ง indoor cat และ CKD (old cat tends to stay indoor และ old cat develops CKD) เส้นระหว่าง indoor cat กับ CKD จึงเป็นเส้นประ แปลว่าไม่ใช่ความสัมพันธ์เชิงสาเหตุ ตัวเลือกกลไกการกินน้ำไม่ปรากฏในสไลด์ ตัวเลือกย้ายแมวเข้าบ้านหลังวินิจฉัยเป็นการสลับลำดับเหตุผล และสไลด์ก็ไม่ได้จัดกรณีนี้เป็น one-to-one",
     "verified": "Concept_of_causation p.11"
-  },
-  {
-    "id": 105087,
-    "subject": "epidemiology",
-    "topic": "epidem-causation",
-    "year": 5,
-    "type": "mcq",
-    "q": "ตาม Koch's postulates ทั้ง 4 ข้อที่สไลด์ระบุ ข้อที่ 4 กล่าวว่าอย่างไร",
-    "options": [
-      "ต้องพบเชื้อในสัตว์ป่วยทุกตัว และไม่พบในสัตว์ที่แข็งแรงดี",
-      "ต้องแยกเชื้อกลับคืนมาได้จากสัตว์ที่ถูกทำให้ติดเชื้อขึ้นใหม่",
-      "ต้องแยกเชื้อออกมาและเพาะเลี้ยงได้ในห้องปฏิบัติการ",
-      "ต้องทำให้เกิดโรคเดียวกันได้ในสัตว์ที่แข็งแรงดี"
-    ],
-    "answer": 1,
-    "explain": "สไลด์เรียง rule 1 พบในสัตว์ป่วยทุกตัวไม่พบในสัตว์ปกติ rule 2 แยกและเพาะเลี้ยงได้ rule 3 ทำให้เกิดโรคเดียวกันในสัตว์แข็งแรง และ rule 4 recovered from the newly infected animal คือแยกเชื้อกลับคืนจากสัตว์ที่ถูกทำให้ติดเชื้อใหม่ ตัวเลือกอื่นเป็น rule 1, 2 และ 3 ตามลำดับ จึงถูกแต่ผิดข้อที่ถาม",
-    "verified": "Concept_of_causation p.13"
   },
   {
     "id": 105089,
@@ -132,40 +98,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "verified": "Concept_of_causation p.19"
   },
   {
-    "id": 105092,
-    "subject": "epidemiology",
-    "topic": "epidem-causation",
-    "year": 5,
-    "type": "mcq",
-    "q": "เกณฑ์ temporality ระบุว่าเหตุต้องเกิดก่อนผล และช่วงเวลาระหว่างการสัมผัสกับการเกิดโรคแตกต่างกันมาก โรคใดที่สไลด์ระบุช่วงเวลาไว้ที่ 21 ถึง 180 วัน",
-    "options": [
-      "Foot-and-mouth disease",
-      "Brucellosis",
-      "Rabies",
-      "Bovine spongiform encephalopathy"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ให้ช่วงเวลาไว้ว่า FMD 2 ถึง 10 วัน Brucellosis 21 ถึง 180 วัน Rabies 9 วันถึง 450 วัน และ BSE 2 ถึง 8 ปี ช่วง 21 ถึง 180 วันจึงเป็นของ Brucellosis ส่วนอีกสามโรคมีช่วงสั้นกว่าหรือยาวกว่าอย่างชัดเจน",
-    "verified": "Concept_of_causation p.21"
-  },
-  {
-    "id": 105093,
-    "subject": "epidemiology",
-    "topic": "epidem-causation",
-    "year": 5,
-    "type": "mcq",
-    "q": "เกณฑ์ specificity ของ Bradford Hill ตามที่สไลด์อธิบาย ควรตีความอย่างไร",
-    "options": [
-      "เป็นเกณฑ์บังคับ หากปัจจัยหนึ่งทำให้เกิดหลายโรคถือว่าไม่ใช่สาเหตุ",
-      "วัดจากสัดส่วนผู้สัมผัสที่เกิดโรคเทียบกับผู้ไม่สัมผัสในกลุ่มเดียวกัน",
-      "หมายถึงผลการศึกษาต้องตรงกันในหลายประเทศจึงจะสรุปความเป็นสาเหตุได้",
-      "ยิ่งจำเพาะยิ่งมีโอกาสเป็นสาเหตุ แต่การไม่จำเพาะไม่ได้ปฏิเสธความเป็นสาเหตุ"
-    ],
-    "answer": 3,
-    "explain": "สไลด์เขียนว่ายิ่งจำเพาะยิ่งเพิ่มโอกาสของความสัมพันธ์เชิงสาเหตุ แต่ระบุชัดว่า not mandatory และ lack of specificity does not negate causation พร้อมตัวอย่างว่าไม่ใช่ทุกคนที่สูบบุหรี่จะเป็นมะเร็งปอด และไม่ใช่ทุกคนที่เป็นมะเร็งปอดจะสูบบุหรี่ การเทียบสัดส่วนผู้สัมผัสกับผู้ไม่สัมผัสคือ relative risk ส่วนผลตรงกันหลายประเทศคือ consistency",
-    "verified": "Concept_of_causation p.22"
-  },
-  {
     "id": 105094,
     "subject": "epidemiology",
     "topic": "epidem-causation",
@@ -217,23 +149,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "verified": "Concept_of_causation p.28"
   },
   {
-    "id": 105097,
-    "subject": "epidemiology",
-    "topic": "epidem-disease-transmission",
-    "year": 5,
-    "type": "mcq",
-    "q": "ตาม epidemiological triad ข้อใดคือปัจจัยที่สไลด์จัดไว้ในมุม Agent",
-    "options": [
-      "ภาวะขาดหรือได้รับสารอาหารเกิน และการบาดเจ็บ",
-      "ความหนาแน่นของการเลี้ยง และการระบายอากาศในโรงเรือน",
-      "สถานะภูมิคุ้มกัน สายพันธุ์ และอายุของตัวสัตว์",
-      "ระดับความสูงของพื้นที่ และความชื้นสัมพัทธ์ในอากาศ"
-    ],
-    "answer": 0,
-    "explain": "สไลด์แบ่ง agent เป็น biological (แบคทีเรีย ไวรัส ปรสิต), chemical (สารพิษ แอลกอฮอล์ ควัน) และ physical (trauma, nutrition lack/excess) ดังนั้นภาวะโภชนาการขาดหรือเกินและการบาดเจ็บจึงเป็น agent ไม่ใช่แค่เชื้อโรค ส่วนความหนาแน่น การระบายอากาศ ความสูงและความชื้นเป็น environment และภูมิคุ้มกัน สายพันธุ์ อายุเป็น host",
-    "verified": "concept_of_disease_transmission p.6"
-  },
-  {
     "id": 105098,
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
@@ -266,23 +181,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "answer": 1,
     "explain": "ตารางในสไลด์เรียงจากสั้นไปยาว โดย Johne's disease ในโคระบุไว้เป็น months to years ซึ่งยาวกว่า rabies ที่ระบุ weeks to months ส่วน FMD 2 ถึง 14 วัน และ canine parvovirus 3 ถึง 7 วัน สั้นที่สุดในตาราง",
     "verified": "concept_of_disease_transmission p.15"
-  },
-  {
-    "id": 105100,
-    "subject": "epidemiology",
-    "topic": "epidem-disease-transmission",
-    "year": 5,
-    "type": "mcq",
-    "q": "ในกราฟระบาด (epidemic curve) ของสไลด์ minimum incubation period หมายถึงระยะใด",
-    "options": [
-      "ระยะจาก exposure ถึงวันที่มีจำนวนเคสสูงสุดของการระบาด",
-      "ระยะจากเคสแรกไปจนถึงเคสสุดท้ายของการระบาดครั้งนั้น",
-      "ระยะจาก exposure ไปจนถึงเคสสุดท้ายที่ปรากฏบนกราฟ",
-      "ระยะจาก exposure ไปจนถึงเคสแรกที่เริ่มปรากฏบนกราฟ"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ลากเส้นประจากจุด exposure ที่ราว 1/2/2020 ไปยังเคสแรกที่ราว 1/6/2020 แล้วกำกับว่าเป็น minimum incubation ส่วนเส้นที่ลากไปถึงเคสสุดท้ายราว 1/12/2020 คือ maximum incubation ยอดกราฟที่ 1/9/2020 ไม่ได้ถูกใช้เป็นเกณฑ์ของค่าใดในสไลด์",
-    "verified": "concept_of_disease_transmission p.16"
   },
   {
     "id": 105101,
@@ -368,23 +266,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "answer": 2,
     "explain": "ตัวเลขในสไลด์เรียงจากน้อยไปมากคือ ผิวหนัง 5 ชั่วโมง ผ้า 1 วัน วัสดุรองพื้นพลาสติกยาง 3 วัน กระดาษลัง 6 วัน มูล 7 วัน ขนนก 15 วัน ดิน 18 วัน และน้ำ 21 วัน ซึ่งนานที่สุด สอดคล้องกับที่ triad ของ avian influenza ระบุ water areas ไว้ในมุม environment",
     "verified": "concept_of_disease_transmission p.26"
-  },
-  {
-    "id": 105108,
-    "subject": "epidemiology",
-    "topic": "epidem-disease-transmission",
-    "year": 5,
-    "type": "mcq",
-    "q": "โรคหนึ่งประเมินได้ว่ามีค่า R0 น้อยกว่า 1 ในฝูงหนึ่ง สไลด์ตีความว่าอย่างไร",
-    "options": [
-      "การติดเชื้อจะแพร่ขยายออกไปและการระบาดจะโตขึ้น",
-      "การติดเชื้อจะคงอยู่ในระดับคงที่ ไม่เพิ่มและไม่ลด",
-      "การติดเชื้อจะค่อยหมดไปจากประชากรฝูงนั้นในที่สุด",
-      "สัตว์ป่วย 1 ตัวจะแพร่ต่อได้เฉลี่ย 1 ตัวในทุกรุ่นถัดไป"
-    ],
-    "answer": 2,
-    "explain": "สไลด์ระบุสามเกณฑ์คือ R0 มากกว่า 1 การติดเชื้อแพร่และการระบาดโตขึ้น R0 เท่ากับ 1 การติดเชื้อคงอยู่ระดับคงที่ และ R0 น้อยกว่า 1 การติดเชื้อดับไปเอง กรณีสัตว์ป่วย 1 ตัวแพร่ต่อได้เฉลี่ย 1 ตัวคือนิยามของ R0 เท่ากับ 1 ไม่ใช่น้อยกว่า 1",
-    "verified": "concept_of_disease_transmission p.29"
   },
   {
     "id": 105109,

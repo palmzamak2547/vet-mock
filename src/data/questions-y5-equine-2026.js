@@ -165,44 +165,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
   },
   {
-    "id": 105225,
-    "subject": "equine-medicine",
-    "topic": "equine-parasites",
-    "year": 5,
-    "type": "mcq",
-    "q": "โรคที่สไลด์ระบุให้แยกออกจาก chorioptic mange คือข้อใด",
-    "options": [
-      "Coital exanthema ที่อวัยวะสืบพันธุ์",
-      "Viral papillomatosis ที่จมูกและริมฝีปาก",
-      "Eosinophilic granuloma บริเวณอานม้า",
-      "Greasy heel syndrome ที่ขาส่วนปลาย"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุ differentiation ของ chorioptic mange ไว้ว่า greasy heel syndrome เพราะทั้งคู่เกิดที่ขาส่วนปลายและมี dermatitis แบบมีของเหลวซึม ผู้จดยังเตือนว่าอาจเกิดร่วมกันเป็น co-infection ส่วน coital exanthema อยู่ที่อวัยวะสืบพันธุ์ papillomatosis อยู่ที่จมูกกับริมฝีปากและไม่คัน ส่วน eosinophilic granuloma เป็นก้อนแข็งไม่คัน",
-    "verified": "Equine Dermatology น.17",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
-    "id": 105226,
-    "subject": "equine-medicine",
-    "topic": "equine-parasites",
-    "year": 5,
-    "type": "mcq",
-    "q": "ขนาดยา doramectin ที่สไลด์ระบุสำหรับรักษา chorioptic mange ในม้าคือข้อใด",
-    "options": [
-      "150 ug/kg SC 2 ครั้ง ห่างกัน 7 วัน",
-      "300 ug/kg SC 2 ครั้ง ห่างกัน 14 วัน",
-      "300 ug/kg PO 3 ครั้ง ห่างกัน 5 วัน",
-      "600 ug/kg SC 2 ครั้ง ห่างกัน 28 วัน"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุ doramectin 300 ug/kg ฉีดใต้ผิวหนัง 2 ครั้ง ห่างกัน 14 วัน ส่วน ivermectin เป็น oral paste 200 ถึง 300 ug/kg ซ้ำที่ 14 วัน ตัวเลือกอื่นเปลี่ยนขนาด วิถีการให้ หรือช่วงห่างจนไม่ตรงกับที่บรรยาย",
-    "verified": "Equine Dermatology น.18",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
     "id": 105227,
     "subject": "equine-medicine",
     "topic": "equine-parasites",
@@ -260,25 +222,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
   },
   {
-    "id": 105230,
-    "subject": "equine-medicine",
-    "topic": "equine-parasites",
-    "year": 5,
-    "type": "mcq",
-    "q": "ขนาด prednisolone ที่สไลด์ระบุสำหรับควบคุมอาการคันจาก Culicoides hypersensitivity คือข้อใด",
-    "options": [
-      "0.5 ถึง 1 mg/kg วันละครั้ง แล้วค่อยลดขนาดลง",
-      "0.05 ถึง 0.1 mg/kg วันละสองครั้งต่อเนื่องตลอดชีวิต",
-      "5 ถึง 10 mg/kg วันละครั้งเป็นเวลาสามสัปดาห์",
-      "2 ถึง 3 mg/kg วันเว้นวันโดยไม่ต้องลดขนาดยา"
-    ],
-    "answer": 0,
-    "explain": "สไลด์ระบุ prednisolone 0.5 ถึง 1 mg/kg วันละครั้งแล้วค่อยลดขนาด ร่วมกับการกันไม่ให้ Culicoides เข้าถึงตัวม้า และย้ำว่ายาต้านฮิสตามีนได้ผลจำกัด ขนาดที่ต่ำหรือสูงเกินไปในตัวเลือกอื่นไม่ตรงกับที่บรรยาย และการให้ยาต่อเนื่องโดยไม่ลดขนาดเพิ่มความเสี่ยง laminitis",
-    "verified": "Equine Dermatology น.22",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
     "id": 105231,
     "subject": "equine-medicine",
     "topic": "equine-parasites",
@@ -332,44 +275,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 1,
     "explain": "สไลด์ระบุผลชิ้นเนื้อของ habronemiasis ว่าเป็น eosinophilic dermatitis ร่วมกับ coagulation necrosis และพบตัวอ่อนพยาธิ ส่วน ballooning degeneration กับ intranuclear inclusion body เป็นของ coital exanthema จาก EHV-3 epidermal hyperplasia กับ koilocyte เป็นของ viral papillomatosis และ flame figure กับ dystrophic mineralization เป็นของ eosinophilic granuloma",
     "verified": "Equine Dermatology น.29",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
-    "id": 105234,
-    "subject": "equine-medicine",
-    "topic": "equine-infectious",
-    "year": 5,
-    "type": "mcq",
-    "q": "เชื้อราก่อโรค dermatophytosis ในม้าที่สไลด์ระบุคือข้อใด",
-    "options": [
-      "Malassezia pachydermatis และ Candida albicans",
-      "Trichophyton equinum var. equinum และ M. equinum",
-      "Aspergillus fumigatus และ Cryptococcus neoformans",
-      "Sporothrix schenckii และ Histoplasma farciminosum"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุ superficial fungal infection ของม้าว่าเกิดจาก Trichophyton equinum var. equinum และ Microsporum equinum Malassezia เป็นยีสต์ที่ทำให้เกิด Malassezia dermatitis ซึ่งอยู่ในรายการแยกโรคของ atopic dermatitis ส่วน Aspergillus Cryptococcus Sporothrix และ Histoplasma farciminosum ก่อโรคเชื้อราลึกหรือใต้ผิวหนัง ไม่ใช่ dermatophyte",
-    "verified": "Equine Dermatology น.25",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
-    "id": 105235,
-    "subject": "equine-medicine",
-    "topic": "equine-infectious",
-    "year": 5,
-    "type": "mcq",
-    "q": "ยาทาภายนอกที่สไลด์แนะนำสำหรับ dermatophytosis ในม้าคือข้อใด",
-    "options": [
-      "Povidone iodine 10% อาบวันละครั้งติดต่อกัน 10 วัน",
-      "Benzyl benzoate ทาบาง ๆ วันละ 2 ครั้งจนรอยโรคหาย",
-      "Selenium sulfide 1% อาบสัปดาห์ละครั้งเป็นเวลา 3 สัปดาห์",
-      "Miconazole 2% กับ chlorhexidine 2% อาบสัปดาห์ละ 2 ครั้ง"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุแชมพู miconazole 2% ร่วมกับ chlorhexidine 2% อาบสัปดาห์ละ 2 ครั้ง เพราะไม่มียาต้านเชื้อราชนิดกินที่ขึ้นทะเบียนสำหรับม้า benzyl benzoate เป็นครีมบรรเทาอาการคันของ Culicoides hypersensitivity แชมพู selenium 1% ใช้กับเหาและ chorioptic mange ส่วน povidone iodine ไม่ได้ถูกระบุไว้ในสไลด์นี้",
-    "verified": "Equine Dermatology น.25",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
   },
@@ -526,44 +431,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
   },
   {
-    "id": 105244,
-    "subject": "equine-medicine",
-    "topic": "equine-tumors",
-    "year": 5,
-    "type": "mcq",
-    "q": "วิธีผ่าตัดที่สไลด์ระบุว่าให้ผลดีที่สุดสำหรับ sarcoid คือข้อใด",
-    "options": [
-      "Laser excision หายมากกว่า 80% ตั้งแต่ครั้งแรก",
-      "Sharp excision ด้วยมีดผ่าตัดธรรมดาให้ผลดีที่สุด",
-      "Cryotherapy ด้วยไนโตรเจนเหลวให้ผลดีที่สุด",
-      "Electrocautery ร่วมกับการเย็บปิดแผลแบบชั้นเดียว"
-    ],
-    "answer": 0,
-    "explain": "สไลด์ระบุว่า laser excision ให้ผลดีที่สุด หายมากกว่า 80% ตั้งแต่ความพยายามครั้งแรก ขณะที่ sharp excision ไม่แนะนำและ cryotherapy กลับเป็นซ้ำสูง ส่วน electrocautery ไม่ได้ถูกระบุไว้ในสไลด์",
-    "verified": "Equine Dermatology น.35",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
-    "id": 105245,
-    "subject": "equine-medicine",
-    "topic": "equine-tumors",
-    "year": 5,
-    "type": "mcq",
-    "q": "ยาใดที่สไลด์ระบุว่าใช้ฉีดเข้าก้อน sarcoid ได้",
-    "options": [
-      "Doxycycline ชนิดฉีดเข้าก้อนสัปดาห์ละครั้งติดต่อกัน",
-      "Mitomycin C และ cisplatin emulsion ฉีดเข้าก้อน",
-      "Ivermectin ผสม propylene glycol ฉีดเข้าก้อน",
-      "Benzyl benzoate เจือจางฉีดรอบก้อนเนื้องอก"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุ intralesional therapy ด้วย mitomycin C ซึ่งหายได้ถึง 96% cisplatin emulsion 87 ถึง 97% และ BCG สำหรับรอยโรครอบตา ivermectin ใน propylene glycol เป็นการใช้นอกฉลากราดขาสำหรับ chorioptic mange และ benzyl benzoate เป็นครีมทาบรรเทาอาการคัน",
-    "verified": "Equine Dermatology น.35",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
     "id": 105246,
     "subject": "equine-medicine",
     "topic": "equine-tumors",
@@ -655,25 +522,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "สไลด์ระบุว่า eosinophilic granuloma เป็นก้อนที่ขอบเขตชัด แข็ง ขนไม่ร่วง ไม่เจ็บ และไม่คัน โดยผิวหนังและขนที่คลุมอยู่ปกติเว้นแต่ถูกเสียดสี ก้อนนิ่มมีหนองเข้าได้กับฝีหรือการติดเชื้อ แผ่นแบนขนร่วงมีสะเก็ดเป็นของ occult sarcoid และตุ่มน้ำที่หายใน 14 วันเป็นของ coital exanthema",
     "verified": "Equine Dermatology น.40",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
-    "id": 105251,
-    "subject": "equine-medicine",
-    "topic": "equine-tumors",
-    "year": 5,
-    "type": "mcq",
-    "q": "ขนาด triamcinolone ที่สไลด์ระบุสำหรับฉีดรักษา eosinophilic granuloma คือข้อใด",
-    "options": [
-      "10 ถึง 15 mg ต่อก้อน ไม่เกิน 100 mg ต่อม้าหนึ่งตัว",
-      "0.1 ถึง 0.5 mg ต่อก้อน ไม่เกิน 2 mg ต่อม้าหนึ่งตัว",
-      "30 ถึง 50 mg ต่อก้อน ไม่เกิน 200 mg ต่อม้าหนึ่งตัว",
-      "3 ถึง 5 mg ต่อก้อน ไม่เกิน 20 mg ต่อม้าหนึ่งตัว"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุ triamcinolone 3 ถึง 5 mg ต่อก้อน ไม่เกิน 20 mg ต่อม้าหนึ่งตัว และซ้ำได้หลัง 2 สัปดาห์ เพดานรวมต่อตัวสำคัญเพราะสเตียรอยด์ชนิด depot เพิ่มความเสี่ยง laminitis ตัวเลือกอื่นให้ขนาดสูงหรือต่ำกว่าที่บรรยายหลายเท่า",
-    "verified": "Equine Dermatology น.41",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
   },
@@ -773,25 +621,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "เขียนจากสไลด์ Equine respiratory diseases ที่รุ่นพี่ Vet 85 จดกำกับ"
   },
   {
-    "id": 105257,
-    "subject": "equine-medicine",
-    "topic": "equine-respi",
-    "year": 5,
-    "type": "mcq",
-    "q": "การเคาะ (percussion) ผนังอกม้าตามวิธีที่เอกสารนี้บันทึกไว้ ทำอย่างไรและช่วยบอกอะไร",
-    "options": [
-      "วางช้อนแล้วเคาะ ฟังจากบนลงล่างเพื่อหา fluid line",
-      "เคาะจากล่างขึ้นบนเพื่อหาขอบบนของ pneumothorax",
-      "เคาะผนังอกด้านท้องเพื่อประเมินความชัดของ heave line",
-      "เคาะเหนือโพรงไซนัสทั้งสองข้างเพื่อเทียบเสียงก้องซ้ายขวา"
-    ],
-    "answer": 0,
-    "explain": "เอกสารเขียนกำกับที่ percussion ว่าเอาช้อนวางแล้วใช้นิ้วเคาะช้อนแล้วฟัง ซึ่งคือหลักการของ plessimeter และระบุว่าใน pneumonia ที่มีน้ำในปอด ให้ฟังจากบนลงล่างจะได้หาแนว fluid line ได้ การเคาะเหนือไซนัสเป็นเทคนิคจริงแต่ใช้กับ sinusitis ไม่ใช่ปอด ส่วน heave line ประเมินด้วยการดู ไม่ใช่การเคาะ",
-    "verified": "Ekwai Med น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "เขียนจากสไลด์ Equine respiratory diseases ที่รุ่นพี่ Vet 85 จดกำกับ"
-  },
-  {
     "id": 105258,
     "subject": "equine-medicine",
     "topic": "equine-respi",
@@ -806,25 +635,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     ],
     "answer": 1,
     "explain": "โน้ตระบุว่า BAL เก็บเฉพาะจุดที่อยู่ลึก บอกเรื่องการอักเสบได้ดี และดู neutrophil เป็นหลัก ส่วนการส่งเพาะเชื้อเอกสารเขียนไว้ที่ TTW ไม่ใช่ BAL การแทงผ่านผนังหลอดลมคือ transtracheal ซึ่งไม่ได้ให้ตัวอย่างจากทุกกลีบปอด และการแทงเข็มผ่านช่องซี่โครงดูดของเหลวคือ thoracocentesis ซึ่งเป็นคนละหัตถการ",
-    "verified": "Ekwai Med น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "เขียนจากสไลด์ Equine respiratory diseases ที่รุ่นพี่ Vet 85 จดกำกับ"
-  },
-  {
-    "id": 105259,
-    "subject": "equine-medicine",
-    "topic": "equine-respi",
-    "year": 5,
-    "type": "mcq",
-    "q": "สาเหตุของ sinusitis ในม้าที่เอกสารนี้กำกับไว้ว่าพบบ่อยที่สุดคือข้อใด",
-    "options": [
-      "การติดเชื้อราในโพรงไซนัสจากสิ่งแวดล้อม",
-      "เนื้องอกในโพรงจมูกร่วมกับ progressive hematoma",
-      "การติดเชื้อไวรัสของทางเดินหายใจส่วนต้น",
-      "การติดเชื้อที่รากฟัน (tooth root infection)"
-    ],
-    "answer": 3,
-    "explain": "สไลด์แบ่งเป็น primary sinusitis จาก viral, fungus หรือ bacteria ซึ่งมีโน้ตกำกับว่าไม่ค่อยเกิด กับ secondary sinusitis ที่นำด้วย tooth root infection และถูกไฮไลต์ไว้ พร้อมวงเล็บปีกกาเขียนว่าเจอบ่อยสุด ตัวเลือกที่เหลือคือสาเหตุจริงทั้งหมด แต่เป็นกลุ่มที่เอกสารระบุว่าพบน้อยกว่า หรือเป็นสาเหตุ secondary รายการอื่น",
     "verified": "Ekwai Med น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสไลด์ Equine respiratory diseases ที่รุ่นพี่ Vet 85 จดกำกับ"
@@ -925,25 +735,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
   },
   {
-    "id": 105265,
-    "subject": "equine-medicine",
-    "topic": "equine-ophth",
-    "year": 5,
-    "type": "mcq",
-    "q": "ม้าที่ต้องได้ยาหยอดตาถี่มากแต่หยอดยาก เอกสารนี้แนะนำให้เลือกวิธีใด",
-    "options": [
-      "วางระบบ subpalpebral lavage เพื่อให้ยาผ่านท่อ",
-      "เย็บ nictitating membrane flap คลุมกระจกตาไว้",
-      "ฉีดยาเข้า anterior chamber ซ้ำทุกครั้งที่ต้องให้ยา",
-      "เปลี่ยนไปใช้ยาปฏิชีวนะกินและงดยาหยอดตาทั้งหมด"
-    ],
-    "answer": 0,
-    "explain": "เอกสารเขียนว่าม้าหยอดตายาก จึงใช้ subpalpebral lavage เพื่อให้ยาผ่านท่อแทน และในเคส tumor series ก็ใส่ SPL หลังทำ keratectomy ส่วน nictitating membrane flap มีอยู่จริงในเอกสารแต่เป็นการปกป้องกระจกตา ไม่ใช่ช่องทางให้ยา การฉีดเข้า anterior chamber ซ้ำ ๆ ไม่ใช่วิธีให้ยาประจำ และการงดยาหยอดขัดกับความจำเป็นของโรคที่ผิวกระจกตา",
-    "verified": "Ekwai Med น.6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
-  },
-  {
     "id": 105266,
     "subject": "equine-medicine",
     "topic": "equine-ophth",
@@ -977,44 +768,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     ],
     "answer": 1,
     "explain": "เอกสารระบุว่า glaucoma เกิดจาก aqueous humor ระบายออกจากมุมตาไม่ได้จน IOP สูง และพบรอยโรคเช่น descemet streak หรือ Haab striae ซึ่งเป็นรอยร้าวจากความดัน ส่วน corpora nigra เป็นโครงสร้างปกติของม่านตาม้า star of Winslow เป็นลักษณะปกติของ fundus และ bullet hole lesion เป็นรอยโรคของ chorioretinitis จาก ERU",
-    "verified": "Ekwai Med น.6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
-  },
-  {
-    "id": 105268,
-    "subject": "equine-medicine",
-    "topic": "equine-ophth",
-    "year": 5,
-    "type": "mcq",
-    "q": "จุดสีเข้มที่พบใน fundus ปกติของม้า เอกสารนี้เรียกว่าอะไร",
-    "options": [
-      "Granular iridica",
-      "Descemet streak",
-      "Star of Winslow",
-      "Tapetum fibrosum"
-    ],
-    "answer": 2,
-    "explain": "เอกสารเขียนว่า fundus พบ dark dot ได้ เรียกว่า star of Winslow ซึ่งเป็นลักษณะปกติ ไม่ใช่รอยโรค ส่วน granular iridica หรือ corpora nigra คือติ่งสีดำที่ขอบม่านตาซึ่งช่วยกันแสงยูวี descemet streak หรือ Haab striae เป็นรอยร้าวจากความดันลูกตาที่สูงเรื้อรัง และ tapetum เอกสารระบุเพียงว่าของม้ามีหลายสี",
-    "verified": "Ekwai Med น.6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
-  },
-  {
-    "id": 105269,
-    "subject": "equine-medicine",
-    "topic": "equine-ophth",
-    "year": 5,
-    "type": "mcq",
-    "q": "การตรวจ fundus ของม้าตามเนื้อหาที่เอกสารนี้สอนไว้ นิยมใช้วิธีใด",
-    "options": [
-      "Direct ophthalmoscopy เพราะให้กำลังขยายสูงกว่า",
-      "Indirect ophthalmoscopy เพราะเห็นภาพกว้างกว่า",
-      "Slit lamp biomicroscopy เพียงอย่างเดียว",
-      "Gonioscopy ร่วมกับการวัดความดันด้วย tonometry"
-    ],
-    "answer": 1,
-    "explain": "บรรทัดเรื่อง retina ในเอกสารระบุว่าเวลาตรวจนิยมใช้แบบ indirect ophthalmoscopy ซึ่งสอดคล้องกับที่ม้ามี large retinal field และ tapetum ที่ต้องดูภาพรวมกว้าง gonioscopy ใช้ดูมุมตาในบริบท glaucoma และ tonometry ใช้วัดความดัน ไม่ใช่ดู fundus โปรดสังเกตว่าผู้จดเขียนกำกับไว้ว่าในตัวเลือกของข้อสอบปีนั้นเหมือนจะมีแค่ direct ซึ่งเป็นข้อสังเกตเฉพาะข้อสอบของรุ่นก่อน ไม่ใช่เนื้อหาวิชา",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
@@ -3357,44 +3110,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
   {
-    "id": 105393,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "ตามชุดสไลด์ hospital-based surgery ม้าที่จะเข้าผ่าตัดทั่วไปควรงดอาหารข้นหรือหญ้านานเท่าใด และจัดการน้ำอย่างไร",
-    "options": [
-      "งดอาหาร 3 ชั่วโมง และงดน้ำ 3 ชั่วโมงก่อนผ่าตัด",
-      "งดอาหาร 6 ชั่วโมง และให้น้ำได้จนถึงเวลาผ่าตัด",
-      "งดอาหาร 12 ชั่วโมง และงดน้ำ 6 ชั่วโมงก่อนผ่าตัด",
-      "งดอาหาร 24 ชั่วโมง และงดน้ำ 12 ชั่วโมงก่อนผ่าตัด"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุว่า withhold grain or grass 6 hours before surgery และ water allowed ad libitum until surgery จุดที่ผิดในตัวเลือกอื่นคือการงดน้ำ ซึ่งสไลด์ไม่ได้ให้งดในเคสทั่วไป ระวังว่าชุดสไลด์ field-based ในไฟล์เดียวกันใช้ตัวเลข 12 ชั่วโมงสำหรับหญ้า จึงต้องดูบริบทของโจทย์ว่าเป็นเคสในโรงพยาบาลหรือในสนาม",
-    "verified": "Equine Sx concept น.6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
-    "id": 105394,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "ในเคสที่ต้องเปิดช่องท้อง (major abdominal operation) สไลด์แนะนำให้งดอาหารและวัสดุรองนอนที่กินได้ก่อนผ่าตัดนานเท่าใด",
-    "options": [
-      "12 ชั่วโมงก่อนผ่าตัด",
-      "24 ชั่วโมงก่อนผ่าตัด",
-      "48 ชั่วโมงก่อนผ่าตัด",
-      "72 ชั่วโมงก่อนผ่าตัด"
-    ],
-    "answer": 3,
-    "explain": "สไลด์เขียนว่า for major abdominal operations withhold all feed and edible bedding up to 72 hours preoperatively โดยลายมือเสริมว่าให้ค่อย ๆ ลดอาหารลงภายใน 72 ชั่วโมง ส่วนตัวเลข 12 ถึง 24 ชั่วโมงในสไลด์เดียวกันเป็นของช่วงหลังผ่าตัดใน GI surgery ไม่ใช่ก่อนผ่าตัด",
-    "verified": "Equine Sx concept น.6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
     "id": 105395,
     "subject": "equine-medicine",
     "topic": "equine-intro",
@@ -3528,25 +3243,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
   {
-    "id": 105403,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "ประวัติข้อใดที่สไลด์ระบุว่าเป็น hidden sign ซึ่งเพิ่มความเสี่ยงในการวางยาม้า Quarter Horse ที่มีกล้ามเนื้อมัดใหญ่",
-    "options": [
-      "Hyperkalemic periodic paralysis",
-      "Equine metabolic syndrome (EMS)",
-      "Recurrent airway obstruction (RAO)",
-      "Pituitary pars intermedia dysfunction"
-    ],
-    "answer": 0,
-    "explain": "สไลด์ลงท้ายหัวข้อ hidden sign ด้วย hyperkalemic periodic paralysis of large muscular quarter horse ซึ่งเป็นภาวะทางพันธุกรรมของสายพันธุ์นี้และมีผลต่อระดับโพแทสเซียมระหว่างวางยา ส่วนภาวะอื่นเป็นโรคจริงในม้าแต่ไม่ใช่ตัวที่สไลด์ยกเป็นความเสี่ยงเฉพาะของ Quarter Horse",
-    "verified": "Equine Sx concept น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
     "id": 105404,
     "subject": "equine-medicine",
     "topic": "equine-anesthesia",
@@ -3562,44 +3258,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "สไลด์จัด rhabdomyolysis และ salmonellosis ไว้เป็น hidden sign พร้อมกำกับว่า risk while transportation ลายมือเสริมว่าถ้าม้ายืนเดินทางนาน ๆ จะยิ่งเป็น rhabdomyolysis มากขึ้นเมื่อถูกกดทับตอน GA ซึ่งเพิ่มความเสี่ยงต่อการวางยาและทำให้ recovery ช้า ส่วนสิ่งที่สไลด์กล่าวถึงเรื่องเลือดคือ stress leukogram ไม่ใช่ PCV ตกจนต้องให้เลือด",
     "verified": "Equine Sx concept น.5 และ น.8",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
-    "id": 105405,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "เหตุใดสไลด์จึงระบุว่าควรให้ยากลุ่ม narcotic เช่น butorphanol หลังจากให้ยาซึมแล้วเท่านั้น",
-    "options": [
-      "เพราะยาจะถูกทำลายที่ตับเร็วเกินไปหากให้ก่อนยาซึม",
-      "เพราะจะทำให้ม้าเกิดภาวะกดการหายใจอย่างรุนแรงทันที",
-      "เพราะถ้าให้เดี่ยว ๆ ม้าจะเกิดอาการตื่นเต้น (excitement)",
-      "เพราะจะรบกวนการวัดค่า oxygen saturation ที่ปลายลิ้นของม้า"
-    ],
-    "answer": 2,
-    "explain": "สไลด์วงเล็บไว้ตรง ๆ ว่า only after sedation เพราะ excited when give alone ซึ่งเป็นพฤติกรรมที่พบในม้าเมื่อได้ opioid เดี่ยว ๆ ตัวเลือกอื่นเป็นผลข้างเคียงที่พูดถึงได้ในบริบทอื่นแต่ไม่ใช่เหตุผลที่สไลด์ให้",
-    "verified": "Equine Sx concept น.27",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
-    "id": 105406,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "ยากลุ่มใดที่สไลด์ระบุว่าใช้เป็น chemical restraint ในม้า และลายมือกำกับตัวอย่างยาไว้",
-    "options": [
-      "Alpha-2 agonist (xylazine, detomidine) และ phenothiazine (acepromazine)",
-      "Benzodiazepine (diazepam) และ barbiturate (pentobarbital, thiopental)",
-      "Alpha-1 antagonist (prazosin) และ beta-blocker (propranolol, atenolol)",
-      "Dissociative (ketamine, tiletamine) และ anticholinergic (atropine, glycopyrrolate)"
-    ],
-    "answer": 0,
-    "explain": "สไลด์เขียนว่า anesthetic agent คือ alpha-2 agonist or phenothiazine โดยลายมือเติมตัวอย่างว่า xylazine กับ detomidine สำหรับกลุ่มแรก และ ACPM คือ acepromazine สำหรับ phenothiazine ส่วน ketamine ปรากฏในสไลด์อีกหน้าในฐานะสาเหตุของ nystagmus ระหว่าง monitor และ atropine อยู่ในรายการยาฉุกเฉิน ไม่ใช่ยาบังคับสัตว์",
-    "verified": "Equine Sx concept น.28",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3623,44 +3281,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
   {
-    "id": 105408,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "เมื่อต้องเติมยาระหว่างการวางยาแบบ TIVA ในสนาม สไลด์แนะนำให้ใช้ขนาดยาเท่าใด",
-    "options": [
-      "ขนาดเท่ากับ dose แรกทุกครั้งที่ต้องเติมยาซ้ำ",
-      "ประมาณ 2 เท่าของ dose แรกทุกครั้ง",
-      "ประมาณ 1 ใน 2 หรือ 1 ใน 3 ของ dose แรก",
-      "ประมาณ 1 ใน 10 ของ dose แรกทุกครั้ง"
-    ],
-    "answer": 2,
-    "explain": "หัวข้อ safety tips เขียนว่า top up drug with half or one third of first dose TIVA การใช้ dose เท่าเดิมหรือมากกว่าเดิมเสี่ยงต่อการวางยาลึกเกินไปและ recovery ยาว ส่วน 1 ใน 10 น้อยเกินกว่าจะรักษาระดับการสลบไว้ได้",
-    "verified": "Equine Sx concept น.29",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
-    "id": 105409,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "หลังผ่าตัดในโรงพยาบาล สไลด์ระบุแนวทางเวลาในห้อง recovery อย่างไร",
-    "options": [
-      "ให้นอนตะแคงอย่างน้อย 20 นาที แล้วนอนหมอบอีก 10 ถึง 20 นาทีก่อนลุก",
-      "ให้นอนตะแคงไม่เกิน 5 นาที แล้วพยุงให้ลุกยืนทันทีเพื่อลดการกดทับ",
-      "ให้นอนหมอบก่อนอย่างน้อย 20 นาที แล้วจึงพลิกลงนอนตะแคงต่ออีก 20 นาที",
-      "ให้นอนตะแคงอย่างน้อย 60 นาทีเสมอ ห้ามให้ลุกก่อนครบกำหนดเวลา"
-    ],
-    "answer": 0,
-    "explain": "สไลด์เขียน timeline ว่า lateral อย่างน้อย 20 นาที แล้วจึง sternal อีก 10 ถึง 20 นาทีก่อนลุกยืน ลำดับจึงเป็นตะแคงก่อนแล้วค่อยหมอบ ไม่ใช่กลับกัน ส่วนตัวเลข 60 นาทีในสไลด์คือเกณฑ์ว่าถ้าม้าไม่ขยับเลยภายใน 60 นาทีให้เข้าไปประเมินอย่างนุ่มนวล ไม่ใช่ระยะเวลาที่ต้องนอนตะแคง",
-    "verified": "Equine Sx concept น.23",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
     "id": 105410,
     "subject": "equine-medicine",
     "topic": "equine-intro",
@@ -3675,25 +3295,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     ],
     "answer": 3,
     "explain": "สไลด์ขีดเส้นใต้ไว้ว่า temperature, pulse rate and respiratory rate (TPR) is the most important เพราะเป็นตัวเตือนศัลยแพทย์ถึงปัญหา cardiorespiratory หรือปัญหาเชิงระบบ และมีผลต่อการวางแผน elective surgery ส่วนการฟังช่องอกและช่องท้อง และการประเมินมูล เป็นรายการที่ตามมาในลำดับถัดไป",
-    "verified": "Equine Sx concept น.8",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
-    "id": 105411,
-    "subject": "equine-medicine",
-    "topic": "equine-intro",
-    "year": 5,
-    "type": "mcq",
-    "q": "ค่าโลหิตวิทยาที่สไลด์ระบุว่ายอมรับได้ก่อนผ่าตัดม้าคือข้อใด",
-    "options": [
-      "PCV มากกว่า 20 เปอร์เซ็นต์ และ WBC น้อยกว่า 20,000 เซลล์ต่อ ลบ.มม.",
-      "PCV มากกว่า 45 เปอร์เซ็นต์ และ WBC น้อยกว่า 8,000 เซลล์ต่อ ลบ.มม.",
-      "PCV มากกว่า 30 เปอร์เซ็นต์ และ WBC มากกว่า 15,000 เซลล์ต่อ ลบ.มม.",
-      "PCV มากกว่า 30 เปอร์เซ็นต์ และ WBC น้อยกว่า 12,000 เซลล์ต่อ ลบ.มม."
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุ pack cell volume มากกว่า 30 เปอร์เซ็นต์ hemoglobin มากกว่า 10 g/dL และ white blood cells น้อยกว่า 12,000 cells ต่อ ลบ.มม. ทิศทางของ WBC ต้องเป็นน้อยกว่าเพราะค่าที่สูงบ่งถึงการอักเสบหรือการติดเชื้อที่ยังไม่ถูกควบคุม",
     "verified": "Equine Sx concept น.8",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
@@ -3714,63 +3315,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "สไลด์เขียนว่า older foals without a complete vaccination series should receive tetanus toxoid before surgery ส่วนภูมิจาก colostrum ของแม่เป็นของลูกม้าแรกเกิด ไม่ใช่ลูกม้าที่โตขึ้นมาแล้ว และสไลด์ไม่ได้ให้เลื่อนผ่าตัดหรือใช้ยาปฏิชีวนะแทนวัคซีน",
     "verified": "Equine Sx concept น.7",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
-    "id": 105413,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "ในการวางยาม้าในสนาม (field anesthesia) สไลด์แนะนำให้งดหญ้าก่อนอย่างน้อยกี่ชั่วโมง",
-    "options": [
-      "อย่างน้อย 6 ชั่วโมง",
-      "อย่างน้อย 12 ชั่วโมง",
-      "อย่างน้อย 24 ชั่วโมง",
-      "อย่างน้อย 48 ชั่วโมง"
-    ],
-    "answer": 1,
-    "explain": "หัวข้อ animal preparation ของชุด field-based ระบุ NPO grass at least 12 h ส่วน pelleted feed at least 24 h โดยไม่จำกัดน้ำ ตัวเลข 6 ชั่วโมงเป็นของชุด hospital-based ในไฟล์เดียวกัน จึงต้องดูว่าโจทย์ถามบริบทไหน",
-    "verified": "Equine Sx concept น.25",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
-    "id": 105414,
-    "subject": "equine-medicine",
-    "topic": "equine-anesthesia",
-    "year": 5,
-    "type": "mcq",
-    "q": "ยาฉุกเฉินที่สไลด์ระบุให้เตรียมไว้ในชุดวางยาม้าในสนามคือข้อใด",
-    "options": [
-      "Atropine, dobutamine และ dopamine",
-      "Furosemide, mannitol และ heparin",
-      "Oxytocin, calcium gluconate และ insulin",
-      "Flumazenil, naloxone และ neostigmine"
-    ],
-    "answer": 0,
-    "explain": "Equipment checklist ของสไลด์ระบุ emergency drugs เป็น anticholinergic ซึ่งยกตัวอย่าง atropine พร้อมกับ dobutamine และ dopamine ซึ่งเป็นยาพยุงระบบไหลเวียนเลือด อีกหน้าหนึ่งยังย้ำให้เตรียม epinephrine กับ atropine ไว้ให้หยิบได้ทันที ส่วนยาในตัวเลือกอื่นไม่ได้ถูกกล่าวถึงในชุดสไลด์นี้",
-    "verified": "Equine Sx concept น.26 และ น.29",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
-    "id": 105415,
-    "subject": "equine-medicine",
-    "topic": "equine-intro",
-    "year": 5,
-    "type": "mcq",
-    "q": "ขั้นตอน time out ในรายการตรวจสอบก่อนผ่าตัด (surgical checklist) ทำเมื่อใด",
-    "options": [
-      "ก่อนการนำสลบ (before induction of anesthesia)",
-      "ก่อนเริ่มลงมีดผ่าตัด (before initiation of surgery)",
-      "ก่อนนำม้าเข้าสู่ช่วงฟื้นตัว (before recovery)",
-      "หลังนับเครื่องมือและผ้าซับเลือดครบถ้วนแล้วทุกชิ้นก่อนปิดแผล"
-    ],
-    "answer": 1,
-    "explain": "ตารางในสไลด์กำหนดว่า sign in ทำก่อน induction of anesthesia, time out ทำก่อน initiation of surgery และ sign out ทำก่อน recovery ส่วนการนับเครื่องมือและผ้าซับเลือดเป็นรายการที่อยู่ในขั้นตอน sign out",
-    "verified": "Equine Sx concept น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
