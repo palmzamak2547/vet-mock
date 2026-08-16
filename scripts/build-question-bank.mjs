@@ -82,6 +82,14 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
     // questions). Either satisfies the citation rule — having neither fails.
     if (!q.verified && !q.examOrigin) { fail('no citation (verified or examOrigin)'); continue; }
 
+    // `examOrigin` means a real past paper — "COM III Final 2019". A lecture
+    // deck is a `source`. Filling examOrigin with a deck name (which a
+    // house-style pass did to all 145 Year-2 questions) makes a slide-derived
+    // question wear the authority of a past exam. Refuse it rather than guess.
+    if (/lecture deck|lecture-derived|\.pdf|\.pptx/i.test(q.examOrigin || '')) {
+      fail(`examOrigin names a deck, not an exam: ${q.examOrigin}`); continue;
+    }
+
     kept.push({
       id: ++maxId,
       subject: SUBJECT,
@@ -97,6 +105,7 @@ for (const f of fs.readdirSync(DIR).filter((x) => x.endsWith('.json'))) {
       // distinguished past-paper and student-compilation items from
       // lecture-derived ones. Dropping them here would silently launder the
       // provenance the extraction was careful to record.
+      ...(q.source ? { source: q.source } : {}),
       ...(q.sourceType ? { sourceType: q.sourceType } : {}),
       ...(q.examOrigin ? { examOrigin: q.examOrigin } : {}),
     });

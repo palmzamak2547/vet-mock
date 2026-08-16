@@ -17,6 +17,8 @@ export const QUESTIONS_Y2_HISTO = [
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
+    "source": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Bursa of Fabricius ของไก่เห็นชัดที่อายุเท่าใด ถดถอยเมื่อใด และเหลือเป็น remnant เมื่อใด",
     "options": [
@@ -27,15 +29,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์ให้ไทม์ไลน์ไว้เป็นชุดว่า obvious at 1-2-month-old chicken, regress at 8-12 months และ remnant at 20 months ตัวเลือกที่ล่อให้พลาดคือชุด 1-2 สัปดาห์ เพราะหลายคนจำว่า bursa เป็นอวัยวะของลูกไก่แรกเกิดจึงเดาเป็นสัปดาห์ แต่สไลด์เขียนหน่วยเป็นเดือนชัดเจน",
-    "verified": "Avian น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Avian น.20"
   },
   {
     "id": 106625,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
+    "source": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Bursa of Fabricius คำว่า FAE (Follicular associated epithelium) หมายถึงเยื่อบุชนิดใดและอยู่ตรงไหน",
     "options": [
@@ -46,15 +48,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์แยกศัพท์สองตัวไว้ชัดว่า FAE คือ simple columnar epithelium ที่กลายเป็น epithelial tuft อยู่ที่ยอดของแต่ละ follicle ส่วนตัวลวงข้อแรกคือ ISE (interfollicular surface epithelium) ซึ่งเป็น pseudostratified columnar epithelium ที่คลุมพื้นที่ระหว่าง follicle จึงเป็นคนละตัวกัน",
-    "verified": "Avian น.21",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Avian น.21"
   },
   {
     "id": 106626,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
+    "source": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "หลักการพื้นฐานของระบบน้ำเหลืองในนก คือข้อใด",
     "options": [
@@ -65,15 +67,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์เปิดหัวข้อ lymphatic system ด้วยประโยคว่านกไม่มี lymph nodes มีแต่ diffuse lymphatic tissue และ lymphatic nodules ตัวลวงที่ต้องระวังคือข้อที่บอกว่าไม่มี primary lymphatic tissue เพราะสไลด์หน้าเดียวกันระบุว่านกมี primary lymphatic tissues ครบคือ thymus สำหรับ T lymphocyte และ bursa of Fabricius สำหรับ B lymphocyte",
-    "verified": "Avian น.15",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Avian น.15"
   },
   {
     "id": 106628,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
+    "source": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Air sac ของนกมีลักษณะเยื่อบุและบทบาทต่อการแลกเปลี่ยนก๊าซอย่างไร",
     "options": [
@@ -84,15 +86,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์เขียนว่า air sac บุด้วย simple squamous epithelial cells รองด้วย collagen และ elastic CNT ชั้นบาง เป็น poorly vascularized และระบุตรงตัวว่า not participate in the gas exchange ตัวลวงที่แรงที่สุดคือ type I และ type II pneumocytes เพราะเยื่อบุแบบนั้นสไลด์ใช้กับ air capillaries ซึ่งเป็นส่วนแลกเปลี่ยนก๊าซจริง ไม่ใช่ air sac",
-    "verified": "Avian น.35",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Avian น.35"
   },
   {
     "id": 106629,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
+    "source": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Cuticle (koilin layer) ของ gizzard มีองค์ประกอบและหน้าที่อย่างไร",
     "options": [
@@ -103,15 +105,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์เขียนว่า cuticle หรือ koilin layer เป็น CHO-Protein complex ทำหน้าที่ protect mucosa from digestion by acid and enzyme from proventriculus ตัวลวงข้อแรกคือ keratin เพราะสไลด์บรรยายว่าเป็นชั้นหนา แข็ง คล้าย keratin แต่คำว่าคล้ายไม่ได้แปลว่าเป็น keratin จริง องค์ประกอบที่สไลด์ระบุยังเป็น CHO-Protein complex",
-    "verified": "Avian น.48-49",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Avian lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Avian น.48-49"
   },
   {
     "id": 106633,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow-laboratory",
     "year": 2,
+    "source": "Bone Marrow Laboratory lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ภาพทั้ง 4 ภาพของชุด Papanicolaou method กำกับชื่อเซลล์กลุ่มใดไว้",
     "options": [
@@ -122,15 +124,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "ชุด Papanicolaou กำกับเฉพาะ Metarubricyte, Normochromatic rubricyte และ Polychromatic rubricyte ซึ่งล้วนเป็นสาย erythroid ปลายทาง ไม่มีภาพสาย granulocytic หรือ megakaryocyte เลย ตัวเลือก megakaryocyte ล่อให้ตอบเพราะ megakaryocyte มีภาพเน้นอยู่จริง แต่ทั้งหมดอยู่ในชุด Wright-Giemsa",
-    "verified": "Bone Marrow Laboratory น.51-55",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Bone Marrow Laboratory lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Bone Marrow Laboratory น.51-55"
   },
   {
     "id": 106638,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
+    "source": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดตรงกับลักษณะของ vascular compartment ในไขกระดูก",
     "options": [
@@ -141,15 +143,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "เด็คระบุชัดว่า bone marrow ไม่มี lymphatic drainage และ mature blood cells ทุกตัวออกจากไขกระดูกผ่านทาง venous sinuses หรือ sinusoids ตัวเลือกที่มี lymphatic drainage หนาแน่นจึงขัดกับ Notice บนสไลด์โดยตรง ส่วน central longitudinal arteries และ radial branches เป็นทางเลือดเข้า ไม่ใช่ทางออกของเซลล์ ทางออกที่ถูกคือ sinusoid รวมเป็น central longitudinal vein",
-    "verified": "Bone Marrow น.7-8",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Bone Marrow น.7-8"
   },
   {
     "id": 106639,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
+    "source": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "การแบ่งเซลล์แบบ mitosis ในสาย erythroid หยุดลงที่ระยะใด",
     "options": [
@@ -160,15 +162,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "เด็คระบุไว้ที่ระยะ polychromatic rubricyte ว่า mitotic division หยุดที่ระยะนี้ โดยระยะนี้มีขนาด 10-12 µm N:C ratio 2:1 และ cytoplasm สี muddy bluish red จาก hemoglobin ที่เพิ่มขึ้น ตัวเลือก metarubricyte เป็นตัวลวงที่น่าเลือกเพราะ nucleus เป็น pyknotic และกำลังจะถูก extrude แต่การหยุดแบ่งตัวเกิดขึ้นก่อนหน้านั้นแล้ว ส่วน rubriblast กับ prorubricyte ยังแบ่งตัวได้",
-    "verified": "Bone Marrow น.19-25, 27",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Bone Marrow น.19-25, 27"
   },
   {
     "id": 106640,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
+    "source": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Erythroblastic island ในไขกระดูกมีองค์ประกอบตรงกับข้อใด",
     "options": [
@@ -179,15 +181,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "แต่ละ erythroblastic island ประกอบด้วย central macrophage หนึ่งตัวล้อมรอบด้วย erythropoietic cells ระยะต่าง ๆ 1-2 ชั้น โดย cytoplasmic processes ของ macrophage ยื่นแทรกไปให้สารจำเป็นเช่น iron แก่เซลล์รอบข้าง ตัวเลือก adventitial reticular cell เป็นตัวลวงที่ดีเพราะเป็นเซลล์ที่มีจริงในไขกระดูกและช่วยพยุงเซลล์ที่ผ่านผนัง sinusoid แต่ไม่ใช่เซลล์ที่อยู่ใจกลาง island",
-    "verified": "Bone Marrow น.28",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Bone Marrow น.28"
   },
   {
     "id": 106641,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
+    "source": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เกณฑ์ที่ใช้แยก band cell ออกจาก metamyelocyte คือข้อใด",
     "options": [
@@ -198,15 +200,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "เด็คนิยาม band cell ว่า nucleus เป็นรูป horseshoe, C, S หรือ V โดย indentation ต้องเลย central axis ของ nucleus ขณะที่ metamyelocyte มี indentation ชัดเจนแต่ยังไม่เลยแกนกลาง ตัวเลือก specific granules ใช้แยกไม่ได้เพราะ metamyelocyte มี cytoplasm เต็มไปด้วย specific granules อยู่แล้ว ส่วน nucleoli หายไปตั้งแต่ระยะ myelocyte และ N:C ratio 6:1 เป็นของ myeloblast ไม่ใช่ band cell",
-    "verified": "Bone Marrow น.32-38",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Bone Marrow น.32-38"
   },
   {
     "id": 106642,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
+    "source": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "สุนัขตัวหนึ่งมี total WBC count ปกติ และ bone marrow aspiration ได้ M:E ratio เท่ากับ 1:4 ผลนี้บ่งชี้ถึงภาวะใด",
     "options": [
@@ -217,15 +219,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "M:E ratio ที่ลดลงต่ำกว่า 1 เช่น 1:4 ร่วมกับ WBC ปกติ แปลว่าสาย erythroid เพิ่มขึ้น จึงหมายถึง increase in erythropoiesis เช่นจาก severe blood loss หรือ erythrocyte destruction ได้แก่ hemorrhagic anemia และ hemolytic anemia ตัวเลือกแรกเป็นการแปลผลของ M:E ที่เพิ่มขึ้นมากกว่า 1 เช่น 4:1 ซึ่งเป็นทิศทางตรงกันข้าม และต้องแปลผลเทียบกับ total WBC count เสมอ",
-    "verified": "Bone Marrow น.53",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Bone Marrow lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Bone Marrow น.53"
   },
   {
     "id": 106643,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
+    "source": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Purkinje fibers ในผนังหัวใจมีลักษณะทางจุลกายวิภาคตรงกับข้อใด",
     "options": [
@@ -236,15 +238,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า Purkinje fibers อยู่ที่ subendocardial layer มี 1-2 large spherical nuclei, scarce myofibrils ที่ periphery และ cytoplasm rich in mitochondria and glycogen ตัวเลือก subendothelial layer เป็นตัวลวงที่น่าเชื่อเพราะชื่อคล้ายกันและอยู่ในผนัง endocardium เหมือนกัน แต่สไลด์วาง Purkinje fibers ไว้ในชั้นที่ลึกกว่าคือ subendocardial layer ไม่ใช่ subendothelial layer",
-    "verified": "Circulatory System น.13-14",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Circulatory System น.13-14"
   },
   {
     "id": 106644,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
+    "source": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Intercalated disc ที่เชื่อมระหว่าง cardiac muscle cells ประกอบด้วย junctional complex ใดบ้าง",
     "options": [
@@ -255,15 +257,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า intercalated disc ประกอบด้วย junctional complex คือ fascia adherens, desmosome และ gap junction ซึ่งเป็นจุดที่ส่ง electrical impulse ไปสู่ contraction ตัวเลือกที่ใส่ tight junction แทน gap junction เป็นตัวลวงที่น่าเชื่อเพราะ tight junction เป็น junction จริงในเยื่อบุผิว แต่ตัวที่ยอมให้ ion และ electrical impulse ผ่านระหว่างเซลล์กล้ามเนื้อหัวใจคือ gap junction",
-    "verified": "Circulatory System น.16",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Circulatory System น.16"
   },
   {
     "id": 106647,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
+    "source": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "T. media ของ muscular artery ประกอบด้วยอะไรเป็นหลัก และหนาประมาณเท่าใด",
     "options": [
@@ -274,15 +276,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ muscular artery ระบุ T. media ว่า Mainly sm. m. หนา 3-40 layers ร่วมกับ CNT และ external elastic lamina ตัวเลือก 1-3 layers เป็นตัวลวงที่น่าเชื่อมาก เพราะเป็นตัวเลขจริงของ arteriole (small artery) ที่อยู่ถัดจาก muscular artery ในลำดับเดียวกัน",
-    "verified": "Circulatory System น.31",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Circulatory System น.31"
   },
   {
     "id": 106648,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
+    "source": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Capillary มีขนาดและโครงสร้างผนังอย่างไร",
     "options": [
@@ -293,15 +295,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า capillary เป็นหลอดเลือดที่เล็กที่สุด Ø 5-10 µm ผนังมี 1 layer of endothelial cell ไม่มี T. media คือไม่มี smooth muscle และมี T. adventitia ที่เป็น pericyte กับ CNT ตัวเลือก Ø ประมาณ 20 µm กับ sm. m. 1-2 ชั้นและ pericyte เป็นตัวลวงที่ตรงกับ small vein (venule) ซึ่งสไลด์เองบอกว่า similar to capillary but bigger",
-    "verified": "Circulatory System น.37-38",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Circulatory System น.37-38"
   },
   {
     "id": 106649,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
+    "source": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ผนังของ large vein มีลักษณะเด่น อย่างไร",
     "options": [
@@ -312,15 +314,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์ large vein เน้นไว้ 2 จุดคือ T. adventitia clearly define และเป็นชั้นที่หนาที่สุด โดยมี smooth muscle cells อยู่ในชั้นนั้น ส่วน T. media relatively thin และมี sm. m. น้อยหรือไม่มีเลย ตัวเลือกที่บอกว่า T. media หนาที่สุดเป็นลักษณะของ artery ไม่ใช่ vein ซึ่งเป็นจุดที่สไลด์ใช้แยกสองอย่างนี้ออกจากกัน",
-    "verified": "Circulatory System น.45-46",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Circulatory System น.45-46"
   },
   {
     "id": 106651,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
+    "source": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Carotid sinus เป็น receptor ชนิดใด อยู่ที่ไหน และตอบสนองต่อสิ่งใด",
     "options": [
@@ -331,15 +333,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุ carotid sinus ว่าเป็น baroreceptor (mechanoreceptor) ซึ่งเป็น dilation of internal carotid artery ตอบสนองต่อ blood pressure ที่สูงขึ้น แล้วให้ผลเป็น Brachycardia, blood pressure ลดลง และ dilate visceral blood vessels ตัวเลือก chemoreceptor ที่รับ blood pH, O2 และ CO2 เป็นของ carotid body ซึ่งเป็นอีกโครงสร้างหนึ่งที่ bifurcation เดียวกัน จึงถูกสลับกันบ่อย",
-    "verified": "Circulatory System น.52-53",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Circulatory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Circulatory System น.52-53"
   },
   {
     "id": 106660,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
+    "source": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามตารางเปรียบเทียบ cytoskeleton microtubule มีเส้นผ่านศูนย์กลางเท่าใด และผนังประกอบด้วยอะไร",
     "options": [
@@ -350,15 +352,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "ตารางระบุ microtubule เป็น hollow tube ที่ผนังเป็น 13 parallel protofilaments โดยมี subunit เป็น heterodimers ของ αβ-tubulin และ diameter 25 nm ตัวเลือก 5-7 nm กับ F-actin เป็นค่าของ microfilament ซึ่งเป็นคนละชนิดกัน ส่วน 8-10 nm กับ 4 intertwined protofibrils เป็นของ intermediate filament",
-    "verified": "Cytology น.29-30",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Cytology น.29-30"
   },
   {
     "id": 106661,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
+    "source": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามการจัดกลุ่มเซลล์ตามความสามารถในการแบ่งตัว hepatocyte จัดอยู่ในกลุ่มใด และเซลล์กลุ่มนั้นเข้าสู่ระยะใด",
     "options": [
@@ -369,15 +371,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์แบ่งไว้ 3 กลุ่มคือ labile cells (M ไป G1) ได้แก่ epidermis, blood cells และ intestine, stable cells (M ไป G0) ได้แก่ hepatocytes และ permanent cells ที่อยู่ G0 ได้แก่ cardiac myocyte และ neuron ตัวเลือก permanent cells ที่ค้าง G0 ถาวรน่าสนใจเพราะทั้งสองกลุ่มเกี่ยวข้องกับ G0 แต่ต่างกันตรงที่ hepatocyte กลับเข้าวงจรแบ่งตัวใหม่ได้เมื่อถูกกระตุ้น",
-    "verified": "Cytology น.37 (ภาพชุดที่ น.38-39, น.82)",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Cytology น.37 (ภาพชุดที่ น.38-39, น.82)"
   },
   {
     "id": 106662,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
+    "source": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Nucleolus เป็นตำแหน่งของกระบวนการใด และขนาดของมันสะท้อนสิ่งใด",
     "options": [
@@ -388,15 +390,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์เขียนไว้ตรงว่า nucleolus เป็น site of ribosomal RNA synthesis แล้ว release เข้าสู่ cytoplasm และ size of the nucleolus สะท้อน amount of stored RNA ตัวเลือก mRNA translation ชวนสับสนเพราะเกี่ยวกับ ribosome เหมือนกัน แต่ translation เกิดที่ cytoplasm ตาม central dogma ในสไลด์ ไม่ได้เกิดใน nucleolus",
-    "verified": "Cytology น.13-14 หัวข้อ Nucleolus น.14",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Cytology น.13-14 หัวข้อ Nucleolus น.14"
   },
   {
     "id": 106663,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
+    "source": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Ion-pumping cells ของ renal tubule มี cytoplasm ติดสี acidophilic ที่ basal portion ลักษณะนี้บ่งถึงความหนาแน่นของออร์แกเนลล์ชนิดใด",
     "options": [
@@ -407,15 +409,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า acidophilic (eosinophilic) cytoplasm ของ ion-pumping cells บ่งถึง abundance of mitochondria ที่ basal portions ซึ่งสอดคล้องกับที่สไลด์บอกว่าพบ mitochondria หนาแน่นที่ basal area of ion-transporting cells ตัวเลือก rER เป็นกับดักที่ต้องแยกด้วยสี เพราะ cytoplasm ที่มี rER มากจะติดสี basophilic ไม่ใช่ acidophilic",
-    "verified": "Cytology น.56, น.58-63 หัวข้อ Mitochondria น.59-60",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Cytology น.56, น.58-63 หัวข้อ Mitochondria น.59-60"
   },
   {
     "id": 106664,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
+    "source": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Lipofuscin เกิดจากสิ่งใด และมักพบสะสมในเซลล์ชนิดใด",
     "options": [
@@ -426,15 +428,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า lipofuscin เป็น insoluble degradation product ของ organelle ที่เป็น undigestible remnants of lysosomal activity หรือ residual bodies เรียกว่า aging pigment และพบใน long-lived cell เช่น cardiac muscle, neurons และ ovum ตัวเลือก breakdown of hemoglobin ที่ liver, spleen และ lymph node เป็นคำนิยามของ hemosiderin ซึ่งเป็น hematogeneous pigment คนละชนิดกัน",
-    "verified": "Cytology น.73-81 หัวข้อ Lipofuscin น.78-79",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Cytology น.73-81 หัวข้อ Lipofuscin น.78-79"
   },
   {
     "id": 106667,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
+    "source": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "แกน axoneme ของ cilia และโครงสร้างของ centriole มี pattern ของ microtubule แบบใดตามลำดับ",
     "options": [
@@ -445,15 +447,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุ cilia เป็น motile hair-like projection แบบ microtubule 9+2 ที่งอกจาก centriole (basal body) และมี axoneme core แบบ 9+2 ส่วนหน้าตาราง cytoskeleton ระบุ centriole เป็น microtubule triplet แบบ 9+0 ตัวเลือกที่ให้ centriole เป็น 9+2 ผิดเพราะสับสนระหว่างแกนของ cilium กับฐาน basal body ที่ไม่มี central pair",
-    "verified": "Cytology น.31-36 (ภาพซ้ำที่ น.64-68) หัวข้อ Cilia น.34-35 และ Cytology น.29-30 หัวข้อ Centriole น.30",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Cytology น.31-36 (ภาพซ้ำที่ น.64-68) หัวข้อ Cilia น.34-35 และ Cytology น.29-30 หัวข้อ Centriole น.30"
   },
   {
     "id": 106668,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-i",
     "year": 2,
+    "source": "Digestive System I lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตาม pattern 4 ชั้นของ digestive tract ข้อใดจับคู่ plexus กับชั้นที่มันอยู่ได้ถูกต้อง",
     "options": [
@@ -464,15 +466,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ผูก plexus ไว้กับชั้นที่มันอยู่โดยตรง คือ T. submucosa มี submucosal plexus และ T. muscularis มี myenteric plexus ตัวเลือกที่สลับให้ myenteric ไปอยู่ใน submucosa เป็นข้อที่หลอกที่สุดเพราะชื่อสองชั้นนี้อยู่ติดกัน แต่ myenteric แปลตามชื่อว่าอยู่ระหว่างชั้นกล้ามเนื้อ ส่วน lamina propria เป็นชั้นย่อยของ tunica mucosa ที่สไลด์ไม่ได้วาง plexus ไว้เลย",
-    "verified": "Digestive System I น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Digestive System I lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Digestive System I น.3"
   },
   {
     "id": 106670,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-i",
     "year": 2,
+    "source": "Digestive System I lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ผิวด้าน nasal ของ soft palate บุด้วย epithelium ชนิดใด",
     "options": [
@@ -483,15 +485,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ Soft palate แยกสองด้านไว้ชัดเจนว่า oral surface เป็น stratified squamous epithelium ส่วน nasal mucosa เป็น pseudostratified columnar epithelium ตัวเลือก keratinized stratified squamous เป็นข้อที่หลอกเพราะภาพ soft palate ของวัวบนสไลด์ชี้คำนี้ไว้ แต่คำชี้นั้นอยู่ที่ด้าน oral ไม่ใช่ด้าน nasal",
-    "verified": "Digestive System I น.16-18",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Digestive System I lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Digestive System I น.16-18"
   },
   {
     "id": 106673,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
+    "source": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "จากตารางเปรียบเทียบกระเพาะทั้ง 4 ส่วน แถว m.m ของ forestomach ทั้งสามให้ผลอย่างไร",
     "options": [
@@ -502,15 +504,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "ตาราง p.29 ระบุแถว m.m ว่า rumen เป็นลบ ขณะที่ reticulum และ omasum เป็นบวก ซึ่งตรงกับที่สไลด์เขียนไว้ว่า rumen มี no muscularis mucosae ตัวเลือกที่ให้ reticulum เป็นลบด้วยขัดกับสไลด์ที่ระบุว่า reticulum มี laminar muscularis อยู่ที่ upper part of reticular fold",
-    "verified": "Digestive System III น.29",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Digestive System III น.29"
   },
   {
     "id": 106674,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
+    "source": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดตรงกับ เรื่อง omasum",
     "options": [
@@ -521,15 +523,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "p.20-21 ระบุว่า omasum มี longitudinal laminae ประมาณ 100 อัน และ tunica muscularis มี outer thin longitudinal layer กับ inner thicker circular layer พร้อม intermediate sheet ตัวเลือกที่บอกว่า lamina muscularis บางและอยู่ด้านเดียวผิด เพราะสไลด์เขียนว่า lamina muscularis หนาและอยู่ทั้งสองด้านของ lamina",
-    "verified": "Digestive System III น.20-21",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Digestive System III น.20-21"
   },
   {
     "id": 106677,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
+    "source": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ทางเดินน้ำดี เริ่มจาก bile canaliculi แล้วผ่านโครงสร้างใดตามลำดับ",
     "options": [
@@ -540,15 +542,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "p.45 ให้ลำดับว่า bile canaliculi ไปยัง bile ductule ไปยัง interlobular duct ไปยัง interlobar duct ไปยัง hepatic duct ไปยัง cystic duct แล้วจึงถึง gallbladder ตัวเลือกที่สลับ interlobular กับ interlobar ผิด เพราะท่อระดับ interlobular ต้องรวมกันเป็น interlobar ก่อนออกเป็น hepatic duct",
-    "verified": "Digestive System III น.45",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Digestive System III น.45"
   },
   {
     "id": 106678,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
+    "source": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดตรงกับ เรื่อง gallbladder",
     "options": [
@@ -559,15 +561,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "p.46-47 ระบุว่า gallbladder บุด้วย sim. col. epi. with microvilli พบ goblet cells ใน cattle ผนัง thickest ใน bovine และ thinnest ใน carnivore และ no gallbladder ใน horse, elephant และ rat ตัวเลือกที่สลับให้ cattle ไม่มีถุงน้ำดีผิด เพราะ cattle คือสัตว์ที่สไลด์ใช้เป็นตัวอย่างว่าพบ goblet cells ในถุงน้ำดี",
-    "verified": "Digestive System III น.46-47",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Digestive System III น.46-47"
   },
   {
     "id": 106679,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
+    "source": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดตรงกับ เรื่องเซลล์และระบบท่อของ pancreas",
     "options": [
@@ -578,15 +580,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "p.53 ระบุว่า acinar lumen มี centroacinar cell โดย intercalated duct เป็น low cuboid และ interlobular duct เป็น sim. col. ตัวเลือกที่ยก low cuboid ไปให้ interlobular duct จึงสลับกัน ส่วน zymogen granules สไลด์วางไว้ที่ apical region ของเซลล์หลั่ง ไม่ใช่ใน acinar lumen และ Kupffer cell อยู่ใน sinusoid ของตับ",
-    "verified": "Digestive System III น.50-51, 53",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Digestive System III น.50-51, 53"
   },
   {
     "id": 106680,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
+    "source": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "hormone ที่หลั่งจากต่อมไร้ท่อเดินทางตามลำดับใด",
     "options": [
@@ -597,15 +599,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์เขียนลำดับไว้ชัดเจนว่า intercellular space แล้วจึง perivascular space ก่อนเข้าสู่ circulation ตัวเลือกที่ใส่ tubular system ไว้กลางทางเป็นกับดักที่ล่อใจที่สุด เพราะสไลด์เดียวกันเปิดหัวข้อด้วยประโยคว่าต่อมไร้ท่อไม่มี tubular system ซึ่งเป็นจุดที่ใช้แยกจากต่อมมีท่อ",
-    "verified": "Endocrine น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Endocrine น.2"
   },
   {
     "id": 106681,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
+    "source": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Neurohypophysis มี embryonic origin จากโครงสร้างใด",
     "options": [
@@ -616,15 +618,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า neurohypophysis เกิดจาก ventral outgrowth of diencephalon ส่วน dorsal invagination of roof of the embryonic pharynx เป็นจุดกำเนิดของ adenohypophysis จึงเป็นตัวเลือกที่นิสิตสลับกันบ่อยที่สุด ความต่างของแหล่งกำเนิดนี้คือเหตุผลที่ histology ของสองส่วนต่างกันสิ้นเชิง",
-    "verified": "Endocrine น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Endocrine น.5"
   },
   {
     "id": 106682,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
+    "source": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ส่วนใดของ hypophysis ที่ produce MSH",
     "options": [
@@ -635,15 +637,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า pars intermedia produce MSH และประกอบด้วย ACTH cells, follicular cells กับ stellate cells โดยถูกแยกจาก pars distalis ด้วย hypophyseal cleft ตัวเลือก pars tuberalis ล่อใจเพราะเป็นส่วนย่อยของ adenohypophysis เหมือนกัน แต่สไลด์ระบุเพียงว่ามี gonadotrophs กับ thyrotrophs อยู่บ้างเล็กน้อยและ secretory cells ที่ยังไม่ทราบความสำคัญ",
-    "verified": "Endocrine น.16-17",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Endocrine น.16-17"
   },
   {
     "id": 106683,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
+    "source": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "thyroid gland เซลล์ชนิดใดหลั่ง calcitonin และชนิดใดหลั่ง T3 กับ T4",
     "options": [
@@ -654,15 +656,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์ระบุว่า follicular cells ที่บุ thyroid follicle หลั่ง thyroxine (T4) กับ triiodothyronine (T3) ส่วน parafollicular cells หรือ C-cells ที่แทรกอยู่หลั่ง calcitonin ตัวเลือกที่สลับสองเซลล์นี้ล่อใจที่สุดเพราะทั้งคู่อยู่ใน thyroid เหมือนกัน ส่วน chief cells เป็นเซลล์ของ parathyroid gland ไม่ใช่ thyroid",
-    "verified": "Endocrine น.25",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Endocrine น.25"
   },
   {
     "id": 106685,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
+    "source": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เซลล์ชื่อ spongiocyte อยู่ในชั้นใดของ adrenal gland",
     "options": [
@@ -673,15 +675,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์กำกับชื่อ spongiocyte ไว้ที่ zona fasciculata ซึ่งหลั่ง glucocorticoids (cortisol) ตัวเลือก zona glomerulosa ล่อใจเพราะเป็นชั้นนอกสุดที่ถูกพูดถึงก่อน แต่สไลด์ระบุว่าชั้นนั้นเรียก Z. arcuata ใน carnivore, horse และ pig และหลั่ง mineralocorticoid (aldosterone) ส่วน adrenal medulla มี chromaffin cells ไม่ใช่ spongiocyte",
-    "verified": "Endocrine น.31-32",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Endocrine น.31-32"
   },
   {
     "id": 106686,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
+    "source": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามคำบรรยายใต้ภาพ aldosterone ออกฤทธิ์ที่ distal portions of the nephron อย่างไร",
     "options": [
@@ -692,15 +694,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์เขียนว่า aldosterone เพิ่ม tubular excretion ของ potassium และเพิ่ม resorption ของ sodium โดยมี chloride ตามมา จน osmotic gradient ดึงน้ำจาก glomerular filtrate เข้าสู่ extracellular fluid ตัวเลือกที่สลับ sodium กับ potassium ล่อใจที่สุด แต่ถ้าขับ sodium ออกและเก็บ potassium ไว้ น้ำจะไม่ถูกดึงกลับเข้า ECF ซึ่งขัดกับผลลัพธ์ที่สไลด์อธิบาย",
-    "verified": "Endocrine น.31-32",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Endocrine lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Endocrine น.31-32"
   },
   {
     "id": 106690,
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
+    "source": "Epithelium lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "simple squamous epithelium ที่ทำหน้าที่เป็น serous membranes มีชื่อเฉพาะตามตำแหน่งว่าอะไร",
     "options": [
@@ -711,15 +713,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ special names แยกไว้สามชื่อ โดย mesothelium คือ serous membranes ที่บุ body cavity และคลุม internal organs ตัวเลือก endothelium เป็นตัวลวงที่แรงที่สุดเพราะเป็น simple squamous เหมือนกันและอยู่ในสไลด์เดียวกัน แต่สไลด์จับ endothelium ไว้กับผิวในของ blood และ lymph vessel ไม่ใช่ผิวของช่องลำตัว",
-    "verified": "Epithelium น.12-13",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Epithelium lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Epithelium น.12-13"
   },
   {
     "id": 106691,
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
+    "source": "Epithelium lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เหตุใด pseudostratified columnar epithelium จึงดูเหมือนมีหลายชั้นทั้งที่จริงเป็น simple epithelium",
     "options": [
@@ -730,15 +732,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์อธิบายว่าทุกเซลล์ยังแตะ basement membrane จึงเป็น simple แต่ nucleus วางคนละระดับความสูงกันเลยดูเหมือนหลายชั้น จึงได้คำว่า pseudo ตัวเลือก basal cell layer ผิดเพราะนั่นเป็นลักษณะของ stratified squamous ที่มีเซลล์ชั้นลึกเป็น cuboid หรือ columnar จริง ๆ ซ้อนอยู่ ไม่ใช่ภาพลวงตาจากตำแหน่งนิวเคลียส",
-    "verified": "Epithelium น.25-26",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Epithelium lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Epithelium น.25-26"
   },
   {
     "id": 106692,
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
+    "source": "Epithelium lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามตารางสรุป simple epithelium ตำแหน่งและรูปร่างของ nuclei ในกลุ่ม columnar เป็นแบบใด",
     "options": [
@@ -749,15 +751,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "ตาราง p.30 เขียน nuclei ของ columnar ว่า basally located, elongated ซึ่งใช้เป็นตัวแยกจริงตอนส่องสไลด์ ตัวเลือก various positions ผิดเพราะนั่นคือแถวของ pseudostratified ที่นิวเคลียสวางสลับระดับ ส่วน centrally located เป็นของ squamous และ cuboidal",
-    "verified": "Epithelium น.30",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Epithelium lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Epithelium น.30"
   },
   {
     "id": 106694,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
+    "source": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ผิวนอกสุดของ ovary ที่คลุมอยู่เหนือ tunica albuginea คือ germinal epithelium ซึ่งเป็น epithelium ชนิดใด",
     "options": [
@@ -768,15 +770,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า germinal epithelium ที่คลุมผิว ovary เป็น simple cuboidal epithelium ตัวเลือก simple squamous ผิดเพราะเป็นชนิดที่พบใน serosa ของ oviduct ที่วางอยู่บน connective tissue ไม่ใช่ผิวของ ovary",
-    "verified": "female lab manual น.1",
-    "sourceType": "lecture-derived",
-    "examOrigin": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "female lab manual น.1"
   },
   {
     "id": 106695,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
+    "source": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "การกระจายตัวของ primordial follicle ในสัตว์แต่ละกลุ่มตาม lab manual เป็นอย่างไร",
     "options": [
@@ -787,15 +789,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์เขียนไว้ตรงตัวว่า carnivores จะพบ primordial follicle อยู่รวมกันเป็น clusters ขณะที่ ruminants และ sow กระจายสม่ำเสมอ ตัวเลือกที่สลับให้ ruminants เป็นกลุ่ม clusters จึงกลับด้านกับที่สไลด์ระบุ",
-    "verified": "female lab manual น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "female lab manual น.2"
   },
   {
     "id": 106696,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
+    "source": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Zona pellucida ซึ่งเป็นชั้น glycoprotein ระหว่าง granulosa cells กับ oocyte เริ่มพัฒนาขึ้นที่ระยะใดของ folliculogenesis",
     "options": [
@@ -806,15 +808,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า zona pellucida เริ่มพัฒนาที่ระยะ primary follicle ซึ่งเป็นระยะที่ oocyte ถูกล้อมด้วย cuboidal epithelium แล้ว ตัวเลือก secondary follicle ผิดเพราะระยะนั้นเป็นจุดที่เริ่มเห็น follicular antrum โดยที่ zona pellucida มีอยู่ก่อนแล้ว",
-    "verified": "female lab manual น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "female lab manual น.2"
   },
   {
     "id": 106697,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
+    "source": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "granulosa cells กลุ่มที่ยังติดไปกับ oocyte หลัง ovulation เรียกว่าอะไร",
     "options": [
@@ -825,15 +827,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์นิยาม corona radiata ว่าเป็น granulosa cells ที่ยังติดไปกับ oocyte หลัง ovulation ส่วน cumulus oophorus คือ granulosa cells ที่ล้อมรอบ oocyte แต่ยังคงอยู่ใน ovary หลัง ovulation จึงเป็นคนละกลุ่มกัน",
-    "verified": "female lab manual น.4",
-    "sourceType": "lecture-derived",
-    "examOrigin": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "female lab manual น.4"
   },
   {
     "id": 106698,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
+    "source": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "muscularis externa ของ oviduct ตาม lab manual ประกอบด้วยชั้นกล้ามเนื้อเรียบแบบใด",
     "options": [
@@ -844,15 +846,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์เขียนว่า muscularis externa ของ oviduct มี inner circular layer ของ smooth muscle และ outer longitudinal layer ที่พัฒนาน้อยกว่า ตัวเลือกที่ให้ outer longitudinal พัฒนามากกว่าจึงกลับด้านกับสไลด์ และไม่มีการกล่าวถึงชั้น oblique ในเด็คนี้",
-    "verified": "female lab manual น.7",
-    "sourceType": "lecture-derived",
-    "examOrigin": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "female lab manual น.7"
   },
   {
     "id": 106700,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
+    "source": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "stratum vasculare ของ uterus ซึ่งเป็นบริเวณที่มีหลอดเลือดขนาดใหญ่ อยู่ที่ตำแหน่งใด",
     "options": [
@@ -863,15 +865,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่าบริเวณระหว่างกล้ามเนื้อเรียบสองชั้นของ myometrium คือ inner circular ที่หนาและ outer longitudinal ที่บางกว่า มีหลอดเลือดขนาดใหญ่เรียกว่า stratum vasculare ส่วนชั้นนอกสุดที่ต่อจาก myometrium คือ perimetrium ซึ่งเป็น tunica serosa แบบ loose connective tissue ไม่ใช่ชั้นหลอดเลือดนี้",
-    "verified": "female lab manual น.10",
-    "sourceType": "lecture-derived",
-    "examOrigin": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "female lab manual น.10"
   },
   {
     "id": 106701,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
+    "source": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ใน bitch epithelium ที่บุ lumen ของ cervix เปลี่ยนจาก simple columnar ไปเป็นชนิดใดอย่างทันทีที่ external os",
     "options": [
@@ -882,15 +884,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์ชี้ด้วยลูกศรว่าใน bitch epithelium เปลี่ยนเป็น stratified squamous epithelium อย่างทันทีที่ external os ส่วน simple columnar ที่มี mucous-secreting cells เป็นชนิดที่บุ lumen ของ cervix ก่อนถึงจุดเปลี่ยนนั้น",
-    "verified": "female lab manual น.11",
-    "sourceType": "lecture-derived",
-    "examOrigin": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "female lab manual น.11"
   },
   {
     "id": 106702,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
+    "source": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดอธิบายลักษณะของ superficial cells ใน canine vaginal smear ได้ตรงตาม lab manual",
     "options": [
@@ -901,15 +903,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า superficial cells เป็นเซลล์ที่ใหญ่ที่สุดใน vaginal smear รูป polygonal แบนชัดเจน และนิวเคลียสหายไปหรือเป็น pyknotic ส่วนคำอธิบายว่าเล็กที่สุด รูปกลม และมี nuclear to cytoplasmic ratio สูง เป็นลักษณะของ parabasal cells",
-    "verified": "female lab manual น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "female lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "female lab manual น.12"
   },
   {
     "id": 106703,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ในภาพตัดของ ovary โครงสร้างใดอยู่ใน cortex และโครงสร้างใดอยู่ใน medulla",
     "options": [
@@ -920,15 +922,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์แบ่ง ovary เป็นผิวนอกที่คลุมด้วย simple cuboidal surface epithelium, cortex ที่มี ovarian follicle และ corpus luteum, และ medulla ที่เป็น connective tissue กับ vessels ตัวเลือกที่สลับกันคือกับดักที่พบบ่อย เพราะคนมักจำภาพอวัยวะอื่นที่ cortex เป็นเนื้อและ medulla เป็นที่อยู่ของ follicle ซึ่งกลับด้านกับ ovary",
-    "verified": "Female reproductive organ น.5-6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.5-6"
   },
   {
     "id": 106704,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เซลล์ชนิดใดตรงกับคำบรรยาย เซลล์ใหญ่ กลม foamy หน้าตาคล้าย epithelial cells และหลั่ง androgens",
     "options": [
@@ -939,15 +941,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์บรรยาย theca interna ว่าเป็นเซลล์ใหญ่ กลม foamy คล้าย epithelial cells และหลั่ง androgens ส่วน theca externa เป็นเซลล์คล้าย fibroblast ที่เรียงตัวรอบ follicle อยู่นอกชั้น theca interna จึงไม่ใช่เซลล์ที่หลั่ง androgens ตามคำบรรยายนี้",
-    "verified": "Female reproductive organ น.11",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.11"
   },
   {
     "id": 106705,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "หลัง ovulation granulosa cells กลุ่มที่ยังคงค้างอยู่ในรังไข่และกลุ่มที่ติดไปกับ oocyte เรียกว่าอะไรตามลำดับ",
     "options": [
@@ -958,15 +960,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "ทั้งสองคำเป็น granulosa cells เหมือนกัน แยกกันที่ปลายทางหลัง ovulation คือ corona radiata ติดไปกับ oocyte ส่วน cumulus oophorus ยังคงอยู่ใน ovary ตัวเลือกที่สลับสองชื่อกันเป็นข้อที่คนตอบผิดมากที่สุด เพราะจำแค่ว่าทั้งคู่ล้อมรอบ oocyte โดยไม่ได้จำว่าเซลล์ไปอยู่ที่ไหนต่อ",
-    "verified": "Female reproductive organ น.13",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.13"
   },
   {
     "id": 106707,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ฮอร์โมนใดเป็นตัวเริ่ม luteinization และกระตุ้น granulosa cells ให้หลั่ง progesterone",
     "options": [
@@ -977,15 +979,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์ระบุว่า LH จาก pituitary gland เป็นตัวเริ่ม luteinization และกระตุ้น granulosa cells ให้หลั่ง progesterone จากนั้นเซลล์จะเกิด hyperplasia กับ hypertrophy และสะสม lutein จนกลายเป็น granulosa luteal cells ส่วน FSH เป็นตัวที่คนมักเลือกเพราะเกี่ยวกับ follicle แต่เด็คหน้านี้ระบุ LH ไว้ชัดเจน",
-    "verified": "Female reproductive organ น.17-18",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.17-18"
   },
   {
     "id": 106708,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ลักษณะทาง histology ของ atretic follicle คือข้อใด",
     "options": [
@@ -996,15 +998,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า follicle เสื่อมสลายได้ทุกระยะ โดย nuclei ของ granulosa cells กลายเป็น pyknotic และ basement ระหว่าง oocyte กับ granulosa cells มักหนาตัวขึ้นเป็น glassy membrane พร้อมมี fibrous material เข้ามาแทนที่ granulosa cells ส่วนการสะสม lutein pigment เป็นลักษณะของ corpus luteum ที่กำลังเกิด luteinization ไม่ใช่ follicle ที่กำลังเสื่อม",
-    "verified": "Female reproductive organ น.19",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.19"
   },
   {
     "id": 106709,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ส่วนใดของ uterine tube เป็นจุดที่เกิด fertilization และส่วนใดมี tunica muscularis หนาที่สุด",
     "options": [
@@ -1015,15 +1017,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า ampulla มี histology คล้าย infundibulum และเป็นจุดที่เกิด fertilization ส่วน isthmus ซึ่งอยู่ใกล้ uterus มี tunica muscularis เป็นชั้นที่หนาที่สุดของผนังและ tunica submucosa บางมาก ตัวเลือกที่ให้ infundibulum หนาที่สุดผิด เพราะ infundibulum เป็นส่วนที่ tunica mucosa กินความหนาของผนังเกือบทั้งหมด",
-    "verified": "Female reproductive organ น.22-25",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.22-25"
   },
   {
     "id": 106710,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ที่ external uterine ostium ของ cervix ใน bitch epithelium เปลี่ยนแปลงอย่างไร",
     "options": [
@@ -1034,15 +1036,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์เขียนซ้ำถึงสามหน้าติดกันว่า lumen ของ cervix บุด้วย simple columnar epithelium แล้วเปลี่ยนเป็น stratified squamous epithelium อย่างทันทีทันใดที่ external os ตัวเลือกที่กลับทิศทางเป็น stratified squamous ไปเป็น simple columnar ผิด เพราะทิศทางที่ถูกคือจากด้าน cervix ที่เป็น columnar ออกไปสู่ vagina ที่เป็น stratified squamous",
-    "verified": "Female reproductive organ น.30-32",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.30-32"
   },
   {
     "id": 106711,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "epithelium ของ vagina เปลี่ยนแปลงไปตามระยะของ cycle อย่างไร",
     "options": [
@@ -1053,15 +1055,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า epithelium ของ vagina เป็น stratified squamous ที่หนาขึ้นในช่วง proestrus และ estrus และในบางชนิดโดยเฉพาะ rodent กับ carnivores จะ keratinize ในช่วง estrus ตัวเลือกที่พูดถึง glands ผิด เพราะสไลด์ระบุว่า vagina โดยทั่วไปเป็น nonglandular",
-    "verified": "Female reproductive organ น.33",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.33"
   },
   {
     "id": 106712,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
+    "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "vaginal smear ที่พบ superficial cells เด่นชัดและเกือบทั้งหมดเป็นเซลล์ที่ไม่มี nucleus บ่งถึงระยะใดของ cycle",
     "options": [
@@ -1072,15 +1074,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่าในช่วง estrus superficial cells เด่นชัดและเกือบทั้งหมดเป็น anucleate superficial cells ส่วน proestrus เป็นช่วงที่ค่อย ๆ เปลี่ยนจาก intermediate และ parabasal cells ไปเป็น superficial cells พร้อมพบ RBC และ neutrophils จึงยังไม่ใช่ภาพที่เซลล์ไร้ nucleus เกือบทั้งหมด",
-    "verified": "Female reproductive organ น.38-41",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Female reproductive organ น.38-41"
   },
   {
     "id": 106713,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
+    "source": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดเป็นชุดลักษณะของ cartilaginous fish ที่แยกออกจาก bony fish ได้ถูกต้อง",
     "options": [
@@ -1091,15 +1093,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "Cartilaginous fish เช่น shark และ stingray ลำตัวแบน dorso-ventrally มี 5 pairs of gill slits ที่เปิดออกโดยตรง มี cloaca รวมทางเดินปัสสาวะกับสืบพันธุ์ และไม่มี swim bladder ส่วนตัวเลือกที่ระบุ operculum ร่วมกับ swim bladder เป็นลักษณะของ bony fish ซึ่งลำตัวแบน laterally และไม่มี cloaca",
-    "verified": "Fish น.3-4",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Fish น.3-4"
   },
   {
     "id": 106714,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
+    "source": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เซลล์ชนิดใดใน epidermis ของปลาที่หลั่งสารเตือนภัยลงในน้ำเมื่อผิวหนังบาดเจ็บ",
     "options": [
@@ -1110,15 +1112,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "Club cell หรือ alarm cell เป็นเซลล์กลมขนาดใหญ่ในชั้นล่างและชั้นกลางของ epidermis หลั่ง alarm substance ที่แรงลงในน้ำเมื่อผิวหนังบาดเจ็บเพื่อเป็นสัญญาณเตือน ส่วน granule cell ก็ปล่อยสารลงน้ำเหมือนกันแต่สารนั้นคือ oil droplets ที่เป็นพิษ ไม่ใช่สัญญาณเตือนภัย",
-    "verified": "Fish น.26",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Fish น.26"
   },
   {
     "id": 106715,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
+    "source": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เยื่อบุของ gill filament เทียบกับ gill lamella ต่างกันอย่างไร",
     "options": [
@@ -1129,15 +1131,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "Gill filament ซึ่งเรียกอีกอย่างว่า primary lamella คลุมด้วย stratified squamous epithelium ส่วน gill lamella ที่เรียงเป็นซี่หวีอยู่สองด้านของ filament เป็น simple epithelium เพื่อให้แลกเปลี่ยนแก๊สได้ ตัวเลือกที่สลับกันจึงผิด เพราะถ้า lamella หนาเป็น stratified จะขัดกับหน้าที่แลกเปลี่ยนแก๊ส",
-    "verified": "Fish น.32-35",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Fish น.32-35"
   },
   {
     "id": 106716,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
+    "source": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ผนัง intestine ของปลาต่างจากผนังทางเดินอาหารมาตรฐาน 4 ชั้นอย่างไร",
     "options": [
@@ -1148,15 +1150,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "ลำไส้ปลาขาดทั้ง muscularis mucosae และ tunica submucosa โดย lamina propria ยังมีอยู่ในรูป loose connective tissue และ tunica muscularis ยังคงเป็น inner circular กับ outer longitudinal ตามปกติ ตัวเลือกที่ตัด tunica muscularis ออกจึงผิด เพราะถ้าไม่มีชั้นนี้ลำไส้จะไม่มี peristalsis",
-    "verified": "Fish น.52-58",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Fish น.52-58"
   },
   {
     "id": 106717,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
+    "source": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดถูกต้องเกี่ยวกับตำแหน่งและการกระจายของ swim bladder",
     "options": [
@@ -1167,15 +1169,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "Swim bladder เป็นถุงบรรจุแก๊สที่อยู่ dorsal ต่อทางเดินอาหาร พบเฉพาะใน bony fishes และไม่มีในปลาที่ว่ายเร็วอย่าง tuna กับ mackerel ตัวเลือกที่บอกว่าพบมากที่สุดใน tuna และ mackerel จึงกลับด้านกับที่สไลด์ระบุ และ cartilaginous fish ไม่มี swim bladder เลย",
-    "verified": "Fish น.63-65",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Fish น.63-65"
   },
   {
     "id": 106718,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
+    "source": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดถูกต้องเกี่ยวกับไตของปลากระดูกแข็ง",
     "options": [
@@ -1186,15 +1188,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "ไตเป็น major immune tissue และแหล่ง hematopoiesis หลักของ bony fish โดยแบ่งเป็น anterior หรือ head kidney ที่มี hematopoietic elements กับ posterior kidney ที่ทำหน้าที่ขับถ่าย ตัวเลือกที่ให้ไตขับของเสียไนโตรเจนผิด เพราะสไลด์ระบุว่าของเสียไนโตรเจนถูกขับทาง gills และในปลาน้ำจืดไตต้องสงวนเกลือแล้วเจือจางปัสสาวะ ไม่ใช่ทำให้เข้มข้น",
-    "verified": "Fish น.79-82",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Fish น.79-82"
   },
   {
     "id": 106719,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
+    "source": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Caudal fin ของ shark จัดอยู่ในแบบใดตามแนวการทอดของ vertebrae",
     "options": [
@@ -1205,15 +1207,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "Heterocercal คือแบบที่ vertebrae ทอดเข้าไปใน upper lobe ทำให้พูบนยาวกว่าพูล่าง และเป็นแบบที่พบใน shark ส่วน homocercal ก็มี vertebrae ทอดเข้า upper lobe เหมือนกันแต่สั้นมากจนดูเผินเป็นสมมาตร และเป็นแบบของปลากระดูกแข็งส่วนใหญ่ ไม่ใช่ของ shark",
-    "verified": "Fish น.22-23",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Fish lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Fish น.22-23"
   },
   {
     "id": 106722,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
+    "source": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามตารางเทียบหลอดเลือด ข้อใดตรงกับลักษณะของ capillary",
     "options": [
@@ -1224,15 +1226,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "เดคเขียน capillary ไว้ว่ามี ∅ 5-10 µm มี endothelial cell เพียง 1 ชั้น ไม่มี tunica media และไม่มี smooth muscle โดย tunica adventitia เป็น pericyte บวก CNT ข้อที่ล่อใจที่สุดคือขนาด 5-10 µm ที่พ่วง smooth muscle 1-2 ชั้น เพราะเอาขนาดของ capillary มาผสมกับ smooth muscle ของ small vein (venule) ซึ่งเดคระบุว่า ∅ ราว 20 µm มี smooth muscle 1-2 ชั้นและมี pericyte ส่วน 1-3 ชั้นเป็นของ small artery (arteriole)",
-    "verified": "HISTO LAB - Block II น.13-14",
-    "sourceType": "lecture-derived",
-    "examOrigin": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "HISTO LAB - Block II น.13-14"
   },
   {
     "id": 106725,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
+    "source": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Hassall's corpuscle (thymic corpuscle) ที่ใช้ชี้ขาดว่าเป็น thymus มีที่มาและตำแหน่ง อย่างไร",
     "options": [
@@ -1243,15 +1245,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "เดคเขียนว่า Hassall's corpuscle เกิดจาก reticular cell พบใน medulla รูปร่าง whorl-shaped และกำกับคำว่า keratohyalin granule ไว้ พร้อม callout ว่าเป็นตัวชี้ขาดว่านี่คือ thymus และอยู่ที่ medulla เสมอ ข้อที่หลอกคือ reticular cell แต่พบใน cortex เพราะที่มาของเซลล์ถูก แต่ตำแหน่งผิด cortex เป็นที่ที่ T-lymphocyte อยู่หนาแน่นและเป็น T-lymphoblast (thymocyte) ที่มาจาก bone marrow",
-    "verified": "HISTO LAB - Block II น.30-31",
-    "sourceType": "lecture-derived",
-    "examOrigin": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "HISTO LAB - Block II น.30-31"
   },
   {
     "id": 106726,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
+    "source": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "paracortex ของ lymph node ต่างจาก cortex อย่างไร",
     "options": [
@@ -1262,15 +1264,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "เดคเขียนว่า cortex มี lymphatic nodule และใน nodule เป็น B-lymphocyte ส่วน paracortex ไม่มี lymphatic nodule และเป็นที่อยู่ของ T-cell ข้อที่ล่อใจคือ paracortex มี lymphatic nodule แต่เป็น T-cell เพราะจำชนิดเซลล์ถูกแต่จำลักษณะโครงสร้างสลับกับ cortex ส่วน germinal center เดคระบุว่าพบเมื่อมี antigenic challenge ในเนื้อ nodule จึงเป็นของ cortex และ plasma cell เดคเขียนไว้ที่ medullary cord",
-    "verified": "HISTO LAB - Block II น.32-34",
-    "sourceType": "lecture-derived",
-    "examOrigin": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "HISTO LAB - Block II น.32-34"
   },
   {
     "id": 106727,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
+    "source": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เยื่อบุของ terminal bronchioles คือชนิดใด",
     "options": [
@@ -1281,15 +1283,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "เดคไล่เยื่อบุตามลำดับว่า primary และ secondary bronchiole เป็น simple columnar epithelium, terminal bronchioles เป็น simple cuboidal epithelium แล้ว respiratory bronchioles จึงเริ่มมี squamous (alveolus) epithelium ข้อที่หลอกคือ simple columnar เพราะเป็นเยื่อบุของ bronchiole ชั้นก่อนหน้าที่อยู่ติดกัน ส่วน squamous เป็นของ respiratory bronchioles ที่อยู่ถัดลงไป และ stratified squamous เดคเขียนไว้ที่ tonsil ไม่ใช่ในเนื้อปอด",
-    "verified": "HISTO LAB - Block II น.47-50",
-    "sourceType": "lecture-derived",
-    "examOrigin": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "HISTO LAB - Block II น.47-50"
   },
   {
     "id": 106729,
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
+    "source": "Integument lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "development of the skin โครงสร้างใดเจริญมาจาก mesoderm",
     "options": [
@@ -1300,15 +1302,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า mesoderm ให้กำเนิด dermis และ blood vessels ส่วนตัวเลือกที่ล่อใจคือ epidermis กับ skin glands ซึ่งเป็นของ ectoderm เช่นเดียวกับ nerve และ hair follicles",
-    "verified": "Integument น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Integument lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Integument น.3"
   },
   {
     "id": 106730,
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
+    "source": "Integument lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ชั้นใดของ epidermis ที่หนาที่สุด ประกอบด้วย polyhedral cells หลายชั้น และเป็นชั้นที่พบ desmosome",
     "options": [
@@ -1319,15 +1321,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า stratum spinosum เป็นชั้นที่หนาที่สุดของ epidermis ประกอบด้วย polyhedral cells หลายชั้นและพบ desmosome ส่วน stratum corneum ที่มักถูกเลือกเป็น 3-50 layers ของ keratinized squamous cells ที่หลุดลอกตลอดเวลา ไม่ใช่ชั้นที่หนาที่สุด",
-    "verified": "Integument น.9-12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Integument lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Integument น.9-12"
   },
   {
     "id": 106731,
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
+    "source": "Integument lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Thin hairy skin มี epidermis เพียง 4 ชั้น โดยขาดชั้นใดไป",
     "options": [
@@ -1338,15 +1340,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์เขียนว่า stratum lucidum absent in hairy thin skin โดยพบใน thick skin เช่น metacarpal pad และ hairless thin skin เช่น lip ส่วน stratum granulosum ที่มักถูกเลือกยังคงมีอยู่ในผิวหนังชนิดนี้",
-    "verified": "Integument น.12, น.15-16",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Integument lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Integument น.12, น.15-16"
   },
   {
     "id": 106733,
     "subject": "vet-histo",
     "topic": "histo--laboratory-of-nervous-system-histology",
     "year": 2,
+    "source": "Laboratory of nervous system histology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ganglion cell (neuron) ใน spinal ganglion ถูกบรรยายลักษณะไว้อย่างไร",
     "options": [
@@ -1357,15 +1359,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "เดคเขียนลักษณะ ganglion cell ไว้เป็น large round cell พร้อม euchromatin nucleus และ prominent nucleolus ซึ่งเป็นกลุ่มเดียวในเดคที่มีคำบรรยายลักษณะเซลล์ ตัวเลือกที่ล่อใจคือ small round cell ที่ไม่มี nucleolus ชัดเจน เพราะสลับเฉพาะขนาดกับ nucleolus แต่เดคระบุทั้งขนาดใหญ่และ nucleolus เด่นพร้อมกัน",
-    "verified": "Laboratory of nervous system histology น.1",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Laboratory of nervous system histology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Laboratory of nervous system histology น.1"
   },
   {
     "id": 106741,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organ-i",
     "year": 2,
+    "source": "Lymphatic organ I lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Thymic corpuscle (Hassall's corpuscle) เกิดจากเซลล์ชนิดใดมารวมตัวซ้อนกันเป็นวง",
     "options": [
@@ -1376,15 +1378,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์ระบุว่า thymic corpuscle เกิดจาก Type VI epithelial reticular cells ซึ่งเป็นเซลล์ขนาดใหญ่ ติดสีจาง มาเรียงซ้อนกันเป็นวง (whorl-shaped) ตัวเลือก Type I ชวนสับสนเพราะเป็นชนิดที่ห่อหุ้ม capillaries ใน cortex เป็น blood-thymus barrier ไม่ใช่ตัวที่รวมเป็น corpuscle ใน medulla",
-    "verified": "Lymphatic organ I น.21",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Lymphatic organ I lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Lymphatic organ I น.21"
   },
   {
     "id": 106743,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
+    "source": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ลักษณะทางจุลกายวิภาคข้อใดตรงกับ M (Microfold) cell ที่พบใน Peyer's patch",
     "options": [
@@ -1395,15 +1397,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า M cell มี short apical fold แต่ไม่มี brush border และมี large intracellular pocket ที่มี T cells, B cells และ dendritic cells อยู่ชั่วคราว ตัวเลือกที่ว่ามี brush border ชัดเจนเป็นตัวลวงที่น่าเลือกเพราะในภาพ TEM ของสไลด์มีคีย์ B = brush border จริง แต่ brush border นั้นเป็นของ enterocyte ข้างเคียง (คีย์ E) ไม่ใช่ของ M cell",
-    "verified": "Lymphatic organs II น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Lymphatic organs II น.5"
   },
   {
     "id": 106745,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
+    "source": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Epithelium ที่บุ tonsil บริเวณ oropharynx เป็นชนิดใด",
     "options": [
@@ -1414,15 +1416,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์แยกไว้ชัดว่า oropharynx เป็น stratified squamous epithelium ส่วน nasopharynx เป็น pseudostratified columnar epithelium ตัวเลือก pseudostratified columnar จึงเป็นตัวลวงที่ตรงกับตำแหน่งอีกแห่งของ tonsil เดียวกัน คนที่จำได้แต่สลับตำแหน่งจะเลือกข้อนี้",
-    "verified": "Lymphatic organs II น.7",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Lymphatic organs II น.7"
   },
   {
     "id": 106747,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
+    "source": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "sheathed arteriole (sheathed capillary หรือ ellipsoid) ในม้ามมีผนังหนาขึ้นเพราะถูกล้อมด้วย sheath ของเซลล์ใด",
     "options": [
@@ -1433,15 +1435,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า sheathed arteriole ซึ่งเรียกได้อีกว่า sheathed capillary หรือ ellipsoid คือส่วนที่ผนังหลอดเลือดหนาขึ้นเพราะถูกล้อมด้วย sheath ของ macrophages ตัวเลือก smooth muscle cells เป็นตัวลวงที่น่าเชื่อเพราะผนังหลอดเลือดแดงหนาขึ้นมักนึกถึงกล้ามเนื้อเรียบ แต่สไลด์กล่าวถึง smooth muscle cells เฉพาะที่ capsule ของม้าม ไม่ใช่ที่ ellipsoid",
-    "verified": "Lymphatic organs II น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Lymphatic organs II น.12"
   },
   {
     "id": 106748,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
+    "source": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เหตุใด germinal center ของ secondary lymphatic nodule จึงติดสีจาง (lightly stain)",
     "options": [
@@ -1452,15 +1454,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์อธิบายว่า germinal center ติดสีจางเพราะเต็มไปด้วย large immature lymphocytes ได้แก่ lymphoblasts และ plasmablasts ซึ่งนิวเคลียสมี euchromatin ปริมาณมาก ตัวเลือก small lymphocytes ที่มี heterochromatin มากเป็นตัวลวงที่ใกล้เคียง เพราะเซลล์กลุ่มนั้นมีอยู่จริงแต่อยู่ที่ mantle zone ซึ่งเป็นวงนอกที่ล้อมรอบ germinal center และเป็นส่วนที่ติดสีเข้ม",
-    "verified": "Lymphatic organs II น.19",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Lymphatic organs II น.19"
   },
   {
     "id": 106749,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
+    "source": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Red pulp ของม้ามประกอบด้วยองค์ประกอบหลักคู่ใด",
     "options": [
@@ -1471,15 +1473,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ red pulp แจกแจงไว้สองอย่างคือ splenic sinuses ซึ่งมี endothelial lining ที่ถูกล้อมด้วย reticular fibers และมี macrophages จำนวนมาก กับ splenic cords ซึ่งเป็น loose network ของ reticular fibers ตัวเลือก PALS และ splenic nodules เป็นตัวลวงที่ตรงกับนิยามของ white pulp ไม่ใช่ red pulp",
-    "verified": "Lymphatic organs II น.21",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Lymphatic organs II น.21"
   },
   {
     "id": 106750,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
+    "source": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ช่องว่างระหว่าง endothelial cells ที่อยู่ติดกันของ splenic sinuses กว้างประมาณเท่าใด",
     "options": [
@@ -1490,15 +1492,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุตัวเลขไว้ว่าช่องว่างระหว่าง endothelial cells ที่อยู่ติดกันของ splenic sinuses กว้าง 2-3 ไมโครเมตร ซึ่งแคบพอที่เม็ดเลือดแดงที่ deformability ลดลงจะผ่านไม่ได้และถูกกักไว้ใน splenic cord ขณะที่ macrophage ยังแทรกผ่านเข้าไป phagocytose ได้ ตัวเลือก 8-10 ไมโครเมตรเป็นตัวลวงเพราะใกล้เคียงเส้นผ่านศูนย์กลางของเม็ดเลือดแดงเอง ถ้าช่องกว้างขนาดนั้นม้ามจะกรองเม็ดเลือดแดงเก่าไม่ได้",
-    "verified": "Lymphatic organs II น.24",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Lymphatic organs II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Lymphatic organs II น.24"
   },
   {
     "id": 106751,
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
+    "source": "Male Reproductive System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "tunica albuginea ของ testis ในสปีชีส์ใดที่พบ smooth muscles และ vascular layer ร่วมอยู่ด้วย",
     "options": [
@@ -1509,15 +1511,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า tunica albuginea เป็น thick dense irregular connective tissue ที่ rich of collagen fibers และมี elastic fibers บ้าง แต่ในบางสปีชีส์เช่น horse และ pig พบ smooth muscles และ vascular layer เพิ่มเข้ามา และรูปในหน้าถัดมาก็ให้ label สามอย่างนี้พอดี ส่วน dog และ cat เป็นตัวลวงที่น่าเลือกเพราะเป็นสัตว์เลี้ยงที่เจอในสไลด์บ่อย แต่สไลด์ไม่ได้ระบุ carnivores ไว้ในข้อนี้เลย",
-    "verified": "Male Reproductive System น.4-7",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Male Reproductive System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Male Reproductive System น.4-7"
   },
   {
     "id": 106758,
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
+    "source": "Male Reproductive System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดจับคู่ต่อมกับสปีชีส์ที่ไม่พบต่อมนั้นได้ถูกต้อง",
     "options": [
@@ -1528,15 +1530,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุ vesicular gland ว่า absent in carnivores ตัวเลือกเรื่อง prostate เป็นตัวลวงที่ใกล้เคียงที่สุด เพราะสไลด์แยกไว้ว่า external (compact) portion หรือ body of prostate ไม่มีใน small ruminants ส่วนที่ไม่มีใน stallion คือ internal (disseminate) portion ขณะที่ bulbourethral gland ไม่มีใน dogs และ ampullary gland ไม่มีใน boar กับ cat แต่พบใน ruminants",
-    "verified": "Male Reproductive System น.30-32, 34",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Male Reproductive System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Male Reproductive System น.30-32, 34"
   },
   {
     "id": 106762,
     "subject": "vet-histo",
     "topic": "histo--nervous-system",
     "year": 2,
+    "source": "Nervous System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตาม label ตัวเซลล์ (cell body) ของ neuron ถูกเรียกด้วยชื่อใด",
     "options": [
@@ -1547,15 +1549,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุชื่อตัวเซลล์ไว้ว่า soma หรือ perikaryon ส่วน terminal bulb (bouton) เป็นโครงสร้างที่ปลาย axon ไม่ใช่ตัวเซลล์ และ gemule คือ dendritic spine บน dendrite",
-    "verified": "Nervous System น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Nervous System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Nervous System น.5"
   },
   {
     "id": 106769,
     "subject": "vet-histo",
     "topic": "histo--placenta-lab-manual",
     "year": 2,
+    "source": "Placenta lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "placentome ของ ruminant แล็บนี้เกิดจากการจับคู่ของโครงสร้างใด",
     "options": [
@@ -1566,15 +1568,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์บรรยายว่า placentome เกิดจาก cotyledon ซึ่งเป็น clumps of chorioallantoic villi ฝั่งลูก จับคู่กับ uterine caruncle ฝั่งแม่ ส่วน microcotyledon กับ endometrial cup เป็นโครงสร้างของรกม้า ไม่ได้เกิดใน ruminant",
-    "verified": "Placenta lab manual น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Placenta lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Placenta lab manual น.3"
   },
   {
     "id": 106770,
     "subject": "vet-histo",
     "topic": "histo--placenta-lab-manual",
     "year": 2,
+    "source": "Placenta lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "epithelium ของ chorioallantoic villus ใน placentome ประกอบด้วยเซลล์รูปร่างไม่สม่ำเสมอ ร่วมกับเซลล์ชนิดใด",
     "options": [
@@ -1585,15 +1587,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์ระบุว่า epithelium ของ chorioallantoic villus ประกอบด้วย irregularly shaped cells ร่วมกับ binucleate giant cells ส่วน cuboidal cryptal cells คือ cryptal (maternal) epithelium ที่สไลด์บอกว่าเป็น cuboidal หรือ flattened จึงเป็นเซลล์คนละฝั่งกับ villus epithelium",
-    "verified": "Placenta lab manual น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Placenta lab manual lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Placenta lab manual น.3"
   },
   {
     "id": 106776,
     "subject": "vet-histo",
     "topic": "histo--placenta",
     "year": 2,
+    "source": "Placenta lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ชั้นใดของ carnivore placenta เป็นชั้นที่ลึกที่สุด และมีองค์ประกอบอะไรอยู่ในชั้นนั้น",
     "options": [
@@ -1604,15 +1606,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์แบ่ง carnivore placenta เป็น 3 ชั้น และระบุว่า glandular zone เป็นชั้นลึกที่สุด มี dilated secreting glands และ decidual cells ส่วน junctional zone ที่มี terminal lamellae maternal vessels และ glandular secretions เป็นชั้นกลางที่ขยายใหญ่ในสุนัข ไม่ใช่ชั้นที่ลึกที่สุด",
-    "verified": "Placenta น.31, 32, 34",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Placenta lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Placenta น.31, 32, 34"
   },
   {
     "id": 106777,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
+    "source": "Respiratory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Conducting part ของ respiratory system ครอบคลุมตั้งแต่ตำแหน่งใดถึงตำแหน่งใด",
     "options": [
@@ -1623,15 +1625,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์แบ่ง structure of RS เป็น 3 ส่วน โดย conducting part กำหนดไว้ตั้งแต่ nose ถึง terminal bronchiole ตัวเลือกที่จบที่ respiratory bronchiole ผิดเพราะ respiratory bronchiole เป็นจุดเริ่มของ respiratory part ไม่ใช่ปลายของ conducting part",
-    "verified": "Respiratory System น.1",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Respiratory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Respiratory System น.1"
   },
   {
     "id": 106778,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
+    "source": "Respiratory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Nasal vestibule บุด้วย epithelium ชนิดใด",
     "options": [
@@ -1642,15 +1644,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า nasal vestibule บุด้วย keratinized stratified squamous epithelium ร่วมกับ pigment ลักษณะคล้ายผิวหนัง ตัวเลือก non-keratinized ผิดตรงที่ไม่มี keratin และไม่มี pigment ซึ่งเป็นสองจุดที่สไลด์เน้นไว้ ส่วน ciliated pseudostratified columnar เป็น typical epithelium ของทางเดินหายใจที่ nasal vestibule ถูกยกเป็นข้อยกเว้น",
-    "verified": "Respiratory System น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Respiratory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Respiratory System น.2"
   },
   {
     "id": 106780,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
+    "source": "Respiratory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ใน carnivore trachealis muscle ขึงอยู่ในตำแหน่งใดของ cartilage",
     "options": [
@@ -1661,15 +1663,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์เทียบสองกลุ่มไว้ว่า carnivore ขึงปลายขอบ cartilage ทั้งสองข้างทางด้านนอก ส่วน human, horse, pig และ cattle ขึงทางด้านใน ตัวเลือกด้านในจึงเป็นของกลุ่มหลังไม่ใช่ carnivore",
-    "verified": "Respiratory System น.11",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Respiratory System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Respiratory System น.11"
   },
   {
     "id": 106783,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
+    "source": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ชั้นในสุดของ cornea ที่เรียกว่า posterior epithelium หรือ corneal endothelium เป็น epithelium ชนิดใด",
     "options": [
@@ -1680,15 +1682,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่าชั้นที่ 5 ของ cornea คือ posterior epithelium (corneal endothelium) เป็น simple squamous หรือ cuboidal epithelium ตัวเลือกที่ล่อใจคือ non-keratinized stratified squamous ซึ่งเป็นของ corneal epithelium ชั้นหน้าสุด (ชั้นที่ 1) ไม่ใช่ชั้นหลัง จุดที่ต้องแยกให้ออกคือ epithelium หัวกับท้ายของ cornea ไม่เหมือนกัน",
-    "verified": "Special Sense น.7",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Special Sense น.7"
   },
   {
     "id": 106784,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
+    "source": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "tapetum lucidum ของสัตว์กินพืช (herbivore) มีลักษณะตรงกับข้อใด",
     "options": [
@@ -1699,15 +1701,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์แยกไว้เป็นคู่ว่า herbivore เป็นชั้นเนื้อเยื่อเกี่ยวพัน เรียก tapetum fibrosum ส่วน carnivore เป็นเซลล์หลายเหลี่ยม เรียก tapetum cellurosum ตัวเลือก tapetum cellurosum จึงเป็นของสัตว์กินเนื้อ ไม่ใช่สัตว์กินพืช ส่วน choriocapillary layer เป็นอีกชั้นหนึ่งของ choroid ที่แยกจาก tapetum lucidum",
-    "verified": "Special Sense น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Special Sense น.12"
   },
   {
     "id": 106785,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
+    "source": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "aqueous humor ถูกระบายออกจากลูกตาที่บริเวณใดและผ่านทางใด",
     "options": [
@@ -1718,15 +1720,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า aqueous humor ไหลผ่าน pupil เข้าสู่ anterior chamber แล้ว drained ที่ iridocorneal angle หรือ filtration angle ผ่าน intrascleral venous plexus ตัวเลือกเรื่อง pupil ล่อใจเพราะเป็นทางไหลผ่านจริง แต่เป็นทางเข้า anterior chamber ไม่ใช่จุดที่ระบายออก และสไลด์ยังเน้นว่าถ้า drainage ไม่เพียงพอจะทำให้ intraocular pressure สูงขึ้น",
-    "verified": "Special Sense น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Special Sense น.20"
   },
   {
     "id": 106786,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
+    "source": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดจับคู่ชนิดของ gland of 3rd eyelid กับชนิดสัตว์ได้ถูกต้อง",
     "options": [
@@ -1737,15 +1739,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์แยกไว้สามกลุ่มคือ serous ในม้าและแมว mucous ในสุกร และ seromucous ในสุนัขและโค ตัวเลือก serous ในสุนัขและโคจึงสลับชนิดต่อม เพราะสุนัขและโคเป็น seromucous ส่วน mucous เป็นของสุกร ไม่ใช่ม้ากับแมว",
-    "verified": "Special Sense น.32",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Special Sense น.32"
   },
   {
     "id": 106787,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
+    "source": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เซลล์รับแสงชนิดใดที่ถูกกระตุ้นด้วย bright light และรับผิดชอบ color vision",
     "options": [
@@ -1756,15 +1758,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า cone cells ถูกกระตุ้นด้วย bright light และรับผิดชอบ color vision ตัวเลือกที่ล่อใจคือ rod cells ซึ่งอยู่ในชั้นเดียวกันแต่ถูกกระตุ้นด้วย dim light และไม่ได้ทำหน้าที่แยกสี ส่วน ganglion cells และ retinal pigment epithelium เป็นชั้นอื่นของ retina ที่ไม่ใช่ photoreceptor",
-    "verified": "Special Sense น.26",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Special Sense น.26"
   },
   {
     "id": 106788,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
+    "source": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ของเหลวที่บรรจุอยู่ภายใน membranous labyrinth และของเหลวที่ล้อมรอบอยู่ภายนอก คือข้อใดตามลำดับ",
     "options": [
@@ -1775,15 +1777,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า membranous labyrinth บุด้วย simple squamous epithelium ภายในบรรจุ endolymph และภายนอกล้อมรอบด้วย perilymph ตัวเลือกที่สลับกันเป็นกับดักที่พบบ่อยที่สุดของหัวข้อนี้ ส่วน vitreous body และ aqueous humor เป็นของเหลวในลูกตา ไม่ใช่ในหูชั้นใน",
-    "verified": "Special Sense น.48",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Special Sense น.48"
   },
   {
     "id": 106789,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
+    "source": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "cochlear duct หรือ scala media ถูกแยกออกจาก scala tympani ด้วยโครงสร้างใด",
     "options": [
@@ -1794,15 +1796,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์ระบุว่า cochlear duct แยกจาก scala vestibuli ด้วย vestibular membrane และแยกจาก scala tympani ด้วย basilar membrane ตัวเลือก vestibular membrane จึงเป็นด้านตรงข้าม ส่วน tectorial membrane เป็น gelatinous structure ที่วางทับ organ of Corti และ helicotrema เป็นช่องที่ทำให้ scala vestibuli ติดต่อกับ scala tympani",
-    "verified": "Special Sense น.57",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Special Sense น.57"
   },
   {
     "id": 106790,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
+    "source": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามลำดับกลไกการได้ยิน pressure change ใน perilymph ทำให้เกิดเหตุการณ์ใดต่อไป",
     "options": [
@@ -1813,15 +1815,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ไล่ลำดับว่า vibration ที่ tympanic membrane ส่งไป ossicles ไป scala vestibuli แล้ว pressure change ใน perilymph ทำให้เกิด displacement ของ basilar membrane ก่อน จากนั้นจึงไปทำให้ stereocilia ของ sensory cell เคลื่อน ตัวเลือก tympanic membrane เป็นขั้นก่อนหน้าไม่ใช่ขั้นถัดไป ส่วน cupula อยู่ใน crista ampullaris ของ semicircular ducts ซึ่งตรวจจับ speed of rotation ไม่ได้อยู่ในสายโซ่การได้ยิน",
-    "verified": "Special Sense น.63",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Special Sense lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Special Sense น.63"
   },
   {
     "id": 106793,
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
+    "source": "tissue preparation lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดกล่าวถูกต้องเกี่ยวกับ medium ที่ใช้ในขั้น embedding",
     "options": [
@@ -1832,15 +1834,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า paraffin is used commonly for light microscopy ส่วน resins ใช้ได้ทั้ง LM และ EM ตัวเลือกที่บอกว่า paraffin ใช้ได้ทั้งสองแบบเป็นตัวลวงที่น่าเลือกที่สุดเพราะ paraffin เป็น medium ที่พบบ่อยที่สุดในงานประจำวัน แต่สไลด์ผูก paraffin ไว้กับ light microscopy เท่านั้น ตัวที่ครอบคลุมทั้งสองระบบคือ resins",
-    "verified": "tissue preparation น.15",
-    "sourceType": "lecture-derived",
-    "examOrigin": "tissue preparation lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "tissue preparation น.15"
   },
   {
     "id": 106794,
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
+    "source": "tissue preparation lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ในการย้อม H&E hematoxylin ให้ผลการติดสีอย่างไร",
     "options": [
@@ -1851,15 +1853,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า hematoxylin ให้สี dark blue หรือ purple ติดที่ cell nucleus รวมถึง ribosomes และ rough endoplasmic reticulum ของ cytoplasm ตัวเลือกสี pink ติด cytoplasm เป็นตัวลวงที่น่าเลือกที่สุดเพราะเป็นครึ่งหนึ่งของการย้อมชุดเดียวกัน แต่นั่นคือคุณสมบัติของ eosin ซึ่งเป็นกรด ไม่ใช่ของ hematoxylin",
-    "verified": "tissue preparation น.18",
-    "sourceType": "lecture-derived",
-    "examOrigin": "tissue preparation lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "tissue preparation น.18"
   },
   {
     "id": 106795,
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
+    "source": "tissue preparation lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เทคนิคใดใช้ระบุ specific mRNA species ในเซลล์แต่ละเซลล์บน tissue section",
     "options": [
@@ -1870,15 +1872,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์นิยาม in situ hybridization ว่าเป็นเทคนิคระบุ specific mRNA species ในเซลล์แต่ละเซลล์บน tissue section ตัวเลือก immunohistochemistry เป็นตัวลวงที่น่าเลือกเพราะระบุตำแหน่งสารจำเพาะในเนื้อเยื่อได้เหมือนกัน แต่ IHC ตรวจหา protein ด้วย antibody labeling ไม่ได้ตรวจ mRNA",
-    "verified": "tissue preparation น.20-21",
-    "sourceType": "lecture-derived",
-    "examOrigin": "tissue preparation lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "tissue preparation น.20-21"
   },
   {
     "id": 106797,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
+    "source": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ปริมาณ smooth muscle ใน renal capsule ของแต่ละชนิดสัตว์เป็นอย่างไร",
     "options": [
@@ -1889,15 +1891,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุ ruminant smooth m. (+++), pig horse dog smooth m. (++) และ cat no smooth m. ดังนั้น ruminant มากสุดและ cat ไม่มีเลย ตัวเลือกที่สลับให้ cat เป็นกลุ่ม +++ ชวนเลือกเพราะจำได้ว่า cat เป็นชนิดที่พิเศษกว่าชนิดอื่น แต่ความพิเศษของ cat คือการไม่มี smooth muscle ไม่ใช่การมีมากที่สุด ส่วน horse กับ pig อยู่กลุ่ม (++) เท่ากับ dog ไม่ใช่กลุ่มสูงสุด",
-    "verified": "Urinary System น.9",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Urinary System น.9"
   },
   {
     "id": 106798,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
+    "source": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ไตของ dog จัดอยู่ในรูปแบบใด",
     "options": [
@@ -1908,15 +1910,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์จัด dog, cat, horse และ small ruminant เป็น unilobar kidney ซึ่งปลายของ medullary pyramids เชื่อมรวมกันเป็น renal crest ส่วน multilobar kidney ที่ apices แยกกันและยื่นเข้า renal calyces พบใน large ruminant (ox), pig และ human ตัวเลือกที่จับคู่ multilobar กับ renal calyces ถูกในเชิงนิยาม แต่ผิดเพราะ dog ไม่ใช่ multilobar",
-    "verified": "Urinary System น.8",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Urinary System น.8"
   },
   {
     "id": 106799,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
+    "source": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "mesangial cells คือเซลล์แบบใด",
     "options": [
@@ -1927,15 +1929,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์นิยาม mesangial cells ว่าเป็น vascular pericytes ที่มี contractile properties สร้าง component ของ external lamina และระบุลักษณะย้อมสีว่าติดสีเข้มกว่า podocytes ตัวเลือก modified smooth muscle cells ของ tunica media ชวนเลือกเพราะทั้งสองชนิดอยู่ที่ vascular pole เหมือนกัน แต่คำนิยามนั้นเป็นของ JG cells ส่วนเซลล์ columnar ที่เรียงชิดกันแน่นคือ macula densa",
-    "verified": "Urinary System น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Urinary System น.20"
   },
   {
     "id": 106801,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
+    "source": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดจับคู่ส่วนของท่อไตกับฮอร์โมนที่ออกฤทธิ์ได้ถูกต้อง",
     "options": [
@@ -1946,15 +1948,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 3,
     "explain": "สไลด์เขียนไว้ตรงส่วน DCT ว่าอัตราการ reabsorb Na+ ถูกควบคุมโดย aldosterone และหน้า collecting duct system ย้ำว่า DCT responses to aldosterone ส่วน collecting duct impermeable to water แต่ permeable ภายใต้ ADH ตัวเลือกที่สลับให้ PCT ตอบสนองต่อ ADH ชวนเลือกเพราะใช้ฮอร์โมนคู่เดิม แต่สไลด์ไม่ได้ผูกฮอร์โมนใดกับ PCT เลย PCT ดูดกลับมากกว่า 50% ของน้ำและ electrolytes โดยไม่ต้องรอฮอร์โมน",
-    "verified": "Urinary System น.28",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Urinary System น.28"
   },
   {
     "id": 106802,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
+    "source": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เซลล์กลุ่มใดทำหน้าที่รักษา acid-base balance ด้วยการ secrete H+/HCO3-",
     "options": [
@@ -1965,15 +1967,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 1,
     "explain": "สไลด์แบ่งเซลล์ของ collecting duct เป็น principal cells กับ intercalated cells โดย intercalated cells มี mitochondria มากกว่า มี apical folds และรักษา acid-base balance โดย secrete H+/HCO3- ตัวเลือก principal cells ชวนเลือกเพราะอยู่ในท่อเดียวกัน แต่หน้าที่ของมันคือการดูดน้ำกลับผ่าน aquaporins ภายใต้ ADH ไม่ใช่งานกรดด่าง",
-    "verified": "Urinary System น.32",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Urinary System น.32"
   },
   {
     "id": 106803,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
+    "source": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "JG cells ซึ่งหลั่ง renin เข้าสู่กระแสเลือดเป็นเซลล์ที่ดัดแปลงมาจากเซลล์ชนิดใด",
     "options": [
@@ -1984,15 +1986,15 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 0,
     "explain": "สไลด์นิยาม JG cells ว่าเป็น modified smooth muscle cells ของ tunica media ใน afferent arteriole มีนิวเคลียสกลม มี rough ER, golgi complex และ zymogen granules สำหรับ secretion of renin ตัวเลือก modified epithelial cells ของ straight part ของ distal tubule ชวนเลือกเพราะเป็นคำอธิบายของ macula densa ซึ่งอยู่ใน JGA เดียวกัน แต่ macula densa ทำหน้าที่ตรวจจับ ไม่ใช่หลั่ง renin",
-    "verified": "Urinary System น.38",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Urinary System น.38"
   },
   {
     "id": 106804,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
+    "source": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "เมื่อ arterial blood pressure เพิ่มขึ้น macula densa ตอบสนองอย่างไร",
     "options": [
@@ -2003,8 +2005,6 @@ export const QUESTIONS_Y2_HISTO = [
     ],
     "answer": 2,
     "explain": "สไลด์ไล่ลำดับว่าเมื่อความดันเลือดเปลี่ยน glomerular capillary pressure และ GFR เปลี่ยน ทำให้ luminal concentration ของ Na และ Cl ใน TAL สูงขึ้น macula densa detect ได้แล้ว release adenosine และ vasoactive compounds ทำให้เกิด afferent arteriole contraction ตัวเลือกที่ให้ macula densa หลั่ง renin ชวนเลือกเพราะ renin อยู่ใน JGA เหมือนกัน แต่ renin หลั่งจาก JG cells และเกิดตอนความดันเลือดลดลง ไม่ใช่ตอนเพิ่มขึ้น",
-    "verified": "Urinary System น.42",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Urinary System lecture deck (จุลกายวิภาคสัตวแพทย์ 2566), lecture-derived"
+    "verified": "Urinary System น.42"
   }
 ];

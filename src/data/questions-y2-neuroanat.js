@@ -17,6 +17,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "subject": "vet-neuroanat",
     "topic": "neuroanat--basal-nuclei",
     "year": 2,
+    "source": "Basal nuclei lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามแผนผังชื่อ striatum เป็นชื่อกลุ่มที่คร่อมนิวเคลียสใดบ้าง",
     "options": [
@@ -27,15 +29,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "สไลด์วาง striatum คร่อม caudate nucleus, accumbens nucleus และ putamen ตัวล่อที่น่าเลือกคือชุดที่มี putamen กับ pallidum อยู่ด้วยกัน เพราะสองตัวนี้อยู่ในกลุ่มเดียวกันจริง แต่ชื่อกลุ่มของคู่นั้นคือ lentiform nucleus ไม่ใช่ striatum ส่วน endopeduncular nucleus สไลด์แยกไว้ต่างหาก ไม่ได้นับเข้ากลุ่มใด",
-    "verified": "Basal nuclei น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Basal nuclei lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Basal nuclei น.3"
   },
   {
     "id": 106810,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--basal-nuclei",
     "year": 2,
+    "source": "Basal nuclei lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "putamen วางตัวอยู่ระหว่างโครงสร้างคู่ใด",
     "options": [
@@ -46,15 +48,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า putamen อยู่ระหว่าง internal capsule กับ lateral medullar lamina ข้อที่เปลี่ยนเป็น external capsule เป็นตัวล่อ เพราะ external capsule เป็นขอบที่สไลด์ใช้บรรยาย claustrum ซึ่งอยู่ lateral ออกไปอีกชั้น ไม่ใช่ขอบของ putamen",
-    "verified": "Basal nuclei น.11",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Basal nuclei lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Basal nuclei น.11"
   },
   {
     "id": 106813,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
+    "source": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตาราง geniculate nuclei ระบุว่า medial geniculate nucleus ส่ง output ไปยังคอร์เทกซ์ส่วนใด",
     "options": [
@@ -65,15 +67,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 2,
     "explain": "ตารางในสไลด์กำกับ medial geniculate nucleus ว่า output คือ primary auditory cortex และ function คือ auditory pathway ส่วน primary visual cortex เป็น output ของ lateral geniculate nucleus ซึ่งอยู่อีกแถวหนึ่งของตารางเดียวกัน จึงเป็นตัวลวงที่คนสับสน medial กับ lateral มักเลือก",
-    "verified": "Diencephalon น.8",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Diencephalon น.8"
   },
   {
     "id": 106817,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
+    "source": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตาราง hypothalamic nuclei กำกับ Supraoptic nucleus (SO) ไว้กับฮอร์โมนใด",
     "options": [
@@ -84,15 +86,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 2,
     "explain": "ตารางเขียน Supraoptic nucleus เท่ากับ release oxytocin, vasopressin ส่วน corticotropin-releasing hormone เป็นตัวที่ทำให้ paraventricular nucleus ต่างจาก SO เพราะ PV ปล่อยทั้ง CRH, oxytocin และ vasopressin จึงเป็นตัวลวงที่ใกล้ที่สุดในคอลัมน์เดียวกัน",
-    "verified": "Diencephalon น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Diencephalon น.20"
   },
   {
     "id": 106818,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
+    "source": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "นิวเคลียสใดใน tuberal region ที่ตารางกำกับหน้าที่ไว้ว่า satiety",
     "options": [
@@ -103,15 +105,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "ตารางเขียน Ventromedial nucleus เท่ากับ satiety และ neuroendocrine control ส่วน lateral hypothalamic area ถูกกำกับว่า feeding, thirst and hunger ซึ่งเป็นด้านตรงข้ามของคู่นี้ จึงเป็นตัวลวงที่ต้องแยกให้ออก",
-    "verified": "Diencephalon น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Diencephalon น.20"
   },
   {
     "id": 106819,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
+    "source": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตาราง hypothalamic nuclei กำกับ Posterior nucleus (PN) ไว้ด้วยหน้าที่ชุดใด",
     "options": [
@@ -122,15 +124,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "ตารางเขียน Posterior nucleus เท่ากับ increase blood pressure, pupillary dilation, shivering ส่วน thermoregulation แบบ panting และ sweating เป็นของ anterior hypothalamic nucleus ซึ่งสไลด์จับคู่ตรงข้ามกับ PN ในเรื่องอุณหภูมิเอาไว้",
-    "verified": "Diencephalon น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Diencephalon น.20"
   },
   {
     "id": 106820,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
+    "source": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "คำว่า limbus ที่เป็นที่มาของชื่อ limbic system แปลว่าอะไร และสื่อถึงการจัดเรียงตัวแบบใด",
     "options": [
@@ -141,15 +143,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุตรงว่า limbus แปลว่า edge หรือ border และชื่อนี้อ้างถึงการเรียงตัวของ telencephalic neurons และ tract เป็น two incomplete ring-like structure บน medial aspect ของ cerebral hemisphere ตรงรอยต่อกับ diencephalon ตัวเลือกที่ชวนเลือกผิดคือ two complete ring บน lateral aspect เพราะจำจำนวนวงถูกแต่ผิดสองจุด คือวงนี้เป็น incomplete ไม่ใช่ complete และอยู่ด้าน medial ไม่ใช่ lateral",
-    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.2"
   },
   {
     "id": 106821,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
+    "source": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามการแบ่ง cerebral cortex ข้อใดจับคู่ส่วนของ cortex กับโครงสร้างได้ถูกต้อง",
     "options": [
@@ -160,15 +162,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์แบ่ง cerebral cortex เป็น 3 ส่วน โดย Archipallium คือ hippocampus ส่วน Paleopallium คือ olfactory bulb, olfactory peduncle และ piriform lobe และ Neopallium คือส่วนที่เหลือของ cerebrum รวม gyri ที่อยู่ dorsal ต่อ rhinal sulcus ตัวเลือกที่ชวนเลือกผิดคือการยก hippocampus ไปไว้ใน Paleopallium เพราะทั้งคู่เป็น cortex เก่าเหมือนกัน แต่เด็คแยกไว้คนละส่วนชัดเจน",
-    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3"
   },
   {
     "id": 106822,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
+    "source": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "โครงสร้างในข้อใดจัดอยู่ใน inner ring ของ limbic system ส่วน telencephalon",
     "options": [
@@ -179,15 +181,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 2,
     "explain": "เด็คแบ่ง two cortical rings ที่ diencephalic-telencephalic junction เป็น inner ring คือ amygdaloid body, hippocampus และ fornix ของมัน ส่วน outer ring คือ cingulate gyrus กับ cingulum และ septal nuclei ตัวเลือกที่ชวนเลือกผิดคือ cingulate gyrus พร้อม cingulum เพราะเป็นสมาชิกของ limbic system จริง แต่อยู่วง outer ไม่ใช่ inner",
-    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3"
   },
   {
     "id": 106823,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
+    "source": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Stria terminalis ซึ่งเป็น projection pathway ของ amygdaloid body ทอดตัวอยู่ที่ใด และไปสิ้นสุดที่ใด",
     "options": [
@@ -198,15 +200,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า stria terminalis ทอดอยู่ในมุมระหว่าง thalamus กับ caudate nucleus เป็นรูป incomplete C shape แล้วไปสิ้นสุดที่ septal area ซึ่งอยู่ใน septum pellucidum และที่ rostral hypothalamus ตัวเลือกที่ชวนเลือกผิดคือการให้ไปจบที่ mamillary body เพราะเป็นปลายทางจริงของ post-commissural fiber ของ fornix ไม่ใช่ของ stria terminalis",
-    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3"
   },
   {
     "id": 106824,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
+    "source": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "post-commissural fiber ของ column of fornix ทอดไปสิ้นสุดที่โครงสร้างใด",
     "options": [
@@ -217,15 +219,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "เด็คระบุว่า column of fornix แต่ละข้างแตกเป็น 2 มัด มัดเล็กคือ pre-commissural fiber ทอด rostral เข้าสู่ septal area ส่วนมัดใหญ่คือ post-commissural fiber ทอดไป caudal ต่อ rostral commissure แล้วลง ventral สู่ hypothalamus ไปสิ้นสุดที่ mamillary body ตัวเลือกที่ชวนเลือกผิดคือ septal area เพราะเป็นปลายทางจริง แต่เป็นของ pre-commissural fiber ไม่ใช่ post-commissural",
-    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.4",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Limbic System (Nonolfactory Rhinencephalon) lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Limbic System (Nonolfactory Rhinencephalon) น.4"
   },
   {
     "id": 106825,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
+    "source": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ข้อใดจับคู่การแบ่ง cerebellum แบบ developmental classification กับ lobe ได้ถูกต้อง",
     "options": [
@@ -236,15 +238,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 2,
     "explain": "สไลด์จับคู่ไว้ตรงตัวสามคู่คือ Archicerebellum เป็น Flocculonodular lobe, Paleocerebellum เป็น Rostral lobe และ Neocerebellum เป็น Caudal lobe คำตอบจึงเป็นคู่ Paleocerebellum กับ Rostral lobe ตัวเลือก Archicerebellum คือ Rostral lobe ที่ดูคุ้นตาผิดเพราะจับ Archicerebellum ไปไว้กับ lobe ของ Paleocerebellum ทั้งที่ Archicerebellum ต้องคู่กับ Flocculonodular lobe",
-    "verified": "Metencephalon น.5-6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Metencephalon น.5-6"
   },
   {
     "id": 106826,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
+    "source": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Interposital nucleus ซึ่งอยู่ในโซน paravermis ส่ง efferent fiber ไปยังโครงสร้างใด",
     "options": [
@@ -255,15 +257,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุ efferent ของ Interposital nucleus ว่าไปที่ red nucleus และ RF of midbrain ตัวเลือก thalamus ที่น่าเลือกเป็น efferent ของ Dentate nucleus ซึ่งเป็นนิวเคลียสของ cerebellar hemisphere ไม่ใช่ของ paravermis",
-    "verified": "Metencephalon น.8",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Metencephalon น.8"
   },
   {
     "id": 106827,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
+    "source": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Longitudinal fiber of pons นำใยประสาทจากที่ใดไปยังที่ใด",
     "options": [
@@ -274,15 +276,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "สไลด์แยกใยสองมัดของ ventral portion ไว้ชัด Longitudinal fiber of pons วิ่งจาก cerebral cortex ไป pontine nuclei และ medulla oblongata ส่วนเส้นทางจาก pontine nuclei ไป cerebellum ผ่าน middle cerebellar peduncle เป็นของ Transverse fibers of pons จึงเป็นคนละมัดกัน",
-    "verified": "Metencephalon น.28-29",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Metencephalon น.28-29"
   },
   {
     "id": 106828,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
+    "source": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Middle cerebellar peduncle เชื่อม cerebellum เข้ากับส่วนใด และนำ fiber แบบใดเข้ามา",
     "options": [
@@ -293,15 +295,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า Middle cerebellar peduncle เชื่อมกับ pons และรับ afferent fiber จาก contralateral pontine nucleus ในรูป transverse fiber of pons ตัวเลือก ventral spinocerebellar tract ที่ชวนสับสนเข้าทาง Rostral cerebellar peduncle ไม่ใช่ทาง middle",
-    "verified": "Metencephalon น.17-18",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Metencephalon น.17-18"
   },
   {
     "id": 106829,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
+    "source": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Cerebellar hemispheres ในการแบ่งแบบ functional classification เรียกว่า Cerebro-cerebellum และทำหน้าที่ใด",
     "options": [
@@ -312,15 +314,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุหน้าที่ของ Cerebro-cerebellum ว่า control voluntary movement ในแง่ direction, timing และ force ส่วน regulate muscle tone และ unconscious motor movement for posture and gait เป็นหน้าที่ของ Spino-cerebellum ซึ่งได้แก่ vermis รวมกับ paravermis ไม่ใช่ hemispheres",
-    "verified": "Metencephalon น.9-11",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Metencephalon น.9-11"
   },
   {
     "id": 106830,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
+    "source": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "หน้าที่ motor planning เป็นของ afferent tract ใดที่เข้าสู่ cerebellum",
     "options": [
@@ -331,15 +333,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "สไลด์เขียน Pontocerebellar tract คู่กับคำว่า motor planning โดยตรง ส่วน Vestibulocerebellar tract ที่มักถูกเลือกผิดคู่กับ control eye-head-neck movements ไม่ใช่การวางแผนการเคลื่อนไหว",
-    "verified": "Metencephalon น.19",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Metencephalon น.19"
   },
   {
     "id": 106831,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
+    "source": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "การก้าวขาที่มี range และ force มากเกินไปจนเดินแบบ goose gait ในสัตว์ที่มีรอยโรคที่ cerebellum เรียกว่าอะไร",
     "options": [
@@ -350,15 +352,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์เขียนกำกับว่า Hypermetria คือ too long และวงเล็บไว้ว่า goose gait ส่วน Hypometria คือ too short ซึ่งเป็นการก้าวสั้นเกินไป จึงตรงข้ามกับที่โจทย์บรรยาย",
-    "verified": "Metencephalon น.24-25",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Metencephalon น.24-25"
   },
   {
     "id": 106832,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
+    "source": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Lateral lemniscus ใน pontine tegmentum เป็น ascending fiber ที่มาจากนิวเคลียสใด และจัดอยู่ในระบบใด",
     "options": [
@@ -369,15 +371,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า Lateral lemniscus เป็น ascending fiber จาก cochlear nuclei และ dorsal trapezoid nucleus ขึ้นไป midbrain จัดเป็น auditory system ตัวเลือก nucleus gracilis และ nucleus cuneatus ที่ชวนสับสนเป็นต้นทางของ Medial lemniscus ซึ่งเป็น decussated axon คนละมัดกับ lateral",
-    "verified": "Metencephalon น.30-31",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Metencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Metencephalon น.30-31"
   },
   {
     "id": 106833,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
+    "source": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Brachium of rostral colliculi ทอดไปยังโครงสร้างใด และ colliculi คู่นี้ควบคุม reflex กลุ่มใด",
     "options": [
@@ -388,15 +390,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์จับคู่ rostral colliculi กับ lateral geniculate body และงาน visual reflex (pupillary light reflex, lens accommodation, menace response, dazzle reflex) ตัวเลือกที่ล่อใจที่สุดคือ medial geniculate body กับ auditory reflex เพราะเป็นข้อมูลที่ถูกต้อง แต่เป็นของ caudal colliculi ไม่ใช่ rostral colliculi",
-    "verified": "Midbrain น.8",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Midbrain น.8"
   },
   {
     "id": 106834,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
+    "source": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Oculomotor nucleus ซึ่งเป็น motor nucleus ของ CN III วางตัวอยู่ที่ตำแหน่งใด",
     "options": [
@@ -407,15 +409,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "สไลด์เขียนว่า oculomotor nucleus อยู่ ventral ต่อ periaqueductal gray ที่ระดับ rostral colliculi ข้อที่ล่อใจคือระดับ caudal colliculi เพราะเป็นระดับของ trochlear nuclei ส่วนคำว่า dorsal ต่อ periaqueductal gray ก็ผิดทิศ เนื่องจาก PAG ล้อมรอบ aqueduct และ nucleus นี้อยู่ใต้ต่อ PAG",
-    "verified": "Midbrain น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Midbrain น.12"
   },
   {
     "id": 106835,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
+    "source": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Edinger Wesphal nucleus ซึ่งเป็น parasympathetic nucleus ของ CN III ควบคุมกล้ามเนื้อคู่ใด",
     "options": [
@@ -426,15 +428,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุว่า Edinger Wesphal nucleus ควบคุม constrictor ciliary muscle และ constrictor pupillae of iris ข้อที่ล่อใจคือ medial rectus และ ventral rectus เพราะเป็นกล้ามเนื้อของ CN III เหมือนกัน แต่เป็นงานของ oculomotor nucleus ซึ่งเป็น motor nucleus ไม่ใช่ parasympathetic nucleus",
-    "verified": "Midbrain น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Midbrain น.12"
   },
   {
     "id": 106836,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
+    "source": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Trochlear nuclei พบที่ระดับใดของ midbrain และ fibers ของมัน decussate ที่โครงสร้างใดก่อนโผล่ออกมา",
     "options": [
@@ -445,15 +447,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์ระบุว่า trochlear nuclei พบที่ระดับ caudal colliculus และ fibers decussate ใน rostral medullary velum ก่อนโผล่ออกที่ caudal part ของ caudal colliculus ข้อที่ล่อใจคือ interpeduncular fossa เพราะเป็นจุดที่เส้นประสาทของตาโผล่ออกจริง แต่แอ่งนั้นเป็นทางออกของ CN III ทาง ventral ไม่ใช่จุด decussate ของ CN IV",
-    "verified": "Midbrain น.16",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Midbrain น.16"
   },
   {
     "id": 106838,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
+    "source": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Red nucleus รับ axon เข้ามาจากแหล่งใดบ้าง",
     "options": [
@@ -464,15 +466,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์เขียนว่า red nucleus รับ axon จาก ipsilateral motor cortex และ contralateral cerebellar nuclei ข้อที่ล่อใจคือการสลับข้างเป็น contralateral motor cortex กับ ipsilateral cerebellar nuclei ส่วน olivary nucleus นั้นเป็นปลายทางที่ red nucleus ส่ง rubro-olivary fiber ไปหา ไม่ใช่แหล่งที่ส่งเข้ามา",
-    "verified": "Midbrain น.22",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Midbrain น.22"
   },
   {
     "id": 106839,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
+    "source": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "clinical correlations รอยโรคที่ oculomotor nerve ทำให้เกิดอาการกลุ่มใด",
     "options": [
@@ -483,15 +485,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์เขียนอาการของ oculomotor nerve ไว้สามอย่างคือ ptosis, pupillary dilate และ ventrolateral strabismus ข้อที่ล่อใจคือ extortion ของตาข้าง ipsilateral เพราะอยู่ในสไลด์หน้าเดียวกัน แต่เป็นอาการของ trochlear nerve ส่วน hyperreflexia และ hypertonia สไลด์จัดไว้ในกลุ่มของ crus cerebri",
-    "verified": "Midbrain น.27",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Midbrain lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Midbrain น.27"
   },
   {
     "id": 106840,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
+    "source": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ขอบเขต cranial ของ medulla oblongata ทางด้าน dorsal คือโครงสร้างใด",
     "options": [
@@ -502,15 +504,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์แยกขอบเขต cranial ของสองด้านไว้คนละค่า ด้าน dorsal ใช้ caudal cerebellar peduncle ส่วน caudal border of the pons เป็นขอบเขต cranial ของด้าน ventral จึงเป็นตัวล่อที่ตอบผิดง่ายถ้าจำรวมเป็นค่าเดียว ขณะที่ the 1st cervical nerve เป็นขอบเขต caudal ไม่ใช่ cranial",
-    "verified": "Myelencephalon น.1",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Myelencephalon น.1"
   },
   {
     "id": 106841,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
+    "source": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "fasciculus gracilis บน dorsal external surface รับสัญญาณจาก spinal segment ระดับใด",
     "options": [
@@ -521,15 +523,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์จับคู่ระดับ segment ไว้ว่า fasciculus gracilis รับจาก T6-S3 ส่วน C1-T5 เป็นระดับของ fasciculus cuneatus ซึ่งเป็นคู่ที่สลับกันบ่อยที่สุดเพราะสองเส้นวางอยู่ติดกันบนผิว dorsal ช่วง C6-T12 กับ L1-S3 ไม่ตรงกับที่สไลด์ให้ไว้ทั้งสองเส้น",
-    "verified": "Myelencephalon น.1",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Myelencephalon น.1"
   },
   {
     "id": 106843,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
+    "source": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "reticular formation nuclei ของ medulla oblongata เป็นที่ตั้งของศูนย์ควบคุมคู่ใด",
     "options": [
@@ -540,15 +542,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์ระบุกลุ่มที่หนึ่งคือ reticular formation nuclei ว่าเป็นที่ตั้งของ cardiovascular center และ respiratory center ส่วน emetic center กับ CTZ สไลด์ยกไว้ที่ area postrema บน wall ของ fourth ventricle ซึ่งเป็นคนละตำแหน่งกัน และการควบคุมการกลืนสไลด์ยกไว้ที่ nucleus ambiguous",
-    "verified": "Myelencephalon น.2",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Myelencephalon น.2"
   },
   {
     "id": 106844,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
+    "source": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "lateral cuneate nucleus นำ proprioception จากบริเวณใดไปยังที่ใด",
     "options": [
@@ -559,15 +561,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์แยก nucleus cuneatus เป็นสองส่วน lateral cuneate nucleus ส่ง proprioception ของ neck ไป cerebellum ส่วน medial cuneate nucleus ส่ง touch และ proprioception ของ cranial half of the body กับ thoracic limb ไป thalamus ตัวเลือก thoracic limb ไป thalamus จึงเป็นของ medial ไม่ใช่ lateral ซึ่งเป็นจุดที่สไลด์เตือนให้แยกปลายทางให้ออก",
-    "verified": "Myelencephalon น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Myelencephalon น.5"
   },
   {
     "id": 106845,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
+    "source": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "trapezoid nucleus ทำหน้าที่เป็น relay nuclei ของ auditory fibers ไปยังโครงสร้างใด",
     "options": [
@@ -578,15 +580,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "สไลด์ระบุว่า trapezoid nucleus relay auditory fibers ไปที่ midbrain ตรง caudal colliculus ตัวเลือก rostral colliculus เป็นเนินคู่ที่อยู่ระดับเดียวกันจึงล่อได้ง่าย แต่สไลด์เจาะจงเฉพาะ caudal colliculus ส่วน olivocerebellar tract เป็นเส้นทางของ olivary nucleus ที่ส่งไป cerebellum ไม่ใช่ของ trapezoid nucleus",
-    "verified": "Myelencephalon น.5",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Myelencephalon น.5"
   },
   {
     "id": 106846,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
+    "source": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "nucleus ambiguous เกี่ยวข้องกับ cranial nerve คู่ใด และเลี้ยงกล้ามเนื้อลายบริเวณใด",
     "options": [
@@ -597,15 +599,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์พาดหัวว่า NUCLEUS AMBIGUOUS (C.N. IX, X, XI) เป็น motor nuclei ที่ innervate skeletal muscles ของ pharynx larynx และ esophagus และควบคุมการกลืน ตัวเลือก CN X XI XII ล่อด้วย CN XII ที่มี nucleus อยู่ใน medulla เหมือนกัน แต่สไลด์ให้ CN XII มี motor nucleus ของตัวเอง ไม่ได้ถูกนับรวมใน ambiguous",
-    "verified": "Myelencephalon น.6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Myelencephalon น.6"
   },
   {
     "id": 106847,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
+    "source": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "solitary nucleus จัดเป็น nuclei ชนิดใด และวางตัวอยู่ส่วนใดของ medulla oblongata",
     "options": [
@@ -616,15 +618,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 2,
     "explain": "สไลด์ระบุว่า solitary nucleus เป็น sensory nuclei ที่รับ input จาก internal organ ผ่าน sensory fiber ของ vagus nerve และอยู่ dorsal-medial ของ medulla oblongata ตัวเลือก motor nuclei อยู่ dorsal-medial ล่อด้วยตำแหน่งที่ถูกแต่ชนิดผิด เพราะ motor nuclei ที่สไลด์วางคู่กันในหน้าเดียวกันคือ nucleus ambiguous",
-    "verified": "Myelencephalon น.6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Myelencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Myelencephalon น.6"
   },
   {
     "id": 106850,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
+    "source": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ระดับของ mental status ข้อใดปรากฏอยู่ในรายการ",
     "options": [
@@ -635,15 +637,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "รายการ mental status ในสไลด์คือ alert, disoriented, obtunded, stuporous และ comatose ดังนั้น obtunded คือคำที่อยู่ในรายการ คำที่ล่อใจคือ lethargic เพราะใช้กันบ่อยในเวชระเบียนและความหมายใกล้เคียงกับ obtunded แต่สไลด์ไม่ได้พิมพ์คำนี้ไว้ในรายการ เช่นเดียวกับ somnolent และ delirious ที่เป็นศัพท์จริงแต่ไม่อยู่ในสไลด์นี้",
-    "verified": "Neuro exam anatomy2024 น.4-6",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Neuro exam anatomy2024 น.4-6"
   },
   {
     "id": 106851,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
+    "source": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ataxia กับ paresis หรือ paralysis ถูกจัดว่าเกิดจาก dysfunction ของระบบใด",
     "options": [
@@ -654,15 +656,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "สไลด์เขียนไว้ชัดว่า ataxia เกิดจาก dysfunction of sensory system ส่วน paresis หรือ paralysis เกิดจาก dysfunction of motor system นี่คือเส้นแบ่งหลักของหน้า gait ข้อที่ล่อใจคือการสลับสองระบบกัน เพราะทั้ง ataxia และ paresis ทำให้เดินผิดปกติเหมือนกัน แต่การเดินเซโดยยังมีแรงจัดอยู่ฝั่ง sensory ส่วนการอ่อนแรงจัดอยู่ฝั่ง motor",
-    "verified": "Neuro exam anatomy2024 น.10-12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Neuro exam anatomy2024 น.10-12"
   },
   {
     "id": 106855,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
+    "source": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามตาราง vestibulo-ocular reflex มี afferent เป็น CN VIII และ central pathway ส่วน efferent innervation คือเส้นประสาทกลุ่มใด",
     "options": [
@@ -673,15 +675,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 3,
     "explain": "ตารางระบุ efferent ของ vestibulo-ocular reflex ไว้สามเส้นคือ CN III oculomotor, CN IV trochlear และ CN VI abducent ผลที่ได้คือ physiological nystagmus เมื่อหันหัวไปมาซ้ายขวา ข้อที่ล่อใจคือชุดที่มี CN VII facial ปนอยู่ เพราะ facial nerve โผล่บ่อยในตารางนี้ แต่ facial nerve ควบคุมการหลับตา ไม่ได้ควบคุมการกลอกลูกตา",
-    "verified": "Neuro exam anatomy2024 น.21",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "Neuro exam anatomy2024 น.21"
   },
   {
     "id": 106860,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
+    "source": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "ตามผัง สัญญาณที่ผ่าน lateral geniculate nucleus จะไปต่อทาง optic radiation แล้วเข้าสู่โครงสร้างใด",
     "options": [
@@ -692,15 +694,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "ผังบนสไลด์เขียนปลายทางของสาย lateral geniculate nucleus ไว้ว่า optic radiation แล้วเข้า primary visual cortex ที่ occipital lobe ข้อ rostral colliculus เป็นตัวล่อที่ดี เพราะมันอยู่บนผังเดียวกันจริงแต่เป็นปลายทางของอีกสายหนึ่งคือสาย 20% ที่ทำหน้าที่ visual reflex ไม่ได้ต่อจาก lateral geniculate nucleus",
-    "verified": "visual vestibular systems น.20",
-    "sourceType": "lecture-derived",
-    "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "visual vestibular systems น.20"
   },
   {
     "id": 106862,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
+    "source": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "กล้ามเนื้อที่ทำให้เกิด mydriasis คือข้อใด",
     "options": [
@@ -711,15 +713,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์เขียนจับคู่ไว้ว่า mydriasis หรือการขยายรูม่านตา ใช้ m. dilator pupillae ส่วน miosis หรือการหดรูม่านตา ใช้ m. sphincter pupillae ข้อ m. sphincter pupillae จึงเป็นตัวล่อที่ตรงข้ามกันพอดี เลือกผิดเมื่อจำสลับระหว่างการหดกับการขยาย ส่วน m. retractor bulbi และ m. orbicularis oculi เป็นกล้ามเนื้อจริงแต่ทำหน้าที่ดึงลูกตาและปิดหนังตา ไม่ได้ควบคุมขนาดรูม่านตา",
-    "verified": "visual vestibular systems น.32, น.34, น.36",
-    "sourceType": "lecture-derived",
-    "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "visual vestibular systems น.32, น.34, น.36"
   },
   {
     "id": 106864,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
+    "source": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "Horner syndrome เกิดจากความผิดปกติแบบใด และมีอาการทางตาชุดใด",
     "options": [
@@ -730,15 +732,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 1,
     "explain": "สไลด์นิยามไว้ตรง ๆ ว่า Horner syndrome เท่ากับ decreased sympathetic supply to the eye และลิสต์อาการไว้สี่อย่างคือ miosis, ptosis, enophthalmos และ protrusion of the nictitating membrane ข้อที่บอกว่า sympathetic เพิ่มขึ้นเป็นตัวล่อที่ดี เพราะถ้า sympathetic ทำงานมากขึ้นจะได้ mydriasis และตาโปน ซึ่งเป็นภาพตรงข้ามกับที่สไลด์ลิสต์ไว้",
-    "verified": "visual vestibular systems น.41",
-    "sourceType": "lecture-derived",
-    "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "visual vestibular systems น.41"
   },
   {
     "id": 106868,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
+    "source": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "จากตาราง extra-ocular muscles กล้ามเนื้อคู่ใดที่ไม่ได้เลี้ยงด้วย CN III ทั้งคู่",
     "options": [
@@ -749,15 +751,15 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 2,
     "explain": "ตารางบนสไลด์ระบุว่า lateral rectus เลี้ยงด้วย CN VI และ dorsal oblique เลี้ยงด้วย CN IV ส่วน medial rectus, dorsal rectus, ventral rectus และ ventral oblique เลี้ยงด้วย CN III ทั้งหมด ข้อ lateral rectus กับ medial rectus เป็นตัวล่อที่ดีเพราะเป็นคู่ที่ทำงานตรงข้ามกันจึงดูเข้าคู่กัน แต่ medial rectus เป็น CN III ตามตาราง จึงตกเงื่อนไขของคำถาม",
-    "verified": "visual vestibular systems น.53-54",
-    "sourceType": "lecture-derived",
-    "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "visual vestibular systems น.53-54"
   },
   {
     "id": 106869,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
+    "source": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
+    "sourceType": "lecture-derived",
     "type": "mcq",
     "q": "จากตารางเทียบ central กับ peripheral vestibular disease ลักษณะของ nystagmus ต่างกันอย่างไร",
     "options": [
@@ -768,8 +770,6 @@ export const QUESTIONS_Y2_NEUROANAT = [
     ],
     "answer": 0,
     "explain": "ตารางบนสไลด์เขียนช่อง nystagmus ไว้ว่า central เป็น vertical หรือ positional ส่วน peripheral เป็น all directions ข้อที่สลับสองฝั่งกันเป็นตัวล่อที่อันตรายที่สุด เพราะถ้าจำกลับด้านจะแปลรอยโรคในสมองว่าเป็นแค่หูชั้นใน ทั้งที่ตารางเดียวกันยังระบุด้วยว่าฝั่ง central เท่านั้นที่มาพร้อม mental alteration และ proprioceptive deficits",
-    "verified": "visual vestibular systems น.56",
-    "sourceType": "lecture-derived",
-    "examOrigin": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566), lecture-derived"
+    "verified": "visual vestibular systems น.56"
   }
 ];

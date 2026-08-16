@@ -8,65 +8,63 @@
 // A stem naming a deck can only be answered by someone holding that deck, and
 // it tests what a document printed rather than what is true of the animal.
 //
-// The first version of this file tried to TRIM the reference out and keep the
-// question. That was wrong twice over. It produced broken Thai — "โครงสร้างคู่
-// Plasma cell และ Golgi apparatus เดคสั่งให้หา ใดบ้าง" is what survived one of
-// those trims — and its patterns were delicate enough that 106 stems still
-// naming a deck passed the gate as clean. A gate that reports success while the
-// thing it guards is present is worse than no gate.
+// This file has been wrong twice, both times in ways that reported success:
 //
-// So: no trimming, no clever patterns. If the stem contains one of these words,
-// the question goes. The words are unambiguous — no veterinary question needs
-// to say "สไลด์" — and a plain substring test cannot quietly stop matching.
+//   • It first tried to TRIM the reference and keep the question. Its patterns
+//     were delicate enough that 106 stems still saying "สไลด์" passed as clean,
+//     and what it did rewrite it sometimes broke — "โครงสร้างคู่ Plasma cell
+//     และ Golgi apparatus เดคสั่งให้หา ใดบ้าง" is a stem it produced.
+//   • It then read banks with JSON.parse inside a try/catch. Older banks carry
+//     section comments inside the array, so 37 of 65 banks — 2,846 questions —
+//     were skipped without a word, and 92 deck-naming stems sat in them.
+//
+// So: read every bank the way the app does, test with a plain substring, and
+// only ever drop. No pattern here can quietly stop matching, and no bank can
+// quietly fail to be read.
 // ============================================================
 
-import fs from 'node:fs';
+import { bankFiles, readBank, removeQuestions } from './lib/bank-file.mjs';
 
 const WRITE = process.argv.includes('--write');
 
-// Deliberately plain. Substring, case-insensitive for the Latin ones.
+// Words no veterinary question needs. Substring, case-insensitive.
 const BANNED = [
   'สไลด์', 'เด็ค', 'เดค', 'เอกสารนี้', 'คู่มือนี้', 'บทเรียนนี้',
   'checklist', 'deck', 'handout', 'lecture นี้',
-  'หน้าถัดไป', 'หน้าที่แล้ว', 'ภาพที่ 1', 'ชุดย้อม',
+  'หน้าถัดไป', 'หน้าที่แล้ว', 'ชุดย้อม',
 ];
 
-const hits = (stem) => {
-  const s = stem.toLowerCase();
-  return BANNED.filter((w) => s.includes(w.toLowerCase()));
+const names = (stem) => {
+  const s = String(stem || '').toLowerCase();
+  return BANNED.some((w) => s.includes(w.toLowerCase()));
 };
 
-let total = 0, dropped = 0;
-const perFile = [];
+let total = 0, flagged = 0, banks = 0;
+const rows = [];
 
-for (const file of fs.readdirSync('src/data').filter((f) => /^questions-.*\.js$/.test(f))) {
-  const p = `src/data/${file}`;
-  const src = fs.readFileSync(p, 'utf8');
-  const open = src.indexOf('[');
-  const close = src.lastIndexOf(']');
-  if (open < 0 || close < open) continue;
-  let qs;
-  try { qs = JSON.parse(src.slice(open, close + 1)); } catch { continue; }
-
-  const keep = [];
-  let d = 0;
-  for (const q of qs) {
-    total++;
-    if (hits(String(q.q || '')).length) { d++; dropped++; continue; }
-    keep.push(q);
-  }
-  if (d) {
-    perFile.push({ file, n: qs.length, d });
-    if (WRITE) fs.writeFileSync(p, src.slice(0, open) + JSON.stringify(keep, null, 2) + src.slice(close + 1));
+for (const file of bankFiles()) {
+  const { questions } = await readBank(file);
+  banks++;
+  total += questions.length;
+  const bad = questions.filter((q) => names(q.q));
+  if (!bad.length) continue;
+  flagged += bad.length;
+  rows.push({ file, n: questions.length, bad: bad.length });
+  if (WRITE) {
+    const removed = removeQuestions(file, new Set(bad.map((q) => q.id)));
+    if (removed !== bad.length) {
+      console.error(`✗ ${file}: expected to remove ${bad.length}, removed ${removed}`);
+      process.exit(1);
+    }
   }
 }
 
-for (const r of perFile.sort((a, b) => b.d - a.d)) {
-  console.log(`${String(r.d).padStart(4)} of ${String(r.n).padStart(4)} name a deck   ${r.file}`);
+for (const r of rows.sort((a, b) => b.bad - a.bad)) {
+  console.log(`${String(r.bad).padStart(4)} of ${String(r.n).padStart(4)} name a deck   ${r.file.split(/[\\/]/).pop()}`);
 }
-console.log(`\n${total} question(s): ${dropped} name a deck in the stem`);
+console.log(`\n${banks} bank(s), ${total} question(s): ${flagged} name a deck in the stem`);
 
 if (!WRITE) {
-  if (dropped) { console.log('\n(dry run — pass --write to drop them)'); process.exit(1); }
+  if (flagged) { console.log('\n(dry run — pass --write to drop them)'); process.exit(1); }
   console.log('✅ no question names a deck.');
 }
