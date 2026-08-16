@@ -1418,6 +1418,1510 @@ export const SLIDE_IMAGES = {
   ],
   "vet-histo--histo--urinary-system--ภาพรวม-cortex-และ-medulla": [
     "/slides/vet-histo/histo--urinary-system/p10.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--หน้าปกและขอบเขตของเด็ค": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p1.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--anaplasma-species-ที่สำคัญทางสัตวแพทย์": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--bovine-anaplasmosis-เชื้อ-เห็บ-และการส่งผ่าน": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--bovine-anaplasmosis-อาการและกลไกการเกิดโรค": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--small-ruminant-anaplasmosis-และการรักษา": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--ehrlichiosis-ชื่อเรียก-เชื้อ-และ-vector": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p4.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--ehrlichiosis-3-phases-ของโรค": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--อาการของ-chronic-phase-และภาพพยาธิสภาพ": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--hemotropic-mycoplasma-ในแมว": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p7.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--ลักษณะของ-mycoplasma-และสไลด์ภาพกล้องจุลทรรศน์": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--mycoplasma-suis-ในสุกร": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--รายการปฏิบัติการ-lab": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p10.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma--สไลด์ภาพท้ายเด็ค": [
+    "/slides/vet-parasit-1/parasit-1--lect-10-1-rickettsia-and-hemotrophic-mycoplasma/p11.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-12-2-diagnostic-techniques--การตรวจจาก-blood-samples-qualitative-กับ-quantitative": [
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-12-2-diagnostic-techniques--fresh-blood-smear": [
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p3.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-12-2-diagnostic-techniques--the-haematocrit-centrifuge-technique-woo-s-technique": [
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-12-2-diagnostic-techniques--thin-blood-smear-กับ-thick-blood-smear": [
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p8.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p9.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p10.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p11.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-12-2-diagnostic-techniques--trypanosoma-cruzi-กับ-trypanosoma-brucei": [
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-12-2-diagnostic-techniques--fecal-examinations-การตรวจ-coccidia-oocyst": [
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p16.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-12-2-diagnostic-techniques--เทคนิคตรวจอุจจาระที่เดคระบุชื่อไว้": [
+    "/slides/vet-parasit-1/parasit-1--lect-12-2-diagnostic-techniques/p17.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--key-concepts-ที่เลกเชอร์นี้จะเดิน": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p1.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--classification-กลุ่ม-protozoan-parasite-ที่สำคัญทางสัตวแพทย์": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--locomotion-ตารางเทียบ-4-กลุ่มหลัก": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--locomotion-ciliates-และ-amoebae": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--locomotion-flagellates-และ-apicomplexa": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--nutrition": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--transmission": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--reproduction-ภาพรวมและการแลกเปลี่ยนสารพันธุกรรม": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--reproduction-multiple-fission": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--reproduction-sporogony": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--reproduction-sexual-phase-ของ-apicomplexa": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--enteric-coccidia-เทียบ-tissue-cyst-forming-coccidia": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p7.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-6-general-overview-of-protozoa--summary-of-pathogenic-protozoa": [
+    "/slides/vet-parasit-1/parasit-1--lect-6-general-overview-of-protozoa/p7.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--ขอบเขต-protozoa-ที่เรียนคาบนี้และคาบถัดไป": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p1.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-ประวัติและที่มาของชื่อ": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-assemblage-และ-host-ที่เกี่ยวข้อง": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-การจำแนก-genotype-ทำด้วยอะไร": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-morphology-ของ-trophozoite": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-biology-ของ-trophozoite": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-morphology-ของ-cyst": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-การเกิด-cyst-encystation": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-life-cycle-และ-transmission": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-epidemiology": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-pathogenesis": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-clinical-signs": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-dx": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p7.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-tx": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--giardia-prevention-control-และ-vaccination": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--trichomonads-species-และจำนวน-flagella": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--trichomonads-ชีววิทยาทั่วไป": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p10.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--tritrichomonas-foetus-history": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p10.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--tritrichomonas-foetus-morphology-สายพันธุ์โค": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p10.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-serotype-และการแยก-taxonomy-กับ-t-suis": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p11.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--bovine-genital-trichomoniasis-ภาพรวมในฝูง": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-transmission": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-pathogenesis-ในเพศผู้": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-pathogenesis-ในเพศเมีย": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-pathogenesis-ในลูกในท้อง": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p13.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-immune-response": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p13.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--ลักษณะโรคและ-ddx-ของ-bovine-trichomonosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p13.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--tritrichomonas-foetus-dx-ในโค": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p14.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--bovine-genital-trichomoniasis-tx-control-และ-vaccination": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p14.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--tritrichomonas-foetus-ในแมว-ภาพรวม": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--tritrichomonas-foetus-ในแมว-morphology": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-ในแมว-pathogenesis": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p16.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-ในแมว-clinical-signs": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p16.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-ในแมว-dx-และ-ddx": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p16.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--การเคลื่อนที่-ตัวแยกที่ใช้ได้ใต้กล้อง": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p17.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--new-species-of-tritrichomonas-in-cats": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p18.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--t-foetus-ในแมว-tx-และ-control": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p18.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--avian-trichomoniasis-canker": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p19.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-1-mucosoflagellates--trichomonad-และ-flagellates-ciliate-ในสุกร": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-1-mucosoflagellates/p19.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--flagellates-คืออะไร-และแบ่งเป็นกลุ่มไหนบ้าง": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p1.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--ภาพรวม-hemoflagellates": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--forms-ของ-hemoflagellates-ในโฮสต์-mammal": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--โรคที่เกิดจาก-trypanosoma": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--morphology-ของ-trypanosoma": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--life-cycle-ของ-trypanosoma-indirect-กับ-direct": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--indirect-transmission-salivarian-กับ-stercorarian": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--direct-transmission-t-evansi-กับ-t-equiperdum": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--ตาราง-trypanosoma-species-ที่สำคัญ": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--surra-ในสัตว์ชนิดต่าง-ๆ": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--การวินิจฉัย-trypanosoma-spp-ตาม-oie-2008": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p7.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--serological-test-สำหรับ-trypanosoma": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--case-report-canine-trypanosomosis-ในประเทศไทย-2015-สัตว์ป่วยและอ": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--case-report-physical-examination-และแผนการวินิจฉัย": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--case-report-ผลเลือดวันแรก": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--case-report-การตรวจติดตามและการรักษา": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p9.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p10.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p11.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--developmental-stages-ของ-leishmania": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--mode-of-leishmania-transmission": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p13.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--site-of-leishmania-infection": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p13.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--leishmaniosis-นิยามและรูปแบบของโรค": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--cutaneous-leishmaniosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--visceral-leishmaniosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p16.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--geographic-distribution-ของ-leishmaniosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p16.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--รายชื่อ-leishmania-และการแยกสปีชีส์": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p17.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--สปีชีส์ไหนทำให้เกิดรูปแบบโรคใด": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p18.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--leishmaniosis-ในประเทศไทย-จากโรคนำเข้าสู่โรคประจำถิ่น": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p19.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--ไทม์ไลน์-vl-และการกระจายในไทย": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p20.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--สปีชีส์ใหม่ที่พบในประเทศไทย": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p20.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--clinical-manifestations-ของ-16-autochthonous-cases": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p21.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--vector-ที่สงสัยในไทย-และสถานะ-endemic": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p21.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--leishmania-siamensis-reservoir-และ-vector": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p22.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--autochthonous-infection-ในผู้ป่วย-hiv-ประเทศไทย": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p23.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--อีกสองเคสจากตรัง-และวิธี-identify-สปีชีส์": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p24.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--leishmania-ในสัตว์-รายงานจากยุโรปและสหรัฐฯ": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p26.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--ผลซีโรโลยี-leishmania-ในสุนัขและแมวในประเทศไทย": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p27.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-7-part-2-hemoflagellates--leishmaniasis-ในสุนัขและแมว-สไลด์ภาพ": [
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p27.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p28.jpg",
+    "/slides/vet-parasit-1/parasit-1--lect-7-part-2-hemoflagellates/p29.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--ขอบเขตของ-lecture-และตำแหน่งทาง-taxonomy": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p1.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--การจัดกลุ่ม-amebas-ที่ต้องรู้จัก": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--entamoeba-histolytica-ภาพรวมและความสำคัญทางสัตวแพทย์": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--entamoeba-grouping-แยกกลุ่มด้วยจำนวน-nuclei-และ-chromatoid-bar": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--amebiasis-ในสัตว์ที่สไลด์ยกตัวอย่าง": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--geographic-distribution-และ-life-cycle-ของ-e-histolytica": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--transmission-ของ-e-histolytica": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--trophozoite-ของ-e-histolytica-morphology-และการกินอาหาร": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--trophozoite-ของ-e-histolytica-การเคลื่อนที่-การกินอาหาร-และการ-i": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--cyst-ของ-e-histolytica": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p7.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--laboratory-diagnosis-ของ-e-histolytica": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--immunodiagnosis-และ-molecular-diagnosis-ของ-ameba": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--facultative-amebiasis": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p10.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--histomonas-meleagridis-โรคและ-host": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--life-cycle-ของ-histomonas-meleagridis": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--clinical-signs-ของ-blackhead-และ-morphology-ของ-histomonas": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--รอยโรคของ-histomonas-meleagridis": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p13.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--ciliates-สไลด์นำเข้าเรื่อง": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p14.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--balantidium-coli-ภาพรวม": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--trophozoite-ของ-balantidium-coli": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--trophozoite-ของ-b-coli-โครงสร้างละเอียดและอาหาร": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p16.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--cyst-ของ-balantidium-coli": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p17.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--reproduction-และ-life-cycle-ของ-b-coli": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p18.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--b-coli-ในหมู-ระบาดวิทยาและการวินิจฉัย": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p19.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--b-coli-กับ-public-health": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p19.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--ciliates-ในสัตว์อื่นที่สไลด์ยกเป็นเคส": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p20.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--symbiotic-ciliates-และ-ichthyophthirius-multifiliis": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p21.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--สรุปท้าย-lecture": [
+    "/slides/vet-parasit-1/parasit-1--lect-8-amoeba-histomonas-balantidium-final/p22.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ที่ยืนของ-apicomplexa-ในผังจัดจำแนก-protozoa": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p1.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--สไลด์ที่เป็นภาพ-วิดีโอ-หรือลิงก์ล้วน": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--apical-complex-และการแบ่งตามอวัยวะที่พบ": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--order-eucoccidiorida-แยกลงถึง-family-และ-subfamily": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--enteric-coccidia-ลักษณะทั่วไปที่ต้องจำ": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ระบาดวิทยาในสัตว์ฟาร์ม": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--pathogenesis-ตอนที่-1-oocyst-และการ-sporulate": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--pathogenesis-ตอนที่-2-endogenous-development": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ความรุนแรงไม่เท่ากันในทุก-species": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--clinical-findings-ของ-enteric-coccidiosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--dx-enteric-coccidia": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ปัจจัยที่มีผลต่อจำนวน-oocyst-ในอุจจาระ": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--tx-enteric-coccidia": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--prevention-enteric-coccidia": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--การใช้-coccidiostat-เชิงป้องกัน": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p10.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cystoisospora-ในสุนัขและแมว-species-และ-oocyst": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--life-cycle-ของ-cystoisospora-felis-และ-monozoic-tissue-cyst": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p13.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--dx-cystoisospora-ในสุนัขและแมว": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p14.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cystoisospora-suis-porcine-neonatal-coccidiosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--fecal-examination-สำหรับ-c-suis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--oocyst-ของ-c-suis-hazy-body": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p17.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--histopathology-และสรุปการวินิจฉัย-c-suis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--treatment-and-control-ของ-c-suis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p18.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-ลักษณะเฉพาะและประวัติ": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p19.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--ชีววิทยาที่ทำให้-cryptosporidium-ใกล้-gregarines": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p21.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-การติดเชื้อในสัตว์": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p21.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-parvum": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p22.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--dx-cryptosporidium": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p23.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--transmission-ของ-cryptosporidium": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p24.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-ในคน-คนปกติกับคนภูมิคุ้มกันบกพร่อง": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p24.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--cryptosporidium-ในสัตว์ปีก": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p25.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--tx-และ-prevention-ของ-cryptosporidium": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p25.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--toxoplasma-gondii-พื้นฐานและ-host": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p26.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--3-infective-forms-ของ-t-gondii": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p27.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--t-gondii-biology-และกลไกการรุกเข้าเซลล์": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p28.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--t-gondii-clinical-importance-และสมดุลภูมิคุ้มกัน": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p29.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--t-gondii-ความสำคัญทางสัตวแพทย์": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p29.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--dx-toxoplasma-gondii": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p32.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--neospora-caninum-ประวัติและการแยกจาก-toxoplasma": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p35.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--neospora-caninum-host-การแพร่-และความสำคัญ": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p36.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--pathogenesis-ของการแท้งใน-bovine-neosporosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p36.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-1-enteric-and-tissue-apicomplexa--besnoitia-และ-hammondia": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-1-enteric-and-tissue-apicomplexa/p37.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ภาพรวม-phylum-apicomplexa-และตำแหน่งของ-blood-parasites": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p2.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--วงจรชีวิต-haemosporidia-และยาที่ออกฤทธิ์ตามระยะ": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--human-malaria-parasites": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--หลักการวินิจฉัย-malaria": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p3.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--เครื่องมือวินิจฉัยจริงและระยะที่เห็นใน-thin-blood-smear": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p4.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--thick-blood-smear-และ-vectors-ของ-malaria": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p5.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ระยะของเชื้อในตัวยุง": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p6.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--pre-erythrocytic-schizont-และ-malaria-ในลิง": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p7.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ungulate-malaria-parasites": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p8.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--p-caprae-ในแพะ": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p9.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--p-bubalis-ในควาย-และ-p-traguli-ในกระจงหนู": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p10.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--avian-malaria-p-gallinaceum": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p11.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--summary-ปิดท้ายส่วน-plasmodium": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p12.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--hepatocystis-host-และ-vector": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p13.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--hepatocystis-จุดที่ต้องจำเรื่องวงจร": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p14.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--leucocytozoon-species-และลักษณะร่วมของสกุล": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p15.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--leucocytozoonosis-ในนก-host-อาการ-และวงจรช่วงในตัวนก": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p16.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--leucocytozoon-ระยะในเลือดและใน-vector-รวมถึง-epidemiology": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p17.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ผลกระทบทางเศรษฐกิจ-การควบคุม-และ-leucocytozoonosis-ในไทย": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p18.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--l-caulleryi-pathogenesis-และข้อมูลของ-l-sabrazesi": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p19.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--haemoproteus-ลักษณะและ-host": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p20.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--haemoproteus-pathology-morphology-และ-life-cycle": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p21.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--การป้องกัน-haemoproteus": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p22.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--สไลด์เทียบ-gametocyte-สี่สกุล": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p23.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--piroplasms-ภาพรวม-babesiosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p24.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--human-babesiosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p25.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--bovine-babesiosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p26.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ภาพพยาธิสภาพของ-b-bovis-และ-b-bigemina": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p27.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--canine-babesiosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p28.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--treatment-ของ-babesiosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p29.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--theileriosis-species-vector-และอาการ": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p29.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--theileriosis-การรักษาและสถานการณ์ในไทย": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p30.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--ความชุกของ-theileria-ในไทย": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p31.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--hepatozoosis": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p32.jpg"
+  ],
+  "vet-parasit-1--parasit-1--lect-9-2-blood-apicomplexa--hepatozoon-canis-รอยโรคและการรักษา": [
+    "/slides/vet-parasit-1/parasit-1--lect-9-2-blood-apicomplexa/p33.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--หน้าที่ไม่มีข้อความใน-deck": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p1.jpg",
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p2.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--การทำลาย-erythrocyte-และการเก็บสงวน-iron": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p3.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--anemia-และนิยามของ-hemoglobin": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p3.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--บทนี้คือบทอะไร-physicochemical-properties-of-solutions": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p14.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--terminology-ของสารละลายที่ต้องนิยามให้ได้": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p14.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--ชนิดของ-membrane-และนิยามของ-osmosis": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p14.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--origin-ของเม็ดเลือดแดง-ที่สร้างเปลี่ยนตามช่วงชีวิต": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p15.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--ลำดับการพัฒนาจาก-rubriblast-ไปเป็น-erythrocyte": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p15.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--table-3-1-erythrocyte-size-and-hemoglobin-content-ในสัตว์เลี้ยงโ": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p15.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--กราฟ-osmotic-fragility-ของเม็ดเลือดแดง": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p16.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--การควบคุม-erythropoiesis-ด้วย-erythropoietin": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p18.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--reticulocyte-และความแตกต่างระหว่างชนิดสัตว์": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p18.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--การนับจำนวนเม็ดเลือดแดง": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p18.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--duke-physiology--table-12-2-ค่าเฉลี่ยตัวแปรทางเลือดของสัตว์-6-ชนิด": [
+    "/slides/vet-physio-lab-1/physio-lab-1--duke-physiology/p18.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--หัวข้อของ-lab-นี้": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--สไลด์ที่เป็นหัวข้อกับรูปอย่างเดียว-ไม่มีข้อความให้จด": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p2.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--regulation-of-insulin-secretion": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p4.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--method-1-fasting-blood-glucose-fbg": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p7.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--method-2-glucose-tolerance-test-gtt-หลักการและเกณฑ์": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p8.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--ogtt-เทียบกับ-ivgtt": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p9.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--ขั้นตอน-lab-ivgtt": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p11.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--ตัวอย่างการคำนวณขนาด-glucose-ที่ต้องฉีด-fyi": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p12.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--method-3-glycosylated-haemoglobin-hba1c": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p13.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--method-4-serum-fructosamine": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p14.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--การแปลผล-gtt": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p15.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--เกณฑ์วินิจฉัย-dm-ในสุนัข": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p17.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--hypoglycemia": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p19.jpg",
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p20.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--diabetes-mellitus-dm-นิยามตามสไลด์": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p23.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--glucotoxicity": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p28.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--glucose-handling-by-the-kidney": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p30.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--canine-blood-glucose-curve": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p33.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--การแปลผล-glucose-curve": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p34.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp--assignment-ท้ายคาบ": [
+    "/slides/vet-physio-lab-1/physio-lab-1--endocrine-physiology-ivggt-lab-2023-sp/p35.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--monash-skeletal-muscle-experiments--ภาพรวม-simulation-ชุดนี้มีอะไรบ้าง": [
+    "/slides/vet-physio-lab-1/physio-lab-1--monash-skeletal-muscle-experiments/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--monash-skeletal-muscle-experiments--length-tension-ขั้นตอนและสิ่งที่ต้องสังเกต": [
+    "/slides/vet-physio-lab-1/physio-lab-1--monash-skeletal-muscle-experiments/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--monash-skeletal-muscle-experiments--recruitment-เพิ่ม-voltage-แล้วแรงเพิ่มถึงจุดหนึ่ง": [
+    "/slides/vet-physio-lab-1/physio-lab-1--monash-skeletal-muscle-experiments/p2.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--monash-skeletal-muscle-experiments--summation-กระตุ้นสองครั้ง-แล้วไล่ระยะห่างให้สั้นลง": [
+    "/slides/vet-physio-lab-1/physio-lab-1--monash-skeletal-muscle-experiments/p3.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--monash-skeletal-muscle-experiments--tetanus-ใช้-voltage-เดิมจาก-summation": [
+    "/slides/vet-physio-lab-1/physio-lab-1--monash-skeletal-muscle-experiments/p4.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--monash-skeletal-muscle-experiments--fatigue-ระยะพักระหว่าง-twitch-กับแรงที่ตอบสนอง": [
+    "/slides/vet-physio-lab-1/physio-lab-1--monash-skeletal-muscle-experiments/p5.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-ans-for-student--โจทย์-pbl-คืออะไร-signalment-และ-history": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-ans-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-ans-for-student--physical-examination-ตามที่สไลด์บันทึกไว้": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-ans-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-ans-for-student--diagnostic-test-1-phenylephrine": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-ans-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-ans-for-student--คำถามท้ายเคส-และสิ่งที่สไลด์ไม่ได้ตอบ": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-ans-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-ans-for-student--รูปในเด็ค": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-ans-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-blood-system--โจทย์เคส-แมว-dsh-เพศผู้-อายุ-5-ปี": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-blood-system/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-blood-system--ผล-cbc-สองครั้ง-day-1-day-8": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-blood-system/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-blood-system--ผล-serum-chemistry-และ-blood-parasites": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-blood-system/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-blood-system--ค่าปกติที่สไลด์ให้มา-คอลัมน์-feline": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-blood-system/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-blood-system--ค่าที่หลุดช่วงปกติของแมวเมื่อเทียบกับตารางในสไลด์": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-blood-system/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-blood-system--snap-feline-triple-test-kit": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-blood-system/p2.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--โจทย์เคส-signalment-และอาการที่เจ้าของแจ้ง": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--physical-examination": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--ผล-cbc-serum-chemistry-radiograph-และ-ultrasonography": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--low-dose-dexamethasone-suppression-test-lddst": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--การรักษา-และคำถามท้ายเคสที่สไลด์ไม่ได้เฉลย": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--รูปประกอบและหน้าที่เหลือของไฟล์": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p2.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-neuro-down-frenchie--โจทย์-pbl-ตัวเคสและประวัติ": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-neuro-down-frenchie/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-neuro-down-frenchie--ผลตรวจร่างกายที่สไลด์ให้มา": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-neuro-down-frenchie/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-neuro-down-frenchie--คำถามที่ต้องตอบ-neurolocalization": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-neuro-down-frenchie/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-skeletal-muscle-for-student--signalment-และ-history": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-skeletal-muscle-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-skeletal-muscle-for-student--physical-examination": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-skeletal-muscle-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-skeletal-muscle-for-student--diagnostic-testing-and-results": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-skeletal-muscle-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-skeletal-muscle-for-student--คำถามที่-pbl-ทิ้งไว้": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-skeletal-muscle-for-student/p1.jpg"
+  ],
+  "vet-physio-lab-1--physio-lab-1--pbl-skeletal-muscle-for-student--สิ่งที่ไม่มีในไฟล์": [
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-skeletal-muscle-for-student/p2.jpg",
+    "/slides/vet-physio-lab-1/physio-lab-1--pbl-skeletal-muscle-for-student/p3.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--culac-มาตรฐานและจำนวนห้องเลี้ยงสัตว์": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p3.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p4.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p5.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--ระบบการเลี้ยง-rodent-และ-non-rodent-ใน-culac": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p6.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rat-outbred-stocks-3-สายที่ใช้บ่อย": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p15.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rat-inbred-strains-ที่ใช้บ่อย": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p16.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rat-การจับและ-restraint": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p17.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p18.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p19.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p20.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p21.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p22.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--การจัดชั้นวิธี-euthanasia-ตาม-avma": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p23.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rat-euthanasia-acceptable-methods": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p24.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p25.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rat-euthanasia-cervical-dislocation-และ-decapitation": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p26.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p27.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rat-euthanasia-inhalant-anesthetics": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p28.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rat-euthanasia-carbon-dioxide": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p29.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rat-euthanasia-carbon-monoxide-และ-focused-beam-microwave-irradi": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p30.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p31.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rabbit-introduction-และ-taxonomy": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p32.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p33.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p34.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rabbit-ลักษณะกายวิภาคที่เป็นเอกลักษณ์": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p35.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p36.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rabbit-โครงกระดูก-เล็บ-และข้อควรระวังในการดูแล": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p37.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p38.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rabbit-night-feces-และ-coprophagy": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p39.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p40.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rabbit-การนำออกจากกรงและการอุ้ม": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p41.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p42.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rabbit-อุปกรณ์-immobilization": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p43.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p44.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--rabbit-euthanasia": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p45.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p46.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-แหล่งที่มาของสุนัขในงานวิจัย": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p47.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-การอ่านภาษากายก่อนเข้าหา": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p48.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p49.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p50.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p51.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-การอุ้มและกฎของการ-restraint": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p52.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p53.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p54.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-ท่า-restraint-สำหรับหัตถการ": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p55.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p56.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-muzzle-และ-elizabethan-collar": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p57.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p58.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-euthanasia-การฝึกอบรมที่ต้องมีและหลักการ": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p59.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p60.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-euthanasia-agents": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p61.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-euthanasia-ขั้นตอนการฉีด-iv-และสิ่งที่ต้องหลีกเลี่ยง": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p62.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p63.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--dog-การยืนยันการตาย": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p64.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--pig-การจับ-minipig-เทียบกับ-domestic-pig": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p65.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p66.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p67.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--pig-panepinto-sling": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p68.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p69.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p70.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p71.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p72.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p73.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--pig-การจัดท่าใน-v-trough": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p74.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p75.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p76.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p77.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--pig-euthanasia": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p78.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p79.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--pig-การยืนยันการตาย": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p84.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--sheep-สายพันธุ์และคำศัพท์": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p85.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p86.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--sheep-ppe-และ-q-fever": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p87.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--sheep-หลักการ-handling-และพฤติกรรมที่ต้องอ่าน": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p89.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--sheep-การจับและ-restraint": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p90.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p91.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p92.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p93.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--sheep-euthanasia": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p94.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal--สไลด์ปิดท้าย": [
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p95.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--culac-2024-handling-euthanasia-mediumsizeanimal/p96.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--objectives-ของบทนี้": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p1.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p2.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--physiological-experiments-แบ่งเป็น-2-ฝั่ง": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p3.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--data-acquisition-system-เส้นทางของสัญญาณ": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p4.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--transducer-sensors-4-ชนิดที่ต้องรู้จัก": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p5.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p6.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p7.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p8.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p9.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p10.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--สายสัญญาณของ-force-transducer": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p7.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--stimulator-ปุ่มและรูปแบบการกระตุ้น": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p11.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--stand-alone-system-และ-physiograph": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p18.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p19.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--powerlab-system": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p20.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p21.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--labchart-reader-แพลตฟอร์มและมุมมองข้อมูล": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p22.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--basic-function-ของการวิเคราะห์ข้อมูล": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p30.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p31.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--สไลด์สาธิตการวัดใน-scope": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p32.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p33.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p34.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p35.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p36.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-physio-intro--การคำนวณด้วยมือจาก-tracing-ของ-polygraph": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-physio-intro/p37.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-1-pre-lab-พื้นฐาน-cardiac-action-potential": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-1-การทดลอง-เพิ่มความถี่กระตุ้น-และการเหนี่ยวนำ-extrasys": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p2.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--หน้าที่ไม่มีข้อความในไฟล์": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p3.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p12.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p17.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p18.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p23.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-1-post-lab-และ-review-sheet-ทำไม-cardiac-muscle-เกิด-te": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p4.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p5.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-2-pre-lab-autonomic-nervous-system-กับ-heart-rate": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p6.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-2-ผลการทดลอง-vagus-stimulation-และ-vagal-escape": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p7.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p8.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-2-review-sheet": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p9.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-3-อุณหภูมิกับ-heart-rate-pre-lab-และข้อมูลจริง": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p10.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p11.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-3-post-lab-และ-review-sheet": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p13.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p14.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-4-chemical-modifiers-pre-lab-ยาแต่ละตัว-และข้อมูลจริง": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p15.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p16.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-4-post-lab-และ-review-sheet": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p19.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p20.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-5-ions-กับ-heart-rate-pre-lab-และข้อมูลจริง": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p21.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p22.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--lab-report-cardiac-action-potential--activity-5-post-lab-และ-review-sheet": [
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p24.jpg",
+    "/slides/vet-physio-lab-2/physio-lab-2--lab-report-cardiac-action-potential/p25.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--signalment-และอาการนำ": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--ประวัติผลเลือดเมื่อ-6-เดือนก่อน": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--การตรวจที่คลินิกเอกชนครั้งนี้": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--physical-examination-ที่โรงพยาบาล": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--urine-output-urinalysis-และ-blood-pressure": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--imaging": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--blood-chemistry": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--blood-gas-จาก-venous-blood": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p1.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--ส่วนท้ายของ-blood-gas-และการรักษาที่ให้": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p3.jpg"
+  ],
+  "vet-physio-lab-2--physio-lab-2--pbl-kidney--โครง-pbl-ที่สไลด์ทิ้งไว้ให้เติม": [
+    "/slides/vet-physio-lab-2/physio-lab-2--pbl-kidney/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--basal-nuclei-อยู่ตรงไหนใน-telencephalon": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--รายชื่อและการจัดกลุ่มของ-basal-nuclei": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--เลขกำกับนิวเคลียส": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p5.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--caudate-nucleus": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p8.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--accumbens-nucleus": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p10.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--putamen": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p11.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--pallidum-globus-pallidus": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p12.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--claustrum": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p13.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--หน้าที่รวมของ-basal-nuclei": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p15.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--basal-nuclei-circuit-direct-และ-indirect-pathway": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p16.jpg"
+  ],
+  "vet-neuroanat--neuroanat--basal-nuclei--blood-supply-of-basal-nuclei": [
+    "/slides/vet-neuroanat/neuroanat--basal-nuclei/p20.jpg"
+  ],
+  "vet-neuroanat--neuroanat--diencephalon--learning-objectives-ของเลกเชอร์นี้": [
+    "/slides/vet-neuroanat/neuroanat--diencephalon/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--diencephalon--สไลด์ที่ไม่มีข้อความให้สรุป": [
+    "/slides/vet-neuroanat/neuroanat--diencephalon/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--diencephalon--แผนผัง-diencephalon-สไลด์เติมคำ": [
+    "/slides/vet-neuroanat/neuroanat--diencephalon/p5.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--ทำไมถึงเรียกว่า-limbic-system": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--background-rhinencephalon-และการแบ่ง-cerebral-cortex": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--วงแหวนสองวงของ-limbic-system-telencephalon": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--amygdaloid-body-และ-stria-terminalis": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--hippocampus-รูปร่างและตำแหน่ง": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p4.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--fornix-ทางเดิน-axon-ของ-hippocampus": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p4.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--หน้าที่ของ-hippocampus": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p5.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--septal-area": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p5.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--cingulate-gyrus-และ-cingulum": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p6.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--limbic-system-ส่วน-diencephalon-habenular-nucleus-และ-rostral-th": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p6.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--mamillary-body": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p6.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--limbic-system-ส่วน-mesencephalon-intercrural-nucleus": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p7.jpg"
+  ],
+  "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--สไลด์รูปที่มีแต่ชื่อ-label-และ-reference": [
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p7.jpg",
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p8.jpg",
+    "/slides/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p9.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--metencephalon-อยู่ตรงไหนใน-rhombencephalon": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--โครงสร้างมหภาคของ-cerebellum-และเยื่อหุ้มรอบ-ๆ": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p3.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p4.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--developmental-classification": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p5.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p6.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--anatomical-classification": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p7.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--cerebellar-nuclei-กับ-afferent-และ-efferent-ของแต่ละนิวเคลียส": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p8.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--functional-zones-และ-functional-classification": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p9.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p10.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p11.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--cerebellar-lobules-และ-fissures": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p13.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p15.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--cerebellar-peduncles-ทั้งสามคู่": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p17.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p18.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--afferent-tract-to-cerebellum": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p19.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--efferent-tract-from-cerebellum": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p20.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--cerebellar-functions": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p22.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p23.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--cerebellar-disorders": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p24.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p25.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--pons-ภาพรวม": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p26.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--ventral-basal-portion-ของ-pons": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p28.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p29.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--dorsal-portion-หรือ-pontine-tegmentum": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p30.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p31.jpg"
+  ],
+  "vet-neuroanat--neuroanat--metencephalon--cerebellum-pons-laboratory-guide": [
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p32.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p33.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p34.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p35.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p36.jpg",
+    "/slides/vet-neuroanat/neuroanat--metencephalon/p37.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--development-ของ-midbrain": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--ตำแหน่งของ-midbrain-dorsal-part": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--ตำแหน่งของ-midbrain-ventral-part": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p5.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--โครงสร้างภายใน-midbrain": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p7.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--tectum-rostral-และ-caudal-colliculi": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p8.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p9.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--tegmentum-และของที่อยู่ในนั้น": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p10.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--reticular-formation-rf": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p11.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--oculomotor-nucleus-และ-edinger-wesphal-nucleus": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p12.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--cross-section-ที่ระดับ-rostral-colliculi-ภาพ-label": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p14.jpg",
+    "/slides/vet-neuroanat/neuroanat--midbrain/p15.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--trochlear-nuclei-cn-iv-และ-mlf": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p16.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--ภาพระดับ-caudal-colliculus-label-ล้วน": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p17.jpg",
+    "/slides/vet-neuroanat/neuroanat--midbrain/p18.jpg",
+    "/slides/vet-neuroanat/neuroanat--midbrain/p19.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--trigeminal-nerve-cn-v-nuclei": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p20.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--red-nucleus": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p22.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--periaqueductal-gray-pag": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p24.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--substantia-nigra": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p25.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--crus-cerebri-interpeduncular-fossa-และ-caudal-perforated-substan": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p26.jpg"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--clinical-correlations": [
+    "/slides/vet-neuroanat/neuroanat--midbrain/p27.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--ขอบเขต-boundaries-ของ-medulla-oblongata": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p1.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--dorsal-external-surface": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p1.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--ventral-external-surface": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p1.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--lateral-external-surface": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--internal-structure-nuclei-แบ่ง-3-กลุ่ม": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--internal-structure-tracts": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--nuclei-ของ-cranial-nerves-v-xii": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--อาการทางคลินิกที่สไลด์ยกหัวข้อไว้": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p4.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--reticular-formation-aras-และ-reticulospinal-pathway": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p5.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--nucleus-cuneatus-และ-nucleus-gracilis": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p5.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--trapezoid-nucleus-และ-olivary-nucleus-relay-nuclei": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p5.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--nucleus-ambiguous-และ-solitary-nucleus": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p6.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-รูปร่างและขอบเขต": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p6.jpg"
+  ],
+  "vet-neuroanat--neuroanat--myelencephalon--the-fourth-ventricle-roof-wall-และ-floor": [
+    "/slides/vet-neuroanat/neuroanat--myelencephalon/p7.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--ทำไมต้องตรวจระบบประสาท": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p1.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--อุปกรณ์และแบบฟอร์มการตรวจ": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p2.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--โครงของการตรวจ-hands-off-กับ-hands-on": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p3.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--mental-status-and-behaviour": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p4.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p5.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p6.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--posture-and-body-position-at-rest-ศีรษะและลำตัว": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p7.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--posture-and-body-position-at-rest-ขา": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p8.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p9.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--gait-ataxia-paresis-paralysis-lameness": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p10.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p11.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p12.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--abnormal-involuntary-movements": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p13.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p14.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--hands-on-examination-ภาพรวมและ-postural-reactions": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p15.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--postural-reaction-tests-ที่สไลด์ระบุ": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p16.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p17.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p18.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--spinal-reflexes-reflex-กับ-nerve-กับ-spinal-cord-segment": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p18.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p19.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cutaneous-trunci-reflex": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p20.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--cranial-nerve-examination-afferent-efferent-effect": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p21.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--palpebral-reflex-และ-pathological-nystagmus": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p23.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p24.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--palpation-and-sensory-testing": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p25.jpg"
+  ],
+  "vet-neuroanat--neuroanat--neuro-exam-anatomy2024--case-study-examination-sheet-และ-suggested-reading": [
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p26.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p27.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p28.jpg",
+    "/slides/vet-neuroanat/neuroanat--neuro-exam-anatomy2024/p29.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--retina-receptors-และ-transduction": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p12.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p13.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p14.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--visual-field-nasal-half-กับ-temporal-half": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p18.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p21.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--visual-pathway-ตั้งแต่-photoreceptor-ถึง-visual-cortex": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p20.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--monocular-vs-binocular-vision": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p22.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p23.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--20-ของ-fibres-จาก-optic-tract-ไปไหนบ้าง": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p24.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p25.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p26.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--menace-response": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p27.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p38.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p40.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--heterochromia-iridis": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p30.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--รายการตรวจ-neuro-ophthalmology": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p31.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--รูม่านตา-miosis-mydriasis-และ-plr": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p32.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p34.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p36.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--horner-syndrome": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p41.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibular-receptors": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p42.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p43.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p44.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibular-pathway-จาก-hair-cell-ไป-5-ปลายทาง": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p48.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--vestibulo-ocular-reflex-vor": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p49.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p50.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p51.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p52.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--extra-ocular-muscles-กับ-innervation": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p53.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p54.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--อาการของ-vestibular-diseases": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p55.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--central-vs-peripheral-vestibular-disease": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p56.jpg"
+  ],
+  "vet-neuroanat--neuroanat--visual-vestibular-systems--สไลด์ท้ายเด็ค-strabismus-และ-nystagmus": [
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p57.jpg",
+    "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p59.jpg"
   ]
 };
 
