@@ -56,7 +56,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสไลด์ ผิวหนังที่มีขนของม้าบางที่สุดที่บริเวณใด",
+    "q": "ผิวหนังที่มีขนของม้าบางที่สุดที่บริเวณใด",
     "options": [
       "หลังส่วน dorsum และด้านข้างของขาส่วนบน",
       "แผงคอ โคนหาง และผิวหนังบริเวณสะโพกด้านนอก",
@@ -75,7 +75,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "การเก็บตัวอย่างด้วย surface adhesive tape เหมาะกับการตรวจหาสิ่งใดมากที่สุดตามสไลด์",
+    "q": "การเก็บตัวอย่างด้วย surface adhesive tape เหมาะกับการตรวจหาสิ่งใดมากที่สุด",
     "options": [
       "ไข่ Oxyuris equi และเชื้อที่อยู่บนผิวหนังชั้นตื้น",
       "เซลล์เนื้องอกจากก้อนในชั้น dermis ที่คลำได้ชัดเจน",
@@ -85,25 +85,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "สไลด์ระบุว่า surface adhesive tape ใช้เก็บไข่ Oxyuris equi และจุลชีพที่อยู่บนผิว รวมถึง chorioptic mange เชื้อรา และยีสต์ การเก็บก้อนในชั้น dermis ต้องใช้ needle aspirate หรือ biopsy ไรที่ฝังตัวลึกต้องใช้ skin scraping และการเพาะเชื้อจากกระแสเลือดไม่ใช่หน้าที่ของเทคนิคนี้",
     "verified": "Equine Dermatology น.11",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
-  },
-  {
-    "id": 105220,
-    "subject": "equine-medicine",
-    "topic": "equine-intro",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์แนะนำอย่างไรเรื่องการใช้ corticosteroid ในเคสผิวหนังม้าที่ยังไม่ได้ทำ biopsy หรือส่งตรวจ",
-    "options": [
-      "ให้เริ่ม corticosteroid ทันทีเพื่อลดการอักเสบก่อนเก็บชิ้นเนื้อ",
-      "ให้หลีกเลี่ยงจนกว่าจะทำ biopsy หรือตรวจเสร็จ ยกเว้นจำเป็นจริง",
-      "ให้ใช้เฉพาะรูปแบบฉีดเข้าก้อน ไม่ใช้ชนิดกินในทุกกรณี",
-      "ให้ใช้ร่วมกับยาปฏิชีวนะเสมอเพื่อกันการติดเชื้อแทรกซ้อน"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ในหัวข้อ therapeutic trials ระบุให้เลี่ยง corticosteroid จนกว่าจะทำ biopsy หรือตรวจเสร็จ ยกเว้นจำเป็นอย่างยิ่ง เพราะสเตียรอยด์บิดผลชิ้นเนื้อและกลบอาการ การเริ่มทันทีจึงตรงข้ามกับคำแนะนำ และสไลด์ไม่ได้จำกัดรูปแบบยาหรือบังคับให้ใช้คู่ยาปฏิชีวนะ",
-    "verified": "Equine Dermatology น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Dermatology lecture deck (Vet 85), lecture-derived"
   },
@@ -151,7 +132,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ลูกม้าแรกเกิดมีลักษณะกีบอย่างไรตามสไลด์",
+    "q": "ลูกม้าแรกเกิดมีลักษณะกีบอย่างไร",
     "options": [
       "กีบแข็งตั้งแต่อยู่ในท้องแม่แล้วค่อยนุ่มลงหลังคลอด",
       "กีบนุ่มตอนแรกเกิดแล้วแข็งตัวอย่างรวดเร็วหลังคลอด",
@@ -227,7 +208,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-parasites",
     "year": 5,
     "type": "mcq",
-    "q": "เหาที่ก่อโรคในม้าตามสไลด์คือชนิดใด และอาจนำไปสู่อาการทางระบบใด",
+    "q": "เหาที่ก่อโรคในม้า คือชนิดใด และอาจนำไปสู่อาการทางระบบใด",
     "options": [
       "Damalinia bovis และ Linognathus vituli นำไปสู่ภาวะขาดน้ำ",
       "Chorioptes bovis และ Psoroptes ovis นำไปสู่ภาวะไข้สูง",
@@ -303,7 +284,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-parasites",
     "year": 5,
     "type": "mcq",
-    "q": "วงจรชีวิตของ Habronema spp. ที่ทำให้เกิด summer sores เป็นอย่างไรตามสไลด์",
+    "q": "วงจรชีวิตของ Habronema spp. ที่ทำให้เกิด summer sores เป็นอย่างไร",
     "options": [
       "ตัวแก่อยู่ในลำไส้ใหญ่ ไข่ออกทางปัสสาวะ และมียุงเป็นพาหะ",
       "ตัวแก่อยู่ในหลอดเลือด ตัวอ่อนไชผ่านผิวหนังโดยตรงจากดินชื้น",
@@ -322,7 +303,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-parasites",
     "year": 5,
     "type": "mcq",
-    "q": "การใช้ยาถ่ายพยาธิสำหรับ cutaneous habronemiasis ตามสไลด์คือข้อใด",
+    "q": "การใช้ยาถ่ายพยาธิสำหรับ cutaneous habronemiasis คือข้อใด",
     "options": [
       "Ivermectin 200 ug/kg หรือ moxidectin 400 ug/kg PO 2 ครั้ง ห่าง 3 สัปดาห์",
       "Fenbendazole 10 mg/kg กินติดต่อกัน 5 วัน แล้วซ้ำอีกครั้งใน 2 สัปดาห์ถัดมา",
@@ -341,7 +322,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-parasites",
     "year": 5,
     "type": "mcq",
-    "q": "ผล biopsy ที่เข้าได้กับ cutaneous habronemiasis ตามสไลด์คือข้อใด",
+    "q": "ผล biopsy ที่เข้าได้กับ cutaneous habronemiasis คือข้อใด",
     "options": [
       "Ballooning degeneration ของ basal epithelium ร่วมกับ intranuclear inclusion body",
       "Eosinophilic dermatitis ร่วมกับ coagulation necrosis และตัวอ่อนพยาธิ",
@@ -398,7 +379,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-infectious",
     "year": 5,
     "type": "mcq",
-    "q": "Dermatophilosis จาก Dermatophilus congolensis มีกลุ่มอาการหลัก 2 แบบตามสไลด์คือข้อใด",
+    "q": "Dermatophilosis จาก Dermatophilus congolensis มีกลุ่มอาการหลัก 2 แบบ คือข้อใด",
     "options": [
       "Rain scald ที่ลำตัวด้านบน กับ mud fever ที่ขาส่วนปลาย",
       "Sweet itch ที่แผงคอและโคนหาง กับ summer sore ที่ริมฝีปาก",
@@ -417,7 +398,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-infectious",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดตรงกับลักษณะรอยโรคของ dermatophilosis ตามสไลด์",
+    "q": "ข้อใดตรงกับลักษณะรอยโรคของ dermatophilosis",
     "options": [
       "ตุ่มน้ำใสที่แตกเป็นแผลตื้นบริเวณอวัยวะสืบพันธุ์",
       "สะเก็ดหนาแบบ paintbrush ใต้สะเก็ดเว้าและมีหนองบาง",
@@ -436,7 +417,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-infectious",
     "year": 5,
     "type": "mcq",
-    "q": "Coital exanthema จาก EHV-3 มีระยะฟักตัวและคำแนะนำการพักผสมพันธุ์อย่างไรตามสไลด์",
+    "q": "Coital exanthema จาก EHV-3 มีระยะฟักตัวและคำแนะนำการพักผสมพันธุ์อย่างไร",
     "options": [
       "ฟักตัว 19 ถึง 67 วัน และพักการผสมพันธุ์ 1 ถึง 2 สัปดาห์",
       "ฟักตัว 21 ถึง 30 วัน และพักการผสมพันธุ์ 2 ถึง 3 วัน",
@@ -455,7 +436,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-infectious",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดถูกต้องเกี่ยวกับม้าที่เป็นพาหะแฝง (latent carrier) ของ EHV-3 ตามสไลด์",
+    "q": "ข้อใดถูกต้องเกี่ยวกับม้าที่เป็นพาหะแฝง (latent carrier) ของ EHV-3",
     "options": [
       "ตรวจพบได้ด้วย PCR จากเลือดในทุกห้องปฏิบัติการ",
       "ตรวจพบได้ด้วยการเพาะแยกเชื้อจากน้ำอสุจิเสมอ",
@@ -474,7 +455,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-infectious",
     "year": 5,
     "type": "mcq",
-    "q": "Viral papillomatosis หรือหูดในม้าตามสไลด์มีลักษณะอย่างไร",
+    "q": "Viral papillomatosis หรือหูดในม้า มีลักษณะอย่างไร",
     "options": [
       "พบมากในม้าอายุมากกว่า 15 ปี และเจ็บมากเมื่อสัมผัส",
       "พบมากในม้าอายุน้อยกว่า 3 ปี และไม่คันไม่เจ็บ",
@@ -588,7 +569,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-tumors",
     "year": 5,
     "type": "mcq",
-    "q": "Squamous cell carcinoma ในม้าตามสไลด์มีลักษณะทางระบาดวิทยาอย่างไร",
+    "q": "Squamous cell carcinoma ในม้า มีลักษณะทางระบาดวิทยาอย่างไร",
     "options": [
       "พบมากที่สุดเป็นอันดับหนึ่งและพบในม้าอายุน้อยกว่า 3 ปี",
       "พบเฉพาะม้าสีเทาและมักเกิดที่โคนหางกับฝีเย็บ",
@@ -607,7 +588,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-tumors",
     "year": 5,
     "type": "mcq",
-    "q": "ปัจจัยเสี่ยงของ squamous cell carcinoma ในม้าตามสไลด์คือข้อใด",
+    "q": "ปัจจัยเสี่ยงของ squamous cell carcinoma ในม้า คือข้อใด",
     "options": [
       "แสง UV บนผิวที่ไม่มีเม็ดสี และ EcPV-2 ที่องคชาต",
       "การติดเชื้อ Dermatophilus congolensis ซ้ำหลายครั้ง",
@@ -645,7 +626,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-tumors",
     "year": 5,
     "type": "mcq",
-    "q": "แนวทางการรักษา melanoma ในม้าตามสไลด์คือข้อใด",
+    "q": "แนวทางการรักษา melanoma ในม้า คือข้อใด",
     "options": [
       "ให้ cimetidine เป็นหลักเพราะได้ผลแน่นอนในทุกราย",
       "ฉายรังสีทั้งตัวเป็นการรักษามาตรฐานอันดับแรกเสมอ",
@@ -664,7 +645,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-tumors",
     "year": 5,
     "type": "mcq",
-    "q": "ก้อนของ eosinophilic granuloma ในม้ามีลักษณะอย่างไรตามสไลด์",
+    "q": "ก้อนของ eosinophilic granuloma ในม้ามีลักษณะอย่างไร",
     "options": [
       "ก้อนแข็ง ขอบชัด ไม่เจ็บ ไม่คัน และขนบริเวณนั้นปกติ",
       "ก้อนนิ่ม เจ็บมาก และมีหนองไหลจากรูเปิดบนผิวหนัง",
@@ -702,7 +683,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-tumors",
     "year": 5,
     "type": "mcq",
-    "q": "PPID หรือ equine Cushing's disease ในม้าเกิดจากพยาธิกำเนิดใดตามสไลด์",
+    "q": "PPID หรือ equine Cushing's disease ในม้าเกิดจากพยาธิกำเนิดใด",
     "options": [
       "เนื้องอกที่ต่อมหมวกไตทำให้สร้าง cortisol มากเกินไปเรื้อรัง",
       "เซลล์ประสาทที่สร้าง dopamine เสื่อม ทำให้ ACTH สูงขึ้น",
@@ -721,7 +702,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-tumors",
     "year": 5,
     "type": "mcq",
-    "q": "ยาหลักในการรักษา PPID และขนาดเริ่มต้นตามสไลด์คือข้อใด",
+    "q": "ยาหลักในการรักษา PPID และขนาดเริ่มต้น คือข้อใด",
     "options": [
       "Cyproheptadine เริ่มที่ 0.25 mg/kg กินวันละครั้ง",
       "Levothyroxine เริ่มที่ 20 ug/kg กินวันละสองครั้งต่อเนื่อง",
@@ -778,7 +759,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-respi",
     "year": 5,
     "type": "mcq",
-    "q": "การฟังเสียงปอดม้ามักไม่ชัด ตามโน้ตในเอกสารนี้ใช้วิธีใดช่วยให้ฟังได้ดีขึ้น",
+    "q": "การฟังเสียงปอดม้ามักไม่ชัด ตามโน้ต ใช้วิธีใดช่วยให้ฟังได้ดีขึ้น",
     "options": [
       "ให้ม้าเดินขึ้นทางลาดชันแล้วรีบฟังทันทีที่หยุด",
       "ฉีดยากระตุ้นศูนย์การหายใจก่อนฟังทุกครั้ง",
@@ -816,7 +797,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-respi",
     "year": 5,
     "type": "mcq",
-    "q": "ในการเก็บตัวอย่างทางเดินหายใจส่วนล่างของม้า ข้อใดตรงกับจุดเด่นของ bronchoalveolar lavage (BAL) ตามเอกสารนี้",
+    "q": "ในการเก็บตัวอย่างทางเดินหายใจส่วนล่างของม้า ข้อใดตรงกับจุดเด่นของ bronchoalveolar lavage (BAL)",
     "options": [
       "เหมาะกับการส่งเพาะเชื้อที่สุด เพราะเลี่ยงการปนเปื้อนได้ดี",
       "เก็บเฉพาะจุดที่ลึก บอกการอักเสบดี ดูสัดส่วน neutrophil",
@@ -873,7 +854,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-respi",
     "year": 5,
     "type": "mcq",
-    "q": "ม้าสะบัดหัวรุนแรงทันทีที่ออกกลางแจ้งหรือโดนแดดและลม และสะบัดแม้ไม่ได้ถูกขี่ ตามตารางในเอกสารนี้กลไกใดน่าจะเป็นสาเหตุ",
+    "q": "ม้าสะบัดหัวรุนแรงทันทีที่ออกกลางแจ้งหรือโดนแดดและลม และสะบัดแม้ไม่ได้ถูกขี่ ตามตาราง กลไกใดน่าจะเป็นสาเหตุ",
     "options": [
       "ฟันคมบาดกระพุ้งแก้มร่วมกับแรงกดจากบังเหียน",
       "ไซนัสอักเสบเรื้อรังที่มี discharge ออกข้างเดียว",
@@ -892,7 +873,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-respi",
     "year": 5,
     "type": "mcq",
-    "q": "หากสงสัย primary bacterial sinusitis จาก Streptococcus equi ควรเก็บตัวอย่างด้วยวิธีใดตามที่เอกสารนี้กำกับไว้",
+    "q": "หากสงสัย primary bacterial sinusitis จาก Streptococcus equi ควรเก็บตัวอย่างด้วยวิธีใด",
     "options": [
       "ป้าย swab ที่ปลายรูจมูกด้านนอกทั้งสองข้าง",
       "เจาะเลือดส่ง serology เพื่อหา antibody titre",
@@ -968,7 +949,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ophth",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดตรงกับลักษณะของ equine recurrent uveitis (ERU) ตามเอกสารนี้",
+    "q": "ข้อใดตรงกับลักษณะของ equine recurrent uveitis (ERU)",
     "options": [
       "พบเฉพาะลูกม้าอายุต่ำกว่า 1 ปี หายขาดหลังรักษาครั้งเดียว",
       "อักเสบเฉพาะชั้น anterior uvea จึงไม่ทำให้สูญเสียการมองเห็น",
@@ -1044,7 +1025,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ophth",
     "year": 5,
     "type": "mcq",
-    "q": "granular iridica หรือ corpora nigra ที่ขอบบนของม่านตาม้าทำหน้าที่ใดตามเอกสารนี้",
+    "q": "granular iridica หรือ corpora nigra ที่ขอบบนของม่านตาม้าทำหน้าที่ใด",
     "options": [
       "ช่วยบังและลดปริมาณแสงยูวีที่เข้าสู่ตา",
       "ช่วยระบาย aqueous humor ออกจากมุมตา",
@@ -1063,7 +1044,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ophth",
     "year": 5,
     "type": "mcq",
-    "q": "ตามค่าอ้างอิงที่ระบุในเอกสารนี้ ค่าเป้าหมายขณะวางยาสลบม้าข้อใดถูกต้อง",
+    "q": "ตามค่าอ้างอิงที่ระบุ ค่าเป้าหมายขณะวางยาสลบม้าข้อใดถูกต้อง",
     "options": [
       "HR 60-80 ครั้งต่อนาที และ MBP 40-50 mmHg",
       "HR 30-45 ครั้งต่อนาที และ MBP 70-90 mmHg",
@@ -1082,7 +1063,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ophth",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสารนี้ ค่า PaCO2 ที่ยอมรับได้ระหว่างวางยาสลบม้าอยู่ในช่วงใด",
+    "q": "ค่า PaCO2 ที่ยอมรับได้ระหว่างวางยาสลบม้าอยู่ในช่วงใด",
     "options": [
       "20 ถึง 30 mmHg",
       "25 ถึง 40 mmHg",
@@ -1215,7 +1196,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-poa",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสารนี้ อาการสองอย่างที่บ่งว่าม้าโคลิกมีความเสี่ยงสูงที่ต้องผ่าตัดคือข้อใด",
+    "q": "อาการสองอย่างที่บ่งว่าม้าโคลิกมีความเสี่ยงสูงที่ต้องผ่าตัดคือข้อใด",
     "options": [
       "อุณหภูมิร่างกายสูงและมีเสียงลำไส้ดังผิดปกติ",
       "ท้องกาง และไม่ตอบสนองต่อยาแก้ปวด",
@@ -1234,7 +1215,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-poa",
     "year": 5,
     "type": "mcq",
-    "q": "การใส่สายผ่านจมูกลงกระเพาะ (NG intubation) ในม้าโคลิก มีประโยชน์ในข้อใดตามเอกสารนี้",
+    "q": "การใส่สายผ่านจมูกลงกระเพาะ (NG intubation) ในม้าโคลิก มีประโยชน์ในข้อใด",
     "options": [
       "วัดความดันในช่องท้องโดยตรงเพื่อประเมินการบิดของลำไส้",
       "ระบายลมที่ค้างในลำไส้ใหญ่ส่วนปลายออกทางทวารหนัก",
@@ -1253,7 +1234,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-poa",
     "year": 5,
     "type": "mcq",
-    "q": "พบก้อนเล็กหลายก้อนบริเวณ perineum ในม้าสีเทา ควรวินิจฉัยแยกจากอะไรเป็นอันดับต้นตามเอกสารนี้",
+    "q": "พบก้อนเล็กหลายก้อนบริเวณ perineum ในม้าสีเทา ควรวินิจฉัยแยกจากอะไรเป็นอันดับต้น",
     "options": [
       "Papilloma ซึ่งพบเฉพาะม้าอายุมากกว่า 15 ปี",
       "Sarcoid ที่เป็นก้อนแข็งคล้ายกัน ต้อง biopsy",
@@ -1880,7 +1861,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-nutrition",
     "year": 5,
     "type": "mcq",
-    "q": "สูตร Digestible Dry Matter (DDM) ตามเอกสารคือข้อใด",
+    "q": "สูตร Digestible Dry Matter (DDM) คือข้อใด",
     "options": [
       "DDM (%) = 88.9 - (0.779 x ADF%)",
       "DDM (%) = 88.9 - (0.779 x NDF%)",
@@ -2165,7 +2146,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-parasites",
     "year": 5,
     "type": "mcq",
-    "q": "ยาและขนาดยาที่ใช้รักษา Anoplocephala perfoliata ตามเอกสารคือข้อใด",
+    "q": "ยาและขนาดยาที่ใช้รักษา Anoplocephala perfoliata คือข้อใด",
     "options": [
       "Ivermectin 0.2 mg/kg PO",
       "Fenbendazole 5 mg/kg PO",
@@ -3362,7 +3343,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "การผ่าตัดม้าแบบ field surgery ต่างจาก hospital-based surgery อย่างไรตามสไลด์",
+    "q": "การผ่าตัดม้าแบบ field surgery ต่างจาก hospital-based surgery อย่างไร",
     "options": [
       "อาศัยยาฉีดเป็นหลัก (TIVA) และ monitor พื้นฐานเพราะเครื่องมือจำกัด",
       "อาศัย inhalation เป็นหลัก และ monitor ด้วย capnography แบบพกพาเสมอ",
@@ -3452,25 +3433,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
   {
-    "id": 105397,
-    "subject": "equine-medicine",
-    "topic": "equine-intro",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ระบุว่าควรเตรียมผิวหนังเลยขอบเขตที่คาดว่าจะปูผ้าคลุมออกไปอย่างน้อยเท่าใด",
-    "options": [
-      "อย่างน้อย 2 นิ้ว",
-      "อย่างน้อย 6 นิ้ว",
-      "อย่างน้อย 12 นิ้ว",
-      "อย่างน้อย 20 นิ้ว"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนว่า prepare skin at least 12 inches beyond the anticipated draping margin เพื่อกันการปนเปื้อนหากผ้าคลุมเลื่อนระหว่างผ่าตัด ตัวเลขอื่นไม่ปรากฏในสไลด์",
-    "verified": "Equine Sx concept น.12",
-    "sourceType": "lecture-derived",
-    "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
-  },
-  {
     "id": 105398,
     "subject": "equine-medicine",
     "topic": "equine-intro",
@@ -3495,7 +3457,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดตรงกับคำแนะนำเรื่องการปูผ้าคลุม (draping) ในการผ่าตัดม้าท่านอนตามสไลด์",
+    "q": "ข้อใดตรงกับคำแนะนำเรื่องการปูผ้าคลุม (draping) ในการผ่าตัดม้าท่านอน",
     "options": [
       "ควรใช้ผ้าพลาสติกล้วนคลุมทั้งตัวเพราะกันน้ำได้ดีที่สุดเสมอ",
       "ขอบเขตปลอดเชื้อครอบคลุมทุกบริเวณที่อยู่ต่ำกว่าระดับแผลผ่าตัดลงไป",
@@ -3552,7 +3514,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-anesthesia",
     "year": 5,
     "type": "mcq",
-    "q": "ASA physical status class V ตามตารางในสไลด์หมายถึงอะไร",
+    "q": "ASA physical status class V ตามตาราง หมายถึงอะไร",
     "options": [
       "มีโรคเฉพาะที่ ไม่มีอาการทางระบบ พยากรณ์โรคดี เช่น แผลฉีกขาดที่ผิวหนัง",
       "มีอาการทางระบบปานกลางจนจำกัดการทำงาน เช่น หัวใจมีเสียงฟู่",
@@ -3590,7 +3552,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-anesthesia",
     "year": 5,
     "type": "mcq",
-    "q": "เหตุใดประวัติการขนส่งม้าเป็นเวลานานจึงสำคัญต่อการวางยาสลบตามสไลด์และลายมือกำกับ",
+    "q": "เหตุใดประวัติการขนส่งม้าเป็นเวลานานจึงสำคัญต่อการวางยาสลบ และลายมือกำกับ",
     "options": [
       "การขนส่งทำให้ค่า PCV ลดลงจนต้องให้เลือดก่อนผ่าตัดทุกเคส",
       "การขนส่งทำให้ม้าเกิดภาวะ hypothermia จนต้องเลื่อนการผ่าตัด",
@@ -3647,7 +3609,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-anesthesia",
     "year": 5,
     "type": "mcq",
-    "q": "การจัดท่าม้าที่วางยาสลบในสนามตามสไลด์ควรทำอย่างไร",
+    "q": "การจัดท่าม้าที่วางยาสลบในสนาม ควรทำอย่างไร",
     "options": [
       "จัดท่า dorsal recumbency เสมอเพื่อให้เข้าถึงช่องท้องได้สะดวก",
       "จัดท่า lateral recumbency ดึงขาหน้าด้านล่างออกมาข้างหน้า",
@@ -3704,7 +3666,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสไลด์ ข้อมูลใดจากการตรวจร่างกายที่สำคัญที่สุดก่อนผ่าตัดม้า",
+    "q": "ข้อมูลใดจากการตรวจร่างกายที่สำคัญที่สุดก่อนผ่าตัดม้า",
     "options": [
       "สีของเยื่อเมือกร่วมกับค่า capillary refill time",
       "ลักษณะและความแข็งของมูลที่ถ่ายออกมาล่าสุด",
@@ -3742,7 +3704,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ลูกม้าที่ยังฉีดวัคซีนไม่ครบชุดและต้องเข้ารับการผ่าตัด ควรจัดการอย่างไรตามสไลด์",
+    "q": "ลูกม้าที่ยังฉีดวัคซีนไม่ครบชุดและต้องเข้ารับการผ่าตัด ควรจัดการอย่างไร",
     "options": [
       "ให้ tetanus toxoid ก่อนเข้ารับการผ่าตัด",
       "ไม่ต้องให้อะไร เพราะได้ภูมิจากนมน้ำเหลืองแล้ว",
@@ -3818,7 +3780,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "ความแตกต่างของการหายของแผลแบบ second intention ระหว่างม้าและ pony ตามสไลด์คือข้อใด",
+    "q": "ความแตกต่างของการหายของแผลแบบ second intention ระหว่างม้าและ pony คือข้อใด",
     "options": [
       "Pony อาศัย epithelialization เป็นหลัก ส่วนม้าอาศัย wound contraction",
       "ม้าและ pony หายด้วยอัตราเท่ากัน ถ้าแผลอยู่ตำแหน่งปลายขาเหมือนกัน",
@@ -3837,7 +3799,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "ลักษณะการตอบสนองแบบอักเสบของม้าเมื่อเทียบกับ pony เป็นอย่างไรตามสไลด์",
+    "q": "ลักษณะการตอบสนองแบบอักเสบของม้าเมื่อเทียบกับ pony เป็นอย่างไร",
     "options": [
       "รุนแรงและจบเร็วภายใน 3 สัปดาห์ กำจัดแบคทีเรียได้ดี",
       "เริ่มช้า อ่อนแรง แต่คงอยู่เรื้อรัง ทำให้เกิด EGT ตามมา",
@@ -3856,7 +3818,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "Exuberant granulation tissue (EGT) ในม้ามักพบที่ตำแหน่งใดมากที่สุดตามสไลด์",
+    "q": "Exuberant granulation tissue (EGT) ในม้ามักพบที่ตำแหน่งใดมากที่สุด",
     "options": [
       "แผลบริเวณลำตัวและสีข้างที่เย็บปิดไปแล้ว",
       "แผลบริเวณใบหน้าและรอบเบ้าตาที่ติดเชื้อ",
@@ -3875,7 +3837,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดคือแนวทางการจัดการ EGT ตามสไลด์",
+    "q": "ข้อใดคือแนวทางการจัดการ EGT",
     "options": [
       "ตัดออกด้วยการผ่าตัดหรือ sharp debridement ร่วมกับพัน pressure bandage",
       "ปล่อยให้เนื้อเยื่อยุบเองโดยไม่ต้องแตะต้อง และงดพันแผลทุกชนิดไว้ก่อน",
@@ -3894,7 +3856,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "หลักการพันผ้าพันแผลที่ขาม้าตามสไลด์เป็นอย่างไร",
+    "q": "หลักการพันผ้าพันแผลที่ขาม้า เป็นอย่างไร",
     "options": [
       "พันจาก proximal ไป distal และให้แต่ละรอบซ้อนทับกัน 50 เปอร์เซ็นต์",
       "พันจาก proximal ไป distal โดยแต่ละรอบซ้อนทับกัน 10 เปอร์เซ็นต์",
@@ -3951,7 +3913,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "Robert Jones bandage ที่พันเสร็จสมบูรณ์ควรมีลักษณะอย่างไรตามสไลด์",
+    "q": "Robert Jones bandage ที่พันเสร็จสมบูรณ์ควรมีลักษณะอย่างไร",
     "options": [
       "เป็นทรงกรวยเรียวลง หนาประมาณ 1.5 เท่าของเส้นผ่านศูนย์กลางขา",
       "เป็นท่อขนานกัน หนาประมาณ 6 เท่าของเส้นผ่านศูนย์กลางขา",
@@ -3989,7 +3951,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "PVC pipe splint มีคุณสมบัติเด่นและข้อควรระวังอย่างไรตามสไลด์",
+    "q": "PVC pipe splint มีคุณสมบัติเด่นและข้อควรระวังอย่างไร",
     "options": [
       "แข็งแรงมาก เหมาะกับ fracture ปลายขา แต่ไม่แนบขาจึงต้องรองนุ่มให้ดี",
       "น้ำหนักเบาและแนบรูปขาได้ดี แต่ให้ความแข็งแรงน้อยกว่าไม้และ PVC",
@@ -4008,7 +3970,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อจำกัดของ fiberglass casting material ในการทำ splint ตามสไลด์คือข้อใด",
+    "q": "ข้อจำกัดของ fiberglass casting material ในการทำ splint คือข้อใด",
     "options": [
       "ไม่สามารถขึ้นรูปตามลักษณะขาได้ ต้องตัดตามแบบสำเร็จเท่านั้น",
       "มีน้ำหนักมากที่สุดในบรรดาวัสดุทำ splint ทั้งหมดที่กล่าวถึงในสไลด์",
@@ -4065,7 +4027,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "นอกจากปกป้องแผลแล้ว head bandage ในม้ายังมีประโยชน์อย่างไรตามสไลด์",
+    "q": "นอกจากปกป้องแผลแล้ว head bandage ในม้ายังมีประโยชน์อย่างไร",
     "options": [
       "ช่วยลดอุณหภูมิบริเวณศีรษะเพื่อป้องกันภาวะสมองบวมหลังการผ่าตัดใหญ่",
       "ช่วยยึด nasogastric tube ให้อยู่กับที่ตลอดช่วงหลังการผ่าตัด",

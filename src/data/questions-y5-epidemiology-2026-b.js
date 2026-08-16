@@ -81,23 +81,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "verified": "Concept_of_causation p.13"
   },
   {
-    "id": 105088,
-    "subject": "epidemiology",
-    "topic": "epidem-causation",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ยก swine respiratory disease complex (PRDC) ที่มี PRRSV, swine influenza, Mycoplasma, การเลี้ยงหนาแน่น และการระบายอากาศไม่ดี ขึ้นมาเพื่อชี้ประเด็นใด",
-    "options": [
-      "เชื้อ PRRSV เพียงตัวเดียวก็เพียงพอทำให้เกิดโรคตามกฎของ Koch",
-      "การเลี้ยงหนาแน่นเป็น confounding factor ของการติดเชื้อ Mycoplasma",
-      "ระยะฟักตัวของโรคระบบหายใจในสุกรยาวนานกว่าที่ Koch เคยระบุไว้",
-      "โรคหลายชนิดต้องอาศัยหลายปัจจัยร่วมกัน จึงไม่เข้ากับโมเดลของ Koch"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุว่า Koch's postulates does not fit well with many diseases เพราะ many disease may require multiple contributing factors แล้วยก PRDC ที่มีลูกศรจากหลายปัจจัยเข้าสู่กล่องเดียวกันเป็นตัวอย่าง ไม่ได้บอกว่า PRRSV ตัวเดียวพอ ไม่ได้เรียกการเลี้ยงหนาแน่นว่า confounding factor และไม่ได้พูดถึงระยะฟักตัวในสไลด์นี้",
-    "verified": "Concept_of_causation p.13"
-  },
-  {
     "id": 105089,
     "subject": "epidemiology",
     "topic": "epidem-causation",
@@ -222,7 +205,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-causation",
     "year": 5,
     "type": "mcq",
-    "q": "ตาม decision tree ของ causal inference ในสไลด์ เมื่อพบ observed association ต้องไล่ตัดคำถามตามลำดับใดก่อนจะสรุปว่าเป็นความสัมพันธ์เชิงสาเหตุ",
+    "q": "ตาม decision tree ของ causal inference เมื่อพบ observed association ต้องไล่ตัดคำถามตามลำดับใดก่อนจะสรุปว่าเป็นความสัมพันธ์เชิงสาเหตุ",
     "options": [
       "bias แล้ว confounding แล้ว chance",
       "chance แล้ว bias แล้ว confounding",
@@ -256,7 +239,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "นิยามของ latent period ตามสไลด์คือข้อใด",
+    "q": "นิยามของ latent period คือข้อใด",
     "options": [
       "ช่วงจาก exposure จนสัตว์แสดงอาการทางคลินิกครั้งแรก",
       "ช่วงเวลาที่สัตว์สามารถแพร่เชื้อไปยังสัตว์ตัวอื่นได้",
@@ -273,7 +256,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "จากตาราง typical incubation period ในสไลด์ โรคใดมีระยะฟักตัวยาวที่สุด",
+    "q": "จากตาราง typical incubation period โรคใดมีระยะฟักตัวยาวที่สุด",
     "options": [
       "Rabies ในสุนัข เป็นสัปดาห์ถึงเป็นเดือน",
       "Johne's disease ในโค เป็นเดือนถึงเป็นปี",
@@ -324,7 +307,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสไลด์เรื่องภูมิคุ้มกันของ susceptible host ข้อใดจัดเป็น active immunity",
+    "q": "เรื่องภูมิคุ้มกันของ susceptible host ข้อใดจัดเป็น active immunity",
     "options": [
       "ระดับแอนติบอดีที่ได้จากนมน้ำเหลืองของแม่สัตว์",
       "การติดเชื้อร่วมที่กดภูมิ เช่น FIV ในแมว หรือ BVD ในโค",
@@ -334,23 +317,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "answer": 2,
     "explain": "สไลด์นิยาม active immunity ว่า immunity that is triggered by a pathogen to produce antibodies to that pathogen และยกตัวอย่างเป็น previous natural exposure กับ vaccination ที่ต้องถูก product ถูกเวลา มี booster และรักษา cold chain ส่วน maternal antibody จากนมน้ำเหลืองคือ passive immunity และ FIV, BVD หรือความเครียดคือปัจจัยที่กดภูมิ",
     "verified": "concept_of_disease_transmission p.20"
-  },
-  {
-    "id": 105103,
-    "subject": "epidemiology",
-    "topic": "epidem-disease-transmission",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ระบุว่าช่วงใดของการผลิตเป็นหน้าต่างเสี่ยงสูงสุดในโคนม",
-    "options": [
-      "ช่วง transition period คือ 3 สัปดาห์ก่อนและหลังคลอด",
-      "ช่วง transition period คือ 8 สัปดาห์ก่อนและหลังคลอด",
-      "ช่วงพีคของการให้นม คือ 3 สัปดาห์หลังผลผลิตสูงสุด",
-      "ช่วงพักรีดนม คือ 6 สัปดาห์สุดท้ายก่อนกำหนดคลอด"
-    ],
-    "answer": 0,
-    "explain": "สไลด์ production factors ระบุ stage of production ว่า transition period คือ 3 weeks before and after calving เป็นช่วงเสี่ยงสูงสุดในโคนม ตัวเลข 8 หรือ 6 สัปดาห์และช่วงพีคการให้นมไม่ได้ปรากฏเป็นคำตอบในสไลด์นี้",
-    "verified": "concept_of_disease_transmission p.22"
   },
   {
     "id": 105104,
@@ -375,7 +341,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "ID50 หรือ median infectious dose ตามสไลด์หมายถึงอะไร",
+    "q": "ID50 หรือ median infectious dose หมายถึงอะไร",
     "options": [
       "ขนาดของเชื้อที่ทำให้สัตว์ที่สัมผัสตายไป 50 เปอร์เซ็นต์",
       "ขนาดของเชื้อที่ทำให้กลุ่มที่สัมผัสติดเชื้อ 50 เปอร์เซ็นต์",
@@ -404,23 +370,6 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "verified": "concept_of_disease_transmission p.26"
   },
   {
-    "id": 105107,
-    "subject": "epidemiology",
-    "topic": "epidem-disease-transmission",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์แยก transmissibility ออกจาก infectivity ไว้อย่างไร",
-    "options": [
-      "infectivity เน้นการตั้งตัวติดเชื้อในโฮสต์ ส่วน transmissibility เน้นการเคลื่อนระหว่างโฮสต์",
-      "infectivity เน้นการเคลื่อนระหว่างโฮสต์ ส่วน transmissibility เน้นการตั้งตัวติดเชื้อในโฮสต์",
-      "infectivity เน้นความรุนแรงของโรคที่เกิดขึ้น ส่วน transmissibility เน้นการรอดนอกร่างกาย",
-      "infectivity เน้นจำนวนชนิดโฮสต์ที่ติดได้ ส่วน transmissibility เน้นการก่อโรคหลังติดเชื้อ"
-    ],
-    "answer": 0,
-    "explain": "ข้อความปิดท้ายสไลด์ระบุตรงว่า infectivity is about establishing infection in a host, transmissibility is about moving between hosts ส่วนความรุนแรงของโรคคือ virulence การรอดนอกร่างกายคือ viability จำนวนชนิดโฮสต์คือ host range และการก่อโรคหลังติดเชื้อคือ pathogenicity",
-    "verified": "concept_of_disease_transmission p.28"
-  },
-  {
     "id": 105108,
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
@@ -443,7 +392,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "นิยามของ reservoir ตามสไลด์คือข้อใด",
+    "q": "นิยามของ reservoir คือข้อใด",
     "options": [
       "แหล่งอาศัยตามธรรมชาติที่เชื้อดำรงชีวิต เจริญ และเพิ่มจำนวนได้",
       "สัตว์ที่ติดเชื้อแล้วแพร่เชื้อได้เฉพาะตอนที่แสดงอาการทางคลินิก",
@@ -477,7 +426,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "ตามตัวอย่างในสไลด์ ลูกโคที่เกิดมาเป็น chronic carrier ของ BVD เกิดจากเงื่อนไขใด",
+    "q": "ตามตัวอย่าง ลูกโคที่เกิดมาเป็น chronic carrier ของ BVD เกิดจากเงื่อนไขใด",
     "options": [
       "แม่โคที่ยังไม่มีภูมิ ติดเชื้อชนิด cytopathic ตอนอายุครรภ์มากกว่า 6 เดือน",
       "แม่โคที่ยังไม่มีภูมิ ติดเชื้อชนิด noncytopathic ตอนอายุครรภ์น้อยกว่า 4 เดือน",
@@ -494,7 +443,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "การจำแนก mode of transmission ตามสไลด์ ข้อใดถูกต้อง",
+    "q": "การจำแนก mode of transmission ข้อใดถูกต้อง",
     "options": [
       "droplet spread จัดเป็น indirect ส่วน airborne จัดเป็น direct transmission",
       "droplet spread จัดเป็น direct ส่วน airborne จัดเป็น indirect transmission",
@@ -511,7 +460,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดเป็นตัวอย่างของ mechanical vector ตามตารางเปรียบเทียบในสไลด์",
+    "q": "ข้อใดเป็นตัวอย่างของ mechanical vector ตามตารางเปรียบเทียบ",
     "options": [
       "เห็บที่นำเชื้อ Babesia ไปสู่โค",
       "ริ้น Culicoides ที่นำไวรัส bluetongue",
@@ -528,7 +477,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสไลด์ type of prevention การป้องกันระดับ secondary เข้าแทรกที่ระยะใดของ natural history of disease",
+    "q": "type of prevention การป้องกันระดับ secondary เข้าแทรกที่ระยะใดของ natural history of disease",
     "options": [
       "Stage of susceptibility เพื่อกำจัดปัจจัยเสี่ยงไม่ให้เกิดโรค",
       "Stage of clinical disease เพื่อป้องกันภาวะแทรกซ้อนและความพิการ",
@@ -562,7 +511,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดจัดเป็น internal biosecurity ตามสไลด์",
+    "q": "ข้อใดจัดเป็น internal biosecurity",
     "options": [
       "กักโรคและตรวจสัตว์ที่ซื้อเข้ามาก่อนนำไปรวมกับฝูงเดิม",
       "ควบคุมผู้มาเยือน ยานพาหนะ และอุปกรณ์ที่ใช้ร่วมกัน",

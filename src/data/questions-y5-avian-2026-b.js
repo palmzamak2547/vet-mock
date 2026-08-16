@@ -75,7 +75,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ฟาร์มเป็ดพบการระบาดของ Duck Tembusu virus ข้อใดคือมาตรการป้องกันที่ตรงกับกลไกการแพร่ของเชื้อตามเอกสารมากที่สุด",
+    "q": "ฟาร์มเป็ดพบการระบาดของ Duck Tembusu virus ข้อใดคือมาตรการป้องกันที่ตรงกับกลไกการแพร่ของเชื้อ มากที่สุด",
     "options": [
       "ให้ยาปฏิชีวนะผสมน้ำกินทั้งฝูง",
       "ควบคุมยุงและแมลงพาหะในฟาร์ม",
@@ -94,7 +94,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ลูกห่านที่ติด Goose parvovirus ตั้งแต่อายุน้อยกว่า 10 วัน มักเป็นอย่างไรตามเอกสาร",
+    "q": "ลูกห่านที่ติด Goose parvovirus ตั้งแต่อายุน้อยกว่า 10 วัน มักเป็นอย่างไร",
     "options": [
       "ไม่แสดงอาการ แต่เกิด seroconversion เป็นตัวอมโรค",
       "แสดงอาการขนหยอง เดินเซ หัวสั่น และมี ascites",
@@ -151,7 +151,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ลำดับพยาธิกำเนิดของ ascites ในไก่เนื้อตามเอกสาร ข้อใดถูกต้อง",
+    "q": "ลำดับพยาธิกำเนิดของ ascites ในไก่เนื้อ ข้อใดถูกต้อง",
     "options": [
       "Hypoxia แล้ว Anemia แล้ว Systemic hypertension แล้ว LV hypertrophy แล้ว Ascites",
       "Heat stress แล้ว Dehydration แล้ว Hypovolemia แล้ว RV dilatation แล้ว Ascites",
@@ -170,7 +170,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ความชื้นในตู้ฟักที่ต่ำกว่าปกติ (ปกติราว 54-55%) ทำให้เกิดปัญหาขาผิดรูปได้อย่างไรตามเอกสาร",
+    "q": "ความชื้นในตู้ฟักที่ต่ำกว่าปกติ (ปกติราว 54-55%) ทำให้เกิดปัญหาขาผิดรูปได้อย่างไร",
     "options": [
       "ตัวอ่อนโตเร็วเกินไป ดึง glycogen จากไข่แดงมาใช้หมด",
       "การฟักช้าลง ปอดทำงานช้า ลูกไก่ดิ้นออกจนขาแบะ",
@@ -208,7 +208,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดอธิบายความต่างระหว่าง Pullorum disease กับ Fowl typhoid ได้ถูกต้องตามเอกสาร",
+    "q": "ข้อใดอธิบายความต่างระหว่าง Pullorum disease กับ Fowl typhoid ได้ถูกต้อง",
     "options": [
       "PD พบในไก่โต ถ่ายขาว ส่วน FT พบในลูกไก่ ตายแบบ septicemia",
       "PD พบในลูกไก่ ถ่ายขาว ส่วน FT พบในไก่โต ตายแบบ septicemia",
@@ -227,7 +227,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร เหตุใด Pullorum disease และ Fowl typhoid จึงแทบไม่พบในฟาร์มไทยแล้ว",
+    "q": "เหตุใด Pullorum disease และ Fowl typhoid จึงแทบไม่พบในฟาร์มไทยแล้ว",
     "options": [
       "ฟาร์มไทยใช้วัคซีนเชื้อเป็นครอบคลุมทั้งไก่ไข่และไก่เนื้อ",
       "ฟาร์มไทยผสมยาปฏิชีวนะในน้ำล้างไข่ทุกฟองก่อนเข้าฟัก",
@@ -303,7 +303,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-vaccine-prog",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร วัคซีน Egg drop syndrome ในไก่รุ่นควรทำที่ช่วงอายุใด",
+    "q": "วัคซีน Egg drop syndrome ในไก่รุ่นควรทำที่ช่วงอายุใด",
     "options": [
       "อายุ 1 วัน พร้อมวัคซีน Marek",
       "อายุ 14-16 สัปดาห์ ก่อนเริ่มไข่",
@@ -322,7 +322,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "Ornithobacterium rhinotracheale ทำให้เกิด airsacculitis ที่มีลักษณะ exudate แบบใดตามเอกสาร",
+    "q": "Ornithobacterium rhinotracheale ทำให้เกิด airsacculitis ที่มีลักษณะ exudate แบบใด",
     "options": [
       "มี exudate เป็นฟองและข้นคล้ายโยเกิร์ต",
       "มี caseous nodules สีขาวคล้ายเนยแข็ง",
@@ -341,7 +341,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร วัคซีนสำหรับ Ornithobacterium rhinotracheale มีลักษณะอย่างไร",
+    "q": "วัคซีนสำหรับ Ornithobacterium rhinotracheale มีลักษณะอย่างไร",
     "options": [
       "มีทั้งเชื้อเป็นและเชื้อตาย ใช้ในไก่เนื้อเป็นหลัก",
       "มีเฉพาะเชื้อเป็นแบบหยอดตา ใช้ได้ทุกช่วงอายุ",
@@ -398,7 +398,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดถูกต้องเกี่ยวกับคุณสมบัติของ Listeria ตามเอกสาร",
+    "q": "ข้อใดถูกต้องเกี่ยวกับคุณสมบัติของ Listeria",
     "options": [
       "Gram positive แบบ facultative intracellular",
       "Gram negative เจริญได้เฉพาะนอกเซลล์เท่านั้น",
@@ -436,7 +436,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร การป้องกัน Histomoniasis เน้นเรื่องใดเป็นหลัก",
+    "q": "การป้องกัน Histomoniasis เน้นเรื่องใดเป็นหลัก",
     "options": [
       "ให้ยากลุ่ม ionophore ผสมอาหารตลอดช่วงเลี้ยง",
       "ทำวัคซีนเชื้อเป็นในลูกไก่งวงตั้งแต่อายุ 1 วัน",
@@ -512,7 +512,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร ปัจจัยด้านตัวสัตว์ข้อใดทำให้ไวต่อพิษจากเชื้อราสูงกว่า",
+    "q": "ปัจจัยด้านตัวสัตว์ข้อใดทำให้ไวต่อพิษจากเชื้อราสูงกว่า",
     "options": [
       "ไก่เนื้อไวกว่าไก่ไข่ และตัวเมียไวกว่าตัวผู้",
       "ไก่ไวกว่าเป็ด และสัตว์โตเต็มวัยไวกว่าสัตว์อ่อนวัย",
@@ -569,7 +569,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ฟาร์มใช้ lasalocid ป้องกันบิด แต่ยังพบบิดและตามด้วย necrotic enteritis เมื่อตรวจพบสารพิษจากเชื้อราปนในอาหาร ข้อใดอธิบายได้ตามเอกสาร",
+    "q": "ฟาร์มใช้ lasalocid ป้องกันบิด แต่ยังพบบิดและตามด้วย necrotic enteritis เมื่อตรวจพบสารพิษจากเชื้อราปนในอาหาร ข้อใดอธิบายได้",
     "options": [
       "T-2 toxin ลดประสิทธิภาพการป้องกันบิดของ lasalocid",
       "Aflatoxin B1 ทำให้ lasalocid ตกตะกอนในอาหารสัตว์",
@@ -607,7 +607,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร การยืนยันการวินิจฉัย mycotoxicosis ควรทำอย่างไร",
+    "q": "การยืนยันการวินิจฉัย mycotoxicosis ควรทำอย่างไร",
     "options": [
       "ตรวจหาสารพิษจากอาหารและวัตถุดิบที่ใช้",
       "ตรวจหาสารพิษในเลือดและตับของสัตว์ป่วย",
@@ -626,7 +626,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-vaccine-prog",
     "year": 5,
     "type": "mcq",
-    "q": "ไก่เนื้อที่เลี้ยงราว 42 วัน โปรแกรมวัคซีนพื้นฐานตามเอกสารประกอบด้วยโรคใด",
+    "q": "ไก่เนื้อที่เลี้ยงราว 42 วัน โปรแกรมวัคซีนพื้นฐาน ประกอบด้วยโรคใด",
     "options": [
       "ND, IB และ Marek (HVT)",
       "IB, IBD และ fowl cholera",
@@ -664,7 +664,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "การเจาะเลือดตรวจทางซีรัมวิทยาเพื่อวินิจฉัยโรค ควรเจาะที่ช่วงเวลาใดตามเอกสาร",
+    "q": "การเจาะเลือดตรวจทางซีรัมวิทยาเพื่อวินิจฉัยโรค ควรเจาะที่ช่วงเวลาใด",
     "options": [
       "เจาะตอนป่วย และเจาะซ้ำอีก 7-14 วันต่อมา",
       "เจาะครั้งเดียวตอนแสดงอาการก็เพียงพอแล้ว",
@@ -702,7 +702,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "จะยืนยันว่าไก่ฝูงหนึ่งไม่เคยได้รับวัคซีนและไม่มีการติดเชื้อ ต้องทำอย่างไรตามเอกสาร",
+    "q": "จะยืนยันว่าไก่ฝูงหนึ่งไม่เคยได้รับวัคซีนและไม่มีการติดเชื้อ ต้องทำอย่างไร",
     "options": [
       "ตรวจ serology ให้ seropositive ร่วมกับเพาะเชื้อไม่พบเชื้อ",
       "ตรวจ PCR ในไก่ป่วยเพียงตัวเดียวแล้วได้ผลลบก็เพียงพอ",
@@ -740,7 +740,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "การตรวจ Ab ในซีรัมแม่ไก่พันธุ์ก่อนเข้าไข่ ทำไปเพื่ออะไรตามเอกสาร",
+    "q": "การตรวจ Ab ในซีรัมแม่ไก่พันธุ์ก่อนเข้าไข่ ทำไปเพื่ออะไร",
     "options": [
       "เพื่อประเมิน MDA ที่ลูกไก่จะได้รับ",
       "เพื่อตรวจหาเชื้อที่อยู่ในท่อนำไข่ของแม่",
@@ -759,7 +759,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร การรวมซีรัมไก่ 5 ตัวเป็นตัวอย่างเดียวเพื่อประหยัดค่าตรวจ มีปัญหาอย่างไร",
+    "q": "การรวมซีรัมไก่ 5 ตัวเป็นตัวอย่างเดียวเพื่อประหยัดค่าตรวจ มีปัญหาอย่างไร",
     "options": [
       "ซีรัมต่างตัวจะตกตะกอนรวมกันจนตรวจ HI ไม่ขึ้น",
       "ตัวที่ไม่มี titer จะเจือจางผลของตัวอื่น",
@@ -797,7 +797,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร ตัวอย่างเลือดที่จะส่งตรวจซีรัมควรจัดการอย่างไร",
+    "q": "ตัวอย่างเลือดที่จะส่งตรวจซีรัมควรจัดการอย่างไร",
     "options": [
       "แช่แข็งที่ลบ 20 องศาเซลเซียสทันทีหลังเจาะเลือด",
       "เขย่าหลอดเลือดแรง ๆ ให้แยกชั้นก่อนนำส่งห้องแลป",
@@ -835,7 +835,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "แม่ไก่พันธุ์ให้ผล seropositive ต่อ Mycoplasma gallisepticum ควรแปลผลอย่างไรตามเอกสาร",
+    "q": "แม่ไก่พันธุ์ให้ผล seropositive ต่อ Mycoplasma gallisepticum ควรแปลผลอย่างไร",
     "options": [
       "แม่มีภูมิคุ้มกันดีและจะส่งภูมิให้ลูกไก่ได้ตามปกติ",
       "แม่เคยได้รับวัคซีนเชื้อตายมาก่อนจึงไม่ต้องกังวล",
@@ -854,7 +854,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "ตรวจพบ Ab ต่อ HPAI ในลูกไก่อายุ 1 วัน ควรตีความอย่างไรตามเอกสาร",
+    "q": "ตรวจพบ Ab ต่อ HPAI ในลูกไก่อายุ 1 วัน ควรตีความอย่างไร",
     "options": [
       "เป็น MDA จากแม่ที่ได้วัคซีน เพราะติดเชื้อจริงมักตาย",
       "ลูกไก่ติดเชื้อ HPAI ตั้งแต่ในไข่และกำลังจะแสดงอาการป่วย",
@@ -873,7 +873,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-vaccine-prog",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร เหตุใดโปรแกรมลูกไก่จึงนิยมใช้วัคซีนเชื้อเป็น",
+    "q": "เหตุใดโปรแกรมลูกไก่จึงนิยมใช้วัคซีนเชื้อเป็น",
     "options": [
       "ราคาถูกกว่าและเก็บรักษาได้นานกว่าวัคซีนเชื้อตาย",
       "ไม่ถูกรบกวนจาก MDA ในทุกกรณีอย่างแน่นอน",
@@ -892,7 +892,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "ตามเอกสาร โรคใดที่ใช้การตรวจ HI ในการหาระดับแอนติบอดี",
+    "q": "โรคใดที่ใช้การตรวจ HI ในการหาระดับแอนติบอดี",
     "options": [
       "Marek disease หรือ MD",
       "Newcastle disease หรือ ND",

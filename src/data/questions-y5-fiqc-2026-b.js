@@ -265,7 +265,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "topic": "fiqc-haccp",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดสะท้อนความสัมพันธ์ระหว่าง prerequisite program กับความสำเร็จของ HACCP ตามเอกสารนี้",
+    "q": "ข้อใดสะท้อนความสัมพันธ์ระหว่าง prerequisite program กับความสำเร็จของ HACCP",
     "options": [
       "HACCP ที่เขียนละเอียดพอสามารถทดแทน biosecurity ของฟาร์มได้",
       "ถ้าขาดพื้นฐาน biosecurity, GHP และ GAP ที่ดี HACCP แทบไม่มีทางสำเร็จ",

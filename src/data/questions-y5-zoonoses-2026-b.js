@@ -531,7 +531,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-bacterial",
     "year": 5,
     "type": "mcq",
-    "q": "การป้องกัน brucellosis ในฟาร์มตามเอกสาร ประกอบด้วยอะไรบ้าง",
+    "q": "การป้องกัน brucellosis ในฟาร์ม ประกอบด้วยอะไรบ้าง",
     "options": [
       "กำจัดสัตว์ติดเชื้อ คุมการเคลื่อนย้าย วัคซีนให้ตรง species",
       "ให้ยาปฏิชีวนะทั้งฝูงนาน 60 วัน และงดผสมพันธุ์หนึ่งฤดูกาล",
@@ -607,7 +607,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-bacterial",
     "year": 5,
     "type": "mcq",
-    "q": "สภาพแวดล้อมที่เชื้อ Leptospira เจริญได้ดีตามเอกสาร คือข้อใด",
+    "q": "สภาพแวดล้อมที่เชื้อ Leptospira เจริญได้ดี คือข้อใด",
     "options": [
       "อุณหภูมิ 4 ถึง 10 องศาเซลเซียส ในที่ความชื้นต่ำ",
       "อุณหภูมิ 28 ถึง 30 องศาเซลเซียส ความชื้นสูง",
@@ -702,7 +702,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-prion",
     "year": 5,
     "type": "mcq",
-    "q": "BSE ในวัวติดต่อทางใดตามเอกสาร",
+    "q": "BSE ในวัวติดต่อทางใด",
     "options": [
       "การหายใจเอาละอองฝอยจากวัวที่ป่วยเข้าไป",
       "การกินเนื้อและกระดูกป่นของวัวที่มี prion",
@@ -892,7 +892,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-eid-wildlife",
     "year": 5,
     "type": "mcq",
-    "q": "ตามข้อมูลในสไลด์ กลุ่มสัตว์ใดเป็นแหล่งของ zoonoses จำนวนโรคน้อยที่สุด",
+    "q": "ตามข้อมูล กลุ่มสัตว์ใดเป็นแหล่งของ zoonoses จำนวนโรคน้อยที่สุด",
     "options": [
       "ค้างคาว",
       "สัตว์ฟันแทะ",
@@ -911,7 +911,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-eid-wildlife",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดถูกต้องเกี่ยวกับสัดส่วนของชนิดสัตว์ที่เป็น zoonotic host ตามสไลด์",
+    "q": "ข้อใดถูกต้องเกี่ยวกับสัดส่วนของชนิดสัตว์ที่เป็น zoonotic host",
     "options": [
       "สัตว์ฟันแทะมีสัดส่วนสูงกว่าไพรเมต คือมากกว่า 21 เปอร์เซ็นต์",
       "ไพรเมตมีชนิดน้อยกว่าแต่สัดส่วนสูงกว่า คือ 21 เปอร์เซ็นต์",
@@ -930,7 +930,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-eid-wildlife",
     "year": 5,
     "type": "mcq",
-    "q": "การแพร่เชื้อจากคนกลับไปสู่สัตว์ชนิดอื่น ตามคำนิยามในสไลด์เรียกว่าอะไร",
+    "q": "การแพร่เชื้อจากคนกลับไปสู่สัตว์ชนิดอื่น ตามคำนิยาม เรียกว่าอะไร",
     "options": [
       "Spillover",
       "Bridge transmission",
@@ -1082,7 +1082,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-rabies",
     "year": 5,
     "type": "mcq",
-    "q": "หลังถูกกัด ผู้ป่วยพิษสุนัขบ้ามักเริ่มแสดงอาการในช่วงเวลาใดตามเอกสาร",
+    "q": "หลังถูกกัด ผู้ป่วยพิษสุนัขบ้ามักเริ่มแสดงอาการในช่วงเวลาใด",
     "options": [
       "ภายใน 24 ชั่วโมงแรก",
       "1 ถึง 3 สัปดาห์",
@@ -1120,7 +1120,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-rabies",
     "year": 5,
     "type": "mcq",
-    "q": "สัตว์ป่าชนิดใดที่มีรายงานพิษสุนัขบ้าในประเทศไทยตามสไลด์",
+    "q": "สัตว์ป่าชนิดใดที่มีรายงานพิษสุนัขบ้าในประเทศไทย",
     "options": [
       "ค้างคาวแม่ไก่",
       "ลิงแสม",
@@ -1196,7 +1196,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-ebola-nipah",
     "year": 5,
     "type": "mcq",
-    "q": "case fatality rate ของ Ebola virus ตามสไลด์อยู่ที่เท่าใด",
+    "q": "case fatality rate ของ Ebola virus อยู่ที่เท่าใด",
     "options": [
       "ร้อยละ 5 ถึง 10",
       "ร้อยละ 15 ถึง 25",
@@ -1215,7 +1215,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "topic": "zoo-corona",
     "year": 5,
     "type": "mcq",
-    "q": "coronavirus ที่ก่อโรคในคนจัดอยู่ในสกุลใดตามสไลด์",
+    "q": "coronavirus ที่ก่อโรคในคนจัดอยู่ในสกุลใด",
     "options": [
       "alpha และ beta",
       "beta และ gamma",

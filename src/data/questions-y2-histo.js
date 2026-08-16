@@ -13,7 +13,7 @@
 
 export const QUESTIONS_Y2_HISTO = [
   {
-    "id": 106437,
+    "id": 106623,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
@@ -30,12 +30,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Avian p.13"
   },
   {
-    "id": 106438,
+    "id": 106624,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ Bursa of Fabricius ของไก่เห็นชัดที่อายุเท่าใด ถดถอยเมื่อใด และเหลือเป็น remnant เมื่อใด",
+    "q": "Bursa of Fabricius ของไก่เห็นชัดที่อายุเท่าใด ถดถอยเมื่อใด และเหลือเป็น remnant เมื่อใด",
     "options": [
       "เห็นชัดที่ 3-4 เดือน ถดถอยที่ 12-15 เดือน remnant ที่ 24 เดือน",
       "เห็นชัดที่ 1-2 สัปดาห์ ถดถอยที่ 6-8 เดือน remnant ที่ 14 เดือน",
@@ -47,12 +47,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Avian p.20"
   },
   {
-    "id": 106439,
+    "id": 106625,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
     "type": "mcq",
-    "q": "ในสไลด์ Bursa of Fabricius คำว่า FAE (Follicular associated epithelium) หมายถึงเยื่อบุชนิดใดและอยู่ตรงไหน",
+    "q": "Bursa of Fabricius คำว่า FAE (Follicular associated epithelium) หมายถึงเยื่อบุชนิดใดและอยู่ตรงไหน",
     "options": [
       "Pseudostratified columnar epithelium ที่คลุมพื้นที่ระหว่าง follicle",
       "Stratified squamous epithelium ที่คลุมยอดของ follicle แต่ละอัน",
@@ -64,12 +64,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Avian p.21"
   },
   {
-    "id": 106440,
+    "id": 106626,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
     "type": "mcq",
-    "q": "หลักการพื้นฐานของระบบน้ำเหลืองในนกตามที่สไลด์เน้นไว้คือข้อใด",
+    "q": "หลักการพื้นฐานของระบบน้ำเหลืองในนก คือข้อใด",
     "options": [
       "มี lymph nodes ขนาดเล็กกระจายตามลำไส้ แต่ไม่มี spleen ทำหน้าที่กรองเลือด",
       "มี lymph nodes เฉพาะบริเวณคอและขาหนีบ ส่วนที่อื่นเป็น diffuse tissue",
@@ -81,24 +81,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Avian p.15"
   },
   {
-    "id": 106441,
-    "subject": "vet-histo",
-    "topic": "histo--avian",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์เปรียบเทียบโครงสร้าง spleen ของนกกับ mammal ไว้อย่างไร",
-    "options": [
-      "มี trabeculae หนาแน่นกว่า mammal และ capsule เป็น CNT ล้วนไม่มีกล้ามเนื้อ",
-      "มี muscular capsule ไม่มี trabeculae ขอบ red pulp กับ white pulp ไม่ชัด",
-      "มี marginal zone หนากว่า mammal และ white pulp รวมเป็นก้อนใหญ่ชัดเจน",
-      "ไม่มี red pulp มีแต่ white pulp ที่เรียงตัวรอบ central artery เท่านั้น"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุว่า spleen ของนกมี muscular capsule และไม่มี trabeculae โดยขอบเขตของ red pulp กับ white pulp เป็นแบบ indistinct ต่างจาก mammalian ทั้งยังบอกว่า white pulp กระจายแบบ diffuse ตัวลวงข้อแรกคือภาพ spleen ของ dog ในหน้าถัดไป ซึ่งใช้แสดง trabeculae ที่ชัดและ mantle zone กับ marginal zone เพื่อเทียบให้เห็นว่านกไม่มีแบบนั้น",
-    "verified": "Avian p.27"
-  },
-  {
-    "id": 106442,
+    "id": 106628,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
@@ -115,7 +98,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Avian p.35"
   },
   {
-    "id": 106443,
+    "id": 106629,
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
@@ -132,58 +115,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Avian p.48-49"
   },
   {
-    "id": 106444,
-    "subject": "vet-histo",
-    "topic": "histo--bone-marrow-laboratory",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตาม lab checklist ของ Erythropoiesis เซลล์ตัวใดถูกลิสต์ไว้ถัดจาก Basophilic rubricyte",
-    "options": [
-      "Polychromatic rubricyte",
-      "Prorubricyte",
-      "Metarubricyte",
-      "Normochromatic rubricyte"
-    ],
-    "answer": 0,
-    "explain": "checklist เรียงลำดับว่า Rubriblast, Prorubricyte, Basophilic rubricyte, Polychromatic rubricyte, Normochromatic rubricyte, Metarubricyte ดังนั้นตัวถัดจาก Basophilic rubricyte คือ Polychromatic rubricyte ส่วน Normochromatic rubricyte อยู่ถัดจาก Polychromatic rubricyte อีกทีหนึ่ง ไม่ได้ต่อจาก Basophilic rubricyte โดยตรง",
-    "verified": "Bone Marrow Laboratory p.2"
-  },
-  {
-    "id": 106445,
-    "subject": "vet-histo",
-    "topic": "histo--bone-marrow-laboratory",
-    "year": 2,
-    "type": "mcq",
-    "q": "checklist ของ Granulopoiesis แตกย่อยขั้น myelocyte, metamyelocyte และ band cell ออกเป็นชนิดใดบ้าง",
-    "options": [
-      "Neutrophilic, monocytic และ lymphocytic",
-      "Eosinophilic, basophilic และ monocytic",
-      "Neutrophilic, eosinophilic และ basophilic",
-      "Neutrophilic, eosinophilic และ mast cell precursor"
-    ],
-    "answer": 2,
-    "explain": "สไลด์แตกทั้งสามขั้นออกเป็น neutrophilic, eosinophilic และ basophilic เหมือนกันทุกขั้น ตัวเลือกที่มี monocytic หรือ lymphocytic ผิดเพราะ monocyte และ lymphocyte ไม่ใช่สาย granulocyte จึงไม่อยู่ในลิสต์นี้",
-    "verified": "Bone Marrow Laboratory p.3"
-  },
-  {
-    "id": 106446,
-    "subject": "vet-histo",
-    "topic": "histo--bone-marrow-laboratory",
-    "year": 2,
-    "type": "mcq",
-    "q": "lab checklist หัวข้อ Platelet formation ลิสต์รายการใดไว้ให้หาในแลป",
-    "options": [
-      "Promegakaryocyte และ Megakaryoblast ระยะต้น",
-      "Megakaryocyte และ Effete megakaryocyte",
-      "Megakaryocyte และ Thrombocyte",
-      "Promegakaryocyte และ Platelet"
-    ],
-    "answer": 1,
-    "explain": "หัวข้อนี้สั้นที่สุด มีแค่ 2 รายการคือ Megakaryocyte และ Effete megakaryocyte ตัวเลือก Megakaryocyte กับ Thrombocyte ล่อให้ตอบเพราะชื่อหัวข้อคือ platelet formation แต่ checklist ไม่ได้ลิสต์ platelet หรือ thrombocyte ไว้เลย หัวข้อนี้จบที่ megakaryocyte เท่านั้น",
-    "verified": "Bone Marrow Laboratory p.4"
-  },
-  {
-    "id": 106447,
+    "id": 106633,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow-laboratory",
     "year": 2,
@@ -200,7 +132,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow Laboratory p.51-55"
   },
   {
-    "id": 106448,
+    "id": 106634,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow-laboratory",
     "year": 2,
@@ -217,7 +149,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow Laboratory p.48-50"
   },
   {
-    "id": 106449,
+    "id": 106635,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow-laboratory",
     "year": 2,
@@ -234,12 +166,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow Laboratory p.48-50"
   },
   {
-    "id": 106450,
+    "id": 106636,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow-laboratory",
     "year": 2,
     "type": "mcq",
-    "q": "เซลล์กลุ่มใดอยู่ใน lab checklist แต่ไม่มีภาพใดในเดคกำกับชื่อไว้เลย",
+    "q": "เซลล์กลุ่มใดอยู่ใน lab checklist แต่ไม่มีภาพใด กำกับชื่อไว้เลย",
     "options": [
       "Myeloblast, Progranulocyte และ Eosinophilic metamyelocyte",
       "Basophilic myelocyte, Eosinophilic band cell และ Basophilic band cell",
@@ -251,24 +183,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow Laboratory p.6-50"
   },
   {
-    "id": 106451,
-    "subject": "vet-histo",
-    "topic": "histo--bone-marrow-laboratory",
-    "year": 2,
-    "type": "mcq",
-    "q": "เซลล์สาย granulocytic ตัวใดปรากฏเป็นป้ายชื่อในภาพชุด Wright-Giemsa ทั้งที่ checklist ไม่ได้ลิสต์ไว้",
-    "options": [
-      "Neutrophilic myelocyte",
-      "Basophilic metamyelocyte",
-      "Eosinophilic Promyelocyte",
-      "Eosinophilic metamyelocyte"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนป้าย Eosinophilic Promyelocyte แยกไว้บนภาพ แม้ checklist จะลิสต์ไว้แค่ Promyelocyte เฉย ๆ โดยไม่แตกเป็นชนิดย่อย ส่วน Basophilic metamyelocyte มีทั้งในลิสต์และในภาพ จึงไม่ใช่ตัวที่เกินมาจาก checklist",
-    "verified": "Bone Marrow Laboratory p.6-50"
-  },
-  {
-    "id": 106452,
+    "id": 106638,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -285,7 +200,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow p.7-8"
   },
   {
-    "id": 106453,
+    "id": 106639,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -302,7 +217,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow p.19-25, 27"
   },
   {
-    "id": 106454,
+    "id": 106640,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -319,7 +234,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow p.28"
   },
   {
-    "id": 106455,
+    "id": 106641,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -336,7 +251,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow p.32-38"
   },
   {
-    "id": 106456,
+    "id": 106642,
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -353,7 +268,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Bone Marrow p.53"
   },
   {
-    "id": 106457,
+    "id": 106643,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -370,7 +285,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Circulatory System p.13-14"
   },
   {
-    "id": 106458,
+    "id": 106644,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -387,24 +302,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Circulatory System p.16"
   },
   {
-    "id": 106459,
-    "subject": "vet-histo",
-    "topic": "histo--circulatory-system",
-    "year": 2,
-    "type": "mcq",
-    "q": "Cardiac skeleton ตามนิยามบนสไลด์คือเนื้อเยื่อชนิดใด และแบ่งออกเป็นส่วนใดบ้าง",
-    "options": [
-      "Smooth muscle ที่แทรกใน atrial walls แบ่งเป็น anulus fibrosus, trigonum fibrosum และ chordae tendineae",
-      "Elastic lamina ที่แทรกใน ventricular walls แบ่งเป็น trigonum fibrosum, os cordis และ subendocardial layer",
-      "Mesothelium ที่คลุม atrial และ ventricular walls แบ่งเป็น anulus fibrosus, bundle of His และ interventricular septum",
-      "CNT ที่แทรกใน atrial และ ventricular walls แบ่งเป็น anulus fibrosus, trigonum fibrosum และ interventricular septum"
-    ],
-    "answer": 3,
-    "explain": "สไลด์นิยาม cardiac skeleton ว่าเป็น CNT inserted into the atrial and ventricular walls และแบ่งเป็น 3 ส่วนคือ anulus fibrosus, trigonum fibrosum และ interventricular septum ตัวเลือกที่ระบุ os cordis เป็นตัวลวงที่น่าเชื่อ เพราะ os cordis มีอยู่จริงบนสไลด์ แต่ถูก list ไว้ในฐานะชนิดของเนื้อเยื่อที่ cardiac skeleton เปลี่ยนไปตาม age-dependence (CNT ไป cartilage ไป bone) ไม่ใช่ชื่อของส่วนใดส่วนหนึ่งใน 3 ส่วน",
-    "verified": "Circulatory System p.18"
-  },
-  {
-    "id": 106460,
+    "id": 106646,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -421,12 +319,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Circulatory System p.27, p.30"
   },
   {
-    "id": 106461,
+    "id": 106647,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
     "type": "mcq",
-    "q": "T. media ของ muscular artery ตามสไลด์ประกอบด้วยอะไรเป็นหลัก และหนาประมาณเท่าใด",
+    "q": "T. media ของ muscular artery ประกอบด้วยอะไรเป็นหลัก และหนาประมาณเท่าใด",
     "options": [
       "elastic laminae 40-70 ชั้น สลับกับ collagen fiber",
       "sm. m. เป็นหลัก หนา 3-40 layers ร่วมกับ CNT",
@@ -438,12 +336,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Circulatory System p.31"
   },
   {
-    "id": 106462,
+    "id": 106648,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
     "type": "mcq",
-    "q": "Capillary ตามสไลด์มีขนาดและโครงสร้างผนังอย่างไร",
+    "q": "Capillary มีขนาดและโครงสร้างผนังอย่างไร",
     "options": [
       "Ø ประมาณ 20 µm ผนังมี endothelium กับ sm. m. 1-2 ชั้น และมี pericyte",
       "Ø 5-10 µm ผนังมี endothelium 2-3 ชั้น และมี internal elastic lamina",
@@ -455,12 +353,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Circulatory System p.37-38"
   },
   {
-    "id": 106463,
+    "id": 106649,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
     "type": "mcq",
-    "q": "ผนังของ large vein มีลักษณะเด่นตามที่สไลด์เน้นไว้อย่างไร",
+    "q": "ผนังของ large vein มีลักษณะเด่น อย่างไร",
     "options": [
       "T. media เป็นชั้นที่หนาที่สุด และมี elastic laminae ซ้อนกันจำนวนมาก",
       "T. intima เป็นชั้นที่หนาที่สุด และมี internal elastic lamina ชัดเจน",
@@ -472,7 +370,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Circulatory System p.45-46"
   },
   {
-    "id": 106464,
+    "id": 106650,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -489,12 +387,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Circulatory System p.48"
   },
   {
-    "id": 106465,
+    "id": 106651,
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
     "type": "mcq",
-    "q": "Carotid sinus ตามสไลด์เป็น receptor ชนิดใด อยู่ที่ไหน และตอบสนองต่อสิ่งใด",
+    "q": "Carotid sinus เป็น receptor ชนิดใด อยู่ที่ไหน และตอบสนองต่อสิ่งใด",
     "options": [
       "chemoreceptor ที่อยู่ที่ common carotid artery ตรง bifurcation รับ conc. ของ blood pH, O2 และ CO2",
       "baroreceptor ที่เป็น dilation ของ internal carotid artery ตอบสนองต่อ blood pressure ที่สูงขึ้น",
@@ -506,46 +404,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Circulatory System p.52-53"
   },
   {
-    "id": 106466,
+    "id": 106654,
     "subject": "vet-histo",
     "topic": "histo--cytology-lab-11aug23",
     "year": 2,
     "type": "mcq",
-    "q": "เดคมีสไลด์ที่ขึ้นต้นชื่ออวัยวะว่า Testis อยู่สองแผ่น เดคสั่งให้หาโครงสร้างในสองแผ่นนี้อย่างไร",
-    "options": [
-      "B101-53 ให้หา stereocilia ส่วน B106-1 ให้หา sperm และ flagella",
-      "B101-53 ให้หา microvilli ส่วน B106-1 ให้หา sperm และ flagella",
-      "B101-53 ให้หา sperm และ flagella ส่วน B106-1 ให้หา microvilli",
-      "B101-53 ให้หา sperm และ flagella ส่วน B106-1 ให้หา stereocilia"
-    ],
-    "answer": 3,
-    "explain": "หน้า 9 เขียนว่า B101-53 Testis, epidipymis ให้ดู Sperm และ flagella ส่วนหน้า 10 เขียนว่า B106-1 Testis, (epididymis) ให้ดู Stereocilia ตัวเลือกที่ล่อใจที่สุดคือข้อที่สลับสองแผ่นนี้กัน เพราะชื่ออวัยวะบนสไลด์เขียนคล้ายกันมาก แต่ลำดับตามเดคคือ sperm กับ flagella มาก่อน แล้ว stereocilia อยู่แผ่นถัดไป",
-    "verified": "Cytology Lab 11Aug23 p.9-10"
-  },
-  {
-    "id": 106467,
-    "subject": "vet-histo",
-    "topic": "histo--cytology-lab-11aug23",
-    "year": 2,
-    "type": "mcq",
-    "q": "เดคนี้ผูก Gap junction ไว้กับสไลด์ใด",
-    "options": [
-      "A26-7 Metacarpal pad",
-      "A34-52 Left ventricle",
-      "B150-1 Lymph node",
-      "B183 Spinal ganglion"
-    ],
-    "answer": 1,
-    "explain": "หน้า 16 เขียนว่า A34-52 Left ventricle ให้ดู Gap junction ตัวเลือกที่ล่อใจคือ A26-7 Metacarpal pad เพราะเป็นสไลด์ cell junction อีกแผ่นที่อยู่ติดกันในเดค แต่แผ่นนั้นเดคสั่งให้หา desmosome คู่กับ melanin pigment ไม่ใช่ gap junction",
-    "verified": "Cytology Lab 11Aug23 p.15-16"
-  },
-  {
-    "id": 106468,
-    "subject": "vet-histo",
-    "topic": "histo--cytology-lab-11aug23",
-    "year": 2,
-    "type": "mcq",
-    "q": "โครงสร้างคู่ Plasma cell และ Golgi apparatus เดคสั่งให้หาในสไลด์ใดบ้าง",
+    "q": "โครงสร้างคู่ Plasma cell และ Golgi apparatus เดคสั่งให้หา ใดบ้าง",
     "options": [
       "A91-2 Ileum และ B150-1 Lymph node",
       "A41-3 Duodenum และ B183 Spinal ganglion",
@@ -557,12 +421,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology Lab 11Aug23 p.11-12"
   },
   {
-    "id": 106469,
+    "id": 106655,
     "subject": "vet-histo",
     "topic": "histo--cytology-lab-11aug23",
     "year": 2,
     "type": "mcq",
-    "q": "Binucleated cell เดคสั่งให้หาในสไลด์ชนิดใด และกี่แผ่น",
+    "q": "Binucleated cell เดคสั่งให้หา ชนิดใด และกี่แผ่น",
     "options": [
       "สไลด์ GB&Liver จำนวนสองแผ่น",
       "สไลด์ GB&Liver จำนวนหนึ่งแผ่น",
@@ -574,12 +438,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology Lab 11Aug23 p.3-4"
   },
   {
-    "id": 106470,
+    "id": 106656,
     "subject": "vet-histo",
     "topic": "histo--cytology-lab-11aug23",
     "year": 2,
     "type": "mcq",
-    "q": "Lipofuscin เดคสั่งให้หาในสไลด์ใด และให้ดูคู่กับโครงสร้างใด",
+    "q": "Lipofuscin เดคสั่งให้หา ใด และให้ดูคู่กับโครงสร้างใด",
     "options": [
       "B117-3 Eyeball คู่กับ melanin pigment",
       "B183 Spinal ganglion คู่กับ cell size",
@@ -591,12 +455,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology Lab 11Aug23 p.13"
   },
   {
-    "id": 106471,
+    "id": 106657,
     "subject": "vet-histo",
     "topic": "histo--cytology-lab-11aug23",
     "year": 2,
     "type": "mcq",
-    "q": "Microvilli เดคสั่งให้หาในสไลด์ใดบ้าง",
+    "q": "Microvilli เดคสั่งให้หา ใดบ้าง",
     "options": [
       "A41-3 Duodenum และ B150-1 Lymph node",
       "B106-1 Testis และ B101-53 Testis",
@@ -608,24 +472,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology Lab 11Aug23 p.7-8"
   },
   {
-    "id": 106472,
-    "subject": "vet-histo",
-    "topic": "histo--cytology-lab-11aug23",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ A10-3 Serous gland เดคสั่งให้หาโครงสร้างใด",
-    "options": [
-      "Mitochondria",
-      "Zymogen granules",
-      "Stereocilia",
-      "Gap junction"
-    ],
-    "answer": 0,
-    "explain": "หน้า 5 เขียนแค่สองบรรทัดคือ A10-3 Serous gland แล้วตามด้วย Mitochondria ตัวเลือกที่ล่อใจคือ zymogen granules เพราะเป็น granule ของต่อมมีท่อเหมือนกันและอยู่หน้าถัดไป แต่เดคผูก zymogen granules ไว้กับ A13 Pancreas",
-    "verified": "Cytology Lab 11Aug23 p.5"
-  },
-  {
-    "id": 106473,
+    "id": 106659,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
@@ -642,12 +489,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology p.31-36 (ภาพซ้ำที่ p.64-68) หัวข้อ Stereocilia p.32 และ p.68"
   },
   {
-    "id": 106474,
+    "id": 106660,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
     "type": "mcq",
-    "q": "ตามตารางเปรียบเทียบ cytoskeleton ในสไลด์ microtubule มีเส้นผ่านศูนย์กลางเท่าใด และผนังประกอบด้วยอะไร",
+    "q": "ตามตารางเปรียบเทียบ cytoskeleton microtubule มีเส้นผ่านศูนย์กลางเท่าใด และผนังประกอบด้วยอะไร",
     "options": [
       "5-7 nm ผนังประกอบด้วย 2 intertwined filaments ของ F-actin",
       "25 nm ผนังประกอบด้วย 13 parallel protofilaments",
@@ -659,12 +506,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology p.29-30"
   },
   {
-    "id": 106475,
+    "id": 106661,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
     "type": "mcq",
-    "q": "ตามการจัดกลุ่มเซลล์ตามความสามารถในการแบ่งตัวในสไลด์ hepatocyte จัดอยู่ในกลุ่มใด และเซลล์กลุ่มนั้นเข้าสู่ระยะใด",
+    "q": "ตามการจัดกลุ่มเซลล์ตามความสามารถในการแบ่งตัว hepatocyte จัดอยู่ในกลุ่มใด และเซลล์กลุ่มนั้นเข้าสู่ระยะใด",
     "options": [
       "Labile cells ซึ่งวนจาก M กลับเข้า G1 อย่างต่อเนื่อง",
       "Permanent cells ซึ่งค้างอยู่ที่ G0 อย่างถาวร",
@@ -676,12 +523,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology p.37 (ภาพชุดที่ p.38-39, p.82)"
   },
   {
-    "id": 106476,
+    "id": 106662,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
     "type": "mcq",
-    "q": "Nucleolus ตามสไลด์เป็นตำแหน่งของกระบวนการใด และขนาดของมันสะท้อนสิ่งใด",
+    "q": "Nucleolus เป็นตำแหน่งของกระบวนการใด และขนาดของมันสะท้อนสิ่งใด",
     "options": [
       "site of ribosomal RNA synthesis ขนาดสะท้อน amount of stored RNA",
       "site of DNA replication ขนาดสะท้อน amount of stored DNA",
@@ -693,12 +540,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology p.13-14 หัวข้อ Nucleolus p.14"
   },
   {
-    "id": 106477,
+    "id": 106663,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
     "type": "mcq",
-    "q": "Ion-pumping cells ของ renal tubule ในสไลด์มี cytoplasm ติดสี acidophilic ที่ basal portion ลักษณะนี้บ่งถึงความหนาแน่นของออร์แกเนลล์ชนิดใด",
+    "q": "Ion-pumping cells ของ renal tubule มี cytoplasm ติดสี acidophilic ที่ basal portion ลักษณะนี้บ่งถึงความหนาแน่นของออร์แกเนลล์ชนิดใด",
     "options": [
       "rough endoplasmic reticulum จำนวนมากที่ basal portion",
       "mitochondria จำนวนมากที่ basal portion ของเซลล์",
@@ -710,12 +557,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology p.56, p.58-63 หัวข้อ Mitochondria p.59-60"
   },
   {
-    "id": 106478,
+    "id": 106664,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
     "type": "mcq",
-    "q": "Lipofuscin ตามสไลด์เกิดจากสิ่งใด และมักพบสะสมในเซลล์ชนิดใด",
+    "q": "Lipofuscin เกิดจากสิ่งใด และมักพบสะสมในเซลล์ชนิดใด",
     "options": [
       "จาก the breakdown of hemoglobin พบมากที่ liver, spleen และ lymph node",
       "จาก melanocyte ที่สร้าง brown pigment พบมากที่ skin และที่ pigment cells of retina",
@@ -727,7 +574,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology p.73-81 หัวข้อ Lipofuscin p.78-79"
   },
   {
-    "id": 106479,
+    "id": 106665,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
@@ -744,29 +591,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology p.69-71"
   },
   {
-    "id": 106480,
+    "id": 106667,
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์ใช้สีย้อมใดแสดง glycogen ใน cytoplasm ของ hepatocyte และใช้สีย้อมใดแสดง lipid ใน hepatocyte",
-    "options": [
-      "Periodic acid-Schiff สำหรับ glycogen และ oil red o สำหรับ lipid",
-      "oil red o สำหรับ glycogen และ Periodic acid-Schiff สำหรับ lipid",
-      "Wright-Giemsa สำหรับ glycogen และ Periodic acid-Schiff สำหรับ lipid",
-      "Periodic acid-Schiff สำหรับ glycogen และ Wright-Giemsa สำหรับ lipid"
-    ],
-    "answer": 0,
-    "explain": "สไลด์หัวข้อ glycogen ระบุภาพ glycogen ใน cytoplasm ของ hepatocyte ย้อมด้วย Periodic acid-Schiff (PAS) ส่วนหัวข้อ lipid ระบุ lipid ใน cytoplasm ของ hepatocyte ย้อมด้วย oil red o ตัวเลือกที่สลับสองสีนี้เป็นกับดักหลัก และ Wright-Giemsa เป็นสีจริงที่ปรากฏในเด็คแต่ใช้กับ lymph node aspiration และ pericardial fluid ไม่ใช่ย้อม inclusion ในตับ",
-    "verified": "Cytology p.73-81 หัวข้อ Glycogen p.74 และ Lipid p.75-76"
-  },
-  {
-    "id": 106481,
-    "subject": "vet-histo",
-    "topic": "histo--cytology",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตามสไลด์ แกน axoneme ของ cilia และโครงสร้างของ centriole มี pattern ของ microtubule แบบใดตามลำดับ",
+    "q": "แกน axoneme ของ cilia และโครงสร้างของ centriole มี pattern ของ microtubule แบบใดตามลำดับ",
     "options": [
       "cilia เป็นแบบ 9+0 ส่วน centriole เป็น microtubule doublet แบบ 9+2",
       "cilia เป็นแบบ 9+2 ส่วน centriole เป็น microtubule triplet แบบ 9+0",
@@ -778,7 +608,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Cytology p.31-36 (ภาพซ้ำที่ p.64-68) หัวข้อ Cilia p.34-35 และ Cytology p.29-30 หัวข้อ Centriole p.30"
   },
   {
-    "id": 106482,
+    "id": 106668,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-i",
     "year": 2,
@@ -795,7 +625,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System I p.3"
   },
   {
-    "id": 106483,
+    "id": 106669,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-i",
     "year": 2,
@@ -812,24 +642,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System I p.6-7"
   },
   {
-    "id": 106484,
-    "subject": "vet-histo",
-    "topic": "histo--digestive-system-i",
-    "year": 2,
-    "type": "mcq",
-    "q": "dental pad ของ ruminants ตามที่สไลด์ hard palate อธิบาย หมายถึงสิ่งใด",
-    "options": [
-      "papillae ของ lamina propria ที่ยื่นเข้าไปใน epithelium",
-      "stratum corneum ที่หนามากของ hard palate ส่วน rostral",
-      "palatine glands ที่อยู่ใน propria-submucosa ส่วน caudal",
-      "conical papillae ที่ keratinized บริเวณ buccal mucosa"
-    ],
-    "answer": 1,
-    "explain": "สไลด์เขียนว่า stratum corneum ของส่วน rostral หนามากใน ruminants และเรียกบริเวณนี้ว่า dental pad ตัวเลือก palatine glands ผิดเพราะเป็นของ hard palate ส่วน caudal ซึ่งเป็นคนละบริเวณกัน ส่วน papillae ของ lamina propria มีอยู่จริงบนสไลด์เดียวกันแต่เป็นลักษณะทั่วไปของ hard palate ไม่ใช่คำนิยามของ dental pad",
-    "verified": "Digestive System I p.11-15"
-  },
-  {
-    "id": 106485,
+    "id": 106670,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-i",
     "year": 2,
@@ -846,7 +659,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System I p.16-18"
   },
   {
-    "id": 106486,
+    "id": 106671,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-i",
     "year": 2,
@@ -863,24 +676,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System I p.20-22"
   },
   {
-    "id": 106487,
-    "subject": "vet-histo",
-    "topic": "histo--digestive-system-iii",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตามสไลด์ การแบ่งกระเพาะอาหารสัตว์เคี้ยวเอื้องตามการมีต่อม ข้อใดถูกต้อง",
-    "options": [
-      "rumen, reticulum และ omasum เป็น nonglandular ส่วน abomasum เป็น glandular",
-      "rumen และ reticulum เป็น nonglandular ส่วน omasum และ abomasum เป็น glandular",
-      "rumen เป็น nonglandular ส่วน reticulum, omasum และ abomasum เป็น glandular",
-      "rumen, reticulum และ abomasum เป็น nonglandular ส่วน omasum เป็น glandular"
-    ],
-    "answer": 0,
-    "explain": "หน้า p.3 เขียนว่า forestomach ได้แก่ rumen, reticulum และ omasum จัดเป็น nonglandular ส่วน glandular คือ abomasum ตัวเลือกที่ยก omasum ไปเป็น glandular ชวนเข้าใจผิดเพราะ omasum มี lamina muscularis หนาและมี horny papilla แต่ยังคงเป็น forestomach ที่ไม่มีต่อม",
-    "verified": "Digestive System III p.3"
-  },
-  {
-    "id": 106488,
+    "id": 106673,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
@@ -897,12 +693,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System III p.29"
   },
   {
-    "id": 106489,
+    "id": 106674,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
     "type": "mcq",
-    "q": "ข้อใดตรงกับที่สไลด์เขียนไว้เรื่อง omasum",
+    "q": "ข้อใดตรงกับ เรื่อง omasum",
     "options": [
       "มี longitudinal laminae ประมาณ 10 อัน และชั้นกล้ามเนื้อ longitudinal ด้านนอกหนากว่าด้านใน",
       "มี longitudinal laminae ประมาณ 100 อัน และชั้น circular ด้านในหนากว่า longitudinal ด้านนอก",
@@ -914,46 +710,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System III p.20-21"
   },
   {
-    "id": 106490,
+    "id": 106677,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์แบ่ง abomasum ออกเป็น region ใดบ้าง และให้สัดส่วนไว้อย่างไร",
-    "options": [
-      "cardiac, fundic และ pyloric gland region โดย fundic เป็น 1/3 และ pyloric เป็น 2/3",
-      "cardiac, fundic และ pyloric gland region โดย cardiac เป็น 2/3 และ fundic เป็น 1/3",
-      "fundic และ pyloric gland region เท่านั้น โดยแบ่งสัดส่วนเท่ากันคือครึ่งต่อครึ่ง",
-      "cardiac, fundic และ pyloric gland region โดย fundic เป็น 2/3 และ pyloric เป็น 1/3"
-    ],
-    "answer": 3,
-    "explain": "p.25 เขียนว่า abomasum like simple stomach แบ่งเป็น cardiac gland region, fundic gland region 2/3 และ pyloric gland region 1/3 ตัวเลือกที่ให้ fundic 1/3 กับ pyloric 2/3 กลับสัดส่วนที่สไลด์ให้ไว้ ซึ่งเป็นตัวเลขเดียวที่ปรากฏในหัวข้อนี้",
-    "verified": "Digestive System III p.25"
-  },
-  {
-    "id": 106491,
-    "subject": "vet-histo",
-    "topic": "histo--digestive-system-iii",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุว่า lobule แบบใดของตับเห็นได้ชัดเจนเฉพาะในสัตว์ชนิดใด",
-    "options": [
-      "hepatic lobule หรือ classical lobule เห็นได้ชัดเจนเฉพาะใน pig ส่วนสัตว์อื่นเห็นไม่ชัด",
-      "portal lobule เห็นได้ชัดเจนเฉพาะใน pig ส่วน classical lobule เห็นชัดในสัตว์เคี้ยวเอื้อง",
-      "liver acinus เห็นได้ชัดเจนเฉพาะใน cattle ส่วน pig เห็นเป็น portal lobule ชัดกว่า",
-      "hepatic lobule หรือ classical lobule เห็นได้ชัดเจนเฉพาะใน horse ส่วน pig เห็นไม่ชัด"
-    ],
-    "answer": 0,
-    "explain": "p.35 เขียนว่า hepatic lobule หรือ classical lobule distinctly observed only in pig ส่วน portal lobule และ liver acinus สไลด์ให้ไว้เพียงชื่อ ไม่ได้ระบุสัตว์ที่เห็นชัด ตัวเลือกที่ใส่ horse ผิด เพราะ horse ปรากฏในสไลด์ในฐานะสัตว์ที่ไม่มีถุงน้ำดี ไม่ใช่เรื่องรูปแบบของ lobule",
-    "verified": "Digestive System III p.35"
-  },
-  {
-    "id": 106492,
-    "subject": "vet-histo",
-    "topic": "histo--digestive-system-iii",
-    "year": 2,
-    "type": "mcq",
-    "q": "ทางเดินน้ำดีตามสไลด์เริ่มจาก bile canaliculi แล้วผ่านโครงสร้างใดตามลำดับ",
+    "q": "ทางเดินน้ำดี เริ่มจาก bile canaliculi แล้วผ่านโครงสร้างใดตามลำดับ",
     "options": [
       "bile ductule ไปยัง interlobar duct ไปยัง interlobular duct ไปยัง cystic duct ไปยัง hepatic duct ไปยัง gallbladder",
       "interlobular duct ไปยัง bile ductule ไปยัง interlobar duct ไปยัง hepatic duct ไปยัง cystic duct ไปยัง gallbladder",
@@ -965,12 +727,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System III p.45"
   },
   {
-    "id": 106493,
+    "id": 106678,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
     "type": "mcq",
-    "q": "ข้อใดตรงกับที่สไลด์เขียนไว้เรื่อง gallbladder",
+    "q": "ข้อใดตรงกับ เรื่อง gallbladder",
     "options": [
       "เยื่อบุเป็น keratinized stratified squamous epi. ผนัง thickest ใน carnivore และ thinnest ใน bovine",
       "เยื่อบุเป็น sim. col. epi. with microvilli พบ goblet cells ใน cattle และไม่มีถุงน้ำดีใน horse",
@@ -982,12 +744,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System III p.46-47"
   },
   {
-    "id": 106494,
+    "id": 106679,
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
     "type": "mcq",
-    "q": "ข้อใดตรงกับที่สไลด์เขียนไว้เรื่องเซลล์และระบบท่อของ pancreas",
+    "q": "ข้อใดตรงกับ เรื่องเซลล์และระบบท่อของ pancreas",
     "options": [
       "acinar lumen มี Kupffer cell และ intercalated duct บุด้วย sim. col.",
       "acinar lumen มี centroacinar cell และ interlobular duct บุด้วย low cuboid",
@@ -999,12 +761,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Digestive System III p.50-51, 53"
   },
   {
-    "id": 106495,
+    "id": 106680,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ hormone ที่หลั่งจากต่อมไร้ท่อเดินทางตามลำดับใด",
+    "q": "hormone ที่หลั่งจากต่อมไร้ท่อเดินทางตามลำดับใด",
     "options": [
       "หลั่งเข้า intercellular space จากนั้นเข้า perivascular space แล้วเข้า circulation",
       "หลั่งเข้า perivascular space จากนั้นเข้า intercellular space แล้วเข้า circulation",
@@ -1016,12 +778,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.2"
   },
   {
-    "id": 106496,
+    "id": 106681,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
     "type": "mcq",
-    "q": "Neurohypophysis มี embryonic origin จากโครงสร้างใดตามสไลด์",
+    "q": "Neurohypophysis มี embryonic origin จากโครงสร้างใด",
     "options": [
       "Dorsal invagination ของ roof of the embryonic pharynx",
       "Ventral outgrowth ของ diencephalon ในตัวอ่อน",
@@ -1033,12 +795,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.5"
   },
   {
-    "id": 106497,
+    "id": 106682,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ ส่วนใดของ hypophysis ที่ produce MSH",
+    "q": "ส่วนใดของ hypophysis ที่ produce MSH",
     "options": [
       "Pars distalis",
       "Pars tuberalis",
@@ -1050,12 +812,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.16-17"
   },
   {
-    "id": 106498,
+    "id": 106683,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ thyroid gland เซลล์ชนิดใดหลั่ง calcitonin และชนิดใดหลั่ง T3 กับ T4",
+    "q": "thyroid gland เซลล์ชนิดใดหลั่ง calcitonin และชนิดใดหลั่ง T3 กับ T4",
     "options": [
       "Follicular cells หลั่ง calcitonin ส่วน C-cells หลั่ง T3 และ T4",
       "C-cells หลั่ง calcitonin ส่วน chief cells หลั่ง T3 และ T4",
@@ -1067,7 +829,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.25"
   },
   {
-    "id": 106499,
+    "id": 106684,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -1084,12 +846,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.30"
   },
   {
-    "id": 106500,
+    "id": 106685,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
     "type": "mcq",
-    "q": "เซลล์ชื่อ spongiocyte ที่สไลด์ระบุไว้อยู่ในชั้นใดของ adrenal gland",
+    "q": "เซลล์ชื่อ spongiocyte อยู่ในชั้นใดของ adrenal gland",
     "options": [
       "Zona glomerulosa",
       "Zona reticularis",
@@ -1101,7 +863,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.31-32"
   },
   {
-    "id": 106501,
+    "id": 106686,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -1118,7 +880,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.31-32"
   },
   {
-    "id": 106502,
+    "id": 106687,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -1135,7 +897,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.39-40"
   },
   {
-    "id": 106503,
+    "id": 106688,
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -1152,7 +914,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Endocrine p.41"
   },
   {
-    "id": 106504,
+    "id": 106689,
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
@@ -1169,7 +931,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Epithelium p.4"
   },
   {
-    "id": 106505,
+    "id": 106690,
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
@@ -1186,7 +948,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Epithelium p.12-13"
   },
   {
-    "id": 106506,
+    "id": 106691,
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
@@ -1203,7 +965,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Epithelium p.25-26"
   },
   {
-    "id": 106507,
+    "id": 106692,
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
@@ -1220,7 +982,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Epithelium p.30"
   },
   {
-    "id": 106508,
+    "id": 106693,
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
@@ -1237,7 +999,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Epithelium p.41-42"
   },
   {
-    "id": 106509,
+    "id": 106694,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1254,7 +1016,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.1"
   },
   {
-    "id": 106510,
+    "id": 106695,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1271,7 +1033,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.2"
   },
   {
-    "id": 106511,
+    "id": 106696,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1288,7 +1050,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.2"
   },
   {
-    "id": 106512,
+    "id": 106697,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1305,24 +1067,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.4"
   },
   {
-    "id": 106513,
-    "subject": "vet-histo",
-    "topic": "histo--female-lab-manual",
-    "year": 2,
-    "type": "mcq",
-    "q": "ใน atretic follicle โครงสร้างใดที่หนาตัวและยุบลงจนกลายเป็น glassy membrane",
-    "options": [
-      "Zona pellucida ที่คั่นระหว่าง oocyte กับ granulosa cells",
-      "Basement membrane ที่คั่น granulosa cells จาก theca interna",
-      "Tunica albuginea ที่คั่น germinal epithelium จาก cortex",
-      "Basal lamina ที่คั่นระหว่าง theca interna กับ theca externa"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุว่า basement membrane ที่กั้น granulosa cells ออกจาก theca interna อาจหนาตัวและยุบลงจนกลายเป็น glassy membrane ส่วน zona pellucida ในกระบวนการ atresia จะเสื่อมสลายและถูกดูดซึมกลับไปพร้อมกับ oocyte ไม่ได้กลายเป็น glassy membrane",
-    "verified": "female lab manual p.6"
-  },
-  {
-    "id": 106514,
+    "id": 106698,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1339,7 +1084,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.7"
   },
   {
-    "id": 106515,
+    "id": 106699,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1356,7 +1101,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.8"
   },
   {
-    "id": 106516,
+    "id": 106700,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1373,7 +1118,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.10"
   },
   {
-    "id": 106517,
+    "id": 106701,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1390,7 +1135,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.11"
   },
   {
-    "id": 106518,
+    "id": 106702,
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -1407,7 +1152,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "female lab manual p.12"
   },
   {
-    "id": 106519,
+    "id": 106703,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1424,7 +1169,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.5-6"
   },
   {
-    "id": 106520,
+    "id": 106704,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1441,7 +1186,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.11"
   },
   {
-    "id": 106521,
+    "id": 106705,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1458,7 +1203,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.13"
   },
   {
-    "id": 106522,
+    "id": 106706,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1475,7 +1220,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.17-18"
   },
   {
-    "id": 106523,
+    "id": 106707,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1492,12 +1237,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.17-18"
   },
   {
-    "id": 106524,
+    "id": 106708,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
     "type": "mcq",
-    "q": "ลักษณะทาง histology ของ atretic follicle ตามเด็คคือข้อใด",
+    "q": "ลักษณะทาง histology ของ atretic follicle คือข้อใด",
     "options": [
       "granulosa cells เกิด hypertrophy แล้วสะสม yellow lipid pigment ที่เรียกว่า lutein",
       "theca externa หนาตัวเป็นชั้น fibroblast และหลั่ง androgens แทนที่ theca interna",
@@ -1509,7 +1254,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.19"
   },
   {
-    "id": 106525,
+    "id": 106709,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1526,24 +1271,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.22-25"
   },
   {
-    "id": 106526,
-    "subject": "vet-histo",
-    "topic": "histo--female-reproductive-organ",
-    "year": 2,
-    "type": "mcq",
-    "q": "ใน ruminants บริเวณของ endometrium ที่ไม่มี glands เลยและมีเส้นเลือดมาก เรียกว่าอะไร",
-    "options": [
-      "Stratum vasculare",
-      "Cotyledon",
-      "Perimetrium",
-      "Caruncle"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ทำเครื่องหมายดาวไว้ว่าใน ruminants บาง region ของ endometrium ไม่มี glands เลยและมีเส้นเลือดมาก เรียกว่า caruncle ส่วน stratum vasculare เป็นชั้นเส้นเลือดขนาดใหญ่ที่อยู่ระหว่างกล้ามเนื้อเรียบชั้นในกับชั้นนอกของ myometrium จึงคนละตำแหน่งและคนละชั้นกัน",
-    "verified": "Female reproductive organ p.26"
-  },
-  {
-    "id": 106527,
+    "id": 106710,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1560,7 +1288,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.30-32"
   },
   {
-    "id": 106528,
+    "id": 106711,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1577,7 +1305,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.33"
   },
   {
-    "id": 106529,
+    "id": 106712,
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1594,7 +1322,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Female reproductive organ p.38-41"
   },
   {
-    "id": 106530,
+    "id": 106713,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1611,7 +1339,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Fish p.3-4"
   },
   {
-    "id": 106531,
+    "id": 106714,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1628,7 +1356,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Fish p.26"
   },
   {
-    "id": 106532,
+    "id": 106715,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1645,7 +1373,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Fish p.32-35"
   },
   {
-    "id": 106533,
+    "id": 106716,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1662,7 +1390,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Fish p.52-58"
   },
   {
-    "id": 106534,
+    "id": 106717,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1679,7 +1407,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Fish p.63-65"
   },
   {
-    "id": 106535,
+    "id": 106718,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1696,7 +1424,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Fish p.79-82"
   },
   {
-    "id": 106536,
+    "id": 106719,
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1713,7 +1441,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Fish p.22-23"
   },
   {
-    "id": 106537,
+    "id": 106720,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
@@ -1730,7 +1458,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "HISTO LAB - Block II p.8-9"
   },
   {
-    "id": 106538,
+    "id": 106721,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
@@ -1747,12 +1475,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "HISTO LAB - Block II p.12"
   },
   {
-    "id": 106539,
+    "id": 106722,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
     "type": "mcq",
-    "q": "ตามตารางเทียบหลอดเลือดในเดค ข้อใดตรงกับลักษณะของ capillary",
+    "q": "ตามตารางเทียบหลอดเลือด ข้อใดตรงกับลักษณะของ capillary",
     "options": [
       "∅ 5-10 µm, tunica media มี smooth muscle 1-2 ชั้น และมี pericyte",
       "∅ 5-10 µm, มี endothelial cell 1 ชั้น และไม่มี tunica media",
@@ -1764,24 +1492,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "HISTO LAB - Block II p.13-14"
   },
   {
-    "id": 106540,
-    "subject": "vet-histo",
-    "topic": "histo--histo-lab-block-ii",
-    "year": 2,
-    "type": "mcq",
-    "q": "เดคเขียนว่า lymph vessel ต่างจาก vein อย่างไรเมื่อดูในกล้อง",
-    "options": [
-      "ในรูไม่พบ RBC พบแต่ WBC และผนังมี valve กั้น",
-      "ในรูพบทั้ง RBC และ WBC แต่ผนังไม่มี valve กั้น",
-      "ในรูไม่พบ RBC และไม่มี valve เหมือนที่ capillary",
-      "ในรูพบ RBC เรียงกัน 1-2 แถว และผนังมี valve กั้น"
-    ],
-    "answer": 0,
-    "explain": "เดคเขียนว่า lymph vessel คล้าย vein แต่ไม่มี RBC ในรู พบ WBC แทน และมี valve โดยอ้าง Slide B125 : Heart, rat ที่มี elastic artery, arteriole, vein, lymph vessel และ lymph node ให้เทียบในภาพเดียว ข้อที่หลอกคือ RBC เรียงกัน 1-2 แถวพร้อมมี valve เพราะ RBC เรียง 1-2 แถวเป็นลักษณะที่เดคกำกับไว้ที่ capillary ไม่ใช่ lymph vessel ซึ่งจุดเด่นคือไม่มี RBC เลย",
-    "verified": "HISTO LAB - Block II p.19-22"
-  },
-  {
-    "id": 106541,
+    "id": 106724,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
@@ -1798,12 +1509,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "HISTO LAB - Block II p.23"
   },
   {
-    "id": 106542,
+    "id": 106725,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
     "type": "mcq",
-    "q": "Hassall's corpuscle (thymic corpuscle) ที่ใช้ชี้ขาดว่าเป็น thymus มีที่มาและตำแหน่งตามเดคอย่างไร",
+    "q": "Hassall's corpuscle (thymic corpuscle) ที่ใช้ชี้ขาดว่าเป็น thymus มีที่มาและตำแหน่ง อย่างไร",
     "options": [
       "เกิดจาก thymic epithelial cell และพบใน cortex",
       "เกิดจาก T-lymphoblast และพบใน medulla",
@@ -1815,12 +1526,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "HISTO LAB - Block II p.30-31"
   },
   {
-    "id": 106543,
+    "id": 106726,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
     "type": "mcq",
-    "q": "ตามเดค paracortex ของ lymph node ต่างจาก cortex อย่างไร",
+    "q": "paracortex ของ lymph node ต่างจาก cortex อย่างไร",
     "options": [
       "paracortex ไม่มี lymphatic nodule และเป็นที่อยู่ของ T-cell",
       "paracortex มี lymphatic nodule และเป็นที่อยู่ของ T-cell",
@@ -1832,12 +1543,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "HISTO LAB - Block II p.32-34"
   },
   {
-    "id": 106544,
+    "id": 106727,
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
     "type": "mcq",
-    "q": "เยื่อบุของ terminal bronchioles ตามที่เดคระบุคือชนิดใด",
+    "q": "เยื่อบุของ terminal bronchioles คือชนิดใด",
     "options": [
       "simple columnar epithelium",
       "simple squamous epithelium",
@@ -1849,29 +1560,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "HISTO LAB - Block II p.47-50"
   },
   {
-    "id": 106545,
-    "subject": "vet-histo",
-    "topic": "histo--histo-lab-block-ii",
-    "year": 2,
-    "type": "mcq",
-    "q": "เดคไล่ลำดับโครงสร้างของ larynx จาก cranial ไป caudal ไว้อย่างไร",
-    "options": [
-      "vocal fold ไป laryngeal ventricle ไป vestibular fold",
-      "vestibular fold ไป vocal fold ไป laryngeal ventricle",
-      "vestibular fold ไป laryngeal ventricle ไป vocal fold",
-      "laryngeal ventricle ไป vestibular fold ไป vocal fold"
-    ],
-    "answer": 2,
-    "explain": "เดคเขียนลำดับจาก cranial ไป caudal ไว้ว่า vestibular fold ตามด้วย laryngeal ventricle แล้วจึงเป็น vocal fold โดยระบุว่า vocal ligament ประกอบด้วย elastic fiber และ epiglottic cartilage อยู่ทางด้าน cranial ข้อที่ล่อใจคือ vestibular fold ไป vocal fold ไป laryngeal ventricle เพราะเริ่มต้นถูกที่ vestibular fold แต่สลับให้ ventricle ไปอยู่ท้ายสุด ทั้งที่ ventricle เป็นแอ่งที่คั่นระหว่าง fold ทั้งสอง",
-    "verified": "HISTO LAB - Block II p.44"
-  },
-  {
-    "id": 106546,
+    "id": 106729,
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ development of the skin โครงสร้างใดเจริญมาจาก mesoderm",
+    "q": "development of the skin โครงสร้างใดเจริญมาจาก mesoderm",
     "options": [
       "Epidermis และ skin glands",
       "Hair follicles และ nerve",
@@ -1883,7 +1577,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Integument p.3"
   },
   {
-    "id": 106547,
+    "id": 106730,
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
@@ -1900,7 +1594,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Integument p.9-12"
   },
   {
-    "id": 106548,
+    "id": 106731,
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
@@ -1917,7 +1611,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Integument p.12, p.15-16"
   },
   {
-    "id": 106549,
+    "id": 106732,
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
@@ -1934,12 +1628,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Integument p.21"
   },
   {
-    "id": 106550,
+    "id": 106733,
     "subject": "vet-histo",
     "topic": "histo--laboratory-of-nervous-system-histology",
     "year": 2,
     "type": "mcq",
-    "q": "ตามเดค ganglion cell (neuron) ใน spinal ganglion ถูกบรรยายลักษณะไว้อย่างไร",
+    "q": "ganglion cell (neuron) ใน spinal ganglion ถูกบรรยายลักษณะไว้อย่างไร",
     "options": [
       "large round cell มี euchromatin nucleus และ prominent nucleolus",
       "small spindle cell มี heterochromatin nucleus และ nucleolus ไม่ชัด",
@@ -1951,29 +1645,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Laboratory of nervous system histology p.1"
   },
   {
-    "id": 106551,
+    "id": 106735,
     "subject": "vet-histo",
     "topic": "histo--laboratory-of-nervous-system-histology",
     "year": 2,
     "type": "mcq",
-    "q": "เดคกำกับว่า Nissl body ที่ต้องชี้ในตัว ganglion cell ตรงกับ organelle ชนิดใด",
-    "options": [
-      "smooth endoplasmic reticulum ที่รวมตัวหนาแน่นในไซโทพลาซึม",
-      "Golgi apparatus ที่เรียงซ้อนกันหนาแน่นอยู่รอบนิวเคลียส",
-      "rough endoplasmic reticulum ที่รวมตัวหนาแน่นในไซโทพลาซึม",
-      "mitochondria ที่รวมกลุ่มกันหนาแน่นอยู่รอบนิวเคลียส"
-    ],
-    "answer": 2,
-    "explain": "เดคเขียนกำกับตรง ๆ ว่า Nissl body (RER) จึงเป็น rough endoplasmic reticulum ที่รวมตัวกันหนาแน่น ตัวเลือก smooth endoplasmic reticulum ล่อใจเพราะเป็น ER เหมือนกัน แต่ SER ไม่มี ribosome จึงไม่ติดสีเป็นก้อน basophilic แบบ Nissl body",
-    "verified": "Laboratory of nervous system histology p.1"
-  },
-  {
-    "id": 106552,
-    "subject": "vet-histo",
-    "topic": "histo--laboratory-of-nervous-system-histology",
-    "year": 2,
-    "type": "mcq",
-    "q": "ในสไลด์ spinal ganglion เดคให้ชี้โครงสร้างคู่ใด นอกเหนือจาก ganglion cell และเส้นใยประสาท",
+    "q": "spinal ganglion เดคให้ชี้โครงสร้างคู่ใด นอกเหนือจาก ganglion cell และเส้นใยประสาท",
     "options": [
       "Ependymal glia cells และ pia mater",
       "Satellite (glia) cells และ perineurium",
@@ -1985,12 +1662,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Laboratory of nervous system histology p.1"
   },
   {
-    "id": 106553,
+    "id": 106736,
     "subject": "vet-histo",
     "topic": "histo--laboratory-of-nervous-system-histology",
     "year": 2,
     "type": "mcq",
-    "q": "ในสไลด์ celiacomesenteric ganglion เดคกำกับชนิดของ neuron และเส้นใยประสาทไว้ว่าอย่างไร",
+    "q": "celiacomesenteric ganglion เดคกำกับชนิดของ neuron และเส้นใยประสาทไว้ว่าอย่างไร",
     "options": [
       "pre ganglionic neuron: sympathetic กับ myelinated nerve fiber",
       "post ganglionic neuron: parasympathetic กับ myelinated nerve fiber",
@@ -2002,12 +1679,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Laboratory of nervous system histology p.1"
   },
   {
-    "id": 106554,
+    "id": 106737,
     "subject": "vet-histo",
     "topic": "histo--laboratory-of-nervous-system-histology",
     "year": 2,
     "type": "mcq",
-    "q": "ในสไลด์ cerebrum เดคจัดให้ neuron กับ tracts (myelinated fiber) อยู่ในส่วนใดของสมอง",
+    "q": "cerebrum เดคจัดให้ neuron กับ tracts (myelinated fiber) อยู่ในส่วนใดของสมอง",
     "options": [
       "neuron อยู่ใน cerebral cortex (gray matter) ส่วน tracts อยู่ใน cerebral medulla (white matter)",
       "neuron อยู่ใน cerebral medulla (white matter) ส่วน tracts อยู่ใน cerebral cortex (gray matter)",
@@ -2019,29 +1696,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Laboratory of nervous system histology p.1"
   },
   {
-    "id": 106555,
+    "id": 106739,
     "subject": "vet-histo",
     "topic": "histo--laboratory-of-nervous-system-histology",
     "year": 2,
     "type": "mcq",
-    "q": "เดคกำกับชนิดของเซลล์ประสาทใน dorsal horn และ ventral horn ของไขสันหลังไว้อย่างไร",
-    "options": [
-      "dorsal horn เป็น motor neurons ส่วน ventral horn เป็น interneurons",
-      "dorsal horn เป็น interneurons ส่วน ventral horn เป็น motor neurons",
-      "dorsal horn เป็น interneurons ส่วน ventral horn เป็น ganglion cells",
-      "dorsal horn เป็น motor neurons ส่วน ventral horn เป็น Purkinje cells"
-    ],
-    "answer": 1,
-    "explain": "ในหัวข้อ gray matter ของสไลด์ DD และ B.120 เดคเขียน dorsal horn (interneurons) และ ventral horn (motor neurons) ตัวเลือกที่สลับสองคำนี้ล่อใจที่สุดเพราะใช้คำเดียวกันทั้งคู่ แต่วางผิดข้าง ส่วน ganglion cells เป็นเซลล์ของ spinal ganglion ไม่ใช่ของ gray matter ในไขสันหลัง",
-    "verified": "Laboratory of nervous system histology p.1"
-  },
-  {
-    "id": 106556,
-    "subject": "vet-histo",
-    "topic": "histo--laboratory-of-nervous-system-histology",
-    "year": 2,
-    "type": "mcq",
-    "q": "ในสไลด์ jejunum เดคให้จำตำแหน่งของ ANS plexus ทั้งสองไว้อย่างไร",
+    "q": "jejunum เดคให้จำตำแหน่งของ ANS plexus ทั้งสองไว้อย่างไร",
     "options": [
       "Submucosal plexus อยู่ between connective tissue layer and muscular layer ส่วน Myenteric plexus อยู่ between 2 layers of muscular wall",
       "Submucosal plexus อยู่ between 2 layers of muscular wall ส่วน Myenteric plexus อยู่ between connective tissue layer and muscular layer",
@@ -2053,24 +1713,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Laboratory of nervous system histology p.1"
   },
   {
-    "id": 106557,
-    "subject": "vet-histo",
-    "topic": "histo--lymphatic-organ-i",
-    "year": 2,
-    "type": "mcq",
-    "q": "ลำดับการไหลของ lymph ผ่าน lymph node ตามที่สไลด์เรียงไว้ คือข้อใด",
-    "options": [
-      "afferent lymph vessel, subcapsular sinus, trabecular sinus, medullary sinus, efferent lymph vessel",
-      "afferent lymph vessel, trabecular sinus, subcapsular sinus, medullary sinus, efferent lymph vessel",
-      "afferent lymph vessel, medullary sinus, subcapsular sinus, trabecular sinus, efferent lymph vessel",
-      "efferent lymph vessel, subcapsular sinus, trabecular sinus, medullary sinus, afferent lymph vessel"
-    ],
-    "answer": 0,
-    "explain": "สไลด์เรียงลำดับไว้ตรง ๆ ว่า afferent lymph vessel เข้าสู่ subcapsular sinus ต่อไป trabecular (cortical) sinus แล้วจึงถึง medullary sinus ก่อนออกทาง efferent lymph vessel ตัวเลือกที่สลับ trabecular ขึ้นก่อน subcapsular ผิด เพราะ lymph ต้องผ่านแอ่งใต้ capsule ก่อนจึงจะไหลลงตาม trabecula เข้าสู่เนื้อในของ node",
-    "verified": "Lymphatic organ I p.32"
-  },
-  {
-    "id": 106558,
+    "id": 106741,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organ-i",
     "year": 2,
@@ -2087,7 +1730,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organ I p.21"
   },
   {
-    "id": 106559,
+    "id": 106742,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organ-i",
     "year": 2,
@@ -2104,7 +1747,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organ I p.21"
   },
   {
-    "id": 106560,
+    "id": 106743,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -2121,7 +1764,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organs II p.5"
   },
   {
-    "id": 106561,
+    "id": 106744,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -2138,7 +1781,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organs II p.6"
   },
   {
-    "id": 106562,
+    "id": 106745,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -2155,24 +1798,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organs II p.7"
   },
   {
-    "id": 106563,
-    "subject": "vet-histo",
-    "topic": "histo--lymphatic-organs-ii",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุว่า lingual tonsil มี tonsillar crypts (tonsillar fossulae) ในสัตว์กลุ่มใด",
-    "options": [
-      "Dog, cat และ rabbit เท่านั้น",
-      "Horse, pigs และ ruminants",
-      "Chicken, duck และ goose",
-      "Rat, mouse และ guinea pig"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุเป็นข้อเฉพาะสัตว์ว่า lingual tonsil ใน horse, pigs และ ruminants มี tonsillar crypts หรือ tonsillar fossulae และเป็นตำแหน่งที่พบ salivary corpuscles ด้วย ตัวเลือก dog, cat และ rabbit เป็นตัวลวงเพราะเป็นสัตว์เลี้ยงที่นิสิตคุ้นเคยกว่า แต่สไลด์ไม่ได้ระบุกลุ่มนี้ไว้",
-    "verified": "Lymphatic organs II p.7"
-  },
-  {
-    "id": 106564,
+    "id": 106747,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -2189,7 +1815,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organs II p.12"
   },
   {
-    "id": 106565,
+    "id": 106748,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -2206,24 +1832,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organs II p.19"
   },
   {
-    "id": 106566,
-    "subject": "vet-histo",
-    "topic": "histo--lymphatic-organs-ii",
-    "year": 2,
-    "type": "mcq",
-    "q": "Interdigitating dendritic cells (IDC) เป็นชื่อเฉพาะของ dendritic cell ที่อยู่ที่บริเวณใด",
-    "options": [
-      "ภายใน lymphoid follicles เป็นส่วนใหญ่",
-      "ภายใน splenic cords ของ red pulp",
-      "ภายใน medulla ของ thymus และ bone marrow",
-      "T-cell area ของ lymph nodes และ spleen"
-    ],
-    "answer": 3,
-    "explain": "สไลด์แยกไว้ว่า interdigitating dendritic cells คือชื่อเฉพาะของ dendritic cell ที่อยู่ใน T-cell area ของ secondary lymphoid tissue ได้แก่ lymph nodes และ spleen ตัวเลือกที่ว่าอยู่ใน lymphoid follicles เป็นส่วนใหญ่เป็นตัวลวงเพราะเป็นคำนิยามของ follicular dendritic cells (FDCs) ซึ่งเป็นอีกชนิดหนึ่งที่สไลด์เดียวกันบอกให้แยกให้ออก",
-    "verified": "Lymphatic organs II p.20"
-  },
-  {
-    "id": 106567,
+    "id": 106749,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -2240,7 +1849,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organs II p.21"
   },
   {
-    "id": 106568,
+    "id": 106750,
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -2257,12 +1866,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Lymphatic organs II p.24"
   },
   {
-    "id": 106569,
+    "id": 106751,
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ tunica albuginea ของ testis ในสปีชีส์ใดที่พบ smooth muscles และ vascular layer ร่วมอยู่ด้วย",
+    "q": "tunica albuginea ของ testis ในสปีชีส์ใดที่พบ smooth muscles และ vascular layer ร่วมอยู่ด้วย",
     "options": [
       "Horse และ pig",
       "Dog และ cat",
@@ -2274,41 +1883,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Male Reproductive System p.4-7"
   },
   {
-    "id": 106570,
-    "subject": "vet-histo",
-    "topic": "histo--male-reproductive-system",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ไล่ผนังของ seminiferous tubule จากนอกเข้าในตามลำดับใด",
-    "options": [
-      "Basal lamina, lamina propria, seminiferous epithelium",
-      "Lamina propria, basal lamina, seminiferous epithelium",
-      "Seminiferous epithelium, basal lamina, lamina propria",
-      "Lamina propria, seminiferous epithelium, basal lamina"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ไล่ผนังไว้ 3 ชั้นจากนอกเข้าใน คือ lamina propria (มี peritubular cells ชนิด myofibroblasts, collagen และ blood vessels) แล้วจึงเป็น basal lamina และในสุดคือ seminiferous epithelium ที่ประกอบด้วย Sertoli cells กับ spermatogenic cells ตัวเลือกที่ไล่ seminiferous epithelium ขึ้นก่อนเป็นลำดับจากในออกนอกซึ่งกลับทิศกับที่สไลด์เขียน",
-    "verified": "Male Reproductive System p.11"
-  },
-  {
-    "id": 106571,
-    "subject": "vet-histo",
-    "topic": "histo--male-reproductive-system",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุว่าเซลล์ชนิดใดเป็นผู้สร้าง androgen binding protein (ABP) และ inhibin",
-    "options": [
-      "Leydig cell ใน interstitial tissue",
-      "Peritubular myofibroblast ใน lamina propria",
-      "Sertoli cell ใน seminiferous epithelium",
-      "Fibrocyte ใน loose connective tissue รอบท่อ"
-    ],
-    "answer": 2,
-    "explain": "หน้าที่ของ Sertoli cell ที่สไลด์ลิสต์ไว้คือ protect, support, nourish, phagocytize, produce ABP และ inhibin, blood testis barrier และ spermiation ส่วน Leydig cell ที่อยู่ใน interstitial tissue เป็นตัวสร้าง testosterone (และสร้าง estrogen ด้วยใน boar) จึงเป็นคู่ที่ถามสลับกันได้ง่ายที่สุด",
-    "verified": "Male Reproductive System p.12-13"
-  },
-  {
-    "id": 106572,
+    "id": 106754,
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
@@ -2325,24 +1900,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Male Reproductive System p.16-17"
   },
   {
-    "id": 106573,
-    "subject": "vet-histo",
-    "topic": "histo--male-reproductive-system",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุหน้าที่ของ pampiniform plexus ไว้ว่าอย่างไร",
-    "options": [
-      "Sperm maturation และ sperm storage",
-      "Blood testis barrier และ spermiation",
-      "Neutralizing semen และ sperm motility",
-      "Blood cooling และ hormone transfer"
-    ],
-    "answer": 3,
-    "explain": "ในหัวข้อ testicular blood supply สไลด์ระบุว่า testicular veins จัดตัวเป็น pampiniform plexus ทำหน้าที่ blood cooling และ hormone transfer ส่วน blood testis barrier กับ spermiation เป็นหน้าที่ของ Sertoli cell ที่อยู่คนละหน้ากัน จึงเป็นตัวลวงที่ถูกในบริบทอื่นแต่ผิดในข้อนี้",
-    "verified": "Male Reproductive System p.21-23"
-  },
-  {
-    "id": 106574,
+    "id": 106756,
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
@@ -2359,29 +1917,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Male Reproductive System p.24-26"
   },
   {
-    "id": 106575,
+    "id": 106758,
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์ระบุหน้าที่ของ ductus epididymis ไว้อย่างไร",
-    "options": [
-      "Sperm maturation ที่ head และ body ส่วน sperm storage ที่ tail",
-      "Sperm storage ที่ head และ body ส่วน sperm maturation ที่ tail",
-      "Sperm maturation ตลอดทั้งท่อ ส่วน sperm storage ที่ ductus deferens",
-      "Sperm storage ตลอดทั้งท่อ ส่วน sperm maturation ที่ rete testis"
-    ],
-    "answer": 0,
-    "explain": "สไลด์แบ่ง ductus epididymis เป็น head, body และ tail แล้วระบุว่า sperm maturation เกิดที่ head และ body ส่วน sperm storage อยู่ที่ tail ซึ่งสอดคล้องกับที่บอกว่า epithelium ที่ tail เตี้ยลงและ lumen กว้างที่สุด ตัวเลือกที่สลับกันจึงขัดกับลักษณะ lumen ที่สไลด์อธิบายไว้",
-    "verified": "Male Reproductive System p.24-26"
-  },
-  {
-    "id": 106576,
-    "subject": "vet-histo",
-    "topic": "histo--male-reproductive-system",
-    "year": 2,
-    "type": "mcq",
-    "q": "ข้อใดจับคู่ต่อมกับสปีชีส์ที่ไม่พบต่อมนั้นได้ถูกต้องตามสไลด์",
+    "q": "ข้อใดจับคู่ต่อมกับสปีชีส์ที่ไม่พบต่อมนั้นได้ถูกต้อง",
     "options": [
       "Vesicular gland ไม่มีใน carnivores",
       "Bulbourethral gland ไม่มีใน boar และ cat",
@@ -2393,24 +1934,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Male Reproductive System p.30-32, 34"
   },
   {
-    "id": 106577,
-    "subject": "vet-histo",
-    "topic": "histo--male-reproductive-system",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุว่าพบ urethral gland ในสปีชีส์ใด",
-    "options": [
-      "Bull และ ram",
-      "Stallion และ cat",
-      "Boar และ ruminants",
-      "Buck และ tom"
-    ],
-    "answer": 1,
-    "explain": "ในหัวข้อ histological structure ของ urethra สไลด์ระบุ urethral gland ว่าพบใน stallion และ cat คู่กับ transitional epithelium และ propria-submucosa ที่มี erectile tissues ตัวเลือก boar น่าเลือกเพราะ boar ถูกกล่าวถึงบ่อยในเรื่องต่อม แต่สิ่งที่สไลด์ผูกกับ boar คือ gelatin plug จาก bulbourethral gland ไม่ใช่ urethral gland",
-    "verified": "Male Reproductive System p.35-37"
-  },
-  {
-    "id": 106578,
+    "id": 106760,
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
@@ -2427,7 +1951,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Male Reproductive System p.38-39, 42-43"
   },
   {
-    "id": 106579,
+    "id": 106761,
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
@@ -2444,12 +1968,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Male Reproductive System p.45-46"
   },
   {
-    "id": 106580,
+    "id": 106762,
     "subject": "vet-histo",
     "topic": "histo--nervous-system",
     "year": 2,
     "type": "mcq",
-    "q": "ตาม label ในสไลด์ ตัวเซลล์ (cell body) ของ neuron ถูกเรียกด้วยชื่อใด",
+    "q": "ตาม label ตัวเซลล์ (cell body) ของ neuron ถูกเรียกด้วยชื่อใด",
     "options": [
       "soma หรือ perikaryon",
       "bouton หรือ terminal bulb",
@@ -2461,7 +1985,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Nervous System p.5"
   },
   {
-    "id": 106581,
+    "id": 106763,
     "subject": "vet-histo",
     "topic": "histo--nervous-system",
     "year": 2,
@@ -2478,7 +2002,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Nervous System p.24"
   },
   {
-    "id": 106582,
+    "id": 106764,
     "subject": "vet-histo",
     "topic": "histo--nervous-system",
     "year": 2,
@@ -2495,12 +2019,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Nervous System p.26-27"
   },
   {
-    "id": 106583,
+    "id": 106765,
     "subject": "vet-histo",
     "topic": "histo--nervous-system",
     "year": 2,
     "type": "mcq",
-    "q": "choroid plexus epithelial cell ซึ่งสไลด์อธิบายว่าเป็น ependymal cells รวมกับ capillary mass มีหน้าที่ตามสไลด์ข้อใด",
+    "q": "choroid plexus epithelial cell ซึ่งสไลด์อธิบายว่าเป็น ependymal cells รวมกับ capillary mass มีหน้าที่ ข้อใด",
     "options": [
       "Propulsion ของ CSF ไปตาม central canal",
       "ยึด neuron เข้ากับ pia mater",
@@ -2512,24 +2036,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Nervous System p.26-27"
   },
   {
-    "id": 106584,
-    "subject": "vet-histo",
-    "topic": "histo--nervous-system",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์เขียนขนาดของ synaptic cleft ไว้เท่าใด",
-    "options": [
-      "1-2 nM",
-      "15-20 nM",
-      "50-60 nM",
-      "100-120 nM"
-    ],
-    "answer": 1,
-    "explain": "สไลด์กำกับ synaptic cleft ไว้ว่า (15-20 nM) คู่กับ label presynaptic และ postsynaptic ตัวเลข 50-60 อยู่คนละช่วงกับที่สไลด์เขียน จึงไม่ใช่ค่าที่ต้องจำจากหน้านี้",
-    "verified": "Nervous System p.14, 16-17"
-  },
-  {
-    "id": 106585,
+    "id": 106767,
     "subject": "vet-histo",
     "topic": "histo--nervous-system",
     "year": 2,
@@ -2546,29 +2053,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Nervous System p.12-13"
   },
   {
-    "id": 106586,
+    "id": 106769,
     "subject": "vet-histo",
     "topic": "histo--placenta-lab-manual",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์ระบุว่าผิวนอกของ chorioallantoic villi ในม้าถูกคลุมด้วยเซลล์ชนิดใด",
-    "options": [
-      "endothelial cells ที่มี nuclei โป่งนูน",
-      "cryptal epithelium รูป cuboidal ของฝั่งแม่",
-      "trophoblast cells ที่ติดสีชมพู",
-      "binucleate giant cells ที่อยู่รวมกลุ่ม"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนว่าผิวนอกของ villi คลุมด้วย trophoblast cells ที่ติดสีชมพู ส่วนภายใน villi มี blood vessels และ connective tissue ตัวเลือก cryptal epithelium เป็นเยื่อบุของ crypt ฝั่งแม่ที่มาล้อมรอบ villi อยู่คนละชั้นกับเซลล์ที่คลุมผิว villi เอง",
-    "verified": "Placenta lab manual p.2"
-  },
-  {
-    "id": 106587,
-    "subject": "vet-histo",
-    "topic": "histo--placenta-lab-manual",
-    "year": 2,
-    "type": "mcq",
-    "q": "placentome ของ ruminant ในสไลด์แล็บนี้เกิดจากการจับคู่ของโครงสร้างใด",
+    "q": "placentome ของ ruminant แล็บนี้เกิดจากการจับคู่ของโครงสร้างใด",
     "options": [
       "microcotyledon ของฝั่งลูก กับ endometrial cup ของฝั่งแม่",
       "chorionic girdle ของฝั่งลูก กับ uterine gland ของฝั่งแม่",
@@ -2580,7 +2070,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Placenta lab manual p.3"
   },
   {
-    "id": 106588,
+    "id": 106770,
     "subject": "vet-histo",
     "topic": "histo--placenta-lab-manual",
     "year": 2,
@@ -2597,7 +2087,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Placenta lab manual p.3"
   },
   {
-    "id": 106589,
+    "id": 106771,
     "subject": "vet-histo",
     "topic": "histo--placenta-lab-manual",
     "year": 2,
@@ -2614,58 +2104,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Placenta lab manual p.3"
   },
   {
-    "id": 106590,
-    "subject": "vet-histo",
-    "topic": "histo--placenta-lab-manual",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์บรรยายว่า maternal blood vessels บุด้วยเซลล์ชนิดใด และนิวเคลียสมีลักษณะอย่างไร",
-    "options": [
-      "trophoblast cells ที่มี nuclei สองอันชัดเจน",
-      "endothelial cells ที่มี nuclei โป่งนูน",
-      "endothelial cells ที่มี nuclei แบนราบ",
-      "decidual cells ที่มี nuclei ติดสีเข้ม"
-    ],
-    "answer": 1,
-    "explain": "สไลด์เขียนไว้ว่า maternal blood vessels บุด้วย endothelial cells ที่มี nuclei โป่งนูน (bulging nuclei) ตัวเลือกที่ว่านิวเคลียสแบนราบเป็นลักษณะ endothelium ทั่วไปที่เห็นในหลอดเลือดอื่น แต่ไม่ใช่จุดที่สไลด์หน้านี้ให้สังเกต",
-    "verified": "Placenta lab manual p.5"
-  },
-  {
-    "id": 106591,
-    "subject": "vet-histo",
-    "topic": "histo--placenta-lab-manual",
-    "year": 2,
-    "type": "mcq",
-    "q": "ในรกสุนัข สไลด์ระบุการจัดเรียงของชั้น trophoblast ไว้อย่างไร",
-    "options": [
-      "syntrophoblast ติดกับ fetal CNT ส่วน cytotrophoblast ติดกับ maternal CNT",
-      "syntrophoblast ติดกับ maternal CNT ส่วน cytotrophoblast ติดกับ fetal CNT",
-      "syntrophoblast กับ cytotrophoblast เรียงสลับกันตลอดแนวของ maternal CNT ทั้งชั้น",
-      "syntrophoblast กับ cytotrophoblast อยู่ติดกับ fetal CNT ทั้งสองชั้น"
-    ],
-    "answer": 1,
-    "explain": "สไลด์เขียนว่า syntrophoblast อยู่ติดกับ maternal CNT ส่วน cytotrophoblast อยู่ติดกับ fetal CNT ตัวเลือกที่สลับสองชั้นนี้เป็นข้อที่ตอบผิดบ่อย เพราะจำได้ว่ามีสองชั้นแต่จำลำดับว่าชั้นไหนหันเข้าหาแม่ไม่ได้",
-    "verified": "Placenta lab manual p.7"
-  },
-  {
-    "id": 106592,
-    "subject": "vet-histo",
-    "topic": "histo--placenta-lab-manual",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์จำแนก rabbit placenta ไว้ด้วยชุดคำใด",
-    "options": [
-      "discoidal, labyrinthine, deciduate, hemochorial",
-      "zonary, labyrinthine, deciduate, endotheliochorial",
-      "discoidal, villous, nondeciduate, epitheliochorial",
-      "cotyledonary, villous, nondeciduate, epitheliochorial"
-    ],
-    "answer": 0,
-    "explain": "สไลด์เขียนการจำแนกของ rabbit placenta ไว้ว่า discoidal, labyrinthine, deciduate, hemochorial ส่วนชุด zonary กับ endotheliochorial เป็นของ carnivore ซึ่ง labyrinthine เหมือนกันจึงชวนให้เลือกผิด แต่ต่างกันที่รูปร่างบริเวณเกาะและจำนวนชั้นที่เหลือ",
-    "verified": "Placenta lab manual p.8"
-  },
-  {
-    "id": 106593,
+    "id": 106775,
     "subject": "vet-histo",
     "topic": "histo--placenta",
     "year": 2,
@@ -2682,7 +2121,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Placenta p.20, 25, 26"
   },
   {
-    "id": 106594,
+    "id": 106776,
     "subject": "vet-histo",
     "topic": "histo--placenta",
     "year": 2,
@@ -2699,7 +2138,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Placenta p.31, 32, 34"
   },
   {
-    "id": 106595,
+    "id": 106777,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -2716,7 +2155,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Respiratory System p.1"
   },
   {
-    "id": 106596,
+    "id": 106778,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -2733,7 +2172,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Respiratory System p.2"
   },
   {
-    "id": 106597,
+    "id": 106779,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -2750,7 +2189,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Respiratory System p.3"
   },
   {
-    "id": 106598,
+    "id": 106780,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -2767,7 +2206,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Respiratory System p.11"
   },
   {
-    "id": 106599,
+    "id": 106781,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -2784,7 +2223,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Respiratory System p.18"
   },
   {
-    "id": 106600,
+    "id": 106782,
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -2801,7 +2240,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Respiratory System p.20"
   },
   {
-    "id": 106601,
+    "id": 106783,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -2818,7 +2257,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Special Sense p.7"
   },
   {
-    "id": 106602,
+    "id": 106784,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -2835,7 +2274,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Special Sense p.12"
   },
   {
-    "id": 106603,
+    "id": 106785,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -2852,7 +2291,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Special Sense p.20"
   },
   {
-    "id": 106604,
+    "id": 106786,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -2869,7 +2308,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Special Sense p.32"
   },
   {
-    "id": 106605,
+    "id": 106787,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -2886,7 +2325,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Special Sense p.26"
   },
   {
-    "id": 106606,
+    "id": 106788,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -2903,7 +2342,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Special Sense p.48"
   },
   {
-    "id": 106607,
+    "id": 106789,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -2920,12 +2359,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Special Sense p.57"
   },
   {
-    "id": 106608,
+    "id": 106790,
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
     "type": "mcq",
-    "q": "ตามลำดับกลไกการได้ยินในเด็ค pressure change ใน perilymph ทำให้เกิดเหตุการณ์ใดต่อไป",
+    "q": "ตามลำดับกลไกการได้ยิน pressure change ใน perilymph ทำให้เกิดเหตุการณ์ใดต่อไป",
     "options": [
       "displacement ของ tectorial membrane โดยตรง",
       "vibration ของ tympanic membrane รอบใหม่",
@@ -2937,24 +2376,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Special Sense p.63"
   },
   {
-    "id": 106609,
-    "subject": "vet-histo",
-    "topic": "histo--tissue-preparation",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุให้แช่ specimen ใน formaldehyde solution (formalin) ที่ความเข้มข้นเท่าใด",
-    "options": [
-      "2% formalin",
-      "4% formalin",
-      "20% formalin",
-      "10% formalin"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุความเข้มข้นของ fixative ที่ใช้ไว้ชัดเจนว่าเป็น 10% formalin ตัวเลือก 4% เป็นตัวลวงที่น่าเลือกที่สุดเพราะเป็นตัวเลขที่คุ้นจาก formaldehyde ในรูป 4% paraformaldehyde แต่ตัวเลขที่เด็คนี้ระบุสำหรับ formalin คือ 10% ไม่ใช่ 4%",
-    "verified": "tissue preparation p.11-12"
-  },
-  {
-    "id": 106610,
+    "id": 106792,
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
@@ -2971,7 +2393,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "tissue preparation p.11-12"
   },
   {
-    "id": 106611,
+    "id": 106793,
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
@@ -2988,7 +2410,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "tissue preparation p.15"
   },
   {
-    "id": 106612,
+    "id": 106794,
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
@@ -3005,7 +2427,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "tissue preparation p.18"
   },
   {
-    "id": 106613,
+    "id": 106795,
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
@@ -3022,7 +2444,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "tissue preparation p.20-21"
   },
   {
-    "id": 106614,
+    "id": 106796,
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
@@ -3039,12 +2461,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "tissue preparation p.23-28"
   },
   {
-    "id": 106615,
+    "id": 106797,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ ปริมาณ smooth muscle ใน renal capsule ของแต่ละชนิดสัตว์เป็นอย่างไร",
+    "q": "ปริมาณ smooth muscle ใน renal capsule ของแต่ละชนิดสัตว์เป็นอย่างไร",
     "options": [
       "Ruminant มีมากที่สุด (+++) ส่วน cat ไม่มี smooth muscle เลย",
       "Cat มีมากที่สุด (+++) ส่วน ruminant ไม่มี smooth muscle เลย",
@@ -3056,12 +2478,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Urinary System p.9"
   },
   {
-    "id": 106616,
+    "id": 106798,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ ไตของ dog จัดอยู่ในรูปแบบใด",
+    "q": "ไตของ dog จัดอยู่ในรูปแบบใด",
     "options": [
       "Multilobar kidney ที่ apices ของ medullary pyramids แยกกันและยื่นเข้าไปใน renal calyces",
       "Unilobar kidney ที่ปลายของ medullary pyramids เชื่อมรวมกันเป็น renal crest",
@@ -3073,12 +2495,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Urinary System p.8"
   },
   {
-    "id": 106617,
+    "id": 106799,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ mesangial cells คือเซลล์แบบใด",
+    "q": "mesangial cells คือเซลล์แบบใด",
     "options": [
       "Vascular pericytes ที่มี contractile properties และติดสีเข้มกว่า podocytes",
       "Modified smooth muscle cells ใน tunica media ของ afferent arteriole",
@@ -3090,7 +2512,7 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Urinary System p.20"
   },
   {
-    "id": 106618,
+    "id": 106800,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
@@ -3107,12 +2529,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Urinary System p.28"
   },
   {
-    "id": 106619,
+    "id": 106801,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ ข้อใดจับคู่ส่วนของท่อไตกับฮอร์โมนที่ออกฤทธิ์ได้ถูกต้อง",
+    "q": "ข้อใดจับคู่ส่วนของท่อไตกับฮอร์โมนที่ออกฤทธิ์ได้ถูกต้อง",
     "options": [
       "PCT ตอบสนองต่อ ADH ส่วน collecting duct ตอบสนองต่อ aldosterone",
       "DCT ตอบสนองต่อ renin ส่วน collecting duct ตอบสนองต่อ adenosine",
@@ -3124,12 +2546,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Urinary System p.28"
   },
   {
-    "id": 106620,
+    "id": 106802,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ เซลล์กลุ่มใดทำหน้าที่รักษา acid-base balance ด้วยการ secrete H+/HCO3-",
+    "q": "เซลล์กลุ่มใดทำหน้าที่รักษา acid-base balance ด้วยการ secrete H+/HCO3-",
     "options": [
       "Principal cells ที่มี aquaporins และ basal membrane infolding",
       "Intercalated cells ที่มี mitochondria มากกว่าและมี apical folds",
@@ -3141,12 +2563,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Urinary System p.32"
   },
   {
-    "id": 106621,
+    "id": 106803,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
     "type": "mcq",
-    "q": "JG cells ซึ่งหลั่ง renin เข้าสู่กระแสเลือดเป็นเซลล์ที่ดัดแปลงมาจากเซลล์ชนิดใดตามสไลด์",
+    "q": "JG cells ซึ่งหลั่ง renin เข้าสู่กระแสเลือดเป็นเซลล์ที่ดัดแปลงมาจากเซลล์ชนิดใด",
     "options": [
       "Modified smooth muscle cells ของ tunica media ใน afferent arteriole",
       "Modified endothelial cells ที่บุด้านในของ efferent arteriole ตรง vascular pole",
@@ -3158,12 +2580,12 @@ export const QUESTIONS_Y2_HISTO = [
     "verified": "Urinary System p.38"
   },
   {
-    "id": 106622,
+    "id": 106804,
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ เมื่อ arterial blood pressure เพิ่มขึ้น macula densa ตอบสนองอย่างไร",
+    "q": "เมื่อ arterial blood pressure เพิ่มขึ้น macula densa ตอบสนองอย่างไร",
     "options": [
       "detect ระดับ Na และ Cl ใน PCT แล้วหลั่ง renin ทำให้ efferent arteriole ขยายตัว",
       "detect ระดับ glucose ใน TAL แล้วหลั่ง aldosterone ทำให้ afferent arteriole ขยายตัว",

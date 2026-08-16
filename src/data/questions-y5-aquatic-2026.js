@@ -149,63 +149,12 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP_supplement_พรบ.โรคระบาด_2558 p.8"
   },
   {
-    "id": 105125,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ Classification of fish list เกณฑ์การจำแนกปลาไว้ 8 เกณฑ์ ข้อใดไม่ใช่เกณฑ์ที่อยู่ในรายการนั้น",
-    "options": [
-      "Migration pattern (รูปแบบการอพยพ)",
-      "Culture system (ระบบการเลี้ยง)",
-      "Reproductive pattern (รูปแบบการสืบพันธุ์)",
-      "Scale type (ชนิดของเกล็ด)"
-    ],
-    "answer": 3,
-    "explain": "เกณฑ์ 8 ข้อบนสไลด์คือ Structure, Habitat, Food, Reproductive pattern, Age, Culture purpose, Culture system และ Migration pattern ส่วนชนิดของเกล็ด (placoid, ganoid, cycloid, ctenoid) เป็นเนื้อหาช่วงระบบผิวหนังในภายหลัง ไม่ได้ถูกใช้เป็นเกณฑ์จำแนกปลาในหน้านี้ ส่วน migration pattern, culture system และ reproductive pattern อยู่ในรายการ 8 ข้อทั้งหมด",
-    "verified": "AP2_Fish_bio p.4"
-  },
-  {
-    "id": 105126,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "การจำแนกปลาตามโครงสร้าง (Structure) ตามสไลด์แบ่งออกเป็น 3 กลุ่มใด",
-    "options": [
-      "Cyclostome, Cartilaginous fish, Bony fish",
-      "Cyclostome, Bony fish, Lobe-finned fish",
-      "Cartilaginous fish, Bony fish, Lungfish",
-      "Cyclostome, Cartilaginous fish, Placoderm"
-    ],
-    "answer": 0,
-    "explain": "สไลด์แบ่งตามโครงสร้างเป็น Cyclostome (มีภาพ lamprey กับ oral disc ประกอบ), Cartilaginous fish (ภาพฉลาม) และ Bony fish (ภาพปลาสวยงาม) กลุ่มอื่นที่ยกมาเช่น lobe-finned fish, lungfish และ placoder เป็นกลุ่มปลาที่มีอยู่จริงแต่ไม่ได้อยู่ในการแบ่ง 3 กลุ่มของสไลด์หน้านี้",
-    "verified": "AP2_Fish_bio p.5"
-  },
-  {
-    "id": 105127,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ Migration pattern จับคู่วงศ์ปลาตัวอย่างกับรูปแบบการอพยพไว้อย่างไร",
-    "options": [
-      "Anadromous คู่กับ Anguillidae และ Catadromous คู่กับ Salmonidae",
-      "Diadromous คู่กับ Salmonidae และ Catadromous คู่กับ Cyprinidae",
-      "Anadromous คู่กับ Salmonidae และ Catadromous คู่กับ Anguillidae",
-      "Anadromous คู่กับ Cyprinidae และ Catadromous คู่กับ Salmonidae"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนไว้ตรงตัวว่า Anadromous : Salmonidae (ภาพปลาแซลมอนกระโดดทวนน้ำ) และ Catadromous : Anguillidae (ภาพปลาไหล) ตัวเลือกที่สลับสองวงศ์นี้จึงผิด ส่วน Cyprinidae ไม่ได้ถูกยกเป็นตัวอย่างของรูปแบบการอพยพใดบนสไลด์ และ Diadromous ถูกเขียนไว้ลอย ๆ โดยไม่จับคู่กับวงศ์ใด",
-    "verified": "AP2_Fish_bio p.15"
-  },
-  {
     "id": 105128,
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ปลาลิ้นหมาที่นอนราบกับพื้นตู้ ลำตัวแบนจากด้านบนลงล่าง จัดเป็น body shape แบบใดตามสไลด์",
+    "q": "ปลาลิ้นหมาที่นอนราบกับพื้นตู้ ลำตัวแบนจากด้านบนลงล่าง จัดเป็น body shape แบบใด",
     "options": [
       "Compressiform",
       "Depressiform",
@@ -222,7 +171,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ตามแผนภาพ Common Measurements บนสไลด์ ข้อใดตรงกับวิธีวัดที่กำกับไว้สำหรับ Freshwater Rules",
+    "q": "ตามแผนภาพ Common Measurements ข้อใดตรงกับวิธีวัดที่กำกับไว้สำหรับ Freshwater Rules",
     "options": [
       "ใช้ standard length และวัดตามความโค้งของลำตัวปลา",
       "ใช้ fork length โดยกางครีบหางออกให้สุดก่อนวัด",
@@ -239,7 +188,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "จากภาพกายวิภาคปลากลุ่ม salmonid ในสไลด์ โครงสร้างคู่ใดที่ถูกชี้ไว้และเป็นลักษณะเด่นของปลากลุ่มนี้",
+    "q": "จากภาพกายวิภาคปลากลุ่ม salmonid โครงสร้างคู่ใดที่ถูกชี้ไว้และเป็นลักษณะเด่นของปลากลุ่มนี้",
     "options": [
       "Adipose fin และ pyloric ceca",
       "Spiral colon และ rectal gland",
@@ -256,7 +205,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "แผนภาพกายวิภาคปลาหนังและปลาทองบนสไลด์แสดงไตของปลาไว้ในลักษณะใด",
+    "q": "แผนภาพกายวิภาคปลาหนังและปลาทอง แสดงไตของปลาไว้ในลักษณะใด",
     "options": [
       "เป็นไตคู่รูปเมล็ดถั่วสองข้างแบบเดียวกับสัตว์บก",
       "แยกเป็น dorsal kidney และ ventral kidney ตามแนวสันหลัง",
@@ -290,7 +239,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสไลด์เรื่อง coelomic cavity แผ่นที่กั้นระหว่าง pericardial cavity กับ abdominal cavity คือข้อใด",
+    "q": "เรื่อง coelomic cavity แผ่นที่กั้นระหว่าง pericardial cavity กับ abdominal cavity คือข้อใด",
     "options": [
       "Median septum",
       "Transverse septum",
@@ -300,23 +249,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 1,
     "explain": "สไลด์จัด transverse septum ไว้ในกลุ่มเดียวกับ abdominal (pleuroperitoneal) cavity และ pericardial cavity ในฐานะแผ่นกั้นระหว่างสองช่องนี้ ส่วน basal membrane และ dense connective tissue layer เป็นโครงสร้างในชั้นผิวหนัง และ median เป็นคำบอกระนาบลำตัว ไม่ใช่ชื่อแผ่นกั้นช่องลำตัว",
     "verified": "AP2_Fish_bio p.33-36"
-  },
-  {
-    "id": 105134,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ The integumentary system ไล่หน้าที่ของผิวหนังปลาไว้ 7 ข้อ ข้อใดไม่อยู่ในรายการนั้น",
-    "options": [
-      "Haematopoiesis (การสร้างเซลล์เม็ดเลือด)",
-      "Osmoregulation (การควบคุมสมดุลเกลือแร่)",
-      "Breathing in larva (การหายใจในระยะตัวอ่อน)",
-      "Temperature regulation (การควบคุมอุณหภูมิ)"
-    ],
-    "answer": 0,
-    "explain": "หน้าที่ 7 ข้อบนสไลด์คือ body protection, sensory organ, breathing in larva, locomotion, osmoregulation, excretion และ temperature regulation การสร้างเซลล์เม็ดเลือดไม่ได้ถูกเขียนไว้ในรายการนี้ ส่วนอีกสามตัวเลือกอยู่ในรายการทั้งหมด",
-    "verified": "AP2_Fish_bio p.37"
   },
   {
     "id": 105135,
@@ -336,29 +268,12 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP2_Fish_bio p.38-39"
   },
   {
-    "id": 105136,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ SCALES เรียงชนิดเกล็ดไว้ 4 ชนิด โดยมีข้อความไทยกำกับตามลำดับว่า ฉลาม การ์ ปลาครีบอ่อน ปลาครีบแข็ง ลำดับชื่อเกล็ดบนสไลด์คือข้อใด",
-    "options": [
-      "Ganoid, Placoid, Ctenoid, Cycloid",
-      "Placoid, Ganoid, Ctenoid, Cycloid",
-      "Cycloid, Ctenoid, Placoid, Ganoid",
-      "Placoid, Ganoid, Cycloid, Ctenoid"
-    ],
-    "answer": 3,
-    "explain": "สไลด์พิมพ์ชื่อเกล็ดเรียงว่า Placoid, Ganoid, Cycloid, Ctenoid แล้วมีข้อความไทย ฉลาม การ์ ปลาครีบอ่อน ปลาครีบแข็ง เรียงตามลำดับเดียวกันด้านล่าง ตัวเลือกอื่นสลับตำแหน่งของ cycloid กับ ctenoid หรือสลับ placoid กับ ganoid จึงไม่ตรงกับลำดับที่พิมพ์ไว้",
-    "verified": "AP2_Fish_bio p.45-46"
-  },
-  {
     "id": 105137,
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสไลด์เรื่อง chromatophore เซลล์เม็ดสีชนิดใดที่กำกับไว้ว่าให้ iridescent colour",
+    "q": "เรื่อง chromatophore เซลล์เม็ดสีชนิดใดที่กำกับไว้ว่าให้ iridescent colour",
     "options": [
       "Leucophore",
       "Iridophore",
@@ -392,7 +307,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ภาพตัดขวางกล้ามเนื้อปลาใน Fig. 5 ที่แยกให้เห็น dark muscle, intermediate muscle และ white muscle ย้อมด้วยปฏิกิริยาใดตามที่สไลด์กำกับไว้",
+    "q": "ภาพตัดขวางกล้ามเนื้อปลาใน Fig. 5 ที่แยกให้เห็น dark muscle, intermediate muscle และ white muscle ย้อมด้วยปฏิกิริยาใด",
     "options": [
       "Succinate dehydrogenase reaction",
       "Alkaline phosphatase reaction",
@@ -409,7 +324,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "จากแผนภาพเปรียบเทียบวงจรเลือดของ fish, amphibian และ mammal ในสไลด์ ข้อใดตรงกับที่กำกับไว้ในภาพของปลา",
+    "q": "จากแผนภาพเปรียบเทียบวงจรเลือดของ fish, amphibian และ mammal ข้อใดตรงกับที่กำกับไว้ในภาพของปลา",
     "options": [
       "มี lung capillaries และหัวใจมี atria สองห้องกับ ventricle เดียว",
       "มี gill capillaries และหัวใจกำกับเพียง atrium กับ ventricle",
@@ -443,7 +358,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ภาพการแทงเข็มเก็บเลือดปลาในสไลด์แทงที่บริเวณใด และสอดคล้องกับหลอดเลือดคู่ใดในแผนภาพหลอดเลือดหลัก",
+    "q": "ภาพการแทงเข็มเก็บเลือดปลา แทงที่บริเวณใด และสอดคล้องกับหลอดเลือดคู่ใดในแผนภาพหลอดเลือดหลัก",
     "options": [
       "บริเวณคอใต้แนวเหงือก ตรงกับ ventral aorta และ hepatic artery",
       "บริเวณหน้าท้องด้านล่าง ตรงกับ abdominal vein และ subintestinal vein",
@@ -472,29 +387,12 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP2_Fish_bio p.68"
   },
   {
-    "id": 105144,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์หัวข้อ The respiratory system ระบุจำนวน gill arch และการเปลี่ยนแปลงของคู่สุดท้ายไว้อย่างไร",
-    "options": [
-      "4 pairs of gill arches โดยคู่สุดท้ายเปลี่ยนเป็น pharyngeal bone",
-      "5 pairs of gill arches โดยคู่สุดท้ายเปลี่ยนเป็น pharyngeal bone",
-      "5 pairs of gill arches โดยคู่สุดท้ายเปลี่ยนเป็น gill raker",
-      "4 pairs of gill arches โดยคู่สุดท้ายเปลี่ยนเป็น pseudobranch"
-    ],
-    "answer": 1,
-    "explain": "บรรทัดแรกของรายการบนสไลด์เขียนว่า 5 pairs of gill arches และบรรทัดถัดมาเขียนว่า last pair changed to be pharyngeal bone จำนวน 4 คู่จึงไม่ตรงกับสไลด์ ส่วน gill raker เป็นอีกหัวข้อหนึ่งในรายการเดียวกันและ pseudobranch ไม่ได้อยู่ในรายการนี้เลย",
-    "verified": "AP2_Fish_bio p.69"
-  },
-  {
     "id": 105145,
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "แผนภาพ counter current system ในสไลด์วางลูกศร Water กับ Blood สวนทางกันพร้อมตัวเลขไล่ระดับ สิ่งที่ตัวเลขบนแผนภาพสื่อชัดเจนคือข้อใด",
+    "q": "แผนภาพ counter current system วางลูกศร Water กับ Blood สวนทางกันพร้อมตัวเลขไล่ระดับ สิ่งที่ตัวเลขบนแผนภาพสื่อชัดเจนคือข้อใด",
     "options": [
       "ค่าฝั่งเลือดสูงกว่าฝั่งน้ำที่ทุกระดับตลอดแนว",
       "ค่าฝั่งน้ำและฝั่งเลือดเท่ากันที่ปลายทั้งสองด้าน",
@@ -511,7 +409,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ในแผนภาพเปรียบเทียบทางเดินอาหารของปลาแต่ละกลุ่ม การจับคู่คำกำกับกับภาพข้อใดตรงกับที่พิมพ์บนสไลด์",
+    "q": "ในแผนภาพเปรียบเทียบทางเดินอาหารของปลาแต่ละกลุ่ม การจับคู่คำกำกับกับภาพข้อใดตรงกับที่พิมพ์",
     "options": [
       "Pyloric ceca กำกับที่ภาพ Shark/ray",
       "Spiral colon กำกับที่ภาพ Trout/salmon",
@@ -528,7 +426,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "จากแผนภาพเส้นทางเมแทบอลิซึมของ heme ในสไลด์ heme ถูกแยกออกไปเป็นสารใด",
+    "q": "จากแผนภาพเส้นทางเมแทบอลิซึมของ heme heme ถูกแยกออกไปเป็นสารใด",
     "options": [
       "แยกเป็น Fe และ biliverdin ซึ่งมีสีเขียว",
       "แยกเป็น globin และ biliverdin ซึ่งมีสีเขียว",
@@ -545,7 +443,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ในหัวข้อ Egg laying ข้อใดจับคู่รูปแบบการออกลูกกับคำในวงเล็บบนสไลด์ได้ถูกต้อง",
+    "q": "ในหัวข้อ Egg laying ข้อใดจับคู่รูปแบบการออกลูกกับคำในวงเล็บ ได้ถูกต้อง",
     "options": [
       "Viviparus กับ external fertilization",
       "Oviparus กับ external fertilization",
@@ -562,7 +460,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "จากสไลด์ Hermaphroditism ตัวอย่างและทิศทางการเปลี่ยนเพศของแบบ protandrous คือข้อใด",
+    "q": "Hermaphroditism ตัวอย่างและทิศทางการเปลี่ยนเพศของแบบ protandrous คือข้อใด",
     "options": [
       "Clownfish ซึ่งเพศเมียเปลี่ยนไปเป็นเพศผู้",
       "Haplochromis cichlid ซึ่งเพศผู้เปลี่ยนไปเป็นเพศเมีย",
@@ -574,29 +472,12 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP2_Fish_bio p.89"
   },
   {
-    "id": 105150,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์หัวข้อ Kidney ให้ชื่อเรียกอีกชื่อหนึ่งของไตปลาแต่ละส่วนไว้ว่าอย่างไร",
-    "options": [
-      "Anterior kidney เรียกว่า trunk kidney และ posterior kidney เรียกว่า head kidney",
-      "Anterior kidney เรียกว่า mesonephros และ posterior kidney เรียกว่า head kidney",
-      "Anterior kidney เรียกว่า trunk kidney และ posterior kidney เรียกว่า pronephros",
-      "Anterior kidney เรียกว่า head kidney และ posterior kidney เรียกว่า trunk kidney"
-    ],
-    "answer": 3,
-    "explain": "สไลด์เขียนคู่ชื่อไว้สองบรรทัดคือ Anterior kidney, head kidney และ Posterior kidney, trunk kidney ตัวเลือกที่สลับสองชื่อนี้จึงผิด ส่วน mesonephros และ pronephros ไม่ได้ปรากฏบนสไลด์นี้เลย",
-    "verified": "AP2_Fish_bio p.91-92"
-  },
-  {
     "id": 105151,
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "คำกำกับตัวเลขใต้ Fig. 1 ในสไลด์ The nervous system ระบุหน้าที่ของสมองแต่ละส่วนไว้อย่างไร",
+    "q": "คำกำกับตัวเลขใต้ Fig. 1 The nervous system ระบุหน้าที่ของสมองแต่ละส่วนไว้อย่างไร",
     "options": [
       "mesencephalon กำกับว่า vision และ telencephalon กำกับว่า smell",
       "mesencephalon กำกับว่า smell และ telencephalon กำกับว่า vision",
@@ -613,7 +494,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ภาพ Thyroid Hormone Production ในสไลด์แสดงลำดับการหลั่งฮอร์โมนตามแกนนี้อย่างไร",
+    "q": "ภาพ Thyroid Hormone Production แสดงลำดับการหลั่งฮอร์โมนตามแกนนี้อย่างไร",
     "options": [
       "Hypothalamus หลั่ง TSH กระตุ้น pituitary ให้หลั่ง TRH แล้ว thyroid หลั่ง T3 และ T4",
       "Hypothalamus หลั่ง TRH กระตุ้น pituitary ให้หลั่ง TSH แล้ว thyroid หลั่ง T3 และ T4",
@@ -693,40 +574,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP1_Aquaculture_in_Thailand p.6"
   },
   {
-    "id": 105157,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ SNAKEHEAD FISH FEED PREPARATION แสดงลักษณะการเตรียมอาหารปลาช่อนในฟาร์มอย่างไร",
-    "options": [
-      "ให้อาหารเม็ดสำเร็จรูปชนิดลอยน้ำเพียงอย่างเดียวตลอดรอบการเลี้ยง",
-      "ฟาร์มผสมอาหารเองจากปลาสดบดผสมกับวัตถุดิบผงในลังพลาสติก",
-      "ใช้อาหารมีชีวิตโดยปล่อยลูกปลาลงบ่อให้ปลาช่อนไล่ล่ากินเอง",
-      "อัดอาหารเป็นแท่งจมน้ำด้วยเครื่องอัดเม็ดก่อนหว่านลงบ่อดิน"
-    ],
-    "answer": 1,
-    "explain": "ภาพในสไลด์เป็นคนงานผสมอาหารเอง โดยมีปลาเป็ดหรือปลาสดบดเป็นก้อน กองวัตถุดิบผง และปลาสดทั้งตัว ผสมกันในลังพลาสติก แสดงว่าปลาช่อนเป็นชนิดที่ฟาร์มยังเตรียมอาหารเองจากปลาสด ไม่ได้ใช้อาหารเม็ดสำเร็จรูปอย่างเดียว และสไลด์ไม่ได้แสดงการใช้อาหารมีชีวิตหรือเครื่องอัดเม็ด",
-    "verified": "AP1_Aquaculture_in_Thailand p.16"
-  },
-  {
-    "id": 105158,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ OPEN GREENHOUSES ที่เป็นบ่อยาวเลี้ยงปลาคาร์ปในฟาร์มปลาสวยงาม ระบุความลึกของบ่อไว้เท่าใด",
-    "options": [
-      "30 เซนติเมตร",
-      "45 เซนติเมตร",
-      "60 เซนติเมตร",
-      "90 เซนติเมตร"
-    ],
-    "answer": 2,
-    "explain": "สไลด์พิมพ์กำกับไว้ว่า OPEN GREENHOUSES, POND DEPTH 60 CM และบ่อที่ล้อมด้วยโรงเรือนทุกด้านในสไลด์ถัดมาก็ระบุความลึกประมาณ 60 เซนติเมตรเช่นกัน ตัวเลขอื่นไม่ปรากฏบนสไลด์ชุดนี้ ระวังไม่สับสนกับตัวเลข 1.2 เมตร ซึ่งสไลด์ใช้คำว่า high กับบ่ออีกภาพหนึ่ง",
-    "verified": "AP1_Aquaculture_in_Thailand p.26"
-  },
-  {
     "id": 105159,
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -749,7 +596,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "เหตุการณ์ของอุตสาหกรรมกุ้งไทยในปี 2002 ตามไทม์ไลน์ในสไลด์คือข้อใด",
+    "q": "เหตุการณ์ของอุตสาหกรรมกุ้งไทยในปี 2002 ตามไทม์ไลน์ คือข้อใด",
     "options": [
       "เปลี่ยนชนิดกุ้งหลักที่เลี้ยงในไทยมาเป็นกุ้งขาว",
       "ไทยขึ้นเป็นผู้ผลิตกุ้งกุลาดำรายใหญ่ที่สุดของโลก",
@@ -759,23 +606,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 0,
     "explain": "ไทม์ไลน์เขียนไว้ว่าปี 2002 เกิดการเปลี่ยนชนิดกุ้งหลักที่เลี้ยงในไทยมาเป็น whiteleg shrimp ซึ่งเป็นการปรับตัวหลังการระบาดของ WSSV ในปี 2000 ส่วนการเป็นผู้ผลิตอันดับหนึ่งของโลกคือปี 1986 การระบาดของ YHV คือปี 1989 และผลกระทบจาก EMS คือปี 2012",
     "verified": "AP1_Aquaculture_in_Thailand p.32"
-  },
-  {
-    "id": 105161,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ major shrimp culture species ระบุชื่อวิทยาศาสตร์ของกุ้งกุลาดำ (black tiger shrimp) ว่าอย่างไร",
-    "options": [
-      "Litopenaeus vannamei",
-      "Penaeus monodon",
-      "Penaeus japonicus",
-      "Macrobrachium rosenbergii"
-    ],
-    "answer": 1,
-    "explain": "สไลด์กำกับภาพกุ้งลำตัวมีลายขวางเข้มสลับว่า BLACK TIGER SHRIMP Penaeus monodon ส่วน Litopenaeus vannamei คือกุ้งขาวแปซิฟิกที่อยู่ในสไลด์เดียวกัน Macrobrachium rosenbergii คือกุ้งก้ามกรามซึ่งอยู่ในกลุ่มสัตว์น้ำจืด และ Penaeus japonicus ไม่ได้ปรากฏในสไลด์นี้",
-    "verified": "AP1_Aquaculture_in_Thailand p.34"
   },
   {
     "id": 105162,
@@ -812,29 +642,12 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP1_Aquaculture_in_Thailand p.47"
   },
   {
-    "id": 105164,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ระบุชื่อเรียกอีกชื่อหนึ่งและชื่อวิทยาศาสตร์ของปลากะพงขาวไว้ว่าอย่างไร",
-    "options": [
-      "Barramundi, Lates calcarifer",
-      "Barramundi, Epinephelus coioides",
-      "Milkfish, Lates calcarifer",
-      "Snapper, Lutjanus argentimaculatus"
-    ],
-    "answer": 0,
-    "explain": "สไลด์เขียนชื่อไว้สามอย่างคู่กันคือ SEABASS, BARRAMUNDI และ Lates calcarifer ส่วน Epinephelus coioides เป็นสกุลของปลากะรังซึ่งเป็นคนละหัวข้อกัน Milkfish คือปลานวลจันทร์ทะเล และ Lutjanus argentimaculatus คือปลากะพงแดง ทั้งสองชื่อนี้ไม่ได้ปรากฏในสไลด์ปลากะพงขาว",
-    "verified": "AP1_Aquaculture_in_Thailand p.49"
-  },
-  {
     "id": 105165,
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ชื่อวิทยาศาสตร์ของหอยแมลงภู่และหอยนางรมที่พิมพ์กำกับไว้ในสไลด์ตรงกับข้อใด",
+    "q": "ชื่อวิทยาศาสตร์ของหอยแมลงภู่และหอยนางรมที่พิมพ์กำกับไว้ ตรงกับข้อใด",
     "options": [
       "หอยแมลงภู่ Crassostrea gigas และหอยนางรม Perna viridis",
       "หอยแมลงภู่ Perna viridis และหอยนางรม Crassostrea gigas",
@@ -868,7 +681,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ปริมาณสัตว์น้ำจืดจากการเพาะเลี้ยงรวม 459,980 ตัน ชนิดใดมีสัดส่วนสูงสุด และมีปริมาณเท่าใดตามตัวเลขที่สไลด์เน้นไว้",
+    "q": "ปริมาณสัตว์น้ำจืดจากการเพาะเลี้ยงรวม 459,980 ตัน ชนิดใดมีสัดส่วนสูงสุด และมีปริมาณเท่าใดตามตัวเลข",
     "options": [
       "ปลานิล 266,500 ตัน",
       "ปลาดุก 266,500 ตัน",
@@ -880,29 +693,12 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "Aquaculture_Industry_Tech p.3"
   },
   {
-    "id": 105168,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ระบุตัวชี้วัดใดไว้ใช้ประเมินสุขภาพสัตว์น้ำในบ่อเลี้ยง",
-    "options": [
-      "การวัดอุณหภูมิร่างกายรายตัวและอัตราการหายใจต่อนาที",
-      "พฤติกรรมและปริมาณการกินอาหาร ร่วมกับการสุ่มชั่งน้ำหนัก",
-      "การคลำอวัยวะภายในและตรวจสีของเยื่อเมือกเป็นรายตัว",
-      "การนับอัตราการเต้นของหัวใจและวัดความดันโลหิตรายตัว"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ให้สองตัวชี้วัด คือ อาหาร ดูจากพฤติกรรมการกินและปริมาณที่กิน กับน้ำหนักสัตว์น้ำ ที่ได้จากการสุ่มชั่ง เพราะงานสัตว์น้ำมองตัวสัตว์โดยตรงไม่ได้เหมือนสัตว์บก การตรวจรายตัวแบบวัดอุณหภูมิ คลำอวัยวะ หรือวัดความดัน ไม่ได้อยู่ในสไลด์และทำจริงไม่ได้ในระดับบ่อ",
-    "verified": "Aquaculture_Industry_Tech p.6"
-  },
-  {
     "id": 105169,
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ADG (Average daily gain) คำนวณอย่างไรตามสไลด์",
+    "q": "ADG (Average daily gain) คำนวณอย่างไร",
     "options": [
       "น้ำหนักอาหารที่กิน หารด้วย น้ำหนักสัตว์น้ำที่เพิ่มขึ้น",
       "น้ำหนักสัตว์น้ำสุดท้าย หารด้วย จำนวนวันที่เลี้ยงทั้งหมด",
@@ -919,7 +715,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "FCR (Feed conversion ratio) คำนวณอย่างไรตามสไลด์",
+    "q": "FCR (Feed conversion ratio) คำนวณอย่างไร",
     "options": [
       "น้ำหนักสัตว์น้ำที่เพิ่มขึ้น หารด้วย น้ำหนักอาหารที่กิน",
       "น้ำหนักอาหารที่กิน หารด้วย น้ำหนักสัตว์น้ำที่เพิ่มขึ้น",
@@ -1055,7 +851,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสไลด์ พรีไบโอติกส่วนใหญ่จัดอยู่ในสารกลุ่มใด และทำหน้าที่อย่างไร",
+    "q": "พรีไบโอติกส่วนใหญ่จัดอยู่ในสารกลุ่มใด และทำหน้าที่อย่างไร",
     "options": [
       "คาร์โบไฮเดรตที่ย่อยไม่ได้ ทำหน้าที่เป็นอาหารของจุลินทรีย์ที่มีประโยชน์",
       "กรดอะมิโนสายสั้น ทำหน้าที่เป็นแหล่งไนโตรเจนของจุลินทรีย์ในลำไส้",
@@ -1089,7 +885,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ลักษณะภายในของกุ้งที่ติดโรค EMS ตามภาพเปรียบเทียบบนสไลด์คือข้อใด",
+    "q": "ลักษณะภายในของกุ้งที่ติดโรค EMS ตามภาพเปรียบเทียบ คือข้อใด",
     "options": [
       "กระเพาะเต็ม ตับและตับอ่อนใหญ่มีสีเข้ม ลำไส้กลางเต็ม",
       "กระเพาะเต็ม ตับและตับอ่อนซีดฝ่อ ลำไส้กลางเต็ม",
@@ -1098,23 +894,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     ],
     "answer": 2,
     "explain": "สไลด์กำกับ EMS shrimp ว่า empty stomach, atrophied pale hepatopancreas และ empty midgut ขณะที่ normal shrimp เป็น full stomach, large pigmented hepatopancreas และ full midgut ตัวเลือกที่ผสมลักษณะสองฝั่งเข้าด้วยกันจึงไม่ตรงกับภาพบนสไลด์",
-    "verified": "Aquaculture_Industry_Tech p.29"
-  },
-  {
-    "id": 105181,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์ระบุว่าโรคใดเป็นสาเหตุที่ทำให้ผลผลิตกุ้งขาวของไทยลดลงถึงร้อยละ 54",
-    "options": [
-      "โรคหัวเหลือง (YHV) และโรคกล้ามเนื้อตายติดเชื้อ (IMNV)",
-      "โรคกุ้งตายด่วน (EMS หรือ AHPNS) และโรคขี้ขาวจาก EHP",
-      "โรคตัวแดงดวงขาว (WSSV) และโรคทอราซินโดรม (TSV)",
-      "โรคตัวแดงดวงขาว (WSSV) และโรคกุ้งตายด่วน (EMS)"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุสองโรคคู่กัน คือ โรคกุ้งตายด่วน EMS หรือโรคตับและตับอ่อนตายเฉียบพลัน AHPNS กับโรคขี้ขาวหรือโรคอีเอชพี พร้อมลูกศรจาก 125,000 ล้านบาทลงมา 50,000 ล้านบาท และความเสียหายรวมกว่า 7 หมื่นล้านบาท WSSV, TSV, YHV และ IMNV ปรากฏบนสไลด์ถัดไปในฐานะกลุ่มโรคที่ทำให้ตายยกบ่อ แต่ไม่ใช่คู่ที่สไลด์หน้านี้ระบุ",
     "verified": "Aquaculture_Industry_Tech p.29"
   },
   {
@@ -1140,7 +919,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "สปอร์ของ Enterocytozoon hepatopenaei (EHP) ที่ก่อโรคในกุ้ง มีลักษณะทางสัณฐานตามสไลด์อย่างไร",
+    "q": "สปอร์ของ Enterocytozoon hepatopenaei (EHP) ที่ก่อโรคในกุ้ง มีลักษณะทางสัณฐาน อย่างไร",
     "options": [
       "สปอร์ขนาด 1.1 x 0.6-0.7 µm มี polar filament ขด 4-5 รอบ",
       "สปอร์ขนาด 1.1 x 0.6-0.7 µm มี polar filament ขด 10-12 รอบ",
@@ -1191,7 +970,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "วิธีทำให้สปอร์ EHP หมดฤทธิ์ที่พื้นบ่อและลาดบ่อ โดยเหนี่ยวนำให้ยิง polar tube ออกมานอกตัวกุ้ง ตามสไลด์คือข้อใด",
+    "q": "วิธีทำให้สปอร์ EHP หมดฤทธิ์ที่พื้นบ่อและลาดบ่อ โดยเหนี่ยวนำให้ยิง polar tube ออกมานอกตัวกุ้ง คือข้อใด",
     "options": [
       "โรย Hi-Power 25-50 กก./ไร่ แล้วพ่น NaOH ให้ pH มากกว่า 11",
       "โรย Hi-Power 250-500 กก./ไร่ แล้วพ่น HCl ให้ pH ต่ำกว่า 4",
@@ -1208,7 +987,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "การจัดการคุณภาพน้ำด้วย central drainage system เพื่อควบคุม EHP มีเป้าหมายตามสไลด์อย่างไร",
+    "q": "การจัดการคุณภาพน้ำด้วย central drainage system เพื่อควบคุม EHP มีเป้าหมาย อย่างไร",
     "options": [
       "กำจัดเชื้อ EHP ให้หมดจากบ่อ โดยคุมปริมาณเชื้อในน้ำต่ำกว่า 10^2 copy/L",
       "ชะลอการติดเชื้อ EHP โดยคุมปริมาณเชื้อในน้ำต่ำกว่า 10^2 copy/L",
@@ -1276,7 +1055,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ในสไลด์ Clean seed มาตรฐานใดถูกกำกับไว้ว่าเป็นเรื่อง animal welfare",
+    "q": "Clean seed มาตรฐานใดถูกกำกับไว้ว่าเป็นเรื่อง animal welfare",
     "options": [
       "Thai Labour standard TLS 8001-2010",
       "Best Aquaculture Practices",
@@ -1293,7 +1072,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "สัดส่วนของกลุ่มเชื้อก่อโรคในปลาตามแผนภูมิในสไลด์คือข้อใด",
+    "q": "สัดส่วนของกลุ่มเชื้อก่อโรคในปลาตามแผนภูมิ คือข้อใด",
     "options": [
       "แบคทีเรีย 35% ไวรัส 33% ปรสิต 29% และเชื้อรา 3%",
       "ไวรัส 55% แบคทีเรีย 23% ปรสิต 19% และเชื้อรา 3%",
@@ -1327,7 +1106,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อเสียของการให้วัคซีนปลาโดยการฉีด IM หรือ IP ตามสไลด์คือข้อใด",
+    "q": "ข้อเสียของการให้วัคซีนปลาโดยการฉีด IM หรือ IP คือข้อใด",
     "options": [
       "ใช้ได้เฉพาะปลาที่หนักมากกว่า 10 กรัม และสิ้นเปลืองแรงงานกับเวลา",
       "ใช้ได้เฉพาะปลาที่หนักมากกว่า 100 กรัม และสิ้นเปลืองแรงงานกับเวลา",
@@ -1344,7 +1123,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดเปรียบเทียบวัคซีนแบบแช่กับแบบผสมอาหารได้ถูกต้องตามสไลด์",
+    "q": "ข้อใดเปรียบเทียบวัคซีนแบบแช่กับแบบผสมอาหารได้ถูกต้อง",
     "options": [
       "แบบแช่ให้ประสิทธิภาพสูงที่สุด ส่วนแบบผสมอาหารมีแอนติเจนถูกย่อยที่ทางเดินอาหาร",
       "แบบแช่ใช้กับปลาขนาดเล็กได้ ส่วนแบบผสมอาหารมีแอนติเจนถูกย่อยที่ทางเดินอาหาร",
@@ -1412,7 +1191,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดกล่าวถึงโรค columnaris ในปลาน้ำจืดได้ถูกต้องตามสไลด์",
+    "q": "ข้อใดกล่าวถึงโรค columnaris ในปลาน้ำจืดได้ถูกต้อง",
     "options": [
       "เกิดจาก Flavobacterium columnare แกรมลบรูปแท่งยาว อัตราตาย 30-100%",
       "เกิดจาก Flavobacterium columnare แกรมบวกรูปแท่งสั้น อัตราตาย 30-100%",
@@ -1429,7 +1208,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "สารที่สไลด์ระบุไว้ในกลุ่ม exotoxins, bacteriocins และ endotoxins ของ pathogenesis ของ columnaris คือข้อใด",
+    "q": "สาร ในกลุ่ม exotoxins, bacteriocins และ endotoxins ของ pathogenesis ของ columnaris คือข้อใด",
     "options": [
       "hyaluronidase และ lecithinase",
       "chondroitin AC lyase และ hemolysin",
@@ -1497,7 +1276,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "เกณฑ์ characterization ของอนุภาคนาโนวัคซีนที่วัดด้วย DLS หรือ Zetasizer ตามสไลด์คือข้อใด",
+    "q": "เกณฑ์ characterization ของอนุภาคนาโนวัคซีนที่วัดด้วย DLS หรือ Zetasizer คือข้อใด",
     "options": [
       "ขนาดน้อยกว่า 50 nm, zeta ไม่เข้าใกล้ 0 mV, PDI น้อยกว่า 0.3",
       "ขนาดน้อยกว่า 500 nm, zeta ต้องเข้าใกล้ 0 mV, PDI มากกว่า 0.3",
@@ -1543,23 +1322,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "Aquaculture_Industry_Tech p.79"
   },
   {
-    "id": 105207,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "สไลด์สรุปว่า nanovaccine ทำหน้าที่ 2 อย่างพร้อมกัน คืออะไร",
-    "options": [
-      "เป็น antigen และเป็น adjuvant พร้อมกันในอนุภาคเดียว",
-      "เป็น adjuvant และเป็น delivery system ในอนุภาคเดียว",
-      "เป็น antigen และเป็น delivery system พร้อมกันในอนุภาคเดียว",
-      "เป็น delivery system และเป็นยาปฏิชีวนะพร้อมกันในอนุภาคเดียว"
-    ],
-    "answer": 1,
-    "explain": "สไลด์ระบุตรงตัวว่า nanovaccine ทำหน้าที่เป็น adjuvant และ delivery system พร้อมกัน ตัวอนุภาคนาโนไม่ได้เป็น antigen เอง แต่เป็นตัวห่อหุ้มและนำส่ง antigen และไม่ได้มีฤทธิ์เป็นยาปฏิชีวนะ",
-    "verified": "Aquaculture_Industry_Tech p.77"
-  },
-  {
     "id": 105208,
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -1582,7 +1344,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "จากสไลด์ efficacy test ในภาคสนามที่เทียบฟาร์มปกติกับฟาร์มที่มีการระบาด อัตรารอดของปลาที่ได้วัคซีนและไม่ได้วัคซีนในฟาร์มที่มีการระบาดเท่ากับเท่าใด",
+    "q": "efficacy test ในภาคสนามที่เทียบฟาร์มปกติกับฟาร์มที่มีการระบาด อัตรารอดของปลาที่ได้วัคซีนและไม่ได้วัคซีนในฟาร์มที่มีการระบาดเท่ากับเท่าใด",
     "options": [
       "96% และ 85%",
       "86% และ 52%",
@@ -1616,7 +1378,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดตรงกับสถานการณ์การระบาดของ tilapia lake virus (TiLV) ในปลานิลตามสไลด์",
+    "q": "ข้อใดตรงกับสถานการณ์การระบาดของ tilapia lake virus (TiLV) ในปลานิล",
     "options": [
       "อัตราตาย 20-90% และระบาดในบ่อดินหรือ PE มากกว่ากระชัง",
       "อัตราตาย 20-90% และระบาดในกระชังมากกว่าบ่อดินหรือ PE",
@@ -1650,7 +1412,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "จุดสังเกตทางโครงสร้างของสารสำคัญจากพืชกลุ่ม alkaloid ตามสไลด์คือข้อใด",
+    "q": "จุดสังเกตทางโครงสร้างของสารสำคัญจากพืชกลุ่ม alkaloid คือข้อใด",
     "options": [
       "มีหมู่ phenol ในโครงสร้าง ตัวอย่างพืชคือองุ่น",
       "มี glycosidic bond ในโครงสร้าง ตัวอย่างพืชคือ Digitalis",
@@ -1667,7 +1429,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ปลาที่อยู่ใน Stage II (anesthesia) มีลักษณะอย่างไรตามสไลด์ stages of anesthesia",
+    "q": "ปลาที่อยู่ใน Stage II (anesthesia) มีลักษณะอย่างไร stages of anesthesia",
     "options": [
       "สูญเสียการทรงตัวบางส่วน และยังตอบสนองต่อการสัมผัส",
       "สูญเสียการทรงตัวทั้งหมด และไม่ตอบสนองต่อการสัมผัส",
@@ -1684,7 +1446,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสไลด์ plant-based alternative antibiotic สาร short chain fatty acids ซึ่งเป็น hydrophilic molecule ควรนำส่งด้วยระบบใด",
+    "q": "plant-based alternative antibiotic สาร short chain fatty acids ซึ่งเป็น hydrophilic molecule ควรนำส่งด้วยระบบใด",
     "options": [
       "ระบบ lipid nanoparticle แบบเดียวกับสารกลุ่ม phenol",
       "ระบบ water in oil in water (w/o/w) แบบหลายชั้น",

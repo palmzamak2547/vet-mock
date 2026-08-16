@@ -13,12 +13,12 @@
 
 export const QUESTIONS_Y2_NEUROANAT = [
   {
-    "id": 106370,
+    "id": 106805,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--basal-nuclei",
     "year": 2,
     "type": "mcq",
-    "q": "ตามแผนผังชื่อในสไลด์ striatum เป็นชื่อกลุ่มที่คร่อมนิวเคลียสใดบ้าง",
+    "q": "ตามแผนผังชื่อ striatum เป็นชื่อกลุ่มที่คร่อมนิวเคลียสใดบ้าง",
     "options": [
       "Caudate nucleus, putamen และ endopeduncular nucleus",
       "Putamen, pallidum และ endopeduncular nucleus",
@@ -30,80 +30,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Basal nuclei p.3"
   },
   {
-    "id": 106371,
+    "id": 106810,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--basal-nuclei",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์วงเล็บกำกับชื่อพ้องของ endopeduncular nucleus ไว้ว่าอย่างไร",
-    "options": [
-      "Interpeduncular nucleus",
-      "Subthalamic nucleus",
-      "Lentiform nucleus",
-      "Accumbens nucleus"
-    ],
-    "answer": 1,
-    "explain": "ในรายการชื่อ สไลด์เขียนว่า endopeduncular (subthalamic) nucleus ชื่อนี้จะกลับมาอีกครั้งตอนพูดถึง circuit ตัวล่อที่ต้องระวังคือ interpeduncular nucleus ซึ่งสะกดใกล้กันมากแต่เป็นคนละโครงสร้างและไม่ได้อยู่ในรายการ basal nuclei ส่วน lentiform nucleus เป็นชื่อกลุ่มที่คร่อม putamen กับ pallidum ไม่ใช่ชื่อพ้องของนิวเคลียสเดี่ยว",
-    "verified": "Basal nuclei p.3"
-  },
-  {
-    "id": 106372,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--basal-nuclei",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุขอบเขตด้าน lateral และ medial ของ caudate nucleus ไว้อย่างไร",
-    "options": [
-      "Lateral คือ lateral ventricle และ medial คือ internal capsule",
-      "Lateral คือ external capsule และ medial คือ claustrum",
-      "Lateral คือ internal capsule และ medial คือ lateral ventricle",
-      "Lateral คือ lateral ventricle และ medial คือ external capsule"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนว่า lateral boundary คือ internal capsule ส่วน medial boundary คือ lateral ventricle ข้อที่สลับสองอย่างนี้กันเป็นตัวล่อหลัก จำจากรูปได้ว่า head ของ caudate โป่งเข้าไปใน floor of lateral ventricle ดังนั้น ventricle ต้องอยู่ด้าน medial ส่วน internal capsule ซึ่งเป็น projection fiber คั่นอยู่ด้าน lateral",
-    "verified": "Basal nuclei p.8"
-  },
-  {
-    "id": 106373,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--basal-nuclei",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุหน้าที่และปลายทางของ axon ที่ออกจาก caudate nucleus ไว้อย่างไร",
-    "options": [
-      "Control simple movement ของ limbs และ trunk",
-      "Control emotion ผ่านการส่ง axon ไป hypothalamus",
-      "ยังไม่ทราบหน้าที่ สไลด์ระบุว่า unknown function",
-      "Control eye movements โดยส่ง axon ไป pallidum"
-    ],
-    "answer": 3,
-    "explain": "สไลด์หน้า caudate nucleus ระบุหน้าที่ไว้ว่า control eye movements และเขียนว่า send axon ไปที่ pallidum ตัวล่อ control simple movement ของ limbs และ trunk เป็นหน้าที่ของ putamen ไม่ใช่ caudate ส่วน control emotion กับการส่งไป hypothalamus เป็นของ accumbens nucleus",
-    "verified": "Basal nuclei p.8"
-  },
-  {
-    "id": 106374,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--basal-nuclei",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์อธิบายว่า accumbens nucleus เกิดจากการเชื่อมกันของโครงสร้างใด",
-    "options": [
-      "ส่วน caudal ของ caudate nucleus กับ pallidum",
-      "ส่วน rostral ของ caudate nucleus กับ putamen",
-      "ส่วน rostral ของ putamen กับ claustrum",
-      "ส่วน caudal ของ putamen กับ pallidum"
-    ],
-    "answer": 1,
-    "explain": "สไลด์เขียนว่า accumbens nucleus เกิดจาก fusion ของส่วน rostral ของ caudate nucleus กับ putamen ซึ่งเข้ากับตำแหน่งของมันที่อยู่ cranial ventral ต่อ head of caudate nucleus ข้อที่ใช้ส่วน caudal เป็นตัวล่อ เพราะ accumbens อยู่ทาง rostral ไม่ใช่ caudal และ pallidum ไม่ได้ร่วมในการเชื่อมนี้",
-    "verified": "Basal nuclei p.10"
-  },
-  {
-    "id": 106375,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--basal-nuclei",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตามสไลด์ putamen วางตัวอยู่ระหว่างโครงสร้างคู่ใด",
+    "q": "putamen วางตัวอยู่ระหว่างโครงสร้างคู่ใด",
     "options": [
       "Internal capsule กับ lateral medullar lamina",
       "External capsule กับ lateral medullar lamina",
@@ -115,63 +47,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Basal nuclei p.11"
   },
   {
-    "id": 106376,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--basal-nuclei",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุว่า pallidum รับ axon จากที่ใด และส่ง axon ออกไปที่ใด",
-    "options": [
-      "รับจาก prefrontal cortex และ limbic system แล้วส่งไปที่ hypothalamus",
-      "รับจาก frontal lobe และส่งไปที่ caudate nucleus กับ putamen",
-      "รับจาก caudate nucleus กับ putamen และส่งไปที่ frontal lobe",
-      "รับจาก sensory และ motor cortex และส่งไปที่ endopeduncular nucleus"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนว่า pallidum receive axon จาก caudate nucleus และ putamen แล้ว send axon ไปที่ cerebral cortex ของ frontal lobe ข้อที่กลับทิศทางเป็นตัวล่อหลัก เพราะทิศจริงคือ caudate กับ putamen ส่งเข้า pallidum ไม่ใช่ pallidum ส่งกลับไปหาสองตัวนั้น",
-    "verified": "Basal nuclei p.12"
-  },
-  {
-    "id": 106377,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--basal-nuclei",
-    "year": 2,
-    "type": "mcq",
-    "q": "ข้อใดตรงกับที่สไลด์บรรยาย claustrum",
-    "options": [
-      "Plate-shaped nucleus ที่สไลด์ระบุว่ายังไม่ทราบหน้าที่",
-      "Comma-shaped nucleus ที่ทำหน้าที่ควบคุม eye movements",
-      "Reticulate nucleus ที่ส่ง axon ไปยัง frontal lobe",
-      "Plate-shaped nucleus ที่ควบคุม simple movement ของ trunk"
-    ],
-    "answer": 0,
-    "explain": "สไลด์บรรยาย claustrum ว่าเป็น plate-shaped nucleus อยู่ lateral ต่อ lentiform nucleus และ lateral ต่อ external capsule พร้อมเขียนตรง ๆ ว่า unknown function ตัวล่อที่น่าเลือกคือ comma-shaped nucleus ที่คุม eye movements เพราะรูปร่าง comma และหน้าที่นั้นเป็นของ caudate nucleus ส่วน reticulate nucleus ที่ส่งไป frontal lobe คือ pallidum",
-    "verified": "Basal nuclei p.13"
-  },
-  {
-    "id": 106378,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--basal-nuclei",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ระบุผลของ dopamine จาก substantia nigra ต่อสองทางเดินนี้ไว้อย่างไร",
-    "options": [
-      "Suppress ทั้ง direct และ indirect pathway พร้อมกัน",
-      "Activate indirect pathway และ suppress direct pathway",
-      "Activate direct pathway และ suppress indirect pathway",
-      "Activate ทั้ง direct และ indirect pathway พร้อมกัน"
-    ],
-    "answer": 2,
-    "explain": "เชิงอรรถของสไลด์เขียนว่า dopamine จาก substantia nigra activate direct pathway และ suppress indirect pathway ผลรวมจึงเอียงไปทางเร่งการเคลื่อนไหว ข้อที่สลับกันเป็นตัวล่อ ถ้า dopamine เร่ง indirect ซึ่งเป็นทาง turn down ผลจะกลายเป็นกดการเคลื่อนไหว ซึ่งตรงข้ามกับที่สไลด์เขียน",
-    "verified": "Basal nuclei p.16"
-  },
-  {
-    "id": 106379,
+    "id": 106813,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
     "type": "mcq",
-    "q": "ตาราง geniculate nuclei ในสไลด์ระบุว่า medial geniculate nucleus ส่ง output ไปยังคอร์เทกซ์ส่วนใด",
+    "q": "ตาราง geniculate nuclei ระบุว่า medial geniculate nucleus ส่ง output ไปยังคอร์เทกซ์ส่วนใด",
     "options": [
       "primary visual cortex",
       "primary somatosensory cortex",
@@ -183,41 +64,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Diencephalon p.8"
   },
   {
-    "id": 106380,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--diencephalon",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์ epithalamus กำกับคำว่า reward-negative, emotive decision making และ depression ไว้กับโครงสร้างใด",
-    "options": [
-      "Pineal body",
-      "Habenula",
-      "Zona incerta",
-      "Preoptic nucleus"
-    ],
-    "answer": 1,
-    "explain": "สไลด์แบ่ง epithalamus เป็นสองโครงสร้าง โดยยกคำว่า reward-negative, emotive decision making และ depression ให้ habenula ส่วน pineal body ซึ่งอยู่บนสไลด์เดียวกันถูกกำกับด้วย melatonin และ circadian rhythm จึงเป็นตัวลวงที่ใกล้เคียงที่สุด",
-    "verified": "Diencephalon p.11-13"
-  },
-  {
-    "id": 106381,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--diencephalon",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์กำกับหน้าที่ของ pineal body ไว้ด้วยคำสองคำใด",
-    "options": [
-      "oxytocin และ vasopressin",
-      "corticotropin-releasing hormone",
-      "GnRH และ thermoregulation",
-      "melatonin และ circadian rhythm"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ epithalamus เขียน melatonin กับ circadian rhythm ไว้ที่ pineal body และย้ำสองคำนี้ซ้ำอีกหน้าเต็ม ส่วน oxytocin กับ vasopressin เป็นของ supraoptic nucleus ในตาราง hypothalamus คนละส่วนของ diencephalon",
-    "verified": "Diencephalon p.11-13"
-  },
-  {
-    "id": 106382,
+    "id": 106815,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
@@ -234,7 +81,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Diencephalon p.16"
   },
   {
-    "id": 106383,
+    "id": 106816,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
@@ -251,7 +98,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Diencephalon p.16"
   },
   {
-    "id": 106384,
+    "id": 106817,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
@@ -268,7 +115,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Diencephalon p.20"
   },
   {
-    "id": 106385,
+    "id": 106818,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
@@ -285,7 +132,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Diencephalon p.20"
   },
   {
-    "id": 106386,
+    "id": 106819,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
@@ -302,7 +149,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Diencephalon p.20"
   },
   {
-    "id": 106387,
+    "id": 106820,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -319,12 +166,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Limbic System (Nonolfactory Rhinencephalon) p.2"
   },
   {
-    "id": 106388,
+    "id": 106821,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
     "type": "mcq",
-    "q": "ตามการแบ่ง cerebral cortex ในเด็คนี้ ข้อใดจับคู่ส่วนของ cortex กับโครงสร้างได้ถูกต้อง",
+    "q": "ตามการแบ่ง cerebral cortex ข้อใดจับคู่ส่วนของ cortex กับโครงสร้างได้ถูกต้อง",
     "options": [
       "Paleopallium ได้แก่ hippocampus และ parahippocampal gyrus",
       "Archipallium ได้แก่ hippocampus เพียงโครงสร้างเดียว",
@@ -336,7 +183,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Limbic System (Nonolfactory Rhinencephalon) p.3"
   },
   {
-    "id": 106389,
+    "id": 106822,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -353,7 +200,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Limbic System (Nonolfactory Rhinencephalon) p.3"
   },
   {
-    "id": 106390,
+    "id": 106823,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -370,7 +217,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Limbic System (Nonolfactory Rhinencephalon) p.3"
   },
   {
-    "id": 106391,
+    "id": 106824,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -387,7 +234,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Limbic System (Nonolfactory Rhinencephalon) p.4"
   },
   {
-    "id": 106392,
+    "id": 106825,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -404,7 +251,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Metencephalon p.5-6"
   },
   {
-    "id": 106393,
+    "id": 106826,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -421,7 +268,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Metencephalon p.8"
   },
   {
-    "id": 106394,
+    "id": 106827,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -438,7 +285,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Metencephalon p.28-29"
   },
   {
-    "id": 106395,
+    "id": 106828,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -455,7 +302,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Metencephalon p.17-18"
   },
   {
-    "id": 106396,
+    "id": 106829,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -472,7 +319,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Metencephalon p.9-11"
   },
   {
-    "id": 106397,
+    "id": 106830,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -489,7 +336,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Metencephalon p.19"
   },
   {
-    "id": 106398,
+    "id": 106831,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -506,7 +353,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Metencephalon p.24-25"
   },
   {
-    "id": 106399,
+    "id": 106832,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -523,7 +370,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Metencephalon p.30-31"
   },
   {
-    "id": 106400,
+    "id": 106833,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -540,12 +387,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Midbrain p.8"
   },
   {
-    "id": 106401,
+    "id": 106834,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
     "type": "mcq",
-    "q": "Oculomotor nucleus ซึ่งเป็น motor nucleus ของ CN III วางตัวอยู่ที่ตำแหน่งใดตามสไลด์",
+    "q": "Oculomotor nucleus ซึ่งเป็น motor nucleus ของ CN III วางตัวอยู่ที่ตำแหน่งใด",
     "options": [
       "Dorsal ต่อ periaqueductal gray ที่ระดับ caudal colliculi",
       "Ventral ต่อ red nucleus ที่ระดับ caudal colliculi ของ tegmentum",
@@ -557,7 +404,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Midbrain p.12"
   },
   {
-    "id": 106402,
+    "id": 106835,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -574,7 +421,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Midbrain p.12"
   },
   {
-    "id": 106403,
+    "id": 106836,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -591,7 +438,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Midbrain p.16"
   },
   {
-    "id": 106404,
+    "id": 106837,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -608,12 +455,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Midbrain p.20"
   },
   {
-    "id": 106405,
+    "id": 106838,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
     "type": "mcq",
-    "q": "Red nucleus รับ axon เข้ามาจากแหล่งใดบ้าง ตามสไลด์",
+    "q": "Red nucleus รับ axon เข้ามาจากแหล่งใดบ้าง",
     "options": [
       "Contralateral motor cortex และ ipsilateral cerebellar nuclei",
       "Ipsilateral motor cortex และ contralateral cerebellar nuclei",
@@ -625,12 +472,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Midbrain p.22"
   },
   {
-    "id": 106406,
+    "id": 106839,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ clinical correlations รอยโรคที่ oculomotor nerve ทำให้เกิดอาการกลุ่มใด",
+    "q": "clinical correlations รอยโรคที่ oculomotor nerve ทำให้เกิดอาการกลุ่มใด",
     "options": [
       "Extortion ของลูกตาข้าง ipsilateral โดยรูม่านตายังปกติ",
       "Ptosis, pupillary dilate และ ventrolateral strabismus",
@@ -642,12 +489,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Midbrain p.27"
   },
   {
-    "id": 106407,
+    "id": 106840,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ ขอบเขต cranial ของ medulla oblongata ทางด้าน dorsal คือโครงสร้างใด",
+    "q": "ขอบเขต cranial ของ medulla oblongata ทางด้าน dorsal คือโครงสร้างใด",
     "options": [
       "caudal cerebellar peduncle",
       "rostral cerebellar peduncle",
@@ -659,7 +506,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Myelencephalon p.1"
   },
   {
-    "id": 106408,
+    "id": 106841,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -676,29 +523,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Myelencephalon p.1"
   },
   {
-    "id": 106409,
+    "id": 106843,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์ระบุว่า pyramidal decussation ในสุนัขมีเส้นใยไขว้ข้ามประมาณกี่เปอร์เซ็นต์",
-    "options": [
-      "30%",
-      "50%",
-      "70%",
-      "90%"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนกำกับที่ pyramidal decussation ว่า 70% in dog ก่อนแยกต่อเป็น lateral และ ventral corticospinal tract ตัวเลข 90% เป็นค่าที่มักจำสลับมาจากตำราอื่น แต่เด็คนี้ให้ค่าไว้ที่ 70% สำหรับสุนัขเท่านั้น",
-    "verified": "Myelencephalon p.1"
-  },
-  {
-    "id": 106410,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--myelencephalon",
-    "year": 2,
-    "type": "mcq",
-    "q": "reticular formation nuclei ของ medulla oblongata เป็นที่ตั้งของศูนย์ควบคุมคู่ใดตามสไลด์",
+    "q": "reticular formation nuclei ของ medulla oblongata เป็นที่ตั้งของศูนย์ควบคุมคู่ใด",
     "options": [
       "cardiovascular center และ respiratory center",
       "emetic center และ chemoreceptor trigger zone",
@@ -710,12 +540,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Myelencephalon p.2"
   },
   {
-    "id": 106411,
+    "id": 106844,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
     "type": "mcq",
-    "q": "lateral cuneate nucleus ตามสไลด์นำ proprioception จากบริเวณใดไปยังที่ใด",
+    "q": "lateral cuneate nucleus นำ proprioception จากบริเวณใดไปยังที่ใด",
     "options": [
       "จาก thoracic limb ไปยัง thalamus",
       "จากบริเวณ neck ไปยัง cerebellum",
@@ -727,7 +557,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Myelencephalon p.5"
   },
   {
-    "id": 106412,
+    "id": 106845,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -744,12 +574,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Myelencephalon p.5"
   },
   {
-    "id": 106413,
+    "id": 106846,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
     "type": "mcq",
-    "q": "nucleus ambiguous ตามสไลด์เกี่ยวข้องกับ cranial nerve คู่ใด และเลี้ยงกล้ามเนื้อลายบริเวณใด",
+    "q": "nucleus ambiguous เกี่ยวข้องกับ cranial nerve คู่ใด และเลี้ยงกล้ามเนื้อลายบริเวณใด",
     "options": [
       "CN IX X XI เลี้ยง pharynx larynx และ esophagus",
       "CN V VII IX เลี้ยงกล้ามเนื้อบดเคี้ยวและใบหน้า",
@@ -761,12 +591,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Myelencephalon p.6"
   },
   {
-    "id": 106414,
+    "id": 106847,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
     "type": "mcq",
-    "q": "solitary nucleus ตามสไลด์จัดเป็น nuclei ชนิดใด และวางตัวอยู่ส่วนใดของ medulla oblongata",
+    "q": "solitary nucleus จัดเป็น nuclei ชนิดใด และวางตัวอยู่ส่วนใดของ medulla oblongata",
     "options": [
       "motor nuclei อยู่ทาง ventral-lateral",
       "motor nuclei อยู่ทาง dorsal-medial",
@@ -778,7 +608,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Myelencephalon p.6"
   },
   {
-    "id": 106415,
+    "id": 106848,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -795,29 +625,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Myelencephalon p.7"
   },
   {
-    "id": 106416,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--myelencephalon",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์แบ่ง roof ของ fourth ventricle เป็นสองแผ่น แผ่นแต่ละอันประกอบด้วยเนื้อเยื่อใด",
-    "options": [
-      "rostral velum เป็น ependymal pia mater และ caudal velum เป็น cerebellar white matter",
-      "rostral velum เป็น choroid plexus และ caudal velum เป็น cerebellar white matter",
-      "rostral velum เป็น ependymal pia mater และ caudal velum เป็น choroid plexus",
-      "rostral velum เป็น cerebellar white matter และ caudal velum เป็น ependymal pia mater"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ในส่วน roof ระบุว่า rostral medullary velum เป็น cerebellar white matter ส่วน caudal medullary velum เป็น ependymal pia mater ตัวเลือกที่สลับสองแผ่นนี้เป็นตัวล่อหลักเพราะทั้งคู่อยู่บรรทัดติดกันในสไลด์ ขณะที่ choroid plexus สไลด์ยกเป็นโครงสร้างที่สามซึ่งทำหน้าที่สร้าง CSF ไม่ใช่ตัวแผ่น velum",
-    "verified": "Myelencephalon p.7"
-  },
-  {
-    "id": 106417,
+    "id": 106850,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
     "type": "mcq",
-    "q": "ระดับของ mental status ข้อใดปรากฏอยู่ในรายการที่สไลด์ระบุไว้",
+    "q": "ระดับของ mental status ข้อใดปรากฏอยู่ในรายการ",
     "options": [
       "Lethargic",
       "Somnolent",
@@ -829,12 +642,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Neuro exam anatomy2024 p.4-6"
   },
   {
-    "id": 106418,
+    "id": 106851,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
     "type": "mcq",
-    "q": "ตามสไลด์ ataxia กับ paresis หรือ paralysis ถูกจัดว่าเกิดจาก dysfunction ของระบบใด",
+    "q": "ataxia กับ paresis หรือ paralysis ถูกจัดว่าเกิดจาก dysfunction ของระบบใด",
     "options": [
       "ataxia จาก sensory system, paresis หรือ paralysis จาก motor system",
       "ataxia จาก motor system, paresis หรือ paralysis จาก sensory system",
@@ -846,24 +659,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Neuro exam anatomy2024 p.10-12"
   },
   {
-    "id": 106419,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--neuro-exam-anatomy2024",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์กำกับหลักการของ postural reactions ไว้ว่าอย่างไร",
-    "options": [
-      "เป็น conscious reaction ที่วิ่งไปที่ ipsilateral forebrain",
-      "เป็น segmental reaction ที่ไม่ต้องอาศัย consciousness",
-      "เป็น conscious reaction ที่วิ่งไปที่ contralateral forebrain",
-      "เป็น reaction ที่วิ่งผ่าน cerebellum เท่านั้นโดยไม่ผ่าน forebrain"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนหลักของ postural reactions ไว้ว่าเป็น conscious reaction ที่วิ่งไปที่ contralateral forebrain จึงใช้ประเมินวงจรที่ยาวถึงสมองใหญ่ฝั่งตรงข้าม ข้อที่ล่อใจคือ ipsilateral forebrain เพราะขาที่ทดสอบอยู่ข้างเดียวกับตัวสัตว์ แต่สไลด์ระบุเป็น contralateral ส่วนตัวเลือกที่ว่าเป็น segmental และไม่ต้องอาศัย consciousness เป็นคำกำกับของ spinal reflexes ไม่ใช่ postural reactions",
-    "verified": "Neuro exam anatomy2024 p.15"
-  },
-  {
-    "id": 106420,
+    "id": 106853,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
@@ -880,24 +676,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Neuro exam anatomy2024 p.18-19"
   },
   {
-    "id": 106421,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--neuro-exam-anatomy2024",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์กำหนดจุดเริ่มและทิศทางของการทดสอบ cutaneous trunci reflex ไว้อย่างไร",
-    "options": [
-      "เริ่มที่ T2 แล้วไล่ลงไปทาง L4",
-      "เริ่มที่ L4 แล้วไล่ขึ้นไปทาง T2",
-      "เริ่มที่ L7 แล้วไล่ขึ้นไปทาง T13",
-      "เริ่มที่ C6 แล้วไล่ลงไปทาง L4"
-    ],
-    "answer": 1,
-    "explain": "สไลด์เขียนบรรทัดเดียวและซ้ำสองครั้งในหน้าเดียวกันว่า Start at L4 ไป T2 คือเริ่มจากด้านท้ายแล้วไล่ขึ้นไปทางหน้า ข้อที่ล่อใจคือ T2 ลงไป L4 เพราะเป็นระดับสองระดับเดียวกันแต่กลับทิศ ซึ่งทำให้ตีความขอบเขตรอยโรคผิดไป ส่วน L7 กับ C6 ไม่ใช่ระดับที่สไลด์หน้านี้ระบุ",
-    "verified": "Neuro exam anatomy2024 p.20"
-  },
-  {
-    "id": 106422,
+    "id": 106855,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
@@ -914,46 +693,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "Neuro exam anatomy2024 p.21"
   },
   {
-    "id": 106423,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--neuro-exam-anatomy2024",
-    "year": 2,
-    "type": "mcq",
-    "q": "สไลด์กำหนดลำดับการคลำในหัวข้อ palpation and sensory testing ไว้อย่างไร",
-    "options": [
-      "จาก limbs ไป vertebral columns แล้วไป head",
-      "จาก vertebral columns ไป head แล้วไป limbs",
-      "จาก head ไป vertebral columns แล้วไป limbs",
-      "จาก limbs ไป head แล้วไป vertebral columns"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนลำดับไว้ว่า From head ไป vertebral columns ไป limbs คือไล่จากหัวไปทางท้ายแล้วจึงลงขา ระหว่างคลำให้มองหา asymmetry, deformity, area of discomfort, joint swelling และ focal or diffuse muscle atrophy ข้อที่ล่อใจคือลำดับย้อนกลับที่เริ่มจาก limbs เพราะเป็นลำดับที่คุ้นจากการตรวจกระดูกและข้อ แต่ไม่ตรงกับที่สไลด์กำหนด",
-    "verified": "Neuro exam anatomy2024 p.25"
-  },
-  {
-    "id": 106424,
+    "id": 106858,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์ Transduction in retina เขียนลำดับการส่งสัญญาณไว้เป็นสามบรรทัด ลำดับตามสไลด์คือข้อใด",
-    "options": [
-      "ganglion cell axons แล้วต่อไป bipolar neurone แล้วจึงถึง rods & cones",
-      "bipolar neurone แล้วต่อไป rods & cones แล้วจึงถึง ganglion cell axons",
-      "rods & cones แล้วต่อไป bipolar neurone แล้วจึงถึง ganglion cell axons",
-      "rods & cones แล้วต่อไป ganglion cell axons แล้วจึงถึง bipolar neurone"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนสามบรรทัดเรียงจากบนลงล่างว่า rods & cones แล้ว bipolar neurone แล้ว ganglion cell axons ตัวรับแสงจึงเป็นจุดเริ่ม ไม่ใช่จุดปลาย ข้อที่เอา ganglion cell axons ขึ้นก่อนน่าสนใจเพราะ ganglion cell axons คือส่วนที่รวมกันเป็น optic nerve ออกจากตา แต่มันเป็นชั้นสุดท้ายของลำดับ ไม่ใช่ชั้นแรก",
-    "verified": "visual vestibular systems p.12-14"
-  },
-  {
-    "id": 106425,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--visual-vestibular-systems",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตามสไลด์ VISUAL FIELD และสไลด์ถัดมา retina ส่วน nasal half กับ temporal half ส่งสัญญาณไปสมองฝั่งใด",
+    "q": "VISUAL FIELD และสไลด์ถัดมา retina ส่วน nasal half กับ temporal half ส่งสัญญาณไปสมองฝั่งใด",
     "options": [
       "nasal half ไป ipsilateral ส่วน temporal half ไป contralateral",
       "nasal half ไป contralateral ส่วน temporal half ไป ipsilateral",
@@ -965,7 +710,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "visual vestibular systems p.18, p.21"
   },
   {
-    "id": 106426,
+    "id": 106859,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
@@ -982,12 +727,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "visual vestibular systems p.20"
   },
   {
-    "id": 106427,
+    "id": 106860,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "type": "mcq",
-    "q": "ตามผังบนสไลด์ สัญญาณที่ผ่าน lateral geniculate nucleus จะไปต่อทาง optic radiation แล้วเข้าสู่โครงสร้างใด",
+    "q": "ตามผัง สัญญาณที่ผ่าน lateral geniculate nucleus จะไปต่อทาง optic radiation แล้วเข้าสู่โครงสร้างใด",
     "options": [
       "primary visual cortex ที่ occipital lobe",
       "primary visual cortex ที่ temporal lobe",
@@ -999,29 +744,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "visual vestibular systems p.20"
   },
   {
-    "id": 106428,
+    "id": 106862,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์หัวข้อ 20% ของ fibres จาก optic tract ลิสต์ปลายทางไว้หลายแห่ง ข้อใดคือ tract ที่ถูกลิสต์ไว้บนสไลด์นี้",
-    "options": [
-      "Rubrospinal tract",
-      "Corticospinal tract",
-      "Spinothalamic tract",
-      "Tectospinal tract"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ลิสต์ปลายทางของ fibres กลุ่ม 20% ไว้เป็น motor of CN III, IV, VI และ pupillary reflex, tectospinal tract, reticular formation และ limbic system ชื่อ tectospinal มาจาก tectum ซึ่งเป็นที่ตั้งของ rostral colliculus จึงเข้ากับสายนี้โดยตรง ส่วน rubrospinal tract เป็นตัวล่อที่ดีเพราะออกจาก red nucleus ใน midbrain เหมือนกัน แต่เป็นทางเดินสั่งการเคลื่อนไหว ไม่ได้อยู่ในลิสต์ของสไลด์",
-    "verified": "visual vestibular systems p.24-26"
-  },
-  {
-    "id": 106429,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--visual-vestibular-systems",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตามสไลด์ กล้ามเนื้อที่ทำให้เกิด mydriasis คือข้อใด",
+    "q": "กล้ามเนื้อที่ทำให้เกิด mydriasis คือข้อใด",
     "options": [
       "m. sphincter pupillae",
       "m. dilator pupillae",
@@ -1033,29 +761,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "visual vestibular systems p.32, p.34, p.36"
   },
   {
-    "id": 106430,
+    "id": 106864,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์ภาพเคสหนึ่งเขียนคำบรรยายว่าตาซ้ายมี mydriasis ร่วมกับ ptosis สไลด์ระบุว่าเกิดจากสาเหตุใด",
-    "options": [
-      "oculomotor nerve paralysis",
-      "trigeminal nerve paralysis",
-      "sympathetic denervation ของลูกตา",
-      "abducens nerve paralysis"
-    ],
-    "answer": 0,
-    "explain": "คำบรรยายบนสไลด์เขียนว่า Left mydriasis and ptosis due to oculomotor nerve paralysis ซึ่งเข้ากันได้ เพราะ CN III พา parasympathetic ไปเลี้ยง m. sphincter pupillae และเลี้ยงกล้ามเนื้อยกหนังตาบน เสียแล้วจึงได้ทั้งรูม่านตาขยายและหนังตาตก ข้อ sympathetic denervation เป็นตัวล่อที่ดีเพราะทำให้ ptosis ได้เหมือนกัน แต่จะมาพร้อม miosis ไม่ใช่ mydriasis ซึ่งเป็นภาพของ Horner syndrome",
-    "verified": "visual vestibular systems p.32, p.34, p.36"
-  },
-  {
-    "id": 106431,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--visual-vestibular-systems",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตามสไลด์ Horner syndrome เกิดจากความผิดปกติแบบใด และมีอาการทางตาชุดใด",
+    "q": "Horner syndrome เกิดจากความผิดปกติแบบใด และมีอาการทางตาชุดใด",
     "options": [
       "parasympathetic supply ที่ตาลดลง ทำให้เกิด mydriasis, ptosis, exophthalmos และ nictitating membrane ยื่น",
       "sympathetic supply ที่ตาลดลง ทำให้เกิด miosis, ptosis, enophthalmos และ nictitating membrane ยื่น",
@@ -1067,29 +778,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "visual vestibular systems p.41"
   },
   {
-    "id": 106432,
+    "id": 106866,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์ vestibular receptors ระบุตำแหน่งและชนิดของตัวรับไว้อย่างไร",
-    "options": [
-      "อยู่ใน cochlear duct และ organ of Corti โดยตัวรับคือ hair cells",
-      "อยู่ใน saccule, utricle และ ampulla โดยตัวรับคือ Merkel cells",
-      "อยู่ใน cochlear duct และ ampulla โดยตัวรับคือ bipolar neurones",
-      "อยู่ใน saccule, utricle และ ampulla โดยตัวรับคือ hair cells"
-    ],
-    "answer": 3,
-    "explain": "สไลด์ระบุโครงสร้างที่เกี่ยวข้องคือ saccule, utricle และ semicircular canal ส่วน ampulla แล้วเขียนกำกับไว้ชัดว่า Receptor เท่ากับ hair cells ข้อที่ใช้ cochlear duct กับ organ of Corti เป็นตัวล่อที่ดี เพราะที่นั่นก็ใช้ hair cells เป็นตัวรับจริงแต่เป็นส่วนของการได้ยิน ไม่ใช่ส่วนของการทรงตัวที่สไลด์นี้พูดถึง",
-    "verified": "visual vestibular systems p.42-44"
-  },
-  {
-    "id": 106433,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--visual-vestibular-systems",
-    "year": 2,
-    "type": "mcq",
-    "q": "ตามสไลด์สรุป vestibular pathway ข้อใดจับคู่เส้นทางที่ออกจาก vestibular nuclei กับปลายทางได้ตรงกับสไลด์",
+    "q": "สรุป vestibular pathway ข้อใดจับคู่เส้นทางที่ออกจาก vestibular nuclei กับปลายทางได้ตรงกับสไลด์",
     "options": [
       "medial longitudinal fasciculus ไปยัง nuclei ของ CN III, IV และ CN VI",
       "vestibulospinal tract ไปยัง nuclei ของ CN III, IV และ CN VI",
@@ -1101,29 +795,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "visual vestibular systems p.48"
   },
   {
-    "id": 106434,
+    "id": 106868,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "type": "mcq",
-    "q": "สไลด์ให้คำนิยามของ vestibulo-ocular reflex ไว้ว่าอย่างไร",
-    "options": [
-      "keep pupil size constant in light",
-      "keep eyelid closed when touched",
-      "keep head balance & gaze steady",
-      "keep muscle tone when standing"
-    ],
-    "answer": 2,
-    "explain": "สไลด์เขียนคำนิยามสั้น ๆ ไว้ว่า Vestibulo-ocular reflex เท่ากับ keep head balance & gaze steady ซึ่งอธิบายว่าทำไมผังบนสไลด์จึงมี abducens nucleus, oculomotor nucleus, lateral rectus และ medial rectus อยู่ด้วย ข้อ keep eyelid closed when touched เป็นตัวล่อที่ดี เพราะนั่นคือ corneal reflex ซึ่งเป็นอีกหัวข้อหนึ่งที่ถูกลิสต์แยกไว้ในรายการตรวจ neuro-ophthalmology ของเด็คเดียวกัน",
-    "verified": "visual vestibular systems p.49-52"
-  },
-  {
-    "id": 106435,
-    "subject": "vet-neuroanat",
-    "topic": "neuroanat--visual-vestibular-systems",
-    "year": 2,
-    "type": "mcq",
-    "q": "จากตาราง extra-ocular muscles บนสไลด์ กล้ามเนื้อคู่ใดที่ไม่ได้เลี้ยงด้วย CN III ทั้งคู่",
+    "q": "จากตาราง extra-ocular muscles กล้ามเนื้อคู่ใดที่ไม่ได้เลี้ยงด้วย CN III ทั้งคู่",
     "options": [
       "Medial rectus กับ ventral oblique",
       "Dorsal rectus กับ ventral rectus",
@@ -1135,12 +812,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "verified": "visual vestibular systems p.53-54"
   },
   {
-    "id": 106436,
+    "id": 106869,
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "type": "mcq",
-    "q": "จากตารางเทียบ central กับ peripheral vestibular disease บนสไลด์ ลักษณะของ nystagmus ต่างกันอย่างไร",
+    "q": "จากตารางเทียบ central กับ peripheral vestibular disease ลักษณะของ nystagmus ต่างกันอย่างไร",
     "options": [
       "Central เป็น vertical หรือ positional ส่วน peripheral เป็น all directions",
       "Central เป็น all directions ส่วน peripheral เป็น vertical หรือ positional",

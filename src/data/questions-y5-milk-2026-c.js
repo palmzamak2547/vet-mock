@@ -341,7 +341,7 @@ export const QUESTIONS_Y5_MILK_2026_C = [
     "topic": "milk-industry-std",
     "year": 5,
     "type": "mcq",
-    "q": "ตามตัวอย่าง HACCP ของการผลิตนม UHT ในเอกสาร critical limit ของ CCP1 ขั้นตอน milk reception คือข้อใด",
+    "q": "ตามตัวอย่าง HACCP ของการผลิตนม UHT critical limit ของ CCP1 ขั้นตอน milk reception คือข้อใด",
     "options": [
       "ต้องไม่มี antibiotic residue ในน้ำนม",
       "อุณหภูมิน้ำนมรับเข้าต้องไม่เกิน 4 องศาเซลเซียส",
