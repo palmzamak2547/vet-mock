@@ -2922,6 +2922,1836 @@ export const SLIDE_IMAGES = {
   "vet-neuroanat--neuroanat--visual-vestibular-systems--สไลด์ท้ายเด็ค-strabismus-และ-nystagmus": [
     "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p57.jpg",
     "/slides/vet-neuroanat/neuroanat--visual-vestibular-systems/p59.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--outline-ของบทเรียน": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p1.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--amr-เป็นปัญหาสาธารณสุข-เรื่องราวจนถึงตอนนี้": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p1.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--ผลของการใช้ยาต้านจุลชีพในสัตว์ต่อ-resident-bacteria": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p1.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--เส้นทางเชื่อมระหว่างคน-สัตว์-และสิ่งแวดล้อม": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--ทำไม-resident-bacteria-ถึงกลายเป็นปัญหา": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--ยาต้านจุลชีพที่ผสมในอาหารสัตว์ในภูมิภาค-sea": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--เคสตัวอย่างที่-1-pan-drug-resistant-p-aeruginosa-ในคน": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--เคสตัวอย่างที่-2-carbapenem-resistant-p-aeruginosa-ระหว่างเจ้าขอ": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--natural-resistance-vs-acquired-resistance": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--natural-resistance-ของ-p-aeruginosa-ดื้ออะไรมาแต่กำเนิด": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--natural-susceptibility-ของ-wild-type-p-aeruginosa-ยาที่ยังใช้ได้": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--acquired-resistance-เกิดขึ้นได้อย่างไร": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--จาก-mdr-ไป-xdr-ไป-pdr-ใน-p-aeruginosa": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--การเลือกยาและ-ast-panel-สำหรับ-p-aeruginosa": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--antimicrobial-classes-แบ่งตามกลไกออกฤทธิ์": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p5.jpg",
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--polymyxin-และ-colistin-ยาไม้ตายสำหรับแกรมลบ": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--กลไกการดื้อยา-5-แบบ-ภาพรวม": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--กลไก-1-2-decreased-permeability-และ-efflux-pump": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--กลไก-3-drug-inactivation-ด้วยเอนไซม์": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--กลไก-4-target-change": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--กลไก-5-production-of-substituted-target-methicillin-resistant-st": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--empirical-treatment-ให้ยาก่อนรู้ผลเพาะเชื้อ": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p8.jpg",
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--ast-มีไว้ทำอะไร-และมาตรฐานมีของใครบ้าง": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--clsi-documents-และ-quality-control": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--disk-diffusion-test-หลักการและวิธีทำ": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--inoculum-จุดที่พลาดแล้วผลเพี้ยนทั้งจาน": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--การวาง-disk-การ-incubate-และการอ่าน-zone": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--การแปลผล-disk-diffusion-และตัวอย่าง-breakpoint": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p11.jpg",
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--ข้อได้เปรียบและข้อเสียเปรียบของ-disk-diffusion": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--mic-และ-mbc": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--broth-macrodilution-และการต่อยอดหา-mbc": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p13.jpg",
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--broth-microdilution-และ-agar-dilution": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--antimicrobial-gradient-technique-etest": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--การแปลผล-ast-susceptible-intermediate-resistant": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p15.jpg",
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--ข้อได้เปรียบและข้อเสียเปรียบของ-mic-determination": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--vitek-2-compact-และลำดับขั้นงานในห้องปฏิบัติการ": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p16.jpg",
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--ast-panels-ของ-vitek": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--antimicrobial-resistance--mic50-และ-mic90": [
+    "/slides/vet-microbio-1/microbio-1--antimicrobial-resistance/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--โครงของ-lecture-true-fungus-1-โรค-กับ-fungal-like-3-โรค": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--chytridiomycosis-ตัวเชื้อและการกระจาย": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--ไทม์ไลน์ของ-chytrid-fungus-และสถานะในไทย": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--เชื้อไปอยู่ที่ชั้นไหนของผิวหนัง": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--pathogenesis-ของ-chytridiomycosis-berger-et-al-1998": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--clinical-signs-และ-lesions-ของ-chytridiomycosis": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--fungal-like-infections-oomycetes-คือ-parafungus": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--saprolegnia-sp-คือ-cotton-mold": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--รูปร่างและวงจรของ-saprolegnia": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p11.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p12.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--clinical-signs-ของ-saprolegniasis": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--susceptible-condition-สำหรับ-saprolegniasis": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--parafungus-อีกสองตัว-pythium-และ-prototheca": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p16.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--ลักษณะของ-pythium-insidiosum-ในห้องปฏิบัติการ": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--pythiosis-ระบาดวิทยาและการติดเชื้อ": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--รูปแบบของ-pythiosis-ในสัตว์": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--cutaneous-pythiosis-และ-kunkers": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p21.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p22.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--differential-signs-ม้า-vs-สุนัข": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--สไลด์-p-25-อ่านไม่ได้": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--pythiosis-ในสัตว์ชนิดอื่น-ลา-แพะแกะ-และโค": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p26.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p27.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--pythiosis-ในคน": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p28.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p29.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--clinical-diagnosis-และการยืนยัน-pythiosis": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p30.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p31.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--protothecosis-โรคจาก-green-alga": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p32.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--canine-protothecosis-อาการและรอยโรค": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p33.jpg",
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p34.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--แยกกับ-cryptococcosis-look-alike-between-non-staining-bug": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p35.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--feline-protothecosis": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p36.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--สรุปวิธีวินิจฉัยสองโรคคู่กัน": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p37.jpg"
+  ],
+  "vet-microbio-1--microbio-1--aquatic-fungi--conclusions-ของทั้งเด็ค": [
+    "/slides/vet-microbio-1/microbio-1--aquatic-fungi/p38.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--outline-ของเด็คและนิยาม-genetics": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--genome-chromosome-gene-allele": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--โครงสร้าง-dna-watson-and-crick": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--eukaryotic-vs-bacterial-chromosome": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--coding-vs-non-coding-region-และการไม่มี-intron-ในแบคทีเรีย": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--promotor-cistron-และ-polycistronic-mrna": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--central-dogma-และ-codon": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--operon-concept-และ-lac-operon": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--mutations-หลักการพื้นฐาน": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--mutation-rate-แยกตามชนิดของยีน": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--mechanisms-of-mutation": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--results-of-mutation": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--significance-of-mutation": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--ตัวอย่างทางคลินิก-fluoroquinolone-resistance": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--genetic-recombination-และ-crossing-over": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--vertical-vs-horizontal-gene-transfer": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--transformation": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p27.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--griffith-s-experiment-1928": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--conjugation": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p30.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--transduction-และวงจรชีวิตของ-bacteriophage": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p33.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--ตัวอย่างทางคลินิกของ-transduction": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p37.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--mobile-genetic-elements-plasmid": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p38.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--colistin-resistance": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p40.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--integron-และ-gene-cassette": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p42.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--transposable-genetic-elements": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p43.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--phenotyping-และตัวอย่าง-e-coli": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p47.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--genotyping": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p48.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-genetics--applications-ของ-genotyping": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-genetics/p52.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--metabolism-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--catabolic-vs-anabolic-reactions": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--การจำแนกสิ่งมีชีวิตตาม-carbon-energy-และ-electron-source": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p4.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p5.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--5-กลุ่มโภชนาการ-nutritional-types-และตัวอย่างเชื้อ": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--heterotrophic-chemoorganotrophic-metabolism": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--ภาพรวม-catabolism-degradative-reactions": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--respiration": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--glycolysis-emden-meyerhof-panas-pathway": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--fermentation": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p13.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--acetyl-coa-จุดเชื่อมระหว่าง-glycolysis-กับ-krebs-cycle": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--krebs-cycle-หรือ-tca-cycle": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p16.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--electron-transport-system-และ-oxidative-phosphorylation": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p18.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--net-atp-in-aerobic-respiration": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--o2-is-a-poison-for-many-bacteria": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--biochemical-properties-for-bacterial-identification-ภาพรวม": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--starch-hydrolysis-amylase-production": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--sugar-assimilation-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p24.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--of-oxidation-fermentation-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--tsi-triple-sugar-iron-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p27.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--ตารางผล-tsi-รายเชื้อ": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p29.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--mr-และ-vp-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p30.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p31.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p32.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--citrate-utilization-test-simmon-s-citrate": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p33.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--protein-and-amino-acid-metabolism-ภาพรวม": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p34.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--gelatin-hydrolysis-และ-digestion-of-casein": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p35.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p36.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--decarboxylase-test-lysine-ornithine-arginine": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p37.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p38.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--indole-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p39.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--hippurate-hydrolysis-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p40.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--lipid-metabolism-lecithovitellin-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p41.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p42.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--nitrate-reduction-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p43.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--urease-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p44.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--ตาราง-screening-เบื้องต้นระดับ-family-และ-genus": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p45.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--ตัวอย่างที่-1-family-enterobacteriaceae": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p46.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--ตัวอย่างที่-2-coagulase-positive-staphylococci": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p47.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--commercial-identification-systems": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p48.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p49.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-metabolism--maldi-tof-mass-spectrometry": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p50.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p51.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p52.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p53.jpg",
+    "/slides/vet-microbio-1/microbio-1--bacterial-metabolism/p54.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ขอบเขตของ-deck-นี้": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ส่วนประกอบของ-prokaryotic-cell": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--รูปร่างและการเรียงตัวของแบคทีเรีย": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--โครงสร้างที่อยู่นอก-cell-wall-มีอะไรบ้าง": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ย้อมสีเพื่อ-identification-เป็น-simple-diagnostic-technique": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ตารางยาต้านจุลชีพ-กลไก-และเป้าที่โครงสร้างเซลล์": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ขั้นตอนของ-gram-s-staining": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--bacterial-cell-wall-หน้าที่-และการแบ่งสองกลุ่มใหญ่": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--gram-positive-cell-wall": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--gram-negative-cell-wall": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--periplasm": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--lipopolysaccharide-lps-ใน-gram-negative": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--bacterial-endotoxin-เทียบกับ-exotoxin": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--peptidoglycan-คือ-achilles-heel-ของแบคทีเรีย": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--เป้าของยาบน-peptidoglycan": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ตารางเปรียบเทียบ-gram-positive-กับ-gram-negative": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--atypical-cell-wall": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--acid-fast-staining-ziehl-neelsen-stain": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--bacterial-flagellum-โครงสร้าง": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--การจัดเรียงของ-flagella": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--หน้าที่ของ-flagellum-และ-motility-test": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--fimbria-และ-pilus": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--capsule": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p27.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--cell-membrane": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--membrane-proteins": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p29.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--efflux-pump-กับการดื้อยา": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p30.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--bacterial-secretion-systems": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p31.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ยาที่ออกฤทธิ์ที่-cell-membrane": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p32.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--mesosome": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p33.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--cytoplasm-ประกอบด้วยอะไร": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p34.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ribosome": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p35.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ยาที่ออกฤทธิ์ที่-ribosome": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p37.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--nucleoid-และ-mobile-genetic-elements": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p38.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--bacterial-endospore": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p39.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--spore-stain-schaeffer-fulton-stain": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p40.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--biofilm-formation": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p41.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ความสำคัญของ-biofilm": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p42.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--quorum-sensing": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p43.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--ลำดับชั้นของ-bacterial-taxonomy-และประวัติเกณฑ์การจำแนก": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p44.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--concepts-of-classification": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p45.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--chemotaxonomy": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p46.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--genotypic-approach-และตัวเลข-cut-off": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p47.jpg"
+  ],
+  "vet-microbio-1--microbio-1--bacterial-physiology-and-taxonomy--bacterial-phyla": [
+    "/slides/vet-microbio-1/microbio-1--bacterial-physiology-and-taxonomy/p49.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--สิ่งที่ชื่อเด็คสัญญาไว้แต่ตัวสไลด์ไม่ได้พูดถึง": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p1.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--biohazards-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--biosafety-level-ภาพรวม": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--bsl-1": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--bsl-2": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--bsl-3": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--bsl-4": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--สไลด์หน้า-8-ถึง-11": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p8.jpg",
+    "/slides/vet-microbio-1/microbio-1--biosafety/p9.jpg",
+    "/slides/vet-microbio-1/microbio-1--biosafety/p10.jpg",
+    "/slides/vet-microbio-1/microbio-1--biosafety/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--biosafety--biosafety-cabinets-bsc": [
+    "/slides/vet-microbio-1/microbio-1--biosafety/p12.jpg",
+    "/slides/vet-microbio-1/microbio-1--biosafety/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--epidemiology-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p2.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--epidemiology-of-viral-infection-นิยามเฉพาะทาง": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--viral-infection-disease-สเปกตรัมระดับเซลล์ถึงระดับตัวสัตว์": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--นิยาม-infection-กับ-disease-และปัจจัยที่เกี่ยวข้อง": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--environmental-factors": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p7.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--viral-factors-ตอนที่-1-infectivity": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--r0-r-naught": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--viral-factors-ตอนที่-2-pathogenicity-virulence-adaptability": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p11.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--route-of-transmission": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--host-factors": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p14.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p15.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--interactions-between-factors": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--occurrence-measurement-ภาพรวม-3-หัวข้อ": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--type-of-study-prospective-vs-retrospective": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p19.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--frequency-incidence-vs-prevalence": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p21.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--morbidity-mortality-และ-case-fatality-ratio": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--ตัวอย่างการคำนวณจากแผนภาพ": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--distribution-ตามเวลา-seasonal-vs-secular": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--epidemiology-of-viral-infection--pattern-of-occurrence-sporadic-endemic-epidemic-pandemic": [
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p26.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p27.jpg",
+    "/slides/vet-microbio-1/microbio-1--epidemiology-of-viral-infection/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--วัตถุประสงค์ของปฏิบัติการ": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p1.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--microbiological-diagnosis-ใช้กับตัวอย่างแบบไหน": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ลำดับงานตั้งแต่คลินิกจนถึงห้องแล็บ": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--หลักการเก็บตัวอย่าง-เก็บเมื่อไหร่-และเก็บตรงไหนของรอยโรค": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ลำดับการเก็บตัวอย่างจาก-necropsy": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--แยกตำแหน่งเก็บตัวอย่างตามการมี-normal-flora-และการแปลผล": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ภาชนะและ-transport-medium": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ผิวหนัง-ตา-และหู": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p9.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ระบบทางเดินหายใจ": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ระบบทางเดินอาหาร-ลำไส้จาก-necropsy-และอุจจาระ": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p12.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p13.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ของเหลวในช่องลำตัวและน้ำนม": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p15.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ปัสสาวะสำหรับ-urine-quantitative-culture": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p17.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--เลือดสำหรับ-hemoculture": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ตัวอย่างสำหรับ-anaerobic-bacterial-culture": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--sample-submission-การส่งตัวอย่าง": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--ชนิดของ-artificial-culture-media-แบ่งตามความเข้มข้นของ-agar": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--blood-agar-และ-macconkey-agar": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p23.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--primary-culture-การ-streak-และการทำ-pure-culture": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p25.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p26.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p27.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--primary-identification-กับ-secondary-identification-ต่างกันอย่าง": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p29.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--วิธีทำการทดสอบ-primary-identification": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p30.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p31.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p32.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p33.jpg"
+  ],
+  "vet-microbio-1--microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide--งานที่ต้องทำในคาบปฏิบัติการ": [
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p34.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p35.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p36.jpg",
+    "/slides/vet-microbio-1/microbio-1--exercise-2-sample-collection-bacterial-isolation-primary-ide/p37.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--ขอบเขตของ-lecture": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--types-of-hosts-microbe-interaction": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--common-themes-in-infection-endogenous-กับ-exogenous": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--เมื่อไรที่-normal-microflora-กลายเป็นตัวก่อโรค": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--bacterial-pathogen-และ-virulence": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--bacterial-virulence-factors-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--general-virulence-factors-ของ-pathogenic-bacteria": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--ประโยชน์ของงานวิจัยด้าน-bacterial-virulence": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--bacterial-disease-process-ทั้งเส้น": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--หัวข้อย่อยของ-bacterial-adherence": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--pre-adhesion-events-ระยะห่างกำหนดว่าแรงใดทำงาน": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--adhesive-interactions-หรือ-specific-interaction": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--bacterial-structures-ที่ใช้ในการเกาะ-และธรรมชาติของ-adhesins": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--host-molecules-ที่ทำหน้าที่เป็น-receptors": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--tissue-tropism": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--consequences-of-bacterial-adhesion": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--invasion-mechanism-ภาพรวม": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p31.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--สองรูปแบบการ-invade-ตามคำบรรยายรูป-a-และ-b": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p35.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--ตัวอย่าง-epec-และ-ehec-intimin-tir-และ-pedestal-formation": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p37.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--consequences-of-invasion-effect-on-host-cells": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p40.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fundamental-of-host-microbe-interaction--consequences-of-invasion-effect-on-bacteria": [
+    "/slides/vet-microbio-1/microbio-1--fundamental-of-host-microbe-interaction/p43.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--โจทย์และงานที่ต้องทำใน-lab-นี้": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p1.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--collection-methods-direct-vs-indirect": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--principle-of-fungal-culture-และสูตร-sda": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--veterinary-mycological-diagnosis-วิธีตรวจทั้งชุด": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--type-of-fungal-culture-routine-selective-testing-media": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--fungal-characteristics": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--isolation-และ-slide-culture-technique": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--identification-กลุ่ม-zygomycota": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--aspergillus-series": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--penicillium-และเชื้อราอื่นในหน้าเดียวกัน": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--fusarium-alternaria-และ-maldi-tof": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-culture-and-identification-lab--หน้าปิดท้าย": [
+    "/slides/vet-microbio-1/microbio-1--fungal-culture-and-identification-lab/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ขอบเขตของเลกเชอร์-key-features-vet-mycology": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--fungi-ต่างจาก-bacteria-พืช-และสัตว์-อย่างไร": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--fungi-เป็น-heterotroph": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p3.jpg",
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--growth-condition-และ-nutrition-ของเชื้อรา": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--โครงสร้างเซลล์และเป้าของยา": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--mold-ชนิดของ-hypha-และหน้าตา-colony": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p6.jpg",
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--การระบุชนิดด้วยวิธี-molecular-และ-maldi-tof": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--fungal-biology-and-physiology-ที่เกี่ยวกับการเกิดโรค": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--clinical-signs-ที่สไลด์ยกเป็นตัวอย่าง": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ปัญหาการจำแนก-teleomorph-กับ-anamorph-และ-fungi-imperfecti": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p10.jpg",
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--โครงสร้างที่ใช้-identification": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--การจัดกลุ่มโรคเชื้อรา-fungal-disease-classifications": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--organ-involvements-cutaneous-subcutaneous-systemic": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--predisposing-causes-ของการติดเชื้อรา": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--เชื้อราก่อโรคอย่างไร-how-do-fungi-cause-disease": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p16.jpg",
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--five-important-true-fungi-และจำนวน-species": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--phylum-chytridiomycota": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ตารางเปรียบเทียบ-phylum-ที่เกี่ยวกับ-mycotic-disease": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--phylum-zygomycota-common-molds": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p19.jpg",
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p20.jpg",
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--phylum-ascomycota": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p21.jpg",
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ascomycota-harmful-interactions-และ-mycotoxin": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ascomycota-การแยก-aspergillus-และสกุลใกล้เคียง": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--phylum-basidiomycota": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p25.jpg",
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--fungal-disease-and-classification-lect1--ตารางสรุปสี่-division-ท้ายเลกเชอร์": [
+    "/slides/vet-microbio-1/microbio-1--fungal-disease-and-classification-lect1/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--mycetoma-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--mycetoma-family-แบ่งเป็น-3-กลุ่ม": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--แบคทีเรียชั้นสูง-fungus-like-bacteria-higher-bacteria": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--องค์ประกอบผนังเซลล์-เทียบ-4-กลุ่ม": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--the-actinobacteria": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--เชื้อก่อ-mycetoma-eumycetoma-เทียบ-actinomycetoma": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--actinomycotic-mycetoma": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--รอยโรคทางคลินิกของ-mycetoma": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--nocardia-sp": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--เคสรายงานของ-nocardia-ในแมว": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p15.jpg",
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--streptomyces-sp": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--actinomyces-bovis": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--actinomyces-epidemiology-and-clinical-syndromes": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--disease-characteristics-ของ-actinomyces": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--dermatophilus-congolensis": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--รอยโรคของ-dermatophilus": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--trueperella-pyogenes": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--trueperella-pyogenes-ในสุกร": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--การตรวจ-grains-ทางห้องปฏิบัติการ": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--culture-differentiation-จาก-grain-tissue": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p27.jpg"
+  ],
+  "vet-microbio-1--microbio-1--higher-bacteria--key-features-for-differentiation": [
+    "/slides/vet-microbio-1/microbio-1--higher-bacteria/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--อะไรทำให้การติดเชื้อไวรัสสำเร็จ-และ-viral-tropism": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--ชั้นการป้องกันเรียงตามเวลาหลังได้รับเชื้อ": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--physical-anatomical-barriers": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--intrinsic-cellular-defenses": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--รูปประกอบ-intrinsic-defenses-ระบุจุดที่ถูกบล็อก": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--innate-immunity-แยกตัวเองจากสิ่งแปลกปลอมด้วย-pattern": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--interferons-ifns": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--หน้ารูป-interferons": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--sentinel-cells": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--to-kill-or-not-to-kill": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--การสื่อสารกับ-adaptive-immunity": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--major-histocompatibility-complex-mhc": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--epitope-และ-peptide": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--adaptive-immunity-แบ่งเป็นสองสาย": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--phases-of-adaptive-immune-responses": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--humoral-immunity-hmi": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--five-classes-of-antibodies": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--cd8-cytotoxic-t-lymphocyte-ctl": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--cd4-t-helper-lymphocyte-th": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--innate-versus-adaptive-immunity-ตารางเปรียบเทียบ": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--immune-evasion-ของไวรัส": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--immune-responses-to-viral-infections--further-readings-ที่อาจารย์แนะนำ": [
+    "/slides/vet-microbio-1/microbio-1--immune-responses-to-viral-infections/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--outline-ของเด็ค": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--laboratory-diagnosis-of-virus-infection-ภาพใหญ่ก่อนเข้าเรื่อง": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--viral-nucleic-acid-detection-เอาไปใช้ทำอะไร": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--ข้อดีและข้อเสียของ-viral-nucleic-acid-detection": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--3-basic-nucleic-acid-detections-ในห้องแล็บ-clinical-virology": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--nucleic-acid-hybridization-techniques": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--nucleic-acid-amplification-techniques": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--pcr-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--pcr-components": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--3-ขั้นตอนของ-pcr": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--เจาะขั้น-primer-extension-และ-taq-dna-polymerase": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--จำนวน-product-ที่ได้-และการอ่านผลด้วย-gel-electrophoresis": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p13.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--rt-pcr-สำหรับ-rna-viruses": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--real-time-pcr": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--วิธี-detect-ใน-real-time-pcr": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p17.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p18.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--การแปลผล-real-time-pcr-ct-value": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--dna-sequencing": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--วิธี-dna-sequencing-ที่สไลด์ยกมา": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p22.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--virus-classification-genotype-vs-serotype": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--ตัวอย่างที่-1-hpai-h5-clade-nomenclature": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--ตัวอย่างที่-1-ต่อ-hpai-h5-classification": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-pcr-other-molecular-techniques--ตัวอย่างที่-2-ibv-genotype-classification": [
+    "/slides/vet-microbio-1/microbio-1--lab-pcr-other-molecular-techniques/p27.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--กรอบใหญ่-laboratory-diagnosis-of-virus-infection": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--virus-isolation-identification-ใช้เมื่อไหร่": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--สไลด์ที่เป็นหน้าคั่นหรือรูปล้วน": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p4.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p11.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p12.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p13.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--ทำไมใช้-embryonated-eggs": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--use-of-embryonated-eggs": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--egg-source-spf-eggs": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--egg-incubator-สภาวะก่อน-inoculation": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--egg-candling": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--factors-influencing-the-growth-of-viruses": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--route-of-inoculation-ทั้ง-3-ทาง": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p14.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p15.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--temperature-of-incubation": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--recognition-of-virus-infected-eggs": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p18.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p20.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--harvesting-of-virus": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--virus-identification-หลัง-isolation": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--lab-materials": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--lab-allantoic-cavity-inoculation-ทีละขั้น": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--lab-ca-membrane-inoculation-ทีละขั้น": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--สไลด์ชุดนี้พูดถึงอะไรจริง-ๆ": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p1.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--ภาพรวมการวินิจฉัยโรคไวรัส": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--laboratory-diagnosis-แบ่งเป็น-2-ขา-virus-detection-กับ-antibody-": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--ตารางแลป-virology-ข้อมูลบริหารจัดการ": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--sample-collection-right-time-และ-right-place": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--วิธีเก็บตัวอย่าง-ภาชนะและ-transport-media": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--การขนส่งและเก็บรักษาตัวอย่าง": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--sample-preparation-หลักการก่อนลงมือ": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--lab-i-materials-สำหรับเตรียม-tissue-sample": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg--lab-i-methods-8-ขั้นตอน": [
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p13.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p14.jpg",
+    "/slides/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--ลำดับขั้นตอนของ-bacterial-diagnosis-ทั้งกระบวนการ": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--สิ่งที่เด็คนี้เปิดประเด็นไว้แต่ไม่ได้ตอบ": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--specimens-collection-หลักการเก็บตัวอย่าง": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--ชนิดของตัวอย่างที่เก็บจากสัตว์ป่วย": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p4.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--direct-microscopic-examination": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--transportation-of-specimens": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--specimen-processing": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--bacterial-cultivation-nutritional-requirements": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--culture-media-องค์ประกอบพื้นฐาน": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--type-of-culture-medium-แบ่งตามคุณสมบัติ": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--media-ที่ใช้บ่อย-ขนส่งตัวอย่าง-และ-initial-identification": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--macconkey-agar": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p14.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--isolation-of-bacteria-from-specimens": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p16.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--เกณฑ์การจำแนกเชื้อ-phenotypic-กับ-genotypic-criteria": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--macroscopic-colony-morphology": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p19.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--หลักการของ-phenotypic-based-identification": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p21.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--โครงของ-phenotypic-bacterial-identification-primary-กับ-secondar": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--microscopic-morphology-และ-staining-characteristics": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p29.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p30.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p31.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p32.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--environmental-requirement-for-growth": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p33.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--oxidase-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p34.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p35.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--catalase-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p36.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p37.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p38.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--oxidative-fermentative-test-o-f-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p39.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p40.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p41.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p42.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--motility-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p44.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p45.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--sugar-assimilation-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p48.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p49.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p50.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p51.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--urease-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p52.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p53.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p54.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p55.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--amino-acid-decarboxylation-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p56.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p57.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p58.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p59.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p60.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--nitrate-reduction-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p61.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p62.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p63.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p64.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p65.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--indole-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p66.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p67.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p68.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p69.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--methyl-red-mr-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p70.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p71.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p72.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--voges-proskauer-v-p-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p73.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p74.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p75.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p76.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--citrate-utilization-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p77.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p78.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p79.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--triple-sugar-iron-agar-tsi-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p81.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--gluconate-test": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p89.jpg"
+  ],
+  "vet-microbio-1--microbio-1--principle-of-bacterial-diagnosis-in-clinical--bile-esculin-agar": [
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p97.jpg",
+    "/slides/vet-microbio-1/microbio-1--principle-of-bacterial-diagnosis-in-clinical/p98.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--โครงของ-lecture-นี้": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--passive-immunization": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--active-immunization": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--principle-of-vaccination": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--modified-live-live-attenuated-virus-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p9.jpg",
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--วิธีทำ-attenuated-virus-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--ข้อดีและข้อเสียของ-modified-live-virus-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--inactivated-killed-virus-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--adjuvant": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p14.jpg",
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--ข้อดีและข้อเสียของ-inactivated-killed-virus-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--ข้อจำกัดของ-traditional-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--new-generation-vaccine-มีอะไรบ้าง": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--subunit-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--virus-like-particles-vlps-หรือ-virosomes": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--gene-deleted-หรือ-marker-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--virus-vectored-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--dna-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--mrna-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p24.jpg",
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--reverse-genetic-vaccine": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--vaccination-against-viral-diseases--failures-in-vaccination": [
+    "/slides/vet-microbio-1/microbio-1--vaccination-against-viral-diseases/p27.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--งานนี้ให้ทำอะไร-assignment-objective-stem": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p1.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--laboratory-directions-4-ขั้นตอนที่ต้องทำ": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p1.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--guidelines-of-procedure-ระหว่างทำงาน": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--exercise-form-ข้อ-1-8-สิ่งที่ต้องกรอกลงรายงาน": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--exercise-form-ข้อ-9-11-staining-maldi-tof-สรุปผล": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--final-examination-วิดีโอนำเสนอกลุ่ม-5-นาที": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--evaluation-criteria-100-คะแนน": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--submission-details": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--enhanced-guidelines-การป้องกัน-contamination-และ-biosafety": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--veterinary-mycology-practical-assignment--training-ของผู้ปฏิบัติงาน": [
+    "/slides/vet-microbio-1/microbio-1--veterinary-mycology-practical-assignment/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--หลักการของ-viral-antigen-detection": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--ระบบ-label-สองแบบ-enzyme-กับ-fluorochrome": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--materials-ที่ต้องเตรียม": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--สไลด์เครื่องมือ-ภาพล้วน": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p5.jpg",
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--fixation": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--ภาพเปรียบเทียบ-immunochemical-vs-immunofluorescent": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p8.jpg",
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--h-e-vs-ihc-vs-fa": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--monoclonal-vs-polyclonal-antibody": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--direct-vs-indirect-detection": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--direct-detection-protocol": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--indirect-detection-protocol": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--secondary-species-specific-antibody-มาจากไหน": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--ทำไม-indirect-ถึงคุ้มกว่า": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--signal-amplification": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-ag-detection--advantages-และ-disadvantages": [
+    "/slides/vet-microbio-1/microbio-1--viral-ag-detection/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--general-diagnostic-methods-กับที่ทางของ-laboratory-diagnosis": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--sample-collection-ถูกเวลาและถูกที่": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--transportation-และ-maintenance-ของตัวอย่าง": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--ภาพรวม-laboratory-diagnosis-แบ่งเป็น-virus-detection-กับ-antibod": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--viral-diagnostic-methods-3-กลุ่ม": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--1-direct-examination-and-identification-ข้อดีข้อเสีย": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--electron-microscopy-em": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--immunofluorescent-antibody-fa-staining": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--immunohistochemical-immunocytochemical-ihc-icc-staining": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--hemagglutination-ha-test": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--molecular-techniques-polymerase-chain-reaction-pcr": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--2-virus-isolation-and-identification-ทำเมื่อไหร่": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--the-host-systems-ทำไมต้องมี": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--host-system-1-experimental-animals": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--experimental-animals-แบบอื่น-spf-และ-germ-free-gnotobiotes": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--experimental-animals-ข้อดีข้อเสีย": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--host-system-2-embryonated-eggs": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--routes-of-inoculation-ในไข่": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--host-system-3-cell-cultures": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--types-of-cell-culture-monolayer-และ-suspension": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--types-of-cell-culture-organ-culture": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--virus-isolation-ขั้นเตรียมตัวอย่าง": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--virus-isolation-ใน-cell-cultures": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--identification-of-virus-infected-cells-cytopathic-effect-cpe": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p26.jpg",
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p27.jpg",
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--virus-isolation-ใน-embryonated-eggs-หรือ-lab-animals": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p29.jpg",
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p30.jpg",
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p31.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--virus-identification-หลัง-isolation": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p32.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--3-serological-diagnosis-หลักการและข้อจำกัด": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p33.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--serological-tests-4-ตัวที่เด็คนี้เน้น": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p35.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--serum-viral-neutralization-sn-vn-test": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p36.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--enzyme-linked-immunosorbent-assay-elisa": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p37.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--hemagglutination-inhibition-hi-test": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p39.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--agar-gel-immunodiffusion-assay-agid": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p40.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-diagnosis--summary-ที่สไลด์สรุปเอง": [
+    "/slides/vet-microbio-1/microbio-1--viral-diagnosis/p41.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--ผลของไวรัสในระดับเซลล์-cellular-level": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--cpe-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--cpe-แบบที่-1-และ-2-round-up": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--cpe-แบบที่-3-syncytial-formation": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--cpe-แบบที่-4-inclusion-bodies": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--cpe-แบบที่-5-apoptosis": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--cpe-แบบที่-6-plaque-formation": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--ระดับตัวสัตว์-ทางเข้า-การกระจาย-และการปล่อยเชื้อ": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--รูปแบบการติดเชื้อในระดับตัวสัตว์-6-แบบ": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--acute-lytic-infection-แสดงออกได้-4-ระดับ": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--acute-lytic-vs-persistent-infection": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p27.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--transplacental-infection-กับตัวอย่างไวรัสที่เด็คยกไว้": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--transformation-ไวรัสที่เหนี่ยวนำให้เกิดเนื้องอก": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p33.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--virus-induced-immunologic-disease": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p40.jpg"
+  ],
+  "vet-microbio-1--microbio-1--viral-pathogenesis--immunodeficiency": [
+    "/slides/vet-microbio-1/microbio-1--viral-pathogenesis/p45.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--ทำไมต้อง-isolate-ไวรัส-และ-host-system-ที่ใช้ได้": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--cell-culture-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--culture-conditions": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--morphology-of-cells-in-culture": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--cell-monolayer-และ-contact-inhibition": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--subculture-of-cell-monolayer": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p7.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--types-of-cell-culture": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p8.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--explant-culture-และ-organ-culture": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p9.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--specimens-for-virus-isolation": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--วิธี-inoculate-ที่ใช้บ่อย-adsorption-และ-co-culture": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--cytopathic-effect-cpe-คืออะไร-และดูด้วยอะไร": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--round-cpe-ตามเวลาหลัง-inoculation": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--ตัวอย่าง-cpe-ที่มีชื่อเรียกเฉพาะ-fhv-1": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--cpe-แบบ-syncytial-formation": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--cpe-แบบ-inclusion-body-และตัวอย่างที่ต้องจำ": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-isolation-in-cell-culture--ถ้าไวรัสไม่ทำให้เกิด-cpe-จะตรวจอย่างไร": [
+    "/slides/vet-microbio-1/microbio-1--virus-isolation-in-cell-culture/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ทำไมต้องเรียน-virus-replication": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--virus-คือ-obligate-intracellular-parasite": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--one-step-growth-curve": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ภาพรวม-6-ขั้นตอนของ-virus-replication": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p5.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-1-attachment-หรือ-adsorption": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p6.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-2-penetration-หรือ-uptake-มี-3-แบบ": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p9.jpg",
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p10.jpg",
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-3-uncoating": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-4-ชนิดของ-viral-genome": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-4-1-transcription": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-4-1-translation": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p19.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-4-2-viral-nucleic-acid-replication": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ตำแหน่งที่เกิด-transcription-และ-replication": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--baltimore-classification": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-5-assembly": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ขั้นที่-6-release-มี-2-แบบ": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p24.jpg",
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--แผนภาพสรุป-replication-cycle": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p26.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ทำไมต้องรู้-viral-genetics": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p28.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ทำไมไวรัสถึงเปลี่ยนแปลงทางพันธุกรรมได้เร็ว": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p29.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--ผังรวมการเปลี่ยนแปลงทางพันธุกรรมของไวรัส": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p30.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--mutation-คืออะไร-และเกิดจากอะไร": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p31.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--spontaneous-mutation-และ-quasispecies": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p32.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--induced-mutation": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p33.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--types-of-mutation-แบบที่-1-จำแนกตาม-genotype": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p34.jpg",
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p35.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--types-of-mutation-แบบที่-2-จำแนกตาม-phenotype": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p36.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--mixed-infection-viral-genetic-interactions": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p37.jpg",
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p38.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--mixed-infection-complementation": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p39.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--mixed-infection-phenotypic-mixing": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p41.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--mixed-infection-interference-และ-di-mutants": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p42.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-replication-genetic--virus-classification-genotype-เทียบกับ-serotype": [
+    "/slides/vet-microbio-1/microbio-1--virus-replication-genetic/p43.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--virus-คืออะไร": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p2.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--virus-characteristics": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p3.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--สไลด์ที่เป็นภาพล้วน-ต้องเปิดเด็คจริงประกอบ": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p4.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--viral-structure-ทุกไวรัสมีอะไรบ้าง": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p10.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--symmetry-ของ-nucleocapsid-และที่มาของ-envelope": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p11.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--viral-nucleic-acids-ประเภทของ-genome": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p12.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--sense-polarity-ของ-single-stranded-rna": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p13.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--รูปร่างของ-genome-linear-หรือ-circular": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p14.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--the-crucial-function-of-the-capsid": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p15.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--icosahedral-symmetry": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p16.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--5-3-2-rotational-symmetry": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p17.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--capsomers-pentons-และ-hexons": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p18.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--helical-symmetry": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p20.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--complex-symmetry": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p21.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--viral-envelopes-ได้มาจากไหน": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p22.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--โปรตีนที่เกี่ยวข้องกับ-envelope": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p23.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--หน้าที่สำคัญสี่อย่างของ-envelope-associated-proteins": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p24.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--five-basic-structural-forms-of-viruses": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p25.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--classification-of-viruses": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p27.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--virus-taxonomy-ลำดับขั้นและคำลงท้าย": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p30.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--some-properties-of-viruses-used-in-taxonomy": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p31.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--ฐานข้อมูล-taxonomy-ที่ใช้อ้างอิง": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p32.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--unconventional-agents-viroids": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p34.jpg"
+  ],
+  "vet-microbio-1--microbio-1--virus-structure-classification--unconventional-agents-prions": [
+    "/slides/vet-microbio-1/microbio-1--virus-structure-classification/p35.jpg"
   ]
 };
 

@@ -36,6 +36,7 @@ import { NOTES_Y2_PARASIT_1 } from '../data/notes-y2-parasit-1.js';
 import { NOTES_Y2_PHYSIO_LAB_1 } from '../data/notes-y2-physio-lab-1.js';
 import { NOTES_Y2_PHYSIO_LAB_2 } from '../data/notes-y2-physio-lab-2.js';
 import { NOTES_Y2_HISTO } from '../data/notes-y2-histo.js';
+import { NOTES_Y2_MICROBIO_1 } from '../data/notes-y2-microbio-1.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import { hasTopic } from '../lib/vetwiki/registry.js';
@@ -60,6 +61,7 @@ import TemplateLibrary from '../components/TemplateLibrary.jsx';
 // ============================================================
 
 const NOTES_BY_SUBJECT = {
+  'vet-microbio-1': NOTES_Y2_MICROBIO_1,
   'vet-histo': NOTES_Y2_HISTO,
   'vet-physio-lab-2': NOTES_Y2_PHYSIO_LAB_2,
   'vet-physio-lab-1': NOTES_Y2_PHYSIO_LAB_1,
