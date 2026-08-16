@@ -10,7 +10,7 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4507;
+export const QB_TOTAL = 4506;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 144,
@@ -48,7 +48,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'swine-clinic': 92,
   'swine-herd': 36,
   'swine-repro': 29,
-  'vca': 340,
+  'vca': 339,
   'vet-dev-anat': 26,
   'vet-histo': 105,
   'vet-imaging': 35,
@@ -97,7 +97,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'swine-clinic': 92,
   'swine-herd': 36,
   'swine-repro': 29,
-  'vca': 340,
+  'vca': 339,
   'vet-dev-anat': 26,
   'vet-histo': 105,
   'vet-imaging': 35,
@@ -110,7 +110,7 @@ export const Q_COUNTS_BY_YEAR = {
   1: 298,
   2: 145,
   4: 2095,
-  5: 1969,
+  5: 1968,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -634,7 +634,7 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "vca": {
     "aquatic": 38,
-    "dogcat": 96,
+    "dogcat": 95,
     "equine": 40,
     "exotic": 35,
     "poultry": 44,
@@ -920,4 +920,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-16T17:30:04.847Z
+// Built: 2026-08-16T17:42:56.868Z

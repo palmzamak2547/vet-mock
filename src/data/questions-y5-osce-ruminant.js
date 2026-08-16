@@ -46,7 +46,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['CUI', 'COA', 'PD', 'เว้นว่าง (skip)', 'GnRH-Ovsynch'],
     answer: 0,
     explain: 'CUI = Check-up after Uterine Involution · เกณฑ์: DIM 30-60, ไม่พบสัด, ไม่มี insem → ใช้ตรวจหลังมดลูกฟื้นตัวว่ากลับมา cycle ปกติหรือยัง\nDIM 45 = อยู่ใน window 30-60 → CUI\n\nทำไมข้ออื่นผิด:\n— COA = DIM ≥ 60 หรือเคยสัดแต่ไม่ผสม (case นี้ DIM ยังน้อย)\n— PD = ต้องเคยผสมเทียม ≥28d (case นี้ไม่มี insem)\n— skip = DIM <30 หรือ insem <28d (case นี้ DIM 45 = pass voluntary waiting)\n— GnRH-Ovsynch ไม่ใช่ HHM screening program',
-    verified: 'OSCE 26 May 2023 page 1, cow #11 DIM 45 · answer key = CUI' },
+    verified: 'OSCE 26 May 2023 p.1, cow #11 DIM 45 · answer key = CUI' },
 
   { id: 8301, subject: 'ruminant-clinical', topic: 'rum-hhm', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -55,7 +55,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['CUI', 'COA', 'PD', 'เว้นว่าง (skip)', 'รอ next service'],
     answer: 1,
     explain: 'COA = Check Ovarian Activity · เกณฑ์: DIM ≥ 60 + ไม่พบสัด → suspect anestrus / silent heat / cystic ovary → คลำรังไข่/อัลตร้าซาวด์เพื่อหา CL หรือ follicle\nDIM 209 = เกิน VWP มาก ไม่มีสัดเลย → ผิดปกติ ต้องตรวจรังไข่\n\nทำไมข้ออื่นผิด:\n— CUI = DIM 30-60 (case นี้เลยมาก)\n— PD = ต้องมี insem (case นี้ไม่มี)\n— skip = ปล่อยไว้ = เสีย repro days ของฟาร์ม\n— "รอ next service" ไม่ใช่ HHM action (extended DIM = open cow)',
-    verified: 'OSCE 26 May 2023 page 1, cow #1 DIM 209 · answer key = COA' },
+    verified: 'OSCE 26 May 2023 p.1, cow #1 DIM 209 · answer key = COA' },
 
   { id: 8302, subject: 'ruminant-clinical', topic: 'rum-hhm', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -64,7 +64,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['CUI', 'COA', 'PD', 'เว้นว่าง (skip)', 'GnRH'],
     answer: 2,
     explain: 'PD = Pregnancy Diagnosis · เกณฑ์: ผสมเทียมมาแล้ว ≥28-30 วัน → ตรวจท้องด้วย rectal palpation หรือ US\nผสม 42 วันก่อน = พ้น window minimum สำหรับ PD แล้ว ต้องตรวจยืนยัน pregnancy (ถ้าไม่ตรวจ จะไม่รู้ว่าสำเร็จ → เสีย repro efficiency)\n\nทำไมข้ออื่นผิด:\n— CUI/COA = ใช้เมื่อยังไม่มี insem หรือ DIM อยู่ใน window CUI\n— skip = เสียโอกาส diagnosis · 42 วันคือเวลาที่ควรตรวจพอดี\n— GnRH = treatment ไม่ใช่ screening program',
-    verified: 'OSCE 26 May 2023 page 1, cow #3 DIM 144 insem 42d · answer key = PD' },
+    verified: 'OSCE 26 May 2023 p.1, cow #3 DIM 144 insem 42d · answer key = PD' },
 
   { id: 8303, subject: 'ruminant-clinical', topic: 'rum-hhm', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -73,7 +73,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['CUI', 'COA', 'PD', 'Skip', 'metritis check'],
     answer: 3,
     explain: 'Skip = โคยังอยู่ใน Voluntary Waiting Period (VWP, ~30-50 วันหลังคลอด) ระยะนี้ uterine involution ยังไม่เสร็จ และเรายังไม่ต้องการให้ผสมเทียม → ไม่ต้อง screen postpartum program\nDIM 12 = ใหม่มาก ปล่อยให้มดลูกฟื้นตัวก่อน\n\nทำไมข้ออื่นผิด:\n— CUI = DIM 30-60 (case นี้ DIM 12 = ยังไม่ถึง)\n— COA = DIM ≥ 60 (case นี้น้อยกว่า)\n— PD = ต้องมี insem (ไม่มี)\n— metritis check = ทำตอน DIM 7-14 ถ้ามี clinical sign · ที่นี่ไม่ได้ระบุ sign → default skip',
-    verified: 'OSCE 26 May 2023 page 1, cow #15 DIM 12 · answer key = X (skip)' },
+    verified: 'OSCE 26 May 2023 p.1, cow #15 DIM 12 · answer key = X (skip)' },
 
   { id: 8304, subject: 'ruminant-clinical', topic: 'rum-hhm', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -82,7 +82,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['PD', 'CUI', 'COA', 'Skip', 'recheck heat'],
     answer: 3,
     explain: 'Skip = ผสมเทียมมาเพียง 5 วัน → ยังเร็วเกินไปสำหรับ PD (ต้องรอ ≥28d) และไม่เข้า criteria CUI/COA\nรอให้ครบ window แล้วค่อยตรวจ PD รอบหน้า\n\nทำไมข้ออื่นผิด:\n— PD = ต้องรอ ≥28d post-AI (case นี้ 5d = embryo ยังไม่ implant)\n— CUI/COA = ใช้กรณีไม่มี insem หรือ heat without insem (case นี้เพิ่งผสม)\n— "recheck heat" = silent observation ไม่ใช่ HHM program selection',
-    verified: 'OSCE 26 May 2023 page 1, cow #4 DIM 132 insem 5d · answer key = X (skip)' },
+    verified: 'OSCE 26 May 2023 p.1, cow #4 DIM 132 insem 5d · answer key = X (skip)' },
 
   { id: 8305, subject: 'ruminant-clinical', topic: 'rum-hhm', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -91,7 +91,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['CUI', 'COA', 'PD', 'เว้นว่าง (skip)', 'GnRH-Ovsynch'],
     answer: 1,
     explain: 'COA = Check Ovarian Activity · case มีสัดแต่ไม่ได้ผสม + DIM ≥ 60 → ต้องตรวจรังไข่ว่ามี CL/follicle ปกติหรือไม่ และวางแผน next service\nสัด 21 วันก่อน = ใกล้ครบ cycle 21d → ควรกลับมาสัดอีกครั้งเร็วๆ นี้\n\nทำไมข้ออื่นผิด:\n— CUI = DIM 30-60 + no heat (case นี้ DIM 100 + เคยสัด)\n— PD = ต้องมี insem\n— skip = พลาดโอกาส monitor\n— GnRH-Ovsynch = treatment ไม่ใช่ screening (เลือก program ก่อน แล้วค่อยตัดสินใจ hormone)',
-    verified: 'OSCE 26 May 2023 page 1, cow #6 DIM 100 heat 21d · answer key = COA' },
+    verified: 'OSCE 26 May 2023 p.1, cow #6 DIM 100 heat 21d · answer key = COA' },
 
   // ═══════════════════════════════════════════════════════════
   // Topic: rum-reproduction — Hormone selection (GnRH vs PGF2α)
@@ -104,7 +104,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['GnRH', 'PGF2α', 'Estradiol benzoate', 'Oxytocin', 'Progesterone (CIDR)'],
     answer: 0,
     explain: 'Diagnosis: Follicular cyst (cystic follicle ≥2.5 ซม., ไม่มี CL, irregular heat ทุก 7-10 วัน)\nGnRH = first choice → กระตุ้น LH surge → luteinize cyst → กลายเป็น CL → cycle กลับเป็นปกติ\n(หลัง GnRH ~7 วัน อาจตามด้วย PGF2α เพื่อ regress CL ที่สร้างขึ้นใหม่ — Ovsynch logic)\n\nทำไมข้ออื่นผิด:\n— PGF2α = ใช้เมื่อมี CL หรือ luteal cyst (case นี้ไม่มี CL)\n— Estradiol = ไม่ใช่ first-line สำหรับ follicular cyst ใน dairy\n— Oxytocin = สำหรับ milk letdown / retained placenta\n— CIDR = synchronization protocol แต่ไม่ใช่ acute treatment ของ cyst',
-    verified: 'OSCE 26 May 2023 page 6-7, case #1 · answer = GnRH (per page 7 answer list)' },
+    verified: 'OSCE 26 May 2023 p.6-7, case #1 · answer = GnRH (per p.7 answer list)' },
 
   { id: 8311, subject: 'ruminant-clinical', topic: 'rum-reproduction', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -113,7 +113,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['GnRH', 'PGF2α', 'eCG (PMSG)', 'hCG', 'Bromocriptine'],
     answer: 1,
     explain: 'Diagnosis: Silent heat / non-detected estrus + มี CL on ovary → cow cycling จริง แต่ farm ไม่เห็นสัด\nPGF2α = induce luteolysis ของ CL → drop progesterone → cow แสดงสัดใน 2-5 วัน → ผสมได้ตามแผน\n\nทำไมข้ออื่นผิด:\n— GnRH = ใช้เมื่อไม่มี CL หรือมี follicular cyst (case นี้มี CL → ไม่ต้องการ ovulate ใหม่ก่อน lyse CL)\n— eCG = ใช้กระตุ้น follicular growth ใน anestrus cow (case นี้มี follicle ขนาด normal แล้ว)\n— hCG = LH-like, ใช้ similar กับ GnRH สำหรับ cyst\n— Bromocriptine = prolactin inhibitor, ไม่ใช่ repro Tx',
-    verified: 'OSCE 26 May 2023 page 6-7, case #2 · answer = PGF2α (per page 7 answer list)' },
+    verified: 'OSCE 26 May 2023 p.6-7, case #2 · answer = PGF2α (per p.7 answer list)' },
 
   { id: 8312, subject: 'ruminant-clinical', topic: 'rum-reproduction', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -122,7 +122,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['GnRH', 'PGF2α', 'Oxytocin', 'Estradiol', 'CIDR + PGF'],
     answer: 1,
     explain: 'Diagnosis: Luteal cyst (ผนัง ≥3 มม., มี luteinized tissue, secretes progesterone)\nPGF2α = lyse luteal tissue → ผนัง cyst regress → cow กลับ cycle\n\nDDx จาก follicular cyst:\n— Follicular cyst: ผนังบาง <3 mm, thin-walled anechoic → ตอบ GnRH\n— Luteal cyst: ผนังหนา ≥3 mm, มี echo rim → ตอบ PGF2α\n\nทำไมข้ออื่นผิด:\n— GnRH = ใช้กับ follicular cyst (case นี้ผนังหนา → luteal)\n— Oxytocin = ไม่มี role กับ cyst\n— Estradiol = ไม่ recommend\n— CIDR+PGF = synchronization protocol, ไม่ใช่ first-line acute treatment',
-    verified: 'OSCE 26 May 2023 page 6-7, case #4 luteal cyst image · answer = PGF2α' },
+    verified: 'OSCE 26 May 2023 p.6-7, case #4 luteal cyst image · answer = PGF2α' },
 
   { id: 8313, subject: 'ruminant-clinical', topic: 'rum-reproduction', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -131,7 +131,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     options: ['GnRH', 'PGF2α', 'Oxytocin', 'CIDR alone', 'eCG'],
     answer: 0,
     explain: 'Diagnosis: Follicular cyst (ผนังบาง <3 มม., anechoic, ขนาด ≥2.5 ซม., ไม่มี CL)\nGnRH = first-line → induce LH surge → luteinize cyst → กลายเป็น CL function → resume cycle\n\nทำไมข้ออื่นผิด:\n— PGF2α = ไม่มี CL ให้ lyse (case นี้เป็น follicular cyst, ผนังบาง)\n— Oxytocin = irrelevant\n— CIDR alone = progesterone supply ไม่แก้ cyst โดยตรง\n— eCG = follicular stimulation, ทำให้แย่ลง',
-    verified: 'OSCE 26 May 2023 page 6-7, case #5 follicular cyst image · answer = GnRH' },
+    verified: 'OSCE 26 May 2023 p.6-7, case #5 follicular cyst image · answer = GnRH' },
 
   // ═══════════════════════════════════════════════════════════
   // Topic: rum-hattakan — Milk fever sample collection + Tx
@@ -150,7 +150,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     ],
     answer: 0,
     explain: 'Diagnosis: Milk fever (parturient hypocalcemia)\n— Classic signs: lactation ≥3, สดหลังคลอด, sternal recumbency, คอพับ S-shape, T ต่ำกว่าปกติ (<101°F), ไม่มี rumen contraction\n— ต้องวัด total/ionized Ca → ใช้ serum (clot tube) หรือ heparin tube ก็ได้ แต่ standard = clot tube (red top, no anticoag)\n— EDTA จะ chelate Ca → ไม่ใช้\n— เข็ม 18G ยาว 1-1.5" สำหรับเจาะ jugular/coccygeal vein\n\nTreatment: Calcium borogluconate IV slow + monitor heart\n\nทำไมข้ออื่นผิด:\n— EDTA chelate Ca, false hypocalcemia\n— Heparin OK สำหรับ ionized Ca แต่ไม่ใช่ standard ที่ briefing ระบุ\n— Citrate/Fluoride = coag/glucose tube, ไม่เหมาะ',
-    verified: 'OSCE 26 May 2023 page 8 · syringe + no-anticoag tube + 18G needle (per ปิยะณัฐ ประสมศรี briefing)' },
+    verified: 'OSCE 26 May 2023 p.8 · syringe + no-anticoag tube + 18G needle (per ปิยะณัฐ ประสมศรี briefing)' },
 
   { id: 8321, subject: 'ruminant-clinical', topic: 'rum-hattakan', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -165,7 +165,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     ],
     answer: 0,
     explain: 'Tx Milk fever:\n— Calcium borogluconate 23% IV slow (ใช้เวลา 10-20 นาที) · dose 1 mL/kg or 500 mL per adult cow\n— ระวัง cardiac arrhythmia → ให้ช้า ฟังเสียงหัวใจ ถ้าใจสั่น/เร็วต้องหยุด\n— Stand-up rate ภายใน 30 นาที = good response\n— Subcutaneous Ca = backup ถ้า IV ไม่สะดวก (ห้าม IM = necrosis)\n\nIV catheter 18-20G + ชุดให้สารน้ำ = standard equipment\n\nทำไมข้ออื่นผิด:\n— MgSO4 = grass tetany (case นี้ classic Ca, ไม่ใช่ Mg)\n— Dextrose+thiamine = ketosis (case นี้ไม่ได้ระบุ glucose drop)\n— Oxytetra+flunixin = ABO+NSAID สำหรับ mastitis/metritis ไม่ใช่ hypocalcemia\n— Hypertonic saline = endotoxic shock support, ไม่ใช่ first-line milk fever',
-    verified: 'OSCE 26 May 2023 page 8 · Ca borogluconate + IV set + 18-20G catheter' },
+    verified: 'OSCE 26 May 2023 p.8 · Ca borogluconate + IV set + 18-20G catheter' },
 
   // ═══════════════════════════════════════════════════════════
   // Topic: rum-mastitis — Acute toxic vs chronic mastitis
@@ -184,7 +184,7 @@ export const QB_Y5_OSCE_RUMINANT = [
     ],
     answer: 0,
     explain: 'Diagnosis: Acute (peracute) toxic coliform mastitis (กลุ่ม E. coli, Klebsiella)\n— Signs: เริ่มเร็ว <12 ชม., เต้าบวมร้อน, น้ำนมเป็นน้ำใสเหลือง (serum-like), fever 104°F, dehydration (sunken eye + muzzle dry), GI ileus (อุจจาระเหลว, rumen slow)\n— Endotoxemia → systemic support สำคัญกว่า intramammary\n\nManagement: "ABCDE" of toxic mastitis\n  A. Aggressive IV fluid (hypertonic saline 4-5 mL/kg → LRS 50-80 mL/kg/day)\n  B. NSAID — Flunixin meglumine 2.2 mg/kg IV (anti-endotoxin)\n  C. Systemic ABO Gram-neg coverage: Ceftiofur, Amoxicillin LA, Oxytetra\n  D. Frequent stripping + oxytocin (clear toxin from gland)\n  E. Supportive (ระวัง hypocalcemia ร่วม)\n\nทำไมข้ออื่นผิด:\n— Dry-cow ABO = chronic mastitis dry period, ไม่ใช่ acute toxic\n— Oxytetra IM อย่างเดียว = miss IV fluid + NSAID = cow ตายเร็ว\n— Anti-histamine + steroid ไม่ใช่ standard · ห้ามรีด = endotoxin คั่งทำให้แย่ลง\n— Probiotic = ไม่ตรง Dx',
-    verified: 'OSCE 26 May 2023 page 9 case A · toxic mastitis Tx = NSAID + IV fluid + systemic ABO' },
+    verified: 'OSCE 26 May 2023 p.9 case A · toxic mastitis Tx = NSAID + IV fluid + systemic ABO' },
 
   { id: 8331, subject: 'ruminant-clinical', topic: 'rum-mastitis', year: 5,
     source: SRC, examOrigin: ORIGIN,
@@ -199,5 +199,5 @@ export const QB_Y5_OSCE_RUMINANT = [
     ],
     answer: 0,
     explain: 'Diagnosis: Chronic / subacute mastitis (น่าจะเป็น Gram+ contagious — Staph aureus, Strep ag.)\n— Signs: progress ช้า (8 วัน), บวมเล็กน้อย, อาการ systemic น้อย (T ปกติ, ไม่ขาดน้ำ, กินอาหารได้), น้ำนมมีลิ่ม (clots)\n— PE ไม่มี toxemia → ไม่ใช่ acute toxic case\n— เจ้าของให้ systemic ABO แล้วไม่ตอบสนอง → ต้อง culture + sensitivity\n\nManagement: "evidence-based" chronic mastitis\n  1. รอผล culture + AST\n  2. Intramammary ABO ตาม sensitivity (penetrate gland ดีกว่า systemic ใน chronic case)\n  3. Frequent stripping + oxytocin\n  4. ถ้าไม่หาย (Staph aureus มัก fail) → dry-off กลีบ หรือ cull at next dry period\n\nทำไมข้ออื่นผิด:\n— Toxic mastitis protocol = over-treatment, case นี้ไม่ใช่ acute toxic\n— Cull ทันที = waste, ลอง treatment ก่อน\n— Repeat Amox LA อย่างเดียว = ตัวเดิมที่ fail แล้ว, ไม่มี culture guide\n— Steroid + ห้ามรีด = แย่ลง (เก็บ infection ในเต้า)',
-    verified: 'OSCE 26 May 2023 page 9 case B · chronic mastitis Tx = culture-guided intramammary + frequent stripping' },
+    verified: 'OSCE 26 May 2023 p.9 case B · chronic mastitis Tx = culture-guided intramammary + frequent stripping' },
 ];

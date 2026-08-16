@@ -9,16 +9,16 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Total questions** | **4,507** |
+| **Total questions** | **4,506** |
 | Question banks (files) | 65 |
 | Subjects with questions | 42 |
 | Years covered | 1, 2, 4, 5 |
 | — year 1 | 298 |
 | — year 2 | 145 |
 | — year 4 | 2,095 |
-| — year 5 | 1,969 |
+| — year 5 | 1,968 |
 
-Consistency: counted **4507**, `q-counts.js` says **4507**, registry sums to **4507**, files missing from the registry: **0** → ✅ consistent
+Consistency: counted **4506**, `q-counts.js` says **4506**, registry sums to **4506**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 

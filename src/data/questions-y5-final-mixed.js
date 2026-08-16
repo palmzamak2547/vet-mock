@@ -446,15 +446,6 @@ export const QB_Y5_FINAL_MIXED = [
     explain: 'Dermatophytosis = ringworm (Microsporum/Trichophyton)\n• Circular skin lesion (วงกลม) + crust + hair loss\n• Zoonotic\n\n❌ ข้ออื่น\n— Malassezia = greasy + brown skin\n— Sarcoptic mange = ear margin + elbow + intense pruritus (ไม่วงกลม)\n— Pseudomycetoma = nodular subcut\n— Demodex = follicular alopecia ไม่คัน',
     verified: 'สรุป 80 p.11 (Vet 83 marked B + "Sarcoptic mango ไม่ค่อยเป็นวง!")' },
 
-  { id: 8039, subject: 'vca', topic: 'dogcat', year: 5,
-    source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
-    examOrigin: 'Vet 80 past paper · Vet 83 update commentary',
-    tags: ['TVT', 'tumor', 'venereal'], type: 'mcq',
-    q: 'สุนัขเพศเมียอายุ 10 ปี มีประจ้ำเป็นก้อนใหญ่ ผังออกจากปลายลึงจะ บริเวณคบลกหัวลูก ระยะเวลา 1 เดือน พระวาเทินการีอินส่งกู่เพราะที่กรืในที่ลึงมีอะไหล่ทอนใจที่ผ่านพี่เพื่อสีอกอ ใจกามาคิดไม่กลายดเรียง และมาในวงเวลา 10 เดือนที่ผ่านมา มีผัวเจริญมาทาง',
-    options: ['เนื้องอกของลังหับ คือ Transmissible venereal tumor (TVT)', 'เกิดจากเชื้อหนองในตัวเมีย (Brucella canis)', 'เกิดจากการสัมผัสโดยตรง เช่น การผสมพันธุ์', 'เกิดจากการติดเชื้อไวรัส papillomavirus', 'เกิดจากการถ่ายทอดทางพันธุกรรมในสายพันธุ์', 'เกิดจาก autoimmune response ต่อเยื่อบุ'],
-    answer: 2,
-    explain: 'TVT (Transmissible Venereal Tumor) = ผ่านโดย direct contact (mating, licking)\n• ไม่ใช่ infectious agent — แต่เป็น "allograft tumor" — clonal tumor cell line\n• Pathognomonic: cauliflower-like mass บน external genitalia\n• Treatment: Vincristine\n\n❌ ข้ออื่นผิด\n— TVT ก็ถูกแต่ "สาเหตุ direct contact" เป็น mechanism\n— ไม่ใช่ pyometra\n— ไม่ใช่ virus (เป็น cancer cell transfer)\n— ไม่ใช่ autoimmune',
-    verified: 'สรุป 80 p.11 (Vet 83 marked C "Direct contact" + VG circle)' },
 
   { id: 8040, subject: 'swine-clinic', topic: 'swine-pcv2', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
