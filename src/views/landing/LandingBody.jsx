@@ -51,7 +51,7 @@ export default function LandingBody(p) {
               <span>{t.heroFocusLine}</span><span style={{ color: 'var(--clr-sage)', fontWeight: 600, fontFamily: 'IBM Plex Sans Thai, sans-serif', fontSize: 14 }}>{t.heroWords[p.heroWord]} →</span>
             </div>
             <div className="lp-center-md lp-flex" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
-              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'var(--vmx-mono)' }}>→</span></button>
+              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary lp-feature-cta" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'var(--vmx-mono)' }}>→</span></button>
               <a href="#subjects" className="vmx-btn vmx-btn-ghost" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta2}</a>
             </div>
             {/* Hero stats — every figure DERIVED from the shipped question
@@ -186,7 +186,7 @@ export default function LandingBody(p) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
                 {t.mockBullets.map((b) => <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 14, color: 'var(--clr-ink)' }}><span style={{ color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>✓</span>{b}</div>)}
               </div>
-              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ alignSelf: 'flex-start', marginTop: 4 }}>{t.heroCta1} →</button>
+              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm lp-feature-cta" style={{ alignSelf: 'flex-start', marginTop: 4 }}>{t.heroCta1} →</button>
             </div>
             <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>

@@ -112,6 +112,7 @@ html.lp-active { background: var(--clr-bg); }
 .lp-navlink::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 5px; height: 2px; background: var(--clr-sage); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform .24s cubic-bezier(.2,.7,.2,1); }
 .lp-navlink:hover::after, .lp-navlink.is-active::after { transform: scaleX(1); }
 .lp-navlink:hover, .lp-navlink.is-active { color: var(--clr-ink); }
+.lp-feature-cta { width: max-content; max-width: 100%; white-space: nowrap; overflow: visible; }
 .lp-ctx { transition: border-color .15s, transform .15s; }
 .lp-ctx:hover { border-color: var(--clr-sage); transform: translateY(-1px); }
 .lp-iconbtn { width: var(--touch-min, 44px); height: var(--touch-min, 44px); border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--clr-ink); flex-shrink: 0; transition: border-color .2s, background .2s, box-shadow .2s, transform .15s; }
