@@ -203,6 +203,7 @@ const PhaseWrappedView = lazy(() => import('./views/PhaseWrappedView.jsx'));
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
+import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
 // payload doesn't grow on existing users. Both are no-op in dev mode
@@ -420,6 +421,10 @@ export default function App() {
   // their year. The pick is read SYNCHRONOUSLY here (not via the hook)
   // because useLocalStorage's useEffect hydrates the key on first mount,
   // which would erase the "absent" signal.
+  // A failed Notes chunk must reload before native ESM will retry it. Consume
+  // the one-shot destination saved by NotesView so that reload resumes the
+  // exact subject instead of silently dropping the student on Home.
+  const notesRetryTarget = typeof window !== 'undefined' ? readNoteRetryTarget() : null;
   const initialView = (() => {
     if (typeof window === 'undefined') return 'home';
     try {
@@ -432,6 +437,7 @@ export default function App() {
       // so the usual outcome was an ordinary signed-out page that explained
       // nothing. The student cannot tell a dead link from a broken app.
       if (/[#?&]error(_code)?=/.test(window.location.hash + window.location.search)) return 'auth';
+      if (notesRetryTarget) return 'notes';
       // VetWiki owns a real path namespace so its articles are shareable and
       // citable (/wiki, /wiki/<subject>/<topic>[#section]). vercel.json
       // rewrites /wiki/* to the SPA; see src/lib/vetwiki/url.js.
@@ -484,14 +490,23 @@ export default function App() {
     return 'home';
   })();
 
+  // Remove only after the initial render has consumed it. React StrictMode
+  // deliberately renders twice in development; removing during render would
+  // make the second pass lose the destination and fall back to Home.
+  useEffect(() => {
+    if (notesRetryTarget) clearNoteRetryTarget();
+    // Initial navigation seed only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [view, setViewRaw] = useState(initialView);
   const viewRef = useRef(initialView);
   const [mode, setMode] = useState('quick');
   // Seed from /wiki/<subject>/<topic> so a shared article link opens directly
   // on that article instead of the wiki index.
   const _wikiEntry = typeof window !== 'undefined' ? parseWikiPath(window.location.pathname) : { subject: null, topic: null };
-  const [subject, setSubject] = useState(_wikiEntry.subject || 'all');
-  const [topic, setTopic] = useState(_wikiEntry.topic || null);
+  const [subject, setSubject] = useState(_wikiEntry.subject || notesRetryTarget?.subject || 'all');
+  const [topic, setTopic] = useState(_wikiEntry.topic || notesRetryTarget?.topic || null);
   // Videos may be opened either globally (show every subject) or from a
   // subject page (start scoped to that subject). Keep this navigation
   // context separate from the last exam subject so global Videos never
@@ -2057,7 +2072,7 @@ export default function App() {
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady }} />}
-              {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, customQuestions, selectedYear, selectedPhase }} />}
+              {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}

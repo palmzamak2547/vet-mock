@@ -60,6 +60,7 @@ export default defineConfig({
           /data-video-summaries/,      // VideoView only · 2 MB
           /data-notes-/,               // NotesView only · per-subject
           /data-instructors/,          // FacultyView only · 135 KB
+          /vendor-validation/,         // JSON import only · Dashboard/Q manager
         ];
         return deps.filter((dep) => !SKIP_PRELOAD_PATTERNS.some((re) => re.test(dep)));
       },
@@ -68,6 +69,9 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            // Runtime schemas are only needed when importing JSON in two lazy
+            // views. Keep them out of the shared first-load vendor chunk.
+            if (/[\\/]node_modules[\\/]valibot[\\/]/.test(id)) return 'vendor-validation'
             // Be SPECIFIC about react packaging — `includes('react')` was
             // too broad and matched any path containing the substring
             // (e.g. `use-sync-external-store`, `cmdk`, things that

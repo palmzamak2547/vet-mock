@@ -63,6 +63,15 @@ window.addEventListener('vite:preloadError', (event) => {
     return
   }
 
+  // A lazy chunk can fail because the device is genuinely offline, not
+  // because a deploy replaced its hash. Let the importing component receive
+  // that rejection so it can show its own retry UI; reloading here only throws
+  // the student back to Home and cannot restore connectivity.
+  if (navigator.onLine === false) {
+    console.warn('[chunk] preload failed while offline — leaving retry to the current view')
+    return
+  }
+
   if (sessionStorage.getItem(reloadKey) === '1') {
     // Already tried once this session — don't reload again
     console.error('[chunk] preload failed twice — letting ErrorBoundary handle:', event?.payload)

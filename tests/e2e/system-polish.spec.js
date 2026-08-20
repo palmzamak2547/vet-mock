@@ -141,3 +141,29 @@ test('a failed VetWiki article chunk offers a working retry', async ({ page, bro
   await expect(page.getByRole('heading', { level: 1, name: /Rabies/ })).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
   expect(failedOnce).toBe(true);
 });
+
+test('an offline Notes chunk retries without losing the selected subject', async ({ page, context, browserName, isMobile }) => {
+  test.skip(browserName !== 'chromium' || !!isMobile, 'one native-module recovery proof is enough');
+  await page.addInitScript(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register = () => Promise.reject(new Error('service worker blocked for Notes recovery test'));
+    }
+  });
+
+  await page.goto('/');
+  await page.locator('.vmx-subject-card').filter({ hasText: /COM V/ }).first().click();
+  const rabies = page.locator('.vmx-topic-card').filter({ hasText: /Rabies/ }).first();
+  await expect(rabies).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
+  await rabies.getByRole('button', { name: 'สรุป', exact: true }).click();
+  await expect(page.locator('.vmx-notes-grid')).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
+
+  await context.setOffline(true);
+  await page.getByRole('button', { name: '🩺 COM IV', exact: true }).click();
+  await expect(page.getByText(/การเชื่อมต่อสะดุด.*COM IV.*ข้อมูลเดิมยังอยู่ครบ/)).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
+
+  await context.setOffline(false);
+  await page.getByRole('button', { name: 'ลองอีกครั้ง', exact: true }).click();
+  await expect(page.locator('.vmx-notes-grid')).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
+  await expect(page.getByText(/🩺 COM IV · เนื้อหาจากสไลด์เลกเชอร์/)).toBeVisible();
+  expect(await page.evaluate(() => sessionStorage.getItem('vmx-notes-retry-target'))).toBeNull();
+});

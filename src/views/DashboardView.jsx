@@ -1,6 +1,11 @@
 import { useMemo, useState, useEffect, lazy, Suspense } from 'react';
 import { SUBJECTS, QB } from '../data/questions.js';
 import { downloadJSON } from '../hooks/utils.js';
+import {
+  describeBackupFields,
+  parseUserBackup,
+  USER_DATA_IMPORT_MAX_BYTES,
+} from '../lib/user-data-schema.js';
 import BackBar from '../components/BackBar.jsx';
 import { getWebVitalsSamples, summarize } from '../lib/web-vitals.js';
 import StreakHeatmap from '../components/StreakHeatmap.jsx';
@@ -267,7 +272,7 @@ function WebVitalsPanel() {
   );
 }
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, customQuestions, selectedYear = 4, selectedPhase }) {
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase }) {
   // Year-scope toggle: 'current' restricts charts/heatmap/learning-curve
   // to the user's current year context; 'all' shows the lifetime view.
   // Persist user preference so they don't have to re-pick every visit.
@@ -346,12 +351,15 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const exportData = () => {
     const data = {
       exportDate: new Date().toISOString(),
-      version: '5.0',
+      version: '5.1',
       bookmarks,
       history,
       notes,
       srCards,
       streak,
+      // Keep the legacy number for old VetMock versions, while v5.1 restores
+      // the real last-study/freeze timestamps instead of inventing "today".
+      streakData: streakData || { streak, lastDate: null, freezeUsedAt: null },
       customQuestions,
     };
     downloadJSON(data, `vetmock-backup-${Date.now()}.json`);
@@ -360,22 +368,60 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const importData = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > USER_DATA_IMPORT_MAX_BYTES) {
+      alertDialog('ไฟล์ใหญ่เกิน 20 MB กรุณาตรวจว่าเลือกไฟล์ backup ของ VetMock ถูกไฟล์');
+      e.target.value = '';
+      return;
+    }
     const reader = new FileReader();
     reader.onload = async (ev) => {
       try {
-        const data = JSON.parse(ev.target.result);
-        if (await confirmDialog({ title: 'นำข้อมูลเข้า?', body: 'ข้อมูลในเครื่องตอนนี้จะถูกทับด้วยไฟล์ที่เลือก', confirmLabel: 'นำเข้าและทับของเดิม', tone: 'danger' })) {
-          if (data.bookmarks) setBookmarks(data.bookmarks);
-          if (data.history) setHistory(data.history);
-          if (data.srCards) setSrCards(data.srCards);
-          if (data.notes && setNotes) setNotes(data.notes);
-          if (data.customQuestions && setCustomQuestions) setCustomQuestions(data.customQuestions);
-          if (data.streak !== undefined && setStreakData) {
-            setStreakData({ streak: data.streak, lastDate: Date.now() });
-          }
-          alertDialog('Import สำเร็จ! Reload หน้าเพื่อเห็นการเปลี่ยนแปลง');
+        const decoded = JSON.parse(ev.target.result);
+        const parsed = parseUserBackup(decoded);
+        if (!parsed.success) {
+          alertDialog(`ไฟล์ backup ไม่ผ่านการตรวจสอบ\n\n${parsed.reason}\n\nข้อมูลในเครื่องยังไม่ถูกเปลี่ยน`);
+          e.target.value = '';
+          return;
         }
-      } catch { alertDialog('ไฟล์ไม่ถูกต้อง'); }
+
+        const { data, fields } = parsed;
+        const preview = describeBackupFields(data, fields);
+        const accepted = await confirmDialog({
+          title: 'ตรวจรายการก่อนนำเข้า',
+          body: `ข้อมูลที่จะเขียนทับ:\n${preview.map((line) => `• ${line}`).join('\n')}\n\nรายการที่ไม่มีในไฟล์จะคงเดิม`,
+          confirmLabel: 'นำเข้าและทับรายการนี้',
+          tone: 'danger',
+        });
+        if (accepted) {
+          const has = (field) => Object.prototype.hasOwnProperty.call(data, field);
+          // Presence checks (not truthiness) are intentional: an empty array
+          // in a backup means "restore as empty" and must be respected.
+          if (has('bookmarks')) setBookmarks(data.bookmarks);
+          if (has('history')) setHistory(data.history);
+          if (has('srCards')) setSrCards(data.srCards);
+          if (has('notes') && setNotes) setNotes(data.notes);
+          if (has('customQuestions') && setCustomQuestions) setCustomQuestions(data.customQuestions);
+          if (setStreakData) {
+            if (has('streakData')) {
+              const { freezeJustUsed: _transient, ...restoredStreak } = data.streakData;
+              setStreakData(restoredStreak);
+            } else if (has('streak')) {
+              // Legacy backups did not retain the last-study timestamp. Null is
+              // honest; setting Date.now() would falsely claim practice today.
+              setStreakData({ streak: data.streak, lastDate: null, freezeUsedAt: null });
+            }
+          }
+          alertDialog('นำเข้าข้อมูลเรียบร้อยแล้ว หน้านี้อัปเดตทันที');
+        }
+        e.target.value = '';
+      } catch (error) {
+        e.target.value = '';
+        alertDialog(`อ่านไฟล์ backup ไม่สำเร็จ\n\n${error?.message || 'ไฟล์ JSON ไม่ถูกต้อง'}\n\nข้อมูลในเครื่องยังไม่ถูกเปลี่ยน`);
+      }
+    };
+    reader.onerror = () => {
+      e.target.value = '';
+      alertDialog('อ่านไฟล์ไม่สำเร็จ กรุณาลองเลือกไฟล์อีกครั้ง ข้อมูลในเครื่องยังไม่ถูกเปลี่ยน');
     };
     reader.readAsText(file);
   };
@@ -597,14 +643,14 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       <WebVitalsPanel />
 
       <div className="vmx-dash-card">
-        <h3>Backup & Import</h3>
+        <h3>สำรองและย้ายข้อมูล</h3>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
-          Export ข้อมูลทั้งหมด (bookmarks, history, notes, SR cards) เป็นไฟล์ JSON เพื่อ backup หรือย้ายเครื่อง
+          เก็บข้อที่บันทึกไว้ ประวัติ โน้ต และการ์ดทบทวนเป็นไฟล์ JSON · ก่อนนำเข้าระบบจะตรวจไฟล์และสรุปรายการที่จะเขียนทับ
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportData}>Export Backup</button>
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportData}>ส่งออกไฟล์สำรอง</button>
           <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
-            Import Backup
+            นำเข้าไฟล์สำรอง
             <input type="file" accept=".json" onChange={importData} style={{ display: 'none' }} />
           </label>
         </div>
@@ -615,7 +661,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           if (await confirmDialog({
             title: 'ล้างข้อมูลทั้งหมด?',
             body: 'bookmarks, ประวัติการฝึก, โน้ต, SR cards และ streak จะหายหมด',
-            note: 'กู้คืนไม่ได้ — export backup ไว้ก่อนถ้ายังไม่แน่ใจ',
+            note: 'กู้คืนไม่ได้ — ส่งออกไฟล์สำรองไว้ก่อนถ้ายังไม่แน่ใจ',
             confirmLabel: 'ล้างทั้งหมด',
             tone: 'danger',
           })) {

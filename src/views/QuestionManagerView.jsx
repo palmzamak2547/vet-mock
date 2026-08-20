@@ -3,6 +3,7 @@ import { QB, SUBJECTS } from '../data/questions.js';
 import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON } from '../hooks/utils.js';
 import { confirmDialog, alertDialog, promptDialog } from '../lib/dialog.js';
+import { parseCustomQuestion, USER_DATA_IMPORT_MAX_BYTES } from '../lib/user-data-schema.js';
 
 export default function QuestionManagerView({ customQuestions, setCustomQuestions, goHome }) {
   const [showForm, setShowForm] = useState(false);
@@ -154,56 +155,36 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
 
   const exportCustom = () => downloadJSON(customQuestions, `custom-questions-${Date.now()}.json`);
 
-  // Validate one entry against required fields per type. Returns
-  // null if valid, or a short reason string if invalid. Used during
-  // import to avoid silently committing broken questions that crash
-  // the renderer later (e.g., MCQ with no options or no answer index).
-  const validateImportItem = (q) => {
-    if (!q || typeof q !== 'object') return 'not an object';
-    if (!q.q || typeof q.q !== 'string' || !q.q.trim()) return 'missing q (question text)';
-    if (!q.subject || typeof q.subject !== 'string') return 'missing subject';
-    if (!q.type || typeof q.type !== 'string') return 'missing type';
-    if (q.type === 'mcq') {
-      if (!Array.isArray(q.options) || q.options.length < 2) return 'mcq needs ≥2 options';
-      if (typeof q.answer !== 'number' || q.answer < 0 || q.answer >= q.options.length) return 'mcq answer index out of range';
-    } else if (q.type === 'tf') {
-      if (typeof q.answer !== 'boolean') return 'tf answer must be true/false';
-    } else if (q.type === 'fill') {
-      if (!Array.isArray(q.blanks) || q.blanks.length === 0) return 'fill needs blanks[]';
-    } else if (q.type === 'match') {
-      if (!Array.isArray(q.pairs) || q.pairs.length === 0) return 'match needs pairs[]';
-    } else if (q.type === 'short' || q.type === 'essay') {
-      // open-ended types are lenient — model_answer optional
-    } else {
-      return `unknown type "${q.type}"`;
-    }
-    return null;
-  };
-
   const importCustom = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > USER_DATA_IMPORT_MAX_BYTES) {
+      alertDialog('ไฟล์ใหญ่เกิน 20 MB กรุณาแบ่งเป็นหลายไฟล์แล้วนำเข้าทีละชุด');
+      e.target.value = '';
+      return;
+    }
     const reader = new FileReader();
     reader.onload = async (ev) => {
       try {
         const data = JSON.parse(ev.target.result);
         if (!Array.isArray(data)) throw new Error('top-level is not an array');
+        if (data.length === 0) throw new Error('ไฟล์ไม่มีข้อสอบ');
 
         // Pre-validate all items so we can give the user a real preview
         // of how many will succeed. Reject entire import if all-invalid.
         const valid = [];
         const invalidReasons = {};
-        data.forEach((q, i) => {
-          const err = validateImportItem(q);
-          if (err) {
-            invalidReasons[err] = (invalidReasons[err] || 0) + 1;
+        data.forEach((q) => {
+          const parsed = parseCustomQuestion(q);
+          if (!parsed.success) {
+            invalidReasons[parsed.reason] = (invalidReasons[parsed.reason] || 0) + 1;
           } else {
-            valid.push(q);
+            valid.push(parsed.data);
           }
         });
 
         if (valid.length === 0) {
-          alertDialog(`Import ล้มเหลว — ทุก ${data.length} ข้อมีข้อมูลไม่ครบ:\n\n` +
+          alertDialog(`นำเข้าไม่ได้ — ทั้ง ${data.length} ข้อมีข้อมูลไม่ครบ:\n\n` +
             Object.entries(invalidReasons).map(([r, n]) => `• ${n} ข้อ: ${r}`).join('\n'));
           e.target.value = ''; // reset so same file can be re-tried
           return;
@@ -211,8 +192,8 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
 
         const skipped = data.length - valid.length;
         const summary = skipped === 0
-          ? `Import ${valid.length} ข้อ`
-          : `Import ${valid.length}/${data.length} ข้อ (ข้าม ${skipped} ข้อที่ไม่ครบ)\n\nสาเหตุที่ข้าม:\n` +
+          ? `นำเข้า ${valid.length} ข้อ`
+          : `นำเข้า ${valid.length}/${data.length} ข้อ (ข้าม ${skipped} ข้อที่ไม่ครบ)\n\nสาเหตุที่ข้าม:\n` +
             Object.entries(invalidReasons).map(([r, n]) => `• ${n} ข้อ: ${r}`).join('\n');
 
         if (await confirmDialog({ title: summary.split('\n')[0], body: summary.split('\n').slice(1).join('\n').trim(), confirmLabel: 'นำเข้า' })) {
@@ -225,7 +206,14 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           setCustomQuestions([...customQuestions, ...withNewIds]);
         }
         e.target.value = '';
-      } catch (err) { alertDialog('ไฟล์ JSON ไม่ถูกต้อง — ' + (err?.message || 'parse error')); }
+      } catch (err) {
+        e.target.value = '';
+        alertDialog('ไฟล์ JSON ไม่ถูกต้อง — ' + (err?.message || 'อ่านไฟล์ไม่ได้'));
+      }
+    };
+    reader.onerror = () => {
+      e.target.value = '';
+      alertDialog('อ่านไฟล์ไม่สำเร็จ กรุณาลองเลือกไฟล์อีกครั้ง');
     };
     reader.readAsText(file);
   };
@@ -350,14 +338,14 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     <>
       <div className="vmx-hero">
         <h1>จัดการ <em>ข้อสอบส่วนตัว</em></h1>
-        <p>เพิ่ม แก้ไข หรือ import ข้อสอบของตัวเอง, มี {customQuestions.length} ข้อ custom</p>
+        <p>เพิ่ม แก้ไข หรือนำเข้าข้อสอบของตัวเอง · มี {customQuestions.length} ข้อ</p>
       </div>
 
       <div className="vmx-btn-row" style={{ marginBottom: 12, justifyContent: 'flex-start', flexWrap: 'wrap' }}>
         <button className="vmx-btn vmx-btn-primary" onClick={startAdd}>เพิ่มข้อสอบ</button>
-        <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportCustom}>Export JSON</button>
+        <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportCustom}>ส่งออก JSON</button>
         <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
-          Import JSON
+          นำเข้า JSON
           <input type="file" accept=".json" onChange={importCustom} style={{ display: 'none' }} />
         </label>
         {customQuestions.length > 0 && (
@@ -377,7 +365,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
       )}
 
       {customQuestions.length === 0 ? (
-        <div className="vmx-empty">ยังไม่มีข้อสอบ custom — กด "เพิ่มข้อสอบ" เพื่อสร้าง</div>
+        <div className="vmx-empty">ยังไม่มีข้อสอบส่วนตัว — กด “เพิ่มข้อสอบ” เพื่อสร้าง</div>
       ) : (
         <div style={{ paddingBottom: selectedIds.size > 0 ? 96 : 0 }}>
           {customQuestions.map((q) => {

@@ -1,44 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { NOTES_COM5 } from '../data/notes-com5.js';
-import { NOTES_COM3 } from '../data/notes-com3.js';
-import { NOTES_COM4 } from '../data/notes-com4.js';
-import { NOTES_ENGPROF } from '../data/notes-engprof.js';
-import { NOTES_EXOTIC } from '../data/notes-exotic.js';
-import { NOTES_REPRO_LECT } from '../data/notes-repro-lect.js';
-import { NOTES_PRACTRUM } from '../data/notes-practrum.js';
-import { NOTES_POULTRY } from '../data/notes-poultry.js';
-import { NOTES_CLIAPPRUM } from '../data/notes-cliapprum.js';
-// ── Y5 scaffolded notes (2026-05-12) — outlines from senior cache,
-// sections source-cited to slide pages 1-3. Deep body content marked
-// 🚧 รอเติม per IRON RULE 0 (no fabrication of medicine).
-import { NOTES_Y5_ZOONOSES } from '../data/notes-y5-zoonoses.js';
-import { NOTES_Y5_EPIDEMIOLOGY } from '../data/notes-y5-epidemiology.js';
-import { NOTES_Y5_AVIAN_MEDICINE } from '../data/notes-y5-avian-medicine.js';
-import { NOTES_Y5_AQUATIC } from '../data/notes-y5-aquatic.js';
-import { NOTES_Y5_ONE_HEALTH } from '../data/notes-y5-one-health.js';
-import { NOTES_Y5_FIQC } from '../data/notes-y5-fiqc.js';
-import { NOTES_Y5_POA } from '../data/notes-y5-poa.js';
-import { NOTES_Y5_MILK_MEAT_HYGIENE } from '../data/notes-y5-milk-meat-hygiene.js';
-import { NOTES_Y5_EQUINE_MEDICINE } from '../data/notes-y5-equine-medicine.js';
-// สรุปรุ่นพี่ Vet 85 — เก็บแยกจากโน้ตที่เขียนจากสไลด์ปีนี้ และไม่เข้า VetWiki
-import { NOTES_85_AQUATIC_CLINIC } from '../data/notes-85-aquatic-clinic.js';
-import { NOTES_85_AVIAN_MEDICINE } from '../data/notes-85-avian-medicine.js';
-import { NOTES_85_EQUINE_MEDICINE } from '../data/notes-85-equine-medicine.js';
-import { NOTES_85_EQUINE_REPRO } from '../data/notes-85-equine-repro.js';
-import { NOTES_85_FOOD_INDUSTRY } from '../data/notes-85-food-industry.js';
-import { NOTES_85_MILK_MEAT_HYGIENE } from '../data/notes-85-milk-meat-hygiene.js';
-import { NOTES_85_ONE_HEALTH } from '../data/notes-85-one-health.js';
-import { NOTES_85_POA_CLINICAL } from '../data/notes-85-poa-clinical.js';
-import { NOTES_85_SWINE_CLINIC } from '../data/notes-85-swine-clinic.js';
-import { NOTES_85_ZOONOSES } from '../data/notes-85-zoonoses.js';
-import { NOTES_Y2_NEUROANAT } from '../data/notes-y2-neuroanat.js';
-import { NOTES_Y2_PARASIT_1 } from '../data/notes-y2-parasit-1.js';
-import { NOTES_Y2_PHYSIO_LAB_1 } from '../data/notes-y2-physio-lab-1.js';
-import { NOTES_Y2_PHYSIO_LAB_2 } from '../data/notes-y2-physio-lab-2.js';
-import { NOTES_Y2_HISTO } from '../data/notes-y2-histo.js';
-import { NOTES_Y2_MICROBIO_1 } from '../data/notes-y2-microbio-1.js';
-import { NOTES_Y2_BIOCHEM_2 } from '../data/notes-y2-biochem-2.js';
-import { NOTES_Y2_PHYSIO_3 } from '../data/notes-y2-physio-3.js';
+import {
+  NOTE_SUBJECT_IDS,
+  clearNotesSubjectCache,
+  getCachedNotesSubject,
+  loadNotesSubject,
+  preloadNotesSubject,
+} from '../data/note-corpus.js';
 import { SUBJECTS, YEARS, yearForSubject } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import { hasTopic } from '../lib/vetwiki/registry.js';
@@ -50,6 +17,7 @@ import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import BackBar from '../components/BackBar.jsx';
 import ImageAnnotator from '../components/ImageAnnotator.jsx';
 import TemplateLibrary from '../components/TemplateLibrary.jsx';
+import { saveNoteRetryTarget } from '../lib/note-retry.js';
 
 // ============================================================
 // NotesView — ทวนเนื้อหา (study notes per topic)
@@ -62,76 +30,8 @@ import TemplateLibrary from '../components/TemplateLibrary.jsx';
 //   goBack, goHome
 // ============================================================
 
-const NOTES_BY_SUBJECT = {
-  'vet-physio-3': NOTES_Y2_PHYSIO_3,
-  'biochem-2': NOTES_Y2_BIOCHEM_2,
-  'vet-microbio-1': NOTES_Y2_MICROBIO_1,
-  'vet-histo': NOTES_Y2_HISTO,
-  'vet-physio-lab-2': NOTES_Y2_PHYSIO_LAB_2,
-  'vet-physio-lab-1': NOTES_Y2_PHYSIO_LAB_1,
-  'vet-parasit-1': NOTES_Y2_PARASIT_1,
-  'vet-neuroanat': NOTES_Y2_NEUROANAT,
-  com5: NOTES_COM5,
-  com4: NOTES_COM4,
-  com3: NOTES_COM3,
-  engprof: NOTES_ENGPROF,
-  exotic: NOTES_EXOTIC,
-  'repro-lect': NOTES_REPRO_LECT,
-  practrum: NOTES_PRACTRUM,
-  poultry: NOTES_POULTRY,
-  cliapprum: NOTES_CLIAPPRUM,
-  // Y5 scaffolded notes (top-3 priority subjects from cache inventory)
-  zoonoses: NOTES_Y5_ZOONOSES,
-  'milk-meat-hygiene': NOTES_Y5_MILK_MEAT_HYGIENE,
-  'equine-medicine': NOTES_Y5_EQUINE_MEDICINE,
-  // Y5 term-1 midterm subjects, written from the 2569 lecture decks
-  epidemiology: NOTES_Y5_EPIDEMIOLOGY,
-  'avian-medicine': NOTES_Y5_AVIAN_MEDICINE,
-  'aquatic-clinic': NOTES_Y5_AQUATIC,
-  'one-health': NOTES_Y5_ONE_HEALTH,
-  'food-industry': NOTES_Y5_FIQC,
-  'poa-clinical': NOTES_Y5_POA,
-};
-
-// สรุปรุ่นพี่ Vet 85 ต่อวิชา. เก็บเป็น map แยกเพราะ (1) มันมาจากคนละแหล่งกับ
-// สไลด์ปีนี้ และผู้อ่านควรรู้. VetWiki ใช้ merge policy เดียวกัน แต่คง
-// provenance/review state ของแต่ละ section ไว้เพื่อบอกระดับการตรวจทานตามจริง
-const NOTES_85_BY_SUBJECT = {
-  'aquatic-clinic': NOTES_85_AQUATIC_CLINIC,
-  'avian-medicine': NOTES_85_AVIAN_MEDICINE,
-  'equine-medicine': NOTES_85_EQUINE_MEDICINE,
-  'equine-repro': NOTES_85_EQUINE_REPRO,
-  'food-industry': NOTES_85_FOOD_INDUSTRY,
-  'milk-meat-hygiene': NOTES_85_MILK_MEAT_HYGIENE,
-  'one-health': NOTES_85_ONE_HEALTH,
-  'poa-clinical': NOTES_85_POA_CLINICAL,
-  'swine-clinic': NOTES_85_SWINE_CLINIC,
-  zoonoses: NOTES_85_ZOONOSES,
-};
-
-/** Lecture notes for a subject, with the Vet 85 summaries folded in.
- *
- *  A topic present in both keeps the lecture sections FIRST and appends the
- *  senior ones after, each still carrying its own source line, so a reader can
- *  always tell which half they are looking at. A topic only the seniors covered
- *  appears on its own — that is the whole point, since several subjects had no
- *  notes at all before this. */
-function mergeNotes(subject) {
-  const own = NOTES_BY_SUBJECT[subject] || {};
-  const senior = NOTES_85_BY_SUBJECT[subject];
-  if (!senior) return own;
-  const out = { ...own };
-  for (const [id, s85] of Object.entries(senior)) {
-    const mine = out[id];
-    if (!mine) { out[id] = s85; continue; }
-    out[id] = {
-      ...mine,
-      sections: [...(mine.sections || []), ...(s85.sections || [])],
-      has85: true,
-    };
-  }
-  return out;
-}
+const EMPTY_NOTES = Object.freeze({});
+const EMPTY_SECTIONS = Object.freeze([]);
 
 // Walk a section's structured body and collect all searchable text
 // into a single lower-cased string. Done once per (topic, section)
@@ -165,17 +65,43 @@ function getSectionHaystack(sec) {
 export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome, onOpenWiki }) {
   const [activeSubject, setActiveSubjectLocal] = useState(subjectProp);
   const subject = activeSubject;
+  const [notesState, setNotesState] = useState({ subject: null, status: 'loading', notes: EMPTY_NOTES, error: null });
+  const [loadVersion, setLoadVersion] = useState(0);
+
+  useEffect(() => {
+    setActiveSubjectLocal(subjectProp);
+  }, [subjectProp]);
+
+  useEffect(() => {
+    let current = true;
+    const cached = getCachedNotesSubject(subject);
+    if (cached) {
+      setNotesState({ subject, status: 'ready', notes: cached, error: null });
+      return () => { current = false; };
+    }
+    setNotesState({ subject, status: 'loading', notes: EMPTY_NOTES, error: null });
+    loadNotesSubject(subject)
+      .then((loaded) => {
+        if (current) setNotesState({ subject, status: 'ready', notes: loaded, error: null });
+      })
+      .catch((error) => {
+        if (current) setNotesState({ subject, status: 'error', notes: EMPTY_NOTES, error });
+      });
+    return () => { current = false; };
+  }, [subject, loadVersion]);
+
+  const notesReady = notesState.subject === subject && notesState.status === 'ready';
+  const notes = notesReady ? notesState.notes : EMPTY_NOTES;
   // Memoised — only re-derives when subject changes. The previous
   // version recomputed topicIds + subjectMeta on every render
   // (including every keystroke in the search box).
-  const { notes, subjectMeta, topicIds } = useMemo(() => {
-    const n = mergeNotes(subject);
+  const { subjectMeta, topicIds } = useMemo(() => {
     const sm = SUBJECTS.find((s) => s.id === subject);
-    const ids = (sm?.topics || []).map((t) => t.id).filter((id) => n[id]);
-    Object.keys(n).forEach((id) => { if (!ids.includes(id)) ids.push(id); });
-    return { notes: n, subjectMeta: sm, topicIds: ids };
-  }, [subject]);
-  const [activeTopic, setActiveTopic] = useState(() => initialTopic && notes[initialTopic] ? initialTopic : topicIds[0]);
+    const ids = (sm?.topics || []).map((t) => t.id).filter((id) => notes[id]);
+    Object.keys(notes).forEach((id) => { if (!ids.includes(id)) ids.push(id); });
+    return { subjectMeta: sm, topicIds: ids };
+  }, [notes, subject]);
+  const [activeTopic, setActiveTopic] = useState(initialTopic || null);
   const [search, setSearch] = useState('');
   // Debounced version drives the filter — 80ms below input-echo threshold
   // but plenty to coalesce a burst of fast typing.
@@ -192,16 +118,14 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   const validTopic = topicIds.includes(activeTopic) ? activeTopic : topicIds[0];
 
   const switchSubject = (next) => {
+    const cached = getCachedNotesSubject(next);
+    if (cached) setNotesState({ subject: next, status: 'ready', notes: cached, error: null });
     setActiveSubjectLocal(next);
-    // Use curriculum order to pick first topic
-    const nextSubject = SUBJECTS.find((s) => s.id === next);
-    const nextNotes = mergeNotes(next);
-    const nextTopics = (nextSubject?.topics || []).map((t) => t.id).filter((id) => nextNotes[id]);
-    if (nextTopics.length > 0) setActiveTopic(nextTopics[0]);
+    setActiveTopic(null);
     if (setSubjectProp) setSubjectProp(next);
   };
 
-  const availableSubjects = [...new Set([...Object.keys(NOTES_BY_SUBJECT), ...Object.keys(NOTES_85_BY_SUBJECT)])];
+  const availableSubjects = NOTE_SUBJECT_IDS;
 
   // Every subject that has notes used to sit in one flat row of chips, so a
   // second-year reading histology saw Year 5 clinical subjects as immediate
@@ -249,10 +173,61 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     setSearch('');
   }, [validTopic, subject]);
 
+  const topicSections = topic?.sections || EMPTY_SECTIONS;
+  // Filter sections by search. Each section's haystack is cached in
+  // a module-scope WeakMap (see getSectionHaystack) so a 50-section
+  // topic doesn't re-stringify ~500KB of JSON on every keystroke.
+  const filteredSections = useMemo(() => {
+    const q = debouncedSearch.trim().toLowerCase();
+    if (!q) return topicSections;
+    return topicSections.filter((sec) => getSectionHaystack(sec).includes(q));
+  }, [topicSections, debouncedSearch]);
+
+  const retryLoad = () => {
+    clearNotesSubjectCache(subject);
+    // Native ESM remembers a failed import for the life of the document. Once
+    // connectivity is back, a reload is the only reliable retry; preserve the
+    // exact Notes destination so that reload returns here instead of Home.
+    if (navigator.onLine !== false) {
+      saveNoteRetryTarget(subject, activeTopic);
+      window.location.reload();
+      return;
+    }
+    setLoadVersion((v) => v + 1);
+  };
+
+  if (notesState.subject !== subject || notesState.status === 'loading') {
+    return (
+      <>
+        <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
+        <div className="vmx-hero"><h1>กำลังเปิด <em>โน้ต</em></h1></div>
+        <div className="vmx-config-panel" role="status" aria-live="polite">
+          กำลังโหลดเฉพาะวิชา {subjectMeta?.name || subject}…
+        </div>
+      </>
+    );
+  }
+
+  if (notesState.status === 'error') {
+    return (
+      <>
+        <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
+        <div className="vmx-hero"><h1>เปิดโน้ต<em>ไม่สำเร็จ</em></h1></div>
+        <div className="vmx-empty" role="alert">
+          การเชื่อมต่อสะดุดขณะโหลดวิชา {subjectMeta?.name || subject} ข้อมูลเดิมยังอยู่ครบ
+        </div>
+        <div className="vmx-btn-row">
+          <button className="vmx-btn vmx-btn-primary" onClick={retryLoad}>ลองอีกครั้ง</button>
+          <button className="vmx-btn vmx-btn-ghost" onClick={goBack || goHome}>กลับไปเลือกหัวข้อ</button>
+        </div>
+      </>
+    );
+  }
+
   if (!topic) {
     return (
       <>
-        <BackBar onBack={goBack || goHome} label={goBack ? 'เลือก topic อื่น' : 'หน้าแรก'} />
+        <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>ทวน <em>เนื้อหา</em></h1></div>
         <div className="vmx-empty">ยังไม่มีโน้ตสำหรับวิชานี้</div>
         <div className="vmx-btn-row">
@@ -262,22 +237,13 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     );
   }
 
-  // Filter sections by search. Each section's haystack is cached in
-  // a module-scope WeakMap (see getSectionHaystack) so a 50-section
-  // topic doesn't re-stringify ~500KB of JSON on every keystroke.
-  const filteredSections = useMemo(() => {
-    const q = debouncedSearch.trim().toLowerCase();
-    if (!q) return topic.sections;
-    return topic.sections.filter((sec) => getSectionHaystack(sec).includes(q));
-  }, [topic.sections, debouncedSearch]);
-
   return (
     <>
-      <BackBar onBack={goBack || goHome} label={goBack ? 'เลือก topic อื่น' : 'หน้าแรก'} subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
+      <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
       <div className="vmx-hero">
         <h1>ทวน <em>เนื้อหา</em></h1>
         <p>
-          {subjectMeta?.icon} {subjectMeta?.name}, เนื้อหาดึงจาก slide lecture 2026 + master compilation (ทุก section มี source citation)
+          {subjectMeta?.icon} {subjectMeta?.name} · เนื้อหาจากสไลด์เลกเชอร์ปี 2569 และสรุปรุ่นพี่ โดยระบุแหล่งที่มาในแต่ละส่วน
         </p>
       </div>
 
@@ -300,6 +266,8 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                     <button
                       key={sid}
                       onClick={() => switchSubject(sid)}
+                      onPointerEnter={() => preloadNotesSubject(sid)}
+                      onFocus={() => preloadNotesSubject(sid)}
                       style={{
                         all: 'unset',
                         cursor: 'pointer',
@@ -350,11 +318,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                     reads as a rendering failure rather than a missing field. */}
                 {t.lecturer && (
                   <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
-                    by Aj. {t.lecturer}
+                    ผู้สอน: {t.lecturer}
                   </div>
                 )}
                 <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
-                  {t.sections.length} sections
+                  {t.sections.length} ส่วน
                 </div>
               </button>
             );
@@ -370,14 +338,14 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         <div ref={mainRef}>
           <div style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}>
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
-              {topic.lecturer ? `Topic, by Aj. ${topic.lecturer}` : 'Topic'}
+              {topic.lecturer ? `หัวข้อ · ผู้สอน ${topic.lecturer}` : 'หัวข้อ'}
             </div>
             <h2 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 600 }}>
               {topic.icon} {topic.title}
             </h2>
             {topic.summary && (
               <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6, marginBottom: 12 }}>
-                💡 <strong>TL;DR —</strong> {topic.summary}
+                💡 <strong>สรุปสั้น —</strong> {topic.summary}
               </div>
             )}
             {/* Cross-link to the governed VetWiki version — only for topics
@@ -399,9 +367,9 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 onClick={() => setShowTemplateLibrary(true)}
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 style={{ minHeight: 44 }}
-                title="เปิดคลัง template (skeleton, ECG, dental, lab values…)"
+                title="เปิดแบบฝึกวาดโครงกระดูก ECG ทันตกรรม และผลตรวจ"
               >
-                🩻 วาดบน template
+                🩻 วาดบนแบบฝึก
               </button>
             </div>
             <input
@@ -414,7 +382,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           </div>
 
           {filteredSections.length === 0 && (
-            <div className="vmx-empty">ไม่พบ section ที่ตรงกับ "{search}"</div>
+            <div className="vmx-empty">ไม่พบเนื้อหาที่ตรงกับ “{search}”</div>
           )}
 
           {/* highlight prop uses the debounced value so RichText doesn't
@@ -443,7 +411,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         <ImageAnnotator
           mode="template"
           templateUrl={activeTemplate}
-          alt="anatomy template"
+          alt="แบบฝึกวาดกายวิภาค"
           onClose={() => setActiveTemplate(null)}
         />
       )}
@@ -514,7 +482,7 @@ function SectionBlock({ section, idx, highlight, conflicts, slides = [] }) {
           )}
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-              ดึงจาก: {section.source}
+              แหล่งที่มา: {section.source}
             </div>
           )}
         </div>
