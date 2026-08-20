@@ -17,6 +17,7 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 import { loadOcclusionCards } from '../lib/image-occlusion.js';
 import ImageOcclusionCard from '../components/ImageOcclusionCard.jsx';
 import ClozeCard from '../components/ClozeCard.jsx';
+import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
@@ -39,7 +40,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // session refresh on the next planning step.
   const allQuestions = useMemo(
     () => [
-      ...QB,
+      ...QB.filter(isQuestionDeliverable),
       ...customQuestions,
       ...loadUserFlashcards(),       // 'flashcard' + 'cloze' (mixed)
       ...loadOcclusionCards(),       // 'image-occlusion' (one per mask)

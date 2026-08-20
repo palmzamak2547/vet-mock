@@ -136,8 +136,14 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   const phaseLabel = selectedPhase ? PHASE_LABEL_REV[selectedPhase] : null;
   // Filter tabs let users zoom into the slice they care about — when
   // reviewing a 200-Q exam, scrolling linearly to find the 30 wrong
-  // ones is brutal. 'all' is the default. Cached counts shown in tabs.
-  const [filter, setFilter] = useState('all');
+  // ones is brutal. Start with wrong/skipped work when present; all-correct
+  // sessions fall back to the complete list.
+  const [filter, setFilter] = useState(() => {
+    if (questions.some((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id]))) return 'wrong';
+    if (questions.some((q) => answers[q.id] === undefined)) return 'skipped';
+    return 'all';
+  });
+  const [expandedCorrect, setExpandedCorrect] = useState(() => new Set());
   // Image annotator — opens for the URL we set here.
   const [annotateSrc, setAnnotateSrc] = useState(null);
   // Set of `subject:id` keys whose comment thread the user has opened.
@@ -210,7 +216,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
     { id: 'wrong',      label: 'ผิด',      icon: '✗',  color: 'var(--clr-rose-text)' },
     { id: 'correct',    label: 'ถูก',      icon: '✓',  color: 'var(--clr-sage)' },
     { id: 'skipped',    label: 'ข้าม',     icon: '⏭', color: 'var(--clr-ink-soft)' },
-    { id: 'bookmarked', label: 'Bookmark', icon: '★',  color: 'var(--clr-gold-text)' },
+    { id: 'bookmarked', label: 'บันทึกไว้', icon: '★',  color: 'var(--clr-gold-text)' },
     { id: 'noted',      label: 'มีโน้ต',   icon: '📝', color: 'var(--clr-plum, #7d4a7d)' },
   ];
 
@@ -219,7 +225,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
       <BackBar onBack={goHome} label="หน้าแรก" subtitle={`${questions.length} ข้อ`} />
       <div className="vmx-hero">
         <h1>เฉลย <em>ข้อสอบ</em></h1>
-        <p>กด ★ เพื่อ bookmark ข้อที่อยากกลับมาทำซ้ำ</p>
+        <p>เปิดดูข้อที่ผิดก่อน แล้วบันทึกข้อที่อยากกลับมาทำซ้ำ</p>
         {(phaseLabel || selectedYear) && (
           <div style={{
             marginTop: 8, display: 'inline-block',
@@ -244,7 +250,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             return (
               <button
                 key={t.id}
+                type="button"
                 onClick={() => setFilter(t.id)}
+                aria-pressed={active}
                 style={{
                   all: 'unset',
                   cursor: 'pointer',
@@ -259,6 +267,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 6,
+                  minHeight: 44,
+                  boxSizing: 'border-box',
                 }}
               >
                 <span>{t.icon}</span>
@@ -321,6 +331,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         // scans of the 7-element SUBJECTS array per render).
         const subj = SUBJECT_BY_ID.get(q.subject);
         const topicMeta = q.topic && subj?.topics?.find((tp) => tp.id === q.topic);
+        const rowKey = `${q.subject}:${q.id}`;
+        const figureSrc = safeImageUrl(q.image || q.imagePath);
+        const isCorrectCollapsed = correct && !expandedCorrect.has(rowKey);
 
         return (
           <div key={q.id} className={`vmx-review-item ${cls}`}>
@@ -353,50 +366,54 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   </span>
                 )}
                 <button className={`vmx-bookmark-btn ${bookmarks.includes(q.id) ? 'active' : ''}`}
-                  style={{ position: 'static', width: 28, height: 28, fontSize: 14 }}
+                  type="button"
+                  style={{ position: 'static' }}
+                  aria-label={bookmarks.includes(q.id) ? 'ยกเลิกบันทึกข้อนี้' : 'บันทึกข้อนี้ไว้ทบทวน'}
+                  aria-pressed={bookmarks.includes(q.id)}
                   onClick={() => toggleBookmark(q.id)}>
                   {bookmarks.includes(q.id) ? '★' : '☆'}
                 </button>
                 <span className={`vmx-review-result ${correct ? 'ok' : (isOpen ? '' : 'no')}`}
                   style={isOpen ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)' } : undefined}>
-                  {!answered ? 'SKIPPED' : isOpen ? '✍️ Self-assess' : (correct ? '✓ ถูก' : '✗ ผิด')}
+                  {!answered ? 'ข้าม' : isOpen ? 'ประเมินเอง' : (correct ? '✓ ถูก' : '✗ ผิด')}
                 </span>
               </div>
             </div>
-            {q.image && safeImageUrl(q.image) && (
-              <div style={{ position: 'relative', display: 'inline-block', maxWidth: 300 }}>
-                <img
-                  src={safeImageUrl(q.image)}
-                  alt={`Question ${q.id} image, ${q.subject}/${q.topic || 'general'}`}
-                  loading="lazy"
-                  decoding="async"
-                  className="vmx-qimage"
-                  style={{ maxWidth: 300, display: 'block' }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const ph = e.currentTarget.nextElementSibling;
-                    if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
-                  }}
+            <h2 className="vmx-review-q"><RichText text={q.q} /></h2>
+
+            {isCorrectCollapsed ? (
+              <button
+                type="button"
+                className="vmx-review-expand"
+                onClick={() => setExpandedCorrect((previous) => {
+                  const next = new Set(previous);
+                  next.add(rowKey);
+                  return next;
+                })}
+                aria-expanded="false"
+              >
+                ดูคำตอบและเหตุผล
+              </button>
+            ) : (
+            <>
+            {figureSrc && (
+              <div>
+                <ZoomableImage
+                  src={figureSrc}
+                  alt={q.imageAlt || `ภาพประกอบข้อ ${q.id}`}
+                  caption={q.imageCaption}
+                  credit={q.imageCredit}
+                  sourceUrl={q.imageSourceUrl}
+                  maxHeight={320}
                 />
                 <button
                   type="button"
-                  onClick={() => setAnnotateSrc(safeImageUrl(q.image))}
-                  title="วาดทับภาพ (highlight, ลูกศร, โน้ต)"
+                  onClick={() => setAnnotateSrc(figureSrc)}
+                  className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                   aria-label="เปิดเครื่องมือวาดทับภาพ"
-                  style={{
-                    position: 'absolute', top: 6, right: 6,
-                    width: 30, height: 30, borderRadius: 8,
-                    border: '1px solid rgba(0,0,0,0.15)',
-                    background: 'rgba(255,255,255,0.92)', fontSize: 14,
-                    cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.15)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}
                 >
-                  ✏️
+                  ทำเครื่องหมายบนภาพ
                 </button>
-                <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', maxWidth: 300 }}>
-                  ภาพประกอบโหลดไม่ได้
-                </div>
               </div>
             )}
             {q.passage && (
@@ -407,10 +424,6 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 <RichText text={q.passage} />
               </div>
             )}
-            <div className="vmx-review-q"><RichText text={q.q} /></div>
-
-            {q.imagePath && <ZoomableImage src={q.imagePath} maxHeight={280} />}
-
             {(q.type === 'short' || q.type === 'essay') ? (
               <>
                 <div style={{ margin: '8px 0 6px', padding: 10, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
@@ -424,7 +437,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </div>
                 {q.model_answer && (
                   <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-sage)' }}>
-                    <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, fontWeight: 600 }}>✓ Model answer (จาก KEY)</div>
+                    <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)', marginBottom: 4, fontWeight: 600 }}>คำตอบตัวอย่างจากเฉลย</div>
                     <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.model_answer} />
                     </div>
@@ -432,7 +445,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 )}
                 {q.rubric && (
                   <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.08)', border: '1px solid var(--clr-gold)' }}>
-                    <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4, fontWeight: 600 }}>Marking criteria</div>
+                    <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)', marginBottom: 4, fontWeight: 600 }}>เกณฑ์ให้คะแนน</div>
                     <div style={{ fontSize: 12, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.rubric} />
                     </div>
@@ -442,11 +455,11 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </>
             ) : (
               <>
-                <div className="vmx-review-ans"><span className="k">คำตอบของคุณ</span>{userDisplay}</div>
-                {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย</span>{correctDisplay}</div>}
+                <div className="vmx-review-ans"><span className="k">คำตอบของคุณ:</span>{userDisplay}</div>
+                {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย:</span>{correctDisplay}</div>}
               </>
             )}
-            {q.explain && <div className="vmx-review-explain"><span className="k">Why</span><RichText text={q.explain} /></div>}
+            {q.explain && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichText text={q.explain} /></div>}
             {/* For a missed question, offer the checked VetWiki summary — the
                 highest-value moment to read the verified version. Correct
                 answers don't need the nudge.
@@ -516,7 +529,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             })()}
             {q.flag && (
               <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: `1px solid ${q.flag.severity === 'major' ? 'var(--clr-rose)' : 'var(--clr-gold)'}`, fontSize: 12, color: 'var(--clr-ink)' }}>
-                ⚠️ <strong>{q.flag.severity === 'major' ? 'Major flag' : 'Note'}:</strong> {q.flag.note}
+                <strong>{q.flag.severity === 'major' ? 'ข้อควรระวังสำคัญ' : 'หมายเหตุ'}:</strong> {q.flag.note}
                 {q.flag.sources?.length > 0 && (
                   <div style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
                     📖 {q.flag.sources.join(', ')}
@@ -526,7 +539,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             )}
             {q.source && (
               <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', fontFamily: 'var(--vmx-mono)' }}>
-                ไฟล์ต้นทาง: {q.source}
+                แหล่งอ้างอิง: {q.source}
               </div>
             )}
             {/* Comments thread — opens lazily so we don't subscribe to
@@ -553,6 +566,22 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </div>
               );
             })()}
+            {correct && (
+              <button
+                type="button"
+                className="vmx-review-expand"
+                onClick={() => setExpandedCorrect((previous) => {
+                  const next = new Set(previous);
+                  next.delete(rowKey);
+                  return next;
+                })}
+                aria-expanded="true"
+              >
+                ย่อคำตอบ
+              </button>
+            )}
+            </>
+            )}
           </div>
         );
       })}

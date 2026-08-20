@@ -139,7 +139,10 @@ export default function HeaderBar({
           <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} onAccount={() => setView('account-settings')} />
         )}
         {!user && hasSupabase && (
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('auth')}>เข้าสู่ระบบ</button>
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-login-btn" onClick={() => setView('auth')} aria-label="เข้าสู่ระบบ">
+            <NavIcon name="user" size={18} />
+            <span>เข้าสู่ระบบ</span>
+          </button>
         )}
         <ThemePicker theme={theme} setTheme={setTheme} palette={palette} setPalette={setPalette} />
       </div>

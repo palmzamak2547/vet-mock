@@ -343,7 +343,7 @@ test.describe('whole-app mobile compatibility', () => {
 
     await gotoSurface(page, '/');
     await waitForSurface(page);
-    const quickPractice = page.getByRole('button', { name: /Quick Practice/i }).first();
+    const quickPractice = page.getByRole('button', { name: /ฝึกแบบเลือกจำนวน|Quick Practice/i }).first();
     await expect(quickPractice).toBeVisible({ timeout: 20_000 });
     await quickPractice.click();
     await page.locator('.vmx-config-panel').waitFor({ state: 'visible', timeout: 20_000 });
@@ -366,15 +366,15 @@ test.describe('whole-app mobile compatibility', () => {
     await gotoSurface(page, '/');
     await waitForSurface(page);
     await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
-    await page.getByRole('dialog', { name: 'Command palette' }).waitFor({ state: 'visible', timeout: 20_000 });
+    const commandPalette = page.getByRole('dialog', { name: 'Command palette' });
+    await commandPalette.waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'command-palette');
+    await commandPalette.getByPlaceholder(/ค้นหาทุกอย่าง/).fill('เครื่องคิดเลข');
+    await expect(commandPalette.getByRole('button', { name: /เครื่องคิดเลข/ }).first()).toBeVisible();
     await page.keyboard.press('Escape');
 
     const toolsButton = page.getByRole('button', { name: 'เครื่องมือ', exact: true });
-    await toolsButton.click();
-    await page.getByRole('menu', { name: 'เครื่องมือ' }).waitFor({ state: 'visible' });
-    await recordStage(page, testInfo, failures, 'tools-menu');
-    await page.keyboard.press('Escape');
+    await expect(toolsButton).not.toBeVisible();
 
     await gotoSurface(page, '/app/questions');
     await waitForSurface(page);

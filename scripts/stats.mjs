@@ -97,7 +97,12 @@ for (const t of govTopics) {
 }
 
 // ---- report --------------------------------------------------------------
-const consistent = qTotal === qc.QB_TOTAL && qTotal === registryTotal && notInRegistry.length === 0;
+const deliverableTotal = qc.QB_TOTAL;
+const blockedTotal = qc.QB_BLOCKED_TOTAL || 0;
+const consistent = qTotal === qc.QB_SOURCE_TOTAL
+  && qTotal === registryTotal
+  && deliverableTotal + blockedTotal === qTotal
+  && notInRegistry.length === 0;
 const fmt = (n) => n.toLocaleString('en-US');
 const sourcedPercent = noteSections ? Math.round((noteSourced / noteSections) * 100) : 0;
 const governedPercent = noteSections ? ((govSections / noteSections) * 100).toFixed(1) : '0.0';
@@ -115,13 +120,15 @@ L('## Questions');
 L();
 L('| | |');
 L('|---|---|');
-L(`| **Total questions** | **${fmt(qTotal)}** |`);
+L(`| **Questions ready for learners** | **${fmt(deliverableTotal)}** |`);
+L(`| Questions retained but fail-closed pending a verified figure | ${fmt(blockedTotal)} |`);
+L(`| Total questions in source banks | ${fmt(qTotal)} |`);
 L(`| Question banks (files) | ${qFiles.length} |`);
 L(`| Subjects with questions | ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} |`);
 L(`| Years covered | ${years.join(', ')} |`);
 for (const [y, n] of Object.entries(qc.Q_COUNTS_BY_YEAR)) L(`| — year ${y} | ${fmt(n)} |`);
 L();
-L(`Consistency: counted **${qTotal}**, \`q-counts.js\` says **${qc.QB_TOTAL}**, registry sums to **${registryTotal}**, files missing from the registry: **${notInRegistry.length}** → ${consistent ? '✅ consistent' : '❌ DRIFT'}`);
+L(`Consistency: source banks **${qTotal}**, learner-ready **${deliverableTotal}**, fail-closed **${blockedTotal}**, registry sums to **${registryTotal}**, files missing from the registry: **${notInRegistry.length}** → ${consistent ? '✅ consistent' : '❌ DRIFT'}`);
 L();
 L('## Study notes');
 L();
@@ -159,7 +166,8 @@ const readmeStats = [
   README_STATS_START,
   '| | |',
   '|---|---|',
-  `| ข้อสอบ | **${fmt(qTotal)} ข้อ** ใน ${qFiles.length} bank files, ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} วิชา |`,
+  `| ข้อสอบพร้อมฝึก | **${fmt(deliverableTotal)} ข้อ** ใน ${qFiles.length} bank files, ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} วิชา |`,
+  `| พักไว้เพื่อความถูกต้อง | ${fmt(blockedTotal)} ข้อรอภาพที่ตรวจสอบแล้ว (เก็บใน source bank แต่ไม่ส่งให้ผู้เรียน) |`,
   `| ชั้นปีที่มีเนื้อหา | ${yearSummary} |`,
   `| สรุปโน้ต | ${nFiles.length} ไฟล์, ${fmt(noteTopics)} หัวข้อ, ${fmt(noteSections)} sections, อ้างอิงแหล่งที่มาครบ ${sourcedPercent}% |`,
   `| สรุปคลิป | ${fmt(videos)} คลิป ใน ${vFiles.length} ไฟล์ |`,

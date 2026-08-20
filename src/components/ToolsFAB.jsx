@@ -73,6 +73,7 @@ export default function ToolsFAB({ onSketch, onView }) {
           ref={popRef}
           role="menu"
           aria-label="เครื่องมือ"
+          className="vmx-tools-menu"
           style={{
             position: 'fixed',
             right: 16,
@@ -108,6 +109,7 @@ export default function ToolsFAB({ onSketch, onView }) {
       <button
         ref={btnRef}
         type="button"
+        className="vmx-tools-fab"
         onClick={() => setOpen((v) => !v)}
         title={open ? 'ปิดเครื่องมือ' : 'เครื่องมือ — เครื่องคิดเลข + กระดานวาด + Imaging Practical'}
         aria-label="เครื่องมือ"

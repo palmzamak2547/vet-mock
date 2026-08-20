@@ -1,4 +1,6 @@
 // ============================================================
+
+import { isQuestionDeliverable } from './question-delivery.generated.js';
 // CURRICULUM: Years + Subjects
 // ============================================================
 // อิงตามตารางสอบ: ตารางสอบป_14_Final_Term2.pdf
@@ -2166,7 +2168,7 @@ export function visibleQuestionCount(subjectId, allQuestions) {
       .reduce((sum, s) => sum + visibleQuestionCount(s.id, allQuestions), 0);
   }
   const hidden = hiddenTopicIdsFor(subjectId);
-  return allQuestions.filter((q) => q.subject === subjectId && !hidden.has(q.topic)).length;
+  return allQuestions.filter((q) => q.subject === subjectId && !hidden.has(q.topic) && isQuestionDeliverable(q)).length;
 }
 
 // ──────────────────────────────────────────────────────────────────

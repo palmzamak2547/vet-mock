@@ -40,6 +40,7 @@ import { recordQuestEvent } from './lib/quests.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { appPathForView, isAppPath, viewForAppPath } from './lib/view-route.js';
+import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -132,9 +133,14 @@ function withTransition(updateFn) {
     return;
   }
   try {
-    document.startViewTransition(() => {
+    const transition = document.startViewTransition(() => {
       flushSync(() => { updateFn(); });
     });
+    // Browsers reject these promises when a second navigation supersedes the
+    // first transition. That is a normal skip, not an application error.
+    transition?.ready?.catch(() => {});
+    transition?.updateCallbackDone?.catch(() => {});
+    transition?.finished?.catch(() => {});
   } catch {
     updateFn();
   }
@@ -221,7 +227,7 @@ const WIDE_VIEWS = new Set([
 // Focus views intentionally remove navigation chrome. In particular, hiding
 // the footer prevents keyboard/scroll users from leaving an active exam
 // without going through ExamView's confirmation flow.
-const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select']);
+const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select', 'phase-select', 'config']);
 const AUTH_REQUIRED_VIEWS = new Set([
   'groups',
   'group-detail',
@@ -237,6 +243,78 @@ function isInteractiveKeyTarget(target) {
   return Boolean(target.closest('[role="button"], [role="checkbox"], [role="radio"], [role="switch"]'));
 }
 
+const USER_CURATED_MODES = new Set(['bookmarks', 'weak', 'wrong']);
+
+function normalizePracticeMode(mode, subject, explicitMode = false) {
+  if (!explicitMode && subject && subject !== 'all' && USER_CURATED_MODES.has(mode)) {
+    return 'all';
+  }
+  return mode;
+}
+
+/**
+ * One pool definition for both ConfigView's truthful availability count and
+ * startExam's actual selection. Keeping these paths together prevents the UI
+ * from promising 10 questions when the engine can only produce 5.
+ */
+function buildExamPool({
+  questions,
+  practiceMode,
+  subject,
+  topic,
+  questionCategory,
+  selectedYear,
+  bookmarks = [],
+  weakQuestions = [],
+  history = [],
+}) {
+  const curated = USER_CURATED_MODES.has(practiceMode);
+  const deliverableQuestions = questions.filter(isQuestionDeliverable);
+  let pool;
+
+  if (practiceMode === 'bookmarks') {
+    pool = deliverableQuestions.filter((q) => bookmarks.includes(q.id));
+  } else if (practiceMode === 'weak') {
+    pool = deliverableQuestions.filter((q) => weakQuestions.includes(q.id));
+  } else if (practiceMode === 'wrong') {
+    const wrongSet = new Set();
+    for (const item of history) {
+      if (item?.correct === false) wrongSet.add(`${item.subject || ''}:${item.questionId}`);
+    }
+    pool = deliverableQuestions.filter((q) => wrongSet.has(`${q.subject}:${q.id}`));
+  } else {
+    pool = subject === 'all'
+      ? deliverableQuestions.filter((q) => !selectedYear || yearForSubject(q.subject) === selectedYear)
+      : deliverableQuestions.filter((q) => q.subject === subject);
+
+    if (topic) {
+      if (topic.startsWith('_') && topic.endsWith('-all')) {
+        const collectionId = topic.slice(1, -4);
+        const subjectMeta = SUBJECTS.find((item) => item.id === subject);
+        const collection = subjectMeta?.collections?.find((item) => item.id === topic);
+        const prefix = collection?.topicPrefix || collectionId;
+        pool = pool.filter((q) => q.topic?.startsWith(prefix));
+      } else {
+        pool = pool.filter((q) => q.topic === topic);
+      }
+    } else if (subject !== 'all') {
+      const hidden = hiddenTopicIdsFor(subject);
+      if (hidden.size) pool = pool.filter((q) => !hidden.has(q.topic));
+    } else {
+      pool = pool.filter((q) => !hiddenTopicIdsFor(q.subject).has(q.topic));
+    }
+  }
+
+  if (!curated && (!subject || subject === 'all')) {
+    pool = pool.filter((q) => q.year == null || q.year === selectedYear);
+  }
+
+  if (questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');
+  else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
+
+  return pool;
+}
+
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
 
@@ -246,6 +324,7 @@ export default function App() {
   // populated array, and (b) gate exam-start UI to await the load if
   // the user clicks before background-load finishes.
   const [qbReady, setQbReady] = useState(isQBLoaded());
+  const [qbRevision, setQbRevision] = useState(0);
   // The QB lazy-load effects that key off `selectedYear` are declared
   // AFTER `selectedYear` (line ~415) so they don't trip TDZ on the
   // const before it's initialized. See "QB year-scoped loaders" below.
@@ -275,6 +354,7 @@ export default function App() {
         await loadQB();
         if (cancelled) return;
         setQbReady(true);
+        setQbRevision((revision) => revision + 1);
       const shared = readShareUrlFromLocation();
         if (shared.length === 0) {
           sharedResolvedRef.current = true;
@@ -283,7 +363,7 @@ export default function App() {
           return;
         }
       const map = new Map();
-      for (const q of QB) map.set(q.subject + ':' + q.id, q);
+      for (const q of QB) if (isQuestionDeliverable(q)) map.set(q.subject + ':' + q.id, q);
       const matched = shared
         .map((k) => map.get(k.subject + ':' + k.id))
         .filter(Boolean);
@@ -447,7 +527,10 @@ export default function App() {
     // (~250 KB savings on slow networks). Cross-year banks (vca/short/
     // mahahon/termpaper) still load. If the user later switches year,
     // loadQBForYear() is re-called by the year-watcher effect below.
-    loadQBForYear(selectedYear).then(() => setQbReady(true)).catch(() => {});
+    loadQBForYear(selectedYear).then(() => {
+      setQbReady(true);
+      setQbRevision((revision) => revision + 1);
+    }).catch(() => {});
   }, [qbReady, selectedYear, selectedYearStored]);
 
   // When user switches year (e.g. Y4 → Y5), pull the new year's chunks
@@ -457,7 +540,10 @@ export default function App() {
   useEffect(() => {
     if (!qbReady) return;
     if (selectedYearStored == null) return;
-    loadQBForYear(selectedYear).catch(() => {});
+    if (isQBYearLoaded(selectedYear)) return;
+    loadQBForYear(selectedYear)
+      .then(() => setQbRevision((revision) => revision + 1))
+      .catch(() => {});
   }, [selectedYear, selectedYearStored, qbReady]);
 
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
@@ -785,6 +871,22 @@ export default function App() {
     answerCurrent, nextQ, prevQ, jumpToQ,
   } = session;
 
+  // Stateful result/review history entries cannot be reconstructed after
+  // goHome intentionally clears the session. Browser Back used to revive an
+  // empty 0/0 Results screen. Repair that stale entry in place instead.
+  useEffect(() => {
+    if ((view !== 'results' && view !== 'review') || questions.length > 0) return;
+    try {
+      window.history.replaceState(
+        { ...(window.history.state || {}), vmxView: 'home' },
+        '',
+        '/',
+      );
+    } catch {}
+    viewRef.current = 'home';
+    withTransition(() => setViewRaw('home'));
+  }, [view, questions.length]);
+
   // — Study buddies — Supabase Realtime presence for "who's online +
   // what subject + which Q they're on". Placed here (not at top of
   // component) because qKey depends on `questions` + `currentIdx`
@@ -904,7 +1006,7 @@ export default function App() {
   // grows from [] → 2,227 entries. Depend on `qbReady` so the memo
   // re-runs after the populate completes — without this, every consumer
   // closing over allQuestions would see the stale empty snapshot.
-  const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions, qbReady]);
+  const allQuestions = useMemo(() => [...QB, ...customQuestions], [customQuestions, qbReady, qbRevision]);
 
   // Auto-save in-flight exam state to localStorage. Runs on every
   // answer/navigation so accidental tab-close during a 25-minute
@@ -1195,6 +1297,25 @@ export default function App() {
     return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, totalScored, overallPct };
   }, [history, allQuestions]);
 
+  const configPracticeMode = normalizePracticeMode(practiceMode, subject, false);
+  const configAvailableCount = useMemo(() => {
+    const scopeReady = USER_CURATED_MODES.has(configPracticeMode)
+      ? isQBFullyLoaded()
+      : isQBYearLoaded(selectedYear);
+    if (!scopeReady) return null;
+    return buildExamPool({
+      questions: allQuestions,
+      practiceMode: configPracticeMode,
+      subject,
+      topic,
+      questionCategory,
+      selectedYear,
+      bookmarks,
+      weakQuestions: analytics?.weakQuestions || [],
+      history,
+    }).length;
+  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, questionCategory, selectedYear, subject, topic]);
+
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
   // batching. Without overrides, the function reads from current React
@@ -1225,15 +1346,9 @@ export default function App() {
     // applies. Without this, the user picks COM I, clicks 🚀, and gets
     // the 3 wrong-history Qs (or empty pool → alert) instead.
     const explicitMode = 'practiceMode' in overrides;
-    if (!explicitMode && _subject && _subject !== 'all' && (_practiceMode === 'wrong' || _practiceMode === 'weak' || _practiceMode === 'bookmarks')) {
-      _practiceMode = 'all';
-    }
+    _practiceMode = normalizePracticeMode(_practiceMode, _subject, explicitMode);
 
-    const isUserCuratedPool = (
-      _practiceMode === 'bookmarks' ||
-      _practiceMode === 'weak' ||
-      _practiceMode === 'wrong'
-    );
+    const isUserCuratedPool = USER_CURATED_MODES.has(_practiceMode);
 
     // Phase 3: QB lazy. App.jsx kicks off background load on mount so
     // by the time the user clicks "Start" this usually resolves
@@ -1250,6 +1365,7 @@ export default function App() {
         if (needsFullRegistry) await loadQB();
         else await loadQBForYear(selectedYear);
         setQbReady(true);
+        setQbRevision((revision) => revision + 1);
       } catch (err) {
         alertDialog({ title: 'โหลดคลังโจทย์ไม่ได้', body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่อีกครั้ง' });
         return;
@@ -1261,87 +1377,17 @@ export default function App() {
     // started this async handler and can otherwise be stale on slow WebKit.
     const examQuestions = [...QB, ...customQuestions];
 
-    // Year-scoping: when subject is 'all' (cross-subject random), constrain
-    // to the year the user is currently studying so the QB feels coherent
-    // with the year/phase pill in the header. Subject-specific picks are
-    // implicitly year-scoped via the subject's curriculum entry, so no
-    // additional filter needed for those. Bookmarks/weak/wrong are user-
-    // curated pools — the user *chose* those Qs, so they stay cross-year
-    // (matches the original intent in the comment, NOT the previous code
-    // which over-filtered all modes through yearScope unconditionally).
-    //
-    // Palm bug 2026-05-20: "ไม่มีข้อสอบในหมวดนี้" was firing on
-    // "🎯 ทบทวนข้อที่ตอบผิด" because the user's wrong-answer history
-    // could be from a year other than `selectedYear` (e.g. VCA year=5
-    // wrongs while studying Y4), so yearScope evicted everything.
-    const yearScope = (qs) => {
-      if (isUserCuratedPool) return qs; // user-curated, cross-year on purpose
-      if (_subject && _subject !== 'all') return qs; // subject implies year
-      // Lenient: keep Qs with no year tag (treat as belonging to whatever
-      // year the user is in). Hardens against legacy/custom Qs that
-      // pre-date the year-tagging migration.
-      return qs.filter((q) => q.year == null || q.year === selectedYear);
-    };
-
-    let pool;
-    if (_practiceMode === 'bookmarks') pool = examQuestions.filter((q) => bookmarks.includes(q.id));
-    else if (_practiceMode === 'weak') pool = examQuestions.filter((q) => analytics?.weakQuestions.includes(q.id));
-    else if (_practiceMode === 'wrong') {
-      // Cross-subject "review wrong" — uses history with compound (subject:id)
-      // keying so dupe IDs across subjects don't leak. Pool is everything the
-      // user has answered incorrectly at least once. No grading ratio threshold.
-      const wrongSet = new Set();
-      for (const h of (history || [])) {
-        if (h && h.correct === false) wrongSet.add((h.subject || '') + ':' + h.questionId);
-      }
-      pool = examQuestions.filter((q) => wrongSet.has(q.subject + ':' + q.id));
-    }
-    else {
-      // "รวมทุกวิชา" means every subject in THIS year, not every subject in
-      // the app. The bank is one flat array, so before Year 2 had questions
-      // this card silently mixed years — a second-year student would have
-      // been handed Year 5 clinical items.
-      pool = _subject === 'all'
-        ? examQuestions.filter((q) => !selectedYear || yearForSubject(q.subject) === selectedYear)
-        : examQuestions.filter((q) => q.subject === _subject);
-      if (_topic) {
-        // Collection IDs (prefix `_<name>-all`) bundle multiple topics by
-        // a shared topic prefix — used for "รวมหมาหอน" / "รวม Term Paper"
-        // in repro-lect. Resolved here before exact-match filtering.
-        if (_topic.startsWith('_') && _topic.endsWith('-all')) {
-          const collectionId = _topic.slice(1, -4); // '_mahahon-all' -> 'mahahon'
-          const subj = SUBJECTS.find((s) => s.id === _subject);
-          const coll = subj?.collections?.find((c) => c.id === _topic);
-          if (coll?.topicPrefix) {
-            pool = pool.filter((q) => q.topic?.startsWith(coll.topicPrefix));
-          } else {
-            pool = pool.filter((q) => q.topic?.startsWith(collectionId));
-          }
-        } else {
-          // Specific topic chosen — show all Qs of that topic (incl. hidden topics
-          // are reachable only via direct deep link, never auto-suggested).
-          pool = pool.filter((q) => q.topic === _topic);
-        }
-      } else if (_subject !== 'all') {
-        // "ทำรวม" mode for one subject: exclude hidden-topic Qs (uncertain-scope,
-        // midterm leftovers, etc.) so users get only Final-scope content.
-        const hidden = hiddenTopicIdsFor(_subject);
-        if (hidden.size) pool = pool.filter((q) => !hidden.has(q.topic));
-      } else {
-        // subject === 'all': filter hidden across every subject.
-        pool = pool.filter((q) => {
-          const hidden = hiddenTopicIdsFor(q.subject);
-          return !hidden.has(q.topic);
-        });
-      }
-    }
-
-    // Apply year-scope filter (no-op when subject is non-'all' — see comment above)
-    pool = yearScope(pool);
-
-    // Apply question-category filter so users can split MCQ vs Writing
-    if (_questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');
-    else if (_questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
+    const pool = buildExamPool({
+      questions: examQuestions,
+      practiceMode: _practiceMode,
+      subject: _subject,
+      topic: _topic,
+      questionCategory: _questionCategory,
+      selectedYear,
+      bookmarks,
+      weakQuestions: analytics?.weakQuestions || [],
+      history,
+    });
 
     if (!pool.length) {
       // Year-switch race: QB may already hold ANOTHER year's banks (so the
@@ -1356,6 +1402,7 @@ export default function App() {
         try {
           await loadQB();
           setQbReady(true);
+          setQbRevision((revision) => revision + 1);
           return startExam({ ...overrides, __retriedFullLoad: true });
         } catch {
           alertDialog({ title: 'โหลดคลังโจทย์ไม่ได้', body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่อีกครั้ง' });
@@ -1658,6 +1705,14 @@ export default function App() {
     } catch {}
     // Round 2B: clear challenge sender info — user left the challenge.
     setChallengeSender(null);
+  };
+
+  const goBackFromConfig = () => {
+    if (subject && subject !== 'all' && !USER_CURATED_MODES.has(configPracticeMode)) {
+      setView('topic-select');
+      return;
+    }
+    goHome();
   };
 
   const handleSignOut = async () => {
@@ -2006,7 +2061,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true) }} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true) }} onStartPanic={startPanicSession} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -2016,7 +2071,7 @@ export default function App() {
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, setView, setSubject, setTopic, goHome, startExam }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, startExam, goHome, mode, selectedYear, selectedPhase }} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
@@ -2101,6 +2156,7 @@ export default function App() {
             openInstructor={(ins) => setOpenInstructor(ins)}
             openVoiceSettings={() => setVoiceSettingsOpen(true)}
             onSketch={() => setSketchOpen(true)}
+            onPanic={startPanicSession}
             onOpenWiki={openWiki}
             onPractice={(inv) => {
               setMode(inv.mode || 'quick');

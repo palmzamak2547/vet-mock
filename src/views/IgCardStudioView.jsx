@@ -17,6 +17,7 @@
 
 import { useState, useMemo } from 'react';
 import { QB } from '../data/questions.js';
+import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 import { shuffle } from '../hooks/utils.js';
@@ -130,7 +131,8 @@ export default function IgCardStudioView({ goHome }) {
   const [busy, setBusy] = useState(false);
 
   const pool = useMemo(() => {
-    const filtered = subject === 'all' ? QB : QB.filter((q) => q.subject === subject);
+    const deliverable = QB.filter(isQuestionDeliverable);
+    const filtered = subject === 'all' ? deliverable : deliverable.filter((q) => q.subject === subject);
     // Prefer past-paper sourceType when present, ตัด writing-only Qs
     const usable = filtered.filter((q) => q.type === 'mcq' || q.type === 'tf');
     return usable;

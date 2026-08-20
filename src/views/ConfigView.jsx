@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import BackBar from '../components/BackBar.jsx';
 
@@ -26,13 +26,29 @@ const CATEGORIES = [
   { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน, จับเวลายาวขึ้นอัตโนมัติ' },
 ];
 
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, startExam, goHome, mode }) {
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, startExam, goHome, onBack, availableCount, mode }) {
+  const knownAvailableCount = Number.isFinite(availableCount)
+    ? Math.max(0, Math.floor(availableCount))
+    : null;
+  const countPresets = Array.from(new Set([
+    ...QCOUNT_PRESETS.filter((n) => knownAvailableCount == null || n <= knownAvailableCount),
+    ...(knownAvailableCount != null && knownAvailableCount > 0 ? [knownAvailableCount] : []),
+  ])).sort((a, b) => a - b);
   const questionCountRef = useRef(numQuestions);
   const timePerQuestionRef = useRef(timePerQ);
+
+  useEffect(() => {
+    if (knownAvailableCount == null || knownAvailableCount < 1 || numQuestions <= knownAvailableCount) return;
+    questionCountRef.current = knownAvailableCount;
+    setNumQuestions(knownAvailableCount);
+  }, [knownAvailableCount, numQuestions, setNumQuestions]);
+
   const updateQuestionCount = (e) => {
     const value = Number(e.currentTarget.value);
     if (Number.isFinite(value) && value >= 1) {
-      questionCountRef.current = Math.floor(value);
+      questionCountRef.current = knownAvailableCount == null
+        ? Math.floor(value)
+        : Math.min(Math.floor(value), Math.max(1, knownAvailableCount));
       setNumQuestions(questionCountRef.current);
     }
   };
@@ -61,7 +77,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
 
   return (
     <>
-      <BackBar onBack={goHome} label="หน้าแรก" subtitle={contextLine} />
+      <BackBar onBack={onBack || goHome} label={subject && subject !== 'all' ? 'เลือกหัวข้อ' : 'หน้าแรก'} subtitle={contextLine} />
       <div className="vmx-hero">
         <h1>ตั้งค่า <em>{isExamMode ? 'โหมดสอบ' : 'การฝึก'}</em></h1>
         <p>{contextLine}</p>
@@ -133,23 +149,37 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
 
         {/* Number of questions */}
         <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-count-label">
-          <div id="vmx-config-count-label" className="vmx-label">จำนวนข้อ</div>
+          <div className="vmx-config-label-row">
+            <div id="vmx-config-count-label" className="vmx-label">จำนวนข้อ</div>
+            <div id="vmx-config-count-help" className="vmx-config-availability" role="status">
+              {knownAvailableCount == null
+                ? 'กำลังตรวจจำนวนข้อ…'
+                : knownAvailableCount > 0
+                  ? `มี ${knownAvailableCount.toLocaleString()} ข้อในชุดนี้`
+                  : 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้'}
+            </div>
+          </div>
           <div className="vmx-chip-row">
-            {QCOUNT_PRESETS.map((n) => (
+            {countPresets.map((n) => (
               <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} aria-pressed={numQuestions === n} onClick={() => { questionCountRef.current = n; setNumQuestions(n); }}>
                 {n}
               </button>
             ))}
-            <input
-              type="number"
-              inputMode="numeric"
-              min={1}
-              value={numQuestions}
-              onInput={updateQuestionCount}
-              onChange={updateQuestionCount}
-              aria-label="จำนวนข้อแบบกำหนดเอง"
-              style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'var(--vmx-mono)', textAlign: 'center' }}
-            />
+            <label className="vmx-custom-number">
+              <span>กำหนดเอง</span>
+              <input
+                type="number"
+                inputMode="numeric"
+                min={1}
+                max={knownAvailableCount || undefined}
+                value={numQuestions}
+                onInput={updateQuestionCount}
+                onChange={updateQuestionCount}
+                aria-label="จำนวนข้อแบบกำหนดเอง"
+                aria-describedby="vmx-config-count-help"
+                className="vmx-number-pill"
+              />
+            </label>
           </div>
         </div>
 
@@ -181,16 +211,19 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                   {t}s
                 </button>
               ))}
-              <input
-                type="number"
-                inputMode="numeric"
-                min={5}
-                value={timePerQ}
-                onInput={updateTimePerQuestion}
-                onChange={updateTimePerQuestion}
-                aria-label="เวลาต่อข้อแบบกำหนดเอง"
-                style={{ width: 76, padding: '6px 10px', borderRadius: 999, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13, fontFamily: 'var(--vmx-mono)', textAlign: 'center' }}
-              />
+              <label className="vmx-custom-number">
+                <span>กำหนดเอง</span>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min={5}
+                  value={timePerQ}
+                  onInput={updateTimePerQuestion}
+                  onChange={updateTimePerQuestion}
+                  aria-label="เวลาต่อข้อแบบกำหนดเอง"
+                  className="vmx-number-pill"
+                />
+              </label>
             </div>
             {/* Writing-time hint only relevant when subject = engprof */}
             {showCategoryPicker && (
@@ -206,18 +239,18 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
       </div>
 
       <div className="vmx-btn-row">
-        {/* Labelled for what it does: goHome clears the subject/topic the
-            user just picked, so calling it "ย้อนกลับ" made people lose three
-            taps of work expecting to land back on topic selection. */}
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
+        <button className="vmx-btn vmx-btn-ghost" onClick={onBack || goHome}>
+          ← {subject && subject !== 'all' ? 'เลือกหัวข้อ' : 'หน้าแรก'}
+        </button>
         <button
           className="vmx-btn vmx-btn-primary"
+          disabled={knownAvailableCount === 0}
           onClick={() => startExam({
             numQuestions: questionCountRef.current,
             timePerQ: timePerQuestionRef.current,
           })}
         >
-          {isExamMode ? 'เริ่มสอบ →' : 'เริ่มฝึก →'}
+          {isExamMode ? 'เริ่มสอบ' : 'เริ่มฝึก'}{knownAvailableCount ? ` ${Math.min(numQuestions, knownAvailableCount)} ข้อ` : ''} →
         </button>
       </div>
     </>

@@ -64,8 +64,8 @@ export const NEEDS_FIGURE = new RegExp([
   // ตาม-/ดัง- forms. A word list is only as good as the words somebody
   // happened to think of, which is why it is one file and not three.
   'แผนผัง', 'ผังงาน', 'แผนภูมิ', 'ไดอะแกรม',
-  'ตามผัง', 'ตามภาพ', 'ตามรูป', 'ดังภาพ', 'ดังรูป',
-  '\\b(?:figure \\d|fig\\.|shown below|pictured|flow ?chart)\\b',
+  'แผนที่', 'ตามผัง', 'ตามภาพ', 'ตามรูป', 'ดังภาพ', 'ดังรูป',
+  '\\b(?:figure \\d|fig\\.|shown below|pictured|flow ?chart|(?:from|on|in|according to) (?:the )?map)\\b',
   // NOT bare "plot" or "chart": "Lineweaver-Burk plot" names a standard plot
   // any biochemistry student can reason about without seeing one, and a
   // "dental chart" is a record form, not an illustration.

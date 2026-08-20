@@ -133,6 +133,9 @@ function writeFlags(map) {
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote }) {
   const compoundId = (currentQ?.subject || '?') + ':' + currentQ?.id;
+  const figureSrc = safeImageUrl(currentQ?.image || currentQ?.imagePath);
+  const figureAlt = currentQ?.imageAlt
+    || `ภาพประกอบข้อ ${currentQ?.id || ''} วิชา ${currentQ?.subject || ''}`.trim();
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [flagState, setFlagState] = useState(() => readFlags()[compoundId] || null);
 
@@ -264,10 +267,6 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const contentBlock = (
     <div className="vmx-q-content-pane">
       <h2 className="vmx-qtext"><TermLinkedRichText text={currentQ.q} /></h2>
-
-      {/* Image rendering — used for U/S sonograms in หมาหอน bank.
-          Tap to enlarge in lightbox modal (close: tap outside / × / Esc). */}
-      {currentQ.imagePath && <ZoomableImage src={currentQ.imagePath} maxHeight={360} />}
 
       {/* Data discrepancy flag — surfaces conflicts between past papers
           and current lecture content. See vault discrepancies.md +
@@ -507,27 +506,15 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         )}
       </div>
 
-      {currentQ.image && safeImageUrl(currentQ.image) && (
-        <img
-          src={safeImageUrl(currentQ.image)}
-          alt={`Question ${currentQ.id} image, ${currentQ.subject}/${currentQ.topic || 'general'}`}
-          loading="lazy"
-          decoding="async"
-          className="vmx-qimage"
-          // onError swaps the broken <img> for an inline placeholder
-          // so users see "image failed to load" rather than a blank
-          // gap. We hide the img element to avoid double-rendering.
-          onError={(e) => {
-            e.currentTarget.style.display = 'none';
-            const ph = e.currentTarget.nextElementSibling;
-            if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
-          }}
+      {figureSrc && (
+        <ZoomableImage
+          src={figureSrc}
+          alt={figureAlt}
+          caption={currentQ.imageCaption}
+          credit={currentQ.imageCredit}
+          sourceUrl={currentQ.imageSourceUrl}
+          maxHeight={420}
         />
-      )}
-      {currentQ.image && safeImageUrl(currentQ.image) && (
-        <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', margin: '8px 0' }}>
-          ภาพประกอบโหลดไม่ได้ — ลองรีเฟรชหรือเช็คเน็ต
-        </div>
       )}
 
       {/* Layout switch: with-passage = grid on wide / stacked on narrow */}

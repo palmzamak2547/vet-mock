@@ -20,6 +20,7 @@ const VCA_NOTES_MAP = {
 
 export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos }) {
   const [openInstructor, setOpenInstructor] = useState(null);
+  const [activeSection, setActiveSection] = useState('topics');
   // Palm bug 2026-05-20: subjects with 50+ topics in curriculum but only
   // ~30 with Qs (e.g. COM I has 31 filled + 26 empty) flooded the view
   // with disabled "🚧 รอข้อสอบเพิ่ม" cards. Collapse empties behind a
@@ -88,6 +89,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   };
 
   const choose = (topicId) => {
+    const available = countFor(topicId);
+    if (setMode) setMode('quick');
+    if (setNumQuestions && available > 0) setNumQuestions(Math.min(10, available));
     setTopic(topicId === 'all' ? null : topicId);
     setView('config');
   };
@@ -124,10 +128,37 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         )}
       </div>
 
+      <div className="vmx-section-tabs" role="tablist" aria-label="เลือกสิ่งที่ต้องการทำในวิชานี้">
+        <button
+          type="button"
+          role="tab"
+          id="vmx-topic-tab-topics"
+          aria-controls="vmx-topic-panel-topics"
+          aria-selected={activeSection === 'topics'}
+          className={activeSection === 'topics' ? 'active' : ''}
+          onClick={() => setActiveSection('topics')}
+        >
+          ฝึกตามหัวข้อ
+        </button>
+        <button
+          type="button"
+          role="tab"
+          id="vmx-topic-tab-resources"
+          aria-controls="vmx-topic-panel-resources"
+          aria-selected={activeSection === 'resources'}
+          className={activeSection === 'resources' ? 'active' : ''}
+          onClick={() => setActiveSection('resources')}
+        >
+          สรุป คลิป และสอบจำลอง
+        </button>
+      </div>
+
+      {activeSection === 'resources' && (
+      <section id="vmx-topic-panel-resources" role="tabpanel" aria-labelledby="vmx-topic-tab-resources">
       {/* PRIMARY actions — promoted to top so users see "what can I do
           with this subject" before topic drill-down. Mirrors the home
           mode grid pattern but scoped to this subject. */}
-      <div className="vmx-section-label">เลือกการกระทำ</div>
+      <div className="vmx-section-label">สื่อเรียนและโหมดฝึก</div>
       <div className="vmx-mode-grid" style={{ marginBottom: 20 }}>
         <button
           className="vmx-mode-card"
@@ -169,7 +200,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           style={{ opacity: resources.notes?.available ? 1 : 0.55 }}
         >
           <div className="icon">📖</div>
-          <div className="title">Notes / สรุป</div>
+          <div className="title">สรุปบทเรียน</div>
           <div className="sub">{resources.notes?.available ? `${resources.notes.count} หัวข้อ, อ้างอิงแหล่งที่มา` : 'ยังไม่มี Notes ในวิชานี้'}</div>
         </button>
 
@@ -181,7 +212,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         >
           <div className="icon">🎥</div>
           <div className="title">คลิปย้อนหลัง</div>
-          <div className="sub">{resources.videos?.available ? `${resources.videos.count} playlist / แหล่งวิดีโอ` : 'ยังไม่มีคลิปในวิชานี้'}</div>
+          <div className="sub">{resources.videos?.available ? `${resources.videos.count} ชุดวิดีโอ` : 'ยังไม่มีคลิปในวิชานี้'}</div>
         </button>
 
         <button
@@ -275,8 +306,12 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           </div>
         </>
       )}
+      </section>
+      )}
 
-      <div className="vmx-section-label">หรือเลือกหัวข้อเฉพาะ</div>
+      {activeSection === 'topics' && (
+      <section id="vmx-topic-panel-topics" role="tabpanel" aria-labelledby="vmx-topic-tab-topics">
+      <div className="vmx-section-label">เลือกหัวข้อที่จะฝึก</div>
       <div className="vmx-subject-grid">
         {/* All-topics card */}
         <button
@@ -289,7 +324,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
           <div className="icon">📚</div>
           <div className="title">รวมทุกหัวข้อ</div>
-          <div className="sub">All topics in {subjectMeta?.name}</div>
+          <div className="sub">{subjectMeta?.name} ทุกหัวข้อ</div>
           <div className="count">{countFor('all')} ข้อ</div>
         </button>
 
@@ -448,11 +483,13 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               {showEmptyTopics ? 'ซ่อนหัวข้อที่ยังไม่มีเนื้อหา' : `แสดงหัวข้อที่ยังไม่มีเนื้อหา (${emptyCount} หัวข้อ)`}
             </button>
             <div style={{ fontSize: 12, lineHeight: 1.5 }}>
-              หัวข้อในแผนการสอนที่ยังไม่มีข้อสอบ, Notes หรือ VetWiki — ขอเพิ่มได้ที่ปุ่ม "ส่งคำถามเข้า Q bank" หน้าแรก
+              หัวข้อในแผนการสอนที่ยังไม่มีข้อสอบหรือสรุปพร้อมใช้ คุณแจ้งขอเพิ่มได้จากเมนู "แจ้งปัญหา"
             </div>
           </div>
         );
       })()}
+      </section>
+      )}
 
       {/* Bottom-row buttons removed — Notes/Videos moved to top action
           panel; "หน้าแรก" available via BackBar. Saves vertical space

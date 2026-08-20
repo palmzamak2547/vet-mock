@@ -18,10 +18,7 @@ export default function Wordmark({ size = 22 }) {
         height={size}
         style={{ borderRadius: size * 0.22, display: 'block', flexShrink: 0 }}
       />
-      {/* No wrapper element around the text: `.vmx-logo span` styles the
-          italic rose "Mock", and an extra span would match that selector
-          first and tint the whole wordmark. */}
-      Vet<span>Mock</span>
+      <span className="vmx-wordmark-text">Vet<span>Mock</span></span>
     </>
   );
 }

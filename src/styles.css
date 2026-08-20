@@ -393,10 +393,7 @@ html, body {
      browsers (Safari < 16). Both prevent body-level scroll. */
   overflow-x: hidden;
   overflow-x: clip;
-  background-image:
-    radial-gradient(at 12% 8%, rgba(168, 192, 168, 0.15) 0px, transparent 50%),
-    radial-gradient(at 88% 92%, rgba(232, 184, 184, 0.12) 0px, transparent 50%);
-  transition: background 0.3s, color 0.3s;
+  transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
 }
 
 /* Sidebar layout */
@@ -513,9 +510,10 @@ html, body {
 }
 .vmx-header-context { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 0; }
 .vmx-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; cursor: pointer; }
-.vmx-logo span { color: var(--clr-rose); font-style: italic; font-weight: 500; }
+.vmx-wordmark-text { color: var(--clr-ink); font-style: normal; font-weight: 800; }
+.vmx-wordmark-text > span { color: var(--clr-rose); font-style: italic; font-weight: 500; }
 .vmx-logo-btn { border: 0; background: transparent; color: var(--clr-ink); padding: 8px 2px; min-height: 44px; display: inline-flex; align-items: center; gap: 9px; }
-.vmx-logo-btn:hover span { color: var(--clr-rose-text); }
+.vmx-logo-btn:hover .vmx-wordmark-text > span { color: var(--clr-rose-text); }
 .vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .vmx-subtitle { font-size: 12px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
 .vmx-streak { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-pill); font-size: 13px; font-weight: 600; color: var(--clr-gold-text); }
@@ -647,9 +645,9 @@ html, body {
 @media (max-width: 600px) {
   .vmx-cmdk-kbd { display: none; }
   .vmx-cmdk-btn { padding: 5px 8px; font-size: 12px; }
-  .vmx-header { display: grid; grid-template-columns: minmax(0, 1fr); padding-bottom: 14px; margin-bottom: 18px; gap: 8px; }
-  .vmx-header-context { gap: 8px; }
-  .vmx-header-right { gap: 6px; width: 100%; justify-content: space-between; }
+  .vmx-header { display: flex; flex-wrap: nowrap; padding-bottom: 12px; margin-bottom: 16px; gap: 6px; }
+  .vmx-header-context { flex: 1 1 auto; gap: 6px; flex-wrap: nowrap; }
+  .vmx-header-right { flex: 0 0 auto; gap: 4px; width: auto; justify-content: flex-end; flex-wrap: nowrap; }
   /* WCAG 2.5.5 floor — don't shrink below 44×44 on mobile. Was 32×32
      pre-2026-05-20 audit; sub-44 hit targets cause mis-taps on
      thumb-reach scenarios. Slightly smaller font compensates for
@@ -657,8 +655,18 @@ html, body {
   .vmx-theme-btn { width: 44px; height: 44px; min-width: 44px; font-size: 16px; }
   .vmx-streak { display: none; } /* free up space; visible on Analytics */
   .vmx-logo { font-size: 19px; }
+  .vmx-wordmark-text,
+  .vmx-xp-chip { display: none !important; }
+  .vmx-logo-btn { width: var(--touch-min); padding: 0; justify-content: center; }
+  .vmx-login-btn { width: var(--touch-min); min-width: var(--touch-min); padding-inline: 0; justify-content: center; }
+  .vmx-login-btn span { display: none; }
   .vmx-xp-chip-total, .vmx-xp-chip-progress { display: none !important; }
   .vmx-context-pill { padding: 0 10px; font-size: 12px; }
+  /* Mobile Home keeps immediate study actions only. Timetable, deadlines,
+     changelog and streak remain available in their dedicated views instead
+     of competing with the subject list in the first viewport. */
+  .vmx-home-quick-context,
+  .vmx-streak-card-home { display: none !important; }
 }
 
 /* View Transitions API — smooth fade between views (Chrome/Edge/Safari TP).
@@ -767,6 +775,34 @@ html, body {
 }
 
 .vmx-section-label { font-size: 13px; font-weight: 600; color: var(--clr-ink); margin: 0 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vmx-section-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-1);
+  padding: var(--space-1);
+  margin-bottom: var(--space-5);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  background: var(--clr-surface-2);
+}
+.vmx-section-tabs button {
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--clr-ink-soft);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.vmx-section-tabs button.active {
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  box-shadow: var(--shadow-sm);
+}
+.vmx-section-tabs button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 
 .vmx-mode-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
 .vmx-mode-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.15s; text-align: left; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; color: var(--clr-ink); font-family: inherit; }
@@ -925,6 +961,23 @@ html, body {
 .vmx-config-panel { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 20px; padding: 28px; margin-bottom: 20px; }
 .vmx-config-row { margin-bottom: 24px; }
 .vmx-config-row:last-child { margin-bottom: 0; }
+.vmx-config-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
+.vmx-config-availability { color: var(--clr-ink-soft); font-size: var(--text-sm); }
+.vmx-custom-number { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--clr-ink-soft); font-size: var(--text-xs); }
+.vmx-number-pill {
+  width: 76px;
+  min-height: var(--touch-min);
+  box-sizing: border-box;
+  padding: 6px 10px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  background: var(--clr-bg);
+  color: var(--clr-ink);
+  font-family: var(--vmx-mono);
+  font-size: 16px;
+  text-align: center;
+}
+.vmx-number-pill:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-label { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: block; color: var(--clr-ink); }
 .vmx-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .vmx-chip { padding: 10px 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); border-radius: 999px; cursor: pointer; font-size: 13px; font-family: var(--vmx-mono); transition: all 0.15s; color: var(--clr-ink-soft); display: inline-flex; align-items: center; }
@@ -1118,6 +1171,123 @@ html, body {
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }
 .vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: var(--clr-surface-2); }
 
+/* Question figures — real source material with an explicit caption and a
+   keyboard-accessible zoom affordance. The control stays visually quiet so
+   the clinical/lecture figure remains the focal point. */
+.vmx-zoom-figure {
+  margin: var(--space-3) 0 var(--space-5);
+}
+.vmx-zoom-trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--clr-surface-2);
+  color: var(--clr-ink);
+  cursor: zoom-in;
+}
+.vmx-zoom-trigger:focus-visible {
+  outline: 3px solid var(--clr-sage);
+  outline-offset: 3px;
+}
+.vmx-zoom-inline {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  object-fit: contain;
+  background: white;
+}
+.vmx-zoom-hint {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  min-height: 32px;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--r-pill);
+  background: rgba(43, 36, 25, 0.88);
+  color: white;
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+.vmx-figure-caption {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1) 0;
+  color: var(--clr-ink-soft);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+.vmx-figure-credit {
+  font-size: var(--text-xs);
+}
+.vmx-figure-credit a {
+  color: var(--clr-sage-text);
+  font-weight: 700;
+  text-underline-offset: 2px;
+}
+.vmx-image-error {
+  padding: var(--space-4);
+  border: 1px dashed var(--clr-rose-text);
+  border-radius: var(--r-md);
+  background: var(--clr-rose-soft);
+  color: var(--clr-ink);
+  font-size: var(--text-base);
+}
+.vmx-image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(var(--space-4), env(safe-area-inset-top)) max(var(--space-4), env(safe-area-inset-right)) max(var(--space-4), env(safe-area-inset-bottom)) max(var(--space-4), env(safe-area-inset-left));
+  background: rgba(16, 14, 11, 0.96);
+  cursor: zoom-out;
+}
+.vmx-image-lightbox__close {
+  position: absolute;
+  top: max(var(--space-4), env(safe-area-inset-top));
+  right: max(var(--space-4), env(safe-area-inset-right));
+  width: var(--touch-min);
+  height: var(--touch-min);
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: 50%;
+  background: #2b2419;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+.vmx-image-lightbox__close:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+.vmx-image-lightbox__image {
+  max-width: 100%;
+  max-height: calc(100dvh - 96px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  object-fit: contain;
+  cursor: default;
+}
+.vmx-image-lightbox__hint {
+  position: absolute;
+  left: 50%;
+  bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 120px);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: var(--text-xs);
+  text-align: center;
+  pointer-events: none;
+}
+
 /* ── Reading-comprehension layout ───────────────────────────
    On desktop ≥1024px, render passage as a sticky LEFT pane next
    to the question content, so students can see the passage and
@@ -1220,7 +1390,20 @@ html, body {
 .vmx-review-result { font-weight: 700; }
 .vmx-review-result.ok { color: var(--clr-sage); }
 .vmx-review-result.no { color: var(--clr-rose); }
-.vmx-review-q { font-size: 15px; line-height: 1.5; margin-bottom: 12px; color: var(--clr-ink); }
+.vmx-review-q { margin: 0 0 12px; color: var(--clr-ink); font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1.55; }
+.vmx-review-expand {
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-sm);
+  background: var(--clr-surface-2);
+  color: var(--clr-sage-text);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.vmx-review-expand:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-review-ans { padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 13px; background: var(--clr-bg); color: var(--clr-ink); }
 .vmx-review-ans .k { font-family: var(--vmx-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 8px; }
 .vmx-review-ans.correct-ans { background: rgba(74, 107, 74, 0.1); border: 1px solid rgba(74, 107, 74, 0.2); }
@@ -1641,10 +1824,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 /* Streak chip pulse — only animates when ≥3 days (handled via class
    toggle in HomeView). Subtle so it does not distract during exam. */
 .vmx-streak-active {
-  animation: vmx-pulse-soft 2.6s ease-in-out infinite;
+  animation: none;
 }
 
-/* ── Streak UI redesign — warm gradient + animated fire + milestone ─── */
+/* ── Streak UI — quiet status, not a competing primary action ─── */
 
 /* Header streak pill — upgraded with fire icon + count + label */
 .vmx-streak {
@@ -1652,14 +1835,13 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   align-items: center;
   gap: 3px;
   padding: 4px 10px 4px 6px;
-  background: linear-gradient(135deg, var(--clr-gold-soft) 0%, var(--clr-surface) 100%);
+  background: var(--clr-surface);
   border: 1px solid var(--clr-gold-soft);
   border-radius: var(--r-pill);
   font-size: 13px;
   font-weight: 600;
-  color: var(--clr-gold);
-  transition: all 0.2s;
-  box-shadow: 0 0 0 0 transparent;
+  color: var(--clr-gold-text);
+  transition: border-color var(--dur-fast) var(--ease-out);
 }
 .vmx-streak-fire-icon {
   font-size: 15px;
@@ -1679,14 +1861,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   letter-spacing: 0.06em;
 }
 
-/* Header streak pulse — subtle glow when streak ≥3 */
 .vmx-streak-pulse {
-  animation: vmx-streak-glow 2.4s ease-in-out infinite;
-}
-
-@keyframes vmx-streak-glow {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  50% { box-shadow: 0 0 12px 2px rgba(184, 137, 64, 0.25); }
+  border-color: var(--clr-gold);
 }
 
 /* ── HomeView streak card — 7-day progress dots + gradient ─── */
@@ -1700,38 +1876,30 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   border: 1px solid var(--clr-border);
   font-size: 12px;
   color: var(--clr-ink-soft);
-  transition: all 0.2s;
+  transition: border-color var(--dur-fast) var(--ease-out);
   position: relative;
   overflow: hidden;
 }
 
 .vmx-streak-card-home::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(184, 137, 64, 0.04) 0%, transparent 60%);
-  pointer-events: none;
+  content: none;
 }
 
 .vmx-streak-card-home:hover {
   border-color: var(--clr-gold-soft);
-  box-shadow: 0 0 0 3px rgba(184, 137, 64, 0.08);
 }
 
-/* Warm streak — gradient intensifies at ≥3 days */
 .vmx-streak-warm {
   border-color: var(--clr-gold-soft);
-  background: linear-gradient(135deg, rgba(184, 137, 64, 0.08) 0%, var(--clr-surface) 40%);
+  background: var(--clr-surface);
 }
 
-/* Hot streak — bold gradient + glow at ≥7 days */
 .vmx-streak-hot {
   border-color: var(--clr-gold);
-  background: linear-gradient(135deg, rgba(184, 137, 64, 0.15) 0%, rgba(232, 212, 168, 0.20) 40%, var(--clr-surface) 100%);
-  box-shadow: 0 0 16px 0 rgba(184, 137, 64, 0.12);
+  background: var(--clr-gold-soft);
 }
 .vmx-streak-hot .vmx-streak-fire {
-  animation: vmx-fire-wobble 0.6s ease-in-out infinite alternate;
+  animation: none;
 }
 
 .vmx-streak-fire {
@@ -2194,6 +2362,10 @@ button.vmx-chip-quick:focus-visible {
 @media (max-width: 1023px) {
   :root { --vmx-bottom-nav-h: 58px; }
   .vmx-app { padding-bottom: calc(58px + env(safe-area-inset-bottom) + 8px); }
+  /* Mobile already has bottom navigation, search and the categorized tool
+     menu on Home. A floating sixth navigation layer obscured cards. */
+  .vmx-tools-fab,
+  .vmx-tools-menu { display: none !important; }
   /* Focus views (exam, results, review, auth, year-select) don't render the
      bar, so reserving its height just pushed 58px of empty space under every
      question card. Zero the var too, so the ToolsFAB doesn't float above a

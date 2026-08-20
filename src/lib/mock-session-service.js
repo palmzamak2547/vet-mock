@@ -3,6 +3,7 @@
 // ============================================================
 
 import { QB } from '../data/questions.js';
+import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 // In-memory server session store (simulates server DB state)
 export const SESSIONS_DB = new Map();
@@ -15,7 +16,9 @@ export function createMockSession({ userId, domainId, title, questionCount = 10,
   if (!userId) throw new Error('Authentication required');
 
   // Filter published, unique questions for domain
-  const pool = Array.isArray(customQuestions) && customQuestions.length > 0 ? customQuestions : QB;
+  const pool = Array.isArray(customQuestions) && customQuestions.length > 0
+    ? customQuestions
+    : QB.filter(isQuestionDeliverable);
   const publishedQuestions = pool.filter((q) => q.status === 'published' || q.status === undefined || q.isDemo);
 
   if (publishedQuestions.length === 0) {
@@ -107,7 +110,7 @@ export function submitMockSession(sessionId, answers = {}, currentUserId) {
   // Calculate score deterministically against server QB source of truth
   let correctCount = 0;
   session.questions.forEach((sq) => {
-    const fullQ = QB.find((q) => q.id === sq.id) || sq;
+    const fullQ = QB.find((q) => isQuestionDeliverable(q) && q.id === sq.id) || sq;
     const correctIdx = fullQ.correctChoiceIndex ?? fullQ.answer ?? 0;
     if (session.answers[sq.id] === correctIdx) {
       correctCount++;

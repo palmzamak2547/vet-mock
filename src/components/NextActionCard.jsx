@@ -16,6 +16,7 @@ export default function NextActionCard({
   onPickResume,
   onDismissResume,
   onPickExamPrep,
+  onPickPanic,
   onPickSR,
   onPickWrong,
   onPickWeakSubject,
@@ -45,7 +46,15 @@ export default function NextActionCard({
     }
 
     // Priority 1: imminent exam (≤7 days)
-    if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7) {
+    if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 1 && onPickPanic) {
+      out.push({
+        title: nextExam.daysLeft === 0 ? 'สอบวันนี้ — ทบทวนเร่งด่วน' : 'พรุ่งนี้สอบ — จัดชุดทบทวนให้พอดีเวลา',
+        sub: 'โฟกัสโจทย์สำคัญใน 30 นาที',
+        cta: 'เริ่ม 30 นาที',
+        kind: 'panic',
+        onClick: () => onPickPanic('30'),
+      });
+    } else if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7) {
       out.push({
         title: `ติว ${nextExam.subject_name || nextExam.title || 'วิชาที่จะสอบ'}`,
         sub: nextExam.daysLeft === 0 ? 'กำหนดสอบวันนี้' : `กำหนดสอบในอีก ${nextExam.daysLeft} วัน`,
@@ -121,14 +130,14 @@ export default function NextActionCard({
     }
 
     return out.slice(0, 3);
-  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom]);
+  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickPanic, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom]);
 
   if (actions.length === 0) return null;
 
   return (
     <section className="vmx-next-actions" aria-labelledby="vmx-next-actions-title">
       <h2 id="vmx-next-actions-title" className="vmx-next-actions-heading">
-        กิจกรรมแนะนำสำหรับคุณ
+        ทำอะไรต่อดี
       </h2>
       <div className="vmx-next-actions-list">
         {actions.map((a, i) => {

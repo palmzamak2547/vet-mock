@@ -80,10 +80,18 @@ export const FEATURES = [
   },
   {
     id: 'sr-session', category: 'practice', primary: true,
-    label: 'Spaced Repetition', labelEn: 'Spaced Repetition', icon: '🧠',
-    hint: 'ทบทวนแบบ Anki — ตอบผิดแล้วระบบนำมา review',
+    label: 'ทบทวนตามรอบ', labelEn: 'Spaced Repetition', icon: '🧠',
+    hint: 'ข้อที่ผิดหรือลังเลจะกลับมาตามรอบที่เหมาะสม',
     kw: 'sr spaced repetition anki flashcard ทบทวน review จำ',
     invoke: { kind: 'view', view: 'sr-session' },
+  },
+  {
+    id: 'panic-mode', category: 'practice',
+    label: 'ทบทวนเร่งด่วน', labelEn: 'Panic Mode', icon: '⏱️',
+    hint: 'จัดชุด high-yield ให้พอดีกับเวลา 30 นาที',
+    kw: 'panic mode cram เร่งด่วน พรุ่งนี้สอบ 15 30 60 นาที high yield',
+    hideOnScaffold: true,
+    invoke: { kind: 'panic', timeKey: '30' },
   },
   {
     id: 'race', category: 'practice',

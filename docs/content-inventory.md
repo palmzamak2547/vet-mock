@@ -9,16 +9,18 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Total questions** | **4,506** |
+| **Questions ready for learners** | **4,480** |
+| Questions retained but fail-closed pending a verified figure | 26 |
+| Total questions in source banks | 4,506 |
 | Question banks (files) | 65 |
 | Subjects with questions | 42 |
 | Years covered | 1, 2, 4, 5 |
-| — year 1 | 298 |
-| — year 2 | 145 |
-| — year 4 | 2,095 |
-| — year 5 | 1,968 |
+| — year 1 | 296 |
+| — year 2 | 142 |
+| — year 4 | 2,092 |
+| — year 5 | 1,950 |
 
-Consistency: counted **4506**, `q-counts.js` says **4506**, registry sums to **4506**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **4506**, learner-ready **4480**, fail-closed **26**, registry sums to **4506**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 

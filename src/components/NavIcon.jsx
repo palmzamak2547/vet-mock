@@ -39,6 +39,13 @@ const PATHS = {
       <path d="m16 16 4.5 4.5" />
     </>
   ),
+  // account / sign in
+  user: (
+    <>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4.5 21a7.5 7.5 0 0 1 15 0" />
+    </>
+  ),
   // ribbon / saved questions
   bookmark: <path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1Z" />,
   // flame / daily streak

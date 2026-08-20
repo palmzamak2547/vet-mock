@@ -41,6 +41,7 @@
 /* ---- Landing shell ---- */
 html.lp-active { background: var(--clr-bg); }
 .lp-root { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; color: var(--clr-ink); background: var(--clr-bg); min-height: 100vh; min-height: 100svh; overflow-x: hidden; }
+.lp-root .vmx-btn { overflow: visible; }
 [data-theme="dark"] .lp-root, html.lp-active[data-theme="dark"] { color-scheme: dark; }
 :root:not([data-theme="dark"]) .lp-root, html.lp-active:not([data-theme="dark"]) { color-scheme: light; }
 .lp-root a { color: var(--clr-sage); text-decoration: none; transition: color .15s; }

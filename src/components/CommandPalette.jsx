@@ -28,6 +28,7 @@ import { ALL_INSTRUCTORS } from '../data/instructors.js';
 // Only the first 80 chars of q.q are added to the keyword string to keep
 // fuzzy-filter cost bounded (~1999 Qs × short stem = manageable).
 import { QB } from '../data/questions.js';
+import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 // User-authored flashcards (Highlight → Flashcard feature). Same
 // module that owns the localStorage key, so we don't re-parse here.
 import { loadUserFlashcards } from '../lib/user-flashcards.js';
@@ -220,6 +221,7 @@ function buildStaticItems() {
   // Question stems
   const seenQText = new Set();
   for (const q of (QB || [])) {
+    if (!isQuestionDeliverable(q)) continue;
     if (!q?.q || typeof q.q !== 'string') continue;
     const stem = q.q.slice(0, 100);
     const dedupeKey = q.subject + ':' + stem.slice(0, 50);
@@ -286,7 +288,7 @@ function buildStaticItems() {
 // Dispatch table — translates a cached item back into an action.
 // Keeps the item array pure data so we don't have to rebuild closures.
 function runItem(item, handlers) {
-  const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onSketch, onOpenWiki } = handlers;
+  const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onPanic, onSketch, onOpenWiki } = handlers;
   switch (item.type) {
     case 'wiki': onOpenWiki?.(item.payload.subject, item.payload.topic); return;
     case 'exam': goView?.(item.payload); return; // payload = 'schedule'
@@ -298,6 +300,7 @@ function runItem(item, handlers) {
       switch (inv.kind) {
         case 'view':      goView?.(inv.view); return;
         case 'practice':  onPractice?.(inv); return;
+        case 'panic':     onPanic?.(inv.timeKey || '30'); return;
         case 'event':     try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
         case 'sketch':    onSketch?.(); return;
         case 'external':  if (inv.url) window.location.assign(inv.url); return;

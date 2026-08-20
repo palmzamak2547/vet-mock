@@ -1,5 +1,4 @@
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
-import { QB } from '../data/questions.js';
 
 // PhaseSelectView — second step of the year picker.
 // After user picks a year, they pick a 4-quadrant exam phase:
@@ -11,10 +10,10 @@ import { QB } from '../data/questions.js';
 // Y6 is block-based (no fixed semester) — bypasses this view in App routing.
 
 const PHASES = [
-  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'Sem 1, Midterm',   icon: '📚', months: [8, 9, 10] },
-  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'Sem 1, Final',     icon: '🎯', months: [11, 12] },
-  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'Sem 2, Midterm',   icon: '📖', months: [2, 3] },
-  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'Sem 2, Final',     icon: '🏁', months: [4, 5] },
+  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'เนื้อหาก่อนสอบกลางภาค', icon: '📚', months: [8, 9, 10] },
+  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'เนื้อหาก่อนสอบปลายภาค', icon: '🎯', months: [11, 12] },
+  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'เนื้อหาก่อนสอบกลางภาค', icon: '📖', months: [2, 3] },
+  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'เนื้อหาก่อนสอบปลายภาค', icon: '🏁', months: [4, 5] },
 ];
 
 export function detectCurrentPhase(now = new Date()) {
@@ -62,7 +61,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
                 borderColor: isPicked ? accent : (isCurrent ? 'var(--clr-rose)' : undefined),
                 position: 'relative',
               }}
-              title={isCurrent ? 'ช่วงเวลาปัจจุบัน (auto-detect จากวันที่)' : ''}
+              title={isCurrent ? 'ช่วงที่ระบบแนะนำจากเดือนปัจจุบัน' : ''}
             >
               <div className="icon">{p.icon}</div>
               <div className="title">{p.label}</div>
@@ -81,7 +80,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
                     : `${subjectsInPhase.length} วิชา, รอเติม`}
               </div>
               {isCurrent && (
-                <div className="badge" style={{ background: 'var(--clr-rose)', fontSize: 9 }}>NOW</div>
+                <div className="badge" style={{ background: 'var(--clr-rose)', fontSize: 10 }}>แนะนำ</div>
               )}
             </button>
           );
@@ -98,8 +97,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
         textAlign: 'center',
         lineHeight: 1.6,
       }}>
-        NOW = ช่วงที่ระบบเดาจากเดือนปัจจุบัน เลือกช่วงอื่นได้ตลอด<br/>
-        เปลี่ยนชั้นปีได้ที่ปุ่ม <strong>ปี N</strong> ด้านบน
+        ระบบแนะนำช่วงสอบจากเดือนปัจจุบัน คุณเลือกช่วงอื่นได้ตลอด
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

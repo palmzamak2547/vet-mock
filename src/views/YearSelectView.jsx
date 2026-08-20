@@ -10,8 +10,8 @@ import { detectCurrentPhase } from './PhaseSelectView.jsx';
 // ──────────────────────────────────────────────────────────────
 // YearSelectView — first-time front door for VetMock.
 //
-// Design choice (2026-05-12): the LIVE years (1, 4 and 5; Vet 86 = ปี 5)
-// is the only year with real data. Listing 5 dim placeholder rows on
+// Design choice (2026-05-12): years backed by real banks are derived from
+// curriculum data, never repeated in copy. Listing dim placeholder rows on
 // the first screen pollutes the user's first impression — and the
 // double-stamp ("รอเติม" + "PREVIEW") is noise that says the same
 // thing twice. New layout:
@@ -24,6 +24,10 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
   const liveYears = YEARS.filter((y) => !y.scaffold);
   const scaffoldYears = YEARS.filter((y) => y.scaffold);
   const liveQCount = liveYears.reduce((s, y) => s + (Q_COUNTS_BY_YEAR[y.id] || 0), 0);
+  const liveYearLabels = liveYears.map((y) => y.label);
+  const liveYearCopy = liveYearLabels.length > 1
+    ? `${liveYearLabels.slice(0, -1).join(', ')} และ ${liveYearLabels[liveYearLabels.length - 1]}`
+    : liveYearLabels[0] || 'ชั้นปีที่มีเนื้อหา';
 
   const goToYear = (y) => {
     setSelectedYear(y.id);
@@ -45,7 +49,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
         ) : (
           <h1>เปลี่ยน <em>ชั้นปี</em></h1>
         )}
-        <p>ปี 1, 4, 5 เปิดให้ฝึกแล้ว, ปีอื่นวางโครงรอเติมเนื้อหา</p>
+        <p>{liveYearCopy} เปิดให้ฝึกแล้ว ส่วนชั้นปีอื่นกำลังทยอยเพิ่มเนื้อหา</p>
       </div>
 
       {/* LIVE year cards — primary CTA */}

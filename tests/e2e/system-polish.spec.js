@@ -25,7 +25,10 @@ test('stable destinations survive direct load, refresh and browser history', asy
 
   await page.getByRole('button', { name: /หน้าแรก/ }).first().click();
   await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);
-  await page.goBack();
+  await page.evaluate(() => new Promise((resolve) => {
+    window.addEventListener('popstate', resolve, { once: true });
+    window.history.back();
+  }));
   await expect(page).toHaveURL(/\/app\/videos$/);
   await expect(page.getByRole('heading', { level: 1 })).toContainText(/คลิป.*ย้อนหลัง/);
 });

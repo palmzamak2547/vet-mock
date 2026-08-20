@@ -27,6 +27,7 @@ import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
+import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const randomCode = () => Array.from({ length: 5 }, () => CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]).join('');
@@ -57,7 +58,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
 
   // Eligible MCQ pool — race only supports MCQ for fairness + speed
   const eligibleQs = useMemo(() =>
-    QB.filter((q) => q.type === 'mcq' && q.subject === subject && q.options?.length >= 3),
+    QB.filter((q) => isQuestionDeliverable(q) && q.type === 'mcq' && q.subject === subject && q.options?.length >= 3),
   [subject]);
 
   // ── Channel setup ────────────────────────────────────────────
@@ -84,7 +85,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         const qs = qIds.map((k) => {
           const [s, idStr] = k.split(':');
           const id = parseInt(idStr, 10);
-          return QB.find((q) => q.subject === s && q.id === id);
+          return QB.find((q) => isQuestionDeliverable(q) && q.subject === s && q.id === id);
         }).filter(Boolean);
         if (qs.length) {
           setQuestions(qs);

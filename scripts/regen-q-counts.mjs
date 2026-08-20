@@ -36,9 +36,11 @@ const root = path.join(here, '..');
 const m = await import(pathToFileURL(path.join(root, 'src/data/questions.js')).href);
 const curM = await import(pathToFileURL(path.join(root, 'src/data/curriculum.js')).href);
 const metadataM = await import(pathToFileURL(path.join(root, 'src/lib/question-metadata.js')).href);
+const deliveryM = await import(pathToFileURL(path.join(root, 'src/data/question-delivery.generated.js')).href);
 const { QB, loadQB } = m;
 const { SUBJECTS } = curM;
 const { UNASSIGNED_TOPIC, isPastPaperQuestion, questionTopicId } = metadataM;
+const { isQuestionDeliverable } = deliveryM;
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 
 // Phase 3 lazy QB rework (2026-05-17): QB exports empty until loadQB()
@@ -70,7 +72,8 @@ const byVisibleSubject = {};
 const byYear = {};
 const byTopic = {};
 const byPastPaperTopic = {};
-for (const q of QB) {
+const deliverableQuestions = QB.filter(isQuestionDeliverable);
+for (const q of deliverableQuestions) {
   const subj = q.subject || '__unknown__';
   const topic = questionTopicId(q);
   bySubject[subj] = (bySubject[subj] || 0) + 1;
@@ -98,7 +101,9 @@ lines.push('// from here INSTEAD of QB so the count-only render path doesn\'t');
 lines.push('// drag the full Q-bank into the home-screen load graph.');
 lines.push('// ============================================================');
 lines.push('');
-lines.push(`export const QB_TOTAL = ${QB.length};`);
+lines.push(`export const QB_TOTAL = ${deliverableQuestions.length};`);
+lines.push(`export const QB_SOURCE_TOTAL = ${QB.length};`);
+lines.push(`export const QB_BLOCKED_TOTAL = ${QB.length - deliverableQuestions.length};`);
 lines.push('');
 lines.push('export const Q_COUNTS_BY_SUBJECT = {');
 for (const k of Object.keys(bySubject).sort()) {
@@ -154,5 +159,5 @@ const outPath = path.join(root, 'src/data/q-counts.js');
 fs.writeFileSync(outPath, lines.join('\n'), 'utf8');
 
 const sz = fs.statSync(outPath).size;
-console.log(`✓ wrote ${QB.length} Qs across ${Object.keys(bySubject).length} subjects → src/data/q-counts.js (${sz} bytes)`);
+console.log(`✓ wrote ${deliverableQuestions.length}/${QB.length} deliverable Qs across ${Object.keys(bySubject).length} subjects → src/data/q-counts.js (${sz} bytes)`);
 console.log('  Subjects:', Object.keys(bySubject).length, '· Years:', Object.keys(byYear).join(', '));

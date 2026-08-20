@@ -239,15 +239,15 @@ export default function ResultsView({
   // pep-talk is misleading. Show a writing-specific message instead.
   const msg = autoQs.length === 0
     ? (writingAttempted === writingQs.length && writingQs.length > 0
-        ? '"เขียนครบทุกข้อแล้ว ✍️ ไปดูเฉลยแล้วให้คะแนนตัวเองได้เลย"'
+        ? 'เขียนครบแล้ว ไปเทียบคำตอบกับเกณฑ์ในหน้าเฉลย'
         : writingAttempted > 0
-          ? '"เขียนได้ส่วนหนึ่งแล้ว ✍️ ลองไปดูเฉลยดู"'
-          : '"ยังไม่ได้เขียนข้อไหนเลย — กลับไปลองอีกที 💪"')
-    : score.pct === 100 ? '"เทพสุดๆ เก่งมากก 🏆"'
-    : score.pct >= 80 ? '"โค้ดดดด ใกล้จะผ่านแล้ว อ่านอีกนิดนึง"'
-    : score.pct >= 60 ? '"ผ่านครับ แต่ต้องอ่านซ้ำส่วนที่ผิด"'
-    : score.pct >= 40 ? '"สู้ๆ นะ กลับไปทบทวนเนื้อหาอีกรอบกันเถอะ"'
-    : '"ไม่เป็นไร เริ่มใหม่ได้เสมอ 💪"';
+          ? 'เขียนได้บางส่วนแล้ว ใช้หน้าเฉลยช่วยเติมส่วนที่ขาด'
+          : 'ยังไม่ได้เขียนคำตอบ ลองเริ่มจากชุดสั้นก่อน')
+    : score.pct === 100 ? 'ถูกทุกข้อ รักษาความแม่นด้วยการทบทวนตามรอบ'
+    : score.pct >= 80 ? 'แม่นดีมาก ลองเพิ่มจำนวนข้อหรือเปิดจับเวลา'
+    : score.pct >= 60 ? 'ผ่านเกณฑ์แล้ว ทบทวนข้อที่ผิดเพื่อปิดจุดอ่อน'
+    : score.pct >= 40 ? 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิดในรอบนี้'
+    : 'กลับไปทบทวนหัวข้อนี้ แล้วลองชุดสั้นอีกครั้ง';
 
   const isExam = mode === 'exam';
   // pass/fail only meaningful for auto-graded sessions; pure-writing
@@ -286,10 +286,10 @@ export default function ResultsView({
       {personalBest && (
         <div style={{
           marginBottom: 16, padding: '10px 16px', borderRadius: 12,
-          background: 'linear-gradient(135deg, rgba(184,137,64,0.18), rgba(184,137,64,0.10))',
+          background: 'var(--clr-gold-soft)',
           border: '1px solid var(--clr-gold)', textAlign: 'center',
           fontFamily: 'var(--vmx-mono)', fontSize: 13, letterSpacing: '0.05em',
-          color: 'var(--clr-gold, #b88940)', fontWeight: 700,
+          color: 'var(--clr-gold-text)', fontWeight: 700,
         }}>
           สถิติใหม่ของคุณ {personalBest.pct}% (เดิม {personalBest.prev}%)
         </div>
@@ -301,7 +301,7 @@ export default function ResultsView({
             <h2 className={`vmx-score-big ${score.pct >= 60 ? 'pass' : 'fail'}`}>
               {score.pct}<span style={{ fontSize: '0.4em', fontWeight: 400 }}>%</span>
             </h2>
-            <div className="vmx-score-label">Auto-graded Score</div>
+            <div className="vmx-score-label">คะแนนตรวจอัตโนมัติ</div>
             <div className="vmx-score-frac">{score.correct} / {autoQs.length} ถูก</div>
           </>
         ) : (
@@ -309,7 +309,7 @@ export default function ResultsView({
             <h2 className="vmx-score-big" style={{ color: 'var(--clr-gold-text)' }}>
               ✍️
             </h2>
-            <div className="vmx-score-label">Writing Practice Done</div>
+            <div className="vmx-score-label">ฝึกข้อเขียนเสร็จแล้ว</div>
             <div className="vmx-score-frac">{writingAttempted} / {writingQs.length} ข้อเขียนเสร็จ</div>
           </>
         )}
@@ -324,20 +324,20 @@ export default function ResultsView({
       <div className="vmx-stat-grid">
         <div className="vmx-stat-card">
           <div className="vmx-stat-num" style={{ color: 'var(--clr-sage)' }}>{score.correct}</div>
-          <div className="vmx-stat-lbl">Correct</div>
+          <div className="vmx-stat-lbl">ถูก</div>
         </div>
         <div className="vmx-stat-card">
           <div className="vmx-stat-num" style={{ color: 'var(--clr-rose-text)' }}>{wrongCount}</div>
-          <div className="vmx-stat-lbl">Wrong</div>
+          <div className="vmx-stat-lbl">ผิด</div>
         </div>
         <div className="vmx-stat-card">
           <div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{skipCount}</div>
-          <div className="vmx-stat-lbl">Skipped</div>
+          <div className="vmx-stat-lbl">ข้าม</div>
         </div>
         {writingQs.length > 0 && (
           <div className="vmx-stat-card">
             <div className="vmx-stat-num" style={{ color: 'var(--clr-plum, #7d4a7d)' }}>{writingAttempted}/{writingQs.length}</div>
-            <div className="vmx-stat-lbl">✍️ Writing</div>
+            <div className="vmx-stat-lbl">ข้อเขียน</div>
           </div>
         )}
       </div>
@@ -449,9 +449,12 @@ function NextPlayPanel({
   const subjMeta = ctx.subj ? SUBJECTS.find((s) => s.id === ctx.subj) : null;
   const subjLabel = subjMeta?.name || ctx.subj || '';
   // Truncate long topic labels (Thai labels often have leading number/dot)
-  const topicLabel = ctx.topic
-    ? (questions[0]?.topic_label || ctx.topic).replace(/^[\d\s.·\-]+/, '').trim().slice(0, 28)
-    : '';
+  const topicMeta = ctx.topic
+    ? subjMeta?.topics?.find((item) => item.id === ctx.topic)
+    : null;
+  const topicLabel = topicMeta?.label
+    ? topicMeta.label.replace(/^[\d\s.·\-]+/, '').trim().slice(0, 42)
+    : 'หัวข้อนี้';
 
   // Pure-writing → keep classic flow (review needed for self-grading)
   if (autoQs.length === 0) {
@@ -533,7 +536,7 @@ function NextPlayPanel({
               cursor: 'pointer',
               padding: '14px 16px',
               borderRadius: 14,
-              background: 'linear-gradient(135deg, rgba(167, 61, 74, 0.12), rgba(167, 61, 74, 0.04))',
+              background: 'var(--clr-rose-soft)',
               border: '2px solid var(--clr-rose, #a73d4a)',
               display: 'flex',
               alignItems: 'center',
@@ -572,7 +575,7 @@ function NextPlayPanel({
               cursor: 'pointer',
               padding: '14px 16px',
               borderRadius: 14,
-              background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.12), rgba(74, 107, 74, 0.04))',
+              background: 'var(--clr-surface)',
               border: '2px solid var(--clr-sage, #4a6b4a)',
               display: 'flex',
               alignItems: 'center',

@@ -67,7 +67,7 @@ inputs (no zoom) · `env(safe-area-inset)` on app/modals/FABs ·
 Strong: buttons (`.vmx-btn*`, 3D press), `BackBar`, `ViewFallback` skeleton,
 `vmx-modal-overlay`, `useModalFocus`, `StatePanel`, feature cards. Dialogs use
 `data-vmx-modal="true"` so nested focus/Escape ownership is deterministic;
-remote loading/empty/error views reuse `StatePanel`. **Debt** (Phase 1-3): 2,634 inline
+remote loading/empty/error views reuse `StatePanel`. **Debt** (Phase 1-3): 2,613 inline
 `style={{}}` with no utility layer; 8 duplicate card families → one `.vmx-card`
 base; remaining press interactions → `.vmx-pressable-card`; long-list skeleton
 patterns can still converge further.

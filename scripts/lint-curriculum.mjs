@@ -40,11 +40,13 @@ const UTILITY_SUBJECTS = new Set(['short', 'mahahon', 'termpaper']);
 const qm = await imp('src/data/questions.js');
 const cur = await imp('src/data/curriculum.js');
 const counts = await imp('src/data/q-counts.js');
+const delivery = await imp('src/data/question-delivery.generated.js');
 const metadata = await imp('src/lib/question-metadata.js');
 
 const { QB, loadQB } = qm;
 const { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, yearForSubject } = cur;
 const { isPastPaperQuestion, questionTopicId } = metadata;
+const { isQuestionDeliverable } = delivery;
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 await loadQB();
 
@@ -73,12 +75,14 @@ const incrementNested = (index, subject, topic) => {
 for (const q of QB) {
   const subj = q.subject;
   if (!subj) { missingFields++; continue; }
-  bySubject[subj] = (bySubject[subj] || 0) + 1;
-  if (Number.isFinite(q.year)) byYear[q.year] = (byYear[q.year] || 0) + 1;
   const topic = questionTopicId(q);
-  incrementNested(byTopic, subj, topic);
-  if (isPastPaperQuestion(q)) {
-    incrementNested(byPastPaperTopic, subj, topic);
+  if (isQuestionDeliverable(q)) {
+    bySubject[subj] = (bySubject[subj] || 0) + 1;
+    if (Number.isFinite(q.year)) byYear[q.year] = (byYear[q.year] || 0) + 1;
+    incrementNested(byTopic, subj, topic);
+    if (isPastPaperQuestion(q)) {
+      incrementNested(byPastPaperTopic, subj, topic);
+    }
   }
 
   if (!subjectIds.has(subj)) {
@@ -106,8 +110,9 @@ const storedSub = counts.Q_COUNTS_BY_SUBJECT || {};
 const storedYr = counts.Q_COUNTS_BY_YEAR || {};
 const storedTopic = counts.Q_COUNTS_BY_TOPIC || {};
 const storedPastPaperTopic = counts.Q_PAST_PAPER_COUNTS_BY_TOPIC || {};
-if (counts.QB_TOTAL !== QB.length)
-  errors.push(`q-counts QB_TOTAL=${counts.QB_TOTAL} but live=${QB.length} → run: npm run regen:q-counts`);
+const deliverableTotal = QB.filter(isQuestionDeliverable).length;
+if (counts.QB_TOTAL !== deliverableTotal)
+  errors.push(`q-counts QB_TOTAL=${counts.QB_TOTAL} but deliverable=${deliverableTotal} → run: npm run regen:q-counts`);
 for (const k of new Set([...Object.keys(bySubject), ...Object.keys(storedSub)]))
   if ((bySubject[k] || 0) !== (storedSub[k] || 0))
     errors.push(`q-counts subject '${k}'=${storedSub[k] || 0} but live=${bySubject[k] || 0} → regen:q-counts`);
@@ -193,7 +198,7 @@ const line = '━'.repeat(60);
 console.log(line);
 console.log('CURRICULUM CONSISTENCY GATE  (lint:curriculum)');
 console.log(line);
-console.log(`QB         : ${QB.length} Qs · ${Object.keys(bySubject).length} subjects · years ${Object.keys(byYear).sort().join(', ')}`);
+console.log(`QB         : ${deliverableTotal}/${QB.length} deliverable Qs · ${Object.keys(bySubject).length} subjects · years ${Object.keys(byYear).sort().join(', ')}`);
 console.log(`Curriculum : ${SUBJECTS.length} subjects · years ${Object.keys(SUBJECTS_BY_YEAR).sort().join(', ')}`);
 console.log('');
 if (warns.length) {

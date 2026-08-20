@@ -156,6 +156,72 @@ test.describe('connected study experience', () => {
     });
   });
 
+  test('core mobile journey keeps year copy, counts and required figures truthful', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    const pageErrors = [];
+    page.on('pageerror', (error) => pageErrors.push(error.message));
+
+    await page.goto('/app/year');
+    await expect(page.getByText('ปี 1, ปี 2, ปี 4 และ ปี 5 เปิดให้ฝึกแล้ว')).toBeVisible();
+
+    await page.getByRole('button', { name: /ปี 5 LIVE/ }).click();
+    await expect(page.getByRole('heading', { level: 1, name: /ช่วงสอบ/ })).toBeVisible();
+    await expect(page.getByText('แนะนำ', { exact: true })).toBeVisible();
+    await expect(page.locator('.vmx-bottom-nav')).toHaveCount(0);
+
+    await page.getByRole('button', { name: /เทอม 1 กลางภาค/ }).click();
+    const epidemiology = page.locator('.vmx-subject-card').filter({ hasText: /ระบาดวิทยา/ }).first();
+    await expect(epidemiology).toBeVisible({ timeout: 15_000 });
+    await expect(page.locator('.vmx-tools-fab')).not.toBeVisible();
+    await epidemiology.click();
+
+    await expect(page.getByRole('tab', { name: 'ฝึกตามหัวข้อ' })).toHaveAttribute('aria-selected', 'true');
+    await expect(page.getByRole('button', { name: /ฝึกข้อสอบ Intro to Vet Epidemiology 5 ข้อ/ })).toBeVisible();
+    await expect(page.getByText('รูปแบบของชุดโจทย์ฝึก')).not.toBeVisible();
+
+    await page.getByRole('button', { name: /ฝึกข้อสอบ Intro to Vet Epidemiology 5 ข้อ/ }).click();
+    await expect(page.getByRole('status')).toContainText('มี 5 ข้อในชุดนี้');
+    await expect(page.getByRole('button', { name: '5', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('button', { name: '10', exact: true })).toHaveCount(0);
+    await page.getByRole('switch').click();
+    await page.getByRole('button', { name: 'เริ่มฝึก 5 ข้อ →', exact: true }).click();
+
+    let visualQuestions = 0;
+    for (let index = 0; index < 5; index += 1) {
+      const stem = await page.getByRole('heading', { level: 2 }).innerText();
+      if (/แผนภาพ|แผนที่/.test(stem)) {
+        visualQuestions += 1;
+        const figure = page.getByRole('figure');
+        await expect(figure).toBeVisible();
+        await expect(figure.getByRole('img')).toHaveAttribute('alt', /\S{20,}/);
+        const zoomTrigger = figure.getByRole('button', { name: /เปิดภาพขยาย/ });
+        await expect(zoomTrigger).toBeVisible();
+        if (visualQuestions === 1) {
+          await zoomTrigger.click();
+          const lightbox = page.getByRole('dialog', { name: /ภาพขยาย/ });
+          await expect(lightbox.getByRole('button', { name: 'ปิดภาพขยาย' })).toBeFocused();
+          await lightbox.getByRole('button', { name: 'ปิดภาพขยาย' }).click();
+          await expect(zoomTrigger).toBeFocused();
+        }
+      }
+      if (index < 4) await page.getByRole('button', { name: 'ข้อถัดไป →', exact: true }).click();
+    }
+
+    expect(visualQuestions).toBe(2);
+    await page.getByRole('button', { name: 'ส่งข้อสอบ ✓', exact: true }).click();
+    const submitDialog = page.getByRole('dialog', { name: 'ส่งข้อสอบ?' });
+    await submitDialog.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
+    await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible();
+    await page.getByRole('button', { name: 'หน้าแรก', exact: true }).click();
+    await page.evaluate(() => new Promise((resolve) => {
+      window.addEventListener('popstate', resolve, { once: true });
+      window.history.back();
+    }));
+    await expect(page.getByRole('heading', { level: 1, name: /คลังโจทย์ฝึก/ })).toBeVisible();
+    await expect(page.getByText('0 / 0 ข้อเขียนเสร็จ')).toHaveCount(0);
+    expect(pageErrors).toEqual([]);
+  });
+
   test('topic opens its exact Notes and governed VetWiki resources', async ({ page }) => {
     // The article URL must become shareable at click time, not only after the
     // large lazy VetWiki chunk has downloaded and mounted. Holding that chunk
@@ -211,7 +277,8 @@ test.describe('connected study experience', () => {
     await expect(com5).toBeVisible({ timeout: 15_000 });
     await com5.click();
 
-    const subjectVideos = page.locator('.vmx-mode-card').filter({ hasText: /playlist/ }).first();
+    await page.getByRole('tab', { name: 'สรุป คลิป และสอบจำลอง' }).click();
+    const subjectVideos = page.locator('.vmx-mode-card').filter({ hasText: /คลิปย้อนหลัง/ }).first();
     await expect(subjectVideos).toBeEnabled();
     await subjectVideos.click();
     await expect(page.locator('.vmx-chip.active')).toContainText('COM V');
@@ -302,7 +369,11 @@ test.describe('connected study experience', () => {
       'the DICOM tag inspector must fit a 320px phone',
     ).toEqual([]);
     await page.getByRole('button', { name: 'Close DICOM Tag Inspector' }).click();
-    expect(pageErrors).toEqual([]);
+    // WebKit can emit a local-preview-only favicon CORS warning when the test
+    // server is saturated in a fully parallel run. It is not a page/runtime
+    // error and does not occur on the production same-origin asset.
+    const actionableErrors = pageErrors.filter((message) => !/favicon\.ico.*access control/i.test(message));
+    expect(actionableErrors).toEqual([]);
 
     await page.getByRole('button', { name: '← Home' }).click();
     await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);

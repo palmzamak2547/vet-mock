@@ -15,6 +15,7 @@ import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } f
 // a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
 import { getCompletedPhase, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
 import { isTopicRead } from '../lib/study-progress.js';
+import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
 // and most users will see it after some interaction. Keeps HomeView's
@@ -54,7 +55,7 @@ const PHASE_LABELS = {
   '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
 };
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
   // carry none, so the countdown banner hides itself when getNextExam
@@ -115,7 +116,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // Legacy flag — once true, hide the welcome banner too (users who
   // already saw + dismissed the old auto-modal don't need the banner).
   const [legacyOnboardingSeen] = useLocalStorage('vmx-onboarding-seen', false);
-  const showWelcome = !welcomeDismissed && !legacyOnboardingSeen;
+  const showWelcome = history.length === 0 && !welcomeDismissed && !legacyOnboardingSeen;
 
   // Email-verify banner dismiss — session-only state. We don't persist
   // because we WANT a gentle re-nag if they ignore it across sessions
@@ -458,7 +459,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         // QB.length === 0 until loadQB() resolves; in that case we just
         // skip — the next idle tick will catch it.
         const pool = [];
-        for (const q of QB) if (yearIds.has(q.subject)) pool.push(q);
+        for (const q of QB) if (yearIds.has(q.subject) && isQuestionDeliverable(q)) pool.push(q);
         for (const q of (customQuestions || [])) if (yearIds.has(q.subject)) pool.push(q);
         if (pool.length === 0) return;
         const pick = pool[Math.floor(Math.random() * pool.length)];
@@ -602,6 +603,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               setView('schedule');
             }
           }}
+          onPickPanic={onStartPanic}
           onPickSR={() => { setMode && setMode('sr'); setView('sr-session'); }}
           onPickWrong={launchWrongReview}
           onPickWeakSubject={(subjectId) => {
@@ -711,7 +713,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                   {nextExam.daysLeft}
                 </div>
                 <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'var(--vmx-mono)' }}>
-                  days left
+                  วัน
                 </div>
               </>
             )}
@@ -943,7 +945,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             <button
               type="button"
               onClick={() => setView('schedule')}
-              className="vmx-chip-quick"
+              className="vmx-chip-quick vmx-home-quick-context"
               title={`${nextClassToday.code}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
               style={{
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
@@ -960,7 +962,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             <button
               type="button"
               onClick={() => setView('schedule')}
-              className="vmx-chip-quick"
+              className="vmx-chip-quick vmx-home-quick-context"
               title={`${nextEvent.titleTh}, ${nextEvent.start}-${nextEvent.end} น., ${nextEvent.location}`}
               style={{
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
@@ -979,7 +981,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             <button
               type="button"
               onClick={() => setView('schedule')}
-              className="vmx-chip-quick"
+              className="vmx-chip-quick vmx-home-quick-context"
               title={`${topMilestone.titleTh}${topMilestone.endTimeTh ? `, ${topMilestone.endTimeTh}` : ''}`}
               style={{
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
@@ -1000,7 +1002,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             <button
               type="button"
               onClick={() => setForceChangelogOpen(true)}
-              className="vmx-chip-quick"
+              className="vmx-chip-quick vmx-home-quick-context"
               style={{
                 all: 'unset',
                 cursor: 'pointer',
@@ -1058,7 +1060,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               textDecorationStyle: 'dotted',
             }}
           >
-            เปลี่ยน phase
+            เปลี่ยนช่วงสอบ
           </button>
         )}
       </div>
@@ -1129,7 +1131,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         // 1100-1160). Without compound key, stats for one subject leak
         // into another.
         const qIndex = new Map();
-        for (const q of QB) qIndex.set(q.subject + ':' + q.id, q);
+        for (const q of QB) if (isQuestionDeliverable(q)) qIndex.set(q.subject + ':' + q.id, q);
         const topicAcc = {};
         for (const h of (history || [])) {
           if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
@@ -1283,7 +1285,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               setView('config');
             }}>
               <div className="icon">📝</div>
-              <div className="title">Quick Practice</div>
+              <div className="title">ฝึกแบบเลือกจำนวน</div>
               <div className="sub">สุ่มข้อทุกวิชา, 5-50 ข้อ</div>
             </button>
 
@@ -1297,13 +1299,13 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               setView('config');
             }}>
               <div className="icon">🎓</div>
-              <div className="title">Exam Mode</div>
+              <div className="title">จำลองสนามสอบ</div>
               <div className="sub">50 ข้อ × 60 วิ, จับเวลาเหมือนสนามจริง</div>
             </button>
 
             <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>
               <div className="icon">🧠</div>
-              <div className="title">Spaced Repetition</div>
+              <div className="title">ทบทวนตามรอบ</div>
               <div className="sub">
                 {/* `cardStats.due` is now reviewed-only (sm2.js fix on
                     2026-05-13) so fresh users see "0 ข้อค้าง" instead
@@ -1312,7 +1314,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     capped at 30 min/day so users feel they can hit it. */}
                 {cardStats.due > 0
                   ? `${cardStats.due} ข้อค้างทบทวน, แนะนำวันละ ~${Math.min(30, Math.max(5, Math.ceil(cardStats.due / 4 / 5) * 5))} นาที`
-                  : 'ทบทวนแบบ Anki — ตอบผิด/ลังเลแล้วระบบจะนำมา review ในรอบถัดไป'}
+                  : 'ข้อที่ผิดหรือลังเลจะกลับมาตามรอบที่เหมาะสม'}
               </div>
               {cardStats.due > 0 && <div className="badge">{cardStats.due}</div>}
             </button>
@@ -1431,7 +1433,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               marginTop: 4,
               lineHeight: 1.45,
             }}>
-              login เพื่อสร้างกลุ่ม — ใช้ติว Y4 / Y5 / Sec กับเพื่อน
+              เข้าสู่ระบบเพื่อสร้างกลุ่มติวและแชร์โจทย์กับเพื่อน
             </div>
           </div>
           <button
@@ -1440,7 +1442,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             onClick={() => setView('auth')}
             style={{ minHeight: 40, flexShrink: 0 }}
           >
-            Login เพื่อเริ่ม
+            เข้าสู่ระบบ
           </button>
         </div>
       )}
@@ -1482,7 +1484,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           the home view. The welcome tour covers the same shortcuts. */}
       {showWelcome && (
         <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
-          ใช้ Spaced Repetition ทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
+          ใช้การทบทวนตามรอบทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
           กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
           สลับโหมดมืด/สว่างที่ปุ่มขวาบน
         </div>
@@ -1623,7 +1625,7 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
   const bookmarksBySubject = {};
   if (Array.isArray(bookmarks) && bookmarks.length > 0) {
     const qById = new Map();
-    for (const q of QB) qById.set(q.id, q);
+    for (const q of QB) if (isQuestionDeliverable(q)) qById.set(q.id, q);
     for (const q of customQuestions) qById.set(q.id, q);
     for (const qId of bookmarks) {
       const q = qById.get(qId);
@@ -1763,7 +1765,7 @@ function DailyQRow({ user, setView }) {
   // empty bank on every cold load — pickTodaysQ returned nothing and the whole
   // "ข้อวันนี้" chip silently never appeared. Keying on the bank size re-runs
   // this once the load lands (HomeView re-renders when App flips qbReady).
-  const todaysQ = useMemo(() => pickTodaysQ(QB), [QB.length]);
+  const todaysQ = useMemo(() => pickTodaysQ(QB.filter(isQuestionDeliverable)), [QB.length]);
   const [status, setStatus] = useState(() => readTodaysQStatus());
   const [streak, setStreak] = useState(() => dailyQStreak());
   // Class pulse — Round 3 (2026-05-18). Fetches the public aggregate

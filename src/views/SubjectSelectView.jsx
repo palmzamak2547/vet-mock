@@ -28,20 +28,21 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
     ? (SUBJECTS_BY_YEAR[selectedYear] || [])
     : [];
   const yearHasQuestions = yearSubjects.some((s) => s.has_questions);
-  const baseSubjects = selectedYear
-    ? (yearHasQuestions
-        ? [SUBJECTS.find((s) => s.id === 'all'), ...yearSubjects].filter(Boolean)
-        : yearSubjects)
-    : SUBJECTS;
-
-  const visibleSubjects = baseSubjects.filter((s) => {
-    if (!searchQuery) return true;
-    if (s.id === 'all') return true;
-    const q = searchQuery.toLowerCase();
-    return (s.name || '').toLowerCase().includes(q) ||
-           (s.name_en || '').toLowerCase().includes(q) ||
-           (s.code || '').toLowerCase().includes(q);
-  });
+  const baseSubjects = useMemo(() => (
+    selectedYear
+      ? (yearHasQuestions
+          ? [SUBJECTS.find((s) => s.id === 'all'), ...yearSubjects].filter(Boolean)
+          : yearSubjects)
+      : SUBJECTS
+  ), [selectedYear, yearHasQuestions, yearSubjects]);
+  const indexedSubjects = useMemo(() => baseSubjects.map((item) => ({
+    item,
+    searchText: `${item.name || ''} ${item.name_en || ''} ${item.code || ''}`.toLowerCase(),
+  })), [baseSubjects]);
+  const normalizedSearch = searchQuery.trim().toLowerCase();
+  const visibleSubjects = indexedSubjects
+    .filter(({ item, searchText }) => !normalizedSearch || item.id === 'all' || searchText.includes(normalizedSearch))
+    .map(({ item }) => item);
 
   // Year and term are the layer a student thinks in — "ปี 2 เทอม 1" is one
   // shelf, not thirteen loose subjects. The whole-year card and the handful of
@@ -83,9 +84,9 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc} — โครงสร้างวิชาวางไว้แล้ว, รอเติมข้อสอบ/เนื้อหาทีละวิชา
             </>
           ) : mode === 'exam' ? (
-            'Exam Mode — สอบจริงจัง, ตั้งค่าจำนวนข้อ/เวลาได้ในขั้นถัดไป'
+            'จำลองสนามสอบ — ตั้งค่าจำนวนข้อและเวลาได้ในขั้นถัดไป'
           ) : (
-            'Quick Practice — สุ่มข้อสอบตามจำนวนที่เลือก'
+            'ฝึกแบบเลือกจำนวน — สุ่มข้อสอบตามจำนวนที่เลือก'
           )}
         </p>
       </div>
@@ -206,9 +207,9 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
 
       {isScaffoldYear && (
         <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
-          💡 <strong>ปีนี้กำลังวางโครงสร้าง</strong> — รายวิชา + course code + รายชื่ออาจารย์ มาจาก vault profiles ของ {yearSubjects.reduce((acc, s) => acc + (s.vault_lecturers?.length || 0), 0)} คนใน Chula Vet faculty<br/>
-          ช่วยกันได้: ถ้ามี slide เก่า, notes, ข้อสอบ past paper ปีนี้ ส่งมาทาง feedback ได้เลย<br/>
-          ตอนนี้เปิดครบแล้ว 3 ชั้นปี (ปี 1, ปี 4, ปี 5) ปีที่เหลือจะทยอยเปิดเมื่อมีเนื้อหาส่งเข้ามา
+          <strong>ปีนี้กำลังวางโครงสร้าง</strong> — ข้อมูลรายวิชาและผู้สอนมาจากทะเบียนที่ตรวจสอบแล้ว<br/>
+          ถ้ามีสไลด์ สรุป หรือข้อสอบเก่าที่ได้รับอนุญาต ส่งผ่านเมนู "แจ้งปัญหา" ได้เลย<br/>
+          ชั้นปีที่มีคลังข้อสอบพร้อมใช้: {YEARS.filter((year) => !year.scaffold).map((year) => year.label).join(', ')}
         </div>
       )}
 
