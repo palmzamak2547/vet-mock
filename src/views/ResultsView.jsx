@@ -701,7 +701,13 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
       const entries = Object.entries(topicTally).sort((a, b) => b[1] - a[1]);
       if (entries.length > 0 && entries[0][1] >= 2) {
         const [topic, count] = entries[0];
-        const cleaned = String(topic).replace(/^[\d\s.·\-]+/, '').trim().slice(0, 40);
+        const representative = autoQs.find((q) => q.topic === topic);
+        const subjectMeta = SUBJECTS.find((item) => item.id === representative?.subject);
+        const resolvedTopic = subjectMeta?.topics?.find((item) => item.id === topic)?.label;
+        const cleaned = (resolvedTopic || 'หัวข้อนี้')
+          .replace(/^[\d\s.·\-]+/, '')
+          .trim()
+          .slice(0, 40);
         out.push({
           icon: '🎯',
           text: `คุณพลาด ${count} ข้อในหัวข้อ "${cleaned}" — ลองทบทวนเนื้อหานี้ก่อน`,

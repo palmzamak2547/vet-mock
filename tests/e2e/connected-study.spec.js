@@ -198,6 +198,13 @@ test.describe('connected study experience', () => {
     await page.getByRole('button', { name: 'เริ่มฝึก 5 ข้อ →', exact: true }).click();
 
     let visualQuestions = 0;
+    const wrongOptionByStem = [
+      [/reassortant H1N1/, /โคเป็น mixing vessel/],
+      [/แผนที่ WHO/, /ประเทศอียิปต์/],
+      [/Mid-term Examination/, /14 - 18 ก.ย. 69/],
+      [/case fatality rate/, /ประมาณ 90%/],
+      [/เส้นโค้งการระบาดของ COVID-19/, /Intervention II, Intervention I/],
+    ];
     for (let index = 0; index < 5; index += 1) {
       const stem = await page.getByRole('heading', { level: 2 }).innerText();
       if (/แผนภาพ|แผนที่/.test(stem)) {
@@ -215,6 +222,9 @@ test.describe('connected study experience', () => {
           await expect(zoomTrigger).toBeFocused();
         }
       }
+      const wrongChoice = wrongOptionByStem.find(([pattern]) => pattern.test(stem));
+      expect(wrongChoice, `missing deterministic wrong answer for: ${stem}`).toBeTruthy();
+      await page.getByRole('button', { name: wrongChoice[1] }).click();
       if (index < 4) await page.getByRole('button', { name: 'ข้อถัดไป →', exact: true }).click();
     }
 
@@ -223,6 +233,8 @@ test.describe('connected study experience', () => {
     const submitDialog = page.getByRole('dialog', { name: 'ส่งข้อสอบ?' });
     await submitDialog.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
     await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible();
+    await expect(page.getByText(/คุณพลาด 5 ข้อในหัวข้อ "Intro to Vet Epidemiology"/)).toBeVisible();
+    await expect(page.getByText(/epidem-intro/)).toHaveCount(0);
     await page.getByRole('button', { name: 'หน้าแรก', exact: true }).click();
     await page.evaluate(() => new Promise((resolve) => {
       window.addEventListener('popstate', resolve, { once: true });
