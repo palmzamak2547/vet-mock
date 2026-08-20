@@ -3,6 +3,21 @@
 This file documents the security posture of vet-mock and is meant for the
 maintainer (Vet 86). Not user-facing.
 
+## Data-ingress hardening — 2026-08-21 (v5.31.0)
+
+- Added Valibot 1.4.2 (MIT, zero dependencies) as a lazy validation chunk; it
+  is not preloaded on the public landing/home path.
+- Backup and custom-question JSON now validate types, renderer contracts,
+  bounded sizes, relative MCQ answer indices, SR-card shape, and safe record
+  keys before any local/cloud setter runs.
+- Malformed files fail closed with a plain-language location; valid files show
+  exact overwrite scope. Explicit empty arrays/objects are honored rather than
+  skipped by truthiness checks.
+- Backup v5.1 preserves complete `streakData`; legacy numeric streak restore no
+  longer fabricates a study timestamp.
+- Verification: schema unit tests, real browser upload of malformed and valid
+  fixtures, dependency audit 0, CI build/smoke, and production flow coverage.
+
 ## Hardening pass — 2026-08-11
 
 - `npm audit` reports **0 vulnerabilities** across production and development dependencies.
@@ -179,4 +194,4 @@ If added later, the policy needs to permit:
 Found something? Use the in-app `แจ้งปัญหา` form, or email
 palmzamak2547 [at] gmail.com with subject `[security]`.
 
-Last review: 2026-04-26
+Last review: 2026-08-21

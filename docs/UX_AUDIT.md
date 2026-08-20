@@ -1,5 +1,13 @@
 # VetMock — UX / Frontend Audit
 
+> **Current closure 2026-08-21 (v5.31.0):** the live product now uses the calm
+> Thai-first hierarchy introduced in v5.30.0, lazy subject Notes shared with
+> VetWiki, explicit loading/offline/retry states, and schema-validated backup
+> previews. The Notes view gzip chunk is 94.3% smaller. Release proof is 218
+> unit tests, all integrity gates, GitHub E2E 144 passed / 40 intentional skips,
+> and 20/20 targeted production journeys. The audit below is retained as dated
+> rationale, not as a current defect list.
+
 > **Implementation update 2026-08-12 (v5.27.0):** the original audit below is
 > historical. Vite is now 6.4.3. Readable `/app/*` routes resolve finding 9;
 > shared `StatePanel` plus retry states address the highest-value part of 11/12;

@@ -9,7 +9,7 @@
 ## 🧭 Ecosystem role (canonical · locked 2026-05-29)
 - **Role:** Standalone vet study platform — own brand, may consume cuvetsmo-source/mcp, NOT part of the council site.
 - **Layer:** Product · **Live:** https://vetmock.vercel.app
-- **OWNS:** the question-bank (4,454 Qs across 63 banks + lint/fix tooling) + the exam/SRS engine (MCQ/TF/Fill/Match · Quick/Exam/SM-2 · analytics · groups) + a deliberately simple educational Imaging Practical.
+- **OWNS:** the question bank (**4,506 source questions / 4,480 learner-ready across 65 banks** at the 2026-08-21 checkpoint) + lint/fix tooling + exam/SRS engine (MCQ/TF/Fill/Match/Short/Writing · Quick/Exam/SM-2 · analytics · groups) + a deliberately simple educational Imaging Practical. Re-run `npm run stats` before quoting current totals.
 
 ### ⛔ No-duplication — see `cuvetsmo-docs/NO_DUPLICATION.md`
 Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp) · AI inference (→ shared ai-chat) · the full clinical/pro DICOM workstation (→ cuvetsmo-imaging).
@@ -21,7 +21,8 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 ## 🎯 Project At a Glance
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
-- **Stack**: React 18 + Vite 6.4 + Supabase (auth/DB) + PWA · plain JSX (no TypeScript)
+- **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX (no TypeScript)
+- **Current release**: v5.31.0 (`3e85fb5`, production verified 2026-08-21)
 - **Hosting**: Vercel (auto-deploy on push to `main`)
 - **Production**: https://vetmock.vercel.app
 - **Audience**: ~50-100 vet students at Chulalongkorn (Vet 86 cohort) · Thai-language
@@ -30,10 +31,10 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 
 ## 🚦 Critical Rules (MUST FOLLOW)
 
-### 1. Never mention "Codex" or "AI" in user-facing content
-- ❌ Changelog entries, tooltips, blog articles, About page, commit body
+### 1. Never mention agent tooling or generative assistance in public content
+- ❌ Changelog entries, tooltips, blog articles, About page, public commit trailers
 - ⛔ NO `Co-Authored-By` agent trailer in this repo — vet-mock is public
-- Reason: Palm doesn't want to flag the AI involvement publicly to classmates
+- Keep public copy focused on the product and verifiable contributors.
 
 ### 2. Changelog (`src/data/changelog.js`) shows ONLY user-observable changes
 - ✅ New features (UI, content, fixes that affect usage)
@@ -41,14 +42,14 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 - See header comment in changelog.js
 
 ### 3. Backticks in template literals are landmines
-- `src/data/video-summaries.js` uses huge template-literal strings for markdown
+- `src/data/video-summaries-*.js` uses large template-literal strings for markdown
 - Triple backticks (```) inside the literal will close it early → SyntaxError
 - Use **indented blocks** (4 spaces) for code/pseudocode instead
 
 ### 4. Commit conventions
 - Imperative title (≤72 chars)
 - Body explains *why*
-- Always co-author trailer at bottom
+- Never add an agent co-author trailer
 - Use HEREDOC for multi-line:
   ```bash
   git commit -m "$(cat <<'EOF'
@@ -65,16 +66,37 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 - `'-9iGaiDgagI':` not `-9iGaiDgagI:`
 - Same for `'74q8uuQdK14':`, `'LRhlotxM-SI':`
 
+### 6. Current counts come only from generated stats
+- Run `npm run stats`; `docs/content-inventory.md` is generated with `npm run stats -- --write`.
+- Do not copy totals from old plans, session logs, or release notes into new current-state claims.
+
+### 7. Notes have one browser loader map
+- `src/data/note-corpus.js` is shared by NotesView, VetWiki runtime, and the notes-registry generator.
+- Add/change a note source there, then run `npm run regen:notes-registry`; never recreate a loader map in a view.
+- Preserve lecture-first + Vet 85 append order and the offline retry contract in `src/lib/note-retry.js`.
+
+### 8. Imported JSON is untrusted
+- Dashboard backup and Question Manager imports must pass `src/lib/user-data-schema.js` before any setter runs.
+- Respect explicit empty arrays/objects, preserve legacy-safe defaults, and preview exact overwrite scope.
+
+### 9. Production proof is multi-step
+- A build or push is not production proof. Require exact-SHA GitHub Build + Smoke E2E, successful Vercel Production deployment, and a live flow against `vetmock.vercel.app`.
+- Push one real commit; avoid burst pushes and empty redeploy commits.
+
 ---
 
 ## 🗂️ Where Things Live
 
 | What | Where |
 |------|-------|
-| Routing/state | `src/App.jsx` (single root, `view` string state) |
+| Routing/state | `src/App.jsx` + `src/lib/view-route.js` (`view` state; readable stable `/app/*` routes) |
 | Views (lazy) | `src/views/*.jsx` |
-| Question banks (lazy per subject) | `src/data/questions-{com3,com4,com5,engprof}.js` |
-| Video summaries (1 chunk, lazy) | `src/data/video-summaries.js` |
+| Question banks / loader | `src/data/questions-*.js` + `bank-registry.generated.js` |
+| Notes / shared lazy loader | `src/data/notes-*.js` + `src/data/note-corpus.js` |
+| VetWiki | `src/lib/vetwiki/` + `wiki/` editorial/review layer |
+| JSON validation | `src/lib/user-data-schema.js` |
+| User-data durability | `src/lib/user-data-sync.js` + Supabase replica |
+| Video summaries | `src/data/video-summaries-*.js` + metadata barrel |
 | Changelog (homepage banner) | `src/data/changelog.js` |
 | Curriculum / subjects / topics | `src/data/curriculum.js` |
 | Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` |
@@ -90,7 +112,12 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 npm run dev               # Vite dev server
 npm run build             # Production build (always run before commit)
 npm run preview           # Preview built dist
-npm run lint:questions    # Detect bias issues in Q bank (CI guard: error count must stay ≤ 78)
+npm run test:unit         # Node contract suite
+npm run test:e2e          # Cross-browser Playwright suite
+npm run lint:all          # All generated/data/content integrity gates
+npm run stats             # Authoritative current inventory
+npm run stats:check       # Fail if README/docs inventory drifted
+npm run lint:questions    # Detect bias issues (release gate: 0 errors; warnings tracked separately)
 npm run fix:questions     # Auto-balance answer position
 npm run fix:length        # Auto-trim trailing parentheticals from correct option
 npm run fetch:videos      # Fetch YouTube transcripts to data-cache/transcripts/
@@ -108,7 +135,7 @@ npm run ping:indexnow     # Notify Bing/Yandex/Naver after deploy
 4. Draft markdown summary in established style:
    - Sections: Pathophys → Signalment → Clinical Signs → Dx → Tx → Monitoring
    - Always end with "📝 Exam Hot Spots" + "💡 Closing" blockquote
-5. `Edit` `src/data/video-summaries.js` — append entry
+5. Edit the matching `src/data/video-summaries-<subject>.js` file and keep metadata in sync
 6. Commit per batch (3-8 clips per commit) to avoid losing progress
 
 ---
@@ -141,6 +168,13 @@ When you need deeper context than this file, read from
 - `07-seo-deployment.md` — Vercel + GSC + IndexNow detail
 - `08-conventions-issues.md` — full rules + known bugs (this file is summary)
 - `09-roadmap.md` — what's next + ideas
+- `11-production-operations-and-knowledge.md` — current architecture/release/OSS operations
+
+Local reusable skill for future agents:
+- `C:\Users\palmz\.codex\skills\vetmock-project-operations\SKILL.md`
+
+Canonical repo knowledge map:
+- `docs/PROJECT_KNOWLEDGE_BASE.md`
 
 User profile + communication style:
 - `MycOS/people/palm.md`

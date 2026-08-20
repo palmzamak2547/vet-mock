@@ -1,5 +1,10 @@
 # VetMock — UX Transformation Migration Plan
 
+> **Status 2026-08-21:** the UX/routing/runtime migration described here is
+> complete through v5.31.0. Current architecture and release evidence live in
+> [`PROJECT_KNOWLEDGE_BASE.md`](./PROJECT_KNOWLEDGE_BASE.md). Remaining bullets
+> below are historical rationale or explicitly deferred product decisions.
+
 > Phased, feature-by-feature, **no rewrite, no stack change, keep it usable
 > throughout**. Every increment: builds green + `lint:all` + `test:unit` +
 > `test:e2e` + prod-verify, and preserves everything on the

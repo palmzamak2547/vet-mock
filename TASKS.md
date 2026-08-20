@@ -1,5 +1,10 @@
 # TASKS
 
+> Historical VetWiki implementation checklist. Completed/current work is
+> tracked by the repository, in-app changelog, and
+> `docs/PROJECT_KNOWLEDGE_BASE.md`; do not treat unchecked 2026-07 items below
+> as the current product backlog without revalidating them.
+
 `[ ]` not started · `[~]` in progress · `[x]` done · `[!]` blocked
 
 ## Slice 1 — VetWiki foundation + governed read page (COM5 Rabies)

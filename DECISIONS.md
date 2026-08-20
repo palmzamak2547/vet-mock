@@ -72,3 +72,33 @@ operational surface. Keep knowledge portable so this stays cheap to change.
 **Why:** `com5` matches a Windows reserved device name (COM1–COM9); Windows
 cannot create the folder, so `git pull`/`clone` failed on every Windows machine.
 Not a preference — a correctness fix. `domainId: 'com5'` in frontmatter unchanged.
+
+### D11 — One lazy note corpus serves Notes, VetWiki, and availability
+**Why:** parallel loader maps drifted and NotesView downloaded every note file
+even when the learner opened one subject.
+**Decision:** `src/data/note-corpus.js` owns literal dynamic imports and merge
+order. NotesView, VetWiki runtime, and the registry generator consume it. A
+loader or note-source change is incomplete until registry/runtime/offline-retry
+tests pass.
+
+### D12 — JSON imports fail closed through one runtime schema layer
+**Why:** parseable JSON can still have shapes that crash renderers or silently
+replace valid user data.
+**Decision:** Dashboard and Question Manager validate with
+`src/lib/user-data-schema.js` before setters. Preserve explicit empty data,
+legacy-safe defaults, compatible extra fields, and full streak timestamps;
+preview the exact overwrite scope.
+
+### D13 — Production state requires an exact-SHA proof chain
+**Why:** local build, CI, Vercel deployment, and the production alias can each
+be green while referring to different code.
+**Decision:** release evidence names the commit, GitHub Build + Smoke runs,
+Vercel Production deployment, and a live alias journey that exercises the
+changed capability. Avoid empty redeploys and burst pushes.
+
+### D14 — Public Wiki Markdown is deploy-worthy
+**Why:** `wiki/**/*.md` is build input for prerendered public pages; broad
+Markdown ignore rules make Git and production disagree.
+**Decision:** Vercel may skip root/docs/internal Markdown-only commits, but
+Wiki Markdown remains in the deploy diff. Test the pathspec when editing
+`ignoreCommand`.

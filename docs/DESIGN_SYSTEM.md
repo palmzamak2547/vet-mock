@@ -1,5 +1,10 @@
 # VetMock — Design System (current spec)
 
+> Last verified against production: **v5.31.0 · 2026-08-21**. Notes loading,
+> offline error/retry, backup previews, and JSON validation dialogs follow the
+> same Thai-first hierarchy, shared dialog focus behavior, semantic colours,
+> and 44px interaction floor as the rest of the product.
+
 > The living token spec. Supersedes `design-system/MASTER.md` (stale — dead line
 > numbers / resolved sections). Source of truth is `src/styles.css :root`.
 > Identity: **warm accessible editorial** — cream paper, sage ink, restrained

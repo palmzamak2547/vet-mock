@@ -1,18 +1,24 @@
 # VetMock — Launch Readiness
 
-## Current release gate — v5.27.0 (2026-08-12)
+## Current release gate — v5.31.0 (2026-08-21)
 
 VetMock is production-ready as a public study app. The current gate covers the
 whole product, not only Imaging:
 
-- 4,454 questions / 63 banks / 40 subjects; all generated counts, IDs,
-  curriculum links, registries and VetWiki projections pass drift checks.
+- `npm run stats`: 4,506 source questions, 4,480 learner-ready, 26 held
+  fail-closed for verified figures, 65 banks, 42 subjects with questions,
+  4,032 sourced note sections, and 208 governed VetWiki topics.
+- All generated counts, IDs, curriculum links, registries, note-corpus mapping,
+  delivery gates and VetWiki projections pass drift checks.
 - Stable destinations now own readable `/app/*` URLs with direct-load,
   refresh, Back/Forward and auth-boundary coverage. Stateful exam screens stay
   deliberately in-memory and return to `/` rather than restoring half a session.
-- VetWiki opens metadata-first and lazy-loads one subject at a time. Its index
-  chunk is about 11.7 KB gzip instead of loading the former ~1 MB corpus, and a
-  failed article chunk has a tested reload/retry path.
+- Notes and VetWiki share `note-corpus.js` and lazy-load one subject at a time.
+  NotesView's gzip chunk fell from 631,956 to 36,331 bytes. Offline failure
+  stays on the same view; online retry reloads back into the selected subject.
+- Backup and custom-question JSON are validated with a shared Valibot schema
+  before setters run. The UI previews exact overwrite scope, respects explicit
+  empty data, preserves the full streak record, and accepts safe legacy files.
 - Shared modal focus management now covers the app dialogs: initial focus,
   Tab containment, Escape, nested dialogs and WebKit-safe focus restoration.
   Core public forms have programmatic labels and touch controls keep a 44px floor.
@@ -20,9 +26,13 @@ whole product, not only Imaging:
   request no longer masquerades as an empty success state.
 - The public sign-in view no longer exposes provider-dashboard setup details.
   Dormant article-assistant UI is not rendered in VetWiki.
-- Release evidence: unit 196/196, `lint:all` green, production build + 201 Wiki
-  prerenders, full Playwright 120 passed / 28 intentional skips across Chromium
-  desktop/mobile, WebKit mobile and Firefox, and `npm audit` 0 vulnerabilities.
+- Release evidence: 218 unit tests, `lint:all` green, production build + 209 Wiki
+  prerenders, `npm audit` 0 vulnerabilities, GitHub Build `32415996906`, and
+  GitHub Smoke E2E `32415996900` with 144 passed / 40 deliberate matrix skips /
+  0 failed across Chromium desktop/mobile, WebKit mobile and Firefox.
+- Vercel Production deployment `6010442139` succeeded for commit `3e85fb5`.
+  The production alias passed 20 targeted journeys, including the v5.31-only
+  Notes offline-retry path, proving the alias was not serving the old bundle.
 
 The 2026-07-26 audit below remains as historical rationale; superseded counts
 and open findings should not be read as the current release state.

@@ -6,6 +6,9 @@ Made with ♡ by **Vet 86**
 🌐 **Live:** [vetmock.vercel.app](https://vetmock.vercel.app)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
+**Current release:** v5.31.0 · production verified 2026-08-21
+Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)
+
 > ตัวเลข content inventory ด้านล่าง auto-generated จาก source จริงด้วย `npm run stats -- --write`
 > ตรวจ drift ด้วย `npm run stats:check`; รายละเอียดเต็มอยู่ที่
 > [`docs/content-inventory.md`](./docs/content-inventory.md)
@@ -61,6 +64,7 @@ npm run dev
 
 ### เรียน
 - **VetWiki** คลังความรู้ที่บอกที่มาได้ทุก section + ลิงก์ `/wiki/<subject>/<topic>` แชร์ได้
+- **Notes โหลดตามวิชา** Notes และ VetWiki ใช้ source map เดียวกัน ไม่ดาวน์โหลดทุกชั้นปีพร้อมกัน
 - **สรุปคลิป** 400 คลิปแยกตามวิชา
 - **ตารางเรียน & สอบ** ตารางรายสัปดาห์ + countdown + ปฏิทินลงทะเบียน/ชำระเงิน
 - **Reading Checklist**, **Pinboard**, **Notes**, **อาจารย์ผู้สอน**
@@ -75,7 +79,8 @@ PDF + Annotate, Pomodoro, กลุ่มติว, ช่วยเติมเ�
 
 ### ทั่วทั้งแอป
 PWA + offline (service worker), dark mode + ชุดสีให้เลือก, ⌘K, keyboard shortcuts,
-bottom nav บนมือถือ, import/export JSON, cloud sync เมื่อ login
+bottom nav บนมือถือ, import/export JSON ที่ตรวจ schema + แสดงรายการก่อนเขียนทับ,
+cloud sync เมื่อ login
 
 ---
 
@@ -96,6 +101,7 @@ vet-mock/
 │   │   ├── q-counts.js             ← auto-generated counts
 │   │   ├── questions-*.js          ← Q banks
 │   │   ├── notes-*.js              ← study-note sources
+│   │   ├── note-corpus.js           ← shared lazy Notes/VetWiki loader map
 │   │   ├── video-summaries-*.js    ← per-subject video summaries
 │   │   └── changelog.js, videos.js, sources.js, instructors.js, images.js
 │   ├── lib/
@@ -103,6 +109,8 @@ vet-mock/
 │   │   ├── nav.js                  ← ป้อนทั้ง Sidebar และ BottomNav
 │   │   ├── dialog.js               ← confirm/alert ของแอปเอง (ไม่ใช้ของเบราว์เซอร์)
 │   │   ├── user-data-sync.js       ← local commit + outbox + cloud sync
+│   │   ├── user-data-schema.js     ← Valibot backup/custom-Q validation
+│   │   ├── note-retry.js           ← resume Notes target after chunk retry
 │   │   ├── vetwiki/                ← governed knowledge runtime
 │   │   └── supabase.js, api.js, xp.js, pinboard.js, ...
 │   ├── hooks/                      ← useAuth, useStorage, useExamSession, sm2, ...
@@ -127,6 +135,7 @@ npm run build
 npm run test:unit   # node:test suite
 npm run test:e2e    # Playwright (desktop + mobile)
 npm run stats:check # fail ถ้า README/docs inventory drift จาก source
+npm audit --audit-level=high
 ```
 
 `lint:all` fail = ห้าม push
@@ -176,12 +185,20 @@ registry แล้วรัน gates
 ## 🚀 Deploy
 
 ```bash
-npm run lint:all && npm run build && npm run test:unit
-git push
-# Vercel auto-deploys
+npm run test:unit
+npm run lint:all
+npm run build
+npm audit --audit-level=high
+git push origin main
 ```
 
-⚠️ ถ้า entry chunk เปลี่ยน ต้องบัมพ์ `SW_VERSION` ใน `public/sw.js` ด้วย
+Vercel auto-deploys `main`, but a push is not production proof. Wait for the
+exact-SHA GitHub Build + Smoke E2E runs, confirm the Vercel **Production**
+deployment, then run a changed capability against `https://vetmock.vercel.app`.
+Full checklist: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md#release-gate).
+
+⚠️ ถ้า CSS/JS shape, lazy loading, route หรือ update behavior เปลี่ยน ต้องบัมพ์
+`SW_VERSION` ใน `public/sw.js` ด้วย
 ไม่งั้นเครื่องที่ติดตั้ง PWA ไว้จะค้างที่ bundle เก่า
 
 ดู [`SETUP.md`](./SETUP.md) สำหรับ Supabase + OAuth

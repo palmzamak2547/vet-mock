@@ -3,6 +3,21 @@
 > The in-app, user-facing changelog lives in the app data (`LATEST_CHANGELOG`)
 > and follows its own rules. This file is the engineering log.
 
+## 2026-08-21 — v5.31.0 lazy Notes + validated imports
+
+- Replaced NotesView's eager 30+ file imports and VetWiki's duplicate loader
+  map with `src/data/note-corpus.js`, the shared lazy subject source.
+- Reduced the NotesView gzip chunk from 631,956 to 36,331 bytes (94.3%) while
+  preserving lecture-first and Vet 85 provenance ordering.
+- Added offline Notes error/retry that returns to the selected subject instead
+  of letting stale-chunk recovery reload to Home.
+- Added Valibot runtime schemas for backup and custom-question JSON; imports
+  fail closed, preview exact overwrite scope, respect explicit empty data, and
+  preserve the complete streak record.
+- Verification: 218 unit tests, all lint/data gates, build + 209 Wiki prerenders,
+  audit 0, GitHub Build + Smoke E2E (144 pass / 40 deliberate skips), Vercel
+  Production deployment `6010442139`, and 20/20 live production journeys.
+
 ## 2026-07-24 — merge with the platform branch + integration #3
 
 **Merged** เกษม's large platform push (10 commits) onto the VetWiki work. His

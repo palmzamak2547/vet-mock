@@ -1,4 +1,7 @@
-# 🐾 VetMock v5.0.0 — Setup Guide
+# 🐾 VetMock — Setup Guide
+
+> Verified for v5.31.0 on 2026-08-21. For current architecture, inventory, and
+> production gates, see [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md).
 
 คู่มือการ deploy แบบละเอียดทุกสเต็ป — ทำตามได้เลย ไม่ต้องรู้ coding มาก่อน
 

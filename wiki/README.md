@@ -2,15 +2,19 @@
 id: readme
 title: VetMock Wiki System Overview
 type: reference
-version: 1.0.0
+version: 1.1.0
 status: approved
 tags: [readme, overview, wiki]
-lastReviewed: 2026-07-23
+lastReviewed: 2026-08-21
 ---
 
 # VetMock Wiki
 
 ยินดีต้อนรับสู่ศูนย์กลางความรู้และสถาปัตยกรรม (Knowledge Base Center / Source of Truth) ของโปรเจกต์ **VetMock**
+
+Current operational map, measured inventory และ release evidence อยู่ที่
+`docs/PROJECT_KNOWLEDGE_BASE.md`; ตัวเลขในบทความ/session เก่าเป็น dated snapshot
+และต้องตรวจใหม่ด้วย `npm run stats`
 
 ## โครงสร้างไดเรกทอรี
 - `SCHEMA.md` - ข้อกำหนดการเขียนเอกสาร, Frontmatter, Anchor Identity และ Wiki References Contract

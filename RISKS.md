@@ -54,3 +54,25 @@ commit. Anything touching the mid-exam contract is proven in the browser first.
 `com5` (reserved device name) broke checkout on all Windows machines.
 **Mitigation:** avoid reserved names (CON, PRN, AUX, NUL, COM0-9, LPT0-9) in
 paths; the rename is done. Worth a lint if more content dirs get generated.
+
+### R9 · Imported backup silently corrupts user state — HIGH
+A JSON file can parse while carrying wrong types, broken custom questions, or
+partial SR records. Blind restore can replace valid local/cloud data.
+**Mitigation:** shared Valibot schemas, 20 MB cap, exact overwrite preview,
+presence checks that respect intentional empties, legacy normalization, and
+tests proving malformed data cannot reach setters.
+
+### R10 · Lazy chunk failure loses navigation context — MEDIUM
+Native ESM remembers a failed dynamic import for the document lifetime. A
+generic reload can throw the learner back to Home, especially after going
+offline mid-session.
+**Mitigation:** distinguish offline from stale deploys, show a recoverable Notes
+error, save a one-shot subject/topic target, reload only after connectivity
+returns, and verify the flow in Playwright.
+
+### R11 · Documentation and operational memory drift — MEDIUM
+Counts and gates change quickly; old plans/session logs remain searchable and
+can be mistaken for current truth.
+**Mitigation:** `npm run stats` is the inventory authority;
+`docs/PROJECT_KNOWLEDGE_BASE.md`, `AGENTS.md`, MycOS, and the local VetMock skill
+form the maintained current layer. Dated records stay explicitly historical.

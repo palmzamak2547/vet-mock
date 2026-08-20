@@ -1,5 +1,11 @@
 # VetMock → Veterinary Intelligence Platform · Implementation Plan
 
+> **Current status (2026-08-21):** this implementation plan is complete as a
+> historical architecture record. VetMock v5.31.0 is live with 208 governed
+> topics, a shared lazy Notes/VetWiki corpus, schema-validated imports, and
+> production release gates. Use `docs/PROJECT_KNOWLEDGE_BASE.md` for current
+> operations and `npm run stats` for inventory.
+
 **Status (2026-07-24):** VetWiki slices 1–4 shipped (governed knowledge · read
 page + provenance · reference-verification · shareable URLs + prerender/OG ·
 full-text search · grounded AI · ⌘K · question↔wiki links). All 6 COM5 topics

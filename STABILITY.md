@@ -32,6 +32,43 @@ reconstructed from the URL. Add the matching Vercel rewrite and route tests.
 browser chunks with `npm run regen:wiki-runtime`; `lint:wiki-runtime` must catch
 changed, missing and extra generated files before release.
 
+## 0.3 Notes use one lazy corpus map — never rebuild it in a view
+
+**Rule:** `src/data/note-corpus.js` is the only browser source map for
+`notes-*.js`. NotesView, VetWiki runtime, and `regen-notes-registry.mjs` must
+consume it rather than maintain parallel subject maps.
+
+**Why:** NotesView previously imported more than 30 note files eagerly. Its
+gzip chunk reached 631,956 bytes and its map could drift from VetWiki/registry
+availability. v5.31.0 reduced the view chunk 94.3% and made all three consumers
+share the same lecture-first merge policy.
+
+**Retry invariant:** a rejected loader promise must be evicted. Native ESM also
+caches a failed import for the document lifetime, so online retry preserves the
+subject in `src/lib/note-retry.js` and reloads. `vite:preloadError` must not
+mistake a genuinely offline device for a stale deploy.
+
+## 0.4 Imported JSON must validate before any user-data setter runs
+
+**Rule:** Dashboard backup and Question Manager imports go through
+`src/lib/user-data-schema.js`. Never write parsed-but-unvalidated JSON directly
+into bookmarks, history, notes, SR cards, streaks, or custom questions.
+
+**Why:** a valid JSON file can still carry the wrong shape and silently replace
+working local/cloud data. Validation must fail closed, respect explicit empty
+arrays, preserve legacy-safe defaults, cap file size, and preview the exact
+overwrite scope.
+
+## 0.5 Internal Markdown can skip deploy; `wiki/**/*.md` cannot
+
+**Rule:** Vercel `ignoreCommand` may exclude root/docs/internal Markdown, but it
+must leave `wiki/**/*.md` deploy-worthy because the build prerenders those files
+into public pages.
+
+**Bug caught (2026-08-21):** the old blanket `:(exclude)*.md` treated a Wiki
+content change like an internal README edit. A docs commit could be correct in
+Git while production kept the previous prerender forever.
+
 ---
 
 ## 1. `::before` / `::after` pseudo-elements with negative `inset` to
@@ -216,7 +253,7 @@ Current setting: `target: 'es2020'` + `browserslist` includes `ios >= 14`.
 but indexes them by URL — without a bump, returning users get a mix
 of new code referencing old chunks → cryptic errors.
 
-Format: `vN-YYYY-MM-DD`. Current: `v64-2026-08-12`.
+Format: `vN-YYYY-MM-DD`. Current: `v89-2026-08-21`.
 
 ---
 
@@ -363,6 +400,12 @@ for the full backfill + FK pattern.
       → Keep `target: 'es2020'` (or older); never `esnext`.
 - [ ] Did this change a Q-bank file?
       → Run `npm run lint:all` and confirm error count didn't regress.
+- [ ] Did this add or move a `notes-*.js` source?
+      → Update `note-corpus.js`, regenerate notes registry, and run its contract tests.
+- [ ] Did this parse backup/custom-question JSON?
+      → Validate with `user-data-schema.js` before any setter and test malformed + empty data.
+- [ ] Is this being described as "live"?
+      → Require exact-SHA CI, Vercel Production status, and a production-alias user flow.
 - [ ] Did this add a position: absolute dropdown anchored to a button?
       → Use `useDropdownAnchor` hook (rule 11) — never hardcode left/right.
 - [ ] Did this add a Supabase `.select(... related(...))` embed?
@@ -372,6 +415,6 @@ for the full backfill + FK pattern.
 
 ---
 
-_Maintained by Claude — appended whenever a class of bug recurs. If
-you find a new architectural fragility, add the rule + the bug it
-caught here so the next person (or the next Claude) sees the trap._
+_Append a rule whenever a repeatable architectural fragility is proven. Include
+the bug it caught and the stable replacement so the next maintainer does not
+have to rediscover it._
