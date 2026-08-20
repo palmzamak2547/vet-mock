@@ -54,7 +54,7 @@ export default function GroupDetailView({ group, user, goBack }) {
       </div>
 
       <div className="vmx-nav" style={{ marginBottom: 24 }}>
-        <button className={`vmx-nav-btn ${tab === 'leaderboard' ? 'active' : ''}`} onClick={() => setTab('leaderboard')}>Leaderboard</button>
+        <button className={`vmx-nav-btn ${tab === 'leaderboard' ? 'active' : ''}`} onClick={() => setTab('leaderboard')}>อันดับคะแนน</button>
         <button className={`vmx-nav-btn ${tab === 'questions' ? 'active' : ''}`} onClick={() => setTab('questions')}>Shared Q ({questions.length})</button>
         <button className={`vmx-nav-btn ${tab === 'members' ? 'active' : ''}`} onClick={() => setTab('members')}>👤 Members ({members.length})</button>
       </div>

@@ -12,17 +12,23 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 import { confirmDialog } from '../lib/dialog.js';
+import NavIcon from './NavIcon.jsx';
 
 export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, onAccount }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const triggerRef = useRef(null);
   const USER_MENU_W = 200;
   const anchorSide = useDropdownAnchor(ref, open, USER_MENU_W);
 
   useEffect(() => {
     if (!open) return;
     const handle = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
-    const handleEsc = (e) => { if (e.key === 'Escape') setOpen(false); };
+    const handleEsc = (e) => {
+      if (e.key !== 'Escape') return;
+      setOpen(false);
+      triggerRef.current?.focus();
+    };
     document.addEventListener('mousedown', handle);
     document.addEventListener('keydown', handleEsc);
     return () => {
@@ -34,9 +40,11 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
   return (
     <div ref={ref} style={{ position: 'relative' }}>
       <button
+        ref={triggerRef}
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="menu"
+        aria-label={`บัญชี ${profile.username}`}
         style={{
           all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
           padding: '6px 12px 6px 6px', borderRadius: 999,
@@ -78,7 +86,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
               }}
             >
               <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Signed in as
+                บัญชีของคุณ
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 600, marginTop: 2 }}>
                 <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -91,7 +99,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
           ) : (
             <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4 }}>
               <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                Signed in as
+                บัญชีของคุณ
               </div>
               <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
                 {profile.avatar_emoji || '🐾'} {profile.username}
@@ -99,23 +107,20 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
             </div>
           )}
           {onGroups && (
-            <MenuItem icon="👥" onClick={() => { setOpen(false); onGroups(); }}>Study Groups</MenuItem>
+            <MenuItem icon="users" onClick={() => { setOpen(false); onGroups(); }}>กลุ่มติว</MenuItem>
           )}
           {onLeaderboard && (
-            <MenuItem icon="🏆" onClick={() => { setOpen(false); onLeaderboard(); }}>Leaderboard</MenuItem>
+            <MenuItem icon="trophy" onClick={() => { setOpen(false); onLeaderboard(); }}>อันดับคะแนน</MenuItem>
           )}
           {/* Until now the only route to this screen was the ⌘K palette — a
               shortcut most students never learn and cannot press on a phone.
               Everything about an account lives behind it: profile, password,
               passkeys, sign-out-everywhere, export, delete. */}
-          {onAccount && (
-            <MenuItem icon="⚙" onClick={() => { setOpen(false); onAccount(); }}>ตั้งค่าบัญชี</MenuItem>
-          )}
           <div style={{ height: 1, background: 'var(--clr-border)', margin: '4px 0' }} />
-          <MenuItem icon="⎋" danger onClick={async () => {
+          <MenuItem icon="logout" danger onClick={async () => {
             setOpen(false);
             if (await confirmDialog({ title: 'ออกจากระบบ?', confirmLabel: 'ออกจากระบบ' })) onLogout();
-          }}>ออกจากระบบ (Logout)</MenuItem>
+          }}>ออกจากระบบ</MenuItem>
         </div>
       )}
     </div>
@@ -137,7 +142,7 @@ function MenuItem({ icon, children, onClick, danger }) {
       onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--clr-surface-2)'; }}
       onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
     >
-      <span style={{ fontSize: 14 }}>{icon}</span>
+      <NavIcon name={icon} size={17} />
       <span>{children}</span>
     </button>
   );

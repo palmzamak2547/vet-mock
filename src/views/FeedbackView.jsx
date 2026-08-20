@@ -84,7 +84,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1><em>Feedback</em> & Bug Report</h1>
+        <h1>แจ้งปัญหา <em>และข้อเสนอแนะ</em></h1>
         <p>เจอ bug? มีข้อเสนอแนะ? หรืออยากแชร์ข้อสอบเพิ่ม? ส่งมาได้เลย — ส่งตรงไปที่อีเมล Vet 86</p>
       </div>
 

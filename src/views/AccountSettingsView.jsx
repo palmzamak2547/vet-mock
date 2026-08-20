@@ -310,7 +310,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       <BackBar onBack={goHome} label="หน้าแรก" />
 
       <div className="vmx-hero">
-        <h1><em>Account</em> Settings</h1>
+        <h1>ตั้งค่า <em>บัญชี</em></h1>
         <p>จัดการ account, เปลี่ยนรหัสผ่าน อีเมล หรือลบ account</p>
       </div>
 

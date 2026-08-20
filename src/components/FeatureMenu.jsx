@@ -50,8 +50,8 @@ export default function FeatureMenu({
     <section className="vmx-feature-menu" aria-labelledby="vmx-feature-menu-title">
       <div className="vmx-feature-menu-intro">
         <div>
-          <h2 id="vmx-feature-menu-title">สำรวจเครื่องมือ</h2>
-          <p>เมนูรองจัดเป็นหมวด — เปิดดูเพิ่มเมื่อจำเป็น</p>
+          <h2 id="vmx-feature-menu-title">เมนูเพิ่มเติม</h2>
+          <p>ฟีเจอร์เสริมจัดเป็นหมวด เปิดเมื่อจำเป็น</p>
         </div>
         <span className="vmx-feature-menu-hint">ค้นหาเร็วด้วย <kbd>{shortcutLabel}</kbd></span>
       </div>
@@ -78,7 +78,7 @@ export default function FeatureMenu({
         return (
           <section key={cat.id} className="vmx-feature-group" aria-labelledby={`${gridId}-title`}>
             <div className="vmx-feature-group-heading">
-              <h3 id={`${gridId}-title`}><span aria-hidden>{cat.icon}</span> {cat.label}</h3>
+              <h3 id={`${gridId}-title`}>{cat.label}</h3>
               <span>{feats.length} รายการ</span>
             </div>
             <div id={gridId} className="vmx-feature-grid">

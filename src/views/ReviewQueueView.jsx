@@ -110,7 +110,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero">
-          <h1><em>Review Queue</em></h1>
+          <h1>คิว <em>รอตรวจ</em></h1>
           <p>ต้องเข้าสู่ระบบเพื่อรีวิว Q ที่ contributors ส่งเข้ามา</p>
         </div>
         <div style={emptyPanelStyle}>
@@ -132,7 +132,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero">
-          <h1><em>Review Queue</em></h1>
+          <h1>คิว <em>รอตรวจ</em></h1>
         </div>
         <div style={{ ...emptyPanelStyle, color: 'var(--clr-ink-soft)' }}>
           กำลังตรวจสิทธิ์...
@@ -149,7 +149,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero">
-          <h1><em>Review Queue</em></h1>
+          <h1>คิว <em>รอตรวจ</em></h1>
           <p>หน้านี้สำหรับ peer reviewer ที่ได้รับ role ระดับ verified ขึ้นไป</p>
         </div>
         <div style={emptyPanelStyle}>
@@ -176,7 +176,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1><em>Review</em> Queue</h1>
+        <h1>คิว <em>รอตรวจ</em></h1>
         <p>
           วิเคราะห์ Q ที่ contributors ส่งเข้ามา, Approve / Nudge / Reject
           {', '}

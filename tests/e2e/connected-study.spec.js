@@ -170,13 +170,24 @@ test.describe('connected study experience', () => {
     await expect(page.locator('.vmx-bottom-nav')).toHaveCount(0);
 
     await page.getByRole('button', { name: /เทอม 1 กลางภาค/ }).click();
+    const headerContextBox = await page.locator('.vmx-header-context').boundingBox();
+    const headerToolsBox = await page.locator('.vmx-header-right').boundingBox();
+    expect(headerContextBox).not.toBeNull();
+    expect(headerToolsBox).not.toBeNull();
+    expect(Math.abs(headerContextBox.y - headerToolsBox.y)).toBeLessThan(6);
     const epidemiology = page.locator('.vmx-subject-card').filter({ hasText: /ระบาดวิทยา/ }).first();
     await expect(epidemiology).toBeVisible({ timeout: 15_000 });
+    const epidemiologyBox = await epidemiology.boundingBox();
+    expect(epidemiologyBox.y).toBeLessThan(650);
     await expect(page.locator('.vmx-tools-fab')).not.toBeVisible();
     await epidemiology.click();
 
     await expect(page.getByRole('tab', { name: 'ฝึกตามหัวข้อ' })).toHaveAttribute('aria-selected', 'true');
-    await expect(page.getByRole('button', { name: /ฝึกข้อสอบ Intro to Vet Epidemiology 5 ข้อ/ })).toBeVisible();
+    const introTopic = page.getByRole('button', { name: /ฝึกข้อสอบ Intro to Vet Epidemiology 5 ข้อ/ });
+    await expect(introTopic).toBeVisible();
+    const introTopicBox = await introTopic.boundingBox();
+    expect(introTopicBox.width).toBeGreaterThan(300);
+    await expect(page.getByRole('contentinfo')).toHaveCount(0);
     await expect(page.getByText('รูปแบบของชุดโจทย์ฝึก')).not.toBeVisible();
 
     await page.getByRole('button', { name: /ฝึกข้อสอบ Intro to Vet Epidemiology 5 ข้อ/ }).click();
@@ -217,7 +228,7 @@ test.describe('connected study experience', () => {
       window.addEventListener('popstate', resolve, { once: true });
       window.history.back();
     }));
-    await expect(page.getByRole('heading', { level: 1, name: /คลังโจทย์ฝึก/ })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: /พร้อมฝึกสำหรับ|สวัสดี/ })).toBeVisible();
     await expect(page.getByText('0 / 0 ข้อเขียนเสร็จ')).toHaveCount(0);
     expect(pageErrors).toEqual([]);
   });
@@ -244,10 +255,10 @@ test.describe('connected study experience', () => {
     await expect(page.getByRole('heading', { level: 1, name: /เลือก.*หัวข้อ/ })).toBeVisible();
     const rabies = page.locator('.vmx-topic-card').filter({ hasText: /Rabies/ }).first();
     await expect(rabies).toBeVisible();
-    await expect(rabies.getByRole('button', { name: /Notes/ })).toBeVisible();
+    await expect(rabies.getByRole('button', { name: 'สรุป', exact: true })).toBeVisible();
     await expect(rabies.getByRole('button', { name: /VetWiki/ })).toBeVisible();
 
-    await rabies.getByRole('button', { name: /Notes/ }).click();
+    await rabies.getByRole('button', { name: 'สรุป', exact: true }).click();
     await expect(page.getByRole('heading', { name: /Rabies.*โรคพิษสุนัขบ้า/i })).toBeVisible({ timeout: 15_000 });
 
     await page.getByRole('button', { name: /ย้อนกลับ|หัวข้อ|topic/ }).first().click();
@@ -277,7 +288,7 @@ test.describe('connected study experience', () => {
     await expect(com5).toBeVisible({ timeout: 15_000 });
     await com5.click();
 
-    await page.getByRole('tab', { name: 'สรุป คลิป และสอบจำลอง' }).click();
+    await page.getByRole('tab', { name: 'สื่อเรียนและโหมดสอบ' }).click();
     const subjectVideos = page.locator('.vmx-mode-card').filter({ hasText: /คลิปย้อนหลัง/ }).first();
     await expect(subjectVideos).toBeEnabled();
     await subjectVideos.click();
@@ -285,7 +296,7 @@ test.describe('connected study experience', () => {
     await expect(page.locator('.vmx-chip').first()).not.toHaveClass(/active/);
 
     await page.locator('.vmx-back-chip').first().click();
-    const globalVideos = page.locator('.vmx-feature-card').filter({ hasText: /YouTube playlist/ }).first();
+    const globalVideos = page.locator('.vmx-feature-card').filter({ hasText: /เพลย์ลิสต์ YouTube|YouTube playlist/ }).first();
     await expect(globalVideos).toBeVisible();
     await globalVideos.click();
     await expect(page.locator('.vmx-chip').first()).toHaveClass(/active/);

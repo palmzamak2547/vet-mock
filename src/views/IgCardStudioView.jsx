@@ -164,7 +164,7 @@ export default function IgCardStudioView({ goHome }) {
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
-        <h1>IG Card <em>Studio</em></h1>
+        <h1>สร้างการ์ด <em>Instagram</em></h1>
         <p>Generate Q cards พร้อมโพสต์ลง Instagram, 1080×1350, 4:5 ratio</p>
       </div>
 

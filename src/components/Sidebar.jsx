@@ -1,28 +1,18 @@
 import React from 'react';
-import { useAuth } from '../hooks/useAuth.js';
-import { hasSupabase, signOut } from '../lib/supabase.js';
 import { NAV_ITEMS, runNav, isNavActive } from '../lib/nav.js';
 import NavIcon from './NavIcon.jsx';
 import Wordmark from './Wordmark.jsx';
 
 export default function Sidebar({ view, setView, goHome, setSubject, setPracticeMode, setMode, onMockExam }) {
-  const { user, profile } = useAuth();
   const handlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam };
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      window.location.reload();
-    } catch {}
-  };
 
   return (
     <aside className="vmx-sidebar">
       <button 
         type="button"
-        className="vmx-logo vmx-logo-btn" 
+        className="vmx-logo vmx-logo-btn vmx-sidebar-brand"
         onClick={goHome}
-        style={{ marginBottom: '32px', paddingLeft: '16px', background: 'transparent' }}
+        aria-label="VetMock — หน้าแรก"
       >
         <Wordmark size={24} />
       </button>
@@ -44,20 +34,6 @@ export default function Sidebar({ view, setView, goHome, setSubject, setPractice
         })}
       </nav>
 
-      <div className="vmx-sidebar-bottom">
-        {user ? (
-          <div className="vmx-sidebar-user">
-            <span className="vmx-sidebar-username">{profile?.username || user.email?.split('@')[0]}</span>
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleSignOut}>
-              ออกระบบ
-            </button>
-          </div>
-        ) : hasSupabase ? (
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('auth')} style={{ width: '100%' }}>
-            เข้าสู่ระบบ
-          </button>
-        ) : null}
-      </div>
     </aside>
   );
 }

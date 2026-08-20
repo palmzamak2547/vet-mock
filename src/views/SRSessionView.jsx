@@ -146,7 +146,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return (
       <>
         <div className="vmx-hero">
-          <h1>Spaced <em>Repetition</em></h1>
+          <h1>ทบทวน <em>ตามรอบ</em></h1>
           <p>เลือกขนาด session ที่ทำได้สบายๆ — ทำติดต่อกันทุกวันสำคัญกว่าทำเยอะๆ ครั้งเดียว</p>
         </div>
 
@@ -356,7 +356,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return (
       <>
         <div className="vmx-hero">
-          <h1>Session <em>Complete</em> 🎉</h1>
+          <h1>ทบทวน <em>เสร็จแล้ว</em></h1>
           <p>ทบทวนเสร็จแล้ว, กลับมาทบทวนพรุ่งนี้นะ</p>
         </div>
         <div className="vmx-results-hero">

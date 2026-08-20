@@ -349,7 +349,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
   return (
     <>
       <div className="vmx-hero">
-        <h1>Question <em>Manager</em></h1>
+        <h1>จัดการ <em>ข้อสอบส่วนตัว</em></h1>
         <p>เพิ่ม แก้ไข หรือ import ข้อสอบของตัวเอง, มี {customQuestions.length} ข้อ custom</p>
       </div>
 

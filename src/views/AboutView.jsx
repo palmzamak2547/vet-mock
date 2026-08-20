@@ -117,7 +117,7 @@ export default function AboutView({ goHome, setView }) {
           <FeatureGroup
             title="👥 Cloud features (เลือกเปิด — ต้อง Login)"
             items={[
-              'Study Groups + Leaderboard',
+              'กลุ่มติว + อันดับคะแนน',
               'Sync bookmark/note/SR ข้ามเครื่อง',
               'แชร์โจทย์ฝึกกับเพื่อนใน group',
             ]}

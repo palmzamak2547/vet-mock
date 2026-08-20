@@ -1,5 +1,6 @@
 import { lazy, Suspense, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
@@ -98,30 +99,17 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
 
   return (
     <>
-      <BackBar onBack={goHome} label="หน้าแรก" subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
+      <BackBar onBack={goHome} label="หน้าแรก" subtitle={subjectMeta?.name || ''} />
       <div className="vmx-hero">
         <h1>เลือก <em>หัวข้อ</em></h1>
-        <p>{subjectMeta?.icon} {subjectMeta?.name}, เลือกเฉพาะหัวข้อที่จะสอบ หรือทั้งหมดก็ได้</p>
+        <p>{subjectMeta?.name}, เลือกเฉพาะหัวข้อที่จะสอบ หรือเลือกทำรวมทั้งวิชา</p>
         {topics.length > 0 && (
           <button
             type="button"
             onClick={() => setView('reading-checklist')}
             aria-label={`เปิดรายการอ่าน อ่านแล้ว ${subjReadDone} จาก ${topics.length} หัวข้อ`}
             title="เปิดรายการอ่าน"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              marginTop: 8,
-              padding: '4px 10px',
-              borderRadius: 999,
-              background: 'rgba(184, 137, 64, 0.12)',
-              border: '1px solid var(--clr-gold)',
-              fontSize: 12,
-              fontFamily: 'var(--vmx-mono)',
-              color: 'var(--clr-ink)',
-              cursor: 'pointer',
-            }}
+            className="vmx-topic-progress"
           >
             อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong>
           </button>
@@ -149,7 +137,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           className={activeSection === 'resources' ? 'active' : ''}
           onClick={() => setActiveSection('resources')}
         >
-          สรุป คลิป และสอบจำลอง
+          สื่อเรียนและโหมดสอบ
         </button>
       </div>
 
@@ -170,7 +158,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           }}
           style={{ borderColor: subjectMeta?.color, opacity: resources.questions?.available ? 1 : 0.55 }}
         >
-          <div className="icon">📝</div>
+          <div className="icon"><NavIcon name="practice" size={20} /></div>
           <div className="title">ฝึกซ้อม</div>
           <div className="sub">{resources.questions?.available ? `สุ่ม ${countFor('all')} ข้อในวิชานี้, ปรับจำนวน/เวลาได้` : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
         </button>
@@ -188,7 +176,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           }}
           style={{ borderColor: subjectMeta?.color, opacity: resources.questions?.available ? 1 : 0.55 }}
         >
-          <div className="icon">🎓</div>
+          <div className="icon"><NavIcon name="exam" size={20} /></div>
           <div className="title">สอบจริง</div>
           <div className="sub">{resources.questions?.available ? '50 ข้อ × 60 วิ, เลียนข้อสอบจริง' : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
         </button>
@@ -199,7 +187,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           onClick={() => runStudyAction(resources.notes?.action)}
           style={{ opacity: resources.notes?.available ? 1 : 0.55 }}
         >
-          <div className="icon">📖</div>
+          <div className="icon"><NavIcon name="note" size={20} /></div>
           <div className="title">สรุปบทเรียน</div>
           <div className="sub">{resources.notes?.available ? `${resources.notes.count} หัวข้อ, อ้างอิงแหล่งที่มา` : 'ยังไม่มี Notes ในวิชานี้'}</div>
         </button>
@@ -210,7 +198,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           onClick={() => runStudyAction(resources.videos?.action)}
           style={{ opacity: resources.videos?.available ? 1 : 0.55 }}
         >
-          <div className="icon">🎥</div>
+          <div className="icon"><NavIcon name="video" size={20} /></div>
           <div className="title">คลิปย้อนหลัง</div>
           <div className="sub">{resources.videos?.available ? `${resources.videos.count} ชุดวิดีโอ` : 'ยังไม่มีคลิปในวิชานี้'}</div>
         </button>
@@ -221,7 +209,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           onClick={() => runStudyAction(resources.wiki?.action)}
           style={{ opacity: resources.wiki?.available ? 1 : 0.55 }}
         >
-          <div className="icon">🧠</div>
+          <div className="icon"><NavIcon name="wiki" size={20} /></div>
           <div className="title">VetWiki</div>
           <div className="sub">{resources.wiki?.available ? `${resources.wiki.count} บทความ เชื่อมจาก Notes` : 'ยังไม่มีบทความในวิชานี้'}</div>
         </button>
@@ -312,7 +300,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       {activeSection === 'topics' && (
       <section id="vmx-topic-panel-topics" role="tabpanel" aria-labelledby="vmx-topic-tab-topics">
       <div className="vmx-section-label">เลือกหัวข้อที่จะฝึก</div>
-      <div className="vmx-subject-grid">
+      <div className="vmx-topic-grid">
         {/* All-topics card */}
         <button
           key="all"
@@ -322,7 +310,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           style={{ opacity: resources.questions?.available ? 1 : 0.5, cursor: resources.questions?.available ? 'pointer' : 'not-allowed' }}
         >
           <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
-          <div className="icon">📚</div>
+          <div className="icon"><NavIcon name="practice" size={22} /></div>
           <div className="title">รวมทุกหัวข้อ</div>
           <div className="sub">{subjectMeta?.name} ทุกหัวข้อ</div>
           <div className="count">{countFor('all')} ข้อ</div>
@@ -393,10 +381,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 title={isEmpty ? 'ยังไม่มีข้อสอบ, Notes หรือ VetWiki ในหัวข้อนี้' : primaryLabel}
               >
                 {isRead && <span className="vmx-topic-read" aria-hidden="true" title="อ่านแล้ว">✓</span>}
-                <span className="icon">{t.icon || '📑'}</span>
                 <span className="title">{t.label}</span>
                 <span className="count" style={{ color: isEmpty ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
-                  {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? '📖 มี Notes + VetWiki' : '🚧 รอเนื้อหาเพิ่ม'}
+                  {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? 'มีสรุปและ VetWiki' : 'รอเนื้อหาเพิ่ม'}
                 </span>
                 {ppCount > 0 && hasQuestions && (
                   <span className="vmx-topic-past" title={`มีข้อสอบเก่า ${ppCount}/${count} ข้อ (${ppPct}% ของหัวข้อนี้)`}>
@@ -411,18 +398,18 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               {!isEmpty && (t.lecturer || hasNotesForTopic || hasWikiForTopic || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
                 <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
                   {t.lecturer && (
-                    <button type="button" className="vmx-topic-action" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
-                      👤 Aj. {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`}
+                    <button type="button" className="vmx-topic-action is-wide" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
+                      <NavIcon name="user" size={15} /> อาจารย์ {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`}
                     </button>
                   )}
                   {hasNotesForTopic && (
                     <button type="button" className="vmx-topic-action" onClick={() => runStudyAction(t.resources.notes)}>
-                      📖 Notes
+                      <NavIcon name="note" size={15} /> สรุป
                     </button>
                   )}
                   {hasWikiForTopic && (
                     <button type="button" className="vmx-topic-action" onClick={() => runStudyAction(t.resources.wiki)}>
-                      🧠 VetWiki
+                      <NavIcon name="wiki" size={15} /> VetWiki
                     </button>
                   )}
                   {subject === 'vca' && VCA_NOTES_MAP[t.id] && (
@@ -436,7 +423,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                       }}
                       title={`เปิด Notes: ${VCA_NOTES_MAP[t.id].label}`}
                     >
-                      📖 {VCA_NOTES_MAP[t.id].label}
+                      <NavIcon name="note" size={15} /> {VCA_NOTES_MAP[t.id].label}
                     </button>
                   )}
                 </div>

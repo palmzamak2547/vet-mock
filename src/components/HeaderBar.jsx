@@ -135,8 +135,17 @@ export default function HeaderBar({
           <XpChip />
         </Suspense>
 
-        {user && profile && (
-          <UserMenu profile={profile} onLogout={handleSignOut} onGroups={() => setView('groups')} onLeaderboard={() => setView('leaderboard-global')} onAccount={() => setView('account-settings')} />
+        {user && (
+          <UserMenu
+            profile={profile || {
+              username: user.email?.split('@')[0] || 'บัญชีของฉัน',
+              avatar_emoji: '🐾',
+            }}
+            onLogout={handleSignOut}
+            onGroups={() => setView('groups')}
+            onLeaderboard={() => setView('leaderboard-global')}
+            onAccount={() => setView('account-settings')}
+          />
         )}
         {!user && hasSupabase && (
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-login-btn" onClick={() => setView('auth')} aria-label="เข้าสู่ระบบ">

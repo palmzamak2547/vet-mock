@@ -228,6 +228,10 @@ const WIDE_VIEWS = new Set([
 // the footer prevents keyboard/scroll users from leaving an active exam
 // without going through ExamView's confirmation flow.
 const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select', 'phase-select', 'config']);
+// Marketing/ecosystem links belong on destination pages, not after every
+// internal workflow. Keeping the footer off topic, notes, schedule and tool
+// views shortens those tasks without removing any top-level navigation.
+const FOOTER_VIEWS = new Set(['home', 'about']);
 const AUTH_REQUIRED_VIEWS = new Set([
   'groups',
   'group-detail',
@@ -1931,21 +1935,9 @@ export default function App() {
             <div
               role="status"
               aria-live="polite"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: 12,
-                padding: '8px 14px',
-                marginBottom: 8,
-                borderRadius: 8,
-                fontSize: 13,
-                background: 'rgba(74, 107, 74, 0.12)',
-                color: 'var(--clr-sage, #4a6b4a)',
-                border: '1px solid var(--clr-sage, #4a6b4a)',
-              }}
+              className="vmx-update-notice"
             >
-              <span>✨ มีอัปเดตใหม่พร้อมแล้ว</span>
+              <span>มีเวอร์ชันใหม่พร้อมใช้</span>
               <button
                 type="button"
                 onClick={() => {
@@ -1955,28 +1947,16 @@ export default function App() {
                     window.location.reload();
                   }
                 }}
-                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                style={{
-                  padding: '4px 10px',
-                  fontSize: 12,
-                  color: 'var(--clr-sage, #4a6b4a)',
-                  border: '1px solid currentColor',
-                  background: 'transparent',
-                  flexShrink: 0,
-                }}
+                className="vmx-btn vmx-btn-primary vmx-btn-sm vmx-update-notice__refresh"
               >
-                🔄 รีเฟรช
+                รีเฟรชตอนนี้
               </button>
               <button
                 type="button"
                 onClick={dismissSwUpdate}
-                className="vmx-icon-close"
+                className="vmx-icon-close vmx-update-notice__close"
                 aria-label="ปิดการแจ้งเตือนอัปเดตนี้"
                 title="ไว้ทีหลัง"
-                style={{
-                  all: 'unset', cursor: 'pointer', flexShrink: 0,
-                  color: 'var(--clr-sage, #4a6b4a)', fontSize: 14,
-                }}
               >
                 ✕
               </button>
@@ -2024,7 +2004,7 @@ export default function App() {
                 marginBottom: 12,
                 padding: '10px 14px',
                 borderRadius: 12,
-                background: 'linear-gradient(135deg, rgba(184, 137, 64, 0.10), rgba(217, 119, 68, 0.08))',
+                background: 'var(--clr-surface)',
                 border: '1px solid var(--clr-gold, #b88940)',
                 display: 'flex',
                 alignItems: 'center',
@@ -2055,7 +2035,7 @@ export default function App() {
             className={`vmx-main${WIDE_VIEWS.has(view) ? ' vmx-main--wide' : ''}`}
             style={{ outline: 'none' }}
           >
-          {authLoading ? <div className="vmx-empty">กำลังโหลด...</div> : (
+          {authLoading ? <ViewFallback /> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
@@ -2108,7 +2088,7 @@ export default function App() {
 
           {/* Footer — brand line + utility links + Vet 86 ecosystem
               cross-links. Extracted to components/Footer.jsx 2026-05-27. */}
-          {!FOCUS_VIEWS.has(view) && <Footer setView={setView} />}
+          {FOOTER_VIEWS.has(view) && <Footer setView={setView} />}
           {/* Mobile primary nav (<1024px, CSS-gated). Same destinations as the
               desktop Sidebar (lib/nav.js); hidden mid-exam via the same gate. */}
           {!FOCUS_VIEWS.has(view) && <BottomNav view={view} handlers={navHandlers} />}
@@ -2126,7 +2106,7 @@ export default function App() {
           {/* Unified ToolsFAB — one button bottom-right that fans out
               into the calculator + sketchpad. Replaces what used to be
               two stacked floats. Hidden during exam/auth like before. */}
-          {!FOCUS_VIEWS.has(view) && (
+          {!FOCUS_VIEWS.has(view) && view !== 'home' && (
             <ToolsFAB
               onSketch={() => setSketchOpen(true)}
               onView={setView}

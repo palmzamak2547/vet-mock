@@ -101,7 +101,7 @@ test('key public forms expose an accessible name for every visible control', asy
   await expectNoUnnamedFormControls(page, 'home');
 
   await page.goto('/app/feedback');
-  await expect(page.getByRole('heading', { name: /Feedback/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /แจ้งปัญหา/ })).toBeVisible();
   await expectNoUnnamedFormControls(page, 'feedback');
 
   await page.goto('/app/questions');

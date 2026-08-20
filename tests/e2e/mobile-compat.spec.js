@@ -406,7 +406,7 @@ test.describe('whole-app mobile compatibility', () => {
     await page.locator('.vmx-topic-card').first().waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'topic-selection');
     const rabies = page.locator('.vmx-topic-card').filter({ hasText: /Rabies/ }).first();
-    await rabies.getByRole('button', { name: /Notes/ }).click();
+    await rabies.getByRole('button', { name: 'สรุป', exact: true }).click();
     await page.locator('.vmx-notes-grid').waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'topic-notes');
 

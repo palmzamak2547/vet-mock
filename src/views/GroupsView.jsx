@@ -55,7 +55,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
   return (
     <>
       <div className="vmx-hero">
-        <h1>Study <em>Groups</em></h1>
+        <h1>กลุ่ม <em>ติว</em></h1>
         <p>สร้างกลุ่มแล้วส่ง code ให้เพื่อน หรือ join ด้วย code — แชร์ข้อสอบ, แข่งคะแนน, เรียนไปด้วยกัน</p>
       </div>
 

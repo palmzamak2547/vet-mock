@@ -2,7 +2,8 @@
 
 > The living token spec. Supersedes `design-system/MASTER.md` (stale — dead line
 > numbers / resolved sections). Source of truth is `src/styles.css :root`.
-> Identity: **warm editorial** — cream paper, sage ink, restrained. Not a
+> Identity: **warm accessible editorial** — cream paper, sage ink, restrained
+> flat controls and Thai-first hierarchy. Not a
 > gamified/gradient/glass SaaS look; the only glass/glow is quarantined to the
 > marketing landing under `.lp-`.
 
@@ -27,7 +28,8 @@ only the accent so bg/ink contrast never breaks.
 Interaction tokens (`--vmx-color-*`, `--vmx-surface*`, `--vmx-text*`) are
 **harmonized to the palette above** (2026-07-24 — they used to be a cold
 Duolingo blue/slate scheme that clashed). `--vmx-color-learning` = the sage
-primary; buttons keep the tactile 3D `--vmx-press-depth`.
+primary; shared buttons use stable 1px borders and never change layout depth
+when pressed.
 
 Status must **not be colour-only** — pair with icon/text (correct/incorrect,
 flagged, unanswered).
@@ -37,8 +39,8 @@ Additive. Existing code + magic values still work; new/migrated code uses these.
 
 - **Spacing** (4px grid): `--space-0..16` → `0,4,8,12,16,20,24,32,40,48,64`.
 - **Radius**: `--r-sm 8` · `--r-md 12` · `--r-lg 16` · `--r-xl 20` · `--r-pill 999`.
-  (Collapses the 9 ad-hoc values; `--vmx-radius-control/card` retained for the
-  existing 3D buttons.)
+  (Collapses the 9 ad-hoc values; `--vmx-radius-control/card` remains as a
+  compatibility alias for legacy views.)
 - **Elevation**: `--shadow-sm`, `--shadow-md` (existing).
 - **Z-index ladder** — always use a token, never a fresh magic number:
   `--z-base 0` · `--z-raised 10` · `--z-sidebar 100` · `--z-fab 600` ·
@@ -52,7 +54,8 @@ Additive. Existing code + magic values still work; new/migrated code uses these.
 
 ## Typography
 Thai-first. Base stack `'Sarabun','IBM Plex Sans Thai','Fraunces',system-ui`
-(set on `.vmx-app` and `html,body`). Display/wordmark = `Fraunces` (serif). Mono
+(set on `.vmx-app` and `html,body`). Core UI headings and controls use Sarabun;
+the brand wordmark alone keeps `Fraunces`. Mono
 (codes/kbd) = `JetBrains Mono`. Wiki reference titles carry **no emoji** and no
 study annotations (see `lib/vetwiki/schema.js wikiTitle`). *Perf debt: Sarabun is
 double-loaded — Phase 1 consolidates to one woff2 (see MIGRATION_PLAN).*
@@ -64,11 +67,12 @@ inputs (no zoom) · `env(safe-area-inset)` on app/modals/FABs ·
 `overflow-x:clip` safety net · wide tables in `overflow-x:auto`. Target WCAG 2.2 AA.
 
 ## Components (state today → target)
-Strong: buttons (`.vmx-btn*`, 3D press), `BackBar`, `ViewFallback` skeleton,
+Strong: flat buttons (`.vmx-btn*`), `BackBar`, `ViewFallback` skeleton,
 `vmx-modal-overlay`, `useModalFocus`, `StatePanel`, feature cards. Dialogs use
 `data-vmx-modal="true"` so nested focus/Escape ownership is deterministic;
-remote loading/empty/error views reuse `StatePanel`. **Debt** (Phase 1-3): 2,613 inline
-`style={{}}` with no utility layer; 8 duplicate card families → one `.vmx-card`
+remote loading/empty/error views reuse `StatePanel`. **Debt** (Phase 1-3): legacy
+views still contain thousands of inline `style={{}}` declarations; shared shell
+and core study views migrate to named classes first. Eight duplicate card families → one `.vmx-card`
 base; remaining press interactions → `.vmx-pressable-card`; long-list skeleton
 patterns can still converge further.
 

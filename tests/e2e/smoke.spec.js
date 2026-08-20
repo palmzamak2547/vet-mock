@@ -214,7 +214,7 @@ test.describe('VetMock smoke flow', () => {
     await page.getByRole('button', { name: /เทอม\s*2\s*ปลายภาค/ }).click();
 
     await expect(page.locator('main#main')).toBeVisible();
-    await expect(page.locator('.vmx-hero h1')).toContainText(/คลังโจทย์ฝึก|สวัสดี/);
+    await expect(page.locator('.vmx-hero h1')).toContainText(/พร้อมฝึกสำหรับ|สวัสดี/);
     await expect(page.getByRole('button', {
       name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
     }).first()).toBeVisible({ timeout: 15_000 });
@@ -233,7 +233,7 @@ test.describe('VetMock smoke flow', () => {
 
     await page.goBack();
 
-    await expect(page.locator('.vmx-hero h1')).toContainText(/คลังโจทย์ฝึก|สวัสดี/);
+    await expect(page.locator('.vmx-hero h1')).toContainText(/พร้อมฝึกสำหรับ|สวัสดี/);
     await expect(page.getByRole('button', {
       name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
     }).first()).toBeVisible();

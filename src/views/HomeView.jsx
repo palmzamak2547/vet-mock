@@ -39,6 +39,7 @@ import NextActionCard from '../components/NextActionCard.jsx';
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
 import FeatureMenu from '../components/FeatureMenu.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 import { truncateThai } from '../lib/thai-text.js';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
@@ -371,7 +372,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
   // ─── Banner priority winner — Phase 1 (2026-05-18) ─────────────
   // Palm spec: "Banner priority rule — แสดงได้ครั้งละ 1 banner เท่านั้น".
-  // Priority: pendingResume > wrapped > welcome > verify-email > announcement.
+  // Priority: pendingResume > wrapped > welcome > verify-email. Product
+  // updates stay a compact chip so release notes never push study choices
+  // below the fold.
   // (Standalone exam countdown is REMOVED — NextActionCard already
   //  surfaces "ติว <subject>" when an exam is within 7 days.)
   // NextActionCard renders regardless of bannerWinner; it's the always-on
@@ -387,13 +390,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       ? 'welcome'
       : _emailUnverified
         ? 'verify'
-        : showAnnouncement
-          ? 'announcement'
-          : null;
-  // Compact changelog chip shown in the quick-action row when there's
-  // an unread changelog AND the announcement banner lost the priority
-  // race (e.g. resume/wrapped won). Click → expand banner ("force show").
-  const showChangelogChip = showAnnouncement && bannerWinner !== 'announcement';
+        : null;
+  // Compact changelog chip shown whenever an update is unread. Click expands
+  // the full details without making release notes a primary Home card.
+  const showChangelogChip = showAnnouncement;
   const [forceChangelogOpen, setForceChangelogOpen] = useState(false);
 
   // Whether the quick-action chip row has anything to show.
@@ -525,7 +525,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         <h1>
           {user
             ? <>สวัสดีคุณ <em>{profile?.username || 'นิสิต'}</em></>
-            : <>คลังโจทย์ฝึก <em>สัตวแพทย์</em></>}
+            : <>พร้อมฝึกสำหรับ <em>{phaseMeta?.short || yearMeta?.label || 'วันนี้'}</em></>}
         </h1>
         {isScaffoldYear ? (
           <p><strong>{yearMeta.label}</strong> — อยู่ระหว่างจัดเตรียมข้อสอบและเนื้อหา</p>
@@ -723,21 +723,15 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
       {(bannerWinner === 'announcement' || forceChangelogOpen) && (
         <div
-          style={{
-            padding: 16,
-            borderRadius: 14,
-            marginBottom: 20,
-            background: 'var(--clr-surface)',
-            border: '1px solid var(--clr-border)',
-            position: 'relative',
-          }}
+          className={`vmx-changelog-notice${forceChangelogOpen ? ' is-forced' : ''}`}
+          style={{ position: 'relative' }}
         >
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, flexWrap: 'wrap' }}>
             <div style={{ flex: 1, minWidth: 200 }}>
-              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div className="vmx-changelog-kicker">
                 อัปเดตใหม่, {fmtThaiDate(LATEST_CHANGELOG.date)}
               </div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, marginTop: 2, lineHeight: 1.3 }}>
+              <div className="vmx-changelog-title">
                 {LATEST_CHANGELOG.headline}
               </div>
             </div>
@@ -1036,33 +1030,21 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           Section label uses the confident binary-frame copy pattern from
           Airtable/ElevenLabs ref study (see DESIGN-NOTES.md): when a phase
           is active, lead with the action ("ลุยได้เลย —") not the inventory. */}
-      <div className="vmx-section-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: 8 }}>
-        <span>
-          {phaseMeta ? (
-            <>ลุยได้เลย — <span style={{ color: 'var(--clr-ink-soft)', fontWeight: 400 }}>{yearMeta?.label || 'ปี 4'}, {phaseMeta.short}</span></>
-          ) : (
-            <>วิชาใน{yearMeta?.label || 'ปี 4'}</>
-          )}
-        </span>
+      <div className="vmx-section-label vmx-subject-section-head">
+        <span>เลือกวิชา</span>
+        <span className="vmx-subject-scope">
+          {yearMeta?.label || 'ปี 4'}{phaseMeta ? ` · ${phaseMeta.short}` : ''}
         {phaseMeta && setSelectedPhase && (
           <button
             type="button"
-            className="vmx-link-btn"
+            className="vmx-inline-action vmx-subject-scope-action"
             onClick={() => setView('phase-select')}
             aria-label="เปลี่ยนช่วงสอบ (Phase)"
-            style={{
-              all: 'unset',
-              cursor: 'pointer',
-              fontSize: 11,
-              fontFamily: 'var(--vmx-mono)',
-              color: 'var(--clr-ink-soft)',
-              textDecoration: 'underline',
-              textDecorationStyle: 'dotted',
-            }}
           >
-            เปลี่ยนช่วงสอบ
+            เปลี่ยน
           </button>
         )}
+        </span>
       </div>
       <SubjectGrid
         subjects={yearSubjects}
@@ -1190,7 +1172,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 }}
                 style={{ borderColor: 'var(--clr-rose)' }}
               >
-                <div className="icon">{nextExam.icon || '📅'}</div>
+                <div className="icon"><NavIcon name="exam" size={20} /></div>
                 <div className="title">ซ้อมใกล้สอบ</div>
                 <div className="sub">
                   {(() => {
@@ -1199,7 +1181,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     return `${label}, อีก ${nextExam.daysLeft} วันจะสอบ`;
                   })()}
                 </div>
-                <div className="badge" style={{ background: 'var(--clr-rose)' }}>SMART</div>
+                <div className="badge" style={{ background: 'var(--clr-rose)' }}>แนะนำ</div>
               </button>
             )}
 
@@ -1224,7 +1206,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     : `90 วันล่าสุด ตอบถูก ${weakPct}% — ซ้อมเสริม`
                 }
               >
-                <div className="icon">⚠️</div>
+                <div className="icon"><NavIcon name="progress" size={20} /></div>
                 <div className="title">จุดอ่อน</div>
                 <div className="sub">
                   {weakTopicMeta ? (() => {
@@ -1233,7 +1215,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     return `${weakSubjMeta.name}, ${label}`;
                   })() : `${weakSubjMeta.name}, ${weakPct}% ถูก`}
                 </div>
-                <div className="badge" style={{ background: 'var(--clr-gold)' }}>SMART</div>
+                <div className="badge" style={{ background: 'var(--clr-gold)' }}>แนะนำ</div>
               </button>
             )}
 
@@ -1268,13 +1250,13 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     : 'ทำซ้ำวิชาที่ซ้อมล่าสุด'
                 }
               >
-                <div className="icon">🔁</div>
+                <div className="icon"><NavIcon name="repeat" size={20} /></div>
                 <div className="title">ทำซ้ำ</div>
                 <div className="sub">
                   {lastSubjMeta.name}
                   {lastSession?.score && `, ${lastSession.score.pct}% ครั้งก่อน`}
                 </div>
-                <div className="badge" style={{ background: 'var(--clr-ocean)' }}>SMART</div>
+                <div className="badge" style={{ background: 'var(--clr-ocean)' }}>แนะนำ</div>
               </button>
             )}
 
@@ -1284,7 +1266,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               setPracticeMode && setPracticeMode('all');
               setView('config');
             }}>
-              <div className="icon">📝</div>
+              <div className="icon"><NavIcon name="practice" size={20} /></div>
               <div className="title">ฝึกแบบเลือกจำนวน</div>
               <div className="sub">สุ่มข้อทุกวิชา, 5-50 ข้อ</div>
             </button>
@@ -1298,13 +1280,13 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               if (setTimePerQ) setTimePerQ(60);
               setView('config');
             }}>
-              <div className="icon">🎓</div>
+              <div className="icon"><NavIcon name="exam" size={20} /></div>
               <div className="title">จำลองสนามสอบ</div>
               <div className="sub">50 ข้อ × 60 วิ, จับเวลาเหมือนสนามจริง</div>
             </button>
 
             <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>
-              <div className="icon">🧠</div>
+              <div className="icon"><NavIcon name="repeat" size={20} /></div>
               <div className="title">ทบทวนตามรอบ</div>
               <div className="sub">
                 {/* `cardStats.due` is now reviewed-only (sm2.js fix on
@@ -1393,11 +1375,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           (they already have direct entry via UserMenu → groups). */}
       {!user && hasSupabase && (
         <div
+          className="vmx-group-preview"
           style={{
             marginBottom: 22,
             padding: '14px 16px',
             borderRadius: 14,
-            background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.06), rgba(184, 137, 64, 0.05))',
+            background: 'var(--clr-surface)',
             border: '1px dashed var(--clr-sage, #4a6b4a)',
             display: 'flex',
             gap: 14,
@@ -1405,7 +1388,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             flexWrap: 'wrap',
           }}
         >
-          <div style={{ fontSize: 32, lineHeight: 1, flexShrink: 0 }} aria-hidden>👥</div>
+          <div className="vmx-group-preview-icon" aria-hidden="true"><NavIcon name="users" size={24} /></div>
           <div style={{ flex: 1, minWidth: 180 }}>
             <div style={{
               fontSize: 11,
@@ -1418,14 +1401,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
               สร้างกลุ่มกับเพื่อน
             </div>
             <div style={{
-              fontFamily: 'Fraunces, serif',
+              fontFamily: 'inherit',
               fontWeight: 600,
               fontSize: 15,
               marginTop: 2,
               lineHeight: 1.4,
               color: 'var(--clr-ink)',
             }}>
-              แชร์ leaderboard ห้อง, แชร์โจทย์, challenge รายวัน
+              ดูอันดับคะแนนในกลุ่ม แชร์โจทย์ และโจทย์ท้าทายรายวัน
             </div>
             <div style={{
               fontSize: 12,

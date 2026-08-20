@@ -75,7 +75,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
   return (
     <>
       <div className="vmx-hero">
-        <h1>Global <em>Leaderboard</em></h1>
+        <h1>อันดับคะแนน <em>รวม</em></h1>
         <p>
           {yearScope === 'current' && Number.isFinite(selectedYear)
             ? <>เฉพาะปี {selectedYear} — สู้กับ cohort เดียวกัน 💪</>
@@ -125,9 +125,9 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
       )}
 
       {loading ? (
-        <StatePanel kind="loading" title="กำลังโหลด Leaderboard…" />
+        <StatePanel kind="loading" title="กำลังโหลดอันดับคะแนน…" />
       ) : error ? (
-        <StatePanel kind="error" title="โหลด Leaderboard ไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />
+        <StatePanel kind="error" title="โหลดอันดับคะแนนไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : scores.length === 0 ? (
         <StatePanel title="ยังไม่มีคะแนน" body="ลองทำชุดแรก แล้วกลับมาดูอันดับของ cohort ได้ที่นี่" />
       ) : (
