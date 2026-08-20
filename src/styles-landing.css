@@ -118,23 +118,10 @@ html.lp-active { background: var(--clr-bg); }
 .lp-iconbtn { width: var(--touch-min, 44px); height: var(--touch-min, 44px); border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--clr-ink); flex-shrink: 0; transition: border-color .2s, background .2s, box-shadow .2s, transform .15s; }
 .lp-iconbtn:hover { border-color: var(--clr-sage); background: color-mix(in srgb, var(--clr-sage) 8%, var(--clr-surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--clr-sage) 12%, transparent); transform: scale(1.05); }
 
-/* Primary CTA button — shine sweep */
+/* Primary CTA button — stable text width, no decorative sweep. */
 .lp-root .vmx-btn-primary {
   position: relative;
-  overflow: hidden;
-}
-.lp-root .vmx-btn-primary::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
-  transform: skewX(-20deg);
-  transition: left .5s ease;
-}
-.lp-root .vmx-btn-primary:hover::after {
-  left: 160%;
+  overflow: visible;
 }
 
 /* ================================================================
@@ -574,8 +561,8 @@ html.lp-active { background: var(--clr-bg); }
   transition: transform .2s cubic-bezier(.2,.7,.2,1), background .15s, color .15s, border-color .15s, box-shadow .2s; 
 }
 .lp-root .vmx-btn-primary:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 6px 20px -4px color-mix(in srgb, var(--clr-sage) 30%, rgba(0,0,0,.15));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 .lp-root .vmx-subject-card, .lp-root .vmx-stat-card { 
   transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .25s, box-shadow .25s; 
