@@ -141,7 +141,9 @@ test.describe('VetMock smoke flow', () => {
     // regardless of Q-bank load timing. ฝึก 1 ข้อด่วน chip only
     // appears once QB loads — using the more deterministic "Quick
     // Practice" button avoids race-flake.
-    const ctas = page.getByRole('button', { name: /Quick Practice|ฝึก 1 ข้อด่วน|Exam Mode|🎲 ฝึก/ });
+    const ctas = page.getByRole('button', {
+      name: /Quick Practice|ฝึกสุ่ม 1 ข้อด่วน|ฝึกแบบเลือกจำนวน|Exam Mode|จำลองสนามสอบ|🎲 ฝึก/,
+    });
     // Just confirm AT LEAST ONE hero CTA is rendered + clickable —
     // proves the App tree mounted and HomeView rendered without
     // a TDZ-class error halting the render.
@@ -160,7 +162,9 @@ test.describe('VetMock smoke flow', () => {
   test('completes one-question Quick Practice through results', async ({ page }) => {
     await page.goto('/');
 
-    const quickPractice = page.getByRole('button', { name: /Quick Practice/i }).first();
+    const quickPractice = page.getByRole('button', {
+      name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
+    }).first();
     await expect(quickPractice).toBeVisible({ timeout: 15_000 });
     await quickPractice.click();
 
@@ -178,7 +182,9 @@ test.describe('VetMock smoke flow', () => {
     await expect(page.getByRole('heading', { name: 'ส่งข้อสอบ?' })).toBeVisible();
     await page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
 
-    await expect(page.getByText(/Auto-graded Score|Writing Practice Done/)).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText(
+      /Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/,
+    )).toBeVisible({ timeout: 15_000 });
     expect(consoleErrors, `Unexpected console errors in Quick Practice flow:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
@@ -209,14 +215,18 @@ test.describe('VetMock smoke flow', () => {
 
     await expect(page.locator('main#main')).toBeVisible();
     await expect(page.locator('.vmx-hero h1')).toContainText(/คลังโจทย์ฝึก|สวัสดี/);
-    await expect(page.getByRole('button', { name: /Quick Practice/i }).first()).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole('button', {
+      name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
+    }).first()).toBeVisible({ timeout: 15_000 });
     expect(consoleErrors, `Unexpected console errors in onboarding flow:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
   test('browser Back from config returns to home', async ({ page }) => {
     await page.goto('/');
 
-    const quickPractice = page.getByRole('button', { name: /Quick Practice/i }).first();
+    const quickPractice = page.getByRole('button', {
+      name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
+    }).first();
     await expect(quickPractice).toBeVisible({ timeout: 15_000 });
     await quickPractice.click();
     await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
@@ -224,7 +234,9 @@ test.describe('VetMock smoke flow', () => {
     await page.goBack();
 
     await expect(page.locator('.vmx-hero h1')).toContainText(/คลังโจทย์ฝึก|สวัสดี/);
-    await expect(page.getByRole('button', { name: /Quick Practice/i }).first()).toBeVisible();
+    await expect(page.getByRole('button', {
+      name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
+    }).first()).toBeVisible();
     expect(consoleErrors, `Unexpected console errors after browser Back:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
