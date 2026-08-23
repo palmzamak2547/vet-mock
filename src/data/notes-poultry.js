@@ -1,7 +1,7 @@
 // ──────────────────────────────────────────────────────────────────
 // Poultry Health Management (3107409) Study Notes — Final scope (L8-L14)
 // Final exam: 7 พ.ค. 2569, VET6 702, 13:00-15:00
-// Coordinator: อ.ดร.เกรียงวิชญ์ ลิมป์วิทยาคุณ
+// Coordinator: อ.ดร.เกรียงวิชญ์ ลิมปวิทยากุล
 //
 // ⚠️ Lecture order corrected per myCourseVille syllabus 6 พ.ค.:
 //   L8 = Nutrition (อ.หทัยรัตน์) | L9 = Biosecurity (ณทยา) |
@@ -520,7 +520,7 @@ export const NOTES_POULTRY = {
   'avian-zoonosis': {
     topic: 'avian-zoonosis',
     title: 'L13, Avian Zoonosis',
-    lecturer: 'อ.กมลพรรณ จรัญกุล (Vet Public Health, CU)',
+    lecturer: 'อ.กมลพรรณ เจริญกุล (Vet Public Health, CU)',
     icon: '🧬',
     summary: 'Zoonotic diseases ที่ติดจากสัตว์ปีกมาคน, bacteria + virus + fungi, AI pandemic, One Health',
     sections: [

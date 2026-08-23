@@ -17,7 +17,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
   "avian-ib": {
     "topic": "avian-ib",
     "title": "โรคหลอดลมอักเสบติดต่อ (Infectious Bronchitis, IB)",
-    "lecturer": "ผศ.สพ.ญ.ดร.ณเทยา เจริญวิศาล (ภาควิชาอายุรศาสตร์ คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย)",
+    "lecturer": "ผศ.สพ.ญ.ดร.ณทยา เจริญวิศาล (ภาควิชาอายุรศาสตร์ คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย)",
     "icon": "🫁",
     "summary": "IB เกิดจาก Infectious bronchitis virus (IBV) ใน genus Gammacoronavirus เป็นโรคติดต่อง่ายมาก morbidity สูงแต่ mortality ต่ำ (ยกเว้นมี secondary infection) เป้าหมายคือ epithelial cell ของ trachea, lung และลามไป oviduct, kidney, cecal tonsil ทำให้เกิดอาการได้ 3 ระบบคือ ระบบหายใจ ระบบสืบพันธุ์ (false layer, ไข่ลด, คุณภาพไข่แย่) และไตอักเสบ (QX) ความเสียหายหลักคือเศรษฐกิจ ไม่ใช่การตาย จำแนก genotype ด้วย S1 gene (GI-1-29, GII-VII) และแต่ละ serotype cross protection กันไม่ได้ จึงต้องเลือกวัคซีนให้ตรงสายพันธุ์ที่ระบาดในพื้นที่ ควบคู่กับ biosecurity และ management",
     "sections": [
@@ -1588,7 +1588,7 @@ export const NOTES_Y5_AVIAN_MEDICINE = {
   "avian-nd": {
     "topic": "avian-nd",
     "title": "โรคนิวคาสเซิล (Newcastle Disease, ND)",
-    "lecturer": "ผศ.สพ.ญ.ดร. ณฐยา เจริญวิศาล",
+    "lecturer": "ผศ.สพ.ญ.ดร. ณทยา เจริญวิศาล",
     "icon": "🐔",
     "summary": "เลกเชอร์ ND ของวิชา Avian Medicine (3107510) ปี 5 ครอบคลุมตั้งแต่ประวัติ 100 ปีของโรค (รายงานครั้งแรก ค.ศ. 1926 ที่ Java อินโดนีเซีย และ Newcastle upon Tyne อังกฤษ) ตัวเชื้อ NDV (APMV-1, Family Paramyxoviridae, RNA สายเดี่ยวสายลบ มีเปลือกหุ้ม, 1 serotype แต่ 21 genotypes) การแบ่ง 5 pathotypes และเกณฑ์ของ WOAH (MDT, ICPI, IVPI) อาการและรอยโรคแยกตามระบบหายใจ ทางเดินอาหาร และประสาท การวินิจฉัยพร้อมเทคนิคเก็บ swab การบรรจุ 3 ชั้นและการเก็บรักษาตัวอย่าง จนถึงการควบคุมป้องกันด้วย biosecurity, management และวัคซีน (เชื้อเป็น เชื้อตาย recombinant) พร้อมตัวอย่างโปรแกรมวัคซีนไก่เนื้อและไก่ไข่ ประเด็นปิดท้ายที่อาจารย์ย้ำคือวัคซีนป้องกันอาการและการตายได้ แต่ป้องกันการติดเชื้อไม่ได้",
     "sections": [

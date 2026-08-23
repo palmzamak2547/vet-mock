@@ -48,7 +48,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '1 - Intro 67.pdf p.2',
         body: [
           { bullets: [
-            '**รศ.น.สพ.ดร. ปิยะนันท์ ทวีถาวรสวัสดิ์** — full anesthesia',
+            '**รศ.น.สพ.ดร. ปิยนันท์ ทวีถาวรสวัสดิ์** — full anesthesia',
             '**รศ.น.สพ.ดร. สุมิตร ดุรงค์พงษ์ธร**',
             '**ผศ.สพ.ญ.ดร. นลินี ตันติวนิช** — ophthalmology',
             '**น.สพ.ดร. ธีรพล ชินกังสดาร** (Teerapol C.) — อาจารย์ผู้ดูแลรายวิชา',
@@ -62,7 +62,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             '**น.สพ. ฐาปนา จารุธรรมสิริ** (Zoo.one.siri) — nutrition · "ออกข้อสอบเกตร"',
-            '**ผศ.น.สพ.ดร. วีระพงษ์ ตั้งจิตเจริญ** — acupuncture',
+            '**ผศ.น.สพ.ดร. วีรพงศ์ ตั้งจิตเจริญ** — acupuncture',
             '**ผศ.สพ.ญ. สุพรรณิกา พุทธชาลี** — คณะสัตวแพทย์ ม.ขอนแก่น · ลูกม้า/neonatal',
             '**สพ.ญ. ทศร สง่างาม** — รพส. จุฬา นครปฐม',
           ] },
@@ -551,7 +551,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         source: '1 - Intro 67.pdf p.2 (anes annotation)',
         body: [
           { bullets: [
-            '**Full anes** — ใน hospital, GA + recovery (รับผิดชอบโดย รศ.น.สพ.ดร. ปิยะนันท์ ทวีถาวรสวัสดิ์)',
+            '**Full anes** — ใน hospital, GA + recovery (รับผิดชอบโดย รศ.น.สพ.ดร. ปิยนันท์ ทวีถาวรสวัสดิ์)',
             '**Field anes** ในม้า = "knock-them-down anes" (AUS-style) — ใช้ตอนฝึกงานเทอมหน้า',
           ] },
         ],
