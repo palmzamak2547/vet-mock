@@ -628,15 +628,18 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           gap: 12,
           flexWrap: 'wrap',
         }}>
-          <div style={{ flex: 1, minWidth: 180, fontSize: 13, lineHeight: 1.5 }}>
-            <strong>ยินดีต้อนรับสู่ VetMock</strong> — แนะนำตำแหน่งและเมนูสำคัญใน 30 วินาที
+          <div className="vmx-welcome-copy" style={{ flex: 1, minWidth: 180, fontSize: 13, lineHeight: 1.5 }}>
+            <strong>ใช้ VetMock ครั้งแรก?</strong>
+            <span className="vmx-welcome-copy-detail"> — แนะนำตำแหน่งและเมนูสำคัญใน 30 วินาที</span>
           </div>
           <button
             type="button"
-            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-welcome-tour"
             onClick={() => { setTourOpen(true); setTourStep(0); }}
+            aria-label="เปิดคำแนะนำการใช้งาน"
           >
-            คำแนะนำการใช้งาน
+            <span className="vmx-welcome-tour-desktop">คำแนะนำการใช้งาน</span>
+            <span className="vmx-welcome-tour-mobile" aria-hidden="true">ดูวิธีใช้</span>
           </button>
           <button
             type="button"
