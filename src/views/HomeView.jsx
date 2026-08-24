@@ -375,8 +375,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // Priority: pendingResume > wrapped > welcome > verify-email. Product
   // updates stay a compact chip so release notes never push study choices
   // below the fold.
-  // (Standalone exam countdown is REMOVED — NextActionCard already
-  //  surfaces "ติว <subject>" when an exam is within 7 days.)
+  // The exam countdown now lives inside NextActionCard, so one focus surface
+  // owns both the recommended action and its deadline context.
   // NextActionCard renders regardless of bannerWinner; it's the always-on
   // coach surface, not a "banner".
   // pendingResume now lives INSIDE NextActionCard (priority 0) per
@@ -593,6 +593,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           subjects={yearSubjects}
           history={history}
           pendingResume={pendingResume}
+          countdown={countdown}
           onPickResume={() => resumePendingExam && resumePendingExam()}
           onDismissResume={dismissPendingExam ? () => dismissPendingExam() : null}
           onPickExamPrep={(exam) => {
@@ -611,6 +612,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             setView('topic-select');
           }}
           onPickRandom={launchRandomQ}
+          onOpenSchedule={() => setView('schedule')}
         />
       )}
 
@@ -682,45 +684,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           </button>
         </div>
       )}
-
-
-      {nextExam && nextExam.daysLeft > 7 && nextExam.daysLeft <= 30 && (
-        <button type="button" className="vmx-pressable-card" onClick={() => setView('schedule')} style={{
-          padding: 16, borderRadius: 16, marginBottom: 24, cursor: 'pointer',
-          background: countdown ? 'var(--clr-rose-soft)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose-soft)' : 'var(--clr-surface)'),
-          border: `2px solid ${countdown ? 'var(--clr-rose)' : (nextExam.daysLeft <= 7 ? 'var(--clr-rose)' : 'var(--clr-border)')}`,
-          display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap',
-        }} aria-label={`ดูตารางสอบ ${nextExam.title}`}>
-          <div style={{ flex: 1, minWidth: 200 }}>
-            <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              สอบถัดไป
-            </div>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, marginTop: 2 }}>
-              {nextExam.title}
-            </div>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-              {fmtThaiDate(nextExam.date)}, ⏰ {nextExam.time}
-            </div>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            {countdown ? (
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: countdown.kind === 'imminent' ? 22 : 26, lineHeight: 1.15, color: 'var(--clr-rose-text)' }}>
-                {countdown.text}
-              </div>
-            ) : (
-              <>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, color: nextExam.daysLeft <= 7 ? 'var(--clr-rose-text)' : 'var(--clr-ink)' }}>
-                  {nextExam.daysLeft}
-                </div>
-                <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'var(--vmx-mono)' }}>
-                  วัน
-                </div>
-              </>
-            )}
-          </div>
-        </button>
-      )}
-
       {(bannerWinner === 'announcement' || forceChangelogOpen) && (
         <div
           className={`vmx-changelog-notice${forceChangelogOpen ? ' is-forced' : ''}`}

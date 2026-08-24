@@ -4,6 +4,7 @@
 
 import { useMemo, useState } from 'react';
 import ConfirmDialog from './ConfirmDialog.jsx';
+import { fmtThaiDate } from '../data/schedule.js';
 
 export default function NextActionCard({
   nextExam,
@@ -13,6 +14,7 @@ export default function NextActionCard({
   subjects,
   history,
   pendingResume,
+  countdown,
   onPickResume,
   onDismissResume,
   onPickExamPrep,
@@ -21,6 +23,7 @@ export default function NextActionCard({
   onPickWrong,
   onPickWeakSubject,
   onPickRandom,
+  onOpenSchedule,
 }) {
   const [confirmDiscard, setConfirmDiscard] = useState(false);
 
@@ -134,43 +137,107 @@ export default function NextActionCard({
 
   if (actions.length === 0) return null;
 
+  const primaryAction = actions[0];
+  const secondaryActions = actions.slice(1);
+  const showExamContext = nextExam
+    && nextExam.daysLeft != null
+    && nextExam.daysLeft >= 0
+    && nextExam.daysLeft <= 30;
+  const examTitle = nextExam?.title || nextExam?.subject_name || 'กำหนดสอบถัดไป';
+  const guidanceNote = pendingResume
+    ? 'กลับไปทำต่อได้โดยไม่เสียคำตอบที่ทำไว้'
+    : nextExam?.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7
+      ? 'จัดลำดับจากกำหนดสอบที่ใกล้ที่สุด'
+      : history?.length
+        ? 'เลือกจากกำหนดสอบและประวัติการฝึกของคุณ'
+        : 'เริ่มจาก 1 ข้อ แล้วค่อยปรับตามประวัติการฝึก';
+
+  const renderAction = (action, { primary = false } = {}) => {
+    const main = (
+      <button
+        key={action.kind}
+        type="button"
+        onClick={action.onClick}
+        className={`vmx-next-action${primary ? ' is-primary' : ''}`}
+        data-kind={action.kind}
+      >
+        <span className="vmx-next-action-copy">
+          {primary && <span className="vmx-next-action-kicker">แนะนำตอนนี้</span>}
+          <span className="vmx-next-action-title">{action.title}</span>
+          <span className="vmx-next-action-sub">{action.sub}</span>
+        </span>
+        <span className="vmx-next-action-cta">{action.cta}</span>
+      </button>
+    );
+
+    if (!action.secondary) return main;
+
+    // Buttons cannot nest, so resume + discard remain separate controls.
+    return (
+      <div className="vmx-next-action-row" key={action.kind}>
+        {main}
+        <button
+          type="button"
+          className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+          onClick={() => setConfirmDiscard(true)}
+          title={action.secondary.title}
+        >
+          {action.secondary.label}
+        </button>
+      </div>
+    );
+  };
+
   return (
     <section className="vmx-next-actions" aria-labelledby="vmx-next-actions-title">
-      <h2 id="vmx-next-actions-title" className="vmx-next-actions-heading">
-        ทำอะไรต่อดี
-      </h2>
-      <div className="vmx-next-actions-list">
-        {actions.map((a, i) => {
-          const main = (
-            <button
-              key={a.kind}
-              type="button"
-              onClick={a.onClick}
-              className={`vmx-next-action${i === 0 ? ' is-primary' : ''}`}
-            >
-              <span className="vmx-next-action-copy">
-                <span className="vmx-next-action-title">{a.title}</span>
-                <span className="vmx-next-action-sub">{a.sub}</span>
-              </span>
-              <span className="vmx-next-action-cta">{a.cta}</span>
-            </button>
-          );
-          if (!a.secondary) return main;
-          // Buttons can't nest, so the pair sits in a row instead.
-          return (
-            <div className="vmx-next-action-row" key={a.kind}>
-              {main}
-              <button
-                type="button"
-                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                onClick={() => setConfirmDiscard(true)}
-                title={a.secondary.title}
-              >
-                {a.secondary.label}
-              </button>
+      <header className="vmx-next-actions-header">
+        <div>
+          <span className="vmx-next-actions-kicker">แผนฝึกวันนี้</span>
+          <h2 id="vmx-next-actions-title" className="vmx-next-actions-heading">
+            ทำอะไรต่อดี
+          </h2>
+        </div>
+        <span className="vmx-next-actions-note">{guidanceNote}</span>
+      </header>
+
+      <div className={`vmx-next-actions-layout${showExamContext ? ' has-exam' : ''}`}>
+        <div className="vmx-next-actions-plan">
+          {renderAction(primaryAction, { primary: true })}
+
+          {secondaryActions.length > 0 && (
+            <div className="vmx-next-actions-secondary" role="group" aria-label="ตัวเลือกฝึกสำรอง">
+              {secondaryActions.map((action) => renderAction(action))}
             </div>
-          );
-        })}
+          )}
+        </div>
+
+        {showExamContext && (
+          <button
+            type="button"
+            className="vmx-next-exam"
+            onClick={() => onOpenSchedule?.()}
+            aria-label={`ดูตารางสอบ ${examTitle}, ${countdown?.text || `อีก ${nextExam.daysLeft} วัน`}`}
+          >
+            <span className="vmx-next-exam-copy">
+              <span className="vmx-next-exam-label">สอบถัดไป</span>
+              <span className="vmx-next-exam-title">{examTitle}</span>
+              <span className="vmx-next-exam-meta">
+                {fmtThaiDate(nextExam.date)}{nextExam.time ? `, ${nextExam.time}` : ''}
+              </span>
+              <span className="vmx-next-exam-link">ดูตารางสอบ</span>
+            </span>
+            <span className={`vmx-next-exam-count${countdown ? ' is-imminent' : ''}`} aria-hidden="true">
+              {countdown ? (
+                <strong>{countdown.text}</strong>
+              ) : (
+                <>
+                  <strong>{nextExam.daysLeft}</strong>
+                  <span>วัน</span>
+                </>
+              )}
+            </span>
+          </button>
+        )}
       </div>
 
       <ConfirmDialog

@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "project": {
+    "name": "vet-mock-exam",
+    "productType": "Thai-first veterinary study platform",
+    "stack": [
+      "react",
+      "vite"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "src/styles.css",
+      "docs/DESIGN_SYSTEM.md"
+    ],
+    "components": [
+      "src/components/NextActionCard.jsx",
+      "src/components/FeatureMenu.jsx",
+      "src/components/BackBar.jsx",
+      "src/components/StatePanel.jsx"
+    ],
+    "assets": [
+      "public/images"
+    ],
+    "instructions": [
+      "AGENTS.md",
+      "CLAUDE.md"
+    ]
+  },
+  "design": {
+    "colorMode": "light and dark with optional accent palettes",
+    "colors": {
+      "background": "var(--clr-bg)",
+      "surface": "var(--clr-surface)",
+      "surfaceMuted": "var(--clr-surface-2)",
+      "text": "var(--clr-ink)",
+      "textMuted": "var(--clr-ink-soft)",
+      "primary": "var(--clr-sage)",
+      "warning": "var(--clr-gold)",
+      "danger": "var(--clr-rose)",
+      "border": "var(--clr-border)"
+    },
+    "typography": {
+      "ui": "Sarabun, IBM Plex Sans Thai, system-ui",
+      "brand": "Fraunces",
+      "mono": "var(--vmx-mono)"
+    },
+    "spacing": {
+      "scale": "4px grid via --space-0 through --space-16"
+    },
+    "radius": {
+      "scale": "--r-sm 8px, --r-md 12px, --r-lg 16px, --r-xl 20px, --r-pill 999px"
+    },
+    "shadows": {
+      "small": "var(--shadow-sm)",
+      "medium": "var(--shadow-md)"
+    },
+    "motion": {
+      "duration": "--dur-fast 120ms, --dur 180ms, --dur-slow 300ms",
+      "easing": "--ease-out and --ease-in-out",
+      "reducedMotion": "Preserve information with a safe reduced-motion fallback"
+    },
+    "density": "compact mobile-first study interface"
+  },
+  "components": {
+    "installed": [
+      "vmx-btn",
+      "vmx-card",
+      "vmx-pressable-card",
+      "vmx-modal-overlay",
+      "StatePanel",
+      "BackBar"
+    ],
+    "preferredPrimitives": [
+      "semantic HTML buttons and sections",
+      "existing vmx CSS classes",
+      "NavIcon for interface icons"
+    ],
+    "patterns": [
+      "one clear next action before inventories",
+      "44px minimum touch targets",
+      "Thai-first copy with concise English domain terms",
+      "flat editorial surfaces with hairline borders"
+    ]
+  },
+  "constraints": {
+    "must": [
+      "Use existing semantic tokens rather than hardcoded themed colors",
+      "Keep every interactive target at least 44px with visible focus",
+      "Support 375px mobile, desktop, dark mode, and all accent palettes",
+      "Preserve existing study behavior and local history semantics",
+      "Keep learner-facing copy Thai-first"
+    ],
+    "avoid": [
+      "Gradients, glass, glow, huge headlines, and decorative animation in the app",
+      "Emoji used as a new interface icon",
+      "New dependencies when existing React and CSS primitives are sufficient",
+      "Competing primary actions above the subject list",
+      "Public copy mentioning implementation tooling"
+    ]
+  },
+  "decisions": [
+    {
+      "id": "home-study-focus",
+      "choice": "Use one study-focus surface for the recommended action and the next-exam context.",
+      "rationale": "The previous separate action and countdown cards competed above the subject list. The 21st ProjectProgressCard hierarchy was adapted to existing VetMock JSX and tokens without adding Shadcn or Framer Motion.",
+      "inspiration": "21st component 8698, ProjectProgressCard"
+    }
+  ],
+  "evidence": [
+    {
+      "fact": "project.instructions",
+      "source": "AGENTS.md"
+    },
+    {
+      "fact": "project.instructions",
+      "source": "CLAUDE.md"
+    },
+    {
+      "fact": "project.stack:react",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:vite",
+      "source": "package.json"
+    },
+    {
+      "fact": "design.tokens-and-invariants",
+      "source": "docs/DESIGN_SYSTEM.md"
+    },
+    {
+      "fact": "design.runtime-tokens",
+      "source": "src/styles.css"
+    }
+  ],
+  "generatedAt": "2026-08-24T11:00:36.879Z"
+}
