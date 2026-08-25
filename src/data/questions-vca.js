@@ -123,7 +123,7 @@ export const QB_VCA = [
     explain: 'Streptococcus agalactiae / S. iniae = #1 ใน farmed tilapia, key: pop-eye + whirling + neurologic, Gram+ cocci pairs/chains' },
 
   { id: 6022, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['bacteria', 'vibrio'], type: 'mcq',
+    tags: ['bacteria','Vibrio'], type: 'mcq',
     q: 'หอยลายป่วยตาย แยกเชื้อบน TCBS agar colony สีเขียว (sucrose-non-fermenter) เชื้อใด',
     options: ['Edwardsiella tarda', 'Aeromonas hydrophila', 'Mycoplasma', 'Vibrio parahaemolyticus', 'Flavobacterium columnare'],
     answer: 3,
@@ -137,7 +137,7 @@ export const QB_VCA = [
     explain: 'A. hydrophila = motile aeromonad septicemia (MAS), ulcerative skin + hemorrhage + ascites, Gram-neg, oxidase+, motile' },
 
   { id: 6024, subject: 'vca', topic: 'aquatic', year: 5, source: SRC,
-    tags: ['bacteria', 'edwardsiella'], type: 'mcq',
+    tags: ['bacteria','Edwardsiella'], type: 'mcq',
     q: 'ปลาดุก enteric septicemia, hole-in-head, granuloma ที่ตับและไต Gram-neg rod คือ',
     options: ['Edwardsiella ictaluri', 'Aeromonas salmonicida', 'Yersinia ruckeri', 'Pseudomonas fluorescens', 'Mycobacterium marinum'],
     answer: 0,
@@ -365,7 +365,7 @@ export const QB_VCA = [
     explain: 'Psoroptes cuniculi = ear canker mite ของกระต่าย, large mite, surface dwelling, Tx: ivermectin/selamectin, sarcoptes burrow ใต้ผิว' },
 
   { id: 6113, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
-    tags: ['rabbit', 'iv', 'access'], type: 'mcq',
+    tags: ['rabbit','IV','access'], type: 'mcq',
     q: 'IV access ที่ใช้ routine ที่สุดในกระต่ายคือ',
     options: ['Jugular vein', 'Femoral vein', 'Cephalic vein', 'Marginal ear vein', 'Median caudal vein'],
     answer: 3,
@@ -472,7 +472,7 @@ export const QB_VCA = [
 
   // ─── Reptile (สัตว์เลื้อยคลาน) ────────────────────────────
   { id: 6140, subject: 'vca', topic: 'exotic', year: 5, source: SRC,
-    tags: ['reptile', 'IBD', 'snake'], type: 'mcq',
+    tags: ['reptile','ibd','snake'], type: 'mcq',
     q: 'งู Boa/Python มี regurgitation + neuro signs + intracytoplasmic inclusion bodies ใน hepatocytes, เชื้อใด',
     options: ['Adenovirus (DNA)', 'Reovirus (dsRNA)', 'Reptarenavirus (IBD)', 'Paramyxovirus (OPMV)', 'Iridovirus (DNA)'],
     answer: 2,
@@ -633,7 +633,7 @@ export const QB_VCA = [
     explain: 'IBH = Fowl Adenovirus (FAdV serotype 4 ที่สำคัญ), liver pale + petechiae, intranuclear basophilic→eosinophilic IBs, co-infection with IBDV/CIAV → severe' },
 
   { id: 6213, subject: 'vca', topic: 'poultry', year: 5, source: SRC,
-    tags: ['virus', 'IBD', 'gumboro'], type: 'mcq',
+    tags: ['virus','ibd','Gumboro'], type: 'mcq',
     q: 'Infectious Bursal Disease (Gumboro) ทำลาย immune cell ใดเป็นหลัก',
     options: ['T lymphocyte', 'B lymphocyte', 'NK cell', 'Macrophage', 'Heterophil'],
     answer: 1,
@@ -691,7 +691,7 @@ export const QB_VCA = [
     explain: 'Aspergillus fumigatus → "brooder pneumonia" ใน chick <2 wk, contaminated bedding/feed, pulmonary nodules 1-3 mm yellow-green, no Tx in poultry → cull + sanitize' },
 
   { id: 6231, subject: 'vca', topic: 'poultry', year: 5, source: SRC,
-    tags: ['fungi', 'candida'], type: 'mcq',
+    tags: ['fungi','Candida'], type: 'mcq',
     q: 'crop ของลูกไก่หนาขึ้น มี white pseudomembrane "Turkish towel", เชื้อ',
     options: ['Candida albicans', 'Aspergillus flavus', 'Aspergillus fumigatus', 'Trichophyton simii', 'Microsporum gypseum'],
     answer: 0,
@@ -765,7 +765,7 @@ export const QB_VCA = [
 
   // ─── Duck เป็ด ────────────────────────────────────────────
   { id: 6270, subject: 'vca', topic: 'poultry', year: 5, source: SRC,
-    tags: ['duck', 'riemerella'], type: 'mcq',
+    tags: ['duck','Riemerella'], type: 'mcq',
     q: 'เป็ด 4-6 wk, serositis (fibrinous pericarditis, perihepatitis) + ataxia + diarrhea, เชื้อ',
     options: ['Salmonellosis', 'Fowl cholera', 'New Duck Disease', 'Hypoglycemia', 'Botulism'],
     answer: 2,
@@ -794,7 +794,7 @@ export const QB_VCA = [
     explain: 'F-strain / LaSota = lentogenic NDV, drinking water/spray vaccine, easy mass apply, revaccinate every 4-6 wk, ขาดเสริมด้วย killed oil emulsion สำหรับ breeders' },
 
   { id: 6281, subject: 'vca', topic: 'poultry', year: 5, source: SRC,
-    tags: ['vaccine', 'IBD'], type: 'mcq',
+    tags: ['vaccine','ibd'], type: 'mcq',
     q: 'IBD vaccine ในไก่อายุประมาณ 10-14 days, ป้องกัน "intermediate plus" strain ของ IBDV, sample',
     options: ['Marek\'s disease vaccine', 'Live intermediate IBD', 'Killed AE vaccine', 'Killed coryza vaccine', 'Combined IB+ND'],
     answer: 1,
@@ -908,7 +908,7 @@ export const QB_VCA = [
     explain: 'Trichinella spiralis = encysted L1 larva ใน skeletal muscle (esp. diaphragm/tongue), zoonotic via undercooked pork → human myositis + periorbital edema, prevention: cook >71°C, freeze -25°C 10d' },
 
   { id: 6402, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['parasite', 'ascaris', 'liver'], type: 'mcq',
+    tags: ['parasite','Ascaris','liver'], type: 'mcq',
     q: 'หมู finishing slaughter พบ "milk spots" บนตับ (white fibrotic foci), suspect',
     options: ['Ascaris suum', 'Trichuris suis', 'Taenia solium', 'Strongyloides ransomi', 'Trichinella spiralis'],
     answer: 0,
@@ -995,7 +995,7 @@ export const QB_VCA = [
 
   // ─── Neuro ────────────────────────────────────────────────
   { id: 6430, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['neuro', 'edema-disease', 'STEC'], type: 'mcq',
+    tags: ['neuro','edema-disease','stec'], type: 'mcq',
     q: 'ลูกหมู post-weaning (3-6 wk), acute eyelid + larynx edema + ataxia + sudden death, histopath mesocolon: edema, เชื้อ',
     options: ['Salt poisoning', 'Edema disease', 'Glasser\\\'s disease', 'Streptococcus suis', 'Pseudorabies'],
     answer: 1,
@@ -1009,7 +1009,7 @@ export const QB_VCA = [
     explain: 'S. suis serotype 2 = #1 swine bacterial meningitis, post-weaning peak (5-10 wk), neuro + arthritis + endocarditis, Tx: penicillin, zoonotic (raw pork → human meningitis + deafness)' },
 
   { id: 6432, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['neuro', 'glasser', 'polyserositis'], type: 'mcq',
+    tags: ['neuro','Glasser','polyserositis'], type: 'mcq',
     q: 'หมู 4-8 wk fibrinous polyserositis (pericarditis + peritonitis + pleuritis + meningitis), CAMP test+, เชื้อ',
     options: ['Klebsiella pneumoniae', 'Glaesserella parasuis', 'Bordetella bronchiseptica', 'Escherichia coli', 'Pasteurella multocida'],
     answer: 1,
@@ -1046,7 +1046,7 @@ export const QB_VCA = [
     explain: 'L. intracellularis = proliferative enteropathy (PE/ileitis), obligate intracellular curved rod, acute (PHE) = hemorrhagic, chronic (PIA) = thickened "garden hose" ileum, Tx: tylosin, lincomycin, tiamulin' },
 
   { id: 6451, subject: 'vca', topic: 'swine', year: 5, source: SRC,
-    tags: ['gi', 'brachyspira', 'dysentery'], type: 'mcq',
+    tags: ['gi','Brachyspira','dysentery'], type: 'mcq',
     q: 'หมูเนื้อ grow-finish, mucohemorrhagic colitis + "wet cement" feces, spirochete bacteria จาก dark-field, เชื้อ',
     options: ['Swine dysentery', 'Enteric colibacillosis', 'Enteric salmonellosis', 'Porcine parvovirus', 'Clostridium necrotic enteritis'],
     answer: 0,
@@ -1430,7 +1430,7 @@ export const QB_VCA = [
     explain: 'Gelding = castrated male, Stallion = intact male adult, Colt = young intact male <4 yr, Filly = young female <4 yr, Mare = adult female, Foal = baby <1 yr' },
 
   { id: 6703, subject: 'vca', topic: 'equine', year: 5, source: SRC,
-    tags: ['signalment', 'breed', 'appaloosa'], type: 'mcq',
+    tags: ['signalment','breed','Appaloosa'], type: 'mcq',
     q: 'ม้าสายพันธุ์ที่มีลักษณะ "polka dot" / leopard pattern coat คือ',
     options: ['Black dot', 'Polka dot', 'Appaloosa', 'Piebald', 'Grey'],
     answer: 2,
@@ -1494,7 +1494,7 @@ export const QB_VCA = [
     explain: 'B. abortus S19 = live attenuated, ฉีดในลูกโคสาว 4-12 mo (calfhood vaccination), IM/SC, ภูมิตลอดชีวิต, ห้ามใน adult cow (abortion + persistent infection in CL)\n\n💡 heifer 4-12 mo' },
 
   { id: 6802, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
-    tags: ['vaccine', 'FMD'], type: 'mcq',
+    tags: ['vaccine','fmd'], type: 'mcq',
     q: 'FMD vaccine ในโคที่ DLD แนะนำ ฉีด booster ทุก',
     options: ['1 เดือน', '3 เดือน', '4-6 เดือน', '8 เดือน', '12 เดือน'],
     answer: 2,
@@ -1639,7 +1639,7 @@ export const QB_VCA = [
 
   // ─── Bacteria ─────────────────────────────────────────────
   { id: 6850, subject: 'vca', topic: 'ruminant', year: 5, source: SRC,
-    tags: ['bacteria', 'actinomyces', 'lumpy-jaw'], type: 'mcq',
+    tags: ['bacteria','Actinomyces','lumpy-jaw'], type: 'mcq',
     q: 'โคมี submandibular granuloma ที่กระดูก mandible "lumpy jaw", histopath: "sulfur granules", เชื้อ',
     options: ['Actinomyces bovis', 'Actinobacillus lignieresii', 'Mycobacterium tuberculosis', 'Streptococcus agalactiae', 'Corynebacterium pseudotuberculosis'],
     answer: 0,
@@ -1941,7 +1941,7 @@ export const QB_VCA = [
     explain: 'Vol = (PCV target - PCV recip) × BV recip / PCV donor = (20-10) × 90 × 20 / 40 = 18000/40 = 450 mL, standard formula, ปริมาณรวม cat = 60-70 mL/kg, dog = 80-90 mL/kg' },
 
   { id: 7031, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['hematology', 'IMHA'], type: 'mcq',
+    tags: ['hematology','imha'], type: 'mcq',
     q: 'สุนัข Cocker spaniel 5 yr, pale + jaundice + hemoglobinuria + spherocytes บน blood smear + Coombs+, suspect',
     options: ['Iron deficiency', 'Blood loss', 'Aplastic anemia', 'EPO deficiency anemia', 'IMHA'],
     answer: 4,
@@ -2028,7 +2028,7 @@ export const QB_VCA = [
 
   // ─── Common Diseases by System ────────────────────────────
   { id: 7060, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['cardio', 'DCM', 'taurine'], type: 'mcq',
+    tags: ['cardio','dcm','taurine'], type: 'mcq',
     q: 'แมวพันธุ์เปอร์เซียพบ dilated cardiomyopathy, supplement ใดที่อาจช่วย',
     options: ['Vitamin K', 'Calcium', 'Taurine', 'Iron', 'B12'],
     answer: 2,
@@ -2070,7 +2070,7 @@ export const QB_VCA = [
     explain: 'CPV-2 = parvovirus, attack rapidly dividing cells (intestinal crypt + bone marrow), "rotting flesh" smell hemorrhagic D, Tx: IV fluid + antibiotics + antiemetic + plasma, vaccine 16+ wk final dose key' },
 
   { id: 7066, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['gi', 'GDV'], type: 'mcq',
+    tags: ['gi','gdv'], type: 'mcq',
     q: 'สุนัข German Shepherd 5 ปี, acute distended abdomen + ping sound + ไม่ retch, radiograph: "reverse C" / "double bubble" gastric shadow, suspect',
     options: ['Gastric dilatation alone', 'Gastric tumor', 'Gastric neoplasia', 'Gastric foreign body', 'Gastric Dilatation Volvulus'],
     answer: 4,
@@ -2085,7 +2085,7 @@ export const QB_VCA = [
 
   // ─── Soft Tissue Surgery ─────────────────────────────────
   { id: 7070, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['surgery', 'GDV', 'gastropexy'], type: 'mcq',
+    tags: ['surgery','gdv','gastropexy'], type: 'mcq',
     q: 'GDV ที่ stabilize แล้ว, surgical treatment ที่ป้องกัน recurrence',
     options: ['Splenectomy (ตัดม้าม)', 'Gastrostomy tube', 'Right-sided gastropexy', 'Cystotomy (เปิดกระเพาะปัสสาวะ)', 'Nephrectomy (ตัดไต)'],
     answer: 2,
@@ -2171,7 +2171,7 @@ export const QB_VCA = [
     explain: 'Pneumothorax: cardiac silhouette elevated from sternum + retracted lung border, standing-up horizontal beam most sensitive, DV view also good, Tx: thoracocentesis if respiratory distress + chest tube if recurrent\n\n💡 collapse lung up - elevated cardiac silhouette + pleural air' },
 
   { id: 7092, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['imaging', 'GDV'], type: 'mcq',
+    tags: ['imaging','gdv'], type: 'mcq',
     q: 'best radiographic view for GDV "double bubble / reverse C / shelf" sign',
     options: ['Dorsoventral (DV)', 'Ventrodorsal (VD)', 'Right lateral recumbency', 'Left lateral recumbency', 'Standing lateral'],
     answer: 2,
@@ -2252,7 +2252,7 @@ export const QB_VCA = [
     explain: 'Diabetic cataract = sorbitol osmotic damage ใน lens, ~75% diabetic dog develop within 1 yr of DM diagnosis, Tx: phacoemulsification (cataract surgery), DDx cat (less prone to cataract)' },
 
   { id: 7131, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
-    tags: ['neuro', 'IVDD'], type: 'mcq',
+    tags: ['neuro','ivdd'], type: 'mcq',
     q: 'สุนัข Dachshund 5 yr, acute paraplegia + no deep pain + bladder distended, suspect',
     options: ['Cruciate rupture', 'Pelvic fracture', 'Acute IVDD', 'Hip luxation', 'Spinal abscess'],
     answer: 2,

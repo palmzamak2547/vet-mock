@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_MILK_2026_B = [
   {
     "id": 105644,
+    "tags": ["teat-sphincter","udder-anatomy"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105645,
+    "tags": ["milking-time","milking-procedure"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105646,
+    "tags": ["udder-blood-supply","milk-synthesis"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105647,
+    "tags": ["suspensory-ligament","udder-anatomy"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105648,
+    "tags": ["udder-innervation","sympathetic-nervous-system"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105649,
+    "tags": ["venous-circle","udder-blood-supply"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105650,
+    "tags": ["sigmoid-flexure","udder-blood-supply"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105651,
+    "tags": ["lactose-synthesis","propionate","gluconeogenesis"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105652,
+    "tags": ["milk-fat-synthesis","acetate","butyrate"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105653,
+    "tags": ["casein-synthesis","milk-protein"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105654,
+    "tags": ["lactose","milk-volume"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105655,
+    "tags": ["whey-protein","beta-lactoglobulin","alpha-lactalbumin"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105656,
+    "tags": ["epinephrine","oxytocin","milk-ejection"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105657,
+    "tags": ["oxytocin","milk-ejection","udder-preparation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105658,
+    "tags": ["mastitis","udder-quarter"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105659,
+    "tags": ["riboflavin","milk-color"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105660,
+    "tags": ["milk-composition","lactose"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105661,
+    "tags": ["casein","phosphoprotein"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-composition",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105662,
+    "tags": ["raw-milk-standard","colostrum"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105663,
+    "tags": ["milk-definition","milk-fat-standard"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105664,
+    "tags": ["milk-categories","raw-milk"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105665,
+    "tags": ["standard-plate-count","raw-milk-standard"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105666,
+    "tags": ["somatic-cell-count","raw-milk-standard"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105667,
+    "tags": ["somatic-cell-count","raw-milk-standard"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105668,
+    "tags": ["SNF","milk-pricing"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105669,
+    "tags": ["milk-pricing","total-solids"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105670,
+    "tags": ["freezing-point","milk-pricing"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105671,
+    "tags": ["E-coli","milk-microbial-standard"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -546,6 +574,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105672,
+    "tags": ["condensed-milk","vitamin-a"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-std",
     "year": 5,
@@ -565,6 +594,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105673,
+    "tags": ["bacterial-growth-curve","lag-phase","milk-cooling"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -584,6 +614,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105674,
+    "tags": ["bacterial-growth-curve","log-phase","milk-spoilage"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -603,6 +634,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105675,
+    "tags": ["bacterial-growth-curve","lag-phase","storage-temperature"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -622,6 +654,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105676,
+    "tags": ["bacterial-growth-curve","log-phase","death-phase"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -641,6 +674,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105677,
+    "tags": ["milk-cooling","storage-temperature"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -660,6 +694,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105678,
+    "tags": ["milk-transport","milk-collection-center"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -679,6 +714,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105679,
+    "tags": ["milk-transport","storage-temperature"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -698,6 +734,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105680,
+    "tags": ["milk-transport","milk-cooling"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -717,6 +754,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105681,
+    "tags": ["pasteurized-milk","storage-temperature"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -736,6 +774,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105682,
+    "tags": ["pasteurized-milk","cold-chain"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -755,6 +794,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105683,
+    "tags": ["milk-storage","storage-temperature"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -774,6 +814,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105684,
+    "tags": ["cooling-tank","storage-temperature"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -793,6 +834,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105685,
+    "tags": ["lactoperoxidase-system","thiocyanate"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -812,6 +854,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105686,
+    "tags": ["lactoperoxidase-system","hydrogen-peroxide","milk-preservation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -831,6 +874,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105687,
+    "tags": ["lactoperoxidase-system","hydrogen-peroxide","raw-milk"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -850,6 +894,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105688,
+    "tags": ["milk-preservative","milk-collection-center"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -869,6 +914,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105689,
+    "tags": ["milk-preservative","milk-preservation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -888,6 +934,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105690,
+    "tags": ["milk-cooling","cooling-method","ice-cone"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -907,6 +954,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105691,
+    "tags": ["milk-cooling","cooling-method"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -926,6 +974,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105692,
+    "tags": ["milk-storage","lipid-oxidation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -945,6 +994,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105693,
+    "tags": ["sweetened-condensed-milk","milk-preservation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -964,6 +1014,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105694,
+    "tags": ["bacterial-growth-curve","stationary-phase","milk-spoilage"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-raw-storage",
     "year": 5,
@@ -983,6 +1034,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105695,
+    "tags": ["Delvo-test","antimicrobial-residue"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1002,6 +1054,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105696,
+    "tags": ["Kjeldahl-method","milk-protein"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1021,6 +1074,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105697,
+    "tags": ["Milkoscan","milk-composition"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1040,6 +1094,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105698,
+    "tags": ["lactodensitometer","specific-gravity"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1059,6 +1114,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105699,
+    "tags": ["SNF","titratable-acidity"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1078,6 +1134,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105700,
+    "tags": ["lipase","rancidity"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1097,6 +1154,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105701,
+    "tags": ["beta-lactoglobulin","reconstituted-milk"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1116,6 +1174,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105702,
+    "tags": ["alcohol-test","clot-on-boiling-test"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1135,6 +1194,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105703,
+    "tags": ["CMT","somatic-cell-count"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1154,6 +1214,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105704,
+    "tags": ["electrical-conductivity","sodium-chloride"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1173,6 +1234,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105705,
+    "tags": ["NAGase","mastitis"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-quality-determination",
     "year": 5,
@@ -1192,6 +1254,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105706,
+    "tags": ["psychrotroph","Pseudomonas","milk-spoilage"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-microbiology",
     "year": 5,
@@ -1211,6 +1274,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105707,
+    "tags": ["spore-forming-bacteria","bacillus-cereus"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-microbiology",
     "year": 5,
@@ -1230,6 +1294,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105708,
+    "tags": ["indicator-bacteria","E-coli"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-microbiology",
     "year": 5,
@@ -1249,6 +1314,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105709,
+    "tags": ["indicator-bacteria","microbiological-criteria"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-microbiology",
     "year": 5,
@@ -1268,6 +1334,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105710,
+    "tags": ["starter-culture","dairy-fermentation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-microbiology",
     "year": 5,
@@ -1287,6 +1354,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105711,
+    "tags": ["spoilage-bacteria","milk-spoilage"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-microbiology",
     "year": 5,
@@ -1306,6 +1374,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105712,
+    "tags": ["bacterial-growth-curve","lag-phase","heat-resistance"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-microbiology",
     "year": 5,
@@ -1325,6 +1394,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105713,
+    "tags": ["Cronobacter-sakazakii","milk-powder"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-borne-pathogens",
     "year": 5,
@@ -1344,6 +1414,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105714,
+    "tags": ["listeria-monocytogenes","neonatal-infection"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-borne-pathogens",
     "year": 5,
@@ -1363,6 +1434,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105715,
+    "tags": ["Staphylococcus-aureus","enterotoxin"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-borne-pathogens",
     "year": 5,
@@ -1382,6 +1454,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105716,
+    "tags": ["heat-stable-toxin","food-poisoning"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-borne-pathogens",
     "year": 5,
@@ -1401,6 +1474,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105717,
+    "tags": ["Staphylococcus-aureus","mastitis"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-borne-pathogens",
     "year": 5,
@@ -1420,6 +1494,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105718,
+    "tags": ["Mycoplasma-bovis","contagious-mastitis"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1439,6 +1514,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105719,
+    "tags": ["Corynebacterium-bovis","subclinical-mastitis","somatic-cell-count"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1458,6 +1534,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105720,
+    "tags": ["hyaluronidase","Staphylococcus-aureus"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1477,6 +1554,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105721,
+    "tags": ["antimicrobial-residue","hypersensitivity"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1496,6 +1574,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105722,
+    "tags": ["mastitis","lactose"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1515,6 +1594,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105723,
+    "tags": ["mastitis","sodium-chloride","blood-milk-barrier"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1534,6 +1614,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105724,
+    "tags": ["mastitis","curd-tension","casein"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1553,6 +1634,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105725,
+    "tags": ["mastitis","somatic-cell-count"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1572,6 +1654,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105726,
+    "tags": ["free-fatty-acids","lipase"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1591,6 +1674,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105727,
+    "tags": ["mastitis","bloody-milk"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-mastitis",
     "year": 5,
@@ -1610,6 +1694,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105728,
+    "tags": ["thermisation","heat-treatment"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1629,6 +1714,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105729,
+    "tags": ["pasteurization","HTST"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1648,6 +1734,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105730,
+    "tags": ["ultra-pasteurization","heat-treatment"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1667,6 +1754,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105731,
+    "tags": ["pasteurization","enzyme-inactivation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1686,6 +1774,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105732,
+    "tags": ["uht","sterilization"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1705,6 +1794,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105733,
+    "tags": ["homogenization","rancidity"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1724,6 +1814,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105734,
+    "tags": ["clarification","centrifugation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1743,6 +1834,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105735,
+    "tags": ["separation","cream"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1762,6 +1854,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105736,
+    "tags": ["standardization","butterfat"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1781,6 +1874,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105737,
+    "tags": ["standardization","milk-fat-calculation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1800,6 +1894,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105738,
+    "tags": ["standardization","milk-fat-calculation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1819,6 +1914,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105739,
+    "tags": ["evaporation","sweetened-condensed-milk"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1838,6 +1934,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105740,
+    "tags": ["pasteurized-milk","evaporation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1857,6 +1954,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105741,
+    "tags": ["uht","dehydration"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1876,6 +1974,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105742,
+    "tags": ["maillard-reaction","non-enzymatic-browning"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1895,6 +1994,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105743,
+    "tags": ["Lactobacillus-bulgaricus","yogurt","proteolysis"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -1914,6 +2014,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105744,
+    "tags": ["CIP","cleaning-procedure"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -1933,6 +2034,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105745,
+    "tags": ["CIP","cleaning-frequency"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -1952,6 +2054,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105746,
+    "tags": ["thermal-sanitization","cleaning-temperature"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -1971,6 +2074,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105747,
+    "tags": ["alkaline-detergent","organic-soil"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -1990,6 +2094,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105748,
+    "tags": ["alcohol-disinfectant","cell-membrane"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -2009,6 +2114,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105749,
+    "tags": ["halogen-disinfectant","thiol-oxidation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -2028,6 +2134,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105750,
+    "tags": ["phenolic-disinfectant","protein-denaturation"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -2047,6 +2154,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105751,
+    "tags": ["iodophor","organic-matter-interference"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -2066,6 +2174,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105752,
+    "tags": ["phenol-coefficient","disinfectant-efficacy"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -2085,6 +2194,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105753,
+    "tags": ["disinfectant-selection","disinfectant-efficacy"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
     "year": 5,
@@ -2104,6 +2214,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105754,
+    "tags": ["HACCP","food-safety-management"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-industry-std",
     "year": 5,
@@ -2123,6 +2234,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105755,
+    "tags": ["HACCP","flow-diagram"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-industry-std",
     "year": 5,
@@ -2142,6 +2254,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105756,
+    "tags": ["HACCP","critical-limit"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-industry-std",
     "year": 5,
@@ -2161,6 +2274,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105757,
+    "tags": ["personnel-hygiene","health-examination"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-industry-std",
     "year": 5,
@@ -2180,6 +2294,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105758,
+    "tags": ["raw-material-testing","testing-frequency"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-industry-std",
     "year": 5,
@@ -2199,6 +2314,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105759,
+    "tags": ["raw-material-testing","quality-parameters"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-industry-std",
     "year": 5,
@@ -2218,6 +2334,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105760,
+    "tags": ["sanitation-verification","microbial-testing"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-industry-std",
     "year": 5,
@@ -2237,6 +2354,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105761,
+    "tags": ["hygienic-design","equipment-surface"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-industry-std",
     "year": 5,
@@ -2256,6 +2374,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105762,
+    "tags": ["dairy-farm-standard","farm-size-classification"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2275,6 +2394,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105763,
+    "tags": ["aflatoxin","feed-standard"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2294,6 +2414,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105764,
+    "tags": ["mycotoxin","feed-management"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2313,6 +2434,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105765,
+    "tags": ["farm-audit","audit-finding-classification","carcass-disposal"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2332,6 +2454,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105766,
+    "tags": ["farm-audit","audit-finding-classification"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2351,6 +2474,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105767,
+    "tags": ["grazing-management","parasite-risk"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2370,6 +2494,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105768,
+    "tags": ["grazing-management","cut-and-carry"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2389,6 +2514,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105769,
+    "tags": ["GAP","disease-free-farm"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2408,6 +2534,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105770,
+    "tags": ["housing-system","hoof-injury"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,
@@ -2427,6 +2554,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
   },
   {
     "id": 105771,
+    "tags": ["drug-storage","veterinary-drug-management"],
     "subject": "milk-meat-hygiene",
     "topic": "milk-biosec-dairy",
     "year": 5,

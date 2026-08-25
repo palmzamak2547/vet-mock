@@ -238,7 +238,7 @@ export const QB_Y5_VISION_BATCH = [
   { id: 8560, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '4. ข้อสอบพยาธิ ปี 5.pdf p.10-11',
     examOrigin: 'Vet 5 Pathology past paper · pdfplumber extraction',
-    tags: ['CSF', 'ASF', 'swine', 'high mortality', 'OIE notifiable'], type: 'mcq',
+    tags: ['CSF','ASF','swine','high mortality','OIE notifiable'], type: 'mcq',
     q: 'หมูอายุประมาณ 10 สัปดาห์ + 4 สัปดาห์ ในเล้าเดียวกัน อัตราป่วย 90% + อัตราตายเกือบ 100% มีเลือดออกตามผิวหนัง + necropsy พบ disseminated hemorrhage + splenic infarction ลักษณะ "marginal infarct ปลายม้าม" สาเหตุที่ตรงที่สุดคือ?',
     options: [
       'African Swine Fever (ASF) virus',

@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_EQREPRO_2026 = [
   {
     "id": 105432,
+    "tags": ["endometrial-cups","early-gestation"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105433,
+    "tags": ["endometrial-cups","chorionic-girdle"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105434,
+    "tags": ["endometrial-cups","eCG"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105435,
+    "tags": ["maternal-recognition-of-pregnancy","transuterine-migration"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105436,
+    "tags": ["uterotubal-junction","PGE2"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105437,
+    "tags": ["interferon-tau","maternal-recognition-of-pregnancy"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105438,
+    "tags": ["fetal-gonad","estrogen"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105439,
+    "tags": ["diffuse-placenta","microcotyledonary"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105440,
+    "tags": ["feto-placental-unit","progestin-source"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105441,
+    "tags": ["gestation-length","foaling-date"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105442,
+    "tags": ["fetal-presentation","normal-foaling"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105443,
+    "tags": ["parturition-stages","normal-foaling"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105444,
+    "tags": ["teat-waxing","impending-parturition"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105445,
+    "tags": ["pregnancy-hormone-profile","estrogen","progestin"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105446,
+    "tags": ["retained-fetal-membranes","placental-expulsion"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105447,
+    "tags": ["retained-fetal-membranes","diffuse-placenta"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105448,
+    "tags": ["foal-heat","postpartum-estrus"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105449,
+    "tags": ["foal-heat","postpartum-breeding"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105450,
+    "tags": ["navel-dip","antiseptic"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105451,
+    "tags": ["failure-of-passive-transfer","IgG"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105452,
+    "tags": ["seminiferous-tubule","spermatogenesis"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105453,
+    "tags": ["Sertoli-cell","blood-testis-barrier"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105454,
+    "tags": ["spermatogenic-cycle","spermatogenesis"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105455,
+    "tags": ["sperm-rich-fraction","cauda-epididymis"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105456,
+    "tags": ["gel-fraction","seminal-vesicle"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105457,
+    "tags": ["pre-sperm-fraction","bulbourethral-gland"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105458,
+    "tags": ["hypothalamic-pituitary-testis-axis","spermatogenesis"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105459,
+    "tags": ["gubernaculum","testicular-descent"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -546,6 +574,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105460,
+    "tags": ["testicular-descent","cryptorchidism"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -565,6 +594,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105461,
+    "tags": ["testicular-torsion","cauda-epididymis"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -584,6 +614,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105462,
+    "tags": ["photoperiod","spermatogenesis"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -603,6 +634,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105463,
+    "tags": ["epididymal-sperm-harvest","cauda-epididymis"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -622,6 +654,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105464,
+    "tags": ["flehmen","pheromone"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -641,6 +674,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105465,
+    "tags": ["tail-flagging","ejaculation"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -660,6 +694,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105466,
+    "tags": ["harem","mating-system"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -679,6 +714,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105467,
+    "tags": ["breeding-soundness-examination","lameness"],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -698,6 +734,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105468,
+    "tags": ["chilled-semen","semen-storage"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -717,6 +754,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105469,
+    "tags": ["frozen-semen","insemination-dose"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -736,6 +774,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105470,
+    "tags": ["deep-horn-insemination","insemination-dose"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -755,6 +794,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105471,
+    "tags": ["ovulation-induction","hCG","frozen-semen"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -774,6 +814,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105472,
+    "tags": ["semen-extender","sperm-longevity"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -793,6 +834,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105473,
+    "tags": ["semen-collection","artificial-vagina"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -812,6 +854,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105474,
+    "tags": ["artificial-vagina","collection-temperature"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -831,6 +874,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105475,
+    "tags": ["sperm-DNA-integrity","semen-evaluation"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -850,6 +894,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105476,
+    "tags": ["cryosensitivity","frozen-semen"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -869,6 +914,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105477,
+    "tags": ["semen-collection","sedation"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -888,6 +934,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105478,
+    "tags": ["insemination-site","uterine-body"],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -907,6 +954,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105479,
+    "tags": ["contagious-equine-metritis","Taylorella-equigenitalis"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -926,6 +974,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105480,
+    "tags": ["equine-coital-exanthema","EHV-3"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -945,6 +994,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105481,
+    "tags": ["equine-viral-arteritis","carrier-stallion"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -964,6 +1014,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105482,
+    "tags": ["Streptococcus-zooepidemicus","post-breeding-endometritis"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -983,6 +1034,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105483,
+    "tags": ["closed-castration","scrotal-hernia"],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1002,6 +1054,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105484,
+    "tags": ["emasculator","castration"],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1021,6 +1074,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105485,
+    "tags": ["standing-castration","castration"],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1040,6 +1094,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105486,
+    "tags": ["scirrhous-cord","castration-complication"],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1059,6 +1114,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105487,
+    "tags": ["intratesticular-block","local-anesthesia"],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1078,6 +1134,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105488,
+    "tags": ["pneumovagina","Caslick-vulvoplasty"],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1097,6 +1154,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105489,
+    "tags": ["penile-paralysis","acepromazine"],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1116,6 +1174,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105490,
+    "tags": ["gelding","castration"],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1135,6 +1194,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105491,
+    "tags": ["pneumovagina","perineal-conformation"],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -1154,6 +1214,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105492,
+    "tags": ["ovarian-tumor","unilateral-ovariectomy"],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -1173,6 +1234,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105493,
+    "tags": ["breeding-history","history-taking"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1192,6 +1254,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105494,
+    "tags": ["estrus-signs","estrus-detection"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1211,6 +1274,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105495,
+    "tags": ["rectal-palpation","corpus-luteum"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1230,6 +1294,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105496,
+    "tags": ["female-genital-anatomy","perineum"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1249,6 +1314,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105497,
+    "tags": ["ultrasonography","pregnancy-diagnosis"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1268,6 +1334,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105498,
+    "tags": ["diestrus","uterine-edema"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1287,6 +1354,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105499,
+    "tags": ["estrus","uterine-edema"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1306,6 +1374,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105500,
+    "tags": ["anestrus","rectal-palpation"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1325,6 +1394,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105501,
+    "tags": ["breeding-season","corpus-luteum"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1344,6 +1414,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105502,
+    "tags": ["ovulation-timing","ultrasonography"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1363,6 +1434,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105503,
+    "tags": ["rectal-palpation","uterine-bifurcation"],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1382,6 +1454,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105504,
+    "tags": ["ovarian-anatomy","cortex-medulla-inversion"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1401,6 +1474,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105505,
+    "tags": ["ovulation-fossa","ovarian-anatomy"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1420,6 +1494,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105506,
+    "tags": ["preovulatory-follicle","follicle-size"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1439,6 +1514,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105507,
+    "tags": ["seasonal-polyestrus","spontaneous-ovulation"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1458,6 +1534,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105508,
+    "tags": ["melatonin","photoperiod"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1477,6 +1554,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105509,
+    "tags": ["artificial-lighting","photoperiod"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1496,6 +1574,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105510,
+    "tags": ["luteolysis","PGF2alpha"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1515,6 +1594,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105511,
+    "tags": ["diestrus-ovulation","follicular-wave"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1534,6 +1614,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105512,
+    "tags": ["maternal-recognition-of-pregnancy","transuterine-migration"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1553,6 +1634,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105513,
+    "tags": ["interferon-tau","maternal-recognition-of-pregnancy"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1572,6 +1654,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105514,
+    "tags": ["endometrial-cups","early-gestation"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1591,6 +1674,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105515,
+    "tags": ["endometrial-cups","twin-reduction"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1610,6 +1694,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105516,
+    "tags": ["endometrial-cups","embryonic-death"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1629,6 +1714,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105517,
+    "tags": ["endometrial-cups","eCG"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1648,6 +1734,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105518,
+    "tags": ["diffuse-placenta","placentation-types"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1667,6 +1754,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105519,
+    "tags": ["gestation-length","foaling-date"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1686,6 +1774,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105520,
+    "tags": ["twin-reduction","ultrasound-guided-puncture"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1705,6 +1794,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105521,
+    "tags": ["twin-pregnancy","multiple-ovulation"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1724,6 +1814,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105522,
+    "tags": ["foal-heat","postpartum-estrus"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1743,6 +1834,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105523,
+    "tags": ["ovulation-induction","hCG"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1762,6 +1854,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105524,
+    "tags": ["insemination-site","uterine-body"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1781,6 +1874,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105525,
+    "tags": ["embryo-collection","blastocyst"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1800,6 +1894,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105526,
+    "tags": ["embryo-cryopreservation","expanded-blastocyst"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1819,6 +1914,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105527,
+    "tags": ["embryo-transfer","recipient-synchrony"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1838,6 +1934,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105528,
+    "tags": ["somatic-cell-nuclear-transfer","enucleation"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1857,6 +1954,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105529,
+    "tags": ["somatic-cell-nuclear-transfer","mitochondrial-DNA"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1876,6 +1974,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105530,
+    "tags": ["studbook-regulation","natural-cover"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1895,6 +1994,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105531,
+    "tags": ["uterotubal-junction","PGE2"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1914,6 +2014,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105532,
+    "tags": ["oviductal-obstruction","PGE2"],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1933,6 +2034,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105533,
+    "tags": ["pneumovagina","Caslick-vulvoplasty"],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -1952,6 +2054,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105534,
+    "tags": ["pneumovagina","vulvar-seal"],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -1971,6 +2074,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105535,
+    "tags": ["post-breeding-endometritis","uterine-inflammation"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -1990,6 +2094,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105536,
+    "tags": ["post-breeding-endometritis","infertility"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2009,6 +2114,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105537,
+    "tags": ["Streptococcus-zooepidemicus","post-breeding-endometritis"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2028,6 +2134,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105538,
+    "tags": ["EHV-1","equine-abortion"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2047,6 +2154,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105539,
+    "tags": ["EHV-1","intranuclear-inclusion-body"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2066,6 +2174,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105540,
+    "tags": ["equine-coital-exanthema","EHV-3"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2085,6 +2194,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105541,
+    "tags": ["equine-viral-arteritis","semen-transmission"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2104,6 +2214,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105542,
+    "tags": ["dourine","venereal-transmission"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2123,6 +2234,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105543,
+    "tags": ["contagious-equine-metritis","Taylorella-equigenitalis"],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2142,6 +2254,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105544,
+    "tags": ["flehmen","stallion-behavior"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -2161,6 +2274,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105545,
+    "tags": ["gelding","castration"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -2180,6 +2294,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105546,
+    "tags": ["breeding-timing","ovulation-timing"],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -2199,6 +2314,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105547,
+    "tags": ["caruncle","placentation-types"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2218,6 +2334,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105548,
+    "tags": ["chronic-active-endometritis","endometrial-biopsy"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2237,6 +2354,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105549,
+    "tags": ["pyometra","corpus-luteum"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2256,6 +2374,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105550,
+    "tags": ["pyometra","PGF2alpha"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2275,6 +2394,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105551,
+    "tags": ["intrauterine-antibiotic","antimicrobial-spectrum","ceftiofur"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2294,6 +2414,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105552,
+    "tags": ["intrauterine-antibiotic","antimicrobial-spectrum"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2313,6 +2434,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105553,
+    "tags": ["mucolytic","N-acetylcysteine"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2332,6 +2454,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105554,
+    "tags": ["innate-immunity","uterine-clearance"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2351,6 +2474,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105555,
+    "tags": ["Caslick-vulvoplasty","perineal-conformation","pneumovagina"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2370,6 +2494,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105556,
+    "tags": ["post-breeding-endometritis","intrauterine-fluid"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2389,6 +2514,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105557,
+    "tags": ["cloprostenol","luteolysis","uterine-clearance"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2408,6 +2534,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105558,
+    "tags": ["metritis","postpartum-disease"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2427,6 +2554,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105559,
+    "tags": ["endometrosis","endometrial-biopsy"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2446,6 +2574,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105560,
+    "tags": ["intrauterine-fluid","diestrus"],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2465,6 +2594,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105561,
+    "tags": ["diestrus","cervical-tone"],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -2484,6 +2614,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105562,
+    "tags": ["early-blastocyst","uterotubal-junction","PGE2"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2503,6 +2634,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105563,
+    "tags": ["endometrial-cups","eCG"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2522,6 +2654,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105564,
+    "tags": ["accessory-CL","progestin-source","eCG"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2541,6 +2674,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105565,
+    "tags": ["pregnancy-diagnosis","twin-pregnancy"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2560,6 +2694,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105566,
+    "tags": ["red-bag-delivery","premature-placental-separation"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2579,6 +2714,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105567,
+    "tags": ["dystocia","parturition-stages"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2598,6 +2734,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105568,
+    "tags": ["premature-lactation","placental-dysfunction"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2617,6 +2754,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105569,
+    "tags": ["EHV-1","pregnant-mare-vaccination"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2636,6 +2774,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105570,
+    "tags": ["Caslick-vulvoplasty","pre-foaling-management"],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2655,6 +2794,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105571,
+    "tags": ["1-2-3-rule","colostrum"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2674,6 +2814,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105572,
+    "tags": ["failure-of-passive-transfer","IgG","plasma-transfusion"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2693,6 +2834,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105573,
+    "tags": ["neonatal-isoerythrolysis","colostrum"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2712,6 +2854,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105574,
+    "tags": ["postpartum-breeding","uterine-involution"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2731,6 +2874,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105575,
+    "tags": ["retained-fetal-membranes","placental-expulsion"],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,

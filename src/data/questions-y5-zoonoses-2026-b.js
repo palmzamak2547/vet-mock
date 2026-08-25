@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   {
     "id": 106005,
+    "tags": ["leptospirosis","seasonality"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106006,
+    "tags": ["tularemia","tick-vector","reservoir-host"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106007,
+    "tags": ["leptospirosis","pulmonary-hemorrhage","renal-failure"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106008,
+    "tags": ["Streptococcus-suis","reservoir-host","tonsil-carriage"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106009,
+    "tags": ["plague","flea-transmission"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106010,
+    "tags": ["anthrax","sudden-death"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106011,
+    "tags": ["glanders","reservoir-host"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106012,
+    "tags": ["Q-fever","obligate-intracellular","bioterrorism-agent"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106013,
+    "tags": ["Lyme-disease","erythema-migrans"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106014,
+    "tags": ["plague","acral-gangrene"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106015,
+    "tags": ["psittacosis","reservoir-host"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106016,
+    "tags": ["cat-scratch-disease","lymphadenopathy"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106017,
+    "tags": ["melioidosis","environmental-source"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106018,
+    "tags": ["brucellosis","raw-milk","zoonosis-prevention"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106019,
+    "tags": ["Streptococcus-suis","raw-pork","meningitis"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106020,
+    "tags": ["plague","septicemic-plague","acral-gangrene"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106021,
+    "tags": ["leptospirosis","Icterohaemorrhagiae","reservoir-host"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106022,
+    "tags": ["brucellosis","reproductive-failure"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106023,
+    "tags": ["leptospirosis","vaccination","urinary-shedding"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106024,
+    "tags": ["zoonotic-tuberculosis","tuberculin-test","test-and-slaughter"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106025,
+    "tags": ["anthrax","antimicrobial-treatment","ciprofloxacin"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106026,
+    "tags": ["psittacosis","intermittent-shedding","false-negative"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106027,
+    "tags": ["zoonotic-tuberculosis","raw-milk","zoonosis-prevention"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106028,
+    "tags": ["leptospirosis","urinary-shedding"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106029,
+    "tags": ["anthrax","carcass-disposal","necropsy-contraindication"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106030,
+    "tags": ["plague","Xenopsylla-cheopis","reservoir-host"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106031,
+    "tags": ["melioidosis","environmental-source"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106032,
+    "tags": ["brucellosis","zoonosis-prevention","movement-control"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -546,6 +574,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106033,
+    "tags": ["brucellosis","incubation-period","gestation-stage"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -565,6 +594,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106034,
+    "tags": ["Coxiella-burnetii","obligate-intracellular","gram-negative"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -584,6 +614,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106035,
+    "tags": ["Streptococcus-suis","hearing-loss","cranial-nerve-VIII"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -603,6 +634,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106036,
+    "tags": ["leptospirosis","environmental-survival"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -622,6 +654,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106037,
+    "tags": ["zoonotic-tuberculosis","tuberculin-test","false-negative"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -641,6 +674,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106038,
+    "tags": ["zoonotic-tuberculosis","tuberculin-test","test-limitation"],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
     "year": 5,
@@ -660,6 +694,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106039,
+    "tags": ["prion-disease","histopathology","neural-vacuolation"],
     "subject": "zoonoses",
     "topic": "zoo-prion",
     "year": 5,
@@ -679,6 +714,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106040,
+    "tags": ["vCJD","BSE","meat-borne-transmission"],
     "subject": "zoonoses",
     "topic": "zoo-prion",
     "year": 5,
@@ -698,6 +734,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106041,
+    "tags": ["BSE","meat-and-bone-meal"],
     "subject": "zoonoses",
     "topic": "zoo-prion",
     "year": 5,
@@ -717,6 +754,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106042,
+    "tags": ["scrapie","placenta-transmission"],
     "subject": "zoonoses",
     "topic": "zoo-prion",
     "year": 5,
@@ -736,6 +774,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106043,
+    "tags": ["normal-expectancy","median-threshold"],
     "subject": "zoonoses",
     "topic": "zoo-intro",
     "year": 5,
@@ -755,6 +794,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106044,
+    "tags": ["normal-expectancy","emerging-zoonosis","outbreak-definition"],
     "subject": "zoonoses",
     "topic": "zoo-intro",
     "year": 5,
@@ -774,6 +814,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106045,
+    "tags": ["epidemic","outbreak-definition"],
     "subject": "zoonoses",
     "topic": "zoo-intro",
     "year": 5,
@@ -793,6 +834,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106046,
+    "tags": ["outbreak-investigation","reporting-timeline","veterinary-public-health"],
     "subject": "zoonoses",
     "topic": "zoo-intro",
     "year": 5,
@@ -812,6 +854,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106047,
+    "tags": ["SRRT","veterinary-public-health"],
     "subject": "zoonoses",
     "topic": "zoo-intro",
     "year": 5,
@@ -831,6 +874,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106048,
+    "tags": ["dangerous-communicable-disease","reporting-timeline"],
     "subject": "zoonoses",
     "topic": "zoo-intro",
     "year": 5,
@@ -850,6 +894,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106049,
+    "tags": ["dangerous-communicable-disease","SFTSV"],
     "subject": "zoonoses",
     "topic": "zoo-intro",
     "year": 5,
@@ -869,6 +914,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106050,
+    "tags": ["indicator-based-surveillance","surveillance-system"],
     "subject": "zoonoses",
     "topic": "zoo-intro",
     "year": 5,
@@ -888,6 +934,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106051,
+    "tags": ["zoonotic-host-taxa","bats","wildlife-reservoir"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -907,6 +954,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106052,
+    "tags": ["zoonotic-host-taxa","primates","host-species-proportion"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -926,6 +974,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106053,
+    "tags": ["spillback","reverse-zoonosis"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -945,6 +994,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106054,
+    "tags": ["spillover","vector-borne-zoonosis","boundary-permeability"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -964,6 +1014,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106055,
+    "tags": ["spillover","edge-effect","perimeter-area-ratio"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -983,6 +1034,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106056,
+    "tags": ["zoonosis-emergence","sustained-transmission","genetic-adaptation"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -1002,6 +1054,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106057,
+    "tags": ["SFTSV","differential-diagnosis","dengue"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -1021,6 +1074,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106058,
+    "tags": ["SFTSV","tick-vector","Rhipicephalus-sanguineus"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -1040,6 +1094,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106059,
+    "tags": ["SFTSV","biosafety-level-4"],
     "subject": "zoonoses",
     "topic": "zoo-eid-wildlife",
     "year": 5,
@@ -1059,6 +1114,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106060,
+    "tags": ["rabies","biting-animal","epidemiology"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1078,6 +1134,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106061,
+    "tags": ["rabies","incubation-period"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1097,6 +1154,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106062,
+    "tags": ["rabies","epidemiology","species-distribution"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1116,6 +1174,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106063,
+    "tags": ["rabies","wildlife-reservoir"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1135,6 +1194,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106064,
+    "tags": ["rabies","vaccination-coverage","herd-immunity"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1154,6 +1214,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106065,
+    "tags": ["Nipah","Hendra","reservoir-host"],
     "subject": "zoonoses",
     "topic": "zoo-ebola-nipah",
     "year": 5,
@@ -1173,6 +1234,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106066,
+    "tags": ["hantavirus","HFRS"],
     "subject": "zoonoses",
     "topic": "zoo-ebola-nipah",
     "year": 5,
@@ -1192,6 +1254,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106067,
+    "tags": ["Ebola","case-fatality-rate"],
     "subject": "zoonoses",
     "topic": "zoo-ebola-nipah",
     "year": 5,
@@ -1211,6 +1274,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106068,
+    "tags": ["coronavirus","virus-taxonomy"],
     "subject": "zoonoses",
     "topic": "zoo-corona",
     "year": 5,
@@ -1230,6 +1294,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106069,
+    "tags": ["coronavirus","reservoir-host"],
     "subject": "zoonoses",
     "topic": "zoo-corona",
     "year": 5,
@@ -1249,6 +1314,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106070,
+    "tags": ["Angiostrongylus-cantonensis","definitive-host"],
     "subject": "zoonoses",
     "topic": "zoo-helminthic",
     "year": 5,
@@ -1268,6 +1334,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
   },
   {
     "id": 106071,
+    "tags": ["Angiostrongylus-cantonensis","intermediate-host","snail-host"],
     "subject": "zoonoses",
     "topic": "zoo-helminthic",
     "year": 5,

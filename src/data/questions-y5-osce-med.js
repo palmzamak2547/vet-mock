@@ -232,7 +232,7 @@ export const QB_Y5_OSCE_MED = [
   { id: 8511, subject: 'poa-clinical', topic: 'poa-collapse', year: 5,
     source: 'OSCE MED from ปิงปิง.pdf p.6 (VPAT feline FeLV)',
     examOrigin: 'OSCE MED past paper · author ปิงปิง · vision-OCR extracted (Phase 3 PoC 2026-05-12)',
-    tags: ['OSCE', 'vaccination', 'feline', 'FeLV', 'pre-vaccine test', 'VPAT'], type: 'mcq',
+    tags: ['OSCE','vaccination','feline','felv','pre-vaccine test','VPAT'], type: 'mcq',
     q: 'VPAT feline — ก่อนฉีดวัคซีน FeLV เข็มแรกในลูกแมว/แมวที่ไม่เคยตรวจมาก่อน ต้องทำสิ่งใด',
     options: [
       'ตรวจ FeLV antigen ก่อนฉีดเข็มแรก',
@@ -268,7 +268,7 @@ export const QB_Y5_OSCE_MED = [
   { id: 8513, subject: 'poa-clinical', topic: 'poa-collapse', year: 5,
     source: 'OSCE MED from ปิงปิง.pdf p.7 (VPAT feline non-core)',
     examOrigin: 'OSCE MED past paper · author ปิงปิง · vision-OCR extracted (Phase 3 PoC 2026-05-12)',
-    tags: ['OSCE', 'vaccination', 'feline', 'Chlamydia', 'non-core', 'VPAT'], type: 'mcq',
+    tags: ['OSCE','vaccination','feline','chlamydia','non-core','VPAT'], type: 'mcq',
     q: 'VPAT feline — Chlamydia vaccine เป็นวัคซีนทางเลือก (non-core) ใช้ในกรณีใด และโปรแกรมเป็นอย่างไร',
     options: [
       'ใช้ในแมวเสี่ยง เริ่ม 8 wk, 2 ครั้งห่าง 2–4 wk, boost ทุกปี',

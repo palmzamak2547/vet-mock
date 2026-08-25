@@ -123,9 +123,9 @@ export const QB_FOOD_SAFETY_Y4 = [
     "year": 4,
     "source": "Food Safety Final 86",
     "tags": [
-      "sps-agreement",
-      "wto",
-      "codex"
+      "SPS-agreement",
+      "WTO",
+      "Codex"
     ],
     "type": "mcq",
     "examOrigin": "Food Safety Final 86",
@@ -275,7 +275,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "year": 4,
     "source": "Food Safety Final 86, Kim85",
     "tags": [
-      "staphylococcus-aureus",
+      "Staphylococcus-aureus",
       "preformed-toxin",
       "heat-stable"
     ],
@@ -325,7 +325,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "year": 4,
     "source": "Food Safety Final 86",
     "tags": [
-      "vibrio-parahaemolyticus",
+      "Vibrio-parahaemolyticus",
       "halophile",
       "seafood"
     ],
@@ -475,7 +475,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "year": 4,
     "source": "Food Safety Final 86, Kim85",
     "tags": [
-      "taenia-solium",
+      "Taenia-solium",
       "neurocysticercosis",
       "pork"
     ],
@@ -501,8 +501,8 @@ export const QB_FOOD_SAFETY_Y4 = [
     "source": "Food Safety Final 86",
     "tags": [
       "prion",
-      "bse",
-      "vcjd",
+      "BSE",
+      "vCJD",
       "scrapie"
     ],
     "type": "mcq",
@@ -705,7 +705,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "tags": [
       "uht",
       "pasteurization",
-      "coxiella-burnetii"
+      "Coxiella-burnetii"
     ],
     "type": "mcq",
     "examOrigin": "Food Safety Mid 86",

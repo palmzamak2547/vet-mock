@@ -10,13 +10,14 @@
 // ============================================================
 
 import fs from 'node:fs';
+import { canonicalTag } from './lib/tag-case.mjs';
 
-const DIR = '.tags-fix';
+const DIR = process.argv.find((a) => a.startsWith("--dir="))?.slice(6) || '.tags-fix';
 const batches = JSON.parse(fs.readFileSync(`${DIR}/batches.json`, 'utf8'));
 
 // A tag every question in a file would carry tells a student nothing.
 const CONTAINER = /^(biochem|histology|histo|neuroanat|anatomy|physiology|microbiology|parasitology|vet|veterinary|exam|quiz|question|lecture|lab|midterm|final|year[-\s]?\d|ปี\s?\d)$/i;
-const SHAPE = /^[A-Za-z0-9][A-Za-z0-9:&+.\u0E00-\u0E7F-]*$/;   // & for H&E
+const SHAPE = /^[A-Za-z0-9][A-Za-z0-9:&+.,\u0E00-\u0E7F-]*$/;   // & for H&E, comma for 2,4-D
 
 let total = 0, problems = 0, missing = 0;
 const seenLower = new Map();      // lowercase -> first spelling, to catch splits
@@ -43,7 +44,7 @@ for (const b of batches) {
     if (tags.length < 2 || tags.length > 3) { report.push(`✗ ${b.key} #${r.id}: ${tags.length} tag(s)`); problems++; }
     if (new Set(tags.map((t) => t.toLowerCase())).size !== tags.length) { report.push(`✗ ${b.key} #${r.id}: duplicate tags ${JSON.stringify(tags)}`); problems++; }
 
-    for (const t of tags) {
+    for (const t of tags.map(canonicalTag)) {
       if (!SHAPE.test(t)) { report.push(`✗ ${b.key} #${r.id}: malformed tag "${t}"`); problems++; }
       if (CONTAINER.test(t)) { report.push(`✗ ${b.key} #${r.id}: "${t}" names the container, not the concept`); problems++; }
       if (/\s/.test(t)) { report.push(`✗ ${b.key} #${r.id}: "${t}" has a space — use kebab-case`); problems++; }

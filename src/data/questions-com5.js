@@ -755,7 +755,7 @@ export const QB_COM5 = [
 
   {
     id: 559, subject: 'com5', topic: 'sporo-crypto', year: 4, source: "Sporotrichosis and Cryptococcosis.pdf",
-    tags: ["cryptococcosis","CNS"], type: 'mcq',
+    tags: ["cryptococcosis","cns"], type: 'mcq',
     q: "อาการ CNS form ของ Cryptococcosis เกิดจากการแพร่ผ่าน",
     options: ["Lymphatic spread","Direct inoculation","Cribriform plate","Hematogenous to brain"],
     answer: 2,
@@ -2038,7 +2038,7 @@ export const QB_COM5 = [
 
   {
     id: 608, subject: 'com5', topic: 'feline-uri', year: 4, source: "Feline_Upper_Respiratory_Infection.pdf",
-    tags: ["furi","fcv"], type: 'mcq',
+    tags: ["furi","FCV"], type: 'mcq',
     q: "Feline Calicivirus (FCV) มี genome และ envelope แบบใด",
     options: ["dsDNA, enveloped","ssRNA, non-enveloped","dsRNA, non-enveloped","ssDNA, enveloped"],
     answer: 1,
@@ -2087,7 +2087,7 @@ export const QB_COM5 = [
 
   {
     id: 611, subject: 'com5', topic: 'feline-uri', year: 4, source: "Feline_Upper_Respiratory_Infection.pdf",
-    tags: ["furi","bordetella"], type: 'mcq',
+    tags: ["furi","Bordetella"], type: 'mcq',
     q: "Clinical sign ที่ \"เด่นที่สุด\" ของ Bordetella bronchiseptica ในแมวคืออะไร",
     options: ["Skin pustules","Polydipsia","Polyuria","Cough","Vomiting"],
     answer: 3,
@@ -2403,7 +2403,7 @@ export const QB_COM5 = [
 
   {
     id: 627, subject: 'com5', topic: 'vaccine', year: 4, source: "WSAVA 2024 + FINAL 86",
-    tags: ["vaccine","wsava-2024","updates"], type: 'mcq',
+    tags: ["vaccine","WSAVA-2024","updates"], type: 'mcq',
     q: "WSAVA 2024 vaccination guidelines มีการเปลี่ยนแปลงสำคัญข้อใดจาก 2016",
     options: ["ยกเลิก rabies vaccine ออกจาก core ทั้งหมด","เพิ่ม Leptospirosis และ FeLV เป็น core ในบางกรณี","ลด core vaccine เหลือเฉพาะ rabies ตัวเดียว","แนะนำให้ฉีด vaccine ทุกตัวเดือนละครั้ง"],
     answer: 1,

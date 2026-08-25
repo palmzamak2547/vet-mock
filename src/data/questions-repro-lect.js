@@ -69,7 +69,7 @@ export const QB_REPRO_LECT = [
     options: ['<1 ng/mL', '1-2 ng/mL', '2-3 ng/mL', '4-10 ng/mL'],
     answer: 3, explain: 'Slide ระบุ ovulation ประมาณ 4-10 ng/mL; LH surge ประมาณ 2-3 ng/mL', verified: 'Slide 2026 Lect 16' },
   { id: 1809, subject: 'repro-lect', topic: 'semen-ai', year: 4,
-    source: 'Kimchii85 final + sunsun84 ? Semen evaluation/AI summary', sourceType: 'student-compilation', tags: ['AI', 'route'], type: 'mcq',
+    source: 'Kimchii85 final + sunsun84 ? Semen evaluation/AI summary', sourceType: 'student-compilation', tags: ['ai','route'], type: 'mcq',
     q: 'Frozen semen หรือ poor-quality semen ควรพิจารณา AI route ใดมากขึ้น',
     options: ['Intrauterine AI', 'Intravaginal AI', 'Fresh natural mating', 'External semen check'],
     answer: 0, explain: 'IUAI เช่น TCAI/endoscopic AI เหมาะกว่าเมื่อ semen quality ต่ำหรือใช้ frozen semen', verified: 'Slide 2026 Lect 16' },
@@ -123,7 +123,7 @@ export const QB_REPRO_LECT = [
     options: ['No ejaculation occurred', 'Only prostatic fluid', 'Urine contamination only', 'Complete ejaculation'],
     answer: 3, explain: 'ALP สูงจาก epididymis ช่วย confirm ว่า ejaculation complete แล้ว จึงมอง testicular origin ต่อ', verified: 'Slide 2026 Lect 18' },
   { id: 1819, subject: 'repro-lect', topic: 'infertility', year: 4,
-    source: 'Kimchii85 final + Repro Final summary - Infertility section', sourceType: 'student-compilation', tags: ['Brucella'], type: 'mcq',
+    source: 'Kimchii85 final + Repro Final summary - Infertility section', sourceType: 'student-compilation', tags: ['brucella'], type: 'mcq',
     q: 'เชื้อใดเป็น critical pathogen ใน canine infertility และมี zoonotic concern',
     options: ['Brucella canis', 'Giardia duodenalis', 'Dermatophilus', 'Tritrichomonas'],
     answer: 0, explain: 'Brucella canis ทำให้ reproductive failure/semen deterioration และเป็น zoonosis', verified: 'Slide 2026 Lect 18' },
@@ -371,7 +371,7 @@ export const QB_REPRO_LECT = [
     answer: 1, explain: 'Digital manipulation = standard canine semen collection ★\n\n💡 Dog collection methods:\n\n1. Digital manipulation ★ (preferred):\n— Manual masturbation by handler\n— With or without teaser bitch (bitch in estrus → enhances)\n— Allows fraction separation (prostatic 1st, sperm-rich 2nd, prostatic 3rd)\n— No anesthesia needed\n— Preserves sample quality (no chemical/electrical artifact)\n\n2. Artificial vagina (AV):\n— Less common in dog vs other species\n— Dog penis has bulbus glandis → AV must accommodate\n\n3. Electroejaculation (EE):\n— RARE in dog (unlike cat/farm animals)\n— Requires anesthesia\n— Not preferred (causes urine contamination, prostatic-only fluid)\n— Reserved for research / non-cooperative animals\n\n💡 Cat collection methods (different from dog):\n— Electroejaculation under anesthesia ★ (most common)\n— Artificial vagina with female teaser (less common)\n— UrCaPI (Urethral Catheterization Post-Injection) ★ — newer method:\n  - Medetomidine 130 µg/kg IM (or dexmedetomidine 60 µg/kg)\n  - 5 min later: insert catheter into urethra\n  - Aspirate semen\n  - Reverse with atipamezole\n  - Easy, quick, no high-cost equipment\n\n💡 Frequency: dog can be collected every 3-5 days without quality decline', verified: 'Kimchii85 Blackboard Q8 (Q labeled ผิด — Digital manip = correct method for chilled storage)' },
 
   { id: 1858, subject: 'repro-lect', topic: 'semen-ai', year: 4,
-    source: 'Kimchii85 final p.6 — Blackboard screenshot Semen Eval Q9', sourceType: 'past-paper', tags: ['past-paper', 'AI', 'sperm-quality'], type: 'mcq',
+    source: 'Kimchii85 final p.6 — Blackboard screenshot Semen Eval Q9', sourceType: 'past-paper', tags: ['past-paper','ai','sperm-quality'], type: 'mcq',
     q: 'คุณภาพอสุจิของสุนัขข้อใด "เหมาะสมที่จะนำไปใช้ในการผสมเทียมมากที่สุด"',
     options: [
       'ความผิดปกติส่วนหัว < 80% และความผิดปกติส่วนหาง (midpiece + tail) < 80%',

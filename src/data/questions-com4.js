@@ -800,7 +800,7 @@ export const QB_COM4 = [
     verified: 'INFLAMATORY_BOWEL_Disease.pdf p.20' },
 
   { id: 1007, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['tli'], type: 'mcq',
+    tags: ['TLI'], type: 'mcq',
     q: 'TLI (Trypsin-Like Immunoreactivity) ใช้ทดสอบโรคใด',
     options: ['Liver disease — TLI ต่ำใน hepatic failure (decreased clearance)', 'Renal failure — TLI สูงเพราะ kidney clear enzyme ไม่ออก (false elevation)', 'Exocrine Pancreatic Insufficiency (EPI) — fasting TLI ต่ำ = EPI confirmed', 'Hyperthyroidism (cat) — TLI ต่ำเพราะ pancreatic atrophy จาก thyroid'],
     answer: 2, explain: 'TLI: ↓ TLI fasting = EPI (atrophy ของ pancreatic acinar cells, ส่วนใหญ่ใน GSD ตามพันธุกรรม), classic signs: chronic diarrhea + weight loss แม้กินเยอะ + steatorrhea + cobalamin ต่ำ (ขาด IF), Tx: pancreatic enzyme replacement (Viokase, Pancrezyme) + B12 supplementation\n\n❌ ทำไมข้ออื่นผิด\n— Liver = ALT/ALP/bile acids\n— Renal = BUN/Cr\n— Hyperthyroid = T4 (cat)',
@@ -2023,7 +2023,7 @@ export const QB_COM4 = [
     verified: 'อ.ชัยยศ Fangfuay vet81 #40' },
 
   { id: 1146, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #41,42',
-    tags: ['protein', 'hair', 'cocker-spaniel', 'vit-a', 'chayot'], type: 'mcq',
+    tags: ['protein','hair','cocker-spaniel','vit-A','chayot'], type: 'mcq',
     q: 'ข้อใด "ไม่ถูกต้อง" เกี่ยวกับโปรตีนต่อผิวหนัง + Vitamin A-responsive dermatosis',
     options: [
       'เส้นขนมีโปรตีนเป็นส่วนประกอบถึง 95%',
@@ -2071,7 +2071,7 @@ export const QB_COM4 = [
     verified: 'อ.ชัยยศ Fangfuay vet81 #14' },
 
   { id: 1152, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #9',
-    tags: ['atopy', 'langerhans-cell', 'apc', 'chayot'], type: 'mcq',
+    tags: ['atopy','langerhans-cell','APC','chayot'], type: 'mcq',
     q: 'เซลล์ที่มีบทบาท "เริ่มต้น" ในการตอบสนองภูมิไวเกิน (Hypersensitivity) ในภาวะ atopic dermatitis คือ',
     options: ['Eosinophil (effector phase)', 'Langerhans cell', 'B-cell (produces IgE later in cascade)', 'Mast cell (effector — degranulation)', 'Neutrophil'],
     answer: 1, explain: 'Langerhans cell = primary APC ใน epidermis ★\n\n💡 Atopic Dermatitis pathway (Type I + IV mixed hypersensitivity):\n\nStep 1: Sensitization (initial exposure)\n— Allergen penetrates skin (atopic skin barrier dysfunction → easier penetration)\n— Langerhans cell (LC) — dendritic cell in epidermis (stratum spinosum) — captures allergen via FcεRI\n— LC migrates to local lymph node\n\nStep 2: T-cell activation\n— LC presents allergen to naive T-cells in lymph node\n— Th2 response dominates in atopy:\n  • IL-4, IL-13 → B-cell IgE class switch\n  • IL-5 → eosinophil recruitment\n  • IL-31 → pruritus signaling ★ (target of Lokivetmab)\n\nStep 3: IgE production + tissue priming\n— B-cells differentiate to plasma cells → produce allergen-specific IgE\n— IgE binds high-affinity FcεRI on mast cells + LCs (positive feedback)\n— "Sensitized" — no symptoms yet\n\nStep 4: Re-exposure (effector phase)\n— Allergen re-enters skin → cross-links 2 IgE on mast cell → degranulation\n— Histamine, prostaglandins, leukotrienes → vasodilation, pruritus, edema\n— Eosinophils recruited → MBP, ECP, EDN → tissue damage\n\nStep 5: Chronic phase\n— Th17 + Th22 contribution → epidermal hyperplasia, lichenification\n— Microbial dysbiosis (Staph + Malassezia overgrowth) → 2° infection\n— Barrier dysfunction worsens (filaggrin deficient, ceramide ↓)\n\n💡 Other key cells in CAD:\n— Mast cell — degranulation = effector\n— Eosinophil — late-phase + chronic inflammation\n— Th2 cell — orchestrator of allergic response\n— B-cell / Plasma cell — IgE production\n— Keratinocyte — barrier dysfunction + cytokine production (IL-33, TSLP)\n\n💡 Therapeutic targets in CAD:\n— Block IL-31: Lokivetmab (Cytopoint) anti-IL-31 mAb\n— Block JAK signaling: Oclacitinib (Apoquel) JAK1 inhibitor — blocks IL-31, IL-2, IL-4, IL-13\n— T-cell activation: Cyclosporine (calcineurin inhibitor)\n— ASIT — modify Th2 response toward Treg\n— Topical steroids — broad anti-inflammatory\n\n💡 skin-resident antigen-presenting cell, APC',

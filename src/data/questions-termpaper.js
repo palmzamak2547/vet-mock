@@ -71,7 +71,7 @@ export const QB_TERMPAPER = [
   { id: 52060, subject: 'repro-lect', topic: 'group04-dermato-repro', year: 4,
     source: 'Repro Final 86 master p42 Term Paper Group 4',
     sourceType: 'student-compilation',
-    tags: ['Alopecia-X', 'Pomeranian', 'melatonin', 'deslorelin'], type: 'mcq',
+    tags: ['alopecia-x','Pomeranian','melatonin','deslorelin'], type: 'mcq',
     q: 'สุนัขพันธุ์ Pomeranian อายุ 4 ปี มาพบสัตวแพทย์ด้วยอาการขนร่วงแบบสมมาตรทั้งสองข้าง ไม่คัน บริเวณลำตัว ต้นขาด้านหลัง และหาง โดยที่บริเวณศีรษะและปลายขาทั้งสี่มีขนปกติ ผิวหนังบริเวณที่ขนร่วงมีสีเข้มขึ้น (hyperpigmentation) ไม่พบสัญญาณอักเสบ ผลตรวจเลือดทั่วไปปกติ ตรวจตัด hypothyroidism + hyperadrenocorticism ออกแล้ว, การวินิจฉัยที่เป็นไปได้มากที่สุด และแนวทางการรักษาที่เหมาะสมที่สุดคือ',
     options: [
       'Alopecia X, รักษาด้วย melatonin, deslorelin acetate, การทำหมัน',

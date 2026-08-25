@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_POA_2026_B = [
   {
     "id": 106287,
+    "tags": ["breathing-pattern","restrictive-breathing-pattern"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106288,
+    "tags": ["lesion-localization","pleural-space"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106289,
+    "tags": ["TFAST","thoracic-ultrasound"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106290,
+    "tags": ["thoracic-radiography","pleural-effusion"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106291,
+    "tags": ["thoracocentesis","pleural-effusion"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106292,
+    "tags": ["fluid-analysis","septic-exudate"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106293,
+    "tags": ["heart-murmur","mitral-valve"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106294,
+    "tags": ["mitral-valve","cardiac-anatomy"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106295,
+    "tags": ["myxomatous-mitral-valve-disease","left-atrial-enlargement","cough-mechanism"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106296,
+    "tags": ["sinus-tachycardia","sympathetic-compensation","congestive-heart-failure"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106297,
+    "tags": ["respiratory-sinus-arrhythmia","heart-rhythm"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106298,
+    "tags": ["perfusion-assessment","capillary-refill-time","mucous-membrane-color"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106299,
+    "tags": ["myxomatous-mitral-valve-disease","congestive-heart-failure"],
     "subject": "poa-clinical",
     "topic": "poa-respiratory",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106300,
+    "tags": ["epistaxis","thrombocytopenia"],
     "subject": "poa-clinical",
     "topic": "poa-red-urine",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106301,
+    "tags": ["epistaxis","petechial-hemorrhage","primary-hemostasis"],
     "subject": "poa-clinical",
     "topic": "poa-red-urine",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_POA_2026_B = [
   },
   {
     "id": 106302,
+    "tags": ["epistaxis","CBC","blood-parasite-screening"],
     "subject": "poa-clinical",
     "topic": "poa-red-urine",
     "year": 5,

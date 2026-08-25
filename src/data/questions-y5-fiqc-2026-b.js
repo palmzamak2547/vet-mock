@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_FIQC_2026_B = [
   {
     "id": 106221,
+    "tags": ["HACCP","risk-based-approach"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106222,
+    "tags": ["GHP","gmp","Codex"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106223,
+    "tags": ["food-safety-standards-pyramid","buyer-requirements"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106224,
+    "tags": ["GFSI","benchmarking"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106225,
+    "tags": ["EU-General-Food-Law","food-legislation"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106226,
+    "tags": ["APC","indicator-organisms","food-hygiene"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106227,
+    "tags": ["HACCP-preliminary-steps","HACCP-team"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106228,
+    "tags": ["risk-matrix","hazard-analysis"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106229,
+    "tags": ["CCP","critical-limit"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106230,
+    "tags": ["CCP-decision-tree","GHP"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106231,
+    "tags": ["critical-limit","operating-limit"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106232,
+    "tags": ["corrective-action","3P"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106233,
+    "tags": ["verification","HACCP"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106234,
+    "tags": ["prerequisite-programs","HACCP"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106235,
+    "tags": ["CCP","poultry-slaughter","chilling"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106236,
+    "tags": ["chilling","critical-limit","carcass-core-temperature"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106237,
+    "tags": ["metal-detector","physical-hazard","critical-limit"],
     "subject": "food-industry",
     "topic": "fiqc-haccp",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106238,
+    "tags": ["halal-slaughter","Haram-CCP","stunning"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106239,
+    "tags": ["poultry-export-market","Japan"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106240,
+    "tags": ["poultry-export-market","cooked-poultry-export","avian-influenza"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106241,
+    "tags": ["tariff-quota","EU-export"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106242,
+    "tags": ["DLD-requirements","poultry-compartment","GAP"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106243,
+    "tags": ["cutting-room-temperature","DLD-requirements"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106244,
+    "tags": ["Singapore","export-market-requirements","egg-export"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106245,
+    "tags": ["South-Korea","export-market-requirements","pathogen-testing"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106246,
+    "tags": ["South-Korea","heat-treatment","export-market-requirements"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106247,
+    "tags": ["Japan","heat-treatment","export-market-requirements"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106248,
+    "tags": ["animal-welfare","Five-Freedoms","five-domains"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -546,6 +574,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106249,
+    "tags": ["3S","animal-welfare","painful-procedures"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -565,6 +594,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106250,
+    "tags": ["Better-Chicken-Commitment","stocking-density"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -584,6 +614,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106251,
+    "tags": ["Better-Chicken-Commitment","environmental-enrichment"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -603,6 +634,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106252,
+    "tags": ["Better-Chicken-Commitment","slower-growing-breeds"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -622,6 +654,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106253,
+    "tags": ["halal-slaughter","stunning","Middle-East"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,
@@ -641,6 +674,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
   },
   {
     "id": 106254,
+    "tags": ["accreditation-body","certification-body"],
     "subject": "food-industry",
     "topic": "fiqc-poultry-export",
     "year": 5,

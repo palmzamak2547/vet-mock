@@ -14,6 +14,7 @@
 export const QB_Y5_EPIDEMIOLOGY_2026B = [
   {
     "id": 105084,
+    "tags": ["association","causal-inference"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -31,6 +32,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105086,
+    "tags": ["confounding","indirect-association"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -48,6 +50,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105089,
+    "tags": ["bradford-hill-criteria","relative-risk","odds-ratio"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -65,6 +68,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105090,
+    "tags": ["relative-risk","two-by-two-table"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -82,6 +86,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105091,
+    "tags": ["odds-ratio","relative-risk"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -99,6 +104,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105094,
+    "tags": ["bradford-hill-criteria","consistency"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -116,6 +122,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105095,
+    "tags": ["bradford-hill-criteria","biological-plausibility"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -133,6 +140,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105096,
+    "tags": ["causal-inference","bias","confounding"],
     "subject": "epidemiology",
     "topic": "epidem-causation",
     "year": 5,
@@ -150,6 +158,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105098,
+    "tags": ["latent-period","incubation-period"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -167,6 +176,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105099,
+    "tags": ["incubation-period","Johnes-disease"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -184,6 +194,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105101,
+    "tags": ["chain-of-infection","portal-of-entry"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -201,6 +212,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105102,
+    "tags": ["active-immunity","vaccination"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -218,6 +230,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105104,
+    "tags": ["infectivity","pathogenicity"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -235,6 +248,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105105,
+    "tags": ["ID50","infectivity"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -252,6 +266,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105106,
+    "tags": ["pathogen-survival","avian-influenza"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -269,6 +284,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105109,
+    "tags": ["reservoir","chain-of-infection"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -286,6 +302,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105110,
+    "tags": ["carrier-state","latent-carrier"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -303,6 +320,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105111,
+    "tags": ["carrier-state","chronic-carrier","BVD"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -320,6 +338,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105112,
+    "tags": ["mode-of-transmission","droplet-spread","airborne-transmission"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -337,6 +356,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105113,
+    "tags": ["mechanical-vector","vector-borne-transmission"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -354,6 +374,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105114,
+    "tags": ["secondary-prevention","natural-history-of-disease"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -371,6 +392,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105115,
+    "tags": ["vector-borne-transmission","disease-control"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,
@@ -388,6 +410,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
   },
   {
     "id": 105116,
+    "tags": ["biosecurity","internal-biosecurity"],
     "subject": "epidemiology",
     "topic": "epidem-disease-transmission",
     "year": 5,

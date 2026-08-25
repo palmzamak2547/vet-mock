@@ -14,9 +14,10 @@
 import fs from 'node:fs';
 import { narratesDocument } from './lib/question-standard.mjs';
 
-const DIR = '.explain-fix';
-const keys = process.argv.slice(2).length
-  ? process.argv.slice(2)
+const DIR = process.argv.find((a) => a.startsWith("--dir="))?.slice(6) || ".explain-fix";
+const argKeys = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const keys = argKeys.length
+  ? argKeys
   : JSON.parse(fs.readFileSync(`${DIR}/batches.json`, 'utf8')).map((b) => b.key);
 
 // Numbers already in play for a question. Only a comma BETWEEN digits is a

@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   {
     "id": 105938,
+    "tags": ["transboundary-animal-disease","socioeconomic-impact"],
     "subject": "one-health",
     "topic": "oh-disease-prevention",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105940,
+    "tags": ["Ebola","reservoir-host"],
     "subject": "one-health",
     "topic": "oh-disease-prevention",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105943,
+    "tags": ["avian-influenza","live-bird-market"],
     "subject": "one-health",
     "topic": "oh-disease-prevention",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105944,
+    "tags": ["MOPH-TUC","international-collaboration"],
     "subject": "one-health",
     "topic": "oh-global-network",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105945,
+    "tags": ["WOAH","animal-health-standards"],
     "subject": "one-health",
     "topic": "oh-global-network",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105946,
+    "tags": ["norovirus","fresh-produce-contamination"],
     "subject": "one-health",
     "topic": "oh-foodborne",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105947,
+    "tags": ["norovirus","batch-pooling"],
     "subject": "one-health",
     "topic": "oh-foodborne",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105948,
+    "tags": ["stec","sprout-outbreak"],
     "subject": "one-health",
     "topic": "oh-foodborne",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105949,
+    "tags": ["EAEC","O104:H4","sprout-outbreak"],
     "subject": "one-health",
     "topic": "oh-foodborne",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105950,
+    "tags": ["listeria-monocytogenes","psychrotrophic-growth"],
     "subject": "one-health",
     "topic": "oh-foodborne",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105952,
+    "tags": ["BSE","active-surveillance"],
     "subject": "one-health",
     "topic": "oh-foodborne",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105953,
+    "tags": ["mcr-1","colistin-resistance"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105954,
+    "tags": ["MDR","resistance-definition"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105955,
+    "tags": ["cross-resistance","efflux-pump"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105956,
+    "tags": ["conjugation","transconjugant"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105957,
+    "tags": ["plasmid-incompatibility-group","epidemiological-marker"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105958,
+    "tags": ["AMR-surveillance","commensal-E-coli"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105959,
+    "tags": ["antimicrobial-susceptibility-testing","WGS","genotype-phenotype-discordance"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105960,
+    "tags": ["last-line-antibiotics","WHO-antibiotic-categorization"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105961,
+    "tags": ["antimicrobial-use","food-animals"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105962,
+    "tags": ["fluoroquinolone-resistance","chromosomal-mutation"],
     "subject": "one-health",
     "topic": "oh-amr",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105963,
+    "tags": ["Bt-corn","Bacillus-thuringiensis"],
     "subject": "one-health",
     "topic": "oh-concept",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105964,
+    "tags": ["substantial-equivalence","GM-food-safety"],
     "subject": "one-health",
     "topic": "oh-concept",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105965,
+    "tags": ["GM-food-safety","allergenicity"],
     "subject": "one-health",
     "topic": "oh-concept",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105966,
+    "tags": ["GM-crop-policy","import-regulation"],
     "subject": "one-health",
     "topic": "oh-concept",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105967,
+    "tags": ["volatile-organic-compound","ammonia"],
     "subject": "one-health",
     "topic": "oh-concept",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105968,
+    "tags": ["fluorinated-gases","global-warming-potential"],
     "subject": "one-health",
     "topic": "oh-concept",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105970,
+    "tags": ["food-loss","food-waste"],
     "subject": "one-health",
     "topic": "oh-concept",
     "year": 5,
@@ -546,6 +574,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105971,
+    "tags": ["agroecology","sustainable-food-system"],
     "subject": "one-health",
     "topic": "oh-concept",
     "year": 5,
@@ -565,6 +594,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105973,
+    "tags": ["sentinel-animal","household-toxicant"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -584,6 +614,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105974,
+    "tags": ["polymer-fume-fever","PTFE"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -603,6 +634,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105975,
+    "tags": ["elemental-mercury","inhalation-exposure","ARDS"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -622,6 +654,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105976,
+    "tags": ["methylmercury","neurotoxicity","bioaccumulation"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -641,6 +674,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105977,
+    "tags": ["asbestos","mesothelioma"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -660,6 +694,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105978,
+    "tags": ["2,4-D","lymphoma"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -679,6 +714,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105979,
+    "tags": ["public-health-notification","household-toxicant"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -698,6 +734,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105980,
+    "tags": ["dog-aging-project","IGF-1","canine-lifespan"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -717,6 +754,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105981,
+    "tags": ["comparative-oncology","neutering"],
     "subject": "one-health",
     "topic": "oh-vet-role",
     "year": 5,
@@ -736,6 +774,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105982,
+    "tags": ["livestock-waste-management","waste-treatment"],
     "subject": "one-health",
     "topic": "oh-collaboration",
     "year": 5,
@@ -755,6 +794,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105983,
+    "tags": ["biogas-system","stabilization-pond"],
     "subject": "one-health",
     "topic": "oh-collaboration",
     "year": 5,
@@ -774,6 +814,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105984,
+    "tags": ["effluent-standard","swine-farm-wastewater"],
     "subject": "one-health",
     "topic": "oh-collaboration",
     "year": 5,
@@ -793,6 +834,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105985,
+    "tags": ["effluent-standard","BOD"],
     "subject": "one-health",
     "topic": "oh-collaboration",
     "year": 5,
@@ -812,6 +854,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105986,
+    "tags": ["biogas-system","UASB"],
     "subject": "one-health",
     "topic": "oh-collaboration",
     "year": 5,
@@ -831,6 +874,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105987,
+    "tags": ["water-pollution","microplastics"],
     "subject": "one-health",
     "topic": "oh-collaboration",
     "year": 5,
@@ -850,6 +894,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105988,
+    "tags": ["risk-analysis","risk-communication"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -869,6 +914,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105989,
+    "tags": ["codex-alimentarius","risk-analysis"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -888,6 +934,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105990,
+    "tags": ["SPS-agreement","international-food-trade"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -907,6 +954,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105991,
+    "tags": ["risk-characterization","hazard-characterization","exposure-assessment"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -926,6 +974,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105992,
+    "tags": ["risk-management","acceptable-risk"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -945,6 +994,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105993,
+    "tags": ["exposure-assessment","quantitative-risk-assessment"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -964,6 +1014,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105994,
+    "tags": ["exposure-assessment","consumption-data"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -983,6 +1034,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105995,
+    "tags": ["hazard-characterization","dose-response"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1002,6 +1054,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105996,
+    "tags": ["exposure-assessment","food-chain-modelling"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1021,6 +1074,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105997,
+    "tags": ["ALOP","FSO"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1040,6 +1094,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105998,
+    "tags": ["import-risk-analysis","entry-assessment"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1059,6 +1114,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 105999,
+    "tags": ["import-risk-analysis","hazard-identification"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1078,6 +1134,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 106000,
+    "tags": ["white-spot-syndrome-virus","import-risk-analysis"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1097,6 +1154,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 106001,
+    "tags": ["PALEE","import-risk-analysis"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1116,6 +1174,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 106002,
+    "tags": ["white-spot-syndrome-virus","exposure-assessment"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1135,6 +1194,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 106003,
+    "tags": ["ALOP","risk-management"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,
@@ -1154,6 +1214,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
   },
   {
     "id": 106004,
+    "tags": ["thermal-inactivation","white-spot-syndrome-virus"],
     "subject": "one-health",
     "topic": "oh-risk-analysis",
     "year": 5,

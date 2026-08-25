@@ -262,6 +262,6 @@ export const QB_Y5_ZOONOSES_2026 = [
     explain: "เคสที่ Oxford สหราชอาณาจักร คือ Candida auris ใช้ WGS เทียบเชื้อจากผู้ป่วยกับเชื้อที่เก็บจากสิ่งแวดล้อม แล้วพบว่าตรงกันจนชี้ได้ว่าอุปกรณ์ปนเปื้อนเป็นแหล่งของการติดเชื้อจำนวนมากในหอผู้ป่วยวิกฤต\n\n❌ ทำไมข้ออื่นผิด\n— MRSA = เคสที่ Cambridge ใช้ WGS สืบสาย transmission chain และกำหนดเป้าหมายการทำ decolonization\n— Listeria monocytogenes = เคสในสหรัฐอเมริกา ใช้ระบุแหล่งและสาเหตุของการระบาด\n— E. coli O104:H4 = เคสในเยอรมนีและฝรั่งเศส ใช้วิเคราะห์การระบาดของอุจจาระร่วงเป็นเลือดและ hemolytic uremic syndrome\n\n💡 จับคู่ด้วยสถานที่ Oxford คู่กับ Candida auris ส่วน Cambridge คู่กับ MRSA",
     source: 'Epidemiological approach to zoonoses 2026 (SJ)',
     verified: 'Epidemiological approach to zoonoses 2026 (SJ) p.52',
-    tags: ['genomic-epidemiology', 'wgs', 'candida-auris'],
+    tags: ['genomic-epidemiology','WGS','candida-auris'],
   },
 ];

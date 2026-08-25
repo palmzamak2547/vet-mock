@@ -43,7 +43,7 @@ export const QB_PART3 = [
     q: 'Patellar luxation grade III หมายความว่า',
     options: ['Normal', 'Pops out แต่กลับเข้าได้เอง', 'Pops out บ่อย ต้องจับเข้า', 'Always luxated, reduce ได้ยาก'],
     answer: 2, explain: 'Grade III: pops out บ่อย ต้องจับเข้าด้วยมือ; Grade IV: always out' },
-  { id: 210, subject: 'surg3', year: 4, source: 'surg_lab_3_final_VET_84.pdf / sos_รวมข้อสอบเก่า_Lab_ortho.pdf', tags: ['TPLO'], type: 'mcq',
+  { id: 210, subject: 'surg3', year: 4, source: 'surg_lab_3_final_VET_84.pdf / sos_รวมข้อสอบเก่า_Lab_ortho.pdf', tags: ['tplo'], type: 'mcq',
     q: 'TPLO (Tibial Plateau Leveling Osteotomy) รักษาอะไร',
     options: ['Hip dysplasia (coxofemoral)', 'Cranial cruciate ligament rupture', 'Medial patellar luxation', 'Elbow dysplasia (FCP)'],
     answer: 1, explain: 'TPLO แก้ cranial cruciate (CrCL) rupture โดยปรับ level tibial plateau ลดแรงเฉือนหน้าเข่า' },
@@ -79,7 +79,7 @@ export const QB_PART3 = [
     q: 'Gestation period ในแมวคือ',
     options: ['58-60 วัน', '63-67 วัน', '70-72 วัน', '75-80 วัน'],
     answer: 1, explain: '63-67 วัน (average 65)' },
-  { id: 232, subject: 'repro', year: 4, source: 'ข้อสอบเก่า_Repro_Lab_Vet8385.pdf / animal_repro_ข้อสอบเก่า.pdf', tags: ['AI'], type: 'mcq',
+  { id: 232, subject: 'repro', year: 4, source: 'ข้อสอบเก่า_Repro_Lab_Vet8385.pdf / animal_repro_ข้อสอบเก่า.pdf', tags: ['ai'], type: 'mcq',
     q: 'การทำ AI ในสุนัขช่วงที่เหมาะสมที่สุดคือ',
     options: ['2-3 วันหลัง LH surge', '4-6 วันหลัง LH surge', '8-10 วันหลัง LH surge', 'วันแรกของ estrus'],
     answer: 1, explain: '4-6 วันหลัง LH surge (หลัง ovulation 2 วัน + maturation)' },
@@ -122,11 +122,11 @@ export const QB_PART3 = [
   // ═════════════════════════════════════════════════════
   // COM IV - expanded (15)
   // ═════════════════════════════════════════════════════
-  { id: 260, subject: 'com4', topic: 'ibd', year: 4, source: 'COM_IV_86_Final.pdf / COM_IV_final_ข้อสอบเก่าสรุป_Kim.pdf', tags: ['IBD'], type: 'mcq',
+  { id: 260, subject: 'com4', topic: 'ibd', year: 4, source: 'COM_IV_86_Final.pdf / COM_IV_final_ข้อสอบเก่าสรุป_Kim.pdf', tags: ['ibd'], type: 'mcq',
     q: 'Inflammatory Bowel Disease (IBD) dx ด้วยอะไร',
     options: ['CBC + chemistry', 'Endoscopy + biopsy', 'Fecal culture', 'X-ray abdomen'],
     answer: 1, explain: 'Biopsy = definitive dx; ต้องเป็น transmural inflammation' },
-  { id: 261, subject: 'com4', topic: 'ibd', year: 4, source: 'COM_IV_86_Final.pdf / COM_IV_final_ข้อสอบเก่าสรุป_Kim.pdf', tags: ['IBD'], type: 'mcq',
+  { id: 261, subject: 'com4', topic: 'ibd', year: 4, source: 'COM_IV_86_Final.pdf / COM_IV_final_ข้อสอบเก่าสรุป_Kim.pdf', tags: ['ibd'], type: 'mcq',
     q: 'First-line diet สำหรับ IBD',
     options: ['High-fat energy-dense diet', 'Hydrolyzed / novel protein', 'Raw meat-based diet', 'High-insoluble-fiber diet'],
     answer: 1, explain: 'First-line คือ hydrolyzed หรือ novel-protein elimination diet เพื่อลด antigen; high-fat/raw/fiber ไม่ใช่ตัวเลือกแรก' },

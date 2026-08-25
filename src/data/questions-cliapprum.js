@@ -1669,7 +1669,7 @@ export const QB_CLIAPPRUM = [
 
   { id: 5081, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
     source: 'TJ p3 (Vet 84 #8) + Kim p5', sourceType: 'student-compilation',
-    tags: ['bilateral-distension', 'DDx', 'abdominal-puncture'], type: 'mcq',
+    tags: ['bilateral-distension','ddx','abdominal-puncture'], type: 'mcq',
     q: 'Bilateral abdominal distension ในวัว — DDx 3 ภาวะหลักที่ต้องแยก',
     options: [
       'Pregnancy, Peritonitis, Ascites',
@@ -1726,7 +1726,7 @@ export const QB_CLIAPPRUM = [
 
   { id: 5085, subject: 'cliapprum', topic: 'mahahon-cliapprum-piyanat-hoof', year: 4,
     source: 'Kim p21 (Interpretation with RT)', sourceType: 'lecture',
-    tags: ['interpretation', 'RT', 'DDx'], type: 'mcq',
+    tags: ['interpretation','RT','ddx'], type: 'mcq',
     q: 'ฟาร์มที่มี Routine Trimming (RT) 2 ครั้ง/ปี พบโคขา lameness "เพิ่งผ่าน RT" — DDx ที่ควรนึกถึง',
     options: [
       'Overgrowth กีบยาว ปล่อยรอ RT รอบถัดไป',

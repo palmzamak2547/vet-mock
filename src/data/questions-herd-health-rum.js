@@ -403,7 +403,7 @@ export const QB_HERD_HEALTH_RUM = [
     "examOrigin": "HHM Ruminant Final TJ86",
     "tags": [
       "paratuberculosis",
-      "johnes-disease",
+      "Johnes-disease",
       "chronic-wasting",
       "ielisa"
     ],
@@ -505,7 +505,7 @@ export const QB_HERD_HEALTH_RUM = [
       "ebl",
       "blv",
       "retrovirus",
-      "agid"
+      "AGID"
     ],
     "type": "mcq",
     "q": "Enzootic Bovine Leukosis (EBL) — pathogen, mechanism ทาง transmission ที่สำคัญที่สุด และ gold standard ของ Dx คือข้อใด",
@@ -527,7 +527,7 @@ export const QB_HERD_HEALTH_RUM = [
     "source": "จะเปนหมอวัวในสองวันให้ได้เลย1 (infectious ds. only).pdf",
     "examOrigin": "HHM Ruminant Final TJ86",
     "tags": [
-      "mcf",
+      "MCF",
       "alcelaphine-herpes",
       "wildebeest",
       "corneal-opacity"
@@ -555,7 +555,7 @@ export const QB_HERD_HEALTH_RUM = [
       "brdc",
       "shipping-fever",
       "multifactorial",
-      "pasteurella"
+      "Pasteurella"
     ],
     "type": "mcq",
     "q": "Bovine Respiratory Disease Complex (BRDC, Shipping Fever) — กลไกของโรคและ pathogen หลักคือข้อใด",
@@ -630,7 +630,7 @@ export const QB_HERD_HEALTH_RUM = [
       "ketosis",
       "type-1",
       "type-2",
-      "bhba",
+      "BHBA",
       "dairy-cow"
     ],
     "type": "mcq",
@@ -706,7 +706,7 @@ export const QB_HERD_HEALTH_RUM = [
       "sara",
       "subacute-rumen-acidosis",
       "milk-fat",
-      "ndf"
+      "NDF"
     ],
     "type": "mcq",
     "q": "Subacute Ruminal Acidosis (SARA) — Dx ที่ herd level และวิธีปรับอาหารคืออะไร",

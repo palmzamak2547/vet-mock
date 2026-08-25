@@ -25,7 +25,7 @@ export const QB_COM1 = [
     "year": 4,
     "source": "COM I Final 86",
     "tags": [
-      "chf",
+      "CHF",
       "pulmonary-edema",
       "cat-pleural-effusion"
     ],
@@ -329,7 +329,7 @@ export const QB_COM1 = [
     "source": "COM I Final 86",
     "tags": [
       "aspiration",
-      "x-ray",
+      "X-ray",
       "lung-lobes"
     ],
     "type": "mcq",
@@ -355,7 +355,7 @@ export const QB_COM1 = [
     "tags": [
       "pte",
       "ctpa",
-      "d-dimer"
+      "D-dimer"
     ],
     "type": "mcq",
     "examOrigin": "COM I Final 86",

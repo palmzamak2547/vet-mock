@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_AVIAN_2026_B = [
   {
     "id": 105772,
+    "tags": ["riemerella-anatipestifer","fibrinous-polyserositis"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105773,
+    "tags": ["duck-viral-enteritis","annular-band-lesion"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105774,
+    "tags": ["duck-viral-hepatitis","picornavirus"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105775,
+    "tags": ["duck-tembusu-virus","vector-control"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105776,
+    "tags": ["goose-parvovirus","age-related-susceptibility"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105777,
+    "tags": ["avian-encephalomyelitis","antibody-kinetics"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105778,
+    "tags": ["avian-encephalomyelitis","vaccine-administration-route","viral-tropism"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105779,
+    "tags": ["ascites-syndrome","pulmonary-hypertension"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105780,
+    "tags": ["incubation-humidity","leg-deformity"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105781,
+    "tags": ["Staphylococcus-aureus","reovirus","arthritis"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105782,
+    "tags": ["pullorum-disease","fowl-typhoid"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105783,
+    "tags": ["pullorum-disease","fowl-typhoid","biosecurity"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105784,
+    "tags": ["inclusion-body-hepatitis","fowl-adenovirus"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105785,
+    "tags": ["fowl-adenovirus","disinfectant-selection"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105786,
+    "tags": ["egg-drop-syndrome","HI-test"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105787,
+    "tags": ["egg-drop-syndrome","vaccination-timing"],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105788,
+    "tags": ["ornithobacterium-rhinotracheale","airsacculitis"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105789,
+    "tags": ["ornithobacterium-rhinotracheale","killed-vaccine"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105790,
+    "tags": ["campylobacter","microaerophilic-culture"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105791,
+    "tags": ["campylobacter","filter-paper-technique","motility"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105792,
+    "tags": ["listeria","intracellular-bacteria","gram-positive"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105793,
+    "tags": ["histomoniasis","typhlohepatitis"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105794,
+    "tags": ["histomoniasis","deworming"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105795,
+    "tags": ["aspergillosis","aspergillus-fumigatus"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105796,
+    "tags": ["candidiasis","trichothecene","differential-diagnosis"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105797,
+    "tags": ["favus","dermatophyte"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105798,
+    "tags": ["mycotoxicosis","species-susceptibility","age-related-susceptibility"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105799,
+    "tags": ["aflatoxin-B1","hepatotoxicity","immunosuppression"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -546,6 +574,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105800,
+    "tags": ["ochratoxin-A","nephrotoxicity"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -565,6 +594,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105801,
+    "tags": ["T-2-toxin","lasalocid","coccidiosis"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -584,6 +614,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105802,
+    "tags": ["mycotoxin-binder","glucomannan"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -603,6 +634,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105803,
+    "tags": ["mycotoxicosis","feed-analysis"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -622,6 +654,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105804,
+    "tags": ["broiler-vaccination-program","ND","ibd"],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -641,6 +674,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105805,
+    "tags": ["ibd","vaccination-timing","vaccine-administration-route"],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -660,6 +694,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105806,
+    "tags": ["paired-sera","sampling-timing"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -679,6 +714,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105807,
+    "tags": ["paired-sera","fourfold-titer-rise"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -698,6 +734,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105808,
+    "tags": ["disease-freedom","serology-interpretation","PCR"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -717,6 +754,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105809,
+    "tags": ["vaccine-response-monitoring","sampling-timing"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -736,6 +774,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105810,
+    "tags": ["MDA","breeder-serology"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -755,6 +794,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105811,
+    "tags": ["pooled-samples","serology-interpretation"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -774,6 +814,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105812,
+    "tags": ["blood-collection","sample-volume"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -793,6 +834,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105813,
+    "tags": ["serum-separation","sample-handling"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -812,6 +854,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105814,
+    "tags": ["MDA","vaccination-timing"],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -831,6 +874,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105815,
+    "tags": ["mycoplasma-gallisepticum","vertical-transmission"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -850,6 +894,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105816,
+    "tags": ["MDA","HPAI"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -869,6 +914,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105817,
+    "tags": ["live-vaccine","mucosal-IgA"],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -888,6 +934,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105818,
+    "tags": ["HI-test","ND"],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -907,6 +954,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105819,
+    "tags": ["salmonella-enteritidis","intracellular-bacteria"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -926,6 +974,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105820,
+    "tags": ["ND","ICPI","pathotyping"],
     "subject": "avian-medicine",
     "topic": "avian-nd",
     "year": 5,
@@ -945,6 +994,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105821,
+    "tags": ["ND","pathotyping","viscerotropic-velogenic"],
     "subject": "avian-medicine",
     "topic": "avian-nd",
     "year": 5,
@@ -964,6 +1014,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105822,
+    "tags": ["ND","broiler-vaccination-program"],
     "subject": "avian-medicine",
     "topic": "avian-nd",
     "year": 5,
@@ -983,6 +1034,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105823,
+    "tags": ["ND","live-vaccine","killed-vaccine"],
     "subject": "avian-medicine",
     "topic": "avian-nd",
     "year": 5,
@@ -1002,6 +1054,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105824,
+    "tags": ["IBV","S1-gene","genotype"],
     "subject": "avian-medicine",
     "topic": "avian-ib",
     "year": 5,
@@ -1021,6 +1074,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105825,
+    "tags": ["IBV","false-layer"],
     "subject": "avian-medicine",
     "topic": "avian-ib",
     "year": 5,
@@ -1040,6 +1094,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105826,
+    "tags": ["IBV","nephropathogenic-IB","urate-deposition"],
     "subject": "avian-medicine",
     "topic": "avian-ib",
     "year": 5,
@@ -1059,6 +1114,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105827,
+    "tags": ["ILT","latency","trigeminal-ganglion"],
     "subject": "avian-medicine",
     "topic": "avian-lt",
     "year": 5,
@@ -1078,6 +1134,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105828,
+    "tags": ["ILT","CEO-vaccine","rolling-infection"],
     "subject": "avian-medicine",
     "topic": "avian-lt",
     "year": 5,
@@ -1097,6 +1154,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105829,
+    "tags": ["ILT","intranuclear-inclusion-body"],
     "subject": "avian-medicine",
     "topic": "avian-lt",
     "year": 5,
@@ -1116,6 +1174,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105830,
+    "tags": ["ILT","vaccine-route"],
     "subject": "avian-medicine",
     "topic": "avian-lt",
     "year": 5,
@@ -1135,6 +1194,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105831,
+    "tags": ["aMPV","vaccine-program"],
     "subject": "avian-medicine",
     "topic": "avian-mpv",
     "year": 5,
@@ -1154,6 +1214,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105832,
+    "tags": ["aMPV","hemagglutination"],
     "subject": "avian-medicine",
     "topic": "avian-mpv",
     "year": 5,
@@ -1173,6 +1234,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105833,
+    "tags": ["aMPV","sample-timing"],
     "subject": "avian-medicine",
     "topic": "avian-mpv",
     "year": 5,
@@ -1192,6 +1254,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105834,
+    "tags": ["aMPV","morbidity-mortality","turkey"],
     "subject": "avian-medicine",
     "topic": "avian-mpv",
     "year": 5,
@@ -1211,6 +1274,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105835,
+    "tags": ["fowl-pox","cutaneous-form","diphtheritic-form"],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -1230,6 +1294,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105836,
+    "tags": ["fowl-pox","wing-web"],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -1249,6 +1314,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105837,
+    "tags": ["fowl-pox","mosquito-vector"],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -1268,6 +1334,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105838,
+    "tags": ["fowl-pox","recombinant-vaccine","viral-vector"],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -1287,6 +1354,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105839,
+    "tags": ["MG","ts-11","live-vaccine"],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1306,6 +1374,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105840,
+    "tags": ["mycoplasma","beta-lactam","cell-wall"],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1325,6 +1394,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105841,
+    "tags": ["MG","live-vaccine","antibiotic-interference"],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1344,6 +1414,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105842,
+    "tags": ["MS","egg-apex-abnormality"],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1363,6 +1434,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105843,
+    "tags": ["MS","MG","NAD-requirement"],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1382,6 +1454,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105844,
+    "tags": ["MS","infectious-synovitis","synovial-fluid"],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1401,6 +1474,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105845,
+    "tags": ["mycoplasma","serum-plate-agglutination","IgM"],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1420,6 +1494,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105846,
+    "tags": ["MG","FP-MG-vaccine","recombinant-vaccine"],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1439,6 +1514,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105847,
+    "tags": ["infectious-coryza","satellite-colony","NAD-requirement"],
     "subject": "avian-medicine",
     "topic": "avian-coryza",
     "year": 5,
@@ -1458,6 +1534,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105848,
+    "tags": ["infectious-coryza","bacterin","vaccine-program"],
     "subject": "avian-medicine",
     "topic": "avian-coryza",
     "year": 5,
@@ -1477,6 +1554,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105849,
+    "tags": ["infectious-coryza","carrier-state","infraorbital-sinus"],
     "subject": "avian-medicine",
     "topic": "avian-coryza",
     "year": 5,
@@ -1496,6 +1574,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105850,
+    "tags": ["fowl-cholera","necrotic-foci"],
     "subject": "avian-medicine",
     "topic": "avian-fowl-cholera",
     "year": 5,
@@ -1515,6 +1594,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105851,
+    "tags": ["fowl-cholera","host-susceptibility","age-susceptibility"],
     "subject": "avian-medicine",
     "topic": "avian-fowl-cholera",
     "year": 5,
@@ -1534,6 +1614,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105852,
+    "tags": ["fowl-cholera","bipolar-staining"],
     "subject": "avian-medicine",
     "topic": "avian-fowl-cholera",
     "year": 5,
@@ -1553,6 +1634,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105853,
+    "tags": ["colibacillosis","serotype"],
     "subject": "avian-medicine",
     "topic": "avian-coli",
     "year": 5,
@@ -1572,6 +1654,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105854,
+    "tags": ["coligranuloma","avian-tuberculosis","differential-diagnosis"],
     "subject": "avian-medicine",
     "topic": "avian-coli",
     "year": 5,
@@ -1591,6 +1674,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105855,
+    "tags": ["colibacillosis","colisepticemia","polyserositis"],
     "subject": "avian-medicine",
     "topic": "avian-coli",
     "year": 5,
@@ -1610,6 +1694,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105856,
+    "tags": ["avian-influenza","hemagglutinin","cross-protection"],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1629,6 +1714,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105857,
+    "tags": ["avian-influenza","HPAI","LPAI"],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1648,6 +1734,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105858,
+    "tags": ["avian-influenza","control-zone"],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1667,6 +1754,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105859,
+    "tags": ["avian-influenza","WOAH","stamp-out-policy"],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1686,6 +1774,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105860,
+    "tags": ["vertical-transmission","CIA"],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1705,6 +1794,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105861,
+    "tags": ["avian-influenza","HPAI","LPAI"],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1724,6 +1814,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105862,
+    "tags": ["ibd","bursal-atrophy"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1743,6 +1834,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105863,
+    "tags": ["coccidiosis","Eimeria-necatrix","lesion-site"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1762,6 +1854,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105864,
+    "tags": ["coccidiosis","Eimeria-acervulina","lesion-site"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1781,6 +1874,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105865,
+    "tags": ["Marek","avian-leukosis","transmission"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1800,6 +1894,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105866,
+    "tags": ["CIA","mortality-pattern","vertical-transmission"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1819,6 +1914,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105867,
+    "tags": ["ibd","immune-complex-vaccine"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1838,6 +1934,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105868,
+    "tags": ["necrotic-enteritis","Clostridium-perfringens"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1857,6 +1954,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105869,
+    "tags": ["leucocytozoonosis","Culicoides","megaloschizont"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1876,6 +1974,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105870,
+    "tags": ["reovirus","viral-arthritis","tenosynovitis"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1895,6 +1994,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105871,
+    "tags": ["serology","sample-size","pooled-serum"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1914,6 +2014,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105872,
+    "tags": ["ibd","serotype","age-susceptibility"],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,

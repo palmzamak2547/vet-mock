@@ -153,7 +153,7 @@ export const QB_SURG1 = [
     "tags": [
       "incisional-block",
       "bupivacaine",
-      "ovh",
+      "OVH",
       "clinical-dose"
     ],
     "type": "mcq",

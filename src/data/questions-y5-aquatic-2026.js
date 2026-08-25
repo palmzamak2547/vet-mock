@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_AQUATIC_2026 = [
   {
     "id": 105117,
+    "tags": ["animal-disease-act","law-repeal"],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -31,6 +32,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105118,
+    "tags": ["animal-disease-act","animal-definition","ministerial-notification"],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -48,6 +50,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105119,
+    "tags": ["animal-disease-act","carcass-definition"],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -65,6 +68,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105120,
+    "tags": ["animal-disease-act","listed-diseases"],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -82,6 +86,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105121,
+    "tags": ["animal-disease-act","disease-reporting","number-threshold"],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -99,6 +104,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105122,
+    "tags": ["aquatic-disease-list","number-threshold"],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -116,6 +122,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105123,
+    "tags": ["aquatic-disease-list","YHV"],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -133,6 +140,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105124,
+    "tags": ["aquatic-disease-list","AHPND"],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -150,6 +158,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105128,
+    "tags": ["body-shape","depressiform"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -167,6 +176,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105129,
+    "tags": ["fish-measurement","total-length"],
     "image": "/figures/questions/q105129.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
@@ -185,6 +195,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105130,
+    "tags": ["salmonid","adipose-fin","pyloric-ceca"],
     "image": "/figures/questions/q105130.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
@@ -203,6 +214,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105131,
+    "tags": ["fish-kidney","cranial-kidney"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -220,6 +232,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105133,
+    "tags": ["coelomic-cavity","transverse-septum"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -237,6 +250,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105137,
+    "tags": ["chromatophore","iridophore"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -254,6 +268,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105138,
+    "tags": ["chromatophore","melanophore","melanosome-dispersion"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -271,6 +286,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105139,
+    "tags": ["fish-muscle","succinate-dehydrogenase"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -288,6 +304,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105141,
+    "tags": ["fish-heart","blood-flow-sequence"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -305,6 +322,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105142,
+    "tags": ["blood-collection","caudal-vein"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -322,6 +340,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105143,
+    "tags": ["fish-erythrocyte","nucleated-RBC"],
     "image": "/figures/questions/q105143.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
@@ -340,6 +359,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105145,
+    "tags": ["counter-current","gill"],
     "image": "/figures/questions/q105145.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
@@ -358,6 +378,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105147,
+    "tags": ["heme-catabolism","biliverdin"],
     "image": "/figures/questions/q105147.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
@@ -376,6 +397,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105148,
+    "tags": ["oviparity","external-fertilization"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -393,6 +415,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105149,
+    "tags": ["hermaphroditism","protandry"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -410,6 +433,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105151,
+    "tags": ["fish-brain","mesencephalon","telencephalon"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -427,6 +451,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105152,
+    "tags": ["thyroid-axis","TRH","TSH"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -444,6 +469,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105154,
+    "tags": ["inner-ear","semicircular-canal"],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -461,6 +487,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105159,
+    "tags": ["WSSV","shrimp-industry-timeline"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -478,6 +505,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105160,
+    "tags": ["shrimp-industry-timeline","whiteleg-shrimp"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -495,6 +523,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105162,
+    "tags": ["shrimp-larval-stages","postlarvae"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -512,6 +541,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105165,
+    "tags": ["mollusc-aquaculture","scientific-name"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -529,6 +559,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105166,
+    "tags": ["thailand-aquaculture","crustacean-production","number-threshold"],
     "image": "/figures/questions/q105166.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -547,6 +578,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105167,
+    "tags": ["thailand-aquaculture","nile-tilapia","number-threshold"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -564,6 +596,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105169,
+    "tags": ["ADG","growth-performance"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -581,6 +614,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105170,
+    "tags": ["FCR","feed-efficiency"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -598,6 +632,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105171,
+    "tags": ["FCR","species-comparison"],
     "image": "/figures/questions/q105171.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -616,6 +651,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105175,
+    "tags": ["disease-triangle","disease-causation"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -633,6 +669,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105176,
+    "tags": ["probiotic","water-quality","Vibrio"],
     "image": "/figures/questions/q105176.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -651,6 +688,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105177,
+    "tags": ["probiotic","postbiotic"],
     "image": "/figures/questions/q105177.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -669,6 +707,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105178,
+    "tags": ["prebiotic","non-digestible-carbohydrate"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -686,6 +725,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105180,
+    "tags": ["EMS","AHPND","hepatopancreas"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -703,6 +743,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105182,
+    "tags": ["EHP","slow-growth"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -720,6 +761,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105183,
+    "tags": ["EHP","spore-morphology","polar-filament"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -737,6 +779,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105184,
+    "tags": ["EHP","production-performance"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -754,6 +797,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105185,
+    "tags": ["EHP","polar-tube-extrusion"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -771,6 +815,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105186,
+    "tags": ["EHP","pond-disinfection","spore-inactivation"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -788,6 +833,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105187,
+    "tags": ["EHP","central-drainage-system"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -805,6 +851,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105188,
+    "tags": ["EHP","disinfectant-efficacy","chlorine"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -822,6 +869,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105189,
+    "tags": ["biosecurity","6-cleans","fomite"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -839,6 +887,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105191,
+    "tags": ["aquaculture-standard","animal-welfare"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -856,6 +905,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105192,
+    "tags": ["fish-pathogen","pathogen-proportion"],
     "image": "/figures/questions/q105192.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -874,6 +924,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105193,
+    "tags": ["vaccine-type","immunogenicity","tolerability"],
     "image": "/figures/questions/q105193.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -892,6 +943,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105194,
+    "tags": ["fish-vaccination","injection-route"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -909,6 +961,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105195,
+    "tags": ["fish-vaccination","immersion-vaccine","oral-vaccine"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -926,6 +979,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105196,
+    "tags": ["vaccine-components","preservative"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -943,6 +997,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105197,
+    "tags": ["emulsion-adjuvant","antigen-presentation"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -960,6 +1015,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105198,
+    "tags": ["nanovaccine","ISCOMs","nanoliposome"],
     "image": "/figures/questions/q105198.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -978,6 +1034,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105199,
+    "tags": ["columnaris","Flavobacterium-columnare"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -995,6 +1052,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105200,
+    "tags": ["columnaris","virulence-factor","chondroitin-AC-lyase"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1012,6 +1070,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105201,
+    "tags": ["columnaris","live-vaccine","immersion-vaccine"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1029,6 +1088,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105202,
+    "tags": ["immersion-vaccine","antigen-delivery"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1046,6 +1106,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105203,
+    "tags": ["nanovaccine","mucoadhesion","surface-charge"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1063,6 +1124,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105204,
+    "tags": ["nanovaccine","zeta-potential","polydispersity-index"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1080,6 +1142,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105206,
+    "tags": ["nanovaccine","vaccine-development-workflow"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1092,6 +1155,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105208,
+    "tags": ["killed-vaccine","duration-of-immunity"],
     "image": "/figures/questions/q105208.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -1110,6 +1174,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105209,
+    "tags": ["vaccine-efficacy","field-trial"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1127,6 +1192,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105211,
+    "tags": ["TiLV","nile-tilapia","mortality-rate"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1144,6 +1210,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105213,
+    "tags": ["alkaloid","phytochemical-classification"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1161,6 +1228,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105214,
+    "tags": ["fish-anesthesia","anesthesia-stages"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -1178,6 +1246,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105215,
+    "tags": ["short-chain-fatty-acid","multiple-emulsion","antibiotic-alternative"],
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,

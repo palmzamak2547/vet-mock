@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_AVIAN_2026_C = [
   {
     "id": 106193,
+    "tags": ["ibd","B-lymphocyte-tropism","immunosuppression"],
     "subject": "avian-medicine",
     "topic": "avian-ibd",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106194,
+    "tags": ["CIA","mortality-pattern"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106195,
+    "tags": ["Marek","cell-free-virus"],
     "subject": "avian-medicine",
     "topic": "avian-marek",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106196,
+    "tags": ["reticuloendotheliosis","vaccine-contamination"],
     "subject": "avian-medicine",
     "topic": "avian-marek",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106197,
+    "tags": ["fowl-pox","mosquito-vector"],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106198,
+    "tags": ["reovirus","viral-arthritis"],
     "subject": "avian-medicine",
     "topic": "avian-reo",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106199,
+    "tags": ["Marek","early-cytolytic-phase","immunosuppression"],
     "subject": "avian-medicine",
     "topic": "avian-marek",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106200,
+    "tags": ["avian-leukosis","vertical-transmission","immunotolerance"],
     "subject": "avian-medicine",
     "topic": "avian-marek",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106201,
+    "tags": ["avian-leukosis","ALV-subgroup"],
     "subject": "avian-medicine",
     "topic": "avian-marek",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106202,
+    "tags": ["ibd","bursal-lesion","petechial-hemorrhage"],
     "subject": "avian-medicine",
     "topic": "avian-ibd",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106203,
+    "tags": ["Marek","visceral-lymphoma","sciatic-nerve-enlargement"],
     "subject": "avian-medicine",
     "topic": "avian-marek",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106204,
+    "tags": ["CIA","bone-marrow-atrophy","blue-wing-disease"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106205,
+    "tags": ["ibd","intermediate-plus-vaccine"],
     "subject": "avian-medicine",
     "topic": "avian-ibd",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106206,
+    "tags": ["Marek","cell-associated-vaccine","in-ovo-vaccination"],
     "subject": "avian-medicine",
     "topic": "avian-marek",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106207,
+    "tags": ["Marek","recombinant-vaccine","viral-vector"],
     "subject": "avian-medicine",
     "topic": "avian-marek",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106208,
+    "tags": ["reovirus","vaccine-program","breeder-vaccination"],
     "subject": "avian-medicine",
     "topic": "avian-reo",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106209,
+    "tags": ["fowl-pox","wing-web"],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106210,
+    "tags": ["leucocytozoonosis","black-fly-vector"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106211,
+    "tags": ["necrotic-enteritis","Clostridium-perfringens","feed-change"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106212,
+    "tags": ["coccidiosis","wet-litter","age-susceptibility"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106213,
+    "tags": ["coccidiosis","Eimeria-necatrix","lesion-site"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106214,
+    "tags": ["coccidiosis","Eimeria-acervulina","lesion-site"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106215,
+    "tags": ["coccidiosis","Eimeria-tenella","lesion-site"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106216,
+    "tags": ["coccidiosis","Eimeria-maxima","lesion-site"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106217,
+    "tags": ["coccidiosis","shuttle-program","anticoccidial-resistance"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106218,
+    "tags": ["avian-malaria","chloroquine","mosquito-vector"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106219,
+    "tags": ["coccidiosis","live-vaccine","vaccine-route"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_AVIAN_2026_C = [
   },
   {
     "id": 106220,
+    "tags": ["leucocytozoonosis","killed-vaccine","vector-control"],
     "subject": "avian-medicine",
     "topic": "avian-cia",
     "year": 5,

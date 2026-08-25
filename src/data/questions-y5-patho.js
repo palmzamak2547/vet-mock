@@ -123,7 +123,7 @@ export const QB_Y5_PATHO = [
   { id: 8206, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
-    tags: ['GI', 'enteritis', 'differential'], type: 'mcq',
+    tags: ['gi','enteritis','differential'], type: 'mcq',
     q: 'ข้อใด ไม่ก่อ ให้เกิดรอยโรคในระบบทางเดินอาหาร',
     options: [
       'Giardiasis, FMD, Canine distemper',
@@ -304,7 +304,7 @@ export const QB_Y5_PATHO = [
   { id: 8217, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
-    tags: ['FMD', 'vesicular', 'swine'], type: 'mcq',
+    tags: ['fmd','vesicular','swine'], type: 'mcq',
     q: 'ข้อใดกล่าว ไม่ถูกต้อง เกี่ยวกับโรคปากและเท้าเปื่อย (FMD)',
     options: [
       'สามารถทำให้เกิดรอยโรคเหมือนโรคติดเชื้อไวรัส Senecavirus A',
@@ -480,7 +480,7 @@ export const QB_Y5_PATHO = [
   { id: 8228, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
-    tags: ['Erysipelas', 'swine'], type: 'mcq',
+    tags: ['erysipelas','swine'], type: 'mcq',
     q: 'ผ่าซากสุกรพบ Chronic proliferative synovitis, degenerative arthritis และ vegetative valvular endocarditis วินิจฉัยเป็นโรคใด',
     options: [
       'Salmonellosis',
@@ -500,7 +500,7 @@ export const QB_Y5_PATHO = [
   { id: 8229, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
-    tags: ['IBD', 'Gumboro', 'avian', 'case'], type: 'mcq',
+    tags: ['ibd','Gumboro','avian','case'], type: 'mcq',
     q: 'ไก่เนื้ออายุ 4 สัปดาห์ ท้องเสียน้ำสีขาว ตัวสั่น อัมพาตปีก-ขา ตาย 50% ผ่าซากพบจุดเลือดออกที่กระเพาะและต่อมทอนซิลไส้ติ่ง — วินิจฉัยเบื้องต้น',
     options: [
       'Marek\'s disease (lymphoid tumor form)',
@@ -516,7 +516,7 @@ export const QB_Y5_PATHO = [
   { id: 8230, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
-    tags: ['IBD', 'IB', 'avian', 'differential'], type: 'mcq',
+    tags: ['ibd','IB','avian','differential'], type: 'mcq',
     q: 'ข้อใด ไม่ใช่ รอยโรคของ Infectious bursal disease (IBD)',
     options: [
       'Patchy hemorrhage ที่กล้ามเนื้อขา',
@@ -713,7 +713,7 @@ export const QB_Y5_PATHO = [
   { id: 8242, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
-    tags: ['AIHA', 'Coombs', 'diagnostics'], type: 'mcq',
+    tags: ['AIHA','coombs','diagnostics'], type: 'mcq',
     q: 'การวินิจฉัย Autoimmune hemolytic anemia (AIHA) ในสุนัข ควรตรวจอะไรเพิ่มเติมนอกจากโลหิตวิทยา',
     options: [
       'Red blood cell index',
@@ -777,7 +777,7 @@ export const QB_Y5_PATHO = [
   { id: 8246, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
     examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
-    tags: ['swine', 'pneumonia', 'Salmonella'], type: 'mcq',
+    tags: ['swine','pneumonia','salmonella'], type: 'mcq',
     q: 'แบคทีเรียชนิดใดในสุกรที่ก่อรอยโรคปอดคล้าย viral pneumonia (diffuse pneumonia)',
     options: [
       'Pasteurella multocida',

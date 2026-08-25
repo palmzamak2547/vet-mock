@@ -52,7 +52,7 @@ export const QB_SWINE_HERD = [
     "source": "-swine herd mid ดาวสรุปบายน้อนพิน.pdf",
     "examOrigin": "Swine Herd Mid TJ86",
     "tags": [
-      "asf",
+      "ASF",
       "african-swine-fever",
       "differential-diagnosis",
       "hemorrhagic-fever"
@@ -77,7 +77,7 @@ export const QB_SWINE_HERD = [
     "source": "Swine Hlth final TJ.pdf",
     "examOrigin": "Swine Health Final TJ86",
     "tags": [
-      "prrs",
+      "PRRS",
       "vaccine",
       "passive-immunity",
       "colostrum"
@@ -228,10 +228,10 @@ export const QB_SWINE_HERD = [
     "source": "-swine herd mid ดาวสรุปบายน้อนพิน.pdf",
     "examOrigin": "Swine Herd Mid TJ86 อ.เพราพิลาส",
     "tags": [
-      "adg",
+      "ADG",
       "production-calculation",
       "feed-conversion",
-      "fcr"
+      "FCR"
     ],
     "type": "mcq",
     "q": "สุกรคอกหนึ่ง 10 ตัว เข้าทดสอบอาหารวันที่ 1 ก.ค. เวลา 8:00 น. สิ้นสุด 31 ก.ค. เวลา 8:00 น. (30 วัน) น้ำหนักรวมเพิ่ม 500 kg สุกรได้รับอาหารรวม 800 kg (ถัง 40 kg × 20 ถัง = 800 kg, เหลือ 70 kg → กิน 730 kg) ค่า ADG ของสุกรเท่ากับเท่าใด",
@@ -379,7 +379,7 @@ export const QB_SWINE_HERD = [
     "source": "Record Analysis.pdf",
     "examOrigin": "Record Analysis อ.รุ่งธรรม",
     "tags": [
-      "wsi",
+      "WSI",
       "wean-to-service",
       "lactation",
       "fertility"
@@ -582,7 +582,7 @@ export const QB_SWINE_HERD = [
     "examOrigin": "Swine Health Final TJ86",
     "tags": [
       "swine-dysentery",
-      "brachyspira",
+      "Brachyspira",
       "tiamulin",
       "diarrhea-bloody"
     ],
@@ -635,7 +635,7 @@ export const QB_SWINE_HERD = [
       "epidemic",
       "endemic",
       "pandemic",
-      "asf",
+      "ASF",
       "fmd"
     ],
     "type": "mcq",
@@ -712,9 +712,9 @@ export const QB_SWINE_HERD = [
     "tags": [
       "mastitis",
       "subclinical",
-      "scc",
+      "SCC",
       "somatic-cell-count",
-      "cmt"
+      "CMT"
     ],
     "type": "mcq",
     "q": "Subclinical mastitis ในโคนมไม่มีอาการ visible แต่ทำให้ผลผลิตน้ำนมและคุณภาพลดลง — การตรวจที่เหมาะสมที่สุดในระดับฟาร์มคือข้อใด",
@@ -739,7 +739,7 @@ export const QB_SWINE_HERD = [
       "mastitis",
       "contagious",
       "environmental",
-      "staphylococcus-aureus",
+      "Staphylococcus-aureus",
       "streptococcus-uberis"
     ],
     "type": "mcq",

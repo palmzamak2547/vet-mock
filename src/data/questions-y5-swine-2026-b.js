@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_SWINE_2026_B = [
   {
     "id": 105576,
+    "tags": ["lawsonia-intracellularis","proliferative-enteropathy"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105577,
+    "tags": ["brachyspira-hyodysenteriae","swine-dysentery"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105579,
+    "tags": ["lawsonia-intracellularis","ELISA","IPMA"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105580,
+    "tags": ["escherichia-coli","dietary-fiber"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105582,
+    "tags": ["fecal-pH","secretory-diarrhea"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105583,
+    "tags": ["differential-diagnosis","salmonellosis","CSF"],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105584,
+    "tags": ["salmonellosis","disease-distribution-pattern"],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105585,
+    "tags": ["button-ulcer","turkey-egg-kidney","CSF"],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105586,
+    "tags": ["viral-etiology","antimicrobial-use"],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105587,
+    "tags": ["fmd","sample-collection"],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105588,
+    "tags": ["fmd","swine-vesicular-disease"],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105589,
+    "tags": ["fmd","killed-vaccine","serotype-matching"],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105590,
+    "tags": ["fmd","secondary-bacterial-infection"],
     "subject": "swine-clinic",
     "topic": "swine-fmd",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105591,
+    "tags": ["ASF","PCR-interpretation"],
     "subject": "swine-clinic",
     "topic": "swine-asf",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105592,
+    "tags": ["ASF","sample-collection"],
     "subject": "swine-clinic",
     "topic": "swine-asf",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105593,
+    "tags": ["CSF","DIVA"],
     "subject": "swine-clinic",
     "topic": "swine-asf",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105594,
+    "tags": ["ASF","attenuated-vaccine"],
     "subject": "swine-clinic",
     "topic": "swine-asf",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105595,
+    "tags": ["CSF","transplacental-infection"],
     "subject": "swine-clinic",
     "topic": "swine-asf",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105596,
+    "tags": ["aujeszky-disease","viral-tropism"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105597,
+    "tags": ["aujeszky-disease","DIVA","gE-deleted-vaccine"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105598,
+    "tags": ["exudative-epidermitis","age-predilection"],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105599,
+    "tags": ["mycoplasma-suis","hemolytic-anemia"],
     "subject": "swine-clinic",
     "topic": "swine-pcv2",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105600,
+    "tags": ["viral-diarrhea","TGE","PED"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105601,
+    "tags": ["TGE","age-predilection"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105602,
+    "tags": ["TGE","PED","Alphacoronavirus"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105603,
+    "tags": ["PED","vaccination-timing"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105604,
+    "tags": ["rotavirus","mortality-rate"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105605,
+    "tags": ["rotavirus","autogenous-vaccine"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -546,6 +574,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105606,
+    "tags": ["feedback-exposure","lactogenic-immunity"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -565,6 +594,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105607,
+    "tags": ["pathogen-load-reduction","biosecurity","pig-flow"],
     "subject": "swine-clinic",
     "topic": "swine-gi-viral",
     "year": 5,
@@ -584,6 +614,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105608,
+    "tags": ["porcine-cytomegalovirus","betaherpesvirus"],
     "subject": "swine-clinic",
     "topic": "swine-resp-viral",
     "year": 5,
@@ -603,6 +634,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105609,
+    "tags": ["porcine-cytomegalovirus","viral-tropism"],
     "subject": "swine-clinic",
     "topic": "swine-resp-viral",
     "year": 5,
@@ -622,6 +654,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105610,
+    "tags": ["swine-influenza","influenza-subtypes"],
     "subject": "swine-clinic",
     "topic": "swine-resp-viral",
     "year": 5,
@@ -641,6 +674,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105611,
+    "tags": ["swine-influenza","antigenic-drift"],
     "subject": "swine-clinic",
     "topic": "swine-resp-viral",
     "year": 5,
@@ -660,6 +694,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105612,
+    "tags": ["swine-influenza","secondary-bacterial-infection"],
     "subject": "swine-clinic",
     "topic": "swine-resp-viral",
     "year": 5,
@@ -679,6 +714,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105613,
+    "tags": ["PRCV","mild-pneumonia"],
     "subject": "swine-clinic",
     "topic": "swine-resp-viral",
     "year": 5,
@@ -698,6 +734,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105614,
+    "tags": ["PHEV","Betacoronavirus"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -717,6 +754,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105615,
+    "tags": ["PHEV","vomiting-and-wasting-disease","encephalomyelitis"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -736,6 +774,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105616,
+    "tags": ["PHEV","age-predilection"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -755,6 +794,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105617,
+    "tags": ["tetanus","antitoxin"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -774,6 +814,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105618,
+    "tags": ["tetanus","wound-infection"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -793,6 +834,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105619,
+    "tags": ["rabies","reservoir-control"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -812,6 +854,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105620,
+    "tags": ["listeria-monocytogenes","carrier-state","zoonosis"],
     "subject": "swine-clinic",
     "topic": "swine-cns",
     "year": 5,
@@ -831,6 +874,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105621,
+    "tags": ["actinobacillus-pleuropneumoniae","gram-negative","bacterial-morphology"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -850,6 +894,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105622,
+    "tags": ["actinobacillus-pleuropneumoniae","peracute-form"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -869,6 +914,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105623,
+    "tags": ["actinobacillus-pleuropneumoniae","bacterial-isolation"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -888,6 +934,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105624,
+    "tags": ["actinobacillus-pleuropneumoniae","DIVA","ApxIV"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -907,6 +954,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105625,
+    "tags": ["actinobacillus-pleuropneumoniae","replacement-stock-sourcing"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -926,6 +974,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105626,
+    "tags": ["mycoplasma-hyopneumoniae","cranioventral-consolidation"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -945,6 +994,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105627,
+    "tags": ["actinobacillus-pleuropneumoniae","fibrinonecrotic-pneumonia","fibrinous-pleuritis"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -964,6 +1014,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105628,
+    "tags": ["glasserella-parasuis","polyserositis","meningitis"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -983,6 +1034,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105629,
+    "tags": ["pneumonic-pasteurellosis","lesion-demarcation"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1002,6 +1054,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105630,
+    "tags": ["atrophic-rhinitis","turbinate-atrophy"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1021,6 +1074,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105631,
+    "tags": ["atrophic-rhinitis","snout-cross-section"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1040,6 +1094,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105632,
+    "tags": ["atrophic-rhinitis","bordetella-bronchiseptica"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1059,6 +1114,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105633,
+    "tags": ["mycoplasma-hyopneumoniae","incubation-period"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1078,6 +1134,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105634,
+    "tags": ["enzootic-pneumonia","chronic-cough"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1097,6 +1154,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105635,
+    "tags": ["mycoplasma-hyopneumoniae","culture-difficulty","mycoplasma-hyorhinis"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1116,6 +1174,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105636,
+    "tags": ["mycoplasma-hyorhinis","mycoplasma-hyosynoviae","polyserositis"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1135,6 +1194,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105637,
+    "tags": ["mycoplasma-hyosynoviae","lameness","antimicrobial-response"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1154,6 +1214,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105638,
+    "tags": ["Streptococcus-suis","serotype-2","zoonosis"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1173,6 +1234,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105639,
+    "tags": ["Streptococcus-suis","early-colonizer"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1192,6 +1254,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105640,
+    "tags": ["actinobacillus-suis","embolic-septicemia"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1211,6 +1274,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105641,
+    "tags": ["glasserella-parasuis","carrier-state"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1230,6 +1294,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105642,
+    "tags": ["pneumonic-pasteurellosis","endotoxic-shock"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,
@@ -1249,6 +1314,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
   },
   {
     "id": 105643,
+    "tags": ["mycoplasma-hyopneumoniae","secondary-bacterial-infection"],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",
     "year": 5,

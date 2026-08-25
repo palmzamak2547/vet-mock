@@ -42,7 +42,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
     explain: 'แผนที่ WHO ข้อมูล ณ 24 มกราคม 2014 ระบุอินโดนีเซียสูงสุดที่ 195 ราย เสียชีวิต 163 ราย รองลงมาคืออียิปต์ 173 ราย เสียชีวิต 63 ราย เวียดนาม 125 ราย เสียชีวิต 62 ราย และกัมพูชา 47 ราย เสียชีวิต 33 ราย ส่วนไทยอยู่ที่ 25 ราย เสียชีวิต 17 ราย',
     source: 'Introduction to Epidemiology 2569 (NC)',
     verified: 'Introduction to Epidemiology 2569 (NC) p.6',
-    tags: ['avian-influenza', 'h5n1', 'global-burden'],
+    tags: ['avian-influenza','H5N1','global-burden'],
   },
   {
     id: 100003, subject: 'epidemiology', topic: 'epidem-intro', year: 5,
@@ -58,7 +58,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
     explain: "262 หารด้วย 433 คือผู้ป่วยยืนยันเกินครึ่งเสียชีวิต case fatality rate ของ H5N1 จึงอยู่ที่เกือบ 60% ซึ่งสูงมากสำหรับเชื้อไข้หวัดใหญ่\n\n❌ ทำไมข้ออื่นผิด\n— \"ประมาณ 0.5%\" = ค่าของ novel H1N1 ปี 2009 ที่มีผู้ป่วย 94,512 ราย เสียชีวิต 429 ราย ใน 135 ประเทศ คนละเชื้อคนละเหตุการณ์\n— \"ประมาณ 30%\" = ต่ำกว่าอัตราส่วนที่ได้จาก 262 ต่อ 433\n— \"ประมาณ 90%\" = สูงกว่าอัตราส่วนที่ได้จาก 262 ต่อ 433",
     source: 'Introduction to Epidemiology 2569 (NC)',
     verified: 'Introduction to Epidemiology 2569 (NC) p.7',
-    tags: ['h5n1', 'case-fatality-rate', 'number-threshold'],
+    tags: ['H5N1','case-fatality-rate','number-threshold'],
   },
   {
     id: 100004, subject: 'epidemiology', topic: 'epidem-intro', year: 5,
@@ -398,7 +398,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026 = [
     explain: "ชุดตรวจ ELISA ที่ใช้ในการเฝ้าระวัง bluetongue ครั้งนี้มีความไว 97% และความจำเพาะ 99% ทั้งสองค่าเป็นคุณสมบัติของตัวชุดตรวจเอง ต้องแยกออกจาก 95% ซึ่งเป็นระดับความเชื่อมั่นของแผนการสุ่มตัวอย่าง\n\n❌ ทำไมข้ออื่นผิด\n— \"ความไว 99% และความจำเพาะ 97%\" = สลับตำแหน่งของสองค่านี้\n— \"ความไว 95% และความจำเพาะ 99%\" = เอา 95% ซึ่งเป็นระดับความเชื่อมั่นของแผนสุ่มมาใส่ช่องความไว\n— \"ความไว 97% และความจำเพาะ 95%\" = เอา 95% ตัวเดียวกันนั้นมาใส่ช่องความจำเพาะ\n\n💡 95% ในโจทย์แบบนี้มักเป็นความเชื่อมั่นของแผนสุ่ม ไม่ใช่คุณสมบัติของชุดตรวจ",
     source: 'Animal Disease Surveillance and Monitoring 2026 (SJ)',
     verified: 'Animal Disease Surveillance and Monitoring 2026 (SJ) p.44',
-    tags: ['bluetongue', 'elisa', 'sensitivity-specificity'],
+    tags: ['bluetongue','ELISA','sensitivity-specificity'],
   },
   {
     id: 100029, subject: 'epidemiology', topic: 'epidem-surveillance', year: 5,

@@ -18,7 +18,7 @@ import fs from 'node:fs';
 import { bankFiles, readBank, updateField } from './lib/bank-file.mjs';
 import { narratesDocument } from './lib/question-standard.mjs';
 
-const DIR = '.explain-fix';
+const DIR = process.argv.find((a) => a.startsWith("--dir="))?.slice(6) || ".explain-fix";
 const WRITE = process.argv.includes('--write');
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const keys = args.length ? args : JSON.parse(fs.readFileSync(`${DIR}/batches.json`, 'utf8')).map((b) => b.key);

@@ -14,6 +14,7 @@
 export const QUESTIONS_Y5_EQUINE_2026 = [
   {
     "id": 105216,
+    "tags": ["sweat-gland","apocrine-gland"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105217,
+    "tags": ["hair-coat","permanent-hair"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105218,
+    "tags": ["skin-thickness","skin-anatomy"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105219,
+    "tags": ["adhesive-tape-test","Oxyuris-equi"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105221,
+    "tags": ["melanoma","grey-horse"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105222,
+    "tags": ["PVAS","pruritus"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105223,
+    "tags": ["hoof","newborn-foal"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105224,
+    "tags": ["Chorioptes-bovis","mange"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105227,
+    "tags": ["lice","anemia"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105228,
+    "tags": ["Oxyuris-equi","tail-rubbing"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105229,
+    "tags": ["Culicoides-hypersensitivity","hypersensitivity-type"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105231,
+    "tags": ["Habronema","life-cycle","cutaneous-habronemiasis"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105232,
+    "tags": ["cutaneous-habronemiasis","ivermectin"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105233,
+    "tags": ["cutaneous-habronemiasis","eosinophilic-dermatitis"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105236,
+    "tags": ["dermatophilosis","rain-scald","mud-fever"],
     "subject": "equine-medicine",
     "topic": "equine-infectious",
     "year": 5,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105237,
+    "tags": ["dermatophilosis","paintbrush-crust"],
     "subject": "equine-medicine",
     "topic": "equine-infectious",
     "year": 5,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105238,
+    "tags": ["coital-exanthema","EHV-3","incubation-period"],
     "subject": "equine-medicine",
     "topic": "equine-infectious",
     "year": 5,
@@ -337,6 +354,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105239,
+    "tags": ["EHV-3","latent-carrier"],
     "subject": "equine-medicine",
     "topic": "equine-infectious",
     "year": 5,
@@ -356,6 +374,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105240,
+    "tags": ["viral-papillomatosis","young-horse"],
     "subject": "equine-medicine",
     "topic": "equine-infectious",
     "year": 5,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105241,
+    "tags": ["viral-papillomatosis","spontaneous-regression","immunodeficiency"],
     "subject": "equine-medicine",
     "topic": "equine-infectious",
     "year": 5,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105242,
+    "tags": ["sarcoid","bovine-papillomavirus"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105243,
+    "tags": ["sarcoid","fibroblastic-sarcoid"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105246,
+    "tags": ["squamous-cell-carcinoma","tumor-prevalence"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105247,
+    "tags": ["squamous-cell-carcinoma","UV-exposure","EcPV-2"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -470,6 +494,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105248,
+    "tags": ["melanoma","grey-horse","predilection-site"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -489,6 +514,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105249,
+    "tags": ["melanoma","surgical-excision"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -508,6 +534,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105250,
+    "tags": ["eosinophilic-granuloma","skin-nodule"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -527,6 +554,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105252,
+    "tags": ["PPID","dopamine","ACTH"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -546,6 +574,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105253,
+    "tags": ["PPID","pergolide"],
     "subject": "equine-medicine",
     "topic": "equine-tumors",
     "year": 5,
@@ -565,6 +594,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105254,
+    "tags": ["obligate-nasal-breathing","upper-airway-obstruction"],
     "subject": "equine-medicine",
     "topic": "equine-respi",
     "year": 5,
@@ -584,6 +614,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105255,
+    "tags": ["upper-airway-obstruction","inspiratory-noise"],
     "subject": "equine-medicine",
     "topic": "equine-respi",
     "year": 5,
@@ -603,6 +634,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105256,
+    "tags": ["lung-auscultation","rebreathing-bag"],
     "subject": "equine-medicine",
     "topic": "equine-respi",
     "year": 5,
@@ -622,6 +654,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105258,
+    "tags": ["bronchoalveolar-lavage","airway-sampling"],
     "subject": "equine-medicine",
     "topic": "equine-respi",
     "year": 5,
@@ -641,6 +674,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105260,
+    "tags": ["unilateral-nasal-discharge","nasal-septum"],
     "subject": "equine-medicine",
     "topic": "equine-respi",
     "year": 5,
@@ -660,6 +694,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105261,
+    "tags": ["headshaking","trigeminal-nerve"],
     "subject": "equine-medicine",
     "topic": "equine-respi",
     "year": 5,
@@ -679,6 +714,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105262,
+    "tags": ["sinusitis","Streptococcus-equi","nasopharyngeal-swab"],
     "subject": "equine-medicine",
     "topic": "equine-respi",
     "year": 5,
@@ -698,6 +734,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105263,
+    "tags": ["corneal-ulcer","melting-cornea","collagenase"],
     "subject": "equine-medicine",
     "topic": "equine-ophth",
     "year": 5,
@@ -717,6 +754,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105264,
+    "tags": ["infectious-keratitis","melting-cornea","anticollagenase-therapy"],
     "subject": "equine-medicine",
     "topic": "equine-ophth",
     "year": 5,
@@ -736,6 +774,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105266,
+    "tags": ["equine-recurrent-uveitis","Appaloosa"],
     "subject": "equine-medicine",
     "topic": "equine-ophth",
     "year": 5,
@@ -755,6 +794,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105267,
+    "tags": ["glaucoma","Haab-striae"],
     "subject": "equine-medicine",
     "topic": "equine-ophth",
     "year": 5,
@@ -774,6 +814,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105270,
+    "tags": ["corpora-nigra","iris-anatomy"],
     "subject": "equine-medicine",
     "topic": "equine-ophth",
     "year": 5,
@@ -793,6 +834,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105271,
+    "tags": ["anesthetic-monitoring","heart-rate","blood-pressure"],
     "subject": "equine-medicine",
     "topic": "equine-ophth",
     "year": 5,
@@ -812,6 +854,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105272,
+    "tags": ["anesthetic-monitoring","PaCO2"],
     "subject": "equine-medicine",
     "topic": "equine-ophth",
     "year": 5,
@@ -831,6 +874,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105273,
+    "tags": ["diagnostic-workup","Woo-technique","AGID"],
     "subject": "equine-medicine",
     "topic": "equine-poa",
     "year": 5,
@@ -850,6 +894,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105274,
+    "tags": ["PCR","sensitivity-specificity","screening-test"],
     "subject": "equine-medicine",
     "topic": "equine-poa",
     "year": 5,
@@ -869,6 +914,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105275,
+    "tags": ["test-result-interpretation","client-communication"],
     "subject": "equine-medicine",
     "topic": "equine-poa",
     "year": 5,
@@ -888,6 +934,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105276,
+    "tags": ["radiographic-views","fetlock"],
     "subject": "equine-medicine",
     "topic": "equine-poa",
     "year": 5,
@@ -907,6 +954,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105278,
+    "tags": ["tendon-ultrasound","ultrasound-zone"],
     "subject": "equine-medicine",
     "topic": "equine-poa",
     "year": 5,
@@ -926,6 +974,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105279,
+    "tags": ["colic","surgical-indication"],
     "subject": "equine-medicine",
     "topic": "equine-poa",
     "year": 5,
@@ -945,6 +994,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105280,
+    "tags": ["colic","nasogastric-intubation","gastric-reflux"],
     "subject": "equine-medicine",
     "topic": "equine-poa",
     "year": 5,
@@ -964,6 +1014,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105281,
+    "tags": ["melanoma","sarcoid","differential-diagnosis"],
     "subject": "equine-medicine",
     "topic": "equine-poa",
     "year": 5,
@@ -983,6 +1034,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105282,
+    "tags": ["near-side","horse-identification"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1002,6 +1054,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105283,
+    "tags": ["equine-passport","height-measurement"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1021,6 +1074,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105284,
+    "tags": ["equine-passport","dental-aging"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1040,6 +1094,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105285,
+    "tags": ["coat-color","bay"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1059,6 +1114,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105286,
+    "tags": ["coat-color","dun"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1078,6 +1134,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105287,
+    "tags": ["coat-color","piebald"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1097,6 +1154,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105288,
+    "tags": ["microchip","horse-identification"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1116,6 +1174,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105289,
+    "tags": ["vaccination-program","core-vaccines"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1135,6 +1194,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105290,
+    "tags": ["blind-spot","equine-vision"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1154,6 +1214,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105291,
+    "tags": ["social-hierarchy","herd-behavior"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1173,6 +1234,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105292,
+    "tags": ["horse-handling","near-side"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1192,6 +1254,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105293,
+    "tags": ["horse-handling","quick-release-knot"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1211,6 +1274,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105294,
+    "tags": ["acepromazine","penile-prolapse"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1230,6 +1294,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105295,
+    "tags": ["alpha-2-agonist","xylazine"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1249,6 +1314,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105296,
+    "tags": ["alpha-2-agonist","detomidine","xylazine"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1268,6 +1334,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105297,
+    "tags": ["jugular-venipuncture","carotid-artery","vagosympathetic-trunk"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1287,6 +1354,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105298,
+    "tags": ["intramuscular-injection","injection-volume"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1306,6 +1374,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105299,
+    "tags": ["oral-medication","diastema"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1325,6 +1394,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105300,
+    "tags": ["nasogastric-intubation","epistaxis","aspiration-pneumonia"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1344,6 +1414,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105301,
+    "tags": ["show-jumping","forelimb-injury","navicular-bone"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1363,6 +1434,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105302,
+    "tags": ["equine-passport","horse-identification"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -1382,6 +1454,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105303,
+    "tags": ["hindgut-fermentation","fiber-digestion"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1401,6 +1474,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105304,
+    "tags": ["feed-transition","gut-microbiota"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1420,6 +1494,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105305,
+    "tags": ["gastric-ulcer","starch-intake"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1439,6 +1514,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105306,
+    "tags": ["starch-intake","insulin-resistance"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1458,6 +1534,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105307,
+    "tags": ["limiting-amino-acid","lysine"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1477,6 +1554,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105308,
+    "tags": ["protein-requirement","lactation"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1496,6 +1574,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105309,
+    "tags": ["vitamin-synthesis","vitamin-C","vitamin-D"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1515,6 +1594,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105310,
+    "tags": ["hay-storage","nutrient-loss"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1534,6 +1614,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105311,
+    "tags": ["hay-storage","hay-moisture","mold"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1553,6 +1634,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105312,
+    "tags": ["RFV","forage-quality"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1572,6 +1654,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105313,
+    "tags": ["DMI","NDF"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1591,6 +1674,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105314,
+    "tags": ["DDM","ADF"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1610,6 +1694,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105315,
+    "tags": ["forage-intake","roughage-requirement"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1629,6 +1714,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105316,
+    "tags": ["pasture-introduction","feed-transition"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1648,6 +1734,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105317,
+    "tags": ["pasture-management","sugar-accumulation"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1667,6 +1754,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105318,
+    "tags": ["fixed-formula","least-cost-formula"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1686,6 +1774,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105319,
+    "tags": ["calcium-phosphorus-ratio","mineral-nutrition"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1705,6 +1794,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105320,
+    "tags": ["calcium-phosphorus-ratio","nutritional-secondary-hyperparathyroidism","big-head"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1724,6 +1814,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105321,
+    "tags": ["electrolyte-loss","sweating"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1743,6 +1834,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105322,
+    "tags": ["electrolyte-supplementation","dehydration"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1762,6 +1854,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105323,
+    "tags": ["topline-evaluation","muscle-assessment"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1781,6 +1874,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105324,
+    "tags": ["body-condition-score","rib-palpation"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1800,6 +1894,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105325,
+    "tags": ["topline-evaluation","muscle-loss"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1819,6 +1914,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105326,
+    "tags": ["digesta-transit-time","small-intestine"],
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
     "year": 5,
@@ -1838,6 +1934,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105327,
+    "tags": ["Anoplocephala-perfoliata","oribatid-mite"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -1857,6 +1954,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105328,
+    "tags": ["Anoplocephala-perfoliata","ileocecal-valve","colic"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -1876,6 +1974,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105329,
+    "tags": ["Anoplocephala-perfoliata","praziquantel"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -1895,6 +1994,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105330,
+    "tags": ["Trichostrongylus-axei","zoonosis"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -1914,6 +2014,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105331,
+    "tags": ["Habronema","Draschia-megastoma","Musca-domestica"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -1933,6 +2034,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105332,
+    "tags": ["Habronema","Stomoxys-calcitrans","intermediate-host"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -1952,6 +2054,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105333,
+    "tags": ["habronemosis","summer-sore","eosinophilic-granuloma"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -1971,6 +2074,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105334,
+    "tags": ["habronemosis","ivermectin"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -1990,6 +2094,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105335,
+    "tags": ["Strongyloides-westeri","transmammary-transmission","foal-diarrhea"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2009,6 +2114,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105336,
+    "tags": ["Oxyuris-equi","scotch-tape-technique"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2028,6 +2134,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105337,
+    "tags": ["Oxyuris-equi","egg-morphology"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2047,6 +2154,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105338,
+    "tags": ["Parascaris-equorum","hepatic-tracheal-migration","prepatent-period"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2066,6 +2174,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105339,
+    "tags": ["Strongylus-vulgaris","prepatent-period"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2085,6 +2194,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105340,
+    "tags": ["Strongylus-equinus","Strongylus-edentatus","larval-migration"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2104,6 +2214,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105341,
+    "tags": ["cyathostomes","non-migratory-life-cycle","prepatent-period"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2123,6 +2234,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105342,
+    "tags": ["fecal-egg-count","EPG"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2142,6 +2254,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105343,
+    "tags": ["fecal-egg-count","deworming-threshold"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2161,6 +2274,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105344,
+    "tags": ["fecal-culture","L3-larvae"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2180,6 +2294,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105345,
+    "tags": ["metabarcoding","nemabiome"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2199,6 +2314,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105346,
+    "tags": ["Babesia-equi","transstadial-transmission"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2218,6 +2334,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105347,
+    "tags": ["equine-piroplasmosis","Rhipicephalus-microplus"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2237,6 +2354,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105348,
+    "tags": ["equine-piroplasmosis","imidocarb"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2256,6 +2374,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105349,
+    "tags": ["Trypanosoma-evansi","meningoencephalitis"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2275,6 +2394,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105350,
+    "tags": ["Trypanosoma-evansi","Tabanus"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2294,6 +2414,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105351,
+    "tags": ["Setaria","aberrant-migration","ocular-signs"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2313,6 +2434,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105352,
+    "tags": ["Damalinia-equi","chewing-louse"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2332,6 +2454,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105353,
+    "tags": ["Haematopinus-asini","sucking-louse"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2351,6 +2474,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105354,
+    "tags": ["Chorioptes-equi","Psoroptes-equi","pretarsi"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2370,6 +2494,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105355,
+    "tags": ["Chorioptes-equi","fetlock"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2389,6 +2514,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105356,
+    "tags": ["Psoroptes-equi","Chorioptes-equi","pathogenicity"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2408,6 +2534,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105357,
+    "tags": ["Babesia-caballi","Babesia-equi","incubation-period"],
     "subject": "equine-medicine",
     "topic": "equine-parasites",
     "year": 5,
@@ -2427,6 +2554,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105358,
+    "tags": ["shock-organ","gastrointestinal-tract"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2446,6 +2574,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105359,
+    "tags": ["vomiting-inability","cardiac-sphincter"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2465,6 +2594,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105360,
+    "tags": ["margo-plicatus","gastric-anatomy"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2484,6 +2614,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105361,
+    "tags": ["cecum","gastrointestinal-anatomy"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2503,6 +2634,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105362,
+    "tags": ["large-colon","gastrointestinal-anatomy"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2522,6 +2654,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105363,
+    "tags": ["ileum","ileocecal-fold"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2541,6 +2674,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105364,
+    "tags": ["gut-sounds","abdominal-auscultation","cecum"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2560,6 +2694,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105365,
+    "tags": ["nasogastric-intubation","tube-measurement"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2579,6 +2714,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105366,
+    "tags": ["nasogastric-intubation","ventral-meatus"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2598,6 +2734,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105367,
+    "tags": ["nasogastric-intubation","tracheal-misplacement"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2617,6 +2754,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105368,
+    "tags": ["gastric-capacity","gastric-anatomy"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2636,6 +2774,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105369,
+    "tags": ["saliva","buffering-capacity"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2655,6 +2794,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105370,
+    "tags": ["ESGD","squamous-region"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2674,6 +2814,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105371,
+    "tags": ["ESGD","gastric-ulcer-grading"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2693,6 +2834,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105372,
+    "tags": ["EGUS","gastroscopy"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2712,6 +2854,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105373,
+    "tags": ["EGUS","omeprazole"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2731,6 +2874,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105374,
+    "tags": ["choke","esophageal-obstruction"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2750,6 +2894,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105375,
+    "tags": ["gallbladder-absence","bile-secretion"],
     "subject": "equine-medicine",
     "topic": "equine-gi",
     "year": 5,
@@ -2769,6 +2914,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105376,
+    "tags": ["blood-lactate","peritoneal-fluid","colic"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2788,6 +2934,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105377,
+    "tags": ["gastric-reflux","small-intestinal-obstruction"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2807,6 +2954,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105378,
+    "tags": ["gastric-reflux","impaction","tympany"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2826,6 +2974,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105379,
+    "tags": ["composite-colic-score","surgical-decision"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2845,6 +2994,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105380,
+    "tags": ["flunixin-meglumine","analgesia-duration"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2864,6 +3014,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105381,
+    "tags": ["xylazine","analgesia-duration"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2883,6 +3034,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105382,
+    "tags": ["phenylbutazone","route-of-administration"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2902,6 +3054,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105383,
+    "tags": ["hyoscine","spasmodic-colic"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2921,6 +3074,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105384,
+    "tags": ["spasmodic-colic","xylazine","hyoscine"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2940,6 +3094,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105385,
+    "tags": ["pelvic-flexure-impaction","risk-factors"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2959,6 +3114,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105386,
+    "tags": ["nephrosplenic-entrapment","large-colon-displacement"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2978,6 +3134,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105387,
+    "tags": ["nephrosplenic-entrapment","abdominal-ultrasound"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -2997,6 +3154,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105388,
+    "tags": ["sand-colic","fecal-sedimentation-test"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -3016,6 +3174,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105389,
+    "tags": ["FLASH-protocol","abdominal-ultrasound"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -3035,6 +3194,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105390,
+    "tags": ["referred-pain","colic"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -3054,6 +3214,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105391,
+    "tags": ["gastrointestinal-rupture","peritonitis","euthanasia"],
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
     "year": 5,
@@ -3073,6 +3234,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105392,
+    "tags": ["field-surgery","TIVA","anesthetic-monitoring"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -3092,6 +3254,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105395,
+    "tags": ["preoperative-clipping","surgical-site-preparation"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -3111,6 +3274,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105396,
+    "tags": ["preoperative-clipping","ventral-midline-celiotomy"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -3130,6 +3294,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105398,
+    "tags": ["lateral-recumbency","brachial-plexus"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -3149,6 +3314,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105399,
+    "tags": ["draping","aseptic-technique"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -3168,6 +3334,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105400,
+    "tags": ["standing-surgery","stocks-restraint"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -3187,6 +3354,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105401,
+    "tags": ["ASA-physical-status","anesthetic-risk-assessment"],
     "subject": "equine-medicine",
     "topic": "equine-anesthesia",
     "year": 5,
@@ -3206,6 +3374,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105402,
+    "tags": ["ASA-physical-status","anesthetic-risk-assessment"],
     "subject": "equine-medicine",
     "topic": "equine-anesthesia",
     "year": 5,
@@ -3225,6 +3394,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105404,
+    "tags": ["transport-stress","rhabdomyolysis","salmonellosis"],
     "subject": "equine-medicine",
     "topic": "equine-anesthesia",
     "year": 5,
@@ -3244,6 +3414,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105407,
+    "tags": ["lateral-recumbency","field-anesthesia"],
     "subject": "equine-medicine",
     "topic": "equine-anesthesia",
     "year": 5,
@@ -3263,6 +3434,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105410,
+    "tags": ["preoperative-assessment","TPR"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -3282,6 +3454,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105412,
+    "tags": ["tetanus-toxoid","preoperative-prophylaxis"],
     "subject": "equine-medicine",
     "topic": "equine-intro",
     "year": 5,
@@ -3301,6 +3474,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105416,
+    "tags": ["second-intention-healing","wound-contraction","epithelialization"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3320,6 +3494,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105417,
+    "tags": ["inflammatory-response","EGT"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3339,6 +3514,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105418,
+    "tags": ["EGT","distal-limb-wound"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3358,6 +3534,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105419,
+    "tags": ["EGT","sharp-debridement","pressure-bandage"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3377,6 +3554,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105420,
+    "tags": ["limb-bandaging","bandage-overlap"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3396,6 +3574,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105421,
+    "tags": ["limb-bandaging","half-limb-bandage"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3415,6 +3594,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105422,
+    "tags": ["limb-bandaging","full-limb-bandage"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3434,6 +3614,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105423,
+    "tags": ["Robert-Jones-bandage","bandage-thickness"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3453,6 +3634,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105424,
+    "tags": ["Robert-Jones-bandage","primary-layer"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3472,6 +3654,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105425,
+    "tags": ["splinting","PVC-splint"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3491,6 +3674,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105426,
+    "tags": ["splinting","fiberglass-cast"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3510,6 +3694,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105427,
+    "tags": ["stent-bandage","truncal-wound"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3529,6 +3714,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105428,
+    "tags": ["abdominal-bandage","post-celiotomy-care"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3548,6 +3734,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105429,
+    "tags": ["head-bandage","subcutaneous-emphysema"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3567,6 +3754,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105430,
+    "tags": ["carpal-bandage","pressure-sore"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,
@@ -3586,6 +3774,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
   },
   {
     "id": 105431,
+    "tags": ["wound-healing","tensile-strength"],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
     "year": 5,

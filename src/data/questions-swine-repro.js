@@ -193,7 +193,7 @@ export const QB_SWINE_REPRO = [
     "year": 4,
     "source": "Swine Repro Mid 86 - AI",
     "tags": [
-      "AI",
+      "ai",
       "sperm",
       "oviduct"
     ],
@@ -217,7 +217,7 @@ export const QB_SWINE_REPRO = [
     "year": 4,
     "source": "Swine Repro Mid 86 - AI Timing",
     "tags": [
-      "AI",
+      "ai",
       "ovulation",
       "standing-heat"
     ],

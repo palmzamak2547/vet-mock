@@ -4,8 +4,9 @@
 // search that would have found the question.
 import fs from 'node:fs';
 import { bankFiles, readBank } from './lib/bank-file.mjs';
+import { buildTagResolver } from './lib/tag-case.mjs';
 
-const DIR = '.tags-fix';
+const DIR = process.argv.find((a) => a.startsWith("--dir="))?.slice(6) || ".tags-fix";
 const WRITE = process.argv.includes('--write');
 const batches = JSON.parse(fs.readFileSync(`${DIR}/batches.json`, 'utf8'));
 
@@ -18,6 +19,10 @@ for (const b of batches) {
     if (Array.isArray(r.tags) && r.tags.length >= 2) tags.set(r.id, r.tags);
   }
 }
+const corpus = [];
+for (const f of bankFiles()) { const { questions } = await readBank(f); for (const q of questions) corpus.push(...(q.tags || [])); }
+const { resolve } = buildTagResolver([...corpus, ...[...tags.values()].flat()]);
+for (const [id, list] of tags) tags.set(id, list.map(resolve));
 console.log(`tags for ${tags.size} question(s)`);
 if (!WRITE) { console.log('(dry run — pass --write)'); process.exit(0); }
 

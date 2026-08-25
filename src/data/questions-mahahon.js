@@ -334,7 +334,7 @@ export const QB_MAHAHON = [
 
   { id: 52031, subject: 'repro-lect', topic: 'mahahon-semen-freezing', year: 4,
     source: 'Repro Final 86 master, p14 Q8', sourceType: 'past-paper',
-    tags: ['ovulation-timing', 'AI', 'breeding-management'], type: 'mcq',
+    tags: ['ovulation-timing','ai','breeding-management'], type: 'mcq',
     q: 'ในสุนัขเพศเมีย เพื่อ AI ที่ผสมติดสูงสุด fertile window คือวันที่เท่าไรหลัง LH surge',
     options: ['day 1-3', 'day 3-5', 'day 6-8', 'day 9-11', 'day 14-16'],
     answer: 3,
@@ -940,7 +940,7 @@ export const QB_MAHAHON = [
 
   { id: 2074, subject: 'repro-lect', topic: 'mahahon-genetic', year: 4,
     source: 'Synthesized from Slide 2026', sourceType: 'lecture-verified-draft',
-    tags: ['effective-population-size', 'Ne'], type: 'mcq',
+    tags: ['effective-population-size','NE'], type: 'mcq',
     q: 'Effective population size (Ne) ของ breed หนึ่งบ่งชี้',
     options: [
       'จำนวนตัว breed ทั้งหมด',

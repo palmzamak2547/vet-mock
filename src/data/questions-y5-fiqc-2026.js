@@ -133,7 +133,7 @@ export const QB_Y5_FIQC_2026 = [
     explain: "infective dose ของ V. cholerae ที่บันทึกไว้อยู่ที่ประมาณ 1,000,000 organisms โดยระบุอุบัติการณ์ไว้ที่ 11 ล้านรายต่อปี และอาหารที่เกี่ยวข้องคือน้ำและหอยที่ปนเปื้อน\n\n❌ ทำไมข้ออื่นผิด\n— \"ประมาณ 1,000 organisms\" = ต่ำกว่าค่าที่บันทึกไว้มาก\n— \"ประมาณ 100,000 organisms\" = ต่ำกว่าค่าที่บันทึกไว้\n— \"ประมาณ 10,000,000 organisms\" = สูงกว่าค่าที่บันทึกไว้",
     source: 'FIQC Aquatic animals and products 2026',
     verified: 'FIQC Aquatic animals and products 2026 p.35',
-    tags: ['vibrio', 'infective-dose', 'number-threshold'],
+    tags: ['Vibrio','infective-dose','number-threshold'],
   },
   {
     id: 103008, subject: 'food-industry', topic: 'fiqc-aquatic', year: 5,
@@ -149,7 +149,7 @@ export const QB_Y5_FIQC_2026 = [
     explain: "Opisthorchis viverrini เป็น liver fluke ที่ติดจากปลาน้ำจืดดิบหรือปรุงไม่สุก ส่วน Anisakis spp. เป็น nematode ของทะเลจึงมากับปลาทะเลดิบหรือแปรรูปเบา คู่นี้แยกกันที่แหล่งน้ำของปลาที่กินเข้าไป\n\n❌ ทำไมข้ออื่นผิด\n— \"Opisthorchis viverrini จากปลาทะเลดิบ ส่วน Anisakis จากปลาน้ำจืดดิบ\" = สลับแหล่งน้ำกันทั้งคู่\n— \"ทั้งสองชนิดติดจากปลาน้ำจืดที่บริโภคดิบหรือปรุงไม่สุกเป็นหลัก\" = ถูกครึ่งเดียว Anisakis เป็นปรสิตของปลาทะเล\n— \"ทั้งสองชนิดติดจากหอยสองฝาที่กรองอาหารในน้ำทะเลชายฝั่งเป็นหลัก\" = หอยสองฝาที่กรองอาหารเป็นเส้นทางของ Vibrio, norovirus และ hepatitis A ไม่ใช่ของปรสิตสองตัวนี้\n\n💡 จำเป็นคู่ตรงข้าม น้ำจืดเท่ากับ Opisthorchis viverrini น้ำทะเลเท่ากับ Anisakis spp.",
     source: 'FIQC Aquatic animals and products 2026',
     verified: 'FIQC Aquatic animals and products 2026 p.37',
-    tags: ['parasites', 'opisthorchis', 'anisakis', 'organism-disease'],
+    tags: ['parasites','Opisthorchis','anisakis','organism-disease'],
   },
   {
     id: 103009, subject: 'food-industry', topic: 'fiqc-aquatic', year: 5,
@@ -229,7 +229,7 @@ export const QB_Y5_FIQC_2026 = [
     explain: "GMP ต้องมีและปฏิบัติได้จริงก่อน HACCP plan จึงจะทำงานได้ เพราะ GMP คือสิ่งที่สร้างสภาพแวดล้อมถูกสุขลักษณะให้ทั้งโรงงาน ตั้งแต่การออกแบบอาคาร การสุขาภิบาล สุขลักษณะส่วนบุคคล การควบคุมสัตว์พาหะ และความปลอดภัยของน้ำ ถ้าพื้นฐานเหล่านี้ยังไม่นิ่ง อันตรายจะไหลเข้ามาได้จากทุกทางจนจุดวิกฤตที่ HACCP ไปคุมไว้เอาไม่อยู่\n\n❌ ทำไมข้ออื่นผิด\n— \"ต้องจัดทำ HACCP plan ให้เสร็จก่อน จึงจะเริ่มวางระบบ GMP ในโรงงานได้\" = กลับลำดับกัน GMP เป็น prerequisite ไม่ใช่ของที่ตามมาทีหลัง\n— \"GMP กับ HACCP ใช้แทนกันได้ โรงงานเลือกทำอย่างใดอย่างหนึ่งก็เพียงพอแล้ว\" = คนละบทบาท GMP คุมสภาพแวดล้อมทั่วทั้งโรงงาน ส่วน HACCP เจาะจงคุมอันตรายที่จุดวิกฤต แทนกันไม่ได้\n— \"GMP ใช้เฉพาะระดับฟาร์ม ส่วน HACCP ใช้เฉพาะขั้นตอนการขนส่งสินค้าเท่านั้น\" = ระดับฟาร์มคือ GAP ส่วน GMP กับ HACCP ทำงานอยู่ในโรงงานแปรรูป\n\n💡 GAP อยู่ที่ฟาร์ม GMP คือพื้น HACCP คือของที่วางทับลงไป ลงพื้นให้เรียบก่อนถึงจะวางของได้",
     source: 'FIQC Aquatic animals and products 2026',
     verified: 'FIQC Aquatic animals and products 2026 p.52',
-    tags: ['gmp', 'haccp', 'prerequisite-programme'],
+    tags: ['gmp','HACCP','prerequisite-programme'],
   },
   {
     id: 103014, subject: 'food-industry', topic: 'fiqc-aquatic', year: 5,

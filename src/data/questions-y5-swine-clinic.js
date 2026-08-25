@@ -126,7 +126,7 @@ export const QB_Y5_SWINE_CLINIC = [
   { id: 8358, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
     source: '[swine clin prac] สรุปรวมเท่าที่เจอมา.pdf',
     examOrigin: 'Swine clinical practice past paper · year unknown · SAQ #9',
-    tags: ['arthritis', 'swollen joints', 'Mycoplasma', 'Glässer', 'Streptococcus suis'], type: 'short',
+    tags: ['arthritis','swollen joints','mycoplasma','Glässer','Streptococcus suis'], type: 'short',
     q: 'จงยกตัวอย่างเชื้อก่อโรค 2 ชนิด ที่สามารถทำให้เกิดข้อบวม (swollen joints / arthritis) ในสุกรได้',
     keywords: ['Mycoplasma hyosynoviae', 'Mycoplasma hyorhinis', 'Haemophilus parasuis', 'Glaesserella parasuis', 'Glässer', 'Streptococcus suis', 'Erysipelothrix rhusiopathiae', 'Erysipelas'],
     explain: 'เชื้อก่อ arthritis/polyserositis-arthritis ในสุกร: (1) Mycoplasma hyosynoviae — non-suppurative arthritis ในสุกร 10-24 wk; (2) Mycoplasma hyorhinis — polyserositis + arthritis ในลูกสุกร 3-10 wk; (3) Glaesserella (Haemophilus) parasuis — Glässer disease, fibrinous polyserositis + arthritis; (4) Streptococcus suis — arthritis + meningitis + septicaemia; (5) Erysipelothrix rhusiopathiae — chronic erysipelas → proliferative arthritis. ตอบ 2 ใน 5.',

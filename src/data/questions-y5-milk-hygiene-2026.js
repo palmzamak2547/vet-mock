@@ -21,7 +21,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "นมสด 1 แก้ว 8 ounce ให้แคลเซียม 29% ของ RDA ซึ่งเป็นสัดส่วนที่สูงที่สุดในบรรดาสารอาหารที่นมแก้วเดียวกันนั้นให้\n\n❌ ทำไมข้ออื่นผิด\n— \"17%\" = สัดส่วนของ protein\n— \"23%\" = สัดส่วนของ phosphorus และ riboflavin ซึ่งได้เท่ากันพอดี\n— \"25%\" = สัดส่วนของ vitamin D\n\n💡 ถ้าจำได้ว่านมขายแคลเซียมเป็นหลัก ให้เลือกตัวเลขที่มากที่สุดในชุด",
     source: 'RC 1 Introduction to Milk Hygiene 2026',
     verified: 'RC 1 Introduction to Milk Hygiene 2026 p.3',
-    tags: ['milk-as-food', 'nutrition', 'rda'],
+    tags: ['milk-as-food','nutrition','RDA'],
   },
   {
     id: 101002, subject: 'milk-meat-hygiene', topic: 'milk-overview', year: 5,
@@ -165,7 +165,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "Corynebacterium bovis เป็นเชื้อฉวยโอกาสประจำฟาร์มที่ไม่จุ่มน้ำยาที่หัวนมหลังรีดนม ให้ค่า SCC สูงได้ถึง 400,000 เซลล์ต่อมิลลิลิตร แต่ก่อการอักเสบเพียงเล็กน้อย ภาพรวมจึงเป็นเต้าที่ดูไม่เป็นอะไรแต่ตัวเลขเซลล์เดินขึ้น\n\n❌ ทำไมข้ออื่นผิด\n— \"Streptococcus agalactiae\" = อยู่กลุ่ม contagious และดัน SCC ขึ้นถึงหลักล้าน ไม่ใช่หลักแสน\n— \"Corynebacterium pyogenes\" = ทำให้เต้านมแข็ง มีหนองและฝี ซึ่งตรงข้ามกับการอักเสบเพียงเล็กน้อย\n— \"Staphylococcus aureus\" = อยู่กลุ่ม contagious เช่นกัน ไม่ใช่เชื้อฉวยโอกาส\n\n💡 ฟาร์มที่ไม่ทำ teat dipping ให้นึกถึง C. bovis ก่อนเสมอ",
     source: 'RC 2 Mastitis and milk quality 2026',
     verified: 'RC 2 Mastitis and milk quality 2026 p.13',
-    tags: ['opportunistic-pathogen', 'corynebacterium-bovis', 'teat-dipping'],
+    tags: ['opportunistic-pathogen','Corynebacterium-bovis','teat-dipping'],
   },
   {
     id: 101011, subject: 'milk-meat-hygiene', topic: 'milk-mastitis', year: 5,
@@ -229,7 +229,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "California mastitis test เป็น cow-side test คือทำข้าง ๆ ตัวโคได้เลยขณะรีดนม รู้ผลทันทีโดยไม่ต้องส่งตัวอย่างไปที่อื่น\n\n❌ ทำไมข้ออื่นผิด\n— \"direct microscopic count (DMC)\" = ต้องทำ smear แล้วนับใต้กล้อง เป็นงานห้องปฏิบัติการ\n— \"Wisconsin mastitis test (WMT)\" = เป็น on-farm test คือทำได้ในฟาร์ม แต่ไม่ใช่ข้างตัวโคขณะรีด\n— \"electronic somatic cell counting\" = ใช้เครื่องนับเซลล์ เป็นงานห้องปฏิบัติการ\n\n💡 cow-side คือข้างตัวโค on-farm คือในฟาร์ม สองคำนี้ไม่เท่ากัน และ WMT คือกับดักตรงจุดนี้",
     source: 'RC 2 Mastitis and milk quality 2026',
     verified: 'RC 2 Mastitis and milk quality 2026 p.16',
-    tags: ['mastitis-detection', 'cmt', 'cow-side-test'],
+    tags: ['mastitis-detection','CMT','cow-side-test'],
   },
   {
     id: 101015, subject: 'milk-meat-hygiene', topic: 'milk-mastitis', year: 5,
@@ -678,7 +678,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "casein จับตัวเป็นตะกอนและแยกออกจาก serum protein ที่ pH 4.6-4.8 ซึ่งเป็นหลักการของการทำชีส น้ำนมปกติมี pH 6.6-6.8 จึงต้องลด pH ลงมาถึงช่วงนี้ casein ถึงจะตก\n\n❌ ทำไมข้ออื่นผิด\n— \"pH 3.6-3.8\" = ต่ำกว่าช่วงที่ casein เริ่มจับตัว\n— \"pH 5.6-5.8\" = อยู่ระหว่าง pH ปกติของน้ำนมกับจุดตกตะกอน ยังลงมาไม่ถึงจุดที่ casein จับตัว\n— \"pH 6.6-6.8\" = เป็น pH ปกติของน้ำนมเอง จึงเป็นสภาพที่ casein ยังละลายอยู่\n\n💡 จำสองหมุดคู่กัน ปกติ 6.6-6.8 ตกตะกอน 4.6-4.8",
     source: 'SJ 1 Composition and quality of raw milk 2026',
     verified: 'SJ 1 Composition and quality of raw milk 2026 p.6',
-    tags: ['casein', 'milk-protein', 'ph'],
+    tags: ['casein','milk-protein','pH'],
   },
   {
     id: 101044, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
@@ -1062,7 +1062,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: 'HTST คือมากกว่า 72 องศาเซลเซียส นานมากกว่า 15 วินาที และ UHT คือมากกว่า 133 องศาเซลเซียส นานมากกว่า 1 วินาที ส่วน 63 องศาเซลเซียส นาน 30 นาที คือ LTLT ซึ่งเป็น pasteurization อีกรูปแบบหนึ่ง และมากกว่า 100 องศาเซลเซียส นาน 15 นาที คือ sterilization ไม่ใช่ UHT',
     source: 'SJ 2 Raw milk and milk products standard 2026',
     verified: 'SJ 2 Raw milk and milk products standard 2026 p.16',
-    tags: ['heat-treatment', 'htst', 'uht'],
+    tags: ['heat-treatment','HTST','uht'],
   },
   {
     id: 101068, subject: 'milk-meat-hygiene', topic: 'milk-raw-std', year: 5,
@@ -1254,7 +1254,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "E. coli เป็นตัวเดียวในสี่ตัวนี้ที่เป็นได้ทั้ง safety indicator และ quality indicator เพราะบ่งชี้การปนเปื้อนจากอุจจาระของสัตว์เลือดอุ่นโดยตรง และอยู่รอดในสิ่งแวดล้อมได้เพียงระยะเวลาจำกัด\n\n❌ ทำไมข้ออื่นผิด\n— \"total bacterial count\" = ใช้เป็น safety indicator ไม่ได้ เพราะไม่สัมพันธ์กับเชื้อก่อโรคหรือสารพิษ\n— \"laboratory pasteurization count หรือ thermoduric count\" = ใช้เป็น safety indicator ไม่ได้ ด้วยเหตุผลเดียวกัน\n— \"coliforms\" = คำบรรยายว่าเป็น Gram-negative ที่หมัก lactose ได้นั้นถูก แต่ coliform ก็ใช้เป็น safety indicator ไม่ได้เช่นกัน",
     source: 'SJ 3 Milk microbiology 2026',
     verified: 'SJ 3 Milk microbiology 2026 p.21',
-    tags: ['indicator-bacteria', 'e-coli', 'fecal-contamination'],
+    tags: ['indicator-bacteria','E-coli','fecal-contamination'],
   },
   {
     id: 101081, subject: 'milk-meat-hygiene', topic: 'milk-microbiology', year: 5,
@@ -1383,7 +1383,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "SFP เกิดจาก enterotoxin ที่ S. aureus สร้างค้างไว้ในอาหารก่อนบริโภค ไม่ใช่จากเชื้อมีชีวิต พิษเกิดขึ้นเมื่อเก็บน้ำนมไว้ที่อุณหภูมิอุ่นอย่างไม่เหมาะสม และการพาสเจอไรซ์ฆ่า S. aureus ได้ แต่ไม่ทำลาย enterotoxin ซึ่งทนความร้อน\n\n❌ ทำไมข้ออื่นผิด\n— \"เชื้อมีชีวิตเพิ่มจำนวนในลำไส้ และพาสเจอไรซ์ทำลายทั้งเชื้อและสารพิษ\" = ผิดทั้งกลไกและผลของความร้อน พิษตัวนี้รอดการพาสเจอไรซ์\n— \"สารพิษสร้างในลำไส้หลังกินเชื้อ และถูกทำลายด้วยการพาสเจอไรซ์\" = การสร้างพิษในลำไส้เป็นรูปแบบของ Bacillus cereus ชนิด diarrheal ไม่ใช่ SFP\n— \"สปอร์ทนความร้อนงอกในน้ำนม และพาสเจอไรซ์ทำลายสปอร์ได้ทั้งหมด\" = สปอร์เป็นกลไกของ Bacillus cereus และ Clostridium\n\n💡 ฆ่าเชื้อได้ ไม่ได้แปลว่าล้างพิษได้",
     source: 'SJ 4 Milk borne pathogens and diseases 2026',
     verified: 'SJ 4 Milk borne pathogens and diseases 2026 p.8',
-    tags: ['staphylococcus-aureus', 'enterotoxin', 'food-poisoning'],
+    tags: ['Staphylococcus-aureus','enterotoxin','food-poisoning'],
   },
   {
     id: 101089, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
@@ -1431,7 +1431,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "ชง powdered infant formula ด้วยน้ำอุณหภูมิ ≥70°C เพื่อฆ่า C. sakazakii ที่อาจปนเปื้อนมากับนมผง แล้วใช้ทันที หรือทำให้เย็นลงต่ำกว่า 5°C และใช้ภายใน 24 ชั่วโมง เพราะเชื้อนี้ทำให้ทารกแรกเกิดเกิด meningitis, septicemia และ necrotizing enterocolitis ที่มีอัตราตายสูง\n\n❌ ทำไมข้ออื่นผิด\n— \"≥50°C เก็บที่ <10°C ใช้ภายใน 12 ชั่วโมง\" = น้ำไม่ร้อนพอจะฆ่าเชื้อในนมผง และเก็บที่อุ่นกว่าคำแนะนำ\n— \"≥40°C เก็บที่ <7°C ใช้ภายใน 48 ชั่วโมง\" = น้ำเย็นที่สุดในบรรดาตัวเลือก ฆ่าเชื้อไม่ได้ ทั้งยังยืดเวลาเก็บนานเกิน\n— \"≥90°C เก็บที่ <0°C ใช้ภายใน 72 ชั่วโมง\" = ไม่ใช่เกณฑ์ที่แนะนำ และต่ำกว่า 0°C คือการแช่แข็ง ไม่ใช่การเก็บเย็น\n\n💡 จำเป็นชุดสามตัว น้ำ 70 เก็บ 5 ใช้ภายใน 24",
     source: 'SJ 4 Milk borne pathogens and diseases 2026',
     verified: 'SJ 4 Milk borne pathogens and diseases 2026 p.14',
-    tags: ['cronobacter-sakazakii', 'infant-formula', 'neonatal-infection'],
+    tags: ['Cronobacter-sakazakii','infant-formula','neonatal-infection'],
   },
   {
     id: 101092, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
@@ -1495,7 +1495,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "ในโคนม S. agalactiae เป็น obligate udder pathogen คืออาศัยอยู่ในเต้านมเป็นหลัก จึงก่อ contagious bovine mastitis ที่แพร่จากโคสู่โคระหว่างการรีดนม เชื้อนี้คือ group B Streptococcus ชนิด β-hemolytic และถูกทำลายด้วยการพาสเจอไรซ์ ส่วนในคนเป็นเชื้อประจำถิ่นของทางเดินอาหารและอวัยวะสืบพันธุ์ และเป็นสาเหตุสำคัญของการติดเชื้อและ sepsis ในทารกแรกเกิด\n\n❌ ทำไมข้ออื่นผิด\n— \"เป็นเชื้อประจำถิ่นบนผิวหนังโคที่ก่อ environmental mastitis เป็นครั้งคราว\" = สลับไปเป็นภาพของกลุ่ม environmental pathogen ที่มาจากสิ่งแวดล้อมรอบตัวโค ตรงข้ามกับคำว่า obligate udder pathogen\n— \"เป็นเชื้อในดินที่ปนเปื้อนน้ำนมและก่อ mastitis ภายหลังการรีดนมเสร็จ\" = เป็นภาพของเชื้อจากสิ่งแวดล้อมอีกเช่นกัน ไม่ใช่การแพร่ระหว่างโคขณะรีดนม\n— \"เป็นเชื้อในลำไส้ที่ก่อ coliform mastitis อย่างรุนแรงในโคระยะหลังคลอด\" = coliform mastitis เป็นของกลุ่ม coliform ไม่ใช่ของ Streptococcus",
     source: 'SJ 4 Milk borne pathogens and diseases 2026',
     verified: 'SJ 4 Milk borne pathogens and diseases 2026 p.20',
-    tags: ['streptococcus-agalactiae', 'contagious-mastitis', 'gbs'],
+    tags: ['Streptococcus-agalactiae','contagious-mastitis','gbs'],
   },
   {
     id: 101096, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
@@ -1543,7 +1543,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "การระบาดนี้สรุปได้ผู้ป่วย 11 ราย เสียชีวิต 7 ราย และเพาะแยก Streptococcus zooepidemicus ได้จากน้ำนมดิบของฟาร์ม A ผู้ป่วยรายที่ 1-9 และ 11 ล้วนดื่มน้ำนมดิบของฟาร์ม A ที่นำมารวม กรอง และบรรจุขวด ส่วนรายที่ 10 ดื่มนมพาสเจอไรซ์จากฟาร์ม B การตรวจสิ่งแวดล้อมของฟาร์มและคนงานไม่พบเชื้อ อาการนำคือไข้คล้ายไข้หวัดเรื้อรัง แล้วตามด้วย septicemia, meningitis, bacterial endocarditis และ mycotic aneurysm\n\n❌ ทำไมข้ออื่นผิด\n— \"ผู้ป่วย 11 ราย เสียชีวิต 2 ราย เพาะแยกได้ Streptococcus agalactiae\" = จำนวนผู้เสียชีวิตผิด และ S. agalactiae เป็นเชื้อ contagious mastitis ในโค ไม่ใช่เชื้อที่เพาะแยกได้จากการระบาดนี้\n— \"ผู้ป่วย 21 ราย เสียชีวิต 7 ราย เพาะแยกได้ Listeria monocytogenes จากนม\" = จำนวนผู้ป่วยผิด และเชื้อที่เพาะแยกได้ก็ไม่ใช่ Listeria\n— \"ผู้ป่วย 11 ราย เสียชีวิต 7 ราย เพาะแยกได้ Escherichia coli O157:H7\" = ตัวเลขถูกทั้งคู่ ตัวลวงอยู่ที่ชื่อเชื้อ ภาพของ O157:H7 คือถ่ายเป็นเลือดและ HUS ไม่ใช่ endocarditis กับ mycotic aneurysm",
     source: 'SJ 4 Milk borne pathogens and diseases 2026',
     verified: 'SJ 4 Milk borne pathogens and diseases 2026 p.33',
-    tags: ['outbreak-investigation', 'streptococcus-zooepidemicus', 'raw-milk'],
+    tags: ['outbreak-investigation','Streptococcus-zooepidemicus','raw-milk'],
   },
   {
     id: 101099, subject: 'milk-meat-hygiene', topic: 'milk-borne-pathogens', year: 5,
@@ -1623,7 +1623,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "หลังเทน้ำนมดิบลงถังรวมแล้วจึงตรวจยาปฏิชีวนะด้วย delvo test หรือวิธีเทียบเท่า และตรวจปริมาณจุลินทรีย์ทางอ้อมด้วย methylene blue หรือ resazurin เพราะเป็นรายการที่อ่านผลของน้ำนมทั้งถังได้ ไม่ต้องแยกเป็นรายฟาร์ม\n\n❌ ทำไมข้ออื่นผิด\n— \"การตรวจสีและกลิ่น ร่วมกับ alcohol test\" = ทั้งคู่เป็นรายการของช่วงก่อนเทลงถังรวม\n— \"CMT test และการตรวจ somatic cell count\" = เป็นการดูสุขภาพเต้านมของน้ำนมรายฟาร์ม ต้องทำก่อนเทรวม\n— \"Alcohol test ร่วมกับการตรวจ somatic cell\" = ทั้งสองรายการอยู่ในช่วงก่อนเทลงถังรวมเช่นกัน",
     source: 'SJ 5 Standard of milk industry and milk products 2026',
     verified: 'SJ 5 Standard of milk industry and milk products 2026 p.15',
-    tags: ['raw-milk-reception', 'delvo-test', 'methylene-blue'],
+    tags: ['raw-milk-reception','Delvo-test','methylene-blue'],
   },
   {
     id: 101104, subject: 'milk-meat-hygiene', topic: 'milk-industry-std', year: 5,
@@ -1783,7 +1783,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: 'ขั้นตอนที่ 1 ถึง 5 คือ assemble HACCP team, describe product, identify intended use, construct flow diagram และ on-site confirmation of flow diagram ซึ่งเป็นขั้นเตรียมการและยังไม่ตรงกับหลักการทั้ง 7 ข้อ หลักการข้อที่ 1 เริ่มที่ขั้นตอนที่ 6 conduct a hazard analysis จากนั้นขั้นตอนที่ 7 ถึง 12 จึงตรงกับหลักการข้อที่ 2 ถึง 7 ตามลำดับ',
     source: 'SJ 5 Standard of milk industry and milk products 2026',
     verified: 'SJ 5 Standard of milk industry and milk products 2026 p.79',
-    tags: ['haccp', 'twelve-steps', 'hazard-analysis'],
+    tags: ['HACCP','twelve-steps','hazard-analysis'],
   },
   {
     id: 101114, subject: 'milk-meat-hygiene', topic: 'milk-industry-std', year: 5,
@@ -1799,7 +1799,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "Decision tree ที่ใช้ตัดสิน CCP มี 4 คำถาม และคำถามข้อที่ 1 ถามว่ามีมาตรการควบคุมหรือไม่ ถ้าไม่มีต้องพิจารณาต่อว่าการควบคุมที่ขั้นตอนนั้นจำเป็นต่อความปลอดภัยหรือไม่ ถ้าจำเป็นก็ต้องหยุดเพื่อปรับปรุงขั้นตอนการผลิต\n\n❌ ทำไมข้ออื่นผิด\n— \"3 คำถาม โดยข้อที่ 1 ถามว่ามีมาตรการควบคุมหรือไม่\" = คำถามข้อแรกถูก แต่จำนวนคำถามผิด\n— \"4 คำถาม โดยข้อที่ 1 ถามว่าอันตรายรุนแรงเพียงใด\" = จำนวนคำถามถูก แต่ระดับความรุนแรงไม่ใช่คำถามข้อแรก\n— \"5 คำถาม โดยข้อที่ 1 ถามว่ามีขั้นตอนกำจัดอันตรายหรือไม่\" = ผิดทั้งจำนวน และคำถามที่ว่ามีขั้นตอนกำจัดหรือลดอันตรายให้อยู่ในระดับที่ยอมรับได้หรือไม่คือข้อที่ 4 ซึ่งเป็นข้อสุดท้าย\n\n💡 เริ่มด้วยคำถามว่าคุมได้ไหม และจบด้วยคำถามว่ามีขั้นตอนถัดไปกำจัดอันตรายได้ไหม",
     source: 'SJ 5 Standard of milk industry and milk products 2026',
     verified: 'SJ 5 Standard of milk industry and milk products 2026 p.84',
-    tags: ['haccp', 'decision-tree', 'ccp'],
+    tags: ['HACCP','decision-tree','CCP'],
   },
   {
     id: 101116, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
@@ -2071,7 +2071,7 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "CCP2 คือขั้น pasteurization เกณฑ์คือ HTST ที่ 72-75 องศาเซลเซียส 15 วินาที แล้วลดอุณหภูมิน้ำนมอย่างรวดเร็วให้ต่ำกว่า 4 องศาเซลเซียส พร้อมสุ่มตรวจ plate count หลัง HTST เป็น verification\n\n❌ ทำไมข้ออื่นผิด\n— \"ต่ำกว่า 10 องศาเซลเซียส\" = ไม่ใช่เกณฑ์ที่กำหนดไว้ของขั้นนี้\n— \"ต่ำกว่า 8 องศาเซลเซียส\" = เป็นเกณฑ์ของสายโยเกิร์ต\n— \"ต่ำกว่า 6 องศาเซลเซียส\" = 4-6 องศาเซลเซียสเป็นอุณหภูมิห้องเก็บใน CCP3 ไม่ใช่เกณฑ์ของการทำความเย็นทันทีหลัง HTST\n\n💡 ทำความเย็นทันทีหลัง HTST เข้มกว่าห้องเก็บ ต่ำกว่า 4 คือของ CCP2 ส่วน 4-6 คือของ CCP3",
     source: 'SJ 6 Processing and manufacturing technologies 2026',
     verified: 'SJ 6 Processing and manufacturing technologies 2026 p.69',
-    tags: ['haccp', 'ccp', 'cooling'],
+    tags: ['HACCP','CCP','cooling'],
   },
   {
     id: 101135, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
@@ -2087,6 +2087,6 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     explain: "ขั้น acid wash ในระบบ CIP ใช้ HNO3 0.5-1% ที่ 60-65 องศาเซลเซียส นาน 20-30 นาที ลำดับเต็มคือ pre-rinse ด้วย warm water 10 นาที แล้ว alkali wash ที่ 70-80 องศาเซลเซียส 20-30 นาที ด้วย NaOH 1-3% ตามด้วย intermediate rinse แล้วจึงถึง acid wash\n\n❌ ทำไมข้ออื่นผิด\n— \"NaOH 1-3% ที่ 70-80 องศาเซลเซียส\" = เป็นเงื่อนไขของขั้น alkali wash ทั้งชุด\n— \"HNO3 1-3% ที่ 70-80 องศาเซลเซียส\" = สารถูก แต่ยกความเข้มข้นและอุณหภูมิของขั้น alkali มาใส่\n— \"NaOH 0.5-1% ที่ 60-65 องศาเซลเซียส\" = เงื่อนไขของขั้น acid wash แต่ใส่ด่างแทนกรด\n\n💡 ด่างมาก่อนกรด และขั้นด่างใช้ทั้งความเข้มข้นและอุณหภูมิที่สูงกว่า",
     source: 'SJ 6 Processing and manufacturing technologies 2026',
     verified: 'SJ 6 Processing and manufacturing technologies 2026 p.71',
-    tags: ['cip', 'cleaning', 'number-threshold'],
+    tags: ['CIP','cleaning','number-threshold'],
   },
 ];
