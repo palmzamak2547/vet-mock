@@ -125,7 +125,10 @@ export function useAuth() {
         if (cancelled || !supabase) return;
         const { data } = await supabase
           .from('profiles')
-          .select('*')
+          // profiles is a public directory, while legacy study-metric
+          // columns are private. Keep this explicit so column grants can
+          // enforce the boundary without breaking profile hydration.
+          .select('id, username, avatar_emoji, created_at')
           .eq('id', user.id)
           .maybeSingle();
         if (cancelled) return;

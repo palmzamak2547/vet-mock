@@ -31,6 +31,7 @@ tmp/
 # on every run; do NOT commit (would create noisy diffs every test).
 test-results/
 playwright-report/
+.playwright-cli/
 .ds-sync/
 ds-bundle/
 .design-sync/.cache/

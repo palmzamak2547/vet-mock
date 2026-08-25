@@ -30,6 +30,9 @@ const MAX_QUESTION = 2000;
 const DEFAULT_MODEL = 'claude-sonnet-4-5-20250929';
 
 export default async function handler(req, res) {
+  // Student answers and grading feedback are user-specific and must never be
+  // retained by a shared cache.
+  res.setHeader('Cache-Control', 'private, no-store');
   // ── CORS (same pattern as other VetMock APIs) ──
   const reqOrigin = req.headers.origin;
   const allowed = allowedOrigin(req);
@@ -78,6 +81,18 @@ export default async function handler(req, res) {
     }
     if (!question) {
       return res.status(400).json({ error: 'Question text is required for grading context' });
+    }
+
+    // A per-IP limit does not stop distributed quota burn. Keep one shared
+    // daily ceiling for both Anthropic-backed VetMock routes; on exhaustion
+    // the UI already falls back to self-grade / normal VetWiki reading.
+    const providerBudget = await rateLimit('provider:anthropic:daily', 1000, 24 * 60 * 60 * 1000);
+    if (!providerBudget.ok) {
+      res.setHeader('Retry-After', String(providerBudget.retryAfter));
+      return res.status(503).json({
+        error: 'AI daily capacity reached',
+        hint: 'Use self-grade for now and try again later.',
+      });
     }
 
     // Build the system + user prompt

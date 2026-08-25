@@ -136,9 +136,21 @@ export async function rateLimit(key, max, winMs) {
 
 /** Best-effort client IP extraction for rate-limit keys (not auth!). */
 export function clientIP(req) {
-  const fwd = req.headers['x-forwarded-for'];
-  if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
-  return req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
+  // Vercel documents x-vercel-forwarded-for as its platform-owned copy of
+  // x-forwarded-for. Prefer it so a future proxy in front of Vercel cannot
+  // replace the generic header and mint arbitrary rate-limit buckets.
+  const candidates = [
+    req.headers['x-vercel-forwarded-for'],
+    req.headers['x-forwarded-for'],
+    req.headers['x-real-ip'],
+    req.socket?.remoteAddress,
+  ];
+  for (const value of candidates) {
+    if (value === null || value === undefined || value === '') continue;
+    const first = String(value).split(',')[0].trim().slice(0, 128);
+    if (first) return first;
+  }
+  return 'unknown';
 }
 
 /**

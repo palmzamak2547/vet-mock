@@ -16,7 +16,7 @@
 //
 // Same-origin (relative paths starting with `/`) and `data:` URIs
 // are always allowed. Trusted external hosts:
-//   • *.supabase.co/storage/ — our own Supabase Storage uploads
+//   • VetMock's exact Supabase host — never an attacker-owned project
 //   • i.imgur.com           — common student-shared host
 //   • imgur.com/...          (redirect to i.imgur.com)
 //   • i.ibb.co              — image-bb (popular mirror)
@@ -25,7 +25,7 @@
 // ============================================================
 
 const ALLOWED_HOSTS = [
-  /\.supabase\.co$/i,
+  /^mpovsdzdggvksmeehqfj\.supabase\.co$/i,
   /^i\.imgur\.com$/i,
   /^imgur\.com$/i,
   /^i\.ibb\.co$/i,
@@ -64,6 +64,28 @@ export function safeImageUrl(url) {
       if (re.test(host)) return trimmed;
     }
     return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Allow a markdown/source link only when it cannot execute script or escape
+ * to an insecure transport. Relative and fragment links stay same-origin;
+ * external links must use HTTPS.
+ */
+export function safeLinkUrl(url) {
+  if (!url || typeof url !== 'string') return null;
+  const trimmed = url.trim();
+  if (!trimmed || trimmed.length > 2048) return null;
+  if (trimmed.startsWith('#')) return trimmed;
+  if (trimmed.startsWith('/') && !trimmed.startsWith('//')) return trimmed;
+
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol !== 'https:') return null;
+    if (parsed.username || parsed.password) return null;
+    return parsed.href;
   } catch {
     return null;
   }

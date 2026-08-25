@@ -453,7 +453,7 @@ export async function updateUsername(newUsername) {
     .from('profiles')
     .update({ username: newUsername })
     .eq('id', userId)
-    .select()
+    .select('id, username, avatar_emoji, created_at')
     .single();
   if (error) throw error;
   // Mirror to user_metadata so HomeView / UserMenu pick it up without

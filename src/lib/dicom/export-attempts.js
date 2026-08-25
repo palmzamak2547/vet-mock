@@ -59,9 +59,15 @@ export async function fetchAndExportAttemptsCsv() {
   return { ok: true, count: rows.length };
 }
 
-function csvCell(value) {
+export function csvCell(value) {
   if (value === null || value === undefined) return '';
-  const text = String(value);
+  let text = String(value);
+  // Excel/Sheets can execute string cells beginning with a formula marker.
+  // Notes and case titles are text, so prefix only string values; genuine
+  // numeric measurements keep their numeric CSV representation.
+  if (typeof value === 'string' && /^[\t\r\n ]*[=+\-@]/.test(text)) {
+    text = `'${text}`;
+  }
   if (/[",\n\r]/.test(text)) return `"${text.replace(/"/g, '""')}"`;
   return text;
 }

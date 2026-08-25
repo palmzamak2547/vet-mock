@@ -1,19 +1,8 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import dicomParser from 'dicom-parser';
 import { TAG_DICT } from '../../lib/dicom/tag-dict.js';
+import { isAnonymizedTagName } from '../../lib/dicom/anonymizer.js';
 import { useModalFocus } from '../../hooks/useModalFocus.js';
-
-// PII-sensitive tag names — highlighted with a warning badge so users
-// know what would be stripped by the anonymizer.
-const PII_TAGS = new Set([
-  'PatientName', 'PatientID', 'PatientBirthDate', 'PatientSex',
-  'PatientAge', 'PatientWeight', 'PatientAddress', 'PatientComments',
-  'MedicalAlerts', 'Allergies', 'AccessionNumber',
-  'ReferringPhysicianName', 'NameOfPhysiciansReadingStudy',
-  'InstitutionName', 'InstitutionAddress', 'StationName',
-  'InstitutionalDepartmentName', 'DeviceSerialNumber',
-  'OperatorsName', 'PerformingPhysicianName', 'ResponsiblePerson',
-]);
 
 export default function TagInspector({ file, onClose }) {
   const searchRef = useRef(null);
@@ -37,10 +26,17 @@ export default function TagInspector({ file, onClose }) {
           const el = dataSet.elements[tagId];
           const name = TAG_DICT[tagId] || '(unknown)';
           let value = '';
+          let isReadableString = true;
           try {
             const s = dataSet.string(tagId);
-            value = s !== undefined ? s : `(${el.length} bytes binary)`;
+            if (s !== undefined) {
+              value = s;
+            } else {
+              isReadableString = false;
+              value = `(${el.length} bytes binary)`;
+            }
           } catch {
+            isReadableString = false;
             value = `(${el.length} bytes binary)`;
           }
           const displayValue = value.slice(0, 400);
@@ -51,7 +47,8 @@ export default function TagInspector({ file, onClose }) {
             value: displayValue,
             searchText: `${name}\n${tagId}\n${displayValue}`.toLocaleLowerCase(),
             length: el.length,
-            isPii: PII_TAGS.has(name),
+            isPii: isAnonymizedTagName(name),
+            hasReadableValue: isReadableString && Boolean(value.trim()) && !/^[\s\0]*$/.test(value),
           });
         }
         // Sort by tag ID
@@ -76,7 +73,7 @@ export default function TagInspector({ file, onClose }) {
     return list;
   }, [tags, filter, piiOnly]);
 
-  const piiPresent = useMemo(() => tags.filter((t) => t.isPii && t.value.trim() && !/^[\s\0]*$/.test(t.value)).length, [tags]);
+  const piiPresent = useMemo(() => tags.filter((t) => t.isPii && t.hasReadableValue).length, [tags]);
 
   return (
     <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby="vmx-dicom-tags-title" tabIndex={-1} data-vmx-modal="true" className="vmx-dicom-tags-dialog" style={panelStyle}>

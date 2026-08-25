@@ -20,7 +20,15 @@ const MAX_MESSAGE = 5000;
 const MAX_NAME = 100;
 const MAX_EMAIL = 254; // RFC 5321
 
+export function headerText(value, maxLength) {
+  return String(value || '')
+    .replace(/[\r\n\0]+/g, ' ')
+    .trim()
+    .slice(0, maxLength);
+}
+
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'private, no-store');
   // ── CORS handling ──
   // Mirror /api/playlist's approach: only reject when Origin IS present
   // but not in allowlist. Some browsers (notably iPad Safari) omit the
@@ -54,8 +62,8 @@ export default async function handler(req, res) {
 
   try {
     const body = req.body || {};
-    const type = String(body.type || 'Feedback').slice(0, 50);
-    const subject = String(body.subject || '').slice(0, MAX_SUBJECT);
+    const type = headerText(body.type || 'Feedback', 50) || 'Feedback';
+    const subject = headerText(body.subject, MAX_SUBJECT);
     const message = String(body.message || '').slice(0, MAX_MESSAGE);
     let fromEmail = String(body.fromEmail || '').slice(0, MAX_EMAIL).trim();
     const fromName = String(body.fromName || '').slice(0, MAX_NAME);
@@ -78,6 +86,12 @@ export default async function handler(req, res) {
     if (!apiKey) {
       console.error('RESEND_API_KEY not set');
       return res.status(500).json({ error: 'Email service not configured. Add RESEND_API_KEY in Vercel.' });
+    }
+
+    const providerBudget = await rateLimit('provider:resend:daily', 100, 24 * 60 * 60 * 1000);
+    if (!providerBudget.ok) {
+      res.setHeader('Retry-After', String(providerBudget.retryAfter));
+      return res.status(429).json({ error: 'Daily feedback capacity reached', retryAfter: providerBudget.retryAfter });
     }
 
     const emailHtml = `

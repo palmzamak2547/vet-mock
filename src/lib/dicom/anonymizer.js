@@ -18,17 +18,29 @@ import dicomParser from 'dicom-parser';
 // DICOM tags to anonymize (hex keys = dicom-parser's "xGGGGEEEE" format)
 // Source: DICOM PS3.15 Annex E Basic Application Level Confidentiality
 // Profile (subset) + common vet identifiers.
-const ANON_TAGS = [
+export const ANON_TAGS = [
   // Patient
   { tag: 'x00100010', label: 'PatientName' },
   { tag: 'x00100020', label: 'PatientID' },
+  { tag: 'x00100021', label: 'IssuerOfPatientID' },
   { tag: 'x00100030', label: 'PatientBirthDate' },
+  { tag: 'x00100032', label: 'PatientBirthTime' },
   { tag: 'x00100040', label: 'PatientSex' },
+  { tag: 'x00101000', label: 'OtherPatientIDs' },
+  { tag: 'x00101001', label: 'OtherPatientNames' },
   { tag: 'x00101010', label: 'PatientAge' },
   { tag: 'x00101030', label: 'PatientWeight' },
+  { tag: 'x00101040', label: 'PatientAddress' },
   { tag: 'x00102000', label: 'MedicalAlerts' },
   { tag: 'x00102110', label: 'Allergies' },
+  { tag: 'x00102154', label: 'PatientTelephoneNumbers' },
+  { tag: 'x00102155', label: 'PatientTelecomInformation' },
+  { tag: 'x001021b0', label: 'AdditionalPatientHistory' },
   { tag: 'x00104000', label: 'PatientComments' },
+  // Veterinary owner / responsible party
+  { tag: 'x00102297', label: 'ResponsiblePerson' },
+  { tag: 'x00102298', label: 'ResponsiblePersonRole' },
+  { tag: 'x00102299', label: 'ResponsibleOrganization' },
   // Study / referring
   { tag: 'x00080050', label: 'AccessionNumber' },
   { tag: 'x00080090', label: 'ReferringPhysicianName' },
@@ -45,6 +57,13 @@ const ANON_TAGS = [
   { tag: 'x00081070', label: 'OperatorsName' },
   { tag: 'x00081050', label: 'PerformingPhysicianName' },
 ];
+
+// Tag Inspector imports this predicate so its PII warning cannot drift away
+// from what the download action actually strips.
+const ANON_TAG_NAMES = new Set(ANON_TAGS.map(({ label }) => label));
+export function isAnonymizedTagName(name) {
+  return ANON_TAG_NAMES.has(name);
+}
 
 export async function anonymizeDicom(file) {
   const buf = await file.arrayBuffer();

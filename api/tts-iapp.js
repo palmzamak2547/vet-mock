@@ -68,6 +68,7 @@ function wavHeader(pcmByteLen) {
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'private, no-store');
   // ── CORS — same pattern as /api/tts ────────────────────────
   const allowed = allowedOrigin(req);
   if (allowed) {
@@ -152,6 +153,14 @@ export default async function handler(req, res) {
   if (!Number.isFinite(speedNum)) speedNum = 1.0;
   speedNum = Math.max(0.8, Math.min(1.2, speedNum));
 
+  // Protect the shared Thai-voice quota even when callers rotate IPs. A 503
+  // intentionally tells the client dispatcher to continue to Edge TTS.
+  const providerBudget = await rateLimit('provider:iapp:daily', 200, 24 * 60 * 60 * 1000);
+  if (!providerBudget.ok) {
+    res.setHeader('Retry-After', String(providerBudget.retryAfter));
+    return res.status(503).json({ error: 'iapp daily capacity reached' });
+  }
+
   // ── Forward to iApp ────────────────────────────────────────
   // V3 contract: POST JSON {text, speed} with `apikey:` custom header
   // (NOT `Authorization: Bearer`). Response is raw 16-bit LE PCM at
@@ -204,7 +213,7 @@ export default async function handler(req, res) {
     const wav = Buffer.concat([wavHeader(pcm.length), pcm]);
 
     res.setHeader('Content-Type', 'audio/wav');
-    res.setHeader('Cache-Control', 'public, max-age=86400, immutable');
+    res.setHeader('Cache-Control', 'private, max-age=86400, immutable');
     res.setHeader('Content-Length', String(wav.length));
     return res.send(wav);
   } catch (err) {

@@ -43,6 +43,10 @@ const VOICE_MAP = {
 };
 
 export default async function handler(req, res) {
+  // The POST body may be user-authored text. Keep error/debug responses out of
+  // caches; successful audio is browser-private (the app also caches it in
+  // IndexedDB for the normal fast/offline path).
+  res.setHeader('Cache-Control', 'private, no-store');
   // ── CORS ───────────────────────────────────────────────────
   const allowed = allowedOrigin(req);
   if (allowed) {
@@ -149,7 +153,7 @@ export default async function handler(req, res) {
     }
 
     res.setHeader('Content-Type', 'audio/mpeg');
-    res.setHeader('Cache-Control', 'public, max-age=86400, immutable');
+    res.setHeader('Cache-Control', 'private, max-age=86400, immutable');
     res.setHeader('Content-Length', String(audio.length));
     res.send(audio);
   } catch (err) {

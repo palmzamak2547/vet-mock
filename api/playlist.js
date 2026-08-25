@@ -41,7 +41,8 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });
   }
 
-  const id = (req.query?.id || '').trim();
+  const rawId = Array.isArray(req.query?.id) ? req.query.id[0] : req.query?.id;
+  const id = String(rawId || '').trim();
   if (!id || !/^[A-Za-z0-9_-]{10,40}$/.test(id)) {
     return res.status(400).json({ error: 'invalid playlist id' });
   }
@@ -50,12 +51,15 @@ export default async function handler(req, res) {
 
   // ─── 1) Prefer YouTube Data API if key configured ───
   if (apiKey) {
-    try {
-      const items = await fromDataApi(id, apiKey);
-      res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
-      return res.status(200).json({ items, count: items.length, source: 'api' });
-    } catch (err) {
-      console.warn('Data API failed, falling back to RSS:', err.message);
+    const providerBudget = await rateLimit('provider:youtube-data-api:daily', 250, 24 * 60 * 60 * 1000);
+    if (providerBudget.ok) {
+      try {
+        const items = await fromDataApi(id, apiKey);
+        res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+        return res.status(200).json({ items, count: items.length, source: 'api' });
+      } catch (err) {
+        console.warn('Data API failed, falling back to RSS:', err.message);
+      }
     }
   }
 

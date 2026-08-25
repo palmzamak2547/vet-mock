@@ -456,6 +456,14 @@ function NextPlayPanel({
     ? topicMeta.label.replace(/^[\d\s.·\-]+/, '').trim().slice(0, 42)
     : 'หัวข้อนี้';
 
+  // Hooks must run before the writing-only early return. goHome clears the
+  // finished question array one render before ResultsView unmounts; when this
+  // memo lived below the branch React saw fewer hooks and crashed with #300.
+  const wrongQs = useMemo(
+    () => autoQs.filter((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id])),
+    [autoQs, answers],
+  );
+
   // Pure-writing → keep classic flow (review needed for self-grading)
   if (autoQs.length === 0) {
     return (
@@ -466,14 +474,6 @@ function NextPlayPanel({
       </div>
     );
   }
-
-  // Build the wrong-Qs sub-array from THIS session (not history).
-  // We hand the slice to App via replayQuestions so the new round is
-  // a precise redo, not a cross-history scan.
-  const wrongQs = useMemo(
-    () => autoQs.filter((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id])),
-    [autoQs, answers],
-  );
 
   const handleRedoWrong = () => {
     if (wrongQs.length === 0) return;

@@ -43,33 +43,19 @@
 import { serve } from 'https://deno.land/std@0.208.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 import { jwtVerify, createRemoteJWKSet } from 'https://esm.sh/jose@5.2.0';
+import {
+  PRODUCTION_ORIGIN,
+  isAllowedAppOrigin,
+  resolveAppRedirect,
+} from '../_shared/app-origins.js';
 
 const LINE_JWKS_URL = 'https://api.line.me/oauth2/v2.1/certs';
 const LINE_ISSUER = 'https://access.line.me';
 
 const JWKS = createRemoteJWKSet(new URL(LINE_JWKS_URL));
 
-// CORS — allow the vetmock origins to call this function. Hard-coded
-// production + localhost, plus a pattern allowance for Vercel preview
-// deploys (vetmock-xxxx-palmzamak2547s-projects.vercel.app) so Palm
-// can exercise the LINE flow on preview branches without redeploying
-// this function each time.
-const ALLOWED_ORIGINS = new Set([
-  'https://vetmock.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:4174',
-]);
-// Matches preview-deployment origins on the palmzamak2547 team.
-const PREVIEW_ORIGIN_RE = /^https:\/\/vetmock-[a-z0-9-]+-palmzamak2547s-projects\.vercel\.app$/i;
-
-function isOriginAllowed(origin: string | null): boolean {
-  if (!origin) return false;
-  if (ALLOWED_ORIGINS.has(origin)) return true;
-  return PREVIEW_ORIGIN_RE.test(origin);
-}
-
 function corsHeaders(origin: string | null) {
-  const allow = isOriginAllowed(origin) ? origin! : 'https://vetmock.vercel.app';
+  const allow = isAllowedAppOrigin(origin) ? origin! : PRODUCTION_ORIGIN;
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -89,6 +75,10 @@ function jsonResponse(payload: unknown, status: number, origin: string | null) {
 serve(async (req) => {
   const origin = req.headers.get('origin');
 
+  if (origin && !isAllowedAppOrigin(origin)) {
+    return jsonResponse({ error: 'origin_not_allowed' }, 403, origin);
+  }
+
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: corsHeaders(origin) });
   }
@@ -106,6 +96,9 @@ serve(async (req) => {
   const idToken = body?.id_token;
   if (!idToken || typeof idToken !== 'string') {
     return jsonResponse({ error: 'missing_id_token' }, 400, origin);
+  }
+  if (idToken.length > 8192) {
+    return jsonResponse({ error: 'id_token_too_large' }, 413, origin);
   }
 
   const channelId = Deno.env.get('LINE_CHANNEL_ID');
@@ -157,9 +150,7 @@ serve(async (req) => {
   // Supabase admin.generateLink with type='magiclink' upserts the user
   // by email + returns an action_link. user_metadata is attached on
   // creation so first-time logins land with their LINE profile filled.
-  const redirectTo = (typeof body?.redirect_to === 'string' && body.redirect_to)
-    ? body.redirect_to
-    : (isOriginAllowed(origin) ? origin! : 'https://vetmock.vercel.app');
+  const redirectTo = resolveAppRedirect(body?.redirect_to, origin);
 
   const { data, error } = await supabase.auth.admin.generateLink({
     type: 'magiclink',
@@ -180,12 +171,25 @@ serve(async (req) => {
     return jsonResponse({ error: 'magic_link_failed', detail: error?.message }, 500, origin);
   }
 
+  // Bind a LINE identity in server-controlled app_metadata. user_metadata is
+  // editable by the user and must never be the authority for provider linking.
+  const existingLineSub = data.user?.app_metadata?.line_sub;
+  if (existingLineSub && existingLineSub !== lineSub) {
+    console.error('[line-auth] email is already bound to a different LINE identity');
+    return jsonResponse({ error: 'line_identity_conflict' }, 409, origin);
+  }
+
   // For existing users we ALSO patch user_metadata so subsequent logins
   // refresh name/picture. Look up by email then admin.updateUserById.
   // (generateLink only writes user_metadata on initial creation.)
   if (data.user?.id) {
     await supabase.auth.admin.updateUserById(data.user.id, {
+      app_metadata: {
+        ...(data.user.app_metadata || {}),
+        line_sub: lineSub,
+      },
       user_metadata: {
+        ...(data.user.user_metadata || {}),
         line_sub: lineSub,
         line_name: displayName,
         line_picture: picture,

@@ -53,6 +53,8 @@ export const TAG_DICT = {
   'x00101040': 'PatientAddress',
   'x00102000': 'MedicalAlerts',
   'x00102110': 'Allergies',
+  'x00102154': 'PatientTelephoneNumbers',
+  'x00102155': 'PatientTelecomInformation',
   'x00102160': 'EthnicGroup',
   'x00102180': 'Occupation',
   'x001021b0': 'AdditionalPatientHistory',

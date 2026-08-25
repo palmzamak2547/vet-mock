@@ -16,6 +16,9 @@
 // ============================================================
 
 const MAX_Q = 200;
+// 200 compact {subject,id} entries are far below this. Reject an oversized
+// query before atob/JSON.parse so a crafted URL cannot force a large decode.
+const MAX_QSET_CHARS = 32_000;
 
 // Base64URL — RFC 4648 §5: replaces +/= with -_ (no padding) so the
 // string is safe in URL params without percent-encoding.
@@ -43,7 +46,12 @@ export function encodeQuizSet(questions) {
 }
 
 export function decodeQuizSet(qsetParam) {
-  if (!qsetParam) return [];
+  if (
+    !qsetParam ||
+    typeof qsetParam !== 'string' ||
+    qsetParam.length > MAX_QSET_CHARS ||
+    !/^[A-Za-z0-9_-]+$/.test(qsetParam)
+  ) return [];
   try {
     const json = b64UrlDecode(qsetParam);
     const parsed = JSON.parse(json);
@@ -51,7 +59,8 @@ export function decodeQuizSet(qsetParam) {
     return parsed
       .filter((row) => row && typeof row === 'object' && row.s && typeof row.i !== 'undefined')
       .slice(0, MAX_Q)
-      .map((row) => ({ subject: String(row.s), id: Number(row.i) }));
+      .map((row) => ({ subject: String(row.s), id: Number(row.i) }))
+      .filter((row) => row.subject.length <= 100 && Number.isFinite(row.id));
   } catch {
     return [];
   }

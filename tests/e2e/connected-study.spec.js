@@ -1,4 +1,6 @@
 import { expect, test } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
+import dicomParser from 'dicom-parser';
 
 async function firstVisible(locator) {
   for (let index = 0; index < await locator.count(); index += 1) {
@@ -113,6 +115,10 @@ function minimalDicomFixture() {
     dicomElement(0x0008, 0x0060, 'CS', text('OT')),
     dicomElement(0x0010, 0x0010, 'PN', text('ANONYMOUS')),
     dicomElement(0x0010, 0x0020, 'LO', text('E2E-FIXTURE')),
+    dicomElement(0x0010, 0x1000, 'LO', text('OTHER-ID')),
+    dicomElement(0x0010, 0x1001, 'PN', text('OTHER-NAME')),
+    dicomElement(0x0010, 0x2154, 'SH', text('000-000-0000')),
+    dicomElement(0x0010, 0x2297, 'PN', text('RESPONSIBLE-PERSON')),
     dicomElement(0x0020, 0x000d, 'UI', ui(studyInstance)),
     dicomElement(0x0020, 0x000e, 'UI', ui(seriesInstance)),
     dicomElement(0x0020, 0x0013, 'IS', text('1')),
@@ -387,11 +393,28 @@ test.describe('connected study experience', () => {
 
     await page.getByRole('button', { name: 'Info', exact: true }).first().click();
     await expect(page.getByRole('dialog', { name: 'DICOM Tag Inspector' })).toBeVisible();
+    await expect(page.getByText('⚠️ 6 PII tag(s) present (un-anonymized)')).toBeVisible();
     expect(
       await visibleViewportEscapes(page, '.vmx-lab-shell'),
       'the DICOM tag inspector must fit a 320px phone',
     ).toEqual([]);
     await page.getByRole('button', { name: 'Close DICOM Tag Inspector' }).click();
+
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Anonymize', exact: true }).first().click();
+    const download = await downloadPromise;
+    const downloadedPath = await download.path();
+    const anonymized = dicomParser.parseDicom(new Uint8Array(await readFile(downloadedPath)));
+    for (const tag of [
+      'x00100010',
+      'x00100020',
+      'x00101000',
+      'x00101001',
+      'x00102154',
+      'x00102297',
+    ]) {
+      expect((anonymized.string(tag) || '').trim(), `${tag} must be blank in the downloaded copy`).toBe('');
+    }
     // WebKit can emit a local-preview-only favicon CORS warning when the test
     // server is saturated in a fully parallel run. It is not a page/runtime
     // error and does not occur on the production same-origin asset.

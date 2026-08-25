@@ -69,6 +69,7 @@ Rules:
   clinical decision-making.`;
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'private, no-store');
   const reqOrigin = req.headers.origin;
   const allowed = allowedOrigin(req);
   if (allowed) {
@@ -102,9 +103,11 @@ export default async function handler(req, res) {
   try {
     const body = req.body || {};
     const question = String(body.question || '').slice(0, MAX_QUESTION).trim();
-    const subject = String(body.subject || '');
-    const topic = String(body.topic || '');
-    const wanted = Array.isArray(body.sectionIds) ? body.sectionIds.map(String) : [];
+    const subject = String(body.subject || '').slice(0, 100);
+    const topic = String(body.topic || '').slice(0, 200);
+    const wanted = Array.isArray(body.sectionIds)
+      ? body.sectionIds.slice(0, 32).map((id) => String(id).slice(0, 300))
+      : [];
 
     if (!question) return res.status(400).json({ error: 'question is required' });
 
@@ -117,6 +120,15 @@ export default async function handler(req, res) {
       : knowledge.sections
     ).slice(0, MAX_SECTIONS);
     if (chosen.length === 0) return res.status(400).json({ error: 'No matching sections' });
+
+    const providerBudget = await rateLimit('provider:anthropic:daily', 1000, 24 * 60 * 60 * 1000);
+    if (!providerBudget.ok) {
+      res.setHeader('Retry-After', String(providerBudget.retryAfter));
+      return res.status(503).json({
+        error: 'AI daily capacity reached',
+        hint: 'VetWiki content is still readable without AI.',
+      });
+    }
 
     const allowedMap = allowedFromSections(knowledge.id, chosen);
 

@@ -23,32 +23,38 @@ async function ensureProfile() {
 // ==========================================================
 // GROUPS
 // ==========================================================
-function randomCode(len = 6) {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  return Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+function rpcRow(data) {
+  return Array.isArray(data) ? (data[0] || null) : (data || null);
 }
 
-export async function createGroup(name, userId) {
+export async function createGroup(name, _userId) {
   await ensureProfile();
   const supabase = await getSupabase();
-  const code = randomCode();
-  const { data: group, error } = await supabase.from('groups')
-    .insert({ name, code, created_by: userId })
-    .select().single();
+  if (!supabase) throw new Error('ต้อง login ก่อน');
+  // Atomic server-side creation binds created_by + the admin membership to
+  // auth.uid(). The old two-request flow trusted a caller-supplied userId and
+  // could leave an orphan group if membership insertion failed.
+  const { data, error } = await supabase.rpc('create_study_group', {
+    group_name: String(name || '').trim(),
+  });
   if (error) throw error;
-  await supabase.from('group_members').insert({ group_id: group.id, user_id: userId, role: 'admin' });
+  const group = rpcRow(data);
+  if (!group) throw new Error('สร้างกลุ่มไม่สำเร็จ');
   return group;
 }
 
-export async function joinGroupByCode(code, userId) {
+export async function joinGroupByCode(code, _userId) {
   await ensureProfile();
   const supabase = await getSupabase();
-  const { data: group, error } = await supabase.from('groups')
-    .select('*').eq('code', code.toUpperCase()).single();
+  if (!supabase) throw new Error('ต้อง login ก่อน');
+  // The RPC verifies the invite and inserts the membership in one
+  // transaction. Group UUIDs and role values are no longer client authority.
+  const { data, error } = await supabase.rpc('join_study_group', {
+    invite_code: String(code || '').trim().toUpperCase(),
+  });
   if (error) throw new Error('ไม่พบกลุ่มรหัสนี้');
-  const { error: err2 } = await supabase.from('group_members')
-    .insert({ group_id: group.id, user_id: userId, role: 'member' });
-  if (err2 && err2.code !== '23505') throw err2;
+  const group = rpcRow(data);
+  if (!group) throw new Error('ไม่พบกลุ่มรหัสนี้');
   return group;
 }
 

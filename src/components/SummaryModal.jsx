@@ -14,6 +14,7 @@
 import { useMemo } from 'react';
 import PinButton from './PinButton.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { safeLinkUrl } from '../lib/safe-url.js';
 
 // ─────────────────────────────────────────────────────────────
 // Mini markdown → HTML renderer
@@ -22,7 +23,9 @@ function escapeHtml(s) {
   return s
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 // Inline replacements: bold, italic, code, links
@@ -37,7 +40,13 @@ function renderInline(text) {
   // [text](url)
   // Add both `noopener` (block window.opener tabnabbing) and `noreferrer`
   // (strip Referer — content domains may not want us referring).
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, target) => {
+    // target has already been HTML-escaped. Decode only ampersands for URL
+    // validation, then escape the normalized URL again for the attribute.
+    const safe = safeLinkUrl(target.replace(/&amp;/g, '&'));
+    if (!safe) return label;
+    return `<a href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+  });
   return s;
 }
 

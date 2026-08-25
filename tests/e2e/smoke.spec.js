@@ -188,6 +188,37 @@ test.describe('VetMock smoke flow', () => {
     expect(consoleErrors, `Unexpected console errors in Quick Practice flow:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
+  test('skipped-answer results can return home without changing hook order', async ({ page }) => {
+    await page.goto('/');
+
+    const quickPractice = page.getByRole('button', {
+      name: /Quick Practice|ฝึกแบบเลือกจำนวน/i,
+    }).first();
+    await expect(quickPractice).toBeVisible({ timeout: 15_000 });
+    await quickPractice.click();
+
+    await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
+    await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('2');
+    await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
+
+    await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 15_000 });
+    await answerCurrentQuestion(page);
+    await page.getByRole('button', { name: 'ข้อถัดไป →', exact: true }).click();
+    await page.getByRole('button', { name: /ส่งข้อสอบ ✓/ }).click();
+    await page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
+
+    await expect(page.getByText(
+      /Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/,
+    )).toBeVisible({ timeout: 15_000 });
+    await page.getByRole('button', { name: '🏠 หน้าแรก', exact: true }).click();
+    await expect(page.getByRole('heading', { level: 1, name: /พร้อมฝึกสำหรับ|สวัสดี/ })).toBeVisible();
+
+    expect(
+      consoleErrors,
+      `Results → Home must not throw a hook-order error:\n${consoleErrors.join('\n')}`,
+    ).toEqual([]);
+  });
+
   test('fresh user sees landing, then chooses year and phase, then reaches home', async ({ page }) => {
     await page.goto('/?e2e-fresh=1');
 
