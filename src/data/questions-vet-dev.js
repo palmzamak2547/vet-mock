@@ -20,6 +20,7 @@
 export const QB_VET_DEV = [
   // ── Lecture 01 — GIT development (Final 2022, 20 ข้อ) ──────────
   { id: 71001, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['ascending-colon', 'species-variation'],
     q: 'ระหว่างสุนัข สุกร โค และม้า ลำไส้ส่วนใดมีรูปแบบการเจริญที่แตกต่างกันระหว่างชนิดสัตว์มากที่สุด',
     options: [
       'Ascending duodenum',
@@ -35,6 +36,7 @@ export const QB_VET_DEV = [
     verified: 'INFERRED — comparative GIT anatomy; ascending colon most species-variant (McGeady Vet Embryology, GIT chapter)' },
 
   { id: 71002, subject: 'vet-dev-anat', topic: 'vd-pharyngeal', year: 1, type: 'mcq',
+  tags: ['lingual-papillae', 'mechanical-papillae'],
     q: 'การจับคู่ lingual papilla ในข้อใด สัมพันธ์กันในด้านของการทำหน้าที่ (mechanical / non-gustatory เหมือนกัน)',
     options: [
       'Filiform vs Conical papillae',
@@ -50,6 +52,7 @@ export const QB_VET_DEV = [
     verified: 'standard oral anatomy — filiform/conical = mechanical, no taste buds' },
 
   { id: 71003, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['meckels-diverticulum', 'vitelline-duct'],
     q: 'Meckel\'s diverticulum มีความเกี่ยวข้องกับโครงสร้างใดในระยะตัวอ่อน',
     options: [
       'Right vitelline artery',
@@ -65,6 +68,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — Meckel diverticulum = persistent vitelline duct' },
 
   { id: 71004, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['dorsal-mesogastrium', 'gastro-splenic-ligament', 'stomach-rotation'],
     q: 'Dorsal mesogastrium เจริญไปเป็นโครงสร้างใดในสภาพโตเต็มวัย',
     options: [
       'Gastro-epiploic ligament',
@@ -80,6 +84,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — dorsal mesogastrium → gastrosplenic ligament/greater omentum' },
 
   { id: 71005, subject: 'vet-dev-anat', topic: 'vd-pharyngeal', year: 1, type: 'mcq',
+  tags: ['pharyngeal-pouch', 'palatine-tonsil'],
     q: 'Semilunar fold ของต่อมทอนซิล (palatine tonsil) เจริญมาจากส่วนใดในระยะตัวอ่อน',
     options: [
       '1st Pharyngeal pouch',
@@ -95,6 +100,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — palatine tonsil from 2nd pharyngeal pouch' },
 
   { id: 71006, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['physiological-herniation', 'midgut-loop', 'duodenum'],
     q: 'ในระยะ physiological herniation and coiling ของลำไส้ โครงสร้างใดไม่ได้เคลื่อนออกไปใน umbilical coelom',
     options: [
       'Cecum',
@@ -110,6 +116,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — duodenum stays retroperitoneal during midgut herniation' },
 
   { id: 71007, subject: 'vet-dev-anat', topic: 'vd-pharyngeal', year: 1, type: 'mcq',
+  tags: ['pharyngeal-pouch', 'auditory-tube'],
     q: 'Pharyngeal pouch ที่ 1 เจริญไปเป็นโครงสร้างใดในสภาพโตเต็มวัยของสุนัข',
     options: [
       'Tonsillar fossa',
@@ -125,6 +132,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — 1st pharyngeal pouch → auditory tube + middle ear' },
 
   { id: 71008, subject: 'vet-dev-anat', topic: 'vd-pharyngeal', year: 1, type: 'mcq',
+  tags: ['salivary-glands', 'parotid-gland', 'ectoderm'],
     q: 'ต่อมน้ำลายชนิดใดมีต้นกำเนิดมาจากเนื้อเยื่อชั้น ectoderm',
     options: [
       'Sublingual salivary gland',
@@ -140,6 +148,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — parotid from oral ectoderm, others from endoderm' },
 
   { id: 71009, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['duodenum', 'foregut', 'midgut'],
     q: 'Duodenum เจริญมาจากส่วนใดของ primitive gut ในระยะตัวอ่อน',
     options: [
       'Foregut เท่านั้น',
@@ -155,6 +164,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — duodenum from foregut + midgut junction at bile duct' },
 
   { id: 71010, subject: 'vet-dev-anat', topic: 'vd-pharyngeal', year: 1, type: 'mcq',
+  tags: ['salivary-glands', 'parotid-duct'],
     q: 'ต่อมน้ำลายชนิดใดมีท่อไปเปิดที่บริเวณเหนือฟัน upper 4th premolar',
     options: [
       'Mandibular salivary gland',
@@ -170,6 +180,7 @@ export const QB_VET_DEV = [
     verified: 'standard anatomy — parotid duct opens at upper 4th premolar' },
 
   { id: 71011, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['physiological-herniation', 'midgut-loop', 'cecum'],
     q: 'ในระยะ re-entry & placement ของการเจริญลำไส้ ส่วนใดกลับเข้าไปในช่องท้องเป็นลำดับสุดท้าย',
     options: [
       'Duodenum',
@@ -185,6 +196,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — cecal bud returns last in midgut rotation' },
 
   { id: 71012, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['hindgut', 'urinary-bladder'],
     q: 'โครงสร้างใดมีความเกี่ยวข้องกับ hindgut ในระยะตัวอ่อน',
     options: [
       'Liver',
@@ -200,6 +212,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — bladder from urogenital sinus (cloaca/hindgut)' },
 
   { id: 71013, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['ruminant-stomach', 'greater-curvature', 'rumen'],
     q: 'ในการเจริญของ ruminant stomach ส่วน greater curvature ของกระเพาะตัวอ่อนจะเจริญไปเป็นกระเพาะส่วนใดในสภาพโตเต็มวัย',
     options: [
       'Reticulum',
@@ -215,6 +228,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — greater curvature → rumen (dorsal sac)' },
 
   { id: 71014, subject: 'vet-dev-anat', topic: 'vd-pharyngeal', year: 1, type: 'mcq',
+  tags: ['tongue-innervation', 'glossopharyngeal-nerve'],
     q: 'การรับความรู้สึกเจ็บปวดที่บริเวณโคนลิ้น (root / caudal third of tongue) ถูกควบคุมโดยเส้นประสาทสมองเส้นใด',
     options: [
       'CN IX (Glossopharyngeal)',
@@ -230,6 +244,7 @@ export const QB_VET_DEV = [
     verified: 'standard neuroanatomy — caudal tongue sensation via CN IX' },
 
   { id: 71015, subject: 'vet-dev-anat', topic: 'vd-git', year: 1, type: 'mcq',
+  tags: ['hepatic-diverticulum', 'gallbladder'],
     q: 'Caudal portion (pars cystica) ของ hepatic diverticulum เจริญไปเป็นโครงสร้างใด',
     options: [
       'Hepatic cord',
@@ -245,6 +260,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — pars cystica → gallbladder + cystic duct' },
 
   { id: 71016, subject: 'vet-dev-anat', topic: 'vd-pharyngeal', year: 1, type: 'mcq',
+  tags: ['lingual-papillae', 'filiform-papilla'],
     q: 'เมื่อถูกแมวเลียมือจะรู้สึกว่าลิ้นแมวสาก เป็นเพราะ lingual papilla ชนิดใด',
     options: [
       'Vallate papilla',
@@ -261,6 +277,7 @@ export const QB_VET_DEV = [
 
   // ── Lecture 02 — Vascular development (อ.ปุณณรัตน์, 10 ข้อ) ──────
   { id: 71017, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['vitelline-vein', 'portal-vein'],
     q: 'การเกิด anastomosis ของ distal vitelline vein ที่อยู่ใต้ตับ เจริญไปเป็นหลอดเลือดใด',
     options: [
       'Splenic vein',
@@ -276,6 +293,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — vitelline vein anastomosis → portal vein' },
 
   { id: 71018, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['recurrent-laryngeal-nerve', 'subclavian-artery', 'aortic-arch-derivatives'],
     q: 'Right recurrent laryngeal nerve เกี่ยว (คล้อง) อยู่กับหลอดเลือดใด',
     options: [
       'Arch of aorta',
@@ -291,6 +309,7 @@ export const QB_VET_DEV = [
     verified: 'standard anatomy — right RLN hooks right subclavian artery' },
 
   { id: 71019, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['ductus-venosus', 'umbilical-vein'],
     q: 'Ductus venosus ในตัวอ่อนรับเลือดมาจากหลอดเลือดใด',
     options: [
       'Left vitelline vein',
@@ -306,6 +325,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — ductus venosus carries left umbilical vein blood' },
 
   { id: 71020, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['umbilical-artery', 'round-ligament-of-bladder', 'fetal-circulation-remnants'],
     q: 'ส่วนปลาย (distal part) ของ umbilical artery เหลือเป็นโครงสร้างใดในสัตว์โตเต็มวัย',
     options: [
       'Cranial vesical artery',
@@ -321,6 +341,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — distal umbilical artery → round ligament of bladder' },
 
   { id: 71021, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['cardinal-veins', 'persistent-left-cranial-vena-cava'],
     q: 'หากไม่เกิด oblique anastomosis ของ left anterior cardinal vein ไปยังด้านขวา จะเกิดความผิดปกติแบบใด',
     options: [
       'Absent caudal vena cava',
@@ -336,6 +357,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — failed anterior cardinal anastomosis → persistent left cranial VC' },
 
   { id: 71022, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['ligamentum-teres-hepatis', 'umbilical-vein', 'fetal-circulation-remnants'],
     q: 'Round ligament of liver (ligamentum teres hepatis) เป็นส่วนที่เหลืออยู่ของหลอดเลือดใด',
     options: [
       'Hepatic sinusoid',
@@ -351,6 +373,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — ligamentum teres = obliterated left umbilical vein' },
 
   { id: 71023, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['aortic-arch-derivatives', 'fourth-aortic-arch'],
     q: 'Arch of aorta ในสัตว์โตเต็มวัยเจริญมาจาก aortic arch คู่ใด',
     options: [
       'Left 3rd aortic arch',
@@ -366,6 +389,7 @@ export const QB_VET_DEV = [
     verified: 'standard embryology — definitive aortic arch = left 4th aortic arch' },
 
   { id: 71024, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['caudal-vena-cava', 'vitelline-vein'],
     q: 'Hepatic segment of caudal vena cava เจริญมาจากโครงสร้างใด',
     options: [
       'Anastomosis of proximal umbilical veins',
@@ -381,6 +405,7 @@ export const QB_VET_DEV = [
     verified: 'INFERRED — hepatic segment of caudal VC from right vitelline (hepatocardiac) channel (McGeady Vet Embryology, cardiovascular chapter)' },
 
   { id: 71025, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['caudal-vena-cava', 'subsupracardinal-anastomosis', 'cardinal-veins'],
     q: 'Renal segment ของ caudal vena cava เจริญมาจาก anastomosis ใด',
     options: [
       'Right subsupracardinal anastomosis',
@@ -396,6 +421,7 @@ export const QB_VET_DEV = [
     verified: 'INFERRED — renal segment of caudal VC from subsupracardinal anastomosis (McGeady Vet Embryology)' },
 
   { id: 71026, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
+  tags: ['ductus-venosus', 'ligamentum-venosum', 'fetal-circulation-remnants'],
     q: 'Ductus venosus เหลือร่องรอยเป็นโครงสร้างใดหลังคลอด',
     options: [
       'Sinusoid in liver',

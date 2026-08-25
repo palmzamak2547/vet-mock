@@ -15,7 +15,11 @@
 export const NAMES_DOCUMENT = new RegExp([
   'สไลด์', 'เด็ค', 'เดค',                     // slide, deck
   'เอกสารนี้', 'คู่มือนี้', 'บทเรียนนี้',      // "this document/manual/lesson"
-  'ตารางเขียน', 'ตารางกำกับ',                 // "the table states/labels"
+  // A table in the deck is a document just as much as a slide is. The list
+  // carried only ตารางเขียน and ตารางกำกับ, so 37 stems saying "ตามตาราง" /
+  // "จากตาราง" / "ตาราง X ระบุว่า" went uncounted — the same defect Palm
+  // first pointed at, wearing a word the list did not have.
+  '(?:ตาม|จาก|ใน)ตาราง', 'ตาราง[^,]{0,40}?(?:ระบุ|กำกับ|เขียน|แสดง|ให้ไว้|จับคู่)',
   'หน้าถัดไป', 'หน้าที่แล้ว',                  // next page, previous page
   'ชุดย้อม',                                   // "the stain set" as shown
   'handout', '\\bdeck\\b', 'lecture นี้',

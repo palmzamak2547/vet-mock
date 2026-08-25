@@ -25,6 +25,7 @@
 export const QB_BIOCHEM_LECT2 = [
   // ── Nucleotide & nucleic acid structure ────────────────────
   { id: 74001, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['pentose-sugar', 'nucleotide'],
     q: 'ข้อใดไม่ถูกต้องเกี่ยวกับ nucleic acids',
     options: [
       'Nucleic acids คือ DNA หรือ RNA',
@@ -40,6 +41,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q1 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74002, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['pentose-sugar', 'RNA-structure'],
     q: 'ข้อใดไม่ถูกต้องเกี่ยวกับคุณลักษณะของ RNA',
     options: [
       'ปกติอยู่เป็นสายเดี่ยว',
@@ -55,6 +57,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q2 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74003, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['mRNA', 'RNA-types'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ RNA',
     options: [
       'mRNA เป็นตัวกำหนดรหัสการสังเคราะห์โปรตีน',
@@ -70,6 +73,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q3 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74004, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['histone', 'DNA-structure'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ DNA',
     options: [
       'ระหว่าง base pair เชื่อมกันด้วย covalent bond',
@@ -85,6 +89,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q4 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74005, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['nucleotide', 'ATP', 'cAMP'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ nucleotide',
     options: [
       'เป็นที่จัดเก็บข้อมูลทางพันธุกรรม (เช่น DNA)',
@@ -100,6 +105,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q5 (เฉลยไฮไลต์ในไฟล์ · all-of-the-above เป็นเฉลยจริง)' },
 
   { id: 74006, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-vs-RNA', 'A260'],
     q: 'ข้อใดเปรียบเทียบความแตกต่างระหว่าง DNA กับ RNA ไม่ถูกต้อง',
     options: [
       'DNA เป็น double strand ส่วน RNA เป็น single strand',
@@ -115,6 +121,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q6 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74007, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['Z-DNA', 'DNA-helix-forms'],
     q: 'ข้อใดถูกต้องที่สุดเกี่ยวกับโครงสร้างของ DNA',
     options: [
       'การเข้าคู่แบบ complementary คือ A กับ G และ T กับ C',
@@ -130,6 +137,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q7 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74008, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['palindrome', 'DNA-sequence'],
     q: 'ข้อใดเป็นชื่อสามสำนวนที่บอกว่าลำดับเบสอ่านจากหน้าไปหลังเหมือนอ่านจากหลังมาหน้า (palindrome)',
     options: ['VOLVO', 'CIVIC', 'ISUZU', 'MAZDA', 'TOYOTA'],
     answer: 1,
@@ -139,6 +147,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q9 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74009, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['Tm', 'DNA-denaturation', 'hyperchromic-effect'],
     q: 'ข้อใดถูกต้องที่สุดเกี่ยวกับ DNA',
     options: [
       'DNA มีประจุบนสายเองจาก nitrogenous base',
@@ -154,6 +163,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q10 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74010, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['B-DNA', 'DNA-helix-forms'],
     q: 'โครงสร้างของ DNA ที่พบในสภาพปกติของร่างกายอยู่ในรูปแบบใด',
     options: ['A form', 'B form', 'G form', 'H form', 'Z form'],
     answer: 1,
@@ -163,6 +173,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q11 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74011, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['A-DNA', 'DNA-helix-forms'],
     q: 'โครงสร้างของ DNA ที่พบในสภาพขาดน้ำ (dehydrate) อยู่ในรูปแบบใด',
     options: ['A form', 'B form', 'G form', 'H form', 'Z form'],
     answer: 0,
@@ -172,6 +183,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q12 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74012, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['gene', 'gene-product'],
     q: 'ข้อใดถูกต้องที่สุดเกี่ยวกับความหมายของ gene',
     options: [
       'Gene หมายถึง DNA ทั้งหมด',
@@ -187,6 +199,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q13 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74013, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['histone', 'chromatin-packaging'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ histone',
     options: [
       'พบในโปรคาริโอตเท่านั้น',
@@ -202,6 +215,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q14 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74014, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['central-dogma', 'transformation'],
     q: 'ข้อใดไม่ใช่กระบวนการที่เกี่ยวกับ nucleic acids ของเซลล์ปกติ',
     options: ['Transcription', 'Translation', 'Replication', 'Transformation', 'ถูกทุกข้อ'],
     answer: 3,
@@ -211,6 +225,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q15 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74015, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['phosphodiester-bond', 'sugar-phosphate-backbone'],
     q: 'ข้อใดเป็นลักษณะของพันธะ phosphodiester bond ใน nucleic acid',
     options: [
       'เป็นพันธะที่เชื่อมต่อระหว่างหมู่ phosphate กับน้ำตาล',
@@ -226,6 +241,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q16 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74016, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['N-glycosidic-bond', 'nucleoside'],
     q: 'ข้อใดเป็นลักษณะของพันธะ glycosidic linkage (N-glycosidic) ใน nucleotide',
     options: [
       'เป็นพันธะที่เชื่อมระหว่างหมู่ nitrogenous base กับน้ำตาล (N กับ C1′)',
@@ -241,6 +257,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q17 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74017, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-denaturation', 'hydrogen-bond'],
     q: 'Double-stranded DNA แยกกลายเป็น single-stranded DNA ได้จากปัจจัยใด (denaturation)',
     options: ['ความเป็นด่าง', 'ความเป็นกรด', 'ความร้อน', 'ความเย็น', 'แรงสั่นสะเทือน'],
     answer: 2,
@@ -250,6 +267,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q18 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74018, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['phosphodiester-bond', 'sugar-phosphate-backbone'],
     q: 'การต่อสาย DNA ให้ยาวขึ้น (เชื่อม nucleotide ในแกนหลัก) เกิดจากพันธะชนิดใด',
     options: ['Hydrogen bond', 'N-glycosidic linkage', 'O-glycosidic linkage', 'Phosphodiester bond', 'Covalent disulfide bond'],
     answer: 3,
@@ -259,6 +277,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q19 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74019, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['prokaryote-vs-eukaryote', 'nucleoside'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ DNA ของ prokaryotes และ eukaryotes',
     options: [
       'DNA ใน eukaryotes มีการจัดเก็บอย่างเป็นระบบ (ด้วย histone)',
@@ -275,6 +294,7 @@ export const QB_BIOCHEM_LECT2 = [
 
   // ── DNA replication ────────────────────────────────────────
   { id: 74020, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-replication', 'translation', 'prokaryote-vs-eukaryote'],
     q: 'ใน prokaryote (E. coli) DNA replication เกิดขึ้นที่ใด และการสร้างโปรตีน (translation) เกิดที่ใด',
     options: [
       'nucleus ; cytoplasm',
@@ -290,6 +310,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q21 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74021, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-replication', 'translation', 'prokaryote-vs-eukaryote'],
     q: 'ใน eukaryote DNA replication เกิดขึ้นที่ใด และการสร้างโปรตีน (translation) เกิดที่ใด',
     options: [
       'nucleus ; cytoplasm',
@@ -305,6 +326,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q22 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74022, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-replication', 'origin-of-replication', 'replication-fork'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ initiation ของ DNA replication',
     options: [
       'เริ่มโดย DnaA และ DnaB จับที่ origin of replication ของโครมาทิน',
@@ -320,6 +342,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q23 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74023, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['helicase', 'DNA-replication'],
     q: 'หน้าที่ของ helicase ใน DNA replication คือข้อใด',
     options: [
       'คลายเกลียว DNA (แยกสายคู่ออกจากกัน)',
@@ -335,6 +358,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q24 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74024, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-polymerase-I', 'RNA-primer'],
     q: 'หน้าที่ของ DNA polymerase I ใน DNA replication ของ prokaryote คือข้อใด',
     options: [
       'สังเคราะห์ RNA primer',
@@ -350,6 +374,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q25 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74025, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-polymerase-delta', 'DNA-polymerase-III'],
     q: 'DNA polymerase ของ eukaryote ชนิดใด ทำหน้าที่หลักเทียบเท่ากับ DNA polymerase III ของ prokaryote',
     options: ['DNA polymerase α', 'DNA polymerase β', 'DNA polymerase δ', 'DNA polymerase γ', 'DNA polymerase ε'],
     answer: 2,
@@ -359,6 +384,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q26 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74026, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-ligase', 'Okazaki-fragment'],
     q: 'เอนไซม์ใดทำหน้าที่เชื่อม DNA สายสั้น (Okazaki fragment) ในสาย lagging strand เป็นลำดับสุดท้าย',
     options: ['DNA gyrase', 'DNA polymerase I', 'DNA ligase', 'DNA polymerase III', 'Primase'],
     answer: 2,
@@ -368,6 +394,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q27 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74027, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['primase', 'RNA-primer'],
     q: 'ใน E. coli เอนไซม์ใดทำหน้าที่สังเคราะห์ RNA primer',
     options: ['DNA polymerase III', 'Primase', 'DNA polymerase ε', 'DNA polymerase δ', 'DNA ligase'],
     answer: 1,
@@ -377,6 +404,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q28 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74028, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['DNA-polymerase-epsilon', 'leading-strand'],
     q: 'ใน eukaryote เอนไซม์ใดทำหน้าที่สร้างสาย DNA บน leading strand',
     options: ['DNA polymerase I', 'DNA polymerase III', 'DNA polymerase ε', 'DNA polymerase δ', 'Primase'],
     answer: 2,
@@ -386,6 +414,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q29 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74029, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['Okazaki-fragment', 'lagging-strand'],
     q: 'Okazaki fragment แสดงการสร้าง DNA สายใหม่ในรูปแบบใด',
     options: [
       'ทิศทาง 5′ → 3′ (ขาดเป็นท่อน ๆ บน lagging strand)',
@@ -401,6 +430,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q30 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74030, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['Chargaff-rule', 'base-pairing'],
     q: 'ในสาย dsDNA ตามกฎของ Chargaff ข้อใดถูกต้อง',
     options: [
       'จำนวนเบส A + G = T + C',
@@ -416,6 +446,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q31 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74031, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['telomerase', 'telomere'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ telomerase',
     options: [
       'คือส่วนปลายสายของโครโมโซมใน eukaryote',
@@ -432,6 +463,7 @@ export const QB_BIOCHEM_LECT2 = [
 
   // ── Transcription / translation ────────────────────────────
   { id: 74032, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['transcription-termination', 'cleavage-factor'],
     q: 'Transcription termination ใน eukaryote เกิดขึ้นโดยอาศัยปัจจัยใด',
     options: ['Cleavage factor', 'Hairpin loop', 'Rho factor', 'Releasing factor', 'Sigma factor'],
     answer: 0,
@@ -441,6 +473,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q35 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74033, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['alternative-splicing', 'protein-isoform'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ Alternative splicing',
     options: [
       'คือการกำจัด intron โดย spliceosome (= RNA splicing ปกติ)',
@@ -456,6 +489,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q36 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74034, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['RNA-splicing', 'spliceosome', 'intron'],
     q: 'RNA splicing หมายถึงข้อใด',
     options: [
       'คือการกำจัด intron โดย spliceosome',
@@ -471,6 +505,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q37 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74035, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['reverse-transcriptase', 'cDNA'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ reverse transcriptase',
     options: [
       'สร้าง complementary DNA (cDNA) จาก RNA template',
@@ -486,6 +521,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q38 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74036, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['PCR', 'DNA-amplification'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ PCR (Polymerase Chain Reaction)',
     options: [
       'ใช้ RNA เป็น template',
@@ -501,6 +537,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q39 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74037, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['template-strand', 'antisense-strand', 'transcription'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ transcription (ความสัมพันธ์ของสาย DNA และผลิตภัณฑ์)',
     options: [
       'Template DNA strand = coding strand',
@@ -516,6 +553,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q40 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74038, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['aminoacyl-tRNA-synthetase', 'tRNA-charging'],
     q: 'เอนไซม์ตัวใดทำหน้าที่ร่วมกับ ATP เชื่อมต่อกรดอะมิโนแต่ละตัวเข้ากับ tRNA เพื่อสร้างเป็น aminoacyl-tRNA (charged tRNA)',
     options: ['RNA polymerase', 'Aminoacyl-tRNA transferase', 'Aminoacyl-tRNA synthetase', 'Reverse transcriptase', 'Peptidyl transferase'],
     answer: 2,
@@ -525,6 +563,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q41 (เฉลยไฮไลต์ในไฟล์ · stem เขียนใหม่ให้ไม่ต้องดูรูป)' },
 
   { id: 74039, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['tRNA-charging', 'aminoacyl-tRNA'],
     q: 'การเชื่อมต่อกรดอะมิโนเข้ากับ tRNA (เกิด aminoacyl-tRNA) เป็นไปในลักษณะใด',
     options: [
       'ปลาย N-terminal ของกรดอะมิโนเชื่อมกับปลาย 5′ ของ tRNA',
@@ -540,6 +579,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q42 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74040, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['translation', 'translation-direction'],
     q: 'ในการ translation ไรโบโซมอ่าน mRNA และสร้างสายโปรตีนในทิศทางใด',
     options: [
       'อ่าน mRNA 5′→3′ และสร้างโปรตีนจาก C-terminal ไป N-terminal',
@@ -555,6 +595,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q44 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74041, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['ribosome-A-site', 'translation-elongation'],
     q: 'ตำแหน่งใดบนไรโบโซมเป็นที่ที่ aminoacyl-tRNA (ตัวใหม่) เข้าจับระหว่างขั้น elongation ของการสังเคราะห์โปรตีน',
     options: ['5′ site', '3′ site', 'A site', 'P site', 'E site'],
     answer: 2,
@@ -565,6 +606,7 @@ export const QB_BIOCHEM_LECT2 = [
 
   // ── Mutation ───────────────────────────────────────────────
   { id: 74042, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['mutation', 'mutagen'],
     q: 'ข้อใดถูกต้องที่สุดเกี่ยวกับ mutation',
     options: [
       'สารเคมีหรือสิ่งก่อกลายพันธุ์เรียกว่า mutagen เช่น รังสี UV และสารเคมี',
@@ -580,6 +622,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q51 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74043, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['silent-mutation', 'codon-degeneracy'],
     q: 'เพราะเหตุใด silent mutation จึงมักไม่กระทบต่อโปรตีนที่สร้างขึ้น',
     options: [
       'เพราะทำให้เกิดการเลื่อนกรอบรหัส (frameshift) เสมอ',
@@ -595,6 +638,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q52 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74044, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['mutagen', 'endogenous-mutagen'],
     q: 'สารก่อกลายพันธุ์ (mutagen) ที่เป็นสารสื่อสัญญาณภายในร่างกาย/เกิดจากกระบวนการเมแทบอลิซึมของเซลล์เอง จัดเป็นชนิดใด',
     options: ['Exogenous mutagen', 'Exogenous carcinogen', 'Endogenous mutagen', 'Endogenous carcinogen', 'Spontaneous repair'],
     answer: 2,
@@ -604,6 +648,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q53 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74045, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['frameshift-mutation', 'insertion-deletion'],
     q: 'ข้อใดเป็นสาเหตุของ frameshift mutation',
     options: [
       'โครโมโซมขาดแล้วต่อกลับแบบบิดทิศทาง (inversion)',
@@ -619,6 +664,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q54 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74046, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['tautomeric-shift', 'base-mispairing'],
     q: 'การที่เบสในโครงสร้างเปลี่ยนรูปไอโซเมอร์ชั่วคราว (เช่น keto↔enol) ทำให้จับคู่ผิดในระหว่างการจำลอง DNA เรียกว่าอะไร',
     options: ['Tautomeric shift', 'Ionization', 'Deletion', 'Translocation', 'Frameshift'],
     answer: 0,
@@ -629,6 +675,7 @@ export const QB_BIOCHEM_LECT2 = [
 
   // ── Gene regulation / epigenetics / operon ─────────────────
   { id: 74047, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['epigenetics', 'DNA-methylation', 'histone-modification'],
     q: 'ข้อใดไม่ใช่กลไก epigenetic regulation ของการแสดงออกของยีน (สำคัญ: ลำดับเบสไม่เปลี่ยน)',
     options: ['Histone ubiquitination', 'DNA methylation', 'Histone phosphorylation', 'DNA mutation', 'Histone acetylation'],
     answer: 3,
@@ -638,6 +685,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q56 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74048, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['heterochromatin', 'DNA-methylation', 'gene-silencing'],
     q: 'Silent chromatin (heterochromatin ที่ปิดการแสดงออกของยีน) สัมพันธ์กับการเปลี่ยนแปลงใด',
     options: [
       'acetylated histone และ turn off gene expression',
@@ -653,6 +701,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q57 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74049, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['operon', 'polycistronic-mRNA'],
     q: 'ในแบคทีเรียที่มียีนเรียงต่อกันเป็น operon เดียว (เช่น mexA-mexB-oprM) ถูกถอดรหัสได้ผลลัพธ์อย่างไร',
     options: [
       'มี 4 operon, 4 mRNA และ 4 protein',
@@ -668,6 +717,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q60 (เฉลยไฮไลต์ในไฟล์ · stem generalized ไม่ต้องดูรูป)' },
 
   { id: 74050, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['repressor', 'efflux-pump'],
     q: 'ยีนควบคุม MexR ที่ยับยั้งการแสดงออกของ mexAB-oprM operon ทำหน้าที่เป็นอะไร',
     options: ['Activator', 'Repressor', 'Enhancer', 'Silencer', 'Promoter'],
     answer: 1,
@@ -677,6 +727,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q61 (เฉลยไฮไลต์ในไฟล์ · stem เขียนใหม่ให้ไม่ต้องดูรูป)' },
 
   { id: 74051, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['activator', 'efflux-pump', 'multidrug-resistance'],
     q: 'ใน E. coli โปรตีน MarA ทำหน้าที่อะไรต่อระบบ multidrug resistance',
     options: [
       'Repressor ของ marRAB operon',
@@ -692,6 +743,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q62 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74052, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['enhancer', 'activator'],
     q: 'Enhancer คืออะไร',
     options: [
       'ตำแหน่งบนสาย DNA ที่ activator มาจับ (เพิ่มการถอดรหัส)',
@@ -707,6 +759,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q63 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74053, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['silencer', 'repressor'],
     q: 'Silencer คืออะไร',
     options: [
       'ตำแหน่งบนสาย DNA ที่ activator มาจับ',
@@ -722,6 +775,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q64 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74054, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['lac-operon', 'beta-galactosidase'],
     q: 'ผลิตภัณฑ์ (product) ของยีน lacZ ใน lac operon คือเอนไซม์ใด',
     options: ['β-galactoside permease', 'β-galactoside transacetylase', 'β-galactoside synthase', 'β-galactosidase', 'Lactose synthase'],
     answer: 3,
@@ -731,6 +785,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q65 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74055, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['lac-operon', 'IPTG', 'inducer'],
     q: 'IPTG มีบทบาทอย่างไรต่อ lac operon',
     options: [
       'กระตุ้น lac operon โดยเพิ่ม CRP-cAMP complex',
@@ -746,6 +801,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q66 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74056, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['trp-operon', 'repressor'],
     q: 'TrpR (trp repressor) ทำหน้าที่อะไรต่อ trp operon',
     options: ['Activator of Trp operon', 'Repressor of Trp operon', 'Enhancer of Trp operon', 'Silencer of Trp operon', 'Inducer of Trp operon'],
     answer: 1,
@@ -755,6 +811,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q67 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74057, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['trp-operon', 'attenuation'],
     q: 'เมื่อมี tryptophan สูง การเกิด attenuation ของ trp operon เกิด hairpin loop (stem-loop) ระหว่างส่วนใดของ leader (trpL)',
     options: ['1-2 stem-loop', '2-3 stem-loop', '3-4 stem-loop (terminator)', '1-4 stem-loop', '2-4 stem-loop'],
     answer: 2,
@@ -764,6 +821,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q68 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74058, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['trp-operon', 'corepressor'],
     q: 'ถ้ามี tryptophan สูงในอาหารของแบคทีเรีย จะเกิดผลใดต่อ trp operon',
     options: [
       'กระตุ้น trp operon โดยเพิ่ม CRP-cAMP complex',
@@ -779,6 +837,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q69 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74059, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['lac-operon', 'catabolite-repression', 'cAMP-CRP'],
     q: 'ถ้ามี glucose สูงในอาหารของแบคทีเรีย จะเกิดผลใดต่อการสร้าง β-galactoside permease (lac operon)',
     options: [
       'กระตุ้นการสร้างโดยเพิ่ม CRP-cAMP complex',
@@ -794,6 +853,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q72 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74060, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['alternative-splicing', 'post-transcriptional-regulation'],
     q: 'Alternative splicing จัดเป็นการควบคุมการแสดงออกของยีนในระดับใด',
     options: ['Transcriptional regulation', 'Post-transcriptional regulation', 'Translational regulation', 'Post-translational regulation', 'Epigenetic regulation'],
     answer: 1,
@@ -803,6 +863,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q73 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74061, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
+  tags: ['proteome', 'omics'],
     q: 'การศึกษา protein expression ทั้งหมดของสุนัขในระดับโปรตีน (เทียบกับ genome/transcriptome) ใช้คำในกลุ่ม -ome ใด',
     options: ['Genome ในชีวินสุนัข', 'Transcriptome ในชีวินสุนัข', 'Proteome ในชีวินสุนัข', 'Exome ในชีวินสุนัข', 'Metabolome ในชีวินสุนัข'],
     answer: 2,
@@ -813,6 +874,7 @@ export const QB_BIOCHEM_LECT2 = [
 
   // ── Biomolecules & drug delivery ───────────────────────────
   { id: 74062, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['biopharmaceutical', 'herbal-medicine'],
     q: 'ข้อใดไม่จัดเป็นผลิตภัณฑ์ชีววัตถุ (biological product / biopharmaceutical)',
     options: ['สมุนไพร (herb)', 'สารพันธุกรรมที่เป็นยา (DNA)', 'แอนติบอดี (Antibody)', 'โกรทแฟกเตอร์ (Growth factor)', 'วัคซีนชนิดโปรตีน'],
     answer: 0,
@@ -822,6 +884,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q76 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74063, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['cell-based-therapy', 'stem-cell-therapy'],
     q: 'การปลูกถ่ายเซลล์ต้นกำเนิด (stem cell) เพื่อรักษาโรคเลือดบางชนิด (เช่น โรคไขกระดูกฝ่อ) จัดเป็นการรักษาด้วยชีววัตถุประเภทใด',
     options: ['ยาสามัญ', 'ชาชีววัตถุ (cell-based therapy)', 'ยาสมุนไพร', 'ยาสังเคราะห์', 'ยาเคมีบำบัด'],
     answer: 1,
@@ -831,6 +894,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q77 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74064, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['gene-therapy', 'dystrophin', 'muscular-dystrophy'],
     q: 'Duchenne Muscular Dystrophy (DMD) เกิดจากความผิดปกติของยีน dystrophin วิธีการรักษาแบบใดที่มุ่งแก้ที่ต้นเหตุระดับยีน',
     options: ['Stem cell therapy', 'Gene therapy', 'Chemotherapy', 'Muscle therapy', 'Hormone therapy'],
     answer: 1,
@@ -840,6 +904,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q78 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74065, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['gene-therapy', 'central-dogma'],
     q: 'Gene therapy รักษา DMD โดยทำให้เซลล์กล้ามเนื้อกลับมาสร้างโปรตีน dystrophin ได้ ผ่านกระบวนการพื้นฐานใดในเซลล์',
     options: ['Extravasation และ renal clearance', 'Passive และ active targeting', 'Transcription และ protein translation', 'Trojan horse mechanism', 'Salting out ของโปรตีน'],
     answer: 2,
@@ -849,6 +914,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q79 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74066, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['recombinant-protein', 'central-dogma'],
     q: 'การผลิตโปรตีนบำบัด (เช่น recombinant protein) ต้องอาศัยตัวตั้งต้นและผลลัพธ์สุดท้ายตามลำดับใด',
     options: [
       'ตัวตั้งต้น = โปรตีน, ผลลัพธ์สุดท้าย = กรดนิวคลีอิก',
@@ -864,6 +930,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q80 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74067, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['particle-size', 'size-comparison'],
     q: 'ข้อใดเรียงลำดับขนาดจากเล็กไปใหญ่ได้ถูกต้อง',
     options: [
       'Doxorubicin < DNA < Antibody < mammalian cell',
@@ -879,6 +946,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q81 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74068, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['nanoparticle', 'particle-size'],
     q: 'ข้อใดถูกต้องเกี่ยวกับอนุภาคขนาดนาโน (nanoparticle) ที่ใช้นำส่งยา',
     options: [
       'มีขนาดในช่วง 10-100 นาโนเมตร',
@@ -894,6 +962,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q82 (เฉลยไฮไลต์ในไฟล์ · all-of-the-above เป็นเฉลยจริง)' },
 
   { id: 74069, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['active-targeting', 'targeting-molecule'],
     q: 'เพื่อให้การรักษาโรคมะเร็งมีประสิทธิภาพและจำเพาะสูงสุด การติดโมเลกุลนำส่ง (targeting molecule) ที่จับกับตัวรับบนเซลล์มะเร็งโดยเฉพาะ จัดเป็นการนำส่งแบบใด',
     options: ['Active targeting', 'Passive targeting', 'Enhanced Permeability Retention (EPR) effect', 'Renal clearance', 'Salting out'],
     answer: 0,
@@ -903,6 +972,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q85 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74070, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['targeting-molecule', 'aptamer', 'antibody'],
     q: 'โมเลกุลนำส่ง (targeting molecule) แบ่งได้เป็น 2 ชนิดหลัก คือ แอนติบอดี (antibody) และอะไร',
     options: ['กรดนิวคลีอิก (aptamer)', 'โปรตีนโครงสร้าง', 'คาร์โบไฮเดรตเชิงเดี่ยว', 'ไขมันอิ่มตัว', 'เกลือแร่'],
     answer: 0,
@@ -912,6 +982,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q86 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74071, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['organic-nanoparticle', 'inorganic-nanoparticle'],
     q: 'ข้อใดไม่ใช่อนุภาคนาโนชนิดอินทรีย์ (organic nanoparticle) ที่เตรียมจากวัสดุตั้งต้นเป็นชีวโมเลกุล',
     options: ['อนุภาคนาโนซองเงิน (silver nanoparticles)', 'ไลโพโซม (liposome)', 'เอกโซโซม (exosome)', 'อนุภาคนาโนไขมัน (lipid nanoparticles)', 'อนุภาคนาโนโปรตีน'],
     answer: 0,
@@ -921,6 +992,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q87 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74072, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
+  tags: ['organic-nanoparticle', 'biocompatibility', 'biodegradability'],
     q: 'เพราะเหตุใดการนำส่งยาออกฤทธิ์ในร่างกายจึงนิยมใช้อนุภาคนาโนชนิดอินทรีย์ (organic) มากกว่าชนิดอนินทรีย์ (inorganic)',
     options: [
       'ความสามารถในการถูกย่อยสลายได้ตามธรรมชาติ (biodegradability) ดีกว่า',
@@ -937,6 +1009,7 @@ export const QB_BIOCHEM_LECT2 = [
 
   // ── Metabolism / vitamins / GAG ────────────────────────────
   { id: 74073, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['vitamin-C', 'dehydroascorbic-acid', 'SVCT1'],
     q: 'Oxidized form ของ ascorbic acid (vitamin C) และตัวพา ascorbic acid เข้าเซลล์ คือข้อใด',
     options: [
       'L-ascorbic acid ; integrin receptors',
@@ -952,6 +1025,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q92 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74074, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['vitamin-C', 'ascorbate-biosynthesis'],
     q: 'ข้อใดไม่ใช่สารตัวกลาง (intermediate) ในวิถีการสังเคราะห์วิตามินซีจากกลูโคส',
     options: ['Gulonic acid', 'Bilirubin', 'L-gulonolactone', 'Glucuronic acid', 'Glucuronolactone'],
     answer: 1,
@@ -961,6 +1035,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q93 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74075, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['collagen-synthesis', 'fibril-assembly'],
     q: 'ในการสังเคราะห์ collagen ขั้นตอนใดที่เกิดขึ้นนอกเซลล์ (extracellular space)',
     options: ['Hydroxylation of proline and lysine residues', 'Assembling of collagen fibrils', 'Triple helix formation', 'Glycosylation of selected hydroxylysine residues', 'Signal peptide cleavage'],
     answer: 1,
@@ -970,6 +1045,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q94 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74076, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['collagen-synthesis', 'hydroxylation', 'vitamin-C'],
     q: 'Hydroxylation ของ prolyl และ lysyl residues (เกิดเป็น hydroxyproline และ hydroxylysine) ในการสร้าง collagen ใช้สารใดเป็น coenzyme/cofactor',
     options: ['Vitamin A', 'Vitamin B', 'Vitamin C', 'Vitamin D', 'Vitamin K'],
     answer: 2,
@@ -979,6 +1055,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q95 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74077, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['pentose-phosphate-pathway', 'NADPH'],
     q: 'ข้อใดเป็นผลิตภัณฑ์ (product) สำคัญของ Pentose Phosphate Pathway',
     options: ['NAD⁺', 'NADH', 'NADP⁺', 'NADPH', 'FADH₂'],
     answer: 3,
@@ -988,6 +1065,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q96 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74078, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['glycosaminoglycans', 'hyaluronic-acid', 'chondroitin-sulphate'],
     q: 'ข้อใดจัดเป็น glycosaminoglycans (GAGs)',
     options: ['Heparan sulphate / heparin', 'Chondroitin sulphate', 'Hyaluronic acid', 'ถูกทุกข้อ', 'ไม่มีข้อใดถูก'],
     answer: 3,
@@ -997,6 +1075,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q97 (เฉลยไฮไลต์ในไฟล์ · all-of-the-above เป็นเฉลยจริง)' },
 
   { id: 74079, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['glycosaminoglycans', 'hyaluronic-acid', 'disaccharide-unit'],
     q: 'ข้อใดถูกต้องเกี่ยวกับองค์ประกอบ disaccharide ของ glycosaminoglycans',
     options: [
       'Heparan sulphate ประกอบด้วย D-glucuronic acid และ D-galactosamine',
@@ -1012,6 +1091,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q98 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74080, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['glucose-alanine-cycle', 'muscle-liver-axis'],
     q: 'Glucose-alanine cycle เชื่อมโยงเมแทบอลิซึมระหว่างเนื้อเยื่อหรืออวัยวะคู่ใด',
     options: ['Muscle and liver', 'Heart and liver', 'Brain and liver', 'Intestine and liver', 'Kidney and liver'],
     answer: 0,
@@ -1021,6 +1101,7 @@ export const QB_BIOCHEM_LECT2 = [
     verified: 'Blackboard lecture-final Q99 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 74081, subject: 'biochem-1', topic: 'lect-metabolism', year: 1, type: 'mcq',
+  tags: ['gluconeogenesis', 'non-carbohydrate-precursors'],
     q: 'กระบวนการสังเคราะห์กลูโคสจากสารตั้งต้นที่ไม่ใช่คาร์โบไฮเดรต (เช่น amino acid, glycerol) เรียกว่าอะไร',
     options: ['Glycolysis', 'Glycogenesis', 'Glycogenolysis', 'Gluconeogenesis', 'Lipogenesis'],
     answer: 3,

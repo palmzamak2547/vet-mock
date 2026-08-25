@@ -14,6 +14,7 @@
 export const QUESTIONS_Y2_NEUROANAT = [
   {
     "id": 106805,
+    "tags": ["striatum","caudate-nucleus","putamen"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--basal-nuclei",
     "year": 2,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106810,
+    "tags": ["putamen","internal-capsule"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--basal-nuclei",
     "year": 2,
@@ -52,18 +54,20 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106813,
+    "tags": ["medial-geniculate-nucleus","auditory-pathway"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
     "source": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตาราง geniculate nuclei ระบุว่า medial geniculate nucleus ส่ง output ไปยังคอร์เทกซ์ส่วนใด",
+    "q": "Medial geniculate nucleus ส่ง output ไปยังคอร์เทกซ์ส่วนใด",
     "options": [
       "primary visual cortex",
       "primary somatosensory cortex",
       "primary auditory cortex",
-      "primary motor cortex"
+      "primary motor cortex",
+      "primary olfactory cortex"
     ],
     "answer": 2,
     "explain": "medial geniculate nucleus เป็นสถานีถ่ายทอดของ auditory pathway จึงส่ง output ไปที่ primary auditory cortex\n\n❌ ทำไมข้ออื่นผิด\n— \"primary visual cortex\" = เป็น output ของ lateral geniculate nucleus ซึ่งเป็นคู่ที่คนสับสน medial กับ lateral บ่อยที่สุด\n— \"primary somatosensory cortex\" = เป็นคอร์เทกซ์รับความรู้สึกทางกาย คนละ modality กับเสียง ไม่ใช่ปลายทางของ medial geniculate nucleus\n— \"primary motor cortex\" = เป็นคอร์เทกซ์สั่งการเคลื่อนไหว ไม่ใช่ปลายทางของสัญญาณรับความรู้สึกที่ผ่าน geniculate nucleus",
@@ -71,18 +75,20 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106817,
+    "tags": ["supraoptic-nucleus","oxytocin","vasopressin"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
     "source": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตาราง hypothalamic nuclei กำกับ Supraoptic nucleus (SO) ไว้กับฮอร์โมนใด",
+    "q": "Supraoptic nucleus (SO) ซึ่งเป็นหนึ่งใน hypothalamic nuclei สัมพันธ์กับฮอร์โมนใด",
     "options": [
       "corticotropin-releasing hormone",
       "GnRH และ gonadotropic hormones",
       "oxytocin และ vasopressin",
-      "GHRH และ dopamine"
+      "GHRH และ dopamine",
+      "thyrotropin-releasing hormone"
     ],
     "answer": 2,
     "explain": "Supraoptic nucleus (SO) ปล่อย oxytocin และ vasopressin\n\n❌ ทำไมข้ออื่นผิด\n— \"corticotropin-releasing hormone\" = เป็นตัวที่แยก paraventricular nucleus ออกจาก SO เพราะ PV ปล่อยทั้ง CRH, oxytocin และ vasopressin ส่วน SO ไม่มี CRH จึงเป็นตัวลวงที่ใกล้ที่สุด\n— \"GnRH และ gonadotropic hormones\" = ไม่ได้อยู่ในชุดฮอร์โมนที่ SO ปล่อย\n— \"GHRH และ dopamine\" = ไม่ได้อยู่ในชุดฮอร์โมนที่ SO ปล่อยเช่นกัน",
@@ -90,6 +96,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106818,
+    "tags": ["ventromedial-nucleus","satiety"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
@@ -101,7 +108,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Lateral hypothalamic area (LHA)",
       "Arcuate nucleus (AR)",
       "Dorsomedial nucleus (DM)",
-      "Ventromedial nucleus (VM)"
+      "Ventromedial nucleus (VM)",
+      "Supraoptic nucleus (SO)"
     ],
     "answer": 3,
     "explain": "Ventromedial nucleus (VM) เป็นนิวเคลียสใน tuberal region ที่ถือเรื่อง satiety คู่กับ neuroendocrine control\n\n❌ ทำไมข้ออื่นผิด\n— \"Lateral hypothalamic area (LHA)\" = เป็นด้านตรงข้ามของคู่นี้ ถูกกำกับไว้กับ feeding, thirst and hunger คือฝั่งความหิว ไม่ใช่ความอิ่ม\n— \"Arcuate nucleus (AR)\" = อยู่ใน tuberal region เหมือนกัน แต่ไม่ใช่ตัวที่ถือเรื่อง satiety\n— \"Dorsomedial nucleus (DM)\" = อยู่ใน tuberal region เหมือนกัน แต่ไม่ใช่ตัวที่ถือเรื่อง satiety\n\n💡 จำเป็นคู่ตรงข้าม ตัวกลาง ventromedial คืออิ่ม ตัวข้าง lateral คือหิว",
@@ -109,13 +117,14 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106819,
+    "tags": ["posterior-hypothalamic-nucleus","thermoregulation"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--diencephalon",
     "year": 2,
     "source": "Diencephalon lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตาราง hypothalamic nuclei กำกับ Posterior nucleus (PN) ไว้ด้วยหน้าที่ชุดใด",
+    "q": "Posterior nucleus (PN) ซึ่งเป็นหนึ่งใน hypothalamic nuclei รับผิดชอบการทำงานชุดใด",
     "options": [
       "เพิ่ม blood pressure, ทำให้ pupillary dilation และ shivering",
       "ทำ thermoregulation แบบ panting และ sweating พร้อม water balance",
@@ -128,6 +137,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106820,
+    "tags": ["limbic-system","limbic-lobe"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -147,6 +157,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106821,
+    "tags": ["pallium-classification","archipallium"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -166,6 +177,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106822,
+    "tags": ["limbic-system","hippocampus","amygdaloid-body"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -185,6 +197,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106823,
+    "tags": ["stria-terminalis","amygdaloid-body"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -204,6 +217,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106824,
+    "tags": ["fornix","mamillary-body"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--limbic-system-nonolfactory-rhinencephalon",
     "year": 2,
@@ -223,6 +237,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106825,
+    "tags": ["cerebellar-classification","paleocerebellum"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -242,6 +257,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106826,
+    "tags": ["interposital-nucleus","red-nucleus"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -261,6 +277,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106827,
+    "tags": ["pontine-nuclei","corticopontine-fibers"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -280,6 +297,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106828,
+    "tags": ["middle-cerebellar-peduncle","pontocerebellar-tract"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -299,6 +317,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106829,
+    "tags": ["cerebellar-classification","cerebrocerebellum","voluntary-movement"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -318,6 +337,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106830,
+    "tags": ["pontocerebellar-tract","motor-planning"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -329,7 +349,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Vestibulocerebellar tract",
       "Cuneocerebellar tract",
       "Dorsal spinocerebellar tract",
-      "Pontocerebellar tract"
+      "Pontocerebellar tract",
+      "Reticulocerebellar tract"
     ],
     "answer": 3,
     "explain": "หน้าที่ motor planning ผูกไว้กับ Pontocerebellar tract ซึ่งเป็นใยที่ออกจาก pontine nuclei เข้าสู่ cerebellum\n\n❌ ทำไมข้ออื่นผิด\n— \"Vestibulocerebellar tract\" = คู่กับการควบคุมการเคลื่อนไหวของตา ศีรษะ และคอ ไม่ใช่การวางแผนการเคลื่อนไหว\n— \"Cuneocerebellar tract\" = เป็นทางนำสัญญาณ proprioception จากรยางค์หน้าเข้าสู่ cerebellum ไม่ใช่หน้าที่วางแผนการเคลื่อนไหว\n— \"Dorsal spinocerebellar tract\" = เป็นทางนำสัญญาณ proprioception ขึ้นจากไขสันหลังเข้าสู่ cerebellum เช่นกัน จึงเป็นสายรับความรู้สึก ไม่ใช่สายของการวางแผน\n\n💡 ชื่อ tract บอกต้นทาง ตัวที่ขึ้นต้นด้วย spino- cuneo- vestibulo- ล้วนนำสัญญาณรับความรู้สึกเข้ามา ส่วน ponto- ออกจาก pontine nuclei ซึ่งเป็นสถานีที่รับต่อจาก cerebral cortex จึงเป็นทางที่นำแผนของการเคลื่อนไหวเข้าสู่ cerebellum",
@@ -337,6 +358,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106831,
+    "tags": ["hypermetria","cerebellar-dysfunction"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -356,6 +378,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106832,
+    "tags": ["lateral-lemniscus","auditory-pathway"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--metencephalon",
     "year": 2,
@@ -375,6 +398,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106833,
+    "tags": ["rostral-colliculus","lateral-geniculate-nucleus","visual-reflex"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -394,6 +418,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106834,
+    "tags": ["oculomotor-nucleus","periaqueductal-gray"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -413,6 +438,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106835,
+    "tags": ["edinger-westphal-nucleus","pupillary-constriction"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -432,6 +458,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106836,
+    "tags": ["trochlear-nucleus","decussation"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -451,6 +478,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106838,
+    "tags": ["red-nucleus","cerebellar-nuclei"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -470,6 +498,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106839,
+    "tags": ["oculomotor-nerve-lesion","strabismus","mydriasis"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--midbrain",
     "year": 2,
@@ -489,6 +518,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106840,
+    "tags": ["medulla-oblongata-boundaries","caudal-cerebellar-peduncle"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -500,7 +530,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "caudal cerebellar peduncle",
       "rostral cerebellar peduncle",
       "caudal border of the pons",
-      "the 1st cervical nerve"
+      "the 1st cervical nerve",
+      "middle cerebellar peduncle"
     ],
     "answer": 0,
     "explain": "ขอบเขต cranial ของ medulla oblongata ใช้คนละหมุดกันสองด้าน\ndorsal จบที่ caudal cerebellar peduncle\nventral จบที่ caudal border of the pons\nคำถามถามด้าน dorsal คำตอบจึงเป็น caudal cerebellar peduncle\n\n❌ ทำไมข้ออื่นผิด\n— \"rostral cerebellar peduncle\" = ก้านสมองน้อยคนละก้าน อยู่ rostral ขึ้นไป ไม่ใช่หมุดที่ปิดขอบ cranial ด้าน dorsal ของ medulla\n— \"caudal border of the pons\" = เป็นขอบ cranial จริง แต่ของด้าน ventral คนละด้านกับที่ถาม ตอบผิดง่ายถ้าจำรวมสองด้านเป็นค่าเดียว\n— \"the 1st cervical nerve\" = เป็นขอบ caudal ของ medulla ไม่ใช่ขอบ cranial",
@@ -508,6 +539,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106841,
+    "tags": ["fasciculus-gracilis","dorsal-column"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -519,7 +551,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "C1-T5",
       "T6-S3",
       "C6-T12",
-      "L1-S3"
+      "L1-S3",
+      "C1-C8"
     ],
     "answer": 1,
     "explain": "fasciculus gracilis รับสัญญาณจาก segment T6-S3 ซึ่งเป็นลำตัวท่อนท้ายลงไป\nเส้นที่วางติดกันบนผิว dorsal เดียวกันคือ fasciculus cuneatus ที่รับจาก C1-T5\n\n❌ ทำไมข้ออื่นผิด\n— \"C1-T5\" = เป็นช่วงของ fasciculus cuneatus สองเส้นนี้อยู่ติดกันจึงสลับกันบ่อยที่สุด\n— \"C6-T12\" = ไม่ตรงกับช่วงของทั้ง gracilis (T6-S3) และ cuneatus (C1-T5)\n— \"L1-S3\" = ขยับต้นทางไปเริ่มที่ช่วงเอว ทั้งที่ช่วงจริงของ gracilis คือ T6-S3",
@@ -527,6 +560,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106843,
+    "tags": ["reticular-formation","cardiovascular-center","respiratory-center"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -546,6 +580,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106844,
+    "tags": ["lateral-cuneate-nucleus","proprioception"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -557,7 +592,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "จาก thoracic limb ไปยัง thalamus",
       "จากบริเวณ neck ไปยัง cerebellum",
       "จาก pelvic limb ไปยัง thalamus",
-      "จากบริเวณ trunk ไปยัง cerebellum"
+      "จากบริเวณ trunk ไปยัง cerebellum",
+      "จาก pelvic limb ไปยัง cerebellum"
     ],
     "answer": 1,
     "explain": "nucleus cuneatus แยกเป็นสองส่วนที่ปลายทางไม่เหมือนกัน\nlateral cuneate nucleus รับ proprioception จากบริเวณ neck ส่งเข้า cerebellum\nmedial cuneate nucleus รับ touch และ proprioception จาก cranial half of the body กับ thoracic limb ส่งขึ้น thalamus\n\n❌ ทำไมข้ออื่นผิด\n— \"จาก thoracic limb ไปยัง thalamus\" = เป็นงานของ medial cuneate nucleus ไม่ใช่ lateral\n— \"จาก pelvic limb ไปยัง thalamus\" = cuneate ทั้งสองส่วนรับจาก cranial half of the body สัญญาณจาก pelvic limb ไม่ได้ผ่านกลุ่มนี้\n— \"จากบริเวณ trunk ไปยัง cerebellum\" = ปลายทางถูกแต่ต้นทางผิด ตัวที่วิ่งเข้า cerebellum คือ proprioception จาก neck\n\n💡 lateral ไป cerebellum ส่วน medial ไป thalamus แยกที่ปลายทางก่อน แล้วค่อยจำต้นทาง",
@@ -565,6 +601,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106845,
+    "tags": ["trapezoid-nucleus","auditory-pathway"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -584,6 +621,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106846,
+    "tags": ["nucleus-ambiguus","cranial-nerve-nuclei","laryngeal-innervation"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -603,6 +641,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106847,
+    "tags": ["solitary-nucleus","sensory-nuclei"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--myelencephalon",
     "year": 2,
@@ -614,7 +653,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "motor nuclei อยู่ทาง ventral-lateral",
       "motor nuclei อยู่ทาง dorsal-medial",
       "sensory nuclei อยู่ทาง dorsal-medial",
-      "sensory nuclei อยู่ทาง ventral-medial"
+      "sensory nuclei อยู่ทาง ventral-medial",
+      "motor nuclei อยู่ทาง ventral-medial"
     ],
     "answer": 2,
     "explain": "Solitary nucleus เป็น sensory nuclei ที่รับสัญญาณจากอวัยวะภายในผ่านใยรับความรู้สึกของ vagus nerve และวางตัวอยู่ทาง dorsal-medial ของ medulla oblongata\n\n❌ ทำไมข้ออื่นผิด\n— \"motor nuclei อยู่ทาง ventral-lateral\" = ผิดทั้งชนิดและตำแหน่ง solitary nucleus เป็นนิวเคลียสรับความรู้สึกและอยู่ dorsal-medial\n— \"motor nuclei อยู่ทาง dorsal-medial\" = ตำแหน่งตรง แต่ชนิดผิด เพราะ solitary nucleus ทำหน้าที่รับความรู้สึก ไม่ใช่สั่งการ\n— \"sensory nuclei อยู่ทาง ventral-medial\" = ชนิดตรง แต่ตำแหน่งที่ระบุไว้คือ dorsal-medial\n\n💡 ข้อนี้ถามสองชั้น ทั้งชนิดและตำแหน่ง ถ้าจำได้ก่อนว่า solitary nucleus เป็นสายรับความรู้สึกที่มากับ vagus ก็ตัดสองตัวเลือกแรกทิ้งได้ทันที เหลือเลือกแค่ตำแหน่ง",
@@ -622,6 +662,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106850,
+    "tags": ["mental-status","obtunded"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
@@ -641,6 +682,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106851,
+    "tags": ["ataxia","paresis"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
@@ -660,13 +702,14 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106855,
+    "tags": ["vestibulo-ocular-reflex","extraocular-muscles"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--neuro-exam-anatomy2024",
     "year": 2,
     "source": "Neuro exam anatomy2024 lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตามตาราง vestibulo-ocular reflex มี afferent เป็น CN VIII และ central pathway ส่วน efferent innervation คือเส้นประสาทกลุ่มใด",
+    "q": "Vestibulo-ocular reflex มี afferent เป็น CN VIII และ central pathway ส่วน efferent innervation คือเส้นประสาทกลุ่มใด",
     "options": [
       "CN III Oculomotor, CN V Trigeminal, CN VII Facial",
       "CN IV Trochlear, CN VI Abducent, CN VII Facial",
@@ -674,11 +717,12 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "CN III Oculomotor, CN IV Trochlear, CN VI Abducent"
     ],
     "answer": 3,
-    "explain": "ตารางระบุ efferent ของ vestibulo-ocular reflex ไว้สามเส้นคือ CN III oculomotor, CN IV trochlear และ CN VI abducent ผลที่ได้คือ physiological nystagmus เมื่อหันหัวไปมาซ้ายขวา ข้อที่ล่อใจคือชุดที่มี CN VII facial ปนอยู่ เพราะ facial nerve โผล่บ่อยในตารางนี้ แต่ facial nerve ควบคุมการหลับตา ไม่ได้ควบคุมการกลอกลูกตา",
+    "explain": "Efferent ของ vestibulo-ocular reflex มีสามเส้น คือ CN III oculomotor, CN IV trochlear และ CN VI abducent ผลที่ได้คือ physiological nystagmus เมื่อหันหัวไปมาซ้ายขวา\n\n❌ ทำไมข้ออื่นผิด\n— \"CN III Oculomotor, CN V Trigeminal, CN VII Facial\" = ได้ CN III มาถูกเส้นเดียว ส่วน CN V และ CN VII ไม่ได้ควบคุมการกลอกลูกตา\n— \"CN IV Trochlear, CN VI Abducent, CN VII Facial\" = ถูกสองเส้นแรก แต่เส้นที่สามต้องเป็น CN III ไม่ใช่ CN VII\n— \"CN V Trigeminal, CN VII Facial, CN IX Glossopharyngeal\" = ไม่มีเส้นใดในสามเส้นนี้ที่เลี้ยงกล้ามเนื้อกลอกลูกตา\n\n💡 CN VII facial ควบคุมการหลับตา ไม่ได้ควบคุมการกลอกลูกตา ชุดคำตอบที่มี CN VII ปนอยู่จึงตัดทิ้งได้",
     "verified": "Neuro exam anatomy2024 น.21"
   },
   {
     "id": 106860,
+    "tags": ["visual-pathway","lateral-geniculate-nucleus","optic-radiation"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
@@ -690,7 +734,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "primary visual cortex ที่ occipital lobe",
       "primary visual cortex ที่ temporal lobe",
       "rostral colliculus ที่ทำหน้าที่ visual reflex",
-      "Edinger-Westphal nucleus ใน midbrain"
+      "Edinger-Westphal nucleus ใน midbrain",
+      "primary auditory cortex ที่ temporal lobe"
     ],
     "answer": 0,
     "explain": "สายที่ผ่าน lateral geniculate nucleus คือขาของการเห็นภาพ ต่อออกไปเป็น optic radiation แล้ววิ่งเข้า primary visual cortex ที่ occipital lobe\n\n❌ ทำไมข้ออื่นผิด\n— \"primary visual cortex ที่ temporal lobe\" = ปลายทางถูกแต่ผิด lobe primary visual cortex อยู่ที่ occipital lobe\n— \"rostral colliculus ที่ทำหน้าที่ visual reflex\" = เป็นปลายทางของอีกสายหนึ่ง คือสาย 20% ที่ทำ visual reflex ไม่ได้ต่อจาก lateral geniculate nucleus\n— \"Edinger-Westphal nucleus ใน midbrain\" = เป็นขาที่ไปสั่งรูม่านตาให้หด ไม่ใช่ขาที่พาสัญญาณขึ้นไปให้เห็นภาพ",
@@ -698,6 +743,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106862,
+    "tags": ["mydriasis","dilator-pupillae"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
@@ -709,7 +755,8 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "m. sphincter pupillae",
       "m. dilator pupillae",
       "m. retractor bulbi",
-      "m. orbicularis oculi"
+      "m. orbicularis oculi",
+      "m. levator palpebrae"
     ],
     "answer": 1,
     "explain": "mydriasis คือรูม่านตาขยาย กล้ามเนื้อที่ทำให้เกิดคือ m. dilator pupillae\nส่วน miosis หรือรูม่านตาหด เป็นงานของ m. sphincter pupillae\n\n❌ ทำไมข้ออื่นผิด\n— \"m. sphincter pupillae\" = ตัวที่ทำ miosis คือหดรูม่านตา ตรงข้ามกับที่ถามพอดี เลือกผิดเมื่อจำสลับระหว่างหดกับขยาย\n— \"m. retractor bulbi\" = กล้ามเนื้อจริงที่ดึงลูกตาถอยเข้าเบ้า ไม่ได้ควบคุมขนาดรูม่านตา\n— \"m. orbicularis oculi\" = กล้ามเนื้อจริงที่ปิดหนังตา ไม่ได้ควบคุมขนาดรูม่านตา\n\n💡 ชื่อบอกงานตรงตัว dilator = ขยาย (mydriasis) sphincter = รัดให้เล็ก (miosis)",
@@ -717,6 +764,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106864,
+    "tags": ["horner-syndrome","sympathetic-innervation","miosis"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
@@ -736,13 +784,14 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106868,
+    "tags": ["extraocular-muscles","cranial-nerve-innervation"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "source": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "จากตาราง extra-ocular muscles กล้ามเนื้อคู่ใดที่ไม่ได้เลี้ยงด้วย CN III ทั้งคู่",
+    "q": "กล้ามเนื้อ extra-ocular คู่ใดที่ไม่ได้เลี้ยงด้วย CN III ทั้งคู่",
     "options": [
       "Medial rectus กับ ventral oblique",
       "Dorsal rectus กับ ventral rectus",
@@ -755,13 +804,14 @@ export const QUESTIONS_Y2_NEUROANAT = [
   },
   {
     "id": 106869,
+    "tags": ["vestibular-disease","nystagmus","lesion-localization"],
     "subject": "vet-neuroanat",
     "topic": "neuroanat--visual-vestibular-systems",
     "year": 2,
     "source": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "จากตารางเทียบ central กับ peripheral vestibular disease ลักษณะของ nystagmus ต่างกันอย่างไร",
+    "q": "Central กับ peripheral vestibular disease มีลักษณะของ nystagmus ต่างกันอย่างไร",
     "options": [
       "Central เป็น vertical หรือ positional ส่วน peripheral เป็น all directions",
       "Central เป็น all directions ส่วน peripheral เป็น vertical หรือ positional",

@@ -24,6 +24,7 @@
 export const QB_BIOCHEM_LECT3 = [
   // ── Intro / water / pH / buffer ────────────────────────────
   { id: 75001, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['hydrolysis', 'reaction-types'],
     q: 'ปฏิกิริยาใดต่อไปนี้คือปฏิกิริยาแบบ hydrolysis',
     options: [
       'ATP + H₂O → ADP + Pi',
@@ -39,6 +40,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q8 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75002, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['Kw', 'water-dissociation'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ Kw (ionic product of water)',
     options: [
       'Kw มีค่าคงที่เฉพาะการตกตะกอนของน้ำที่อุณหภูมิ 25°C เท่านั้น',
@@ -54,6 +56,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q9 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75003, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['pH', 'hydrogen-ion-concentration'],
     q: 'ข้อใดเป็นนิยามของ pH ที่ถูกต้อง',
     options: [
       'pH = -log [H⁺]',
@@ -69,6 +72,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q10 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75004, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['pH-calculation', 'strong-acid'],
     q: 'HCl เป็นกรดแก่แตกตัวได้ 100% ถ้ามี 0.01 N HCl จะมี pH เท่ากับเท่าใด',
     options: ['1', '2', '3', '4', '5'],
     answer: 1,
@@ -78,6 +82,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q11 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75005, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['water-polarity', 'universal-solvent'],
     q: 'เหตุใดน้ำจึงเป็นตัวทำละลายที่ดี (universal solvent)',
     options: [
       'น้ำเป็นกรดเสมอ',
@@ -93,6 +98,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q12 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75006, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['buffer', 'pH-regulation'],
     q: 'เมื่อเติมกรดหรือด่างปริมาณเล็กน้อยลงในสารละลายชนิดใด ที่มีคุณสมบัติต้านการเปลี่ยนแปลง pH ได้ดี',
     options: ['น้ำ', 'กรดแก่', 'ด่างแก่', 'สารละลายบัฟเฟอร์', 'น้ำเกลือเข้มข้น'],
     answer: 3,
@@ -102,6 +108,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q13 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75007, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['Ka', 'acid-strength'],
     q: 'Ka (acid dissociation constant) หมายถึงข้อใด',
     options: [
       'ค่าคงที่การแตกตัวของกรด',
@@ -117,6 +124,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q14 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75008, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['bicarbonate-buffer', 'blood-pH'],
     q: 'ระบบบัฟเฟอร์ใดเป็นบัฟเฟอร์หลักในเลือด (blood / respiration)',
     options: [
       'Plasma proteins',
@@ -133,6 +141,7 @@ export const QB_BIOCHEM_LECT3 = [
 
   // ── Enzyme: inhibition / regulation ────────────────────────
   { id: 75009, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['competitive-inhibition', 'active-site'],
     q: 'Competitive inhibition มีลักษณะอย่างไร',
     options: [
       'Inhibitor แย่งกับ substrate เข้าจับที่ active site',
@@ -148,6 +157,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q107 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75010, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['uncompetitive-inhibition', 'ES-complex'],
     q: 'Uncompetitive inhibition มีลักษณะอย่างไร',
     options: [
       'ทำให้ค่า Km สูงขึ้น',
@@ -163,6 +173,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q108 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75011, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['mixed-inhibition', 'ES-complex'],
     q: 'Mixed inhibition มีลักษณะอย่างไร',
     options: [
       'ทำให้ค่า Km ลดลงเสมอ',
@@ -178,6 +189,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q109 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75012, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['gout', 'xanthine-oxidase', 'uric-acid'],
     q: 'โรคเก๊าท์ (gout) เกิดจากการมี purine สูง จึงควรใช้ยาที่ออกฤทธิ์อย่างไรเพื่อลดการสร้างกรดยูริก',
     options: [
       'เพิ่มการสร้างกรดยูริก',
@@ -193,6 +205,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q110 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75013, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['reverse-transcriptase-inhibitor', 'chain-terminator', 'nucleotide-analog'],
     q: 'Reverse transcriptase inhibitor (สารตั้งต้นเป็นสารอนาล็อกของนิวคลีโอไทด์) ที่ใช้ยับยั้ง HIV virus ออกฤทธิ์อย่างไร',
     options: [
       'เป็นโลหะหนัก',
@@ -208,6 +221,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q111 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75014, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['irreversible-inhibition', 'organophosphate'],
     q: 'สารใดเป็น irreversible inhibitor (ยับยั้งเอนไซม์แบบถาวร)',
     options: ['Oxalate', 'Compactin', 'Allopurinol', 'Organophosphate', 'Disodium hydrogen phosphate'],
     answer: 3,
@@ -217,6 +231,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q112 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75015, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['phosphofructokinase', 'allosteric-regulation', 'glycolysis'],
     q: 'Phosphofructokinase เป็น allosteric enzyme สำคัญใน cellular respiration ข้อใดถูกต้องเกี่ยวกับการควบคุม',
     options: [
       'ADP เป็นตัวกระตุ้น (activator), ATP เป็นตัวยับยั้ง (inhibitor)',
@@ -232,6 +247,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q113 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75016, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['feedback-inhibition', 'allosteric-inhibition'],
     q: 'การที่ผลิตภัณฑ์ (product) ของเอนไซม์ย้อนกลับมายับยั้งการทำงานของเอนไซม์ตัวเริ่มต้น เรียกว่าการควบคุมแบบใด',
     options: ['Induce fit regulation', 'Competitive inhibition', 'Allosteric inhibition', 'Proteolytic cleavage', 'Covalent modification'],
     answer: 2,
@@ -241,6 +257,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q114 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75017, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['feedback-inhibition', 'product-inhibition'],
     q: 'การควบคุมการทำงานของเอนไซม์แบบ feedback ที่ผลิตภัณฑ์สุดท้ายย้อนยับยั้ง เรียกอีกชื่อหนึ่งว่าอะไร',
     options: ['Product inhibition', 'Allosteric activation', 'Allosteric activation', 'Proteolytic cleavage', 'Covalent modification'],
     answer: 0,
@@ -250,6 +267,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q115 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75018, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['phosphorylation', 'covalent-modification'],
     q: 'ในกระบวนการส่งสัญญาณภายในเซลล์ เมื่อเติมหมู่ฟอสเฟตลงบนเอนไซม์บางชนิด จะเกิดผลใดขึ้น',
     options: [
       'ไม่มีผลเพราะไม่มีไกลโคไซด์',
@@ -265,6 +283,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q116 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75019, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['zymogen', 'proteolytic-cleavage'],
     q: 'เอนไซม์บางชนิดถูกผลิตออกมาในรูปสารตั้งต้นที่ไม่มีฤทธิ์ ต้องผ่านการตัด (proteolytic cleavage) จึงทำงานได้ เช่น pepsinogen → pepsin สารตั้งต้นเหล่านี้เรียกว่าอะไร',
     options: ['Zymogen (proenzyme)', 'Precursor', 'Pro enzyme', 'Inactive enzyme', 'Enzyme-substrate complex'],
     answer: 0,
@@ -274,6 +293,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q117 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75020, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['isozyme', 'amino-acid-sequence'],
     q: 'ใช้สิ่งใดในการแยก isozyme (ไอโซไซม์) ออกจากกัน',
     options: ['จับคู่ alleles', 'ชนิดของ substrate', 'Amino acid sequence', 'ชนิดของ enzyme inhibition', 'หาจำนวนกลูโคสด้วย electrophoresis'],
     answer: 2,
@@ -283,6 +303,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q118 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75021, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['ribozyme', 'base-pairing', 'substrate-specificity'],
     q: 'ส่วนใดใน ribozyme ที่จับกับ RNA และทำให้เกิด specificity',
     options: ['Base (เบส)', 'Amino acid', 'Ribose sugar', 'Hydrogen bond', 'Phosphodiester bond'],
     answer: 0,
@@ -292,6 +313,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q119 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75022, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['ribozyme', 'DNAzyme'],
     q: 'ข้อใดเปรียบเทียบ ribozyme กับ DNAzyme ได้ถูกต้อง',
     options: [
       'ทั้งคู่ไม่มี active site',
@@ -308,6 +330,7 @@ export const QB_BIOCHEM_LECT3 = [
 
   // ── Enzyme Lab: alkaline phosphatase ───────────────────────
   { id: 75023, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['alkaline-phosphatase', 'kidney'],
     q: 'Alkaline phosphatase ที่ใช้ในการทดลองนี้ ได้จากอวัยวะใดของสัตว์',
     options: ['ตับ', 'ไต', 'หัวใจ', 'กระดูก', 'ขา'],
     answer: 1,
@@ -317,6 +340,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q121 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75024, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['alkaline-phosphatase', 'pH-optimum'],
     q: 'Alkaline phosphatase ทำงานได้ดีที่สุดในสภาวะใด',
     options: ['ภาวะด่าง', 'pH = 7.4', 'จุดเยือกแข็ง', 'ภาวะกรด', 'ความเข้มข้นของ disodium hydrogen phosphate สูง'],
     answer: 0,
@@ -326,6 +350,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q122 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75025, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['crude-enzyme-preparation', 'enzyme-purification'],
     q: 'นิสิตคิดว่า เหตุใดจึงควรเตรียมเอนไซม์เป็น crude preparation ที่มีเอนไซม์ไม่บริสุทธิ์',
     options: [
       'ลดการระเหยของน้ำ',
@@ -342,6 +367,7 @@ export const QB_BIOCHEM_LECT3 = [
 
   // ── Enzyme kinetics ────────────────────────────────────────
   { id: 75026, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['initial-velocity', 'enzyme-assay'],
     q: 'จากการทดลองวัดอัตราเร็วเริ่มต้น (initial velocity) ของเอนไซม์ ช่วงเวลาใดที่เหมาะใช้วัด',
     options: ['0-15 นาที', '15-30 นาที', '30-60 นาที', '60-90 นาที', 'มากกว่า 90 นาที'],
     answer: 0,
@@ -351,6 +377,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q124 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75027, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['substrate-concentration', 'Vmax', 'saturation-kinetics'],
     q: 'จากการทดลองวัดว่า เมื่อเพิ่ม [S] อย่างไม่จำกัด อัตราเร็วของเอนไซม์ (V₀) จะเปลี่ยนไปอย่างไร',
     options: [
       '[E] เพิ่มขึ้น',
@@ -366,6 +393,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q125 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75028, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['EDTA', 'chelation', 'metal-ion-cofactor'],
     q: 'Inhibitor ตัวใดเหมาะที่สุดในการศึกษาผลของ Mg²⁺ ต่อการทำงานของเอนไซม์ (โดยจับไอออนโลหะออก)',
     options: ['AMP buffer', 'NaOH', 'EDTA', 'Levamisole', 'Disodium hydrogen phosphate'],
     answer: 2,
@@ -375,6 +403,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q126 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75029, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['lineweaver-burk-plot', 'competitive-inhibition'],
     q: "เส้นของสารยับยั้ง InhH ใน Lineweaver-Burk plot ตัดแกน y (1/V₀) ที่จุดเดียวกับเส้น uninhibited แต่ความชันต่างกัน สารยับยั้งนี้ออกฤทธิ์แบบใด",
     options: ['Irreversible inhibition', 'Competitive inhibition', 'Non-competitive inhibition', 'Un-competitive inhibition', 'Mixed inhibition'],
     answer: 1,
@@ -384,6 +413,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q127 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75030, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['lineweaver-burk-plot', 'Vmax'],
     q: 'ใน Lineweaver-Burk plot จุดตัดแกน y (1/V₀) มีค่าเท่ากับข้อใด',
     options: ['1/Vmax', '1/Km', 'Km/Vmax', '-1/Km', 'Vmax/Km'],
     answer: 0,
@@ -393,6 +423,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q128 (เฉลยไฮไลต์ในไฟล์ · concept ของสมการ ไม่ใช่อ่านกราฟ)' },
 
   { id: 75031, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['lineweaver-burk-plot', 'Km', 'Vmax'],
     q: 'ใน Lineweaver-Burk plot ความชัน (slope) ของเส้นมีค่าเท่ากับข้อใด',
     options: ['1/Vmax', '1/Km', 'Km/Vmax', 'Vmax/Km', 'Km × Vmax'],
     answer: 2,
@@ -402,6 +433,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q129 (เฉลยไฮไลต์ในไฟล์ · concept ของสมการ)' },
 
   { id: 75032, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
+  tags: ['Km', 'michaelis-menten'],
     q: 'ค่า Km (Michaelis constant) มีความหมายตรงกับข้อใด',
     options: [
       'ความเข้มข้นของ substrate [S] ที่ทำให้อัตราเร็ว V₀ = ½ Vmax',

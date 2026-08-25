@@ -21,6 +21,7 @@
 export const QB_BIOCHEM_MIDTERM = [
   // ── Lab equipment / technique ──────────────────────────────
   { id: 72001, subject: 'biochem-1', topic: 'lab-equipment', year: 1, type: 'mcq',
+  tags: ['TD-vs-TC', 'volumetric-glassware'],
     q: 'อุปกรณ์ในข้อใด ไม่ได้จัดอยู่ในกลุ่ม TD (to deliver)',
     options: ['Burette', 'Volumetric transfer pipette', 'Measuring cylinder', 'Volumetric flask', 'Mohr pipette'],
     answer: 3,
@@ -30,6 +31,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q10 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72002, subject: 'biochem-1', topic: 'lab-equipment', year: 1, type: 'mcq',
+  tags: ['serological-pipette', 'blow-out'],
     q: 'เครื่องหมาย "B" (สองวงแหวนฝ้าที่ปลายบน) บน serological pipette หมายถึงอะไร',
     options: [
       'เป็นปริมาตรมาตรฐานในระบบเมตริก',
@@ -45,6 +47,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q6 (เฉลยไฮไลต์ในไฟล์ · stem เขียนใหม่ให้ไม่ต้องดูรูป)' },
 
   { id: 72003, subject: 'biochem-1', topic: 'lab-equipment', year: 1, type: 'mcq',
+  tags: ['vortex-mixer', 'mixing'],
     q: 'เครื่อง Vortex mixer ใช้สำหรับทำสิ่งใด',
     options: [
       'ปั่นแยกสารให้ตกตะกอนตามน้ำหนัก',
@@ -60,6 +63,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q7 (เฉลยไฮไลต์ในไฟล์ · stem เขียนใหม่ให้ไม่ต้องดูรูป)' },
 
   { id: 72004, subject: 'biochem-1', topic: 'lab-equipment', year: 1, type: 'mcq',
+  tags: ['micropipette', 'pipetting-technique'],
     q: 'การใช้ไมโครปิเปต (micropipette) ข้อใดปฏิบัติไม่ถูกต้อง',
     options: [
       'จับเครื่องด้วยมือข้างที่ถนัด ใช้นิ้วหัวแม่มือกดปุ่ม push button',
@@ -76,6 +80,7 @@ export const QB_BIOCHEM_MIDTERM = [
 
   // ── Carbohydrate qualitative tests ─────────────────────────
   { id: 72005, subject: 'biochem-1', topic: 'lab-carbohydrate', year: 1, type: 'mcq',
+  tags: ['molisch-test', 'carbohydrate'],
     q: 'Molisch test ใช้ตรวจสอบสิ่งใด',
     options: ['Test for Carbohydrate (คาร์โบไฮเดรตทุกชนิด)', 'Test for Starch', 'Test for Reducing sugar', 'Test for Reducing monosaccharide', 'Test for Ketose'],
     answer: 0,
@@ -85,6 +90,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q11 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72006, subject: 'biochem-1', topic: 'lab-carbohydrate', year: 1, type: 'mcq',
+  tags: ['benedicts-test', 'reducing-sugar'],
     q: 'Benedict\'s test ใช้ตรวจสอบสิ่งใด',
     options: ['Test for Carbohydrate', 'Test for Starch', 'Test for Reducing sugar', 'Test for Reducing monosaccharide', 'Test for Ketose'],
     answer: 2,
@@ -94,6 +100,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q12 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72007, subject: 'biochem-1', topic: 'lab-carbohydrate', year: 1, type: 'mcq',
+  tags: ['barfoeds-test', 'reducing-monosaccharide'],
     q: 'Barfoed\'s test ใช้ตรวจสอบสิ่งใด',
     options: ['Test for Carbohydrate', 'Test for Starch', 'Test for Reducing sugar', 'Test for Reducing monosaccharide', 'Test for Ketose'],
     answer: 3,
@@ -103,6 +110,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q13 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72008, subject: 'biochem-1', topic: 'lab-carbohydrate', year: 1, type: 'mcq',
+  tags: ['seliwanoffs-test', 'ketose'],
     q: 'Seliwanoff\'s test ใช้ตรวจสอบสิ่งใด',
     options: ['Test for Carbohydrate', 'Test for Starch', 'Test for Reducing sugar', 'Test for Reducing monosaccharide', 'Test for Ketose'],
     answer: 4,
@@ -112,6 +120,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q14 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72009, subject: 'biochem-1', topic: 'lab-carbohydrate', year: 1, type: 'mcq',
+  tags: ['iodine-test', 'starch'],
     q: 'Iodine test ใช้ตรวจสอบสิ่งใด',
     options: ['Test for Carbohydrate', 'Test for Starch', 'Test for Reducing sugar', 'Test for Reducing monosaccharide', 'Test for Ketose'],
     answer: 1,
@@ -121,6 +130,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q15 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72010, subject: 'biochem-1', topic: 'lab-carbohydrate', year: 1, type: 'mcq',
+  tags: ['maillard-reaction', 'reducing-sugar', 'HbA1c'],
     q: 'ในผู้ป่วยเบาหวานที่มีน้ำตาลกลูโคสสูงในเลือด การเกิด Maillard reaction (เช่น HbA1c) อาศัยคุณสมบัติใดของน้ำตาล',
     options: ['Anomerism', 'Rehydration', 'การเป็น reducing sugar', 'Chair conformation', 'Anaerobic respiration'],
     answer: 2,
@@ -130,6 +140,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q16 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72011, subject: 'biochem-1', topic: 'lab-carbohydrate', year: 1, type: 'mcq',
+  tags: ['benedicts-test', 'reducing-sugar', 'urine-glucose'],
     q: 'เรานำ Benedict\'s test ไปใช้ประโยชน์ในการตรวจของเหลวร่างกายได้อย่างไร',
     options: [
       'หลอมละลาย sucrose ให้แยกชั้น',
@@ -146,6 +157,7 @@ export const QB_BIOCHEM_MIDTERM = [
 
   // ── Lipid ──────────────────────────────────────────────────
   { id: 72012, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['lecithin', 'phospholipid'],
     q: 'Phospholipid ที่มี choline เป็น head group มีชื่อสามัญว่าอะไร',
     options: ['Choline', 'Lecithin (phosphatidylcholine)', 'Cephalin', 'Sphingomyelin', 'Cardiolipin'],
     answer: 1,
@@ -155,6 +167,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q21 (เฉลยไฮไลต์ในไฟล์ · stem เขียนใหม่ให้ไม่ต้องดูรูป)' },
 
   { id: 72013, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['lecithin', 'egg-yolk'],
     q: 'Lecithin ที่ใช้ในการทดลองนี้ สกัดได้จากแหล่งใด',
     options: ['ตับ', 'รำข้าว', 'งาขาว', 'ไข่แดง', 'ไขมันสัตว์'],
     answer: 3,
@@ -164,6 +177,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q22 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72014, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['lecithin', 'choline'],
     q: 'Head group ของ lecithin เรียกว่าอะไร',
     options: ['Lecithin', 'Ethanolamine', 'Choline', 'Serine', 'Glycerol'],
     answer: 2,
@@ -173,6 +187,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q23 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72015, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['saponification', 'KOH'],
     q: 'ถ้าต้องการทำสบู่ (saponification) จากไขมัน ต้องเติมสารใดลงไป',
     options: ['10% KOH', '6M H₂SO₄', '10% Acetic acid', 'Acetone', 'Cholesterol'],
     answer: 0,
@@ -182,6 +197,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q24 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72016, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['saponification', 'free-fatty-acid'],
     q: 'หลังทำสบู่แล้ว ถ้าต้องการสกัด free fatty acid ออกมา ต้องเติมสารใด',
     options: ['10% KOH', '6M H₂SO₄', '5% Acetic acid', 'Acetone', 'Cholesterol'],
     answer: 1,
@@ -191,6 +207,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q25 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72017, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['choline', 'trimethylamine'],
     q: 'หากต้องการสลาย choline ให้ได้ trimethylamine ต้องเติมสารใด',
     options: ['10% KOH', '10% Acetic acid', '40% NaOH', '6M H₂SO₄', 'Conc. H₂SO₄'],
     answer: 2,
@@ -200,6 +217,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q26 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72018, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['salkowski-test', 'ergosterol'],
     q: 'สารใดให้ผลบวกต่อ Salkowski test ได้ดีที่สุด',
     options: ['Cholesterol', 'Chloroform', 'Saturated fatty acid', 'Ergosterol', 'Tocopherol'],
     answer: 3,
@@ -209,6 +227,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q27 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72019, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['furter-meyer-test', 'tocopherol'],
     q: 'Modified Furter-Meyer test ให้ผลบวกกับสารใดมากที่สุด',
     options: ['Ergosterol', 'Cholesterol', 'Chloroform', 'Saturated fatty acid', 'Tocopherol (Vitamin E)'],
     answer: 4,
@@ -218,6 +237,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q28 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72020, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['carr-price-test', 'vitamin-A'],
     q: 'Carr-Price test เกิด blue complex กับสารใดได้ดีที่สุด',
     options: ['Vitamin A', 'Vitamin D', 'Vitamin E', 'Vitamin K', 'Beta-carotene'],
     answer: 0,
@@ -227,6 +247,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q29 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72021, subject: 'biochem-1', topic: 'lab-lipid', year: 1, type: 'mcq',
+  tags: ['non-saponifiable-lipid', 'chloroform'],
     q: 'ในการทดลองเรื่อง non-saponifiable material สารตัวอย่างทุกตัวถูกละลายในสารใด',
     options: ['Acetone', 'Acetic acid', 'Chloroform', '10% KOH', '10% NaOH'],
     answer: 2,
@@ -237,6 +258,7 @@ export const QB_BIOCHEM_MIDTERM = [
 
   // ── pH, buffer & titration ─────────────────────────────────
   { id: 72022, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
+  tags: ['bronsted-lowry', 'proton-donor'],
     q: 'ข้อใดคือความหมายของ "กรด" ตามนิยาม Brønsted-Lowry',
     options: [
       'สารที่เกิดขึ้นก่อนในปฏิกิริยา',
@@ -252,6 +274,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q31 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72023, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
+  tags: ['weak-acid', 'pKa'],
     q: 'สารละลายกรดอ่อน (HA) มีคุณสมบัติตามข้อใด',
     options: [
       'ที่ pH = pKa จะมี [H⁺] = [A⁻]',
@@ -267,6 +290,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q32 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72024, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
+  tags: ['methyl-orange', 'acid-base-indicator', 'pKa'],
     q: 'Methyl orange เปลี่ยนสีในช่วง pH 3.2-4.4 ควรมีค่า pKa ประมาณเท่าใด',
     options: ['ต่ำกว่า 3.2', '3.2', '3.8', '4.4', 'สูงกว่า 4.4'],
     answer: 2,
@@ -276,6 +300,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q35 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72025, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
+  tags: ['buffer', 'buffer-capacity'],
     q: 'จากการทดลองเรื่องบัฟเฟอร์ ข้อใดถูกต้อง',
     options: [
       'บัฟเฟอร์เป็นโปรตีนเสมอ',
@@ -291,6 +316,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q36 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72026, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
+  tags: ['buffer', 'neutralization'],
     q: 'เมื่อเติมด่าง (OH⁻) ลงในระบบบัฟเฟอร์กรดอ่อน จะเกิดสารใดเป็นผลิตภัณฑ์',
     options: ['O₂', 'H₂O', 'NaOH', 'กรดอ่อนเพิ่มขึ้น', 'เกลือของกรดแก่'],
     answer: 1,
@@ -300,6 +326,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q37 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72027, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
+  tags: ['pH-meter', 'potentiometry'],
     q: 'pH meter เป็นเครื่องมือวัดค่าทางไฟฟ้าชนิดใด',
     options: [
       'กระแสไฟฟ้า — แอมแปร์ (A)',
@@ -315,6 +342,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q38 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72028, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
+  tags: ['glycine', 'buffer-range'],
     q: "glycine ไม่เป็นบัฟเฟอร์ที่ดีในช่วง pH ใด",
     options: ['2-3', '3-4', '5-8', '8-9', '9-10'],
     answer: 2,
@@ -324,6 +352,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q39 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72029, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
+  tags: ['glycine', 'amino-group', 'buffer-range'],
     q: 'Functional group ใดใน glycine ที่ทำหน้าที่เป็นบัฟเฟอร์ในช่วง pH ที่เป็นด่าง',
     options: ['Oxygen', 'Hydrogen', 'Amino group (-NH₃⁺/-NH₂)', 'Hydroxyl group', 'Carboxyl group (-COOH)'],
     answer: 2,
@@ -334,6 +363,7 @@ export const QB_BIOCHEM_MIDTERM = [
 
   // ── Spectrophotometer ──────────────────────────────────────
   { id: 72030, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['absorbance', 'dilution'],
     q: 'หากวัดสารละลายแล้วได้ค่า absorbance (A) มากกว่า 1 ควรทำอย่างไรให้ได้ค่าที่น่าเชื่อถือ',
     options: [
       'เจือจางสารละลายให้เข้มข้นน้อยลง',
@@ -349,6 +379,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q43 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72031, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['dilution-factor', 'concentration-calculation'],
     q: 'หลังเจือจางสารละลายเพื่อวัด absorbance แล้ว การคำนวณความเข้มข้นจริงต้องทำอย่างไร',
     options: [
       'คูณด้วยจำนวนเท่าที่เจือจาง (dilution factor)',
@@ -364,6 +395,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q44 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72032, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['spectrophotometry', 'visible-region'],
     q: 'Spectrophotometer ที่ใช้ในการทดลองนี้ (สารละลายมีสี) ใช้แสงในช่วงความยาวคลื่นใด',
     options: ['UV region', 'Invisible region', 'Visible region', 'Infrared region', 'Microwave region'],
     answer: 2,
@@ -373,6 +405,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q45 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72033, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['beer-lambert-law', 'molar-absorptivity'],
     q: 'ตามกฎ Beer-Lambert (A = εCl, ความหนา l = 1) ค่า ε (molar absorptivity) มีความหมายตรงกับข้อใด',
     options: ['A × C', 'A / C', 'C / A', 'C × A', 'A + C'],
     answer: 1,
@@ -382,6 +415,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q46 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72034, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['blank', 'spectrophotometry'],
     q: 'การกดปุ่ม "TARE" ของเครื่องชั่งน้ำหนัก เปรียบได้กับการทำสิ่งใดบน spectrophotometer',
     options: ['Set maximum', 'Set reference (set blank ให้ A = 0)', 'Set lambda max', 'Set transmittance', 'Set absorbance'],
     answer: 1,
@@ -391,6 +425,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q47 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72035, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['blank', 'spectrophotometry'],
     q: 'การ set reference (zero) ของ spectrophotometer ต้องใช้หลอดชนิดใด',
     options: ['Test tube', 'Experiment tube', 'Blank tube', 'Control tube', 'Beginning tube'],
     answer: 2,
@@ -400,6 +435,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q48 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72036, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['cuvette', 'measurement-accuracy'],
     q: 'ข้อใดเป็นการวัด absorbance ที่น่าเชื่อถือที่สุด',
     options: [
       'วัดขณะสารละลายมีความเข้มข้นสูงสุด',
@@ -415,6 +451,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q49 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72037, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['spectrophotometry', 'cuvette', 'lambda-max'],
     q: 'ข้อใดเป็นสิ่งที่ต้องคำนึงถึงเมื่อใช้ spectrophotometer',
     options: [
       'ความสะอาดและความใสของ cuvette',
@@ -431,6 +468,7 @@ export const QB_BIOCHEM_MIDTERM = [
 
   // ── Protein tests & precipitation ──────────────────────────
   { id: 72038, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['ninhydrin-test', 'amino-acid'],
     q: 'วัตถุประสงค์ของ Ninhydrin test คือข้อใด',
     options: [
       'ทดสอบสารที่มีหมู่ primary amine (กรดอะมิโนอิสระ) ให้สีน้ำเงินม่วง',
@@ -446,6 +484,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q51 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72039, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['biuret-test', 'peptide-bond'],
     q: 'สารใดให้ผลลบ (negative) ต่อ Biuret test',
     options: ['Ovalbumin', 'Serum สุนัข', 'Casein', 'Glycine', 'Albumin'],
     answer: 3,
@@ -455,6 +494,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q52 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72040, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['protein-denaturation', 'protein-precipitation'],
     q: 'เพราะเหตุใด เมื่อเติมกรดไนตริกเข้มข้นลงในสารละลายไข่ขาว จึงเกิดตะกอน',
     options: [
       'โปรตีนไข่ขาวมีประจุบวกจับกับประจุลบของกรด',
@@ -470,6 +510,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q53 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72041, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['protein-precipitation', 'protein-net-charge'],
     q: 'เพราะเหตุใด เมื่อเติมกรด sulfosalicylic เข้มข้นลงในสารละลายไข่ขาว จึงเกิดตะกอน',
     options: [
       'โปรตีนไข่ขาวมีประจุลบจับกับประจุลบของกรด',
@@ -485,6 +526,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q54 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72042, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['protein-precipitation', 'protein-net-charge'],
     q: 'เพราะเหตุใด เมื่อเติม Picric acid ลงในสารละลายไข่ขาว จึงเกิดตะกอน',
     options: [
       'โปรตีนไข่ขาว (มีประจุบวกในภาวะกรด) จับกับประจุลบ (picrate) เกิดตะกอน',
@@ -500,6 +542,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q55 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72043, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['salting-out', 'protein-precipitation'],
     q: 'เพราะเหตุใด เมื่อเติมแอมโมเนียมซัลเฟตอิ่มตัวลงในไข่ขาว จึงเกิดตะกอน',
     options: [
       'โปรตีนไข่ขาวมีประจุบวกจับกับซัลเฟต',
@@ -515,6 +558,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q56 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72044, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['isoelectric-point', 'protein-solubility'],
     q: 'ข้อใดไม่ถูกต้องเกี่ยวกับค่า pI (isoelectric point) ของโปรตีน',
     options: [
       'ประจุสุทธิของโปรตีนเท่ากับศูนย์',
@@ -530,6 +574,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q57 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72045, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['salting-out', 'globulin'],
     q: 'เมื่อเติมซีรัม 5 มล. กับสารละลายอิ่มตัวแอมโมเนียมซัลเฟต 5 มล. (half saturation) ตะกอนที่ได้เป็นโปรตีนชนิดใด',
     options: ['Albumin', 'Globulin', 'Ovalbumin', 'Glycine', 'Casein'],
     answer: 1,
@@ -539,6 +584,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q58 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72046, subject: 'biochem-1', topic: 'lab-protein', year: 1, type: 'mcq',
+  tags: ['salting-out', 'albumin'],
     q: 'การตกตะกอน albumin จากซีรัม ต้องใช้แอมโมเนียมซัลเฟตที่ความอิ่มตัวระดับใด',
     options: ['อิ่มตัวเต็มที่ (full / 100% saturation)', 'อิ่มตัวครึ่งหนึ่ง (half saturation)', 'ไม่ต้องเติมเกลือ', 'เจือจาง 1 ใน 4', 'เติมกรดแทนเกลือ'],
     answer: 0,

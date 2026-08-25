@@ -43,3 +43,6 @@ ds-bundle/
 .deck-fix/
 .explain-fix/
 .fig-fix/
+.tags-fix/
+.opt-fix/
+.table-fix/

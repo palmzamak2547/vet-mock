@@ -14,6 +14,7 @@
 export const QUESTIONS_Y2_HISTO = [
   {
     "id": 106624,
+    "tags": ["bursa-of-fabricius","involution"],
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
@@ -33,6 +34,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106625,
+    "tags": ["bursa-of-fabricius","follicular-associated-epithelium","simple-columnar-epithelium"],
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
@@ -52,6 +54,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106626,
+    "tags": ["avian-lymphatic-system","diffuse-lymphatic-tissue"],
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
@@ -71,6 +74,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106628,
+    "tags": ["air-sac","simple-squamous-epithelium","gas-exchange"],
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
@@ -90,6 +94,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106629,
+    "tags": ["gizzard","koilin"],
     "subject": "vet-histo",
     "topic": "histo--avian",
     "year": 2,
@@ -109,6 +114,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106633,
+    "tags": ["erythroid-series","metarubricyte","papanicolaou-stain"],
     "subject": "vet-histo",
     "topic": "histo--bone-marrow-laboratory",
     "year": 2,
@@ -128,6 +134,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106638,
+    "tags": ["bone-marrow-vasculature","venous-sinusoid"],
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -147,6 +154,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106639,
+    "tags": ["erythroid-series","polychromatic-rubricyte","mitosis"],
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -166,6 +174,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106640,
+    "tags": ["erythroblastic-island","macrophage","erythropoiesis"],
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -185,6 +194,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106641,
+    "tags": ["band-cell","metamyelocyte","granulocytic-series"],
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -204,6 +214,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106642,
+    "tags": ["myeloid-erythroid-ratio","erythropoiesis"],
     "subject": "vet-histo",
     "topic": "histo--bone-marrow",
     "year": 2,
@@ -223,6 +234,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106643,
+    "tags": ["purkinje-fiber","cardiac-conduction-system"],
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -242,6 +254,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106644,
+    "tags": ["intercalated-disc","cardiac-muscle","cell-junction"],
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -261,6 +274,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106647,
+    "tags": ["muscular-artery","tunica-media","smooth-muscle"],
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -280,6 +294,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106648,
+    "tags": ["capillary","endothelium"],
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -299,6 +314,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106649,
+    "tags": ["large-vein","tunica-adventitia"],
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -318,6 +334,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106651,
+    "tags": ["carotid-sinus","baroreceptor"],
     "subject": "vet-histo",
     "topic": "histo--circulatory-system",
     "year": 2,
@@ -337,13 +354,14 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106660,
+    "tags": ["microtubule","cytoskeleton"],
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
     "source": "Cytology lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตามตารางเปรียบเทียบ cytoskeleton microtubule มีเส้นผ่านศูนย์กลางเท่าใด และผนังประกอบด้วยอะไร",
+    "q": "Microtubule มีเส้นผ่านศูนย์กลางเท่าใด และผนังประกอบด้วยอะไร",
     "options": [
       "5-7 nm ผนังประกอบด้วย 2 intertwined filaments ของ F-actin",
       "25 nm ผนังประกอบด้วย 13 parallel protofilaments",
@@ -351,11 +369,12 @@ export const QUESTIONS_Y2_HISTO = [
       "50 nm ผนังประกอบด้วย 9 triplets ของ αβ-tubulin"
     ],
     "answer": 1,
-    "explain": "ตารางระบุ microtubule เป็น hollow tube ที่ผนังเป็น 13 parallel protofilaments โดยมี subunit เป็น heterodimers ของ αβ-tubulin และ diameter 25 nm ตัวเลือก 5-7 nm กับ F-actin เป็นค่าของ microfilament ซึ่งเป็นคนละชนิดกัน ส่วน 8-10 nm กับ 4 intertwined protofibrils เป็นของ intermediate filament",
+    "explain": "Microtubule เป็น hollow tube ที่มี diameter 25 nm ผนังประกอบด้วย 13 parallel protofilaments โดยมี subunit เป็น heterodimers ของ αβ-tubulin\n\n❌ ทำไมข้ออื่นผิด\n— \"5-7 nm ผนังประกอบด้วย 2 intertwined filaments ของ F-actin\" = เป็นค่าของ microfilament ซึ่งเป็นคนละชนิดกัน\n— \"8-10 nm ผนังประกอบด้วย 4 intertwined protofibrils\" = เป็นของ intermediate filament\n— \"50 nm ผนังประกอบด้วย 9 triplets ของ αβ-tubulin\" = ไม่ตรงกับขนาดหรือโครงสร้างของ cytoskeleton ชนิดใดในสามชนิดนี้\n\n💡 25 nm มาคู่กับเลข 13 เสมอ ส่วน 5-7 nm คู่กับ F-actin และ 8-10 nm คู่กับ protofibrils",
     "verified": "Cytology น.29-30"
   },
   {
     "id": 106661,
+    "tags": ["stable-cells","cell-cycle","hepatocyte"],
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
@@ -375,6 +394,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106662,
+    "tags": ["nucleolus","rRNA-synthesis"],
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
@@ -394,6 +414,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106663,
+    "tags": ["mitochondria","acidophilia"],
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
@@ -413,6 +434,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106664,
+    "tags": ["lipofuscin","lysosome"],
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
@@ -432,6 +454,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106667,
+    "tags": ["axoneme","cilia","centriole"],
     "subject": "vet-histo",
     "topic": "histo--cytology",
     "year": 2,
@@ -451,6 +474,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106668,
+    "tags": ["myenteric-plexus","digestive-tract-layers"],
     "subject": "vet-histo",
     "topic": "histo--digestive-system-i",
     "year": 2,
@@ -462,7 +486,8 @@ export const QUESTIONS_Y2_HISTO = [
       "submucosal plexus อยู่ใน tunica muscularis",
       "myenteric plexus อยู่ใน tunica submucosa",
       "myenteric plexus อยู่ใน tunica muscularis",
-      "submucosal plexus อยู่ใน lamina propria"
+      "submucosal plexus อยู่ใน lamina propria",
+      "myenteric plexus อยู่ใน tunica serosa"
     ],
     "answer": 2,
     "explain": "T. submucosa เป็นที่อยู่ของ submucosal plexus ส่วน T. muscularis เป็นที่อยู่ของ myenteric plexus ชื่อของ plexus บอกชั้นที่มันฝังตัวอยู่ตรง ๆ\n\n❌ ทำไมข้ออื่นผิด\n— \"submucosal plexus อยู่ใน tunica muscularis\" = submucosal plexus อยู่ใน T. submucosa ตามชื่อของมัน\n— \"myenteric plexus อยู่ใน tunica submucosa\" = สลับกับข้อบน myenteric แปลว่าอยู่ระหว่างชั้นกล้ามเนื้อ\n— \"submucosal plexus อยู่ใน lamina propria\" = lamina propria เป็นชั้นย่อยของ tunica mucosa ซึ่งไม่ใช่ที่อยู่ของ plexus ทั้งสองตัว\n\n💡 myo แปลว่ากล้ามเนื้อ sub-mucosa แปลว่าใต้เยื่อเมือก ชื่อบอกที่อยู่ทั้งคู่",
@@ -470,6 +495,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106670,
+    "tags": ["soft-palate","pseudostratified-columnar-epithelium"],
     "subject": "vet-histo",
     "topic": "histo--digestive-system-i",
     "year": 2,
@@ -481,33 +507,16 @@ export const QUESTIONS_Y2_HISTO = [
       "keratinized stratified squamous epithelium",
       "simple columnar epithelium ที่มี goblet cells",
       "pseudostratified columnar epithelium",
-      "nonkeratinized stratified squamous epithelium"
+      "nonkeratinized stratified squamous epithelium",
+      "ciliated simple columnar epithelium"
     ],
     "answer": 2,
     "explain": "ผิวด้าน nasal ของ soft palate ต่อเนื่องกับทางเดินหายใจ เยื่อบุจึงเป็น pseudostratified columnar epithelium ส่วนผิวด้าน oral เป็น stratified squamous epithelium\n\n❌ ทำไมข้ออื่นผิด\n— \"keratinized stratified squamous epithelium\" = เป็นเยื่อบุของด้าน oral ไม่ใช่ด้าน nasal\n— \"simple columnar epithelium ที่มี goblet cells\" = ไม่ใช่เยื่อบุของ soft palate ทั้งสองด้าน ด้าน nasal เป็น pseudostratified columnar\n— \"nonkeratinized stratified squamous epithelium\" = stratified squamous ไม่ว่าจะ keratinized หรือไม่ก็เป็นของด้าน oral\n\n💡 ด้านที่หันเข้าช่องปากเป็น squamous ด้านที่หันเข้าโพรงจมูกเป็นเยื่อบุแบบทางเดินหายใจ",
     "verified": "Digestive System I น.16-18"
   },
   {
-    "id": 106673,
-    "subject": "vet-histo",
-    "topic": "histo--digestive-system-iii",
-    "year": 2,
-    "source": "Digestive System III lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
-    "sourceType": "lecture-derived",
-    "type": "mcq",
-    "q": "จากตารางเปรียบเทียบกระเพาะทั้ง 4 ส่วน แถว m.m ของ forestomach ทั้งสามให้ผลอย่างไร",
-    "options": [
-      "rumen เป็นบวก ส่วน reticulum และ omasum เป็นลบ",
-      "rumen และ omasum เป็นลบ ส่วน reticulum เป็นบวก",
-      "rumen และ reticulum เป็นลบ ส่วน omasum เป็นบวก",
-      "rumen เป็นลบ ส่วน reticulum และ omasum เป็นบวก"
-    ],
-    "answer": 3,
-    "explain": "ในบรรดา forestomach ทั้งสาม rumen เป็นส่วนเดียวที่ไม่มี muscularis mucosae ส่วน reticulum มี laminar muscularis อยู่ที่ upper part of reticular fold และ omasum ก็มี muscularis mucosae เช่นกัน แถวนี้จึงเป็น ลบ บวก บวก\n\n❌ ทำไมข้ออื่นผิด\n— \"rumen เป็นบวก ส่วน reticulum และ omasum เป็นลบ\" = กลับด้านทั้งแถว rumen คือตัวเดียวที่เป็นลบ\n— \"rumen และ omasum เป็นลบ ส่วน reticulum เป็นบวก\" = omasum มี muscularis mucosae จึงเป็นบวก ไม่ใช่ลบ\n— \"rumen และ reticulum เป็นลบ ส่วน omasum เป็นบวก\" = reticulum มี laminar muscularis ที่ upper part of reticular fold จึงเป็นบวก\n\n💡 จำตัวเดียวก็พอ rumen คือกระเพาะเดียวใน forestomach ที่ไม่มี muscularis mucosae",
-    "verified": "Digestive System III น.29"
-  },
-  {
     "id": 106674,
+    "tags": ["omasum","longitudinal-laminae"],
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
@@ -527,6 +536,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106677,
+    "tags": ["biliary-pathway","bile-canaliculi"],
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
@@ -546,6 +556,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106678,
+    "tags": ["gallbladder","simple-columnar-epithelium","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
@@ -565,6 +576,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106679,
+    "tags": ["pancreas","centroacinar-cell","intercalated-duct"],
     "subject": "vet-histo",
     "topic": "histo--digestive-system-iii",
     "year": 2,
@@ -584,6 +596,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106680,
+    "tags": ["hormone-secretion","perivascular-space"],
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -603,6 +616,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106681,
+    "tags": ["neurohypophysis","embryonic-origin"],
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -622,6 +636,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106682,
+    "tags": ["pars-intermedia","MSH"],
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -641,6 +656,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106683,
+    "tags": ["thyroid-gland","C-cell","calcitonin"],
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -660,6 +676,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106685,
+    "tags": ["spongiocyte","zona-fasciculata","adrenal-cortex"],
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -679,6 +696,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106686,
+    "tags": ["aldosterone","electrolyte-balance"],
     "subject": "vet-histo",
     "topic": "histo--endocrine",
     "year": 2,
@@ -698,6 +716,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106690,
+    "tags": ["mesothelium","simple-squamous-epithelium","serous-membrane"],
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
@@ -717,6 +736,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106691,
+    "tags": ["pseudostratified-columnar-epithelium","nuclear-position"],
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
@@ -736,13 +756,14 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106692,
+    "tags": ["simple-columnar-epithelium","nuclear-position"],
     "subject": "vet-histo",
     "topic": "histo--epithelium",
     "year": 2,
     "source": "Epithelium lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตามตารางสรุป simple epithelium ตำแหน่งและรูปร่างของ nuclei ในกลุ่ม columnar เป็นแบบใด",
+    "q": "ใน simple epithelium กลุ่ม columnar ตำแหน่งและรูปร่างของ nuclei เป็นแบบใด",
     "options": [
       "Centrally located และเป็น spherical แบบเดียวกับกลุ่ม cuboidal",
       "Various positions ตามความสูงที่ต่างกันของแต่ละเซลล์",
@@ -755,6 +776,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106694,
+    "tags": ["germinal-epithelium","simple-cuboidal-epithelium","ovary"],
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -766,7 +788,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Simple squamous epithelium",
       "Simple cuboidal epithelium",
       "Simple columnar epithelium",
-      "Stratified squamous epithelium"
+      "Stratified squamous epithelium",
+      "Stratified cuboidal epithelium"
     ],
     "answer": 1,
     "explain": "germinal epithelium ที่คลุมผิวนอกของ ovary เหนือ tunica albuginea เป็น simple cuboidal epithelium คือเซลล์รูปลูกบาศก์เรียงชั้นเดียว\n\n❌ ทำไมข้ออื่นผิด\n— \"Simple squamous epithelium\" = เยื่อบุแบนชั้นเดียวแบบนี้เป็นของ serosa ที่คลุมอวัยวะและวางอยู่บน connective tissue ไม่ใช่ผิวของ ovary\n— \"Simple columnar epithelium\" = เยื่อบุทรงสูงชั้นเดียวเป็นของ lumen ในท่อทางเดินสืบพันธุ์ ไม่ใช่ผิวนอกที่คลุม ovary\n— \"Stratified squamous epithelium\" = เยื่อบุหลายชั้นแบบนี้อยู่ปลายทางฝั่ง vagina ไม่ใช่ที่ผิวของ ovary",
@@ -774,6 +797,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106695,
+    "tags": ["primordial-follicle","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -793,6 +817,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106696,
+    "tags": ["zona-pellucida","primary-follicle","folliculogenesis"],
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -812,6 +837,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106697,
+    "tags": ["corona-radiata","granulosa-cell","ovulation"],
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -823,7 +849,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Cumulus oophorus",
       "Zona pellucida",
       "Corona radiata",
-      "Theca interna"
+      "Theca interna",
+      "Theca externa"
     ],
     "answer": 2,
     "explain": "corona radiata คือ granulosa cells กลุ่มที่ยังเกาะติดไปกับ oocyte หลัง ovulation\n\n❌ ทำไมข้ออื่นผิด\n— \"Cumulus oophorus\" = granulosa cells ที่ล้อมรอบ oocyte แต่ยังคงอยู่ใน ovary หลัง ovulation จึงเป็นคนละกลุ่มกัน\n— \"Zona pellucida\" = ชั้น glycoprotein ระหว่าง granulosa cells กับ oocyte ไม่ใช่ตัวเซลล์\n— \"Theca interna\" = ชั้นเซลล์ที่อยู่รอบนอกของ follicle และหลั่ง androgens ไม่ใช่ granulosa cells\n\n💡 corona radiata คือมงกุฎที่ไข่พาติดตัวออกไป ส่วน cumulus oophorus คือเบาะที่ทิ้งไว้ใน ovary",
@@ -831,6 +858,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106698,
+    "tags": ["oviduct","muscularis-externa"],
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -850,6 +878,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106700,
+    "tags": ["stratum-vasculare","myometrium"],
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -869,6 +898,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106701,
+    "tags": ["cervix","stratified-squamous-epithelium","epithelial-transition"],
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -880,7 +910,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Pseudostratified columnar epithelium",
       "Stratified cuboidal epithelium",
       "Simple cuboidal epithelium",
-      "Stratified squamous epithelium"
+      "Stratified squamous epithelium",
+      "Simple squamous epithelium"
     ],
     "answer": 3,
     "explain": "ใน bitch lumen ของ cervix บุด้วย simple columnar ที่มี mucous-secreting cells แล้วเปลี่ยนเป็น stratified squamous epithelium แบบตัดทันทีตรง external os\n\n❌ ทำไมข้ออื่นผิด\n— \"Pseudostratified columnar epithelium\" = เยื่อบุแบบนี้เป็นของทางเดินอากาศ ไม่ใช่ช่วง cervix ถึง vagina\n— \"Stratified cuboidal epithelium\" = เยื่อบุหลายชั้นตรงจุดเปลี่ยนนี้เป็นชนิด squamous ไม่ใช่ cuboidal\n— \"Simple cuboidal epithelium\" = เยื่อบุชั้นเดียวรูปลูกบาศก์แบบนี้อยู่ที่ผิวนอกของ ovary ไม่ใช่ที่ external os",
@@ -888,6 +919,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106702,
+    "tags": ["vaginal-cytology","superficial-cell"],
     "subject": "vet-histo",
     "topic": "histo--female-lab-manual",
     "year": 2,
@@ -907,6 +939,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106703,
+    "tags": ["ovary","ovarian-cortex","ovarian-medulla"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -926,6 +959,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106704,
+    "tags": ["theca-interna","androgen-secretion"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -937,7 +971,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Theca interna",
       "Theca externa",
       "Granulosa lutein cells",
-      "Cumulus oophorus cells"
+      "Cumulus oophorus cells",
+      "Germinal epithelium"
     ],
     "answer": 0,
     "explain": "theca interna เป็นเซลล์ใหญ่ กลม foamy ลักษณะคล้าย epithelial cells และเป็นตัวที่หลั่ง androgens\n\n❌ ทำไมข้ออื่นผิด\n— \"Theca externa\" = เซลล์คล้าย fibroblast ที่เรียงตัวรอบ follicle อยู่นอกชั้น theca interna และไม่ได้หลั่ง androgens\n— \"Granulosa lutein cells\" = เซลล์ที่เกิดขึ้นหลัง luteinization และหลั่ง progesterone\n— \"Cumulus oophorus cells\" = granulosa cells ที่ล้อมรอบ oocyte คนละกลุ่มกับเซลล์ของ theca\n\n💡 interna กลม foamy และหลั่งฮอร์โมน ส่วน externa ยาวคล้าย fibroblast และเรียงเป็นแนว",
@@ -945,6 +980,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106705,
+    "tags": ["cumulus-oophorus","corona-radiata","granulosa-cell"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -964,6 +1000,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106707,
+    "tags": ["LH","luteinization","progesterone"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -975,7 +1012,8 @@ export const QUESTIONS_Y2_HISTO = [
       "FSH จาก pituitary gland",
       "Estrogen จาก theca interna",
       "Prolactin จาก pituitary gland",
-      "LH จาก pituitary gland"
+      "LH จาก pituitary gland",
+      "Oxytocin จาก pituitary gland"
     ],
     "answer": 3,
     "explain": "LH จาก pituitary gland เป็นตัวเริ่ม luteinization และกระตุ้น granulosa cells ให้หลั่ง progesterone จากนั้นเซลล์จะเกิด hyperplasia กับ hypertrophy แล้วสะสม lutein จนกลายเป็น granulosa luteal cells\n\n❌ ทำไมข้ออื่นผิด\n— \"FSH จาก pituitary gland\" = มักถูกเลือกเพราะชื่อผูกกับ follicle แต่ตัวที่สั่งให้เกิด luteinization คือ LH\n— \"Estrogen จาก theca interna\" = theca interna เป็นแหล่งของ androgens ไม่ใช่สัญญาณที่สั่งให้ granulosa เปลี่ยนไปหลั่ง progesterone\n— \"Prolactin จาก pituitary gland\" = ฮอร์โมนที่ผูกกับการสร้างน้ำนม ไม่ใช่ตัวเริ่ม luteinization\n\n💡 ชื่อเต็มของ LH คือ luteinizing hormone งานของมันจึงเป็น luteinization ตรงตัว",
@@ -983,6 +1021,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106708,
+    "tags": ["atretic-follicle","glassy-membrane"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1002,6 +1041,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106709,
+    "tags": ["oviduct","ampulla","fertilization"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1021,6 +1061,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106710,
+    "tags": ["cervix","epithelial-transition"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1040,6 +1081,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106711,
+    "tags": ["vagina","estrous-cycle","keratinization"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1059,6 +1101,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106712,
+    "tags": ["vaginal-cytology","estrus"],
     "subject": "vet-histo",
     "topic": "histo--female-reproductive-organ",
     "year": 2,
@@ -1078,6 +1121,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106713,
+    "tags": ["cartilaginous-fish","bony-fish"],
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1097,6 +1141,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106714,
+    "tags": ["club-cell","fish-epidermis","alarm-substance"],
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1116,6 +1161,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106715,
+    "tags": ["gill-filament","gill-lamella"],
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1135,6 +1181,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106716,
+    "tags": ["fish-intestine","muscularis-mucosae","tunica-submucosa"],
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1154,6 +1201,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106717,
+    "tags": ["swim-bladder","bony-fish"],
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1173,6 +1221,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106718,
+    "tags": ["fish-kidney","hematopoiesis"],
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1192,6 +1241,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106719,
+    "tags": ["caudal-fin","heterocercal"],
     "subject": "vet-histo",
     "topic": "histo--fish",
     "year": 2,
@@ -1211,13 +1261,14 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106722,
+    "tags": ["capillary","blood-vessel-wall"],
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
     "source": "HISTO LAB - Block II lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตามตารางเทียบหลอดเลือด ข้อใดตรงกับลักษณะของ capillary",
+    "q": "ข้อใดตรงกับลักษณะของ capillary",
     "options": [
       "∅ 5-10 µm, tunica media มี smooth muscle 1-2 ชั้น และมี pericyte",
       "∅ 5-10 µm, มี endothelial cell 1 ชั้น และไม่มี tunica media",
@@ -1230,6 +1281,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106725,
+    "tags": ["hassall-corpuscle","thymus","thymic-medulla"],
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
@@ -1241,7 +1293,8 @@ export const QUESTIONS_Y2_HISTO = [
       "เกิดจาก thymic epithelial cell และพบใน cortex",
       "เกิดจาก T-lymphoblast และพบใน medulla",
       "เกิดจาก reticular cell และพบใน medulla",
-      "เกิดจาก reticular cell และพบใน cortex"
+      "เกิดจาก reticular cell และพบใน cortex",
+      "เกิดจาก macrophage และพบใน medulla"
     ],
     "answer": 2,
     "explain": "Hassall's corpuscle เกิดจาก reticular cell ที่มาเรียงซ้อนกันเป็นวง whorl-shaped และพบใน medulla เสมอ จึงใช้ชี้ขาดได้ทั้งว่าเนื้อเยื่อนี้คือ thymus และว่ากำลังดูส่วน medulla อยู่\n\n❌ ทำไมข้ออื่นผิด\n— \"เกิดจาก thymic epithelial cell และพบใน cortex\" = ตำแหน่งผิด corpuscle อยู่ใน medulla ไม่ใช่ cortex\n— \"เกิดจาก T-lymphoblast และพบใน medulla\" = ตำแหน่งถูก แต่ T-lymphoblast (thymocyte) เป็นเซลล์ที่มาจาก bone marrow และอยู่หนาแน่นใน cortex ไม่ใช่ตัวที่ก่อเป็น corpuscle\n— \"เกิดจาก reticular cell และพบใน cortex\" = ที่มาของเซลล์ถูก แต่ตำแหน่งผิด cortex เป็นที่ที่ T-lymphocyte อยู่หนาแน่น\n\n💡 เห็นวงซ้อนแบบหัวหอมเมื่อไหร่ ให้ตอบ thymus และตอบ medulla ไปพร้อมกัน",
@@ -1249,6 +1302,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106726,
+    "tags": ["lymph-node","paracortex","T-cell"],
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
@@ -1268,6 +1322,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106727,
+    "tags": ["terminal-bronchiole","simple-cuboidal-epithelium"],
     "subject": "vet-histo",
     "topic": "histo--histo-lab-block-ii",
     "year": 2,
@@ -1279,7 +1334,8 @@ export const QUESTIONS_Y2_HISTO = [
       "simple columnar epithelium",
       "simple squamous epithelium",
       "stratified squamous epithelium",
-      "simple cuboidal epithelium"
+      "simple cuboidal epithelium",
+      "transitional epithelium"
     ],
     "answer": 3,
     "explain": "terminal bronchioles บุด้วย simple cuboidal epithelium โดยไล่ลำดับได้ว่า primary กับ secondary bronchiole เป็น simple columnar แล้วเตี้ยลงเป็น cuboidal ที่ terminal bronchioles ก่อนที่ respiratory bronchioles จะเริ่มมี squamous (alveolus) epithelium\n\n❌ ทำไมข้ออื่นผิด\n— \"simple columnar epithelium\" = เป็นเยื่อบุของ primary และ secondary bronchiole ซึ่งอยู่เหนือขึ้นไปหนึ่งขั้น\n— \"simple squamous epithelium\" = เริ่มที่ respiratory bronchioles และเนื้อ alveolus ซึ่งอยู่ถัดลงไป\n— \"stratified squamous epithelium\" = เยื่อบุหลายชั้นแบบนี้เป็นของ tonsil ไม่ใช่เนื้อปอด\n\n💡 ยิ่งลึกเยื่อบุยิ่งเตี้ยลง columnar แล้ว cuboidal แล้วจบที่ squamous ตรง alveolus",
@@ -1287,6 +1343,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106729,
+    "tags": ["skin-development","mesoderm","dermis"],
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
@@ -1298,7 +1355,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Epidermis และ skin glands",
       "Hair follicles และ nerve",
       "Dermis และ blood vessels",
-      "Epidermis และ hair follicles"
+      "Epidermis และ hair follicles",
+      "Melanocytes และ Merkel cells"
     ],
     "answer": 2,
     "explain": "mesoderm ให้กำเนิด dermis และ blood vessels ของผิวหนัง\n\n❌ ทำไมข้ออื่นผิด\n— \"Epidermis และ skin glands\" = ทั้งคู่มาจาก ectoderm\n— \"Hair follicles และ nerve\" = ทั้งคู่มาจาก ectoderm เช่นกัน\n— \"Epidermis และ hair follicles\" = เป็นของ ectoderm ทั้งคู่\n\n💡 ectoderm ให้ตัวผิวและของที่งอกออกจากผิว ส่วน mesoderm ให้เนื้อรองรับกับหลอดเลือดที่อยู่ใต้ลงไป",
@@ -1306,6 +1364,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106730,
+    "tags": ["stratum-spinosum","desmosome"],
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
@@ -1317,7 +1376,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Stratum basale",
       "Stratum spinosum",
       "Stratum granulosum",
-      "Stratum corneum"
+      "Stratum corneum",
+      "Stratum lucidum"
     ],
     "answer": 1,
     "explain": "stratum spinosum เป็นชั้นที่หนาที่สุดของ epidermis ประกอบด้วย polyhedral cells ซ้อนกันหลายชั้น และเป็นชั้นที่เห็น desmosome\n\n❌ ทำไมข้ออื่นผิด\n— \"Stratum basale\" = ชั้นล่างสุดที่วางอยู่บน basement membrane ไม่ใช่ชั้นหนาที่มี polyhedral cells ซ้อนกันหลายชั้น\n— \"Stratum granulosum\" = ชั้นที่ได้ชื่อจาก keratohyalin granule ในเซลล์ ไม่ใช่ชั้นที่หนาที่สุด\n— \"Stratum corneum\" = ชั้น keratinized squamous cells 3-50 layers ที่หลุดลอกตลอดเวลา มักถูกเลือกแต่ไม่ใช่ชั้นที่หนาที่สุด\n\n💡 ชื่อ spinosum มาจากหนามที่เห็น ซึ่งแท้จริงคือ desmosome ที่ยึดเซลล์ไว้ด้วยกัน",
@@ -1325,6 +1385,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106731,
+    "tags": ["stratum-lucidum","thin-skin"],
     "subject": "vet-histo",
     "topic": "histo--integument",
     "year": 2,
@@ -1336,7 +1397,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Stratum spinosum",
       "Stratum granulosum",
       "Stratum corneum",
-      "Stratum lucidum"
+      "Stratum lucidum",
+      "Stratum basale"
     ],
     "answer": 3,
     "explain": "stratum lucidum คือชั้นที่ absent ใน hairy thin skin ชั้นนี้จะพบใน thick skin เช่น metacarpal pad และใน hairless thin skin เช่น lip\n\n❌ ทำไมข้ออื่นผิด\n— \"Stratum spinosum\" = ยังมีอยู่ในผิวหนังชนิดนี้ และเป็นชั้นที่หนาที่สุดของ epidermis\n— \"Stratum granulosum\" = ยังคงมีอยู่ใน hairy thin skin จึงไม่ใช่ชั้นที่ขาดไป\n— \"Stratum corneum\" = ชั้นนอกสุดที่ยังมีอยู่ในผิวหนังชนิดนี้\n\n💡 lucidum โผล่เฉพาะที่ผิวหนาอย่าง metacarpal pad กับที่ไม่มีขนอย่าง lip",
@@ -1344,6 +1406,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106733,
+    "tags": ["spinal-ganglion","ganglion-cell"],
     "subject": "vet-histo",
     "topic": "histo--laboratory-of-nervous-system-histology",
     "year": 2,
@@ -1363,6 +1426,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106741,
+    "tags": ["hassall-corpuscle","epithelial-reticular-cell","thymus"],
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organ-i",
     "year": 2,
@@ -1374,7 +1438,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Type I epithelial reticular cells",
       "Type II epithelial reticular cells",
       "Type IV epithelial reticular cells",
-      "Type VI epithelial reticular cells"
+      "Type VI epithelial reticular cells",
+      "Type III epithelial reticular cells"
     ],
     "answer": 3,
     "explain": "thymic corpuscle เกิดจาก Type VI epithelial reticular cells ซึ่งเป็นเซลล์ขนาดใหญ่ ติดสีจาง มาเรียงซ้อนกันเป็นวง whorl-shaped\n\n❌ ทำไมข้ออื่นผิด\n— \"Type I epithelial reticular cells\" = ชนิดที่ห่อหุ้ม capillaries ใน cortex ทำงานเป็น blood-thymus barrier\n— \"Type II epithelial reticular cells\" = เป็นคนละชนิดในซีรีส์เดียวกัน ไม่ใช่ตัวที่มารวมกันเป็น corpuscle\n— \"Type IV epithelial reticular cells\" = เป็นคนละชนิดในซีรีส์เดียวกัน ไม่ใช่ตัวที่มารวมกันเป็น corpuscle\n\n💡 Type I อยู่หัวแถวและเป็นตัวกั้นที่ cortex ส่วน Type VI อยู่ท้ายแถวและก่อเป็น corpuscle ใน medulla",
@@ -1382,6 +1447,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106743,
+    "tags": ["M-cell","peyer-patch"],
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -1401,6 +1467,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106745,
+    "tags": ["tonsil","stratified-squamous-epithelium"],
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -1412,7 +1479,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Pseudostratified columnar epithelium",
       "Simple cuboidal epithelium",
       "Stratified squamous epithelium",
-      "Transitional epithelium"
+      "Transitional epithelium",
+      "Simple columnar epithelium"
     ],
     "answer": 2,
     "explain": "tonsil บริเวณ oropharynx บุด้วย stratified squamous epithelium\n\n❌ ทำไมข้ออื่นผิด\n— \"Pseudostratified columnar epithelium\" = เป็นเยื่อบุของ tonsil ฝั่ง nasopharynx คนละตำแหน่งกับที่โจทย์ถาม\n— \"Simple cuboidal epithelium\" = เยื่อบุชั้นเดียวรูปลูกบาศก์แบบนี้อยู่ที่ terminal bronchioles และผิวนอกของ ovary ไม่ใช่ที่ oropharynx\n— \"Transitional epithelium\" = เยื่อบุของทางเดินปัสสาวะ คนละระบบกับ tonsil\n\n💡 ฝั่งที่เจอการเสียดสีจากอาหารเป็น stratified squamous ส่วนฝั่งที่เป็นทางลมเป็น pseudostratified columnar",
@@ -1420,6 +1488,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106747,
+    "tags": ["sheathed-arteriole","spleen","macrophage"],
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -1431,7 +1500,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Plasma cells ที่สะสมอยู่รอบผนังหลอดเลือด",
       "Macrophages ที่ล้อมรอบผนังหลอดเลือด",
       "Reticular cells ที่สร้าง reticular fibers",
-      "Smooth muscle cells ที่หนาตัวขึ้นเป็นชั้น"
+      "Smooth muscle cells ที่หนาตัวขึ้นเป็นชั้น",
+      "Endothelial cells ที่ซ้อนกันหลายชั้น"
     ],
     "answer": 1,
     "explain": "sheathed arteriole ซึ่งเรียกได้อีกว่า sheathed capillary หรือ ellipsoid มีผนังหนาขึ้นเพราะถูกล้อมด้วย sheath ของ macrophages\n\n❌ ทำไมข้ออื่นผิด\n— \"Plasma cells ที่สะสมอยู่รอบผนังหลอดเลือด\" = plasma cell เป็นเซลล์ที่หลั่ง antibody ไม่ได้เรียงตัวเป็นปลอกหุ้มหลอดเลือดตรงนี้\n— \"Reticular cells ที่สร้าง reticular fibers\" = reticular cell มีอยู่จริงในเนื้อม้าม แต่ตัวที่ห่อจนผนังของ ellipsoid หนาขึ้นคือ macrophages\n— \"Smooth muscle cells ที่หนาตัวขึ้นเป็นชั้น\" = เป็นตัวลวงที่น่าเชื่อเพราะผนังหลอดเลือดแดงหนามักนึกถึงกล้ามเนื้อเรียบ แต่ smooth muscle ในม้ามอยู่ที่ capsule ไม่ใช่ที่ ellipsoid\n\n💡 ellipsoid เป็นด่านตรวจ ปลอกที่หุ้มจึงเป็นเซลล์ที่กินสิ่งแปลกปลอม ไม่ใช่กล้ามเนื้อ",
@@ -1439,6 +1509,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106748,
+    "tags": ["germinal-center","euchromatin","lymphatic-nodule"],
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -1458,6 +1529,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106749,
+    "tags": ["red-pulp","spleen"],
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -1477,6 +1549,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106750,
+    "tags": ["splenic-sinus","spleen"],
     "subject": "vet-histo",
     "topic": "histo--lymphatic-organs-ii",
     "year": 2,
@@ -1496,6 +1569,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106751,
+    "tags": ["tunica-albuginea","testis","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
@@ -1515,6 +1589,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106758,
+    "tags": ["accessory-sex-glands","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--male-reproductive-system",
     "year": 2,
@@ -1526,7 +1601,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Vesicular gland ไม่มีใน carnivores",
       "Bulbourethral gland ไม่มีใน boar และ cat",
       "Body of prostate ไม่มีใน stallion",
-      "Ampullary gland ไม่มีใน ruminants"
+      "Ampullary gland ไม่มีใน ruminants",
+      "Prostate gland ไม่มีใน tomcat"
     ],
     "answer": 0,
     "explain": "Vesicular gland = absent in carnivores\n\n❌ ทำไมข้ออื่นผิด\n— Bulbourethral gland ไม่มีใน boar และ cat = สลับกลุ่ม ตัวที่ขาด bulbourethral คือ dog ส่วน boar กับ cat คือคู่ที่ขาด ampullary gland\n— Body of prostate ไม่มีใน stallion = external (compact) portion หรือ body ที่ขาดคือใน small ruminant ส่วน stallion ขาด internal (disseminate) portion\n— Ampullary gland ไม่มีใน ruminants = กลับด้าน ruminant มี ampullary gland",
@@ -1534,6 +1610,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106762,
+    "tags": ["neuron","perikaryon"],
     "subject": "vet-histo",
     "topic": "histo--nervous-system",
     "year": 2,
@@ -1545,7 +1622,8 @@ export const QUESTIONS_Y2_HISTO = [
       "soma หรือ perikaryon",
       "bouton หรือ terminal bulb",
       "gemule หรือ dendritic spine",
-      "neurolemma หรือ axon hillock"
+      "neurolemma หรือ axon hillock",
+      "dendrite หรือ neurite"
     ],
     "answer": 0,
     "explain": "ตัวเซลล์ของ neuron เรียกว่า soma หรือ perikaryon\n\n❌ ทำไมข้ออื่นผิด\n— bouton หรือ terminal bulb = ปุ่มที่ปลาย axon\n— gemule = dendritic spine ปุ่มเล็ก ๆ บน dendrite\n— neurolemma หรือ axon hillock = เยื่อหุ้ม axon และรอยต่อที่ axon ยื่นออกจากตัวเซลล์ ไม่ใช่ชื่อของตัวเซลล์\n\n💡 peri (รอบ) + karyon (นิวเคลียส) = เนื้อเซลล์ที่ห่อรอบนิวเคลียส",
@@ -1553,6 +1631,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106769,
+    "tags": ["placentome","cotyledon","caruncle"],
     "subject": "vet-histo",
     "topic": "histo--placenta-lab-manual",
     "year": 2,
@@ -1572,6 +1651,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106770,
+    "tags": ["binucleate-giant-cell","chorioallantoic-villus","placentome"],
     "subject": "vet-histo",
     "topic": "histo--placenta-lab-manual",
     "year": 2,
@@ -1583,7 +1663,8 @@ export const QUESTIONS_Y2_HISTO = [
       "decidual cells ขนาดใหญ่รูป polygonal",
       "syntrophoblast ที่เรียงติดฝั่งแม่",
       "cuboidal cryptal cells ของฝั่งแม่",
-      "binucleate giant cells ของฝั่งลูก"
+      "binucleate giant cells ของฝั่งลูก",
+      "endometrial gland cells ของฝั่งแม่"
     ],
     "answer": 3,
     "explain": "epithelium ของ chorioallantoic villus = irregularly shaped cells ร่วมกับ binucleate giant cells ซึ่งเป็นเซลล์ฝั่งลูก\n\n❌ ทำไมข้ออื่นผิด\n— cuboidal cryptal cells ของฝั่งแม่ = cryptal epithelium ฝั่งแม่เป็น cuboidal หรือ flattened อยู่คนละฝั่งของรอยประกบ\n— decidual cells รูป polygonal = เซลล์ฝั่งแม่ที่เจอในรกสัตว์กินเนื้อ ไม่ใช่องค์ประกอบของ villus epithelium ใน ruminant\n— syntrophoblast = ไม่ใช่ชื่อที่จับคู่กับ irregularly shaped cells ในชั้นนี้ ตัวที่ต้องตอบคือ binucleate giant cells",
@@ -1591,6 +1672,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106776,
+    "tags": ["carnivore-placenta","glandular-zone","decidual-cell"],
     "subject": "vet-histo",
     "topic": "histo--placenta",
     "year": 2,
@@ -1610,6 +1692,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106777,
+    "tags": ["conducting-portion","terminal-bronchiole"],
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -1621,7 +1704,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Nose ถึง terminal bronchiole",
       "Nose ถึง respiratory bronchiole",
       "Larynx ถึง tertiary bronchus",
-      "Nasal vestibule ถึง alveolar duct"
+      "Nasal vestibule ถึง alveolar duct",
+      "Nose ถึง secondary bronchus"
     ],
     "answer": 0,
     "explain": "Conducting part ลากตั้งแต่ nose ถึง terminal bronchiole เป็นช่วงที่เป็นท่อนำอากาศล้วน ยังไม่มีการแลกเปลี่ยนแก๊ส\n\n❌ ทำไมข้ออื่นผิด\n— Nose ถึง respiratory bronchiole = เลยเส้นแบ่งไปแล้ว respiratory bronchiole คือจุดเริ่มของ respiratory part\n— Larynx ถึง tertiary bronchus = ผิดทั้งต้นและปลาย ส่วนนำอากาศเริ่มที่ nose และยังไม่จบที่ tertiary bronchus\n— Nasal vestibule ถึง alveolar duct = alveolar duct อยู่พ้น terminal bronchiole เข้าไปในเขตแลกเปลี่ยนแก๊สแล้ว\n\n💡 terminal คือปลายทางของท่อนำอากาศ พอขึ้นคำว่า respiratory เมื่อไหร่ก็เข้าเขตแลกแก๊ส",
@@ -1629,6 +1713,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106778,
+    "tags": ["nasal-vestibule","keratinized-stratified-squamous-epithelium"],
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -1648,6 +1733,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106780,
+    "tags": ["trachealis-muscle","trachea","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--respiratory-system",
     "year": 2,
@@ -1667,6 +1753,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106783,
+    "tags": ["cornea","corneal-endothelium"],
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -1686,6 +1773,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106784,
+    "tags": ["tapetum-lucidum","tapetum-fibrosum","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -1705,6 +1793,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106785,
+    "tags": ["aqueous-humor","iridocorneal-angle"],
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -1724,6 +1813,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106786,
+    "tags": ["third-eyelid-gland","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -1743,6 +1833,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106787,
+    "tags": ["cone-cell","photoreceptor","color-vision"],
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -1762,6 +1853,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106788,
+    "tags": ["endolymph","perilymph","membranous-labyrinth"],
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -1781,6 +1873,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106789,
+    "tags": ["basilar-membrane","cochlear-duct"],
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -1792,7 +1885,8 @@ export const QUESTIONS_Y2_HISTO = [
       "vestibular membrane ซึ่งกั้นทางด้าน dorsal",
       "tectorial membrane ซึ่งวางทับ spiral organ",
       "helicotrema ซึ่งเป็นช่องเปิดที่ cupula",
-      "basilar membrane ซึ่งกั้นทางด้าน ventral"
+      "basilar membrane ซึ่งกั้นทางด้าน ventral",
+      "spiral ligament ซึ่งยึดกับผนังด้านนอก"
     ],
     "answer": 3,
     "explain": "cochlear duct หรือ scala media ถูกกั้นจาก scala tympani ด้วย basilar membrane ทางด้าน ventral\n\n❌ ทำไมข้ออื่นผิด\n— vestibular membrane = แผ่นกั้นอีกด้าน คือกั้นระหว่าง cochlear duct กับ scala vestibuli\n— tectorial membrane = gelatinous structure ที่วางทับ organ of Corti ไม่ได้เป็นผนังกั้นสองช่อง\n— helicotrema = ช่องที่ทำให้ scala vestibuli ติดต่อกับ scala tympani ตรงข้ามกับการกั้นแยก\n\n💡 basi แปลว่าฐาน basilar membrane จึงเป็นแผ่นล่าง ส่วนแผ่นบนคือ vestibular membrane",
@@ -1800,6 +1894,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106790,
+    "tags": ["hearing-mechanism","basilar-membrane","perilymph"],
     "subject": "vet-histo",
     "topic": "histo--special-sense",
     "year": 2,
@@ -1811,7 +1906,8 @@ export const QUESTIONS_Y2_HISTO = [
       "displacement ของ tectorial membrane โดยตรง",
       "vibration ของ tympanic membrane รอบใหม่",
       "displacement ของ basilar membrane ใน cochlea",
-      "การเคลื่อนไหวของ cupula ใน ampulla ossea"
+      "การเคลื่อนไหวของ cupula ใน ampulla ossea",
+      "การไหลของ endolymph ออกไปยัง scala vestibuli"
     ],
     "answer": 2,
     "explain": "pressure change ใน perilymph ทำให้ basilar membrane เกิด displacement เป็นขั้นถัดไป จากนั้น stereocilia ของ sensory cell จึงถูกทำให้เคลื่อน\n\n❌ ทำไมข้ออื่นผิด\n— vibration ของ tympanic membrane รอบใหม่ = เป็นขั้นที่เกิดก่อนในสายโซ่ (tympanic membrane ไป ossicles ไป scala vestibuli) ไม่ใช่ขั้นถัดไป\n— displacement ของ tectorial membrane โดยตรง = ตัวที่ถูกแรงดันดันให้ขยับก่อนคือ basilar membrane แล้วจึงไปกระทำต่อ stereocilia\n— cupula ใน ampulla ossea = cupula อยู่ใน crista ampullaris ของ semicircular ducts ซึ่งตรวจจับ speed of rotation คนละสายกับการได้ยิน\n\n💡 ไล่โซ่ให้ติด tympanic membrane ไป ossicles ไป perilymph ไป basilar membrane ไป stereocilia",
@@ -1819,6 +1915,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106793,
+    "tags": ["embedding","resin","electron-microscopy"],
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
@@ -1838,6 +1935,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106794,
+    "tags": ["H&E-stain","hematoxylin","basophilia"],
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
@@ -1857,6 +1955,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106795,
+    "tags": ["in-situ-hybridization","mRNA"],
     "subject": "vet-histo",
     "topic": "histo--tissue-preparation",
     "year": 2,
@@ -1868,7 +1967,8 @@ export const QUESTIONS_Y2_HISTO = [
       "Immunohistochemistry",
       "Autoradiography",
       "In situ hybridization",
-      "Histochemistry และ cytochemistry"
+      "Histochemistry และ cytochemistry",
+      "Electron microscopy"
     ],
     "answer": 2,
     "explain": "In situ hybridization = เทคนิคที่ระบุ specific mRNA species ในเซลล์แต่ละเซลล์บน tissue section\n\n❌ ทำไมข้ออื่นผิด\n— Immunohistochemistry = ใช้ antibody labeling ตรวจหา protein บอกตำแหน่งได้เหมือนกันแต่ไม่ได้ตรวจ mRNA\n— Autoradiography = ตามรอยสารติดฉลากกัมมันตรังสีว่าไปสะสมที่ใด ไม่ได้ชี้ชนิดของ mRNA\n— Histochemistry และ cytochemistry = ตรวจองค์ประกอบทางเคมีของเนื้อเยื่อโดยรวม ไม่เจาะจง mRNA ชนิดใดชนิดหนึ่ง\n\n💡 hybridization คือการจับคู่สายเบส เป้าจึงเป็นกรดนิวคลีอิก ส่วน immuno คือแอนติบอดี เป้าเป็นโปรตีน",
@@ -1876,6 +1976,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106797,
+    "tags": ["renal-capsule","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
@@ -1895,6 +1996,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106798,
+    "tags": ["unilobar-kidney","renal-crest","species-difference"],
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
@@ -1914,6 +2016,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106799,
+    "tags": ["mesangial-cell","renal-corpuscle"],
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
@@ -1933,6 +2036,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106801,
+    "tags": ["renal-tubule","aldosterone","ADH"],
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
@@ -1952,6 +2056,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106802,
+    "tags": ["intercalated-cell","acid-base-balance","collecting-duct"],
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
@@ -1971,6 +2076,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106803,
+    "tags": ["juxtaglomerular-cell","renin","afferent-arteriole"],
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,
@@ -1990,6 +2096,7 @@ export const QUESTIONS_Y2_HISTO = [
   },
   {
     "id": 106804,
+    "tags": ["macula-densa","tubuloglomerular-feedback","afferent-arteriole"],
     "subject": "vet-histo",
     "topic": "histo--urinary-system",
     "year": 2,

@@ -29,6 +29,7 @@
 export const QB_BIOCHEM_LECT4 = [
   // ── Carbohydrate ───────────────────────────────────────────
   { id: 76001, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['sugar-alcohol', 'sweetener'],
     q: 'ข้อใดกล่าวถูกต้องเกี่ยวกับการนำ sugar alcohol มาใช้ประโยชน์',
     options: [
       'ใช้เป็นเครื่องดื่มแอลกอฮอล์แบบมาตรฐาน',
@@ -44,6 +45,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q21 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76002, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['glycogen', 'glycosidic-bond'],
     q: 'ข้อใดถูกต้องเกี่ยวกับพันธะใน glycogen',
     options: [
       'เป็นพันธะ hydrogen bond',
@@ -59,6 +61,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q22 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76003, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['polysaccharide', 'energy-storage', 'structural-polysaccharide'],
     q: 'Polysaccharide ที่ขนาดโมเลกุลใหญ่ มีหน้าที่หลายหลายในสิ่งมีชีวิต แต่หน้าที่ใดมีความเป็นไปได้น้อยที่สุด',
     options: [
       'เซลลูโลส — โครงสร้างพืช',
@@ -74,6 +77,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q23 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76004, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['heteropolysaccharide', 'glycosaminoglycan'],
     q: 'ข้อใดเป็น heteropolysaccharide',
     options: ['Chitin', 'Heparin', 'Glycogen', 'Cellulose', 'Amylopectin'],
     answer: 1,
@@ -83,6 +87,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q24 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76005, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['hyaluronic-acid', 'glycosaminoglycan'],
     q: 'Hyaluronic acid (เป็น glycosaminoglycan) ประกอบด้วย disaccharide ของน้ำตาลใด',
     options: [
       'D-glucuronic acid และ N-acetyl-D-glucosamine',
@@ -98,6 +103,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q25 (เฉลยไฮไลต์ในไฟล์ · stem เขียนใหม่ให้ไม่ต้องดูรูป)' },
 
   { id: 76006, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['peptidoglycan', 'gram-positive', 'bacterial-cell-wall'],
     q: 'ผนังเซลล์ของ Gram-positive bacteria ประกอบด้วยอะไรเป็นองค์ประกอบหลัก',
     options: ['Glycolipid', 'Glycoprotein', 'Proteoglycan', 'Peptidoglycan', 'Glycosaminoglycan'],
     answer: 3,
@@ -107,6 +113,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q27 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76007, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['lipopolysaccharide', 'gram-negative', 'bacterial-cell-wall'],
     q: 'ผนังเซลล์ของ Gram-negative bacteria มีองค์ประกอบใดที่ผิวนอก (outer membrane)',
     options: ['Glycolipid (lipopolysaccharide)', 'Glycoprotein', 'Proteoglycan', 'Peptidoglycan', 'Glycosaminoglycan'],
     answer: 0,
@@ -116,6 +123,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q28 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76008, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['glycoprotein', 'cell-recognition', 'ABO-blood-group'],
     q: 'Glycoprotein หรือ glycolipid บนเยื่อหุ้มเซลล์มีบทบาทในข้อใด',
     options: [
       'การปฏิสนธิ (fertilization — zona pellucida) และหมู่เลือด ABO',
@@ -131,6 +139,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q29 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76009, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['proteoglycan', 'basement-membrane', 'glomerular-filtration'],
     q: 'Basement membrane ของ glomerulus (ไต) ที่มีประจุลบหนาแน่นช่วยกรองโมเลกุล ประกอบด้วยสารกลุ่มใดเป็นองค์ประกอบ',
     options: ['Glycolipid', 'Glycoside', 'Glycoprotein', 'Proteoglycan (heteropolysaccharide)', 'Peptidoglycan'],
     answer: 3,
@@ -141,6 +150,7 @@ export const QB_BIOCHEM_LECT4 = [
 
   // ── Lipid ──────────────────────────────────────────────────
   { id: 76010, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['lipid-classification', 'organic-solvent'],
     q: 'สารใดต่อไปนี้ไม่จัดเป็นลิปิด',
     options: ['Fatty acids', 'Vitamin D', 'Steroids', 'Chloroform', 'Cholesterol'],
     answer: 3,
@@ -150,6 +160,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q31 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76011, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['triacylglycerol', 'energy-storage'],
     q: 'ข้อใดถูกต้องเกี่ยวกับลิปิด',
     options: [
       'Triacylglycerol (TG) เป็นแหล่งสะสมพลังงานหลักของร่างกาย',
@@ -165,6 +176,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q32 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76012, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['lipid-function', 'cell-membrane'],
     q: 'ข้อใดไม่ใช่หน้าที่หลักของลิปิดในร่างกาย',
     options: [
       'Nerve signal transduction (myelin)',
@@ -180,6 +192,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q33 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76013, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['eicosanoid', 'arachidonic-acid', 'inflammation'],
     q: 'การอักเสบเป็นผลเนื่องจากการสังเคราะห์สารกลุ่ม eicosanoid โดยมีกรดไขมันชนิดใดเป็นสารตั้งต้นสำคัญ',
     options: ['Linoleic acid', 'Alpha-linolenic acid', 'Oleic acid', 'Arachidonic acid', 'Palmitic acid'],
     answer: 3,
@@ -189,6 +202,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q34 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76014, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['glycolipid', 'ABO-blood-group'],
     q: 'การแบ่งกลุ่มเลือดในร่างกายแบ่งได้เป็น A, B, O โดยใช้ลิปิดชนิดใด (บนผิวเซลล์)',
     options: ['Phospholipid', 'Glycolipid', 'Lipoprotein', 'Sulpholipid', 'Aminolipids'],
     answer: 1,
@@ -198,6 +212,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q35 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76015, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['cholesterol', 'steroid-hormone', 'bile-salt'],
     q: 'Cholesterol เป็นสารตั้งต้น (precursor) ของสารหลายชนิด ยกเว้นข้อใด',
     options: ['Vitamin A', 'Coprostanol', 'Steroid hormone', 'Bile salt', 'Vitamin D'],
     answer: 0,
@@ -207,6 +222,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q36 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76016, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['lipid-digestion', 'pancreatic-lipase', 'bile-salt'],
     q: 'ในลำไส้เล็ก เอนไซม์ใดและสารใดทำงานร่วมกันเพื่อย่อยและดูดซึมไขมัน',
     options: [
       'Lipase + HCl',
@@ -222,6 +238,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q37 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76017, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['chylomicron', 'lipoprotein-composition'],
     q: 'ข้อใดไม่ใช่องค์ประกอบใน chylomicron',
     options: ['Triacylglycerol', 'Cholesterol', 'Apoproteins', 'Eicosanoids', 'Fatty acids'],
     answer: 3,
@@ -231,6 +248,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q38 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76018, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['chylomicron', 'lipid-transport'],
     q: 'หลังกินอาหาร ลิปิดจากอาหารถูกขนส่งเข้าระบบเลือดและน้ำเหลืองในรูปแบบใด',
     options: ['Fat droplet', 'Chylomicron', 'VLDL', 'Liposome', 'LDL'],
     answer: 1,
@@ -240,6 +258,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q39 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76019, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['dyslipidemia', 'atherosclerosis'],
     q: 'ข้อใดเป็นอาการ/ผลเสียจากการสะสมหรือเมแทบอลิซึมของลิปิดที่ผิดปกติ',
     options: [
       'ทำให้เส้นเลือดอุดตัน (atherosclerosis)',
@@ -255,6 +274,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q40 (เฉลยไฮไลต์ในไฟล์ · all-of-the-above เป็นเฉลยจริง)' },
 
   { id: 76020, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['lipoprotein', 'lipid-transport'],
     q: 'ลิปิดชนิดใดทำหน้าที่ขนส่งไขมันในกระแสเลือด (เช่น chylomicron)',
     options: ['Sphingomyelin', 'Lipoproteins', 'Lecithin', 'Gangliosides', 'Cerebroside'],
     answer: 1,
@@ -264,6 +284,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q41 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76021, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['fat-vs-oil', 'melting-point'],
     q: 'Fat กับ oil ต่างกันอย่างไร',
     options: [
       'สถานะที่อุณหภูมิห้อง (fat เป็นของแข็ง, oil เป็นของเหลว)',
@@ -279,6 +300,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q42 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76022, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['pancreatic-lipase', 'triacylglycerol', 'lipid-digestion'],
     q: 'ในลำไส้ เอนไซม์ใดย่อยกรดไขมันออกจาก triacylglycerol ของอาหาร',
     options: ['Lipase (pancreatic)', 'Lipoprotein lipase', 'Amylase', 'Pepsin', 'Bile salt'],
     answer: 0,
@@ -288,6 +310,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q43 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76023, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['lipoprotein-lipase', 'triacylglycerol', 'lipoprotein'],
     q: 'ในหลอดเลือด เอนไซม์ใดย่อยกรดไขมันออกจาก triacylglycerol ใน lipoprotein',
     options: ['Lipase (pancreatic)', 'Lipoprotein lipase', 'Amylase', 'Pepsin', 'Bile salt'],
     answer: 1,
@@ -298,6 +321,7 @@ export const QB_BIOCHEM_LECT4 = [
 
   // ── Amino acid & protein ───────────────────────────────────
   { id: 76024, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['amino-acid-classification', 'acidic-side-chain'],
     q: 'กรดอะมิโนในข้อใดมีหมู่ข้างเคียง (side chain) เป็นกรด (acidic side chain)',
     options: [
       'Lysine, Arginine, Histidine',
@@ -313,6 +337,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q54 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76025, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['amino-acid-classification', 'basic-side-chain'],
     q: 'กรดอะมิโนในข้อใดมีหมู่ข้างเคียง (side chain) เป็นเบส (basic side chain)',
     options: [
       'Lysine, Arginine, Histidine',
@@ -328,6 +353,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q55 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76026, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['amino-acid-classification', 'sulfur-containing-side-chain'],
     q: 'กรดอะมิโนในข้อใดมีหมู่ข้างเคียงที่มีกำมะถัน (sulfur-containing side chain)',
     options: [
       'Lysine, Arginine, Histidine',
@@ -343,6 +369,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q56 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76027, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['amino-acid-classification', 'aromatic-side-chain'],
     q: 'กรดอะมิโนในข้อใดมีหมู่ข้างเคียงเป็นวงอะโรมาติก (aromatic side chain)',
     options: [
       'Lysine, Arginine, Histidine',
@@ -358,6 +385,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q57 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76028, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['amino-acid-classification', 'hydroxyl-side-chain'],
     q: 'กรดอะมิโนในข้อใดมีหมู่ข้างเคียงเป็นหมู่ไฮดรอกซิล (hydroxyl side chain)',
     options: [
       'Lysine, Arginine, Histidine',
@@ -373,6 +401,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q58 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76029, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['ferritin', 'storage-protein', 'iron-storage'],
     q: 'โปรตีนชนิดใดเป็นโปรตีนสะสม (storage protein) สำหรับธาตุเหล็กในร่างกาย',
     options: ['Ferritin', 'Collagen', 'Insulin', 'Immunoglobulin', 'Myoglobin'],
     answer: 0,
@@ -384,6 +413,7 @@ export const QB_BIOCHEM_LECT4 = [
   // NOTE: peptidase Q (Lecture-Final Q64) omitted — duplicate of existing
   // id 73013 in questions-biochem-lect.js (same stem). Kept the canonical one.
   { id: 76031, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['oxytocin', 'peptide-hormone'],
     q: 'Oligopeptide ตัวใดเป็นฮอร์โมนที่ช่วยในการหดตัวของกล้ามเนื้อมดลูกขณะคลอดและช่วยหลั่งน้ำนม',
     options: ['Insulin', 'Oxytocin', 'Glucagon', 'Secretin', 'Glutathione'],
     answer: 1,
@@ -393,6 +423,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q65 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76032, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['glutathione', 'tripeptide', 'antioxidant'],
     q: 'Glutathione (สารต้านอนุมูลอิสระในเซลล์) ประกอบด้วยกรดอะมิโนใดบ้าง',
     options: [
       'Valine, Cysteine, Glycine',
@@ -408,6 +439,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q66 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76033, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['primary-structure', 'peptide-bond'],
     q: 'โครงสร้างชนิดใดเป็นลำดับกรดอะมิโนที่ต่อกันด้วยพันธะ peptide (เป็นเส้นตรง)',
     options: ['Primary structure', 'Secondary structure', 'Tertiary structure', 'Quaternary structure', 'Globular structure'],
     answer: 0,
@@ -417,6 +449,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q67 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76034, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['secondary-structure', 'alpha-helix', 'beta-sheet'],
     q: 'โครงสร้างชนิดใดของโปรตีนที่มีสาย polypeptide มาขดหรือพับ เช่น α-helix หรือ β-sheet',
     options: ['Primary structure', 'Secondary structure', 'Tertiary structure', 'Quaternary structure', 'Globular structure'],
     answer: 1,
@@ -426,6 +459,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q69 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76035, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['alpha-helix', 'hydrogen-bond'],
     q: 'พันธะชนิดใดที่อยู่ระหว่าง O ของ C=O กับ H ของ NH ของกรดอะมิโนในข้อที่ 4 ตัวในสายเปปไทด์เดียวกัน (ค้ำ α-helix)',
     options: ['Covalent bond', 'Disulfide bond', 'Intrachain hydrogen bond', 'Interchain hydrogen bond', 'Hydrophobic interaction'],
     answer: 2,
@@ -435,6 +469,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q70 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76036, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['proline', 'alpha-helix'],
     q: 'กรดอะมิโนตัวใดที่ไม่พบในโครงสร้างชนิด α-helix (right handed)',
     options: ['Valine', 'Phenylalanine', 'Tryptophan', 'Serine', 'Proline'],
     answer: 4,
@@ -444,6 +479,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q71 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76037, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['proline', 'alpha-helix', 'helix-breaker'],
     q: 'เพราะเหตุใด proline จึงขัดขวางการเกิดโครงสร้าง α-helix (เลือกข้อที่ถูกต้องที่สุด)',
     options: [
       'โครงสร้างเป็นวง cyclic ทำให้หมุนหลักโครงสร้างได้ยาก และไนโตรเจนไม่มี H อิสระให้สร้างพันธะไฮโดรเจน',
@@ -459,6 +495,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q72 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76038, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['alpha-helix', 'helix-parameters'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ α-helix (right handed)',
     options: [
       '1 รอบประกอบด้วยกรดอะมิโน 3.6 ตัว ระยะห่างต่อรอบ 5.4 Å และระยะห่างต่อกรดอะมิโน 1.5 Å',
@@ -474,6 +511,7 @@ export const QB_BIOCHEM_LECT4 = [
     verified: 'Blackboard lecture-final Q73 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 76039, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['collagen', 'triple-helix', 'left-handed-helix'],
     q: 'โปรตีนชนิดใดมีโครงสร้างบางส่วนเป็น left-handed helix (เช่น collagen triple helix)',
     options: ['Myoglobin', 'Keratin', 'Collagen', 'Fibroin', 'Hemoglobin'],
     answer: 2,

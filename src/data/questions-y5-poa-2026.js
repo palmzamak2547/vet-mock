@@ -114,7 +114,7 @@ export const QB_Y5_POA_2026 = [
       'Prehepatic ปกติ, Hepatic ปกติ/โต/เล็กได้ทั้งสามแบบ, Posthepatic โต',
     ],
     answer: 3,
-    explain: 'ตารางแยกชนิดหน้า 22 ระบุ liver size ว่า Prehepatic = Normal, Hepatic = Normal, Increased หรือ Decreased ก็ได้ และ Posthepatic = Increased เพราะเลือดคั่งย้อนกลับเข้าตับ กลุ่ม prehepatic ตับไม่โตเพราะจุดอุดกั้นอยู่ก่อนถึงตับ กลุ่ม hepatic เป็นกลุ่มเดียวที่ขนาดตับแปรผันได้ทั้งสามแบบ และไม่มีกลุ่มใดที่ตารางระบุว่า posthepatic ทำให้ตับเล็กลง',
+    explain: "Prehepatic ตับขนาดปกติ เพราะจุดอุดกั้นอยู่ก่อนถึงตับ Hepatic เป็นกลุ่มเดียวที่ขนาดตับปกติ โต หรือเล็กก็ได้ ส่วน Posthepatic ตับโตเพราะเลือดคั่งย้อนกลับเข้าตับ\n\n❌ ทำไมข้ออื่นผิด\n— \"Prehepatic โต, Hepatic ปกติ/โต/เล็กได้ทั้งสามแบบ, Posthepatic ปกติ\" = สลับสองกลุ่มริมกัน prehepatic ต้องปกติ ส่วน posthepatic ต้องโต\n— \"Prehepatic เล็ก, Hepatic โตเสมอ, Posthepatic ปกติ/โต/เล็กได้ทั้งสามแบบ\" = ยกคุณสมบัติแปรผันได้ทั้งสามแบบไปให้ posthepatic ทั้งที่เป็นของ hepatic\n— \"Prehepatic ปกติ/โต/เล็กได้ทั้งสามแบบ, Hepatic โตเสมอ, Posthepatic เล็ก\" = ไม่มีกลุ่มใดที่ posthepatic ทำให้ตับเล็กลง\n\n💡 ตำแหน่งที่อุดกั้นบอกขนาดตับได้เลย อยู่ก่อนตับก็ไม่กระทบตับ อยู่หลังตับก็ทำให้เลือดคั่งจนตับโต",
     source: 'Edema / Effusion 2026 (POA)',
     verified: 'Edema / Effusion 2026 (POA) p.22',
     tags: ['portal-hypertension', 'liver-size', 'differentiation-table'],
@@ -122,7 +122,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105008, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'ตามตารางแยกชนิด portal hypertension ค่า protein ในน้ำ effusion ของกลุ่ม prehepatic และ posthepatic เป็นอย่างไร',
+    q: "ในการแยกชนิด portal hypertension ค่า protein ในน้ำ effusion ของกลุ่ม prehepatic และ posthepatic เป็นอย่างไร",
     options: [
       'prehepatic < 2.5 g/dl และ posthepatic > 2.5 g/dl',
       'prehepatic > 2.5 g/dl และ posthepatic < 2.5 g/dl',
@@ -130,7 +130,7 @@ export const QB_Y5_POA_2026 = [
       'prehepatic < 2.5 g/dl และ posthepatic variable',
     ],
     answer: 0,
-    explain: 'ตารางหน้า 22 ระบุ effusion protein content ว่า Prehepatic < 2.5 g/dl, Hepatic = variable และ Posthepatic > 2.5 g/dl ค่าที่ variable เป็นของกลุ่ม hepatic เท่านั้น ไม่ใช่ของ prehepatic หรือ posthepatic และการให้ prehepatic มีโปรตีนสูงกว่า posthepatic เป็นการกลับด้านของตาราง',
+    explain: "Effusion protein content ของกลุ่ม prehepatic คือ < 2.5 g/dl ส่วนกลุ่ม posthepatic คือ > 2.5 g/dl โดยค่าที่ variable เป็นของกลุ่ม hepatic\n\n❌ ทำไมข้ออื่นผิด\n— \"prehepatic > 2.5 g/dl และ posthepatic < 2.5 g/dl\" = กลับด้านกันทั้งคู่\n— \"prehepatic variable และ posthepatic > 2.5 g/dl\" = ครึ่งหลังถูก แต่ variable เป็นของ hepatic ไม่ใช่ prehepatic\n— \"prehepatic < 2.5 g/dl และ posthepatic variable\" = ครึ่งแรกถูก แต่ variable เป็นของ hepatic ไม่ใช่ posthepatic\n\n💡 variable มีอยู่ช่องเดียวคือ hepatic เห็นคำนี้ไปอยู่กับ prehepatic หรือ posthepatic เมื่อไร ตัดทิ้งได้ทันที",
     source: 'Edema / Effusion 2026 (POA)',
     verified: 'Edema / Effusion 2026 (POA) p.22',
     tags: ['portal-hypertension', 'effusion-protein', 'number-threshold'],
@@ -154,7 +154,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105010, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'ตามตารางวิเคราะห์น้ำจากช่องลำตัว ข้อใดคือเกณฑ์ของ transudate',
+    q: "ในการวิเคราะห์น้ำจากช่องลำตัว ข้อใดคือเกณฑ์ของ transudate",
     options: [
       'cell count < 1000 cells/ml, protein < 3.0 g/dL, Sp.Gr. < 1.025',
       'cell count 1000-8000 cells/ml, protein 2.5-5 g/dL, Sp.Gr. < 1.018',
@@ -162,7 +162,7 @@ export const QB_Y5_POA_2026 = [
       'cell count < 3000 cells/ml, protein < 2.5 g/dL, Sp.Gr. 1.018-1.025',
     ],
     answer: 2,
-    explain: 'ตารางหน้า 31 ระบุ transudate ว่า cell count < 1000 cells/ml, protein < 2.5 g/dL, cell type เป็น mononuclear และ specific gravity < 1.018 ช่วง cell count 1000-8000 cells/ml, protein 2.5-5 g/dL และ Sp.Gr. 1.018-1.025 เป็นเกณฑ์ของ modified transudate ส่วน protein > 3.0 g/dL คู่กับ Sp.Gr. > 1.025 เป็นเกณฑ์ของ exudate',
+    explain: "Transudate มี cell count < 1000 cells/ml, protein < 2.5 g/dL, cell type เป็น mononuclear และ specific gravity < 1.018\n\n❌ ทำไมข้ออื่นผิด\n— \"cell count < 1000 cells/ml, protein < 3.0 g/dL, Sp.Gr. < 1.025\" = protein และ Sp.Gr. หลวมเกินไป ระดับ protein > 3.0 g/dL คู่กับ Sp.Gr. > 1.025 เป็นเกณฑ์ของ exudate\n— \"cell count 1000-8000 cells/ml, protein 2.5-5 g/dL, Sp.Gr. < 1.018\" = ช่วง cell count และ protein เป็นของ modified transudate\n— \"cell count < 3000 cells/ml, protein < 2.5 g/dL, Sp.Gr. 1.018-1.025\" = ช่วง Sp.Gr. 1.018-1.025 เป็นของ modified transudate\n\n💡 transudate ต้องต่ำครบทั้งสามค่า ถ้ามีค่าใดค่าหนึ่งขยับขึ้นมา ก็ขยับไปเป็น modified transudate แล้ว",
     source: 'Edema / Effusion 2026 (POA)',
     verified: 'Edema / Effusion 2026 (POA) p.31',
     tags: ['fluid-analysis', 'transudate', 'number-threshold'],

@@ -10,12 +10,12 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4497;
-export const QB_SOURCE_TOTAL = 4497;
+export const QB_TOTAL = 4491;
+export const QB_SOURCE_TOTAL = 4491;
 export const QB_BLOCKED_TOTAL = 0;
 
 export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 141,
+  'aquatic-clinic': 139,
   'avian-medicine': 192,
   'biochem-1': 272,
   'cliapprum': 136,
@@ -27,7 +27,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 70,
   'engprof1': 30,
-  'epidemiology': 62,
+  'epidemiology': 60,
   'equine-medicine': 189,
   'equine-repro': 144,
   'exotic': 151,
@@ -35,7 +35,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'milk-meat-hygiene': 291,
+  'milk-meat-hygiene': 290,
   'one-health': 75,
   'poa-clinical': 57,
   'poultry': 191,
@@ -52,7 +52,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'swine-repro': 29,
   'vca': 339,
   'vet-dev-anat': 26,
-  'vet-histo': 105,
+  'vet-histo': 104,
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 40,
@@ -64,7 +64,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // HomeView SubjectGrid renders these for the per-card Q badges so
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 141,
+  'aquatic-clinic': 139,
   'avian-medicine': 192,
   'biochem-1': 272,
   'cliapprum': 134,
@@ -76,7 +76,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 70,
   'engprof1': 30,
-  'epidemiology': 62,
+  'epidemiology': 60,
   'equine-medicine': 189,
   'equine-repro': 144,
   'exotic': 108,
@@ -84,7 +84,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 77,
-  'milk-meat-hygiene': 291,
+  'milk-meat-hygiene': 290,
   'one-health': 75,
   'poa-clinical': 57,
   'poultry': 134,
@@ -101,7 +101,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'swine-repro': 29,
   'vca': 339,
   'vet-dev-anat': 26,
-  'vet-histo': 105,
+  'vet-histo': 104,
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 40,
@@ -110,9 +110,9 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
-  2: 145,
+  2: 144,
   4: 2092,
-  5: 1962,
+  5: 1957,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -125,7 +125,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "aqua-disease-control": 29,
     "aqua-fish-biology": 18,
     "aqua-fish-diseases": 15,
-    "aqua-intro-thailand": 45,
+    "aqua-intro-thailand": 43,
     "aqua-life-support": 3,
     "aqua-shrimp-diseases": 13,
     "aqua-water-quality": 8,
@@ -328,8 +328,8 @@ export const Q_COUNTS_BY_TOPIC = {
     "epidem-basic-concepts": 10,
     "epidem-causation": 8,
     "epidem-disease-transmission": 15,
-    "epidem-intro": 5,
-    "epidem-outbreak-investigation": 12,
+    "epidem-intro": 4,
+    "epidem-outbreak-investigation": 11,
     "epidem-surveillance": 12,
   },
   "equine-medicine": {
@@ -447,7 +447,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "milk-quality-composition": 37,
     "milk-quality-determination": 11,
     "milk-raw-std": 33,
-    "milk-raw-storage": 36,
+    "milk-raw-storage": 35,
   },
   "one-health": {
     "oh-amr": 10,
@@ -655,7 +655,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "histo--circulatory-system": 6,
     "histo--cytology": 6,
     "histo--digestive-system-i": 2,
-    "histo--digestive-system-iii": 5,
+    "histo--digestive-system-iii": 4,
     "histo--endocrine": 6,
     "histo--epithelium": 3,
     "histo--female-lab-manual": 8,
@@ -922,4 +922,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-25T15:25:20.255Z
+// Built: 2026-08-25T16:22:11.516Z

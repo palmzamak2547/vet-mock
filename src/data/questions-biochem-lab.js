@@ -13,6 +13,7 @@
 export const QB_BIOCHEM_LAB = [
   // ── Chromatography (Q1-9, Final Lab 2022) ──────────────────
   { id: 70001, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['chromatography', 'stationary-phase', 'mobile-phase'],
     q: 'ข้อใดกล่าวถูกต้องเกี่ยวกับ Chromatography',
     options: [
       'ใช้แยกสารด้วยคุณสมบัติของ stationary phase เท่านั้น',
@@ -28,6 +29,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q1 (เฉลยในไฟล์)' },
 
   { id: 70002, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['chromatography', 'separation-principle'],
     q: 'Chromatography โดยทั่วไปใช้หลักการ (principle) ตามข้อใด',
     options: [
       'Adsorption (charge / affinity) เท่านั้น',
@@ -42,6 +44,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q2 (เฉลยในไฟล์ · option D คัดมาแทนข้อที่อ่านไม่ชัด)' },
 
   { id: 70003, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['gel-chromatography', 'size-exclusion'],
     q: 'Gel chromatography ใช้หลักการใดในการแยกสาร',
     options: ['Adsorption', 'Partition', 'Permeation (size exclusion)', 'Filtration', 'Affinity'],
     answer: 2,
@@ -51,6 +54,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q3 (เฉลยในไฟล์)' },
 
   { id: 70004, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['gel-chromatography', 'elution-order'],
     q: 'ข้อใด ไม่ถูกต้อง เกี่ยวกับ Gel chromatography',
     options: [
       'Gel คือ stationary phase',
@@ -66,6 +70,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q4 (เฉลยในไฟล์)' },
 
   { id: 70005, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['gel-chromatography', 'Sephadex', 'stationary-phase'],
     q: 'ข้อใดคือ stationary phase ที่ใช้ในการทดลองเรื่อง gel chromatography',
     options: ['Sephadex', 'Agarose', 'SDS-PAGE', 'Polyacrylamide', 'Starch'],
     answer: 0,
@@ -75,6 +80,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q5 (เฉลยในไฟล์)' },
 
   { id: 70006, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['gel-chromatography', 'size-exclusion', 'fraction-range'],
     q: 'ข้อใด ไม่เกี่ยวข้อง กับการแยกสารด้วยวิธี gel chromatography',
     options: [
       'การเลือกชนิดเจลให้เหมาะกับช่วงขนาดโมเลกุล',
@@ -90,6 +96,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q6 (เฉลยในไฟล์)' },
 
   { id: 70007, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['TLC', 'ninhydrin-test', 'amino-acid'],
     q: 'การทดสอบกรดอะมิโนด้วย Thin layer chromatography (TLC) สีที่เกิดบนแผ่นหลังพ่นน้ำยาและอบเกิดจากน้ำยาชนิดใด',
     options: ['Coomassie blue', 'Ninhydrin', 'Bromophenol blue', 'Crystal violet', 'MacConkey blue'],
     answer: 1,
@@ -99,6 +106,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q7 (เฉลยในไฟล์)' },
 
   { id: 70008, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['TLC', 'unknown-identification'],
     q: 'จากแผ่น TLC ที่รันสาร known A-E เทียบกับ unknown (Unk.) ท่านคิดว่า Unk. ประกอบด้วยสารชนิดใด (ตำแหน่งจุดตรงกับ known คู่ใด)',
     options: ['A และ C', 'B และ C', 'C และ D', 'D และ C', 'E และ C'],
     answer: 3,
@@ -108,6 +116,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q8 (เฉลยในไฟล์)' },
 
   { id: 70009, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['TLC', 'Rf-value'],
     q: 'เพื่อให้มีความแม่นยำในการระบุชนิดสารบนแผ่น TLC ควรใช้ค่าใดประกอบการพิจารณา',
     options: ['Rf value', 'Fraction range', 'Dilution factor', 'Buffer moving', 'Sample moving'],
     answer: 0,
@@ -118,6 +127,7 @@ export const QB_BIOCHEM_LAB = [
 
   // ── Chromatography principle + Electrophoresis/SDS-PAGE (Q10-18) ──
   { id: 70010, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
+  tags: ['chromatography', 'adsorption'],
     q: 'การแยกสาร (เช่นด้วย TLC) ที่อาศัยคุณสมบัติ charge / affinity ของสาร ใช้หลักการใด',
     options: ['Adsorption', 'Partition', 'Permeation', 'Filtration', 'Affinity'],
     answer: 0,
@@ -127,6 +137,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q10 (เฉลยในไฟล์)' },
 
   { id: 70011, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['electrophoresis', 'apparatus-components', 'loading-buffer'],
     q: 'องค์ประกอบใด ไม่ใช่ ส่วนประกอบหลักของระบบ Electrophoresis',
     options: [
       'Voltage / Power supply',
@@ -141,6 +152,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q11 (เฉลยในไฟล์)' },
 
   { id: 70012, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['electrophoresis', 'migration-distance', 'molecular-size'],
     q: 'ข้อใดถูกต้องเกี่ยวกับ gel electrophoresis',
     options: [
       'Gel electrophoresis ใช้ได้กับเจลชนิดเดียวคือ polyacrylamide เท่านั้น',
@@ -155,6 +167,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q12 (เฉลยในไฟล์)' },
 
   { id: 70013, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['SDS-PAGE', 'coomassie-blue', 'protein-staining'],
     q: 'สีชนิดใดที่ใช้ย้อมโปรตีนในเจล (หลังรัน SDS-PAGE)',
     options: ['Fast green', 'Bromphenol blue', 'Bromothymol blue', 'Coomassie brilliant blue'],
     answer: 3,
@@ -164,6 +177,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q13 (เฉลยในไฟล์)' },
 
   { id: 70014, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['SDS-PAGE', 'ammonium-persulfate', 'polymerization'],
     q: 'สารชนิดใดใช้คู่กับ TEMED เพื่อกระตุ้นให้เกิด polymerization ในการทำ SDS-PAGE',
     options: ['Ammonium molybdate', 'Ammonium persulfate', 'Ammonium chloride', 'Ammonium hydroxide'],
     answer: 1,
@@ -173,6 +187,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q14 (เฉลยในไฟล์)' },
 
   { id: 70015, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['SDS-PAGE', 'SDS', 'negative-charge'],
     q: 'ในการทดลอง SDS-PAGE สารตัวใดที่ทำหน้าที่จับโปรตีนทำให้ประจุเป็นลบ',
     options: ['EDTA', 'mercaptoethanol', 'Sodium dodecyl sulfate (SDS)', 'acrylamide'],
     answer: 2,
@@ -182,6 +197,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q15 (เฉลยในไฟล์)' },
 
   { id: 70016, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['SDS-PAGE', 'apparatus-components'],
     q: 'ในการทดลอง SDS-PAGE อุปกรณ์ชนิดใดใน electrophoresis set ที่ใช้สำหรับการสร้างวงจรไฟฟ้า',
     options: ['glasses', 'casting stand', 'electrode assembly', 'casting frame'],
     answer: 2,
@@ -191,6 +207,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q16 (เฉลยในไฟล์)' },
 
   { id: 70017, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['SDS-PAGE', 'destaining', 'protein-staining'],
     q: 'ในขั้นตอนการย้อมสีโปรตีนในเจล เหตุใดจึงต้องใส่ destaining solution ต่อ',
     options: [
       'เพื่อให้ติดสีน้ำเงินทั้งเจล',
@@ -205,6 +222,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q17 (เฉลยในไฟล์)' },
 
   { id: 70018, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['electrophoresis', 'apparatus-components', 'sample-well'],
     q: 'อุปกรณ์ชนิดใดที่ทำให้เกิด well เพื่อใช้ในการใส่สารตัวอย่างเข้าไปในเจล',
     options: ['Comb', 'Glasses', 'Lid', 'Spacer'],
     answer: 0,
@@ -215,6 +233,7 @@ export const QB_BIOCHEM_LAB = [
 
   // ── SDS-PAGE interpretation + DNA extraction / quantitation (Q19-27) ──
   { id: 70019, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['SDS-PAGE', 'gel-percentage'],
     q: 'ข้อใด ไม่ถูกต้อง เกี่ยวกับการแยกโปรตีนด้วย SDS-PAGE',
     options: [
       'glycerol ใน loading buffer ช่วยให้ตัวอย่างจมลงไปใน well',
@@ -229,6 +248,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q19 (เฉลยในไฟล์)' },
 
   { id: 70020, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['SDS-PAGE', 'molecular-weight', 'relative-migration'],
     q: 'ข้อใด ไม่ถูกต้อง เกี่ยวกับ SDS-PAGE / electrophoresis',
     options: [
       'อ่านน้ำหนักโมเลกุล (molecular weight) ของโปรตีนจากกราฟ log MW เทียบ relative migration',
@@ -243,6 +263,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q20 (เฉลยในไฟล์ · option ปรับถ้อยคำให้กระชับ)' },
 
   { id: 70021, subject: 'biochem-1', topic: 'lab-dna', year: 1, type: 'mcq',
+  tags: ['DNA-extraction', 'nucleus'],
     q: 'DNA อยู่ที่ส่วนใดของเซลล์ (เป็นเป้าหมายในการสกัด genomic DNA)',
     options: ['nuclear membrane', 'nucleus', 'cell membrane', 'cytoplasm'],
     answer: 1,
@@ -252,6 +273,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q21 (เฉลยในไฟล์)' },
 
   { id: 70022, subject: 'biochem-1', topic: 'lab-dna', year: 1, type: 'mcq',
+  tags: ['DNA-extraction', 'SDS', 'cell-lysis'],
     q: 'สารใดที่ทำให้เยื่อหุ้มเซลล์ (membrane) แตก เพื่อให้เซลล์ปล่อย DNA ออกมา',
     options: ['Sodium dodecyl sulfate (SDS)', 'Sodium chloride', '70% EtOH', 'absolute EtOH'],
     answer: 0,
@@ -261,6 +283,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q22 (เฉลยในไฟล์)' },
 
   { id: 70023, subject: 'biochem-1', topic: 'lab-dna', year: 1, type: 'mcq',
+  tags: ['DNA-extraction', 'EDTA', 'DNase'],
     q: 'สารใดทำให้ DNase ทำงานไม่ได้ (ยับยั้งเอนไซม์ที่จะย่อย DNA ขณะสกัด)',
     options: ['Trisodium citrate', 'EDTA', '70% EtOH', 'Sodium chloride'],
     answer: 1,
@@ -270,6 +293,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q23 (เฉลยในไฟล์)' },
 
   { id: 70024, subject: 'biochem-1', topic: 'lab-dna', year: 1, type: 'mcq',
+  tags: ['DNA-extraction', 'ethanol-precipitation'],
     q: 'สารใดใช้ตกตะกอน (precipitate) DNA ออกมา',
     options: ['Sodium dodecyl sulfate (SDS)', 'EDTA', '70% EtOH', 'absolute EtOH'],
     answer: 3,
@@ -279,6 +303,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q24 (เฉลยในไฟล์)' },
 
   { id: 70025, subject: 'biochem-1', topic: 'lab-dna', year: 1, type: 'mcq',
+  tags: ['DNA-extraction', 'ethanol-wash'],
     q: 'สารใดใช้ล้างทำความสะอาด DNA (เก็บ DNA ไว้แต่ชะเกลือ/สิ่งเจือปนออก)',
     options: ['Sodium dodecyl sulfate (SDS)', 'Sodium chloride', '70% EtOH', 'absolute EtOH'],
     answer: 2,
@@ -288,6 +313,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q25 (เฉลยในไฟล์)' },
 
   { id: 70026, subject: 'biochem-1', topic: 'lab-dna', year: 1, type: 'mcq',
+  tags: ['DNA-extraction', 'ethanol-precipitation', 'charge-neutralization'],
     q: 'สารใดทำให้ DNA รวมตัวกัน ส่งผลให้การแยก DNA ด้วย EtOH เกิดได้ดีขึ้น (ลดประจุลบของ DNA)',
     options: ['Trisodium citrate', 'EDTA', 'Sodium dodecyl sulfate (SDS)', 'absolute EtOH'],
     answer: 0,
@@ -297,6 +323,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q26 (เฉลยในไฟล์)' },
 
   { id: 70027, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['spectrophotometry', 'A260-A230', 'DNA-purity'],
     q: 'ในการทดสอบครั้งนี้ มีอัตราส่วน A260/A230 = 1.85 แสดงว่าอะไร',
     options: [
       'ได้ DNA ที่บริสุทธิ์',
@@ -312,6 +339,7 @@ export const QB_BIOCHEM_LAB = [
 
   // ── DNA purity + Molecular technique: cloning / RE / vector (Q29-35) ──
   { id: 70029, subject: 'biochem-1', topic: 'lab-spectrophotometry', year: 1, type: 'mcq',
+  tags: ['spectrophotometry', 'A260-A280', 'DNA-purity'],
     q: 'จากการทดลองในข้อ 8 หากค่า A260/A280 ของ DNA ที่สกัดได้ต่ำกว่าเกณฑ์ปกติ (น้อยกว่า ~1.8) แสดงว่าอย่างไร',
     options: [
       'DNA มีความบริสุทธิ์สูง',
@@ -326,6 +354,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q29 (เฉลยในไฟล์)' },
 
   { id: 70030, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['cloning', 'genetic-engineering'],
     q: 'คำว่า "cloning" ในเชิง molecular technique หมายถึงข้อใด',
     options: [
       'การ copy & paste ข้อความในคอมพิวเตอร์',
@@ -341,6 +370,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q30 (เฉลยในไฟล์)' },
 
   { id: 70031, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['restriction-enzyme', 'recognition-sequence'],
     q: 'ข้อใด ไม่ถูกต้อง เกี่ยวกับ restriction enzyme (RE)',
     options: [
       'เป็นโปรตีนที่จัดเป็นกลุ่มเอนไซม์ตัดจำเพาะ',
@@ -356,6 +386,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q31 (เฉลยในไฟล์)' },
 
   { id: 70032, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['restriction-enzyme', 'recognition-sequence', 'palindrome'],
     q: 'ข้อใดเป็น restriction sequence ที่ RE ไม่สามารถตัดได้ (ไม่ใช่ palindrome จึงไม่ใช่ recognition sequence)',
     options: ['GAATTC (EcoRI)', 'AGCT (AluI)', 'GGCCA', 'GGATCC (BamHI)', 'AAGCTT (HindIII)'],
     answer: 2,
@@ -365,6 +396,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q32 (เฉลยในไฟล์)' },
 
   { id: 70033, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['cloning', 'vector'],
     q: 'ข้อใดถูกต้องเกี่ยวกับหน้าที่ของ vector ในงาน cloning',
     options: [
       'หน้าที่ของ vector คือเป็นพาหะให้กับชิ้น DNA/โปรตีนที่ต้องการ',
@@ -380,6 +412,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q33 (เฉลยในไฟล์)' },
 
   { id: 70034, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['cloning', 'cloning-workflow'],
     q: 'การเรียงลำดับขั้นตอนในกระบวนการทำ cloning ข้อใดถูกต้องที่สุด (A=transformation, B=ligation, C=restriction enzyme digestion, D=selection)',
     options: ['A, C, B, D', 'C, B, A, D', 'C, D, A, B', 'D, C, A, B', 'E, C, A, B, D'],
     answer: 1,
@@ -389,6 +422,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q34 (เฉลยในไฟล์)' },
 
   { id: 70035, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['transformation', 'electroporation'],
     q: 'ขั้นตอนการนำ vector เข้าสู่โฮสต์เซลล์ ข้อใด ไม่ถูกต้อง',
     options: [
       'นำ vector เข้าสู่โฮสต์ด้วยการ wave + shock',
@@ -404,6 +438,7 @@ export const QB_BIOCHEM_LAB = [
 
   // ── DNA library, PCR, recombinant DNA technology (Q36-44) ──
   { id: 70036, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['DNA-library', 'cDNA', 'genomic-DNA'],
     q: 'ข้อใด ไม่ถูกต้อง เกี่ยวกับ DNA library',
     options: [
       'มี 2 ชนิดคือ genomic DNA (gDNA) และ complementary DNA (cDNA) library',
@@ -419,6 +454,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q36 (เฉลยในไฟล์)' },
 
   { id: 70037, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['PCR', 'dNTP'],
     q: 'ในการทำ PCR ข้อใดถูกต้อง',
     options: [
       'DNA polymerase เป็นเอนไซม์ที่ทำให้สาย RNA สายออกไป',
@@ -434,6 +470,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q37 (เฉลยในไฟล์)' },
 
   { id: 70038, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['restriction-enzyme', 'phosphodiester-bond'],
     q: 'เกี่ยวกับเอนไซม์ต่าง ๆ ที่ใช้ในงาน recombinant DNA technology ข้อใดผิด',
     options: [
       'Restriction enzyme เป็นเอนไซม์ที่ทำลาย hydrogen bond',
@@ -449,6 +486,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q38 (เฉลยในไฟล์)' },
 
   { id: 70039, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['blue-white-screening', 'lacZ', 'X-gal'],
     q: 'การคัดเลือกโคลนแบบ blue-white colony ท่านต้องเลือกโคลนที่มีสีอะไร เพราะเหตุใด',
     options: [
       'โคโลนีสีน้ำเงิน เพราะ DNA แทรกใน lac Z ทำให้ไม่สามารถย่อย X-gal ได้',
@@ -464,6 +502,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q39 (เฉลยในไฟล์)' },
 
   { id: 70040, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['GMO', 'genetic-engineering'],
     q: 'สิ่งมีชีวิตที่นำมาเปลี่ยนการตัดแต่งพันธุกรรม เรียกว่าอะไร',
     options: ['Alien species', 'Transformer', 'GMOs', 'Mutants'],
     answer: 2,
@@ -473,6 +512,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q40 (เฉลยในไฟล์)' },
 
   { id: 70041, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['recombinant-DNA', 'genetic-engineering'],
     q: 'Recombinant DNA หมายถึงข้อใด',
     options: [
       'DNA ของสิ่งมีชีวิตกลุ่ม Prokaryotes',
@@ -487,6 +527,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q41 (เฉลยในไฟล์)' },
 
   { id: 70042, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['restriction-enzyme', 'DNA-ligase'],
     q: 'ในงานพันธุวิศวกรรม ที่ต้องมีการตัดและต่อสารพันธุกรรมเดิมเข้าด้วยกัน ที่ต้องอาศัยเอนไซม์ในข้อใด',
     options: [
       'Restriction enzymes และ DNA gyrase',
@@ -501,6 +542,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q42 (เฉลยในไฟล์)' },
 
   { id: 70043, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['restriction-enzyme', 'sticky-ends', 'blunt-ends'],
     q: 'ข้อใด ไม่ใช่ ผลที่ได้จากการตัดสาย DNA ด้วยเอนไซม์ตัดจำเพาะ (restriction enzyme)',
     options: [
       'ได้สาย DNA ที่มีปลายทู่ (blunt ends)',
@@ -520,6 +562,7 @@ export const QB_BIOCHEM_LAB = [
 
   // ── Vector components + gel electrophoresis + agarose prep (Q45-49) ──
   { id: 70045, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['vector', 'origin-of-replication', 'selectable-marker'],
     q: 'ข้อใดต่อไปนี้ กล่าวถูกต้อง เกี่ยวกับความจำเพาะ/องค์ประกอบที่ใช้ในงานด้านพันธุวิศวกรรม',
     options: [
       'มีตำแหน่งจดจำเฉพาะ ย บริเวณที่เหมาะสม (recognition site เดียวเท่านั้น)',
@@ -534,6 +577,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q45 (เฉลยในไฟล์)' },
 
   { id: 70046, subject: 'biochem-1', topic: 'lab-molecular', year: 1, type: 'mcq',
+  tags: ['blue-white-screening', 'beta-galactosidase'],
     q: 'ในงานด้านพันธุวิศวกรรม ที่ต้องใช้พลาสมิดในการเพิ่มจำนวนชิ้นส่วนดีเอ็นเอที่ต้องการ (DNA insert) ข้อใดคือหน้าที่หลักของ beta-galactosidase gene ที่อยู่ในพลาสมิด',
     options: [
       'เป็นตำแหน่งแบบโซเปิดให้ลำง่าย เพื่อใส่มาหาชิ้นส่วนดีเอ็นเอที่ต้องการ',
@@ -548,6 +592,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q46 (เฉลยในไฟล์)' },
 
   { id: 70047, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['electrophoresis', 'migration-distance', 'molecular-size'],
     q: 'ในการแยกชิ้นส่วนดีเอ็นเอด้วยไฟฟ้า (gel electrophoresis) ความเร็วในการเคลื่อนที่ของสารดีเอ็นเอแต่ละชิ้นขึ้นกับข้อใดเป็นสำคัญ',
     options: ['ประจุ (charge)', 'น้ำหนักโมเลกุล (molecular weight / ขนาด)', 'ความสามารถในการละลาย (solubility)', 'ถูกทุกข้อ'],
     answer: 1,
@@ -557,6 +602,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q47 (เฉลยในไฟล์)' },
 
   { id: 70048, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
+  tags: ['electrophoresis', 'migration-distance', 'molecular-size'],
     q: 'หลังทำการแยกชิ้นส่วนดีเอ็นเอด้วยไฟฟ้า (gel electrophoresis) แล้ว ชิ้นส่วนดีเอ็นเอที่ขนาดใหญ่ที่สุดจะอยู่บริเวณใดของเจล',
     options: [
       'ใกล้จุดเริ่มต้น (ใกล้บริเวณหยอดสาร / well)',
@@ -571,6 +617,7 @@ export const QB_BIOCHEM_LAB = [
     verified: 'Blackboard final Q48 (เฉลยในไฟล์)' },
 
   { id: 70049, subject: 'biochem-1', topic: 'lab-equipment', year: 1, type: 'mcq',
+  tags: ['agarose-gel', 'gel-preparation'],
     q: 'ต้องการเตรียม 1% agarose gel ปริมาตร 50 มิลลิลิตร เมื่อชั่ง agarose ใส่ลงในโครงหล่อแล้ว เทบัฟเฟอร์ลงในกระบอกตวง (cylinder) ถึงขีด 50 มิลลิลิตร ข้อใดคือวิธีปฏิบัติที่ถูกต้องที่สุด',
     options: [
       'ใช้บนปริมาตรเท่าที่มีอยู่ เทลงใน tray',

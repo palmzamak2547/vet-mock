@@ -22,6 +22,7 @@
 export const QB_BIOCHEM_LECT = [
   // ── Intro / water / buffer ─────────────────────────────────
   { id: 73001, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['sickle-cell-anemia', 'beta-globin'],
     q: 'ผู้ป่วยโรค sickle cell anemia มีความผิดปกติของโกลบินสายใด',
     options: ['Beta-globin', 'Alpha-globin', 'Gamma-globin', 'Delta-globin', 'Myoglobin'],
     answer: 0,
@@ -31,6 +32,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — HbS = β6 mutation (study-guide T/F item, corrected)' },
 
   { id: 73002, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['sickle-cell-anemia', 'amino-acid-substitution', 'beta-globin'],
     q: 'Sickle cell anemia เกิดจากการแทนที่กรดอะมิโนตัวใดด้วย valine บนสาย β-globin',
     options: ['Glycine', 'Glutamic acid', 'Glutamine', 'Aspartic acid', 'Lysine'],
     answer: 1,
@@ -40,6 +42,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — Glu6Val (study-guide T/F item, corrected)' },
 
   { id: 73003, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['phenylketonuria', 'phenylalanine-hydroxylase'],
     q: 'Phenylketonuria (PKU) เกิดจากการขาดเอนไซม์ชนิดใด',
     options: ['Tyrosine hydroxylase', 'Tryptophan hydroxylase', 'Phenylalanine hydroxylase', 'Phenylalanine decarboxylase', 'Tyrosine aminotransferase'],
     answer: 2,
@@ -49,6 +52,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — PKU = PAH deficiency (study-guide T/F item, corrected)' },
 
   { id: 73004, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['water-structure', 'bond-angle'],
     q: 'มุมพันธะ (bond angle) H–O–H ของโมเลกุลน้ำมีค่าประมาณเท่าใด',
     options: ['90°', '109.5°', '120°', '104.5°', '180°'],
     answer: 3,
@@ -58,6 +62,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard chemistry — water bond angle 104.5° (study-guide T/F item)' },
 
   { id: 73005, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',
+  tags: ['gibbs-free-energy', 'spontaneous-reaction'],
     q: 'โดยทั่วไปปฏิกิริยาที่เกิดได้เองในสิ่งมีชีวิตมีแนวโน้มดำเนินไปในทิศทางใด',
     options: [
       'ทิศที่พลังงานอิสระสูงขึ้นและเสถียรน้อยลง',
@@ -74,6 +79,7 @@ export const QB_BIOCHEM_LECT = [
 
   // ── Carbohydrate ───────────────────────────────────────────
   { id: 73006, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['glycosaminoglycans', 'negative-charge', 'water-retention'],
     q: 'เพราะเหตุใด glycosaminoglycans (GAGs) จึงสามารถอุ้มน้ำได้ดี',
     options: [
       'เพราะมีประจุลบสูง (high negative charge)',
@@ -89,6 +95,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — GAG hydration via dense negative charge (study-guide fact)' },
 
   { id: 73007, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['peptidoglycan', 'bacterial-cell-wall'],
     q: 'Peptidoglycan เป็นองค์ประกอบสำคัญที่ใด',
     options: [
       'เยื่อหุ้มเซลล์ของสัตว์',
@@ -104,6 +111,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard microbiology — peptidoglycan in bacterial cell wall (study-guide fact)' },
 
   { id: 73008, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',
+  tags: ['glucose', 'dextrose'],
     q: 'D-glucose มีอีกชื่อสามัญว่าอะไร',
     options: ['Levulose', 'Galactose', 'Dextrose', 'Sucrose', 'Maltose'],
     answer: 2,
@@ -114,6 +122,7 @@ export const QB_BIOCHEM_LECT = [
 
   // ── Lipid ──────────────────────────────────────────────────
   { id: 73009, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['pancreatic-lipase', 'lipid-digestion', 'triacylglycerol'],
     q: 'ในลำไส้เล็ก triacylglycerol จากอาหารถูกย่อยเป็นกรดไขมันโดยเอนไซม์ใด',
     options: ['Lipoprotein lipase', 'Salivary amylase', 'Pepsin', 'Pancreatic lipase', 'Enterokinase'],
     answer: 3,
@@ -123,6 +132,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — pancreatic lipase digests dietary TG (study-guide fact)' },
 
   { id: 73010, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['lipoprotein-lipase', 'triacylglycerol'],
     q: 'ในกระแสเลือด triacylglycerol ภายใน lipoprotein ถูกย่อยโดยเอนไซม์ใด',
     options: ['Pancreatic lipase', 'Salivary amylase', 'Pepsin', 'Hormone-sensitive lipase', 'Lipoprotein lipase'],
     answer: 4,
@@ -132,6 +142,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — LPL hydrolyzes circulating TG (study-guide fact)' },
 
   { id: 73011, subject: 'biochem-1', topic: 'lect-lipid', year: 1, type: 'mcq',
+  tags: ['lipoprotein', 'HDL'],
     q: 'Lipoprotein ชนิดใดมีสัดส่วนโปรตีนต่อน้ำหนักมากที่สุด',
     options: ['HDL', 'Chylomicron', 'VLDL', 'LDL', 'IDL'],
     answer: 0,
@@ -142,6 +153,7 @@ export const QB_BIOCHEM_LECT = [
 
   // ── Amino acid & protein ───────────────────────────────────
   { id: 73012, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['taurine', 'essential-amino-acids', 'feline-nutrition'],
     q: 'กรดอะมิโน (amino acid) ชนิดใดเป็นกรดอะมิโนจำเป็นในแมว ที่ต้องได้รับจากอาหาร',
     options: ['Alanine', 'Taurine', 'Serine', 'Glutamine', 'Glycine'],
     answer: 1,
@@ -151,6 +163,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard vet nutrition — cats require dietary taurine (study-guide fact)' },
 
   { id: 73013, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['protease', 'peptide-bond'],
     q: 'เอนไซม์กลุ่มใดทำหน้าที่ตัดพันธะ peptide ของโปรตีน',
     options: ['Carboxylase', 'Polymerase', 'Protease (peptidase)', 'Dehydrogenase', 'Kinase'],
     answer: 2,
@@ -160,6 +173,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — protease cleaves peptide bonds (study-guide fact)' },
 
   { id: 73014, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['serotonin', 'tryptophan'],
     q: 'Serotonin สังเคราะห์มาจากกรดอะมิโนชนิดใด',
     options: ['Tyrosine', 'Histidine', 'Glutamate', 'Tryptophan', 'Glycine'],
     answer: 3,
@@ -169,6 +183,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — serotonin from tryptophan (study-guide fact)' },
 
   { id: 73015, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['proline', 'alpha-helix'],
     q: 'เพราะเหตุใด proline จึงรบกวนการเกิดโครงสร้าง alpha-helix',
     options: [
       'เพราะมีโมเลกุลขนาดเล็กเกินกว่าจะขดได้',
@@ -184,6 +199,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — proline as helix breaker (study-guide fact)' },
 
   { id: 73016, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['collagen', 'triple-helix'],
     q: 'โครงสร้างของ collagen มีลักษณะเด่นอย่างไร',
     options: [
       'สามสายเกลียวซ้ายพันกันเป็นเกลียวขวา (triple helix) มี repeating tripeptide',
@@ -199,6 +215,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — collagen triple helix (study-guide fact)' },
 
   { id: 73017, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['x-ray-crystallography', 'tertiary-structure'],
     q: 'เทคนิคใดใช้หาโครงสร้างระดับ tertiary structure ของโปรตีนได้',
     options: ['Gram staining', 'X-ray crystallography', 'Simple light microscopy', 'Paper chromatography', 'Flame test'],
     answer: 1,
@@ -208,6 +225,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard method — protein 3D structure by X-ray crystallography (study-guide fact)' },
 
   { id: 73018, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['vitamin-C', 'collagen', 'hydroxyproline'],
     q: 'วิตามินซีมีบทบาทต่อการสร้าง collagen อย่างไร',
     options: [
       'เติมหมู่ methyl ให้ lysine',
@@ -223,6 +241,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — vit C cofactor for prolyl hydroxylase (study-guide fact)' },
 
   { id: 73019, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['electrophoresis', 'polyacrylamide-gel'],
     q: 'การแยกโปรตีนตามการเคลื่อนที่ในสนามไฟฟ้านิยมใช้เจลชนิดใด',
     options: ['Agarose gel', 'Silica gel', 'Sephadex gel', 'Polyacrylamide gel', 'Starch block'],
     answer: 3,
@@ -232,6 +251,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard method — protein electrophoresis uses polyacrylamide (study-guide item)' },
 
   { id: 73020, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['dialysis', 'protein-separation'],
     q: 'การแยกโปรตีนออกจากโมเลกุลเล็กโดยอาศัยการแพร่ผ่านรูของเมมเบรนกึ่งซึมผ่าน เรียกว่าอะไร',
     options: ['Electrophoresis', 'Centrifugation', 'Chromatography', 'Salting out', 'Dialysis'],
     answer: 4,
@@ -241,6 +261,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard method — dialysis separates by membrane diffusion (study-guide fact)' },
 
   { id: 73021, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['botulinum-toxin', 'flaccid-paralysis'],
     q: 'Botulinum toxin (โปรตีนพิษ) ออกฤทธิ์ต่อร่างกายอย่างไร',
     options: [
       'ทำให้กล้ามเนื้อเป็นอัมพาตชั่วคราว (flaccid paralysis)',
@@ -256,6 +277,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard pharmacology — botulinum blocks ACh release (study-guide presentation item)' },
 
   { id: 73022, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['chymosin', 'digestive-enzymes'],
     q: 'Chymosin (rennin) เป็นเอนไซม์ที่พบมากที่อวัยวะใด',
     options: ['ตับของสุนัข', 'กระเพาะของลูกวัว', 'ตับอ่อนของสุกร', 'ไตของแมว', 'ม้ามของม้า'],
     answer: 1,
@@ -265,6 +287,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — chymosin from calf stomach (study-guide presentation item)' },
 
   { id: 73023, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
+  tags: ['secretin', 'pancreatic-secretion'],
     q: 'Secretin เป็นฮอร์โมนที่กระตุ้นการทำงานของอวัยวะใด',
     options: ['ต่อมไทรอยด์', 'ต่อมหมวกไต', 'ตับอ่อนและท่อน้ำดี', 'ม้าม', 'ต่อมน้ำลาย'],
     answer: 2,
@@ -275,6 +298,7 @@ export const QB_BIOCHEM_LECT = [
 
   // ── Membrane ───────────────────────────────────────────────
   { id: 73024, subject: 'biochem-1', topic: 'lect-membrane', year: 1, type: 'mcq',
+  tags: ['receptor-mediated-endocytosis', 'LDL', 'cholesterol'],
     q: 'เซลล์นำ cholesterol (ในรูป LDL) เข้าสู่เซลล์ด้วยวิธีใด',
     options: [
       'Simple diffusion ผ่านชั้นไขมัน',
@@ -290,6 +314,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard cell biology — LDL/cholesterol uptake by receptor-mediated endocytosis (study-guide fact)' },
 
   { id: 73025, subject: 'biochem-1', topic: 'lect-membrane', year: 1, type: 'mcq',
+  tags: ['clathrin', 'triskelion', 'coated-vesicle'],
     q: 'หน่วยย่อยของ clathrin ที่มาประกอบกันเป็นโครงหุ้ม coated vesicle เรียกว่าอะไร',
     options: ['Microtubule', 'Flagellin', 'Tubulin dimer', 'Actin filament', 'Triskelion'],
     answer: 4,
@@ -299,6 +324,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard cell biology — clathrin triskelion (study-guide fact)' },
 
   { id: 73026, subject: 'biochem-1', topic: 'lect-membrane', year: 1, type: 'mcq',
+  tags: ['liposome', 'drug-delivery', 'receptor-mediated-endocytosis'],
     q: 'Liposome ที่บรรจุยาเพื่อส่งเข้าเซลล์เป้าหมายมักอาศัยกลไกใดเพื่อความจำเพาะ',
     options: [
       'Receptor-mediated endocytosis โดยมี target ligand',
@@ -314,6 +340,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard drug delivery — targeted liposome via receptor-mediated uptake (study-guide fact)' },
 
   { id: 73027, subject: 'biochem-1', topic: 'lect-membrane', year: 1, type: 'mcq',
+  tags: ['cholesterol', 'sterol', 'membrane-composition'],
     q: 'Sterol ชนิดใดเป็นองค์ประกอบหลักในเยื่อหุ้มเซลล์ของสัตว์',
     options: ['Ergosterol', 'Cholesterol', 'Stigmasterol', 'Sitosterol', 'Campesterol'],
     answer: 1,
@@ -323,6 +350,7 @@ export const QB_BIOCHEM_LECT = [
     verified: 'standard biochemistry — cholesterol = animal membrane sterol (study-guide fact)' },
 
   { id: 73028, subject: 'biochem-1', topic: 'lect-membrane', year: 1, type: 'mcq',
+  tags: ['cholesterol', 'membrane-fluidity'],
     q: 'Cholesterol ในเยื่อหุ้มเซลล์สัตว์มีบทบาทสำคัญอย่างไร',
     options: [
       'เป็นแหล่งพลังงานหลักของเยื่อหุ้มเซลล์',

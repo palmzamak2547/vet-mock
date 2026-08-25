@@ -86,7 +86,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-causation",
     "year": 5,
     "type": "mcq",
-    "q": "จากตาราง 2x2 เดียวกัน (Exposed มี disease A และ healthy B, Non-exposed มี disease C และ healthy D) สูตร odds ratio ต่างจาก relative risk อย่างไร",
+    "q": "กำหนดให้กลุ่ม exposed มี disease A และ healthy B ส่วนกลุ่ม non-exposed มี disease C และ healthy D สูตร odds ratio ต่างจาก relative risk อย่างไร",
     "options": [
       "OR ใช้ (A/B)/(C/D) ส่วน RR ใช้ [A/(A+B)]/[C/(C+D)]",
       "OR ใช้ [A/(A+B)]/[C/(C+D)] ส่วน RR ใช้ (A/B)/(C/D)",
@@ -171,7 +171,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "จากตาราง typical incubation period โรคใดมีระยะฟักตัวยาวที่สุด",
+    "q": "โรคใดมีระยะฟักตัว (incubation period) ยาวที่สุด",
     "options": [
       "Rabies ในสุนัข เป็นสัปดาห์ถึงเป็นเดือน",
       "Johne's disease ในโค เป็นเดือนถึงเป็นปี",
@@ -341,7 +341,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดเป็นตัวอย่างของ mechanical vector ตามตารางเปรียบเทียบ",
+    "q": "ข้อใดเป็นตัวอย่างของ mechanical vector",
     "options": [
       "เห็บที่นำเชื้อ Babesia ไปสู่โค",
       "ริ้น Culicoides ที่นำไวรัส bluetongue",
@@ -375,7 +375,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "จากตารางจับคู่ mode of transmission กับ control measure มาตรการที่ตรงกับ vector-borne คือข้อใด",
+    "q": "มาตรการควบคุมโรคที่ตรงกับการติดต่อแบบ vector-borne คือข้อใด",
     "options": [
       "กักโรคสัตว์ที่เข้าใหม่ แยกสัตว์ป่วย และแยกกลุ่มอายุออกจากกัน",
       "ใช้การผสมเทียม และตรวจโรคพ่อพันธุ์ก่อนนำมาใช้ผสม",
@@ -383,7 +383,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
       "ใช้ยากำจัดเห็บและแมลง ทำร่องระบายน้ำ และกางมุ้งกันแมลง"
     ],
     "answer": 3,
-    "explain": "ตารางระบุ vector-borne คู่กับ acaricides และ insecticides การขังสัตว์ในช่วงที่ vector ออกหากิน การทำ drainage และ netting ส่วนการกักโรคและแยกกลุ่มอายุเป็นมาตรการของ direct contact การผสมเทียมและตรวจพ่อพันธุ์เป็นของ venereal และการระบายอากาศกับเว้นระยะระหว่างโรงเรือนเป็นของ airborne",
+    "explain": "การติดต่อแบบ vector-borne คุมด้วยการจัดการตัว vector โดยตรง คือใช้ acaricides และ insecticides ขังสัตว์ในช่วงที่ vector ออกหากิน ทำ drainage และกางมุ้ง (netting)\n\n❌ ทำไมข้ออื่นผิด\n— \"กักโรคสัตว์ที่เข้าใหม่ แยกสัตว์ป่วย และแยกกลุ่มอายุออกจากกัน\" = เป็นมาตรการของการติดต่อแบบ direct contact\n— \"ใช้การผสมเทียม และตรวจโรคพ่อพันธุ์ก่อนนำมาใช้ผสม\" = เป็นมาตรการของการติดต่อแบบ venereal\n— \"เพิ่มการระบายอากาศ ลดความหนาแน่น และเว้นระยะระหว่างโรงเรือน\" = เป็นมาตรการของการติดต่อแบบ airborne\n\n💡 มาตรการของ vector-borne จะพุ่งไปที่ตัวแมลงและแหล่งน้ำขัง ไม่ใช่ที่ตัวสัตว์หรือที่โรงเรือน",
     "verified": "concept_of_disease_transmission p.48"
   },
   {

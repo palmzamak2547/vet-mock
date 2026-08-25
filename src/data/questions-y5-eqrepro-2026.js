@@ -2279,7 +2279,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "topic": "eqrepro-endometritis",
     "year": 5,
     "type": "mcq",
-    "q": "ตามตารางยาปฏิชีวนะสำหรับ endometritis ยาในข้อใดจัดเป็น broad spectrum",
+    "q": "ในบรรดายาปฏิชีวนะที่ใช้รักษา endometritis ยาในข้อใดจัดเป็น broad spectrum",
     "options": [
       "Ceftiofur กลุ่ม cephalosporin รุ่น 3",
       "Polymyxin B กลุ่ม membrane disruptor",
@@ -2298,7 +2298,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "topic": "eqrepro-endometritis",
     "year": 5,
     "type": "mcq",
-    "q": "จากตารางยาปฏิชีวนะในสรุปนี้ ข้อความใดตรงกับสเปกตรัมและข้อจำกัดของยาที่ระบุไว้",
+    "q": "ข้อความใดตรงกับสเปกตรัมและข้อจำกัดของยาปฏิชีวนะต่อไปนี้",
     "options": [
       "Polymyxin B เป็น broad spectrum และจับ endotoxin ได้ดี",
       "Nitrofuran เป็น broad spectrum แต่ด้อยลงเมื่อมี debris",
@@ -2306,7 +2306,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Enrofloxacin ไม่ใช่ broad spectrum เพราะเด่นเฉพาะ Gram+"
     ],
     "answer": 1,
-    "explain": "ตารางระบุ nitrofuran หรือ furaltadone เป็น broad spectrum ครอบคลุมทั้ง Gram+ และ Gram– แต่ไม่ดีถ้ามี debris. Polymyxin B จับ endotoxin ได้จริงแต่ครอบคลุมเฉพาะ Gram– จึงไม่ใช่ broad. Benzylpenicillin เด่น Gram+ และ Gram– อ่อนมาก. Enrofloxacin เป็น fluoroquinolone ที่จัดเป็น broad spectrum และเด่น Gram–",
+    "explain": "Nitrofuran หรือ furaltadone เป็น broad spectrum ครอบคลุมทั้ง Gram+ และ Gram– แต่ประสิทธิภาพด้อยลงเมื่อมี debris\n\n❌ ทำไมข้ออื่นผิด\n— \"Polymyxin B เป็น broad spectrum และจับ endotoxin ได้ดี\" = จับ endotoxin ได้จริง แต่ครอบคลุมเฉพาะ Gram– จึงไม่ใช่ broad spectrum\n— \"Benzylpenicillin เป็น broad spectrum เด่นทั้ง Gram+ และ Gram–\" = เด่นเฉพาะ Gram+ ส่วน Gram– อ่อนมาก\n— \"Enrofloxacin ไม่ใช่ broad spectrum เพราะเด่นเฉพาะ Gram+\" = เป็น fluoroquinolone ที่จัดเป็น broad spectrum และเด่น Gram–\n\n💡 จับ endotoxin ได้ กับ ครอบคลุมกว้าง เป็นคนละคุณสมบัติ Polymyxin B มีอย่างแรกแต่ไม่มีอย่างหลัง",
     "verified": "Equine Repro Final (Vet 85) น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -2401,7 +2401,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Symptomatic treatment เพราะลดปวดและลดไข้ที่เกิดขึ้น"
     ],
     "answer": 1,
-    "explain": "ตารางในสรุปจับคู่ cloprostenol ซึ่งเป็น PGF2α กับ promote defense ร่วมกับ evacuation เพราะสลาย CL ทำให้ม้าเป็นสัด ปากมดลูกเปิด ระบายได้ และ neutrophil ทำงานดีขึ้น. Oxytocin จับคู่กับ evacuation อย่างเดียว. Ceftiofur ร่วมกับ lavage จับคู่กับ control infection ร่วมกับ evacuation. cloprostenol ไม่ใช่ยาแก้ปวดลดไข้",
+    "explain": "cloprostenol เป็น PGF2α ที่สลาย CL ทำให้ม้าเป็นสัด ปากมดลูกเปิด จึงระบายได้และ neutrophil ทำงานดีขึ้น วัตถุประสงค์จึงเป็น promote defense ร่วมกับ evacuation\n\n❌ ทำไมข้ออื่นผิด\n— \"Control infection เพราะฆ่าเชื้อในโพรงมดลูกโดยตรง\" = การฆ่าเชื้อโดยตรงเป็นบทบาทของ ceftiofur ร่วมกับ lavage ซึ่งให้ control infection ร่วมกับ evacuation\n— \"Evacuation อย่างเดียว จากการบีบตัวของ myometrium\" = เป็นบทบาทของ oxytocin\n— \"Symptomatic treatment เพราะลดปวดและลดไข้ที่เกิดขึ้น\" = cloprostenol ไม่ใช่ยาแก้ปวดลดไข้\n\n💡 cloprostenol ได้สองอย่างในตัวเดียว คือเปิดทางให้ระบาย และเรียก neutrophil เข้ามาช่วย",
     "verified": "Equine Repro Final (Vet 85) น.4",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Repro (Vet 85) reconstructed case set"
@@ -2469,7 +2469,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
     "type": "mcq",
-    "q": "ตามตารางระยะ estrous cycle ลักษณะ cervix แบบ firm narrow tight ร่วมกับ uterus ที่มี good tone และเป็น tubular ตรงกับระยะใด",
+    "q": "ลักษณะ cervix แบบ firm narrow tight ร่วมกับ uterus ที่มี good tone และเป็น tubular ตรงกับระยะใดของ estrous cycle",
     "options": [
       "Diestrus ที่มี CL บนรังไข่",
       "Estrus ที่มี follicle ขนาดใหญ่",
@@ -2477,7 +2477,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Transitional phase ก่อนเข้าฤดู"
     ],
     "answer": 0,
-    "explain": "ตารางระบุ diestrus ว่า cervix firm narrow tight, uterus good tone และเป็น tubular โดยรังไข่มี multiple small follicle ร่วมกับ CL. Estrus จะมี cervix relaxed opened และมดลูก edematous พร้อม follicle ใหญ่กว่า 1.5 cm. Anestrus มี cervix moderately firm แต่ os เปิด และมดลูก poor tone. Transitional phase มี cervix ปิดไม่สนิทและมีทั้ง MSF และ MLF",
+    "explain": "Diestrus คือระยะที่ cervix เป็น firm narrow tight และ uterus มี good tone เป็น tubular โดยรังไข่มี multiple small follicle ร่วมกับ CL\n\n❌ ทำไมข้ออื่นผิด\n— \"Estrus ที่มี follicle ขนาดใหญ่\" = estrus จะมี cervix relaxed opened และมดลูก edematous พร้อม follicle ใหญ่กว่า 1.5 cm\n— \"Anestrus ที่รังไข่ไม่ทำงาน\" = anestrus มี cervix moderately firm แต่ os เปิด และมดลูก poor tone\n— \"Transitional phase ก่อนเข้าฤดู\" = transitional phase มี cervix ปิดไม่สนิท และมีทั้ง MSF และ MLF\n\n💡 cervix ปิดแน่นคู่กับ uterus ที่ tone ดี คือภาพของระยะที่มี CL อยู่บนรังไข่",
     "verified": "Equine Repro Final (Vet 85) น.4",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -2629,7 +2629,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Rotavirus และ Leptospira"
     ],
     "answer": 1,
-    "explain": "สรุประบุ EHV-1 และ influenza ฉีด 3 ครั้งที่เดือน 5, 7 และ 9 เพื่อส่งภูมิผ่านน้ำนม ส่วน tetanus, WEE/EEE, WNV และ rabies ฉีด 1 เดือนก่อนคลอด. Leptospira และ rotavirus ไม่ได้อยู่ในตารางที่สรุปฉบับนี้ระบุไว้",
+    "explain": "EHV-1 และ influenza เป็นคู่ที่วิชานี้แนะนำให้ฉีดแม่ม้าท้อง 3 ครั้ง ที่เดือน 5, 7 และ 9 เพื่อส่งภูมิผ่านน้ำนม\n\n❌ ทำไมข้ออื่นผิด\n— \"Tetanus และ Rabies\" = ทั้งคู่ฉีด 1 เดือนก่อนคลอด ไม่ใช่ฉีด 3 ครั้ง\n— \"WEE/EEE ร่วมกับ WNV\" = ฉีด 1 เดือนก่อนคลอดเช่นกัน\n— \"Rotavirus และ Leptospira\" = ไม่ได้อยู่ในโปรแกรมที่วิชานี้ระบุไว้\n\n💡 แยกเป็นสองกลุ่ม กลุ่มที่ฉีดสามครั้งกลางท้องมีแค่ EHV-1 กับ influenza ที่เหลือฉีดครั้งเดียวใกล้คลอด",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"

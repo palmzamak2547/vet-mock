@@ -817,7 +817,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "chlorine 75 ppm ฆ่าเชื้อได้ 2 log เมื่อสัมผัสนาน 12 ชั่วโมง"
     ],
     "answer": 3,
-    "explain": "ตารางระบุ chlorine 75 ppm ที่เวลาสัมผัส 12 ชั่วโมง ฆ่า EHP ได้ 2 log สอดคล้องกับที่สปอร์ EHP ทนต่อสารเคมีจึงต้องใช้เวลาสัมผัสนาน 12 ถึง 18 ชั่วโมง ส่วน povidone iodine ที่ใช้จริงคือ 6,000-10,000 ppm และฆ่าได้ 70% ไม่ใช่ทำลาย DNA ขณะที่ biosol ใช้ 2,000-8,000 ppm ฆ่าได้เพียง 1 log และไม่มีสารใดในตารางออกฤทธิ์ภายใน 30 นาที",
+    "explain": "ในผลทดสอบ in vitro แบบสัมผัสโดยตรงกับสปอร์ EHP ชุดนี้ chlorine 75 ppm ที่เวลาสัมผัส 12 ชั่วโมง ฆ่าเชื้อได้ 2 log ซึ่งเข้ากับที่สปอร์ EHP ทนสารเคมีสูงจนต้องใช้เวลาสัมผัสนาน 12 ถึง 18 ชั่วโมง\n\n❌ ทำไมข้ออื่นผิด\n— \"chlorine 75 ppm ฆ่าเชื้อได้ 4 log เมื่อสัมผัสนาน 30 นาที\" = ความเข้มข้นเดียวกับข้อที่ถูก ต่างกันที่เวลาและระดับการฆ่า ไม่มีสารใดในการทดสอบชุดนี้ออกฤทธิ์ได้ภายใน 30 นาที\n— \"povidone iodine 500 ppm ทำลาย DNA เมื่อสัมผัสนาน 1 ชั่วโมง\" = ความเข้มข้นที่ใช้จริงคือ 6,000 ถึง 10,000 ppm และผลที่ได้คือฆ่าเชื้อราว 70 เปอร์เซ็นต์ ไม่ใช่ทำลาย DNA\n— \"biosol 200 ppm ทำลาย DNA เมื่อสัมผัสนาน 6 ชั่วโมง\" = ความเข้มข้นที่ใช้จริงคือ 2,000 ถึง 8,000 ppm และฆ่าได้เพียง 1 log",
     "verified": "Aquaculture_Industry_Tech p.36"
   },
   {
@@ -947,7 +947,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ตามตารางชนิดของ adjuvant กลุ่ม emulsion adjuvants ออกฤทธิ์อย่างไร",
+    "q": "Emulsion adjuvants ออกฤทธิ์อย่างไร",
     "options": [
       "กระตุ้น CTL และสร้าง cytokines type 1 กับแอนติบอดี IgG2a",
       "เพิ่ม IgE และ IgG1 แล้วเปลี่ยนสัดส่วนของ IgG1 ต่อ IgG2α",
@@ -1079,23 +1079,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "Aquaculture_Industry_Tech p.78"
   },
   {
-    "id": 105205,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "จากตาราง physicochemical characterization สูตร nanoemulsion coated (CS-NE) ซึ่งเป็น hybrid nanovaccine มีค่า zeta potential เท่าใด",
-    "options": [
-      "-10.7 mV",
-      "12.9 mV",
-      "29.04 mV",
-      "-34.4 mV"
-    ],
-    "answer": 2,
-    "explain": "ตารางระบุ CS-NE ที่ 29.04 mV ซึ่งเปลี่ยนเป็นประจุบวกหลังเคลือบด้วย mucoadhesive biopolymer ส่วน 12.9 mV คือ bacteria coated (CS) ที่เคลือบเช่นกันแต่เป็นเซลล์แบคทีเรียทั้งเซลล์ ขณะที่ -34.4 mV คือ nanoemulsion ก่อนเคลือบ และ -10.7 mV คือ whole cell bacteria",
-    "verified": "Aquaculture_Industry_Tech p.80"
-  },
-  {
     "id": 105206,
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
@@ -1141,23 +1124,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 2,
     "explain": "ในฟาร์มที่มี disease outbreak ปลาที่ได้วัคซีนรอด 77% ส่วนปลาที่ไม่ได้วัคซีนรอด 38% ช่องว่างจะกว้างแบบนี้ก็ต่อเมื่อมีเชื้อระบาดกดดันอยู่จริง\n\n❌ ทำไมข้ออื่นผิด\n— \"96% และ 85%\" = เป็นคู่ตัวเลขของฟาร์มปกติที่ไม่มีการระบาด ส่วนต่างจึงแคบกว่ามาก\n— \"86% และ 52%\" = มาจากการทดสอบภาคสนามอีกชุดหนึ่งที่ทำในฟาร์ม\n— \"73% และ 32%\" = มาจากการทดสอบแบบ challenge ในห้องปฏิบัติการ\n\n💡 คู่ที่ห่างกันมากคือฟาร์มที่มีการระบาด ส่วนฟาร์มปกติเลขจะสูงทั้งคู่และห่างกันน้อย",
     "verified": "Aquaculture_Industry_Tech p.85"
-  },
-  {
-    "id": 105210,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-intro-thailand",
-    "year": 5,
-    "type": "mcq",
-    "q": "จากตาราง experimental nanovaccines for tilapia วัคซีน Flavobacterium columnare ที่ใช้ alginate ให้ทางการกิน (oral) ให้ผลอย่างไร",
-    "options": [
-      "ให้ RPS สูงกว่าแบบ chitosan-coated immersion เล็กน้อย",
-      "ให้ RPS ประมาณ 75% ใกล้เคียงวัคซีน Aeromonas veronii",
-      "ให้ RPS ประมาณ 85% สูงที่สุดในกลุ่มเชื้อแบคทีเรีย",
-      "ไม่พบความแตกต่างระหว่างปลาที่ได้และไม่ได้วัคซีน"
-    ],
-    "answer": 3,
-    "explain": "ตารางระบุว่าสูตร alginate แบบ oral ให้ผล no difference between vaccinated and unvaccinated fish ขณะที่ RPS 75% เป็นของวัคซีน Aeromonas veronii แบบ chitosan-coated immersion และ 85% เป็นหนึ่งในค่าของ F. columnare สูตร chitosan-coated ที่ให้แบบแช่ ไม่ใช่สูตร alginate",
-    "verified": "Aquaculture_Industry_Tech p.86"
   },
   {
     "id": 105211,
