@@ -26,7 +26,7 @@ const CATEGORIES = [
   { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน, จับเวลายาวขึ้นอัตโนมัติ' },
 ];
 
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, startExam, goHome, onBack, availableCount, mode }) {
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, mode }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
     : null;
@@ -200,6 +200,27 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             </span>
           </div>
         </div>
+
+        {/* Instant feedback — practice modes only. Exam mode must stay
+            blind to per-question verdicts, so the toggle hides there. */}
+        {!isExamMode && (
+          <div className="vmx-config-row">
+            <span className="vmx-label" id="vmx-instant-label">เฉลยทันที</span>
+            <div className="vmx-toggle-row">
+              <button
+                type="button"
+                className={`vmx-toggle ${instantFeedback ? 'on' : ''}`}
+                role="switch"
+                aria-checked={Boolean(instantFeedback)}
+                aria-labelledby="vmx-instant-label vmx-instant-state"
+                onClick={() => setInstantFeedback(!instantFeedback)}
+              />
+              <span id="vmx-instant-state" style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+                {instantFeedback ? 'เปิด — ตอบปุ๊บรู้ผล + อ่านคำอธิบายทันที' : 'ปิด — เฉลยหลังส่งเท่านั้น'}
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Time per question — only when timer on */}
         {useTimer && (

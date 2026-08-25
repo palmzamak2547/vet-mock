@@ -2651,3 +2651,31 @@ label:has(> input[type="checkbox"]), label:has(> input[type="radio"]) {
   max-height: calc(100vh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
 }
+
+/* ─── Instant feedback (โหมดฝึก — เฉลยทันทีหลังตอบ, v5.29) ───────
+   Appended last so the verdict colors win the cascade over
+   .vmx-option.selected / .vmx-tf-btn.selected-* defined above. */
+.vmx-option.is-correct { border-color: var(--clr-sage); background: rgba(74, 107, 74, 0.12); color: var(--clr-ink); }
+.vmx-option.is-correct .vmx-option-letter { background: var(--clr-sage); border-color: var(--clr-sage); color: #fff; }
+.vmx-option.is-wrong { border-color: var(--clr-rose); background: rgba(194, 109, 109, 0.10); color: var(--clr-ink); }
+.vmx-option.is-wrong .vmx-option-letter { background: var(--clr-rose); border-color: var(--clr-rose); color: #fff; }
+.vmx-option:disabled { cursor: default; pointer-events: none; }
+.vmx-tf-btn.reveal-correct { border-color: var(--clr-sage); box-shadow: inset 0 0 0 2px var(--clr-sage); }
+.vmx-tf-btn.reveal-wrong { border-color: var(--clr-rose); box-shadow: inset 0 0 0 2px var(--clr-rose); opacity: 0.85; }
+.vmx-tf-btn:disabled { cursor: default; pointer-events: none; }
+.vmx-instant-feedback { margin-top: 10px; padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.55; animation: vmx-instant-in 0.18s ease-out; }
+.vmx-instant-feedback.is-ok { background: rgba(74, 107, 74, 0.10); border-left: 3px solid var(--clr-sage); }
+.vmx-instant-feedback.is-no { background: rgba(194, 109, 109, 0.08); border-left: 3px solid var(--clr-rose); }
+.vmx-instant-feedback .v { font-weight: 700; margin-bottom: 4px; font-size: 13.5px; }
+.vmx-instant-feedback.is-ok .v { color: var(--clr-ink); }
+.vmx-instant-feedback.is-no .v { color: var(--clr-ink); }
+.vmx-instant-feedback .a { margin-top: 6px; padding: 8px 10px; border-radius: 8px; background: rgba(74, 107, 74, 0.14); color: var(--clr-ink); }
+.vmx-instant-feedback .k { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 8px; }
+.vmx-instant-feedback .w { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--clr-border); color: var(--clr-ink-soft); }
+@keyframes vmx-instant-in {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Running ✓ n/m chip in the exam header during practice */
+.vmx-live-score { font-family: var(--vmx-mono); font-size: 13px; font-weight: 700; color: var(--clr-sage); white-space: nowrap; }
+.vmx-live-score.low { color: var(--clr-gold-text); }

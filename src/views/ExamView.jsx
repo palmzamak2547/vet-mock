@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
-import { fmtTime } from '../hooks/utils.js';
+import { fmtTime, isCorrect, isWritingType } from '../hooks/utils.js';
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
-export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome }) {
+export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome, mode, instantFeedback }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const [confirmExit, setConfirmExit] = useState(false);
+  // Practice-only instant reveal: ✓/✗ + explanation right after answering.
+  // Exam mode always defers feedback to the results/review flow.
+  const revealAnswer = mode !== 'exam' && Boolean(instantFeedback);
   const submitDialogRef = useModalFocus({
     active: confirmSubmit,
     onClose: () => setConfirmSubmit(false),
@@ -80,6 +83,19 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
             {fmtTime(timeLeft)}
           </div>
         )}
+        {revealAnswer && (() => {
+          // Running tally over auto-gradable answered questions — the
+          // motivational "✓ n/m" chip. Writing types self-grade in Review,
+          // so they stay out of the count entirely.
+          const graded = questions.filter((q) => !isWritingType(q) && answers[q.id] !== undefined);
+          if (!graded.length) return null;
+          const ok = graded.filter((q) => isCorrect(q, answers[q.id])).length;
+          return (
+            <div className={`vmx-live-score ${ok / graded.length >= 0.6 ? '' : 'low'}`} title="คะแนนสดของชุดนี้ (เฉพาะข้อตรวจอัตโนมัติ)">
+              ✓ {ok}/{graded.length}
+            </div>
+          );
+        })()}
       </div>
       <div className="vmx-progress-bar">
         <div
@@ -116,6 +132,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
         onNoteChange={(val) => setNote(currentQ.id, val)}
         showNote={showNote}
         setShowNote={setShowNote}
+        revealAnswer={revealAnswer}
       />
 
       <div className="vmx-btn-row">

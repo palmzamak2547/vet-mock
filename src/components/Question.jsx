@@ -131,7 +131,7 @@ function writeFlags(map) {
   try { window.localStorage.setItem(FLAGS_KEY, JSON.stringify(map)); } catch {}
 }
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer }) {
   const compoundId = (currentQ?.subject || '?') + ':' + currentQ?.id;
   const figureSrc = safeImageUrl(currentQ?.image || currentQ?.imagePath);
   const figureAlt = currentQ?.imageAlt
@@ -230,6 +230,22 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const target = currentQ.target_words || 150;
   const softMax = currentQ.soft_max_words || 180;
   const hardMax = currentQ.hard_max_words || 200;
+
+  // ─── Instant feedback (โหมดฝึก) ────────────────────────────────
+  // When `revealAnswer` is on (practice modes only — ExamView never
+  // sets it in exam mode), choice questions reveal their verdict the
+  // moment they are answered: correct option glows green, a wrong pick
+  // glows red and locks, and q.explain shows inline. Fill/match/short/
+  // essay keep submit-time grading — revealing while half-typing a
+  // blank would just flash misleading ✗ marks.
+  const mcqRevealed = Boolean(revealAnswer)
+    && currentQ.type === 'mcq'
+    && typeof currentAnswer === 'number';
+  const tfRevealed = Boolean(revealAnswer)
+    && currentQ.type === 'tf'
+    && (currentAnswer === true || currentAnswer === false);
+  const tfOk = tfRevealed && currentAnswer === currentQ.answer;
+  const mcqOk = mcqRevealed && currentAnswer === currentQ.answer;
   const essayBarColor =
     essayWords === 0 ? 'var(--clr-border)' :
     essayWords > hardMax ? 'var(--clr-rose)' :
@@ -291,19 +307,61 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
 
       {currentQ.type === 'mcq' && (
-        <MCQOptions
-          currentQ={currentQ}
-          currentAnswer={currentAnswer}
-          answerCurrent={answerCurrent}
-        />
+        <>
+          <MCQOptions
+            currentQ={currentQ}
+            currentAnswer={currentAnswer}
+            answerCurrent={answerCurrent}
+            revealed={mcqRevealed}
+          />
+          {mcqRevealed && (
+            <InstantFeedback
+              ok={mcqOk}
+              correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
+              explain={currentQ.explain}
+            />
+          )}
+        </>
       )}
 
-      {currentQ.type === 'tf' && (
-        <div className="vmx-tf-row" role="group" aria-label="เลือกคำตอบ True หรือ False">
-          <button type="button" aria-pressed={currentAnswer === true} className={`vmx-tf-btn ${currentAnswer === true ? 'selected-true' : ''}`} onClick={() => answerCurrent(true)}>✓ True</button>
-          <button type="button" aria-pressed={currentAnswer === false} className={`vmx-tf-btn ${currentAnswer === false ? 'selected-false' : ''}`} onClick={() => answerCurrent(false)}>✗ False</button>
-        </div>
-      )}
+      {currentQ.type === 'tf' && (() => {
+        // Reveal classes mirror MCQOptions: the correct button glows
+        // green, a wrong PICK glows red (an unpicked incorrect option
+        // stays neutral); both lock once revealed.
+        const tfClass = (isAnswer) => {
+          if (!tfRevealed) return '';
+          if (currentQ.answer === isAnswer) return 'reveal-correct';
+          return currentAnswer === isAnswer ? 'reveal-wrong' : '';
+        };
+        const correctIsTrue = currentQ.answer === true;
+        return (
+          <>
+            <div className="vmx-tf-row" role="group" aria-label="เลือกคำตอบ True หรือ False">
+              <button
+                type="button"
+                aria-pressed={currentAnswer === true}
+                disabled={tfRevealed}
+                className={`vmx-tf-btn ${currentAnswer === true ? 'selected-true' : ''} ${tfClass(true)}`}
+                onClick={() => answerCurrent(true)}
+              >✓ True</button>
+              <button
+                type="button"
+                aria-pressed={currentAnswer === false}
+                disabled={tfRevealed}
+                className={`vmx-tf-btn ${currentAnswer === false ? 'selected-false' : ''} ${tfClass(false)}`}
+                onClick={() => answerCurrent(false)}
+              >✗ False</button>
+            </div>
+            {tfRevealed && (
+              <InstantFeedback
+                ok={tfOk}
+                correctNode={<>{correctIsTrue ? '✓ True' : '✗ False'}</>}
+                explain={currentQ.explain}
+              />
+            )}
+          </>
+        );
+      })()}
 
       {currentQ.type === 'fill' && (
         <div className="vmx-fill-row">
@@ -613,7 +671,7 @@ function FlagChip({ flag }) {
 }
 
 // ─── MCQ option renderer with stable per-Q shuffle ─────────────────
-function MCQOptions({ currentQ, currentAnswer, answerCurrent }) {
+function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
   // Recompute permutation only when the question id changes — `useMemo`
   // keeps option order stable across re-renders triggered by note
   // typing, bookmark toggles, timer ticks, etc.
@@ -629,24 +687,59 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent }) {
   const selectedDisplayIdx = typeof currentAnswer === 'number'
     ? originalToDisplay[currentAnswer]
     : undefined;
+  // Instant feedback: once revealed with an answer on record, options
+  // lock (first instinct counts) and the correct one + a wrong pick
+  // get verdict colors. The letter chip swaps to ✓ / ✗ accordingly.
+  const locked = Boolean(revealed) && typeof currentAnswer === 'number';
   return (
     <div className="vmx-options" role="group" aria-label="ตัวเลือกคำตอบ">
       {displayOptions.map((opt, displayIdx) => {
         const originalIdx = displayToOriginal[displayIdx];
         const isSelected = selectedDisplayIdx === displayIdx;
+        const isAnswer = originalIdx === currentQ.answer;
+        let stateClass = '';
+        let chip = String.fromCharCode(65 + displayIdx);
+        if (locked) {
+          if (isAnswer) {
+            stateClass = 'is-correct';
+            chip = '✓';
+          } else if (isSelected) {
+            stateClass = 'is-wrong';
+            chip = '✗';
+          }
+        }
         return (
           <button
             type="button"
             key={originalIdx}
-            className={`vmx-option ${isSelected ? 'selected' : ''}`}
+            className={`vmx-option ${isSelected ? 'selected' : ''} ${stateClass}`}
             aria-pressed={isSelected}
+            disabled={locked}
             onClick={() => answerCurrent(originalIdx)}
           >
-            <div className="vmx-option-letter">{String.fromCharCode(65 + displayIdx)}</div>
+            <div className="vmx-option-letter">{chip}</div>
             <div className="vmx-option-text"><RichText text={opt} /></div>
           </button>
         );
       })}
+    </div>
+  );
+}
+
+// ─── InstantFeedback — inline verdict panel for practice mode ──────
+// Shows ✓/✗ headline, the correct answer when missed, and q.explain.
+// Mirrors ReviewView's answer rows so the visual language carries over
+// when the student later opens full review.
+function InstantFeedback({ ok, correctNode, explain }) {
+  return (
+    <div className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
+      <div className="v">{ok ? '✓ ถูกต้อง!' : '✗ ยังไม่ใช่ — คำตอบที่ถูกถูกทำเครื่องหมาย ✓ ไว้'}</div>
+      {!ok && correctNode != null && (
+        <div className="a"><span className="k">เฉลย</span>{correctNode}</div>
+      )}
+      {explain && (
+        <div className="w"><span className="k">Why</span><RichText text={explain} /></div>
+      )}
     </div>
   );
 }
