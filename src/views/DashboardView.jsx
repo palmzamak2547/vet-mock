@@ -645,7 +645,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       <div className="vmx-dash-card">
         <h3>สำรองและย้ายข้อมูล</h3>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
-          เก็บข้อที่บันทึกไว้ ประวัติ โน้ต และการ์ดทบทวนเป็นไฟล์ JSON · ก่อนนำเข้าระบบจะตรวจไฟล์และสรุปรายการที่จะเขียนทับ
+          เก็บข้อที่บันทึกไว้ ประวัติ โน้ต และการ์ดทบทวนเป็นไฟล์ JSON — ก่อนนำเข้าระบบจะตรวจไฟล์และสรุปรายการที่จะเขียนทับ
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportData}>ส่งออกไฟล์สำรอง</button>

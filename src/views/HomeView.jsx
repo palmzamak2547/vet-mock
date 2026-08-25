@@ -999,7 +999,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       <div className="vmx-section-label vmx-subject-section-head">
         <span>เลือกวิชา</span>
         <span className="vmx-subject-scope">
-          {yearMeta?.label || 'ปี 4'}{phaseMeta ? ` · ${phaseMeta.short}` : ''}
+          {yearMeta?.label || 'ปี 4'}{phaseMeta ? ` ${phaseMeta.short}` : ''}
         {phaseMeta && setSelectedPhase && (
           <button
             type="button"

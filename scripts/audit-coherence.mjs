@@ -185,33 +185,29 @@ const add = (sev, area, msg, detail) => findings.push({ sev, area, msg, detail }
 
 // ── 9. can a student reach the notes behind every governed wiki article? ──
 //
-// NotesView holds TWO maps, NOTES_BY_SUBJECT and NOTES_85_BY_SUBJECT, and its
-// subject switcher is the union of both. An earlier version of this check read
-// only the first and reported equine-repro as missing when it is simply in the
-// other one — a false HIGH, which is the failure mode this whole audit exists
-// to avoid. Compare the union.
+// Read from the module, not from JSX. This check used to regex-parse
+// NotesView's NOTES*_BY_SUBJECT literals; when those were consolidated into
+// src/data/note-corpus.js the parse quietly found nothing and the check
+// downgraded itself to "could not read" — a gate going blind and reporting
+// something bland, which is the exact failure this audit exists to catch. It
+// now imports the one exported list, and a failure to do that is HIGH.
 {
-  const src = (() => { try { return fs.readFileSync('src/views/NotesView.jsx', 'utf8'); } catch { return ''; } })();
-  const reachable = new Set();
-  for (const m of src.matchAll(/const (NOTES\w*_BY_SUBJECT)\s*=\s*\{/g)) {
-    const open = src.indexOf('{', m.index);
-    let d = 0, i = open;
-    for (; i < src.length; i++) { if (src[i] === '{') d++; else if (src[i] === '}') { d--; if (!d) break; } }
-    // keys come both quoted ('vet-physio-3':) and bare (com5:)
-    for (const k of src.slice(open, i).matchAll(/(?:['"]([a-z][a-z0-9-]*)['"]|^\s*([a-z][a-z0-9-]*))\s*:/gim)) {
-      reachable.add(k[1] || k[2]);
-    }
+  let noteSubjects = null;
+  try {
+    const { NOTE_SUBJECT_IDS } = await import('../src/data/note-corpus.js');
+    if (Array.isArray(NOTE_SUBJECT_IDS) && NOTE_SUBJECT_IDS.length) noteSubjects = new Set(NOTE_SUBJECT_IDS);
+  } catch (e) {
+    add('HIGH', 'notes-maps', 'cannot import NOTE_SUBJECT_IDS from src/data/note-corpus.js', e.message);
   }
 
-  const { listTopics } = await import('../src/lib/vetwiki/index.js');
-  const governed = new Set((await listTopics()).map((t) => t.subject));
-
-  if (!reachable.size) {
-    add('LOW', 'notes-maps', 'could not read NotesView subject maps', 'check the NOTES*_BY_SUBJECT declarations');
-  } else {
-    const unreachable = [...governed].filter((s) => !reachable.has(s));
-    if (unreachable.length) add('HIGH', 'notes-maps', `${unreachable.length} governed wiki subject(s) have no notes entry in NotesView`, unreachable.join(' · '));
-    else add('INFO', 'notes-maps', 'every governed wiki subject is reachable from NotesView', `${governed.size} governed · ${reachable.size} with notes`);
+  if (noteSubjects) {
+    const { listTopics } = await import('../src/lib/vetwiki/index.js');
+    const governed = new Set((await listTopics()).map((t) => t.subject));
+    const unreachable = [...governed].filter((s) => !noteSubjects.has(s));
+    if (unreachable.length) add('HIGH', 'notes-maps', `${unreachable.length} governed wiki subject(s) have no notes source`, unreachable.join(' · '));
+    else add('INFO', 'notes-maps', 'every governed wiki subject has a notes source', `${governed.size} governed · ${noteSubjects.size} with notes`);
+  } else if (!findings.some((f) => f.area === 'notes-maps')) {
+    add('HIGH', 'notes-maps', 'NOTE_SUBJECT_IDS is empty or not an array', 'the reachability check did not run');
   }
 }
 

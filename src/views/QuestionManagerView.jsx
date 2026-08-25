@@ -338,7 +338,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     <>
       <div className="vmx-hero">
         <h1>จัดการ <em>ข้อสอบส่วนตัว</em></h1>
-        <p>เพิ่ม แก้ไข หรือนำเข้าข้อสอบของตัวเอง · มี {customQuestions.length} ข้อ</p>
+        <p>เพิ่ม แก้ไข หรือนำเข้าข้อสอบของตัวเอง — มี {customQuestions.length} ข้อ</p>
       </div>
 
       <div className="vmx-btn-row" style={{ marginBottom: 12, justifyContent: 'flex-start', flexWrap: 'wrap' }}>
