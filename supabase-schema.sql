@@ -94,19 +94,33 @@ CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION handle_new_user();
 
--- Protect profile calculated counters from direct client-side UPDATE
+-- Protect profile calculated counters from direct client-side UPDATE.
+-- Trusted paths pass through: service_role JWT (Edge Functions) and
+-- non-HTTP sessions (SQL editor / pg_cron / db scripts) which carry no
+-- request.jwt.claims at all — PostgREST always sets that GUC, even for
+-- anon-key requests, so empty claims can only be a non-HTTP session.
+-- Read the GUC directly instead of auth.jwt() because auth.jwt() casts
+-- the empty string to jsonb and would throw.
 CREATE OR REPLACE FUNCTION protect_profile_metrics()
 RETURNS TRIGGER
 LANGUAGE plpgsql
 SECURITY DEFINER
 SET search_path = public, pg_temp
 AS $$
+DECLARE
+  claims TEXT;
 BEGIN
-  IF (COALESCE(auth.jwt()->>'role', 'anon') != 'service_role') THEN
-    NEW.total_attempts := OLD.total_attempts;
-    NEW.total_correct  := OLD.total_correct;
-    NEW.streak         := OLD.streak;
+  claims := COALESCE(current_setting('request.jwt.claims', true), '');
+  IF claims = '' THEN
+    RETURN NEW;  -- non-HTTP session (postgres / cron) — trusted
   END IF;
+  IF claims::jsonb->>'role' = 'service_role' THEN
+    RETURN NEW;  -- Edge Function / admin key — trusted
+  END IF;
+  -- Normal client (anon / authenticated): freeze calculated counters
+  NEW.total_attempts := OLD.total_attempts;
+  NEW.total_correct  := OLD.total_correct;
+  NEW.streak         := OLD.streak;
   RETURN NEW;
 END;
 $$;
@@ -287,6 +301,83 @@ CREATE POLICY "results_select_own_or_group" ON exam_results FOR SELECT USING (
 -- Users can insert their own results
 DROP POLICY IF EXISTS "results_insert_own" ON exam_results;
 CREATE POLICY "results_insert_own" ON exam_results FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+-- Global leaderboard — SECURITY DEFINER RPC instead of a broad SELECT
+-- policy. Returns only leaderboard-safe fields and honors the
+-- show_on_leaderboard opt-out stored in auth.users user_metadata.
+-- (Group leaderboards read exam_results directly under RLS.)
+CREATE OR REPLACE FUNCTION get_global_leaderboard(
+  p_year INT DEFAULT NULL,
+  p_phase TEXT DEFAULT NULL,
+  p_limit INT DEFAULT 200
+)
+RETURNS TABLE (
+  id UUID,
+  user_id UUID,
+  profiles JSONB,
+  mode TEXT,
+  subject TEXT,
+  total INT,
+  correct INT,
+  pct INT,
+  year INT,
+  phase TEXT,
+  created_at TIMESTAMPTZ
+)
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+  SELECT
+    r.id,
+    r.user_id,
+    jsonb_build_object('username', pr.username, 'avatar_emoji', pr.avatar_emoji) AS profiles,
+    r.mode,
+    r.subject,
+    r.total,
+    r.correct,
+    r.pct,
+    r.year,
+    r.phase,
+    r.created_at
+  FROM exam_results r
+  JOIN profiles pr ON pr.id = r.user_id
+  JOIN auth.users u ON u.id = r.user_id
+  WHERE (p_year IS NULL OR r.year = p_year)
+    AND (p_phase IS NULL OR r.phase = p_phase)
+    AND COALESCE(u.raw_user_meta_data->>'show_on_leaderboard', 'true')::boolean
+  ORDER BY r.pct DESC, r.correct DESC, r.created_at DESC
+  LIMIT GREATEST(1, LEAST(1000, COALESCE(p_limit, 200)));
+$$;
+
+REVOKE EXECUTE ON FUNCTION get_global_leaderboard(INT, TEXT, INT) FROM anon, public;
+GRANT EXECUTE ON FUNCTION get_global_leaderboard(INT, TEXT, INT) TO authenticated;
+
+-- ========= RACE RESULTS =========
+-- Multiplayer race scores (OfflineGame / RaceView). Table previously
+-- lived only in the production DB — committed here so fresh builds
+-- match. Client writes race_code/user_id/subject/question_count/
+-- correct_count/duration_ms and reads them back joined with profiles.
+CREATE TABLE IF NOT EXISTS race_results (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  race_code TEXT NOT NULL,
+  user_id UUID REFERENCES profiles(id) ON DELETE CASCADE,
+  subject TEXT,
+  question_count INT,
+  correct_count INT,
+  duration_ms INT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE race_results ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "rr_select_auth" ON race_results;
+CREATE POLICY "rr_select_auth" ON race_results FOR SELECT TO authenticated USING (true);
+
+DROP POLICY IF EXISTS "rr_insert_own" ON race_results;
+CREATE POLICY "rr_insert_own" ON race_results FOR INSERT TO authenticated WITH CHECK (auth.uid() = user_id);
+
+CREATE INDEX IF NOT EXISTS idx_race_results_code ON race_results(race_code);
 
 -- ========= USER_DATA POLICIES =========
 -- Users only see their own data

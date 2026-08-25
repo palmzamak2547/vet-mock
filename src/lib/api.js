@@ -190,6 +190,18 @@ export async function saveExamResult(result) {
  *                     Null/undefined = lifetime (cross-year).
  *  @param opts.phase — optional phase tag (1-mid / 2-final / etc.)
  *  @param opts.limit — row cap, default 200.
+ *
+ *  Two data paths, split by RLS scope:
+ *   • Group leaderboard → direct exam_results query. The SELECT policy
+ *     only exposes rows of groups the caller belongs to, so RLS does
+ *     the scoping.
+ *   • Global leaderboard → get_global_leaderboard() SECURITY DEFINER
+ *     RPC. Row-level SELECT no longer exposes other users' solo
+ *     attempts (that read clause leaked full histories by user_id),
+ *     so cross-user ranking goes through the RPC, which returns only
+ *     leaderboard-safe fields and honors show_on_leaderboard. If the
+ *     RPC isn't on the live DB yet (migration pending), fall back to
+ *     the RLS-scoped query rather than erroring the whole board.
  */
 export async function getLeaderboard(opts = {}) {
   // Back-compat: older callers passed (groupId, limit) positionally.
@@ -198,16 +210,33 @@ export async function getLeaderboard(opts = {}) {
   }
   const { groupId = null, year = null, phase = null, limit = 200 } = opts;
   const supabase = await getSupabase();
-  let query = supabase.from('exam_results')
-    .select('id, user_id, mode, subject, total, correct, pct, year, phase, created_at, profiles(username, avatar_emoji)')
-    .order('pct', { ascending: false }).order('correct', { ascending: false });
-  if (limit && limit > 0) query = query.limit(limit);
-  if (groupId) query = query.eq('group_id', groupId);
-  if (Number.isFinite(year)) query = query.eq('year', year);
-  if (phase) query = query.eq('phase', phase);
-  const { data, error } = await query;
-  if (error) throw error;
-  return data;
+
+  const rlsQuery = () => {
+    let query = supabase.from('exam_results')
+      .select('id, user_id, mode, subject, total, correct, pct, year, phase, created_at, profiles(username, avatar_emoji)')
+      .order('pct', { ascending: false }).order('correct', { ascending: false });
+    if (limit && limit > 0) query = query.limit(limit);
+    if (groupId) query = query.eq('group_id', groupId);
+    if (Number.isFinite(year)) query = query.eq('year', year);
+    if (phase) query = query.eq('phase', phase);
+    return query;
+  };
+
+  if (groupId) {
+    const { data, error } = await rlsQuery();
+    if (error) throw error;
+    return data;
+  }
+  const { data, error } = await supabase.rpc('get_global_leaderboard', {
+    p_year: Number.isFinite(year) ? year : null,
+    p_phase: phase || null,
+    p_limit: limit && limit > 0 ? limit : 200,
+  });
+  if (!error) return data || [];
+  console.warn('[leaderboard] RPC unavailable, falling back to RLS-scoped query:', error.message);
+  const { data: fbData, error: fbError } = await rlsQuery();
+  if (fbError) throw fbError;
+  return fbData;
 }
 
 /** Per-user stats. Optional year filter scopes to a single curriculum

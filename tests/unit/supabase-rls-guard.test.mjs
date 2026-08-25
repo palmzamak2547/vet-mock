@@ -31,6 +31,68 @@ test('PR1 migration defines protect_profile_metrics trigger with security define
   assert.match(sql, /CREATE TRIGGER tr_protect_profile_metrics/i, 'Must register trigger on profiles table');
 });
 
+test('protect_profile_metrics trusts non-HTTP sessions (empty JWT claims), not just service_role', () => {
+  const sql = readFileSync(MIGRATION_PATH, 'utf8');
+
+  // Regression: the original check COALESCE(auth.jwt()->>'role','anon')
+  // treated cron / SQL-editor / db-script sessions (which carry no JWT
+  // claims at all) as untrusted and silently reverted their writes.
+  assert.match(
+    sql,
+    /current_setting\('request\.jwt\.claims',\s*true\)/i,
+    'Must read request.jwt.claims directly so empty claims = trusted internal session',
+  );
+  assert.match(
+    sql,
+    /claims\s*=\s*''\s*THEN\s*\n?\s*RETURN NEW/i,
+    'Empty claims (non-HTTP session) must pass through untouched',
+  );
+});
+
+test('global leaderboard goes through SECURITY DEFINER RPC, not a broad SELECT policy', () => {
+  const sql = readFileSync(MIGRATION_PATH, 'utf8');
+
+  // Regression: "OR group_id IS NULL" made every solo attempt of every
+  // user readable by all authenticated users. Strip -- comments first
+  // so explanatory prose can't trip (or mask) the check.
+  const sqlStatements = sql.replace(/^\s*--.*$/gm, '');
+  assert.doesNotMatch(
+    sqlStatements,
+    /group_id\s+IS\s+NULL/i,
+    'exam_results SELECT policy must not expose all NULL-group rows',
+  );
+  assert.match(
+    sql,
+    /CREATE OR REPLACE FUNCTION\s+(public\.)?get_global_leaderboard/i,
+    'Must provide the global leaderboard RPC',
+  );
+  assert.match(
+    sql,
+    /get_global_leaderboard[\s\S]*SECURITY DEFINER/i,
+    'Leaderboard RPC must be SECURITY DEFINER',
+  );
+  assert.match(
+    sql,
+    /show_on_leaderboard/i,
+    'Leaderboard RPC must honor the show_on_leaderboard opt-out',
+  );
+  assert.match(
+    sql,
+    /GRANT EXECUTE ON FUNCTION\s+(public\.)?get_global_leaderboard[\s\S]*TO\s+authenticated/i,
+    'Leaderboard RPC must be executable by authenticated users only',
+  );
+});
+
+test('migration is reproducible on a fresh DB (race_results DDL precedes its ALTER)', () => {
+  const sql = readFileSync(MIGRATION_PATH, 'utf8');
+
+  const createAt = sql.search(/CREATE TABLE IF NOT EXISTS\s+(public\.)?race_results/i);
+  const alterAt = sql.search(/ALTER TABLE\s+(public\.)?race_results\s+ENABLE ROW LEVEL SECURITY/i);
+  assert.ok(createAt !== -1, 'race_results CREATE TABLE must exist in the repo');
+  assert.ok(alterAt !== -1, 'race_results ALTER must exist');
+  assert.ok(createAt < alterAt, 'race_results table must be created before it is altered');
+});
+
 test('exam_results and race_results are immutable (no UPDATE/DELETE policies granted)', () => {
   const sql = readFileSync(MIGRATION_PATH, 'utf8');
 
