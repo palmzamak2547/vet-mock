@@ -94,6 +94,28 @@ CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION handle_new_user();
 
+-- Protect profile calculated counters from direct client-side UPDATE
+CREATE OR REPLACE FUNCTION protect_profile_metrics()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+BEGIN
+  IF (COALESCE(auth.jwt()->>'role', 'anon') != 'service_role') THEN
+    NEW.total_attempts := OLD.total_attempts;
+    NEW.total_correct  := OLD.total_correct;
+    NEW.streak         := OLD.streak;
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS tr_protect_profile_metrics ON profiles;
+CREATE TRIGGER tr_protect_profile_metrics
+  BEFORE UPDATE ON profiles
+  FOR EACH ROW EXECUTE FUNCTION protect_profile_metrics();
+
 -- ========= GROUPS =========
 -- Study groups
 CREATE TABLE IF NOT EXISTS groups (
