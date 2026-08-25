@@ -63,15 +63,21 @@ function stringAfter(src, from, key) {
 /** Replace the `q` of each id. Values are re-encoded with JSON.stringify, so
  *  quotes and backslashes in Thai prose cannot break the file. */
 export function updateStems(file, stems) {
-  if (!stems.size) return 0;
+  return updateField(file, 'q', stems);
+}
+
+/** Replace one string field per id. Values are re-encoded with JSON.stringify,
+ *  so quotes, backslashes and newlines in Thai prose cannot break the file. */
+export function updateField(file, field, values) {
+  if (!values.size) return 0;
   let src = fs.readFileSync(file, 'utf8');
   let n = 0;
-  for (const [id, q] of stems) {
+  for (const [id, value] of values) {
     const at = idAt(src, id);
     if (at === -1) continue;
-    const span = stringAfter(src, at, 'q');
+    const span = stringAfter(src, at, field);
     if (!span) continue;
-    src = src.slice(0, span[0]) + JSON.stringify(q) + src.slice(span[1]);
+    src = src.slice(0, span[0]) + JSON.stringify(value) + src.slice(span[1]);
     n++;
   }
   if (n) fs.writeFileSync(file, src);

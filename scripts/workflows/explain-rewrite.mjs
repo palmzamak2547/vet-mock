@@ -113,6 +113,7 @@ const refutePrompt = (b) => `You are checking veterinary explanations someone el
 
 Original questions : C:\\Users\\palmz\\Desktop\\vet-mock\\.explain-fix\\${b.key}.in.json
 Rewritten explains : C:\\Users\\palmz\\Desktop\\vet-mock\\.explain-fix\\${b.key}.out.json
+Your verdicts      : C:\\Users\\palmz\\Desktop\\vet-mock\\.explain-fix\\${b.key}.verdict.json   (WRITE this file — it is the deliverable)
 
 For each id, read the question, its options, the recorded answer, and the NEW
 explanation. Mark it "refuted" if ANY of these hold:
@@ -137,7 +138,10 @@ false and carries our citation while doing it.
 When refuted, quote the specific claim in "problem". Do not rewrite anything —
 you are the check, not the author.
 
-Return a verdict for EVERY id in the output file.`;
+Return a verdict for EVERY id in the output file, and WRITE them to the
+verdict path above before you return. Nothing is applied without a verdict
+file: a rewrite nobody cleared is a rewrite nobody read, and it keeps its
+old explanation rather than being trusted.`;
 
 phase('Rewrite');
 const results = await pipeline(

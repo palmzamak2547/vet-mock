@@ -408,7 +408,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Ventral ต่อ periaqueductal gray ที่ระดับ rostral colliculi"
     ],
     "answer": 3,
-    "explain": "สไลด์เขียนว่า oculomotor nucleus อยู่ ventral ต่อ periaqueductal gray ที่ระดับ rostral colliculi ข้อที่ล่อใจคือระดับ caudal colliculi เพราะเป็นระดับของ trochlear nuclei ส่วนคำว่า dorsal ต่อ periaqueductal gray ก็ผิดทิศ เนื่องจาก PAG ล้อมรอบ aqueduct และ nucleus นี้อยู่ใต้ต่อ PAG",
+    "explain": "Oculomotor nucleus อยู่ใน tegmentum ที่ระดับ rostral colliculi วางตัว ventral ต่อ periaqueductal gray\nPAG ล้อมรอบ aqueduct ไว้ทั้งวง nucleus นี้จึงอยู่ใต้ PAG ลงมา ไม่ใช่เหนือขึ้นไป\n\n❌ ทำไมข้ออื่นผิด\n— \"Dorsal ต่อ periaqueductal gray ที่ระดับ caudal colliculi\" = ผิดทั้งทิศและระดับ\n— \"Ventral ต่อ red nucleus ที่ระดับ caudal colliculi\" = ระดับ caudal colliculi เป็นที่ตั้งของ trochlear nuclei ไม่ใช่ CN III\n— \"Dorsal ต่อ substantia nigra ที่ระดับ rostral colliculi\" = ระดับถูกแล้ว แต่หมุดที่ใช้บอกตำแหน่งของ nucleus นี้คือ periaqueductal gray ที่อยู่เหนือมัน ไม่ใช่ substantia nigra\n\n💡 rostral colliculi คู่กับ CN III ส่วน caudal colliculi คู่กับ CN IV",
     "verified": "Midbrain น.12"
   },
   {
@@ -427,7 +427,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Medial rectus muscle และ ventral rectus muscle ของลูกตา"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า Edinger Wesphal nucleus ควบคุม constrictor ciliary muscle และ constrictor pupillae of iris ข้อที่ล่อใจคือ medial rectus และ ventral rectus เพราะเป็นกล้ามเนื้อของ CN III เหมือนกัน แต่เป็นงานของ oculomotor nucleus ซึ่งเป็น motor nucleus ไม่ใช่ parasympathetic nucleus",
+    "explain": "Edinger Wesphal nucleus เป็นขา parasympathetic ของ CN III งานของมันคือกล้ามเนื้อเรียบที่อยู่ภายในลูกตา ได้แก่ constrictor ciliary muscle และ constrictor pupillae of iris\n\n❌ ทำไมข้ออื่นผิด\n— \"Dorsal oblique muscle และ ventral oblique muscle\" = กล้ามเนื้อลายที่กลอกลูกตาทั้งลูก ไม่ใช่กล้ามเนื้อเรียบในลูกตา\n— \"Dilator pupillae of iris และ levator palpebrae superioris muscle\" = dilator pupillae ทำงานตรงข้ามคือขยายรูม่านตา ส่วน levator palpebrae superioris ยกหนังตา อยู่นอกลูกตา\n— \"Medial rectus muscle และ ventral rectus muscle\" = เป็นกล้ามเนื้อของ CN III จริง แต่เป็นงานของ oculomotor nucleus ซึ่งเป็น motor nucleus ไม่ใช่ parasympathetic nucleus\n\n💡 คำว่า constrictor ทั้งสองตัวคือกุญแจ EW สั่งของที่หดตัวอยู่ในลูกตา ส่วนการกลอกตาเป็นของ oculomotor nucleus",
     "verified": "Midbrain น.12"
   },
   {
@@ -446,7 +446,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "ระดับ rostral colliculus และ decussate ที่ caudal medullary velum"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า trochlear nuclei พบที่ระดับ caudal colliculus และ fibers decussate ใน rostral medullary velum ก่อนโผล่ออกที่ caudal part ของ caudal colliculus ข้อที่ล่อใจคือ interpeduncular fossa เพราะเป็นจุดที่เส้นประสาทของตาโผล่ออกจริง แต่แอ่งนั้นเป็นทางออกของ CN III ทาง ventral ไม่ใช่จุด decussate ของ CN IV",
+    "explain": "Trochlear nuclei อยู่ที่ระดับ caudal colliculus fiber ของมัน decussate ที่ rostral medullary velum แล้วโผล่ออกทาง dorsal ตรง caudal part ของ caudal colliculus\nเมื่อไขว้ไปแล้ว nucleus ข้างหนึ่งจึงไปเลี้ยงตาของอีกข้างหนึ่ง\n\n❌ ทำไมข้ออื่นผิด\n— \"ระดับ rostral colliculus และ decussate ที่ commissure of rostral colliculi\" = ระดับ rostral colliculus เป็นที่ตั้งของ oculomotor nucleus และจุดไขว้ของ CN IV คือ rostral medullary velum\n— \"ระดับ caudal colliculus และ decussate ที่ interpeduncular fossa\" = ระดับถูก แต่ interpeduncular fossa เป็นทางออกของ CN III ทาง ventral ไม่ใช่จุด decussate\n— \"ระดับ rostral colliculus และ decussate ที่ caudal medullary velum\" = ผิดทั้งระดับและ velum ตัวที่ใช้คือ rostral medullary velum",
     "verified": "Midbrain น.16"
   },
   {
@@ -465,7 +465,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Contralateral motor cortex และ contralateral olivary nucleus"
     ],
     "answer": 1,
-    "explain": "สไลด์เขียนว่า red nucleus รับ axon จาก ipsilateral motor cortex และ contralateral cerebellar nuclei ข้อที่ล่อใจคือการสลับข้างเป็น contralateral motor cortex กับ ipsilateral cerebellar nuclei ส่วน olivary nucleus นั้นเป็นปลายทางที่ red nucleus ส่ง rubro-olivary fiber ไปหา ไม่ใช่แหล่งที่ส่งเข้ามา",
+    "explain": "Red nucleus รับ axon เข้ามาสองทาง คือ motor cortex ของข้างเดียวกัน (ipsilateral) และ cerebellar nuclei ของข้างตรงข้าม (contralateral)\nolivary nucleus เป็นขาออก เพราะ red nucleus เป็นฝ่ายส่ง rubro-olivary fiber ไปหามัน\n\n❌ ทำไมข้ออื่นผิด\n— \"Contralateral motor cortex และ ipsilateral cerebellar nuclei\" = สลับข้างกันพอดีทั้งสองแหล่ง\n— \"Ipsilateral motor cortex และ ipsilateral vestibular nuclei\" = ครึ่งแรกถูก แต่คู่ของมันคือ cerebellar nuclei ฝั่งตรงข้าม vestibular nuclei เป็นกลุ่มของระบบทรงตัวใน medulla oblongata คนละแหล่งกัน\n— \"Contralateral motor cortex และ contralateral olivary nucleus\" = ข้างของ cortex ผิด และ olivary nucleus เป็นปลายทางที่ red nucleus ส่งไป ไม่ใช่แหล่งที่ส่งเข้ามา",
     "verified": "Midbrain น.22"
   },
   {
@@ -484,7 +484,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Hyperreflexia, hypertonia และ menace response ลบ"
     ],
     "answer": 1,
-    "explain": "สไลด์เขียนอาการของ oculomotor nerve ไว้สามอย่างคือ ptosis, pupillary dilate และ ventrolateral strabismus ข้อที่ล่อใจคือ extortion ของตาข้าง ipsilateral เพราะอยู่ในสไลด์หน้าเดียวกัน แต่เป็นอาการของ trochlear nerve ส่วน hyperreflexia และ hypertonia สไลด์จัดไว้ในกลุ่มของ crus cerebri",
+    "explain": "รอยโรคที่ oculomotor nerve ตัดทั้งขา motor และขา parasympathetic ของ CN III พร้อมกัน อาการจึงมาเป็นชุด คือ ptosis หนังตาตก pupillary dilate เพราะขาดตัวสั่งหดรูม่านตา และ ventrolateral strabismus\n\n❌ ทำไมข้ออื่นผิด\n— \"Extortion ของลูกตาข้าง ipsilateral โดยรูม่านตายังปกติ\" = เป็นภาพของรอยโรคที่ trochlear nerve\n— \"Miosis, enophthalmos และ third eyelid protrusion\" = เป็นชุดของ Horner syndrome ที่ sympathetic ลดลง ตรงข้ามกับ CN III ที่รูม่านตาขยาย\n— \"Hyperreflexia, hypertonia และ menace response ลบ\" = hyperreflexia กับ hypertonia อยู่ในกลุ่มอาการของรอยโรคที่ crus cerebri ไม่ใช่ที่ตัวเส้นประสาท CN III\n\n💡 CN III เสีย = ตาตก รูม่านตาโต ตาเหล่ลงข้าง ส่วน Horner = รูม่านตาเล็ก ตาจม เยื่อที่สามยื่น จำเป็นคู่ตรงข้ามกัน",
     "verified": "Midbrain น.27"
   },
   {
@@ -503,7 +503,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "the 1st cervical nerve"
     ],
     "answer": 0,
-    "explain": "สไลด์แยกขอบเขต cranial ของสองด้านไว้คนละค่า ด้าน dorsal ใช้ caudal cerebellar peduncle ส่วน caudal border of the pons เป็นขอบเขต cranial ของด้าน ventral จึงเป็นตัวล่อที่ตอบผิดง่ายถ้าจำรวมเป็นค่าเดียว ขณะที่ the 1st cervical nerve เป็นขอบเขต caudal ไม่ใช่ cranial",
+    "explain": "ขอบเขต cranial ของ medulla oblongata ใช้คนละหมุดกันสองด้าน\ndorsal จบที่ caudal cerebellar peduncle\nventral จบที่ caudal border of the pons\nคำถามถามด้าน dorsal คำตอบจึงเป็น caudal cerebellar peduncle\n\n❌ ทำไมข้ออื่นผิด\n— \"rostral cerebellar peduncle\" = ก้านสมองน้อยคนละก้าน อยู่ rostral ขึ้นไป ไม่ใช่หมุดที่ปิดขอบ cranial ด้าน dorsal ของ medulla\n— \"caudal border of the pons\" = เป็นขอบ cranial จริง แต่ของด้าน ventral คนละด้านกับที่ถาม ตอบผิดง่ายถ้าจำรวมสองด้านเป็นค่าเดียว\n— \"the 1st cervical nerve\" = เป็นขอบ caudal ของ medulla ไม่ใช่ขอบ cranial",
     "verified": "Myelencephalon น.1"
   },
   {
@@ -522,7 +522,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "L1-S3"
     ],
     "answer": 1,
-    "explain": "สไลด์จับคู่ระดับ segment ไว้ว่า fasciculus gracilis รับจาก T6-S3 ส่วน C1-T5 เป็นระดับของ fasciculus cuneatus ซึ่งเป็นคู่ที่สลับกันบ่อยที่สุดเพราะสองเส้นวางอยู่ติดกันบนผิว dorsal ช่วง C6-T12 กับ L1-S3 ไม่ตรงกับที่สไลด์ให้ไว้ทั้งสองเส้น",
+    "explain": "fasciculus gracilis รับสัญญาณจาก segment T6-S3 ซึ่งเป็นลำตัวท่อนท้ายลงไป\nเส้นที่วางติดกันบนผิว dorsal เดียวกันคือ fasciculus cuneatus ที่รับจาก C1-T5\n\n❌ ทำไมข้ออื่นผิด\n— \"C1-T5\" = เป็นช่วงของ fasciculus cuneatus สองเส้นนี้อยู่ติดกันจึงสลับกันบ่อยที่สุด\n— \"C6-T12\" = ไม่ตรงกับช่วงของทั้ง gracilis (T6-S3) และ cuneatus (C1-T5)\n— \"L1-S3\" = ขยับต้นทางไปเริ่มที่ช่วงเอว ทั้งที่ช่วงจริงของ gracilis คือ T6-S3",
     "verified": "Myelencephalon น.1"
   },
   {
@@ -541,7 +541,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "sleep-wake center และ thermoregulatory center"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุกลุ่มที่หนึ่งคือ reticular formation nuclei ว่าเป็นที่ตั้งของ cardiovascular center และ respiratory center ส่วน emetic center กับ CTZ สไลด์ยกไว้ที่ area postrema บน wall ของ fourth ventricle ซึ่งเป็นคนละตำแหน่งกัน และการควบคุมการกลืนสไลด์ยกไว้ที่ nucleus ambiguous",
+    "explain": "reticular formation nuclei ของ medulla oblongata เป็นที่ตั้งของ cardiovascular center และ respiratory center\nสองศูนย์นี้ฝังอยู่ในเนื้อ reticular formation เอง ไม่ได้อยู่ที่ผนัง ventricle และไม่ได้อยู่ใน nucleus ที่มีชื่อเฉพาะของตัวเอง\n\n❌ ทำไมข้ออื่นผิด\n— \"emetic center และ chemoreceptor trigger zone\" = อยู่ที่ area postrema บน wall ของ fourth ventricle คนละตำแหน่งกับ reticular formation\n— \"swallowing center และ salivatory center\" = การกลืนอยู่ที่ nucleus ambiguous ไม่ใช่ reticular formation\n— \"sleep-wake center และ thermoregulatory center\" = ไม่ใช่คู่ศูนย์ที่ผูกไว้กับ reticular formation nuclei ของ medulla oblongata คู่ที่ใช่คือ cardiovascular กับ respiratory\n\n💡 reticular formation = หัวใจกับการหายใจ, area postrema = อาเจียน, nucleus ambiguous = กลืน",
     "verified": "Myelencephalon น.2"
   },
   {
@@ -560,7 +560,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "จากบริเวณ trunk ไปยัง cerebellum"
     ],
     "answer": 1,
-    "explain": "สไลด์แยก nucleus cuneatus เป็นสองส่วน lateral cuneate nucleus ส่ง proprioception ของ neck ไป cerebellum ส่วน medial cuneate nucleus ส่ง touch และ proprioception ของ cranial half of the body กับ thoracic limb ไป thalamus ตัวเลือก thoracic limb ไป thalamus จึงเป็นของ medial ไม่ใช่ lateral ซึ่งเป็นจุดที่สไลด์เตือนให้แยกปลายทางให้ออก",
+    "explain": "nucleus cuneatus แยกเป็นสองส่วนที่ปลายทางไม่เหมือนกัน\nlateral cuneate nucleus รับ proprioception จากบริเวณ neck ส่งเข้า cerebellum\nmedial cuneate nucleus รับ touch และ proprioception จาก cranial half of the body กับ thoracic limb ส่งขึ้น thalamus\n\n❌ ทำไมข้ออื่นผิด\n— \"จาก thoracic limb ไปยัง thalamus\" = เป็นงานของ medial cuneate nucleus ไม่ใช่ lateral\n— \"จาก pelvic limb ไปยัง thalamus\" = cuneate ทั้งสองส่วนรับจาก cranial half of the body สัญญาณจาก pelvic limb ไม่ได้ผ่านกลุ่มนี้\n— \"จากบริเวณ trunk ไปยัง cerebellum\" = ปลายทางถูกแต่ต้นทางผิด ตัวที่วิ่งเข้า cerebellum คือ proprioception จาก neck\n\n💡 lateral ไป cerebellum ส่วน medial ไป thalamus แยกที่ปลายทางก่อน แล้วค่อยจำต้นทาง",
     "verified": "Myelencephalon น.5"
   },
   {
@@ -579,7 +579,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "caudal colliculus ใน mesencephalon"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุว่า trapezoid nucleus relay auditory fibers ไปที่ midbrain ตรง caudal colliculus ตัวเลือก rostral colliculus เป็นเนินคู่ที่อยู่ระดับเดียวกันจึงล่อได้ง่าย แต่สไลด์เจาะจงเฉพาะ caudal colliculus ส่วน olivocerebellar tract เป็นเส้นทางของ olivary nucleus ที่ส่งไป cerebellum ไม่ใช่ของ trapezoid nucleus",
+    "explain": "trapezoid nucleus เป็นสถานี relay ของ auditory fibers ที่ส่งสัญญาณเสียงขึ้นไปยัง midbrain ตรง caudal colliculus\n\n❌ ทำไมข้ออื่นผิด\n— \"rostral colliculus ใน mesencephalon\" = เนินคู่ที่อยู่ระดับใกล้กันจึงล่อได้ง่าย แต่ rostral colliculus เป็นทางของ visual reflex ไม่ใช่ทางของเสียง\n— \"cerebellum ผ่าน olivocerebellar tract\" = เป็นเส้นทางของ olivary nucleus ที่ส่งเข้า cerebellum ไม่ใช่ของ trapezoid nucleus\n— \"vestibular nuclei ใน medulla oblongata\" = อยู่ใน medulla เหมือนกันจริง แต่เป็นกลุ่มของระบบทรงตัว ขณะที่สายเสียงวิ่งขึ้นไป midbrain\n\n💡 caudal colliculus = ทางของเสียง ส่วน rostral colliculus = ทางของภาพ",
     "verified": "Myelencephalon น.5"
   },
   {
@@ -598,7 +598,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "CN VII IX X เลี้ยงต่อมน้ำลายและกล้ามเนื้อคอหอย"
     ],
     "answer": 0,
-    "explain": "สไลด์พาดหัวว่า NUCLEUS AMBIGUOUS (C.N. IX, X, XI) เป็น motor nuclei ที่ innervate skeletal muscles ของ pharynx larynx และ esophagus และควบคุมการกลืน ตัวเลือก CN X XI XII ล่อด้วย CN XII ที่มี nucleus อยู่ใน medulla เหมือนกัน แต่สไลด์ให้ CN XII มี motor nucleus ของตัวเอง ไม่ได้ถูกนับรวมใน ambiguous",
+    "explain": "nucleus ambiguous เป็น motor nucleus ที่ใช้ร่วมกันของ CN IX X และ XI เลี้ยงกล้ามเนื้อลายของ pharynx larynx และ esophagus จึงเป็นศูนย์ที่ทำให้กลืนได้\n\n❌ ทำไมข้ออื่นผิด\n— \"CN V VII IX เลี้ยงกล้ามเนื้อบดเคี้ยวและใบหน้า\" = คนละกลุ่มงาน ambiguous คุมเฉพาะกล้ามเนื้อลายของ pharynx larynx และ esophagus\n— \"CN X XI XII เลี้ยงกล้ามเนื้อลิ้นและกล่องเสียง\" = ล่อด้วย CN XII ที่มี nucleus อยู่ใน medulla เหมือนกัน แต่ CN XII มี motor nucleus ของตัวเอง ไม่ได้ถูกนับรวมใน ambiguous\n— \"CN VII IX X เลี้ยงต่อมน้ำลายและกล้ามเนื้อคอหอย\" = ต่อมน้ำลายเป็นต่อม ไม่ใช่กล้ามเนื้อลาย และคู่ที่ถูกคือ CN IX X XI",
     "verified": "Myelencephalon น.6"
   },
   {
@@ -636,7 +636,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Obtunded"
     ],
     "answer": 3,
-    "explain": "รายการ mental status ในสไลด์คือ alert, disoriented, obtunded, stuporous และ comatose ดังนั้น obtunded คือคำที่อยู่ในรายการ คำที่ล่อใจคือ lethargic เพราะใช้กันบ่อยในเวชระเบียนและความหมายใกล้เคียงกับ obtunded แต่สไลด์ไม่ได้พิมพ์คำนี้ไว้ในรายการ เช่นเดียวกับ somnolent และ delirious ที่เป็นศัพท์จริงแต่ไม่อยู่ในสไลด์นี้",
+    "explain": "ระดับ mental status ไล่จากรู้ตัวดีลงไปหาไม่รู้สึกตัว คือ alert → disoriented → obtunded → stuporous → comatose\nคำที่อยู่ในชุดนี้จึงเป็น obtunded\n\n❌ ทำไมข้ออื่นผิด\n— \"Lethargic\" = ใช้บ่อยในเวชระเบียนและความหมายใกล้เคียงกับ obtunded มาก แต่ไม่ใช่ขั้นที่สเกลนี้ใช้\n— \"Somnolent\" = ศัพท์จริงที่ใช้บรรยายความง่วงซึม แต่ไม่ได้อยู่ในชุดคำนี้\n— \"Delirious\" = ศัพท์จริงที่ใช้กับภาวะสับสน แต่ไม่ได้อยู่ในชุดคำนี้ ขั้นที่สเกลใช้บอกความสับสนคือ disoriented",
     "verified": "Neuro exam anatomy2024 น.4-6"
   },
   {
@@ -655,7 +655,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "ทั้งสองอย่างเกิดจาก dysfunction ของ sensory system เหมือนกัน"
     ],
     "answer": 0,
-    "explain": "สไลด์เขียนไว้ชัดว่า ataxia เกิดจาก dysfunction of sensory system ส่วน paresis หรือ paralysis เกิดจาก dysfunction of motor system นี่คือเส้นแบ่งหลักของหน้า gait ข้อที่ล่อใจคือการสลับสองระบบกัน เพราะทั้ง ataxia และ paresis ทำให้เดินผิดปกติเหมือนกัน แต่การเดินเซโดยยังมีแรงจัดอยู่ฝั่ง sensory ส่วนการอ่อนแรงจัดอยู่ฝั่ง motor",
+    "explain": "ataxia เกิดจาก dysfunction ของ sensory system ส่วน paresis หรือ paralysis เกิดจาก dysfunction ของ motor system\nเส้นแบ่งอยู่ที่แรง เดินเซแต่ยังมีแรงจัดเป็นฝั่ง sensory ส่วนอ่อนแรงลงจริงจัดเป็นฝั่ง motor\n\n❌ ทำไมข้ออื่นผิด\n— \"ataxia จาก motor system, paresis หรือ paralysis จาก sensory system\" = สลับสองระบบกันพอดี ล่อได้เพราะทั้งคู่ทำให้เดินผิดปกติเหมือนกัน\n— \"ทั้งสองอย่างเกิดจาก dysfunction ของ motor system เหมือนกัน\" = รวบเป็นระบบเดียว ทั้งที่ ataxia อยู่ฝั่ง sensory\n— \"ทั้งสองอย่างเกิดจาก dysfunction ของ sensory system เหมือนกัน\" = รวบเป็นระบบเดียวเช่นกัน ทั้งที่ paresis กับ paralysis อยู่ฝั่ง motor",
     "verified": "Neuro exam anatomy2024 น.10-12"
   },
   {
@@ -693,7 +693,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Edinger-Westphal nucleus ใน midbrain"
     ],
     "answer": 0,
-    "explain": "ผังบนสไลด์เขียนปลายทางของสาย lateral geniculate nucleus ไว้ว่า optic radiation แล้วเข้า primary visual cortex ที่ occipital lobe ข้อ rostral colliculus เป็นตัวล่อที่ดี เพราะมันอยู่บนผังเดียวกันจริงแต่เป็นปลายทางของอีกสายหนึ่งคือสาย 20% ที่ทำหน้าที่ visual reflex ไม่ได้ต่อจาก lateral geniculate nucleus",
+    "explain": "สายที่ผ่าน lateral geniculate nucleus คือขาของการเห็นภาพ ต่อออกไปเป็น optic radiation แล้ววิ่งเข้า primary visual cortex ที่ occipital lobe\n\n❌ ทำไมข้ออื่นผิด\n— \"primary visual cortex ที่ temporal lobe\" = ปลายทางถูกแต่ผิด lobe primary visual cortex อยู่ที่ occipital lobe\n— \"rostral colliculus ที่ทำหน้าที่ visual reflex\" = เป็นปลายทางของอีกสายหนึ่ง คือสาย 20% ที่ทำ visual reflex ไม่ได้ต่อจาก lateral geniculate nucleus\n— \"Edinger-Westphal nucleus ใน midbrain\" = เป็นขาที่ไปสั่งรูม่านตาให้หด ไม่ใช่ขาที่พาสัญญาณขึ้นไปให้เห็นภาพ",
     "verified": "visual vestibular systems น.20"
   },
   {
@@ -712,7 +712,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "m. orbicularis oculi"
     ],
     "answer": 1,
-    "explain": "สไลด์เขียนจับคู่ไว้ว่า mydriasis หรือการขยายรูม่านตา ใช้ m. dilator pupillae ส่วน miosis หรือการหดรูม่านตา ใช้ m. sphincter pupillae ข้อ m. sphincter pupillae จึงเป็นตัวล่อที่ตรงข้ามกันพอดี เลือกผิดเมื่อจำสลับระหว่างการหดกับการขยาย ส่วน m. retractor bulbi และ m. orbicularis oculi เป็นกล้ามเนื้อจริงแต่ทำหน้าที่ดึงลูกตาและปิดหนังตา ไม่ได้ควบคุมขนาดรูม่านตา",
+    "explain": "mydriasis คือรูม่านตาขยาย กล้ามเนื้อที่ทำให้เกิดคือ m. dilator pupillae\nส่วน miosis หรือรูม่านตาหด เป็นงานของ m. sphincter pupillae\n\n❌ ทำไมข้ออื่นผิด\n— \"m. sphincter pupillae\" = ตัวที่ทำ miosis คือหดรูม่านตา ตรงข้ามกับที่ถามพอดี เลือกผิดเมื่อจำสลับระหว่างหดกับขยาย\n— \"m. retractor bulbi\" = กล้ามเนื้อจริงที่ดึงลูกตาถอยเข้าเบ้า ไม่ได้ควบคุมขนาดรูม่านตา\n— \"m. orbicularis oculi\" = กล้ามเนื้อจริงที่ปิดหนังตา ไม่ได้ควบคุมขนาดรูม่านตา\n\n💡 ชื่อบอกงานตรงตัว dilator = ขยาย (mydriasis) sphincter = รัดให้เล็ก (miosis)",
     "verified": "visual vestibular systems น.32, น.34, น.36"
   },
   {
@@ -731,7 +731,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "parasympathetic supply ที่ตาเพิ่มขึ้น ทำให้เกิด miosis, exophthalmos และ nictitating membrane ยื่น"
     ],
     "answer": 1,
-    "explain": "สไลด์นิยามไว้ตรง ๆ ว่า Horner syndrome เท่ากับ decreased sympathetic supply to the eye และลิสต์อาการไว้สี่อย่างคือ miosis, ptosis, enophthalmos และ protrusion of the nictitating membrane ข้อที่บอกว่า sympathetic เพิ่มขึ้นเป็นตัวล่อที่ดี เพราะถ้า sympathetic ทำงานมากขึ้นจะได้ mydriasis และตาโปน ซึ่งเป็นภาพตรงข้ามกับที่สไลด์ลิสต์ไว้",
+    "explain": "Horner syndrome คือ sympathetic supply ที่ไปเลี้ยงตาลดลง เมื่อขา sympathetic หายไป ภาพที่ได้จึงเป็นชุดที่เล็กลงและถอยเข้าทั้งหมด คือ miosis, ptosis, enophthalmos และ protrusion ของ nictitating membrane\n\n❌ ทำไมข้ออื่นผิด\n— \"parasympathetic supply ที่ตาลดลง ทำให้เกิด mydriasis, ptosis, exophthalmos และ nictitating membrane ยื่น\" = ผิดที่ระบบ การเสีย parasympathetic ของตาเป็นภาพของรอยโรค CN III ที่รูม่านตาขยาย ไม่ใช่ Horner\n— \"sympathetic supply ที่ตาเพิ่มขึ้น ทำให้เกิด mydriasis, ptosis, enophthalmos และ nictitating membrane ยื่น\" = ทิศทางกลับกัน ถ้า sympathetic ทำงานมากขึ้นจะได้ mydriasis และตาโปน ไม่ใช่ตาจมกับหนังตาตก\n— \"parasympathetic supply ที่ตาเพิ่มขึ้น ทำให้เกิด miosis, exophthalmos และ nictitating membrane ยื่น\" = ผิดทั้งระบบและอาการ Horner นิยามด้วย sympathetic ที่ลดลง และตาที่ได้คือ enophthalmos ไม่ใช่ exophthalmos",
     "verified": "visual vestibular systems น.41"
   },
   {
@@ -750,7 +750,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Lateral rectus กับ medial rectus"
     ],
     "answer": 2,
-    "explain": "ตารางบนสไลด์ระบุว่า lateral rectus เลี้ยงด้วย CN VI และ dorsal oblique เลี้ยงด้วย CN IV ส่วน medial rectus, dorsal rectus, ventral rectus และ ventral oblique เลี้ยงด้วย CN III ทั้งหมด ข้อ lateral rectus กับ medial rectus เป็นตัวล่อที่ดีเพราะเป็นคู่ที่ทำงานตรงข้ามกันจึงดูเข้าคู่กัน แต่ medial rectus เป็น CN III ตามตาราง จึงตกเงื่อนไขของคำถาม",
+    "explain": "กล้ามเนื้อนอกลูกตาเลี้ยงด้วย CN III แทบทั้งหมด ยกเว้นสองมัด คือ lateral rectus ที่เลี้ยงด้วย CN VI และ dorsal oblique ที่เลี้ยงด้วย CN IV\nmedial rectus, dorsal rectus, ventral rectus และ ventral oblique เป็น CN III ทั้งชุด คู่ที่ไม่ใช่ CN III ทั้งคู่จึงเป็นสองมัดข้อยกเว้นนี้มาเจอกันพอดี\n\n❌ ทำไมข้ออื่นผิด\n— \"Medial rectus กับ ventral oblique\" = เป็น CN III ทั้งคู่\n— \"Dorsal rectus กับ ventral rectus\" = เป็น CN III ทั้งคู่\n— \"Lateral rectus กับ medial rectus\" = ดูเข้าคู่กันเพราะทำงานตรงข้ามกัน แต่ผ่านเงื่อนไขแค่ครึ่งเดียว lateral rectus เป็น CN VI ส่วน medial rectus เป็น CN III",
     "verified": "visual vestibular systems น.53-54"
   },
   {
