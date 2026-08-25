@@ -330,7 +330,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "Fe 1.5 mm, non-Fe 2.0 mm, SUS 3.0 mm"
     ],
     "answer": 1,
-    "explain": "โรงงานจริงในเอกสารกำหนด CCP3P ที่ Fe 2.5 mm, non-Fe 3.5 mm และ SUS 4.5 mm โดยเครื่องต้องร้องเตือนเมื่อจับได้ ส่วนชุดตัวเลข Fe 2.0, non-Fe 2.5, SS 3.5 เป็นค่าจากสไลด์ตัวอย่างทั่วไป ซึ่งชี้ว่า requirement ของแต่ละที่ต่างกันได้",
+    "explain": "CL ของ metal detector ที่ CCP3P ในโรงงานนี้กำหนดชิ้นทดสอบไว้ที่ Fe 2.5 mm, non-Fe 3.5 mm และ SUS 4.5 mm เครื่องต้องตรวจจับและร้องเตือนได้ทุกชิ้นในสามขนาดนี้ ถ้าจับไม่ได้ถือว่าเครื่องไม่ผ่านเกณฑ์\n\n❌ ทำไมข้ออื่นผิด\n— \"Fe 2.0 mm, non-Fe 2.5 mm, SUS 3.5 mm\" = เป็นชุดค่าตัวอย่างทั่วไป ไม่ใช่ค่าที่โรงงานนี้กำหนด\n— \"Fe 3.0 mm, non-Fe 4.0 mm, SUS 5.0 mm\" = ใหญ่กว่า CL จริงทุกค่า เท่ากับตั้งเกณฑ์หลวมกว่าที่โรงงานนี้ใช้\n— \"Fe 1.5 mm, non-Fe 2.0 mm, SUS 3.0 mm\" = เล็กกว่า CL จริงทุกค่า เข้มกว่าที่กำหนดไว้\n\n💡 CL ไม่ใช่ค่ามาตรฐานเดียวกันทั้งอุตสาหกรรม แต่ละที่กำหนดเองได้ ของโรงงานนี้จำเป็นชุด 2.5 / 3.5 / 4.5",
     "verified": "FIQC final น.2",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"
@@ -482,7 +482,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "Yersinia enterocolitica และ Campylobacter coli"
     ],
     "answer": 0,
-    "explain": "เกาหลีใต้ตรวจ Vibrio parahemolyticus และ E. coli O157:H7 เพิ่มจากกลุ่มเชื้อมาตรฐาน ส่วน Shigella เป็นจุดเน้นของ UAE, Salmonella Typhimurium กับ Enteritidis เป็นจุดเน้นของยุโรป และ Yersinia ไม่อยู่ในตารางของเอกสารนี้",
+    "explain": "เกาหลีใต้กำหนดให้ตรวจ Vibrio parahemolyticus และ E. coli O157:H7 ในสินค้าสัตว์ปีกเพิ่มจากกลุ่มเชื้อมาตรฐานที่ทุกตลาดตรวจอยู่แล้ว จึงเป็นข้อกำหนดที่ต่างจากตลาดอื่น\n\n❌ ทำไมข้ออื่นผิด\n— \"Shigella spp. และ Staphylococcus aureus\" = Shigella เป็นจุดเน้นของ UAE ไม่ใช่ของเกาหลีใต้\n— \"Salmonella Typhimurium และ Salmonella Enteritidis\" = เป็นจุดเน้นของตลาดยุโรป\n— \"Yersinia enterocolitica และ Campylobacter coli\" = Yersinia enterocolitica ไม่ได้ถูกกำหนดให้ตรวจเพิ่มโดยตลาดใดในกลุ่มที่เทียบกัน\n\n💡 จุดที่ทำให้จำได้คือเกาหลีใต้ขอ Vibrio parahemolyticus ซึ่งเป็นเชื้อฝั่งอาหารทะเล มาตรวจในสินค้าสัตว์ปีก",
     "verified": "FIQC final น.9",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"

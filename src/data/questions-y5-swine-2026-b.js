@@ -1014,7 +1014,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "เยื่อบุจมูกหลุดลอกเป็นแผ่นพร้อมเลือดออกทั้งสองข้าง"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า fibrosis replacement ของ bone plate ที่ ventral conchae เป็น pathognomonic lesion ของ PAR หนองในโพรงจมูกและเลือดออกพบได้แต่ไม่จำเพาะ ส่วนกระดูกที่หนาตัวขึ้นเป็นภาพตรงข้ามกับการฝ่อที่โรคนี้ทำให้เกิด",
+    "explain": "PAR ทำลายกระดูกจมูกแบบเรื้อรังจนแผ่นกระดูกที่ ventral conchae ถูกพังผืดเข้าแทนที่ นี่คือรอยโรคเดียวในชุดนี้ที่เห็นแล้วยืนยันโรคได้ทันที เพราะเป็นภาพของกระดูกที่ถูกทำลายแล้วซ่อมด้วยพังผืด ไม่ใช่การอักเสบที่เชื้ออะไรก็ทำให้เกิดได้\n\n❌ ทำไมข้ออื่นผิด\n— \"Turbinate บวมน้ำและมีหนองเต็มโพรงจมูกทั้งสองข้าง\" = หนองในโพรงจมูกพบได้จริง แต่จมูกอักเสบมีหนองเกิดจากเชื้อได้หลายตัว จึงไม่จำเพาะพอจะใช้ยืนยันโรค\n— \"กระดูก nasal septum หนาตัวขึ้นและมีหินปูนเกาะ\" = ทิศตรงข้ามกับตัวโรค เพราะโรคนี้ทำให้กระดูกฝ่อและถูกทำลาย ไม่ใช่หนาตัวขึ้น\n— \"เยื่อบุจมูกหลุดลอกเป็นแผ่นพร้อมเลือดออกทั้งสองข้าง\" = เลือดออกจมูกพบได้ในโรคนี้ แต่ไม่จำเพาะ และรอยโรคที่ใช้ยืนยันอยู่ที่ตัวกระดูก ไม่ใช่ที่เยื่อบุ",
     "verified": "Swine Medicine midterm, typed paper reproduced (Vet 85)",
     "sourceType": "past-paper",
     "examOrigin": "Swine Medicine midterm, typed paper reproduced (Vet 85)"
@@ -1033,7 +1033,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "ระดับปลายจมูกก่อนถึงฟันตัดบน"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุการตัดขวาง snout ที่ระดับ premolar 1 ถึง 2 แล้วให้คะแนน snout score 0 ถึง 5 และคำนวณ morphometric index จากสัดส่วนช่องว่างต่อพื้นที่หน้าตัด การตัดที่ระดับอื่นจะไม่เห็น ventral turbinate ในระนาบที่ใช้ให้คะแนน",
+    "explain": "ระนาบที่ใช้ประเมินคือตัดขวางจมูกที่ระดับฟันกรามน้อยซี่ที่ 1 ถึง 2 เพราะเป็นระนาบที่เห็น ventral turbinate ชัดพอจะให้ snout score 0 ถึง 5 และคำนวณ morphometric index จากสัดส่วนช่องว่างต่อพื้นที่ตัดขวางทั้งหมด ตัดคนละระนาบก็จะไม่ได้ภาพ ventral turbinate แบบที่ใช้ให้คะแนน\n\n❌ ทำไมข้ออื่นผิด\n— \"ระดับฟันเขี้ยวบนทั้งสองข้าง\" = อยู่ค่อนไปทางปลายจมูก ยังไม่ถึงระนาบมาตรฐานที่ใช้ให้คะแนน\n— \"ระดับฟันกรามซี่สุดท้ายด้านหลัง\" = ลึกไปทางด้านหลังเกินระนาบมาตรฐาน\n— \"ระดับปลายจมูกก่อนถึงฟันตัดบน\" = เป็นระนาบที่อยู่ปลายสุด ห่างจากระนาบมาตรฐานมากที่สุดในบรรดาตัวเลือก",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1052,7 +1052,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "Actinobacillus suis ร่วมกับ Streptococcus suis"
     ],
     "answer": 1,
-    "explain": "สไลด์แยกไว้ชัดว่า NPAR เกิดจาก toxigenic Bordetella bronchiseptica ส่วน PAR เกิดจาก toxigenic Pasteurella multocida เดี่ยวหรือร่วมกับ B. bronchiseptica เชื้อกลุ่มอื่นที่ยกมาก่อ polyserositis และ septicemia ไม่ใช่รอยโรคที่จมูก",
+    "explain": "NPAR เกิดจาก toxigenic Bordetella bronchiseptica ส่วน PAR เกิดจาก toxigenic Pasteurella multocida เดี่ยว ๆ หรือร่วมกับ B. bronchiseptica โจทย์ถามแบบที่ไม่ลุกลามจึงตอบ Bordetella\n\n❌ ทำไมข้ออื่นผิด\n— \"Toxigenic Pasteurella multocida เพียงชนิดเดียว\" = เป็นเชื้อของ PAR คือแบบที่ลุกลาม ไม่ใช่แบบที่โจทย์ถาม\n— \"Glässerella parasuis ร่วมกับ Mycoplasma hyorhinis\" = ทั้งคู่ให้ภาพ polyserositis และ arthritis ไม่ใช่รอยโรคที่จมูก\n— \"Actinobacillus suis ร่วมกับ Streptococcus suis\" = ทั้งคู่ให้ภาพ septicemia ไม่ใช่โรคที่จำกัดอยู่ที่โพรงจมูก\n\n💡 PAR ขึ้นต้นด้วย P เหมือน P. multocida ที่เหลือคือแบบไม่ลุกลามเป็นของ Bordetella",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1071,7 +1071,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "30 ถึง 45 วัน"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุ incubation period 10 ถึง 16 วันในสภาพธรรมชาติ ซึ่งยาวกว่าเชื้อแบคทีเรียเฉียบพลันอย่าง APP มาก และเป็นเหตุผลที่โรคนี้แสดงตัวช้าและกลายเป็นปัญหาเรื้อรังในฝูง",
+    "explain": "ระยะฟักตัวในสภาพธรรมชาติคือ 10 ถึง 16 วัน ยาวกว่าเชื้อแบคทีเรียที่ก่อโรคเฉียบพลันอย่าง APP มาก โรคนี้จึงค่อย ๆ แสดงตัวและกลายเป็นปัญหาเรื้อรังของฝูงแทนที่จะระบาดฉับพลัน\n\n❌ ทำไมข้ออื่นผิด\n— \"1 ถึง 3 วัน\" = สั้นระดับเชื้อที่ก่อโรคเฉียบพลัน ไม่เข้ากับโรคที่ค่อย ๆ คลานไปทั้งฝูง\n— \"5 ถึง 7 วัน\" = ยังไม่ถึงขอบล่างของช่วงจริง\n— \"30 ถึง 45 วัน\" = เกินขอบบนของช่วงจริงไปมาก",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1090,7 +1090,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "จามและมีน้ำมูกข้นร่วมกับใบหน้าผิดรูปชัดเจน"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุ chronic non-productive cough พร้อม high morbidity แต่ low mortality การตายเกิดจากเชื้อแทรกซ้อนและความเครียดที่อายุ 4 ถึง 6 เดือน เลือดออกทางจมูกเป็นภาพของ PAR ส่วนใบหน้าผิดรูปเป็นภาพของ atrophic rhinitis",
+    "explain": "enzootic pneumonia ให้ไอแห้งเรื้อรังแบบ chronic non-productive cough อัตราป่วยสูงแต่อัตราตายต่ำ เพราะตัวเชื้อเองไม่ได้ฆ่าสุกร รายที่ตายคือรายที่มีเชื้อแทรกซ้อนบวกความเครียดที่อายุ 4 ถึง 6 เดือน\n\n❌ ทำไมข้ออื่นผิด\n— \"ไอมีเสมหะเฉียบพลัน อัตราตายสูงในสามวันแรก\" = กลับทิศทั้งสองส่วน โรคนี้ไอแบบไม่มีเสมหะและเป็นเรื้อรัง และอัตราตายต่ำ\n— \"หายใจลำบากเฉียบพลันพร้อมเลือดออกทางจมูก\" = เลือดออกทางจมูกเป็นภาพของ PAR ซึ่งเป็นโรคของโพรงจมูก ไม่ใช่ของปอด\n— \"จามและมีน้ำมูกข้นร่วมกับใบหน้าผิดรูปชัดเจน\" = จามและใบหน้าผิดรูปเป็นภาพของ atrophic rhinitis\n\n💡 ป่วยเยอะแต่ตายน้อย บวกไอแห้งเรื้อรัง คือลายเซ็นของโรคนี้ ตัวที่ฆ่าสุกรคือเชื้อแทรกซ้อน",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1109,7 +1109,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "เชื้อตายทันทีเมื่อสัมผัสอากาศนอกตัวสัตว์"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่าเชื้อ fastidious และมักถูก M. hyorhinis ซึ่งเป็นเชื้อประจำถิ่นในทางเดินหายใจขึ้นกลบ ทำให้เพาะแยกยาก จึงเป็นเหตุผลที่การวินิจฉัยมักอาศัยรอยโรคและวิธีอื่นแทนการเพาะเชื้อ",
+    "explain": "M. hyopneumoniae เป็นเชื้อ fastidious เลี้ยงยากอยู่แล้ว และในตัวอย่างจากทางเดินหายใจมักถูก M. hyorhinis ซึ่งเป็นเชื้อประจำถิ่นขึ้นกลบไปก่อน การเพาะแยกจึงใช้ไม่ได้จริงในทางปฏิบัติ ต้องอาศัยรอยโรคและวิธีอื่นในการวินิจฉัยแทน\n\n❌ ทำไมข้ออื่นผิด\n— \"เชื้อเติบโตเร็วจนกลบเชื้อชนิดอื่นในอาหารเลี้ยง\" = สลับตัวกัน ตัวที่ขึ้นกลบคือ M. hyorhinis ส่วน M. hyopneumoniae คือตัวที่ถูกกลบ\n— \"เชื้อต้องใช้อาหารเลี้ยงที่มีเลือดม้าเท่านั้น\" = ปัญหาที่ยกมาไม่ได้อยู่ที่ส่วนประกอบของอาหารเลี้ยง แต่อยู่ที่ตัวเชื้อเลี้ยงยากและถูกเชื้อประจำถิ่นแซง\n— \"เชื้อตายทันทีเมื่อสัมผัสอากาศนอกตัวสัตว์\" = ถ้าตายทันทีก็จะไม่มีอะไรเหลือให้ถูกขึ้นกลบตั้งแต่แรก เชื้อยังขึ้นได้แต่ขึ้นยาก\n\n💡 ตัวที่ถูกกลบคือ hyopneumoniae ตัวที่กลบคือ hyorhinis จำสองชื่อนี้คู่กันไว้",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1166,7 +1166,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "Serotype 31"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า serotype 2 พบมากที่สุดทั้งในสุกรและในการติดเชื้อในคน ส่วน serotype 4, 5, 9, 14, 16, 21, 24 และ 31 เป็นกลุ่มที่พบรายงานในคนได้เช่นกันแต่ไม่ใช่ตัวที่พบบ่อยที่สุด",
+    "explain": "serotype 2 คือตัวที่พบมากที่สุดทั้งในสุกรและในการติดเชื้อในคน จึงเป็นซีโรไทป์ที่ถูกพูดถึงมากที่สุดในแง่ความเป็นโรคติดต่อระหว่างสัตว์กับคนของเชื้อนี้\n\n❌ ทำไมข้ออื่นผิด\n— \"Serotype 9\" = อยู่ในกลุ่มที่มีรายงานการติดเชื้อในคนได้ ร่วมกับ 4, 5, 14, 16, 21, 24 และ 31 แต่ไม่ใช่ตัวที่พบบ่อยที่สุด\n— \"Serotype 14\" = อยู่ในกลุ่มเดียวกันนั้น คือพบรายงานในคนได้ แต่ไม่ใช่ตัวที่พบมากที่สุด\n— \"Serotype 31\" = อยู่ในกลุ่มเดียวกันนั้นเช่นกัน ไม่ใช่ตัวที่พบมากที่สุดทั้งในสุกรและในคน",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1185,7 +1185,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "เป็น early colonizer ก่อโรคในลูกสุกรหลังหย่านม"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุว่าเชื้อเข้ามาตั้งแต่ระหว่างคลอดหรือหลังคลอดไม่นานจนเป็นส่วนหนึ่งของจุลชีพประจำถิ่น และก่อโรคในลูกสุกรหลังหย่านมจนถึงราว 10 สัปดาห์ ส่วนสุกรโตค่อนข้างทนต่อโรค การแพร่หลักเป็นทาง oronasal และมีการเสนอว่าแพร่ทาง aerosol ได้",
+    "explain": "S. suis เป็น early colonizer ที่เข้ามาตั้งแต่ระหว่างคลอดหรือหลังคลอดไม่นานจนกลายเป็นจุลชีพประจำถิ่น แล้วก่อโรคในลูกสุกรหลังหย่านมไปจนถึงราว 10 สัปดาห์ ส่วนสุกรโตค่อนข้างทนต่อโรค การแพร่หลักเป็นทาง oronasal และมีการเสนอว่าแพร่ทาง aerosol ได้ด้วย\n\n❌ ทำไมข้ออื่นผิด\n— \"ก่อโรคเฉพาะในแม่สุกรอุ้มท้องและทำให้แท้งเป็นหลัก\" = ผิดกลุ่มอายุ ตัวที่ป่วยคือลูกสุกรหลังหย่านม ส่วนสุกรโตค่อนข้างทนต่อโรค\n— \"พบเฉพาะในสุกรขุนระยะสุดท้ายก่อนส่งเข้าโรงฆ่า\" = ช้ากว่าช่วงที่ก่อโรคจริงมาก และเชื้ออยู่กับสุกรมาตั้งแต่แรกคลอด ไม่ได้เพิ่งมาปรากฏตอนขุน\n— \"ติดจากอาหารปนเปื้อนเท่านั้น ไม่ติดทางระบบหายใจ\" = ทางแพร่หลักคือ oronasal และยังมีการเสนอว่าแพร่ทาง aerosol ได้ จึงตัดข้อความว่าไม่ติดทางระบบหายใจออกได้ทันที\n\n💡 early colonizer บอกเวลาที่เชื้อเข้ามา ไม่ใช่เวลาที่โรคแสดงออก",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1204,7 +1204,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "ท้องเสียเป็นเลือดร่วมกับลำไส้ใหญ่อักเสบเป็นแผล"
     ],
     "answer": 2,
-    "explain": "สไลด์สรุปว่าทั้งรอยโรคมหภาคและจุลภาคเข้าได้กับ embolic bacterial septicemia โดยรอยโรคจุลภาคเกิดรอบโคโลนีของเชื้อภายใน vascular emboli และพบจุดเลือดออก petechial กับ ecchymotic ในหลายอวัยวะ ได้ทุกช่วงอายุไม่ใช่เฉพาะสุกรโต",
+    "explain": "รอยโรคทั้งมหภาคและจุลภาคของ A. suis เข้าได้กับ embolic bacterial septicemia คือมีโคโลนีของเชื้ออยู่ใน vascular emboli แล้วรอยโรคเกิดรอบ ๆ โคโลนีนั้น จึงเห็นจุดเลือดออกทั้ง petechial และ ecchymotic กระจายหลายอวัยวะ และพบได้ทุกช่วงอายุ\n\n❌ ทำไมข้ออื่นผิด\n— \"ปอดอักเสบเรื้อรังเฉพาะสุกรขุนอายุมากกว่า 5 เดือน\" = จำกัดอายุผิด เชื้อนี้พบรอยโรคได้ทุกช่วงอายุ และภาพหลักคือโลหิตเป็นพิษ ไม่ใช่ปอดอักเสบเรื้อรัง\n— \"ข้ออักเสบเดี่ยวโดยไม่มีรอยโรคในอวัยวะภายในอื่น\" = ขัดกับกลไก เพราะเชื้อกระจายไปตามกระแสเลือด รอยโรคจึงโผล่หลายอวัยวะพร้อมกัน ไม่ใช่จุดเดียว\n— \"ท้องเสียเป็นเลือดร่วมกับลำไส้ใหญ่อักเสบเป็นแผล\" = เป็นภาพของโรคในทางเดินอาหาร คนละระบบกับโลหิตเป็นพิษที่โจทย์ถาม",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1223,7 +1223,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "พบเฉพาะในดินและน้ำเสียรอบโรงเรือนที่ไม่ได้ล้าง"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่าแยกเชื้อได้บ่อยจากสารคัดหลั่งจมูกของสุกรสุขภาพดี และความเครียดจากสิ่งแวดล้อมหรือการจัดการเป็นตัวกระตุ้นให้เกิดโรค จึงเป็นเชื้อประจำถิ่นที่กำจัดออกจากฝูงได้ยาก ไม่ใช่เชื้อจากสิ่งแวดล้อมภายนอกอย่างเดียว",
+    "explain": "แยกเชื้อได้บ่อยจากสารคัดหลั่งจมูกของสุกรที่สุขภาพดี เชื้อจึงอยู่ในฝูงเป็นปกติอยู่แล้วและกำจัดออกได้ยาก ตัวที่ทำให้ป่วยคือความเครียดจากสิ่งแวดล้อมหรือการจัดการที่เข้ามากระตุ้น\n\n❌ ทำไมข้ออื่นผิด\n— \"พบเฉพาะในสุกรที่แสดงอาการทางระบบประสาทแล้ว\" = แคบเกินไป เพราะแยกเชื้อได้จากสุกรที่ยังปกติดีอยู่แล้ว ไม่ต้องรอให้แสดงอาการ\n— \"พบเฉพาะในน้ำเชื้อของพ่อพันธุ์ที่ติดเชื้อเรื้อรัง\" = ตำแหน่งที่แยกเชื้อได้บ่อยคือสารคัดหลั่งจมูก ไม่ใช่น้ำเชื้อ\n— \"พบเฉพาะในดินและน้ำเสียรอบโรงเรือนที่ไม่ได้ล้าง\" = เป็นเชื้อที่อยู่ในตัวสุกรเอง ไม่ใช่เชื้อจากสิ่งแวดล้อมภายนอกอย่างเดียว",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1242,7 +1242,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "ภาวะช็อกจาก endotoxin ร่วมกับระบบหายใจล้มเหลว"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุ pathogenesis เป็น suppurative reaction จาก LPS กระตุ้น inflammatory cytokines และตายจาก endotoxic shock ร่วมกับ respiratory failure ซึ่งเข้ากับภาพ acute form ที่ผิวหนังท้องเปลี่ยนเป็นสีม่วงก่อนตาย",
+    "explain": "รูปแบบเฉียบพลันตายจากภาวะช็อกจาก endotoxin ร่วมกับระบบหายใจล้มเหลว โดย LPS ของเชื้อกระตุ้น inflammatory cytokines จนเกิด suppurative reaction ที่ปอด ซึ่งเข้ากับภาพก่อนตายที่ผิวหนังท้องเปลี่ยนเป็นสีม่วง\n\n❌ ทำไมข้ออื่นผิด\n— \"ระบบประสาทกลางถูกทำลายจาก neurotoxin ของเชื้อ\" = กลไกของโรคนี้เดินผ่าน LPS และการอักเสบ ไม่ใช่พิษที่จำเพาะต่อระบบประสาท\n— \"ไตวายเฉียบพลันจากการตกตะกอนของ immune complex\" = เป็นกลไกทางภูมิคุ้มกันคนละแบบ ไม่ใช่เส้นทางที่ทำให้ตายในโรคนี้\n— \"เม็ดเลือดแดงแตกรุนแรงจนเกิดภาวะซีดเฉียบพลัน\" = ภาพก่อนตายของโรคนี้คือผิวหนังท้องม่วงจากภาวะช็อก ไม่ใช่ภาพซีดจากเม็ดเลือดแดงแตก",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
@@ -1261,7 +1261,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "Salmonella Choleraesuis และ Clostridium perfringens type C"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุตรงว่า M. hyopneumoniae predisposes ปอดบวมที่เกิดจาก Pasteurella multocida และ Actinobacillus pleuropneumoniae ซึ่งอธิบายบทบาทของมันใน PRDC ส่วน Brachyspira และ Lawsonia เป็นเชื้อในลำไส้ ไม่เกี่ยวกับปอด",
+    "explain": "M. hyopneumoniae ทำลาย cilia ของทางเดินหายใจและกดภูมิคุ้มกันเฉพาะที่ จึงเปิดทางให้ปอดบวมจาก Pasteurella multocida และ Actinobacillus pleuropneumoniae ตามเข้ามา นี่คือบทบาทของมันในกลุ่มโรค PRDC\n\n❌ ทำไมข้ออื่นผิด\n— \"Listeria monocytogenes และ Erysipelothrix rhusiopathiae\" = คนละกลุ่มโรค สุกรมักเป็นพาหะของ Listeria ส่วน Erysipelothrix ให้ภาพ septicemia และข้ออักเสบ ไม่ใช่ปอดบวมที่ตามหลัง mycoplasma\n— \"Brachyspira hyodysenteriae และ Lawsonia intracellularis\" = ทั้งคู่เป็นเชื้อของลำไส้ ไม่เกี่ยวกับปอด\n— \"Salmonella Choleraesuis และ Clostridium perfringens type C\" = ตัวแรกให้ภาพ septicemic salmonellosis ตัวหลังเป็นเชื้อของลำไส้ในลูกสุกร ไม่ใช่คู่ปอดบวมที่โจทย์ถาม",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"

@@ -28,7 +28,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Caudate nucleus, accumbens nucleus และ putamen"
     ],
     "answer": 3,
-    "explain": "สไลด์วาง striatum คร่อม caudate nucleus, accumbens nucleus และ putamen ตัวล่อที่น่าเลือกคือชุดที่มี putamen กับ pallidum อยู่ด้วยกัน เพราะสองตัวนี้อยู่ในกลุ่มเดียวกันจริง แต่ชื่อกลุ่มของคู่นั้นคือ lentiform nucleus ไม่ใช่ striatum ส่วน endopeduncular nucleus สไลด์แยกไว้ต่างหาก ไม่ได้นับเข้ากลุ่มใด",
+    "explain": "striatum เป็นชื่อกลุ่มที่คร่อม caudate nucleus, accumbens nucleus และ putamen เข้าด้วยกัน\n\n❌ ทำไมข้ออื่นผิด\n— \"Caudate nucleus, putamen และ endopeduncular nucleus\" = ได้ caudate กับ putamen มาถูก แต่ endopeduncular nucleus ถูกแยกไว้ต่างหาก ไม่ถูกนับเข้ากลุ่มไหน\n— \"Putamen, pallidum และ endopeduncular nucleus\" = putamen กับ pallidum อยู่กลุ่มเดียวกันจริง แต่ชื่อกลุ่มของคู่นี้คือ lentiform nucleus ไม่ใช่ striatum\n— \"Accumbens nucleus, amygdala และ claustrum\" = accumbens อยู่ใน striatum จริง แต่ amygdala กับ claustrum ไม่ได้ถูกนับรวมเป็น striatum\n\n💡 ถ้าเห็น pallidum มาคู่กับ putamen ชื่อกลุ่มคือ lentiform nucleus จะเป็น striatum ได้ต้องมี caudate กับ accumbens มาด้วย",
     "verified": "Basal nuclei น.3"
   },
   {
@@ -66,7 +66,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "primary motor cortex"
     ],
     "answer": 2,
-    "explain": "ตารางในสไลด์กำกับ medial geniculate nucleus ว่า output คือ primary auditory cortex และ function คือ auditory pathway ส่วน primary visual cortex เป็น output ของ lateral geniculate nucleus ซึ่งอยู่อีกแถวหนึ่งของตารางเดียวกัน จึงเป็นตัวลวงที่คนสับสน medial กับ lateral มักเลือก",
+    "explain": "medial geniculate nucleus เป็นสถานีถ่ายทอดของ auditory pathway จึงส่ง output ไปที่ primary auditory cortex\n\n❌ ทำไมข้ออื่นผิด\n— \"primary visual cortex\" = เป็น output ของ lateral geniculate nucleus ซึ่งเป็นคู่ที่คนสับสน medial กับ lateral บ่อยที่สุด\n— \"primary somatosensory cortex\" = เป็นคอร์เทกซ์รับความรู้สึกทางกาย คนละ modality กับเสียง ไม่ใช่ปลายทางของ medial geniculate nucleus\n— \"primary motor cortex\" = เป็นคอร์เทกซ์สั่งการเคลื่อนไหว ไม่ใช่ปลายทางของสัญญาณรับความรู้สึกที่ผ่าน geniculate nucleus",
     "verified": "Diencephalon น.8"
   },
   {
@@ -85,7 +85,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "GHRH และ dopamine"
     ],
     "answer": 2,
-    "explain": "ตารางเขียน Supraoptic nucleus เท่ากับ release oxytocin, vasopressin ส่วน corticotropin-releasing hormone เป็นตัวที่ทำให้ paraventricular nucleus ต่างจาก SO เพราะ PV ปล่อยทั้ง CRH, oxytocin และ vasopressin จึงเป็นตัวลวงที่ใกล้ที่สุดในคอลัมน์เดียวกัน",
+    "explain": "Supraoptic nucleus (SO) ปล่อย oxytocin และ vasopressin\n\n❌ ทำไมข้ออื่นผิด\n— \"corticotropin-releasing hormone\" = เป็นตัวที่แยก paraventricular nucleus ออกจาก SO เพราะ PV ปล่อยทั้ง CRH, oxytocin และ vasopressin ส่วน SO ไม่มี CRH จึงเป็นตัวลวงที่ใกล้ที่สุด\n— \"GnRH และ gonadotropic hormones\" = ไม่ได้อยู่ในชุดฮอร์โมนที่ SO ปล่อย\n— \"GHRH และ dopamine\" = ไม่ได้อยู่ในชุดฮอร์โมนที่ SO ปล่อยเช่นกัน",
     "verified": "Diencephalon น.20"
   },
   {
@@ -104,7 +104,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Ventromedial nucleus (VM)"
     ],
     "answer": 3,
-    "explain": "ตารางเขียน Ventromedial nucleus เท่ากับ satiety และ neuroendocrine control ส่วน lateral hypothalamic area ถูกกำกับว่า feeding, thirst and hunger ซึ่งเป็นด้านตรงข้ามของคู่นี้ จึงเป็นตัวลวงที่ต้องแยกให้ออก",
+    "explain": "Ventromedial nucleus (VM) เป็นนิวเคลียสใน tuberal region ที่ถือเรื่อง satiety คู่กับ neuroendocrine control\n\n❌ ทำไมข้ออื่นผิด\n— \"Lateral hypothalamic area (LHA)\" = เป็นด้านตรงข้ามของคู่นี้ ถูกกำกับไว้กับ feeding, thirst and hunger คือฝั่งความหิว ไม่ใช่ความอิ่ม\n— \"Arcuate nucleus (AR)\" = อยู่ใน tuberal region เหมือนกัน แต่ไม่ใช่ตัวที่ถือเรื่อง satiety\n— \"Dorsomedial nucleus (DM)\" = อยู่ใน tuberal region เหมือนกัน แต่ไม่ใช่ตัวที่ถือเรื่อง satiety\n\n💡 จำเป็นคู่ตรงข้าม ตัวกลาง ventromedial คืออิ่ม ตัวข้าง lateral คือหิว",
     "verified": "Diencephalon น.20"
   },
   {
@@ -123,7 +123,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "ควบคุม memory และวงจร limbic พร้อม neuroendocrine control"
     ],
     "answer": 0,
-    "explain": "ตารางเขียน Posterior nucleus เท่ากับ increase blood pressure, pupillary dilation, shivering ส่วน thermoregulation แบบ panting และ sweating เป็นของ anterior hypothalamic nucleus ซึ่งสไลด์จับคู่ตรงข้ามกับ PN ในเรื่องอุณหภูมิเอาไว้",
+    "explain": "Posterior nucleus (PN) ถือชุดเพิ่ม blood pressure, ทำให้ pupillary dilation และ shivering\n\n❌ ทำไมข้ออื่นผิด\n— \"ทำ thermoregulation แบบ panting และ sweating พร้อม water balance\" = เป็นของ anterior hypothalamic nucleus ซึ่งเป็นคู่ตรงข้ามของ PN ในเรื่องอุณหภูมิ คือฝั่งระบายความร้อน ขณะที่ PN ได้ shivering ซึ่งเป็นฝั่งสร้างความร้อน\n— \"ควบคุม blood pressure, heart rate และ GI stimulation\" = เอา blood pressure ที่ถูกมาพ่วงกับ heart rate และ GI stimulation ซึ่งไม่ได้อยู่ในชุดของ PN\n— \"ควบคุม memory และวงจร limbic พร้อม neuroendocrine control\" = เป็นงานคนละกลุ่ม ไม่ได้อยู่ในชุดของ PN\n\n💡 posterior ได้ shivering คือเก็บความร้อน ส่วน anterior ได้ panting กับ sweating คือระบายความร้อน",
     "verified": "Diencephalon น.20"
   },
   {
@@ -142,7 +142,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "lobe หรือ พู สื่อถึง four separate lobes บน ventral aspect ของ cerebral hemisphere ทั้งสองข้าง"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุตรงว่า limbus แปลว่า edge หรือ border และชื่อนี้อ้างถึงการเรียงตัวของ telencephalic neurons และ tract เป็น two incomplete ring-like structure บน medial aspect ของ cerebral hemisphere ตรงรอยต่อกับ diencephalon ตัวเลือกที่ชวนเลือกผิดคือ two complete ring บน lateral aspect เพราะจำจำนวนวงถูกแต่ผิดสองจุด คือวงนี้เป็น incomplete ไม่ใช่ complete และอยู่ด้าน medial ไม่ใช่ lateral",
+    "explain": "limbus แปลว่า edge หรือ border ชื่อนี้มาจากการที่ telencephalic neurons และ tract เรียงตัวเป็น two incomplete ring-like structure บน medial aspect ของ cerebral hemisphere ตรงรอยต่อกับ diencephalon\n\n❌ ทำไมข้ออื่นผิด\n— \"limb หรือ รยางค์ สื่อถึง two complete ring-like structure บน lateral aspect ของ cerebral hemisphere\" = จำจำนวนวงถูก แต่วงนี้เป็น incomplete ไม่ใช่ complete และวางตัวด้าน medial ไม่ใช่ lateral อีกทั้ง limbus ก็ไม่ได้แปลว่า limb\n— \"layer หรือ ชั้น สื่อถึง three concentric laminae บน dorsal aspect ของ cerebral hemisphere\" = ผิดทั้งคำแปล รูปแบบการเรียงตัว และด้านที่วางตัว\n— \"lobe หรือ พู สื่อถึง four separate lobes บน ventral aspect ของ cerebral hemisphere ทั้งสองข้าง\" = ผิดทั้งคำแปลและรูปแบบการเรียงตัว limbic ไม่ได้ถูกอธิบายว่าเป็นพูที่แยกจากกัน",
     "verified": "Limbic System (Nonolfactory Rhinencephalon) น.2"
   },
   {
@@ -161,7 +161,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Paleopallium ได้แก่ gyri ที่อยู่ dorsal ต่อ rhinal sulcus"
     ],
     "answer": 1,
-    "explain": "สไลด์แบ่ง cerebral cortex เป็น 3 ส่วน โดย Archipallium คือ hippocampus ส่วน Paleopallium คือ olfactory bulb, olfactory peduncle และ piriform lobe และ Neopallium คือส่วนที่เหลือของ cerebrum รวม gyri ที่อยู่ dorsal ต่อ rhinal sulcus ตัวเลือกที่ชวนเลือกผิดคือการยก hippocampus ไปไว้ใน Paleopallium เพราะทั้งคู่เป็น cortex เก่าเหมือนกัน แต่เด็คแยกไว้คนละส่วนชัดเจน",
+    "explain": "cerebral cortex ถูกแบ่งเป็น 3 ส่วน คือ Archipallium ได้แก่ hippocampus, Paleopallium ได้แก่ olfactory bulb, olfactory peduncle และ piriform lobe ส่วน Neopallium คือส่วนที่เหลือของ cerebrum รวม gyri ที่อยู่ dorsal ต่อ rhinal sulcus\n\n❌ ทำไมข้ออื่นผิด\n— \"Paleopallium ได้แก่ hippocampus และ parahippocampal gyrus\" = hippocampus เป็นของ Archipallium ทั้งคู่เป็น cortex เก่าเหมือนกันจึงสลับกันง่าย แต่ถูกแยกไว้คนละส่วนชัดเจน\n— \"Neopallium ได้แก่ olfactory bulb และ olfactory peduncle\" = ทั้งคู่เป็น Paleopallium ไม่ใช่ Neopallium\n— \"Paleopallium ได้แก่ gyri ที่อยู่ dorsal ต่อ rhinal sulcus\" = gyri กลุ่มนี้เป็น Neopallium ไม่ใช่ Paleopallium",
     "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3"
   },
   {
@@ -180,7 +180,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Caudate nucleus และ putamen ของ basal nuclei"
     ],
     "answer": 2,
-    "explain": "เด็คแบ่ง two cortical rings ที่ diencephalic-telencephalic junction เป็น inner ring คือ amygdaloid body, hippocampus และ fornix ของมัน ส่วน outer ring คือ cingulate gyrus กับ cingulum และ septal nuclei ตัวเลือกที่ชวนเลือกผิดคือ cingulate gyrus พร้อม cingulum เพราะเป็นสมาชิกของ limbic system จริง แต่อยู่วง outer ไม่ใช่ inner",
+    "explain": "ที่รอยต่อ diencephalic-telencephalic junction limbic system เรียงเป็น two cortical rings วงในคือ amygdaloid body, hippocampus และ fornix ของมัน ส่วนวงนอกคือ cingulate gyrus กับ cingulum และ septal nuclei\n\n❌ ทำไมข้ออื่นผิด\n— \"Cingulate gyrus พร้อมกับ cingulum ของมัน\" = เป็นสมาชิกของ limbic system จริง แต่อยู่วง outer ไม่ใช่ inner\n— \"Septal nuclei ใน rostral septum pellucidum\" = เป็นสมาชิกของวง outer เช่นกัน\n— \"Caudate nucleus และ putamen ของ basal nuclei\" = เป็น basal nuclei ในกลุ่ม striatum ไม่ได้ถูกจัดเข้าวงใดของ limbic system",
     "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3"
   },
   {
@@ -199,7 +199,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "อยู่ในมุมระหว่าง crus cerebri กับ optic tract ไปสิ้นสุดที่ intercrural nucleus และ cingulate gyrus"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า stria terminalis ทอดอยู่ในมุมระหว่าง thalamus กับ caudate nucleus เป็นรูป incomplete C shape แล้วไปสิ้นสุดที่ septal area ซึ่งอยู่ใน septum pellucidum และที่ rostral hypothalamus ตัวเลือกที่ชวนเลือกผิดคือการให้ไปจบที่ mamillary body เพราะเป็นปลายทางจริงของ post-commissural fiber ของ fornix ไม่ใช่ของ stria terminalis",
+    "explain": "stria terminalis ทอดอยู่ในมุมระหว่าง thalamus กับ caudate nucleus เป็นรูป incomplete C shape แล้วไปสิ้นสุดที่ septal area ซึ่งอยู่ใน septum pellucidum และที่ rostral hypothalamus\n\n❌ ทำไมข้ออื่นผิด\n— \"อยู่ในมุมระหว่าง thalamus กับ corpus callosum ไปสิ้นสุดที่ mamillary body และ caudal hypothalamus\" = mamillary body เป็นปลายทางจริง แต่เป็นของ post-commissural fiber ของ fornix ไม่ใช่ของ stria terminalis\n— \"อยู่ในมุมระหว่าง hippocampus กับ lateral geniculate nucleus ไปสิ้นสุดที่ habenular nucleus และ pineal gland\" = ทั้งจุดที่ทอดตัวและปลายทางไม่ตรงกับ stria terminalis\n— \"อยู่ในมุมระหว่าง crus cerebri กับ optic tract ไปสิ้นสุดที่ intercrural nucleus และ cingulate gyrus\" = ทั้งจุดที่ทอดตัวและปลายทางไม่ตรงกับ stria terminalis เช่นกัน",
     "verified": "Limbic System (Nonolfactory Rhinencephalon) น.3"
   },
   {
@@ -218,7 +218,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "mamillary body หลังจากลง ventral สู่ hypothalamus"
     ],
     "answer": 3,
-    "explain": "เด็คระบุว่า column of fornix แต่ละข้างแตกเป็น 2 มัด มัดเล็กคือ pre-commissural fiber ทอด rostral เข้าสู่ septal area ส่วนมัดใหญ่คือ post-commissural fiber ทอดไป caudal ต่อ rostral commissure แล้วลง ventral สู่ hypothalamus ไปสิ้นสุดที่ mamillary body ตัวเลือกที่ชวนเลือกผิดคือ septal area เพราะเป็นปลายทางจริง แต่เป็นของ pre-commissural fiber ไม่ใช่ post-commissural",
+    "explain": "column of fornix แต่ละข้างแตกเป็น 2 มัด มัดเล็กคือ pre-commissural fiber ทอด rostral เข้าสู่ septal area ส่วนมัดใหญ่คือ post-commissural fiber ทอดไป caudal ต่อ rostral commissure แล้วลง ventral สู่ hypothalamus ไปสิ้นสุดที่ mamillary body\n\n❌ ทำไมข้ออื่นผิด\n— \"septal area ซึ่งอยู่ rostral ต่อ rostral commissure\" = เป็นปลายทางจริง แต่เป็นของ pre-commissural fiber มัดเล็ก ไม่ใช่ของ post-commissural\n— \"hippocampal commissure ที่ median plane ของสมอง\" = เป็นรอยเชื่อมของระบบ fornix ที่ median plane ไม่ใช่จุดสิ้นสุดของมัด post-commissural\n— \"rostral thalamic nucleus ผ่าน mamillothalamic tract\" = mamillothalamic tract ตามชื่อคือทางที่ต่อจาก mamillary body ขึ้นไป thalamus จึงเป็นก้าวถัดจากจุดที่ post-commissural fiber ไปจบ ไม่ใช่ตัวปลายทางเอง\n\n💡 ชื่อบอกทางอยู่แล้ว pre- อยู่ rostral ต่อ rostral commissure ส่วน post- อยู่ caudal ต่อมันแล้วจึงลง ventral ไปจบที่ mamillary body",
     "verified": "Limbic System (Nonolfactory Rhinencephalon) น.4"
   },
   {
@@ -237,7 +237,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Archicerebellum คือ Caudal lobe"
     ],
     "answer": 2,
-    "explain": "สไลด์จับคู่ไว้ตรงตัวสามคู่คือ Archicerebellum เป็น Flocculonodular lobe, Paleocerebellum เป็น Rostral lobe และ Neocerebellum เป็น Caudal lobe คำตอบจึงเป็นคู่ Paleocerebellum กับ Rostral lobe ตัวเลือก Archicerebellum คือ Rostral lobe ที่ดูคุ้นตาผิดเพราะจับ Archicerebellum ไปไว้กับ lobe ของ Paleocerebellum ทั้งที่ Archicerebellum ต้องคู่กับ Flocculonodular lobe",
+    "explain": "developmental classification จับคู่ไว้ตรงตัวสามคู่ คือ Archicerebellum เป็น Flocculonodular lobe, Paleocerebellum เป็น Rostral lobe และ Neocerebellum เป็น Caudal lobe คำตอบจึงเป็น Paleocerebellum กับ Rostral lobe\n\n❌ ทำไมข้ออื่นผิด\n— \"Archicerebellum คือ Rostral lobe\" = Rostral lobe เป็นของ Paleocerebellum ส่วน Archicerebellum ต้องคู่กับ Flocculonodular lobe\n— \"Neocerebellum คือ Flocculonodular lobe\" = Flocculonodular lobe เป็นของ Archicerebellum ส่วน Neocerebellum คู่กับ Caudal lobe\n— \"Archicerebellum คือ Caudal lobe\" = Caudal lobe เป็นของ Neocerebellum ส่วน Archicerebellum ยังคงต้องคู่กับ Flocculonodular lobe",
     "verified": "Metencephalon น.5-6"
   },
   {
@@ -256,7 +256,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Pontine nuclei และ olivary nucleus"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุ efferent ของ Interposital nucleus ว่าไปที่ red nucleus และ RF of midbrain ตัวเลือก thalamus ที่น่าเลือกเป็น efferent ของ Dentate nucleus ซึ่งเป็นนิวเคลียสของ cerebellar hemisphere ไม่ใช่ของ paravermis",
+    "explain": "Interposital nucleus ในโซน paravermis ส่ง efferent fiber ไปที่ red nucleus และ RF of midbrain\n\n❌ ทำไมข้ออื่นผิด\n— \"Thalamus และ cerebral cortex\" = เป็น efferent ของ Dentate nucleus ซึ่งเป็นนิวเคลียสของ cerebellar hemisphere ไม่ใช่ของ paravermis\n— \"Vestibular nuclei และ RF of pons\" = ไม่ใช่ปลายทางของ efferent ที่ออกจาก interposital nucleus\n— \"Pontine nuclei และ olivary nucleus\" = ทั้งคู่อยู่ฝั่งต้นทางของ afferent ที่ส่งเข้า cerebellum ไม่ใช่ปลายทางของ efferent ที่ออกจาก cerebellar nucleus",
     "verified": "Metencephalon น.8"
   },
   {
@@ -275,7 +275,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "จาก cerebral cortex ไป pontine nuclei และ medulla oblongata"
     ],
     "answer": 3,
-    "explain": "สไลด์แยกใยสองมัดของ ventral portion ไว้ชัด Longitudinal fiber of pons วิ่งจาก cerebral cortex ไป pontine nuclei และ medulla oblongata ส่วนเส้นทางจาก pontine nuclei ไป cerebellum ผ่าน middle cerebellar peduncle เป็นของ Transverse fibers of pons จึงเป็นคนละมัดกัน",
+    "explain": "Longitudinal fiber of pons นำใยจาก cerebral cortex ลงไปยัง pontine nuclei และ medulla oblongata\n\n❌ ทำไมข้ออื่นผิด\n— \"จาก pontine nuclei ไป cerebellum ผ่าน middle cerebellar peduncle\" = เป็นเส้นทางของ Transverse fibers of pons ซึ่งเป็นอีกมัดของ ventral portion เดียวกัน\n— \"จาก cochlear nuclei ไป midbrain ผ่าน lateral lemniscus\" = lateral lemniscus เป็นทางเสียงที่ขึ้นไป midbrain คนละมัดกับใยของ ventral portion\n— \"จาก nucleus gracilis และ nucleus cuneatus ไป thalamus\" = เป็นเส้นทางของ medial lemniscus ไม่ใช่ของ longitudinal fiber\n\n💡 longitudinal คือวิ่งตามยาวลงล่าง จาก cortex ผ่าน pons ลง medulla ส่วน transverse คือวิ่งขวางออกข้างเข้า cerebellum",
     "verified": "Metencephalon น.28-29"
   },
   {
@@ -294,7 +294,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Spinal cord โดยนำ afferent จาก ventral spinocerebellar tract"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า Middle cerebellar peduncle เชื่อมกับ pons และรับ afferent fiber จาก contralateral pontine nucleus ในรูป transverse fiber of pons ตัวเลือก ventral spinocerebellar tract ที่ชวนสับสนเข้าทาง Rostral cerebellar peduncle ไม่ใช่ทาง middle",
+    "explain": "Middle cerebellar peduncle เชื่อม cerebellum เข้ากับ pons และนำ afferent fiber จาก contralateral pontine nucleus เข้ามาในรูป transverse fiber of pons\n\n❌ ทำไมข้ออื่นผิด\n— \"Midbrain โดยนำ efferent จาก dentate nucleus ไป thalamus\" = dentate nucleus ส่ง efferent ไป thalamus จริง แต่ไม่ได้ออกทาง middle peduncle และ middle peduncle ก็ไม่ได้เชื่อมกับ midbrain\n— \"Medulla oblongata โดยนำ afferent จาก olivary nucleus\" = middle peduncle ผูกอยู่กับ pons ไม่ใช่ medulla oblongata\n— \"Spinal cord โดยนำ afferent จาก ventral spinocerebellar tract\" = ventral spinocerebellar tract เข้าทาง Rostral cerebellar peduncle ไม่ใช่ทาง middle",
     "verified": "Metencephalon น.17-18"
   },
   {
@@ -313,7 +313,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Regulate respiratory rhythm ผ่าน pneumotaxic center ของ pons"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุหน้าที่ของ Cerebro-cerebellum ว่า control voluntary movement ในแง่ direction, timing และ force ส่วน regulate muscle tone และ unconscious motor movement for posture and gait เป็นหน้าที่ของ Spino-cerebellum ซึ่งได้แก่ vermis รวมกับ paravermis ไม่ใช่ hemispheres",
+    "explain": "Cerebro-cerebellum ซึ่งก็คือ cerebellar hemispheres ทำงานด้าน control voluntary movement ในแง่ direction, timing และ force\n\n❌ ทำไมข้ออื่นผิด\n— \"Regulate muscle tone และ unconscious motor movement for posture\" = เป็นงานของ Spino-cerebellum ซึ่งได้แก่ vermis รวมกับ paravermis ไม่ใช่ hemispheres\n— \"Maintain body balance และ coordinating movement of head and eyes\" = การทรงตัวและการประสานการเคลื่อนไหวของหัวกับตาเป็นงานฝั่ง vestibular ไม่ใช่ของ hemispheres\n— \"Regulate respiratory rhythm ผ่าน pneumotaxic center ของ pons\" = เป็นงานของศูนย์ควบคุมจังหวะหายใจใน pons คนละระบบกับการแบ่งงานของ cerebellum",
     "verified": "Metencephalon น.9-11"
   },
   {
@@ -351,7 +351,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Nystagmus"
     ],
     "answer": 0,
-    "explain": "สไลด์เขียนกำกับว่า Hypermetria คือ too long และวงเล็บไว้ว่า goose gait ส่วน Hypometria คือ too short ซึ่งเป็นการก้าวสั้นเกินไป จึงตรงข้ามกับที่โจทย์บรรยาย",
+    "explain": "Hypermetria คือการก้าวที่ยาวเกินไป (too long) จนเดินออกมาเป็น goose gait\n\n❌ ทำไมข้ออื่นผิด\n— \"Hypometria\" = การก้าวสั้นเกินไป (too short) เป็นด้านตรงข้ามของอาการที่โจทย์บรรยาย\n— \"Opisthotonus\" = เป็นชื่อของท่าเกร็งผิดปกติของลำตัวและคอ ไม่ใช่คำที่ใช้เรียกความยาวของการก้าวขา\n— \"Nystagmus\" = เป็นการกระตุกผิดปกติของลูกตา ไม่เกี่ยวกับลักษณะการก้าวขา",
     "verified": "Metencephalon น.24-25"
   },
   {
@@ -389,7 +389,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Medial geniculate body ควบคุม visual reflex เช่น dazzle reflex และ lens accommodation"
     ],
     "answer": 0,
-    "explain": "สไลด์จับคู่ rostral colliculi กับ lateral geniculate body และงาน visual reflex (pupillary light reflex, lens accommodation, menace response, dazzle reflex) ตัวเลือกที่ล่อใจที่สุดคือ medial geniculate body กับ auditory reflex เพราะเป็นข้อมูลที่ถูกต้อง แต่เป็นของ caudal colliculi ไม่ใช่ rostral colliculi",
+    "explain": "Brachium of rostral colliculi ทอดไปที่ lateral geniculate body และ rostral colliculi คุมงาน visual reflex เช่น pupillary light reflex, lens accommodation, menace response และ dazzle reflex\n\n❌ ทำไมข้ออื่นผิด\n— \"Medial geniculate body ควบคุม auditory reflex เช่น acoustic startle reflex และ middle ear reflex\" = จับคู่กันเองถูก แต่เป็นของ caudal colliculi ไม่ใช่ rostral colliculi\n— \"Lateral geniculate body ควบคุม auditory reflex เช่น middle ear reflex และ acoustic startle reflex\" = ได้ปลายทางถูก แต่เอาไปคู่กับงานเสียงซึ่งเป็นของ caudal colliculi\n— \"Medial geniculate body ควบคุม visual reflex เช่น dazzle reflex และ lens accommodation\" = ได้งาน visual reflex ถูก แต่ส่งไปผิดปลายทาง เพราะ medial geniculate body ผูกกับ caudal colliculi\n\n💡 rostral colliculi คู่กับตา คือ lateral geniculate body ส่วน caudal colliculi คู่กับหู คือ medial geniculate body",
     "verified": "Midbrain น.8"
   },
   {

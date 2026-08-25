@@ -19,10 +19,12 @@ const keys = process.argv.slice(2).length
   ? process.argv.slice(2)
   : JSON.parse(fs.readFileSync(`${DIR}/batches.json`, 'utf8')).map((b) => b.key);
 
-// Numbers already in play for a question. Superscripts and separators removed
-// so "1,000" and "1000" are the same number.
+// Numbers already in play for a question. Only a comma BETWEEN digits is a
+// thousands separator: stripping spaces as well merged the list
+// "4, 5, 14, 16, 21, 24" into one number 4514162124 and reported a faithful
+// rewrite as an invention.
 const numbersIn = (s) => new Set(
-  String(s).replace(/[,\s]/g, '').match(/\d+(?:\.\d+)?/g) || [],
+  String(s).replace(/(\d),(?=\d)/g, ).match(/\d+(?:\.\d+)?/g) || [],
 );
 
 let total = 0, problems = 0, missing = 0;

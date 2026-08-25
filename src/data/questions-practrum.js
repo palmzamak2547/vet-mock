@@ -518,7 +518,7 @@ export const QB_PRACTRUM = [
     q: 'ข้อไหนไม่ใช่ indications ในการทำ rumenotomy',
     options: ['Hardware disease', 'Frothy bloat', 'Software disease', 'Choke', 'Impaction'],
     answer: 2,
-    explain: 'ข้อที่ไม่ใช่คือ C — **"Software disease" ไม่มีจริง** (เป็น distractor ตลก)\n\n💡 Indications ของ rumenotomy (ตามสไลด์ Aj. Ekkapol 2024):\n1. Hardware disease (TRP) ✓\n2. Other foreign bodies ใน rumen + reticulum\n3. Persistent rumen impaction (ระบาย sth อุดตัน) — Impaction ✓\n4. Frothy bloat (ระบาย gas) ✓\n5. Some forms of choke (FB ที่ไป stuck) — Choke ✓\n6. Exploration ของ rumen, reticulum, omasum',
+    explain: "Software disease ไม่มีอยู่จริง เป็นคำที่ตั้งล้อกับ hardware disease จึงเป็นข้อเดียวที่ไม่ใช่ indication ของ rumenotomy ส่วนอีกสี่ข้อเป็น indication จริงทั้งหมด\n\n❌ ทำไมข้ออื่นผิด\n— \"Hardware disease\" = traumatic reticuloperitonitis (TRP) จากวัตถุแหลมที่สัตว์กลืนเข้าไป เป็น indication หลักของการเปิด rumen\n— \"Frothy bloat\" = เปิด rumen เพื่อระบายแก๊สที่ค้างอยู่\n— \"Choke\" = บางแบบที่ foreign body ไปติดค้าง เข้าไปจัดการทาง rumen ได้\n— \"Impaction\" = persistent rumen impaction ต้องเปิดเข้าไประบายสิ่งที่อุดตันออก\n\n💡 โจทย์ถามข้อที่ไม่ใช่ ให้กวาดหาคำที่ไม่มีอยู่จริงก่อน hardware disease มีจริง software disease ไม่มี",
     verified: 'pp\'s vet prac rum final85 p.2 Q2 — answer marked C' },
 
   { id: 2034, subject: 'practrum', topic: 'rumenotomy', year: 4,

@@ -28,7 +28,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เห็นชัดที่ 1-2 เดือน ถดถอยที่ 8-12 เดือน remnant ที่ 20 เดือน"
     ],
     "answer": 3,
-    "explain": "สไลด์ให้ไทม์ไลน์ไว้เป็นชุดว่า obvious at 1-2-month-old chicken, regress at 8-12 months และ remnant at 20 months ตัวเลือกที่ล่อให้พลาดคือชุด 1-2 สัปดาห์ เพราะหลายคนจำว่า bursa เป็นอวัยวะของลูกไก่แรกเกิดจึงเดาเป็นสัปดาห์ แต่สไลด์เขียนหน่วยเป็นเดือนชัดเจน",
+    "explain": "Bursa of Fabricius เห็นชัดที่สุดตอนไก่อายุ 1-2 เดือน เริ่มถดถอยช่วง 8-12 เดือน และเหลือเป็น remnant ที่ 20 เดือน ทั้งสามจุดนับเป็นเดือน\n\n❌ ทำไมข้ออื่นผิด\n— \"เห็นชัดที่ 3-4 เดือน ถดถอยที่ 12-15 เดือน remnant ที่ 24 เดือน\" = เลื่อนช้ากว่าจริงทั้งชุด จุดที่เห็นชัดคือ 1-2 เดือน\n— \"เห็นชัดที่ 1-2 สัปดาห์ ถดถอยที่ 6-8 เดือน remnant ที่ 14 เดือน\" = เปลี่ยนหน่วยจุดแรกเป็นสัปดาห์ เป็นกับดักของคนที่จำว่า bursa เป็นอวัยวะของลูกไก่เล็ก ๆ\n— \"เห็นชัดที่ 5-6 เดือน ถดถอยที่ 10-12 เดือน remnant ที่ 18 เดือน\" = 5-6 เดือนเลยช่วงที่เห็นชัดมาแล้ว และการถดถอยเริ่มที่ 8-12 เดือน\n\n💡 ไทม์ไลน์ของ bursa เป็นเดือนทั้งสามจุด ไม่มีจุดไหนเป็นสัปดาห์",
     "verified": "Avian น.20"
   },
   {
@@ -47,7 +47,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Simple cuboidal epithelium ที่เป็นชั้น undifferentiated cells ในเปลือก"
     ],
     "answer": 2,
-    "explain": "สไลด์แยกศัพท์สองตัวไว้ชัดว่า FAE คือ simple columnar epithelium ที่กลายเป็น epithelial tuft อยู่ที่ยอดของแต่ละ follicle ส่วนตัวลวงข้อแรกคือ ISE (interfollicular surface epithelium) ซึ่งเป็น pseudostratified columnar epithelium ที่คลุมพื้นที่ระหว่าง follicle จึงเป็นคนละตัวกัน",
+    "explain": "FAE ย่อมาจาก follicular associated epithelium เป็น simple columnar epithelium ที่ยกตัวขึ้นเป็น epithelial tuft อยู่ที่ยอดของ follicle แต่ละอัน\n\n❌ ทำไมข้ออื่นผิด\n— \"Pseudostratified columnar epithelium ที่คลุมพื้นที่ระหว่าง follicle\" = นั่นคือ ISE (interfollicular surface epithelium) ซึ่งเป็นเยื่อบุคนละตัวกับ FAE\n— \"Stratified squamous epithelium ที่คลุมยอดของ follicle แต่ละอัน\" = ตำแหน่งถูก แต่ชนิดเยื่อบุผิด ยอด follicle เป็น simple columnar ที่กลายเป็น tuft\n— \"Simple cuboidal epithelium ที่เป็นชั้น undifferentiated cells ในเปลือก\" = ไม่ใช่นิยามของ FAE ซึ่งผูกอยู่กับยอดของ follicle ไม่ใช่ชั้นในเปลือก\n\n💡 FAE อยู่บนยอด follicle ส่วน ISE คลุมพื้นที่ระหว่าง follicle จำคู่นี้ไว้ด้วยกัน",
     "verified": "Avian น.21"
   },
   {
@@ -66,7 +66,7 @@ export const QUESTIONS_Y2_HISTO = [
       "ไม่มี lymph nodes มีเพียง diffuse lymphatic tissue และ lymphatic nodules"
     ],
     "answer": 3,
-    "explain": "สไลด์เปิดหัวข้อ lymphatic system ด้วยประโยคว่านกไม่มี lymph nodes มีแต่ diffuse lymphatic tissue และ lymphatic nodules ตัวลวงที่ต้องระวังคือข้อที่บอกว่าไม่มี primary lymphatic tissue เพราะสไลด์หน้าเดียวกันระบุว่านกมี primary lymphatic tissues ครบคือ thymus สำหรับ T lymphocyte และ bursa of Fabricius สำหรับ B lymphocyte",
+    "explain": "นกไม่มี lymph nodes เลย ระบบน้ำเหลืองของนกจึงเป็น diffuse lymphatic tissue กับ lymphatic nodules ที่กระจายอยู่ตามอวัยวะ ส่วน primary lymphatic tissue นกมีครบ คือ thymus สำหรับ T lymphocyte และ bursa of Fabricius สำหรับ B lymphocyte\n\n❌ ทำไมข้ออื่นผิด\n— \"มี lymph nodes ขนาดเล็กกระจายตามลำไส้\" = นกไม่มี lymph node ที่ใดเลย สิ่งที่กระจายอยู่คือ diffuse lymphatic tissue และ lymphatic nodules\n— \"มี lymph nodes เฉพาะบริเวณคอและขาหนีบ ส่วนที่อื่นเป็น diffuse tissue\" = ครึ่งหลังถูก แต่ยังยืนยันว่ามี lymph node ซึ่งนกไม่มี\n— \"ไม่มี primary lymphatic tissue จึงสร้าง lymphocyte ที่ spleen แทนทั้งหมด\" = นกมี primary lymphatic tissue ครบทั้ง thymus และ bursa of Fabricius\n\n💡 สิ่งที่นกไม่มีคือ lymph node ไม่ใช่ primary lymphatic tissue",
     "verified": "Avian น.15"
   },
   {
@@ -104,7 +104,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เป็น CHO-Protein complex ที่ป้องกัน mucosa จากกรดและเอนไซม์ย่อยอาหาร"
     ],
     "answer": 3,
-    "explain": "สไลด์เขียนว่า cuticle หรือ koilin layer เป็น CHO-Protein complex ทำหน้าที่ protect mucosa from digestion by acid and enzyme from proventriculus ตัวลวงข้อแรกคือ keratin เพราะสไลด์บรรยายว่าเป็นชั้นหนา แข็ง คล้าย keratin แต่คำว่าคล้ายไม่ได้แปลว่าเป็น keratin จริง องค์ประกอบที่สไลด์ระบุยังเป็น CHO-Protein complex",
+    "explain": "Cuticle หรือ koilin layer ของ gizzard เป็น CHO-Protein complex ที่คลุมผิวด้านในไว้ ป้องกัน mucosa จากกรดและเอนไซม์ย่อยอาหารที่มาจาก proventriculus\n\n❌ ทำไมข้ออื่นผิด\n— \"เป็น keratin แท้ที่สร้างจาก stratified squamous epithelium ของ mucosa\" = ชั้นนี้หนาและแข็งคล้าย keratin แต่คล้ายไม่ได้แปลว่าเป็น องค์ประกอบจริงคือ CHO-Protein complex\n— \"เป็น mucopolysaccharide จาก submucosal gland ใช้หล่อลื่นอาหารที่บดแล้ว\" = ผิดทั้งองค์ประกอบและงานของมัน koilin เป็น CHO-Protein complex ที่กันกรดและเอนไซม์ ไม่ใช่สารหล่อลื่น\n— \"เป็น collagenous meshwork ที่รองรับชั้น smooth muscle ที่หนามากด้านนอก\" = koilin เป็นชั้นคลุมผิวด้านในของ gizzard ไม่ใช่โครง collagen ที่ค้ำกล้ามเนื้อ\n\n💡 คล้าย keratin ไม่ได้แปลว่าเป็น keratin ตัวจริงคือ CHO-Protein complex",
     "verified": "Avian น.48-49"
   },
   {
@@ -142,7 +142,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Mature blood cells ออกจากไขกระดูกผ่านทาง central longitudinal arteries เท่านั้น"
     ],
     "answer": 1,
-    "explain": "เด็คระบุชัดว่า bone marrow ไม่มี lymphatic drainage และ mature blood cells ทุกตัวออกจากไขกระดูกผ่านทาง venous sinuses หรือ sinusoids ตัวเลือกที่มี lymphatic drainage หนาแน่นจึงขัดกับ Notice บนสไลด์โดยตรง ส่วน central longitudinal arteries และ radial branches เป็นทางเลือดเข้า ไม่ใช่ทางออกของเซลล์ ทางออกที่ถูกคือ sinusoid รวมเป็น central longitudinal vein",
+    "explain": "ไขกระดูกไม่มี lymphatic drainage และ mature blood cells ทุกตัวออกจากไขกระดูกทาง venous sinusoid ซึ่งรวมกันเป็น central longitudinal vein\n\n❌ ทำไมข้ออื่นผิด\n— \"เลือดออกจากไขกระดูกผ่าน radial branches ย้อนกลับเข้าสู่ nutrient artery โดยตรง\" = radial branches เป็นทางเลือดเข้า ไม่ใช่ทางออก\n— \"ไขกระดูกมี lymphatic drainage หนาแน่นวางตัวคู่ขนานกับ central longitudinal vein\" = ไขกระดูกไม่มี lymphatic drainage เลย\n— \"Mature blood cells ออกจากไขกระดูกผ่านทาง central longitudinal arteries เท่านั้น\" = artery เป็นขาเข้า เซลล์ที่โตเต็มที่ออกทาง sinusoid\n\n💡 เข้าทาง artery ออกทาง sinusoid และไม่มีทางน้ำเหลืองให้ออกเลย",
     "verified": "Bone Marrow น.7-8"
   },
   {
@@ -161,7 +161,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Metarubricyte ซึ่งมี nucleus แบบ pyknotic และมี N:C ratio ลดลงเหลือ 1:2"
     ],
     "answer": 2,
-    "explain": "เด็คระบุไว้ที่ระยะ polychromatic rubricyte ว่า mitotic division หยุดที่ระยะนี้ โดยระยะนี้มีขนาด 10-12 µm N:C ratio 2:1 และ cytoplasm สี muddy bluish red จาก hemoglobin ที่เพิ่มขึ้น ตัวเลือก metarubricyte เป็นตัวลวงที่น่าเลือกเพราะ nucleus เป็น pyknotic และกำลังจะถูก extrude แต่การหยุดแบ่งตัวเกิดขึ้นก่อนหน้านั้นแล้ว ส่วน rubriblast กับ prorubricyte ยังแบ่งตัวได้",
+    "explain": "การแบ่งตัวแบบ mitosis ของสาย erythroid หยุดที่ระยะ polychromatic rubricyte ระยะนี้ขนาด 10-12 µm N:C ratio 2:1 และ cytoplasm เป็นสี muddy bluish red จาก hemoglobin ที่สะสมมากขึ้น หลังจากนี้เซลล์แค่สุกต่อ ไม่แบ่งอีก\n\n❌ ทำไมข้ออื่นผิด\n— \"Rubriblast ซึ่งมี N:C ratio 8:1 และ cytoplasm ติดสีน้ำเงินเข้มจาก ribosome\" = เป็นระยะต้นสายที่ยังแบ่งตัวได้\n— \"Prorubricyte ซึ่งไม่มี nucleoli แล้ว มี N:C ratio 7:1 และ cytoplasm สีน้ำเงินเข้ม\" = อยู่ก่อน polychromatic rubricyte และยังแบ่งตัวได้\n— \"Metarubricyte ซึ่งมี nucleus แบบ pyknotic และมี N:C ratio ลดลงเหลือ 1:2\" = ระยะนี้ nucleus pyknotic และกำลังจะถูก extrude ออก แต่หยุดแบ่งตัวไปตั้งแต่ระยะก่อนแล้ว\n\n💡 จุดหยุดแบ่งตัวอยู่ตรงที่ cytoplasm เปลี่ยนเป็น muddy bluish red ไม่ใช่ตอน nucleus หดเป็น pyknotic",
     "verified": "Bone Marrow น.19-25, 27"
   },
   {
@@ -199,7 +199,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Band cell มี indentation ของ nucleus เลย central axis แต่ metamyelocyte ไม่เลย"
     ],
     "answer": 3,
-    "explain": "เด็คนิยาม band cell ว่า nucleus เป็นรูป horseshoe, C, S หรือ V โดย indentation ต้องเลย central axis ของ nucleus ขณะที่ metamyelocyte มี indentation ชัดเจนแต่ยังไม่เลยแกนกลาง ตัวเลือก specific granules ใช้แยกไม่ได้เพราะ metamyelocyte มี cytoplasm เต็มไปด้วย specific granules อยู่แล้ว ส่วน nucleoli หายไปตั้งแต่ระยะ myelocyte และ N:C ratio 6:1 เป็นของ myeloblast ไม่ใช่ band cell",
+    "explain": "เกณฑ์ที่ใช้แยกคือรูปร่างของ nucleus band cell มี nucleus รูป horseshoe, C, S หรือ V ที่รอยเว้าเลย central axis ของ nucleus ส่วน metamyelocyte เว้าชัดเจนแต่ยังไม่เลยแกนกลาง\n\n❌ ทำไมข้ออื่นผิด\n— \"Band cell มี specific granules แล้ว แต่ metamyelocyte ยังไม่มี granule ใด ๆ เลย\" = metamyelocyte มี cytoplasm เต็มไปด้วย specific granules อยู่แล้ว จึงใช้แยกกันไม่ได้\n— \"Band cell พบ nucleoli 2-6 อันชัดเจน แต่ metamyelocyte ไม่พบ nucleoli อีกแล้ว\" = nucleoli หายไปตั้งแต่ระยะ myelocyte ทั้งสองระยะนี้จึงไม่มี nucleoli เหมือนกัน\n— \"Band cell มี N:C ratio เท่ากับ 6:1 แต่ metamyelocyte มี N:C ratio เพียง 1:3\" = 6:1 เป็นค่าของ myeloblast ไม่ใช่ของ band cell\n\n💡 ชื่อ band มาจากรูปแท่งโค้ง กุญแจอยู่ที่รอยเว้าต้องเลยแกนกลางของ nucleus",
     "verified": "Bone Marrow น.32-38"
   },
   {
@@ -237,7 +237,7 @@ export const QUESTIONS_Y2_HISTO = [
       "อยู่ที่ mesothelium ของ epicardium มี 1-2 large spherical nuclei และไม่พบ myofibrils"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า Purkinje fibers อยู่ที่ subendocardial layer มี 1-2 large spherical nuclei, scarce myofibrils ที่ periphery และ cytoplasm rich in mitochondria and glycogen ตัวเลือก subendothelial layer เป็นตัวลวงที่น่าเชื่อเพราะชื่อคล้ายกันและอยู่ในผนัง endocardium เหมือนกัน แต่สไลด์วาง Purkinje fibers ไว้ในชั้นที่ลึกกว่าคือ subendocardial layer ไม่ใช่ subendothelial layer",
+    "explain": "Purkinje fibers วางตัวอยู่ที่ subendocardial layer เซลล์มี 1-2 large spherical nuclei myofibrils มีน้อยและถูกเบียดไปอยู่ที่ periphery ส่วน cytoplasm rich in mitochondria and glycogen\n\n❌ ทำไมข้ออื่นผิด\n— \"อยู่ที่ subendothelial layer มี 3-4 flattened nuclei และ myofibrils หนาแน่นทั่วทั้งไซโทพลาซึม\" = ชื่อคล้ายกันแต่คนละชั้น และ Purkinje fiber มี myofibrils น้อย ไม่ได้หนาแน่น\n— \"อยู่ที่ subepicardial layer มี nucleus เดียวรูปยาวรี และ myofibrils เรียงตัวกลางเซลล์\" = subepicardial อยู่คนละฝั่งของผนังหัวใจ Purkinje fibers อยู่ใต้ endocardium\n— \"อยู่ที่ mesothelium ของ epicardium มี 1-2 large spherical nuclei และไม่พบ myofibrils\" = mesothelium เป็นผิวนอกสุดที่คลุมหัวใจ และ Purkinje fiber ยังมี myofibrils อยู่ แม้จะน้อยและอยู่ริมเซลล์\n\n💡 subendocardial ไม่ใช่ subendothelial ต่างกันไม่กี่ตัวอักษรแต่คนละชั้น",
     "verified": "Circulatory System น.13-14"
   },
   {
@@ -256,7 +256,7 @@ export const QUESTIONS_Y2_HISTO = [
       "zonula occludens, desmosome และ gap junction"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า intercalated disc ประกอบด้วย junctional complex คือ fascia adherens, desmosome และ gap junction ซึ่งเป็นจุดที่ส่ง electrical impulse ไปสู่ contraction ตัวเลือกที่ใส่ tight junction แทน gap junction เป็นตัวลวงที่น่าเชื่อเพราะ tight junction เป็น junction จริงในเยื่อบุผิว แต่ตัวที่ยอมให้ ion และ electrical impulse ผ่านระหว่างเซลล์กล้ามเนื้อหัวใจคือ gap junction",
+    "explain": "Intercalated disc ประกอบด้วย fascia adherens, desmosome และ gap junction สองตัวแรกยึดเซลล์กล้ามเนื้อหัวใจไว้ด้วยกัน ส่วน gap junction คือช่องที่ยอมให้ ion และ electrical impulse วิ่งข้ามเซลล์จนหดตัวต่อเนื่องกันได้\n\n❌ ทำไมข้ออื่นผิด\n— \"fascia adherens, hemidesmosome และ tight junction\" = ตัวยึดใน disc เป็น desmosome เต็มรูป ไม่ใช่ hemidesmosome และตัวที่ให้ impulse ผ่านคือ gap junction ไม่ใช่ tight junction\n— \"zonula adherens, desmosome และ tight junction\" = ตัวแรกใน disc คือ fascia adherens ไม่ใช่ zonula adherens และยังใส่ tight junction แทน gap junction\n— \"zonula occludens, desmosome และ gap junction\" = สองตัวหลังถูกแล้ว แต่ตัวแรกต้องเป็น fascia adherens\n\n💡 ใน disc มีตัวยึดสองแบบ และตัวส่งกระแสหนึ่งแบบคือ gap junction เห็น tight junction ในตัวเลือกเมื่อไรตัดทิ้งได้เลย",
     "verified": "Circulatory System น.16"
   },
   {
@@ -275,7 +275,7 @@ export const QUESTIONS_Y2_HISTO = [
       "endothelium ชั้นเดียว ไม่มี sm. m. มีแต่ CNT"
     ],
     "answer": 1,
-    "explain": "สไลด์ muscular artery ระบุ T. media ว่า Mainly sm. m. หนา 3-40 layers ร่วมกับ CNT และ external elastic lamina ตัวเลือก 1-3 layers เป็นตัวลวงที่น่าเชื่อมาก เพราะเป็นตัวเลขจริงของ arteriole (small artery) ที่อยู่ถัดจาก muscular artery ในลำดับเดียวกัน",
+    "explain": "T. media ของ muscular artery เป็น smooth muscle เป็นหลัก หนา 3-40 layers วางร่วมกับ CNT และมี external elastic lamina กำกับอยู่\n\n❌ ทำไมข้ออื่นผิด\n— \"elastic laminae 40-70 ชั้น สลับกับ collagen fiber\" = muscular artery ได้ชื่อจาก sm. m. ที่เป็นองค์ประกอบหลัก ไม่ใช่ elastic laminae ที่ซ้อนกันหลายสิบชั้นแบบหลอดเลือดแดงกลุ่ม elastic\n— \"sm. m. เป็นหลัก หนา 1-3 layers ร่วมกับ pericyte\" = 1-3 layers เป็นตัวเลขของ arteriole ซึ่งอยู่ถัดจาก muscular artery ในลำดับเดียวกัน\n— \"endothelium ชั้นเดียว ไม่มี sm. m. มีแต่ CNT\" = นั่นคือผนังของ capillary ที่ไม่มี T. media เลย\n\n💡 ชื่อ muscular artery บอกอยู่แล้วว่าชั้นกลางเป็นกล้ามเนื้อ ตัวเลขที่คู่กันคือ 3-40 layers",
     "verified": "Circulatory System น.31"
   },
   {
@@ -294,7 +294,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Ø น้อยกว่า 0.3 mm ผนังมี endothelium กับ sm. m. หนา 1-3 ชั้น"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า capillary เป็นหลอดเลือดที่เล็กที่สุด Ø 5-10 µm ผนังมี 1 layer of endothelial cell ไม่มี T. media คือไม่มี smooth muscle และมี T. adventitia ที่เป็น pericyte กับ CNT ตัวเลือก Ø ประมาณ 20 µm กับ sm. m. 1-2 ชั้นและ pericyte เป็นตัวลวงที่ตรงกับ small vein (venule) ซึ่งสไลด์เองบอกว่า similar to capillary but bigger",
+    "explain": "Capillary เป็นหลอดเลือดที่เล็กที่สุด Ø 5-10 µm ผนังมี endothelial cell เพียง 1 ชั้น ไม่มี T. media จึงไม่มี smooth muscle เลย มีเพียง T. adventitia ที่เป็น pericyte กับ CNT\n\n❌ ทำไมข้ออื่นผิด\n— \"Ø ประมาณ 20 µm ผนังมี endothelium กับ sm. m. 1-2 ชั้น และมี pericyte\" = ตรงกับ small vein หรือ venule ที่คล้าย capillary แต่ใหญ่กว่า\n— \"Ø 5-10 µm ผนังมี endothelium 2-3 ชั้น และมี internal elastic lamina\" = ขนาดถูก แต่ capillary มี endothelium ชั้นเดียวและไม่มี internal elastic lamina\n— \"Ø น้อยกว่า 0.3 mm ผนังมี endothelium กับ sm. m. หนา 1-3 ชั้น\" = sm. m. 1-3 ชั้นเป็นของ arteriole ไม่ใช่ของ capillary\n\n💡 เห็น smooth muscle แม้ชั้นเดียวก็ไม่ใช่ capillary แล้ว",
     "verified": "Circulatory System น.37-38"
   },
   {
@@ -313,7 +313,7 @@ export const QUESTIONS_Y2_HISTO = [
       "T. adventitia หนาที่สุดในสามชั้น และมี sm. m. cells อยู่ในชั้นนั้น"
     ],
     "answer": 3,
-    "explain": "สไลด์ large vein เน้นไว้ 2 จุดคือ T. adventitia clearly define และเป็นชั้นที่หนาที่สุด โดยมี smooth muscle cells อยู่ในชั้นนั้น ส่วน T. media relatively thin และมี sm. m. น้อยหรือไม่มีเลย ตัวเลือกที่บอกว่า T. media หนาที่สุดเป็นลักษณะของ artery ไม่ใช่ vein ซึ่งเป็นจุดที่สไลด์ใช้แยกสองอย่างนี้ออกจากกัน",
+    "explain": "ผนังของ large vein มี T. adventitia เป็นชั้นที่ชัดเจนและหนาที่สุดในสามชั้น โดยมี smooth muscle cells แทรกอยู่ในชั้นนั้นด้วย ส่วน T. media ค่อนข้างบางและมี sm. m. น้อยหรือไม่มีเลย\n\n❌ ทำไมข้ออื่นผิด\n— \"T. media เป็นชั้นที่หนาที่สุด และมี elastic laminae ซ้อนกันจำนวนมาก\" = ใน large vein ชั้น media เป็นชั้นที่บาง ชั้นที่หนาที่สุดคือ adventitia\n— \"T. intima เป็นชั้นที่หนาที่สุด และมี internal elastic lamina ชัดเจน\" = intima ไม่ใช่ชั้นที่หนาที่สุด ชั้นที่เด่นของ large vein คือ adventitia\n— \"T. adventitia บางมาก ส่วน T. media มี sm. m. หนาถึง 3-40 layers\" = กลับด้านทั้งคู่ และ 3-40 layers เป็นค่าของ T. media ของ muscular artery\n\n💡 vein ใหญ่ ชั้นนอกหนากว่าชั้นกลาง ตรงข้ามกับ artery ที่ชั้นกลางเด่น",
     "verified": "Circulatory System น.45-46"
   },
   {
@@ -332,7 +332,7 @@ export const QUESTIONS_Y2_HISTO = [
       "chemoreceptor ที่เป็น dilation ของ internal carotid artery ตอบสนองต่อ conc. ของ O2 ที่ลดลง"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุ carotid sinus ว่าเป็น baroreceptor (mechanoreceptor) ซึ่งเป็น dilation of internal carotid artery ตอบสนองต่อ blood pressure ที่สูงขึ้น แล้วให้ผลเป็น Brachycardia, blood pressure ลดลง และ dilate visceral blood vessels ตัวเลือก chemoreceptor ที่รับ blood pH, O2 และ CO2 เป็นของ carotid body ซึ่งเป็นอีกโครงสร้างหนึ่งที่ bifurcation เดียวกัน จึงถูกสลับกันบ่อย",
+    "explain": "Carotid sinus เป็น baroreceptor หรือ mechanoreceptor ที่เป็น dilation of internal carotid artery จับความดันเลือดที่สูงขึ้น แล้วให้ผลเป็นหัวใจเต้นช้าลง ความดันลดลง และ dilate visceral blood vessels\n\n❌ ทำไมข้ออื่นผิด\n— \"chemoreceptor ที่อยู่ที่ common carotid artery ตรง bifurcation รับ conc. ของ blood pH, O2 และ CO2\" = นั่นคือ carotid body ซึ่งเป็นคนละโครงสร้างที่ bifurcation เดียวกัน\n— \"mechanoreceptor ที่เป็น dilation ของ external carotid artery ตอบสนองต่อ blood flow ที่ลดลง\" = ชนิด receptor ถูก แต่ carotid sinus เป็น dilation ของ internal carotid artery และสิ่งเร้าคือความดันที่สูงขึ้น\n— \"chemoreceptor ที่เป็น dilation ของ internal carotid artery ตอบสนองต่อ conc. ของ O2 ที่ลดลง\" = ตำแหน่งถูก แต่การรับ O2 เป็นงานของ carotid body ไม่ใช่ carotid sinus\n\n💡 sinus จับความดัน body จับเคมี (pH, O2, CO2) อยู่ที่ bifurcation เดียวกันแต่คนละงาน",
     "verified": "Circulatory System น.52-53"
   },
   {
@@ -370,7 +370,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Labile cells ซึ่งเข้าสู่ G0 หลังผ่าน M แล้วหยุด"
     ],
     "answer": 2,
-    "explain": "สไลด์แบ่งไว้ 3 กลุ่มคือ labile cells (M ไป G1) ได้แก่ epidermis, blood cells และ intestine, stable cells (M ไป G0) ได้แก่ hepatocytes และ permanent cells ที่อยู่ G0 ได้แก่ cardiac myocyte และ neuron ตัวเลือก permanent cells ที่ค้าง G0 ถาวรน่าสนใจเพราะทั้งสองกลุ่มเกี่ยวข้องกับ G0 แต่ต่างกันตรงที่ hepatocyte กลับเข้าวงจรแบ่งตัวใหม่ได้เมื่อถูกกระตุ้น",
+    "explain": "Hepatocyte เป็น stable cells คือเข้าสู่ G0 หลังผ่าน M แต่ถูกกระตุ้นให้กลับเข้าวงจรแบ่งตัวใหม่ได้ กลุ่ม labile cells ที่วนจาก M ไป G1 ได้แก่ epidermis, blood cells และ intestine ส่วน permanent cells ที่ค้างอยู่ที่ G0 ได้แก่ cardiac myocyte และ neuron\n\n❌ ทำไมข้ออื่นผิด\n— \"Labile cells ซึ่งวนจาก M กลับเข้า G1 อย่างต่อเนื่อง\" = คำบรรยายตรงกับ labile จริง แต่กลุ่มนั้นคือ epidermis, blood cells และ intestine ไม่ใช่ hepatocyte\n— \"Permanent cells ซึ่งค้างอยู่ที่ G0 อย่างถาวร\" = กลุ่มนั้นคือ cardiac myocyte กับ neuron ที่กลับมาแบ่งตัวไม่ได้ ต่างจาก hepatocyte\n— \"Labile cells ซึ่งเข้าสู่ G0 หลังผ่าน M แล้วหยุด\" = ชื่อกับพฤติกรรมไม่เข้าคู่กัน การเข้า G0 หลัง M คือนิยามของ stable cells\n\n💡 ตับซ่อมตัวเองได้เมื่อถูกกระตุ้น จึงเป็น stable ไม่ใช่ permanent",
     "verified": "Cytology น.37 (ภาพชุดที่ น.38-39, น.82)"
   },
   {
@@ -389,7 +389,7 @@ export const QUESTIONS_Y2_HISTO = [
       "site of histone assembly ขนาดสะท้อน amount of condensed heterochromatin"
     ],
     "answer": 0,
-    "explain": "สไลด์เขียนไว้ตรงว่า nucleolus เป็น site of ribosomal RNA synthesis แล้ว release เข้าสู่ cytoplasm และ size of the nucleolus สะท้อน amount of stored RNA ตัวเลือก mRNA translation ชวนสับสนเพราะเกี่ยวกับ ribosome เหมือนกัน แต่ translation เกิดที่ cytoplasm ตาม central dogma ในสไลด์ ไม่ได้เกิดใน nucleolus",
+    "explain": "Nucleolus เป็น site of ribosomal RNA synthesis แล้วปล่อย rRNA ออกสู่ cytoplasm ขนาดของมันจึงสะท้อน amount of stored RNA\n\n❌ ทำไมข้ออื่นผิด\n— \"site of DNA replication ขนาดสะท้อน amount of stored DNA\" = งานของ nucleolus คือสร้าง rRNA ไม่ใช่จำลอง DNA และขนาดสะท้อนปริมาณ RNA ไม่ใช่ DNA\n— \"site of mRNA translation ขนาดสะท้อน number of free ribosome\" = translation เกิดที่ cytoplasm ตาม central dogma ไม่ได้เกิดใน nucleolus\n— \"site of histone assembly ขนาดสะท้อน amount of condensed heterochromatin\" = ไม่ใช่งานของ nucleolus และขนาดของมันผูกกับปริมาณ RNA ไม่ใช่ heterochromatin\n\n💡 rRNA ถูกสร้างใน nucleolus แต่ไปแปลรหัสจริงที่ cytoplasm",
     "verified": "Cytology น.13-14 หัวข้อ Nucleolus น.14"
   },
   {
@@ -408,7 +408,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Golgi complex จำนวนมากที่ basal portion ของเซลล์"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า acidophilic (eosinophilic) cytoplasm ของ ion-pumping cells บ่งถึง abundance of mitochondria ที่ basal portions ซึ่งสอดคล้องกับที่สไลด์บอกว่าพบ mitochondria หนาแน่นที่ basal area of ion-transporting cells ตัวเลือก rER เป็นกับดักที่ต้องแยกด้วยสี เพราะ cytoplasm ที่มี rER มากจะติดสี basophilic ไม่ใช่ acidophilic",
+    "explain": "Acidophilic หรือ eosinophilic cytoplasm ที่ basal portion ของ ion-pumping cells บ่งถึง mitochondria ที่อัดแน่นอยู่ตรงนั้น เพราะการปั๊มไอออนต้องใช้พลังงาน เซลล์จึงวางแหล่ง ATP ไว้ชิดฐาน\n\n❌ ทำไมข้ออื่นผิด\n— \"rough endoplasmic reticulum จำนวนมากที่ basal portion\" = cytoplasm ที่มี rER มากจะติดสี basophilic ไม่ใช่ acidophilic\n— \"lysosome จำนวนมากที่ basal portion ของเซลล์\" = lysosome เป็นถุงย่อยสลาย ไม่ใช่ออร์แกเนลล์ที่ทำให้ฐานเซลล์ติดสี acidophilic\n— \"Golgi complex จำนวนมากที่ basal portion ของเซลล์\" = ไม่ใช่ออร์แกเนลล์ที่อัดแน่นอยู่ที่ฐานของ ion-transporting cells ตัวที่อัดแน่นตรงนั้นคือ mitochondria\n\n💡 acidophilic ที่ฐาน = mitochondria ส่วน basophilic = rER แยกด้วยสีก่อนเสมอ",
     "verified": "Cytology น.56, น.58-63 หัวข้อ Mitochondria น.59-60"
   },
   {
@@ -427,7 +427,7 @@ export const QUESTIONS_Y2_HISTO = [
       "จาก glycogen ที่สะสมมากเกินไป พบมากที่ hepatocyte และ skeletal muscle"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า lipofuscin เป็น insoluble degradation product ของ organelle ที่เป็น undigestible remnants of lysosomal activity หรือ residual bodies เรียกว่า aging pigment และพบใน long-lived cell เช่น cardiac muscle, neurons และ ovum ตัวเลือก breakdown of hemoglobin ที่ liver, spleen และ lymph node เป็นคำนิยามของ hemosiderin ซึ่งเป็น hematogeneous pigment คนละชนิดกัน",
+    "explain": "Lipofuscin เป็น insoluble degradation product ที่เหลือจาก lysosomal activity ย่อยไม่หมด หรือ residual bodies เรียกกันว่า aging pigment จึงสะสมในเซลล์อายุยืน เช่น cardiac muscle, neurons และ ovum\n\n❌ ทำไมข้ออื่นผิด\n— \"จาก the breakdown of hemoglobin พบมากที่ liver, spleen และ lymph node\" = นั่นคือนิยามของ hemosiderin ซึ่งเป็น hematogeneous pigment คนละชนิดกัน\n— \"จาก melanocyte ที่สร้าง brown pigment พบมากที่ skin และที่ pigment cells of retina\" = นั่นคือ melanin ที่ melanocyte สร้างขึ้นเอง ไม่ใช่เศษที่ lysosome ย่อยไม่ได้\n— \"จาก glycogen ที่สะสมมากเกินไป พบมากที่ hepatocyte และ skeletal muscle\" = glycogen เป็นแหล่งสะสมพลังงาน ไม่ใช่ pigment และไม่ใช่ที่มาของ lipofuscin\n\n💡 aging pigment ไปกับเซลล์ที่อยู่กับตัวสัตว์ทั้งชีวิต คือหัวใจ ประสาท และไข่",
     "verified": "Cytology น.73-81 หัวข้อ Lipofuscin น.78-79"
   },
   {
@@ -446,7 +446,7 @@ export const QUESTIONS_Y2_HISTO = [
       "cilia เป็นแบบ 9+0 doublet ส่วน centriole เป็น microtubule triplet แบบ 9+0"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุ cilia เป็น motile hair-like projection แบบ microtubule 9+2 ที่งอกจาก centriole (basal body) และมี axoneme core แบบ 9+2 ส่วนหน้าตาราง cytoskeleton ระบุ centriole เป็น microtubule triplet แบบ 9+0 ตัวเลือกที่ให้ centriole เป็น 9+2 ผิดเพราะสับสนระหว่างแกนของ cilium กับฐาน basal body ที่ไม่มี central pair",
+    "explain": "cilia มี axoneme เป็น microtubule แบบ 9+2 คือมี central pair อยู่ตรงกลาง ส่วน centriole ที่เป็น basal body ให้ cilia งอกออกมา เป็น microtubule triplet แบบ 9+0 คือไม่มี central pair\n\n❌ ทำไมข้ออื่นผิด\n— \"cilia เป็นแบบ 9+0 ส่วน centriole เป็น microtubule doublet แบบ 9+2\" = สลับกันทั้งคู่ cilia คือตัวที่มี central pair ส่วน centriole เป็น triplet ที่ไม่มี\n— \"cilia เป็นแบบ 9+2 ส่วน centriole เป็น microtubule doublet แบบ 9+2\" = ครึ่งแรกถูก แต่ centriole เป็น triplet และไม่มี central pair\n— \"cilia เป็นแบบ 9+0 doublet ส่วน centriole เป็น microtubule triplet แบบ 9+0\" = ครึ่งหลังถูก แต่ cilia ที่โบกได้ต้องมี central pair จึงเป็น 9+2\n\n💡 มี central pair คือแกนที่โบกได้ ส่วนฐานที่ไม่มี central pair แถมเป็น triplet คือ centriole",
     "verified": "Cytology น.31-36 (ภาพซ้ำที่ น.64-68) หัวข้อ Cilia น.34-35 และ Cytology น.29-30 หัวข้อ Centriole น.30"
   },
   {
@@ -465,7 +465,7 @@ export const QUESTIONS_Y2_HISTO = [
       "submucosal plexus อยู่ใน lamina propria"
     ],
     "answer": 2,
-    "explain": "สไลด์ผูก plexus ไว้กับชั้นที่มันอยู่โดยตรง คือ T. submucosa มี submucosal plexus และ T. muscularis มี myenteric plexus ตัวเลือกที่สลับให้ myenteric ไปอยู่ใน submucosa เป็นข้อที่หลอกที่สุดเพราะชื่อสองชั้นนี้อยู่ติดกัน แต่ myenteric แปลตามชื่อว่าอยู่ระหว่างชั้นกล้ามเนื้อ ส่วน lamina propria เป็นชั้นย่อยของ tunica mucosa ที่สไลด์ไม่ได้วาง plexus ไว้เลย",
+    "explain": "T. submucosa เป็นที่อยู่ของ submucosal plexus ส่วน T. muscularis เป็นที่อยู่ของ myenteric plexus ชื่อของ plexus บอกชั้นที่มันฝังตัวอยู่ตรง ๆ\n\n❌ ทำไมข้ออื่นผิด\n— \"submucosal plexus อยู่ใน tunica muscularis\" = submucosal plexus อยู่ใน T. submucosa ตามชื่อของมัน\n— \"myenteric plexus อยู่ใน tunica submucosa\" = สลับกับข้อบน myenteric แปลว่าอยู่ระหว่างชั้นกล้ามเนื้อ\n— \"submucosal plexus อยู่ใน lamina propria\" = lamina propria เป็นชั้นย่อยของ tunica mucosa ซึ่งไม่ใช่ที่อยู่ของ plexus ทั้งสองตัว\n\n💡 myo แปลว่ากล้ามเนื้อ sub-mucosa แปลว่าใต้เยื่อเมือก ชื่อบอกที่อยู่ทั้งคู่",
     "verified": "Digestive System I น.3"
   },
   {
@@ -484,7 +484,7 @@ export const QUESTIONS_Y2_HISTO = [
       "nonkeratinized stratified squamous epithelium"
     ],
     "answer": 2,
-    "explain": "สไลด์ Soft palate แยกสองด้านไว้ชัดเจนว่า oral surface เป็น stratified squamous epithelium ส่วน nasal mucosa เป็น pseudostratified columnar epithelium ตัวเลือก keratinized stratified squamous เป็นข้อที่หลอกเพราะภาพ soft palate ของวัวบนสไลด์ชี้คำนี้ไว้ แต่คำชี้นั้นอยู่ที่ด้าน oral ไม่ใช่ด้าน nasal",
+    "explain": "ผิวด้าน nasal ของ soft palate ต่อเนื่องกับทางเดินหายใจ เยื่อบุจึงเป็น pseudostratified columnar epithelium ส่วนผิวด้าน oral เป็น stratified squamous epithelium\n\n❌ ทำไมข้ออื่นผิด\n— \"keratinized stratified squamous epithelium\" = เป็นเยื่อบุของด้าน oral ไม่ใช่ด้าน nasal\n— \"simple columnar epithelium ที่มี goblet cells\" = ไม่ใช่เยื่อบุของ soft palate ทั้งสองด้าน ด้าน nasal เป็น pseudostratified columnar\n— \"nonkeratinized stratified squamous epithelium\" = stratified squamous ไม่ว่าจะ keratinized หรือไม่ก็เป็นของด้าน oral\n\n💡 ด้านที่หันเข้าช่องปากเป็น squamous ด้านที่หันเข้าโพรงจมูกเป็นเยื่อบุแบบทางเดินหายใจ",
     "verified": "Digestive System I น.16-18"
   },
   {
@@ -503,7 +503,7 @@ export const QUESTIONS_Y2_HISTO = [
       "rumen เป็นลบ ส่วน reticulum และ omasum เป็นบวก"
     ],
     "answer": 3,
-    "explain": "ตาราง p.29 ระบุแถว m.m ว่า rumen เป็นลบ ขณะที่ reticulum และ omasum เป็นบวก ซึ่งตรงกับที่สไลด์เขียนไว้ว่า rumen มี no muscularis mucosae ตัวเลือกที่ให้ reticulum เป็นลบด้วยขัดกับสไลด์ที่ระบุว่า reticulum มี laminar muscularis อยู่ที่ upper part of reticular fold",
+    "explain": "ในบรรดา forestomach ทั้งสาม rumen เป็นส่วนเดียวที่ไม่มี muscularis mucosae ส่วน reticulum มี laminar muscularis อยู่ที่ upper part of reticular fold และ omasum ก็มี muscularis mucosae เช่นกัน แถวนี้จึงเป็น ลบ บวก บวก\n\n❌ ทำไมข้ออื่นผิด\n— \"rumen เป็นบวก ส่วน reticulum และ omasum เป็นลบ\" = กลับด้านทั้งแถว rumen คือตัวเดียวที่เป็นลบ\n— \"rumen และ omasum เป็นลบ ส่วน reticulum เป็นบวก\" = omasum มี muscularis mucosae จึงเป็นบวก ไม่ใช่ลบ\n— \"rumen และ reticulum เป็นลบ ส่วน omasum เป็นบวก\" = reticulum มี laminar muscularis ที่ upper part of reticular fold จึงเป็นบวก\n\n💡 จำตัวเดียวก็พอ rumen คือกระเพาะเดียวใน forestomach ที่ไม่มี muscularis mucosae",
     "verified": "Digestive System III น.29"
   },
   {
@@ -522,7 +522,7 @@ export const QUESTIONS_Y2_HISTO = [
       "มี longitudinal laminae ประมาณ 100 อัน และ lamina muscularis บางอยู่เพียงด้านเดียวของ lamina"
     ],
     "answer": 1,
-    "explain": "p.20-21 ระบุว่า omasum มี longitudinal laminae ประมาณ 100 อัน และ tunica muscularis มี outer thin longitudinal layer กับ inner thicker circular layer พร้อม intermediate sheet ตัวเลือกที่บอกว่า lamina muscularis บางและอยู่ด้านเดียวผิด เพราะสไลด์เขียนว่า lamina muscularis หนาและอยู่ทั้งสองด้านของ lamina",
+    "explain": "Omasum มี longitudinal laminae ประมาณ 100 อัน และ tunica muscularis เรียงเป็น outer thin longitudinal layer กับ inner thicker circular layer โดยมี intermediate sheet ร่วมอยู่ด้วย ส่วน lamina muscularis หนาและอยู่ทั้งสองด้านของ lamina\n\n❌ ทำไมข้ออื่นผิด\n— \"มี longitudinal laminae ประมาณ 10 อัน และชั้นกล้ามเนื้อ longitudinal ด้านนอกหนากว่าด้านใน\" = ผิดทั้งจำนวนและความหนา laminae อยู่ราว 100 อัน และชั้น circular ด้านในหนากว่า\n— \"มี permanent folds ประมาณ 100 อัน และไม่มี intermediate sheet อยู่ในชั้น tunica muscularis\" = จำนวนถูก แต่ tunica muscularis ของ omasum มี intermediate sheet อยู่\n— \"มี longitudinal laminae ประมาณ 100 อัน และ lamina muscularis บางอยู่เพียงด้านเดียวของ lamina\" = lamina muscularis ของ omasum หนา และอยู่ทั้งสองด้านของ lamina\n\n💡 omasum จำสามอย่าง ประมาณ 100 laminae, circular ด้านในหนากว่า longitudinal ด้านนอก และมี intermediate sheet",
     "verified": "Digestive System III น.20-21"
   },
   {
@@ -560,7 +560,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เยื่อบุเป็น simple cuboidal epi. ทำหน้าที่สร้าง bile เอง และผนัง thinnest ใน bovine"
     ],
     "answer": 1,
-    "explain": "p.46-47 ระบุว่า gallbladder บุด้วย sim. col. epi. with microvilli พบ goblet cells ใน cattle ผนัง thickest ใน bovine และ thinnest ใน carnivore และ no gallbladder ใน horse, elephant และ rat ตัวเลือกที่สลับให้ cattle ไม่มีถุงน้ำดีผิด เพราะ cattle คือสัตว์ที่สไลด์ใช้เป็นตัวอย่างว่าพบ goblet cells ในถุงน้ำดี",
+    "explain": "Gallbladder บุด้วย sim. col. epi. with microvilli และพบ goblet cells ใน cattle ผนังหนาที่สุดใน bovine บางที่สุดใน carnivore ส่วนสัตว์ที่ไม่มีถุงน้ำดีคือ horse, elephant และ rat\n\n❌ ทำไมข้ออื่นผิด\n— \"เยื่อบุเป็น keratinized stratified squamous epi. ผนัง thickest ใน carnivore และ thinnest ใน bovine\" = ผิดทั้งเยื่อบุและสลับความหนากัน ผนังหนาที่สุดใน bovine และบางที่สุดใน carnivore\n— \"พบ goblet cells ใน horse และไม่มีถุงน้ำดีใน cattle\" = สลับสัตว์กัน horse คือกลุ่มที่ไม่มีถุงน้ำดี ส่วน cattle คือตัวที่พบ goblet cells\n— \"เยื่อบุเป็น simple cuboidal epi.\" = เยื่อบุจริงคือ sim. col. epi. with microvilli และถุงน้ำดีเป็นที่เก็บ bile ไม่ได้สร้าง bile เอง ทั้งยังสลับความหนา เพราะ bovine คือตัวที่ผนังหนาที่สุด\n\n💡 ม้าไม่มีถุงน้ำดี วัวมี goblet cells สองจุดนี้คือที่ข้อสอบชอบสลับกัน",
     "verified": "Digestive System III น.46-47"
   },
   {
@@ -579,7 +579,7 @@ export const QUESTIONS_Y2_HISTO = [
       "acinar lumen มี zymogen granules และ collecting duct บุด้วย sim. col."
     ],
     "answer": 2,
-    "explain": "p.53 ระบุว่า acinar lumen มี centroacinar cell โดย intercalated duct เป็น low cuboid และ interlobular duct เป็น sim. col. ตัวเลือกที่ยก low cuboid ไปให้ interlobular duct จึงสลับกัน ส่วน zymogen granules สไลด์วางไว้ที่ apical region ของเซลล์หลั่ง ไม่ใช่ใน acinar lumen และ Kupffer cell อยู่ใน sinusoid ของตับ",
+    "explain": "เซลล์ที่โผล่อยู่ใน acinar lumen ของ pancreas คือ centroacinar cell และท่อแรกที่รับของหลั่งคือ intercalated duct ซึ่งบุด้วย low cuboid ส่วน interlobular duct ที่ใหญ่กว่าบุด้วย sim. col.\n\n❌ ทำไมข้ออื่นผิด\n— \"acinar lumen มี Kupffer cell และ intercalated duct บุด้วย sim. col.\" = Kupffer cell อยู่ใน sinusoid ของตับ และ intercalated duct บุด้วย low cuboid\n— \"acinar lumen มี centroacinar cell และ interlobular duct บุด้วย low cuboid\" = เซลล์ถูก แต่สลับท่อกัน low cuboid เป็นของ intercalated duct ส่วน interlobular duct เป็น sim. col.\n— \"acinar lumen มี zymogen granules และ collecting duct บุด้วย sim. col.\" = zymogen granules อยู่ที่ apical region ในตัวเซลล์หลั่ง ไม่ได้ลอยอยู่ใน lumen ตัวที่อยู่ใน lumen คือ centroacinar cell\n\n💡 ท่อยิ่งเล็กเยื่อบุยิ่งเตี้ย intercalated เป็น low cuboid ส่วน interlobular ขยับขึ้นเป็น sim. col.",
     "verified": "Digestive System III น.50-51, 53"
   },
   {
@@ -598,7 +598,7 @@ export const QUESTIONS_Y2_HISTO = [
       "หลั่งเข้า circulation จากนั้นเข้า perivascular space แล้วเข้า intercellular space"
     ],
     "answer": 0,
-    "explain": "สไลด์เขียนลำดับไว้ชัดเจนว่า intercellular space แล้วจึง perivascular space ก่อนเข้าสู่ circulation ตัวเลือกที่ใส่ tubular system ไว้กลางทางเป็นกับดักที่ล่อใจที่สุด เพราะสไลด์เดียวกันเปิดหัวข้อด้วยประโยคว่าต่อมไร้ท่อไม่มี tubular system ซึ่งเป็นจุดที่ใช้แยกจากต่อมมีท่อ",
+    "explain": "ฮอร์โมนจากต่อมไร้ท่อถูกหลั่งเข้า intercellular space ก่อน แล้วซึมเข้า perivascular space จึงเข้าสู่ circulation ต่อมไร้ท่อไม่มี tubular system จึงต้องส่งของผ่านช่องว่างแบบนี้\n\n❌ ทำไมข้ออื่นผิด\n— \"หลั่งเข้า perivascular space จากนั้นเข้า intercellular space แล้วเข้า circulation\" = สลับสองขั้นแรก ฮอร์โมนต้องออกจากช่องระหว่างเซลล์ก่อนจึงจะถึงช่องรอบหลอดเลือด\n— \"หลั่งเข้า intercellular space จากนั้นเข้า tubular system แล้วเข้า circulation\" = ต่อมไร้ท่อไม่มี tubular system ซึ่งเป็นจุดที่ใช้แยกออกจากต่อมมีท่อ\n— \"หลั่งเข้า circulation จากนั้นเข้า perivascular space แล้วเข้า intercellular space\" = ทิศกลับด้าน ทางเดินจริงคือจากเซลล์ไปสู่กระแสเลือด\n\n💡 ไม่มีท่อ จึงต้องเดินผ่านช่องว่าง จากช่องระหว่างเซลล์ ไปช่องรอบหลอดเลือด แล้วเข้ากระแสเลือด",
     "verified": "Endocrine น.2"
   },
   {
@@ -617,7 +617,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Ventral invagination ของ floor of the neural tube"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า neurohypophysis เกิดจาก ventral outgrowth of diencephalon ส่วน dorsal invagination of roof of the embryonic pharynx เป็นจุดกำเนิดของ adenohypophysis จึงเป็นตัวเลือกที่นิสิตสลับกันบ่อยที่สุด ความต่างของแหล่งกำเนิดนี้คือเหตุผลที่ histology ของสองส่วนต่างกันสิ้นเชิง",
+    "explain": "Neurohypophysis เกิดจาก ventral outgrowth of diencephalon คือส่วนที่งอกลงมาจากสมอง ต่างจาก adenohypophysis ที่เกิดจาก dorsal invagination of the roof of the embryonic pharynx ความต่างของแหล่งกำเนิดนี้คือเหตุผลที่ histology ของสองส่วนต่างกันสิ้นเชิง\n\n❌ ทำไมข้ออื่นผิด\n— \"Dorsal invagination ของ roof of the embryonic pharynx\" = เป็นจุดกำเนิดของ adenohypophysis ไม่ใช่ neurohypophysis\n— \"Dorsal outgrowth ของ roof of the mesencephalon\" = ผิดทั้งทิศและตำแหน่ง ส่วนที่งอกลงมาเป็น neurohypophysis คือ diencephalon\n— \"Ventral invagination ของ floor of the neural tube\" = neurohypophysis เป็น outgrowth ที่งอกยื่นออกมา ไม่ใช่ invagination ที่ยุบเข้าไป\n\n💡 neuro มาจากสมอง adeno มาจากเพดานคอหอย ชื่อกับต้นกำเนิดไปด้วยกัน",
     "verified": "Endocrine น.5"
   },
   {
@@ -636,7 +636,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Neurohypophysis"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า pars intermedia produce MSH และประกอบด้วย ACTH cells, follicular cells กับ stellate cells โดยถูกแยกจาก pars distalis ด้วย hypophyseal cleft ตัวเลือก pars tuberalis ล่อใจเพราะเป็นส่วนย่อยของ adenohypophysis เหมือนกัน แต่สไลด์ระบุเพียงว่ามี gonadotrophs กับ thyrotrophs อยู่บ้างเล็กน้อยและ secretory cells ที่ยังไม่ทราบความสำคัญ",
+    "explain": "Pars intermedia คือส่วนที่ produce MSH ประกอบด้วย ACTH cells, follicular cells และ stellate cells และถูกแยกออกจาก pars distalis ด้วย hypophyseal cleft\n\n❌ ทำไมข้ออื่นผิด\n— \"Pars distalis\" = อยู่คนละฝั่งของ hypophyseal cleft กับส่วนที่สร้าง MSH\n— \"Pars tuberalis\" = เป็นส่วนย่อยของ adenohypophysis เหมือนกัน แต่มีเพียง gonadotrophs กับ thyrotrophs อยู่บ้างเล็กน้อย และ secretory cells ที่ยังไม่ทราบความสำคัญ\n— \"Neurohypophysis\" = เป็นส่วนที่มีต้นกำเนิดจากสมอง ไม่ใช่ส่วนของ adenohypophysis ที่ MSH ถูกสร้าง\n\n💡 MSH ผูกกับ pars intermedia ซึ่งถูก hypophyseal cleft คั่นไว้จาก pars distalis",
     "verified": "Endocrine น.16-17"
   },
   {
@@ -655,7 +655,7 @@ export const QUESTIONS_Y2_HISTO = [
       "C-cells หลั่ง calcitonin ส่วน follicular cells หลั่ง T3 และ T4"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุว่า follicular cells ที่บุ thyroid follicle หลั่ง thyroxine (T4) กับ triiodothyronine (T3) ส่วน parafollicular cells หรือ C-cells ที่แทรกอยู่หลั่ง calcitonin ตัวเลือกที่สลับสองเซลล์นี้ล่อใจที่สุดเพราะทั้งคู่อยู่ใน thyroid เหมือนกัน ส่วน chief cells เป็นเซลล์ของ parathyroid gland ไม่ใช่ thyroid",
+    "explain": "Follicular cells ที่บุ thyroid follicle หลั่ง thyroxine (T4) กับ triiodothyronine (T3) ส่วน parafollicular cells หรือ C-cells ที่แทรกอยู่ระหว่าง follicle หลั่ง calcitonin\n\n❌ ทำไมข้ออื่นผิด\n— \"Follicular cells หลั่ง calcitonin ส่วน C-cells หลั่ง T3 และ T4\" = สลับงานของสองเซลล์กันตรง ๆ\n— \"C-cells หลั่ง calcitonin ส่วน chief cells หลั่ง T3 และ T4\" = ครึ่งแรกถูก แต่ chief cells เป็นเซลล์ของ parathyroid gland ไม่ใช่ thyroid\n— \"Oxyphil cells หลั่ง calcitonin ส่วน follicular cells หลั่ง T3 และ T4\" = ครึ่งหลังถูก แต่ตัวที่หลั่ง calcitonin คือ parafollicular cells หรือ C-cells\n\n💡 C-cells กับ calcitonin ขึ้นต้นด้วย C เหมือนกัน",
     "verified": "Endocrine น.25"
   },
   {
@@ -674,7 +674,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Adrenal medulla"
     ],
     "answer": 2,
-    "explain": "สไลด์กำกับชื่อ spongiocyte ไว้ที่ zona fasciculata ซึ่งหลั่ง glucocorticoids (cortisol) ตัวเลือก zona glomerulosa ล่อใจเพราะเป็นชั้นนอกสุดที่ถูกพูดถึงก่อน แต่สไลด์ระบุว่าชั้นนั้นเรียก Z. arcuata ใน carnivore, horse และ pig และหลั่ง mineralocorticoid (aldosterone) ส่วน adrenal medulla มี chromaffin cells ไม่ใช่ spongiocyte",
+    "explain": "Spongiocyte เป็นชื่อของเซลล์ในชั้น zona fasciculata ซึ่งเป็นชั้นที่หลั่ง glucocorticoids (cortisol)\n\n❌ ทำไมข้ออื่นผิด\n— \"Zona glomerulosa\" = ชั้นนอกสุดที่หลั่ง mineralocorticoid (aldosterone) และใน carnivore, horse กับ pig เรียกชั้นนี้ว่า Z. arcuata\n— \"Zona reticularis\" = เป็นอีกชั้นหนึ่งของ adrenal cortex แต่ชื่อ spongiocyte ไม่ได้ผูกกับชั้นนี้\n— \"Adrenal medulla\" = เซลล์ของชั้นในสุดคือ chromaffin cells ไม่ใช่ spongiocyte\n\n💡 spongiocyte คู่กับ fasciculata และ fasciculata คู่กับ cortisol",
     "verified": "Endocrine น.31-32"
   },
   {
@@ -693,7 +693,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เพิ่ม tubular excretion ของ chloride และลด resorption ของ sodium"
     ],
     "answer": 0,
-    "explain": "สไลด์เขียนว่า aldosterone เพิ่ม tubular excretion ของ potassium และเพิ่ม resorption ของ sodium โดยมี chloride ตามมา จน osmotic gradient ดึงน้ำจาก glomerular filtrate เข้าสู่ extracellular fluid ตัวเลือกที่สลับ sodium กับ potassium ล่อใจที่สุด แต่ถ้าขับ sodium ออกและเก็บ potassium ไว้ น้ำจะไม่ถูกดึงกลับเข้า ECF ซึ่งขัดกับผลลัพธ์ที่สไลด์อธิบาย",
+    "explain": "Aldosterone ที่ distal portions of the nephron เพิ่ม tubular excretion ของ potassium และเพิ่ม resorption ของ sodium โดยมี chloride ตามกลับไปด้วย จนเกิด osmotic gradient ที่ดึงน้ำจาก glomerular filtrate เข้าสู่ extracellular fluid\n\n❌ ทำไมข้ออื่นผิด\n— \"เพิ่ม tubular excretion ของ sodium และเพิ่ม resorption ของ potassium\" = สลับไอออนกัน ถ้าขับ sodium ทิ้งและเก็บ potassium ไว้ น้ำจะไม่ถูกดึงกลับเข้า ECF\n— \"ลด tubular excretion ของ potassium และลด resorption ของ sodium\" = กลับทิศทั้งสองอย่าง aldosterone เพิ่มทั้งการขับ potassium และการดูดกลับ sodium\n— \"เพิ่ม tubular excretion ของ chloride และลด resorption ของ sodium\" = chloride ตาม sodium ที่ถูกดูดกลับ ไม่ได้ถูกขับทิ้ง และ sodium ถูกดูดกลับมากขึ้น ไม่ใช่ลดลง\n\n💡 เก็บ sodium ทิ้ง potassium แล้วน้ำเดินตาม sodium กลับเข้า ECF",
     "verified": "Endocrine น.31-32"
   },
   {
@@ -712,7 +712,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Pyramidal epithelium ที่เซลล์รวมกันเป็น secretory unit"
     ],
     "answer": 2,
-    "explain": "สไลด์ special names แยกไว้สามชื่อ โดย mesothelium คือ serous membranes ที่บุ body cavity และคลุม internal organs ตัวเลือก endothelium เป็นตัวลวงที่แรงที่สุดเพราะเป็น simple squamous เหมือนกันและอยู่ในสไลด์เดียวกัน แต่สไลด์จับ endothelium ไว้กับผิวในของ blood และ lymph vessel ไม่ใช่ผิวของช่องลำตัว",
+    "explain": "Simple squamous epithelium ที่เป็น serous membranes มีชื่อเฉพาะว่า mesothelium ซึ่งบุ body cavity และคลุม internal organs\n\n❌ ทำไมข้ออื่นผิด\n— \"Endothelium ซึ่งเป็น friction-reducing บุ blood & lymph vsl.\" = เป็นชื่อเฉพาะของ simple squamous ที่บุผิวในของ blood และ lymph vessel ไม่ใช่ผิวของช่องลำตัว\n— \"Mesenchymal epithelium ที่ subdural space และ anterior chamber\" = เป็นชื่อเฉพาะอีกชื่อในกลุ่มเดียวกัน แต่ผูกกับ subdural space และ anterior chamber ไม่ใช่ serous membranes\n— \"Pyramidal epithelium ที่เซลล์รวมกันเป็น secretory unit\" = เซลล์รูปพีระมิดที่รวมกันเป็นหน่วยหลั่ง ไม่ใช่เยื่อบุแบนบางที่เป็น serous membrane\n\n💡 meso ไปกับช่องลำตัว endo ไปกับผิวในของหลอดเลือด",
     "verified": "Epithelium น.12-13"
   },
   {
@@ -731,7 +731,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เพราะ cilia ที่ apical membrane ซ้อนกันหลายแถวจนดูเป็นชั้น"
     ],
     "answer": 0,
-    "explain": "สไลด์อธิบายว่าทุกเซลล์ยังแตะ basement membrane จึงเป็น simple แต่ nucleus วางคนละระดับความสูงกันเลยดูเหมือนหลายชั้น จึงได้คำว่า pseudo ตัวเลือก basal cell layer ผิดเพราะนั่นเป็นลักษณะของ stratified squamous ที่มีเซลล์ชั้นลึกเป็น cuboid หรือ columnar จริง ๆ ซ้อนอยู่ ไม่ใช่ภาพลวงตาจากตำแหน่งนิวเคลียส",
+    "explain": "ทุกเซลล์ของ pseudostratified columnar epithelium ยังแตะ basement membrane อยู่ครบทุกเซลล์ จึงนับเป็น simple แต่ nucleus ของแต่ละเซลล์ถูกวางไว้คนละระดับความสูง ภาพตัดจึงเห็นนิวเคลียสเรียงเป็นหลายแถวซ้อนกันจนดูเหมือนหลายชั้น คำว่า pseudo มาจากตรงนี้\n\n❌ ทำไมข้ออื่นผิด\n— \"เพราะมี basal cell layer แยกอีกชั้นอยู่ใต้เซลล์ columnar\" = ถ้ามีเซลล์ชั้นล่างซ้อนอยู่จริงโดยไม่ได้แตะ basement membrane ทุกเซลล์ นั่นคือ stratified epithelium ไม่ใช่ภาพลวงจากตำแหน่งนิวเคลียส\n— \"เพราะเซลล์ชั้น apical เป็น dome-shaped และ bulge เข้า lumen\" = เซลล์ผิวโป่งเข้า lumen แบบนี้เป็นภาพของ transitional epithelium และไม่ได้ทำให้เห็นเป็นหลายแถว\n— \"เพราะ cilia ที่ apical membrane ซ้อนกันหลายแถวจนดูเป็นชั้น\" = cilia อยู่เหนือผิวเซลล์ขึ้นไป ไม่ใช่ตัวเซลล์ ของที่ทำให้ดูเป็นชั้นคือแถวของนิวเคลียส\n\n💡 เกณฑ์ตัดสินไม่ใช่ว่าเห็นกี่แถว แต่คือทุกเซลล์ยังแตะ basement membrane หรือเปล่า",
     "verified": "Epithelium น.25-26"
   },
   {
@@ -750,7 +750,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Basally located และมีรูปร่าง elongated ตามแนวเซลล์"
     ],
     "answer": 3,
-    "explain": "ตาราง p.30 เขียน nuclei ของ columnar ว่า basally located, elongated ซึ่งใช้เป็นตัวแยกจริงตอนส่องสไลด์ ตัวเลือก various positions ผิดเพราะนั่นคือแถวของ pseudostratified ที่นิวเคลียสวางสลับระดับ ส่วน centrally located เป็นของ squamous และ cuboidal",
+    "explain": "nuclei ของกลุ่ม columnar ถูกดันไปอยู่ค่อนไปทางฐานเซลล์ (basally located) และมีรูปร่างยาวรี (elongated) ไปตามแนวสูงของเซลล์ เป็นจุดที่ใช้แยกจริงตอนส่องกล้อง\n\n❌ ทำไมข้ออื่นผิด\n— \"Centrally located และเป็น spherical แบบเดียวกับกลุ่ม cuboidal\" = นิวเคลียสกลมวางกลางเซลล์เป็นภาพของ cuboidal ไม่ใช่ columnar\n— \"Various positions ตามความสูงที่ต่างกันของแต่ละเซลล์\" = นิวเคลียสวางสลับระดับเป็นลักษณะของ pseudostratified ไม่ใช่ columnar ที่นิวเคลียสเรียงเป็นแถวเดียวที่ฐาน\n— \"Centrally located และมีรูปร่าง flattened ตามรูปของเซลล์\" = นิวเคลียสแบนตามรูปเซลล์แบนเป็นของ squamous\n\n💡 นิวเคลียสเลียนรูปเซลล์ แบนตาม squamous กลมตาม cuboidal และยาวรีถูกดันลงฐานตาม columnar",
     "verified": "Epithelium น.30"
   },
   {
@@ -769,7 +769,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Stratified squamous epithelium"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า germinal epithelium ที่คลุมผิว ovary เป็น simple cuboidal epithelium ตัวเลือก simple squamous ผิดเพราะเป็นชนิดที่พบใน serosa ของ oviduct ที่วางอยู่บน connective tissue ไม่ใช่ผิวของ ovary",
+    "explain": "germinal epithelium ที่คลุมผิวนอกของ ovary เหนือ tunica albuginea เป็น simple cuboidal epithelium คือเซลล์รูปลูกบาศก์เรียงชั้นเดียว\n\n❌ ทำไมข้ออื่นผิด\n— \"Simple squamous epithelium\" = เยื่อบุแบนชั้นเดียวแบบนี้เป็นของ serosa ที่คลุมอวัยวะและวางอยู่บน connective tissue ไม่ใช่ผิวของ ovary\n— \"Simple columnar epithelium\" = เยื่อบุทรงสูงชั้นเดียวเป็นของ lumen ในท่อทางเดินสืบพันธุ์ ไม่ใช่ผิวนอกที่คลุม ovary\n— \"Stratified squamous epithelium\" = เยื่อบุหลายชั้นแบบนี้อยู่ปลายทางฝั่ง vagina ไม่ใช่ที่ผิวของ ovary",
     "verified": "female lab manual น.1"
   },
   {
@@ -788,7 +788,7 @@ export const QUESTIONS_Y2_HISTO = [
       "ใน sow อยู่รวมกันเป็น clusters ส่วนใน carnivores และ ruminants กระจายสม่ำเสมอ"
     ],
     "answer": 0,
-    "explain": "สไลด์เขียนไว้ตรงตัวว่า carnivores จะพบ primordial follicle อยู่รวมกันเป็น clusters ขณะที่ ruminants และ sow กระจายสม่ำเสมอ ตัวเลือกที่สลับให้ ruminants เป็นกลุ่ม clusters จึงกลับด้านกับที่สไลด์ระบุ",
+    "explain": "primordial follicle ใน carnivores จะเกาะรวมกันเป็น clusters ส่วนใน ruminants และ sow กระจายตัวสม่ำเสมอ\n\n❌ ทำไมข้ออื่นผิด\n— \"ใน carnivores กระจายสม่ำเสมอ ส่วนใน ruminants และ sow อยู่รวมกันเป็น clusters\" = กลับด้านกันทั้งคู่\n— \"ใน ruminants อยู่รวมกันเป็น clusters ส่วนใน carnivores และ sow กระจายสม่ำเสมอ\" = ยก clusters ไปให้ ruminants ทั้งที่ ruminants อยู่ฝั่งกระจายสม่ำเสมอ\n— \"ใน sow อยู่รวมกันเป็น clusters ส่วนใน carnivores และ ruminants กระจายสม่ำเสมอ\" = sow อยู่ฝั่งเดียวกับ ruminants คือกระจายสม่ำเสมอ\n\n💡 กลุ่มเดียวที่รวมกันเป็น clusters คือ carnivores ที่เหลือกระจายเหมือนกันหมด",
     "verified": "female lab manual น.2"
   },
   {
@@ -807,7 +807,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Mature follicle"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า zona pellucida เริ่มพัฒนาที่ระยะ primary follicle ซึ่งเป็นระยะที่ oocyte ถูกล้อมด้วย cuboidal epithelium แล้ว ตัวเลือก secondary follicle ผิดเพราะระยะนั้นเป็นจุดที่เริ่มเห็น follicular antrum โดยที่ zona pellucida มีอยู่ก่อนแล้ว",
+    "explain": "zona pellucida เริ่มพัฒนาขึ้นที่ระยะ primary follicle ซึ่งเป็นระยะที่ oocyte ถูกล้อมด้วย cuboidal epithelium แล้ว\n\n❌ ทำไมข้ออื่นผิด\n— \"Secondary follicle\" = ระยะที่เริ่มเห็น follicular antrum ซึ่งตอนนั้น zona pellucida มีอยู่แล้ว\n— \"Primordial follicle\" = ระยะตั้งต้นที่ยังไม่มี zona pellucida เกิดขึ้น\n— \"Mature follicle\" = ระยะปลายทาง zona pellucida ปรากฏตั้งแต่ระยะ primary จึงไม่ใช่จุดเริ่ม\n\n💡 zona pellucida มาพร้อมกับตอนที่เซลล์ที่ล้อม oocyte กลายเป็น cuboidal คือ primary follicle",
     "verified": "female lab manual น.2"
   },
   {
@@ -826,7 +826,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Theca interna"
     ],
     "answer": 2,
-    "explain": "สไลด์นิยาม corona radiata ว่าเป็น granulosa cells ที่ยังติดไปกับ oocyte หลัง ovulation ส่วน cumulus oophorus คือ granulosa cells ที่ล้อมรอบ oocyte แต่ยังคงอยู่ใน ovary หลัง ovulation จึงเป็นคนละกลุ่มกัน",
+    "explain": "corona radiata คือ granulosa cells กลุ่มที่ยังเกาะติดไปกับ oocyte หลัง ovulation\n\n❌ ทำไมข้ออื่นผิด\n— \"Cumulus oophorus\" = granulosa cells ที่ล้อมรอบ oocyte แต่ยังคงอยู่ใน ovary หลัง ovulation จึงเป็นคนละกลุ่มกัน\n— \"Zona pellucida\" = ชั้น glycoprotein ระหว่าง granulosa cells กับ oocyte ไม่ใช่ตัวเซลล์\n— \"Theca interna\" = ชั้นเซลล์ที่อยู่รอบนอกของ follicle และหลั่ง androgens ไม่ใช่ granulosa cells\n\n💡 corona radiata คือมงกุฎที่ไข่พาติดตัวออกไป ส่วน cumulus oophorus คือเบาะที่ทิ้งไว้ใน ovary",
     "verified": "female lab manual น.4"
   },
   {
@@ -845,7 +845,7 @@ export const QUESTIONS_Y2_HISTO = [
       "inner oblique ที่หนา และ outer circular ที่พัฒนาน้อยกว่า"
     ],
     "answer": 1,
-    "explain": "สไลด์เขียนว่า muscularis externa ของ oviduct มี inner circular layer ของ smooth muscle และ outer longitudinal layer ที่พัฒนาน้อยกว่า ตัวเลือกที่ให้ outer longitudinal พัฒนามากกว่าจึงกลับด้านกับสไลด์ และไม่มีการกล่าวถึงชั้น oblique ในเด็คนี้",
+    "explain": "muscularis externa ของ oviduct เรียงเป็น inner circular layer ของ smooth muscle แล้วมี outer longitudinal layer ที่พัฒนาน้อยกว่าอยู่ด้านนอก\n\n❌ ทำไมข้ออื่นผิด\n— \"inner longitudinal ที่หนา และ outer circular ที่พัฒนาน้อยกว่า\" = สลับตำแหน่งของสองชั้น ชั้นในคือ circular\n— \"inner circular ที่บาง และ outer longitudinal ที่พัฒนามากกว่า\" = ลำดับชั้นถูก แต่กลับด้านความหนา ตัวที่พัฒนาน้อยกว่าคือ outer longitudinal\n— \"inner oblique ที่หนา และ outer circular ที่พัฒนาน้อยกว่า\" = ผนัง oviduct ไม่มีชั้น oblique ชั้นในเป็น circular\n\n💡 ท่อในระบบนี้ใช้สูตรเดียวกัน ชั้นในวางเป็นวง ชั้นนอกวางตามยาว",
     "verified": "female lab manual น.7"
   },
   {
@@ -864,7 +864,7 @@ export const QUESTIONS_Y2_HISTO = [
       "ใน lamina propria ที่อยู่รอบๆ uterine glands"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่าบริเวณระหว่างกล้ามเนื้อเรียบสองชั้นของ myometrium คือ inner circular ที่หนาและ outer longitudinal ที่บางกว่า มีหลอดเลือดขนาดใหญ่เรียกว่า stratum vasculare ส่วนชั้นนอกสุดที่ต่อจาก myometrium คือ perimetrium ซึ่งเป็น tunica serosa แบบ loose connective tissue ไม่ใช่ชั้นหลอดเลือดนี้",
+    "explain": "stratum vasculare คือแถบที่มีหลอดเลือดขนาดใหญ่ ซึ่งวางตัวอยู่ระหว่างกล้ามเนื้อเรียบสองชั้นของ myometrium คือ inner circular ที่หนา กับ outer longitudinal ที่บางกว่า\n\n❌ ทำไมข้ออื่นผิด\n— \"ใต้ surface epithelium ในชั้น endometrium ตอนบน\" = บริเวณนั้นเป็นที่อยู่ของ uterine glands กับ lamina propria ส่วนแถบหลอดเลือดใหญ่อยู่ลึกลงไปในชั้นกล้ามเนื้อ\n— \"ระหว่าง myometrium กับ perimetrium ด้านนอกสุด\" = ชั้นที่ต่อจาก myometrium ออกไปคือ perimetrium ซึ่งเป็น tunica serosa แบบ loose connective tissue ไม่ใช่แถบหลอดเลือดนี้\n— \"ใน lamina propria ที่อยู่รอบๆ uterine glands\" = อยู่ในชั้น endometrium คนละชั้นกับ myometrium ที่แถบหลอดเลือดนี้ฝังอยู่\n\n💡 ชื่อบอกว่าเป็นชั้นหลอดเลือด แต่ที่อยู่ของมันคือกลางกล้ามเนื้อ ไม่ใช่กลางเยื่อบุ",
     "verified": "female lab manual น.10"
   },
   {
@@ -883,7 +883,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Stratified squamous epithelium"
     ],
     "answer": 3,
-    "explain": "สไลด์ชี้ด้วยลูกศรว่าใน bitch epithelium เปลี่ยนเป็น stratified squamous epithelium อย่างทันทีที่ external os ส่วน simple columnar ที่มี mucous-secreting cells เป็นชนิดที่บุ lumen ของ cervix ก่อนถึงจุดเปลี่ยนนั้น",
+    "explain": "ใน bitch lumen ของ cervix บุด้วย simple columnar ที่มี mucous-secreting cells แล้วเปลี่ยนเป็น stratified squamous epithelium แบบตัดทันทีตรง external os\n\n❌ ทำไมข้ออื่นผิด\n— \"Pseudostratified columnar epithelium\" = เยื่อบุแบบนี้เป็นของทางเดินอากาศ ไม่ใช่ช่วง cervix ถึง vagina\n— \"Stratified cuboidal epithelium\" = เยื่อบุหลายชั้นตรงจุดเปลี่ยนนี้เป็นชนิด squamous ไม่ใช่ cuboidal\n— \"Simple cuboidal epithelium\" = เยื่อบุชั้นเดียวรูปลูกบาศก์แบบนี้อยู่ที่ผิวนอกของ ovary ไม่ใช่ที่ external os",
     "verified": "female lab manual น.11"
   },
   {
@@ -902,7 +902,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เป็นเซลล์ที่เล็กที่สุด รูป polygonal และนิวเคลียสหายไปหรือเป็น pyknotic"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า superficial cells เป็นเซลล์ที่ใหญ่ที่สุดใน vaginal smear รูป polygonal แบนชัดเจน และนิวเคลียสหายไปหรือเป็น pyknotic ส่วนคำอธิบายว่าเล็กที่สุด รูปกลม และมี nuclear to cytoplasmic ratio สูง เป็นลักษณะของ parabasal cells",
+    "explain": "superficial cells เป็นเซลล์ที่ใหญ่ที่สุดใน vaginal smear รูป polygonal แบนชัดเจน และนิวเคลียสหายไปหรือเหลือเป็น pyknotic\n\n❌ ทำไมข้ออื่นผิด\n— \"เป็นเซลล์ที่เล็กที่สุด รูปกลม และมี nuclear to cytoplasmic ratio สูง\" = เป็นลักษณะของ parabasal cells\n— \"เป็นเซลล์ที่ใหญ่ที่สุด รูปกลม และมี nuclear to cytoplasmic ratio สูง\" = เอาขนาดของ superficial มาผสมกับรูปร่างและนิวเคลียสของ parabasal\n— \"เป็นเซลล์ที่เล็กที่สุด รูป polygonal และนิวเคลียสหายไปหรือเป็น pyknotic\" = เอารูปร่างและนิวเคลียสของ superficial มาผสมกับขนาดของ parabasal\n\n💡 เซลล์ยิ่งถูกดันขึ้นมาที่ผิวยิ่งใหญ่ ยิ่งแบนเป็นเหลี่ยม และยิ่งเสียนิวเคลียส",
     "verified": "female lab manual น.12"
   },
   {
@@ -940,7 +940,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Cumulus oophorus cells"
     ],
     "answer": 0,
-    "explain": "สไลด์บรรยาย theca interna ว่าเป็นเซลล์ใหญ่ กลม foamy คล้าย epithelial cells และหลั่ง androgens ส่วน theca externa เป็นเซลล์คล้าย fibroblast ที่เรียงตัวรอบ follicle อยู่นอกชั้น theca interna จึงไม่ใช่เซลล์ที่หลั่ง androgens ตามคำบรรยายนี้",
+    "explain": "theca interna เป็นเซลล์ใหญ่ กลม foamy ลักษณะคล้าย epithelial cells และเป็นตัวที่หลั่ง androgens\n\n❌ ทำไมข้ออื่นผิด\n— \"Theca externa\" = เซลล์คล้าย fibroblast ที่เรียงตัวรอบ follicle อยู่นอกชั้น theca interna และไม่ได้หลั่ง androgens\n— \"Granulosa lutein cells\" = เซลล์ที่เกิดขึ้นหลัง luteinization และหลั่ง progesterone\n— \"Cumulus oophorus cells\" = granulosa cells ที่ล้อมรอบ oocyte คนละกลุ่มกับเซลล์ของ theca\n\n💡 interna กลม foamy และหลั่งฮอร์โมน ส่วน externa ยาวคล้าย fibroblast และเรียงเป็นแนว",
     "verified": "Female reproductive organ น.11"
   },
   {
@@ -978,7 +978,7 @@ export const QUESTIONS_Y2_HISTO = [
       "LH จาก pituitary gland"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุว่า LH จาก pituitary gland เป็นตัวเริ่ม luteinization และกระตุ้น granulosa cells ให้หลั่ง progesterone จากนั้นเซลล์จะเกิด hyperplasia กับ hypertrophy และสะสม lutein จนกลายเป็น granulosa luteal cells ส่วน FSH เป็นตัวที่คนมักเลือกเพราะเกี่ยวกับ follicle แต่เด็คหน้านี้ระบุ LH ไว้ชัดเจน",
+    "explain": "LH จาก pituitary gland เป็นตัวเริ่ม luteinization และกระตุ้น granulosa cells ให้หลั่ง progesterone จากนั้นเซลล์จะเกิด hyperplasia กับ hypertrophy แล้วสะสม lutein จนกลายเป็น granulosa luteal cells\n\n❌ ทำไมข้ออื่นผิด\n— \"FSH จาก pituitary gland\" = มักถูกเลือกเพราะชื่อผูกกับ follicle แต่ตัวที่สั่งให้เกิด luteinization คือ LH\n— \"Estrogen จาก theca interna\" = theca interna เป็นแหล่งของ androgens ไม่ใช่สัญญาณที่สั่งให้ granulosa เปลี่ยนไปหลั่ง progesterone\n— \"Prolactin จาก pituitary gland\" = ฮอร์โมนที่ผูกกับการสร้างน้ำนม ไม่ใช่ตัวเริ่ม luteinization\n\n💡 ชื่อเต็มของ LH คือ luteinizing hormone งานของมันจึงเป็น luteinization ตรงตัว",
     "verified": "Female reproductive organ น.17-18"
   },
   {
@@ -1016,7 +1016,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Fertilization เกิดที่ ampulla ส่วน tunica muscularis หนาที่สุดที่ infundibulum"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า ampulla มี histology คล้าย infundibulum และเป็นจุดที่เกิด fertilization ส่วน isthmus ซึ่งอยู่ใกล้ uterus มี tunica muscularis เป็นชั้นที่หนาที่สุดของผนังและ tunica submucosa บางมาก ตัวเลือกที่ให้ infundibulum หนาที่สุดผิด เพราะ infundibulum เป็นส่วนที่ tunica mucosa กินความหนาของผนังเกือบทั้งหมด",
+    "explain": "fertilization เกิดที่ ampulla ซึ่งมี histology คล้าย infundibulum ส่วน isthmus ที่อยู่ใกล้ uterus เป็นส่วนที่ tunica muscularis หนาที่สุดของผนัง และ tunica submucosa บางมาก\n\n❌ ทำไมข้ออื่นผิด\n— \"Fertilization เกิดที่ isthmus ส่วน tunica muscularis หนาที่สุดที่ ampulla\" = สลับบทบาทของสองส่วนกัน\n— \"Fertilization เกิดที่ infundibulum ส่วน tunica muscularis หนาที่สุดที่ ampulla\" = infundibulum เป็นส่วนที่ tunica mucosa กินความหนาของผนังเกือบทั้งหมด และจุดที่เกิด fertilization คือ ampulla\n— \"Fertilization เกิดที่ ampulla ส่วน tunica muscularis หนาที่สุดที่ infundibulum\" = ครึ่งแรกถูก แต่ผนังของ infundibulum เป็น mucosa เกือบทั้งหมด กล้ามเนื้อจึงไม่ใช่ส่วนที่หนาที่สุดตรงนั้น\n\n💡 ยิ่งเข้าใกล้ uterus ผนังยิ่งเป็นกล้ามเนื้อ ยิ่งออกไปทางปลายเปิด ผนังยิ่งเป็น mucosa",
     "verified": "Female reproductive organ น.22-25"
   },
   {
@@ -1035,7 +1035,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เปลี่ยนจาก simple cuboidal เป็น transitional epithelium อย่างค่อยเป็นค่อยไป"
     ],
     "answer": 2,
-    "explain": "สไลด์เขียนซ้ำถึงสามหน้าติดกันว่า lumen ของ cervix บุด้วย simple columnar epithelium แล้วเปลี่ยนเป็น stratified squamous epithelium อย่างทันทีทันใดที่ external os ตัวเลือกที่กลับทิศทางเป็น stratified squamous ไปเป็น simple columnar ผิด เพราะทิศทางที่ถูกคือจากด้าน cervix ที่เป็น columnar ออกไปสู่ vagina ที่เป็น stratified squamous",
+    "explain": "lumen ของ cervix บุด้วย simple columnar epithelium แล้วเปลี่ยนเป็น stratified squamous epithelium แบบทันทีทันใดตรง external uterine ostium\n\n❌ ทำไมข้ออื่นผิด\n— \"เปลี่ยนจาก stratified squamous เป็น simple columnar อย่างค่อยเป็นค่อยไป\" = กลับทิศทาง ทิศที่ถูกคือจาก columnar ฝั่ง cervix ออกไปหา stratified squamous ฝั่ง vagina และเปลี่ยนแบบตัดทันที\n— \"เปลี่ยนจาก pseudostratified columnar เป็น simple cuboidal อย่างทันทีทันใด\" = ความทันทีทันใดถูก แต่เยื่อบุทั้งคู่ไม่ใช่คู่ที่เปลี่ยนกันตรง external os\n— \"เปลี่ยนจาก simple cuboidal เป็น transitional epithelium อย่างค่อยเป็นค่อยไป\" = transitional epithelium เป็นเยื่อบุของทางเดินปัสสาวะ คนละระบบกับ cervix\n\n💡 จำสองอย่างคู่กัน ทิศทางคือ columnar ไปหา squamous และการเปลี่ยนเป็นแบบตัดทันที ไม่ใช่ค่อยเป็นค่อยไป",
     "verified": "Female reproductive organ น.30-32"
   },
   {
@@ -1054,7 +1054,7 @@ export const QUESTIONS_Y2_HISTO = [
       "คงที่ตลอด cycle แต่ glands ใน lamina propria จะหลั่งเพิ่มขึ้นในช่วง estrus และ diestrus"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า epithelium ของ vagina เป็น stratified squamous ที่หนาขึ้นในช่วง proestrus และ estrus และในบางชนิดโดยเฉพาะ rodent กับ carnivores จะ keratinize ในช่วง estrus ตัวเลือกที่พูดถึง glands ผิด เพราะสไลด์ระบุว่า vagina โดยทั่วไปเป็น nonglandular",
+    "explain": "epithelium ของ vagina เป็น stratified squamous ที่หนาขึ้นในช่วง proestrus และ estrus และในบางชนิดโดยเฉพาะ rodent กับ carnivores จะ keratinize ในช่วง estrus\n\n❌ ทำไมข้ออื่นผิด\n— \"บางลงในช่วง proestrus และ estrus และ keratinize ในช่วง diestrus ใน ruminants กับ equine\" = กลับด้าน ช่วง proestrus กับ estrus เยื่อบุหนาขึ้น และ keratinization เกิดในช่วง estrus\n— \"หนาขึ้นในช่วง diestrus และ anestrus และ keratinize ในช่วง proestrus ใน carnivores\" = ย้ายช่วงที่เยื่อบุหนาไปไว้ที่ diestrus กับ anestrus ทั้งที่ช่วงที่หนาคือ proestrus กับ estrus\n— \"คงที่ตลอด cycle แต่ glands ใน lamina propria จะหลั่งเพิ่มขึ้นในช่วง estrus และ diestrus\" = vagina โดยทั่วไปเป็น nonglandular จึงไม่มี glands ให้หลั่งเพิ่ม\n\n💡 estrus คือจุดที่เยื่อบุหนาที่สุดจนถึงขั้น keratinize ซึ่งเป็นที่มาของเซลล์ไร้นิวเคลียสใน smear",
     "verified": "Female reproductive organ น.33"
   },
   {
@@ -1073,7 +1073,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Anestrus"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่าในช่วง estrus superficial cells เด่นชัดและเกือบทั้งหมดเป็น anucleate superficial cells ส่วน proestrus เป็นช่วงที่ค่อย ๆ เปลี่ยนจาก intermediate และ parabasal cells ไปเป็น superficial cells พร้อมพบ RBC และ neutrophils จึงยังไม่ใช่ภาพที่เซลล์ไร้ nucleus เกือบทั้งหมด",
+    "explain": "ช่วง estrus เป็นช่วงที่ superficial cells เด่นชัดและเกือบทั้งหมดเป็น anucleate superficial cells คือเซลล์ผิวที่ไม่เหลือนิวเคลียส\n\n❌ ทำไมข้ออื่นผิด\n— \"Proestrus\" = ช่วงที่ภาพค่อย ๆ เปลี่ยนจาก intermediate กับ parabasal cells ไปเป็น superficial cells และยังพบ RBC กับ neutrophils อยู่\n— \"Diestrus\" = อยู่พ้นช่วงที่เยื่อบุหนาและ keratinize ไปแล้ว ภาพเซลล์ไร้นิวเคลียสเกือบทั้งหมดจึงไม่ใช่ของช่วงนี้\n— \"Anestrus\" = ช่วงที่ cycle ไม่ได้เดิน เยื่อบุจึงไม่ได้อยู่ในสภาพหนาและ keratinize แบบ estrus",
     "verified": "Female reproductive organ น.38-41"
   },
   {
@@ -1168,7 +1168,7 @@ export const QUESTIONS_Y2_HISTO = [
       "อยู่ ventral ต่อทางเดินอาหาร พบเฉพาะ cartilaginous fish ที่ว่ายช้า"
     ],
     "answer": 2,
-    "explain": "Swim bladder เป็นถุงบรรจุแก๊สที่อยู่ dorsal ต่อทางเดินอาหาร พบเฉพาะใน bony fishes และไม่มีในปลาที่ว่ายเร็วอย่าง tuna กับ mackerel ตัวเลือกที่บอกว่าพบมากที่สุดใน tuna และ mackerel จึงกลับด้านกับที่สไลด์ระบุ และ cartilaginous fish ไม่มี swim bladder เลย",
+    "explain": "swim bladder เป็นถุงบรรจุแก๊สที่อยู่ dorsal ต่อทางเดินอาหาร พบเฉพาะใน bony fishes และไม่มีในปลาที่ว่ายเร็ว\n\n❌ ทำไมข้ออื่นผิด\n— \"อยู่ ventral ต่อทางเดินอาหาร พบทั้งใน bony fish และ cartilaginous fish\" = ผิดสองจุด ตำแหน่งคือ dorsal และ cartilaginous fish ไม่มี swim bladder เลย\n— \"อยู่ dorsal ต่อทางเดินอาหาร พบมากที่สุดใน tuna และ mackerel\" = ตำแหน่งถูก แต่ tuna กับ mackerel คือปลาว่ายเร็วซึ่งเป็นกลุ่มที่ไม่มี swim bladder\n— \"อยู่ ventral ต่อทางเดินอาหาร พบเฉพาะ cartilaginous fish ที่ว่ายช้า\" = ผิดทั้งตำแหน่งและกลุ่มปลา",
     "verified": "Fish น.63-65"
   },
   {
@@ -1187,7 +1187,7 @@ export const QUESTIONS_Y2_HISTO = [
       "ในปลาน้ำจืดไตจะขับเกลือออกมากและทำให้ปัสสาวะมีความเข้มข้นสูงกว่าเลือด"
     ],
     "answer": 0,
-    "explain": "ไตเป็น major immune tissue และแหล่ง hematopoiesis หลักของ bony fish โดยแบ่งเป็น anterior หรือ head kidney ที่มี hematopoietic elements กับ posterior kidney ที่ทำหน้าที่ขับถ่าย ตัวเลือกที่ให้ไตขับของเสียไนโตรเจนผิด เพราะสไลด์ระบุว่าของเสียไนโตรเจนถูกขับทาง gills และในปลาน้ำจืดไตต้องสงวนเกลือแล้วเจือจางปัสสาวะ ไม่ใช่ทำให้เข้มข้น",
+    "explain": "ไตของ bony fish เป็น major immune tissue และเป็นแหล่ง hematopoiesis หลักของตัวปลา โดยแบ่งเป็น anterior kidney หรือ head kidney ที่มี hematopoietic elements กับ posterior kidney ที่ทำงานขับถ่าย\n\n❌ ทำไมข้ออื่นผิด\n— \"เป็นทางขับของเสียไนโตรเจนหลัก ส่วน gills ทำหน้าที่แลกเปลี่ยนแก๊สอย่างเดียว\" = ของเสียไนโตรเจนถูกขับออกทาง gills เป็นหลัก gills จึงไม่ได้ทำแค่แลกเปลี่ยนแก๊ส\n— \"วางตัวอยู่ใน peritoneal cavity ทางด้าน dorsal ต่อ swim bladder ของปลา\" = พูดถึงตำแหน่งไม่ใช่บทบาทที่โจทย์ถาม และไตของปลาไม่ได้แขวนอยู่ในโพรงช่องท้อง แต่แนบอยู่ชิดกระดูกสันหลัง\n— \"ในปลาน้ำจืดไตจะขับเกลือออกมากและทำให้ปัสสาวะมีความเข้มข้นสูงกว่าเลือด\" = ปลาน้ำจืดต้องสงวนเกลือแล้วเจือจางปัสสาวะ ไม่ใช่ทำให้เข้มข้นกว่าเลือด\n\n💡 แบ่งงานตามหัวท้าย ส่วนหัวทำเลือดกับภูมิคุ้มกัน ส่วนท้ายทำขับถ่าย",
     "verified": "Fish น.79-82"
   },
   {
@@ -1225,7 +1225,7 @@ export const QUESTIONS_Y2_HISTO = [
       "∅ ราว 20 µm, tunica media มี smooth muscle 1-3 ชั้น และมี pericyte"
     ],
     "answer": 1,
-    "explain": "เดคเขียน capillary ไว้ว่ามี ∅ 5-10 µm มี endothelial cell เพียง 1 ชั้น ไม่มี tunica media และไม่มี smooth muscle โดย tunica adventitia เป็น pericyte บวก CNT ข้อที่ล่อใจที่สุดคือขนาด 5-10 µm ที่พ่วง smooth muscle 1-2 ชั้น เพราะเอาขนาดของ capillary มาผสมกับ smooth muscle ของ small vein (venule) ซึ่งเดคระบุว่า ∅ ราว 20 µm มี smooth muscle 1-2 ชั้นและมี pericyte ส่วน 1-3 ชั้นเป็นของ small artery (arteriole)",
+    "explain": "capillary มี ∅ 5-10 µm ผนังเหลือเป็น endothelial cell เพียงชั้นเดียว ไม่มี tunica media และไม่มี smooth muscle โดยรอบนอกเป็น pericyte บวก CNT ในตำแหน่งของ tunica adventitia\n\n❌ ทำไมข้ออื่นผิด\n— \"∅ 5-10 µm, tunica media มี smooth muscle 1-2 ชั้น และมี pericyte\" = เอาขนาดของ capillary ไปพ่วงกับ smooth muscle 1-2 ชั้นของ small vein (venule) ซึ่งมี ∅ ราว 20 µm\n— \"∅ ราว 20 µm, มี endothelial cell 1 ชั้น และ tunica adventitia เป็น CNT\" = ขนาดเป็นของหลอดเลือดระดับ venule ไม่ใช่ของ capillary\n— \"∅ ราว 20 µm, tunica media มี smooth muscle 1-3 ชั้น และมี pericyte\" = smooth muscle 1-3 ชั้นเป็นของ small artery (arteriole)\n\n💡 capillary คือหลอดเลือดที่เหลือแค่ endothelium ชั้นเดียว เห็น smooth muscle เมื่อไหร่แปลว่าไม่ใช่ capillary แล้ว",
     "verified": "HISTO LAB - Block II น.13-14"
   },
   {
@@ -1244,7 +1244,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เกิดจาก reticular cell และพบใน cortex"
     ],
     "answer": 2,
-    "explain": "เดคเขียนว่า Hassall's corpuscle เกิดจาก reticular cell พบใน medulla รูปร่าง whorl-shaped และกำกับคำว่า keratohyalin granule ไว้ พร้อม callout ว่าเป็นตัวชี้ขาดว่านี่คือ thymus และอยู่ที่ medulla เสมอ ข้อที่หลอกคือ reticular cell แต่พบใน cortex เพราะที่มาของเซลล์ถูก แต่ตำแหน่งผิด cortex เป็นที่ที่ T-lymphocyte อยู่หนาแน่นและเป็น T-lymphoblast (thymocyte) ที่มาจาก bone marrow",
+    "explain": "Hassall's corpuscle เกิดจาก reticular cell ที่มาเรียงซ้อนกันเป็นวง whorl-shaped และพบใน medulla เสมอ จึงใช้ชี้ขาดได้ทั้งว่าเนื้อเยื่อนี้คือ thymus และว่ากำลังดูส่วน medulla อยู่\n\n❌ ทำไมข้ออื่นผิด\n— \"เกิดจาก thymic epithelial cell และพบใน cortex\" = ตำแหน่งผิด corpuscle อยู่ใน medulla ไม่ใช่ cortex\n— \"เกิดจาก T-lymphoblast และพบใน medulla\" = ตำแหน่งถูก แต่ T-lymphoblast (thymocyte) เป็นเซลล์ที่มาจาก bone marrow และอยู่หนาแน่นใน cortex ไม่ใช่ตัวที่ก่อเป็น corpuscle\n— \"เกิดจาก reticular cell และพบใน cortex\" = ที่มาของเซลล์ถูก แต่ตำแหน่งผิด cortex เป็นที่ที่ T-lymphocyte อยู่หนาแน่น\n\n💡 เห็นวงซ้อนแบบหัวหอมเมื่อไหร่ ให้ตอบ thymus และตอบ medulla ไปพร้อมกัน",
     "verified": "HISTO LAB - Block II น.30-31"
   },
   {
@@ -1263,7 +1263,7 @@ export const QUESTIONS_Y2_HISTO = [
       "paracortex มี germinal center และเป็นที่อยู่ของ plasma cell"
     ],
     "answer": 0,
-    "explain": "เดคเขียนว่า cortex มี lymphatic nodule และใน nodule เป็น B-lymphocyte ส่วน paracortex ไม่มี lymphatic nodule และเป็นที่อยู่ของ T-cell ข้อที่ล่อใจคือ paracortex มี lymphatic nodule แต่เป็น T-cell เพราะจำชนิดเซลล์ถูกแต่จำลักษณะโครงสร้างสลับกับ cortex ส่วน germinal center เดคระบุว่าพบเมื่อมี antigenic challenge ในเนื้อ nodule จึงเป็นของ cortex และ plasma cell เดคเขียนไว้ที่ medullary cord",
+    "explain": "paracortex ของ lymph node ไม่มี lymphatic nodule และเป็นที่อยู่ของ T-cell ต่างจาก cortex ที่มี lymphatic nodule ซึ่งภายใน nodule เป็น B-lymphocyte\n\n❌ ทำไมข้ออื่นผิด\n— \"paracortex มี lymphatic nodule และเป็นที่อยู่ของ T-cell\" = ชนิดเซลล์ถูก แต่ lymphatic nodule เป็นโครงสร้างของ cortex\n— \"paracortex ไม่มี lymphatic nodule และเป็นที่อยู่ของ B-cell\" = โครงสร้างถูก แต่ B-lymphocyte อยู่ใน nodule ของ cortex\n— \"paracortex มี germinal center และเป็นที่อยู่ของ plasma cell\" = germinal center โผล่ในเนื้อ nodule เมื่อมี antigenic challenge จึงเป็นของ cortex ส่วน plasma cell อยู่ที่ medullary cord\n\n💡 ไล่เป็นสามที่ cortex คือ nodule กับ B, paracortex คือไม่มี nodule กับ T, medullary cord คือ plasma cell",
     "verified": "HISTO LAB - Block II น.32-34"
   },
   {
@@ -1282,7 +1282,7 @@ export const QUESTIONS_Y2_HISTO = [
       "simple cuboidal epithelium"
     ],
     "answer": 3,
-    "explain": "เดคไล่เยื่อบุตามลำดับว่า primary และ secondary bronchiole เป็น simple columnar epithelium, terminal bronchioles เป็น simple cuboidal epithelium แล้ว respiratory bronchioles จึงเริ่มมี squamous (alveolus) epithelium ข้อที่หลอกคือ simple columnar เพราะเป็นเยื่อบุของ bronchiole ชั้นก่อนหน้าที่อยู่ติดกัน ส่วน squamous เป็นของ respiratory bronchioles ที่อยู่ถัดลงไป และ stratified squamous เดคเขียนไว้ที่ tonsil ไม่ใช่ในเนื้อปอด",
+    "explain": "terminal bronchioles บุด้วย simple cuboidal epithelium โดยไล่ลำดับได้ว่า primary กับ secondary bronchiole เป็น simple columnar แล้วเตี้ยลงเป็น cuboidal ที่ terminal bronchioles ก่อนที่ respiratory bronchioles จะเริ่มมี squamous (alveolus) epithelium\n\n❌ ทำไมข้ออื่นผิด\n— \"simple columnar epithelium\" = เป็นเยื่อบุของ primary และ secondary bronchiole ซึ่งอยู่เหนือขึ้นไปหนึ่งขั้น\n— \"simple squamous epithelium\" = เริ่มที่ respiratory bronchioles และเนื้อ alveolus ซึ่งอยู่ถัดลงไป\n— \"stratified squamous epithelium\" = เยื่อบุหลายชั้นแบบนี้เป็นของ tonsil ไม่ใช่เนื้อปอด\n\n💡 ยิ่งลึกเยื่อบุยิ่งเตี้ยลง columnar แล้ว cuboidal แล้วจบที่ squamous ตรง alveolus",
     "verified": "HISTO LAB - Block II น.47-50"
   },
   {
@@ -1301,7 +1301,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Epidermis และ hair follicles"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า mesoderm ให้กำเนิด dermis และ blood vessels ส่วนตัวเลือกที่ล่อใจคือ epidermis กับ skin glands ซึ่งเป็นของ ectoderm เช่นเดียวกับ nerve และ hair follicles",
+    "explain": "mesoderm ให้กำเนิด dermis และ blood vessels ของผิวหนัง\n\n❌ ทำไมข้ออื่นผิด\n— \"Epidermis และ skin glands\" = ทั้งคู่มาจาก ectoderm\n— \"Hair follicles และ nerve\" = ทั้งคู่มาจาก ectoderm เช่นกัน\n— \"Epidermis และ hair follicles\" = เป็นของ ectoderm ทั้งคู่\n\n💡 ectoderm ให้ตัวผิวและของที่งอกออกจากผิว ส่วน mesoderm ให้เนื้อรองรับกับหลอดเลือดที่อยู่ใต้ลงไป",
     "verified": "Integument น.3"
   },
   {
@@ -1320,7 +1320,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Stratum corneum"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า stratum spinosum เป็นชั้นที่หนาที่สุดของ epidermis ประกอบด้วย polyhedral cells หลายชั้นและพบ desmosome ส่วน stratum corneum ที่มักถูกเลือกเป็น 3-50 layers ของ keratinized squamous cells ที่หลุดลอกตลอดเวลา ไม่ใช่ชั้นที่หนาที่สุด",
+    "explain": "stratum spinosum เป็นชั้นที่หนาที่สุดของ epidermis ประกอบด้วย polyhedral cells ซ้อนกันหลายชั้น และเป็นชั้นที่เห็น desmosome\n\n❌ ทำไมข้ออื่นผิด\n— \"Stratum basale\" = ชั้นล่างสุดที่วางอยู่บน basement membrane ไม่ใช่ชั้นหนาที่มี polyhedral cells ซ้อนกันหลายชั้น\n— \"Stratum granulosum\" = ชั้นที่ได้ชื่อจาก keratohyalin granule ในเซลล์ ไม่ใช่ชั้นที่หนาที่สุด\n— \"Stratum corneum\" = ชั้น keratinized squamous cells 3-50 layers ที่หลุดลอกตลอดเวลา มักถูกเลือกแต่ไม่ใช่ชั้นที่หนาที่สุด\n\n💡 ชื่อ spinosum มาจากหนามที่เห็น ซึ่งแท้จริงคือ desmosome ที่ยึดเซลล์ไว้ด้วยกัน",
     "verified": "Integument น.9-12"
   },
   {
@@ -1339,7 +1339,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Stratum lucidum"
     ],
     "answer": 3,
-    "explain": "สไลด์เขียนว่า stratum lucidum absent in hairy thin skin โดยพบใน thick skin เช่น metacarpal pad และ hairless thin skin เช่น lip ส่วน stratum granulosum ที่มักถูกเลือกยังคงมีอยู่ในผิวหนังชนิดนี้",
+    "explain": "stratum lucidum คือชั้นที่ absent ใน hairy thin skin ชั้นนี้จะพบใน thick skin เช่น metacarpal pad และใน hairless thin skin เช่น lip\n\n❌ ทำไมข้ออื่นผิด\n— \"Stratum spinosum\" = ยังมีอยู่ในผิวหนังชนิดนี้ และเป็นชั้นที่หนาที่สุดของ epidermis\n— \"Stratum granulosum\" = ยังคงมีอยู่ใน hairy thin skin จึงไม่ใช่ชั้นที่ขาดไป\n— \"Stratum corneum\" = ชั้นนอกสุดที่ยังมีอยู่ในผิวหนังชนิดนี้\n\n💡 lucidum โผล่เฉพาะที่ผิวหนาอย่าง metacarpal pad กับที่ไม่มีขนอย่าง lip",
     "verified": "Integument น.12, น.15-16"
   },
   {
@@ -1358,7 +1358,7 @@ export const QUESTIONS_Y2_HISTO = [
       "small round cell มี euchromatin nucleus แต่ไม่พบ nucleolus ชัดเจน"
     ],
     "answer": 0,
-    "explain": "เดคเขียนลักษณะ ganglion cell ไว้เป็น large round cell พร้อม euchromatin nucleus และ prominent nucleolus ซึ่งเป็นกลุ่มเดียวในเดคที่มีคำบรรยายลักษณะเซลล์ ตัวเลือกที่ล่อใจคือ small round cell ที่ไม่มี nucleolus ชัดเจน เพราะสลับเฉพาะขนาดกับ nucleolus แต่เดคระบุทั้งขนาดใหญ่และ nucleolus เด่นพร้อมกัน",
+    "explain": "ganglion cell ใน spinal ganglion เป็น large round cell มี euchromatin nucleus คือนิวเคลียสติดสีจาง และมี prominent nucleolus เห็นเด่นชัด\n\n❌ ทำไมข้ออื่นผิด\n— \"small spindle cell มี heterochromatin nucleus และ nucleolus ไม่ชัด\" = สลับทุกคุณสมบัติกับของจริง\n— \"large flat cell มี heterochromatin nucleus และ prominent nucleolus\" = ขนาดใหญ่กับ nucleolus เด่นถูก แต่รูปร่างเป็นกลมไม่ใช่แบน และนิวเคลียสเป็น euchromatin\n— \"small round cell มี euchromatin nucleus แต่ไม่พบ nucleolus ชัดเจน\" = รูปร่างกลมและ euchromatin ถูก แต่เซลล์มีขนาดใหญ่และ nucleolus เห็นเด่นชัด\n\n💡 นิวเคลียสติดสีจางคู่กับ nucleolus เด่นคือภาพของเซลล์ที่ทำงานหนัก เข้ากับเซลล์ประสาทตัวใหญ่",
     "verified": "Laboratory of nervous system histology น.1"
   },
   {
@@ -1377,7 +1377,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Type VI epithelial reticular cells"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุว่า thymic corpuscle เกิดจาก Type VI epithelial reticular cells ซึ่งเป็นเซลล์ขนาดใหญ่ ติดสีจาง มาเรียงซ้อนกันเป็นวง (whorl-shaped) ตัวเลือก Type I ชวนสับสนเพราะเป็นชนิดที่ห่อหุ้ม capillaries ใน cortex เป็น blood-thymus barrier ไม่ใช่ตัวที่รวมเป็น corpuscle ใน medulla",
+    "explain": "thymic corpuscle เกิดจาก Type VI epithelial reticular cells ซึ่งเป็นเซลล์ขนาดใหญ่ ติดสีจาง มาเรียงซ้อนกันเป็นวง whorl-shaped\n\n❌ ทำไมข้ออื่นผิด\n— \"Type I epithelial reticular cells\" = ชนิดที่ห่อหุ้ม capillaries ใน cortex ทำงานเป็น blood-thymus barrier\n— \"Type II epithelial reticular cells\" = เป็นคนละชนิดในซีรีส์เดียวกัน ไม่ใช่ตัวที่มารวมกันเป็น corpuscle\n— \"Type IV epithelial reticular cells\" = เป็นคนละชนิดในซีรีส์เดียวกัน ไม่ใช่ตัวที่มารวมกันเป็น corpuscle\n\n💡 Type I อยู่หัวแถวและเป็นตัวกั้นที่ cortex ส่วน Type VI อยู่ท้ายแถวและก่อเป็น corpuscle ใน medulla",
     "verified": "Lymphatic organ I น.21"
   },
   {
@@ -1396,7 +1396,7 @@ export const QUESTIONS_Y2_HISTO = [
       "มี apical cilia ยาว และมี basal pocket ที่บรรจุ reticular cells อย่างถาวร"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า M cell มี short apical fold แต่ไม่มี brush border และมี large intracellular pocket ที่มี T cells, B cells และ dendritic cells อยู่ชั่วคราว ตัวเลือกที่ว่ามี brush border ชัดเจนเป็นตัวลวงที่น่าเลือกเพราะในภาพ TEM ของสไลด์มีคีย์ B = brush border จริง แต่ brush border นั้นเป็นของ enterocyte ข้างเคียง (คีย์ E) ไม่ใช่ของ M cell",
+    "explain": "M cell มี short apical fold แต่ไม่มี brush border และมี large intracellular pocket ที่มี T cells, B cells และ dendritic cells เข้ามาอยู่ชั่วคราว\n\n❌ ทำไมข้ออื่นผิด\n— \"มี brush border หนาแน่น และมี intracellular pocket ที่บรรจุ enterocyte ไว้\" = brush border เป็นของ enterocyte ที่อยู่ข้าง ๆ ไม่ใช่ของ M cell และของที่อยู่ใน pocket คือเซลล์ภูมิคุ้มกัน ไม่ใช่ enterocyte\n— \"มี short apical fold และมี brush border ชัดเจน แต่ไม่มี intracellular pocket\" = ครึ่งแรกถูก แต่จุดชี้ขาดของ M cell คือไม่มี brush border และต้องมี pocket\n— \"มี apical cilia ยาว และมี basal pocket ที่บรรจุ reticular cells อย่างถาวร\" = ผิวด้านบนเป็น fold ไม่ใช่ cilia และ pocket เก็บ T cells, B cells กับ dendritic cells ไว้ชั่วคราว ไม่ใช่ reticular cells แบบถาวร\n\n💡 ตัวชี้ขาดของ M cell คือของที่ไม่มี (brush border) คู่กับของที่มี (pocket ที่มีเซลล์ภูมิคุ้มกันอยู่ข้างใน)",
     "verified": "Lymphatic organs II น.5"
   },
   {
@@ -1415,7 +1415,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Transitional epithelium"
     ],
     "answer": 2,
-    "explain": "สไลด์แยกไว้ชัดว่า oropharynx เป็น stratified squamous epithelium ส่วน nasopharynx เป็น pseudostratified columnar epithelium ตัวเลือก pseudostratified columnar จึงเป็นตัวลวงที่ตรงกับตำแหน่งอีกแห่งของ tonsil เดียวกัน คนที่จำได้แต่สลับตำแหน่งจะเลือกข้อนี้",
+    "explain": "tonsil บริเวณ oropharynx บุด้วย stratified squamous epithelium\n\n❌ ทำไมข้ออื่นผิด\n— \"Pseudostratified columnar epithelium\" = เป็นเยื่อบุของ tonsil ฝั่ง nasopharynx คนละตำแหน่งกับที่โจทย์ถาม\n— \"Simple cuboidal epithelium\" = เยื่อบุชั้นเดียวรูปลูกบาศก์แบบนี้อยู่ที่ terminal bronchioles และผิวนอกของ ovary ไม่ใช่ที่ oropharynx\n— \"Transitional epithelium\" = เยื่อบุของทางเดินปัสสาวะ คนละระบบกับ tonsil\n\n💡 ฝั่งที่เจอการเสียดสีจากอาหารเป็น stratified squamous ส่วนฝั่งที่เป็นทางลมเป็น pseudostratified columnar",
     "verified": "Lymphatic organs II น.7"
   },
   {
@@ -1434,7 +1434,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Smooth muscle cells ที่หนาตัวขึ้นเป็นชั้น"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า sheathed arteriole ซึ่งเรียกได้อีกว่า sheathed capillary หรือ ellipsoid คือส่วนที่ผนังหลอดเลือดหนาขึ้นเพราะถูกล้อมด้วย sheath ของ macrophages ตัวเลือก smooth muscle cells เป็นตัวลวงที่น่าเชื่อเพราะผนังหลอดเลือดแดงหนาขึ้นมักนึกถึงกล้ามเนื้อเรียบ แต่สไลด์กล่าวถึง smooth muscle cells เฉพาะที่ capsule ของม้าม ไม่ใช่ที่ ellipsoid",
+    "explain": "sheathed arteriole ซึ่งเรียกได้อีกว่า sheathed capillary หรือ ellipsoid มีผนังหนาขึ้นเพราะถูกล้อมด้วย sheath ของ macrophages\n\n❌ ทำไมข้ออื่นผิด\n— \"Plasma cells ที่สะสมอยู่รอบผนังหลอดเลือด\" = plasma cell เป็นเซลล์ที่หลั่ง antibody ไม่ได้เรียงตัวเป็นปลอกหุ้มหลอดเลือดตรงนี้\n— \"Reticular cells ที่สร้าง reticular fibers\" = reticular cell มีอยู่จริงในเนื้อม้าม แต่ตัวที่ห่อจนผนังของ ellipsoid หนาขึ้นคือ macrophages\n— \"Smooth muscle cells ที่หนาตัวขึ้นเป็นชั้น\" = เป็นตัวลวงที่น่าเชื่อเพราะผนังหลอดเลือดแดงหนามักนึกถึงกล้ามเนื้อเรียบ แต่ smooth muscle ในม้ามอยู่ที่ capsule ไม่ใช่ที่ ellipsoid\n\n💡 ellipsoid เป็นด่านตรวจ ปลอกที่หุ้มจึงเป็นเซลล์ที่กินสิ่งแปลกปลอม ไม่ใช่กล้ามเนื้อ",
     "verified": "Lymphatic organs II น.12"
   },
   {
@@ -1453,7 +1453,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เพราะเต็มไปด้วย macrophages ที่มี hemosiderin สะสมในไซโทพลาซึม"
     ],
     "answer": 2,
-    "explain": "สไลด์อธิบายว่า germinal center ติดสีจางเพราะเต็มไปด้วย large immature lymphocytes ได้แก่ lymphoblasts และ plasmablasts ซึ่งนิวเคลียสมี euchromatin ปริมาณมาก ตัวเลือก small lymphocytes ที่มี heterochromatin มากเป็นตัวลวงที่ใกล้เคียง เพราะเซลล์กลุ่มนั้นมีอยู่จริงแต่อยู่ที่ mantle zone ซึ่งเป็นวงนอกที่ล้อมรอบ germinal center และเป็นส่วนที่ติดสีเข้ม",
+    "explain": "germinal center อัดแน่นด้วย large immature lymphocytes (lymphoblast, plasmablast) นิวเคลียสเป็น euchromatin เป็นหลัก\nchromatin ที่คลายตัวจับสีได้น้อย บริเวณนี้จึงติดสีจาง\n\n❌ ทำไมข้ออื่นผิด\n— small lymphocyte ที่มี heterochromatin มาก = มีจริงแต่กองอยู่ที่ mantle zone วงนอก ซึ่งเป็นวงที่ติดสีเข้ม\n— reticular fibers และ collagen = เส้นใยโครงร่าง ไม่ใช่ตัวกำหนดความเข้มจางซึ่งตัดสินกันที่ chromatin ในนิวเคลียส\n— macrophage ที่สะสม hemosiderin = hemosiderin เป็นเม็ดสี ยิ่งสะสมยิ่งเข้ม ตรงข้ามกับที่ถาม",
     "verified": "Lymphatic organs II น.19"
   },
   {
@@ -1472,7 +1472,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Trabeculae และ capsule ที่หุ้มม้าม"
     ],
     "answer": 0,
-    "explain": "สไลด์ red pulp แจกแจงไว้สองอย่างคือ splenic sinuses ซึ่งมี endothelial lining ที่ถูกล้อมด้วย reticular fibers และมี macrophages จำนวนมาก กับ splenic cords ซึ่งเป็น loose network ของ reticular fibers ตัวเลือก PALS และ splenic nodules เป็นตัวลวงที่ตรงกับนิยามของ white pulp ไม่ใช่ red pulp",
+    "explain": "Red pulp = splenic sinuses (endothelial lining ล้อมด้วย reticular fibers และมี macrophages จำนวนมาก) + splenic cords (loose network ของ reticular fibers)\n\n❌ ทำไมข้ออื่นผิด\n— PALS และ splenic nodules = นิยามของ white pulp\n— Marginal zone และ marginal sinuses = บริเวณรอยต่อตามชื่อ ไม่ใช่เนื้อหลักของ red pulp\n— Trabeculae และ capsule = โครงร่างที่หุ้มและแบ่งม้าม ไม่ใช่เนื้อในของ red pulp",
     "verified": "Lymphatic organs II น.21"
   },
   {
@@ -1491,7 +1491,7 @@ export const QUESTIONS_Y2_HISTO = [
       "20-30 µm"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุตัวเลขไว้ว่าช่องว่างระหว่าง endothelial cells ที่อยู่ติดกันของ splenic sinuses กว้าง 2-3 ไมโครเมตร ซึ่งแคบพอที่เม็ดเลือดแดงที่ deformability ลดลงจะผ่านไม่ได้และถูกกักไว้ใน splenic cord ขณะที่ macrophage ยังแทรกผ่านเข้าไป phagocytose ได้ ตัวเลือก 8-10 ไมโครเมตรเป็นตัวลวงเพราะใกล้เคียงเส้นผ่านศูนย์กลางของเม็ดเลือดแดงเอง ถ้าช่องกว้างขนาดนั้นม้ามจะกรองเม็ดเลือดแดงเก่าไม่ได้",
+    "explain": "ช่องระหว่าง endothelial cells ที่อยู่ติดกันของ splenic sinuses กว้าง 2-3 µm แคบกว่าเม็ดเลือดแดง\nเม็ดเลือดแดงที่ยังยืดหยุ่นจึงบีบตัวลอดผ่านได้ ส่วนเซลล์ที่ deformability ลดลงติดค้างใน splenic cord ให้ macrophage แทรกเข้าไป phagocytose\n\n❌ ทำไมข้ออื่นผิด\n— 0.2-0.3 µm = แคบจนเม็ดเลือดแดงปกติก็ผ่านไม่ได้ กลายเป็นกักไว้ทุกเซลล์ ไม่ได้คัดเฉพาะเซลล์เก่า\n— 8-10 µm = ใกล้เคียงเส้นผ่านศูนย์กลางของเม็ดเลือดแดงเอง กว้างขนาดนี้เซลล์เก่าก็ลอดได้ ม้ามกรองไม่ได้\n— 20-30 µm = ยิ่งกว้างกว่าเม็ดเลือดแดง ไม่เหลือกลไกคัดกรอง\n\n💡 ช่องต้องแคบกว่าเซลล์ ถึงกลายเป็นด่านวัดความยืดหยุ่นได้",
     "verified": "Lymphatic organs II น.24"
   },
   {
@@ -1510,7 +1510,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Boar และ buck"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า tunica albuginea เป็น thick dense irregular connective tissue ที่ rich of collagen fibers และมี elastic fibers บ้าง แต่ในบางสปีชีส์เช่น horse และ pig พบ smooth muscles และ vascular layer เพิ่มเข้ามา และรูปในหน้าถัดมาก็ให้ label สามอย่างนี้พอดี ส่วน dog และ cat เป็นตัวลวงที่น่าเลือกเพราะเป็นสัตว์เลี้ยงที่เจอในสไลด์บ่อย แต่สไลด์ไม่ได้ระบุ carnivores ไว้ในข้อนี้เลย",
+    "explain": "tunica albuginea เป็น thick dense irregular connective tissue ที่ rich of collagen fibers และมี elastic fibers ปน\nใน horse และ pig มี smooth muscles และ vascular layer แทรกเพิ่มเข้ามาในชั้นนี้ด้วย\n\n❌ ทำไมข้ออื่นผิด\n— Dog และ cat = ไม่ได้อยู่ในกลุ่มที่มี smooth muscles และ vascular layer เพิ่ม เป็นตัวลวงเพราะเป็นสัตว์ที่เจอบ่อยที่สุด\n— Bull และ ram = ruminant ไม่ใช่คู่ที่ระบุไว้\n— Boar และ buck = boar ก็คือสุกร จึงถูกครึ่งเดียว แต่พ่วง buck มาแทน horse คู่นี้จึงไม่ครบ",
     "verified": "Male Reproductive System น.4-7"
   },
   {
@@ -1529,7 +1529,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Ampullary gland ไม่มีใน ruminants"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุ vesicular gland ว่า absent in carnivores ตัวเลือกเรื่อง prostate เป็นตัวลวงที่ใกล้เคียงที่สุด เพราะสไลด์แยกไว้ว่า external (compact) portion หรือ body of prostate ไม่มีใน small ruminants ส่วนที่ไม่มีใน stallion คือ internal (disseminate) portion ขณะที่ bulbourethral gland ไม่มีใน dogs และ ampullary gland ไม่มีใน boar กับ cat แต่พบใน ruminants",
+    "explain": "Vesicular gland = absent in carnivores\n\n❌ ทำไมข้ออื่นผิด\n— Bulbourethral gland ไม่มีใน boar และ cat = สลับกลุ่ม ตัวที่ขาด bulbourethral คือ dog ส่วน boar กับ cat คือคู่ที่ขาด ampullary gland\n— Body of prostate ไม่มีใน stallion = external (compact) portion หรือ body ที่ขาดคือใน small ruminant ส่วน stallion ขาด internal (disseminate) portion\n— Ampullary gland ไม่มีใน ruminants = กลับด้าน ruminant มี ampullary gland",
     "verified": "Male Reproductive System น.30-32, 34"
   },
   {
@@ -1548,7 +1548,7 @@ export const QUESTIONS_Y2_HISTO = [
       "neurolemma หรือ axon hillock"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุชื่อตัวเซลล์ไว้ว่า soma หรือ perikaryon ส่วน terminal bulb (bouton) เป็นโครงสร้างที่ปลาย axon ไม่ใช่ตัวเซลล์ และ gemule คือ dendritic spine บน dendrite",
+    "explain": "ตัวเซลล์ของ neuron เรียกว่า soma หรือ perikaryon\n\n❌ ทำไมข้ออื่นผิด\n— bouton หรือ terminal bulb = ปุ่มที่ปลาย axon\n— gemule = dendritic spine ปุ่มเล็ก ๆ บน dendrite\n— neurolemma หรือ axon hillock = เยื่อหุ้ม axon และรอยต่อที่ axon ยื่นออกจากตัวเซลล์ ไม่ใช่ชื่อของตัวเซลล์\n\n💡 peri (รอบ) + karyon (นิวเคลียส) = เนื้อเซลล์ที่ห่อรอบนิวเคลียส",
     "verified": "Nervous System น.5"
   },
   {
@@ -1567,7 +1567,7 @@ export const QUESTIONS_Y2_HISTO = [
       "cotyledon ของฝั่งลูก กับ uterine caruncle ของฝั่งแม่"
     ],
     "answer": 3,
-    "explain": "สไลด์บรรยายว่า placentome เกิดจาก cotyledon ซึ่งเป็น clumps of chorioallantoic villi ฝั่งลูก จับคู่กับ uterine caruncle ฝั่งแม่ ส่วน microcotyledon กับ endometrial cup เป็นโครงสร้างของรกม้า ไม่ได้เกิดใน ruminant",
+    "explain": "placentome ของ ruminant = cotyledon ฝั่งลูก ซึ่งเป็น clumps of chorioallantoic villi เข้าไปสวมกับ uterine caruncle ฝั่งแม่\n\n❌ ทำไมข้ออื่นผิด\n— microcotyledon กับ endometrial cup = โครงสร้างของรกม้า ไม่เกิดใน ruminant\n— chorionic girdle กับ uterine gland = girdle เป็นของรกม้าเช่นกัน ส่วน uterine gland เป็นต่อมในเยื่อบุมดลูก ไม่ใช่ปุ่มที่ villi ไปเกาะ\n— areola กับ uterine crypt = crypt เป็นหลุมย่อยภายใน caruncle ไม่ใช่หน่วยที่นับคู่กัน และ areola ไม่ใช่ชื่อของกลุ่ม villi ฝั่งลูก\n\n💡 cotyledon เจอ caruncle = placentome ส่วน micro- กับ cup ให้โยนไปฝั่งม้า",
     "verified": "Placenta lab manual น.3"
   },
   {
@@ -1586,7 +1586,7 @@ export const QUESTIONS_Y2_HISTO = [
       "binucleate giant cells ของฝั่งลูก"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุว่า epithelium ของ chorioallantoic villus ประกอบด้วย irregularly shaped cells ร่วมกับ binucleate giant cells ส่วน cuboidal cryptal cells คือ cryptal (maternal) epithelium ที่สไลด์บอกว่าเป็น cuboidal หรือ flattened จึงเป็นเซลล์คนละฝั่งกับ villus epithelium",
+    "explain": "epithelium ของ chorioallantoic villus = irregularly shaped cells ร่วมกับ binucleate giant cells ซึ่งเป็นเซลล์ฝั่งลูก\n\n❌ ทำไมข้ออื่นผิด\n— cuboidal cryptal cells ของฝั่งแม่ = cryptal epithelium ฝั่งแม่เป็น cuboidal หรือ flattened อยู่คนละฝั่งของรอยประกบ\n— decidual cells รูป polygonal = เซลล์ฝั่งแม่ที่เจอในรกสัตว์กินเนื้อ ไม่ใช่องค์ประกอบของ villus epithelium ใน ruminant\n— syntrophoblast = ไม่ใช่ชื่อที่จับคู่กับ irregularly shaped cells ในชั้นนี้ ตัวที่ต้องตอบคือ binucleate giant cells",
     "verified": "Placenta lab manual น.3"
   },
   {
@@ -1605,7 +1605,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Glandular zone มี dilated secreting glands และ decidual cells จำนวนมาก"
     ],
     "answer": 3,
-    "explain": "สไลด์แบ่ง carnivore placenta เป็น 3 ชั้น และระบุว่า glandular zone เป็นชั้นลึกที่สุด มี dilated secreting glands และ decidual cells ส่วน junctional zone ที่มี terminal lamellae maternal vessels และ glandular secretions เป็นชั้นกลางที่ขยายใหญ่ในสุนัข ไม่ใช่ชั้นที่ลึกที่สุด",
+    "explain": "carnivore placenta แบ่งเป็น 3 ชั้น ชั้นลึกสุดคือ glandular zone ซึ่งมี dilated secreting glands และ decidual cells จำนวนมาก\n\n❌ ทำไมข้ออื่นผิด\n— Junctional zone (terminal lamellae, maternal vessels, glandular secretions) = องค์ประกอบถูก แต่เป็นชั้นกลางที่ขยายใหญ่ในสุนัข\n— Labyrinthine layer = เมื่อ glandular ลึกสุดและ junctional อยู่กลาง labyrinth จึงเป็นชั้นตื้นสุด\n— Marginal hematoma = อยู่ที่ขอบของแถบรกตามชื่อ ไม่ได้นับเป็นหนึ่งในสามชั้นที่ไล่จากตื้นไปลึก",
     "verified": "Placenta น.31, 32, 34"
   },
   {
@@ -1624,7 +1624,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Nasal vestibule ถึง alveolar duct"
     ],
     "answer": 0,
-    "explain": "สไลด์แบ่ง structure of RS เป็น 3 ส่วน โดย conducting part กำหนดไว้ตั้งแต่ nose ถึง terminal bronchiole ตัวเลือกที่จบที่ respiratory bronchiole ผิดเพราะ respiratory bronchiole เป็นจุดเริ่มของ respiratory part ไม่ใช่ปลายของ conducting part",
+    "explain": "Conducting part ลากตั้งแต่ nose ถึง terminal bronchiole เป็นช่วงที่เป็นท่อนำอากาศล้วน ยังไม่มีการแลกเปลี่ยนแก๊ส\n\n❌ ทำไมข้ออื่นผิด\n— Nose ถึง respiratory bronchiole = เลยเส้นแบ่งไปแล้ว respiratory bronchiole คือจุดเริ่มของ respiratory part\n— Larynx ถึง tertiary bronchus = ผิดทั้งต้นและปลาย ส่วนนำอากาศเริ่มที่ nose และยังไม่จบที่ tertiary bronchus\n— Nasal vestibule ถึง alveolar duct = alveolar duct อยู่พ้น terminal bronchiole เข้าไปในเขตแลกเปลี่ยนแก๊สแล้ว\n\n💡 terminal คือปลายทางของท่อนำอากาศ พอขึ้นคำว่า respiratory เมื่อไหร่ก็เข้าเขตแลกแก๊ส",
     "verified": "Respiratory System น.1"
   },
   {
@@ -1643,7 +1643,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Simple cuboidal epithelium ที่มี myoelastic layer และ fold"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า nasal vestibule บุด้วย keratinized stratified squamous epithelium ร่วมกับ pigment ลักษณะคล้ายผิวหนัง ตัวเลือก non-keratinized ผิดตรงที่ไม่มี keratin และไม่มี pigment ซึ่งเป็นสองจุดที่สไลด์เน้นไว้ ส่วน ciliated pseudostratified columnar เป็น typical epithelium ของทางเดินหายใจที่ nasal vestibule ถูกยกเป็นข้อยกเว้น",
+    "explain": "Nasal vestibule บุด้วย keratinized stratified squamous epithelium ร่วมกับ pigment เป็นเยื่อบุแบบผิวหนัง ไม่ใช่เยื่อบุทางเดินหายใจแท้\n\n❌ ทำไมข้ออื่นผิด\n— non-keratinized และไม่มี pigment = ผิดสองจุดพร้อมกัน ขาดทั้ง keratin และ pigment ซึ่งเป็นสองอย่างที่บริเวณนี้มี\n— ciliated pseudostratified columnar มี goblet cell = เยื่อบุมาตรฐานของทางเดินหายใจส่วนที่ลึกเข้าไป vestibule เป็นข้อยกเว้น\n— simple cuboidal epithelium = เยื่อบุชั้นเดียว บางเกินกว่าจะทนการเสียดสีตรงปากทางเข้ารูจมูก\n\n💡 vestibule แปลว่าโถงทางเข้า ยังเป็นผิวหนังอยู่ จึงมีทั้ง keratin และเม็ดสี",
     "verified": "Respiratory System น.2"
   },
   {
@@ -1662,7 +1662,7 @@ export const QUESTIONS_Y2_HISTO = [
       "ขึงยึดกับ perichondrium ที่ผิวด้านหน้าของ cartilage"
     ],
     "answer": 0,
-    "explain": "สไลด์เทียบสองกลุ่มไว้ว่า carnivore ขึงปลายขอบ cartilage ทั้งสองข้างทางด้านนอก ส่วน human, horse, pig และ cattle ขึงทางด้านใน ตัวเลือกด้านในจึงเป็นของกลุ่มหลังไม่ใช่ carnivore",
+    "explain": "ใน carnivore trachealis muscle ขึงที่ปลายขอบ cartilage ทั้งสองข้างทางด้านนอก ส่วน human, horse, pig และ cattle ขึงทางด้านใน\n\n❌ ทำไมข้ออื่นผิด\n— ขึงที่ปลายขอบทั้งสองข้างทางด้านใน = รูปแบบของ human, horse, pig, cattle ไม่ใช่สัตว์กินเนื้อ\n— ขึงพาดระหว่างกลางของ cartilage ring = จุดเกาะอยู่ที่ปลายขอบทั้งสองข้างของกระดูกอ่อนรูปตัว C ไม่ใช่พาดกลางวง\n— ยึดกับ perichondrium ที่ผิวของ cartilage = ยึดที่ปลายขอบ ไม่ใช่แปะบนผิวกระดูกอ่อน",
     "verified": "Respiratory System น.11"
   },
   {
@@ -1681,7 +1681,7 @@ export const QUESTIONS_Y2_HISTO = [
       "pseudostratified columnar epithelium ที่มี cilia"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่าชั้นที่ 5 ของ cornea คือ posterior epithelium (corneal endothelium) เป็น simple squamous หรือ cuboidal epithelium ตัวเลือกที่ล่อใจคือ non-keratinized stratified squamous ซึ่งเป็นของ corneal epithelium ชั้นหน้าสุด (ชั้นที่ 1) ไม่ใช่ชั้นหลัง จุดที่ต้องแยกให้ออกคือ epithelium หัวกับท้ายของ cornea ไม่เหมือนกัน",
+    "explain": "posterior epithelium หรือ corneal endothelium ซึ่งเป็นชั้นในสุดของ cornea เป็น simple squamous หรือ cuboidal epithelium คือเยื่อบุชั้นเดียว\n\n❌ ทำไมข้ออื่นผิด\n— non-keratinized stratified squamous = เป็นของ corneal epithelium ชั้นแรกที่อยู่นอกสุด คนละปลายของ cornea\n— keratinized stratified squamous = กระจกตาไม่มีชั้น keratin ทั้งปลายนอกและปลายใน เพราะต้องคงความใส\n— pseudostratified columnar ที่มี cilia = เยื่อบุแบบทางเดินหายใจ ไม่ใช่ของกระจกตา",
     "verified": "Special Sense น.7"
   },
   {
@@ -1700,7 +1700,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เป็นชั้นหลอดเลือดฝอย เรียกว่า choriocapillary layer"
     ],
     "answer": 0,
-    "explain": "สไลด์แยกไว้เป็นคู่ว่า herbivore เป็นชั้นเนื้อเยื่อเกี่ยวพัน เรียก tapetum fibrosum ส่วน carnivore เป็นเซลล์หลายเหลี่ยม เรียก tapetum cellurosum ตัวเลือก tapetum cellurosum จึงเป็นของสัตว์กินเนื้อ ไม่ใช่สัตว์กินพืช ส่วน choriocapillary layer เป็นอีกชั้นหนึ่งของ choroid ที่แยกจาก tapetum lucidum",
+    "explain": "tapetum lucidum ของสัตว์กินพืชเป็นชั้นเนื้อเยื่อเกี่ยวพัน เรียก tapetum fibrosum ส่วนของสัตว์กินเนื้อเป็นเซลล์รูปหลายเหลี่ยม เรียก tapetum cellurosum\n\n❌ ทำไมข้ออื่นผิด\n— tapetum cellurosum = ของสัตว์กินเนื้อ\n— tapetum nigrum ที่สะสม melanin = melanin เป็นเม็ดสีที่ดูดกลืนแสง สวนทางกับ lucidum ที่เป็นชั้นสะท้อนแสง\n— choriocapillary layer = อีกชั้นหนึ่งของ choroid แยกกันคนละชั้นกับ tapetum lucidum\n\n💡 fibrosum = เส้นใย ให้สัตว์กินพืช / cellurosum = เซลล์ ให้สัตว์กินเนื้อ",
     "verified": "Special Sense น.12"
   },
   {
@@ -1719,7 +1719,7 @@ export const QUESTIONS_Y2_HISTO = [
       "ที่ basal complex ผ่าน retinal pigment epithelium ของ retina"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า aqueous humor ไหลผ่าน pupil เข้าสู่ anterior chamber แล้ว drained ที่ iridocorneal angle หรือ filtration angle ผ่าน intrascleral venous plexus ตัวเลือกเรื่อง pupil ล่อใจเพราะเป็นทางไหลผ่านจริง แต่เป็นทางเข้า anterior chamber ไม่ใช่จุดที่ระบายออก และสไลด์ยังเน้นว่าถ้า drainage ไม่เพียงพอจะทำให้ intraocular pressure สูงขึ้น",
+    "explain": "aqueous humor ไหลผ่าน pupil เข้าสู่ anterior chamber แล้วถูก drained ที่ iridocorneal angle หรือ filtration angle ผ่าน intrascleral venous plexus\nถ้าระบายไม่พอ intraocular pressure จะสูงขึ้น\n\n❌ ทำไมข้ออื่นผิด\n— ที่ pupil เข้าสู่ posterior chamber แล้วซึมสู่ vitreous body = กลับทิศ pupil เป็นทางผ่านเข้า anterior chamber ไม่ใช่จุดระบายออก\n— ที่ ora serrata ผ่าน choriocapillary layer = choriocapillary layer เป็นชั้นหลอดเลือดฝอยของ choroid ไม่ใช่ทางระบายน้ำในลูกตา\n— ที่ basal complex ผ่าน retinal pigment epithelium = retinal pigment epithelium เป็นชั้นของ retina คนละระบบกับการระบาย aqueous humor",
     "verified": "Special Sense น.20"
   },
   {
@@ -1738,7 +1738,7 @@ export const QUESTIONS_Y2_HISTO = [
       "serous ในม้าและแมว"
     ],
     "answer": 3,
-    "explain": "สไลด์แยกไว้สามกลุ่มคือ serous ในม้าและแมว mucous ในสุกร และ seromucous ในสุนัขและโค ตัวเลือก serous ในสุนัขและโคจึงสลับชนิดต่อม เพราะสุนัขและโคเป็น seromucous ส่วน mucous เป็นของสุกร ไม่ใช่ม้ากับแมว",
+    "explain": "gland of 3rd eyelid: serous = ม้าและแมว / mucous = สุกร / seromucous = สุนัขและโค\n\n❌ ทำไมข้ออื่นผิด\n— serous ในสุนัขและโค = สุนัขกับโคเป็น seromucous\n— seromucous ในสุกร = สุกรเป็น mucous\n— mucous ในม้าและแมว = ม้ากับแมวเป็น serous ส่วน mucous เป็นของสุกร",
     "verified": "Special Sense น.32"
   },
   {
@@ -1757,7 +1757,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เซลล์ของ retinal pigment epithelium ชั้นนอกสุด"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า cone cells ถูกกระตุ้นด้วย bright light และรับผิดชอบ color vision ตัวเลือกที่ล่อใจคือ rod cells ซึ่งอยู่ในชั้นเดียวกันแต่ถูกกระตุ้นด้วย dim light และไม่ได้ทำหน้าที่แยกสี ส่วน ganglion cells และ retinal pigment epithelium เป็นชั้นอื่นของ retina ที่ไม่ใช่ photoreceptor",
+    "explain": "Cone cells ถูกกระตุ้นด้วย bright light และเป็นเซลล์ที่รับผิดชอบ color vision\n\n❌ ทำไมข้ออื่นผิด\n— Rod cells = อยู่ชั้น photoreceptive layer เดียวกัน แต่ถูกกระตุ้นด้วย dim light และไม่แยกสี\n— Ganglion cells = อยู่คนละชั้นของ retina และไม่ใช่เซลล์รับแสง\n— retinal pigment epithelium = ชั้นเม็ดสีที่รองรับ retina ไม่ใช่ photoreceptor\n\n💡 C คู่ C: Cone = Color และแสงจ้า ส่วน Rod = แสงสลัว ไม่แยกสี",
     "verified": "Special Sense น.26"
   },
   {
@@ -1776,7 +1776,7 @@ export const QUESTIONS_Y2_HISTO = [
       "perilymph อยู่ภายใน และ aqueous humor อยู่ภายนอก"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า membranous labyrinth บุด้วย simple squamous epithelium ภายในบรรจุ endolymph และภายนอกล้อมรอบด้วย perilymph ตัวเลือกที่สลับกันเป็นกับดักที่พบบ่อยที่สุดของหัวข้อนี้ ส่วน vitreous body และ aqueous humor เป็นของเหลวในลูกตา ไม่ใช่ในหูชั้นใน",
+    "explain": "ภายใน membranous labyrinth บรรจุ endolymph ส่วนของเหลวที่ล้อมรอบอยู่ภายนอกคือ perilymph\n\n❌ ทำไมข้ออื่นผิด\n— perilymph ภายใน และ endolymph ภายนอก = สลับที่กันพอดี เป็นกับดักที่พลาดกันบ่อยที่สุด\n— endolymph ภายใน และ vitreous body ภายนอก = ครึ่งแรกถูก แต่ vitreous body เป็นของเหลวในลูกตา\n— perilymph ภายใน และ aqueous humor ภายนอก = ผิดทั้งคู่ aqueous humor ก็เป็นของเหลวในลูกตาเช่นกัน\n\n💡 endo = ข้างใน อยู่ในท่อ / peri = โดยรอบ อยู่นอกท่อ",
     "verified": "Special Sense น.48"
   },
   {
@@ -1795,7 +1795,7 @@ export const QUESTIONS_Y2_HISTO = [
       "basilar membrane ซึ่งกั้นทางด้าน ventral"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุว่า cochlear duct แยกจาก scala vestibuli ด้วย vestibular membrane และแยกจาก scala tympani ด้วย basilar membrane ตัวเลือก vestibular membrane จึงเป็นด้านตรงข้าม ส่วน tectorial membrane เป็น gelatinous structure ที่วางทับ organ of Corti และ helicotrema เป็นช่องที่ทำให้ scala vestibuli ติดต่อกับ scala tympani",
+    "explain": "cochlear duct หรือ scala media ถูกกั้นจาก scala tympani ด้วย basilar membrane ทางด้าน ventral\n\n❌ ทำไมข้ออื่นผิด\n— vestibular membrane = แผ่นกั้นอีกด้าน คือกั้นระหว่าง cochlear duct กับ scala vestibuli\n— tectorial membrane = gelatinous structure ที่วางทับ organ of Corti ไม่ได้เป็นผนังกั้นสองช่อง\n— helicotrema = ช่องที่ทำให้ scala vestibuli ติดต่อกับ scala tympani ตรงข้ามกับการกั้นแยก\n\n💡 basi แปลว่าฐาน basilar membrane จึงเป็นแผ่นล่าง ส่วนแผ่นบนคือ vestibular membrane",
     "verified": "Special Sense น.57"
   },
   {
@@ -1814,7 +1814,7 @@ export const QUESTIONS_Y2_HISTO = [
       "การเคลื่อนไหวของ cupula ใน ampulla ossea"
     ],
     "answer": 2,
-    "explain": "สไลด์ไล่ลำดับว่า vibration ที่ tympanic membrane ส่งไป ossicles ไป scala vestibuli แล้ว pressure change ใน perilymph ทำให้เกิด displacement ของ basilar membrane ก่อน จากนั้นจึงไปทำให้ stereocilia ของ sensory cell เคลื่อน ตัวเลือก tympanic membrane เป็นขั้นก่อนหน้าไม่ใช่ขั้นถัดไป ส่วน cupula อยู่ใน crista ampullaris ของ semicircular ducts ซึ่งตรวจจับ speed of rotation ไม่ได้อยู่ในสายโซ่การได้ยิน",
+    "explain": "pressure change ใน perilymph ทำให้ basilar membrane เกิด displacement เป็นขั้นถัดไป จากนั้น stereocilia ของ sensory cell จึงถูกทำให้เคลื่อน\n\n❌ ทำไมข้ออื่นผิด\n— vibration ของ tympanic membrane รอบใหม่ = เป็นขั้นที่เกิดก่อนในสายโซ่ (tympanic membrane ไป ossicles ไป scala vestibuli) ไม่ใช่ขั้นถัดไป\n— displacement ของ tectorial membrane โดยตรง = ตัวที่ถูกแรงดันดันให้ขยับก่อนคือ basilar membrane แล้วจึงไปกระทำต่อ stereocilia\n— cupula ใน ampulla ossea = cupula อยู่ใน crista ampullaris ของ semicircular ducts ซึ่งตรวจจับ speed of rotation คนละสายกับการได้ยิน\n\n💡 ไล่โซ่ให้ติด tympanic membrane ไป ossicles ไป perilymph ไป basilar membrane ไป stereocilia",
     "verified": "Special Sense น.63"
   },
   {
@@ -1833,7 +1833,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Paraffin ใช้เฉพาะกับ electron microscopy ส่วน LM ต้องใช้ resins"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า paraffin is used commonly for light microscopy ส่วน resins ใช้ได้ทั้ง LM และ EM ตัวเลือกที่บอกว่า paraffin ใช้ได้ทั้งสองแบบเป็นตัวลวงที่น่าเลือกที่สุดเพราะ paraffin เป็น medium ที่พบบ่อยที่สุดในงานประจำวัน แต่สไลด์ผูก paraffin ไว้กับ light microscopy เท่านั้น ตัวที่ครอบคลุมทั้งสองระบบคือ resins",
+    "explain": "Resins ใช้เป็น embedding medium ได้ทั้ง light microscopy และ electron microscopy ส่วน paraffin ใช้กันเป็นประจำกับ light microscopy\n\n❌ ทำไมข้ออื่นผิด\n— Paraffin ใช้ได้ทั้งสองแบบ = paraffin ผูกอยู่กับงาน light microscopy ตัวที่ครอบคลุมทั้งสองระบบคือ resins\n— Resins ใช้เฉพาะ LM ส่วน EM ใช้ paraffin = กลับด้าน\n— Paraffin ใช้เฉพาะ EM ส่วน LM ใช้ resins = กลับด้านทั้งประโยค",
     "verified": "tissue preparation น.15"
   },
   {
@@ -1852,7 +1852,7 @@ export const QUESTIONS_Y2_HISTO = [
       "ติดสีเฉพาะ carbohydrate เช่น basement membrane, glycogen และ mucin"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า hematoxylin ให้สี dark blue หรือ purple ติดที่ cell nucleus รวมถึง ribosomes และ rough endoplasmic reticulum ของ cytoplasm ตัวเลือกสี pink ติด cytoplasm เป็นตัวลวงที่น่าเลือกที่สุดเพราะเป็นครึ่งหนึ่งของการย้อมชุดเดียวกัน แต่นั่นคือคุณสมบัติของ eosin ซึ่งเป็นกรด ไม่ใช่ของ hematoxylin",
+    "explain": "hematoxylin เป็นสีเบส จับกับส่วนที่เป็นกรดของเซลล์ ให้สี dark blue หรือ purple ที่ cell nucleus รวมถึง ribosomes และ rough endoplasmic reticulum\n\n❌ ทำไมข้ออื่นผิด\n— pink ที่ cytoplasm เพราะตัวสีเป็นกรด = นั่นคือ eosin อีกครึ่งหนึ่งของการย้อมชุดเดียวกัน\n— น้ำเงินที่ collagen nuclei ดำ muscle แดง = เป็นผลของการย้อมอีกชุดที่แยกสีเนื้อเยื่อเกี่ยวพันกับกล้ามเนื้อ ไม่ใช่สิ่งที่ hematoxylin ทำ\n— ติดเฉพาะ carbohydrate เช่น basement membrane glycogen mucin = เป็นสีย้อมจำเพาะกลุ่มคาร์โบไฮเดรตคนละตัว\n\n💡 H ให้สีน้ำเงินม่วงที่นิวเคลียส E ให้สีชมพูที่ไซโทพลาซึม",
     "verified": "tissue preparation น.18"
   },
   {
@@ -1871,7 +1871,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Histochemistry และ cytochemistry"
     ],
     "answer": 2,
-    "explain": "สไลด์นิยาม in situ hybridization ว่าเป็นเทคนิคระบุ specific mRNA species ในเซลล์แต่ละเซลล์บน tissue section ตัวเลือก immunohistochemistry เป็นตัวลวงที่น่าเลือกเพราะระบุตำแหน่งสารจำเพาะในเนื้อเยื่อได้เหมือนกัน แต่ IHC ตรวจหา protein ด้วย antibody labeling ไม่ได้ตรวจ mRNA",
+    "explain": "In situ hybridization = เทคนิคที่ระบุ specific mRNA species ในเซลล์แต่ละเซลล์บน tissue section\n\n❌ ทำไมข้ออื่นผิด\n— Immunohistochemistry = ใช้ antibody labeling ตรวจหา protein บอกตำแหน่งได้เหมือนกันแต่ไม่ได้ตรวจ mRNA\n— Autoradiography = ตามรอยสารติดฉลากกัมมันตรังสีว่าไปสะสมที่ใด ไม่ได้ชี้ชนิดของ mRNA\n— Histochemistry และ cytochemistry = ตรวจองค์ประกอบทางเคมีของเนื้อเยื่อโดยรวม ไม่เจาะจง mRNA ชนิดใดชนิดหนึ่ง\n\n💡 hybridization คือการจับคู่สายเบส เป้าจึงเป็นกรดนิวคลีอิก ส่วน immuno คือแอนติบอดี เป้าเป็นโปรตีน",
     "verified": "tissue preparation น.20-21"
   },
   {
@@ -1890,7 +1890,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Pig มีมากที่สุด (+++) ส่วน dog และ horse ไม่มี smooth muscle เลย"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุ ruminant smooth m. (+++), pig horse dog smooth m. (++) และ cat no smooth m. ดังนั้น ruminant มากสุดและ cat ไม่มีเลย ตัวเลือกที่สลับให้ cat เป็นกลุ่ม +++ ชวนเลือกเพราะจำได้ว่า cat เป็นชนิดที่พิเศษกว่าชนิดอื่น แต่ความพิเศษของ cat คือการไม่มี smooth muscle ไม่ใช่การมีมากที่สุด ส่วน horse กับ pig อยู่กลุ่ม (++) เท่ากับ dog ไม่ใช่กลุ่มสูงสุด",
+    "explain": "smooth muscle ใน renal capsule: ruminant (+++) มากที่สุด, pig horse dog (++) เท่ากัน, cat ไม่มี smooth muscle เลย\n\n❌ ทำไมข้ออื่นผิด\n— Cat (+++) และ ruminant ไม่มีเลย = สลับสองขั้วพอดี cat พิเศษตรงที่ไม่มีเลย ไม่ใช่มีมากที่สุด\n— Horse (+++) และ pig dog ไม่มีเลย = ทั้งสามตัวอยู่กลุ่มกลาง (++) เท่ากัน\n— Pig (+++) และ dog horse ไม่มีเลย = ผิดแบบเดียวกัน pig ก็อยู่กลุ่ม (++)",
     "verified": "Urinary System น.9"
   },
   {
@@ -1909,7 +1909,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Unilobar kidney ที่ apices ของ medullary pyramids แยกกันและยื่นเข้าไปใน renal calyces"
     ],
     "answer": 1,
-    "explain": "สไลด์จัด dog, cat, horse และ small ruminant เป็น unilobar kidney ซึ่งปลายของ medullary pyramids เชื่อมรวมกันเป็น renal crest ส่วน multilobar kidney ที่ apices แยกกันและยื่นเข้า renal calyces พบใน large ruminant (ox), pig และ human ตัวเลือกที่จับคู่ multilobar กับ renal calyces ถูกในเชิงนิยาม แต่ผิดเพราะ dog ไม่ใช่ multilobar",
+    "explain": "ไตของ dog เป็น unilobar kidney ปลายของ medullary pyramids เชื่อมรวมกันเป็น renal crest เช่นเดียวกับ cat, horse และ small ruminant\n\n❌ ทำไมข้ออื่นผิด\n— Multilobar ที่ apices แยกกันและยื่นเข้า renal calyces = นิยามถูก แต่เป็นแบบของ large ruminant (ox), pig และ human\n— Multilobar ที่ปลายเชื่อมรวมเป็น renal crest = ผิดทั้งชนิดและนิยาม\n— Unilobar ที่ apices แยกกันและยื่นเข้า renal calyces = ชนิดถูกแต่จับนิยามผิด unilobar ต้องจบที่ renal crest\n\n💡 uni = ยอดหลอมเป็นสันเดียว (crest) / multi = ยอดแยก มี calyces มารองรับ",
     "verified": "Urinary System น.8"
   },
   {
@@ -1928,7 +1928,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เซลล์ทรง columnar ที่เรียงชิดกันแน่นบริเวณ vascular pole ของ renal corpuscle"
     ],
     "answer": 0,
-    "explain": "สไลด์นิยาม mesangial cells ว่าเป็น vascular pericytes ที่มี contractile properties สร้าง component ของ external lamina และระบุลักษณะย้อมสีว่าติดสีเข้มกว่า podocytes ตัวเลือก modified smooth muscle cells ของ tunica media ชวนเลือกเพราะทั้งสองชนิดอยู่ที่ vascular pole เหมือนกัน แต่คำนิยามนั้นเป็นของ JG cells ส่วนเซลล์ columnar ที่เรียงชิดกันแน่นคือ macula densa",
+    "explain": "mesangial cells เป็น vascular pericytes ที่มี contractile properties สร้าง component ของ external lamina และย้อมติดสีเข้มกว่า podocytes\n\n❌ ทำไมข้ออื่นผิด\n— Modified smooth muscle cells ใน tunica media ของ afferent arteriole = นิยามของ JG cells ซึ่งอยู่บริเวณเดียวกันแต่คนละเซลล์\n— Simple squamous ที่บุ parietal layer ของ Bowman capsule = เยื่อบุผนังชั้นนอกของแคปซูลเอง ไม่ใช่เซลล์ที่แทรกอยู่กับ capillary\n— เซลล์ columnar เรียงชิดกันแน่นที่ vascular pole = macula densa\n\n💡 ที่ vascular pole: JG cells หลั่ง renin / macula densa ตรวจจับ / mesangial cells ค้ำและหดตัว",
     "verified": "Urinary System น.20"
   },
   {
@@ -1947,7 +1947,7 @@ export const QUESTIONS_Y2_HISTO = [
       "DCT ตอบสนองต่อ aldosterone ส่วน collecting duct ตอบสนองต่อ ADH"
     ],
     "answer": 3,
-    "explain": "สไลด์เขียนไว้ตรงส่วน DCT ว่าอัตราการ reabsorb Na+ ถูกควบคุมโดย aldosterone และหน้า collecting duct system ย้ำว่า DCT responses to aldosterone ส่วน collecting duct impermeable to water แต่ permeable ภายใต้ ADH ตัวเลือกที่สลับให้ PCT ตอบสนองต่อ ADH ชวนเลือกเพราะใช้ฮอร์โมนคู่เดิม แต่สไลด์ไม่ได้ผูกฮอร์โมนใดกับ PCT เลย PCT ดูดกลับมากกว่า 50% ของน้ำและ electrolytes โดยไม่ต้องรอฮอร์โมน",
+    "explain": "DCT ถูกควบคุมอัตราการ reabsorb Na+ ด้วย aldosterone ส่วน collecting duct โดยตัวเอง impermeable to water แต่ยอมให้น้ำผ่านภายใต้ ADH\n\n❌ ทำไมข้ออื่นผิด\n— PCT ตอบสนอง ADH และ collecting duct ตอบสนอง aldosterone = ฮอร์โมนคู่เดิมแต่วางผิดที่ทั้งคู่ PCT ดูดกลับน้ำและ electrolytes มากกว่า 50% ได้เองโดยไม่ต้องรอฮอร์โมน\n— DCT ตอบสนอง renin และ collecting duct ตอบสนอง adenosine = renin หลั่งจาก JG cells เข้ากระแสเลือด ส่วน adenosine ไปบีบ afferent arteriole ทั้งคู่ไม่ได้ออกฤทธิ์ที่ท่อ\n— Loop of Henle ตอบสนอง aldosterone และ DCT ตอบสนอง ADH = เลื่อนฮอร์โมนขึ้นมาก่อนตำแหน่งจริงหนึ่งช่วง",
     "verified": "Urinary System น.28"
   },
   {
@@ -1966,7 +1966,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Lacis cells ที่ vascular pole ทำหน้าที่ supportive และ contractile"
     ],
     "answer": 1,
-    "explain": "สไลด์แบ่งเซลล์ของ collecting duct เป็น principal cells กับ intercalated cells โดย intercalated cells มี mitochondria มากกว่า มี apical folds และรักษา acid-base balance โดย secrete H+/HCO3- ตัวเลือก principal cells ชวนเลือกเพราะอยู่ในท่อเดียวกัน แต่หน้าที่ของมันคือการดูดน้ำกลับผ่าน aquaporins ภายใต้ ADH ไม่ใช่งานกรดด่าง",
+    "explain": "Intercalated cells ของ collecting duct มี mitochondria มากกว่าและมี apical folds เป็นเซลล์ที่รักษา acid-base balance ด้วยการ secrete H+/HCO3-\n\n❌ ทำไมข้ออื่นผิด\n— Principal cells = อยู่ในท่อเดียวกัน แต่งานคือดูดน้ำกลับผ่าน aquaporins ภายใต้ ADH ไม่ใช่งานกรดด่าง\n— Podocytes = เซลล์ของตัวกรองใน renal corpuscle ไม่ได้อยู่ในท่อรวม\n— Lacis cells = อยู่ที่ vascular pole คอยค้ำจุนและหดตัว ไม่ได้หลั่ง H+ หรือ HCO3-\n\n💡 งานสูบกรดกินพลังงาน เซลล์ที่พก mitochondria มากกว่าคือคนรับงานนี้",
     "verified": "Urinary System น.32"
   },
   {
@@ -1985,7 +1985,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Modified pericytes ที่อยู่ระหว่าง glomerular capillaries ใน glomerulus"
     ],
     "answer": 0,
-    "explain": "สไลด์นิยาม JG cells ว่าเป็น modified smooth muscle cells ของ tunica media ใน afferent arteriole มีนิวเคลียสกลม มี rough ER, golgi complex และ zymogen granules สำหรับ secretion of renin ตัวเลือก modified epithelial cells ของ straight part ของ distal tubule ชวนเลือกเพราะเป็นคำอธิบายของ macula densa ซึ่งอยู่ใน JGA เดียวกัน แต่ macula densa ทำหน้าที่ตรวจจับ ไม่ใช่หลั่ง renin",
+    "explain": "JG cells เป็น modified smooth muscle cells ของ tunica media ใน afferent arteriole นิวเคลียสกลม มี rough ER, golgi complex และ zymogen granules สำหรับ secretion of renin\n\n❌ ทำไมข้ออื่นผิด\n— Modified epithelial cells ของ straight part ของ distal tubule = คำอธิบายของ macula densa ซึ่งอยู่ใน JGA เดียวกันแต่คอยตรวจจับ ไม่ได้หลั่ง renin\n— Modified endothelial cells ของ efferent arteriole = ผิดสองชั้น เซลล์ต้นทางคือ smooth muscle ของ tunica media ไม่ใช่ endothelium และอยู่ที่ afferent ไม่ใช่ efferent\n— Modified pericytes ระหว่าง glomerular capillaries = คำอธิบายของ mesangial cells",
     "verified": "Urinary System น.38"
   },
   {
@@ -2004,7 +2004,7 @@ export const QUESTIONS_Y2_HISTO = [
       "detect ระดับ K ใน collecting duct แล้วหลั่ง ADH ทำให้ efferent arteriole เกิด contraction"
     ],
     "answer": 2,
-    "explain": "สไลด์ไล่ลำดับว่าเมื่อความดันเลือดเปลี่ยน glomerular capillary pressure และ GFR เปลี่ยน ทำให้ luminal concentration ของ Na และ Cl ใน TAL สูงขึ้น macula densa detect ได้แล้ว release adenosine และ vasoactive compounds ทำให้เกิด afferent arteriole contraction ตัวเลือกที่ให้ macula densa หลั่ง renin ชวนเลือกเพราะ renin อยู่ใน JGA เหมือนกัน แต่ renin หลั่งจาก JG cells และเกิดตอนความดันเลือดลดลง ไม่ใช่ตอนเพิ่มขึ้น",
+    "explain": "เมื่อ arterial blood pressure เพิ่ม glomerular capillary pressure และ GFR เพิ่มตาม ทำให้ luminal concentration ของ Na และ Cl ใน TAL สูงขึ้น macula densa detect ได้แล้ว release adenosine และ vasoactive compounds ไปทำให้ afferent arteriole contraction\n\n❌ ทำไมข้ออื่นผิด\n— detect Na และ Cl ใน PCT แล้วหลั่ง renin ทำให้ efferent ขยายตัว = จุดตรวจอยู่ที่ TAL ไม่ใช่ PCT และ renin หลั่งจาก JG cells ตอนความดันลดลง ไม่ใช่ตอนเพิ่มขึ้น\n— detect glucose ใน TAL แล้วหลั่ง aldosterone = ตำแหน่งถูกแต่จับผิดสาร สิ่งที่ตรวจคือ Na และ Cl และ aldosterone ไม่ได้มาจาก macula densa\n— detect K ใน collecting duct แล้วหลั่ง ADH ทำให้ efferent contraction = ผิดทั้งไอออน ตำแหน่ง สารที่ปล่อย และหลอดเลือดที่ถูกกระทำ\n\n💡 เกลือมาถึงมาก แปลว่ากรองมากไป จึงบีบขาเข้าให้กรองน้อยลง เป็น feedback ลบในไตเอง",
     "verified": "Urinary System น.42"
   }
 ];

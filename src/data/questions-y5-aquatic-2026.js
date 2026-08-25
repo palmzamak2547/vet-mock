@@ -162,7 +162,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "Filiform"
     ],
     "answer": 1,
-    "explain": "สไลด์วงเล็บกำกับไว้ว่า Depressiform คือ dorso ventrally compressed หรือแบนจากด้านบนลงล่าง โดยใช้ปลาลิ้นหมาเป็นตัวอย่าง ส่วน Compressiform คือ laterally compressed หรือแบนข้าง ตัวอย่างคือปลาเทวดา Globiform ใช้ปลาทองหัวโหนกทรงกลม และ Filiform ใช้ปลาลำตัวเรียวยาวคล้ายเส้นด้าย",
+    "explain": "Depressiform = dorsoventrally compressed คือลำตัวแบนจากด้านบนลงล่าง ปลาลิ้นหมาที่นอนราบกับพื้นตู้จึงอยู่ในกลุ่มนี้\n\n❌ ทำไมข้ออื่นผิด\n— Compressiform = laterally compressed แบนทางด้านข้าง เช่นปลาเทวดา\n— Globiform = ลำตัวป้อมกลม เช่นปลาทองหัวโหนก\n— Filiform = ลำตัวเรียวยาวคล้ายเส้นด้าย\n\n💡 depress = กดจากด้านบน, compress = บีบจากด้านข้าง",
     "verified": "AP2_Fish_bio p.16-19"
   },
   {
@@ -198,7 +198,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "Male pouch และ oviduct"
     ],
     "answer": 0,
-    "explain": "สไลด์ salmonid ชี้ Adipose fin หรือ 2nd dorsal fin ไว้ในภาพภายนอก และชี้ Pyloric ceca ไว้ในภาพอวัยวะภายในชั้นตื้น ส่วน spiral colon และ rectal gland เป็นของแผนภาพปลากระดูกอ่อน short และ long barbel เป็นหนวดของปลาหนัง และ pouch ของตัวผู้เป็นโครงสร้างเฉพาะในแผนภาพม้าน้ำ",
+    "explain": "Salmonid เด่นที่ adipose fin หรือ 2nd dorsal fin ซึ่งเห็นได้จากภายนอก คู่กับ pyloric ceca ที่เป็นถุงยื่นของทางเดินอาหารซึ่งเห็นเมื่อเปิดช่องท้อง\n\n❌ ทำไมข้ออื่นผิด\n— Spiral colon และ rectal gland = ของปลากระดูกอ่อน ไม่ใช่ salmonid\n— Short barbel และ long barbel = หนวดของปลาหนัง\n— Male pouch และ oviduct = ถุงฟักไข่ของม้าน้ำตัวผู้",
     "verified": "AP2_Fish_bio p.24"
   },
   {
@@ -215,7 +215,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "มีไตเดี่ยวอยู่กลางช่องท้องใต้ swim bladder"
     ],
     "answer": 2,
-    "explain": "ทั้งแผนภาพปลาหนังและปลาทองกำกับไตไว้เป็น cranial kidney กับ caudal kidney คือแยกเป็นส่วนหน้าและส่วนท้ายตามความยาวลำตัว ต่างจากสัตว์บกที่เป็นไตคู่รูปเมล็ดถั่ว ส่วนคำว่า dorsal และ ventral kidney ไม่ปรากฏบนสไลด์ และไตของปลาไม่ได้ถูกวาดเป็นก้อนเดียวกลางช่องท้อง",
+    "explain": "ไตปลาแบ่งตามความยาวลำตัวเป็น cranial kidney ทางหัว และ caudal kidney ทางหาง\n\n❌ ทำไมข้ออื่นผิด\n— \"ไตคู่รูปเมล็ดถั่วสองข้าง\" = รูปแบบของสัตว์บก ไม่ใช่ของปลา\n— \"dorsal kidney และ ventral kidney\" = ไตปลาไม่ได้ถูกแบ่งเป็นส่วนบนกับส่วนล่าง\n— \"ไตเดี่ยวกลางช่องท้อง\" = ไตปลาไม่ได้เป็นก้อนเดียว แต่แยกเป็นสองส่วนตามลำตัว",
     "verified": "AP2_Fish_bio p.25"
   },
   {
@@ -232,7 +232,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "Dense connective tissue layer"
     ],
     "answer": 1,
-    "explain": "สไลด์จัด transverse septum ไว้ในกลุ่มเดียวกับ abdominal (pleuroperitoneal) cavity และ pericardial cavity ในฐานะแผ่นกั้นระหว่างสองช่องนี้ ส่วน basal membrane และ dense connective tissue layer เป็นโครงสร้างในชั้นผิวหนัง และ median เป็นคำบอกระนาบลำตัว ไม่ใช่ชื่อแผ่นกั้นช่องลำตัว",
+    "explain": "Transverse septum คือแผ่นที่กั้น pericardial cavity ออกจาก abdominal หรือ pleuroperitoneal cavity ในโพรง coelom ของปลา\n\n❌ ทำไมข้ออื่นผิด\n— Median septum = median เป็นคำบอกระนาบกลางลำตัว ไม่ใช่ชื่อแผ่นกั้นช่องลำตัว\n— Basal membrane = โครงสร้างในชั้นผิวหนัง คนละระดับกับผนังกั้นช่องลำตัว\n— Dense connective tissue layer = ชั้นเนื้อเยื่อเกี่ยวพันในผิวหนัง ไม่ใช่แผ่นกั้นระหว่างสองช่องนี้\n\n💡 transverse = ขวางลำตัว จึงเป็นแผ่นที่ตัดขวางแยกช่องหัวใจออกจากช่องท้อง",
     "verified": "AP2_Fish_bio p.33-36"
   },
   {
@@ -249,7 +249,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "Erythorophore"
     ],
     "answer": 1,
-    "explain": "สไลด์เขียนว่า Iridophore : iridescent colour ส่วน Leucophore กำกับว่า metalic colour, Xanthrophore กำกับว่า yellow และ orange และ Erythorophore กำกับว่า red และ orange ตามการสะกดบนสไลด์",
+    "explain": "Iridophore = iridescent colour คือสีเหลือบรุ้ง\n\n❌ ทำไมข้ออื่นผิด\n— Leucophore = metalic colour\n— Xanthrophore = yellow และ orange\n— Erythorophore = red และ orange",
     "verified": "AP2_Fish_bio p.51"
   },
   {
@@ -283,7 +283,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "Myeloperoxidase reaction"
     ],
     "answer": 0,
-    "explain": "สไลด์กำกับชื่อปฏิกิริยาบนภาพไว้ว่า Succinate dehydrogenase reaction แล้วตีวงชี้ 3 บริเวณ คือ dark muscle ที่ติดสีเข้ม intermediate muscle และ white muscle ส่วนอีกสามชื่อเป็นปฏิกิริยาย้อมเอนไซม์กลุ่มอื่นที่ไม่ได้ปรากฏบนสไลด์นี้เลย",
+    "explain": "Succinate dehydrogenase reaction จับกิจกรรมของเอนไซม์ใน mitochondria กล้ามเนื้อ dark ที่มี mitochondria หนาแน่นจึงติดสีเข้ม ไล่ลงมาเป็น intermediate muscle และ white muscle ที่ติดสีจางลง ภาพตัดขวางจึงแยกกล้ามเนื้อสามชนิดออกจากกันได้\n\n❌ ทำไมข้ออื่นผิด\n— Alkaline phosphatase = คนละเอนไซม์ ไม่ได้บอกความหนาแน่นของ mitochondria จึงแยก dark กับ white muscle ไม่ได้\n— Periodic acid Schiff = ย้อมคาร์โบไฮเดรตเช่น glycogen ไม่ใช่ปฏิกิริยาของเอนไซม์หายใจ\n— Myeloperoxidase = ปฏิกิริยาของเม็ดเลือดขาวกลุ่ม granulocyte ไม่ใช่ของเส้นใยกล้ามเนื้อ",
     "verified": "AP2_Fish_bio p.60-62"
   },
   {
@@ -317,7 +317,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "bulbus arteriosus เข้าสู่ atrium ไปยัง ventricle แล้วออกทาง sinus venosus"
     ],
     "answer": 2,
-    "explain": "ลูกศรบนแผนภาพเรียงจาก sinus venosus เข้าสู่ atrium ลงสู่ ventricle แล้วออกสู่ bulbus arteriosus ก่อนต่อไปยัง ventral aorta ตัวเลือกอื่นสลับตำแหน่งของ sinus venosus กับ atrium หรือกลับทิศทางให้ bulbus arteriosus เป็นทางเข้า ซึ่งขัดกับทิศลูกศรในสไลด์",
+    "explain": "เลือดเข้าหัวใจปลาที่ sinus venosus ผ่านเข้า atrium ลงสู่ ventricle แล้วถูกบีบออกทาง bulbus arteriosus ก่อนต่อไปยัง ventral aorta\n\n❌ ทำไมข้ออื่นผิด\n— \"atrium เข้าสู่ sinus venosus\" = สลับสองห้องแรก sinus venosus ต้องมาก่อน atrium\n— \"ventricle ไปยัง atrium\" = สลับกัน เลือดต้องผ่าน atrium ก่อนจึงลง ventricle\n— \"bulbus arteriosus เป็นทางเข้าและ sinus venosus เป็นทางออก\" = กลับทิศทั้งสาย\n\n💡 เข้าทางฝั่งหลอดเลือดดำ (sinus venosus) ออกทางฝั่งหลอดเลือดแดง (bulbus arteriosus)",
     "verified": "AP2_Fish_bio p.64-65"
   },
   {
@@ -334,7 +334,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "บริเวณโคนหางใต้แนวกระดูกสันหลัง ตรงกับ caudal artery and vein"
     ],
     "answer": 3,
-    "explain": "ภาพล่างของสไลด์แสดงการแทงเข็มเข้าบริเวณโคนหางใต้แนวกระดูกสันหลัง ซึ่งตรงกับป้าย Caudal artery and vein ในแผนภาพด้านบนของสไลด์เดียวกัน ส่วน ventral aorta, abdominal vein และ dorsal segmental vessels เป็นป้ายชื่อจริงในแผนภาพแต่อยู่คนละตำแหน่งกับจุดที่ภาพแทงเข็ม",
+    "explain": "จุดเก็บเลือดปลาคือโคนหางใต้แนวกระดูกสันหลัง เพราะตำแหน่งนั้นมี caudal artery and vein ทอดอยู่ เข็มจึงเข้าถึงหลอดเลือดใหญ่ได้โดยไม่ผ่านอวัยวะภายใน\n\n❌ ทำไมข้ออื่นผิด\n— \"คอใต้แนวเหงือก ตรงกับ ventral aorta และ hepatic artery\" = เป็นหลอดเลือดจริง แต่อยู่คนละตำแหน่งกับจุดที่แทงเข็ม\n— \"ท้องด้านล่าง ตรงกับ abdominal vein และ subintestinal vein\" = อยู่ในช่องท้อง ไม่ใช่โคนหาง\n— \"หลังเหนือแนวกระดูกสันหลัง ตรงกับ dorsal segmental arteries และ veins\" = หลอดเลือดแขนงตามปล้องลำตัวด้านบน ไม่ใช่หลอดเลือดคู่ที่โคนหาง",
     "verified": "AP2_Fish_bio p.66-67"
   },
   {
@@ -421,7 +421,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "Oviparus กับ live barrier ตามที่พิมพ์"
     ],
     "answer": 1,
-    "explain": "สไลด์พิมพ์ไว้ว่า Oviparus (external fertilization), Viviparus (internal fertilization) และ Ovoviviparus (live barrier) การจับคู่ Viviparus กับ external หรือ Ovoviviparus กับ internal จึงสลับกัน และ live barrier เป็นคำกำกับของ Ovoviviparus ไม่ใช่ของ Oviparus",
+    "explain": "Oviparus คู่กับ external fertilization คือวางไข่ออกมาแล้วปฏิสนธินอกตัวแม่\n\n❌ ทำไมข้ออื่นผิด\n— \"Viviparus กับ external fertilization\" = Viviparus คู่กับ internal fertilization\n— \"Ovoviviparus กับ internal fertilization\" = Ovoviviparus คู่กับคำว่า live barrier\n— \"Oviparus กับ live barrier\" = live barrier เป็นคำกำกับของ Ovoviviparus ไม่ใช่ของ Oviparus\n\n💡 ovi = ไข่ ออกมาผสมข้างนอก, vivi = ออกลูกเป็นตัว ต้องผสมในตัวแม่",
     "verified": "AP2_Fish_bio p.88"
   },
   {
@@ -455,7 +455,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "telencephalon กำกับว่า balance และ metencephalon กำกับว่า smell"
     ],
     "answer": 0,
-    "explain": "สไลด์กำกับไว้สามข้อคือ metencephalon (cerebellum + medulla) คู่กับ balance, mesencephalon คู่กับ vision และ telencephalon คู่กับ smell ตัวเลือกอื่นสลับหน้าที่ระหว่างสามส่วนนี้",
+    "explain": "mesencephalon คู่กับ vision และ telencephalon คู่กับ smell ส่วน metencephalon (cerebellum + medulla) คู่กับ balance\n\n❌ ทำไมข้ออื่นผิด\n— \"mesencephalon = smell, telencephalon = vision\" = สลับสองส่วนนี้กัน\n— \"metencephalon = vision, mesencephalon = balance\" = vision เป็นของ mesencephalon ส่วน balance เป็นของ metencephalon\n— \"telencephalon = balance, metencephalon = smell\" = smell เป็นของ telencephalon ส่วน balance เป็นของ metencephalon",
     "verified": "AP2_Fish_bio p.93"
   },
   {
@@ -574,7 +574,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "หอยแมลงภู่ Perna viridis และหอยนางรม Pinctada maxima"
     ],
     "answer": 1,
-    "explain": "สไลด์พิมพ์ป้ายในภาพว่าหอยแมลงภู่ Perna viridis และเขียนหัวข้อว่า OYSTER Crassostrea gigas ข้อแรกสลับชื่อสองชนิดกัน Mytilus edulis เป็นหอยแมลงภู่เขตหนาว และ Pinctada maxima เป็นหอยมุก ทั้งสองชื่อไม่ได้อยู่ในสไลด์นี้",
+    "explain": "หอยแมลงภู่ = Perna viridis และหอยนางรม = Crassostrea gigas\n\n❌ ทำไมข้ออื่นผิด\n— \"หอยแมลงภู่ Crassostrea gigas และหอยนางรม Perna viridis\" = สลับชื่อสองชนิดกัน\n— Mytilus edulis = หอยแมลงภู่เขตหนาว ไม่ใช่ชนิดในคู่นี้\n— Pinctada maxima = หอยมุก ไม่ใช่หอยนางรม\n\n💡 viridis = เขียว จำคู่กับหอยแมลงภู่เปลือกเขียว",
     "verified": "AP1_Aquaculture_in_Thailand p.54"
   },
   {
@@ -591,7 +591,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "การเลี้ยงปลา ร้อยละ 16.6"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุ Shrimp culture ร้อยละ 72.5 เป็นสัดส่วนสูงสุด คิดเป็น 392,600 ตัน มูลค่า 57,435 ล้านบาท ส่วน Shellfish culture ได้ร้อยละ 16.6 และ Fish culture ร้อยละ 10.3 จึงจับคู่หอยกับ 72.5 หรือปลากับ 16.6 ไม่ได้ ส่วนร้อยละ 57.9 เป็นสัดส่วนของปลานิลในแผนภูมิสัตว์น้ำจืดคนละหน้ากัน",
+    "explain": "กลุ่มที่มีสัดส่วนมากที่สุดคือการเลี้ยงกุ้ง ร้อยละ 72.5 คิดเป็น 392,600 ตัน มูลค่า 57,435 ล้านบาท รองลงมาคือหอยร้อยละ 16.6 และปลาร้อยละ 10.3\n\n❌ ทำไมข้ออื่นผิด\n— \"หอย ร้อยละ 72.5\" = หอยได้ร้อยละ 16.6 ส่วน 72.5 เป็นของกุ้ง\n— \"กุ้ง ร้อยละ 57.9\" = ร้อยละ 57.9 เป็นสัดส่วนของปลานิลในกลุ่มสัตว์น้ำจืด คนละแผนภูมิกัน\n— \"ปลา ร้อยละ 16.6\" = ปลาได้ร้อยละ 10.3 ส่วน 16.6 เป็นของหอย",
     "verified": "Aquaculture_Industry_Tech p.2"
   },
   {
@@ -625,7 +625,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ผลต่างน้ำหนักสุดท้ายกับเริ่มต้น หารด้วย จำนวนวัน"
     ],
     "answer": 3,
-    "explain": "สไลด์เขียนว่า ADG เท่ากับ น้ำหนักสัตว์น้ำสุดท้ายลบน้ำหนักเริ่มต้น หารด้วยจำนวนวัน จึงเป็นน้ำหนักที่เพิ่มต่อวัน การเอาน้ำหนักอาหารหารด้วยน้ำหนักที่เพิ่มขึ้นคือสูตรของ FCR ส่วนการใช้น้ำหนักสุดท้ายทั้งก้อนหารด้วยวัน จะรวมน้ำหนักตอนลงลูกพันธุ์เข้าไปด้วย",
+    "explain": "ADG = น้ำหนักสัตว์น้ำสุดท้ายลบน้ำหนักเริ่มต้น หารด้วยจำนวนวัน จึงได้น้ำหนักที่เพิ่มขึ้นเฉลี่ยต่อวัน\n\n❌ ทำไมข้ออื่นผิด\n— \"น้ำหนักอาหารที่กิน หารด้วยน้ำหนักที่เพิ่มขึ้น\" = สูตรของ FCR\n— \"น้ำหนักสุดท้าย หารด้วยจำนวนวัน\" = รวมน้ำหนักตอนลงลูกพันธุ์เข้าไปด้วย ไม่ใช่เฉพาะส่วนที่โตขึ้น\n— \"ผลต่างน้ำหนัก หารด้วยน้ำหนักอาหาร\" = เป็นประสิทธิภาพการใช้อาหาร ไม่มีเวลาเป็นตัวหารจึงไม่ใช่ค่าต่อวัน\n\n💡 มีคำว่า daily ตัวหารต้องเป็นจำนวนวันเสมอ",
     "verified": "Aquaculture_Industry_Tech p.7"
   },
   {
@@ -642,7 +642,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "น้ำหนักสัตว์น้ำที่เพิ่มขึ้น หารด้วย จำนวนวันที่เลี้ยง"
     ],
     "answer": 1,
-    "explain": "FCR คืออัตราการเปลี่ยนอาหารเป็นเนื้อ สไลด์เขียนเป็นน้ำหนักอาหารที่กินหารด้วยน้ำหนักสัตว์น้ำที่เพิ่มขึ้น ค่ายิ่งต่ำยิ่งดี ถ้ากลับเศษกับส่วนจะกลายเป็นประสิทธิภาพการใช้อาหาร ส่วนการหารด้วยจำนวนวันเป็นรูปแบบของ ADG ไม่ใช่ FCR",
+    "explain": "FCR = น้ำหนักอาหารที่กิน หารด้วยน้ำหนักสัตว์น้ำที่เพิ่มขึ้น เป็นอัตราการเปลี่ยนอาหารเป็นเนื้อ ค่ายิ่งต่ำยิ่งดี\n\n❌ ทำไมข้ออื่นผิด\n— \"น้ำหนักที่เพิ่มขึ้น หารด้วยน้ำหนักอาหาร\" = กลับเศษกับส่วน กลายเป็นประสิทธิภาพการใช้อาหาร\n— \"น้ำหนักอาหาร หารด้วยจำนวนวัน\" = ปริมาณอาหารต่อวัน ไม่ได้บอกว่าเปลี่ยนเป็นเนื้อได้เท่าไร\n— \"น้ำหนักที่เพิ่มขึ้น หารด้วยจำนวนวัน\" = สูตรของ ADG",
     "verified": "Aquaculture_Industry_Tech p.8"
   },
   {
@@ -677,7 +677,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "Water quality, Nutrition และ Pathogen"
     ],
     "answer": 1,
-    "explain": "สไลด์วางสามวงเป็น Environment ที่มีอุณหภูมิสูงขึ้นและออกซิเจนลดลง Susceptible host ที่หนาแน่น เครียด และภูมิคุ้มกันบกพร่อง กับ Pathogen ที่มีสภาพเหมาะแก่การเจริญและมีโฮสต์ให้อาศัย โรคเกิดเมื่อสามวงนี้ตัดกัน คุณภาพน้ำและโภชนาการเป็นรายละเอียดย่อยที่อยู่ในวง Environment และ Host ไม่ใช่วงหลัก",
+    "explain": "สามเหลี่ยมการเกิดโรคประกอบด้วย Environment ที่อุณหภูมิสูงขึ้นและออกซิเจนลดลง, Susceptible host ที่หนาแน่น เครียด ภูมิคุ้มกันบกพร่อง และ Pathogen ที่มีสภาพเหมาะแก่การเจริญและมีโฮสต์ให้อาศัย โรคเกิดตรงจุดที่สามวงนี้ตัดกัน\n\n❌ ทำไมข้ออื่นผิด\n— \"Environment, Vector และ Susceptible host\" = Vector เป็นตัวนำเชื้อในเส้นทางการแพร่ ไม่ใช่มุมของสามเหลี่ยม และชุดนี้ยังขาด Pathogen\n— \"Vaccination\" = มาตรการป้องกันที่ไปลดความไวของ host ไม่ใช่องค์ประกอบที่ทำให้โรคเกิด\n— \"Water quality, Nutrition\" = รายละเอียดย่อยที่อยู่ในวง Environment และ Host ไม่ใช่ชื่อของมุมหลัก\n\n💡 ตัดวงใดวงหนึ่งออกได้ จุดตัดหายไป โรคก็ไม่เกิด",
     "verified": "Aquaculture_Industry_Tech p.15"
   },
   {
@@ -730,7 +730,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "จุลินทรีย์ที่มีชีวิต ทำหน้าที่เบียดขับเชื้อก่อโรคในทางเดินอาหาร"
     ],
     "answer": 0,
-    "explain": "สไลด์นิยาม prebiotic ว่าเป็นส่วนประกอบในอาหารที่ย่อยไม่ได้ และเป็นอาหารของจุลินทรีย์ที่มีประโยชน์ในทางเดินอาหาร โดยเน้นว่าพรีไบโอติกส่วนใหญ่เป็น subset ของกลุ่มคาร์โบไฮเดรต ตัวอย่างที่ยกไว้เช่น beta-glucan, inulin, MOS, FOS และ GOS ส่วนจุลินทรีย์ที่มีชีวิตคือ probiotic",
+    "explain": "Prebiotic คือส่วนประกอบในอาหารที่ย่อยไม่ได้ ส่วนใหญ่เป็น subset ของกลุ่มคาร์โบไฮเดรต ทำงานด้วยการเป็นอาหารให้จุลินทรีย์ที่มีประโยชน์ในทางเดินอาหาร ตัวอย่างเช่น beta-glucan, inulin, MOS, FOS และ GOS\n\n❌ ทำไมข้ออื่นผิด\n— \"กรดอะมิโนสายสั้น\" = อยู่ในกลุ่มโปรตีน ไม่ใช่กลุ่มที่พรีไบโอติกส่วนใหญ่สังกัด\n— \"กรดไขมันสายกลาง ยับยั้งเชื้อก่อโรคโดยตรง\" = เป็นการออกฤทธิ์ต่อเชื้อโดยตรง คนละกลไกกับพรีไบโอติกที่ทำงานด้วยการเลี้ยงจุลินทรีย์ดี\n— \"จุลินทรีย์ที่มีชีวิต\" = probiotic ไม่ใช่ prebiotic\n\n💡 pre = อาหารของเชื้อดี, pro = ตัวเชื้อดีเอง",
     "verified": "Aquaculture_Industry_Tech p.20"
   },
   {
@@ -747,7 +747,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "กระเพาะว่าง ตับและตับอ่อนใหญ่มีสีเข้ม ลำไส้กลางเต็ม"
     ],
     "answer": 2,
-    "explain": "สไลด์กำกับ EMS shrimp ว่า empty stomach, atrophied pale hepatopancreas และ empty midgut ขณะที่ normal shrimp เป็น full stomach, large pigmented hepatopancreas และ full midgut ตัวเลือกที่ผสมลักษณะสองฝั่งเข้าด้วยกันจึงไม่ตรงกับภาพบนสไลด์",
+    "explain": "กุ้ง EMS ไม่กินอาหาร ทางเดินอาหารจึงว่างทั้งต้นและปลาย คือ empty stomach กับ empty midgut ร่วมกับ hepatopancreas ที่ atrophied และซีด ต่างจากกุ้งปกติที่ full stomach, hepatopancreas ใหญ่มีสีเข้ม และ full midgut\n\n❌ ทำไมข้ออื่นผิด\n— \"กระเพาะเต็ม ตับและตับอ่อนใหญ่มีสีเข้ม ลำไส้กลางเต็ม\" = ชุดลักษณะของกุ้งปกติทั้งชุด\n— \"กระเพาะเต็ม ตับและตับอ่อนซีดฝ่อ ลำไส้กลางเต็ม\" = เอาทางเดินอาหารของกุ้งปกติมาผสมกับ hepatopancreas ของกุ้งป่วย\n— \"กระเพาะว่าง ตับและตับอ่อนใหญ่มีสีเข้ม ลำไส้กลางเต็ม\" = ผสมสองฝั่งสลับกันอีกแบบ",
     "verified": "Aquaculture_Industry_Tech p.29"
   },
   {
@@ -764,7 +764,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "IMNV"
     ],
     "answer": 0,
-    "explain": "สไลด์แบ่งเป็นสามกลุ่ม กลุ่มตายยกบ่อได้แก่ WSSV, DIV 1, YHV, TSV, IMNV, AHPND และ NHP กลุ่มโตช้าคือ EHP และกลุ่มขี้ขาวคือ EHP ร่วมกับ Vibrio, vibriosis และ dysbiosis จุดที่ต้องจำคือ EHP อยู่ได้ทั้งกลุ่มโตช้าและกลุ่มขี้ขาว",
+    "explain": "EHP คือโรคในกลุ่มโตช้า และยังไปอยู่ในกลุ่มขี้ขาวได้อีกเมื่อมี Vibrio, vibriosis หรือ dysbiosis ร่วมด้วย\n\n❌ ทำไมข้ออื่นผิด\n— WSSV = กลุ่มตายยกบ่อ\n— YHV = กลุ่มตายยกบ่อ\n— IMNV = กลุ่มตายยกบ่อ กลุ่มนี้ยังมี DIV 1, TSV, AHPND และ NHP",
     "verified": "Aquaculture_Industry_Tech p.30"
   },
   {
@@ -781,7 +781,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "สปอร์ขนาด 3.5 x 2.0-2.4 µm มี polar filament ขด 10-12 รอบ"
     ],
     "answer": 0,
-    "explain": "EHP เป็น microsporidian ใน family Enterocytozoonidae เป็น unicellular parasite ที่สร้างสปอร์ขนาด 1.1 x 0.6-0.7 µm และมี polar filament ขด 4-5 รอบ ตัวเลือกที่ให้ขนาด 3.5 x 2.0-2.4 µm ใหญ่เกินกว่าที่สไลด์ระบุ ส่วนจำนวนขด 10-12 รอบเป็นตัวเลขที่สไลด์ไม่ได้กล่าวถึง",
+    "explain": "EHP เป็น microsporidian ใน family Enterocytozoonidae เป็น unicellular parasite ที่สร้างสปอร์ขนาด 1.1 x 0.6-0.7 µm และมี polar filament ขด 4-5 รอบ\n\n❌ ทำไมข้ออื่นผิด\n— \"1.1 x 0.6-0.7 µm กับ polar filament 10-12 รอบ\" = ขนาดถูก แต่จำนวนขดมากเกินจริง\n— \"3.5 x 2.0-2.4 µm กับ polar filament 4-5 รอบ\" = จำนวนขดถูก แต่สปอร์ใหญ่เกินจริง\n— \"3.5 x 2.0-2.4 µm กับ polar filament 10-12 รอบ\" = ผิดทั้งขนาดสปอร์และจำนวนขด",
     "verified": "Aquaculture_Industry_Tech p.31"
   },
   {
@@ -815,7 +815,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "pH ต่ำกระตุ้นโปรตีนบนเยื่อหุ้ม ทำให้ K+ และน้ำไหลออกจากสปอร์"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า high pH กระตุ้นโปรตีนบนเยื่อหุ้มเซลล์ ทำให้น้ำและ Ca2+ เข้าสู่สปอร์ Ca2+ ที่เพิ่มขึ้นทำให้สปอร์บวมและยิง polar tube ออกจาก anchoring disc แล้ว PTP2 จับ receptor ของเซลล์เป้าหมายเพื่อฉีด sporoplasm ตัวเลือกที่เป็น pH ต่ำหรือไอออนไหลออกกลับทิศทางของกลไกนี้",
+    "explain": "pH สูงกระตุ้นโปรตีนบนเยื่อหุ้มของสปอร์ EHP ทำให้น้ำและ Ca2+ ไหลเข้าไปในสปอร์ Ca2+ ที่สูงขึ้นทำให้สปอร์บวมจนดัน polar tube หลุดออกจาก anchoring disc แล้ว PTP2 จับกับ receptor ของเซลล์เป้าหมายเพื่อฉีด sporoplasm เข้าเซลล์ hepatopancreas\n\n❌ ทำไมข้ออื่นผิด\n— \"pH ต่ำ Na+ และน้ำไหลเข้าสปอร์\" = ตัวกระตุ้นคือด่างไม่ใช่กรด และไอออนที่ไหลเข้าไปดันสปอร์คือ Ca2+ ไม่ใช่ Na+\n— \"pH สูง Ca2+ และน้ำไหลออกจากสปอร์\" = ถูกทั้ง pH และไอออน แต่กลับทิศการไหล ถ้าน้ำไหลออกสปอร์จะยุบ ไม่มีแรงดันยิงท่อ\n— \"pH ต่ำ K+ และน้ำไหลออกจากสปอร์\" = ผิดครบทั้งสามจุด ทั้งทิศ pH ชนิดไอออน และทิศการไหล\n\n💡 ทั้งกลไกคือเรื่องแรงดัน น้ำเข้า สปอร์บวม ท่อจึงยิงออก",
     "verified": "Aquaculture_Industry_Tech p.32"
   },
   {
@@ -832,7 +832,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "โรย Hi-Power 250-500 กก./ไร่ แล้วพ่น NaOH ให้ pH มากกว่า 11"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุ Hi-Power 250-500 kg/ไร่ ร่วมกับพ่น NaOH ให้ pH มากกว่า 11 ที่พื้นบ่อและลาดบ่อ เพราะ pH สูงคือตัวกระตุ้นให้สปอร์ยิง polar tube เสียเปล่า ตัวเลือกที่ใช้กรดให้ pH ต่ำกว่า 4 ขัดกับกลไก ส่วน 25-50 กก./ไร่ เป็นอัตราที่ต่ำกว่าที่สไลด์กำหนดสิบเท่า",
+    "explain": "โรย Hi-Power 250-500 กก./ไร่ แล้วพ่น NaOH ให้ pH มากกว่า 11 ที่พื้นบ่อและลาดบ่อ ความเป็นด่างจัดคือสภาวะที่กระตุ้นให้สปอร์ยิง polar tube ออกมาตอนที่ยังไม่เจอกุ้ง ยิงทิ้งไปแล้วสปอร์นั้นก็หมดฤทธิ์\n\n❌ ทำไมข้ออื่นผิด\n— \"Hi-Power 25-50 กก./ไร่ แล้วพ่น NaOH ให้ pH มากกว่า 11\" = เลือกสารและทิศ pH ถูก แต่อัตราการโรยต่ำกว่าที่กำหนดสิบเท่า\n— \"Hi-Power 250-500 กก./ไร่ แล้วพ่น HCl ให้ pH ต่ำกว่า 4\" = อัตราถูก แต่กรดทำให้ pH ต่ำ ซึ่งไม่ใช่สภาวะที่ทำให้สปอร์ยิงท่อ\n— \"Hi-Power 25-50 กก./ไร่ แล้วพ่น HCl ให้ pH ต่ำกว่า 4\" = ผิดทั้งอัตราและทิศ pH",
     "verified": "Aquaculture_Industry_Tech p.33"
   },
   {
@@ -849,7 +849,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "กำจัดเชื้อ EHP ให้หมดจากบ่อ โดยคุมปริมาณเชื้อในน้ำต่ำกว่า 10^6 copy/L"
     ],
     "answer": 1,
-    "explain": "สไลด์ใช้คำว่า delay EHP infection คือชะลอการติดเชื้อ ไม่ได้อ้างว่าการจัดการน้ำอย่างเดียวทำให้บ่อปลอดเชื้อ และกำหนดให้คุมปริมาณเชื้อในน้ำต่ำกว่า 10^2 copy/L ด้วยการเปลี่ยนถ่ายน้ำสะอาดสม่ำเสมอร่วมกับการเอาเลนและซากกุ้งออก ตัวเลือกที่ใช้คำว่ากำจัดให้หมดจึงเกินกว่าที่สไลด์อ้าง",
+    "explain": "central drainage system ทำได้แค่ชะลอการติดเชื้อ EHP ไม่ได้ทำให้บ่อปลอดเชื้อ เป้าหมายที่ตั้งไว้คือคุมปริมาณเชื้อในน้ำให้ต่ำกว่า 10^2 copy/L ด้วยการเปลี่ยนถ่ายน้ำสะอาดสม่ำเสมอร่วมกับการเอาเลนและซากกุ้งออก\n\n❌ ทำไมข้ออื่นผิด\n— \"กำจัดเชื้อให้หมดจากบ่อ คุมต่ำกว่า 10^2 copy/L\" = เกณฑ์ตัวเลขถูก แต่คำว่ากำจัดให้หมดเป็นการเคลมเกินสิ่งที่การจัดการน้ำทำได้\n— \"ชะลอการติดเชื้อ คุมต่ำกว่า 10^6 copy/L\" = เป้าหมายถูก แต่เกณฑ์หลวมกว่าที่กำหนดถึงหมื่นเท่า\n— \"กำจัดเชื้อให้หมดจากบ่อ คุมต่ำกว่า 10^6 copy/L\" = ผิดทั้งเป้าหมายและเกณฑ์\n\n💡 คำกริยาคือ delay ไม่ใช่ eliminate",
     "verified": "Aquaculture_Industry_Tech p.34-35"
   },
   {
@@ -883,7 +883,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "C6 = Clean personnel"
     ],
     "answer": 2,
-    "explain": "fomites คือสิ่งของหรืออุปกรณ์ที่เป็นพาหะนำเชื้อ สไลด์ C5 ระบุการแยกอุปกรณ์ของแต่ละบ่อและการฆ่าเชื้อ boots, dip nets, transport containers และ vehicle ส่วน C2 เป็นเรื่องน้ำและอากาศ C4 เป็นอาหารมีชีวิตกับอาหารสำเร็จรูป และ C6 เป็นเรื่องชุดและสุขอนามัยของคน",
+    "explain": "fomites คือสิ่งของและอุปกรณ์ที่เป็นพาหะนำเชื้อ การแยกอุปกรณ์ประจำแต่ละบ่อ และการฆ่าเชื้อรองเท้าบูท สวิง ภาชนะขนย้ายกุ้ง รวมถึงยานพาหนะ จึงตรงกับ C5 Clean fomites\n\n❌ ทำไมข้ออื่นผิด\n— \"C2 = Clean water\" = ว่าด้วยน้ำและอากาศที่เข้าบ่อ\n— \"C4 = Clean feed and materials\" = ว่าด้วยอาหารมีชีวิตและอาหารสำเร็จรูป\n— \"C6 = Clean personnel\" = ว่าด้วยชุดและสุขอนามัยของคนที่เข้าฟาร์ม\n\n💡 ของไม่มีชีวิตที่พาเชื้อคือ fomites ถ้าเป็นตัวคนคือ personnel",
     "verified": "Aquaculture_Industry_Tech p.37"
   },
   {
@@ -917,7 +917,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "แบคทีเรีย 55% ไวรัส 23% ปรสิต 19% และเชื้อรา 3%"
     ],
     "answer": 3,
-    "explain": "แผนภูมิวงกลมระบุ bacterial pathogen 55%, virus 23%, parasitic agents 19% และ mycotic agents 3% จุดที่ต้องจำคือแบคทีเรียเกินครึ่งจึงเป็นสาเหตุหลักของโรคในปลา ตัวเลือกอื่นสลับให้ไวรัสหรือปรสิตขึ้นเป็นอันดับหนึ่ง หรือเกลี่ยสัดส่วนให้ใกล้เคียงกันซึ่งไม่ตรงกับสไลด์",
+    "explain": "สัดส่วนกลุ่มเชื้อก่อโรคในปลาคือ bacterial pathogen 55% virus 23% parasitic agents 19% และ mycotic agents 3% แบคทีเรียกินสัดส่วนเกินครึ่งจึงเป็นสาเหตุหลักของโรคในปลา\n\n❌ ทำไมข้ออื่นผิด\n— \"แบคทีเรีย 35% ไวรัส 33% ปรสิต 29%\" = เกลี่ยสามกลุ่มแรกให้ใกล้เคียงกัน ทั้งที่แบคทีเรียนำห่างจนเกินครึ่ง\n— \"ไวรัส 55% แบคทีเรีย 23%\" = สลับตัวเลขของไวรัสกับแบคทีเรีย\n— \"ปรสิต 55% แบคทีเรีย 23% ไวรัส 19%\" = ยกปรสิตขึ้นเป็นอันดับหนึ่ง ทั้งที่ปรสิตอยู่อันดับสาม\n\n💡 เชื้อรา 3% เหมือนกันทุกตัวเลือก ตัวชี้ขาดคือกลุ่มไหนได้สัดส่วนเกินครึ่ง",
     "verified": "Aquaculture_Industry_Tech p.50"
   },
   {
@@ -952,7 +952,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ใช้ได้กับปลาทุกขนาด แต่ระยะคุ้มโรคสั้นและแอนติเจนถูกย่อยสลาย"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุข้อเสียของการฉีดคือปลาต้องมีขนาดมากกว่า 10 กรัม และเสียแรงงานกับเวลา ส่วนข้อดีคือ high efficacy และ long protection time ตัวเลือกที่ระบุ 100 กรัมใช้ตัวเลขผิด ตัวเลือกที่บอกว่าใช้กับปลาเล็กกว่า 10 กรัมสลับกับข้อบ่งใช้ของวิธีแช่ และตัวเลือกสุดท้ายเป็นลักษณะของวัคซีนแบบผสมอาหาร",
+    "explain": "ข้อเสียของการฉีด IM หรือ IP คือใช้ได้เฉพาะปลาที่หนักมากกว่า 10 กรัม และสิ้นเปลืองแรงงานกับเวลา สิ่งที่ได้แลกมาคือ high efficacy และ long protection time\n\n❌ ทำไมข้ออื่นผิด\n— \"ปลาที่หนักมากกว่า 100 กรัม\" = เกณฑ์น้ำหนักสูงเกินจริงสิบเท่า\n— \"ปลาที่หนักน้อยกว่า 10 กรัม และให้ระยะคุ้มโรคสั้น\" = กลับทิศเกณฑ์ขนาด และการฉีดให้ระยะคุ้มโรคยาว ไม่ใช่สั้น\n— \"ใช้ได้กับปลาทุกขนาด แต่ระยะคุ้มโรคสั้นและแอนติเจนถูกย่อยสลาย\" = แอนติเจนถูกย่อยสลายเป็นปัญหาของวัคซีนแบบผสมอาหาร ไม่ใช่ของการฉีด",
     "verified": "Aquaculture_Industry_Tech p.62"
   },
   {
@@ -986,7 +986,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "Preservatives"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุว่า preservatives ทำหน้าที่ป้องกันการปนเปื้อนจากแบคทีเรียหรือเชื้อรา ส่วน adjuvants ใช้เพิ่มการตอบสนองทางภูมิคุ้มกัน additives หรือ stabilisers ทำให้วัคซีนคงตัวและปกป้องระหว่างการเก็บรักษา และ trace components คือสารตกค้างจากกระบวนการผลิต",
+    "explain": "preservatives คือส่วนประกอบที่ใส่ไว้กันไม่ให้แบคทีเรียหรือเชื้อราปนเปื้อนวัคซีน\n\n❌ ทำไมข้ออื่นผิด\n— \"Adjuvants\" = ตัวเสริมที่ทำให้ภูมิคุ้มกันตอบสนองต่อวัคซีนแรงขึ้น\n— \"Stabilisers\" = ตัวที่ทำให้วัคซีนคงตัวและปกป้องวัคซีนระหว่างการเก็บรักษา\n— \"Trace components\" = สารตกค้างที่ติดมาจากกระบวนการผลิต ไม่ใช่ส่วนประกอบที่เติมเข้าไปเพื่อจุดประสงค์ใดจุดประสงค์หนึ่ง\n\n💡 preservative คือคำเดียวกับสารกันบูดในอาหาร งานของมันคือกันจุลชีพทำให้ของเสีย",
     "verified": "Aquaculture_Industry_Tech p.63"
   },
   {
@@ -1021,7 +1021,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ISCOMs ขนาด 400 nm และ viral like particles ขนาด 2-8 nm"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุ ISCOMs ขนาด 40 nm และ nanoliposome ขนาด 100-400 nm ส่วน nanoemulsion อยู่ที่ 50-600 nm และ viral like particles อยู่ที่ 20-800 nm ตัวเลือกที่เหลือจึงใช้ตัวเลขที่เล็กหรือใหญ่กว่าที่สไลด์กำหนดสิบเท่า",
+    "explain": "ISCOMs มีขนาด 40 nm ส่วน nanoliposome อยู่ที่ 100-400 nm อีกสองระบบในกลุ่มเดียวกันคือ nanoemulsion 50-600 nm และ viral like particles 20-800 nm\n\n❌ ทำไมข้ออื่นผิด\n— \"ISCOMs 400 nm และ nanoliposome 10-40 nm\" = สลับช่วงตัวเลขของสองระบบเข้าหากัน ISCOMs อยู่ที่หลักสิบ nm ส่วน nanoliposome อยู่ที่หลักร้อย nm\n— \"ISCOMs 40 nm และ nanoemulsion 5-60 nm\" = ครึ่งแรกถูก แต่ nanoemulsion อยู่ที่ 50-600 nm\n— \"ISCOMs 400 nm และ viral like particles 2-8 nm\" = ผิดทั้งคู่ viral like particles อยู่ที่ 20-800 nm",
     "verified": "Aquaculture_Industry_Tech p.68"
   },
   {
@@ -1038,7 +1038,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "เกิดจาก Aeromonas hydrophila แกรมลบรูปแท่งสั้น อัตราตาย 1-5%"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุเชื้อสาเหตุคือ Flavobacterium columnare ซึ่งเป็นแบคทีเรียแกรมลบรูปแท่งยาว พบรอยโรคผิวหนังเปลี่ยนสีหรือเสียหาย ครีบและเหงือกกร่อน และรอยโรค saddle back โดยมีอัตราตาย 30-100% ตัวเลือกที่ให้อัตราตาย 1-5% ต่ำเกินจริง และการเป็นแกรมบวกหรือ Aeromonas hydrophila ไม่ตรงกับเชื้อสาเหตุที่ระบุไว้",
+    "explain": "columnaris เกิดจาก Flavobacterium columnare ซึ่งเป็นแบคทีเรียแกรมลบรูปแท่งยาว รอยโรคคือผิวหนังเปลี่ยนสีหรือเสียหาย ครีบและเหงือกกร่อน และรอยโรค saddle back อัตราตายกว้างมากที่ 30-100%\n\n❌ ทำไมข้ออื่นผิด\n— \"แกรมบวกรูปแท่งสั้น อัตราตาย 30-100%\" = อัตราตายถูก แต่ติดสีและรูปร่างผิดทั้งคู่ เชื้อนี้เป็นแกรมลบรูปแท่งยาว\n— \"แกรมลบรูปแท่งยาว อัตราตาย 1-5%\" = เชื้อและรูปร่างถูก แต่อัตราตาย 1-5% ต่ำเกินจริงมาก\n— \"Aeromonas hydrophila แกรมลบรูปแท่งสั้น อัตราตาย 1-5%\" = คนละเชื้อ Aeromonas hydrophila ไม่ใช่สาเหตุของ columnaris และอัตราตายก็ต่ำเกินจริง\n\n💡 saddle back คือรอยโรคที่ชี้ไปที่ columnaris ได้ทันที",
     "verified": "Aquaculture_Industry_Tech p.70"
   },
   {
@@ -1072,7 +1072,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ฉีดเข้ากล้ามเนื้อ (intramuscular)"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า attenuated live vaccine ให้แบบ immersion และเป็น licensed vaccine (Intervet/Schering-Plough) ส่วน intraperitoneal และ oral เป็นทางให้ของ formalin killed vaccine ที่ผสม adjuvants ไม่ใช่วัคซีนเชื้อเป็น และ intramuscular ไม่ได้ถูกกล่าวถึงในสไลด์นี้เลย",
+    "explain": "วัคซีน columnaris ชนิด attenuated live vaccine ให้แบบ immersion คือแช่ทั้งตัวปลาในน้ำ และเป็นตัวที่ขึ้นทะเบียนเป็น licensed vaccine (Intervet/Schering-Plough)\n\n❌ ทำไมข้ออื่นผิด\n— \"ฉีดเข้าช่องท้อง (intraperitoneal)\" = เป็นทางให้ของ formalin killed vaccine ที่ผสม adjuvants ไม่ใช่ของวัคซีนเชื้อเป็น\n— \"ผสมอาหารให้กินต่อเนื่อง (oral)\" = เป็นทางให้ของ formalin killed vaccine เช่นกัน\n— \"ฉีดเข้ากล้ามเนื้อ (intramuscular)\" = ไม่ใช่ทางให้ของวัคซีน columnaris ตัวที่ขึ้นทะเบียน",
     "verified": "Aquaculture_Industry_Tech p.72"
   },
   {
@@ -1089,7 +1089,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ต้องใช้ปริมาณวัคซีนน้อยจนคำนวณขนาดยาก"
     ],
     "answer": 0,
-    "explain": "สไลด์ list ข้อเสียข้อแรกไว้ว่า the vaccine cannot be delivered into the fish และเป็นปัญหาที่นำไปสู่การใช้นาโนเทคโนโลยีในสไลด์ถัดไป ส่วนแรงงานต่ำและความเครียดต่ำเป็นข้อดี ไม่ใช่ข้อเสีย เช่นเดียวกับความเหมาะสมกับ mass vaccination และปริมาณวัคซีนที่ต้องใช้คือมากไม่ใช่น้อย",
+    "explain": "ข้อเสียหลักของ immersion vaccine คือวัคซีนไม่สามารถถูกนำส่งเข้าสู่ตัวปลาได้ ปัญหานี้คือโจทย์ตั้งต้นที่ทำให้ต้องเอานาโนเทคโนโลยีเข้ามาช่วยพาวัคซีนเข้าตัวปลา\n\n❌ ทำไมข้ออื่นผิด\n— \"ต้องใช้แรงงานมากและทำให้ปลาเครียดสูง\" = กลับด้าน การแช่ใช้แรงงานน้อยและปลาเครียดน้อย ข้อนี้เป็นข้อดีของวิธีแช่\n— \"ไม่เหมาะกับการทำวัคซีนปลาจำนวนมากพร้อมกัน\" = กลับด้านเช่นกัน จุดแข็งของการแช่คือทำปลาจำนวนมากได้พร้อมกัน\n— \"ต้องใช้ปริมาณวัคซีนน้อยจนคำนวณขนาดยาก\" = การแช่ต้องใช้วัคซีนปริมาณมาก ไม่ใช่น้อย",
     "verified": "Aquaculture_Industry_Tech p.73"
   },
   {
@@ -1106,7 +1106,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "polymer จับกับ mucopolysaccharide ด้วยพันธะโควาเลนต์ถาวร"
     ],
     "answer": 1,
-    "explain": "สไลด์อธิบายว่าเป็น electrostatic interactions โดย cationic polymer มีประจุบวกและ mucopolysaccharide ที่ผิวหรือเมือกปลามีประจุลบ จึงดึงดูดกัน ตัวเลือกที่สลับขั้วประจุจึงผิด ส่วนการแทรกผ่านชั้นไขมันและพันธะโควาเลนต์ไม่ใช่กลไกที่สไลด์กล่าวถึง",
+    "explain": "เป็น electrostatic interaction ตรง ๆ อนุภาคทำจาก cationic polymer ซึ่งมีประจุบวก ส่วน mucopolysaccharide ที่ผิวและเมือกปลามีประจุลบ ประจุตรงข้ามจึงดึงดูดกันทำให้อนุภาคเกาะติดตัวปลา\n\n❌ ทำไมข้ออื่นผิด\n— \"polymer ประจุลบจับกับ mucopolysaccharide ประจุบวก\" = สลับขั้วทั้งคู่ เมือกปลาเป็นประจุลบไม่ใช่บวก\n— \"polymer ไม่มีประจุแทรกผ่านชั้นไขมันของเมือกปลา\" = ถ้าไม่มีประจุก็ไม่มีแรงดึงดูดไฟฟ้าสถิตให้เกาะตั้งแต่ต้น\n— \"จับกับ mucopolysaccharide ด้วยพันธะโควาเลนต์ถาวร\" = เป็นแรงดึงดูดระหว่างประจุ ไม่ใช่พันธะเคมีถาวร\n\n💡 บวกเกาะลบ จำว่าเมือกปลาเป็นลบ อนุภาคจึงต้องเป็นบวก",
     "verified": "Aquaculture_Industry_Tech p.75"
   },
   {
@@ -1123,7 +1123,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ขนาดน้อยกว่า 500 nm, zeta ไม่เข้าใกล้ 0 mV, PDI น้อยกว่า 0.3"
     ],
     "answer": 3,
-    "explain": "สไลด์กำหนดไว้ 3 ค่าคือ size น้อยกว่า 500 nm, zeta potential ต้องไม่เข้าใกล้ 0 mV และ PDI น้อยกว่า 0.3 ค่าที่ zeta เข้าใกล้หรือเท่ากับ 0 mV หมายถึงอนุภาคไม่เสถียรและจะจับกลุ่มกัน ส่วน PDI ที่สูงกว่า 0.3 แปลว่าขนาดอนุภาคกระจายตัวไม่สม่ำเสมอ",
+    "explain": "เกณฑ์ characterization มีสามค่า ขนาดต้องน้อยกว่า 500 nm, zeta potential ต้องไม่เข้าใกล้ 0 mV เพราะค่าใกล้ศูนย์แปลว่าอนุภาคไม่เสถียรและจะจับกลุ่มกัน และ PDI ต้องน้อยกว่า 0.3 คือขนาดอนุภาคกระจายตัวสม่ำเสมอ\n\n❌ ทำไมข้ออื่นผิด\n— \"ขนาดน้อยกว่า 50 nm, zeta ไม่เข้าใกล้ 0 mV, PDI น้อยกว่า 0.3\" = zeta กับ PDI ถูกแล้ว แต่เกณฑ์ขนาดเข้มกว่าที่กำหนดสิบเท่า\n— \"zeta ต้องเข้าใกล้ 0 mV, PDI มากกว่า 0.3\" = กลับด้านทั้งสองค่า zeta ใกล้ศูนย์คืออนุภาคไม่เสถียร และ PDI เกิน 0.3 คือขนาดกระจายตัวไม่สม่ำเสมอ\n— \"ขนาดน้อยกว่า 1,000 nm, zeta เท่ากับ 0 mV, PDI น้อยกว่า 0.8\" = หลวมทั้งเกณฑ์ขนาดและ PDI ส่วน zeta เท่ากับ 0 mV คือจุดที่อนุภาคไม่เสถียรที่สุด",
     "verified": "Aquaculture_Industry_Tech p.78"
   },
   {
@@ -1187,7 +1187,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "73% และ 32%"
     ],
     "answer": 2,
-    "explain": "ในสไลด์นี้ farm ที่มี disease outbreak ปลาที่ได้วัคซีนรอด 77% ปลาที่ไม่ได้วัคซีนรอด 38% ส่วน 96 กับ 85 คือฟาร์มปกติที่ส่วนต่างแคบกว่ามาก ตัวเลข 86 กับ 52 และ 73 กับ 32 มาจากสไลด์ field test อีกหน้าหนึ่ง (ในฟาร์มและใน challenge ห้องปฏิบัติการตามลำดับ)",
+    "explain": "ในฟาร์มที่มี disease outbreak ปลาที่ได้วัคซีนรอด 77% ส่วนปลาที่ไม่ได้วัคซีนรอด 38% ช่องว่างจะกว้างแบบนี้ก็ต่อเมื่อมีเชื้อระบาดกดดันอยู่จริง\n\n❌ ทำไมข้ออื่นผิด\n— \"96% และ 85%\" = เป็นคู่ตัวเลขของฟาร์มปกติที่ไม่มีการระบาด ส่วนต่างจึงแคบกว่ามาก\n— \"86% และ 52%\" = มาจากการทดสอบภาคสนามอีกชุดหนึ่งที่ทำในฟาร์ม\n— \"73% และ 32%\" = มาจากการทดสอบแบบ challenge ในห้องปฏิบัติการ\n\n💡 คู่ที่ห่างกันมากคือฟาร์มที่มีการระบาด ส่วนฟาร์มปกติเลขจะสูงทั้งคู่และห่างกันน้อย",
     "verified": "Aquaculture_Industry_Tech p.85"
   },
   {
@@ -1221,7 +1221,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "อัตราตาย 90-100% และระบาดในบ่อดินหรือ PE พอกับกระชัง"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุอัตราตาย 20-90% และการเลี้ยงแบบกระชังพบระบาดมากกว่าบ่อดินหรือ PE โดยมีปัจจัยเรื่องความเครียดและคุณภาพน้ำ ตัวเลือกที่สลับรูปแบบการเลี้ยงหรือเปลี่ยนช่วงอัตราตายเป็น 5-20% หรือ 90-100% จึงไม่ตรงกับสไลด์",
+    "explain": "TiLV ในปลานิลมีอัตราตาย 20-90% และพบระบาดในการเลี้ยงแบบกระชังมากกว่าบ่อดินหรือบ่อ PE โดยมีความเครียดและคุณภาพน้ำเป็นปัจจัยร่วม\n\n❌ ทำไมข้ออื่นผิด\n— \"อัตราตาย 20-90% และระบาดในบ่อดินหรือ PE มากกว่ากระชัง\" = ช่วงอัตราตายถูก แต่สลับรูปแบบการเลี้ยง กระชังคือที่ที่พบมากกว่า\n— \"อัตราตาย 5-20% และระบาดในกระชังมากกว่า\" = รูปแบบการเลี้ยงถูก แต่อัตราตาย 5-20% ต่ำเกินจริง ช่วงบนของโรคนี้ขึ้นไปถึง 90%\n— \"อัตราตาย 90-100% และระบาดในบ่อดินหรือ PE พอกับกระชัง\" = สูงเกินจริง และตัดความต่างระหว่างรูปแบบการเลี้ยงทิ้งไป",
     "verified": "Aquaculture_Industry_Tech p.87"
   },
   {
@@ -1238,7 +1238,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "มีโครงสร้าง terpene ในโครงสร้าง ตัวอย่างพืชคือ oregano"
     ],
     "answer": 2,
-    "explain": "สไลด์วงแดงที่ nitrogen atom เป็นจุดสังเกตของกลุ่ม alkaloid โดยยกตัวอย่าง opium poppy ส่วนหมู่ phenol เป็นจุดสังเกตของ polyphenol (องุ่น), glycosidic bond เป็นของ glycoside (Digitalis purpurea) และโครงสร้าง terpene เป็นของ terpenoid (oregano และ mint)",
+    "explain": "จุดสังเกตของกลุ่ม alkaloid คือมี nitrogen atom อยู่ในโครงสร้าง ตัวอย่างพืชคือฝิ่น (opium poppy)\n\n❌ ทำไมข้ออื่นผิด\n— \"มีหมู่ phenol ตัวอย่างพืชคือองุ่น\" = เป็นจุดสังเกตของกลุ่ม polyphenol\n— \"มี glycosidic bond ตัวอย่างพืชคือ Digitalis\" = เป็นจุดสังเกตของกลุ่ม glycoside ซึ่งยกตัวอย่าง Digitalis purpurea\n— \"มีโครงสร้าง terpene ตัวอย่างพืชคือ oregano\" = เป็นจุดสังเกตของกลุ่ม terpenoid ซึ่งยกตัวอย่าง oregano และ mint",
     "verified": "Aquaculture_Industry_Tech p.95"
   },
   {
@@ -1272,7 +1272,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ระบบ viral vector ชนิด adenovirus นำส่งเข้าเซลล์"
     ],
     "answer": 1,
-    "explain": "สไลด์แยกไว้ว่า hydrophilic molecule ได้แก่ acetate, propionate และ butyrate ใช้ระบบ water in oil in water ส่วน lipid nanoparticle ใช้กับ hydrophobic molecule อย่างโครงสร้าง phenol ขณะที่ quantum dot เป็นอนุภาคอนินทรีย์และ adenovirus เป็น viral vector ซึ่งเป็นคนละบริบทกับการนำส่งสารจากพืชในสไลด์นี้",
+    "explain": "short chain fatty acids ได้แก่ acetate propionate และ butyrate เป็น hydrophilic molecule ระบบที่คู่กับสารชอบน้ำคือ water in oil in water (w/o/w) แบบหลายชั้น ส่วน lipid nanoparticle เอาไว้ใช้กับ hydrophobic molecule อย่างสารที่มีโครงสร้าง phenol\n\n❌ ทำไมข้ออื่นผิด\n— \"ระบบ lipid nanoparticle แบบเดียวกับสารกลุ่ม phenol\" = ระบบนี้คู่กับสาร hydrophobic ไม่ใช่สารชอบน้ำอย่าง short chain fatty acids\n— \"ระบบ quantum dot\" = อนุภาคกลุ่มอนินทรีย์ คนละบริบทกับการนำส่งสารสำคัญจากพืช\n— \"ระบบ viral vector ชนิด adenovirus\" = เป็น viral vector คนละบริบทกับการนำส่งสารสำคัญจากพืชเช่นกัน\n\n💡 อ่านชื่อระบบก็ตอบได้ w/o/w มีชั้นน้ำอยู่ในสุด สารชอบน้ำจึงอยู่ได้ ส่วนสารชอบไขมันไปอยู่กับ lipid nanoparticle",
     "verified": "Aquaculture_Industry_Tech p.94"
   }
 ];

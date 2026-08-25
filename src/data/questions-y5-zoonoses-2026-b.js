@@ -805,7 +805,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ฉบับเบื้องต้นใน 12 ชั่วโมง และฉบับเต็มใน 3 วัน"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าหลังปฏิบัติหน้าที่แล้วให้ทำรายงานสอบสวนโรคฉบับเบื้องต้นส่งใน 3 วัน และฉบับเต็มส่งใน 15 วัน ตัวเลข 3 ชั่วโมงกับ 12 ชั่วโมงเป็นกรอบเวลาการแจ้งและลงสอบสวนของโรคติดต่ออันตราย ซึ่งเป็นคนละเรื่องกับกำหนดส่งรายงาน",
+    "explain": "รายงานสอบสวนโรคมีสองฉบับ ฉบับเบื้องต้นส่งใน 3 วัน และฉบับเต็มส่งใน 15 วัน หลังลงปฏิบัติงานสอบสวนแล้ว\n\n❌ ทำไมข้ออื่นผิด\n— \"12 ชั่วโมง / 3 วัน\" = หน่วยชั่วโมงเป็นกรอบเวลาการแจ้งและการลงสอบสวนโรคติดต่ออันตราย คนละเรื่องกับกำหนดส่งรายงาน และ 3 วันคือกำหนดของฉบับเบื้องต้น ไม่ใช่ฉบับเต็ม\n— \"1 วัน / 7 วัน\" = สั้นกว่ากำหนดจริงทั้งคู่\n— \"7 วัน / 30 วัน\" = ยาวกว่ากำหนดจริงทั้งคู่",
     "verified": "Zoonoses 85 น.9",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป SRRT ในเอกสาร Vet 85"
@@ -900,7 +900,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "สัตว์กินเนื้อ"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่าแม้ค้างคาวจะมีชื่อเสียงไม่ดี แต่กลับเป็นแหล่งของ zoonoses เพียง 25 โรค น้อยกว่าสัตว์ฟันแทะ 85 โรค สัตว์กินเนื้อ 83 โรค ไพรเมต 61 โรค และสัตว์กีบ 59 โรค ตัวเลขชุดนี้เป็นจุดที่ขัดกับความเชื่อทั่วไปจึงถูกไฮไลต์ไว้",
+    "explain": "ค้างคาวเป็นแหล่งของ zoonoses 25 โรค น้อยที่สุดในกลุ่มที่เทียบกัน ทั้งที่ชื่อเสียงเรื่องโรคอุบัติใหม่ทำให้เดาว่าน่าจะมากที่สุด\n\n❌ ทำไมข้ออื่นผิด\n— สัตว์ฟันแทะ = 85 โรค มากที่สุดในกลุ่มนี้\n— สัตว์กินเนื้อ = 83 โรค\n— สัตว์กีบ = 59 โรค ยังมากกว่าค้างคาวกว่าเท่าตัว\n\n💡 เรียงมากไปน้อย ฟันแทะ 85, กินเนื้อ 83, ไพรเมต 61, กีบ 59, ค้างคาว 25 รั้งท้าย",
     "verified": "Zoonoses 85 น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ emerging zoonotic diseases and wildlife (Vet 85)"
@@ -919,7 +919,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "สัตว์กีบมีสัดส่วนสูงที่สุด รองลงมาคือสัตว์กินเนื้อ"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่าสัตว์ฟันแทะมีมากกว่า 10 เปอร์เซ็นต์ของชนิดที่เป็น zoonotic host คือ 244 จาก 2,220 ชนิด ขณะที่ไพรเมตแม้จะมีจำนวนชนิดน้อยกว่ามาก แต่มีสัดส่วนสูงกว่า คือ 77 จาก 365 ชนิด หรือ 21 เปอร์เซ็นต์",
+    "explain": "ไพรเมต 77 จาก 365 ชนิด = 21 เปอร์เซ็นต์ ชนิดน้อยกว่ามากแต่สัดส่วนสูงกว่า\nสัตว์ฟันแทะ 244 จาก 2,220 ชนิด = มากกว่า 10 เปอร์เซ็นต์ นับหัวเยอะกว่าแต่สัดส่วนต่ำกว่า\n\n❌ ทำไมข้ออื่นผิด\n— \"สัตว์ฟันแทะ มากกว่า 21 เปอร์เซ็นต์\" = สลับเจ้าของตัวเลข ของสัตว์ฟันแทะคือมากกว่า 10 เปอร์เซ็นต์\n— \"ค้างคาวสูงที่สุด\" = ฝั่งที่สัดส่วนสูงกว่าคือไพรเมตที่ 21 เปอร์เซ็นต์\n— \"สัตว์กีบสูงที่สุด รองลงมาสัตว์กินเนื้อ\" = เช่นเดียวกัน กลุ่มที่สัดส่วนสูงคือไพรเมต",
     "verified": "Zoonoses 85 น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ emerging zoonotic diseases and wildlife (Vet 85)"
@@ -938,7 +938,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "Amplification"
     ],
     "answer": 2,
-    "explain": "สไลด์นิยาม spillover ว่าเป็นการแพร่เชื้อจาก HR ไปสู่ HS ส่วน spillback คือการแพร่จากคนซึ่งเป็น HS ไปสู่สัตว์อื่น ทั้งสองคำถูกไฮไลต์ไว้คู่กันเพราะสลับกันตอบง่าย ส่วน bridge host คือโฮสต์ที่นำเชื้อข้าม boundary",
+    "explain": "Spillback = เชื้อออกจากคนซึ่งเป็น HS ย้อนไปติดสัตว์ชนิดอื่น\n\n❌ ทำไมข้ออื่นผิด\n— Spillover = ทิศทางขาไป จาก HR ไปสู่ HS เป็นคู่ที่สลับกันตอบง่ายที่สุด\n— Bridge transmission = bridge host คือโฮสต์ที่พาเชื้อข้าม boundary ไม่ใช่ชื่อของทิศทางคนไปสู่สัตว์\n— Amplification = การเพิ่มจำนวนเชื้อในโฮสต์ ไม่ได้บอกว่าเชื้อเดินจากใครไปหาใคร\n\n💡 over คือขาไปหาคน back คือขากลับจากคนไปหาสัตว์",
     "verified": "Zoonoses 85 น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ emerging zoonotic diseases and wildlife (Vet 85)"
@@ -957,7 +957,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "จำนวนสัตว์เลี้ยงที่ทำหน้าที่เป็น bridge host เท่านั้น"
     ],
     "answer": 0,
-    "explain": "สไลด์แยก permeability ของแต่ละ boundary ไว้ชัด แบบ vector-borne กำหนดโดย vector abundance, competence, biting rates และความชุกของ host ใน boundary ส่วนอัตราการสัมผัสโดยตรงเป็นของ boundary แบบ direct และ parasite load, survival, transport เป็นของแบบ environmental ผู้เขียนกำกับไว้ว่าปีก่อนยกเคสมาถามตรงจุดนี้",
+    "explain": "Vector-borne boundary: permeability ขึ้นกับตัว vector คือ vector abundance + competence + biting rates รวมกับความชุกของ host ที่อยู่ใน boundary นั้น\n\n❌ ทำไมข้ออื่นผิด\n— \"อัตราการสัมผัสกันโดยตรงระหว่าง HR กับ HS\" = ตัวกำหนด permeability ของ boundary แบบ direct\n— \"ปริมาณเชื้อ การอยู่รอด และการเคลื่อนย้ายของเชื้อ\" = ของ boundary แบบ environmental\n— \"bridge host เท่านั้น\" = bridge host คือโฮสต์ที่พาเชื้อข้าม boundary ไม่ใช่ตัวแปรที่นิยาม permeability ของแบบ vector-borne",
     "verified": "Zoonoses 85 น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ emerging zoonotic diseases and wildlife (Vet 85)"
@@ -976,7 +976,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "สัมพันธ์ทางบวกเฉพาะในระบบนิเวศทางทะเลเท่านั้น"
     ],
     "answer": 0,
-    "explain": "ตารางในสไลด์ระบุว่า PAR ที่สูงขึ้นจะเพิ่มอิทธิพลของ edge effect และเพิ่มพื้นที่ที่ทรัพยากรกับสิ่งมีชีวิตไหลข้ามระหว่างระบบนิเวศ จึงคาดว่าสัมพันธ์ทางบวกกับ spillover ไม่ใช่ทางลบ และไม่ได้จำกัดเฉพาะระบบนิเวศทางทะเล",
+    "explain": "PAR สูง = เส้นรอบรูปยาวเมื่อเทียบกับพื้นที่ → edge effect มีอิทธิพลมากขึ้น + พื้นที่ที่ทรัพยากรและสิ่งมีชีวิตไหลข้ามระหว่างระบบนิเวศกว้างขึ้น → spillover เพิ่มไปทางเดียวกัน จึงสัมพันธ์ทางบวก\n\n❌ ทำไมข้ออื่นผิด\n— \"ทางลบ เพราะพื้นที่แกนกลางเพิ่มขึ้น\" = กลับด้าน PAR สูงทำให้ขอบเด่นขึ้น ไม่ใช่ทำให้แกนกลางกว้างขึ้น\n— \"ไม่สัมพันธ์กัน ขึ้นกับความหนาแน่นประชากรเท่านั้น\" = รูปร่างของพื้นที่มีผลผ่าน edge effect ไม่ได้ขึ้นกับความหนาแน่นอย่างเดียว\n— \"ทางบวกเฉพาะระบบนิเวศทางทะเล\" = ทิศทางถูกแต่ตีกรอบผิด edge effect เกิดได้ทุกที่ที่ระบบนิเวศมาชนกัน",
     "verified": "Zoonoses 85 น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ emerging zoonotic diseases and wildlife (Vet 85)"
@@ -995,7 +995,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "Contact ระหว่าง HR กับ HS และ genetic adaptation ของเชื้อ"
     ],
     "answer": 2,
-    "explain": "สไลด์แบ่ง 4 transitional stages เป็นสองกลุ่ม กลุ่ม two essential ที่จำเป็นต่อการเกิดโรคใดๆ คือ contact และ spillover ส่วนกลุ่ม two non-essential ที่จำเป็นต่อ pandemic emergence คือ sustained intra-HS transmission และ genetic adaptation กับ phenotypic change โรคอย่าง rabies ที่ไม่ติดจากคนสู่คนจึงไม่ผ่านสองขั้นหลังนี้",
+    "explain": "4 transitional stages แบ่งเป็นสองกลุ่ม\ntwo essential (จำเป็นต่อการเกิดโรคทุกกรณี) = contact + spillover\ntwo non-essential (ไม่จำเป็นต่อการเกิดโรค แต่จำเป็นต่อ pandemic emergence) = sustained intra-HS transmission + genetic adaptation กับ phenotypic change\n\n❌ ทำไมข้ออื่นผิด\n— \"contact + spillover\" = คู่ที่จำเป็นต่อการเกิดโรค ไม่ใช่คู่ที่แยก pandemic ออกมา\n— \"spillover + sustained intra-HS transmission\" = คร่อมสองกลุ่ม spillover อยู่ฝั่งจำเป็น\n— \"contact + genetic adaptation\" = คร่อมสองกลุ่มเช่นกัน contact อยู่ฝั่งจำเป็น\n\n💡 rabies หยุดที่ spillover ไม่ติดจากคนสู่คน จึงไม่เคยขึ้นถึงสองขั้นหลัง",
     "verified": "Zoonoses 85 น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ emerging zoonotic diseases and wildlife (Vet 85)"
@@ -1109,7 +1109,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "พบในสัตว์ป่ามากกว่าสัตว์เลี้ยงเพราะไม่มีการทำวัคซีน"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่าพบในสุนัขบ้านเป็นหลัก 3,547 เคส คิดเป็น 87 เปอร์เซ็นต์ ส่วนแมวอยู่ที่ 4 เปอร์เซ็นต์ โค 8 เปอร์เซ็นต์ กระบือ 1 เปอร์เซ็นต์ และหมาจิ้งจอกซึ่งเป็นสัตว์ป่าอยู่ที่ 0.17 เปอร์เซ็นต์",
+    "explain": "สุนัขบ้าน 3,547 เคส = 87 เปอร์เซ็นต์ของเคสสัตว์ทั้งหมดที่รายงานปี 2014 ถึงสิงหาคม 2020\n\n❌ ทำไมข้ออื่นผิด\n— \"พบในโคมากที่สุด\" = โค 8 เปอร์เซ็นต์ กระบือ 1 เปอร์เซ็นต์ ตามหลังสุนัขบ้านคนละชั้น\n— \"พบในแมวราวครึ่งหนึ่ง\" = แมว 4 เปอร์เซ็นต์\n— \"สัตว์ป่ามากกว่าสัตว์เลี้ยง\" = สัตว์ป่าที่มีรายงานคือหมาจิ้งจอก 0.17 เปอร์เซ็นต์",
     "verified": "Zoonoses 85 น.15",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ animal rabies in Thailand (Vet 85)"
@@ -1128,7 +1128,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "หมาจิ้งจอก"
     ],
     "answer": 3,
-    "explain": "สไลด์รายงาน rabies ใน golden jackal หรือหมาจิ้งจอก 7 เคส คิดเป็น 0.17 เปอร์เซ็นต์ ระหว่างปี 2014 ถึงสิงหาคม 2020 และมีการศึกษาแบบ case-by-case ในไทยโดยเฉพาะ ส่วนพังพอนและชะมดเป็น reservoir ในแอฟริกา ไม่ใช่ในไทย",
+    "explain": "หมาจิ้งจอก (golden jackal) = สัตว์ป่าที่มีรายงาน rabies ในไทยจริง 7 เคส = 0.17 เปอร์เซ็นต์ ระหว่างปี 2014 ถึงสิงหาคม 2020 และมีการศึกษาแบบ case-by-case ในไทยโดยเฉพาะ\n\n❌ ทำไมข้ออื่นผิด\n— พังพอน = reservoir ของ rabies ในแอฟริกาคู่กับชะมด ไม่ใช่ในไทย\n— ค้างคาวแม่ไก่ = ค้างคาวกินผลไม้เป็น reservoir ฝั่ง Nipah และ Hendra ไม่ใช่ rabies ของไทย\n— ลิงแสม = ไม่ใช่สัตว์ป่าที่มีรายงาน rabies ในไทยช่วงนี้",
     "verified": "Zoonoses 85 น.15",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ wildlife rabies in Thailand (Vet 85)"
@@ -1147,7 +1147,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ร้อยละ 95 ของสุนัขทั้งหมด"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุ dog vaccination ที่ 70 เปอร์เซ็นต์ของสุนัขทั้งหมด โดยเป้าที่กรมปศุสัตว์ตั้งไว้อยู่ที่ 80 ถึง 100 เปอร์เซ็นต์ ควบคู่กับแนวทาง One Health และการให้ PEP แก่ผู้สัมผัสโรค",
+    "explain": "เป้า dog vaccination coverage = 70 เปอร์เซ็นต์ของสุนัขทั้งหมด เพื่อมุ่งสู่ rabies-free Thailand ควบคู่แนวทาง One Health และการให้ PEP แก่ผู้สัมผัสโรค\n\n❌ ทำไมข้ออื่นผิด\n— \"ร้อยละ 95\" = ตัวลวงที่แนบเนียนสุด เพราะตกอยู่ในช่วง 80 ถึง 100 ที่กรมปศุสัตว์ตั้งเป็นเป้าปฏิบัติ แต่ตัวเลข coverage ที่ถามถึงคือ 70\n— \"ร้อยละ 50\" = ยังไม่ถึง 70\n— \"ร้อยละ 30\" = ต่ำกว่า 70 มาก",
     "verified": "Zoonoses 85 น.15",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ towards a rabies-free Thailand (Vet 85)"
@@ -1166,7 +1166,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ค้างคาวกินผลไม้"
     ],
     "answer": 3,
-    "explain": "สไลด์ระบุ reservoir ของ Hendra และ Nipah ว่าเป็นค้างคาวกินผลไม้ โดย Hendra มีค้างคาวสกุล Pteropus เป็น reservoir หลัก ส่วน shrews เป็น reservoir ของ Langya virus และสุกรกับม้าเป็นตัวขยายเชื้อไปสู่คน ไม่ใช่ reservoir",
+    "explain": "Nipah + Hendra = reservoir เป็นค้างคาวกินผลไม้ โดย Hendra ผูกกับค้างคาวสกุล Pteropus เป็นหลัก\n\n❌ ทำไมข้ออื่นผิด\n— สุกรและม้า = ตัวขยายเชื้อที่รับมาแล้วส่งต่อไปสู่คน ไม่ใช่ reservoir\n— หนูผี (shrews) = reservoir ของ Langya virus\n— Rattus = สัตว์ฟันแทะเป็น reservoir ของ hantavirus ไม่ใช่ของ Hendra กับ Nipah",
     "verified": "Zoonoses 85 น.16",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ henipaviruses (Vet 85)"
@@ -1185,7 +1185,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "Acute flaccid myelitis หลังการติดเชื้อ"
     ],
     "answer": 1,
-    "explain": "สไลด์แยกไว้ว่า HPS พบในทวีปอเมริกา ส่วน HFRS พบในเอเชีย ทั้งสองมีสัตว์ฟันแทะเป็น reservoir ส่วน SFTS เป็นโรคจาก bunyavirus คนละตัวที่มีเห็บเป็นพาหะ ไม่ใช่กลุ่มอาการของ hantavirus",
+    "explain": "Hantavirus แยกตามภูมิภาค เอเชีย = hemorrhagic fever with renal syndrome (HFRS), ทวีปอเมริกา = hantavirus pulmonary syndrome (HPS) ทั้งคู่มีสัตว์ฟันแทะเป็น reservoir เหมือนกัน ต่างกันที่ภูมิภาคและอวัยวะที่ลง\n\n❌ ทำไมข้ออื่นผิด\n— HPS = กลุ่มอาการของ hantavirus จริง แต่เป็นฝั่งทวีปอเมริกา ไม่ใช่เอเชีย\n— SFTS = โรคจาก bunyavirus คนละตัวที่มีเห็บเป็นพาหะ ไม่ใช่กลุ่มอาการของ hantavirus\n— Acute flaccid myelitis = กลุ่มอาการทางระบบประสาท ไม่ใช่ของ hantavirus\n\n💡 อเมริกาลงปอด เอเชียลงไต",
     "verified": "Zoonoses 85 น.16",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ hantaviruses (Vet 85)"
@@ -1223,7 +1223,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "delta และ gamma"
     ],
     "answer": 0,
-    "explain": "สไลด์แยกสกุลตามโฮสต์ไว้ว่าสัตว์ปีกคือ gamma สุกรคือ alpha, beta และ delta สุนัขคือ alpha และ beta แมวคือ alpha โคและม้าคือ beta ส่วนคนคือ alpha และ beta ซึ่งเป็นบรรทัดที่ถูกไฮไลต์ไว้",
+    "explain": "Coronavirus ที่ก่อโรคในคน = alpha + beta\nแยกตามโฮสต์ สัตว์ปีก gamma, สุกร alpha กับ beta กับ delta, สุนัข alpha กับ beta, แมว alpha, โคและม้า beta\n\n❌ ทำไมข้ออื่นผิด\n— \"beta และ gamma\" = ถูกครึ่งเดียว gamma เป็นสกุลของสัตว์ปีก\n— \"gamma เพียงสกุลเดียว\" = ผิดทั้งสกุลและจำนวน\n— \"delta และ gamma\" = delta พบในสุกร gamma พบในสัตว์ปีก ไม่ใช่สกุลของเชื้อในคน",
     "verified": "Zoonoses 85 น.16",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ coronaviruses (Vet 85)"
@@ -1261,7 +1261,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ตะกวดและสัตว์เลื้อยคลานขนาดใหญ่"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่าสัตว์ฟันแทะกลุ่ม murine ในสกุล Bandicota spp. และ Rattus spp. เป็น definitive host ที่สำคัญ โดยพยาธิปอดสืบพันธุ์ในหนูและปล่อยตัวอ่อน L1 ออกมากับมูล ส่วนหอยและทากเป็น intermediate host และกุ้ง ปู ตะกวดเป็น paratenic host",
+    "explain": "Angiostrongylus cantonensis ตัวเต็มวัยสืบพันธุ์ในหนูกลุ่ม murine สกุล Rattus spp. + Bandicota spp. แล้วปล่อยตัวอ่อน L1 ออกมากับมูล จึงเป็น definitive host\n\n❌ ทำไมข้ออื่นผิด\n— หอยทากบกและหอยน้ำจืด = intermediate host ที่ตัวอ่อนไปพัฒนาต่อ ไม่ใช่ที่ที่พยาธิโตเต็มวัย\n— กุ้งน้ำจืดและปูบก = paratenic host พาตัวอ่อนติดตัวไว้โดยไม่พัฒนาต่อ\n— ตะกวดและสัตว์เลื้อยคลานขนาดใหญ่ = paratenic host เช่นเดียวกัน\n\n💡 ตัวเต็มวัยสืบพันธุ์อยู่ที่ไหน ที่นั่นคือ definitive host พยาธิปอดหนูจึงจบวงจรที่หนู",
     "verified": "Zoonoses 85 น.17",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ angiostrongylosis (Vet 85)"
@@ -1280,7 +1280,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ปูบกและพยาธิตัวแบนบก (land planarian)"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุ intermediate host ว่าเป็นหอยทากบก เช่น Achatina fulica และ Cryptozona siamensis หอยน้ำ เช่น Pila spp. และ Pomacea spp. รวมถึงทาก เช่น Veronicella spp. ซึ่งเป็นที่ที่ตัวอ่อนพัฒนาเป็น L3 ระยะติดต่อ ส่วน Rattus และ Bandicota เป็น definitive host และปูบกกับ land planarian เป็น paratenic host",
+    "explain": "Intermediate host = หอยและทากที่ตัวอ่อนเข้าไปพัฒนาจนถึง L3 ระยะติดต่อ ได้แก่หอยทากบก Achatina fulica, Cryptozona siamensis, หอยน้ำ Pila spp., Pomacea spp. และทาก Veronicella spp.\n\n❌ ทำไมข้ออื่นผิด\n— Rattus norvegicus และ Rattus rattus = definitive host ที่พยาธิไปโตเต็มวัย\n— Bandicota indica = definitive host เช่นเดียวกัน ไม่ใช่ตัวที่เลี้ยงตัวอ่อนจนถึง L3\n— ปูบกและ land planarian = paratenic host พาตัวอ่อนติดตัวไว้โดยไม่พัฒนาต่อ",
     "verified": "Zoonoses 85 น.17",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสไลด์ angiostrongylosis (Vet 85)"
