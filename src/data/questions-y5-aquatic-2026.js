@@ -851,7 +851,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ISO 14001:2015 environment management"
     ],
     "answer": 2,
-    "explain": "สไลด์กำกับ TESCO ซึ่งเป็นข้อกำหนดของลูกค้าไว้ว่า animal welfare ขณะที่ Thai Labour standard TLS 8001-2010 กำกับว่า human welfare, Best Aquaculture Practices กำกับว่า sustainability และ ISO 14001:2015 เป็นระบบจัดการสิ่งแวดล้อมในกลุ่ม safety health and environment",
+    "explain": "ในชุดมาตรฐานที่ยกมาสำหรับ clean seed ตัวที่ถูกกำกับไว้ในหมวด animal welfare คือ TESCO ซึ่งเป็นข้อกำหนดของลูกค้า\n\n❌ ทำไมข้ออื่นผิด\n— \"Thai Labour standard TLS 8001-2010\" = ถูกกำกับไว้ในหมวด human welfare ซึ่งเป็นเรื่องของคนทำงาน\n— \"Best Aquaculture Practices\" = ถูกกำกับไว้ในหมวด sustainability\n— \"ISO 14001:2015 environment management\" = เป็นระบบจัดการสิ่งแวดล้อม อยู่ในกลุ่ม safety health and environment",
     "verified": "Aquaculture_Industry_Tech p.43"
   },
   {
@@ -1007,7 +1007,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "chondroitin AC lyase และ protease"
     ],
     "answer": 3,
-    "explain": "สไลด์แบ่ง pathogenesis เป็นขั้น colonization ซึ่งได้แก่ attraction, adhesion และ aggregation แล้วตามด้วยกลุ่มสารพิษที่ระบุชื่อไว้เพียง chondroitin AC lyase และ protease เอนไซม์อื่นอย่าง hyaluronidase, lecithinase, hemolysin, collagenase และ elastase เป็นเอนไซม์ที่พบในแบคทีเรียก่อโรคทั่วไปแต่ไม่ได้ถูกระบุในสไลด์นี้",
+    "explain": "pathogenesis ของ columnaris ที่บันทึกไว้ไล่จากขั้น colonization คือ attraction, adhesion และ aggregation แล้วจึงถึงกลุ่ม exotoxins, bacteriocins และ endotoxins ซึ่งระบุชื่อไว้สองตัวคือ chondroitin AC lyase และ protease ตรงกับตัวเลือกนี้\n\n❌ ทำไมข้ออื่นผิด\n— \"hyaluronidase และ lecithinase\" = ไม่ใช่ชื่อที่ถูกระบุไว้ในชุดสารพิษของข้อนี้ทั้งคู่\n— \"chondroitin AC lyase และ hemolysin\" = ชื่อแรกตรง แต่ตัวที่ถูกระบุไว้คู่กับ chondroitin AC lyase คือ protease ไม่ใช่ hemolysin\n— \"collagenase และ elastase\" = เป็นเอนไซม์ที่พบได้ในแบคทีเรียก่อโรคทั่วไป แต่ไม่ใช่ชื่อที่ถูกระบุไว้ในข้อนี้\n\n💡 ข้อนี้เป็นคำถามแบบจับคู่สองชื่อ ถูกครึ่งเดียวยังไม่พอ ต้องตรงทั้งสองตัว",
     "verified": "Aquaculture_Industry_Tech p.71"
   },
   {

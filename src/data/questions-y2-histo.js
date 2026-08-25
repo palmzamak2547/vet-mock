@@ -85,7 +85,7 @@ export const QUESTIONS_Y2_HISTO = [
       "type I และ type II pneumocytes เหมือน alveoli ของ mammal และสร้าง surfactant"
     ],
     "answer": 0,
-    "explain": "สไลด์เขียนว่า air sac บุด้วย simple squamous epithelial cells รองด้วย collagen และ elastic CNT ชั้นบาง เป็น poorly vascularized และระบุตรงตัวว่า not participate in the gas exchange ตัวลวงที่แรงที่สุดคือ type I และ type II pneumocytes เพราะเยื่อบุแบบนั้นสไลด์ใช้กับ air capillaries ซึ่งเป็นส่วนแลกเปลี่ยนก๊าซจริง ไม่ใช่ air sac",
+    "explain": "Air sac บุด้วย simple squamous epithelium รองด้วยชั้นบาง ๆ ของ collagen และ elastic connective tissue เป็นโครงสร้างที่มีหลอดเลือดน้อย (poorly vascularized) และที่บันทึกไว้ในเนื้อหาชุดนี้ระบุตรงตัวว่าไม่ได้ร่วมในการแลกเปลี่ยนก๊าซ\n\n❌ ทำไมข้ออื่นผิด\n— \"ciliated pseudostratified columnar epithelium และเป็นจุดแลกเปลี่ยนก๊าซหลัก\" = ทั้งชนิดเยื่อบุและบทบาทไม่ตรงกับที่ระบุไว้ เพราะ air sac ถูกระบุว่าไม่ร่วมแลกเปลี่ยนก๊าซ\n— \"simple cuboidal epithelium มีหลอดเลือดหนาแน่น และช่วยแลกเปลี่ยนก๊าซบางส่วน\" = ขัดกับคำว่า poorly vascularized และขัดกับการที่ air sac ไม่ร่วมแลกเปลี่ยนก๊าซ\n— \"type I และ type II pneumocytes เหมือน alveoli ของ mammal และสร้าง surfactant\" = ยกภาพถุงลมของสัตว์เลี้ยงลูกด้วยนมมาสวมให้ air sac ซึ่งไม่ใช่เยื่อบุที่ระบุไว้สำหรับโครงสร้างนี้\n\n💡 ตัวลวงทั้งสามข้อล้วนให้ air sac มีส่วนในการแลกเปลี่ยนก๊าซไม่ทางใดก็ทางหนึ่ง ข้อที่บอกว่าเยื่อบุบาง หลอดเลือดน้อย และไม่ร่วมแลกเปลี่ยนก๊าซ จึงเป็นข้อเดียวที่ตรงกับคำบรรยาย",
     "verified": "Avian น.35"
   },
   {
@@ -921,7 +921,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Corpus luteum อยู่ใน medulla ส่วน ovarian follicle และ uterine glands อยู่ใน cortex"
     ],
     "answer": 0,
-    "explain": "สไลด์แบ่ง ovary เป็นผิวนอกที่คลุมด้วย simple cuboidal surface epithelium, cortex ที่มี ovarian follicle และ corpus luteum, และ medulla ที่เป็น connective tissue กับ vessels ตัวเลือกที่สลับกันคือกับดักที่พบบ่อย เพราะคนมักจำภาพอวัยวะอื่นที่ cortex เป็นเนื้อและ medulla เป็นที่อยู่ของ follicle ซึ่งกลับด้านกับ ovary",
+    "explain": "Ovary แบ่งเป็นสองชั้น cortex เป็นที่อยู่ของ ovarian follicle และ corpus luteum ส่วน medulla เป็น connective tissue กับหลอดเลือด ผิวนอกสุดคลุมด้วย simple cuboidal surface epithelium\n\n❌ ทำไมข้ออื่นผิด\n— \"Connective tissue และ vessels อยู่ใน cortex ส่วน ovarian follicle และ corpus luteum อยู่ใน medulla\" = สลับสองชั้นกันทั้งคู่\n— \"Ovarian follicle อยู่ใน medulla ส่วน corpus albican และ vessels ทั้งหมดอยู่ใน cortex\" = ย้าย follicle ลง medulla ทั้งที่ follicle อยู่ที่ cortex และยังยกหลอดเลือดทั้งหมดขึ้นไปไว้ที่ cortex ทั้งที่ medulla คือชั้นที่หลอดเลือดวางตัวอยู่\n— \"Corpus luteum อยู่ใน medulla ส่วน ovarian follicle และ uterine glands อยู่ใน cortex\" = corpus luteum เกิดจาก follicle ที่ตกไข่แล้ว จึงอยู่ที่ cortex เช่นเดียวกัน ส่วน uterine gland เป็นต่อมของมดลูก ไม่ใช่โครงสร้างในรังไข่\n\n💡 ของที่เป็นวัฏจักรของไข่ทั้งสาย follicle จนถึง corpus luteum และ corpus albicans อยู่ที่ cortex ทั้งหมด ตัวเลือกใดที่ย้ายตัวใดตัวหนึ่งในสายนี้ลง medulla ตัดได้ทันที",
     "verified": "Female reproductive organ น.5-6"
   },
   {
@@ -997,7 +997,7 @@ export const QUESTIONS_Y2_HISTO = [
       "zona pellucida สลายหายไปและ antrum ถูกแทนที่ด้วย granulosa cells ที่แบ่งตัวใหม่"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า follicle เสื่อมสลายได้ทุกระยะ โดย nuclei ของ granulosa cells กลายเป็น pyknotic และ basement ระหว่าง oocyte กับ granulosa cells มักหนาตัวขึ้นเป็น glassy membrane พร้อมมี fibrous material เข้ามาแทนที่ granulosa cells ส่วนการสะสม lutein pigment เป็นลักษณะของ corpus luteum ที่กำลังเกิด luteinization ไม่ใช่ follicle ที่กำลังเสื่อม",
+    "explain": "Follicle เสื่อมสลาย (atresia) ได้ทุกระยะ ภาพที่ใช้อ่านคือ nuclei ของ granulosa cells หดเล็กและติดสีเข้มเป็น pyknotic ร่วมกับ basement membrane ที่รองชั้น granulosa ด้านติดกับ theca interna หนาตัวขึ้นเป็น glassy membrane และมี fibrous material เข้ามาแทนที่ granulosa cells ที่หายไป\n\n❌ ทำไมข้ออื่นผิด\n— \"granulosa cells เกิด hypertrophy แล้วสะสม yellow lipid pigment ที่เรียกว่า lutein\" = เป็นภาพของ luteinization หลังตกไข่ ไม่ใช่ follicle ที่กำลังเสื่อม\n— \"theca externa หนาตัวเป็นชั้น fibroblast และหลั่ง androgens แทนที่ theca interna\" = ชั้นที่ผลิต androgen คือ theca interna ส่วน theca externa เป็นชั้นเนื้อเยื่อเกี่ยวพัน และทั้งสองอย่างนี้ก็ไม่ใช่เกณฑ์ที่ใช้อ่าน atresia\n— \"zona pellucida สลายหายไปและ antrum ถูกแทนที่ด้วย granulosa cells ที่แบ่งตัวใหม่\" = บรรยายการที่ granulosa กลับมาแบ่งตัว ซึ่งเป็นทิศทางตรงข้ามกับ atresia ที่เซลล์กำลังตาย\n\n💡 อ่าน atresia ที่นิวเคลียส เซลล์ที่กำลังตายจะเห็นนิวเคลียสหดและติดสีเข้มเป็น pyknotic ต่างจาก luteinization ที่เซลล์ขยายใหญ่ขึ้นและสะสมเม็ดไขมัน",
     "verified": "Female reproductive organ น.19"
   },
   {

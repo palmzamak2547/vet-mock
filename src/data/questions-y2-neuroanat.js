@@ -47,7 +47,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Internal capsule กับ lateral ventricle"
     ],
     "answer": 0,
-    "explain": "สไลด์ระบุว่า putamen อยู่ระหว่าง internal capsule กับ lateral medullar lamina ข้อที่เปลี่ยนเป็น external capsule เป็นตัวล่อ เพราะ external capsule เป็นขอบที่สไลด์ใช้บรรยาย claustrum ซึ่งอยู่ lateral ออกไปอีกชั้น ไม่ใช่ขอบของ putamen",
+    "explain": "ตำแหน่งของ putamen ที่ระบุไว้ในเนื้อหาชุดนี้คือวางตัวอยู่ระหว่าง internal capsule กับ lateral medullar lamina\n\n❌ ทำไมข้ออื่นผิด\n— \"External capsule กับ lateral medullar lamina\" = external capsule เป็นแผ่นเนื้อขาวที่คั่นระหว่าง putamen กับ claustrum แต่ไม่ใช่คู่ขอบเขตที่ข้อนี้ระบุไว้สำหรับ putamen\n— \"Lateral ventricle กับ lateral medullar lamina\" = lateral ventricle ไม่ได้อยู่ในคู่ที่ระบุไว้ ขอบที่คู่กับ lateral medullar lamina ในข้อนี้คือ internal capsule\n— \"Internal capsule กับ lateral ventricle\" = ครึ่งแรกตรงกับที่ระบุไว้ แต่ขอบอีกด้านที่ระบุไว้คือ lateral medullar lamina ไม่ใช่ lateral ventricle",
     "verified": "Basal nuclei น.11"
   },
   {
@@ -332,7 +332,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Pontocerebellar tract"
     ],
     "answer": 3,
-    "explain": "สไลด์เขียน Pontocerebellar tract คู่กับคำว่า motor planning โดยตรง ส่วน Vestibulocerebellar tract ที่มักถูกเลือกผิดคู่กับ control eye-head-neck movements ไม่ใช่การวางแผนการเคลื่อนไหว",
+    "explain": "หน้าที่ motor planning ผูกไว้กับ Pontocerebellar tract ซึ่งเป็นใยที่ออกจาก pontine nuclei เข้าสู่ cerebellum\n\n❌ ทำไมข้ออื่นผิด\n— \"Vestibulocerebellar tract\" = คู่กับการควบคุมการเคลื่อนไหวของตา ศีรษะ และคอ ไม่ใช่การวางแผนการเคลื่อนไหว\n— \"Cuneocerebellar tract\" = เป็นทางนำสัญญาณ proprioception จากรยางค์หน้าเข้าสู่ cerebellum ไม่ใช่หน้าที่วางแผนการเคลื่อนไหว\n— \"Dorsal spinocerebellar tract\" = เป็นทางนำสัญญาณ proprioception ขึ้นจากไขสันหลังเข้าสู่ cerebellum เช่นกัน จึงเป็นสายรับความรู้สึก ไม่ใช่สายของการวางแผน\n\n💡 ชื่อ tract บอกต้นทาง ตัวที่ขึ้นต้นด้วย spino- cuneo- vestibulo- ล้วนนำสัญญาณรับความรู้สึกเข้ามา ส่วน ponto- ออกจาก pontine nuclei ซึ่งเป็นสถานีที่รับต่อจาก cerebral cortex จึงเป็นทางที่นำแผนของการเคลื่อนไหวเข้าสู่ cerebellum",
     "verified": "Metencephalon น.19"
   },
   {
@@ -370,7 +370,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Sensory nuclei of CN V และ vestibular nuclei จัดเป็น vestibular system"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุว่า Lateral lemniscus เป็น ascending fiber จาก cochlear nuclei และ dorsal trapezoid nucleus ขึ้นไป midbrain จัดเป็น auditory system ตัวเลือก nucleus gracilis และ nucleus cuneatus ที่ชวนสับสนเป็นต้นทางของ Medial lemniscus ซึ่งเป็น decussated axon คนละมัดกับ lateral",
+    "explain": "Lateral lemniscus เป็นใย ascending ของระบบการได้ยิน ต้นทางที่ระบุไว้คือ cochlear nuclei และ dorsal trapezoid nucleus ซึ่งส่งขึ้นไปยัง midbrain\n\n❌ ทำไมข้ออื่นผิด\n— \"Nucleus gracilis และ nucleus cuneatus จัดเป็น proprioceptive system\" = สองนิวเคลียสนี้เป็นต้นทางของ medial lemniscus ซึ่งเป็นคนละมัดกับ lateral lemniscus\n— \"Olivary nucleus และ pontine nuclei จัดเป็น motor planning system\" = ระบบที่กำกับไว้ไม่ตรง lateral lemniscus เป็นทางเดินของระบบการได้ยิน ไม่ใช่ระบบวางแผนการเคลื่อนไหว\n— \"Sensory nuclei of CN V และ vestibular nuclei จัดเป็น vestibular system\" = ไม่ใช่คู่ต้นทางที่ระบุไว้ และระบบที่กำกับไว้ก็ไม่ใช่ระบบการได้ยิน\n\n💡 จับ lemniscus คู่กับระบบของมันก่อน lateral คือ auditory ส่วน medial คือสายที่ขึ้นมาจาก gracilis และ cuneatus ตัวเลือกใดที่กำกับระบบไว้ผิด ตัดได้โดยไม่ต้องไล่ชื่อนิวเคลียส",
     "verified": "Metencephalon น.30-31"
   },
   {
@@ -617,7 +617,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "sensory nuclei อยู่ทาง ventral-medial"
     ],
     "answer": 2,
-    "explain": "สไลด์ระบุว่า solitary nucleus เป็น sensory nuclei ที่รับ input จาก internal organ ผ่าน sensory fiber ของ vagus nerve และอยู่ dorsal-medial ของ medulla oblongata ตัวเลือก motor nuclei อยู่ dorsal-medial ล่อด้วยตำแหน่งที่ถูกแต่ชนิดผิด เพราะ motor nuclei ที่สไลด์วางคู่กันในหน้าเดียวกันคือ nucleus ambiguous",
+    "explain": "Solitary nucleus เป็น sensory nuclei ที่รับสัญญาณจากอวัยวะภายในผ่านใยรับความรู้สึกของ vagus nerve และวางตัวอยู่ทาง dorsal-medial ของ medulla oblongata\n\n❌ ทำไมข้ออื่นผิด\n— \"motor nuclei อยู่ทาง ventral-lateral\" = ผิดทั้งชนิดและตำแหน่ง solitary nucleus เป็นนิวเคลียสรับความรู้สึกและอยู่ dorsal-medial\n— \"motor nuclei อยู่ทาง dorsal-medial\" = ตำแหน่งตรง แต่ชนิดผิด เพราะ solitary nucleus ทำหน้าที่รับความรู้สึก ไม่ใช่สั่งการ\n— \"sensory nuclei อยู่ทาง ventral-medial\" = ชนิดตรง แต่ตำแหน่งที่ระบุไว้คือ dorsal-medial\n\n💡 ข้อนี้ถามสองชั้น ทั้งชนิดและตำแหน่ง ถ้าจำได้ก่อนว่า solitary nucleus เป็นสายรับความรู้สึกที่มากับ vagus ก็ตัดสองตัวเลือกแรกทิ้งได้ทันที เหลือเลือกแค่ตำแหน่ง",
     "verified": "Myelencephalon น.6"
   },
   {
@@ -769,7 +769,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "Central และ peripheral เป็น vertical หรือ positional เหมือนกันทั้งคู่"
     ],
     "answer": 0,
-    "explain": "ตารางบนสไลด์เขียนช่อง nystagmus ไว้ว่า central เป็น vertical หรือ positional ส่วน peripheral เป็น all directions ข้อที่สลับสองฝั่งกันเป็นตัวล่อที่อันตรายที่สุด เพราะถ้าจำกลับด้านจะแปลรอยโรคในสมองว่าเป็นแค่หูชั้นใน ทั้งที่ตารางเดียวกันยังระบุด้วยว่าฝั่ง central เท่านั้นที่มาพร้อม mental alteration และ proprioceptive deficits",
+    "explain": "ในการเทียบ central กับ peripheral vestibular disease ที่บันทึกไว้ในชุดนี้ ช่อง nystagmus กำกับฝั่ง central ไว้ว่าเป็น vertical หรือ positional ส่วนฝั่ง peripheral กำกับไว้ว่า all directions ตัวเลือกนี้จึงตรงกับการเทียบชุดนั้นทั้งสองฝั่ง\n\n❌ ทำไมข้ออื่นผิด\n— \"Central เป็น all directions ส่วน peripheral เป็น vertical หรือ positional\" = สลับสองฝั่งกัน และเป็นตัวลวงที่อันตรายที่สุด เพราะถ้าจำกลับด้าน จะอ่านรอยโรคในสมองเป็นปัญหาที่หูชั้นใน\n— \"Central เป็น horizontal อย่างเดียว ส่วน peripheral เป็น rotatory อย่างเดียว\" = บีบให้แต่ละฝั่งเหลือทิศเดียว ไม่ตรงกับที่กำกับไว้ทั้งสองฝั่ง\n— \"Central และ peripheral เป็น vertical หรือ positional เหมือนกันทั้งคู่\" = ถ้าทั้งสองฝั่งเหมือนกัน ลักษณะนี้ก็ใช้แยกสองภาวะไม่ได้เลย ซึ่งขัดกับการที่มันถูกยกมาเป็นหัวข้อเปรียบเทียบ\n\n💡 อย่าตัดสินจาก nystagmus อย่างเดียว สัญญาณที่บันทึกไว้ว่ามาคู่กับฝั่ง central เท่านั้นคือ mental alteration และ proprioceptive deficits",
     "verified": "visual vestibular systems น.56"
   }
 ];

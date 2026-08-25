@@ -2230,7 +2230,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Dermacentor variabilis"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุ vector คือ Rhipicephalus microplus ซึ่งเป็น one host tick และเสริมว่าโรคนี้ติดผ่าน mechanical transmission ได้ด้วย เช่น เข็มฉีดยาและการถ่ายเลือด เห็บสกุลอื่นที่ยกมาเป็นเห็บจริงแต่ไม่ใช่พาหะของ equine piroplasmosis ที่เด็คระบุ",
+    "explain": "พาหะที่ระบุไว้สำหรับ equine piroplasmosis ในเนื้อหาชุดนี้คือ Rhipicephalus microplus ซึ่งเป็น one host tick และยังระบุไว้ด้วยว่าโรคนี้ติดต่อผ่าน mechanical transmission ได้ เช่น การใช้เข็มฉีดยาซ้ำและการถ่ายเลือด\n\n❌ ทำไมข้ออื่นผิด\n— \"Amblyomma testudinarium\" = เป็นเห็บจริง แต่ไม่ใช่ชนิดที่ถูกระบุไว้เป็นพาหะในข้อนี้\n— \"Haemaphysalis bispinosa\" = เช่นเดียวกัน ไม่ใช่ชนิดที่ถูกระบุไว้เป็นพาหะในข้อนี้\n— \"Dermacentor variabilis\" = เช่นเดียวกัน ไม่ใช่ชนิดที่ถูกระบุไว้เป็นพาหะในข้อนี้\n\n💡 โจทย์ถามชื่อพาหะที่ถูกระบุไว้โดยเฉพาะ จึงตอบด้วยชื่อที่บันทึกไว้ ไม่ใช่การไล่ว่าเห็บสกุลใดเป็นพาหะได้บ้างในธรรมชาติ",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"

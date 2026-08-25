@@ -1147,7 +1147,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "ขาเจ็บร่วมกับตาบวมและเยื่อบุตาอักเสบสองข้าง"
     ],
     "answer": 1,
-    "explain": "สไลด์ระบุการวินิจฉัยจากการระบาดของขาเจ็บที่ไม่ตอบสนองต่อ penicillin ซึ่งสมเหตุสมผลเพราะ mycoplasma ไม่มีผนังเซลล์ให้ penicillin ออกฤทธิ์ ยาที่ใช้จริงคือ tylosin, lincomycin และ tiamulin",
+    "explain": "เบาะแสที่ผูกไว้กับ M. hyosynoviae คือฝูงที่มีขาเจ็บระบาดแล้วไม่ตอบสนองต่อ penicillin ซึ่งเข้ากับตัวเชื้อ เพราะ mycoplasma ไม่มีผนังเซลล์ให้ penicillin ออกฤทธิ์ ยาที่ใช้จริงคือ tylosin, lincomycin และ tiamulin\n\n❌ ทำไมข้ออื่นผิด\n— \"ขาเจ็บพร้อมไข้สูงและตอบสนองดีต่อ penicillin\" = การตอบสนองดีต่อ penicillin สวนทางกับเชื้อที่ไม่มีผนังเซลล์ จึงชี้ออกจากข้อนี้\n— \"ขาเจ็บพร้อมท้องเสียเป็นเลือดในสุกรหย่านม\" = เติมอาการทางเดินอาหารเข้ามา ซึ่งไม่ใช่เบาะแสที่ผูกไว้กับเชื้อนี้\n— \"ขาเจ็บร่วมกับตาบวมและเยื่อบุตาอักเสบสองข้าง\" = เติมอาการทางตาเข้ามา ซึ่งไม่ใช่เบาะแสที่ผูกไว้กับเชื้อนี้\n\n💡 การที่ยาไม่ได้ผลคือข้อมูลอย่างหนึ่ง ฝูงขาเจ็บที่ให้ penicillin แล้วไม่ขึ้น ให้คิดถึงเชื้อที่ไม่มีผนังเซลล์ แล้วเปลี่ยนไปใช้ยาที่ออกฤทธิ์กับมันได้ เช่น tylosin, lincomycin, tiamulin",
     "verified": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)",
     "sourceType": "lecture-derived",
     "examOrigin": "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)"
