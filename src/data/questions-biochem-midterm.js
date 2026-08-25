@@ -315,7 +315,7 @@ export const QB_BIOCHEM_MIDTERM = [
     verified: 'Blackboard midterm Q38 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 72028, subject: 'biochem-1', topic: 'lab-ph-buffer', year: 1, type: 'mcq',
-    q: 'จากกราฟ titration ของ glycine พบว่า glycine ไม่เป็นบัฟเฟอร์ที่ดีในช่วง pH ใด',
+    q: "glycine ไม่เป็นบัฟเฟอร์ที่ดีในช่วง pH ใด",
     options: ['2-3', '3-4', '5-8', '8-9', '9-10'],
     answer: 2,
     explain: 'Glycine มี pKa สองค่า (~2.3 และ ~9.6) บัฟเฟอร์ดีรอบ ๆ pKa แต่ละค่า; ช่วง pH 5-8 ซึ่งห่างจาก pKa ทั้งสอง (ใกล้ pI ~6) จึงเป็นช่วงที่บัฟเฟอร์ได้แย่ที่สุด',

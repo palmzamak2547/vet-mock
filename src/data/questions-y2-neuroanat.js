@@ -20,7 +20,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "source": "Basal nuclei lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตามแผนผังชื่อ striatum เป็นชื่อกลุ่มที่คร่อมนิวเคลียสใดบ้าง",
+    "q": "striatum เป็นชื่อกลุ่มที่คร่อมนิวเคลียสใดบ้าง",
     "options": [
       "Caudate nucleus, putamen และ endopeduncular nucleus",
       "Putamen, pallidum และ endopeduncular nucleus",
@@ -685,7 +685,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "source": "visual vestibular systems lecture deck (ประสาทกายวิภาคสัตว์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ตามผัง สัญญาณที่ผ่าน lateral geniculate nucleus จะไปต่อทาง optic radiation แล้วเข้าสู่โครงสร้างใด",
+    "q": "สัญญาณที่ผ่าน lateral geniculate nucleus จะไปต่อทาง optic radiation แล้วเข้าสู่โครงสร้างใด",
     "options": [
       "primary visual cortex ที่ occipital lobe",
       "primary visual cortex ที่ temporal lobe",

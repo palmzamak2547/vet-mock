@@ -24,22 +24,6 @@ export const QB_Y5_MILK_HYGIENE_2026 = [
     tags: ['milk-as-food', 'nutrition', 'rda'],
   },
   {
-    id: 101001, subject: 'milk-meat-hygiene', topic: 'milk-overview', year: 5,
-    type: 'mcq',
-    q: 'ความจุของ gland cistern และ teat cistern ตามภาพกายวิภาคภายในเต้านมโคคือข้อใด',
-    options: [
-      'gland cistern 40 ml และ teat cistern 300-400 ml',
-      'gland cistern 400 ml และ teat cistern 30-40 ml',
-      'gland cistern 100 ml และ teat cistern 10-20 ml',
-      'gland cistern 800 ml และ teat cistern 60-80 ml',
-    ],
-    answer: 1,
-    explain: 'ภาพกายวิภาคภายในเต้านมระบุความจุ gland cistern เท่ากับ 400 ml และ teat cistern 30-40 ml ตัวเลือกที่สองสลับค่าระหว่างสองช่อง ส่วนตัวเลือกที่สามและสี่ให้ค่าที่ต่ำและสูงเกินกว่าที่กำกับไว้ในภาพ',
-    source: 'RC 1 Introduction to Milk Hygiene 2026',
-    verified: 'RC 1 Introduction to Milk Hygiene 2026 p.9',
-    tags: ['udder-anatomy', 'gland-cistern', 'teat-cistern'],
-  },
-  {
     id: 101002, subject: 'milk-meat-hygiene', topic: 'milk-overview', year: 5,
     type: 'mcq',
     q: 'ต้องมีเลือดไหลผ่านเต้านมปริมาณเท่าใดเพื่อสังเคราะห์น้ำนม 1 unit',

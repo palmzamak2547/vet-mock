@@ -375,7 +375,7 @@ export const QB_BIOCHEM_LECT3 = [
     verified: 'Blackboard lecture-final Q126 (เฉลยไฮไลต์ในไฟล์)' },
 
   { id: 75029, subject: 'biochem-1', topic: 'lect-enzyme', year: 1, type: 'mcq',
-    q: 'จาก Lineweaver-Burk plot ที่เส้นของสารยับยั้ง InhH ตัดแกน y (1/V₀) ที่จุดเดียวกับเส้น uninhibited แต่ความชันต่างกัน สารยับยั้งนี้ออกฤทธิ์แบบใด',
+    q: "เส้นของสารยับยั้ง InhH ใน Lineweaver-Burk plot ตัดแกน y (1/V₀) ที่จุดเดียวกับเส้น uninhibited แต่ความชันต่างกัน สารยับยั้งนี้ออกฤทธิ์แบบใด",
     options: ['Irreversible inhibition', 'Competitive inhibition', 'Non-competitive inhibition', 'Un-competitive inhibition', 'Mixed inhibition'],
     answer: 1,
     explain: 'competitive inhibition: Vmax คงเดิม (ตัดแกน y จุดเดียวกัน = 1/Vmax เท่าเดิม) แต่ Km เพิ่ม (ความชันมากขึ้น) ใน Lineweaver-Burk plot',

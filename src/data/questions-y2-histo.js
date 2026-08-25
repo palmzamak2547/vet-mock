@@ -913,7 +913,7 @@ export const QUESTIONS_Y2_HISTO = [
     "source": "Female reproductive organ lecture deck (จุลกายวิภาคสัตวแพทย์ 2566)",
     "sourceType": "lecture-derived",
     "type": "mcq",
-    "q": "ในภาพตัดของ ovary โครงสร้างใดอยู่ใน cortex และโครงสร้างใดอยู่ใน medulla",
+    "q": "ใน ovary โครงสร้างใดอยู่ใน cortex และโครงสร้างใดอยู่ใน medulla",
     "options": [
       "Ovarian follicle และ corpus luteum อยู่ใน cortex ส่วน connective tissue และ vessels อยู่ใน medulla",
       "Connective tissue และ vessels อยู่ใน cortex ส่วน ovarian follicle และ corpus luteum อยู่ใน medulla",

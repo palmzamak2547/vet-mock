@@ -10,14 +10,14 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4480;
-export const QB_SOURCE_TOTAL = 4506;
-export const QB_BLOCKED_TOTAL = 26;
+export const QB_TOTAL = 4497;
+export const QB_SOURCE_TOTAL = 4497;
+export const QB_BLOCKED_TOTAL = 0;
 
 export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 132,
+  'aquatic-clinic': 141,
   'avian-medicine': 192,
-  'biochem-1': 270,
+  'biochem-1': 272,
   'cliapprum': 136,
   'com1': 31,
   'com2': 42,
@@ -27,8 +27,8 @@ export const Q_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 70,
   'engprof1': 30,
-  'epidemiology': 61,
-  'equine-medicine': 188,
+  'epidemiology': 62,
+  'equine-medicine': 189,
   'equine-repro': 144,
   'exotic': 151,
   'food-industry': 50,
@@ -37,7 +37,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'livestock-pathology': 77,
   'milk-meat-hygiene': 291,
   'one-health': 75,
-  'poa-clinical': 56,
+  'poa-clinical': 57,
   'poultry': 191,
   'practrum': 117,
   'rec-adv-bioscience': 5,
@@ -52,10 +52,10 @@ export const Q_COUNTS_BY_SUBJECT = {
   'swine-repro': 29,
   'vca': 339,
   'vet-dev-anat': 26,
-  'vet-histo': 104,
+  'vet-histo': 105,
   'vet-imaging': 35,
   'vet-juris': 47,
-  'vet-neuroanat': 38,
+  'vet-neuroanat': 40,
   'zoonoses': 178,
 };
 
@@ -64,9 +64,9 @@ export const Q_COUNTS_BY_SUBJECT = {
 // HomeView SubjectGrid renders these for the per-card Q badges so
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 132,
+  'aquatic-clinic': 141,
   'avian-medicine': 192,
-  'biochem-1': 270,
+  'biochem-1': 272,
   'cliapprum': 134,
   'com1': 31,
   'com2': 42,
@@ -76,8 +76,8 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 70,
   'engprof1': 30,
-  'epidemiology': 61,
-  'equine-medicine': 188,
+  'epidemiology': 62,
+  'equine-medicine': 189,
   'equine-repro': 144,
   'exotic': 108,
   'food-industry': 34,
@@ -86,7 +86,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'livestock-pathology': 77,
   'milk-meat-hygiene': 291,
   'one-health': 75,
-  'poa-clinical': 56,
+  'poa-clinical': 57,
   'poultry': 134,
   'practrum': 113,
   'rec-adv-bioscience': 5,
@@ -101,18 +101,18 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'swine-repro': 29,
   'vca': 339,
   'vet-dev-anat': 26,
-  'vet-histo': 104,
+  'vet-histo': 105,
   'vet-imaging': 35,
   'vet-juris': 47,
-  'vet-neuroanat': 38,
+  'vet-neuroanat': 40,
   'zoonoses': 178,
 };
 
 export const Q_COUNTS_BY_YEAR = {
-  1: 296,
-  2: 142,
+  1: 298,
+  2: 145,
   4: 2092,
-  5: 1950,
+  5: 1962,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -123,9 +123,9 @@ export const Q_COUNTS_BY_TOPIC = {
     "aqua-aquarium-vet": 3,
     "aqua-conservation": 7,
     "aqua-disease-control": 29,
-    "aqua-fish-biology": 13,
+    "aqua-fish-biology": 18,
     "aqua-fish-diseases": 15,
-    "aqua-intro-thailand": 41,
+    "aqua-intro-thailand": 45,
     "aqua-life-support": 3,
     "aqua-shrimp-diseases": 13,
     "aqua-water-quality": 8,
@@ -157,12 +157,12 @@ export const Q_COUNTS_BY_TOPIC = {
     "lab-equipment": 5,
     "lab-lipid": 10,
     "lab-molecular": 16,
-    "lab-ph-buffer": 7,
+    "lab-ph-buffer": 8,
     "lab-protein": 9,
     "lab-spectrophotometry": 10,
     "lect-carbohydrate": 12,
     "lect-drug-delivery": 11,
-    "lect-enzyme": 23,
+    "lect-enzyme": 24,
     "lect-intro": 13,
     "lect-lipid": 17,
     "lect-membrane": 5,
@@ -327,7 +327,7 @@ export const Q_COUNTS_BY_TOPIC = {
   "epidemiology": {
     "epidem-basic-concepts": 10,
     "epidem-causation": 8,
-    "epidem-disease-transmission": 14,
+    "epidem-disease-transmission": 15,
     "epidem-intro": 5,
     "epidem-outbreak-investigation": 12,
     "epidem-surveillance": 12,
@@ -340,7 +340,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "equine-intro": 36,
     "equine-nutrition": 24,
     "equine-ophth": 7,
-    "equine-ortho": 15,
+    "equine-ortho": 16,
     "equine-parasites": 38,
     "equine-poa": 8,
     "equine-respi": 7,
@@ -461,7 +461,7 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "poa-clinical": {
     "poa-collapse": 26,
-    "poa-edema": 14,
+    "poa-edema": 15,
     "poa-red-urine": 3,
     "poa-respiratory": 13,
   },
@@ -659,7 +659,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "histo--endocrine": 6,
     "histo--epithelium": 3,
     "histo--female-lab-manual": 8,
-    "histo--female-reproductive-organ": 8,
+    "histo--female-reproductive-organ": 9,
     "histo--fish": 7,
     "histo--histo-lab-block-ii": 4,
     "histo--integument": 3,
@@ -693,14 +693,14 @@ export const Q_COUNTS_BY_TOPIC = {
     "wildlife-act-2562": 5,
   },
   "vet-neuroanat": {
-    "neuroanat--basal-nuclei": 1,
+    "neuroanat--basal-nuclei": 2,
     "neuroanat--diencephalon": 4,
     "neuroanat--limbic-system-nonolfactory-rhinencephalon": 5,
     "neuroanat--metencephalon": 8,
     "neuroanat--midbrain": 6,
     "neuroanat--myelencephalon": 7,
     "neuroanat--neuro-exam-anatomy2024": 3,
-    "neuroanat--visual-vestibular-systems": 4,
+    "neuroanat--visual-vestibular-systems": 5,
   },
   "zoonoses": {
     "zoo-ai-basic": 6,
@@ -922,4 +922,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-20T17:53:25.298Z
+// Built: 2026-08-25T15:13:18.851Z

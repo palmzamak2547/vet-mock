@@ -200,22 +200,6 @@ export const QB_Y5_ONE_HEALTH_2026 = [
     tags: ['ethics', 'equity', 'one-health-network'],
   },
   {
-    id: 102016, subject: 'one-health', topic: 'oh-global-network', year: 5,
-    type: 'mcq',
-    q: "จากรูป CDC เรื่อง Priority Zoonoses around the Globe โรคใดถูกจัดเป็นลำดับความสำคัญบ่อยที่สุด และปรากฏในการประชุมเชิงปฏิบัติการกี่ครั้ง",
-    options: [
-      'Rabies ปรากฏใน 24 จาก 25 workshops',
-      'Anthrax ปรากฏใน 24 จาก 25 workshops',
-      'Rabies ปรากฏใน 18 จาก 25 workshops',
-      'Brucellosis ปรากฏใน 20 จาก 25 workshops',
-    ],
-    answer: 0,
-    explain: "โรคที่ถูกจัดเป็นลำดับความสำคัญบ่อยที่สุดทั่วโลกคือ rabies ปรากฏใน 24 จาก 25 workshops รองลงมาคือ zoonotic influenzas, viral hemorrhagic fevers, anthrax และ brucellosis\n\n❌ ทำไมข้ออื่นผิด\n— \"Anthrax 24 จาก 25 workshops\" = anthrax อยู่ในรายการจริงแต่อยู่อันดับรองลงไป ความถี่ 24 เป็นของ rabies\n— \"Rabies 18 จาก 25 workshops\" = โรคถูก แต่ 18 ไม่ใช่ความถี่ที่รายงานไว้\n— \"Brucellosis 20 จาก 25 workshops\" = brucellosis อยู่ในรายการจริงแต่ไม่ใช่ตัวที่ถูกจัดบ่อยที่สุด และ 20 ไม่ใช่ความถี่ที่รายงานไว้",
-    source: 'Global One Health Activity Network 2026 (SJ)',
-    verified: 'Global One Health Activity Network 2026 (SJ) p.18',
-    tags: ['priority-zoonoses', 'rabies', 'cdc'],
-  },
-  {
     id: 102018, subject: 'one-health', topic: 'oh-global-network', year: 5,
     type: 'mcq',
     q: "กรอบความร่วมมือ One Health ระดับโลกที่เรียกว่า Quadripartite ประกอบด้วยองค์กรใดบ้าง",

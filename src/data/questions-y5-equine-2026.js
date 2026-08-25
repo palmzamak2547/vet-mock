@@ -906,25 +906,6 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "examOrigin": "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)"
   },
   {
-    "id": 105277,
-    "subject": "equine-medicine",
-    "topic": "equine-poa",
-    "year": 5,
-    "type": "mcq",
-    "q": "จากภาพรังสีและอัลตราซาวด์ที่ fetlock ขาหลังซ้าย คำวินิจฉัยที่บันทึกไว้ว่าได้คะแนนเต็มคือข้อใด",
-    "options": [
-      "Desmitis ของ suspensory ligament branch ด้านนอก",
-      "Osteochondrosis ของ distal metatarsus ด้านนอก",
-      "Fracture ของ lateral proximal sesamoid bone",
-      "Septic arthritis ของข้อ metatarsophalangeal"
-    ],
-    "answer": 2,
-    "explain": "บันทึกระบุว่าคำตอบคือ fracture of lateral proximal sesamoid bone โดยคนที่ตอบว่า medial หรือตอบแค่ sesamoid ก็ยังได้คะแนน จุดที่ผู้เขียนเตือนคือมีคนไปตอบเรื่อง ligament กันเยอะเพราะภาพอัลตราซาวด์หลอกตา ตัวเลือก desmitis จึงเป็นกับดักตัวจริงของข้อนี้ ส่วน osteochondrosis และ septic arthritis เป็นภาวะจริงที่ทำให้ fetlock บวมได้ แต่ไม่ตรงกับภาพในสถานีนี้",
-    "verified": "Ekwai Med น.3",
-    "sourceType": "student-compilation",
-    "examOrigin": "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)"
-  },
-  {
     "id": 105278,
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -3609,7 +3590,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-ortho",
     "year": 5,
     "type": "mcq",
-    "q": "ตามกราฟการหายของแผลในม้า ความแข็งแรงของแผล (tensile strength) เป็นอย่างไร",
+    "q": "ในการหายของแผลในม้า ความแข็งแรงของแผล (tensile strength) เป็นอย่างไร",
     "options": [
       "กลับมาเท่าผิวหนังปกติภายใน 21 วันหลังจากเกิดแผล",
       "ขึ้นสูงสุดในช่วง proliferative phase แล้วลดลงเรื่อย ๆ",

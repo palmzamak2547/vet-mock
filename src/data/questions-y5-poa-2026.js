@@ -10,7 +10,7 @@ export const QB_Y5_POA_2026 = [
   {
     id: 105000, subject: 'poa-clinical', topic: 'poa-edema', year: 5,
     type: 'mcq',
-    q: 'ในแผนภาพ Starling forces ที่ capillary อาจารย์พิมพ์ค่าความดันที่ปลายด้าน arterial ไว้เท่าใด',
+    q: "ที่ปลายด้าน arterial ของ capillary ค่า hydrostatic pressure (HP) และ oncotic pressure (OP) โดยประมาณเป็นเท่าใด",
     options: [
       'HP 36 mm และ OP 26 mm',
       'HP 26 mm และ OP 36 mm',

@@ -635,13 +635,6 @@ Word-count Penalty: > 180 words → −1 / > 200 words → −2`,
     q: 'It is likely that one-fourth of older females have osteopenia or osteoporosis at any skeletal sites.',
     answer: false, explain: 'False — per Exercise 2 KEY this statement is marked F. The Results show variable prevalence by skeletal site, not a single one-fourth figure across "any" sites' },
 
-  { id: 51040, subject: 'engprof', topic: 'research-paper-structure', year: 4,
-    source: 'Exercise 2 Article I (KEY p.24)',
-    tags: ['mock-2', 'part-1', 'tf', 'results'], type: 'tf',
-    examOrigin: 'Mock 2 Part I',
-    passage: PASSAGE_BABOONS, passage_title: 'Article: Age-Related Bone Loss in Baboons',
-    q: 'According to Figure 1, there was a significant relationship between the baboons with osteopenia and the normal group when classified by their ages.',
-    answer: false, explain: 'False — per Exercise 2 KEY: Figure 1 showed NO statistically significant relationship between osteopenic vs normal groups when classified by age' },
 
   { id: 51041, subject: 'engprof', topic: 'research-paper-structure', year: 4,
     source: 'Exercise 2 Article I (KEY p.24)',

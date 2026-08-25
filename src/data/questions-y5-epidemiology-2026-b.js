@@ -188,7 +188,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026B = [
     "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
-    "q": "ตามภาพ chain of infection ข้อใดเป็นกลุ่มตัวอย่างของข้อต่อ portal of entry",
+    "q": "ข้อใดเป็นกลุ่มตัวอย่างของข้อต่อ portal of entry ใน chain of infection",
     "options": [
       "เลือด สารคัดหลั่ง สิ่งขับถ่าย และผิวหนัง",
       "ระบบหายใจ ระบบย่อยอาหาร เยื่อเมือก และแผลที่ผิวหนัง",

@@ -207,7 +207,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "แผนภาพกายวิภาคปลาหนังและปลาทอง แสดงไตของปลาไว้ในลักษณะใด",
+    "q": "ไตของปลามีลักษณะเป็นอย่างไร",
     "options": [
       "เป็นไตคู่รูปเมล็ดถั่วสองข้างแบบเดียวกับสัตว์บก",
       "แยกเป็น dorsal kidney และ ventral kidney ตามแนวสันหลัง",
@@ -258,7 +258,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ตามแผนภาพ colour change in fish or frog melanophore cell เซลล์จะปรากฏสีเข้ม (cell appears dark) ในสภาวะใด",
+    "q": "melanophore cell ของปลาหรือกบจะปรากฏสีเข้ม (cell appears dark) ในสภาวะใด",
     "options": [
       "melanosome กระจายตัวอยู่ทั่วทั้งเซลล์",
       "melanosome รวมตัวเป็นจุดอยู่กลางเซลล์",
@@ -287,29 +287,12 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP2_Fish_bio p.60-62"
   },
   {
-    "id": 105140,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "จากแผนภาพเปรียบเทียบวงจรเลือดของ fish, amphibian และ mammal ข้อใดตรงกับที่กำกับไว้ในภาพของปลา",
-    "options": [
-      "มี lung capillaries และหัวใจมี atria สองห้องกับ ventricle เดียว",
-      "มี gill capillaries และหัวใจกำกับเพียง atrium กับ ventricle",
-      "มี lung capillaries และหัวใจมี atria กับ ventricles อย่างละสองห้อง",
-      "มี gill capillaries และหัวใจมี atria สองห้องกับ ventricle เดียว"
-    ],
-    "answer": 1,
-    "explain": "ภาพของ fish กำกับ gill capillaries ไว้บนสุดและหัวใจมีป้ายชื่อเพียง ventricle กับ atrium เป็นวงจรเดียว ส่วน lung capillaries เป็นของ amphibian และ mammal ตัวเลือกที่ให้ atria สองห้องคือรูปแบบของ amphibian และการมี ventricles สองห้องคือของ mammal",
-    "verified": "AP2_Fish_bio p.63"
-  },
-  {
     "id": 105141,
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ตามแผนภาพทางเดินเลือดในหัวใจปลา เลือดไหลผ่านส่วนต่าง ๆ ตามลำดับใดก่อนออกสู่ ventral aorta",
+    "q": "เลือดในหัวใจปลาไหลผ่านส่วนต่าง ๆ ตามลำดับใดก่อนออกสู่ ventral aorta",
     "options": [
       "atrium เข้าสู่ sinus venosus ไปยัง ventricle แล้วออกทาง bulbus arteriosus",
       "sinus venosus เข้าสู่ ventricle ไปยัง atrium แล้วออกทาง bulbus arteriosus",
@@ -326,7 +309,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ภาพการแทงเข็มเก็บเลือดปลา แทงที่บริเวณใด และสอดคล้องกับหลอดเลือดคู่ใดในแผนภาพหลอดเลือดหลัก",
+    "q": "การแทงเข็มเก็บเลือดปลาทำที่บริเวณใด และตรงกับหลอดเลือดคู่ใด",
     "options": [
       "บริเวณคอใต้แนวเหงือก ตรงกับ ventral aorta และ hepatic artery",
       "บริเวณหน้าท้องด้านล่าง ตรงกับ abdominal vein และ subintestinal vein",
@@ -357,6 +340,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105145,
+    "image": "/figures/questions/q105145.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
     "year": 5,
@@ -371,23 +355,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "answer": 2,
     "explain": "ค่าที่อ่านได้จากแผนภาพคือฝั่งน้ำ 100, 70, 40, 15 คู่กับฝั่งเลือด 90, 60, 30, 5 จึงเห็นว่าฝั่งน้ำสูงกว่าฝั่งเลือดที่ทุกคู่ระดับตลอดแนวแลกเปลี่ยน ไม่ใช่เท่ากันหรือสูงกว่าเฉพาะปลายด้านใดด้านหนึ่ง และไม่ใช่ฝั่งเลือดที่สูงกว่า",
     "verified": "AP2_Fish_bio p.70"
-  },
-  {
-    "id": 105146,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "ในแผนภาพเปรียบเทียบทางเดินอาหารของปลาแต่ละกลุ่ม การจับคู่คำกำกับกับภาพข้อใดตรงกับที่พิมพ์",
-    "options": [
-      "Pyloric ceca กำกับที่ภาพ Shark/ray",
-      "Spiral colon กำกับที่ภาพ Trout/salmon",
-      "Pyloric pouches กำกับที่ภาพ Catfish",
-      "Spiral colon กำกับที่ภาพ Shark/ray"
-    ],
-    "answer": 3,
-    "explain": "บนแผนภาพ Shark/ray มีคำกำกับว่า Spiral colon ส่วน Pyloric ceca กำกับที่ Trout/salmon และ Pyloric pouches กำกับที่ Flounder ที่ภาพ Catfish มีเพียงคำว่า Stomach จึงจับคู่กับ Pyloric pouches ไม่ได้",
-    "verified": "AP2_Fish_bio p.75"
   },
   {
     "id": 105147,
@@ -476,23 +443,6 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "verified": "AP2_Fish_bio p.96"
   },
   {
-    "id": 105153,
-    "subject": "aquatic-clinic",
-    "topic": "aqua-fish-biology",
-    "year": 5,
-    "type": "mcq",
-    "q": "แผนภาพ C ของ lateral line system ซึ่งเป็นภาพขยายหน่วยรับความรู้สึก กำกับโครงสร้างใดไว้บ้าง",
-    "options": [
-      "canal pores, external opening และ epidermis",
-      "head canal system และ trunk canal system",
-      "cupula, sense hair, sensory cells, nerve",
-      "lateral-line canal และ water displacement"
-    ],
-    "answer": 2,
-    "explain": "ภาพ C กำกับไว้สี่คำคือ cupula, sense hair, sensory cells และ nerve ส่วน head canal system กับ trunk canal system เป็นคำกำกับในภาพ A และ lateral-line canal, external opening, epidermis, water displacement เป็นคำกำกับในภาพตัดขวาง B",
-    "verified": "AP2_Fish_bio p.98-100"
-  },
-  {
     "id": 105154,
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-biology",
@@ -549,7 +499,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "แผนภาพวงจรชีวิตกุ้งทะเลระบุลำดับระยะพัฒนาการก่อนเข้าสู่ระยะพ่อแม่พันธุ์ตามข้อใด",
+    "q": "ลำดับระยะพัฒนาการของกุ้งทะเลก่อนเข้าสู่ระยะพ่อแม่พันธุ์คือข้อใด",
     "options": [
       "Zoea, Nauplius, Mysis, Postlarvae",
       "Nauplius, Mysis, Zoea, Postlarvae",
@@ -579,6 +529,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105166,
+    "image": "/figures/questions/q105166.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
@@ -739,7 +690,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ลักษณะภายในของกุ้งที่ติดโรค EMS ตามภาพเปรียบเทียบ คือข้อใด",
+    "q": "ลักษณะภายในของกุ้งที่ติดโรค EMS คือข้อใด",
     "options": [
       "กระเพาะเต็ม ตับและตับอ่อนใหญ่มีสีเข้ม ลำไส้กลางเต็ม",
       "กระเพาะเต็ม ตับและตับอ่อนซีดฝ่อ ลำไส้กลางเต็ม",
@@ -905,6 +856,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
   },
   {
     "id": 105192,
+    "image": "/figures/questions/q105192.webp",
     "subject": "aquatic-clinic",
     "topic": "aqua-intro-thailand",
     "year": 5,
