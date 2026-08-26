@@ -42,10 +42,15 @@
 // the correct-answer ✓ chip at 2.72:1 in dark mode — a hardcoded #fff on
 // a fill that only that screen paints.
 //
-// Still not covered, so a green run is not read as more than it is: every
-// other route, and any state behind data this account does not have. The
-// route walk in the bug-hunt scripts covers reachability; this covers
-// colour, and only where it looks.
+// --exam SAMPLES. It answers one randomly chosen question, so chrome that
+// only some questions carry — the conflict flag chip, for one — appears
+// in some runs and not others. A red run there is a real find; a green
+// run is not a proof. That is worth knowing before reading silence as
+// safety, and it is why lint-accent-tokens.mjs exists beside this: the
+// token half IS deterministic and complete.
+//
+// Still not covered: every other route, and any state behind data this
+// account does not have.
 
 import { chromium } from '@playwright/test';
 import { spawn } from 'node:child_process';

@@ -613,11 +613,20 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 function FlagChip({ flag }) {
   const [open, setOpen] = useState(false);
   const sev = flag?.severity || 'unclear';
-  const palette = {
-    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose)', icon: '⚠️' },
-    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold)', icon: '⚡' },
+  // `text` is the accent as TEXT on a 12% tint of itself — the raw accents
+  // read 2.65 there. The -text variants are what that role is for; border
+  // and bg keep the accent, where nothing reads on top of it.
+  const PALETTE = {
+    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)', icon: '⚠️' },
+    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold-text)', icon: '⚡' },
     unclear: { bg: 'var(--clr-surface-2)', border: 'var(--clr-border)', text: 'var(--clr-ink-soft)', icon: '❓' },
-  }[sev] || palette.unclear;
+  };
+  // Was `}[sev] || palette.unclear`, reading `palette` inside its own
+  // initializer: any severity in the data that is not one of these three
+  // keys threw "Cannot access 'palette' before initialization" and took
+  // the question card down with it. Nothing in the bank uses a fourth
+  // value today, which is the only reason it never fired.
+  const palette = PALETTE[sev] || PALETTE.unclear;
 
   return (
     <div style={{ marginTop: 12 }}>

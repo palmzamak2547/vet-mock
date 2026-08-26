@@ -56,9 +56,25 @@ for (const theme of ['light','dark']) {
     }
   }
 }
+// The -soft tints are used as BACKGROUNDS with text on them (badges,
+// callouts, the "อิงแนวเดิม" chip). In light they are pale and ink sits
+// happily; in DARK they invert to deep shades, and dark gold-soft left
+// --clr-ink at 4.03 while --clr-ink-soft was 2.15 on it. Checked here
+// because the browser sweep only meets these chips on the questions that
+// happen to carry them — it took fifteen samples to see one.
+for (const theme of ['light','dark']) {
+  const base = BASE[theme];
+  for (const fam of FAMS) {
+    const soft = base[`clr-${fam}-soft`];
+    if (!soft?.startsWith('#')) continue;
+    const r = R(base['clr-ink'], soft);
+    if (r < 4.5) { console.log(`✗ ${theme}  --clr-ink on --clr-${fam}-soft (${soft})  ${r.toFixed(2)}`); bad++; }
+  }
+}
+
 if (bad) {
   console.error(`\n❌ ${bad} token(s) below 4.5 on some surface they can land on.`);
   console.error('   node scripts/derive-accent-roles.mjs prints replacements.');
   process.exit(1);
 }
-console.log('✅ All *-text tokens clear 4.5 on every surface, tinted included.');
+console.log('✅ Accent tokens clear 4.5: text on every surface (tinted included), ink on every -soft tint.');
