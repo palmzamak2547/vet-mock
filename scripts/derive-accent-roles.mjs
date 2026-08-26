@@ -127,6 +127,10 @@ const FAMILIES = [
   // The two remaining interaction fills. They are never used as text, so
   // only their labels matter — but a fill whose label is hardcoded is the
   // same bug wearing a different name.
+  // Not palette-overridden, so two values each — but they are used as text
+  // and were the last two accents with no readable variant.
+  { name: 'ocean', accent: 'clr-ocean', text: 'clr-ocean-text', fill: 'clr-ocean', on: 'clr-ocean-on' },
+  { name: 'plum',  accent: 'clr-plum',  text: 'clr-plum-text',  fill: 'clr-plum',  on: 'clr-plum-on' },
   { name: 'danger', accent: 'vmx-color-danger', text: null, fill: 'vmx-color-danger', on: 'vmx-color-danger-on' },
   { name: 'ok',     accent: 'vmx-color-success', text: null, fill: 'vmx-color-success', on: 'vmx-color-success-on' },
 ];

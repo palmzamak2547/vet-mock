@@ -190,7 +190,7 @@ function DrillRunner({ drill, onBack, onClose }) {
                   const p = progress[a.id];
                   return (
                     <li key={a.id} style={{ marginBottom: 4 }}>
-                      <strong>{a.label}</strong> {p?.correct ? '✓' : <span style={{ color: 'var(--clr-rose, #c0392b)' }}>(คุณตอบ: {p?.picked || '—'})</span>}
+                      <strong>{a.label}</strong> {p?.correct ? '✓' : <span style={{ color: 'var(--clr-rose-text, #c0392b)' }}>(คุณตอบ: {p?.picked || '—'})</span>}
                     </li>
                   );
                 })}

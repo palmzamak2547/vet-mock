@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, useMemo } from 'react';
+import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
@@ -553,7 +554,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           return (
             <>
               {', '}{subj?.name || currentQ.subject}
-              {topic && <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)' }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></>}
+              {topic && <>, <span style={{ color: subjectText(subj?.color) }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></>}
             </>
           );
         })()}

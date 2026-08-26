@@ -21,6 +21,7 @@
 // ============================================================
 
 import { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
+import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import { DICT } from './landing/dict.js';
@@ -45,7 +46,7 @@ function buildRealSubjects(year) {
     name: s.name,
     sub: s.name_en || s.code || '',
     emoji: s.icon || '📘',
-    color: s.color || 'var(--clr-sage)',
+    color: subjectText(s.color),
     count: Q_COUNTS_BY_SUBJECT[s.id] || 0,
     hasQ: (Q_COUNTS_BY_SUBJECT[s.id] || 0) > 0,
   })).filter((s) => s.hasQ);
@@ -463,7 +464,7 @@ export default function LandingView({
                 <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>{t.lgReturnCase}</div>
                 <div className="vmx-bar"><div className="vmx-bar-fill" style={{ width: '58%' }} /></div>
               </div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 13, color: 'var(--clr-ocean)' }}>“I always mix these two up.”</div>
+              <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 13, color: 'var(--clr-ocean-text)' }}>“I always mix these two up.”</div>
               <div style={{ marginTop: 'auto', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.lgCtx}</div>
             </div>
             <div style={{ padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>

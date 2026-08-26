@@ -94,6 +94,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
       <div style={{ padding: '0 20px', marginBottom: 16 }}>
         <input
           type="text"
+          aria-label="ค้นหาวิชา"
           placeholder="ค้นหาวิชา (ชื่อวิชา, รหัสวิชา)..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}

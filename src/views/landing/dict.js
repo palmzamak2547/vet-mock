@@ -94,7 +94,7 @@ export const DICT = {
     weaknessCards: [
       { tag: 'Pattern', text: 'You often confuse hyperadrenocorticism with hypothyroidism.', color: 'var(--clr-gold-text)' },
       { tag: 'Accuracy', text: 'Your accuracy drops on questions that require diagnostic test selection.', color: 'var(--clr-rose-text)' },
-      { tag: 'Visual', text: 'Thoracic radiographic pattern recognition needs more practice.', color: 'var(--clr-ocean)' },
+      { tag: 'Visual', text: 'Thoracic radiographic pattern recognition needs more practice.', color: 'var(--clr-ocean-text)' },
       { tag: 'Speed', text: 'You answer pharmacology accurately — but slowly.', color: 'var(--clr-sage-text)' },
     ],
     ctaPre: 'Your first attempt shouldn’t be in the ', ctaEm: 'exam room.', ctaPost: '',
@@ -205,7 +205,7 @@ export const DICT = {
     weaknessCards: [
       { tag: 'Pattern', text: 'คุณมักสับสนระหว่าง hyperadrenocorticism กับ hypothyroidism', color: 'var(--clr-gold-text)' },
       { tag: 'Accuracy', text: 'ความแม่นของคุณลดลงในข้อที่ต้องเลือก diagnostic test', color: 'var(--clr-rose-text)' },
-      { tag: 'Visual', text: 'การอ่าน pattern ภาพรังสีทรวงอก ยังต้องฝึกเพิ่ม', color: 'var(--clr-ocean)' },
+      { tag: 'Visual', text: 'การอ่าน pattern ภาพรังสีทรวงอก ยังต้องฝึกเพิ่ม', color: 'var(--clr-ocean-text)' },
       { tag: 'Speed', text: 'คุณตอบ pharmacology ได้แม่น แต่ช้า', color: 'var(--clr-sage-text)' },
     ],
     ctaPre: 'ครั้งแรกที่ลองทำ ไม่ควรเป็นตอนอยู่ใน', ctaEm: 'ห้องสอบ', ctaPost: '',

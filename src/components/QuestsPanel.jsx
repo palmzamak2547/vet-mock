@@ -130,7 +130,7 @@ function QuestCard({ quest, compact, onStart }) {
             style={{
               fontSize: 11,
               fontFamily: 'var(--vmx-mono)',
-              color: 'var(--clr-sage, #4a6b4a)',
+              color: 'var(--clr-sage-text, #4a6b4a)',
               flexShrink: 0,
             }}
           >
@@ -218,7 +218,7 @@ function QuestCard({ quest, compact, onStart }) {
             borderRadius: 999,
             background: 'transparent',
             border: '1px solid var(--clr-sage, #4a6b4a)',
-            color: 'var(--clr-sage, #4a6b4a)',
+            color: 'var(--clr-sage-text, #4a6b4a)',
             fontSize: 12,
             fontWeight: 600,
             fontFamily: 'var(--vmx-mono)',
@@ -403,7 +403,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
           >
             <div style={{ fontSize: 20, flexShrink: 0 }} aria-hidden>👉</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage, #4a6b4a)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+              <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text, #4a6b4a)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
                 ทำต่อ quest ถัดไป
               </div>
               <div style={{ fontSize: 13, fontWeight: 600, marginTop: 2, color: 'var(--clr-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

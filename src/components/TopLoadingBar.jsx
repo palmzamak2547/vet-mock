@@ -135,7 +135,7 @@ export function ViewFallback() {
         <span aria-hidden style={{ fontSize: 14 }}>⏳</span>
         <span>กำลังโหลด…</span>
         {showLongHint && (
-          <span style={{ color: 'var(--clr-gold, #b88940)', marginLeft: 4 }}>
+          <span style={{ color: 'var(--clr-gold-text, #b88940)', marginLeft: 4 }}>
            , โหลดครั้งแรก ครั้งต่อไปจะเร็วขึ้น
           </span>
         )}

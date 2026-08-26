@@ -2137,7 +2137,7 @@ export const SUBJECTS_BY_YEAR = {
 
 // Flat list (includes "all")
 export const SUBJECTS = [
-  { id: 'all', name: 'รวมทุกวิชา', name_en: 'All Subjects', icon: '📚', color: '#2b2419' },
+  { id: 'all', name: 'รวมทุกวิชา', name_en: 'All Subjects', icon: '📚', color: '#7a6f5f' },
   ...Object.values(SUBJECTS_BY_YEAR).flat(),
 ];
 

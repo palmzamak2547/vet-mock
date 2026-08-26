@@ -390,7 +390,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
         <>
           {/* Big Q count */}
           <div style={{ textAlign: 'center', margin: '16px 0 8px' }}>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 'clamp(64px, 18vw, 96px)', lineHeight: 1, color: 'var(--clr-sage, #4a6b4a)' }}>
+            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 'clamp(64px, 18vw, 96px)', lineHeight: 1, color: 'var(--clr-sage-text, #4a6b4a)' }}>
               {qShown.toLocaleString()}
             </div>
             <div style={{ fontFamily: 'Fraunces, serif', fontSize: 16, color: 'var(--clr-ink, #2b2419)', marginTop: 6 }}>

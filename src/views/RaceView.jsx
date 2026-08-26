@@ -267,7 +267,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
           </button>
           <JoinForm onJoin={joinRace} />
         </div>
-        {error && <div style={{ color: 'var(--clr-rose, #c0392b)', fontSize: 13 }}>{error}</div>}
+        {error && <div style={{ color: 'var(--clr-rose-text, #c0392b)', fontSize: 13 }}>{error}</div>}
       </>
     );
   }
@@ -320,7 +320,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
             </li>
           ))}
         </ul>
-        {error && <div style={{ marginTop: 12, color: 'var(--clr-rose, #c0392b)', fontSize: 13 }}>{error}</div>}
+        {error && <div style={{ marginTop: 12, color: 'var(--clr-rose-text, #c0392b)', fontSize: 13 }}>{error}</div>}
       </>
     );
   }

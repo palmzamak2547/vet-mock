@@ -36,13 +36,16 @@
 // A contrast tool that cries wolf gets ignored, which is worse than not
 // having one. If you add a color format, add it to toRgb.
 //
-// WHAT IT DOES NOT COVER, so a green run is not read as more than it is:
-// two surfaces, the signed-in home page and the signed-out landing. The
-// exam screen is not swept, and that is where the rose fills live — the
-// wrong-answer letter chip, the False button, the warning timer. Reverting
-// --clr-rose to its old value leaves this gate green for exactly that
-// reason. Reaching those needs a practice session, which is a page of
-// navigation this is not paying for yet.
+// Three surfaces: the signed-in home page, the signed-out landing
+// (--landing), and a live practice session (--exam). The exam screen was
+// the documented blind spot for a while, and the first sweep of it found
+// the correct-answer ✓ chip at 2.72:1 in dark mode — a hardcoded #fff on
+// a fill that only that screen paints.
+//
+// Still not covered, so a green run is not read as more than it is: every
+// other route, and any state behind data this account does not have. The
+// route walk in the bug-hunt scripts covers reachability; this covers
+// colour, and only where it looks.
 
 import { chromium } from '@playwright/test';
 import { spawn } from 'node:child_process';
@@ -89,6 +92,19 @@ async function serveLocalBuild() {
   // Spawn vite's bin with this node, not `npx` through a shell: shell:true
   // on Windows concatenates rather than escapes its arguments, and a lint
   // gate has no business opening that door.
+  // Refuse a port that is already answering. --strictPort makes vite exit
+  // when the port is taken, but the wait loop below would then happily
+  // connect to whatever OTHER server is on it and measure that instead —
+  // which is how this gate spent a run reporting a failure that had
+  // already been fixed, against a stale preview left running by hand.
+  try {
+    const res = await fetch(URL, { signal: AbortSignal.timeout(1000) });
+    if (res.ok) {
+      console.error(`✗ something is already serving ${URL}. Stop it, or pass --port.`);
+      process.exit(1);
+    }
+  } catch {}
+
   const server = spawn(process.execPath,
     [join('node_modules', 'vite', 'bin', 'vite.js'), 'preview', '--port', String(PORT), '--strictPort', '--host', '127.0.0.1'],
     { stdio: 'ignore' });
@@ -110,6 +126,7 @@ const THEMES = (arg('themes', 'light,dark')).split(',');
 // theme rendered rose everywhere and green in every accent label.
 const PALETTES = (arg('palettes', 'default,ocean,plum,cherry,mono,forest')).split(',');
 const LANDING = process.argv.includes('--landing');
+const EXAM = process.argv.includes('--exam');
 // Quiet by default so a green gate is one line inside lint:all.
 const VERBOSE = process.argv.includes('--verbose');
 
@@ -203,6 +220,26 @@ try {
   }, !LANDING);
   const page = await ctx.newPage();
   await page.goto(URL, { waitUntil: 'networkidle' });
+
+  // --exam walks into a practice session and answers one question wrong,
+  // because that screen renders states no other page does: the correct-
+  // answer chip, the wrong pick, the warning timer. It was the documented
+  // blind spot, and the first sweep of it found a ✓ chip at 2.72 in dark.
+  if (EXAM) {
+    await page.getByRole('button', { name: /Quick Practice|ฝึกแบบเลือกจำนวน/i }).first().click();
+    await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('3');
+    await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
+    await page.locator('.vmx-question-card').waitFor({ timeout: 20_000 });
+    const opts = page.locator('.vmx-option');
+    // Last option, so a wrong pick is likely and both verdict states paint.
+    if (await opts.count()) await opts.last().click();
+    await page.waitForTimeout(500);
+    if (!(await page.locator('.vmx-question-card').isVisible())) {
+      console.error('✗ --exam never reached a question card; nothing was measured');
+      process.exit(1);
+    }
+  }
+
   // The app stamps data-theme after it boots, so wait for the attribute
   // rather than a fixed delay — a fixed delay reports "theme null" on a
   // slow start and looks like the seed failed.

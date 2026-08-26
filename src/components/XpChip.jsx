@@ -94,7 +94,7 @@ export default function XpChip() {
           border: '1px solid var(--clr-sage, #4a6b4a)',
           fontSize: 13,
           fontFamily: 'var(--vmx-mono)',
-          color: 'var(--clr-sage, #4a6b4a)',
+          color: 'var(--clr-sage-text, #4a6b4a)',
           lineHeight: 1.1,
         }}
       >

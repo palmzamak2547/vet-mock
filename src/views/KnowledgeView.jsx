@@ -36,7 +36,7 @@ const ConflictNote = React.lazy(() => import('../components/ConflictNote.jsx'));
 
 const TONE = {
   strong: 'var(--clr-sage-text)',
-  ok: 'var(--clr-ocean)',
+  ok: 'var(--clr-ocean-text)',
   weak: 'var(--clr-gold-text)',
   warn: 'var(--clr-rose-text)',
   muted: 'var(--clr-ink-soft)',
@@ -118,7 +118,7 @@ function VerifiedClaim({ claim }) {
           return (
             <div key={i} style={{ fontSize: 11.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
               {src.url
-                ? <a href={src.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean)' }}>{src.citation}</a>
+                ? <a href={src.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean-text)' }}>{src.citation}</a>
                 : <span>{src.citation}</span>}
               {ref.locator ? `, ${ref.locator}` : ''}
             </div>
@@ -161,7 +161,7 @@ function ProvenancePanel({ prov, onClose }) {
               {prov.sources.map((s) => (
                 <div key={s.id} style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--clr-ink)' }}>
                   {s.url
-                    ? <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean)' }}>{s.citation}</a>
+                    ? <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean-text)' }}>{s.citation}</a>
                     : <span>{s.citation}</span>}
                   <span style={{ color: 'var(--clr-ink-soft)' }}>, {s.organization}</span>
                 </div>
@@ -287,7 +287,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                         A thin subject-toned rule anchors the row instead. */}
                     <span aria-hidden="true" style={{ alignSelf: 'stretch', width: 3, flexShrink: 0, borderRadius: 2, background: 'var(--clr-sage-soft)' }} />
                     <span style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: 'var(--clr-ocean)', lineHeight: 1.35 }}>
+                      <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: 'var(--clr-ocean-text)', lineHeight: 1.35 }}>
                         {t.title}
                         {/* Counted from corrections.js, so a row can only claim
                             a disagreement that is actually written down. */}
@@ -369,7 +369,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
     <div className="vmx-view" style={{ maxWidth: 780, margin: '0 auto' }}>
       {/* Breadcrumb */}
       <nav aria-label="breadcrumb" style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', fontSize: 12.5, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
-        <button type="button" onClick={onBackToIndex} style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ocean)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>VetWiki</button>
+        <button type="button" onClick={onBackToIndex} style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ocean-text)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>VetWiki</button>
         <span aria-hidden="true">›</span>
         <span>{subjectName(current.subject)}</span>
         <span aria-hidden="true">›</span>
@@ -431,7 +431,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
               <li key={s.id}>
                 <a href={`#${s.id}`}
                   onClick={(e) => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }}
-                  style={{ fontSize: 13.5, color: 'var(--clr-ocean)', lineHeight: 1.6 }}>
+                  style={{ fontSize: 13.5, color: 'var(--clr-ocean-text)', lineHeight: 1.6 }}>
                   {s.heading}
                 </a>
                 {(s.claims || []).some((c) => c.reviewStatus === 'verified') && (

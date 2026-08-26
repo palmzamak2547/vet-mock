@@ -108,7 +108,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
                   <RichText text={opt} />
                 </div>
                 {revealed && isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-sage-text)', fontWeight: 700 }}>✓</span>}
-                {revealed && isPicked && !isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-rose, #c0392b)' }}>✗</span>}
+                {revealed && isPicked && !isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-rose-text, #c0392b)' }}>✗</span>}
               </button>
             );
           })}
@@ -175,7 +175,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
           <div role="status" aria-live="polite" style={{
             marginTop: 8,
             fontSize: 12,
-            color: 'var(--clr-sage, #4a6b4a)',
+            color: 'var(--clr-sage-text, #4a6b4a)',
             fontFamily: 'var(--vmx-mono)',
             textAlign: 'center',
           }}>

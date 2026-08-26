@@ -466,7 +466,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                       <span style={{
                         fontFamily: 'var(--vmx-mono)',
                         marginRight: 8,
-                        color: isCorrect ? 'var(--clr-sage)' : 'var(--clr-ink-soft)',
+                        color: isCorrect ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)',
                         fontWeight: isCorrect ? 600 : 400,
                       }}>
                         {String.fromCharCode(65 + i)}.
@@ -659,7 +659,7 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
         autoFocus
       />
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8, gap: 8, flexWrap: 'wrap' }}>
-        <span style={{ fontSize: 11, color: feedback.trim().length >= FEEDBACK_MIN_CHARS ? 'var(--clr-sage)' : 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+        <span style={{ fontSize: 11, color: feedback.trim().length >= FEEDBACK_MIN_CHARS ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
           {feedback.trim().length}/{FEEDBACK_MIN_CHARS}+ chars
         </span>
         <div style={{ display: 'flex', gap: 6 }}>

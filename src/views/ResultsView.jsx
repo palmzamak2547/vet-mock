@@ -336,7 +336,7 @@ export default function ResultsView({
         </div>
         {writingQs.length > 0 && (
           <div className="vmx-stat-card">
-            <div className="vmx-stat-num" style={{ color: 'var(--clr-plum, #7d4a7d)' }}>{writingAttempted}/{writingQs.length}</div>
+            <div className="vmx-stat-num" style={{ color: 'var(--clr-plum-text, #7d4a7d)' }}>{writingAttempted}/{writingQs.length}</div>
             <div className="vmx-stat-lbl">ข้อเขียน</div>
           </div>
         )}
@@ -729,7 +729,7 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
       background: 'rgba(184, 137, 64, 0.06)',
       border: '1px dashed var(--clr-gold, #b88940)',
     }}>
-      <div className="vmx-kicker" style={{ color: 'var(--clr-gold, #b88940)', marginBottom: 8 }}>
+      <div className="vmx-kicker" style={{ color: 'var(--clr-gold-text, #b88940)', marginBottom: 8 }}>
         ต่อจากนี้แนะนำ
       </div>
       <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -781,7 +781,7 @@ function ShareQuizButton({ questions }) {
       title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
     >
       แชร์ชุดนี้
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
     </button>
   );
 }
@@ -847,7 +847,7 @@ function ChallengeQuizButton({ questions, label = 'ท้าเพื่อน�
       title="แชร์ลิงก์ชุดโจทย์ + ข้อความท้าทาย — เพื่อนเปิดลิงก์แล้วทำชุดเดียวกัน"
     >
       {label}
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
     </button>
   );
 }
@@ -898,7 +898,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
       title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
     >
       ส่งเข้ากลุ่ม
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
     </button>
   );
 }
@@ -983,7 +983,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
               {s.correct}/{s.total}, ⏱ {fmtTimeSec(sender.senderTimeSec)}
-              {fasterSender && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-gold, #b88940)' }}>เร็วกว่า</span>}
+              {fasterSender && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-gold-text, #b88940)' }}>เร็วกว่า</span>}
             </div>
           </div>
           <div>
@@ -992,7 +992,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
               {r.correct}/{r.total}, ⏱ {fmtTimeSec(receiverTimeSec)}
-              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage, #4a6b4a)' }}>เร็วกว่า</span>}
+              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)' }}>เร็วกว่า</span>}
             </div>
           </div>
         </div>

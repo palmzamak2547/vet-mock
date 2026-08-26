@@ -501,8 +501,8 @@ export default function OfflineGame({ onClose }) {
         }}
       >
         <span>SCORE <strong style={{ color: 'var(--clr-ink, #2b2419)', fontSize: 14 }}>{String(scoreDisplay).padStart(5, '0')}</strong></span>
-        <span>HI <strong style={{ color: 'var(--clr-gold, #b88940)' }}>{String(highScore).padStart(5, '0')}</strong></span>
-        <span>STAGE <strong style={{ color: 'var(--clr-ocean, #3d6b82)' }}>{stageDisplay}</strong></span>
+        <span>HI <strong style={{ color: 'var(--clr-gold-text, #b88940)' }}>{String(highScore).padStart(5, '0')}</strong></span>
+        <span>STAGE <strong style={{ color: 'var(--clr-ocean-text, #3d6b82)' }}>{stageDisplay}</strong></span>
         {comboDisplay >= 5 && (
           <span className="vmx-pop-in" key={comboDisplay} style={{ color: '#d97744' }}>
             COMBO ×{comboDisplay >= 20 ? 3 : comboDisplay >= 10 ? 2 : comboDisplay >= 5 ? 1.5 : 1}
@@ -550,7 +550,7 @@ export default function OfflineGame({ onClose }) {
             color: 'var(--clr-ink, #2b2419)',
           }}
         >
-          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-gold, #b88940)', marginBottom: 6, letterSpacing: '0.08em' }}>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-gold-text, #b88940)', marginBottom: 6, letterSpacing: '0.08em' }}>
             รู้จัก {factText.obstacle} ไหม?
           </div>
           {factText.fact}
@@ -563,7 +563,7 @@ export default function OfflineGame({ onClose }) {
           className="vmx-pop-in"
           style={{
             background: 'rgba(184, 137, 64, 0.12)',
-            color: 'var(--clr-gold, #b88940)',
+            color: 'var(--clr-gold-text, #b88940)',
             padding: '8px 16px',
             borderRadius: 999,
             fontSize: 14,

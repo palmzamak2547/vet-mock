@@ -356,33 +356,23 @@ html.lp-active { background: var(--clr-bg); }
     inset 0 1px 0 color-mix(in srgb, var(--clr-surface) 90%, transparent);
 }
 
-/* ================================================================
-   ✨ STEP NUMBERS — sage ring glow
-   ================================================================ */
-[data-screen-label="How it works"] [style*="borderRadius: 50%"][style*="var(--clr-sage)"] {
-  box-shadow: 
-    0 0 0 4px color-mix(in srgb, var(--clr-sage) 18%, transparent), 
-    0 0 0 8px color-mix(in srgb, var(--clr-sage) 8%, transparent),
-    0 4px 12px color-mix(in srgb, var(--clr-sage) 25%, rgba(0,0,0,.1));
-  transition: box-shadow .35s, transform .2s;
-}
-[data-screen-label="How it works"] [style*="borderRadius: 50%"][style*="var(--clr-sage)"]:hover {
-  box-shadow: 
-    0 0 0 6px color-mix(in srgb, var(--clr-sage) 28%, transparent), 
-    0 0 0 12px color-mix(in srgb, var(--clr-sage) 10%, transparent),
-    0 6px 16px color-mix(in srgb, var(--clr-sage) 30%, rgba(0,0,0,.15));
-  transform: scale(1.08);
-}
+/* The step-number ring glow that used to live here matched
+   [style*="borderRadius: 50%"] — camelCase, which React never emits; it
+   serializes inline styles as border-radius. It selected nothing from the
+   day it was written. Removed rather than repaired: the landing was just
+   calmed of exactly this kind of glow, so switching one on now would be a
+   change nobody asked for. `git log -S borderRadius` has the original. */
 
 /* ================================================================
    ✨ EYEBROW LABELS — animated left-to-right reveal
    ================================================================ */
-/* Matches on the inline mono font, which is now the --vmx-mono token rather
-   than the literal family name (Thai has no glyphs in JetBrains Mono, so the
-   stack moved into a token). Both spellings are listed so this keeps working
-   if any call site is still on the old literal. */
-.lp-root .lp-reveal.in [style*="--vmx-mono"][style*="uppercase"][style*="var(--clr-sage)"],
-.lp-root .lp-reveal.in [style*="JetBrains Mono"][style*="uppercase"][style*="var(--clr-sage)"] {
+/* Was three chained [style*=...] tests reading the inline style as a
+   string — the mono font, "uppercase", and the NAME of a colour token. It
+   survived the accent rename only because the substring test happens to
+   prefix-match var(--clr-sage-text), which is luck. Dropping just the
+   colour clause widened it from 8 elements to 17, so the eyebrows carry a
+   real class instead and the rule matches exactly what it means to. */
+.lp-root .lp-reveal.in .lp-eyebrow {
   animation: lp-eyebrow-in .6s cubic-bezier(.16,1,.3,1) both;
 }
 @keyframes lp-eyebrow-in {

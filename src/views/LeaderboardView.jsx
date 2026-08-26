@@ -157,7 +157,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                   </div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 24, color: r.pct >= 80 ? 'var(--clr-sage)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
+                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 24, color: r.pct >= 80 ? 'var(--clr-sage-text)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
                   <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{r.correct}/{r.total}</div>
                 </div>
               </div>

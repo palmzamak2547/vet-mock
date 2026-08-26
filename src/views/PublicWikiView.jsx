@@ -75,7 +75,7 @@ export default function PublicWikiView({
                   fontSize: 13,
                   fontWeight: page.pageId === activePage?.pageId ? 700 : 400,
                   background: page.pageId === activePage?.pageId ? 'rgba(74, 107, 74, 0.12)' : 'transparent',
-                  color: page.pageId === activePage?.pageId ? 'var(--clr-sage)' : 'var(--clr-ink)',
+                  color: page.pageId === activePage?.pageId ? 'var(--clr-sage-text)' : 'var(--clr-ink)',
                 }}
               >
                 📖 {page.title}

@@ -165,6 +165,7 @@ export default function FacultyView({ goHome }) {
       <div style={{ marginBottom: 12 }}>
         <input
           type="text"
+          aria-label="ค้นหาอาจารย์"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="ค้นชื่อ / ตำแหน่ง / ภาควิชา / สาขาวิจัย"

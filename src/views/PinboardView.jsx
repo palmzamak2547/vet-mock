@@ -14,6 +14,7 @@
 //   setPracticeMode     (mode) => void
 
 import { useEffect, useMemo, useState, useCallback } from 'react';
+import { subjectText } from '../hooks/utils.js';
 import { loadPins, removePin, clearPinboard, PINBOARD_EVENT, PINBOARD_MAX } from '../lib/pinboard.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { confirmDialog } from '../lib/dialog.js';
@@ -317,7 +318,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
                     style={{
                       fontSize: 11,
                       fontFamily: 'var(--vmx-mono)',
-                      color: meta.color,
+                      color: subjectText(meta.color),
                       textTransform: 'uppercase',
                       letterSpacing: '0.06em',
                       fontWeight: 600,

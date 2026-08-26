@@ -118,7 +118,7 @@ export default function VoiceInputButton({ onAppend, lang = 'th-TH', title = '�
       >
         {active ? '⏹' : '🎤'}
       </button>
-      {error && <span style={{ fontSize: 11, color: 'var(--clr-rose, #c0392b)' }}>{error}</span>}
+      {error && <span style={{ fontSize: 11, color: 'var(--clr-rose-text, #c0392b)' }}>{error}</span>}
     </span>
   );
 }

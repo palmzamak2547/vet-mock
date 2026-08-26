@@ -447,7 +447,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
             style={{
               marginTop: 10,
               fontSize: 12,
-              color: 'var(--clr-sage, #4a6b4a)',
+              color: 'var(--clr-sage-text, #4a6b4a)',
               fontFamily: 'var(--vmx-mono)',
               textAlign: 'center',
             }}

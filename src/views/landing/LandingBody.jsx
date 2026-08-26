@@ -25,7 +25,7 @@ function OptionRow({ opt, onClick, disabled }) {
 // locale (e.g. 'ปัญหาที่เจอ') and tracking breaks Thai glyph shaping —
 // a forbidden project rule. textTransform:uppercase is a no-op on Thai
 // and only affects the Latin labels, which is fine.
-const label = (color) => ({ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: color || 'var(--clr-sage)', marginBottom: 14 });
+const label = (color) => ({ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: color || 'var(--clr-sage-text)', marginBottom: 14 });
 const h2 = { fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(28px,4vw,42px)', lineHeight: 1.04, letterSpacing: '-.03em', color: 'var(--clr-ink)', margin: 0, textWrap: 'balance' };
 const em = { fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-text)' };
 const container = { maxWidth: 1200, margin: '0 auto' };
@@ -71,7 +71,7 @@ export default function LandingBody(p) {
                 <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statSubjects}</div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean)', lineHeight: 1 }}>{t.statFreeValue}</div>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean-text)', lineHeight: 1 }}>{t.statFreeValue}</div>
                 <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statFree}</div>
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function LandingBody(p) {
                 {p.heroRevealed && <div className="vmx-explain" style={{ marginTop: 16 }}><span className="k">{t.why}</span>{t.heroExplain}</div>}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 16 }}>
                   {p.heroRevealed
-                    ? <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13, fontWeight: 700, color: p.heroPicked === 1 ? 'var(--clr-sage)' : 'var(--clr-rose-text)' }}>{p.heroPicked === 1 ? `✓ ${t.correct}` : `✗ ${t.wrong}`}</span>
+                    ? <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13, fontWeight: 700, color: p.heroPicked === 1 ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)' }}>{p.heroPicked === 1 ? `✓ ${t.correct}` : `✗ ${t.wrong}`}</span>
                     : <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.demoNote}</span>}
                   <button type="button" className="vmx-btn vmx-btn-primary" style={{ marginLeft: 'auto' }} disabled={p.heroPicked === null || p.heroRevealed} onClick={p.onCheckHero}>{t.check}</button>
                 </div>
@@ -153,7 +153,7 @@ export default function LandingBody(p) {
       <section data-screen-label="Problem" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
         <div style={container}>
           <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 44 }}>
-            <div style={label()}>{t.probLabel}</div>
+            <div className="lp-eyebrow" style={label()}>{t.probLabel}</div>
             <h2 style={h2}>{t.probHead}</h2>
           </div>
           <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
@@ -172,7 +172,7 @@ export default function LandingBody(p) {
       <section id="solution" data-screen-label="Features" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
         <div style={container}>
           <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 44 }}>
-            <div style={label()}>{t.solLabel}</div>
+            <div className="lp-eyebrow" style={label()}>{t.solLabel}</div>
             <h2 style={h2}>{t.solPre}<em style={em}>{t.solEm}</em>{t.solPost}</h2>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.solSub}</p>
           </div>
@@ -253,7 +253,7 @@ export default function LandingBody(p) {
       {/* ================= HOW IT WORKS ================= */}
       <section data-screen-label="How it works" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
         <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 44 }}><div style={label()}>{t.howLabel}</div><h2 style={h2}>{t.howHead}</h2></div>
+          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 44 }}><div className="lp-eyebrow" style={label()}>{t.howLabel}</div><h2 style={h2}>{t.howHead}</h2></div>
           <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 20 }}>
             {t.steps.map((s, i) => (
               <div key={s.title} className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
@@ -278,7 +278,7 @@ export default function LandingBody(p) {
       {/* ================= READINESS ================= */}
       <section data-screen-label="Readiness" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
         <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div style={label()}>{t.rLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.rHeadPre}<em style={em}>{t.rHeadEm}</em>{t.rHeadPost}</h2></div>
+          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div className="lp-eyebrow" style={label()}>{t.rLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.rHeadPre}<em style={em}>{t.rHeadEm}</em>{t.rHeadPost}</h2></div>
           <div className="lp-stack lp-reveal lp-card" style={{ display: 'grid', gridTemplateColumns: '290px 1fr', gap: 38, alignItems: 'center', background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 34 }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
               <div style={{ position: 'relative', width: 200, height: 200, borderRadius: '50%', background: p.readinessRing, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -309,7 +309,7 @@ export default function LandingBody(p) {
       {/* ================= WEAKNESS ================= */}
       <section id="weakness" data-screen-label="Weakness detection" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
         <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 34 }}><div style={label()}>{t.weakLabel}</div><h2 style={h2}>{t.weakHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.weakSub}</p><p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: '10px 0 0', fontStyle: 'italic' }}>{t.weakPreviewNote}</p></div>
+          <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 34 }}><div className="lp-eyebrow" style={label()}>{t.weakLabel}</div><h2 style={h2}>{t.weakHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.weakSub}</p><p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: '10px 0 0', fontStyle: 'italic' }}>{t.weakPreviewNote}</p></div>
           <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 16, marginBottom: 26 }}>
             {t.weaknessCards.map((w) => (
               <div key={w.text} style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: `3px solid ${w.color}`, borderRadius: 16, padding: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -376,10 +376,10 @@ function SubjectsSection({ p }) {
       <div style={container}>
         <div className="lp-reveal" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 22, marginBottom: 30 }}>
           <div style={{ maxWidth: 620 }}>
-            <div style={label()}>{t.subjLabel}</div>
+            <div className="lp-eyebrow" style={label()}>{t.subjLabel}</div>
             <h2 style={h2}>{t.subjPre}<em style={em}>{t.subjEm}</em>{t.subjPost}</h2>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '14px 0 4px' }}>{t.subjSub}</p>
-            <p style={{ fontSize: 13, color: showcase ? 'var(--clr-ink-soft)' : 'var(--clr-sage)', margin: 0, fontWeight: 500 }}>{showcase ? t.subjShowcaseNote : t.subjRealNote}</p>
+            <p style={{ fontSize: 13, color: showcase ? 'var(--clr-ink-soft)' : 'var(--clr-sage-text)', margin: 0, fontWeight: 500 }}>{showcase ? t.subjShowcaseNote : t.subjRealNote}</p>
           </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <button type="button" className={`vmx-nav-btn ${!showcase ? 'active' : ''}`} style={{ minHeight: 38 }} onClick={() => p.setShowcaseMode(false)}>{t.subjToggleReal}</button>
@@ -441,7 +441,7 @@ function LabSection({ p }) {
   return (
     <section id="lab" data-screen-label="Lab simulation" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
       <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 38 }}><div style={label()}>{t.labSecLabel}</div><h2 style={h2}>{t.labSecHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '60ch', margin: '14px 0 0' }}>{t.labSecSub}</p></div>
+        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 38 }}><div className="lp-eyebrow" style={label()}>{t.labSecLabel}</div><h2 style={h2}>{t.labSecHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '60ch', margin: '14px 0 0' }}>{t.labSecSub}</p></div>
         <div className="lp-stack lp-reveal lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 22, display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 22 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {/* wrap: the station badge is deliberately nowrap and non-shrinking,
@@ -515,7 +515,7 @@ function LabSection({ p }) {
             </div>
             {p.labRevealed && <div className="vmx-explain"><span className="k">{t.why}</span>{t.labExplain}</div>}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 'auto' }}>
-              {p.labRevealed && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13, fontWeight: 700, color: p.labPicked === 0 ? 'var(--clr-sage)' : 'var(--clr-rose-text)' }}>{p.labPicked === 0 ? `✓ ${t.correct}` : `✗ ${t.wrong}`}</span>}
+              {p.labRevealed && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13, fontWeight: 700, color: p.labPicked === 0 ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)' }}>{p.labPicked === 0 ? `✓ ${t.correct}` : `✗ ${t.wrong}`}</span>}
               <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
                 <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={p.labPicked === null || p.labRevealed} onClick={p.onCheckLab}>{t.check}</button>
                 <button type="button" onClick={p.onOpenLab || p.onEnterApp} className="vmx-btn vmx-btn-ghost vmx-btn-sm">{t.labNext} →</button>
@@ -528,7 +528,7 @@ function LabSection({ p }) {
   );
 }
 const labZoomBtn = { width: 32, height: 32, borderRadius: '50%', border: '1px solid rgba(255,255,255,.25)', background: 'rgba(0,0,0,.5)', color: '#fff', fontSize: 17, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' };
-const labTool = (active) => ({ padding: '9px 14px', borderRadius: 10, border: `1px solid ${active ? 'var(--clr-sage)' : 'var(--clr-border)'}`, background: active ? 'color-mix(in srgb, var(--clr-sage) 12%, transparent)' : 'var(--clr-surface)', color: active ? 'var(--clr-sage)' : 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 12.5, cursor: 'pointer', minHeight: 40 });
+const labTool = (active) => ({ padding: '9px 14px', borderRadius: 10, border: `1px solid ${active ? 'var(--clr-sage)' : 'var(--clr-border)'}`, background: active ? 'color-mix(in srgb, var(--clr-sage) 12%, transparent)' : 'var(--clr-surface)', color: active ? 'var(--clr-sage-text)' : 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 12.5, cursor: 'pointer', minHeight: 40 });
 
 /* ---- Analytics ---- */
 function AnalyticsSection({ p }) {
@@ -539,7 +539,7 @@ function AnalyticsSection({ p }) {
   return (
     <section id="progress" data-screen-label="Progress" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
       <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={label()}>{t.aLabel}</div><h2 style={h2}>{t.aHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '56ch', margin: '14px 0 0' }}>{t.aSub}</p></div>
+        <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div className="lp-eyebrow" style={label()}>{t.aLabel}</div><h2 style={h2}>{t.aHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '56ch', margin: '14px 0 0' }}>{t.aSub}</p></div>
         <div className="lp-reveal lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 26, boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
             <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>📊 {t.progressTitle}</span>

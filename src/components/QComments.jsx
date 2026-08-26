@@ -202,7 +202,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
           {!user ? 'Login' : posting ? '...' : 'โพสต์'}
         </button>
       </div>
-      {err && <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-rose, #c0392b)' }}>{err}</div>}
+      {err && <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-rose-text, #c0392b)' }}>{err}</div>}
     </div>
   );
 }

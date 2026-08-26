@@ -437,7 +437,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
                 <strong>{actual}/{maxScore}</strong>
                 {' '}
                 <span style={{
-                  color: Math.abs(gap) <= 1 ? 'var(--clr-sage)' : Math.abs(gap) <= 2 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)',
+                  color: Math.abs(gap) <= 1 ? 'var(--clr-sage-text)' : Math.abs(gap) <= 2 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)',
                   fontWeight: 600,
                 }}>
                   ({gap > 0 ? '+' : ''}{gap.toFixed(1)})
@@ -449,7 +449,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
         {calibration && calibration.count >= 3 && (
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
             <div>Avg bias (n={calibration.count}):</div>
-            <div style={{ fontFamily: 'var(--vmx-mono)', color: Math.abs(calibration.bias) < 0.5 ? 'var(--clr-sage)' : 'var(--clr-gold-text)' }}>
+            <div style={{ fontFamily: 'var(--vmx-mono)', color: Math.abs(calibration.bias) < 0.5 ? 'var(--clr-sage-text)' : 'var(--clr-gold-text)' }}>
               {calibration.bias > 0 ? `แม่นยำ มากเกิน +${calibration.bias.toFixed(1)} pts` : calibration.bias < -0.1 ? `ถ่อมตัว เกิน ${calibration.bias.toFixed(1)} pts` : 'แม่นมาก!'}
             </div>
           </div>

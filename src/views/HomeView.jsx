@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
+import { subjectText } from '../hooks/utils.js';
 import { QB } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
@@ -1356,7 +1357,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         >
           <div className="vmx-group-preview-icon" aria-hidden="true"><NavIcon name="users" size={24} /></div>
           <div style={{ flex: 1, minWidth: 180 }}>
-            <div className="vmx-kicker" style={{ color: 'var(--clr-sage, #4a6b4a)' }}>
+            <div className="vmx-kicker" style={{ color: 'var(--clr-sage-text, #4a6b4a)' }}>
               สร้างกลุ่มกับเพื่อน
             </div>
             <div style={{
@@ -1485,7 +1486,7 @@ function ScopeChip({ scope }) {
         marginBottom: 2,
         borderRadius: 999,
         background: meta.bg,
-        color: meta.color,
+        color: subjectText(meta.color),
         fontSize: 11,
         fontFamily: 'var(--vmx-mono)',
         fontWeight: 600,
@@ -1628,7 +1629,7 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
             {s.name_en && s.name_en.toLowerCase() !== s.name.toLowerCase() && (
               <div className="sub">{s.name_en}</div>
             )}
-            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes ? 'var(--clr-sage)' : 'var(--clr-rose-text)') }}>
+            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)') }}>
               {count > 0
                 ? `${count} ข้อ`
                 : s.has_notes
@@ -1734,7 +1735,7 @@ function DailyQRow({ user, setView }) {
         ข้อวันนี้{status.completed ? ' ✓' : ''}, {subj?.icon || ''} {subj?.name || todaysQ.subject}
       </button>
       {streak >= 2 && (
-        <span style={{ fontSize: 12, color: 'var(--clr-gold, #b88940)', fontFamily: 'var(--vmx-mono)' }}>
+        <span style={{ fontSize: 12, color: 'var(--clr-gold-text, #b88940)', fontFamily: 'var(--vmx-mono)' }}>
           daily streak {streak}
         </span>
       )}

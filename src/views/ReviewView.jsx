@@ -102,7 +102,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
                 type="button"
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 onClick={handleClear}
-                style={{ color: 'var(--clr-rose, #d9534f)', minHeight: 28, padding: '2px 8px', fontSize: 12 }}
+                style={{ color: 'var(--clr-rose-text, #d9534f)', minHeight: 28, padding: '2px 8px', fontSize: 12 }}
               >
                 ยืนยันลบ
               </button>
@@ -217,7 +217,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
     { id: 'correct',    label: 'ถูก',      icon: '✓',  color: 'var(--clr-sage-text)' },
     { id: 'skipped',    label: 'ข้าม',     icon: '⏭', color: 'var(--clr-ink-soft)' },
     { id: 'bookmarked', label: 'บันทึกไว้', icon: '★',  color: 'var(--clr-gold-text)' },
-    { id: 'noted',      label: 'มีโน้ต',   icon: '📝', color: 'var(--clr-plum, #7d4a7d)' },
+    { id: 'noted',      label: 'มีโน้ต',   icon: '📝', color: 'var(--clr-plum-text, #7d4a7d)' },
   ];
 
   return (
@@ -356,7 +356,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                       padding: '2px 7px',
                       borderRadius: 999,
                       background: 'rgba(125, 74, 125, 0.15)',
-                      color: 'var(--clr-plum, #7d4a7d)',
+                      color: 'var(--clr-plum-text, #7d4a7d)',
                       border: '1px solid var(--clr-plum, #7d4a7d)',
                       fontFamily: 'var(--vmx-mono)',
                       fontWeight: 600,

@@ -397,7 +397,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         display: 'inline-flex', alignItems: 'center', gap: 8,
         padding: '6px 16px', borderRadius: 999,
         background: currentQ.answer ? 'var(--clr-sage-soft)' : 'var(--clr-rose-soft)',
-        color: currentQ.answer ? 'var(--clr-sage)' : 'var(--clr-rose-text)',
+        color: currentQ.answer ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)',
         fontWeight: 700,
         fontSize: 18,
       }}>

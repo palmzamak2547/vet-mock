@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect, lazy, Suspense } from 'react';
 import { SUBJECTS, QB } from '../data/questions.js';
-import { downloadJSON } from '../hooks/utils.js';
+import { downloadJSON, subjectText } from '../hooks/utils.js';
 import {
   describeBackupFields,
   parseUserBackup,
@@ -56,7 +56,7 @@ function buildLearningCurve(history, daysBack = 14) {
       id,
       name: meta.name,
       icon: meta.icon,
-      color: meta.color || 'var(--clr-ink)',
+      color: subjectText(meta.color),
       points: arr.map((b, i) => ({ day: i, pct: b.total ? (b.correct / b.total) * 100 : null, n: b.total })),
       totalN,
     });

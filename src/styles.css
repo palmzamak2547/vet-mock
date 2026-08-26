@@ -48,8 +48,12 @@
      white turns gold into brown, so gold keeps its brightness and takes
      ink instead — 4.89, and dark-on-gold is what a LIVE badge looks like
      anywhere else. */
+  --clr-sage-on: #ffffff;
   --clr-gold-on: var(--clr-ink);
+  --subject-text-mix: 45%;
   --clr-rose-on: #ffffff;
+  --clr-ocean-text: #386278;
+  --clr-plum-text: #7d4a7d;
   --shadow-sm: 0 1px 2px rgba(43, 36, 25, 0.08);
   --shadow-md: 0 4px 12px rgba(43, 36, 25, 0.08), 0 2px 4px rgba(43, 36, 25, 0.05);
   --shadow-lg: 0 12px 32px rgba(43, 36, 25, 0.14), 0 4px 8px rgba(43, 36, 25, 0.08);
@@ -142,8 +146,12 @@
   /* Dark inverts which label works: these fills are mid-toned, so the
      page background reads on them (gold 7.98, rose 7.12) where white
      does not. */
+  --clr-sage-on: var(--clr-bg);
   --clr-gold-on: var(--clr-bg);
+  --subject-text-mix: 40%;
   --clr-rose-on: var(--clr-bg);
+  --clr-ocean-text: #8dacbc;
+  --clr-plum-text: #c39ac3;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.35);
@@ -179,18 +187,18 @@
    in localStorage 'vmx-palette' and re-applies on mount.            */
 [data-palette="ocean"] {
   --clr-sage: #3d6b82;
-  --clr-sage-text: #3d6b82;
+  --clr-sage-text: #386278;
   --clr-sage-soft: #a8c0d4;
   --clr-gold: #6b94a8;
-  --clr-gold-text: #496c7d;
+  --clr-gold-text: #456575;
   --clr-gold-soft: #c0d4e0;
 }
 [data-theme="dark"][data-palette="ocean"] {
   --clr-sage: #6b94a8;
-  --clr-sage-text: #7ba0b1;
+  --clr-sage-text: #8dacbc;
   --clr-sage-soft: #3d6b82;
   --clr-gold: #8fb0c2;
-  --clr-gold-text: #8fb0c2;
+  --clr-gold-text: #91b1c3;
   --clr-gold-soft: #4d6e80;
 }
 /* gold-text here and in mono are one notch darker than solving against
@@ -208,10 +216,10 @@
 }
 [data-theme="dark"][data-palette="plum"] {
   --clr-sage: #b07ab0;
-  --clr-sage-text: #ba8aba;
+  --clr-sage-text: #c39ac3;
   --clr-sage-soft: #7d4a7d;
   --clr-gold: #c89bc8;
-  --clr-gold-text: #c89bc8;
+  --clr-gold-text: #ca9eca;
   --clr-gold-soft: #6e3d6e;
 }
 [data-palette="cherry"] {
@@ -225,14 +233,14 @@
      color-mix card at #f3e2da) are lighter than any of the three base
      surfaces the value was solved against, and #ab4747 landed on 4.485
      there — passing every plain surface and failing the tinted one. */
-  --clr-sage-text: #a64444;
+  --clr-sage-text: #9b4040;
   --clr-sage-soft: #e8b8b8;
   --clr-gold: #b88940;
   --clr-gold-soft: #e8d4a8;
 }
 [data-theme="dark"][data-palette="cherry"] {
   --clr-sage: #d89090;
-  --clr-sage-text: #d89090;
+  --clr-sage-text: #dea0a0;
   --clr-sage-soft: #8b4f4f;
   --clr-gold: #d4a556;
   --clr-gold-soft: #8b6a30;
@@ -257,7 +265,7 @@
   --clr-sage-text: #c0c0c0;
   --clr-sage-soft: #4a4a4a;
   --clr-gold: #909090;
-  --clr-gold-text: #9a9a9a;
+  --clr-gold-text: #a8a8a8;
   --clr-gold-soft: #555555;
 }
 [data-palette="forest"] {
@@ -265,7 +273,7 @@
   --clr-sage-text: #2d5a3d;
   --clr-sage-soft: #8fb89e;
   --clr-gold: #857538;
-  --clr-gold-text: #746731;
+  --clr-gold-text: #6a5d2d;
   --clr-gold-soft: #d4c890;
 }/* Light only. A bare [data-palette="forest"] matches in DARK too and sits
    later in the file at equal specificity, so it was overriding the dark
@@ -277,10 +285,10 @@
 
 [data-theme="dark"][data-palette="forest"] {
   --clr-sage: #6fa07f;
-  --clr-sage-text: #77a586;
+  --clr-sage-text: #89b196;
   --clr-sage-soft: #2d5a3d;
   --clr-gold: #c0aa68;
-  --clr-gold-text: #c0aa68;
+  --clr-gold-text: #c1ab6a;
   --clr-gold-soft: #5a4f28;
 }
 
@@ -448,12 +456,28 @@ html, body {
   src: url('/Sarabun/Sarabun-BoldItalic.ttf') format('truetype');
 }
 
-/* Keyboard-focus fallback for iOS 14, which lacks :focus-visible. */
-:focus { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
+/* Keyboard-focus ring. !important on purpose: 59 controls in this app are
+   styled with an inline `all: 'unset'`, and `all` resets outline-style to
+   none at inline precedence, which beats a plain stylesheet rule. Every
+   one of them matched :focus-visible while drawing no ring at all — a
+   keyboard user tabbing through this app could not see where they were.
+   A safety rule that any inline style can erase is not a safety rule.
+
+   The fallback below it is for iOS 14, which lacks :focus-visible. */
+:focus { outline: 2px solid var(--clr-ink) !important; outline-offset: 2px; border-radius: 4px; }
 @supports selector(:focus-visible) {
-  :focus { outline: none; }
-  :focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: 4px; }
+  :focus { outline: none !important; }
+  :focus-visible { outline: 2px solid var(--clr-ink) !important; outline-offset: 2px; border-radius: 4px; }
 }
+/* The other half, and it has to ship in the same breath. A scripted
+   .focus() on a tabindex="-1" container matches :focus-visible on WebKit
+   and Firefox but NOT on Chromium, so the !important above would draw a
+   frame around every dialog and drawer on Safari — the exact black-frame
+   bug 9432c68 fixed — while looking clean in a Chromium pane. These
+   elements are script-focus-only and never keyboard-tabbable, so a ring
+   on them means nothing. Higher specificity beats the !important above. */
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible { outline: none !important; }
 
 .vmx-app {
   font-family: 'Sarabun', 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
@@ -1726,7 +1750,7 @@ html, body {
 .vmx-sr-btn.good { border-color: var(--clr-sage); }
 .vmx-sr-btn.good .label { color: var(--clr-sage-text); }
 .vmx-sr-btn.easy { border-color: var(--clr-ocean); }
-.vmx-sr-btn.easy .label { color: var(--clr-ocean); }
+.vmx-sr-btn.easy .label { color: var(--clr-ocean-text); }
 
 .vmx-flashcard { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 40px; min-height: 300px; text-align: center; margin-bottom: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; }
 .vmx-flashcard .front { font-size: 20px; line-height: 1.5; color: var(--clr-ink); }
@@ -2218,7 +2242,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 
 .vmx-streak-hot {
   border-color: var(--clr-gold);
-  background: var(--clr-gold-soft);
+  background: color-mix(in srgb, var(--clr-gold) 16%, var(--clr-surface));
 }
 .vmx-streak-hot .vmx-streak-fire {
   animation: none;
@@ -2730,7 +2754,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
    Appended last so the verdict colors win the cascade over
    .vmx-option.selected / .vmx-tf-btn.selected-* defined above. */
 .vmx-option.is-correct { border-color: var(--clr-sage); background: rgba(74, 107, 74, 0.12); color: var(--clr-ink); }
-.vmx-option.is-correct .vmx-option-letter { background: var(--clr-sage); border-color: var(--clr-sage); color: #fff; }
+.vmx-option.is-correct .vmx-option-letter { background: var(--clr-sage); border-color: var(--clr-sage); color: var(--clr-sage-on); }
 .vmx-option.is-wrong { border-color: var(--clr-rose); background: rgba(194, 109, 109, 0.10); color: var(--clr-ink); }
 .vmx-option.is-wrong .vmx-option-letter { background: var(--clr-rose); border-color: var(--clr-rose); color: var(--clr-rose-on); }
 .vmx-option:disabled, .vmx-option[aria-disabled="true"] { cursor: default; pointer-events: none; }

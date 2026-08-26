@@ -67,7 +67,7 @@ export default function AdminView({ user, onBack, initialTab = 'domains' }) {
               fontSize: 14,
               fontWeight: activeTab === tab.id ? 700 : 500,
               borderBottom: activeTab === tab.id ? '2px solid var(--clr-sage)' : '2px solid transparent',
-              color: activeTab === tab.id ? 'var(--clr-sage)' : 'var(--clr-ink-soft)',
+              color: activeTab === tab.id ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)',
             }}
           >
             {tab.label}
