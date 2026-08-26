@@ -29,7 +29,11 @@
   --clr-ink-soft: #5c4f3d;
   --clr-sage: #4a6b4a;
   --clr-sage-soft: #a8c0a8;
-  --clr-rose: #c26d6d;
+  /* Was #c26d6d, which carried neither of its two jobs: white on it 3.68
+     (and every rose fill in this app writes white or surface on it), and
+     as text on cream 3.48. #b05555 clears both — 4.91 and 4.64 — so rose
+     needs no separate on-colour in light, the way sage does not. */
+  --clr-rose: #b05555;
   --clr-rose-soft: #e8b8b8;
   --clr-gold: #b88940;
   --clr-gold-soft: #e8d4a8;
@@ -39,6 +43,13 @@
   --clr-sage-text: #355a39;
   --clr-gold-text: #76511e;
   --clr-rose-text: #93454b;
+  /* Labels for the accent fills. Gold is the one that cannot serve both
+     roles: white on #b88940 is 3.14 and darkening it far enough to carry
+     white turns gold into brown, so gold keeps its brightness and takes
+     ink instead — 4.89, and dark-on-gold is what a LIVE badge looks like
+     anywhere else. */
+  --clr-gold-on: var(--clr-ink);
+  --clr-rose-on: #ffffff;
   --shadow-sm: 0 1px 2px rgba(43, 36, 25, 0.08);
   --shadow-md: 0 4px 12px rgba(43, 36, 25, 0.08), 0 2px 4px rgba(43, 36, 25, 0.05);
   --shadow-lg: 0 12px 32px rgba(43, 36, 25, 0.14), 0 4px 8px rgba(43, 36, 25, 0.08);
@@ -60,7 +71,9 @@
   --vmx-color-learning: var(--clr-sage);
   --vmx-color-learning-on: #ffffff;
   --vmx-color-success: #43793f;
+  --vmx-color-success-on: #ffffff;
   --vmx-color-danger: var(--clr-rose);
+  --vmx-color-danger-on: #ffffff;
   --vmx-color-ghost: var(--clr-surface-2);
   --vmx-surface: var(--clr-surface);
   --vmx-surface-muted: var(--clr-surface-2);
@@ -126,6 +139,11 @@
   --clr-sage-text: #9bc99b;
   --clr-gold-text: #e4ba73;
   --clr-rose-text: #edaaaa;
+  /* Dark inverts which label works: these fills are mid-toned, so the
+     page background reads on them (gold 7.98, rose 7.12) where white
+     does not. */
+  --clr-gold-on: var(--clr-bg);
+  --clr-rose-on: var(--clr-bg);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.35);
@@ -138,7 +156,11 @@
      readable choice once the fill itself is mid-toned. */
   --vmx-color-learning-on: var(--clr-bg);
   --vmx-color-success: #5a9a5a;
+  --vmx-color-success-on: var(--clr-bg);
+  /* #a85a5a is dark enough that white still clears here (4.91) — the one
+     fill in dark mode that keeps its light label. */
   --vmx-color-danger: #a85a5a;
+  --vmx-color-danger-on: #ffffff;
   --vmx-color-ghost: var(--clr-surface-2);
   --vmx-surface: var(--clr-surface);
   --vmx-surface-muted: var(--clr-surface-2);
@@ -160,6 +182,7 @@
   --clr-sage-text: #3d6b82;
   --clr-sage-soft: #a8c0d4;
   --clr-gold: #6b94a8;
+  --clr-gold-text: #496c7d;
   --clr-gold-soft: #c0d4e0;
 }
 [data-theme="dark"][data-palette="ocean"] {
@@ -167,13 +190,20 @@
   --clr-sage-text: #7ba0b1;
   --clr-sage-soft: #3d6b82;
   --clr-gold: #8fb0c2;
+  --clr-gold-text: #8fb0c2;
   --clr-gold-soft: #4d6e80;
 }
+/* gold-text here and in mono are one notch darker than solving against
+   the three base surfaces suggests: the "อัปเดตใหม่" chip sits on
+   surface-2 tinted with 12% of the accent, lighter than any base, and
+   both landed at 4.47-4.48 there. derive-accent-roles.mjs now carries
+   the tint as a constraint so the next one is right the first time. */
 [data-palette="plum"] {
   --clr-sage: #7d4a7d;
   --clr-sage-text: #7d4a7d;
   --clr-sage-soft: #c5a8c5;
   --clr-gold: #b07ab0;
+  --clr-gold-text: #834e83;
   --clr-gold-soft: #e0c8e0;
 }
 [data-theme="dark"][data-palette="plum"] {
@@ -181,6 +211,7 @@
   --clr-sage-text: #ba8aba;
   --clr-sage-soft: #7d4a7d;
   --clr-gold: #c89bc8;
+  --clr-gold-text: #c89bc8;
   --clr-gold-soft: #6e3d6e;
 }
 [data-palette="cherry"] {
@@ -210,28 +241,46 @@
   --clr-sage: #4a4a4a;
   --clr-sage-text: #4a4a4a;
   --clr-sage-soft: #b8b8b8;
-  --clr-gold: #777777;
+  --clr-gold: #767676;
+  --clr-gold-text: #5f5f5f;
   --clr-gold-soft: #d0d0d0;
+}/* Light only. A bare [data-palette="mono"] matches in DARK too and sits
+   later in the file at equal specificity, so it was overriding the dark
+   theme's --clr-gold-on and putting white back on a pale gold fill at
+   2.28. Second time this cascade has bitten in this file. */
+[data-theme="light"][data-palette="mono"] {
+  --clr-gold-on: #ffffff;
 }
+
 [data-theme="dark"][data-palette="mono"] {
   --clr-sage: #c0c0c0;
   --clr-sage-text: #c0c0c0;
   --clr-sage-soft: #4a4a4a;
   --clr-gold: #909090;
+  --clr-gold-text: #9a9a9a;
   --clr-gold-soft: #555555;
 }
 [data-palette="forest"] {
   --clr-sage: #2d5a3d;
   --clr-sage-text: #2d5a3d;
   --clr-sage-soft: #8fb89e;
-  --clr-gold: #8a7a3a;
+  --clr-gold: #857538;
+  --clr-gold-text: #746731;
   --clr-gold-soft: #d4c890;
+}/* Light only. A bare [data-palette="forest"] matches in DARK too and sits
+   later in the file at equal specificity, so it was overriding the dark
+   theme's --clr-gold-on and putting white back on a pale gold fill at
+   2.28. Second time this cascade has bitten in this file. */
+[data-theme="light"][data-palette="forest"] {
+  --clr-gold-on: #ffffff;
 }
+
 [data-theme="dark"][data-palette="forest"] {
   --clr-sage: #6fa07f;
   --clr-sage-text: #77a586;
   --clr-sage-soft: #2d5a3d;
   --clr-gold: #c0aa68;
+  --clr-gold-text: #c0aa68;
   --clr-gold-soft: #5a4f28;
 }
 
@@ -545,7 +594,7 @@ html, body {
 .vmx-header-context { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 0; }
 .vmx-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; cursor: pointer; }
 .vmx-wordmark-text { color: var(--clr-ink); font-style: normal; font-weight: 800; }
-.vmx-wordmark-text > span { color: var(--clr-rose); font-style: italic; font-weight: 500; }
+.vmx-wordmark-text > span { color: var(--clr-rose-text); font-style: italic; font-weight: 500; }
 .vmx-logo-btn { border: 0; background: transparent; color: var(--clr-ink); padding: 8px 2px; min-height: 44px; display: inline-flex; align-items: center; gap: 9px; }
 .vmx-logo-btn:hover .vmx-wordmark-text > span { color: var(--clr-rose-text); }
 .vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
@@ -1297,7 +1346,7 @@ html, body {
 
 .vmx-btn-danger {
   background: var(--vmx-color-danger);
-  color: #ffffff;
+  color: var(--vmx-color-danger-on);
   --vmx-btn-border: var(--vmx-color-danger);
 }
 .vmx-btn-danger:hover:not(:disabled) {
@@ -1361,7 +1410,7 @@ html, body {
 .vmx-progress { font-family: var(--vmx-mono); font-size: 13px; color: var(--clr-ink-soft); }
 .vmx-progress strong { color: var(--clr-ink); font-size: 16px; }
 .vmx-timer { font-family: var(--vmx-mono); font-size: 16px; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: var(--clr-surface); border: 1px solid var(--clr-border); color: var(--clr-ink); }
-.vmx-timer.warn { background: var(--clr-rose); color: var(--clr-surface); border-color: var(--clr-rose); animation: pulse 1s infinite; }
+.vmx-timer.warn { background: var(--clr-rose); color: var(--clr-rose-on); border-color: var(--clr-rose); animation: pulse 1s infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
 .vmx-progress-bar { height: 3px; background: var(--clr-surface-2); border-radius: 999px; overflow: hidden; margin-bottom: 28px; }
 .vmx-progress-fill { height: 100%; background: var(--clr-ink); transition: width 0.3s; }
@@ -1404,7 +1453,7 @@ html, body {
 
 .vmx-bookmark-btn { position: absolute; top: 20px; right: 20px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-bookmark-btn:hover { border-color: var(--clr-gold); }
-.vmx-bookmark-btn.active { background: var(--clr-gold); border-color: var(--clr-gold); color: var(--clr-surface); }
+.vmx-bookmark-btn.active { background: var(--clr-gold); border-color: var(--clr-gold); color: var(--clr-gold-on); }
 .vmx-note-btn { position: absolute; top: 20px; right: 64px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-note-btn:hover { border-color: var(--clr-ocean); }
 .vmx-note-btn.has-note { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
@@ -1596,7 +1645,7 @@ html, body {
 .vmx-tf-btn { padding: 24px; border-radius: 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; transition: all 0.15s; font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; color: var(--clr-ink); }
 .vmx-tf-btn:hover { border-color: var(--clr-ink); }
 .vmx-tf-btn.selected-true { background: var(--clr-sage); color: var(--clr-surface); border-color: var(--clr-sage); }
-.vmx-tf-btn.selected-false { background: var(--clr-rose); color: var(--clr-surface); border-color: var(--clr-rose); }
+.vmx-tf-btn.selected-false { background: var(--clr-rose); color: var(--clr-rose-on); border-color: var(--clr-rose); }
 
 .vmx-fill-row { display: flex; flex-direction: column; gap: 12px; }
 .vmx-fill-label { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); margin-bottom: 4px; }
@@ -1614,7 +1663,7 @@ html, body {
 .vmx-results-hero { text-align: center; padding: 40px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); margin-bottom: 24px; box-shadow: var(--shadow-md); }
 .vmx-score-big { font-family: 'Fraunces', serif; font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
 .vmx-score-big.pass { color: var(--clr-sage-text); }
-.vmx-score-big.fail { color: var(--clr-rose); }
+.vmx-score-big.fail { color: var(--clr-rose-text); }
 .vmx-score-label { font-family: inherit; font-size: 13px; color: var(--clr-ink-soft); margin: 8px 0 20px; }
 .vmx-score-frac { font-size: 22px; font-weight: 600; color: var(--clr-ink); }
 .vmx-score-msg { font-family: inherit; font-size: 17px; line-height: 1.55; color: var(--clr-ink-soft); margin-top: 16px; }
@@ -1631,7 +1680,7 @@ html, body {
 .vmx-review-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-family: inherit; font-size: 12px; color: var(--clr-ink-soft); flex-wrap: wrap; }
 .vmx-review-result { font-weight: 700; }
 .vmx-review-result.ok { color: var(--clr-sage-text); }
-.vmx-review-result.no { color: var(--clr-rose); }
+.vmx-review-result.no { color: var(--clr-rose-text); }
 .vmx-review-q { margin: 0 0 12px; color: var(--clr-ink); font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1.55; }
 .vmx-review-expand {
   min-height: var(--touch-min);
@@ -1671,9 +1720,9 @@ html, body {
 .vmx-sr-btn .label { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; margin-bottom: 4px; }
 .vmx-sr-btn .sub { font-family: var(--vmx-mono); font-size: var(--text-xs); color: var(--clr-ink-soft); letter-spacing: 0.05em; }
 .vmx-sr-btn.again { border-color: var(--clr-rose); }
-.vmx-sr-btn.again .label { color: var(--clr-rose); }
+.vmx-sr-btn.again .label { color: var(--clr-rose-text); }
 .vmx-sr-btn.hard { border-color: var(--clr-gold); }
-.vmx-sr-btn.hard .label { color: var(--clr-gold); }
+.vmx-sr-btn.hard .label { color: var(--clr-gold-text); }
 .vmx-sr-btn.good { border-color: var(--clr-sage); }
 .vmx-sr-btn.good .label { color: var(--clr-sage-text); }
 .vmx-sr-btn.easy { border-color: var(--clr-ocean); }
@@ -1754,7 +1803,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   font-family: 'Fraunces', serif; font-weight: 800; font-size: 18px;
   letter-spacing: -0.02em; color: var(--clr-ink); margin-bottom: var(--space-2);
 }
-.vmx-footer-wordmark span { color: var(--clr-rose); font-style: italic; font-weight: 500; }
+.vmx-footer-wordmark span { color: var(--clr-rose-text); font-style: italic; font-weight: 500; }
 .vmx-footer-brand p { margin: 0; max-width: 34ch; line-height: 1.6; font-size: 12.5px; }
 .vmx-footer-col { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .vmx-footer-col h2 {
@@ -1989,7 +2038,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   font-size: 18px;
   font-weight: 600;
   margin: 22px 0 8px;
-  color: var(--clr-rose);
+  color: var(--clr-rose-text);
   border-left: 3px solid var(--clr-rose);
   padding-left: 10px;
 }
@@ -2228,7 +2277,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-streak-milestone {
   font-size: 11px;
   font-weight: 600;
-  color: var(--clr-gold);
+  color: var(--clr-gold-text);
   letter-spacing: 0.02em;
   animation: vmx-milestone-fade 0.5s ease-out;
 }
@@ -2276,7 +2325,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-streak-milestone-badge {
   font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--clr-gold);
+  color: var(--clr-gold-text);
   letter-spacing: 0.02em;
   margin-top: 6px;
   padding: 2px 8px;
@@ -2299,7 +2348,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 
 .vmx-heatmap-total {
   font-size: 12px;
-  color: var(--clr-gold);
+  color: var(--clr-gold-text);
   font-family: var(--vmx-mono);
   font-weight: 600;
 }
@@ -2683,7 +2732,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-option.is-correct { border-color: var(--clr-sage); background: rgba(74, 107, 74, 0.12); color: var(--clr-ink); }
 .vmx-option.is-correct .vmx-option-letter { background: var(--clr-sage); border-color: var(--clr-sage); color: #fff; }
 .vmx-option.is-wrong { border-color: var(--clr-rose); background: rgba(194, 109, 109, 0.10); color: var(--clr-ink); }
-.vmx-option.is-wrong .vmx-option-letter { background: var(--clr-rose); border-color: var(--clr-rose); color: #fff; }
+.vmx-option.is-wrong .vmx-option-letter { background: var(--clr-rose); border-color: var(--clr-rose); color: var(--clr-rose-on); }
 .vmx-option:disabled, .vmx-option[aria-disabled="true"] { cursor: default; pointer-events: none; }
 .vmx-tf-btn.reveal-correct { border-color: var(--clr-sage); box-shadow: inset 0 0 0 2px var(--clr-sage); }
 .vmx-tf-btn.reveal-wrong { border-color: var(--clr-rose); box-shadow: inset 0 0 0 2px var(--clr-rose); opacity: 0.85; }

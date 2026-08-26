@@ -126,7 +126,7 @@ export default function LandingBody(p) {
                     let st = base;
                     if (i < 3) st = { ...base, background: 'var(--clr-sage)', color: 'var(--clr-surface)', borderColor: 'var(--clr-sage)' };
                     else if (i === 3) st = { ...base, background: 'var(--clr-ink)', color: 'var(--clr-bg)', borderColor: 'var(--clr-ink)' };
-                    else if (i === 7) st = { ...base, background: 'var(--clr-gold)', color: 'var(--clr-surface)', borderColor: 'var(--clr-gold)' };
+                    else if (i === 7) st = { ...base, background: 'var(--clr-gold)', color: 'var(--clr-gold-on)', borderColor: 'var(--clr-gold)' };
                     return <div key={i} style={st}>{i + 1}</div>;
                   })}
                 </div>
@@ -206,7 +206,7 @@ export default function LandingBody(p) {
       <section id="panic" data-screen-label="Panic Mode" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, borderTop: '1px dashed var(--clr-border)' }}>
         <div className="lp-stack" style={{ ...container, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 46, alignItems: 'center' }}>
           <div className="lp-reveal">
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-gold)', borderRadius: 999, background: 'var(--clr-gold-soft)', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink)', marginBottom: 18 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-gold)', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-gold) 16%, var(--clr-surface))', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink)', marginBottom: 18 }}>
               <span>🚨</span>{t.panicLabel}
             </div>
             <h2 style={{ ...h2, fontSize: 'clamp(32px,4.6vw,50px)', lineHeight: 1, margin: '0 0 8px' }}>{t.panicHead}</h2>
@@ -220,7 +220,7 @@ export default function LandingBody(p) {
             </div>
             {/* Runs a REAL cram session sized to the time the user just picked
                 (weak topics when there's enough history to know them). */}
-            <button type="button" onClick={() => (p.onStartPanic ? p.onStartPanic(p.panicTime) : p.onEnterApp())} className="vmx-btn" style={{ background: 'var(--clr-gold)', color: 'var(--clr-surface)', fontSize: 15, padding: '15px 26px' }}>{t.panicCta} →</button>
+            <button type="button" onClick={() => (p.onStartPanic ? p.onStartPanic(p.panicTime) : p.onEnterApp())} className="vmx-btn" style={{ background: 'var(--clr-gold)', color: 'var(--clr-gold-on)', fontSize: 15, padding: '15px 26px' }}>{t.panicCta} →</button>
           </div>
           <div className="lp-reveal lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: '3px solid var(--clr-gold)', borderRadius: 20, padding: 28, boxShadow: 'var(--shadow-md)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
@@ -231,7 +231,7 @@ export default function LandingBody(p) {
               <span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
-              {[[p.panic.c, t.panicStatConcepts, 'var(--clr-ink)'], [p.panic.t, t.panicStatTraps, 'var(--clr-gold)'], [p.panic.q, t.panicStatQ, 'var(--clr-sage)'], [p.panic.w, t.panicStatWeak, 'var(--clr-rose)']].map(([v, lbl, c]) => (
+              {[[p.panic.c, t.panicStatConcepts, 'var(--clr-ink)'], [p.panic.t, t.panicStatTraps, 'var(--clr-gold-text)'], [p.panic.q, t.panicStatQ, 'var(--clr-sage-text)'], [p.panic.w, t.panicStatWeak, 'var(--clr-rose-text)']].map(([v, lbl, c]) => (
                 <div key={lbl} style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 13, padding: 15 }}>
                   <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 30, lineHeight: 1, color: c }}>{v}</div>
                   <div style={{ fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 6 }}>{lbl}</div>

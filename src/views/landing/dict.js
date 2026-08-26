@@ -92,8 +92,8 @@ export const DICT = {
     rDisclaimer: 'A study-progress indicator — not a prediction or guarantee of your actual examination result.',
     weakLabel: 'Weakness detection', weakHead: 'VetMock notices the patterns you miss.', weakSub: 'Every session updates a picture of how you think — then turns it into focused practice.', weakCta: 'Open VetMock to practise weak topics',
     weaknessCards: [
-      { tag: 'Pattern', text: 'You often confuse hyperadrenocorticism with hypothyroidism.', color: 'var(--clr-gold)' },
-      { tag: 'Accuracy', text: 'Your accuracy drops on questions that require diagnostic test selection.', color: 'var(--clr-rose)' },
+      { tag: 'Pattern', text: 'You often confuse hyperadrenocorticism with hypothyroidism.', color: 'var(--clr-gold-text)' },
+      { tag: 'Accuracy', text: 'Your accuracy drops on questions that require diagnostic test selection.', color: 'var(--clr-rose-text)' },
       { tag: 'Visual', text: 'Thoracic radiographic pattern recognition needs more practice.', color: 'var(--clr-ocean)' },
       { tag: 'Speed', text: 'You answer pharmacology accurately — but slowly.', color: 'var(--clr-sage-text)' },
     ],
@@ -203,8 +203,8 @@ export const DICT = {
     rDisclaimer: 'เป็นตัวชี้วัดความคืบหน้าในการอ่าน ไม่ใช่การทำนายหรือรับประกันผลสอบจริง',
     weakLabel: 'ตรวจจับจุดอ่อน', weakHead: 'VetMock เห็นแพตเทิร์นที่คุณพลาดบ่อย', weakSub: 'ทุกครั้งที่ฝึกจะอัปเดตภาพว่าคุณคิดยังไง แล้วเปลี่ยนเป็นชุดฝึกที่โฟกัส', weakCta: 'เข้าแอปเพื่อฝึกหัวข้อที่อ่อน',
     weaknessCards: [
-      { tag: 'Pattern', text: 'คุณมักสับสนระหว่าง hyperadrenocorticism กับ hypothyroidism', color: 'var(--clr-gold)' },
-      { tag: 'Accuracy', text: 'ความแม่นของคุณลดลงในข้อที่ต้องเลือก diagnostic test', color: 'var(--clr-rose)' },
+      { tag: 'Pattern', text: 'คุณมักสับสนระหว่าง hyperadrenocorticism กับ hypothyroidism', color: 'var(--clr-gold-text)' },
+      { tag: 'Accuracy', text: 'ความแม่นของคุณลดลงในข้อที่ต้องเลือก diagnostic test', color: 'var(--clr-rose-text)' },
       { tag: 'Visual', text: 'การอ่าน pattern ภาพรังสีทรวงอก ยังต้องฝึกเพิ่ม', color: 'var(--clr-ocean)' },
       { tag: 'Speed', text: 'คุณตอบ pharmacology ได้แม่น แต่ช้า', color: 'var(--clr-sage-text)' },
     ],

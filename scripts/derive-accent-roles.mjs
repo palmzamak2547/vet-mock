@@ -117,15 +117,47 @@ const resolve = (vars, base, name) => {
   return v;
 };
 
-console.log('# fill  = the accent as a background');
-console.log('# on    = the label that sits ON the fill (white or --clr-bg)');
-console.log('# text  = the accent as text, clearing bg + surface + surface-2\n');
+// Three accent families, same three roles. Sage's fill lives behind the
+// --vmx-color-learning interaction token; gold and rose are used as
+// fills directly, so the accent itself carries that role.
+const FAMILIES = [
+  { name: 'sage',  accent: 'clr-sage',  text: 'clr-sage-text',  fill: 'vmx-color-learning', on: 'vmx-color-learning-on' },
+  { name: 'gold',  accent: 'clr-gold',  text: 'clr-gold-text',  fill: 'clr-gold',           on: 'clr-gold-on' },
+  { name: 'rose',  accent: 'clr-rose',  text: 'clr-rose-text',  fill: 'clr-rose',           on: 'clr-rose-on' },
+  // The two remaining interaction fills. They are never used as text, so
+  // only their labels matter — but a fill whose label is hardcoded is the
+  // same bug wearing a different name.
+  { name: 'danger', accent: 'vmx-color-danger', text: null, fill: 'vmx-color-danger', on: 'vmx-color-danger-on' },
+  { name: 'ok',     accent: 'vmx-color-success', text: null, fill: 'vmx-color-success', on: 'vmx-color-success-on' },
+];
+
+console.log('# fill = the accent as a background');
+console.log('# on   = the label that sits ON the fill (white or --clr-bg)');
+console.log('# text = the accent as text, clearing bg + surface + surface-2\n');
 
 const rows = [];
 
 for (const theme of ['light', 'dark']) {
   const base = BASE[theme];
   const surfaces = [base['clr-bg'], base['clr-surface'], base['clr-surface-2']];
+
+  // Chips and cards tint their surface with 10-12% of the accent, which
+  // lands LIGHTER than any base surface in light mode and darker in
+  // dark. Solving only against the bases produced values that cleared
+  // every surface I thought to check and then failed at 4.47 on a tinted
+  // chip — three times, on three different accents. So the tint is a
+  // constraint, not a caveat.
+  // Over BOTH bases: the chip that first exposed this sits on surface-2,
+  // not surface, and a tint over the wrong base is off by the 0.03 that
+  // decides 4.47 from 4.50.
+  const tints = (accent) => {
+    const [ar, ag, ab] = hex2rgb(accent);
+    return ['clr-surface', 'clr-surface-2'].map((key) => {
+      const [sr, sg, sb] = hex2rgb(base[key]);
+      const a = 0.12;
+      return rgb2hex([ar * a + sr * (1 - a), ag * a + sg * (1 - a), ab * a + sb * (1 - a)]);
+    });
+  };
 
   for (const palette of [null, ...PALETTES]) {
     const sel = palette
@@ -134,43 +166,60 @@ for (const theme of ['light', 'dark']) {
     const vars = palette ? block(sel) : base;
     if (!vars) continue;
 
-    const sage = resolve(vars, base, 'clr-sage');
-    let fill = resolve(vars, base, 'vmx-color-learning') || sage;
+    for (const fam of FAMILIES) {
+      const accent = resolve(vars, base, fam.accent);
+      if (!accent) continue;
+      // A palette that does not re-point this family inherits the base
+      // value, and re-emitting it would bury the ones that DO differ.
+      const overridden = !palette || (vars[fam.accent] !== undefined);
+      let fill = resolve(vars, base, fam.fill) || accent;
 
-    // A fill is not a lone constraint — it is a PAIR with whatever label
-    // sits on it. Solving the fill against both #fff and --clr-bg at once
-    // is unsatisfiable by construction (one wants it dark, the other
-    // light), which is precisely the mistake that produced a single token
-    // doing two jobs. So: pick the better label, and only move the fill if
-    // even the better one cannot clear.
-    const candidates = [['#ffffff', '#ffffff'], [base['clr-bg'], 'var(--clr-bg)']];
-    let best = candidates
-      .map(([hex, css]) => ({ hex, css, r: ratio(hex2rgb(fill), hex2rgb(hex)) }))
-      .sort((a, b) => b.r - a.r)[0];
-    if (best.r < TARGET) {
-      const moved = solve(fill, [best.hex], TARGET, best.hex === '#ffffff' ? -1 : +1);
-      if (moved) { fill = moved; best = { ...best, r: ratio(hex2rgb(fill), hex2rgb(best.hex)) }; }
+      // Fill and label are a PAIR — solving one value against both #fff
+      // and --clr-bg is unsatisfiable by construction. Pick the better
+      // label, move the fill only if even that cannot clear.
+      // --clr-ink matters: in LIGHT theme both #fff and --clr-bg are pale,
+      // so a pale accent like gold had no readable label on offer at all
+      // and the solver darkened the fill instead of just writing on it in
+      // ink, which is 4.89 on gold as it already stands.
+      const candidates = [
+        ['#ffffff', '#ffffff'],
+        [base['clr-bg'], 'var(--clr-bg)'],
+        [base['clr-ink'], 'var(--clr-ink)'],
+      ];
+      let best = candidates
+        .map(([hex, css]) => ({ hex, css, r: ratio(hex2rgb(fill), hex2rgb(hex)) }))
+        .sort((a, b) => b.r - a.r)[0];
+      if (best.r < TARGET) {
+        const moved = solve(fill, [best.hex], TARGET, best.hex === '#ffffff' ? -1 : +1);
+        if (moved) { fill = moved; best = { ...best, r: ratio(hex2rgb(fill), hex2rgb(best.hex)) }; }
+      }
+
+      const against = [...surfaces, ...tints(accent)];
+      const text = fam.text ? solve(accent, against, TARGET, theme === 'dark' ? +1 : -1) : null;
+      const textR = text ? Math.min(...against.map((a) => ratio(hex2rgb(text), hex2rgb(a)))) : 0;
+
+      rows.push({ sel, fam, theme, palette, overridden, accent, fill, on: best.css, onR: best.r, text, textR });
     }
-
-    const text = solve(sage, surfaces, TARGET, theme === 'dark' ? +1 : -1);
-    const textR = text ? Math.min(...surfaces.map((a) => ratio(hex2rgb(text), hex2rgb(a)))) : 0;
-
-    rows.push({ sel, theme, palette, fill, on: best.css, onR: best.r, text, textR });
   }
 }
 
+let lastSel = null;
 for (const r of rows) {
-  console.log(r.sel);
-  console.log(`  fill ${r.fill}   on ${r.on.padEnd(15)} ${r.onR.toFixed(2)}`);
-  console.log(`  text ${r.text || 'NO SOLUTION'}   ${r.textR.toFixed(2)}`);
-  console.log('');
+  if (r.sel !== lastSel) { console.log(`\n${r.sel}`); lastSel = r.sel; }
+  const flag = r.overridden ? '' : '  (inherited)';
+  console.log(`  ${r.fam.name.padEnd(5)} fill ${r.fill}  on ${r.on.padEnd(15)} ${r.onR.toFixed(2)}   text ${r.text || '—'}  ${r.textR.toFixed(2)}${flag}`);
 }
 
-console.log('\n/* ---- paste ---- */');
+console.log('\n/* ---- paste: only what this selector actually re-points ---- */');
+lastSel = null;
 for (const r of rows) {
-  console.log(`${r.sel} {`);
-  console.log(`  --vmx-color-learning: ${r.fill};`);
-  console.log(`  --vmx-color-learning-on: ${r.on};`);
-  console.log(`  --clr-sage-text: ${r.text};`);
-  console.log('}');
+  if (!r.overridden) continue;
+  if (r.sel !== lastSel) {
+    if (lastSel !== null) console.log('}');
+    console.log(`${r.sel} {`);
+    lastSel = r.sel;
+  }
+  if (r.fam.text) console.log(`  --${r.fam.text}: ${r.text};`);
+  console.log(`  --${r.fam.on}: ${r.on};`);
 }
+if (lastSel !== null) console.log('}');

@@ -50,19 +50,6 @@ const LANDING = process.argv.includes('--landing');
 // the list cannot quietly become a place to hide new regressions.
 const KNOWN = [
   {
-    // --landing only. Reported rather than fixed: --clr-gold and
-    // --clr-rose have the same fill/text split --clr-sage just got, but
-    // they are two more brand colours and the decision is not a patch.
-    // Numbers so nobody has to re-measure: gold #b88940 under
-    // --clr-surface text = 2.97 (the Panic-Mode button), gold as text on
-    // cream = 2.75, rose #c26d6d as text on cream = 3.48. All predate
-    // this pass and all live in the signed-out landing demos.
-    match: /^(Accuracy|Pattern|Speed|Recall|เข้าสู่ Panic Mode →|\d{1,3}|🚨)$/,
-    why: '--clr-gold / --clr-rose still need the fill-vs-text split (landing demos only): '
-       + 'gold fill under surface text 2.97, gold as text 2.75, rose as text 3.48.',
-    onText: true,
-  },
-  {
     match: /^Mock$/,
     why: 'the wordmark. Brand identity at display size, not body copy.',
     onText: true,

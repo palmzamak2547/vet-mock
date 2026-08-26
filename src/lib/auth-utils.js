@@ -63,7 +63,7 @@ export function validateUsername(value) {
 export function passwordStrength(password) {
   const p = String(password || '');
   if (p.length === 0) return { score: 0, label: '', color: 'var(--clr-border)', percent: 0 };
-  if (p.length < 8) return { score: 0, label: 'สั้นเกินไป', color: 'var(--clr-rose)', percent: 15 };
+  if (p.length < 8) return { score: 0, label: 'สั้นเกินไป', color: 'var(--clr-rose-text)', percent: 15 };
 
   let score = 0;
   if (p.length >= 8) score++;
@@ -73,8 +73,8 @@ export function passwordStrength(password) {
   if (/[^A-Za-z0-9]/.test(p)) score++;
 
   // Map raw score (0-5) to bucket
-  if (score <= 1) return { score: 1, label: 'อ่อน',     color: 'var(--clr-rose)',  percent: 30 };
-  if (score === 2) return { score: 2, label: 'พอใช้',   color: 'var(--clr-gold)',  percent: 55 };
+  if (score <= 1) return { score: 1, label: 'อ่อน',     color: 'var(--clr-rose-text)',  percent: 30 };
+  if (score === 2) return { score: 2, label: 'พอใช้',   color: 'var(--clr-gold-text)',  percent: 55 };
   if (score === 3) return { score: 3, label: 'ดี',     color: 'var(--clr-sage-text)',  percent: 80 };
   return            { score: 4, label: 'แข็งแรงมาก', color: 'var(--clr-sage-text)',  percent: 100 };
 }
