@@ -7,10 +7,12 @@
 // from and who verified it.
 //
 // Renders a compact chip with the source filename, expandable to a
-// detail panel showing all citation fields + a "report" CTA that
-// prefills the feedback form with the Q context. Iron Rule 0: this
+// detail panel showing all citation fields. Iron Rule 0: this
 // chip just READS existing fields (q.source, q.verified, q.examOrigin,
 // q.flag) — no fabrication.
+//   5.33: the per-question report button lived here but no caller
+// ever passed `onReport`, so it was unreachable — removed. Reporting
+// happens through the question-card toolbar flag.
 //
 // Placement: inside the Question component, below the options +
 // explain panel, above the optional image-fallback strip.
@@ -21,7 +23,7 @@ import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/cit
 
 export { isDisplayableWikiRef, getEligibleCitationForQuestion };
 
-export default function QSourceChip({ q, onReport, store }) {
+export default function QSourceChip({ q, store }) {
   const [open, setOpen] = useState(false);
 
   // Evaluate strict citation eligibility via getEligibleCitationForQuestion
@@ -122,9 +124,6 @@ export default function QSourceChip({ q, onReport, store }) {
           {q.verified && (
             <Row label="Verified" value={q.verified} icon="✓" iconColor="var(--clr-sage)" />
           )}
-          {q.examOrigin && (
-            <Row label="ที่มาแนว" value={q.examOrigin} />
-          )}
           {q.flag?.note && (
             <Row
               label="Flag"
@@ -139,29 +138,6 @@ export default function QSourceChip({ q, onReport, store }) {
           )}
           {q.tags && q.tags.length > 0 && (
             <Row label="Tags" value={q.tags.join(', ')} />
-          )}
-
-          {onReport && (
-            <button
-              type="button"
-              onClick={() => onReport(q)}
-              style={{
-                all: 'unset',
-                cursor: 'pointer',
-                alignSelf: 'flex-start',
-                marginTop: 4,
-                padding: '4px 10px',
-                borderRadius: 999,
-                border: '1px solid var(--clr-border)',
-                fontSize: 11,
-                fontFamily: 'inherit',
-                color: 'var(--clr-rose-text)',
-                background: 'rgba(225, 48, 108, 0.04)',
-              }}
-              title="ส่ง feedback สำหรับข้อนี้ — เปิดแบบฟอร์มพร้อมเนื้อหา prefilled"
-            >
-              🐛 แจ้งปัญหาข้อนี้
-            </button>
           )}
         </div>
       )}

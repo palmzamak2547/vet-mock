@@ -382,11 +382,12 @@ export default function ResultsView({
         score={score}
       />
 
-      {/* Share tier — high scores get IG Story share (people share wins);
-          low/mid scores get challenge framing (people share questions, not
-          bad scores). Pure-writing always sees share since there's no
-          embarrassing score. Threshold 70% per Palm spec 2026-05-18. */}
-      {(autoQs.length === 0 || score.pct >= 70) ? (
+      {/* Share tier — high scores get IG Story share (people share wins).
+          Threshold 70% per Palm spec 2026-05-18. Low/mid scores no longer
+          get a second challenge callout here — the same ท้าเพื่อน button
+          already sits in the NextPlayPanel action row, and showing both
+          read as a duplicate. */}
+      {(autoQs.length === 0 || score.pct >= 70) && (
         <ShareToIGRow
           pct={score.pct}
           correct={score.correct}
@@ -397,8 +398,6 @@ export default function ResultsView({
           writingDone={writingAttempted}
           writingTotal={writingQs.length}
         />
-      ) : (
-        <ChallengeFriendRow questions={questions} score={score} />
       )}
     </>
   );
@@ -654,9 +653,6 @@ function NextPlayPanel({
               ChallengeQuizButton but explicitly invokes navigator.share
               first (mobile system picker → LINE/IG group chat target). */}
           <SendToGroupButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
-          <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>
-            🏠 หน้าแรก
-          </button>
         </div>
       </div>
     </div>
@@ -733,15 +729,7 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
       background: 'rgba(184, 137, 64, 0.06)',
       border: '1px dashed var(--clr-gold, #b88940)',
     }}>
-      <div style={{
-        fontSize: 11,
-        fontFamily: 'var(--vmx-mono)',
-        color: 'var(--clr-gold, #b88940)',
-        textTransform: 'uppercase',
-        letterSpacing: '0.08em',
-        fontWeight: 700,
-        marginBottom: 8,
-      }}>
+      <div className="vmx-kicker" style={{ color: 'var(--clr-gold, #b88940)', marginBottom: 8 }}>
         ต่อจากนี้แนะนำ
       </div>
       <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -960,15 +948,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
       background: `linear-gradient(135deg, ${verdictMeta.color}1f, ${verdictMeta.color}0d)`,
       border: `2px solid ${verdictMeta.color}`,
     }}>
-      <div style={{
-        fontSize: 11,
-        fontFamily: 'var(--vmx-mono)',
-        color: verdictMeta.color,
-        textTransform: 'uppercase',
-        letterSpacing: '0.08em',
-        fontWeight: 700,
-        marginBottom: 6,
-      }}>
+      <div className="vmx-kicker" style={{ color: verdictMeta.color, marginBottom: 6 }}>
         ผลการท้า {sender.senderName ? `จาก ${sender.senderName}` : 'จากเพื่อน'}
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: hasTimes ? 12 : 0 }}>
@@ -1017,28 +997,6 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-// Wraps the challenge-friend share as a callout row (replaces ShareToIGRow
-// on low/mid scores). Communicates the "this is what people DO share"
-// proposition vs awkwardly showing IG-Story-share with a 30% score.
-function ChallengeFriendRow({ questions, score }) {
-  return (
-    <div style={{
-      marginTop: 24,
-      padding: 16,
-      borderRadius: 12,
-      background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.06), rgba(217, 119, 68, 0.06))',
-      border: '1px dashed var(--clr-sage, #4a6b4a)',
-    }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ fontSize: 13, color: 'var(--clr-ink)', flex: '1 1 200px', lineHeight: 1.5 }}>
-          ส่งให้เพื่อนลอง — <strong>เพื่อนตอบถูกมากกว่าเรามั้ย</strong>? วัดดวงเล่นๆ
-        </div>
-        <ChallengeQuizButton questions={questions} score={score} label="ท้าเพื่อนทำชุดนี้" />
-      </div>
     </div>
   );
 }
