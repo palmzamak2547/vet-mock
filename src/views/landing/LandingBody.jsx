@@ -158,7 +158,7 @@ export default function LandingBody(p) {
           </div>
           <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
             {t.problems.map((pr) => (
-              <div key={pr.title} style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
+              <div key={pr.title} className="lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
                 <div style={{ width: 48, height: 48, borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>{pr.emoji}</div>
                 <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{pr.title}</h3>
                 <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{pr.body}</p>
@@ -177,7 +177,7 @@ export default function LandingBody(p) {
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.solSub}</p>
           </div>
           <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }}>
-            <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🎓</div>
                 <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.mockName}</h3>
@@ -188,7 +188,7 @@ export default function LandingBody(p) {
               </div>
               <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm lp-feature-cta" style={{ alignSelf: 'flex-start', marginTop: 4 }}>{t.heroCta1} →</button>
             </div>
-            <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--clr-ocean)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🔬</div>
                 <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.labFName}</h3>
@@ -222,7 +222,7 @@ export default function LandingBody(p) {
                 (weak topics when there's enough history to know them). */}
             <button type="button" onClick={() => (p.onStartPanic ? p.onStartPanic(p.panicTime) : p.onEnterApp())} className="vmx-btn" style={{ background: 'var(--clr-gold)', color: 'var(--clr-surface)', fontSize: 15, padding: '15px 26px' }}>{t.panicCta} →</button>
           </div>
-          <div className="lp-reveal" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: '3px solid var(--clr-gold)', borderRadius: 20, padding: 28, boxShadow: 'var(--shadow-md)' }}>
+          <div className="lp-reveal lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: '3px solid var(--clr-gold)', borderRadius: 20, padding: 28, boxShadow: 'var(--shadow-md)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
               <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, color: 'var(--clr-ink)' }}>{t.panicPlanTitle}</span>
               {/* This card recomputes as the time chips change, but the
@@ -256,7 +256,7 @@ export default function LandingBody(p) {
           <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 44 }}><div style={label()}>{t.howLabel}</div><h2 style={h2}>{t.howHead}</h2></div>
           <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 20 }}>
             {t.steps.map((s, i) => (
-              <div key={s.title} style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
+              <div key={s.title} className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
                 <div style={{ fontFamily: 'var(--vmx-mono)', fontWeight: 600, fontSize: 14, width: 44, height: 44, borderRadius: '50%', background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{i + 1}</div>
                 <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{s.title}</h3>
                 <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{s.body}</p>
@@ -279,7 +279,7 @@ export default function LandingBody(p) {
       <section data-screen-label="Readiness" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
         <div style={container}>
           <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div style={label()}>{t.rLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.rHeadPre}<em style={em}>{t.rHeadEm}</em>{t.rHeadPost}</h2></div>
-          <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '290px 1fr', gap: 38, alignItems: 'center', background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 34 }}>
+          <div className="lp-stack lp-reveal lp-card" style={{ display: 'grid', gridTemplateColumns: '290px 1fr', gap: 38, alignItems: 'center', background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 34 }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
               <div style={{ position: 'relative', width: 200, height: 200, borderRadius: '50%', background: p.readinessRing, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ width: 150, height: 150, borderRadius: '50%', background: 'var(--clr-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -442,7 +442,7 @@ function LabSection({ p }) {
     <section id="lab" data-screen-label="Lab simulation" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
       <div style={container}>
         <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 38 }}><div style={label()}>{t.labSecLabel}</div><h2 style={h2}>{t.labSecHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '60ch', margin: '14px 0 0' }}>{t.labSecSub}</p></div>
-        <div className="lp-stack lp-reveal" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 22, display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 22 }}>
+        <div className="lp-stack lp-reveal lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 22, display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 22 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {/* wrap: the station badge is deliberately nowrap and non-shrinking,
                 so on a phone it took 220 of the 316px available and pushed the
@@ -537,7 +537,7 @@ function AnalyticsSection({ p }) {
     <section id="progress" data-screen-label="Progress" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
       <div style={container}>
         <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={label()}>{t.aLabel}</div><h2 style={h2}>{t.aHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '56ch', margin: '14px 0 0' }}>{t.aSub}</p></div>
-        <div className="lp-reveal" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 26, boxShadow: 'var(--shadow-sm)' }}>
+        <div className="lp-reveal lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 26, boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
             <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>📊 {t.progressTitle}</span>
             <span className="vmx-tag-pill" style={{ marginLeft: 'auto' }}>{t.aSample}</span>

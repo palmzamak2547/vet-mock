@@ -214,77 +214,22 @@ html.lp-active { background: var(--clr-bg); }
 }
 
 /* ================================================================
-   ✨ CARDS — premium hover glow + border shimmer
+   CARDS — calm hover, same visual language as the app (5.33).
+   Was: attribute selectors scraping inline borderRadius values to add
+   lift + glow + a gradient wash. Now one real class, one calm hover.
    ================================================================ */
 
 /* Problem/Solution/How-It-Works cards */
-.lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card),
-.lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card),
-.lp-root [style*="borderRadius: 22"]:not(.vmx-question-card):not(.vmx-subject-card) {
-  transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, border-color .25s;
-  position: relative;
-  overflow: hidden;
+.lp-card {
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast), background var(--dur-fast);
 }
-.lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card)::before,
-.lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card)::before,
-.lp-root [style*="borderRadius: 22"]:not(.vmx-question-card):not(.vmx-subject-card)::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--clr-sage) 6%, transparent) 0%, transparent 50%, color-mix(in srgb, var(--clr-gold) 4%, transparent) 100%);
-  opacity: 0;
-  transition: opacity .3s;
-  pointer-events: none;
-}
-.lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card):hover::before,
-.lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card):hover::before,
-.lp-root [style*="borderRadius: 22"]:not(.vmx-question-card):not(.vmx-subject-card):hover::before {
-  opacity: 1;
-}
-.lp-root [style*="borderRadius: 18"]:not(.vmx-question-card):not(.vmx-subject-card):hover,
-.lp-root [style*="borderRadius: 20"]:not(.vmx-question-card):not(.vmx-subject-card):hover {
-  transform: translateY(-5px) scale(1.01);
-  box-shadow: 
-    0 12px 32px -6px color-mix(in srgb, var(--clr-sage) 18%, rgba(0,0,0,.06)),
-    0 4px 12px rgba(0,0,0,.04),
-    0 0 0 1px color-mix(in srgb, var(--clr-sage) 15%, transparent);
+.lp-card:hover {
   border-color: color-mix(in srgb, var(--clr-sage) 32%, var(--clr-border)) !important;
+  box-shadow: var(--shadow-sm);
 }
 
-/* Subject cards extra glow */
-.lp-root .vmx-subject-card {
-  transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .25s, box-shadow .25s;
-  transform-style: preserve-3d;
-  position: relative;
-  overflow: hidden;
-}
-.lp-root .vmx-subject-card::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--clr-sage) 12%, transparent) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity .3s;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-}
-.lp-root .vmx-subject-card:hover::after {
-  opacity: 1;
-}
-.lp-root .vmx-subject-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 
-    0 10px 28px -4px color-mix(in srgb, var(--clr-sage) 22%, rgba(0,0,0,.06)),
-    0 4px 10px rgba(0,0,0,.04),
-    0 0 0 2px color-mix(in srgb, var(--clr-sage) 20%, transparent);
-  border-color: color-mix(in srgb, var(--clr-sage) 40%, var(--clr-border)) !important;
-}
-
-/* Final CTA dark box — animated gradient border glow */
+/* Final CTA dark box — the animated conic-gradient border is gone;
+   a static sage-gold edge keeps the emphasis without the motion. */
 #cta .lp-reveal > div {
   position: relative;
   overflow: hidden;
@@ -295,9 +240,8 @@ html.lp-active { background: var(--clr-bg); }
   position: absolute;
   inset: -2px;
   border-radius: 28px;
-  background: conic-gradient(from 180deg, var(--clr-sage), var(--clr-gold), var(--clr-ocean), var(--clr-plum), var(--clr-sage));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--clr-sage) 45%, transparent), color-mix(in srgb, var(--clr-gold) 35%, transparent));
   z-index: 0;
-  animation: lp-cta-spin 8s linear infinite;
   opacity: 0.5;
 }
 #cta .lp-reveal > div::after {
@@ -310,22 +254,8 @@ html.lp-active { background: var(--clr-bg); }
 }
 #cta .lp-reveal > div > * { position: relative; z-index: 2; }
 
-@keyframes lp-cta-spin {
-  to { transform: rotate(360deg); }
-}
-
-/* CTA button extra glow */
-#cta .vmx-btn-primary {
-  box-shadow: 0 0 20px color-mix(in srgb, var(--clr-sage) 30%, transparent);
-  transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, background .2s;
-}
-#cta .vmx-btn-primary:hover {
-  box-shadow: 0 0 30px color-mix(in srgb, var(--clr-sage) 40%, transparent), 0 8px 24px rgba(0,0,0,.2);
-  transform: translateY(-3px) scale(1.05);
-}
-
 /* ================================================================
-   ✨ TRUST BAND — gradient shimmer on the row
+   TRUST BAND — static top line (the looping shimmer is gone)
    ================================================================ */
 #why {
   background: linear-gradient(135deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-surface) 80%, var(--clr-bg)) 100%) !important;
@@ -343,18 +273,6 @@ html.lp-active { background: var(--clr-bg); }
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--clr-sage-soft), var(--clr-gold-soft), transparent);
   opacity: 0.6;
-}
-#why::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--clr-sage) 5%, transparent) 50%, transparent 100%);
-  animation: lp-trust-shimmer 5s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes lp-trust-shimmer {
-  0%, 100% { opacity: 0; transform: translateX(-100%); }
-  50% { opacity: 1; transform: translateX(100%); }
 }
 
 /* Trust checkmarks pulse */
@@ -464,16 +382,8 @@ html.lp-active { background: var(--clr-bg); }
 }
 
 /* ================================================================
-   ✨ HERO EYEBROW CHIP — pulsing dot
+   HERO EYEBROW CHIP — static dot (the infinite pulse is gone)
    ================================================================ */
-#lp-top .lp-reveal [style*="border-radius: 999"] span[style*="borderRadius: 50%"] {
-  animation: lp-dot-pulse 2.4s ease-in-out infinite;
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--clr-sage) 40%, transparent);
-}
-@keyframes lp-dot-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 color-mix(in srgb, var(--clr-sage) 40%, transparent); }
-  50% { transform: scale(1.5); opacity: 0.8; box-shadow: 0 0 0 6px color-mix(in srgb, var(--clr-sage) 0%, transparent); }
-}
 
 /* ================================================================
    ✨ READINESS RING — smooth spin-in on reveal
@@ -669,11 +579,6 @@ html.lp-active { background: var(--clr-bg); }
   height: 2px;
   background: linear-gradient(90deg, transparent 0%, var(--clr-sage-soft) 25%, var(--clr-border) 50%, var(--clr-gold-soft) 75%, transparent 100%);
   opacity: .6;
-  animation: lp-footer-shimmer 6s ease-in-out infinite;
-}
-@keyframes lp-footer-shimmer {
-  0%, 100% { opacity: .4; filter: blur(0px); }
-  50% { opacity: .7; filter: blur(1px); }
 }
 
 /* ================================================================
