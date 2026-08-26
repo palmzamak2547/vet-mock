@@ -157,7 +157,7 @@ export default function ImageOcclusionCard({ q, showAnswer, onReveal }) {
           padding: '10px 14px',
           borderRadius: 10,
           background: 'var(--clr-sage-soft)',
-          color: 'var(--clr-sage)',
+          color: 'var(--clr-sage-text)',
           fontWeight: 600,
           textAlign: 'center',
           fontSize: 16,

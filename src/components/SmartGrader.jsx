@@ -34,7 +34,7 @@ import { useState, useEffect, useMemo } from 'react';
 
 // Engprof essay rubric — Final's 15-pt scheme.
 const ESSAY_RUBRIC = [
-  { cat: 'Content', max: 7, color: 'var(--clr-sage)', items: [
+  { cat: 'Content', max: 7, color: 'var(--clr-sage-text)', items: [
     { label: 'Topic sentence paraphrases main idea', pts: 1 },
     { label: 'All major supporting details covered', pts: 3 },
     { label: 'Captures author\'s key argument/conclusion', pts: 1 },
@@ -395,7 +395,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
   if (!submitted) {
     return (
       <div style={{ marginBottom: 12, padding: 10, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px dashed var(--clr-sage)' }}>
-        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', fontWeight: 700, marginBottom: 6 }}>
+        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', fontWeight: 700, marginBottom: 6 }}>
           🔮 ทายคะแนนตัวเองก่อน
         </div>
         <div style={{ fontSize: 12, color: 'var(--clr-ink)', lineHeight: 1.5, marginBottom: 8 }}>
@@ -426,7 +426,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
     <div style={{ marginBottom: 12, padding: 10, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
         <div>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', fontWeight: 700, marginBottom: 4 }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', fontWeight: 700, marginBottom: 4 }}>
             🔮 Prediction
           </div>
           <div style={{ fontSize: 13, color: 'var(--clr-ink)' }}>

@@ -44,10 +44,14 @@ html.lp-active { background: var(--clr-bg); }
 .lp-root .vmx-btn { overflow: visible; }
 [data-theme="dark"] .lp-root, html.lp-active[data-theme="dark"] { color-scheme: dark; }
 :root:not([data-theme="dark"]) .lp-root, html.lp-active:not([data-theme="dark"]) { color-scheme: light; }
-.lp-root a { color: var(--clr-sage); text-decoration: none; transition: color .15s; }
+.lp-root a { color: var(--clr-sage-text); text-decoration: none; transition: color .15s; }
 .lp-root a:hover { color: var(--clr-ink); }
 .lp-root ::selection { background: var(--clr-sage-soft); color: var(--clr-ink); }
-.lp-skip { position: absolute; left: -999px; top: 8px; z-index: 200; background: var(--clr-ink); color: var(--clr-bg); padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+/* `.lp-root a` (0,1,1) outranks a bare `.lp-skip` (0,1,0), so the skip
+   link never actually got the --clr-bg it asks for — it inherited the
+   accent link colour and rendered accent-on-ink at 2.5:1. On the one
+   control that exists for keyboard and screen-reader users. */
+.lp-root a.lp-skip { position: absolute; left: -999px; top: 8px; z-index: 200; background: var(--clr-ink); color: var(--clr-bg); padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
 .lp-skip:focus { left: 8px; }
 
 /* ================================================================
@@ -206,7 +210,7 @@ html.lp-active { background: var(--clr-bg); }
   padding: 7px 5px;
   border: 0;
   background: none;
-  color: var(--clr-sage);
+  color: var(--clr-sage-text);
   font-family: inherit;
   font-size: 12px;
   font-weight: 600;
@@ -275,8 +279,13 @@ html.lp-active { background: var(--clr-bg); }
   opacity: 0.6;
 }
 
-/* Trust checkmarks pulse */
-#why .lp-reveal span[style*="color: var(--clr-sage)"] {
+/* Trust checkmarks pop once on reveal.
+   Was `span[style*="color: var(--clr-sage)"]` — a selector reading the
+   inline style as a STRING, so renaming the token to --clr-sage-text
+   silently unhooked the animation with nothing to catch it. Same trap
+   the card-hover selectors were pulled out of; a real class cannot
+   drift out of sync with a colour rename. */
+#why .lp-reveal .lp-check {
   display: inline-block;
   animation: lp-check-pop .5s cubic-bezier(.16,1,.3,1) both;
   animation-delay: calc(var(--i, 0) * .1s);

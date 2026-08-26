@@ -67,7 +67,7 @@ export default function DomainDetailView({
           </div>
           <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>Mastery</div>
-            <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)' }}>
+            <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)' }}>
               {userProgress.masteryPercent}%
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function DomainDetailView({
                 padding: '14px 20px',
                 fontSize: 15,
                 border: '1px solid var(--clr-sage)',
-                color: 'var(--clr-sage)',
+                color: 'var(--clr-sage-text)',
               }}
             >
               Start 25-Question Mock Exam (25 min)

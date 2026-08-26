@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v98-2026-08-26';
+const SW_VERSION = 'v99-2026-08-26';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 const NAV_TIMEOUT_MS = 4000;

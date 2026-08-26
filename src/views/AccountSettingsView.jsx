@@ -322,7 +322,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
             <>
               {email}
               {user.email_confirmed_at
-                ? <span style={{ marginLeft: 6, color: 'var(--clr-sage)', fontSize: 11 }}>✓ ยืนยันแล้ว</span>
+                ? <span style={{ marginLeft: 6, color: 'var(--clr-sage-text)', fontSize: 11 }}>✓ ยืนยันแล้ว</span>
                 : <span style={{ marginLeft: 6, color: 'var(--clr-gold-text)', fontSize: 11 }}>ยังไม่ยืนยัน</span>}
             </>
           } />

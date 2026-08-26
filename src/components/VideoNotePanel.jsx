@@ -150,7 +150,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
     flexShrink: 0, minWidth: 64, minHeight: 36,
     padding: '4px 8px', borderRadius: 6,
     fontFamily: 'var(--vmx-mono)', fontSize: 12, fontWeight: 600,
-    background: 'var(--clr-surface-2)', color: 'var(--clr-sage)',
+    background: 'var(--clr-surface-2)', color: 'var(--clr-sage-text)',
     border: '1px solid var(--clr-border)', cursor: 'pointer',
   };
 
@@ -283,7 +283,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
                     title="กำลังเล่นช่วงนี้"
                     style={{
                       flexShrink: 0, fontSize: 11, fontWeight: 700,
-                      color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)',
+                      color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)',
                       alignSelf: 'center', letterSpacing: '0.06em',
                     }}
                   >

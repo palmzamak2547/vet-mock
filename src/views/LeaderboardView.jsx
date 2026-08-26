@@ -145,7 +145,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                 <div style={{ flex: 1, minWidth: 160 }}>
                   <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 17 }}>
                     {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
-                    {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</span>}
+                    {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                     {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}

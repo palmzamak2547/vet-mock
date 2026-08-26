@@ -214,7 +214,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   const tabs = [
     { id: 'all',        label: 'ทั้งหมด',  icon: '📋', color: 'var(--clr-ink)' },
     { id: 'wrong',      label: 'ผิด',      icon: '✗',  color: 'var(--clr-rose-text)' },
-    { id: 'correct',    label: 'ถูก',      icon: '✓',  color: 'var(--clr-sage)' },
+    { id: 'correct',    label: 'ถูก',      icon: '✓',  color: 'var(--clr-sage-text)' },
     { id: 'skipped',    label: 'ข้าม',     icon: '⏭', color: 'var(--clr-ink-soft)' },
     { id: 'bookmarked', label: 'บันทึกไว้', icon: '★',  color: 'var(--clr-gold-text)' },
     { id: 'noted',      label: 'มีโน้ต',   icon: '📝', color: 'var(--clr-plum, #7d4a7d)' },
@@ -437,7 +437,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </div>
                 {q.model_answer && (
                   <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-sage)' }}>
-                    <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)', marginBottom: 4, fontWeight: 600 }}>คำตอบตัวอย่างจากเฉลย</div>
+                    <div style={{ fontSize: 11, color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)', marginBottom: 4, fontWeight: 600 }}>คำตอบตัวอย่างจากเฉลย</div>
                     <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.model_answer} />
                     </div>
@@ -624,7 +624,7 @@ function ReviewShareButton({ questions }) {
       }}
       title="แชร์ชุดโจทย์นี้ให้เพื่อน"
     >
-      แชร์ชุดนี้{hint && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage)' }}>{hint}</span>}
+      แชร์ชุดนี้{hint && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage-text)' }}>{hint}</span>}
     </button>
   );
 }

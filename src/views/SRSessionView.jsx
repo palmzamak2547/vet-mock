@@ -250,7 +250,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 จะทำวันนี้
               </div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-sage)' }}>
+              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-sage-text)' }}>
                 {sessionSize === 'all' ? dueCount : Math.min(sessionSize, dueCount)}
               </div>
             </div>
@@ -288,7 +288,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               <div className="vmx-stat-lbl">Total cards</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage)' }}>{stats.mastered}</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{stats.mastered}</div>
               <div className="vmx-stat-lbl">Mastered</div>
             </div>
             <div className="vmx-stat-card">
@@ -366,7 +366,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         </div>
         <div className="vmx-stat-grid">
           <div className="vmx-stat-card"><div className="vmx-stat-num">{stats.total}</div><div className="vmx-stat-lbl">Total Cards</div></div>
-          <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-sage)' }}>{stats.mastered}</div><div className="vmx-stat-lbl">Mastered</div></div>
+          <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{stats.mastered}</div><div className="vmx-stat-lbl">Mastered</div></div>
           <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{remaining > 0 ? remaining : stats.dueTomorrow}</div><div className="vmx-stat-lbl">{remaining > 0 ? 'ค้างอีก' : 'Due tomorrow'}</div></div>
         </div>
         <div className="vmx-btn-row">

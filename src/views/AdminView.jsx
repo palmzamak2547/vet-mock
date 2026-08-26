@@ -92,12 +92,12 @@ export default function AdminView({ user, onBack, initialTab = 'domains' }) {
                 <tr style={{ borderBottom: '1px solid var(--clr-border)' }}>
                   <td style={{ padding: 8 }}><code>exotic-medicine</code></td>
                   <td style={{ padding: 8 }}>Exotic Medicine</td>
-                  <td style={{ padding: 8, color: 'var(--clr-sage)', fontWeight: 700 }}>Published</td>
+                  <td style={{ padding: 8, color: 'var(--clr-sage-text)', fontWeight: 700 }}>Published</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid var(--clr-border)' }}>
                   <td style={{ padding: 8 }}><code>small-animal-internal-medicine</code></td>
                   <td style={{ padding: 8 }}>Small Animal Medicine</td>
-                  <td style={{ padding: 8, color: 'var(--clr-sage)', fontWeight: 700 }}>Published</td>
+                  <td style={{ padding: 8, color: 'var(--clr-sage-text)', fontWeight: 700 }}>Published</td>
                 </tr>
               </tbody>
             </table>

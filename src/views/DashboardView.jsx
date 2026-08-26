@@ -484,7 +484,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <div className="vmx-stat-lbl">Total Attempts</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage)' }}>{scopedAnalytics.overallPct}%</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{scopedAnalytics.overallPct}%</div>
               <div className="vmx-stat-lbl">Overall Accuracy</div>
             </div>
             <div className="vmx-stat-card vmx-streak-stat-card">

@@ -27,7 +27,7 @@ function OptionRow({ opt, onClick, disabled }) {
 // and only affects the Latin labels, which is fine.
 const label = (color) => ({ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: color || 'var(--clr-sage)', marginBottom: 14 });
 const h2 = { fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(28px,4vw,42px)', lineHeight: 1.04, letterSpacing: '-.03em', color: 'var(--clr-ink)', margin: 0, textWrap: 'balance' };
-const em = { fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage)' };
+const em = { fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-text)' };
 const container = { maxWidth: 1200, margin: '0 auto' };
 const chip = (active) => `vmx-chip${active ? ' active' : ''}`;
 
@@ -40,7 +40,7 @@ export default function LandingBody(p) {
         {/* Decorative floating orbs — CSS animates these, aria-hidden so SR skips */}
         <div className="lp-stack" style={{ ...container, display: 'grid', gridTemplateColumns: '1.02fr 1.12fr', gap: 54, alignItems: 'center' }}>
           <div className="lp-reveal lp-center-md">
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-border)', borderRadius: 999, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 22 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-border)', borderRadius: 999, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 22 }}>
               <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)' }} />{t.heroEyebrow}
             </div>
             <h1 style={{ fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(38px,5.4vw,60px)', lineHeight: .98, letterSpacing: '-.035em', color: 'var(--clr-ink)', margin: '0 0 20px', textWrap: 'balance' }}>
@@ -48,7 +48,7 @@ export default function LandingBody(p) {
             </h1>
             <p style={{ fontSize: 17, lineHeight: 1.62, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '0 0 28px' }}>{t.heroSub}</p>
             <div className="lp-center-md lp-flex" style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'var(--vmx-mono)', fontSize: 12.5, color: 'var(--clr-ink-soft)', margin: '0 0 22px' }}>
-              <span>{t.heroFocusLine}</span><span style={{ color: 'var(--clr-sage)', fontWeight: 600, fontFamily: 'IBM Plex Sans Thai, sans-serif', fontSize: 14 }}>{t.heroWords[p.heroWord]} →</span>
+              <span>{t.heroFocusLine}</span><span style={{ color: 'var(--clr-sage-text)', fontWeight: 600, fontFamily: 'IBM Plex Sans Thai, sans-serif', fontSize: 14 }}>{t.heroWords[p.heroWord]} →</span>
             </div>
             <div className="lp-center-md lp-flex" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
               <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary lp-feature-cta" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'var(--vmx-mono)' }}>→</span></button>
@@ -63,7 +63,7 @@ export default function LandingBody(p) {
                 so the page was contradicting itself.) */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', marginTop: '28px', paddingTop: '24px', borderTop: '1px solid var(--clr-border)' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage)', lineHeight: 1 }}>{QB_TOTAL.toLocaleString('en-US')}</div>
+                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage-text)', lineHeight: 1 }}>{QB_TOTAL.toLocaleString('en-US')}</div>
                 <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statQuestions}</div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -82,7 +82,7 @@ export default function LandingBody(p) {
             <div className="lp-stack" style={{ position: 'relative', zIndex: 2, display: 'flex', gap: 14, alignItems: 'stretch' }}>
               <div className="vmx-question-card" style={{ flex: 1, minWidth: 0, padding: 24 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 14, paddingBottom: 14, borderBottom: '1px dashed var(--clr-border)' }}>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, padding: '4px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage)', flexShrink: 0 }}>✓ {t.heroBankLabel}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, padding: '4px 9px', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-sage) 12%, transparent)', color: 'var(--clr-sage-text)', flexShrink: 0 }}>✓ {t.heroBankLabel}</span>
                   <span style={{ flex: 1, minWidth: 0, fontFamily: 'var(--vmx-mono)', fontSize: 11.5, color: 'var(--clr-ink-soft)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.heroBankLine}</span>
                   <button type="button" onClick={p.onEnterApp} style={{ flexShrink: 0, padding: '6px 13px', borderRadius: 999, border: 'none', background: 'var(--clr-sage)', color: 'var(--clr-surface)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, cursor: 'pointer', minHeight: 32 }}>{t.startPractice}</button>
                 </div>
@@ -144,8 +144,8 @@ export default function LandingBody(p) {
       {/* ================= TRUST BAND ================= */}
       <section id="why" data-screen-label="Trust" className="lp-pad" style={{ padding: '32px 24px', background: 'var(--clr-surface)', borderTop: '1px solid var(--clr-border)', borderBottom: '1px solid var(--clr-border)' }}>
         <div className="lp-reveal" style={{ ...container, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px 30px' }}>
-          <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: 'var(--clr-sage)' }}>{t.trustLabel}</span>
-          {t.trust.map((tp) => <span key={tp} style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 14, color: 'var(--clr-ink)', fontWeight: 500 }}><span style={{ color: 'var(--clr-sage)', fontSize: 15 }}>✓</span>{tp}</span>)}
+          <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: 'var(--clr-sage-text)' }}>{t.trustLabel}</span>
+          {t.trust.map((tp) => <span key={tp} style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 14, color: 'var(--clr-ink)', fontWeight: 500 }}><span className="lp-check" style={{ color: 'var(--clr-sage-text)', fontSize: 15 }}>✓</span>{tp}</span>)}
         </div>
       </section>
 
@@ -184,7 +184,7 @@ export default function LandingBody(p) {
               </div>
               <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.mockDesc}</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
-                {t.mockBullets.map((b) => <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 14, color: 'var(--clr-ink)' }}><span style={{ color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>✓</span>{b}</div>)}
+                {t.mockBullets.map((b) => <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 14, color: 'var(--clr-ink)' }}><span style={{ color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>✓</span>{b}</div>)}
               </div>
               <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm lp-feature-cta" style={{ alignSelf: 'flex-start', marginTop: 4 }}>{t.heroCta1} →</button>
             </div>
@@ -283,7 +283,7 @@ export default function LandingBody(p) {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
               <div style={{ position: 'relative', width: 200, height: 200, borderRadius: '50%', background: p.readinessRing, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ width: 150, height: 150, borderRadius: '50%', background: 'var(--clr-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 54, lineHeight: 1, color: 'var(--clr-sage)' }}>72<span style={{ fontSize: 22 }}>%</span></span>
+                  <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 54, lineHeight: 1, color: 'var(--clr-sage-text)' }}>72<span style={{ fontSize: 22 }}>%</span></span>
                   <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 2 }}>{t.rScoreWord}</span>
                 </div>
               </div>
@@ -404,7 +404,7 @@ function SubjectsSection({ p }) {
                 <span className="title">{s.name}</span>
                 <span className="sub">{s.sub}</span>
                 <span className="count">{showcase ? '' : `${s.count} ${t.qWord}`}{clickable ? '' : ''}</span>
-                {clickable && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-sage)', marginTop: 2 }}>{t.startPractice} →</span>}
+                {clickable && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-sage-text)', marginTop: 2 }}>{t.startPractice} →</span>}
               </div>
             );
           })}
@@ -490,7 +490,10 @@ function LabSection({ p }) {
               <div style={{ position: 'absolute', top: 10, left: 10, pointerEvents: 'none', background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)', padding: '5px 9px', borderRadius: 6, fontFamily: 'var(--vmx-mono)', fontSize: 9.5, color: 'rgba(255,255,255,0.85)', display: 'flex', flexDirection: 'column', gap: 2, border: '1px solid rgba(255,255,255,0.1)' }}>
                 <span>PATIENT: BUSTER (CANINE, 8Y MN)</span>
                 <span>VIEW: LATERAL THORAX (DR)</span>
-                <span style={{ color: 'var(--clr-sage)' }}>W: 350 L: 40 (CHEST WINDOW)</span>
+                {/* Viewer green, not an app token: this HUD sits on a near-black
+                    radiograph in both themes, so a colour tuned for the page
+                    surface reads at 2.6 here whichever theme is on. */}
+                <span style={{ color: '#7fd18a' }}>W: 350 L: 40 (CHEST WINDOW)</span>
               </div>
 
               <div style={{ position: 'absolute', right: 10, bottom: 10, display: 'flex', alignItems: 'center', gap: 6, zIndex: 2 }}>

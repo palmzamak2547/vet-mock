@@ -76,7 +76,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16 }}>
                       {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
-                      {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</span>}
+                      {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                       {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
@@ -129,7 +129,7 @@ export default function GroupDetailView({ group, user, goBack }) {
               <div style={{ fontSize: 40, marginBottom: 8 }}>{m.avatar_emoji || '🐾'}</div>
               <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16 }}>
                 {m.username}
-                {m.id === user.id && <div style={{ fontSize: 11, color: 'var(--clr-sage)', fontStyle: 'italic' }}>(คุณ)</div>}
+                {m.id === user.id && <div style={{ fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>
               {m.role === 'admin' && <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 Admin</div>}
             </div>

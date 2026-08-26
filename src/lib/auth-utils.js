@@ -75,6 +75,6 @@ export function passwordStrength(password) {
   // Map raw score (0-5) to bucket
   if (score <= 1) return { score: 1, label: 'อ่อน',     color: 'var(--clr-rose)',  percent: 30 };
   if (score === 2) return { score: 2, label: 'พอใช้',   color: 'var(--clr-gold)',  percent: 55 };
-  if (score === 3) return { score: 3, label: 'ดี',     color: 'var(--clr-sage)',  percent: 80 };
-  return            { score: 4, label: 'แข็งแรงมาก', color: 'var(--clr-sage)',  percent: 100 };
+  if (score === 3) return { score: 3, label: 'ดี',     color: 'var(--clr-sage-text)',  percent: 80 };
+  return            { score: 4, label: 'แข็งแรงมาก', color: 'var(--clr-sage-text)',  percent: 100 };
 }

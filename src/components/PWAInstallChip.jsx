@@ -103,7 +103,7 @@ export default function PWAInstallChip() {
         background: 'rgba(74, 107, 74, 0.10)',
         border: '1px solid var(--clr-sage)',
         fontSize: 13,
-        color: 'var(--clr-sage)',
+        color: 'var(--clr-sage-text)',
       }}>
         <button
           type="button"

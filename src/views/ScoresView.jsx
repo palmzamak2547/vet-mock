@@ -60,7 +60,7 @@ export default function ScoresView({ goHome }) {
                   {subject?.icon || '📚'} {s.name}
                 </h3>
                 {total >= 95 && total <= 105 && (
-                  <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', padding: '2px 8px', background: 'var(--clr-surface-2)', borderRadius: 999 }}>
+                  <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', padding: '2px 8px', background: 'var(--clr-surface-2)', borderRadius: 999 }}>
                     รวม ~{Math.round(total)}%
                   </span>
                 )}
@@ -84,7 +84,7 @@ export default function ScoresView({ goHome }) {
       </div>
 
       <div className="vmx-empty" style={{ marginBottom: 20, padding: 16, background: 'var(--clr-surface-2)', borderRadius: 12 }}>
-        ข้อมูลอาจไม่ครบหรือมีคลาดเคลื่อน — ส่ง update ได้ที่ <strong>Feedback</strong> หรือ <a href="mailto:palmzamak2547@gmail.com" style={{ color: 'var(--clr-sage)' }}>palmzamak2547@gmail.com</a>
+        ข้อมูลอาจไม่ครบหรือมีคลาดเคลื่อน — ส่ง update ได้ที่ <strong>Feedback</strong> หรือ <a href="mailto:palmzamak2547@gmail.com" style={{ color: 'var(--clr-sage-text)' }}>palmzamak2547@gmail.com</a>
       </div>
 
       <div className="vmx-btn-row">

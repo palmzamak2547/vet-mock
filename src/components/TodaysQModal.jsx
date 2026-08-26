@@ -107,7 +107,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
                 <div className="vmx-option-text">
                   <RichText text={opt} />
                 </div>
-                {revealed && isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-sage)', fontWeight: 700 }}>✓</span>}
+                {revealed && isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-sage-text)', fontWeight: 700 }}>✓</span>}
                 {revealed && isPicked && !isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-rose, #c0392b)' }}>✗</span>}
               </button>
             );
@@ -116,7 +116,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
 
         {revealed && q.explain && (
           <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)', fontSize: 13, lineHeight: 1.6 }}>
-            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage)', marginBottom: 4 }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 4 }}>
               เฉลย
             </div>
             <RichText text={q.explain} />

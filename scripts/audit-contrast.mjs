@@ -39,15 +39,28 @@ const arg = (name, fallback) => {
 
 const URL = arg('url', 'http://localhost:4174/');
 const THEMES = (arg('themes', 'light,dark')).split(',');
+// Sweeping themes alone checks 2 of 12 combinations: five alternate
+// palettes re-point the accent, and for a long time they re-pointed only
+// --clr-sage while --clr-sage-text stayed the default green, so a cherry
+// theme rendered rose everywhere and green in every accent label.
+const PALETTES = (arg('palettes', 'default,ocean,plum,cherry,mono,forest')).split(',');
+const LANDING = process.argv.includes('--landing');
 
 // Known and deliberately not failing the run. Each entry says WHY, so
 // the list cannot quietly become a place to hide new regressions.
 const KNOWN = [
   {
-    match: /vmx-btn-primary|vmx-sidebar-label/,
-    why: 'the single --clr-sage token: dark #5f8a5f gives white-on-sage 3.97 and sage-on-surface 4.05. '
-       + 'One value cannot clear 4.5 both ways — it needs a darker fill and a lighter --clr-sage-text, '
-       + 'the split --clr-rose-text already has. Brand-wide change, wants a decision not a patch.',
+    // --landing only. Reported rather than fixed: --clr-gold and
+    // --clr-rose have the same fill/text split --clr-sage just got, but
+    // they are two more brand colours and the decision is not a patch.
+    // Numbers so nobody has to re-measure: gold #b88940 under
+    // --clr-surface text = 2.97 (the Panic-Mode button), gold as text on
+    // cream = 2.75, rose #c26d6d as text on cream = 3.48. All predate
+    // this pass and all live in the signed-out landing demos.
+    match: /^(Accuracy|Pattern|Speed|Recall|เข้าสู่ Panic Mode →|\d{1,3}|🚨)$/,
+    why: '--clr-gold / --clr-rose still need the fill-vs-text split (landing demos only): '
+       + 'gold fill under surface text 2.97, gold as text 2.75, rose as text 3.48.',
+    onText: true,
   },
   {
     match: /^Mock$/,
@@ -119,21 +132,33 @@ const browser = await chromium.launch();
 let failures = 0;
 let excused = 0;
 
-for (const theme of THEMES) {
+for (const theme of THEMES) for (const palette of PALETTES) {
+  const label = `${theme}/${palette}`;
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
-  await ctx.addInitScript(([t]) => {
+  await ctx.addInitScript(([t, p, seedYear]) => {
     try {
-      localStorage.setItem('vmx-selected-year', '4');
+      // Without the year seed the app opens its signed-out landing page
+      // instead of home — two different stylesheets, so both are worth
+      // sweeping. --landing swaps which one this run measures.
+      if (seedYear) localStorage.setItem('vmx-selected-year', '4');
       localStorage.setItem('vmx-theme', JSON.stringify(t));
+      localStorage.setItem('vmx-palette', JSON.stringify(p));
     } catch {}
-  }, [theme]);
+  }, [theme, palette, !LANDING]);
   const page = await ctx.newPage();
   await page.goto(URL, { waitUntil: 'networkidle' });
-  await page.waitForTimeout(600);
+  // The app stamps data-theme after it boots, so wait for the attribute
+  // rather than a fixed delay — a fixed delay reports "theme null" on a
+  // slow start and looks like the seed failed.
+  await page.waitForFunction(() => document.documentElement.hasAttribute('data-theme'), null, { timeout: 15_000 });
+  await page.waitForTimeout(300);
 
-  const applied = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
-  if (applied !== theme) {
-    console.error(`✗ ${theme}: page rendered as "${applied}" — seed did not take, results would be meaningless`);
+  const applied = await page.evaluate(() => ({
+    theme: document.documentElement.getAttribute('data-theme'),
+    palette: document.documentElement.getAttribute('data-palette') || 'default',
+  }));
+  if (applied.theme !== theme || applied.palette !== palette) {
+    console.error(`✗ ${label}: page rendered as ${applied.theme}/${applied.palette} — seed did not take, results would be meaningless`);
     process.exit(1);
   }
 
@@ -149,7 +174,7 @@ for (const theme of THEMES) {
     real.push(r);
   }
 
-  console.log(`\n${theme}: ${real.length} below AA${excused ? '' : ''}`);
+  console.log(`${label.padEnd(16)} ${real.length} below AA`);
   for (const r of real) {
     console.log(`   ${r.ratio} (needs ${r.floor})  ${JSON.stringify(r.text)}`);
     console.log(`        rgb(${r.fg.map(Math.round)}) on rgb(${r.bg.map(Math.round)})  |  ${r.cls}`);

@@ -645,7 +645,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
                       <span>{meta.icon}</span>
                       <span>{meta.label}</span>
                     </span>
-                    {isPositive && <span style={{ color: 'var(--clr-sage)' }}>✓</span>}
+                    {isPositive && <span style={{ color: 'var(--clr-sage-text)' }}>✓</span>}
                     <span style={{
                       marginLeft: 'auto', fontSize: 11,
                       color: 'var(--clr-ink-soft)',

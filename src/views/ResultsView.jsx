@@ -323,7 +323,7 @@ export default function ResultsView({
 
       <div className="vmx-stat-grid">
         <div className="vmx-stat-card">
-          <div className="vmx-stat-num" style={{ color: 'var(--clr-sage)' }}>{score.correct}</div>
+          <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{score.correct}</div>
           <div className="vmx-stat-lbl">ถูก</div>
         </div>
         <div className="vmx-stat-card">

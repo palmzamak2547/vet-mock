@@ -27,7 +27,7 @@ export default function EmptyState({
   return (
     <div className="vmx-empty-state" style={style}>
       {icon && (
-        <span className="icon" aria-hidden="true" style={{ color: 'var(--clr-sage)' }}>
+        <span className="icon" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>
           {icon}
         </span>
       )}

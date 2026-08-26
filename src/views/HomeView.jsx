@@ -1935,7 +1935,7 @@ function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
 // ── Small kind pill (เขียว/ทอง/กลาง) ────────────────────────────
 function KindPill({ kind }) {
   const styles = {
-    feature: { bg: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-sage)', label: 'ใหม่' },
+    feature: { bg: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-sage-text)', label: 'ใหม่' },
     fix: { bg: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)', label: 'แก้บั๊ก' },
     content: { bg: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)', label: 'เพิ่มเนื้อหา' },
   };

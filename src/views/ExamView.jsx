@@ -115,7 +115,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
           marginTop: 8, padding: '4px 12px', borderRadius: 999,
           background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
           fontSize: 11, fontFamily: 'var(--vmx-mono)',
-          color: 'var(--clr-sage)',
+          color: 'var(--clr-sage-text)',
           display: 'inline-flex', alignItems: 'center', gap: 6,
         }}>
           👥 {buddiesHere} คนกำลังทำข้อนี้

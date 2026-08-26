@@ -473,7 +473,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                       </span>
                       {opt}
                       {isCorrect && (
-                        <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage)', fontFamily: 'var(--vmx-mono)' }}>
+                        <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)' }}>
                           ← คำตอบ
                         </span>
                       )}
@@ -693,7 +693,7 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
 // ─── Past review row ───────────────────────────────────────────
 function PastReviewRow({ review }) {
   const verdictMeta = {
-    approve: { icon: '✅', label: 'Approved', color: 'var(--clr-sage)' },
+    approve: { icon: '✅', label: 'Approved', color: 'var(--clr-sage-text)' },
     nudge: { icon: '✏️', label: 'Nudge', color: 'var(--clr-gold-text)' },
     reject: { icon: '❌', label: 'Rejected', color: 'var(--clr-rose-text)' },
   }[review.verdict] || { icon: '?', label: review.verdict, color: 'var(--clr-ink-soft)' };
@@ -838,7 +838,7 @@ const sectionLabelStyle = {
 const inlineToggleStyle = {
   background: 'transparent',
   border: 'none',
-  color: 'var(--clr-sage)',
+  color: 'var(--clr-sage-text)',
   cursor: 'pointer',
   fontSize: 13,
   padding: '0 4px',

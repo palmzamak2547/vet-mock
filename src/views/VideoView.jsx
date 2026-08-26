@@ -246,7 +246,7 @@ export default function VideoView({ goHome, initialSubject = null }) {
       <div className="vmx-hero">
         <h1>คลิป<em>ย้อนหลัง</em></h1>
         <p>
-          คลิปจากช่อง <a href="https://www.youtube.com/@dai.1387" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage)' }}>Dai (@dai.1387)</a> และอื่นๆ — คลิกเข้าไปเพื่อเลือกคลิปใน playlist ได้
+          คลิปจากช่อง <a href="https://www.youtube.com/@dai.1387" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)' }}>Dai (@dai.1387)</a> และอื่นๆ — คลิกเข้าไปเพื่อเลือกคลิปใน playlist ได้
           {watchedCount > 0 && <>, ดูแล้ว <strong>{watchedCount}</strong> คลิป</>}
         </p>
       </div>
@@ -371,7 +371,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
         <div style={{ padding: 14 }}>
           <div className="vmx-kicker" style={{ color: subject?.color || 'var(--clr-ink-soft)', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>{subject?.icon} {subject?.name}</span>
-            {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓ ดูแล้ว</span>}
+            {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage-text)' }}>✓ ดูแล้ว</span>}
           </div>
           <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, marginBottom: 4, lineHeight: 1.3 }}>
             {video.topic}
@@ -795,7 +795,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 💡 <strong>ดึงรายการคลิปไม่ได้</strong> — playlist อาจรวมจากหลายช่อง<br/>
                 <span style={{ fontSize: 11 }}>
                   คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'var(--vmx-mono)' }}>≡</kbd> ในเครื่องเล่น หรือ
-                  <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage)', marginLeft: 4, textDecoration: 'underline' }}>เปิดใน YouTube →</a>
+                  <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)', marginLeft: 4, textDecoration: 'underline' }}>เปิดใน YouTube →</a>
                 </span>
               </div>
             )}
@@ -914,7 +914,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                         <div>
                           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginBottom: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
                             <span>#{realIdx + 1}</span>
-                            {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓</span>}
+                            {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage-text)' }}>✓</span>}
                             {hasSummary && (
                               <span
                                 title="มีสรุปคลิปแล้ว — คลิกเปิดเล่นคลิปเพื่ออ่าน"

@@ -680,7 +680,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 {mode === 'signin' && (
                   <a
                     onClick={() => setMode('reset')}
-                    style={{ cursor: 'pointer', color: 'var(--clr-sage)', fontSize: 11, fontWeight: 400, textDecoration: 'underline' }}
+                    style={{ cursor: 'pointer', color: 'var(--clr-sage-text)', fontSize: 11, fontWeight: 400, textDecoration: 'underline' }}
                   >
                     ลืมรหัสผ่าน?
                   </a>
@@ -845,7 +845,7 @@ function UsernameStatusBadge({ status, username }) {
 
   const styles = {
     checking:  { color: 'var(--clr-ink-soft)', text: '… ตรวจ' },
-    available: { color: 'var(--clr-sage)',     text: '✓ ใช้ได้' },
+    available: { color: 'var(--clr-sage-text)',     text: '✓ ใช้ได้' },
     taken:     { color: 'var(--clr-rose-text)',     text: '✗ ถูกใช้แล้ว' },
     invalid:   { color: 'var(--clr-rose-text)',     text: '✗ รูปแบบไม่ถูก' },
   };

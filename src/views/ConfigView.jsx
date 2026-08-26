@@ -95,7 +95,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
           background: 'rgba(74, 107, 74, 0.08)',
           border: '1px solid var(--clr-sage)',
         }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontWeight: 700 }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontWeight: 700 }}>
             ✍️ Quick strategy ก่อนเริ่มเขียน
           </div>
           <ul style={{ margin: 0, paddingLeft: 20, fontSize: 12.5, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
@@ -140,7 +140,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                     <span style={{ display: 'block', fontWeight: 600, fontSize: 13 }}>{c.label}</span>
                     <span style={{ display: 'block', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{c.desc}</span>
                   </span>
-                  {(cat || 'all') === c.id && <span style={{ fontSize: 14, color: 'var(--clr-sage)' }}>✓</span>}
+                  {(cat || 'all') === c.id && <span style={{ fontSize: 14, color: 'var(--clr-sage-text)' }}>✓</span>}
                 </button>
               ))}
             </div>

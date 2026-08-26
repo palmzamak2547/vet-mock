@@ -174,7 +174,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
             background: 'rgba(74, 107, 74, 0.08)',
             border: '1px solid var(--clr-sage)',
           }}>
-            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
               Callback URL (วางทุกที่ที่ใช้)
             </div>
             <div style={{
@@ -246,7 +246,7 @@ export default function OAuthSetupHelp({ provider, rawError, onClose }) {
                         display: 'inline-block',
                         marginTop: 8,
                         fontSize: 12,
-                        color: 'var(--clr-sage)',
+                        color: 'var(--clr-sage-text)',
                         textDecoration: 'underline',
                       }}
                     >
