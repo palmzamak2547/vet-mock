@@ -1147,7 +1147,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     return `${label}, อีก ${nextExam.daysLeft} วันจะสอบ`;
                   })()}
                 </div>
-                <div className="badge" style={{ background: 'var(--clr-rose)' }}>แนะนำ</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-rose)' }}>แนะนำ</div>
               </button>
             )}
 
@@ -1181,7 +1181,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     return `${weakSubjMeta.name}, ${label}`;
                   })() : `${weakSubjMeta.name}, ${weakPct}% ถูก`}
                 </div>
-                <div className="badge" style={{ background: 'var(--clr-gold)' }}>แนะนำ</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>แนะนำ</div>
               </button>
             )}
 
@@ -1222,7 +1222,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                   {lastSubjMeta.name}
                   {lastSession?.score && `, ${lastSession.score.pct}% ครั้งก่อน`}
                 </div>
-                <div className="badge" style={{ background: 'var(--clr-ocean)' }}>แนะนำ</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-ocean)' }}>แนะนำ</div>
               </button>
             )}
 

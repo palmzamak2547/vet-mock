@@ -63,7 +63,8 @@
     "lint:delivery": "node scripts/regen-question-delivery.mjs --check",
     "prep:explain-rewrite": "node scripts/batch-narrating-explains.mjs",
     "audit:coherence": "node scripts/audit-coherence.mjs",
-    "lint:thai-orthography": "node scripts/lint-thai-orthography.mjs"
+    "lint:thai-orthography": "node scripts/lint-thai-orthography.mjs",
+    "audit:contrast": "node scripts/audit-contrast.mjs"
   },
   "browserslist": [
     "defaults",

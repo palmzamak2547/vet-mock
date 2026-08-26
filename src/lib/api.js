@@ -197,7 +197,7 @@ export async function saveExamResult(result) {
  *     the scoping.
  *   • Global leaderboard → get_global_leaderboard() SECURITY DEFINER
  *     RPC. Row-level SELECT no longer exposes other users' solo
- *     attempts (that read clause leaked full histories by user_id),
+ *     attempts (that read clause exposed full histories by user_id),
  *     so cross-user ranking goes through the RPC, which returns only
  *     leaderboard-safe fields and honors show_on_leaderboard. If the
  *     RPC isn't on the live DB yet (migration pending), fall back to

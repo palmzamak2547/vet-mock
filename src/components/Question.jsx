@@ -340,16 +340,16 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               <button
                 type="button"
                 aria-pressed={currentAnswer === true}
-                disabled={tfRevealed}
+                aria-disabled={tfRevealed || undefined}
                 className={`vmx-tf-btn ${currentAnswer === true ? 'selected-true' : ''} ${tfClass(true)}`}
-                onClick={() => answerCurrent(true)}
+                onClick={() => { if (tfRevealed) return; answerCurrent(true); }}
               >✓ True</button>
               <button
                 type="button"
                 aria-pressed={currentAnswer === false}
-                disabled={tfRevealed}
+                aria-disabled={tfRevealed || undefined}
                 className={`vmx-tf-btn ${currentAnswer === false ? 'selected-false' : ''} ${tfClass(false)}`}
-                onClick={() => answerCurrent(false)}
+                onClick={() => { if (tfRevealed) return; answerCurrent(false); }}
               >✗ False</button>
             </div>
             {tfRevealed && (
@@ -714,8 +714,12 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
             key={originalIdx}
             className={`vmx-option ${isSelected ? 'selected' : ''} ${stateClass}`}
             aria-pressed={isSelected}
-            disabled={locked}
-            onClick={() => answerCurrent(originalIdx)}
+            // aria-disabled, NOT disabled: a real `disabled` drops keyboard
+            // focus to <body> the instant the options lock, so a student
+            // answering by Enter loses their place on every question. This
+            // keeps the button focusable and inert instead.
+            aria-disabled={locked || undefined}
+            onClick={() => { if (locked) return; answerCurrent(originalIdx); }}
           >
             <div className="vmx-option-letter">{chip}</div>
             <div className="vmx-option-text"><RichText text={opt} /></div>

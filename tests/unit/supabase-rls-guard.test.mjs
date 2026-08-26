@@ -8,19 +8,39 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 
 const ROOT = resolve(process.cwd());
 const MIGRATION_PATH = join(ROOT, 'supabase/migrations/20260815000000_pr1_critical_rls_lockdown.sql');
 const SCHEMA_PATH = join(ROOT, 'supabase-schema.sql');
+const MIGRATIONS_DIR = join(ROOT, 'supabase/migrations');
+
+// A guard pinned to one filename goes quiet the moment the thing it
+// guards moves house. 20260815000000 was timestamped BEHIND the
+// 2026-08-24 hardening pass, so it never applied anywhere and the
+// trigger + leaderboard RPC were re-landed in a later migration; these
+// assertions kept passing while reading a file production had never
+// run. So: for objects that can be re-landed, read whichever migration
+// defines them LAST — that is the one a fresh rebuild ends on.
+function latestDefining(pattern) {
+  const files = readdirSync(MIGRATIONS_DIR).filter((f) => f.endsWith('.sql')).sort();
+  for (let i = files.length - 1; i >= 0; i--) {
+    const sql = readFileSync(join(MIGRATIONS_DIR, files[i]), 'utf8');
+    if (pattern.test(sql)) return sql;
+  }
+  throw new Error(`no migration defines ${pattern}`);
+}
+
+const TRIGGER_SQL = () => latestDefining(/CREATE OR REPLACE FUNCTION\s+(public\.)?protect_profile_metrics/i);
+const RPC_SQL = () => latestDefining(/CREATE OR REPLACE FUNCTION\s+(public\.)?get_global_leaderboard/i);
 
 test('PR1 migration file exists', () => {
   assert.equal(existsSync(MIGRATION_PATH), true, 'PR1 migration file must exist');
 });
 
-test('PR1 migration defines protect_profile_metrics trigger with security definer and search_path', () => {
-  const sql = readFileSync(MIGRATION_PATH, 'utf8');
+test('the live protect_profile_metrics trigger is SECURITY DEFINER with a locked search_path', () => {
+  const sql = TRIGGER_SQL();
 
   assert.match(sql, /CREATE OR REPLACE FUNCTION\s+(public\.)?protect_profile_metrics/i);
   assert.match(sql, /SECURITY DEFINER/i, 'Trigger function must be SECURITY DEFINER');
@@ -32,7 +52,7 @@ test('PR1 migration defines protect_profile_metrics trigger with security define
 });
 
 test('protect_profile_metrics trusts non-HTTP sessions (empty JWT claims), not just service_role', () => {
-  const sql = readFileSync(MIGRATION_PATH, 'utf8');
+  const sql = TRIGGER_SQL();
 
   // Regression: the original check COALESCE(auth.jwt()->>'role','anon')
   // treated cron / SQL-editor / db-script sessions (which carry no JWT
@@ -50,12 +70,12 @@ test('protect_profile_metrics trusts non-HTTP sessions (empty JWT claims), not j
 });
 
 test('global leaderboard goes through SECURITY DEFINER RPC, not a broad SELECT policy', () => {
-  const sql = readFileSync(MIGRATION_PATH, 'utf8');
+  const sql = RPC_SQL();
 
   // Regression: "OR group_id IS NULL" made every solo attempt of every
   // user readable by all authenticated users. Strip -- comments first
   // so explanatory prose can't trip (or mask) the check.
-  const sqlStatements = sql.replace(/^\s*--.*$/gm, '');
+  const sqlStatements = readFileSync(MIGRATION_PATH, 'utf8').replace(/^\s*--.*$/gm, '');
   assert.doesNotMatch(
     sqlStatements,
     /group_id\s+IS\s+NULL/i,

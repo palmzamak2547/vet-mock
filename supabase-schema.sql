@@ -367,7 +367,13 @@ CREATE TABLE IF NOT EXISTS race_results (
   question_count INT,
   correct_count INT,
   duration_ms INT,
-  created_at TIMESTAMPTZ DEFAULT now()
+  created_at TIMESTAMPTZ DEFAULT now(),
+  -- year/phase exist in production but were never in a repo file, so a
+  -- database rebuilt from this repo came out two columns short of the
+  -- one the app talks to. listRaceResults() does select('*'), which
+  -- hides the difference until something reads race.year.
+  year INT,
+  phase TEXT
 );
 ALTER TABLE race_results ENABLE ROW LEVEL SECURITY;
 

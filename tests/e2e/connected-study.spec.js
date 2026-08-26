@@ -1,4 +1,11 @@
 import { expect, test } from '@playwright/test';
+// The topic button renders its count from this file, so read the count
+// from the same place the app does. Hardcoding "5 ข้อ" made this test
+// fail the day one epidemiology question was pulled for missing its
+// figure — a content edit, not a regression in anything this test is
+// about. The test name says "counts ... truthful"; truthful means
+// matching the data, not matching a number typed here in August.
+import { Q_COUNTS_BY_TOPIC } from '../../src/data/q-counts.js';
 import { readFile } from 'node:fs/promises';
 import dicomParser from 'dicom-parser';
 
@@ -189,19 +196,27 @@ test.describe('connected study experience', () => {
     await epidemiology.click();
 
     await expect(page.getByRole('tab', { name: 'ฝึกตามหัวข้อ' })).toHaveAttribute('aria-selected', 'true');
-    const introTopic = page.getByRole('button', { name: /ฝึกข้อสอบ Intro to Vet Epidemiology 5 ข้อ/ });
+    const introCount = Q_COUNTS_BY_TOPIC['epidemiology']?.['epidem-intro'];
+    expect(introCount, 'epidem-intro must exist in q-counts').toBeGreaterThan(0);
+    const introLabel = new RegExp(`ฝึกข้อสอบ Intro to Vet Epidemiology ${introCount} ข้อ`);
+    const introTopic = page.getByRole('button', { name: introLabel });
     await expect(introTopic).toBeVisible();
     const introTopicBox = await introTopic.boundingBox();
     expect(introTopicBox.width).toBeGreaterThan(300);
     await expect(page.getByRole('contentinfo')).toHaveCount(0);
     await expect(page.getByText('รูปแบบของชุดโจทย์ฝึก')).not.toBeVisible();
 
-    await page.getByRole('button', { name: /ฝึกข้อสอบ Intro to Vet Epidemiology 5 ข้อ/ }).click();
-    await expect(page.getByRole('status')).toContainText('มี 5 ข้อในชุดนี้');
-    await expect(page.getByRole('button', { name: '5', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await page.getByRole('button', { name: introLabel }).click();
+    await expect(page.getByRole('status')).toContainText(`มี ${introCount} ข้อในชุดนี้`);
+    // ConfigView caps its count chips at what the topic actually has, so
+    // the pressed chip IS the availability. Reading it from q-counts keeps
+    // this assertion true as the bank grows or shrinks.
+    await expect(page.getByRole("button", { name: String(introCount), exact: true })).toHaveAttribute("aria-pressed", "true");
     await expect(page.getByRole('button', { name: '10', exact: true })).toHaveCount(0);
-    await page.getByRole('switch').click();
-    await page.getByRole('button', { name: 'เริ่มฝึก 5 ข้อ →', exact: true }).click();
+    // Name the switch: ConfigView grew a second one (เฉลยทันที), and a bare
+    // getByRole('switch') that used to be unambiguous now matches both.
+    await page.getByRole('switch', { name: /จับเวลา/ }).click();
+    await page.getByRole("button", { name: `เริ่มฝึก ${introCount} ข้อ →`, exact: true }).click();
 
     let visualQuestions = 0;
     const wrongOptionByStem = [
@@ -211,7 +226,9 @@ test.describe('connected study experience', () => {
       [/case fatality rate/, /ประมาณ 90%/],
       [/เส้นโค้งการระบาดของ COVID-19/, /Intervention II, Intervention I/],
     ];
-    for (let index = 0; index < 5; index += 1) {
+    // Length follows the bank, not a literal: this set lost a question in
+    // the figure pass and the loop kept reaching for a sixth screen.
+    for (let index = 0; index < introCount; index += 1) {
       const stem = await page.getByRole('heading', { level: 2 }).innerText();
       if (/แผนภาพ|แผนที่/.test(stem)) {
         visualQuestions += 1;
@@ -231,7 +248,7 @@ test.describe('connected study experience', () => {
       const wrongChoice = wrongOptionByStem.find(([pattern]) => pattern.test(stem));
       expect(wrongChoice, `missing deterministic wrong answer for: ${stem}`).toBeTruthy();
       await page.getByRole('button', { name: wrongChoice[1] }).click();
-      if (index < 4) await page.getByRole('button', { name: 'ข้อถัดไป →', exact: true }).click();
+      if (index < introCount - 1) await page.getByRole('button', { name: 'ข้อถัดไป →', exact: true }).click();
     }
 
     expect(visualQuestions).toBe(2);
@@ -239,7 +256,7 @@ test.describe('connected study experience', () => {
     const submitDialog = page.getByRole('dialog', { name: 'ส่งข้อสอบ?' });
     await submitDialog.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
     await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible();
-    await expect(page.getByText(/คุณพลาด 5 ข้อในหัวข้อ "Intro to Vet Epidemiology"/)).toBeVisible();
+    await expect(page.getByText(new RegExp(`คุณพลาด ${introCount} ข้อในหัวข้อ "Intro to Vet Epidemiology"`))).toBeVisible();
     await expect(page.getByText(/epidem-intro/)).toHaveCount(0);
     await page.getByRole('button', { name: 'หน้าแรก', exact: true }).click();
     await page.evaluate(() => new Promise((resolve) => {

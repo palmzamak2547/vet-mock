@@ -164,6 +164,9 @@ test('an offline Notes chunk retries without losing the selected subject', async
   await context.setOffline(false);
   await page.getByRole('button', { name: 'ลองอีกครั้ง', exact: true }).click();
   await expect(page.locator('.vmx-notes-grid')).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
-  await expect(page.getByText(/🩺 COM IV · เนื้อหาจากสไลด์เลกเชอร์/)).toBeVisible();
+  // Separator-agnostic on purpose: this test is about the SUBJECT
+  // surviving the retry, and pinning the literal "·" made it fail the
+  // day that separator was replaced with an em-dash everywhere.
+  await expect(page.getByText(/🩺 COM IV\s*[·—-]\s*เนื้อหาจากสไลด์เลกเชอร์/)).toBeVisible();
   expect(await page.evaluate(() => sessionStorage.getItem('vmx-notes-retry-target'))).toBeNull();
 });

@@ -210,7 +210,9 @@ test.describe('VetMock smoke flow', () => {
     await expect(page.getByText(
       /Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/,
     )).toBeVisible({ timeout: 15_000 });
-    await page.getByRole('button', { name: '🏠 หน้าแรก', exact: true }).click();
+    // The duplicate "🏠 หน้าแรก" button under the back bar was removed —
+    // the back bar itself was already the way home. Same destination.
+    await page.getByRole('button', { name: 'หน้าแรก', exact: true }).click();
     await expect(page.getByRole('heading', { level: 1, name: /พร้อมฝึกสำหรับ|สวัสดี/ })).toBeVisible();
 
     expect(
