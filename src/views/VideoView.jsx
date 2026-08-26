@@ -293,15 +293,7 @@ export default function VideoView({ goHome, initialSubject = null }) {
             {/* Year+sem sections */}
             {groups.map((g) => (
               <div key={g.key} style={{ marginBottom: 12 }}>
-                <div style={{
-                  fontSize: 11,
-                  fontFamily: 'var(--vmx-mono)',
-                  color: 'var(--clr-ink-soft)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  marginBottom: 6,
-                  paddingLeft: 4,
-                }}>
+                <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6, paddingLeft: 4 }}>
                   {g.label}
                 </div>
                 <div className="vmx-chip-row">
@@ -377,7 +369,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
       >
         <ThumbnailWithPlayOverlay video={video} subject={subject} playlist={playlist} isChannel={isChannel} />
         <div style={{ padding: 14 }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: subject?.color || 'var(--clr-ink-soft)', textTransform: 'uppercase', marginBottom: 4, letterSpacing: '0.08em', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div className="vmx-kicker" style={{ color: subject?.color || 'var(--clr-ink-soft)', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>{subject?.icon} {subject?.name}</span>
             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage)' }}>✓ ดูแล้ว</span>}
           </div>
@@ -783,7 +775,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               <div style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
                 <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goPrev} disabled={currentIdx <= 0} title="ก่อนหน้า (←)" style={{ padding: '6px 12px' }}>← Prev</button>
                 <div style={{ flex: 1, minWidth: 200 }}>
-                  <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)' }}>
                     Now playing, #{currentIdx + 1}
                   </div>
                   <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--clr-ink)', marginTop: 2 }}>
@@ -854,7 +846,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           {showList && playlistId && playlistItems.length > 0 && (
             <div className="vmx-player-sidebar" style={{ background: 'var(--clr-surface-2)', borderLeft: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', maxHeight: 'min(80vh, 700px)' }}>
               <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'flex', justifyContent: 'space-between' }}>
+                <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', display: 'flex', justifyContent: 'space-between' }}>
                   <span>Playlist</span>
                   <span>{filteredItems.length}/{playlistItems.length}</span>
                 </div>

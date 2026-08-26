@@ -758,14 +758,14 @@ const secondaryGridStyle = (isMobile) => ({
 
 const secondaryCardStyle = {
   padding: '14px 16px',
-  background: '#fafafa',
+  background: 'var(--clr-surface-2)',
   border: '1px solid #e0e0e0',
   borderRadius: 10,
   textAlign: 'center',
   cursor: 'pointer',
   transition: 'background 120ms, border-color 120ms, transform 120ms, box-shadow 120ms',
   fontFamily: 'inherit',
-  color: '#333',
+  color: 'var(--clr-ink)',
 };
 
 const secondaryCardDraggingStyle = {
@@ -778,7 +778,7 @@ const secondaryCardDraggingStyle = {
 const recentBoxStyle = {
   marginTop: 16,
   padding: '10px 14px',
-  background: '#fafafa',
+  background: 'var(--clr-surface-2)',
   border: '1px solid #e8e8e8',
   borderRadius: 6,
 };
@@ -795,7 +795,7 @@ const onboardingCloseStyle = {
   width: 28,
   height: 28,
   border: '1px solid #b8d4ff',
-  background: '#fff',
+  background: 'var(--clr-surface)',
   borderRadius: 4,
   cursor: 'pointer',
   fontSize: '0.85rem',
@@ -807,12 +807,12 @@ const syncToggleStyle = {
   display: 'inline-flex',
   alignItems: 'center',
   padding: '6px 11px',
-  background: '#fff',
+  background: 'var(--clr-surface)',
   border: '1px solid #ccc',
   borderRadius: 4,
   cursor: 'pointer',
   fontSize: '0.82rem',
-  color: '#333',
+  color: 'var(--clr-ink)',
   whiteSpace: 'nowrap',
   minHeight: 36,
   boxSizing: 'border-box',
@@ -821,7 +821,7 @@ const syncToggleStyle = {
 const kbdInlineStyle = {
   display: 'inline-block',
   padding: '1px 6px',
-  background: '#fff',
+  background: 'var(--clr-surface)',
   border: '1px solid #ccc',
   borderRadius: 3,
   fontFamily: 'monospace',
@@ -837,7 +837,7 @@ const studyGridStyle = (isMobile) => ({
 const paneStyle = {
   border: '1px solid #ddd',
   borderRadius: 8,
-  background: '#fff',
+  background: 'var(--clr-surface)',
   padding: 8,
 };
 
@@ -858,7 +858,7 @@ const removePaneBtnStyle = {
   height: 24,
   borderRadius: 4,
   border: '1px solid #ccc',
-  background: '#fff',
+  background: 'var(--clr-surface)',
   cursor: 'pointer',
   color: '#666',
   fontSize: '0.85rem',
@@ -872,7 +872,7 @@ const anonSummaryStyle = {
   right: 0,
   marginTop: 4,
   padding: '8px 10px',
-  background: '#fff',
+  background: 'var(--clr-surface)',
   border: '1px solid #ccc',
   borderRadius: 6,
   fontSize: '0.78rem',

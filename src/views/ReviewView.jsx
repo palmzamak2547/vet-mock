@@ -418,7 +418,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             )}
             {q.passage && (
               <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>
-                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
+                <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
                   📄 {q.passage_title || 'Passage'}
                 </div>
                 <RichText text={q.passage} />
@@ -427,7 +427,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             {(q.type === 'short' || q.type === 'essay') ? (
               <>
                 <div style={{ margin: '8px 0 6px', padding: 10, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
-                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>คำตอบของคุณ</div>
+                  <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 4 }}>คำตอบของคุณ</div>
                   <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>{userDisplay}</div>
                   {q.type === 'essay' && answered && typeof userAns === 'string' && userAns.trim() && (
                     <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>

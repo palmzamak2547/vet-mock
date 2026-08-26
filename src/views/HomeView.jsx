@@ -1356,14 +1356,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         >
           <div className="vmx-group-preview-icon" aria-hidden="true"><NavIcon name="users" size={24} /></div>
           <div style={{ flex: 1, minWidth: 180 }}>
-            <div style={{
-              fontSize: 11,
-              fontFamily: 'var(--vmx-mono)',
-              color: 'var(--clr-sage, #4a6b4a)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              fontWeight: 700,
-            }}>
+            <div className="vmx-kicker" style={{ color: 'var(--clr-sage, #4a6b4a)' }}>
               สร้างกลุ่มกับเพื่อน
             </div>
             <div style={{
@@ -1949,20 +1942,7 @@ function KindPill({ kind }) {
   const s = styles[kind] || styles.content;
   return (
     <span
-      style={{
-        marginLeft: 'auto',
-        padding: '2px 8px',
-        borderRadius: 999,
-        background: s.bg,
-        color: s.color,
-        fontSize: 11,
-        fontFamily: 'var(--vmx-mono)',
-        fontWeight: 600,
-        textTransform: 'uppercase',
-        letterSpacing: '0.05em',
-        flexShrink: 0,
-        alignSelf: 'flex-start',
-      }}
+      className="vmx-kicker" style={{ marginLeft: 'auto', padding: '2px 8px', borderRadius: 999, background: s.bg, color: s.color, flexShrink: 0, alignSelf: 'flex-start' }}
     >
       {s.label}
     </span>

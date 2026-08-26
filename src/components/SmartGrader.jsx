@@ -244,7 +244,7 @@ export default function SmartGrader({ q, userAnswer }) {
   return (
     <div style={{ marginTop: 12, padding: 12, borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, flexWrap: 'wrap', gap: 8 }}>
-        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+        <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)' }}>
           Smart Self-Grade
         </div>
         <ScoreBadge total={total} max={maxScore} pct={pct} touched={Object.keys(checks).length + Object.keys(shortGrade).length > 0} />
@@ -378,7 +378,7 @@ function Meter({ icon, label, value, status, detail }) {
   const c = colorMap[status?.color] || colorMap.sage;
   return (
     <div style={{ padding: 10, borderRadius: 10, background: c.bg, border: `1px solid ${c.border}` }}>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
+      <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
         {icon} {label}
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
@@ -464,7 +464,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
   const toggle = (key) => setChecks((c) => ({ ...c, [key]: !c[key] }));
   return (
     <div>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontWeight: 700 }}>
+      <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
         Rubric checklist
       </div>
       {ESSAY_RUBRIC.map((g) => {
@@ -514,7 +514,7 @@ function ShortRubric({ grade, setGrade, rubric }) {
   const set = (i, v) => setGrade((g) => ({ ...g, [i]: v }));
   return (
     <div>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6, fontWeight: 700 }}>
+      <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
         Self-grade
       </div>
       {SHORT_RUBRIC.map((it, i) => (

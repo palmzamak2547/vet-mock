@@ -147,10 +147,10 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
         <div role="status" aria-label="กำลังโหลด case library" style={gridStyle}>
           {[0, 1, 2].map((i) => (
             <div key={i} className="vmx-lab-skeleton" aria-hidden="true" style={{ ...cardStyle, height: 180, animation: `vmx-lab-skeleton-pulse 1.4s ease-in-out infinite`, animationDelay: `${i * 0.12}s` }}>
-              <div style={{ height: 14, width: '60%', background: '#e8e8e8', borderRadius: 3, marginBottom: 8 }} />
-              <div style={{ height: 10, width: '85%', background: '#eee', borderRadius: 3, marginBottom: 6 }} />
-              <div style={{ height: 10, width: '70%', background: '#eee', borderRadius: 3, marginBottom: 16 }} />
-              <div style={{ height: 32, width: '100%', background: '#e8e8e8', borderRadius: 4 }} />
+              <div style={{ height: 14, width: '60%', background: 'var(--clr-surface-2)', borderRadius: 3, marginBottom: 8 }} />
+              <div style={{ height: 10, width: '85%', background: 'var(--clr-surface-2)', borderRadius: 3, marginBottom: 6 }} />
+              <div style={{ height: 10, width: '70%', background: 'var(--clr-surface-2)', borderRadius: 3, marginBottom: 16 }} />
+              <div style={{ height: 32, width: '100%', background: 'var(--clr-surface-2)', borderRadius: 4 }} />
             </div>
           ))}
         </div>
@@ -352,8 +352,8 @@ const emptyStyle = {
   padding: 36,
   textAlign: 'center',
   color: '#666',
-  background: '#fafafa',
-  border: '1px dashed #ccc',
+  background: 'var(--clr-surface-2)',
+  border: '1px dashed var(--clr-border)',
   borderRadius: 8,
 };
 const gridStyle = {
@@ -365,7 +365,7 @@ const cardStyle = {
   border: '1px solid #ddd',
   borderRadius: 8,
   padding: 14,
-  background: '#fff',
+  background: 'var(--clr-surface)',
 };
 
 const badgeBase = {
@@ -401,13 +401,13 @@ const tabRowStyle = {
   flexWrap: 'wrap',
   marginBottom: 12,
   padding: '6px 0',
-  borderBottom: '1px solid #eee',
+  borderBottom: '1px solid var(--clr-border)',
 };
 
 const tabBtnStyle = {
   padding: '6px 12px',
-  background: '#fff',
-  border: '1px solid #ccc',
+  background: 'var(--clr-surface)',
+  border: '1px solid var(--clr-border)',
   borderRadius: 6,
   cursor: 'pointer',
   fontSize: '0.82rem',
@@ -416,7 +416,7 @@ const tabBtnStyle = {
 };
 
 const tabBtnActiveStyle = {
-  background: '#4a6b4a',
+  background: 'var(--clr-sage)',
   color: '#fff',
   borderColor: '#3a5a3a',
 };
@@ -430,7 +430,7 @@ const emptyModalityStyle = {
   padding: 36,
   textAlign: 'center',
   color: '#666',
-  background: '#fafafa',
-  border: '1px dashed #ccc',
+  background: 'var(--clr-surface-2)',
+  border: '1px dashed var(--clr-border)',
   borderRadius: 8,
 };

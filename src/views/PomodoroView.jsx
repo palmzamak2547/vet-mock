@@ -96,7 +96,7 @@ export default function PomodoroView({ goHome }) {
         paddingBottom: 'calc(env(safe-area-inset-bottom) + 24px)',
         paddingLeft: 'max(env(safe-area-inset-left), 16px)',
         paddingRight: 'max(env(safe-area-inset-right), 16px)',
-        background: 'linear-gradient(180deg, #fff8e6 0%, #fffdf5 100%)',
+        background: 'linear-gradient(180deg, var(--clr-surface) 0%, var(--clr-bg) 100%)',
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
@@ -149,17 +149,17 @@ export default function PomodoroView({ goHome }) {
           gridTemplateColumns: 'repeat(4, 1fr)',
           gap: 6,
           padding: 10,
-          background: '#fff',
+          background: 'var(--clr-surface)',
           borderRadius: 12,
-          border: '1px solid #ffe8b3',
+          border: '1px solid var(--clr-gold-soft)',
         }}
       >
         {statsRow.map((s) => (
           <div key={s.label} style={{ textAlign: 'center', padding: '4px 2px' }}>
-            <div style={{ fontSize: 11, color: '#6b6257', whiteSpace: 'nowrap' }}>{s.label}</div>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>{s.label}</div>
             <div style={{ fontSize: 16, fontWeight: 700, color: '#7a5a30' }}>
               {s.value}
-              <span style={{ fontSize: 11, color: '#6b6257', marginLeft: 2 }}>{s.suffix}</span>
+              <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginLeft: 2 }}>{s.suffix}</span>
             </div>
           </div>
         ))}
@@ -168,9 +168,9 @@ export default function PomodoroView({ goHome }) {
       {/* Config panel (collapsible) */}
       <div
         style={{
-          background: '#fff',
+          background: 'var(--clr-surface)',
           borderRadius: 12,
-          border: '1px solid #ffe8b3',
+          border: '1px solid var(--clr-gold-soft)',
           overflow: 'hidden',
         }}
       >
@@ -198,7 +198,7 @@ export default function PomodoroView({ goHome }) {
         </button>
         {settingsOpen && (
           <div style={{ padding: '0 14px 14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, color: '#444', fontWeight: 600, padding: '4px 0', cursor: 'pointer' }}>
+            <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, color: 'var(--clr-ink)', fontWeight: 600, padding: '4px 0', cursor: 'pointer' }}>
               <span>🐣 Strict Mode (ห้ามออกจากหน้าเกิน 5 วินาที)</span>
               <input
                 type="checkbox"
@@ -244,8 +244,8 @@ export default function PomodoroView({ goHome }) {
                 fontSize: 13,
                 fontWeight: 600,
                 borderRadius: 8,
-                border: '1px solid #ddd',
-                background: '#fff',
+                border: '1px solid var(--clr-border)',
+                background: 'var(--clr-surface)',
                 color: '#666',
                 cursor: 'pointer',
               }}
@@ -257,7 +257,7 @@ export default function PomodoroView({ goHome }) {
       </div>
 
       {/* Hint footer */}
-      <div style={{ fontSize: 12, color: '#6b6257', textAlign: 'center', padding: '4px 8px' }}>
+      <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', padding: '4px 8px' }}>
         {config.strictFocus !== false
           ? 'Strict Mode: เปลี่ยนแท็บ พับหน้าต่าง หรือล็อกหน้าจอเกิน 5 วินาที ลูกไก่จะหนี'
           : 'Relaxed Mode: สลับแอปอ่าน PDF/สรุปได้ โดยไม่พัง session'}
@@ -270,7 +270,7 @@ export default function PomodoroView({ goHome }) {
 function Slider({ label, suffix, min, max, step, value, onChange }) {
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <span style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#444', fontWeight: 600 }}>
+      <span style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--clr-ink)', fontWeight: 600 }}>
         <span>{label}</span>
         <span style={{ color: '#7a5a30' }}>
           {value} <span style={{ fontSize: 11, color: '#aaa' }}>{suffix}</span>

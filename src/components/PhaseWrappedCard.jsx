@@ -374,7 +374,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
     >
       {/* Header */}
       <div style={{ marginBottom: 20, textAlign: 'center' }}>
-        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>
+        <div className="vmx-kicker">
           Phase Wrapped
         </div>
         <h2 style={{ margin: '6px 0 0', fontSize: 24, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
@@ -437,7 +437,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
 
           {/* 30-day bar chart */}
           <div style={{ marginTop: 20 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>
+            <div className="vmx-kicker" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
               <span>30 days</span>
               <span>{stats.dailyAvg}/วัน avg</span>
             </div>
@@ -561,7 +561,7 @@ function SubjectRow({ tint, label, icon, name, pct }) {
       display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px',
       borderRadius: 14, background: `${tint}1A`, border: `1px solid ${tint}33`,
     }}>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: tint, letterSpacing: '0.10em', textTransform: 'uppercase', minWidth: 86 }}>
+      <div className="vmx-kicker" style={{ color: tint, minWidth: 86 }}>
         {label}
       </div>
       <div style={{ flex: 1, fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink, #2b2419)', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -577,7 +577,7 @@ function SubjectRow({ tint, label, icon, name, pct }) {
 function StatCell({ label, value, unit, tint = 'var(--clr-ink, #2b2419)' }) {
   return (
     <div style={{ padding: '8px 4px' }}>
-      <div style={{ fontSize: 9, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.10em', textTransform: 'uppercase' }}>
+      <div className="vmx-kicker" style={{ fontSize: 9 }}>
         {label}
       </div>
       <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 28, color: tint, lineHeight: 1.1, marginTop: 2 }}>

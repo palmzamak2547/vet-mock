@@ -41,26 +41,23 @@
   --clr-rose-text: #93454b;
   --shadow-sm: 0 1px 2px rgba(43, 36, 25, 0.08);
   --shadow-md: 0 4px 12px rgba(43, 36, 25, 0.08), 0 2px 4px rgba(43, 36, 25, 0.05);
+  --shadow-lg: 0 12px 32px rgba(43, 36, 25, 0.14), 0 4px 8px rgba(43, 36, 25, 0.08);
+  /* Shared gold halo for streak/live indicators — one definition so the
+     glow can't drift out of sync across surfaces. */
+  --shadow-glow-gold: 0 0 4px 0 rgba(184, 137, 64, 0.32);
 
   /* Interaction tokens — harmonized to the warm-editorial palette.
      (Was a cold Duolingo sky-blue/slate scheme that clashed with the
      cream/sage app; the primary button read as a foreign design system.) */
   --vmx-color-learning: var(--clr-sage);
-  --vmx-color-learning-shadow: var(--clr-sage-text);
   --vmx-color-success: #43793f;
-  --vmx-color-success-shadow: #2f5a2d;
   --vmx-color-danger: var(--clr-rose);
-  --vmx-color-danger-shadow: var(--clr-rose-text);
   --vmx-color-ghost: var(--clr-surface-2);
-  --vmx-color-ghost-shadow: var(--clr-border);
   --vmx-surface: var(--clr-surface);
   --vmx-surface-muted: var(--clr-surface-2);
   --vmx-border-new: var(--clr-border);
   --vmx-text: var(--clr-ink);
   --vmx-text-muted: var(--clr-ink-soft);
-  --vmx-radius-control: 14px;
-  --vmx-radius-card: 20px;
-  --vmx-press-depth: 4px;
 
   /* ── Scale tokens · UX-transformation Phase 1 (2026-07-24) ───────────
      ADDITIVE foundation. The existing colour, interaction and shadow
@@ -122,16 +119,14 @@
   --clr-rose-text: #edaaaa;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.35);
+  --shadow-glow-gold: 0 0 4px 0 rgba(212, 165, 86, 0.4);
 
   /* Interaction tokens (dark) — harmonized to the warm-editorial palette. */
   --vmx-color-learning: #5f8a5f;
-  --vmx-color-learning-shadow: #3a563a;
   --vmx-color-success: #5a9a5a;
-  --vmx-color-success-shadow: #3d6b3d;
   --vmx-color-danger: #a85a5a;
-  --vmx-color-danger-shadow: #7a3f3f;
   --vmx-color-ghost: var(--clr-surface-2);
-  --vmx-color-ghost-shadow: var(--clr-border);
   --vmx-surface: var(--clr-surface);
   --vmx-surface-muted: var(--clr-surface-2);
   --vmx-border-new: var(--clr-border);
@@ -960,6 +955,11 @@ html, body {
 }
 
 .vmx-section-label { font-size: 13px; font-weight: 600; color: var(--clr-ink); margin: 0 0 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+/* Kicker — the mono uppercase micro-label above stats, sections and
+   review rows. One class replaces ~dozens of identical inline literals
+   (font 11 · mono · uppercase · 0.08em). Color / margins / flex layout
+   stay per-use since they legitimately vary; see docs/DESIGN_SYSTEM.md. */
+.vmx-kicker { font-family: var(--vmx-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); }
 .vmx-section-tabs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -990,21 +990,19 @@ html, body {
 .vmx-section-tabs button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 
 .vmx-mode-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
-.vmx-mode-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 16px; cursor: pointer; transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast); text-align: left; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; color: var(--clr-ink); font-family: inherit; }
-.vmx-mode-card:hover { border-color: var(--clr-sage); background: var(--clr-surface-2); box-shadow: var(--shadow-sm); }
+/* Mode + subject cards are ONE component — the two blocks used to be
+   verbatim copies that could (and did) drift. Shared anatomy lives in
+   the combined selectors; per-name extras sit below. */
+.vmx-mode-card, .vmx-subject-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 16px; cursor: pointer; transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast); text-align: left; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; color: var(--clr-ink); font-family: inherit; }
+.vmx-mode-card:hover, .vmx-subject-card:hover { border-color: var(--clr-sage); background: var(--clr-surface-2); box-shadow: var(--shadow-sm); }
 .vmx-mode-card:disabled { cursor: not-allowed; }
 .vmx-mode-card:disabled:hover { border-color: var(--clr-border); background: var(--clr-surface); }
-.vmx-mode-card .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: var(--clr-surface-2); color: var(--clr-sage); font-size: 20px; line-height: 1; }
-.vmx-mode-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 16px; color: var(--clr-ink); }
-.vmx-mode-card .sub { font-size: 12px; color: var(--clr-ink-soft); line-height: 1.4; }
-.vmx-mode-card .badge { position: absolute; top: 12px; right: 12px; font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--clr-surface-2); color: var(--clr-ink-soft); font-weight: 500; }
+.vmx-mode-card .icon, .vmx-subject-card .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: var(--r-md); background: var(--clr-surface-2); color: var(--clr-sage); font-size: 20px; line-height: 1; }
+.vmx-mode-card .title, .vmx-subject-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 16px; color: var(--clr-ink); }
+.vmx-mode-card .sub, .vmx-subject-card .sub { font-size: 12px; color: var(--clr-ink-soft); line-height: 1.4; }
+.vmx-mode-card .badge { position: absolute; top: 12px; right: 12px; font-size: 11px; padding: 2px 8px; border-radius: var(--r-sm); background: var(--clr-surface-2); color: var(--clr-ink-soft); font-weight: 500; }
 
 .vmx-subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
-.vmx-subject-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 16px; cursor: pointer; transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast); text-align: left; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; color: var(--clr-ink); font-family: inherit; }
-.vmx-subject-card:hover { border-color: var(--clr-sage); background: var(--clr-surface-2); box-shadow: var(--shadow-sm); }
-.vmx-subject-card .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: var(--clr-surface-2); font-size: 21px; line-height: 1; color: var(--clr-sage); }
-.vmx-subject-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 16px; color: var(--clr-ink); }
-.vmx-subject-card .sub { font-size: 12px; color: var(--clr-ink-soft); font-style: normal; }
 .vmx-subject-card .count { font-size: 12px; color: var(--clr-ink-soft); margin-top: 2px; }
 .vmx-subject-card .accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
 .vmx-topic-progress {
@@ -1124,7 +1122,7 @@ html, body {
   flex: 1 1 86px;
   padding: 7px 9px;
   border: 1px solid var(--clr-border);
-  border-radius: 9px;
+  border-radius: var(--r-sm);
   background: var(--clr-bg);
   color: var(--clr-ink-soft);
   font-family: inherit;
@@ -1156,7 +1154,7 @@ html, body {
 .vmx-feature-group-heading h3 { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.3; }
 .vmx-feature-group-heading > span { color: var(--clr-ink-soft); font-size: 11px; }
 .vmx-feature-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
-.vmx-feature-card { min-height: 54px; padding: 10px 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; border: 1px solid var(--clr-border); border-radius: 10px; background: var(--clr-surface); color: var(--clr-ink); text-align: left; font-family: inherit; cursor: pointer; transition: border-color 140ms, background 140ms; }
+.vmx-feature-card { min-height: 54px; padding: 10px 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface); color: var(--clr-ink); text-align: left; font-family: inherit; cursor: pointer; transition: border-color 140ms, background 140ms; }
 .vmx-feature-card:hover { border-color: var(--clr-ink); background: var(--clr-surface-2); }
 .vmx-feature-card-icon { display: none; }
 .vmx-feature-card-copy { min-width: 0; display: grid; gap: 2px; }
@@ -1168,7 +1166,7 @@ html, body {
 
 .vmx-footer-link { border: 0; background: transparent; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
 
-.vmx-config-panel { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 20px; padding: 28px; margin-bottom: 20px; }
+.vmx-config-panel { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 28px; margin-bottom: 20px; }
 .vmx-config-row { margin-bottom: 24px; }
 .vmx-config-row:last-child { margin-bottom: 0; }
 .vmx-config-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
@@ -1330,7 +1328,7 @@ html, body {
 
 /* padding-top clears the absolutely-positioned .vmx-q-toolbar (16px inset +
    44px control) so the type chip and stem always start below it. */
-.vmx-question-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 20px; padding: 72px 32px 32px; margin-bottom: 20px; box-shadow: var(--shadow-sm); position: relative; }
+.vmx-question-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 72px 32px 32px; margin-bottom: 20px; box-shadow: var(--shadow-sm); position: relative; }
 /* Tap-target floor for controls that are inline-styled (often with
    `all: unset`) and so can't inherit .vmx-btn's 44px rule. WCAG 2.5.5.
    Deliberately does NOT force padding — it only guarantees the hit area, so
@@ -1573,7 +1571,7 @@ html, body {
 .vmx-note-panel { background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
 .vmx-note-textarea { width: 100%; min-height: 80px; padding: 10px; border-radius: 8px; border: 1px solid var(--clr-border); background: var(--clr-surface); font-family: inherit; font-size: 14px; resize: vertical; color: var(--clr-ink); }
 
-.vmx-results-hero { text-align: center; padding: 40px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 24px; margin-bottom: 24px; box-shadow: var(--shadow-md); }
+.vmx-results-hero { text-align: center; padding: 40px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); margin-bottom: 24px; box-shadow: var(--shadow-md); }
 .vmx-score-big { font-family: 'Fraunces', serif; font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
 .vmx-score-big.pass { color: var(--clr-sage); }
 .vmx-score-big.fail { color: var(--clr-rose); }
@@ -1582,11 +1580,11 @@ html, body {
 .vmx-score-msg { font-family: inherit; font-size: 17px; line-height: 1.55; color: var(--clr-ink-soft); margin-top: 16px; }
 
 .vmx-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
-.vmx-stat-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 14px; padding: 16px; text-align: center; }
+.vmx-stat-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-md); padding: 16px; text-align: center; }
 .vmx-stat-num { font-family: inherit; font-weight: 700; font-size: 32px; line-height: 1; color: var(--clr-ink); }
 .vmx-stat-lbl { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-top: 6px; }
 
-.vmx-review-item { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 16px; padding: 20px; margin-bottom: 12px; }
+.vmx-review-item { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 20px; margin-bottom: 12px; }
 .vmx-review-item.correct { border-left: 4px solid var(--clr-sage); }
 .vmx-review-item.wrong { border-left: 4px solid var(--clr-rose); }
 .vmx-review-item.skipped { border-left: 4px solid var(--clr-gold); background: var(--clr-surface-2); }
@@ -1615,7 +1613,7 @@ html, body {
 .vmx-review-explain .k { font-family: inherit; font-weight: 700; color: var(--clr-gold-text); margin-right: 8px; }
 
 .vmx-dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
-.vmx-dash-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 16px; padding: 20px; }
+.vmx-dash-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 20px; }
 .vmx-dash-card h3 { font-family: inherit; font-size: 18px; margin: 0 0 14px; font-weight: 700; color: var(--clr-ink); }
 .vmx-bar { height: 8px; background: var(--clr-surface-2); border-radius: 999px; overflow: hidden; margin: 4px 0 12px; }
 .vmx-bar-fill { height: 100%; background: var(--clr-sage); border-radius: 999px; transition: width 0.4s; }
@@ -1641,7 +1639,7 @@ html, body {
 .vmx-sr-btn.easy { border-color: var(--clr-ocean); }
 .vmx-sr-btn.easy .label { color: var(--clr-ocean); }
 
-.vmx-flashcard { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 20px; padding: 40px; min-height: 300px; text-align: center; margin-bottom: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; }
+.vmx-flashcard { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 40px; min-height: 300px; text-align: center; margin-bottom: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; }
 .vmx-flashcard .front { font-size: 20px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-flashcard .back { font-size: 17px; line-height: 1.5; color: var(--clr-ink); border-top: 1px dashed var(--clr-border); padding-top: 20px; margin-top: 20px; }
 .vmx-flashcard .back .answer { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; color: var(--clr-sage); margin-bottom: 12px; }
@@ -1681,7 +1679,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 .vmx-modal {
   background: var(--clr-surface);
-  border-radius: 20px;
+  border-radius: var(--r-xl);
   padding: 28px;
   max-width: 500px;
   width: 100%;
@@ -2179,7 +2177,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 
 .vmx-streak-dot-active {
   background: var(--clr-gold);
-  box-shadow: 0 0 4px 0 rgba(184, 137, 64, 0.35);
+  box-shadow: var(--shadow-glow-gold);
 }
 
 .vmx-streak-hot .vmx-streak-dot-active {
@@ -2303,7 +2301,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 .vmx-heatmap-legend-hot {
-  box-shadow: 0 0 4px 0 rgba(184, 137, 64, 0.30);
+  box-shadow: var(--shadow-glow-gold);
 }
 
 /* Quick-action chips: lift on press, soft glow on focus-visible */
@@ -2627,19 +2625,6 @@ button.vmx-chip-quick:focus-visible {
    the hit area (labels already wrap them). */
 input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-color: var(--clr-sage); flex-shrink: 0; }
 :where(label):has(> input[type="checkbox"], > input[type="radio"]) { min-height: var(--touch-min, 44px); }
-
-/* Native checkboxes/radios ship ~13-21px, well under the 44px floor and
-   fiddly on a phone. Scale the control itself and let its wrapping label
-   carry the rest of the hit area. */
-input[type="checkbox"], input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--clr-sage);
-  flex-shrink: 0;
-}
-label:has(> input[type="checkbox"]), label:has(> input[type="radio"]) {
-  min-height: var(--touch-min, 44px);
-}
 
 /* Keep the DICOM dialogs inside both legacy mobile viewports and modern
    dynamic viewports. Separate declarations preserve the Safari fallback. */
