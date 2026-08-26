@@ -9,9 +9,17 @@
 // and 2.16:1 in light — a badge nobody could read, shipped for five
 // days. Only the composited, computed pixel values show it.
 //
-// Needs a preview server already running:
-//     npx vite preview --port 4174    # or whatever preview_start gives
-//     npm run audit:contrast -- --url http://localhost:4174
+// Runs inside `npm run lint:all`, so it starts and stops its own preview
+// server and needs no setup:
+//     npm run audit:contrast
+//     npm run audit:contrast -- --landing                  # signed-out page
+//     npm run audit:contrast -- --url https://vetmock.vercel.app/
+//
+// It measures the BUILT bundle in dist/, so it refuses to run against one
+// older than src/ rather than reporting a confident answer about code
+// nobody is shipping. Both pages are swept in one browser: the palettes
+// only re-point CSS variables, so the twelve combinations are attribute
+// flips on one loaded page, not twelve page loads.
 //
 // Two traps this tool hit while being written, both of which made it
 // report confident nonsense, so they are pinned here:
@@ -27,8 +35,19 @@
 //
 // A contrast tool that cries wolf gets ignored, which is worse than not
 // having one. If you add a color format, add it to toRgb.
+//
+// WHAT IT DOES NOT COVER, so a green run is not read as more than it is:
+// two surfaces, the signed-in home page and the signed-out landing. The
+// exam screen is not swept, and that is where the rose fills live — the
+// wrong-answer letter chip, the False button, the warning timer. Reverting
+// --clr-rose to its old value leaves this gate green for exactly that
+// reason. Reaching those needs a practice session, which is a page of
+// navigation this is not paying for yet.
 
 import { chromium } from '@playwright/test';
+import { spawn } from 'node:child_process';
+import { existsSync, statSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 
 const arg = (name, fallback) => {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -37,7 +56,53 @@ const arg = (name, fallback) => {
   return idx !== -1 ? process.argv[idx + 1] : fallback;
 };
 
-const URL = arg('url', 'http://localhost:4174/');
+const REMOTE = arg('url', null);
+const PORT = Number(arg('port', 41732));
+const URL = REMOTE || `http://127.0.0.1:${PORT}/`;
+
+// ── the build this measures ─────────────────────────────────────────
+// Reading a stale dist/ is the one failure mode that matters here: it
+// answers confidently about a bundle nobody is shipping, and a green
+// gate is exactly when nobody looks twice. Newest mtime under src/ vs
+// the built index — cheap, and wrong only in the safe direction (a
+// touched-but-unchanged file asks for a rebuild that costs a minute).
+function newestMtime(dir) {
+  let newest = 0;
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, e.name);
+    newest = Math.max(newest, e.isDirectory() ? newestMtime(full) : statSync(full).mtimeMs);
+  }
+  return newest;
+}
+
+async function serveLocalBuild() {
+  const index = 'dist/index.html';
+  if (!existsSync(index)) {
+    console.error('✗ no dist/ to measure. Run `npm run build` first.');
+    process.exit(1);
+  }
+  if (newestMtime('src') > statSync(index).mtimeMs) {
+    console.error('✗ dist/ is older than src/. Run `npm run build` — measuring a stale');
+    console.error('  bundle would report contrast for code that is not being shipped.');
+    process.exit(1);
+  }
+  // Spawn vite's bin with this node, not `npx` through a shell: shell:true
+  // on Windows concatenates rather than escapes its arguments, and a lint
+  // gate has no business opening that door.
+  const server = spawn(process.execPath,
+    [join('node_modules', 'vite', 'bin', 'vite.js'), 'preview', '--port', String(PORT), '--strictPort', '--host', '127.0.0.1'],
+    { stdio: 'ignore' });
+  for (let i = 0; i < 60; i++) {
+    try {
+      const res = await fetch(URL, { signal: AbortSignal.timeout(1000) });
+      if (res.ok) return server;
+    } catch {}
+    await new Promise((r) => setTimeout(r, 250));
+  }
+  server.kill();
+  console.error(`✗ preview server never came up on ${URL}`);
+  process.exit(1);
+}
 const THEMES = (arg('themes', 'light,dark')).split(',');
 // Sweeping themes alone checks 2 of 12 combinations: five alternate
 // palettes re-point the accent, and for a long time they re-pointed only
@@ -45,6 +110,8 @@ const THEMES = (arg('themes', 'light,dark')).split(',');
 // theme rendered rose everywhere and green in every accent label.
 const PALETTES = (arg('palettes', 'default,ocean,plum,cherry,mono,forest')).split(',');
 const LANDING = process.argv.includes('--landing');
+// Quiet by default so a green gate is one line inside lint:all.
+const VERBOSE = process.argv.includes('--verbose');
 
 // Known and deliberately not failing the run. Each entry says WHY, so
 // the list cannot quietly become a place to hide new regressions.
@@ -115,62 +182,83 @@ const PAGE_FN = () => {
   return out;
 };
 
+const server = REMOTE ? null : await serveLocalBuild();
 const browser = await chromium.launch();
 let failures = 0;
 let excused = 0;
 
-for (const theme of THEMES) for (const palette of PALETTES) {
-  const label = `${theme}/${palette}`;
+try {
+  // One context, one load per page. Switching palette is a CSS-variable
+  // swap, so flipping the attributes is the same measurement as twelve
+  // navigations and turns a two-minute sweep into a few seconds — which
+  // is the difference between a gate people run and one they skip.
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
-  await ctx.addInitScript(([t, p, seedYear]) => {
+  await ctx.addInitScript((seedYear) => {
     try {
       // Without the year seed the app opens its signed-out landing page
       // instead of home — two different stylesheets, so both are worth
       // sweeping. --landing swaps which one this run measures.
       if (seedYear) localStorage.setItem('vmx-selected-year', '4');
-      localStorage.setItem('vmx-theme', JSON.stringify(t));
-      localStorage.setItem('vmx-palette', JSON.stringify(p));
     } catch {}
-  }, [theme, palette, !LANDING]);
+  }, !LANDING);
   const page = await ctx.newPage();
   await page.goto(URL, { waitUntil: 'networkidle' });
   // The app stamps data-theme after it boots, so wait for the attribute
   // rather than a fixed delay — a fixed delay reports "theme null" on a
   // slow start and looks like the seed failed.
-  await page.waitForFunction(() => document.documentElement.hasAttribute('data-theme'), null, { timeout: 15_000 });
-  await page.waitForTimeout(300);
+  await page.waitForFunction(() => document.documentElement.hasAttribute('data-theme'), null, { timeout: 20_000 });
 
-  const applied = await page.evaluate(() => ({
-    theme: document.documentElement.getAttribute('data-theme'),
-    palette: document.documentElement.getAttribute('data-palette') || 'default',
-  }));
-  if (applied.theme !== theme || applied.palette !== palette) {
-    console.error(`✗ ${label}: page rendered as ${applied.theme}/${applied.palette} — seed did not take, results would be meaningless`);
-    process.exit(1);
+  // Kill transitions before measuring anything. Flipping data-theme in
+  // place leaves the page mid-interpolation, and getComputedStyle happily
+  // reports the halfway colour: the first run of this loop produced 394
+  // failures against values like rgb(32,28,24), which is no token in this
+  // app — it is dark-mode ink caught on its way to light. A page that is
+  // still animating is not a page you can measure.
+  await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; animation: none !important; }' });
+
+  for (const theme of THEMES) for (const palette of PALETTES) {
+    const label = `${theme}/${palette}`;
+    const applied = await page.evaluate(([t, p]) => {
+      const el = document.documentElement;
+      el.setAttribute('data-theme', t);
+      if (p === 'default') el.removeAttribute('data-palette');
+      else el.setAttribute('data-palette', p);
+      return { theme: el.getAttribute('data-theme'), palette: el.getAttribute('data-palette') || 'default' };
+    }, [theme, palette]);
+    // Assert it stuck. If the app syncs these attributes back from its own
+    // state, every reading after the first would silently be the same
+    // palette twelve times over — a clean sweep that measured nothing.
+    if (applied.theme !== theme || applied.palette !== palette) {
+      console.error(`✗ ${label}: page rendered as ${applied.theme}/${applied.palette} — the flip did not stick, results would be meaningless`);
+      process.exit(1);
+    }
+
+    // Two frames: one for the variable swap to apply, one for layout.
+    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+
+    const rows = (await page.evaluate(PAGE_FN))
+      .map((r) => ({ ...r, ratio: +ratio(r.fg, r.bg).toFixed(2) }))
+      .filter((r) => r.ratio < r.floor)
+      .sort((a, b) => a.ratio - b.ratio);
+
+    const real = [];
+    for (const r of rows) {
+      const known = KNOWN.find((k) => (k.onText ? k.match.test(r.text) : k.match.test(r.cls)));
+      if (known) { excused++; continue; }
+      real.push(r);
+    }
+
+    if (real.length || VERBOSE) console.log(`${label.padEnd(16)} ${real.length} below AA`);
+    for (const r of real) {
+      console.log(`   ${r.ratio} (needs ${r.floor})  ${JSON.stringify(r.text)}`);
+      console.log(`        rgb(${r.fg.map(Math.round)}) on rgb(${r.bg.map(Math.round)})  |  ${r.cls}`);
+    }
+    failures += real.length;
   }
-
-  const rows = (await page.evaluate(PAGE_FN))
-    .map((r) => ({ ...r, ratio: +ratio(r.fg, r.bg).toFixed(2) }))
-    .filter((r) => r.ratio < r.floor)
-    .sort((a, b) => a.ratio - b.ratio);
-
-  const real = [];
-  for (const r of rows) {
-    const known = KNOWN.find((k) => (k.onText ? k.match.test(r.text) : k.match.test(r.cls)));
-    if (known) { excused++; continue; }
-    real.push(r);
-  }
-
-  console.log(`${label.padEnd(16)} ${real.length} below AA`);
-  for (const r of real) {
-    console.log(`   ${r.ratio} (needs ${r.floor})  ${JSON.stringify(r.text)}`);
-    console.log(`        rgb(${r.fg.map(Math.round)}) on rgb(${r.bg.map(Math.round)})  |  ${r.cls}`);
-  }
-  failures += real.length;
-  await ctx.close();
+} finally {
+  await browser.close();
+  server?.kill();
 }
-
-await browser.close();
 
 if (excused) {
   console.log(`\n${excused} known item(s) excused:`);
