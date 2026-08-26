@@ -64,11 +64,19 @@ for (const theme of ['light','dark']) {
 // happen to carry them — it took fifteen samples to see one.
 for (const theme of ['light','dark']) {
   const base = BASE[theme];
-  for (const fam of FAMS) {
-    const soft = base[`clr-${fam}-soft`];
-    if (!soft?.startsWith('#')) continue;
-    const r = R(base['clr-ink'], soft);
-    if (r < 4.5) { console.log(`✗ ${theme}  --clr-ink on --clr-${fam}-soft (${soft})  ${r.toFixed(2)}`); bad++; }
+  // Palettes too. Checking only the base blocks is how ocean's dark
+  // gold-soft (#4d6e80, ink at 4.40) slipped past a check written for
+  // exactly this — and then took nine browser samples to surface.
+  for (const pal of [null,'ocean','plum','cherry','mono','forest']) {
+    const sel = pal ? (theme === 'dark' ? `[data-theme="dark"][data-palette="${pal}"]` : `[data-palette="${pal}"]`)
+                    : (theme === 'dark' ? '[data-theme="dark"]' : ':root, [data-theme="light"]');
+    const vars = pal ? (block(sel) || {}) : base;
+    for (const fam of FAMS) {
+      const soft = vars[`clr-${fam}-soft`] ?? base[`clr-${fam}-soft`];
+      if (!soft?.startsWith('#')) continue;
+      const r = R(base['clr-ink'], soft);
+      if (r < 4.5) { console.log(`✗ ${sel}  --clr-ink on --clr-${fam}-soft (${soft})  ${r.toFixed(2)}`); bad++; }
+    }
   }
 }
 
