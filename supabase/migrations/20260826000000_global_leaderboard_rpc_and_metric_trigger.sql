@@ -132,7 +132,17 @@ CREATE TRIGGER tr_protect_profile_metrics
   FOR EACH ROW
   EXECUTE FUNCTION public.protect_profile_metrics();
 
--- ── 3. user_data UPDATE gets its WITH CHECK ──────────────────────────
+-- ── 3. race_results columns the repo never learned about ─────────────
+-- The table was created directly in production, and PR1's CREATE TABLE
+-- IF NOT EXISTS (which never ran here) lists eight of its ten columns.
+-- On a database rebuilt from this repo, race_results would come out
+-- without year or phase, and listRaceResults() does `select *`, so the
+-- drift would be silent until something needed them. Additive and
+-- idempotent: a no-op against production, correct on a fresh build.
+ALTER TABLE public.race_results ADD COLUMN IF NOT EXISTS year INT;
+ALTER TABLE public.race_results ADD COLUMN IF NOT EXISTS phase TEXT;
+
+-- ── 4. user_data UPDATE gets its WITH CHECK ──────────────────────────
 -- Live has USING (auth.uid() = user_id) and no WITH CHECK, so the row a
 -- user is allowed to update could be handed a different user_id on the
 -- way out — the check clause is what stops a row being reassigned.

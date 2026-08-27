@@ -2,6 +2,33 @@
 -- Migration: 20260815000000_pr1_critical_rls_lockdown.sql
 -- Description: PR 1 — Critical RLS Lockdown & Profile Field Protection
 -- ============================================================
+--
+-- SUPERSEDED, AND NEVER APPLIED TO PRODUCTION. Kept as history; read the
+-- rest of this file as intent, not as a description of the database.
+--
+-- It is timestamped 20260815, before the 2026-08-24 hardening pass, so it
+-- sorts behind eight migrations that had already shipped and `db push`
+-- never ran it. What it set out to fix was closed by other means:
+--
+--   • The profile counters it protects with a trigger were REVOKEd at the
+--     column level by 20260824175839 — `authenticated` can UPDATE only
+--     username and avatar_emoji, and cannot even SELECT the counters.
+--   • The leaky "group_id IS NULL" read clause was removed by
+--     20260824180000, which also installs the version live today (using
+--     private.is_current_user_group_member and a cached auth.uid()).
+--   • Its DROP POLICY names — results_delete_own, rr_delete_own,
+--     udata_delete_own — match nothing here. The live delete policies are
+--     named "users self-delete <table>", so the "SELECT + INSERT only"
+--     claim above did not hold even in intent.
+--   • Its race_results CREATE TABLE lists eight of the ten columns
+--     production has; 20260826000000 adds year and phase so a rebuilt
+--     database matches.
+--
+-- On a fresh build this still runs FIRST and is then corrected by the
+-- 08-24 and 08-26 migrations, so the end state is right either way.
+-- The parts still worth having — the global leaderboard RPC and the
+-- metric trigger as a second lock — live in
+-- 20260826000000_global_leaderboard_rpc_and_metric_trigger.sql.
 
 -- 1. Protect Profile Metrics (total_attempts, total_correct, streak)
 -- Direct client UPDATE via Supabase REST API must NOT allow modifying

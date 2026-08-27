@@ -53,21 +53,34 @@ async function startPractice(page, { instant = true } = {}) {
   await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 15_000 });
 }
 
-/** Walk forward until a multiple-choice question is on screen. */
+/** Walk forward until a multiple-choice question is on screen.
+ *
+ *  Returns 'found' | 'no-mcq'. True/False counts as a legitimate reason
+ *  to walk on rather than a breakage — the feature handles tf too, these
+ *  tests just assert the MCQ specifics. It deliberately does NOT return a bare
+ *  false, because a set with no MCQ and a set whose options failed to
+ *  render look identical from outside, and 95.2% of the corpus is MCQ —
+ *  so "no MCQ here" is far more likely to be the bug than the reason to
+ *  skip. Anything that is neither an MCQ nor a recognisable writing
+ *  control throws instead of quietly skipping the test. */
 async function findMcq(page) {
-  for (let i = 0; i < 5; i++) {
-    if (await page.locator('.vmx-option').first().isVisible().catch(() => false)) return true;
+  for (let i = 0; i < 6; i++) {
+    if (await page.locator('.vmx-option').first().isVisible().catch(() => false)) return 'found';
+    const writing = await page.locator('.vmx-fill-input, .vmx-match-select, .vmx-tf-btn, textarea').count();
+    if (!writing) {
+      throw new Error('question card has no MCQ options and no writing control — the answer controls did not render');
+    }
     const next = page.getByRole('button', { name: /ถัดไป/ });
-    if (!(await next.isVisible().catch(() => false))) return false;
+    if (!(await next.isVisible().catch(() => false))) return 'no-mcq';
     await next.click();
   }
-  return false;
+  return 'no-mcq';
 }
 
 test.describe('instant answer feedback', () => {
   test('reveals the verdict and locks the options on click', async ({ page }) => {
     await startPractice(page);
-    test.skip(!(await findMcq(page)), 'no MCQ in this random set');
+    test.skip((await findMcq(page)) !== 'found', 'this random set drew no multiple-choice question');
 
     await expect(page.locator('.vmx-instant-feedback')).toHaveCount(0);
     await page.locator('.vmx-option').first().click();
@@ -86,7 +99,7 @@ test.describe('instant answer feedback', () => {
 
   test('keeps keyboard focus in the page after the options lock', async ({ page }) => {
     await startPractice(page);
-    test.skip(!(await findMcq(page)), 'no MCQ in this random set');
+    test.skip((await findMcq(page)) !== 'found', 'this random set drew no multiple-choice question');
 
     await page.locator('.vmx-option').first().focus();
     await page.keyboard.press('Enter');
@@ -101,7 +114,7 @@ test.describe('instant answer feedback', () => {
 
   test('stays silent when the toggle is off', async ({ page }) => {
     await startPractice(page, { instant: false });
-    test.skip(!(await findMcq(page)), 'no MCQ in this random set');
+    test.skip((await findMcq(page)) !== 'found', 'this random set drew no multiple-choice question');
 
     await page.locator('.vmx-option').first().click();
     await expect(page.locator('.vmx-instant-feedback')).toHaveCount(0);
@@ -119,7 +132,7 @@ test.describe('instant answer feedback', () => {
     await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('3');
     await page.getByRole('button', { name: /เริ่ม/ }).click();
     await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 15_000 });
-    test.skip(!(await findMcq(page)), 'no MCQ in this random set');
+    test.skip((await findMcq(page)) !== 'found', 'this random set drew no multiple-choice question');
 
     await page.locator('.vmx-option').first().click();
     await expect(page.locator('.vmx-instant-feedback')).toHaveCount(0);

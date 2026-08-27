@@ -130,6 +130,21 @@ const THEMES = (arg('themes', 'light,dark')).split(',');
 // --clr-sage while --clr-sage-text stayed the default green, so a cherry
 // theme rendered rose everywhere and green in every accent label.
 const PALETTES = (arg('palettes', 'default,ocean,plum,cherry,mono,forest')).split(',');
+// Validate the flags. `--themes bogus` used to sail through: the flip set
+// data-theme="bogus", read it back as "bogus", matched, and the page fell
+// through to the :root light tokens and measured clean. A typo in a flag
+// reporting success is the same failure as a stale build reporting
+// success — the gate answers confidently about something nobody asked.
+const KNOWN_THEMES = ['light', 'dark'];
+const KNOWN_PALETTES = ['default', 'ocean', 'plum', 'cherry', 'mono', 'forest'];
+for (const [label, given, known] of [['theme', THEMES, KNOWN_THEMES], ['palette', PALETTES, KNOWN_PALETTES]]) {
+  const bad = given.filter((v) => !known.includes(v));
+  if (bad.length) {
+    console.error(`✗ unknown ${label}(s): ${bad.join(', ')} — known: ${known.join(', ')}`);
+    process.exit(1);
+  }
+}
+
 const LANDING = process.argv.includes('--landing');
 const EXAM = process.argv.includes('--exam');
 // Quiet by default so a green gate is one line inside lint:all.
@@ -205,6 +220,12 @@ const PAGE_FN = () => {
 };
 
 const server = REMOTE ? null : await serveLocalBuild();
+// process.exit() does NOT run finally blocks, and this script exits early
+// from inside the try on three different failure paths. Each one would
+// have orphaned the preview server, leaving the port held — and the port
+// guard above then refuses every later run until someone kills it by
+// hand. An exit hook catches all of them, including any added later.
+process.on('exit', () => { try { server?.kill(); } catch {} });
 const browser = await chromium.launch();
 let failures = 0;
 let excused = 0;
