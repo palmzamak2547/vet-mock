@@ -8,10 +8,22 @@ import { expect, test } from '@playwright/test';
 // Grouping, filtering and ปีการศึกษา rendering are covered by
 // tests/unit/library.test.mjs, which needs no browser and no credentials.
 
+// vite preview answers /_vercel/insights/script.js and
+// /_vercel/speed-insights/script.js with its HTML 404 page, and the browser
+// parsing that HTML as JS throws "Unexpected token '<'". Whether those two
+// injected scripts fail before or after the assertion is a race, which is how
+// this spec passed a full PR run and then failed the identical tree on main.
+// Same essential filter as smoke.spec.js — the real Vercel CDN serves the
+// correct JS in production, so this is preview-server-only noise.
+const isExpectedNoise = (msg) =>
+  /Vercel Web Analytics|Vercel Speed Insights|_vercel\/(insights|speed-insights)|Unexpected token '<'|expected expression, got '<'/i.test(msg);
+
 test.describe('Study library', () => {
   test('/app/library renders a reload-safe route without page errors', async ({ page }) => {
     const pageErrors = [];
-    page.on('pageerror', (error) => pageErrors.push(error.message));
+    page.on('pageerror', (error) => {
+      if (!isExpectedNoise(error.message)) pageErrors.push(error.message);
+    });
 
     // Stub the optional catalog read the same way the imaging case list is
     // stubbed, so a network wobble cannot masquerade as a render regression.
