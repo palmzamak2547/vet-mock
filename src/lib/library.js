@@ -36,7 +36,8 @@ export const LIBRARY_BUCKET_DEFAULT = 'library-docs';
 // library_docs cannot leak into the client by accident.
 const CATALOG_COLUMNS = [
   'id', 'slug', 'title', 'description',
-  'kind', 'subject', 'year', 'topics', 'lang',
+  'kind', 'subject', 'year', 'semester', 'academic_year', 'cohort',
+  'lecturer', 'topics', 'sequence', 'lang',
   'storage_provider', 'storage_bucket', 'storage_key',
   'mime', 'byte_size', 'page_count', 'sha256_16', 'linearized',
   'license', 'source_url', 'attribution',
@@ -58,6 +59,31 @@ const KIND_LABELS = new Map(LIBRARY_KINDS.map((k) => [k.id, k.label]));
 
 export function kindLabel(kind) {
   return KIND_LABELS.get(kind) || KIND_LABELS.get('other');
+}
+
+export const SEMESTERS = Object.freeze([
+  { id: 1, label: 'ภาคต้น', short: 'เทอม 1' },
+  { id: 2, label: 'ภาคปลาย', short: 'เทอม 2' },
+  { id: 3, label: 'ภาคฤดูร้อน', short: 'ฤดูร้อน' },
+]);
+
+const SEMESTER_LABELS = new Map(SEMESTERS.map((s) => [s.id, s.label]));
+
+export function semesterLabel(semester) {
+  return SEMESTER_LABELS.get(Number(semester)) || null;
+}
+
+// academic_year is stored as a CE year because that is what curriculum.js uses
+// for `lecturer_year`. Thai students read ปีการศึกษา in พ.ศ., so every render
+// goes through here rather than showing 2026 to someone looking for 2569.
+export function buddhistYear(ceYear) {
+  // Number(null) and Number('') are both 0, so a bare Number.isFinite() guard
+  // turns a missing academic_year into "543" — which then lands in the search
+  // haystack of every unclassified document.
+  if (ceYear == null || ceYear === '') return null;
+  const n = Number(ceYear);
+  if (!Number.isFinite(n)) return null;
+  return n + 543;
 }
 
 // ── Pure helpers (unit-tested without a network or a bundler) ──────────────
@@ -119,14 +145,18 @@ export function indexDocs(docs) {
   return (Array.isArray(docs) ? docs : []).map((doc) => ({
     doc,
     _hayLc: [
-      doc.title, doc.description, doc.subject, doc.attribution,
-      kindLabel(doc.kind),
+      doc.title, doc.description, doc.subject, doc.attribution, doc.lecturer,
+      doc.cohort, kindLabel(doc.kind), semesterLabel(doc.semester),
+      doc.academic_year, buddhistYear(doc.academic_year),
       ...(Array.isArray(doc.topics) ? doc.topics : []),
     ].filter(Boolean).join(' ').toLowerCase(),
   }));
 }
 
-export function filterIndexed(index, { query = '', kind = 'all', subject = 'all', year = 'all' } = {}) {
+export function filterIndexed(index, {
+  query = '', kind = 'all', subject = 'all',
+  year = 'all', semester = 'all', academicYear = 'all',
+} = {}) {
   const qlc = (query || '').trim().toLowerCase();
   const terms = qlc ? qlc.split(/\s+/) : null;
   const out = [];
@@ -135,10 +165,64 @@ export function filterIndexed(index, { query = '', kind = 'all', subject = 'all'
     if (kind !== 'all' && d.kind !== kind) continue;
     if (subject !== 'all' && d.subject !== subject) continue;
     if (year !== 'all' && String(d.year) !== String(year)) continue;
+    if (semester !== 'all' && String(d.semester) !== String(semester)) continue;
+    if (academicYear !== 'all' && String(d.academic_year) !== String(academicYear)) continue;
     if (terms && !terms.every((t) => entry._hayLc.includes(t))) continue;
     out.push(d);
   }
   return out;
+}
+
+// Browse-mode shape: ชั้นปี → วิชา → เอกสาร.
+//
+// Returns subject ids only. Mapping an id to its name, icon and colour needs
+// curriculum.js, which is large; keeping that out of here leaves this module
+// importable by the unit tests without pulling the whole taxonomy in.
+//
+// Years ascending to match curriculum order, unclassified last. Within a year,
+// subjects sort by semester then id; within a subject, documents sort by
+// `sequence` then title — a plain title sort puts "GI X" before "GI II".
+export function groupByYearSubject(docs) {
+  const byYear = new Map();
+  for (const d of (Array.isArray(docs) ? docs : [])) {
+    const yKey = d.year == null ? 'other' : d.year;
+    if (!byYear.has(yKey)) byYear.set(yKey, new Map());
+    const subjects = byYear.get(yKey);
+    const sKey = d.subject || 'other';
+    if (!subjects.has(sKey)) subjects.set(sKey, []);
+    subjects.get(sKey).push(d);
+  }
+
+  const years = [...byYear.keys()].sort((a, b) => {
+    if (a === 'other') return 1;
+    if (b === 'other') return -1;
+    return a - b;
+  });
+
+  return years.map((yKey) => {
+    const subjectMap = byYear.get(yKey);
+    const subjects = [...subjectMap.entries()]
+      .map(([subject, list]) => ({
+        subject,
+        docs: list.slice().sort((a, b) => (
+          (a.sequence ?? 0) - (b.sequence ?? 0)
+          || (a.title < b.title ? -1 : a.title > b.title ? 1 : 0)
+        )),
+        count: list.length,
+        // The semester a subject is taught in, taken from its documents. Used
+        // only for ordering, so the first non-null wins.
+        semester: list.find((d) => d.semester != null)?.semester ?? null,
+      }))
+      .sort((a, b) => (
+        (a.semester ?? 9) - (b.semester ?? 9)
+        || (a.subject < b.subject ? -1 : a.subject > b.subject ? 1 : 0)
+      ));
+    return {
+      year: yKey === 'other' ? null : yKey,
+      subjects,
+      count: subjects.reduce((n, s) => n + s.count, 0),
+    };
+  });
 }
 
 // ── Catalog access ────────────────────────────────────────────────────────
@@ -161,6 +245,9 @@ export async function fetchLibraryDocs() {
     .from('library_docs')
     .select(CATALOG_COLUMNS)
     .order('year', { ascending: true, nullsFirst: false })
+    .order('semester', { ascending: true, nullsFirst: false })
+    .order('subject', { ascending: true, nullsFirst: false })
+    .order('sequence', { ascending: true })
     .order('title', { ascending: true });
 
   if (error) {

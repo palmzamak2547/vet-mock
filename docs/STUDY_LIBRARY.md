@@ -84,6 +84,33 @@ never downloaded.
 `tests/unit/library.test.mjs` asserts the two agree. If that test fails, every
 annotation on every library document has silently orphaned.
 
+## How the shelf is organised
+
+Four browse dimensions, all mirroring `src/data/curriculum.js` vocabulary:
+
+| Column | Meaning | Notes |
+|---|---|---|
+| `year` | ชั้นปี 1-6 | primary grouping |
+| `subject` | วิชา | a `SUBJECTS` id, e.g. `equine-medicine` |
+| `semester` | เทอม | `1` ภาคต้น · `2` ภาคปลาย · `3` ภาคฤดูร้อน |
+| `academic_year` | ปีการศึกษา | stored **CE** (2026), rendered **พ.ศ.** (2569) |
+
+`academic_year` earns its place: the curriculum is re-taught yearly and the
+lecturer and scope move with it — `curriculum.js` already carries notes like
+*"ตารางบรรยาย 2569 — ไม่ใช่ อ.สหฤทัย อย่างที่สรุปรุ่นก่อนระบุ"*. Without it a
+student cannot tell a current deck from a three-year-old one.
+
+Three more columns are provenance and ordering rather than browse dimensions:
+
+- `cohort` — the class taught, e.g. `Vet 86`.
+- `lecturer` — shown on the card and searchable.
+- `sequence` — ordering within a subject. A plain title sort puts "GI X" before
+  "GI II", so every multi-part series needs it.
+
+`LibraryView` reads this as **ชั้นปี → วิชา**, collapsible, with the reader's own
+year open first. A search query switches to one flat list instead, because
+grouping a handful of hits across four years buries them under headings.
+
 ## Adding a document
 
 The browser has no write path into `library_docs` — `license`, `status` and
@@ -127,8 +154,27 @@ cannot exist without an explicit answer to "why may we host this?", and a
 permission grant additionally requires `--permission-evidence` naming where the
 consent is on file.
 
-## First-time setup
+## Storage access control
 
-1. Apply `supabase/migrations/20260827000000_library_docs_init.sql`.
-2. Studio → Storage → New bucket → `library-docs`, **private**.
-3. Ingest a document with `--status public` (or promote a draft).
+The `library-docs` bucket is **private**. `createSignedUrl` is permission-checked
+against `storage.objects` before it signs, so the bucket carries two SELECT
+policies that mirror the table's read rules — the catalog row is the authority:
+
+- anon + authenticated → objects referenced by a `status = 'public'` row
+- authenticated → also `status = 'restricted'`
+
+A `draft` or `archived` document's bytes are therefore unreachable even to
+someone who guesses the content-addressed key. Same shape as
+`"lab-dicom read for public cases only"`.
+
+## Production state (applied 2026-08-27)
+
+Live on project `mpovsdzdggvksmeehqfj`:
+
+- migration `library_docs_init` — table, 9 indexes, 2 read policies, RLS on
+- migration `library_docs_storage_bucket` — private PDF-only bucket + 2 storage policies
+
+Verified against the live database: `anon` has no INSERT, `authenticated` has no
+UPDATE, and a status probe confirmed anon sees `public` rows only —
+`draft`, `restricted` and `archived` all return 0 rows. `get_advisors` reported
+no new security findings.

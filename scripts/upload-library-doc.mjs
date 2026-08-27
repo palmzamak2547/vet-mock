@@ -13,11 +13,13 @@
 //   SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... \
 //   node scripts/upload-library-doc.mjs <file.pdf> \
 //     --title "สรีรวิทยาระบบหัวใจ" \
-//     --kind handout --subject com5 --year 5 \
+//     --kind handout --subject com5 --year 5 --semester 1 \
+//     --academic-year 2026 --cohort "Vet 86" --lecturer "อ.ชื่ออาจารย์" \
 //     --license "instructor-permission" \
 //     --attribution "อ.ชื่ออาจารย์" \
 //     --permission-evidence "อีเมลอนุญาต 2026-08-20" \
 //     [--description "..."] [--topics cardio,ecg] [--source-url https://...] \
+//     [--sequence 1] \
 //     [--status draft|public|restricted] [--slug custom-slug] \
 //     [--provider supabase|r2] [--dry-run]
 //
@@ -134,6 +136,25 @@ async function main() {
       + 'Record where the permission is on file (e.g. "อีเมลจาก อ.X 2026-08-20").');
   }
 
+  // Validate the browse dimensions here rather than letting Postgres reject the
+  // insert after a 17 MB upload has already been paid for.
+  const year = flags.year == null ? null : Number(flags.year);
+  if (year != null && !(Number.isInteger(year) && year >= 1 && year <= 6)) {
+    fail('--year must be an integer 1-6');
+  }
+  const semester = flags.semester == null ? null : Number(flags.semester);
+  if (semester != null && ![1, 2, 3].includes(semester)) {
+    fail('--semester must be 1 (ภาคต้น), 2 (ภาคปลาย) or 3 (ภาคฤดูร้อน)');
+  }
+  const academicYear = flags.academicYear == null ? null : Number(flags.academicYear);
+  if (academicYear != null && !(Number.isInteger(academicYear) && academicYear >= 2000 && academicYear <= 2100)) {
+    // 2569 lands here, which is the common mistake — say so rather than just
+    // naming the range.
+    fail('--academic-year must be a CE year: pass 2026, not the พ.ศ. 2569');
+  }
+  const sequence = flags.sequence == null ? 0 : Number(flags.sequence);
+  if (!Number.isInteger(sequence)) fail('--sequence must be an integer');
+
   const info = await stat(filePath).catch(() => fail(`cannot read ${filePath}`));
   const bytes = await readFile(filePath);
   const sha = hash16(bytes);
@@ -151,6 +172,12 @@ async function main() {
   console.log(`  linearized  ${linearized ? 'yes' : 'NO'}`);
   console.log(`  key         ${storageKey}`);
   console.log(`  slug        ${slug}`);
+  console.log(`  filed under ${[
+    flags.subject || 'ไม่ระบุวิชา',
+    year != null ? `ปี ${year}` : null,
+    semester != null ? `เทอม ${semester}` : null,
+    academicYear != null ? `ปีการศึกษา ${academicYear + 543}` : null,
+  ].filter(Boolean).join(' · ')}`);
 
   if (!linearized) {
     console.warn(
@@ -169,8 +196,13 @@ async function main() {
     description: flags.description || null,
     kind,
     subject: flags.subject || null,
-    year: flags.year ? Number(flags.year) : null,
+    year,
+    semester,
+    academic_year: academicYear,
+    cohort: flags.cohort || null,
+    lecturer: flags.lecturer || null,
     topics: flags.topics ? flags.topics.split(',').map((t) => t.trim()).filter(Boolean) : [],
+    sequence,
     lang: flags.lang || 'th',
     storage_provider: provider,
     storage_bucket: provider === 'supabase' ? BUCKET : (flags.bucket || BUCKET),

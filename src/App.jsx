@@ -2102,7 +2102,7 @@ export default function App() {
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'race' && user && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
-              {view === 'library' && <LibraryView goHome={goHome} onOpenDoc={(doc) => { setLibraryDoc(doc); setView('pdf-annotate'); }} />}
+              {view === 'library' && <LibraryView goHome={goHome} selectedYear={selectedYear} onOpenDoc={(doc) => { setLibraryDoc(doc); setView('pdf-annotate'); }} />}
               {view === 'pdf-annotate' && (
                 <PdfAnnotateView
                   goHome={goHome}

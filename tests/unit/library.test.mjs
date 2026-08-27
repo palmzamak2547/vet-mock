@@ -4,14 +4,18 @@ import test from 'node:test';
 
 import {
   LIBRARY_KINDS,
+  SEMESTERS,
+  buddhistYear,
   canStream,
   cdnUrlFor,
   filterIndexed,
   formatBytes,
+  groupByYearSubject,
   indexDocs,
   isSafeStorageKey,
   kindLabel,
   normalizeCdnBase,
+  semesterLabel,
 } from '../../src/lib/library.js';
 import { hashFile } from '../../src/lib/pdf-annotations.js';
 
@@ -23,6 +27,11 @@ const doc = (over = {}) => ({
   kind: 'handout',
   subject: 'com5',
   year: 5,
+  semester: 1,
+  academic_year: 2026,
+  cohort: 'Vet 86',
+  lecturer: 'Sawita Santiviparat',
+  sequence: 0,
   topics: ['cardio', 'ecg'],
   storage_provider: 'r2',
   storage_bucket: 'library-docs',
@@ -134,4 +143,67 @@ test('catalog sha256_16 matches the annotation key the reader derives', async ()
 
   assert.equal(fromReader, fromIngest);
   assert.match(fromIngest, /^[0-9a-f]{16}$/, 'must satisfy the schema CHECK constraint');
+});
+
+test('ปีการศึกษา renders in the era Thai students actually read', () => {
+  // Stored CE to match curriculum.js `lecturer_year`; shown as พ.ศ.
+  assert.equal(buddhistYear(2026), 2569);
+  assert.equal(buddhistYear('2026'), 2569);
+  // Number(null) and Number('') are 0, so these must be rejected before the
+  // arithmetic or a missing year renders as "543".
+  assert.equal(buddhistYear(null), null);
+  assert.equal(buddhistYear(undefined), null);
+  assert.equal(buddhistYear(''), null);
+  assert.equal(buddhistYear('not-a-year'), null);
+});
+
+test('every semester id has a label and unknown ones stay null', () => {
+  for (const s of SEMESTERS) assert.ok(semesterLabel(s.id), `${s.id} needs a label`);
+  assert.equal(semesterLabel(1), 'ภาคต้น');
+  assert.equal(semesterLabel('2'), 'ภาคปลาย', 'chip values arrive as strings');
+  assert.equal(semesterLabel(4), null);
+  assert.equal(semesterLabel(null), null);
+});
+
+test('semester and ปีการศึกษา filter alongside the existing dimensions', () => {
+  const index = indexDocs([
+    doc({ id: 'a', semester: 1, academic_year: 2026 }),
+    doc({ id: 'b', semester: 2, academic_year: 2026 }),
+    doc({ id: 'c', semester: 1, academic_year: 2025 }),
+  ]);
+  assert.deepEqual(filterIndexed(index, { semester: 1 }).map((d) => d.id), ['a', 'c']);
+  assert.deepEqual(filterIndexed(index, { semester: '1' }).map((d) => d.id), ['a', 'c']);
+  assert.deepEqual(filterIndexed(index, { academicYear: 2026 }).map((d) => d.id), ['a', 'b']);
+  assert.deepEqual(filterIndexed(index, { semester: 1, academicYear: 2026 }).map((d) => d.id), ['a']);
+});
+
+test('lecturer, cohort and ปีการศึกษา are all searchable', () => {
+  const index = indexDocs([doc()]);
+  const hay = index[0]._hayLc;
+  assert.ok(hay.includes('sawita'), 'lecturer');
+  assert.ok(hay.includes('vet 86'), 'cohort');
+  assert.ok(hay.includes('2569'), 'พ.ศ. is searchable even though CE is stored');
+  assert.ok(hay.includes('2026'), 'CE is searchable too');
+});
+
+test('browse groups by ชั้นปี then วิชา, ordered for reading', () => {
+  const groups = groupByYearSubject([
+    doc({ id: 'y5-eq-2', year: 5, semester: 1, subject: 'equine-medicine', sequence: 2, title: 'GI II' }),
+    doc({ id: 'y5-eq-1', year: 5, semester: 1, subject: 'equine-medicine', sequence: 1, title: 'GI I' }),
+    doc({ id: 'y5-epi', year: 5, semester: 2, subject: 'epidemiology' }),
+    doc({ id: 'y4-com', year: 4, semester: 1, subject: 'com4' }),
+    doc({ id: 'loose', year: null, subject: null }),
+  ]);
+
+  assert.deepEqual(groups.map((g) => g.year), [4, 5, null], 'years ascend, unclassified last');
+  assert.equal(groups[1].count, 3);
+  assert.equal(groups[1].subjects.length, 2);
+  // เทอม 1 subjects before เทอม 2.
+  assert.deepEqual(groups[1].subjects.map((s) => s.subject), ['equine-medicine', 'epidemiology']);
+  // `sequence` beats title: a plain sort would put "GI II" before "GI I"? No —
+  // it would put "GI I" first by luck here, but "GI X" before "GI II" in
+  // general. sequence is what makes multi-part decks reliable.
+  assert.deepEqual(groups[1].subjects[0].docs.map((d) => d.id), ['y5-eq-1', 'y5-eq-2']);
+  assert.deepEqual(groupByYearSubject([]), []);
+  assert.deepEqual(groupByYearSubject(null), []);
 });

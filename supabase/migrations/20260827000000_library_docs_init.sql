@@ -32,13 +32,32 @@ create table if not exists public.library_docs (
   title text not null,
   description text,
 
-  -- Classification. `subject` and `year` mirror src/data/curriculum.js ids so
-  -- the catalog can be filtered with the same vocabulary as the question bank.
+  -- Classification. `subject`, `year` and `topics` mirror src/data/curriculum.js
+  -- ids so the shelf is filtered with the same vocabulary as the question bank.
+  --
+  -- The four browse dimensions are (year, semester, subject, academic_year).
+  -- academic_year matters more than it looks: this curriculum is re-taught every
+  -- year and the lecturer and scope move with it — curriculum.js already carries
+  -- notes like "ตารางบรรยาย 2569 — ไม่ใช่ อ.สหฤทัย อย่างที่สรุปรุ่นก่อนระบุ".
+  -- Without it a student cannot tell a current deck from a three-year-old one.
   kind text not null default 'handout'
     check (kind in ('handout', 'slide', 'summary', 'textbook', 'pastpaper', 'guideline', 'other')),
   subject text,
   year int check (year between 1 and 6),
+  -- 1 = ภาคต้น, 2 = ภาคปลาย, 3 = ภาคฤดูร้อน. Matches the `semester` field each
+  -- subject already carries in curriculum.js.
+  semester smallint check (semester in (1, 2, 3)),
+  -- ปีการศึกษา as a CE year (2026), the convention curriculum.js uses for
+  -- `lecturer_year`. Stored as CE, rendered as พ.ศ. in the UI.
+  academic_year int check (academic_year between 2000 and 2100),
+  -- The class the material was taught to, e.g. 'Vet 86'. Provenance, not a
+  -- browse dimension — it answers "whose deck is this" once a document is open.
+  cohort text,
+  lecturer text,
   topics text[] not null default '{}',
+  -- Ordering within a subject for multi-part series ("GI I", "GI II"): plain
+  -- title sort puts "X" before "II", which is wrong for every Roman-numeral deck.
+  sequence int not null default 0,
   lang text not null default 'th',
 
   -- Object location.
@@ -86,6 +105,13 @@ create index if not exists library_docs_status_idx on public.library_docs(status
 create index if not exists library_docs_subject_idx on public.library_docs(subject);
 create index if not exists library_docs_year_idx on public.library_docs(year);
 create index if not exists library_docs_kind_idx on public.library_docs(kind);
+create index if not exists library_docs_semester_idx on public.library_docs(semester);
+create index if not exists library_docs_academic_year_idx on public.library_docs(academic_year);
+
+-- The browse query orders by exactly this tuple, so the index covers the whole
+-- default catalog read without a sort step.
+create index if not exists library_docs_browse_idx
+  on public.library_docs(status, year, semester, subject, sequence);
 create index if not exists library_docs_topics_idx on public.library_docs using gin(topics);
 
 -- One catalog row per object per bucket. Content-addressed keys mean the same
