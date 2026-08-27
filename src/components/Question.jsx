@@ -12,6 +12,7 @@ import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
 import { promptDialog } from '../lib/dialog.js';
+import MatchDragDrop from './MatchDragDrop.jsx';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -380,19 +381,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       )}
 
       {currentQ.type === 'match' && (
-        <div className="vmx-match-row">
-          {currentQ.pairs.map((pair, i) => (
-            <div key={i} className="vmx-match-item">
-              <div className="vmx-match-left"><RichText text={pair.left} /></div>
-              <select className="vmx-match-select" value={(currentAnswer && currentAnswer[i]) || ''}
-                aria-label={`จับคู่รายการที่ ${i + 1}`}
-                onChange={(e) => { const obj = currentAnswer ? { ...currentAnswer } : {}; obj[i] = e.target.value; answerCurrent(obj); }}>
-                <option value="">— เลือก —</option>
-                {currentQ.pairs.map((p, j) => <option key={j} value={p.right}>{p.right.replace(/\*\*/g, '').replace(/\*/g, '')}</option>)}
-              </select>
-            </div>
-          ))}
-        </div>
+        <MatchDragDrop
+          currentQ={currentQ}
+          currentAnswer={currentAnswer}
+          answerCurrent={answerCurrent}
+          revealAnswer={revealAnswer}
+        />
       )}
 
       {/* Short answer — free-form text input. Auto-grade does loose

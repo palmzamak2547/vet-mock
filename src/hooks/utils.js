@@ -42,7 +42,9 @@ export const isCorrect = (q, ua) => {
   }
   if (q.type === 'match') {
     if (!ua || typeof ua !== 'object') return false;
-    return q.pairs.every((p, i) => ua[i] === p.right);
+    // รองรับทั้ง object {0:right} (เดิม) และ array [right, ...]
+    const get = (i) => Array.isArray(ua) ? ua[i] : ua[i];
+    return q.pairs.every((p, i) => get(i) === p.right);
   }
   if (q.type === 'short') {
     // Loose keyword match — q.keywords is an array of strings/phrases
@@ -62,6 +64,24 @@ export const isCorrect = (q, ua) => {
   }
   return false;
 };
+
+// คะแนนแบบบางส่วนสำหรับจับคู่ — ใช้ใน ResultsView/ReviewView (ข้อ B: partial credit + distractors)
+export function matchScore(q, ua) {
+  if (!q || q.type !== 'match' || !ua || typeof ua !== 'object') return { correct: 0, total: q?.pairs?.length || 0, fraction: 0 };
+  const total = q.pairs.length;
+  if (total === 0) return { correct: 0, total: 0, fraction: 0 };
+  let correct = 0;
+  for (let i = 0; i < total; i++) {
+    const val = Array.isArray(ua) ? ua[i] : ua[i];
+    if (val != null && val !== '' && val === q.pairs[i].right) correct++;
+  }
+  return { correct, total, fraction: correct / total };
+}
+
+export function matchIsPartialCorrect(q, ua) {
+  const s = matchScore(q, ua);
+  return s.correct > 0 && s.correct < s.total;
+}
 
 // True if the question requires human / self-assessment for grading
 // (vs the deterministic types above). Used by ReviewView to render
@@ -87,6 +107,14 @@ export function timeForQuestion(q, baseSeconds) {
   if (!q) return baseSeconds;
   if (q.type === 'essay') return Math.max(baseSeconds * 25, 25 * 60);
   if (q.type === 'short') return Math.max(baseSeconds * 3, 3 * 60);
+  if (q.type === 'match') {
+    // จับคู่ใช้เวลามากกว่า MCQ ตามจำนวนคู่ + ตัวลวง (timed mode)
+    // base 60s + 15s ต่อคู่ (ceil 5 คู่ ~ 135s) เพื่อไม่ให้ timed mock กดดันเกิน
+    const n = Array.isArray(q.pairs) ? q.pairs.length : 0;
+    const extra = Array.isArray(q.distractors) ? q.distractors.length : 0;
+    const perPair = 15;
+    return Math.max(baseSeconds, baseSeconds + Math.max(0, (n + Math.min(extra, 2) - 2)) * perPair);
+  }
   return baseSeconds;
 }
 

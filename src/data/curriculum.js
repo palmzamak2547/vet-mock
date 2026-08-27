@@ -1958,6 +1958,30 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'swine-greasypig', label: 'Greasy Pig / poxvirus / blood parasites', icon: '🦠', lecturer: 'Pornchalit Assavacheep', lecturer_year: 2026 },
       ] },
 
+    // ── Vet Pharm 5 — Clinical Pharmacology (Y5 applied) ──────────
+    // B: Matching drag-drop + timed + distractors showcase subject
+    { id: 'vet-pharm5', code: '3108505', name: 'เภสัชวิทยาคลินิก (Y5)',
+      name_en: 'Clinical Pharmacology (Year 5)',
+      icon: '💊', color: '#6b5d8e', semester: 1, has_questions: true, scaffold: false,
+      vault_lecturers: ['nipattra-suwanpairintr', 'piyarat-chansiripornchai'],
+      examFormat: {
+        weight: 'Matched drag-drop · partial credit · timed',
+        perSession: '10-15 ข้อ/ชุด · 15s/คู่ extra timed',
+        choiceCount: 0,
+        notes: [
+          '🧩 Matching: ลากวาง + สุ่มขวา + ตัวลวง 1-2 ตัว',
+          '◐ คะแนนบางส่วน: ถูก 2/3 ได้ 0.66 (แสดงในเฉลย)',
+          '⏱ Timed: match ใช้เวลามากกว่า MCQ ตามจำนวนคู่ (15s/คู่)',
+        ],
+      },
+      topics: [
+        { id: 'antibiotics', label: 'ยาปฏิชีวนะ — จับคู่ยา ↔ กลไก', icon: '🦠', lecturer: 'Nipattra Suwanpai', lecturer_year: 2026 },
+        { id: 'nsaids', label: 'NSAIDs & Analgesics', icon: '💊', lecturer: 'Piyarat Chansiripornchai', lecturer_year: 2026 },
+        { id: 'antiparasitic', label: 'ยาถ่ายพยาธิ / ยาต้านโปรโตซัว', icon: '🪱', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'autonomic', label: 'ระบบประสาทอัตโนมัติ', icon: '🧠', lecturer: 'TBD', lecturer_year: 2026 },
+        { id: 'cardio-renal', label: 'ยา cardio-renal', icon: '🫀', lecturer: 'TBD', lecturer_year: 2026 },
+      ] },
+
     // ── VCA — VETERINARY COMPETENCY ASSESSMENT (สอบใบประกอบฯ) ───
     // ข้อสอบสรุปครอบคลุมทุกชนิดสัตว์, cross-rotation comprehensive prep
     // Source: @Fukfangfluffy_channel (VCA ผ่านชัวร์ series — แจกฟรี)

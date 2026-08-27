@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4491;
-export const QB_SOURCE_TOTAL = 4491;
+export const QB_TOTAL = 4499;
+export const QB_SOURCE_TOTAL = 4499;
 export const QB_BLOCKED_TOTAL = 0;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -56,6 +56,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 40,
+  'vet-pharm5': 8,
   'zoonoses': 178,
 };
 
@@ -105,6 +106,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 40,
+  'vet-pharm5': 8,
   'zoonoses': 178,
 };
 
@@ -112,7 +114,7 @@ export const Q_COUNTS_BY_YEAR = {
   1: 298,
   2: 144,
   4: 2092,
-  5: 1957,
+  5: 1965,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -702,6 +704,13 @@ export const Q_COUNTS_BY_TOPIC = {
     "neuroanat--neuro-exam-anatomy2024": 3,
     "neuroanat--visual-vestibular-systems": 5,
   },
+  "vet-pharm5": {
+    "antibiotics": 3,
+    "antiparasitic": 1,
+    "autonomic": 1,
+    "cardio-renal": 1,
+    "nsaids": 2,
+  },
   "zoonoses": {
     "zoo-ai-basic": 6,
     "zoo-bacterial": 36,
@@ -922,4 +931,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-25T17:31:51.309Z
+// Built: 2026-08-27T08:53:41.693Z

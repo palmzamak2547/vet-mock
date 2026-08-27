@@ -1681,6 +1681,41 @@ html, body {
 .vmx-match-left { font-size: 14px; flex: 1; color: var(--clr-ink-soft); min-width: 140px; }
 .vmx-match-select { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--clr-border); background: var(--clr-surface); font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 14px; cursor: pointer; min-width: 160px; color: var(--clr-ink); }
 
+/* ── Match Drag-Drop (B: vet-pharm5) ────────────────────────────────── */
+.vmx-match-dnd { display: flex; flex-direction: column; gap: 12px; }
+.vmx-match-dnd-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.vmx-match-dnd-hint { font-size: 12px; color: var(--clr-ink-soft); line-height: 1.5; }
+.vmx-match-dnd-grid { display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 14px; align-items: start; }
+@media (max-width: 720px) { .vmx-match-dnd-grid { grid-template-columns: 1fr; } }
+.vmx-match-dnd-leftcol { display: flex; flex-direction: column; gap: 10px; }
+.vmx-match-dnd-slot { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px; background: var(--clr-bg); border: 1.5px solid var(--clr-border); border-radius: 12px; cursor: pointer; position: relative; transition: border-color .15s, background .15s, box-shadow .15s; min-height: 56px; }
+.vmx-match-dnd-slot:hover { border-color: var(--clr-ink-soft); }
+.vmx-match-dnd-slot.selected { border-color: var(--clr-ink); box-shadow: 0 0 0 3px rgba(0,0,0,.06); background: var(--clr-surface); }
+.vmx-match-dnd-slot.filled { border-color: var(--clr-sage); background: rgba(74,107,74,.06); }
+.vmx-match-dnd-slot.empty { border-style: dashed; }
+.vmx-match-dnd-slot.correct { border-color: var(--clr-sage); background: rgba(74,107,74,.1); }
+.vmx-match-dnd-slot.wrong { border-color: var(--clr-rose); background: rgba(194,109,109,.08); }
+.vmx-match-dnd-left { font-size: 13px; color: var(--clr-ink); line-height: 1.5; }
+.vmx-match-dnd-target { display: flex; align-items: center; gap: 6px; min-width: 120px; justify-content: flex-end; flex-wrap: wrap; }
+.vmx-match-dnd-chip { padding: 6px 10px; border-radius: 999px; background: var(--clr-surface); border: 1px solid var(--clr-border); font-size: 13px; color: var(--clr-ink); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vmx-match-dnd-slot.correct .vmx-match-dnd-chip { background: var(--clr-sage); color: var(--clr-surface); border-color: var(--clr-sage); }
+.vmx-match-dnd-slot.wrong .vmx-match-dnd-chip { background: var(--clr-rose); color: #fff; border-color: var(--clr-rose); }
+.vmx-match-dnd-placeholder { font-size: 12px; color: var(--clr-ink-soft); font-style: italic; padding: 6px 10px; border: 1px dashed var(--clr-border); border-radius: 999px; }
+.vmx-match-dnd-clear { width: 22px; height: 22px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink-soft); cursor: pointer; font-size: 14px; line-height: 1; display: grid; place-items: center; }
+.vmx-match-dnd-clear:hover { background: var(--clr-rose); color: #fff; border-color: var(--clr-rose); }
+.vmx-match-dnd-badge { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; }
+.vmx-match-dnd-badge.ok { background: var(--clr-sage); }
+.vmx-match-dnd-badge.no { background: var(--clr-rose); }
+.vmx-match-dnd-rightcol { display: flex; flex-direction: column; gap: 8px; padding: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 12px; position: sticky; top: 12px; }
+.vmx-match-dnd-card { text-align: left; padding: 10px 12px; border-radius: 10px; background: var(--clr-surface); border: 1px solid var(--clr-border); font-size: 13px; color: var(--clr-ink); cursor: grab; transition: transform .1s, box-shadow .15s, opacity .15s; line-height: 1.4; }
+.vmx-match-dnd-card:active { cursor: grabbing; transform: scale(.98); }
+.vmx-match-dnd-card.is-used { opacity: .45; border-style: dashed; }
+.vmx-match-dnd-card.is-dragging { opacity: .6; transform: rotate(1deg) scale(1.02); box-shadow: var(--shadow-md); }
+.vmx-match-dnd-used-dot { margin-left: 6px; font-size: 11px; color: var(--clr-ink-soft); }
+.vmx-match-dnd-fallback { margin-top: 4px; padding: 8px 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 10px; }
+.vmx-match-dnd-fallback summary { cursor: pointer; font-size: 12px; color: var(--clr-ink-soft); }
+.vmx-match-dnd-reveal { padding: 10px 12px; border-radius: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 13px; color: var(--clr-ink); text-align: center; font-weight: 600; }
+
 .vmx-note-panel { background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
 .vmx-note-textarea { width: 100%; min-height: 80px; padding: 10px; border-radius: 8px; border: 1px solid var(--clr-border); background: var(--clr-surface); font-family: inherit; font-size: 14px; resize: vertical; color: var(--clr-ink); }
 

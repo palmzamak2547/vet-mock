@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
-import { isCorrect } from '../hooks/utils.js';
+import { isCorrect, matchScore } from '../hooks/utils.js';
 import { articleForQuestion } from '../lib/vetwiki/registry.js';
 import { conflictsForTopic } from '../lib/vetwiki/conflict-index.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
@@ -295,7 +295,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         const userAns = answers[q.id];
         const answered = userAns !== undefined;
         const correct = isCorrect(q, userAns);
-        const cls = !answered ? 'skipped' : (correct ? 'correct' : 'wrong');
+        // match: แสดง partial เป็น wrong แต่มีแถบส้มถ้าได้บางส่วน (ให้กำลังใจ)
+        const ms = q.type === 'match' && answered ? matchScore(q, userAns) : null;
+        const isPartial = ms && ms.correct > 0 && ms.correct < ms.total;
+        const cls = !answered ? 'skipped' : (correct ? 'correct' : (isPartial ? 'skipped' : 'wrong'));
 
         // Build display strings (stripRichText so joined output doesn't show raw asterisks)
         // Defensive bounds check — guards against malformed answer indices
@@ -319,7 +322,18 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           userDisplay = answered && userAns.length ? userAns.map(stripRichText).join(' / ') : 'ไม่ได้ตอบ';
           correctDisplay = q.blanks.map(stripRichText).join(' / ');
         } else if (q.type === 'match') {
-          userDisplay = answered ? q.pairs.map((p, i) => `${stripRichText(p.left)} → ${stripRichText(userAns[i]) || '—'}`).join('; ') : 'ไม่ได้ตอบ';
+          if (!answered) {
+            userDisplay = 'ไม่ได้ตอบ';
+          } else {
+            const s = matchScore(q, userAns);
+            const rows = q.pairs.map((p, i) => {
+              const ua = userAns[i];
+              const ok = ua === p.right;
+              const icon = !ua ? '—' : ok ? '✓' : '✗';
+              return `${stripRichText(p.left)} → ${stripRichText(ua) || '—'} ${icon}`;
+            }).join('; ');
+            userDisplay = `${rows}  (${s.correct}/${s.total})`;
+          }
           correctDisplay = q.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('; ');
         } else if (q.type === 'short' || q.type === 'essay') {
           userDisplay = answered && typeof userAns === 'string' && userAns.trim() ? userAns : 'ไม่ได้เขียน';
@@ -373,9 +387,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   onClick={() => toggleBookmark(q.id)}>
                   {bookmarks.includes(q.id) ? '★' : '☆'}
                 </button>
-                <span className={`vmx-review-result ${correct ? 'ok' : (isOpen ? '' : 'no')}`}
-                  style={isOpen ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)' } : undefined}>
-                  {!answered ? 'ข้าม' : isOpen ? 'ประเมินเอง' : (correct ? '✓ ถูก' : '✗ ผิด')}
+                <span className={`vmx-review-result ${correct ? 'ok' : (isOpen ? '' : (isPartial ? '' : 'no'))}`}
+                  style={isOpen ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)' } : isPartial ? { background: 'rgba(184,137,64,.15)', color: 'var(--clr-gold-text)' } : undefined}>
+                  {!answered ? 'ข้าม' : isOpen ? 'ประเมินเอง' : (correct ? '✓ ถูก' : (isPartial ? `◐ ${ms.correct}/${ms.total}` : '✗ ผิด'))}
                 </span>
               </div>
             </div>

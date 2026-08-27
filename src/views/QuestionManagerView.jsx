@@ -94,6 +94,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
       answer: 0,
       blanks: [''],
       pairs: [{ left: '', right: '' }],
+      distractors: [''],
       explain: '',
       image: '',
     };
@@ -110,6 +111,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
       answer: q.answer || 0,
       blanks: q.blanks || [''],
       pairs: q.pairs || [{ left: '', right: '' }],
+      distractors: q.distractors || [''],
       explain: q.explain || '',
       image: q.image || '',
     });
@@ -138,7 +140,11 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     if (formData.type === 'mcq') { base.options = formData.options; base.answer = parseInt(formData.answer); }
     else if (formData.type === 'tf') { base.answer = formData.answer === true || formData.answer === 'true'; }
     else if (formData.type === 'fill') { base.blanks = formData.blanks.filter((b) => b.trim()); }
-    else if (formData.type === 'match') { base.pairs = formData.pairs.filter((p) => p.left.trim() && p.right.trim()); }
+    else if (formData.type === 'match') {
+      base.pairs = formData.pairs.filter((p) => p.left.trim() && p.right.trim());
+      const d = (formData.distractors || []).map((s) => String(s).trim()).filter(Boolean);
+      if (d.length) base.distractors = d;
+    }
 
     if (editingId) {
       setCustomQuestions(customQuestions.map((q) => q.id === editingId ? { ...base, id: editingId } : q));
@@ -302,22 +308,39 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           )}
 
           {formData.type === 'match' && (
-            <div className="vmx-form-group" role="group" aria-labelledby="vmx-custom-pairs-label">
-              <div id="vmx-custom-pairs-label">คู่ matching (ซ้าย ↔ ขวา)</div>
-              {formData.pairs.map((p, i) => (
-                <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
-                  <input style={{ flex: 1 }} value={p.left} placeholder="ซ้าย" aria-label={`คู่ที่ ${i + 1} ด้านซ้าย`} onChange={(e) => { const ps = [...formData.pairs]; ps[i] = { ...ps[i], left: e.target.value }; setFormData({ ...formData, pairs: ps }); }} />
-                  <span style={{ alignSelf: 'center' }}>↔</span>
-                  <input style={{ flex: 1 }} value={p.right} placeholder="ขวา" aria-label={`คู่ที่ ${i + 1} ด้านขวา`} onChange={(e) => { const ps = [...formData.pairs]; ps[i] = { ...ps[i], right: e.target.value }; setFormData({ ...formData, pairs: ps }); }} />
+            <>
+              <div className="vmx-form-group" role="group" aria-labelledby="vmx-custom-pairs-label">
+                <div id="vmx-custom-pairs-label">คู่ matching (ซ้าย ↔ ขวา) — ลากวางได้ มีตัวลวง</div>
+                {formData.pairs.map((p, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
+                    <input style={{ flex: 1 }} value={p.left} placeholder="ซ้าย" aria-label={`คู่ที่ ${i + 1} ด้านซ้าย`} onChange={(e) => { const ps = [...formData.pairs]; ps[i] = { ...ps[i], left: e.target.value }; setFormData({ ...formData, pairs: ps }); }} />
+                    <span style={{ alignSelf: 'center' }}>↔</span>
+                    <input style={{ flex: 1 }} value={p.right} placeholder="ขวา" aria-label={`คู่ที่ ${i + 1} ด้านขวา`} onChange={(e) => { const ps = [...formData.pairs]; ps[i] = { ...ps[i], right: e.target.value }; setFormData({ ...formData, pairs: ps }); }} />
+                  </div>
+                ))}
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, pairs: [...formData.pairs, { left: '', right: '' }] })}>+ คู่</button>
+                  {formData.pairs.length > 1 && (
+                    <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, pairs: formData.pairs.slice(0, -1) })}>− คู่</button>
+                  )}
                 </div>
-              ))}
-              <div style={{ display: 'flex', gap: 6 }}>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, pairs: [...formData.pairs, { left: '', right: '' }] })}>+ คู่</button>
-                {formData.pairs.length > 1 && (
-                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, pairs: formData.pairs.slice(0, -1) })}>− คู่</button>
-                )}
               </div>
-            </div>
+              <div className="vmx-form-group" role="group" aria-labelledby="vmx-custom-distractors-label">
+                <div id="vmx-custom-distractors-label" style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 6 }}>ตัวลวง (distractors) — ตัวเลือกขวาที่ไม่มีคู่ซ้าย (ทำให้เดาข้อสุดท้ายไม่ได้) — เว้นว่างได้</div>
+                {(formData.distractors || ['']).map((d, i) => (
+                  <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
+                    <span style={{ minWidth: 70, fontSize: 12, alignSelf: 'center', color: 'var(--clr-ink-soft)' }}>ตัวลวง {i + 1}</span>
+                    <input style={{ flex: 1 }} value={d} placeholder="เช่น ยาหลอก / ชื่อยาผิด" aria-label={`ตัวลวงที่ ${i + 1}`} onChange={(e) => { const ds = [...(formData.distractors || [''])]; ds[i] = e.target.value; setFormData({ ...formData, distractors: ds }); }} />
+                  </div>
+                ))}
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, distractors: [...(formData.distractors || ['']), ''] })}>+ ตัวลวง</button>
+                  {(formData.distractors || []).length > 1 && (
+                    <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setFormData({ ...formData, distractors: (formData.distractors || ['']).slice(0, -1) })}>− ตัวลวง</button>
+                  )}
+                </div>
+              </div>
+            </>
           )}
 
           <div className="vmx-form-group">

@@ -84,13 +84,32 @@ const pairSchema = v.looseObject({
   right: nonEmptyString('คำจับคู่ด้านขวาว่าง'),
 });
 
-const matchSchema = questionObject('match', {
-  pairs: v.pipe(
-    v.array(pairSchema),
-    v.minLength(1, 'ข้อจับคู่ต้องมีอย่างน้อย 1 คู่'),
-    v.maxLength(100, 'ข้อจับคู่มีได้ไม่เกิน 100 คู่'),
-  ),
-});
+const matchSchema = v.pipe(
+  questionObject('match', {
+    pairs: v.pipe(
+      v.array(pairSchema),
+      v.minLength(1, 'ข้อจับคู่ต้องมีอย่างน้อย 1 คู่'),
+      v.maxLength(100, 'ข้อจับคู่มีได้ไม่เกิน 100 คู่'),
+    ),
+    // ตัวลวง — รายการด้านขวาที่ไม่มีคู่ซ้ายตรง (ทำให้เดาข้อสุดท้ายไม่ได้)
+    distractors: v.optional(v.pipe(
+      v.array(nonEmptyString('ตัวลวงต้องเป็นข้อความ')),
+      v.maxLength(20, 'ตัวลวงมีได้ไม่เกิน 20 รายการ'),
+    )),
+    // สุ่มตำแหน่งตัวเลือกขวา (default true) — ปิดได้ด้วย shuffle:false สำหรับข้อที่ลำดับมีความหมาย
+    shuffle: v.optional(v.boolean('shuffle ต้องเป็น boolean')),
+  }),
+  // ตรวจซ้ำ: left/right/distractors ต้องไม่ซ้ำกันจนทำให้สับสน
+  v.check((q) => {
+    const rights = q.pairs.map((p) => p.right.trim().toLowerCase());
+    return new Set(rights).size === rights.length;
+  }, 'คำตอบด้านขวาซ้ำกัน — แต่ละคู่ต้องมี right ไม่ซ้ำ'),
+  v.check((q) => {
+    if (!q.distractors || q.distractors.length === 0) return true;
+    const rights = new Set(q.pairs.map((p) => p.right.trim().toLowerCase()));
+    return q.distractors.every((d) => !rights.has(d.trim().toLowerCase()));
+  }, 'ตัวลวงซ้ำกับคำตอบที่ถูก — ตัวลวงต้องไม่ตรงกับ right ใดๆ'),
+);
 
 const shortAnswerSchema = questionObject('short', {
   keywords: v.optional(v.pipe(

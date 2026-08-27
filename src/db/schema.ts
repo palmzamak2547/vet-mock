@@ -70,14 +70,21 @@ export const wikiAnchors = pgTable(
   })
 );
 
-// 4) questions
+// 4) questions — รองรับ MCQ/TF/Fill/Match/Timed (B: match drag-drop)
+export const questionTypeEnum = pgEnum('question_type', ['mcq', 'tf', 'fill', 'match', 'short', 'essay']);
 export const questions = pgTable('questions', {
   id: text('id').primaryKey(),
   domainId: text('domain_id').references(() => domains.id),
   questionCode: text('question_code').notNull().unique(),
   stem: text('stem').notNull(),
-  choices: jsonb('choices').$type<[string, string, string, string]>().notNull(),
-  correctChoiceIndex: integer('correct_choice_index').notNull(),
+  // Legacy MCQ path (nullable now) — new types use payload
+  choices: jsonb('choices').$type<[string, string, string, string]>(),
+  correctChoiceIndex: integer('correct_choice_index'),
+  // Generic payload สำหรับ non-MCQ (match pairs/distractors, fill blanks, etc.)
+  // { type, pairs:[{left,right}], distractors:[], blanks:[], keywords:[], model_answer, ... }
+  payload: jsonb('payload').$type<Record<string, unknown>>(),
+  questionType: questionTypeEnum('question_type').default('mcq').notNull(),
+  timeLimitSeconds: integer('time_limit_seconds'), // per-question timed (null = use session default)
   explanation: text('explanation'),
   difficulty: questionDifficultyEnum('difficulty').default('medium').notNull(),
   status: questionStatusEnum('status').default('draft').notNull(),
@@ -110,7 +117,7 @@ export const mockSessions = pgTable('mock_sessions', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-// 7) mockSessionQuestions
+// 7) mockSessionQuestions — รองรับ partial scoring + match (B)
 export const mockSessionQuestions = pgTable(
   'mock_session_questions',
   {
@@ -118,7 +125,10 @@ export const mockSessionQuestions = pgTable(
     sessionId: text('session_id').notNull().references(() => mockSessions.id, { onDelete: 'cascade' }),
     questionId: text('question_id').notNull().references(() => questions.id),
     displayOrder: integer('display_order').notNull(),
-    selectedChoiceIndex: integer('selected_choice_index'),
+    selectedChoiceIndex: integer('selected_choice_index'), // legacy MCQ
+    selectedValue: jsonb('selected_value').$type<unknown>(), // generic answer (match: {0:right}, fill: string[], etc.)
+    score: integer('score'), // earned points (for partial: e.g. 2/3)
+    maxScore: integer('max_score'), // total possible (e.g. 3)
     isCorrect: boolean('is_correct'),
     answeredAt: timestamp('answered_at'),
   },
