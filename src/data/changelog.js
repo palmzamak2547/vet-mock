@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.34.0',
+    date: '2026-08-27',
+    headline: '💊 Drug Database — ค้นหายา + คำนวณ dose สุนัข/แมว',
+    changes: [
+      { scope: 'system', kind: 'feature', icon: '💊', title: 'Drug DB ใน Vet Calculator',
+        desc: 'ฐานข้อมูลยาสัตว์เลี้ยง 50+ รายการ (จาก Plumb\'s, BSAVA, MSD, FECAVA) ค้นหาด้วยชื่อสามัญ/การค้า/ข้อบ่งใช้, กรองตามหมวดหมู่และ species, ใส่น้ำหนักเพื่อคำนวณ dose ช่วง, แสดงคำเตือนเฉพาะของแต่ละยา (breed sensitivity, organ impairment, drug interactions)',
+      },
+    ],
+  },
+  {
     version: '5.33.0',
     date: '2026-08-26',
     headline: '🎨 โทนเว็บสงบและสม่ำเสมอขึ้น ทั้ง Landing หน้าผลสอบ และโหมดมืด',

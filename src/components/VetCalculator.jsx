@@ -17,8 +17,9 @@
 // (and learn the formula instead of just plugging numbers).
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { VET_DRUGS, DRUG_CATEGORIES } from '../data/vet-drug-database.js';
 
 const TABS = [
   { id: 'rer',          label: 'RER',         icon: '🔥' },
@@ -29,6 +30,7 @@ const TABS = [
   { id: 'dka',          label: 'DKA insulin', icon: '🍬' },
   { id: 'bsa',          label: 'BSA (chemo)', icon: '🎗' },
   { id: 'convert',      label: 'หน่วย',       icon: '🔁' },
+  { id: 'drugdb',       label: 'Drug DB',    icon: '💊' },
 ];
 
 // Helpers — round to N decimals; never NaN-display
@@ -355,6 +357,188 @@ function ConvertTab() {
   );
 }
 
+// ── Drug Database — searchable / filterable by category & species ─
+// Compiled from open-source veterinary references (Plumb's, BSAVA,
+// MSD, FECAVA). Search by generic name, brand, or indication.
+// Tap a drug to see its full card; enter BW to calculate total dose.
+function DrugDBTab() {
+  const [search, setSearch] = useState('');
+  const [bw, setBw] = useState('');
+  const [selectedCat, setSelectedCat] = useState(null);
+  const [selectedSpec, setSelectedSpec] = useState(null);
+  const [expandedDrug, setExpandedDrug] = useState(null);
+  const w = parseFloat(bw);
+
+  const filtered = useMemo(() => {
+    let drugs = VET_DRUGS;
+    if (selectedCat) drugs = drugs.filter((d) => d.category === selectedCat);
+    if (selectedSpec) drugs = drugs.filter((d) => d.species === selectedSpec || d.species === 'both');
+    const q = search.toLowerCase().trim();
+    if (q) {
+      drugs = drugs.filter((d) =>
+        d.generic.toLowerCase().includes(q) ||
+        d.brand.toLowerCase().includes(q) ||
+        d.indication.toLowerCase().includes(q) ||
+        d.category.toLowerCase().includes(q),
+      );
+    }
+    return drugs;
+  }, [search, selectedCat, selectedSpec]);
+
+  const clearFilters = () => { setSearch(''); setSelectedCat(null); setSelectedSpec(null); };
+
+  return (
+    <div>
+      {/* Search */}
+      <div style={{ marginBottom: 10 }}>
+        <input
+          type="text"
+          placeholder="ค้นหายา (ชื่อสามัญ/การค้า/ข้อบ่งใช้)..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          aria-label="Search drugs"
+          style={{
+            width: '100%',
+            padding: '10px 14px',
+            fontSize: 14,
+            borderRadius: 8,
+            border: '1px solid var(--clr-border)',
+            background: 'var(--clr-bg)',
+            color: 'var(--clr-ink)',
+            fontFamily: 'inherit',
+            boxSizing: 'border-box',
+          }}
+        />
+      </div>
+
+      {/* Category chips */}
+      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 8, maxHeight: 120, overflowY: 'auto' }}>
+        {DRUG_CATEGORIES.map((c) => (
+          <button
+            key={c.id}
+            onClick={() => setSelectedCat(selectedCat === c.id ? null : c.id)}
+            className={`vmx-chip ${selectedCat === c.id ? 'active' : ''}`}
+            type="button"
+            style={{ fontSize: 11, padding: '4px 10px' }}
+          >
+            {c.icon} {c.label.split(' ')[0]}
+          </button>
+        ))}
+      </div>
+
+      {/* Species filter + BW */}
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'flex-end', marginBottom: 10 }}>
+        <div style={{ flex: 1, minWidth: 100 }}>
+          <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="10" type="number" />
+        </div>
+        <ChipRow
+          label="Species"
+          options={[
+            { id: 'dog', label: '🐕 Dog' },
+            { id: 'cat', label: '🐈 Cat' },
+          ]}
+          value={selectedSpec}
+          onChange={(id) => setSelectedSpec(selectedSpec === id ? null : id)}
+        />
+      </div>
+
+      {/* Results count */}
+      <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 10, fontFamily: 'var(--vmx-mono)' }}>
+        {filtered.length} รายการ
+        {(selectedCat || selectedSpec) && (
+          <button type="button" onClick={clearFilters} className="vmx-inline-action" style={{ marginLeft: 8, fontSize: 11 }}>ล้าง filter</button>
+        )}
+      </div>
+
+      {/* Drug list */}
+      <div style={{ maxHeight: 360, overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
+        {filtered.length === 0 && (
+          <div style={{ textAlign: 'center', padding: 24, color: 'var(--clr-ink-soft)', fontSize: 13 }}>
+            ไม่พบยา — ลองเปลี่ยนคำค้นหรือ filter
+          </div>
+        )}
+        {filtered.map((drug) => {
+          const isExpanded = expandedDrug === drug.id;
+          const doseLo = isFinite(w) && w > 0 ? r(drug.doseLo * w, 2) : null;
+          const doseHi = isFinite(w) && w > 0 ? r(drug.doseHi * w, 2) : null;
+          const sameDose = drug.doseLo === drug.doseHi;
+          return (
+            <div
+              key={drug.id}
+              style={{
+                padding: isExpanded ? '10px 12px' : '8px 12px',
+                marginBottom: 6,
+                borderRadius: 10,
+                border: '1px solid var(--clr-border)',
+                background: isExpanded ? 'var(--clr-surface-2)' : 'var(--clr-surface)',
+                cursor: 'pointer',
+                transition: 'background 0.1s',
+              }}
+              onClick={() => setExpandedDrug(isExpanded ? null : drug.id)}
+            >
+              {/* Collapsed row */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                    {drug.generic}
+                    <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginLeft: 6, fontFamily: 'var(--vmx-mono)' }}>
+                      {drug.species === 'dog' ? '🐕' : drug.species === 'cat' ? '🐈' : '🐕🐈'}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {drug.brand} · {drug.indication}
+                  </div>
+                </div>
+                <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap', textAlign: 'right' }}>
+                  {drug.doseLo}{drug.doseLo !== drug.doseHi ? `-${drug.doseHi}` : ''} {drug.unit}<br />
+                  <span style={{ fontSize: 10 }}>{drug.route} · {drug.freq}</span>
+                </div>
+              </div>
+
+              {/* Expanded card */}
+              {isExpanded && (
+                <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--clr-border)' }}>
+                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>
+                    <strong>ข้อบ่งใช้:</strong> {drug.indication}<br />
+                    <strong>Route:</strong> {drug.route} · <strong>Frequency:</strong> {drug.freq}<br />
+                    <strong>Brands:</strong> {drug.brand}
+                  </div>
+
+                  {/* Dose calculation */}
+                  {isFinite(w) && w > 0 ? (
+                    <Result
+                      label={sameDose ? `Dose สำหรับ ${w} kg` : `Dose สำหรับ ${w} kg (${drug.doseLo}-${drug.doseHi} ${drug.unit})`}
+                      value={sameDose ? fmt(doseLo, ` ${drug.doseLo > 1 ? 'mg' : 'µg'}`) : `${fmt(doseLo)}-${fmt(doseHi)} ${drug.doseLo > 1 ? 'mg' : 'µg'}`}
+                      accent
+                    />
+                  ) : (
+                    <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', padding: '8px 0' }}>
+                      ใส่น้ำหนักด้านบนเพื่อคำนวณ dose
+                    </div>
+                  )}
+
+                  {drug.note && (
+                    <Note>{drug.note}</Note>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <Note>
+        💊 Drug database รวบรวมจาก Plumb's Veterinary Drug Handbook, BSAVA Small Animal
+        Formulary, MSD และ FECAVA/WSAVA guidelines. Dose เป็น reference range — ตรวจสอบ
+        กับ prescribing information + patient factors ก่อนใช้จริงเสมอ.
+        <br />
+        ⚠️ อ่านหมายเหตุของแต่ละยา — มีคำเตือนเฉพาะ (species-specific, breed sensitivity,
+        organ impairment, drug interactions).
+      </Note>
+    </div>
+  );
+}
+
 // ── Reusable mini form parts ───────────────────────────────────
 function Field({ label, value, onChange, placeholder, type = 'text', suffix }) {
   return (
@@ -568,6 +752,7 @@ export default function VetCalculator({ showFab = true } = {}) {
               {activeTab === 'dka'         && <DKATab />}
               {activeTab === 'bsa'         && <BSATab />}
               {activeTab === 'convert'     && <ConvertTab />}
+              {activeTab === 'drugdb'      && <DrugDBTab />}
             </div>
 
             <div className="vmx-btn-row" style={{ marginTop: 18 }}>
