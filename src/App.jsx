@@ -179,6 +179,7 @@ const LandingView = lazy(() => import('./views/LandingView.jsx'));
 const PhaseSelectView = lazy(() => import('./views/PhaseSelectView.jsx'));
 const TopicSelectView = lazy(() => import('./views/TopicSelectView.jsx'));
 const NotesView = lazy(() => import('./views/NotesView.jsx'));
+const LibraryView = lazy(() => import('./views/LibraryView.jsx'));
 const KnowledgeView = lazy(() => import('./views/KnowledgeView.jsx'));
 const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx'));
 const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
@@ -221,7 +222,7 @@ const SpeedInsights = lazy(() =>
 // comfortable line length.
 const WIDE_VIEWS = new Set([
   'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
-  'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate',
+  'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate', 'library',
   'image-occlusion', 'knowledge', 'wiki',
 ]);
 
@@ -1695,6 +1696,15 @@ export default function App() {
     setView('knowledge', { path: wikiPath(subj, top, sectionId) });
   };
 
+  // Set when the reader opens a document from the library, so PdfAnnotateView
+  // knows to stream it instead of showing its drag-drop empty state. Cleared
+  // on the way out (below) — a stale value would silently reopen the last
+  // library document when someone later picks "เขียนบน PDF" from the tools menu.
+  const [libraryDoc, setLibraryDoc] = useState(null);
+  useEffect(() => {
+    if (libraryDoc && view !== 'pdf-annotate' && view !== 'library') setLibraryDoc(null);
+  }, [view, libraryDoc]);
+
   const goHome = () => {
     setView('home');
     finishingRef.current = false; // clear the finish latch on leaving
@@ -2092,7 +2102,14 @@ export default function App() {
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'race' && user && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
-              {view === 'pdf-annotate' && <PdfAnnotateView goHome={goHome} />}
+              {view === 'library' && <LibraryView goHome={goHome} onOpenDoc={(doc) => { setLibraryDoc(doc); setView('pdf-annotate'); }} />}
+              {view === 'pdf-annotate' && (
+                <PdfAnnotateView
+                  goHome={goHome}
+                  initialDoc={libraryDoc}
+                  onExit={libraryDoc ? () => { setLibraryDoc(null); setView('library'); } : null}
+                />
+              )}
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions }} />}

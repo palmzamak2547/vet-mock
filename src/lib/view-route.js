@@ -18,6 +18,7 @@ const VIEW_TO_PATH = Object.freeze({
   'year-select': '/app/year',
   'phase-select': '/app/phase',
   'reading-checklist': '/app/reading',
+  library: '/app/library',
   faculty: '/app/faculty',
   'account-settings': '/app/account',
   'offline-game': '/app/game',
