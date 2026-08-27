@@ -110,7 +110,7 @@ export default function PomodoroView({ goHome }) {
           margin: '4px 0 0',
           fontSize: 20,
           fontWeight: 800,
-          color: '#5c3a00',
+          color: 'var(--clr-ink)',
           textAlign: 'center',
         }}
       >
@@ -125,8 +125,8 @@ export default function PomodoroView({ goHome }) {
           style={{
             padding: 12,
             borderRadius: 12,
-            background: '#fff5f5',
-            color: '#c92a2a',
+            background: 'color-mix(in srgb, var(--clr-rose) 12%, var(--clr-surface))',
+            color: 'var(--clr-rose-text)',
             border: '1px solid #ffd8d8',
             textAlign: 'center',
             fontWeight: 600,
@@ -157,7 +157,7 @@ export default function PomodoroView({ goHome }) {
         {statsRow.map((s) => (
           <div key={s.label} style={{ textAlign: 'center', padding: '4px 2px' }}>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>{s.label}</div>
-            <div style={{ fontSize: 16, fontWeight: 700, color: '#7a5a30' }}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--clr-gold-text)' }}>
               {s.value}
               <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginLeft: 2 }}>{s.suffix}</span>
             </div>
@@ -190,7 +190,7 @@ export default function PomodoroView({ goHome }) {
             justifyContent: 'space-between',
             fontSize: 14,
             fontWeight: 600,
-            color: '#5c3a00',
+            color: 'var(--clr-ink)',
           }}
         >
           <span>ปรับเวลา (focus / break)</span>
@@ -204,7 +204,7 @@ export default function PomodoroView({ goHome }) {
                 type="checkbox"
                 checked={config.strictFocus !== false}
                 onChange={(e) => setConfigField('strictFocus', e.target.checked)}
-                style={{ width: 20, height: 20, accentColor: '#f59f00', cursor: 'pointer' }}
+                style={{ width: 20, height: 20, accentColor: 'var(--clr-gold)', cursor: 'pointer' }}
               />
             </label>
             <Slider
@@ -246,7 +246,7 @@ export default function PomodoroView({ goHome }) {
                 borderRadius: 8,
                 border: '1px solid var(--clr-border)',
                 background: 'var(--clr-surface)',
-                color: '#666',
+                color: 'var(--clr-ink-soft)',
                 cursor: 'pointer',
               }}
             >
@@ -272,8 +272,8 @@ function Slider({ label, suffix, min, max, step, value, onChange }) {
     <label style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       <span style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--clr-ink)', fontWeight: 600 }}>
         <span>{label}</span>
-        <span style={{ color: '#7a5a30' }}>
-          {value} <span style={{ fontSize: 11, color: '#aaa' }}>{suffix}</span>
+        <span style={{ color: 'var(--clr-gold-text)' }}>
+          {value} <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>{suffix}</span>
         </span>
       </span>
       <input
@@ -286,7 +286,7 @@ function Slider({ label, suffix, min, max, step, value, onChange }) {
         style={{
           width: '100%',
           minHeight: 44,
-          accentColor: '#f59f00',
+          accentColor: 'var(--clr-gold)',
         }}
         aria-label={`${label} ${suffix}`}
       />

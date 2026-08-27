@@ -7,6 +7,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+// Line endings normalised before comparing. Git checks these files out
+// with CRLF on Windows while the generator writes LF, so a byte-for-byte
+// comparison called the file STALE on every Windows machine until someone
+// regenerated locally — and then called it stale again after the next
+// checkout. Same shape as the localeCompare collation bug this file
+// already documents: a check that is red for reasons unrelated to its
+// subject teaches people to ignore it.
+const eol = (s) => String(s).replace(/\r\n/g, '\n');
+
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'src/lib/vetwiki/topic-registry.generated.js');
 const CHECK = process.argv.includes('--check');
@@ -29,7 +39,7 @@ export default VETWIKI_TOPICS;
 
 if (CHECK) {
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
-  if (current !== output) {
+  if (eol(current) !== eol(output)) {
     console.error('VetWiki topic registry is stale. Run node scripts/regen-vetwiki-topic-registry.mjs');
     process.exit(1);
   }

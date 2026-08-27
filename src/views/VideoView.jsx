@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { subjectText } from '../hooks/utils.js';
 import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, isChannelUrl } from '../data/videos.js';
 // Palm audit 2026-05-20 P0: VIDEO_SUMMARIES file is ~2 MB (62k lines of
 // markdown). Importing it statically pulled the whole chunk on every
@@ -369,7 +370,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
       >
         <ThumbnailWithPlayOverlay video={video} subject={subject} playlist={playlist} isChannel={isChannel} />
         <div style={{ padding: 14 }}>
-          <div className="vmx-kicker" style={{ color: subject?.color || 'var(--clr-ink-soft)', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div className="vmx-kicker" style={{ color: subjectText(subject?.color), marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
             <span>{subject?.icon} {subject?.name}</span>
             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage-text)' }}>✓ ดูแล้ว</span>}
           </div>
@@ -446,7 +447,11 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
     ? 'linear-gradient(135deg, #93454b, #6e5a3a)'
     : isChannel
       ? 'linear-gradient(135deg, #4e6b4e, #2f5468)'
-      : 'var(--clr-surface-2)';
+      // The third branch was left on a LIGHT surface while the label above
+      // it stayed `color: white` — 1.06:1, i.e. an invisible caption on
+      // every video whose cover had not loaded yet. Same treatment as its
+      // two siblings: a dark ground so the white label holds.
+      : 'linear-gradient(135deg, #4a4339, #2b2419)';
   return (
     <div style={{ width: '100%', aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white' }}>
       <div style={{ fontSize: 50 }}>{playlist ? '📋' : isChannel ? '📺' : '🎬'}</div>

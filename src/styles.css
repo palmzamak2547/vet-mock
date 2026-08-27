@@ -343,6 +343,9 @@ button, a, [role="button"], input[type="button"], input[type="submit"], label, s
    No ::before pseudo (banned — see STABILITY.md rule 1).
    No position: relative (no longer needed without pseudo). */
 .vmx-link-btn {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
   min-height: 44px !important;
   padding: 10px 14px !important;
   display: inline-flex !important;

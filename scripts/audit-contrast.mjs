@@ -147,6 +147,13 @@ for (const [label, given, known] of [['theme', THEMES, KNOWN_THEMES], ['palette'
 
 const LANDING = process.argv.includes('--landing');
 const EXAM = process.argv.includes('--exam');
+// --route sweeps any single destination, so a new view can be checked the
+// day it lands instead of waiting for someone to add a surface here.
+// Write it WITHOUT the leading slash on Git Bash — MSYS rewrites a bare
+// /app/library into c:/Program Files/Git/app/library before node ever
+// sees it. Both forms are accepted; only one of them survives that shell.
+const ROUTE_RAW = arg('route', null);
+const ROUTE = ROUTE_RAW ? '/' + String(ROUTE_RAW).replace(/^.*?[\/]?app[\/]/i, 'app/').replace(/^\/+/, '') : null;
 // Quiet by default so a green gate is one line inside lint:all.
 const VERBOSE = process.argv.includes('--verbose');
 
@@ -182,7 +189,14 @@ const PAGE_FN = () => {
   const bgOf = (el) => {
     const stack = [];
     for (let n = el; n; n = n.parentElement) {
-      const c = toRgb(getComputedStyle(n).backgroundColor);
+      const cs = getComputedStyle(n);
+      // A gradient lives in background-IMAGE; background-color reads
+      // transparent through it. Walking past one and compositing against
+      // the page reported 756 failures on white labels sitting on a dark
+      // gradient — a confident number about a background this cannot see.
+      // Unknown is the honest answer, and it is counted, not swallowed.
+      if (cs.backgroundImage && cs.backgroundImage !== 'none') return null;
+      const c = toRgb(cs.backgroundColor);
       if (!c || c[3] === 0) continue;
       stack.push(c);
       if (c[3] >= 1) break;
@@ -211,7 +225,7 @@ const PAGE_FN = () => {
       text: text.slice(0, 48),
       cls: (el.className || '').toString().slice(0, 60),
       fg: fg.slice(0, 3),
-      bg: bgOf(el),
+      bg: bgOf(el),   // null when an ancestor gradient makes it uncomputable
       // AA: 4.5 for body text, 3.0 once it is 24px, or 18.66px bold.
       floor: size >= 24 || (size >= 18.66 && +cs.fontWeight >= 700) ? 3 : 4.5,
     });
@@ -229,6 +243,7 @@ process.on('exit', () => { try { server?.kill(); } catch {} });
 const browser = await chromium.launch();
 let failures = 0;
 let excused = 0;
+let overGradient = 0;
 
 try {
   // One context, one load per page. Switching palette is a CSS-variable
@@ -245,7 +260,7 @@ try {
     } catch {}
   }, !LANDING);
   const page = await ctx.newPage();
-  await page.goto(URL, { waitUntil: 'networkidle' });
+  await page.goto(ROUTE ? new global.URL(ROUTE, URL).href : URL, { waitUntil: 'networkidle' });
 
   // --exam walks into a practice session and answers one question wrong,
   // because that screen renders states no other page does: the correct-
@@ -299,7 +314,10 @@ try {
     // Two frames: one for the variable swap to apply, one for layout.
     await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
 
-    const rows = (await page.evaluate(PAGE_FN))
+    const measured = await page.evaluate(PAGE_FN);
+    overGradient += measured.filter((r) => !r.bg).length;
+    const rows = measured
+      .filter((r) => r.bg)
       .map((r) => ({ ...r, ratio: +ratio(r.fg, r.bg).toFixed(2) }))
       .filter((r) => r.ratio < r.floor)
       .sort((a, b) => a.ratio - b.ratio);
@@ -323,6 +341,12 @@ try {
   server?.kill();
 }
 
+if (overGradient) {
+  console.log(`
+ℹ ${overGradient} element(s) sit on a gradient and were not measured —`);
+  console.log('   background-color reads transparent through background-image, so any');
+  console.log('   number here would be about the page behind it, not the gradient.');
+}
 if (excused) {
   console.log(`\n${excused} known item(s) excused:`);
   for (const k of KNOWN) console.log(`   • ${k.why}`);

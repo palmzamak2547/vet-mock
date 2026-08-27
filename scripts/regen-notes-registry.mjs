@@ -20,6 +20,16 @@
 import fs from 'node:fs';
 import { NOTE_SOURCES } from '../src/data/note-corpus.js';
 
+// Line endings normalised before comparing. Git checks these files out
+// with CRLF on Windows while the generator writes LF, so a byte-for-byte
+// comparison called the file STALE on every Windows machine until someone
+// regenerated locally — and then called it stale again after the next
+// checkout. Same shape as the localeCompare collation bug this file
+// already documents: a check that is red for reasons unrelated to its
+// subject teaches people to ignore it.
+const eol = (s) => String(s).replace(/\r\n/g, '\n');
+
+
 const OUT = 'src/data/notes-registry.generated.js';
 const CHECK = process.argv.includes('--check');
 
@@ -76,7 +86,7 @@ export function hasNoteTopic(subjectId, topicId) {
 
 if (CHECK) {
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
-  if (current.trim() !== body.trim()) {
+  if (eol(current).trim() !== eol(body).trim()) {
     console.log('❌ notes-registry.generated.js is stale — run: npm run regen:notes-registry');
     process.exit(1);
   }

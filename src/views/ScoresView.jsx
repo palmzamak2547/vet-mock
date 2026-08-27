@@ -67,10 +67,10 @@ export default function ScoresView({ goHome }) {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 10, marginBottom: s.note ? 12 : 0 }}>
-                <ScoreCell label="Midterm" value={s.midterm} color="var(--clr-ocean)" />
-                <ScoreCell label="Final" value={s.final} color="var(--clr-rose)" />
-                <ScoreCell label="ฟรี" value={s.free} color="var(--clr-sage)" />
-                <ScoreCell label="ทำงาน" value={s.work} color="var(--clr-gold)" />
+                <ScoreCell label="Midterm" value={s.midterm} color="var(--clr-ocean-text)" />
+                <ScoreCell label="Final" value={s.final} color="var(--clr-rose-text)" />
+                <ScoreCell label="ฟรี" value={s.free} color="var(--clr-sage-text)" />
+                <ScoreCell label="ทำงาน" value={s.work} color="var(--clr-gold-text)" />
               </div>
 
               {s.note && (

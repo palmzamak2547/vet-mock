@@ -263,7 +263,8 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
   const STROKE = 14;
   const RADIUS = (RING_SIZE - STROKE) / 2;
   const CIRC = 2 * Math.PI * RADIUS;
-  const dashOffset = CIRC * (1 - Math.max(0, Math.min(1, progress)));  const status = statusLabel(state, config?.strictFocus !== false);
+  const dashOffset = CIRC * (1 - Math.max(0, Math.min(1, progress)));
+  const status = statusLabel(state, config?.strictFocus !== false);
 
   // Ring color reflects state
   const ringColor =
@@ -403,7 +404,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
             style={{
               fontSize: 'clamp(28px, 8vw, 36px)',
               fontWeight: 800,
-              color: state === 'failed' ? '#c92a2a' : '#5c3a00',
+              color: state === 'failed' ? 'var(--clr-rose-text)' : 'var(--clr-ink)',
               fontVariantNumeric: 'tabular-nums',
               letterSpacing: 0.5,
             }}
@@ -420,7 +421,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
         style={{
           minHeight: 22,
           fontSize: 14,
-          color: state === 'failed' ? '#c92a2a' : '#666',
+          color: state === 'failed' ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)',
           textAlign: 'center',
           maxWidth: 360,
           padding: '0 8px',

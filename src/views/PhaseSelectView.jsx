@@ -80,7 +80,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
                     : `${subjectsInPhase.length} วิชา, รอเติม`}
               </div>
               {isCurrent && (
-                <div className="badge" style={{ background: 'var(--clr-rose)', fontSize: 10 }}>แนะนำ</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-rose)', fontSize: 10 }}>แนะนำ</div>
               )}
             </button>
           );
