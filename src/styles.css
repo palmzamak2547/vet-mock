@@ -2777,3 +2777,171 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 /* Running ✓ n/m chip in the exam header during practice */
 .vmx-live-score { font-family: var(--vmx-mono); font-size: 13px; font-weight: 700; color: var(--clr-sage-text); white-space: nowrap; }
 .vmx-live-score.low { color: var(--clr-gold-text); }
+
+/* ============================================================
+   Vet Calculator Redesign (Glassmorphism + Premium UI)
+   ============================================================ */
+.vmx-vetcalc-modal {
+  max-width: 560px;
+  max-height: min(90vh, calc(100dvh - 24px));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: color-mix(in srgb, var(--clr-surface) 85%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid color-mix(in srgb, var(--clr-border) 60%, transparent);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.1);
+  border-radius: var(--r-xl);
+  padding: 24px;
+}
+.vmx-vetcalc-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  scrollbar-width: none; /* Firefox */
+}
+.vmx-vetcalc-tabs::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.vmx-vetcalc-tab-btn {
+  white-space: nowrap;
+  padding: 10px 18px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  background: color-mix(in srgb, var(--clr-surface-2) 60%, transparent);
+  color: var(--clr-ink-soft);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.vmx-vetcalc-tab-btn:hover {
+  background: var(--clr-surface-2);
+  color: var(--clr-ink);
+  transform: translateY(-1px);
+}
+.vmx-vetcalc-tab-btn.active {
+  background: var(--clr-ink);
+  color: var(--clr-bg);
+  box-shadow: var(--shadow-md);
+  transform: translateY(0);
+}
+.vmx-vetcalc-field-group {
+  margin-bottom: 16px;
+}
+.vmx-vetcalc-field-label {
+  display: block;
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+  margin-bottom: 8px;
+  font-family: var(--vmx-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.vmx-vetcalc-field-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  transition: all 0.2s var(--ease-out);
+  overflow: hidden;
+}
+.vmx-vetcalc-field-input-wrap:focus-within {
+  border-color: var(--clr-sage);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--clr-sage) 20%, transparent);
+}
+.vmx-vetcalc-field-input {
+  flex: 1;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: none;
+  background: transparent;
+  color: var(--clr-ink);
+  font-family: inherit;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+}
+.vmx-vetcalc-field-input::placeholder {
+  color: color-mix(in srgb, var(--clr-ink-soft) 50%, transparent);
+}
+.vmx-vetcalc-field-suffix {
+  padding-right: 16px;
+  font-size: 14px;
+  color: var(--clr-ink-soft);
+  font-family: var(--vmx-mono);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.vmx-vetcalc-result {
+  padding: 16px 20px;
+  border-radius: var(--r-lg);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.vmx-vetcalc-result:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.vmx-vetcalc-result.accent {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--clr-rose-soft) 80%, transparent) 0%, color-mix(in srgb, var(--clr-rose-soft) 20%, transparent) 100%);
+  border-color: color-mix(in srgb, var(--clr-rose) 40%, transparent);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--clr-rose) 10%, transparent);
+}
+.vmx-vetcalc-result-label {
+  font-size: 13.5px;
+  color: var(--clr-ink-soft);
+  font-weight: 500;
+}
+.vmx-vetcalc-result.accent .vmx-vetcalc-result-label {
+  color: var(--clr-rose-text);
+  font-weight: 600;
+}
+.vmx-vetcalc-result-value {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--clr-ink);
+}
+.vmx-vetcalc-result.accent .vmx-vetcalc-result-value {
+  font-size: 26px;
+  color: var(--clr-rose-text);
+}
+.vmx-vetcalc-note {
+  margin-top: 24px;
+  padding: 16px 20px;
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--clr-sage) 8%, transparent);
+  border-left: 4px solid var(--clr-sage);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--clr-ink-soft);
+  position: relative;
+}
+.vmx-vetcalc-note::before {
+  content: '💡';
+  position: absolute;
+  left: -12px;
+  top: -12px;
+  font-size: 18px;
+  background: var(--clr-surface);
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: var(--shadow-md);
+}

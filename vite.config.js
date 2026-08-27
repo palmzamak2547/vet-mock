@@ -1,8 +1,16 @@
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
+  // '@' is the alias the shadcn CLI writes into installed block imports
+  // (@/lib/utils, @/components/ui/*). jsconfig.json mirrors it for the
+  // CLI + editors.
+  resolve: {
+    alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
+  },
   // Cornerstone's image loader owns its web workers. Keep it out of Vite's
   // dependency pre-bundle. Vite 6 handles dicom-parser's CJS conversion.
   optimizeDeps: {

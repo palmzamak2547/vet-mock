@@ -1,0 +1,44 @@
+/* ============================================================
+   styles-tailwind.css — Tailwind v4, scoped to Shadcn Space blocks
+   ============================================================
+   VetMock's UI is hand-written CSS (styles.css / styles-landing.css).
+   This sheet exists ONLY so blocks installed from Shadcn Space
+   (src/components/shadcn-space/**) get working Tailwind utilities.
+
+   Deliberate choices:
+   • NO preflight — the global reset would restyle every screen in
+     the app (buttons, headings, lists). Utilities only.
+   • Everything Tailwind emits sits in a @layer, and un-layered CSS
+     beats layered CSS — so the app's own :root tokens and rules
+     always win. Token names that exist in BOTH systems (--text-*,
+     --shadow-*) resolve to the app's values, which snaps installed
+     blocks onto the VetMock type/shadow scale for free.
+   • shadcn colour tokens are mapped onto the vmx palette vars, so
+     installed blocks follow light/dark + palette switching instead
+     of shipping their own fixed colours.
+   ============================================================ */
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme inline {
+  --color-background: var(--clr-bg);
+  --color-foreground: var(--clr-ink);
+  --color-card: var(--clr-surface);
+  --color-card-foreground: var(--clr-ink);
+  --color-popover: var(--clr-surface);
+  --color-popover-foreground: var(--clr-ink);
+  --color-primary: var(--clr-sage);
+  --color-primary-foreground: var(--clr-surface);
+  --color-secondary: var(--clr-surface-2);
+  --color-secondary-foreground: var(--clr-ink);
+  --color-muted: var(--clr-surface-2);
+  --color-muted-foreground: var(--clr-ink-soft);
+  --color-accent: color-mix(in srgb, var(--clr-sage) 12%, transparent);
+  --color-accent-foreground: var(--clr-sage-text);
+  --color-destructive: var(--clr-rose);
+  --color-destructive-foreground: var(--clr-surface);
+  --color-border: var(--clr-border);
+  --color-input: var(--clr-border);
+  --color-ring: var(--clr-sage);
+}

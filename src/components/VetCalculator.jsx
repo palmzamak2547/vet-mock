@@ -49,8 +49,8 @@ function RERTab() {
   return (
     <div>
       <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="20" type="number" />
-      <Result label="RER (linear, 30,BW + 70)" value={fmt(linear, ' kcal/day')} accent />
-      <Result label="RER (allometric, 70,BW^0.75)" value={fmt(allometric, ' kcal/day')} />
+      <Result label="RER (linear, 30·BW + 70)" value={fmt(linear, ' kcal/day')} accent />
+      <Result label="RER (allometric, 70·BW^0.75)" value={fmt(allometric, ' kcal/day')} />
       <Note>
         ใช้ <strong>linear</strong> สำหรับ 2-30 kg (ง่าย แม่น)., <strong>allometric</strong>
         สำหรับ &lt; 2 kg หรือ &gt; 30 kg.
@@ -390,36 +390,28 @@ function DrugDBTab() {
   return (
     <div>
       {/* Search */}
-      <div style={{ marginBottom: 10 }}>
-        <input
-          type="text"
-          placeholder="ค้นหายา (ชื่อสามัญ/การค้า/ข้อบ่งใช้)..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          aria-label="Search drugs"
-          style={{
-            width: '100%',
-            padding: '10px 14px',
-            fontSize: 14,
-            borderRadius: 8,
-            border: '1px solid var(--clr-border)',
-            background: 'var(--clr-bg)',
-            color: 'var(--clr-ink)',
-            fontFamily: 'inherit',
-            boxSizing: 'border-box',
-          }}
-        />
+      <div className="vmx-vetcalc-field-group">
+        <div className="vmx-vetcalc-field-input-wrap">
+          <input
+            type="text"
+            placeholder="ค้นหายา (ชื่อสามัญ/การค้า/ข้อบ่งใช้)..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            aria-label="Search drugs"
+            className="vmx-vetcalc-field-input"
+          />
+        </div>
       </div>
 
       {/* Category chips */}
-      <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 8, maxHeight: 120, overflowY: 'auto' }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16, maxHeight: 120, overflowY: 'auto' }}>
         {DRUG_CATEGORIES.map((c) => (
           <button
             key={c.id}
             onClick={() => setSelectedCat(selectedCat === c.id ? null : c.id)}
-            className={`vmx-chip ${selectedCat === c.id ? 'active' : ''}`}
+            className={`vmx-vetcalc-tab-btn ${selectedCat === c.id ? 'active' : ''}`}
             type="button"
-            style={{ fontSize: 11, padding: '4px 10px' }}
+            style={{ fontSize: 12, padding: '6px 14px' }}
           >
             {c.icon} {c.label.split(' ')[0]}
           </button>
@@ -427,33 +419,35 @@ function DrugDBTab() {
       </div>
 
       {/* Species filter + BW */}
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'flex-end', marginBottom: 10 }}>
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'flex-end', marginBottom: 16 }}>
         <div style={{ flex: 1, minWidth: 100 }}>
           <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="10" type="number" />
         </div>
-        <ChipRow
-          label="Species"
-          options={[
-            { id: 'dog', label: '🐕 Dog' },
-            { id: 'cat', label: '🐈 Cat' },
-          ]}
-          value={selectedSpec}
-          onChange={(id) => setSelectedSpec(selectedSpec === id ? null : id)}
-        />
+        <div style={{ paddingBottom: 16 }}>
+          <ChipRow
+            label="Species"
+            options={[
+              { id: 'dog', label: '🐕 Dog' },
+              { id: 'cat', label: '🐈 Cat' },
+            ]}
+            value={selectedSpec}
+            onChange={(id) => setSelectedSpec(selectedSpec === id ? null : id)}
+          />
+        </div>
       </div>
 
       {/* Results count */}
-      <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 10, fontFamily: 'var(--vmx-mono)' }}>
+      <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 12, fontFamily: 'var(--vmx-mono)', fontWeight: 600 }}>
         {filtered.length} รายการ
         {(selectedCat || selectedSpec) && (
-          <button type="button" onClick={clearFilters} className="vmx-inline-action" style={{ marginLeft: 8, fontSize: 11 }}>ล้าง filter</button>
+          <button type="button" onClick={clearFilters} className="vmx-inline-action" style={{ marginLeft: 12, fontSize: 12 }}>ล้าง filter</button>
         )}
       </div>
 
       {/* Drug list */}
-      <div style={{ maxHeight: 360, overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
+      <div style={{ maxHeight: 360, overflowY: 'auto', WebkitOverflowScrolling: 'touch', margin: '0 -8px', padding: '0 8px' }}>
         {filtered.length === 0 && (
-          <div style={{ textAlign: 'center', padding: 24, color: 'var(--clr-ink-soft)', fontSize: 13 }}>
+          <div style={{ textAlign: 'center', padding: 24, color: 'var(--clr-ink-soft)', fontSize: 14 }}>
             ไม่พบยา — ลองเปลี่ยนคำค้นหรือ filter
           </div>
         )}
@@ -466,39 +460,40 @@ function DrugDBTab() {
             <div
               key={drug.id}
               style={{
-                padding: isExpanded ? '10px 12px' : '8px 12px',
-                marginBottom: 6,
-                borderRadius: 10,
+                padding: isExpanded ? '14px 16px' : '12px 16px',
+                marginBottom: 8,
+                borderRadius: '12px',
                 border: '1px solid var(--clr-border)',
                 background: isExpanded ? 'var(--clr-surface-2)' : 'var(--clr-surface)',
                 cursor: 'pointer',
-                transition: 'background 0.1s',
+                transition: 'all 0.2s',
+                boxShadow: isExpanded ? 'var(--shadow-md)' : 'none',
               }}
               onClick={() => setExpandedDrug(isExpanded ? null : drug.id)}
             >
               {/* Collapsed row */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--clr-ink)' }}>
                     {drug.generic}
-                    <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginLeft: 6, fontFamily: 'var(--vmx-mono)' }}>
+                    <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginLeft: 6, fontFamily: 'var(--vmx-mono)' }}>
                       {drug.species === 'dog' ? '🐕' : drug.species === 'cat' ? '🐈' : '🐕🐈'}
                     </span>
                   </div>
-                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {drug.brand} · {drug.indication}
                   </div>
                 </div>
-                <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap', textAlign: 'right' }}>
+                <div style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap', textAlign: 'right', fontWeight: 600 }}>
                   {drug.doseLo}{drug.doseLo !== drug.doseHi ? `-${drug.doseHi}` : ''} {drug.unit}<br />
-                  <span style={{ fontSize: 10 }}>{drug.route} · {drug.freq}</span>
+                  <span style={{ fontSize: 11, fontWeight: 400 }}>{drug.route} · {drug.freq}</span>
                 </div>
               </div>
 
               {/* Expanded card */}
               {isExpanded && (
-                <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--clr-border)' }}>
-                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>
+                <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>
+                  <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.6 }}>
                     <strong>ข้อบ่งใช้:</strong> {drug.indication}<br />
                     <strong>Route:</strong> {drug.route} · <strong>Frequency:</strong> {drug.freq}<br />
                     <strong>Brands:</strong> {drug.brand}
@@ -512,7 +507,7 @@ function DrugDBTab() {
                       accent
                     />
                   ) : (
-                    <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', padding: '8px 0' }}>
+                    <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', padding: '12px 0', textAlign: 'center', background: 'var(--clr-surface)', borderRadius: '8px', border: '1px dashed var(--clr-border)' }}>
                       ใส่น้ำหนักด้านบนเพื่อคำนวณ dose
                     </div>
                   )}
@@ -542,11 +537,11 @@ function DrugDBTab() {
 // ── Reusable mini form parts ───────────────────────────────────
 function Field({ label, value, onChange, placeholder, type = 'text', suffix }) {
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+    <div className="vmx-vetcalc-field-group">
+      <label className="vmx-vetcalc-field-label">
         {label}
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+      </label>
+      <div className="vmx-vetcalc-field-input-wrap">
         <input
           type={type}
           inputMode={type === 'number' ? 'decimal' : undefined}
@@ -554,18 +549,9 @@ function Field({ label, value, onChange, placeholder, type = 'text', suffix }) {
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           aria-label={label}
-          style={{
-            flex: 1,
-            padding: '8px 10px',
-            fontSize: 14,
-            borderRadius: 8,
-            border: '1px solid var(--clr-border)',
-            background: 'var(--clr-bg)',
-            color: 'var(--clr-ink)',
-            fontFamily: 'inherit',
-          }}
+          className="vmx-vetcalc-field-input"
         />
-        {suffix && <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', minWidth: 30 }}>{suffix}</span>}
+        {suffix && <span className="vmx-vetcalc-field-suffix">{suffix}</span>}
       </div>
     </div>
   );
@@ -573,41 +559,16 @@ function Field({ label, value, onChange, placeholder, type = 'text', suffix }) {
 
 function Result({ label, value, accent }) {
   return (
-    <div style={{
-      padding: '10px 14px',
-      borderRadius: 10,
-      marginBottom: 8,
-      background: accent ? 'var(--clr-rose-soft)' : 'var(--clr-surface-2)',
-      border: `1px solid ${accent ? 'var(--clr-rose)' : 'var(--clr-border)'}`,
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'baseline',
-      gap: 12,
-      flexWrap: 'wrap',
-    }}>
-      <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>{label}</span>
-      <span style={{
-        fontFamily: 'Fraunces, serif',
-        fontWeight: accent ? 700 : 600,
-        fontSize: accent ? 18 : 15,
-        color: accent ? 'var(--clr-rose-text)' : 'var(--clr-ink)',
-      }}>{value}</span>
+    <div className={`vmx-vetcalc-result ${accent ? 'accent' : ''}`}>
+      <span className="vmx-vetcalc-result-label">{label}</span>
+      <span className="vmx-vetcalc-result-value">{value}</span>
     </div>
   );
 }
 
 function Note({ children }) {
   return (
-    <div style={{
-      marginTop: 12,
-      padding: '10px 14px',
-      borderRadius: 10,
-      background: 'rgba(74, 107, 74, 0.08)',
-      borderLeft: '3px solid var(--clr-sage)',
-      fontSize: 12,
-      lineHeight: 1.6,
-      color: 'var(--clr-ink-soft)',
-    }}>
+    <div className="vmx-vetcalc-note">
       {children}
     </div>
   );
@@ -615,16 +576,16 @@ function Note({ children }) {
 
 function ChipRow({ label, options, value, onChange }) {
   return (
-    <div style={{ marginBottom: 12 }} role="group" aria-label={label}>
-      <div style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+    <div style={{ marginBottom: 16 }} role="group" aria-label={label}>
+      <div className="vmx-vetcalc-field-label">
         {label}
       </div>
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         {options.map((o) => (
           <button
             key={o.id}
             onClick={() => onChange(o.id)}
-            className={`vmx-chip ${value === o.id ? 'active' : ''}`}
+            className={`vmx-vetcalc-tab-btn ${value === o.id ? 'active' : ''}`}
             type="button"
             aria-pressed={value === o.id}
           >
@@ -701,40 +662,34 @@ export default function VetCalculator({ showFab = true } = {}) {
       )}
 
       {open && (
-        <div className="vmx-modal-overlay" onClick={() => setOpen(false)}>
+        <div className="vmx-modal-overlay" onClick={() => setOpen(false)} style={{ backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}>
           <div
             ref={dialogRef}
-            className="vmx-modal"
+            className="vmx-vetcalc-modal"
             onClick={(e) => e.stopPropagation()}
-            style={{
-              maxWidth: 560,
-              maxHeight: 'min(90vh, calc(100dvh - 24px))',
-              overflowY: 'auto',
-              WebkitOverflowScrolling: 'touch',
-            }}
             role="dialog"
             aria-modal="true"
             aria-labelledby="vmx-vetcalc-title"
             tabIndex={-1}
             data-vmx-modal="true"
           >
-            <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <div style={{ marginBottom: 24 }}>
+              <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
                 Vet Calculator
               </div>
-              <h2 id="vmx-vetcalc-title" style={{ margin: '4px 0 0', fontSize: 22 }}>คำนวณคลินิก</h2>
-              <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', margin: '4px 0 0' }}>
+              <h2 id="vmx-vetcalc-title" style={{ margin: '6px 0 0', fontSize: 26, fontFamily: 'Fraunces, serif', fontWeight: 800 }}>คำนวณคลินิก</h2>
+              <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
                 สูตรพื้นฐานที่นิสิต/สัตวแพทย์ใช้บ่อย, ทุกผลลัพธ์มีสูตรกำกับให้ตรวจมือซ้ำได้
               </p>
             </div>
 
             {/* Tab row */}
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+            <div className="vmx-vetcalc-tabs">
               {TABS.map((t) => (
                 <button
                   key={t.id}
                   onClick={() => setActiveTab(t.id)}
-                  className={`vmx-chip ${activeTab === t.id ? 'active' : ''}`}
+                  className={`vmx-vetcalc-tab-btn ${activeTab === t.id ? 'active' : ''}`}
                   type="button"
                 >
                   {t.icon} {t.label}
@@ -743,7 +698,7 @@ export default function VetCalculator({ showFab = true } = {}) {
             </div>
 
             {/* Active tab body */}
-            <div>
+            <div style={{ minHeight: 200 }}>
               {activeTab === 'rer'         && <RERTab />}
               {activeTab === 'fluid'       && <FluidTab />}
               {activeTab === 'drug'        && <DrugTab />}
@@ -755,8 +710,8 @@ export default function VetCalculator({ showFab = true } = {}) {
               {activeTab === 'drugdb'      && <DrugDBTab />}
             </div>
 
-            <div className="vmx-btn-row" style={{ marginTop: 18 }}>
-              <button className="vmx-btn vmx-btn-ghost" onClick={() => setOpen(false)} type="button">
+            <div className="vmx-btn-row" style={{ marginTop: 24, paddingTop: 16, borderTop: '1px dashed var(--clr-border)' }}>
+              <button className="vmx-btn vmx-btn-ghost" onClick={() => setOpen(false)} type="button" style={{ width: '100%', justifyContent: 'center' }}>
                 ปิด (esc)
               </button>
             </div>
