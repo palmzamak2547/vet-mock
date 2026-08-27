@@ -239,6 +239,13 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'image-occlusion' },
   },
   {
+    id: 'library', category: 'learn',
+    label: 'คลังเอกสาร', labelEn: 'Study library', icon: '📚',
+    hint: 'เปิดอ่านเอกสารการเรียนแล้วขีดเขียนได้เลย',
+    kw: 'library คลัง เอกสาร textbook ตำรา handout สไลด์ slide pdf โหลด download อ่าน',
+    invoke: { kind: 'view', view: 'library' },
+  },
+  {
     id: 'pdf-annotate', category: 'tools',
     label: 'เขียนบน PDF', labelEn: 'PDF annotate', icon: '📑',
     hint: 'อัปโหลดเอกสารแล้วขีดเขียนได้ทันที',

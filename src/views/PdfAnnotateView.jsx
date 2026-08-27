@@ -61,7 +61,7 @@ async function loadPdfjs() {
   return _pdfjsPromise;
 }
 
-export default function PdfAnnotateView({ goHome }) {
+export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = null }) {
   const [pdfDoc, setPdfDoc] = useState(null);
   const [fileHash, setFileHash] = useState(null);
   const [fileName, setFileName] = useState('');
@@ -151,6 +151,78 @@ export default function PdfAnnotateView({ goHome }) {
       setLoadingMsg('');
     }
   }, [showToast]);
+
+  // ── Remote ingest (study library) ──────────────────────────
+  // A library document arrives as metadata, not as bytes. That difference is
+  // the whole point: the catalog already carries the SHA-256 the annotation
+  // store keys on, so we never have to download a 200 MB textbook just to
+  // learn which strokes belong to it.
+  //
+  // Linearized PDFs are handed to pdf.js as a URL and stream by HTTP range —
+  // page 1 paints after ~100 KB instead of after the whole file. Everything
+  // else is fetched whole, because chasing a trailing cross-reference table
+  // over dozens of small ranges is slower than one sequential download.
+  const ingestRemote = useCallback(async (doc) => {
+    if (!doc?.url) return;
+    setError(null);
+    setLoading(true);
+    setLoadingMsg('กำลังเปิดเอกสาร…');
+    try {
+      const pdfjs = await loadPdfjs();
+      const stream = !!doc.linearized;
+      let task;
+      if (stream) {
+        task = pdfjs.getDocument({ url: doc.url, rangeChunkSize: 65536 });
+      } else {
+        const res = await fetch(doc.url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const buf = await res.arrayBuffer();
+        task = pdfjs.getDocument({ data: buf });
+      }
+      setLoadingMsg('กำลังแกะ PDF…');
+      const pdf = await task.promise;
+      // library_docs.sha256_16 is NOT NULL, so this normally comes straight
+      // from the catalog. The slug fallback exists only so a malformed row
+      // degrades to "annotations scoped to this document" rather than
+      // scattering strokes across a fresh key on every open — deriving it
+      // from bytes here would mean downloading the whole file to name it,
+      // which is exactly what streaming avoids.
+      const hash = doc.sha256 || (doc.slug ? `slug:${doc.slug}` : null);
+      if (!hash) throw new Error('เอกสารนี้ไม่มีรหัสอ้างอิง');
+      const existing = loadAnnotations(hash);
+      const restoredStrokes = existing?.strokesByPage || {};
+      setPdfDoc(pdf);
+      setFileHash(hash);
+      setFileName(doc.fileName || 'document.pdf');
+      setPageCount(pdf.numPages);
+      setStrokesByPage(restoredStrokes);
+      setCurrentPage(1);
+      currentStrokesRef.current = restoredStrokes[1] || [];
+      saveAnnotations(hash, {
+        fileName: doc.fileName || 'document.pdf',
+        pageCount: pdf.numPages,
+        strokesByPage: restoredStrokes,
+      });
+      setRecent(listRecentPdfs());
+      if (existing && Object.keys(restoredStrokes).length > 0) {
+        showToast('โหลด annotation เดิมกลับมาแล้ว ✓', 3000);
+      }
+    } catch (e) {
+      console.error('[pdf-annotate] remote load failed:', e);
+      setError('เปิดเอกสารจากคลังไม่สำเร็จ: ' + (e?.message || 'ลิงก์อาจหมดอายุ'));
+    } finally {
+      setLoading(false);
+      setLoadingMsg('');
+    }
+  }, [showToast]);
+
+  // Opening straight into a library document. Keyed by url so navigating from
+  // one library item to another inside the same mount re-ingests instead of
+  // showing the previous PDF.
+  useEffect(() => {
+    if (initialDoc?.url) ingestRemote(initialDoc);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialDoc?.url]);
 
   // ── Render current page ────────────────────────────────────
   useEffect(() => {
@@ -410,6 +482,9 @@ export default function PdfAnnotateView({ goHome }) {
       clearTimeout(saveTimerRef.current);
       saveTimerRef.current = null;
     }
+    // A library document has no local file behind it, so the drag-drop empty
+    // state would be a dead end — send the reader back where they came from.
+    if (onExit) { saveNow(); onExit(); return; }
     setPdfDoc(null);
     setFileHash(null);
     setFileName('');
