@@ -27,6 +27,19 @@ async function stubVercelAnalytics(page) {
 }
 
 test.describe('Study library', () => {
+  // The PWA service worker must stay out of this spec. Once it controls the
+  // page it re-fetches same-origin requests from the worker context, which
+  // Playwright's page.route cannot intercept — so the stubs above and below
+  // silently stop applying, and under vite preview the SW-mediated analytics
+  // requests come back 200 text/html and throw the very SyntaxErrors the
+  // strict assertion then reports. Reproduced deterministically by priming a
+  // page until navigator.serviceWorker.controller was set: both scripts
+  // answered text/html and threw. That is also why this spec passed a full PR
+  // run and failed the identical tree on main — whether the SW claims in time
+  // is a machine-speed race. The SW has its own coverage; this spec's subject
+  // is the library view.
+  test.use({ serviceWorkers: 'block' });
+
   test('/app/library renders a reload-safe route without page errors', async ({ page }) => {
     const pageErrors = [];
     page.on('pageerror', (error) => pageErrors.push(error.message));
