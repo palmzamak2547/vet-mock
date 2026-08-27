@@ -13,17 +13,24 @@ import { expect, test } from '@playwright/test';
 // parsing that HTML as JS throws "Unexpected token '<'". Whether those two
 // injected scripts fail before or after the assertion is a race, which is how
 // this spec passed a full PR run and then failed the identical tree on main.
-// Same essential filter as smoke.spec.js — the real Vercel CDN serves the
-// correct JS in production, so this is preview-server-only noise.
-const isExpectedNoise = (msg) =>
-  /Vercel Web Analytics|Vercel Speed Insights|_vercel\/(insights|speed-insights)|Unexpected token '<'|expected expression, got '<'/i.test(msg);
+//
+// Stub them with valid empty JS instead of filtering the error message: a
+// pageerror carries no URL, so a message filter broad enough to catch this
+// noise would also swallow a first-party chunk being served the SPA fallback —
+// the exact failure the assertion below exists to catch. The real Vercel CDN
+// serves the correct scripts in production; only the preview server needs this.
+async function stubVercelAnalytics(page) {
+  await page.route(
+    /(\/_vercel\/(insights|speed-insights)\/script|va\.vercel-scripts\.com\/.*script)[^/]*\.js/,
+    (route) => route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }),
+  );
+}
 
 test.describe('Study library', () => {
   test('/app/library renders a reload-safe route without page errors', async ({ page }) => {
     const pageErrors = [];
-    page.on('pageerror', (error) => {
-      if (!isExpectedNoise(error.message)) pageErrors.push(error.message);
-    });
+    page.on('pageerror', (error) => pageErrors.push(error.message));
+    await stubVercelAnalytics(page);
 
     // Stub the optional catalog read the same way the imaging case list is
     // stubbed, so a network wobble cannot masquerade as a render regression.
@@ -55,6 +62,7 @@ test.describe('Study library', () => {
   });
 
   test('the library keeps a visible way back out', async ({ page }) => {
+    await stubVercelAnalytics(page);
     await page.goto('/app/library');
     await expect(page.getByRole('heading', { level: 1, name: 'คลังเอกสารการเรียน' }))
       .toBeVisible({ timeout: 15_000 });
