@@ -241,14 +241,32 @@ export async function fetchLibraryDocs() {
   if (!hasSupabase) return { docs: [], configured: false };
 
   const sb = await getSupabase();
-  const { data, error } = await sb
-    .from('library_docs')
-    .select(CATALOG_COLUMNS)
-    .order('year', { ascending: true, nullsFirst: false })
-    .order('semester', { ascending: true, nullsFirst: false })
-    .order('subject', { ascending: true, nullsFirst: false })
-    .order('sequence', { ascending: true })
-    .order('title', { ascending: true });
+
+  // Paged, because PostgREST silently caps an un-ranged select at 1,000
+  // rows and the MyCourseVille mirror is ~3,000. With rows ordered year
+  // ascending, the cap would have dropped YEARS 4 AND 5 — the years the
+  // people using this app are actually in — the day the full shelf landed,
+  // with no error anywhere.
+  const PAGE = 1000;
+  const data = [];
+  let error = null;
+  for (let from = 0; ; from += PAGE) {
+    const res = await sb
+      .from('library_docs')
+      .select(CATALOG_COLUMNS)
+      .order('year', { ascending: true, nullsFirst: false })
+      .order('semester', { ascending: true, nullsFirst: false })
+      .order('subject', { ascending: true, nullsFirst: false })
+      .order('sequence', { ascending: true })
+      .order('title', { ascending: true })
+      // slug is unique, so it breaks any remaining tie — without a total
+      // order, rows can repeat or vanish across page boundaries.
+      .order('slug', { ascending: true })
+      .range(from, from + PAGE - 1);
+    if (res.error) { error = res.error; break; }
+    data.push(...(res.data || []));
+    if (!res.data || res.data.length < PAGE) break;
+  }
 
   if (error) {
     if (isPreMigration(error)) return { docs: [], configured: true };
