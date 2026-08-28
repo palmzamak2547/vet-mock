@@ -30,7 +30,7 @@
 
 export const ANSWER_SUPPORT_LABEL = {
   'vetwiki-verified': { th: 'ยืนยันจาก VetWiki', tone: 'strong' },
-  'vetwiki-draft': { th: 'จากโน้ตใน VetWiki (ฉบับร่าง)', tone: 'weak' },
+  'vetwiki-draft': { th: 'จากเนื้อหาใน VetWiki', tone: 'weak' },
   'vetmock-analysis': { th: 'การวิเคราะห์ของ VetMock', tone: 'muted' },
   'insufficient-evidence': { th: 'ข้อมูลยังไม่พอ', tone: 'muted' },
 };

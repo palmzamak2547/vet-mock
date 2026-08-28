@@ -34,7 +34,7 @@ import { retrieveSections, sectionsForPicks } from '../src/lib/vetwiki/retrieve.
 import { validateAnswer, allowedFromSections } from '../src/lib/vetwiki/answer.js';
 
 const MAX_QUESTION = 500;
-const MAX_SECTIONS = 8;          // bounded context — cost + latency ceiling
+const MAX_SECTIONS = 10;         // bounded context — cost + latency ceiling
 const MAX_SECTION_CHARS = 3000;
 const MAX_TOKENS = 1200;
 const TIMEOUT_MS = 25_000;
@@ -57,8 +57,8 @@ function bodyText(body, out = []) {
 
 const SYSTEM = `You are VetMock's veterinary study assistant for Thai veterinary students.
 
-You will be given SECTIONS from VetWiki, each with a stable sectionId. Answer the
-student's question using ONLY those sections.
+You will be given SECTIONS from VetWiki, each tagged with a short id like S1, S2.
+Answer the student's question using ONLY those sections.
 
 Return ONLY a JSON object, no prose around it:
 {"claims":[{"id":"c1","text":"...","supportType":"vetwiki-verified|vetwiki-draft|vetmock-analysis|insufficient-evidence","support":[{"sectionId":"..."}],"limitations":["..."]}]}
@@ -66,8 +66,14 @@ Return ONLY a JSON object, no prose around it:
 Rules:
 - Write "text" in Thai, in short plain sentences a student can read quickly.
 - Each claim states ONE idea. 2-6 claims total.
-- Cite the sectionId(s) the claim actually comes from. NEVER cite a sectionId
-  that was not given to you.
+- Cite with the SHORT ids exactly as given: {"sectionId":"S1"}. NEVER cite an id
+  that was not given to you. Every factual claim MUST cite its section(s).
+- Be maximally specific: give the exact numbers, names, criteria and steps the
+  sections state. Do not hedge about facts a VERIFIED section states plainly.
+- When every fact in a claim appears in the cited section(s), use the section
+  label (vetwiki-verified for VERIFIED, vetwiki-draft otherwise) even if you
+  rephrase or combine sections. Reserve "vetmock-analysis" for genuine
+  inference that goes beyond what the sections say.
 - supportType:
   * "vetwiki-verified" ONLY if the section is marked VERIFIED below.
   * "vetwiki-draft" if it comes from a section marked DRAFT.
@@ -161,14 +167,20 @@ export default async function handler(req, res) {
       for (const [id, v] of allowedFromSections(`${p.subject}--${p.topic}`, [p.section])) allowedMap.set(id, v);
     }
 
-    const context = picked.map(({ topicTitle, topicSummary, section: s }) => {
+    // Models garble long Thai slugs when echoing them, and one garbled
+    // character used to void the citation (validateAnswer strips ids it
+    // never sent — four verified claims came back as bare 'analysis' on
+    // the first production run). Short aliases are echo-proof; the alias
+    // map converts them back to real sectionIds before validation.
+    const aliasToId = new Map(picked.map((pk, i) => [`S${i + 1}`, pk.section.id]));
+    const context = picked.map(({ topicTitle, topicSummary, section: s }, i) => {
       const verified = (s.claims || []).some((c) => c.reviewStatus === 'verified');
       const extra = (s.claims || [])
         .filter((c) => c.reviewStatus === 'verified')
         .map((c) => `  [verified statement] ${c.statement}`)
         .join('\n');
       const text = bodyText(s.body).join('\n').slice(0, MAX_SECTION_CHARS);
-      return `--- sectionId: ${s.id} (${verified ? 'VERIFIED' : 'DRAFT'})\narticle: ${topicTitle}${topicSummary ? ` — ${topicSummary}` : ''}\nheading: ${s.heading}\n${text}${extra ? `\n${extra}` : ''}`;
+      return `--- section S${i + 1} (${verified ? 'VERIFIED' : 'DRAFT'})\narticle: ${topicTitle}${topicSummary ? ` — ${topicSummary}` : ''}\nheading: ${s.heading}\n${text}${extra ? `\n${extra}` : ''}`;
     }).join('\n\n');
 
     const answer = await chatJSON({
@@ -200,6 +212,14 @@ export default async function handler(req, res) {
       topicTitle: pk.topicTitle,
       heading: pk.section.heading,
     }));
+
+    for (const c of parsed?.claims || []) {
+      if (!Array.isArray(c?.support)) continue;
+      for (const sup of c.support) {
+        const real = aliasToId.get(String(sup?.sectionId || '').trim());
+        if (real) sup.sectionId = real;
+      }
+    }
 
     // THE trust gate — re-ground every citation against what we actually sent.
     const { claims, dropped, downgraded } = validateAnswer(parsed?.claims, allowedMap);

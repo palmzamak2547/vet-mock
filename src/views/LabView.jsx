@@ -342,13 +342,13 @@ export default function LabView({ goHome }) {
             }
           >
             {demoLoading ? (
-              'กำลังโหลด demo case...'
+              'กำลังโหลดเคสจริง...'
             ) : demoCases.length === 0 ? (
               'ยังไม่มี public case, ลาก DICOM ด้านล่างแทน'
             ) : (
               <>
                 <span style={{ fontSize: isMobile ? '1.05rem' : '1.15rem' }}>
-                  ▶️ ลอง demo: <strong>{demoCases[0].title}</strong>
+                  ▶️ เปิดเคสจริง: <strong>{demoCases[0].title}</strong>
                 </span>
                 {demoCases.length > 1 && (
                   <span style={{ display: 'block', fontWeight: 400, fontSize: '0.78rem', opacity: 0.85, marginTop: 4 }}>
