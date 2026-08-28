@@ -458,7 +458,7 @@ function DrugDBTab() {
           // body weight is the whole reason methimazole read as a 5x
           // overdose. The field convention documented this unit from the
           // start; nothing implemented it.
-          const dd = computeDrugDose(drug, w);
+          const dd = computeDrugDose(drug, w, selectedSpec);
           const perKg = dd.perKg;
           const hasW = isFinite(w) && w > 0;
           const doseLo = dd.lo;
@@ -515,6 +515,7 @@ function DrugDBTab() {
 
                   {/* Dose calculation */}
                   {(hasW || !perKg) ? (
+                    <>
                     <Result
                       label={!perKg
                         ? 'Dose ต่อตัว (ไม่คูณน้ำหนัก)'
@@ -522,6 +523,12 @@ function DrugDBTab() {
                       value={sameDose ? fmt(doseLo, ` ${outUnit}`) : `${fmt(doseLo)}-${fmt(doseHi)} ${outUnit}`}
                       accent
                     />
+                    {dd.cappedFor && (
+                      <div style={{ fontSize: 12, marginTop: 6, color: 'var(--clr-rose-text)', fontWeight: 600 }}>
+                        ⚠️ จำกัดที่ {dd.cap} {drug.unit} สำหรับ{dd.cappedFor === 'cat' ? 'แมว' : 'สุนัข'} — ช่วงยาเต็มคือ {drug.doseLo}-{drug.doseHi} {drug.unit}
+                      </div>
+                    )}
+                    </>
                   ) : (
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', padding: '12px 0', textAlign: 'center', background: 'var(--clr-surface)', borderRadius: '8px', border: '1px dashed var(--clr-border)' }}>
                       ใส่น้ำหนักด้านบนเพื่อคำนวณ dose

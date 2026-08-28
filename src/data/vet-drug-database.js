@@ -27,6 +27,13 @@
 //   freq        dosing frequency
 //   indication  what it's used for
 //   note        special warnings, breed precautions, etc.
+//   speciesMax  optional { cat|dog: number } — a hard per-species ceiling
+//               in the SAME unit as doseLo/doseHi. The calculator clamps
+//               to it and says why. Added because caps that live only in
+//               `note` are prose, and the number on screen is what a
+//               student writes down: enrofloxacin's range topped out at
+//               exactly the 20 mg/kg that blinds cats, with the warning
+//               sitting underneath it.
 // ============================================================
 
 export const VET_DRUGS = [
@@ -72,6 +79,7 @@ export const VET_DRUGS = [
     brand: 'Baytril, Enrocin, Enroxil',
     category: 'Antibiotics', species: 'both',
     doseLo: 5, doseHi: 20, unit: 'mg/kg',
+    speciesMax: { cat: 5 },
     route: 'PO/SC', freq: 'q24h',
     indication: 'Complicated UTI, prostatitis, deep pyoderma',
     note: '⚠️ Cat: >5 mg/kg may cause acute retinopathy; max 5 mg/kg/day. Avoid in young (<12 mo dog, <8 mo giant breed); cartilage damage',
@@ -128,6 +136,7 @@ export const VET_DRUGS = [
     brand: 'Metacam, Meloxidyl, Loxicom, Mobic',
     category: 'NSAIDs', species: 'both',
     doseLo: 0.1, doseHi: 0.2, unit: 'mg/kg',
+    speciesMax: { cat: 0.05 },
     route: 'PO/SC/IV', freq: 'Dog: 0.1 mg/kg q24h; Cat: single 0.2 mg/kg SC then 0.05 mg/kg PO q24h',
     indication: 'OA pain, post-op, acute pain',
     note: '⚠️ Cat: 0.1 mg/kg SC single dose, then 0.05 mg/kg PO q24h. Do NOT exceed 0.05 mg/kg/day PO in cats. Acute renal failure risk in dehydrated patients',
@@ -376,7 +385,7 @@ export const VET_DRUGS = [
     doseLo: 1.25, doseHi: 2.5, unit: 'fixed', fixedUnit: 'mg/cat',
     route: 'PO', freq: 'q12h',
     indication: 'Feline hyperthyroidism',
-    note: 'Start 2.5 mg/cat q12h; adjust based on T4. Transdermal gel available (compounded). ⚠️ Monitor CBC (agranulocytosis)',
+    note: 'Start 1.25-2.5 mg/cat q12h (fixed dose, not per kg); adjust on T4. Transdermal gel available (compounded). ⚠️ Monitor CBC (agranulocytosis)',
   },
   {
     id: 'insulin-glargine', generic: 'Insulin glargine',
@@ -545,6 +554,7 @@ export const VET_DRUGS = [
   // ── Antifungals ──────────────────────────────────────────
   {
     id: 'itraconazole', generic: 'Itraconazole',
+    speciesMax: { cat: 5 },
     brand: 'Sporanox, Itranox, Itrazole',
     category: 'Antifungals', species: 'both',
     doseLo: 5, doseHi: 10, unit: 'mg/kg',

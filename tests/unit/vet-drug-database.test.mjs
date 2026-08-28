@@ -101,3 +101,49 @@ test('no weight yet means no number, rather than a wrong one', () => {
   assert.equal(f.hi, null);
   assert.equal(f.unit, 'mg');
 });
+
+// ── per-species ceilings ────────────────────────────────────────────
+// A cap that lives only in `note` is prose. The number on screen is what
+// a student writes down, and enrofloxacin's range topped out at exactly
+// the 20 mg/kg that blinds cats.
+
+test('a cat-capped drug never computes above its ceiling for a cat', () => {
+  const enro = byId('enrofloxacin');
+  assert.equal(enro.speciesMax.cat, 5);
+  const cat = drugDose(enro, 4, 'cat');
+  assert.equal(cat.hi, 20, '4 kg cat at the 5 mg/kg ceiling');
+  assert.equal(cat.cappedFor, 'cat');
+  // Uncapped, the same cat would have been offered 80 mg — 20 mg/kg, the
+  // dose that produced abnormal ERGs and permanent blindness.
+  const uncapped = drugDose(enro, 4, 'dog');
+  assert.equal(uncapped.hi, 80);
+  assert.equal(uncapped.cappedFor, null);
+});
+
+test('the cap applies to the low end too when it sits below it', () => {
+  // Meloxicam's range starts at 0.1; the licensed feline maintenance dose
+  // is 0.05, so both ends must come down for a cat.
+  const mel = drugDose(byId('meloxicam'), 5, 'cat');
+  assert.equal(mel.lo, 0.25);
+  assert.equal(mel.hi, 0.25);
+  assert.equal(mel.cappedFor, 'cat');
+});
+
+test('no species selected means no cap is silently applied', () => {
+  // The Drug DB species filter is optional. With nothing chosen the full
+  // range shows, which is right — but it must not pretend to be capped.
+  const d = drugDose(byId('enrofloxacin'), 4, null);
+  assert.equal(d.hi, 80);
+  assert.equal(d.cappedFor, null);
+});
+
+test('every speciesMax is below its own range top, or it does nothing', () => {
+  for (const d of VET_DRUGS) {
+    if (!d.speciesMax) continue;
+    for (const [sp, cap] of Object.entries(d.speciesMax)) {
+      assert.ok(['dog', 'cat'].includes(sp), `${d.generic}: speciesMax key ${sp}`);
+      assert.ok(Number.isFinite(cap) && cap > 0, `${d.generic}: cap ${cap}`);
+      assert.ok(cap < d.doseHi, `${d.generic}: a cap at or above doseHi changes nothing`);
+    }
+  }
+});

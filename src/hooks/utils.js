@@ -196,15 +196,24 @@ export const subjectText = (color) =>
  *  `perKg: false` marks a dose that is per ANIMAL — methimazole is
  *  1.25-2.5 mg/cat regardless of weight — and must not be multiplied.
  */
-export function drugDose(drug, weightKg) {
+export function drugDose(drug, weightKg, species) {
   if (!drug) return null;
   const perKg = drug.unit !== 'fixed';
   const unit = drug.unit === 'fixed'
     ? (drug.fixedUnit || 'mg')
     : String(drug.unit).replace('/kg', '').replace('/day', '');
   if (!perKg) return { lo: drug.doseLo, hi: drug.doseHi, unit, perKg };
+  // A per-species ceiling wins over the general range. Enrofloxacin's
+  // range tops out at exactly the 20 mg/kg that blinds cats, and the
+  // warning that says so is prose under a number the student is about to
+  // write down.
+  const cap = species && drug.speciesMax ? drug.speciesMax[species] : undefined;
+  const lo0 = Number.isFinite(cap) ? Math.min(drug.doseLo, cap) : drug.doseLo;
+  const hi0 = Number.isFinite(cap) ? Math.min(drug.doseHi, cap) : drug.doseHi;
+  const cappedFor = Number.isFinite(cap) && cap < drug.doseHi ? species : null;
+
   const w = Number(weightKg);
-  if (!Number.isFinite(w) || w <= 0) return { lo: null, hi: null, unit, perKg };
+  if (!Number.isFinite(w) || w <= 0) return { lo: null, hi: null, unit, perKg, cappedFor, cap };
   const round = (n) => Math.round(n * 100) / 100;
-  return { lo: round(drug.doseLo * w), hi: round(drug.doseHi * w), unit, perKg };
+  return { lo: round(lo0 * w), hi: round(hi0 * w), unit, perKg, cappedFor, cap };
 }
