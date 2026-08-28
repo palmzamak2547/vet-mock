@@ -66,7 +66,7 @@ async function startPractice(page, { instant = true } = {}) {
 async function findMcq(page) {
   for (let i = 0; i < 6; i++) {
     if (await page.locator('.vmx-option').first().isVisible().catch(() => false)) return 'found';
-    const writing = await page.locator('.vmx-fill-input, .vmx-match-select, .vmx-tf-btn, textarea').count();
+    const writing = await page.locator('.vmx-fill-input, .vmx-match-select, .vmx-match-native-select, .vmx-tf-btn, textarea').count();
     if (!writing) {
       throw new Error('question card has no MCQ options and no writing control — the answer controls did not render');
     }

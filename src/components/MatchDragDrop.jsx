@@ -49,7 +49,16 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
   const filledCount = Object.values(ans).filter(Boolean).length;
   const totalSlots = currentQ.pairs.length;
 
-  const isRevealed = Boolean(revealAnswer);
+  // `revealAnswer` is the instant-feedback SETTING — true for the whole
+  // practice session, not a statement about this question. Reading it
+  // directly disabled every dropdown and printed the answer key before the
+  // student had touched a match question, so with instant feedback on (the
+  // default) match questions were unanswerable and spoiled at once.
+  //
+  // MCQ already gets this right one file up: it reveals only once an
+  // answer is on record. The equivalent for a match question is all pairs
+  // filled — revealing after the first selection would lock the rest.
+  const isRevealed = Boolean(revealAnswer) && totalSlots > 0 && filledCount === totalSlots;
 
   const setPair = useCallback((leftIdx, rightVal) => {
     let obj = {};
@@ -124,7 +133,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                   value={val}
                   disabled={isRevealed}
                   onChange={(e) => setPair(i, e.target.value)}
-                  aria-label={`จับคู่ข้อ ${i + 1}`}
+                  aria-label={`จับคู่ข้อ ${i + 1}: ${strip(pair.left)}`}
                 >
                   <option value="">— เลือกคำตอบ —</option>
                   {rightPool.map((r, j) => {

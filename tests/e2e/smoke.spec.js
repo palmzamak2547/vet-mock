@@ -40,7 +40,7 @@ async function answerCurrentQuestion(page) {
     return;
   }
 
-  const matches = page.locator('.vmx-match-select:visible');
+  const matches = page.locator('.vmx-match-select:visible, .vmx-match-native-select:visible');
   if (await matches.count()) {
     for (const select of await matches.all()) await select.selectOption({ index: 1 });
     return;
