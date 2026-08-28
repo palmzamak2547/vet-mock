@@ -42,6 +42,7 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 import { FEATURES, visibleFeatures, FEATURE_FLAGS } from '../lib/feature-registry.js';
 import { listTopics } from '../lib/vetwiki/registry.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import ErrorBoundary from './ErrorBoundary.jsx';
 // Async sources (library shelf, drug DB) + deterministic intent cards —
 // the pieces that turn the palette into the app's AI search surface.
 import { OMNI_SOURCES } from '../lib/omni-sources.js';
@@ -572,7 +573,7 @@ function AskAnswerCard({ ask, onOpenWiki, onClose }) {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {ask.claims.map((c) => {
-          const label = ask.labels?.[c.supportType];
+          const label = ask.labels?.[c.supportType]?.th;
           return (
             <div key={c.id} className="vmx-omni-row" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <div style={{ fontSize: 13.5, lineHeight: 1.6 }}>{c.text}</div>
@@ -941,7 +942,9 @@ export default function CommandPalette({
             <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>ctrl ↵</span>
           </button>
         )}
-        <AskAnswerCard ask={ask} onOpenWiki={handlersRef.current.onOpenWiki} onClose={onClose} />
+        <ErrorBoundary fallback={null}>
+          <AskAnswerCard ask={ask} onOpenWiki={handlersRef.current.onOpenWiki} onClose={onClose} />
+        </ErrorBoundary>
 
         {/* Answer cards — intent hits computed from real data */}
         {intents.map((intent) => (
