@@ -23,11 +23,22 @@ test('a note saying "per cat/dog/animal" is not filed as a per-kg dose', () => {
   // "Start 2.5 mg/cat q12h". The row disagreed with itself, and the
   // calculator believed the row: a 5 kg cat was shown 12.5-25 mg.
   const perAnimal = /\b\d[\d.]*\s*(?:mg|g|mcg|µg|IU)\s*\/\s*(?:cat|dog|animal)\b|\bper (?:cat|dog|animal)\b/i;
+  const exempt = [];
   for (const d of VET_DRUGS) {
     if (d.unit === 'fixed') continue;
+    // An entry may declare that its per-animal figure is context rather
+    // than the dose — with a reason, so the judgement can be argued with.
+    if (d.perAnimalNoteOk) {
+      assert.equal(typeof d.perAnimalNoteOk, 'string', `${d.generic}: an exemption must carry its reason`);
+      exempt.push(d.generic);
+      continue;
+    }
     assert.ok(!perAnimal.test(d.note || ''),
       `${d.generic}: note describes a per-animal dose but unit is ${d.unit} — the calculator will multiply it by body weight`);
   }
+  // Exemptions are listed, never silent: a growing list is the signal that
+  // the data model needs a per-animal field rather than more prose.
+  assert.ok(exempt.length <= 2, `too many per-animal exemptions (${exempt.join(', ')}) — add a real field instead`);
 });
 
 test('dose ranges are ordered and plausible', () => {
@@ -146,4 +157,21 @@ test('every speciesMax is below its own range top, or it does nothing', () => {
       assert.ok(cap < d.doseHi, `${d.generic}: a cap at or above doseHi changes nothing`);
     }
   }
+});
+
+test('insulin is a STARTING dose, not a titrated maintenance one', () => {
+  // Was 0.25-1 IU/kg. The 1 IU/kg top is where a titrated cat might end
+  // up, not where anyone begins: for a 5 kg cat it printed up to 5 IU
+  // q12h against a usual starting 1 IU/cat. Both species start at
+  // 0.25-0.5 IU/kg (0.5 in a cat whose BG is above ~360 mg/dL).
+  const ins = byId('insulin-glargine');
+  assert.equal(ins.doseLo, 0.25);
+  assert.equal(ins.doseHi, 0.5);
+  assert.equal(ins.unit, 'IU/kg');
+  const cat = drugDose(ins, 5, 'cat');
+  assert.equal(cat.hi, 2.5, 'a 5 kg cat starts at no more than 2.5 IU q12h');
+  assert.equal(cat.unit, 'IU');
+  // The note has to say it is a starting dose, or the narrower range
+  // becomes its own error for a cat already titrated above it.
+  assert.match(ins.note, /ขนาดเริ่มต้น|starting/i);
 });

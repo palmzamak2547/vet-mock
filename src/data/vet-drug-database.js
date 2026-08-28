@@ -391,10 +391,21 @@ export const VET_DRUGS = [
     id: 'insulin-glargine', generic: 'Insulin glargine',
     brand: 'Lantus, Toujeo',
     category: 'Endocrine', species: 'both',
-    doseLo: 0.25, doseHi: 1, unit: 'IU/kg',
+    // STARTING dose, both species: 0.25 IU/kg, or 0.5 IU/kg in a cat whose
+    // blood glucose is above ~360 mg/dL (20 mmol/L). Was 0.25-1, and the
+    // 1 IU/kg top is a titrated maintenance figure, not a dose anyone
+    // should start on — for a 5 kg cat that is 5 IU q12h against a usual
+    // starting 1 IU/cat. Maintenance is titrated to response and can
+    // exceed this; the range here is where you begin.
+    doseLo: 0.25, doseHi: 0.5, unit: 'IU/kg',
+    // The note quotes "1 IU/cat" as practical context, not as the dose —
+    // the per-kg figure above is the one to compute with. Declared so the
+    // per-animal guard stays strict for everything else; that guard is
+    // what would have caught methimazole's 5x overdose on day one.
+    perAnimalNoteOk: 'the 1 IU/cat figure is context; the per-kg dose is authoritative',
     route: 'SC', freq: 'q12h',
     indication: 'DM (long-acting basal insulin)',
-    note: 'First-line for feline DM (remission protocol). Dog: can use but usually need NPH',
+    note: '⚠️ ขนาดเริ่มต้นเท่านั้น — ปรับตามการตอบสนอง. Cat: 0.25 IU/kg (BG <360 mg/dL) หรือ 0.5 IU/kg (BG >360); ใช้ ideal body weight และแมวทั่วไปเริ่มที่ 1 IU/cat q12h. Dog: 0.25-0.5 IU/kg, มักใช้ NPH/lente มากกว่า. First-line for feline DM (remission protocol)',
   },
   {
     id: 'trilostane', generic: 'Trilostane',
