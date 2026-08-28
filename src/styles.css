@@ -3024,3 +3024,99 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   padding: 4px;
   box-shadow: var(--shadow-md);
 }
+
+/* ====== Match Select UI (Replaced Drag & Drop) ====== */
+.vmx-match-select-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+.vmx-match-select-row {
+  display: flex;
+  flex-direction: column;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: 12px;
+  padding: 12px;
+  gap: 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+@media (min-width: 600px) {
+  .vmx-match-select-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+}
+.vmx-match-select-row.filled {
+  border-color: var(--clr-sage);
+  background: rgba(74, 107, 74, 0.03);
+}
+.vmx-match-select-row.correct {
+  border-color: var(--clr-sage);
+  background: rgba(74, 107, 74, 0.08);
+}
+.vmx-match-select-row.wrong {
+  border-color: var(--clr-rose);
+  background: rgba(194, 109, 109, 0.08);
+}
+
+.vmx-match-select-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+}
+.vmx-match-select-text {
+  font-size: 14px;
+  color: var(--clr-ink);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+.vmx-match-select-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 100%;
+}
+@media (min-width: 600px) {
+  .vmx-match-select-right {
+    max-width: 50%;
+  }
+}
+
+.vmx-match-native-select {
+  flex: 1;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--clr-border);
+  background: var(--clr-surface-2);
+  color: var(--clr-ink);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+.vmx-match-native-select:focus {
+  outline: none;
+  border-color: var(--clr-gold);
+  box-shadow: 0 0 0 3px rgba(184, 137, 64, 0.2);
+}
+.vmx-match-native-select.has-value {
+  background-color: var(--clr-surface);
+  font-weight: 500;
+  border-color: var(--clr-sage);
+}
+.vmx-match-native-select:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+  background-color: var(--clr-surface-2);
+}
