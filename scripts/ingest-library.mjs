@@ -108,6 +108,8 @@ const MIME = {
   docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', zip: 'application/zip',
+  // The pre-2007 Office trio still turns up in older courses.
+  doc: 'application/msword', ppt: 'application/vnd.ms-powerpoint', xls: 'application/vnd.ms-excel',
 };
 export const mimeFor = (name) => MIME[String(name).split('.').pop().toLowerCase()] || 'application/octet-stream';
 
@@ -193,8 +195,20 @@ async function main() {
       if (DRY) {
         console.log(`  would upload ${(buf.length / 1048576).toFixed(1)} MB  ${key}`);
       } else {
-        const put = await presignAny(key, { method: 'PUT', expiresIn: 900 });
-        const up = await fetch(put, { method: 'PUT', body: buf, headers: { 'Content-Type': mime } });
+        // Upload through the Cloudflare REST API: the standing token can
+        // write objects even though it cannot mint S3 credentials (R2's
+        // temp-credential endpoint needs a parent access key — probed,
+        // documented in api/_lib/blob-token.js). Presigned PUT switches
+        // back on by itself if permanent keys ever land in the env.
+        const put = presignAny.name && r2Config().configured
+          ? await presignAny(key, { method: 'PUT', expiresIn: 900 })
+          : null;
+        const up = put
+          ? await fetch(put, { method: 'PUT', body: buf, headers: { 'Content-Type': mime } })
+          : await fetch(
+              `https://api.cloudflare.com/client/v4/accounts/${cfConfig().accountId}/r2/buckets/${encodeURIComponent(cfg.bucket)}/objects/${key.split('/').map(encodeURIComponent).join('/')}`,
+              { method: 'PUT', body: buf, headers: { Authorization: `Bearer ${cfConfig().apiToken}`, 'Content-Type': mime } },
+            );
         if (!up.ok) { failed++; console.warn(`  ✗ r2 ${up.status} ${name}`); continue; }
 
         const row = {

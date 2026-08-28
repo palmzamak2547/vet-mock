@@ -17,7 +17,8 @@
 // Returns { url, expiresIn } rather than a 302 so the caller can decide
 // between opening a tab and streaming ranges into a PDF viewer.
 
-import { presignAny, r2Config, cfConfig } from './_lib/r2.js';
+import { presign, r2Config, cfConfig } from './_lib/r2.js';
+import { mintBlobToken } from './_lib/blob-token.js';
 
 const TTL_SECONDS = 300;
 
@@ -83,24 +84,35 @@ export default async function handler(req, res) {
     return send(res, 400, { error: 'not_r2' });
   }
 
-  // Either permanent S3 keys or the CF API token will do; presignAny
-  // prefers the permanent keys and falls back to minting temporary ones.
-  if (!r2Config(env).configured && !cfConfig(env).configured) {
-    return send(res, 503, { error: 'storage_not_configured' });
+  // Two ways to hand over the bytes, tried in order of preference:
+  //
+  //   1. Permanent S3 keys → a presigned R2 URL. The browser talks to R2
+  //      directly and no function sits in the download path. Not
+  //      configured today (no R2 access key exists yet), but the moment
+  //      one lands in the env this branch switches on by itself.
+  //
+  //   2. The standing Cloudflare token → a signed, minutes-lived link to
+  //      /api/library-blob, which streams through the CF REST API. Same
+  //      contract as a presigned URL: possession is authorization, and it
+  //      expires on its own. (R2's temp-credential mint needs a parent
+  //      access key we don't have — see _lib/blob-token.js.)
+  const signed = presign(doc.storage_key, {
+    method: 'GET',
+    expiresIn: TTL_SECONDS,
+    bucket: doc.storage_bucket || undefined,
+    env,
+  });
+  if (signed) {
+    return send(res, 200, { url: signed, expiresIn: TTL_SECONDS, mime: doc.mime, byteSize: doc.byte_size });
   }
 
-  let signed;
-  try {
-    signed = await presignAny(doc.storage_key, {
-      method: 'GET',
-      expiresIn: TTL_SECONDS,
-      bucket: doc.storage_bucket || undefined,
-      env,
-    });
-  } catch {
-    return send(res, 503, { error: 'storage_unavailable' });
-  }
-  if (!signed) return send(res, 503, { error: 'storage_not_configured' });
-
-  return send(res, 200, { url: signed, expiresIn: TTL_SECONDS, mime: doc.mime, byteSize: doc.byte_size });
+  if (!cfConfig(env).configured) return send(res, 503, { error: 'storage_not_configured' });
+  const tok = mintBlobToken(doc, { ttlSeconds: TTL_SECONDS, env });
+  if (!tok) return send(res, 503, { error: 'storage_not_configured' });
+  return send(res, 200, {
+    url: `/api/library-blob?t=${tok.t}&s=${tok.s}`,
+    expiresIn: TTL_SECONDS,
+    mime: doc.mime,
+    byteSize: doc.byte_size,
+  });
 }
