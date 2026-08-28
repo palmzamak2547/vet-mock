@@ -1691,9 +1691,10 @@ html, body {
 .vmx-match-dnd-grid { display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 14px; align-items: start; }
 @media (max-width: 720px) { .vmx-match-dnd-grid { grid-template-columns: 1fr; } }
 .vmx-match-dnd-leftcol { display: flex; flex-direction: column; gap: 10px; }
-.vmx-match-dnd-slot { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px; background: var(--clr-bg); border: 1.5px solid var(--clr-border); border-radius: 12px; cursor: pointer; position: relative; transition: border-color .15s, background .15s, box-shadow .15s; min-height: 56px; }
+.vmx-match-dnd-slot { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px; background: var(--clr-bg); border: 1.5px solid var(--clr-border); border-radius: 12px; cursor: pointer; position: relative; transition: border-color .15s, background .15s, box-shadow .15s, transform .15s; min-height: 56px; user-select: none; }
 .vmx-match-dnd-slot:hover { border-color: var(--clr-ink-soft); }
-.vmx-match-dnd-slot.selected { border-color: var(--clr-ink); box-shadow: 0 0 0 3px rgba(0,0,0,.06); background: var(--clr-surface); }
+.vmx-match-dnd-slot.selected, .vmx-match-dnd-slot.is-selected { border-color: var(--clr-gold); box-shadow: 0 0 0 3px rgba(184, 137, 64, 0.18); background: var(--clr-surface); }
+.vmx-match-dnd-slot.is-drag-over { border-color: var(--clr-gold); background: rgba(184, 137, 64, 0.12); box-shadow: 0 0 0 3px rgba(184, 137, 64, 0.25); transform: scale(1.01); }
 .vmx-match-dnd-slot.filled { border-color: var(--clr-sage); background: rgba(74,107,74,.06); }
 .vmx-match-dnd-slot.empty { border-style: dashed; }
 .vmx-match-dnd-slot.correct { border-color: var(--clr-sage); background: rgba(74,107,74,.1); }
@@ -1710,11 +1711,13 @@ html, body {
 .vmx-match-dnd-badge.ok { background: var(--clr-sage); }
 .vmx-match-dnd-badge.no { background: var(--clr-rose); }
 .vmx-match-dnd-rightcol { display: flex; flex-direction: column; gap: 8px; padding: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 12px; position: sticky; top: 12px; }
-.vmx-match-dnd-card { text-align: left; padding: 10px 12px; border-radius: 10px; background: var(--clr-surface); border: 1px solid var(--clr-border); font-size: 13px; color: var(--clr-ink); cursor: grab; transition: transform .1s, box-shadow .15s, opacity .15s; line-height: 1.4; }
+.vmx-match-dnd-card { text-align: left; padding: 10px 12px; border-radius: 10px; background: var(--clr-surface); border: 1px solid var(--clr-border); font-size: 13px; color: var(--clr-ink); cursor: grab; transition: transform .1s, box-shadow .15s, opacity .15s, border-color .15s; line-height: 1.4; user-select: none; -webkit-user-select: none; touch-action: none; -webkit-user-drag: element; }
 .vmx-match-dnd-card:active { cursor: grabbing; transform: scale(.98); }
 .vmx-match-dnd-card.is-used { opacity: .45; border-style: dashed; }
-.vmx-match-dnd-card.is-dragging { opacity: .6; transform: rotate(1deg) scale(1.02); box-shadow: var(--shadow-md); }
+.vmx-match-dnd-card.is-selected { border-color: var(--clr-gold); box-shadow: 0 0 0 3px rgba(184, 137, 64, 0.2); background: var(--clr-surface); }
+.vmx-match-dnd-card.is-dragging { opacity: .4; transform: rotate(1deg) scale(1.02); box-shadow: var(--shadow-md); }
 .vmx-match-dnd-used-dot { margin-left: 6px; font-size: 11px; color: var(--clr-ink-soft); }
+.vmx-match-dnd-floating-ghost { position: fixed; pointer-events: none; z-index: 10000; padding: 8px 14px; background: var(--clr-surface); border: 2px solid var(--clr-gold); box-shadow: 0 8px 24px rgba(0,0,0,0.18); border-radius: 10px; font-size: 13px; font-weight: 500; color: var(--clr-ink); transform: translate(-50%, -50%) rotate(2deg) scale(1.04); max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .vmx-match-dnd-fallback { margin-top: 4px; padding: 8px 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 10px; }
 .vmx-match-dnd-fallback summary { cursor: pointer; font-size: 12px; color: var(--clr-ink-soft); }
 .vmx-match-dnd-reveal { padding: 10px 12px; border-radius: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 13px; color: var(--clr-ink); text-align: center; font-weight: 600; }

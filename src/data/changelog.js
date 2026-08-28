@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.35.1',
+    date: '2026-08-28',
+    headline: '🎯 ปรับปรุงระบบลากวางจับคู่ (Match Drag & Drop)',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '🎯', title: 'แก้ปัญหาลากจับคู่ (Match Drag & Drop)',
+        desc: 'ปรับปรุงระบบลากวางให้รองรับ Pointer Events ลื่นไหลทั้งบนมือถือ ทัชสกรีน แท็บเล็ต และเมาส์ พร้อมระบบแตะเลือกคู่ (Tap-to-pair) สองทิศทาง และการแสดงการ์ดลอยขณะลาก',
+      },
+    ],
+  },
+  {
     version: '5.35.0',
     date: '2026-08-27',
     headline: '📚 คลังเอกสาร — เปิดอ่านเอกสารการเรียนแล้วขีดเขียนได้เลย',
