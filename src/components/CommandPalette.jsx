@@ -973,7 +973,7 @@ export default function CommandPalette({
               ถามคลังความรู้: “{debouncedQuery.trim()}”
             </span>
             <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>
-              {view.askInFlow && activeIdx === 0 ? '↵' : coarsePointer ? 'แตะถาม' : view.askInFlow ? '↵' : 'ctrl ↵'}
+              {coarsePointer ? 'แตะถาม' : view.askInFlow ? '↵' : 'ctrl ↵'}
             </span>
           </button>
         )}

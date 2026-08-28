@@ -1,12 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { QB } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
+import { librarySubjectCounts } from '../lib/library.js';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, qbReady = true }) {
   const allQuestions = [...QB, ...customQuestions];
   const [searchQuery, setSearchQuery] = useState('');
+  // Real documents per subject — a scaffold-year card with zero questions
+  // but a full shelf opens the shelf instead of dead-ending. Fetched only
+  // when this view actually shows a scaffold year.
+  const [docCounts, setDocCounts] = useState(null);
   // QB is lazy-loaded and mutated in place, so on a slow connection this
   // view used to render EVERY subject as "🚧 รอข้อสอบเพิ่ม" and disabled —
   // telling a first-time user the whole curriculum is empty. Loading and
@@ -24,6 +29,12 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   // would lead into an empty exam.
   const yearMeta = YEARS.find((y) => y.id === selectedYear);
   const isScaffoldYear = !!yearMeta?.scaffold;
+  useEffect(() => {
+    if (!isScaffoldYear) return undefined;
+    let alive = true;
+    librarySubjectCounts().then((m) => { if (alive) setDocCounts(m); });
+    return () => { alive = false; };
+  }, [isScaffoldYear]);
   const yearSubjects = selectedYear
     ? (SUBJECTS_BY_YEAR[selectedYear] || [])
     : [];
@@ -140,14 +151,22 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           const subjectHasNotes = hasNotes(s.id);
           const isEmpty = count === 0 && !subjectHasNotes;
           const isScaffold = !!s.scaffold;
+          const shelfDocs = isEmpty ? (docCounts?.get(s.id) || 0) : 0;
 
           return (
             <button
               key={s.id}
               className="vmx-subject-card"
-              disabled={isEmpty && !qbLoading}
+              disabled={isEmpty && !qbLoading && shelfDocs === 0}
               onClick={() => {
-                if (isEmpty && !qbLoading) return;
+                if (isEmpty && !qbLoading) {
+                  if (shelfDocs > 0) {
+                    // The shelf hand-off the AI search's course card uses.
+                    try { sessionStorage.setItem('vmx-library-q', s.name || ''); } catch { /* nicety */ }
+                    setView('library');
+                  }
+                  return;
+                }
                 setSubject(s.id);
                 setPracticeMode('all');
                 if (setTopic) setTopic(null);
@@ -156,25 +175,29 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 setView(hasTopics ? 'topic-select' : 'config');
               }}
               style={{
-                opacity: qbLoading ? 0.75 : (isEmpty ? 0.5 : 1),
-                cursor: (isEmpty && !qbLoading) ? 'not-allowed' : 'pointer',
+                opacity: qbLoading ? 0.75 : (isEmpty && shelfDocs === 0 ? 0.5 : 1),
+                cursor: (isEmpty && !qbLoading && shelfDocs === 0) ? 'not-allowed' : 'pointer',
               }}
-              title={qbLoading ? 'กำลังโหลดคลังข้อสอบ' : (isScaffold ? 'รอเติมเนื้อหา, ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : ''))}
+              title={qbLoading ? 'กำลังโหลดคลังข้อสอบ'
+                : (shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
+                  : (isScaffold ? 'รอเติมเนื้อหา, ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : '')))}
             >
               <div className="accent" style={{ background: s.color }}></div>
               <div className="icon">{s.icon}</div>
               <div className="title">{s.name}</div>
               <div className="sub">{s.name_en}</div>
-              <div className="count" style={{ color: (isEmpty && !qbLoading) ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
+              <div className="count" style={{ color: (isEmpty && !qbLoading && shelfDocs === 0) ? 'var(--clr-rose-text)' : (shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)') }}>
                 {qbLoading
                   ? 'กำลังโหลด…'
                   : count === 0 && subjectHasNotes
                     ? 'มีสรุปให้อ่าน'
-                    : isScaffold
-                      ? 'รอเติมเนื้อหา'
-                      : isEmpty
-                        ? '🚧 รอข้อสอบเพิ่ม'
-                        : `${count} ข้อ`}
+                    : shelfDocs > 0
+                      ? `📄 เอกสารจริง ${shelfDocs} ไฟล์`
+                      : isScaffold
+                        ? 'รอเติมเนื้อหา'
+                        : isEmpty
+                          ? '🚧 รอข้อสอบเพิ่ม'
+                          : `${count} ข้อ`}
               </div>
               {/* Drop the 7-digit course code on the card — already
                   searchable via ⌘K; redundant visual noise here. */}

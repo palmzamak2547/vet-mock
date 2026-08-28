@@ -7,8 +7,11 @@
 //
 // 🔬 Confidence tags (graphify pattern):
 //   EXTRACTED  = directly from master PDF / lecture slide (page ref)
-//   INFERRED   = from veterinary clinical knowledge + cross-ref slide
+//   VERIFIED   = cross-checked against an external authoritative reference
+//                (Merck Vet Manual etc.) — see each verified: field
 //   AMBIGUOUS  = uncertain whether tested
+//   (INFERRED retired 2026-08-29: every question that carried it was
+//   externally cross-checked and upgraded or annotated)
 //
 // Final scope per "Scope ออกสอบ Final เท่าที่รู้.txt":
 //   ✴️ อ.ศวิตา (Sawita): 3 คาบ × 15 ข้อ = 45 ข้อ (MAIN)
@@ -120,13 +123,13 @@ export const QB_CLIAPPRUM = [
   { id: 2107, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
     source: 'Clin App Ruminant Final master p.5 + background',
     sourceType: 'student-compilation',
-    confidence: 'INFERRED',
+    confidence: 'VERIFIED',
     tags: ['BHBA', 'subclinical-ketosis'], type: 'mcq',
     q: 'BHBA (β-hydroxybutyrate) cutoff value สำหรับ subclinical ketosis ในวัวนม transition period คือเท่าใด',
     options: ['<0.4 mM', '≥1.2 mM', '≥10 mM', '≥100 mM'],
     answer: 1,
     explain: '**BHBA (β-hydroxybutyrate) blood test cutoffs**:\n• Normal: <1.0 mM\n• **Subclinical ketosis: 1.2-2.9 mM** ⭐\n• Clinical ketosis: ≥3.0 mM (with clinical signs)\n• Type II ketosis: >3 mM + fatty liver\n\n💡 Detection methods:\n• Cowside ketone test strip (Ketostix)\n• Handheld blood ketone meter (Precision Xtra)\n• Milk ketone strip (less sensitive)\n• Lab BHBA assay (gold standard)\n\n💡 Why BHBA matters:\n• Subclinical ketosis prevalence ~40-50% in early lactation\n• Increases LDA risk 8-fold\n• Reduces milk yield ~3 kg/day\n• Reduces fertility (anovulation, embryonic loss)\n\n💡 Tx subclinical: propylene glycol PO 300 ml/d × 5 days, clinical: dextrose 50% IV + insulin',
-    verified: 'NRC + AABP transition cow standards, cross-ref Clin App Rum master compilation' },
+    verified: 'NRC + AABP transition cow standards, cross-ref Clin App Rum master compilation; cross-checked: Merck Vet Manual, Ketosis in Cattle (blood BHB standard threshold 1.2 mmol/L) (2026-08-29)' },
 
   // ═══════════════════════════════════════════════════════════
   // RUMINANT ANESTHESIA (8 Qs), Master p.9-15 + Lecture by อ.ภัทร์มนฉัตร PB
@@ -309,7 +312,7 @@ export const QB_CLIAPPRUM = [
   { id: 2120, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
     source: 'Background — bovine GI medicine',
     sourceType: 'lecture-derived',
-    confidence: 'INFERRED',
+    confidence: 'VERIFIED',
     tags: ['rumen-fluid', 'pH'], type: 'mcq',
     q: 'ค่า pH ปกติของ ruminal fluid ในวัวคือเท่าใด, ค่าใดบ่งบอกภาวะ acidosis',
     options: ['ปกติ 5.5-7.5, acidosis = pH <5.5, alkalosis (inactive rumen) = pH >7.0',
@@ -318,12 +321,12 @@ export const QB_CLIAPPRUM = [
               'ปกติ 8.5-10 เป็นด่างตลอดเวลา, acidosis = pH <7.0'],
     answer: 0,
     explain: 'Ruminal fluid pH (Sunsun84 + textbook):\n\n• **Normal: pH 5.5-7.5** ⭐ (mostly 6.0-7.0 between feedings)\n• **Acidosis: pH <5.5** = clinical lactic acidosis\n  - Cause: grain engorgement (Streptococcus bovis → lactic acid)\n  - Subacute: pH 5.0-5.5 (intermittent, SARA)\n  - Acute: pH <5.0 (rapid onset, severe)\n• **Alkalosis: pH >7.0** = inactivate rumen (often after rumen washout / spoiled feed)\n\n💡 Diagnostic tools (apart from pH):\n1. **Methylene blue test**: เติม methylene blue ใน rumen fluid, ดูเปลี่ยนสี\n   - Normal: 3-6 min discoloration (moderate bact activity)\n   - <3 min: bact เยอะมาก (acidosis, over-fermentation)\n   - >6 min: bact ไม่ทำงาน (inactive rumen)\n2. **Sediment activity time**: pour rumen fluid in graduated cylinder\n   - Normal: complete sedimentation in 4-8 min\n3. **Gram stain**:\n   - Normal: predominantly gram(+)\n   - Gram(-) มากกว่า → rumen เป็นกรด (acidic shift kills gram(+) flora)\n4. **Protozoa motility**: \n   - Normal: active motile protozoa visible\n   - No protozoa = severe acidosis or after antibiotic',
-    verified: 'Sunsun84 p.3 Rumen fluid analysis section + standard textbook' },
+    verified: 'Sunsun84 p.3 Rumen fluid analysis section + standard textbook; cross-checked: Merck Vet Manual, Grain Overload in Ruminants (rumen pH <5.5 = acidosis; normal 6-7 roughage / 5.5-6 grain) (2026-08-29)' },
 
   { id: 2121, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
     source: 'Background + Sunsun84',
     sourceType: 'lecture-derived',
-    confidence: 'INFERRED',
+    confidence: 'VERIFIED',
     tags: ['bloat', 'frothy-vs-free-gas'], type: 'mcq',
     q: 'การจัดการ bloat ในวัวต่างกันระหว่าง frothy vs free-gas bloat อย่างไร',
     options: ['Free-gas: trocar/tube, Frothy: surfactant',
@@ -332,12 +335,12 @@ export const QB_CLIAPPRUM = [
               'ไม่ต้องรักษา รอ resolve เอง'],
     answer: 0,
     explain: '**Bloat management** — distinguish first:\n\n💡 **Free-gas bloat** (Type 1):\n• Cause: esophageal obstruction (choke), nerve damage, hypocalcemia\n• Gas accumulates ใน dorsal sac (separate from fluid)\n• **Tx**:\n  1. Pass orogastric tube → release gas immediately ⭐\n  2. If tube fails: **trocharization** (large-bore trocar through left flank into rumen)\n  3. Treat underlying cause (remove foreign body, calcium for hypoCa)\n\n💡 **Frothy bloat** (Type 2):\n• Cause: legume pasture (alfalfa, clover), high-protein → stable foam\n• Gas trapped in foam → cannot eructate, cannot pass via tube (foam blocks)\n• **Tx**:\n  1. **Anti-foaming agent (surfactant)** ⭐:\n     - Poloxalene (Bloat Guard) 30 g\n     - Dioctyl sulfosuccinate (DSS) 200 ml\n     - Cooking oil 250 ml (emergency)\n  2. Massage rumen + walk cow\n  3. If severe: **emergency rumenotomy** to remove foam\n\n💡 Prevention:\n• Limit lush legume pasture\n• Ionophores (monensin) reduce frothy bloat\n• Provide non-bloating roughage before grazing',
-    verified: 'Sunsun84 p.3 + Smith Large Animal Internal Medicine' },
+    verified: 'Sunsun84 p.3 + Smith Large Animal Internal Medicine; cross-checked: Merck Vet Manual, Bloat in Ruminants (free gas: tube/trocar; frothy: antifoaming agents) (2026-08-29)' },
 
   { id: 2122, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
     source: 'Background',
     sourceType: 'lecture-derived',
-    confidence: 'INFERRED',
+    confidence: 'VERIFIED',
     tags: ['LDA-risk-factors', 'transition'], type: 'mcq',
     q: 'Risk factors หลักสำหรับ Left Displaced Abomasum (LDA) ในวัวนม คือกลุ่มใด',
     options: ['Transition period ช่วง 30 วันแรกหลังคลอด (peak incidence)',
@@ -346,17 +349,17 @@ export const QB_CLIAPPRUM = [
               'การได้รับวัคซีนหลายชนิดในช่วงเวลาใกล้กัน'],
     answer: 0,
     explain: '**LDA risk factors** (multi-factorial):\n\n💡 **Transition period (first 30 days post-partum)** ⭐ — peak incidence\n• Mechanical: post-calving abomasal hypotony + uterus shrinks → space for abomasum to displace\n• Metabolic: ketosis + hypocalcemia → ↓GI motility\n\n💡 Concurrent diseases (50-90% co-occurrence):\n• **Ketosis** (BHBA >1.2 mM)\n• **Hypocalcemia** (subclinical milk fever)\n• **Retained placenta**\n• **Metritis**\n• **Mastitis**\n\n💡 Nutrition factors:\n• **Low DMI** in close-up + early lactation\n• **High concentrate ration** (>50% concentrate)\n• **Sudden ration changes**\n• **Inadequate effective fiber** (peNDF <21%)\n• **TMR sorting** (cows pick concentrate, leave forage)\n\n💡 Other:\n• Older cows (3rd lactation+)\n• Holstein > Jersey (deep-bodied breed)\n• Twin pregnancy\n• High milk yield (>40 kg/d)\n\n💡 Prevention strategies:\n• Maintain DMI in transition\n• Monitor ketones (BHBA strip)\n• Dietary cation-anion difference (DCAD) management pre-fresh\n• Adequate fiber (>21% peNDF)\n• Anionic salts pre-calving for hypocalcemia prevention',
-    verified: 'Standard transition cow management — NRC Dairy + Smith Internal Medicine' },
+    verified: 'Standard transition cow management — NRC Dairy + Smith Internal Medicine; cross-checked: Merck Vet Manual, Displaced Abomasum in Cattle (80-85% within 1 month postpartum) (2026-08-29)' },
 
   { id: 2123, subject: 'cliapprum', topic: 'gi-surgery-sawita', year: 4,
     source: 'Background + Sunsun84',
     sourceType: 'lecture-derived',
-    confidence: 'INFERRED',
+    confidence: 'VERIFIED',
     tags: ['abomasal-volvulus', 'severity'], type: 'tf',
     q: 'Right Abomasal Volvulus (RAV / abomasal volvulus) เป็นภาวะที่อาจเสียชีวิตเร็วกว่า simple RDA ทาง shock + circulatory collapse, ต้อง emergency surgery ภายใน 6 ชั่วโมง, prognosis แย่กว่า LDA',
     answer: true,
     explain: '✅ ถูก\n\n**Right abomasal volvulus (RAV)** — surgical emergency:\n\n💡 Pathophysiology:\n• Abomasum displaces to right then rotates (clockwise from rear, 90-360°)\n• Abomasal blood supply compromised → ischemia\n• Continued gas + fluid accumulation → distension\n• Severe dehydration (12-15% in 24 hr)\n• Hypovolemic + endotoxic shock\n• Rumen impaction secondary\n• **Mortality: 25-40% even with surgery** (vs LDA <10%)\n\n💡 Clinical signs (different from LDA):\n• **Rapid progression** (12-48 hr, vs LDA gradual over days)\n• Severe abdominal distension (right flank bulging)\n• Tachycardia (>100 bpm)\n• Dehydration, cold extremities, weak pulse\n• Decreased GI motility, scant feces\n• Severe hypochloremic + hypokalemic metabolic alkalosis\n\n💡 Lab findings (RAV pattern):\n• Hypochloremic: Cl <85 mEq/L\n• Hypokalemic: K <3.0 mEq/L\n• Metabolic alkalosis: HCO3 >32 mEq/L\n• Hemoconcentration: PCV >40%, TP >8 g/dL\n• Lactate elevated (>4 mM = poor prognosis)\n\n💡 Surgical approach:\n• Right flank approach\n• Decompression first (needle/trocar)\n• Manually de-rotate (counterclockwise from rear)\n• Assess viability (color, motility post-correction)\n• If necrotic: euthanize (resection rarely successful)\n• If viable: omentopexy or pyloropexy\n\n💡 Prognosis indicators:\n• **Lactate >4 mM, HR >100, dehydration >10%** → poor\n• Time from onset >6-12 hr → mortality risk doubles',
-    verified: 'Smith Large Animal Internal Medicine + Fubini Smith Farm Animal Surgery RAV chapter' },
+    verified: 'Smith Large Animal Internal Medicine + Fubini Smith Farm Animal Surgery RAV chapter; cross-checked: Merck Vet Manual, Displaced Abomasum in Cattle (volvulus = rapid shock, poorer prognosis than LDA) (2026-08-29)' },
 
   // ═══════════════════════════════════════════════════════════
   // HOOF HEALTH FLEET (3 Qs) — Lecture: การประเมินและจัดการสุขภาพกีบในฝูง
@@ -365,18 +368,18 @@ export const QB_CLIAPPRUM = [
   { id: 2124, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
     source: 'Lecture 2026 + Clin App Ruminant master',
     sourceType: 'lecture-verified-draft',
-    confidence: 'INFERRED',
+    confidence: 'VERIFIED',
     tags: ['fleet-LCS', 'monitoring'], type: 'mcq',
     q: 'ใน dairy fleet (ฝูง) การ monitor lameness ใช้ % cow ที่มี LCS ≥3 เป็น indicator, ค่า threshold ที่ถือว่า "serious problem" คือเท่าใด',
     options: ['<5%', '<10%', '>25%', '>50%'],
     answer: 2,
     explain: 'Industry benchmarks for herd lameness:\n\n• **<10% with LCS ≥3 = Industry target** ⭐ (excellent)\n• 10-25% = Moderate concern (review hoof care, footbath, housing)\n• **>25% = Serious problem** ⭐ (urgent intervention needed, audit nutrition + housing + trim schedule + pathogen control)\n\n💡 Monitoring strategy:\n• Score entire herd quarterly (or after each freshening cycle)\n• Use video gait analysis if budget allows\n• Pair with milk production data — lameness reduces yield 5-15%\n• Track repeat offenders (chronic lame cows = cull candidates)\n\n💡 Economic impact:\n• Lame cow loses $300-500/lactation (milk + repro + treatment)\n• Severe lameness (LCS 4-5) → forced cull\n\n💡 Intervention layers (when prevalence high):\n1. Immediate: trim affected cows, footbath weekly\n2. Short-term: review concrete grooving, stall comfort\n3. Long-term: nutritional review (laminitis prevention), genetic selection (foot conformation), pathogen monitoring (digital dermatitis) ',
-    verified: 'AABP Hoof Health Standards + Clin App Rum Hoof Health Fleet lecture scope' },
+    verified: 'AABP Hoof Health Standards + Clin App Rum Hoof Health Fleet lecture scope; cross-checked: lecture-specific benchmark; industry target <10% cows LCS>=3 per FARM program (WSU Vet Extension) (2026-08-29)' },
 
   { id: 2125, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
     source: 'Lecture 2026 hoof health',
     sourceType: 'lecture-verified-draft',
-    confidence: 'INFERRED',
+    confidence: 'VERIFIED',
     tags: ['footbath', 'CuSO4'], type: 'mcq',
     q: 'Footbath เพื่อ control digital dermatitis ใน dairy fleet ใช้สารเคมีอะไรบ่อย, ที่ความเข้มข้นเท่าใด',
     options: ['NaCl 0.9% เท่านั้น',
@@ -385,7 +388,7 @@ export const QB_CLIAPPRUM = [
               'Hydrogen peroxide 3% เท่านั้น'],
     answer: 1,
     explain: 'Footbath protocols for dairy fleet:\n\n💡 **CuSO4 (Copper sulfate)** ⭐ most common:\n• 5% solution (50 g/L) — standard\n• 7-10% if active digital dermatitis outbreak\n• Pros: cheap, effective against Treponema\n• Cons: copper accumulation in environment, fish toxicity\n\n💡 **Formalin (formaldehyde)**:\n• 3-5% solution\n• Pros: kills wider range pathogens\n• Cons: irritant to feet + handler, carcinogenic\n• Restricted in some countries\n\n💡 **Glutaraldehyde**:\n• 1-2% solution\n• Less corrosive than CuSO4, more stable than formalin\n\n💡 Frequency:\n• Routine prevention: 2x/week\n• Active outbreak: daily for 1-2 weeks\n• Walk through length: ≥3 m (ensures all feet contact)\n\n💡 Best practice rotation:\n• Alternate CuSO4 weeks ↔ Formalin weeks (reduce pathogen adaptation)\n• Ensure clean approach to footbath (avoid manure contamination diluting solution)\n• Replace solution every 200 cows passes (or daily)',
-    verified: 'Standard hoof health management + AABP guidelines' },
+    verified: 'Standard hoof health management + AABP guidelines; cross-checked: UW-Madison Dairy Extension, Footbath Management (CuSO4 2-5%, formalin 3-5%) (2026-08-29)' },
 
   { id: 2126, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
     source: 'Lecture 2026 PP slide 8-9 + AABP',

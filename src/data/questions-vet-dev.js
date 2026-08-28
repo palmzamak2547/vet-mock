@@ -14,7 +14,8 @@
 // genuinely ambiguous without the lecturer key (e.g. omasum origin,
 // esophageal muscle outlier, image-only Q's of Lect 03/04) are
 // intentionally OMITTED rather than guessed. `verified` cites the
-// reasoning; INFERRED flags the few comparative-anatomy answers.
+// reasoning. The three comparative-anatomy answers that carried an
+// INFERRED flag were cross-checked against external references 2026-08-29.
 // ============================================================
 
 export const QB_VET_DEV = [
@@ -33,7 +34,7 @@ export const QB_VET_DEV = [
     explain: "Ascending colon เป็นส่วนที่ผันแปรตามชนิดสัตว์มากที่สุด — ม้ามี ascending colon (great colon) ขนาดใหญ่พับซับซ้อน, สัตว์เคี้ยวเอื้องและสุกรมี spiral colon, สุนัขสั้นเรียบ ส่วน duodenum ค่อนข้างคงรูปทุกชนิด\n\n❌ ทำไมข้ออื่นผิด\n— \"Ascending duodenum\" = ส่วนหนึ่งของ duodenum ซึ่งมีรูปแบบใกล้เคียงกันทุกชนิดตามที่กล่าวข้างต้น\n— \"Descending duodenum\" = อีกส่วนของ duodenum เช่นกัน ไม่ใช่จุดที่ชนิดสัตว์ต่างกันมาก\n— \"Descending colon\" = ลำไส้ใหญ่ส่วนท้ายที่ทอดต่อไปยัง rectum ไม่ใช่ส่วนที่ขดเป็น great colon หรือ spiral colon\n— \"Descending duodenum และ ascending duodenum เท่ากัน\" = ยังเป็น duodenum ทั้งคู่ จึงไม่ใช่ส่วนที่ต่างกันมากที่สุดอยู่ดี\n\n💡 ชื่อเฉพาะที่แต่ละชนิดใช้เรียกลำไส้ใหญ่ (great colon ในม้า, spiral colon ในสัตว์เคี้ยวเอื้องและสุกร) ล้วนเป็น ascending colon ทั้งนั้น",
     source: 'Vet Dev Final (3101102) 2022 — Lecture 01 GIT',
     examOrigin: 'Veterinary Developmental Anatomy Final (3101102), 25/5/65',
-    verified: 'INFERRED — comparative GIT anatomy; ascending colon most species-variant (McGeady Vet Embryology, GIT chapter)' },
+    verified: 'Comparative GIT anatomy — ascending colon most species-variant (McGeady Vet Embryology, GIT chapter); cross-checked: Veterian Key Digestive System embryology + IMAIOS vet-Anatomy (equine sacculated, ruminant/swine spiral, carnivore simple) (2026-08-29)' },
 
   { id: 71002, subject: 'vet-dev-anat', topic: 'vd-pharyngeal', year: 1, type: 'mcq',
   tags: ['lingual-papillae', 'mechanical-papillae'],
@@ -402,7 +403,7 @@ export const QB_VET_DEV = [
     explain: "Hepatic (prerenal) segment ของ caudal vena cava เจริญจาก right proximal vitelline vein (hepatocardiac channel); ส่วน umbilical veins สลายหรือกลายเป็น ligamentum teres/ductus venosus\n\n❌ ทำไมข้ออื่นผิด\n— \"Left proximal umbilical vein\" = สายที่แบกเลือดจากรกเข้ามา ซากหลังคลอดคือ ligamentum teres ไม่ใช่ตัวลำของ caudal vena cava\n— \"Right proximal umbilical vein\" = สาย umbilical ฝั่งขวาสลายไประหว่างการเจริญ ไม่ได้อยู่ต่อจนเป็นหลอดเลือดของสัตว์โต\n— \"Anastomosis of proximal umbilical veins\" = ยังอยู่ในสาย umbilical ซึ่งลงเอยเป็นเอ็นตามข้างต้น\n— \"Left posterior cardinal vein\" = อยู่ในระบบ cardinal ของลำตัวส่วนท้าย ไม่ใช่สาย vitelline ที่ทอดผ่านตับขึ้นไปหาหัวใจ\n\n💡 caudal vena cava เป็นลูกผสมหลายสาย ท่อนที่ผ่านตับมาจากสาย vitelline ฝั่งขวา จำคู่กับข้อที่ว่าสายเดียวกันท่อนใต้ตับกลายเป็น portal vein",
     source: 'Vet Dev Final (3101102) 2022 — Lecture 02 Vascular',
     examOrigin: 'Veterinary Developmental Anatomy Final (3101102), 25/5/65',
-    verified: 'INFERRED — hepatic segment of caudal VC from right vitelline (hepatocardiac) channel (McGeady Vet Embryology, cardiovascular chapter)' },
+    verified: 'Hepatic segment of caudal VC from right vitelline (hepatocardiac) channel (McGeady Vet Embryology, cardiovascular chapter); cross-checked: SA J Radiol 2023 IVC congenital variants + StatPearls NBK482353 (2026-08-29)' },
 
   { id: 71025, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
   tags: ['caudal-vena-cava', 'subsupracardinal-anastomosis', 'cardinal-veins'],
@@ -418,7 +419,7 @@ export const QB_VET_DEV = [
     explain: "Renal segment ของ caudal vena cava เจริญจาก right subsupracardinal anastomosis (รอยต่อระหว่าง subcardinal และ supracardinal vein ด้านขวา); ส่วน postrenal segment มาจาก supracardinal vein\n\n❌ ทำไมข้ออื่นผิด\n— \"Left subcardinal anastomosis\" = caudal vena cava ตัวจริงเจริญขึ้นทางด้านขวา รอยต่อที่ให้ renal segment จึงเป็นของฝั่งขวา\n— \"Prerenal vitelline anastomosis\" = สาย vitelline เกี่ยวข้องกับท่อนก่อนไต (hepatic segment) ไม่ใช่ท่อนระดับไต\n— \"Postrenal iliac anastomosis\" = อยู่ท้ายต่อระดับไตลงไปในแถบหลอดเลือดดำของเชิงกราน ส่วนท่อนหลังไตนั้นมาจาก supracardinal vein ตามข้างต้น\n— \"Anterior cardinal anastomosis\" = เป็นรอยต่อของหลอดเลือดดำส่วนหัว ซึ่งให้ brachiocephalic vein คนละปลายของลำตัว\n\n💡 ชื่อ subsupracardinal บอกตัวเองว่าเป็นสะพานเชื่อม subcardinal กับ supracardinal และ subcardinal vein ก็วางตัวอยู่แถวไตของตัวอ่อนพอดี",
     source: 'Vet Dev Final (3101102) 2022 — Lecture 02 Vascular',
     examOrigin: 'Veterinary Developmental Anatomy Final (3101102), 25/5/65',
-    verified: 'INFERRED — renal segment of caudal VC from subsupracardinal anastomosis (McGeady Vet Embryology)' },
+    verified: 'Renal segment of caudal VC from subsupracardinal (subcardinal-supracardinal) anastomosis (McGeady Vet Embryology); cross-checked: SA J Radiol 2023 IVC congenital variants (2026-08-29)' },
 
   { id: 71026, subject: 'vet-dev-anat', topic: 'vd-cardio', year: 1, type: 'mcq',
   tags: ['ductus-venosus', 'ligamentum-venosum', 'fetal-circulation-remnants'],

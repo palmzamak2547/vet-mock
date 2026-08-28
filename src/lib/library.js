@@ -149,6 +149,27 @@ const SUBJECT_LOOKUP = new Map([
   ...EXTERNAL_COURSES.map((c) => [c.code, { id: c.code, code: c.code, name: c.name, icon: c.icon }]),
 ]);
 
+// Which subjects actually have documents on the shelf, and how many.
+// Fetched once per session; scaffold-year subject cards use this to offer
+// the REAL shelf instead of a dead รอเติมเนื้อหา card — ปี 3 has zero
+// questions but hundreds of real course documents.
+let _subjectCounts = null;
+export async function librarySubjectCounts() {
+  if (_subjectCounts) return _subjectCounts;
+  try {
+    const { docs } = await fetchLibraryDocs();
+    const m = new Map();
+    for (const d of docs || []) {
+      if (!d.subject) continue;
+      m.set(d.subject, (m.get(d.subject) || 0) + 1);
+    }
+    _subjectCounts = m;
+  } catch {
+    return new Map(); // offline/unconfigured — cards fall back to today's copy
+  }
+  return _subjectCounts;
+}
+
 export function subjectMeta(id) {
   return SUBJECT_LOOKUP.get(id) || null;
 }
