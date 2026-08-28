@@ -115,13 +115,21 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
   const handlePointerDown = (e, rightVal) => {
     if (isRevealed) return;
     if (e.pointerType === 'mouse' && e.button !== 0) return;
+    
+    const targetEl = e.currentTarget;
+    try {
+      targetEl.setPointerCapture(e.pointerId);
+    } catch {}
+
     pointerStartRef.current = {
       startX: e.clientX,
       startY: e.clientY,
       pointerId: e.pointerId,
-      targetEl: e.currentTarget,
+      targetEl,
       rightVal,
       isDragging: false,
+      lastX: e.clientX,
+      lastY: e.clientY,
     };
   };
 
@@ -129,25 +137,31 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
     const start = pointerStartRef.current;
     if (!start || start.pointerId !== e.pointerId) return;
 
+    // Optional: prevent native scroll on some rogue browsers if dragging
+    if (start.isDragging && e.cancelable) {
+      e.preventDefault();
+    }
+
     const dx = e.clientX - start.startX;
     const dy = e.clientY - start.startY;
     const dist = Math.hypot(dx, dy);
 
     if (!start.isDragging) {
-      if (dist > 6) {
+      if (dist > 5) {
         start.isDragging = true;
         setDraggedRight(start.rightVal);
         setSelectedRight(null);
         setSelectedLeft(null);
-        try {
-          start.targetEl?.setPointerCapture?.(e.pointerId);
-        } catch {}
       }
     }
 
     if (start.isDragging) {
+      start.lastX = e.clientX;
+      start.lastY = e.clientY;
       setDragCoord({ x: e.clientX, y: e.clientY });
+      
       const slotIdx = findSlotIndexAtPoint(e.clientX, e.clientY);
+      start.currentSlot = slotIdx;
       setHoveredSlotIndex(slotIdx);
     }
   };
@@ -155,17 +169,24 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
   const handlePointerUp = (e) => {
     const start = pointerStartRef.current;
     if (!start || start.pointerId !== e.pointerId) return;
-    pointerStartRef.current = null;
-
+    
     try {
       start.targetEl?.releasePointerCapture?.(e.pointerId);
     } catch {}
+    
+    pointerStartRef.current = null;
 
     if (start.isDragging) {
-      const slotIdx = findSlotIndexAtPoint(e.clientX, e.clientY);
+      const x = e.clientX !== undefined ? e.clientX : start.lastX;
+      const y = e.clientY !== undefined ? e.clientY : start.lastY;
+      
+      // Use the last known currentSlot if available, otherwise fallback to computing it
+      const slotIdx = start.currentSlot !== undefined ? start.currentSlot : findSlotIndexAtPoint(x, y);
+      
       if (slotIdx !== null && slotIdx >= 0 && slotIdx < currentQ.pairs.length) {
         setPair(slotIdx, start.rightVal);
       }
+      
       setDraggedRight(null);
       setDragCoord(null);
       setHoveredSlotIndex(null);
@@ -175,9 +196,10 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
   };
 
   const handlePointerCancel = (e) => {
-    if (pointerStartRef.current?.pointerId === e.pointerId) {
+    const start = pointerStartRef.current;
+    if (start && start.pointerId === e.pointerId) {
       try {
-        pointerStartRef.current?.targetEl?.releasePointerCapture?.(e.pointerId);
+        start.targetEl?.releasePointerCapture?.(e.pointerId);
       } catch {}
       pointerStartRef.current = null;
       setDraggedRight(null);

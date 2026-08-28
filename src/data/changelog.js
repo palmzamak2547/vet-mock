@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.35.3',
+    date: '2026-08-28',
+    headline: '🩹 แก้ไขการลากวางบนมือถือ (Touchscreen Bugfix)',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '📱', title: 'แก้บั๊กลากวางการ์ดคำตอบไม่ติดบนมือถือ',
+        desc: 'ปรับปรุงระบบดักจับการทัชหน้าจอ (Pointer Capture) ให้ล็อกการสัมผัสทันทีที่แตะการ์ด ป้องกันไม่ให้มือถือเข้าใจผิดว่าเป็นการเลื่อนหน้าจอ',
+      },
+    ],
+  },
+  {
     version: '5.35.2',
     date: '2026-08-28',
     headline: '✨ ยกเครื่องดีไซน์และการลากวางเกมจับคู่ (Match Drag & Drop)',
