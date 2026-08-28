@@ -183,3 +183,28 @@ export function downloadJSON(data, filename) {
  */
 export const subjectText = (color) =>
   (color ? `color-mix(in srgb, ${color} var(--subject-text-mix), var(--clr-ink))` : 'var(--clr-ink-soft)');
+
+/** Dose for a drug-database row at a given body weight.
+ *
+ *  Extracted so the calculator and its test run the SAME code. The bug
+ *  this replaces was two inline expressions in JSX: the dose multiplied
+ *  by weight unconditionally, and the displayed unit chosen by
+ *  `doseLo > 1 ? 'mg' : 'µg'` — magnitude, not the drug's own unit. That
+ *  labelled 26 of 57 drugs µg when the answer was mg (furosemide,
+ *  pimobendan, enalapril, meloxicam…), and called insulin's IU µg too.
+ *
+ *  `perKg: false` marks a dose that is per ANIMAL — methimazole is
+ *  1.25-2.5 mg/cat regardless of weight — and must not be multiplied.
+ */
+export function drugDose(drug, weightKg) {
+  if (!drug) return null;
+  const perKg = drug.unit !== 'fixed';
+  const unit = drug.unit === 'fixed'
+    ? (drug.fixedUnit || 'mg')
+    : String(drug.unit).replace('/kg', '').replace('/day', '');
+  if (!perKg) return { lo: drug.doseLo, hi: drug.doseHi, unit, perKg };
+  const w = Number(weightKg);
+  if (!Number.isFinite(w) || w <= 0) return { lo: null, hi: null, unit, perKg };
+  const round = (n) => Math.round(n * 100) / 100;
+  return { lo: round(drug.doseLo * w), hi: round(drug.doseHi * w), unit, perKg };
+}

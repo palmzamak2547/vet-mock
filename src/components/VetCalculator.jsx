@@ -18,6 +18,7 @@
 // ============================================================
 
 import { useState, useEffect, useMemo } from 'react';
+import { drugDose as computeDrugDose } from '../hooks/utils.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { VET_DRUGS, DRUG_CATEGORIES } from '../data/vet-drug-database.js';
 
@@ -453,8 +454,21 @@ function DrugDBTab() {
         )}
         {filtered.map((drug) => {
           const isExpanded = expandedDrug === drug.id;
-          const doseLo = isFinite(w) && w > 0 ? r(drug.doseLo * w, 2) : null;
-          const doseHi = isFinite(w) && w > 0 ? r(drug.doseHi * w, 2) : null;
+          // A 'fixed' dose is per animal, not per kg — multiplying it by
+          // body weight is the whole reason methimazole read as a 5x
+          // overdose. The field convention documented this unit from the
+          // start; nothing implemented it.
+          const dd = computeDrugDose(drug, w);
+          const perKg = dd.perKg;
+          const hasW = isFinite(w) && w > 0;
+          const doseLo = dd.lo;
+          const doseHi = dd.hi;
+          // The displayed unit comes from the DRUG, not from how small its
+          // number happens to be. `doseLo > 1 ? 'mg' : 'µg'` labelled 26 of
+          // 57 drugs µg when the answer was mg — a thousandfold
+          // understatement on furosemide, pimobendan, enalapril and the
+          // rest — and called insulin's IU µg as well.
+          const outUnit = dd.unit;
           const sameDose = drug.doseLo === drug.doseHi;
           return (
             <div
@@ -500,10 +514,12 @@ function DrugDBTab() {
                   </div>
 
                   {/* Dose calculation */}
-                  {isFinite(w) && w > 0 ? (
+                  {(hasW || !perKg) ? (
                     <Result
-                      label={sameDose ? `Dose สำหรับ ${w} kg` : `Dose สำหรับ ${w} kg (${drug.doseLo}-${drug.doseHi} ${drug.unit})`}
-                      value={sameDose ? fmt(doseLo, ` ${drug.doseLo > 1 ? 'mg' : 'µg'}`) : `${fmt(doseLo)}-${fmt(doseHi)} ${drug.doseLo > 1 ? 'mg' : 'µg'}`}
+                      label={!perKg
+                        ? 'Dose ต่อตัว (ไม่คูณน้ำหนัก)'
+                        : (sameDose ? `Dose สำหรับ ${w} kg` : `Dose สำหรับ ${w} kg (${drug.doseLo}-${drug.doseHi} ${drug.unit})`)}
+                      value={sameDose ? fmt(doseLo, ` ${outUnit}`) : `${fmt(doseLo)}-${fmt(doseHi)} ${outUnit}`}
                       accent
                     />
                   ) : (
