@@ -207,3 +207,23 @@ test('browse groups by ชั้นปี then วิชา, ordered for reading
   assert.deepEqual(groupByYearSubject([]), []);
   assert.deepEqual(groupByYearSubject(null), []);
 });
+
+// ── subjectMeta — the shelf's name/icon resolution ────────────────────────
+
+test('subjectMeta resolves curriculum subjects and external courses alike', async () => {
+  const { subjectMeta } = await import('../../src/lib/library.js');
+  // a curriculum subject — the same id the question bank uses
+  assert.equal(typeof subjectMeta('vet-juris')?.name, 'string');
+  assert.equal(subjectMeta('vet-juris').code, '3100403');
+  // a gen-ed course carried by library-courses.js under its course number
+  assert.equal(subjectMeta('5100101')?.name, 'Population and Development');
+  // unknown ids resolve to nothing, not a throw
+  assert.equal(subjectMeta('nope'), null);
+  assert.equal(subjectMeta(null), null);
+});
+
+test('search haystack carries the subject NAME, not just its id', async () => {
+  const { indexDocs } = await import('../../src/lib/library.js');
+  const [entry] = indexDocs([{ title: 'x', subject: '5100101' }]);
+  assert.ok(entry._hayLc.includes('population and development'));
+});

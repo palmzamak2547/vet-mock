@@ -99,3 +99,62 @@ test('a 500 is not retried — that is not a mangled key', async () => {
   await fetchMaterial(MANGLED, boom);
   assert.equal(calls.length, 1);
 });
+
+// ── Display-string cleaning (the 2026-08-28 metadata repair pass) ─────────
+// Every fixture below is lifted from the real dump: entities that shipped to
+// production, the backslash that survived its own escape, the ELISA file
+// whose display name was leaked listing HTML.
+
+test('HTML entities in display names decode', async () => {
+  const { cleanDisplayText } = await import('../../scripts/ingest-library.mjs');
+  assert.equal(cleanDisplayText('Ca &amp; P Method'), 'Ca & P Method');
+  assert.equal(cleanDisplayText('Lecture handout &quot;ANS&quot; (17)'), 'Lecture handout "ANS" (17)');
+});
+
+test('stray backslashes before Thai and slashes are dropped', async () => {
+  const { cleanDisplayText } = await import('../../scripts/ingest-library.mjs');
+  const BS = String.fromCharCode(92);
+  assert.equal(cleanDisplayText(`PP ${BS}\u0e1c${BS}\u0e28.`), 'PP ผศ.');
+  assert.equal(cleanDisplayText(`29${BS}/03${BS}/2023`), '29/03/2023');
+  // a backslash anywhere else is content, not an escape artifact
+  assert.equal(cleanDisplayText(`A${BS}B`), `A${BS}B`);
+});
+
+test('control characters collapse to a single space', async () => {
+  const { cleanDisplayText } = await import('../../scripts/ingest-library.mjs');
+  assert.equal(
+    cleanDisplayText(`Radiographic quality${String.fromCharCode(11)}Technique errors`),
+    'Radiographic quality Technique errors',
+  );
+});
+
+test('leaked listing HTML is junk; a short real name is not', async () => {
+  const { isJunkTitle } = await import('../../scripts/ingest-library.mjs');
+  assert.equal(isJunkTitle('" title='), true);
+  assert.equal(isJunkTitle('   '), true);
+  assert.equal(isJunkTitle('BT'), false); // real file name in Herd Health
+});
+
+test('a junk title is salvaged from the upload URL basename', async () => {
+  const { titleFromUrl } = await import('../../scripts/ingest-library.mjs');
+  assert.equal(
+    titleFromUrl('https://x/materials/lecture_4-838832-17872007545295.pdf'),
+    'Lecture 4',
+  );
+  assert.equal(titleFromUrl('https://x/m/ELISA_2024-1050238-17319395035135.pdf'), 'ELISA 2024');
+});
+
+test("MyCourseVille's no-folder marker never becomes a description", async () => {
+  const { folderLabel } = await import('../../scripts/ingest-library.mjs');
+  assert.equal(folderLabel('_other'), null);
+  assert.equal(folderLabel(''), null);
+  assert.equal(folderLabel('Virology IV_avian viruses'), 'Virology IV_avian viruses');
+});
+
+test('course numbers resolve to curriculum subject ids, gen-ed keeps the number', async () => {
+  const { subjectForCourse } = await import('../../scripts/mcv-manifest.mjs');
+  assert.equal(subjectForCourse('3100403'), 'vet-juris');
+  assert.equal(subjectForCourse('3103304.02'), 'animal-nutrition'); // section suffix
+  assert.equal(subjectForCourse('5100101'), '5100101');             // Population and Development
+  assert.equal(subjectForCourse('junk'), null);
+});

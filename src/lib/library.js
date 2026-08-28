@@ -23,6 +23,9 @@
 // Vite statically replaces `import.meta.env`. Under plain node (unit tests) it
 // is undefined, so every read goes through optional chaining and the module
 // stays importable outside the bundler.
+import { SUBJECTS } from '../data/curriculum.js';
+import { EXTERNAL_COURSES } from '../data/library-courses.js';
+
 const CDN_BASE = import.meta.env?.VITE_LIBRARY_CDN_BASE || '';
 
 // Signed URLs are short-lived on purpose. Ten minutes is long enough to open a
@@ -136,6 +139,20 @@ export function canStream(doc) {
   return !!(doc && doc.linearized && doc.mime === 'application/pdf');
 }
 
+// One lookup for "what is this subject called and what icon does it wear",
+// shared by the view (headings, cards) and the search index below. Curriculum
+// subjects come first — library rows written from MyCourseVille carry the SAME
+// subject ids the question bank uses — and the five gen-ed / other-faculty
+// courses resolve through library-courses.js with the course number as id.
+const SUBJECT_LOOKUP = new Map([
+  ...SUBJECTS.map((s) => [s.id, s]),
+  ...EXTERNAL_COURSES.map((c) => [c.code, { id: c.code, code: c.code, name: c.name, icon: c.icon }]),
+]);
+
+export function subjectMeta(id) {
+  return SUBJECT_LOOKUP.get(id) || null;
+}
+
 // Search index. Lowercasing every field of every row on every keystroke is
 // the recurring perf bug on this codebase (CommandPalette, FacultyView,
 // NotesView all had it): the haystack is built and lowered ONCE here, and the
@@ -145,7 +162,9 @@ export function indexDocs(docs) {
   return (Array.isArray(docs) ? docs : []).map((doc) => ({
     doc,
     _hayLc: [
-      doc.title, doc.description, doc.subject, doc.attribution, doc.lecturer,
+      doc.title, doc.description, doc.subject,
+      subjectMeta(doc.subject)?.name, subjectMeta(doc.subject)?.name_en,
+      subjectMeta(doc.subject)?.code, doc.attribution, doc.lecturer,
       doc.cohort, kindLabel(doc.kind), semesterLabel(doc.semester),
       doc.academic_year, buddhistYear(doc.academic_year),
       ...(Array.isArray(doc.topics) ? doc.topics : []),

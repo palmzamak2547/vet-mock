@@ -22,6 +22,23 @@
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
+import { SUBJECTS } from '../src/data/curriculum.js';
+
+// Library rows join the app's own subject system: a course number resolves to
+// the SAME subject id the question bank uses, so 3104306 files shelve under
+// เภสัชวิทยา with its Thai name and icon instead of under a bare number.
+// All 52 vet-faculty courses in the 2026-08 dump resolve this way (verified
+// against curriculum.js `code:` fields, zero misses). Courses the curriculum
+// does not carry — the five gen-ed / other-faculty ones — keep the course
+// number itself as the id; src/data/library-courses.js gives those a name.
+const CODE_TO_SUBJECT = new Map(SUBJECTS.filter((s) => s.code).map((s) => [s.code, s.id]));
+
+export function subjectForCourse(courseNo) {
+  // "3103304.02" carries a section suffix; the course is the first 7 digits.
+  const code = String(courseNo ?? '').trim().slice(0, 7);
+  if (!/^\d{7}$/.test(code)) return null;
+  return CODE_TO_SUBJECT.get(code) || code;
+}
 
 const arg = (n, d = null) => {
   const hit = process.argv.find((a) => a.startsWith(`--${n}=`));

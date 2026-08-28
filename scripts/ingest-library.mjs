@@ -13,10 +13,11 @@
 //   $0.015/GB-month after, and NO egress charge — the part that matters
 //   when a hundred students open the same deck before an exam.
 //
-//   Every row lands `status: 'restricted'`, which means /api/library-file
-//   refuses to sign a link without a session. That is the posture this
-//   material needs: these are faculty lecture decks, and the standing rule
-//   is that this project does not host them in the open.
+//   Rows land `status: 'public'` — Palm's call (2026-08-28) after the
+//   shelf first shipped login-gated: the whole cohort reads it without an
+//   account. The bytes still never get a permanent URL; every open goes
+//   through a minted link that expires in minutes, and 'restricted'
+//   remains one UPDATE away per row if any deck ever needs the gate back.
 //
 // USAGE
 //
@@ -35,6 +36,7 @@
 import { createHash } from 'node:crypto';
 import { readFileSync, appendFileSync, writeFileSync, existsSync } from 'node:fs';
 import { presignAny, r2Config, cfConfig } from '../api/_lib/r2.js';
+import { subjectForCourse } from './mcv-manifest.mjs';
 
 const arg = (name, fallback = null) => {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -52,6 +54,50 @@ export function decodeThaiEscapes(s) {
       .map((c) => String.fromCharCode(parseInt(c.slice(1), 16)))
       .join(''),
   );
+}
+
+// The display strings arrive dirty in three MORE ways, each one seen in the
+// real 2026-08-28 dump, each one shipped to production before this existed:
+//   - HTML entities left encoded: "Ca &amp; P", "&quot;ANS&quot;"
+//   - a backslash in front of each Thai character (and of "/") — the escape's
+//     own backslash surviving after its u0eXX body was flattened; a censused
+//     fact, not a guess: across the whole dump a backslash is followed only
+//     ever by a Thai character or by "/"
+//   - control characters (a vertical tab inside a PowerPoint title)
+const NAMED_ENTITY = { amp: '&', quot: '"', apos: "'", lt: '<', gt: '>', nbsp: ' ' };
+export function cleanDisplayText(s) {
+  return decodeThaiEscapes(String(s ?? ''))
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .replace(/&(amp|quot|apos|lt|gt|nbsp);/gi, (_, e) => NAMED_ENTITY[e.toLowerCase()])
+    .replace(/\\(?=[฀-๿/])/g, '')
+    // eslint-disable-next-line no-control-regex -- stripping them is the point
+    .replace(/[\u0000-\u001F\u007F]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Three files in the dump have `" title=` as their whole display name —
+// MyCourseVille's listing HTML leaked into the text. Nothing to clean there;
+// the only real name left is in the URL: .../lecture_4-838832-17872….pdf,
+// where the numeric tail is MCV's upload id + timestamp, not part of the name.
+export function isJunkTitle(t) {
+  const s = String(t ?? '').trim();
+  return !s || /^["'<>=\s]*title=?["'<>=\s]*$/i.test(s);
+}
+
+export function titleFromUrl(url) {
+  const file = decodeURIComponent(String(url ?? '').split('?')[0].split('/').pop() || '');
+  const t = cleanDisplayText(
+    file.replace(/\.[a-z0-9]{1,5}$/i, '').replace(/-\d{4,}-\d{8,}$/, '').replace(/_+/g, ' '),
+  );
+  return t ? t.charAt(0).toUpperCase() + t.slice(1) : '';
+}
+
+// "_other" is MyCourseVille's internal name for files that sit outside any
+// folder. It is not a topic, so it must not become one on a card.
+export function folderLabel(folder) {
+  const f = cleanDisplayText(folder);
+  return !f || f === '_other' ? null : f;
 }
 
 /** The same flattening happens in the URL, and there it is fatal.
@@ -174,7 +220,8 @@ async function main() {
   const n = Math.min(items.length, LIMIT);
   for (let i = 0; i < n; i++) {
     const it = items[i];
-    const name = decodeThaiEscapes(it.name || '');
+    const cleaned = cleanDisplayText(it.name || '');
+    const name = isJunkTitle(cleaned) ? titleFromUrl(it.url) : cleaned;
     try {
       // Google Drive links are not ours to mirror and cannot be fetched
       // without a browser session; they stay as catalog rows pointing home.
@@ -213,20 +260,18 @@ async function main() {
 
         const row = {
             slug: slugify(name, sha), title: name || key, kind: kindFor(it.folder, name),
-            // The catalog has no course column, and 3,000 files with no
-            // course label is a shelf nobody can browse. The description
-            // carries it: "3107415 Companion Animal Clinical Sciences I —
-            // Lecture Slides", which the UI already renders under titles.
-            description: [it.courseNo, decodeThaiEscapes(it.courseTitle || ''), '—', decodeThaiEscapes(it.folder || '')]
-              .filter(Boolean).join(' ').replace(/ — $/, '') || null,
-            subject: it.subject || null, year: it.year ?? null, semester: it.semester ?? null,
+            // The course lives in `subject` (the app's own subject id via
+            // subjectForCourse), so the description carries only what the
+            // subject heading cannot: the folder / topic within the course.
+            description: folderLabel(it.folder),
+            subject: it.subject || subjectForCourse(it.courseNo), year: it.year ?? null, semester: it.semester ?? null,
             academic_year: it.academicYear ?? null,
             storage_provider: 'r2', storage_bucket: cfg.bucket, storage_key: key,
             mime, byte_size: buf.length, sha256_16: sha,
-            // Faculty teaching material, mirrored for the cohort that was
-            // taught it. Never 'public' — /api/library-file will not sign a
-            // link for a restricted row without a session.
-            license: 'instructor-permission', status: 'restricted',
+            // Palm's call 2026-08-28: the shelf is open — no login. Links
+            // are still minted per open and still expire; only who may
+            // mint changed. Future ingests follow the same posture.
+            license: 'instructor-permission', status: 'public',
             source_url: it.url, attribution: it.attribution || 'คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย',
         };
         if (canInsert) {

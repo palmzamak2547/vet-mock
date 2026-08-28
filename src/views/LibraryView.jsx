@@ -21,7 +21,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
-import { SUBJECTS } from '../data/curriculum.js';
 import {
   LIBRARY_KINDS,
   SEMESTERS,
@@ -34,11 +33,8 @@ import {
   kindLabel,
   resolveDocUrl,
   semesterLabel,
+  subjectMeta,
 } from '../lib/library.js';
-
-// Module-scope lookup — a `.find()` inside the card map would be O(n) per row
-// per render over ~86 subjects.
-const SUBJECT_META = new Map(SUBJECTS.map((s) => [s.id, s]));
 
 // An empty query matches everything. Mounting several hundred cards at once is
 // the 200–400 ms freeze this codebase has hit before, so both modes are capped
@@ -75,10 +71,10 @@ const gridStyle = {
 const mono = { fontFamily: 'var(--vmx-mono)' };
 
 function subjectName(id) {
-  return SUBJECT_META.get(id)?.name || id || 'ไม่ระบุวิชา';
+  return subjectMeta(id)?.name || id || 'ไม่ระบุวิชา';
 }
 function subjectIcon(id) {
-  return SUBJECT_META.get(id)?.icon || '📄';
+  return subjectMeta(id)?.icon || '📄';
 }
 
 // ── Card ──────────────────────────────────────────────────────────────────
@@ -439,7 +435,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
             let rendered = 0;
             return groups.map((group) => {
               const open = openYears.has(group.year);
-              const yearLabel = group.year == null ? 'ไม่ระบุชั้นปี' : `ชั้นปี ${group.year}`;
+              const yearLabel = group.year == null ? 'วิชานอกคณะ (Gen-Ed)' : `ชั้นปี ${group.year}`;
               return (
                 <section
                   key={group.year ?? 'other'}
@@ -479,6 +475,11 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
                             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, margin: '14px 0 10px' }}>
                               <span aria-hidden="true">{subjectIcon(sg.subject)}</span>
                               <h3 style={{ fontSize: 14, margin: 0 }}>{subjectName(sg.subject)}</h3>
+                              {subjectMeta(sg.subject)?.code && (
+                                <span style={{ ...mono, fontSize: 10.5, color: 'var(--clr-ink-soft)' }}>
+                                  {subjectMeta(sg.subject).code}
+                                </span>
+                              )}
                               {sg.semester != null && (
                                 <span style={{ ...mono, fontSize: 11, color: 'var(--clr-ink-soft)' }}>
                                   {semesterLabel(sg.semester)}
