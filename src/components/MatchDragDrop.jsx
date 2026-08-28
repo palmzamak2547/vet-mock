@@ -116,96 +116,84 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
     if (isRevealed) return;
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     
-    const targetEl = e.currentTarget;
-    try {
-      targetEl.setPointerCapture(e.pointerId);
-    } catch {}
+    e.stopPropagation(); // Prevent parent handlers
 
     pointerStartRef.current = {
       startX: e.clientX,
       startY: e.clientY,
       pointerId: e.pointerId,
-      targetEl,
       rightVal,
       isDragging: false,
       lastX: e.clientX,
       lastY: e.clientY,
+      currentSlot: null,
     };
-  };
 
-  const handlePointerMove = (e) => {
-    const start = pointerStartRef.current;
-    if (!start || start.pointerId !== e.pointerId) return;
+    const onMove = (ev) => {
+      if (ev.pointerId !== pointerStartRef.current?.pointerId) return;
+      const start = pointerStartRef.current;
+      
+      const dx = ev.clientX - start.startX;
+      const dy = ev.clientY - start.startY;
+      const dist = Math.hypot(dx, dy);
 
-    // Optional: prevent native scroll on some rogue browsers if dragging
-    if (start.isDragging && e.cancelable) {
-      e.preventDefault();
-    }
-
-    const dx = e.clientX - start.startX;
-    const dy = e.clientY - start.startY;
-    const dist = Math.hypot(dx, dy);
-
-    if (!start.isDragging) {
-      if (dist > 5) {
-        start.isDragging = true;
-        setDraggedRight(start.rightVal);
-        setSelectedRight(null);
-        setSelectedLeft(null);
+      if (!start.isDragging) {
+        if (dist > 5) {
+          start.isDragging = true;
+          setDraggedRight(start.rightVal);
+          setSelectedRight(null);
+          setSelectedLeft(null);
+        }
       }
-    }
 
-    if (start.isDragging) {
-      start.lastX = e.clientX;
-      start.lastY = e.clientY;
-      setDragCoord({ x: e.clientX, y: e.clientY });
-      
-      const slotIdx = findSlotIndexAtPoint(e.clientX, e.clientY);
-      start.currentSlot = slotIdx;
-      setHoveredSlotIndex(slotIdx);
-    }
-  };
-
-  const handlePointerUp = (e) => {
-    const start = pointerStartRef.current;
-    if (!start || start.pointerId !== e.pointerId) return;
-    
-    try {
-      start.targetEl?.releasePointerCapture?.(e.pointerId);
-    } catch {}
-    
-    pointerStartRef.current = null;
-
-    if (start.isDragging) {
-      const x = e.clientX !== undefined ? e.clientX : start.lastX;
-      const y = e.clientY !== undefined ? e.clientY : start.lastY;
-      
-      // Use the last known currentSlot if available, otherwise fallback to computing it
-      const slotIdx = start.currentSlot !== undefined ? start.currentSlot : findSlotIndexAtPoint(x, y);
-      
-      if (slotIdx !== null && slotIdx >= 0 && slotIdx < currentQ.pairs.length) {
-        setPair(slotIdx, start.rightVal);
+      if (start.isDragging) {
+        // Prevent default during active drag to stop page scrolling
+        if (ev.cancelable) ev.preventDefault();
+        
+        start.lastX = ev.clientX;
+        start.lastY = ev.clientY;
+        setDragCoord({ x: ev.clientX, y: ev.clientY });
+        
+        const slotIdx = findSlotIndexAtPoint(ev.clientX, ev.clientY);
+        start.currentSlot = slotIdx;
+        setHoveredSlotIndex(slotIdx);
       }
-      
-      setDraggedRight(null);
-      setDragCoord(null);
-      setHoveredSlotIndex(null);
-    } else {
-      handleCardTap(start.rightVal);
-    }
-  };
+    };
 
-  const handlePointerCancel = (e) => {
-    const start = pointerStartRef.current;
-    if (start && start.pointerId === e.pointerId) {
-      try {
-        start.targetEl?.releasePointerCapture?.(e.pointerId);
-      } catch {}
+    const onUp = (ev) => {
+      if (ev.pointerId !== pointerStartRef.current?.pointerId) return;
+      const start = pointerStartRef.current;
+      
+      // Cleanup global listeners immediately
+      window.removeEventListener('pointermove', onMove, { capture: true });
+      window.removeEventListener('pointerup', onUp, { capture: true });
+      window.removeEventListener('pointercancel', onUp, { capture: true });
+      
       pointerStartRef.current = null;
-      setDraggedRight(null);
-      setDragCoord(null);
-      setHoveredSlotIndex(null);
-    }
+
+      if (start.isDragging) {
+        const x = ev.clientX !== undefined ? ev.clientX : start.lastX;
+        const y = ev.clientY !== undefined ? ev.clientY : start.lastY;
+        
+        // Trust start.currentSlot if it's set, otherwise recalculate
+        const slotIdx = start.currentSlot !== null ? start.currentSlot : findSlotIndexAtPoint(x, y);
+        
+        if (slotIdx !== null && slotIdx >= 0 && slotIdx < currentQ.pairs.length) {
+          setPair(slotIdx, start.rightVal);
+        }
+        
+        setDraggedRight(null);
+        setDragCoord(null);
+        setHoveredSlotIndex(null);
+      } else {
+        handleCardTap(start.rightVal);
+      }
+    };
+
+    // Attach global capture listeners to bypass DOM hierarchy and guarantee event delivery
+    window.addEventListener('pointermove', onMove, { capture: true, passive: false });
+    window.addEventListener('pointerup', onUp, { capture: true, passive: false });
+    window.addEventListener('pointercancel', onUp, { capture: true, passive: false });
   };
 
   const resetSelection = () => {
@@ -350,9 +338,6 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                   aria-disabled={isRevealed || undefined}
                   className={`vmx-match-dnd-card ${isUsed ? 'is-used' : ''} ${isDragging ? 'is-dragging' : ''} ${isCardSelected ? 'is-selected' : ''}`}
                   onPointerDown={(e) => handlePointerDown(e, r)}
-                  onPointerMove={handlePointerMove}
-                  onPointerUp={handlePointerUp}
-                  onPointerCancel={handlePointerCancel}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();

@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.35.4',
+    date: '2026-08-28',
+    headline: '🩹 แก้บั๊กการลากวางขั้นเด็ดขาด (Global Pointer Fix)',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '🛠️', title: 'แก้บั๊กจับคู่แล้วตอบไม่ได้บนบางอุปกรณ์',
+        desc: 'ปรับระบบตรวจสอบการลาก (Drag Detection) เป็นระดับ Global Window เพื่อหลบเลี่ยงปัญหา Pointer Capture หลุดในบางเบราว์เซอร์ ทำให้เกมจับคู่ตอบสนองเสถียร 100% ในทุกสถานการณ์',
+      },
+    ],
+  },
+  {
     version: '5.35.3',
     date: '2026-08-28',
     headline: '🩹 แก้ไขการลากวางบนมือถือ (Touchscreen Bugfix)',
