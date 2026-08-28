@@ -37,7 +37,11 @@ export default async function handler(req, res) {
   const env = process.env;
   const url = new URL(req.url, 'http://localhost');
   const slug = (url.searchParams.get('slug') || '').trim();
-  if (!/^[a-z0-9][a-z0-9-]{0,120}$/.test(slug)) {
+  // Thai belongs in the character class: slugify deliberately keeps Thai
+  // (ตารางเรียน, เฉลย…), and the first ASCII-only guard here answered 400
+  // for every Thai-titled deck in the shelf — found by running the gate
+  // against a real year-5 file, not by reading the regex.
+  if (!/^[a-z0-9฀-๿][a-z0-9฀-๿-]{0,160}$/.test(slug)) {
     return send(res, 400, { error: 'bad_slug' });
   }
 
