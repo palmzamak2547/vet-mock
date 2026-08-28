@@ -60,3 +60,45 @@ test('expiry is clamped to what S3 accepts', () => {
   const zero = new URL(presign('docs/aa/x.pdf', { env: ENV, now: NOW, expiresIn: 0 }));
   assert.equal(zero.searchParams.get('X-Amz-Expires'), '1');
 });
+
+// ── the CF-token path ───────────────────────────────────────────────
+import { presignWith, presignAny, tempCredentials, cfConfig } from '../../api/_lib/r2.js';
+
+const TEMP = { accessKeyId: 'TEMPKEY', secretAccessKey: 'tempsecret', sessionToken: 'tok/abc+def=' };
+const CFENV = { CLOUDFLARE_API_TOKEN: 'cfut_x', R2_ACCOUNT_ID: ENV.R2_ACCOUNT_ID, R2_BUCKET: 'vetmock-library' };
+
+test('temporary credentials put the session token INSIDE the signature', () => {
+  const url = new URL(presignWith(TEMP, 'docs/aa/x.pdf', { env: CFENV, now: NOW }));
+  assert.equal(url.searchParams.get('X-Amz-Security-Token'), 'tok/abc+def=');
+  // Same request without the token must sign differently — if the token
+  // were appended unsigned, R2 would reject every temp-credential URL.
+  const bare = new URL(presignWith({ ...TEMP, sessionToken: undefined }, 'docs/aa/x.pdf', { env: CFENV, now: NOW }));
+  assert.notEqual(url.searchParams.get('X-Amz-Signature'), bare.searchParams.get('X-Amz-Signature'));
+});
+
+test('presignAny prefers permanent keys and falls back to minting', async () => {
+  // Permanent keys present: no fetch happens at all.
+  let mints = 0;
+  const spy = async () => { mints++; return { ok: true, json: async () => ({ success: true, result: TEMP }) }; };
+  const direct = await presignAny('docs/aa/x.pdf', { env: ENV, now: NOW, fetchImpl: spy });
+  assert.equal(mints, 0);
+  assert.ok(!direct.includes('X-Amz-Security-Token'));
+
+  // Only the CF token present: one mint, and the URL carries the session.
+  const minted = await presignAny('docs/aa/x.pdf', { env: CFENV, now: NOW, fetchImpl: spy });
+  assert.equal(mints, 1);
+  assert.ok(minted.includes('X-Amz-Security-Token'));
+});
+
+test('a mint failure surfaces as an error, not as a broken URL', async () => {
+  const deny = async () => ({ ok: false, status: 403, json: async () => ({ success: false, errors: [{ message: 'Please enable R2' }] }) });
+  await assert.rejects(
+    () => tempCredentials({ env: { ...CFENV, R2_BUCKET: 'other-bucket-no-cache' }, fetchImpl: deny }),
+    /Please enable R2/,
+  );
+});
+
+test('nothing configured means null, same contract as before', async () => {
+  assert.equal(await presignAny('docs/aa/x.pdf', { env: {} }), null);
+  assert.equal(cfConfig({}).configured, false);
+});

@@ -17,7 +17,7 @@
 // Returns { url, expiresIn } rather than a 302 so the caller can decide
 // between opening a tab and streaming ranges into a PDF viewer.
 
-import { presign, r2Config } from './_lib/r2.js';
+import { presignAny, r2Config, cfConfig } from './_lib/r2.js';
 
 const TTL_SECONDS = 300;
 
@@ -28,25 +28,6 @@ function send(res, status, body) {
   // response hands one student's link to the next.
   res.setHeader('Cache-Control', 'no-store');
   res.end(JSON.stringify(body));
-}
-
-/** Resolve a bearer token to a user via Supabase, or null. */
-async function userFromToken(token, env) {
-  if (!token) return null;
-  const base = env.VITE_SUPABASE_URL || env.SUPABASE_URL;
-  const anon = env.VITE_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
-  if (!base || !anon) return null;
-  try {
-    const r = await fetch(`${base.replace(/\/$/, '')}/auth/v1/user`, {
-      headers: { Authorization: `Bearer ${token}`, apikey: anon },
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!r.ok) return null;
-    const u = await r.json();
-    return u?.id ? u : null;
-  } catch {
-    return null;
-  }
 }
 
 export default async function handler(req, res) {
@@ -60,19 +41,25 @@ export default async function handler(req, res) {
   }
 
   const base = env.VITE_SUPABASE_URL || env.SUPABASE_URL;
-  const serviceKey = env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!base || !serviceKey) return send(res, 503, { error: 'not_configured' });
+  const anon = env.VITE_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
+  if (!base || !anon) return send(res, 503, { error: 'not_configured' });
 
-  // Read the row with the service key: the browser's own grant deliberately
-  // cannot see storage_key, and it is the key that has to stay unguessable.
+  // One RPC answers everything: the row, whether it is published, and —
+  // because the login rule lives in the SECURITY DEFINER function, not
+  // here — whether THIS caller may see storage_key. The user's own bearer
+  // token is forwarded untouched; there is no service key in this
+  // environment and the design no longer wants one.
+  const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '').trim();
   let doc;
   try {
-    const q = new URL(`${base.replace(/\/$/, '')}/rest/v1/library_docs`);
-    q.searchParams.set('slug', `eq.${slug}`);
-    q.searchParams.set('select', 'slug,status,storage_provider,storage_bucket,storage_key,mime,byte_size');
-    q.searchParams.set('limit', '1');
-    const r = await fetch(q, {
-      headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
+    const r = await fetch(`${base.replace(/\/$/, '')}/rest/v1/rpc/library_doc_for_signing`, {
+      method: 'POST',
+      headers: {
+        apikey: anon,
+        Authorization: `Bearer ${bearer || anon}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ p_slug: slug }),
       signal: AbortSignal.timeout(8000),
     });
     if (!r.ok) return send(res, 502, { error: 'catalog_unavailable' });
@@ -81,17 +68,14 @@ export default async function handler(req, res) {
     return send(res, 502, { error: 'catalog_unavailable' });
   }
 
-  // Same answer for "no such document" and "not published": a 404 that only
-  // fires for real slugs is a way to enumerate the drafts.
-  if (!doc || doc.status === 'draft' || doc.status === 'archived') {
-    return send(res, 404, { error: 'not_found' });
-  }
+  // No row: unknown slug, a draft, or archived — deliberately the same
+  // answer, so drafts cannot be enumerated.
+  if (!doc) return send(res, 404, { error: 'not_found' });
 
-  if (doc.status === 'restricted') {
-    const token = (req.headers.authorization || '').replace(/^Bearer\s+/i, '').trim();
-    const user = await userFromToken(token, env);
-    if (!user) return send(res, 401, { error: 'login_required' });
-  }
+  // A row with no key is the RPC saying "exists, but not for you":
+  // restricted material and no (valid) session. An expired token lands
+  // here too, because PostgREST treats a bad JWT as anonymous.
+  if (!doc.storage_key) return send(res, 401, { error: 'login_required' });
 
   if (doc.storage_provider !== 'r2') {
     // Supabase-hosted rows are signed in the browser against the user's own
@@ -99,14 +83,23 @@ export default async function handler(req, res) {
     return send(res, 400, { error: 'not_r2' });
   }
 
-  if (!r2Config(env).configured) return send(res, 503, { error: 'storage_not_configured' });
+  // Either permanent S3 keys or the CF API token will do; presignAny
+  // prefers the permanent keys and falls back to minting temporary ones.
+  if (!r2Config(env).configured && !cfConfig(env).configured) {
+    return send(res, 503, { error: 'storage_not_configured' });
+  }
 
-  const signed = presign(doc.storage_key, {
-    method: 'GET',
-    expiresIn: TTL_SECONDS,
-    bucket: doc.storage_bucket || undefined,
-    env,
-  });
+  let signed;
+  try {
+    signed = await presignAny(doc.storage_key, {
+      method: 'GET',
+      expiresIn: TTL_SECONDS,
+      bucket: doc.storage_bucket || undefined,
+      env,
+    });
+  } catch {
+    return send(res, 503, { error: 'storage_unavailable' });
+  }
   if (!signed) return send(res, 503, { error: 'storage_not_configured' });
 
   return send(res, 200, { url: signed, expiresIn: TTL_SECONDS, mime: doc.mime, byteSize: doc.byte_size });

@@ -33,8 +33,8 @@
 //   SUPABASE_URL (or VITE_SUPABASE_URL), SUPABASE_SERVICE_ROLE_KEY
 
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
-import { presign, r2Config } from '../api/_lib/r2.js';
+import { readFileSync, appendFileSync, writeFileSync, existsSync } from 'node:fs';
+import { presignAny, r2Config, cfConfig } from '../api/_lib/r2.js';
 
 const arg = (name, fallback = null) => {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -143,17 +143,29 @@ async function main() {
     process.exit(1);
   }
   const items = JSON.parse(readFileSync(manifestPath, 'utf8'));
-  const cfg = r2Config();
+  const cfg = r2Config().configured ? r2Config() : cfConfig();
   if (!DRY && !cfg.configured) {
-    console.error('✗ R2 is not configured. Set R2_ACCOUNT_ID / R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY.');
+    console.error('✗ R2 is not configured. Set R2_ACCOUNT_ID + either the S3 keys or CLOUDFLARE_API_TOKEN.');
     process.exit(1);
   }
 
+  // No service key exists on this machine, and the runtime was redesigned
+  // not to want one — so the ingest cannot INSERT rows directly either.
+  // It writes them to rows.ndjson instead, and a Claude session bulk-loads
+  // that file through the Supabase MCP. --rows-out overrides the path.
+  const rowsOut = arg('rows-out', '.mcv/rows.ndjson');
+  const canInsert = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY);
+
   // One round trip for everything already shelved, so a re-run costs one
-  // query rather than one per file.
+  // query rather than one per file. Without a key, the already-written
+  // rows file is the dedupe memory.
   const known = new Set();
-  if (!DRY) {
+  if (!DRY && canInsert) {
     for (const row of await sb('library_docs?select=sha256_16')) known.add(row.sha256_16);
+  } else if (!DRY && existsSync(rowsOut)) {
+    for (const line of readFileSync(rowsOut, 'utf8').split('\n')) {
+      if (line.trim()) known.add(JSON.parse(line).sha256_16);
+    }
   }
 
   let uploaded = 0, skipped = 0, failed = 0, bytes = 0;
@@ -181,14 +193,11 @@ async function main() {
       if (DRY) {
         console.log(`  would upload ${(buf.length / 1048576).toFixed(1)} MB  ${key}`);
       } else {
-        const put = presign(key, { method: 'PUT', expiresIn: 900 });
+        const put = await presignAny(key, { method: 'PUT', expiresIn: 900 });
         const up = await fetch(put, { method: 'PUT', body: buf, headers: { 'Content-Type': mime } });
         if (!up.ok) { failed++; console.warn(`  ✗ r2 ${up.status} ${name}`); continue; }
 
-        await sb('library_docs', {
-          method: 'POST',
-          headers: { Prefer: 'resolution=ignore-duplicates' },
-          body: JSON.stringify({
+        const row = {
             slug: slugify(name, sha), title: name || key, kind: kindFor(it.folder, name),
             subject: it.subject || null, year: it.year ?? null, semester: it.semester ?? null,
             academic_year: it.academicYear ?? null,
@@ -199,8 +208,16 @@ async function main() {
             // link for a restricted row without a session.
             license: 'instructor-permission', status: 'restricted',
             source_url: it.url, attribution: it.attribution || 'คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย',
-          }),
-        });
+        };
+        if (canInsert) {
+          await sb('library_docs', {
+            method: 'POST',
+            headers: { Prefer: 'resolution=ignore-duplicates' },
+            body: JSON.stringify(row),
+          });
+        } else {
+          appendFileSync(rowsOut, JSON.stringify(row) + '\n');
+        }
         known.add(sha);
       }
       uploaded++; bytes += buf.length;

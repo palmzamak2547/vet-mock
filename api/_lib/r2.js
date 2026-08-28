@@ -107,3 +107,100 @@ export function presign(key, { method = 'GET', expiresIn = 300, bucket, env = pr
 
   return `https://${host}${canonicalUri}?${canonicalQuery}&X-Amz-Signature=${signature}`;
 }
+
+// ── Cloudflare-token path ───────────────────────────────────────────
+// The account's standing CF API token has R2 permission but cannot mint
+// permanent S3 keys (no API-Tokens scope). R2's temp-access-credentials
+// endpoint bridges that: the token mints SHORT-LIVED S3 credentials,
+// which then presign exactly as above. One secret in the environment
+// instead of three, and nothing permanent to leak.
+
+export function cfConfig(env = process.env) {
+  const apiToken = env.CLOUDFLARE_API_TOKEN;
+  const accountId = env.R2_ACCOUNT_ID || env.CF_ACCOUNT_ID;
+  const bucket = env.R2_BUCKET || 'vetmock-library';
+  return { apiToken, accountId, bucket, configured: Boolean(apiToken && accountId) };
+}
+
+// Temp credentials are cached for most of their lifetime so a burst of
+// students opening decks costs one mint, not one per open.
+let tempCache = { creds: null, until: 0, key: '' };
+
+export async function tempCredentials({ permission = 'object-read-only', ttlSeconds = 900, bucket, env = process.env, fetchImpl = fetch } = {}) {
+  const cfg = cfConfig(env);
+  if (!cfg.configured) return null;
+  const b = bucket || cfg.bucket;
+  const cacheKey = `${b}:${permission}`;
+  const now = Date.now();
+  if (tempCache.creds && tempCache.key === cacheKey && now < tempCache.until) return tempCache.creds;
+
+  const r = await fetchImpl(
+    `https://api.cloudflare.com/client/v4/accounts/${cfg.accountId}/r2/temp-access-credentials`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${cfg.apiToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bucket: b, permission, ttlSeconds }),
+      signal: AbortSignal.timeout(10_000),
+    },
+  );
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || !j?.success) {
+    const msg = j?.errors?.map((e) => e.message).join('; ') || `status ${r.status}`;
+    throw new Error(`temp-access-credentials: ${msg}`);
+  }
+  const creds = {
+    accessKeyId: j.result.accessKeyId,
+    secretAccessKey: j.result.secretAccessKey,
+    sessionToken: j.result.sessionToken,
+  };
+  // Refresh with 20% of the TTL still left, never serving expired creds.
+  tempCache = { creds, key: cacheKey, until: now + ttlSeconds * 800 };
+  return creds;
+}
+
+/** Presign with explicit (possibly temporary) credentials. Temporary
+ *  credentials carry a session token, which SigV4 includes as
+ *  X-Amz-Security-Token — in the QUERY and therefore in the signature,
+ *  like every other parameter. */
+export function presignWith(creds, key, { method = 'GET', expiresIn = 300, bucket, accountId, env = process.env, now } = {}) {
+  const acct = accountId || cfConfig(env).accountId || r2Config(env).accountId;
+  const b = bucket || cfConfig(env).bucket;
+  if (!acct || !creds?.accessKeyId || !creds?.secretAccessKey) return null;
+
+  const host = `${acct}.r2.cloudflarestorage.com`;
+  const canonicalUri = `/${uriEncode(b, false)}/${uriEncode(key, false)}`;
+  const stamp = (now ? new Date(now) : new Date()).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const dateStamp = stamp.slice(0, 8);
+  const credential = `${creds.accessKeyId}/${dateStamp}/${REGION}/${SERVICE}/aws4_request`;
+
+  const params = [
+    ['X-Amz-Algorithm', ALGORITHM],
+    ['X-Amz-Credential', credential],
+    ['X-Amz-Date', stamp],
+    ['X-Amz-Expires', String(Math.max(1, Math.min(604800, expiresIn)))],
+    ['X-Amz-SignedHeaders', 'host'],
+  ];
+  if (creds.sessionToken) params.push(['X-Amz-Security-Token', creds.sessionToken]);
+  params.sort((a, b2) => (a[0] < b2[0] ? -1 : 1));
+  const canonicalQuery = params.map(([k, v]) => `${uriEncode(k)}=${uriEncode(v)}`).join('&');
+
+  const canonicalRequest = [method, canonicalUri, canonicalQuery, `host:${host}\n`, 'host', 'UNSIGNED-PAYLOAD'].join('\n');
+  const stringToSign = [ALGORITHM, stamp, `${dateStamp}/${REGION}/${SERVICE}/aws4_request`, sha256Hex(canonicalRequest)].join('\n');
+  const signature = crypto.createHmac('sha256', signingKey(creds.secretAccessKey, dateStamp)).update(stringToSign).digest('hex');
+  return `https://${host}${canonicalUri}?${canonicalQuery}&X-Amz-Signature=${signature}`;
+}
+
+/** One call that does the right thing with whatever is configured:
+ *  permanent S3 keys if present, else CF-token temp credentials. */
+export async function presignAny(key, opts = {}) {
+  const direct = presign(key, opts);
+  if (direct) return direct;
+  const creds = await tempCredentials({
+    permission: opts.method === 'PUT' ? 'object-read-write' : 'object-read-only',
+    bucket: opts.bucket,
+    env: opts.env || process.env,
+    fetchImpl: opts.fetchImpl,
+  });
+  if (!creds) return null;
+  return presignWith(creds, key, opts);
+}
