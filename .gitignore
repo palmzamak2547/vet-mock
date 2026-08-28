@@ -50,3 +50,7 @@ ds-bundle/
 .y1exp/
 .zcode/
 
+
+# MyCourseVille dumps: Palm's own course material listings, pulled from his
+# account. Not repo content — the manifest is regenerated, never committed.
+.mcv/

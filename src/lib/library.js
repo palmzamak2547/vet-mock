@@ -263,17 +263,37 @@ export async function fetchLibraryDocs() {
 
 // Resolves a catalog row to a fetchable URL.
 //
-// R2 rows resolve to a permanent public CDN URL — the key is content-addressed
-// and served `immutable`, so it caches at the edge and in the browser forever.
-// Supabase rows are signed per open, which is why the bucket can stay private.
+// R2 rows are signed per open by /api/library-file, which checks the session
+// before handing anything over. They USED to resolve to a permanent public CDN
+// URL, which is right for material anyone may read and wrong for lecture
+// slides: this project does not host faculty decks in the open, and a
+// permanent URL is public whether or not anyone links to it. A public CDN base
+// is still honoured for rows explicitly marked public, so genuinely open
+// material keeps its cacheable, edge-served URL.
+//
+// Supabase rows are signed in the browser against the user's own session,
+// which is why that bucket can stay private too.
 export async function resolveDocUrl(doc) {
   if (!doc) throw new Error('resolveDocUrl: missing doc');
 
   if (doc.storage_provider === 'r2') {
-    const url = cdnUrlFor(doc);
-    if (!url) {
-      throw new Error('คลังไฟล์ยังไม่ได้ตั้งค่า CDN (VITE_LIBRARY_CDN_BASE)');
+    if (doc.status === 'public') {
+      const url = cdnUrlFor(doc);
+      if (url) return url;
     }
+    const { getSupabase } = await import('./supabase.js');
+    const sb = await getSupabase();
+    const { data: { session } = {} } = await sb.auth.getSession();
+    const res = await fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}`, {
+      headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {},
+    });
+    if (res.status === 401) throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(`ขอลิงก์ไฟล์ไม่สำเร็จ: ${body.error || res.status}`);
+    }
+    const { url } = await res.json();
+    if (!url) throw new Error('ขอลิงก์ไฟล์ไม่สำเร็จ');
     return url;
   }
 
