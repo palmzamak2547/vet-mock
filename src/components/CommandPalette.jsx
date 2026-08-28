@@ -381,6 +381,13 @@ const GROUP_ORDER = Object.keys(GROUP_META);
 const GROUP_CAP = 6;
 const GROUP_CAP_EXPANDED = 30;
 
+// "Why only Ctrl+Enter?" — Palm, 2026-08-29. A question-shaped query puts
+// the ask row INTO the keyboard flow as the first item, so plain Enter
+// asks; on touch it is a big tap target; and when the list comes up empty
+// on a settled question, the ask fires by itself — zero keys.
+const QUESTION_RE = /([?？]\s*$)|(ไหม|มั้ย|อะไร|ทำไม|ยังไง|อย่างไร|เท่าไหร่|เท่าไร|กี่|คือ|ต่างจาก|ต่างกัน|หรือไม่|บ้าง|ที่ไหน|เมื่อไหร่|แค่ไหน|ได้ไหม|ควร)/;
+const looksLikeQuestion = (q) => q.length >= 8 && (QUESTION_RE.test(q) || /^(why|what|how|when|which|is|are|can|does|do|explain)\b/i.test(q));
+
 const RECENTS_KEY = 'vmx-omni-recents';
 const MAX_RECENTS = 8;
 
@@ -634,6 +641,8 @@ export default function CommandPalette({
   // sourceState: { [id]: { status: 'loading'|'ready'|'error', entries } }
   const [sourceState, setSourceState] = useState({});
   const [ask, setAsk] = useState(null); // null | loading | done | error
+  // Touch has no Ctrl — the chip and hints must speak tap, not keys.
+  const coarsePointer = useMemo(() => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches, []);
   const inputRef = useRef(null);
   const dialogRef = useModalFocus({ active: open, onClose, initialFocusRef: inputRef });
   const listRef = useRef(null);
@@ -730,8 +739,11 @@ export default function CommandPalette({
       groups = [...buckets.entries()].map(([type, list]) => ({ type, list }));
     }
 
-    // Apply per-group caps and lay out the flat keyboard order.
+    // Apply per-group caps and lay out the flat keyboard order. A
+    // question-shaped query puts the ask row first, so plain Enter asks.
     const flat = [];
+    const askInFlow = hasQuery && looksLikeQuestion(debouncedQuery.trim());
+    if (askInFlow) flat.push({ type: 'ask' });
     const sections = groups.map(({ type, list }) => {
       const cap = expandedGroups.has(type) ? GROUP_CAP_EXPANDED : GROUP_CAP;
       const shown = list.slice(0, cap);
@@ -739,7 +751,7 @@ export default function CommandPalette({
       flat.push(...shown);
       return { type, items: shown, startIdx, total: list.length, shown: shown.length };
     });
-    return { sections, flat };
+    return { sections, flat, askInFlow };
   }, [items, debouncedQuery, hasQuery, expandedGroups]);
 
   const sourcesLoading = Object.values(sourceState).some((s) => s.status === 'loading');
@@ -770,6 +782,7 @@ export default function CommandPalette({
   if (!open) return null;
 
   const fire = (item) => {
+    if (item.type === 'ask') { runAsk(); return; }
     pushRecent(item);
     if (item.type === 'library-doc') {
       // Resolve the object URL first (mint or presign), then hand the same
@@ -834,6 +847,21 @@ export default function CommandPalette({
       setAsk({ phase: 'error', message: 'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง' });
     }
   };
+
+  // A settled question with an empty list should not need ANY key — the
+  // person already typed what they want to know. Once per query string;
+  // never while sources are still streaming in (results may yet arrive).
+  const lastAutoAsk = useRef('');
+  useEffect(() => {
+    const q = debouncedQuery.trim();
+    if (q.length < 12 || !looksLikeQuestion(q)) return;
+    if (sourcesLoading) return;
+    if (view.flat.some((i) => i.type !== 'ask')) return;
+    if (lastAutoAsk.current === q || ask?.phase === 'loading') return;
+    lastAutoAsk.current = q;
+    runAsk();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runAsk reads live state
+  }, [debouncedQuery, view, sourcesLoading]);
 
   const openLibraryShelf = (meta) => {
     try { sessionStorage.setItem('vmx-library-q', meta.name || ''); } catch { /* nicety */ }
@@ -921,17 +949,22 @@ export default function CommandPalette({
           }}>esc</span>
         </div>
 
-        {/* Ask-the-corpus — row arms at 8+ chars, Ctrl+Enter fires it */}
+        {/* Ask-the-corpus. Question-shaped queries put this row FIRST in
+            the keyboard order (plain Enter asks); other queries keep it as
+            a tap/click affordance so Enter still opens the top result. */}
         {hasQuery && debouncedQuery.trim().length >= 8 && (
           <button
             type="button"
             onClick={runAsk}
+            data-flat-idx={view.askInFlow ? 0 : undefined}
+            onMouseEnter={view.askInFlow ? () => setActiveIdx(0) : undefined}
             className="vmx-omni-row"
             style={{
               all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
               boxSizing: 'border-box', width: 'calc(100% - 24px)', margin: '8px 12px 0',
-              padding: '9px 12px', borderRadius: 10,
+              padding: '10px 12px', minHeight: 44, borderRadius: 10,
               border: '1px dashed color-mix(in srgb, var(--clr-sage) 55%, var(--clr-border))',
+              background: view.askInFlow && activeIdx === 0 ? 'var(--clr-surface-2)' : 'transparent',
               color: 'var(--clr-ink)', fontSize: 13,
             }}
           >
@@ -939,7 +972,9 @@ export default function CommandPalette({
             <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               ถามคลังความรู้: “{debouncedQuery.trim()}”
             </span>
-            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>ctrl ↵</span>
+            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>
+              {view.askInFlow && activeIdx === 0 ? '↵' : coarsePointer ? 'แตะถาม' : view.askInFlow ? '↵' : 'ctrl ↵'}
+            </span>
           </button>
         )}
         <ErrorBoundary fallback={null}>
@@ -984,9 +1019,11 @@ export default function CommandPalette({
 
         {/* Results — grouped, streamed, keyboard-navigable across groups */}
         <div ref={listRef} style={{ maxHeight: '52vh', overflowY: 'auto', padding: 4 }}>
-          {view.flat.length === 0 && !sourcesLoading && intents.length === 0 && (
+          {view.flat.filter((it) => it.type !== 'ask').length === 0 && !sourcesLoading && intents.length === 0 && !ask && (
             <div style={{ padding: '32px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14 }}>
-              ไม่พบที่ตรงกับ "{query}"
+              {debouncedQuery.trim().length >= 8
+                ? <>ไม่พบรายการที่ตรง — ลองถามคลังความรู้ด้านบนได้เลย</>
+                : <>ไม่พบที่ตรงกับ "{query}"</>}
             </div>
           )}
           {view.sections.map((section) => (
@@ -1112,7 +1149,7 @@ export default function CommandPalette({
           <span>↑↓ เลื่อน</span>
           <span>↵ เลือก</span>
           <span>esc ปิด</span>
-          <span>ctrl ↵ ถามคลังความรู้</span>
+          <span>{coarsePointer ? 'แตะ ✦ เพื่อถาม' : 'ctrl ↵ ถามคลังความรู้'}</span>
           <span style={{ marginLeft: 'auto' }}>
             {hasQuery ? `${view.flat.length} ผลลัพธ์` : 'ดัชนีสร้างสดจากข้อมูลจริง'}
           </span>
