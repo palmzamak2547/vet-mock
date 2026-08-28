@@ -200,8 +200,62 @@ test('a range spanning two routes narrows to the riskier one', () => {
 test('every note that narrows a range still names what was left out', () => {
   // A narrowed range is only safe if the wider figure is written down;
   // otherwise the app tells a clinician their real dose is an overdose.
-  for (const id of ['diazepam', 'dexmedetomidine', 'insulin-glargine']) {
+  for (const id of ['diazepam', 'dexmedetomidine', 'insulin-glargine', 'ketamine', 'propofol', 'maropitant']) {
     const d = byId(id);
     assert.ok((d.note || '').length > 60, `${d.generic}: a narrowed dose needs its context spelled out`);
   }
+});
+
+test('anaesthetic induction doses are the IV / premedicated ones', () => {
+  // Ketamine's range was 5-10 on route "IV/IM" — that is the IM restraint
+  // range ONLY. The IV induction dose (1-4.5) was not even inside it, so
+  // every number it printed was an IM figure offered for an IV route.
+  const k = byId('ketamine');
+  assert.equal(k.doseLo, 2);
+  assert.equal(k.doseHi, 5);
+  assert.match(k.note, /5-10 mg\/kg/, 'the IM restraint range must still be stated');
+  assert.match(k.note, /benzodiazepine|α2/, 'ketamine is never given alone');
+
+  // Propofol was 4-6, above what a premedicated patient needs — published
+  // means run 4.5 (dog) and 5.97 (cat) premedicated, as low as 2.1 with an
+  // opioid-acepromazine combination. More can always be given to effect;
+  // too much at once cannot be taken back.
+  const p = byId('propofol');
+  assert.equal(p.doseLo, 2);
+  assert.equal(p.doseHi, 4);
+  assert.match(p.note, /6-8 mg\/kg/, 'the unpremedicated dose must still be stated');
+  assert.match(p.note, /to effect/i);
+});
+
+test('a note quoting a dose outside the computed range is acknowledged, not accidental', () => {
+  // The recurring bug class in this file: a multi-route entry whose range
+  // serves one route while its note quotes a different number for another.
+  // Ketamine's range was the IM restraint figure offered for an IV route;
+  // maropitant's note called 2 mg/kg the motion-sickness dose when the
+  // Cerenia label says 8. Both were found by exactly this scan.
+  //
+  // The entries below are the ones where the mismatch is DELIBERATE — a
+  // second route, indication or species named in prose beside a range that
+  // serves the default. A new name appearing here is a new bug until
+  // someone has looked at it.
+  const acknowledged = new Set([
+    'Meloxicam',        // cat cap 0.05, enforced by speciesMax
+    'Maropitant',       // oral 2 (vomiting) and 8 (motion sickness) vs 1 injectable
+    'Metoclopramide',   // CRI quoted per HOUR, a different dosing mode
+    'Diazepam',         // rectal 1-2 vs IV 0.5-1
+    'Dexmedetomidine',  // cat label 0.04 IM, dog labelled per m²
+    'Ketamine',         // IM restraint 5-10 vs IV induction 2-5
+    'Propofol',         // unpremedicated 6-8 vs premedicated 2-4
+    'Insulin glargine', // 1 IU/cat practical starting dose
+  ]);
+
+  const num = /(\d+(?:\.\d+)?)\s*(?:-\s*(\d+(?:\.\d+)?))?\s*(?:mg|µg|IU)\/kg/g;
+  const surprises = [];
+  for (const d of VET_DRUGS) {
+    if (!String(d.route).includes('/')) continue;
+    const quoted = [...String(d.note || '').matchAll(num)].map((x) => [+x[1], x[2] ? +x[2] : +x[1]]);
+    const outside = quoted.filter(([lo, hi]) => hi > d.doseHi * 1.05 || lo < d.doseLo * 0.95);
+    if (outside.length && !acknowledged.has(d.generic)) surprises.push(`${d.generic} (${outside.map((x) => x.join('-')).join(', ')})`);
+  }
+  assert.deepEqual(surprises, [], 'a note quotes a dose the range does not cover — check which route or indication it belongs to');
 });

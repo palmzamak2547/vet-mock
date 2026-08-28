@@ -327,7 +327,11 @@ export const VET_DRUGS = [
     doseLo: 1, doseHi: 1, unit: 'mg/kg',
     route: 'SC/PO', freq: 'q24h (max 5 days SC)',
     indication: 'Vomiting, motion sickness, nausea',
-    note: 'NK1 receptor antagonist; anti-inflammatory at higher doses; 2 mg/kg PO for motion sickness',
+    // The note said "2 mg/kg PO for motion sickness". Per the Cerenia
+    // label 2 mg/kg PO is the ACUTE VOMITING dose; motion sickness is
+    // 8 mg/kg PO, four times higher — a student following the old note
+    // would have under-dosed a travelling dog fourfold.
+    note: 'NK1 receptor antagonist. ตัวเลขนี้คือขนาดฉีด 1 mg/kg SC/IV (สูงสุด 5 วันติด). ชนิดกิน: อาเจียนเฉียบพลัน 2 mg/kg PO วันละครั้ง สูงสุด 5 วัน; เมารถ 8 mg/kg PO ให้ก่อนเดินทาง 2 ชม. และอดอาหาร 1 ชม. ก่อนให้',
   },
   {
     id: 'omeprazole', generic: 'Omeprazole',
@@ -460,19 +464,19 @@ export const VET_DRUGS = [
     id: 'ketamine', generic: 'Ketamine',
     brand: 'Ketaset, Ketalar, Narketan',
     category: 'Anesthetics', species: 'both',
-    doseLo: 5, doseHi: 10, unit: 'mg/kg',
+    doseLo: 2, doseHi: 5, unit: 'mg/kg',
     route: 'IV/IM', freq: 'single dose',
     indication: 'Induction (IV), sedation (IM combo), CRI analgesia',
-    note: 'Dissociative anesthetic; co-administer with benzodiazepine or α2-agonist. Cat: 5-10 mg/kg IM for chemical restraint',
+    note: '⚠️ ตัวเลขนี้คือขนาด IV สำหรับ induction (1-4.5 mg/kg) — ทาง IM ใช้ 5-10 mg/kg เพราะดูดซึมได้น้อยกว่า อย่าใช้ตัวเลข IM ฉีดเข้าเส้น. ห้ามให้เดี่ยว ๆ ต้องร่วมกับ benzodiazepine หรือ α2-agonist เสมอ (ไม่งั้นชักเกร็ง ตาเปิดค้าง)',
   },
   {
     id: 'propofol', generic: 'Propofol',
     brand: 'Diprivan, Propoflo, Provive',
     category: 'Anesthetics', species: 'both',
-    doseLo: 4, doseHi: 6, unit: 'mg/kg',
+    doseLo: 2, doseHi: 4, unit: 'mg/kg',
     route: 'IV', freq: 'to effect (induction)',
     indication: 'Anesthetic induction, short procedures, CRI',
-    note: '⚠️ Cat: repeated doses or prolonged CRI → Heinz body anemia. Give to effect, not fixed dose',
+    note: '⚠️ ให้ช้า ๆ จนได้ผล (to effect) ไม่ใช่ฉีดตามตัวเลขรวดเดียว. ตัวเลขนี้คือผู้ป่วยที่ได้ premed แล้ว (2-4 mg/kg; ต่ำถึง 2.1 เมื่อได้ opioid+acepromazine). ไม่ได้ premed ต้องใช้มากกว่า ~6-8 mg/kg. ⚠️ Cat: ให้ซ้ำหลายครั้งหรือ CRI นาน → Heinz body anemia',
   },
   {
     id: 'acepromazine', generic: 'Acepromazine',
