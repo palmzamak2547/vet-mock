@@ -51,7 +51,7 @@ test('shared modal behavior traps focus, closes on Escape and restores focus', a
   await expect(searchButton).toBeVisible();
   await searchButton.click();
 
-  const dialog = page.getByRole('dialog', { name: 'Command palette' });
+  const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
   const searchInput = page.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
   await expect(dialog).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
   await expect(searchInput).toBeFocused({ timeout: COLD_CHUNK_TIMEOUT });

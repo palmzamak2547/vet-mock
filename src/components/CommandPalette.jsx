@@ -1,10 +1,13 @@
 // ============================================================
-// CommandPalette — ⌘K / Ctrl+K instant search-jump
+// CommandPalette — the AI Search surface (⌘K / Ctrl+K / 🔍)
 // ============================================================
-// Single keyboard shortcut → fuzzy search across:
-//   • Quick actions (Dashboard, Schedule, Videos, Bookmarks, …)
-//   • Subjects (COM III / IV / V / EngProf)
-//   • Video summaries (by title)
+// One box → everything the app knows, grouped and streamed:
+//   • Quick actions, subjects, exams, videos, faculty, questions,
+//     VetWiki, flashcards, per-Q notes  (bundled index, instant)
+//   • the 1,496-doc library shelf + the drug database  (async sources,
+//     stream in while the palette is open)
+//   • intent cards: "ketamine 12 kg แมว" answers with the computed dose,
+//     a course number answers with the course — data, never generated
 //
 // Lightweight, no external lib. Thai-friendly fuzzy match
 // (substring + per-token + tolerance for word order).
@@ -39,6 +42,11 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 import { FEATURES, visibleFeatures, FEATURE_FLAGS } from '../lib/feature-registry.js';
 import { listTopics } from '../lib/vetwiki/registry.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+// Async sources (library shelf, drug DB) + deterministic intent cards —
+// the pieces that turn the palette into the app's AI search surface.
+import { OMNI_SOURCES } from '../lib/omni-sources.js';
+import { detectIntents } from '../lib/omni-intents.js';
+import { resolveDocUrl } from '../lib/library.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -326,14 +334,11 @@ function runItem(item, handlers) {
   }
 }
 
-// Lightweight fuzzy match against pre-lowered haystacks. The empty
-// query returns the top MAX_RESULTS items in original (action-first)
-// order so the open-state list isn't 1700 <button>s long.
-function fuzzyFilter(items, query) {
+// Ranked (item, score) pairs — the grouped renderer needs scores to order
+// GROUPS by their best hit while keeping items ranked inside each group.
+function rankItems(items, query) {
   const q = query.trim().toLowerCase();
-  if (!q) return items.slice(0, MAX_RESULTS);
   const tokens = q.split(/\s+/).filter(Boolean);
-
   const scored = [];
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
@@ -349,12 +354,166 @@ function fuzzyFilter(items, query) {
     if (allMatch) scored.push({ item, score });
   }
   scored.sort((a, b) => b.score - a.score);
-  // Cap render — anything past MAX_RESULTS won't fit on screen anyway
-  // and the user refines the query if they need more specific hits.
-  const out = new Array(Math.min(scored.length, MAX_RESULTS));
-  for (let i = 0; i < out.length; i++) out[i] = scored[i].item;
-  return out;
+  return scored.slice(0, MAX_RESULTS);
 }
+
+// ── Presentation helpers ─────────────────────────────────────────────────
+
+const GROUP_META = {
+  recent:       { label: 'ล่าสุด',          icon: '🕘' },
+  action:       { label: 'Quick Actions',   icon: '⚡' },
+  subject:      { label: 'วิชา',            icon: '📚' },
+  exam:         { label: 'ตารางสอบ',        icon: '📅' },
+  wiki:         { label: 'VetWiki',         icon: '🧬' },
+  'library-doc':{ label: 'คลังเอกสาร',      icon: '📄' },
+  drug:         { label: 'ขนาดยา',          icon: '💊' },
+  summary:      { label: 'สรุปคลิป',        icon: '📝' },
+  instructor:   { label: 'อาจารย์',         icon: '👨‍🏫' },
+  question:     { label: 'ข้อสอบ',          icon: '❓' },
+  flashcard:    { label: 'Flashcards',      icon: '⚡' },
+  'q-note':     { label: 'โน้ตของฉัน',      icon: '📝' },
+};
+const GROUP_ORDER = Object.keys(GROUP_META);
+
+// Per-group render cap. "แสดงเพิ่ม" lifts it for that group only — a query
+// like "anatomy" legitimately has dozens of library hits.
+const GROUP_CAP = 6;
+const GROUP_CAP_EXPANDED = 30;
+
+const RECENTS_KEY = 'vmx-omni-recents';
+const MAX_RECENTS = 8;
+
+function readRecents() {
+  return safeReadLS(RECENTS_KEY, []).filter((r) => r && r.type && r.label);
+}
+function pushRecent(item) {
+  try {
+    const slim = { type: item.type, label: item.label, hint: item.hint, icon: item.icon, payload: item.payload };
+    if (JSON.stringify(slim).length > 4000) return; // an instructor bio etc. — not worth persisting
+    const next = [slim, ...readRecents().filter((r) => !(r.type === slim.type && r.label === slim.label))]
+      .slice(0, MAX_RECENTS);
+    localStorage.setItem(RECENTS_KEY, JSON.stringify(next));
+  } catch { /* storage full or disabled — recents are a nicety */ }
+}
+
+// First-token match highlight. One <mark> is enough to show WHY a row
+// matched; painting every token turns labels into confetti.
+function HighlightedLabel({ label, query }) {
+  const q = (query || '').trim().toLowerCase();
+  const first = q.split(/\s+/)[0] || '';
+  const pos = first ? (label || '').toLowerCase().indexOf(first) : -1;
+  if (pos < 0) return label;
+  return (
+    <>
+      {label.slice(0, pos)}
+      <mark className="vmx-omni-mark">{label.slice(pos, pos + first.length)}</mark>
+      {label.slice(pos + first.length)}
+    </>
+  );
+}
+
+const PLACEHOLDERS = [
+  'ลองพิมพ์ "ketamine 12 kg แมว"…',
+  'ลองพิมพ์รหัสวิชา เช่น 3104306…',
+  'ค้นเอกสาร เช่น "anatomy ปี 1"…',
+  'ค้นข้อสอบ อาจารย์ สรุปคลิป โน้ตของคุณ…',
+];
+
+// ── Answer cards (intent results — computed, never generated) ────────────
+
+function DoseCard({ intent, onOpenCalc }) {
+  const { drug, dose, perKg, weightKg, species } = intent;
+  const speciesTh = species === 'cat' ? 'แมว' : species === 'dog' ? 'สุนัข' : null;
+  const range = (r) => (r && r.lo != null ? `${r.lo}–${r.hi} ${r.unit}` : null);
+  const perKgText = perKg?.perKg === false
+    ? `${drug.doseLo}–${drug.doseHi} ${perKg.unit} ต่อตัว`
+    : range({ ...perKg, lo: drug.doseLo, hi: drug.doseHi }) + '/kg';
+  return (
+    <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+        <span style={{ fontSize: 18 }} aria-hidden="true">💊</span>
+        <strong style={{ fontSize: 16 }}>{drug.generic}</strong>
+        <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>{drug.category}</span>
+        {speciesTh && (
+          <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, padding: '1px 8px', borderRadius: 10, border: '1px solid var(--clr-border)' }}>
+            {speciesTh}
+          </span>
+        )}
+      </div>
+      <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', margin: '10px 0 2px' }}>
+        <div>
+          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>ช่วงขนาดยา</div>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 15, fontWeight: 600 }}>
+            {perKgText} <span style={{ fontWeight: 400, fontSize: 12 }}>{drug.route}</span>
+          </div>
+        </div>
+        {dose && dose.perKg && dose.lo != null && (
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>สำหรับ {weightKg} kg</div>
+            <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 15, fontWeight: 700, color: 'var(--clr-sage-text)' }}>
+              {dose.lo}{'–'}{dose.hi} {dose.unit} รวม
+            </div>
+          </div>
+        )}
+        {drug.freq && (
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>ความถี่</div>
+            <div style={{ fontSize: 13 }}>{drug.freq}</div>
+          </div>
+        )}
+      </div>
+      {dose?.cappedFor && (
+        <div style={{ fontSize: 12, color: 'var(--clr-rose-text)', marginTop: 6 }}>
+          เพดานเฉพาะ{dose.cappedFor === 'cat' ? 'แมว' : 'สุนัข'}: ไม่เกิน {dose.cap} {dose.unit}/kg
+        </div>
+      )}
+      {drug.note && (
+        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
+          {String(drug.note).slice(0, 160)}
+        </div>
+      )}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 10, flexWrap: 'wrap' }}>
+        <button type="button" onClick={onOpenCalc}
+          style={{ font: 'inherit', fontSize: 12.5, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px' }}>
+          🧮 เปิดเครื่องคิดเลขเต็ม
+        </button>
+        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+          ช่วงอ้างอิงจากฐานข้อมูลยาในแอป — ตรวจกับข้อมูลยาปัจจุบันก่อนใช้จริง
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function CourseCard({ intent, onOpenLibraryShelf, onPracticeSubject }) {
+  const { code, meta } = intent;
+  return (
+    <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+        <span style={{ fontSize: 18 }} aria-hidden="true">{meta.icon || '📚'}</span>
+        <strong style={{ fontSize: 16 }}>{meta.name}</strong>
+        <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>{code}</span>
+      </div>
+      {meta.name_en && (
+        <div style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', marginTop: 4 }}>{meta.name_en}</div>
+      )}
+      <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
+        <button type="button" onClick={() => onOpenLibraryShelf(meta)}
+          style={{ font: 'inherit', fontSize: 12.5, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px' }}>
+          📚 เปิดชั้นเอกสารวิชานี้
+        </button>
+        {meta.has_questions && (
+          <button type="button" onClick={() => onPracticeSubject(meta.id)}
+            style={{ font: 'inherit', fontSize: 12.5, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px' }}>
+            ❓ ฝึกข้อสอบวิชานี้
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── The palette ──────────────────────────────────────────────────────────
 
 export default function CommandPalette({
   open,
@@ -366,74 +525,139 @@ export default function CommandPalette({
   ...handlers
 }) {
   const [query, setQuery] = useState('');
-  // Debounced version drives the filter — keeps the heavy work off
-  // the input keystroke. 60ms is below the human-perceivable threshold
-  // for input echo but long enough to coalesce a burst of fast typing
-  // into one filter pass.
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [activeIdx, setActiveIdx] = useState(0);
+  const [expandedGroups, setExpandedGroups] = useState(() => new Set());
+  const [placeholderIdx, setPlaceholderIdx] = useState(0);
+  // sourceState: { [id]: { status: 'loading'|'ready'|'error', entries } }
+  const [sourceState, setSourceState] = useState({});
   const inputRef = useRef(null);
   const dialogRef = useModalFocus({ active: open, onClose, initialFocusRef: inputRef });
   const listRef = useRef(null);
 
-  // Static index lives at module scope — first call builds it (lazy),
-  // subsequent opens reuse it. Handlers attach via runItem() at fire
-  // time, so re-renders that produce new handler identities don't
-  // invalidate the index.
   const staticItems = useMemo(() => buildStaticItems(), []);
   const visibleFeatureIds = useMemo(() => new Set(
     visibleFeatures(FEATURES, { signedIn, scaffold, hasSupabase, selectedYear }).map((feature) => feature.id),
   ), [signedIn, scaffold, hasSupabase, selectedYear]);
-  const items = useMemo(() => staticItems.filter((item) => {
-    if (item.featureId && !visibleFeatureIds.has(item.featureId)) return false;
-    if (item.type === 'subject' && selectedYear != null && item.year != null) {
-      return Number(item.year) === Number(selectedYear);
+
+  // Async sources stream in while the palette is open. Each one caches at
+  // module level (omni-sources), so the spinner shows once per session.
+  useEffect(() => {
+    if (!open) return undefined;
+    let alive = true;
+    for (const src of OMNI_SOURCES) {
+      setSourceState((s) => (s[src.id]?.status === 'ready' ? s : { ...s, [src.id]: { status: 'loading', entries: [] } }));
+      src.load().then(
+        (entries) => { if (alive) setSourceState((s) => ({ ...s, [src.id]: { status: 'ready', entries } })); },
+        (err) => {
+          // The chip says "ออฟไลน์"; the console says why. A silent error
+          // state cost 20 minutes of guessing the first time this shipped.
+          console.error('[omni-source]', src.id, err);
+          if (alive) setSourceState((s) => ({ ...s, [src.id]: { status: 'error', entries: [] } }));
+        },
+      );
     }
-    return true;
-  }), [staticItems, visibleFeatureIds, selectedYear]);
-  // Pre-stringify handlers into a stable ref — runItem reads from it.
+    return () => { alive = false; };
+  }, [open]);
+
+  const items = useMemo(() => {
+    const base = staticItems.filter((item) => {
+      if (item.featureId && !visibleFeatureIds.has(item.featureId)) return false;
+      if (item.type === 'subject' && selectedYear != null && item.year != null) {
+        return Number(item.year) === Number(selectedYear);
+      }
+      return true;
+    });
+    const async_ = Object.values(sourceState).flatMap((s) => s.entries || []);
+    return base.concat(async_);
+  }, [staticItems, visibleFeatureIds, selectedYear, sourceState]);
+
   const handlersRef = useRef(handlers);
   handlersRef.current = handlers;
 
-  // Debounce the query → filter pipeline
   useEffect(() => {
-    if (query === debouncedQuery) return;
+    if (query === debouncedQuery) return undefined;
     const t = setTimeout(() => setDebouncedQuery(query), 60);
     return () => clearTimeout(t);
   }, [query, debouncedQuery]);
 
-  const filtered = useMemo(() => fuzzyFilter(items, debouncedQuery), [items, debouncedQuery]);
+  // Rotating placeholder — decorative, so it parks on the first example
+  // when the user asked for reduced motion.
+  useEffect(() => {
+    if (!open) return undefined;
+    if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const t = setInterval(() => setPlaceholderIdx((i) => (i + 1) % PLACEHOLDERS.length), 3500);
+    return () => clearInterval(t);
+  }, [open]);
 
-  // Index totals — informational chip shown when the query is empty
-  // so the user knows what's actually searchable. Cheap reduce over
-  // the static index; memoized so it doesn't run per keystroke.
-  const indexTotals = useMemo(() => {
-    let questions = 0, flashcards = 0, notes = 0;
-    for (const it of items) {
-      if (it.type === 'question') questions++;
-      else if (it.type === 'flashcard') flashcards++;
-      else if (it.type === 'q-note') notes++;
+  const hasQuery = !!debouncedQuery.trim();
+  const intents = useMemo(() => (hasQuery ? detectIntents(debouncedQuery) : []), [hasQuery, debouncedQuery]);
+
+  // Grouped result model. With a query: rank everything flat, then bucket
+  // by type, order groups by their best-ranked hit. Without: recents first,
+  // then the curated group order.
+  const view = useMemo(() => {
+    const recents = hasQuery ? [] : readRecents().map((r) => ({
+      ...r,
+      _labelLc: (r.label || '').toLowerCase(),
+      _hayLc: (r.label || '').toLowerCase(),
+      _recent: true,
+    }));
+
+    let groups;
+    if (!hasQuery) {
+      const buckets = new Map();
+      if (recents.length) buckets.set('recent', recents);
+      for (const item of items) {
+        const key = item.type;
+        if (!buckets.has(key)) buckets.set(key, []);
+        buckets.get(key).push(item);
+      }
+      groups = [...buckets.entries()]
+        .sort((a, b) => GROUP_ORDER.indexOf(a[0]) - GROUP_ORDER.indexOf(b[0]))
+        .map(([type, list]) => ({ type, list }));
+    } else {
+      const ranked = rankItems(items, debouncedQuery);
+      const buckets = new Map();
+      for (const { item } of ranked) {
+        const key = item.type;
+        if (!buckets.has(key)) buckets.set(key, []);
+        buckets.get(key).push(item);
+      }
+      groups = [...buckets.entries()].map(([type, list]) => ({ type, list }));
     }
-    return { questions, flashcards, notes };
-  }, [items]);
 
-  // Reset on open / close
+    // Apply per-group caps and lay out the flat keyboard order.
+    const flat = [];
+    const sections = groups.map(({ type, list }) => {
+      const cap = expandedGroups.has(type) ? GROUP_CAP_EXPANDED : GROUP_CAP;
+      const shown = list.slice(0, cap);
+      const startIdx = flat.length;
+      flat.push(...shown);
+      return { type, items: shown, startIdx, total: list.length, shown: shown.length };
+    });
+    return { sections, flat };
+  }, [items, debouncedQuery, hasQuery, expandedGroups]);
+
+  const sourcesLoading = Object.values(sourceState).some((s) => s.status === 'loading');
+
+  const indexTotal = items.length;
+
   useEffect(() => {
     if (open) {
       setQuery('');
       setDebouncedQuery('');
       setActiveIdx(0);
+      setExpandedGroups(new Set());
     }
     return undefined;
   }, [open]);
 
-  // Reset active index when filter changes
   useEffect(() => { setActiveIdx(0); }, [debouncedQuery]);
 
-  // Keep active item in view when navigating with arrows
   useEffect(() => {
     if (!listRef.current) return;
-    const el = listRef.current.children[activeIdx];
+    const el = listRef.current.querySelector(`[data-flat-idx="${activeIdx}"]`);
     if (el && typeof el.scrollIntoView === 'function') {
       el.scrollIntoView({ block: 'nearest' });
     }
@@ -441,18 +665,53 @@ export default function CommandPalette({
 
   if (!open) return null;
 
+  const fire = (item) => {
+    pushRecent(item);
+    if (item.type === 'library-doc') {
+      // Resolve the object URL first (mint or presign), then hand the same
+      // payload shape LibraryView builds to the PDF reader.
+      const doc = item.payload;
+      onClose();
+      resolveDocUrl(doc).then(
+        (url) => handlersRef.current.onOpenLibraryDoc?.({
+          url, fileName: `${doc.title}.pdf`, sha256: doc.sha256_16, slug: doc.slug, linearized: doc.linearized,
+        }),
+        () => handlersRef.current.goView?.('library'), // resolution failed → land on the shelf, which shows its own error UI
+      );
+      return;
+    }
+    if (item.type === 'drug') {
+      try { window.dispatchEvent(new Event('vmx-open-vetcalc')); } catch { /* no-op */ }
+      onClose();
+      return;
+    }
+    runItem(item, handlersRef.current);
+    onClose();
+  };
+
+  const openLibraryShelf = (meta) => {
+    try { sessionStorage.setItem('vmx-library-q', meta.name || ''); } catch { /* nicety */ }
+    handlersRef.current.goView?.('library');
+    onClose();
+  };
+  const practiceSubject = (subjectId) => {
+    handlersRef.current.setSubject?.(subjectId);
+    handlersRef.current.goView?.('topic-select');
+    onClose();
+  };
+
   const handleKey = (e) => {
     if (e.key === 'Escape') { e.preventDefault(); onClose(); }
     else if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setActiveIdx((i) => Math.min(filtered.length - 1, i + 1));
+      setActiveIdx((i) => Math.min(view.flat.length - 1, i + 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setActiveIdx((i) => Math.max(0, i - 1));
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      const item = filtered[activeIdx];
-      if (item) { runItem(item, handlersRef.current); onClose(); }
+      const item = view.flat[activeIdx];
+      if (item) fire(item);
     }
   };
 
@@ -460,19 +719,21 @@ export default function CommandPalette({
     <div
       className="vmx-modal-overlay"
       onClick={onClose}
-      style={{ alignItems: 'flex-start', paddingTop: 'min(15vh, 100px)' }}
+      style={{ alignItems: 'flex-start', paddingTop: 'min(12vh, 90px)', backdropFilter: 'blur(5px)' }}
     >
       <div
         ref={dialogRef}
         className="vmx-modal"
         onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: 600, padding: 0, overflow: 'hidden' }}
+        style={{ maxWidth: 640, padding: 0, overflow: 'hidden' }}
         role="dialog"
         aria-modal="true"
         tabIndex={-1}
         data-vmx-modal="true"
-        aria-label="Command palette"
+        aria-label="ค้นหาอัจฉริยะ"
       >
+        <div className="vmx-omni-topbar" aria-hidden="true" />
+
         {/* Search input */}
         <div style={{
           display: 'flex',
@@ -481,14 +742,14 @@ export default function CommandPalette({
           padding: '16px 20px',
           borderBottom: '1px solid var(--clr-border)',
         }}>
-          <span style={{ fontSize: 18, color: 'var(--clr-ink-soft)' }}>🔍</span>
+          <span className="vmx-omni-spark" aria-hidden="true" style={{ fontSize: 18, color: 'var(--clr-sage-text)' }}>✦</span>
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKey}
-            placeholder="ค้นหาทุกอย่าง — subject, summary, เมนู…"
+            placeholder={PLACEHOLDERS[placeholderIdx]}
             aria-label="ค้นหาใน VetMock"
             style={{
               all: 'unset',
@@ -511,154 +772,158 @@ export default function CommandPalette({
           }}>esc</span>
         </div>
 
-        {/* Index totals — helps the user understand what's searchable
-            without typing anything. Hidden once they start filtering
-            so it doesn't compete with the result count in the footer. */}
-        {!query.trim() && (
+        {/* Answer cards — intent hits computed from real data */}
+        {intents.map((intent) => (
+          intent.kind === 'dose'
+            ? <DoseCard key="dose" intent={intent} onOpenCalc={() => { try { window.dispatchEvent(new Event('vmx-open-vetcalc')); } catch { /* no-op */ } onClose(); }} />
+            : <CourseCard key="course" intent={intent} onOpenLibraryShelf={openLibraryShelf} onPracticeSubject={practiceSubject} />
+        ))}
+
+        {/* Source status — what the index knows right now */}
+        {!hasQuery && (
           <div style={{
             padding: '8px 20px',
             display: 'flex',
             gap: 8,
             flexWrap: 'wrap',
+            alignItems: 'center',
             borderBottom: '1px solid var(--clr-border)',
             background: 'var(--clr-bg)',
           }}>
-            <span style={{
-              fontFamily: 'var(--vmx-mono)',
-              fontSize: 11,
-              color: 'var(--clr-ink-soft)',
-              padding: '2px 8px',
-              border: '1px solid var(--clr-border)',
-              borderRadius: 10,
-            }}>{indexTotals.questions} ข้อ</span>
-            <span style={{
-              fontFamily: 'var(--vmx-mono)',
-              fontSize: 11,
-              color: 'var(--clr-ink-soft)',
-              padding: '2px 8px',
-              border: '1px solid var(--clr-border)',
-              borderRadius: 10,
-            }}>{indexTotals.flashcards} flashcards</span>
-            <span style={{
-              fontFamily: 'var(--vmx-mono)',
-              fontSize: 11,
-              color: 'var(--clr-ink-soft)',
-              padding: '2px 8px',
-              border: '1px solid var(--clr-border)',
-              borderRadius: 10,
-            }}>{indexTotals.notes} notes</span>
+            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', padding: '2px 8px', border: '1px solid var(--clr-border)', borderRadius: 10 }}>
+              {indexTotal.toLocaleString()} รายการในดัชนี
+            </span>
+            {OMNI_SOURCES.map((src) => {
+              const st = sourceState[src.id];
+              return (
+                <span key={src.id} style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', padding: '2px 8px', border: '1px solid var(--clr-border)', borderRadius: 10, display: 'inline-flex', gap: 5, alignItems: 'center' }}>
+                  <span aria-hidden="true">{src.icon}</span>
+                  {src.label}
+                  {st?.status === 'loading' && ' กำลังโหลด…'}
+                  {st?.status === 'ready' && ` ${st.entries.length.toLocaleString()}`}
+                  {st?.status === 'error' && ' ออฟไลน์'}
+                </span>
+              );
+            })}
           </div>
         )}
 
-        {/* Results list */}
-        <div
-          ref={listRef}
-          style={{
-            maxHeight: '50vh',
-            overflowY: 'auto',
-            padding: 4,
-          }}
-        >
-          {filtered.length === 0 && (
-            <div style={{
-              padding: '32px 20px',
-              textAlign: 'center',
-              color: 'var(--clr-ink-soft)',
-              fontSize: 14,
-            }}>
+        {/* Results — grouped, streamed, keyboard-navigable across groups */}
+        <div ref={listRef} style={{ maxHeight: '52vh', overflowY: 'auto', padding: 4 }}>
+          {view.flat.length === 0 && !sourcesLoading && intents.length === 0 && (
+            <div style={{ padding: '32px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14 }}>
               ไม่พบที่ตรงกับ "{query}"
             </div>
           )}
-          {filtered.map((item, i) => {
-            const active = i === activeIdx;
-            // Section header — only when no query (so fuzzy ranking
-            // doesn't shuffle the type order). Renders before the first
-            // item of each type group.
-            const SECTION_LABELS = {
-              action: 'Quick Actions',
-              subject: 'Subjects',
-              summary: 'Video Summaries',
-              instructor: 'Faculty',
-              flashcard: 'Flashcards',
-              'q-note': 'โน้ต Q',
-              wiki: 'VetWiki',
-              exam: 'ตารางสอบ',
-            };
-            const showHeader = !query.trim() && (i === 0 || filtered[i - 1].type !== item.type);
-            return (
-              <div key={`wrap-${item.type}-${item.label}-${i}`}>
-                {showHeader && SECTION_LABELS[item.type] && (
-                  <div style={{
-                    padding: '10px 16px 4px',
-                    fontSize: 11,
-                    fontFamily: 'var(--vmx-mono)',
-                    color: 'var(--clr-ink-soft)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.1em',
-                    fontWeight: 600,
-                  }}>
-                    {SECTION_LABELS[item.type]}
-                  </div>
-                )}
-              <button
-                key={`${item.type}-${item.label}-${i}`}
-                onClick={() => { runItem(item, handlersRef.current); onClose(); }}
-                onMouseEnter={() => setActiveIdx(i)}
-                style={{
-                  all: 'unset',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12,
-                  width: '100%',
-                  boxSizing: 'border-box',
-                  padding: '10px 16px',
-                  borderRadius: 8,
-                  background: active ? 'var(--clr-surface-2)' : 'transparent',
-                  transition: 'background 0.05s',
-                }}
-              >
-                <span style={{ fontSize: 20, flex: '0 0 auto' }}>{item.icon}</span>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{
-                    fontSize: 14,
-                    fontWeight: 500,
-                    color: 'var(--clr-ink)',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}>
-                    {item.label}
-                  </div>
-                  {item.hint && (
-                    <div style={{
-                      fontSize: 11,
-                      color: 'var(--clr-ink-soft)',
-                      fontFamily: 'var(--vmx-mono)',
-                      marginTop: 2,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}>
-                      {item.hint}
-                    </div>
-                  )}
-                </div>
-                {active && (
-                  <span style={{
-                    fontFamily: 'var(--vmx-mono)',
-                    fontSize: 11,
-                    color: 'var(--clr-ink-soft)',
-                    flex: '0 0 auto',
-                  }}>↵</span>
-                )}
-              </button>
+          {view.sections.map((section) => (
+            <div key={section.type}>
+              <div style={{
+                padding: '10px 16px 4px',
+                fontSize: 11,
+                fontFamily: 'var(--vmx-mono)',
+                color: 'var(--clr-ink-soft)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'baseline',
+                gap: 6,
+              }}>
+                <span aria-hidden="true">{GROUP_META[section.type]?.icon}</span>
+                {GROUP_META[section.type]?.label || section.type}
+                <span style={{ fontWeight: 400 }}>{section.total.toLocaleString()}</span>
               </div>
-            );
-          })}
+              {section.items.map((item, iInGroup) => {
+                const flatIdx = section.startIdx + iInGroup;
+                const active = flatIdx === activeIdx;
+                return (
+                  <button
+                    key={`${item.type}-${item.label}-${flatIdx}`}
+                    data-flat-idx={flatIdx}
+                    className="vmx-omni-row"
+                    onClick={() => fire(item)}
+                    onMouseEnter={() => setActiveIdx(flatIdx)}
+                    style={{
+                      all: 'unset',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      width: '100%',
+                      boxSizing: 'border-box',
+                      padding: '9px 16px',
+                      borderRadius: 8,
+                      background: active ? 'var(--clr-surface-2)' : 'transparent',
+                      transition: 'background 0.05s',
+                      animationDelay: `${Math.min(iInGroup, 8) * 14}ms`,
+                    }}
+                  >
+                    <span style={{ fontSize: 20, flex: '0 0 auto' }}>{item.icon}</span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: 'var(--clr-ink)',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        <HighlightedLabel label={item.label} query={debouncedQuery} />
+                      </div>
+                      {item.hint && (
+                        <div style={{
+                          fontSize: 11,
+                          color: 'var(--clr-ink-soft)',
+                          fontFamily: 'var(--vmx-mono)',
+                          marginTop: 2,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}>
+                          {item.hint}
+                        </div>
+                      )}
+                    </div>
+                    {active && (
+                      <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', flex: '0 0 auto' }}>↵</span>
+                    )}
+                  </button>
+                );
+              })}
+              {section.shown < section.total && (
+                <button
+                  type="button"
+                  onClick={() => setExpandedGroups((prev) => new Set(prev).add(section.type))}
+                  style={{
+                    all: 'unset',
+                    cursor: 'pointer',
+                    display: 'block',
+                    boxSizing: 'border-box',
+                    width: '100%',
+                    padding: '6px 16px 10px 48px',
+                    fontSize: 12,
+                    color: 'var(--clr-sage-text)',
+                    fontWeight: 600,
+                  }}
+                >
+                  แสดงเพิ่ม ({(section.total - section.shown).toLocaleString()} รายการ)
+                </button>
+              )}
+            </div>
+          ))}
+          {sourcesLoading && (
+            <div style={{ padding: '8px 16px 14px', display: 'flex', flexDirection: 'column', gap: 8 }} aria-label="กำลังโหลดแหล่งข้อมูล">
+              {[0, 1, 2].map((i) => (
+                <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                  <div className="vmx-omni-shimmer" style={{ width: 22, height: 22, borderRadius: 6 }} />
+                  <div className="vmx-omni-shimmer" style={{ height: 12, flex: 1, maxWidth: 300 + i * 60 }} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Footer hint */}
+        {/* Footer */}
         <div style={{
           padding: '10px 16px',
           borderTop: '1px solid var(--clr-border)',
@@ -673,7 +938,9 @@ export default function CommandPalette({
           <span>↑↓ เลื่อน</span>
           <span>↵ เลือก</span>
           <span>esc ปิด</span>
-          <span style={{ marginLeft: 'auto' }}>{filtered.length} ผลลัพธ์</span>
+          <span style={{ marginLeft: 'auto' }}>
+            {hasQuery ? `${view.flat.length} ผลลัพธ์` : 'ดัชนีสร้างสดจากข้อมูลจริง'}
+          </span>
         </div>
       </div>
     </div>

@@ -366,10 +366,10 @@ test.describe('whole-app mobile compatibility', () => {
     await gotoSurface(page, '/');
     await waitForSurface(page);
     await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
-    const commandPalette = page.getByRole('dialog', { name: 'Command palette' });
+    const commandPalette = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
     await commandPalette.waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'command-palette');
-    await commandPalette.getByPlaceholder(/ค้นหาทุกอย่าง/).fill('เครื่องคิดเลข');
+    await commandPalette.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill('เครื่องคิดเลข');
     await expect(commandPalette.getByRole('button', { name: /เครื่องคิดเลข/ }).first()).toBeVisible();
     await page.keyboard.press('Escape');
 

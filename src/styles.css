@@ -3120,3 +3120,74 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   cursor: not-allowed;
   background-color: var(--clr-surface-2);
 }
+
+/* ============================================================
+   Omni AI Search — CommandPalette's grown-up form
+   ============================================================
+   All motion here is decorative (loading state is also written in
+   text chips, match info is in the text itself), so the whole block
+   switches off under prefers-reduced-motion without losing meaning. */
+
+.vmx-omni-topbar {
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--clr-sage) 0%, var(--clr-ocean) 30%, var(--clr-plum) 55%,
+    var(--clr-gold) 80%, var(--clr-sage) 100%);
+  background-size: 300% 100%;
+  animation: vmx-omni-hue 9s linear infinite;
+  opacity: 0.85;
+}
+
+.vmx-omni-spark {
+  display: inline-flex;
+  animation: vmx-omni-pulse 2.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.vmx-omni-row { animation: vmx-omni-in 0.18s ease both; }
+
+.vmx-omni-card {
+  animation: vmx-omni-in 0.22s ease both;
+  border: 1px solid color-mix(in srgb, var(--clr-sage) 45%, var(--clr-border));
+  background:
+    linear-gradient(var(--clr-surface), var(--clr-surface)) padding-box,
+    linear-gradient(120deg,
+      color-mix(in srgb, var(--clr-sage) 55%, transparent),
+      color-mix(in srgb, var(--clr-ocean) 45%, transparent)) border-box;
+  border-radius: 12px;
+}
+
+.vmx-omni-shimmer {
+  background: linear-gradient(90deg,
+    var(--clr-surface-2) 25%,
+    color-mix(in srgb, var(--clr-surface-2) 55%, var(--clr-surface)) 40%,
+    var(--clr-surface-2) 60%);
+  background-size: 220% 100%;
+  animation: vmx-omni-shimmer 1.3s linear infinite;
+  border-radius: 6px;
+}
+
+.vmx-omni-mark {
+  background: none;
+  color: inherit;
+  font-weight: 700;
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--clr-sage) 70%, transparent);
+}
+
+@keyframes vmx-omni-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes vmx-omni-pulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.88); }
+}
+@keyframes vmx-omni-hue { to { background-position: 300% 0; } }
+@keyframes vmx-omni-shimmer { to { background-position: -220% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmx-omni-topbar, .vmx-omni-spark, .vmx-omni-row,
+  .vmx-omni-card, .vmx-omni-shimmer {
+    animation: none;
+  }
+}

@@ -184,8 +184,16 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
   const [error, setError] = useState(null);
   const [busyId, setBusyId] = useState(null);
 
-  const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [query, setQuery] = useState(() => {
+    // A hand-off from the AI search ("เปิดชั้นเอกสารวิชานี้") arrives here.
+    // Read-once: coming back to the shelf later must not re-apply it.
+    try {
+      const q = sessionStorage.getItem('vmx-library-q');
+      if (q) { sessionStorage.removeItem('vmx-library-q'); return q; }
+    } catch { /* storage disabled — the shelf just opens unfiltered */ }
+    return '';
+  });
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
   const [kind, setKind] = useState('all');
   const [semester, setSemester] = useState('all');
   const [academicYear, setAcademicYear] = useState('all');

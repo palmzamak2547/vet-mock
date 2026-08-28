@@ -2173,6 +2173,7 @@ export default function App() {
             onSketch={() => setSketchOpen(true)}
             onPanic={startPanicSession}
             onOpenWiki={openWiki}
+            onOpenLibraryDoc={(doc) => { setLibraryDoc(doc); setView('pdf-annotate'); }}
             onPractice={(inv) => {
               setMode(inv.mode || 'quick');
               setSubject(inv.subject || 'all');
