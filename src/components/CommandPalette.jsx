@@ -513,6 +513,107 @@ function CourseCard({ intent, onOpenLibraryShelf, onPracticeSubject }) {
   );
 }
 
+// ── Ask-the-corpus (the LLM layer, grounded end to end) ──────────────────
+//
+// Ctrl+Enter (or the ✦ row) sends the query to /api/wiki-explain with no
+// subject/topic → the server retrieves the most relevant governed sections
+// across the whole wiki and answers as CLAIMS citing sectionIds. Before
+// anything renders, the claims are re-validated HERE against the app's own
+// bundled corpus (dynamic import — the corpus chunk loads only when someone
+// actually asks): a citation that does not exist in this build's wiki
+// cannot be rendered as one, whatever the network said.
+
+const ASK_STATUS = ['อ่านคลังความรู้ที่เกี่ยวข้อง…', 'เรียบเรียงคำตอบพร้อมที่มา…', 'ตรวจที่มาของทุกประโยค…'];
+
+function AskAnswerCard({ ask, onOpenWiki, onClose }) {
+  const [statusIdx, setStatusIdx] = useState(0);
+  useEffect(() => {
+    if (ask?.phase !== 'loading') return undefined;
+    if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const t = setInterval(() => setStatusIdx((i) => (i + 1) % ASK_STATUS.length), 1600);
+    return () => clearInterval(t);
+  }, [ask?.phase]);
+
+  if (!ask) return null;
+
+  if (ask.phase === 'loading') {
+    return (
+      <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }} aria-live="polite">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span className="vmx-omni-spark" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>✦</span>
+          <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{ASK_STATUS[statusIdx]}</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="vmx-omni-shimmer" style={{ height: 12, maxWidth: 340 + i * 70 }} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (ask.phase === 'error') {
+    return (
+      <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
+        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{ask.message}</div>
+      </div>
+    );
+  }
+
+  const sectionMeta = new Map((ask.sections || []).map((s) => [s.sectionId, s]));
+  return (
+    <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
+        <span aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>✦</span>
+        <strong style={{ fontSize: 13.5 }}>คำตอบจากคลังความรู้</strong>
+        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+          ตอบจากเนื้อหาที่ผ่านการตรวจแล้วเท่านั้น และบอกที่มาทุกประโยค
+        </span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {ask.claims.map((c) => {
+          const label = ask.labels?.[c.supportType];
+          return (
+            <div key={c.id} className="vmx-omni-row" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <div style={{ fontSize: 13.5, lineHeight: 1.6 }}>{c.text}</div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
+                {label && (
+                  <span style={{
+                    fontFamily: 'var(--vmx-mono)', fontSize: 10.5, padding: '1px 8px', borderRadius: 10,
+                    border: '1px solid var(--clr-border)',
+                    color: c.supportType === 'vetwiki-verified' ? 'var(--clr-sage-text)'
+                      : c.supportType === 'insufficient-evidence' ? 'var(--clr-ink-soft)' : 'var(--clr-gold-text)',
+                  }}>
+                    {label}
+                  </span>
+                )}
+                {(c.support || []).map(({ sectionId }) => {
+                  const m = sectionMeta.get(sectionId);
+                  if (!m) return null;
+                  return (
+                    <button
+                      key={sectionId}
+                      type="button"
+                      onClick={() => { onOpenWiki?.(m.subject, m.topic); onClose(); }}
+                      title={m.heading}
+                      style={{
+                        all: 'unset', cursor: 'pointer', fontSize: 11, fontWeight: 600,
+                        color: 'var(--clr-ocean-text)', padding: '1px 4px',
+                      }}
+                    >
+                      → {m.topicTitle}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ── The palette ──────────────────────────────────────────────────────────
 
 export default function CommandPalette({
@@ -531,6 +632,7 @@ export default function CommandPalette({
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
   // sourceState: { [id]: { status: 'loading'|'ready'|'error', entries } }
   const [sourceState, setSourceState] = useState({});
+  const [ask, setAsk] = useState(null); // null | loading | done | error
   const inputRef = useRef(null);
   const dialogRef = useModalFocus({ active: open, onClose, initialFocusRef: inputRef });
   const listRef = useRef(null);
@@ -649,6 +751,7 @@ export default function CommandPalette({
       setDebouncedQuery('');
       setActiveIdx(0);
       setExpandedGroups(new Set());
+      setAsk(null);
     }
     return undefined;
   }, [open]);
@@ -689,6 +792,48 @@ export default function CommandPalette({
     onClose();
   };
 
+  const runAsk = async () => {
+    const question = query.trim();
+    if (question.length < 8 || ask?.phase === 'loading') return;
+    setAsk({ phase: 'loading' });
+    try {
+      const res = await fetch('/api/wiki-explain', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+      if (res.status === 503) { setAsk({ phase: 'error', message: 'ยังไม่ได้เปิดใช้การถามจากคลังความรู้ — เนื้อหาทั้งหมดยังอ่านได้ตามปกติ' }); return; }
+      if (res.status === 429) { setAsk({ phase: 'error', message: 'ถามบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
+      if (!(res.headers.get('content-type') || '').includes('application/json')) {
+        setAsk({ phase: 'error', message: 'การถามใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
+      }
+      if (!res.ok) { setAsk({ phase: 'error', message: 'ตอบไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
+      const data = await res.json();
+      // Isomorphic guard: rebuild the allowed-citation map from THIS
+      // build's own corpus and validate again. The corpus chunk is the
+      // same one the wiki route uses; it loads on first ask only.
+      const [{ validateAnswer, allowedFromSections, ANSWER_SUPPORT_LABEL }, { loadTopic }] = await Promise.all([
+        import('../lib/vetwiki/answer.js'),
+        import('../lib/vetwiki/index.js'),
+      ]);
+      const allowed = new Map();
+      const seen = new Set();
+      for (const m of data.meta?.sections || []) {
+        const key = `${m.subject}--${m.topic}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        const k = loadTopic(m.subject, m.topic);
+        if (!k) continue; // server named a topic this build does not have
+        for (const [id, v] of allowedFromSections(k.id, k.sections)) allowed.set(id, v);
+      }
+      const { claims } = validateAnswer(data.claims, allowed);
+      if (!claims.length) { setAsk({ phase: 'error', message: 'ยังตอบจากเนื้อหาที่มีไม่ได้' }); return; }
+      setAsk({ phase: 'done', claims, sections: data.meta?.sections || [], labels: ANSWER_SUPPORT_LABEL });
+    } catch {
+      setAsk({ phase: 'error', message: 'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง' });
+    }
+  };
+
   const openLibraryShelf = (meta) => {
     try { sessionStorage.setItem('vmx-library-q', meta.name || ''); } catch { /* nicety */ }
     handlersRef.current.goView?.('library');
@@ -708,6 +853,9 @@ export default function CommandPalette({
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setActiveIdx((i) => Math.max(0, i - 1));
+    } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      runAsk();
     } else if (e.key === 'Enter') {
       e.preventDefault();
       const item = view.flat[activeIdx];
@@ -771,6 +919,29 @@ export default function CommandPalette({
             borderRadius: 4,
           }}>esc</span>
         </div>
+
+        {/* Ask-the-corpus — row arms at 8+ chars, Ctrl+Enter fires it */}
+        {hasQuery && debouncedQuery.trim().length >= 8 && (
+          <button
+            type="button"
+            onClick={runAsk}
+            className="vmx-omni-row"
+            style={{
+              all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
+              boxSizing: 'border-box', width: 'calc(100% - 24px)', margin: '8px 12px 0',
+              padding: '9px 12px', borderRadius: 10,
+              border: '1px dashed color-mix(in srgb, var(--clr-sage) 55%, var(--clr-border))',
+              color: 'var(--clr-ink)', fontSize: 13,
+            }}
+          >
+            <span className="vmx-omni-spark" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>✦</span>
+            <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              ถามคลังความรู้: “{debouncedQuery.trim()}”
+            </span>
+            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>ctrl ↵</span>
+          </button>
+        )}
+        <AskAnswerCard ask={ask} onOpenWiki={handlersRef.current.onOpenWiki} onClose={onClose} />
 
         {/* Answer cards — intent hits computed from real data */}
         {intents.map((intent) => (
@@ -938,6 +1109,7 @@ export default function CommandPalette({
           <span>↑↓ เลื่อน</span>
           <span>↵ เลือก</span>
           <span>esc ปิด</span>
+          <span>ctrl ↵ ถามคลังความรู้</span>
           <span style={{ marginLeft: 'auto' }}>
             {hasQuery ? `${view.flat.length} ผลลัพธ์` : 'ดัชนีสร้างสดจากข้อมูลจริง'}
           </span>
