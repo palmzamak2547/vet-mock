@@ -440,10 +440,10 @@ export const VET_DRUGS = [
     id: 'diazepam', generic: 'Diazepam',
     brand: 'Valium, Diapam, Zetran',
     category: 'Anticonvulsants', species: 'both',
-    doseLo: 0.5, doseHi: 2, unit: 'mg/kg',
+    doseLo: 0.5, doseHi: 1, unit: 'mg/kg',
     route: 'IV/rectal', freq: 'q4-6h or as needed',
     indication: 'Status epilepticus, cluster seizures, muscle relaxation',
-    note: '⚠️ Cat: oral diazepam can cause fatal hepatic necrosis; IV/rectal only. IV dose for status: 0.5-1 mg/kg',
+    note: '⚠️ ตัวเลขนี้คือขนาด IV สำหรับ status epilepticus (0.5-1 mg/kg) ทำซ้ำได้ถึง 3 ครั้ง ห่างกัน 5-10 นาที. ทางทวารหนัก (ไม่มีเส้น) ใช้ 1-2 mg/kg เพราะดูดซึมได้น้อยกว่า — อย่าใช้ตัวเลขทางทวารหนักฉีดเข้าเส้น. ⚠️ Cat: diazepam ชนิดกินทำให้ตับตายได้ ใช้ IV/rectal เท่านั้น',
   },
 
   // ── Anesthetics / Sedatives ──────────────────────────────
@@ -451,10 +451,10 @@ export const VET_DRUGS = [
     id: 'dexmedetomidine', generic: 'Dexmedetomidine',
     brand: 'Dexdomitor, Dexdor',
     category: 'Anesthetics', species: 'both',
-    doseLo: 0.005, doseHi: 0.04, unit: 'mg/kg',
+    doseLo: 0.005, doseHi: 0.02, unit: 'mg/kg',
     route: 'IV/IM', freq: 'single dose',
     indication: 'Sedation, premedication, procedural sedation',
-    note: 'α2-agonist; reversible with atipamezole (same volume). Dose: 0.005-0.01 IV, 0.01-0.04 IM. Cat: 0.04 mg/kg IM',
+    note: '⚠️ สุนัข: ฉลาก Dexdomitor คิดตามพื้นที่ผิว (750 µg/m² IV, 1000 µg/m² IM) ไม่ใช่ต่อ กก. — คิดต่อ กก. จะเกินขนาดในสุนัขตัวเล็ก. คลินิกทั่วไป 0.005-0.01 IV, 0.01-0.02 IM. Cat: ฉลาก 0.04 mg/kg IM (preanaesthetic, ร่วมกับ ketamine) สูงกว่าช่วงที่คำนวณไว้. α2-agonist; แก้ฤทธิ์ด้วย atipamezole (ปริมาตรเท่ากัน)',
   },
   {
     id: 'ketamine', generic: 'Ketamine',

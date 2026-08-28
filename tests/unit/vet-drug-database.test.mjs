@@ -175,3 +175,33 @@ test('insulin is a STARTING dose, not a titrated maintenance one', () => {
   // becomes its own error for a cat already titrated above it.
   assert.match(ins.note, /ขนาดเริ่มต้น|starting/i);
 });
+
+test('a range spanning two routes narrows to the riskier one', () => {
+  // Diazepam was 0.5-2 mg/kg on route "IV/rectal". The 2 is the RECTAL
+  // dose — absorption is lower that way — and 2 mg/kg pushed IV is twice
+  // the intended bolus of a respiratory depressant. The computed number
+  // is now the IV dose; the rectal figure lives in the note with its
+  // route named.
+  const dz = byId('diazepam');
+  assert.equal(dz.doseLo, 0.5);
+  assert.equal(dz.doseHi, 1);
+  assert.match(dz.note, /IV/);
+  assert.match(dz.note, /1-2 mg\/kg/, 'the rectal dose must still be stated');
+
+  // Dexmedetomidine was 0.005-0.04, and 0.04 is the CAT's label IM
+  // preanaesthetic dose sitting at the top of a range whose route field
+  // also offers IV.
+  const dex = byId('dexmedetomidine');
+  assert.equal(dex.doseHi, 0.02);
+  assert.match(dex.note, /µg\/m²/, 'dogs are labelled by body surface area — that has to be said');
+  assert.match(dex.note, /0\.04 mg\/kg IM/, 'the cat label dose must still be stated');
+});
+
+test('every note that narrows a range still names what was left out', () => {
+  // A narrowed range is only safe if the wider figure is written down;
+  // otherwise the app tells a clinician their real dose is an overdose.
+  for (const id of ['diazepam', 'dexmedetomidine', 'insulin-glargine']) {
+    const d = byId(id);
+    assert.ok((d.note || '').length > 60, `${d.generic}: a narrowed dose needs its context spelled out`);
+  }
+});
