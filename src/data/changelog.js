@@ -44,12 +44,15 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
-    version: '5.35.1',
+    version: '5.35.2',
     date: '2026-08-28',
-    headline: '🎯 ปรับปรุงระบบลากวางจับคู่ (Match Drag & Drop)',
+    headline: '✨ ยกเครื่องดีไซน์และการลากวางเกมจับคู่ (Match Drag & Drop)',
     changes: [
-      { scope: 'system', kind: 'fix', icon: '🎯', title: 'แก้ปัญหาลากจับคู่ (Match Drag & Drop)',
-        desc: 'ปรับปรุงระบบลากวางให้รองรับ Pointer Events ลื่นไหลทั้งบนมือถือ ทัชสกรีน แท็บเล็ต และเมาส์ พร้อมระบบแตะเลือกคู่ (Tap-to-pair) สองทิศทาง และการแสดงการ์ดลอยขณะลาก',
+      { scope: 'system', kind: 'fix', icon: '🎯', title: 'แก้ปัญหาการตอบและการลากวางให้สมบูรณ์แบบ',
+        desc: 'ตัดความขัดแย้งระหว่าง Native Drag & Drop และ Pointer Events ทำให้ลากวางหรือแตะจับคู่ได้ทันที 100% บนทุกเบราว์เซอร์ ทั้งคอมพิวเตอร์ มือถือ และแท็บเล็ต',
+      },
+      { scope: 'system', kind: 'feature', icon: '🎨', title: 'ยกระดับ UI และ Visual Feedback',
+        desc: 'เพิ่มไอคอน Grip สื่อการลาก, ช่องรับคำตอบพร้อมสถานะเรืองแสงขณะลากผ่าน, การเลือกสองทิศทางพร้อมแถบสถานะแจ้งเตือน, และการ์ดลอยพรีวิวพร้อมเงาแบบโมเดิร์น',
       },
     ],
   },

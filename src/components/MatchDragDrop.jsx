@@ -38,13 +38,13 @@ function shuffledRights(q) {
   return a;
 }
 
-function strip(s) { return String(s||'').replace(/\*\*/g,'').replace(/\*/g,'').trim(); }
+function strip(s) { return String(s || '').replace(/\*\*/g, '').replace(/\*/g, '').trim(); }
 
 export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, revealAnswer }) {
   const [draggedRight, setDraggedRight] = useState(null);
   const [dragCoord, setDragCoord] = useState(null);
   const [hoveredSlotIndex, setHoveredSlotIndex] = useState(null);
-  const [selectedLeft, setSelectedLeft] = useState(null); // for tap-to-assign fallback
+  const [selectedLeft, setSelectedLeft] = useState(null); // for tap-to-assign left-first
   const [selectedRight, setSelectedRight] = useState(null); // for tap-to-assign right-first
 
   const slotsRef = useRef([]);
@@ -57,6 +57,8 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
 
   // For visual: which rights are already used? (one-to-one)
   const usedRights = new Set(Object.values(ans).filter(Boolean));
+  const filledCount = Object.values(ans).filter(Boolean).length;
+  const totalSlots = currentQ.pairs.length;
 
   const isRevealed = Boolean(revealAnswer);
 
@@ -93,6 +95,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
       setSelectedLeft(null);
       setSelectedRight(null);
     } else {
+      setSelectedLeft(null);
       setSelectedRight((prev) => (prev === rightVal ? null : rightVal));
     }
   }, [isRevealed, selectedLeft, setPair]);
@@ -104,17 +107,19 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
       setSelectedRight(null);
       setSelectedLeft(null);
     } else {
+      setSelectedRight(null);
       setSelectedLeft((prev) => (prev === leftIdx ? null : leftIdx));
     }
   }, [isRevealed, selectedRight, setPair]);
 
   const handlePointerDown = (e, rightVal) => {
     if (isRevealed) return;
-    if (e.button !== undefined && e.button !== 0) return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
     pointerStartRef.current = {
       startX: e.clientX,
       startY: e.clientY,
       pointerId: e.pointerId,
+      targetEl: e.currentTarget,
       rightVal,
       isDragging: false,
     };
@@ -129,12 +134,13 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
     const dist = Math.hypot(dx, dy);
 
     if (!start.isDragging) {
-      if (dist > 5) {
+      if (dist > 6) {
         start.isDragging = true;
         setDraggedRight(start.rightVal);
         setSelectedRight(null);
+        setSelectedLeft(null);
         try {
-          e.currentTarget?.setPointerCapture?.(e.pointerId);
+          start.targetEl?.setPointerCapture?.(e.pointerId);
         } catch {}
       }
     }
@@ -152,7 +158,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
     pointerStartRef.current = null;
 
     try {
-      e.currentTarget?.releasePointerCapture?.(e.pointerId);
+      start.targetEl?.releasePointerCapture?.(e.pointerId);
     } catch {}
 
     if (start.isDragging) {
@@ -170,6 +176,9 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
 
   const handlePointerCancel = (e) => {
     if (pointerStartRef.current?.pointerId === e.pointerId) {
+      try {
+        pointerStartRef.current?.targetEl?.releasePointerCapture?.(e.pointerId);
+      } catch {}
       pointerStartRef.current = null;
       setDraggedRight(null);
       setDragCoord(null);
@@ -177,131 +186,171 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
     }
   };
 
+  const resetSelection = () => {
+    setSelectedLeft(null);
+    setSelectedRight(null);
+  };
+
   return (
     <div className="vmx-match-dnd">
+      {/* Top action / instruction bar */}
       <div className="vmx-match-dnd-header">
-        <span className="vmx-match-dnd-hint">ลาก <strong>การ์ดขวา</strong> ไปวางที่ <strong>ช่องซ้าย</strong> — หรือแตะซ้ายแล้วเลือกขวา (รองรับมือถือ/ทัชสกรีน/คีย์บอร์ด)</span>
-        {Object.keys(ans).length > 0 && !isRevealed && (
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSelectedLeft(null); setSelectedRight(null); answerCurrent({}); }}>ล้างทั้งหมด</button>
+        <div className="vmx-match-dnd-status">
+          {selectedRight ? (
+            <div className="vmx-match-status-pill selected">
+              <span>✨ กำลังเลือก: <strong>{strip(selectedRight)}</strong> → <em>แตะช่องซ้ายเพื่อจับคู่</em></span>
+              <button type="button" className="vmx-match-status-cancel" onClick={resetSelection} title="ยกเลิกการเลือก">✕</button>
+            </div>
+          ) : selectedLeft !== null ? (
+            <div className="vmx-match-status-pill selected">
+              <span>🎯 เลือกช่องที่ {selectedLeft + 1} «<strong>{strip(currentQ.pairs[selectedLeft]?.left)}</strong>» → <em>แตะการ์ดขวาเพื่อจับคู่</em></span>
+              <button type="button" className="vmx-match-status-cancel" onClick={resetSelection} title="ยกเลิกการเลือก">✕</button>
+            </div>
+          ) : (
+            <span className="vmx-match-dnd-hint">
+              💡 <strong>ลาก</strong> การ์ดขวาไปวางที่ช่องซ้าย หรือ <strong>แตะ</strong> เพื่อจับคู่ ({filledCount}/{totalSlots} ข้อ)
+            </span>
+          )}
+        </div>
+
+        {filledCount > 0 && !isRevealed && (
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-match-clear-all-btn"
+            onClick={() => { resetSelection(); answerCurrent({}); }}
+            title="ล้างคำตอบที่จับคู่ไว้ทั้งหมดในข้อนี้"
+          >
+            🗑️ ล้างทั้งหมด
+          </button>
         )}
       </div>
 
       <div className="vmx-match-dnd-grid">
-        {/* Left column */}
-        <div className="vmx-match-dnd-leftcol">
+        {/* Left column — Target Slots */}
+        <div className="vmx-match-dnd-leftcol" role="region" aria-label="ช่องจับคู่ด้านซ้าย">
           {currentQ.pairs.map((pair, i) => {
             const val = getVal(i);
             const isCorrect = val === pair.right;
             const isAnswered = Boolean(val);
             const isSelected = selectedLeft === i;
             const isHovered = hoveredSlotIndex === i;
-            let state = 'empty';
-            if (isRevealed && isAnswered) state = isCorrect ? 'correct' : 'wrong';
-            else if (isAnswered) state = 'filled';
-            if (isSelected) state += ' is-selected';
-            if (isHovered) state += ' is-drag-over';
+
+            let stateClass = 'empty';
+            if (isRevealed && isAnswered) stateClass = isCorrect ? 'correct' : 'wrong';
+            else if (isAnswered) stateClass = 'filled';
+
+            if (isSelected) stateClass += ' is-selected';
+            if (isHovered) stateClass += ' is-drag-over';
 
             return (
               <div
                 key={i}
                 ref={(el) => { slotsRef.current[i] = el; }}
                 data-slot-idx={i}
-                className={`vmx-match-dnd-slot ${state} ${isSelected ? 'selected' : ''}`}
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
-                }}
-                onDragEnter={(e) => {
-                  e.preventDefault();
-                  setHoveredSlotIndex(i);
-                }}
-                onDragLeave={(e) => {
-                  if (e.currentTarget === e.target) {
-                    setHoveredSlotIndex(null);
-                  }
-                }}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  const valDrop = e.dataTransfer?.getData('text/plain') || draggedRight;
-                  if (valDrop) setPair(i, valDrop);
-                  setDraggedRight(null);
-                  setDragCoord(null);
-                  setHoveredSlotIndex(null);
-                }}
+                className={`vmx-match-dnd-slot ${stateClass}`}
                 onClick={() => handleSlotTap(i)}
                 role="button"
                 tabIndex={0}
-                aria-label={`ซ้าย ${i+1}: ${strip(pair.left)} ${val ? 'จับคู่กับ ' + strip(val) : 'ว่าง'}`}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSlotTap(i); } }}
+                aria-label={`ข้อ ${i + 1}: ${strip(pair.left)}. ${val ? 'จับคู่กับ ' + strip(val) : 'ยังไม่ได้จับคู่ แตะเพื่อเลือก'}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleSlotTap(i);
+                  }
+                }}
               >
-                <div className="vmx-match-dnd-left"><RichText text={pair.left} /></div>
+                {/* Index badge */}
+                <span className="vmx-match-dnd-slot-num" aria-hidden>{i + 1}</span>
+
+                {/* Left question item */}
+                <div className="vmx-match-dnd-left">
+                  <RichText text={pair.left} />
+                </div>
+
+                {/* Target drop receptacle */}
                 <div className="vmx-match-dnd-target" aria-hidden>
-                  {val ? <span className="vmx-match-dnd-chip">{strip(val)}</span> : <span className="vmx-match-dnd-placeholder">วางที่นี่</span>}
-                  {val && !isRevealed && (
-                    <button
-                      type="button"
-                      className="vmx-match-dnd-clear"
-                      aria-label={`ลบการจับคู่ ${i+1}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setPair(i, '');
-                        if (selectedLeft === i) setSelectedLeft(null);
-                      }}
-                    >
-                      ×
-                    </button>
+                  {val ? (
+                    <div className="vmx-match-dnd-chip" title={strip(val)}>
+                      <span className="vmx-match-dnd-chip-text">{strip(val)}</span>
+                      {!isRevealed && (
+                        <button
+                          type="button"
+                          className="vmx-match-dnd-clear"
+                          aria-label={`ลบคำตอบข้อ ${i + 1}`}
+                          title="ลบคำตอบนี้"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setPair(i, '');
+                            if (selectedLeft === i) setSelectedLeft(null);
+                          }}
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  ) : (
+                    <span className="vmx-match-dnd-placeholder">
+                      {isHovered ? '✨ ปล่อยเพื่อวาง' : isSelected ? '👉 แตะการ์ดขวา' : '📥 วางที่นี่'}
+                    </span>
                   )}
                 </div>
+
+                {/* Reveal state badge */}
                 {isRevealed && isAnswered && (
-                  <span className={`vmx-match-dnd-badge ${isCorrect ? 'ok' : 'no'}`} aria-hidden>{isCorrect ? '✓' : '✗'}</span>
+                  <span className={`vmx-match-dnd-badge ${isCorrect ? 'ok' : 'no'}`} aria-hidden>
+                    {isCorrect ? '✓' : '✗'}
+                  </span>
                 )}
               </div>
             );
           })}
         </div>
 
-        {/* Right pool */}
-        <div className="vmx-match-dnd-rightcol" role="listbox" aria-label="ตัวเลือกด้านขวา (ลากหรือแตะเพื่อจับคู่)">
-          {rightPool.map((r, idx) => {
-            const isUsed = usedRights.has(r);
-            const isDragging = draggedRight === r;
-            const isCardSelected = selectedRight === r;
-            return (
-              <div
-                key={r + '-' + idx}
-                role="button"
-                tabIndex={isRevealed ? -1 : 0}
-                draggable={!isRevealed}
-                aria-selected={isUsed || isCardSelected}
-                aria-disabled={isRevealed || undefined}
-                className={`vmx-match-dnd-card ${isUsed ? 'is-used' : ''} ${isDragging ? 'is-dragging' : ''} ${isCardSelected ? 'is-selected' : ''}`}
-                onPointerDown={(e) => handlePointerDown(e, r)}
-                onPointerMove={handlePointerMove}
-                onPointerUp={handlePointerUp}
-                onPointerCancel={handlePointerCancel}
-                onDragStart={(e) => {
-                  if (isRevealed) return;
-                  setDraggedRight(r);
-                  e.dataTransfer.effectAllowed = 'move';
-                  e.dataTransfer.setData('text/plain', r);
-                }}
-                onDragEnd={() => {
-                  setDraggedRight(null);
-                  setHoveredSlotIndex(null);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleCardTap(r);
-                  }
-                }}
-                title={isUsed ? 'ใช้แล้ว — แตะหรือลากเพื่อเปลี่ยนตำแหน่ง' : 'ลากหรือแตะเพื่อจับคู่'}
-              >
-                {strip(r)}
-                {isUsed && <span className="vmx-match-dnd-used-dot" aria-hidden>• ใช้แล้ว</span>}
-              </div>
-            );
-          })}
+        {/* Right column — Option Cards */}
+        <div className="vmx-match-dnd-rightcol" role="region" aria-label="ตัวเลือกด้านขวา">
+          <div className="vmx-match-dnd-rightcol-header">
+            <span className="vmx-match-dnd-rightcol-title">🏷️ ตัวเลือกคำตอบ</span>
+            <span className="vmx-match-dnd-rightcol-count">{rightPool.length - usedRights.size} ว่าง</span>
+          </div>
+
+          <div className="vmx-match-dnd-cards-list">
+            {rightPool.map((r, idx) => {
+              const isUsed = usedRights.has(r);
+              const isDragging = draggedRight === r;
+              const isCardSelected = selectedRight === r;
+
+              return (
+                <div
+                  key={r + '-' + idx}
+                  role="button"
+                  tabIndex={isRevealed ? -1 : 0}
+                  aria-selected={isCardSelected}
+                  aria-disabled={isRevealed || undefined}
+                  className={`vmx-match-dnd-card ${isUsed ? 'is-used' : ''} ${isDragging ? 'is-dragging' : ''} ${isCardSelected ? 'is-selected' : ''}`}
+                  onPointerDown={(e) => handlePointerDown(e, r)}
+                  onPointerMove={handlePointerMove}
+                  onPointerUp={handlePointerUp}
+                  onPointerCancel={handlePointerCancel}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleCardTap(r);
+                    }
+                  }}
+                  title={isUsed ? 'ใช้แล้ว — แตะหรือลากเพื่อเปลี่ยนตำแหน่ง' : 'ลากหรือแตะเพื่อจับคู่'}
+                >
+                  <span className="vmx-match-dnd-grip" aria-hidden>⠿</span>
+                  <span className="vmx-match-dnd-card-text">{strip(r)}</span>
+                  {isUsed && (
+                    <span className="vmx-match-dnd-used-badge" aria-hidden>✓ ใส่แล้ว</span>
+                  )}
+                  {isCardSelected && (
+                    <span className="vmx-match-dnd-selected-tag" aria-hidden>เลือกอยู่</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -310,21 +359,25 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
         <div
           className="vmx-match-dnd-floating-ghost"
           style={{
-            left: dragCoord.x,
-            top: dragCoord.y,
+            left: `${dragCoord.x}px`,
+            top: `${dragCoord.y}px`,
           }}
+          aria-hidden
         >
-          {strip(draggedRight)}
+          <span className="vmx-match-dnd-grip">⠿</span>
+          <span>{strip(draggedRight)}</span>
         </div>
       )}
 
-      {/* Keyboard fallback: native selects (screen reader / no-drag) */}
+      {/* Keyboard fallback: native selects (accessible for screen readers & assistive tools) */}
       <details className="vmx-match-dnd-fallback">
-        <summary>⌨️ ใช้แป้นพิมพ์ / เมนูตัวเลือก (fallback)</summary>
-        <div className="vmx-match-row" style={{ marginTop: 8 }}>
+        <summary>⌨️ เมนูตัวเลือกแบบข้อความ (Accessibility / Keyboard Fallback)</summary>
+        <div className="vmx-match-row" style={{ marginTop: 10 }}>
           {currentQ.pairs.map((pair, i) => (
             <div key={i} className="vmx-match-item">
-              <div className="vmx-match-left"><RichText text={pair.left} /></div>
+              <div className="vmx-match-left">
+                <strong>{i + 1}.</strong> <RichText text={pair.left} />
+              </div>
               <select
                 className="vmx-match-select"
                 value={getVal(i)}
@@ -332,25 +385,43 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                 disabled={isRevealed}
                 onChange={(e) => setPair(i, e.target.value)}
               >
-                <option value="">— เลือก —</option>
-                {rightPool.map((r, j) => <option key={j} value={r}>{strip(r)}</option>)}
+                <option value="">— เลือกคำตอบ —</option>
+                {rightPool.map((r, j) => (
+                  <option key={j} value={r}>
+                    {strip(r)}
+                  </option>
+                ))}
               </select>
             </div>
           ))}
         </div>
       </details>
 
+      {/* Instant reveal feedback in Practice Mode */}
       {isRevealed && (
         <div className="vmx-match-dnd-reveal" role="status">
           {(() => {
             let correct = 0;
-            for (let i = 0; i < currentQ.pairs.length; i++) if (getVal(i) === currentQ.pairs[i].right) correct++;
+            for (let i = 0; i < currentQ.pairs.length; i++) {
+              if (getVal(i) === currentQ.pairs[i].right) correct++;
+            }
             const total = currentQ.pairs.length;
             const pct = Math.round((correct / total) * 100);
-            return <span>ได้ {correct}/{total} ({pct}%) {correct === total ? '— ถูกต้องทั้งหมด ✓' : correct === 0 ? '— ลองใหม่' : '— ได้บางส่วน'}</span>;
+            const isAllCorrect = correct === total;
+            return (
+              <div className={`vmx-match-reveal-banner ${isAllCorrect ? 'pass' : correct > 0 ? 'partial' : 'fail'}`}>
+                <span className="vmx-match-reveal-score">
+                  {isAllCorrect ? '🎉' : correct > 0 ? '⚡' : '❌'} ได้ <strong>{correct}/{total}</strong> คู่ ({pct}%)
+                </span>
+                <span className="vmx-match-reveal-msg">
+                  {isAllCorrect ? 'ถูกต้องครบทุกคู่!' : correct > 0 ? 'ถูกบางคู่ — ดูเฉลยด้านล่าง' : 'ยังไม่ถูก — ลองศึกษาเฉลยอีกครั้ง'}
+                </span>
+              </div>
+            );
           })()}
         </div>
       )}
     </div>
   );
 }
+
