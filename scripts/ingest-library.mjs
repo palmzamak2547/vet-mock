@@ -199,6 +199,12 @@ async function main() {
 
         const row = {
             slug: slugify(name, sha), title: name || key, kind: kindFor(it.folder, name),
+            // The catalog has no course column, and 3,000 files with no
+            // course label is a shelf nobody can browse. The description
+            // carries it: "3107415 Companion Animal Clinical Sciences I —
+            // Lecture Slides", which the UI already renders under titles.
+            description: [it.courseNo, decodeThaiEscapes(it.courseTitle || ''), '—', decodeThaiEscapes(it.folder || '')]
+              .filter(Boolean).join(' ').replace(/ — $/, '') || null,
             subject: it.subject || null, year: it.year ?? null, semester: it.semester ?? null,
             academic_year: it.academicYear ?? null,
             storage_provider: 'r2', storage_bucket: cfg.bucket, storage_key: key,
