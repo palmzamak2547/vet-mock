@@ -134,6 +134,34 @@ export async function rateLimit(key, max, winMs) {
   return rateLimitInMemory(key, max, winMs);
 }
 
+// --- Shared Upstash KV (same DB, same REST client) ------------------
+// Small best-effort JSON cache, used by the AI answer cache. A missing
+// or failing backend reads as a miss and writes vanish silently — the
+// caller must always be correct without it.
+
+export async function kvGetJSON(key) {
+  if (!HAS_UPSTASH) return null;
+  try {
+    const r = await upstashPipeline([['GET', key]]);
+    const raw = r?.[0]?.result;
+    if (typeof raw !== 'string') return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+export async function kvSetJSON(key, value, ttlSec) {
+  if (!HAS_UPSTASH) return;
+  try {
+    const raw = JSON.stringify(value);
+    if (raw.length > 100_000) return; // keep the shared rate-limit DB lean
+    await upstashPipeline([['SET', key, raw, 'EX', String(Math.max(1, Math.floor(ttlSec)))]]);
+  } catch {
+    // best-effort
+  }
+}
+
 /** Best-effort client IP extraction for rate-limit keys (not auth!). */
 export function clientIP(req) {
   // Vercel documents x-vercel-forwarded-for as its platform-owned copy of

@@ -27,7 +27,9 @@
 // instead of breaking.
 // ============================================================
 
-import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { createHash } from 'node:crypto';
+
 import { chatJSON, extractJSON, llmConfigured, hasCJK } from './_lib/llm.js';
 import { loadTopic } from '../src/lib/vetwiki/index.js';
 import { retrieveSections, sectionsForPicks } from '../src/lib/vetwiki/retrieve.js';
@@ -128,6 +130,19 @@ export default async function handler(req, res) {
       : [];
 
     if (!question) return res.status(400).json({ error: 'question is required' });
+
+    // Answer cache — exact-match on the normalized input tuple. The palette
+    // placeholders now TEACH specific example questions, so identical asks
+    // are a hot path; a repeat should not spend the shared daily LLM budget
+    // or 2-5 s of a student's time on an answer the validator already
+    // approved. Cached payloads passed validateAnswer before being stored,
+    // and the client's isomorphic guard re-validates them like any answer.
+    const norm = question.replace(/\s+/g, ' ').toLowerCase();
+    const cacheKey = `ask:${createHash('sha1').update(JSON.stringify({ norm, subject, topic, wanted })).digest('hex')}`;
+    const cached = await kvGetJSON(cacheKey);
+    if (cached && Array.isArray(cached.claims) && cached.claims.length) {
+      return res.status(200).json({ ...cached, meta: { ...(cached.meta || {}), cached: true } });
+    }
 
     // topic mode (article panel) or corpus mode (AI Search) — both end at
     // the same shape: `picked` = [{ subject, topic, topicTitle, section }].
@@ -247,7 +262,7 @@ export default async function handler(req, res) {
       });
     }
 
-    return res.status(200).json({
+    const payload = {
       claims,
       meta: {
         mode: topicMeta ? 'topic' : 'corpus',
@@ -258,7 +273,10 @@ export default async function handler(req, res) {
         downgraded,
         model: answer.model,
       },
-    });
+    };
+    // Awaited on purpose: Vercel can reap un-awaited work at response end.
+    await kvSetJSON(cacheKey, payload, 3600);
+    return res.status(200).json(payload);
 
   } catch (err) {
     if (err?.name === 'AbortError') return res.status(504).json({ error: 'AI request timed out' });
