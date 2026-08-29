@@ -647,6 +647,40 @@ export default function CommandPalette({
   // Touch has no Ctrl — the chip and hints must speak tap, not keys.
   const coarsePointer = useMemo(() => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches, []);
   const inputRef = useRef(null);
+
+  // Voice input — the browser's own recognizer (th-TH), no key, no dependency.
+  // The transcript lands in the SAME query state, so everything downstream
+  // (streamed results, the ask row, auto-ask, the ⚡ agent row) works on a
+  // spoken sentence exactly as on a typed one. Hidden where unsupported.
+  const [voice, setVoice] = useState(null); // null | 'listening' | 'denied' | 'error'
+  const recRef = useRef(null);
+  const speechSupported = useMemo(
+    () => typeof window !== 'undefined' && !!(window.SpeechRecognition || window.webkitSpeechRecognition),
+    [],
+  );
+  const toggleVoice = () => {
+    if (recRef.current) { try { recRef.current.stop(); } catch { /* already stopping */ } return; }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return;
+    const rec = new SR();
+    rec.lang = 'th-TH';
+    rec.interimResults = true; // live transcript → results stream while speaking
+    rec.continuous = false;
+    rec.onresult = (e) => {
+      const t = Array.from(e.results).map((r) => r[0]?.transcript || '').join('').trim();
+      if (t) setQuery(t);
+    };
+    rec.onerror = (e) => { setVoice(e?.error === 'not-allowed' || e?.error === 'service-not-allowed' ? 'denied' : 'error'); };
+    rec.onend = () => {
+      recRef.current = null;
+      setVoice((v) => (v === 'listening' ? null : v));
+      inputRef.current?.focus();
+    };
+    recRef.current = rec;
+    setVoice('listening');
+    try { rec.start(); } catch { recRef.current = null; setVoice('error'); }
+  };
+  useEffect(() => () => { try { recRef.current?.stop(); } catch { /* unmount race */ } }, []);
   const dialogRef = useModalFocus({ active: open, onClose, initialFocusRef: inputRef });
   const listRef = useRef(null);
 
@@ -769,6 +803,9 @@ export default function CommandPalette({
       setExpandedGroups(new Set());
       setAsk(null);
       setAgent(null);
+      setVoice(null);
+    } else {
+      try { recRef.current?.stop(); } catch { /* closing while idle */ }
     }
     return undefined;
   }, [open]);
@@ -985,6 +1022,37 @@ export default function CommandPalette({
             autoComplete="off"
             spellCheck="false"
           />
+          {voice === 'listening' && (
+            <span style={{ fontSize: 11.5, color: 'var(--clr-rose-text)', whiteSpace: 'nowrap' }} aria-live="polite">
+              ฟังอยู่…
+            </span>
+          )}
+          {(voice === 'denied' || voice === 'error') && (
+            <span style={{ fontSize: 11.5, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }} aria-live="polite">
+              {voice === 'denied' ? 'ไมค์ถูกปิดสิทธิ์ในเบราว์เซอร์' : 'ฟังไม่สำเร็จ ลองใหม่'}
+            </span>
+          )}
+          {speechSupported && (
+            <button
+              type="button"
+              onClick={toggleVoice}
+              aria-label={voice === 'listening' ? 'หยุดฟังเสียง' : 'สั่งงานหรือถามด้วยเสียง'}
+              aria-pressed={voice === 'listening'}
+              title={voice === 'listening' ? 'หยุดฟังเสียง' : 'สั่งงานหรือถามด้วยเสียง'}
+              style={{
+                all: 'unset', cursor: 'pointer', width: 34, height: 34, display: 'flex',
+                alignItems: 'center', justifyContent: 'center', borderRadius: 8, flexShrink: 0,
+                color: voice === 'listening' ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)',
+                background: voice === 'listening' ? 'color-mix(in srgb, currentColor 12%, transparent)' : 'transparent',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+                <path d="M19 10v1a7 7 0 0 1-14 0v-1" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+              </svg>
+            </button>
+          )}
           <span style={{
             fontFamily: 'var(--vmx-mono)',
             fontSize: 11,
