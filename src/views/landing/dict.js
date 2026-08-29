@@ -14,7 +14,7 @@ export const DICT = {
     ctxChip: 'CUVET / Y5 / S1 Midterm',
     heroEyebrow: 'Built for veterinary students',
     heroPre: 'Practice before the ', heroEm: 'real exam.', heroPost: '',
-    heroSub: 'Study with the veterinary question bank, timed exam mode, detailed explanations, progress tracking, and practical image stations — all available in VetMock today.',
+    heroSub: 'Study with the veterinary question bank, timed exam mode, detailed explanations, progress tracking, practical image stations, a library of real lecture slides, and ask-the-knowledge-base search — all available in VetMock today.',
     heroCta1: 'Start Exam Mode', heroCta2: 'Browse Subjects', heroTrust: 'Free — no credit card. Start practising immediately.',
     // Hero stat labels. The VALUES are derived from the shipped question
     // bank in LandingBody — never hand-typed marketing numbers.
@@ -131,7 +131,7 @@ export const DICT = {
     ctxChip: 'CUVET / ปี 5 / ทม.1 กลาง',
     heroEyebrow: 'สร้างเพื่อนักศึกษาสัตวแพทย์',
     heroPre: 'ลุยโจทย์ให้ชิน ก่อนเข้า', heroEm: 'ห้องสอบจริง', heroPost: '',
-    heroSub: 'อ่านและฝึกจากคลังข้อสอบสัตวแพทย์ ใช้โหมดสอบแบบจับเวลา อ่านเฉลย ติดตามความคืบหน้า และฝึกสถานีภาพ — ทุกอย่างนี้เปิดใช้งานได้จริงใน VetMock',
+    heroSub: 'อ่านและฝึกจากคลังข้อสอบสัตวแพทย์ ใช้โหมดสอบแบบจับเวลา อ่านเฉลย ติดตามความคืบหน้า ฝึกสถานีภาพ เปิดสไลด์จริงจากห้องสมุดเอกสาร และถามคลังความรู้ได้จากช่องค้นหา — ทุกอย่างนี้เปิดใช้งานได้จริงใน VetMock',
     heroCta1: 'เริ่มโหมดสอบ', heroCta2: 'ดูรายวิชา', heroTrust: 'ฟรี ไม่ต้องใช้บัตรเครดิต เริ่มฝึกได้ทันที',
     statQuestions: 'ข้อสอบ', statSubjects: 'รายวิชา', statFree: 'ค่าใช้จ่าย', statFreeValue: 'ฟรี',
     heroWords: ['ฝึกแยกรายวิชา', 'โหมดสอบจับเวลา', 'ทบทวนข้อที่ตอบผิด', 'Spaced Repetition'],
