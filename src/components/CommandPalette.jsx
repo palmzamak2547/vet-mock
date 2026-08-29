@@ -386,6 +386,8 @@ const GROUP_CAP_EXPANDED = 30;
 // asks; on touch it is a big tap target; and when the list comes up empty
 // on a settled question, the ask fires by itself — zero keys.
 const QUESTION_RE = /([?？]\s*$)|(ไหม|มั้ย|อะไร|ทำไม|ยังไง|อย่างไร|เท่าไหร่|เท่าไร|กี่|คือ|ต่างจาก|ต่างกัน|หรือไม่|บ้าง|ที่ไหน|เมื่อไหร่|แค่ไหน|ได้ไหม|ควร)/;
+const ACTION_RE = /(ฝึก|จัด|เปิด|เริ่ม|ติว|ทำข้อสอบ|ขอข้อสอบ|ขอโจทย์|อยากทำ|อยากฝึก|อยากอ่าน|พาไป|ตั้งเวลา|จับเวลา|ให้หน่อย)/;
+const looksLikeAction = (q) => q.length >= 6 && ACTION_RE.test(q);
 const looksLikeQuestion = (q) => q.length >= 8 && (QUESTION_RE.test(q) || /^(why|what|how|when|which|is|are|can|does|do|explain)\b/i.test(q));
 
 const RECENTS_KEY = 'vmx-omni-recents';
@@ -641,6 +643,7 @@ export default function CommandPalette({
   // sourceState: { [id]: { status: 'loading'|'ready'|'error', entries } }
   const [sourceState, setSourceState] = useState({});
   const [ask, setAsk] = useState(null); // null | loading | done | error
+  const [agent, setAgent] = useState(null); // null | loading | confirm | refused | error
   // Touch has no Ctrl — the chip and hints must speak tap, not keys.
   const coarsePointer = useMemo(() => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches, []);
   const inputRef = useRef(null);
@@ -765,6 +768,7 @@ export default function CommandPalette({
       setActiveIdx(0);
       setExpandedGroups(new Set());
       setAsk(null);
+      setAgent(null);
     }
     return undefined;
   }, [open]);
@@ -862,6 +866,47 @@ export default function CommandPalette({
     runAsk();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runAsk reads live state
   }, [debouncedQuery, view, sourcesLoading]);
+
+  const runAgent = async () => {
+    const utterance = query.trim();
+    if (utterance.length < 6 || agent?.phase === 'loading') return;
+    setAgent({ phase: 'loading' });
+    try {
+      const res = await fetch('/api/agent-action', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ utterance }),
+      });
+      if (res.status === 503) { setAgent({ phase: 'error', message: 'ยังไม่ได้เปิดใช้ผู้ช่วยสั่งงาน' }); return; }
+      if (res.status === 429) { setAgent({ phase: 'error', message: 'สั่งบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
+      if (!(res.headers.get('content-type') || '').includes('application/json')) {
+        setAgent({ phase: 'error', message: 'ผู้ช่วยสั่งงานใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
+      }
+      if (!res.ok) { setAgent({ phase: 'error', message: 'สั่งไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
+      const data = await res.json();
+      if (!data.action) { setAgent({ phase: 'refused', message: data.reason || 'ยังไม่มีสิ่งที่ตรงกับคำสั่งนี้ในแอป' }); return; }
+      // The server already validated every id against the live catalog —
+      // the student still confirms before anything runs.
+      setAgent({ phase: 'confirm', action: data.action, say: data.say });
+    } catch {
+      setAgent({ phase: 'error', message: 'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง' });
+    }
+  };
+
+  const executeAgent = (action) => {
+    const h = handlersRef.current;
+    if (action.type === 'practice') { h.onPractice?.(action.invoke); onClose(); return; }
+    if (action.type === 'library') {
+      try { sessionStorage.setItem('vmx-library-q', action.subjectName || ''); } catch { /* nicety */ }
+      h.goView?.('library'); onClose(); return;
+    }
+    if (action.type === 'wiki') { h.onOpenWiki?.(action.subject, action.topic); onClose(); return; }
+    if (action.type === 'feature') {
+      const f = FEATURES.find((x) => x.id === action.id);
+      if (f) runItem({ type: 'action', payload: f.invoke }, h);
+      onClose();
+    }
+  };
 
   const openLibraryShelf = (meta) => {
     try { sessionStorage.setItem('vmx-library-q', meta.name || ''); } catch { /* nicety */ }
@@ -980,6 +1025,60 @@ export default function CommandPalette({
         <ErrorBoundary fallback={null}>
           <AskAnswerCard ask={ask} onOpenWiki={handlersRef.current.onOpenWiki} onClose={onClose} />
         </ErrorBoundary>
+
+        {/* Agentic action — the model picks from a validated catalog, the
+            student confirms, the palette's own dispatch executes. */}
+        {hasQuery && looksLikeAction(debouncedQuery.trim()) && !intents.length && (
+          <button
+            type="button"
+            onClick={runAgent}
+            className="vmx-omni-row"
+            style={{
+              all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
+              boxSizing: 'border-box', width: 'calc(100% - 24px)', margin: '8px 12px 0',
+              padding: '10px 12px', minHeight: 44, borderRadius: 10,
+              border: '1px dashed color-mix(in srgb, var(--clr-gold) 55%, var(--clr-border))',
+              color: 'var(--clr-ink)', fontSize: 13,
+            }}
+          >
+            <span aria-hidden="true" style={{ color: 'var(--clr-gold-text)' }}>⚡</span>
+            <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              สั่งให้จัดการ: “{debouncedQuery.trim()}”
+            </span>
+            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>
+              {coarsePointer ? 'แตะสั่ง' : 'คลิก'}
+            </span>
+          </button>
+        )}
+        {agent?.phase === 'loading' && (
+          <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '12px 16px', display: 'flex', gap: 10, alignItems: 'center' }} aria-live="polite">
+            <span className="vmx-omni-spark" aria-hidden="true" style={{ color: 'var(--clr-gold-text)' }}>⚡</span>
+            <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>กำลังอ่านคำสั่งและเทียบกับสิ่งที่แอปทำได้จริง…</span>
+          </div>
+        )}
+        {(agent?.phase === 'refused' || agent?.phase === 'error') && (
+          <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '12px 16px' }}>
+            <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{agent.message}</span>
+          </div>
+        )}
+        {agent?.phase === 'confirm' && (
+          <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
+              <span aria-hidden="true" style={{ color: 'var(--clr-gold-text)' }}>⚡</span>
+              <span style={{ fontSize: 13.5, lineHeight: 1.6 }}>{agent.say}</span>
+            </div>
+            <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+              <button type="button" onClick={() => executeAgent(agent.action)}
+                style={{ font: 'inherit', fontSize: 12.5, fontWeight: 700, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-sage)', color: 'var(--clr-ink)', borderRadius: 8, padding: '7px 14px' }}>
+                ทำเลย
+              </button>
+              <button type="button" onClick={() => setAgent(null)}
+                style={{ font: 'inherit', fontSize: 12.5, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '7px 14px' }}>
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Answer cards — intent hits computed from real data */}
         {intents.map((intent) => (

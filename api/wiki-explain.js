@@ -28,7 +28,7 @@
 // ============================================================
 
 import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { chatJSON, llmConfigured } from './_lib/llm.js';
+import { chatJSON, extractJSON, llmConfigured } from './_lib/llm.js';
 import { loadTopic } from '../src/lib/vetwiki/index.js';
 import { retrieveSections, sectionsForPicks } from '../src/lib/vetwiki/retrieve.js';
 import { validateAnswer, allowedFromSections } from '../src/lib/vetwiki/answer.js';
@@ -194,13 +194,8 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: 'AI provider error', status: answer.status });
     }
 
-    const raw = answer.text;
-    let parsed;
-    try {
-      parsed = JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}') + 1));
-    } catch {
-      return res.status(502).json({ error: 'AI returned malformed output' });
-    }
+    const parsed = extractJSON(answer.text);
+    if (!parsed) return res.status(502).json({ error: 'AI returned malformed output' });
 
     // Cited-section map for the client: which article each id lives in, so
     // the AI Search card can navigate to it AND re-validate the citation
