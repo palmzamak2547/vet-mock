@@ -668,15 +668,24 @@ export default function CommandPalette({
     rec.lang = 'th-TH';
     rec.interimResults = true; // live transcript → results stream while speaking
     rec.continuous = false;
+    let finalT = '';
     rec.onresult = (e) => {
       const t = Array.from(e.results).map((r) => r[0]?.transcript || '').join('').trim();
-      if (t) setQuery(t);
+      if (t) { finalT = t; setQuery(t); }
     };
     rec.onerror = (e) => { setVoice(e?.error === 'not-allowed' || e?.error === 'service-not-allowed' ? 'denied' : 'error'); };
     rec.onend = () => {
       recRef.current = null;
       setVoice((v) => (v === 'listening' ? null : v));
       inputRef.current?.focus();
+      // Hands-free: a finished spoken sentence acts on itself. A command
+      // fetches its plan (execution still waits for the ทำเลย tap), a
+      // question asks; a plain phrase just leaves its search results.
+      // Action is checked first — "จัดข้อสอบ 20 ข้อได้ไหม" is a polite
+      // command, not a question about the world.
+      const t = finalT.trim();
+      if (t.length >= 6 && looksLikeAction(t)) { lastAutoAsk.current = t; runAgent(t); }
+      else if (t.length >= 8 && looksLikeQuestion(t)) { lastAutoAsk.current = t; runAsk(t); }
     };
     recRef.current = rec;
     setVoice('listening');
@@ -849,8 +858,8 @@ export default function CommandPalette({
     onClose();
   };
 
-  const runAsk = async () => {
-    const question = query.trim();
+  const runAsk = async (spoken) => {
+    const question = (typeof spoken === 'string' ? spoken : query).trim();
     if (question.length < 8 || ask?.phase === 'loading') return;
     setAsk({ phase: 'loading' });
     try {
@@ -907,8 +916,8 @@ export default function CommandPalette({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runAsk reads live state
   }, [debouncedQuery, view, sourcesLoading]);
 
-  const runAgent = async () => {
-    const utterance = query.trim();
+  const runAgent = async (spoken) => {
+    const utterance = (typeof spoken === 'string' ? spoken : query).trim();
     if (utterance.length < 6 || agent?.phase === 'loading') return;
     setAgent({ phase: 'loading' });
     try {

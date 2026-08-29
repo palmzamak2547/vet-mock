@@ -280,6 +280,11 @@ export default async function handler(req, res) {
 
   } catch (err) {
     if (err?.name === 'AbortError') return res.status(504).json({ error: 'AI request timed out' });
+    // A malformed request body throws when req.body is touched — that is
+    // the caller's error, not ours (probed live: it answered 500 before).
+    if (/invalid json/i.test(String(err?.message || ''))) {
+      return res.status(400).json({ error: 'Invalid JSON body' });
+    }
     return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
   }
 }

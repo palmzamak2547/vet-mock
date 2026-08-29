@@ -112,6 +112,9 @@ export default async function handler(req, res) {
     const say = hasCJK(verdict.say) ? (SAY_FALLBACK[verdict.action.type] || 'ทำตามคำสั่งนี้') : verdict.say;
     return res.status(200).json({ action: verdict.action, say, model: answer.model });
   } catch (err) {
+    if (/invalid json/i.test(String(err?.message || ''))) {
+      return res.status(400).json({ error: 'Invalid JSON body' });
+    }
     return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
   }
 }
