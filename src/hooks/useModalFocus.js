@@ -70,10 +70,34 @@ export function useModalFocus({ active = true, onClose, initialFocusRef } = {}) 
       const dialog = dialogRef.current;
       if (!dialog) return;
 
-      // Only the visually top-most migrated modal handles the event. This
-      // prevents Escape in a share/summary modal from also closing its parent.
-      const openDialogs = document.querySelectorAll('[data-vmx-modal="true"]');
-      if (openDialogs.length && openDialogs[openDialogs.length - 1] !== dialog) return;
+      // Only the visually top-most migrated modal handles the event, so Escape
+      // in a share/summary modal does not also close its parent.
+      //
+      // "Top-most" is decided by what the reader actually SEES, not by DOM
+      // order. ConfirmDialog is mounted once at the app root (so it is early in
+      // the DOM) but painted above whatever raised it — a confirm opened from
+      // the command palette was therefore last-in-DOM = the palette, and Escape
+      // closed the palette while the confirm stayed on screen over nothing.
+      const openDialogs = [...document.querySelectorAll('[data-vmx-modal="true"]')];
+      if (openDialogs.length > 1) {
+        const depthOf = (el) => {
+          // Effective stacking: the nearest ancestor (incl. self) that declares
+          // a numeric z-index. Overlays carry it, their inner panels do not.
+          for (let n = el; n && n !== document.body; n = n.parentElement) {
+            const z = Number.parseInt(getComputedStyle(n).zIndex, 10);
+            if (Number.isFinite(z)) return z;
+          }
+          return 0;
+        };
+        let top = openDialogs[0];
+        let topZ = depthOf(top);
+        for (const el of openDialogs.slice(1)) {
+          const z = depthOf(el);
+          // >= so a later sibling at the same level still wins, matching paint order.
+          if (z >= topZ) { top = el; topZ = z; }
+        }
+        if (top !== dialog) return;
+      }
 
       if (event.key === 'Escape') {
         event.preventDefault();

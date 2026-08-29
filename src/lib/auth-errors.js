@@ -46,5 +46,13 @@ export function thaiAuthError(err) {
   for (const p of PATTERNS) {
     if (p.match.test(raw)) return p.th;
   }
-  return raw || 'เกิดข้อผิดพลาด';
+  // Thai already? It came from our own code — pass it through.
+  if (/[ก-๙]/.test(raw)) return raw;
+  // Otherwise this is an unmapped provider string in English ("Database error
+  // saving new user", "Invalid Refresh Token: Already Used"). It used to be
+  // printed verbatim across every login and account screen, which is debugging
+  // output on a student's sign-in page. Keep it for the console, show a
+  // sentence they can act on.
+  if (raw) console.warn('[auth] unmapped error:', raw);
+  return 'เข้าสู่ระบบไม่สำเร็จ ลองใหม่อีกครั้ง หรือใช้วิธีเข้าสู่ระบบแบบอื่น';
 }

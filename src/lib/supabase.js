@@ -393,14 +393,21 @@ export async function deleteAccountData() {
     return { ok: false, errors: [{ table: '__network__', error: e?.message || String(e) }] };
   }
 
-  // Edge Function already deleted auth.users (on success), so the
-  // existing session is invalidated server-side. signOut clears the
-  // client-side session cache + dispatches the auth-changed event.
-  try { await supabase.auth.signOut({ scope: 'global' }); } catch {}
-  notifyAuthChanged();
+  // Sign out ONLY on success. On success the Edge Function has already deleted
+  // auth.users, so the session is dead server-side and this just clears the
+  // client cache. On a PARTIAL failure the account still exists (the function
+  // deliberately skips the auth.users delete when any table errored) — and
+  // signing out there destroyed the session on every device while the UI told
+  // the student to "try again", a retry they could no longer perform without
+  // logging back in first.
+  const ok = !!report?.ok;
+  if (ok) {
+    try { await supabase.auth.signOut({ scope: 'global' }); } catch {}
+    notifyAuthChanged();
+  }
 
   return {
-    ok: !!report?.ok,
+    ok,
     deleted: report?.deleted || {},
     errors: report?.errors || [],
   };

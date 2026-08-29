@@ -6,6 +6,10 @@ import { expect, test } from '@playwright/test';
 // about. The test name says "counts ... truthful"; truthful means
 // matching the data, not matching a number typed here in August.
 import { Q_COUNTS_BY_TOPIC } from '../../src/data/q-counts.js';
+// Same reasoning for the year sentence: it is DERIVED from which years are
+// live, so freezing the August wording here made the test fail the day ปี 3
+// opened — the app becoming more correct broke its own guard.
+import { YEARS } from '../../src/data/curriculum.js';
 import { readFile } from 'node:fs/promises';
 import dicomParser from 'dicom-parser';
 
@@ -175,7 +179,11 @@ test.describe('connected study experience', () => {
     page.on('pageerror', (error) => pageErrors.push(error.message));
 
     await page.goto('/app/year');
-    await expect(page.getByText('ปี 1, ปี 2, ปี 4 และ ปี 5 เปิดให้ฝึกแล้ว')).toBeVisible();
+    const liveLabels = YEARS.filter((y) => !y.scaffold).map((y) => y.label);
+    const liveYearCopy = liveLabels.length > 1
+      ? `${liveLabels.slice(0, -1).join(', ')} และ ${liveLabels[liveLabels.length - 1]}`
+      : liveLabels[0];
+    await expect(page.getByText(`${liveYearCopy} เปิดให้ฝึกแล้ว`)).toBeVisible();
 
     await page.getByRole('button', { name: /ปี 5 LIVE/ }).click();
     await expect(page.getByRole('heading', { level: 1, name: /ช่วงสอบ/ })).toBeVisible();

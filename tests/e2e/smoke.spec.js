@@ -319,8 +319,13 @@ test.describe('VetMock smoke flow', () => {
     await expect(page.getByRole('navigation', { name: 'breadcrumb' })).toBeVisible();
     await expect(page.getByRole('navigation', { name: 'สารบัญ' })).toBeVisible();
 
-    // Honest governance is visible: unverified note content reads "ฉบับร่าง".
-    await expect(page.locator('.vmx-qtype-badge', { hasText: 'ฉบับร่าง' }).first()).toBeVisible();
+    // Honest governance is visible. This used to require a "ฉบับร่าง" badge,
+    // but drafts were deliberately eliminated when every section reached a
+    // verified state — so the assertion outlived the thing it described and
+    // sat red. What must hold now is the opposite: a governed badge is shown,
+    // and nothing on the page still calls itself a draft.
+    await expect(page.locator('.vmx-qtype-badge').first()).toBeVisible();
+    await expect(page.locator('.vmx-qtype-badge', { hasText: 'ฉบับร่าง' })).toHaveCount(0);
 
     // A claim cross-checked against an external reference is marked as such.
     await expect(page.getByText('ตรวจทานกับแหล่งอ้างอิง').first()).toBeVisible();

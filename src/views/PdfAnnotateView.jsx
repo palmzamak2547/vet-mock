@@ -19,6 +19,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import BackBar from '../components/BackBar.jsx';
+import { thaiError } from '../lib/errors.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
 import {
   hashFile,
@@ -221,7 +222,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       }
     } catch (e) {
       console.error('[pdf-annotate] remote load failed:', e);
-      setError('เปิดเอกสารจากคลังไม่สำเร็จ: ' + (e?.message || 'ลิงก์อาจหมดอายุ'));
+      // The old line pasted raw pdf.js/HTTP text into Thai and then asserted
+      // 'ลิงก์อาจหมดอายุ' as the cause for every failure, expiry or not.
+      setError(thaiError(e, 'เปิดเอกสารจากคลังไม่สำเร็จ ลองกดลองเปิดอีกครั้ง'));
     } finally {
       setLoading(false);
       setLoadingMsg('');

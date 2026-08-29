@@ -30,6 +30,7 @@ import {
 } from '../lib/contributions.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
+import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
 
 const STEM_PREVIEW_CHARS = 150;
@@ -76,7 +77,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
       setQueue(data);
     } catch (err) {
       console.error('fetchReviewQueue failed:', err);
-      setQueueError(err?.message || 'โหลด queue ไม่สำเร็จ');
+      setQueueError(thaiError(err, 'โหลดคิวตรวจทานไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally {
       setQueueLoading(false);
     }

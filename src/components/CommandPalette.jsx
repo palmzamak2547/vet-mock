@@ -882,7 +882,16 @@ export default function CommandPalette({
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ question }),
       });
-      if (res.status === 503) { setAsk({ phase: 'error', message: 'ยังไม่ได้เปิดใช้การถามจากคลังความรู้ — เนื้อหาทั้งหมดยังอ่านได้ตามปกติ' }); return; }
+      if (res.status === 503) {
+        // 503 covers both "no model key" and "today's quota is spent". Printing
+        // the first for both told a student who merely hit the cap that the
+        // feature does not exist, so they would never come back to it.
+        const why = await res.json().catch(() => null);
+        setAsk({ phase: 'error', message: why?.reason === 'budget'
+          ? 'วันนี้ถามครบโควตาแล้ว พรุ่งนี้ถามได้อีก — เนื้อหาในคลังความรู้ยังอ่านได้ตามปกติ'
+          : 'ยังไม่ได้เปิดใช้การถามจากคลังความรู้ — เนื้อหาทั้งหมดยังอ่านได้ตามปกติ' });
+        return;
+      }
       if (res.status === 429) { setAsk({ phase: 'error', message: 'ถามบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
       if (!(res.headers.get('content-type') || '').includes('application/json')) {
         setAsk({ phase: 'error', message: 'การถามใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
@@ -940,7 +949,13 @@ export default function CommandPalette({
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ utterance }),
       });
-      if (res.status === 503) { setAgent({ phase: 'error', message: 'ยังไม่ได้เปิดใช้ผู้ช่วยสั่งงาน' }); return; }
+      if (res.status === 503) {
+        const why = await res.json().catch(() => null);
+        setAgent({ phase: 'error', message: why?.reason === 'budget'
+          ? 'วันนี้สั่งงานครบโควตาแล้ว พรุ่งนี้ใช้ได้อีก'
+          : 'ยังไม่ได้เปิดใช้ผู้ช่วยสั่งงาน' });
+        return;
+      }
       if (res.status === 429) { setAgent({ phase: 'error', message: 'สั่งบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
       if (!(res.headers.get('content-type') || '').includes('application/json')) {
         setAgent({ phase: 'error', message: 'ผู้ช่วยสั่งงานใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;

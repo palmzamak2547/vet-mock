@@ -435,12 +435,21 @@ export async function resolveDocUrl(doc) {
       // the document was never opened on this device, the request falls
       // through to the network and fails honestly.
       if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
-      throw netErr;
+      throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
     }
     if (res.status === 401) throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
     if (!res.ok) {
+      // The endpoint answers with machine codes (not_found, storage_not_configured,
+      // catalog_unavailable). Printing those, or a bare HTTP number, told the
+      // reader nothing they could act on.
       const body = await res.json().catch(() => ({}));
-      throw new Error(`ขอลิงก์ไฟล์ไม่สำเร็จ: ${body.error || res.status}`);
+      const code = body.error || '';
+      throw new Error(
+        code === 'not_found' ? 'ไม่พบไฟล์นี้ในคลังแล้ว อาจถูกนำออกไป'
+          : code === 'storage_not_configured' ? 'คลังเอกสารยังไม่พร้อมใช้งาน ลองใหม่ภายหลัง'
+            : res.status >= 500 ? 'เซิร์ฟเวอร์คลังเอกสารขัดข้องชั่วคราว ลองใหม่อีกครั้ง'
+              : 'เปิดไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง',
+      );
     }
     const { url } = await res.json();
     if (!url) throw new Error('ขอลิงก์ไฟล์ไม่สำเร็จ');

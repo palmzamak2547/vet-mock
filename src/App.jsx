@@ -521,7 +521,19 @@ export default function App() {
   // context separate from the last exam subject so global Videos never
   // inherits a stale filter.
   const [videoSubject, setVideoSubject] = useState(null);
-  const [practiceMode, setPracticeMode] = useState('all');
+  const [practiceMode, setPracticeModeRaw] = useState('all');
+  // Choosing a curated pool (bookmarks / weak / wrong) is a whole-library
+  // intent, and those pools ignore the subject filter entirely. But a subject
+  // left over from an earlier session made normalizePracticeMode strip the
+  // mode straight back to 'all' — so pressing "ข้อที่บันทึกไว้" in the header,
+  // "ทำข้อที่อ่อน" on the dashboard, or a pinned question on the pinboard
+  // quietly served an ordinary practice set instead. Clearing the subject here
+  // keeps the more recent, more specific signal (the button the student just
+  // pressed) without weakening the guard that rule exists for.
+  const setPracticeMode = useCallback((mode) => {
+    setPracticeModeRaw(mode);
+    if (USER_CURATED_MODES.has(mode)) setSubject('all');
+  }, []);
   const [activeGroup, setActiveGroup] = useState(null);
   // selectedYear persists in localStorage. Fallback `null` means "user
   // hasn't picked yet" — the year-select front door above keys off this.
@@ -1104,8 +1116,13 @@ export default function App() {
       // Look up the first question to derive the subject for display
       subjectId: saved.questions[0]?.subject || null,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only on first mount
-  }, []);
+    // Re-runs when the view changes, not only at boot. Both exit paths promise
+    // the set is "เก็บไว้ที่หน้าแรก", but the card is driven by pendingResume —
+    // computed once on mount — so a student who left an exam without reloading
+    // reached a Home screen with no resume card at all, and the promise was
+    // only kept on their NEXT visit.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view]);
 
   // Handler triggered by the resume banner on HomeView.
   const resumePendingExam = useCallback(() => {

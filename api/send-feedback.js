@@ -91,7 +91,9 @@ export default async function handler(req, res) {
     const providerBudget = await rateLimit('provider:resend:daily', 100, 24 * 60 * 60 * 1000);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
-      return res.status(429).json({ error: 'Daily feedback capacity reached', retryAfter: providerBudget.retryAfter });
+      // Distinct from the per-IP 3-per-10-minutes limit above: this one is
+      // platform-wide, so telling the sender to wait ten minutes is wrong.
+      return res.status(429).json({ error: 'Daily feedback capacity reached', reason: 'daily_cap', retryAfter: providerBudget.retryAfter });
     }
 
     const emailHtml = `

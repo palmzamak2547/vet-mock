@@ -171,8 +171,13 @@ export default async function handler(req, res) {
     const providerBudget = await rateLimit('provider:llm:daily', 600, 24 * 60 * 60 * 1000);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
+      // 'budget' vs 'not_configured' matter to the reader: one is "come back
+      // tomorrow", the other is "this app does not do that". The client used to
+      // print the not-configured sentence for both, so a student who hit the
+      // cap was told the feature does not exist and never tried again.
       return res.status(503).json({
         error: 'AI daily capacity reached',
+        reason: 'budget',
         hint: 'VetWiki content is still readable without AI.',
       });
     }

@@ -13,6 +13,7 @@
 // ============================================================
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import BackBar from '../components/BackBar.jsx';
+import { thaiError } from '../lib/errors.js';
 import {
   CONTRIBUTION_SOURCE_TYPES,
   validateSubmission,
@@ -199,7 +200,11 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
       refreshAll();
     } catch (err) {
       console.error('[contribute] submit failed', err);
-      setSubmitError(err?.message || 'ส่งไม่สำเร็จ — ลองใหม่อีกครั้ง');
+      // err.message here can be an internal code ('NOT_SIGNED_IN') or a raw
+      // PostgREST/Postgres string — neither is readable or actionable.
+      setSubmitError(/not_signed_in|jwt|auth/i.test(err?.message || '')
+        ? 'ต้องเข้าสู่ระบบก่อนจึงจะส่งคำถามได้'
+        : thaiError(err, 'ส่งไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally {
       setSubmitting(false);
     }

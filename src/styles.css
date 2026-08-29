@@ -3333,3 +3333,17 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   .vmx-stagger > * { animation: none !important; }
   .vmx-xp-bump { animation: none !important; }
 }
+
+/* Advancing a question — the app's most repeated moment. Direction-aware so
+   going back reads as going back. Applied by restarting the animation on the
+   wrapper (ExamView), never by remounting the card: the question owns passage
+   panels and pen overlays that must survive moving between two questions of
+   the same reading passage. */
+@keyframes vmx-q-advance { from { opacity: 0; transform: translateX(14px); } }
+@keyframes vmx-q-back { from { opacity: 0; transform: translateX(-14px); } }
+.vmx-q-advance { animation: vmx-q-advance 0.28s cubic-bezier(0.22, 1, 0.36, 1); }
+.vmx-q-back { animation: vmx-q-back 0.28s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmx-q-advance, .vmx-q-back { animation: none !important; }
+}

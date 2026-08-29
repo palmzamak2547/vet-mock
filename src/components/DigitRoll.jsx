@@ -48,7 +48,11 @@ export default function DigitRoll({ value, format, className }) {
   }, []);
 
   return (
-    <span ref={ref} className={`vmx-roll ${className || ''}`} aria-label={text}>
+    // aria-label on a bare <span> has no role to attach to, and every child
+    // here is aria-hidden — so the number could be announced as nothing at all.
+    // A visually-hidden text node is the reliable way to say it once.
+    <span ref={ref} className={`vmx-roll ${className || ''}`}>
+      <span className="vmx-sr-only">{text}</span>
       {Array.from(text).map((ch, i) => (
         /\d/.test(ch) ? (
           <span key={i} aria-hidden="true" className="vmx-digit">

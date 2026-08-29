@@ -78,7 +78,7 @@ export default async function handler(req, res) {
     const providerBudget = await rateLimit('provider:llm:daily', 600, 24 * 60 * 60 * 1000);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
-      return res.status(503).json({ error: 'AI daily capacity reached' });
+      return res.status(503).json({ error: 'AI daily capacity reached', reason: 'budget' });
     }
 
     const catalog = buildCatalog();

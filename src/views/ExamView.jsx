@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
 import { fmtTime, isCorrect, isWritingType } from '../hooks/utils.js';
@@ -19,6 +19,24 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
   });
   const answeredCount = questions.filter((q) => answers[q.id] !== undefined).length;
   const isLast = currentIdx === questions.length - 1;
+
+  // Advancing a question is the single most repeated moment in the app, and it
+  // used to swap with no transition at all. The card is NOT remounted to do
+  // this: QuestionComponent owns passage panels, highlights and pen overlays
+  // that must survive moving between two questions of the same reading
+  // passage. Restarting the animation by hand keeps every bit of that state.
+  const qCardRef = useRef(null);
+  const prevIdxRef = useRef(currentIdx);
+  useEffect(() => {
+    const el = qCardRef.current;
+    const back = currentIdx < prevIdxRef.current;
+    prevIdxRef.current = currentIdx;
+    if (!el) return;
+    if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    el.classList.remove('vmx-q-advance', 'vmx-q-back');
+    void el.offsetWidth; // force reflow so the animation restarts
+    el.classList.add(back ? 'vmx-q-back' : 'vmx-q-advance');
+  }, [currentIdx]);
   // Keyboard on the last Q (Space/Enter/J in App) asks to submit — surface
   // the same confirm dialog the button opens, so a keypress can't end the
   // exam without an explicit confirm.
@@ -122,6 +140,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
         </div>
       )}
 
+      <div ref={qCardRef}>
       <QuestionComponent
         currentQ={currentQ}
         currentAnswer={currentAnswer}
@@ -134,6 +153,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
         setShowNote={setShowNote}
         revealAnswer={revealAnswer}
       />
+      </div>
 
       <div className="vmx-btn-row">
         <button className="vmx-btn vmx-btn-ghost" onClick={prevQ} disabled={currentIdx === 0}>← ข้อก่อนหน้า</button>

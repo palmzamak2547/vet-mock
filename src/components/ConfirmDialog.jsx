@@ -63,13 +63,18 @@ export default function ConfirmDialog({
         aria-labelledby={titleId}
       >
         <h2 id={titleId} style={{ margin: '0 0 8px' }}>{title}</h2>
+        {/* pre-line, because callers pass real newlines: the backup-restore
+            dialogs separate "what went wrong" / "the reason" / "nothing was
+            changed" with blank lines, and a <p> collapsed all three into one
+            run-on sentence at the exact moment a student needs to read
+            carefully. */}
         {body && (
-          <p style={{ margin: '0 0 6px', color: 'var(--clr-ink-soft)', fontSize: 14, lineHeight: 1.6 }}>
+          <p style={{ margin: '0 0 6px', color: 'var(--clr-ink-soft)', fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-line' }}>
             {body}
           </p>
         )}
         {note && (
-          <p style={{ margin: '0 0 4px', color: 'var(--clr-rose-text)', fontSize: 13.5, fontWeight: 600, lineHeight: 1.6 }}>
+          <p style={{ margin: '0 0 4px', color: 'var(--clr-rose-text)', fontSize: 13.5, fontWeight: 600, lineHeight: 1.6, whiteSpace: 'pre-line' }}>
             {note}
           </p>
         )}

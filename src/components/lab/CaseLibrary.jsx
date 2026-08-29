@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { thaiError } from '../../lib/errors.js';
 
 // DICOM Modality (0008,0060) values map into 5 user-facing buckets.
 // X-ray rolls up DX/CR/RG/RF/MG/PX since to a vet student they're
@@ -130,7 +131,7 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('[CaseLibrary] open case error:', e);
-      setError(e?.message || String(e));
+      setError(thaiError(e, 'เปิดเคสไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally {
       setOpeningId(null);
     }

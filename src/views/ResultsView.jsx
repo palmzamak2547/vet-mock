@@ -1050,7 +1050,13 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
         setHint('ดาวน์โหลดรูปแล้ว อัปโหลดเข้า IG Story ได้เลย @vetmock.cu');
       }
     } catch (e) {
-      setHint('แชร์ไม่สำเร็จ ลองใหม่อีกครั้ง');
+      // Dismissing the OS share sheet rejects with AbortError. Reporting that
+      // as "แชร์ไม่สำเร็จ" told a student their deliberate cancel was a bug.
+      if (e?.name === 'AbortError' || /abort|cancel/i.test(e?.message || '')) {
+        setHint('');
+      } else {
+        setHint('แชร์ไม่สำเร็จ ลองใหม่อีกครั้ง');
+      }
     } finally {
       setBusy(false);
     }

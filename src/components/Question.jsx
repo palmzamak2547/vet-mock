@@ -11,7 +11,7 @@ import VoiceInputButton from './VoiceInputButton.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
-import { promptDialog } from '../lib/dialog.js';
+import { promptDialog, alertDialog } from '../lib/dialog.js';
 import MatchDragDrop from './MatchDragDrop.jsx';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
@@ -218,11 +218,15 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       setFlagState(entry);
       // The report must actually REACH someone — for a long time this only
       // wrote localStorage, so students typed out real complaints about
-      // wrong answer keys and nobody was ever told. Fire-and-forget via the
-      // same channel as the feedback page; the local flag above stays as the
-      // student's own marker either way.
+      // wrong answer keys and nobody was ever told. The local flag above stays
+      // as the student's own marker either way.
       try {
-        fetch('/api/send-feedback', {
+        // Check that it actually ARRIVED. Fire-and-forget marked the question
+        // as reported whatever happened, so a rate limit, an outage or simply
+        // being offline left the student believing the team had been told when
+        // nobody had — the same silence this button exists to end, one level
+        // quieter.
+        const resp = await fetch('/api/send-feedback', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -230,8 +234,17 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             subject: `แจ้งปัญหาข้อสอบ ${compoundId}`,
             message: `${entry.reason}\n\nข้อ: ${compoundId}\nโจทย์: ${String(currentQ?.q || '').slice(0, 300)}`,
           }),
-        }).catch(() => {});
-      } catch { /* offline — the local flag still records it */ }
+        });
+        if (!resp.ok) throw new Error(`send ${resp.status}`);
+      } catch (err) {
+        console.warn('[flag] report not delivered:', err?.message);
+        map[compoundId] = { ...entry, delivered: false };
+        writeFlags(map);
+        alertDialog({
+          title: 'ส่งรายงานไม่สำเร็จ',
+          body: 'เครื่องหมายบนข้อนี้บันทึกไว้ในเครื่องแล้ว แต่ยังส่งถึงทีมงานไม่ได้ ลองใหม่ภายหลัง หรือส่งผ่านหน้าแจ้งปัญหาได้เลย',
+        });
+      }
     }
   };
 

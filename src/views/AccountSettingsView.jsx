@@ -291,9 +291,18 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       if (result.ok !== true) {
         console.warn('Delete errors:', result.errors);
         const networkOnly = (result.errors || []).some((e) => e.table === '__network__');
+        // A partial failure cannot claim "ข้อมูลยังอยู่": the function purges
+        // table by table and reports which ones it got through, so some of the
+        // student's history may already be gone. Say what is actually known
+        // instead of a reassurance the code cannot back up.
+        const purged = Object.entries(result.deleted || {})
+          .filter(([, v]) => v && v !== 0)
+          .length;
         setError(networkOnly
           ? 'ลบไม่สำเร็จ — ติดต่อเซิร์ฟเวอร์ไม่ได้ ข้อมูลของคุณยังอยู่ครบ โปรดลองใหม่อีกครั้ง'
-          : 'ลบไม่สำเร็จ — บัญชีและข้อมูลยังอยู่ โปรดลองใหม่ หรือ email vetmock เพื่อให้ลบให้');
+          : purged > 0
+            ? 'ลบยังไม่เสร็จสมบูรณ์ — บัญชียังอยู่ แต่ข้อมูลบางส่วนถูกลบไปแล้ว กดลบอีกครั้งเพื่อให้เสร็จ หรือส่งเมลให้ทีมงานลบให้'
+            : 'ลบไม่สำเร็จ — บัญชีและข้อมูลยังอยู่ โปรดลองใหม่ หรือส่งเมลให้ทีมงานลบให้');
         return;
       }
       setInfo('✓ ลบ account สำเร็จ — Logout แล้ว');
