@@ -85,13 +85,13 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
     doc.year != null ? `ปี ${doc.year}` : null,
     semesterLabel(doc.semester),
     doc.academic_year != null ? `ปีการศึกษา ${buddhistYear(doc.academic_year)}` : null,
-  ].filter(Boolean).join(' · ');
+  ].filter(Boolean).join(', ');
 
   const physical = [
     doc.page_count ? `${doc.page_count} หน้า` : null,
     formatBytes(doc.byte_size),
     doc.linearized ? 'เปิดอ่านได้ทันที' : null,
-  ].filter(Boolean).join(' · ');
+  ].filter(Boolean).join(', ');
 
   return (
     <article style={cardStyle}>
@@ -114,7 +114,7 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
       {(doc.lecturer || doc.attribution || doc.cohort) && (
         <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
           {doc.lecturer ? `ผู้สอน: ${doc.lecturer}` : null}
-          {doc.lecturer && (doc.attribution || doc.cohort) ? ' · ' : null}
+          {doc.lecturer && (doc.attribution || doc.cohort) ? ', ' : null}
           {doc.cohort || doc.attribution}
         </div>
       )}
@@ -342,7 +342,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
         </div>
         <h1 style={{ margin: '6px 0 4px', fontSize: 22 }}>คลังเอกสารการเรียน</h1>
         <p style={{ color: 'var(--clr-ink-soft)', fontSize: 13, margin: 0 }}>
-          แยกตามชั้นปี · วิชา · เทอม · ปีการศึกษา — เปิดอ่านในแอปแล้วขีดเขียนได้เลย
+          แยกตามชั้นปี วิชา เทอม และปีการศึกษา — เปิดอ่านในแอปแล้วขีดเขียนได้เลย
           รอยเขียนจะกลับมาเหมือนเดิมทุกครั้งที่เปิดใหม่
         </p>
       </div>
@@ -466,7 +466,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
                       </span>
                       <span>{yearLabel}</span>
                       <span style={{ ...mono, marginLeft: 'auto', fontSize: 12, fontWeight: 400, color: 'var(--clr-ink-soft)' }}>
-                        {group.count} ไฟล์ · {group.subjects.length} วิชา
+                        {group.count} ไฟล์, {group.subjects.length} วิชา
                       </span>
                     </button>
                   </h2>

@@ -9,6 +9,7 @@ import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
+import { librarySubjectCounts } from '../lib/library.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
@@ -264,6 +265,17 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // user clicks the random-Q chip but ExamView hasn't mounted yet.
   // Cleared by component unmount + a safety timeout.
   const [quickActionPending, setQuickActionPending] = useState(false);
+
+  // Shelf doc counts — same session-cached catalog every other consumer
+  // uses. A subject with no questions and no notes but REAL documents
+  // must open its shelf, not a request-content form (SubjectSelectView
+  // already behaved this way; the home grid did not).
+  const [shelfCounts, setShelfCounts] = useState(null);
+  useEffect(() => {
+    let alive = true;
+    librarySubjectCounts().then((m) => { if (alive) setShelfCounts(m); }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
   useEffect(() => {
     if (!quickActionPending) return;
     const t = setTimeout(() => setQuickActionPending(false), 1500);
@@ -1026,6 +1038,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         bookmarks={bookmarks}
         history={history}
         accBySubject={accBySubject}
+        shelfCounts={shelfCounts}
         onPick={(s) => {
           // Routing precedence:
           //   1. has_notes (scaffold or empty-LIVE but Notes available) →
@@ -1036,6 +1049,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             + (customQuestions || []).filter((q) => q.subject === s.id).length;
           const hasUsableContent = totalQ > 0 || hasNotes(s.id);
           if (!hasUsableContent) {
+            // Real documents beat a request form — same shelf hand-off the
+            // subject-select grid and the AI search's course card use.
+            const shelfDocs = shelfCounts?.get(s.id) || 0;
+            if (shelfDocs > 0) {
+              try { sessionStorage.setItem('vmx-library-q', s.name || ''); } catch { /* nicety */ }
+              setView('library');
+              return;
+            }
             if (setFeedbackPrefill) {
               const reason = s.scaffold
                 ? 'อยากให้เพิ่มเนื้อหา'
@@ -1534,7 +1555,7 @@ function FeedbackChip() {
 // or PREVIEW state (faculty count from vault_lecturers, course code).
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
-function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bookmarks = [], history = [], accBySubject = {}, onPick }) {
+function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bookmarks = [], history = [], accBySubject = {}, shelfCounts = null, onPick }) {
   if (!subjects?.length) {
     return (
       <div style={{
@@ -1596,6 +1617,10 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
         // them at normal opacity so they don't look "abandoned".
         const hasUsableContent = count > 0 || hasNotes(s.id);
 
+        // A card with no questions/notes but real shelf documents opens
+        // the shelf — it must read as a live destination, not a dead card.
+        const shelfDocs = (!hasUsableContent && shelfCounts) ? (shelfCounts.get(s.id) || 0) : 0;
+
         // Per-subject progress (Phase 3) — readingChecklist + bookmarks
         // are local-storage backed and cheap to compute.
         const topics = Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden) : [];
@@ -1610,11 +1635,12 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
             className="vmx-subject-card"
             onClick={() => onPick && onPick(s)}
             style={{
-              opacity: hasUsableContent ? 1 : (isEmpty ? 0.6 : 0.7),
+              opacity: hasUsableContent || shelfDocs > 0 ? 1 : (isEmpty ? 0.6 : 0.7),
               cursor: 'pointer',
             }}
             title={
               s.has_notes && count === 0 ? 'มี Notes — คลิกอ่านสรุปได้, ข้อสอบยังไม่มี'
+              : shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
               : isScaffold ? 'คลิกเพื่อช่วยเติมเนื้อหา (ส่ง slide/notes/past paper)'
               : isEmpty ? 'ยังไม่มีข้อสอบ — คลิกเพื่อขอเพิ่มเนื้อหา'
               : ''
@@ -1629,12 +1655,14 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
             {s.name_en && s.name_en.toLowerCase() !== s.name.toLowerCase() && (
               <div className="sub">{s.name_en}</div>
             )}
-            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)') }}>
+            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes || shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)') }}>
               {count > 0
                 ? `${count} ข้อ`
                 : s.has_notes
                   ? 'มีสรุปเนื้อหา'
-                  : 'ยังไม่มีชุดข้อสอบ'}
+                  : shelfDocs > 0
+                    ? `เอกสารจริง ${shelfDocs} ไฟล์`
+                    : 'ยังไม่มีชุดข้อสอบ'}
             </div>
 
             {/* Per-subject progress chips — clean text badges */}
