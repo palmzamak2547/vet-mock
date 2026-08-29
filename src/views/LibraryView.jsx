@@ -544,7 +544,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
           <div style={{ ...mono, fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10 }}>
             พบ {filtered.length} รายการ
           </div>
-          <div style={gridStyle}>
+          <div className="vmx-stagger" style={gridStyle}>
             {visibleFlat.map((doc) => (
               <DocCard
                 key={doc.id}
@@ -570,7 +570,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
           <div style={{ ...mono, fontSize: 10.5, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
             เปิดล่าสุด
           </div>
-          <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
+          <div className="vmx-stagger" style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
             {recentOnShelf.map((doc) => (
               <button
                 key={doc.slug}
@@ -648,7 +648,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
                                 {sg.count} ไฟล์
                               </span>
                             </div>
-                            <div style={gridStyle}>
+                            <div className="vmx-stagger" style={gridStyle}>
                               {shown.map((doc) => (
                                 <DocCard
                                   key={doc.id}

@@ -3281,3 +3281,55 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   .vmx-reveal-rise { animation: none !important; }
   .vmx-digit-strip { transition: none !important; }
 }
+
+/* ── Motion v2.1 — the moments layer ─────────────────────────────────────
+   Round 2: จังหวะของ "ตอบถูก/ตอบผิด/เปิดการ์ด/ได้ XP". Everything remains
+   compositor-only and decorative (the state colors carry the information),
+   so all of it dies in the reduced-motion block below. */
+
+/* Wrong pick recoils; the correct one settles with a small confident pop.
+   These classes exist only on the live exam/practice surface — ReviewView
+   renders its own row markup, so a page of graded answers never storms. */
+@keyframes vmx-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-4px); } 45% { transform: translateX(3px); } 70% { transform: translateX(-2px); } }
+.vmx-option.is-wrong { animation: vmx-shake 0.34s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+@keyframes vmx-correct-pop { 0% { transform: scale(1); } 35% { transform: scale(1.02); } 100% { transform: scale(1); } }
+.vmx-option.is-correct { animation: vmx-correct-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.vmx-option.is-correct .vmx-option-letter { animation: vmx-correct-pop 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Accuracy bars grow from zero on mount (they already transition on change). */
+@keyframes vmx-grow-x { from { transform: scaleX(0); } }
+.vmx-bar-fill { transform-origin: left; animation: vmx-grow-x 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+
+/* A new flashcard rises in — keyed per card so every next card replays it. */
+@keyframes vmx-card-in { from { opacity: 0; transform: translateY(10px) scale(0.985); } }
+.vmx-card-in { animation: vmx-card-in 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Generic press + stagger utilities for containers that style inline. */
+.vmx-press { transition: transform 130ms cubic-bezier(0.22, 1, 0.36, 1); }
+.vmx-press:active { transform: scale(0.96); }
+.vmx-stagger > * { animation: vmx-rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.vmx-stagger > :nth-child(1) { animation-delay: 0.02s; }
+.vmx-stagger > :nth-child(2) { animation-delay: 0.06s; }
+.vmx-stagger > :nth-child(3) { animation-delay: 0.10s; }
+.vmx-stagger > :nth-child(4) { animation-delay: 0.14s; }
+.vmx-stagger > :nth-child(5) { animation-delay: 0.18s; }
+.vmx-stagger > :nth-child(6) { animation-delay: 0.22s; }
+.vmx-stagger > :nth-child(7) { animation-delay: 0.26s; }
+.vmx-stagger > :nth-child(8) { animation-delay: 0.30s; }
+.vmx-stagger > :nth-child(9) { animation-delay: 0.34s; }
+.vmx-stagger > :nth-child(10) { animation-delay: 0.38s; }
+.vmx-stagger > :nth-child(11) { animation-delay: 0.42s; }
+.vmx-stagger > :nth-child(12) { animation-delay: 0.46s; }
+
+/* XP chip bumps whenever XP lands (level-ups already pop via vmx-pop-in). */
+@keyframes vmx-xp-bump { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.vmx-xp-bump { animation: vmx-xp-bump 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmx-option.is-wrong, .vmx-option.is-correct, .vmx-option.is-correct .vmx-option-letter { animation: none !important; }
+  .vmx-bar-fill { animation: none !important; }
+  .vmx-card-in { animation: none !important; }
+  .vmx-press:active { transform: none; }
+  .vmx-stagger > * { animation: none !important; }
+  .vmx-xp-bump { animation: none !important; }
+}

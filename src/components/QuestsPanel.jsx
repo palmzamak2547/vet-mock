@@ -174,6 +174,7 @@ function QuestCard({ quest, compact, onStart }) {
       {claimable && (
         <button
           type="button"
+          className="vmx-press"
           onClick={() => {
             claimQuestReward(quest.id);
             // Round 2A 2026-05-18: emit a custom event the panel
@@ -285,7 +286,12 @@ function BonusCard({ bonus, compact }) {
       </div>
       <button
         type="button"
-        onClick={() => claimBonusReward()}
+        className="vmx-press"
+        onClick={() => {
+          // ครบทั้ง 3 quest ของวัน — คุ้มกับ confetti เล็กๆ หนึ่งชุด
+          import('../lib/confetti.js').then((m) => m.fireConfetti({ count: 45, originYRatio: 0.4 })).catch(() => {});
+          claimBonusReward();
+        }}
         style={{
           all: 'unset',
           cursor: 'pointer',

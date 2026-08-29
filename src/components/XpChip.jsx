@@ -24,6 +24,9 @@ export default function XpChip() {
   // just re-read state. Comparing the level before and after gives us the
   // crossing for free; .vmx-pop-in is the spring the header chips already use.
   const [levelUp, setLevelUp] = useState(false);
+  // Any XP landing gives the chip a quick bump — smaller than the level-up
+  // pop, just enough that the reward registers in the corner of the eye.
+  const [gained, setGained] = useState(false);
   useEffect(() => {
     const refresh = () => {
       setState((prev) => {
@@ -31,6 +34,9 @@ export default function XpChip() {
         if (levelFor(next.totalXp) > levelFor(prev.totalXp)) {
           setLevelUp(true);
           window.setTimeout(() => setLevelUp(false), 700);
+        } else if (next.totalXp > prev.totalXp) {
+          setGained(true);
+          window.setTimeout(() => setGained(false), 500);
         }
         return next;
       });
@@ -75,8 +81,8 @@ export default function XpChip() {
         type="button"
         // Re-keyed on levelUp so the spring actually replays; a class that is
         // already present does not restart its animation.
-        key={levelUp ? 'lv-up' : 'lv'}
-        className={`vmx-xp-chip${levelUp ? ' vmx-pop-in' : ''}`}
+        key={levelUp ? 'lv-up' : gained ? 'gain' : 'lv'}
+        className={`vmx-xp-chip${levelUp ? ' vmx-pop-in' : gained ? ' vmx-xp-bump' : ''}`}
         onClick={() => setOpen((v) => !v)}
         title={`Lv ${lvl}, ${state.totalXp.toLocaleString()} XP, อีก ${prog.needed - prog.current} XP ไปอีก level`}
         aria-label={`ระดับ ${lvl}, ${state.totalXp} XP`}

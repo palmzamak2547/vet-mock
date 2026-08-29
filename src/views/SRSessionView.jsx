@@ -498,7 +498,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / sessionCards.length) * 100}%` }}></div>
       </div>
 
-      <div className="vmx-flashcard">
+      <div key={currentQ.id} className="vmx-flashcard vmx-card-in">
         <div className="front">
           <div className="vmx-qtype-badge">
             {SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}
