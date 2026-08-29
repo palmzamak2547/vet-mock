@@ -1009,7 +1009,11 @@ export default function CommandPalette({
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              // Typing means the person moved on — clear a stale mic hint.
+              setVoice((v) => (v === 'denied' || v === 'error' ? null : v));
+            }}
             onKeyDown={handleKey}
             placeholder={PLACEHOLDERS[placeholderIdx]}
             aria-label="ค้นหาใน VetMock"
@@ -1024,16 +1028,6 @@ export default function CommandPalette({
             autoComplete="off"
             spellCheck="false"
           />
-          {voice === 'listening' && (
-            <span style={{ fontSize: 11.5, color: 'var(--clr-rose-text)', whiteSpace: 'nowrap' }} aria-live="polite">
-              ฟังอยู่…
-            </span>
-          )}
-          {(voice === 'denied' || voice === 'error') && (
-            <span style={{ fontSize: 11.5, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }} aria-live="polite">
-              {voice === 'denied' ? 'ไมค์ถูกปิดสิทธิ์ในเบราว์เซอร์' : 'ฟังไม่สำเร็จ ลองใหม่'}
-            </span>
-          )}
           {speechSupported && (
             <button
               type="button"
@@ -1064,6 +1058,22 @@ export default function CommandPalette({
             borderRadius: 4,
           }}>esc</span>
         </div>
+
+        {/* Voice status lives BELOW the row: inline it squeezed the input
+            to 52px on a 375px phone whenever the denied hint showed. */}
+        {voice && (
+          <div aria-live="polite" style={{
+            padding: '6px 20px 0',
+            fontSize: 11.5,
+            color: voice === 'listening' ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)',
+          }}>
+            {voice === 'listening'
+              ? 'ฟังอยู่… พูดได้เลย'
+              : voice === 'denied'
+                ? 'ไมค์ถูกปิดสิทธิ์ในเบราว์เซอร์ — เปิดสิทธิ์ไมโครโฟนแล้วลองใหม่'
+                : 'ฟังไม่สำเร็จ ลองใหม่อีกครั้ง'}
+          </div>
+        )}
 
         {/* Ask-the-corpus. Question-shaped queries put this row FIRST in
             the keyboard order (plain Enter asks); other queries keep it as
