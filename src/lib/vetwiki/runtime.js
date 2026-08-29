@@ -45,6 +45,7 @@ export function provenanceSummary(knowledgeTopic) {
   const sections = knowledgeTopic.sections || [];
   const verified = verifiedClaimCount(knowledgeTopic);
   const draftSections = sections.filter((section) => section.reviewStatus === 'draft').length;
+  const metadataSections = sections.filter((section) => section.reviewStatus === 'metadata').length;
   const citedIds = new Set();
   for (const section of sections) {
     for (const claim of section.claims || []) {
@@ -58,10 +59,13 @@ export function provenanceSummary(knowledgeTopic) {
     sectionCount: sections.length,
     verifiedClaimCount: verified,
     draftSectionCount: draftSections,
+    metadataSectionCount: metadataSections,
     sources,
-    headline: verified > 0
-      ? `เนื้อหาส่วนใหญ่มาจากโน้ตเลกเชอร์, ${verified} จุดตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว`
-      : 'เนื้อหามาจากโน้ตเลกเชอร์, ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก',
+    headline: verified > 0 && draftSections === 0
+      ? `ทุกจุดความรู้ในหัวข้อนี้ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว (${verified} จุด)`
+      : verified > 0
+        ? `เนื้อหามาจากโน้ตเลกเชอร์, ${verified} จุดตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว, อีก ${draftSections} หัวข้อรอตรวจ`
+        : 'เนื้อหามาจากโน้ตเลกเชอร์, ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก',
   };
 }
 

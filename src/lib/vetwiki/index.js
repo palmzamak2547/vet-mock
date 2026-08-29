@@ -183,6 +183,7 @@ export function provenanceSummary(knowledgeTopic) {
   const sections = knowledgeTopic.sections || [];
   const verified = verifiedClaimCount(knowledgeTopic);
   const draftSections = sections.filter((s) => s.reviewStatus === 'draft').length;
+  const metadataSections = sections.filter((s) => s.reviewStatus === 'metadata').length;
 
   // Distinct external sources actually cited by verified claims.
   const citedIds = new Set();
@@ -199,11 +200,16 @@ export function provenanceSummary(knowledgeTopic) {
     sectionCount: sections.length,
     verifiedClaimCount: verified,
     draftSectionCount: draftSections,
+    metadataSectionCount: metadataSections,
     sources,
-    // Honest one-liner for the UI (no jargon).
-    headline: verified > 0
-      ? `เนื้อหาส่วนใหญ่มาจากโน้ตเลกเชอร์, ${verified} จุดตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว`
-      : 'เนื้อหามาจากโน้ตเลกเชอร์, ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก',
+    // Honest one-liner for the UI (no jargon). Three states, told apart:
+    // everything verifiable is verified (the corpus norm now) / some
+    // sections still pending / nothing verified yet.
+    headline: verified > 0 && draftSections === 0
+      ? `ทุกจุดความรู้ในหัวข้อนี้ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว (${verified} จุด)`
+      : verified > 0
+        ? `เนื้อหามาจากโน้ตเลกเชอร์, ${verified} จุดตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว, อีก ${draftSections} หัวข้อรอตรวจ`
+        : 'เนื้อหามาจากโน้ตเลกเชอร์, ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก',
   };
 }
 

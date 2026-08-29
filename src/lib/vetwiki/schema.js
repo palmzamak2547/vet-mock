@@ -33,7 +33,7 @@
  */
 
 /**
- * @typedef {'draft'|'reviewed'|'verified'|'deprecated'} ReviewStatus
+ * @typedef {'draft'|'reviewed'|'verified'|'deprecated'|'metadata'} ReviewStatus
  */
 
 /**
@@ -177,6 +177,10 @@ export const REVIEW_LABEL = {
   verified: { th: 'ตรวจทานแล้ว', tone: 'strong' },
   reviewed: { th: 'อ่านทานเบื้องต้น', tone: 'ok' },
   draft: { th: 'ฉบับร่าง', tone: 'weak' },
+  // Course logistics — timetables, marking schemes, reading lists. Real
+  // information, declared in non-verifiable.js, but not a scientific claim,
+  // so neither 'draft' (nothing pending) nor 'verified' (nothing to verify).
+  metadata: { th: 'ข้อมูลรายวิชา', tone: 'muted' },
   deprecated: { th: 'มีเนื้อหาใหม่กว่า', tone: 'muted' },
 };
 

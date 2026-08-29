@@ -24,10 +24,12 @@ test('adapter imports note sections honestly (derived-note / draft) and carries 
       { heading: 'Diagnosis', source: 'Rabies.pdf p.12-18', body: [{ bullets: ['b'] }] },
     ],
   };
-  const k = noteToKnowledge('com5', 'rabies', note);
-  assert.equal(k.id, 'com5--rabies');
+  // a topic id with NO verification overlay — the honest default must
+  // still be 'draft' (unreviewed content never dresses up)
+  const k = noteToKnowledge('com5', 'rabies-synthetic-no-overlay', note);
+  assert.equal(k.id, 'com5--rabies-synthetic-no-overlay');
   assert.equal(k.sections.length, 2);
-  const overview = k.sections.find((s) => s.id === 'com5--rabies--overview');
+  const overview = k.sections.find((s) => s.id === 'com5--rabies-synthetic-no-overlay--overview');
   assert.equal(overview.evidenceStatus, 'derived-note');
   assert.equal(overview.reviewStatus, 'draft');
   assert.equal(overview.sourceRefs[0].kind, 'lecture-note');
@@ -87,7 +89,22 @@ test('provenance summary reports verified count + real cited sources, no fabrica
   assert.ok(p.sources.length >= 1);
   // Every cited source is a real registry entry with a full citation string.
   for (const s of p.sources) assert.ok(s.citation && s.organization, 'cited source is real + attributable');
-  assert.match(p.headline, /โน้ตเลกเชอร์/);
+  // Every rabies section carries verified claims, so the headline states
+  // the achieved standard instead of hedging about lecture notes.
+  assert.match(p.headline, /ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว/);
+  assert.equal(p.draftSectionCount, 0);
+});
+
+test('a section whose claims were reference-verified is a verified section', () => {
+  const k = loadTopic('com5', 'rabies');
+  const dx = k.sections.find((s) => s.id === 'com5--rabies--diagnosis');
+  assert.equal(dx.reviewStatus, 'verified');
+});
+
+test('declared course-metadata sections are metadata, never draft', () => {
+  const k = loadTopic('epidemiology', 'epidem-intro');
+  const s = (k?.sections || []).find((x) => x.id === 'epidemiology--epidem-intro--หนังสืออ่านประกอบ-learning-pyramid-และเว็บอ้างอิง');
+  if (s) assert.equal(s.reviewStatus, 'metadata');
 });
 
 test('registry lists the flagship rabies topic', () => {

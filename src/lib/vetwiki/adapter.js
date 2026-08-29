@@ -18,6 +18,7 @@
 import { topicId, sectionId, wikiTitle, wikiSummary } from './schema.js';
 import { verificationFor } from './verification.js';
 import { correctionsFor } from './corrections.js';
+import { NON_VERIFIABLE } from './non-verifiable.js';
 
 /**
  * @param {string} subject   e.g. 'com5'
@@ -53,7 +54,15 @@ export function noteToKnowledge(subject, topic, noteTopic) {
       body: s.body, // original note body — rendered by the app's RichText
       // Honest defaults: paraphrased-from-lecture, unreviewed.
       evidenceStatus: v.evidenceStatus || 'derived-note',
-      reviewStatus: v.reviewStatus || 'draft',
+      // Section status DERIVES from what actually happened to its content:
+      // the verification arcs recorded claim-level verdicts but nothing ever
+      // promoted the section, so 1,615 sections whose claims were all
+      // reference-checked still introduced themselves as ฉบับร่าง. A section
+      // with verified claims IS verified; a declared course-metadata section
+      // is metadata; only genuinely unreviewed content is a draft.
+      reviewStatus: v.reviewStatus
+        || (claims.some((c) => c.reviewStatus === 'verified') ? 'verified'
+          : NON_VERIFIABLE.has(sId) ? 'metadata' : 'draft'),
       useScopes: v.useScopes || ['learning'],
       sourceRefs: noteRef ? [noteRef] : [],
       review: v.review || null,

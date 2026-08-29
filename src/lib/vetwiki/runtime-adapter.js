@@ -1,6 +1,7 @@
 // Browser adapter for one already-loaded VetWiki subject. Heavy evidence data
 // is injected from a generated per-subject chunk rather than imported here.
 import { topicId, sectionId, wikiTitle, wikiSummary } from './schema.js';
+import { NON_VERIFIABLE } from './non-verifiable.js';
 
 export function noteToKnowledge(subject, topic, noteTopic, overlay = {}, corrections = {}) {
   if (!noteTopic || !Array.isArray(noteTopic.sections)) {
@@ -24,7 +25,11 @@ export function noteToKnowledge(subject, topic, noteTopic, overlay = {}, correct
       heading: section.heading,
       body: section.body,
       evidenceStatus: verification.evidenceStatus || 'derived-note',
-      reviewStatus: verification.reviewStatus || 'draft',
+      // Mirrors src/lib/vetwiki/adapter.js exactly — the drift test
+      // deep-equals the two projections, so the derivation must too.
+      reviewStatus: verification.reviewStatus
+        || ((Array.isArray(verification.claims) ? verification.claims : []).some((c) => c.reviewStatus === 'verified') ? 'verified'
+          : NON_VERIFIABLE.has(idForSection) ? 'metadata' : 'draft'),
       useScopes: verification.useScopes || ['learning'],
       sourceRefs: noteRef ? [noteRef] : [],
       review: verification.review || null,

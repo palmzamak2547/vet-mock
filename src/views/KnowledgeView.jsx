@@ -149,10 +149,18 @@ function ProvenancePanel({ prov, onClose }) {
             <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-sage-text)' }}>{prov.verifiedClaimCount}</div>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>จุดที่ตรวจทานกับแหล่งอ้างอิงแล้ว</div>
           </div>
-          <div style={{ flex: 1, minWidth: 130, padding: 12, borderRadius: 12, background: 'var(--clr-surface-2)' }}>
-            <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-ink-soft)' }}>{prov.draftSectionCount}</div>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หัวข้อจากโน้ต (ฉบับร่าง)</div>
-          </div>
+          {prov.draftSectionCount > 0 && (
+            <div style={{ flex: 1, minWidth: 130, padding: 12, borderRadius: 12, background: 'var(--clr-surface-2)' }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-ink-soft)' }}>{prov.draftSectionCount}</div>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หัวข้อรอตรวจทาน</div>
+            </div>
+          )}
+          {(prov.metadataSectionCount || 0) > 0 && (
+            <div style={{ flex: 1, minWidth: 130, padding: 12, borderRadius: 12, background: 'var(--clr-surface-2)' }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-ink-soft)' }}>{prov.metadataSectionCount}</div>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>ข้อมูลรายวิชา (ตาราง, เกณฑ์คะแนน)</div>
+            </div>
+          )}
         </div>
         {prov.sources.length > 0 && (
           <>
@@ -170,7 +178,9 @@ function ProvenancePanel({ prov, onClose }) {
           </>
         )}
         <p style={{ fontSize: 11.5, lineHeight: 1.5, color: 'var(--clr-ink-soft)', marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' }}>
-          เนื้อหาที่ยังเป็นฉบับร่างมาจากโน้ตเลกเชอร์ ยังไม่ได้เทียบกับตำราต้นฉบับ — ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก
+          {prov.draftSectionCount > 0
+            ? 'เนื้อหาที่รอตรวจทานมาจากโน้ตเลกเชอร์ ยังไม่ได้เทียบกับตำราต้นฉบับ — ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก'
+            : 'ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก — ทุกจุดความรู้บอกแหล่งอ้างอิงที่ตามไปอ่านได้'}
         </p>
       </div>
     </div>
@@ -244,7 +254,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
 
       <h1 style={{ fontFamily: 'Fraunces, serif', fontSize: 30, margin: '0 0 6px', letterSpacing: '-0.01em' }}>VetWiki</h1>
       <p style={{ color: 'var(--clr-ink-soft)', margin: '0 0 20px', lineHeight: 1.65, fontSize: 14.5, maxWidth: '60ch' }}>
-        คลังความรู้ที่ตรวจสอบได้ — ทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน ส่วนไหนตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว และส่วนไหนยังเป็นฉบับร่างจากโน้ตเลกเชอร์
+        คลังความรู้ที่ตรวจสอบได้ — ทุกจุดความรู้ผ่านการตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว และทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน (ข้อมูลรายวิชา เช่น ตารางสอนหรือเกณฑ์คะแนน แยกประกาศไว้ชัดเจน)
       </p>
 
       <label htmlFor="vw-search" className="vmx-sr-only" style={{ position: 'absolute', left: -9999 }}>ค้นหาในวิกิ</label>
