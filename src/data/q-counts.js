@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4527;
-export const QB_SOURCE_TOTAL = 4527;
+export const QB_TOTAL = 4553;
+export const QB_SOURCE_TOTAL = 4553;
 export const QB_BLOCKED_TOTAL = 0;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -56,7 +56,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 40,
-  'vet-pharm-2': 36,
+  'vet-pharm-2': 62,
   'zoonoses': 178,
 };
 
@@ -106,14 +106,14 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 40,
-  'vet-pharm-2': 36,
+  'vet-pharm-2': 62,
   'zoonoses': 178,
 };
 
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
   2: 144,
-  3: 36,
+  3: 62,
   4: 2092,
   5: 1957,
 };
@@ -708,7 +708,7 @@ export const Q_COUNTS_BY_TOPIC = {
   "vet-pharm-2": {
     "antibiotics": 3,
     "antiparasitic": 29,
-    "autonomic": 1,
+    "autonomic": 27,
     "cardio-renal": 1,
     "nsaids": 2,
   },
@@ -932,4 +932,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-29T11:32:52.162Z
+// Built: 2026-08-29T11:47:06.096Z

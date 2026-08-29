@@ -35,7 +35,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y2-neuroanat.js', export: 'QUESTIONS_Y2_NEUROANAT', year: 2, count: 40,
     subjects: ['vet-neuroanat'],
     load: () => import('./questions-y2-neuroanat.js').then((m) => m.QUESTIONS_Y2_NEUROANAT) },
-  { file: 'questions-vet-pharm2.js', export: 'QB_VET_PHARM2', year: 3, count: 36,
+  { file: 'questions-vet-pharm2.js', export: 'QB_VET_PHARM2', year: 3, count: 62,
     subjects: ['vet-pharm-2'],
     load: () => import('./questions-vet-pharm2.js').then((m) => m.QB_VET_PHARM2) },
   { file: 'questions-cliapprum.js', export: 'QB_CLIAPPRUM', year: 4, count: 124,
@@ -208,4 +208,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-08-29T11:32:51.056Z — 66 banks · 4527 Qs
+// Built: 2026-08-29T11:47:04.667Z — 66 banks · 4553 Qs

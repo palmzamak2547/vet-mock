@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.46.1',
+    date: '2026-08-29',
+    headline: '🧠 เภสัชวิทยา II เพิ่มข้อสอบยาระบบประสาทอัตโนมัติอีก 26 ข้อ',
+    changes: [
+      { scope: 'system', kind: 'feature', icon: '💉', title: 'ชุด Parasympathetic Drugs จากสไลด์ ANS Drugs I',
+        desc: 'ครอบคลุม cholinergic agonist ทั้ง direct และ indirect, SLUDGE, ยาต้านพิษ organophosphate (atropine ขนาดสิบเท่า), glycopyrrolate กับ BBB, pyridostigmine ใน myasthenia gravis, ยาขยายม่านตา, scopolamine และยาหย่อนกล้ามเนื้อ ทุกข้ออ้างเลขหน้าสไลด์ที่เปิดตามได้ในชั้นเอกสาร รวมปี 3 มี 62 ข้อแล้ว',
+      },
+    ],
+  },
+  {
     version: '5.46.0',
     date: '2026-08-29',
     headline: '💊 ปี 3 ได้คลังข้อสอบยาต้านปรสิตชุดแรก 28 ข้อ จากสไลด์จริงของวิชา',
