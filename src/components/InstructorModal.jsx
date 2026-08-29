@@ -73,7 +73,7 @@ export default function InstructorModal({ instructor, onClose }) {
             marginBottom: 8,
           }}>
             <span>👨‍🏫 ข้อมูลคณาจารย์และผู้สอน</span>
-            <span>·</span>
+            <span aria-hidden="true">—</span>
             <span>{STATUS_LABELS[status] || 'ตรวจสอบสถานะแล้ว'}</span>
           </div>
           <h2 style={{ margin: 0, fontSize: 25, color: 'var(--clr-ink)', lineHeight: 1.25 }}>
@@ -156,7 +156,7 @@ export default function InstructorModal({ instructor, onClose }) {
 
         <section style={{ marginBottom: 20 }}>
           <h3 style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 5px' }}>
-            📑 ผลงานวิจัยคัดเลือก · {papers.length}
+            📑 ผลงานวิจัยคัดเลือก ({papers.length})
           </h3>
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
             แสดงผลงานตัวอย่างที่ตรวจชื่อผู้เขียนและลิงก์ต้นทางแล้ว ไม่ใช่รายการผลงานทั้งหมด
@@ -173,8 +173,8 @@ export default function InstructorModal({ instructor, onClose }) {
                   </a>
                 </div>
                 <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
-                  {[paper.year, paper.journal].filter(Boolean).join(' · ')}
-                  {paper.verifiedBy && ` · ตรวจผ่าน ${paper.verifiedBy}`}
+                  {[paper.year, paper.journal].filter(Boolean).join(', ')}
+                  {paper.verifiedBy && `, ตรวจผ่าน ${paper.verifiedBy}`}
                 </div>
                 {paper.authors && (
                   <div style={{ marginTop: 6, fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.45 }}>

@@ -495,12 +495,12 @@ function DrugDBTab() {
                     </span>
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {drug.brand} · {drug.indication}
+                    {drug.brand}, {drug.indication}
                   </div>
                 </div>
                 <div style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap', textAlign: 'right', fontWeight: 600 }}>
                   {drug.doseLo}{drug.doseLo !== drug.doseHi ? `-${drug.doseHi}` : ''} {drug.unit}<br />
-                  <span style={{ fontSize: 11, fontWeight: 400 }}>{drug.route} · {drug.freq}</span>
+                  <span style={{ fontSize: 11, fontWeight: 400 }}>{drug.route}, {drug.freq}</span>
                 </div>
               </div>
 
@@ -509,7 +509,7 @@ function DrugDBTab() {
                 <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>
                   <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.6 }}>
                     <strong>ข้อบ่งใช้:</strong> {drug.indication}<br />
-                    <strong>Route:</strong> {drug.route} · <strong>Frequency:</strong> {drug.freq}<br />
+                    <strong>Route:</strong> {drug.route} — <strong>Frequency:</strong> {drug.freq}<br />
                     <strong>Brands:</strong> {drug.brand}
                   </div>
 

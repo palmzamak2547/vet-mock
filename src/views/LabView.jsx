@@ -274,7 +274,7 @@ export default function LabView({ goHome }) {
               instead of 50 px of vertical clutter. */}
           <p style={{ fontSize: '0.82rem', color: 'var(--clr-ink-soft)', margin: '4px 0 0', lineHeight: 1.5 }}>
             เปิดเคส ฝึกวัด และอ่านภาพแบบ practical ได้ทันที
-            <span className="vmx-lab-safety-note">Experimental · เพื่อการเรียนรู้ ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
+            <span className="vmx-lab-safety-note">Experimental — เพื่อการเรียนรู้ ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
           </p>
         </div>
         <button onClick={handleBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← Home</button>
