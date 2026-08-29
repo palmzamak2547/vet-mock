@@ -828,21 +828,22 @@ export default function CommandPalette({
       if (!res.ok) { setAsk({ phase: 'error', message: 'ตอบไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
       const data = await res.json();
       // Isomorphic guard: rebuild the allowed-citation map from THIS
-      // build's own corpus and validate again. The corpus chunk is the
-      // same one the wiki route uses; it loads on first ask only.
-      const [{ validateAnswer, allowedFromSections, ANSWER_SUPPORT_LABEL }, { loadTopic }] = await Promise.all([
+      // build's own generated citation index and validate again. The index
+      // carries exactly what validateAnswer consumes (topicId + verified per
+      // sectionId, drift-gated against the corpus), so the guard costs ~40 KB
+      // instead of the full corpus barrel — and it is TIGHTER than loading
+      // topics: only sections the server says it supplied, intersected with
+      // sections this build really has, can validate a citation.
+      const [{ validateAnswer, ANSWER_SUPPORT_LABEL }, { CITATION_INDEX }] = await Promise.all([
         import('../lib/vetwiki/answer.js'),
-        import('../lib/vetwiki/index.js'),
+        import('../lib/vetwiki/citation-index.generated.js'),
       ]);
       const allowed = new Map();
-      const seen = new Set();
       for (const m of data.meta?.sections || []) {
-        const key = `${m.subject}--${m.topic}`;
-        if (seen.has(key)) continue;
-        seen.add(key);
-        const k = loadTopic(m.subject, m.topic);
-        if (!k) continue; // server named a topic this build does not have
-        for (const [id, v] of allowedFromSections(k.id, k.sections)) allowed.set(id, v);
+        const id = String(m?.sectionId || '');
+        const hit = CITATION_INDEX[id];
+        if (!hit) continue; // server named a section this build does not have
+        allowed.set(id, { sectionId: id, topicId: hit[0], verified: !!hit[1] });
       }
       const { claims } = validateAnswer(data.claims, allowed);
       if (!claims.length) { setAsk({ phase: 'error', message: 'ยังตอบจากเนื้อหาที่มีไม่ได้' }); return; }

@@ -207,14 +207,18 @@ import { confirmDialog, alertDialog } from './lib/dialog.js';
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
-// payload doesn't grow on existing users. Both are no-op in dev mode
-// and on non-Vercel deploys, so safe to render unconditionally.
+// payload doesn't grow on existing users. Skipped on local hosts: `vite
+// preview` serves the PRODUCTION build, so the tags would inject and the
+// SPA fallback answers /_vercel/*.js with HTML — two guaranteed console
+// SyntaxErrors polluting every local verification sweep.
 const Analytics = lazy(() =>
   import('@vercel/analytics/react').then((m) => ({ default: m.Analytics })),
 );
 const SpeedInsights = lazy(() =>
   import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights })),
 );
+const IS_LOCAL_HOST = typeof window !== 'undefined'
+  && /^(localhost|127\.|192\.168\.|\[::1\])/.test(window.location.hostname);
 
 // The app shell is deliberately wider than reading/exam content so the
 // persistent header does not wrap on ordinary laptop screens. Workspace and
@@ -1903,7 +1907,7 @@ export default function App() {
           />
         </Suspense>
         </ErrorBoundary>
-        {analyticsAllowed && (
+        {analyticsAllowed && !IS_LOCAL_HOST && (
           <Suspense fallback={null}>
             <Analytics />
             <SpeedInsights />
@@ -2227,7 +2231,7 @@ export default function App() {
           (or was never asked, e.g. deep-linked past the landing, where
           we default to the prior always-on behaviour to avoid silently
           dropping the existing signal for returning users). */}
-      {(analyticsAllowed || consent === 'ask') && (
+      {(analyticsAllowed || consent === 'ask') && !IS_LOCAL_HOST && (
         <Suspense fallback={null}>
           <Analytics />
           <SpeedInsights />

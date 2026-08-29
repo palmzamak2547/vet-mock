@@ -1,7 +1,7 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.44.0",
+  "version": "5.44.1",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -19,14 +19,16 @@
     "lint:curriculum": "node scripts/lint-curriculum.mjs",
     "lint:instructors": "node scripts/lint-instructors.mjs",
     "lint:registry": "node scripts/regen-bank-registry.mjs --check",
+    "lint:citation-index": "node scripts/regen-citation-index.mjs --check",
     "validate:wiki": "node scripts/validate-wiki.mjs",
     "sync:wiki-unmapped": "node scripts/sync-wiki-unmapped.mjs",
-    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:deck-refs && npm run lint:question-standard && npm run lint:delivery && npm run lint:thai-orthography && npm run lint:empty-sections && npm run lint:registry && npm run lint:wiki-registry && npm run lint:notes-registry && npm run lint:conflict-summary && npm run lint:wiki-runtime && npm run lint:curriculum && npm run lint:instructors && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check && npm run lint:accent-tokens && npm run audit:contrast && npm run audit:contrast -- --landing && npm run audit:contrast -- --exam",
+    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:deck-refs && npm run lint:question-standard && npm run lint:delivery && npm run lint:thai-orthography && npm run lint:empty-sections && npm run lint:registry && npm run lint:wiki-registry && npm run lint:citation-index && npm run lint:notes-registry && npm run lint:conflict-summary && npm run lint:wiki-runtime && npm run lint:curriculum && npm run lint:instructors && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check && npm run lint:accent-tokens && npm run audit:contrast && npm run audit:contrast -- --landing && npm run audit:contrast -- --exam",
     "regen:q-counts": "node scripts/regen-q-counts.mjs",
     "regen:delivery": "node scripts/regen-question-delivery.mjs",
     "regen:registry": "node scripts/regen-bank-registry.mjs",
     "regen:video-meta": "node scripts/regen-video-meta.mjs",
     "regen:wiki-registry": "node scripts/regen-vetwiki-topic-registry.mjs",
+    "regen:citation-index": "node scripts/regen-citation-index.mjs",
     "regen:conflict-summary": "node scripts/regen-conflict-summary.mjs",
     "regen:wiki-runtime": "node scripts/regen-vetwiki-runtime-data.mjs",
     "fix:academic-safety": "node scripts/lint-academic-safety.mjs --apply",
