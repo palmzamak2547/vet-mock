@@ -227,3 +227,74 @@ test('search haystack carries the subject NAME, not just its id', async () => {
   const [entry] = indexDocs([{ title: 'x', subject: '5100101' }]);
   assert.ok(entry._hayLc.includes('population and development'));
 });
+
+// ── docOpenMode — what tapping a card actually does ───────────────────────
+
+test('docOpenMode routes every shelf mime family to an action a browser can perform', async () => {
+  const { docOpenMode, docTypeLabel } = await import('../../src/lib/library.js');
+  assert.equal(docOpenMode({ mime: 'application/pdf' }).action, 'read');
+  assert.equal(docOpenMode({ mime: 'video/mp4' }).action, 'tab');
+  assert.equal(docOpenMode({ mime: 'image/png' }).action, 'tab');
+  assert.equal(docOpenMode({ mime: 'audio/mpeg' }).action, 'tab');
+  // Office files and unknowns download — pdf.js cannot render a .pptx, and
+  // feeding it one was exactly the failure this helper exists to prevent.
+  assert.equal(docOpenMode({ mime: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' }).action, 'download');
+  assert.equal(docOpenMode({ mime: 'application/octet-stream' }).action, 'download');
+  assert.equal(docOpenMode({}).action, 'download');
+  assert.equal(docTypeLabel('application/vnd.ms-excel'), 'Excel');
+  assert.equal(docTypeLabel('application/zip'), 'ZIP');
+});
+
+test('readerPayload defers the mint behind resolve() and keys strokes by sha256', async () => {
+  const { readerPayload } = await import('../../src/lib/library.js');
+  const p = readerPayload({ slug: 's', title: 'T', sha256_16: 'abc', linearized: false, subject: 'com4' });
+  assert.equal(typeof p.resolve, 'function');
+  assert.equal(p.sha256, 'abc');
+  assert.equal(p.fileName, 'T.pdf');
+  assert.equal(p.url, undefined, 'no url yet — the reader resolves it while its chunk loads');
+});
+
+// ── snapshot + recents — localStorage guards ──────────────────────────────
+
+function fakeWindow(seed = []) {
+  const store = new Map(seed);
+  return {
+    localStorage: {
+      getItem: (k) => store.get(k) ?? null,
+      setItem: (k, v) => store.set(k, v),
+      removeItem: (k) => store.delete(k),
+    },
+    addEventListener: () => {},
+    _store: store,
+  };
+}
+
+test('catalog snapshot survives corrupt or empty localStorage without throwing', async () => {
+  const { readCatalogSnapshot } = await import('../../src/lib/library.js');
+  globalThis.window = fakeWindow([['vmx-library-catalog-v1', '{corrupt']]);
+  try {
+    assert.equal(readCatalogSnapshot(), null);
+    window._store.set('vmx-library-catalog-v1', JSON.stringify({ at: 1, docs: [] }));
+    assert.equal(readCatalogSnapshot(), null, 'an empty snapshot is no snapshot');
+    window._store.set('vmx-library-catalog-v1', JSON.stringify({ at: 5, docs: [{ slug: 'a', title: 'T' }] }));
+    assert.equal(readCatalogSnapshot().docs[0].slug, 'a');
+  } finally {
+    delete globalThis.window;
+  }
+});
+
+test('recent docs record newest-first, dedupe by slug, and cap at 8', async () => {
+  const { recordRecentDoc, listRecentDocs } = await import('../../src/lib/library.js');
+  globalThis.window = fakeWindow();
+  try {
+    for (let i = 1; i <= 10; i++) recordRecentDoc({ slug: `s${i}`, title: `T${i}` });
+    recordRecentDoc({ slug: 's10', title: 'T10 again' });
+    const list = listRecentDocs();
+    assert.equal(list.length, 8);
+    assert.equal(list[0].slug, 's10');
+    assert.equal(list[0].title, 'T10 again');
+    assert.equal(list.filter((r) => r.slug === 's10').length, 1);
+  } finally {
+    delete globalThis.window;
+  }
+});

@@ -25,12 +25,17 @@ import {
   LIBRARY_KINDS,
   SEMESTERS,
   buddhistYear,
-  getLibraryCatalog,
+  docOpenMode,
+  docTypeLabel,
   filterIndexed,
   formatBytes,
+  getLibraryCatalogFast,
   groupByYearSubject,
   indexDocs,
   kindLabel,
+  listRecentDocs,
+  readerPayload,
+  recordRecentDoc,
   resolveDocUrl,
   semesterLabel,
   subjectMeta,
@@ -80,6 +85,8 @@ function subjectIcon(id) {
 // ── Card ──────────────────────────────────────────────────────────────────
 
 function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
+  const mode = docOpenMode(doc);
+
   const meta = [
     showSubject ? subjectName(doc.subject) : null,
     doc.year != null ? `ปี ${doc.year}` : null,
@@ -87,14 +94,17 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
     doc.academic_year != null ? `ปีการศึกษา ${buddhistYear(doc.academic_year)}` : null,
   ].filter(Boolean).join(', ');
 
+  // Name the file type when it is not a PDF — 121 shelf rows are Word,
+  // PowerPoint, video and images, and their card should say so before the
+  // button explains what tapping it will do.
   const physical = [
+    mode.action !== 'read' ? docTypeLabel(doc.mime) : null,
     doc.page_count ? `${doc.page_count} หน้า` : null,
     formatBytes(doc.byte_size),
-    doc.linearized ? 'เปิดอ่านได้ทันที' : null,
   ].filter(Boolean).join(', ');
 
   return (
-    <article style={cardStyle}>
+    <article className="vmx-lib-card" style={cardStyle}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, justifyContent: 'space-between' }}>
         <h3 style={{ fontSize: 15, margin: 0, lineHeight: 1.35 }}>{doc.title}</h3>
         <span style={{ ...mono, fontSize: 10, whiteSpace: 'nowrap', color: KIND_TONE[doc.kind] || KIND_TONE.other }}>
@@ -126,16 +136,20 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
           disabled={busy}
           onClick={() => onOpen(doc)}
         >
-          {busy ? 'กำลังเปิด…' : 'เปิดอ่าน'}
+          {busy ? 'กำลังเปิด…' : mode.label}
         </button>
-        <button
-          type="button"
-          className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-          disabled={busy}
-          onClick={() => onOpenOriginal(doc)}
-        >
-          เปิดไฟล์ต้นฉบับ
-        </button>
+        {/* For a non-PDF the primary button already opens the original,
+            so a second button saying the same thing is noise. */}
+        {mode.action === 'read' && (
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            disabled={busy}
+            onClick={() => onOpenOriginal(doc)}
+          >
+            เปิดไฟล์ต้นฉบับ
+          </button>
+        )}
       </div>
     </article>
   );
@@ -191,6 +205,11 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
       const q = sessionStorage.getItem('vmx-library-q');
       if (q) { sessionStorage.removeItem('vmx-library-q'); return q; }
     } catch { /* storage disabled — the shelf just opens unfiltered */ }
+    // A shared /app/library?q=… link lands with the search prefilled.
+    try {
+      const q = new URLSearchParams(window.location.search).get('q');
+      if (q) return q;
+    } catch { /* no window in tests */ }
     return '';
   });
   const [debouncedQuery, setDebouncedQuery] = useState(query);
@@ -212,21 +231,54 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
     return () => clearTimeout(t);
   }, [query, debouncedQuery]);
 
+  // Mirror the search into ?q= so the current view is shareable and survives
+  // a refresh. replaceState, never pushState — typing must not grow history.
+  useEffect(() => {
+    try {
+      const url = new URL(window.location.href);
+      const q = debouncedQuery.trim();
+      if (q) url.searchParams.set('q', q);
+      else url.searchParams.delete('q');
+      window.history.replaceState(window.history.state, '', url);
+    } catch { /* test envs without a real history */ }
+  }, [debouncedQuery]);
+
+  const [reloadKey, setReloadKey] = useState(0);
   useEffect(() => {
     let cancelled = false;
-    (async () => {
-      try {
-        const { docs: rows, configured: ok } = await getLibraryCatalog();
+    // Snapshot-first: the last good catalog paints the full shelf in the
+    // mount frame, then the fresh fetch swaps in silently. First-ever visits
+    // still see the skeleton.
+    const { stale, fresh } = getLibraryCatalogFast();
+    if (stale?.docs?.length) {
+      setDocs(stale.docs);
+      setLoading(false);
+    }
+    fresh
+      .then(({ docs: rows, configured: ok }) => {
         if (cancelled) return;
         setDocs(rows);
         setConfigured(ok);
-      } catch (e) {
-        if (!cancelled) setError(e?.message || String(e));
-      } finally {
+        setError(null);
+      })
+      .catch((e) => {
+        // With a snapshot already on screen, a background revalidation
+        // failure is not worth an alert banner.
+        if (!cancelled && !stale?.docs?.length) setError(e?.message || String(e));
+      })
+      .finally(() => {
         if (!cancelled) setLoading(false);
-      }
-    })();
+      });
     return () => { cancelled = true; };
+  }, [reloadKey]);
+
+  // Warm the reader chunk while the shelf sits idle, so the first เปิดอ่าน
+  // waits only for document bytes, not for JavaScript.
+  useEffect(() => {
+    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1500));
+    const cancel = window.cancelIdleCallback || clearTimeout;
+    const id = idle(() => { import('./PdfAnnotateView.jsx').catch(() => {}); });
+    return () => cancel(id);
   }, []);
 
   const docIndex = useMemo(() => indexDocs(docs), [docs]);
@@ -289,42 +341,69 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
     });
   }, []);
 
-  const openDoc = useCallback(async (doc) => {
-    setBusyId(doc.id);
-    setError(null);
-    try {
-      const url = await resolveDocUrl(doc);
-      onOpenDoc({
-        url,
-        fileName: `${doc.title}.pdf`,
-        sha256: doc.sha256_16,
-        slug: doc.slug,
-        linearized: doc.linearized,
-      });
-    } catch (e) {
-      setError(e?.message || String(e));
-    } finally {
-      setBusyId(null);
-    }
-  }, [onOpenDoc]);
+  const [recentDocs, setRecentDocs] = useState(() => listRecentDocs());
 
-  // Opens the object URL in a new tab, where the browser's own PDF UI offers
-  // Save. A `download` attribute is ignored cross-origin, so promising a direct
-  // download here would be a lie on every provider.
-  const openOriginal = useCallback(async (doc) => {
+  // New-tab opens (non-PDF files and "เปิดไฟล์ต้นฉบับ"). The tab is opened
+  // SYNCHRONOUSLY inside the click — popup blockers only trust window.open
+  // during user activation — then pointed at the URL once the mint resolves.
+  const openExternally = useCallback(async (doc) => {
+    const win = window.open('', '_blank');
+    if (win) { try { win.opener = null; } catch { /* hardened browsers */ } }
     setBusyId(doc.id);
     setError(null);
     try {
       const url = await resolveDocUrl(doc);
-      window.open(url, '_blank', 'noopener,noreferrer');
+      if (win) win.location.replace(url);
+      else window.open(url, '_blank', 'noopener,noreferrer');
     } catch (e) {
+      if (win) { try { win.close(); } catch { /* already gone */ } }
       setError(e?.message || String(e));
     } finally {
       setBusyId(null);
     }
   }, []);
 
-  const visibleFlat = filtered.slice(0, MAX_RESULTS);
+  const openDoc = useCallback((doc) => {
+    recordRecentDoc(doc);
+    setRecentDocs(listRecentDocs());
+    if (docOpenMode(doc).action === 'read') {
+      // Navigate first: the reader overlaps the link mint with its own
+      // chunk load, so the tap answers in the same frame.
+      onOpenDoc(readerPayload(doc));
+      return;
+    }
+    openExternally(doc);
+  }, [onOpenDoc, openExternally]);
+
+  // Opens the object URL in a new tab, where the browser's own PDF UI offers
+  // Save. A `download` attribute is ignored cross-origin, so promising a direct
+  // download here would be a lie on every provider.
+  const openOriginal = openExternally;
+
+  // Title hits outrank body hits: someone typing a deck's name wants that
+  // deck first, not every row whose description happens to mention the word.
+  // Array.prototype.sort is stable, so within each tier the shelf order holds.
+  const ranked = useMemo(() => {
+    if (!searching) return filtered;
+    const q = debouncedQuery.trim().toLowerCase();
+    const inTitle = (d) => ((d.title || '').toLowerCase().includes(q) ? 0 : 1);
+    return [...filtered].sort((a, b) => inTitle(a) - inTitle(b));
+  }, [filtered, searching, debouncedQuery]);
+
+  // Recently opened, still on the shelf. Metadata comes from the live
+  // catalog row, so a re-titled or withdrawn document can't linger here.
+  const recentOnShelf = useMemo(() => {
+    if (recentDocs.length === 0 || docs.length === 0) return [];
+    const bySlug = new Map(docs.map((d) => [d.slug, d]));
+    return recentDocs.map((r) => bySlug.get(r.slug)).filter(Boolean).slice(0, 6);
+  }, [recentDocs, docs]);
+
+  const subjectTotal = useMemo(
+    () => new Set(docs.map((d) => d.subject).filter(Boolean)).size,
+    [docs],
+  );
+
+  const visibleFlat = ranked.slice(0, MAX_RESULTS);
   const hasFilters = kind !== 'all' || semester !== 'all' || academicYear !== 'all';
 
   const resetFilters = useCallback(() => {
@@ -345,6 +424,11 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
           แยกตามชั้นปี วิชา เทอม และปีการศึกษา — เปิดอ่านในแอปแล้วขีดเขียนได้เลย
           รอยเขียนจะกลับมาเหมือนเดิมทุกครั้งที่เปิดใหม่
         </p>
+        {docs.length > 0 && (
+          <div style={{ ...mono, fontSize: 11.5, color: 'var(--clr-ink-soft)', marginTop: 6 }}>
+            {docs.length.toLocaleString()} ไฟล์ จาก {subjectTotal} วิชา
+          </div>
+        )}
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 18 }}>
@@ -370,8 +454,18 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
           border: '1px solid var(--clr-rose)', background: 'var(--clr-rose-soft)',
           color: 'var(--clr-rose-text)', borderRadius: 8, padding: '10px 14px',
           fontSize: 13, marginBottom: 14,
+          display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
         }}>
-          {error}
+          <span style={{ flex: 1, minWidth: 180 }}>{error}</span>
+          {docs.length === 0 && (
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-sm"
+              onClick={() => { setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
+            >
+              ลองใหม่
+            </button>
+          )}
         </div>
       )}
 
@@ -434,6 +528,29 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
             </p>
           )}
         </>
+      )}
+
+      {/* Recently opened — continue where you left off, ahead of the hunt */}
+      {!loading && !searching && recentOnShelf.length > 0 && (
+        <div style={{ marginBottom: 16 }}>
+          <div style={{ ...mono, fontSize: 10.5, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
+            เปิดล่าสุด
+          </div>
+          <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
+            {recentOnShelf.map((doc) => (
+              <button
+                key={doc.slug}
+                type="button"
+                className="vmx-chip"
+                title={doc.title}
+                onClick={() => openDoc(doc)}
+                style={{ maxWidth: 260, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 0 }}
+              >
+                {doc.title}
+              </button>
+            ))}
+          </div>
+        </div>
       )}
 
       {/* Browse mode — ชั้นปี → วิชา */}

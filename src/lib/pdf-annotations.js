@@ -120,6 +120,10 @@ export function saveAnnotations(fileHash, data) {
     fileName: data.fileName || all[fileHash]?.fileName || 'untitled.pdf',
     pageCount: data.pageCount || all[fileHash]?.pageCount || 1,
     strokesByPage: data.strokesByPage || all[fileHash]?.strokesByPage || {},
+    // Field-by-field merge on purpose: a stroke autosave that doesn't pass
+    // lastPage must not erase the reading position, and the page tracker
+    // that doesn't pass strokesByPage must not erase the strokes.
+    lastPage: Number.isFinite(data.lastPage) ? data.lastPage : (all[fileHash]?.lastPage ?? 1),
     lastOpened: Date.now(),
   };
   const trimmed = lruEvict(all, MAX_PDFS);

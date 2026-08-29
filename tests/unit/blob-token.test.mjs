@@ -45,3 +45,15 @@ test('no secret configured means no minting, not a crash', () => {
   assert.equal(mintBlobToken(DOC, { env: {}, now: NOW }), null);
   assert.equal(verifyBlobToken('x', 'y', { env: {}, now: NOW }), null);
 });
+
+test('a fixed expiresAtSec makes the token byte-identical across mints (cache-window contract)', () => {
+  // /api/library-file mints against a window boundary so every mint inside
+  // the hour returns the SAME URL — that is what turns a re-open into a
+  // browser cache hit. Different `now`, same expiry → identical token.
+  const e = Math.floor(NOW / 1000) + 3600;
+  const a = mintBlobToken(DOC, { env: ENV, now: NOW, expiresAtSec: e });
+  const b = mintBlobToken(DOC, { env: ENV, now: NOW + 47_000, expiresAtSec: e });
+  assert.equal(a.t, b.t);
+  assert.equal(a.s, b.s);
+  assert.equal(verifyBlobToken(a.t, a.s, { env: ENV, now: NOW }).e, e);
+});

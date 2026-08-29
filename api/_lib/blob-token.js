@@ -36,7 +36,7 @@ function macKey(env = process.env) {
   return crypto.createHash('sha256').update(`vetmock-library-blob:${secret}`).digest();
 }
 
-export function mintBlobToken(doc, { ttlSeconds = 300, env = process.env, now = Date.now() } = {}) {
+export function mintBlobToken(doc, { ttlSeconds = 300, expiresAtSec = null, env = process.env, now = Date.now() } = {}) {
   const key = macKey(env);
   if (!key) return null;
   const payload = JSON.stringify({
@@ -44,7 +44,10 @@ export function mintBlobToken(doc, { ttlSeconds = 300, env = process.env, now = 
     k: doc.storage_key,
     m: doc.mime || 'application/octet-stream',
     n: doc.byte_size ?? null,
-    e: Math.floor(now / 1000) + ttlSeconds,
+    // A fixed expiry makes the token — and therefore the URL — identical for
+    // every mint inside a time window, which is what lets the browser's HTTP
+    // cache serve a re-opened document instead of re-streaming it.
+    e: Number.isFinite(expiresAtSec) ? Math.floor(expiresAtSec) : Math.floor(now / 1000) + ttlSeconds,
   });
   const t = b64u(payload);
   const s = b64u(crypto.createHmac('sha256', key).update(t).digest());

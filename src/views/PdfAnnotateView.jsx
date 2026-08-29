@@ -122,13 +122,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const doc = await pdfjs.getDocument({ data: buf }).promise;
       const existing = loadAnnotations(hash);
       const restoredStrokes = existing?.strokesByPage || {};
+      const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), doc.numPages);
       setPdfDoc(doc);
       setFileHash(hash);
       setFileName(file.name);
       setPageCount(doc.numPages);
       setStrokesByPage(restoredStrokes);
-      setCurrentPage(1);
-      currentStrokesRef.current = restoredStrokes[1] || [];
+      setCurrentPage(startPage);
+      currentStrokesRef.current = restoredStrokes[startPage] || [];
       // Persist file metadata immediately (creates the cache entry
       // even before the user draws anything — so the "Recent" list
       // remembers this file on next visit).
@@ -163,18 +164,24 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // else is fetched whole, because chasing a trailing cross-reference table
   // over dozens of small ranges is slower than one sequential download.
   const ingestRemote = useCallback(async (doc) => {
-    if (!doc?.url) return;
+    if (!doc?.url && !doc?.resolve) return;
     setError(null);
     setLoading(true);
     setLoadingMsg('กำลังเปิดเอกสาร…');
     try {
-      const pdfjs = await loadPdfjs();
+      // `resolve` defers the signed-link mint until here, overlapping it
+      // with the pdf.js chunk load — the shelf navigates instantly instead
+      // of freezing its button for the mint round-trip.
+      const [pdfjs, url] = await Promise.all([
+        loadPdfjs(),
+        doc.url ? Promise.resolve(doc.url) : doc.resolve(),
+      ]);
       const stream = !!doc.linearized;
       let task;
       if (stream) {
-        task = pdfjs.getDocument({ url: doc.url, rangeChunkSize: 65536 });
+        task = pdfjs.getDocument({ url, rangeChunkSize: 65536 });
       } else {
-        const res = await fetch(doc.url);
+        const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const buf = await res.arrayBuffer();
         task = pdfjs.getDocument({ data: buf });
@@ -191,20 +198,25 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       if (!hash) throw new Error('เอกสารนี้ไม่มีรหัสอ้างอิง');
       const existing = loadAnnotations(hash);
       const restoredStrokes = existing?.strokesByPage || {};
+      // Resume where the reader left off — a 300-page textbook that always
+      // reopened at page 1 made every return trip start with scrolling.
+      const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), pdf.numPages);
       setPdfDoc(pdf);
       setFileHash(hash);
       setFileName(doc.fileName || 'document.pdf');
       setPageCount(pdf.numPages);
       setStrokesByPage(restoredStrokes);
-      setCurrentPage(1);
-      currentStrokesRef.current = restoredStrokes[1] || [];
+      setCurrentPage(startPage);
+      currentStrokesRef.current = restoredStrokes[startPage] || [];
       saveAnnotations(hash, {
         fileName: doc.fileName || 'document.pdf',
         pageCount: pdf.numPages,
         strokesByPage: restoredStrokes,
       });
       setRecent(listRecentPdfs());
-      if (existing && Object.keys(restoredStrokes).length > 0) {
+      if (startPage > 1) {
+        showToast(`เปิดต่อที่หน้า ${startPage} ✓`, 2500);
+      } else if (existing && Object.keys(restoredStrokes).length > 0) {
         showToast('โหลด annotation เดิมกลับมาแล้ว ✓', 3000);
       }
     } catch (e) {
@@ -216,13 +228,26 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
   }, [showToast]);
 
-  // Opening straight into a library document. Keyed by url so navigating from
-  // one library item to another inside the same mount re-ingests instead of
-  // showing the previous PDF.
+  // Opening straight into a library document. Keyed by slug + url so
+  // navigating from one library item to another inside the same mount (the
+  // command palette can do this) re-ingests instead of showing the previous
+  // PDF; navigate-first payloads carry no url, only slug + resolve().
   useEffect(() => {
-    if (initialDoc?.url) ingestRemote(initialDoc);
+    if (initialDoc?.url || initialDoc?.resolve) ingestRemote(initialDoc);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialDoc?.url]);
+  }, [initialDoc?.url, initialDoc?.slug]);
+
+  // Remember where the reader is, debounced past quick flips. Passing no
+  // strokesByPage on purpose — saveAnnotations merges field-by-field, so
+  // this can never clobber a stroke autosave racing beside it.
+  useEffect(() => {
+    if (!pdfDoc || !fileHash) return undefined;
+    const t = setTimeout(() => {
+      saveAnnotations(fileHash, { fileName, pageCount, lastPage: currentPage });
+    }, 800);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, pdfDoc, fileHash]);
 
   // ── Render current page ────────────────────────────────────
   useEffect(() => {
@@ -554,6 +579,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           {error && (
             <div className="vmx-error" style={{ marginTop: 12, padding: 10, borderRadius: 8, background: '#fdecea', color: '#8a1f15', fontSize: 13 }}>
               {error}
+              {(initialDoc?.resolve || initialDoc?.url) && (
+                <div style={{ marginTop: 8 }}>
+                  <button
+                    type="button"
+                    className="vmx-btn vmx-btn-sm"
+                    onClick={() => ingestRemote(initialDoc)}
+                  >
+                    ลองเปิดอีกครั้ง
+                  </button>
+                </div>
+              )}
             </div>
           )}
 

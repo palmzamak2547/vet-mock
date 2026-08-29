@@ -47,7 +47,7 @@ import ErrorBoundary from './ErrorBoundary.jsx';
 // the pieces that turn the palette into the app's AI search surface.
 import { OMNI_SOURCES } from '../lib/omni-sources.js';
 import { detectIntents } from '../lib/omni-intents.js';
-import { resolveDocUrl } from '../lib/library.js';
+import { docOpenMode, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -837,15 +837,29 @@ export default function CommandPalette({
     if (item.type === 'ask') { runAsk(); return; }
     pushRecent(item);
     if (item.type === 'library-doc') {
-      // Resolve the object URL first (mint or presign), then hand the same
-      // payload shape LibraryView builds to the PDF reader.
+      // Same open logic as the shelf: PDFs navigate to the reader instantly
+      // (the reader mints the link while its own chunk loads), everything
+      // else opens as a plain URL in a new tab.
       const doc = item.payload;
+      recordRecentDoc(doc);
       onClose();
+      if (docOpenMode(doc).action === 'read') {
+        handlersRef.current.onOpenLibraryDoc?.(readerPayload(doc));
+        return;
+      }
+      // Open the tab synchronously — popup blockers only trust window.open
+      // during the click, and the mint takes longer than that trust lasts.
+      const win = window.open('', '_blank');
+      if (win) { try { win.opener = null; } catch { /* hardened browsers */ } }
       resolveDocUrl(doc).then(
-        (url) => handlersRef.current.onOpenLibraryDoc?.({
-          url, fileName: `${doc.title}.pdf`, sha256: doc.sha256_16, slug: doc.slug, linearized: doc.linearized,
-        }),
-        () => handlersRef.current.goView?.('library'), // resolution failed → land on the shelf, which shows its own error UI
+        (url) => {
+          if (win) win.location.replace(url);
+          else window.open(url, '_blank', 'noopener,noreferrer');
+        },
+        () => {
+          if (win) { try { win.close(); } catch { /* already gone */ } }
+          handlersRef.current.goView?.('library'); // resolution failed → land on the shelf, which shows its own error UI
+        },
       );
       return;
     }

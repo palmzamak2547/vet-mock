@@ -18,9 +18,16 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v120-2026-08-29';
+const SW_VERSION = 'v121-2026-08-29';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
+// Library documents, cached by CONTENT HASH (the `h` query param), not by
+// URL — the signed token in the URL rotates every mint window, but the same
+// bytes keep the same hash forever. Unversioned on purpose: a worker update
+// must not throw away a student's downloaded decks.
+const LIB_DOCS = 'vmx-lib-docs-v1';
+const LIB_DOC_MAX_ENTRIES = 6;
+const LIB_DOC_MAX_BYTES = 40 * 1024 * 1024;
 const NAV_TIMEOUT_MS = 4000;
 
 self.addEventListener('install', (event) => {
@@ -46,7 +53,7 @@ self.addEventListener('activate', (event) => {
       caches.keys().then((keys) =>
         Promise.all(
           keys
-            .filter((k) => k.startsWith('vmx-') && k !== RUNTIME && k !== ASSETS)
+            .filter((k) => k.startsWith('vmx-') && k !== RUNTIME && k !== ASSETS && k !== LIB_DOCS)
             .map((k) => caches.delete(k))
         )
       ),
@@ -120,6 +127,43 @@ function staleWhileRevalidate(request, cacheName) {
   );
 }
 
+// Library blobs: serve the cached copy when the hash matches, otherwise
+// stream from the network and remember the bytes. FIFO capped — six recent
+// documents at up to 40 MB each is a week of reading, not a hoard.
+async function libraryDoc(request, hash) {
+  const cache = await caches.open(LIB_DOCS);
+  const key = new Request(`/__lib-doc/${hash}`);
+  const hit = await cache.match(key);
+  if (hit) return hit;
+
+  const offlineOnly = new URL(request.url).searchParams.get('offline') === '1';
+  if (offlineOnly) {
+    // The page could not even reach the mint endpoint; only the cache can
+    // answer. This document was never opened on this device.
+    return new Response(JSON.stringify({ error: 'offline_not_cached' }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+    });
+  }
+
+  const res = await fetch(request);
+  if (res && res.status === 200) {
+    const len = Number(res.headers.get('content-length'));
+    if (Number.isFinite(len) && len > 0 && len <= LIB_DOC_MAX_BYTES) {
+      const clone = res.clone();
+      // Evict + store off the response path — the reader gets bytes now.
+      cache.keys().then(async (keys) => {
+        // cache.keys() preserves insertion order, so keys[0] is the oldest.
+        for (let i = 0; i <= keys.length - LIB_DOC_MAX_ENTRIES; i++) {
+          await cache.delete(keys[i]).catch(() => {});
+        }
+        await cache.put(key, clone);
+      }).catch(() => {});
+    }
+  }
+  return res;
+}
+
 // ── Fetch handler ───────────────────────────────────────────────────
 self.addEventListener('fetch', (event) => {
   const { request } = event;
@@ -130,6 +174,17 @@ self.addEventListener('fetch', (event) => {
   // image hosts). Cross-origin caching has CORS pitfalls and gives
   // negligible offline value here since those need network anyway.
   if (url.origin !== self.location.origin) return;
+
+  // Library document bytes — the one API route that IS cached, because the
+  // cache key is a content hash, not the rotating signed URL. Lets a deck
+  // opened on campus re-open on the train with zero bandwidth.
+  if (url.pathname === '/api/library-blob') {
+    const hash = url.searchParams.get('h');
+    if (hash && /^[a-f0-9]{8,64}$/i.test(hash)) {
+      event.respondWith(libraryDoc(request, hash));
+      return;
+    }
+  }
 
   // User-specific API responses are network-only and never enter CacheStorage.
   if (url.pathname === '/api' || url.pathname.startsWith('/api/')) {

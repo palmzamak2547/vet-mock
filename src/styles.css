@@ -2684,7 +2684,11 @@ button.vmx-chip-quick:focus-visible {
   .vmx-lab-demo:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.04); }
   .vmx-lab-action-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
   .vmx-lab-pro-link:hover { transform: translateY(-1px); border-color: var(--clr-sage); box-shadow: var(--shadow-sm); }
+  .vmx-lib-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--clr-sage); }
 }
+
+/* Library shelf cards — lift on hover (pointer devices only, see above) */
+.vmx-lib-card { transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease; }
 @media (max-width: 680px) {
   .vmx-lab-mode-card { grid-template-columns: 1fr; gap: var(--space-3); }
   .vmx-lab-pro-link { width: 100%; white-space: normal; }
@@ -2703,7 +2707,8 @@ button.vmx-chip-quick:focus-visible {
   .vmx-pop-in { animation: none; }
   .vmx-lab-demo,
   .vmx-lab-action-card,
-  .vmx-lab-pro-link { transition: none; }
+  .vmx-lab-pro-link,
+  .vmx-lib-card { transition: none; }
   .vmx-lab-skeleton { animation: none !important; }
   .vmx-skeleton { background: var(--clr-surface-2); }
 }

@@ -22,12 +22,22 @@ import { mintBlobToken } from './_lib/blob-token.js';
 
 const TTL_SECONDS = 300;
 
-function send(res, status, body) {
+// Blob links are minted against a fixed WINDOW boundary instead of
+// "now + TTL": every mint inside the same hour returns the SAME URL, so a
+// student who re-opens a deck hits their browser cache instead of
+// re-streaming megabytes through the function. GRACE keeps a URL minted at
+// 59 minutes past usable; total lifetime never exceeds 75 minutes, so a
+// pasted link still dies on its own.
+const WINDOW_SEC = 3600;
+const GRACE_SEC = 900;
+
+function send(res, status, body, cacheSeconds = 0) {
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  // A signed URL is per-request and per-user. Anything that caches this
-  // response hands one student's link to the next.
-  res.setHeader('Cache-Control', 'no-store');
+  // Default no-store: signed URLs for restricted material are per-user.
+  // Public documents opt into short private caching so a repeat open costs
+  // zero requests — the URL inside is stable for the window anyway.
+  res.setHeader('Cache-Control', cacheSeconds > 0 ? `private, max-age=${cacheSeconds}` : 'no-store');
   res.end(JSON.stringify(body));
 }
 
@@ -111,12 +121,20 @@ export default async function handler(req, res) {
   }
 
   if (!cfConfig(env).configured) return send(res, 503, { error: 'storage_not_configured' });
-  const tok = mintBlobToken(doc, { ttlSeconds: TTL_SECONDS, env });
+  const nowSec = Math.floor(Date.now() / 1000);
+  const expiresAtSec = (Math.floor(nowSec / WINDOW_SEC) + 1) * WINDOW_SEC + GRACE_SEC;
+  const tok = mintBlobToken(doc, { expiresAtSec, env });
   if (!tok) return send(res, 503, { error: 'storage_not_configured' });
+  // Public rows resolve identically for every caller, so the mint response
+  // itself may be cached until the window rolls — the URL inside keeps at
+  // least GRACE_SEC of validity beyond that point.
+  const mintCacheSec = doc.status === 'public'
+    ? Math.max(0, expiresAtSec - GRACE_SEC - nowSec)
+    : 0;
   return send(res, 200, {
     url: `/api/library-blob?t=${tok.t}&s=${tok.s}`,
-    expiresIn: TTL_SECONDS,
+    expiresIn: expiresAtSec - nowSec,
     mime: doc.mime,
     byteSize: doc.byte_size,
-  });
+  }, mintCacheSec);
 }

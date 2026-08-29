@@ -36,15 +36,17 @@ const SIGNED_URL_TTL_SEC = 600;
 export const LIBRARY_BUCKET_DEFAULT = 'library-docs';
 
 // Column list kept explicit (not `*`) so a future private column added to
-// library_docs cannot leak into the client by accident.
+// library_docs cannot leak into the client by accident. Trimmed to what the
+// UI, search index and URL resolver actually consume — created_at,
+// updated_at, license, source_url and lang were shipped on all ~1,500 rows
+// of every catalog load without a single reader.
 const CATALOG_COLUMNS = [
   'id', 'slug', 'title', 'description',
   'kind', 'subject', 'year', 'semester', 'academic_year', 'cohort',
-  'lecturer', 'topics', 'sequence', 'lang',
+  'lecturer', 'topics', 'sequence',
   'storage_provider', 'storage_bucket', 'storage_key',
   'mime', 'byte_size', 'page_count', 'sha256_16', 'linearized',
-  'license', 'source_url', 'attribution',
-  'status', 'created_at', 'updated_at',
+  'attribution', 'status',
 ].join(', ');
 
 export const LIBRARY_KINDS = Object.freeze([
@@ -284,15 +286,57 @@ function isPreMigration(err) {
 let _catalogPromise = null;
 export function getLibraryCatalog() {
   if (!_catalogPromise) {
-    _catalogPromise = fetchLibraryDocs().catch((err) => {
-      _catalogPromise = null; // a failed fetch must not poison the session
-      throw err;
-    });
+    _catalogPromise = fetchLibraryDocs()
+      .then((result) => {
+        saveCatalogSnapshot(result);
+        return result;
+      })
+      .catch((err) => {
+        _catalogPromise = null; // a failed fetch must not poison the session
+        throw err;
+      });
   }
   return _catalogPromise;
 }
 if (typeof window !== 'undefined') {
   window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; });
+}
+
+// ── Instant-paint snapshot ────────────────────────────────────────────────
+// The catalog changes rarely and its metadata is public, so the last good
+// fetch is kept in localStorage. A returning visitor paints the whole shelf
+// from the snapshot in the same frame the view mounts, while the fresh fetch
+// revalidates in the background and swaps in silently if anything changed.
+
+const SNAPSHOT_KEY = 'vmx-library-catalog-v1';
+
+function saveCatalogSnapshot(result) {
+  if (typeof window === 'undefined') return;
+  if (!result?.configured || !Array.isArray(result.docs) || result.docs.length === 0) return;
+  try {
+    window.localStorage.setItem(SNAPSHOT_KEY, JSON.stringify({ at: Date.now(), docs: result.docs }));
+  } catch { /* quota or private mode — the shelf just loads from network */ }
+}
+
+export function readCatalogSnapshot() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem(SNAPSHOT_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed?.docs) || parsed.docs.length === 0) return null;
+    return { docs: parsed.docs, at: parsed.at || 0 };
+  } catch {
+    return null;
+  }
+}
+
+/** Snapshot-first access: `{ stale, fresh }` where `stale` is the instant
+ *  local copy (or null on a first-ever visit) and `fresh` is the shared
+ *  session promise. Callers render `stale` immediately and swap when
+ *  `fresh` resolves. */
+export function getLibraryCatalogFast() {
+  return { stale: readCatalogSnapshot(), fresh: getLibraryCatalog() };
 }
 
 export async function fetchLibraryDocs() {
@@ -307,24 +351,42 @@ export async function fetchLibraryDocs() {
   // people using this app are actually in — the day the full shelf landed,
   // with no error anywhere.
   const PAGE = 1000;
+  const fetchPage = (from) => sb
+    .from('library_docs')
+    .select(CATALOG_COLUMNS)
+    .order('year', { ascending: true, nullsFirst: false })
+    .order('semester', { ascending: true, nullsFirst: false })
+    .order('subject', { ascending: true, nullsFirst: false })
+    .order('sequence', { ascending: true })
+    .order('title', { ascending: true })
+    // slug is unique, so it breaks any remaining tie — without a total
+    // order, rows can repeat or vanish across page boundaries.
+    .order('slug', { ascending: true })
+    .range(from, from + PAGE - 1);
+
+  // The shelf is ~1,500 rows today, so the first TWO pages are fired
+  // concurrently — sequential paging made every visitor pay page 1's full
+  // round-trip before page 2 even started (measured 414 ms + 182 ms on
+  // prod). Only a shelf that outgrows 2,000 rows pages on sequentially.
   const data = [];
   let error = null;
-  for (let from = 0; ; from += PAGE) {
-    const res = await sb
-      .from('library_docs')
-      .select(CATALOG_COLUMNS)
-      .order('year', { ascending: true, nullsFirst: false })
-      .order('semester', { ascending: true, nullsFirst: false })
-      .order('subject', { ascending: true, nullsFirst: false })
-      .order('sequence', { ascending: true })
-      .order('title', { ascending: true })
-      // slug is unique, so it breaks any remaining tie — without a total
-      // order, rows can repeat or vanish across page boundaries.
-      .order('slug', { ascending: true })
-      .range(from, from + PAGE - 1);
-    if (res.error) { error = res.error; break; }
-    data.push(...(res.data || []));
-    if (!res.data || res.data.length < PAGE) break;
+  const [p0, p1] = await Promise.all([fetchPage(0), fetchPage(PAGE)]);
+  if (p0.error) error = p0.error;
+  else {
+    data.push(...(p0.data || []));
+    if ((p0.data || []).length === PAGE) {
+      if (p1.error) error = p1.error;
+      else {
+        data.push(...(p1.data || []));
+        let last = p1.data || [];
+        for (let from = PAGE * 2; !error && last.length === PAGE; from += PAGE) {
+          const res = await fetchPage(from);
+          if (res.error) { error = res.error; break; }
+          data.push(...(res.data || []));
+          last = res.data || [];
+        }
+      }
+    }
   }
 
   if (error) {
@@ -361,9 +423,20 @@ export async function resolveDocUrl(doc) {
     const { getSupabase } = await import('./supabase.js');
     const sb = await getSupabase();
     const { data: { session } = {} } = await sb.auth.getSession();
-    const res = await fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}`, {
-      headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {},
-    });
+    let res;
+    try {
+      res = await fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}`, {
+        headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {},
+      });
+    } catch (netErr) {
+      // Offline (or the mint endpoint is unreachable). The service worker
+      // keeps recently opened documents in a content-addressed cache keyed
+      // by the `h` param — hand it a URL it can answer from that cache. If
+      // the document was never opened on this device, the request falls
+      // through to the network and fails honestly.
+      if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
+      throw netErr;
+    }
     if (res.status === 401) throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
@@ -371,6 +444,13 @@ export async function resolveDocUrl(doc) {
     }
     const { url } = await res.json();
     if (!url) throw new Error('ขอลิงก์ไฟล์ไม่สำเร็จ');
+    // `h` is not part of the signed token — it is the content hash the
+    // service worker uses as a stable cache key across mint windows, which
+    // is what makes "open the same deck again next week, offline on the
+    // train" work.
+    if (url.startsWith('/api/library-blob?') && doc.sha256_16) {
+      return `${url}&h=${encodeURIComponent(doc.sha256_16)}`;
+    }
     return url;
   }
 
@@ -384,4 +464,89 @@ export async function resolveDocUrl(doc) {
     .createSignedUrl(doc.storage_key, SIGNED_URL_TTL_SEC);
   if (error) throw new Error(`ขอลิงก์ไฟล์ไม่สำเร็จ: ${error.message}`);
   return data.signedUrl;
+}
+
+// ── How a document opens ──────────────────────────────────────────────────
+// 121 shelf rows are not PDFs (Word, PowerPoint, Excel, images, videos, one
+// zip). Sending those into the PDF reader used to fail after the download;
+// each family now gets the action a browser can actually perform.
+
+const TYPE_LABELS = [
+  [/^application\/pdf$/, 'PDF'],
+  [/wordprocessingml|msword/, 'Word'],
+  [/presentationml|ms-powerpoint/, 'PowerPoint'],
+  [/spreadsheetml|ms-excel/, 'Excel'],
+  [/^image\//, 'รูปภาพ'],
+  [/^video\//, 'วิดีโอ'],
+  [/^audio\//, 'เสียง'],
+  [/zip/, 'ZIP'],
+];
+
+export function docTypeLabel(mime) {
+  const m = String(mime || '');
+  for (const [re, label] of TYPE_LABELS) if (re.test(m)) return label;
+  return 'ไฟล์';
+}
+
+/** What the primary button on a card should DO for this mime type.
+ *  'read'     → the in-app annotating PDF reader
+ *  'tab'      → a new tab the browser renders natively (images, video, audio)
+ *  'download' → the browser will save it (Office files, zip, unknown) */
+export function docOpenMode(doc) {
+  const m = String(doc?.mime || '');
+  if (m === 'application/pdf') return { action: 'read', label: 'เปิดอ่าน' };
+  if (/^image\//.test(m)) return { action: 'tab', label: 'เปิดดูรูป' };
+  if (/^video\//.test(m)) return { action: 'tab', label: 'เปิดวิดีโอ' };
+  if (/^audio\//.test(m)) return { action: 'tab', label: 'เปิดฟังเสียง' };
+  return { action: 'download', label: 'ดาวน์โหลดไฟล์' };
+}
+
+/** The payload the PDF reader receives. `resolve` defers the mint to the
+ *  reader's own loading phase, so tapping a card navigates instantly instead
+ *  of freezing the button for the mint round-trip. */
+export function readerPayload(doc) {
+  return {
+    resolve: () => resolveDocUrl(doc),
+    fileName: `${doc.title}.pdf`,
+    sha256: doc.sha256_16,
+    slug: doc.slug,
+    linearized: doc.linearized,
+    title: doc.title,
+    subject: doc.subject,
+  };
+}
+
+// ── Recently opened ───────────────────────────────────────────────────────
+// A small per-device list so the shelf's first row is "continue where you
+// left off" instead of starting the hunt over. Metadata only — the bytes
+// live in the service worker's cache, the strokes in pdf-annotations.
+
+const RECENT_KEY = 'vmx-library-recent-v1';
+const RECENT_MAX = 8;
+
+export function recordRecentDoc(doc) {
+  if (typeof window === 'undefined' || !doc?.slug) return;
+  try {
+    const list = listRecentDocs().filter((r) => r.slug !== doc.slug);
+    list.unshift({
+      slug: doc.slug,
+      title: doc.title,
+      subject: doc.subject || null,
+      mime: doc.mime || null,
+      sha256_16: doc.sha256_16 || null,
+      at: Date.now(),
+    });
+    window.localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, RECENT_MAX)));
+  } catch { /* storage full or disabled — recents are a nicety */ }
+}
+
+export function listRecentDocs() {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = window.localStorage.getItem(RECENT_KEY);
+    const list = raw ? JSON.parse(raw) : [];
+    return Array.isArray(list) ? list.filter((r) => r && r.slug && r.title) : [];
+  } catch {
+    return [];
+  }
 }
