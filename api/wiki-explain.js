@@ -28,7 +28,7 @@
 // ============================================================
 
 import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { chatJSON, extractJSON, llmConfigured } from './_lib/llm.js';
+import { chatJSON, extractJSON, llmConfigured, hasCJK } from './_lib/llm.js';
 import { loadTopic } from '../src/lib/vetwiki/index.js';
 import { retrieveSections, sectionsForPicks } from '../src/lib/vetwiki/retrieve.js';
 import { validateAnswer, allowedFromSections } from '../src/lib/vetwiki/answer.js';
@@ -65,6 +65,8 @@ Return ONLY a JSON object, no prose around it:
 
 Rules:
 - Write "text" in Thai, in short plain sentences a student can read quickly.
+  English technical terms are fine. NEVER use Chinese, Japanese, or any other
+  script — not even one word.
 - Each claim states ONE idea. 2-6 claims total.
 - Cite with the SHORT ids exactly as given: {"sectionId":"S1"}. NEVER cite an id
   that was not given to you. Every factual claim MUST cite its section(s).
@@ -183,9 +185,10 @@ export default async function handler(req, res) {
       return `--- section S${i + 1} (${verified ? 'VERIFIED' : 'DRAFT'})\narticle: ${topicTitle}${topicSummary ? ` — ${topicSummary}` : ''}\nheading: ${s.heading}\n${text}${extra ? `\n${extra}` : ''}`;
     }).join('\n\n');
 
-    const answer = await chatJSON({
+    const userMsg = `SECTIONS:\n${context}\n\nคำถาม: ${question}`;
+    let answer = await chatJSON({
       system: SYSTEM,
-      user: `SECTIONS:\n${context}\n\nคำถาม: ${question}`,
+      user: userMsg,
       maxTokens: MAX_TOKENS,
       timeoutMs: TIMEOUT_MS,
     });
@@ -194,8 +197,27 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: 'AI provider error', status: answer.status });
     }
 
-    const parsed = extractJSON(answer.text);
+    let parsed = extractJSON(answer.text);
     if (!parsed) return res.status(502).json({ error: 'AI returned malformed output' });
+
+    // Language enforcement — the prompt rule is not enforcement. The primary
+    // model dropped "主要通过" into a Thai claim live; on detection, ONE
+    // corrective regeneration, and any claim still carrying CJK after that
+    // is dropped rather than rendered as broken Thai.
+    const claimHasCJK = (c) => hasCJK(c?.text) || (Array.isArray(c?.limitations) && c.limitations.some(hasCJK));
+    if ((parsed.claims || []).some(claimHasCJK)) {
+      const retry = await chatJSON({
+        system: SYSTEM,
+        user: `${userMsg}\n\nคำตอบก่อนหน้าของคุณมีตัวอักษรจีนปนอยู่ ตอบใหม่ทั้งหมดเป็นภาษาไทยล้วน (ศัพท์เทคนิคภาษาอังกฤษได้) ห้ามมีอักษรจีนหรือญี่ปุ่นแม้แต่ตัวเดียว`,
+        maxTokens: MAX_TOKENS,
+        timeoutMs: TIMEOUT_MS,
+      });
+      if (retry.ok) {
+        const reparsed = extractJSON(retry.text);
+        if (reparsed && (reparsed.claims || []).length) { parsed = reparsed; answer = retry; }
+      }
+      parsed.claims = (parsed.claims || []).filter((c) => !claimHasCJK(c));
+    }
 
     // Cited-section map for the client: which article each id lives in, so
     // the AI Search card can navigate to it AND re-validate the citation

@@ -9,7 +9,7 @@
 // the validated plan and the STUDENT confirms before anything runs.
 
 import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { chatJSON, extractJSON, llmConfigured } from './_lib/llm.js';
+import { chatJSON, extractJSON, llmConfigured, hasCJK } from './_lib/llm.js';
 import { buildCatalog, validateAction } from './_lib/agent-actions.js';
 
 const MAX_UTTERANCE = 300;
@@ -101,7 +101,16 @@ export default async function handler(req, res) {
     if (!verdict.ok) {
       return res.status(200).json({ action: null, reason: verdict.reason });
     }
-    return res.status(200).json({ action: verdict.action, say: verdict.say, model: answer.model });
+    // The plan line renders verbatim — a CJK-contaminated say falls back to
+    // a deterministic Thai sentence instead of broken language on a button.
+    const SAY_FALLBACK = {
+      practice: 'เปิดชุดฝึกตามคำสั่งนี้',
+      library: 'เปิดชั้นเอกสารของวิชานี้',
+      wiki: 'เปิดบทความที่เกี่ยวข้อง',
+      feature: 'เปิดเครื่องมือที่ขอ',
+    };
+    const say = hasCJK(verdict.say) ? (SAY_FALLBACK[verdict.action.type] || 'ทำตามคำสั่งนี้') : verdict.say;
+    return res.status(200).json({ action: verdict.action, say, model: answer.model });
   } catch (err) {
     return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
   }

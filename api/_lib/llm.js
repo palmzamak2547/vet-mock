@@ -111,6 +111,15 @@ export function llmConfigured(env = process.env) {
   return !!(env.DEEPSEEK_API_KEY || env.ANTHROPIC_API_KEY);
 }
 
+// CJK detector for output-language enforcement. The primary model is
+// Chinese-trained and occasionally drops Chinese fragments into Thai
+// answers (live 2026-08-29: "โรคพิษสุนัขบ้าติดต่อ主要通过การถูกสัตว์กัด").
+// Covers CJK punctuation, kana, unified + ext-A ideographs, compat forms.
+const CJK_RE = /[\u3000-\u303F\u3040-\u30FF\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF\uFF01-\uFF60\uFF66-\uFF9F]/;
+export function hasCJK(s) {
+  return CJK_RE.test(String(s ?? ''));
+}
+
 /**
  * Ask the first working provider for a JSON answer.
  * @returns {{ ok: true, text, model } | { ok: false, status }}

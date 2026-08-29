@@ -9,7 +9,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { buildCatalog, validateAction } from '../../api/_lib/agent-actions.js';
-import { extractJSON } from '../../api/_lib/llm.js';
+import { extractJSON, hasCJK } from '../../api/_lib/llm.js';
 
 const catalog = buildCatalog();
 
@@ -63,4 +63,22 @@ test('extractJSON survives the trailing junk a model appended live', () => {
   assert.deepEqual(extractJSON('noise {"x":"}"} tail'), { x: '}' });
   assert.equal(extractJSON('no json here'), null);
   assert.equal(extractJSON('{"broken":'), null);
+});
+
+// ── hasCJK — output-language enforcement ─────────────────────────────────
+// The primary model dropped "主要通过" into a Thai claim on prod
+// (2026-08-29). The detector must fire on any CJK while never flagging
+// the Thai + English-technical-term mix every legitimate answer uses.
+
+test('hasCJK catches the exact contamination seen live, and kana', () => {
+  assert.equal(hasCJK('โรคพิษสุนัขบ้าติดต่อ主要通过การถูกสัตว์กัด'), true);
+  assert.equal(hasCJK('ผลตรวจ：ปกติ'), true); // fullwidth CJK punctuation
+  assert.equal(hasCJK('ワクチン'), true);
+});
+
+test('hasCJK never flags normal Thai-English veterinary prose', () => {
+  assert.equal(hasCJK('ยา amoxicillin 12 mg/kg PO q12h (ห้ามใช้ในแมว)'), false);
+  assert.equal(hasCJK('ล้างแผล ใส่ยา กักหมา หาหมอ และฉีดวัคซีนให้ครบ 99%'), false);
+  assert.equal(hasCJK(''), false);
+  assert.equal(hasCJK(null), false);
 });
