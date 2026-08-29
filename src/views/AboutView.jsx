@@ -64,7 +64,7 @@ export default function AboutView({ goHome, setView }) {
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
             <li>เครื่องมือทบทวนครบจบในเว็บเดียว — โจทย์ฝึก, notes สรุป, flashcard, สรุปคลิป, scoring</li>
-            <li>รวมโจทย์ฝึกทุกชั้นปีในเว็บเดียว (ตอนนี้เปิดปี 1, 4, 5 แล้ว)</li>
+            <li>รวมโจทย์ฝึกทุกชั้นปีในเว็บเดียว (ตอนนี้มีข้อสอบครบปี 1-5 แล้ว)</li>
             <li>ไม่มีค่าใช้จ่าย ไม่โฆษณา ไม่เก็บข้อมูลส่วนตัวที่ไม่จำเป็น</li>
             <li>Open for contribution — ใครอยากช่วยเพิ่มโจทย์ฝึกทักมาได้</li>
           </ul>

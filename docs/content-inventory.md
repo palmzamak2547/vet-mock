@@ -14,11 +14,12 @@ Generated from the working tree at the time of the run.
 | Total questions in source banks | 4,499 |
 | Question banks (files) | 66 |
 | Subjects with questions | 43 |
-| Years covered | 1, 2, 4, 5 |
+| Years covered | 1, 2, 3, 4, 5 |
 | — year 1 | 298 |
 | — year 2 | 144 |
+| — year 3 | 8 |
 | — year 4 | 2,092 |
-| — year 5 | 1,965 |
+| — year 5 | 1,957 |
 
 Consistency: source banks **4499**, learner-ready **4499**, fail-closed **0**, registry sums to **4499**, files missing from the registry: **0** → ✅ consistent
 
@@ -37,7 +38,7 @@ Consistency: source banks **4499**, learner-ready **4499**, fail-closed **0**, r
 
 ## Curriculum
 
-87 subjects, 1037 topics in the taxonomy.
+86 subjects, 1037 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 
