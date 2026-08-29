@@ -3,6 +3,12 @@
 // ============================================================
 //
 // ดึงรายการคลิปใน YouTube playlist:
+// ⚠️ ACCESS PATTERN (measured on prod 2026-08-29): /app/videos mounts one card
+// per playlist and each card asks for a preview, so a cold visit fires ~41
+// requests inside ~40 ms from ONE ip. Anything tuned for "a person clicks a
+// playlist" is wrong here; the client now fetches only visible cards with a
+// concurrency cap, and the limits below match the real burst.
+//
 //   1) ถ้ามี env YOUTUBE_API_KEY → ใช้ YouTube Data API v3 (แม่นที่สุด)
 //   2) Fallback: ดึง RSS (เร็ว, ไม่ต้อง key)
 //      ⚠️ RSS มีข้อจำกัด: แสดงเฉพาะคลิปจาก channel เจ้าของ playlist
@@ -33,53 +39,88 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
 
-  // ── Rate limit: 30 / minute / IP ──
+  // ── Rate limit ──
+  // 30/min used to be the cap. One cold load of /app/videos is ~41 requests, so
+  // the 31st onward answered 429 and the player rendered "ดึงรายการคลิปไม่ได้ —
+  // playlist อาจรวมจากหลายช่อง" — a cause that had nothing to do with it. The cap
+  // now clears a full page plus scrolling while still stopping a scripted flood.
   const ip = clientIP(req);
-  const rl = await rateLimit(`playlist:${ip}`, 30, 60_000);
+  const rl = await rateLimit(`playlist:${ip}`, 120, 60_000);
   if (!rl.ok) {
     res.setHeader('Retry-After', String(rl.retryAfter));
-    return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });
+    // Never cache a rate-limit answer: a cached 429 would lock out everyone
+    // sharing the CDN node for its lifetime.
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(429).json({ error: 'Too many requests', reason: 'rate_limited', retryAfter: rl.retryAfter });
   }
 
   const rawId = Array.isArray(req.query?.id) ? req.query.id[0] : req.query?.id;
   const id = String(rawId || '').trim();
   if (!id || !/^[A-Za-z0-9_-]{10,40}$/.test(id)) {
-    return res.status(400).json({ error: 'invalid playlist id' });
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(400).json({ error: 'invalid playlist id', reason: 'bad_id' });
   }
 
   const apiKey = process.env.YOUTUBE_API_KEY;
 
   // ─── 1) Prefer YouTube Data API if key configured ───
+  let degraded = null; // why we fell through to RSS, if we did
   if (apiKey) {
-    const providerBudget = await rateLimit('provider:youtube-data-api:daily', 250, 24 * 60 * 60 * 1000);
+    // YouTube's free quota is 10,000 UNITS/day and one fetch here costs 2
+    // (playlistItems.list 1 + videos.list 1). The old cap of 250 CALLS/day was
+    // therefore ~5% of what we may spend, while a single cold visit to
+    // /app/videos costs 41 — the budget died after ~6 visitors and every
+    // playlist silently degraded to an empty RSS answer for the rest of the day.
+    const providerBudget = await rateLimit('provider:youtube-data-api:daily', 2000, 24 * 60 * 60 * 1000);
     if (providerBudget.ok) {
       try {
         const items = await fromDataApi(id, apiKey);
+        // Only a REAL answer earns a long cache. An empty list from the API is
+        // a genuine empty playlist, so it caches too — but says so.
         res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
-        return res.status(200).json({ items, count: items.length, source: 'api' });
+        return res.status(200).json({
+          items,
+          count: items.length,
+          source: 'api',
+          ...(items.length === 0 ? { reason: 'empty_playlist' } : {}),
+        });
       } catch (err) {
         console.warn('Data API failed, falling back to RSS:', err.message);
+        degraded = 'api_error';
       }
+    } else {
+      degraded = 'budget_exhausted';
     }
+  } else {
+    degraded = 'no_key';
   }
 
   // ─── 2) Fallback to RSS ───
   try {
     const items = await fromRss(id);
-    res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=86400');
     if (items.length === 0) {
-      // ไม่ใช่ error — playlist ที่รวม video หลายช่องจะ RSS ว่าง
+      // An empty feed is NOT proof of a multi-channel playlist when we only
+      // reached RSS because the Data API was unavailable — say which it is.
+      // And never cache this: the old header cached the empty answer for 30
+      // minutes with a 24-hour stale-while-revalidate window, so one exhausted
+      // moment served "no clips" to every later visitor for up to a day.
+      res.setHeader('Cache-Control', degraded ? 'no-store' : 's-maxage=1800, stale-while-revalidate=86400');
       return res.status(200).json({
         items: [],
         count: 0,
         source: 'rss',
-        note: 'YouTube RSS คืนเฉพาะคลิปของช่องเจ้าของ playlist · playlist นี้น่าจะรวมคลิปจากหลายช่อง · ลองคลิก ▶ ในเครื่องเล่นเพื่อดูรายการคลิปจาก YouTube โดยตรง หรือ เปิดบน YouTube',
+        reason: degraded || 'multi_channel',
+        note: degraded
+          ? 'ดึงรายการคลิปจาก YouTube ไม่ได้ชั่วคราว'
+          : 'YouTube RSS คืนเฉพาะคลิปของช่องเจ้าของ playlist, playlist นี้รวมคลิปจากหลายช่อง',
       });
     }
-    return res.status(200).json({ items, count: items.length, source: 'rss' });
+    res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=86400');
+    return res.status(200).json({ items, count: items.length, source: 'rss', ...(degraded ? { degraded } : {}) });
   } catch (err) {
     console.error('playlist fetch error:', err);
-    return res.status(502).json({ error: err.message || 'fetch failed' });
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(502).json({ error: err.message || 'fetch failed', reason: 'upstream_unreachable' });
   }
 }
 

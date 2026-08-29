@@ -106,6 +106,29 @@ function readCachedPreview(playlistId) {
   return null;
 }
 
+// Concurrency gate. Measured on prod: a cold /app/videos mounted 41 cards and
+// fired 41 requests inside 41 ms from one IP, so everything past the server's
+// per-minute cap answered 429 — and the player then blamed "playlist รวมหลายช่อง",
+// a cause that had nothing to do with it. Four at a time keeps the page fast
+// while never looking like a flood.
+const MAX_CONCURRENT_PREVIEWS = 4;
+let _active = 0;
+const _waiting = [];
+function runQueued(task) {
+  return new Promise((resolve) => {
+    const start = () => {
+      _active++;
+      task().then(resolve).finally(() => {
+        _active--;
+        const next = _waiting.shift();
+        if (next) next();
+      });
+    };
+    if (_active < MAX_CONCURRENT_PREVIEWS) start();
+    else _waiting.push(start);
+  });
+}
+
 function fetchPreview(playlistId) {
   if (!playlistId) return Promise.resolve(null);
   if (PLAYLIST_PREVIEW_CACHE.has(playlistId)) return Promise.resolve(PLAYLIST_PREVIEW_CACHE.get(playlistId));
@@ -113,7 +136,7 @@ function fetchPreview(playlistId) {
   if (cached) return Promise.resolve(cached);
   if (INFLIGHT.has(playlistId)) return INFLIGHT.get(playlistId);
 
-  const p = fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`)
+  const p = runQueued(() => fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`))
     .then((r) => (r.ok ? r.json() : null))
     .then((json) => {
       if (!json?.items?.length) return null;
@@ -139,39 +162,59 @@ function fetchPreview(playlistId) {
   return p;
 }
 
+// Returns [preview, attachRef]. The ref gates the request on the card actually
+// being near the viewport: a shelf of 41 cards used to fetch all 41 covers on
+// mount even though a phone shows two of them, which is what turned one page
+// open into a request flood (and burned the shared daily YouTube budget in a
+// handful of visits). Cards the reader never scrolls to now cost nothing.
 function usePlaylistPreview(playlistId) {
   const [preview, setPreview] = useState(() => readCachedPreview(playlistId));
+  const nodeRef = useRef(null);
 
   useEffect(() => {
-    if (!playlistId) return;
+    if (!playlistId) return undefined;
     const cached = readCachedPreview(playlistId);
-    if (cached) { setPreview(cached); return; }
-    // Subscribe so that if another card kicks the fetch off, we get the result
+    if (cached) { setPreview(cached); return undefined; }
+
+    // Subscribe first so a fetch started by another card still reaches us.
     if (!SUBSCRIBERS.has(playlistId)) SUBSCRIBERS.set(playlistId, new Set());
     SUBSCRIBERS.get(playlistId).add(setPreview);
-    fetchPreview(playlistId);
-    return () => {
-      const s = SUBSCRIBERS.get(playlistId);
-      if (s) { s.delete(setPreview); if (!s.size) SUBSCRIBERS.delete(playlistId); }
+
+    const unsubscribe = () => {
+      const set = SUBSCRIBERS.get(playlistId);
+      if (set) { set.delete(setPreview); if (!set.size) SUBSCRIBERS.delete(playlistId); }
     };
+
+    const node = nodeRef.current;
+    // No node or no IntersectionObserver (older engines, tests): behave as
+    // before rather than never loading a cover.
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      fetchPreview(playlistId);
+      return unsubscribe;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        fetchPreview(playlistId);
+      },
+      // 300px of runway so a cover is ready by the time the card is read.
+      { rootMargin: '300px' },
+    );
+    io.observe(node);
+    return () => { io.disconnect(); unsubscribe(); };
   }, [playlistId]);
 
-  return preview;
+  return [preview, nodeRef];
 }
 
-// Prefetch every known playlist with a small concurrency cap so we
-// don't hammer the serverless function (and don't hit YouTube quota).
-async function prefetchAll(playlistIds, concurrency = 3) {
-  const todo = playlistIds.filter((id) => !PLAYLIST_PREVIEW_CACHE.has(id) && !readCachedPreview(id));
-  let i = 0;
-  const workers = Array.from({ length: Math.min(concurrency, todo.length) }, async () => {
-    while (i < todo.length) {
-      const id = todo[i++];
-      await fetchPreview(id);
-    }
-  });
-  await Promise.all(workers);
-}
+// (A mount-time prefetch of EVERY playlist used to live here. Its concurrency
+// cap of 3 spread the requests in time but still issued all 41 within a second
+// of the page opening — measured on prod — which is what pushed a cold visit
+// past the server's per-minute cap and drained the shared daily YouTube budget
+// in about six visits. Covers are now fetched by the viewport gate in
+// usePlaylistPreview, so only cards a reader actually reaches cost anything.)
 
 // ============================================================
 // VideoView — main page (grid of subject cards / playlist tiles)
@@ -192,17 +235,6 @@ export default function VideoView({ goHome, initialSubject = null }) {
 
   const allVideos = [...VIDEO_LIBRARY, ...customVideos];
   const filtered = filter === 'all' ? allVideos : allVideos.filter((v) => v.subject === filter);
-
-  // Prefetch every playlist preview as soon as VideoView mounts so subject
-  // filter switches feel instant (thumbnails are ready in the cache by then).
-  useEffect(() => {
-    const ids = allVideos
-      .map((v) => getPlaylistId(v.url))
-      .filter((id) => id);
-    if (ids.length) prefetchAll(ids).catch(() => {});
-    // Run once per mount — cache is module-level, customVideos changes don't matter much
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const startAdd = () => {
     setForm({ subject: filter !== 'all' ? filter : 'surg2', topic: '', url: '', author: '', duration: '' });
@@ -402,7 +434,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
 function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
   // Single videos use direct YouTube thumbnail; playlists use first-video preview from API
   const playlistId = playlist ? getPlaylistId(video.url) : null;
-  const playlistPreview = usePlaylistPreview(playlistId);
+  const [playlistPreview, previewRef] = usePlaylistPreview(playlistId);
   const directThumb = !playlist && !isChannel ? getThumbnail(video.url, 'hq') : null;
   const [errored, setErrored] = useState(false);
 
@@ -410,7 +442,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
 
   if (thumbSrc && !errored) {
     return (
-      <div style={{ width: '100%', aspectRatio: '16/9', background: '#000', position: 'relative', overflow: 'hidden' }}>
+      <div ref={previewRef} style={{ width: '100%', aspectRatio: '16/9', background: '#000', position: 'relative', overflow: 'hidden' }}>
         <img src={thumbSrc} alt={video.topic} loading="lazy"
           style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }}
           onError={() => setErrored(true)}
@@ -453,7 +485,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
       // two siblings: a dark ground so the white label holds.
       : 'linear-gradient(135deg, #4a4339, #2b2419)';
   return (
-    <div style={{ width: '100%', aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white' }}>
+    <div ref={previewRef} style={{ width: '100%', aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white' }}>
       <div style={{ fontSize: 50 }}>{playlist ? '📋' : isChannel ? '📺' : '🎬'}</div>
       <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', letterSpacing: '0.1em', fontWeight: 600 }}>
         {playlist ? 'PLAYLIST' : isChannel ? 'CHANNEL' : 'VIDEO'}
@@ -497,36 +529,52 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   const dialogRef = useModalFocus({ onClose });
 
   // Fetch playlist items
+  //
+  // The message this produces used to be a single guess — "playlist อาจรวมจาก
+  // หลายช่อง" — printed for EVERY failure, including a plain 429 caused by the
+  // shelf behind it firing 41 requests at once. Now the server names the cause
+  // and this only reports what it was told.
+  const [listReason, setListReason] = useState('');
+  const [retryTick, setRetryTick] = useState(0);
   useEffect(() => {
-    if (!playlistId) return;
+    if (!playlistId) return undefined;
     const ctrl = new AbortController();
     setLoadingList(true);
-    setListError(''); setListNote('');
+    setListError(''); setListNote(''); setListReason('');
 
     (async () => {
       try {
         const r = await fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`, { signal: ctrl.signal });
-        if (!r.ok) throw new Error(`api ${r.status}`);
-        const data = await r.json();
+        const data = await r.json().catch(() => null);
         if (ctrl.signal.aborted) return;
+        if (!r.ok) {
+          setListReason(data?.reason || (r.status === 429 ? 'rate_limited' : 'upstream_unreachable'));
+          setListError(r.status === 429
+            ? 'กำลังโหลดหลายรายการพร้อมกัน รอสักครู่แล้วกดลองใหม่'
+            : 'เชื่อมต่อ YouTube ไม่ได้ชั่วคราว');
+          setLoadingList(false);
+          return;
+        }
         const items = data?.items || [];
         setPlaylistItems(items);
         if (items.length > 0) {
           setShowList(true);
           if (!currentVideoId) setCurrentVideoId(items[0].id);
-        } else if (data?.note) {
-          setListNote(data.note);
+        } else {
+          setListReason(data?.reason || '');
+          setListNote(data?.note || '');
         }
         setLoadingList(false);
       } catch (err) {
         if (ctrl.signal.aborted) return;
         console.warn('playlist fetch failed:', err?.message);
-        setListError('ดึงรายการคลิปไม่ได้ — ใช้ปุ่ม Playlist ในเครื่องเล่น (≡) หรือเปิดบน YouTube');
+        setListReason('offline');
+        setListError('เชื่อมต่อไม่ได้ — ตรวจอินเทอร์เน็ตแล้วกดลองใหม่');
         setLoadingList(false);
       }
     })();
     return () => ctrl.abort();
-  }, [playlistId]);
+  }, [playlistId, retryTick]);
 
   // Mark watched after 5 seconds of being on the video
   useEffect(() => {
@@ -794,16 +842,36 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               </div>
             )}
 
-            {/* Multi-channel playlist note */}
-            {playlistId && !loadingList && playlistItems.length === 0 && (listNote || listError) && (
-              <div style={{ marginTop: 14, padding: '10px 12px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-                💡 <strong>ดึงรายการคลิปไม่ได้</strong> — playlist อาจรวมจากหลายช่อง<br/>
-                <span style={{ fontSize: 11 }}>
-                  คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'var(--vmx-mono)' }}>≡</kbd> ในเครื่องเล่น หรือ
-                  <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)', marginLeft: 4, textDecoration: 'underline' }}>เปิดใน YouTube →</a>
-                </span>
-              </div>
-            )}
+            {/* Why the list is missing — the real reason, not a guess */}
+            {playlistId && !loadingList && playlistItems.length === 0 && (listNote || listError) && (() => {
+              // 'multi_channel' is the only case where the playlist genuinely
+              // cannot be listed; everything else is temporary and retryable,
+              // so it gets a retry button instead of a shrug.
+              const permanent = listReason === 'multi_channel' || listReason === 'empty_playlist';
+              const headline = listReason === 'empty_playlist'
+                ? 'playlist นี้ยังไม่มีคลิป'
+                : permanent
+                  ? 'playlist นี้รวมคลิปจากหลายช่อง จึงดึงรายชื่อมาแสดงไม่ได้'
+                  : (listError || 'ดึงรายการคลิปไม่ได้ชั่วคราว');
+              return (
+                <div style={{ marginTop: 14, padding: '10px 12px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+                  <strong>{headline}</strong><br/>
+                  <span style={{ fontSize: 11 }}>
+                    {permanent
+                      ? <>คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'var(--vmx-mono)' }}>≡</kbd> ในเครื่องเล่นเพื่อดูรายการจาก YouTube โดยตรง</>
+                      : 'คลิปยังเล่นได้ตามปกติ ตรงนี้แค่รายชื่อคลิปที่ยังไม่มา'}
+                    <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)', marginLeft: 4, textDecoration: 'underline' }}>เปิดใน YouTube →</a>
+                  </span>
+                  {!permanent && (
+                    <div style={{ marginTop: 8 }}>
+                      <button type="button" className="vmx-btn vmx-btn-sm" onClick={() => setRetryTick((t) => t + 1)}>
+                        ลองใหม่
+                      </button>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
 
             {/* Audio-synced notes — only when we have a concrete video id */}
             {currentVideoId && (
