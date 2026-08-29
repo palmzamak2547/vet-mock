@@ -56,7 +56,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 40,
-  'vet-pharm5': 8,
+  'vet-pharm-2': 8,
   'zoonoses': 178,
 };
 
@@ -106,15 +106,16 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-imaging': 35,
   'vet-juris': 47,
   'vet-neuroanat': 40,
-  'vet-pharm5': 8,
+  'vet-pharm-2': 8,
   'zoonoses': 178,
 };
 
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
   2: 144,
+  3: 8,
   4: 2092,
-  5: 1965,
+  5: 1957,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -704,7 +705,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "neuroanat--neuro-exam-anatomy2024": 3,
     "neuroanat--visual-vestibular-systems": 5,
   },
-  "vet-pharm5": {
+  "vet-pharm-2": {
     "antibiotics": 3,
     "antiparasitic": 1,
     "autonomic": 1,
@@ -931,4 +932,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-27T08:53:41.693Z
+// Built: 2026-08-29T04:04:12.114Z

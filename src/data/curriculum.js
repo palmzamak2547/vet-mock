@@ -39,7 +39,7 @@ import { isQuestionDeliverable } from './question-delivery.generated.js';
 export const YEARS = [
   { id: 1, label: 'ปี 1', available: true,  current: false, scaffold: false, desc: 'Pre-clinic, Foundation' },
   { id: 2, label: 'ปี 2', available: true,  current: false, scaffold: false, desc: 'Pre-clinic, Body Systems' },
-  { id: 3, label: 'ปี 3', available: true,  current: false, scaffold: true,  desc: 'Paraclinic, Disease & Diagnostics' },
+  { id: 3, label: 'ปี 3', available: true,  current: false, scaffold: false, desc: 'Paraclinic, Disease & Diagnostics' },
   { id: 4, label: 'ปี 4', available: true,  current: false, scaffold: false, desc: 'Clinical Medicine, Paraclinic' },
   { id: 5, label: 'ปี 5', available: true,  current: true,  scaffold: false, desc: 'Vet 86, ปัจจุบัน' },
   { id: 6, label: 'ปี 6', available: true,  current: false, scaffold: true,  desc: 'Internship, Externship' },
@@ -1537,8 +1537,18 @@ export const SUBJECTS_BY_YEAR = {
       topics: [] },
     { id: 'vet-pharm-2', code: '3104307', name: 'เภสัชวิทยาทางสัตวแพทย์ II',
       name_en: 'Veterinary Pharmacology II',
-      icon: '💊', color: '#6b5d8e', semester: 2, has_questions: false, scaffold: true,
-      vault_lecturers: ['nipattra-suwanpairintr', 'piyarat-chansiripornchai'], topics: [] },
+      icon: '💊', color: '#6b5d8e', semester: 2, has_questions: true, scaffold: false,
+      vault_lecturers: ['nipattra-suwanpairintr', 'piyarat-chansiripornchai'],
+      // ชุดฝึกจับคู่ยา — moved 2026-08-29 from the retired "vet-pharm5 (Y5)"
+      // showcase subject; this course's real decks (ANS Drugs I-II,
+      // Antiparasitic, Diuretic, GI Drugs) carry exactly this material.
+      topics: [
+        { id: 'antibiotics', label: 'ยาปฏิชีวนะ — จับคู่ยา ↔ กลไก', icon: '🦠' },
+        { id: 'nsaids', label: 'NSAIDs & Analgesics', icon: '💊' },
+        { id: 'antiparasitic', label: 'ยาถ่ายพยาธิ / ยาต้านโปรโตซัว', icon: '🪱' },
+        { id: 'autonomic', label: 'ยาระบบประสาทอัตโนมัติ (ANS Drugs)', icon: '🧠' },
+        { id: 'cardio-renal', label: 'ยา cardio-renal / diuretics', icon: '🫀' },
+      ] },
     { id: 'vet-tox', code: '3104308', name: 'พิษวิทยาทางสัตวแพทย์',
       name_en: 'Veterinary Toxicology',
       icon: '☠️', color: '#a73d4a', semester: 2, has_questions: false, scaffold: true,
@@ -1956,30 +1966,6 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'swine-csf', label: 'CSF supplement', icon: '🦠', lecturer: 'Roongtham Kedkovid', lecturer_year: 2026 },
         { id: 'swine-asf', label: 'ASF', icon: '🐖', lecturer: 'Pornchalit Assavacheep', lecturer_year: 2026 },
         { id: 'swine-greasypig', label: 'Greasy Pig / poxvirus / blood parasites', icon: '🦠', lecturer: 'Pornchalit Assavacheep', lecturer_year: 2026 },
-      ] },
-
-    // ── Vet Pharm 5 — Clinical Pharmacology (Y5 applied) ──────────
-    // B: Matching drag-drop + timed + distractors showcase subject
-    { id: 'vet-pharm5', code: '3108505', name: 'เภสัชวิทยาคลินิก (Y5)',
-      name_en: 'Clinical Pharmacology (Year 5)',
-      icon: '💊', color: '#6b5d8e', semester: 1, has_questions: true, scaffold: false,
-      vault_lecturers: ['nipattra-suwanpairintr', 'piyarat-chansiripornchai'],
-      examFormat: {
-        weight: 'Matched drag-drop · partial credit · timed',
-        perSession: '10-15 ข้อ/ชุด · 15s/คู่ extra timed',
-        choiceCount: 0,
-        notes: [
-          '🧩 Matching: ลากวาง + สุ่มขวา + ตัวลวง 1-2 ตัว',
-          '◐ คะแนนบางส่วน: ถูก 2/3 ได้ 0.66 (แสดงในเฉลย)',
-          '⏱ Timed: match ใช้เวลามากกว่า MCQ ตามจำนวนคู่ (15s/คู่)',
-        ],
-      },
-      topics: [
-        { id: 'antibiotics', label: 'ยาปฏิชีวนะ — จับคู่ยา ↔ กลไก', icon: '🦠', lecturer: 'Nipattra Suwanpai', lecturer_year: 2026 },
-        { id: 'nsaids', label: 'NSAIDs & Analgesics', icon: '💊', lecturer: 'Piyarat Chansiripornchai', lecturer_year: 2026 },
-        { id: 'antiparasitic', label: 'ยาถ่ายพยาธิ / ยาต้านโปรโตซัว', icon: '🪱', lecturer: 'TBD', lecturer_year: 2026 },
-        { id: 'autonomic', label: 'ระบบประสาทอัตโนมัติ', icon: '🧠', lecturer: 'TBD', lecturer_year: 2026 },
-        { id: 'cardio-renal', label: 'ยา cardio-renal', icon: '🫀', lecturer: 'TBD', lecturer_year: 2026 },
       ] },
 
     // ── VCA — VETERINARY COMPETENCY ASSESSMENT (สอบใบประกอบฯ) ───

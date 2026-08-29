@@ -1,11 +1,18 @@
-// Vet Pharm 5 — Clinical Pharmacology (Y5)
-// Matching drag-drop showcase: 8 ข้อ · มีตัวลวง · partial credit · timed extra
-export const QB_VET_PHARM5 = [
+// เภสัชวิทยาทางสัตวแพทย์ II (3104307, ปี 3) — ชุดฝึกจับคู่ยา
+//
+// History: these 8 matching drills originally shipped under a showcase
+// subject "vet-pharm5 / เภสัชวิทยาคลินิก (Y5)" with course code 3108505 — a
+// course that does not exist (3108 is the theriogenology department and the
+// code appears nowhere in the cohort's real registrations). Palm caught it
+// browsing ปี 5 on 2026-08-29. The drug-class content is real Pharm II
+// material — the course's own lecture decks are ANS Drugs I-II, Antiparasitic
+// drugs, Diuretic drugs, GI Drugs — so the drills moved to their real home.
+export const QB_VET_PHARM2 = [
   {
     id: 53001,
-    subject: 'vet-pharm5',
+    subject: 'vet-pharm-2',
     topic: 'antibiotics',
-    year: 5,
+    year: 3,
     type: 'match',
     q: 'จับคู่ **ยาปฏิชีวนะ** กับ **กลไกออกฤทธิ์หลัก** (ลากการ์ดขวาไปวาง — มีตัวลวง 2 ตัว)',
     pairs: [
@@ -21,9 +28,9 @@ export const QB_VET_PHARM5 = [
   },
   {
     id: 53002,
-    subject: 'vet-pharm5',
+    subject: 'vet-pharm-2',
     topic: 'antibiotics',
-    year: 5,
+    year: 3,
     type: 'match',
     q: 'จับคู่ **Cephalosporin generation** กับ **ตัวอย่างยา**',
     pairs: [
@@ -38,9 +45,9 @@ export const QB_VET_PHARM5 = [
   },
   {
     id: 53003,
-    subject: 'vet-pharm5',
+    subject: 'vet-pharm-2',
     topic: 'nsaids',
-    year: 5,
+    year: 3,
     type: 'match',
     q: 'จับคู่ **NSAID** กับ **ข้อควรระวังเด่นในสุนัข/แมว**',
     pairs: [
@@ -55,9 +62,9 @@ export const QB_VET_PHARM5 = [
   },
   {
     id: 53004,
-    subject: 'vet-pharm5',
+    subject: 'vet-pharm-2',
     topic: 'antiparasitic',
-    year: 5,
+    year: 3,
     type: 'match',
     q: 'จับคู่ **ยาถ่ายพยาธิ** กับ **พยาธิเป้าหมายหลัก**',
     pairs: [
@@ -73,9 +80,9 @@ export const QB_VET_PHARM5 = [
   },
   {
     id: 53005,
-    subject: 'vet-pharm5',
+    subject: 'vet-pharm-2',
     topic: 'autonomic',
-    year: 5,
+    year: 3,
     type: 'match',
     q: 'จับคู่ **ยา autonomic** กับ **ตัวรับ/ผล**',
     pairs: [
@@ -89,9 +96,9 @@ export const QB_VET_PHARM5 = [
   },
   {
     id: 53006,
-    subject: 'vet-pharm5',
+    subject: 'vet-pharm-2',
     topic: 'cardio-renal',
-    year: 5,
+    year: 3,
     type: 'match',
     q: 'จับคู่ **ยา cardio-renal** กับ **ข้อบ่งใช้หลัก**',
     pairs: [
@@ -107,9 +114,9 @@ export const QB_VET_PHARM5 = [
   },
   {
     id: 53007,
-    subject: 'vet-pharm5',
+    subject: 'vet-pharm-2',
     topic: 'antibiotics',
-    year: 5,
+    year: 3,
     type: 'match',
     q: 'จับคู่ **ความเป็นพิษจำเพาะสปีชีส์** กับ **ยา** (classic exam trap)',
     pairs: [
@@ -124,9 +131,9 @@ export const QB_VET_PHARM5 = [
   },
   {
     id: 53008,
-    subject: 'vet-pharm5',
+    subject: 'vet-pharm-2',
     topic: 'nsaids',
-    year: 5,
+    year: 3,
     type: 'match',
     q: 'จับคู่ **ยาชาเฉพาะที่** กับ **ระยะเวลาออกฤทธิ์**',
     pairs: [

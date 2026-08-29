@@ -35,6 +35,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y2-neuroanat.js', export: 'QUESTIONS_Y2_NEUROANAT', year: 2, count: 40,
     subjects: ['vet-neuroanat'],
     load: () => import('./questions-y2-neuroanat.js').then((m) => m.QUESTIONS_Y2_NEUROANAT) },
+  { file: 'questions-vet-pharm2.js', export: 'QB_VET_PHARM2', year: 3, count: 8,
+    subjects: ['vet-pharm-2'],
+    load: () => import('./questions-vet-pharm2.js').then((m) => m.QB_VET_PHARM2) },
   { file: 'questions-cliapprum.js', export: 'QB_CLIAPPRUM', year: 4, count: 124,
     subjects: ['cliapprum'],
     load: () => import('./questions-cliapprum.js').then((m) => m.QB_CLIAPPRUM) },
@@ -104,9 +107,6 @@ export const BANK_REGISTRY = [
   { file: 'questions-vet-juris.js', export: 'QB_VET_JURIS', year: 4, count: 47,
     subjects: ['vet-juris'],
     load: () => import('./questions-vet-juris.js').then((m) => m.QB_VET_JURIS) },
-  { file: 'questions-vet-pharm5.js', export: 'QB_VET_PHARM5', year: 5, count: 8,
-    subjects: ['vet-pharm5'],
-    load: () => import('./questions-vet-pharm5.js').then((m) => m.QB_VET_PHARM5) },
   { file: 'questions-y5-aquatic-2026-b.js', export: 'QUESTIONS_Y5_AQUATIC_2026_B', year: 5, count: 65,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-y5-aquatic-2026-b.js').then((m) => m.QUESTIONS_Y5_AQUATIC_2026_B) },
@@ -208,4 +208,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-08-27T08:53:41.612Z — 66 banks · 4499 Qs
+// Built: 2026-08-29T04:04:11.488Z — 66 banks · 4499 Qs
