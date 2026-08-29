@@ -44,6 +44,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.46.0',
+    date: '2026-08-29',
+    headline: '💊 ปี 3 ได้คลังข้อสอบยาต้านปรสิตชุดแรก 28 ข้อ จากสไลด์จริงของวิชา',
+    changes: [
+      { scope: 'system', kind: 'feature', icon: '🪱', title: 'เภสัชวิทยา II เพิ่มข้อสอบยาถ่ายพยาธิ 28 ข้อ',
+        desc: 'เขียนจากสไลด์ Antiparasitic drugs ของวิชาโดยตรง ครอบคลุมกลไกยา ข้อห้าม และจุดที่ออกสอบบ่อย เช่น pyrantel ห้ามใช้กับ piperazine, ivermectin กับพันธุ์เสี่ยง ABCB-1, โปรโตคอล melarsomine และยาสูตรผสม ทุกข้ออ้างเลขหน้าสไลด์ที่เปิดอ่านได้จากชั้นเอกสารของวิชาในแอป',
+      },
+    ],
+  },
+  {
     version: '5.45.4',
     date: '2026-08-29',
     headline: '🎙️ พูดจบ ระบบทำต่อให้เอง',
