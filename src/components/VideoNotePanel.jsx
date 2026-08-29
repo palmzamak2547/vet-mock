@@ -314,8 +314,10 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
           style={{
             position: 'fixed',
             right: 'calc(env(safe-area-inset-right, 0px) + 18px)',
-            bottom: 'calc(env(safe-area-inset-bottom, 0px) + 18px)',
-            zIndex: 1000,
+            // Clear the bottom nav — this FAB used to bury the rightmost
+            // nav destination on every video page.
+            bottom: 'calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + 18px)',
+            zIndex: 900,
             minWidth: 56, minHeight: 56,
             padding: '0 18px',
             borderRadius: 28,

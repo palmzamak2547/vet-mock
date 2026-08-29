@@ -11,7 +11,7 @@ export const SCORE_BREAKDOWN = {
     final: 23.53,
     free: 11.76,
     work: null,
-    note: 'ไม่รู้คะแนนงง',
+    note: 'ยังไม่ทราบสัดส่วนคะแนน',
   },
   com3: {
     subject_id: 'com3',

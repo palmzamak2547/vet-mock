@@ -70,6 +70,7 @@ const incrementNested = (index, subject, topic) => {
 const bySubject = {};
 const byVisibleSubject = {};
 const byYear = {};
+const byVisibleYear = {};
 const byTopic = {};
 const byPastPaperTopic = {};
 const deliverableQuestions = QB.filter(isQuestionDeliverable);
@@ -80,11 +81,13 @@ for (const q of deliverableQuestions) {
   incrementNested(byTopic, subj, topic);
   if (isPastPaperQuestion(q)) incrementNested(byPastPaperTopic, subj, topic);
   const hidden = hiddenBySubject[subj];
-  if (!hidden || !hidden.has(q.topic)) {
+  const isVisible = !hidden || !hidden.has(q.topic);
+  if (isVisible) {
     byVisibleSubject[subj] = (byVisibleSubject[subj] || 0) + 1;
   }
   if (Number.isFinite(q.year)) {
     byYear[q.year] = (byYear[q.year] || 0) + 1;
+    if (isVisible) byVisibleYear[q.year] = (byVisibleYear[q.year] || 0) + 1;
   }
 }
 
@@ -124,6 +127,16 @@ lines.push('');
 lines.push('export const Q_COUNTS_BY_YEAR = {');
 for (const k of Object.keys(byYear).sort((a, b) => Number(a) - Number(b))) {
   lines.push(`  ${k}: ${byYear[k]},`);
+}
+lines.push('};');
+lines.push('');
+lines.push('// Visible per-year totals (hidden topics excluded). Every user-facing');
+lines.push('// year total renders THIS — the raw total above counts questions the');
+lines.push('// UI deliberately hides, so showing it next to per-subject cards made');
+lines.push('// the same screen disagree with itself by up to 106 questions.');
+lines.push('export const Q_VISIBLE_COUNTS_BY_YEAR = {');
+for (const k of Object.keys(byVisibleYear).sort((a, b) => Number(a) - Number(b))) {
+  lines.push(`  ${k}: ${byVisibleYear[k]},`);
 }
 lines.push('};');
 lines.push('');

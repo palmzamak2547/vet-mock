@@ -4,7 +4,7 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 // content, only renders "ปี 4 · 2,012 ข้อ" style labels. The lightweight
 // q-counts.js (~1 KB) replaces a static QB import that would have
 // dragged every per-subject Q chunk into this view's load graph.
-import { Q_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
+import { Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { detectCurrentPhase } from './PhaseSelectView.jsx';
 
 // ──────────────────────────────────────────────────────────────
@@ -23,7 +23,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
   const [showAll, setShowAll] = useState(false);
   const liveYears = YEARS.filter((y) => !y.scaffold);
   const scaffoldYears = YEARS.filter((y) => y.scaffold);
-  const liveQCount = liveYears.reduce((s, y) => s + (Q_COUNTS_BY_YEAR[y.id] || 0), 0);
+  const liveQCount = liveYears.reduce((s, y) => s + (Q_VISIBLE_COUNTS_BY_YEAR[y.id] || 0), 0);
   const liveYearLabels = liveYears.map((y) => y.label);
   const liveYearCopy = liveYearLabels.length > 1
     ? `${liveYearLabels.slice(0, -1).join(', ')} และ ${liveYearLabels[liveYearLabels.length - 1]}`
@@ -62,7 +62,8 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
           // year, so the very first screen a student saw claimed 638 questions
           // for year 1 (it has 298) and 895 for year 5 (it has 555, VCA and
           // all). Trust the generated count.
-          const totalCount = Q_COUNTS_BY_YEAR[y.id] || 0;
+          // Visible count — must match the subject cards this year opens to.
+          const totalCount = Q_VISIBLE_COUNTS_BY_YEAR[y.id] || 0;
           const isPicked = selectedYear === y.id && !firstTime;
           return (
             <button
@@ -128,7 +129,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
             <span style={{ flex: 1 }}>
               ดูชั้นปีอื่น
               <span style={{ marginLeft: 8, fontSize: 11, fontFamily: 'var(--vmx-mono)', opacity: 0.6 }}>
-                {scaffoldYears.length} ปี, รอเติม
+                {scaffoldYears.length} ปี, กำลังเตรียมเนื้อหา
               </span>
             </span>
           </button>
@@ -156,7 +157,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                       {y.desc}
                     </div>
                     <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-gold-text)', letterSpacing: '0.05em' }}>
-                      {subjectCount} วิชา, รอเติม
+                      {subjectCount} วิชา, กำลังเตรียมเนื้อหา
                     </div>
                   </button>
                 );

@@ -4,7 +4,7 @@ import { QB } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
 // full QB to be scanned on every re-render.
-import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_COUNTS_BY_YEAR } from '../data/q-counts.js';
+import { QB_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject } from '../data/curriculum.js';
@@ -251,7 +251,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // QuestionManagerView.save). Subjects without year (legacy custom Qs
   // pre-data-layer-audit) fall through `yearForSubject` lookup.
   const allQuestionsPool = useMemo(() => {
-    const yearQ = Q_COUNTS_BY_YEAR[selectedYear] || 0;
+    // Visible, not raw — the random-Q chip must agree with the subject
+    // cards rendered right under it.
+    const yearQ = Q_VISIBLE_COUNTS_BY_YEAR[selectedYear] || 0;
     const customForYear = (customQuestions || []).filter((q) => {
       // Prefer explicit year tag (custom Qs created after data-layer audit).
       if (typeof q?.year === 'number') return q.year === selectedYear;
@@ -406,8 +408,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         : null;
   // Compact changelog chip shown whenever an update is unread. Click expands
   // the full details without making release notes a primary Home card.
-  const showChangelogChip = showAnnouncement;
   const [forceChangelogOpen, setForceChangelogOpen] = useState(false);
+  // Once the full banner is open, the chip that opened it must go — two
+  // changelog affordances on screen at once read as a glitch.
+  const showChangelogChip = showAnnouncement && !forceChangelogOpen;
 
   // Whether the quick-action chip row has anything to show.
   // ⚠️ This MUST list every child of .vmx-home-quick-actions. The condition
@@ -700,7 +704,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           </button>
         </div>
       )}
-      {(bannerWinner === 'announcement' || forceChangelogOpen) && (
+      {/* bannerWinner can never be 'announcement' (see its ternary) — the
+          banner opens only from the chip. */}
+      {forceChangelogOpen && (
         <div
           className={`vmx-changelog-notice${forceChangelogOpen ? ' is-forced' : ''}`}
           style={{ position: 'relative' }}
@@ -1053,7 +1059,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             // subject-select grid and the AI search's course card use.
             const shelfDocs = shelfCounts?.get(s.id) || 0;
             if (shelfDocs > 0) {
-              try { sessionStorage.setItem('vmx-library-q', s.name || ''); } catch { /* nicety */ }
+              // Exact id, not the name-as-search-text: a text query matched
+              // OTHER subjects' docs too, so the card promised N files and
+              // the shelf answered with a different N.
+              try { sessionStorage.setItem('vmx-library-subject', s.id || ''); } catch { /* nicety */ }
               setView('library');
               return;
             }
@@ -1063,7 +1072,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 : 'วิชานี้ยังไม่มีโจทย์ฝึก — มี slide/notes/โน้ตทบทวนส่งมาช่วยได้ไหม';
               setFeedbackPrefill({
                 type: 'Content',
-                subject: `ขอเนื้อหา, ${s.name} (${s.code || 'TBD'}), ปี ${selectedYear}`,
+                subject: `ขอเนื้อหา, ${s.name}${s.code ? ` (${s.code})` : ''}, ปี ${selectedYear}`,
                 message: `${reason}\n\nวิชา: "${s.name}" (${s.name_en || ''}), ปี ${selectedYear}\n\nรายละเอียด:\n- (แนบลิงก์ Google Drive หรือบรรยายตรงนี้ได้เลย)`,
               });
             }
@@ -1307,7 +1316,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {!isScaffoldYear && (
         <Suspense fallback={null}>
           <div style={{ marginTop: 28 }}>
-            <QuestsPanel onStart={handleQuestStart} />
+            <QuestsPanel onStart={handleQuestStart} year={selectedYear} />
           </div>
         </Suspense>
       )}
@@ -1639,7 +1648,7 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
               cursor: 'pointer',
             }}
             title={
-              s.has_notes && count === 0 ? 'มี Notes — คลิกอ่านสรุปได้, ข้อสอบยังไม่มี'
+              hasNotes(s.id) && count === 0 ? 'มีสรุปเนื้อหาให้อ่าน — ข้อสอบยังไม่มี'
               : shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
               : isScaffold ? 'คลิกเพื่อช่วยเติมเนื้อหา (ส่ง slide/notes/past paper)'
               : isEmpty ? 'ยังไม่มีข้อสอบ — คลิกเพื่อขอเพิ่มเนื้อหา'
@@ -1655,10 +1664,14 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
             {s.name_en && s.name_en.toLowerCase() !== s.name.toLowerCase() && (
               <div className="sub">{s.name_en}</div>
             )}
-            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (s.has_notes || shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)') }}>
+            {/* Registry, not the hand-set curriculum flag: the flag existed on
+                only 4 of 86 subjects, so the six biggest ปี 2 note files
+                rendered as rose "ยังไม่มีชุดข้อสอบ" while SubjectSelect said
+                "มีสรุปให้อ่าน" one tap away. */}
+            <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (hasNotes(s.id) || shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)') }}>
               {count > 0
                 ? `${count} ข้อ`
-                : s.has_notes
+                : hasNotes(s.id)
                   ? 'มีสรุปเนื้อหา'
                   : shelfDocs > 0
                     ? `เอกสารจริง ${shelfDocs} ไฟล์`

@@ -815,7 +815,7 @@ function Toast({ text }) {
       aria-live="polite"
       style={{
         position: 'fixed',
-        bottom: 24,
+        bottom: 'calc(var(--vmx-bottom-nav-h, 0px) + max(24px, env(safe-area-inset-bottom)))',
         left: '50%',
         transform: 'translateX(-50%)',
         background: 'rgba(33,33,33,0.95)',

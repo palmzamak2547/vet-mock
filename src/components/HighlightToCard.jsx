@@ -57,7 +57,7 @@ function Toast({ message }) {
       style={{
         position: 'fixed',
         left: '50%',
-        bottom: `calc(28px + env(safe-area-inset-bottom, 0px))`,
+        bottom: `calc(var(--vmx-bottom-nav-h, 0px) + 28px + env(safe-area-inset-bottom, 0px))`,
         transform: 'translateX(-50%)',
         background: 'rgba(28, 32, 28, 0.92)',
         color: '#fff',
@@ -66,7 +66,7 @@ function Toast({ message }) {
         fontSize: 14,
         fontWeight: 600,
         boxShadow: '0 6px 24px rgba(0,0,0,0.25)',
-        zIndex: 2000,
+        zIndex: 1500,
         pointerEvents: 'none',
         maxWidth: 'min(420px, 92vw)',
         textAlign: 'center',
@@ -203,8 +203,15 @@ export default function HighlightToCard() {
     const MARGIN = 8;
     const vw = window.innerWidth || document.documentElement.clientWidth;
     const vh = window.innerHeight || document.documentElement.clientHeight;
+    // Keep the button clear of the bottom nav when a selection sits at the
+    // very bottom of the screen (the var is 0 on desktop and focus views).
+    let navH = 0;
+    try {
+      const app = document.querySelector('.vmx-app') || document.documentElement;
+      navH = parseFloat(getComputedStyle(app).getPropertyValue('--vmx-bottom-nav-h')) || 0;
+    } catch { /* non-browser test env */ }
     let top = rect.top - BTN_H - MARGIN;
-    if (top < MARGIN) top = Math.min(rect.bottom + MARGIN, vh - BTN_H - MARGIN);
+    if (top < MARGIN) top = Math.min(rect.bottom + MARGIN, vh - BTN_H - MARGIN - navH);
     let left = rect.left + rect.width / 2 - BTN_W / 2;
     if (left < MARGIN) left = MARGIN;
     if (left + BTN_W > vw - MARGIN) left = vw - BTN_W - MARGIN;

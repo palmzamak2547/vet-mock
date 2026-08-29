@@ -85,7 +85,10 @@ export default function ShortcutSheet({ open, onClose }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 'env(safe-area-inset-top, 12px) 12px env(safe-area-inset-bottom, 12px) 12px',
+        // max(), not env(x, 12px): the env() fallback only applies when the
+        // variable is UNSUPPORTED — on desktops it resolves to 0px and the
+        // sheet touched the viewport edges.
+        padding: 'max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)) 12px',
         height: '100dvh',
       }}
     >

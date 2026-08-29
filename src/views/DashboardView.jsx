@@ -481,11 +481,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           <div className="vmx-stat-grid">
             <div className="vmx-stat-card">
               <div className="vmx-stat-num">{scopedAnalytics.totalAttempts}</div>
-              <div className="vmx-stat-lbl">Total Attempts</div>
+              <div className="vmx-stat-lbl">ข้อที่ทำทั้งหมด</div>
             </div>
             <div className="vmx-stat-card">
               <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{scopedAnalytics.overallPct}%</div>
-              <div className="vmx-stat-lbl">Overall Accuracy</div>
+              <div className="vmx-stat-lbl">ความแม่นยำรวม</div>
             </div>
             <div className="vmx-stat-card vmx-streak-stat-card">
               <div className="vmx-streak-stat-icon">🔥</div>
@@ -499,16 +499,20 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             </div>
             <div className="vmx-stat-card">
               <div className="vmx-stat-num" style={{ color: 'var(--clr-rose-text)' }}>{scopedAnalytics.weakQuestions.length}</div>
-              <div className="vmx-stat-lbl">Weak Questions</div>
+              <div className="vmx-stat-lbl">ข้อที่ยังอ่อน</div>
             </div>
           </div>
 
           <div className="vmx-dash-card" style={{ marginTop: 16 }}>
-            <h3>Quick Actions</h3>
+            <h3>ทางลัด</h3>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
               {scopedAnalytics.weakQuestions.length > 0 && (
-                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setPracticeMode('weak'); setMode('quick'); setView('config'); }}>
-                  ทำข้อที่อ่อน ({scopedAnalytics.weakQuestions.length})
+                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setPracticeMode('weak'); setMode('quick'); setView('config'); }}
+                  title={yearScope === 'all' ? 'การฝึกจะใช้เฉพาะข้อของปีที่เลือกอยู่' : undefined}>
+                  {/* The practice engine is year-scoped, so the number the
+                      button promises must be too — in "ทุกปี" stats view the
+                      count would over-promise, so it steps aside. */}
+                  {yearScope === 'all' ? 'ทำข้อที่อ่อนของปีนี้' : `ทำข้อที่อ่อน (${scopedAnalytics.weakQuestions.length})`}
                 </button>
               )}
               {bookmarks.length > 0 && (
@@ -584,7 +588,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             <div className="vmx-dash-card">
               <h3>หัวข้อที่อ่อน</h3>
               {analytics.weakTags.length === 0 ? (
-                <div className="vmx-empty" style={{ padding: 20 }}>ยังไม่มีข้อมูล</div>
+                <div className="vmx-empty" style={{ padding: 20 }}>ยังไม่มีข้อมูลพอวิเคราะห์จุดอ่อน — ทำข้อสอบสัก 2-3 ชุดแล้วหัวข้อที่ควรเก็บจะขึ้นตรงนี้</div>
               ) : (
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                   {analytics.weakTags.map((t) => (

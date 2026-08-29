@@ -738,6 +738,14 @@ html, body {
   right: max(16px, env(safe-area-inset-right));
   bottom: calc(var(--vmx-bottom-nav-h, 0px) + max(16px, env(safe-area-inset-bottom)));
   z-index: var(--z-toast);
+}
+/* Desktop shows the ToolsFAB in this exact corner — lift the notice above
+   it so an update card never buries the FAB (or the open tools menu's own
+   trigger). The FAB is display:none below 1024px, so mobile stays put. */
+@media (min-width: 1024px) {
+  .vmx-update-notice { bottom: calc(max(16px, env(safe-area-inset-bottom)) + 76px); }
+}
+.vmx-update-notice {
   width: min(420px, calc(100vw - 32px));
   padding: 10px 12px;
   display: flex;
@@ -802,6 +810,10 @@ html, body {
      of competing with the subject list in the first viewport. */
   .vmx-home-quick-context,
   .vmx-streak-card-home { display: none !important; }
+  /* When EVERY chip in the row is one of the mobile-hidden kinds above, the
+     row itself must go too — otherwise its margin renders as a phantom gap
+     above the subject grid. */
+  .vmx-home-quick-actions:not(:has(> :not(.vmx-home-quick-context):not(.vmx-streak-card-home))) { display: none !important; }
 }
 @media (max-width: 340px) {
   .vmx-header .vmx-logo-btn { display: none; }
@@ -2170,6 +2182,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   border-collapse: collapse;
   margin: 14px 0;
   font-size: 13.5px;
+  /* Markdown tables come from video summaries at arbitrary widths; scroll
+     inside the modal instead of pushing the whole dialog sideways. */
+  display: block;
+  overflow-x: auto;
 }
 .vmx-summary-body .vmx-md-table th,
 .vmx-summary-body .vmx-md-table td {

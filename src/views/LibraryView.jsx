@@ -21,6 +21,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
+import { thaiError } from '../lib/errors.js';
 import {
   LIBRARY_KINDS,
   SEMESTERS,
@@ -216,6 +217,16 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
   const [kind, setKind] = useState('all');
   const [semester, setSemester] = useState('all');
   const [academicYear, setAcademicYear] = useState('all');
+  // A subject-card hand-off filters by EXACT subject id, so the shelf shows
+  // precisely the N files the card promised — the old name-as-text query
+  // also matched other subjects' descriptions and the numbers disagreed.
+  const [subjectFilter, setSubjectFilter] = useState(() => {
+    try {
+      const sid = sessionStorage.getItem('vmx-library-subject');
+      if (sid) { sessionStorage.removeItem('vmx-library-subject'); return sid; }
+    } catch { /* storage disabled */ }
+    return null;
+  });
   const [openYears, setOpenYears] = useState(() => new Set());
 
   // Tracks whether the reader has taken control of the accordion. Until then
@@ -264,7 +275,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
       .catch((e) => {
         // With a snapshot already on screen, a background revalidation
         // failure is not worth an alert banner.
-        if (!cancelled && !stale?.docs?.length) setError(e?.message || String(e));
+        if (!cancelled && !stale?.docs?.length) setError(thaiError(e, 'โหลดรายการเอกสารไม่สำเร็จ'));
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -286,8 +297,11 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
   const searching = debouncedQuery.trim().length > 0;
 
   const filtered = useMemo(
-    () => filterIndexed(docIndex, { query: debouncedQuery, kind, semester, academicYear }),
-    [docIndex, debouncedQuery, kind, semester, academicYear],
+    () => filterIndexed(docIndex, {
+      query: debouncedQuery, kind, semester, academicYear,
+      subject: subjectFilter || 'all',
+    }),
+    [docIndex, debouncedQuery, kind, semester, academicYear, subjectFilter],
   );
 
   const groups = useMemo(
@@ -357,7 +371,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
       else window.open(url, '_blank', 'noopener,noreferrer');
     } catch (e) {
       if (win) { try { win.close(); } catch { /* already gone */ } }
-      setError(e?.message || String(e));
+      setError(thaiError(e, 'เปิดไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally {
       setBusyId(null);
     }
@@ -404,10 +418,11 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
   );
 
   const visibleFlat = ranked.slice(0, MAX_RESULTS);
-  const hasFilters = kind !== 'all' || semester !== 'all' || academicYear !== 'all';
+  const hasFilters = kind !== 'all' || semester !== 'all' || academicYear !== 'all' || !!subjectFilter;
 
   const resetFilters = useCallback(() => {
     setKind('all'); setSemester('all'); setAcademicYear('all');
+    setSubjectFilter(null);
     setQuery(''); setDebouncedQuery('');
   }, []);
 
@@ -444,6 +459,18 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
             background: 'var(--clr-bg)', color: 'var(--clr-ink)',
           }}
         />
+        {subjectFilter && (
+          <div className="vmx-chip-row">
+            <button
+              type="button"
+              className="vmx-chip active"
+              onClick={() => setSubjectFilter(null)}
+              title="ล้างตัวกรองวิชา"
+            >
+              วิชา: {subjectName(subjectFilter)} ✕
+            </button>
+          </div>
+        )}
         <ChipRow label="เทอม" options={semesterOptions} value={semester} onChange={setSemester} allLabel="ทุกเทอม" />
         <ChipRow label="ปีการศึกษา" options={academicYearOptions} value={academicYear} onChange={setAcademicYear} allLabel="ทุกปี" />
         <ChipRow label="ชนิดเอกสาร" options={kindOptions} value={kind} onChange={setKind} allLabel="ทุกชนิด" />
@@ -480,7 +507,14 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
       {!loading && !configured && (
         <div className="vmx-empty-state">
           <p>คลังเอกสารยังไม่พร้อมใช้งานในเครื่องนี้</p>
-          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>ลองเปิดจากเว็บหลักอีกครั้ง</p>
+          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>ลองเปิดจากเว็บหลักอีกครั้ง หรือกดลองใหม่</p>
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-sm"
+            onClick={() => { setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
+          >
+            ลองใหม่
+          </button>
         </div>
       )}
 

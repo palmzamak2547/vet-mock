@@ -211,7 +211,7 @@ export default function ReadingChecklistView({
       })}
 
       {totalTopics === 0 && (
-        <div className="vmx-empty">ยังไม่มีหัวข้อ — รอข้อมูล curriculum</div>
+        <div className="vmx-empty">วิชาในปีนี้ยังไม่มีรายการหัวข้อให้ติ๊ก — เลือกปีอื่นดูได้จากหน้าแรก</div>
       )}
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

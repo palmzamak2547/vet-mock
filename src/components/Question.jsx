@@ -216,6 +216,22 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       map[compoundId] = entry;
       writeFlags(map);
       setFlagState(entry);
+      // The report must actually REACH someone — for a long time this only
+      // wrote localStorage, so students typed out real complaints about
+      // wrong answer keys and nobody was ever told. Fire-and-forget via the
+      // same channel as the feedback page; the local flag above stays as the
+      // student's own marker either way.
+      try {
+        fetch('/api/send-feedback', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'content',
+            subject: `แจ้งปัญหาข้อสอบ ${compoundId}`,
+            message: `${entry.reason}\n\nข้อ: ${compoundId}\nโจทย์: ${String(currentQ?.q || '').slice(0, 300)}`,
+          }),
+        }).catch(() => {});
+      } catch { /* offline — the local flag still records it */ }
     }
   };
 
@@ -746,7 +762,7 @@ function InstantFeedback({ ok, correctNode, explain }) {
         <div className="a"><span className="k">เฉลย</span>{correctNode}</div>
       )}
       {explain && (
-        <div className="w"><span className="k">Why</span><RichText text={explain} /></div>
+        <div className="w"><span className="k">เหตุผล</span><RichText text={explain} /></div>
       )}
     </div>
   );

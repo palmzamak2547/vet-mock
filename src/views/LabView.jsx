@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
+import { thaiError } from '../lib/errors.js';
 import { useMediaQuery } from '../lib/dicom/use-media-query.js';
 
 const DicomViewport = lazy(() => import('../components/lab/DicomViewport.jsx'));
@@ -49,6 +50,10 @@ export default function LabView({ goHome }) {
   // "น้องคอฟฟี่" but the underlying query used createdAt DESC so it
   // would open whichever case was newest. Now: label === action target.
   const [demoCases, setDemoCases] = useState([]);
+  // 'loading' → 'ready' | 'unavailable'. Distinguishes "catalog is empty"
+  // from "catalog could not be reached" — they need different heroes.
+  const [catalogState, setCatalogState] = useState('loading');
+  const [retryTick, setRetryTick] = useState(0);
 
   useEffect(() => {
     try {
@@ -68,7 +73,7 @@ export default function LabView({ goHome }) {
     (async () => {
       try {
         const { hasSupabase, getSupabase } = await import('../lib/supabase.js');
-        if (!hasSupabase) return;
+        if (!hasSupabase) { setCatalogState('unavailable'); return; }
         const sb = await getSupabase();
         const { data, error } = await sb
           .from('imaging_cases')
@@ -76,14 +81,18 @@ export default function LabView({ goHome }) {
           .eq('status', 'public')
           .order('created_at', { ascending: true });
         if (error) {
-          // Pre-migration or RLS issue — silently skip; CTA falls back
-          // to disabled / fetch-on-click failure message.
+          // The old code swallowed this silently, which left the hero as a
+          // permanently disabled button with no way to retry.
+          setCatalogState('unavailable');
           return;
         }
         if (data) setDemoCases(data);
-      } catch { /* network/Supabase down — CTA still works via on-click fetch */ }
+        setCatalogState('ready');
+      } catch {
+        setCatalogState('unavailable');
+      }
     })();
-  }, []);
+  }, [retryTick]);
 
   const dismissOnboarding = useCallback(() => {
     setShowOnboarding(false);
@@ -213,10 +222,10 @@ export default function LabView({ goHome }) {
     <div style={attributionRowStyle}>
       {currentCase?.license && <span>📜 <strong>{currentCase.license}</strong></span>}
       {currentCase?.source_url && currentCase.source_url !== 'internal' && (
-        <span>, <a href={currentCase.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#3a5a8a' }}>source ↗</a></span>
+        <span>, <a href={currentCase.source_url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean-text)' }}>source ↗</a></span>
       )}
       {currentCase?.attribution && (
-        <div style={{ marginTop: 3, fontSize: '0.7rem', color: '#777' }}>{currentCase.attribution}</div>
+        <div style={{ marginTop: 3, fontSize: '0.7rem', color: 'var(--clr-ink-soft)' }}>{currentCase.attribution}</div>
       )}
     </div>
   ) : null;
@@ -254,7 +263,7 @@ export default function LabView({ goHome }) {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('[tryDemo]', e);
-      setDemoError(e?.message || String(e));
+      setDemoError(thaiError(e, 'โหลดเคสตัวอย่างไม่สำเร็จ'));
     } finally {
       setDemoLoading(false);
     }
@@ -308,7 +317,7 @@ export default function LabView({ goHome }) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
             <div style={{ flex: 1 }}>
               <strong style={{ fontSize: '0.95rem' }}>👋 ยินดีต้อนรับ Practical Imaging Lab</strong>
-              <ul style={{ margin: '8px 0 0', paddingLeft: 22, fontSize: '0.85rem', lineHeight: 1.6, color: '#555' }}>
+              <ul style={{ margin: '8px 0 0', paddingLeft: 22, fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
                 <li>ลาก DICOM (<code>.dcm</code>) ลงด้านล่าง — ลากครั้งละ 2 ไฟล์ได้ (เปิด side-by-side)</li>
                 <li>เปิด viewer แล้วกด <kbd style={kbdInlineStyle}>?</kbd> ดู 16 keyboard shortcuts</li>
                 <li>มี Norberg + VHS + Length/Angle ครบ, Anonymize ก่อน share ภาพออก</li>
@@ -324,42 +333,67 @@ export default function LabView({ goHome }) {
       {subView === 'home' && (
         <>
           {/* ── HERO — primary action: try a curated case in 1 click ── */}
-          <button
-            onClick={tryDemo}
-            disabled={demoLoading || demoCases.length === 0}
-            aria-busy={demoLoading}
-            className="vmx-lab-demo"
-            style={{
-              ...heroDemoBtnStyle,
-              padding: isMobile ? '14px 16px' : '18px 22px',
-              opacity: demoCases.length === 0 ? 0.5 : 1,
-              cursor: demoCases.length === 0 ? 'not-allowed' : 'pointer',
-            }}
-            title={
-              demoCases.length === 0
-                ? 'ยังไม่มี public case, ลาก DICOM ของตัวเองด้านล่างแทน'
-                : `เปิด: ${demoCases[0].title}`
-            }
-          >
-            {demoLoading ? (
-              'กำลังโหลดเคสจริง...'
-            ) : demoCases.length === 0 ? (
-              'ยังไม่มี public case, ลาก DICOM ด้านล่างแทน'
-            ) : (
-              <>
-                <span style={{ fontSize: isMobile ? '1.05rem' : '1.15rem' }}>
-                  ▶️ เปิดเคสจริง: <strong>{demoCases[0].title}</strong>
-                </span>
-                {demoCases.length > 1 && (
-                  <span style={{ display: 'block', fontWeight: 400, fontSize: '0.78rem', opacity: 0.85, marginTop: 4 }}>
-                    case แรกจาก {demoCases.length} cases, กด Browse ด้านล่างดูทั้งหมด
+          {demoCases.length > 0 ? (
+            <button
+              onClick={tryDemo}
+              disabled={demoLoading}
+              aria-busy={demoLoading}
+              className="vmx-lab-demo"
+              style={{
+                ...heroDemoBtnStyle,
+                padding: isMobile ? '14px 16px' : '18px 22px',
+              }}
+              title={`เปิด: ${demoCases[0].title}`}
+            >
+              {demoLoading ? (
+                'กำลังโหลดเคสจริง...'
+              ) : (
+                <>
+                  <span style={{ fontSize: isMobile ? '1.05rem' : '1.15rem' }}>
+                    ▶️ เปิดเคสจริง: <strong>{demoCases[0].title}</strong>
                   </span>
-                )}
-              </>
-            )}
-          </button>
+                  {demoCases.length > 1 && (
+                    <span style={{ display: 'block', fontWeight: 400, fontSize: '0.78rem', opacity: 0.85, marginTop: 4 }}>
+                      case แรกจาก {demoCases.length} cases, กด Browse ด้านล่างดูทั้งหมด
+                    </span>
+                  )}
+                </>
+              )}
+            </button>
+          ) : (
+            /* No fake disabled CTA: say what happened and give a way out.
+               'loading' shows a quiet placeholder; 'unavailable' offers a
+               retry; a genuinely empty catalog points at the upload lane. */
+            <div style={{
+              padding: isMobile ? '14px 16px' : '18px 22px',
+              borderRadius: 12,
+              border: '1px dashed var(--clr-border)',
+              background: 'var(--clr-surface)',
+              textAlign: 'center',
+              fontSize: '0.9rem',
+              color: 'var(--clr-ink-soft)',
+            }}>
+              {catalogState === 'loading' ? (
+                'กำลังเช็คเคสตัวอย่าง…'
+              ) : catalogState === 'unavailable' ? (
+                <>
+                  <div>โหลดรายการเคสตัวอย่างไม่ได้ตอนนี้</div>
+                  <button
+                    type="button"
+                    className="vmx-btn vmx-btn-sm"
+                    style={{ marginTop: 8 }}
+                    onClick={() => { setCatalogState('loading'); setRetryTick((t) => t + 1); }}
+                  >
+                    ลองใหม่
+                  </button>
+                </>
+              ) : (
+                'ยังไม่มีเคสตัวอย่างเผยแพร่ — ลากไฟล์ DICOM ของคุณเองด้านล่างเพื่อเริ่มฝึกได้เลย'
+              )}
+            </div>
+          )}
           {demoError && (
-            <p role="alert" style={{ color: '#c00', fontSize: '0.82rem', margin: '8px 0 0', textAlign: 'center' }}>
+            <p role="alert" style={{ color: 'var(--clr-rose-text)', fontSize: '0.82rem', margin: '8px 0 0', textAlign: 'center' }}>
               โหลด demo ไม่สำเร็จ: {demoError}
             </p>
           )}
@@ -370,13 +404,13 @@ export default function LabView({ goHome }) {
               onClick={() => setShowCases(true)}
               className="vmx-lab-action-card"
               style={secondaryCardStyle}
-              title="ดู 17 cases ทั้งหมด — filter ตาม modality (X-ray/CT/MRI/US)"
+              title={demoCases.length > 0 ? `ดูเคสทั้งหมด ${demoCases.length} เคส — filter ตาม modality (X-ray/CT/MRI/US)` : "ดูรายการเคส — filter ตาม modality (X-ray/CT/MRI/US)"}
             >
               <div style={{ fontSize: '1.6rem', marginBottom: 4 }}>📚</div>
               <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>
                 Browse case library
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 2 }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 {demoCases.length > 0 ? `${demoCases.length} cases, X-ray / CT / MRI / US` : 'ดู cases ทั้งหมด'}
               </div>
             </button>
@@ -398,7 +432,7 @@ export default function LabView({ goHome }) {
               <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>
                 Upload DICOM ของคุณ
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 2 }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 Drag .dcm, ครั้งละ {MAX_FILES} ไฟล์, ไม่ขึ้น server
               </div>
               <input
@@ -412,7 +446,7 @@ export default function LabView({ goHome }) {
           </div>
 
           {error && (
-            <p role="alert" style={{ color: '#c00', fontSize: '0.82rem', margin: '4px 0 0', textAlign: 'center' }}>
+            <p role="alert" style={{ color: 'var(--clr-rose-text)', fontSize: '0.82rem', margin: '4px 0 0', textAlign: 'center' }}>
               {error}
             </p>
           )}
@@ -420,30 +454,30 @@ export default function LabView({ goHome }) {
           {recent.length > 0 && (
             <div style={recentBoxStyle}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <strong style={{ fontSize: '0.85rem', color: '#555' }}>🕘 Recent files</strong>
+                <strong style={{ fontSize: '0.85rem', color: 'var(--clr-ink-soft)' }}>🕘 Recent files</strong>
                 <button
                   onClick={clearRecent}
                   className="vmx-tap"
-                  style={{ fontSize: '0.7rem', color: '#888', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
+                  style={{ fontSize: '0.7rem', color: 'var(--clr-ink-soft)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
                 >
                   ล้าง
                 </button>
               </div>
-              <div style={{ fontSize: '0.75rem', color: '#777', marginBottom: 6 }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
                 File blobs ไม่ persist ข้าม session, เห็นรายการที่นี่แล้วลากไฟล์เดิมจาก disk เพื่อ re-open
               </div>
               <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
                 {recent.map((r, i) => (
-                  <li key={i} style={{ fontSize: '0.8rem', color: '#666', padding: '4px 0', borderTop: i > 0 ? '1px solid #eee' : 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                  <li key={i} style={{ fontSize: '0.8rem', color: 'var(--clr-ink-soft)', padding: '4px 0', borderTop: i > 0 ? '1px solid var(--clr-border)' : 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
                     <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      📄 <span style={{ color: '#333' }}>{r.name}</span>, {(r.size / 1024).toFixed(0)} KB, {new Date(r.lastModified).toLocaleString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}
+                      📄 <span style={{ color: 'var(--clr-ink)' }}>{r.name}</span>, {(r.size / 1024).toFixed(0)} KB, {new Date(r.lastModified).toLocaleString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}
                     </span>
                     <button
                       onClick={() => removeRecentAt(i)}
                       className="vmx-tap"
                       title="ลบจากประวัติ"
                       aria-label="ลบไฟล์นี้จากประวัติ"
-                      style={{ width: 20, height: 20, padding: 0, border: 'none', background: 'none', color: '#aaa', cursor: 'pointer', fontSize: '0.85rem', flexShrink: 0 }}
+                      style={{ width: 20, height: 20, padding: 0, border: 'none', background: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: '0.85rem', flexShrink: 0 }}
                     >×</button>
                   </li>
                 ))}
@@ -462,11 +496,11 @@ export default function LabView({ goHome }) {
       {subView === 'viewer' && files.length > 0 && (
         <div>
           <div style={viewerHeaderStyle}>
-            <div style={{ flex: '1 1 220px', minWidth: 0, overflowWrap: 'anywhere', fontSize: '0.88rem', color: '#555' }}>
+            <div style={{ flex: '1 1 220px', minWidth: 0, overflowWrap: 'anywhere', fontSize: '0.88rem', color: 'var(--clr-ink-soft)' }}>
               {currentCase ? (
                 <>
                   <strong>Case: {currentCase.title}</strong>,
-                  <span style={{ color: '#777' }}>
+                  <span style={{ color: 'var(--clr-ink-soft)' }}>
                     {' '}{[currentCase.species, currentCase.signalment].filter(Boolean).join(', ')}
                   </span>
                 </>
@@ -549,7 +583,7 @@ function ViewerPane({ file, index, canRemove, onRemove, caseId, syncEnabled }) {
       <div style={paneHeaderStyle}>
         <span style={{ flex: '1 1 180px', minWidth: 0, overflowWrap: 'anywhere' }}>
           <strong>View {index + 1}:</strong>{' '}
-          <span style={{ color: '#888', fontSize: '0.75rem' }}>{file.name}</span>
+          <span style={{ color: 'var(--clr-ink-soft)', fontSize: '0.75rem' }}>{file.name}</span>
         </span>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
           <button
@@ -602,7 +636,7 @@ function AnonymizeButton({ file }) {
       setTimeout(() => setStatus('idle'), 6000);
     } catch (e) {
       setStatus('error');
-      setSummary({ error: e?.message || String(e) });
+      setSummary({ error: thaiError(e, 'ประมวลผลไฟล์ไม่สำเร็จ') });
     }
   };
 
@@ -619,7 +653,7 @@ function AnonymizeButton({ file }) {
       {summary && status !== 'working' && (
         <div style={anonSummaryStyle}>
           {summary.error ? (
-            <span style={{ color: '#c33' }}>❌ {summary.error}</span>
+            <span style={{ color: 'var(--clr-rose-text)' }}>❌ {summary.error}</span>
           ) : (
             <>
               <strong>Stripped {summary.count} tags</strong>
@@ -627,7 +661,7 @@ function AnonymizeButton({ file }) {
                 {summary.names.slice(0, 6).map((n) => <li key={n}>{n}</li>)}
                 {summary.names.length > 6 && <li>… +{summary.names.length - 6} more</li>}
               </ul>
-              <div style={{ fontSize: '0.65rem', color: '#888', marginTop: 4 }}>
+              <div style={{ fontSize: '0.65rem', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                 Saved as <code>{file.name.replace(/\.dcm$/i, '')}_anon.dcm</code>
               </div>
             </>
@@ -653,10 +687,10 @@ const headerStyle = {
 // disclaimer is now inlined in the page subtitle).
 const disclaimerStyle = {
   fontSize: '0.8rem',
-  color: '#7a5a00',
+  color: 'var(--clr-gold-text)',
   padding: '8px 12px',
-  background: '#fff8e1',
-  border: '1px solid #ffd54f',
+  background: 'var(--clr-gold-soft)',
+  border: '1px solid var(--clr-gold)',
   borderRadius: 6,
   marginBottom: 16,
 };
@@ -681,19 +715,19 @@ const viewerHeaderStyle = {
 const attributionRowStyle = {
   marginBottom: 12,
   padding: '8px 12px',
-  background: '#f0f4f8',
-  border: '1px solid #d0dce8',
+  background: 'var(--clr-surface-2)',
+  border: '1px solid var(--clr-border)',
   borderRadius: 6,
   fontSize: '0.78rem',
-  color: '#456',
+  color: 'var(--clr-ink-soft)',
 };
 
 const historyCardStyle = {
   fontSize: '0.85rem',
-  color: '#555',
+  color: 'var(--clr-ink-soft)',
   padding: '8px 12px',
-  background: '#f8f6f0',
-  border: '1px solid #e8e0c8',
+  background: 'var(--clr-surface-2)',
+  border: '1px solid var(--clr-border)',
   borderRadius: 6,
   marginBottom: 12,
 };
@@ -701,17 +735,17 @@ const historyCardStyle = {
 const objectivesCardStyle = {
   marginTop: 12,
   fontSize: '0.85rem',
-  color: '#555',
+  color: 'var(--clr-ink-soft)',
   padding: '10px 14px',
-  background: '#f0f5f0',
-  border: '1px solid #cce0cc',
+  background: 'var(--clr-surface-2)',
+  border: '1px solid var(--clr-sage-soft)',
   borderRadius: 6,
 };
 
 const loadingFallbackStyle = {
   padding: 40,
   textAlign: 'center',
-  color: '#888',
+  color: 'var(--clr-ink-soft)',
 };
 
 const demoCtaWrapStyle = {
@@ -721,8 +755,8 @@ const demoCtaWrapStyle = {
 const demoCtaBtnStyle = {
   width: '100%',
   padding: '16px 20px',
-  background: 'linear-gradient(135deg, #4a6b4a 0%, #6b8a5a 100%)',
-  color: '#fff',
+  background: 'linear-gradient(135deg, var(--clr-sage) 0%, var(--clr-sage) 100%)',
+  color: 'var(--clr-surface)',
   border: 'none',
   borderRadius: 10,
   cursor: 'pointer',
@@ -738,8 +772,8 @@ const demoCtaBtnStyle = {
 const heroDemoBtnStyle = {
   display: 'block',
   width: '100%',
-  background: 'linear-gradient(135deg, #4a6b4a 0%, #6b8a5a 100%)',
-  color: '#fff',
+  background: 'linear-gradient(135deg, var(--clr-sage) 0%, var(--clr-sage) 100%)',
+  color: 'var(--clr-surface)',
   border: 'none',
   borderRadius: 12,
   fontWeight: 600,
@@ -759,7 +793,7 @@ const secondaryGridStyle = (isMobile) => ({
 const secondaryCardStyle = {
   padding: '14px 16px',
   background: 'var(--clr-surface-2)',
-  border: '1px solid #e0e0e0',
+  border: '1px solid var(--clr-border)',
   borderRadius: 10,
   textAlign: 'center',
   cursor: 'pointer',
@@ -769,8 +803,8 @@ const secondaryCardStyle = {
 };
 
 const secondaryCardDraggingStyle = {
-  background: '#f0f8f0',
-  borderColor: '#4a6b4a',
+  background: 'var(--clr-surface-2)',
+  borderColor: 'var(--clr-sage)',
   borderWidth: 2,
   borderStyle: 'dashed',
 };
@@ -779,14 +813,14 @@ const recentBoxStyle = {
   marginTop: 16,
   padding: '10px 14px',
   background: 'var(--clr-surface-2)',
-  border: '1px solid #e8e8e8',
+  border: '1px solid var(--clr-border)',
   borderRadius: 6,
 };
 
 const onboardingStyle = {
   padding: '12px 16px',
-  background: '#eef5ff',
-  border: '1px solid #b8d4ff',
+  background: 'var(--clr-surface-2)',
+  border: '1px solid var(--clr-ocean-soft, #b8d4ff)',
   borderRadius: 8,
   marginBottom: 16,
 };
@@ -794,12 +828,12 @@ const onboardingStyle = {
 const onboardingCloseStyle = {
   width: 28,
   height: 28,
-  border: '1px solid #b8d4ff',
+  border: '1px solid var(--clr-ocean-soft, #b8d4ff)',
   background: 'var(--clr-surface)',
   borderRadius: 4,
   cursor: 'pointer',
   fontSize: '0.85rem',
-  color: '#456',
+  color: 'var(--clr-ink-soft)',
   flexShrink: 0,
 };
 
@@ -808,7 +842,7 @@ const syncToggleStyle = {
   alignItems: 'center',
   padding: '6px 11px',
   background: 'var(--clr-surface)',
-  border: '1px solid #ccc',
+  border: '1px solid var(--clr-border)',
   borderRadius: 4,
   cursor: 'pointer',
   fontSize: '0.82rem',
@@ -822,7 +856,7 @@ const kbdInlineStyle = {
   display: 'inline-block',
   padding: '1px 6px',
   background: 'var(--clr-surface)',
-  border: '1px solid #ccc',
+  border: '1px solid var(--clr-border)',
   borderRadius: 3,
   fontFamily: 'monospace',
   fontSize: '0.78rem',
@@ -835,7 +869,7 @@ const studyGridStyle = (isMobile) => ({
 });
 
 const paneStyle = {
-  border: '1px solid #ddd',
+  border: '1px solid var(--clr-border)',
   borderRadius: 8,
   background: 'var(--clr-surface)',
   padding: 8,
@@ -848,7 +882,7 @@ const paneHeaderStyle = {
   marginBottom: 8,
   padding: '4px 6px',
   fontSize: '0.85rem',
-  color: '#555',
+  color: 'var(--clr-ink-soft)',
   flexWrap: 'wrap',
   gap: 6,
 };
@@ -857,10 +891,10 @@ const removePaneBtnStyle = {
   width: 24,
   height: 24,
   borderRadius: 4,
-  border: '1px solid #ccc',
+  border: '1px solid var(--clr-border)',
   background: 'var(--clr-surface)',
   cursor: 'pointer',
-  color: '#666',
+  color: 'var(--clr-ink-soft)',
   fontSize: '0.85rem',
   lineHeight: 1,
   padding: 0,
@@ -873,7 +907,7 @@ const anonSummaryStyle = {
   marginTop: 4,
   padding: '8px 10px',
   background: 'var(--clr-surface)',
-  border: '1px solid #ccc',
+  border: '1px solid var(--clr-border)',
   borderRadius: 6,
   fontSize: '0.78rem',
   minWidth: 220,

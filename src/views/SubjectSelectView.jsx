@@ -30,11 +30,15 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   const yearMeta = YEARS.find((y) => y.id === selectedYear);
   const isScaffoldYear = !!yearMeta?.scaffold;
   useEffect(() => {
-    if (!isScaffoldYear) return undefined;
+    // Unconditional: this used to run only for scaffold YEARS, so the day
+    // ปี 3 went live with one filled subject, its 18 empty subjects lost
+    // the shelf hand-off and turned into dead "รอเติมเนื้อหา" tiles while
+    // the Home grid (which always fetches) kept offering the documents.
+    // One session-cached catalog fetch — same cache Home uses.
     let alive = true;
     librarySubjectCounts().then((m) => { if (alive) setDocCounts(m); });
     return () => { alive = false; };
-  }, [isScaffoldYear]);
+  }, []);
   const yearSubjects = selectedYear
     ? (SUBJECTS_BY_YEAR[selectedYear] || [])
     : [];
@@ -92,7 +96,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
         <p>
           {isScaffoldYear ? (
             <>
-              🚧 <strong>{yearMeta.label}</strong>, {yearMeta.desc} — โครงสร้างวิชาวางไว้แล้ว, รอเติมข้อสอบ/เนื้อหาทีละวิชา
+              <strong>{yearMeta.label}</strong>, {yearMeta.desc} — วิชาที่มีชั้นเอกสารเปิดอ่านได้เลย ข้อสอบกำลังทยอยเพิ่ม
             </>
           ) : mode === 'exam' ? (
             'จำลองสนามสอบ — ตั้งค่าจำนวนข้อและเวลาได้ในขั้นถัดไป'
@@ -150,7 +154,6 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           // that was sitting right there.
           const subjectHasNotes = hasNotes(s.id);
           const isEmpty = count === 0 && !subjectHasNotes;
-          const isScaffold = !!s.scaffold;
           const shelfDocs = isEmpty ? (docCounts?.get(s.id) || 0) : 0;
 
           return (
@@ -162,7 +165,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 if (isEmpty && !qbLoading) {
                   if (shelfDocs > 0) {
                     // The shelf hand-off the AI search's course card uses.
-                    try { sessionStorage.setItem('vmx-library-q', s.name || ''); } catch { /* nicety */ }
+                    try { sessionStorage.setItem('vmx-library-subject', s.id || ''); } catch { /* nicety */ }
                     setView('library');
                   }
                   return;
@@ -180,7 +183,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               }}
               title={qbLoading ? 'กำลังโหลดคลังข้อสอบ'
                 : (shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
-                  : (isScaffold ? 'รอเติมเนื้อหา, ส่ง slide/notes มาช่วยได้' : (isEmpty ? 'ยังไม่มีข้อสอบในวิชานี้' : '')))}
+                  : (isEmpty ? 'ยังไม่มีเนื้อหาของวิชานี้ในแอป' : ''))}
             >
               <div className="accent" style={{ background: s.color }}></div>
               <div className="icon">{s.icon}</div>
@@ -192,12 +195,10 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   : count === 0 && subjectHasNotes
                     ? 'มีสรุปให้อ่าน'
                     : shelfDocs > 0
-                      ? `📄 เอกสารจริง ${shelfDocs} ไฟล์`
-                      : isScaffold
-                        ? 'รอเติมเนื้อหา'
-                        : isEmpty
-                          ? '🚧 รอข้อสอบเพิ่ม'
-                          : `${count} ข้อ`}
+                      ? `เอกสารจริง ${shelfDocs} ไฟล์`
+                      : isEmpty
+                        ? 'ยังไม่มีเนื้อหา'
+                        : `${count} ข้อ`}
               </div>
               {/* Drop the 7-digit course code on the card — already
                   searchable via ⌘K; redundant visual noise here. */}

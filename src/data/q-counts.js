@@ -118,6 +118,18 @@ export const Q_COUNTS_BY_YEAR = {
   5: 1957,
 };
 
+// Visible per-year totals (hidden topics excluded). Every user-facing
+// year total renders THIS — the raw total above counts questions the
+// UI deliberately hides, so showing it next to per-subject cards made
+// the same screen disagree with itself by up to 106 questions.
+export const Q_VISIBLE_COUNTS_BY_YEAR = {
+  1: 298,
+  2: 144,
+  3: 62,
+  4: 1986,
+  5: 1941,
+};
+
 // Per-topic metadata stays nested by subject so identical topic IDs in
 // different subjects cannot collide. Legacy Qs without a topic are
 // retained under "__unassigned__" so nested totals remain exact.
@@ -932,4 +944,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-29T11:47:06.096Z
+// Built: 2026-08-29T12:54:23.235Z

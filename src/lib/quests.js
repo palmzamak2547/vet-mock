@@ -16,6 +16,16 @@
 //   • 'flashcard-created' { source?: string }
 
 import { awardXp, XP_AWARDS } from './xp.js';
+import { SUBJECTS } from '../data/curriculum.js';
+
+// Subject-locked quests only make sense for the year that owns the subject —
+// a ปี 3 student handed "ทำ 10 ข้อ COM III" (a year-4/5 subject) gets a daily
+// mission they cannot complete without leaving their own year.
+const SUBJECT_YEAR = new Map(SUBJECTS.map((s) => [s.id, s.year]));
+function templateFitsYear(t, year) {
+  if (!t.subject || !Number.isFinite(year)) return true;
+  return SUBJECT_YEAR.get(t.subject) === year;
+}
 
 const EVENT_NAME = 'vmx-quests-changed';
 const STORAGE_PREFIX = 'vmx-quests-';
@@ -61,6 +71,7 @@ const QUEST_POOL = [
     icon: '🩺',
     target: 10,
     xp: 20,
+    subject: 'com3',
     match: ({ type, payload }) => (type === 'answered' && payload?.subject === 'com3' ? 1 : 0),
   },
   {
@@ -69,6 +80,7 @@ const QUEST_POOL = [
     icon: '🐾',
     target: 10,
     xp: 20,
+    subject: 'com4',
     match: ({ type, payload }) => (type === 'answered' && payload?.subject === 'com4' ? 1 : 0),
   },
   {
@@ -77,6 +89,7 @@ const QUEST_POOL = [
     icon: '💉',
     target: 10,
     xp: 20,
+    subject: 'com5',
     match: ({ type, payload }) => (type === 'answered' && payload?.subject === 'com5' ? 1 : 0),
   },
   {
@@ -85,6 +98,7 @@ const QUEST_POOL = [
     icon: '🐣',
     target: 8,
     xp: 18,
+    subject: 'repro',
     match: ({ type, payload }) => (type === 'answered' && payload?.subject === 'repro' ? 1 : 0),
   },
   {
@@ -93,6 +107,7 @@ const QUEST_POOL = [
     icon: '🦜',
     target: 8,
     xp: 18,
+    subject: 'exotic',
     match: ({ type, payload }) => (type === 'answered' && payload?.subject === 'exotic' ? 1 : 0),
   },
   {
@@ -200,9 +215,9 @@ function mulberry32(seed) {
   };
 }
 
-function pickDailyTemplates(date) {
-  const rng = mulberry32(hashSeed(date + '-vetmock'));
-  const pool = QUEST_POOL.slice();
+function pickDailyTemplates(date, year) {
+  const rng = mulberry32(hashSeed(date + '-vetmock' + (Number.isFinite(year) ? `-y${year}` : '')));
+  const pool = QUEST_POOL.filter((t) => templateFitsYear(t, year));
   const picked = [];
   for (let i = 0; i < 3 && pool.length > 0; i++) {
     const idx = Math.floor(rng() * pool.length);
@@ -214,7 +229,7 @@ function pickDailyTemplates(date) {
 // ── In-memory cache to avoid JSON.parse churn on every render ─────
 let cache = { date: '', state: null };
 
-function readState(date) {
+function readState(date, year) {
   if (cache.date === date && cache.state) return cache.state;
   try {
     const raw = typeof window !== 'undefined' ? window.localStorage?.getItem(storageKeyFor(date)) : null;
@@ -227,7 +242,7 @@ function readState(date) {
     }
   } catch {}
   // Generate fresh
-  const templates = pickDailyTemplates(date);
+  const templates = pickDailyTemplates(date, year);
   const fresh = {
     date,
     quests: templates.map((t) => ({
@@ -277,9 +292,9 @@ function dispatch() {
 
 // ── Public API ────────────────────────────────────────────────────
 
-export function getTodaysQuests() {
+export function getTodaysQuests(year) {
   const date = todayKey();
-  const state = readState(date);
+  const state = readState(date, year);
   return state.quests.map((q) => ({
     ...q,
     complete: q.progress >= q.target,
@@ -287,8 +302,8 @@ export function getTodaysQuests() {
   }));
 }
 
-export function getBonusState() {
-  const state = readState(todayKey());
+export function getBonusState(year) {
+  const state = readState(todayKey(), year);
   const allClaimed = state.quests.length > 0 && state.quests.every((q) => q.claimed);
   return {
     available: allClaimed && !state.bonusClaimed,

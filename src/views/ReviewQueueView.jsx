@@ -158,7 +158,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
             สถานะปัจจุบัน: <strong style={{ color: roleInfo.color }}>{roleInfo.label}</strong>
           </div>
           <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7, marginBottom: 18, maxWidth: 360, margin: '0 auto 18px' }}>
-            ยังไม่เปิดสิทธิ์รีวิว — ต้องมี role <strong>'verified'</strong> หรือสูงกว่า, Palm จะให้ role นี้กับ contributors ที่พิสูจน์คุณภาพแล้ว (มี submission ผ่าน peer review หลายข้อ และไม่มีประวัติ ban)
+            สิทธิ์รีวิวเปิดให้ผู้ที่เคยส่งคำถามผ่านการตรวจทานมาแล้วหลายข้อ — ทีมงานจะเปิดสิทธิ์ให้เองเมื่อถึงเกณฑ์ เริ่มจากส่งคำถามเข้ามาก่อนได้เลย
           </div>
           <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
             อยากเริ่ม contribute? → ส่ง Q proposal เข้ามาก่อน

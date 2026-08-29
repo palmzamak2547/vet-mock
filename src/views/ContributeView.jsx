@@ -85,7 +85,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero">
           <h1><em>ส่งคำถาม</em> ให้ Q bank</h1>
-          <p>Login ก่อนเพื่อส่งคำถาม — แต่ละ Q จะผ่าน 4-tier review (auto-screen → peer × 2 → Palm → publish) ก่อนเข้า bank</p>
+          <p>Login ก่อนเพื่อส่งคำถาม — ทุกข้อผ่านการตรวจ 4 ชั้น (ระบบคัดกรอง → เพื่อนตรวจ 2 คน → ทีมงาน → เผยแพร่) ก่อนเข้าคลังข้อสอบ</p>
         </div>
         <div style={{ ...CARD_BASE, maxWidth: 480, margin: '24px auto', textAlign: 'center' }}>
           <div style={{ fontSize: 36, marginBottom: 12 }}>🔐</div>
@@ -193,7 +193,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
       setWarningsDismissed(false);
       // Toast
       if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-      setToast({ kind: 'ok', msg: 'ส่งแล้ว — Q เข้าคิวรีวิว (auto-screen → peer × 2 → Palm)' });
+      setToast({ kind: 'ok', msg: 'ส่งแล้ว — คำถามเข้าคิวตรวจทานเรียบร้อย' });
       toastTimerRef.current = setTimeout(() => setToast(null), 4500);
       // Refresh "my submissions" + reputation (count bumps)
       refreshAll();
@@ -215,7 +215,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
       <div className="vmx-hero">
         <h1>ส่ง<em>คำถาม</em>ให้ Q bank</h1>
         <p>
-          ทุก Q ผ่าน 4-tier review: <strong>auto-screen</strong> → <strong>peer × 2</strong> → <strong>Palm final</strong> → publish เข้า bank
+          ทุกข้อผ่านการตรวจ 4 ชั้น: <strong>ระบบคัดกรอง</strong> → <strong>เพื่อนตรวจ 2 คน</strong> → <strong>ทีมงานตรวจรอบสุดท้าย</strong> → เผยแพร่เข้าคลังข้อสอบ
         </p>
       </div>
 

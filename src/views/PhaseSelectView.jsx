@@ -77,7 +77,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
                   ? 'ไม่มีวิชา'
                   : liveCount > 0
                     ? `${subjectsInPhase.length} วิชา, ${liveCount} เปิดเต็ม`
-                    : `${subjectsInPhase.length} วิชา, รอเติม`}
+                    : `${subjectsInPhase.length} วิชา, กำลังเตรียมเนื้อหา`}
               </div>
               {isCurrent && (
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-rose)', fontSize: 10 }}>แนะนำ</div>

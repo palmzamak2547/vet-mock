@@ -625,7 +625,10 @@ function ChipRow({ label, options, value, onChange }) {
 // its own floating button. Set to `false` when an external unified
 // tools FAB drives opening — the parent dispatches a window event
 // `vmx-open-vetcalc` to trigger the modal.
-export default function VetCalculator({ showFab = true } = {}) {
+// showFab defaults OFF: the app mounts one global ToolsFAB in the same
+// corner, and a second 52px circle at the same coordinates is exactly the
+// collision this default used to arm.
+export default function VetCalculator({ showFab = false } = {}) {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('rer');
   const dialogRef = useModalFocus({ active: open, onClose: () => setOpen(false) });

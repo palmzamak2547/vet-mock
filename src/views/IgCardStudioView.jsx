@@ -15,8 +15,8 @@
 // occasional admin use → we just download per-card.
 // ============================================================
 
-import { useState, useMemo } from 'react';
-import { QB } from '../data/questions.js';
+import { useState, useMemo, useEffect } from 'react';
+import { QB, loadQB } from '../data/questions.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
@@ -129,6 +129,16 @@ export default function IgCardStudioView({ goHome }) {
   const [count, setCount] = useState(7);
   const [cards, setCards] = useState([]);
   const [busy, setBusy] = useState(false);
+  // QB is lazy-loaded and mutated in place. Without this tick, opening the
+  // studio before the bank finished loading froze the pool at 0 questions
+  // and the generate button stayed dead forever.
+  const [qbTick, setQbTick] = useState(QB.length);
+  useEffect(() => {
+    if (QB.length > 0) return undefined;
+    let alive = true;
+    loadQB().then(() => { if (alive) setQbTick(QB.length); }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
 
   const pool = useMemo(() => {
     const deliverable = QB.filter(isQuestionDeliverable);
@@ -136,7 +146,7 @@ export default function IgCardStudioView({ goHome }) {
     // Prefer past-paper sourceType when present, ตัด writing-only Qs
     const usable = filtered.filter((q) => q.type === 'mcq' || q.type === 'tf');
     return usable;
-  }, [subject]);
+  }, [subject, qbTick]);
 
   const generate = async () => {
     if (busy) return;
@@ -165,7 +175,7 @@ export default function IgCardStudioView({ goHome }) {
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>สร้างการ์ด <em>Instagram</em></h1>
-        <p>Generate Q cards พร้อมโพสต์ลง Instagram, 1080×1350, 4:5 ratio</p>
+        <p>สร้างการ์ดคำถามพร้อมโพสต์ลง Instagram ขนาด 1080×1350 (สัดส่วน 4:5)</p>
       </div>
 
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
@@ -191,12 +201,14 @@ export default function IgCardStudioView({ goHome }) {
           </button>
           {cards.length > 0 && (
             <button className="vmx-btn vmx-btn-ghost" onClick={downloadAll}>
-              ⬇ Download all ({cards.length})
+              ⬇ ดาวน์โหลดทั้งหมด ({cards.length})
             </button>
           )}
         </div>
         <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
-          Pool: {pool.length} questions (MCQ + T/F, ตัด writing), subject = {subject}
+          {pool.length > 0
+            ? `สุ่มจากข้อสอบ ${pool.length.toLocaleString()} ข้อ (เฉพาะแบบตัวเลือกและถูก/ผิด)`
+            : 'กำลังเตรียมคลังข้อสอบ…'}
         </div>
       </div>
 

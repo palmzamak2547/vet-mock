@@ -23,7 +23,7 @@
 import { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
 import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
-import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import { DICT } from './landing/dict.js';
 import LandingBody from './landing/LandingBody.jsx';
 import { useLandingMotion } from './landing/useLandingMotion.js';
@@ -47,8 +47,8 @@ function buildRealSubjects(year) {
     sub: s.name_en || s.code || '',
     emoji: s.icon || '📘',
     color: subjectText(s.color),
-    count: Q_COUNTS_BY_SUBJECT[s.id] || 0,
-    hasQ: (Q_COUNTS_BY_SUBJECT[s.id] || 0) > 0,
+    count: Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0,
+    hasQ: (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0) > 0,
   })).filter((s) => s.hasQ);
 }
 

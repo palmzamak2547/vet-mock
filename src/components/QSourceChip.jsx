@@ -139,6 +139,26 @@ export default function QSourceChip({ q, store }) {
           {q.tags && q.tags.length > 0 && (
             <Row label="Tags" value={q.tags.join(', ')} />
           )}
+          {/* The decks these citations name live in the app's own shelf —
+              close the loop instead of leaving the reference as dead text. */}
+          {q.subject && (q.source || q.verified) && (
+            <button
+              type="button"
+              onClick={() => {
+                try { sessionStorage.setItem('vmx-library-subject', q.subject); } catch { /* nicety */ }
+                try { window.dispatchEvent(new Event('vmx-open-library')); } catch { /* no-op */ }
+              }}
+              style={{
+                all: 'unset', cursor: 'pointer', marginTop: 4, minHeight: 36,
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                color: 'var(--clr-sage-text)', fontSize: 11.5, fontWeight: 600,
+                fontFamily: 'inherit',
+              }}
+              title="เปิดชั้นเอกสารของวิชานี้ในคลังเอกสาร"
+            >
+              เปิดชั้นเอกสารวิชานี้ →
+            </button>
+          )}
         </div>
       )}
     </div>

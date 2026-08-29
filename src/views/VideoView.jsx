@@ -285,7 +285,7 @@ export default function VideoView({ goHome, initialSubject = null }) {
                 onClick={() => setFilter('all')}
                 style={{ fontWeight: 600 }}
               >
-                ทั้งหมด ({allVideos.length})
+                ทั้งหมด {allVideos.length} ชุด
               </button>
               <div style={{ flex: 1 }} />
               <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={startAdd}>เพิ่มคลิป</button>
@@ -305,7 +305,7 @@ export default function VideoView({ goHome, initialSubject = null }) {
                         key={s.id}
                         className={`vmx-chip ${filter === s.id ? 'active' : ''}`}
                         onClick={() => setFilter(s.id)}
-                        title={`${count} คลิป`}
+                        title={`${count} ชุดวิดีโอ`}
                       >
                         {s.icon} {s.name} <span style={{ opacity: 0.6, fontSize: 11 }}>{count}</span>
                       </button>

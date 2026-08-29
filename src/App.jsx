@@ -285,7 +285,11 @@ function buildExamPool({
   if (practiceMode === 'bookmarks') {
     pool = deliverableQuestions.filter((q) => bookmarks.includes(q.id));
   } else if (practiceMode === 'weak') {
-    pool = deliverableQuestions.filter((q) => weakQuestions.includes(q.id));
+    // Year-scoped like every other practice path: the dashboard promises a
+    // year-scoped count, and serving lifetime cross-year questions under
+    // that number made the two disagree.
+    pool = deliverableQuestions.filter((q) => weakQuestions.includes(q.id)
+      && (q.year == null || !selectedYear || q.year === selectedYear));
   } else if (practiceMode === 'wrong') {
     const wrongSet = new Set();
     for (const item of history) {
@@ -743,6 +747,16 @@ export default function App() {
     };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  // Deep components (e.g. the per-question source panel) open the library
+  // without prop-drilling setView through the exam tree — same event-bus
+  // pattern the VetCalculator FAB uses.
+  useEffect(() => {
+    const onOpenLibrary = () => setView('library');
+    window.addEventListener('vmx-open-library', onOpenLibrary);
+    return () => window.removeEventListener('vmx-open-library', onOpenLibrary);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Unknown /app/* paths must not revive an unrelated stored screen. Repair
@@ -1436,9 +1450,27 @@ export default function App() {
           return;
         }
       }
-      alertDialog(_questionCategory === 'writing'
-        ? 'ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"'
-        : 'ไม่มีข้อสอบในหมวดนี้');
+      if (_questionCategory === 'writing') {
+        alertDialog('ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"');
+        return;
+      }
+      // A topic with no questions of its own is a dead end 33 VetWiki
+      // articles can reach through "ฝึกจากหัวข้อนี้" — offer the whole
+      // subject instead of just announcing the wall.
+      const _subjMeta = SUBJECTS.find((s) => s.id === _subject);
+      const _subjectHasQs = !!_subject && _subject !== 'all'
+        && examQuestions.some((q) => q.subject === _subject);
+      if (_topic && _subjectHasQs && _subjMeta) {
+        const goSubject = await confirmDialog({
+          title: 'หัวข้อนี้ยังไม่มีข้อสอบ',
+          body: `ยังไม่มีข้อสอบของหัวข้อนี้โดยตรง — ฝึกทั้งวิชา ${_subjMeta.name} แทนเลยไหม`,
+          confirmLabel: 'ฝึกทั้งวิชา',
+          cancelLabel: 'ไว้ก่อน',
+        });
+        if (goSubject) return startExam({ ...overrides, topic: null, __retriedFullLoad: true });
+        return;
+      }
+      alertDialog('ไม่มีข้อสอบในหมวดนี้');
       return;
     }
 
@@ -2088,7 +2120,7 @@ export default function App() {
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
-              {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady }} />}
+              {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, onOpenWiki: openWiki }} />}
               {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}

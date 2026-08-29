@@ -220,7 +220,7 @@ export const FEATURES = [
   {
     id: 'lab', category: 'tools', fab: true, fabHint: 'DICOM, Norberg, VHS',
     label: 'Imaging Practical', labelEn: 'VetMock Imaging Practical', icon: '🔬',
-    hint: 'ฝึกอ่านง่าย · DICOM, Norberg, VHS',
+    hint: 'ฝึกอ่านฟิล์มแบบง่าย, DICOM, Norberg, VHS',
     kw: 'lab practical imaging dicom norberg vhs xray รังสี ภาพ ฝึกอ่าน ง่าย',
     invoke: { kind: 'view', view: 'lab' },
   },

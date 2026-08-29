@@ -11,7 +11,7 @@ import { RichText } from '../lib/richtext.jsx';
 import { hasTopic } from '../lib/vetwiki/registry.js';
 import { correctionsFor } from '../lib/vetwiki/corrections.js';
 import { sectionId } from '../lib/vetwiki/schema.js';
-import { slidesFor } from '../data/slide-images.generated.js';
+import SlideFigures from '../components/SlideFigures.jsx';
 import ConflictNote from '../components/ConflictNote.jsx';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import BackBar from '../components/BackBar.jsx';
@@ -395,7 +395,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               idx={idx}
               highlight={debouncedSearch}
               conflicts={correctionsFor(sectionId(subject, validTopic, section.heading))}
-              slides={slidesFor(sectionId(subject, validTopic, section.heading))}
+              figSectionId={sectionId(subject, validTopic, section.heading)}
             />
           ))}
         </div>
@@ -420,7 +420,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 }
 
 // ── Single section ─────────────────────────────────────────────
-function SectionBlock({ section, idx, highlight, conflicts, slides = [] }) {
+function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null }) {
   const [open, setOpen] = useState(true);
   const hasConflict = conflicts.length > 0;
 
@@ -454,32 +454,9 @@ function SectionBlock({ section, idx, highlight, conflicts, slides = [] }) {
         <div style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
           {section.body.map((item, i) => <BodyItem key={i} item={item} highlight={highlight} />)}
           {conflicts.map((c, i) => <ConflictNote key={i} item={c} />)}
-          {slides?.length > 0 && (
-            // The slide itself, for the subjects whose decks are photographs —
-            // a histology note describing a stain is worth much less than the
-            // stain. Lazy so opening a 30-section article does not fetch 30
-            // images, and the caption repeats the page so a reader can find it
-            // in their own copy of the deck.
-            <div style={{ marginTop: 14, display: 'grid', gap: 10 }}>
-              {slides.map((src) => (
-                <figure key={src} style={{ margin: 0 }}>
-                  <img
-                    src={src}
-                    alt={`ภาพจากสไลด์ ${section.source || ''}`}
-                    loading="lazy"
-                    decoding="async"
-                    style={{ display: 'block', width: '100%', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)' }}
-                  />
-                  {/* The file is already served as a plain image, so saving it
-                      costs nothing extra to host — this only spares the reader
-                      a right-click. */}
-                  <figcaption style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
-                    <a href={src} download style={{ color: 'inherit' }}>⬇ บันทึกภาพ</a>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          )}
+          {/* Shared with the VetWiki article page — one figure renderer,
+              two surfaces, zero drift. */}
+          <SlideFigures sectionId={figSectionId} source={section.source || ''} />
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
               แหล่งที่มา: {section.source}

@@ -972,7 +972,7 @@ export default function CommandPalette({
   };
 
   const openLibraryShelf = (meta) => {
-    try { sessionStorage.setItem('vmx-library-q', meta.name || ''); } catch { /* nicety */ }
+    try { sessionStorage.setItem('vmx-library-subject', meta.id || ''); } catch { /* nicety */ }
     handlersRef.current.goView?.('library');
     onClose();
   };

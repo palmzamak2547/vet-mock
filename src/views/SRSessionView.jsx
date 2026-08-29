@@ -6,6 +6,7 @@ import { fmtDate } from '../hooks/utils.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
+import { articleForQuestion } from '../lib/vetwiki/registry.js';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import { loadUserFlashcards } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
@@ -33,7 +34,7 @@ import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 const SIZE_PRESETS = [25, 50, 100, 200];
 
-export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true }) {
+export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true, onOpenWiki = null }) {
   // Merge in user-authored flashcards (from "Highlight → Flashcard"
   // in SummaryModal). They live in localStorage and don't trigger
   // React updates by themselves — we read on mount and let the
@@ -532,6 +533,24 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               {answerNode || answerText}
             </div>
             {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichText text={currentQ.explain} /></div>}
+            {/* The moment a card is revealed is the moment to offer the
+                checked summary — same judged mapping ReviewView uses, so
+                past-paper cards resolve to a real article too. */}
+            {(() => {
+              if (!onOpenWiki) return null;
+              const article = articleForQuestion(currentQ);
+              if (!article) return null;
+              return (
+                <button
+                  type="button"
+                  onClick={() => onOpenWiki(article.subject, article.topic)}
+                  style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: 'var(--clr-sage-text)', fontSize: 12.5, fontWeight: 600 }}
+                  title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้"
+                >
+                  🧬 อ่านสรุปเรื่องนี้ใน VetWiki →
+                </button>
+              );
+            })()}
           </div>
         )}
       </div>

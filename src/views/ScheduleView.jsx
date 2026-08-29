@@ -153,8 +153,8 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
                         ฝึกข้อสอบวิชานี้ →
                       </button>
                     ) : (
-                      <div style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-rose-text)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
-                        🚧 ยังไม่มีข้อสอบในวิชานี้ — รอเพิ่ม
+                      <div style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
+                        ยังไม่มีข้อสอบของวิชานี้ในแอป
                       </div>
                     )
                   )}

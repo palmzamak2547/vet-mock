@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { thaiError } from '../lib/errors.js';
 import { createGroup, joinGroupByCode, getMyGroups, leaveGroup } from '../lib/api.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import StatePanel from '../components/StatePanel.jsx';
@@ -32,7 +33,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       setGroups([...groups, { ...g, role: 'admin' }]);
       setNewName(''); setShowCreate(false);
       alertDialog(`สร้างกลุ่ม "${g.name}" สำเร็จ!\nรหัส invite: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อ join`);
-    } catch (e) { setError(e.message); }
+    } catch (e) { setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
   };
 
   const handleJoin = async (e) => {
@@ -43,13 +44,13 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       await joinGroupByCode(joinCode.trim(), user.id);
       setJoinCode(''); setShowJoin(false);
       await load();
-    } catch (e) { setError(e.message); }
+    } catch (e) { setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
   };
 
   const handleLeave = async (groupId) => {
     if (!(await confirmDialog({ title: 'ออกจากกลุ่มนี้?', confirmLabel: 'ออกจากกลุ่ม', tone: 'danger' }))) return;
     try { await leaveGroup(groupId, user.id); await load(); }
-    catch (e) { setError(e.message); }
+    catch (e) { setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
   };
 
   return (

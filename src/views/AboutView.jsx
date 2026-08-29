@@ -78,23 +78,30 @@ export default function AboutView({ goHome, setView }) {
           <FeatureGroup
             title="ค้นหาอัจฉริยะ + ผู้ช่วย (Ctrl+K)"
             items={[
-              'ช่องเดียวค้นทุกอย่าง — ข้อสอบ เอกสารประกอบการเรียนทั้งชั้นหนังสือ บทความ VetWiki ยา อาจารย์ และโน้ตของคุณ',
+              'ช่องเดียวค้นทุกอย่าง — ข้อสอบ เอกสารทั้งคลังเอกสาร บทความ VetWiki ยา อาจารย์ และโน้ตของคุณ',
               'ถามคลังความรู้ได้เลย เช่น "วัคซีนพิษสุนัขบ้าฉีดกี่เข็ม" — ทุกประโยคของคำตอบกดดูแหล่งที่มาในบทความที่ตรวจทานแล้วได้',
               'สั่งงานด้วยข้อความหรือพูดใส่ไมค์ เช่น "จัดข้อสอบ COM5 20 ข้อจับเวลา" ระบบเสนอแผนให้กดยืนยันก่อนทำเสมอ',
             ]}
           />
           <FeatureGroup
-            title="ห้องสมุดเอกสาร"
+            title="คลังเอกสาร"
             items={[
               'สไลด์และเอกสารจริงของทุกวิชา แยกชั้นตามวิชาเดียวกับคลังข้อสอบ',
-              'เปิดอ่านในแอปได้เลยไม่ต้องล็อกอิน พร้อมเครื่องมือขีดเขียนบน PDF',
+              'เปิดอ่านในแอปได้เลยไม่ต้องล็อกอิน พร้อมเครื่องมือขีดเขียนบน PDF จำหน้าที่อ่านค้างไว้ และเปิดไฟล์เดิมซ้ำได้แม้ออฟไลน์',
+            ]}
+          />
+          <FeatureGroup
+            title="VetWiki — คลังความรู้ที่ตรวจสอบได้"
+            items={[
+              'บทความสรุปที่ทุกจุดความรู้ผ่านการตรวจทานกับแหล่งอ้างอิงภายนอก และบอกที่มาของเนื้อหาได้ทุกหัวข้อ',
+              'จุดที่หลักฐานไม่ตรงกับที่บรรยายมีป้ายเตือนพร้อมคำแนะนำว่าเวลาสอบควรตอบแบบไหน',
             ]}
           />
           <FeatureGroup
             title="ฝึกโจทย์"
             items={[
               'Quick Practice + Exam Mode (ตั้งจำนวนข้อ + เวลา ได้)',
-              '4 ประเภท: MCQ (4-5 ช้อยส์), True/False, Fill-in, Matching',
+              '6 ประเภท: MCQ (4-5 ช้อยส์), True/False, Fill-in, Matching, ตอบสั้น และเขียนตอบ',
               'Quiz navigator — สำหรับ exam ยาว (≥15 ข้อ) ข้ามไปข้อไหนก็ได้',
               'แยกตามวิชา → หัวข้อ (คาบ) → ความยากของหัวข้อนั้น',
             ]}
@@ -199,7 +206,7 @@ export default function AboutView({ goHome, setView }) {
         <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7, fontFamily: 'var(--vmx-mono)' }}>
           Frontend: React 18 + Vite (lazy-loaded views, manual chunks)<br/>
           Backend: Supabase Postgres + Auth (lazy-loaded — โหลดเฉพาะตอน Login)<br/>
-          Hosting: Vercel + 6 serverless functions<br/>
+          Hosting: Vercel + serverless functions<br/>
           Cost: $0/month (free tier ทั้งหมด)
         </div>
       </div>

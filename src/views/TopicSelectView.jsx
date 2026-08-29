@@ -1,7 +1,8 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
+import { librarySubjectCounts } from '../lib/library.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -20,6 +21,14 @@ const VCA_NOTES_MAP = {
 };
 
 export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos }) {
+  // Real documents on this subject's shelf — the fourth study resource,
+  // fetched from the same session-cached catalog Home uses.
+  const [shelfDocs, setShelfDocs] = useState(0);
+  useEffect(() => {
+    let alive = true;
+    librarySubjectCounts().then((m) => { if (alive) setShelfDocs(m?.get(subject) || 0); });
+    return () => { alive = false; };
+  }, [subject]);
   const [openInstructor, setOpenInstructor] = useState(null);
   const [activeSection, setActiveSection] = useState('topics');
   // Palm bug 2026-05-20: subjects with 50+ topics in curriculum but only
@@ -212,6 +221,20 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <div className="icon"><NavIcon name="wiki" size={20} /></div>
           <div className="title">VetWiki</div>
           <div className="sub">{resources.wiki?.available ? `${resources.wiki.count} บทความ เชื่อมจาก Notes` : 'ยังไม่มีบทความในวิชานี้'}</div>
+        </button>
+
+        <button
+          className="vmx-mode-card"
+          disabled={shelfDocs === 0}
+          onClick={() => {
+            try { sessionStorage.setItem('vmx-library-subject', subject || ''); } catch { /* nicety */ }
+            setView('library');
+          }}
+          style={{ opacity: shelfDocs > 0 ? 1 : 0.55 }}
+        >
+          <div className="icon"><NavIcon name="book" size={20} /></div>
+          <div className="title">คลังเอกสาร</div>
+          <div className="sub">{shelfDocs > 0 ? `เอกสารจริง ${shelfDocs} ไฟล์ของวิชานี้` : 'ยังไม่มีเอกสารในวิชานี้'}</div>
         </button>
       </div>
 

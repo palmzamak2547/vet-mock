@@ -29,6 +29,7 @@ import { conflictCountFor } from '../lib/vetwiki/conflict-summary.generated.js';
 import { copyText } from '../lib/clipboard.js';
 import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
 import ReportConcern from '../components/ReportConcern.jsx';
+import SlideFigures from '../components/SlideFigures.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
 
@@ -473,6 +474,10 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
                 </button>
               </div>
               {s.body.map((item, i) => <NoteBody key={i} item={item} />)}
+              {/* Real figures from the lecture deck this section cites —
+                  the neuroanatomy articles were describing structures the
+                  extracted slides already show. */}
+              <SlideFigures sectionId={s.id} source={noteRef?.locator || ''} />
               {noteRef && <div style={{ marginTop: 4, fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>ที่มา: {noteRef.locator}</div>}
               {(s.corrections || []).map((c, i) => (
                 <React.Suspense key={i} fallback={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>

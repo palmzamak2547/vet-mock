@@ -4,7 +4,7 @@ import BackBar from '../components/BackBar.jsx';
 import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
-import { hasTopic } from '../lib/vetwiki/registry.js';
+import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
@@ -611,19 +611,37 @@ function NextPlayPanel({
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('review')} style={{ minHeight: 44 }}>
             ดูเฉลย
           </button>
-          {/* If this whole set is one governed topic, offer its VetWiki page —
-              the natural "I got this wrong, let me read the checked version". */}
-          {FEATURE_FLAGS.VETWIKI_ENABLED !== false && ctx.subj && ctx.topic && hasTopic(ctx.subj, ctx.topic) && (
-            <button
-              type="button"
-              className="vmx-btn vmx-btn-ghost"
-              onClick={() => { setSubject?.(ctx.subj); setTopic?.(ctx.topic); setView('knowledge'); }}
-              style={{ minHeight: 44 }}
-              title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้ทุกส่วน"
-            >
-              อ่านสรุปเรื่องนี้
-            </button>
-          )}
+          {/* If this whole set resolves to one governed topic, offer its
+              VetWiki page — the natural "I got this wrong, let me read the
+              checked version". articleForQuestion (the judged mapping), not
+              a bare topic match, so past-paper compilations whose topic is
+              the compilation's name still find their article. */}
+          {FEATURE_FLAGS.VETWIKI_ENABLED !== false && (() => {
+            let article = ctx.subj && ctx.topic && hasTopic(ctx.subj, ctx.topic)
+              ? { subject: ctx.subj, topic: ctx.topic }
+              : null;
+            if (!article) {
+              const seen = new Map();
+              for (const q of questions || []) {
+                const a = articleForQuestion(q);
+                if (a) seen.set(`${a.subject}|${a.topic}`, a);
+                if (seen.size > 1) return null; // mixed set — no single page to offer
+              }
+              article = seen.size === 1 ? [...seen.values()][0] : null;
+            }
+            if (!article) return null;
+            return (
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost"
+                onClick={() => { setSubject?.(article.subject); setTopic?.(article.topic); setView('knowledge'); }}
+                style={{ minHeight: 44 }}
+                title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้ทุกส่วน"
+              >
+                อ่านสรุปเรื่องนี้
+              </button>
+            );
+          })()}
           {hasWrong && ctx.subj && (
             <button
               type="button"

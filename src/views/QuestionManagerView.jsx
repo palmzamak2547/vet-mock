@@ -458,7 +458,9 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
         <div
           style={{
             position: 'fixed',
-            bottom: 'max(16px, env(safe-area-inset-bottom))',
+            // Above the bottom nav, not on top of it — the nav must stay
+            // tappable while questions are selected.
+            bottom: 'calc(var(--vmx-bottom-nav-h, 0px) + max(16px, env(safe-area-inset-bottom)))',
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 800,
@@ -513,7 +515,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
         <div
           style={{
             position: 'fixed',
-            bottom: 'calc(max(16px, env(safe-area-inset-bottom)) + 64px)',
+            bottom: 'calc(var(--vmx-bottom-nav-h, 0px) + max(16px, env(safe-area-inset-bottom)) + 64px)',
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 801,

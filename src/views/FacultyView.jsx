@@ -247,7 +247,7 @@ export default function FacultyView({ goHome }) {
                 borderColor: active ? 'var(--clr-ink)' : 'var(--clr-border)',
               }}
             >
-              {dc.icon} {dc.label} <span style={{ opacity: 0.6 }}>,{dc.count}</span>
+              {dc.icon} {dc.label} <span style={{ opacity: 0.6 }}>{dc.count}</span>
             </button>
           );
         })}
@@ -284,7 +284,7 @@ export default function FacultyView({ goHome }) {
               borderColor: statusFilter === item.id ? 'var(--clr-ink)' : 'var(--clr-border)',
             }}
           >
-            {item.icon} {item.label} <span style={{ opacity: 0.6 }}>,{item.count}</span>
+            {item.icon} {item.label} <span style={{ opacity: 0.6 }}>{item.count}</span>
           </button>
         ))}
       </div>
@@ -384,9 +384,16 @@ function FacultyCard({ instructor, onClick }) {
                 borderRadius: 999,
                 border: `1px solid ${meta?.color || 'var(--clr-border)'}`,
                 fontWeight: 600,
+                maxWidth: 104,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
               }}
+              title={meta?.name || sid}
             >
-              {meta?.icon || '📚'} {sid}
+              {/* The Thai name, not the raw internal id — students read
+                  "สุขศาสตร์น้ำนม + เนื้อ", never "milk-meat-hygiene". */}
+              {meta?.icon || '📚'} {meta?.name || sid}
             </span>
           );
         })}

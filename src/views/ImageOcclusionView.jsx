@@ -293,7 +293,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
       {toast && (
         <div style={{
           position: 'fixed',
-          bottom: 'calc(24px + env(safe-area-inset-bottom))',
+          bottom: 'calc(var(--vmx-bottom-nav-h, 0px) + 24px + env(safe-area-inset-bottom))',
           left: '50%',
           transform: 'translateX(-50%)',
           background: 'rgba(0,0,0,0.85)',
@@ -301,7 +301,8 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
           padding: '10px 16px',
           borderRadius: 999,
           fontSize: 13,
-          zIndex: 9999,
+          // Toast rung — 9999 is reserved for the skip link and loading bar.
+          zIndex: 1500,
           maxWidth: '90%',
         }}>
           {toast}

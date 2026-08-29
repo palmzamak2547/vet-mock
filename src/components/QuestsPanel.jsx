@@ -15,7 +15,7 @@ import {
 } from '../lib/quests.js';
 import { XP_EVENT } from '../lib/xp.js';
 
-function useQuestState() {
+function useQuestState(year) {
   const [tick, setTick] = useState(0);
   useEffect(() => {
     const refresh = () => setTick((t) => t + 1);
@@ -31,8 +31,8 @@ function useQuestState() {
   // tick keeps this fresh; reads pull directly from quests.js so we
   // don't have to mirror state in React.
   return {
-    quests: getTodaysQuests(),
-    bonus: getBonusState(),
+    quests: getTodaysQuests(year),
+    bonus: getBonusState(year),
     streak: getQuestStreak(),
     _tick: tick,
   };
@@ -306,8 +306,8 @@ function BonusCard({ bonus, compact }) {
   );
 }
 
-export default function QuestsPanel({ compact = false, onStart }) {
-  const { quests, bonus, streak } = useQuestState();
+export default function QuestsPanel({ compact = false, onStart, year = null }) {
+  const { quests, bonus, streak } = useQuestState(year);
   // Round 2A 2026-05-18: "หลัง claim → เสนอ quest ถัดไป" — ephemeral
   // suggestion banner shown for ~6s after a claim, pointing to the
   // first incomplete + actionable next quest. Auto-dismisses so it
@@ -318,7 +318,7 @@ export default function QuestsPanel({ compact = false, onStart }) {
       // Pick the next non-claimed, non-complete quest that has an
       // action mapping. Re-read from getTodaysQuests inside the
       // handler so we see the just-claimed state.
-      const fresh = getTodaysQuests();
+      const fresh = getTodaysQuests(year);
       const next = fresh.find((q) => !q.claimed && !q.complete && questActionFor(q));
       if (next) setRecentClaim({ next, t: Date.now() });
     };
