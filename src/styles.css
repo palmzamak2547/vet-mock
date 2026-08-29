@@ -3212,3 +3212,72 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
     animation: none;
   }
 }
+
+/* ── Motion vocabulary v2 ─────────────────────────────────────────────────
+   Shared ลูกเล่น so surfaces stop inventing one-off keyframes. Compositor
+   props only (transform/opacity); every decorative piece is disabled in the
+   reduced-motion block below. Signature ease matches the app's entrances. */
+
+/* Tactile press on every button/chip/option — instant feedback, settles soft.
+   Kept even under reduced motion? No: it's decorative; the state change
+   (selected/hover colors) already carries the information. */
+.vmx-btn:active { transform: scale(0.97); }
+.vmx-chip:active { transform: scale(0.96); }
+.vmx-option:active { transform: scale(0.988); }
+.vmx-sr-btn:active { transform: scale(0.95); }
+.vmx-btn { transition: background var(--dur-fast, 0.15s), border-color var(--dur-fast, 0.15s), color var(--dur-fast, 0.15s), box-shadow var(--dur-fast, 0.15s), transform 130ms cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Cards lift a touch on hover (pointer devices) — extends the existing
+   border/background hover on subject + mode cards. */
+@media (hover: hover) and (pointer: fine) {
+  .vmx-subject-card:hover, .vmx-mode-card:hover { transform: translateY(-2px); }
+  .vmx-feature-card:hover { transform: translateY(-1px); }
+}
+.vmx-subject-card, .vmx-mode-card { transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast), transform 180ms cubic-bezier(0.22, 1, 0.36, 1); }
+.vmx-feature-card { transition: border-color 140ms, background 140ms, transform 150ms cubic-bezier(0.22, 1, 0.36, 1); }
+.vmx-feature-card:active { transform: scale(0.98); }
+
+/* Entry stagger: grid children rise in one after another. Capped at 12 —
+   beyond that everything arrives together so a long grid never takes
+   seconds to settle. Replays only on mount (filter re-renders reuse DOM,
+   so typing in a search box does not re-trigger it). */
+@keyframes vmx-rise-in { from { opacity: 0; transform: translateY(12px); } }
+.vmx-subject-grid > *, .vmx-mode-grid > *, .vmx-stat-grid > * {
+  animation: vmx-rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.vmx-subject-grid > :nth-child(1), .vmx-mode-grid > :nth-child(1), .vmx-stat-grid > :nth-child(1) { animation-delay: 0.02s; }
+.vmx-subject-grid > :nth-child(2), .vmx-mode-grid > :nth-child(2), .vmx-stat-grid > :nth-child(2) { animation-delay: 0.06s; }
+.vmx-subject-grid > :nth-child(3), .vmx-mode-grid > :nth-child(3), .vmx-stat-grid > :nth-child(3) { animation-delay: 0.10s; }
+.vmx-subject-grid > :nth-child(4), .vmx-mode-grid > :nth-child(4), .vmx-stat-grid > :nth-child(4) { animation-delay: 0.14s; }
+.vmx-subject-grid > :nth-child(5), .vmx-mode-grid > :nth-child(5), .vmx-stat-grid > :nth-child(5) { animation-delay: 0.18s; }
+.vmx-subject-grid > :nth-child(6), .vmx-mode-grid > :nth-child(6), .vmx-stat-grid > :nth-child(6) { animation-delay: 0.22s; }
+.vmx-subject-grid > :nth-child(7), .vmx-mode-grid > :nth-child(7) { animation-delay: 0.26s; }
+.vmx-subject-grid > :nth-child(8), .vmx-mode-grid > :nth-child(8) { animation-delay: 0.30s; }
+.vmx-subject-grid > :nth-child(9) { animation-delay: 0.34s; }
+.vmx-subject-grid > :nth-child(10) { animation-delay: 0.38s; }
+.vmx-subject-grid > :nth-child(11) { animation-delay: 0.42s; }
+.vmx-subject-grid > :nth-child(12) { animation-delay: 0.46s; }
+
+/* SR flashcard answer reveal — the moment of truth rises in instead of
+   teleporting. One-shot, per reveal. */
+@keyframes vmx-reveal-rise { from { opacity: 0; transform: translateY(8px); } }
+.vmx-reveal-rise { animation: vmx-reveal-rise 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* DigitRoll odometer (components/DigitRoll.jsx): a digit is a 1em window
+   over a 0-9 column; the column's translateY IS the number. Every char —
+   including static % or slashes — renders in a uniform 1em line-height-1
+   box, because an overflow-hidden inline box synthesizes its baseline at
+   the BOTTOM edge and would ride high next to normally-baselined text. */
+.vmx-roll { display: inline-flex; align-items: flex-end; }
+.vmx-roll > span { display: block; height: 1em; line-height: 1; }
+.vmx-digit { overflow: hidden; }
+.vmx-digit-strip { display: flex; flex-direction: column; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.vmx-digit-strip > span { display: block; height: 1em; line-height: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmx-btn:active, .vmx-chip:active, .vmx-option:active, .vmx-sr-btn:active { transform: none; }
+  .vmx-subject-card:hover, .vmx-mode-card:hover, .vmx-feature-card:hover, .vmx-feature-card:active { transform: none; }
+  .vmx-subject-grid > *, .vmx-mode-grid > *, .vmx-stat-grid > * { animation: none !important; }
+  .vmx-reveal-rise { animation: none !important; }
+  .vmx-digit-strip { transition: none !important; }
+}

@@ -7,6 +7,7 @@ import {
   USER_DATA_IMPORT_MAX_BYTES,
 } from '../lib/user-data-schema.js';
 import BackBar from '../components/BackBar.jsx';
+import DigitRoll from '../components/DigitRoll.jsx';
 import { getWebVitalsSamples, summarize } from '../lib/web-vitals.js';
 import StreakHeatmap from '../components/StreakHeatmap.jsx';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
@@ -480,11 +481,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               count. 'all' → lifetime (passed through unchanged). */}
           <div className="vmx-stat-grid">
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num">{scopedAnalytics.totalAttempts}</div>
+              <div className="vmx-stat-num"><DigitRoll value={scopedAnalytics.totalAttempts} /></div>
               <div className="vmx-stat-lbl">ข้อที่ทำทั้งหมด</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{scopedAnalytics.overallPct}%</div>
+              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}><DigitRoll value={scopedAnalytics.overallPct} />%</div>
               <div className="vmx-stat-lbl">ความแม่นยำรวม</div>
             </div>
             <div className="vmx-stat-card vmx-streak-stat-card">

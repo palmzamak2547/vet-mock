@@ -528,7 +528,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           {currentQ.imagePath && <ZoomableImage src={currentQ.imagePath} maxHeight={240} />}
         </div>
         {showAnswer && (
-          <div className="back">
+          <div className="back vmx-reveal-rise">
             <div className="answer">
               {answerNode || answerText}
             </div>

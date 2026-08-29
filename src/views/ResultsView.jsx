@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { isCorrect, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
+import DigitRoll from '../components/DigitRoll.jsx';
 import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
@@ -299,7 +300,7 @@ export default function ResultsView({
         {autoQs.length > 0 ? (
           <>
             <h2 className={`vmx-score-big ${score.pct >= 60 ? 'pass' : 'fail'}`}>
-              {score.pct}<span style={{ fontSize: '0.4em', fontWeight: 400 }}>%</span>
+              <DigitRoll value={score.pct} /><span style={{ fontSize: '0.4em', fontWeight: 400 }}>%</span>
             </h2>
             <div className="vmx-score-label">คะแนนตรวจอัตโนมัติ</div>
             <div className="vmx-score-frac">{score.correct} / {autoQs.length} ถูก</div>
