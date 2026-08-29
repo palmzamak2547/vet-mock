@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useRef, useEffect } from 'react';
 import { RichText } from '../lib/richtext.jsx';
 
 const SESSION_SEED = (() => {
@@ -88,8 +88,25 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
     answerCurrent(obj);
   }, [ans, answerCurrent]);
 
+  // Revealing the answer disables every select at once. Whichever one the
+  // keyboard user was standing on stops being focusable, so the browser drops
+  // focus to <body> and the next Tab restarts from the top of the page. Catch
+  // it and hand focus to this block, so Tab continues from the question they
+  // just answered.
+  const rootRef = useRef(null);
+  useEffect(() => {
+    if (!isRevealed) return;
+    const root = rootRef.current;
+    if (!root) return;
+    const active = document.activeElement;
+    // Only intervene if focus was inside here AND has been let go.
+    if (active && active !== document.body && root.contains(active)) return;
+    if (active && active !== document.body) return;
+    root.focus({ preventScroll: true });
+  }, [isRevealed]);
+
   return (
-    <div className="vmx-match-dnd">
+    <div className="vmx-match-dnd" ref={rootRef} tabIndex={-1} style={{ outline: 'none' }}>
       <div className="vmx-match-dnd-header">
         <div className="vmx-match-dnd-status">
           <span className="vmx-match-dnd-hint" style={{ fontSize: '15px' }}>

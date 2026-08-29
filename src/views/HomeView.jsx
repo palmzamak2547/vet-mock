@@ -58,7 +58,7 @@ const PHASE_LABELS = {
   '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
 };
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
   // carry none, so the countdown banner hides itself when getNextExam
@@ -186,7 +186,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // unrelated re-render (subject swap, modal open, etc.).
   const quickStats = useMemo(() => {
     if (!Array.isArray(history) || history.length === 0) {
-      return { streak: 0, todayCount: 0, wrongCount: 0, wrongIds: [] };
+      return { streak: streakData?.lastDate ? (streakData.streak || 0) : 0, todayCount: 0, wrongCount: 0, wrongIds: [] };
     }
     const ymd = (d) => new Date(d).toLocaleDateString('en-CA');
     const todayKey = ymd(Date.now());
@@ -223,6 +223,13 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         wrongFreq.set(compoundId, (wrongFreq.get(compoundId) || 0) + 1);
       }
     }
+    // The saved streak is the authority, because it is the only one that
+    // knows about the freeze. Walking back over days that have answers stops
+    // dead at a frozen day, so the toast could say "your 8-day streak was
+    // saved" while the card directly beneath it read 1. Both numbers advance
+    // on the same event (a graded set), so this is not a staleness trade.
+    // The walk stays as the fallback for a history restored from the cloud
+    // before the streak record catches up.
     let streak = 0;
     const cursor = new Date();
     if (!days.has(todayKey)) cursor.setDate(cursor.getDate() - 1);
@@ -230,11 +237,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       streak++;
       cursor.setDate(cursor.getDate() - 1);
     }
+    if (streakData?.lastDate) streak = streakData.streak || 0;
     const wrongIds = [...wrongFreq.entries()]
       .sort((a, b) => b[1] - a[1])
       .map(([k]) => k);
     return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
-  }, [history, yearSubjects, selectedYear]);
+  }, [history, yearSubjects, selectedYear, streakData]);
 
   // Quick action: random 1 Q from full QB. Goes STRAIGHT into ExamView
   // via startExam({overrides}) — bypasses ConfigView so the user gets

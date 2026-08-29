@@ -32,9 +32,17 @@ export default function NextActionCard({
 
     // Priority 0: resume in-flight exam
     if (pendingResume) {
-      const timeAgo = pendingResume.ageMin < 60
-        ? `${pendingResume.ageMin} นาทีที่แล้ว`
-        : `${Math.round(pendingResume.ageMin / 60)} ชั่วโมงที่แล้ว`;
+      // Derive from the timestamp so the number is right at the moment it is
+      // read, not at the moment the page mounted. ageMin remains the fallback
+      // for a resume record saved before savedAt was carried through.
+      const mins = pendingResume.savedAt
+        ? Math.max(0, Math.round((Date.now() - pendingResume.savedAt) / 60000))
+        : pendingResume.ageMin;
+      const timeAgo = mins < 1
+        ? 'เมื่อครู่นี้'
+        : mins < 60
+          ? `${mins} นาทีที่แล้ว`
+          : `${Math.round(mins / 60)} ชั่วโมงที่แล้ว`;
       out.push({
         title: 'ทำต่อจากครั้งล่าสุด',
         sub: `ตอบไปแล้ว ${pendingResume.answered}/${pendingResume.qCount} ข้อ (${timeAgo})`,

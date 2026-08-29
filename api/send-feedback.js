@@ -84,8 +84,12 @@ export default async function handler(req, res) {
     const apiKey = process.env.RESEND_API_KEY;
     const toEmail = process.env.FEEDBACK_EMAIL || 'palmzamak2547@gmail.com';
     if (!apiKey) {
+      // 503, not 500: nothing crashed, the mailer is simply not wired up. A
+      // 500 was indistinguishable from a genuine fault, so callers offered a
+      // "try again" that could never succeed. The reason lets them point at
+      // the email escape hatch instead.
       console.error('RESEND_API_KEY not set');
-      return res.status(500).json({ error: 'Email service not configured. Add RESEND_API_KEY in Vercel.' });
+      return res.status(503).json({ error: 'Email service not configured', reason: 'not_configured' });
     }
 
     const providerBudget = await rateLimit('provider:resend:daily', 100, 24 * 60 * 60 * 1000);

@@ -133,10 +133,16 @@ export default function IgCardStudioView({ goHome }) {
   // studio before the bank finished loading froze the pool at 0 questions
   // and the generate button stayed dead forever.
   const [qbTick, setQbTick] = useState(QB.length);
+  // A swallowed load failure left the bank at 0 forever, and the line below
+  // kept saying it was being prepared. Track the outcome so the three states
+  // (loading, failed, loaded-but-nothing-matches) can be told apart.
+  const [qbFailed, setQbFailed] = useState(false);
   useEffect(() => {
     if (QB.length > 0) return undefined;
     let alive = true;
-    loadQB().then(() => { if (alive) setQbTick(QB.length); }).catch(() => {});
+    loadQB()
+      .then(() => { if (alive) setQbTick(QB.length); })
+      .catch((err) => { console.warn('[ig-studio] question bank failed to load:', err?.message); if (alive) setQbFailed(true); });
     return () => { alive = false; };
   }, []);
 
@@ -208,7 +214,13 @@ export default function IgCardStudioView({ goHome }) {
         <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
           {pool.length > 0
             ? `สุ่มจากข้อสอบ ${pool.length.toLocaleString()} ข้อ (เฉพาะแบบตัวเลือกและถูก/ผิด)`
-            : 'กำลังเตรียมคลังข้อสอบ…'}
+            : qbFailed
+              ? 'โหลดคลังข้อสอบไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วเปิดหน้านี้ใหม่'
+              : qbTick === 0
+                ? 'กำลังเตรียมคลังข้อสอบ…'
+                : subject === 'all'
+                  ? 'ยังไม่มีข้อสอบแบบตัวเลือกหรือถูก/ผิดให้ทำการ์ด'
+                  : 'วิชานี้ยังไม่มีข้อสอบแบบตัวเลือกหรือถูก/ผิด ลองเลือกวิชาอื่นหรือเลือกทุกวิชา'}
         </div>
       </div>
 

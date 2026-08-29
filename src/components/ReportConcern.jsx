@@ -38,7 +38,17 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
         // Local preview has no serverless runtime.
         setState('error'); setMsg('ส่งได้เฉพาะบนเว็บจริง'); return;
       }
-      if (res.status === 429) { setState('error'); setMsg('ส่งบ่อยเกินไป ลองใหม่ในสักครู่'); return; }
+      // 429 has two causes with opposite advice: a per-IP burst clears in
+      // minutes, the daily cap does not clear until tomorrow. Telling someone
+      // at the daily cap to "try again shortly" sends them in circles.
+      const body = await res.json().catch(() => ({}));
+      if (res.status === 429) {
+        setState('error');
+        setMsg(body.reason === 'daily_cap'
+          ? 'วันนี้ระบบรับข้อความครบโควตาแล้ว พรุ่งนี้ส่งได้อีก หรือแจ้งผ่านหน้า “ส่ง Feedback” ได้เลย'
+          : 'ส่งบ่อยเกินไป ลองใหม่ในสักครู่');
+        return;
+      }
       if (res.status === 503) { setState('error'); setMsg('ยังไม่ได้ตั้งค่าการส่ง — แจ้งผ่านหน้า “ส่ง Feedback” แทนได้'); return; }
       if (!res.ok) { setState('error'); setMsg('ส่งไม่สำเร็จ ลองใหม่อีกครั้ง'); return; }
       setState('done');
