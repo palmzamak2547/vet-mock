@@ -169,6 +169,10 @@ function fetchPreview(playlistId) {
 // handful of visits). Cards the reader never scrolls to now cost nothing.
 function usePlaylistPreview(playlistId) {
   const [preview, setPreview] = useState(() => readCachedPreview(playlistId));
+  // Only true once a request is genuinely in flight. A card far below the fold
+  // is waiting to be scrolled to, not loading — saying "กำลังโหลดหน้าปก…" there
+  // would be a spinner for work nobody started.
+  const [loading, setLoading] = useState(false);
   const nodeRef = useRef(null);
 
   useEffect(() => {
@@ -188,25 +192,32 @@ function usePlaylistPreview(playlistId) {
     const node = nodeRef.current;
     // No node or no IntersectionObserver (older engines, tests): behave as
     // before rather than never loading a cover.
+    let alive = true;
+    const start = () => {
+      if (!alive) return;
+      setLoading(true);
+      fetchPreview(playlistId).finally(() => { if (alive) setLoading(false); });
+    };
+
     if (!node || typeof IntersectionObserver === 'undefined') {
-      fetchPreview(playlistId);
-      return unsubscribe;
+      start();
+      return () => { alive = false; unsubscribe(); };
     }
 
     const io = new IntersectionObserver(
       (entries) => {
         if (!entries.some((e) => e.isIntersecting)) return;
         io.disconnect();
-        fetchPreview(playlistId);
+        start();
       },
       // 300px of runway so a cover is ready by the time the card is read.
       { rootMargin: '300px' },
     );
     io.observe(node);
-    return () => { io.disconnect(); unsubscribe(); };
+    return () => { alive = false; io.disconnect(); unsubscribe(); };
   }, [playlistId]);
 
-  return [preview, nodeRef];
+  return [preview, nodeRef, loading];
 }
 
 // (A mount-time prefetch of EVERY playlist used to live here. Its concurrency
@@ -434,7 +445,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
 function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
   // Single videos use direct YouTube thumbnail; playlists use first-video preview from API
   const playlistId = playlist ? getPlaylistId(video.url) : null;
-  const [playlistPreview, previewRef] = usePlaylistPreview(playlistId);
+  const [playlistPreview, previewRef, previewLoading] = usePlaylistPreview(playlistId);
   const directThumb = !playlist && !isChannel ? getThumbnail(video.url, 'hq') : null;
   const [errored, setErrored] = useState(false);
 
@@ -490,7 +501,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
       <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', letterSpacing: '0.1em', fontWeight: 600 }}>
         {playlist ? 'PLAYLIST' : isChannel ? 'CHANNEL' : 'VIDEO'}
       </div>
-      {playlist && (
+      {playlist && previewLoading && (
         <div style={{ fontSize: 11, marginTop: 4, opacity: 0.85 }}>กำลังโหลดหน้าปก…</div>
       )}
     </div>
