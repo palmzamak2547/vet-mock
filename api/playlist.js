@@ -118,6 +118,16 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=86400');
     return res.status(200).json({ items, count: items.length, source: 'rss', ...(degraded ? { degraded } : {}) });
   } catch (err) {
+    // A playlist that does not exist (deleted by its owner, or a stale id in
+    // the library) is a 404 about that playlist — not a server fault. It was
+    // answered with 502 'upstream_unreachable', untrue on both counts: YouTube
+    // WAS reachable and told us plainly. It also meant one removed playlist
+    // raised a 5xx alert and told the reader the server was broken.
+    if (err?.playlistMissing) {
+      console.warn('playlist not found on YouTube:', id);
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(404).json({ error: 'playlist not found', reason: 'playlist_not_found' });
+    }
     console.error('playlist fetch error:', err);
     res.setHeader('Cache-Control', 'no-store');
     return res.status(502).json({ error: err.message || 'fetch failed', reason: 'upstream_unreachable' });
@@ -206,6 +216,13 @@ async function fromRss(playlistId) {
   const r = await fetch(url, {
     headers: { 'User-Agent': 'Mozilla/5.0 (compatible; vetmock/1.0)' },
   });
+  if (r.status === 404) {
+    // YouTube answered clearly: there is no such playlist. That is a 404 about
+    // the resource, NOT a failure of ours — see the handler.
+    const gone = new Error(`RSS ${r.status}`);
+    gone.playlistMissing = true;
+    throw gone;
+  }
   if (!r.ok) throw new Error(`RSS ${r.status}`);
   const xml = await r.text();
   if (!xml || !xml.includes('<feed')) throw new Error('not a valid feed');

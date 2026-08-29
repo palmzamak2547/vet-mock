@@ -562,7 +562,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           setListReason(data?.reason || (r.status === 429 ? 'rate_limited' : 'upstream_unreachable'));
           setListError(r.status === 429
             ? 'กำลังโหลดหลายรายการพร้อมกัน รอสักครู่แล้วกดลองใหม่'
-            : 'เชื่อมต่อ YouTube ไม่ได้ชั่วคราว');
+            : data?.reason === 'playlist_not_found'
+              ? 'playlist นี้ไม่มีอยู่บน YouTube แล้ว'
+              : 'เชื่อมต่อ YouTube ไม่ได้ชั่วคราว');
           setLoadingList(false);
           return;
         }
@@ -855,22 +857,36 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
             {/* Why the list is missing — the real reason, not a guess */}
             {playlistId && !loadingList && playlistItems.length === 0 && (listNote || listError) && (() => {
-              // 'multi_channel' is the only case where the playlist genuinely
-              // cannot be listed; everything else is temporary and retryable,
-              // so it gets a retry button instead of a shrug.
-              const permanent = listReason === 'multi_channel' || listReason === 'empty_playlist';
-              const headline = listReason === 'empty_playlist'
-                ? 'playlist นี้ยังไม่มีคลิป'
-                : permanent
-                  ? 'playlist นี้รวมคลิปจากหลายช่อง จึงดึงรายชื่อมาแสดงไม่ได้'
-                  : (listError || 'ดึงรายการคลิปไม่ได้ชั่วคราว');
+              // Retrying only helps when the cause is temporary. A playlist
+              // that is multi-channel, empty, or gone will answer the same way
+              // every time, so those get an explanation instead of a button
+              // that quietly does nothing.
+              const permanent = listReason === 'multi_channel'
+                || listReason === 'empty_playlist'
+                || listReason === 'playlist_not_found';
+              const headline = listReason === 'playlist_not_found'
+                ? 'playlist นี้ไม่มีอยู่บน YouTube แล้ว'
+                : listReason === 'empty_playlist'
+                  ? 'playlist นี้ยังไม่มีคลิป'
+                  : listReason === 'multi_channel'
+                    ? 'playlist นี้รวมคลิปจากหลายช่อง จึงดึงรายชื่อมาแสดงไม่ได้'
+                    : (listError || 'ดึงรายการคลิปไม่ได้ชั่วคราว');
+              // Each permanent cause needs its own next step: pressing the
+              // player's list button works for a multi-channel playlist, and
+              // is pointless advice for one that no longer exists.
+              const advice = listReason === 'playlist_not_found'
+                ? 'อาจถูกเจ้าของลบหรือตั้งเป็นส่วนตัว หากยังเปิดใน YouTube ไม่ได้เช่นกัน แปลว่าลิงก์นี้หมดอายุแล้ว'
+                : listReason === 'empty_playlist'
+                  ? 'เจ้าของยังไม่ได้ใส่คลิปลงใน playlist นี้'
+                  : null;
               return (
                 <div style={{ marginTop: 14, padding: '10px 12px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
                   <strong>{headline}</strong><br/>
                   <span style={{ fontSize: 11 }}>
-                    {permanent
-                      ? <>คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'var(--vmx-mono)' }}>≡</kbd> ในเครื่องเล่นเพื่อดูรายการจาก YouTube โดยตรง</>
-                      : 'คลิปยังเล่นได้ตามปกติ ตรงนี้แค่รายชื่อคลิปที่ยังไม่มา'}
+                    {advice
+                      || (permanent
+                        ? <>คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'var(--vmx-mono)' }}>≡</kbd> ในเครื่องเล่นเพื่อดูรายการจาก YouTube โดยตรง</>
+                        : 'คลิปยังเล่นได้ตามปกติ ตรงนี้แค่รายชื่อคลิปที่ยังไม่มา')}
                     <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)', marginLeft: 4, textDecoration: 'underline' }}>เปิดใน YouTube →</a>
                   </span>
                   {!permanent && (

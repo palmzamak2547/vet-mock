@@ -57,6 +57,7 @@ test('a degraded or rejected answer is never cacheable', () => {
     "reason: 'rate_limited'",
     "reason: 'bad_id'",
     "reason: 'upstream_unreachable'",
+    "reason: 'playlist_not_found'",
   ]) {
     const at = SRC.indexOf(marker);
     assert.ok(at > 0, `path ${marker} missing`);
@@ -79,3 +80,20 @@ test('the endpoint names the cause instead of letting the UI guess', () => {
     assert.ok(SRC.includes(reason), `no '${reason}' reason is ever reported to the client`);
   }
 });
+
+// ── A playlist that does not exist is not a server fault ──
+// A removed or privatised playlist made YouTube answer plainly ("no such
+// playlist") and we relayed that as 502 upstream_unreachable — untrue twice
+// over, and enough to raise a 5xx error alert over one deleted link.
+test('a missing playlist answers 404, not 5xx', () => {
+  assert.match(
+    SRC,
+    /playlistMissing[\s\S]{0,400}?status\(404\)/,
+    'a playlist YouTube says does not exist is still reported as a server error',
+  );
+  assert.ok(
+    SRC.includes("reason: 'playlist_not_found'"),
+    'the client cannot tell a missing playlist from an unreachable YouTube',
+  );
+});
+
