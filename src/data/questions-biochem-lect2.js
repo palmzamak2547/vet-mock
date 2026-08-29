@@ -22,6 +22,11 @@
 // to stand alone. Source field kept neutral per academic-safety policy.
 // ============================================================
 
+// lint:length-bias-exempt: faithful transcription of a real Blackboard exam —
+// the option lengths are the original examiner's; rewriting them would
+// falsify the paper students practice against. (Render-time shuffle still
+// removes position tells.)
+
 export const QB_BIOCHEM_LECT2 = [
   // ── Nucleotide & nucleic acid structure ────────────────────
   { id: 74001, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',

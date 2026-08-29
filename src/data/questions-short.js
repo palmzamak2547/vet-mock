@@ -92,7 +92,7 @@ export const QB_SHORT = [
     sourceType: 'student-compilation',
     confidence: 'EXTRACTED',
     tags: ['feces-score', 'short'], type: 'short',
-    q: 'ฟาร์มโคนมหนึ่งทำการประเมิน feces score ทั้งฝูง พบว่ามี cow >40% ที่ score 1-2 (เหลว) จงวินิจฉัยแยกโรคที่เป็นไปได้ + แนวทางจัดการเบื้องต้น',
+    q: 'ฟาร์มโคนมหนึ่งประเมิน feces score ทั้งฝูง พบว่ามี cow >40% ที่ score 1-2 (เหลว) จงวินิจฉัยแยกโรคที่เป็นไปได้ + แนวทางจัดการเบื้องต้น',
     keywords: ['acidosis', 'subacute rumen', 'SARA', 'parasitism', 'Johne', 'over-feeding protein', 'fiber', 'concentrate'],
     explain: 'ฝูงที่มี feces score 1-2 มากกว่า 40% — DDx:\n1. **Subacute Rumen Acidosis (SARA)** — high concentrate, low effective fiber\n2. **Over-feeding protein** หรือ fresh lush pasture\n3. **Parasitism** (gastrointestinal nematodes — fecal egg count)\n4. **Johne\'s disease** (paratuberculosis, chronic, weight loss)\n5. **Mineral imbalance** (high K, low Na)\n\n💡 แนวทางจัดการ:\n• Review TMR formula → check R:C ratio + peNDF >21%\n• Sample fecal for parasites + Johne\'s ELISA\n• Adjust feeding sequence (forage first then concentrate)\n• Add buffer (NaHCO3 1-2% of DM)\n• Monitor rumen pH (cowside test)' },
 

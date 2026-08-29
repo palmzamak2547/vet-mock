@@ -26,6 +26,11 @@
 // to stand alone. Source field kept neutral per academic-safety policy.
 // ============================================================
 
+// lint:length-bias-exempt: faithful transcription of a real Blackboard exam —
+// the option lengths are the original examiner's; rewriting them would
+// falsify the paper students practice against. (Render-time shuffle still
+// removes position tells.)
+
 export const QB_BIOCHEM_LECT4 = [
   // ── Carbohydrate ───────────────────────────────────────────
   { id: 76001, subject: 'biochem-1', topic: 'lect-carbohydrate', year: 1, type: 'mcq',

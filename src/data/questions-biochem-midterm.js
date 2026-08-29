@@ -18,6 +18,11 @@
 // Garbled-OCR / student-uncertain items (e.g. original Q33, Q34) are skipped.
 // ============================================================
 
+// lint:length-bias-exempt: faithful transcription of a real Blackboard exam —
+// the option lengths are the original examiner's; rewriting them would
+// falsify the paper students practice against. (Render-time shuffle still
+// removes position tells.)
+
 export const QB_BIOCHEM_MIDTERM = [
   // ── Lab equipment / technique ──────────────────────────────
   { id: 72001, subject: 'biochem-1', topic: 'lab-equipment', year: 1, type: 'mcq',

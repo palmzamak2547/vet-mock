@@ -1646,7 +1646,7 @@ export const QB_COM3 = [
 
   { id: 1331, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
     tags: ['paraplegia', 'clinical-sign'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'เมื่อทำการตรวจสุนัขที่มีภาวะอัมพาตของขาหลังสองข้าง (posterior paraplegia) สุนัขจะแสดงอาการ',
+    q: 'เมื่อตรวจสุนัขที่มีภาวะอัมพาตของขาหลังสองข้าง (posterior paraplegia) สุนัขจะแสดงอาการ',
     options: [
       'มีอาการเดินวน เดินเหมือนคนเมา ไม่ตรงทาง (forebrain/cerebellar pattern)',
       'ไม่สามารถหดหรือเหยียดขาหลังทั้งสองข้างกับได้ (motor function loss bilateral)',

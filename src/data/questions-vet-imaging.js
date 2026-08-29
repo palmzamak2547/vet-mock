@@ -369,11 +369,11 @@ export const QB_VET_IMAGING = [
     "examOrigin": "Vet Imaging Final 86",
     "q": "ข้อใดถูกต้องเกี่ยวกับ MIP (Maximum Intensity Projection) และ MinIP (Minimum Intensity Projection)",
     "options": [
-      "MIP ใช้ดู cystic lung / pancreatic duct · MinIP ใช้ดู vascular structure",
-      "MIP ใช้ดู vascular structure (หลอดเลือดที่มี contrast) · MinIP ใช้ดู cystic pulmonary / pancreatic duct",
+      "MIP ใช้ดู cystic lung / pancreatic duct, MinIP ใช้ดู vascular structure",
+      "MIP ใช้ดู vascular structure (หลอดเลือดที่มี contrast), MinIP ใช้ดู cystic pulmonary / pancreatic duct",
       "ทั้งคู่ใช้ดูกระดูก",
-      "MIP = sagittal plane · MinIP = coronal plane",
-      "MIP = pre-contrast · MinIP = post-contrast"
+      "MIP = sagittal plane, MinIP = coronal plane",
+      "MIP = pre-contrast, MinIP = post-contrast"
     ],
     "answer": 1,
     "explain": "✓ MIP = แสดง pixel ที่ HU สูงสุดในแต่ละแกน → เห็น hyperdense structure ชัด · ใช้ดู vascular (CTA), pulmonary nodule, ureter (post-contrast)\n✓ MinIP = แสดง pixel ที่ HU ต่ำสุด → เห็น hypoodense structure ชัด · ใช้ดู cystic pulmonary disease, bronchiectasis, pancreatic duct, ground-glass opacity\n💡 จำง่าย: MIP = max (hyper) · MinIP = min (hypo)",
@@ -465,8 +465,8 @@ export const QB_VET_IMAGING = [
     "examOrigin": "Vet Imaging Final 86",
     "q": "Signal intensity ของ water (CSF) และ fat ใน T1-weighted (T1WI) และ T2-weighted (T2WI) image คือ",
     "options": [
-      "T1WI: น้ำขาว fat ดำ · T2WI: น้ำดำ fat ขาว",
-      "T1WI: น้ำดำ fat ขาว · T2WI: น้ำขาว fat ดำ",
+      "T1WI: น้ำขาว fat ดำ, T2WI: น้ำดำ fat ขาว",
+      "T1WI: น้ำดำ fat ขาว, T2WI: น้ำขาว fat ดำ",
       "T1WI และ T2WI: น้ำขาว fat ดำ",
       "T1WI และ T2WI: น้ำดำ fat ขาว",
       "ขึ้นอยู่กับเครื่อง แต่ละเครื่องไม่เหมือนกัน"

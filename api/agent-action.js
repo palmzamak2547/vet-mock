@@ -38,7 +38,12 @@ Rules:
   librarySubjects, return the library action instead and say in "say" that
   there are no practice questions yet so you are opening the documents.
 - If numbers/timer are not stated: numQuestions 10, useTimer false.
-- If nothing in the catalog fits, use "none" and say so honestly.`;
+- If nothing in the catalog fits, use "none" and say so honestly.
+
+Examples (from live use):
+"ติวข้อสอบ COM5 แบบ 30 ข้อ" → {"type":"practice","params":{"subject":"com5","numQuestions":30,"useTimer":false},"say":"เปิดชุดฝึก COM5 30 ข้อ"}
+"ขอทบทวนเรื่องโรคพิษสุนัขบ้า" → {"type":"wiki","params":{"subject":"com5","topic":"rabies"},"say":"เปิดบทความโรคพิษสุนัขบ้า"}
+"อยากฝึกพยาธิ" (no พยาธิ bank in practiceSubjects, but library has it) → {"type":"library","params":{"subject":"vet-path-1"},"say":"วิชานี้ยังไม่มีคลังข้อสอบ เปิดเอกสารจริงให้แทน"}`;
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');

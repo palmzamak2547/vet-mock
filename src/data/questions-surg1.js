@@ -132,7 +132,7 @@ export const QB_SURG1 = [
       "tumor-removal"
     ],
     "type": "mcq",
-    "q": "ท่านต้องการทำ Local infiltration โดยใช้ 0.5% Bupivacaine รอบตำแหน่งที่จะทำการ remove benign tumor ขนาด 3×4 เซนติเมตร ในสุนัขพันธุ์ Miniature Poodle อายุ 8 ปี น้ำหนัก 5 กิโลกรัม ปริมาณยาชามากที่สุดที่ท่านสามารถใช้ได้โดยไม่เกิน toxic dose คือ",
+    "q": "ท่านต้องการทำ Local infiltration โดยใช้ 0.5% Bupivacaine รอบตำแหน่งที่จะ remove benign tumor ขนาด 3×4 เซนติเมตร ในสุนัขพันธุ์ Miniature Poodle อายุ 8 ปี น้ำหนัก 5 กิโลกรัม ปริมาณยาชามากที่สุดที่ท่านสามารถใช้ได้โดยไม่เกิน toxic dose คือ",
     "options": [
       "2 ml",
       "4 ml",
@@ -332,7 +332,7 @@ export const QB_SURG1 = [
       "anatomy"
     ],
     "type": "mcq",
-    "q": "ท่านทำการสอดท่อ endotracheal tube ในสุนัข ปลายด้าน distal ของ endotracheal tube ควรอยู่ที่ตำแหน่งใดจึงจะเหมาะสม",
+    "q": "ท่านสอดท่อ endotracheal tube ในสุนัข ปลายด้าน distal ของ endotracheal tube ควรอยู่ที่ตำแหน่งใดจึงจะเหมาะสม",
     "options": [
       "Thoracic trachea just cranial to thoracic inlet",
       "Thoracic trachea just caudal to thoracic inlet",
@@ -655,7 +655,7 @@ export const QB_SURG1 = [
       "small-animal"
     ],
     "type": "mcq",
-    "q": "ท่านจะทำการวางยาสลบแมวพันธุ์ Persian เพศเมีย อายุ 1 ปี น้ำหนัก 4 กิโลกรัม เพื่อทำการผ่าตัด cystotomy ท่านควรเลือกใช้ breathing circuit ใดจึงจะเหมาะสมที่สุด",
+    "q": "ท่านจะวางยาสลบแมวพันธุ์ Persian เพศเมีย อายุ 1 ปี น้ำหนัก 4 กิโลกรัม เพื่อทำการผ่าตัด cystotomy ท่านควรเลือกใช้ breathing circuit ใดจึงจะเหมาะสมที่สุด",
     "options": [
       "Circle circuit",
       "Bain circuit",

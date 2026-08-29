@@ -164,8 +164,18 @@ function checkPositionBias(questions) {
 
 function checkLengthBias(questions) {
   const findings = [];
+  let suppressed = 0;
   for (const q of questions) {
     if (q.type !== 'mcq' || !q.options || q.options.length < 3) continue;
+    if (q.lengthBiasExempt) {
+      // still measure, so the suppressed count is real, then move on
+      const c = q.options[q.answer]; const d = q.options.filter((_, i) => i !== q.answer);
+      if (typeof c === 'string' && d.length >= 2) {
+        const m = d.reduce((s, x) => s + x.length, 0) / d.length;
+        if (m > 0 && c.length / m > LENGTH_BIAS_RATIO) suppressed += 1;
+      }
+      continue;
+    }
     const correctLen = q.options[q.answer].length;
     const distractors = q.options.filter((_, i) => i !== q.answer);
     if (distractors.length < 2) continue;
@@ -190,6 +200,22 @@ function checkLengthBias(questions) {
         meanDistractorLen: Math.round(mean),
         ratio: Math.round(ratio * 10) / 10,
       });
+    }
+  }
+  checkLengthBias.suppressed = suppressed;
+  return findings;
+}
+
+function checkMiddleDotInOptions(questions) {
+  const findings = [];
+  const MD = String.fromCharCode(0xB7);
+  for (const q of questions) {
+    if (!Array.isArray(q.options)) continue;
+    for (const o of q.options) {
+      if (typeof o === 'string' && o.includes(MD)) {
+        findings.push({ kind: 'middle-dot-option', severity: 'error', id: q.id, topic: (q.subject || '?') + '::' + (q.topic || '?'), file: q.file });
+        break;
+      }
     }
   }
   return findings;
@@ -219,7 +245,16 @@ for (const rel of FILES) {
     continue;
   }
   const src = fs.readFileSync(abs, 'utf8');
+  // A bank may declare itself a faithful past-paper transcription. Length
+  // bias in a REAL exam belongs to the original examiner — rewriting the
+  // options would falsify the paper students are practicing for — so those
+  // findings are suppressed (with a count, never silently). The pragma
+  // requires a reason after the colon; a bare switch does not count.
+  const pragmaAt = src.indexOf('lint:length-bias-exempt:');
+  const lengthBiasExempt = pragmaAt >= 0
+    && src.slice(pragmaAt + 'lint:length-bias-exempt:'.length).split(String.fromCharCode(10))[0].trim().length > 0;
   const items = parseQuestions(src, rel);
+  for (const it of items) it.lengthBiasExempt = lengthBiasExempt;
   allQs.push(...items);
 }
 
@@ -227,6 +262,7 @@ const findings = [
   ...checkPositionBias(allQs),
   ...checkLengthBias(allQs),
   ...checkMarkdownLeak(allQs),
+  ...checkMiddleDotInOptions(allQs),
 ];
 
 const errors = findings.filter((f) => f.severity === 'error');
@@ -276,6 +312,10 @@ if (wantTriage) {
       console.log();
     }
 
+    if (checkLengthBias.suppressed > 0) {
+      console.log(`   📜 ${checkLengthBias.suppressed} length-bias reading(s) suppressed in banks declared as faithful past-paper transcriptions (lint:length-bias-exempt pragma)
+`);
+    }
     const lenBias = groupBy('length-bias');
     if (lenBias.length) {
       console.log(`   📏 Length bias (${lenBias.length}):`);
@@ -287,6 +327,12 @@ if (wantTriage) {
       console.log();
     }
 
+    const mdOpt = groupBy('middle-dot-option');
+    if (mdOpt.length) {
+      console.log(`   🚫 Middle dot (U+00B7) inside options[] (${mdOpt.length}) — ERROR, the classic answer tell:`);
+      mdOpt.forEach((f) => console.log(`     🚨 Q${f.id} ${f.topic}`));
+      console.log();
+    }
     const mdBold = groupBy('markdown-bold');
     if (mdBold.length) {
       console.log(`   ✏️  Markdown ** in question text (${mdBold.length}):`);

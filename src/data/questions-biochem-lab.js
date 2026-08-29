@@ -10,6 +10,11 @@
 // the real exam answers (not authored distractors).
 // ============================================================
 
+// lint:length-bias-exempt: faithful transcription of a real Blackboard exam —
+// the option lengths are the original examiner's; rewriting them would
+// falsify the paper students practice against. (Render-time shuffle still
+// removes position tells.)
+
 export const QB_BIOCHEM_LAB = [
   // ── Chromatography (Q1-9, Final Lab 2022) ──────────────────
   { id: 70001, subject: 'biochem-1', topic: 'lab-chromatography', year: 1, type: 'mcq',
@@ -603,7 +608,7 @@ export const QB_BIOCHEM_LAB = [
 
   { id: 70048, subject: 'biochem-1', topic: 'lab-electrophoresis', year: 1, type: 'mcq',
   tags: ['electrophoresis', 'migration-distance', 'molecular-size'],
-    q: 'หลังทำการแยกชิ้นส่วนดีเอ็นเอด้วยไฟฟ้า (gel electrophoresis) แล้ว ชิ้นส่วนดีเอ็นเอที่ขนาดใหญ่ที่สุดจะอยู่บริเวณใดของเจล',
+    q: 'หลังแยกชิ้นส่วนดีเอ็นเอด้วยไฟฟ้า (gel electrophoresis) แล้ว ชิ้นส่วนดีเอ็นเอที่ขนาดใหญ่ที่สุดจะอยู่บริเวณใดของเจล',
     options: [
       'ใกล้จุดเริ่มต้น (ใกล้บริเวณหยอดสาร / well)',
       'ไกลจุด ห่างจากบริเวณหยอดสาร',

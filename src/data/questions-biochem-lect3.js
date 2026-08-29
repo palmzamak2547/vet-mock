@@ -21,6 +21,11 @@
 // Source field kept neutral per academic-safety policy.
 // ============================================================
 
+// lint:length-bias-exempt: faithful transcription of a real Blackboard exam —
+// the option lengths are the original examiner's; rewriting them would
+// falsify the paper students practice against. (Render-time shuffle still
+// removes position tells.)
+
 export const QB_BIOCHEM_LECT3 = [
   // ── Intro / water / pH / buffer ────────────────────────────
   { id: 75001, subject: 'biochem-1', topic: 'lect-intro', year: 1, type: 'mcq',

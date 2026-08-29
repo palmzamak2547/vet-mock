@@ -1164,7 +1164,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "likelihood of entry คูณกับ partial likelihood of exposure ของแต่ละกลุ่ม",
       "likelihood of entry บวกกับ overall likely consequence ของแต่ละกลุ่มโฮสต์",
       "partial likelihood of exposure คูณกับระดับ ALOP ที่ประเทศนั้นกำหนดไว้",
-      "overall likely consequence คูณกับจำนวนกลุ่มโฮสต์ที่นำมาทำการประเมิน"
+      "overall likely consequence คูณกับจำนวนกลุ่มโฮสต์ที่นำมาประเมิน"
     ],
     "answer": 0,
     "explain": "PALEE ย่อมาจาก partial annual likelihood of entry and exposure หมายถึงโอกาสรายปีที่เชื้อจะเข้าประเทศและไปถึงโฮสต์ในแต่ละกลุ่ม คำนวณจาก likelihood of entry คูณกับ partial likelihood of exposure ของกลุ่มนั้น ส่วน consequence จะถูกนำมาคูณในขั้นถัดไปเมื่อคำนวณ partial annual risk ไม่ใช่ในขั้นของ PALEE เอง",

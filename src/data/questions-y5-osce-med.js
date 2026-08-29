@@ -145,7 +145,7 @@ export const QB_Y5_OSCE_MED = [
     tags: ['OSCE', 'vaccination', 'canine', 'rabies', 'VPAT'], type: 'mcq',
     q: 'VPAT canine — Rabies vaccine ในลูกสุนัข เริ่มเข็มแรกที่อายุเท่าไหร่ และในช่วงปีแรกแนะนำวัคซีน monovalent (เข็มเดี่ยว) เพราะอะไร',
     options: [
-      '12 wk + booster 2-4 wk · monovalent',
+      '12 wk + booster 2-4 wk, monovalent',
       'อายุ 4 สัปดาห์ ครั้งเดียวพอ',
       'อายุ 1 ปี เริ่มฉีดเข็มแรก',
       'อายุ 8 สัปดาห์ ฉีดเฉพาะ combo vaccine',
