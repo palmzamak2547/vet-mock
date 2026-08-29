@@ -157,7 +157,7 @@ let _subjectCounts = null;
 export async function librarySubjectCounts() {
   if (_subjectCounts) return _subjectCounts;
   try {
-    const { docs } = await fetchLibraryDocs();
+    const { docs } = await getLibraryCatalog();
     const m = new Map();
     for (const d of docs || []) {
       if (!d.subject) continue;
@@ -274,6 +274,25 @@ export function groupByYearSubject(docs) {
 function isPreMigration(err) {
   const msg = err?.message || String(err || '');
   return /schema cache|library_docs|does not exist|relation .* does not exist/i.test(msg);
+}
+
+// One catalog, fetched once per session. Before this, three consumers each
+// pulled the same 1,496 rows independently — LibraryView refetched on every
+// mount (~700 KB and two paged requests), while the AI-search source and the
+// subject-count helper kept private caches. One cache means one truth on
+// screen, and the invalidation event clears everyone at once.
+let _catalogPromise = null;
+export function getLibraryCatalog() {
+  if (!_catalogPromise) {
+    _catalogPromise = fetchLibraryDocs().catch((err) => {
+      _catalogPromise = null; // a failed fetch must not poison the session
+      throw err;
+    });
+  }
+  return _catalogPromise;
+}
+if (typeof window !== 'undefined') {
+  window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; });
 }
 
 export async function fetchLibraryDocs() {

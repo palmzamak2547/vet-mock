@@ -19,7 +19,7 @@
 // 'vmx-palette-invalidate' event the static index listens to, so the
 // search always follows the data without anyone maintaining an index.
 
-import { fetchLibraryDocs, subjectMeta, formatBytes } from './library.js';
+import { getLibraryCatalog, subjectMeta, formatBytes } from './library.js';
 
 const cache = new Map(); // sourceId → entries[]
 
@@ -75,7 +75,7 @@ export const OMNI_SOURCES = [
       // fetchLibraryDocs resolves { docs, configured } — the same contract
       // LibraryView consumes (and the .map-on-an-object TypeError that
       // shipped as "ออฟไลน์" the first time this assumed a bare array).
-      const { docs } = await fetchLibraryDocs();
+      const { docs } = await getLibraryCatalog();
       const entries = (docs || []).map(libraryDocEntry);
       cache.set('library', entries);
       return entries;

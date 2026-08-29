@@ -25,7 +25,7 @@ import {
   LIBRARY_KINDS,
   SEMESTERS,
   buddhistYear,
-  fetchLibraryDocs,
+  getLibraryCatalog,
   filterIndexed,
   formatBytes,
   groupByYearSubject,
@@ -216,7 +216,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
     let cancelled = false;
     (async () => {
       try {
-        const { docs: rows, configured: ok } = await fetchLibraryDocs();
+        const { docs: rows, configured: ok } = await getLibraryCatalog();
         if (cancelled) return;
         setDocs(rows);
         setConfigured(ok);
