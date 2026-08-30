@@ -41,6 +41,21 @@ function modalityShortLabel(k) {
 // session is enough — no sign-in required. Storage URLs are signed
 // per-open via createSignedUrl so the bucket can stay private.
 
+// This field comes from a database row, and RLS lets a signed-in user create
+// cases. React does not neutralise a javascript: href, so an unchecked value
+// here would be a click away from running script in another student's tab.
+// Only ordinary web links become links; anything else renders as no link at
+// all rather than as something clickable that lies about where it goes.
+function safeSourceUrl(raw) {
+  if (typeof raw !== 'string') return null;
+  const v = raw.trim();
+  if (!v || v === 'internal') return null;
+  try {
+    const u = new URL(v, 'https://vetmock.vercel.app');
+    return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : null;
+  } catch { return null; }
+}
+
 export default function CaseLibrary({ onOpenCase, onBack }) {
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -282,8 +297,8 @@ function CaseCard({ caseData, onOpen, opening }) {
       {(caseData.license || caseData.source_url) && (
         <div style={licenseRowStyle}>
           {caseData.license && <span title="License">📜 {caseData.license}</span>}
-          {caseData.source_url && caseData.source_url !== 'internal' && (
-            <>, <a href={caseData.source_url} target="_blank" rel="noopener noreferrer" style={sourceLinkStyle}>source ↗</a></>
+          {safeSourceUrl(caseData.source_url) && (
+            <>, <a href={safeSourceUrl(caseData.source_url)} target="_blank" rel="noopener noreferrer" style={sourceLinkStyle}>source ↗</a></>
           )}
         </div>
       )}

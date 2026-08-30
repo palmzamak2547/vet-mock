@@ -254,6 +254,18 @@ function isInteractiveKeyTarget(target) {
   return Boolean(target.closest('[role="button"], [role="checkbox"], [role="radio"], [role="switch"]'));
 }
 
+// How many questions a Panic session asks for, per "how long have I got".
+export const PANIC_SIZE = { 15: 12, 30: 25, 60: 50, tonight: 120 };
+
+// 'weak' means "the questions you miss most", which is why it is capped and
+// ordered — that is what separates it from 'wrong' (everything ever missed).
+// The cap was 25, below what Panic Mode offers: picking "I have an hour" asked
+// for 50 and picking "tonight" asked for 120, so the session quietly ended at
+// 25 or fewer once year-scoping had run. The same 25 also truncated the weak
+// count shown on the dashboard. Sized against the largest Panic ask, and a
+// unit test holds the two together.
+export const WEAK_POOL_CAP = 150;
+
 const USER_CURATED_MODES = new Set(['bookmarks', 'weak', 'wrong']);
 
 function normalizePracticeMode(mode, subject, explicitMode = false) {
@@ -1383,7 +1395,7 @@ export default function App() {
       .map(([tag, s]) => ({ tag, pct: Math.round((s.correct / s.total) * 100), total: s.total }))
       .sort((a, b) => a.pct - b.pct).slice(0, 8);
     const weakQuestions = Object.entries(questionStats).filter(([_, s]) => s.wrong >= 1)
-      .sort((a, b) => b[1].wrong - a[1].wrong).slice(0, 25).map(([id]) => parseInt(id));
+      .sort((a, b) => b[1].wrong - a[1].wrong).slice(0, WEAK_POOL_CAP).map(([id]) => parseInt(id));
     const overallPct = totalScored ? Math.round((totalCorrect / totalScored) * 100) : 0;
     return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, totalScored, overallPct };
   }, [history, allQuestions]);
@@ -1526,6 +1538,18 @@ export default function App() {
 
     const qCount = Math.max(1, _numQuestions);
     const baseTime = _useTimer ? Math.max(5, _timePerQ) : 0;
+
+    // The timer overrides have to reach the thing that actually ticks.
+    // useExamSession is constructed with the App-level useTimer/timePerQ, not
+    // with these locals, so an override only shortened the FIRST timeLeft and
+    // left the tick running on ambient state. "ฝึกจากหัวข้อนี้" in VetWiki
+    // passes useTimer:false, and useTimer defaults to true — so timeLeft
+    // started at 0 while the tick still believed it was timing, and the tick's
+    // time-up branch advanced past question one before it could be read.
+    // Syncing only when the caller actually overrode keeps a normal
+    // ConfigView run from touching the student's own setting.
+    if ('useTimer' in overrides) setUseTimer(_useTimer);
+    if ('timePerQ' in overrides) setTimePerQ(_timePerQ);
 
     let picked = shuffle(pool).slice(0, Math.min(qCount, pool.length));
     // Mock-tagged questions (examOrigin set) belong to a structured
@@ -1931,7 +1955,6 @@ export default function App() {
   // enough history to know them (that's the page's "prioritised for you"),
   // otherwise a cross-subject set so a first-time user isn't handed an
   // empty pool.
-  const PANIC_SIZE = { 15: 12, 30: 25, 60: 50, tonight: 120 };
   const startPanicSession = (timeKey = '30') => {
     const n = PANIC_SIZE[timeKey] || PANIC_SIZE['30'];
     const knowsWeakSpots = Array.isArray(history) && history.length >= 20;

@@ -439,6 +439,19 @@ export async function resolveDocUrl(doc) {
     }
     if (res.status === 401) throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
     if (!res.ok) {
+      // The catch above only fires when fetch REJECTS. Our own service worker
+      // answers an offline /api/* request with a synthetic 503 body
+      // {"error":"Offline"} instead, so offline never reached the catch — the
+      // reader announced "the library server is down, try again" and offered a
+      // retry that cannot succeed, while the bytes sat in the cache the whole
+      // time. Route it to the same cached path here.
+      const offlineBody = await res.clone().json().catch(() => ({}));
+      const swSaysOffline = res.status === 503 && offlineBody.error === 'Offline';
+      const browserSaysOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+      if (swSaysOffline || browserSaysOffline) {
+        if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
+        throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
+      }
       // The endpoint answers with machine codes (not_found, storage_not_configured,
       // catalog_unavailable). Printing those, or a bare HTTP number, told the
       // reader nothing they could act on.
