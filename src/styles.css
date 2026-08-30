@@ -688,6 +688,92 @@ html, body {
 .vmx-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; cursor: pointer; }
 .vmx-wordmark-text { color: var(--clr-ink); font-style: normal; font-weight: 800; }
 .vmx-wordmark-text > span { color: var(--clr-rose-text); font-style: italic; font-weight: 500; }
+/* ── The mark ────────────────────────────────────────────────────────────
+   Inline SVG so the pad and toes can move against each other. Everything
+   here is transform/opacity only, and every bit of it is decoration: the
+   brand is just as legible with all of it switched off. */
+.vmx-mark {
+  display: inline-flex;
+  flex-shrink: 0;
+  overflow: hidden;
+  line-height: 0;
+  /* The lean happens on the whole mark; the parts move inside it. */
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.vmx-mark svg { display: block; }
+
+/* fill-box keeps each transform local to its own shape instead of the
+   512-unit canvas, so these read the same at 22px and at 30px. */
+.vmx-mark-pad,
+.vmx-mark-toes {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover: the paw articulates. Toes rise a hair, the pad swells to meet
+   them, and the mark leans into it. Small numbers on purpose — at this
+   size anything larger stops looking like a paw and starts looking like a
+   loading spinner. */
+.vmx-logo-btn:hover .vmx-mark { transform: rotate(-5deg) translateY(-1px); }
+.vmx-logo-btn:hover .vmx-mark-toes { transform: translateY(-7%) scale(1.04); }
+.vmx-logo-btn:hover .vmx-mark-pad { transform: scale(1.06); }
+.vmx-logo-btn:hover .vmx-wordmark-text > span { transform: translateX(1px); }
+
+.vmx-logo-btn:active .vmx-mark { transform: rotate(-2deg) scale(0.94); }
+.vmx-logo-btn:active .vmx-mark-toes { transform: translateY(4%) scale(0.97); }
+
+.vmx-wordmark-text > span {
+  display: inline-block;
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Settle — once per page load, gated in the component. */
+@keyframes vmx-mark-in {
+  0%   { transform: scale(0.82) rotate(-10deg); opacity: 0; }
+  60%  { transform: scale(1.05) rotate(2deg);   opacity: 1; }
+  100% { transform: scale(1) rotate(0deg);      opacity: 1; }
+}
+@keyframes vmx-mark-toes-in {
+  0%   { transform: translateY(22%) scale(0.9); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes vmx-mark-text-in {
+  from { opacity: 0; transform: translateX(-5px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* fill-mode is `backwards`, NOT `both`. `both` holds the last keyframe
+   forever, and a running/filling animation outranks a transition — so the
+   settle silently pinned transform at identity and the hover gesture did
+   nothing at all (measured: pad and text moved, mark and toes did not).
+   `backwards` still applies the first frame before the delay, which is what
+   prevents the flash, and releases at the end. It can release cleanly
+   because every one of these animations finishes on the element's natural
+   resting state. */
+.vmx-mark-settle { animation: vmx-mark-in 520ms cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+/* The toes land after the tile does, so the paw assembles instead of
+   arriving as one flat sticker. */
+.vmx-mark-settle .vmx-mark-toes {
+  animation: vmx-mark-toes-in 420ms cubic-bezier(0.22, 1, 0.36, 1) 160ms backwards;
+}
+.vmx-mark-settle-text { animation: vmx-mark-text-in 380ms cubic-bezier(0.22, 1, 0.36, 1) 120ms backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmx-mark,
+  .vmx-mark-pad,
+  .vmx-mark-toes,
+  .vmx-wordmark-text > span { transition: none; }
+  .vmx-logo-btn:hover .vmx-mark,
+  .vmx-logo-btn:hover .vmx-mark-toes,
+  .vmx-logo-btn:hover .vmx-mark-pad,
+  .vmx-logo-btn:active .vmx-mark,
+  .vmx-logo-btn:active .vmx-mark-toes,
+  .vmx-logo-btn:hover .vmx-wordmark-text > span { transform: none; }
+  .vmx-mark-settle,
+  .vmx-mark-settle .vmx-mark-toes,
+  .vmx-mark-settle-text { animation: none !important; opacity: 1; }
+}
+
 .vmx-logo-btn { border: 0; background: transparent; color: var(--clr-ink); padding: 8px 2px; min-height: 44px; display: inline-flex; align-items: center; gap: 9px; }
 .vmx-logo-btn:hover .vmx-wordmark-text > span { color: var(--clr-rose-text); }
 .vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
