@@ -42,20 +42,38 @@ function readAll() {
   }
 }
 
+// Returns { ok, evicted } so callers can stop claiming a save happened.
+//
+// The old retry could not work for most people: it trimmed to
+// max(5, MAX_PDFS - 10) = 20, and lruEvict returns the object UNCHANGED when
+// it already holds no more than that — so with 20 or fewer stored PDFs the
+// "retry" re-wrote the exact bytes that had just failed, and was guaranteed
+// to fail the same way. It also returned nothing, and the comment here
+// promised a "save failed" toast that no caller had the information to show.
 function writeAll(obj) {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined') return { ok: false, evicted: 0 };
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+    return { ok: true, evicted: 0 };
   } catch (e) {
-    // Quota exceeded — evict more aggressively and retry once.
-    try {
-      const trimmed = lruEvict(obj, Math.max(5, MAX_PDFS - 10));
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
-    } catch {
-      // Out of options. Surface to console for debugging; UI will toast
-      // "save failed" on next autosave tick.
-      console.warn('[pdf-annotations] localStorage write failed:', e);
+    // Actually shrink, one entry at a time, keeping the most recently opened.
+    const entries = Object.entries(obj)
+      .sort((a, b) => (b[1]?.lastOpened || 0) - (a[1]?.lastOpened || 0));
+    let evicted = 0;
+    while (entries.length > 1) {
+      entries.pop();
+      evicted++;
+      const shrunk = {};
+      for (const [k, v] of entries) shrunk[k] = v;
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(shrunk));
+        return { ok: true, evicted };
+      } catch {
+        /* keep going */
+      }
     }
+    console.warn('[pdf-annotations] localStorage write failed:', e);
+    return { ok: false, evicted };
   }
 }
 
@@ -113,8 +131,9 @@ export function loadAnnotations(fileHash) {
   return entry;
 }
 
+/** Returns { ok, evicted } — see writeAll. Callers must not report success blind. */
 export function saveAnnotations(fileHash, data) {
-  if (!fileHash || !data) return;
+  if (!fileHash || !data) return { ok: false, evicted: 0 };
   const all = readAll();
   all[fileHash] = {
     fileName: data.fileName || all[fileHash]?.fileName || 'untitled.pdf',
@@ -127,7 +146,7 @@ export function saveAnnotations(fileHash, data) {
     lastOpened: Date.now(),
   };
   const trimmed = lruEvict(all, MAX_PDFS);
-  writeAll(trimmed);
+  return writeAll(trimmed);
 }
 
 export function listRecentPdfs() {

@@ -16,7 +16,7 @@ import {
   loadDecks, saveDeck, deleteDeck, touchDeck,
   IMAGE_OCCLUSION_EVENT,
 } from '../lib/image-occlusion.js';
-import { confirmDialog } from '../lib/dialog.js';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
 const ImageOcclusionEditor = lazy(() => import('../components/ImageOcclusionEditor.jsx'));
 
@@ -156,7 +156,17 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
     }
     setDecks(loadDecks());
     setEditing(null);
-    setToast(`บันทึก "${saved.name}" แล้ว (${saved.masks.length} กล่อง)`);
+    // Storage can only fit so many image decks. When the save had to drop
+    // others to make room it used to say "saved ✓" and nothing else, so a
+    // student found decks missing with no idea what had removed them.
+    if (saved._evicted?.length) {
+      alertDialog({
+        title: 'บันทึกแล้ว แต่พื้นที่เก็บในเครื่องเต็ม',
+        body: `บันทึก "${saved.name}" เรียบร้อย แต่ต้องลบชุดที่ไม่ได้เปิดนานที่สุดออกเพื่อให้มีที่ว่าง\n\nที่ถูกลบ: ${saved._evicted.join(', ')}\n\nถ้าไม่อยากให้เกิดอีก ลบชุดที่ไม่ใช้แล้วออกเอง หรือใช้รูปที่ไฟล์เล็กลง`,
+      });
+    } else {
+      setToast(`บันทึก "${saved.name}" แล้ว (${saved.masks.length} กล่อง)`);
+    }
     return saved;
   }, []);
 

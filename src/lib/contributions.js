@@ -131,11 +131,18 @@ export async function fetchMyReputation() {
   if (!supabase) return null;
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
-  const { data } = await supabase
+  // The error used to be destructured away, so a dropped connection came
+  // back as `data: null` — indistinguishable from "this user has no
+  // reputation row". Callers then read that as "not a reviewer", and the
+  // review queue quietly refused to load for someone who is one, with no
+  // error shown. Both call sites already wrap this in try/catch, so
+  // throwing is what they were written to expect.
+  const { data, error } = await supabase
     .from('contributor_reputation')
     .select('*')
     .eq('user_id', user.id)
     .maybeSingle();
+  if (error) throw error;
   return data;
 }
 

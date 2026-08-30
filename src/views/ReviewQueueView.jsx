@@ -56,7 +56,11 @@ export default function ReviewQueueView({ goHome, setView, user }) {
         const r = await fetchMyReputation();
         if (alive) setRep(r);
       } catch (err) {
+        // Without this the screen is indistinguishable from "you are not a
+        // reviewer": rep stays null, the queue never loads, and nothing says
+        // why. It is a failed lookup, not a change in standing.
         console.warn('fetchMyReputation failed:', err);
+        if (alive) setQueueError('ตรวจสอบสิทธิ์ผู้ตรวจทานไม่สำเร็จ ลองรีเฟรชหน้านี้อีกครั้ง');
       } finally {
         if (alive) setRepLoading(false);
       }
@@ -146,6 +150,26 @@ export default function ReviewQueueView({ goHome, setView, user }) {
   if (!isReviewer(rep)) {
     const currentRole = rep?.role || 'contributor';
     const roleInfo = ROLE_META[currentRole] || ROLE_META.contributor;
+    // A failed lookup lands here too, looking exactly like a real answer
+    // about the reader's standing. Say which one it is before the panel
+    // tells a reviewer they are only a contributor.
+    if (queueError && !rep) {
+      return (
+        <>
+          <BackBar onBack={goHome} label="หน้าแรก" />
+          <div className="vmx-hero">
+            <h1>คิว <em>รอตรวจ</em></h1>
+          </div>
+          <StatePanel
+            kind="error"
+            title="ยังตรวจสอบสิทธิ์ไม่ได้"
+            body={queueError}
+            actionLabel="ลองอีกครั้ง"
+            onAction={() => window.location.reload()}
+          />
+        </>
+      );
+    }
     return (
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />

@@ -31,7 +31,16 @@ export default function VoiceInputButton({ onAppend, lang = 'th-TH', title = 'à¸
   const [active, setActive] = useState(false);
   const [error, setError] = useState(null);
   const recRef = useRef(null);
-  const finalBufferRef = useRef('');
+
+  // rec.onresult is installed ONCE per dictation and rec.continuous is true,
+  // so one handler serves every utterance in the session â€” holding the
+  // onAppend from the moment the mic was tapped. The callers rebuild the new
+  // value from render-scoped text ("current answer + what you just said"), so
+  // the second sentence was appended to the text as it stood BEFORE the
+  // first, wiping it. Reading the callback from a ref means the handler
+  // always calls the current render's version.
+  const onAppendRef = useRef(onAppend);
+  useEffect(() => { onAppendRef.current = onAppend; });
 
   // Cleanup on unmount â€” important on iOS where leaving a hot mic
   // open will silently drain the battery.
@@ -46,7 +55,6 @@ export default function VoiceInputButton({ onAppend, lang = 'th-TH', title = 'à¸
 
   function start() {
     setError(null);
-    finalBufferRef.current = '';
     let rec;
     try {
       rec = new RecognitionCtor();
@@ -65,9 +73,9 @@ export default function VoiceInputButton({ onAppend, lang = 'th-TH', title = 'à¸
         const res = event.results[i];
         if (res.isFinal) appendedFinal += res[0].transcript;
       }
-      if (appendedFinal && onAppend) {
+      if (appendedFinal) {
         const trimmed = appendedFinal.trim();
-        if (trimmed) onAppend(trimmed);
+        if (trimmed) onAppendRef.current?.(trimmed);
       }
     };
     rec.onerror = (e) => {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
-import { fmtTime, isCorrect, isWritingType } from '../hooks/utils.js';
+import { fmtTime, isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
@@ -17,7 +17,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
     active: confirmSubmit,
     onClose: () => setConfirmSubmit(false),
   });
-  const answeredCount = questions.filter((q) => answers[q.id] !== undefined).length;
+  const answeredCount = questions.filter((q) => isAnswered(answers[q.id])).length;
   const isLast = currentIdx === questions.length - 1;
 
   // Advancing a question is the single most repeated moment in the app, and it
@@ -105,7 +105,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
           // Running tally over auto-gradable answered questions — the
           // motivational "✓ n/m" chip. Writing types self-grade in Review,
           // so they stay out of the count entirely.
-          const graded = questions.filter((q) => !isWritingType(q) && answers[q.id] !== undefined);
+          const graded = questions.filter((q) => !isWritingType(q) && isAnswered(answers[q.id]));
           if (!graded.length) return null;
           const ok = graded.filter((q) => isCorrect(q, answers[q.id])).length;
           return (
@@ -208,7 +208,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
             data-vmx-modal="true"
           >
             {(() => {
-              const answered = questions.filter((q) => answers[q.id] !== undefined).length;
+              const answered = questions.filter((q) => isAnswered(answers[q.id])).length;
               const remaining = questions.length - answered;
               return (
                 <>
@@ -251,7 +251,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
 }
 
 function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose }) {
-  const answered = questions.filter((q) => answers[q.id] !== undefined).length;
+  const answered = questions.filter((q) => isAnswered(answers[q.id])).length;
   const remaining = questions.length - answered;
   const dialogRef = useModalFocus({ onClose });
 
@@ -287,7 +287,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
           }}
         >
           {questions.map((q, i) => {
-            const isAnswered = answers[q.id] !== undefined;
+            const answeredHere = isAnswered(answers[q.id]);
             const isBookmarked = bookmarks?.includes(q.id);
             const isCurrent = i === currentIdx;
             return (
@@ -295,7 +295,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
                 key={q.id}
                 type="button"
                 onClick={() => onJump(i)}
-                title={`ข้อ ${i + 1}${isAnswered ? ', ตอบแล้ว' : ''}${isBookmarked ? ', ★' : ''}`}
+                title={`ข้อ ${i + 1}${answeredHere ? ', ตอบแล้ว' : ''}${isBookmarked ? ', ★' : ''}`}
                 style={{
                   all: 'unset',
                   cursor: 'pointer',
@@ -308,7 +308,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
                   position: 'relative',
                   background: isCurrent
                     ? 'var(--clr-rose)'
-                    : isAnswered
+                    : answeredHere
                       ? 'var(--clr-sage-soft, #c8d8c0)'
                       : 'var(--clr-surface-2)',
                   color: isCurrent ? 'white' : 'var(--clr-ink)',

@@ -308,7 +308,12 @@ function buildExamPool({
     for (const item of history) {
       if (item?.correct === false) wrongSet.add(`${item.subject || ''}:${item.questionId}`);
     }
-    pool = deliverableQuestions.filter((q) => wrongSet.has(`${q.subject}:${q.id}`));
+    // Year-scoped, like 'weak' directly above. The home chip counts this
+    // year's wrong answers, so serving every year's meant the button said
+    // one number and handed over a different set — the same divergence the
+    // 'weak' branch was fixed for, left behind here.
+    pool = deliverableQuestions.filter((q) => wrongSet.has(`${q.subject}:${q.id}`)
+      && (q.year == null || !selectedYear || q.year === selectedYear));
   } else {
     pool = subject === 'all'
       ? deliverableQuestions.filter((q) => !selectedYear || yearForSubject(q.subject) === selectedYear)
@@ -1727,14 +1732,30 @@ export default function App() {
   const notesDraftRef = useRef(null);
   notesDraftRef.current = notesDraft;
 
+  // Which note keys this typing burst actually touched. The draft is built on
+  // a snapshot of `notes` taken at the first keystroke, so committing it whole
+  // wrote that stale snapshot back — and a note that arrived from another
+  // device mid-burst was not in it, so the commit DELETED it. Applying only
+  // the touched keys, against whatever the store holds at commit time, leaves
+  // everything else alone.
+  const notesTouchedRef = useRef(new Set());
+
   const flushNotes = useCallback(() => {
     if (notesTimerRef.current) { clearTimeout(notesTimerRef.current); notesTimerRef.current = null; }
     const draft = notesDraftRef.current;
     if (!draft) return;
-    // record() is synchronous, so both updates land in the same commit and
-    // the textarea never flashes the pre-draft value.
+    const touched = notesTouchedRef.current;
+    notesTouchedRef.current = new Set();
     notesDraftRef.current = null;
-    setNotes(draft);
+    setNotes((current) => {
+      const merged = { ...(current || {}) };
+      for (const key of touched) {
+        const value = draft[key];
+        if (value === undefined) delete merged[key];
+        else merged[key] = value;
+      }
+      return merged;
+    });
     setNotesDraft(null);
   }, [setNotes]);
 
@@ -1743,6 +1764,7 @@ export default function App() {
     let next;
     if (text.trim()) next = { ...base, [qId]: text };
     else { const { [qId]: _drop, ...rest } = base; next = rest; }
+    notesTouchedRef.current.add(qId);
     notesDraftRef.current = next;
     setNotesDraft(next);
     if (notesTimerRef.current) clearTimeout(notesTimerRef.current);

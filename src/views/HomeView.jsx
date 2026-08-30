@@ -7,7 +7,7 @@ import { QB } from '../data/questions.js';
 import { QB_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
-import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
@@ -483,9 +483,20 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         // Combine QB (lazy-loaded, mutates in place) + customQuestions.
         // QB.length === 0 until loadQB() resolves; in that case we just
         // skip — the next idle tick will catch it.
+        // Hidden topics are excluded from every advertised count
+        // (visibleQuestionCount does this), so serving one here handed the
+        // student a question the app says does not exist — including the
+        // "uncertain scope" items that are hidden precisely because nobody
+        // has verified they belong to this year's syllabus yet.
+        const hiddenBySubject = new Map();
+        const isHidden = (q) => {
+          if (!q?.subject) return false;
+          if (!hiddenBySubject.has(q.subject)) hiddenBySubject.set(q.subject, hiddenTopicIdsFor(q.subject));
+          return hiddenBySubject.get(q.subject).has(q.topic);
+        };
         const pool = [];
-        for (const q of QB) if (yearIds.has(q.subject) && isQuestionDeliverable(q)) pool.push(q);
-        for (const q of (customQuestions || [])) if (yearIds.has(q.subject)) pool.push(q);
+        for (const q of QB) if (yearIds.has(q.subject) && isQuestionDeliverable(q) && !isHidden(q)) pool.push(q);
+        for (const q of (customQuestions || [])) if (yearIds.has(q.subject) && !isHidden(q)) pool.push(q);
         if (pool.length === 0) return;
         const pick = pool[Math.floor(Math.random() * pool.length)];
         prefetchedRandomQRef.current = pick;

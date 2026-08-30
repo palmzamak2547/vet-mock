@@ -40,11 +40,17 @@ export function getXpState() {
     const raw = typeof window !== 'undefined' ? window.localStorage?.getItem(STORAGE_KEY) : null;
     if (!raw) return { ...DEFAULT_STATE };
     const parsed = JSON.parse(raw);
+    // The day rollover used to happen only inside awardXp, so reading the
+    // state on a new day returned YESTERDAY's total and the chip announced
+    // it as "วันนี้" until the next award happened to reset it. Rolling
+    // over on read means every consumer sees today's number, today.
+    const sameDay = parsed.todayDate === todayKey();
     return {
       ...DEFAULT_STATE,
       ...parsed,
       totalXp: Math.max(0, Number(parsed.totalXp) || 0),
       lifetimeQs: Math.max(0, Number(parsed.lifetimeQs) || 0),
+      todayXp: sameDay ? Math.max(0, Number(parsed.todayXp) || 0) : 0,
     };
   } catch {
     return { ...DEFAULT_STATE };

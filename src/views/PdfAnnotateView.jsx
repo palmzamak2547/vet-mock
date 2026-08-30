@@ -425,25 +425,39 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!fileHash) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     saveTimerRef.current = setTimeout(() => {
-      saveAnnotations(fileHash, {
+      const res = saveAnnotations(fileHash, {
         fileName,
         pageCount,
         strokesByPage: strokesObj,
       });
       setRecent(listRecentPdfs());
+      // Autosave is silent on success by design, but it must not be silent
+      // when the writing is not being kept — that is the one thing the
+      // student needs to know while they are still drawing.
+      if (!res?.ok) showToast('บันทึกอัตโนมัติไม่สำเร็จ พื้นที่ในเครื่องเต็ม');
     }, AUTOSAVE_MS);
   }
 
   function saveNow() {
     if (!fileHash) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
-    saveAnnotations(fileHash, {
+    // "บันทึกแล้ว ✓" used to appear whatever happened — the storage layer
+    // swallowed the failure and handed the caller nothing to check, so a
+    // student whose device storage was full was told their pen marks were
+    // safe when nothing had been written.
+    const res = saveAnnotations(fileHash, {
       fileName,
       pageCount,
       strokesByPage,
     });
     setRecent(listRecentPdfs());
-    showToast('บันทึกแล้ว ✓');
+    if (!res?.ok) {
+      showToast('บันทึกไม่สำเร็จ พื้นที่ในเครื่องเต็ม ลองลบไฟล์เก่าออกก่อน');
+    } else if (res.evicted > 0) {
+      showToast(`บันทึกแล้ว แต่ต้องลบรอยเขียนของไฟล์เก่า ${res.evicted} ไฟล์เพื่อให้มีที่ว่าง`);
+    } else {
+      showToast('บันทึกแล้ว ✓');
+    }
   }
 
   function undoLast() {

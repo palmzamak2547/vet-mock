@@ -6,7 +6,16 @@ export default function SyncStatusNotice({
   onRetry,
   onOfflineGame,
 }) {
-  const hasSyncProblem = signedIn && (sync?.phase === 'offline' || sync?.phase === 'error');
+  // Storage failures are not an account matter. LOCAL_WRITE_FAILED means the
+  // change was NOT saved anywhere — the student's finished set is gone — and
+  // it can happen to anyone, because the write is to this device. Every error
+  // used to be gated behind `signedIn`, so a signed-out student who was
+  // online saw nothing at all: the component returned null and the loss went
+  // unannounced. Cloud problems still require an account to be worth
+  // mentioning; local ones never did.
+  const localFailure = sync?.error?.code === 'LOCAL_WRITE_FAILED';
+  const hasSyncProblem = (signedIn && (sync?.phase === 'offline' || sync?.phase === 'error'))
+    || (sync?.phase === 'error' && localFailure);
   if (online && !justChanged && !hasSyncProblem) return null;
 
   const syncing = signedIn && ['hydrating', 'pending', 'syncing'].includes(sync?.phase);
@@ -19,12 +28,20 @@ export default function SyncStatusNotice({
         : '● ออฟไลน์ — ใช้งานส่วนที่เปิดไว้แล้วได้ตามปกติ'
     )
     : hasSyncProblem
-      ? `● ${sync?.error?.message || 'ยังซิงก์ข้อมูลกับบัญชีไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ'}`
+      // The generic fallback promises the local copy is intact, which is the
+      // one thing that is NOT true when the local write is what failed.
+      ? `● ${sync?.error?.message || (localFailure
+        ? 'บันทึกลงเครื่องไม่สำเร็จ การเปลี่ยนแปลงล่าสุดอาจไม่ถูกเก็บไว้'
+        : 'ยังซิงก์ข้อมูลกับบัญชีไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ')}`
       : syncing
         ? '● กลับมาออนไลน์แล้ว — กำลังตรวจสอบและซิงก์ข้อมูล'
         : '● กลับมาออนไลน์แล้ว';
 
-  const color = online ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-gold, #b88940)';
+  // Losing a save is not good news, so it must not be painted in the same
+  // green as "back online".
+  const color = localFailure
+    ? 'var(--clr-rose-text, #b3453f)'
+    : (online ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-gold, #b88940)');
   return (
     <div
       role="status"

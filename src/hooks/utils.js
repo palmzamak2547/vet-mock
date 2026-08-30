@@ -94,6 +94,26 @@ export const isOpenEnded = (q) => q?.type === 'essay' || (q?.type === 'short' &&
 // auto-graded percentage in ResultsView.
 export const isWritingType = (q) => q?.type === 'essay' || q?.type === 'short';
 
+/**
+ * Did the student actually answer this, as opposed to leaving a value behind?
+ *
+ * Clearing an answer does not delete the key: emptying an essay stores '',
+ * and MatchDragDrop's "ล้างทั้งหมด" stores {}. Every count in ExamView asked
+ * `answers[q.id] !== undefined`, which both of those pass — so the
+ * submit-confirm reported cleared questions as answered and, because it
+ * derived "remaining" from that, suppressed its own "you left N blank"
+ * warning at the exact moment it was needed. useExamSession and ResultsView
+ * already knew better and checked for blankness; this is that same rule, in
+ * one place, so the screens cannot drift apart again.
+ */
+export const isAnswered = (ua) => {
+  if (ua === undefined || ua === null) return false;
+  if (typeof ua === 'string') return ua.trim().length > 0;
+  // Match questions store a pair map; an empty one is a cleared question.
+  if (typeof ua === 'object') return Object.keys(ua).length > 0;
+  return true; // numbers (MCQ index, including 0) and booleans (true/false)
+};
+
 // Per-question time allocation. The Final exam is 2 hours for ~20
 // short answers + 1 essay (~5 min/short + ~25 min/essay), so when
 // the user sets a base time-per-question we scale it for writing
