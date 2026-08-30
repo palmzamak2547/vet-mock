@@ -189,6 +189,15 @@ test.describe('VetMock smoke flow', () => {
   });
 
   test('skipped-answer results can return home without changing hook order', async ({ page }) => {
+    // This walks the whole loop from a cold start: the question bank is
+    // lazy-loaded, so the first "เริ่มฝึก" of a fresh page has to pull and
+    // parse a chunk of a 4,551-question corpus before a card can render.
+    // Under parallel workers that occasionally passed 15s and the default
+    // 30s budget ran out — measured 1 failure in 4 local runs, which is
+    // exactly the intermittent, one-engine-at-a-time shape this showed on
+    // CI. Same 60s allowance connected-study and system-polish already use
+    // for comparable work.
+    test.setTimeout(60_000);
     await page.goto('/');
 
     const quickPractice = page.getByRole('button', {
@@ -201,11 +210,25 @@ test.describe('VetMock smoke flow', () => {
     await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('2');
     await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
 
-    await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 15_000 });
+    await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
     await answerCurrentQuestion(page);
     await page.getByRole('button', { name: 'ข้อถัดไป →', exact: true }).click();
     await page.getByRole('button', { name: /ส่งข้อสอบ ✓/ }).click();
-    await page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
+    // The set is drawn at random, so question 2 is SOMETIMES a writing
+    // question. Leaving one blank — which is the whole point of this test —
+    // raises its own confirm ("ยังไม่ได้เขียนข้อนี้"), and that dialog's
+    // button is also labelled "ส่งข้อสอบ". So one click could land on either
+    // that guard or the submit confirm, and when it landed on the guard the
+    // submit confirm was still open and the test timed out waiting for
+    // results. Which of the two appears was pure luck of the draw, which is
+    // why this failed intermittently on one engine at a time.
+    // Clear whichever confirms are actually on screen instead of assuming.
+    for (let i = 0; i < 3; i++) {
+      const confirm = page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true });
+      if (!(await confirm.isVisible().catch(() => false))) break;
+      await confirm.click();
+      await page.waitForTimeout(250);
+    }
 
     await expect(page.getByText(
       /Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/,

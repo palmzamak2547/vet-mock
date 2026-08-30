@@ -37,6 +37,14 @@ test.beforeEach(async ({ page, context }) => {
   });
 });
 
+// Every test in this file opens a fresh page and starts a practice set, so
+// each one pays for a cold lazy-load of the question bank before it can even
+// begin asserting. The default 30s budget occasionally ran out on the very
+// first step under parallel workers — an intermittent, one-engine-at-a-time
+// failure that looked like a UI bug and was not. Same 60s allowance
+// system-polish and connected-study already use for comparable work.
+test.setTimeout(60_000);
+
 /** Home → config → 3-question practice set, sitting on question 1. */
 async function startPractice(page, { instant = true } = {}) {
   await page.goto('/');
@@ -50,7 +58,7 @@ async function startPractice(page, { instant = true } = {}) {
   await expect(toggle).toHaveAttribute('aria-checked', String(instant));
 
   await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
-  await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
 }
 
 /** Walk forward until a multiple-choice question is on screen.
