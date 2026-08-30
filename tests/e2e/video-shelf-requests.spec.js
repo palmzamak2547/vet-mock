@@ -14,6 +14,23 @@
 // suspended in a hidden tab, which makes a naive check pass for the wrong reason.
 import { test, expect } from '@playwright/test';
 
+// ── No third-party network in this gate ─────────────────────────────────
+// The video surfaces embed youtube.com (the player iframe and its API) and
+// img.youtube.com/ytimg.com (cover images). None of these tests assert
+// anything about a real embed — the mobile audit only measures whether the
+// dialog fits the viewport — but the page still waited on youtube.com, so a
+// slow or throttled third party turned a required gate red. That produced a
+// failure email for a problem nobody here could fix, which is how a gate
+// stops being believed.
+//
+// Verified before adopting: with youtube.com blocked the player dialog still
+// opens, still renders its chrome and close button, and still measures clean
+// (412px dialog in a 412px viewport, 0 horizontal overflow).
+test.beforeEach(async ({ page }) => {
+  await page.route('**://*.youtube.com/**', (route) => route.abort());
+  await page.route('**://*.ytimg.com/**', (route) => route.abort());
+});
+
 test('@smoke a cold video shelf fetches covers for what is on screen, not all 41 playlists', async ({ page }) => {
   const calls = [];
   page.on('request', (r) => { if (r.url().includes('/api/playlist')) calls.push(r.url()); });
