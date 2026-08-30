@@ -392,9 +392,22 @@ test.describe('whole-app mobile compatibility', () => {
 
     const firstVideo = page.locator('.vmx-mode-card > button').first();
     await firstVideo.waitFor({ state: 'visible', timeout: 20_000 });
-    await firstVideo.click();
+    // The shelf loads its cover images as cards enter the viewport, so the
+    // card re-renders shortly after it first becomes visible. A click that
+    // lands in that window is swallowed and no dialog ever opens — which is
+    // how this step failed intermittently, on one engine at a time, while
+    // passing locally every time. Click until the player is actually up
+    // rather than assuming the first attempt caught a settled card.
     const videoPlayer = page.getByRole('dialog').first();
-    await videoPlayer.waitFor({ state: 'visible', timeout: 20_000 });
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await firstVideo.click();
+      try {
+        await videoPlayer.waitFor({ state: 'visible', timeout: 8_000 });
+        break;
+      } catch {
+        if (attempt === 2) throw new Error('video player did not open after 3 clicks');
+      }
+    }
     await recordStage(page, testInfo, failures, 'video-player');
     await page.getByRole('button', { name: 'ปิดเครื่องเล่นวิดีโอ' }).click();
 
