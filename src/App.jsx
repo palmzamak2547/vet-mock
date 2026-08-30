@@ -2064,6 +2064,10 @@ export default function App() {
             setPracticeMode={setPracticeMode}
             setMode={setMode}
             onMockExam={startMockExam}
+            signedIn={!!user}
+            hasSupabase={hasSupabase}
+            scaffold={Boolean(YEARS.find((year) => year.id === selectedYear)?.scaffold)}
+            selectedYear={selectedYear}
           />
         )}
         <div className="vmx-container">

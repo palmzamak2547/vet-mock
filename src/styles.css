@@ -555,6 +555,12 @@ html, body {
     flex-direction: column;
     flex: 1;
     min-height: 0;
+    /* Two groups can outgrow a short laptop viewport (a 768px-tall screen
+       has ~600px to spend here). Scrolling the nav is the only behaviour
+       that degrades safely — the alternative is rows silently pushed under
+       the fold with no way to reach them. */
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .vmx-sidebar-heading {
@@ -652,6 +658,27 @@ html, body {
     transform: translateY(calc(var(--vmx-nav-active, 0) * (var(--vmx-nav-row) + var(--vmx-nav-space))));
     transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
     pointer-events: none;
+  }
+
+  /* Second group: same rail, quieter weight and a tighter rhythm so it
+     reads as secondary without a second visual language. */
+  .vmx-sidebar-heading-2 {
+    margin-top: 20px;
+  }
+
+  .vmx-nav-row.is-secondary {
+    min-height: 38px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .vmx-nav-row.is-secondary .vmx-sidebar-icon {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .vmx-nav-row.is-secondary.is-active {
+    font-weight: 700;
   }
 
   .vmx-sidebar-foot {

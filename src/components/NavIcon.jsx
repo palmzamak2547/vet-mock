@@ -121,6 +121,23 @@ const PATHS = {
     </>
   ),
   // pushpin / pin to the pinboard
+  // Stacked sheets — the document library. Deliberately NOT `book`, which is
+  // all but identical to `wiki`; the two sit in the same rail and a reader
+  // should not have to parse the label to tell them apart.
+  files: (
+    <>
+      <path d="M8 3h6l4 4v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" />
+      <path d="M14 3v4h4" />
+    </>
+  ),
+  calendar: (
+    <>
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M3 10h18" />
+      <path d="M8 3v4" />
+      <path d="M16 3v4" />
+    </>
+  ),
   pin: (
     <>
       <path d="M12 15v6" />
