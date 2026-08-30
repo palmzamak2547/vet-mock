@@ -78,7 +78,7 @@ export async function copyText(text) {
     }
 
     const ok = document.execCommand('copy');
-    document.body.removeChild(ta);
+    ta.remove();
     if (ok) return { ok: true, method: 'execCommand' };
     return { ok: false, reason: 'execCommand-failed' };
   } catch (e) {

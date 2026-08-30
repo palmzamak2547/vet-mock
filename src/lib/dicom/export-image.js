@@ -74,7 +74,7 @@ export async function exportAnnotatedPng({ containerEl, baseFilename = 'annotate
   a.download = `${baseFilename}_${ts}.png`;
   document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
+  a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
 
   return { width: w, height: h, byteSize: pngBlob.size };

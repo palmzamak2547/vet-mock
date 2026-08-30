@@ -148,7 +148,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       a.download = `vetmock-export-${user.id?.slice(0, 8)}-${Date.now()}.json`;
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
+      a.remove();
       URL.revokeObjectURL(url);
       setInfo('✓ ดาวน์โหลด JSON เรียบร้อย — เปิดด้วย text editor หรือ import ที่ Question Manager ได้');
     } catch (err) {

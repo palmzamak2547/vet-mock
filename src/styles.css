@@ -527,78 +527,144 @@ html, body {
     bottom: 0;
     width: 256px;
     flex-direction: column;
-    padding: 32px 16px;
-    border-right: 2px solid var(--vmx-border-new);
+    padding: 28px 12px 16px;
+    border-right: 1px solid var(--vmx-border-new);
     background: var(--vmx-surface);
     z-index: 100;
+
+    /* One rail. Brand, icons, labels and the foot all measure from these,
+       so nothing can drift out of alignment by being styled separately. */
+    --vmx-nav-inset: 12px;   /* left padding inside a row */
+    --vmx-nav-icon: 22px;    /* fixed icon slot — labels align, not just icons */
+    --vmx-nav-gap: 12px;     /* icon → label */
+    --vmx-nav-row: 46px;
+    --vmx-nav-space: 4px;    /* between rows */
+  }
+
+  .vmx-sidebar-brand {
+    /* Aligns with a row's icon, not with the row's outer edge, so the
+       wordmark sits on the same vertical line as the icons below it. */
+    margin: 0 0 24px var(--vmx-nav-inset);
+    padding: 0;
+    background: transparent;
+    align-self: flex-start;
   }
 
   .vmx-sidebar-nav {
     display: flex;
     flex-direction: column;
-    gap: 12px;
     flex: 1;
+    min-height: 0;
   }
 
-  .vmx-sidebar-item {
-    justify-content: flex-start;
-    padding: 12px 16px;
-    font-size: 16px;
-    border: 1px solid transparent !important;
-    color: var(--vmx-text-muted);
+  .vmx-sidebar-heading {
+    margin: 0 0 8px calc(var(--vmx-nav-inset) + 2px);
+    font-size: 11px;
     font-weight: 700;
-    background: transparent;
-    transition: background-color 0.2s;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    /* No opacity. Washing a token out defeats the contrast it was tested
+       for — measured 3.2:1 against the rail, under the 4.5 AA needs. The
+       size, weight and letter-spacing already say "secondary" without
+       spending legibility to do it. */
+    color: var(--vmx-text-muted);
   }
 
-  .vmx-sidebar-item:hover {
-    background: var(--vmx-surface-muted);
-    transform: none;
-  }
-  .vmx-sidebar-item:active {
-    transform: none;
-  }
-
-  .vmx-sidebar-item.active {
-    background: color-mix(in srgb, var(--vmx-color-learning) 10%, transparent);
-    /* text role: the fill is tuned for a label sitting ON it, which is
-       the opposite of what reads on the surface. */
-    color: var(--clr-sage-text);
-    border-color: color-mix(in srgb, var(--vmx-color-learning) 30%, transparent) !important;
+  .vmx-sidebar-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--vmx-nav-space);
   }
 
-  .vmx-sidebar-brand {
-    margin-bottom: 32px;
-    padding-left: 16px;
-    background: transparent;
-  }
-
-  .vmx-sidebar-icon {
-    font-size: 20px;
-    margin-right: 12px;
-  }
-
-  .vmx-sidebar-bottom {
-    margin-top: auto;
-    border-top: 2px solid var(--vmx-border-new);
-    padding-top: 16px;
-  }
-
-  .vmx-sidebar-user {
+  /* ── The row ──────────────────────────────────────────────────
+     Deliberately NOT built on .vmx-btn. That class sets
+     justify-content:center at equal specificity but later in the file, so
+     it silently won and every icon landed at a different x. A row is a
+     navigation line, not a button, and now says so. */
+  .vmx-nav-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 0 8px;
+    gap: var(--vmx-nav-gap);
+    width: 100%;
+    min-height: var(--vmx-nav-row);
+    padding: 0 var(--vmx-nav-inset);
+    margin: 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--vmx-text-muted);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 160ms var(--ease-out, ease),
+                color 160ms var(--ease-out, ease);
   }
 
-  .vmx-sidebar-username {
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--vmx-text);
-    white-space: nowrap;
+  .vmx-nav-row .vmx-sidebar-icon {
+    flex: 0 0 var(--vmx-nav-icon);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    color: currentColor;
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .vmx-nav-row .vmx-sidebar-label {
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .vmx-nav-row:hover {
+    background: var(--vmx-surface-muted);
+    color: var(--vmx-text);
+  }
+  .vmx-nav-row:hover .vmx-sidebar-icon { transform: translateX(1px) scale(1.06); }
+  .vmx-nav-row:active .vmx-sidebar-icon { transform: scale(0.96); }
+
+  .vmx-nav-row:focus-visible {
+    outline: 2px solid var(--clr-sage-text);
+    outline-offset: 2px;
+  }
+
+  .vmx-nav-row.is-active {
+    background: color-mix(in srgb, var(--vmx-color-learning) 12%, transparent);
+    color: var(--clr-sage-text);
+    font-weight: 700;
+  }
+
+  /* The one moving part: an accent bar that slides to the active row.
+     Its position is derived from the row geometry above, so it cannot fall
+     out of step with the list. */
+  .vmx-sidebar-marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: var(--vmx-nav-row);
+    border-radius: 0 3px 3px 0;
+    background: var(--clr-sage-text);
+    transform: translateY(calc(var(--vmx-nav-active, 0) * (var(--vmx-nav-row) + var(--vmx-nav-space))));
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .vmx-sidebar-foot {
+    margin-top: auto;
+    padding: 12px var(--vmx-nav-inset) 0;
+    border-top: 1px solid var(--vmx-border-new);
+  }
+
+  .vmx-sidebar-version {
+    font-size: 11px;
+    font-family: var(--vmx-mono);
+    /* Same reason as the heading above: opacity took this to 2.87:1. */
+    color: var(--vmx-text-muted);
   }
 }
 
@@ -3332,6 +3398,12 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   .vmx-press:active { transform: none; }
   .vmx-stagger > * { animation: none !important; }
   .vmx-xp-bump { animation: none !important; }
+  /* Sidebar: the icon nudge is decoration and goes away entirely. The
+     marker's transform is POSITION, not decoration — the global rule above
+     already cuts its duration to ~0, so it lands on the right row instantly
+     instead of not landing at all. */
+  .vmx-nav-row:hover .vmx-sidebar-icon,
+  .vmx-nav-row:active .vmx-sidebar-icon { transform: none; }
 }
 
 /* Advancing a question — the app's most repeated moment. Direction-aware so

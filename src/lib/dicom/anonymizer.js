@@ -108,6 +108,6 @@ export function downloadFile(file) {
   a.download = file.name;
   document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
+  a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
 }

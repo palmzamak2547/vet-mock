@@ -53,7 +53,7 @@ export async function fetchAndExportAttemptsCsv() {
   anchor.download = `imaging_attempts_${new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-')}.csv`;
   document.body.appendChild(anchor);
   anchor.click();
-  document.body.removeChild(anchor);
+  anchor.remove();
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
 
   return { ok: true, count: rows.length };

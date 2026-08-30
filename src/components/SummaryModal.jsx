@@ -170,7 +170,7 @@ export default function SummaryModal({ summary, onClose }) {
     a.download = `${summary.title.replace(/[^\w.-]+/g, '_')}.md`;
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
+    a.remove();
     URL.revokeObjectURL(url);
   };
 

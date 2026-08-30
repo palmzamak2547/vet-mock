@@ -102,7 +102,7 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
     a.download = `vhs_${new Date().toISOString().slice(0, 19).replace(/[:.]/g, '-')}.json`;
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
+    a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60_000);
   }, [worldPoints]);
 
