@@ -1,6 +1,6 @@
 # VetMock — Design System (current spec)
 
-> Last verified against production: **v5.31.0 · 2026-08-21**. Notes loading,
+> Last verified against production: **v5.55.0 · 2026-08-30**. Notes loading,
 > offline error/retry, backup previews, and JSON validation dialogs follow the
 > same Thai-first hierarchy, shared dialog focus behavior, semantic colours,
 > and 44px interaction floor as the rest of the product.
@@ -88,3 +88,52 @@ patterns can still converge further.
 4. New motion → a `--dur/--ease` token + reduced-motion fallback.
 5. Interactive control → ≥ `--touch-min`, visible focus, non-colour state.
 6. No gradients/glass/glow/emoji-as-icon in the app (marketing `.lp-` excepted).
+
+## Guidelines — DO / DON'T
+> Format after styles.refero.design (DESIGN.md written for agents). Every rule
+> below was PAID FOR: it cites the measured incident that earned it. When one
+> blocks you, read the incident before overriding the rule.
+
+**DO**
+- Give a navigation surface its own class family; never compose rows from
+  `.vmx-btn`. *(2026-08-30: `.vmx-sidebar-item` declared `flex-start`, `.vmx-btn`
+  declared `center` 800 lines later at equal specificity — source order won,
+  icons scattered 14px, and the author before us had already lost this fight
+  once, leaving `!important` on border but not justify.)*
+- Keep text tokens at `opacity: 1`; say "secondary" with size, weight and
+  letter-spacing. *(2026-08-30: opacity 0.65/0.6 on rail heading/version took
+  AA-passing tokens to 3.2:1 and 2.87:1 — under the 4.5 floor, on the very
+  request that said "ได้มาตรฐาน".)*
+- Interface icons are line SVG in `NavIcon`; registry emoji are content, and
+  the only acceptable FALLBACK so unmapped features degrade into view, not out
+  of it. Two glyphs in one rail must be distinguishable at 17px (`wiki` vs
+  `book` were near-identical; the library got `files`).
+- One-shot brand/settle motion: `animation-fill-mode: backwards`, finish on
+  the element's natural resting state, and gate to once per page LOAD, not per
+  mount. *(2026-08-30: `both` held the final keyframe forever and a filling
+  animation outranks transitions — the paw's hover did nothing while the pad
+  and text still moved. Half-working is the kind that ships.)*
+- Derive every navigation list from `lib/nav.js` or `feature-registry.js`.
+  Two surfaces listing destinations independently WILL disagree — same class
+  as the two streak numbers (freeze-aware vs naive walk) fixed 2026-08-30.
+- Want a wash? Grain over gradient. Texture is what separates "watercolour on
+  paper" from "SaaS mesh": static inline feTurbulence tile at 4-7% opacity
+  over at most 2-3 brand-hue radials (technique studied on feralui.dev,
+  rebuilt in-house — no request, no dependency, no animation).
+
+**DON'T**
+- Never animate the hero wash or add blur() orbs on first paint — the old
+  four-colour animated mesh was removed for measured phone composite cost.
+  The wash is STATIC; the grain tile is rasterised once and cached.
+- Never win a specificity fight with `!important` — restructure so the fight
+  cannot exist (own class, no inherited role).
+- Never render a decorative motion under `prefers-reduced-motion`, and never
+  suppress POSITION under it either: the sidebar marker still lands on the
+  active row (duration ~0), because where-you-are is information.
+- Never hardcode an outgrowable product fact in copy or tests ("ปี 1, 2, 4, 5
+  เปิดแล้ว", a draft badge that exists to disappear) — derive from the data
+  the UI reads. *(2026-08-29: 23/25 CI runs red for a day; the failure email
+  became noise and a real regression would have sailed through.)*
+- Never let a required gate depend on a third party (youtube.com in the
+  geometry audit) — abort those routes in the spec; a red gate nobody can fix
+  teaches everyone to ignore the gate.
