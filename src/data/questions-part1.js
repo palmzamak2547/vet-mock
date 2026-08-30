@@ -44,10 +44,14 @@ export const QB = [
     q: 'Pink elastic wrap เรียกว่า ____ band ใช้สำหรับ ____',
     blanks: ['cohesive', 'ยึดชั้นนอกสุดของแบนเดจ'],
     explain: 'Cohesive (coban) เป็นชั้นนอกสุด' },
-  { id: 8, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['ophthalmology'], type: 'mcq',
-    q: 'Final eye ของ Vet85 สอบในรูปแบบใด',
-    options: ['สอบข้อเขียนแบบ paper choice', 'Quiz ในห้องหลังเรียน', 'OSCE เวียนสถานี', 'สอบปากเปล่ารายคน'],
-    answer: 1, explain: 'ป85 ไม่มี final eye แต่เป็น quiz ในห้องหลังเรียน' },
+  // Removed: two items here asked about a past paper's FORMAT and about how
+  // many questions a topic received, rather than about veterinary medicine.
+  // Memorising either teaches a student nothing clinical, and both asserted
+  // the composition of a real exam — the thing the academic-safety lint
+  // exists to keep out of the app. (Not quoted here: the lint reads comments
+  // too, and it is right to, since a guard with prose exemptions is how the
+  // real ones get through.) Same call as the course-logistics items dropped
+  // from the aquatic batch. Ids 8 and 11 are intentionally absent.
   { id: 9, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['suture'], type: 'mcq',
     q: 'เย็บกล้ามเนื้อใช้ไหมชนิดใด',
     options: ['Silk', 'PDS', 'Nylon', 'Prolene'],
@@ -56,9 +60,6 @@ export const QB = [
     q: 'พัน bandage แน่นเกินไปจะเกิดอะไร',
     options: ['ปลายเท้าบวม', 'เฝือกร่น', 'กระดูกหักซ้ำ', 'ติดเชื้อ'],
     answer: 0, explain: 'แน่น → บวม; หลวม → เฝือกร่น' },
-  { id: 11, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['ophthalmology'], type: 'tf',
-    q: 'ใน Vet85 สอบ ophthalmology ~15 ข้อ และ aural hematoma ~10 ข้อ',
-    answer: true, explain: 'ตรงตามข้อสอบเก่า' },
   { id: 12, subject: 'surg2', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['dental'], type: 'mcq',
     q: 'Mandibular cerclage wire ใส่นานประมาณเท่าใด',
     options: ['2 wk', '4 wk', '8 wk', '12 wk'],

@@ -74,7 +74,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-herd-health-rum.js', export: 'QB_HERD_HEALTH_RUM', year: 4, count: 39,
     subjects: ['herd-health-rum'],
     load: () => import('./questions-herd-health-rum.js').then((m) => m.QB_HERD_HEALTH_RUM) },
-  { file: 'questions-part1.js', export: 'QB', year: 4, count: 64,
+  { file: 'questions-part1.js', export: 'QB', year: 4, count: 62,
     subjects: ['repro', 'surg2', 'surg3'],
     load: () => import('./questions-part1.js').then((m) => m.QB) },
   { file: 'questions-part2.js', export: 'QB_PART2', year: 4, count: 29,
@@ -208,4 +208,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-08-29T11:47:04.667Z — 66 banks · 4553 Qs
+// Built: 2026-08-30T05:02:55.208Z — 66 banks · 4551 Qs

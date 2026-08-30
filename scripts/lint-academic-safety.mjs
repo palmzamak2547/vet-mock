@@ -125,6 +125,16 @@ const CLAIM_PATTERNS = [
     why: 'อ้างสถิติความถี่ของข้อสอบจริงที่พิสูจน์ไม่ได้',
     use: 'บอกว่ามีสรุป/บันทึกครอบคลุมหัวข้อนี้ แทนการอ้างความถี่',
   },
+  {
+    // Claims about how a real paper was BUILT — its format, or how many
+    // questions a topic got. Two question stems shipped this way and were
+    // removed: "Final eye ของ Vet85 สอบในรูปแบบใด" and "ใน Vet85 สอบ
+    // ophthalmology ~15 ข้อ". Neither taught any veterinary medicine; both
+    // asserted the composition of an exam nobody here sat.
+    re: /(Vet|ป|รุ่น) ?\d{2}.{0,40}สอบ.{0,25}(~ ?\d+ ?ข้อ|รูปแบบใด|กี่ข้อ)/g,
+    why: 'ถามหรืออ้างรูปแบบและจำนวนข้อของข้อสอบจริง',
+    use: 'เอาออก ถ้าไม่ได้ถามความรู้ทางสัตวแพทย์',
+  },
 ];
 
 // ── File walker ───────────────────────────────────────────────

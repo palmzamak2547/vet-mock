@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4553;
-export const QB_SOURCE_TOTAL = 4553;
+export const QB_TOTAL = 4551;
+export const QB_SOURCE_TOTAL = 4551;
 export const QB_BLOCKED_TOTAL = 0;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -45,7 +45,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'repro-lect': 208,
   'ruminant-clinical': 22,
   'surg1': 29,
-  'surg2': 20,
+  'surg2': 18,
   'surg3': 40,
   'swine-clinic': 92,
   'swine-herd': 36,
@@ -95,7 +95,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'repro-lect': 208,
   'ruminant-clinical': 22,
   'surg1': 29,
-  'surg2': 20,
+  'surg2': 18,
   'surg3': 40,
   'swine-clinic': 92,
   'swine-herd': 36,
@@ -114,7 +114,7 @@ export const Q_COUNTS_BY_YEAR = {
   1: 298,
   2: 144,
   3: 62,
-  4: 2092,
+  4: 2090,
   5: 1957,
 };
 
@@ -126,7 +126,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   1: 298,
   2: 144,
   3: 62,
-  4: 1986,
+  4: 1984,
   5: 1941,
 };
 
@@ -576,7 +576,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "testicular-block": 1,
   },
   "surg2": {
-    "__unassigned__": 20,
+    "__unassigned__": 18,
   },
   "surg3": {
     "__unassigned__": 40,
@@ -915,7 +915,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "surgical-neutering": 7,
   },
   "surg2": {
-    "__unassigned__": 20,
+    "__unassigned__": 18,
   },
   "surg3": {
     "__unassigned__": 40,
@@ -944,4 +944,4 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
 };
 
-// Built: 2026-08-29T12:54:23.235Z
+// Built: 2026-08-30T05:01:10.994Z
