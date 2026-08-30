@@ -1808,7 +1808,7 @@ export const QB_POULTRY = [
   { id: 4046, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
     source: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวสอบรอบเดียวกัน" marker)', sourceType: 'student-compilation',
     tags: ['enrofloxacin', 'banned-broiler', 'banned-layer', 'fluoroquinolone'], type: 'mcq',
-    q: 'ยาที่ห้ามใช้ทั้งในไก่เนื้อและไก่ไข่ (Vet 85 ออกตรงๆ — มี 2 ข้อตอบ enrofloxacin ทั้งคู่)',
+    q: 'ยาที่ห้ามใช้ทั้งในไก่เนื้อและไก่ไข่',
     options: ['Enrofloxacin', 'Penicillin', 'Tylosin', 'Doxycycline'],
     answer: 0,
     explain: 'Enrofloxacin = Fluoroquinolones, กรมปศุสัตว์ห้ามใช้ในไก่ไข่และไก่เนื้อเด็ดขาด เพราะ EU ห้ามใช้ในสัตว์อาหาร (50% ส่งออก EU), เป็น Extra-label use ที่ห้าม, ไทยส่งออก EU 50% + JP 40% → ระเบียบยึด EU เป็นหลัก\n\n💡 กลุ่ม Fluoroquinolones',

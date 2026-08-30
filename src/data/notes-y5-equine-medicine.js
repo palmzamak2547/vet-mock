@@ -562,7 +562,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
         body: [
           { bullets: [
             'PDF 6 - 2024 Equine Anesthesia .pdf >100MB → ไม่สามารถ extract pages ได้',
-            'มี **"สรุป Anes พี่อันนา ตรงมากแบบเป็นไม้บรรทัด"** ใน final/สรุป + สรุป/ → ใช้อ่านเสริม',
+            'มี **"สรุป Anes พี่อันนา ละเอียดมาก"** ใน final/สรุป + สรุป/ → ใช้อ่านเสริม',
             'มี **"Equine Med สรุปนี้Anes.pdf"** เพิ่มเติม',
           ] },
         ],

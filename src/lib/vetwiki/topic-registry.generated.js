@@ -1748,7 +1748,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-bacterial",
     "title": "Bacterial Zoonoses",
     "icon": "🧫",
-    "summary": "Bacterial + Rickettsial infections — anthrax, brucellosis, strep, TB, salmonellosis, campylo, vibrio, colibacillosis, yersiniosis (foodborne) · Chlamydial (psittacosis) · Spirochaetal (leptospirosis, borreliosis). **Vet 84 ออกซซดาว** — สำคัญสุด.",
+    "summary": "Bacterial + Rickettsial infections — anthrax, brucellosis, strep, TB, salmonellosis, campylo, vibrio, colibacillosis, yersiniosis (foodborne) · Chlamydial (psittacosis) · Spirochaetal (leptospirosis, borreliosis). **ซซดาวบันทึก Vet 84** — สำคัญสุด.",
     "flagship": false
   },
   {
@@ -1820,7 +1820,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-mycoses",
     "title": "Mycozoonoses (Fungal Zoonoses)",
     "icon": "🍄",
-    "summary": "Mycozoonoses = รา/ยีสต์ ที่ติดต่อจากสัตว์สู่คน · Fungi = eukaryote (มี nucleus + mitochondria — ต่างจาก bacteria) · 2 forms: Yeast (unicellular, budding) + Mold (filamentous). **Vet 82 final ตรงมาก** — สำคัญสุดในกลุ่ม final.",
+    "summary": "Mycozoonoses = รา/ยีสต์ ที่ติดต่อจากสัตว์สู่คน · Fungi = eukaryote (มี nucleus + mitochondria — ต่างจาก bacteria) · 2 forms: Yeast (unicellular, budding) + Mold (filamentous). **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก** — สำคัญสุดในกลุ่ม final.",
     "flagship": false
   },
   {
@@ -1838,7 +1838,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-protozoal",
     "title": "Protozoal Zoonoses",
     "icon": "🦠",
-    "summary": "Protozoal zoonoses — 4 major: Toxoplasmosis, Giardiasis, Cryptosporidiosis, Leishmaniosis · 4 types of parasitic zoonoses: Direct/Cyclo/Meta/Sapro · Sources: ground/water-borne/handling pets/meat-borne/vector-borne. **Vet 82 final ตรงมาก**.",
+    "summary": "Protozoal zoonoses — 4 major: Toxoplasmosis, Giardiasis, Cryptosporidiosis, Leishmaniosis · 4 types of parasitic zoonoses: Direct/Cyclo/Meta/Sapro · Sources: ground/water-borne/handling pets/meat-borne/vector-borne. **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก**.",
     "flagship": false
   },
   {

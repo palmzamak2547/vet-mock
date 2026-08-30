@@ -981,7 +981,7 @@ export const VIDEO_META = {
     "date": "20 Nov 67",
     "durationMin": 1,
     "instructor": "พี่ไอซ์ (neurosurgery specialist)",
-    "examFormat": "Supplementary — biomechanics demonstration for L7-S1 fracture, ออกบ่อยมาก"
+    "examFormat": "Supplementary — biomechanics demonstration for L7-S1 fracture, พบในสรุปข้อสอบเก่าบ่อย"
   },
   '1VHy7_hr7As': {
     "videoId": "1VHy7_hr7As",

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { QB } from '../data/questions.js';
-import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
 import { librarySubjectCounts } from '../lib/library.js';
@@ -207,22 +207,30 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   {s.code}
                 </div>
               )}
-              {s.examFormat && (
-                <div style={{
-                  marginTop: 6,
-                  padding: '3px 8px',
-                  borderRadius: 999,
-                  background: 'var(--clr-surface-2)',
-                  fontSize: 11,
-                  fontFamily: 'var(--vmx-mono)',
-                  color: 'var(--clr-ink-soft)',
-                  display: 'inline-block',
-                  letterSpacing: '0.05em',
-                }}>
-                  📝 {s.examFormat.weight}
-                  {s.examFormat.choiceCount && `, ${s.examFormat.choiceCount} ช้อยส์`}
-                </div>
-              )}
+              {/* Only render the chip when there is something real to put in
+                  it. Guarding on examFormat alone printed a bare "📝" (or
+                  "📝 , 4 ช้อยส์") for every subject whose weighting is not
+                  announced yet. */}
+              {(() => {
+                const w = s.examFormat && announced(s.examFormat.weight);
+                const c = s.examFormat && s.examFormat.choiceCount;
+                if (!w && !c) return null;
+                return (
+                  <div style={{
+                    marginTop: 6,
+                    padding: '3px 8px',
+                    borderRadius: 999,
+                    background: 'var(--clr-surface-2)',
+                    fontSize: 11,
+                    fontFamily: 'var(--vmx-mono)',
+                    color: 'var(--clr-ink-soft)',
+                    display: 'inline-block',
+                    letterSpacing: '0.05em',
+                  }}>
+                    📝 {[w, c && `${c} ช้อยส์`].filter(Boolean).join(', ')}
+                  </div>
+                );
+              })()}
             </button>
           );
             })}

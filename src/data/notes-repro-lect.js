@@ -616,7 +616,7 @@ export const NOTES_REPRO_LECT = {
         heading: 'Ovarian Remnant Syndrome (ORS) ★★ — Aj. TT favorite',
         source: 'Kimchii85 ORS Q1-10 (past-paper screenshots)',
         body: [
-          { callout: 'ORS exam Qs จาก Aj. TT ออกบ่อยมาก ★ — definition, cause, diagnosis (AMH), treatment (caudal midline laparotomy), differential (pseudopregnancy, cervical stump infection)', kind: 'flag' },
+          { callout: 'ORS exam Qs จาก Aj. TT พบในสรุปข้อสอบเก่าบ่อย ★ — definition, cause, diagnosis (AMH), treatment (caudal midline laparotomy), differential (pseudopregnancy, cervical stump infection)', kind: 'flag' },
           { sub: 'Definition + Time',
             body: [
               { bullets: [

@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useMemo } from 'react';
 import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
+import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartPassage from './SmartPassage.jsx';
@@ -49,83 +50,6 @@ const FLAGS_KEY = 'vmx-q-flags';
 //
 // Session seed = once per page-load in module scope, so a user revisiting
 // the same Q within a session sees the same order; a new tab reseeds.
-const SESSION_SEED = (() => {
-  try {
-    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
-      const buf = new Uint32Array(1);
-      crypto.getRandomValues(buf);
-      return buf[0];
-    }
-  } catch {}
-  return ((Date.now() & 0xffffffff) ^ (Math.random() * 0xffffffff)) >>> 0;
-})();
-
-function mulberry32(a) {
-  return function () {
-    a |= 0; a = (a + 0x6D2B79F5) | 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-/**
- * Derives a stable display permutation for the given question.
- * Returns { displayOptions, displayToOriginal, originalToDisplay }
- * where displayOptions is the rendered array and the two index maps
- * translate between visual-order and source-order indices.
- *
- * Honors `q.noShuffle === true` for questions whose options have a
- * meaningful order (e.g. "All of the above" / chronological steps /
- * Likert scales). Caller can opt out per-question without disabling
- * the global behavior.
- */
-function getShuffledOptions(q) {
-  const options = Array.isArray(q?.options) ? q.options : [];
-  if (options.length <= 1 || q?.noShuffle === true) {
-    const identity = options.map((_, i) => i);
-    return {
-      displayOptions: options.slice(),
-      displayToOriginal: identity,
-      originalToDisplay: identity,
-    };
-  }
-  // Detect "All/None of the above" by text — keep those pinned to the
-  // bottom even when shuffling the rest.
-  const TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ)/i;
-  const tailIndices = [];
-  const headIndices = [];
-  for (let i = 0; i < options.length; i++) {
-    const txt = String(options[i] || '').trim();
-    if (TAIL_RE.test(txt)) tailIndices.push(i);
-    else headIndices.push(i);
-  }
-  // Seed: (q.id ^ session) so a given user sees consistent order for a
-  // question across a session, but two users on the same Q see different
-  // orders. Falls back to subject:id hash if id is missing.
-  const idNum = Number.isFinite(q?.id)
-    ? q.id
-    : Array.from(String((q?.subject || '') + ':' + (q?.id || ''))).reduce(
-        (h, ch) => ((h * 31) + ch.charCodeAt(0)) >>> 0,
-        0
-      );
-  const rand = mulberry32((idNum ^ SESSION_SEED) >>> 0);
-  // Fisher-Yates on the HEAD only; tails preserved.
-  const shuffledHead = headIndices.slice();
-  for (let i = shuffledHead.length - 1; i > 0; i--) {
-    const j = Math.floor(rand() * (i + 1));
-    [shuffledHead[i], shuffledHead[j]] = [shuffledHead[j], shuffledHead[i]];
-  }
-  const displayToOriginal = shuffledHead.concat(tailIndices);
-  const originalToDisplay = new Array(options.length);
-  for (let d = 0; d < displayToOriginal.length; d++) {
-    originalToDisplay[displayToOriginal[d]] = d;
-  }
-  const displayOptions = displayToOriginal.map((origIdx) => options[origIdx]);
-  return { displayOptions, displayToOriginal, originalToDisplay };
-}
-
 function readFlags() {
   try { return JSON.parse(window.localStorage.getItem(FLAGS_KEY) || '{}'); } catch { return {}; }
 }

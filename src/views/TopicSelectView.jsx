@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
+import { announced } from '../data/curriculum.js';
 import { librarySubjectCounts } from '../lib/library.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
@@ -517,7 +518,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
 // ─── Exam-format banner (shows up when subject has examFormat metadata) ───
 function ExamFormatBanner({ format, accent }) {
   const items = [];
-  if (format.weight) items.push({ k: 'สัดส่วนวิชา', v: format.weight });
+  if (announced(format.weight)) items.push({ k: 'สัดส่วนวิชา', v: announced(format.weight) });
   if (format.perSession) items.push({ k: 'จำนวนข้อ', v: format.perSession });
   if (format.totalEstimate) items.push({ k: 'รวมประมาณ', v: format.totalEstimate });
   if (format.choiceCount) items.push({ k: 'รูปแบบ', v: `MCQ ${format.choiceCount} ช้อยส์ (A-${String.fromCharCode(64 + format.choiceCount)})` });

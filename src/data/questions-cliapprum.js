@@ -516,7 +516,7 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 3,
     explain: 'GA problems มาตรฐานในวัว: Regurgitation (active vs passive), Bloat, Respiratory complication, Hypoventilation, Nerve paralysis (จากท่านอนนาน) — Hyperthyroidism ไม่เกี่ยวกับ GA ในสัตว์เคี้ยวเอื้อง เป็น distractor หลอก',
-    verified: 'Clin approach final TJ p1 #1 (Vet 86 ออกตรง)' },
+    verified: 'Clin approach final TJ p1 #1 (อิงแนวสอบ Vet 86)' },
 
   { id: 5001, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'Clin approach final TJ p1 #2', sourceType: 'student-compilation',
@@ -616,11 +616,11 @@ export const QB_CLIAPPRUM = [
     explain: 'Proximal paravertebral: ปักหน้า L1 (block T13), หลัง L1 (block L1), หลัง L2 (block L2) ที่ฐานของ transverse process. Distal paravertebral: ปักที่ปลาย transverse process ของ L1, L2, L4 ทำง่ายกว่า ความเสี่ยง dura mater น้อยกว่า',
     verified: 'Clin approach final TJ p2 #16' },
 
-  // ── GI VDTT (อ.ธนศักดิ์) — Vet 85 ออกตรง 10 + Vet 84 8 ──
+  // ── GI VDTT (อ.ธนศักดิ์) — อิงแนวสอบ Vet 85 10 + Vet 84 8 ──
   { id: 5008, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
     source: 'Clin approach final TJ p3 (Vet 85 #1 ออกตรง)', sourceType: 'student-compilation',
     tags: ['GI-dysfunction', 'signs', 'anorexia'], type: 'mcq',
-    q: 'ข้อใดไม่ใช่ signs ของ GI dysfunction ในวัว (Vet 85 ออกตรง)',
+    q: 'ข้อใดไม่ใช่ signs ของ GI dysfunction ในวัว',
     options: [
       'Inappetence to anorexia',
       'Failure to regurgitate (ไม่เคี้ยวเอื้อง)',
@@ -1471,7 +1471,7 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 0,
     explain: '**Thiopental**: เหมาะกับ adult goat/sheep และ calves (อายุ ≥ 3 เดือน). ไม่แนะนำใน young calves อายุ **< 3 เดือน** — hepatic enzyme ยังไม่พร้อม metabolize barbiturate ทำให้ recovery ช้าและกดการหายใจรุนแรง',
-    verified: 'TJ p1 #7 (Vet 86 ออกตรง)' },
+    verified: 'TJ p1 #7 (อิงแนวสอบ Vet 86)' },
 
   { id: 5067, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'TJ p1 #8-9 (Vet 86) + Anesthesia 2026 slide p81, p97', sourceType: 'student-compilation',
@@ -1561,7 +1561,7 @@ export const QB_CLIAPPRUM = [
   { id: 5073, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
     source: 'TJ p3 (Vet 85 #2)', sourceType: 'student-compilation',
     tags: ['fiber-fermentation', 'rumen', 'forestomach'], type: 'mcq',
-    q: 'อวัยวะใดทำหน้าที่หมัก fiber ในวัว (Vet 85 ออกตรง)',
+    q: 'อวัยวะใดทำหน้าที่หมัก fiber ในวัว',
     options: [
       'Abomasum (true stomach กรด HCl)',
       'Small intestine (jejunum + ileum)',

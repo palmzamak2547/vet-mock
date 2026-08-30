@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef, Suspense, lazy } from 'react';
+import { getShuffledOptions } from './lib/option-shuffle.js';
 import { flushSync } from 'react-dom';
 // Phase 3 perf: QB is now lazy. The static export here is the SAME
 // array reference forever, but it's empty until `loadQB()` resolves.
@@ -1074,12 +1075,21 @@ export default function App() {
       try {
         window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({
           questions, answers, currentIdx,
+          // The settings that decide how this set is GRADED and SHOWN, not
+          // just what is in it. Without them a resumed mock came back as
+          // whatever mode happened to be after a reload — `mode` resets to
+          // 'quick', and ExamView reveals the key whenever mode !== 'exam'
+          // and instant feedback is on. A student reopened their mock exam
+          // to find the answers already showing and the options they had
+          // answered locked. The timer settings went the same way, so a
+          // timed mock came back untimed.
+          mode, practiceMode, useTimer, timePerQ,
           savedAt: Date.now(),
         }));
       } catch {}
     }, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx]);
+  }, [view, questions, answers, currentIdx, mode, practiceMode, useTimer, timePerQ]);
 
   // Detect a previous in-flight exam at boot and surface as a non-modal
   // banner on HomeView (replaces the old window.confirm prompt — that
@@ -1136,6 +1146,13 @@ export default function App() {
     let saved;
     try { saved = JSON.parse(raw); } catch { setPendingResume(null); return; }
     if (!session.primeFromSaved(saved)) { setPendingResume(null); return; }
+    // Put the session back the way it was graded, not the way the app boots.
+    // Older records predate these fields; defaulting to 'exam' would be wrong
+    // for a practice set, so only restore what was actually saved.
+    if (saved.mode) setMode(saved.mode);
+    if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
+    if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
+    if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
     setPendingResume(null);
     finishingRef.current = false; // arm the finish latch for the resumed session
     setView('exam');
@@ -1184,7 +1201,19 @@ export default function App() {
       if (typeof document !== 'undefined' && document.querySelector('.vmx-modal-overlay')) return;
       const q = questions[currentIdx];
       if (!q) return;
-      if (q.type === 'mcq' && ['1', '2', '3', '4'].includes(e.key)) answerCurrent(parseInt(e.key) - 1);
+      if (q.type === 'mcq' && ['1', '2', '3', '4'].includes(e.key)) {
+        // The digit is a VISUAL position; answers are keyed by the option's
+        // SOURCE index. Options are permuted for every MCQ, so passing the
+        // digit through recorded a different option than the one at that
+        // row — and the highlight then jumped elsewhere, because the
+        // selected style maps the stored index back through the same table.
+        // Same permutation as the click path: one module, one session seed.
+        const { displayToOriginal } = getShuffledOptions(q);
+        const displayIdx = parseInt(e.key, 10) - 1;
+        // A 3-option question has no row 4. Storing 3 there used to count as
+        // answered while matching no option at all.
+        if (displayIdx < displayToOriginal.length) answerCurrent(displayToOriginal[displayIdx]);
+      }
       else if (q.type === 'tf') {
         if (e.key === 't' || e.key === 'T') answerCurrent(true);
         if (e.key === 'f' || e.key === 'F') answerCurrent(false);

@@ -44,6 +44,28 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.53.0',
+    date: '2026-08-30',
+    headline: '⌨️ ปุ่ม 1-4 เลือกตัวเลือกที่เห็นจริง และชุดข้อสอบที่ทำค้างกลับมาในโหมดเดิม',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: '⌨️', title: 'กดเลข 1-4 ได้ตัวเลือกที่เห็นอยู่ตรงแถวนั้นจริง',
+        desc: 'ตัวเลือกถูกสลับลำดับทุกข้อเพื่อไม่ให้จำตำแหน่งคำตอบได้ แต่ปุ่มลัดเลข 1-4 ส่งเลขแถวไปตรง ๆ โดยไม่แปลงกลับเป็นตัวเลือกจริง จึงบันทึกคนละตัวกับที่กด และแถบไฮไลต์ไปสว่างอีกแถวหนึ่ง ตอนนี้ตรงกับที่เห็น และกดเลขที่ไม่มีแถวนั้นอยู่จะไม่ถูกนับว่าตอบแล้ว',
+      },
+      { scope: 'system', kind: 'fix', icon: '📄', title: 'ทำต่อชุดที่ค้างไว้ กลับมาเป็นโหมดเดิมและจับเวลาเหมือนเดิม',
+        desc: 'เดิมถ้าปิดแท็บระหว่างทำข้อสอบเสมือนจริงแล้วกลับมากดทำต่อ ชุดนั้นจะกลับมาเป็นโหมดฝึกซ้อม ซึ่งเฉลยจะโผล่ขึ้นมาและข้อที่ตอบไปแล้วถูกล็อก ทั้งที่ยังทำไม่จบ ตอนนี้บันทึกโหมดและการจับเวลาไว้กับชุดที่ค้าง',
+      },
+      { scope: 'system', kind: 'fix', icon: '🎯', title: 'เป้าหมายรายวันนับข้อที่ทำวันนี้ได้จริง',
+        desc: 'การ์ดเป้าหมายรายวันกรองด้วยข้อมูลที่ประวัติการทำข้อสอบไม่เคยเก็บไว้ ตัวเลขจึงค้างที่ 0 ตลอดไม่ว่าจะทำไปกี่ข้อ',
+      },
+      { scope: 'system', kind: 'fix', icon: '📝', title: 'การ์ดวิชาไม่ขึ้นคำว่า TBD อีกแล้ว',
+        desc: 'วิชาที่ยังไม่ทราบสัดส่วนคะแนนเคยขึ้นว่า TBD บนการ์ด และมีวิชาหนึ่งหลุดโน้ตภายในของคนทำข้อมูลขึ้นมาด้วย ตอนนี้ถ้ายังไม่มีข้อมูลก็จะไม่ขึ้นบรรทัดนั้นเลย',
+      },
+      { scope: 'system', kind: 'fix', icon: '📚', title: 'ปรับถ้อยคำที่อ้างอิงข้อสอบเก่าให้ตรงตามข้อเท็จจริง',
+        desc: 'โน้ตบางจุดเขียนทำนองว่าข้อสอบรุ่นก่อนออกตรงกับสรุปมาก ซึ่งเป็นการอ้างสิ่งที่ยืนยันไม่ได้ เปลี่ยนเป็นบอกตามจริงว่าสรุปหรือบันทึกหลังสอบครอบคลุมหัวข้อนั้นแค่ไหน',
+      },
+    ],
+  },
+  {
     version: '5.52.0',
     date: '2026-08-29',
     headline: '🧹 กวาดจุดที่ทำให้งงทั้งแอป: ข้อความบอกสาเหตุจริง และการกระทำสำคัญไม่หลอกอีก',
@@ -771,7 +793,7 @@ export const CHANGELOG = [
     headline: '🐄 Clin App Rum หมาหอน Round 3 — เพิ่ม 24 ข้อจาก TJ Vet 85/84/86 ที่ตกหล่น + Hoof framework Kim',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🐺', title: 'ขุดข้อสอบเก่าที่ตกหล่นจาก TJ — Anes 7 + GI VDTT 9 + Hoof 8 ข้อ',
-        desc: 'TJ Anesthesia (อ.ภัทร์มนฉัตร) มี 17 รายการ Vet 86 ออกตรง ก่อนนี้เอามาแค่ 8 — เพิ่มอีก 7 (Thiopental <3 เดือนห้ามใช้ + Diazepam+Ketamine choice for induction + Zoletil 60 นาที + Guaifenesin 5% central muscle relaxant + Auriculopalpebral ไม่มี analgesia + Epidural small rum LS vs cattle SC/IC + Peterson cranial nerves block II/III/IV/V/VI). TJ GI VDTT ก่อนนี้เอามาแค่ 6 — เพิ่มอีก 9 (Vet 85: rumen forestomach fiber ferment + rectal palpation findings + peritonitis Dx cytology + rumen fluid landmark rib 13/knee + spinal needle 18G; Vet 84: ruminal contraction 1-2/3min + concentrate ratio acidosis gram+ shift + omasum impactation puncture not pole test + rumen hypermotility foamy bloat early + bilateral distension DDx pregnancy/peritonitis/ascites). Piyanat hoof + 8 (T-L-I-I framework: Timing/Location/Identification/Interpretation + LCS distribution + DDx with vs without RT + Sole 8mm/white line junction)',
+        desc: 'TJ Anesthesia (อ.ภัทร์มนฉัตร) มี 17 รายการ อิงแนวสอบ Vet 86 ก่อนนี้เอามาแค่ 8 — เพิ่มอีก 7 (Thiopental <3 เดือนห้ามใช้ + Diazepam+Ketamine choice for induction + Zoletil 60 นาที + Guaifenesin 5% central muscle relaxant + Auriculopalpebral ไม่มี analgesia + Epidural small rum LS vs cattle SC/IC + Peterson cranial nerves block II/III/IV/V/VI). TJ GI VDTT ก่อนนี้เอามาแค่ 6 — เพิ่มอีก 9 (Vet 85: rumen forestomach fiber ferment + rectal palpation findings + peritonitis Dx cytology + rumen fluid landmark rib 13/knee + spinal needle 18G; Vet 84: ruminal contraction 1-2/3min + concentrate ratio acidosis gram+ shift + omasum impactation puncture not pole test + rumen hypermotility foamy bloat early + bilateral distension DDx pregnancy/peritonitis/ascites). Piyanat hoof + 8 (T-L-I-I framework: Timing/Location/Identification/Interpretation + LCS distribution + DDx with vs without RT + Sole 8mm/white line junction)',
       },
     ],
   },
@@ -812,7 +834,7 @@ export const CHANGELOG = [
     headline: '🐄 Clin App Rum หมาหอน — เพิ่ม 30 ข้อ (Anesthesia + GI + Sawita Hernia/Loco/Respi) จาก TJ Vet 86 + Tomato',
     changes: [
       { scope: 'multi', kind: 'content', icon: '🐺', title: 'รวมหมาหอน Clin App Rum 30 ข้อ ครอบคลุม 5 กลุ่ม',
-        desc: 'การ์ด "🐺 รวมหมาหอน Clin App Rum" ใต้วิชา Clinical App Ruminant แยก 5 หมวด — Anesthesia 8 ข้อ (อ.ภัทร์มนฉัตร: GA problems, Diazepam vs Midazolam, Acepromazine ในพ่อพันธุ์ระวัง penile prolapse, Xylazine sensitivity Brahmans>Hereford>Holstein, Lidocaine 800kg vัว 400ml, Peterson block, Paravertebral), GI VDTT 6 ข้อ (อ.ธนศักดิ์ Vet 85 ออกตรง: Wither test, Ping right=RDA/RTA, oily sheen=LDA, Methylene blue <3min=acidosis, pH 5.5-7.5), Sawita Hernia/Esoph 6 ข้อ (umbilical <2cm conservative, diaphragmatic ในควาย, choke ที่ cervical 20cm, orogastric tube swallow reflex test), Sawita Loco/Hoof 7 ข้อ (90/90 rule, foot bath 4% formalin, DD M-staging Treponema, foot rot Fusobact+Dichelobacter, laminitis pathway carb→MMP, sole ulcer wooden block opposite, digital amputation S1/S2/S3), Sawita Head/Respi 3 ข้อ (dehorning <2m, cornual block, frontal>maxillary sinusitis trephination)',
+        desc: 'การ์ด "🐺 รวมหมาหอน Clin App Rum" ใต้วิชา Clinical App Ruminant แยก 5 หมวด — Anesthesia 8 ข้อ (อ.ภัทร์มนฉัตร: GA problems, Diazepam vs Midazolam, Acepromazine ในพ่อพันธุ์ระวัง penile prolapse, Xylazine sensitivity Brahmans>Hereford>Holstein, Lidocaine 800kg vัว 400ml, Peterson block, Paravertebral), GI VDTT 6 ข้อ (อ.ธนศักดิ์ อิงแนวสอบ Vet 85: Wither test, Ping right=RDA/RTA, oily sheen=LDA, Methylene blue <3min=acidosis, pH 5.5-7.5), Sawita Hernia/Esoph 6 ข้อ (umbilical <2cm conservative, diaphragmatic ในควาย, choke ที่ cervical 20cm, orogastric tube swallow reflex test), Sawita Loco/Hoof 7 ข้อ (90/90 rule, foot bath 4% formalin, DD M-staging Treponema, foot rot Fusobact+Dichelobacter, laminitis pathway carb→MMP, sole ulcer wooden block opposite, digital amputation S1/S2/S3), Sawita Head/Respi 3 ข้อ (dehorning <2m, cornual block, frontal>maxillary sinusitis trephination)',
       },
     ],
   },

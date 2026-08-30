@@ -91,6 +91,42 @@ const REPLACEMENTS = [
   ['ซซดาวที่ออก', 'ซซดาวบันทึก'],
 ];
 
+// ── Claim patterns (detect-only, no auto-fix) ───────────────────
+// The table above is a list of exact spellings, which is why it kept
+// missing the thing it was written to stop. It banned 'ตรงเป๊ะ' while the
+// data said 'ตรงมาก'; it banned 'Vet 85 ออกตามนี้' while the data said
+// 'Vet 84 ออก'. Three such notes shipped to students on the Zoonoses topic
+// screen, e.g. '📌 Vet 82 final "ตรงมาก" — past paper density สูง'.
+//
+// These match the CLAIM, not one way of spelling it: asserting that a past
+// paper matched the real exam, or that a named cohort's paper "came out".
+// Detect-only, because the honest rewrite depends on what the note meant —
+// the author has to choose it, a substitution table cannot.
+//
+// NOTE: no \b anywhere. JS word boundaries are ASCII-only and never match
+// after a Thai character, so a \b-anchored rule silently never fires here.
+const CLAIM_PATTERNS = [
+  {
+    re: /ตรง(มาก|เลย|ทุกข้อ|เกือบหมด|สุด ?ๆ|เป๊ะ)/g,
+    why: 'อ้างว่าข้อสอบเก่าตรงกับข้อสอบจริง',
+    use: 'เขียนว่า "อิงแนวสอบ <รุ่น>" แทน',
+  },
+  {
+    re: /(Vet|วีเอ็ท|รุ่น)\s*\d{2}\s*(final|midterm)?\s*ออก(?!แบบ|เสียง|กำลัง)/gi,
+    why: 'อ้างว่ารู้ว่ารุ่นนั้นออกอะไร',
+    use: 'เขียนว่า "อิงแนวสอบ Vet NN" หรืออ้างบันทึกหลังสอบ',
+  },
+  {
+    // NOT a bare /density สูง/ — that is ordinary science in this corpus
+    // (capillary density, lipoprotein density, receptor density, stocking
+    // density) and matched five legitimate lines on the first run. Only the
+    // past-paper sense is a claim.
+    re: /past[- ]paper density|ออกบ่อยมาก|ออกซ้ำทุกปี/gi,
+    why: 'อ้างสถิติความถี่ของข้อสอบจริงที่พิสูจน์ไม่ได้',
+    use: 'บอกว่ามีสรุป/บันทึกครอบคลุมหัวข้อนี้ แทนการอ้างความถี่',
+  },
+];
+
 // ── File walker ───────────────────────────────────────────────
 // Files that LEGITIMATELY contain banned-pattern strings — they're
 // the lint enumeration files themselves. Without this allow-list,
@@ -118,6 +154,7 @@ function walk(dir) {
 // ── Scan + (optionally) apply ──────────────────────────────────
 const files = walk(SRC_DIR);
 const findings = []; // [{ file, pattern, count }]
+const claimFindings = []; // [{ file, why, use, samples, count }] — detect-only
 let totalHits = 0;
 
 for (const f of files) {
@@ -137,11 +174,28 @@ for (const f of files) {
   if (APPLY && content !== before) {
     writeFileSync(f, content, 'utf8');
   }
+
+  // Claim patterns run on the ORIGINAL text and never rewrite it.
+  // A filename is a pointer to a real artifact, not a claim this app is
+  // making, so matches inside one are skipped — seniors named a PDF
+  // "...Myco Protozoa ตรงมาก.pdf" and renaming it in our prose would break
+  // the reference students use to find it.
+  const withoutFilenames = before.replace(/"[^"\r\n]*\.(pdf|jpe?g|png|docx?|pptx?)"/gi, '""');
+  for (const { re, why, use } of CLAIM_PATTERNS) {
+    re.lastIndex = 0;
+    const hits = withoutFilenames.match(re);
+    if (hits && hits.length) {
+      claimFindings.push({
+        file: relative(ROOT, f), why, use,
+        samples: [...new Set(hits)].slice(0, 4), count: hits.length,
+      });
+    }
+  }
 }
 
 if (JSON_OUT) {
-  console.log(JSON.stringify({ totalHits, findings }, null, 2));
-  process.exit(totalHits > 0 && !APPLY ? 1 : 0);
+  console.log(JSON.stringify({ totalHits, findings, claimFindings }, null, 2));
+  process.exit((totalHits > 0 && !APPLY) || claimFindings.length ? 1 : 0);
 }
 
 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
@@ -153,9 +207,27 @@ console.log(`Banned patterns: ${REPLACEMENTS.length}`);
 console.log(`Hits: ${totalHits}`);
 console.log('');
 
-if (totalHits === 0) {
+// Claim patterns report BEFORE the substitution-table early exit, or a run
+// with zero table hits would exit 0 while still carrying the claims.
+if (claimFindings.length) {
+  console.log('❌ CLAIM PATTERNS (no auto-fix — the honest rewrite is a judgement call)');
+  for (const c of claimFindings) {
+    console.log(`  ${String(c.count).padStart(4)}× ${c.file}`);
+    console.log(`         พบ: ${c.samples.join(', ')}`);
+    console.log(`         ทำไม: ${c.why}`);
+    console.log(`         แก้: ${c.use}`);
+  }
+  console.log('');
+}
+
+if (totalHits === 0 && claimFindings.length === 0) {
   console.log('✅ Clean. No academic-safety vocabulary found.');
   process.exit(0);
+}
+
+if (totalHits === 0) {
+  console.log(`❌ ${claimFindings.length} claim-pattern violation(s). Fix before commit.`);
+  process.exit(1);
 }
 
 // Group by pattern for readability
@@ -181,6 +253,6 @@ if (APPLY) {
   console.log('💡 Run with --apply to auto-fix:');
   console.log('     node scripts/lint-academic-safety.mjs --apply');
   console.log('');
-  console.log(`❌ ${totalHits} academic-safety violation(s). Fix before commit.`);
+  console.log(`❌ ${totalHits + claimFindings.length} academic-safety violation(s). Fix before commit.`);
   process.exit(1);
 }

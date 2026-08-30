@@ -27,11 +27,13 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
       if (typeof h.year === 'number') return h.year === selectedYear;
       return true;
     };
-    return history.filter((h) =>
-      h.date >= t
-      && h.userAnswer !== undefined
-      && yearMatch(h)
-    ).length;
+    // Was `h.userAnswer !== undefined`. History rows carry
+    // { date, questionId, correct, subject, year, phase } and never a
+    // userAnswer — finishExam is the only writer (App.jsx) — so the filter
+    // was always empty and the day's count sat at 0 no matter how much the
+    // student practised. Every row IS an answered, auto-graded question by
+    // construction, so the date + year scope is the whole predicate.
+    return history.filter((h) => h.date >= t && yearMatch(h)).length;
   }, [history, selectedYear]);
 
   useEffect(() => {

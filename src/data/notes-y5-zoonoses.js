@@ -620,7 +620,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Mycozoonoses (Fungal Zoonoses)',
     lecturer: 'Suphachai Nuanualsuwan',
     icon: '🍄',
-    summary: 'Mycozoonoses = รา/ยีสต์ ที่ติดต่อจากสัตว์สู่คน · Fungi = eukaryote (มี nucleus + mitochondria — ต่างจาก bacteria) · 2 forms: Yeast (unicellular, budding) + Mold (filamentous). ⭐ **Vet 82 final ตรงมาก** — สำคัญสุดในกลุ่ม final.',
+    summary: 'Mycozoonoses = รา/ยีสต์ ที่ติดต่อจากสัตว์สู่คน · Fungi = eukaryote (มี nucleus + mitochondria — ต่างจาก bacteria) · 2 forms: Yeast (unicellular, budding) + Mold (filamentous). ⭐ **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก** — สำคัญสุดในกลุ่ม final.',
     sections: [
       {
         heading: 'Mycozoonoses — title + course context',
@@ -630,7 +630,7 @@ export const NOTES_Y5_ZOONOSES = {
             'อาจารย์: **Suphachai Nuanualsuwan**, DVM, MPVM, PhD',
             'จากศูนย์เชี่ยวชาญเฉพาะทาง FAWRA (Food and Water Risk Analysis)',
             '**Mycozoonoses** = รา ยีสต์ ที่ติดต่อจากสัตว์สู่คน',
-            '⭐ **ข้อสอบ Vet 82 final "ตรงมาก"** — Mycozoonoses + Protozoa (ดู Z.pdf, Zoonosis Final Vet82 Myco Protozoa)',
+            '⭐ **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก** — Mycozoonoses + Protozoa (ดู Z.pdf, Zoonosis Final Vet82 Myco Protozoa)',
           ] },
         ],
       },
@@ -669,7 +669,7 @@ export const NOTES_Y5_ZOONOSES = {
         body: [
           { bullets: [
             '🚧 รอเติม — Dermatophytosis (Microsporum, Trichophyton), Sporotrichosis (จาก slide 11.5 + student presentation), Cryptococcosis, Histoplasmosis, Candidiasis, Aspergillosis — clinical + dx + prevention',
-            '📝 Note: Vet 82 final ออกตรงมาก → priority สูงในการเติม body content',
+            '⭐ สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก',
           ] },
         ],
       },
@@ -742,7 +742,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Bacterial Zoonoses',
     lecturer: 'Taradon Luangtongkum',
     icon: '🧫',
-    summary: 'Bacterial + Rickettsial infections — anthrax, brucellosis, strep, TB, salmonellosis, campylo, vibrio, colibacillosis, yersiniosis (foodborne) · Chlamydial (psittacosis) · Spirochaetal (leptospirosis, borreliosis). ⭐ **Vet 84 ออกซซดาว** — สำคัญสุด.',
+    summary: 'Bacterial + Rickettsial infections — anthrax, brucellosis, strep, TB, salmonellosis, campylo, vibrio, colibacillosis, yersiniosis (foodborne) · Chlamydial (psittacosis) · Spirochaetal (leptospirosis, borreliosis). ⭐ **ซซดาวบันทึก Vet 84** — สำคัญสุด.',
     sections: [
       {
         heading: 'Bacterial Zoonoses — course intro',
@@ -807,7 +807,7 @@ export const NOTES_Y5_ZOONOSES = {
         body: [
           { bullets: [
             '🚧 รอเติม — per-disease: agent + reservoir + transmission + clinical sign (human/animal) + dx + Tx + prevention',
-            'Priority diseases (Vet 84 ออก ซซดาว): Anthrax · Brucellosis · TB · Leptospirosis · Salmonellosis · Streptococcus suis · Lyme · Q fever',
+            'Priority diseases (ซซดาวบันทึก Vet 84): Anthrax · Brucellosis · TB · Leptospirosis · Salmonellosis · Streptococcus suis · Lyme · Q fever',
             '📝 Cross-check กับสรุป: "2 Bacterial zoonoses ซซดาวบันทึก84.pdf"',
           ] },
         ],
@@ -1075,7 +1075,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Protozoal Zoonoses',
     lecturer: 'Woraporn Sukhumavasi',
     icon: '🦠',
-    summary: 'Protozoal zoonoses — 4 major: Toxoplasmosis, Giardiasis, Cryptosporidiosis, Leishmaniosis · 4 types of parasitic zoonoses: Direct/Cyclo/Meta/Sapro · Sources: ground/water-borne/handling pets/meat-borne/vector-borne. ⭐ **Vet 82 final ตรงมาก**.',
+    summary: 'Protozoal zoonoses — 4 major: Toxoplasmosis, Giardiasis, Cryptosporidiosis, Leishmaniosis · 4 types of parasitic zoonoses: Direct/Cyclo/Meta/Sapro · Sources: ground/water-borne/handling pets/meat-borne/vector-borne. ⭐ **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก**.',
     sections: [
       {
         heading: 'Protozoal Zoonoses — course intro',
@@ -1085,7 +1085,7 @@ export const NOTES_Y5_ZOONOSES = {
             'อาจารย์: **Woraporn Sukhumavasi**, DVM, PhD',
             'Parasitology Unit, Department of Pathology, Faculty of Veterinary Science, Chulalongkorn University',
             'Email: vetkwan@hotmail.com',
-            '⭐ **Vet 82 final ตรงมาก** — ดู "Zoonosis Final Vet82 Myco Protozoa ตรงมาก.pdf"',
+            '⭐ **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก** — ดู "Zoonosis Final Vet82 Myco Protozoa ตรงมาก.pdf"',
           ] },
         ],
       },
@@ -1195,7 +1195,7 @@ export const NOTES_Y5_ZOONOSES = {
             '🚧 รอเติม — **Giardiasis** (cyst/trophozoite, waterborne, dx ZN stain/PCR/Ag test)',
             '🚧 รอเติม — **Cryptosporidiosis** (oocyst smaller than RBC, immunocompromised risk, dx ZN/IFA/PCR)',
             '🚧 รอเติม — **Leishmaniosis** (promastigote/amastigote, sandfly vector, cutaneous vs visceral, Thailand endemic, dx LST/serology/PCR)',
-            '⭐ Priority สูง — Vet 82 final ออกตรงมาก',
+            '⭐ ควรให้เวลากับหัวข้อนี้ — สรุปข้อสอบเก่า Vet 82 ครอบคลุมมาก',
           ] },
         ],
       },

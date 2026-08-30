@@ -1728,7 +1728,8 @@ export const SUBJECTS_BY_YEAR = {
       icon: '🩺', color: '#5d8b8b', semester: 1, has_questions: true, scaffold: false,
       vault_lecturers: ['chutirat-torsahakul', 'punyamanee-yamkate', 'krissda-boonaramrueng'],
       examFormat: {
-        weight: 'TBD — folder มี assignment "รายงานวิชา_การแก้ปัญหาฯ"',
+        // ยังไม่ทราบสัดส่วน — เดิมช่องนี้มี note ภายในที่หลุดขึ้นการ์ดวิชา
+        weight: '',
         notes: [
           '📌 ไม่มี past-paper สรุป ใน cache (อาจมีในเทอม) — Q seed ต้องอาศัย POA Y4 (COM III) pattern · Chutirat + Krissda สอนทั้งสองชั้นปี',
           '🩺 Format: case-based POA per chief complaint',
@@ -1918,7 +1919,7 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'Final',
         notes: [
-          '📚 มี past papers หนาแน่นที่สุดใน Y5: Zoonosis Final Vet 82 Myco/Protozoa "ตรงมาก", Zoonosis Final 82 อ่านสรุปนี้ตรง, 2 Bacterial zoonoses ซซดาวบันทึก Vet 84, สรุปข้อสอบพาร์ทพี่เอิน, จดข้อสอบพี่ซุป Mycozoonosis',
+          '📚 มี past papers หนาแน่นที่สุดใน Y5: สรุป Zoonosis Final Vet 82 Myco/Protozoa ครอบคลุมมาก, Zoonosis Final 82 อ่านสรุปนี้ตรง, 2 Bacterial zoonoses ซซดาวบันทึก Vet 84, สรุปข้อสอบพาร์ทพี่เอิน, จดข้อสอบพี่ซุป Mycozoonosis',
           '🏛 Course code อาจเป็น 3109504 หรือ 3109517 — slide เก่าใช้ 504, set ใหม่ใช้ 517',
           '👨‍🏫 Alongkorn = VPH dept head, anchored',
         ],
@@ -1932,14 +1933,14 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'zoo-vbz', label: 'Vector-borne viral zoonosis', icon: '🦟', lecturer: 'TBD', lecturer_year: 2026 },
         { id: 'zoo-rabies', label: 'Rabies sampling & diagnosis', icon: '🐕', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'Slides ไม่แจก' },
         { id: 'zoo-epi-approach', label: 'Epidemiological approach to zoonoses', icon: '🔍', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
-        { id: 'zoo-mycoses', label: 'Mycoses (text + sporotrichosis)', icon: '🍄', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: '📌 Vet 82 final "ตรงมาก" — past paper density สูง' },
+        { id: 'zoo-mycoses', label: 'Mycoses (text + sporotrichosis)', icon: '🍄', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'อิงแนวสอบ Vet 82' },
         { id: 'zoo-prion', label: 'Prion diseases', icon: '🧠', lecturer: 'Taradon Luangtongkum', lecturer_year: 2026 },
-        { id: 'zoo-bacterial', label: 'Bacterial zoonoses', icon: '🦠', lecturer: 'Taradon Luangtongkum', lecturer_year: 2026, lecturerNote: '📌 Vet 84 ออก — ซซดาว' },
+        { id: 'zoo-bacterial', label: 'Bacterial zoonoses', icon: '🦠', lecturer: 'Taradon Luangtongkum', lecturer_year: 2026, lecturerNote: 'อิงแนวสอบ Vet 84 จากบันทึกหลังสอบของรุ่นพี่' },
         { id: 'zoo-rickettsial', label: 'Rickettsial zoonoses', icon: '🦠', lecturer: 'TBD', lecturer_year: 2026 },
         { id: 'zoo-eid-wildlife', label: 'Emerging Zoonotic Diseases & Wildlife', icon: '🦌', lecturer: 'Paisin Lekcharoen', lecturer_year: 2026 },
         { id: 'zoo-helminthic', label: 'Helminthic zoonoses', icon: '🪱', lecturer: 'TBD', lecturer_year: 2026 },
         { id: 'zoo-eid-cuvet', label: 'EID Zoonoses CU Vet', icon: '🏛', lecturer: 'TBD', lecturer_year: 2026 },
-        { id: 'zoo-protozoal', label: 'Protozoal zoonosis (Toxoplasmosis, Giardia, etc.)', icon: '🦠', lecturer: 'Woraporn Sukhumavasi', lecturer_year: 2026, lecturerNote: '📌 Vet 82 final ตรงมาก' },
+        { id: 'zoo-protozoal', label: 'Protozoal zoonosis (Toxoplasmosis, Giardia, etc.)', icon: '🦠', lecturer: 'Woraporn Sukhumavasi', lecturer_year: 2026, lecturerNote: 'อิงแนวสอบ Vet 82' },
       ] },
 
     { id: 'swine-clinic', code: '3107507', name: 'อายุรศาสตร์สุกร',
@@ -2162,6 +2163,20 @@ export const SUBJECTS = [
 // ──────────────────────────────────────────────────────────────────
 
 /** Returns Set of topic IDs flagged hidden for the given subject. */
+// A placeholder is not a fact. Fields like examFormat.weight are authored
+// ahead of the faculty announcing the real numbers, and 'TBD' was rendering
+// straight onto the subject card — six of sixteen cards read "📝 TBD", and one
+// carried an authoring note about the author's own folder. Say nothing rather
+// than show scaffolding: a missing line reads as "not announced yet", a "TBD"
+// reads as "this app is unfinished".
+const PLACEHOLDERS = /^(tbd|tba|n\/a|-|\?+)$/i;
+export function announced(value) {
+  if (typeof value !== 'string') return value || null;
+  const v = value.trim();
+  if (!v || PLACEHOLDERS.test(v) || /^tbd/i.test(v)) return null;
+  return v;
+}
+
 export function hiddenTopicIdsFor(subjectId) {
   const subj = SUBJECTS.find((s) => s.id === subjectId);
   if (!subj || !Array.isArray(subj.topics)) return new Set();
