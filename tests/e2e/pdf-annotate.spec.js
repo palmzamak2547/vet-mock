@@ -107,6 +107,28 @@ test('a stroke that is drawn is a stroke that is stored', async ({ page }) => {
   expect(rec.strokesOnPage1, 'ink was on the canvas but the record held no strokes').toBe(1);
 });
 
+
+test('a stroke made a moment before leaving is not thrown away', async ({ page }) => {
+  // The exit path used to CANCEL the pending autosave and then unmount, so the
+  // flush that exists to catch exactly this found no timer and wrote nothing.
+  // Measured at the time: draw, leave 60 ms later, 0 strokes in storage.
+  await openReaderWithPdf(page);
+  const box = await overlayBox(page);
+  const y = box.y + box.h * 0.3;
+  await page.mouse.move(box.x + 30, y);
+  await page.mouse.down();
+  for (let i = 1; i <= 15; i++) await page.mouse.move(box.x + 30 + i * ((box.w - 60) / 15), y);
+  await page.mouse.up();
+
+  // Well inside the 500 ms autosave debounce.
+  await page.waitForTimeout(60);
+  await page.locator('button:has-text("เปลี่ยน PDF")').first().click();
+  await page.waitForTimeout(1500);
+
+  const stored = await storedRecord(page);
+  expect(stored.strokesOnPage1, 'leaving the reader discarded the last stroke').toBe(1);
+});
+
 test('undo removes ink and redo puts the same ink back', async ({ page }) => {
   await openReaderWithPdf(page);
   const box = await overlayBox(page);

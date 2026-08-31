@@ -25,7 +25,7 @@
 // two-finger pinch is handled here rather than by the browser.
 // ============================================================
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
@@ -169,7 +169,21 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const pageCacheRef = useRef(new Map()); // `${hash}:${page}@${scale}x${dpr}` -> ImageBitmap
   const prerenderRef = useRef(null);
   const panRef = useRef(null);
+  // Apple Pencil's own double-tap is native-only: it arrives through
+  // UIPencilInteraction in UIKit and is not exposed to JavaScript in Safari
+  // web content at all. What a page CAN see is the nib itself tapping the
+  // glass, so the same gesture is offered from the same hand — two quick taps
+  // of the tip toggles the eraser, which is what the Pencil's default setting
+  // does natively.
+  const tapRef = useRef({ at: 0, x: 0, y: 0 });
+  const [sawDoubleTap, setSawDoubleTap] = useState(false);
+  // What to come back to when the eraser is toggled off.
+  const lastPenToolRef = useRef('pen');
   const footRef = useRef(null);
+  const rootRef = useRef(null);
+  // The flush lives inside an effect (it needs the listeners' lifetime) but
+  // the exit path needs to call it too.
+  const flushRef = useRef(null);
   // Page text, extracted once per document and reused for every later search.
   const textRef = useRef({ hash: null, pages: null });
   const searchAbortRef = useRef(0);
@@ -256,13 +270,16 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       });
       refreshRecent();
       if (existing && Object.keys(restoredStrokes).length > 0) {
-        showToast('โหลด annotation เดิมกลับมาแล้ว ✓', 3000);
+        showToast('นำรอยเขียนเดิมกลับมาแล้ว', 3000);
       } else {
-        showToast('อัปโหลดไฟล์เดิมอีกครั้งเพื่อทำต่อในรอบหน้า', 4500);
+        showToast('รอบหน้าเลือกไฟล์เดิมอีกครั้ง แล้วรอยเขียนจะกลับมาเอง', 4500);
       }
     } catch (e) {
       console.error('[pdf-annotate] load failed:', e);
-      setError('โหลด PDF ไม่สำเร็จ: ' + (e?.message || 'ไฟล์อาจเสีย'));
+      // pdf.js says things like "Invalid PDF structure." — true, in English,
+      // and not something a student can act on. The remote path already went
+      // through thaiError; this one had been left behind.
+      setError(thaiError(e, 'เปิดไฟล์นี้ไม่สำเร็จ ไฟล์อาจเสียหรือไม่ใช่ PDF'));
     } finally {
       setLoading(false);
       setLoadingMsg('');
@@ -348,7 +365,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       if (startPage > 1) {
         showToast(`เปิดต่อที่หน้า ${startPage} ✓`, 2500);
       } else if (existing && Object.keys(restoredStrokes).length > 0) {
-        showToast('โหลด annotation เดิมกลับมาแล้ว ✓', 3000);
+        showToast('นำรอยเขียนเดิมกลับมาแล้ว', 3000);
       }
     } catch (e) {
       console.error('[pdf-annotate] remote load failed:', e);
@@ -680,6 +697,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   function onPointerDown(e) {
     if (!pdfDoc) return;
+    // Anything aimed at the page dismisses the panels, the way a menu closes
+    // when you go back to work. Done here rather than with a document-level
+    // listener so it cannot fight the toolbar's own buttons.
+    if (menuOpen) setMenuOpen(false);
+    if (optionsOpen) setOptionsOpen(false);
     if (gestureDown(e)) return;
     // A stylus anywhere on the page proves this device has one, which is what
     // makes offering pen-only mode honest rather than a setting for hardware
@@ -815,6 +837,46 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   function onPointerUp(e) {
+    // A tap is a pointer that went down and came up in the same place, quickly
+    // and without drawing anything worth keeping. Two of them in a row, from a
+    // stylus, mean the reader wants the eraser.
+    if (e?.pointerType === 'pen' && drawingRef.current?.on) {
+      const st = drawingRef.current.stroke;
+      const moved = st?.points?.length > 1
+        ? Math.hypot(st.points[st.points.length - 1][0] - st.points[0][0],
+                     st.points[st.points.length - 1][1] - st.points[0][1])
+        : 0;
+      const now = Date.now();
+      const near = Math.hypot(e.clientX - tapRef.current.x, e.clientY - tapRef.current.y);
+      if (moved < 0.01) {
+        if (now - tapRef.current.at < 400 && near < 36) {
+          // Second tap: switch, and take back the two dots the taps left.
+          tapRef.current = { at: 0, x: 0, y: 0 };
+          drawingRef.current = { on: false, points: [] };
+          setStrokesByPage((prev) => {
+            const list = prev[currentPage] || [];
+            // The FIRST tap was committed as a stroke; drop it too.
+            const trimmed = list.length && (list[list.length - 1].points || []).length <= 2
+              ? list.slice(0, -1) : list;
+            const next = { ...prev, [currentPage]: trimmed };
+            currentStrokesRef.current = trimmed;
+            redrawOverlay(trimmed);
+            const dropped = list.length !== trimmed.length ? list[list.length - 1] : null;
+            scheduleSave(next, dropped?.id ? addTomb(dropped.id) : undefined);
+            return next;
+          });
+          setTool((t) => (t === 'eraser' ? (lastPenToolRef.current || 'pen') : (lastPenToolRef.current = t, 'eraser')));
+          if (!sawDoubleTap) {
+            setSawDoubleTap(true);
+            showToast('เคาะปลายปากกาสองทีเพื่อสลับยางลบ (Apple Pencil ไม่ส่งการเคาะที่ตัวปากกามาให้เว็บ)', 5000);
+          }
+          return;
+        }
+        tapRef.current = { at: now, x: e.clientX, y: e.clientY };
+      } else {
+        tapRef.current = { at: 0, x: 0, y: 0 };
+      }
+    }
     if (e && panRef.current && e.pointerId === panRef.current.id) {
       panRef.current = null;
       return;
@@ -825,6 +887,16 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (e && e.pointerId !== undefined && e.pointerId !== ref.pointerId) return;
     drawingRef.current = { on: false, points: [] };
     if (!ref.stroke || ref.stroke.points.length < 1) return;
+    // A tap never reaches onPointerMove, which is the only thing that paints a
+    // stroke as it is made — so a single-point stroke went into the record and
+    // never appeared until something else forced a redraw (a page flip, an
+    // undo, a zoom). Pre-existing; the dot is drawn here instead.
+    if (ref.stroke.points.length < 2) {
+      const c = overlayCanvasRef.current;
+      const ctx = c && inkCtx();
+      if (ctx) drawStroke(ctx, ref.stroke, c.width, c.height,
+        Math.min(window.devicePixelRatio || 1, 2) * zoom);
+    }
     setStrokesByPage((prev) => {
       const pageList = [...(prev[currentPage] || []), ref.stroke];
       const next = { ...prev, [currentPage]: pageList };
@@ -998,6 +1070,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const onKey = (e) => {
       const t = e.target;
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (e.key === 'Escape' && (optionsOpen || menuOpen || searchOpen)) {
+        e.preventDefault();
+        setOptionsOpen(false);
+        setMenuOpen(false);
+        // Escape on the search closes the panel but keeps the results: a
+        // reader who has just found page 41 has not asked to lose it.
+        if (!optionsOpen && !menuOpen) setSearchOpen(false);
+        return;
+      }
       const mod = e.metaKey || e.ctrlKey;
       if (mod && e.key.toLowerCase() === 'z') {
         e.preventDefault();
@@ -1013,36 +1094,48 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pdfDoc, currentPage, redoStack, strokesByPage]);
+  }, [pdfDoc, currentPage, redoStack, strokesByPage, optionsOpen, menuOpen, searchOpen]);
 
   // Height of the page frame: everything left between the top of the frame and
   // the bottom of the window, less the page-nav bar and any bottom chrome.
-  useEffect(() => {
+  //
+  // Measured against the frame's CURRENT top edge every time the chrome above
+  // it can change. The first version measured once and observed the frame's
+  // own parent, which never resizes — so opening the colour panel, the
+  // overflow menu and search on a phone pushed the frame 56 px past the bottom
+  // of the window and the page started scrolling again, which is the exact
+  // thing this height exists to prevent (measured: top 204 -> 379, height
+  // stuck at 341).
+  useLayoutEffect(() => {
     if (!pdfDoc) return undefined;
     const measure = () => {
       const wrap = wrapperRef.current;
       if (!wrap) return;
-      const top = wrap.getBoundingClientRect().top + window.scrollY - (window.scrollY);
+      // Read the top from the element itself: it moves as rows open and close
+      // above it, and nothing else reports that.
+      const top = wrap.getBoundingClientRect().top;
       const navH = footRef.current?.getBoundingClientRect().height || 0;
       const bottom = parseFloat(
         getComputedStyle(document.documentElement).getPropertyValue('--vmx-bottom-nav-h'),
       ) || 0;
-      const h = Math.max(240, window.innerHeight - top - navH - bottom);
-      setFrameH(h);
+      const h = Math.max(180, window.innerHeight - top - navH - bottom);
+      setFrameH((prev) => (prev !== null && Math.abs(prev - h) < 1 ? prev : h));
     };
     measure();
     window.addEventListener('resize', measure);
     window.addEventListener('orientationchange', measure);
-    // The toolbar wraps to more rows as the window narrows, which moves the
-    // frame's top edge without firing anything else.
     const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
-    if (ro && wrapperRef.current?.parentElement) ro.observe(wrapperRef.current.parentElement);
+    // Observe the reader's root, not the frame's parent: what changes height
+    // is the stack of rows ABOVE the frame, and the parent is sized by them.
+    if (ro && rootRef.current) ro.observe(rootRef.current);
     return () => {
       window.removeEventListener('resize', measure);
       window.removeEventListener('orientationchange', measure);
       ro?.disconnect();
     };
-  }, [pdfDoc, sidebarOpen]);
+    // Every piece of chrome that can open above the frame is a dependency,
+    // because each one moves the frame's top edge.
+  }, [pdfDoc, sidebarOpen, optionsOpen, menuOpen, searchOpen, hits, hitIdx, sync.status]);
 
   // ── Search ─────────────────────────────────────────────────
   // pdf.js already carries the text layer, so this needs no new dependency and
@@ -1113,6 +1206,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setQuery('');
     setHits(null);
   }, [fileHash]);
+
+  // Choosing a tool closes whatever was open. The colour panel is hidden while
+  // the eraser is selected, so leaving `optionsOpen` true meant it sprang back
+  // by itself the moment the reader picked the pen up again.
+  function pickTool(next) {
+    setTool(next);
+    setOptionsOpen(false);
+    setMenuOpen(false);
+  }
 
   // ── Zoom ───────────────────────────────────────────────────
   // Fixed steps rather than a free slider: every step is a scale the page
@@ -1227,7 +1329,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const entry = recent.find((r) => r.hash === hash);
     if (!entry) return;
     setError(null);
-    showToast(`อัปโหลด "${entry.fileName}" อีกครั้งเพื่อทำต่อ`, 4000);
+    showToast(`เลือกไฟล์ "${entry.fileName}" อีกครั้งเพื่อเขียนต่อ`, 4000);
     fileInputRef.current?.click();
   }
 
@@ -1237,10 +1339,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   function backToEmpty() {
-    if (saveTimerRef.current) {
-      clearTimeout(saveTimerRef.current);
-      saveTimerRef.current = null;
-    }
+    // Flush, do not cancel. Cancelling here is what threw away a stroke made
+    // in the half second before leaving.
+    flushRef.current?.();
     // A library document has no local file behind it, so the drag-drop empty
     // state would be a dead end — send the reader back where they came from.
     if (onExit) { saveNow(); onExit(); return; }
@@ -1265,11 +1366,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // document — so it subscribes once per document instead of once per
     // stroke, and what it writes is always the newest thing there is.
     const flush = () => {
-      if (!saveTimerRef.current) return;
       clearTimeout(saveTimerRef.current);
       saveTimerRef.current = null;
       const l = latestRef.current;
       if (!l.fileHash) return;
+      // Writes whether or not a save was pending. A record written twice is
+      // the same record; a record never written is an afternoon of notes.
       saveAnnotations(l.fileHash, {
         fileName: l.fileName,
         pageCount: l.pageCount,
@@ -1278,6 +1380,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         lastPage: l.currentPage,
       }).then(() => flushPushes()).catch(() => {});
     };
+    flushRef.current = flush;
     const onHide = () => { if (document.visibilityState === 'hidden') flush(); };
     document.addEventListener('visibilitychange', onHide);
     window.addEventListener('pagehide', flush);
@@ -1287,6 +1390,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // Leaving the reader is also a way out — going back to the shelf must
       // not discard a stroke made in the last half second.
       flush();
+      flushRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pdfDoc, fileHash]);
@@ -1320,14 +1424,16 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   if (!pdfDoc) {
     return (
       <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
-        <BackBar onBack={goHome} label="กลับหน้าแรก" subtitle="PDF + วาดทับ" />
+        <BackBar onBack={goHome} label="กลับหน้าแรก" subtitle="เขียนทับ PDF" />
         <div style={{ padding: '8px 16px 24px', maxWidth: 720, margin: '0 auto', width: '100%' }}>
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            📑 Lecture-slide / textbook annotation
+            สไลด์บรรยาย และตำรา
           </div>
-          <h1 style={{ margin: '6px 0 4px', fontSize: 22 }}>อัปโหลด PDF แล้วเขียนทับ</h1>
+          <h1 style={{ margin: '6px 0 4px', fontSize: 22 }}>เปิด PDF แล้วเขียนทับได้เลย</h1>
           <p style={{ color: 'var(--clr-ink-soft)', fontSize: 13, margin: '0 0 16px' }}>
-            ลากไฟล์มาวาง หรือกดเลือกไฟล์, บันทึก stroke อัตโนมัติในเบราว์เซอร์, ตัวไฟล์ PDF ไม่ถูกเก็บไว้ (อัปโหลดอีกครั้งเพื่อทำต่อ)
+            ลากไฟล์มาวางหรือกดเลือกไฟล์ รอยเขียนบันทึกให้เองในเครื่อง
+            และถ้าเข้าสู่ระบบไว้จะตามไปทุกเครื่องด้วย ส่วนตัวไฟล์ PDF ไม่ได้ถูกเก็บไว้
+            จึงต้องเลือกไฟล์เดิมอีกครั้งเมื่อจะเขียนต่อ
           </p>
 
           <label
@@ -1348,7 +1454,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               transition: 'background 120ms, border-color 120ms',
             }}
           >
-            <span style={{ fontSize: 32 }}>📑</span>
+            <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)' }}>
+              <NavIcon name="files" size={30} />
+            </span>
             <strong style={{ fontSize: 15 }}>ลาก PDF มาวางที่นี่</strong>
             <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หรือกดเพื่อเลือกไฟล์, สูงสุด {SIZE_HARD_MB} MB</span>
             <input
@@ -1386,7 +1494,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           {recent.length > 0 && (
             <div style={{ marginTop: 24 }}>
               <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
-                PDF ล่าสุด (annotation ที่บันทึกไว้)
+                ไฟล์ล่าสุด และรอยเขียนที่บันทึกไว้
               </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {recent.map((r) => (
@@ -1408,26 +1516,28 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
                         cursor: 'pointer',
                       }}
                     >
-                      <span style={{ fontSize: 18 }}>📄</span>
+                      <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)', display: 'flex' }}>
+                        <NavIcon name="files" size={18} />
+                      </span>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: 14, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.fileName}</div>
                         <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
-                          {r.pageCount} หน้า, {r.annotatedPageCount} หน้ามี annotation, {fmtDate(r.lastOpened)}
+                          {r.pageCount} หน้า, เขียนไว้ {r.annotatedPageCount} หน้า, {fmtDate(r.lastOpened)}
                         </div>
                       </div>
                       <button
                         type="button"
                         className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                         onClick={(e) => removeRecent(r.hash, e)}
-                        title="ลบ annotation นี้"
-                        aria-label={`ลบ annotation ของ ${r.fileName}`}
-                      >🗑</button>
+                        title="ลบรอยเขียนของไฟล์นี้"
+                        aria-label={`ลบรอยเขียนของ ${r.fileName}`}
+                      ><NavIcon name="trash" size={16} /></button>
                     </div>
                   </li>
                 ))}
               </ul>
               <p style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
-                ⓘ ตัวไฟล์ PDF เก็บไว้ไม่ได้ในเบราว์เซอร์ — อัปโหลดไฟล์เดิมอีกครั้ง strokes จะกลับมาเอง
+                เบราว์เซอร์เก็บตัวไฟล์ PDF ไว้ให้ไม่ได้ เลือกไฟล์เดิมอีกครั้งแล้วรอยเขียนจะกลับมาเอง
               </p>
             </div>
           )}
@@ -1439,7 +1549,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   // ── Viewing state ──────────────────────────────────────────
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+    <div ref={rootRef} style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
       <BackBar onBack={backToEmpty} label="เปลี่ยน PDF" subtitle={fileName} />
       {/* Toolbar — one row.
           It used to be a wall of labelled chips: 207 px tall on a phone, which
@@ -1458,9 +1568,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         flexWrap: 'nowrap',
         overflowX: 'auto',
       }}>
-        <ToolButton icon="pen" label="ปากกา" active={tool === 'pen'} onClick={() => setTool('pen')} />
-        <ToolButton icon="highlighter" label="ปากกาไฮไลต์" active={tool === 'highlighter'} onClick={() => setTool('highlighter')} />
-        <ToolButton icon="eraser" label="ยางลบ" active={tool === 'eraser'} onClick={() => setTool('eraser')} />
+        <ToolButton icon="pen" label="ปากกา" active={tool === 'pen'} onClick={() => pickTool('pen')} />
+        <ToolButton icon="highlighter" label="ปากกาไฮไลต์" active={tool === 'highlighter'} onClick={() => pickTool('highlighter')} />
+        <ToolButton icon="eraser" label="ยางลบ" active={tool === 'eraser'} onClick={() => pickTool('eraser')} />
 
         {/* The swatch is both the current colour and the way to change it. */}
         {tool !== 'eraser' && (
