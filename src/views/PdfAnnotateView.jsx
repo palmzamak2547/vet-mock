@@ -40,6 +40,7 @@ import {
   peekAnnotations,
 } from '../lib/pdf-annotations.js';
 import { pullAndMerge, schedulePush, flushPushes, onSyncState, syncState } from '../lib/annotation-sync.js';
+import { searchPages, pageTextFromItems } from '../lib/thai-search.js';
 
 const PEN_COLORS = [
   { id: 'red',  rgb: '#c0392b', name: 'แดง' },
@@ -136,6 +137,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // Where a hovering stylus is pointing, in client coordinates. Null on every
   // device that cannot hover, which is most of them.
   const [hoverPt, setHover] = useState(null);
+  // Finding the slide about a thing is the single most common reason to open
+  // a lecture deck, and until now the only way was flipping pages by hand.
+  const [query, setQuery] = useState('');
+  const [hits, setHits] = useState(null); // null = not searched, [] = nothing found
+  const [hitIdx, setHitIdx] = useState(0);
+  const [searching, setSearching] = useState(false);
+  // Handwriting is not recognised — no OCR here, and none pretended. What IS
+  // exact is WHERE the writing is: the strokes are vectors with page numbers,
+  // so "the slide about rabies that I annotated" is answerable with certainty
+  // while "what did I write" is not.
+  const [onlyMine, setOnlyMine] = useState(false);
   const [sync, setSync] = useState(() => syncState());
 
   const fileInputRef = useRef(null);
@@ -154,6 +166,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const prerenderRef = useRef(null);
   const panRef = useRef(null);
   const footRef = useRef(null);
+  // Page text, extracted once per document and reused for every later search.
+  const textRef = useRef({ hash: null, pages: null });
+  const searchAbortRef = useRef(0);
   const [frameH, setFrameH] = useState(null);
   // What a flush should write, always current. A flush that closes over
   // render-time state writes whatever was true when its effect last ran, and
@@ -1025,6 +1040,76 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     };
   }, [pdfDoc, sidebarOpen]);
 
+  // ── Search ─────────────────────────────────────────────────
+  // pdf.js already carries the text layer, so this needs no new dependency and
+  // no server round trip: pull each page's text content once, cache it for the
+  // document, and match against it.
+  //
+  // Extraction is incremental and abortable — a 300-page textbook must not
+  // freeze the reader while it is read, and typing a new query must not leave
+  // the old one still working in the background.
+  async function ensureText() {
+    if (!pdfDoc) return [];
+    if (textRef.current.hash === fileHash && textRef.current.pages) return textRef.current.pages;
+    const pages = [];
+    const token = ++searchAbortRef.current;
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
+      if (token !== searchAbortRef.current) return pages;
+      try {
+        const page = await pdfDoc.getPage(i);
+        const tc = await page.getTextContent();
+        pages[i] = pageTextFromItems(tc.items);
+      } catch {
+        pages[i] = '';
+      }
+    }
+    textRef.current = { hash: fileHash, pages };
+    return pages;
+  }
+
+  async function runSearch(q) {
+    const needle = q.trim();
+    if (!needle) { setHits(null); return; }
+    setSearching(true);
+    try {
+      const pages = await ensureText();
+      // lib/thai-search.js, not indexOf: a Thai word broken across pdf.js text
+      // runs, a zero-width space, a decomposed สระอำ or a Thai digit each make
+      // a plain substring match come back empty on text that is right there on
+      // the slide.
+      const found = searchPages(pages, needle);
+      setHits(found);
+      setHitIdx(0);
+      if (found.length) setCurrentPage(found[0].page);
+    } finally {
+      setSearching(false);
+    }
+  }
+
+  // Results, with each one marked according to whether this reader wrote on
+  // that page, and optionally narrowed to those.
+  const shownHits = (() => {
+    if (!hits) return null;
+    const marked = hits.map((h) => ({ ...h, mine: (strokesByPage[h.page] || []).length > 0 }));
+    return onlyMine ? marked.filter((h) => h.mine) : marked;
+  })();
+
+  function gotoHit(delta) {
+    if (!shownHits?.length) return;
+    const next = (hitIdx + delta + shownHits.length) % shownHits.length;
+    setHitIdx(next);
+    setCurrentPage(shownHits[next].page);
+  }
+
+  // A new document invalidates the extracted text, and abandons any extraction
+  // still running for the previous one.
+  useEffect(() => {
+    searchAbortRef.current += 1;
+    textRef.current = { hash: null, pages: null };
+    setQuery('');
+    setHits(null);
+  }, [fileHash]);
+
   // ── Zoom ───────────────────────────────────────────────────
   // Fixed steps rather than a free slider: every step is a scale the page
   // cache can hold and reuse, and a student pressing + wants a predictable
@@ -1427,6 +1512,72 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           title="แสดง / ซ่อนหน้าทั้งหมด"
         >หน้า ({pageCount})</button>
       </div>
+
+      {/* Search. Deliberately its own row rather than another chip in the
+          toolbar: it is a different kind of action, and on a phone the
+          toolbar is already two rows deep. */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px',
+        borderBottom: '1px solid var(--clr-border, #e1ddd2)',
+        background: 'var(--clr-bg, #fff)', flexWrap: 'wrap',
+      }}>
+        <form
+          onSubmit={(e) => { e.preventDefault(); runSearch(query); }}
+          style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1, minWidth: 200 }}
+        >
+          <label htmlFor="vmx-pdf-search" className="vmx-sr-only">ค้นหาในเอกสาร</label>
+          <input
+            id="vmx-pdf-search"
+            type="search"
+            value={query}
+            onChange={(e) => { setQuery(e.target.value); if (!e.target.value.trim()) setHits(null); }}
+            placeholder={`ค้นหาในเอกสาร ${pageCount} หน้า`}
+            style={{
+              flex: 1, minWidth: 0, minHeight: 36, padding: '6px 10px',
+              border: '1px solid var(--clr-border, #d8d3c4)', borderRadius: 8,
+              background: 'var(--clr-surface, #fff)', color: 'var(--clr-ink)', fontSize: 13,
+            }}
+          />
+          <button type="submit" className="vmx-btn vmx-btn-sm" disabled={searching || !query.trim()}>
+            {searching ? 'กำลังค้น…' : 'ค้นหา'}
+          </button>
+          <button
+            type="button"
+            className={`vmx-chip ${onlyMine ? 'active' : ''}`}
+            aria-pressed={onlyMine}
+            onClick={() => { setOnlyMine((v) => !v); setHitIdx(0); }}
+            title="แสดงเฉพาะหน้าที่คุณเขียนไว้ ตำแหน่งรอยเขียนเก็บไว้แน่นอน ไม่ได้เดาจากลายมือ"
+          >✍ หน้าที่ผมเขียน</button>
+        </form>
+        {shownHits && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            {shownHits.length === 0 ? (
+              <span>{onlyMine ? 'ไม่พบคำนี้ในหน้าที่คุณเขียนไว้' : 'ไม่พบคำนี้ในเอกสาร'}</span>
+            ) : (
+              <>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => gotoHit(-1)} aria-label="ผลก่อนหน้า">↑</button>
+                <span style={{ fontFamily: 'var(--vmx-mono)', whiteSpace: 'nowrap' }}>
+                  {hitIdx + 1}/{shownHits.length} หน้า {shownHits[hitIdx]?.page}
+                  {shownHits[hitIdx]?.mine ? ' ✍' : ''}
+                </span>
+                {shownHits.some((h) => h.loose) && (
+                  <span title="ไม่พบคำที่ตรงทุกตัว จึงค้นแบบไม่สนวรรณยุกต์และสระบน-ล่างให้">
+                    เทียบแบบไม่สนวรรณยุกต์
+                  </span>
+                )}
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => gotoHit(1)} aria-label="ผลถัดไป">↓</button>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+      {shownHits?.length > 0 && shownHits[hitIdx]?.quote && (
+        <div style={{
+          padding: '4px 12px 8px', fontSize: 12, color: 'var(--clr-ink-soft)',
+          borderBottom: '1px solid var(--clr-border, #e1ddd2)',
+          overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+        }}>{shownHits[hitIdx].quote}</div>
+      )}
 
       {/* Body — sidebar + page canvas */}
       <div className="vmx-pdf-body" style={{ flex: 1, display: 'flex', minHeight: 0 }}>
