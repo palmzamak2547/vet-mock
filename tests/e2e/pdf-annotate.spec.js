@@ -25,10 +25,21 @@ const TINY_PDF = Buffer.from(
   + '3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 400 500]>>endobj\n'
   + 'trailer<</Root 1 0 R>>\n', 'latin1');
 
-async function openReaderWithPdf(page) {
+// Multi-page fixture for the scrolling column.
+const manyPagePdf = (n) => Buffer.from(
+  '%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n'
+  + '2 0 obj<</Type/Pages/Kids['
+  + Array.from({ length: n }, (_, i) => (i + 3) + ' 0 R').join(' ')
+  + ']/Count ' + n + '>>endobj\n'
+  + Array.from({ length: n }, (_, i) => (i + 3) + ' 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 400 500]>>endobj\n').join('')
+  + 'trailer<</Root 1 0 R>>\n', 'latin1');
+
+async function openReaderWithPdf(page, pages = 1) {
   await page.goto('/app/tools/pdf');
   await page.locator('input[type=file]').setInputFiles({
-    name: 'e2e.pdf', mimeType: 'application/pdf', buffer: TINY_PDF,
+    name: 'e2e.pdf',
+    mimeType: 'application/pdf',
+    buffer: pages > 1 ? manyPagePdf(pages) : TINY_PDF,
   });
   await page.waitForFunction(() => document.querySelectorAll('canvas').length >= 2, null, { timeout: 30000 });
   await page.waitForTimeout(600);
@@ -127,6 +138,64 @@ test('a stroke made a moment before leaving is not thrown away', async ({ page }
 
   const stored = await storedRecord(page);
   expect(stored.strokesOnPage1, 'leaving the reader discarded the last stroke').toBe(1);
+});
+
+
+test('the reader is a scrolling column and a stroke lands on the page it was drawn on', async ({ page }) => {
+  // `currentPage` follows the reader's eye down the column now, so the page a
+  // stroke belongs to has to come from the canvas the pointer was on. Get that
+  // wrong and a slow stroke near a page boundary is filed under whichever page
+  // scrolled into view while the pen was still down.
+  await openReaderWithPdf(page, 4);
+  await page.waitForTimeout(600);
+  expect(await page.locator('[data-page]').count(),
+    'the column did not render one row per page').toBe(4);
+
+  await page.evaluate(() => {
+    const el = document.querySelector('[data-page="3"]');
+    el.parentElement.scrollTop = el.offsetTop - 8;
+  });
+  await page.waitForTimeout(1400);
+
+  const box = await page.evaluate(() => {
+    const el = document.querySelector('[data-page="3"]');
+    const c = el.querySelectorAll('canvas')[1];
+    const r = c.getBoundingClientRect();
+    const w = el.parentElement.getBoundingClientRect();
+    return { x: r.left, y: Math.max(r.top, w.top) + 30, w: r.width };
+  });
+  await page.mouse.move(box.x + 40, box.y);
+  await page.mouse.down();
+  for (let i = 1; i <= 15; i++) await page.mouse.move(box.x + 40 + i * ((box.w - 80) / 15), box.y);
+  await page.mouse.up();
+  await page.waitForTimeout(1600);
+
+  const filed = await page.evaluate(async () => {
+    const db = await new Promise((res) => {
+      const r = indexedDB.open('vmx-pdf-annotations');
+      r.onsuccess = () => res(r.result);
+    });
+    const recs = await new Promise((res) => {
+      const q = db.transaction('docs').objectStore('docs').getAll();
+      q.onsuccess = () => res(q.result);
+    });
+    const byPage = recs[0]?.strokesByPage || {};
+    return Object.entries(byPage).filter(([, a]) => a.length).map(([k, a]) => k + ':' + a.length).join();
+  });
+  expect(filed, 'the stroke was filed under the wrong page').toBe('3:1');
+});
+
+test('distant pages let go of their bitmaps', async ({ page }) => {
+  // A 300-page textbook cannot hold 300 rasters, and on iOS a tab that tries
+  // is killed with no error and no unload event.
+  await openReaderWithPdf(page, 8);
+  await page.waitForTimeout(1600);
+  const rendered = () => page.evaluate(() => [...document.querySelectorAll('[data-page]')]
+    .filter((el) => (el.querySelector('canvas')?.width || 0) > 10).length);
+  expect(await rendered(), 'every page rendered at once').toBeLessThan(8);
+  await page.evaluate(() => { document.querySelector('[data-page]').parentElement.scrollTop = 99999; });
+  await page.waitForTimeout(1600);
+  expect(await rendered(), 'pages left behind kept their bitmaps').toBeLessThan(8);
 });
 
 test('undo removes ink and redo puts the same ink back', async ({ page }) => {

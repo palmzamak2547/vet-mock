@@ -30,6 +30,8 @@ import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
+import PdfPage from '../components/PdfPage.jsx';
+import { drawStroke, applyBrush, resetBrush, widthAt, strokeAsOnePath, redrawInk, tiltOf, inkDpr } from '../lib/ink.js';
 import {
   hashFile,
   loadAnnotations,
@@ -156,8 +158,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [sync, setSync] = useState(() => syncState());
 
   const fileInputRef = useRef(null);
-  const baseCanvasRef = useRef(null);
-  const overlayCanvasRef = useRef(null);
   const wrapperRef = useRef(null);
   const drawingRef = useRef({ on: false, points: [] });
   const renderTaskRef = useRef(null);
@@ -170,6 +170,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const pageCacheRef = useRef(new Map()); // `${hash}:${page}@${scale}x${dpr}` -> ImageBitmap
   const prerenderRef = useRef(null);
   const panRef = useRef(null);
+  // The page a stroke is being drawn ON, which is NOT necessarily the page
+  // the toolbar calls current: `currentPage` follows the reader's eye down
+  // the column, and a slow stroke near a page boundary would otherwise be
+  // filed under whichever page happened to scroll into view while the pen was
+  // still down.
+  const drawPageRef = useRef(1);
   // Apple Pencil's own double-tap is native-only: it arrives through
   // UIPencilInteraction in UIKit and is not exposed to JavaScript in Safari
   // web content at all. What a page CAN see is the nib itself tapping the
@@ -263,6 +269,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const restoredStrokes = existing?.strokesByPage || {};
       setDeleted(existing?.deleted || []);
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), doc.numPages);
+      resumeTo.current = startPage > 1 ? startPage : 0;
       setPdfDoc(doc);
       setFileHash(hash);
       setFileName(file.name);
@@ -358,6 +365,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // Resume where the reader left off — a 300-page textbook that always
       // reopened at page 1 made every return trip start with scrolling.
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), pdf.numPages);
+      resumeTo.current = startPage > 1 ? startPage : 0;
       setPdfDoc(pdf);
       setFileHash(hash);
       setFileName(doc.fileName || 'document.pdf');
@@ -412,78 +420,99 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, pdfDoc, fileHash]);
 
-  // ── Render current page ────────────────────────────────────
-  useEffect(() => {
-    if (!pdfDoc) return;
+  // ── The scale every page is drawn at ───────────────────────
+  // One number for the whole column: fit-to-width of the frame, times the
+  // reader's zoom. Measured from the frame rather than the window because the
+  // thumbnail rail takes a slice of it.
+  const [fitScale, setFitScale] = useState(1);
+  useLayoutEffect(() => {
+    if (!pdfDoc) return undefined;
     let cancelled = false;
-    (async () => {
+    const measure = async () => {
+      const wrap = wrapperRef.current;
+      if (!wrap) return;
       try {
-        // Cancel any in-flight render before starting a new one — pdfjs
-        // throws "Rendering cancelled" otherwise when the user flips
-        // pages quickly through the thumbnail sidebar.
-        if (renderTaskRef.current) {
-          try { renderTaskRef.current.cancel(); } catch {}
-          renderTaskRef.current = null;
-        }
-        const page = await pdfDoc.getPage(currentPage);
+        const page = await pdfDoc.getPage(1);
         if (cancelled) return;
-        const wrap = wrapperRef.current;
-        const baseCanvas = baseCanvasRef.current;
-        const overlay = overlayCanvasRef.current;
-        if (!baseCanvas || !overlay) return;
+        const natural = page.getViewport({ scale: 1 });
+        const avail = Math.max(160, wrap.clientWidth - 24);
+        const fit = Math.min(2, Math.max(0.4, avail / natural.width));
+        setFitScale((prev) => (Math.abs(prev - fit) < 0.001 ? prev : fit));
+      } catch { /* the column falls back to its default scale */ }
+    };
+    measure();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+    if (ro && wrapperRef.current) ro.observe(wrapperRef.current);
+    window.addEventListener('resize', measure);
+    return () => { cancelled = true; ro?.disconnect(); window.removeEventListener('resize', measure); };
+  }, [pdfDoc, sidebarOpen]);
 
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        // Fit-to-width relative to the available wrapper, clamped so the
-        // canvas is never larger than the PDF's intrinsic 1.5× scale.
-        const wrapW = (wrap?.clientWidth || 800) - 16;
-        const naturalViewport = page.getViewport({ scale: 1 });
-        const fitScale = Math.min(2, Math.max(0.6, wrapW / naturalViewport.width)) * zoom;
-        const viewport = page.getViewport({ scale: fitScale });
+  const pageScale = fitScale * zoom;
 
-        const cssW = Math.floor(viewport.width);
-        const cssH = Math.floor(viewport.height);
-        baseCanvas.width = cssW * dpr;
-        baseCanvas.height = cssH * dpr;
-        baseCanvas.style.width = cssW + 'px';
-        baseCanvas.style.height = cssH + 'px';
-        overlay.width = cssW * dpr;
-        overlay.height = cssH * dpr;
-        overlay.style.width = cssW + 'px';
-        overlay.style.height = cssH + 'px';
-        // The canvas has its new size; put the reader back where they were
-        // looking before the scale changed.
-        applyAnchor();
-
-        const ctx = baseCanvas.getContext('2d');
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, baseCanvas.width, baseCanvas.height);
-
-        const cacheKey = `${fileHash || 'x'}:${currentPage}@${fitScale.toFixed(3)}x${dpr}`;
-        const cached = pageCacheRef.current.get(cacheKey);
-        if (cached) {
-          ctx.drawImage(cached, 0, 0);
-        } else {
-          const dprViewport = page.getViewport({ scale: fitScale * dpr });
-          const task = page.render({ canvasContext: ctx, viewport: dprViewport });
-          renderTaskRef.current = task;
-          await task.promise;
-          if (cancelled) return;
-          renderTaskRef.current = null;
-          cachePage(cacheKey, baseCanvas);
+  // ── Which page is being read ───────────────────────────────
+  // Derived from the scroll position rather than set by a button: in a
+  // scrolling column the current page is whichever one the reader is looking
+  // at, and everything keyed off it (undo, clear, the position that is
+  // remembered, the thumbnail highlight) should follow the eye.
+  const suppressScrollSync = useRef(0);
+  useEffect(() => {
+    const wrap = wrapperRef.current;
+    if (!wrap || !pdfDoc) return undefined;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        if (Date.now() < suppressScrollSync.current) return;
+        const mid = wrap.scrollTop + wrap.clientHeight * 0.35;
+        let best = 1;
+        for (const el of wrap.querySelectorAll('[data-page]')) {
+          if (el.offsetTop <= mid) best = Number(el.dataset.page);
+          else break;
         }
-        // Redraw saved strokes for this page on the overlay
-        redrawOverlay(strokesByPage[currentPage] || []);
-        // With the page on screen the worker is idle again — spend that idle
-        // on the page the reader is most likely to ask for next.
-        schedulePrerender(currentPage + 1, fitScale, dpr);
-      } catch (e) {
-        if (e?.name === 'RenderingCancelledException') return;
-        console.error('[pdf-annotate] render failed:', e);
+        setCurrentPage((prev) => (prev === best ? prev : best));
+      });
+    };
+    wrap.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => { wrap.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, [pdfDoc, pageCount]);
+
+  // Scrolls a page into view. `suppressScrollSync` stops the scroll listener
+  // from fighting the jump it is causing — without it, a smooth scroll to page
+  // 40 sets currentPage to every page it passes on the way.
+  const goToPage = useCallback((n, behavior = 'smooth') => {
+    const wrap = wrapperRef.current;
+    if (!wrap) return;
+    const target = wrap.querySelector(`[data-page="${n}"]`);
+    if (!target) return;
+    suppressScrollSync.current = Date.now() + (behavior === 'smooth' ? 700 : 120);
+    setCurrentPage(n);
+    wrap.scrollTo({ top: Math.max(0, target.offsetTop - 8), behavior });
+  }, []);
+
+  // Opening a document lands on the page that was last read. Waits for that
+  // page to exist in the column, because the row cannot be scrolled to before
+  // it is mounted.
+  const resumeTo = useRef(0);
+  useEffect(() => {
+    if (!pdfDoc || !resumeTo.current) return undefined;
+    const want = resumeTo.current;
+    let tries = 0;
+    const t = setInterval(() => {
+      tries += 1;
+      const wrap = wrapperRef.current;
+      if (wrap?.querySelector(`[data-page="${want}"]`)) {
+        goToPage(want, 'auto');
+        resumeTo.current = 0;
+        clearInterval(t);
+      } else if (tries > 40) {
+        resumeTo.current = 0;
+        clearInterval(t);
       }
-    })();
-    return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pdfDoc, currentPage, zoom]);
+    }, 50);
+    return () => clearInterval(t);
+  }, [pdfDoc, goToPage]);
 
   // ── Page raster cache ──────────────────────────────────────
   function cachedMegapixels() {
@@ -493,6 +522,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
     return mp;
   }
+
+  const getCachedPage = useCallback((key) => pageCacheRef.current.get(key) || null, []);
 
   function cachePage(key, canvas) {
     if (typeof createImageBitmap !== 'function') return;
@@ -515,161 +546,29 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }).catch(() => { /* cache is an optimisation, never a requirement */ });
   }
 
-  function schedulePrerender(pageNum, fitScale, dpr) {
-    if (!pdfDoc || pageNum < 1 || pageNum > pdfDoc.numPages) return;
-    const key = `${fileHash || 'x'}:${pageNum}@${fitScale.toFixed(3)}x${dpr}`;
-    if (pageCacheRef.current.has(key)) return;
-    if (prerenderRef.current) clearTimeout(prerenderRef.current);
-    prerenderRef.current = setTimeout(async () => {
-      try {
-        const page = await pdfDoc.getPage(pageNum);
-        // The reader may have moved on while this was queued; a prerender that
-        // lands after the fact would evict a page that IS on screen.
-        if (pageCacheRef.current.has(key)) return;
-        const vp = page.getViewport({ scale: fitScale * dpr });
-        const off = document.createElement('canvas');
-        off.width = Math.floor(vp.width);
-        off.height = Math.floor(vp.height);
-        await page.render({ canvasContext: off.getContext('2d'), viewport: vp }).promise;
-        cachePage(key, off);
-      } catch { /* a prerender that fails costs nothing */ }
-    }, 300);
-  }
-
   // ── Overlay drawing helpers ────────────────────────────────
-  // One context object for the ink layer, requested with the low-latency
-  // hint. getContext returns the same context for the same canvas, so asking
-  // repeatedly is free, but the attributes only apply on the FIRST call for
-  // that canvas — hence a single helper every path goes through, rather than
-  // scattered getContext('2d') calls where whichever ran first would decide
-  // whether the whole feature got low latency or not.
-  function inkCtx() {
-    const c = overlayCanvasRef.current;
-    if (!c) return null;
-    return c.getContext('2d', { desynchronized: true });
+  // The renderers live in lib/ink.js so this view, every page in the column
+  // and the exporter all draw a stroke the same way.
+
+  // The overlay of a given page, registered by that page as it mounts.
+  const overlaysRef = useRef(new Map());
+  const registerOverlay = useCallback((pageNum, ref) => {
+    if (ref) overlaysRef.current.set(pageNum, ref);
+    else overlaysRef.current.delete(pageNum);
+  }, []);
+
+  function overlayFor(pageNum) {
+    return overlaysRef.current.get(pageNum)?.current || null;
   }
 
-  function redrawOverlay(strokes) {
-    const c = overlayCanvasRef.current;
-    if (!c) return;
-    const ctx = inkCtx();
-    if (!ctx) return;
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, c.width, c.height);
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    for (const stroke of strokes || []) {
-      // Widths are authored in CSS pixels; the canvas is DPR-scaled and zoomed,
-      // so a stroke drawn at 100% must not become hairline at 300%.
-      drawStroke(ctx, stroke, c.width, c.height, dpr * zoom);
-    }
+  function inkCtxFor(pageNum) {
+    const c = overlayFor(pageNum);
+    return c ? c.getContext('2d', { desynchronized: true }) : null;
   }
 
-  // Sets up the context for one instrument. Shared by the live draw and the
-  // redraw so a finished stroke can never look different from the one the
-  // student watched themselves make.
-  function applyBrush(ctx, stroke) {
-    ctx.lineJoin = 'round';
-    if (stroke.mode === 'eraser') {
-      ctx.lineCap = 'round';
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = 'rgba(0,0,0,1)';
-    } else if (stroke.mode === 'highlighter') {
-      // Flat cap and a squat, translucent line: the point of a highlighter is
-      // that the words underneath stay readable.
-      ctx.lineCap = 'butt';
-      ctx.globalCompositeOperation = 'multiply';
-      ctx.globalAlpha = 0.38;
-      ctx.strokeStyle = stroke.color;
-    } else {
-      ctx.lineCap = 'round';
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = stroke.color;
-    }
-  }
-
-  function resetBrush(ctx) {
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.globalAlpha = 1;
-  }
-
-  // Width for one point. A pen that reports real pressure (Apple Pencil, S
-  // Pen) gets a line that thickens as it is pressed; a mouse reports a
-  // constant 0.5 and would only get noise from this, so it keeps a even line.
-  function widthAt(stroke, pt, scale) {
-    const base = stroke.mode === 'eraser' ? stroke.size * 4
-      : stroke.mode === 'highlighter' ? stroke.size * 4.5
-        : stroke.size;
-    if (!stroke.pressure || pt.length < 3) return base * scale;
-    // Pressure is the main term. Tilt adds up to half again on top, the way a
-    // pencil laid over on its side covers more paper — and is simply absent on
-    // hardware that does not report it.
-    const tilt = pt.length > 3 ? (pt[3] || 0) : 0;
-    return base * scale * (0.45 + pt[2] * 1.1) * (1 + tilt * 0.5);
-  }
-
-  // Draws a stroke as a chain of quadratic curves through the midpoints of
-  // consecutive samples, which is what turns a polyline of pointer events into
-  // something that reads as handwriting. Each segment is stroked on its own so
-  // the width can follow pressure along the line.
-  function drawStroke(ctx, stroke, canvasW, canvasH, scale = 1) {
-    const pts = stroke?.points;
-    if (!pts || pts.length === 0) return;
-    applyBrush(ctx, stroke);
-    const X = (i) => pts[i][0] * canvasW;
-    const Y = (i) => pts[i][1] * canvasH;
-
-    if (stroke.mode === 'highlighter') {
-      strokeAsOnePath(ctx, pts, canvasW, canvasH, widthAt(stroke, pts[0], scale));
-      resetBrush(ctx);
-      return;
-    }
-
-    if (pts.length === 1) {
-      // A tap is a dot, not nothing.
-      ctx.lineWidth = widthAt(stroke, pts[0], scale);
-      ctx.beginPath();
-      ctx.moveTo(X(0), Y(0));
-      ctx.lineTo(X(0) + 0.01, Y(0));
-      ctx.stroke();
-      resetBrush(ctx);
-      return;
-    }
-    let px = X(0); let py = Y(0);
-    for (let i = 1; i < pts.length; i++) {
-      const mx = (px + X(i)) / 2;
-      const my = (py + Y(i)) / 2;
-      ctx.lineWidth = widthAt(stroke, pts[i], scale);
-      ctx.beginPath();
-      ctx.moveTo(px, py);
-      ctx.quadraticCurveTo(px, py, mx, my);
-      ctx.lineTo(X(i), Y(i));
-      ctx.stroke();
-      px = X(i); py = Y(i);
-    }
-    resetBrush(ctx);
-  }
-
-  // One path, one stroke() — the only way a translucent instrument keeps an
-  // even tone across its own overlaps.
-  function strokeAsOnePath(ctx, pts, canvasW, canvasH, width) {
-    ctx.lineWidth = width;
-    ctx.beginPath();
-    ctx.moveTo(pts[0][0] * canvasW, pts[0][1] * canvasH);
-    if (pts.length === 1) {
-      ctx.lineTo(pts[0][0] * canvasW + 0.01, pts[0][1] * canvasH);
-    } else {
-      for (let i = 1; i < pts.length; i++) {
-        const x = pts[i][0] * canvasW;
-        const y = pts[i][1] * canvasH;
-        const px = pts[i - 1][0] * canvasW;
-        const py = pts[i - 1][1] * canvasH;
-        ctx.quadraticCurveTo(px, py, (px + x) / 2, (py + y) / 2);
-      }
-      ctx.lineTo(pts[pts.length - 1][0] * canvasW, pts[pts.length - 1][1] * canvasH);
-    }
-    ctx.stroke();
+  function redrawOverlay(strokes, pageNum = drawPageRef.current) {
+    const c = overlayFor(pageNum);
+    if (c && c.width) redrawInk(c, strokes, inkDpr() * pageScale);
   }
 
   // ── Pointer handlers (annotation overlay) ─────────────────
@@ -696,7 +595,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   function pointFromEvent(e, pressure = 0) {
-    const c = overlayCanvasRef.current;
+    // The event's own target is the page it happened on. Using a single
+    // stored canvas would put every stroke in the column into page 1's
+    // coordinate space.
+    const c = e.currentTarget?.tagName === 'CANVAS' ? e.currentTarget : overlayFor(drawPageRef.current);
+    if (!c) return [0, 0];
     const rect = c.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
@@ -709,6 +612,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   function onPointerDown(e) {
     if (!pdfDoc) return;
+    const onPage = Number(e.currentTarget?.dataset?.page || e.currentTarget?.parentElement?.dataset?.page || 0);
+    if (onPage) drawPageRef.current = onPage;
     // Anything aimed at the page dismisses the panels, the way a menu closes
     // when you go back to work. Done here rather than with a document-level
     // listener so it cannot fight the toolbar's own buttons.
@@ -742,7 +647,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       return;
     }
     e.preventDefault();
-    overlayCanvasRef.current?.setPointerCapture?.(e.pointerId);
+    // Capture on the canvas the stroke started on, so a line that runs past
+    // the bottom of a page keeps reporting to that page instead of jumping to
+    // the next one mid-stroke.
+    try { e.currentTarget?.setPointerCapture?.(e.pointerId); } catch { /* synthetic pointer */ }
     const usePressure = e.pointerType === 'pen';
     const useTilt = usePressure;
     // Surface, Wacom and S Pen styluses report the eraser barrel as button 5
@@ -790,11 +698,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!ref?.on || e.pointerId !== ref.pointerId) return;
     e.preventDefault();
     const stroke = ref.stroke;
-    const c = overlayCanvasRef.current;
+    const c = overlayFor(drawPageRef.current);
     if (!c) return;
-    const ctx = inkCtx();
+    const ctx = inkCtxFor(drawPageRef.current);
     if (!ctx) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = inkDpr();
 
     // getCoalescedEvents returns every sample the digitiser took since the
     // last frame. A pen runs at ~240 Hz against a 60 Hz screen, so without
@@ -822,7 +730,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // highlighter swipe is short, so this stays cheap.
       redrawOverlay(currentStrokesRef.current);
       applyBrush(ctx, stroke);
-      strokeAsOnePath(ctx, stroke.points, c.width, c.height, widthAt(stroke, stroke.points[0], dpr * zoom));
+      strokeAsOnePath(ctx, stroke.points, c.width, c.height, widthAt(stroke, stroke.points[0], dpr * pageScale));
       resetBrush(ctx);
       return;
     }
@@ -837,7 +745,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     for (let i = from; i < n; i++) {
       const x = stroke.points[i][0] * c.width;
       const y = stroke.points[i][1] * c.height;
-      ctx.lineWidth = widthAt(stroke, stroke.points[i], dpr * zoom);
+      ctx.lineWidth = widthAt(stroke, stroke.points[i], dpr * pageScale);
       ctx.beginPath();
       ctx.moveTo(px, py);
       ctx.quadraticCurveTo(px, py, (px + x) / 2, (py + y) / 2);
@@ -866,13 +774,13 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           tapRef.current = { at: 0, x: 0, y: 0 };
           drawingRef.current = { on: false, points: [] };
           setStrokesByPage((prev) => {
-            const list = prev[currentPage] || [];
+            const list = prev[drawPageRef.current] || [];
             // The FIRST tap was committed as a stroke; drop it too.
             const trimmed = list.length && (list[list.length - 1].points || []).length <= 2
               ? list.slice(0, -1) : list;
-            const next = { ...prev, [currentPage]: trimmed };
+            const next = { ...prev, [drawPageRef.current]: trimmed };
             currentStrokesRef.current = trimmed;
-            redrawOverlay(trimmed);
+            redrawOverlay(trimmed, drawPageRef.current);
             const dropped = list.length !== trimmed.length ? list[list.length - 1] : null;
             scheduleSave(next, dropped?.id ? addTomb(dropped.id) : undefined);
             return next;
@@ -904,19 +812,19 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // never appeared until something else forced a redraw (a page flip, an
     // undo, a zoom). Pre-existing; the dot is drawn here instead.
     if (ref.stroke.points.length < 2) {
-      const c = overlayCanvasRef.current;
-      const ctx = c && inkCtx();
-      if (ctx) drawStroke(ctx, ref.stroke, c.width, c.height,
-        Math.min(window.devicePixelRatio || 1, 2) * zoom);
+      const c = overlayFor(drawPageRef.current);
+      const ctx = c && inkCtxFor(drawPageRef.current);
+      if (ctx) drawStroke(ctx, ref.stroke, c.width, c.height, inkDpr() * pageScale);
     }
     setStrokesByPage((prev) => {
-      const pageList = [...(prev[currentPage] || []), ref.stroke];
-      const next = { ...prev, [currentPage]: pageList };
+      const page = drawPageRef.current;
+      const pageList = [...(prev[page] || []), ref.stroke];
+      const next = { ...prev, [page]: pageList };
       currentStrokesRef.current = pageList;
       // A finished highlighter stroke is repainted from scratch: drawn
       // incrementally its own overlaps multiply into a dark smear, drawn once
       // it is the flat wash a highlighter actually makes.
-      if (ref.stroke.mode === 'highlighter') redrawOverlay(pageList);
+      if (ref.stroke.mode === 'highlighter') redrawOverlay(pageList, drawPageRef.current);
       scheduleSave(next);
       return next;
     });
@@ -976,7 +884,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const trimmed = pageList.slice(0, -1);
       const next = { ...prev, [currentPage]: trimmed };
       currentStrokesRef.current = trimmed;
-      redrawOverlay(trimmed);
+      redrawOverlay(trimmed, currentPage);
       const tombs = undone?.id ? addTomb(undone.id) : latestRef.current.deleted;
       scheduleSave(next, tombs);
       setRedoStack((r) => [...r, { page: currentPage, stroke: undone }].slice(-40));
@@ -998,7 +906,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         const pageList = [...(prev[currentPage] || []), revived];
         const next = { ...prev, [currentPage]: pageList };
         currentStrokesRef.current = pageList;
-        redrawOverlay(pageList);
+        redrawOverlay(pageList, currentPage);
         scheduleSave(next);
         return next;
       });
@@ -1014,7 +922,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       }
       const next = { ...prev, [currentPage]: [] };
       currentStrokesRef.current = [];
-      redrawOverlay([]);
+      redrawOverlay([], currentPage);
       const tombs = addTomb(...cleared.map((st) => st.id).filter(Boolean));
       scheduleSave(next, tombs);
       return next;
@@ -1036,7 +944,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const d = drawingRef.current;
     if (d?.on) {
       drawingRef.current = { on: false, points: [] };
-      redrawOverlay(currentStrokesRef.current);
+      redrawOverlay(currentStrokesRef.current, drawPageRef.current);
     }
     const [a, b] = [...activePointers.current.values()];
     gestureRef.current = {
@@ -1200,7 +1108,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const found = searchPages(pages, needle);
       setHits(found);
       setHitIdx(0);
-      if (found.length) setCurrentPage(found[0].page);
+      if (found.length) goToPage(found[0].page);
     } finally {
       setSearching(false);
     }
@@ -1218,7 +1126,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!shownHits?.length) return;
     const next = (hitIdx + delta + shownHits.length) % shownHits.length;
     setHitIdx(next);
-    setCurrentPage(shownHits[next].page);
+    goToPage(shownHits[next].page);
   }
 
   // A new document invalidates the extracted text, and abandons any extraction
@@ -1353,6 +1261,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setZoomAt((z) => [...ZOOM_STEPS].reverse().find((v) => v < z - 0.001) ?? z, e?.clientX, e?.clientY);
   }
   const canRedo = redoStack.length > 0 && redoStack[redoStack.length - 1].page === currentPage;
+  const pageHandlers = {
+    onPointerDown,
+    onPointerMove,
+    onPointerUp,
+    onPointerCancel: onPointerUp,
+    onPointerLeave: (e) => { setHover(null); onPointerUp(e); },
+    onPointerOut: (e) => { if (e.pointerType === 'pen') setHover(null); },
+  };
   const activeColor = (tool === 'highlighter'
     ? HL_COLORS.find((c) => c.id === hlColor)
     : PEN_COLORS.find((c) => c.id === color)) || PEN_COLORS[0];
@@ -1838,14 +1754,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         }}>{shownHits[hitIdx].quote}</div>
       )}
 
-      {/* Body — sidebar + page canvas */}
+      {/* Body — thumbnail rail + the scrolling column of pages */}
       <div className="vmx-pdf-body" style={{ flex: 1, display: 'flex', minHeight: 0 }}>
         {sidebarOpen && (
-          <div className="vmx-pdf-sidebar-wrap" style={{ width: 140, flexShrink: 0, maxHeight: 'calc(100dvh - 120px)' }}>
+          <div className="vmx-pdf-sidebar-wrap" style={{ width: 140, flexShrink: 0, height: frameH ? `${frameH}px` : undefined }}>
             <PdfThumbnailSidebar
               pdfDoc={pdfDoc}
               currentPage={currentPage}
-              onPageSelect={setCurrentPage}
+              onPageSelect={(n) => goToPage(n)}
               annotatedPages={annotatedPages}
             />
           </div>
@@ -1858,44 +1774,31 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             height: frameH ? `${frameH}px` : undefined,
             overflow: 'auto',
             background: '#2a2a2a',
-            display: 'flex',
-            alignItems: 'flex-start',
             padding: 12,
             minWidth: 0,
-            // Not `justify-content: center`: a centred flex item that grows
-            // past its container is clipped at the START edge and cannot be
-            // scrolled back to. `margin: auto` centres the same way while
-            // leaving both edges reachable once the page is zoomed in.
-            overscrollBehavior: 'contain',
+            // The column scrolls inside this frame; `contain` would refuse to
+            // pass the wheel to the page and is deliberately absent — see the
+            // left-rail incident in styles.css.
+            overscrollBehavior: 'auto',
           }}
         >
-          <div style={{
-            position: 'relative', display: 'inline-block', lineHeight: 0, margin: 'auto',
-            // iOS pops a callout (Copy / Look Up / Share) on a long press, and
-            // a slow deliberate pen stroke reads as exactly that. These are
-            // the two properties that stop it; both are inert elsewhere.
-            WebkitTouchCallout: 'none',
-            WebkitUserSelect: 'none',
-            userSelect: 'none',
-          }}>
-            <canvas ref={baseCanvasRef} style={{ display: 'block', background: '#fff', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }} />
-            <canvas
-              ref={overlayCanvasRef}
-              onPointerDown={onPointerDown}
-              onPointerMove={onPointerMove}
-              onPointerUp={onPointerUp}
-              onPointerCancel={onPointerUp}
-              onPointerLeave={(e) => { setHover(null); onPointerUp(e); }}
-              onPointerOut={(e) => { if (e.pointerType === 'pen') setHover(null); }}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                touchAction: 'none',
-                cursor: tool === 'eraser' ? 'crosshair' : 'crosshair',
-              }}
+          {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
+            <PdfPage
+              key={n}
+              pdfDoc={pdfDoc}
+              pageNum={n}
+              scale={pageScale}
+              strokes={strokesByPage[n]}
+              cacheKeyPrefix={fileHash || 'x'}
+              getCached={getCachedPage}
+              putCached={cachePage}
+              registerOverlay={registerOverlay}
+              active={n === currentPage}
+              cursor="crosshair"
+              handlers={pageHandlers}
+              scrollRoot={wrapperRef}
             />
-          </div>
+          ))}
         </div>
       </div>
 
@@ -1912,7 +1815,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         <button
           type="button"
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          onClick={() => goToPage(Math.max(1, currentPage - 1))}
           disabled={currentPage <= 1}
         >← ก่อน</button>
         <span style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)' }}>
@@ -1921,7 +1824,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         <button
           type="button"
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-          onClick={() => setCurrentPage((p) => Math.min(pageCount, p + 1))}
+          onClick={() => goToPage(Math.min(pageCount, currentPage + 1))}
           disabled={currentPage >= pageCount}
         >ถัดไป →</button>
       </div>
