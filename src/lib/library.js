@@ -448,14 +448,28 @@ export async function resolveDocUrl(doc) {
       const url = cdnUrlFor(doc);
       if (url) return url;
     }
-    const { getSupabase } = await import('./supabase.js');
-    const sb = await getSupabase();
-    const { data: { session } = {} } = await sb.auth.getSession();
+    // Ask for the link BEFORE asking who is asking.
+    //
+    // This used to load the Supabase SDK and await getSession() first, and
+    // measured on production that cost a full second before the request even
+    // left — on a shelf that is deliberately login-free, for a header that
+    // most readers do not have. The token only decides whether the endpoint
+    // will hand over storage_key at all (401) — a public document mints the
+    // identical URL with or without it — so the honest order is: try, and pay
+    // for the session only if the server says it needs one.
+    const mint = (token) => fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
     let res;
     try {
-      res = await fetch(`/api/library-file?slug=${encodeURIComponent(doc.slug)}`, {
-        headers: session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {},
-      });
+      res = await mint(null);
+      if (res.status === 401) {
+        // Restricted material. NOW the session is worth waiting for.
+        const { getSupabase } = await import('./supabase.js');
+        const sb = await getSupabase();
+        const { data: { session } = {} } = await sb.auth.getSession();
+        if (session?.access_token) res = await mint(session.access_token);
+      }
     } catch (netErr) {
       // Offline (or the mint endpoint is unreachable). The service worker
       // keeps recently opened documents in a content-addressed cache keyed
