@@ -1,6 +1,6 @@
 # VetMock — UX / Frontend Audit
 
-> **Current closure 2026-08-21 (v5.31.0):** the live product now uses the calm
+> **Dated closure 2026-08-21 (v5.31.0):** the live product adopted the calm
 > Thai-first hierarchy introduced in v5.30.0, lazy subject Notes shared with
 > VetWiki, explicit loading/offline/retry states, and schema-validated backup
 > previews. The Notes view gzip chunk is 94.3% smaller. Release proof is 218

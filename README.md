@@ -6,7 +6,7 @@ Made with ♡ by **Vet 86**
 🌐 **Live:** [vetmock.vercel.app](https://vetmock.vercel.app)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
-**Current release:** v5.31.0 · production verified 2026-08-21
+**Current release:** v5.56.0 · production verified 2026-08-31
 Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)
 
 > ตัวเลข content inventory ด้านล่าง auto-generated จาก source จริงด้วย `npm run stats -- --write`

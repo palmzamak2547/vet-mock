@@ -1,6 +1,6 @@
 # VetMock — Design System (current spec)
 
-> Last verified against production: **v5.55.0 · 2026-08-30**. Notes loading,
+> Last verified against production: **v5.56.0 · 2026-08-31**. Notes loading,
 > offline error/retry, backup previews, and JSON validation dialogs follow the
 > same Thai-first hierarchy, shared dialog focus behavior, semantic colours,
 > and 44px interaction floor as the rest of the product.

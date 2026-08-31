@@ -1,7 +1,7 @@
 # Capability audit — what VetMock already had (2026-07-23)
 
 > **Dated baseline:** preserve the evidence below as the pre-platform snapshot.
-> For the current v5.31.0 architecture, inventory, and release proof, use
+> For the current architecture, inventory, and release proof, use
 > [`PROJECT_KNOWLEDGE_BASE.md`](./PROJECT_KNOWLEDGE_BASE.md) and `npm run stats`.
 > Do not reuse the 2,948-question / 41-bank figures as current totals.
 

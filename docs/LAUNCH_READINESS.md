@@ -1,12 +1,12 @@
 # VetMock — Launch Readiness
 
-## Current release gate — v5.31.0 (2026-08-21)
+## Current release gate — v5.56.0 (2026-08-31)
 
 VetMock is production-ready as a public study app. The current gate covers the
 whole product, not only Imaging:
 
-- `npm run stats`: 4,506 source questions, 4,480 learner-ready, 26 held
-  fail-closed for verified figures, 65 banks, 42 subjects with questions,
+- `npm run stats`: 4,551 source and learner-ready questions, 0 held
+  fail-closed for verified figures, 66 banks, 43 subjects with questions,
   4,032 sourced note sections, and 208 governed VetWiki topics.
 - All generated counts, IDs, curriculum links, registries, note-corpus mapping,
   delivery gates and VetWiki projections pass drift checks.
@@ -19,20 +19,28 @@ whole product, not only Imaging:
 - Backup and custom-question JSON are validated with a shared Valibot schema
   before setters run. The UI previews exact overwrite scope, respects explicit
   empty data, preserves the full streak record, and accepts safe legacy files.
-- Shared modal focus management now covers the app dialogs: initial focus,
-  Tab containment, Escape, nested dialogs and WebKit-safe focus restoration.
-  Core public forms have programmatic labels and touch controls keep a 44px floor.
+- Shared modal focus management covers initial focus, Tab containment, Escape,
+  nested dialogs and explicit WebKit-safe focus restoration. The compact
+  landing menu is a fixed, inert-when-closed curtain whose responsive state
+  follows rendered CSS, so rotation cannot strand body scroll lock.
+- Landing motion is limited to tokenized CSS feedback and observer-driven
+  navigation state. Quest actions retain tactile classes, a 44px touch floor,
+  and theme-aware on-accent contrast.
 - Remote views use a shared loading/empty/recoverable-error language; a failed
   request no longer masquerades as an empty success state.
 - The public sign-in view no longer exposes provider-dashboard setup details.
   Dormant article-assistant UI is not rendered in VetWiki.
-- Release evidence: 218 unit tests, `lint:all` green, production build + 209 Wiki
-  prerenders, `npm audit` 0 vulnerabilities, GitHub Build `32415996906`, and
-  GitHub Smoke E2E `32415996900` with 144 passed / 40 deliberate matrix skips /
-  0 failed across Chromium desktop/mobile, WebKit mobile and Firefox.
-- Vercel Production deployment `6010442139` succeeded for commit `3e85fb5`.
-  The production alias passed 20 targeted journeys, including the v5.31-only
-  Notes offline-retry path, proving the alias was not serving the old bundle.
+- Local release evidence: 402 unit tests, `lint:all` green, production build +
+  209 Wiki prerenders, `npm audit` 0 vulnerabilities, targeted interaction E2E
+  16/16, mobile compatibility 2/2, and production console/request errors 0.
+- Exact-SHA proof: GitHub Build `33386364695` and Smoke `33386364715` succeeded
+  for `a6dfad1`; Smoke finished with 192 passed / 40 deliberate matrix skips /
+  0 failed / no flaky retry across Chromium, WebKit and Firefox.
+- Vercel Production deployment `6180037450` succeeded for `a6dfad1`. The alias
+  exposed SW `v122-2026-08-31` and passed 4/4 changed-capability journeys.
+- Question lint is at 0 blocking errors. The remaining 18 source-position
+  advisories are neutralized by session-stable runtime option shuffling and are
+  tracked as data-quality nudges, not learner-visible answer tells.
 
 The 2026-07-26 audit below remains as historical rationale; superseded counts
 and open findings should not be read as the current release state.

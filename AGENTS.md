@@ -22,7 +22,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
 - **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX (no TypeScript)
-- **Current release**: v5.31.0 (`3e85fb5`, production verified 2026-08-21)
+- **Current release**: v5.56.0 (production verified 2026-08-31)
 - **Hosting**: Vercel (auto-deploy on push to `main`)
 - **Production**: https://vetmock.vercel.app
 - **Audience**: ~50-100 vet students at Chulalongkorn (Vet 86 cohort) · Thai-language

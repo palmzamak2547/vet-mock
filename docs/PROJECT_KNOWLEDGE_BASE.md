@@ -1,6 +1,7 @@
 # VetMock project knowledge base
 
-Last verified: **2026-08-21 · v5.31.0 · commit `3e85fb5`**
+Last verified: **2026-08-31 · v5.56.0**
+Learner release: `c3eb40e` · deterministic release-signal correction: `a6dfad1`
 Production: [vetmock.vercel.app](https://vetmock.vercel.app)
 
 This is the current-state map for maintainers and coding agents. Historical
@@ -20,16 +21,16 @@ Imaging Practical stays narrow; advanced DICOM workflows belong at
 
 ## Measured inventory
 
-Run `npm run stats` before quoting current scale. The verified v5.31.0
-checkpoint is:
+Run `npm run stats` before quoting current scale. The 2026-08-31 measured
+inventory is:
 
 | Metric | Value |
 |---|---:|
-| Source questions | 4,506 |
-| Learner-ready questions | 4,480 |
-| Fail-closed pending verified figures | 26 |
-| Question-bank files | 65 |
-| Subjects with questions | 42 |
+| Source questions | 4,551 |
+| Learner-ready questions | 4,551 |
+| Fail-closed pending verified figures | 0 |
+| Question-bank files | 66 |
+| Subjects with questions | 43 |
 | Note files / topics / sections | 37 / 376 / 4,032 |
 | Note sections with source locator | 100% |
 | Video summaries | 400 |
@@ -101,11 +102,31 @@ Then run targeted browser coverage. Production requires separate proof of the
 exact Git SHA, GitHub Build, GitHub Smoke E2E, Vercel Production deployment,
 and a live journey against the production alias.
 
-Vercel skips root/docs/internal Markdown-only commits, but `wiki/**/*.md` is
-public prerender input and remains deploy-worthy. Do not broaden the Markdown
-exclude without checking the resulting Git pathspec.
+Vercel skips root/docs/internal Markdown-only, `.github/**`, `tests/**`, and
+Playwright-config-only commits. `wiki/**/*.md` is public prerender input and
+remains deploy-worthy. Do not broaden these exclusions without checking the
+resulting Git pathspec.
 
-v5.31.0 evidence:
+v5.56.0 evidence (2026-08-31):
+
+- Local gates passed: 402 unit tests, all generated/data/content checks,
+  production build with 209 VetWiki prerenders, dependency audit 0, targeted
+  interaction E2E 16/16, mobile compatibility 2/2, and production console /
+  same-origin request errors 0.
+- GitHub Build `33386364695` succeeded for exact SHA `a6dfad1`.
+- GitHub Smoke E2E `33386364715` succeeded cleanly: 192 passed, 40 deliberate
+  project-matrix skips, 0 failed, and no flaky retry.
+- Vercel Production deployment `6180037450` succeeded for `a6dfad1`; the
+  learner-facing bundle is v5.56.0 from `c3eb40e`, while `a6dfad1` changes only
+  its deterministic matching-question smoke guard.
+- The production alias exposed SW `v122-2026-08-31` and passed 4/4 live changed-
+  capability journeys for landing consent/login, compact menu rotation and
+  focus, observer-driven chrome, and Home onboarding.
+- Question lint has 0 blocking errors. Its 18 source-position advisories are
+  neutralized in the learner UI by session-stable option shuffling and remain
+  tracked as data-quality nudges rather than runtime defects.
+
+Historical v5.31.0 evidence (2026-08-21):
 
 - 218 unit tests passed.
 - All generated/data/content gates passed; dependency audit found 0 issues.
