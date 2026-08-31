@@ -1069,16 +1069,27 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!pdfDoc) return undefined;
     const onKey = (e) => {
       const t = e.target;
-      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      const typing = !!t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
+      // Escape is handled BEFORE the typing guard. Opening search focuses its
+      // box, so with the guard first the one key that closes things stopped
+      // working exactly when the most chrome was open — found on production,
+      // where the probe opened the panels in the order a person would.
       if (e.key === 'Escape' && (optionsOpen || menuOpen || searchOpen)) {
         e.preventDefault();
-        setOptionsOpen(false);
-        setMenuOpen(false);
-        // Escape on the search closes the panel but keeps the results: a
-        // reader who has just found page 41 has not asked to lose it.
-        if (!optionsOpen && !menuOpen) setSearchOpen(false);
+        if (optionsOpen || menuOpen) {
+          setOptionsOpen(false);
+          setMenuOpen(false);
+        } else {
+          // Nothing else is open, so Escape is about the search. Close the row
+          // and put the reader back on the button that opened it; the results
+          // are kept, because someone who just found page 41 did not ask to
+          // lose it.
+          setSearchOpen(false);
+          document.querySelector('button[aria-label="ค้นหาในเอกสาร"]')?.focus();
+        }
         return;
       }
+      if (typing) return;
       const mod = e.metaKey || e.ctrlKey;
       if (mod && e.key.toLowerCase() === 'z') {
         e.preventDefault();
