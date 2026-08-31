@@ -260,7 +260,12 @@ try {
     } catch {}
   }, !LANDING);
   const page = await ctx.newPage();
-  await page.goto(ROUTE ? new global.URL(ROUTE, URL).href : URL, { waitUntil: 'networkidle' });
+  // Do not couple this local rendering gate to unrelated external traffic.
+  // Google Fonts and background data imports can stay in flight even after
+  // the view is ready, which made a clean page fail at Playwright's 30s
+  // `networkidle` ceiling. DOM readiness plus the explicit React/Suspense
+  // checks below is both narrower and deterministic for what we measure.
+  await page.goto(ROUTE ? new global.URL(ROUTE, URL).href : URL, { waitUntil: 'domcontentloaded' });
 
   // --exam walks into a practice session and answers one question wrong,
   // because that screen renders states no other page does: the correct-
@@ -285,6 +290,11 @@ try {
   // rather than a fixed delay — a fixed delay reports "theme null" on a
   // slow start and looks like the seed failed.
   await page.waitForFunction(() => document.documentElement.hasAttribute('data-theme'), null, { timeout: 20_000 });
+  await page.waitForFunction(() => {
+    const root = document.querySelector('#root');
+    const suspenseFallback = root?.querySelector('[aria-busy="true"][aria-live="polite"]');
+    return Boolean(root?.textContent?.trim()) && !suspenseFallback;
+  }, null, { timeout: 20_000 });
 
   // Kill transitions before measuring anything. Flipping data-theme in
   // place leaves the page mid-interpolation, and getComputedStyle happily

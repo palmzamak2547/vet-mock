@@ -12,6 +12,7 @@ import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
 // Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap once
 // a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
@@ -116,6 +117,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const [welcomeDismissed, setWelcomeDismissed] = useLocalStorage('vmx-welcome-dismissed', false);
   const [tourOpen, setTourOpen] = useState(false);
   const [tourStep, setTourStep] = useState(0);
+  const tourLauncherRef = useRef(null);
   // Legacy flag — once true, hide the welcome banner too (users who
   // already saw + dismissed the old auto-modal don't need the banner).
   const [legacyOnboardingSeen] = useLocalStorage('vmx-onboarding-seen', false);
@@ -548,7 +550,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           step={tourStep}
           onNext={() => setTourStep((s) => s + 1)}
           onBack={() => setTourStep((s) => Math.max(0, s - 1))}
-          onDismiss={() => { setTourOpen(false); setTourStep(0); setWelcomeDismissed(true); }}
+          onDismiss={() => { setTourOpen(false); setTourStep(0); }}
+          returnFocusRef={tourLauncherRef}
           onStart={() => { 
             setTourOpen(false); 
             setTourStep(0); 
@@ -666,9 +669,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         }}>
           <div className="vmx-welcome-copy" style={{ flex: 1, minWidth: 180, fontSize: 13, lineHeight: 1.5 }}>
             <strong>ใช้ VetMock ครั้งแรก?</strong>
-            <span className="vmx-welcome-copy-detail"> — แนะนำตำแหน่งและเมนูสำคัญใน 30 วินาที</span>
+            <span className="vmx-welcome-copy-detail"> แนะนำตำแหน่งและเมนูสำคัญใน 30 วินาที</span>
           </div>
           <button
+            ref={tourLauncherRef}
             type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-welcome-tour"
             onClick={() => { setTourOpen(true); setTourStep(0); }}
@@ -683,14 +687,17 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             aria-label="ปิดข้อความต้อนรับ"
             onClick={() => setWelcomeDismissed(true)}
             style={{
-              all: 'unset',
+              appearance: 'none',
+              border: 'none',
+              margin: 0,
+              padding: 0,
+              background: 'transparent',
               cursor: 'pointer',
-              fontSize: 14,
               color: 'var(--clr-ink-soft)',
             }}
             title="ข้าม"
           >
-            ×
+            <NavIcon name="close" size={16} />
           </button>
         </div>
       )}
@@ -741,28 +748,21 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             </div>
             <button
               type="button"
-              className="vmx-tap"
+              className="vmx-icon-close vmx-tap"
               onClick={() => setLastSeenChangelog(LATEST_CHANGELOG.version)}
               aria-label="ปิดประกาศ"
               title="ปิดประกาศ"
               style={{
-                all: 'unset',
+                appearance: 'none',
+                padding: 0,
                 cursor: 'pointer',
-                width: 28,
-                height: 28,
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
                 color: 'var(--clr-ink-soft)',
-                fontSize: 18,
-                lineHeight: 1,
                 background: 'var(--clr-bg)',
                 border: '1px solid var(--clr-border)',
                 flexShrink: 0,
               }}
             >
-              ×
+              <NavIcon name="close" size={16} />
             </button>
           </div>
 
@@ -1838,7 +1838,7 @@ function DailyQRow({ user, setView }) {
   );
 }
 
-function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
+function OnboardingTour({ step, onNext, onBack, onDismiss, onStart, returnFocusRef }) {
   const steps = [
     {
       title: 'ยินดีต้อนรับสู่ VetMock',
@@ -1850,7 +1850,7 @@ function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
     },
     {
       title: 'ค้นหา ถาม หรือสั่งงาน ในช่องเดียว',
-      body: 'กดปุ่มค้นหา (หรือ Ctrl+K) แล้วพิมพ์หรือพูดใส่ไมค์ได้เลย — ค้นข้อสอบ เอกสาร และบทความ ถามคำถามให้ตอบพร้อมแหล่งที่มา หรือสั่งเช่น "จัดข้อสอบ COM5 20 ข้อ" แล้วกดยืนยันให้ระบบจัดให้',
+      body: 'กดปุ่มค้นหา (หรือ Ctrl+K) แล้วพิมพ์หรือพูดใส่ไมค์ได้เลย จากนั้นค้นข้อสอบ เอกสาร และบทความ ถามคำถามให้ตอบพร้อมแหล่งที่มา หรือสั่งเช่น "จัดข้อสอบ COM5 20 ข้อ" แล้วกดยืนยันให้ระบบจัดให้',
     },
     {
       title: 'ทบทวนจากสิ่งที่พลาด',
@@ -1862,35 +1862,19 @@ function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
   const isLast = step >= steps.length - 1;
   const isFirst = step === 0;
 
-  const dialogRef = useRef(null);
-
+  const dialogRef = useModalFocus({ onClose: onDismiss, returnFocusRef });
   useEffect(() => {
-    if (dialogRef.current) {
-      dialogRef.current.focus();
-    }
-  }, [step]);
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        onDismiss();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onDismiss]);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, []);
 
   return (
     <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={current.title}
-      onClick={onDismiss}
       style={{
         position: 'fixed',
         inset: 0,
-        zIndex: 1200,
-        background: 'rgba(0, 0, 0, 0.45)',
+        zIndex: 'var(--z-modal)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -1898,9 +1882,23 @@ function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
       }}
     >
       <div
+        aria-hidden="true"
+        onClick={onDismiss}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          border: 'none',
+          background: 'color-mix(in srgb, var(--clr-ink) 45%, transparent)',
+          cursor: 'default',
+        }}
+      />
+      <div
         ref={dialogRef}
         tabIndex="-1"
-        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={current.title}
+        data-vmx-modal="true"
         style={{
           background: 'var(--clr-bg)',
           border: '1px solid var(--clr-border)',
@@ -1908,8 +1906,9 @@ function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
           padding: 28,
           maxWidth: 460,
           width: '100%',
-          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.18)',
+          boxShadow: 'var(--shadow-md)',
           position: 'relative',
+          zIndex: 'var(--z-raised)',
           outline: 'none',
         }}
       >
@@ -1917,20 +1916,20 @@ function OnboardingTour({ step, onNext, onBack, onDismiss, onStart }) {
           type="button"
           aria-label="ข้าม"
           onClick={onDismiss}
+          className="vmx-icon-close"
           style={{
             position: 'absolute',
             top: 12,
             right: 12,
+            appearance: 'none',
             background: 'transparent',
             border: 'none',
-            fontSize: 18,
             color: 'var(--clr-ink-soft)',
             cursor: 'pointer',
-            padding: 4,
-            lineHeight: 1,
+            padding: 0,
           }}
           title="ข้าม"
-        >×</button>
+        ><NavIcon name="close" size={16} /></button>
 
         <h2 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, margin: '0 0 10px', lineHeight: 1.2 }}>
           {current.title}

@@ -116,6 +116,29 @@ patterns can still converge further.
 - Derive every navigation list from `lib/nav.js` or `feature-registry.js`.
   Two surfaces listing destinations independently WILL disagree — same class
   as the two streak numbers (freeze-aware vs naive walk) fixed 2026-08-30.
+- Treat compact landing navigation as a modal contract, not an animation:
+  keep the link tree mounted, close it with `visibility` + `inert`, pair the
+  trigger with `aria-expanded`/`aria-controls`, move and return focus, contain
+  Tab, close on Escape, lock the actual page scroller, and keep reduced-motion
+  completion under 150ms. The fixed curtain sits below the sticky header so
+  opening it never changes page height. CSS owns the responsive breakpoint;
+  behavior observes whether the trigger is actually hidden and closes the
+  curtain, rather than copying a pixel cutoff that can drift and strand body
+  scroll lock after rotation. *(2026-08-31: the old conditional mobile row
+  pushed the hero and owned none of those interaction states.)*
+- Treat a duplicate JSX prop or a build warning as a behavior defect. The last
+  prop wins, so `className="vmx-press"` followed by another `className` silently
+  removed tactile feedback from the Quest claim action. Also avoid inline
+  `all: unset` on a control that depends on component classes; it resets the
+  same transition the class is trying to provide.
+- Prefer an explicit `returnFocusRef` when a modal's launcher is known. Touch
+  event heuristics remain a fallback, but WebKit may not deliver the same
+  pointer path as desktop. Keep the launcher mounted when closing the modal;
+  permanent banner dismissal is a separate action.
+- Keep landing motion within its budget: CSS hover/press feedback and
+  `IntersectionObserver` for discrete scroll state. This preserves location
+  cues without scroll-frame React updates, pointermove transforms, injected
+  progress rails, or cursor spotlights.
 - Want a wash? Grain over gradient. Texture is what separates "watercolour on
   paper" from "SaaS mesh": static inline feTurbulence tile at 4-7% opacity
   over at most 2-3 brand-hue radials (technique studied on feralui.dev,
@@ -125,6 +148,13 @@ patterns can still converge further.
 - Never animate the hero wash or add blur() orbs on first paint — the old
   four-colour animated mesh was removed for measured phone composite cost.
   The wash is STATIC; the grain tile is rasterised once and cached.
+- Never conditional-mount or push the landing menu into document flow. That
+  deletes navigation from the closed DOM, shifts the page on open, and makes
+  focus/scroll ownership an afterthought. Keep one mounted curtain and change
+  only its interactive state.
+- Never attach continuous scroll or pointer physics to a low-motion landing
+  just to make it feel designed. If movement does not communicate hierarchy,
+  feedback, or state, remove it instead of optimizing it.
 - Never win a specificity fight with `!important` — restructure so the fight
   cannot exist (own class, no inherited role).
 - Never render a decorative motion under `prefers-reduced-motion`, and never

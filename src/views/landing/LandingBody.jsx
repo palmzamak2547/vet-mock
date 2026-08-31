@@ -7,6 +7,7 @@
 // ============================================================
 
 import { QB_TOTAL, Q_COUNTS_BY_SUBJECT } from '../../data/q-counts.js';
+import NavIcon from '../../components/NavIcon.jsx';
 
 // Derived once at module load — the number of subjects that actually ship
 // questions today. Regenerated with the bank, so it can't drift.
@@ -46,10 +47,7 @@ export default function LandingBody(p) {
             <h1 style={{ fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(38px,5.4vw,60px)', lineHeight: .98, letterSpacing: '-.035em', color: 'var(--clr-ink)', margin: '0 0 20px', textWrap: 'balance' }}>
               {t.heroPre}<em style={em}>{t.heroEm}</em>{t.heroPost}
             </h1>
-            <p style={{ fontSize: 17, lineHeight: 1.62, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '0 0 28px' }}>{t.heroSub}</p>
-            <div className="lp-center-md lp-flex" style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'var(--vmx-mono)', fontSize: 12.5, color: 'var(--clr-ink-soft)', margin: '0 0 22px' }}>
-              <span>{t.heroFocusLine}</span><span style={{ color: 'var(--clr-sage-text)', fontWeight: 600, fontFamily: 'IBM Plex Sans Thai, sans-serif', fontSize: 14 }}>{t.heroWords[p.heroWord]} →</span>
-            </div>
+            <p style={{ fontSize: 17, lineHeight: 1.62, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '0 0 24px' }}>{t.heroSub}</p>
             <div className="lp-center-md lp-flex" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
               <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary lp-feature-cta" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'var(--vmx-mono)' }}>→</span></button>
               <a href="#subjects" className="vmx-btn vmx-btn-ghost" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta2}</a>
@@ -95,7 +93,16 @@ export default function LandingBody(p) {
                       card corner in the exam view); on the landing it sits inline
                       in this flex row, so force it back into flow or it floats to
                       the corner and overlaps the timer/question. */}
-                  <button type="button" className={`vmx-bookmark-btn ${p.heroBookmarked ? 'active' : ''}`} style={{ position: 'static', flexShrink: 0 }} onClick={() => p.setHeroBookmarked((b) => !b)} aria-label="Bookmark" aria-pressed={p.heroBookmarked}>🔖</button>
+                  <button
+                    type="button"
+                    className={`vmx-bookmark-btn ${p.heroBookmarked ? 'active' : ''}`}
+                    style={{ position: 'static', flexShrink: 0 }}
+                    onClick={() => p.setHeroBookmarked((bookmarked) => !bookmarked)}
+                    aria-label={p.heroBookmarked ? t.unbookmark : t.bookmark}
+                    aria-pressed={p.heroBookmarked}
+                  >
+                    <NavIcon name="bookmark" size={18} filled={p.heroBookmarked} />
+                  </button>
                 </div>
                 <div className="vmx-progress-bar" style={{ marginBottom: 16 }}><div className="vmx-progress-fill" style={{ width: '20%' }} /></div>
                 <div className="vmx-qtext" style={{ marginBottom: 18 }}>{t.heroQ}</div>

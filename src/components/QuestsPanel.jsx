@@ -39,7 +39,7 @@ function useQuestState(year) {
 }
 
 // Map quest IDs to action types — Phase 4 (2026-05-18) needs per-quest
-// "▶️ ลุย" routing without HomeView having to know the schema. Returns
+// action routing without HomeView having to know the schema. Returns
 // null when no obvious entry point exists (e.g. quest is bonus-tier).
 //
 // Patterns:
@@ -174,7 +174,7 @@ function QuestCard({ quest, compact, onStart }) {
       {claimable && (
         <button
           type="button"
-          className="vmx-press"
+          className="vmx-press vmx-pop-in"
           onClick={() => {
             claimQuestReward(quest.id);
             // Round 2A 2026-05-18: emit a custom event the panel
@@ -185,15 +185,16 @@ function QuestCard({ quest, compact, onStart }) {
               window.dispatchEvent(new CustomEvent('vmx-quest-claimed', { detail: { id: quest.id } }));
             } catch {}
           }}
-          className="vmx-pop-in"
           style={{
-            all: 'unset',
+            appearance: 'none',
+            border: 'none',
+            margin: 0,
             cursor: 'pointer',
             padding: '10px 14px',
             minHeight: 44,
             borderRadius: 999,
             background: 'var(--clr-sage, #4a6b4a)',
-            color: 'white',
+            color: 'var(--clr-sage-on, #fff)',
             fontSize: 13,
             fontWeight: 700,
             fontFamily: 'var(--vmx-mono)',
@@ -204,18 +205,20 @@ function QuestCard({ quest, compact, onStart }) {
           }}
           aria-label={`รับ ${quest.xp} XP`}
         >
-          🎁 รับ
+          รับ
         </button>
       )}
       {!claimable && action && (
         <button
           type="button"
+          className="vmx-press"
           onClick={() => onStart?.(action, quest)}
           style={{
-            all: 'unset',
+            appearance: 'none',
+            margin: 0,
             cursor: 'pointer',
             padding: '8px 12px',
-            minHeight: 40,
+            minHeight: 44,
             borderRadius: 999,
             background: 'transparent',
             border: '1px solid var(--clr-sage, #4a6b4a)',
@@ -232,7 +235,7 @@ function QuestCard({ quest, compact, onStart }) {
           aria-label={`เริ่มภารกิจ ${quest.label}`}
           title="กดเริ่มภารกิจนี้ทันที"
         >
-          ▶️ ลุย
+          ลุย
         </button>
       )}
       {quest.claimed && (
@@ -267,8 +270,7 @@ function BonusCard({ bonus, compact }) {
         gap: 12,
         padding: compact ? '10px 12px' : '12px 14px',
         borderRadius: 12,
-        background:
-          'linear-gradient(135deg, rgba(217, 119, 68, 0.10), rgba(74, 107, 74, 0.10))',
+        background: 'var(--clr-surface-2)',
         border: '1px solid var(--clr-sage, #4a6b4a)',
         minHeight: compact ? 52 : 60,
       }}
@@ -293,20 +295,22 @@ function BonusCard({ bonus, compact }) {
           claimBonusReward();
         }}
         style={{
-          all: 'unset',
+          appearance: 'none',
+          border: 'none',
+          margin: 0,
           cursor: 'pointer',
           padding: '10px 14px',
           minHeight: 44,
           borderRadius: 999,
           background: 'var(--clr-sage, #4a6b4a)',
-          color: 'white',
+          color: 'var(--clr-sage-on, #fff)',
           fontSize: 13,
           fontWeight: 700,
           fontFamily: 'var(--vmx-mono)',
           flexShrink: 0,
         }}
       >
-        🎁 รับโบนัส
+        รับโบนัส
       </button>
     </div>
   );
@@ -402,7 +406,7 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
               gap: 12,
               padding: '10px 14px',
               borderRadius: 12,
-              background: 'linear-gradient(135deg, rgba(74, 107, 74, 0.10), rgba(184, 137, 64, 0.08))',
+              background: 'var(--clr-surface-2)',
               border: '1px dashed var(--clr-sage, #4a6b4a)',
               minHeight: 52,
             }}
@@ -418,26 +422,29 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
             </div>
             <button
               type="button"
+              className="vmx-press"
               onClick={() => {
                 const action = questActionFor(recentClaim.next);
                 if (action) onStart(action, recentClaim.next);
                 setRecentClaim(null);
               }}
               style={{
-                all: 'unset',
+                appearance: 'none',
+                border: 'none',
+                margin: 0,
                 cursor: 'pointer',
                 padding: '8px 12px',
-                minHeight: 40,
+                minHeight: 44,
                 borderRadius: 999,
                 background: 'var(--clr-sage, #4a6b4a)',
-                color: 'white',
+                color: 'var(--clr-sage-on, #fff)',
                 fontSize: 12,
                 fontWeight: 700,
                 fontFamily: 'var(--vmx-mono)',
                 flexShrink: 0,
               }}
             >
-              ▶️ ลุย
+              ลุย
             </button>
           </div>
         )}

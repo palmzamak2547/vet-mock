@@ -15,12 +15,17 @@ const FOCUSABLE_SELECTOR = [
 // focus to the control the user used, rather than dropping it on <body>.
 let lastPointerLauncher = null;
 if (typeof document !== 'undefined') {
-  document.addEventListener('pointerdown', (event) => {
+  const rememberLauncher = (event) => {
     const target = event.target instanceof Element
       ? event.target.closest('button, a[href], input, select, textarea, [role="button"]')
       : null;
     if (target instanceof HTMLElement) lastPointerLauncher = target;
-  }, true);
+  };
+  document.addEventListener('pointerdown', rememberLauncher, true);
+  // WebKit touch emulation and older iOS paths can dispatch touchstart without
+  // the pointerdown the desktop path relies on. Capture both at the same phase;
+  // duplicate delivery is harmless because both events name the same launcher.
+  document.addEventListener('touchstart', rememberLauncher, { capture: true, passive: true });
 }
 
 function isAvailable(element) {
@@ -41,7 +46,7 @@ function getFocusableElements(container) {
  * while focus entry, focus trapping, Escape, nested-modal ordering, and focus
  * restoration stay identical across features.
  */
-export function useModalFocus({ active = true, onClose, initialFocusRef } = {}) {
+export function useModalFocus({ active = true, onClose, initialFocusRef, returnFocusRef } = {}) {
   const dialogRef = useRef(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -49,12 +54,15 @@ export function useModalFocus({ active = true, onClose, initialFocusRef } = {}) 
   useEffect(() => {
     if (!active) return undefined;
 
+    const explicitReturnTarget = returnFocusRef?.current instanceof HTMLElement
+      ? returnFocusRef.current
+      : null;
     const activeElement = document.activeElement instanceof HTMLElement
       ? document.activeElement
       : null;
-    const returnTarget = activeElement && activeElement !== document.body
+    const returnTarget = explicitReturnTarget || (activeElement && activeElement !== document.body
       ? activeElement
-      : lastPointerLauncher?.isConnected ? lastPointerLauncher : null;
+      : lastPointerLauncher?.isConnected ? lastPointerLauncher : null);
     lastPointerLauncher = null;
 
     const focusDialog = () => {
@@ -134,7 +142,7 @@ export function useModalFocus({ active = true, onClose, initialFocusRef } = {}) 
       document.removeEventListener('keydown', onKeyDown, true);
       if (returnTarget?.isConnected) returnTarget.focus({ preventScroll: true });
     };
-  }, [active, initialFocusRef]);
+  }, [active, initialFocusRef, returnFocusRef]);
 
   return dialogRef;
 }

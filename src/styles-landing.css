@@ -40,6 +40,10 @@
 
 /* ---- Landing shell ---- */
 html.lp-active { background: var(--clr-bg); }
+.lp-root {
+  --lp-nav-clearance: calc(var(--space-16) + var(--space-4));
+  --lp-menu-layer: calc(var(--z-nav) - 1);
+}
 .lp-root { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; color: var(--clr-ink); background: var(--clr-bg); min-height: 100vh; min-height: 100svh; overflow-x: hidden; }
 .lp-root .vmx-btn { overflow: visible; }
 [data-theme="dark"] .lp-root, html.lp-active[data-theme="dark"] { color-scheme: dark; }
@@ -53,6 +57,7 @@ html.lp-active { background: var(--clr-bg); }
    control that exists for keyboard and screen-reader users. */
 .lp-root a.lp-skip { position: absolute; left: -999px; top: 8px; z-index: 200; background: var(--clr-ink); color: var(--clr-bg); padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
 .lp-skip:focus { left: 8px; }
+.lp-nav-sentinel { position: absolute; top: 8px; left: 0; width: 1px; height: 1px; pointer-events: none; }
 
 /* ================================================================
    ✨ PREMIUM HERO BACKGROUND — animated radial mesh gradient
@@ -108,7 +113,7 @@ html.lp-active { background: var(--clr-bg); }
 .lp-nav {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: var(--z-nav);
   background: color-mix(in srgb, var(--clr-bg) 90%, transparent);
   border-bottom: 1px solid var(--clr-border);
   transition: background .3s, border-color .3s, box-shadow .3s;
@@ -126,14 +131,6 @@ html.lp-active { background: var(--clr-bg); }
   .lp-nav, .lp-nav.is-scrolled { background: var(--clr-bg); }
 }
 
-/* Logo glow on hover */
-.lp-nav a[href="#lp-top"] {
-  transition: filter .25s, color .15s;
-}
-.lp-nav a[href="#lp-top"]:hover {
-  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--clr-sage) 50%, transparent));
-}
-
 .lp-navlink { position: relative; border-radius: 8px; transition: color .15s; padding: 8px 12px; font-size: 13.5px; font-weight: 500; color: var(--clr-ink-soft); }
 .lp-navlink::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 5px; height: 2px; background: var(--clr-sage); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform .24s cubic-bezier(.2,.7,.2,1); }
 .lp-navlink:hover::after, .lp-navlink.is-active::after { transform: scaleX(1); }
@@ -143,6 +140,133 @@ html.lp-active { background: var(--clr-bg); }
 .lp-ctx:hover { border-color: var(--clr-sage); transform: translateY(-1px); }
 .lp-iconbtn { width: var(--touch-min, 44px); height: var(--touch-min, 44px); border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--clr-ink); flex-shrink: 0; transition: border-color .2s, background .2s, box-shadow .2s, transform .15s; }
 .lp-iconbtn:hover { border-color: var(--clr-sage); background: color-mix(in srgb, var(--clr-sage) 8%, var(--clr-surface)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--clr-sage) 12%, transparent); transform: scale(1.05); }
+
+/* Mobile menu, rebuilt as a curtain instead of a row that pushes the hero.
+   The sticky nav stays above it at --z-nav; this surface owns the layer directly
+   below. Only transform and opacity move, while React owns focus, inert,
+   Escape and scroll-lock semantics in LandingView. */
+.lp-nav-burger.is-open {
+  border-color: var(--clr-sage);
+  background: color-mix(in srgb, var(--clr-sage) 10%, var(--clr-surface));
+}
+.lp-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--lp-menu-layer);
+  min-height: 100dvh;
+  padding: calc(var(--lp-nav-clearance) + env(safe-area-inset-top, 0px)) var(--space-5) calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex-direction: column;
+  color: var(--clr-ink);
+  background:
+    radial-gradient(ellipse 72% 58% at 92% 12%, color-mix(in srgb, var(--clr-sage) 10%, transparent), transparent 72%),
+    radial-gradient(ellipse 66% 54% at 8% 94%, color-mix(in srgb, var(--clr-gold) 8%, transparent), transparent 70%),
+    var(--clr-bg);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    visibility 0s linear var(--dur),
+    opacity var(--dur) var(--ease-out);
+}
+.lp-mobile-menu.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+.lp-mobile-menu:focus { outline: none; }
+.lp-mobile-menu-inner {
+  width: min(100%, 720px);
+  min-height: calc(100dvh - var(--lp-nav-clearance) - var(--space-5) - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.lp-mobile-menu-head {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--space-5) var(--space-0);
+  border-bottom: 1px solid var(--clr-border);
+}
+.lp-mobile-menu-title {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(var(--text-xl), 7vw, calc(var(--text-2xl) + var(--space-2)));
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+.lp-mobile-menu-context {
+  margin: var(--space-2) var(--space-0) var(--space-0);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  color: var(--clr-ink-soft);
+  font-family: var(--vmx-mono);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+.lp-mobile-menu-context span {
+  color: var(--clr-sage-text);
+  font-weight: 600;
+}
+.lp-mobile-menu-nav {
+  display: grid;
+  margin-top: var(--space-2);
+}
+.lp-root a.lp-mobile-menu-link {
+  min-height: calc(var(--touch-min) + var(--space-6));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-1);
+  border-bottom: 1px solid var(--clr-border);
+  color: var(--clr-ink);
+  font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif;
+  font-size: clamp(var(--text-xl), 7vw, calc(var(--text-2xl) + var(--space-2)));
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -.02em;
+  transition:
+    color var(--dur-fast),
+    padding var(--dur-fast) var(--ease-out);
+}
+.lp-root a.lp-mobile-menu-link:hover,
+.lp-root a.lp-mobile-menu-link:focus-visible {
+  color: var(--clr-sage-text);
+  padding-left: var(--space-2);
+  padding-right: var(--space-2);
+}
+.lp-root a.lp-mobile-menu-link:focus-visible {
+  outline: 2px solid var(--clr-ink);
+  outline-offset: -2px;
+  border-radius: var(--r-sm);
+}
+.lp-mobile-menu-link > span:last-child {
+  flex: 0 0 auto;
+  color: var(--clr-sage-text);
+  font-family: system-ui, sans-serif;
+  font-size: .8em;
+}
+.lp-mobile-menu-foot {
+  margin-top: auto;
+  padding-top: var(--space-6);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+.lp-mobile-menu-foot > .vmx-btn { justify-content: center; min-height: var(--touch-min); }
+.lp-mobile-menu-language {
+  display: inline-flex;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+  background: var(--clr-surface);
+}
 
 /* Primary CTA button — stable text width, no decorative sweep. */
 .lp-root .vmx-btn-primary {
@@ -463,6 +587,7 @@ html.lp-active { background: var(--clr-bg); }
   .lp-nav .lp-only-desktop { display: none !important; }
   .lp-nav .lp-only-mobile { display: inline-flex !important; }
   .lp-nav-burger { display: inline-flex !important; }
+  .lp-mobile-menu { display: flex !important; }
 }
 
 /* Was max-width: 384px, which covered the iPhone SE and little else. Every
@@ -475,11 +600,14 @@ html.lp-active { background: var(--clr-bg); }
   .lp-pad { padding-left: 14px !important; padding-right: 14px !important; }
   .vmx-btn-sm { padding: 8px 11px !important; font-size: 11px !important; }
   .lp-nav .lp-pad { gap: 9px !important; padding-top: 9px !important; padding-bottom: 9px !important; }
+  .lp-mobile-menu { padding-left: var(--space-4); padding-right: var(--space-4); }
 }
 @media (max-width: 340px) {
   .lp-nav .lp-wordmark { display: none; }
   .lp-nav .lp-pad { padding-left: 10px !important; padding-right: 10px !important; }
   .lp-tile-grid { grid-template-columns: 1fr !important; }
+  .lp-mobile-menu-foot { grid-template-columns: 1fr; }
+  .lp-mobile-menu-language { justify-self: start; }
 }
 @media (hover: none) {
   .vmx-subject-card:hover { transform: none; }
@@ -497,90 +625,7 @@ html.lp-active { background: var(--clr-bg); }
 }
 .lp-root .vmx-subject-card, .lp-root .vmx-stat-card { 
   transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .25s, box-shadow .25s; 
-  transform-style: preserve-3d; 
 }
-
-/* ================================================================
-   ✨ SCROLL RAIL — left progress indicator
-   ================================================================ */
-/* The rail is fixed at left:20px and runs about 84px wide, but the page
-   content is a 1200px container centred in the viewport — so the content's
-   left edge only clears the rail once the viewport passes roughly 1400px.
-   Below that they overlap and OBSERVE / INTERPRET print straight through the
-   hero headline (measured 64x33px of collision at 1280px, worse at 1024px).
-   It is decoration, so it waits for a viewport wide enough to hold it. */
-.lp-rail { display: none; }
-@media (min-width: 1400px) {
-  .lp-rail {
-    position: fixed;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 40;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    pointer-events: none;
-  }
-}
-.lp-rail::before {
-  content: '';
-  position: absolute;
-  left: 4px;
-  top: 4px;
-  bottom: 4px;
-  width: 2px;
-  background: color-mix(in srgb, var(--clr-border) 50%, transparent);
-  border-radius: 2px;
-}
-.lp-rail-item { 
-  display: flex; 
-  align-items: center; 
-  gap: 9px; 
-  opacity: .3; 
-  transition: opacity .35s, transform .35s; 
-  position: relative;
-}
-.lp-rail-item.is-on { opacity: 0.8; }
-.lp-rail-item.is-current { 
-  opacity: 1; 
-  transform: translateX(4px); 
-}
-.lp-rail-dot { 
-  width: 10px; 
-  height: 10px; 
-  border-radius: 50%; 
-  border: 2px solid var(--clr-sage); 
-  background: transparent; 
-  transition: background .3s, transform .3s, box-shadow .3s, border-color .3s; 
-  position: relative;
-  z-index: 1;
-}
-.lp-rail-item.is-on .lp-rail-dot { 
-  background: var(--clr-sage-soft); 
-  border-color: var(--clr-sage);
-}
-.lp-rail-item.is-current .lp-rail-dot { 
-  background: var(--clr-sage); 
-  transform: scale(1.35); 
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--clr-sage) 20%, transparent), 0 2px 8px color-mix(in srgb, var(--clr-sage) 30%, rgba(0,0,0,.15)); 
-  border-color: var(--clr-sage);
-}
-.lp-rail-label { 
-  font-family: var(--vmx-mono); 
-  font-size: 10px; 
-  letter-spacing: .12em; 
-  text-transform: uppercase; 
-  color: var(--clr-ink-soft); 
-  transition: color .3s, transform .3s;
-}
-.lp-rail-item.is-current .lp-rail-label {
-  color: var(--clr-ink);
-  transform: translateX(2px);
-}
-
-/* Diagnostic spotlight (follows cursor inside question cards) */
-.lp-spotlight { position: fixed; width: 340px; height: 340px; border-radius: 50%; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .3s; background: radial-gradient(circle, color-mix(in srgb, var(--clr-sage) 16%, transparent), transparent 70%); }
 
 /* ================================================================
    ✨ FOOTER — gradient top border
@@ -632,7 +677,8 @@ html.lp-active { background: var(--clr-bg); }
    ================================================================ */
 @media (prefers-reduced-motion: reduce) {
   .lp-reveal { opacity: 1; transform: none; transition: none; }
-  .lp-rail, .lp-spotlight { display: none !important; }
+  .lp-mobile-menu,
+  .lp-mobile-menu-link { transition-duration: .001ms !important; transition-delay: 0s !important; transform: none !important; }
   #cta .lp-reveal > div::before { animation: none !important; }
   #why::after { animation: none !important; }
   .lp-root *, .lp-root *::before, .lp-root *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }

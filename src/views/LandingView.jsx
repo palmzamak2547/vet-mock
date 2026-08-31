@@ -27,6 +27,7 @@ import { Q_VISIBLE_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import { DICT } from './landing/dict.js';
 import LandingBody from './landing/LandingBody.jsx';
 import { useLandingMotion } from './landing/useLandingMotion.js';
+import NavIcon from '../components/NavIcon.jsx';
 
 // ---- Demo fixtures for the interactive examples (isolated, non-scoring) ----
 const HERO_OPTIONS = ['Abdominal radiographs', 'Low-dose dexamethasone suppression test (LDDST)', 'Serum fructosamine', 'Total T4 (thyroid panel)'];
@@ -35,6 +36,7 @@ const LAB_OPTIONS = ['Left atrial enlargement with cardiogenic pulmonary oedema'
 const LAB_ANSWER = 0;
 const PANIC_DATA = { '15': { c: 8, t: 5, q: 12, w: 2 }, '30': { c: 15, t: 10, q: 25, w: 3 }, '60': { c: 30, t: 20, q: 50, w: 5 }, tonight: { c: 60, t: 40, q: 120, w: 6 } };
 const READINESS = { score: 72 };
+const FOCUSABLE_SELECTOR = 'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])';
 
 // Real subjects (year-4 default = current cohort) with REAL question
 // counts. Each is a working destination into the practice flow.
@@ -92,7 +94,6 @@ export default function LandingView({
   // ---- UI state ----
   const [mobileOpen, setMobileOpen] = useState(false);
   const [muted, setMuted] = useState(true);
-  const [heroWord, setHeroWord] = useState(0);
   const [navScrolled, setNavScrolled] = useState(false);
 
   // hero exam demo
@@ -128,7 +129,10 @@ export default function LandingView({
   const loginDialogRef = useRef(null);
   const loginReturnFocusRef = useRef(null);
   const mobileMenuButtonRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const navSentinelRef = useRef(null);
   const closeLogin = useCallback(() => setLoginOpen(false), []);
+  const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
 
   // sync language from prop
   useEffect(() => { if (langProp && langProp !== lang) setLang(langProp); }, [langProp]); // eslint-disable-line
@@ -163,7 +167,7 @@ export default function LandingView({
     return () => document.documentElement.classList.remove('lp-active');
   }, []);
 
-  // ---- mount: motion prefs, reveal, nav scroll, rotating word, escape ----
+  // ---- mount: motion prefs, reveal, nav scroll, rotating word ----
   useEffect(() => {
     reduce.current = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const els = Array.from(document.querySelectorAll('.lp-reveal'));
@@ -190,21 +194,114 @@ export default function LandingView({
         if (!e.classList.contains('in')) io.observe(e);
       });
     }
-    const onScroll = () => setNavScrolled(window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    let wordTimer;
-    if (!reduce.current) wordTimer = setInterval(() => { if (!document.hidden) setHeroWord((w) => (w + 1) % L.heroWords.length); }, 2600);
-    const onKey = (e) => { if (e.key === 'Escape') setMobileOpen(false); };
-    window.addEventListener('keydown', onKey);
+    // One 1px sentinel replaces a React state update on every scroll event.
+    // The sticky nav only needs to know whether the page left its top edge;
+    // IntersectionObserver reports that state transition without frame work.
+    let navObserver;
+    const sentinel = navSentinelRef.current;
+    if (sentinel && 'IntersectionObserver' in window) {
+      navObserver = new IntersectionObserver(([entry]) => {
+        setNavScrolled(!entry.isIntersecting);
+      }, { threshold: 0 });
+      navObserver.observe(sentinel);
+    } else {
+      setNavScrolled(window.scrollY > 8);
+    }
     return () => {
       if (io) io.disconnect();
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('keydown', onKey);
-      if (wordTimer) clearInterval(wordTimer);
+      if (navObserver) navObserver.disconnect();
     };
     // eslint-disable-next-line
   }, [lang]);
+
+  // The landing menu is a real modal navigation surface on compact screens.
+  // It stays mounted while closed so links remain in the document, then
+  // visibility + inert keep it out of interaction until opened. Opening moves
+  // focus inside, locks the actual page scroller, traps Tab, and closing always
+  // returns focus to the trigger. The visual curtain is only progressive
+  // enhancement; the navigation contract does not depend on animation.
+  useEffect(() => {
+    if (!mobileOpen) return undefined;
+    const menu = mobileMenuRef.current;
+    if (!menu) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const focusables = () => {
+      const inside = Array.from(menu.querySelectorAll(FOCUSABLE_SELECTOR));
+      return mobileMenuButtonRef.current ? [mobileMenuButtonRef.current, ...inside] : inside;
+    };
+    const onMenuKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeMobileMenu();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const items = focusables();
+      if (items.length === 0) {
+        event.preventDefault();
+        menu.focus();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (!menu.contains(document.activeElement)) {
+        // The trigger is intentionally part of the compact menu's focus
+        // circuit even though it sits in the sticky header above the dialog.
+        // From it, Tab must enter the first menu destination instead of
+        // continuing into the page behind the modal surface.
+        if (!event.shiftKey && document.activeElement === mobileMenuButtonRef.current && items[1]) {
+          event.preventDefault();
+          items[1].focus();
+        } else {
+          event.preventDefault();
+          (event.shiftKey ? last : first).focus();
+        }
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onMenuKeyDown);
+    const frame = window.requestAnimationFrame(() => {
+      (menu.querySelector('.lp-mobile-menu-link') || menu).focus();
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      document.removeEventListener('keydown', onMenuKeyDown);
+      document.body.style.overflow = previousOverflow;
+      mobileMenuButtonRef.current?.focus?.();
+    };
+  }, [closeMobileMenu, mobileOpen]);
+
+  // CSS owns the compact breakpoint. Observe whether that stylesheet has
+  // actually hidden the trigger instead of duplicating its pixel value here;
+  // rotating a phone or widening a tablet must never leave body scroll locked
+  // after both the curtain and its trigger disappear.
+  useEffect(() => {
+    if (!mobileOpen) return undefined;
+    const trigger = mobileMenuButtonRef.current;
+    if (!trigger) return undefined;
+    const closeWhenCssHidesTrigger = () => {
+      if (window.getComputedStyle(trigger).display === 'none') closeMobileMenu();
+    };
+    closeWhenCssHidesTrigger();
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(closeWhenCssHidesTrigger);
+      observer.observe(document.documentElement);
+      return () => observer.disconnect();
+    }
+    window.addEventListener('resize', closeWhenCssHidesTrigger, { passive: true });
+    return () => {
+      window.removeEventListener('resize', closeWhenCssHidesTrigger);
+    };
+  }, [closeMobileMenu, mobileOpen]);
 
   // Focus-managed login dialog: focus moves inside, Tab stays inside, body
   // scroll is locked, and closing returns focus to the control that opened it.
@@ -215,8 +312,7 @@ export default function LandingView({
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    const focusableSelector = 'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])';
-    const focusables = () => Array.from(dialog.querySelectorAll(focusableSelector));
+    const focusables = () => Array.from(dialog.querySelectorAll(FOCUSABLE_SELECTOR));
     const onDialogKeyDown = (event) => {
       if (event.key === 'Escape') {
         event.preventDefault();
@@ -340,12 +436,11 @@ export default function LandingView({
   const cookieSave = () => { setCookieOpen(false); onConsent && onConsent(cAnalytics ? 'custom' : 'essential', { analytics: cAnalytics, personal: cPersonal }); };
 
   const t = L; // alias
-  const themeIcon = theme === 'dark' ? '☀️' : '🌙';
-
   // ================= RENDER =================
   return (
     <div className="lp-root">
-      <a className="lp-skip" href="#lp-main">Skip to content</a>
+      <span ref={navSentinelRef} className="lp-nav-sentinel" aria-hidden="true" />
+      <a className="lp-skip" href="#lp-main">{t.skip}</a>
 
       {/* ---- NAV ---- */}
       <header id="vm-nav" className={`lp-nav ${navScrolled ? 'is-scrolled' : ''}`}>
@@ -377,33 +472,78 @@ export default function LandingView({
               <button type="button" aria-pressed={lang === 'en'} onClick={() => chooseLang('en')} style={segStyle(lang === 'en')}>EN</button>
               <button type="button" aria-pressed={lang === 'th'} onClick={() => chooseLang('th')} style={segStyle(lang === 'th')}>ไทย</button>
             </div>
-            <button type="button" onClick={() => setMuted((m) => !m)} aria-label={t.muteLabel} className="lp-only-desktop lp-iconbtn" style={{ fontSize: 15 }}>{muted ? '🔇' : '🔊'}</button>
-            <button type="button" onClick={onToggleTheme} aria-label="Toggle theme" className="lp-iconbtn" style={{ fontSize: 16 }}>{themeIcon}</button>
+            <button type="button" onClick={() => setMuted((current) => !current)} aria-label={muted ? t.soundOn : t.soundOff} className="lp-only-desktop lp-iconbtn lp-sound-toggle">
+              <NavIcon name={muted ? 'speaker-off' : 'speaker'} size={17} />
+            </button>
+            <button type="button" onClick={onToggleTheme} aria-label={theme === 'dark' ? t.themeToLight : t.themeToDark} className="lp-iconbtn lp-theme-toggle">
+              <NavIcon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
+            </button>
             <button type="button" onClick={openLogin} className="lp-only-desktop vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ flexShrink: 0 }}>{t.signIn}</button>
             <button type="button" onClick={onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ flexShrink: 0 }}>{t.start}</button>
-            <button ref={mobileMenuButtonRef} type="button" className="lp-nav-burger lp-iconbtn" onClick={() => setMobileOpen((o) => !o)} aria-label="Menu" aria-expanded={mobileOpen} style={{ fontSize: 16 }}>☰</button>
+            <button
+              ref={mobileMenuButtonRef}
+              type="button"
+              className={`lp-nav-burger lp-iconbtn${mobileOpen ? ' is-open' : ''}`}
+              onClick={() => setMobileOpen((open) => !open)}
+              aria-label={mobileOpen ? t.menuClose : t.menuOpen}
+              aria-expanded={mobileOpen}
+              aria-controls="lp-mobile-menu"
+            >
+              <NavIcon name={mobileOpen ? 'close' : 'menu'} size={19} />
+            </button>
           </div>
         </div>
-        {mobileOpen && (
-          <div className="lp-only-mobile" style={{ flexDirection: 'column', padding: '8px 20px calc(18px + env(safe-area-inset-bottom, 0px))', borderTop: '1px solid var(--clr-border)', gap: 2 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '8px 4px 12px', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', borderBottom: '1px dashed var(--clr-border)', marginBottom: 6 }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)' }} />{t.ctxChip}
-            </div>
-            {t.nav.map((l) => <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} style={{ padding: '12px 4px', fontSize: 15, fontWeight: 600, color: 'var(--clr-ink)', borderBottom: '1px dashed var(--clr-border)' }}>{l.label}</a>)}
-            <div style={{ display: 'flex', gap: 10, marginTop: 14, alignItems: 'center' }}>
-              <button type="button" onClick={openLogin} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ flex: 1 }}>{t.signIn}</button>
-              <div style={{ flexShrink: 0, display: 'inline-flex', border: '1px solid var(--clr-border)', borderRadius: 999, overflow: 'hidden' }}>
-                <button type="button" aria-pressed={lang === 'en'} onClick={() => chooseLang('en')} style={segStyle(lang === 'en')}>EN</button>
-                <button type="button" aria-pressed={lang === 'th'} onClick={() => chooseLang('th')} style={segStyle(lang === 'th')}>ไทย</button>
-              </div>
+      </header>
+
+      {/* Always mounted: visibility + inert close this curtain without
+          deleting the navigation tree. The sticky header remains above it,
+          so opening the menu never pushes the hero or changes scroll height. */}
+      <div
+        ref={mobileMenuRef}
+        id="lp-mobile-menu"
+        className={`lp-only-mobile lp-mobile-menu${mobileOpen ? ' is-open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lp-mobile-menu-title"
+        aria-hidden={!mobileOpen}
+        inert={mobileOpen ? undefined : ''}
+        tabIndex={-1}
+      >
+        <div className="lp-mobile-menu-inner">
+          <div className="lp-mobile-menu-head">
+            <div>
+              <p id="lp-mobile-menu-title" className="lp-mobile-menu-title">{t.menuTitle}</p>
+              <p className="lp-mobile-menu-context"><span>{t.menuContext}</span>{t.ctxChip}</p>
             </div>
           </div>
-        )}
-      </header>
+
+          <nav className="lp-mobile-menu-nav" aria-label={t.menuNavLabel}>
+            {t.nav.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="lp-mobile-menu-link"
+                onClick={closeMobileMenu}
+              >
+                <span>{link.label}</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            ))}
+          </nav>
+
+          <div className="lp-mobile-menu-foot">
+            <button type="button" onClick={openLogin} className="vmx-btn vmx-btn-ghost">{t.signIn}</button>
+            <div className="lp-mobile-menu-language" aria-label={t.menuLanguageLabel}>
+              <button type="button" aria-pressed={lang === 'en'} onClick={() => chooseLang('en')} style={segStyle(lang === 'en')}>EN</button>
+              <button type="button" aria-pressed={lang === 'th'} onClick={() => chooseLang('th')} style={segStyle(lang === 'th')}>ไทย</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* body sections rendered from a dedicated module for readability */}
       <LandingBody
-        {...{ t, lang, heroWord, heroOptions, heroPicked, heroRevealed, heroBookmarked, heroConfidence,
+        {...{ t, lang, heroOptions, heroPicked, heroRevealed, heroBookmarked, heroConfidence,
           setHeroPicked, setHeroBookmarked, setHeroConfidence, onCheckHero,
           subjectTab, setSubjectTab, showcaseMode, setShowcaseMode, realSubjects,
           panicTime, setPanicTime, panic,
@@ -455,8 +595,9 @@ export default function LandingView({
 
       {/* ---- Login modal (real auth) ---- */}
       {loginOpen && (
-        <div onClick={closeLogin} style={{ position: 'fixed', inset: 0, background: 'rgba(43,36,25,.5)', zIndex: 110, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'max(20px, env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px))' }}>
-          <div ref={loginDialogRef} tabIndex={-1} onClick={(e) => e.stopPropagation()} className="lp-stack" role="dialog" aria-modal="true" aria-labelledby="vmx-login-title" style={{ width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 20, boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise .45s cubic-bezier(.16,1,.3,1)' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'max(var(--space-5), env(safe-area-inset-top, 0px)) var(--space-5) max(var(--space-5), env(safe-area-inset-bottom, 0px))' }}>
+          <div aria-hidden="true" onClick={closeLogin} style={{ position: 'absolute', inset: 0, background: 'color-mix(in srgb, var(--clr-ink) 50%, transparent)', cursor: 'default' }} />
+          <div ref={loginDialogRef} tabIndex={-1} className="lp-stack" role="dialog" aria-modal="true" aria-labelledby="vmx-login-title" style={{ position: 'relative', zIndex: 'var(--z-raised)', width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 'var(--r-xl)', boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise var(--dur-slow) var(--ease-out)' }}>
             <div className="lp-hide-md" style={{ background: 'var(--clr-bg)', borderRight: '1px solid var(--clr-border)', padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
               <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 14, padding: 18 }}>
@@ -470,7 +611,9 @@ export default function LandingView({
             <div style={{ padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 20 }}>Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
-                <button type="button" onClick={closeLogin} aria-label="Close" className="lp-iconbtn" style={{ width: 34, height: 34, fontSize: 14, background: 'var(--clr-bg)' }}>✕</button>
+                <button type="button" onClick={closeLogin} aria-label={t.lgClose} className="lp-iconbtn" style={{ background: 'var(--clr-bg)' }}>
+                  <NavIcon name="close" size={17} />
+                </button>
               </div>
               {loginStep === 'email' ? (
                 <div>

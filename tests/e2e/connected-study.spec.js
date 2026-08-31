@@ -477,7 +477,7 @@ test.describe('landing accessibility', () => {
     const signInControls = page.getByRole('button', { name: /Sign In|เข้าสู่ระบบ/ });
     let returnTarget = await firstVisible(signInControls);
     if (!returnTarget) {
-      returnTarget = page.getByRole('button', { name: 'Menu' });
+      returnTarget = page.locator('.lp-nav-burger');
       await returnTarget.click();
     }
     await openVisible(signInControls);
@@ -488,5 +488,140 @@ test.describe('landing accessibility', () => {
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
     await expect(returnTarget).toBeFocused();
+  });
+
+  test('mobile menu stays mounted and owns focus, scroll, and Escape', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      try {
+        window.localStorage.removeItem('vmx-selected-year');
+        window.localStorage.removeItem('vmx-seen-landing');
+        window.localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+        window.localStorage.setItem('vmx-landing-lang', JSON.stringify('th'));
+        window.localStorage.setItem('vmx-theme', JSON.stringify('light'));
+      } catch {}
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/?e2e-fresh=1');
+
+    const trigger = page.locator('.lp-nav-burger');
+    const menu = page.locator('#lp-mobile-menu');
+    await expect(menu).toBeAttached();
+    await expect(menu).toBeHidden();
+    await expect(menu).toHaveAttribute('inert', '');
+    await expect(trigger).toHaveAttribute('aria-label', 'เปิดเมนู');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await trigger.click();
+    await expect(menu).toBeVisible();
+    await expect(menu).not.toHaveAttribute('inert', '');
+    await expect(trigger).toHaveAttribute('aria-label', 'ปิดเมนู');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(menu.locator('.lp-mobile-menu-link').first()).toBeFocused();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('hidden');
+
+    const focusables = menu.locator('button:not([disabled]), a[href]');
+    await focusables.last().focus();
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('button', { name: 'ปิดเมนู' })).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(menu.locator('.lp-mobile-menu-link').first()).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(menu).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('');
+
+    await trigger.click();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('hidden');
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await expect(trigger).toBeHidden();
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('');
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await trigger.click();
+    await expect(menu).toBeVisible();
+    const reducedDurationMs = await menu.evaluate((element) => {
+      const values = getComputedStyle(element).transitionDuration.split(',');
+      return Math.max(...values.map((value) => {
+        const normalized = value.trim();
+        return normalized.endsWith('ms') ? Number.parseFloat(normalized) : Number.parseFloat(normalized) * 1000;
+      }));
+    });
+    expect(reducedDurationMs).toBeLessThanOrEqual(150);
+    await page.keyboard.press('Escape');
+  });
+
+  test('landing chrome uses one icon language and observer-driven scroll state', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      try {
+        window.localStorage.removeItem('vmx-selected-year');
+        window.localStorage.removeItem('vmx-seen-landing');
+        window.localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+        window.localStorage.setItem('vmx-landing-lang', JSON.stringify('th'));
+        window.localStorage.setItem('vmx-theme', JSON.stringify('light'));
+      } catch {}
+    });
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/?e2e-fresh=1');
+
+    const sound = page.locator('.lp-sound-toggle');
+    const theme = page.locator('.lp-theme-toggle');
+    const bookmark = page.getByRole('button', { name: 'บันทึกข้อนี้' });
+    await expect(sound.locator('svg')).toBeVisible();
+    await expect(theme.locator('svg')).toBeVisible();
+    await expect(bookmark.locator('svg')).toBeVisible();
+    await expect(sound).toHaveAttribute('aria-label', 'เปิดเสียง');
+    await expect(theme).toHaveAttribute('aria-label', 'เปลี่ยนเป็นโหมดมืด');
+    await expect(page.locator('.lp-rail, .lp-spotlight')).toHaveCount(0);
+
+    await sound.click();
+    await expect(sound).toHaveAttribute('aria-label', 'ปิดเสียง');
+    await theme.click();
+    await expect(theme).toHaveAttribute('aria-label', 'เปลี่ยนเป็นโหมดสว่าง');
+
+    const header = page.locator('.lp-nav');
+    await expect(header).not.toHaveClass(/is-scrolled/);
+    await page.evaluate(() => window.scrollTo(0, 24));
+    await expect(header).toHaveClass(/is-scrolled/);
+
+    const progressLink = page.locator('.lp-navlink[href="#progress"]');
+    await page.locator('#progress').scrollIntoViewIfNeeded();
+    await expect(progressLink).toHaveClass(/is-active/);
+  });
+
+  test('home onboarding tour traps focus, locks scroll, and restores its launcher', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      try {
+        window.localStorage.setItem('vmx-seen-landing', '1');
+        window.localStorage.setItem('vmx-selected-year', '5');
+        window.localStorage.setItem('vmx-selected-phase', JSON.stringify('1-mid'));
+        window.localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+        window.localStorage.removeItem('vmx-welcome-dismissed');
+        window.localStorage.removeItem('vmx-onboarding-seen');
+      } catch {}
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const launcher = page.getByRole('button', { name: 'เปิดคำแนะนำการใช้งาน' });
+    await expect(launcher).toBeVisible();
+    await launcher.click();
+
+    const dialog = page.getByRole('dialog', { name: 'ยินดีต้อนรับสู่ VetMock' });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('button', { name: 'ข้าม' }).first()).toBeFocused();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('hidden');
+
+    const focusables = dialog.locator('button:not([disabled]), a[href]');
+    await focusables.last().focus();
+    await page.keyboard.press('Tab');
+    await expect(dialog.getByRole('button', { name: 'ข้าม' }).first()).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+    await expect(launcher).toBeFocused();
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('');
   });
 });

@@ -39,6 +39,9 @@ const PATHS = {
       <path d="m16 16 4.5 4.5" />
     </>
   ),
+  // compact navigation trigger / dismiss
+  menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  close: <path d="m5 5 14 14M19 5 5 19" />,
   // account / sign in
   user: (
     <>

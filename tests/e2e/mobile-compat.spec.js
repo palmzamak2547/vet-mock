@@ -449,8 +449,17 @@ test.describe('whole-app mobile compatibility', () => {
 
     await gotoSurface(page, '/?e2e-fresh=1');
     await waitForSurface(page);
+    // Fresh landing intentionally shows the consent dock above every other
+    // surface. Resolve it before exercising the menu footer; the old push-down
+    // drawer happened to leave its sign-in button above the dock, while the
+    // fixed curtain correctly keeps consent at the higher interaction layer.
+    const consent = page.getByRole('region', { name: /remember where|จำที่ที่/ });
+    if (await consent.isVisible().catch(() => false)) {
+      await consent.getByRole('button', { name: /Essential only|เฉพาะที่จำเป็น/ }).click();
+      await consent.waitFor({ state: 'hidden' });
+    }
     await page.locator('.lp-nav-burger').click();
-    const mobileDrawer = page.locator('#vm-nav > .lp-only-mobile');
+    const mobileDrawer = page.locator('#lp-mobile-menu');
     await mobileDrawer.waitFor({ state: 'visible' });
     await recordStage(page, testInfo, failures, 'landing-mobile-drawer');
     await mobileDrawer.locator('.vmx-btn-ghost').click();

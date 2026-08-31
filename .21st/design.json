@@ -105,6 +105,18 @@
       "choice": "Use one study-focus surface for the recommended action and the next-exam context.",
       "rationale": "The previous separate action and countdown cards competed above the subject list. The 21st ProjectProgressCard hierarchy was adapted to existing VetMock JSX and tokens without adding Shadcn or Framer Motion.",
       "inspiration": "21st component 8698, ProjectProgressCard"
+    },
+    {
+      "id": "landing-mobile-menu-contract",
+      "choice": "Use a fixed editorial curtain for compact landing navigation, while keeping the link tree mounted and inert when closed.",
+      "rationale": "The previous conditional push-down menu changed page height and provided no focus ownership or scroll lock. The curtain preserves the landing hierarchy, uses existing tokens and native CSS, and standardizes aria-expanded, focus entry and return, Tab containment, Escape, body scroll lock, dark mode, and a sub-150ms reduced-motion path without adding dependencies. CSS owns the compact breakpoint; React observes whether the trigger is hidden so rotation cannot strand scroll lock.",
+      "inspiration": "Annnimate Menu Kit contract, Taste Skill audit-first redesign, and 21st mobile navigation search"
+    },
+    {
+      "id": "landing-motion-budget",
+      "choice": "Keep landing motion at state-transition level: CSS hover and press feedback plus IntersectionObserver-driven navigation state, with no scroll-frame listener, pointer physics, injected progress rail, or cursor spotlight.",
+      "rationale": "The removed layer attached pointermove handlers across buttons, cards, and question demos, updated React or DOM state on every scroll, and injected a rail at widths where CSS still hid it. The remaining observer work communicates location without continuous main-thread work or decorative motion.",
+      "inspiration": "Taste Skill motion discipline and the existing VetMock reduced-motion contract"
     }
   ],
   "evidence": [
@@ -133,5 +145,5 @@
       "source": "src/styles.css"
     }
   ],
-  "generatedAt": "2026-08-24T11:00:36.879Z"
+  "generatedAt": "2026-08-31T09:51:08.807Z"
 }
