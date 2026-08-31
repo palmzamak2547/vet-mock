@@ -42,6 +42,7 @@ import {
 } from '../lib/pdf-annotations.js';
 import { pullAndMerge, schedulePush, flushPushes, onSyncState, syncState } from '../lib/annotation-sync.js';
 import { searchPages, pageTextFromItems } from '../lib/thai-search.js';
+import { exportAnnotatedPdf, exportFileName, downloadBlob } from '../lib/pdf-export.js';
 
 const PEN_COLORS = [
   { id: 'red',  rgb: '#c0392b', name: 'แดง' },
@@ -184,6 +185,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // The flush lives inside an effect (it needs the listeners' lifetime) but
   // the exit path needs to call it too.
   const flushRef = useRef(null);
+  // How to read the original bytes again at export time. Deliberately a way
+  // BACK to the file rather than a copy of it: pdf.js takes ownership of the
+  // ArrayBuffer it is handed, and keeping a second copy of a 14 MB deck alive
+  // for the whole session is exactly the kind of memory an iPad kills a tab
+  // over. The browser already holds a local File on disk, and a library
+  // document re-reads from cache.
+  const sourceRef = useRef(null);
+  const [exporting, setExporting] = useState(null); // null | {done,total}
   // Page text, extracted once per document and reused for every later search.
   const textRef = useRef({ hash: null, pages: null });
   const searchAbortRef = useRef(0);
@@ -247,6 +256,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       setLoadingMsg('กำลังแกะ PDF…');
       const pdfjs = await loadPdfjs();
       const buf = await file.arrayBuffer();
+      sourceRef.current = { kind: 'file', file };
       const doc = await pdfjs.getDocument({ data: buf }).promise;
       const local = await loadAnnotations(hash);
       const existing = await pullAndMerge(hash, local);
@@ -312,6 +322,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const stream = !!doc.linearized;
       let task;
       if (stream) {
+        sourceRef.current = { kind: 'url', url };
         task = pdfjs.getDocument({ url, rangeChunkSize: 65536 });
       } else {
         const res = await fetch(url);
@@ -324,6 +335,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         // a student who cannot tell the difference reloads, which starts the
         // download again from zero.
         const buf = await readWithProgress(res, setLoadingMsg);
+        sourceRef.current = { kind: 'url', url };
         task = pdfjs.getDocument({ data: buf });
       }
       setLoadingMsg('กำลังแกะ PDF…');
@@ -1227,6 +1239,53 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setMenuOpen(false);
   }
 
+  // ── Export ─────────────────────────────────────────────────
+  async function readOriginalBytes() {
+    const src = sourceRef.current;
+    if (!src) throw new Error('ไม่พบไฟล์ต้นฉบับ ลองเปิดเอกสารใหม่อีกครั้ง');
+    if (src.kind === 'file') return src.file.arrayBuffer();
+    // The signed link is minted against fixed hour boundaries and the service
+    // worker caches by content hash, so this is normally a cache hit rather
+    // than a second download.
+    const res = await fetch(src.url);
+    if (!res.ok) throw new Error(`โหลดไฟล์ต้นฉบับไม่สำเร็จ (${res.status})`);
+    return res.arrayBuffer();
+  }
+
+  async function runExport(annotatedOnly) {
+    if (exporting) return;
+    setMenuOpen(false);
+    const pagesWithInk = Object.values(strokesByPage).filter((a) => a?.length).length;
+    if (pagesWithInk === 0) {
+      showToast('ยังไม่มีรอยเขียนในเอกสารนี้ ลองเขียนก่อนแล้วค่อยส่งออก', 4000);
+      return;
+    }
+    setExporting({ done: 0, total: pagesWithInk });
+    try {
+      const bytes = await readOriginalBytes();
+      const blob = await exportAnnotatedPdf({
+        bytes,
+        strokesByPage,
+        annotatedOnly,
+        // The reader's own renderer, so an exported page cannot look
+        // different from the page it was copied off.
+        paint: (ctx, strokes, w, h, scale) => {
+          for (const st of strokes) drawStroke(ctx, st, w, h, scale);
+        },
+        onProgress: (done, total) => setExporting({ done, total }),
+      });
+      downloadBlob(blob, exportFileName(fileName, annotatedOnly));
+      showToast('ส่งออกไฟล์แล้ว', 3000);
+    } catch (e) {
+      console.error('[pdf-annotate] export failed:', e);
+      showToast(e?.code === 'no-annotations'
+        ? 'ยังไม่มีรอยเขียนในเอกสารนี้'
+        : thaiError(e, 'ส่งออกไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง'), 5000);
+    } finally {
+      setExporting(null);
+    }
+  }
+
   // ── Zoom ───────────────────────────────────────────────────
   // Fixed steps rather than a free slider: every step is a scale the page
   // cache can hold and reuse, and a student pressing + wants a predictable
@@ -1700,6 +1759,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={() => { clearPage(); setMenuOpen(false); }}
             disabled={(strokesByPage[currentPage] || []).length === 0}>ล้างรอยเขียนหน้านี้</button>
+          <span aria-hidden="true" style={{ width: 1, alignSelf: 'stretch', background: 'var(--clr-border)' }} />
+          <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => runExport(false)} disabled={!!exporting || annotatedPages.size === 0}>
+            ส่งออกทั้งเล่มพร้อมรอยเขียน
+          </button>
+          <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => runExport(true)} disabled={!!exporting || annotatedPages.size === 0}>
+            ส่งออกเฉพาะ {annotatedPages.size} หน้าที่เขียนไว้
+          </button>
         </div>
       )}
 
@@ -1880,6 +1948,31 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             zIndex: 900,
           }}
         />
+      )}
+
+      {exporting && (
+        <div
+          role="status"
+          aria-live="polite"
+          style={{
+            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
+          }}
+        >
+          <div style={{ background: 'var(--clr-bg, #fff)', color: 'var(--clr-ink)', padding: '16px 20px', borderRadius: 10, minWidth: 240 }}>
+            <div style={{ fontSize: 14, marginBottom: 8 }}>
+              กำลังสร้างไฟล์ {exporting.done} / {exporting.total} หน้า
+            </div>
+            <div style={{ height: 6, borderRadius: 999, background: 'var(--clr-border, #e1ddd2)', overflow: 'hidden' }}>
+              <div style={{
+                height: '100%',
+                width: `${Math.round((exporting.done / Math.max(1, exporting.total)) * 100)}%`,
+                background: 'var(--vmx-color-accent, #4a6b4a)',
+                transition: 'width 160ms linear',
+              }} />
+            </div>
+          </div>
+        </div>
       )}
 
       {loading && (

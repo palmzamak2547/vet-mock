@@ -80,6 +80,13 @@ export default defineConfig({
             // Runtime schemas are only needed when importing JSON in two lazy
             // views. Keep them out of the shared first-load vendor chunk.
             if (/[\\/]node_modules[\\/]valibot[\\/]/.test(id)) return 'vendor-validation'
+            // pdf-lib writes the annotated PDF and is reached only from the
+            // export button. Without its own chunk it lands in the shared
+            // `vendor` bundle, which the app loads on first paint — so every
+            // student would download half a megabyte for a button most of
+            // them never press. Measured before this line existed: it was in
+            // vendor-CIZ-5148.js.
+            if (/[\\/]node_modules[\\/]pdf-lib[\\/]/.test(id)) return 'vendor-pdf-write'
             // Be SPECIFIC about react packaging — `includes('react')` was
             // too broad and matched any path containing the substring
             // (e.g. `use-sync-external-store`, `cmdk`, things that
