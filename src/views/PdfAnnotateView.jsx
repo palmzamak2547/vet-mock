@@ -36,7 +36,10 @@ import {
   listRecentPdfs,
   deleteAnnotations,
   storageHealth,
+  newStrokeId,
+  peekAnnotations,
 } from '../lib/pdf-annotations.js';
+import { pullAndMerge, schedulePush, flushPushes, onSyncState, syncState } from '../lib/annotation-sync.js';
 
 const PEN_COLORS = [
   { id: 'red',  rgb: '#c0392b', name: 'แดง' },
@@ -52,6 +55,23 @@ const HL_COLORS = [
   { id: 'pink',   rgb: '#f5a3c7', name: 'ชมพู' },
 ];
 const ZOOM_STEPS = [1, 1.25, 1.5, 2, 2.5, 3];
+
+// iPadOS Safari has reported a desktop "Macintosh" user agent since iPadOS 13,
+// so sniffing the UA for "iPad" finds nothing. A Mac has no touch points; an
+// iPad reports five.
+const isIOS = () => typeof navigator !== 'undefined'
+  && /iPad|iPhone|iPod/.test(navigator.userAgent)
+  || (typeof navigator !== 'undefined'
+      && navigator.platform === 'MacIntel'
+      && (navigator.maxTouchPoints || 0) > 1);
+
+// WebKit on iOS kills a tab that uses too much memory WITHOUT an error, an
+// unload event, or anything JavaScript can catch — it simply reloads. The
+// rendered-page cache is the largest thing this view holds, so it is budgeted
+// in megapixels rather than in pages: three A4 pages at 2x DPR and 300% zoom
+// would be roughly 130 MB of bitmaps, which is exactly the kind of number that
+// makes an iPad drop the tab mid-annotation.
+const CACHE_BUDGET_MP = () => (isIOS() ? 24 : 64);
 
 const SIZE_WARN_MB = 30;
 const SIZE_HARD_MB = 60;
@@ -109,6 +129,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // input, so a pen-only mode is a one-line test rather than heuristics.
   const [penOnly, setPenOnly] = useState(false);
   const [sawPen, setSawPen] = useState(false);
+  // Removals are recorded, not merely absent — see lib/pdf-annotations.js.
+  // Without tombstones a merge would resurrect every stroke the student has
+  // ever rubbed out, on their other device.
+  const [deleted, setDeleted] = useState([]);
+  // Where a hovering stylus is pointing, in client coordinates. Null on every
+  // device that cannot hover, which is most of them.
+  const [hoverPt, setHover] = useState(null);
+  const [sync, setSync] = useState(() => syncState());
 
   const fileInputRef = useRef(null);
   const baseCanvasRef = useRef(null);
@@ -124,13 +152,28 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // GPU memory and a phone will not forgive a dozen of them.
   const pageCacheRef = useRef(new Map()); // `${hash}:${page}@${scale}x${dpr}` -> ImageBitmap
   const prerenderRef = useRef(null);
+  const panRef = useRef(null);
+  const footRef = useRef(null);
+  const [frameH, setFrameH] = useState(null);
   // What a flush should write, always current. A flush that closes over
   // render-time state writes whatever was true when its effect last ran, and
   // an effect that depends on the strokes re-runs on every stroke — the two
   // together silently replaced each correct pending save with the snapshot
   // from before that stroke, so nothing a student drew ever reached storage.
   const latestRef = useRef({});
-  latestRef.current = { fileHash, fileName, pageCount, strokesByPage, currentPage };
+  latestRef.current = { fileHash, fileName, pageCount, strokesByPage, currentPage, deleted };
+
+  // Appends tombstones and returns the new list synchronously, because the
+  // caller needs to hand it to the same save that carries the strokes — two
+  // separate writes could interleave and drop one half.
+  function addTomb(...ids) {
+    const fresh = ids.filter(Boolean);
+    if (!fresh.length) return latestRef.current.deleted || [];
+    const next = [...(latestRef.current.deleted || []), ...fresh];
+    latestRef.current.deleted = next;
+    setDeleted(next);
+    return next;
+  }
 
   // The store moved to IndexedDB, so the recent list arrives a tick late
   // instead of during render. Nothing depends on it being there immediately.
@@ -138,6 +181,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     listRecentPdfs().then(setRecent).catch(() => {});
   }, []);
   useEffect(() => { refreshRecent(); }, [refreshRecent]);
+  useEffect(() => onSyncState(setSync), []);
 
   // ── Toast helper ───────────────────────────────────────────
   const showToast = useCallback((msg, ms = 2500) => {
@@ -171,8 +215,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const pdfjs = await loadPdfjs();
       const buf = await file.arrayBuffer();
       const doc = await pdfjs.getDocument({ data: buf }).promise;
-      const existing = await loadAnnotations(hash);
+      const local = await loadAnnotations(hash);
+      const existing = await pullAndMerge(hash, local);
       const restoredStrokes = existing?.strokesByPage || {};
+      setDeleted(existing?.deleted || []);
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), doc.numPages);
       setPdfDoc(doc);
       setFileHash(hash);
@@ -254,8 +300,13 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // which is exactly what streaming avoids.
       const hash = doc.sha256 || (doc.slug ? `slug:${doc.slug}` : null);
       if (!hash) throw new Error('เอกสารนี้ไม่มีรหัสอ้างอิง');
-      const existing = await loadAnnotations(hash);
+      const local = await loadAnnotations(hash);
+      // Bring in whatever this account already holds for the document. Merging
+      // is a union, so a device that has been offline contributes rather than
+      // overwrites; signed out this returns the local record untouched.
+      const existing = await pullAndMerge(hash, local);
       const restoredStrokes = existing?.strokesByPage || {};
+      setDeleted(existing?.deleted || []);
       // Resume where the reader left off — a 300-page textbook that always
       // reopened at page 1 made every return trip start with scrolling.
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), pdf.numPages);
@@ -351,6 +402,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         overlay.height = cssH * dpr;
         overlay.style.width = cssW + 'px';
         overlay.style.height = cssH + 'px';
+        // The canvas has its new size; put the reader back where they were
+        // looking before the scale changed.
+        applyAnchor();
 
         const ctx = baseCanvas.getContext('2d');
         ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -384,8 +438,20 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }, [pdfDoc, currentPage, zoom]);
 
   // ── Page raster cache ──────────────────────────────────────
+  function cachedMegapixels() {
+    let mp = 0;
+    for (const bmp of pageCacheRef.current.values()) {
+      mp += ((bmp?.width || 0) * (bmp?.height || 0)) / 1e6;
+    }
+    return mp;
+  }
+
   function cachePage(key, canvas) {
     if (typeof createImageBitmap !== 'function') return;
+    const budget = CACHE_BUDGET_MP();
+    // A single page can exceed the whole budget at high zoom on a small
+    // device. Caching it would evict everything and still not fit, so don't.
+    if ((canvas.width * canvas.height) / 1e6 > budget) return;
     createImageBitmap(canvas).then((bmp) => {
       const c = pageCacheRef.current;
       if (c.has(key)) { bmp.close?.(); return; }
@@ -393,7 +459,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // Evict in insertion order — the oldest entry is the page furthest
       // behind the reader. close() actually frees it; dropping the reference
       // alone leaves the bitmap alive until the collector gets to it.
-      while (c.size > 3) {
+      while (c.size > 1 && (c.size > 3 || cachedMegapixels() > budget)) {
         const oldest = c.keys().next().value;
         c.get(oldest)?.close?.();
         c.delete(oldest);
@@ -488,7 +554,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       : stroke.mode === 'highlighter' ? stroke.size * 4.5
         : stroke.size;
     if (!stroke.pressure || pt.length < 3) return base * scale;
-    return base * scale * (0.45 + pt[2] * 1.1);
+    // Pressure is the main term. Tilt adds up to half again on top, the way a
+    // pencil laid over on its side covers more paper — and is simply absent on
+    // hardware that does not report it.
+    const tilt = pt.length > 3 ? (pt[3] || 0) : 0;
+    return base * scale * (0.45 + pt[2] * 1.1) * (1 + tilt * 0.5);
   }
 
   // Draws a stroke as a chain of quadratic curves through the midpoints of
@@ -555,6 +625,28 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   // ── Pointer handlers (annotation overlay) ─────────────────
+  // How far from upright the stylus is, 0 (vertical) to 1 (almost flat).
+  // Safari has reported altitudeAngle since 16.4 and it is the accurate
+  // source; tiltX/tiltY are the older, wider-support fallback. Anything that
+  // reports neither returns 0 and the brush behaves exactly as before.
+  // Tilt rides as a fourth component, so a point stays [x, y] on hardware
+  // that reports nothing and never grows for a mouse or a finger.
+  function withTilt(pt, tilt) {
+    if (!tilt || pt.length < 3) return pt;
+    return [pt[0], pt[1], pt[2], Math.round(tilt * 100) / 100];
+  }
+
+  function tiltOf(e) {
+    if (typeof e.altitudeAngle === 'number' && e.altitudeAngle > 0) {
+      // altitudeAngle is radians from the surface: PI/2 is upright.
+      return Math.min(1, Math.max(0, 1 - e.altitudeAngle / (Math.PI / 2)));
+    }
+    const tx = e.tiltX || 0;
+    const ty = e.tiltY || 0;
+    if (!tx && !ty) return 0;
+    return Math.min(1, Math.hypot(tx, ty) / 90);
+  }
+
   function pointFromEvent(e, pressure = 0) {
     const c = overlayCanvasRef.current;
     const rect = c.getBoundingClientRect();
@@ -573,24 +665,45 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // A stylus anywhere on the page proves this device has one, which is what
     // makes offering pen-only mode honest rather than a setting for hardware
     // that may not exist.
-    if (e.pointerType === 'pen' && !sawPen) setSawPen(true);
+    if (e.pointerType === 'pen' && !sawPen) {
+      setSawPen(true);
+      // Seeing a stylus for the first time turns on palm rejection, because
+      // the reason someone picks up an Apple Pencil is to rest their hand on
+      // the glass. Announced rather than silent, and one tap undoes it.
+      setPenOnly(true);
+      showToast('พบปากกา เปิดโหมดเฉพาะปากกาให้แล้ว วางมือบนจอได้ (ปิดได้ที่แถบเครื่องมือ)', 5000);
+    }
     // Palm rejection: with a stylus in hand, a hand resting on the glass is
-    // not a drawing gesture.
-    if (penOnly && e.pointerType !== 'pen') return;
+    // not a drawing gesture. But a finger still has a job — it scrolls, the
+    // way it does in every notes app that offers this mode. Without that,
+    // `touch-action: none` would leave a zoomed page with no way to move
+    // around it except two-finger pinching.
+    if (penOnly && e.pointerType !== 'pen') {
+      const wrap = scroller();
+      if (wrap) {
+        panRef.current = {
+          id: e.pointerId, el: wrap, x: e.clientX, y: e.clientY,
+          left: wrap.scrollLeft, top: wrap.scrollTop,
+        };
+      }
+      return;
+    }
     e.preventDefault();
     overlayCanvasRef.current?.setPointerCapture?.(e.pointerId);
     const usePressure = e.pointerType === 'pen';
+    const useTilt = usePressure;
     // Surface, Wacom and S Pen styluses report the eraser barrel as button 5
     // / buttons bit 32. Flipping the stylus over is how people expect to
     // erase, and honouring it costs one test — the toolbar selection stays, so
     // turning the pen back over resumes drawing with the same pen.
     const barrelEraser = e.pointerType === 'pen' && (e.button === 5 || (e.buttons & 32) !== 0);
     const usedTool = barrelEraser ? 'eraser' : tool;
-    const pt = pointFromEvent(e, usePressure ? e.pressure : 0);
+    const pt = withTilt(pointFromEvent(e, usePressure ? e.pressure : 0), useTilt ? tiltOf(e) : 0);
     drawingRef.current = {
       on: true,
       pointerId: e.pointerId,
       stroke: {
+        id: newStrokeId(),
         mode: usedTool,
         color: usedTool === 'highlighter'
           ? (HL_COLORS.find((c) => c.id === hlColor)?.rgb || HL_COLORS[0].rgb)
@@ -604,6 +717,22 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   function onPointerMove(e) {
     if (gestureMove(e)) return;
+    const pan = panRef.current;
+    if (pan && e.pointerId === pan.id) {
+      const wrap = panRef.current.el || scroller();
+      if (wrap) {
+        wrap.scrollLeft = pan.left - (e.clientX - pan.x);
+        wrap.scrollTop = pan.top - (e.clientY - pan.y);
+      }
+      return;
+    }
+    // A hovering Apple Pencil (M2 iPad Pro and later) reports movement with no
+    // buttons pressed. Showing where the nib will land, at the real brush
+    // size, is the difference between aiming and guessing.
+    if (e.pointerType === 'pen' && e.buttons === 0) {
+      setHover({ x: e.clientX, y: e.clientY });
+      return;
+    }
     const ref = drawingRef.current;
     if (!ref?.on || e.pointerId !== ref.pointerId) return;
     e.preventDefault();
@@ -622,7 +751,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const samples = raw.length ? raw : [e];
     let added = 0;
     for (const se of samples) {
-      const pt = pointFromEvent(se, stroke.pressure ? se.pressure : 0);
+      const pt = withTilt(
+        pointFromEvent(se, stroke.pressure ? se.pressure : 0),
+        stroke.pressure ? tiltOf(se) : 0,
+      );
       const last = stroke.points[stroke.points.length - 1];
       // Drop near-duplicates so a still hand does not grow the array.
       if (Math.abs(last[0] - pt[0]) < 0.0004 && Math.abs(last[1] - pt[1]) < 0.0004) continue;
@@ -664,6 +796,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   function onPointerUp(e) {
+    if (e && panRef.current && e.pointerId === panRef.current.id) {
+      panRef.current = null;
+      return;
+    }
     if (e && gestureUp(e)) return;
     const ref = drawingRef.current;
     if (!ref?.on) return;
@@ -686,7 +822,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   // ── Autosave (debounced) ───────────────────────────────────
-  function scheduleSave(strokesObj) {
+  function scheduleSave(strokesObj, deletedList) {
     if (!fileHash) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     saveTimerRef.current = setTimeout(async () => {
@@ -694,7 +830,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         fileName,
         pageCount,
         strokesByPage: strokesObj,
+        deleted: deletedList || latestRef.current.deleted,
       });
+      // Local first, always. The upload is debounced separately and can fail
+      // freely — the marks are already safe on this device by the time it runs.
+      if (res?.ok) schedulePush(fileHash, peekAnnotations(fileHash));
       refreshRecent();
       // Autosave is silent on success by design, but it must not be silent
       // when the writing is not being kept — that is the one thing the
@@ -714,8 +854,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       fileName,
       pageCount,
       strokesByPage,
+      deleted,
     });
     refreshRecent();
+    if (res?.ok) schedulePush(fileHash, peekAnnotations(fileHash));
     if (!res?.ok) {
       showToast('บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลถาวรไม่ได้');
     } else {
@@ -732,7 +874,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const next = { ...prev, [currentPage]: trimmed };
       currentStrokesRef.current = trimmed;
       redrawOverlay(trimmed);
-      scheduleSave(next);
+      const tombs = undone?.id ? addTomb(undone.id) : latestRef.current.deleted;
+      scheduleSave(next, tombs);
       setRedoStack((r) => [...r, { page: currentPage, stroke: undone }].slice(-40));
       return next;
     });
@@ -746,7 +889,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // a page they never drew it on.
       if (!top || top.page !== currentPage) return stack;
       setStrokesByPage((prev) => {
-        const pageList = [...(prev[currentPage] || []), top.stroke];
+        // A new id, not the old one. Tombstones only ever grow; un-deleting an
+        // id would break the property that makes cross-device merging safe.
+        const revived = { ...top.stroke, id: newStrokeId() };
+        const pageList = [...(prev[currentPage] || []), revived];
         const next = { ...prev, [currentPage]: pageList };
         currentStrokesRef.current = pageList;
         redrawOverlay(pageList);
@@ -766,7 +912,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const next = { ...prev, [currentPage]: [] };
       currentStrokesRef.current = [];
       redrawOverlay([]);
-      scheduleSave(next);
+      const tombs = addTomb(...cleared.map((st) => st.id).filter(Boolean));
+      scheduleSave(next, tombs);
       return next;
     });
   }
@@ -789,7 +936,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       redrawOverlay(currentStrokesRef.current);
     }
     const [a, b] = [...activePointers.current.values()];
-    gestureRef.current = { startDist: Math.hypot(a.x - b.x, a.y - b.y), startZoom: zoom };
+    gestureRef.current = {
+      startDist: Math.hypot(a.x - b.x, a.y - b.y),
+      startZoom: zoom,
+      // The midpoint between the fingers is the point the reader expects to
+      // stay put — it is the thing they are pinching.
+      cx: (a.x + b.x) / 2,
+      cy: (a.y + b.y) / 2,
+    };
     return true;
   }
 
@@ -807,7 +961,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // the rendered-page cache keeps hitting.
       const nearest = ZOOM_STEPS.reduce((best, v) =>
         (Math.abs(v - want) < Math.abs(best - want) ? v : best), ZOOM_STEPS[0]);
-      setZoom((z) => (z === nearest ? z : nearest));
+      setZoomAt(nearest, (a.x + b.x) / 2, (a.y + b.y) / 2);
     }
     return true;
   }
@@ -842,17 +996,118 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pdfDoc, currentPage, redoStack, strokesByPage]);
 
+  // Height of the page frame: everything left between the top of the frame and
+  // the bottom of the window, less the page-nav bar and any bottom chrome.
+  useEffect(() => {
+    if (!pdfDoc) return undefined;
+    const measure = () => {
+      const wrap = wrapperRef.current;
+      if (!wrap) return;
+      const top = wrap.getBoundingClientRect().top + window.scrollY - (window.scrollY);
+      const navH = footRef.current?.getBoundingClientRect().height || 0;
+      const bottom = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--vmx-bottom-nav-h'),
+      ) || 0;
+      const h = Math.max(240, window.innerHeight - top - navH - bottom);
+      setFrameH(h);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    window.addEventListener('orientationchange', measure);
+    // The toolbar wraps to more rows as the window narrows, which moves the
+    // frame's top edge without firing anything else.
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+    if (ro && wrapperRef.current?.parentElement) ro.observe(wrapperRef.current.parentElement);
+    return () => {
+      window.removeEventListener('resize', measure);
+      window.removeEventListener('orientationchange', measure);
+      ro?.disconnect();
+    };
+  }, [pdfDoc, sidebarOpen]);
+
   // ── Zoom ───────────────────────────────────────────────────
   // Fixed steps rather than a free slider: every step is a scale the page
   // cache can hold and reuse, and a student pressing + wants a predictable
   // jump, not a value they have to hunt for.
-  function zoomIn() {
-    setZoom((z) => ZOOM_STEPS.find((v) => v > z + 0.001) ?? z);
+  // Zoom keeps the point under the anchor fixed. Without this, scaling happens
+  // about the canvas origin and whatever the reader was looking at slides off
+  // screen — which at 300% means hunting for the paragraph you were annotating.
+  //
+  // Captured BEFORE the state change as a fraction of the content, then
+  // restored after the canvas has been resized (see the render effect).
+  const zoomAnchorRef = useRef(null);
+
+  // The frame is the scroller now, but a layout where it is not (a very short
+  // window, an older cached build) must still zoom sensibly rather than
+  // silently do nothing — so ask which element is really scrolling.
+  function scroller() {
+    const wrap = wrapperRef.current;
+    if (wrap && wrap.scrollHeight > wrap.clientHeight + 1) return wrap;
+    if (wrap && wrap.scrollWidth > wrap.clientWidth + 1) return wrap;
+    return document.scrollingElement || document.documentElement;
   }
-  function zoomOut() {
-    setZoom((z) => [...ZOOM_STEPS].reverse().find((v) => v < z - 0.001) ?? z);
+
+  function captureAnchor(clientX, clientY) {
+    const wrap = scroller();
+    if (!wrap) return;
+    const r = wrap === document.scrollingElement || wrap === document.documentElement
+      ? { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight }
+      : wrap.getBoundingClientRect();
+    // Anchor in wrapper-viewport space; fall back to the middle of what is on
+    // screen when the gesture has no natural point (the toolbar buttons).
+    const ax = clientX == null ? r.width / 2 : clientX - r.left;
+    const ay = clientY == null ? r.height / 2 : clientY - r.top;
+    zoomAnchorRef.current = {
+      ax,
+      ay,
+      // Fractions of the whole scrollable content, which survive the resize.
+      fx: (wrap.scrollLeft + ax) / Math.max(1, wrap.scrollWidth),
+      fy: (wrap.scrollTop + ay) / Math.max(1, wrap.scrollHeight),
+    };
+  }
+
+  function applyAnchor() {
+    const a = zoomAnchorRef.current;
+    if (!a) return;
+    zoomAnchorRef.current = null;
+    const wrap = scroller();
+    if (!wrap) return;
+    wrap.scrollLeft = a.fx * wrap.scrollWidth - a.ax;
+    wrap.scrollTop = a.fy * wrap.scrollHeight - a.ay;
+  }
+
+  function setZoomAt(next, clientX, clientY) {
+    setZoom((z) => {
+      const v = typeof next === 'function' ? next(z) : next;
+      if (v === z) return z;
+      captureAnchor(clientX, clientY);
+      return v;
+    });
+  }
+
+  function zoomIn(e) {
+    setZoomAt((z) => ZOOM_STEPS.find((v) => v > z + 0.001) ?? z, e?.clientX, e?.clientY);
+  }
+  function zoomOut(e) {
+    setZoomAt((z) => [...ZOOM_STEPS].reverse().find((v) => v < z - 0.001) ?? z, e?.clientX, e?.clientY);
   }
   const canRedo = redoStack.length > 0 && redoStack[redoStack.length - 1].page === currentPage;
+
+  // Ctrl / ⌘ + wheel over the page, which is what a trackpad pinch sends and
+  // what every document reader does. Bound natively rather than through React
+  // because it must be non-passive to preventDefault the browser's own zoom.
+  useEffect(() => {
+    const wrap = wrapperRef.current;
+    if (!wrap || !pdfDoc) return undefined;
+    const onWheel = (e) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      if (e.deltaY < 0) zoomIn(e); else zoomOut(e);
+    };
+    wrap.addEventListener('wheel', onWheel, { passive: false });
+    return () => wrap.removeEventListener('wheel', onWheel);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pdfDoc, zoom]);
 
   // ── Drag & drop ────────────────────────────────────────────
   function onDragOver(e) {
@@ -927,8 +1182,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         fileName: l.fileName,
         pageCount: l.pageCount,
         strokesByPage: l.strokesByPage,
+        deleted: l.deleted,
         lastPage: l.currentPage,
-      }).catch(() => {});
+      }).then(() => flushPushes()).catch(() => {});
     };
     const onHide = () => { if (document.visibilityState === 'hidden') flush(); };
     document.addEventListener('visibilitychange', onHide);
@@ -1091,7 +1347,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   // ── Viewing state ──────────────────────────────────────────
   return (
-    <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
       <BackBar onBack={backToEmpty} label="เปลี่ยน PDF" subtitle={fileName} />
       {/* Toolbar */}
       <div style={{
@@ -1149,19 +1405,20 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
         {/* Zoom. Writing on top of 11 px slide text at fit-to-width is not
             something anyone can do legibly. */}
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={zoomOut} disabled={zoom <= ZOOM_STEPS[0]} aria-label="ย่อ">−</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setZoom(1)} style={{ minWidth: 54, fontFamily: 'var(--vmx-mono)' }} title="กลับไปพอดีความกว้าง">{Math.round(zoom * 100)}%</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={zoomIn} disabled={zoom >= ZOOM_STEPS[ZOOM_STEPS.length - 1]} aria-label="ขยาย">+</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => zoomOut()} disabled={zoom <= ZOOM_STEPS[0]} aria-label="ย่อ">−</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setZoomAt(1)} style={{ minWidth: 54, fontFamily: 'var(--vmx-mono)' }} title="กลับไปพอดีความกว้าง">{Math.round(zoom * 100)}%</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => zoomIn()} disabled={zoom >= ZOOM_STEPS[ZOOM_STEPS.length - 1]} aria-label="ขยาย">+</button>
         {sawPen && (
           <button
             type="button"
             className={`vmx-chip ${penOnly ? 'active' : ''}`}
             onClick={() => setPenOnly((v) => !v)}
             aria-pressed={penOnly}
-            title="รับเฉพาะปากกา วางมือบนจอได้"
+            title="รับเฉพาะปากกา วางมือบนจอได้ นิ้วใช้เลื่อนหน้า"
           >เฉพาะปากกา</button>
         )}
         <span style={{ flex: 1 }} />
+        <SyncBadge state={sync} />
         <button
           type="button"
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
@@ -1187,6 +1444,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           ref={wrapperRef}
           style={{
             flex: 1,
+            minHeight: 0,
+            height: frameH ? `${frameH}px` : undefined,
             overflow: 'auto',
             background: '#2a2a2a',
             display: 'flex',
@@ -1200,7 +1459,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             overscrollBehavior: 'contain',
           }}
         >
-          <div style={{ position: 'relative', display: 'inline-block', lineHeight: 0, margin: 'auto' }}>
+          <div style={{
+            position: 'relative', display: 'inline-block', lineHeight: 0, margin: 'auto',
+            // iOS pops a callout (Copy / Look Up / Share) on a long press, and
+            // a slow deliberate pen stroke reads as exactly that. These are
+            // the two properties that stop it; both are inert elsewhere.
+            WebkitTouchCallout: 'none',
+            WebkitUserSelect: 'none',
+            userSelect: 'none',
+          }}>
             <canvas ref={baseCanvasRef} style={{ display: 'block', background: '#fff', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }} />
             <canvas
               ref={overlayCanvasRef}
@@ -1208,7 +1475,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
               onPointerCancel={onPointerUp}
-              onPointerLeave={onPointerUp}
+              onPointerLeave={(e) => { setHover(null); onPointerUp(e); }}
+              onPointerOut={(e) => { if (e.pointerType === 'pen') setHover(null); }}
               style={{
                 position: 'absolute',
                 top: 0,
@@ -1222,7 +1490,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       </div>
 
       {/* Bottom page nav */}
-      <div style={{
+      <div ref={footRef} style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -1248,6 +1516,30 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         >ถัดไป →</button>
       </div>
 
+      {/* Hovering-stylus ring. Purely a readout of where the nib is and how
+          wide the current brush is — pointer-events off so it can never sit
+          between the pen and the canvas. */}
+      {hoverPt && !loading && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'fixed',
+            left: hoverPt.x,
+            top: hoverPt.y,
+            width: Math.max(8, size * (tool === 'highlighter' ? 4.5 : tool === 'eraser' ? 4 : 1) * zoom),
+            height: Math.max(8, size * (tool === 'highlighter' ? 4.5 : tool === 'eraser' ? 4 : 1) * zoom),
+            transform: 'translate(-50%, -50%)',
+            borderRadius: tool === 'highlighter' ? 3 : '50%',
+            border: `1.5px solid ${tool === 'eraser' ? '#ffffff' : (tool === 'highlighter'
+              ? (HL_COLORS.find((c) => c.id === hlColor)?.rgb || '#f7d94c')
+              : (PEN_COLORS.find((c) => c.id === color)?.rgb || '#c0392b'))}`,
+            boxShadow: '0 0 0 1px rgba(0,0,0,0.35)',
+            pointerEvents: 'none',
+            zIndex: 900,
+          }}
+        />
+      )}
+
       {loading && (
         <div style={{
           position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)',
@@ -1271,6 +1563,27 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         }
       `}</style>
     </div>
+  );
+}
+
+// Says what is true and nothing more. Signed out is not a failure and is not
+// shown as one — the reader has always worked this way and still does.
+function SyncBadge({ state }) {
+  if (!state || state.status === 'off') return null;
+  const label = state.status === 'syncing' ? 'กำลังซิงก์…'
+    : state.status === 'idle' ? 'ซิงก์แล้ว'
+      : state.status === 'too-big' ? 'ไฟล์นี้ใหญ่เกินซิงก์ เก็บในเครื่องนี้'
+        : 'ซิงก์ไม่สำเร็จ เก็บในเครื่องนี้ไว้แล้ว';
+  const tone = state.status === 'idle' ? 'var(--clr-ink-soft, #6b6b6b)'
+    : state.status === 'syncing' ? 'var(--clr-ink-soft, #6b6b6b)'
+      : '#8a1f15';
+  return (
+    <span
+      role="status"
+      aria-live="polite"
+      title={state.reason || undefined}
+      style={{ fontSize: 11, color: tone, fontFamily: 'var(--vmx-mono)', whiteSpace: 'nowrap' }}
+    >{label}</span>
   );
 }
 

@@ -30,7 +30,23 @@
 //
 // Record shape (store `docs`, keyPath `hash`):
 //   { hash, fileName, pageCount, strokesByPage: { [page]: Stroke[] },
-//     lastPage, lastOpened }
+//     deleted: [strokeId], lastPage, lastOpened, dirty }
+//
+// Every stroke carries an `id`, and every removal is recorded as a tombstone
+// rather than as an absence. That shape is what makes syncing across devices
+// safe: the merge is
+//
+//     strokes = (union of both sides' strokes, by id) minus
+//               (union of both sides' tombstones)
+//
+// which is commutative, associative and idempotent — a two-phase set. Two
+// iPads annotating the same deck offline both keep their work no matter which
+// one syncs first, and merging twice changes nothing. A last-write-wins row
+// would silently discard a whole afternoon.
+//
+// Redo re-adds the stroke under a NEW id instead of un-deleting the old one,
+// because a tombstone that can be taken back is no longer monotonic and the
+// guarantee above collapses.
 //
 // Stroke: { color, size, points: Array<[x, y, pressure?]>, mode: 'pen'|'eraser' }
 // Points are normalised to [0..1] so they survive any viewport scale.
@@ -59,6 +75,93 @@ export function packStroke(stroke) {
       ? [round4(p[0]), round4(p[1]), Math.round(p[2] * 100) / 100]
       : [round4(p[0]), round4(p[1])])),
   };
+}
+
+// This browser's identity, used only to make stroke ids unique between
+// devices. Not a user id, not sent anywhere on its own — two devices must
+// simply never mint the same stroke id, or a merge would drop one of them.
+const DEVICE_KEY = 'vmx-pdf-device';
+let _device = null;
+export function deviceId() {
+  if (_device) return _device;
+  try {
+    _device = window.localStorage.getItem(DEVICE_KEY);
+    if (!_device) {
+      _device = Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+      window.localStorage.setItem(DEVICE_KEY, _device);
+    }
+  } catch {
+    _device = 'anon' + Math.random().toString(36).slice(2, 6);
+  }
+  return _device;
+}
+
+let _seq = 0;
+export function newStrokeId() {
+  _seq += 1;
+  return `${deviceId()}-${Date.now().toString(36)}${_seq.toString(36)}`;
+}
+
+// Tombstones are ids, about a dozen bytes each. Ten thousand deletions is
+// ~150 KB, so they are kept rather than garbage-collected — pruning them is
+// what would break convergence, because a device that has been offline still
+// holds the stroke a prune would forget to suppress. The cap exists only so a
+// pathological session cannot grow without bound; it drops the OLDEST
+// tombstones, which are the ones every device has long since seen.
+const MAX_TOMBSTONES = 20000;
+
+/** Union of strokes by id, minus the union of tombstones. Order-independent. */
+export function mergeRecords(a, b) {
+  if (!a) return b;
+  if (!b) return a;
+  const deleted = new Set([...(a.deleted || []), ...(b.deleted || [])]);
+  const pages = new Set([
+    ...Object.keys(a.strokesByPage || {}),
+    ...Object.keys(b.strokesByPage || {}),
+  ]);
+  const strokesByPage = {};
+  for (const page of pages) {
+    const byId = new Map();
+    // b last so that, for the same id, the later writer's copy wins — the
+    // content of one id never differs in practice (strokes are immutable once
+    // drawn), so this only matters for records written by older versions.
+    for (const st of (a.strokesByPage?.[page] || [])) if (st?.id) byId.set(st.id, st);
+    for (const st of (b.strokesByPage?.[page] || [])) if (st?.id) byId.set(st.id, st);
+    const kept = [...byId.values()].filter((st) => !deleted.has(st.id));
+    if (kept.length) strokesByPage[page] = kept;
+  }
+  const tombs = [...deleted];
+  return {
+    hash: a.hash || b.hash,
+    fileName: a.fileName || b.fileName || 'untitled.pdf',
+    pageCount: Math.max(a.pageCount || 0, b.pageCount || 0) || 1,
+    strokesByPage,
+    deleted: tombs.length > MAX_TOMBSTONES ? tombs.slice(-MAX_TOMBSTONES) : tombs,
+    // The reading position is the one field where "most recent wins" is right:
+    // it describes where a person is, not what they made.
+    lastPage: (a.lastOpened || 0) >= (b.lastOpened || 0)
+      ? (a.lastPage ?? b.lastPage ?? 1)
+      : (b.lastPage ?? a.lastPage ?? 1),
+    lastOpened: Math.max(a.lastOpened || 0, b.lastOpened || 0),
+  };
+}
+
+// Records written before stroke ids existed. Ids are prefixed with THIS
+// device, so the same student's two pre-sync devices contribute both of their
+// histories instead of colliding and losing one.
+function ensureIds(rec) {
+  if (!rec?.strokesByPage) return rec;
+  let changed = false;
+  const out = {};
+  for (const [page, arr] of Object.entries(rec.strokesByPage)) {
+    out[page] = (Array.isArray(arr) ? arr : []).map((st, i) => {
+      if (st?.id) return st;
+      changed = true;
+      return { ...st, id: `${deviceId()}-legacy-${page}-${i}` };
+    });
+  }
+  if (!changed) return rec;
+  return { ...rec, strokesByPage: out };
 }
 
 // ── Connection ────────────────────────────────────────────────────────────
@@ -147,14 +250,15 @@ function migrateLegacy() {
 }
 
 function normalise(hash, v) {
-  return {
+  return ensureIds({
     hash,
     fileName: v.fileName || 'untitled.pdf',
     pageCount: v.pageCount || 1,
     strokesByPage: v.strokesByPage || {},
+    deleted: Array.isArray(v.deleted) ? v.deleted : [],
     lastPage: Number.isFinite(v.lastPage) ? v.lastPage : 1,
     lastOpened: v.lastOpened || Date.now(),
-  };
+  });
 }
 
 // ── Public API ────────────────────────────────────────────────────────────
@@ -187,9 +291,10 @@ export async function loadAnnotations(fileHash) {
   if (!fileHash) return null;
   await migrateLegacy().catch(() => {});
   try {
-    const rec = await tx('readonly', (s) => s.get(fileHash));
+    const raw = await tx('readonly', (s) => s.get(fileHash));
+    const rec = raw ? ensureIds({ deleted: [], ...raw }) : null;
     if (rec) mirror.set(fileHash, rec);
-    return rec || null;
+    return rec;
   } catch {
     idbUsable = false;
     return mirror.get(fileHash) || null;
@@ -217,6 +322,7 @@ export async function saveAnnotations(fileHash, data) {
     strokesByPage: data.strokesByPage
       ? packAll(data.strokesByPage)
       : (prev.strokesByPage || {}),
+    deleted: Array.isArray(data.deleted) ? data.deleted : (prev.deleted || []),
     lastPage: Number.isFinite(data.lastPage) ? data.lastPage : (prev.lastPage ?? 1),
     lastOpened: Date.now(),
   };
@@ -228,6 +334,21 @@ export async function saveAnnotations(fileHash, data) {
   } catch {
     idbUsable = false;
     return { ok: false, evicted: 0 };
+  }
+}
+
+/** Writes a whole record as-is. Used by the sync layer after a merge, where
+ *  the fields have already been reconciled and must not be merged again. */
+export async function putRecord(rec) {
+  if (!rec?.hash) return { ok: false };
+  mirror.set(rec.hash, rec);
+  try {
+    await tx('readwrite', (s) => s.put(rec));
+    idbUsable = true;
+    return { ok: true };
+  } catch {
+    idbUsable = false;
+    return { ok: false };
   }
 }
 
