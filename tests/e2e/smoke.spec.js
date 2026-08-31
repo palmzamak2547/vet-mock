@@ -42,7 +42,16 @@ async function answerCurrentQuestion(page) {
 
   const matches = page.locator('.vmx-match-select:visible, .vmx-match-native-select:visible');
   if (await matches.count()) {
-    for (const select of await matches.all()) await select.selectOption({ index: 1 });
+    // Match answers are one-to-one: after one row claims a value, React
+    // disables that option in every remaining row. Re-reading the enabled
+    // values per row avoids waiting forever on the same fixed option index.
+    for (const select of await matches.all()) {
+      const availableValue = await select.locator('option').evaluateAll((options) => (
+        options.find((option) => option.value && !option.disabled)?.value || null
+      ));
+      if (!availableValue) throw new Error('No enabled matching option is available for a visible row');
+      await select.selectOption(availableValue);
+    }
     return;
   }
 
@@ -54,6 +63,28 @@ async function answerCurrentQuestion(page) {
 
   throw new Error('No supported answer control is visible for the current question');
 }
+
+test('matching smoke helper skips an option already claimed by another row', async ({ page }) => {
+  test.setTimeout(5_000);
+  await page.setContent(`
+    <select class="vmx-match-native-select" aria-label="จับคู่ข้อ 1">
+      <option value="">เลือกคำตอบ</option>
+      <option value="a">A</option>
+      <option value="b">B</option>
+    </select>
+    <select class="vmx-match-native-select" aria-label="จับคู่ข้อ 2">
+      <option value="">เลือกคำตอบ</option>
+      <option value="a" disabled>A</option>
+      <option value="b">B</option>
+    </select>
+  `);
+
+  await answerCurrentQuestion(page);
+
+  const matches = page.locator('.vmx-match-native-select');
+  await expect(matches.nth(0)).toHaveValue('a');
+  await expect(matches.nth(1)).toHaveValue('b');
+});
 
 test.describe('VetMock smoke flow', () => {
   // Capture all console errors per test so we can fail fast on
