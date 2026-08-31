@@ -27,6 +27,7 @@ import {
   SEMESTERS,
   buddhistYear,
   docOpenMode,
+  prefetchDocUrl,
   docTypeLabel,
   filterIndexed,
   formatBytes,
@@ -135,6 +136,7 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
           type="button"
           className="vmx-btn vmx-btn-primary vmx-btn-sm"
           disabled={busy}
+          {...intentProps(doc)}
           onClick={() => onOpen(doc)}
         >
           {busy ? 'กำลังเปิด…' : mode.label}
@@ -146,6 +148,7 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
             type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             disabled={busy}
+            {...intentProps(doc)}
             onClick={() => onOpenOriginal(doc)}
           >
             เปิดไฟล์ต้นฉบับ
@@ -154,6 +157,16 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
       </div>
     </article>
   );
+}
+
+// Hovering or touching a button is intent — start minting the link then, so
+// the download can begin the instant the reader mounts instead of after a
+// round-trip. `pointerenter` covers mouse and pen; `pointerdown` covers touch,
+// where there is no hover and the press still lands ~100 ms before the tap
+// completes. Both are no-ops once one has fired for that document.
+function intentProps(doc) {
+  const go = () => prefetchDocUrl(doc);
+  return { onPointerEnter: go, onPointerDown: go };
 }
 
 // ── Filter chip row ───────────────────────────────────────────────────────

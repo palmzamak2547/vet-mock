@@ -558,9 +558,19 @@ html, body {
     /* Two groups can outgrow a short laptop viewport (a 768px-tall screen
        has ~600px to spend here). Scrolling the nav is the only behaviour
        that degrades safely — the alternative is rows silently pushed under
-       the fold with no way to reach them. */
+       the fold with no way to reach them.
+
+       NO `overscroll-behavior: contain` here. It was added with the
+       overflow and it broke ordinary scrolling: the nav almost never needs
+       to scroll (measured scrollHeight === clientHeight at 1440x900), but
+       `auto` still makes it a scroll container, and `contain` then refuses
+       to pass the wheel on to the page. Resting the pointer anywhere over
+       the left rail and scrolling did nothing at all — the page simply
+       froze. `contain` belongs to overlays that deliberately block the page
+       behind them (the modal overlay, the landing drawer, and html/body
+       stopping pull-to-refresh); an inline panel that MIGHT scroll has to
+       keep chaining. */
     overflow-y: auto;
-    overscroll-behavior: contain;
   }
 
   .vmx-sidebar-heading {

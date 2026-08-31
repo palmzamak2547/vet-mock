@@ -412,8 +412,36 @@ export async function fetchLibraryDocs() {
 //
 // Supabase rows are signed in the browser against the user's own session,
 // which is why that bucket can stay private too.
+// Intent prefetch. Measured on production, a cold open ran mint (1.1 s) and
+// download (2.7 s) strictly back to back, because the reader only asks for a
+// link once it has mounted. The link does not depend on anything the reader
+// does, so it can be fetched the moment a finger lands on the button — by the
+// time the view mounts the URL is usually already here.
+//
+// Safe to cache because tokens are minted against fixed hour boundaries: a
+// prefetch and the click that follows produce the SAME url, byte for byte.
+// Held for 60 s only — long enough to cover intent-then-tap, far short of the
+// window itself, so nobody is ever handed a link that is about to expire.
+const _urlIntent = new Map(); // slug -> { at: number, p: Promise<string> }
+const INTENT_TTL_MS = 60_000;
+
+export function prefetchDocUrl(doc) {
+  if (!doc?.slug) return;
+  const hit = _urlIntent.get(doc.slug);
+  if (hit && Date.now() - hit.at < INTENT_TTL_MS) return;
+  // A rejected prefetch must not be remembered as the answer — drop it so the
+  // real open retries and reports its own error.
+  const p = resolveDocUrl(doc).catch((e) => { _urlIntent.delete(doc.slug); throw e; });
+  _urlIntent.set(doc.slug, { at: Date.now(), p });
+  // Nothing awaits a prefetch; swallow here so it can never surface as an
+  // unhandled rejection in a student's console.
+  p.catch(() => {});
+}
+
 export async function resolveDocUrl(doc) {
   if (!doc) throw new Error('resolveDocUrl: missing doc');
+  const hit = doc.slug ? _urlIntent.get(doc.slug) : null;
+  if (hit && Date.now() - hit.at < INTENT_TTL_MS) return hit.p;
 
   if (doc.storage_provider === 'r2') {
     if (doc.status === 'public') {

@@ -7,14 +7,22 @@
 //   loading — spinner while pdfjs parses the upload + renders p.1
 //   viewing — page canvas + transparent draw overlay + thumb sidebar
 //
-// Strokes save per-page into localStorage (debounced 500 ms) keyed by
-// SHA-256(file bytes) — see lib/pdf-annotations.js. PDF bytes are
-// NEVER stored; user re-uploads to resume. Toast on view-load when
-// resuming via cache so the contract is obvious.
+// Strokes save per-page into IndexedDB (debounced 500 ms, flushed on the way
+// out) keyed by SHA-256(file bytes) — see lib/pdf-annotations.js. PDF bytes
+// are NEVER stored; an uploaded file must be re-picked to resume, while a
+// library document reopens from the shelf.
 //
-// Canvas uses 2× DPR for retina. The annotation overlay uses Pointer
-// Events so finger / Apple Pencil / mouse all work — `touch-action:
-// none` on the overlay prevents the page scrolling under a stroke.
+// The page raster and the ink live on two stacked canvases. The page is
+// rendered at 2x DPR and cached as an ImageBitmap so flipping back is free;
+// the ink layer asks for `desynchronized` so a stylus draws with the least
+// latency the browser will give.
+//
+// Input is Pointer Events throughout, which is what makes one code path work
+// for finger, mouse, Apple Pencil, S Pen and Surface Pen: pressure comes from
+// `e.pressure`, every sample between frames from `getCoalescedEvents()`, palm
+// rejection from `pointerType`, and the eraser barrel from the button bits.
+// `touch-action: none` keeps the page from scrolling under a stroke, so
+// two-finger pinch is handled here rather than by the browser.
 // ============================================================
 
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -27,6 +35,7 @@ import {
   saveAnnotations,
   listRecentPdfs,
   deleteAnnotations,
+  storageHealth,
 } from '../lib/pdf-annotations.js';
 
 const PEN_COLORS = [
@@ -34,6 +43,16 @@ const PEN_COLORS = [
   { id: 'blue', rgb: '#2980b9', name: 'น้ำเงิน' },
   { id: 'gold', rgb: '#b88940', name: 'ทอง' },
 ];
+// Highlighter is not a colour of pen, it is a different instrument: wide,
+// translucent, flat, and it must sit UNDER nothing — a student marking a
+// lecture slide expects the text to stay readable through it.
+const HL_COLORS = [
+  { id: 'yellow', rgb: '#f7d94c', name: 'เหลือง' },
+  { id: 'green',  rgb: '#8fd694', name: 'เขียว' },
+  { id: 'pink',   rgb: '#f5a3c7', name: 'ชมพู' },
+];
+const ZOOM_STEPS = [1, 1.25, 1.5, 2, 2.5, 3];
+
 const SIZE_WARN_MB = 30;
 const SIZE_HARD_MB = 60;
 const AUTOSAVE_MS = 500;
@@ -69,16 +88,27 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [strokesByPage, setStrokesByPage] = useState({}); // { [pageNum]: Stroke[] }
-  const [tool, setTool] = useState('pen'); // 'pen' | 'eraser'
+  const [tool, setTool] = useState('pen'); // 'pen' | 'highlighter' | 'eraser'
   const [color, setColor] = useState('red');
+  const [hlColor, setHlColor] = useState('yellow');
   const [size, setSize] = useState(3);
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState('');
   const [error, setError] = useState(null);
   const [toast, setToast] = useState(null);
   const [dragging, setDragging] = useState(false);
-  const [recent, setRecent] = useState(() => listRecentPdfs());
+  const [recent, setRecent] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  // Fit-to-width is the wrong size for writing. At 100% a lecture slide's
+  // body text is ~11 px tall on a laptop and handwriting on top of it is
+  // illegible; every serious annotation app zooms, so this one does too.
+  const [zoom, setZoom] = useState(1);
+  // Redo. Undo without it makes people afraid to undo.
+  const [redoStack, setRedoStack] = useState([]);
+  // Apple Pencil users rest a hand on the glass. Pointer Events name the
+  // input, so a pen-only mode is a one-line test rather than heuristics.
+  const [penOnly, setPenOnly] = useState(false);
+  const [sawPen, setSawPen] = useState(false);
 
   const fileInputRef = useRef(null);
   const baseCanvasRef = useRef(null);
@@ -88,6 +118,26 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const renderTaskRef = useRef(null);
   const saveTimerRef = useRef(null);
   const currentStrokesRef = useRef([]); // live mirror for autosave
+  // Rendered-page cache. Re-rasterising a page the reader just looked at is
+  // pure waste — flipping back and forth through a deck was paying the full
+  // render every time. Capped at 3 because one 2x-DPR A4 bitmap is ~15 MB of
+  // GPU memory and a phone will not forgive a dozen of them.
+  const pageCacheRef = useRef(new Map()); // `${hash}:${page}@${scale}x${dpr}` -> ImageBitmap
+  const prerenderRef = useRef(null);
+  // What a flush should write, always current. A flush that closes over
+  // render-time state writes whatever was true when its effect last ran, and
+  // an effect that depends on the strokes re-runs on every stroke — the two
+  // together silently replaced each correct pending save with the snapshot
+  // from before that stroke, so nothing a student drew ever reached storage.
+  const latestRef = useRef({});
+  latestRef.current = { fileHash, fileName, pageCount, strokesByPage, currentPage };
+
+  // The store moved to IndexedDB, so the recent list arrives a tick late
+  // instead of during render. Nothing depends on it being there immediately.
+  const refreshRecent = useCallback(() => {
+    listRecentPdfs().then(setRecent).catch(() => {});
+  }, []);
+  useEffect(() => { refreshRecent(); }, [refreshRecent]);
 
   // ── Toast helper ───────────────────────────────────────────
   const showToast = useCallback((msg, ms = 2500) => {
@@ -121,7 +171,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const pdfjs = await loadPdfjs();
       const buf = await file.arrayBuffer();
       const doc = await pdfjs.getDocument({ data: buf }).promise;
-      const existing = loadAnnotations(hash);
+      const existing = await loadAnnotations(hash);
       const restoredStrokes = existing?.strokesByPage || {};
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), doc.numPages);
       setPdfDoc(doc);
@@ -134,12 +184,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // Persist file metadata immediately (creates the cache entry
       // even before the user draws anything — so the "Recent" list
       // remembers this file on next visit).
-      saveAnnotations(hash, {
+      await saveAnnotations(hash, {
         fileName: file.name,
         pageCount: doc.numPages,
         strokesByPage: restoredStrokes,
       });
-      setRecent(listRecentPdfs());
+      refreshRecent();
       if (existing && Object.keys(restoredStrokes).length > 0) {
         showToast('โหลด annotation เดิมกลับมาแล้ว ✓', 3000);
       } else {
@@ -152,7 +202,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       setLoading(false);
       setLoadingMsg('');
     }
-  }, [showToast]);
+  }, [showToast, refreshRecent]);
 
   // ── Remote ingest (study library) ──────────────────────────
   // A library document arrives as metadata, not as bytes. That difference is
@@ -184,7 +234,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       } else {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const buf = await res.arrayBuffer();
+        // Read the body as a stream so the wait can be counted out loud.
+        // Exactly one document in the shelf of 1,383 is linearized, so this
+        // branch IS the reader: everyone waits for the whole file before page
+        // one can paint, and half the shelf is over 5 MB. A spinner that says
+        // nothing for fifteen seconds is indistinguishable from a hang — and
+        // a student who cannot tell the difference reloads, which starts the
+        // download again from zero.
+        const buf = await readWithProgress(res, setLoadingMsg);
         task = pdfjs.getDocument({ data: buf });
       }
       setLoadingMsg('กำลังแกะ PDF…');
@@ -197,7 +254,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // which is exactly what streaming avoids.
       const hash = doc.sha256 || (doc.slug ? `slug:${doc.slug}` : null);
       if (!hash) throw new Error('เอกสารนี้ไม่มีรหัสอ้างอิง');
-      const existing = loadAnnotations(hash);
+      const existing = await loadAnnotations(hash);
       const restoredStrokes = existing?.strokesByPage || {};
       // Resume where the reader left off — a 300-page textbook that always
       // reopened at page 1 made every return trip start with scrolling.
@@ -209,12 +266,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       setStrokesByPage(restoredStrokes);
       setCurrentPage(startPage);
       currentStrokesRef.current = restoredStrokes[startPage] || [];
-      saveAnnotations(hash, {
+      await saveAnnotations(hash, {
         fileName: doc.fileName || 'document.pdf',
         pageCount: pdf.numPages,
         strokesByPage: restoredStrokes,
       });
-      setRecent(listRecentPdfs());
+      refreshRecent();
+      if (!storageHealth().persistent) {
+        showToast('เบราว์เซอร์นี้เก็บรอยเขียนถาวรไม่ได้ รอยที่เขียนจะอยู่แค่จนกว่าจะปิดแท็บ', 6000);
+      }
       if (startPage > 1) {
         showToast(`เปิดต่อที่หน้า ${startPage} ✓`, 2500);
       } else if (existing && Object.keys(restoredStrokes).length > 0) {
@@ -229,7 +289,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       setLoading(false);
       setLoadingMsg('');
     }
-  }, [showToast]);
+  }, [showToast, refreshRecent]);
 
   // Opening straight into a library document. Keyed by slug + url so
   // navigating from one library item to another inside the same mount (the
@@ -246,7 +306,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   useEffect(() => {
     if (!pdfDoc || !fileHash) return undefined;
     const t = setTimeout(() => {
-      saveAnnotations(fileHash, { fileName, pageCount, lastPage: currentPage });
+      saveAnnotations(fileHash, { fileName, pageCount, lastPage: currentPage })
+        .catch(() => { /* the reading position is a convenience, not the work */ });
     }, 800);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -277,7 +338,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         // canvas is never larger than the PDF's intrinsic 1.5× scale.
         const wrapW = (wrap?.clientWidth || 800) - 16;
         const naturalViewport = page.getViewport({ scale: 1 });
-        const fitScale = Math.min(2, Math.max(0.6, wrapW / naturalViewport.width));
+        const fitScale = Math.min(2, Math.max(0.6, wrapW / naturalViewport.width)) * zoom;
         const viewport = page.getViewport({ scale: fitScale });
 
         const cssW = Math.floor(viewport.width);
@@ -294,14 +355,25 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         const ctx = baseCanvas.getContext('2d');
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.clearRect(0, 0, baseCanvas.width, baseCanvas.height);
-        const dprViewport = page.getViewport({ scale: fitScale * dpr });
-        const task = page.render({ canvasContext: ctx, viewport: dprViewport });
-        renderTaskRef.current = task;
-        await task.promise;
-        if (cancelled) return;
-        renderTaskRef.current = null;
+
+        const cacheKey = `${fileHash || 'x'}:${currentPage}@${fitScale.toFixed(3)}x${dpr}`;
+        const cached = pageCacheRef.current.get(cacheKey);
+        if (cached) {
+          ctx.drawImage(cached, 0, 0);
+        } else {
+          const dprViewport = page.getViewport({ scale: fitScale * dpr });
+          const task = page.render({ canvasContext: ctx, viewport: dprViewport });
+          renderTaskRef.current = task;
+          await task.promise;
+          if (cancelled) return;
+          renderTaskRef.current = null;
+          cachePage(cacheKey, baseCanvas);
+        }
         // Redraw saved strokes for this page on the overlay
         redrawOverlay(strokesByPage[currentPage] || []);
+        // With the page on screen the worker is idle again — spend that idle
+        // on the page the reader is most likely to ask for next.
+        schedulePrerender(currentPage + 1, fitScale, dpr);
       } catch (e) {
         if (e?.name === 'RenderingCancelledException') return;
         console.error('[pdf-annotate] render failed:', e);
@@ -309,152 +381,343 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     })();
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pdfDoc, currentPage]);
+  }, [pdfDoc, currentPage, zoom]);
+
+  // ── Page raster cache ──────────────────────────────────────
+  function cachePage(key, canvas) {
+    if (typeof createImageBitmap !== 'function') return;
+    createImageBitmap(canvas).then((bmp) => {
+      const c = pageCacheRef.current;
+      if (c.has(key)) { bmp.close?.(); return; }
+      c.set(key, bmp);
+      // Evict in insertion order — the oldest entry is the page furthest
+      // behind the reader. close() actually frees it; dropping the reference
+      // alone leaves the bitmap alive until the collector gets to it.
+      while (c.size > 3) {
+        const oldest = c.keys().next().value;
+        c.get(oldest)?.close?.();
+        c.delete(oldest);
+      }
+    }).catch(() => { /* cache is an optimisation, never a requirement */ });
+  }
+
+  function schedulePrerender(pageNum, fitScale, dpr) {
+    if (!pdfDoc || pageNum < 1 || pageNum > pdfDoc.numPages) return;
+    const key = `${fileHash || 'x'}:${pageNum}@${fitScale.toFixed(3)}x${dpr}`;
+    if (pageCacheRef.current.has(key)) return;
+    if (prerenderRef.current) clearTimeout(prerenderRef.current);
+    prerenderRef.current = setTimeout(async () => {
+      try {
+        const page = await pdfDoc.getPage(pageNum);
+        // The reader may have moved on while this was queued; a prerender that
+        // lands after the fact would evict a page that IS on screen.
+        if (pageCacheRef.current.has(key)) return;
+        const vp = page.getViewport({ scale: fitScale * dpr });
+        const off = document.createElement('canvas');
+        off.width = Math.floor(vp.width);
+        off.height = Math.floor(vp.height);
+        await page.render({ canvasContext: off.getContext('2d'), viewport: vp }).promise;
+        cachePage(key, off);
+      } catch { /* a prerender that fails costs nothing */ }
+    }, 300);
+  }
 
   // ── Overlay drawing helpers ────────────────────────────────
+  // One context object for the ink layer, requested with the low-latency
+  // hint. getContext returns the same context for the same canvas, so asking
+  // repeatedly is free, but the attributes only apply on the FIRST call for
+  // that canvas — hence a single helper every path goes through, rather than
+  // scattered getContext('2d') calls where whichever ran first would decide
+  // whether the whole feature got low latency or not.
+  function inkCtx() {
+    const c = overlayCanvasRef.current;
+    if (!c) return null;
+    return c.getContext('2d', { desynchronized: true });
+  }
+
   function redrawOverlay(strokes) {
     const c = overlayCanvasRef.current;
     if (!c) return;
-    const ctx = c.getContext('2d');
+    const ctx = inkCtx();
+    if (!ctx) return;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, c.width, c.height);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     for (const stroke of strokes || []) {
-      drawStroke(ctx, stroke, c.width, c.height);
+      // Widths are authored in CSS pixels; the canvas is DPR-scaled and zoomed,
+      // so a stroke drawn at 100% must not become hairline at 300%.
+      drawStroke(ctx, stroke, c.width, c.height, dpr * zoom);
     }
   }
 
-  function drawStroke(ctx, stroke, canvasW, canvasH) {
-    if (!stroke?.points || stroke.points.length === 0) return;
-    ctx.lineCap = 'round';
+  // Sets up the context for one instrument. Shared by the live draw and the
+  // redraw so a finished stroke can never look different from the one the
+  // student watched themselves make.
+  function applyBrush(ctx, stroke) {
     ctx.lineJoin = 'round';
     if (stroke.mode === 'eraser') {
+      ctx.lineCap = 'round';
       ctx.globalCompositeOperation = 'destination-out';
+      ctx.globalAlpha = 1;
       ctx.strokeStyle = 'rgba(0,0,0,1)';
-      ctx.lineWidth = stroke.size * 4;
-    } else {
-      ctx.globalCompositeOperation = 'source-over';
+    } else if (stroke.mode === 'highlighter') {
+      // Flat cap and a squat, translucent line: the point of a highlighter is
+      // that the words underneath stay readable.
+      ctx.lineCap = 'butt';
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.globalAlpha = 0.38;
       ctx.strokeStyle = stroke.color;
-      ctx.lineWidth = stroke.size;
+    } else {
+      ctx.lineCap = 'round';
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = stroke.color;
     }
-    ctx.beginPath();
-    // Stroke points are stored in normalized [0..1] space so the same
-    // strokes redraw correctly when the viewport scale changes.
-    const pts = stroke.points;
-    ctx.moveTo(pts[0][0] * canvasW, pts[0][1] * canvasH);
+  }
+
+  function resetBrush(ctx) {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = 1;
+  }
+
+  // Width for one point. A pen that reports real pressure (Apple Pencil, S
+  // Pen) gets a line that thickens as it is pressed; a mouse reports a
+  // constant 0.5 and would only get noise from this, so it keeps a even line.
+  function widthAt(stroke, pt, scale) {
+    const base = stroke.mode === 'eraser' ? stroke.size * 4
+      : stroke.mode === 'highlighter' ? stroke.size * 4.5
+        : stroke.size;
+    if (!stroke.pressure || pt.length < 3) return base * scale;
+    return base * scale * (0.45 + pt[2] * 1.1);
+  }
+
+  // Draws a stroke as a chain of quadratic curves through the midpoints of
+  // consecutive samples, which is what turns a polyline of pointer events into
+  // something that reads as handwriting. Each segment is stroked on its own so
+  // the width can follow pressure along the line.
+  function drawStroke(ctx, stroke, canvasW, canvasH, scale = 1) {
+    const pts = stroke?.points;
+    if (!pts || pts.length === 0) return;
+    applyBrush(ctx, stroke);
+    const X = (i) => pts[i][0] * canvasW;
+    const Y = (i) => pts[i][1] * canvasH;
+
+    if (stroke.mode === 'highlighter') {
+      strokeAsOnePath(ctx, pts, canvasW, canvasH, widthAt(stroke, pts[0], scale));
+      resetBrush(ctx);
+      return;
+    }
+
+    if (pts.length === 1) {
+      // A tap is a dot, not nothing.
+      ctx.lineWidth = widthAt(stroke, pts[0], scale);
+      ctx.beginPath();
+      ctx.moveTo(X(0), Y(0));
+      ctx.lineTo(X(0) + 0.01, Y(0));
+      ctx.stroke();
+      resetBrush(ctx);
+      return;
+    }
+    let px = X(0); let py = Y(0);
     for (let i = 1; i < pts.length; i++) {
-      ctx.lineTo(pts[i][0] * canvasW, pts[i][1] * canvasH);
+      const mx = (px + X(i)) / 2;
+      const my = (py + Y(i)) / 2;
+      ctx.lineWidth = widthAt(stroke, pts[i], scale);
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.quadraticCurveTo(px, py, mx, my);
+      ctx.lineTo(X(i), Y(i));
+      ctx.stroke();
+      px = X(i); py = Y(i);
+    }
+    resetBrush(ctx);
+  }
+
+  // One path, one stroke() — the only way a translucent instrument keeps an
+  // even tone across its own overlaps.
+  function strokeAsOnePath(ctx, pts, canvasW, canvasH, width) {
+    ctx.lineWidth = width;
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0] * canvasW, pts[0][1] * canvasH);
+    if (pts.length === 1) {
+      ctx.lineTo(pts[0][0] * canvasW + 0.01, pts[0][1] * canvasH);
+    } else {
+      for (let i = 1; i < pts.length; i++) {
+        const x = pts[i][0] * canvasW;
+        const y = pts[i][1] * canvasH;
+        const px = pts[i - 1][0] * canvasW;
+        const py = pts[i - 1][1] * canvasH;
+        ctx.quadraticCurveTo(px, py, (px + x) / 2, (py + y) / 2);
+      }
+      ctx.lineTo(pts[pts.length - 1][0] * canvasW, pts[pts.length - 1][1] * canvasH);
     }
     ctx.stroke();
-    ctx.globalCompositeOperation = 'source-over';
   }
 
   // ── Pointer handlers (annotation overlay) ─────────────────
-  function pointFromEvent(e) {
+  function pointFromEvent(e, pressure = 0) {
     const c = overlayCanvasRef.current;
     const rect = c.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
-    return [Math.max(0, Math.min(1, x)), Math.max(0, Math.min(1, y))];
+    const cx = Math.max(0, Math.min(1, x));
+    const cy = Math.max(0, Math.min(1, y));
+    // Some pens report 0 for a genuine contact; treat that as a normal press
+    // rather than a zero-width line the student cannot see.
+    return pressure > 0 ? [cx, cy, pressure] : [cx, cy];
   }
 
   function onPointerDown(e) {
     if (!pdfDoc) return;
+    if (gestureDown(e)) return;
+    // A stylus anywhere on the page proves this device has one, which is what
+    // makes offering pen-only mode honest rather than a setting for hardware
+    // that may not exist.
+    if (e.pointerType === 'pen' && !sawPen) setSawPen(true);
+    // Palm rejection: with a stylus in hand, a hand resting on the glass is
+    // not a drawing gesture.
+    if (penOnly && e.pointerType !== 'pen') return;
     e.preventDefault();
     overlayCanvasRef.current?.setPointerCapture?.(e.pointerId);
-    const pt = pointFromEvent(e);
+    const usePressure = e.pointerType === 'pen';
+    // Surface, Wacom and S Pen styluses report the eraser barrel as button 5
+    // / buttons bit 32. Flipping the stylus over is how people expect to
+    // erase, and honouring it costs one test — the toolbar selection stays, so
+    // turning the pen back over resumes drawing with the same pen.
+    const barrelEraser = e.pointerType === 'pen' && (e.button === 5 || (e.buttons & 32) !== 0);
+    const usedTool = barrelEraser ? 'eraser' : tool;
+    const pt = pointFromEvent(e, usePressure ? e.pressure : 0);
     drawingRef.current = {
       on: true,
+      pointerId: e.pointerId,
       stroke: {
-        mode: tool,
-        color: PEN_COLORS.find((p) => p.id === color)?.rgb || PEN_COLORS[0].rgb,
+        mode: usedTool,
+        color: usedTool === 'highlighter'
+          ? (HL_COLORS.find((c) => c.id === hlColor)?.rgb || HL_COLORS[0].rgb)
+          : (PEN_COLORS.find((p) => p.id === color)?.rgb || PEN_COLORS[0].rgb),
         size,
+        pressure: usePressure,
         points: [pt],
       },
     };
   }
 
   function onPointerMove(e) {
+    if (gestureMove(e)) return;
     const ref = drawingRef.current;
-    if (!ref?.on) return;
+    if (!ref?.on || e.pointerId !== ref.pointerId) return;
     e.preventDefault();
-    const pt = pointFromEvent(e);
     const stroke = ref.stroke;
-    const prev = stroke.points[stroke.points.length - 1];
-    // Skip near-duplicate points to keep the stroke arrays compact
-    if (Math.abs(prev[0] - pt[0]) < 0.001 && Math.abs(prev[1] - pt[1]) < 0.001) return;
-    stroke.points.push(pt);
-    // Draw just the new segment incrementally so the user sees a
-    // live line — full redraw would be O(strokes) per move event.
     const c = overlayCanvasRef.current;
     if (!c) return;
-    const ctx = c.getContext('2d');
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    if (stroke.mode === 'eraser') {
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.strokeStyle = 'rgba(0,0,0,1)';
-      ctx.lineWidth = stroke.size * 4;
-    } else {
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.strokeStyle = stroke.color;
-      ctx.lineWidth = stroke.size;
+    const ctx = inkCtx();
+    if (!ctx) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // getCoalescedEvents returns every sample the digitiser took since the
+    // last frame. A pen runs at ~240 Hz against a 60 Hz screen, so without
+    // this three of every four points a student writes are thrown away, which
+    // is the single biggest reason fast handwriting comes out angular.
+    const raw = typeof e.getCoalescedEvents === 'function' ? e.getCoalescedEvents() : [];
+    const samples = raw.length ? raw : [e];
+    let added = 0;
+    for (const se of samples) {
+      const pt = pointFromEvent(se, stroke.pressure ? se.pressure : 0);
+      const last = stroke.points[stroke.points.length - 1];
+      // Drop near-duplicates so a still hand does not grow the array.
+      if (Math.abs(last[0] - pt[0]) < 0.0004 && Math.abs(last[1] - pt[1]) < 0.0004) continue;
+      stroke.points.push(pt);
+      added++;
     }
-    ctx.beginPath();
-    ctx.moveTo(prev[0] * c.width, prev[1] * c.height);
-    ctx.lineTo(pt[0] * c.width, pt[1] * c.height);
-    ctx.stroke();
-    ctx.globalCompositeOperation = 'source-over';
+    if (!added || stroke.points.length < 2) return;
+
+    if (stroke.mode === 'highlighter') {
+      // Cannot extend a translucent stroke in place; repaint the page's
+      // settled strokes and lay the live one over them as a single path. A
+      // highlighter swipe is short, so this stays cheap.
+      redrawOverlay(currentStrokesRef.current);
+      applyBrush(ctx, stroke);
+      strokeAsOnePath(ctx, stroke.points, c.width, c.height, widthAt(stroke, stroke.points[0], dpr * zoom));
+      resetBrush(ctx);
+      return;
+    }
+
+    // Repaint only the tail the new samples changed, so extending a long
+    // stroke stays as cheap as starting a short one.
+    const n = stroke.points.length;
+    const from = Math.max(1, n - added);
+    applyBrush(ctx, stroke);
+    let px = stroke.points[from - 1][0] * c.width;
+    let py = stroke.points[from - 1][1] * c.height;
+    for (let i = from; i < n; i++) {
+      const x = stroke.points[i][0] * c.width;
+      const y = stroke.points[i][1] * c.height;
+      ctx.lineWidth = widthAt(stroke, stroke.points[i], dpr * zoom);
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.quadraticCurveTo(px, py, (px + x) / 2, (py + y) / 2);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      px = x; py = y;
+    }
+    resetBrush(ctx);
   }
 
-  function onPointerUp() {
+  function onPointerUp(e) {
+    if (e && gestureUp(e)) return;
     const ref = drawingRef.current;
     if (!ref?.on) return;
+    if (e && e.pointerId !== undefined && e.pointerId !== ref.pointerId) return;
     drawingRef.current = { on: false, points: [] };
     if (!ref.stroke || ref.stroke.points.length < 1) return;
     setStrokesByPage((prev) => {
       const pageList = [...(prev[currentPage] || []), ref.stroke];
       const next = { ...prev, [currentPage]: pageList };
       currentStrokesRef.current = pageList;
+      // A finished highlighter stroke is repainted from scratch: drawn
+      // incrementally its own overlaps multiply into a dark smear, drawn once
+      // it is the flat wash a highlighter actually makes.
+      if (ref.stroke.mode === 'highlighter') redrawOverlay(pageList);
       scheduleSave(next);
       return next;
     });
+    // A new stroke is a new branch, so anything undone before it is now gone.
+    setRedoStack([]);
   }
 
   // ── Autosave (debounced) ───────────────────────────────────
   function scheduleSave(strokesObj) {
     if (!fileHash) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
-    saveTimerRef.current = setTimeout(() => {
-      const res = saveAnnotations(fileHash, {
+    saveTimerRef.current = setTimeout(async () => {
+      const res = await saveAnnotations(fileHash, {
         fileName,
         pageCount,
         strokesByPage: strokesObj,
       });
-      setRecent(listRecentPdfs());
+      refreshRecent();
       // Autosave is silent on success by design, but it must not be silent
       // when the writing is not being kept — that is the one thing the
       // student needs to know while they are still drawing.
-      if (!res?.ok) showToast('บันทึกอัตโนมัติไม่สำเร็จ พื้นที่ในเครื่องเต็ม');
+      if (!res?.ok) showToast('บันทึกอัตโนมัติไม่สำเร็จ รอยเขียนจะอยู่แค่จนกว่าจะปิดแท็บ');
     }, AUTOSAVE_MS);
   }
 
-  function saveNow() {
+  async function saveNow() {
     if (!fileHash) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     // "บันทึกแล้ว ✓" used to appear whatever happened — the storage layer
     // swallowed the failure and handed the caller nothing to check, so a
     // student whose device storage was full was told their pen marks were
     // safe when nothing had been written.
-    const res = saveAnnotations(fileHash, {
+    const res = await saveAnnotations(fileHash, {
       fileName,
       pageCount,
       strokesByPage,
     });
-    setRecent(listRecentPdfs());
+    refreshRecent();
     if (!res?.ok) {
-      showToast('บันทึกไม่สำเร็จ พื้นที่ในเครื่องเต็ม ลองลบไฟล์เก่าออกก่อน');
-    } else if (res.evicted > 0) {
-      showToast(`บันทึกแล้ว แต่ต้องลบรอยเขียนของไฟล์เก่า ${res.evicted} ไฟล์เพื่อให้มีที่ว่าง`);
+      showToast('บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลถาวรไม่ได้');
     } else {
       showToast('บันทึกแล้ว ✓');
     }
@@ -464,17 +727,42 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setStrokesByPage((prev) => {
       const pageList = prev[currentPage] || [];
       if (pageList.length === 0) return prev;
+      const undone = pageList[pageList.length - 1];
       const trimmed = pageList.slice(0, -1);
       const next = { ...prev, [currentPage]: trimmed };
       currentStrokesRef.current = trimmed;
       redrawOverlay(trimmed);
       scheduleSave(next);
+      setRedoStack((r) => [...r, { page: currentPage, stroke: undone }].slice(-40));
       return next;
+    });
+  }
+
+  function redoLast() {
+    setRedoStack((stack) => {
+      const top = stack[stack.length - 1];
+      // Undo history belongs to the page the stroke was made on. Replaying it
+      // onto whichever page happens to be open would move a student's mark to
+      // a page they never drew it on.
+      if (!top || top.page !== currentPage) return stack;
+      setStrokesByPage((prev) => {
+        const pageList = [...(prev[currentPage] || []), top.stroke];
+        const next = { ...prev, [currentPage]: pageList };
+        currentStrokesRef.current = pageList;
+        redrawOverlay(pageList);
+        scheduleSave(next);
+        return next;
+      });
+      return stack.slice(0, -1);
     });
   }
 
   function clearPage() {
     setStrokesByPage((prev) => {
+      const cleared = prev[currentPage] || [];
+      if (cleared.length) {
+        setRedoStack((r) => [...r, ...cleared.map((st) => ({ page: currentPage, stroke: st }))].slice(-40));
+      }
       const next = { ...prev, [currentPage]: [] };
       currentStrokesRef.current = [];
       redrawOverlay([]);
@@ -482,6 +770,89 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       return next;
     });
   }
+
+  // Two-finger pinch. `touch-action: none` on the overlay is what makes
+  // single-finger drawing possible, and it also swallows the browser's own
+  // pinch — so on the one device this feature is really for, an iPad with a
+  // Pencil, there would otherwise be no way to zoom except the toolbar.
+  const gestureRef = useRef(null);
+  const activePointers = useRef(new Map());
+
+  function gestureDown(e) {
+    activePointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (activePointers.current.size !== 2) return false;
+    // A second finger means this was never a stroke. Throw away what the
+    // first finger drew rather than leaving a stray mark behind every pinch.
+    const d = drawingRef.current;
+    if (d?.on) {
+      drawingRef.current = { on: false, points: [] };
+      redrawOverlay(currentStrokesRef.current);
+    }
+    const [a, b] = [...activePointers.current.values()];
+    gestureRef.current = { startDist: Math.hypot(a.x - b.x, a.y - b.y), startZoom: zoom };
+    return true;
+  }
+
+  function gestureMove(e) {
+    if (!activePointers.current.has(e.pointerId)) return false;
+    activePointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const g = gestureRef.current;
+    if (!g || activePointers.current.size < 2) return false;
+    const [a, b] = [...activePointers.current.values()];
+    const dist = Math.hypot(a.x - b.x, a.y - b.y);
+    if (g.startDist > 0) {
+      const want = g.startZoom * (dist / g.startDist);
+      // Snap to the same fixed steps the buttons use, so a pinch and a tap
+      // can never leave the page at two slightly different scales — and so
+      // the rendered-page cache keeps hitting.
+      const nearest = ZOOM_STEPS.reduce((best, v) =>
+        (Math.abs(v - want) < Math.abs(best - want) ? v : best), ZOOM_STEPS[0]);
+      setZoom((z) => (z === nearest ? z : nearest));
+    }
+    return true;
+  }
+
+  function gestureUp(e) {
+    activePointers.current.delete(e.pointerId);
+    if (activePointers.current.size < 2) gestureRef.current = null;
+    return activePointers.current.size > 0;
+  }
+
+  // Undo, redo and zoom from the keyboard. A laptop reader annotating with a
+  // trackpad reaches for these before they reach for the toolbar.
+  useEffect(() => {
+    if (!pdfDoc) return undefined;
+    const onKey = (e) => {
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      const mod = e.metaKey || e.ctrlKey;
+      if (mod && e.key.toLowerCase() === 'z') {
+        e.preventDefault();
+        if (e.shiftKey) redoLast(); else undoLast();
+      } else if (mod && (e.key === '=' || e.key === '+')) {
+        e.preventDefault(); zoomIn();
+      } else if (mod && e.key === '-') {
+        e.preventDefault(); zoomOut();
+      } else if (mod && e.key === '0') {
+        e.preventDefault(); setZoom(1);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pdfDoc, currentPage, redoStack, strokesByPage]);
+
+  // ── Zoom ───────────────────────────────────────────────────
+  // Fixed steps rather than a free slider: every step is a scale the page
+  // cache can hold and reuse, and a student pressing + wants a predictable
+  // jump, not a value they have to hunt for.
+  function zoomIn() {
+    setZoom((z) => ZOOM_STEPS.find((v) => v > z + 0.001) ?? z);
+  }
+  function zoomOut() {
+    setZoom((z) => [...ZOOM_STEPS].reverse().find((v) => v < z - 0.001) ?? z);
+  }
+  const canRedo = redoStack.length > 0 && redoStack[redoStack.length - 1].page === currentPage;
 
   // ── Drag & drop ────────────────────────────────────────────
   function onDragOver(e) {
@@ -515,8 +886,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   function removeRecent(hash, ev) {
     ev?.stopPropagation?.();
-    deleteAnnotations(hash);
-    setRecent(listRecentPdfs());
+    deleteAnnotations(hash).then(refreshRecent).catch(() => {});
   }
 
   function backToEmpty() {
@@ -534,14 +904,63 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setStrokesByPage({});
     setCurrentPage(1);
     setError(null);
-    setRecent(listRecentPdfs());
+    refreshRecent();
   }
+
+  // The autosave is debounced 500 ms. Closing the tab, switching apps, or a
+  // phone locking within that window used to drop whatever had just been
+  // written — the exact moment a person is most likely to walk away. Flush on
+  // the way out. `visibilitychange` is the only one of these that fires
+  // reliably on iOS, which is the platform this matters most on.
+  useEffect(() => {
+    if (!pdfDoc || !fileHash) return undefined;
+    // Reads latestRef, never the render's own values, and depends only on the
+    // document — so it subscribes once per document instead of once per
+    // stroke, and what it writes is always the newest thing there is.
+    const flush = () => {
+      if (!saveTimerRef.current) return;
+      clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = null;
+      const l = latestRef.current;
+      if (!l.fileHash) return;
+      saveAnnotations(l.fileHash, {
+        fileName: l.fileName,
+        pageCount: l.pageCount,
+        strokesByPage: l.strokesByPage,
+        lastPage: l.currentPage,
+      }).catch(() => {});
+    };
+    const onHide = () => { if (document.visibilityState === 'hidden') flush(); };
+    document.addEventListener('visibilitychange', onHide);
+    window.addEventListener('pagehide', flush);
+    return () => {
+      document.removeEventListener('visibilitychange', onHide);
+      window.removeEventListener('pagehide', flush);
+      // Leaving the reader is also a way out — going back to the shelf must
+      // not discard a stroke made in the last half second.
+      flush();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pdfDoc, fileHash]);
 
   // Cleanup on unmount
   useEffect(() => () => {
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    if (prerenderRef.current) clearTimeout(prerenderRef.current);
     if (renderTaskRef.current) { try { renderTaskRef.current.cancel(); } catch {} }
+    for (const bmp of pageCacheRef.current.values()) bmp?.close?.();
+    pageCacheRef.current.clear();
   }, []);
+
+  // Free the previous document's bitmaps. Correctness does not rest on this
+  // — the cache key carries the file hash, so a stale entry can never be
+  // shown against the wrong document even if this effect runs out of order
+  // with the render effect. This is purely about not holding ~45 MB of a deck
+  // nobody is reading any more.
+  useEffect(() => {
+    for (const bmp of pageCacheRef.current.values()) bmp?.close?.();
+    pageCacheRef.current.clear();
+  }, [pdfDoc]);
 
   const annotatedPages = new Set(
     Object.entries(strokesByPage)
@@ -685,22 +1104,32 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         alignItems: 'center',
       }}>
         <button type="button" className={`vmx-chip ${tool === 'pen' ? 'active' : ''}`} onClick={() => setTool('pen')}>ปากกา</button>
-        <button type="button" className={`vmx-chip ${tool === 'eraser' ? 'active' : ''}`} onClick={() => setTool('eraser')}>🧽 ลบ</button>
+        <button type="button" className={`vmx-chip ${tool === 'highlighter' ? 'active' : ''}`} onClick={() => setTool('highlighter')}>ไฮไลต์</button>
+        <button type="button" className={`vmx-chip ${tool === 'eraser' ? 'active' : ''}`} onClick={() => setTool('eraser')}>ยางลบ</button>
         <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
-        {tool === 'pen' && PEN_COLORS.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            onClick={() => setColor(c.id)}
-            title={c.name}
-            aria-label={`สี ${c.name}`}
-            style={{
-              width: 24, height: 24, borderRadius: '50%',
-              border: color === c.id ? '2px solid var(--clr-ink, #222)' : '1px solid var(--clr-border, #ccc)',
-              background: c.rgb, cursor: 'pointer', padding: 0,
-            }}
-          />
-        ))}
+        {(tool === 'highlighter' ? HL_COLORS : PEN_COLORS).map((c) => {
+          const on = tool === 'highlighter' ? hlColor === c.id : color === c.id;
+          return (
+            <button
+              key={c.id}
+              type="button"
+              onClick={() => (tool === 'highlighter' ? setHlColor(c.id) : setColor(c.id))}
+              title={c.name}
+              aria-label={`สี ${c.name}`}
+              aria-pressed={on}
+              // The swatch reads as 24 px but the button is 40: a colour dot
+              // sized for a mouse pointer is a miss on a tablet, which is the
+              // device most likely to be holding a pen.
+              style={{
+                width: 40, height: 40, minWidth: 40, padding: 8,
+                borderRadius: tool === 'highlighter' ? 8 : '50%',
+                border: on ? '2px solid var(--clr-ink, #222)' : '1px solid transparent',
+                background: c.rgb, backgroundClip: 'content-box',
+                cursor: 'pointer', display: 'inline-block',
+              }}
+            />
+          );
+        })}
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
           ขนาด
           <input
@@ -713,9 +1142,25 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           />
         </label>
         <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={undoLast}>↶ Undo</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={undoLast} disabled={(strokesByPage[currentPage] || []).length === 0}>↶ ย้อน</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={redoLast} disabled={!canRedo}>↷ ทำซ้ำ</button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearPage}>ล้างหน้านี้</button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={saveNow}>บันทึก</button>
+        <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
+        {/* Zoom. Writing on top of 11 px slide text at fit-to-width is not
+            something anyone can do legibly. */}
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={zoomOut} disabled={zoom <= ZOOM_STEPS[0]} aria-label="ย่อ">−</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setZoom(1)} style={{ minWidth: 54, fontFamily: 'var(--vmx-mono)' }} title="กลับไปพอดีความกว้าง">{Math.round(zoom * 100)}%</button>
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={zoomIn} disabled={zoom >= ZOOM_STEPS[ZOOM_STEPS.length - 1]} aria-label="ขยาย">+</button>
+        {sawPen && (
+          <button
+            type="button"
+            className={`vmx-chip ${penOnly ? 'active' : ''}`}
+            onClick={() => setPenOnly((v) => !v)}
+            aria-pressed={penOnly}
+            title="รับเฉพาะปากกา วางมือบนจอได้"
+          >เฉพาะปากกา</button>
+        )}
         <span style={{ flex: 1 }} />
         <button
           type="button"
@@ -745,13 +1190,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             overflow: 'auto',
             background: '#2a2a2a',
             display: 'flex',
-            justifyContent: 'center',
             alignItems: 'flex-start',
             padding: 12,
             minWidth: 0,
+            // Not `justify-content: center`: a centred flex item that grows
+            // past its container is clipped at the START edge and cannot be
+            // scrolled back to. `margin: auto` centres the same way while
+            // leaving both edges reachable once the page is zoomed in.
+            overscrollBehavior: 'contain',
           }}
         >
-          <div style={{ position: 'relative', display: 'inline-block', lineHeight: 0 }}>
+          <div style={{ position: 'relative', display: 'inline-block', lineHeight: 0, margin: 'auto' }}>
             <canvas ref={baseCanvasRef} style={{ display: 'block', background: '#fff', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }} />
             <canvas
               ref={overlayCanvasRef}
@@ -848,6 +1297,49 @@ function Toast({ text }) {
     >{text}</div>
   );
 }
+
+// Streams a response body, reporting progress in real megabytes.
+//
+// Falls back to arrayBuffer() whenever the stream is unavailable — no
+// getReader (older Safari), or an unknown length. Progress is a nicety; the
+// bytes are not, so nothing here may become a reason a document fails to open.
+async function readWithProgress(res, onProgress) {
+  const total = Number(res.headers.get('content-length')) || 0;
+  if (!res.body?.getReader) return res.arrayBuffer();
+  try {
+    const reader = res.body.getReader();
+    const chunks = [];
+    let got = 0;
+    let lastPaint = 0;
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      got += value.length;
+      // Repainting on every chunk would fight the download for the main
+      // thread; four times a second reads as continuous to a person.
+      const now = Date.now();
+      if (now - lastPaint > 250) {
+        lastPaint = now;
+        onProgress(total
+          ? `กำลังโหลด ${mb(got)} / ${mb(total)} MB (${Math.round((got / total) * 100)}%)`
+          : `กำลังโหลด ${mb(got)} MB`);
+      }
+    }
+    // Concatenate once at the end rather than growing a buffer per chunk.
+    const out = new Uint8Array(got);
+    let at = 0;
+    for (const c of chunks) { out.set(c, at); at += c.length; }
+    return out.buffer;
+  } catch {
+    // A stream that breaks mid-read cannot be replayed from this response.
+    // Say so plainly instead of handing pdf.js a truncated file, which would
+    // surface as "ไฟล์เสีย" and send the reader looking for the wrong problem.
+    throw new Error('ดาวน์โหลดไฟล์ไม่ครบ ลองเปิดอีกครั้ง');
+  }
+}
+
+const mb = (n) => (n / 1048576).toFixed(1);
 
 function fmtDate(ts) {
   if (!ts) return '';

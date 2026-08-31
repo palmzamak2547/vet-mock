@@ -118,10 +118,15 @@ export default function HighlightToCard() {
         setAnchor(info);
       }, DEBOUNCE_MS);
     };
-    document.addEventListener('scroll', onScroll, true);
+    // passive: this component is mounted on EVERY view for the whole
+    // session, so a non-passive capture listener on document made the
+    // browser wait on it before every scroll of every page — paid on all
+    // scrolling to serve a button that only appears inside SummaryModal.
+    // The handler only sets a timer; it never calls preventDefault.
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true });
     return () => {
       document.removeEventListener('selectionchange', onSelChange);
-      document.removeEventListener('scroll', onScroll, true);
+      document.removeEventListener('scroll', onScroll, { capture: true });
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
   }, [modalOpen]);
