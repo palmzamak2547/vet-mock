@@ -29,6 +29,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 import {
   hashFile,
   loadAnnotations,
@@ -148,6 +149,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // so "the slide about rabies that I annotated" is answerable with certainty
   // while "what did I write" is not.
   const [onlyMine, setOnlyMine] = useState(false);
+  const [optionsOpen, setOptionsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [sync, setSync] = useState(() => syncState());
 
   const fileInputRef = useRef(null);
@@ -1177,6 +1181,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setZoomAt((z) => [...ZOOM_STEPS].reverse().find((v) => v < z - 0.001) ?? z, e?.clientX, e?.clientY);
   }
   const canRedo = redoStack.length > 0 && redoStack[redoStack.length - 1].page === currentPage;
+  const activeColor = (tool === 'highlighter'
+    ? HL_COLORS.find((c) => c.id === hlColor)
+    : PEN_COLORS.find((c) => c.id === color)) || PEN_COLORS[0];
 
   // Ctrl / ⌘ + wheel over the page, which is what a trackpad pinch sends and
   // what every document reader does. Bound natively rather than through React
@@ -1434,88 +1441,150 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
       <BackBar onBack={backToEmpty} label="เปลี่ยน PDF" subtitle={fileName} />
-      {/* Toolbar */}
-      <div style={{
+      {/* Toolbar — one row.
+          It used to be a wall of labelled chips: 207 px tall on a phone, which
+          with the search row put 264 px of chrome above an 812 px screen
+          before any of the document showed. Tools are icons with accessible
+          names, the two settings that belong to a tool live in a popover
+          behind its own swatch, and the actions nobody reaches for mid-stroke
+          moved into an overflow menu. */}
+      <div className="vmx-pdf-toolbar" style={{
         display: 'flex',
-        flexWrap: 'wrap',
-        gap: 6,
-        padding: '6px 12px',
+        gap: 4,
+        padding: '6px 10px',
         borderBottom: '1px solid var(--clr-border, #e1ddd2)',
         background: 'var(--clr-surface, #f7f7f4)',
         alignItems: 'center',
+        flexWrap: 'nowrap',
+        overflowX: 'auto',
       }}>
-        <button type="button" className={`vmx-chip ${tool === 'pen' ? 'active' : ''}`} onClick={() => setTool('pen')}>ปากกา</button>
-        <button type="button" className={`vmx-chip ${tool === 'highlighter' ? 'active' : ''}`} onClick={() => setTool('highlighter')}>ไฮไลต์</button>
-        <button type="button" className={`vmx-chip ${tool === 'eraser' ? 'active' : ''}`} onClick={() => setTool('eraser')}>ยางลบ</button>
-        <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
-        {(tool === 'highlighter' ? HL_COLORS : PEN_COLORS).map((c) => {
-          const on = tool === 'highlighter' ? hlColor === c.id : color === c.id;
-          return (
-            <button
-              key={c.id}
-              type="button"
-              onClick={() => (tool === 'highlighter' ? setHlColor(c.id) : setColor(c.id))}
-              title={c.name}
-              aria-label={`สี ${c.name}`}
-              aria-pressed={on}
-              // The swatch reads as 24 px but the button is 40: a colour dot
-              // sized for a mouse pointer is a miss on a tablet, which is the
-              // device most likely to be holding a pen.
-              style={{
-                width: 40, height: 40, minWidth: 40, padding: 8,
-                borderRadius: tool === 'highlighter' ? 8 : '50%',
-                border: on ? '2px solid var(--clr-ink, #222)' : '1px solid transparent',
-                background: c.rgb, backgroundClip: 'content-box',
-                cursor: 'pointer', display: 'inline-block',
-              }}
-            />
-          );
-        })}
-        <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
-          ขนาด
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={size}
-            onChange={(e) => setSize(parseInt(e.target.value, 10))}
-            style={{ width: 70 }}
-          />
-        </label>
-        <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={undoLast} disabled={(strokesByPage[currentPage] || []).length === 0}>↶ ย้อน</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={redoLast} disabled={!canRedo}>↷ ทำซ้ำ</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearPage}>ล้างหน้านี้</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={saveNow}>บันทึก</button>
-        <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
-        {/* Zoom. Writing on top of 11 px slide text at fit-to-width is not
-            something anyone can do legibly. */}
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => zoomOut()} disabled={zoom <= ZOOM_STEPS[0]} aria-label="ย่อ">−</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setZoomAt(1)} style={{ minWidth: 54, fontFamily: 'var(--vmx-mono)' }} title="กลับไปพอดีความกว้าง">{Math.round(zoom * 100)}%</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => zoomIn()} disabled={zoom >= ZOOM_STEPS[ZOOM_STEPS.length - 1]} aria-label="ขยาย">+</button>
-        {sawPen && (
+        <ToolButton icon="pen" label="ปากกา" active={tool === 'pen'} onClick={() => setTool('pen')} />
+        <ToolButton icon="highlighter" label="ปากกาไฮไลต์" active={tool === 'highlighter'} onClick={() => setTool('highlighter')} />
+        <ToolButton icon="eraser" label="ยางลบ" active={tool === 'eraser'} onClick={() => setTool('eraser')} />
+
+        {/* The swatch is both the current colour and the way to change it. */}
+        {tool !== 'eraser' && (
           <button
             type="button"
-            className={`vmx-chip ${penOnly ? 'active' : ''}`}
-            onClick={() => setPenOnly((v) => !v)}
-            aria-pressed={penOnly}
-            title="รับเฉพาะปากกา วางมือบนจอได้ นิ้วใช้เลื่อนหน้า"
-          >เฉพาะปากกา</button>
+            className="vmx-pdf-swatch"
+            aria-label={`สีและขนาด, ตอนนี้คือ ${activeColor.name} ขนาด ${size}`}
+            aria-expanded={optionsOpen}
+            aria-haspopup="dialog"
+            onClick={() => setOptionsOpen((v) => !v)}
+            style={{
+              width: 40, height: 40, minWidth: 40, padding: 9,
+              borderRadius: tool === 'highlighter' ? 9 : '50%',
+              border: '1px solid var(--clr-border, #d8d3c4)',
+              background: activeColor.rgb, backgroundClip: 'content-box',
+              cursor: 'pointer',
+            }}
+          />
         )}
-        <span style={{ flex: 1 }} />
-        <SyncBadge state={sync} />
+
+        <span aria-hidden="true" style={{ width: 1, height: 22, background: 'var(--clr-border)', margin: '0 2px', flexShrink: 0 }} />
+
+        <ToolButton icon="undo" label="ย้อนกลับ" onClick={undoLast} disabled={(strokesByPage[currentPage] || []).length === 0} />
+        <ToolButton icon="redo" label="ทำซ้ำ" onClick={redoLast} disabled={!canRedo} />
+
+        <span aria-hidden="true" style={{ width: 1, height: 22, background: 'var(--clr-border)', margin: '0 2px', flexShrink: 0 }} />
+
+        <ToolButton icon="zoom-out" label="ย่อ" onClick={() => zoomOut()} disabled={zoom <= ZOOM_STEPS[0]} />
         <button
           type="button"
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-          onClick={() => setSidebarOpen((o) => !o)}
-          aria-pressed={sidebarOpen}
-          title="แสดง / ซ่อนหน้าทั้งหมด"
-        >หน้า ({pageCount})</button>
+          onClick={() => setZoomAt(1)}
+          title="กลับไปพอดีความกว้าง"
+          style={{ minWidth: 52, fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}
+        >{Math.round(zoom * 100)}%</button>
+        <ToolButton icon="zoom-in" label="ขยาย" onClick={() => zoomIn()} disabled={zoom >= ZOOM_STEPS[ZOOM_STEPS.length - 1]} />
+
+        {sawPen && (
+          <ToolButton
+            icon="hand"
+            label="รับเฉพาะปากกา วางมือบนจอได้ นิ้วใช้เลื่อนหน้า"
+            active={penOnly}
+            onClick={() => setPenOnly((v) => !v)}
+          />
+        )}
+
+        <ToolButton icon="search" label="ค้นหาในเอกสาร" active={searchOpen}
+          onClick={() => { setSearchOpen((v) => !v); setTimeout(() => document.getElementById('vmx-pdf-search')?.focus(), 30); }} />
+
+        <span style={{ flex: 1, minWidth: 4 }} />
+        <SyncBadge state={sync} />
+        <ToolButton icon="more" label="เครื่องมืออื่น" active={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)} expanded={menuOpen} />
       </div>
 
-      {/* Search. Deliberately its own row rather than another chip in the
-          toolbar: it is a different kind of action, and on a phone the
-          toolbar is already two rows deep. */}
+      {/* Colour and size for the tool in hand. */}
+      {optionsOpen && tool !== 'eraser' && (
+        <div
+          role="dialog"
+          aria-label="สีและขนาดของเครื่องมือ"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
+            padding: '8px 12px', borderBottom: '1px solid var(--clr-border, #e1ddd2)',
+            background: 'var(--clr-bg, #fff)',
+          }}
+        >
+          {(tool === 'highlighter' ? HL_COLORS : PEN_COLORS).map((c) => {
+            const on = tool === 'highlighter' ? hlColor === c.id : color === c.id;
+            return (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => (tool === 'highlighter' ? setHlColor(c.id) : setColor(c.id))}
+                title={c.name}
+                aria-label={`สี ${c.name}`}
+                aria-pressed={on}
+                style={{
+                  width: 40, height: 40, minWidth: 40, padding: 8,
+                  borderRadius: tool === 'highlighter' ? 8 : '50%',
+                  border: on ? '2px solid var(--clr-ink, #222)' : '1px solid transparent',
+                  background: c.rgb, backgroundClip: 'content-box',
+                  cursor: 'pointer',
+                }}
+              />
+            );
+          })}
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, flex: 1, minWidth: 160 }}>
+            ขนาด
+            <input
+              type="range" min="1" max="10" value={size}
+              onChange={(e) => setSize(parseInt(e.target.value, 10))}
+              style={{ flex: 1, minWidth: 80 }}
+            />
+            <span style={{ fontFamily: 'var(--vmx-mono)', minWidth: 18, textAlign: 'right' }}>{size}</span>
+          </label>
+        </div>
+      )}
+
+      {/* The rest — deliberate actions, not things reached for mid-stroke. */}
+      {menuOpen && (
+        <div
+          role="menu"
+          aria-label="เครื่องมืออื่น"
+          style={{
+            display: 'flex', gap: 8, flexWrap: 'wrap',
+            padding: '8px 12px', borderBottom: '1px solid var(--clr-border, #e1ddd2)',
+            background: 'var(--clr-bg, #fff)',
+          }}
+        >
+          <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => { setSidebarOpen((o) => !o); setMenuOpen(false); }} aria-pressed={sidebarOpen}>
+            {sidebarOpen ? 'ซ่อน' : 'แสดง'}หน้าทั้งหมด ({pageCount})
+          </button>
+          <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => { saveNow(); setMenuOpen(false); }}>บันทึกเดี๋ยวนี้</button>
+          <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => { clearPage(); setMenuOpen(false); }}
+            disabled={(strokesByPage[currentPage] || []).length === 0}>ล้างรอยเขียนหน้านี้</button>
+        </div>
+      )}
+
+      {/* Search, opened from the toolbar rather than always present: on a
+          phone every permanent row costs a twelfth of the screen. */}
+      {searchOpen && (
       <div style={{
         display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px',
         borderBottom: '1px solid var(--clr-border, #e1ddd2)',
@@ -1571,7 +1640,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           </div>
         )}
       </div>
-      {shownHits?.length > 0 && shownHits[hitIdx]?.quote && (
+      )}
+      {searchOpen && shownHits?.length > 0 && shownHits[hitIdx]?.quote && (
         <div style={{
           padding: '4px 12px 8px', fontSize: 12, color: 'var(--clr-ink-soft)',
           borderBottom: '1px solid var(--clr-border, #e1ddd2)',
@@ -1714,6 +1784,26 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         }
       `}</style>
     </div>
+  );
+}
+
+// An icon-only toolbar button. The name lives on aria-label and title rather
+// than in visible text, which is what lets the whole toolbar be one row —
+// grouped and separated the way an editor toolbar reads.
+function ToolButton({ icon, label, active = false, disabled = false, onClick, expanded }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      title={label}
+      aria-label={label}
+      aria-pressed={expanded === undefined ? active : undefined}
+      aria-expanded={expanded}
+      className={`vmx-pdf-tool${active ? ' is-active' : ''}`}
+    >
+      <NavIcon name={icon} size={20} />
+    </button>
   );
 }
 

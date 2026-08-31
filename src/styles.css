@@ -3542,3 +3542,44 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 @media (prefers-reduced-motion: reduce) {
   .vmx-q-advance, .vmx-q-back { animation: none !important; }
 }
+
+/* ── PDF reader toolbar ─────────────────────────────────────────────────
+   Icon-only buttons so the whole toolbar fits one row. 40px is the tap
+   target; the glyph inside is 20. The active state is a filled tint rather
+   than a border, so a pressed tool reads at a glance without the row
+   growing by 2px when it changes. */
+.vmx-pdf-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--clr-ink, #222);
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+.vmx-pdf-tool:hover:not(:disabled) { background: var(--vmx-color-surface-hover, rgba(0, 0, 0, 0.05)); }
+.vmx-pdf-tool:disabled { opacity: 0.38; cursor: default; }
+.vmx-pdf-tool.is-active {
+  background: var(--vmx-color-accent-soft, rgba(74, 107, 74, 0.16));
+  border-color: var(--vmx-color-accent, #4a6b4a);
+  color: var(--vmx-color-accent-ink, var(--clr-ink, #222));
+}
+/* The swatch is a control, so it earns the same focus ring as the buttons
+   beside it rather than the browser default on a bare element. */
+.vmx-pdf-swatch { flex-shrink: 0; }
+.vmx-pdf-tool:focus-visible,
+.vmx-pdf-swatch:focus-visible {
+  outline: 2px solid var(--vmx-color-focus, #4a6b4a);
+  outline-offset: 2px;
+}
+/* A narrow window scrolls the row instead of stacking it: three rows of
+   chrome above the page was the problem this replaced. */
+.vmx-pdf-toolbar { scrollbar-width: thin; }
+.vmx-pdf-toolbar::-webkit-scrollbar { height: 4px; }

@@ -121,13 +121,14 @@ test('undo removes ink and redo puts the same ink back', async ({ page }) => {
   const drawn = await inkPixels(page);
   expect(drawn).toBeGreaterThan(200);
 
-  // text-is, not has-text: the sidebar carries "คลิปย้อนหลัง", which a
-  // substring match on "ย้อน" hits first and navigates away from the reader.
-  await page.locator('button:text-is("↶ ย้อน")').click();
+  // The toolbar is icon-only now, so the accessible name is the handle. That
+  // is also the stricter test: if a button loses its label the suite fails,
+  // which is the right outcome for a row of unlabelled glyphs.
+  await page.locator('button[aria-label="ย้อนกลับ"]').click();
   await page.waitForTimeout(250);
   expect(await inkPixels(page), 'undo left ink behind').toBe(0);
 
-  await page.locator('button:text-is("↷ ทำซ้ำ")').click();
+  await page.locator('button[aria-label="ทำซ้ำ"]').click();
   await page.waitForTimeout(250);
   expect(await inkPixels(page), 'redo did not restore the same stroke').toBe(drawn);
 });
@@ -135,7 +136,7 @@ test('undo removes ink and redo puts the same ink back', async ({ page }) => {
 test('the highlighter stays translucent where it crosses itself', async ({ page }) => {
   await openReaderWithPdf(page);
   const box = await overlayBox(page);
-  await page.locator('button:text-is("ไฮไลต์")').click();
+  await page.locator('button[aria-label="ปากกาไฮไลต์"]').click();
 
   // Out and back over the same line. Composited per segment, the overlap
   // reaches full opacity and blacks out the text a highlighter is meant to

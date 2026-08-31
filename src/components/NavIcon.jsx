@@ -7,6 +7,67 @@
 import React from 'react';
 
 const PATHS = {
+  // ── annotation tools ──────────────────────────────────────
+  // nib
+  pen: (
+    <>
+      <path d="M4 20l1.2-4.2L15.6 5.4a2 2 0 0 1 2.8 0l.2.2a2 2 0 0 1 0 2.8L8.2 18.8 4 20Z" />
+      <path d="M14.4 6.6l3 3" />
+    </>
+  ),
+  // chisel-tip marker
+  highlighter: (
+    <>
+      <path d="M8 15l6.5-6.5a2 2 0 0 1 2.8 0l1.2 1.2a2 2 0 0 1 0 2.8L12 19H8z" />
+      <path d="M4 21h7" />
+    </>
+  ),
+  eraser: (
+    <>
+      <path d="M8.5 19.5 3.9 14.9a2 2 0 0 1 0-2.8l8-8a2 2 0 0 1 2.8 0l5.2 5.2a2 2 0 0 1 0 2.8l-7.4 7.4z" />
+      <path d="M9 21h11M7.5 10.5l6 6" />
+    </>
+  ),
+  undo: <path d="M4 9h9a5 5 0 1 1 0 10H8M4 9l4-4M4 9l4 4" />,
+  redo: <path d="M20 9h-9a5 5 0 1 0 0 10h5M20 9l-4-4M20 9l-4 4" />,
+  'zoom-in': (
+    <>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="M20 20l-4.4-4.4M8.5 11h5M11 8.5v5" />
+    </>
+  ),
+  'zoom-out': (
+    <>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="M20 20l-4.4-4.4M8.5 11h5" />
+    </>
+  ),
+  more: (
+    <>
+      <circle cx="5" cy="12" r="1.4" />
+      <circle cx="12" cy="12" r="1.4" />
+      <circle cx="19" cy="12" r="1.4" />
+    </>
+  ),
+  save: (
+    <>
+      <path d="M5 3h11l3 3v15H5z" />
+      <path d="M8 3v6h7V3M8 21v-6h8v6" />
+    </>
+  ),
+  trash: (
+    <>
+      <path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" />
+      <path d="M10 11v6M14 11v6" />
+    </>
+  ),
+  hand: (
+    <>
+      <path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11" />
+      <path d="M12 11V4.5a1.5 1.5 0 0 1 3 0V11" />
+      <path d="M15 11V6.5a1.5 1.5 0 0 1 3 0V13c0 4.5-2.5 8-6.5 8S6 18.5 6 15v-3.5a1.5 1.5 0 0 1 3 0" />
+    </>
+  ),
   // house
   home: <path d="M3 10.5 12 3l9 7.5M5.5 9.5V20h13V9.5M9.5 20v-5.5h5V20" />,
   // clipboard / practice list
