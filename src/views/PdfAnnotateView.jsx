@@ -203,7 +203,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // Page text, extracted once per document and reused for every later search.
   const textRef = useRef({ hash: null, pages: null });
   const searchAbortRef = useRef(0);
-  const [frameH, setFrameH] = useState(null);
+
   // What a flush should write, always current. A flush that closes over
   // render-time state writes whatever was true when its effect last ran, and
   // an effect that depends on the strokes re-runs on every stroke — the two
@@ -1038,55 +1038,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pdfDoc, currentPage, redoStack, strokesByPage, optionsOpen, menuOpen, searchOpen]);
 
-  // Height of the page frame: everything left between the top of the frame and
-  // the bottom of the window, less the page-nav bar and any bottom chrome.
-  //
-  // Measured against the frame's CURRENT top edge every time the chrome above
-  // it can change. The first version measured once and observed the frame's
-  // own parent, which never resizes — so opening the colour panel, the
-  // overflow menu and search on a phone pushed the frame 56 px past the bottom
-  // of the window and the page started scrolling again, which is the exact
-  // thing this height exists to prevent (measured: top 204 -> 379, height
-  // stuck at 341).
-  useLayoutEffect(() => {
-    if (!pdfDoc) return undefined;
-    const measure = () => {
-      const wrap = wrapperRef.current;
-      if (!wrap) return;
-      // Read the top from the element itself: it moves as rows open and close
-      // above it, and nothing else reports that.
-      const top = wrap.getBoundingClientRect().top;
-      const navH = footRef.current?.getBoundingClientRect().height || 0;
-      const bottom = parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue('--vmx-bottom-nav-h'),
-      ) || 0;
-      // documentElement.clientHeight, NOT window.innerHeight: on iOS Safari
-      // innerHeight tracks the visual viewport around the collapsing URL bar
-      // and disagrees with the layout the page is actually given. Two earlier
-      // attempts tried to LEARN the shell's extra bottom padding by measuring
-      // how far the document spilled — the first fought the ResizeObserver at
-      // 60fps, the second accumulated phantom spill on iPad until the frame
-      // was a strip. The shell padding is now simply removed while a document
-      // is open (body.vmx-reading in styles.css), so there is nothing left to
-      // learn and this formula is exact.
-      const h = Math.max(180, document.documentElement.clientHeight - top - navH - bottom);
-      setFrameH((prev) => (prev !== null && Math.abs(prev - h) < 1 ? prev : h));
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    window.addEventListener('orientationchange', measure);
-    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
-    // Observe the reader's root, not the frame's parent: what changes height
-    // is the stack of rows ABOVE the frame, and the parent is sized by them.
-    if (ro && rootRef.current) ro.observe(rootRef.current);
-    return () => {
-      window.removeEventListener('resize', measure);
-      window.removeEventListener('orientationchange', measure);
-      ro?.disconnect();
-    };
-    // Every piece of chrome that can open above the frame is a dependency,
-    // because each one moves the frame's top edge.
-  }, [pdfDoc, sidebarOpen, optionsOpen, menuOpen, searchOpen, hits, hitIdx, sync.status]);
+  // There is deliberately NO JavaScript frame-height measurement any more.
+  // Three generations of it each failed a different way: the first let the
+  // window grow a second scrollbar, the second fought the ResizeObserver at
+  // 60fps, the third accumulated phantom spill on iPad Safari (innerHeight
+  // lies around the dynamic bars) until the reader was a strip on Palm's
+  // real device — and a pure POSITION shift (Thai fonts settling shrinks the
+  // header above) wakes no observer at all. While a document is open,
+  // body.vmx-reading turns the app shell into a 100dvh flex column
+  // (styles.css) and every level down to the page frame is flex:1/min-height
+  // 0 — the browser re-solves the height natively on font load, bar dance,
+  // rotation, everything, with nothing left to measure or get wrong.
 
   // ── Search ─────────────────────────────────────────────────
   // pdf.js already carries the text layer, so this needs no new dependency and
@@ -1581,7 +1543,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   // ── Viewing state ──────────────────────────────────────────
   return (
-    <div ref={rootRef} style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+    <div ref={rootRef} className="vmx-reader" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
       <BackBar onBack={backToEmpty} label="เปลี่ยน PDF" subtitle={fileName} />
       {/* Toolbar — one row.
           It used to be a wall of labelled chips: 207 px tall on a phone, which
@@ -1808,7 +1770,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             height — a window scrollbar on top of the frame's own, which is
             what made the reader feel both cut off and stiff. */}
         {sidebarOpen && (
-          <div className="vmx-pdf-sidebar-wrap" style={{ width: 140, flexShrink: 0, overflow: 'hidden', height: frameH ? `${frameH}px` : undefined }}>
+          <div className="vmx-pdf-sidebar-wrap" style={{ width: 140, flexShrink: 0, overflow: 'hidden', height: '100%' }}>
             <PdfThumbnailSidebar
               pdfDoc={pdfDoc}
               currentPage={currentPage}
@@ -1822,7 +1784,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           style={{
             flex: 1,
             minHeight: 0,
-            height: frameH ? `${frameH}px` : undefined,
             overflow: 'auto',
             WebkitOverflowScrolling: 'touch',
             background: '#2a2a2a',

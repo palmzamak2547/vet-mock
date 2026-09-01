@@ -3589,6 +3589,42 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
    decorative bottom padding is exactly what used to push the page past the
    viewport and stack a window scrollbar on top of the reader's own; the
    safe-area inset stays so the iPhone home bar never covers the page nav. */
+/* The shell becomes a fixed 100dvh flex column and every level down to the
+   reader's page frame is flex:1/min-height:0, so the browser itself re-solves
+   the reader's height on font load, Safari bar dances and rotation. dvh —
+   not a JS-read innerHeight — is what tracks iPadOS's collapsing chrome
+   correctly. The bottom padding keeps the column above the phone bottom-nav
+   bar and the home indicator. */
 body.vmx-reading .vmx-app {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px));
+}
+body.vmx-reading .vmx-container {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+body.vmx-reading .vmx-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+/* One anonymous wrapper sits between main and the reader root; it has to
+   pass the constraint through rather than sizing to content. */
+body.vmx-reading .vmx-main > div {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+body.vmx-reading .vmx-reader {
+  flex: 1;
+  min-height: 0;
 }
