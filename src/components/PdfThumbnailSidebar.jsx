@@ -31,7 +31,12 @@ export default function PdfThumbnailSidebar({ pdfDoc, currentPage, onPageSelect,
         background: 'var(--clr-surface, #f7f7f4)',
         borderRight: '1px solid var(--clr-border, #e1ddd2)',
         overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
         minWidth: 0,
+        // Fill the fixed-height cage the reader puts around this rail. Without
+        // it the list sizes to its content — every thumbnail stacked — and
+        // pushes the entire page out to that height.
+        height: '100%',
       }}
       role="list"
       aria-label="หน้าของ PDF"

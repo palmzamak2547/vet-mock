@@ -19,7 +19,7 @@
 // parent, because a gesture can begin on one page and end on another. This
 // component only supplies its own page number to the handlers it is given.
 
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { redrawInk, inkDpr } from '../lib/ink.js';
 
 // How far outside the viewport a page still renders. One viewport of runway
@@ -27,7 +27,11 @@ import { redrawInk, inkDpr } from '../lib/ink.js';
 // whole document.
 const RUNWAY = 1.0;
 
-export default function PdfPage({
+// memo: the parent re-renders on every toast, sync-badge tick and panel
+// toggle, and without this each of those re-rendered every page in the
+// column. All props are stable except the two that SHOULD invalidate a page:
+// its own strokes array and the active flag.
+export default memo(function PdfPage({
   pdfDoc,
   pageNum,
   scale,
@@ -203,4 +207,4 @@ export default function PdfPage({
       >{pageNum}{hasInk ? ' ✍' : ''}</span>
     </div>
   );
-}
+});

@@ -25,7 +25,7 @@
 // two-finger pinch is handled here rather than by the browser.
 // ============================================================
 
-import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
@@ -138,9 +138,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // Without tombstones a merge would resurrect every stroke the student has
   // ever rubbed out, on their other device.
   const [deleted, setDeleted] = useState([]);
-  // Where a hovering stylus is pointing, in client coordinates. Null on every
-  // device that cannot hover, which is most of them.
-  const [hoverPt, setHover] = useState(null);
+  // The hovering-stylus ring is driven straight through the DOM. It updates
+  // on every pointermove of a hovering Pencil — as state, each of those was a
+  // re-render of the whole view and its 51 pages.
+  const hoverRingRef = useRef(null);
   // Finding the slide about a thing is the single most common reason to open
   // a lecture deck, and until now the only way was flipping pages by hand.
   const [query, setQuery] = useState('');
@@ -525,7 +526,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   const getCachedPage = useCallback((key) => pageCacheRef.current.get(key) || null, []);
 
-  function cachePage(key, canvas) {
+  const cachePage = useCallback((key, canvas) => {
     if (typeof createImageBitmap !== 'function') return;
     const budget = CACHE_BUDGET_MP();
     // A single page can exceed the whole budget at high zoom on a small
@@ -544,7 +545,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         c.delete(oldest);
       }
     }).catch(() => { /* cache is an optimisation, never a requirement */ });
-  }
+  }, []);
 
   // ── Overlay drawing helpers ────────────────────────────────
   // The renderers live in lib/ink.js so this view, every page in the column
@@ -691,7 +692,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // buttons pressed. Showing where the nib will land, at the real brush
     // size, is the difference between aiming and guessing.
     if (e.pointerType === 'pen' && e.buttons === 0) {
-      setHover({ x: e.clientX, y: e.clientY });
+      hoverRing(e.clientX, e.clientY);
       return;
     }
     const ref = drawingRef.current;
@@ -1051,6 +1052,18 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       ) || 0;
       const h = Math.max(180, window.innerHeight - top - navH - bottom);
       setFrameH((prev) => (prev !== null && Math.abs(prev - h) < 1 ? prev : h));
+      // Second pass: whatever the app shell adds BELOW the reader (today a
+      // 48px padding on the shell root, tomorrow who knows) still spills the
+      // document past the viewport and re-grows a window scrollbar under the
+      // frame's own. Rather than naming shell internals here, apply the
+      // height, measure the actual spill, and take exactly that much back.
+      requestAnimationFrame(() => {
+        const de = document.scrollingElement || document.documentElement;
+        const spill = de.scrollHeight - de.clientHeight;
+        if (spill > 0 && spill < 400) {
+          setFrameH((prev) => Math.max(180, (prev ?? h) - spill));
+        }
+      });
     };
     measure();
     window.addEventListener('resize', measure);
@@ -1194,6 +1207,26 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
   }
 
+  // Positions and sizes the hover ring imperatively. Reads the CURRENT tool
+  // state because it is only ever called from the handler trampoline, whose
+  // closure is refreshed every render.
+  function hoverRing(x, y) {
+    const el = hoverRingRef.current;
+    if (!el) return;
+    if (x == null) { el.style.display = 'none'; return; }
+    const d = Math.max(8, size * (tool === 'highlighter' ? 4.5 : tool === 'eraser' ? 4 : 1) * zoom);
+    const col = tool === 'eraser' ? '#ffffff'
+      : tool === 'highlighter' ? (HL_COLORS.find((c) => c.id === hlColor)?.rgb || '#f7d94c')
+        : (PEN_COLORS.find((c) => c.id === color)?.rgb || '#c0392b');
+    el.style.display = 'block';
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.width = d + 'px';
+    el.style.height = d + 'px';
+    el.style.borderRadius = tool === 'highlighter' ? '3px' : '50%';
+    el.style.borderColor = col;
+  }
+
   // ── Zoom ───────────────────────────────────────────────────
   // Fixed steps rather than a free slider: every step is a scale the page
   // cache can hold and reuse, and a student pressing + wants a predictable
@@ -1261,14 +1294,20 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setZoomAt((z) => [...ZOOM_STEPS].reverse().find((v) => v < z - 0.001) ?? z, e?.clientX, e?.clientY);
   }
   const canRedo = redoStack.length > 0 && redoStack[redoStack.length - 1].page === currentPage;
-  const pageHandlers = {
-    onPointerDown,
-    onPointerMove,
-    onPointerUp,
-    onPointerCancel: onPointerUp,
-    onPointerLeave: (e) => { setHover(null); onPointerUp(e); },
-    onPointerOut: (e) => { if (e.pointerType === 'pen') setHover(null); },
-  };
+  // Stable identities through a ref trampoline: the handler functions close
+  // over fresh state every render, but the OBJECT handed to the pages never
+  // changes — which is what lets React.memo skip all of them when this view
+  // re-renders for a toast, a sync badge, or a panel.
+  const handlersRef = useRef({});
+  handlersRef.current = { onPointerDown, onPointerMove, onPointerUp, hoverRing };
+  const pageHandlers = useMemo(() => ({
+    onPointerDown: (e) => handlersRef.current.onPointerDown(e),
+    onPointerMove: (e) => handlersRef.current.onPointerMove(e),
+    onPointerUp: (e) => handlersRef.current.onPointerUp(e),
+    onPointerCancel: (e) => handlersRef.current.onPointerUp(e),
+    onPointerLeave: (e) => { handlersRef.current.hoverRing(null); handlersRef.current.onPointerUp(e); },
+    onPointerOut: (e) => { if (e.pointerType === 'pen') handlersRef.current.hoverRing(null); },
+  }), []);
   const activeColor = (tool === 'highlighter'
     ? HL_COLORS.find((c) => c.id === hlColor)
     : PEN_COLORS.find((c) => c.id === color)) || PEN_COLORS[0];
@@ -1756,8 +1795,13 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
       {/* Body — thumbnail rail + the scrolling column of pages */}
       <div className="vmx-pdf-body" style={{ flex: 1, display: 'flex', minHeight: 0 }}>
+        {/* overflow:hidden on the rail wrapper is load-bearing: the inner
+            list is as tall as every thumbnail stacked (10,000px on a 51-page
+            deck) and without the cage it blew the WHOLE PAGE out to that
+            height — a window scrollbar on top of the frame's own, which is
+            what made the reader feel both cut off and stiff. */}
         {sidebarOpen && (
-          <div className="vmx-pdf-sidebar-wrap" style={{ width: 140, flexShrink: 0, height: frameH ? `${frameH}px` : undefined }}>
+          <div className="vmx-pdf-sidebar-wrap" style={{ width: 140, flexShrink: 0, overflow: 'hidden', height: frameH ? `${frameH}px` : undefined }}>
             <PdfThumbnailSidebar
               pdfDoc={pdfDoc}
               currentPage={currentPage}
@@ -1773,6 +1817,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             minHeight: 0,
             height: frameH ? `${frameH}px` : undefined,
             overflow: 'auto',
+            WebkitOverflowScrolling: 'touch',
             background: '#2a2a2a',
             padding: 12,
             minWidth: 0,
@@ -1832,26 +1877,19 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       {/* Hovering-stylus ring. Purely a readout of where the nib is and how
           wide the current brush is — pointer-events off so it can never sit
           between the pen and the canvas. */}
-      {hoverPt && !loading && (
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'fixed',
-            left: hoverPt.x,
-            top: hoverPt.y,
-            width: Math.max(8, size * (tool === 'highlighter' ? 4.5 : tool === 'eraser' ? 4 : 1) * zoom),
-            height: Math.max(8, size * (tool === 'highlighter' ? 4.5 : tool === 'eraser' ? 4 : 1) * zoom),
-            transform: 'translate(-50%, -50%)',
-            borderRadius: tool === 'highlighter' ? 3 : '50%',
-            border: `1.5px solid ${tool === 'eraser' ? '#ffffff' : (tool === 'highlighter'
-              ? (HL_COLORS.find((c) => c.id === hlColor)?.rgb || '#f7d94c')
-              : (PEN_COLORS.find((c) => c.id === color)?.rgb || '#c0392b'))}`,
-            boxShadow: '0 0 0 1px rgba(0,0,0,0.35)',
-            pointerEvents: 'none',
-            zIndex: 900,
-          }}
-        />
-      )}
+      <div
+        ref={hoverRingRef}
+        aria-hidden="true"
+        style={{
+          display: 'none',
+          position: 'fixed',
+          transform: 'translate(-50%, -50%)',
+          border: '1.5px solid #c0392b',
+          boxShadow: '0 0 0 1px rgba(0,0,0,0.35)',
+          pointerEvents: 'none',
+          zIndex: 900,
+        }}
+      />
 
       {exporting && (
         <div
