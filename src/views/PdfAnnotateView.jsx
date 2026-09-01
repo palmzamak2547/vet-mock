@@ -204,7 +204,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const textRef = useRef({ hash: null, pages: null });
   const searchAbortRef = useRef(0);
   const [frameH, setFrameH] = useState(null);
-  const spillRef = useRef(0);
   // What a flush should write, always current. A flush that closes over
   // render-time state writes whatever was true when its effect last ran, and
   // an effect that depends on the strokes re-runs on every stroke — the two
@@ -224,6 +223,16 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setDeleted(next);
     return next;
   }
+
+  // While a document is open the app shell's decorative bottom padding (48px
+  // on .vmx-app) would spill the page past the viewport and grow a second
+  // scrollbar under the reader's own. A body class lets styles.css drop that
+  // padding for exactly this state — deterministic, no measuring loop.
+  useEffect(() => {
+    if (!pdfDoc) return undefined;
+    document.body.classList.add('vmx-reading');
+    return () => document.body.classList.remove('vmx-reading');
+  }, [pdfDoc]);
 
   // The store moved to IndexedDB, so the recent list arrives a tick late
   // instead of during render. Nothing depends on it being there immediately.
@@ -1051,23 +1060,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const bottom = parseFloat(
         getComputedStyle(document.documentElement).getPropertyValue('--vmx-bottom-nav-h'),
       ) || 0;
-      // spillRef carries what the app shell adds BELOW the reader (today a
-      // 48px padding on the shell root, tomorrow who knows). It is LEARNED,
-      // not named: apply a height, measure how far the document spills past
-      // the viewport, and fold that into every later measurement. The fold
-      // matters — a first version subtracted the spill without remembering
-      // it, the ResizeObserver saw the height change, re-measured with the
-      // uncorrected formula, and the two fought forever at 60fps.
-      const h = Math.max(180, window.innerHeight - top - navH - bottom - spillRef.current);
+      // documentElement.clientHeight, NOT window.innerHeight: on iOS Safari
+      // innerHeight tracks the visual viewport around the collapsing URL bar
+      // and disagrees with the layout the page is actually given. Two earlier
+      // attempts tried to LEARN the shell's extra bottom padding by measuring
+      // how far the document spilled — the first fought the ResizeObserver at
+      // 60fps, the second accumulated phantom spill on iPad until the frame
+      // was a strip. The shell padding is now simply removed while a document
+      // is open (body.vmx-reading in styles.css), so there is nothing left to
+      // learn and this formula is exact.
+      const h = Math.max(180, document.documentElement.clientHeight - top - navH - bottom);
       setFrameH((prev) => (prev !== null && Math.abs(prev - h) < 1 ? prev : h));
-      requestAnimationFrame(() => {
-        const de = document.scrollingElement || document.documentElement;
-        const spill = de.scrollHeight - de.clientHeight;
-        if (spill > 0 && spillRef.current + spill < 400) {
-          spillRef.current += spill;
-          setFrameH((prev) => Math.max(180, (prev ?? h) - spill));
-        }
-      });
     };
     measure();
     window.addEventListener('resize', measure);

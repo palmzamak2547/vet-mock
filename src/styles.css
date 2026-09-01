@@ -3583,3 +3583,12 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
    chrome above the page was the problem this replaced. */
 .vmx-pdf-toolbar { scrollbar-width: thin; }
 .vmx-pdf-toolbar::-webkit-scrollbar { height: 4px; }
+
+/* ── Reading mode ───────────────────────────────────────────────────────
+   Set on <body> while the PDF reader has a document open. The shell's 48px
+   decorative bottom padding is exactly what used to push the page past the
+   viewport and stack a window scrollbar on top of the reader's own; the
+   safe-area inset stays so the iPhone home bar never covers the page nav. */
+body.vmx-reading .vmx-app {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
