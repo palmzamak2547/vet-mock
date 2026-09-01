@@ -117,6 +117,14 @@ function ThumbItem({ pdfDoc, pageNum, isActive, hasAnnotation, onSelect }) {
       style={{
         position: 'relative',
         minHeight: 44,
+        // flex-shrink 0 is load-bearing. The rail became a height-constrained
+        // flex column when it was caged (the cage fixed the 10,000px window
+        // scrollbar), and a constrained column SHRINKS its children by
+        // default: 51 rows squeezed toward their 44px min while each row's
+        // ~110px canvas stayed full size — the overlapping deck-of-cards rail
+        // on Palm's iPad. Rows must keep their natural height and let the
+        // rail scroll instead.
+        flexShrink: 0,
         padding: 6,
         borderRadius: 8,
         border: isActive
