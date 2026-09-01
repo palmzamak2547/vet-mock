@@ -349,3 +349,107 @@ test('zoom keeps the point under the cursor put and never widens the layout', as
     expect(left, 'the zoomed page could not be scrolled sideways').toBeGreaterThan(0);
   }
 });
+
+
+// Unlike storedRecord above (a summary for the older tests), this returns the
+// record RAW: the eraser/colour/shape tests assert on exact stroke lists,
+// tombstones and point counts.
+function storedRecordRaw(page) {
+  return page.evaluate(() => new Promise((resolve) => {
+    const req = indexedDB.open('vmx-pdf-annotations');
+    req.onsuccess = () => {
+      const db = req.result;
+      const tx = db.transaction('docs', 'readonly');
+      const all = tx.objectStore('docs').getAll();
+      all.onsuccess = () => { db.close(); resolve(all.result?.[0] || null); };
+      all.onerror = () => { db.close(); resolve(null); };
+    };
+    req.onerror = () => resolve(null);
+  }));
+}
+
+test('the whole-stroke eraser tombstones the stroke it touches and redo brings it back', async ({ page }) => {
+  await openReaderWithPdf(page);
+  const box = await overlayBox(page);
+  // Two separated strokes.
+  const y1 = box.y + box.h * 0.3;
+  const y2 = box.y + box.h * 0.6;
+  for (const y of [y1, y2]) {
+    await page.mouse.move(box.x + box.w * 0.2, y);
+    await page.mouse.down();
+    await page.mouse.move(box.x + box.w * 0.7, y, { steps: 8 });
+    await page.mouse.up();
+    await page.waitForTimeout(200);
+  }
+  await page.waitForTimeout(900);
+  let rec = await storedRecordRaw(page);
+  expect(rec.strokesByPage['1'].length, 'two strokes should be stored').toBe(2);
+
+  // Switch to the eraser, open its options with a second tap, pick
+  // whole-stroke mode.
+  await page.locator('button[aria-label="ยางลบ"]').click();
+  await page.locator('button[aria-label="ยางลบ, แตะซ้ำเพื่อเลือกโหมดลบ"]').click();
+  await page.locator('button:text-is("ลบทั้งเส้นที่แตะ")').click();
+  // Close the options panel — it sits in normal flow and pushes the page
+  // down, so every coordinate remembered from before it opened now misses.
+  await page.locator('button[aria-label="ยางลบ, แตะซ้ำเพื่อเลือกโหมดลบ"]').click();
+  const box2 = await overlayBox(page);
+
+  // One tap on the first stroke takes the whole stroke.
+  await page.mouse.click(box2.x + box2.w * 0.45, box2.y + box2.h * 0.3);
+  await page.waitForTimeout(900);
+  rec = await storedRecordRaw(page);
+  expect(rec.strokesByPage['1'].length, 'the touched stroke should be gone').toBe(1);
+  expect((rec.deleted || []).length, 'the deletion must be a tombstone').toBe(1);
+
+  // Redo puts the same ink back under a NEW id (tombstones only grow).
+  await page.locator('button[aria-label="ทำซ้ำ"]').click();
+  await page.waitForTimeout(900);
+  rec = await storedRecordRaw(page);
+  expect(rec.strokesByPage['1'].length, 'redo should restore the stroke').toBe(2);
+  expect((rec.deleted || []).length, 'the tombstone must survive the redo').toBe(1);
+});
+
+test('a colour mixed in the custom picker is the colour the stroke stores', async ({ page }) => {
+  await openReaderWithPdf(page);
+  // Tap the pen (already in hand) to open options, mix a colour.
+  await page.locator('button[aria-label="ปากกา"]').click();
+  await page.locator('input[aria-label="สีกำหนดเอง"]').evaluate((el) => {
+    el.value = '#123456';
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  const box = await overlayBox(page);
+  const y = box.y + box.h * 0.5;
+  await page.mouse.move(box.x + box.w * 0.2, y);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.w * 0.6, y, { steps: 6 });
+  await page.mouse.up();
+  await page.waitForTimeout(900);
+  const rec = await storedRecordRaw(page);
+  const stroke = rec.strokesByPage['1'][rec.strokesByPage['1'].length - 1];
+  expect(stroke.color, 'the stroke should carry the custom colour').toBe('#123456');
+});
+
+test('a rough rectangle held still snaps to a clean five-point rectangle', async ({ page }) => {
+  await openReaderWithPdf(page);
+  const box = await overlayBox(page);
+  const x0 = box.x + box.w * 0.25;
+  const x1 = box.x + box.w * 0.65;
+  const y0 = box.y + box.h * 0.25;
+  const y1 = box.y + box.h * 0.55;
+  await page.mouse.move(x0, y0);
+  await page.mouse.down();
+  // Around the box with enough samples to read as edges-with-corners.
+  await page.mouse.move(x1, y0, { steps: 8 });
+  await page.mouse.move(x1, y1, { steps: 8 });
+  await page.mouse.move(x0, y1, { steps: 8 });
+  await page.mouse.move(x0, y0 + 4, { steps: 8 });
+  // Hold still: the snap timer arms on the last movement and fires at 600ms.
+  await page.waitForTimeout(1000);
+  await page.mouse.up();
+  await page.waitForTimeout(900);
+  const rec = await storedRecordRaw(page);
+  const stroke = rec.strokesByPage['1'][rec.strokesByPage['1'].length - 1];
+  expect(stroke.points.length, 'the held stroke should have snapped to a rectangle').toBe(5);
+});
+

@@ -62,6 +62,23 @@ async function authed() {
   }
 }
 
+/** A record's identity for sync purposes: which strokes exist and which are
+ *  tombstoned. Two records with the same signature need no push between them
+ *  — comparing this is what stops live sync ping-ponging: device A pushes,
+ *  the event reaches device B, B pulls and merges, and because the merge
+ *  changed nothing relative to the remote copy B stays quiet instead of
+ *  pushing an identical record back and waking A again. */
+export function recSig(rec) {
+  const ids = [];
+  const pages = rec?.strokesByPage || {};
+  for (const page of Object.keys(pages)) {
+    for (const st of pages[page] || []) if (st?.id) ids.push(st.id);
+  }
+  ids.sort();
+  const tombs = [...(rec?.deleted || [])].sort();
+  return `${ids.join(',')}|${tombs.join(',')}`;
+}
+
 /** Merges whatever the account already holds for this document into the local
  *  record, and returns the merged record (or the local one unchanged). Safe to
  *  call on every open; safe to call when signed out. */
@@ -85,12 +102,14 @@ export async function pullAndMerge(hash, local) {
       if (local) schedulePush(hash, local);
       return local;
     }
-    const merged = mergeRecords(local, { hash, ...data.data });
+    const remote = { hash, ...data.data };
+    const merged = mergeRecords(local, remote);
     await putRecord(merged);
     setState('idle');
-    // If the merge changed anything relative to the remote copy, the remote
-    // needs to learn about it too.
-    schedulePush(hash, merged);
+    // Push only when the merge holds something the remote copy does not —
+    // an unconditional push here would echo forever once live sync delivers
+    // every push back to this device as an event.
+    if (recSig(merged) !== recSig(remote)) schedulePush(hash, merged);
     return merged;
   } catch (e) {
     setState('error', { reason: String(e?.message || e) });
@@ -143,6 +162,35 @@ export async function pushNow(hash, recArg) {
   } catch (e) {
     setState('error', { reason: String(e?.message || e) });
     return { ok: false };
+  }
+}
+
+/**
+ * Live channel: notifies when THIS user's row for this document changes on
+ * the server (their other iPad, their laptop). The event is treated as a
+ * PING only — realtime may truncate a large jsonb payload, so the caller
+ * re-pulls through pullAndMerge, which reads the full row and merges safely.
+ * postgres_changes is RLS-filtered, so no one hears about anyone else's ink.
+ *
+ * Returns a cleanup function; resolves to a no-op when signed out.
+ */
+export async function subscribeLive(hash, onRemoteChange) {
+  if (!hash || typeof onRemoteChange !== 'function') return () => {};
+  const conn = await authed();
+  if (!conn) return () => {};
+  try {
+    const channel = conn.sb
+      .channel(`pdf-ann-${hash}`)
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: TABLE,
+        filter: `doc_hash=eq.${hash}`,
+      }, () => { try { onRemoteChange(); } catch { /* a listener must not break sync */ } })
+      .subscribe();
+    return () => { try { conn.sb.removeChannel(channel); } catch { /* leaving anyway */ } };
+  } catch {
+    return () => {};
   }
 }
 

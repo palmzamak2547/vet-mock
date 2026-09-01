@@ -132,3 +132,17 @@ test('records written before ids existed are given ids rather than dropped', asy
     assert.ok(idsOf(merged).includes('M1'));
   } finally { uninstall(); }
 });
+
+// recSig is what stops live sync ping-ponging: after a pull-and-merge, a
+// device pushes only when its merged record differs from the remote one.
+test('recSig: same strokes and tombstones = same signature, any difference shows', async () => {
+  const { recSig } = await import('../../src/lib/annotation-sync.js');
+  const a = { strokesByPage: { 1: [{ id: 's1' }, { id: 's2' }] }, deleted: ['d1'] };
+  const b = { strokesByPage: { 1: [{ id: 's2' }, { id: 's1' }] }, deleted: ['d1'] };
+  assert.equal(recSig(a), recSig(b), 'order must not matter');
+  const c = { strokesByPage: { 1: [{ id: 's1' }] }, deleted: ['d1'] };
+  assert.notEqual(recSig(a), recSig(c), 'a missing stroke must show');
+  const d = { strokesByPage: { 1: [{ id: 's1' }, { id: 's2' }] }, deleted: ['d1', 'd2'] };
+  assert.notEqual(recSig(a), recSig(d), 'a new tombstone must show');
+});
+

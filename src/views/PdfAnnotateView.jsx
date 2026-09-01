@@ -41,9 +41,11 @@ import {
   storageHealth,
   newStrokeId,
   peekAnnotations,
+  mergeRecords,
 } from '../lib/pdf-annotations.js';
-import { pullAndMerge, schedulePush, flushPushes, onSyncState, syncState } from '../lib/annotation-sync.js';
+import { pullAndMerge, schedulePush, flushPushes, onSyncState, syncState, subscribeLive } from '../lib/annotation-sync.js';
 import { searchPages, pageTextFromItems } from '../lib/thai-search.js';
+import { fitShape, strokeHit } from '../lib/shape-fit.js';
 import { exportAnnotatedPdf, exportFileName, downloadBlob } from '../lib/pdf-export.js';
 
 const PEN_COLORS = [
@@ -116,6 +118,19 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [tool, setTool] = useState('pen'); // 'pen' | 'highlighter' | 'eraser'
   const [color, setColor] = useState('red');
   const [hlColor, setHlColor] = useState('yellow');
+  // A colour the palette does not carry, chosen with the system picker. Kept
+  // per instrument and remembered across sessions — a student who mixes
+  // "their" purple wants it back tomorrow.
+  const [customPen, setCustomPen] = useState(() => {
+    try { return localStorage.getItem('vmx-pdf-custom-pen') || null; } catch { return null; }
+  });
+  const [customHl, setCustomHl] = useState(() => {
+    try { return localStorage.getItem('vmx-pdf-custom-hl') || null; } catch { return null; }
+  });
+  // 'pixel' rubs ink out where the eraser passes; 'stroke' removes the whole
+  // stroke it touches. Pixel stays the default because it is what the eraser
+  // has always done here.
+  const [eraserMode, setEraserMode] = useState('pixel');
   const [size, setSize] = useState(3);
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState('');
@@ -162,7 +177,19 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const wrapperRef = useRef(null);
   const drawingRef = useRef({ on: false, points: [] });
   const renderTaskRef = useRef(null);
+  useEffect(() => {
+    try {
+      if (customPen) localStorage.setItem('vmx-pdf-custom-pen', customPen);
+      if (customHl) localStorage.setItem('vmx-pdf-custom-hl', customHl);
+    } catch { /* remembering a colour is a nicety, never a requirement */ }
+  }, [customPen, customHl]);
+
   const saveTimerRef = useRef(null);
+  // Draw-and-hold shape snap: armed on the last movement of a stroke, fires
+  // if the pen then stays put.
+  const holdTimerRef = useRef(null);
+  // A live-sync ping that arrived while the pen was down; honoured on lift.
+  const pendingPullRef = useRef(false);
   const currentStrokesRef = useRef([]); // live mirror for autosave
   // Rendered-page cache. Re-rasterising a page the reader just looked at is
   // pure waste — flipping back and forth through a deck was paying the full
@@ -621,6 +648,119 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     return pressure > 0 ? [cx, cy, pressure] : [cx, cy];
   }
 
+  // Re-pulls the account copy and folds it into what is on screen. The fold
+  // uses the LIVE state, not just the saved record — a stroke made in the
+  // last half-second may not have autosaved yet, and a remote pull must never
+  // be the thing that eats it. mergeRecords is a two-phase set, so this is a
+  // safe union whichever side is ahead.
+  async function pullLatest() {
+    const l = latestRef.current;
+    if (!l.fileHash) return;
+    const merged = await pullAndMerge(l.fileHash, peekAnnotations(l.fileHash));
+    if (!merged) return;
+    const live = mergeRecords(merged, {
+      hash: l.fileHash,
+      fileName: l.fileName,
+      pageCount: l.pageCount,
+      strokesByPage: latestRef.current.strokesByPage,
+      deleted: latestRef.current.deleted,
+    });
+    latestRef.current.deleted = live.deleted || [];
+    setDeleted(live.deleted || []);
+    setStrokesByPage(live.strokesByPage || {});
+    currentStrokesRef.current = (live.strokesByPage || {})[drawPageRef.current] || [];
+  }
+
+  // Live cross-device sync: the server says this document's row changed (the
+  // student's other iPad, their laptop) and this device folds it in as it
+  // happens. Mid-stroke the ping is parked — merging under a moving pen is
+  // how half-drawn lines get weird — and honoured the moment the pen lifts.
+  useEffect(() => {
+    if (!fileHash) return undefined;
+    let dead = false;
+    let cleanup = () => {};
+    subscribeLive(fileHash, () => {
+      if (drawingRef.current?.on) { pendingPullRef.current = true; return; }
+      pullLatest();
+    }).then((fn) => {
+      if (dead) fn(); else cleanup = fn;
+    });
+    return () => { dead = true; cleanup(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fileHash]);
+
+  // The rgb the given instrument would draw with right now — the one place
+  // that knows about the custom slot.
+  function resolveToolColor(t) {
+    if (t === 'highlighter') {
+      if (hlColor === 'custom' && customHl) return customHl;
+      return HL_COLORS.find((c) => c.id === hlColor)?.rgb || HL_COLORS[0].rgb;
+    }
+    if (color === 'custom' && customPen) return customPen;
+    return PEN_COLORS.find((c) => c.id === color)?.rgb || PEN_COLORS[0].rgb;
+  }
+
+  // Whole-stroke eraser: everything the point touches goes, as a tombstone,
+  // which is the same shape deletion always takes here — so undo, redo and
+  // cross-device sync need no new rules for it.
+  function eraseAt(e) {
+    const page = drawPageRef.current;
+    const c = e.currentTarget?.tagName === 'CANVAS' ? e.currentTarget : overlayFor(page);
+    if (!c) return;
+    const rect = c.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / Math.max(1, rect.width);
+    const y = (e.clientY - rect.top) / Math.max(1, rect.height);
+    const aspect = rect.width / Math.max(1, rect.height);
+    // The eraser's visual radius in normalised units, plus a small grace so a
+    // hairline stroke is still catchable.
+    const reach = ((size * 4 * inkDpr() * pageScale) / 2) / Math.max(1, c.height) + 0.004;
+    setStrokesByPage((prev) => {
+      const list = prev[page] || [];
+      const gone = list.filter((st) => strokeHit(st, x, y, reach, aspect));
+      if (!gone.length) return prev;
+      const kept = list.filter((st) => !gone.includes(st));
+      const next = { ...prev, [page]: kept };
+      currentStrokesRef.current = kept;
+      redrawOverlay(kept, page);
+      setRedoStack((r) => [...r, ...gone.map((st) => ({ page, stroke: st }))].slice(-40));
+      scheduleSave(next, addTomb(...gone.map((st) => st.id).filter(Boolean)));
+      return next;
+    });
+  }
+
+  // Hold a rough shape still for a beat and it snaps clean. The timer arms on
+  // the stroke's LAST movement — a still hand adds no points (the coalesced
+  // dedupe drops them), so the timer simply ripens.
+  function scheduleShapeSnap() {
+    clearTimeout(holdTimerRef.current);
+    const ref = drawingRef.current;
+    if (!ref?.on || !ref.stroke || ref.stroke.mode === 'eraser') return;
+    const forId = ref.pointerId;
+    holdTimerRef.current = setTimeout(() => {
+      const cur = drawingRef.current;
+      if (!cur?.on || cur.pointerId !== forId || !cur.stroke) return;
+      const page = drawPageRef.current;
+      const c = overlayFor(page);
+      if (!c || !c.width) return;
+      const shape = fitShape(cur.stroke.points, c.width / Math.max(1, c.height));
+      if (!shape) return;
+      // Replace the wobble with the clean shape — still plain points, so
+      // storage, sync, undo and export need to know nothing about shapes.
+      cur.stroke.points = shape.points;
+      redrawOverlay(currentStrokesRef.current, page);
+      const ctx = inkCtxFor(page);
+      if (ctx) drawStroke(ctx, cur.stroke, c.width, c.height, inkDpr() * pageScale);
+    }, 600);
+  }
+
+  // A live-sync ping that arrived mid-stroke waits for the pen to lift.
+  function maybePullAfterStroke() {
+    if (pendingPullRef.current) {
+      pendingPullRef.current = false;
+      pullLatest();
+    }
+  }
+
   function onPointerDown(e) {
     if (!pdfDoc) return;
     const onPage = Number(e.currentTarget?.dataset?.page || e.currentTarget?.parentElement?.dataset?.page || 0);
@@ -670,6 +810,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // turning the pen back over resumes drawing with the same pen.
     const barrelEraser = e.pointerType === 'pen' && (e.button === 5 || (e.buttons & 32) !== 0);
     const usedTool = barrelEraser ? 'eraser' : tool;
+    if (usedTool === 'eraser' && eraserMode === 'stroke') {
+      drawingRef.current = { on: true, pointerId: e.pointerId, erase: true, points: [] };
+      eraseAt(e);
+      return;
+    }
     const pt = withTilt(pointFromEvent(e, usePressure ? e.pressure : 0), useTilt ? tiltOf(e) : 0);
     drawingRef.current = {
       on: true,
@@ -677,9 +822,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       stroke: {
         id: newStrokeId(),
         mode: usedTool,
-        color: usedTool === 'highlighter'
-          ? (HL_COLORS.find((c) => c.id === hlColor)?.rgb || HL_COLORS[0].rgb)
-          : (PEN_COLORS.find((p) => p.id === color)?.rgb || PEN_COLORS[0].rgb),
+        color: resolveToolColor(usedTool),
         size,
         pressure: usePressure,
         points: [pt],
@@ -708,6 +851,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const ref = drawingRef.current;
     if (!ref?.on || e.pointerId !== ref.pointerId) return;
     e.preventDefault();
+    if (ref.erase) { eraseAt(e); return; }
     const stroke = ref.stroke;
     const c = overlayFor(drawPageRef.current);
     if (!c) return;
@@ -734,6 +878,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       added++;
     }
     if (!added || stroke.points.length < 2) return;
+    scheduleShapeSnap();
 
     if (stroke.mode === 'highlighter') {
       // Cannot extend a translucent stroke in place; repaint the page's
@@ -771,7 +916,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // A tap is a pointer that went down and came up in the same place, quickly
     // and without drawing anything worth keeping. Two of them in a row, from a
     // stylus, mean the reader wants the eraser.
-    if (e?.pointerType === 'pen' && drawingRef.current?.on) {
+    clearTimeout(holdTimerRef.current);
+    if (e?.pointerType === 'pen' && drawingRef.current?.on && !drawingRef.current.erase) {
       const st = drawingRef.current.stroke;
       const moved = st?.points?.length > 1
         ? Math.hypot(st.points[st.points.length - 1][0] - st.points[0][0],
@@ -817,7 +963,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!ref?.on) return;
     if (e && e.pointerId !== undefined && e.pointerId !== ref.pointerId) return;
     drawingRef.current = { on: false, points: [] };
-    if (!ref.stroke || ref.stroke.points.length < 1) return;
+    if (ref.erase) { maybePullAfterStroke(); return; }
+    if (!ref.stroke || ref.stroke.points.length < 1) { maybePullAfterStroke(); return; }
     // A tap never reaches onPointerMove, which is the only thing that paints a
     // stroke as it is made — so a single-point stroke went into the record and
     // never appeared until something else forced a redraw (a page flip, an
@@ -841,6 +988,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     });
     // A new stroke is a new branch, so anything undone before it is now gone.
     setRedoStack([]);
+    maybePullAfterStroke();
   }
 
   // ── Autosave (debounced) ───────────────────────────────────
@@ -954,6 +1102,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // first finger drew rather than leaving a stray mark behind every pinch.
     const d = drawingRef.current;
     if (d?.on) {
+      clearTimeout(holdTimerRef.current);
       drawingRef.current = { on: false, points: [] };
       redrawOverlay(currentStrokesRef.current, drawPageRef.current);
     }
@@ -1124,6 +1273,13 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // the eraser is selected, so leaving `optionsOpen` true meant it sprang back
   // by itself the moment the reader picked the pen up again.
   function pickTool(next) {
+    // Tapping the tool already in hand opens its options — the way every
+    // notes app does it, and the eraser's only door (it has no swatch).
+    if (tool === next) {
+      setOptionsOpen((v) => !v);
+      setMenuOpen(false);
+      return;
+    }
     setTool(next);
     setOptionsOpen(false);
     setMenuOpen(false);
@@ -1184,9 +1340,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!el) return;
     if (x == null) { el.style.display = 'none'; return; }
     const d = Math.max(8, size * (tool === 'highlighter' ? 4.5 : tool === 'eraser' ? 4 : 1) * zoom);
-    const col = tool === 'eraser' ? '#ffffff'
-      : tool === 'highlighter' ? (HL_COLORS.find((c) => c.id === hlColor)?.rgb || '#f7d94c')
-        : (PEN_COLORS.find((c) => c.id === color)?.rgb || '#c0392b');
+    const col = tool === 'eraser' ? '#ffffff' : resolveToolColor(tool);
     el.style.display = 'block';
     el.style.left = x + 'px';
     el.style.top = y + 'px';
@@ -1313,9 +1467,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     onPointerLeave: (e) => { handlersRef.current.hoverRing(null); handlersRef.current.onPointerUp(e); },
     onPointerOut: (e) => { if (e.pointerType === 'pen') handlersRef.current.hoverRing(null); },
   }), []);
-  const activeColor = (tool === 'highlighter'
-    ? HL_COLORS.find((c) => c.id === hlColor)
-    : PEN_COLORS.find((c) => c.id === color)) || PEN_COLORS[0];
+  const activeColor = (() => {
+    if (tool === 'highlighter') {
+      if (hlColor === 'custom' && customHl) return { id: 'custom', rgb: customHl, name: 'กำหนดเอง' };
+      return HL_COLORS.find((c) => c.id === hlColor) || HL_COLORS[0];
+    }
+    if (color === 'custom' && customPen) return { id: 'custom', rgb: customPen, name: 'กำหนดเอง' };
+    return PEN_COLORS.find((c) => c.id === color) || PEN_COLORS[0];
+  })();
 
   // Ctrl / ⌘ + wheel over the page, which is what a trackpad pinch sends and
   // what every document reader does. Bound natively rather than through React
@@ -1600,7 +1759,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       }}>
         <ToolButton icon="pen" label="ปากกา" active={tool === 'pen'} onClick={() => pickTool('pen')} />
         <ToolButton icon="highlighter" label="ปากกาไฮไลต์" active={tool === 'highlighter'} onClick={() => pickTool('highlighter')} />
-        <ToolButton icon="eraser" label="ยางลบ" active={tool === 'eraser'} onClick={() => pickTool('eraser')} />
+        <ToolButton
+          icon="eraser"
+          label={tool === 'eraser' ? 'ยางลบ, แตะซ้ำเพื่อเลือกโหมดลบ' : 'ยางลบ'}
+          active={tool === 'eraser'}
+          onClick={() => pickTool('eraser')}
+        />
 
         {/* The swatch is both the current colour and the way to change it. */}
         {tool !== 'eraser' && (
@@ -1656,37 +1820,94 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           onClick={() => setMenuOpen((v) => !v)} expanded={menuOpen} />
       </div>
 
-      {/* Colour and size for the tool in hand. */}
-      {optionsOpen && tool !== 'eraser' && (
+      {/* Colour, size and — for the eraser — mode, for the tool in hand. */}
+      {optionsOpen && (
         <div
           role="dialog"
-          aria-label="สีและขนาดของเครื่องมือ"
+          aria-label={tool === 'eraser' ? 'โหมดและขนาดยางลบ' : 'สีและขนาดของเครื่องมือ'}
           style={{
             display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
             padding: '8px 12px', borderBottom: '1px solid var(--clr-border, #e1ddd2)',
             background: 'var(--clr-bg, #fff)',
           }}
         >
-          {(tool === 'highlighter' ? HL_COLORS : PEN_COLORS).map((c) => {
-            const on = tool === 'highlighter' ? hlColor === c.id : color === c.id;
-            return (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => (tool === 'highlighter' ? setHlColor(c.id) : setColor(c.id))}
-                title={c.name}
-                aria-label={`สี ${c.name}`}
-                aria-pressed={on}
-                style={{
-                  width: 40, height: 40, minWidth: 40, padding: 8,
-                  borderRadius: tool === 'highlighter' ? 8 : '50%',
-                  border: on ? '2px solid var(--clr-ink, #222)' : '1px solid transparent',
-                  background: c.rgb, backgroundClip: 'content-box',
-                  cursor: 'pointer',
-                }}
-              />
-            );
-          })}
+          {tool === 'eraser' ? (
+            <div role="group" aria-label="โหมดยางลบ" style={{ display: 'flex', gap: 6 }}>
+              {[
+                { id: 'pixel', name: 'ลบเฉพาะที่ถู' },
+                { id: 'stroke', name: 'ลบทั้งเส้นที่แตะ' },
+              ].map((m) => (
+                <button
+                  key={m.id}
+                  type="button"
+                  className="vmx-btn vmx-btn-sm"
+                  onClick={() => setEraserMode(m.id)}
+                  aria-pressed={eraserMode === m.id}
+                  style={{
+                    borderRadius: 999,
+                    border: eraserMode === m.id ? '2px solid var(--clr-ink, #222)' : '1px solid var(--clr-border, #d8d3c4)',
+                    background: eraserMode === m.id ? 'var(--clr-surface-2, #efece3)' : 'transparent',
+                    fontWeight: eraserMode === m.id ? 700 : 400,
+                  }}
+                >{m.name}</button>
+              ))}
+            </div>
+          ) : (
+            <>
+              {(tool === 'highlighter' ? HL_COLORS : PEN_COLORS).map((c) => {
+                const on = tool === 'highlighter' ? hlColor === c.id : color === c.id;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => (tool === 'highlighter' ? setHlColor(c.id) : setColor(c.id))}
+                    title={c.name}
+                    aria-label={`สี ${c.name}`}
+                    aria-pressed={on}
+                    style={{
+                      width: 40, height: 40, minWidth: 40, padding: 8,
+                      borderRadius: tool === 'highlighter' ? 8 : '50%',
+                      border: on ? '2px solid var(--clr-ink, #222)' : '1px solid transparent',
+                      background: c.rgb, backgroundClip: 'content-box',
+                      cursor: 'pointer',
+                    }}
+                  />
+                );
+              })}
+              {/* The custom slot: a native colour picker dressed as a swatch.
+                  Until a colour has been mixed it shows a wheel. */}
+              {(() => {
+                const custom = tool === 'highlighter' ? customHl : customPen;
+                const on = (tool === 'highlighter' ? hlColor : color) === 'custom';
+                return (
+                  <label
+                    title="สีกำหนดเอง"
+                    style={{
+                      position: 'relative',
+                      width: 40, height: 40, minWidth: 40, padding: 8,
+                      borderRadius: tool === 'highlighter' ? 8 : '50%',
+                      border: on ? '2px solid var(--clr-ink, #222)' : '1px solid var(--clr-border, #d8d3c4)',
+                      background: custom || 'conic-gradient(#e74c3c, #f1c40f, #2ecc71, #3498db, #9b59b6, #e74c3c)',
+                      backgroundClip: 'content-box',
+                      cursor: 'pointer',
+                      display: 'inline-block',
+                    }}
+                  >
+                    <input
+                      type="color"
+                      aria-label="สีกำหนดเอง"
+                      value={custom || '#7b3ff2'}
+                      onInput={(e) => {
+                        const v = e.target.value;
+                        if (tool === 'highlighter') { setCustomHl(v); setHlColor('custom'); } else { setCustomPen(v); setColor('custom'); }
+                      }}
+                      style={{ position: 'absolute', inset: 0, opacity: 0, width: '100%', height: '100%', cursor: 'pointer' }}
+                    />
+                  </label>
+                );
+              })()}
+            </>
+          )}
           <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, flex: 1, minWidth: 160 }}>
             ขนาด
             <input
