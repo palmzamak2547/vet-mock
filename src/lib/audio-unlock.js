@@ -73,19 +73,16 @@ export function unlockAudio() {
     // Some restrictive environments throw on `new Audio()` — fail silent
   }
 
-  // Also prime AudioContext if it exists (used by Web Audio API). Not
-  // currently used in VetMock but cheap insurance for future features.
-  try {
-    const Ctx = window.AudioContext || window.webkitAudioContext;
-    if (Ctx) {
-      const ctx = new Ctx();
-      if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
-        ctx.resume().catch(() => {});
-      }
-      // Close immediately — we don't need to keep the context alive,
-      // just needed the resume to register a successful user-gesture
-      // unlock with the audio subsystem.
-      setTimeout(() => { try { ctx.close(); } catch {} }, 100);
-    }
-  } catch {}
+  // There is deliberately NO AudioContext prong here any more. It was
+  // described as "cheap insurance" — measured, it was the opposite: the
+  // constructor opens the audio output device and blocked the main thread
+  // for 304ms on a Windows laptop (Audio.play() above: 0.1ms). Because this
+  // unlock fires on the FIRST pointerdown anywhere, that stall landed under
+  // the first pen stroke in the PDF reader — a 250-300ms hitch in the ink,
+  // once per session, precisely when a person starts writing.
+  //
+  // The app's two real Web Audio users (PomodoroTimer, LandingView) each
+  // construct their own AudioContext inside their own click handlers, where
+  // the gesture is their own and a first-time device-open delay is expected.
+  // They never depended on this pre-resume.
 }
