@@ -3606,13 +3606,28 @@ body.vmx-reading .vmx-app {
 body.vmx-reading .vmx-container {
   flex: 1;
   min-height: 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+/* min-width: 0 down the same chain — the horizontal half of the constraint.
+   Without it a zoomed page's intrinsic width (1404px at 150%) propagates up
+   through every min-width:auto level, main outgrows the container, and
+   .vmx-app's overflow:hidden CLIPS the excess: the toolbar's right-hand
+   buttons vanish and the frame slams into the screen edge. The page frame
+   itself scrolls horizontally (overflow:auto); nothing above it may size to
+   the page. */
 body.vmx-reading .vmx-main {
   flex: 1;
   min-height: 0;
+  min-width: 0;
+  /* .vmx-main normally centres itself with margin-inline:auto — and an auto
+     margin DISABLES flex stretch, so as a column-flex item its width falls
+     back to fit-content: the zoomed page's intrinsic width, capped by its own
+     max-width:1100px, overflowing the 892px container. Pin the width. */
+  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -3621,10 +3636,17 @@ body.vmx-reading .vmx-main {
 body.vmx-reading .vmx-main > div {
   flex: 1;
   min-height: 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
 body.vmx-reading .vmx-reader {
   flex: 1;
   min-height: 0;
+  min-width: 0;
+  max-width: 100%;
+}
+body.vmx-reading .vmx-pdf-body {
+  min-width: 0;
+  max-width: 100%;
 }

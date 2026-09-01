@@ -1219,32 +1219,34 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   function captureAnchor(clientX, clientY) {
-    const wrap = scroller();
+    const wrap = wrapperRef.current;
     if (!wrap) return;
-    const r = wrap === document.scrollingElement || wrap === document.documentElement
-      ? { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight }
-      : wrap.getBoundingClientRect();
-    // Anchor in wrapper-viewport space; fall back to the middle of what is on
+    const r = wrap.getBoundingClientRect();
+    // Anchor in frame-viewport space; fall back to the middle of what is on
     // screen when the gesture has no natural point (the toolbar buttons).
     const ax = clientX == null ? r.width / 2 : clientX - r.left;
     const ay = clientY == null ? r.height / 2 : clientY - r.top;
+    // The page row under (or nearest to) the anchor point. Anchoring to a
+    // page rather than to a fraction of the whole column is what survives 51
+    // rows resizing asynchronously after the zoom.
+    const px = r.left + ax;
+    const py = r.top + ay;
+    let best = null;
+    for (const row of wrap.querySelectorAll('[data-page]')) {
+      const b = row.getBoundingClientRect();
+      const d = py < b.top ? b.top - py : py > b.bottom ? py - b.bottom : 0;
+      if (!best || d < best.d) best = { d, row, b };
+      if (d === 0) break;
+    }
+    if (!best) return;
     zoomAnchorRef.current = {
       ax,
       ay,
-      // Fractions of the whole scrollable content, which survive the resize.
-      fx: (wrap.scrollLeft + ax) / Math.max(1, wrap.scrollWidth),
-      fy: (wrap.scrollTop + ay) / Math.max(1, wrap.scrollHeight),
+      page: Number(best.row.dataset.page),
+      fx: (px - best.b.left) / Math.max(1, best.b.width),
+      fy: (py - best.b.top) / Math.max(1, best.b.height),
+      until: performance.now() + 450,
     };
-  }
-
-  function applyAnchor() {
-    const a = zoomAnchorRef.current;
-    if (!a) return;
-    zoomAnchorRef.current = null;
-    const wrap = scroller();
-    if (!wrap) return;
-    wrap.scrollLeft = a.fx * wrap.scrollWidth - a.ax;
-    wrap.scrollTop = a.fy * wrap.scrollHeight - a.ay;
   }
 
   function setZoomAt(next, clientX, clientY) {
@@ -1255,6 +1257,40 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       return v;
     });
   }
+
+  // Restores the anchor after a zoom. Measured in client space and applied as
+  // a DELTA each frame — wherever the row currently is versus wherever the
+  // anchor says it should be — which is immune to padding, borders and
+  // whatever else sits between the frame's scroll origin and the row. The
+  // loop runs until the row's height has been stable for a few frames (all
+  // rows have adopted the new scale) or 450ms, whichever comes first.
+  useLayoutEffect(() => {
+    const a = zoomAnchorRef.current;
+    const wrap = wrapperRef.current;
+    if (!a || !wrap) return undefined;
+    let raf = 0;
+    let lastH = -1;
+    let stable = 0;
+    const place = () => {
+      const row = wrap.querySelector(`[data-page="${a.page}"]`);
+      if (row) {
+        const rw = wrap.getBoundingClientRect();
+        const rb = row.getBoundingClientRect();
+        wrap.scrollTop += (rb.top + a.fy * rb.height) - (rw.top + a.ay);
+        wrap.scrollLeft += (rb.left + a.fx * rb.width) - (rw.left + a.ax);
+        stable = Math.abs(rb.height - lastH) < 0.5 ? stable + 1 : 0;
+        lastH = rb.height;
+      }
+      if (performance.now() < a.until && stable < 3) {
+        raf = requestAnimationFrame(place);
+      } else {
+        zoomAnchorRef.current = null;
+      }
+    };
+    place();
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zoom]);
 
   function zoomIn(e) {
     setZoomAt((z) => ZOOM_STEPS.find((v) => v > z + 0.001) ?? z, e?.clientX, e?.clientY);

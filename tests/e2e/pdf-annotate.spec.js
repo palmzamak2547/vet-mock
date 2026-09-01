@@ -253,7 +253,7 @@ test('the highlighter stays translucent where it crosses itself', async ({ page 
   expect(maxAlpha, 'the highlighter went opaque where it overlapped itself').toBeLessThan(190);
 });
 
-test('zooming enlarges the page and both edges stay reachable', async ({ page }) => {
+test('zoom keeps the point under the cursor put and never widens the layout', async ({ page }) => {
   await openReaderWithPdf(page);
   const measure = () => page.evaluate(() => {
     const ov = [...document.querySelectorAll('canvas')]
@@ -266,11 +266,73 @@ test('zooming enlarges the page and both edges stay reachable', async ({ page })
     };
   });
   const before = await measure();
-  await page.locator('button[aria-label="ขยาย"]').click();
-  await page.waitForTimeout(1200);
-  const after = await measure();
 
+  // Mark a content point: a fixed fraction of page 1, and where that fraction
+  // sits in client space right now. After the zoom the SAME fraction of the
+  // SAME page must still be near that client position — this is the assertion
+  // the old test lacked, which is how the anchor restore could lose its only
+  // call site in a refactor and stay green.
+  const mark = () => page.evaluate(() => {
+    const row = document.querySelector('[data-page="1"]');
+    const b = row.getBoundingClientRect();
+    return { x: b.left + b.width * 0.5, y: b.top + b.height * 0.4 };
+  });
+  const pt = await mark();
+  // mouse.wheel is unsupported in mobile WebKit, so mobile zooms with the
+  // toolbar button instead — whose anchor falls back to the middle of the
+  // frame, so the same stays-put assertion still means something as long as
+  // the marked point IS that middle. Desktop keeps the ctrl+wheel-at-a-point
+  // path, which exercises the pointer-anchored branch.
+  let wheelWorks = true;
+  try {
+    await page.mouse.move(pt.x, pt.y);
+    await page.keyboard.down('Control');
+    await page.mouse.wheel(0, -120);
+    await page.keyboard.up('Control');
+  } catch {
+    wheelWorks = false;
+    await page.keyboard.up('Control').catch(() => {});
+  }
+  if (!wheelWorks) {
+    // Re-mark at the frame's centre so the assertion matches the button's
+    // centre-anchored zoom.
+    const centred = await page.evaluate(() => {
+      const row = document.querySelector('[data-page="1"]');
+      const wrap = row.closest('div[style*="overflow"]') || row.parentElement;
+      const w = wrap.getBoundingClientRect();
+      const cy = w.top + w.height / 2;
+      const b = row.getBoundingClientRect();
+      return { fy: (cy - b.top) / b.height, cx: w.left + w.width / 2, cy };
+    });
+    await page.locator('button[aria-label="ขยาย"]').click();
+    await page.waitForTimeout(1400);
+    const rowAfter = await page.evaluate((fy) => {
+      const b = document.querySelector('[data-page="1"]').getBoundingClientRect();
+      return { y: b.top + fy * b.height };
+    }, centred.fy);
+    expect(Math.abs(rowAfter.y - centred.cy), 'button zoom lost the frame centre').toBeLessThan(48);
+  }
+  await page.waitForTimeout(1400);
+  if (wheelWorks) {
+    const ptAfter = await mark();
+    expect(Math.abs(ptAfter.x - pt.x), 'zoom lost the point under the cursor (x)').toBeLessThan(48);
+    expect(Math.abs(ptAfter.y - pt.y), 'zoom lost the point under the cursor (y)').toBeLessThan(48);
+  }
+
+  const after = await measure();
   expect(after.pageWidth, 'zoom did not re-render the page larger').toBeGreaterThan(before.pageWidth);
+
+  // The page frame scrolls the oversized page; nothing ABOVE it may size to
+  // the page. Without min-width:0 down the reading-mode chain the zoomed
+  // page's intrinsic width propagated up, main outgrew the container, and the
+  // app shell clipped the toolbar's right-hand buttons off screen.
+  const overflow = await page.evaluate(() => {
+    const main = document.querySelector('.vmx-main');
+    const parent = main.parentElement;
+    return Math.round(main.getBoundingClientRect().width - parent.getBoundingClientRect().width);
+  });
+  expect(overflow, 'zoom widened the layout past its container').toBeLessThanOrEqual(1);
+
   // A centred flex item that overflows is clipped at its start edge with no
   // way to scroll back to it, so an overflowing wrapper must be scrollable.
   if (after.scrollW > after.clientW) {
