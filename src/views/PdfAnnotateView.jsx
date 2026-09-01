@@ -204,6 +204,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const textRef = useRef({ hash: null, pages: null });
   const searchAbortRef = useRef(0);
   const [frameH, setFrameH] = useState(null);
+  const spillRef = useRef(0);
   // What a flush should write, always current. A flush that closes over
   // render-time state writes whatever was true when its effect last ran, and
   // an effect that depends on the strokes re-runs on every stroke — the two
@@ -1050,17 +1051,20 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const bottom = parseFloat(
         getComputedStyle(document.documentElement).getPropertyValue('--vmx-bottom-nav-h'),
       ) || 0;
-      const h = Math.max(180, window.innerHeight - top - navH - bottom);
+      // spillRef carries what the app shell adds BELOW the reader (today a
+      // 48px padding on the shell root, tomorrow who knows). It is LEARNED,
+      // not named: apply a height, measure how far the document spills past
+      // the viewport, and fold that into every later measurement. The fold
+      // matters — a first version subtracted the spill without remembering
+      // it, the ResizeObserver saw the height change, re-measured with the
+      // uncorrected formula, and the two fought forever at 60fps.
+      const h = Math.max(180, window.innerHeight - top - navH - bottom - spillRef.current);
       setFrameH((prev) => (prev !== null && Math.abs(prev - h) < 1 ? prev : h));
-      // Second pass: whatever the app shell adds BELOW the reader (today a
-      // 48px padding on the shell root, tomorrow who knows) still spills the
-      // document past the viewport and re-grows a window scrollbar under the
-      // frame's own. Rather than naming shell internals here, apply the
-      // height, measure the actual spill, and take exactly that much back.
       requestAnimationFrame(() => {
         const de = document.scrollingElement || document.documentElement;
         const spill = de.scrollHeight - de.clientHeight;
-        if (spill > 0 && spill < 400) {
+        if (spill > 0 && spillRef.current + spill < 400) {
+          spillRef.current += spill;
           setFrameH((prev) => Math.max(180, (prev ?? h) - spill));
         }
       });
