@@ -68,31 +68,49 @@ const VoiceSettings = lazy(() => import('./components/VoiceSettings.jsx'));
 // render on every page", but the FAB is ToolsFAB; the calculator itself,
 // with the drug database it carries, is ~60 KB of source that most sessions
 // never open. VetCalculatorHost below keeps it out of the entry chunk: it
-// listens for the ToolsFAB's open event, loads the chunk on the first
-// request and mounts the modal already open, and warms the chunk in idle
-// time so that first tap does not wait on the network.
-const VetCalculator = lazy(() => import('./components/VetCalculator.jsx'));
-const prefetchVetCalculator = () => import('./components/VetCalculator.jsx');
+// listens for the ToolsFAB's open event, loads the module on the first
+// request and mounts the modal already open. The load is a plain import()
+// promise rather than React.lazy: a chunk that fails to arrive (offline, a
+// flaky connection) is caught here and answered with a retry, instead of
+// being thrown at a tree with no error boundary above this host. No idle
+// warm-up on purpose: main.jsx reloads the page once when a chunk fails to
+// load (stale-deploy recovery), and an automatic fetch that keeps failing
+// would turn that into a reload loop. The first tap fetches a small chunk.
+const loadVetCalculator = () => import('./components/VetCalculator.jsx');
 function VetCalculatorHost() {
-  const [wanted, setWanted] = useState(false);
+  const [Calculator, setCalculator] = useState(null);
+  const loadingRef = useRef(false);
   useEffect(() => {
-    if (wanted) return undefined;
-    const onOpen = () => setWanted(true);
-    window.addEventListener('vmx-open-vetcalc', onOpen);
-    return () => window.removeEventListener('vmx-open-vetcalc', onOpen);
-  }, [wanted]);
-  useEffect(() => {
-    const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 2500));
-    const cancel = window.cancelIdleCallback || clearTimeout;
-    const id = idle(() => { prefetchVetCalculator().catch(() => {}); }, { timeout: 4000 });
-    return () => cancel(id);
-  }, []);
-  if (!wanted) return null;
-  return (
-    <Suspense fallback={null}>
-      <VetCalculator showFab={false} initialOpen />
-    </Suspense>
-  );
+    if (Calculator) return undefined;
+    let alive = true;
+    const load = async () => {
+      if (loadingRef.current) return;
+      loadingRef.current = true;
+      try {
+        const mod = await loadVetCalculator();
+        if (alive) setCalculator(() => mod.default);
+      } catch {
+        loadingRef.current = false;
+        if (!alive) return;
+        // A module whose fetch failed stays failed in the browser's module
+        // map, so importing it again in this document cannot recover — a
+        // fresh document can. Say so, and let the student choose the reload.
+        const again = await confirmDialog({
+          title: 'โหลดเครื่องคิดเลขไม่ได้',
+          body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ต แล้วกดลองใหม่เพื่อโหลดหน้านี้ใหม่',
+          confirmLabel: 'ลองใหม่',
+          cancelLabel: 'ปิด',
+        });
+        if (again && alive) window.location.reload();
+        return;
+      }
+      loadingRef.current = false;
+    };
+    window.addEventListener('vmx-open-vetcalc', load);
+    return () => { alive = false; window.removeEventListener('vmx-open-vetcalc', load); };
+  }, [Calculator]);
+  if (!Calculator) return null;
+  return <Calculator showFab={false} initialOpen />;
 }
 // Unified bottom-right FAB — single button fans out to 🧮 + 🎨. Tiny
 // component (~3 KB) and used on nearly every view, so import eagerly.
