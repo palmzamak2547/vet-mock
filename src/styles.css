@@ -2680,6 +2680,110 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   animation: vmx-milestone-fade 0.5s ease-out;
 }
 
+/* ── Night-owl rank card (ยศโต้รุ้ง) ─── */
+.vmx-night-rank-card {
+  margin-top: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vmx-night-rank-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(120, 100, 180, 0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.vmx-night-rank-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.vmx-night-rank-icon {
+  font-size: 34px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.vmx-night-rank-info {
+  min-width: 0;
+}
+
+.vmx-night-rank-label {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.vmx-night-rank-blurb {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+}
+
+.vmx-night-rank-card .vmx-bar {
+  margin-top: 12px;
+}
+
+.vmx-night-rank-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+}
+
+.vmx-night-rank-meta strong {
+  color: var(--clr-gold-text);
+  font-weight: 600;
+}
+
+.vmx-night-rank-footnote {
+  margin-top: 8px;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--clr-ink-soft);
+  opacity: 0.85;
+}
+
+/* Promotion banner on ResultsView — fires when a late-night session
+   pushes the user up the rank ladder. */
+.vmx-night-rank-promo {
+  margin: 0 auto 14px;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(184, 137, 64, 0.35);
+  background: rgba(184, 137, 64, 0.10);
+  animation: vmx-pop-in 0.4s ease-out;
+}
+
+.vmx-night-rank-promo-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.vmx-night-rank-promo-text {
+  min-width: 0;
+}
+
+.vmx-night-rank-promo-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--clr-gold-text);
+}
+
+.vmx-night-rank-promo-sub {
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--clr-ink-soft);
+  line-height: 1.45;
+}
+
 /* ── StreakHeatmap wrapper ─── */
 .vmx-heatmap-wrapper {
   position: relative;

@@ -38,6 +38,7 @@ import { saveExamResult } from './lib/api.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
+import { computePromotion, NIGHT_RANK_EVENT } from './lib/night-rank.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { appPathForView, isAppPath, viewForAppPath } from './lib/view-route.js';
@@ -1675,14 +1676,25 @@ export default function App() {
       }
     }
 
-    // XP + Daily Quests + Auto-promote wrong → SR. Wrapped in try/catch
-    // so a single throw can't block the navigate-to-results path that
-    // follows — gamification must never break the core exam loop.
+    // XP + Daily Quests + Night-rank promotion + Auto-promote wrong → SR.
+    // Wrapped in try/catch so a single throw can't block the
+    // navigate-to-results path that follows — gamification must never
+    // break the core exam loop.
     try {
       for (const entry of newEntries) {
         const xpAmount = entry.correct ? XP_AWARDS.correctAnswer : XP_AWARDS.wrongAnswer;
         awardXp(xpAmount, 'exam');
         recordQuestEvent('answered', { subject: entry.subject, correct: entry.correct });
+      }
+      // Late-night rank ladder — ranks derive from history timestamps,
+      // so promotion is computed by comparing before/after. Only an
+      // upward move fires the event (ResultsView shows the banner);
+      // a lower rank (history cleared / import) stays silent.
+      const promo = computePromotion(history, newEntries);
+      if (promo.promoted) {
+        window.dispatchEvent(new CustomEvent(NIGHT_RANK_EVENT, {
+          detail: { from: promo.before, to: promo.after },
+        }));
       }
     } catch {}
 

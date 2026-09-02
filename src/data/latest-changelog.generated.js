@@ -63,7 +63,7 @@ export const SCOPE_LABELS = {
 };
 
 export const LATEST_CHANGELOG = {
-  "version": "5.64.2",
+  "version": "5.65.1",
   "date": "2026-09-02",
   "headline": "⚡ เปิดแอปครั้งแรกเร็วขึ้น โหลดโค้ดน้อยลงก่อนหน้าแรกจะขึ้น",
   "changes": [
