@@ -110,3 +110,19 @@ export function computePromotion(historyBefore, newEntries) {
 }
 
 export const NIGHT_RANK_EVENT = 'vmx-night-rank-promoted';
+
+// The promotion is decided in finishExam, before React has switched to the
+// results view, so a listener mounted by ResultsView is not there yet when
+// NIGHT_RANK_EVENT fires — the banner never showed. The promotion is also
+// stashed here; ResultsView takes it on mount. One-shot, in memory only: a
+// reload after submitting forgets it, and the rank itself still shows on
+// the dashboard card.
+let pendingPromotion = null;
+export function stashPromotion(detail) {
+  pendingPromotion = detail && detail.from && detail.to ? detail : null;
+}
+export function takePromotion() {
+  const p = pendingPromotion;
+  pendingPromotion = null;
+  return p;
+}

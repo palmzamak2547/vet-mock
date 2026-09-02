@@ -38,7 +38,7 @@ import { saveExamResult } from './lib/api.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
-import { computePromotion, NIGHT_RANK_EVENT } from './lib/night-rank.js';
+import { computePromotion, stashPromotion, NIGHT_RANK_EVENT } from './lib/night-rank.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { appPathForView, isAppPath, viewForAppPath } from './lib/view-route.js';
@@ -1692,9 +1692,12 @@ export default function App() {
       // a lower rank (history cleared / import) stays silent.
       const promo = computePromotion(history, newEntries);
       if (promo.promoted) {
-        window.dispatchEvent(new CustomEvent(NIGHT_RANK_EVENT, {
-          detail: { from: promo.before, to: promo.after },
-        }));
+        const detail = { from: promo.before, to: promo.after };
+        // ResultsView is not mounted yet at this point (the view switches
+        // below), so the event alone was never heard; the stash is what
+        // the results page actually reads on mount.
+        stashPromotion(detail);
+        window.dispatchEvent(new CustomEvent(NIGHT_RANK_EVENT, { detail }));
       }
     } catch {}
 

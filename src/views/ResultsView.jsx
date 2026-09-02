@@ -6,7 +6,7 @@ import ScoreBurst from '../components/ScoreBurst.jsx';
 import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
-import { NIGHT_RANK_EVENT } from '../lib/night-rank.js';
+import { NIGHT_RANK_EVENT, takePromotion } from '../lib/night-rank.js';
 import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 
@@ -173,6 +173,10 @@ export default function ResultsView({
   // rank itself is still visible on the Dashboard card.
   const [rankPromo, setRankPromo] = useState(null);
   useEffect(() => {
+    // finishExam decided the promotion before this view existed; it left it
+    // in the stash. The listener below covers any event fired later.
+    const pending = takePromotion();
+    if (pending) setRankPromo(pending);
     const onPromo = (e) => {
       const { from, to } = e?.detail || {};
       if (from?.label && to?.label) setRankPromo({ from, to });
