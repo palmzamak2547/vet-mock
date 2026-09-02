@@ -1,3 +1,4 @@
+import { examScopeLabel } from '../lib/question-prediction.js';
 import { useRef, useState, useEffect, useMemo } from 'react';
 import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
@@ -502,6 +503,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             <>
               {', '}{subj?.name || currentQ.subject}
               {topic && <>, <span style={{ color: subjectText(subj?.color) }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></>}
+              {/* Only questions that carry exam-scope metadata say which
+                  paper they belong to; a legacy question says nothing
+                  rather than guessing. */}
+              {examScopeLabel(currentQ.examScope) && <>, <span className="vmx-scope-chip">{examScopeLabel(currentQ.examScope)}</span></>}
             </>
           );
         })()}

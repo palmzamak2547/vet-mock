@@ -13,6 +13,28 @@ export const PREDICTION_SOURCE_TYPES = new Set([
   'past-paper',
 ]);
 
+// The three buckets a student can actually study for. `both` is a property
+// of a question (it sits in two exams), never a bucket someone picks.
+export const EXAM_SCOPE_BUCKETS = ['midterm', 'final', 'continuous'];
+export const EXAM_SCOPE_LABELS = {
+  midterm: 'กลางภาค',
+  final: 'ปลายภาค',
+  continuous: 'ประเมินต่อเนื่อง',
+  both: 'กลางภาคและปลายภาค',
+};
+export const examScopeLabel = (scope) => EXAM_SCOPE_LABELS[scope] || null;
+
+/** Does a question belong in the bucket the student picked? `both` sits in
+ *  midterm AND final. `continuous` sits ONLY in continuous: a course graded
+ *  by continuous assessment has no midterm paper for its questions to
+ *  appear on, and folding them into the midterm set is exactly what made
+ *  "กลางภาค" and "ปลายภาค" feel like the same pile. */
+export function questionInScope(questionScope, wantedScope) {
+  if (!wantedScope) return true;
+  if (wantedScope === 'continuous') return questionScope === 'continuous';
+  return questionScope === wantedScope || questionScope === 'both';
+}
+
 const VERSION_PATTERN = /^\d{4}-[123]$/;
 const SIGNAL_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PREDICTION_SIGNALS = new Set(['current-lecture', 'senior-recurrence']);
@@ -69,19 +91,23 @@ export function predictionMetadataIssues(question) {
 export function isCurrentScopeQuestion(question, {
   curriculumVersion,
   selectedPhase = null,
+  // An explicit bucket (the home-page pills, the config-page switch) wins
+  // over the phase chosen for browsing — and it is the only way to ask for
+  // the continuous-assessment set, which no phase id names.
+  examScope = null,
 } = {}) {
   if (predictionMetadataIssues(question).length > 0) return false;
   if (question?.answerStatus !== 'verified') return false;
   if (!curriculumVersion || question?.curriculumVersion !== curriculumVersion) return false;
+
+  if (examScope) return questionInScope(question?.examScope, examScope);
 
   const wantedScope = examScopeForPhase(selectedPhase);
   if (!wantedScope) return true;
   const phaseSemester = String(selectedPhase).split('-', 1)[0];
   const curriculumSemester = String(curriculumVersion).split('-', 2)[1];
   if (phaseSemester !== curriculumSemester) return false;
-  return question?.examScope === wantedScope
-    || question?.examScope === 'both'
-    || question?.examScope === 'continuous';
+  return questionInScope(question?.examScope, wantedScope);
 }
 
 export function isHighPredictionQuestion(question, options = {}) {

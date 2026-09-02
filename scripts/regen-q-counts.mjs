@@ -87,11 +87,9 @@ const incrementScopedPrediction = (index, question, subject) => {
   };
   const phase = index[question.curriculumVersion];
   phase.all[subject] = (phase.all[subject] || 0) + 1;
+  // Mirrors questionInScope(): `both` lands in midterm AND final; continuous
+  // stays in its own bucket and never inflates an exam-phase count.
   if (question.examScope === 'both') {
-    phase.midterm[subject] = (phase.midterm[subject] || 0) + 1;
-    phase.final[subject] = (phase.final[subject] || 0) + 1;
-  } else if (question.examScope === 'continuous') {
-    phase.continuous[subject] = (phase.continuous[subject] || 0) + 1;
     phase.midterm[subject] = (phase.midterm[subject] || 0) + 1;
     phase.final[subject] = (phase.final[subject] || 0) + 1;
   } else if (phase[question.examScope]) {
@@ -204,7 +202,8 @@ lines.push('');
 lines.push('// High-likelihood questions are counted only when their answer is');
 lines.push('// verified and their metadata names an exact curriculum + exam scope.');
 lines.push('// `all` counts each question once; `both` questions are expanded into');
-lines.push('// the midterm and final views so phase-specific buttons stay truthful.');
+lines.push('// the midterm and final views so phase-specific buttons stay truthful;');
+lines.push('// `continuous` is its own bucket and never counts toward an exam phase.');
 lines.push('export const Q_HIGH_PREDICTION_COUNTS =');
 lines.push(`${JSON.stringify(byHighPredictionPhase, null, 2)};`);
 lines.push('');

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { SEMESTER } from '../data/schedule.js';
+import { EXAM_SCOPE_BUCKETS, EXAM_SCOPE_LABELS } from '../lib/question-prediction.js';
 import BackBar from '../components/BackBar.jsx';
 
 // ============================================================
@@ -27,7 +28,7 @@ const CATEGORIES = [
   { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน, จับเวลายาวขึ้นอัตโนมัติ' },
 ];
 
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, mode }) {
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, mode, examScope = null, setExamScope }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
     : null;
@@ -73,8 +74,8 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
   const contextLine = practiceMode === 'bookmarks' ? '🔖 Bookmark — เฉพาะข้อที่บันทึก'
     : practiceMode === 'weak' ? 'Weak Spots — ข้อที่ผิดบ่อย'
     : practiceMode === 'wrong' ? 'ทบทวนข้อที่ตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)'
-    : practiceMode === 'current-scope' ? `ตามสไลด์ปัจจุบัน — เฉลยตรวจแล้วและตรง scope ${SEMESTER.id}`
-    : practiceMode === 'predicted' ? 'ชุดน่าจะออก — เฉลยตรวจแล้ว + scope ปัจจุบัน + หลักฐานอย่างน้อย 2 ทาง; ไม่ใช่ข้อสอบยืนยัน'
+    : practiceMode === 'current-scope' ? `ตามสไลด์ปัจจุบัน — ${examScope ? EXAM_SCOPE_LABELS[examScope] : 'รวมทุกช่วงสอบ'}, เฉลยตรวจแล้ว ตรง ${SEMESTER.id}`
+    : practiceMode === 'predicted' ? `ชุดน่าจะออก — ${examScope ? EXAM_SCOPE_LABELS[examScope] : 'รวมทุกช่วงสอบ'}, หลักฐานอย่างน้อย 2 ทาง ไม่ใช่ข้อสอบยืนยัน`
     : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
     : `${subjMeta?.icon} ${subjMeta?.name}`;
 
@@ -114,6 +115,34 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
       )}
 
       <div className="vmx-config-panel">
+        {/* Exam bucket — only for the current-term sets. The pile the
+            student is about to sit down with is the first thing on this
+            page, and the available-count line below it follows the switch. */}
+        {(practiceMode === 'current-scope' || practiceMode === 'predicted') && setExamScope && (
+          <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-scope-label">
+            <div id="vmx-config-scope-label" className="vmx-label">ช่วงสอบ</div>
+            <div className="vmx-scope-row">
+              {EXAM_SCOPE_BUCKETS
+                .filter((scope) => practiceMode !== 'predicted' || scope !== 'continuous')
+                .map((scope) => (
+                  <button
+                    key={scope}
+                    type="button"
+                    className="vmx-scope-pill"
+                    aria-pressed={examScope === scope}
+                    onClick={() => setExamScope(examScope === scope ? null : scope)}
+                  >
+                    <span>{EXAM_SCOPE_LABELS[scope]}</span>
+                  </button>
+                ))}
+            </div>
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 6 }}>
+              {examScope
+                ? `เฉพาะข้อของ${EXAM_SCOPE_LABELS[examScope]}`
+                : 'ยังไม่เลือก = รวมทุกช่วง กดเพื่อแยกเป็นกอง'}
+            </div>
+          </div>
+        )}
         {/* Question category — only shown for engprof (the one subject
             that actually has writing items). For other subjects, the
             picker would be inert noise. */}

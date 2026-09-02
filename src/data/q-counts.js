@@ -1163,12 +1163,10 @@ export const Q_CURRENT_SCOPE_COUNTS =
       "equine-medicine": 30,
       "food-industry": 36,
       "one-health": 16,
-      "poa-clinical": 40,
       "zoonoses": 16
     },
     "final": {
-      "epidemiology": 40,
-      "poa-clinical": 40
+      "epidemiology": 40
     },
     "continuous": {
       "poa-clinical": 40
@@ -1179,7 +1177,8 @@ export const Q_CURRENT_SCOPE_COUNTS =
 // High-likelihood questions are counted only when their answer is
 // verified and their metadata names an exact curriculum + exam scope.
 // `all` counts each question once; `both` questions are expanded into
-// the midterm and final views so phase-specific buttons stay truthful.
+// the midterm and final views so phase-specific buttons stay truthful;
+// `continuous` is its own bucket and never counts toward an exam phase.
 export const Q_HIGH_PREDICTION_COUNTS =
 {
   "2569-1": {
@@ -1194,4 +1193,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-02T18:56:45.981Z
+// Built: 2026-09-02T19:17:10.162Z

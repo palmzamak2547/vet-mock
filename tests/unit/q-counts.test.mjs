@@ -93,9 +93,7 @@ test('generated high-prediction counts match verified current-scope questions', 
       live[version].all[subject] = (live[version].all[subject] || 0) + 1;
       const scopes = q.examScope === 'both'
         ? ['midterm', 'final']
-        : q.examScope === 'continuous'
-          ? ['continuous', 'midterm', 'final']
-          : [q.examScope];
+        : [q.examScope];
       for (const scope of scopes) {
         if (!live[version][scope]) continue;
         live[version][scope][subject] = (live[version][scope][subject] || 0) + 1;
