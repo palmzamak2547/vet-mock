@@ -40,6 +40,10 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 - ✅ New features (UI, content, fixes that affect usage)
 - ❌ SEO / build / refactor / infrastructure → git history only
 - See header comment in changelog.js
+- The homepage banner and sidebar badge read `src/data/latest-changelog.generated.js`
+  (newest entry only, so the entry chunk does not carry the whole history).
+  `npm run build` / `npm run dev` regenerate it; `npm run regen:changelog` by hand;
+  `lint:changelog-latest` fails when it is stale. Never hand-edit the generated file.
 
 ### 3. Backticks in template literals are landmines
 - `src/data/video-summaries-*.js` uses large template-literal strings for markdown

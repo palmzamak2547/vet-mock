@@ -63,12 +63,37 @@ const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
 // most sessions never tweak voice — keep the main bundle slim.
 const VoiceSettings = lazy(() => import('./components/VoiceSettings.jsx'));
 
-// VetCalculator — floating widget for clinical math (RER, fluid ·
-// drug dose, transfusion, DKA insulin). Imported eagerly because
-// the FAB button needs to render on every page; modal contents only
-// run when the user opens it, so the runtime cost is just ~5KB
-// gzipped of inert UI code on first paint.
-import VetCalculator from './components/VetCalculator.jsx';
+// VetCalculator — clinical math modal (RER, fluid, drug dose, transfusion,
+// DKA insulin). It used to be imported eagerly "because the FAB needs to
+// render on every page", but the FAB is ToolsFAB; the calculator itself,
+// with the drug database it carries, is ~60 KB of source that most sessions
+// never open. VetCalculatorHost below keeps it out of the entry chunk: it
+// listens for the ToolsFAB's open event, loads the chunk on the first
+// request and mounts the modal already open, and warms the chunk in idle
+// time so that first tap does not wait on the network.
+const VetCalculator = lazy(() => import('./components/VetCalculator.jsx'));
+const prefetchVetCalculator = () => import('./components/VetCalculator.jsx');
+function VetCalculatorHost() {
+  const [wanted, setWanted] = useState(false);
+  useEffect(() => {
+    if (wanted) return undefined;
+    const onOpen = () => setWanted(true);
+    window.addEventListener('vmx-open-vetcalc', onOpen);
+    return () => window.removeEventListener('vmx-open-vetcalc', onOpen);
+  }, [wanted]);
+  useEffect(() => {
+    const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 2500));
+    const cancel = window.cancelIdleCallback || clearTimeout;
+    const id = idle(() => { prefetchVetCalculator().catch(() => {}); }, { timeout: 4000 });
+    return () => cancel(id);
+  }, []);
+  if (!wanted) return null;
+  return (
+    <Suspense fallback={null}>
+      <VetCalculator showFab={false} initialOpen />
+    </Suspense>
+  );
+}
 // Unified bottom-right FAB — single button fans out to 🧮 + 🎨. Tiny
 // component (~3 KB) and used on nearly every view, so import eagerly.
 import ToolsFAB from './components/ToolsFAB.jsx';
@@ -2284,10 +2309,10 @@ export default function App() {
               first) and during an active exam (don't tempt them with the
               calculator UI mid-question — exam already shows wake lock).
               Rendered eagerly so the button is on first paint. */}
-          {/* VetCalculator lives in the tree (modal + listener) but
-              renders no FAB of its own — ToolsFAB drives opening via
-              a window event. */}
-          {!FOCUS_VIEWS.has(view) && <VetCalculator showFab={false} />}
+          {/* The calculator's host lives in the tree (listener only) and
+              renders no FAB of its own — ToolsFAB drives opening via a
+              window event; the modal chunk loads on the first request. */}
+          {!FOCUS_VIEWS.has(view) && <VetCalculatorHost />}
 
           {/* Unified ToolsFAB — one button bottom-right that fans out
               into the calculator + sketchpad. Replaces what used to be

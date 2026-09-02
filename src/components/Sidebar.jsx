@@ -42,7 +42,7 @@
 import React from 'react';
 import { NAV_ITEMS, runNav, isNavActive } from '../lib/nav.js';
 import { featuresByCategory, visibleFeatures } from '../lib/feature-registry.js';
-import { LATEST_CHANGELOG } from '../data/changelog.js';
+import { LATEST_CHANGELOG } from '../data/latest-changelog.generated.js';
 import NavIcon from './NavIcon.jsx';
 import Wordmark from './Wordmark.jsx';
 
