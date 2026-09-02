@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect, matchScore } from '../hooks/utils.js';
-import { articleForQuestion } from '../lib/vetwiki/registry.js';
+import { articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 // The generated per-topic summary, not the full conflict index: the index
 // carries the whole 368 KB corrections table, and this view only needs the
 // count. Home prefetches this view at idle, so that table was downloaded

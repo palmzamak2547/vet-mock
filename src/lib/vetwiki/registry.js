@@ -4,29 +4,14 @@
 // whether an article exists must not import ./index.js: that full module also
 // owns note bodies, verification overlays, the source registry and validation.
 
-import { QUESTION_LINKS } from './question-links.generated.js';
 import { VETWIKI_TOPICS } from './topic-registry.generated.js';
+import { hasTopic, articleForQuestion } from './registry-lite.js';
 
-const TOPIC_KEYS = new Set(VETWIKI_TOPICS.map((topic) => topic.id));
+// The existence checks live in registry-lite.js (ids + question links only)
+// so views that need nothing more do not carry the full catalog; they are
+// re-exported here so one import path keeps working for everyone else.
+export { hasTopic, articleForQuestion };
 
 export function listTopics() {
-  // Match index.js's existing caller contract: callers receive fresh records
-  // and cannot mutate the generated registry shared by the rest of the app.
   return VETWIKI_TOPICS.map((topic) => ({ ...topic }));
-}
-
-export function hasTopic(subject, topic) {
-  return TOPIC_KEYS.has(`${subject}--${topic}`);
-}
-
-/** Which governed article a question should open, or null.
- * Own-topic matches remain authoritative; judged links are fallback-only. */
-export function articleForQuestion(q) {
-  if (!q) return null;
-  if (hasTopic(q.subject, q.topic)) {
-    return { subject: q.subject, topic: q.topic, derived: false };
-  }
-  const link = QUESTION_LINKS[String(q.id)];
-  if (!link || !hasTopic(link.subject, link.topic)) return null;
-  return { ...link, derived: true };
 }
