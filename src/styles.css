@@ -2239,6 +2239,13 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-results-hero h2.vmx-score-big { font-size: 64px; }
   .vmx-config-panel { padding: 18px; }
   .vmx-stat-grid { grid-template-columns: repeat(2, 1fr); }
+  /* ถูก / ผิด / ข้าม is three tiles; on a two-column grid the third sat
+     alone on its own row. Exactly three children → three columns, sized
+     down a notch so the numbers still fit. Browsers without :has() keep
+     the two-column layout, which is what they had before. */
+  .vmx-stat-grid:has(> :nth-child(3):last-child) { grid-template-columns: repeat(3, 1fr); }
+  .vmx-stat-grid:has(> :nth-child(3):last-child) .vmx-stat-card { padding: 14px 8px; }
+  .vmx-stat-grid:has(> :nth-child(3):last-child) .vmx-stat-num { font-size: 28px; }
   .vmx-dash-grid { grid-template-columns: 1fr; }
   .vmx-progress-bar { height: 6px; }
   .vmx-exam-top { gap: 8px; flex-wrap: wrap; }
@@ -2982,6 +2989,37 @@ button.vmx-chip-quick:focus-visible {
 }
 .vmx-bottom-nav-item.active { color: var(--clr-sage-text); }
 .vmx-bottom-nav-item:active { background: var(--clr-surface-2); }
+/* Active indicator — a tinted pill scales in behind the icon and the icon
+   lifts 1px, so where-you-are is announced by shape as well as colour.
+   Position is information: under reduced motion the pill still appears,
+   it just does not animate. */
+.vmx-bottom-nav-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  transition: transform var(--dur) var(--ease-out);
+}
+.vmx-bottom-nav-icon > svg { position: relative; z-index: 1; }
+.vmx-bottom-nav-pill {
+  position: absolute;
+  top: -5px; right: -12px; bottom: -5px; left: -12px;
+  inset: -5px -12px;
+  z-index: 0;
+  border-radius: var(--r-pill);
+  background: rgba(74, 107, 74, 0.14);
+  background: color-mix(in srgb, var(--vmx-color-learning) 14%, transparent);
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
+  transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out);
+}
+.vmx-bottom-nav-item.active .vmx-bottom-nav-pill { opacity: 1; transform: scale(1); }
+.vmx-bottom-nav-item.active .vmx-bottom-nav-icon { transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-bottom-nav-pill, .vmx-bottom-nav-icon { transition: none; }
+}
 .vmx-bottom-nav-item:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -3px; border-radius: var(--r-sm); }
 .vmx-bottom-nav-label {
   font-size: 11px;

@@ -21,7 +21,14 @@ export default function BottomNav({ view, handlers }) {
             aria-current={active ? 'page' : undefined}
             onClick={() => runNav(item.id, handlers)}
           >
-            <NavIcon name={item.icon} />
+            {/* The pill behind the icon is the phone-side twin of the
+                sidebar's sliding marker: a soft tint that scales in on the
+                active row. A real element with pointer-events off, never a
+                ::before hit-zone (STABILITY.md rule 1). */}
+            <span className="vmx-bottom-nav-icon">
+              <span className="vmx-bottom-nav-pill" aria-hidden="true" />
+              <NavIcon name={item.icon} />
+            </span>
             <span className="vmx-bottom-nav-label">{item.short}</span>
           </button>
         );

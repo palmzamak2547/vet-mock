@@ -353,6 +353,71 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     return acc;
   }, [history, yearSubjects]);
 
+  // ─── Practice presets (โหมดซ้อม): weakest topic + last session ──
+  // This used to be computed inline in the render body: an index over the
+  // ENTIRE question bank (4,500+ entries), a full history scan and a
+  // localStorage read on EVERY HomeView render — and HomeView re-renders on
+  // every presence sync, countdown tick and quick-chip state change.
+  // Memoised on the inputs it actually reads. Topic-granular because it
+  // gives a more actionable signal than subject-level: min 10 attempts,
+  // < 70%, scoped to the phase-filtered subjects so a sem-1 weak topic is
+  // not suggested while the student is in sem 2.
+  const practicePresets = useMemo(() => {
+    const yearSubjectIds = new Set(yearSubjects.map((s) => s.id));
+    const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
+    // Index Q→topic for history lookups (history doesn't store topic).
+    // Compound key (subject + ':' + id) because Q IDs collide across
+    // subjects historically (e.g. com4 ↔ engprof both use 1100-1160).
+    const qIndex = new Map();
+    for (const q of QB) if (isQuestionDeliverable(q)) qIndex.set(q.subject + ':' + q.id, q);
+    const topicAcc = {};
+    for (const h of (history || [])) {
+      if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
+      if (h.date && h.date < cutoff) continue;
+      const q = qIndex.get(h.subject + ':' + h.questionId);
+      const topic = q?.topic;
+      if (!topic) continue;
+      const key = `${h.subject}::${topic}`;
+      if (!topicAcc[key]) topicAcc[key] = { subject: h.subject, topic, total: 0, correct: 0 };
+      topicAcc[key].total++;
+      if (h.correct) topicAcc[key].correct++;
+    }
+    let weakSubj = null, weakTopic = null, weakPct = 100;
+    for (const { subject: sid, topic, total, correct } of Object.values(topicAcc)) {
+      if (total < 10) continue;
+      const pct = Math.round((correct / total) * 100);
+      if (pct < weakPct && pct < 70) {
+        weakPct = pct; weakSubj = sid; weakTopic = topic;
+      }
+    }
+    // Structured last-session-config first (full restore); fall back to a
+    // history scan for users who took exams before the snapshot existed.
+    let lastSession = null;
+    try {
+      const raw = window.localStorage?.getItem('vmx-last-session-config');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed?.subject && yearSubjectIds.has(parsed.subject)) lastSession = parsed;
+      }
+    } catch {}
+    let lastSubj = lastSession?.subject || null;
+    if (!lastSubj) {
+      let lastTs = 0;
+      for (const h of (history || [])) {
+        if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
+        if ((h.date || 0) > lastTs) { lastTs = h.date || 0; lastSubj = h.subject; }
+      }
+    }
+    const lastSubjMeta = lastSubj ? SUBJECTS.find((s) => s.id === lastSubj) : null;
+    const weakSubjMeta = weakSubj ? SUBJECTS.find((s) => s.id === weakSubj) : null;
+    const weakTopicMeta = (weakSubjMeta?.topics || []).find((t) => t.id === weakTopic);
+    return { weakSubj, weakTopic, weakPct, weakSubjMeta, weakTopicMeta, lastSession, lastSubj, lastSubjMeta };
+    // QB is populated in place by the lazy loader; its length is the signal
+    // that the index must be rebuilt (same pattern as DailyQRow below).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history, yearSubjects, QB.length]);
+  const { weakSubj, weakTopic, weakPct, weakSubjMeta, weakTopicMeta, lastSession, lastSubj, lastSubjMeta } = practicePresets;
+
   // Quick action: review questions answered wrong (cross-subject).
   // Uses the same pattern as bookmarks practiceMode — just a different
   // pool source. Sorted by wrong-frequency so the user sees their
@@ -923,10 +988,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 padding: '8px 14px',
                 borderRadius: 999,
                 background: 'rgba(167, 61, 74, 0.12)',
-                border: '1px solid #a73d4a',
+                border: '1px solid var(--clr-rose)',
                 fontSize: 13,
                 fontFamily: 'var(--vmx-mono)',
-                color: '#8a3340',
+                color: 'var(--clr-rose-text)',
                 transition: 'transform 0.12s, background 0.15s',
               }}
               onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.20)'}
@@ -1115,64 +1180,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           Smart presets ('ใกล้สอบ' / 'จุดอ่อน' / 'ทำซ้ำ') surface only when
           their data preconditions are met, jumping straight to ConfigView
           to skip subject/topic drill-down. */}
-      {!isScaffoldYear && (() => {
-        // Compute weakest TOPIC (then map up to subject) — gives a more
-        // actionable signal than subject-level. Min 10 attempts, < 70%.
-        // Scope to phase-filtered subjects so smart presets respect the
-        // current phase context (e.g. don't suggest sem 1 weak topic when
-        // user is in sem 2 phase).
-        const yearSubjectIds = new Set(yearSubjects.map((s) => s.id));
-        const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
-        // Index Q→topic for history lookups (history doesn't store topic).
-        // Use compound key (subject + ':' + id) because Q IDs collide
-        // across subjects historically (e.g. com4 ↔ engprof both use
-        // 1100-1160). Without compound key, stats for one subject leak
-        // into another.
-        const qIndex = new Map();
-        for (const q of QB) if (isQuestionDeliverable(q)) qIndex.set(q.subject + ':' + q.id, q);
-        const topicAcc = {};
-        for (const h of (history || [])) {
-          if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
-          if (h.date && h.date < cutoff) continue;
-          const q = qIndex.get(h.subject + ':' + h.questionId);
-          const topic = q?.topic;
-          if (!topic) continue;
-          const key = `${h.subject}::${topic}`;
-          if (!topicAcc[key]) topicAcc[key] = { subject: h.subject, topic, total: 0, correct: 0 };
-          topicAcc[key].total++;
-          if (h.correct) topicAcc[key].correct++;
-        }
-        let weakSubj = null, weakTopic = null, weakPct = 100;
-        for (const { subject: sid, topic, total, correct } of Object.values(topicAcc)) {
-          if (total < 10) continue;
-          const pct = Math.round((correct / total) * 100);
-          if (pct < weakPct && pct < 70) {
-            weakPct = pct; weakSubj = sid; weakTopic = topic;
-          }
-        }
-        // Try to read structured last-session-config first (full restore);
-        // fall back to history scan if absent (older users without snapshot).
-        let lastSession = null;
-        try {
-          const raw = window.localStorage?.getItem('vmx-last-session-config');
-          if (raw) {
-            const parsed = JSON.parse(raw);
-            if (parsed?.subject && yearSubjectIds.has(parsed.subject)) lastSession = parsed;
-          }
-        } catch {}
-        let lastSubj = lastSession?.subject || null;
-        if (!lastSubj) {
-          let lastTs = 0;
-          for (const h of (history || [])) {
-            if (!h?.subject || !yearSubjectIds.has(h.subject)) continue;
-            if ((h.date || 0) > lastTs) { lastTs = h.date || 0; lastSubj = h.subject; }
-          }
-        }
-        const lastSubjMeta = lastSubj ? SUBJECTS.find((s) => s.id === lastSubj) : null;
-        const weakSubjMeta = weakSubj ? SUBJECTS.find((s) => s.id === weakSubj) : null;
-        const weakTopicMeta = (weakSubjMeta?.topics || []).find((t) => t.id === weakTopic);
-
-        return (
+      {!isScaffoldYear && (
         <>
           <div className="vmx-section-label" style={{ marginTop: 28 }}>โหมดซ้อม</div>
           <div className="vmx-mode-grid">
@@ -1319,8 +1327,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
           </div>
         </>
-        );
-      })()}
+      )}
 
       {/* ─── Gamification + community block — Phase 1 (2026-05-18) ────
           Quests + DailyGoal + StudyBuddies + DailyQ + Race + PWA install.
@@ -1477,7 +1484,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {showWelcome && (
         <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
           ใช้การทบทวนตามรอบทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
-          กด <span className="vmx-kbd">1-4</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
+          กด <span className="vmx-kbd">1-5</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
           สลับโหมดมืด/สว่างที่ปุ่มขวาบน
         </div>
       )}
@@ -1812,7 +1819,7 @@ function DailyQRow({ user, setView }) {
             border: '1px solid rgba(93, 180, 211, 0.5)',
             fontSize: 11,
             fontFamily: 'var(--vmx-mono)',
-            color: '#3a8aa8',
+            color: 'var(--clr-ocean-text)',
           }}
         >
           🌐 {pulse.total} คนทำแล้ว, {pulse.pct}% ถูก
