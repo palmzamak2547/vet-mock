@@ -2,7 +2,11 @@ import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isCorrect, matchScore } from '../hooks/utils.js';
 import { articleForQuestion } from '../lib/vetwiki/registry.js';
-import { conflictsForTopic } from '../lib/vetwiki/conflict-index.js';
+// The generated per-topic summary, not the full conflict index: the index
+// carries the whole 368 KB corrections table, and this view only needs the
+// count. Home prefetches this view at idle, so that table was downloaded
+// on every boot for a number the summary already holds.
+import { conflictCountFor } from '../lib/vetwiki/conflict-summary.generated.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
@@ -490,7 +494,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               // lecturer and the literature disagree is the single most
               // exam-useful thing this corpus holds, and a generic "read the
               // summary" link gives a student no reason to tap it.
-              const conflicts = conflictsForTopic(article.subject, article.topic).total;
+              const conflicts = conflictCountFor(article.subject, article.topic);
               return (
                 <button
                   type="button"
