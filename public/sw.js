@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v128-2026-09-02';
+const SW_VERSION = 'v129-2026-09-02';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Library documents, cached by CONTENT HASH (the `h` query param), not by

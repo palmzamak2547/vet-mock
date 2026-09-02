@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { isCorrect, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
+import ScoreBurst from '../components/ScoreBurst.jsx';
 import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
@@ -255,6 +256,10 @@ export default function ResultsView({
   // mocks (autoQs.length === 0) get neither banner since the engine
   // can't actually compute pass/fail without manual grading
   const passed = autoQs.length > 0 && score.pct >= 60;
+  // A strong result over a real set earns a one-shot confetti burst behind
+  // the score. Three questions is the floor so 1/1 does not throw a party;
+  // a perfect score gets the wider scatter.
+  const celebrate = autoQs.length >= 3 && score.pct >= 80;
   const showPassFail = isExam && autoQs.length > 0;
 
   return (
@@ -297,6 +302,7 @@ export default function ResultsView({
       )}
 
       <div className="vmx-results-hero">
+        {celebrate && <ScoreBurst strong={score.pct === 100} />}
         {autoQs.length > 0 ? (
           <>
             <h2 className={`vmx-score-big ${score.pct >= 60 ? 'pass' : 'fail'}`}>
