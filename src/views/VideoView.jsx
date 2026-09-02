@@ -91,6 +91,36 @@ const INFLIGHT = new Map();
 const PLAYLIST_TTL = 24 * 60 * 60 * 1000;
 const SUBSCRIBERS = new Map(); // playlistId -> Set<setter>
 
+// Negative cache. Only successful, non-empty answers used to be remembered,
+// so a playlist that no longer exists (or that RSS cannot list) was asked for
+// again on every card mount and every scroll-in — one reader produced 150
+// requests for one removed playlist inside twenty minutes (prod, 2026-08-29).
+// A miss is now remembered too, briefly: a playlist YouTube says is gone stays
+// quiet for half an hour; a transient failure (429, 5xx, offline) for ninety
+// seconds, long enough to outlast the burst that caused it.
+const MISS_TTL_GONE = 30 * 60 * 1000;
+const MISS_TTL_SOFT = 90 * 1000;
+const PREVIEW_MISSES = new Map(); // playlistId -> retry-after timestamp
+
+function previewMissedUntil(playlistId) {
+  const mem = PREVIEW_MISSES.get(playlistId);
+  if (mem) {
+    if (mem > Date.now()) return mem;
+    PREVIEW_MISSES.delete(playlistId);
+  }
+  try {
+    const until = Number(window.localStorage.getItem('vmx-pl-miss-' + playlistId));
+    if (until > Date.now()) { PREVIEW_MISSES.set(playlistId, until); return until; }
+  } catch {}
+  return 0;
+}
+
+function rememberPreviewMiss(playlistId, ttl) {
+  const until = Date.now() + ttl;
+  PREVIEW_MISSES.set(playlistId, until);
+  try { window.localStorage.setItem('vmx-pl-miss-' + playlistId, String(until)); } catch {}
+}
+
 function readCachedPreview(playlistId) {
   if (!playlistId) return null;
   if (PLAYLIST_PREVIEW_CACHE.has(playlistId)) return PLAYLIST_PREVIEW_CACHE.get(playlistId);
@@ -115,10 +145,13 @@ const MAX_CONCURRENT_PREVIEWS = 4;
 let _active = 0;
 const _waiting = [];
 function runQueued(task) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const start = () => {
       _active++;
-      task().then(resolve).finally(() => {
+      // Forward rejection too. A fetch that throws (offline, connection
+      // reset) has to reach the caller's catch, or the in-flight marker and
+      // the card's loading state are never cleared and no miss is recorded.
+      Promise.resolve().then(task).then(resolve, reject).finally(() => {
         _active--;
         const next = _waiting.shift();
         if (next) next();
@@ -134,12 +167,23 @@ function fetchPreview(playlistId) {
   if (PLAYLIST_PREVIEW_CACHE.has(playlistId)) return Promise.resolve(PLAYLIST_PREVIEW_CACHE.get(playlistId));
   const cached = readCachedPreview(playlistId);
   if (cached) return Promise.resolve(cached);
+  if (previewMissedUntil(playlistId)) return Promise.resolve(null);
   if (INFLIGHT.has(playlistId)) return INFLIGHT.get(playlistId);
 
   const p = runQueued(() => fetch(`/api/playlist?id=${encodeURIComponent(playlistId)}`))
-    .then((r) => (r.ok ? r.json() : null))
-    .then((json) => {
-      if (!json?.items?.length) return null;
+    .then(async (r) => {
+      const json = r.ok ? await r.json().catch(() => null) : null;
+      if (!json?.items?.length) {
+        // A 404 is YouTube saying the playlist is gone; an empty answer the
+        // server attributes to the playlist itself (multi-channel under RSS,
+        // or genuinely empty) will not change in the next half hour either.
+        // Everything else — a 429 from the shelf behind this card, a 5xx, an
+        // exhausted daily budget — is worth asking about again soon.
+        const gone = r.status === 404
+          || (r.ok && (json?.reason === 'multi_channel' || json?.reason === 'empty_playlist'));
+        rememberPreviewMiss(playlistId, gone ? MISS_TTL_GONE : MISS_TTL_SOFT);
+        return null;
+      }
       const first = json.items[0];
       const data = {
         thumb: first.thumb || `https://img.youtube.com/vi/${first.id}/hqdefault.jpg`,
@@ -155,7 +199,7 @@ function fetchPreview(playlistId) {
       if (subs) subs.forEach((set) => set(data));
       return data;
     })
-    .catch(() => null)
+    .catch(() => { rememberPreviewMiss(playlistId, MISS_TTL_SOFT); return null; })
     .finally(() => { INFLIGHT.delete(playlistId); });
 
   INFLIGHT.set(playlistId, p);
@@ -179,6 +223,9 @@ function usePlaylistPreview(playlistId) {
     if (!playlistId) return undefined;
     const cached = readCachedPreview(playlistId);
     if (cached) { setPreview(cached); return undefined; }
+    // A recent miss: the placeholder is the answer for now. No subscription,
+    // no spinner, and — the point — no request.
+    if (previewMissedUntil(playlistId)) return undefined;
 
     // Subscribe first so a fetch started by another card still reaches us.
     if (!SUBSCRIBERS.has(playlistId)) SUBSCRIBERS.set(playlistId, new Set());
