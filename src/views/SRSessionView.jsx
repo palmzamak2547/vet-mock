@@ -6,7 +6,7 @@ import { fmtDate } from '../hooks/utils.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
-import { articleForQuestion } from '../lib/vetwiki/registry.js';
+import { articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import { loadUserFlashcards } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a

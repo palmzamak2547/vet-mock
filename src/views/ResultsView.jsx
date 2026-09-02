@@ -7,7 +7,7 @@ import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { NIGHT_RANK_EVENT, takePromotion } from '../lib/night-rank.js';
-import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry.js';
+import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
