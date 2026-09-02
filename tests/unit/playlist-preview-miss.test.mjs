@@ -44,3 +44,12 @@ test('a successful cover is still cached exactly as before', () => {
   assert.match(src, /PLAYLIST_PREVIEW_CACHE\.set\(playlistId, data\);/);
   assert.match(src, /window\.localStorage\.setItem\('vmx-pl-preview-' \+ playlistId, JSON\.stringify\(\{ data, cachedAt: Date\.now\(\) \}\)\);/);
 });
+
+test('the concurrency gate forwards a rejected fetch to the miss handler', () => {
+  // runQueued used to resolve-only: a fetch that threw left its outer
+  // promise pending forever, so the catch below never ran, INFLIGHT kept the
+  // playlist and the card stayed loading until a reload.
+  const gate = src.slice(src.indexOf('function runQueued('), src.indexOf('function fetchPreview('));
+  assert.match(gate, /new Promise\(\(resolve, reject\) => \{/);
+  assert.match(gate, /Promise\.resolve\(\)\.then\(task\)\.then\(resolve, reject\)\.finally\(/);
+});

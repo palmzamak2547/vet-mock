@@ -145,10 +145,13 @@ const MAX_CONCURRENT_PREVIEWS = 4;
 let _active = 0;
 const _waiting = [];
 function runQueued(task) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const start = () => {
       _active++;
-      task().then(resolve).finally(() => {
+      // Forward rejection too. A fetch that throws (offline, connection
+      // reset) has to reach the caller's catch, or the in-flight marker and
+      // the card's loading state are never cleared and no miss is recorded.
+      Promise.resolve().then(task).then(resolve, reject).finally(() => {
         _active--;
         const next = _waiting.shift();
         if (next) next();
