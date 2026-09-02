@@ -251,7 +251,7 @@ function WebVitalsPanel() {
   };
   return (
     <div className="vmx-dash-card">
-      <h3>Performance (last {samples.length} sessions)</h3>
+      <h2>Performance (last {samples.length} sessions)</h2>
       <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
         {(['lcp', 'cls', 'inp', 'fcp', 'ttfb']).map((key) => {
           const s = stats[key];
@@ -506,7 +506,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           </div>
 
           <div className="vmx-dash-card" style={{ marginTop: 16 }}>
-            <h3>ทางลัด</h3>
+            <h2>ทางลัด</h2>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
               {scopedAnalytics.weakQuestions.length > 0 && (
                 <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setPracticeMode('weak'); setMode('quick'); setView('config'); }}
@@ -527,7 +527,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
           {trend && (
             <div className="vmx-dash-card" style={{ marginTop: 16 }}>
-              <h3>7 วันล่าสุด</h3>
+              <h2>7 วันล่าสุด</h2>
               <TrendChart days={trend} />
             </div>
           )}
@@ -538,14 +538,14 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           <NightRankCard history={history} />
 
           <div className="vmx-dash-card" style={{ marginTop: 16 }}>
-            <h3>ความหนาแน่น 12 เดือน{yearScope === 'current' ? `, ปี ${selectedYear}` : ''}</h3>
+            <h2>ความหนาแน่น 12 เดือน{yearScope === 'current' ? `, ปี ${selectedYear}` : ''}</h2>
             <StreakHeatmap history={scopedHistory} />
           </div>
 
           {learningCurve && (
             <div className="vmx-dash-card" style={{ marginTop: 16 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
-                <h3 style={{ margin: 0 }}>Learning Curve รายวิชา</h3>
+                <h2 style={{ margin: 0 }}>Learning Curve รายวิชา</h2>
                 <div style={{ display: 'flex', gap: 4 }}>
                   {[7, 14, 30].map((d) => (
                     <button
@@ -574,7 +574,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
           <div className="vmx-dash-grid">
             <div className="vmx-dash-card">
-              <h3>ความแม่นยำตามวิชา</h3>
+              <h2>ความแม่นยำตามวิชา</h2>
               {SUBJECTS.filter((s) => s.id !== 'all').map((s) => {
                 const stat = scopedAnalytics.bySubject[s.id];
                 if (!stat || stat.total === 0) return null;
@@ -593,7 +593,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             </div>
 
             <div className="vmx-dash-card">
-              <h3>หัวข้อที่อ่อน</h3>
+              <h2>หัวข้อที่อ่อน</h2>
               {analytics.weakTags.length === 0 ? (
                 <div className="vmx-empty" style={{ padding: 20 }}>ยังไม่มีข้อมูลพอวิเคราะห์จุดอ่อน — ทำข้อสอบสัก 2-3 ชุดแล้วหัวข้อที่ควรเก็บจะขึ้นตรงนี้</div>
               ) : (
@@ -611,7 +611,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       )}
 
       <div className="vmx-dash-card">
-        <h3>OSCE drill</h3>
+        <h2>OSCE drill</h2>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ฝึก clinical-skills station แบบจับเวลา + checklist (PE, IV, intubation, suture,
           anesthesia check, CPCR). มี critical step weight เหมือนสถานีจริง.
@@ -632,7 +632,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       )}
 
       <div className="vmx-dash-card">
-        <h3>Diagram label drill</h3>
+        <h2>Diagram label drill</h2>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ฝึก label anatomy แบบ active recall — แตะจุดบน diagram → เลือก label, ตอนนี้มี 2 ชุด (Heart, Eye) เริ่มต้นไว้
         </div>
@@ -654,7 +654,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       <WebVitalsPanel />
 
       <div className="vmx-dash-card">
-        <h3>สำรองและย้ายข้อมูล</h3>
+        <h2>สำรองและย้ายข้อมูล</h2>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           เก็บข้อที่บันทึกไว้ ประวัติ โน้ต และการ์ดทบทวนเป็นไฟล์ JSON — ก่อนนำเข้าระบบจะตรวจไฟล์และสรุปรายการที่จะเขียนทับ
         </div>

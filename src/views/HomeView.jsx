@@ -1673,12 +1673,13 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
         return (
           <button
             key={s.id}
-            className="vmx-subject-card"
+            // A card with nothing usable yet says so structurally (dashed
+            // edge, quieter icon and accent) rather than by dimming the
+            // whole card, which pushed its subtitle and count below the
+            // 4.5:1 contrast floor.
+            className={`vmx-subject-card${hasUsableContent || shelfDocs > 0 ? '' : ' is-quiet'}`}
             onClick={() => onPick && onPick(s)}
-            style={{
-              opacity: hasUsableContent || shelfDocs > 0 ? 1 : (isEmpty ? 0.6 : 0.7),
-              cursor: 'pointer',
-            }}
+            style={{ cursor: 'pointer' }}
             title={
               hasNotes(s.id) && count === 0 ? 'มีสรุปเนื้อหาให้อ่าน — ข้อสอบยังไม่มี'
               : shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`

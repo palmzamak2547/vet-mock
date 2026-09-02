@@ -101,10 +101,10 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
 
                 {/* Info */}
                 <div style={{ flex: 1, minWidth: 240 }}>
-                  <h3 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18 }}>
+                  <h2 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18 }}>
                     {exam.icon} {exam.title}
                     {exam.weight_pct && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>{exam.weight_pct}%</span>}
-                  </h3>
+                  </h2>
                   <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10, display: 'flex', flexWrap: 'wrap', gap: '2px 10px' }}>
                     {exam.term && (
                       <span style={{ color: exam.term === 'midterm' ? 'var(--clr-gold-text)' : 'var(--clr-sage-text)', fontWeight: 600 }}>
