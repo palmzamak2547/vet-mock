@@ -32,6 +32,16 @@ test('the practice presets are computed inside useMemo, not in the render body',
   assert.doesNotMatch(jsx, /\{!isScaffoldYear && \(\(\) => \{/, 'the practice-mode IIFE is back');
 });
 
+test('the phase-scoped subject list keeps a stable identity between renders', () => {
+  // quickStats, accBySubject and practicePresets all memoise on
+  // yearSubjects; a bare filter() would hand them a new array every render
+  // and turn every one of those memos into a per-render recompute.
+  assert.match(home, /const yearSubjects = useMemo\(\(\) => \(phaseMeta[\s\S]{0,40}\? allYearSubjects\.filter\(/);
+  assert.match(home, /: allYearSubjects\), \[allYearSubjects, phaseMeta\]\);/);
+  assert.match(home, /SUBJECTS_BY_YEAR\[selectedYear\] \|\| NO_SUBJECTS/);
+  assert.doesNotMatch(home, /SUBJECTS_BY_YEAR\[selectedYear\] \|\| \[\]/);
+});
+
 test('the home keyboard hint matches the digits the exam accepts', () => {
   assert.match(home, /<span className="vmx-kbd">1-5<\/span> เพื่อเลือก MCQ/);
   assert.doesNotMatch(home, /vmx-kbd">1-4</);

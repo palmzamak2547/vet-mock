@@ -59,6 +59,10 @@ const PHASE_LABELS = {
   '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
 };
 
+// Shared empty list so a year without subjects does not mint a fresh array
+// (and a fresh memo dependency) on every render.
+const NO_SUBJECTS = Object.freeze([]);
+
 export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
@@ -81,10 +85,16 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // selected (e.g. Y6 block-based), show all subjects.
   // Special case: semester === 0 means cross-semester (e.g. VCA license
   // exam prep) — always show regardless of selected phase.
-  const allYearSubjects = SUBJECTS_BY_YEAR[selectedYear] || [];
-  const yearSubjects = phaseMeta
+  // Stable identity matters here: quickStats, accBySubject and the practice
+  // presets all memoise on `yearSubjects`. A bare filter() minted a new array
+  // on every render whenever a phase was selected — the normal case — so
+  // every one of those memos silently recomputed on each presence sync and
+  // countdown tick. The inputs are a module-level table and a constant
+  // phase record, so the list only changes when the year or phase does.
+  const allYearSubjects = SUBJECTS_BY_YEAR[selectedYear] || NO_SUBJECTS;
+  const yearSubjects = useMemo(() => (phaseMeta
     ? allYearSubjects.filter((s) => s.semester === phaseMeta.semester || s.semester === 0)
-    : allYearSubjects;
+    : allYearSubjects), [allYearSubjects, phaseMeta]);
 
   // Question count — must match what YearSelectView shows for the same year:
   // Note: hero stat `totalQ` (year + vca + custom) was removed in

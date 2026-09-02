@@ -6,7 +6,7 @@
 // save is genuinely pending. The timer callback used to leave its spent
 // id in saveTimerRef, so every later Realtime ping saw a truthy ref,
 // re-armed a save + push, heard its own row change echoed back, and
-// looped every few seconds (Codex review on PR #4, P1).
+// looped every few seconds (found in post-merge review of PR #4).
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
