@@ -10,7 +10,7 @@ import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrent
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
-import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
+import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generated.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';

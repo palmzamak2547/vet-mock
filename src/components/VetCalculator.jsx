@@ -11,8 +11,8 @@
 //   • Transfusion  — pRBC volume to raise PCV by N
 //   • DKA insulin  — regular insulin CRI rate (dog/cat)
 //
-// Lazy-loaded from App.jsx so the floating button doesn't add to
-// the main bundle. Self-contained — no external state, no API calls.
+// Lazy-loaded from App.jsx (VetCalculatorHost) so the modal and the drug
+// database stay out of the entry chunk until the first open. Self-contained — no external state, no API calls.
 // All formulas have a "Why" caption so users can verify the math
 // (and learn the formula instead of just plugging numbers).
 // ============================================================
@@ -628,8 +628,11 @@ function ChipRow({ label, options, value, onChange }) {
 // showFab defaults OFF: the app mounts one global ToolsFAB in the same
 // corner, and a second 52px circle at the same coordinates is exactly the
 // collision this default used to arm.
-export default function VetCalculator({ showFab = false } = {}) {
-  const [open, setOpen] = useState(false);
+// `initialOpen` mounts the modal already open — the lazy host in App.jsx
+// consumes the very first open event itself (the chunk was not loaded yet
+// to hear it), then mounts this component in the open state.
+export default function VetCalculator({ showFab = false, initialOpen = false } = {}) {
+  const [open, setOpen] = useState(initialOpen);
   const [activeTab, setActiveTab] = useState('rer');
   const dialogRef = useModalFocus({ active: open, onClose: () => setOpen(false) });
 

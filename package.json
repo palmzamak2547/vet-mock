@@ -1,14 +1,15 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.65.0",
+  "version": "5.65.1",
   "type": "module",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender-wiki.mjs",
+    "predev": "node scripts/regen-latest-changelog.mjs",
+    "build": "node scripts/regen-latest-changelog.mjs && vite build && node scripts/prerender-wiki.mjs",
     "preview": "vite preview",
     "analyze": "npx --yes vite-bundle-visualizer",
     "icons": "node scripts/generate-icons.mjs",
@@ -22,7 +23,9 @@
     "lint:citation-index": "node scripts/regen-citation-index.mjs --check",
     "validate:wiki": "node scripts/validate-wiki.mjs",
     "sync:wiki-unmapped": "node scripts/sync-wiki-unmapped.mjs",
-    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:deck-refs && npm run lint:question-standard && npm run lint:delivery && npm run lint:thai-orthography && npm run lint:empty-sections && npm run lint:registry && npm run lint:wiki-registry && npm run lint:citation-index && npm run lint:video-meta && npm run lint:notes-registry && npm run lint:conflict-summary && npm run lint:wiki-runtime && npm run lint:curriculum && npm run lint:instructors && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check && npm run lint:accent-tokens && npm run audit:contrast && npm run audit:contrast -- --landing && npm run audit:contrast -- --exam",
+    "lint:all": "npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:deck-refs && npm run lint:question-standard && npm run lint:delivery && npm run lint:thai-orthography && npm run lint:empty-sections && npm run lint:registry && npm run lint:changelog-latest && npm run lint:wiki-registry && npm run lint:citation-index && npm run lint:video-meta && npm run lint:notes-registry && npm run lint:conflict-summary && npm run lint:wiki-runtime && npm run lint:curriculum && npm run lint:instructors && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check && npm run lint:accent-tokens && npm run audit:contrast && npm run audit:contrast -- --landing && npm run audit:contrast -- --exam",
+    "regen:changelog": "node scripts/regen-latest-changelog.mjs",
+    "lint:changelog-latest": "node scripts/regen-latest-changelog.mjs --check",
     "regen:q-counts": "node scripts/regen-q-counts.mjs",
     "regen:delivery": "node scripts/regen-question-delivery.mjs",
     "regen:registry": "node scripts/regen-bank-registry.mjs",

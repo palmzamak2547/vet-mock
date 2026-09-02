@@ -64,12 +64,55 @@ const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
 // most sessions never tweak voice — keep the main bundle slim.
 const VoiceSettings = lazy(() => import('./components/VoiceSettings.jsx'));
 
-// VetCalculator — floating widget for clinical math (RER, fluid ·
-// drug dose, transfusion, DKA insulin). Imported eagerly because
-// the FAB button needs to render on every page; modal contents only
-// run when the user opens it, so the runtime cost is just ~5KB
-// gzipped of inert UI code on first paint.
-import VetCalculator from './components/VetCalculator.jsx';
+// VetCalculator — clinical math modal (RER, fluid, drug dose, transfusion,
+// DKA insulin). It used to be imported eagerly "because the FAB needs to
+// render on every page", but the FAB is ToolsFAB; the calculator itself,
+// with the drug database it carries, is ~60 KB of source that most sessions
+// never open. VetCalculatorHost below keeps it out of the entry chunk: it
+// listens for the ToolsFAB's open event, loads the module on the first
+// request and mounts the modal already open. The load is a plain import()
+// promise rather than React.lazy: a chunk that fails to arrive (offline, a
+// flaky connection) is caught here and answered with a retry, instead of
+// being thrown at a tree with no error boundary above this host. No idle
+// warm-up on purpose: main.jsx reloads the page once when a chunk fails to
+// load (stale-deploy recovery), and an automatic fetch that keeps failing
+// would turn that into a reload loop. The first tap fetches a small chunk.
+const loadVetCalculator = () => import('./components/VetCalculator.jsx');
+function VetCalculatorHost() {
+  const [Calculator, setCalculator] = useState(null);
+  const loadingRef = useRef(false);
+  useEffect(() => {
+    if (Calculator) return undefined;
+    let alive = true;
+    const load = async () => {
+      if (loadingRef.current) return;
+      loadingRef.current = true;
+      try {
+        const mod = await loadVetCalculator();
+        if (alive) setCalculator(() => mod.default);
+      } catch {
+        loadingRef.current = false;
+        if (!alive) return;
+        // A module whose fetch failed stays failed in the browser's module
+        // map, so importing it again in this document cannot recover — a
+        // fresh document can. Say so, and let the student choose the reload.
+        const again = await confirmDialog({
+          title: 'โหลดเครื่องคิดเลขไม่ได้',
+          body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ต แล้วกดลองใหม่เพื่อโหลดหน้านี้ใหม่',
+          confirmLabel: 'ลองใหม่',
+          cancelLabel: 'ปิด',
+        });
+        if (again && alive) window.location.reload();
+        return;
+      }
+      loadingRef.current = false;
+    };
+    window.addEventListener('vmx-open-vetcalc', load);
+    return () => { alive = false; window.removeEventListener('vmx-open-vetcalc', load); };
+  }, [Calculator]);
+  if (!Calculator) return null;
+  return <Calculator showFab={false} initialOpen />;
+}
 // Unified bottom-right FAB — single button fans out to 🧮 + 🎨. Tiny
 // component (~3 KB) and used on nearly every view, so import eagerly.
 import ToolsFAB from './components/ToolsFAB.jsx';
@@ -2296,10 +2339,10 @@ export default function App() {
               first) and during an active exam (don't tempt them with the
               calculator UI mid-question — exam already shows wake lock).
               Rendered eagerly so the button is on first paint. */}
-          {/* VetCalculator lives in the tree (modal + listener) but
-              renders no FAB of its own — ToolsFAB drives opening via
-              a window event. */}
-          {!FOCUS_VIEWS.has(view) && <VetCalculator showFab={false} />}
+          {/* The calculator's host lives in the tree (listener only) and
+              renders no FAB of its own — ToolsFAB drives opening via a
+              window event; the modal chunk loads on the first request. */}
+          {!FOCUS_VIEWS.has(view) && <VetCalculatorHost />}
 
           {/* Unified ToolsFAB — one button bottom-right that fans out
               into the calculator + sketchpad. Replaces what used to be
