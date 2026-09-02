@@ -67,7 +67,7 @@ export default defineConfig({
           /data-q-/,                   // Q banks · 16 chunks · ~2 MB (Phase 2+3 will lazy them)
           /data-video-summaries/,      // VideoView only · 2 MB
           /data-notes-/,               // NotesView only · per-subject
-          /data-instructors/,          // FacultyView only · 135 KB
+          /data-instructors/,          // FacultyView (+ palette, on demand) · ~330 KB
           /vendor-validation/,         // JSON import only · Dashboard/Q manager
         ];
         return deps.filter((dep) => !SKIP_PRELOAD_PATTERNS.some((re) => re.test(dep)));

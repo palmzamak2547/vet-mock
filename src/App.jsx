@@ -922,7 +922,10 @@ export default function App() {
       import('./views/SubjectSelectView.jsx').catch(() => {});
       import('./views/ConfigView.jsx').catch(() => {});
       import('./views/ScheduleView.jsx').catch(() => {});
-      import('./views/FacultyView.jsx').catch(() => {});
+      // FacultyView is not on this list on purpose: it carries the whole
+      // instructor directory (~330 KB, ~75 KB gzipped), which is exactly
+      // the kind of chunk this prefetch exists to keep off the boot path.
+      // It loads on demand, one tap away, like ExamView.
       import('./views/AuthView.jsx').catch(() => {});
     }, { timeout: 5000 });
     return () => cic(id);
