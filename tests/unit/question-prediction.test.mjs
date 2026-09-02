@@ -78,6 +78,18 @@ test('prediction metadata is all-or-nothing and high tier needs two signals', ()
   assert.ok(predictionMetadataIssues({ predictionTier: 'high' }).length >= 5);
 });
 
+test('evidence-only metadata and unknown signal names fail closed', () => {
+  assert.ok(predictionMetadataIssues({
+    predictionEvidence: ['Senior paper p.1'],
+  }).length > 0);
+  assert.ok(predictionMetadataIssues({
+    ...BASE,
+    predictionSignals: ['banana', 'banana-two'],
+    predictionTier: 'high',
+    predictionEvidence: ['Senior paper p.1'],
+  }).includes('predictionSignals'));
+});
+
 test('pending and legacy unclear answers fail closed', () => {
   assert.equal(questionNeedsAnswerReview({ answerStatus: 'needs-review' }), true);
   assert.equal(questionNeedsAnswerReview({ flag: { severity: 'unclear' } }), true);

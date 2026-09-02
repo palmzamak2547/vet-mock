@@ -10,7 +10,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const app = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+const app = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const host = app.slice(app.indexOf('function VetCalculatorHost('), app.indexOf('export default function App('));
 
 test('the calculator is not imported eagerly and not through React.lazy', () => {

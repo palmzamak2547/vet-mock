@@ -856,25 +856,17 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "com3": {
     "acute-abdomen": 9,
     "ataxia-tremor": 12,
-    "cataract": 2,
-    "cornea": 5,
     "cpcr": 8,
-    "ear": 2,
     "er-anes": 6,
-    "glaucoma": 3,
-    "imaging": 4,
     "metabolic-er": 6,
     "neuro-er": 6,
     "nutrition": 11,
-    "ophthal-exam": 3,
     "resp-cv-er": 12,
-    "retina": 3,
     "seizure": 10,
     "shock": 11,
     "special-prep": 68,
     "spinal": 14,
     "triage": 5,
-    "uveitis": 8,
   },
   "com4": {
     "__unassigned__": 7,
@@ -904,9 +896,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
   "engprof": {
     "paraphrasing": 1,
-    "research-design": 5,
-    "research-paper-structure": 40,
-    "summary-writing": 4,
   },
   "equine-repro": {
     "eqrepro-ai": 11,
@@ -968,11 +957,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "ketosis": 1,
     "lumpy-skin-disease": 1,
     "malignant-catarrhal-fever": 1,
-    "mastitis-treatment-clinical": 1,
-    "mastitis-treatment-drycow": 1,
     "milk-fever": 1,
-    "milk-quality-standard": 1,
-    "on-farm-culture": 1,
     "paratuberculosis": 1,
     "pregnancy-toxemia": 2,
     "responsible-amr": 1,
@@ -1090,7 +1075,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "blup-breeding-value": 1,
     "boar-restraint-snare": 1,
     "breeding-system-3-breed-cross": 1,
-    "contagious-vs-environmental-mastitis-pathogens": 1,
     "cross-sectional-vs-case-control": 1,
     "epidemic-vs-endemic": 1,
     "feeding-pregnancy-stage": 1,
@@ -1098,17 +1082,10 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "inbreeding-depression": 1,
     "iron-deficiency-anemia-piglet": 1,
     "isolation-acclimatization-new-gilts": 1,
-    "mastitis-subclinical-scc": 1,
-    "milk-letdown-oxytocin": 1,
-    "milking-machine-pulsation": 1,
     "mycotoxin-zearalenone": 1,
-    "npd-calculation": 1,
     "parakeratosis-zinc-deficiency": 1,
-    "parity-structure-management": 1,
-    "production-tree-low-total-born": 1,
     "prrs-vaccination-program": 1,
     "psy-calculation": 1,
-    "return-to-estrus-pattern": 1,
     "sensitivity-specificity-calculation": 1,
     "sow-feeding-lactation": 1,
     "swine-dysentery-brachyspira": 1,
@@ -1117,7 +1094,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "swine-welfare-5-freedoms": 1,
     "thin-sow-syndrome": 1,
     "vitamin-e-selenium-deficiency": 1,
-    "wsi-fertility-relationship": 1,
   },
   "swine-repro": {
     "artificial-insemination": 3,
@@ -1208,19 +1184,14 @@ export const Q_HIGH_PREDICTION_COUNTS =
 {
   "2569-1": {
     "all": {
-      "avian-medicine": 5,
-      "epidemiology": 8,
       "zoonoses": 4
     },
     "midterm": {
-      "avian-medicine": 5,
       "zoonoses": 4
     },
-    "final": {
-      "epidemiology": 8
-    },
+    "final": {},
     "continuous": {}
   }
 };
 
-// Built: 2026-09-02T18:26:07.351Z
+// Built: 2026-09-02T18:56:45.981Z

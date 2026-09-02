@@ -12,7 +12,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const src = readFileSync(new URL('../../src/hooks/useStudyBuddies.js', import.meta.url), 'utf8');
+const src = readFileSync(new URL('../../src/hooks/useStudyBuddies.js', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
 test('joined_at is fixed for the life of the channel, never minted per track', () => {
   assert.match(src, /const joinedAtRef = useRef\(0\);/);

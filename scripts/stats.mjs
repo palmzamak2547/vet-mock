@@ -167,7 +167,7 @@ const readmeStats = [
   '| | |',
   '|---|---|',
   `| ข้อสอบพร้อมฝึก | **${fmt(deliverableTotal)} ข้อ** ใน ${qFiles.length} bank files, ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} วิชา |`,
-  `| พักไว้เพื่อความถูกต้อง | ${fmt(blockedTotal)} ข้อรอภาพที่ตรวจสอบแล้ว (เก็บใน source bank แต่ไม่ส่งให้ผู้เรียน) |`,
+  `| พักไว้เพื่อความถูกต้อง | ${fmt(blockedTotal)} ข้อรอตรวจเฉลย ขอบเขต หรือภาพประกอบ (เก็บใน source bank แต่ไม่ส่งให้ผู้เรียน) |`,
   `| ชั้นปีที่มีเนื้อหา | ${yearSummary} |`,
   `| สรุปโน้ต | ${nFiles.length} ไฟล์, ${fmt(noteTopics)} หัวข้อ, ${fmt(noteSections)} sections, อ้างอิงแหล่งที่มาครบ ${sourcedPercent}% |`,
   `| สรุปคลิป | ${fmt(videos)} คลิป ใน ${vFiles.length} ไฟล์ |`,

@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { stashPromotion, takePromotion, NIGHT_RANKS } from '../../src/lib/night-rank.js';
 
-const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
+const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
 test('the stash is one-shot and only holds a real from/to pair', () => {
   assert.equal(takePromotion(), null);

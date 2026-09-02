@@ -161,6 +161,10 @@ test('publication metadata defaults to draft and requires real permission eviden
     () => publicationMetadata({ license: 'instructor-permission' }),
     /requires permissionEvidence/,
   );
+  assert.throws(
+    () => publicationMetadata({ license: 'Instructor-Permission', status: 'public' }),
+    /requires permissionEvidence/,
+  );
   assert.deepEqual(publicationMetadata({
     license: 'instructor-permission',
     permissionEvidence: 'Written approval on file 2026-08-20',
@@ -172,6 +176,14 @@ test('publication metadata defaults to draft and requires real permission eviden
   assert.throws(
     () => publicationMetadata({ license: 'CC-BY-4.0', status: 'visible' }),
     /invalid library status/,
+  );
+  assert.throws(
+    () => publicationMetadata({ license: 'all-rights-reserved', status: 'public' }),
+    /unsupported library license/,
+  );
+  assert.throws(
+    () => publicationMetadata({ license: 'copyrighted lecture deck', status: 'public' }),
+    /unsupported library license/,
   );
 });
 

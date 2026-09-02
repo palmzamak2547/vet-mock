@@ -4,19 +4,22 @@
 
 export const UNASSIGNED_TOPIC = '__unassigned__';
 
-const PAST_PAPER_SOURCE_PATTERN = /ข้อสอบเก่า|FINAL\s*86|past\s*paper/i;
+const PAST_PAPER_SOURCE_PATTERN = /ข้อสอบ(?:เก่า)?|\b(?:FINAL|MID)\s*86\b|past\s*(?:paper|exam)/i;
+const PAST_PAPER_ORIGIN_PATTERN = /ข้อสอบเก่า|past\s*(?:paper|exam)|exam(?:ination)?\s*recall|\b(?:final|mid(?:term)?|osce|prac\s*final|lab\s*final)\b|\bER\s*Q\d+/i;
+const NON_PAPER_ORIGIN_PATTERN = /\bmock\b|station\s+prep/i;
 
 export function questionTopicId(question) {
   return question?.topic || UNASSIGNED_TOPIC;
 }
 
 // `sourceType` is the canonical marker and wins when present. `examOrigin` is
-// authoritative only for legacy questions without that marker: several older
-// ingests put a senior-summary note in examOrigin while correctly classifying
-// the question as lecture-derived or student-compilation. The source-text
-// fallback keeps still-older banks compatible until metadata is normalized.
+// considered only for legacy questions without that marker and must itself
+// name a real exam context. A nonempty value is not enough: practice mocks and
+// senior summaries also use this field. The source-text fallback keeps
+// still-older banks compatible until metadata is normalized.
 export function isPastPaperQuestion(question) {
   if (question?.sourceType) return question.sourceType === 'past-paper';
-  return Boolean(String(question?.examOrigin || '').trim())
+  const origin = String(question?.examOrigin || '');
+  return (!NON_PAPER_ORIGIN_PATTERN.test(origin) && PAST_PAPER_ORIGIN_PATTERN.test(origin))
     || PAST_PAPER_SOURCE_PATTERN.test(String(question?.source || ''));
 }

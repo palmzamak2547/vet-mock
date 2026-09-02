@@ -173,6 +173,16 @@ export const kindFor = (folder, name) => {
 };
 
 const LIBRARY_STATUSES = new Set(['draft', 'public', 'restricted', 'archived']);
+const LIBRARY_LICENSES = new Map([
+  ['cc0-1.0', 'CC0-1.0'],
+  ['cc-by-4.0', 'CC-BY-4.0'],
+  ['cc-by-sa-4.0', 'CC-BY-SA-4.0'],
+  ['cc-by-nc-4.0', 'CC-BY-NC-4.0'],
+  ['cc-by-nc-sa-4.0', 'CC-BY-NC-SA-4.0'],
+  ['public-domain', 'public-domain'],
+  ['internal-original', 'internal-original'],
+  ['instructor-permission', 'instructor-permission'],
+]);
 
 /** Hosting authority must arrive from the reviewed manifest, never from an
  * ingest-wide assumption. Permission-based material additionally needs an
@@ -180,13 +190,15 @@ const LIBRARY_STATUSES = new Set(['draft', 'public', 'restricted', 'archived']);
 export function publicationMetadata(item) {
   const license = String(item?.license || '').trim();
   if (!license) throw new Error('license missing from manifest item');
+  const canonicalLicense = LIBRARY_LICENSES.get(license.toLowerCase());
+  if (!canonicalLicense) throw new Error(`unsupported library license: ${license}`);
   const permissionEvidence = String(item?.permissionEvidence || item?.permission_evidence || '').trim();
-  if (license === 'instructor-permission' && !permissionEvidence) {
+  if (canonicalLicense === 'instructor-permission' && !permissionEvidence) {
     throw new Error('instructor-permission requires permissionEvidence');
   }
   const status = String(item?.status || 'draft').trim();
   if (!LIBRARY_STATUSES.has(status)) throw new Error(`invalid library status: ${status}`);
-  return { license, permissionEvidence: permissionEvidence || null, status };
+  return { license: canonicalLicense, permissionEvidence: permissionEvidence || null, status };
 }
 
 async function sb(path, init = {}) {

@@ -15,6 +15,7 @@ export const PREDICTION_SOURCE_TYPES = new Set([
 
 const VERSION_PATTERN = /^\d{4}-[123]$/;
 const SIGNAL_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const PREDICTION_SIGNALS = new Set(['current-lecture', 'senior-recurrence']);
 
 export function examScopeForPhase(selectedPhase) {
   if (typeof selectedPhase !== 'string') return null;
@@ -30,6 +31,7 @@ export function predictionMetadataIssues(question) {
     'examScope',
     'predictionTier',
     'predictionSignals',
+    'predictionEvidence',
   ];
   if (!keys.some((key) => question?.[key] != null)) return [];
 
@@ -44,6 +46,7 @@ export function predictionMetadataIssues(question) {
   if (!Array.isArray(signals)
     || signals.length === 0
     || signals.some((signal) => !SIGNAL_PATTERN.test(String(signal)))
+    || signals.some((signal) => !PREDICTION_SIGNALS.has(signal))
     || new Set(signals).size !== signals.length) {
     issues.push('predictionSignals');
   }

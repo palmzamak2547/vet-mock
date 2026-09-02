@@ -114,10 +114,15 @@ test('generated high-prediction counts match verified current-scope questions', 
 test('past-paper metadata rule keeps canonical and legacy banks aligned', () => {
   assert.equal(isPastPaperQuestion({ sourceType: 'past-paper' }), true);
   assert.equal(isPastPaperQuestion({ examOrigin: 'Vet 84 Final Q12' }), true);
+  assert.equal(isPastPaperQuestion({ examOrigin: 'Mock 1 Part I' }), false);
+  assert.equal(isPastPaperQuestion({ examOrigin: 'OSCE 14 May 2025 station prep doc' }), false);
   assert.equal(isPastPaperQuestion({ sourceType: 'student-compilation', examOrigin: 'Vet 85 recall' }), false);
   assert.equal(isPastPaperQuestion({ sourceType: 'lecture-derived', examOrigin: 'Final study notes' }), false);
   assert.equal(isPastPaperQuestion({ source: 'ข้อสอบเก่า Final 86' }), true);
   assert.equal(isPastPaperQuestion({ source: 'Past paper review' }), true);
+  assert.equal(isPastPaperQuestion({ source: '7. ข้อสอบ 81' }), true);
+  assert.equal(isPastPaperQuestion({ source: 'EXOTIC MID 86 Q12' }), true);
+  assert.equal(isPastPaperQuestion({ examOrigin: 'Past Exam 2021, Part III' }), true);
   assert.equal(isPastPaperQuestion({ sourceType: 'lecture', source: 'Lecture slide' }), false);
   assert.equal(questionTopicId({}), '__unassigned__');
 });

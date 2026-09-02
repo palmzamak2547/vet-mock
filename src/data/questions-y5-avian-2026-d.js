@@ -453,13 +453,9 @@ export const QUESTIONS_Y5_AVIAN_2026_D = [
     "examScope": "midterm",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
-    ],
-    "predictionEvidence": [
-      "pp’s avian med.pdf p.1 item 14 — intermediate-plus outbreak vaccination"
+      "current-lecture"
     ]
   },
   {
@@ -487,13 +483,9 @@ export const QUESTIONS_Y5_AVIAN_2026_D = [
     "examScope": "midterm",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "lecturer-emphasis"
-    ],
-    "predictionEvidence": [
-      "Infectious bursal disease p.36 — ข้อสำคัญ: MDA and protection gap"
+      "current-lecture"
     ]
   },
   {
@@ -552,13 +544,9 @@ export const QUESTIONS_Y5_AVIAN_2026_D = [
     "examScope": "midterm",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
-    ],
-    "predictionEvidence": [
-      "pp’s avian med.pdf p.1 items 3 and 15 — cell-free feather transmission and cell-associated vaccination"
+      "current-lecture"
     ]
   },
   {
@@ -586,13 +574,9 @@ export const QUESTIONS_Y5_AVIAN_2026_D = [
     "examScope": "midterm",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
-    ],
-    "predictionEvidence": [
-      "pp’s avian med.pdf p.1 item 7 — early cytolytic B/T lymphocyte destruction"
+      "current-lecture"
     ]
   },
   {
@@ -1102,13 +1086,9 @@ export const QUESTIONS_Y5_AVIAN_2026_D = [
     "examScope": "midterm",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
-    ],
-    "predictionEvidence": [
-      "Avian Medicine midterm compilation (Vet 81) p.3 — ISS multifactorial causes"
+      "current-lecture"
     ]
   },
   {

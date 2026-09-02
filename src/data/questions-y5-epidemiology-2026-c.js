@@ -27,13 +27,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "examScope": "final",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
-    ],
-    "predictionEvidence": [
-      "Epidemiology midterm compilation p.1 Q1-2"
+      "current-lecture"
     ],
     "tags": [
       "prevalence",
@@ -124,13 +120,9 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "examScope": "final",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
-    ],
-    "predictionEvidence": [
-      "Epidemiology midterm compilation p.1 Q2-3"
+      "current-lecture"
     ],
     "tags": [
       "cumulative-incidence",
@@ -221,18 +213,14 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "examScope": "final",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
+      "current-lecture"
     ],
     "tags": [
       "case-fatality-rate",
       "mortality-rate",
       "morbidity-rate"
-    ],
-    "predictionEvidence": [
-      "Epidemiology final compilation p.2 — case-fatality and mortality recurrence"
     ]
   },
   {
@@ -318,18 +306,14 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "examScope": "final",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
+      "current-lecture"
     ],
     "tags": [
       "screening-test",
       "diagnostic-test",
       "test-purpose"
-    ],
-    "predictionEvidence": [
-      "Epidemiology midterm compilation p.1 Q8"
     ]
   },
   {
@@ -385,18 +369,14 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "examScope": "final",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
+      "current-lecture"
     ],
     "tags": [
       "sensitivity",
       "specificity",
       "conditional-probability"
-    ],
-    "predictionEvidence": [
-      "Epidemiology final compilation p.2 — 2×2 specificity calculation recurrence"
     ]
   },
   {
@@ -420,19 +400,15 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "examScope": "final",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
+      "current-lecture"
     ],
     "tags": [
       "sensitivity",
       "specificity",
       "accuracy",
       "calculation"
-    ],
-    "predictionEvidence": [
-      "Epidemiology final compilation p.2 — 2×2 specificity calculation recurrence"
     ]
   },
   {
@@ -456,19 +432,15 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "examScope": "final",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
+      "current-lecture"
     ],
     "tags": [
       "felv",
       "sensitivity",
       "specificity",
       "calculation"
-    ],
-    "predictionEvidence": [
-      "Epidemiology final compilation p.2 — 2×2 specificity calculation recurrence"
     ]
   },
   {
@@ -587,19 +559,15 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
     "examScope": "final",
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
-    "predictionTier": "high",
+    "predictionTier": "medium",
     "predictionSignals": [
-      "current-lecture",
-      "senior-recurrence"
+      "current-lecture"
     ],
     "tags": [
       "rule-out",
       "rule-in",
       "sensitivity",
       "specificity"
-    ],
-    "predictionEvidence": [
-      "Epidemiology midterm compilation p.1 Q8"
     ]
   },
   {
