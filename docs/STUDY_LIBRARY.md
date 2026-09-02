@@ -138,6 +138,11 @@ update public.library_docs set status = 'public' where slug = '...';
 `status` values: `draft` (nobody), `public` (anonymous visitors),
 `restricted` (signed-in only), `archived` (hidden, kept for history).
 
+Bulk manifests follow the same rule per item: `license` is required;
+`license: "instructor-permission"` also requires `permissionEvidence`; and
+omitting `status` lands the row in `draft`. Neither the MyCourseVille nor the
+local-file ingest path may infer publication rights from where a file came from.
+
 For R2, upload out of band first — the script refuses to insert a row pointing
 at bytes it cannot reach:
 

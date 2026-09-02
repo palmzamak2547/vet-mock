@@ -47,74 +47,42 @@ const LENGTH_BIAS_RATIO = 1.6;    // correct option > 1.6× the mean distractor
 const LENGTH_BIAS_ERROR_RATIO = 3.5; // ≥3.5× = error (egregious, must rewrite)
 const MIN_TOPIC_N = 5;            // ignore tiny topic buckets where bias is just sample noise
 
-const args = process.argv.slice(2);
-const wantJson = args.includes('--json');
-const warnOnly = args.includes('--warn-only');
-const wantTriage = args.includes('--triage');
+const root = path.resolve(__dirname, '..');
 
-// ── Single-line JS string array splitter (same logic as fix-answer-bias) ──
-function splitJsStringArray(s) {
-  const out = [];
-  let i = 0;
-  while (i < s.length) {
-    // Skip whitespace, commas, and newlines (multi-line arrays)
-    while (i < s.length && /[\s,]/.test(s[i])) i++;
-    if (i >= s.length) break;
-    if (s[i] !== "'") return null;
-    const start = i;
-    i++;
-    while (i < s.length) {
-      if (s[i] === '\\') { i += 2; continue; }
-      if (s[i] === "'") { i++; break; }
-      i++;
-    }
-    // strip outer quotes + un-escape
-    out.push(s.slice(start + 1, i - 1).replace(/\\'/g, "'").replace(/\\\\/g, '\\'));
-  }
-  return out;
-}
+// Import the same executable modules the app and the other corpus gates read.
+// A source-text parser used to recognise only `  { id: ... }` with bare keys
+// and single-quoted values. JSON-shaped banks emitted by build-question-bank
+// use quoted keys on separate lines, so thousands of shipped questions were
+// silently absent from this lint. `readBank` is the shared reader built for
+// exactly this mixed-format corpus; an unreadable bank now rejects the run.
+async function loadQuestions({ files = FILES, rootDir = root } = {}) {
+  const { readBank } = await import('./lib/bank-file.mjs');
+  const allQs = [];
 
-// ── Naive question-block extractor. Skips embedded objects (e.g. flag).
-//    Each MCQ entry is on its own line with options + answer + topic. ──
-function parseQuestions(src, file) {
-  const blocks = src.split(/\n  \{ id: /).slice(1);
-  const items = [];
-  for (const b of blocks) {
-    const idMatch = b.match(/^(\d+),/);
-    const subjectMatch = b.match(/subject: '([^']+)'/);
-    const topicMatch = b.match(/topic: '([^']+)'/);
-    const typeMatch = b.match(/type: '([^']+)'/);
-    // Single-line OR multi-line options array. Multi-line happens when
-    // a question has > ~80 chars worth of options and the author broke
-    // the array across lines for readability (Phase-2 COM III batch
-    // and most engprof writing prompts do this).
-    const optsMatch = b.match(/options: \[([\s\S]*?)\](?=,\s*\n)/);
-    const answerMatch = b.match(/answer: (\d+)/);
-    const qMatch = b.match(/q: '((?:[^'\\]|\\.)*)'/);
-
-    if (!idMatch || !typeMatch) continue;
-    const item = {
-      id: Number(idMatch[1]),
-      subject: subjectMatch ? subjectMatch[1] : '?',
-      topic: topicMatch ? topicMatch[1] : '?',
-      type: typeMatch[1],
-      file,
-    };
-    if (item.type !== 'mcq') {
-      // Still record q text for ** check
-      item.q = qMatch ? qMatch[1] : '';
-      items.push(item);
+  for (const file of files) {
+    const abs = path.isAbsolute(file) ? file : path.join(rootDir, file);
+    const rel = path.relative(rootDir, abs).split(path.sep).join('/');
+    if (!fs.existsSync(abs)) {
+      console.error(`! missing ${rel}`);
       continue;
     }
-    if (!optsMatch || !answerMatch) continue;
-    const opts = splitJsStringArray(optsMatch[1]);
-    if (!opts) continue;
-    item.options = opts;
-    item.answer = Number(answerMatch[1]);
-    item.q = qMatch ? qMatch[1] : '';
-    items.push(item);
+
+    const src = fs.readFileSync(abs, 'utf8');
+    // A bank may declare itself a faithful past-paper transcription. Length
+    // bias in a REAL exam belongs to the original examiner — rewriting the
+    // options would falsify the paper students are practicing for — so those
+    // findings are suppressed (with a count, never silently). The pragma
+    // requires a reason after the colon; a bare switch does not count.
+    const pragmaAt = src.indexOf('lint:length-bias-exempt:');
+    const lengthBiasExempt = pragmaAt >= 0
+      && src.slice(pragmaAt + 'lint:length-bias-exempt:'.length).split(String.fromCharCode(10))[0].trim().length > 0;
+    const { questions } = await readBank(abs);
+    for (const question of questions) {
+      allQs.push({ ...question, file: rel, lengthBiasExempt });
+    }
   }
-  return items;
+
+  return allQs;
 }
 
 // ── Checks ────────────────────────────────────────────────────────────
@@ -235,119 +203,119 @@ function checkMarkdownLeak(questions) {
   return [];
 }
 
-// ── Run ───────────────────────────────────────────────────────────────
-const root = path.resolve(__dirname, '..');
-const allQs = [];
-for (const rel of FILES) {
-  const abs = path.join(root, rel);
-  if (!fs.existsSync(abs)) {
-    console.error(`! missing ${rel}`);
-    continue;
-  }
-  const src = fs.readFileSync(abs, 'utf8');
-  // A bank may declare itself a faithful past-paper transcription. Length
-  // bias in a REAL exam belongs to the original examiner — rewriting the
-  // options would falsify the paper students are practicing for — so those
-  // findings are suppressed (with a count, never silently). The pragma
-  // requires a reason after the colon; a bare switch does not count.
-  const pragmaAt = src.indexOf('lint:length-bias-exempt:');
-  const lengthBiasExempt = pragmaAt >= 0
-    && src.slice(pragmaAt + 'lint:length-bias-exempt:'.length).split(String.fromCharCode(10))[0].trim().length > 0;
-  const items = parseQuestions(src, rel);
-  for (const it of items) it.lengthBiasExempt = lengthBiasExempt;
-  allQs.push(...items);
+function lintQuestions(allQs) {
+  const findings = [
+    ...checkPositionBias(allQs),
+    ...checkLengthBias(allQs),
+    ...checkMarkdownLeak(allQs),
+    ...checkMiddleDotInOptions(allQs),
+  ];
+  return {
+    findings,
+    errors: findings.filter((f) => f.severity === 'error'),
+    warns: findings.filter((f) => f.severity === 'warn'),
+    suppressed: checkLengthBias.suppressed || 0,
+  };
 }
 
-const findings = [
-  ...checkPositionBias(allQs),
-  ...checkLengthBias(allQs),
-  ...checkMarkdownLeak(allQs),
-  ...checkMiddleDotInOptions(allQs),
-];
+function printResults(allQs, result, args = []) {
+  const wantJson = args.includes('--json');
+  const wantTriage = args.includes('--triage');
+  const { findings, errors, warns, suppressed } = result;
 
-const errors = findings.filter((f) => f.severity === 'error');
-const warns = findings.filter((f) => f.severity === 'warn');
-
-if (wantTriage) {
-  // CSV of length-bias findings sorted worst→best for batch content review.
-  // Columns: ratio, file, id, topic, correctLen, distractorMean, severity
-  const lenBias = findings.filter((f) => f.kind === 'length-bias');
-  lenBias.sort((a, b) => b.ratio - a.ratio);
-  // Map id → file so reviewers can jump straight to the file.
-  const idToFile = {};
-  for (const q of allQs) { idToFile[q.id] = q.file; }
-  console.log('ratio,file,id,topic,correctLen,distractorMean,severity');
-  for (const f of lenBias) {
-    console.log([
-      f.ratio,
-      idToFile[f.id] || '?',
-      f.id,
-      f.topic,
-      f.correctLen,
-      f.meanDistractorLen,
-      f.severity,
-    ].join(','));
-  }
-} else if (wantJson) {
-  console.log(JSON.stringify({ total: allQs.length, mcq: allQs.filter((q) => q.type === 'mcq').length, errors: errors.length, warnings: warns.length, findings }, null, 2));
-} else {
-  console.log(`🔍 VetMock question lint`);
-  console.log(`   ${allQs.length} questions across ${FILES.length} files (${allQs.filter((q) => q.type === 'mcq').length} MCQ)\n`);
-
-  if (findings.length === 0) {
-    console.log('   ✅ No bias detected. Good shape.');
+  if (wantTriage) {
+    // CSV of length-bias findings sorted worst→best for batch content review.
+    // Columns: ratio, file, id, topic, correctLen, distractorMean, severity
+    const lenBias = findings.filter((f) => f.kind === 'length-bias');
+    lenBias.sort((a, b) => b.ratio - a.ratio);
+    // Map id → file so reviewers can jump straight to the file.
+    const idToFile = {};
+    for (const q of allQs) { idToFile[q.id] = q.file; }
+    console.log('ratio,file,id,topic,correctLen,distractorMean,severity');
+    for (const f of lenBias) {
+      console.log([
+        f.ratio,
+        idToFile[f.id] || '?',
+        f.id,
+        f.topic,
+        f.correctLen,
+        f.meanDistractorLen,
+        f.severity,
+      ].join(','));
+    }
+  } else if (wantJson) {
+    console.log(JSON.stringify({ total: allQs.length, mcq: allQs.filter((q) => q.type === 'mcq').length, errors: errors.length, warnings: warns.length, findings }, null, 2));
   } else {
-    const groupBy = (k) => findings.filter((f) => f.kind === k);
+    console.log('🔍 VetMock question lint');
+    console.log(`   ${allQs.length} questions across ${FILES.length} files (${allQs.filter((q) => q.type === 'mcq').length} MCQ)\n`);
 
-    const posBias = groupBy('position-bias');
-    if (posBias.length) {
-      console.log(`   📍 Position bias (${posBias.length}) — render-shuffle mitigated, data-level nudge only:`);
-      posBias.forEach((f) => {
-        const tag = f.severity === 'error' ? '🚨' : '⚠️ ';
-        const dist = Object.entries(f.distribution).map(([k, v]) => `${k}:${v}`).join(' ');
-        console.log(`     ${tag} ${f.topic} (n=${f.n}) — ${f.worstPct}% at index ${f.worstIndex} [${dist}]`);
-        console.log(`        IDs: ${f.ids.slice(0, 8).join(', ')}${f.ids.length > 8 ? '...' : ''}`);
-      });
-      console.log(`     ℹ️  MCQOptions in Question.jsx randomizes option order per Q per session, so source bias does not surface in UI.`);
-      console.log();
-    }
+    if (findings.length === 0) {
+      console.log('   ✅ No bias detected. Good shape.');
+    } else {
+      const groupBy = (k) => findings.filter((f) => f.kind === k);
 
-    if (checkLengthBias.suppressed > 0) {
-      console.log(`   📜 ${checkLengthBias.suppressed} length-bias reading(s) suppressed in banks declared as faithful past-paper transcriptions (lint:length-bias-exempt pragma)
+      const posBias = groupBy('position-bias');
+      if (posBias.length) {
+        console.log(`   📍 Position bias (${posBias.length}) — render-shuffle mitigated, data-level nudge only:`);
+        posBias.forEach((f) => {
+          const tag = f.severity === 'error' ? '🚨' : '⚠️ ';
+          const dist = Object.entries(f.distribution).map(([k, v]) => `${k}:${v}`).join(' ');
+          console.log(`     ${tag} ${f.topic} (n=${f.n}) — ${f.worstPct}% at index ${f.worstIndex} [${dist}]`);
+          console.log(`        IDs: ${f.ids.slice(0, 8).join(', ')}${f.ids.length > 8 ? '...' : ''}`);
+        });
+        console.log('     ℹ️  MCQOptions in Question.jsx randomizes option order per Q per session, so source bias does not surface in UI.');
+        console.log();
+      }
+
+      if (suppressed > 0) {
+        console.log(`   📜 ${suppressed} length-bias reading(s) suppressed in banks declared as faithful past-paper transcriptions (lint:length-bias-exempt pragma)
 `);
-    }
-    const lenBias = groupBy('length-bias');
-    if (lenBias.length) {
-      console.log(`   📏 Length bias (${lenBias.length}):`);
-      lenBias.slice(0, 20).forEach((f) => {
-        const tag = f.severity === 'error' ? '🚨' : '⚠️ ';
-        console.log(`     ${tag} Q${f.id} ${f.topic} — correct ${f.correctLen}ch vs distractor mean ${f.meanDistractorLen}ch (${f.ratio}×)`);
-      });
-      if (lenBias.length > 20) console.log(`        ... and ${lenBias.length - 20} more`);
-      console.log();
+      }
+      const lenBias = groupBy('length-bias');
+      if (lenBias.length) {
+        console.log(`   📏 Length bias (${lenBias.length}):`);
+        lenBias.slice(0, 20).forEach((f) => {
+          const tag = f.severity === 'error' ? '🚨' : '⚠️ ';
+          console.log(`     ${tag} Q${f.id} ${f.topic} — correct ${f.correctLen}ch vs distractor mean ${f.meanDistractorLen}ch (${f.ratio}×)`);
+        });
+        if (lenBias.length > 20) console.log(`        ... and ${lenBias.length - 20} more`);
+        console.log();
+      }
+
+      const mdOpt = groupBy('middle-dot-option');
+      if (mdOpt.length) {
+        console.log(`   🚫 Middle dot (U+00B7) inside options[] (${mdOpt.length}) — ERROR, the classic answer tell:`);
+        mdOpt.forEach((f) => console.log(`     🚨 Q${f.id} ${f.topic}`));
+        console.log();
+      }
+      const mdBold = groupBy('markdown-bold');
+      if (mdBold.length) {
+        console.log(`   ✏️  Markdown ** in question text (${mdBold.length}):`);
+        const byTopic = {};
+        mdBold.forEach((f) => { (byTopic[f.topic] = byTopic[f.topic] || []).push(f.id); });
+        Object.entries(byTopic).forEach(([t, ids]) => {
+          console.log(`     ⚠️  ${t}: ${ids.length} question(s) — IDs: ${ids.slice(0, 6).join(', ')}${ids.length > 6 ? '...' : ''}`);
+        });
+        console.log();
+      }
     }
 
-    const mdOpt = groupBy('middle-dot-option');
-    if (mdOpt.length) {
-      console.log(`   🚫 Middle dot (U+00B7) inside options[] (${mdOpt.length}) — ERROR, the classic answer tell:`);
-      mdOpt.forEach((f) => console.log(`     🚨 Q${f.id} ${f.topic}`));
-      console.log();
-    }
-    const mdBold = groupBy('markdown-bold');
-    if (mdBold.length) {
-      console.log(`   ✏️  Markdown ** in question text (${mdBold.length}):`);
-      const byTopic = {};
-      mdBold.forEach((f) => { (byTopic[f.topic] = byTopic[f.topic] || []).push(f.id); });
-      Object.entries(byTopic).forEach(([t, ids]) => {
-        console.log(`     ⚠️  ${t}: ${ids.length} question(s) — IDs: ${ids.slice(0, 6).join(', ')}${ids.length > 6 ? '...' : ''}`);
-      });
-      console.log();
-    }
+    console.log(`Summary: ${errors.length} error(s), ${warns.length} warning(s).`);
   }
-
-  console.log(`Summary: ${errors.length} error(s), ${warns.length} warning(s).`);
 }
 
-if (errors.length > 0 && !warnOnly) {
-  process.exit(1);
+async function main(args = process.argv.slice(2)) {
+  const allQs = await loadQuestions();
+  const result = lintQuestions(allQs);
+  printResults(allQs, result, args);
+  return result.errors.length > 0 && !args.includes('--warn-only') ? 1 : 0;
 }
+
+if (require.main === module) {
+  main().then((code) => { process.exitCode = code; }).catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { loadQuestions, lintQuestions, main };

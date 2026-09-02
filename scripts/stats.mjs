@@ -121,7 +121,7 @@ L();
 L('| | |');
 L('|---|---|');
 L(`| **Questions ready for learners** | **${fmt(deliverableTotal)}** |`);
-L(`| Questions retained but fail-closed pending a verified figure | ${fmt(blockedTotal)} |`);
+L(`| Questions retained but fail-closed pending answer, scope, or figure review | ${fmt(blockedTotal)} |`);
 L(`| Total questions in source banks | ${fmt(qTotal)} |`);
 L(`| Question banks (files) | ${qFiles.length} |`);
 L(`| Subjects with questions | ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} |`);

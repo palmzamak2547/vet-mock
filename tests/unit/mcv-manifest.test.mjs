@@ -62,6 +62,9 @@ test('a manifest carries every file with its course and term', () => {
     // subject stays null on purpose: a course number is not a curriculum
     // subject id, and inventing one would fail to match the question bank.
     assert.equal(x.subject, null);
+    assert.equal(x.license, null);
+    assert.equal(x.permissionEvidence, null);
+    assert.equal(x.status, 'draft');
   }
   // The Drive link is kept in the manifest — it is catalogued, not copied.
   assert.ok(m.some((x) => x.url.includes('drive.google.com')));

@@ -8,10 +8,14 @@ import {
   QB_BLOCKED_TOTAL,
   Q_COUNTS_BY_SUBJECT,
   Q_COUNTS_BY_TOPIC,
+  Q_CURRENT_SCOPE_COUNTS,
+  Q_HIGH_PREDICTION_COUNTS,
   Q_PAST_PAPER_COUNTS_BY_TOPIC,
 } from '../../src/data/q-counts.js';
 import { BLOCKED_QUESTION_COUNT, isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
+import { SUBJECTS } from '../../src/data/curriculum.js';
 import { isPastPaperQuestion, questionTopicId } from '../../src/lib/question-metadata.js';
+import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/question-prediction.js';
 
 const questions = [];
 for (const entry of BANK_REGISTRY) {
@@ -77,8 +81,41 @@ test('generated past-paper counts include canonical and legacy markers', () => {
   }
 });
 
+test('generated high-prediction counts match verified current-scope questions', () => {
+  const buildScopedCounts = (predicate) => {
+    const live = {};
+    for (const q of deliverableQuestions) {
+      if (hiddenBySubject.get(q.subject)?.has(q.topic)) continue;
+      const version = q.curriculumVersion;
+      if (!version || !predicate(q, { curriculumVersion: version })) continue;
+      const subject = q.subject || '__unknown__';
+      live[version] ||= { all: {}, midterm: {}, final: {}, continuous: {} };
+      live[version].all[subject] = (live[version].all[subject] || 0) + 1;
+      const scopes = q.examScope === 'both'
+        ? ['midterm', 'final']
+        : q.examScope === 'continuous'
+          ? ['continuous', 'midterm', 'final']
+          : [q.examScope];
+      for (const scope of scopes) {
+        if (!live[version][scope]) continue;
+        live[version][scope][subject] = (live[version][scope][subject] || 0) + 1;
+      }
+    }
+    return live;
+  };
+  const hiddenBySubject = new Map(SUBJECTS.map((subject) => [
+    subject.id,
+    new Set((subject.topics || []).filter((topic) => topic.hidden).map((topic) => topic.id)),
+  ]));
+  assert.deepEqual(Q_CURRENT_SCOPE_COUNTS, buildScopedCounts(isCurrentScopeQuestion));
+  assert.deepEqual(Q_HIGH_PREDICTION_COUNTS, buildScopedCounts(isHighPredictionQuestion));
+});
+
 test('past-paper metadata rule keeps canonical and legacy banks aligned', () => {
   assert.equal(isPastPaperQuestion({ sourceType: 'past-paper' }), true);
+  assert.equal(isPastPaperQuestion({ examOrigin: 'Vet 84 Final Q12' }), true);
+  assert.equal(isPastPaperQuestion({ sourceType: 'student-compilation', examOrigin: 'Vet 85 recall' }), false);
+  assert.equal(isPastPaperQuestion({ sourceType: 'lecture-derived', examOrigin: 'Final study notes' }), false);
   assert.equal(isPastPaperQuestion({ source: 'ข้อสอบเก่า Final 86' }), true);
   assert.equal(isPastPaperQuestion({ source: 'Past paper review' }), true);
   assert.equal(isPastPaperQuestion({ sourceType: 'lecture', source: 'Lecture slide' }), false);

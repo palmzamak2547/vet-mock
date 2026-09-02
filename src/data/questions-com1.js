@@ -413,7 +413,7 @@ export const QB_COM1 = [
     "options": [
       "Cervical radiograph",
       "Ultrasound คอ",
-      "Laryngoscopy (direct visualization under light sedation ดู arytenoid motion)",
+      "Laryngoscopy ใต้ light sedation",
       "Bronchoscopy",
       "CT cervical region"
     ],
@@ -536,7 +536,7 @@ export const QB_COM1 = [
     "examOrigin": "COM I Final 86",
     "q": "ตำแหน่งที่นิยมที่สุดในการทำ Bone marrow biopsy ในสุนัขคือข้อใด",
     "options": [
-      "Dorsal iliac crest (ilium) — site นิยมมากที่สุดในหมา",
+      "Dorsal iliac crest (ilium)",
       "Proximal tibia",
       "Calcaneus",
       "Sternum (manubrium)",

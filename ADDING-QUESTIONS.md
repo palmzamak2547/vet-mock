@@ -73,8 +73,9 @@ Rules that matter:
 ### 3. Turn the crank
 ```bash
 npm run regen:registry     # re-scan banks → bank-registry.generated.js (prints year tags — eyeball them)
-npm run regen:q-counts      # recompute per-subject + per-year counts
-npm run lint:all            # 7 gates: ids, dupes, academic-safety, questions, registry, curriculum, validate:wiki
+npm run regen:delivery     # fail-close unclear/missing-figure questions before counting them
+npm run regen:q-counts     # recompute learner-visible per-subject + per-year counts
+npm run lint:all           # all current integrity, safety, generated-data, and content gates
 npm run build               # must succeed
 npm run test:unit           # loader/scope merging + wiki validator
 npm run test:e2e            # cross-engine smoke 32/32 (chromium, webkit, firefox — desktop + mobile)
@@ -87,6 +88,7 @@ Stage **specific files** (never `git add -A`):
 ```bash
 git add src/data/questions-<bank>.js \
         src/data/bank-registry.generated.js \
+        src/data/question-delivery.generated.js \
         src/data/q-counts.js \
         src/data/curriculum.js          # if you touched taxonomy
 git commit -m "content: add <bank> (Y<n> <subject>, +<count> Qs)"

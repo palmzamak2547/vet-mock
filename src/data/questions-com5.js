@@ -983,7 +983,7 @@ export const QB_COM5 = [
     id: 565, subject: 'com5', topic: 'gi-protozoa', year: 4, source: "GI_protozoa.pdf",
     tags: ["cryptosporidium","staining"], type: 'mcq',
     q: "การย้อมที่ใช้ดู Cryptosporidium oocyst ในอุจจาระคืออะไร",
-    options: ["Lugol's iodine","Modified acid-fast stain (Ziehl-Neelsen's carbol-fuchsin) หรือ Immunofluorescent","Gram stain","Wright's stain"],
+    options: ["Lugol's iodine","Modified acid-fast stain","Gram stain","Wright's stain"],
     answer: 1,
     explain: "Crypto oocyst เล็กมาก ใส → ย้อม modified acid fast หรือ IFA\nflotation ใช้ Sheather sugar (SG 1.33)\n\n❌ ทำไมข้ออื่นผิด\n— Lugol's iodine = Giardia cyst\n— Gram stain = bacterial\n— Wright's stain = blood smear",
     verified: "GI_protozoa.pdf p.46" },

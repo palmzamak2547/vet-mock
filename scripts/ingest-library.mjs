@@ -13,11 +13,11 @@
 //   $0.015/GB-month after, and NO egress charge — the part that matters
 //   when a hundred students open the same deck before an exam.
 //
-//   Rows land `status: 'public'` — Palm's call (2026-08-28) after the
-//   shelf first shipped login-gated: the whole cohort reads it without an
-//   account. The bytes still never get a permanent URL; every open goes
-//   through a minted link that expires in minutes, and 'restricted'
-//   remains one UPDATE away per row if any deck ever needs the gate back.
+//   Hosting rights are per document, not per ingest run. Every manifest item
+//   must name its license; permission-based material must also point to the
+//   permission evidence. New rows default to `draft` and become public only
+//   when the reviewed manifest explicitly says so. The bytes never get a
+//   permanent URL; every open still goes through a short-lived minted link.
 //
 // USAGE
 //
@@ -172,6 +172,23 @@ export const kindFor = (folder, name) => {
   return 'handout';
 };
 
+const LIBRARY_STATUSES = new Set(['draft', 'public', 'restricted', 'archived']);
+
+/** Hosting authority must arrive from the reviewed manifest, never from an
+ * ingest-wide assumption. Permission-based material additionally needs an
+ * auditable pointer to where that permission is recorded. */
+export function publicationMetadata(item) {
+  const license = String(item?.license || '').trim();
+  if (!license) throw new Error('license missing from manifest item');
+  const permissionEvidence = String(item?.permissionEvidence || item?.permission_evidence || '').trim();
+  if (license === 'instructor-permission' && !permissionEvidence) {
+    throw new Error('instructor-permission requires permissionEvidence');
+  }
+  const status = String(item?.status || 'draft').trim();
+  if (!LIBRARY_STATUSES.has(status)) throw new Error(`invalid library status: ${status}`);
+  return { license, permissionEvidence: permissionEvidence || null, status };
+}
+
 async function sb(path, init = {}) {
   const base = (process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '').replace(/\/$/, '');
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -227,6 +244,8 @@ async function main() {
       // without a browser session; they stay as catalog rows pointing home.
       if (!/^https?:\/\/mycourseville/i.test(it.url)) { skipped++; continue; }
 
+      const publication = publicationMetadata(it);
+
       const res = await fetchMaterial(it.url);
       if (!res.ok) { failed++; console.warn(`  ✗ ${res.status} ${name}`); continue; }
       const buf = Buffer.from(await res.arrayBuffer());
@@ -268,11 +287,9 @@ async function main() {
             academic_year: it.academicYear ?? null,
             storage_provider: 'r2', storage_bucket: cfg.bucket, storage_key: key,
             mime, byte_size: buf.length, sha256_16: sha,
-            // Palm's call 2026-08-28: the shelf is open — no login. Links
-            // are still minted per open and still expire; only who may
-            // mint changed. Future ingests follow the same posture.
-            license: 'instructor-permission', status: 'public',
+            license: publication.license, status: publication.status,
             source_url: it.url, attribution: it.attribution || 'คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย',
+            permission_evidence: publication.permissionEvidence,
         };
         if (canInsert) {
           await sb('library_docs', {

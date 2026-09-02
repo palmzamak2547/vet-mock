@@ -1,0 +1,92 @@
+// Prediction metadata is deliberately separate from answer verification.
+// A question can be medically correct without being likely to appear in the
+// current exam, and an old recurring question can still need a fresh answer
+// check. Keeping the two axes separate prevents either claim laundering the
+// other.
+
+export const PREDICTION_TIERS = new Set(['high', 'medium', 'low']);
+export const ANSWER_STATUSES = new Set(['verified', 'needs-review']);
+export const EXAM_SCOPES = new Set(['midterm', 'final', 'both', 'continuous']);
+export const PREDICTION_SOURCE_TYPES = new Set([
+  'lecture-derived',
+  'student-compilation',
+  'past-paper',
+]);
+
+const VERSION_PATTERN = /^\d{4}-[123]$/;
+const SIGNAL_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+export function examScopeForPhase(selectedPhase) {
+  if (typeof selectedPhase !== 'string') return null;
+  if (selectedPhase.endsWith('-mid')) return 'midterm';
+  if (selectedPhase.endsWith('-final')) return 'final';
+  return null;
+}
+
+export function predictionMetadataIssues(question) {
+  const keys = [
+    'answerStatus',
+    'curriculumVersion',
+    'examScope',
+    'predictionTier',
+    'predictionSignals',
+  ];
+  if (!keys.some((key) => question?.[key] != null)) return [];
+
+  const issues = [];
+  if (!ANSWER_STATUSES.has(question?.answerStatus)) issues.push('answerStatus');
+  if (!VERSION_PATTERN.test(String(question?.curriculumVersion || ''))) issues.push('curriculumVersion');
+  if (!EXAM_SCOPES.has(question?.examScope)) issues.push('examScope');
+  if (!PREDICTION_TIERS.has(question?.predictionTier)) issues.push('predictionTier');
+  if (!PREDICTION_SOURCE_TYPES.has(question?.sourceType)) issues.push('sourceType');
+
+  const signals = question?.predictionSignals;
+  if (!Array.isArray(signals)
+    || signals.length === 0
+    || signals.some((signal) => !SIGNAL_PATTERN.test(String(signal)))
+    || new Set(signals).size !== signals.length) {
+    issues.push('predictionSignals');
+  }
+  if (question?.predictionTier === 'high' && Array.isArray(signals) && signals.length < 2) {
+    issues.push('highTierNeedsTwoSignals');
+  }
+  const evidence = question?.predictionEvidence;
+  if (evidence != null && (!Array.isArray(evidence)
+    || evidence.length === 0
+    || evidence.some((item) => typeof item !== 'string' || item.trim().length < 8))) {
+    issues.push('predictionEvidence');
+  }
+  if (question?.predictionTier === 'high'
+    && (!Array.isArray(evidence) || evidence.length === 0)) {
+    issues.push('highTierNeedsEvidence');
+  }
+  return issues;
+}
+
+export function isCurrentScopeQuestion(question, {
+  curriculumVersion,
+  selectedPhase = null,
+} = {}) {
+  if (predictionMetadataIssues(question).length > 0) return false;
+  if (question?.answerStatus !== 'verified') return false;
+  if (!curriculumVersion || question?.curriculumVersion !== curriculumVersion) return false;
+
+  const wantedScope = examScopeForPhase(selectedPhase);
+  if (!wantedScope) return true;
+  const phaseSemester = String(selectedPhase).split('-', 1)[0];
+  const curriculumSemester = String(curriculumVersion).split('-', 2)[1];
+  if (phaseSemester !== curriculumSemester) return false;
+  return question?.examScope === wantedScope
+    || question?.examScope === 'both'
+    || question?.examScope === 'continuous';
+}
+
+export function isHighPredictionQuestion(question, options = {}) {
+  return question?.predictionTier === 'high'
+    && isCurrentScopeQuestion(question, options);
+}
+
+export function questionNeedsAnswerReview(question) {
+  return question?.answerStatus === 'needs-review'
+    || question?.flag?.severity === 'unclear';
+}

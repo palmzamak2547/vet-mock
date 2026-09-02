@@ -486,7 +486,7 @@ export const QB_FOOD_SAFETY_Y4 = [
       "Sarcocystis hominis",
       "Taenia saginata",
       "Cryptosporidium parvum",
-      "Taenia solium (กินไข่/proglottid ปนเปื้อนอุจจาระ → cysticerci ฝังในสมอง)",
+      "Taenia solium",
       "Sarcocystis suihominis"
     ],
     "answer": 3,
@@ -638,7 +638,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "options": [
       "Antimony trioxide เท่านั้น",
       "Lead เท่านั้น",
-      "Bisphenol A (BPA) + Di(2-ethylhexyl)phthalate (DEHP) + Nonylphenol (3 ตัวร่วม)",
+      "Bisphenol A (BPA), DEHP และ Nonylphenol",
       "Vinyl chloride monomer เท่านั้น",
       "Styrene เท่านั้น"
     ],

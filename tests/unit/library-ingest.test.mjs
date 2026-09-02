@@ -5,6 +5,10 @@
 // Thai-named deck is unsearchable and untitled.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { decodeThaiEscapes, slugify, mimeFor, kindFor } from '../../scripts/ingest-library.mjs';
 
 test('flattened Thai escapes are read back as Thai', () => {
@@ -57,7 +61,7 @@ test('kind is read from the folder as well as the filename', () => {
 // permissions problem, and every Thai-named file in the shelf fails
 // silently. Confirmed against the live bucket: the URL as handed over
 // returns 403 and the repaired one returns 200.
-import { repairMcvUrl, fetchMaterial } from '../../scripts/ingest-library.mjs';
+import { publicationMetadata, repairMcvUrl, fetchMaterial } from '../../scripts/ingest-library.mjs';
 
 const MANGLED = 'https://mycourseville-default.s3.ap-southeast-1.amazonaws.com/x/u0e15u0e23u0e35_Esophageal_2025-838816-1756.pdf';
 
@@ -149,6 +153,62 @@ test("MyCourseVille's no-folder marker never becomes a description", async () =>
   assert.equal(folderLabel('_other'), null);
   assert.equal(folderLabel(''), null);
   assert.equal(folderLabel('Virology IV_avian viruses'), 'Virology IV_avian viruses');
+});
+
+test('publication metadata defaults to draft and requires real permission evidence', () => {
+  assert.throws(() => publicationMetadata({}), /license missing/);
+  assert.throws(
+    () => publicationMetadata({ license: 'instructor-permission' }),
+    /requires permissionEvidence/,
+  );
+  assert.deepEqual(publicationMetadata({
+    license: 'instructor-permission',
+    permissionEvidence: 'Written approval on file 2026-08-20',
+  }), {
+    license: 'instructor-permission',
+    permissionEvidence: 'Written approval on file 2026-08-20',
+    status: 'draft',
+  });
+  assert.throws(
+    () => publicationMetadata({ license: 'CC-BY-4.0', status: 'visible' }),
+    /invalid library status/,
+  );
+});
+
+test('local bulk ingest enforces the same rights gate during dry-run', () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'vetmock-local-ingest-'));
+  try {
+    const source = path.join(tmp, 'fixture.txt');
+    const manifest = path.join(tmp, 'manifest.json');
+    const rows = path.join(tmp, 'rows.json');
+    fs.writeFileSync(source, 'fixture');
+    fs.writeFileSync(manifest, JSON.stringify([{ path: source, title: 'Fixture' }]));
+
+    assert.throws(() => execFileSync(process.execPath, [
+      'scripts/ingest-local-docs.mjs',
+      `--manifest=${manifest}`,
+      `--rows-out=${rows}`,
+      '--dry-run',
+    ], { cwd: path.resolve('.'), stdio: 'pipe' }), /Command failed/);
+
+    fs.writeFileSync(manifest, JSON.stringify([{
+      path: source,
+      title: 'Fixture',
+      license: 'CC-BY-4.0',
+    }]));
+    execFileSync(process.execPath, [
+      'scripts/ingest-local-docs.mjs',
+      `--manifest=${manifest}`,
+      `--rows-out=${rows}`,
+      '--dry-run',
+    ], { cwd: path.resolve('.'), stdio: 'pipe' });
+    const [row] = JSON.parse(fs.readFileSync(rows, 'utf8'));
+    assert.equal(row.license, 'CC-BY-4.0');
+    assert.equal(row.status, 'draft');
+    assert.equal(row.permission_evidence, null);
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
 });
 
 test('course numbers resolve to curriculum subject ids, gen-ed keeps the number', async () => {

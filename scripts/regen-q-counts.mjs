@@ -36,10 +36,12 @@ const root = path.join(here, '..');
 const m = await import(pathToFileURL(path.join(root, 'src/data/questions.js')).href);
 const curM = await import(pathToFileURL(path.join(root, 'src/data/curriculum.js')).href);
 const metadataM = await import(pathToFileURL(path.join(root, 'src/lib/question-metadata.js')).href);
+const predictionM = await import(pathToFileURL(path.join(root, 'src/lib/question-prediction.js')).href);
 const deliveryM = await import(pathToFileURL(path.join(root, 'src/data/question-delivery.generated.js')).href);
 const { QB, loadQB } = m;
 const { SUBJECTS } = curM;
 const { UNASSIGNED_TOPIC, isPastPaperQuestion, questionTopicId } = metadataM;
+const { isCurrentScopeQuestion, isHighPredictionQuestion } = predictionM;
 const { isQuestionDeliverable } = deliveryM;
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 
@@ -73,6 +75,29 @@ const byYear = {};
 const byVisibleYear = {};
 const byTopic = {};
 const byPastPaperTopic = {};
+const byCurrentScopePhase = {};
+const byHighPredictionPhase = {};
+
+const incrementScopedPrediction = (index, question, subject) => {
+  index[question.curriculumVersion] ||= {
+    all: {},
+    midterm: {},
+    final: {},
+    continuous: {},
+  };
+  const phase = index[question.curriculumVersion];
+  phase.all[subject] = (phase.all[subject] || 0) + 1;
+  if (question.examScope === 'both') {
+    phase.midterm[subject] = (phase.midterm[subject] || 0) + 1;
+    phase.final[subject] = (phase.final[subject] || 0) + 1;
+  } else if (question.examScope === 'continuous') {
+    phase.continuous[subject] = (phase.continuous[subject] || 0) + 1;
+    phase.midterm[subject] = (phase.midterm[subject] || 0) + 1;
+    phase.final[subject] = (phase.final[subject] || 0) + 1;
+  } else if (phase[question.examScope]) {
+    phase[question.examScope][subject] = (phase[question.examScope][subject] || 0) + 1;
+  }
+};
 const deliverableQuestions = QB.filter(isQuestionDeliverable);
 for (const q of deliverableQuestions) {
   const subj = q.subject || '__unknown__';
@@ -84,6 +109,12 @@ for (const q of deliverableQuestions) {
   const isVisible = !hidden || !hidden.has(q.topic);
   if (isVisible) {
     byVisibleSubject[subj] = (byVisibleSubject[subj] || 0) + 1;
+    if (q.curriculumVersion && isCurrentScopeQuestion(q, { curriculumVersion: q.curriculumVersion })) {
+      incrementScopedPrediction(byCurrentScopePhase, q, subj);
+    }
+    if (q.curriculumVersion && isHighPredictionQuestion(q, { curriculumVersion: q.curriculumVersion })) {
+      incrementScopedPrediction(byHighPredictionPhase, q, subj);
+    }
   }
   if (Number.isFinite(q.year)) {
     byYear[q.year] = (byYear[q.year] || 0) + 1;
@@ -153,8 +184,8 @@ for (const subject of Object.keys(byTopic).sort()) {
 }
 lines.push('};');
 lines.push('');
-lines.push('// Past-paper counts accept the canonical sourceType marker plus the');
-lines.push('// legacy source-name convention used before sourceType was introduced.');
+lines.push('// Past-paper counts accept canonical sourceType plus legacy examOrigin');
+lines.push('// or source-name conventions only when no canonical marker is present.');
 lines.push('export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {');
 for (const subject of Object.keys(byPastPaperTopic).sort()) {
   lines.push(`  ${JSON.stringify(subject)}: {`);
@@ -164,6 +195,18 @@ for (const subject of Object.keys(byPastPaperTopic).sort()) {
   lines.push('  },');
 }
 lines.push('};');
+lines.push('');
+lines.push('// Current-scope questions have verified answers and complete metadata');
+lines.push('// for one exact curriculum version. Hidden topics are excluded.');
+lines.push('export const Q_CURRENT_SCOPE_COUNTS =');
+lines.push(`${JSON.stringify(byCurrentScopePhase, null, 2)};`);
+lines.push('');
+lines.push('// High-likelihood questions are counted only when their answer is');
+lines.push('// verified and their metadata names an exact curriculum + exam scope.');
+lines.push('// `all` counts each question once; `both` questions are expanded into');
+lines.push('// the midterm and final views so phase-specific buttons stay truthful.');
+lines.push('export const Q_HIGH_PREDICTION_COUNTS =');
+lines.push(`${JSON.stringify(byHighPredictionPhase, null, 2)};`);
 lines.push('');
 lines.push(`// Built: ${new Date().toISOString()}`);
 lines.push('');

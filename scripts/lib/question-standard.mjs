@@ -69,7 +69,11 @@ export const NEEDS_FIGURE = new RegExp([
   // happened to think of, which is why it is one file and not three.
   'แผนผัง', 'ผังงาน', 'แผนภูมิ', 'ไดอะแกรม',
   'แผนที่', 'ตามผัง', 'ตามภาพ', 'ตามรูป', 'ดังภาพ', 'ดังรูป',
-  '\\b(?:figure \\d|fig\\.|shown below|pictured|flow ?chart|(?:from|on|in|according to) (?:the )?map)\\b',
+  '\\b(?:figure \\d|shown below|pictured|flow ?chart|(?:from|on|in|according to) (?:the )?map)\\b',
+  // Keep `fig.` outside the group's trailing word boundary: a period and the
+  // following space are both non-word characters, so `fig\\.` inside that
+  // group could never match and image-dependent stems silently passed.
+  '\\bfig\\.',
   // NOT bare "plot" or "chart": "Lineweaver-Burk plot" names a standard plot
   // any biochemistry student can reason about without seeing one, and a
   // "dental chart" is a record form, not an illustration.
@@ -85,6 +89,12 @@ const { FIGURE_EXEMPT } = await import('../../src/data/figure-exempt.js');
 export const needsFigure = (q) =>
   NEEDS_FIGURE.test(String(q?.q || '')) && !carriesFigure(q) && !FIGURE_EXEMPT[q?.id];
 
+const { predictionMetadataIssues } = await import('../../src/lib/question-prediction.js');
+
+/** Prediction metadata is optional for legacy questions, but once any part is
+ *  present the whole evidence contract must be valid. */
+export const hasInvalidPredictionMetadata = (q) => predictionMetadataIssues(q).length > 0;
+
 /** Defects: every one of these must be zero. */
 export const DEFECTS = [
   ['stem names the source doc', namesDocument],
@@ -92,6 +102,7 @@ export const DEFECTS = [
   ['no citation at all', (q) => !hasCitation(q)],
   ['examOrigin is a deck', examOriginIsADeck],
   ['needs a figure, has none', needsFigure],
+  ['invalid prediction metadata', hasInvalidPredictionMetadata],
 ];
 
 /** Coverage: the habits that separate the Year-4 semester-2 banks from the

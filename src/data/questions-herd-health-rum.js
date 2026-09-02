@@ -311,7 +311,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "การ screening Tuberculosis (TB) ในฝูงโคเนื้อ/นม — วิธีที่นิยมใช้เป็น screening test คือข้อใด",
     "options": [
       "Modified Rose Bengal Test (RBT)",
-      "Single Intradermal Tuberculin (SID) test — ฉีด tuberculin 0.1 mL ที่ผงคอ/โคนหาง, อ่านผลที่ 72 ชั่วโมง (suspect ถ้าหนา ≥ 4 mm/แข็ง/บวมน้ำ)",
+      "Single Intradermal Tuberculin (SID) test",
       "Complement Fixation Test (CFT)",
       "California Mastitis Test (CMT)"
     ],
@@ -361,7 +361,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Brucellosis ในโคเนื้อ-นมไทย — pathogen หลัก, transmission ที่สำคัญ และ screening test ที่นิยมใช้คือข้อใด",
     "options": [
       "Brucella suis, แพร่ทาง aerosol, screening ด้วย CMT",
-      "Brucella abortus (โคติดได้แม้); B. melitensis (แพะ/แกะ แต่แพร่ aerosol ไปคนได้); แท้งระยะท้าย ทำลายรกจนลูกตาย; screening ด้วย Modified Rose Bengal Test (RBT) แล้ว confirm ด้วย Complement Fixation Test (CFT)",
+      "Brucella abortus; B. melitensis จากแพะ/แกะแพร่สู่คนทาง aerosol; คัดกรองด้วย Modified RBT",
       "Brucella canis, ติดเฉพาะสุนัข, screening ด้วย AGID",
       "Mycobacterium bovis, แพร่ทาง intradermal route, screening ด้วย CFT"
     ],
@@ -385,7 +385,7 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "เกี่ยวกับมาตรการควบคุม Brucellosis ในโคเนื้อ/นมและในแพะของประเทศไทย ข้อใดถูกต้องที่สุด",
     "options": [
-      "โคเนื้อ-นม: ใช้ Brucellosis vaccine Strain 19 (live), ฉีดลูกโค 3-8 เดือน ครั้งเดียวพอ; แพะ: ปัจจุบันไทยไม่ใช้ REV-1 vaccine — ใช้ Test and Cull เท่านั้น",
+      "โคใช้ Strain 19 ครั้งเดียวอายุ 3-8 เดือน; แพะใช้ Test and Cull โดยไม่ใช้ REV-1",
       "โคและแพะใช้ Strain 19 ทุกตัวทุกปี",
       "ใช้ Doxycycline รักษาตลอดชีวิต ไม่ต้องคัดทิ้ง",
       "ใช้ Inactivated FMD vaccine ป้องกัน Brucellosis"
@@ -511,7 +511,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Enzootic Bovine Leukosis (EBL) — pathogen, mechanism ทาง transmission ที่สำคัญที่สุด และ gold standard ของ Dx คือข้อใด",
     "options": [
       "Bacterial GPB; transmission ผ่าน aerosol; Dx ด้วย Gram stain",
-      "Bovine Leukemia Virus (BLV) ssRNA Retrovirus; transmission หลัก = horizontal ผ่านเข็มซ้ำ ถุงมือล้วงตรวจใช้ซ้ำ แมลงดูดเลือด ตัดเขา ทำแผล direct contact + เลี้ยงวัวหนาแน่น; vertical (transplacental, transmammary colostrum); gold std Dx = AGID (Agar Gel Immunodiffusion Test)",
+      "BLV; horizontal transmission ผ่านอุปกรณ์ปนเลือด; วินิจฉัยด้วย AGID",
       "Mycobacterium avium; transmission ผ่านอาหาร; Dx ด้วย Intradermal Johnin test",
       "Anaplasma marginale; transmission ผ่านเห็บ; Dx ด้วย blood smear"
     ],
@@ -536,7 +536,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Malignant Catarrhal Fever (MCF) — host reservoir, susceptible host และ Clinical sign ที่จำเพาะคือข้อใด",
     "options": [
       "Reservoir = วัวเท่านั้น; susceptible = ม้า; clin = ลำไส้เลือดออก",
-      "Reservoir = sheep / goat / wildebeest (ไม่แสดงอาการ); susceptible = วัว ควาย กวาง หมู (dead-end host); Corneal opacity ขุ่นจากขอบนอกเข้ามาตรงกลาง + จมูก-ปาก erosion + ตายแบบ acute/peracute, morbidity 50-100% fatality 80-100%",
+      "แกะ แพะ หรือ wildebeest เป็น reservoir; โค ควาย กวาง และหมูไวรับ; corneal opacity ลามจากขอบสู่กลาง",
       "Reservoir = นกป่า; susceptible = เป็ดน้ำ; clin = สูญเสียการบิน",
       "Reservoir = แมว; susceptible = สุนัข; clin = อ้วก เซื่องซึม"
     ],
@@ -561,7 +561,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Bovine Respiratory Disease Complex (BRDC, Shipping Fever) — กลไกของโรคและ pathogen หลักคือข้อใด",
     "options": [
       "Single-pathogen disease — ติดเฉพาะ Pasteurella multocida เท่านั้น",
-      "Multifactorial — Host (เด็ก เครียด กิน colostrum น้อย ภูมิตก) + Envi (หนาแน่น direct contact อุณหภูมิ ขนส่ง ventilation แย่) + Agent (virus → bacteria): Bovine Herpesvirus-1 (IBR), BRSV, Parainfluenza-3, BVDV → ตามด้วย Mannheimia (Pasteurella) haemolytica, P. multocida, Histophilus somni, Mycoplasma bovis",
+      "Multifactorial จาก stress ร่วมกับ respiratory virus แล้วตามด้วย Mannheimia หรือ Pasteurella",
       "Pure viral disease ติดทาง vector แมลงดูดเลือด",
       "Pure parasite disease ติดจาก fecal-oral"
     ],
@@ -586,7 +586,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "BVDV (Bovine Viral Diarrhea Virus) — outcome ของการที่แม่วัวติดเชื้อในแต่ละช่วงตั้งท้องคือข้อใด",
     "options": [
       "แม่ติดทุกช่วงตั้งท้อง → ลูกปกติ ไม่มีผล",
-      "แม่ติด trimester 1 (< 1 เดือน) → embryo death; แม่ติด trimester 1 (2-4 เดือน) → ลูก Persistently Infected (PI) — reservoir โรค ต้องกำจัด; แม่ติด 5-9 เดือน → ลูกอ่อนแอ พิการ",
+      "น้อยกว่า 1 เดือน embryo death; 2-4 เดือนเกิดลูก PI; 5-9 เดือนลูกอ่อนแอหรือพิการ",
       "ลูกที่เกิดทุกตัวจะป่วยและตายภายใน 1 สัปดาห์",
       "แม่ติดทุกช่วง → ลูกได้ immunity เต็มที่จากแม่"
     ],
@@ -611,7 +611,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Hemorrhagic Septicemia (HS, โรคคอบวม) — pathogen, host หลัก และ clinical sign ที่จำเพาะคือข้อใด",
     "options": [
       "Mycobacterium bovis, ติดทั้งโค-คน, clin = chronic wasting",
-      "Pasteurella multocida ชนิด B หรือ E, ติดในควาย (ไทย) เป็นหลัก (เจอในวัวเป็น BRDC), peracute → ตายใน 24h, fever, submandibular + brisket + foreleg subcutaneous edema (คอบวม), petechial hemorrhage, lung consolidation + pleuritis + pericarditis",
+      "Pasteurella multocida type B/E; พบบ่อยในควาย; คอบวมและตายเฉียบพลัน",
       "Picornavirus, ติดทั้งสัตว์กีบคู่, vesicle ที่ปากเท้า",
       "Brucella abortus, ติดสัตว์ทุกชนิด, แท้งระยะท้าย"
     ],
@@ -637,7 +637,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "การแบ่ง Ketosis ในแม่โคนมเป็น Type 1 และ Type 2 — ข้อใดถูกต้อง",
     "options": [
       "Type 1 และ Type 2 เกิดทั้งคู่ที่ 3 สัปดาห์ก่อนคลอด",
-      "Type 1: เกิดช่วงนมพีค หลังคลอด 3-6 สัปดาห์, อาหารพลังงานต่ำ แต่ผลิตเยอะ, Hyperketonemia + Hypoglycemia; Type 2: เกิดหลังคลอดทันที-2 สัปดาห์, วัวอ้วน BCS > 3.75, Hyperketonemia + Hyperglycemia (insulin resistance ชั่วคราว, glucose เข้าเซลล์ไม่ได้)",
+      "Type 1 ช่วง 3-6 สัปดาห์หลังคลอดและ hypoglycemia; Type 2 ช่วง 0-2 สัปดาห์ในวัวอ้วนและ hyperglycemia",
       "Type 1 = วัวอ้วน, Type 2 = วัวผอม",
       "Type 1 = BHBA ต่ำ, Type 2 = BHBA ปกติ"
     ],
@@ -662,7 +662,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Milk Fever (Parturient Paresis, Hypocalcemia) — pathogenesis, timing และ Tx ที่ถูกต้องคือข้อใด",
     "options": [
       "เกิดในแม่โครีดนมเด็ก, ก่อนคลอด 3 สัปดาห์, ขาดวิตามินบี",
-      "เกิดในแม่โคนมแก่ ปรับตัวช้า ขาด Mg/PTH/Active vitD, เกิดตอนหลังคลอดทันที-3 วัน, Stage 1 (ขาอ่อน ตัวสั่น) → Stage 2 (ล้มนั่ง sternal recumbency, คอพับ, ตัวเย็น, HR ลด) → Stage 3 (lateral recum, flaccid, หมดสติ, ตาย); Tx 40% Ca borogluconate 400 mL slow IV 5-10 min ยกขวดสูง 30-40 cm, ตามด้วย SC อีก 3 วัน",
+      "แม่โคแก่ช่วง 0-3 วันหลังคลอด; รักษาด้วย calcium borogluconate IV ช้า",
       "เกิดในวัวสาวก่อนตั้งท้อง, ทำลายตับ",
       "เกิดในลูกวัว, ขาดเหล็ก, รักษาด้วยเลือดถ่ายโดยตรง"
     ],
@@ -686,7 +686,7 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Grass Tetany (Hypomagnesemia) ในแม่วัวที่กินหญ้าอ่อนหลังฝนตก — สิ่งที่ก่อให้เกิด clinical sign และ Tx ที่จำเพาะคือข้อใด",
     "options": [
-      "K สูงในอาหารข้น/หญ้าอ่อนแย่งจับ Mg + N สูงทำ rumen pH กรดลดการดูด Mg → Mg ดูดน้อย → neuro sign (ตอบสนองไว มึน กัดฟัน ตาโปน ชัก opisthotonos rapid nystagmus); Dx vitreous humor Mg < 0.55 mmol/L (จากตัวตาย); Tx ยากันชัก + Ca borogluconate + MgSO4 slow IV 10-15 min warm + MgSO4 SC 400 mL",
+      "K และ N สูงในหญ้าอ่อนลดการดูด Mg; รักษาด้วย MgSO4 ร่วมกับ calcium borogluconate",
       "Ca สูงในอาหารข้น → กดประสาท → Tx ด้วย Ca chelator",
       "Glucose ต่ำในเลือด → Tx ด้วย insulin",
       "Cl ต่ำในเลือด → Tx ด้วย NaCl IV"
@@ -711,7 +711,7 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Subacute Ruminal Acidosis (SARA) — Dx ที่ herd level และวิธีปรับอาหารคืออะไร",
     "options": [
-      "Dx ดู herd-level: milk fat ↓ + F:P ratio < 1.1, feed analysis = อาหารหยาบเล็ก/ละเอียดไป, ดู chewing cud < 5 ตัวใน 10 ตัว; Tx ปรับอาหารช้าๆ ใส่บัฟเฟอร์ในอาหาร TMR ใหม่ — อาหารหยาบขนาด 2.5-5 cm, NDF 28-34%, peNDF 20-30%, R:C ratio 40:60",
+      "ดู milk fat และ F:P < 1.1 ระดับฝูง; ปรับ TMR ให้หยาบ 2.5-5 cm และ R:C 40:60",
       "Dx ที่ herd level ดูแค่ rumen pH ของวัวตัวเดียว",
       "Tx ให้กิน carbohydrate เพิ่มเร็วๆ",
       "ไม่มีการปรับอาหาร — ใช้ ABO รักษาอย่างเดียว"
@@ -737,7 +737,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "ลูกโค Holstein อายุ 10 วัน 40 kg ขาดน้ำ 10% (รุนแรง) นอนสเตอร์นัล ไม่ดื่มนม — ชนิดสารน้ำที่เลือก และ อัตราการให้ ที่ถูกต้องที่สุดคืออะไร",
     "options": [
       "Normal Saline (0.9% NaCl) bolus 8 L ใน 1 ชั่วโมง โดยไม่ต้อง phase",
-      "Acetated Ringer's หรือ LRS ผสม Dextrose 2.5-5% → IV เท่านั้น (เพราะขาดน้ำรุนแรง อ่อนแรง ไม่มีรีเฟล็กซ์ซักดูดนม); two-phase: Phase 1 (0-1h) ให้ 2 L รวดเร็ว เพื่อ resuscitate (1 L deficit / 0.1×40); Phase 2 (1-24h) ให้ 6 L ที่เหลือ ในอัตราคงที่",
+      "Acetated Ringer's หรือ LRS ผสม dextrose ทาง IV; ให้ 2 L แรกเร็ว แล้ว 6 L ภายใน 24 ชั่วโมง",
       "Lactated Ringer's ในลูกตับวาย → ให้เร็ว 8 L bolus ใน 1 ชั่วโมง",
       "Hypertonic saline 7.2% bolus 8 L"
     ],
@@ -762,7 +762,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "แม่โคหลังคลอด 5 วัน เต้านมแข็ง บวม นมเป็นน้ำเหลือง+เลือด ลายขนข้อพับ HR 120 RR 50 อุณหภูมิ 37.2°C ขาเหยียบเย็น, ตาลึก toxic line ของหน้าผิวเลือดออก — แนวทาง fluid therapy เริ่มต้นที่เหมาะสมที่สุดคือข้อใด",
     "options": [
       "Oral electrolyte solution 4 L SID",
-      "Hypertonic saline 7.2% (1-2 L) IV bolus เร็ว ตามด้วย Acetated Ringer's 20-40 L IV (เพราะ acetate ถูกเผาผลาญในเนื้อเยื่อนอกตับ → fix shock ทันที)",
+      "Hypertonic saline 7.2% 1-2 L IV เร็ว ตามด้วย Acetated Ringer's 20-40 L",
       "NSS PO ป้อนช้าๆ ใน 24 ชั่วโมง",
       "ไม่ต้องให้สารน้ำ — ใช้ ABO อย่างเดียวก็พอ"
     ],
@@ -788,7 +788,7 @@ export const QB_HERD_HEALTH_RUM = [
     "options": [
       "Procaine penicillin, Tetracycline",
       "Aminoglycosides, Cephalosporin รุ่นเก่า",
-      "Fluoroquinolones, Cephalosporins รุ่นใหม่ (Gen 3,4) — สงวนไว้เฉพาะกรณีที่ยาตัวอื่นไม่ได้ผล หรือการเพาะเชื้อ susceptibility ระบุชัดว่าต้องใช้",
+      "Fluoroquinolones และ Cephalosporins รุ่น 3-4",
       "Sulfatrimethoprim, Lincosamide"
     ],
     "answer": 2,
@@ -862,7 +862,7 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Dry Cow Therapy ที่ใช้สำหรับ mastitis control ในฟาร์มโคนม — กลยุทธ์ที่แนะนำในปัจจุบันคือข้อใด",
     "options": [
       "Blanket Dry Cow Therapy (BDCT) ใส่ ABO ทุกเต้าทุกตัว blanket coverage เท่านั้น",
-      "Selective Dry Cow Therapy (SDCT) — ใส่ ABO เฉพาะตัวที่ high-risk (high SCC > 200,000 cells/mL ใน lactation นี้, มีประวัติ CM, on-farm culture +) ร่วมกับ internal teat sealant (bismuth subnitrate-based) ป้องกัน new IMI ใน dry period",
+      "Selective DCT ในโคเสี่ยงสูง ร่วมกับ internal teat sealant",
       "ไม่ใช้ ABO เลยใน dry period — ปล่อยให้ภูมิ host จัดการเอง",
       "ใช้ Fluoroquinolone ทุกเต้าทุกตัว ทุก dry-off"
     ],
@@ -888,7 +888,7 @@ export const QB_HERD_HEALTH_RUM = [
     "options": [
       "Mild — น้ำนมเป็นก้อน/ลิ่ม + เต้านมบวมเล็กน้อย + วัวปกติ; 60-90% ของ CM; route = intramammary",
       "Moderate — milk + เต้านมผิดปกติ + ไม่มี systemic; 10-30% ของ CM; route = intramammary",
-      "Severe (Toxic mastitis) — milk + เต้านมผิดปกติ + systemic signs ≥ 2 อย่าง (high fever, tachycardia, tachypnea, dehydration, no rumen contraction, lateral recumbency); route = systemic (IV/IM) + intramammary — เพราะระบบไหลเวียนแย่ ยา intramammary อย่างเดียวไม่ทันการณ์",
+      "Severe: นมและเต้านมผิดปกติร่วมกับ systemic signs; ให้ systemic และ intramammary",
       "ทุก level ใช้ intramammary อย่างเดียว"
     ],
     "answer": 2,
@@ -911,7 +911,7 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "On-farm Culture สำหรับ mastitis case management — ประโยชน์หลักและการตัดสินใจการรักษาคือข้อใด",
     "options": [
-      "On-farm culture ใช้เวลา 24 ชั่วโมง — ผลแยกเชื้อเบื้องต้นช่วย ตัดสินใจการใช้ ABO (ถ้า No growth ~10-40% → ไม่ต้องรักษา ABO; ถ้า Bacteria grow → เลือก ABO จำเพาะ); ลดการใช้ ABO ฟาร์ม ~50% และลด AMR",
+      "อ่านผลเพาะใน 24 ชั่วโมง; no growth งดยาปฏิชีวนะ ส่วน growth เลือกยาเฉพาะ",
       "On-farm culture ใช้เวลา 1 สัปดาห์ ก่อนเริ่มรักษา (ไม่ต้องรีบ)",
       "On-farm culture ทำให้ใช้ ABO มากขึ้น เพราะเห็นเชื้อทุกตัว",
       "On-farm culture แทนที่การวัด SCC ทั้งหมด"
@@ -961,7 +961,7 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Transition period ของแม่โครีดนม (3 สัปดาห์ก่อนคลอด - 3 สัปดาห์หลังคลอด) — กลยุทธ์ป้องกัน NEB และ ketosis ที่ถูกต้องคือข้อใด",
     "options": [
-      "ให้อาหารพลังงานสูง (fresh cow ration) ตั้งแต่ก่อนคลอด 3 สัปดาห์, high density TMR R:C 40:60, ใช้ Propylene Glycol 500 mL SID PO day 0, 7, 14 หลังคลอด เพื่อ supply glucose precursor; +/- Monensin เพื่อเพิ่ม propionic acid producer ใน rumen + ลด fat, PUFA ลดอักเสบ",
+      "ให้ transition ration 3 สัปดาห์ก่อนคลอด และ propylene glycol หลังคลอดในโคเสี่ยง",
       "ให้อดอาหาร 3 วันก่อนคลอด เพื่อลดน้ำหนัก",
       "ให้แต่หญ้าแห้งอย่างเดียว ไม่ให้ concentrate",
       "เริ่ม Propylene Glycol ทุกตัวก่อนคลอด 3 เดือน"
@@ -986,7 +986,7 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "ฟาร์มโคนม มีโค 50 ตัว อยู่ในฟาร์มผลตลอด 30 วัน เกิด clinical mastitis 10 ตัว (ตัวละ at-risk-out 7 วันในการรักษา) — Incidence Rate ของ clinical mastitis ต่อเดือนคือเท่าไหร่",
     "options": [
-      "Incidence rate = (Total cases × 100) / Total days at risk in month; คำนวณ = (10 × 7 × 100) / (1500 − 70) = 700 / 1430 ≈ 4.89% per month",
+      "ประมาณ 4.89% ต่อเดือน",
       "Incidence rate = 10 / 50 = 20%",
       "Incidence rate = 10 / 30 = 33%",
       "Incidence rate = 10 × 30 = 300%"

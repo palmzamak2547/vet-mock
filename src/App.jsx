@@ -43,6 +43,8 @@ import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { appPathForView, isAppPath, viewForAppPath } from './lib/view-route.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
+import { SEMESTER } from './data/schedule.js';
+import { isCurrentScopeQuestion, isHighPredictionQuestion } from './lib/question-prediction.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -331,6 +333,7 @@ function buildExamPool({
   topic,
   questionCategory,
   selectedYear,
+  selectedPhase = null,
   bookmarks = [],
   weakQuestions = [],
   history = [],
@@ -378,6 +381,16 @@ function buildExamPool({
       if (hidden.size) pool = pool.filter((q) => !hidden.has(q.topic));
     } else {
       pool = pool.filter((q) => !hiddenTopicIdsFor(q.subject).has(q.topic));
+    }
+
+    if (practiceMode === 'current-scope' || practiceMode === 'predicted') {
+      const matchesScope = practiceMode === 'predicted'
+        ? isHighPredictionQuestion
+        : isCurrentScopeQuestion;
+      pool = pool.filter((q) => matchesScope(q, {
+          curriculumVersion: SEMESTER.id,
+          selectedPhase,
+        }));
     }
   }
 
@@ -1160,13 +1173,13 @@ export default function App() {
           // to find the answers already showing and the options they had
           // answered locked. The timer settings went the same way, so a
           // timed mock came back untimed.
-          mode, practiceMode, useTimer, timePerQ,
+          mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase,
           savedAt: Date.now(),
         }));
       } catch {}
     }, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx, mode, practiceMode, useTimer, timePerQ]);
+  }, [view, questions, answers, currentIdx, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase]);
 
   // Detect a previous in-flight exam at boot and surface as a non-modal
   // banner on HomeView (replaces the old window.confirm prompt — that
@@ -1228,6 +1241,8 @@ export default function App() {
     // for a practice set, so only restore what was actually saved.
     if (saved.mode) setMode(saved.mode);
     if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
+    if (Number.isFinite(saved.selectedYear)) setSelectedYear(saved.selectedYear);
+    if ('selectedPhase' in saved) setSelectedPhase(saved.selectedPhase);
     if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
     if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
     setPendingResume(null);
@@ -1481,11 +1496,12 @@ export default function App() {
       topic,
       questionCategory,
       selectedYear,
+      selectedPhase,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       history,
     }).length;
-  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, questionCategory, selectedYear, subject, topic]);
+  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, questionCategory, selectedPhase, selectedYear, subject, topic]);
 
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
@@ -1555,6 +1571,7 @@ export default function App() {
       topic: _topic,
       questionCategory: _questionCategory,
       selectedYear,
+      selectedPhase,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       history,
@@ -1733,7 +1750,7 @@ export default function App() {
     // these — only auto-graded session settings need preservation.
     try {
       window.localStorage?.setItem('vmx-last-session-config', JSON.stringify({
-        mode, subject, topic, practiceMode,
+        mode, subject, topic, practiceMode, selectedYear, selectedPhase,
         numQuestions, useTimer, timePerQ, questionCategory,
         savedAt: Date.now(),
         score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0 },
@@ -2448,4 +2465,3 @@ export default function App() {
     </>
   );
 }
-

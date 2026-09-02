@@ -359,7 +359,7 @@ export const QB_ENGPROF1 = [
     "q": "In the Simba consultation, the vet recommends hospitalization. According to the script, what is the main reason for hospitalising Simba?",
     "options": [
       "Because the owner cannot afford outpatient care",
-      "For observation — the first 24-hour period is crucial; if he can't eat he may need IV fluids, and if his symptoms worsen he may need anti-inflammatory medications, with a risk of a second stroke",
+      "For close observation during the critical first 24 hours",
       "Because Simba is contagious to other cats in the household",
       "To perform an immediate craniotomy"
     ],
@@ -428,7 +428,7 @@ export const QB_ENGPROF1 = [
     "q": "In the therapy-dogs radio interview, when asked what breed and age are appropriate for therapy dogs, the speaker's answer is best summarised by which statement?",
     "options": [
       "Only Golden Retrievers under 5 years old qualify",
-      "Breed and age do not matter — what matters is temperament: naturally calm, friendly, affectionate to strangers, well-trained in basic obedience, and easily adaptable to new noises, places, smells, and equipment",
+      "Any breed or age, provided the dog is calm, friendly, trained, and adaptable",
       "Only purebred dogs over 8 years old (mature temperament) qualify",
       "Only puppies under 12 months old, because they are highly social"
     ],
@@ -612,7 +612,7 @@ export const QB_ENGPROF1 = [
     "q": "Unit 3 Task 4 features a lecture on catnip. The lecture explains that catnip produces its effect on cats only through smell — the active chemical compound is named in the lecture. What is the compound, and what is the effect on cats?",
     "options": [
       "Caffeine; sedation",
-      "Nepetalactone; a frenzy / euphoric effect through smell, lasting about 15 minutes with a refractory period of about 1 hour",
+      "Nepetalactone; a brief olfactory euphoria",
       "Catnipol; permanent addiction",
       "Theobromine; toxicity"
     ],
@@ -682,7 +682,7 @@ export const QB_ENGPROF1 = [
     "q": "Unit 3 Talk/Lecture III covers California's sea-urchin problem. The lecturer states: kelp forest seaweed grows 30-60 ft tall and provides key habitat for marine animals. 95% of the kelp forest in the Northern San Francisco area has disappeared. Why have sea urchins spread all over the Northern California coast? Pick the best explanation from the lecture.",
     "options": [
       "Overfishing of crab and lobster species",
-      "Unusually warm temperatures and the decline of their main predator (the sunflower sea star), which has been decreasing due to sea star wasting disease and warm sea water from climate change",
+      "Warm water and decline of sunflower sea stars",
       "Algal bloom toxins killed their predators",
       "Plastic pollution"
     ],

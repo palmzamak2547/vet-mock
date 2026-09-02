@@ -291,7 +291,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ภาพตัดขวางกล้ามเนื้อปลาใน Fig. 5 ที่แยกให้เห็น dark muscle, intermediate muscle และ white muscle ย้อมด้วยปฏิกิริยาใด",
+    "q": "การย้อมทาง histochemistry ใดใช้กิจกรรม mitochondrial enzyme เพื่อแยก dark, intermediate และ white muscle ของปลา",
     "options": [
       "Succinate dehydrogenase reaction",
       "Alkaline phosphatase reaction",
@@ -438,7 +438,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "คำกำกับตัวเลขใต้ Fig. 1 The nervous system ระบุหน้าที่ของสมองแต่ละส่วนไว้อย่างไร",
+    "q": "คู่ส่วนสมองปลาและหน้าที่ใดถูกต้อง",
     "options": [
       "mesencephalon กำกับว่า vision และ telencephalon กำกับว่า smell",
       "mesencephalon กำกับว่า smell และ telencephalon กำกับว่า vision",
@@ -456,7 +456,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "ภาพ Thyroid Hormone Production แสดงลำดับการหลั่งฮอร์โมนตามแกนนี้อย่างไร",
+    "q": "ลำดับการหลั่งฮอร์โมนตาม hypothalamus-pituitary-thyroid axis ข้อใดถูกต้อง",
     "options": [
       "Hypothalamus หลั่ง TSH กระตุ้น pituitary ให้หลั่ง TRH แล้ว thyroid หลั่ง T3 และ T4",
       "Hypothalamus หลั่ง TRH กระตุ้น pituitary ให้หลั่ง TSH แล้ว thyroid หลั่ง T3 และ T4",
@@ -474,7 +474,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "คำกำกับบนภาพขยายมุมซ้ายล่างของ internal ear ระบุ semicircular canal ไว้กี่แนวและแนวใดบ้าง",
+    "q": "semicircular canal หลักของหูชั้นในปลามีกี่แนวและประกอบด้วยแนวใดบ้าง",
     "options": [
       "สองแนว ได้แก่ anterior vertical canal กับ horizontal canal",
       "สามแนว ได้แก่ anterior vertical, posterior vertical และ lateral canal",
@@ -656,7 +656,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ตามสามเหลี่ยมการเกิดโรค โรคในสัตว์น้ำเกิดที่จุดตัดขององค์ประกอบใด",
+    "q": "องค์ประกอบหลักสามด้านของ disease triangle ในสัตว์น้ำคือข้อใด",
     "options": [
       "Environment, Vector และ Susceptible host",
       "Environment, Susceptible host และ Pathogen",

@@ -349,7 +349,7 @@ export const QB_COM2 = [
     "options": [
       "Drawer sign test",
       "Tibial compression test",
-      "Ortolani test (ตรวจ hip laxity — กางขาเข้า/หุบขาแล้วฟังเสียงหลุด)",
+      "Ortolani test",
       "Thumb's method",
       "Cranial drawer test"
     ],
@@ -890,7 +890,7 @@ export const QB_COM2 = [
     "q": "Hypertrophic osteodystrophy (HOD) — finding ทาง X-ray ที่จำเพาะคือ",
     "options": [
       "Lion jaw appearance",
-      "Pseudophyseal line / 'double physeal' line ที่ metaphysis ของ long bone (รอยเส้นขนาน growth plate)",
+      "Pseudophyseal หรือ double physeal line",
       "Avascular necrosis of femoral head",
       "Salter-Harris physeal fracture",
       "Hip subluxation"
@@ -1011,7 +1011,7 @@ export const QB_COM2 = [
     "q": "ABCDE primary survey ในสุนัข/แมวที่มี musculoskeletal trauma — 'D' หมายถึง",
     "options": [
       "Diaphragm",
-      "Disability (mentation, seizures, pain sensation)",
+      "Disability",
       "Defecation",
       "Dehydration",
       "Drug history"

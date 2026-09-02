@@ -1,11 +1,11 @@
 // ============================================================
 // mcv-manifest.mjs — MyCourseVille dump → an ingest manifest
 // ============================================================
-// The MCP that talks to MyCourseVille can only be driven from a Claude
-// session, not from a script, so the two halves are separate on purpose:
-// the session writes a raw dump, this turns it into a manifest, and
-// ingest-library.mjs is the only thing that touches credentials. You can
-// read the manifest and know exactly what is about to be mirrored.
+// The authenticated local bridge and the shelf writer stay separate on
+// purpose: a read-only session writes a raw dump, this turns it into a
+// reviewable manifest, and ingest-library.mjs handles the storage/catalog
+// credentials. You can read the manifest and know exactly what is about to
+// be mirrored.
 //
 //   node scripts/mcv-manifest.mjs --dump=.mcv/dump.json --out=.mcv/manifest.json
 //
@@ -95,6 +95,11 @@ export function buildManifest(dump) {
           year,
           semester,
           academicYear,
+          // Source access is not publication authority. A reviewer must fill
+          // these per item before the ingest will accept the manifest.
+          license: null,
+          permissionEvidence: null,
+          status: 'draft',
         });
       }
     }

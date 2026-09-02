@@ -537,7 +537,7 @@ export const QB_VET_IMAGING = [
     "examOrigin": "Vet Imaging Final 86",
     "q": "โรคที่ควรระวังหรือไม่ควรใช้ contrast (gadolinium) ใน MRI คือ",
     "options": [
-      "Hepatitis และ Cushing's Syndrome (มัก renal impairment + dehydration → Nephrogenic Systemic Fibrosis)",
+      "Hepatitis และ Cushing's Syndrome",
       "Diabetes mellitus เท่านั้น",
       "Hyperthyroidism",
       "Pneumonia",

@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 // Generate the fail-closed question delivery gate.
 //
-// A question that explicitly requires a figure but has no figure cannot be
-// answered as written. Keep it in the source bank for repair/provenance, but
-// exclude it from counts and runtime pools until the asset is attached.
+// A question that explicitly requires a figure but has no figure, or whose own
+// metadata says its answer/scope is still unclear, cannot be delivered with
+// confidence. Keep it in the source bank for repair/provenance, but exclude it
+// from counts and runtime pools until the missing evidence is resolved.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { bankFiles, readBank } from './lib/bank-file.mjs';
 import { needsFigure } from './lib/question-standard.mjs';
+import { questionNeedsAnswerReview } from '../src/lib/question-prediction.js';
 
 // Line endings normalised before comparing. Git checks these files out
 // with CRLF on Windows while the generator writes LF, so a byte-for-byte
@@ -28,7 +30,9 @@ for (const file of bankFiles()) {
   const { questions } = await readBank(file);
   for (const q of questions) {
     let reason = null;
-    if (needsFigure(q)) {
+    if (questionNeedsAnswerReview(q)) {
+      reason = 'เฉลยหรือขอบเขตยังรอการตรวจสอบ';
+    } else if (needsFigure(q)) {
       reason = 'ต้องใช้ภาพประกอบ แต่ยังไม่มีภาพที่ตรวจสอบแล้ว';
     } else {
       const image = q.image || q.imagePath;
@@ -71,5 +75,5 @@ if (CHECK) {
   console.log(`✓ question delivery gate ตรงกัน: ปิดไว้ ${blocked.length} ข้อ`);
 } else {
   fs.writeFileSync(OUT, output, 'utf8');
-  console.log(`✓ wrote ${OUT}: ปิดไว้ ${blocked.length} ข้อจนกว่าจะมีภาพที่ตรวจสอบแล้ว`);
+  console.log(`✓ wrote ${OUT}: ปิดไว้ ${blocked.length} ข้อที่ยังตอบอย่างมั่นใจไม่ได้`);
 }

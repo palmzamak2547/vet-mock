@@ -10,9 +10,13 @@ export function questionTopicId(question) {
   return question?.topic || UNASSIGNED_TOPIC;
 }
 
-// `sourceType` is the canonical marker. The source-text fallback keeps older
-// banks compatible until their metadata is normalized.
+// `sourceType` is the canonical marker and wins when present. `examOrigin` is
+// authoritative only for legacy questions without that marker: several older
+// ingests put a senior-summary note in examOrigin while correctly classifying
+// the question as lecture-derived or student-compilation. The source-text
+// fallback keeps still-older banks compatible until metadata is normalized.
 export function isPastPaperQuestion(question) {
-  return question?.sourceType === 'past-paper'
+  if (question?.sourceType) return question.sourceType === 'past-paper';
+  return Boolean(String(question?.examOrigin || '').trim())
     || PAST_PAPER_SOURCE_PATTERN.test(String(question?.source || ''));
 }

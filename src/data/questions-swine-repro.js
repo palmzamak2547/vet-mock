@@ -299,7 +299,7 @@ export const QB_SWINE_REPRO = [
     "options": [
       "PGF2alpha (Cloprostenol)",
       "Oxytocin",
-      "Altrenogest (Allyl Trenbolone / Regumate) — progestogen synthetic",
+      "Altrenogest (Regumate)",
       "Estradiol benzoate"
     ],
     "answer": 2,
@@ -515,7 +515,7 @@ export const QB_SWINE_REPRO = [
     "options": [
       "เท่าเดิม",
       "ประมาณ 1.5 เท่า",
-      "ประมาณ 3 เท่า (จาก ~2.6 kg/วัน เป็น ~6.1-6.6 kg/วัน)",
+      "ประมาณ 3 เท่า",
       "ประมาณ 10 เท่า"
     ],
     "answer": 2,

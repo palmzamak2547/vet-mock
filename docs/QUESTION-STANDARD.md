@@ -96,6 +96,28 @@ Palm: *"ทำไมบางคำถามที่ต้องใช้รู
 เด็คคือ `source`. การเอาชื่อเด็คใส่ `examOrigin` ทำให้ข้อที่เขียนจากสไลด์
 **สวมอำนาจของข้อสอบเก่า** ซึ่งไม่จริง.
 
+### D6 · ความถูกของเฉลยกับโอกาสออกสอบเป็นคนละแกน
+
+ข้อที่คัดเป็นชุดเน้นสอบปัจจุบันต้องระบุ metadata ครบทั้งชุด:
+
+```js
+answerStatus: 'verified',
+curriculumVersion: '2569-1',
+examScope: 'midterm',
+predictionTier: 'high',
+predictionSignals: ['current-lecture', 'senior-recurrence'],
+predictionEvidence: ['Avian Medicine midterm compilation p.1'],
+```
+
+- `answerStatus` บอกว่าเฉลยตรวจแล้วหรือยัง; ห้ามใช้ `predictionTier` กลบความไม่แน่ใจของเฉลย
+- `answerStatus: 'needs-review'` และ legacy `flag.severity: 'unclear'` ถูก delivery gate ปิดไว้ ไม่เข้าสุ่มให้นิสิต
+- `examScope` แยกกลางภาค/ปลายภาค/ทั้งสอง/ประเมินต่อเนื่องจาก `semester`
+- `continuous` อยู่ใน preset ปัจจุบันได้ทั้งช่วงกลางและปลายเทอม แต่ไม่ถูกสวมว่าเป็นข้อสอบกลาง/ปลายภาค
+- `predictionTier: 'high'` ต้องมีหลักฐานอิสระอย่างน้อย 2 สัญญาณ
+- `predictionEvidence` ต้องชี้ locator ของหลักฐานเสริมที่ทำให้ยกระดับเป็น `high`; ชื่อ signal อย่างเดียวไม่พอ
+- `curriculumVersion` กันข้อของรุ่นก่อนถูกนับเป็น scope ปัจจุบันเพียงเพราะชื่อวิชาเหมือนกัน
+- metadata ชุดนี้เป็น optional สำหรับข้อเก่า แต่ถ้าเริ่มใส่ field ใด field หนึ่ง ต้องใส่ครบและผ่าน gate
+
 ---
 
 ## ส่วนที่ 2 — Coverage (ช่องว่างที่กำลังไล่ปิด)
@@ -186,6 +208,8 @@ Gate ทุกตัวข้างบนเป็นเรื่องกลไ
 | 2026-08-25 | ⚠️ guard โพยดูที่**ชื่อไฟล์** ยังไม่พอ | `Ekwai Med.pdf` ไม่มีคำว่าโพยในชื่อ แต่เนื้อในคือเฉลยของรุ่นพี่พร้อมคอมเมนต์ส่วนตัว ไม่มีรูปเลย · ข้อที่อ้างมันจึงถูก**ทิ้ง** ไม่ใช่แนบรูป |
 | 2026-08-17 | ⛔ ห้ามดึงรูปจากโพย/ชีตรุ่นพี่ | แหล่งพวกนี้เป็นสกรีนช็อตหน้าเฉลย ไม่ใช่รูปประกอบ ดึงมาแล้วแจกคำตอบให้ฟรี |
 | 2026-08-16 | `checklist` ตัดออกจาก word list | ข้อสอบเก่าภาษาอังกฤษเขียนว่า *"do not include the full diagnostic checklist verbatim"* ถึงบทความที่พิมพ์อยู่หน้าเดียวกัน — คำนี้ผิดเฉพาะตอนที่**เอกสาร**คือสิ่งที่ถูกถาม ซึ่ง word list ตัดสินแทนไม่ได้ |
+| 2026-09-02 | D6 แยก answer verification ออกจาก exam likelihood | รอบเชื่อม MyCourseVille ปัจจุบันกับเอกสารรุ่นก่อนพบว่า subject/semester ตรงกันไม่ได้แปลว่า exam phase หรือ curriculum scope ตรงกัน จึงเพิ่ม evidence contract แบบ fail-closed สำหรับชุดเน้นสอบ |
+| 2026-09-03 | `Fig.` detector เคยไม่มีวัน match | `fig\\.` อยู่ก่อน word boundary ที่ตามหลังจุด ทำให้ non-word ชน non-word แล้ว regex ไม่ผ่าน แยก branch ออกและเขียนคำถาม Aquatic 5 ข้อให้ตอบได้จาก stem โดยไม่ต้องเห็นภาพ |
 
 ---
 

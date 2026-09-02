@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { SUBJECTS } from '../data/questions.js';
+import { SEMESTER } from '../data/schedule.js';
 import BackBar from '../components/BackBar.jsx';
 
 // ============================================================
@@ -72,6 +73,8 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
   const contextLine = practiceMode === 'bookmarks' ? '🔖 Bookmark — เฉพาะข้อที่บันทึก'
     : practiceMode === 'weak' ? 'Weak Spots — ข้อที่ผิดบ่อย'
     : practiceMode === 'wrong' ? 'ทบทวนข้อที่ตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)'
+    : practiceMode === 'current-scope' ? `ตามสไลด์ปัจจุบัน — เฉลยตรวจแล้วและตรง scope ${SEMESTER.id}`
+    : practiceMode === 'predicted' ? 'ชุดน่าจะออก — เฉลยตรวจแล้ว + scope ปัจจุบัน + หลักฐานอย่างน้อย 2 ทาง; ไม่ใช่ข้อสอบยืนยัน'
     : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
     : `${subjMeta?.icon} ${subjMeta?.name}`;
 

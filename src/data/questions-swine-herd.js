@@ -871,7 +871,7 @@ export const QB_SWINE_HERD = [
     "q": "Inbreeding depression ในฟาร์มสุกรพันธุ์จะแสดงผลเสียอย่างไร และวิธีป้องกันที่ obvious ที่สุด",
     "options": [
       "Heterosis สูงขึ้น, ป้องกันโดยผสมพี่น้อง",
-      "Litter size ↓, growth rate ↓ ถึง 154 d, libido ↓ ในพ่อพันธุ์, ใบ้, splay leg, ไส้เลื่อน — ป้องกันโดยตรวจ pedigree ก่อนผสม + avoiding mating brothers/sisters/parents-offspring/grandparents",
+      "ขนาดครอกและ growth ลดลง พ่อพันธุ์ libido ต่ำ; ป้องกันด้วย pedigree และไม่ผสมเครือญาติ",
       "ผลผลิตเพิ่มขึ้น เพราะ homozygosity ของ favorable allele",
       "ไม่มีผล — สุกรเป็น polyestrous polytocous"
     ],

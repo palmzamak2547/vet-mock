@@ -4,9 +4,9 @@ import { QB } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
 // full QB to be scanned on every re-render.
-import { QB_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
+import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
-import { getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
+import { SEMESTER, getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
@@ -44,6 +44,7 @@ import NextActionCard from '../components/NextActionCard.jsx';
 import FeatureMenu from '../components/FeatureMenu.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { truncateThai } from '../lib/thai-text.js';
+import { examScopeForPhase } from '../lib/question-prediction.js';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
 // (~15KB combined). Mounted under the streak chip row.
@@ -98,6 +99,27 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const yearSubjects = useMemo(() => (phaseMeta
     ? allYearSubjects.filter((s) => s.semester === phaseMeta.semester || s.semester === 0)
     : allYearSubjects), [allYearSubjects, phaseMeta]);
+  const predictionScope = examScopeForPhase(selectedPhase) || 'all';
+  const { currentScopeCount, highPredictionCount, nextExamCurrentCount } = useMemo(() => {
+    const currentBySubject = Q_CURRENT_SCOPE_COUNTS[SEMESTER.id]?.[predictionScope] || {};
+    const predictedBySubject = Q_HIGH_PREDICTION_COUNTS[SEMESTER.id]?.[predictionScope] || {};
+    const nextExamScope = nextExam?.term === 'midterm' || nextExam?.term === 'final'
+      ? nextExam.term
+      : null;
+    return {
+      currentScopeCount: yearSubjects.reduce(
+        (total, item) => total + (currentBySubject[item.id] || 0),
+        0,
+      ),
+      highPredictionCount: yearSubjects.reduce(
+        (total, item) => total + (predictedBySubject[item.id] || 0),
+        0,
+      ),
+      nextExamCurrentCount: nextExamScope
+        ? (Q_CURRENT_SCOPE_COUNTS[SEMESTER.id]?.[nextExamScope]?.[nextExam?.subject] || 0)
+        : 0,
+    };
+  }, [nextExam?.subject, nextExam?.term, predictionScope, yearSubjects]);
 
   // Question count — must match what YearSelectView shows for the same year:
   // Note: hero stat `totalQ` (year + vca + custom) was removed in
@@ -448,6 +470,50 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     if (startExam) {
       startExam({
         practiceMode: 'wrong',
+        subject: 'all',
+        topic: null,
+        questionCategory: 'all',
+        numQuestions: n,
+        useTimer: false,
+      });
+    }
+  };
+
+  const launchHighPrediction = () => {
+    if (highPredictionCount === 0 || quickActionPending) return;
+    setQuickActionPending(true);
+    const n = Math.min(highPredictionCount, 50);
+    if (setMode) setMode('quick');
+    if (setSubject) setSubject('all');
+    if (setTopic) setTopic(null);
+    if (setPracticeMode) setPracticeMode('predicted');
+    if (setNumQuestions) setNumQuestions(n);
+    if (setUseTimer) setUseTimer(false);
+    if (startExam) {
+      startExam({
+        practiceMode: 'predicted',
+        subject: 'all',
+        topic: null,
+        questionCategory: 'all',
+        numQuestions: n,
+        useTimer: false,
+      });
+    }
+  };
+
+  const launchCurrentScope = () => {
+    if (currentScopeCount === 0 || quickActionPending) return;
+    setQuickActionPending(true);
+    const n = Math.min(currentScopeCount, 50);
+    if (setMode) setMode('quick');
+    if (setSubject) setSubject('all');
+    if (setTopic) setTopic(null);
+    if (setPracticeMode) setPracticeMode('current-scope');
+    if (setNumQuestions) setNumQuestions(n);
+    if (setUseTimer) setUseTimer(false);
+    if (startExam) {
+      startExam({
+        practiceMode: 'current-scope',
         subject: 'all',
         topic: null,
         questionCategory: 'all',
@@ -1197,6 +1263,38 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         <>
           <div className="vmx-section-label" style={{ marginTop: 28 }}>โหมดซ้อม</div>
           <div className="vmx-mode-grid">
+            {currentScopeCount > 0 && (
+              <button
+                className="vmx-mode-card"
+                onClick={launchCurrentScope}
+                disabled={quickActionPending}
+                aria-label={`ฝึกตามสไลด์ปัจจุบัน ${currentScopeCount} ข้อที่ตรวจเฉลยและ scope แล้ว`}
+                title="รับเฉพาะข้อที่ตรวจเฉลยแล้วและตรง curriculum/phase ปัจจุบัน"
+                style={{ borderColor: 'var(--clr-sage)' }}
+              >
+                <div className="icon"><NavIcon name="practice" size={20} /></div>
+                <div className="title">ตามสไลด์ปัจจุบัน</div>
+                <div className="sub">{currentScopeCount} ข้อ · ตรง {SEMESTER.id} และช่วงสอบที่เลือก</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-sage)' }}>ตรวจแล้ว</div>
+              </button>
+            )}
+
+            {highPredictionCount > 0 && (
+              <button
+                className="vmx-mode-card"
+                onClick={launchHighPrediction}
+                disabled={quickActionPending}
+                aria-label={`ฝึกชุดน่าจะออกที่มีหลักฐานสูง ${highPredictionCount} ข้อ ไม่ใช่การยืนยันข้อสอบ`}
+                title="อิงสไลด์และ scope ปัจจุบัน พร้อมสัญญาณสนับสนุนอย่างน้อย 2 ทาง"
+                style={{ borderColor: 'var(--clr-gold)' }}
+              >
+                <div className="icon"><NavIcon name="exam" size={20} /></div>
+                <div className="title">ชุดน่าจะออก</div>
+                <div className="sub">{highPredictionCount} ข้อ · หลักฐานสูง แต่ไม่ใช่ข้อสอบยืนยัน</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>เน้นสอบ</div>
+              </button>
+            )}
+
             {/* Smart: ซ้อมใกล้สอบ — when nextExam exists in current year */}
             {nextExam && nextExam.subject && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 30 && (
               <button
@@ -1204,7 +1302,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 onClick={() => {
                   setMode('quick');
                   setSubject && setSubject(nextExam.subject);
-                  setPracticeMode && setPracticeMode('all');
+                  setTopic && setTopic(null);
+                  if (nextExamCurrentCount > 0) {
+                    const semester = SEMESTER.id.split('-').at(-1);
+                    setSelectedPhase && setSelectedPhase(`${semester}-${nextExam.term === 'midterm' ? 'mid' : 'final'}`);
+                    setPracticeMode && setPracticeMode('current-scope');
+                  } else {
+                    setPracticeMode && setPracticeMode('all');
+                  }
                   setView('config');
                 }}
                 style={{ borderColor: 'var(--clr-rose)' }}
@@ -1215,7 +1320,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                   {(() => {
                     const subjMeta = SUBJECTS.find((s) => s.id === nextExam.subject);
                     const label = subjMeta?.name || nextExam.subject;
-                    return `${label}, อีก ${nextExam.daysLeft} วันจะสอบ`;
+                    const scoped = nextExamCurrentCount > 0 ? `, ${nextExamCurrentCount} ข้อตรงขอบเขต` : '';
+                    return `${label}${scoped}, อีก ${nextExam.daysLeft} วันจะสอบ`;
                   })()}
                 </div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-rose)' }}>แนะนำ</div>
@@ -1265,6 +1371,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 className="vmx-mode-card"
                 onClick={() => {
                   if (lastSession) {
+                    if (setSelectedYear && Number.isFinite(lastSession.selectedYear)) setSelectedYear(lastSession.selectedYear);
+                    if (setSelectedPhase && 'selectedPhase' in lastSession) setSelectedPhase(lastSession.selectedPhase);
                     if (setMode) setMode(lastSession.mode || 'quick');
                     if (setSubject) setSubject(lastSession.subject);
                     if (setTopic) setTopic(lastSession.topic || null);

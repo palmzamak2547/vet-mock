@@ -37,6 +37,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
 import { basename } from 'node:path';
 import { presignAny, r2Config, cfConfig } from '../api/_lib/r2.js';
+import { publicationMetadata } from './ingest-library.mjs';
 
 // R2 accepts writes two ways and this project only ever has ONE of them.
 // A presigned PUT needs permanent S3 keys; the standing CLOUDFLARE_API_TOKEN
@@ -142,6 +143,9 @@ async function main() {
 
   for (const it of items) {
     if (!existsSync(it.path)) { console.error(`✖ missing: ${it.path}`); process.exit(1); }
+    // Rights are a per-document fact. Validate them before reading or
+    // uploading bytes so neither dry runs nor real runs can invent authority.
+    const publication = publicationMetadata(it);
     const bytes = readFileSync(it.path);
     const sha = hash16(bytes);
     const mime = mimeFor(it.path);
@@ -153,7 +157,12 @@ async function main() {
     console.log(`  ${sizeMb} MB · ${mime.split(/[/.]/).pop()} · ${pages ?? '—'} pages · ${sha}`);
 
     if (DRY) {
-      rows.push({ key, mime, sha, pages, size: bytes.length, title: it.title });
+      rows.push({
+        key, mime, sha, pages, size: bytes.length, title: it.title,
+        license: publication.license,
+        permission_evidence: publication.permissionEvidence,
+        status: publication.status,
+      });
       continue;
     }
 
@@ -205,11 +214,11 @@ async function main() {
       linearized: mime === 'application/pdf'
         ? bytes.subarray(0, 4096).toString('latin1').includes('/Linearized')
         : false,
-      license: it.license || 'instructor-permission',
+      license: publication.license,
       source_url: it.sourceUrl ?? null,
       attribution: it.attribution || 'คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย',
-      permission_evidence: it.permissionEvidence ?? null,
-      status: it.status || 'public',
+      permission_evidence: publication.permissionEvidence,
+      status: publication.status,
     });
   }
 
@@ -220,4 +229,7 @@ async function main() {
   console.log(`rows written to ${out} (${rows.length})`);
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+const entry = process.argv[1]?.replace(/\\/g, '/');
+if (entry && import.meta.url.endsWith(entry.split('/').pop())) {
+  main().catch((e) => { console.error(e); process.exit(1); });
+}
