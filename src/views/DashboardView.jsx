@@ -8,6 +8,7 @@ import {
 } from '../lib/user-data-schema.js';
 import BackBar from '../components/BackBar.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
+import NightRankCard from '../components/NightRankCard.jsx';
 import { getWebVitalsSamples, summarize } from '../lib/web-vitals.js';
 import StreakHeatmap from '../components/StreakHeatmap.jsx';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
@@ -530,6 +531,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <TrendChart days={trend} />
             </div>
           )}
+
+          {/* Late-night rank — derived from history timestamps, no
+              separate store. Placed next to the trend so both read as
+              "study habits". Margin comes from .vmx-night-rank-card. */}
+          <NightRankCard history={history} />
 
           <div className="vmx-dash-card" style={{ marginTop: 16 }}>
             <h3>ความหนาแน่น 12 เดือน{yearScope === 'current' ? `, ปี ${selectedYear}` : ''}</h3>

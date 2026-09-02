@@ -6,6 +6,7 @@ import ScoreBurst from '../components/ScoreBurst.jsx';
 import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import { NIGHT_RANK_EVENT } from '../lib/night-rank.js';
 import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 
@@ -164,6 +165,22 @@ export default function ResultsView({
     try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
   }, []);
 
+  // Night-rank promotion banner — App.jsx's finishExam compares the
+  // rank ladder before/after the session and fires NIGHT_RANK_EVENT
+  // when this late-night session pushed the user UP a rank. The
+  // banner rides on ResultsView (where the user lands right after
+  // submitting at 2 AM). No persistence: if the event is missed, the
+  // rank itself is still visible on the Dashboard card.
+  const [rankPromo, setRankPromo] = useState(null);
+  useEffect(() => {
+    const onPromo = (e) => {
+      const { from, to } = e?.detail || {};
+      if (from?.label && to?.label) setRankPromo({ from, to });
+    };
+    window.addEventListener(NIGHT_RANK_EVENT, onPromo);
+    return () => window.removeEventListener(NIGHT_RANK_EVENT, onPromo);
+  }, []);
+
   // mount in dev doesn't trigger the burst twice.
   // Personal-best tracking — per-subject highest pct ever recorded in
   // a 5+ Q session. Surfaced as a "🏆 NEW PERSONAL BEST" banner +
@@ -267,6 +284,17 @@ export default function ResultsView({
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
+      {rankPromo && (
+        <div className="vmx-night-rank-promo" role="status">
+          <span className="vmx-night-rank-promo-icon" aria-hidden="true">{rankPromo.to.icon}</span>
+          <div className="vmx-night-rank-promo-text">
+            <div className="vmx-night-rank-promo-title">🎖️ เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
+            <div className="vmx-night-rank-promo-sub">
+              จาก {rankPromo.from.label} → {rankPromo.to.label} · {rankPromo.to.blurb}
+            </div>
+          </div>
+        </div>
+      )}
       {(phaseLabel || selectedYear) && (
         <div style={{
           marginBottom: 12, display: 'flex', gap: 6, justifyContent: 'center',
