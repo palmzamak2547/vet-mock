@@ -1001,6 +1001,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!fileHash) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     saveTimerRef.current = setTimeout(async () => {
+      // The ref means "a save is pending". Once this callback runs it is
+      // not: leaving the spent timer id behind made pullLatest read a
+      // stale truthy ref on every live-sync ping, re-arm a save and a
+      // push, hear its own row change echoed back, and loop every few
+      // seconds for as long as the document stayed open.
+      saveTimerRef.current = null;
       const res = await saveAnnotations(fileHash, {
         fileName,
         pageCount,
@@ -1021,6 +1027,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   async function saveNow() {
     if (!fileHash) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = null; // same contract as above: pending means pending
     // "บันทึกแล้ว ✓" used to appear whatever happened — the storage layer
     // swallowed the failure and handed the caller nothing to check, so a
     // student whose device storage was full was told their pen marks were
