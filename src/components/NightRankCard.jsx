@@ -9,7 +9,9 @@ export default function NightRankCard({ history }) {
 
   return (
     <div className="vmx-dash-card vmx-night-rank-card">
-      <h3>🎖️ ยศโต้รุ้ง</h3>
+      {/* h2 like every other dashboard card: this card is a peer of
+          them, not a subsection of the one rendered before it. */}
+      <h2>🎖️ ยศโต้รุ้ง</h2>
       <div className="vmx-night-rank-row">
         <span className="vmx-night-rank-icon" aria-hidden="true">{rank.icon}</span>
         <div className="vmx-night-rank-info">

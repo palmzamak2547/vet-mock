@@ -15,6 +15,9 @@ const home = read('../../src/views/HomeView.jsx');
 const css = read('../../src/styles.css');
 const dashboard = read('../../src/views/DashboardView.jsx');
 const schedule = read('../../src/views/ScheduleView.jsx');
+// Cards composed into the dashboard from their own files are peers of the
+// inline ones and must use the same heading level.
+const nightRank = read('../../src/components/NightRankCard.jsx');
 
 test('a subject card is never dimmed as a whole; the quiet state is a class', () => {
   const grid = home.slice(home.indexOf('function SubjectGrid('));
@@ -29,6 +32,8 @@ test('a subject card is never dimmed as a whole; the quiet state is a class', ()
 test('dashboard and schedule card titles are h2 under the page h1', () => {
   assert.equal((dashboard.match(/<h3\b/g) || []).length, 0);
   assert.equal((schedule.match(/<h3\b/g) || []).length, 0);
+  assert.equal((nightRank.match(/<h3\b/g) || []).length, 0, 'the composed night-rank card must not fall back to h3');
+  assert.match(nightRank, /<h2>🎖️ ยศโต้รุ้ง<\/h2>/);
   assert.ok((dashboard.match(/<h2\b/g) || []).length >= 8);
   assert.match(css, /\.vmx-dash-card h2, \.vmx-dash-card h3 \{ font-family: inherit; font-size: 18px;/);
 });
