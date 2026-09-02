@@ -117,7 +117,11 @@ export function ViewFallback() {
     <div
       aria-busy="true"
       aria-live="polite"
-      style={{ padding: '16px 0', minHeight: '60vh' }}
+      // Reserves a full viewport (see .vmx-view-fallback). At 60vh the footer
+      // painted inside the first screen and was then pushed off it when the
+      // view's chunk rendered — one shift worth 0.16 CLS on a phone.
+      className="vmx-view-fallback"
+      style={{ padding: '16px 0' }}
     >
       <div
         role="status"
