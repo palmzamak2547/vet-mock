@@ -9,7 +9,7 @@ import {
   isAnonymizedTagName,
 } from '../../src/lib/dicom/anonymizer.js';
 import { csvCell } from '../../src/lib/dicom/export-attempts.js';
-import { decodeQuizSet, encodeQuizSet } from '../../src/lib/share-link.js';
+import { decodeQuizSet, encodeQuizSet, readSenderInfoFromLocation } from '../../src/lib/share-link.js';
 import { headerText } from '../../api/send-feedback.js';
 import {
   isAllowedAppOrigin,
@@ -63,6 +63,26 @@ test('LINE auth redirects stay on production, approved previews, or local develo
     resolveAppRedirect('http://localhost:5173/app/home', null),
     'http://localhost:5173/app/home',
   );
+});
+
+test('a challenge link whose sender name holds a percent sign still shows the score', () => {
+  // URLSearchParams decodes once. The reader used to decode a second time,
+  // which throws on "100%" — and the whole banner (score and time included)
+  // went with it, inside one try/catch.
+  const had = Object.prototype.hasOwnProperty.call(globalThis, 'window');
+  const prev = globalThis.window;
+  globalThis.window = { location: { search: '?qset=x&sc=3_5&by=100%25%20club&t=90', origin: 'https://vetmock.vercel.app' } };
+  try {
+    assert.deepEqual(readSenderInfoFromLocation(), {
+      senderScore: { correct: 3, total: 5 },
+      senderName: '100% club',
+      senderTimeSec: 90,
+    });
+    globalThis.window.location.search = '?qset=x&by=%20';
+    assert.equal(readSenderInfoFromLocation(), null, 'a blank name is no sender info at all');
+  } finally {
+    if (had) globalThis.window = prev; else delete globalThis.window;
+  }
 });
 
 test('rate limits prefer Vercel-owned client IP metadata', () => {

@@ -44,6 +44,11 @@ import { confirmDialog } from '../lib/dialog.js';
 // that App.jsx used to do inline (Three useState(() => { ... }) blocks).
 function _loadInflight() {
   try {
+    // A share link (?qset=) is a new set by definition. Hydrating the parked
+    // exam under it painted the OLD exam's first question until the shared
+    // set resolved, and primed the clock against that question — so the
+    // shared set's own first question then started with the wrong time left.
+    if (/[?&]qset=/.test(window.location?.search || '')) return null;
     const raw = window.localStorage?.getItem('vmx-inflight-exam');
     if (raw) return JSON.parse(raw) || null;
   } catch {}

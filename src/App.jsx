@@ -1218,7 +1218,10 @@ export default function App() {
       if (typeof document !== 'undefined' && document.querySelector('.vmx-modal-overlay')) return;
       const q = questions[currentIdx];
       if (!q) return;
-      if (q.type === 'mcq' && ['1', '2', '3', '4'].includes(e.key)) {
+      // One digit per visible row, bounded below by how many rows this
+      // question has. 1,427 questions in the bank carry five options, and
+      // the old '1'..'4' list left their fifth row unreachable by keyboard.
+      if (q.type === 'mcq' && /^[1-9]$/.test(e.key)) {
         // The digit is a VISUAL position; answers are keyed by the option's
         // SOURCE index. Options are permuted for every MCQ, so passing the
         // digit through recorded a different option than the one at that

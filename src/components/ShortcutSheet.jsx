@@ -24,7 +24,7 @@ const SHORTCUTS = [
       { keys: ['B'], label: 'บันทึก (bookmark)' },
       { keys: ['P'], label: 'หมุด (pin)' },
       { keys: ['F'], label: 'ทำเครื่องหมาย (flag)' },
-      { keys: ['1', '2', '3', '4'], label: 'เลือกตัวเลือก (MCQ)' },
+      { keys: ['1', '2', '3', '4', '5'], label: 'เลือกตัวเลือก (MCQ)' },
       { keys: ['T', 'F'], label: 'True / False' },
     ],
   },

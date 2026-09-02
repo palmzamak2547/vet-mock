@@ -32,9 +32,15 @@
 // --- In-memory fallback (current behavior) ---
 const buckets = new Map();
 
-function sweepInMemory(now) {
+// A bucket is garbage only once its OWN window has closed. The sweep used to
+// drop any bucket idle for a minute regardless of its window, so on an
+// instance running without Upstash the 24-hour provider budgets
+// (provider:llm:daily, provider:resend:daily, ...) quietly reset after sixty
+// quiet seconds — a cap that only held while traffic never paused.
+// Exported for the unit test; the 1% random trigger below is not testable.
+export function sweepInMemory(now = Date.now()) {
   for (const [k, v] of buckets) {
-    if (now - v.last > 60_000) buckets.delete(k);
+    if (now - v.first > v.winMs) buckets.delete(k);
   }
 }
 
@@ -43,14 +49,15 @@ function rateLimitInMemory(key, max, winMs) {
   if (Math.random() < 0.01) sweepInMemory(now);
   let b = buckets.get(key);
   if (!b || now - b.first > winMs) {
-    b = { first: now, last: now, count: 1 };
+    b = { first: now, winMs, count: 1 };
     buckets.set(key, b);
     return { ok: true, retryAfter: 0 };
   }
-  b.last = now;
   b.count++;
   if (b.count > max) {
-    return { ok: false, retryAfter: Math.ceil((winMs - (now - b.first)) / 1000) };
+    // Never 0: a Retry-After of zero invites an immediate retry into the
+    // same closed window.
+    return { ok: false, retryAfter: Math.max(1, Math.ceil((winMs - (now - b.first)) / 1000)) };
   }
   return { ok: true, retryAfter: 0 };
 }

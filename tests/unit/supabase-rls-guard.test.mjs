@@ -144,6 +144,22 @@ test('user_data strictly isolates tenant access with auth.uid() = user_id', () =
   assert.match(sql, /CREATE POLICY "udata_update_own"\s+ON\s+public\.user_data\s+FOR UPDATE[\s\S]*auth\.uid\(\)\s*=\s*user_id/i);
 });
 
+test('pdf_annotations has a repo copy of record that isolates rows by owner', () => {
+  // The table was created live on 2026-08-31 and the client has synced to it
+  // since; a fresh rebuild came out without it and nobody could review its
+  // policies from the repo.
+  const sql = latestDefining(/create table if not exists\s+public\.pdf_annotations/i);
+  assert.match(sql, /primary key \(user_id, doc_hash\)/i, 'one row per (user, document)');
+  assert.match(sql, /alter table public\.pdf_annotations enable row level security/i);
+  for (const verb of ['select', 'insert', 'update', 'delete']) {
+    const policy = new RegExp(`create policy "pdf_annotations_${verb}_own"[\\s\\S]*?for ${verb}[\\s\\S]*?to authenticated[\\s\\S]*?\\(select auth\\.uid\\(\\)\\) = user_id`, 'i');
+    assert.match(sql, policy, `${verb} is not gated to the owning user`);
+  }
+  assert.match(sql, /with check \(\(select auth\.uid\(\)\) = user_id\)/i, 'update must carry WITH CHECK so a row cannot be reassigned');
+  assert.match(sql, /revoke all privileges on table public\.pdf_annotations from anon/i, 'anon keeps the default grants otherwise');
+  assert.match(sql, /pg_column_size\(data\) <= 8 \* 1024 \* 1024/i, 'the 8 MB row guard is missing');
+});
+
 test('supabase-schema.sql is in sync with PR1 profile protection', () => {
   const schemaSql = readFileSync(SCHEMA_PATH, 'utf8');
 

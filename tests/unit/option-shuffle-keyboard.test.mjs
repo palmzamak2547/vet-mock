@@ -58,6 +58,22 @@ test('a row that does not exist records nothing', () => {
   assert.equal(press(q(7, 2), 3), undefined);
 });
 
+test('the fifth row of a five-option question is reachable from the keyboard', () => {
+  // 1,427 bank questions carry five options. The handler used to accept
+  // only '1'..'4', so their last row could be reached by mouse alone.
+  for (let id = 1; id <= 100; id++) {
+    const question = q(id, 5);
+    const { displayOptions } = getShuffledOptions(question);
+    const stored = press(question, 5);
+    assert.notEqual(stored, undefined, `q${id}: pressing 5 recorded nothing`);
+    assert.equal(question.options[stored], displayOptions[4]);
+  }
+  const APP = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  assert.match(APP, /q\.type === 'mcq' && \/\^\[1-9\]\$\/\.test\(e\.key\)/, 'the digit shortcut is capped at 4 again');
+  const SHEET = readFileSync(new URL('../../src/components/ShortcutSheet.jsx', import.meta.url), 'utf8');
+  assert.ok(SHEET.includes("keys: ['1', '2', '3', '4', '5']"), 'the shortcut sheet still advertises 1-4 only');
+});
+
 test('a single option is never permuted', () => {
   const { displayToOriginal } = getShuffledOptions(q(9, 1));
   assert.deepEqual(displayToOriginal, [0]);
