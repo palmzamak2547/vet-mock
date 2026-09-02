@@ -710,6 +710,11 @@ html, body {
 /* Reading/form views keep a comfortable measure while the shell header and
    grid/workspace views can use modern laptop widths. */
 .vmx-main { max-width: 820px; margin-inline: auto; }
+/* While a view's chunk loads, the fallback holds a full viewport so the
+   footer starts below the fold and stays put when the real view lands —
+   a node outside the first screen does not count as a layout shift when it
+   moves. 60vh left the footer on screen and cost 0.16 CLS at boot. */
+.vmx-view-fallback { min-height: 100vh; min-height: 100dvh; }
 .vmx-main--wide { max-width: 1100px; }
 
 /* Wide notes layout uses extra room */
