@@ -347,6 +347,19 @@ function buildExamPool({
   return pool;
 }
 
+// The question bank loads lazily, so a flaky connection can fail the very
+// tap that starts an exam. Offer a retry rather than a dead end: the
+// student's configuration is still in place, and the network is usually
+// back before they have re-picked a subject.
+function offerBankRetry() {
+  return confirmDialog({
+    title: 'โหลดคลังโจทย์ไม่ได้',
+    body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่อีกครั้ง',
+    confirmLabel: 'ลองใหม่',
+    cancelLabel: 'ปิด',
+  });
+}
+
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
 
@@ -1477,8 +1490,8 @@ export default function App() {
         else await loadQBForYear(selectedYear);
         setQbReady(true);
         setQbRevision((revision) => revision + 1);
-      } catch (err) {
-        alertDialog({ title: 'โหลดคลังโจทย์ไม่ได้', body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่อีกครั้ง' });
+      } catch {
+        if (await offerBankRetry()) return startExam(overrides);
         return;
       }
     }
@@ -1516,7 +1529,7 @@ export default function App() {
           setQbRevision((revision) => revision + 1);
           return startExam({ ...overrides, __retriedFullLoad: true });
         } catch {
-          alertDialog({ title: 'โหลดคลังโจทย์ไม่ได้', body: 'ตรวจการเชื่อมต่ออินเทอร์เน็ตแล้วลองใหม่อีกครั้ง' });
+          if (await offerBankRetry()) return startExam(overrides);
           return;
         }
       }
