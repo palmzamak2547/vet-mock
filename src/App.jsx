@@ -334,7 +334,6 @@ function buildExamPool({
   questionCategory,
   selectedYear,
   selectedPhase = null,
-  examScope = null,
   bookmarks = [],
   weakQuestions = [],
   history = [],
@@ -391,7 +390,6 @@ function buildExamPool({
       pool = pool.filter((q) => matchesScope(q, {
           curriculumVersion: SEMESTER.id,
           selectedPhase,
-          examScope,
         }));
     }
   }
@@ -612,11 +610,6 @@ export default function App() {
   // inherits a stale filter.
   const [videoSubject, setVideoSubject] = useState(null);
   const [practiceMode, setPracticeModeRaw] = useState('all');
-  // Which exam bucket a current-term set is drawn from: 'midterm' |
-  // 'final' | 'continuous' | null (every bucket). Deliberately separate from
-  // selectedPhase, which is a browsing filter for the subject grid — this is
-  // the pile the student pressed on, and it travels with the exam.
-  const [examScope, setExamScope] = useState(null);
   // Choosing a curated pool (bookmarks / weak / wrong) is a whole-library
   // intent, and those pools ignore the subject filter entirely. But a subject
   // left over from an earlier session made normalizePracticeMode strip the
@@ -1180,13 +1173,13 @@ export default function App() {
           // to find the answers already showing and the options they had
           // answered locked. The timer settings went the same way, so a
           // timed mock came back untimed.
-          mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, examScope,
+          mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase,
           savedAt: Date.now(),
         }));
       } catch {}
     }, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, examScope]);
+  }, [view, questions, answers, currentIdx, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase]);
 
   // Detect a previous in-flight exam at boot and surface as a non-modal
   // banner on HomeView (replaces the old window.confirm prompt — that
@@ -1250,7 +1243,6 @@ export default function App() {
     if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
     if (Number.isFinite(saved.selectedYear)) setSelectedYear(saved.selectedYear);
     if ('selectedPhase' in saved) setSelectedPhase(saved.selectedPhase);
-    if ('examScope' in saved) setExamScope(saved.examScope ?? null);
     if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
     if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
     setPendingResume(null);
@@ -1505,12 +1497,11 @@ export default function App() {
       questionCategory,
       selectedYear,
       selectedPhase,
-      examScope,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       history,
     }).length;
-  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, examScope, history, questionCategory, selectedPhase, selectedYear, subject, topic]);
+  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, questionCategory, selectedPhase, selectedYear, subject, topic]);
 
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
@@ -1532,11 +1523,6 @@ export default function App() {
     const _numQuestions = 'numQuestions' in overrides ? overrides.numQuestions : numQuestions;
     const _useTimer = 'useTimer' in overrides ? overrides.useTimer : useTimer;
     const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
-    const _examScope = 'examScope' in overrides ? overrides.examScope : examScope;
-    // A launcher that names the bucket also sets it, so the config page,
-    // the in-flight autosave and the last-session card all agree with the
-    // set that is about to start.
-    if ('examScope' in overrides) setExamScope(_examScope ?? null);
 
     // Palm bug 2026-05-20: practiceMode='wrong'/'weak'/'bookmarks' gets
     // sticky from HomeView shortcuts ("ทบทวนข้อที่ตอบผิด" etc.) and
@@ -1586,7 +1572,6 @@ export default function App() {
       questionCategory: _questionCategory,
       selectedYear,
       selectedPhase,
-      examScope: _examScope,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       history,
@@ -1765,7 +1750,7 @@ export default function App() {
     // these — only auto-graded session settings need preservation.
     try {
       window.localStorage?.setItem('vmx-last-session-config', JSON.stringify({
-        mode, subject, topic, practiceMode, selectedYear, selectedPhase, examScope,
+        mode, subject, topic, practiceMode, selectedYear, selectedPhase,
         numQuestions, useTimer, timePerQ, questionCategory,
         savedAt: Date.now(),
         score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0 },
@@ -2313,7 +2298,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, examScope, setExamScope, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true) }} onStartPanic={startPanicSession} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true) }} onStartPanic={startPanicSession} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -2323,7 +2308,7 @@ export default function App() {
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, setView, setSubject, setTopic, goHome, startExam }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase, examScope, setExamScope }} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}

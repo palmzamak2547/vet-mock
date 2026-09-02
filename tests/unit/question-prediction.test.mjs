@@ -45,9 +45,9 @@ test('high-prediction practice requires current, verified, phase-matching eviden
     curriculumVersion: '2569-1',
     selectedPhase: '1-final',
   }), false);
+  // With no phase chosen the semester view still carries it.
   assert.equal(isCurrentScopeQuestion({ ...BASE, predictionTier: 'medium', examScope: 'continuous' }, {
     curriculumVersion: '2569-1',
-    examScope: 'continuous',
   }), true);
   assert.equal(isHighPredictionQuestion({ ...BASE, examScope: 'final' }, {
     curriculumVersion: '2569-1',
@@ -71,7 +71,7 @@ test('high-prediction practice requires current, verified, phase-matching eviden
   }), false);
 });
 
-test('an explicit bucket wins over the browsing phase and keeps the three piles apart', () => {
+test('the phase selector keeps midterm, final and no-paper courses apart', () => {
   // midterm bucket: midterm + both, never final or continuous
   assert.equal(questionInScope('midterm', 'midterm'), true);
   assert.equal(questionInScope('both', 'midterm'), true);
@@ -86,16 +86,14 @@ test('an explicit bucket wins over the browsing phase and keeps the three piles 
   assert.equal(questionInScope('both', 'continuous'), false);
   // no bucket = everything
   assert.equal(questionInScope('continuous', null), true);
-  // explicit examScope overrides a contradicting selectedPhase
+  // the phase selector is the only way in: 1-final asks for the final pile
   assert.equal(isCurrentScopeQuestion({ ...BASE, examScope: 'final' }, {
     curriculumVersion: '2569-1',
-    selectedPhase: '1-mid',
-    examScope: 'final',
+    selectedPhase: '1-final',
   }), true);
   assert.equal(isCurrentScopeQuestion({ ...BASE, examScope: 'midterm' }, {
     curriculumVersion: '2569-1',
-    selectedPhase: '1-mid',
-    examScope: 'final',
+    selectedPhase: '1-final',
   }), false);
 });
 

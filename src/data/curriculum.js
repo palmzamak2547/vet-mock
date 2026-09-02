@@ -1675,7 +1675,8 @@ export const SUBJECTS_BY_YEAR = {
       examFormat: {
         weight: 'Midterm 54 : Final 46 (ตารางสอน 2569)',
         notes: [
-          '🗓 Midterm 21 ก.ย. 69 13.00-15.00 — เนื้อหา 4 ส.ค. ถึง 15 ก.ย. 69',
+          '🗓 Midterm 21 ก.ย. 69 13.00-15.00 — เนื้อหา 4 ส.ค. ถึง 15 ก.ย. 69 (ครั้งที่ 1-7: ND/IB/ILT/AMPV/Pox, Mycoplasmosis, Coryza/Cholera/E. coli, Intro/AI/Egg breakout, IBD/Neoplastic/CIA/Reovirus, RSS/Coccidiosis/NE/Leukocytozoonosis/Malaria, Salmonellosis/Adeno/AE/Omphalitis/Ascites/Staph)',
+          '⚠️ ตารางเรียนของวิชาเขียนวันสอบกลางภาคเป็น 25 ก.ย. แต่ตารางสอบฝ่ายวิชาการ (Update 20 ก.ค. 69) กำหนด 21 ก.ย. 13.00-15.00 ห้อง B01-03 — แอปยึดตารางฝ่ายวิชาการ',
           '🗓 Final 2 ธ.ค. 69 08.30-10.30 — เนื้อหา 6 ต.ค. ถึง 17 พ.ย. 69',
           '⚖️ คะแนนรายอาจารย์ — ณทยา 23/0, สมศักดิ์ 15/0, จิโรจ 8/15, เกรียงวิชญ์ 8/16, นิวัตร 0/15 (mid/final)',
           '🎯 มิดเทอมหนักที่ ณทยา (23 จาก 54) กับ สมศักดิ์ (15) รวมกัน 38 จาก 54 คะแนน',
@@ -1731,6 +1732,7 @@ export const SUBJECTS_BY_YEAR = {
         // ยังไม่ทราบสัดส่วน — เดิมช่องนี้มี note ภายในที่หลุดขึ้นการ์ดวิชา
         weight: '',
         notes: [
+          '🗓 ไม่มีสอบกลางภาคและปลายภาคในตารางสอบฝ่ายวิชาการ ภาคต้น 2569 (Update 20 ก.ค. 69) — ประเมินจากงานระหว่างเรียน',
           '📌 ไม่มี past-paper สรุป ใน cache (อาจมีในเทอม) — Q seed ต้องอาศัย POA Y4 (COM III) pattern · Chutirat + Krissda สอนทั้งสองชั้นปี',
           '🩺 Format: case-based POA per chief complaint',
         ],

@@ -13,13 +13,13 @@ export const PREDICTION_SOURCE_TYPES = new Set([
   'past-paper',
 ]);
 
-// The three buckets a student can actually study for. `both` is a property
-// of a question (it sits in two exams), never a bucket someone picks.
-export const EXAM_SCOPE_BUCKETS = ['midterm', 'final', 'continuous'];
+// Labels for the exam a question belongs to. `continuous` is a course with
+// no paper at all in the faculty exam timetable (POA in 2569-1), so its
+// label says exactly that rather than inventing a third exam.
 export const EXAM_SCOPE_LABELS = {
   midterm: 'กลางภาค',
   final: 'ปลายภาค',
-  continuous: 'ประเมินต่อเนื่อง',
+  continuous: 'ไม่มีสอบแยก',
   both: 'กลางภาคและปลายภาค',
 };
 export const examScopeLabel = (scope) => EXAM_SCOPE_LABELS[scope] || null;
@@ -90,17 +90,13 @@ export function predictionMetadataIssues(question) {
 
 export function isCurrentScopeQuestion(question, {
   curriculumVersion,
+  // The ONE phase control the app has (ปี → เทอม 1 กลางภาค / ปลายภาค).
+  // Null means the whole semester.
   selectedPhase = null,
-  // An explicit bucket (the home-page pills, the config-page switch) wins
-  // over the phase chosen for browsing — and it is the only way to ask for
-  // the continuous-assessment set, which no phase id names.
-  examScope = null,
 } = {}) {
   if (predictionMetadataIssues(question).length > 0) return false;
   if (question?.answerStatus !== 'verified') return false;
   if (!curriculumVersion || question?.curriculumVersion !== curriculumVersion) return false;
-
-  if (examScope) return questionInScope(question?.examScope, examScope);
 
   const wantedScope = examScopeForPhase(selectedPhase);
   if (!wantedScope) return true;

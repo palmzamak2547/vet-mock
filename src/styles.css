@@ -3836,27 +3836,10 @@ body.vmx-reading .vmx-pdf-body {
   max-width: 100%;
 }
 
-/* ── Scoped practice cards ───────────────────────────────────────────
-   A mode card that is not itself a button: its body is a row of exam-phase
-   pills, one per bucket that has questions, so "กลางภาค" and "ปลายภาค" are
-   two different presses rather than one pile. Later than the base card
-   rules on purpose — same specificity, last one wins. */
-.vmx-mode-card--split { cursor: default; }
-.vmx-mode-card--split:hover { border-color: inherit; background: var(--clr-surface); box-shadow: none; }
-.vmx-mode-card--split:active { transform: none; }
-.vmx-scope-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.vmx-scope-pill {
-  display: inline-flex; align-items: center; gap: 8px;
-  min-height: 40px; padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--pill-accent, var(--clr-sage)) 45%, var(--clr-border));
-  background: color-mix(in srgb, var(--pill-accent, var(--clr-sage)) 10%, var(--clr-surface));
-  color: var(--clr-ink); font: inherit; font-size: 13px; cursor: pointer;
-  transition: border-color var(--dur-fast), background var(--dur-fast), transform 0.06s;
-}
-.vmx-scope-pill strong { font-family: var(--vmx-mono); font-weight: 700; }
-.vmx-scope-pill:hover { border-color: var(--pill-accent, var(--clr-sage)); background: color-mix(in srgb, var(--pill-accent, var(--clr-sage)) 18%, var(--clr-surface)); }
-.vmx-scope-pill:active { transform: scale(0.97); }
-.vmx-scope-pill[aria-pressed="true"] { border-color: var(--clr-ink); background: var(--clr-surface-2); font-weight: 600; }
-.vmx-scope-pill:disabled { opacity: 0.6; cursor: not-allowed; }
+/* ── Exam-phase notes ────────────────────────────────────────────────
+   The chip on a question card and the line on a subject card that say
+   which exam something belongs to. No controls here — the phase is chosen
+   in one place, the ปี/ช่วงสอบ selector. */
+.vmx-subject-exam { font-size: 11px; margin-top: 4px; color: var(--clr-sage-text); font-weight: 600; }
+.vmx-subject-exam.is-none { color: var(--clr-ink-soft); font-weight: 400; }
 .vmx-scope-chip { color: var(--clr-ink-soft); }

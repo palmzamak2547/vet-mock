@@ -1,101 +1,107 @@
-// Exam-scope e2e — 2026-09-03
+// Exam-phase e2e — 2026-09-03
 // ============================================================
-// Palm: "มันยังแยก midterm กับ final ไม่ชัด ช่วยทำให้มันแยกกันจริงๆ"
-//
-// The current-term practice sets are three piles, not one: the midterm
-// paper, the final paper, and continuous assessment. This spec pins that
-// separation end to end — the home page offers each pile with its own
-// count, pressing a pile starts a set drawn from that pile ONLY (every
-// card names its exam), and the config page can switch piles with the
-// available count following the switch.
+// Palm: "เรามีให้เลือกชั้นปี กับกลางภาค ปลายภาคอยู่แล้ว" — the app has ONE
+// phase selector (ปี → เทอม 1 กลางภาค / ปลายภาค), and this spec pins that
+// it is the only thing that decides which exam's questions a current-term
+// set holds, and that the home page visibly follows it: the set's card
+// names the phase and its count, every card in the set says which paper it
+// belongs to, and each subject card says whether that subject sits a paper
+// in the chosen phase — read off the faculty exam timetable — so a course
+// with no midterm (Epidemiology) or no paper at all (POA) never stands in
+// the midterm grid as if it had one.
 
 import { test, expect } from '@playwright/test';
 
 const SCOPE_CHIP = '.vmx-qtype-badge .vmx-scope-chip';
 
-test.beforeEach(async ({ context }) => {
-  // Year 5 is where the current-term sets live. Same seed shape as smoke.
-  await context.addInitScript(() => {
-    try { window.localStorage.setItem('vmx-selected-year', '5'); } catch {}
-  });
-});
+// The app stores selections as JSON (src/hooks/useStorage.js), so a phase
+// id has to be seeded as a JSON string.
+function seed(context, phase) {
+  return context.addInitScript(([p]) => {
+    try {
+      window.localStorage.setItem('vmx-selected-year', '5');
+      if (p) window.localStorage.setItem('vmx-selected-phase', JSON.stringify(p));
+    } catch {}
+  }, [phase]);
+}
 
 async function home(page) {
   await page.goto('/app');
-  await expect(page.locator('.vmx-mode-card--split').first()).toBeVisible({ timeout: 20000 });
+  await expect(page.locator('.vmx-subject-grid')).toBeVisible({ timeout: 20000 });
 }
 
-async function pillsOf(page, title) {
-  const card = page.locator('.vmx-mode-card--split', { hasText: title });
+function subjectCard(page, thaiName) {
+  return page.locator('.vmx-subject-card', { hasText: thaiName }).first();
+}
+
+async function scopedCard(page) {
+  const card = page.locator('button.vmx-mode-card', { hasText: 'ตามสไลด์ปัจจุบัน' });
   await expect(card).toBeVisible();
-  const pills = card.locator('.vmx-scope-pill');
-  const out = [];
-  for (const pill of await pills.all()) {
-    const label = (await pill.locator('span').innerText()).trim();
-    const count = Number(await pill.locator('strong').innerText());
-    out.push({ label, count });
-  }
-  return { card, pills, out };
+  const sub = await card.locator('.sub').innerText();
+  const count = Number((sub.match(/(\d+)\s*ข้อ/) || [])[1]);
+  return { card, sub, count };
 }
 
-test('the current-term card offers midterm, final and continuous as separate piles', async ({ page }) => {
+test('midterm phase: the card, the set and the subject grid all speak midterm', async ({ page, context }) => {
+  await seed(context, '1-mid');
   await home(page);
-  const { out } = await pillsOf(page, 'ตามสไลด์ปัจจุบัน');
-  const labels = out.map((p) => p.label);
-  expect(labels).toEqual(['กลางภาค', 'ปลายภาค', 'ประเมินต่อเนื่อง']);
-  for (const p of out) expect(p.count, `${p.label} must have questions`).toBeGreaterThan(0);
 
-  // The prediction card never offers continuous assessment: there is no
-  // paper to predict for a course graded that way.
-  const predicted = await pillsOf(page, 'ชุดน่าจะออก');
-  expect(predicted.out.map((p) => p.label)).not.toContain('ประเมินต่อเนื่อง');
-});
+  const { card, sub, count } = await scopedCard(page);
+  expect(sub).toContain('กลางภาค');
+  expect(count).toBeGreaterThan(0);
 
-test('pressing a pile starts a set drawn from that pile only, and every card names its exam', async ({ page }) => {
-  await home(page);
-  const { card, out } = await pillsOf(page, 'ตามสไลด์ปัจจุบัน');
-  const finalCount = out.find((p) => p.label === 'ปลายภาค').count;
+  // The faculty timetable: Avian sits a midterm on 21 Sep; Epidemiology and
+  // POA have no midterm paper.
+  await expect(subjectCard(page, 'อายุรศาสตร์สัตว์ปีก').locator('.vmx-subject-exam')).toHaveText(/สอบกลางภาค 21 ก\.ย\./);
+  await expect(subjectCard(page, 'ระบาดวิทยา').locator('.vmx-subject-exam')).toHaveText('ไม่มีสอบกลางภาค');
+  await expect(subjectCard(page, 'POA').locator('.vmx-subject-exam')).toHaveText('ไม่มีสอบกลางภาค');
 
-  await card.locator('.vmx-scope-pill', { hasText: 'ปลายภาค' }).click();
+  // No second control anywhere on the page.
+  await expect(page.locator('.vmx-scope-pill')).toHaveCount(0);
+
+  await card.click();
   await expect(page.locator(SCOPE_CHIP).first()).toBeVisible({ timeout: 20000 });
-
-  // Size = the pile (capped at 50), and the first cards all say ปลายภาค.
   const counter = await page.locator('text=/\\d+\\s*\\/\\s*\\d+/').first().innerText();
-  const total = Number(counter.split('/')[1]);
-  expect(total).toBe(Math.min(finalCount, 50));
+  expect(Number(counter.split('/')[1])).toBe(Math.min(count, 50));
   for (let i = 0; i < 3; i++) {
-    await expect(page.locator(SCOPE_CHIP).first()).toHaveText('ปลายภาค');
+    await expect(page.locator(SCOPE_CHIP).first()).toHaveText('กลางภาค');
     await page.locator('.vmx-option:visible').first().click();
     await page.getByRole('button', { name: /ข้อถัดไป/ }).click();
   }
 });
 
-test('the continuous pile is its own set and never leaks into an exam pile', async ({ page }) => {
+test('final phase: the same page flips to the final paper', async ({ page, context }) => {
+  await seed(context, '1-final');
   await home(page);
-  const { card } = await pillsOf(page, 'ตามสไลด์ปัจจุบัน');
-  await card.locator('.vmx-scope-pill', { hasText: 'ประเมินต่อเนื่อง' }).click();
+
+  const { card, sub, count } = await scopedCard(page);
+  expect(sub).toContain('ปลายภาค');
+  expect(count).toBeGreaterThan(0);
+
+  await expect(subjectCard(page, 'ระบาดวิทยา').locator('.vmx-subject-exam')).toHaveText(/สอบปลายภาค 4 ธ\.ค\./);
+  await expect(subjectCard(page, 'อายุรศาสตร์สัตว์ปีก').locator('.vmx-subject-exam')).toHaveText(/สอบปลายภาค 2 ธ\.ค\./);
+  await expect(subjectCard(page, 'POA').locator('.vmx-subject-exam')).toHaveText('ไม่มีสอบปลายภาค');
+
+  await card.click();
   await expect(page.locator(SCOPE_CHIP).first()).toBeVisible({ timeout: 20000 });
-  await expect(page.locator(SCOPE_CHIP).first()).toHaveText('ประเมินต่อเนื่อง');
+  await expect(page.locator(SCOPE_CHIP).first()).toHaveText('ปลายภาค');
 });
 
-test('the config page names the pile and its count follows the switch', async ({ page }) => {
+test('no phase: the whole semester, and the grid carries no exam lines', async ({ page, context }) => {
+  await seed(context, null);
   await home(page);
-  // The near-exam card opens config on the coming exam's pile (midterm).
+  const { sub } = await scopedCard(page);
+  expect(sub).toContain('ทั้งเทอม');
+  await expect(page.locator('.vmx-subject-exam')).toHaveCount(0);
+});
+
+test('the config page names the phase it was opened under', async ({ page, context }) => {
+  await seed(context, '1-mid');
+  await home(page);
   const near = page.locator('button.vmx-mode-card', { hasText: 'ซ้อมใกล้สอบ' });
   await expect(near).toBeVisible();
   await near.click();
-
-  const panel = page.locator('.vmx-config-panel');
-  await expect(panel.locator('.vmx-scope-pill[aria-pressed="true"]')).toHaveText(/กลางภาค/);
   await expect(page.locator('.vmx-hero p')).toContainText('กลางภาค');
-
-  const availability = page.locator('.vmx-config-availability');
-  await expect(availability).toHaveText(/มี\s*[\d,]+\s*ข้อในชุดนี้/, { timeout: 20000 });
-
-  await panel.locator('.vmx-scope-pill', { hasText: 'ปลายภาค' }).click();
-  await expect(page.locator('.vmx-hero p')).toContainText('ปลายภาค');
-  // A midterm-only subject has no final questions: the honest answer is
-  // "none", and the start button locks rather than serving the wrong pile.
-  await expect(availability).toHaveText('ยังไม่มีข้อที่พร้อมใช้ในชุดนี้');
-  await expect(page.getByRole('button', { name: /เริ่มฝึก/ })).toBeDisabled();
+  await expect(page.locator('.vmx-scope-pill')).toHaveCount(0);
+  await expect(page.locator('.vmx-config-availability')).toHaveText(/มี\s*[\d,]+\s*ข้อในชุดนี้/, { timeout: 20000 });
 });

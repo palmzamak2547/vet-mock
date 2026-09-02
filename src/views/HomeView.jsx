@@ -6,7 +6,7 @@ import { QB } from '../data/questions.js';
 // full QB to be scanned on every re-render.
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
-import { SEMESTER, getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
+import { SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
@@ -44,7 +44,7 @@ import NextActionCard from '../components/NextActionCard.jsx';
 import FeatureMenu from '../components/FeatureMenu.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { truncateThai } from '../lib/thai-text.js';
-import { EXAM_SCOPE_BUCKETS, EXAM_SCOPE_LABELS } from '../lib/question-prediction.js';
+import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
 // (~15KB combined). Mounted under the streak chip row.
@@ -66,8 +66,15 @@ const NO_SUBJECTS = Object.freeze([]);
 // Same idea for list props that may arrive undefined: a fresh [] per render
 // would hand every memo below a new dependency each time.
 const NO_ITEMS = Object.freeze([]);
+// "21 ก.ย." for a subject card; fmtThaiDate's full weekday form is too long
+// for the one line the card can spare.
+const TH_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+const shortThaiDate = (dateStr) => {
+  const d = new Date(dateStr);
+  return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
+};
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, examScope = null, setExamScope, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
   // carry none, so the countdown banner hides itself when getNextExam
@@ -99,34 +106,38 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const yearSubjects = useMemo(() => (phaseMeta
     ? allYearSubjects.filter((s) => s.semester === phaseMeta.semester || s.semester === 0)
     : allYearSubjects), [allYearSubjects, phaseMeta]);
-  // The current-term sets, counted per exam bucket. Three separate numbers
-  // on purpose: one pooled "218" hid that the midterm pile, the final pile
-  // and the continuous-assessment pile are different exams a student sits
-  // on different days.
-  const { currentByScope, predictedByScope, nextExamCurrentCount } = useMemo(() => {
+  // The current-term sets follow the phase picked at the top of the page —
+  // the one control the app already had, the same one the subject grid and
+  // the exam countdown obey. No phase = the whole semester. A course with
+  // no paper in that phase (POA has none at all) contributes nothing to a
+  // phase count; the numbers only ever describe an exam that exists.
+  const phaseScope = examScopeForPhase(selectedPhase);
+  const scopeLabel = phaseScope ? EXAM_SCOPE_LABELS[phaseScope] : 'ทั้งเทอม';
+  const { currentScopeCount, highPredictionCount, nextExamCurrentCount, examByPhase } = useMemo(() => {
     const sumFor = (table, scope) => {
       const bySubject = table[SEMESTER.id]?.[scope] || {};
       return yearSubjects.reduce((total, item) => total + (bySubject[item.id] || 0), 0);
     };
-    const buckets = (table) => Object.fromEntries(
-      EXAM_SCOPE_BUCKETS.map((scope) => [scope, sumFor(table, scope)]),
-    );
     const nextExamScope = nextExam?.term === 'midterm' || nextExam?.term === 'final'
       ? nextExam.term
       : null;
+    // Which subjects sit a paper in the chosen phase, straight from the
+    // faculty exam timetable in schedule.js. Absent here = no exam that phase.
+    const byPhase = new Map();
+    if (phaseScope) {
+      for (const exam of EXAM_SCHEDULE[`y${selectedYear}`] || []) {
+        if (exam.term === phaseScope && exam.subject) byPhase.set(exam.subject, exam);
+      }
+    }
     return {
-      currentByScope: buckets(Q_CURRENT_SCOPE_COUNTS),
-      predictedByScope: buckets(Q_HIGH_PREDICTION_COUNTS),
+      currentScopeCount: sumFor(Q_CURRENT_SCOPE_COUNTS, phaseScope || 'all'),
+      highPredictionCount: sumFor(Q_HIGH_PREDICTION_COUNTS, phaseScope || 'all'),
       nextExamCurrentCount: nextExamScope
         ? (Q_CURRENT_SCOPE_COUNTS[SEMESTER.id]?.[nextExamScope]?.[nextExam?.subject] || 0)
         : 0,
+      examByPhase: byPhase,
     };
-  }, [nextExam?.subject, nextExam?.term, yearSubjects]);
-  const hasCurrentScope = EXAM_SCOPE_BUCKETS.some((scope) => currentByScope[scope] > 0);
-  // Predictions are about exam papers; a continuous-assessment course has
-  // no paper to predict, so that pile never shows here.
-  const predictedBuckets = EXAM_SCOPE_BUCKETS.filter((scope) => scope !== 'continuous');
-  const hasPrediction = predictedBuckets.some((scope) => predictedByScope[scope] > 0);
+  }, [nextExam?.subject, nextExam?.term, phaseScope, selectedYear, yearSubjects]);
 
   // Question count — must match what YearSelectView shows for the same year:
   // Note: hero stat `totalQ` (year + vca + custom) was removed in
@@ -486,11 +497,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     }
   };
 
-  // One launcher for both current-term sets. The bucket is explicit — the
-  // student pressed "กลางภาค", so the set is the midterm pile and nothing
-  // else — and it travels with the exam: the config page names it, the
-  // in-flight autosave keeps it, the last-session card restores it.
-  const launchScoped = (mode, scope, count) => {
+  // One launcher for both current-term sets. The set is whatever the phase
+  // at the top of the page says it is; nothing here chooses a phase.
+  const launchScoped = (mode, count) => {
     if (count === 0 || quickActionPending) return;
     setQuickActionPending(true);
     const n = Math.min(count, 50);
@@ -498,13 +507,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     if (setSubject) setSubject('all');
     if (setTopic) setTopic(null);
     if (setPracticeMode) setPracticeMode(mode);
-    if (setExamScope) setExamScope(scope);
     if (setNumQuestions) setNumQuestions(n);
     if (setUseTimer) setUseTimer(false);
     if (startExam) {
       startExam({
         practiceMode: mode,
-        examScope: scope,
         subject: 'all',
         topic: null,
         questionCategory: 'all',
@@ -1199,6 +1206,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         history={history}
         accBySubject={accBySubject}
         shelfCounts={shelfCounts}
+        examByPhase={examByPhase}
+        phaseScope={phaseScope}
         onPick={(s) => {
           // Routing precedence:
           //   1. has_notes (scaffold or empty-LIVE but Notes available) →
@@ -1254,54 +1263,38 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         <>
           <div className="vmx-section-label" style={{ marginTop: 28 }}>โหมดซ้อม</div>
           <div className="vmx-mode-grid">
-            {hasCurrentScope && (
-              <div className="vmx-mode-card vmx-mode-card--split" style={{ borderColor: 'var(--clr-sage)' }}>
+            {currentScopeCount > 0 && (
+              <button
+                className="vmx-mode-card"
+                onClick={() => launchScoped('current-scope', currentScopeCount)}
+                disabled={quickActionPending}
+                aria-label={`ฝึกตามสไลด์ปัจจุบัน ${scopeLabel} ${currentScopeCount} ข้อ`}
+                title={phaseScope
+                  ? `เฉพาะข้อของ${scopeLabel} สลับช่วงสอบได้ที่ปุ่ม "เปลี่ยน" ด้านบน`
+                  : 'เลือกช่วงสอบด้านบนเพื่อแยกกลางภาคกับปลายภาค'}
+                style={{ borderColor: 'var(--clr-sage)' }}
+              >
                 <div className="icon"><NavIcon name="practice" size={20} /></div>
                 <div className="title">ตามสไลด์ปัจจุบัน</div>
-                <div className="sub">ข้อที่ตรวจเฉลยแล้วและตรง {SEMESTER.id} แยกเป็นกองตามช่วงสอบ กดกองที่จะซ้อม</div>
-                <div className="vmx-scope-row" role="group" aria-label="เลือกช่วงสอบของชุดตามสไลด์ปัจจุบัน">
-                  {EXAM_SCOPE_BUCKETS.filter((scope) => currentByScope[scope] > 0).map((scope) => (
-                    <button
-                      key={scope}
-                      type="button"
-                      className="vmx-scope-pill"
-                      style={{ '--pill-accent': 'var(--clr-sage)' }}
-                      disabled={quickActionPending}
-                      onClick={() => launchScoped('current-scope', scope, currentByScope[scope])}
-                      aria-label={`ฝึกตามสไลด์ปัจจุบัน ${EXAM_SCOPE_LABELS[scope]} ${currentByScope[scope]} ข้อ`}
-                    >
-                      <span>{EXAM_SCOPE_LABELS[scope]}</span>
-                      <strong>{currentByScope[scope]}</strong>
-                    </button>
-                  ))}
-                </div>
-                <div className="badge" style={{ '--badge-accent': 'var(--clr-sage)' }}>ตรวจแล้ว</div>
-              </div>
+                <div className="sub">{scopeLabel} {currentScopeCount} ข้อ, เฉลยตรวจแล้ว ตรง {SEMESTER.id}</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-sage)' }}>{phaseScope ? scopeLabel : 'ตรวจแล้ว'}</div>
+              </button>
             )}
 
-            {hasPrediction && (
-              <div className="vmx-mode-card vmx-mode-card--split" style={{ borderColor: 'var(--clr-gold)' }}>
+            {highPredictionCount > 0 && (
+              <button
+                className="vmx-mode-card"
+                onClick={() => launchScoped('predicted', highPredictionCount)}
+                disabled={quickActionPending}
+                aria-label={`ฝึกชุดน่าจะออก ${scopeLabel} ${highPredictionCount} ข้อ ไม่ใช่การยืนยันข้อสอบ`}
+                title="อิงสไลด์ปัจจุบัน พร้อมสัญญาณสนับสนุนอย่างน้อย 2 ทาง เป็นการคาดการณ์"
+                style={{ borderColor: 'var(--clr-gold)' }}
+              >
                 <div className="icon"><NavIcon name="exam" size={20} /></div>
                 <div className="title">ชุดน่าจะออก</div>
-                <div className="sub">หลักฐานอย่างน้อย 2 ทาง แยกตามช่วงสอบ เป็นการคาดการณ์ ไม่ใช่ข้อสอบยืนยัน</div>
-                <div className="vmx-scope-row" role="group" aria-label="เลือกช่วงสอบของชุดน่าจะออก">
-                  {predictedBuckets.filter((scope) => predictedByScope[scope] > 0).map((scope) => (
-                    <button
-                      key={scope}
-                      type="button"
-                      className="vmx-scope-pill"
-                      style={{ '--pill-accent': 'var(--clr-gold)' }}
-                      disabled={quickActionPending}
-                      onClick={() => launchScoped('predicted', scope, predictedByScope[scope])}
-                      aria-label={`ฝึกชุดน่าจะออก ${EXAM_SCOPE_LABELS[scope]} ${predictedByScope[scope]} ข้อ ไม่ใช่การยืนยันข้อสอบ`}
-                    >
-                      <span>{EXAM_SCOPE_LABELS[scope]}</span>
-                      <strong>{predictedByScope[scope]}</strong>
-                    </button>
-                  ))}
-                </div>
+                <div className="sub">{scopeLabel} {highPredictionCount} ข้อ, หลักฐานสูง แต่ไม่ใช่ข้อสอบยืนยัน</div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>เน้นสอบ</div>
-              </div>
+              </button>
             )}
 
             {/* Smart: ซ้อมใกล้สอบ — when nextExam exists in current year */}
@@ -1315,12 +1308,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                   if (nextExamCurrentCount > 0) {
                     const semester = SEMESTER.id.split('-').at(-1);
                     setSelectedPhase && setSelectedPhase(`${semester}-${nextExam.term === 'midterm' ? 'mid' : 'final'}`);
-                    // The exam that is coming IS the bucket: a midterm in 18
-                    // days means the midterm pile, never the final's.
-                    setExamScope && setExamScope(nextExam.term);
                     setPracticeMode && setPracticeMode('current-scope');
                   } else {
-                    setExamScope && setExamScope(null);
                     setPracticeMode && setPracticeMode('all');
                   }
                   setView('config');
@@ -1386,7 +1375,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                   if (lastSession) {
                     if (setSelectedYear && Number.isFinite(lastSession.selectedYear)) setSelectedYear(lastSession.selectedYear);
                     if (setSelectedPhase && 'selectedPhase' in lastSession) setSelectedPhase(lastSession.selectedPhase);
-                    if (setExamScope && 'examScope' in lastSession) setExamScope(lastSession.examScope ?? null);
                     if (setMode) setMode(lastSession.mode || 'quick');
                     if (setSubject) setSubject(lastSession.subject);
                     if (setTopic) setTopic(lastSession.topic || null);
@@ -1725,7 +1713,7 @@ function FeedbackChip() {
 // or PREVIEW state (faculty count from vault_lecturers, course code).
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
-function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = {}, bookmarks = NO_ITEMS, history = [], accBySubject = {}, shelfCounts = null, onPick }) {
+function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = {}, bookmarks = NO_ITEMS, history = [], accBySubject = {}, shelfCounts = null, examByPhase = null, phaseScope = null, onPick }) {
   // Bookmarks-per-subject index. Bookmark ids are a flat array with no
   // subject on them, so counting per subject means one pass over the bank
   // (plus the user's own questions). Memoised: that pass runs when the
@@ -1832,6 +1820,19 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                     ? `เอกสารจริง ${shelfDocs} ไฟล์`
                     : 'ยังไม่มีชุดข้อสอบ'}
             </div>
+            {/* With a phase chosen, every card says whether this subject sits
+                a paper in it — read off the faculty exam timetable, so a
+                subject with no midterm (Epidemiology, POA) says so instead
+                of standing in the midterm grid as if it had one. */}
+            {phaseScope && s.semester !== 0 && (() => {
+              // semester 0 = cross-semester collections (the VCA past-paper
+              // set), not courses that sit a paper.
+              const exam = examByPhase?.get(s.id);
+              const label = EXAM_SCOPE_LABELS[phaseScope];
+              return exam
+                ? <div className="vmx-subject-exam" title={`${exam.title}${exam.time ? ` ${exam.time}` : ''}${exam.location ? ` ${exam.location}` : ''}`}>สอบ{label} {shortThaiDate(exam.date)}</div>
+                : <div className="vmx-subject-exam is-none">ไม่มีสอบ{label}</div>;
+            })()}
 
             {/* Per-subject progress chips — clean text badges */}
             {!isScaffold && !isEmpty && (() => {
