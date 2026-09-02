@@ -257,9 +257,11 @@ export default function ResultsView({
   // can't actually compute pass/fail without manual grading
   const passed = autoQs.length > 0 && score.pct >= 60;
   // A strong result over a real set earns a one-shot confetti burst behind
-  // the score. Three questions is the floor so 1/1 does not throw a party;
-  // a perfect score gets the wider scatter.
-  const celebrate = autoQs.length >= 3 && score.pct >= 80;
+  // the score. Three questions is the floor so 1/1 does not throw a party.
+  // Both gates use the exact counts, not the rounded pct: 199/200 rounds to
+  // 100 and 79.5% rounds to 80, and neither should count.
+  const celebrate = autoQs.length >= 3 && score.total > 0 && score.correct / score.total >= 0.8;
+  const perfect = score.total > 0 && score.correct === score.total;
   const showPassFail = isExam && autoQs.length > 0;
 
   return (
@@ -302,7 +304,7 @@ export default function ResultsView({
       )}
 
       <div className="vmx-results-hero">
-        {celebrate && <ScoreBurst strong={score.pct === 100} />}
+        {celebrate && <ScoreBurst strong={perfect} />}
         {autoQs.length > 0 ? (
           <>
             <h2 className={`vmx-score-big ${score.pct >= 60 ? 'pass' : 'fail'}`}>
