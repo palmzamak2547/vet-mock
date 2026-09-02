@@ -42,6 +42,24 @@ const VOICE_MAP = {
   en: 'en-US-AriaNeural',
 };
 
+// Own-property lookup only. `lang` is caller-supplied, and a plain index
+// also answers for 'constructor' or '__proto__' — with an Object method,
+// which then went upstream as the voice name. Anything unknown is Thai.
+export function voiceFor(lang) {
+  return Object.prototype.hasOwnProperty.call(VOICE_MAP, lang) ? VOICE_MAP[lang] : VOICE_MAP.th;
+}
+
+// Edge TTS rate format: "+10%" / "-5%" / "0%" relative to the default pace.
+// A rate that is not a finite number (absent, a string) means the default —
+// it used to become "NaN%", which the upstream rejected, so every play at a
+// corrupted setting failed with a 502 instead of just playing at 1x.
+export function rateStringFor(rate) {
+  const n = Number(rate);
+  if (!Number.isFinite(n)) return '+0%';
+  const ratePct = Math.max(-50, Math.min(200, Math.round((n - 1) * 100)));
+  return `${ratePct >= 0 ? '+' : ''}${ratePct}%`;
+}
+
 export default async function handler(req, res) {
   // The POST body may be user-authored text. Keep error/debug responses out of
   // caches; successful audio is browser-private (the app also caches it in
@@ -126,10 +144,8 @@ export default async function handler(req, res) {
   if (text.length > 3000) {
     return res.status(400).json({ error: 'text too long (max 3000 chars)' });
   }
-  const voice = VOICE_MAP[lang] || VOICE_MAP.th;
-  // Edge TTS rate format: "+10%" / "-5%" / "0%" relative to default
-  const ratePct = Math.max(-50, Math.min(200, Math.round((Number(rate) - 1) * 100)));
-  const rateStr = `${ratePct >= 0 ? '+' : ''}${ratePct}%`;
+  const voice = voiceFor(lang);
+  const rateStr = rateStringFor(rate);
 
   // ── Synthesize ─────────────────────────────────────────────
   let tts;

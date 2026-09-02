@@ -669,6 +669,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setDeleted(live.deleted || []);
     setStrokesByPage(live.strokesByPage || {});
     currentStrokesRef.current = (live.strokesByPage || {})[drawPageRef.current] || [];
+    // An autosave armed by the last stroke still holds the PRE-merge
+    // snapshot. Left alone it fires after this merge and writes — then
+    // pushes — a record without the other device's strokes, telling the
+    // server they were never there. Re-arm it with the merged record.
+    if (saveTimerRef.current) scheduleSave(live.strokesByPage || {}, live.deleted || []);
   }
 
   // Live cross-device sync: the server says this document's row changed (the

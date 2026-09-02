@@ -22,6 +22,10 @@ import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 
 const YT_API = 'https://www.googleapis.com/youtube/v3/playlistItems';
 const YT_RSS = 'https://www.youtube.com/feeds/videos.xml';
+// Every upstream call is bounded. Unbounded, one stalled YouTube request held
+// the function until the platform killed it — a generic timeout page for the
+// student and, on the Data API path, no fall-through to RSS at all.
+const UPSTREAM_TIMEOUT_MS = 8_000;
 
 export default async function handler(req, res) {
   // ── CORS: allow same-origin (no Origin header) + known origins ──
@@ -146,7 +150,7 @@ async function fromDataApi(playlistId, apiKey) {
     url.searchParams.set('playlistId', playlistId);
     url.searchParams.set('key', apiKey);
     if (pageToken) url.searchParams.set('pageToken', pageToken);
-    const r = await fetch(url);
+    const r = await fetch(url, { signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS) });
     if (!r.ok) {
       const txt = await r.text();
       throw new Error(`Data API ${r.status}: ${txt.slice(0, 200)}`);
@@ -179,7 +183,7 @@ async function fromDataApi(playlistId, apiKey) {
         u.searchParams.set('part', 'contentDetails');
         u.searchParams.set('id', batch.map((b) => b.id).join(','));
         u.searchParams.set('key', apiKey);
-        const r = await fetch(u);
+        const r = await fetch(u, { signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS) });
         if (!r.ok) break;
         const data = await r.json();
         const dmap = new Map();
@@ -215,6 +219,7 @@ async function fromRss(playlistId) {
   const url = `${YT_RSS}?playlist_id=${playlistId}`;
   const r = await fetch(url, {
     headers: { 'User-Agent': 'Mozilla/5.0 (compatible; vetmock/1.0)' },
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (r.status === 404) {
     // YouTube answered clearly: there is no such playlist. That is a 404 about

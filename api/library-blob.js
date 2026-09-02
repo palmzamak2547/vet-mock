@@ -14,6 +14,25 @@
 
 import { verifyBlobToken } from './_lib/blob-token.js';
 
+// What the browser is told the bytes are. The catalog is curated under the
+// service role, but this route answers on the app's OWN origin — a row whose
+// mime said text/html or image/svg+xml would have rendered inline right here,
+// under the app's CSP (which allows inline script). Those types are handed
+// over as a download instead; everything else keeps its declared mime.
+const INLINE_UNSAFE_MIME = /html|xml|javascript|ecmascript/i;
+export function contentHeaders(payload, fallback) {
+  const declared = payload?.m || fallback || 'application/octet-stream';
+  const unsafe = INLINE_UNSAFE_MIME.test(declared);
+  return {
+    type: unsafe ? 'application/octet-stream' : declared,
+    disposition: unsafe ? 'attachment' : 'inline',
+  };
+}
+
+// RFC 5987 value: encodeURIComponent leaves !'()* alone, and a quote inside
+// filename*=UTF-8''... ends the value early.
+const rfc5987 = (s) => encodeURIComponent(s).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.statusCode = 405;
@@ -47,7 +66,7 @@ export default async function handler(req, res) {
   // the verified token instead of asking upstream a question it fails.
   if (req.method === 'HEAD') {
     res.statusCode = 200;
-    res.setHeader('Content-Type', payload.m || 'application/octet-stream');
+    res.setHeader('Content-Type', contentHeaders(payload).type);
     if (Number.isFinite(payload.n) && payload.n > 0) res.setHeader('Content-Length', String(payload.n));
     res.setHeader('Accept-Ranges', 'none');
     res.setHeader('Cache-Control', `private, max-age=${cacheSeconds}`);
@@ -78,11 +97,12 @@ export default async function handler(req, res) {
   }
 
   res.statusCode = upstream.status;
-  res.setHeader('Content-Type', payload.m || upstream.headers.get('content-type') || 'application/octet-stream');
+  const content = contentHeaders(payload, upstream.headers.get('content-type'));
+  res.setHeader('Content-Type', content.type);
   // Inline: the shelf opens decks in a tab. `filename` keeps a sensible
   // save-as name — the key's basename is the slugified title.
   const basename = payload.k.split('/').pop() || 'document';
-  res.setHeader('Content-Disposition', `inline; filename*=UTF-8''${encodeURIComponent(basename)}`);
+  res.setHeader('Content-Disposition', `${content.disposition}; filename*=UTF-8''${rfc5987(basename)}`);
   // Private but cacheable for the token's own lifetime — the URL is stable
   // for the whole mint window, so a re-open is a browser cache hit.
   res.setHeader('Cache-Control', `private, max-age=${cacheSeconds}`);

@@ -3,6 +3,39 @@
 This file documents the security posture of vet-mock and is meant for the
 maintainer (Vet 86). Not user-facing.
 
+## Hardening pass — 2026-09-02 (v5.61.1)
+
+Findings from a whole-repo review checked against the live database
+(read-only: the Supabase security advisor plus `pg_policies`).
+
+- **Rate-limit windows.** The in-memory fallback swept any bucket idle for
+  60 s, whatever its window, so every 24-hour provider budget
+  (`provider:llm:daily`, `provider:resend:daily`, ...) reset after one quiet
+  minute on any instance running without Upstash. Buckets now live exactly as
+  long as their own window (`tests/unit/rate-limit-window.test.mjs`).
+- **`/api/library-blob` mime hygiene.** The catalog is curated, but the route
+  answers on the app origin under a CSP that allows inline script; a row whose
+  mime said `text/html` or `image/svg+xml` would have rendered inline there.
+  Those types are now served as `application/octet-stream` downloads.
+- **`/api/library-file` header hygiene.** A malformed `Authorization` header
+  (anything that is not JWT-shaped) is treated as anonymous instead of making
+  the upstream request fail and surface as `catalog_unavailable`.
+- **`/api/grade-summary`** gets a bounded upstream call (clean 504) and the
+  shared depth-walking JSON parser instead of a greedy regex that broke on
+  trailing junk. **`/api/playlist`** upstream calls are bounded too.
+  **`/api/tts`** looks voices up by own property only (`constructor` /
+  `__proto__` no longer reach the upstream as a voice name) and treats a
+  non-numeric rate as 1x instead of sending `NaN%`.
+- **`pdf_annotations` copy of record.** The table behind cross-device pen sync
+  existed only in production. `20260902000000_pdf_annotations_copy_of_record.sql`
+  reproduces it, its 8 MB row guard and its owner-only policies, and restores
+  the anonymous-write revoke the table missed by being created after the
+  2026-08-24 baseline (RLS already denied anon every row; this is the second
+  lock). Idempotent over the live table; apply with `supabase db push`.
+- Advisor state at review: 0 errors. The remaining WARNs are the intentional
+  SECURITY DEFINER RPCs documented in their migrations, plus the dashboard-only
+  "leaked password protection" toggle still listed under manual steps below.
+
 ## Data-ingress hardening — 2026-08-21 (v5.31.0)
 
 - Added Valibot 1.4.2 (MIT, zero dependencies) as a lazy validation chunk; it
@@ -112,7 +145,7 @@ VetMock is a study app, not a banking app. We're protecting against:
 | Leaked Resend / YouTube / Supabase keys via Git | Critical | ✅ `.gitignore` blocks `.env*`; `.env.example` only shows variable names |
 | Email injection through feedback form (`Subject:`, headers) | Medium | ✅ Server-side sends via Resend HTTP API, never builds raw RFC 822 — header injection not possible |
 | Open redirect / phishing | Low | ✅ No redirect endpoints |
-| Iframe clickjacking | Low | ✅ `X-Frame-Options: SAMEORIGIN` |
+| Iframe clickjacking | Low | ✅ `X-Frame-Options: DENY` + CSP `frame-ancestors 'none'` |
 | MIME-confusion attack | Low | ✅ `X-Content-Type-Options: nosniff` |
 | Stale chunk after deploy → user stuck | Low | ✅ `vite:preloadError` → auto-reload once |
 
@@ -160,6 +193,7 @@ Tables that should be locked down:
 | `groups` | SELECT public OR via group-membership · UPDATE/DELETE only `created_by` |
 | `group_members` | SELECT visible to group members · INSERT/DELETE rules per role |
 | `shared_questions` | SELECT visible to group members · INSERT by group members · DELETE by author or group admin |
+| `pdf_annotations` | SELECT/INSERT/UPDATE/DELETE only own `user_id` — one row per (user, document), merged client-side; `anon` has no grants |
 
 Quick-test as anonymous client: try `select * from user_data;` — must return only
 empty / own row.
@@ -175,23 +209,21 @@ Don't broaden to `*` for routes that send mail or hit external paid APIs.
 
 ## CSP (Content Security Policy)
 
-Currently **not enforced**. Adding CSP is preferred eventually but blocks
-inline `<style>` and inline event handlers — needs a careful pass through React
-inline styles. A tracked future improvement, not a critical gap.
+Enforced since the 2026-05-10 pass; the live policy is the
+`Content-Security-Policy` header in `vercel.json`. Two things worth knowing
+before editing it:
 
-If added later, the policy needs to permit:
-- `default-src 'self'`
-- `script-src 'self'` (no `unsafe-eval`; Vite production output is safe)
-- `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com` (inline JSX styles widespread)
-- `font-src 'self' https://fonts.gstatic.com`
-- `img-src 'self' data: https://img.youtube.com https://i.ytimg.com`
-- `connect-src 'self' https://*.supabase.co`
-- `frame-src https://www.youtube.com https://www.youtube-nocookie.com`
-- `object-src 'none'`
+- `script-src` carries `'unsafe-inline'` for the anti-FOUC theme script in
+  `index.html`. It means any HTML that renders on the app origin can run
+  script, which is why `/api/library-blob` refuses to serve HTML / SVG /
+  script mime types inline (2026-09-02).
+- A new host must be added to `connect-src` / `img-src` / `frame-src` before
+  the client can reach it; the failure mode is a silent block in the browser
+  console, not an error the student sees.
 
 ## Reporting
 
 Found something? Use the in-app `แจ้งปัญหา` form, or email
 palmzamak2547 [at] gmail.com with subject `[security]`.
 
-Last review: 2026-08-21
+Last review: 2026-09-02

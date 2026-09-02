@@ -64,7 +64,13 @@ export default async function handler(req, res) {
   // here — whether THIS caller may see storage_key. The user's own bearer
   // token is forwarded untouched; there is no service key in this
   // environment and the design no longer wants one.
-  const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '').trim();
+  // A Supabase JWT is base64url segments joined by dots; anything else in the
+  // header is not a token this endpoint can forward. It is treated as
+  // anonymous rather than rejected: a stray control character in the header
+  // used to make fetch throw while building the upstream request, which then
+  // surfaced as 'catalog_unavailable' and blamed the catalog.
+  const rawBearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '').trim();
+  const bearer = /^[A-Za-z0-9._~+/=-]{1,4096}$/.test(rawBearer) ? rawBearer : '';
   let doc;
   try {
     const r = await fetch(`${base.replace(/\/$/, '')}/rest/v1/rpc/library_doc_for_signing`, {

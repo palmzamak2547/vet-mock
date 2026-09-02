@@ -115,7 +115,11 @@ export function readSenderInfoFromLocation() {
         }
       }
     }
-    const senderName = by ? decodeURIComponent(by).slice(0, 24) : null;
+    // URLSearchParams has already decoded `by` once. A second decode threw on
+    // any name holding a literal percent sign ("100%"), and since this whole
+    // read sits in one try/catch, the score and time in the same link were
+    // dropped with it — the challenge banner never appeared at all.
+    const senderName = by && by.trim() ? by.trim().slice(0, 24) : null;
     const tRaw = params.get('t');
     let senderTimeSec = null;
     if (tRaw) {

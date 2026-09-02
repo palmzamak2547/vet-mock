@@ -20,6 +20,7 @@
 // ============================================================
 
 import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { extractJSON } from './_lib/llm.js';
 
 const MAX_PASSAGE = 20000;
 const MAX_ANSWER = 5000;
@@ -28,6 +29,9 @@ const MAX_RUBRIC = 4000;
 const MAX_QUESTION = 2000;
 
 const DEFAULT_MODEL = 'claude-sonnet-4-5-20250929';
+// Bounded so a stalled upstream ends as a clean 504 with a hint, instead of
+// the platform's generic timeout page the client cannot explain.
+const UPSTREAM_TIMEOUT_MS = 45_000;
 
 export default async function handler(req, res) {
   // Student answers and grading feedback are user-specific and must never be
@@ -105,6 +109,7 @@ export default async function handler(req, res) {
     // Call Anthropic API
     const aiResp = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
       headers: {
         'x-api-key': apiKey,
         'anthropic-version': '2023-06-01',
@@ -130,22 +135,18 @@ export default async function handler(req, res) {
     const aiData = await aiResp.json();
     const aiText = aiData?.content?.[0]?.text || '';
 
-    // Extract JSON from response (Claude often wraps in ```json ... ```)
-    const jsonMatch = aiText.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      console.error('AI did not return JSON:', aiText.slice(0, 500));
+    // The model wraps the object in prose or a ```json fence, and sometimes
+    // appends junk after it. A greedy `{...}` match ran from the first brace
+    // to the LAST one, so that trailing junk made the whole grade unparseable.
+    // extractJSON walks brace depth and returns the first complete object —
+    // the same parser the other model routes already rely on.
+    const grading = extractJSON(aiText);
+    if (!grading || typeof grading !== 'object' || Array.isArray(grading)) {
+      console.error('AI did not return a JSON object:', aiText.slice(0, 500));
       return res.status(502).json({
         error: 'AI response not parseable',
         hint: 'Try again — sometimes the model returns prose instead of JSON.',
       });
-    }
-
-    let grading;
-    try {
-      grading = JSON.parse(jsonMatch[0]);
-    } catch (e) {
-      console.error('JSON parse failed:', e.message, jsonMatch[0].slice(0, 500));
-      return res.status(502).json({ error: 'AI response malformed JSON' });
     }
 
     // Tag with metadata for the UI
@@ -158,6 +159,9 @@ export default async function handler(req, res) {
 
     return res.status(200).json(grading);
   } catch (err) {
+    if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
+      return res.status(504).json({ error: 'AI grading timed out', hint: 'Try again in a moment, or use self-grade.' });
+    }
     console.error('grade-summary handler error:', err);
     return res.status(500).json({ error: 'Internal error' });
   }
