@@ -62,6 +62,9 @@ const PHASE_LABELS = {
 // Shared empty list so a year without subjects does not mint a fresh array
 // (and a fresh memo dependency) on every render.
 const NO_SUBJECTS = Object.freeze([]);
+// Same idea for list props that may arrive undefined: a fresh [] per render
+// would hand every memo below a new dependency each time.
+const NO_ITEMS = Object.freeze([]);
 
 export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
   // Year context — determines hero copy + reading checklist scope.
@@ -1133,7 +1136,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         // through since those are user-local and never end up in
         // q-counts.js. The component computes
         //   count = Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] + customQs.filter(...)
-        customQuestions={customQuestions || []}
+        customQuestions={customQuestions || NO_ITEMS}
         readingChecklist={readingChecklist}
         bookmarks={bookmarks}
         history={history}
@@ -1600,7 +1603,26 @@ function FeedbackChip() {
 // or PREVIEW state (faculty count from vault_lecturers, course code).
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
-function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bookmarks = [], history = [], accBySubject = {}, shelfCounts = null, onPick }) {
+function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = {}, bookmarks = NO_ITEMS, history = [], accBySubject = {}, shelfCounts = null, onPick }) {
+  // Bookmarks-per-subject index. Bookmark ids are a flat array with no
+  // subject on them, so counting per subject means one pass over the bank
+  // (plus the user's own questions). Memoised: that pass runs when the
+  // bookmarks or the bank change, not on every Home render — presence
+  // syncs, countdown ticks and chip toggles all re-render this grid. The
+  // hook sits ahead of the empty-year early return so it runs on every path.
+  const bookmarksBySubject = useMemo(() => {
+    const counts = {};
+    if (!Array.isArray(bookmarks) || bookmarks.length === 0) return counts;
+    const qById = new Map();
+    for (const q of QB) if (isQuestionDeliverable(q)) qById.set(q.id, q);
+    for (const q of customQuestions) qById.set(q.id, q);
+    for (const qId of bookmarks) {
+      const q = qById.get(qId);
+      if (q?.subject) counts[q.subject] = (counts[q.subject] || 0) + 1;
+    }
+    return counts;
+  }, [bookmarks, customQuestions, QB.length]);
+
   if (!subjects?.length) {
     return (
       <div style={{
@@ -1614,32 +1636,6 @@ function SubjectGrid({ subjects, customQuestions = [], readingChecklist = {}, bo
         ยังไม่มีวิชาในปีนี้ — กลับไปเลือกปีอื่นได้
       </div>
     );
-  }
-
-  // Phase 2/3 perf: bookmarks-per-subject indexing.
-  //
-  // Previously this took the full merged Q array and built a Map from
-  // q.id → q to look up each bookmark's subject. That forced HomeView
-  // to import + scan the whole QB on every render.
-  //
-  // New approach: bookmark IDs live in a flat array in localStorage.
-  // We KNOW each Q has a `subject`, but we don't know it from the
-  // bookmark side. Until bookmark storage migrates to {id, subject}
-  // pairs (separate refactor), we lazy-import QB ONLY when the user
-  // has ≥1 bookmark — most users start with 0 so most renders avoid
-  // the cost entirely. The fallback path is sync via the module's
-  // top-level QB import (still present in this view for SR-related
-  // paths until Phase 3b ships); when Phase 3b lazies that too, this
-  // section will gain its own async load.
-  const bookmarksBySubject = {};
-  if (Array.isArray(bookmarks) && bookmarks.length > 0) {
-    const qById = new Map();
-    for (const q of QB) if (isQuestionDeliverable(q)) qById.set(q.id, q);
-    for (const q of customQuestions) qById.set(q.id, q);
-    for (const qId of bookmarks) {
-      const q = qById.get(qId);
-      if (q?.subject) bookmarksBySubject[q.subject] = (bookmarksBySubject[q.subject] || 0) + 1;
-    }
   }
 
   // accBySubject computed at parent (HomeView) level — passed in via
