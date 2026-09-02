@@ -16,9 +16,13 @@ const results = read('../../src/views/ResultsView.jsx');
 const burst = read('../../src/components/ScoreBurst.jsx');
 const css = read('../../src/styles.css');
 
-test('the burst fires only for a strong score over at least three graded questions', () => {
-  assert.match(results, /const celebrate = autoQs\.length >= 3 && score\.pct >= 80;/);
-  assert.match(results, /<div className="vmx-results-hero">\n\s*\{celebrate && <ScoreBurst strong=\{score\.pct === 100\} \/>\}/);
+test('the burst fires only for a strong score over at least three graded questions, judged on exact counts', () => {
+  // score.pct is rounded: 199/200 reads 100 and 79.5% reads 80. The gates
+  // use correct/total directly (found in post-merge review of #8).
+  assert.match(results, /const celebrate = autoQs\.length >= 3 && score\.total > 0 && score\.correct \/ score\.total >= 0\.8;/);
+  assert.match(results, /const perfect = score\.total > 0 && score\.correct === score\.total;/);
+  assert.match(results, /<div className="vmx-results-hero">\n\s*\{celebrate && <ScoreBurst strong=\{perfect\} \/>\}/);
+  assert.doesNotMatch(results, /strong=\{score\.pct === 100\}/);
 });
 
 test('the burst is hidden from assistive tech and deterministic', () => {
