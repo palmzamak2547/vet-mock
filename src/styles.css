@@ -1964,7 +1964,38 @@ html, body {
 .vmx-note-panel { background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
 .vmx-note-textarea { width: 100%; min-height: 80px; padding: 10px; border-radius: 8px; border: 1px solid var(--clr-border); background: var(--clr-surface); font-family: inherit; font-size: 14px; resize: vertical; color: var(--clr-ink); }
 
-.vmx-results-hero { text-align: center; padding: 40px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); margin-bottom: 24px; box-shadow: var(--shadow-md); }
+.vmx-results-hero { text-align: center; padding: 40px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); margin-bottom: 24px; box-shadow: var(--shadow-md); position: relative; isolation: isolate; overflow: hidden; }
+/* ── Score burst ─────────────────────────────────────────────────────────
+   A strong result (≥80% over at least three auto-graded questions) gets a
+   one-shot scatter of confetti behind the score, timed to start as the digit
+   roll (0.9s) settles so the number lands first and the party follows.
+   Decorative only: aria-hidden, transform + opacity, never in the way
+   (pointer-events: none, z-index -1 inside the hero's own stacking context —
+   isolation: isolate above keeps it in front of the surface but behind the
+   text), and absent under reduced motion, where the digit roll is off too.
+   Longhand offsets precede the inset shorthand (STABILITY rule 6). */
+.vmx-burst { position: absolute; top: 0; right: 0; bottom: 0; left: 0; inset: 0; z-index: -1; pointer-events: none; }
+.vmx-burst > i {
+  position: absolute; left: 50%; top: 42%;
+  width: 8px; height: 13px; border-radius: 2px;
+  background: var(--clr-sage);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  animation: vmx-burst-fly 1.15s var(--ease-out) forwards;
+  animation-delay: calc(650ms + var(--i) * 22ms);
+}
+.vmx-burst > i:nth-child(4n+2) { background: var(--clr-gold); }
+.vmx-burst > i:nth-child(4n+3) { background: var(--clr-rose); width: 7px; height: 7px; border-radius: 50%; }
+.vmx-burst > i:nth-child(4n+4) { background: var(--clr-ocean); }
+.vmx-burst.is-strong > i { width: 10px; height: 16px; }
+@keyframes vmx-burst-fly {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(0deg); }
+  12% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 44px)) scale(1) rotate(var(--rot)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-burst { display: none; }
+}
 .vmx-score-big { font-family: 'Fraunces', serif; font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
 .vmx-score-big.pass { color: var(--clr-sage-text); }
 .vmx-score-big.fail { color: var(--clr-rose-text); }
