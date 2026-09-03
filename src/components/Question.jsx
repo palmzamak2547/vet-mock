@@ -3,6 +3,7 @@ import { useRef, useState, useEffect, useMemo } from 'react';
 import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
+import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
 import { getShuffledOptions } from '../lib/option-shuffle.js';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
@@ -58,7 +59,7 @@ function writeFlags(map) {
   try { window.localStorage.setItem(FLAGS_KEY, JSON.stringify(map)); } catch {}
 }
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki }) {
   const compoundId = (currentQ?.subject || '?') + ':' + currentQ?.id;
   const figureSrc = safeImageUrl(currentQ?.image || currentQ?.imagePath);
   const figureAlt = currentQ?.imageAlt
@@ -275,6 +276,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               ok={mcqOk}
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
               explain={currentQ.explain}
+              wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
             />
           )}
         </>
@@ -313,6 +315,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 ok={tfOk}
                 correctNode={<>{correctIsTrue ? '✓ True' : '✗ False'}</>}
                 explain={currentQ.explain}
+                wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={tfOk} />}
               />
             )}
           </>
@@ -696,7 +699,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, correctNode, explain }) {
+function InstantFeedback({ ok, correctNode, explain, wikiLink }) {
   return (
     <div className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <div className="v">{ok ? '✓ ถูกต้อง!' : '✗ ยังไม่ใช่ — คำตอบที่ถูกถูกทำเครื่องหมาย ✓ ไว้'}</div>
@@ -706,6 +709,7 @@ function InstantFeedback({ ok, correctNode, explain }) {
       {explain && (
         <div className="w"><span className="k">เหตุผล</span><RichText text={explain} /></div>
       )}
+      {wikiLink}
     </div>
   );
 }

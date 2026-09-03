@@ -6,7 +6,7 @@ import { fmtDate } from '../hooks/utils.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
-import { articleForQuestion } from '../lib/vetwiki/registry-lite.js';
+import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import { loadUserFlashcards } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
@@ -535,22 +535,10 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichText text={currentQ.explain} /></div>}
             {/* The moment a card is revealed is the moment to offer the
                 checked summary — same judged mapping ReviewView uses, so
-                past-paper cards resolve to a real article too. */}
-            {(() => {
-              if (!onOpenWiki) return null;
-              const article = articleForQuestion(currentQ);
-              if (!article) return null;
-              return (
-                <button
-                  type="button"
-                  onClick={() => onOpenWiki(article.subject, article.topic)}
-                  style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: 'var(--clr-sage-text)', fontSize: 12.5, fontWeight: 600 }}
-                  title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้"
-                >
-                  🧬 อ่านสรุปเรื่องนี้ใน VetWiki →
-                </button>
-              );
-            })()}
+                past-paper cards resolve to a real article too. Shown for
+                every reveal: the student explicitly asked to see this
+                answer, right or wrong. */}
+            <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} onlyWhenWrong={false} />
           </div>
         )}
       </div>

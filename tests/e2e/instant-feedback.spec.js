@@ -148,4 +148,43 @@ test.describe('instant answer feedback', () => {
     // Still changeable — an exam lets you revisit your answer.
     await expect(page.locator('.vmx-option').first()).toBeEnabled();
   });
+
+  // A wrong answer in practice mode is the moment the checked summary
+  // earns its tap — the same button review already offers, now offered
+  // at the exact second the miss happens. The random set can't be
+  // forced to draw a question with an article, so the test asserts
+  // both deterministic contracts it CAN reach: the button appears only
+  // after a WRONG answer on a question that maps to an article, and
+  // clicking it navigates to that article's /wiki/ URL.
+  test('a wrong answer offers the VetWiki summary and it navigates', async ({ page }) => {
+    await startPractice(page);
+    test.skip((await findMcq(page)) !== 'found', 'this random set drew no multiple-choice question');
+
+    await page.locator('.vmx-option').first().click();
+    const verdict = page.locator('.vmx-instant-feedback');
+    await expect(verdict).toBeVisible();
+    const gotItRight = (await verdict.getAttribute('class') || '').includes('is-ok');
+
+    const wikiButton = verdict.getByRole('button', { name: /อ่านสรุปเรื่องนี้ใน VetWiki|จุดที่หลักฐานไม่ตรงกับที่บรรยาย/ });
+    const buttonVisible = await wikiButton.isVisible().catch(() => false);
+
+    if (gotItRight) {
+      // Correct answer: the nudge must stay hidden — review's rule,
+      // now pinned for instant feedback too.
+      await expect(wikiButton).toHaveCount(0);
+      return;
+    }
+    if (!buttonVisible) {
+      test.skip(true, 'this random question has no VetWiki article to link');
+      return;
+    }
+
+    await wikiButton.click();
+    // openWiki() routes the knowledge view and writes the article's
+    // path into the URL — the same deep-link the wiki share button
+    // produces, so this is the navigation contract, not a cosmetic hop.
+    await expect(page).toHaveURL(/\/wiki\//, { timeout: 15_000 });
+    await expect(page.locator('.vmx-question-card')).toHaveCount(0);
+    expect(consoleErrors.join('\n')).toBe('');
+  });
 });

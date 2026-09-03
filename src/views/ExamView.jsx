@@ -5,7 +5,7 @@ import { fmtTime, isCorrect, isWritingType, isAnswered } from '../hooks/utils.js
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
-export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome, mode, instantFeedback }) {
+export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
@@ -152,6 +152,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
         showNote={showNote}
         setShowNote={setShowNote}
         revealAnswer={revealAnswer}
+        onOpenWiki={revealAnswer ? onOpenWiki : undefined}
       />
       </div>
 
