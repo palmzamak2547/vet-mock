@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getGroupMembers, getSharedQuestions, getLeaderboard, deleteSharedQuestion } from '../lib/api.js';
+import { qualifiesForLeaderboard } from '../lib/leaderboard-gate.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/questions.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
@@ -22,7 +23,10 @@ export default function GroupDetailView({ group, user, goBack }) {
         getSharedQuestions(group.id),
         getLeaderboard(group.id),
       ]);
-      setMembers(m); setQuestions(q); setLeaderboard(lb);
+      // Same min-questions gate as the global board — a 2-question
+      // sprint topping a group board is the same luck problem.
+      setMembers(m); setQuestions(q);
+      setLeaderboard((Array.isArray(lb) ? lb : []).filter(qualifiesForLeaderboard));
     } catch (err) {
       setError(err?.message || 'โหลดข้อมูลกลุ่มไม่สำเร็จ');
     } finally { setLoading(false); }

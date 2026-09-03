@@ -1,6 +1,7 @@
 import { getSupabase } from './supabase.js';
 import { migrateHistoryArray } from './id-migration.js';
 import { yearForSubject } from '../data/curriculum.js';
+import { LEADERBOARD_MIN_QUESTIONS } from './leaderboard-gate.js';
 
 // All cloud-sync calls await getSupabase() so anonymous visitors never
 // pay the 190KB SDK download cost — the chunk only fetches once a
@@ -202,6 +203,10 @@ export async function saveExamResult(result) {
  *     leaderboard-safe fields and honors show_on_leaderboard. If the
  *     RPC isn't on the live DB yet (migration pending), fall back to
  *     the RLS-scoped query rather than erroring the whole board.
+ *
+ *  Both paths drop runs under LEADERBOARD_MIN_QUESTIONS — the RPC has
+ *  the same floor baked in (p_min_total), so client and data layer
+ *  agree even across a deploy skew.
  */
 export async function getLeaderboard(opts = {}) {
   // Back-compat: older callers passed (groupId, limit) positionally.
@@ -214,7 +219,10 @@ export async function getLeaderboard(opts = {}) {
   const rlsQuery = () => {
     let query = supabase.from('exam_results')
       .select('id, user_id, mode, subject, total, correct, pct, year, phase, created_at, profiles(username, avatar_emoji)')
-      .order('pct', { ascending: false }).order('correct', { ascending: false });
+      .order('pct', { ascending: false }).order('correct', { ascending: false })
+      // Same min-questions gate as the RPC — the fallback path must
+      // not rank tiny runs the data layer already refuses to rank.
+      .gte('total', LEADERBOARD_MIN_QUESTIONS);
     if (limit && limit > 0) query = query.limit(limit);
     if (groupId) query = query.eq('group_id', groupId);
     if (Number.isFinite(year)) query = query.eq('year', year);

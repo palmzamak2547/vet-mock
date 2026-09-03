@@ -306,10 +306,14 @@ CREATE POLICY "results_insert_own" ON exam_results FOR INSERT WITH CHECK (auth.u
 -- policy. Returns only leaderboard-safe fields and honors the
 -- show_on_leaderboard opt-out stored in auth.users user_metadata.
 -- (Group leaderboards read exam_results directly under RLS.)
+-- Runs under p_min_total questions (default 5) never rank — the
+-- min-questions gate from migration 20260903000000. Keep this file
+-- and the migration in sync.
 CREATE OR REPLACE FUNCTION get_global_leaderboard(
   p_year INT DEFAULT NULL,
   p_phase TEXT DEFAULT NULL,
-  p_limit INT DEFAULT 200
+  p_limit INT DEFAULT 200,
+  p_min_total INT DEFAULT 5
 )
 RETURNS TABLE (
   id UUID,
@@ -346,13 +350,14 @@ AS $$
   JOIN auth.users u ON u.id = r.user_id
   WHERE (p_year IS NULL OR r.year = p_year)
     AND (p_phase IS NULL OR r.phase = p_phase)
+    AND r.total >= COALESCE(p_min_total, 5)
     AND COALESCE(u.raw_user_meta_data->>'show_on_leaderboard', 'true')::boolean
   ORDER BY r.pct DESC, r.correct DESC, r.created_at DESC
   LIMIT GREATEST(1, LEAST(1000, COALESCE(p_limit, 200)));
 $$;
 
-REVOKE EXECUTE ON FUNCTION get_global_leaderboard(INT, TEXT, INT) FROM anon, public;
-GRANT EXECUTE ON FUNCTION get_global_leaderboard(INT, TEXT, INT) TO authenticated;
+REVOKE EXECUTE ON FUNCTION get_global_leaderboard(INT, TEXT, INT, INT) FROM anon, public;
+GRANT EXECUTE ON FUNCTION get_global_leaderboard(INT, TEXT, INT, INT) TO authenticated;
 
 -- ========= RACE RESULTS =========
 -- Multiplayer race scores (OfflineGame / RaceView). Table previously

@@ -115,12 +115,16 @@ on the year picker.
 - **VetMock AI ships dormant** — `api/wiki-explain` and `api/grade-summary`
   return 503 without `ANTHROPIC_API_KEY`; the UI degrades honestly. The landing
   no longer advertises it at all (the AI section was removed).
-- Public leaderboard has no minimum-attempt gate (a 1-question run can score
-  100%) — needs a product decision, not a bug fix.
 - `AdminView` hardcodes its bank total instead of importing `QB_TOTAL`
   (admin-only, correct today).
 
 ### Closed since (2026-07-30)
+- ~~Public leaderboard has no minimum-attempt gate (a 1-question run can
+  score 100%)~~ → closed 2026-09-03 (v5.68.0): runs under 5 questions no
+  longer rank, enforced identically in the `get_global_leaderboard` RPC
+  (`p_min_total`, migration `20260903000000`), the RLS fallback query, and
+  the client aggregation (`lib/leaderboard-gate.js`). Gate is per-run
+  question count, not run count.
 - ~~Auth-gated views render nothing on token expiry~~ → `AUTH_REQUIRED_VIEWS` +
   `AuthRequiredState` prompt for sign-in.
 - ~~PWA manifest pins portrait~~ → `orientation: any`.

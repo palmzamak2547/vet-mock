@@ -1,5 +1,6 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getLeaderboard } from '../lib/api.js';
+import { aggregateLeaderboard, LEADERBOARD_MIN_QUESTIONS } from '../lib/leaderboard-gate.js';
 import { SUBJECTS } from '../data/questions.js';
 import StatePanel from '../components/StatePanel.jsx';
 
@@ -7,35 +8,10 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
   // Raw rows from the API — 1 row per exam attempt. The display below
   // aggregates per-user so the same student doesn't appear N times.
   const [rawScores, setRawScores] = useState([]);
-  // Aggregated leaderboard (BEST attempt per user_id). Computed below.
-  // Palm bug 2026-05-24: without dedupe, a user with 5 attempts shows
-  // 5 times in the leaderboard; if any 2 attempts have identical pct
-  // they appear back-to-back which looks like a UI bug.
-  const scores = useMemo(() => {
-    const byUser = new Map();
-    for (const r of rawScores) {
-      if (!r?.user_id) continue;
-      const prev = byUser.get(r.user_id);
-      if (!prev) {
-        byUser.set(r.user_id, { ...r, attempts: 1 });
-        continue;
-      }
-      // Keep the higher pct; tie-break on correct count; tie-break on
-      // most recent. Also count attempts for a "5×" badge in the row.
-      const keepNew =
-        r.pct > prev.pct ||
-        (r.pct === prev.pct && r.correct > prev.correct) ||
-        (r.pct === prev.pct && r.correct === prev.correct
-          && new Date(r.created_at) > new Date(prev.created_at));
-      const attempts = prev.attempts + 1;
-      byUser.set(r.user_id, keepNew ? { ...r, attempts } : { ...prev, attempts });
-    }
-    return Array.from(byUser.values()).sort((a, b) => {
-      if (b.pct !== a.pct) return b.pct - a.pct;
-      if (b.correct !== a.correct) return b.correct - a.correct;
-      return new Date(b.created_at) - new Date(a.created_at);
-    });
-  }, [rawScores]);
+  // Aggregated leaderboard (BEST attempt per user_id). Runs smaller than
+  // LEADERBOARD_MIN_QUESTIONS never rank — a 1-question 100% is luck,
+  // not a ranking signal (LAUNCH_READINESS 2026-08 → fixed 2026-09).
+  const scores = aggregateLeaderboard(rawScores);
   const [loading, setLoading] = useState(true);
   // Distinguish "API failed" from "no scores yet" — silent fallback
   // to [] gaslights the user about what's wrong. Track the failure
@@ -164,6 +140,11 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
             </div>
           ))}
         </div>
+      )}
+      {!loading && !error && scores.length > 0 && (
+        <p style={{ marginTop: 14, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
+          ชุดที่มีไม่ถึง {LEADERBOARD_MIN_QUESTIONS} ข้อจะไม่นับเข้ากระดานอันดับ
+        </p>
       )}
 
       <div className="vmx-btn-row" style={{ marginTop: 30 }}>

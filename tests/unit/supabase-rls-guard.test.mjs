@@ -103,6 +103,51 @@ test('global leaderboard goes through SECURITY DEFINER RPC, not a broad SELECT p
   );
 });
 
+test('global leaderboard RPC carries the min-questions gate, and the 3-arg overload it replaces is dropped', () => {
+  const sql = RPC_SQL();
+
+  // 2026-09-03: a 1-question run could score 100% and top the board
+  // (LAUNCH_READINESS). The RPC now refuses to rank runs under
+  // p_min_total (default 5) — see leaderboard-gate.js for the client
+  // half of the same floor.
+  assert.match(
+    sql,
+    /p_min_total INT DEFAULT 5/i,
+    'RPC must expose a min-questions parameter defaulting to 5',
+  );
+  assert.match(
+    sql,
+    /r\.total\s*>=\s*COALESCE\(p_min_total,\s*5\)/i,
+    'RPC must filter runs below the min-questions floor',
+  );
+  // A parameter-count change would silently CREATE an overloaded
+  // function and leave the ungated 3-arg version serving every
+  // existing client call — the drop is the whole fix.
+  assert.match(
+    sql,
+    /DROP FUNCTION IF EXISTS\s+(public\.)?get_global_leaderboard\(INT,\s*TEXT,\s*INT\)/i,
+    'the ungated 3-arg overload must be dropped, not left in place',
+  );
+
+  // Keep the fresh-rebuild copy in lockstep with the migration.
+  const schemaSql = readFileSync(SCHEMA_PATH, 'utf8');
+  assert.match(
+    schemaSql,
+    /p_min_total INT DEFAULT 5/i,
+    'supabase-schema.sql must carry the same min-questions floor',
+  );
+  assert.match(
+    schemaSql,
+    /r\.total\s*>=\s*COALESCE\(p_min_total,\s*5\)/i,
+    'supabase-schema.sql must filter runs below the floor',
+  );
+  assert.doesNotMatch(
+    schemaSql.replace(/--.*$/gm, ''),
+    /GRANT EXECUTE ON FUNCTION get_global_leaderboard\(INT, TEXT, INT\)/,
+    'schema must not re-grant the dropped 3-arg signature',
+  );
+});
+
 test('migration is reproducible on a fresh DB (race_results DDL precedes its ALTER)', () => {
   const sql = readFileSync(MIGRATION_PATH, 'utf8');
 
