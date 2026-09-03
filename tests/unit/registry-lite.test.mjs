@@ -33,10 +33,16 @@ test('lite and full registries agree on every topic and every linked question', 
 });
 
 test('the prefetched views import the lite module, not the catalog', () => {
-  for (const file of ['../../src/views/ResultsView.jsx', '../../src/views/ReviewView.jsx', '../../src/views/SRSessionView.jsx']) {
+  // ReviewView and SRSessionView reach the wiki through the shared
+  // WikiLinkForQuestion button now (instant-feedback release), which
+  // itself imports registry-lite; ResultsView still calls it directly.
+  // The contract is the one that matters for the boot diet: none of
+  // these surfaces may pull the ~125 KB topic catalog.
+  for (const file of ['../../src/views/ResultsView.jsx', '../../src/views/ReviewView.jsx', '../../src/views/SRSessionView.jsx', '../../src/components/WikiLinkForQuestion.jsx']) {
     const src = read(file);
-    assert.match(src, /from '\.\.\/lib\/vetwiki\/registry-lite\.js'/, file);
     assert.doesNotMatch(src, /from '\.\.\/lib\/vetwiki\/registry\.js'/, file);
+    assert.doesNotMatch(src, /topic-registry\.generated/, file);
   }
+  assert.match(read('../../src/components/WikiLinkForQuestion.jsx'), /registry-lite\.js/);
   assert.doesNotMatch(read('../../src/lib/vetwiki/registry-lite.js'), /topic-registry\.generated/);
 });

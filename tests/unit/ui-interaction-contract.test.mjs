@@ -39,5 +39,8 @@ test('quest action controls keep tactile classes and the 44px touch floor', () =
   assert.match(actionBlock, /minHeight:\s*44/);
   assert.doesNotMatch(actionBlock, /all:\s*['"]unset|▶️|🎁/);
   assert.doesNotMatch(quests, /all:\s*['"]unset|minHeight:\s*40|▶️|🎁|linear-gradient/);
-  assert.equal((quests.match(/color:\s*['"]var\(--clr-sage-on, #fff\)['"]/g) || []).length, 3);
+  // Token-first since the hex-budget ratchet: the label rides the
+  // sage-on token with no stale hex fallback to fire wrong.
+  assert.equal((quests.match(/color:\s*['"]var\(--clr-sage-on\)['"]/g) || []).length, 3);
+  assert.doesNotMatch(quests, /#[0-9a-fA-F]{3,6}/);
 });

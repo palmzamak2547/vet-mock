@@ -130,6 +130,19 @@ test.describe('VetMock smoke flow', () => {
           window.localStorage.setItem('vmx-selected-year', '4');
         }
       } catch {}
+      // A prior test run may have left a service worker controlling this
+      // origin. When this run's sw.js carries a new SW_VERSION, the old
+      // worker goes "waiting", the app announces an update, and the
+      // "มีเวอร์ชันใหม่" notice overlaps whatever button the test is
+      // about to click — the suite tests the app, not the update flow
+      // (system-polish covers that separately). Registering nothing and
+      // evicting any leftover worker keeps every smoke run deterministic.
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register = () => Promise.reject(
+          new Error('service worker blocked for smoke determinism'),
+        );
+        navigator.serviceWorker.getRegistrations = () => Promise.resolve([]);
+      }
     });
     page.on('console', (msg) => {
       if (msg.type() !== 'error') return;

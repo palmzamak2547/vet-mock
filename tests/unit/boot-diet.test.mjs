@@ -13,13 +13,20 @@ import { readFileSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
 const review = read('../../src/views/ReviewView.jsx');
+const wikiLink = read('../../src/components/WikiLinkForQuestion.jsx');
 const app = read('../../src/App.jsx');
 
 test('ReviewView reads conflict counts from the generated summary, not the full index', () => {
-  assert.match(review, /import \{ conflictCountFor \} from '\.\.\/lib\/vetwiki\/conflict-summary\.generated\.js';/);
-  assert.doesNotMatch(review, /conflict-index\.js/);
-  assert.doesNotMatch(review, /vetwiki\/corrections\.js/);
-  assert.match(review, /const conflicts = conflictCountFor\(article\.subject, article\.topic\);/);
+  // The button lives in WikiLinkForQuestion since the instant-feedback
+  // release; the boot-diet contract is the same — whoever renders the
+  // count must read the generated summary, never the 368 KB table.
+  const holder = review.includes('conflictCountFor') ? review : wikiLink;
+  assert.match(holder, /conflict-summary\.generated\.js/);
+  assert.doesNotMatch(holder, /conflict-index\.js/);
+  assert.doesNotMatch(holder, /vetwiki\/corrections\.js/);
+  if (holder === wikiLink) {
+    assert.match(review, /WikiLinkForQuestion/, 'ReviewView must render the shared button');
+  }
 });
 
 test('the idle prefetch does not pull the instructor directory', () => {

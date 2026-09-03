@@ -78,7 +78,7 @@ function QuestCard({ quest, compact, onStart }) {
         padding: compact ? '10px 12px' : '12px 14px',
         borderRadius: 12,
         background: 'var(--clr-surface)',
-        border: `1px solid ${claimable ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-border)'}`,
+        border: `1px solid ${claimable ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
         boxShadow: claimable ? '0 0 0 2px rgba(74,107,74,0.10)' : 'none',
         minHeight: compact ? 56 : 64,
         transition: 'border-color 200ms ease, box-shadow 200ms ease',
@@ -130,7 +130,7 @@ function QuestCard({ quest, compact, onStart }) {
             style={{
               fontSize: 11,
               fontFamily: 'var(--vmx-mono)',
-              color: 'var(--clr-sage-text, #4a6b4a)',
+              color: 'var(--clr-sage-text)',
               flexShrink: 0,
             }}
           >
@@ -154,8 +154,8 @@ function QuestCard({ quest, compact, onStart }) {
               inset: 0,
               width: `${quest.pct}%`,
               background: quest.claimed
-                ? 'var(--clr-ink-soft, #888)'
-                : 'var(--clr-sage, #4a6b4a)',
+                ? 'var(--clr-ink-soft)'
+                : 'var(--clr-sage)',
               transition: 'width 400ms ease',
             }}
           />
@@ -193,8 +193,8 @@ function QuestCard({ quest, compact, onStart }) {
             padding: '10px 14px',
             minHeight: 44,
             borderRadius: 999,
-            background: 'var(--clr-sage, #4a6b4a)',
-            color: 'var(--clr-sage-on, #fff)',
+            background: 'var(--clr-sage)',
+            color: 'var(--clr-sage-on)',
             fontSize: 13,
             fontWeight: 700,
             fontFamily: 'var(--vmx-mono)',
@@ -221,8 +221,8 @@ function QuestCard({ quest, compact, onStart }) {
             minHeight: 44,
             borderRadius: 999,
             background: 'transparent',
-            border: '1px solid var(--clr-sage, #4a6b4a)',
-            color: 'var(--clr-sage-text, #4a6b4a)',
+            border: '1px solid var(--clr-sage)',
+            color: 'var(--clr-sage-text)',
             fontSize: 12,
             fontWeight: 600,
             fontFamily: 'var(--vmx-mono)',
@@ -271,7 +271,7 @@ function BonusCard({ bonus, compact }) {
         padding: compact ? '10px 12px' : '12px 14px',
         borderRadius: 12,
         background: 'var(--clr-surface-2)',
-        border: '1px solid var(--clr-sage, #4a6b4a)',
+        border: '1px solid var(--clr-sage)',
         minHeight: compact ? 52 : 60,
       }}
     >
@@ -302,8 +302,8 @@ function BonusCard({ bonus, compact }) {
           padding: '10px 14px',
           minHeight: 44,
           borderRadius: 999,
-          background: 'var(--clr-sage, #4a6b4a)',
-          color: 'var(--clr-sage-on, #fff)',
+          background: 'var(--clr-sage)',
+          color: 'var(--clr-sage-on)',
           fontSize: 13,
           fontWeight: 700,
           fontFamily: 'var(--vmx-mono)',
@@ -407,13 +407,13 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
               padding: '10px 14px',
               borderRadius: 12,
               background: 'var(--clr-surface-2)',
-              border: '1px dashed var(--clr-sage, #4a6b4a)',
+              border: '1px dashed var(--clr-sage)',
               minHeight: 52,
             }}
           >
             <div style={{ fontSize: 20, flexShrink: 0 }} aria-hidden>👉</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text, #4a6b4a)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+              <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
                 ทำต่อ quest ถัดไป
               </div>
               <div style={{ fontSize: 13, fontWeight: 600, marginTop: 2, color: 'var(--clr-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -436,8 +436,8 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
                 padding: '8px 12px',
                 minHeight: 44,
                 borderRadius: 999,
-                background: 'var(--clr-sage, #4a6b4a)',
-                color: 'var(--clr-sage-on, #fff)',
+                background: 'var(--clr-sage)',
+                color: 'var(--clr-sage-on)',
                 fontSize: 12,
                 fontWeight: 700,
                 fontFamily: 'var(--vmx-mono)',

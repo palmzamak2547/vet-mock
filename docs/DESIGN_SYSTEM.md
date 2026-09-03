@@ -62,8 +62,9 @@ Thai-first. Base stack `'Sarabun','IBM Plex Sans Thai','Fraunces',system-ui`
 (set on `.vmx-app` and `html,body`). Core UI headings and controls use Sarabun;
 the brand wordmark alone keeps `Fraunces`. Mono
 (codes/kbd) = `JetBrains Mono`. Wiki reference titles carry **no emoji** and no
-study annotations (see `lib/vetwiki/schema.js wikiTitle`). *Perf debt: Sarabun is
-double-loaded — Phase 1 consolidates to one woff2 (see MIGRATION_PLAN).*
+study annotations (see `lib/vetwiki/schema.js wikiTitle`). *Consolidated 2026-09-03: self-hosted woff2 in `public/fonts/`
+(`npm run fonts:convert`), Google Fonts no longer serves Sarabun; only the six
+wired weights exist.*
 
 ## Accessibility invariants (preserve — do not regress)
 44px touch floor · `.vmx-skip-link` · `:focus-visible` (incl. the WebKit
