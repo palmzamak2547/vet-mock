@@ -312,7 +312,19 @@ async function answerCurrentQuestion(page) {
 
   const matches = page.locator('.vmx-match-select:visible, .vmx-match-native-select:visible');
   if (await matches.count()) {
-    for (const select of await matches.all()) await select.selectOption({ index: 1 });
+    // Match answers are one-to-one: after one row claims a value, React
+    // disables that option in every remaining row (same rule smoke.spec's
+    // helper already handles). A fixed `{ index: 1 }` deadlocks on the
+    // second select — Playwright waits forever for an option that is
+    // intentionally not enabled, and only a random set drawing a match
+    // question exposes it.
+    for (const select of await matches.all()) {
+      const availableValue = await select.locator('option').evaluateAll((options) => (
+        options.find((option) => option.value && !option.disabled)?.value || null
+      ));
+      if (!availableValue) throw new Error('No enabled matching option is available for a visible row');
+      await select.selectOption(availableValue);
+    }
     return;
   }
 
