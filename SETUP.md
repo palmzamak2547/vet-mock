@@ -100,9 +100,18 @@ npm run dev
 3. เปิดไฟล์ `supabase-schema.sql` ใน project folder ด้วย notepad/editor
 4. **Copy ทั้งหมด** แล้ว **paste** ลงใน SQL Editor
 5. กด **"Run"** (หรือ Ctrl+Enter)
-6. ✅ ถ้าเห็น **"Success. No rows returned"** = เรียบร้อย!
+6. ✅ ถ้าเห็น **"Success. No rows returned"** = ตารางหลักพร้อมแล้ว
 
 > ⚠️ ถ้า error → check ว่า paste ครบทั้งไฟล์ไหม
+
+**ไฟล์นี้สร้างเฉพาะตารางหลัก** (profiles, groups, group_members, exam_results,
+race_results, shared_questions, user_data) พร้อม RLS ของมัน ฟีเจอร์ที่มาทีหลัง
+อยู่ใน `supabase/migrations/` และต้องรันตามลำดับชื่อไฟล์ต่อจากนี้ ได้แก่คลัง
+เอกสาร รอยเขียนบน PDF คำถามที่นิสิตส่งเข้ามา สถิติ Daily Q และห้องแล็บภาพ
+ถ้าไม่รัน migrations แอปจะเปิดได้แต่ฟีเจอร์เหล่านั้นจะล้มเงียบ
+
+> ⚠️ `supabase/migrations/` ในรีโปยังไม่ครบทุกตัวที่ production เคยรัน — ก่อนใช้
+> สร้างระบบใหม่จริงจัง ให้ dump schema จากโปรเจกต์ที่ใช้งานอยู่มาเทียบก่อน
 
 ### 3.3 เอา API Keys มาใส่ในโปรเจกต์
 

@@ -173,7 +173,16 @@ CREATE TABLE IF NOT EXISTS exam_results (
   correct INT NOT NULL,
   pct INT NOT NULL,
   duration_sec INT,
-  created_at TIMESTAMPTZ DEFAULT now()
+  created_at TIMESTAMPTZ DEFAULT now(),
+  -- Same gap race_results carried below: year/phase were added to production
+  -- by a migration and never mirrored here, so a database rebuilt from this
+  -- file came out two columns short. Worse for this table than for
+  -- race_results — get_global_leaderboard() further down SELECTs r.year and
+  -- r.phase, and Postgres validates a LANGUAGE sql body at CREATE time, so
+  -- the bootstrap did not merely produce a thin table: it stopped there with
+  -- "column r.year does not exist" and left everything after it uncreated.
+  year INT,
+  phase TEXT
 );
 
 -- ========= USER DATA (cloud sync) =========
