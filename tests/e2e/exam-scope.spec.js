@@ -95,6 +95,23 @@ test('no phase: the whole semester, and the grid carries no exam lines', async (
   await expect(page.locator('.vmx-subject-exam')).toHaveCount(0);
 });
 
+// Reproduced on production 2026-09-04: with year 3 and เทอม 1 กลางภาค selected,
+// all nine subject cards read "ไม่มีสอบกลางภาค" — พยาธิวิทยา and เภสัชวิทยา
+// included. schedule.js simply has no timetable for year 3, and an empty
+// lookup was rendering as a statement of fact.
+test('a year with no timetable in the app makes no claim about its exams', async ({ page, context }) => {
+  await context.addInitScript(() => {
+    try {
+      window.localStorage.setItem('vmx-selected-year', '3');
+      window.localStorage.setItem('vmx-selected-phase', JSON.stringify('1-mid'));
+    } catch {}
+  });
+  await page.goto('/app');
+  await expect(page.locator('.vmx-subject-grid')).toBeVisible({ timeout: 20000 });
+  await expect(page.locator('.vmx-subject-card')).not.toHaveCount(0);
+  await expect(page.locator('.vmx-subject-exam')).toHaveCount(0);
+});
+
 test('the config page names the phase it was opened under', async ({ page, context }) => {
   await seed(context, '1-mid');
   await home(page);

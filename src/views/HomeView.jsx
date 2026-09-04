@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
 import { subjectText } from '../hooks/utils.js';
-import { QB } from '../data/questions.js';
+import { QB, isQBYearLoaded } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
 // full QB to be scanned on every re-render.
@@ -124,9 +124,17 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       : null;
     // Which subjects sit a paper in the chosen phase, straight from the
     // faculty exam timetable in schedule.js. Absent here = no exam that phase.
+    // schedule.js holds the faculty timetable for the years it has been
+     // given — y4 and y5 today. For any other year the map would come back
+     // empty, and an empty map is indistinguishable from "none of these
+     // subjects sits a paper". A year-3 student was shown "ไม่มีสอบกลางภาค"
+     // on all nine cards, พยาธิวิทยา and เภสัชวิทยา included, which is simply
+     // untrue. Absent data must render as nothing, never as a claim.
+    const yearExams = EXAM_SCHEDULE[`y${selectedYear}`] || [];
+    const hasTimetable = yearExams.length > 0;
     const byPhase = new Map();
-    if (phaseScope) {
-      for (const exam of EXAM_SCHEDULE[`y${selectedYear}`] || []) {
+    if (phaseScope && hasTimetable) {
+      for (const exam of yearExams) {
         if (exam.term === phaseScope && exam.subject) byPhase.set(exam.subject, exam);
       }
     }
@@ -136,7 +144,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       nextExamCurrentCount: nextExamScope
         ? (Q_CURRENT_SCOPE_COUNTS[SEMESTER.id]?.[nextExamScope]?.[nextExam?.subject] || 0)
         : 0,
-      examByPhase: byPhase,
+      examByPhase: hasTimetable ? byPhase : null,
     };
   }, [nextExam?.subject, nextExam?.term, phaseScope, selectedYear, yearSubjects]);
 
@@ -1498,7 +1506,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       )}
 
       {/* Daily Q + Race + PWA install — entry points share one row */}
-      <DailyQRow user={user} setView={setView} />
+      <DailyQRow user={user} setView={setView} selectedYear={selectedYear} />
       <div style={{ marginBottom: 18, display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
         {user && (
           <button
@@ -1834,7 +1842,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                 a paper in it — read off the faculty exam timetable, so a
                 subject with no midterm (Epidemiology, POA) says so instead
                 of standing in the midterm grid as if it had one. */}
-            {phaseScope && s.semester !== 0 && (() => {
+            {phaseScope && examByPhase && s.semester !== 0 && (() => {
               // semester 0 = cross-semester collections (the VCA past-paper
               // set), not courses that sit a paper.
               const exam = examByPhase?.get(s.id);
@@ -1919,13 +1927,23 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
 // behind it via backdrop.
 // DailyQRow — chip on the home screen that opens today's deterministic
 // Q in a modal. Shows ✓ once done; streak counter motivates daily return.
-function DailyQRow({ user, setView }) {
+function DailyQRow({ user, setView, selectedYear }) {
   const [open, setOpen] = useState(false);
   // QB is lazy-loaded and mutated IN PLACE, so an empty dep array snapshots the
   // empty bank on every cold load — pickTodaysQ returned nothing and the whole
   // "ข้อวันนี้" chip silently never appeared. Keying on the bank size re-runs
   // this once the load lands (HomeView re-renders when App flips qbReady).
-  const todaysQ = useMemo(() => pickTodaysQ(QB.filter(isQuestionDeliverable)), [QB.length]);
+  // Wait for the year's banks to be in before picking. Picking from a
+  // half-loaded bank shows one question and then swaps it for another the
+  // moment the rest arrives — and the answer the student already recorded
+  // under today's date stays attached to the question that vanished.
+  const todaysQ = useMemo(
+    () => (isQBYearLoaded(selectedYear)
+      ? pickTodaysQ(QB.filter(isQuestionDeliverable), undefined, { year: selectedYear })
+      : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [QB.length, selectedYear],
+  );
   const [status, setStatus] = useState(() => readTodaysQStatus());
   const [streak, setStreak] = useState(() => dailyQStreak());
   // Class pulse — Round 3 (2026-05-18). Fetches the public aggregate

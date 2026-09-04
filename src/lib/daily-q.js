@@ -3,13 +3,32 @@
 // ============================================================
 //
 // Uses a stable hash of the date string (YYYY-MM-DD) modulo the pool
-// size so every user sees the same Q on the same day — turns into
-// a habit anchor + a shared talking point ("ข้อวันนี้ตอบอะไร?").
+// size so every student IN THE SAME YEAR sees the same Q on the same
+// day — a habit anchor and a shared talking point ("ข้อวันนี้ตอบอะไร?").
+//
+// Two things the pool must not depend on, because both differ between
+// students and even between two moments of one student's day:
+//
+//   • WHICH banks are loaded. QB is lazy and year-scoped, and switching
+//     year appends into the same array, so `hash % pool.length` picked a
+//     different question after the bank grew — the chip changed mid-day
+//     while the answer already recorded under today's date belonged to
+//     the question it used to show.
+//   • The ORDER the chunks resolved in. The pick indexes the array, so
+//     two students whose network delivered chunks in a different order
+//     landed on different questions out of the same set.
+//
+// Hence: filter to the student's year, then sort by a stable key before
+// indexing. Across years the question deliberately differs — a first-year
+// student has no business being handed a year-5 paper — so the promise
+// is per-year, and the copy must not claim more than that.
 //
 // We pick from MCQ-only Qs in subjects that are LIVE (not scaffold),
 // to avoid showing essay/fill-blank Qs that need typed answers — the
 // daily-Q UI is a quick "tap the right answer" loop.
 // ============================================================
+
+import { yearForSubject } from '../data/curriculum.js';
 
 export const TODAY_KEY_PREFIX = 'vmx-todays-q-';
 
@@ -29,16 +48,22 @@ function hashStr(str) {
   return h >>> 0;
 }
 
-export function pickTodaysQ(qb, dateStr = todayKey()) {
+export function pickTodaysQ(qb, dateStr = todayKey(), { year = null } = {}) {
   if (!Array.isArray(qb) || qb.length === 0) return null;
   // Filter to MCQ-only, has options, not flagged, not scaffold subject
-  const pool = qb.filter((q) =>
+  let pool = qb.filter((q) =>
     q?.type === 'mcq' &&
     Array.isArray(q?.options) &&
     q.options.length >= 3 &&
     !q.flag?.severity // skip Qs with major data discrepancies
   );
+  if (year != null) {
+    pool = pool.filter((q) => yearForSubject(q.subject) === year);
+  }
   if (pool.length === 0) return null;
+  // Stable order, so the pick depends only on (year, date) — never on the
+  // order the lazy bank chunks happened to resolve in.
+  pool.sort((a, b) => (`${a.subject}:${a.id}` < `${b.subject}:${b.id}` ? -1 : 1));
   const idx = hashStr(dateStr) % pool.length;
   return pool[idx];
 }
