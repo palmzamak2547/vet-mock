@@ -961,6 +961,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
     if (e && panRef.current && e.pointerId === panRef.current.id) {
       panRef.current = null;
+      // onPointerDown registers EVERY pointer with the pinch bookkeeping
+      // before it decides what the pointer is for, so the scrolling finger is
+      // in that map and has to come back out. Returning without this left it
+      // there as a phantom contact: the next single finger down counted as
+      // the SECOND finger of a pinch, so one finger dragging zoomed the
+      // document (measured: 800px page to 2400px) and scrolling was over for
+      // the rest of the session. The return value is deliberately ignored —
+      // a finished pan ends here either way.
+      gestureUp(e);
       return;
     }
     if (e && gestureUp(e)) return;

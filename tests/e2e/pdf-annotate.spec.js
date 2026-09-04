@@ -253,6 +253,69 @@ test('the highlighter stays translucent where it crosses itself', async ({ page 
   expect(maxAlpha, 'the highlighter went opaque where it overlapped itself').toBeLessThan(190);
 });
 
+// Pen-only mode is switched on the first time the reader sees a stylus, which
+// is the normal state on the one device this feature is for: an iPad with a
+// Pencil. In that mode a finger scrolls instead of drawing. onPointerDown
+// registers EVERY pointer with the pinch bookkeeping before it decides what
+// the pointer is for, but onPointerUp returned early on the pan branch — so
+// the scrolling finger was never taken back out. It sat there as a phantom
+// contact, and the next single finger down counted as the SECOND finger of a
+// pinch: one finger dragging now zoomed the document, and scrolling was over
+// for the rest of the session.
+test('a finger that scrolled in pen-only mode does not become half of a pinch', async ({ page }) => {
+  await openReaderWithPdf(page);
+
+  const pageWidth = () => page.evaluate(() => (
+    document.querySelector('[data-page="1"] canvas')?.width || 0
+  ));
+
+  // One stylus contact turns pen-only mode on, the way it does for a student
+  // who has just picked up their Pencil.
+  const penOnly = await page.evaluate(() => {
+    const ov = [...document.querySelectorAll('canvas')]
+      .find((c) => getComputedStyle(c).position === 'absolute');
+    const r = ov.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + Math.min(r.height / 2, 120);
+    const fire = (type, id, pointerType, cx, cy) => ov.dispatchEvent(new PointerEvent(type, {
+      pointerId: id, pointerType, clientX: cx, clientY: cy, bubbles: true, cancelable: true,
+      isPrimary: true, pressure: type === 'pointerup' ? 0 : 0.5, buttons: type === 'pointerup' ? 0 : 1,
+    }));
+    fire('pointerdown', 1, 'pen', x, y);
+    fire('pointerup', 1, 'pen', x, y);
+    window.__fire = fire;
+    window.__anchor = { x, y };
+    return true;
+  });
+  expect(penOnly).toBe(true);
+  await page.waitForTimeout(300);
+
+  const before = await pageWidth();
+  expect(before, 'the page must have rendered before the gesture test').toBeGreaterThan(0);
+
+  // A finger scrolls the page, then lifts.
+  await page.evaluate(() => {
+    const { x, y } = window.__anchor;
+    window.__fire('pointerdown', 2, 'touch', x, y);
+    window.__fire('pointermove', 2, 'touch', x, y - 40);
+    window.__fire('pointerup', 2, 'touch', x, y - 40);
+  });
+  await page.waitForTimeout(200);
+
+  // A single finger, on its own, drags a long way. That is a scroll, not a
+  // pinch, and it must not change the zoom.
+  await page.evaluate(() => {
+    const { x, y } = window.__anchor;
+    window.__fire('pointerdown', 3, 'touch', x + 10, y);
+    window.__fire('pointermove', 3, 'touch', x + 150, y);
+    window.__fire('pointermove', 3, 'touch', x + 300, y);
+    window.__fire('pointerup', 3, 'touch', x + 300, y);
+  });
+  await page.waitForTimeout(1200);
+
+  expect(await pageWidth(), 'one finger dragging zoomed the document').toBe(before);
+});
+
 test('zoom keeps the point under the cursor put and never widens the layout', async ({ page }) => {
   await openReaderWithPdf(page);
   const measure = () => page.evaluate(() => {
