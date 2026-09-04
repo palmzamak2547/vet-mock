@@ -23,8 +23,11 @@
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import subsetFont from 'subset-font';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = new URL('..', import.meta.url).pathname;
+// fileURLToPath, not URL.pathname: on Windows the pathname is "/C:/..." and
+// every mkdir/read below fails with ENOENT (the script only ever ran on posix).
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SRC_DIR = `${ROOT}public/Sarabun`;
 const OUT_DIR = `${ROOT}public/fonts`;
 
