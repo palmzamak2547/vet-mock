@@ -328,7 +328,60 @@ export async function saveAnnotations(fileHash, data) {
   };
   mirror.set(fileHash, rec);
   try {
-    await tx('readwrite', (s) => s.put(rec));
+    // Merge against what is IN THE DATABASE, inside the same transaction —
+    // not against `mirror`, which is this tab's own memory.
+    //
+    // With two tabs open on the same document, tab B's mirror was populated
+    // when it opened, before tab A drew anything. B's autosave then put() a
+    // whole record built from that stale picture, and A's strokes were gone
+    // from storage while still on A's screen. Nobody sees it until the file
+    // is reopened, which is exactly when a student is counting on it.
+    //
+    // A union is safe because every removal path in the reader tombstones
+    // what it removes — eraser, undo, the double-tap trim and clear-page all
+    // call addTomb — and mergeRecords drops tombstoned ids.
+    // Rescue the pages this tab is not writing, from what is IN THE DATABASE,
+    // inside the same transaction — not from `mirror`, which is this tab's
+    // own memory.
+    //
+    // With two tabs open on the same document, tab B's mirror was populated
+    // when it opened, before tab A drew anything. B's autosave then put() a
+    // whole record built from that stale picture, and A's strokes were gone
+    // from storage while still on A's screen. Nobody sees it until the file
+    // is reopened, which is exactly when a student is counting on it.
+    //
+    // Deliberately page-level, not stroke-level: a page this save carries is
+    // this tab's authoritative view of that page, so undo, the eraser and
+    // clear-page keep behaving exactly as they did. Only pages the incoming
+    // record says nothing about are taken from storage. Two tabs drawing on
+    // the SAME page at the same time is still last-writer-wins, which is the
+    // honest limit of a merge that has no per-stroke clock.
+    //
+    // The merged record is captured in a closure, not returned: an
+    // IDBRequest's `result` is read-only and assigning to it silently does
+    // nothing.
+    let merged = rec;
+    await tx('readwrite', (store) => {
+      const get = store.get(fileHash);
+      get.onsuccess = () => {
+        const stored = get.result;
+        if (stored?.strokesByPage) {
+          const pages = { ...rec.strokesByPage };
+          let rescued = false;
+          for (const [page, strokes] of Object.entries(stored.strokesByPage)) {
+            if (pages[page] === undefined && Array.isArray(strokes) && strokes.length) {
+              pages[page] = strokes;
+              rescued = true;
+            }
+          }
+          if (rescued) merged = { ...rec, strokesByPage: pages };
+        }
+        store.put(merged);
+      };
+      // Returning null keeps tx() from resolving with the get request.
+      return null;
+    });
+    mirror.set(fileHash, merged);
     idbUsable = true;
     return { ok: true, evicted: 0 };
   } catch {

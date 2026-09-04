@@ -516,3 +516,59 @@ test('a rough rectangle held still snaps to a clean five-point rectangle', async
   expect(stroke.points.length, 'the held stroke should have snapped to a rectangle').toBe(5);
 });
 
+
+// Two tabs on the same document used to overwrite each other's ink.
+// saveAnnotations merged against `mirror`, a per-tab in-memory map populated
+// when THAT tab opened the file, and then put() the whole record. So a second
+// tab's autosave wrote a record built from a picture taken before the first
+// tab drew anything, and the first tab's strokes were gone from storage while
+// still sitting on its screen — invisible until the file is reopened.
+//
+// The other tab is simulated by writing a record straight into IndexedDB, the
+// way that tab's own put() would have.
+test('a save merges with what is already stored instead of replacing it', async ({ page }) => {
+  await openReaderWithPdf(page);
+  const box = await overlayBox(page);
+
+  // This tab draws once, so a record exists and we know its hash.
+  await page.mouse.move(box.x + box.w * 0.2, box.y + box.h * 0.3);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.w * 0.6, box.y + box.h * 0.3, { steps: 8 });
+  await page.mouse.up();
+  await page.waitForTimeout(900);
+
+  const first = await storedRecordRaw(page);
+  expect(first, 'the first stroke must be stored').toBeTruthy();
+  const hash = first.hash;
+
+  // Another tab saves a stroke of its own on page 2.
+  await page.evaluate(({ h }) => new Promise((resolve) => {
+    const req = indexedDB.open('vmx-pdf-annotations');
+    req.onsuccess = () => {
+      const db = req.result;
+      const tx = db.transaction('docs', 'readwrite');
+      const store = tx.objectStore('docs');
+      const get = store.get(h);
+      get.onsuccess = () => {
+        const rec = get.result;
+        rec.strokesByPage = { ...(rec.strokesByPage || {}), 2: [{ id: 'other-tab-stroke', points: [[0.1, 0.1], [0.2, 0.2]] }] };
+        store.put(rec);
+      };
+      tx.oncomplete = () => { db.close(); resolve(true); };
+      tx.onerror = () => { db.close(); resolve(false); };
+    };
+    req.onerror = () => resolve(false);
+  }), { h: hash });
+
+  // This tab, whose mirror knows nothing about that, draws again and saves.
+  await page.mouse.move(box.x + box.w * 0.2, box.y + box.h * 0.5);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.w * 0.6, box.y + box.h * 0.5, { steps: 8 });
+  await page.mouse.up();
+  await page.waitForTimeout(1200);
+
+  const after = await storedRecordRaw(page);
+  const otherTabStrokes = (after?.strokesByPage?.[2] || []).filter((s) => s.id === 'other-tab-stroke');
+  expect(otherTabStrokes.length, 'the other tab\'s stroke was overwritten').toBe(1);
+  expect((after?.strokesByPage?.[1] || []).length, 'this tab\'s own strokes must survive too').toBeGreaterThanOrEqual(2);
+});
