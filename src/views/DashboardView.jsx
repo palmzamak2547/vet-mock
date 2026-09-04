@@ -12,6 +12,7 @@ import NightRankCard from '../components/NightRankCard.jsx';
 import { getWebVitalsSamples, summarize } from '../lib/web-vitals.js';
 import StreakHeatmap from '../components/StreakHeatmap.jsx';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import { computeSubjectProgress } from '../lib/subject-progress.js';
 import EmptyState from '../components/EmptyState.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 
@@ -312,6 +313,22 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const trend = useMemo(() => build7DayTrend(scopedHistory), [scopedHistory]);
   const [curveDays, setCurveDays] = useState(14);
   const learningCurve = useMemo(() => buildLearningCurve(scopedHistory, curveDays), [scopedHistory, curveDays]);
+  // "เรียนวิชานี้ไปกี่ %" — coverage of each subject's practice pool from
+  // the same year-scoped history every card here reads, so the toggle
+  // governs it too. QB lazy-loads in place; QB.length is the pool-change
+  // signal (same memo contract HomeView's presets use).
+  const coverageBySubject = useMemo(
+    () => computeSubjectProgress({ history: scopedHistory, allQuestions: QB, customQuestions }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [scopedHistory, customQuestions, QB.length],
+  );
+  const coverageRows = useMemo(
+    () => Object.entries(coverageBySubject)
+      .filter(([, r]) => r.covered > 0 && r.total > 0)
+      .sort((a, b) => b[1].pct - a[1].pct)
+      .slice(0, 8),
+    [coverageBySubject],
+  );
 
   // Year-scoped analytics override — data-layer audit 2026-05-19 round 3.
   // The `analytics` prop is computed cross-year in App.jsx (used by other
@@ -573,6 +590,35 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           )}
 
           <div className="vmx-dash-grid">
+            <div className="vmx-dash-card">
+              <h2>เรียนไปแล้วกี่ % รายวิชา</h2>
+              {coverageRows.length === 0 ? (
+                <div className="vmx-empty" style={{ padding: 20 }}>ยังไม่ได้เริ่มทำข้อสอบ — กด "เริ่มฝึก" ชุดแรกแล้วความคืบหน้าของแต่ละวิชาจะขึ้นที่นี่</div>
+              ) : (
+                <>
+                  {coverageRows.map(([id, r]) => {
+                    const s = SUBJECTS.find((x) => x.id === id);
+                    if (!s) return null;
+                    // Same tier thresholds as accuracy, but reversed in
+                    // meaning: green = the subject is nearly covered.
+                    const cls = r.pct >= 80 ? '' : r.pct >= 40 ? 'mid' : 'low';
+                    return (
+                      <div key={id}>
+                        <div className="vmx-subj-row">
+                          <span>{s.icon} {s.name}</span>
+                          <span className="pct">{r.pct}% ({r.covered}/{r.total})</span>
+                        </div>
+                        <div className="vmx-bar"><div className={`vmx-bar-fill ${cls}`} style={{ width: `${r.pct}%` }}></div></div>
+                      </div>
+                    );
+                  })}
+                  <div className="vmx-empty" style={{ padding: '10px 0 0', fontSize: 12 }}>
+                    นับเฉพาะข้อที่เคยตอบอย่างน้อยครั้งเดียว ตอบถูกหรือผิดก็นับ
+                  </div>
+                </>
+              )}
+            </div>
+
             <div className="vmx-dash-card">
               <h2>ความแม่นยำตามวิชา</h2>
               {SUBJECTS.filter((s) => s.id !== 'all').map((s) => {

@@ -19,6 +19,7 @@ import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } f
 import { getCompletedPhase, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
 import { isTopicRead } from '../lib/study-progress.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
+import { computeSubjectProgress } from '../lib/subject-progress.js';
 
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
 // and most users will see it after some interaction. Keeps HomeView's
@@ -1714,6 +1715,15 @@ function FeedbackChip() {
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
 function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = {}, bookmarks = NO_ITEMS, history = [], accBySubject = {}, shelfCounts = null, examByPhase = null, phaseScope = null, onPick }) {
+  // Per-subject coverage — "เรียนวิชานี้ไปกี่ %". One memoised pass over
+  // history + bank, shared by every card below. Same memo reasoning as
+  // bookmarksBySubject: Home re-renders constantly (countdowns, sync,
+  // chip toggles) and this must not recompute per render.
+  const progressBySubject = useMemo(
+    () => computeSubjectProgress({ history, allQuestions: QB, customQuestions }),
+    [history, customQuestions, QB.length],
+  );
+
   // Bookmarks-per-subject index. Bookmark ids are a flat array with no
   // subject on them, so counting per subject means one pass over the bank
   // (plus the user's own questions). Memoised: that pass runs when the
@@ -1842,7 +1852,9 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
               const accColor = hasAccData
                 ? (accPct < 60 ? 'var(--clr-rose)' : (accPct < 80 ? 'var(--clr-gold)' : 'var(--clr-sage)'))
                 : 'var(--clr-ink-soft)';
-              const showAny = readDone > 0 || bookmarkCount > 0 || hasAccData;
+              const cov = progressBySubject[s.id];
+              const hasCoverage = cov && cov.covered > 0 && cov.total > 0;
+              const showAny = readDone > 0 || bookmarkCount > 0 || hasAccData || hasCoverage;
               if (!showAny) return null;
               return (
                 <div style={{
@@ -1853,6 +1865,14 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                   fontSize: 11,
                   color: 'var(--clr-ink-soft)',
                 }}>
+                  {hasCoverage && (
+                    <span
+                      title={`ทำไปแล้ว ${cov.covered}/${cov.total} ข้อที่พร้อมฝึกในวิชานี้`}
+                      style={{ fontWeight: 600, color: cov.pct >= 80 ? 'var(--clr-sage-text)' : 'var(--clr-gold-text)' }}
+                    >
+                      เรียนไป {cov.pct}%
+                    </span>
+                  )}
                   {hasAccData && (
                     <span title={`ตอบถูก ${acc.correct}/${acc.total} ใน 90 วันล่าสุด`} style={{ color: accColor, fontWeight: 600 }}>
                       ถูกต้อง {accPct}%

@@ -4,8 +4,9 @@ import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } fr
 import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
 import { librarySubjectCounts } from '../lib/library.js';
+import { computeSubjectProgress } from '../lib/subject-progress.js';
 
-export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, qbReady = true }) {
+export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, qbReady = true, history = [] }) {
   const allQuestions = [...QB, ...customQuestions];
   const [searchQuery, setSearchQuery] = useState('');
   // Real documents per subject — a scaffold-year card with zero questions
@@ -17,6 +18,15 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   // telling a first-time user the whole curriculum is empty. Loading and
   // genuinely-empty are different states and must look different.
   const qbLoading = !qbReady && QB.length === 0;
+
+  // Per-subject coverage — "เรียนวิชานี้ไปกี่ %". Memoised on the same
+  // inputs HomeView uses; the bank lazy-loads in place, so QB.length is
+  // the real "pool changed" signal (eslint-disabled like Home's presets).
+  const progressBySubject = useMemo(
+    () => computeSubjectProgress({ history, allQuestions: QB, customQuestions }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [history, customQuestions, QB.length],
+  );
 
   // Filter subjects to selectedYear (or show all if no year selected — for
   // legacy "all subjects" flow).
@@ -207,6 +217,28 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   {s.code}
                 </div>
               )}
+              {/* Coverage mini-bar — how much of this subject's practice
+                  pool the student has answered at least once. Sits with
+                  the count it explains; hidden while the bank loads or
+                  when nothing has been answered yet. */}
+              {(() => {
+                const cov = progressBySubject[s.id];
+                if (qbLoading || !cov || cov.covered === 0 || cov.total === 0 || isEmpty) return null;
+                return (
+                  <div
+                    title={`เรียนไปแล้ว ${cov.covered}/${cov.total} ข้อ (${cov.pct}%)`}
+                    style={{ marginTop: 6, height: 4, borderRadius: 999, background: 'var(--clr-surface-2)', overflow: 'hidden' }}
+                  >
+                    <div style={{
+                      width: `${cov.pct}%`,
+                      height: '100%',
+                      borderRadius: 999,
+                      background: cov.pct >= 80 ? 'var(--clr-sage)' : cov.pct >= 40 ? 'var(--clr-gold)' : 'var(--clr-rose)',
+                      transition: 'width var(--dur) var(--ease-out)',
+                    }} />
+                  </div>
+                );
+              })()}
               {/* Only render the chip when there is something real to put in
                   it. Guarding on examFormat alone printed a bare "📝" (or
                   "📝 , 4 ช้อยส์") for every subject whose weighting is not
