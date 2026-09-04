@@ -37,7 +37,21 @@ export const isCorrect = (q, ua) => {
     return q.blanks.every((b, i) => {
       const u = (ua[i] || '').toLowerCase().trim();
       const bl = b.toLowerCase().trim();
-      return u === bl || (u.length > 2 && (u.includes(bl) || bl.includes(u)));
+      if (u === bl) return true;
+      if (u.length < 3) return false;
+      // Writing MORE than the key is fine: "the lateral condyle" still names
+      // the lateral condyle.
+      if (u.includes(bl)) return true;
+      // Writing LESS used to be fine too, and that was the bug: any three
+      // characters of the key scored full marks. Measured on the corpus,
+      // 36 of 60 blanks accepted their own first three letters — "lat" for
+      // lateral condyle, "vas" for vastus lateralis, "ตับ" for ตับอ่อน,
+      // which is a different organ. A fragment is not an answer.
+      //
+      // Short-of-the-key is still allowed when it covers most of it, so a
+      // student who drops a qualifier ("reticuloperitonitis" for
+      // "traumatic reticuloperitonitis") is not punished for it.
+      return bl.includes(u) && u.length >= bl.length * 0.6;
     });
   }
   if (q.type === 'match') {
