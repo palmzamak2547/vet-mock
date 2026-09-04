@@ -631,12 +631,15 @@ export function getOAuthCallbackUrl() {
 // signup, BEFORE pullUserData runs (which would otherwise fetch
 // {} from cloud and clear local state).
 //
-// Strategy: read localStorage, push to user_data row. If row didn't
-// exist (first-ever account), this becomes the initial state. If it
-// did exist (rare — user had a prior account on same browser), we
-// MERGE conservatively: keep the higher count for arrays, take the
-// non-null for objects. Conflicts that can't be resolved automatically
-// get logged but don't block.
+// Strategy: read localStorage and write ONLY the fields the account
+// does not already have. If the row did not exist (first-ever account)
+// that is the whole local snapshot, which is the point. If it did, the
+// account's own data is left exactly as it is and the skipped fields
+// are reported back to the caller.
+//
+// The previous version of this comment described a conservative merge
+// that keeps "the higher count for arrays" — no such code existed. It
+// upserted the whole snapshot over the row.
 export async function migrateLocalToCloud() {
   const supabase = await getSupabase();
   if (!supabase) return { ok: false, reason: 'no-supabase' };
@@ -669,14 +672,50 @@ export async function migrateLocalToCloud() {
     !local.streak_data?.lastDate;
   if (isEmpty) return { ok: true, migrated: false, reason: 'no-local-data' };
 
-  // Upsert into user_data — same table pushUserData targets.
+  // Only fill fields the account does not already have.
+  //
+  // This used to upsert the whole local snapshot over the row, which its own
+  // docstring called a conservative merge and was not. The function is only
+  // reached from the sign-UP branch, but Supabase returns an obfuscated
+  // success for an email that already exists, and the code then falls through
+  // to signInWithEmail — so a returning student who taps "สมัคร" instead of
+  // "เข้าสู่ระบบ" on a fresh device, types their real credentials, and has
+  // answered even one question locally would have had their entire cloud
+  // history, bookmarks, notes and SR cards replaced by that one answer.
+  //
+  // Migrating anonymous work INTO an empty account is the whole job, so
+  // writing only what the account is missing does that job and cannot
+  // destroy anything.
+  const { data: remote, error: readErr } = await supabase
+    .from('user_data')
+    .select('bookmarks, history, notes, sr_cards, custom_questions, streak_data')
+    .eq('user_id', userId)
+    .maybeSingle();
+  // A read failure is not permission to overwrite. Refuse rather than guess.
+  if (readErr) return { ok: false, reason: 'read-failed', error: readErr };
+
+  const hasRemote = (v) => (
+    Array.isArray(v) ? v.length > 0
+      : (v && typeof v === 'object') ? Object.keys(v).length > 0
+        : v != null
+  );
+  const payload = { user_id: userId, updated_at: new Date().toISOString() };
+  const skipped = [];
+  for (const [field, value] of Object.entries(local)) {
+    if (remote && hasRemote(remote[field])) { skipped.push(field); continue; }
+    payload[field] = value;
+  }
+  if (Object.keys(payload).length === 2) {
+    return { ok: true, migrated: false, reason: 'account-already-has-data', skipped };
+  }
+
   const { error } = await supabase
     .from('user_data')
-    .upsert({ user_id: userId, ...local, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+    .upsert(payload, { onConflict: 'user_id' });
   if (error) {
     return { ok: false, reason: 'upsert-failed', error };
   }
-  return { ok: true, migrated: true, counts: {
+  return { ok: true, migrated: true, skipped, counts: {
     bookmarks: local.bookmarks.length,
     history: local.history.length,
     notes: Object.keys(local.notes).length,
