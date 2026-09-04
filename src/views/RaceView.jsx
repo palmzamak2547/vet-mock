@@ -21,9 +21,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { hasSupabase, getSupabase } from '../lib/supabase.js';
 import { recordRaceResult } from '../lib/api.js';
-import { QB } from '../data/questions.js';
+import { QB, loadQBForYear } from '../data/questions.js';
 import { isCorrect } from '../hooks/utils.js';
-import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
@@ -55,11 +55,33 @@ export default function RaceView({ goHome, setView, user, profile }) {
   const [endedAt, setEndedAt] = useState(0);
   const channelRef = useRef(null);
   const [error, setError] = useState(null);
+  // QB is loaded per year by App, but this screen offers EVERY year's
+  // subjects and defaults to a year-4 one. Reading QB directly meant a
+  // year-5 student was told COM III has 0 MCQ questions when it has 335,
+  // and a guest resolved the host's ids against a bank that never held
+  // them. Load the bank the chosen subject actually needs.
+  const [bankTick, setBankTick] = useState(0);
+  const [loadingBank, setLoadingBank] = useState(false);
 
-  // Eligible MCQ pool — race only supports MCQ for fairness + speed
+  useEffect(() => {
+    let alive = true;
+    const year = yearForSubject(subject);
+    if (!Number.isFinite(year)) return undefined;
+    setLoadingBank(true);
+    loadQBForYear(year)
+      .then(() => { if (alive) setBankTick((n) => n + 1); })
+      .catch(() => {})
+      .finally(() => { if (alive) setLoadingBank(false); });
+    return () => { alive = false; };
+  }, [subject]);
+
+  // Eligible MCQ pool — race only supports MCQ for fairness + speed.
+  // bankTick is the dependency that matters: QB is mutated in place, so its
+  // identity never changes and only the load completing tells us to recount.
   const eligibleQs = useMemo(() =>
     QB.filter((q) => isQuestionDeliverable(q) && q.type === 'mcq' && q.subject === subject && q.options?.length >= 3),
-  [subject]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [subject, bankTick]);
 
   // ── Channel setup ────────────────────────────────────────────
   // Whenever code changes (host: just generated; guest: just typed),
@@ -87,19 +109,35 @@ export default function RaceView({ goHome, setView, user, profile }) {
       const ch = supabase.channel(`race:${code}`, {
         config: { presence: { key: user.id } },
       });
-      ch.on('broadcast', { event: 'start' }, (payload) => {
+      ch.on('broadcast', { event: 'start' }, async (payload) => {
         if (!active) return;
         const { qIds } = payload.payload || {};
+        if (!Array.isArray(qIds) || qIds.length === 0) return;
+        // The host's subject may belong to a year this student never loaded.
+        // Without this the ids resolved to nothing, `if (qs.length)` was
+        // false, and the guest sat in the lobby forever with no message —
+        // or ran a SHORTER set than the host while the podium compared both
+        // out of the host's denominator.
+        const hostSubject = String(qIds[0]).split(':')[0];
+        const hostYear = yearForSubject(hostSubject);
+        if (Number.isFinite(hostYear)) {
+          try { await loadQBForYear(hostYear); } catch { /* fall through to the count check */ }
+        }
+        if (!active) return;
         const qs = qIds.map((k) => {
           const [s, idStr] = k.split(':');
           const id = parseInt(idStr, 10);
           return QB.find((q) => isQuestionDeliverable(q) && q.subject === s && q.id === id);
         }).filter(Boolean);
-        if (qs.length) {
-          setQuestions(qs);
-          setStartedAt(Date.now());
-          setPhase('run');
+        if (qs.length !== qIds.length) {
+          // Never start a race on a different set from the host's: the score
+          // would be compared against the wrong total.
+          setError(`เริ่มไม่ได้ ชุดข้อสอบของห้องนี้มี ${qIds.length} ข้อ แต่เครื่องนี้โหลดได้ ${qs.length} ข้อ ลองรีเฟรชแล้วเข้าห้องใหม่`);
+          return;
         }
+        setQuestions(qs);
+        setStartedAt(Date.now());
+        setPhase('run');
       });
       ch.on('broadcast', { event: 'progress' }, (payload) => {
         if (!active) return;
@@ -190,6 +228,10 @@ export default function RaceView({ goHome, setView, user, profile }) {
   }
   async function startRace() {
     if (!isHost) return;
+    if (loadingBank) {
+      setError('กำลังโหลดคลังข้อสอบของวิชานี้ รอสักครู่แล้วกดใหม่');
+      return;
+    }
     if (eligibleQs.length < count) {
       setError(`มีข้อ MCQ ในวิชานี้แค่ ${eligibleQs.length} ข้อ`);
       return;
