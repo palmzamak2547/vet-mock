@@ -10,8 +10,10 @@
 # (TDZ bugs only surface after minification — see hotfix f01f9a4).
 #
 # 4 projects: Chromium desktop/mobile, WebKit mobile, and Firefox desktop.
-# The browser phase stays under 5 min; the complete hosted job normally takes
-# about 6 min including browser installation and has an 8 min hard timeout.
+# The browser phase alone stays under 5 min; with browser install and a
+# cold npm cache the hosted job has measured ~9 min, so the hard cap is
+# 15 min (2026-09-04) — the cap must never be the thing that kills a
+# healthy suite.
 
 name: Smoke e2e
 
@@ -37,7 +39,14 @@ on:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    # 2026-09-04: a real run measured 8m54s (browser install on a cold
+    # cache + three engines on a standard runner) and the old 8m cap
+    # cancelled the job mid-suite — the visible symptom was a cancelled
+    # "Run smoke e2e" step, which read like a hang. Local full-suite
+    # runs take 1-3 min; CI carries install + slower shared runners.
+    # 15m gives every engine time to finish; the suite itself fails
+    # faster than that when something is actually broken.
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
 
