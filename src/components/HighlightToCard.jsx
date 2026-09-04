@@ -180,6 +180,10 @@ export default function HighlightToCard() {
 
   function handleClozeSaved(cards) {
     const n = Array.isArray(cards) ? cards.length : 0;
+    if (n === 0) {
+      setToast('บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลเพิ่มไม่ได้ ลองลบการ์ดเก่าหรือปิดโหมดไม่ระบุตัวตน');
+      return;
+    }
     setToast(n > 1 ? `✓ เพิ่ม ${n} cloze cards แล้ว` : '✓ เพิ่ม cloze card แล้ว');
     closeModal();
   }
@@ -187,12 +191,16 @@ export default function HighlightToCard() {
   function handleSave() {
     const trimmedFront = (front || '').trim();
     if (!trimmedFront) return;
-    saveUserFlashcard({
+    const saved = saveUserFlashcard({
       front: trimmedFront,
       back: (back || '').trim(),
       subject: subject || null,
       source: 'summary-highlight',
     });
+    if (!saved) {
+      setToast('บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลเพิ่มไม่ได้ ลองลบการ์ดเก่าหรือปิดโหมดไม่ระบุตัวตน');
+      return;
+    }
     setToast('✓ เพิ่ม flashcard แล้ว');
     closeModal();
   }

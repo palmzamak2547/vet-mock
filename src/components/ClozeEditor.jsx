@@ -117,7 +117,15 @@ export default function ClozeEditor({
         subject: subject || null,
         source: 'cloze-editor',
       });
-      if (!cards || cards.length === 0) {
+      // null means the browser refused to store it; an empty array means the
+      // text produced no cloze cards. Telling a student to check their cloze
+      // marks when the real problem is a full localStorage sends them to fix
+      // something that is not broken.
+      if (cards === null) {
+        setError('บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลเพิ่มไม่ได้ ลองลบการ์ดเก่าหรือปิดโหมดไม่ระบุตัวตน');
+        return;
+      }
+      if (cards.length === 0) {
         setError('บันทึกไม่ได้ — ลองเช็ค cloze marks');
         return;
       }

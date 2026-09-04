@@ -64,13 +64,23 @@ function readRaw() {
   return safeParse(window.localStorage.getItem(STORAGE_KEY));
 }
 
+/**
+ * Returns true when the write actually landed.
+ *
+ * This used to swallow the failure and return nothing, and its own comment
+ * said "UI layer can show a toast if needed" — which the UI layer could not
+ * do, because it was never told. So a student on a full or private-mode
+ * localStorage saw "✓ เพิ่ม flashcard แล้ว" for a card that was never
+ * stored, and found out when they opened their deck and it was not there.
+ */
 function writeRaw(arr) {
-  if (typeof window === 'undefined' || !window.localStorage) return;
+  if (typeof window === 'undefined' || !window.localStorage) return false;
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    return true;
   } catch {
-    // Quota exceeded or storage disabled — silently no-op so the
-    // caller doesn't crash. UI layer can show a toast if needed.
+    // Quota exceeded or storage disabled. The caller decides what to say.
+    return false;
   }
 }
 
@@ -145,7 +155,9 @@ export function saveUserFlashcard({ front, back, subject = null, source = null }
   };
   const list = readRaw();
   list.push(card);
-  writeRaw(list);
+  // Not stored is not saved: returning the card here would have the caller
+  // announce a save that did not happen.
+  if (!writeRaw(list)) return null;
   // ⌘K palette caches the static index at module scope; bust it now
   // so the new card shows up in the next search session.
   notifyPaletteInvalidate();
@@ -240,7 +252,7 @@ export function saveClozeText({ fullText, subject = null, source = null } = {}) 
     source: source || null,
   }));
   const next = list.concat(newCards);
-  writeRaw(next);
+  if (!writeRaw(next)) return null;
   notifyPaletteInvalidate();
   import('../components/CommandPalette.jsx')
     .then((m) => m?.invalidateCommandPaletteCache?.())
