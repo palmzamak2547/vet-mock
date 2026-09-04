@@ -65,8 +65,16 @@ export default function RaceView({ goHome, setView, user, profile }) {
   // Whenever code changes (host: just generated; guest: just typed),
   // open a Realtime channel for that code. Subscribe to broadcast +
   // presence so we can see other participants live.
+  // The channel has to outlive the lobby. Gating it on phase === 'lobby'
+  // meant the effect re-ran the instant the race started, hit the guard,
+  // returned early — and the cleanup from the lobby run unsubscribed the
+  // channel. From then on nobody received a 'progress' broadcast because the
+  // listener was gone, and nobody sent one either because answerQ() sends on
+  // channelRef.current, which now pointed at an unsubscribed channel. Both
+  // racers watched an opponent frozen at zero for the whole race, which is
+  // the entire point of the feature.
   useEffect(() => {
-    if (!code || phase !== 'lobby') return;
+    if (!code) return;
     if (!hasSupabase || !user) {
       setError('ต้อง login + Supabase ก่อน');
       return;
@@ -138,7 +146,9 @@ export default function RaceView({ goHome, setView, user, profile }) {
       };
     })();
     return () => { active = false; cleanupFn(); };
-  }, [code, phase, user, profile]);
+    // phase is deliberately NOT a dependency: it changes three times during a
+    // race and each change would drop the connection the race runs on.
+  }, [code, user, profile]);
 
   // Reconnect race-channel presence when tab returns to foreground.
   // iOS Safari kills background WebSockets; without this the race
