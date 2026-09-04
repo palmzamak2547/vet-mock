@@ -41,7 +41,7 @@ import { recordQuestEvent } from './lib/quests.js';
 import { computePromotion, stashPromotion, NIGHT_RANK_EVENT } from './lib/night-rank.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
-import { appPathForView, isAppPath, viewForAppPath } from './lib/view-route.js';
+import { appPathForView, isAppPath, viewForAppPath, frontDoorFor } from './lib/view-route.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import { SEMESTER } from './data/schedule.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from './lib/question-prediction.js';
@@ -564,9 +564,26 @@ export default function App() {
       // Stable, self-contained app views use readable /app/* paths. Stateful
       // exam/config/topic flows remain history-only because a URL cannot
       // safely reconstruct their in-memory question set.
+      // A year-scoped destination reached before the visitor ever picked a
+      // year has to ask first. Without this, every canonical /app/* link the
+      // app itself puts in the URL bar — and every one a student pastes into
+      // the year group chat — walked straight past the picker, and Home then
+      // announced "พร้อมฝึกสำหรับ ปี 5" to someone who never said so, with
+      // every count, subject card and practice pool silently scoped to 5.
+      // Year-agnostic surfaces (library, videos, wiki, faculty) stay open.
       const routedView = viewForAppPath(window.location.pathname);
-      if (routedView) return routedView;
-      if (isAppPath(window.location.pathname)) return 'home';
+      if (routedView) {
+        return frontDoorFor(routedView, {
+          storedYearRaw: window.localStorage.getItem('vmx-selected-year'),
+          seenLanding: window.localStorage.getItem('vmx-seen-landing'),
+        }) || routedView;
+      }
+      if (isAppPath(window.location.pathname)) {
+        return frontDoorFor('home', {
+          storedYearRaw: window.localStorage.getItem('vmx-selected-year'),
+          seenLanding: window.localStorage.getItem('vmx-seen-landing'),
+        }) || 'home';
+      }
     } catch {}
     try {
       // Parse the stored value — `null` is a valid serialized state
@@ -912,6 +929,19 @@ export default function App() {
     });
     return () => cancelAnimationFrame(id);
   }, [view]);
+
+  // The front door covers a visitor who ARRIVES on a year-scoped path. They
+  // can also walk to Home from a year-agnostic one — the shared library, a
+  // VetWiki article — and every BackBar's "กลับหน้าแรก" does exactly that.
+  // Home reads `selectedYear`, which falls back to CURRENT_YEAR, so without
+  // this it would announce a year the visitor never chose. Picking a year is
+  // the only way out, and YearSelectView always sets the year before it
+  // navigates, so this cannot bounce a student in a loop.
+  useEffect(() => {
+    if (view !== 'home') return;
+    if (selectedYearStored != null) return;
+    setView('year-select');
+  }, [view, selectedYearStored, setView]);
 
   // Idle-time prefetch — once the page is settled, quietly download
   // the chunks for views the user is most likely to visit next. By

@@ -321,6 +321,36 @@ test.describe('VetMock smoke flow', () => {
     expect(consoleErrors, `Unexpected console errors in onboarding flow:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
+  // Measured on production 2026-09-04: a browser with no VetMock state opened
+  // /app and got Home reading "พร้อมฝึกสำหรับ ปี 5" while vmx-selected-year was
+  // still 'null'. /app/* are the app's OWN canonical URLs and the ones students
+  // paste into the year group chat, so the picker has to run there too.
+  test('a fresh visitor deep-linking to /app is asked for a year, not told one', async ({ page }) => {
+    // e2e-fresh opts out of the beforeEach year seed (see the init script above).
+    await page.goto('/app?e2e-fresh=1');
+
+    // The front door for someone who has never seen the landing page.
+    const landingHeading = page.getByRole('heading', {
+      level: 1,
+      name: /Practice before the real exam|ลุยโจทย์ให้ชิน/i,
+    });
+    await expect(landingHeading).toBeVisible({ timeout: 20_000 });
+
+    // The year was never asserted on the way in.
+    const stored = await page.evaluate(() => window.localStorage.getItem('vmx-selected-year'));
+    expect(stored === null || stored === 'null').toBe(true);
+    await expect(page.locator('.vmx-hero h1')).toHaveCount(0);
+    expect(consoleErrors, `Unexpected console errors:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
+
+  // The library is deliberately login-free and link-shareable — a year picker
+  // in front of a document someone was sent is worse than the bug this guards.
+  test('a fresh visitor deep-linking to the shared library still gets the library', async ({ page }) => {
+    await page.goto('/app/library?e2e-fresh=1');
+    await expect(page.getByRole('heading', { level: 1, name: /คลังเอกสาร/ })).toBeVisible({ timeout: 20_000 });
+    expect(consoleErrors, `Unexpected console errors:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
+
   test('browser Back from config returns to home', async ({ page }) => {
     await page.goto('/');
 
