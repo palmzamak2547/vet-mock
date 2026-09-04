@@ -130,7 +130,10 @@ export default function TermPopover({ entry: initialEntry, anchorRect, onClose }
         left: pos.left,
         maxWidth: POPOVER_MAX_WIDTH,
         width: 'min(360px, calc(100vw - 16px))',
-        background: 'var(--clr-surface-1, #fff)',
+        // --clr-surface-1 does not exist; the fallback meant a hardcoded
+        // white card under theme-aware ink, which in dark mode is cream
+        // text on white at 1.24:1.
+        background: 'var(--clr-surface)',
         color: 'var(--clr-ink, #111)',
         border: '1px solid var(--clr-border, rgba(0,0,0,0.12))',
         borderRadius: 10,

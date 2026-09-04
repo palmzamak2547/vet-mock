@@ -408,8 +408,12 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
               fontVariantNumeric: 'tabular-nums',
               letterSpacing: 0.5,
             }}
-            aria-live="polite"
-            aria-atomic="true"
+            // No aria-live here on purpose. This text changes once a
+            // second, so announcing it politely meant a screen reader read
+            // the clock aloud every second for the whole 25-minute session
+            // and never got to anything else on the page. The time stays
+            // readable on demand; the status line below announces the
+            // transitions that actually matter.
           >
             {formatClock(state === 'idle' ? totalMs : remainingMs)}
           </div>
@@ -426,6 +430,10 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
           maxWidth: 360,
           padding: '0 8px',
         }}
+        // The status changes only when the session does — started, paused,
+        // break, finished — which is what a listener needs to hear.
+        aria-live="polite"
+        aria-atomic="true"
       >
         {status}
       </div>
