@@ -8,7 +8,8 @@
 #
 # Vercel auto-deploys on every push to main, so this workflow is
 # the LAST chance to catch regressions before users see the white
-# screen of death. Build time ~5-10s, total job ~1 min on cache.
+# screen of death. Total job ~2-4 min warm; up to ~8 min cold-cache
+# (job cap 10m, audit step capped at 2m separately).
 #
 # `npm audit --production` is a soft check — warns but doesn't fail
 # (would create unfixable CI noise from upstream advisories).
@@ -30,7 +31,13 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # 2026-09-04: a cold-cache npm ci + build measured past 5m on the
+    # standard runner, and the old cap killed the job mid-audit while
+    # the Vercel deploy (which has its own pipeline) kept shipping —
+    # CI lost its gate-the-deploy purpose. 10m gives the whole job real
+    # headroom; the audit step carries its own 2m cap so it cannot be
+    # the thing that blows this budget.
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
 
@@ -54,7 +61,12 @@ jobs:
           echo '```' >> $GITHUB_STEP_SUMMARY
 
       # Soft audit — warns but doesn't block (upstream advisories
-      # often outpace upstream fixes; we don't want CI red on those)
+      # often outpace upstream fixes; we don't want CI red on those).
+      # --omit=dev replaces the deprecated --production flag; the
+      # registry ping occasionally stalls on runner networks, and a
+      # warn-only step must never eat the whole job budget — hence
+      # its own short timeout so a hang cancels the step, not the build.
       - name: Security audit (warn-only)
         continue-on-error: true
-        run: npm audit --production --audit-level=high
+        timeout-minutes: 2
+        run: npm audit --omit=dev --audit-level=high
