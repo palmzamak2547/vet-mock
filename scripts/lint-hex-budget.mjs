@@ -25,7 +25,7 @@
 // ============================================================
 
 import fs from 'node:fs';
-import { resolve } from 'node:path';
+import { resolve, sep } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const SRC = resolve(ROOT, 'src');
@@ -62,7 +62,11 @@ for (const f of files) {
     // Strip comments so an explanatory mention of a hex doesn't count.
   const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
   const n = (code.match(HEX_RE) || []).length;
-  if (n > 0) counts[f.slice(SRC.length + 1)] = n;
+  // Baseline keys are posix (`views/HomeView.jsx`); resolve() hands back
+  // backslashes on Windows, and a `views\HomeView.jsx` key matches no
+  // budget row — every budgeted file then reads as "gone" and the lint
+  // fails on Palm's machine while passing on the Linux runner.
+  if (n > 0) counts[f.slice(SRC.length + 1).split(sep).join('/')] = n;
 }
 
 const baseline = JSON.parse(fs.readFileSync(BASELINE_PATH, 'utf8'));
