@@ -158,18 +158,33 @@ const SUBJECT_LOOKUP = new Map([
 let _subjectCounts = null;
 export async function librarySubjectCounts() {
   if (_subjectCounts) return _subjectCounts;
+  let docs;
   try {
-    const { docs } = await getLibraryCatalog();
-    const m = new Map();
-    for (const d of docs || []) {
-      if (!d.subject) continue;
-      m.set(d.subject, (m.get(d.subject) || 0) + 1);
-    }
-    _subjectCounts = m;
+    ({ docs } = await getLibraryCatalog());
   } catch {
-    return new Map(); // offline/unconfigured — cards fall back to today's copy
+    // The fetch failed — campus wifi dropping, Supabase unreachable. This
+    // used to answer `new Map()`, which is byte-identical to a catalog with
+    // zero documents: every subject card disabled itself and asserted
+    // "ยังไม่มีเนื้อหาของวิชานี้ในแอป", with no retry, while LibraryView on the
+    // same device painted that subject's whole shelf from its snapshot.
+    // Count from the same snapshot LibraryView trusts; with no snapshot,
+    // answer null — the callers' own "not known yet" state — never "empty".
+    // Not cached, so the next mount reads the device again and retries the
+    // network (getLibraryCatalog drops its failed promise).
+    const snap = readCatalogSnapshot();
+    return snap ? countBySubject(snap.docs) : null;
   }
+  _subjectCounts = countBySubject(docs);
   return _subjectCounts;
+}
+
+function countBySubject(docs) {
+  const m = new Map();
+  for (const d of docs || []) {
+    if (!d.subject) continue;
+    m.set(d.subject, (m.get(d.subject) || 0) + 1);
+  }
+  return m;
 }
 
 export function subjectMeta(id) {
