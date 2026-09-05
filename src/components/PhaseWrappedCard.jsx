@@ -132,13 +132,17 @@ async function buildPhaseCanvas(stats) {
     ctx.fillStyle = '#6b6055';
     ctx.fillText('วัน', W / 4, yRow + 115);
   }
+  // Study time is a 45 s/Q heuristic unless every history row carried a
+  // measured duration (buildPhaseStats says which). This PNG gets posted
+  // to IG, so it must not present the guess as a measurement.
+  const hrApprox = stats.studyTimeEstimated === false ? '' : '~';
   ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#6b6055';
-  ctx.fillText('ที่อ่าน', (W * 3) / 4, yRow);
+  ctx.fillText(hrApprox ? 'ที่อ่าน (ประมาณ)' : 'ที่อ่าน', (W * 3) / 4, yRow);
   ctx.font = '700 84px "Fraunces", serif';
   ctx.fillStyle = '#2b2419';
   const hr = (stats.totalStudyMin / 60).toFixed(1);
-  ctx.fillText(`${hr}`, (W * 3) / 4, yRow + 80);
+  ctx.fillText(`${hrApprox}${hr}`, (W * 3) / 4, yRow + 80);
   ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#6b6055';
   ctx.fillText('ชม.', (W * 3) / 4, yRow + 115);
@@ -264,6 +268,8 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
   const pctShown = useCountUp(stats?.correctPct || 0);
   const streakShown = useCountUp(stats?.longestStreak || 0);
   const hrShown = useCountUp(Math.round((stats?.totalStudyMin || 0) / 6) / 10, 900);
+  // Same hedge the PNG and the text export carry — see buildPhaseCanvas.
+  const hrApprox = stats?.studyTimeEstimated === false ? '' : '~';
   const masteredShown = useCountUp(stats?.masteredCards || 0);
 
   const shareText = useMemo(() => statsToText(stats), [stats]);
@@ -431,7 +437,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
             marginTop: 18, textAlign: 'center',
           }}>
             <StatCell label="STREAK" value={streakShown} unit="วัน" tint="var(--clr-gold, #b88940)" />
-            <StatCell label="ที่อ่าน" value={hrShown.toFixed(1)} unit="ชม." />
+            <StatCell label={hrApprox ? 'ที่อ่าน (ประมาณ)' : 'ที่อ่าน'} value={`${hrApprox}${hrShown.toFixed(1)}`} unit="ชม." />
             <StatCell label="MASTERED" value={masteredShown} unit="cards" tint="var(--clr-plum, #7d4a7d)" />
           </div>
 

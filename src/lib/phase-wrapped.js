@@ -305,6 +305,15 @@ export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks =
 
   // Total minutes — explicit + estimated. Stored as int minutes.
   const totalStudyMin = Math.round((secondsExplicit + qsWithoutDuration * AVG_SECONDS_PER_Q) / 60);
+  // Nothing in the app writes `durationSec` onto a history row today:
+  // finishExam stores {date, questionId, correct, subject, year, phase}
+  // and the real session length only leaves as exam_results.duration_sec.
+  // So in practice every minute above is the 45 s/Q heuristic, and 240 Qs
+  // in forty minutes of short bursts reads the same "3.0 ชม." as 240 Qs
+  // across ten long evenings. Whoever prints the number has to say that,
+  // and this flag is how they know. It is true whenever ANY of the total
+  // was guessed, because a partly guessed sum is still not a measurement.
+  const studyTimeEstimated = qsWithoutDuration > 0;
 
   // Subject ranking — ≥10 attempts gating avoids "100% (1/1)"
   const ranked = Object.entries(subj)
@@ -352,6 +361,7 @@ export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks =
     correctPct,
     masteredCards,
     totalStudyMin,
+    studyTimeEstimated,
     weakestSubject,
     strongestSubject,
     longestStreak,
@@ -371,6 +381,7 @@ function emptyStats() {
     correctPct: 0,
     masteredCards: 0,
     totalStudyMin: 0,
+    studyTimeEstimated: false,
     weakestSubject: null,
     strongestSubject: null,
     longestStreak: 0,
@@ -431,7 +442,10 @@ export function statsToText(stats) {
   if (stats.longestStreak > 0) lines.push(`🔥 streak สูงสุด: ${stats.longestStreak} วัน`);
   if (stats.totalStudyMin > 0) {
     const hr = (stats.totalStudyMin / 60).toFixed(1);
-    lines.push(`⏱ อ่านไป ~${hr} ชม.`);
+    // "~" unless the stats say every minute was measured. A stats object
+    // that never heard of the flag keeps the hedge it always had.
+    const approx = stats.studyTimeEstimated === false ? '' : '~';
+    lines.push(`⏱ อ่านไป ${approx}${hr} ชม.`);
   }
   if (stats.masteredCards > 0) lines.push(`🧠 ${stats.masteredCards} cards mastered`);
   lines.push('');
