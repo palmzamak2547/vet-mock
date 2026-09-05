@@ -2,6 +2,7 @@ import { getSupabase } from './supabase.js';
 import { migrateHistoryArray } from './id-migration.js';
 import { yearForSubject } from '../data/curriculum.js';
 import { LEADERBOARD_MIN_QUESTIONS } from './leaderboard-gate.js';
+import { thaiError } from './errors.js';
 
 // All cloud-sync calls await getSupabase() so anonymous visitors never
 // pay the 190KB SDK download cost — the chunk only fetches once a
@@ -179,7 +180,15 @@ export async function saveExamResult(result) {
   }
   const promise = (async () => {
     const { error } = await supabase.from('exam_results').insert(result);
-    if (error) console.error('Save result error:', error);
+    if (error) {
+      // A refused insert must not resolve like a saved one, and it must
+      // not sit in the dedupe window looking like an attempt that landed:
+      // drop it so a retry really hits the DB, and reject so the caller
+      // knows this score never reached the leaderboard.
+      if (sig) _saveDedupeMap.delete(sig);
+      console.error('Save result error:', error);
+      throw new Error(thaiError(error, 'บันทึกคะแนนไม่สำเร็จ คะแนนนี้ยังไม่ขึ้นกระดานอันดับ'));
+    }
   })();
   if (sig) _saveDedupeMap.set(sig, { promise, ts: now });
   return promise;
@@ -339,8 +348,12 @@ export async function listQComments(qSubject, qId) {
     .order('created_at', { ascending: true })
     .limit(200);
   if (error) {
+    // Returning [] here made a dropped connection read as an empty thread
+    // (ยังไม่มีความเห็น) and let a failed background refetch wipe a thread
+    // that was already on screen. Reject with a Thai message instead, so
+    // the caller can show it as-is and keep what it already has.
     console.warn('[qcomments] list failed:', error.message);
-    return [];
+    throw new Error(thaiError(error, 'โหลดความเห็นไม่สำเร็จ ลองใหม่อีกครั้ง'));
   }
   return data || [];
 }
