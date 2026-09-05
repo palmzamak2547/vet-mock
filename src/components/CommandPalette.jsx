@@ -975,7 +975,13 @@ export default function CommandPalette({
     const h = handlersRef.current;
     if (action.type === 'practice') { h.onPractice?.(action.invoke); onClose(); return; }
     if (action.type === 'library') {
-      try { sessionStorage.setItem('vmx-library-q', action.subjectName || ''); } catch { /* nicety */ }
+      // Exact subject id, the same hand-off as a subject card, so the shelf
+      // shows that one subject. The free-text key is only for an id-less
+      // action: a name typed into the search also matches sibling subjects.
+      try {
+        if (action.subject) sessionStorage.setItem('vmx-library-subject', action.subject);
+        else sessionStorage.setItem('vmx-library-q', action.subjectName || '');
+      } catch { /* nicety */ }
       h.goView?.('library'); onClose(); return;
     }
     if (action.type === 'wiki') { h.onOpenWiki?.(action.subject, action.topic); onClose(); return; }

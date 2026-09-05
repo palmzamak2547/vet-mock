@@ -74,7 +74,10 @@ export function validateAction(parsed, catalog = buildCatalog()) {
     return {
       ok: true,
       say: say || `เปิดชั้นเอกสารวิชา ${subject.name}`,
-      action: { type: 'library', subjectName: subject.name },
+      // The id rides along so the palette can use the exact-subject shelf
+      // hand-off every subject card uses; the name alone, typed into the
+      // search box, also matches sibling subjects whose name contains it.
+      action: { type: 'library', subject: subject.id, subjectName: subject.name },
     };
   }
 
