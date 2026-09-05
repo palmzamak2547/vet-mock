@@ -382,7 +382,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
         )}
       </div>
       {selectMode && (
-        <div style={{ fontSize: 13, color: '#888', marginBottom: 16, padding: '8px 12px', background: 'rgba(255,255,255,0.04)', borderRadius: 6 }}>
+        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 16, padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 6 }}>
           คลิกที่ข้อเพื่อเลือก, แล้วแถบจะขึ้นด้านล่าง (กด Shift + คลิก เพื่อเลือกหลายข้อพร้อมกัน)
         </div>
       )}

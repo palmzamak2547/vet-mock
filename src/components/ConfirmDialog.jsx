@@ -78,6 +78,10 @@ export default function ConfirmDialog({
             {note}
           </p>
         )}
+        {/* No inline fontSize here: styles.css floors every text control at
+            16px because iOS Safari zooms the page when a focused control is
+            smaller, and that rule has no !important — an inline 14 won it.
+            The report-a-question prompt opens mid-exam, on the clock. */}
         {input && (
           input.multiline ? (
             <textarea
@@ -88,7 +92,7 @@ export default function ConfirmDialog({
               maxLength={input.maxLength || 500}
               placeholder={input.placeholder || ''}
               rows={3}
-              style={{ width: '100%', marginTop: 10, boxSizing: 'border-box', fontFamily: 'inherit', fontSize: 14 }}
+              style={{ width: '100%', marginTop: 10, boxSizing: 'border-box', fontFamily: 'inherit' }}
             />
           ) : (
             <input
@@ -100,7 +104,7 @@ export default function ConfirmDialog({
               onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); onConfirm?.(value); } }}
               maxLength={input.maxLength || 200}
               placeholder={input.placeholder || ''}
-              style={{ width: '100%', marginTop: 10, boxSizing: 'border-box', minHeight: 44, fontFamily: 'inherit', fontSize: 14 }}
+              style={{ width: '100%', marginTop: 10, boxSizing: 'border-box', minHeight: 44, fontFamily: 'inherit' }}
             />
           )
         )}

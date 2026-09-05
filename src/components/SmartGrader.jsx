@@ -407,12 +407,17 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
             value={predicted}
             onChange={(e) => setPredicted(e.target.value)}
             placeholder={`0-${maxScore}`}
-            style={{ width: 80, padding: '6px 10px', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'var(--vmx-mono)', fontSize: 14 }}
+            style={{ width: 80, padding: '6px 10px', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'var(--vmx-mono)' }}
           />
+          {/* The label must survive the DEFAULT state: predicted starts '', so
+              this renders disabled first, and white on --clr-surface-2 was an
+              empty cream pill (~1.2:1) until a digit was typed. Inline
+              minHeight rather than .vmx-btn: that class dims disabled buttons
+              to 45% opacity, which would push the label back under 4.5:1. */}
           <button
             onClick={onSubmit}
             disabled={!predicted}
-            style={{ padding: '6px 14px', borderRadius: 8, border: 'none', background: predicted ? 'var(--clr-sage)' : 'var(--clr-surface-2)', color: '#fff', fontSize: 12, cursor: predicted ? 'pointer' : 'not-allowed', fontWeight: 600 }}
+            style={{ padding: '6px 14px', minHeight: 44, borderRadius: 8, border: 'none', background: predicted ? 'var(--clr-sage)' : 'var(--clr-surface-2)', color: predicted ? 'var(--clr-sage-on)' : 'var(--clr-ink-soft)', fontSize: 12, cursor: predicted ? 'pointer' : 'not-allowed', fontWeight: 600 }}
           >
             ทาย → เริ่มตรวจ
           </button>
