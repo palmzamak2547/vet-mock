@@ -59,6 +59,9 @@ export function useAuth() {
       if (!subscribed.current) {
         const { data } = supabase.auth.onAuthStateChange((_event, s) => {
           setUser(s?.user ?? null);
+          if (_event === 'SIGNED_IN' || _event === 'SIGNED_OUT') {
+            window.dispatchEvent(new Event('vmx-library-auth-changed'));
+          }
         });
         subscriptionRef.current = data.subscription;
         subscribed.current = true;

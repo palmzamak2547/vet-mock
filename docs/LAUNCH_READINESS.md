@@ -1,6 +1,18 @@
 # VetMock — Launch Readiness
 
-## Current release gate — v5.56.0 (2026-08-31)
+## Current source candidate — v5.78.0 (2026-09-05)
+
+VCA intake and current verification scope are recorded in
+[`vca-import-2026-09-05.md`](./vca-import-2026-09-05.md). Current counts come from
+[`content-inventory.md`](./content-inventory.md). The last production baseline
+checked before this candidate was v5.77.0, SHA `d93f51c`, with successful Build
+`33956987124`, Smoke `33956987119`, and Production deployment `6279214432`.
+
+The candidate must pass the full release gate and a live changed-capability
+flow before being described as the production release. Historical evidence
+below applies to its named version only.
+
+## Historical release gate — v5.56.0 (2026-08-31)
 
 VetMock is production-ready as a public study app. The current gate covers the
 whole product, not only Imaging:

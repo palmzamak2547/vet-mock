@@ -813,13 +813,14 @@ export const QUESTIONS_Y2_NEUROANAT = [
     "type": "mcq",
     "q": "Central กับ peripheral vestibular disease มีลักษณะของ nystagmus ต่างกันอย่างไร",
     "options": [
-      "Central เป็น vertical หรือ positional ส่วน peripheral เป็น all directions",
-      "Central เป็น all directions ส่วน peripheral เป็น vertical หรือ positional",
-      "Central เป็น horizontal อย่างเดียว ส่วน peripheral เป็น rotatory อย่างเดียว",
-      "Central และ peripheral เป็น vertical หรือ positional เหมือนกันทั้งคู่"
+      "Central อาจมี vertical nystagmus ส่วน peripheral โดยทั่วไปเป็น horizontal หรือ rotatory",
+      "Central มีได้เพียง horizontal ส่วน peripheral มี vertical nystagmus เป็นลักษณะเด่น",
+      "Central และ peripheral ต้องมี vertical nystagmus เหมือนกันจึงใช้ลักษณะนี้แยกไม่ได้",
+      "Peripheral ต้องมี nystagmus ทุกทิศทาง ส่วน central ไม่มีความผิดปกติของการเคลื่อนไหวตา"
     ],
     "answer": 0,
-    "explain": "ในการเทียบ central กับ peripheral vestibular disease ที่บันทึกไว้ในชุดนี้ ช่อง nystagmus กำกับฝั่ง central ไว้ว่าเป็น vertical หรือ positional ส่วนฝั่ง peripheral กำกับไว้ว่า all directions ตัวเลือกนี้จึงตรงกับการเทียบชุดนั้นทั้งสองฝั่ง\n\n❌ ทำไมข้ออื่นผิด\n— \"Central เป็น all directions ส่วน peripheral เป็น vertical หรือ positional\" = สลับสองฝั่งกัน และเป็นตัวลวงที่อันตรายที่สุด เพราะถ้าจำกลับด้าน จะอ่านรอยโรคในสมองเป็นปัญหาที่หูชั้นใน\n— \"Central เป็น horizontal อย่างเดียว ส่วน peripheral เป็น rotatory อย่างเดียว\" = บีบให้แต่ละฝั่งเหลือทิศเดียว ไม่ตรงกับที่กำกับไว้ทั้งสองฝั่ง\n— \"Central และ peripheral เป็น vertical หรือ positional เหมือนกันทั้งคู่\" = ถ้าทั้งสองฝั่งเหมือนกัน ลักษณะนี้ก็ใช้แยกสองภาวะไม่ได้เลย ซึ่งขัดกับการที่มันถูกยกมาเป็นหัวข้อเปรียบเทียบ\n\n💡 อย่าตัดสินจาก nystagmus อย่างเดียว สัญญาณที่บันทึกไว้ว่ามาคู่กับฝั่ง central เท่านั้นคือ mental alteration และ proprioceptive deficits",
-    "verified": "visual vestibular systems น.56"
+    "explain": "Vertical nystagmus สนับสนุน central vestibular lesion ส่วน horizontal และ rotatory nystagmus พบได้ทั้ง central และ peripheral disease จึงไม่ควรระบุว่า peripheral มีได้ทุกทิศทาง\n\n❌ ทำไมข้ออื่นผิด\n— Central ไม่ได้จำกัดอยู่เพียง horizontal nystagmus\n— Vertical nystagmus ไม่ใช่ลักษณะที่ต้องพบในทั้งสองกลุ่ม\n— Central vestibular disease มี nystagmus ได้ และอาจมีความผิดปกติทางประสาทอื่นร่วมด้วย\n\n💡 ใช้ร่วมกับ mental status, postural reactions และ cranial nerve examination เพื่อระบุตำแหน่งรอยโรค",
+    "verified": "visual vestibular systems น.56; ตรวจเทียบตาราง Central/Peripheral Vestibular Disease ใน neuroVCA2569.pdf หน้า 8 (Braund 1999; clinical examination review 2026)",
+    "sourceDocument": { "id": "1-S6opkPr9p4_L58G1jUFx-UymU8nZOh8", "url": "https://drive.google.com/file/d/1-S6opkPr9p4_L58G1jUFx-UymU8nZOh8/view", "page": 8 }
   }
 ];

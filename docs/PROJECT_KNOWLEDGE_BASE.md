@@ -1,7 +1,7 @@
 # VetMock project knowledge base
 
-Last verified: **2026-08-31 · v5.56.0**
-Learner release: `c3eb40e` · deterministic release-signal correction: `a6dfad1`
+Current source candidate: **2026-09-05 · v5.78.0**
+Last production baseline checked before this candidate: `d93f51c` · v5.77.0.
 Production: [vetmock.vercel.app](https://vetmock.vercel.app)
 
 This is the current-state map for maintainers and coding agents. Historical
@@ -21,15 +21,15 @@ Imaging Practical stays narrow; advanced DICOM workflows belong at
 
 ## Measured inventory
 
-Run `npm run stats` before quoting current scale. The 2026-08-31 measured
+Run `npm run stats` before quoting current scale. The 2026-09-05 source
 inventory is:
 
 | Metric | Value |
 |---|---:|
-| Source questions | 4,551 |
-| Learner-ready questions | 4,551 |
-| Fail-closed pending verified figures | 0 |
-| Question-bank files | 66 |
+| Source questions | 4,890 |
+| Learner-ready questions | 4,825 |
+| Held pending answer, scope or figure review | 65 |
+| Question-bank files | 74 |
 | Subjects with questions | 43 |
 | Note files / topics / sections | 37 / 376 / 4,032 |
 | Note sections with source locator | 100% |
@@ -38,6 +38,13 @@ inventory is:
 | Verified claims / distinct external sources | 3,216 / 2,093 |
 
 Generated detail: [`content-inventory.md`](./content-inventory.md).
+
+VCA originals are projected from `src/data/vca-materials.js` into the existing
+library: 487 source-file links, 351 entries after duplicate reconciliation,
+plus 121 individually reviewed adapted practice questions. The originals stay
+on Drive. See [`vca-import-2026-09-05.md`](./vca-import-2026-09-05.md) for exact
+scope, provenance, the unavailable older shortcut, and the boundary between
+source access and scored practice.
 
 ## System map
 

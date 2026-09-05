@@ -8,6 +8,18 @@ optimizations. When in doubt, choose the boring stable pattern.
 
 ---
 
+## Exam clocks and library snapshots (2026-09-05)
+
+- Timed questions retain `questionDeadline` in the in-flight snapshot. Derive
+  the remaining seconds from wall time; background tabs do not receive reliable
+  timer callbacks. A delayed skip confirmation must check the current question.
+- Only `42P01` and `PGRST205` mean a missing library table. Permission failures
+  and database outages must remain retryable errors, not an empty catalog.
+- Persist only public library metadata and clear empty snapshots. Account
+  changes invalidate both the catalog and prefetched document URLs.
+- Original Drive documents open as validated external links, never as PDF bytes.
+  Duplicate binary copies retain their alternate source links on one card.
+
 ## 0. Shared dialogs use `useModalFocus` — DO NOT reimplement focus traps
 
 **Rule:** every modal dialog uses `src/hooks/useModalFocus.js`, carries

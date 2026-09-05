@@ -41,7 +41,7 @@ function fakeWindow(seed = []) {
   };
 }
 
-const snapshotOf = (docs) => JSON.stringify({ at: Date.now(), docs });
+const snapshotOf = (docs) => JSON.stringify({ at: Date.now(), docs: docs.map((doc) => ({ status: 'public', ...doc })) });
 
 test('precondition: under node the catalog fetch really fails', async () => {
   await assert.rejects(getLibraryCatalog(), 'the tests below need the failure branch, not an empty success');

@@ -97,8 +97,8 @@ async function gotoSurface(page, path) {
       await page.goto(routeUrl(path), { waitUntil: 'domcontentloaded' });
       return;
     } catch (error) {
-      const transientFirefoxCancel = /NS_BINDING_ABORTED|NS_ERROR_FAILURE|frame was detached|interrupted by another navigation/i.test(String(error));
-      if (!transientFirefoxCancel || attempt === 2) throw error;
+      const transientNavigationCancel = /NS_BINDING_ABORTED|NS_ERROR_FAILURE|frame was detached|interrupted by another navigation|Frame load interrupted/i.test(String(error));
+      if (!transientNavigationCancel || attempt === 2) throw error;
       await page.waitForTimeout(100 * (attempt + 1));
     }
   }

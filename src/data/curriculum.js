@@ -1976,19 +1976,19 @@ export const SUBJECTS_BY_YEAR = {
     // ข้อสอบสรุปครอบคลุมทุกชนิดสัตว์, cross-rotation comprehensive prep
     // Source: @Fukfangfluffy_channel (VCA ผ่านชัวร์ series — แจกฟรี)
     { id: 'vca', code: 'VCA-Y5', name: 'แนวข้อสอบเก่า VCA',
-      name_en: 'VCA Past Paper Practice — All Species',
+        name_en: 'VCA Practice — Clinical and Basic Veterinary Sciences',
       icon: '🩵', color: '#5db4d3', semester: 0, has_questions: true,
       examFormat: {
         weight: 'ใบประกอบวิชาชีพ — ครอบคลุมทุกรายวิชาคลินิก Y5',
-        perSession: 'รวม 316 ข้อ (cross-species)',
-        totalEstimate: 'หมาแมว 72, ruminant 48, poultry 44, equine 40, swine 39, aquatic 38, exotic 35',
+          perSession: 'เลือกฝึกตามหัวข้อหรือจำนวนข้อที่มีเวลา',
+          totalEstimate: 'ครอบคลุมชนิดสัตว์และพื้นฐานทางสัตวแพทย์ จำนวนข้อแสดงจากคลังที่พร้อมฝึก',
         choiceCount: 5,
         notes: [
-          '📌 Source: VCA ผ่านชัวร์ series (แจกฟรี โดย @Fukfangfluffy)',
-          '✅ ทุกข้อ verify คำตอบกับความรู้ vet medicine ในการเขียน, flag ถ้า source ผิด',
-          '🎯 ใช้เตรียมสอบ TVMC license + comprehensive Y5 final',
-          '🎥 อ่านสรุปคลิปที่เกี่ยวข้อง — ทุกชนิดสัตว์มี video summaries ใน "คลิปย้อนหลัง" (400 cover ทุก rotation)',
-          '💡 mode "สอบจริง 50 ข้อ" = simulate VCA mock exam, ใช้บ่อยๆ ก่อนสอบจริง',
+          'แหล่งข้อมูล: ชุด VCA ของ @Fukfangfluffy และคลังเอกสาร CUVET85 พร้อมชุดย้อนหลัง',
+          'แบบฝึกที่เพิ่มเติมระบุหน้าและข้อจากต้นฉบับ รวมถึงแหล่งตรวจเทียบเมื่อมีการปรับเฉลย',
+          'เปิดชุดเอกสารและข้อสอบย้อนหลังทั้งหมดได้จากคลังเอกสารของวิชานี้',
+          'ข้อมูลย้อนหลังเป็นแนวทบทวน ไม่ใช่ประกาศขอบเขตหรือกำหนดการสอบรอบปัจจุบัน',
+          'เลือกชุดฝึกจับเวลาเพื่อซ้อมทำข้อสอบ หรือฝึกทีละหัวข้อพร้อมอ่านคำอธิบาย',
         ],
       },
       topics: [
@@ -1999,6 +1999,12 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'equine',  label: 'ม้า — Equine',               icon: '🐎' },
         { id: 'ruminant',label: 'Ruminant — โค กระบือ แพะ แกะ', icon: '🐄' },
         { id: 'dogcat',  label: 'หมาแมว — Dog & Cat',         icon: '🐕' },
+        { id: 'immunology', label: 'ภูมิคุ้มกันและวัคซีน', icon: '🛡️' },
+        { id: 'clinical-pathology', label: 'โลหิตวิทยา เคมีคลินิก และเซลล์วิทยา', icon: '🔬' },
+        { id: 'ophthalmology', label: 'จักษุวิทยา', icon: '👁️' },
+        { id: 'neurology', label: 'ประสาทวิทยา', icon: '🧠' },
+        { id: 'epidemiology', label: 'ระบาดวิทยา', icon: '📊' },
+        { id: 'parasitology', label: 'ปรสิตวิทยา', icon: '🪱' },
       ] },
 
     // Y5 sem 2 — only true lecture course is RAVB (3100-508). The other

@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4704;
-export const QB_SOURCE_TOTAL = 4769;
+export const QB_TOTAL = 4825;
+export const QB_SOURCE_TOTAL = 4890;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -50,7 +50,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'swine-clinic': 89,
   'swine-herd': 36,
   'swine-repro': 29,
-  'vca': 334,
+  'vca': 455,
   'vet-dev-anat': 26,
   'vet-histo': 104,
   'vet-imaging': 35,
@@ -100,7 +100,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'swine-clinic': 89,
   'swine-herd': 36,
   'swine-repro': 29,
-  'vca': 334,
+  'vca': 455,
   'vet-dev-anat': 26,
   'vet-histo': 104,
   'vet-imaging': 35,
@@ -115,7 +115,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 2124,
+  5: 2245,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -127,7 +127,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 2108,
+  5: 2229,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -661,12 +661,18 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "vca": {
     "aquatic": 38,
+    "clinical-pathology": 20,
     "dogcat": 90,
+    "epidemiology": 1,
     "equine": 40,
     "exotic": 35,
-    "poultry": 44,
-    "ruminant": 48,
-    "swine": 39,
+    "immunology": 9,
+    "neurology": 1,
+    "ophthalmology": 11,
+    "parasitology": 4,
+    "poultry": 76,
+    "ruminant": 72,
+    "swine": 58,
   },
   "vet-dev-anat": {
     "vd-cardio": 10,
@@ -1193,4 +1199,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-05T00:56:16.535Z
+// Built: 2026-09-05T11:00:18.741Z

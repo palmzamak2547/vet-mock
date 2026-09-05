@@ -53,6 +53,10 @@ export function useOnlineStatus() {
 
     let toastTimer;
     let pingTimer;
+    let retryTimer;
+    let probeVersion = 0;
+    let failedProbes = 0;
+    let disposed = false;
     let lastSeen = navigator.onLine;
 
     const flash = () => {
@@ -71,14 +75,17 @@ export function useOnlineStatus() {
 
     // Browser events — fastest signal; trust them but verify on the
     // "online" edge because they sometimes lie.
-    const onUp = async () => {
+    const onUp = () => {
+      failedProbes = 0;
       setStatus(true);
-      // The browser claims we're online — confirm with a real ping
-      // before celebrating. If the ping fails, flip back to offline.
-      const reachable = await pingReachable();
-      if (!reachable) setStatus(false);
+      tick();
     };
-    const onDown = () => setStatus(false);
+    const onDown = () => {
+      probeVersion += 1; // an older successful ping cannot undo this event
+      failedProbes = 0;
+      clearTimeout(retryTimer);
+      setStatus(false);
+    };
 
     window.addEventListener('online', onUp);
     window.addEventListener('offline', onDown);
@@ -87,12 +94,22 @@ export function useOnlineStatus() {
     // case. Only runs while the tab is visible so we don't waste
     // cycles when the user is in another tab.
     const tick = async () => {
-      if (document.hidden) return;
+      if (disposed || document.hidden) return;
+      const version = ++probeVersion;
       const reachable = await pingReachable();
-      // Reconcile: if browser+ping disagree, trust the ping.
-      const navSays = navigator.onLine;
-      const next = navSays && reachable;
-      setStatus(next);
+      if (disposed || version !== probeVersion) return;
+      clearTimeout(retryTimer);
+      if (reachable) {
+        failedProbes = 0;
+        // A real network response is stronger than a stale OS/interface flag.
+        setStatus(true);
+      } else if (!navigator.onLine || ++failedProbes >= 2) {
+        setStatus(false);
+      } else {
+        // A single delayed HEAD during a busy page load is not proof that the
+        // connection is gone. Confirm promptly instead of flashing offline.
+        retryTimer = setTimeout(tick, 2000);
+      }
     };
     pingTimer = setInterval(tick, PING_INTERVAL_MS);
 
@@ -108,11 +125,14 @@ export function useOnlineStatus() {
     document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
+      disposed = true;
+      probeVersion += 1;
       window.removeEventListener('online', onUp);
       window.removeEventListener('offline', onDown);
       document.removeEventListener('visibilitychange', onVisibility);
       clearTimeout(toastTimer);
       clearTimeout(initial);
+      clearTimeout(retryTimer);
       clearInterval(pingTimer);
     };
   }, []);

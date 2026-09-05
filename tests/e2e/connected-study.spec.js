@@ -178,7 +178,7 @@ test.describe('connected study experience', () => {
     const pageErrors = [];
     page.on('pageerror', (error) => pageErrors.push(error.message));
 
-    await page.goto('/app/year');
+    await page.goto('/app/year', { waitUntil: 'domcontentloaded' });
     const liveLabels = YEARS.filter((y) => !y.scaffold).map((y) => y.label);
     const liveYearCopy = liveLabels.length > 1
       ? `${liveLabels.slice(0, -1).join(', ')} และ ${liveLabels[liveLabels.length - 1]}`
@@ -371,7 +371,7 @@ test.describe('connected study experience', () => {
         body: '[]',
       });
     });
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
     const practical = page.locator('.vmx-feature-card').filter({ hasText: /Imaging Practical/ }).first();
     await expect(practical).toBeVisible({ timeout: 15_000 });

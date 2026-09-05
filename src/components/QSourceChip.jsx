@@ -20,11 +20,13 @@
 
 import { useState } from 'react';
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
+import { googleDriveSourceUrl } from '../lib/vca-library.js';
 
 export { isDisplayableWikiRef, getEligibleCitationForQuestion };
 
 export default function QSourceChip({ q, store }) {
   const [open, setOpen] = useState(false);
+  const sourceDocumentUrl = googleDriveSourceUrl(q?.sourceDocument?.url);
 
   // Evaluate strict citation eligibility via getEligibleCitationForQuestion
   const eligibleCitation = getEligibleCitationForQuestion(q?.id, q?.subject);
@@ -123,6 +125,13 @@ export default function QSourceChip({ q, store }) {
           {q.verified && (
             <Row label="Verified" value={q.verified} icon="✓" iconColor="var(--clr-sage)" />
           )}
+          {sourceDocumentUrl && (
+            <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer"
+              style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)', overflowWrap: 'anywhere' }}>
+              เปิดเอกสารต้นฉบับ
+              {Number.isInteger(q.sourceDocument.page) && q.sourceDocument.page > 0 ? ` (อ้างหน้า ${q.sourceDocument.page})` : ''}
+            </a>
+          )}
           {q.flag?.note && (
             <Row
               label="Flag"
@@ -148,7 +157,7 @@ export default function QSourceChip({ q, store }) {
                 try { window.dispatchEvent(new Event('vmx-open-library')); } catch { /* no-op */ }
               }}
               style={{
-                all: 'unset', cursor: 'pointer', marginTop: 4, minHeight: 36,
+                all: 'unset', cursor: 'pointer', marginTop: 4, minHeight: 44,
                 display: 'inline-flex', alignItems: 'center', gap: 6,
                 color: 'var(--clr-sage-text)', fontSize: 11.5, fontWeight: 600,
                 fontFamily: 'inherit',
@@ -175,7 +184,7 @@ function Row({ label, value, icon, iconColor }) {
       <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
         {label}
       </span>
-      <span style={{ flex: 1, color: 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 11 }}>
+      <span style={{ flex: 1, minWidth: 0, overflowWrap: 'anywhere', color: 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 11 }}>
         {value}
       </span>
     </div>

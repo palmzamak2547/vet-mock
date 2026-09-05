@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v145-2026-09-05';
+const SW_VERSION = 'v146-2026-09-05';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Hashed chunks are immutable, so the assets cache is deliberately kept

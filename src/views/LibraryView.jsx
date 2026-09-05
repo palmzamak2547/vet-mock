@@ -22,6 +22,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
+import { googleDriveSourceUrl, mergeLibrarySources } from '../lib/vca-library.js';
 import {
   LIBRARY_KINDS,
   SEMESTERS,
@@ -71,7 +72,7 @@ const cardStyle = {
 
 const gridStyle = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(min(260px, 100%), 1fr))',
   gap: 12,
 };
 
@@ -108,7 +109,7 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
   return (
     <article className="vmx-lib-card" style={cardStyle}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, justifyContent: 'space-between' }}>
-        <h3 style={{ fontSize: 15, margin: 0, lineHeight: 1.35 }}>{doc.title}</h3>
+        <h3 style={{ fontSize: 15, margin: 0, lineHeight: 1.5, minWidth: 0, overflowWrap: 'anywhere' }}>{doc.title}</h3>
         <span style={{ ...mono, fontSize: 10, whiteSpace: 'nowrap', color: KIND_TONE[doc.kind] || KIND_TONE.other }}>
           {kindLabel(doc.kind)}
         </span>
@@ -155,6 +156,16 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
           </button>
         )}
       </div>
+      {doc.source_files?.length > 1 && (
+        <details style={{ fontSize: 12, lineHeight: 1.6 }}>
+          <summary style={{ cursor: 'pointer', padding: '10px 0', minHeight: 44, boxSizing: 'border-box' }}>ไฟล์ที่เกี่ยวข้อง {doc.source_files.length} ไฟล์</summary>
+          {doc.source_files.map((file) => {
+            const href = googleDriveSourceUrl(file.url);
+            return href ? <a key={file.id} href={href} target="_blank" rel="noopener noreferrer"
+              style={{ display: 'block', padding: '10px 0', minHeight: 44, boxSizing: 'border-box', overflowWrap: 'anywhere' }}>{file.title}</a> : null;
+          })}
+        </details>
+      )}
     </article>
   );
 }
@@ -269,6 +280,14 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
 
   const [reloadKey, setReloadKey] = useState(0);
   useEffect(() => {
+    const onAuthChanged = () => {
+      setDocs((rows) => rows.filter((doc) => doc.status === 'public'));
+      setReloadKey((key) => key + 1);
+    };
+    window.addEventListener('vmx-library-auth-changed', onAuthChanged);
+    return () => window.removeEventListener('vmx-library-auth-changed', onAuthChanged);
+  }, []);
+  useEffect(() => {
     let cancelled = false;
     // Snapshot-first: the last good catalog paints the full shelf in the
     // mount frame, then the fresh fetch swaps in silently. First-ever visits
@@ -279,16 +298,19 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
       setLoading(false);
     }
     fresh
-      .then(({ docs: rows, configured: ok }) => {
+      .then(({ docs: rows, configured: ok, error: fetchError }) => {
         if (cancelled) return;
         setDocs(rows);
         setConfigured(ok);
-        setError(null);
+        setError(fetchError ? thaiError(fetchError, 'อัปเดตรายการเอกสารไม่สำเร็จ แสดงแหล่งข้อมูลที่มีอยู่ก่อน') : null);
       })
       .catch((e) => {
         // With a snapshot already on screen, a background revalidation
         // failure is not worth an alert banner.
-        if (!cancelled && !stale?.docs?.length) setError(thaiError(e, 'โหลดรายการเอกสารไม่สำเร็จ'));
+        if (!cancelled) {
+          if (e.partialDocs) setDocs(mergeLibrarySources(stale?.docs || [], e.partialDocs));
+          setError(thaiError(e, 'โหลดรายการเอกสารไม่สำเร็จ'));
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -449,15 +471,24 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
         </div>
         <h1 style={{ margin: '6px 0 4px', fontSize: 22 }}>คลังเอกสารการเรียน</h1>
         <p style={{ color: 'var(--clr-ink-soft)', fontSize: 13, margin: 0 }}>
-          แยกตามชั้นปี วิชา เทอม และปีการศึกษา — เปิดอ่านในแอปแล้วขีดเขียนได้เลย
-          รอยเขียนจะกลับมาเหมือนเดิมทุกครั้งที่เปิดใหม่
+          ค้นหาเอกสารตามชั้นปี วิชา และหัวข้อ เปิดอ่าน PDF ในแอปพร้อมขีดเขียน
+          หรือเปิดเอกสาร VCA จาก Google Drive ต้นฉบับ
         </p>
         {docs.length > 0 && (
           <div style={{ ...mono, fontSize: 11.5, color: 'var(--clr-ink-soft)', marginTop: 6 }}>
-            {docs.length.toLocaleString()} ไฟล์ จาก {subjectTotal} วิชา
+            {docs.length.toLocaleString()} รายการ จาก {subjectTotal} วิชา
           </div>
         )}
       </div>
+
+      {(subjectFilter === 'vca' || /vca/i.test(debouncedQuery)) && (
+        <p style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', margin: '0 0 16px' }}>
+          ชุดนี้รวมเอกสารและบันทึกข้อสอบย้อนหลัง เฉลยในต้นฉบับบางข้อยังต้องตรวจเทียบ
+          {' '}กำหนดการและเกณฑ์รอบปัจจุบันดูได้ที่{' '}
+          <a href="https://eval.vetcouncil.or.th/students/news" target="_blank" rel="noopener noreferrer"
+            style={{ display: 'inline-block', minHeight: 44, padding: '10px 0', boxSizing: 'border-box' }}>ประกาศศูนย์ประเมินฯ สัตวแพทยสภา</a>
+        </p>
+      )}
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 18 }}>
         <input
@@ -497,7 +528,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
           display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
         }}>
           <span style={{ flex: 1, minWidth: 180 }}>{error}</span>
-          {docs.length === 0 && (
+          {(
             <button
               type="button"
               className="vmx-btn vmx-btn-sm"

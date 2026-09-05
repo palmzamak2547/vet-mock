@@ -1061,7 +1061,7 @@ export default function App() {
     questions, setQuestions,
     answers, setAnswers,
     currentIdx, setCurrentIdx,
-    timeLeft, setTimeLeft,
+    timeLeft, setTimeLeft, questionDeadline,
     examStartTime, setExamStartTime,
     currentQ, currentAnswer,
     answerCurrent, nextQ, prevQ, jumpToQ,
@@ -1232,7 +1232,7 @@ export default function App() {
   useEffect(() => {
     if (view !== 'exam' || questions.length === 0) { inflightRef.current = null; return undefined; }
     inflightRef.current = {
-      questions, answers, currentIdx,
+      questions, answers, currentIdx, questionDeadline, examStartTime,
           // The settings that decide how this set is GRADED and SHOWN, not
           // just what is in it. Without them a resumed mock came back as
           // whatever mode happened to be after a reload — `mode` resets to
@@ -1246,7 +1246,7 @@ export default function App() {
     if (Date.now() - inflightWrittenAtRef.current >= 3000) { writeInflight(); return undefined; }
     const timer = setTimeout(writeInflight, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, writeInflight]);
+  }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, writeInflight]);
   useEffect(() => {
     const onHide = () => writeInflight();
     window.addEventListener('pagehide', onHide);

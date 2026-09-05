@@ -25,6 +25,7 @@
 // stays importable outside the bundler.
 import { SUBJECTS } from '../data/curriculum.js';
 import { EXTERNAL_COURSES } from '../data/library-courses.js';
+import { googleDriveSourceUrl, mergeLibrarySources, vcaLibraryDocs } from './vca-library.js';
 
 const CDN_BASE = import.meta.env?.VITE_LIBRARY_CDN_BASE || '';
 
@@ -288,9 +289,10 @@ export function groupByYearSubject(docs) {
 // shelf, not like a broken app. Same reasoning as CaseLibrary: a student who
 // opens the library before the migration lands should see "ยังไม่มีเอกสาร",
 // not a red error they cannot act on.
-function isPreMigration(err) {
-  const msg = err?.message || String(err || '');
-  return /schema cache|library_docs|does not exist|relation .* does not exist/i.test(msg);
+export function isMissingLibraryTable(err) {
+  // Permission errors and a database outage also name the table/schema cache.
+  // Only a missing table can legitimately be presented as an empty shelf.
+  return err?.code === '42P01' || err?.code === 'PGRST205';
 }
 
 // One catalog, fetched once per session. Before this, three consumers each
@@ -301,10 +303,22 @@ function isPreMigration(err) {
 let _catalogPromise = null;
 export function getLibraryCatalog() {
   if (!_catalogPromise) {
-    _catalogPromise = fetchLibraryDocs()
-      .then((result) => {
-        saveCatalogSnapshot(result);
-        return result;
+    _catalogPromise = Promise.all([
+      fetchLibraryDocs().catch((error) => ({ docs: [], configured: false, error })),
+      import('../data/vca-materials.js'),
+    ])
+      .then(([result, { VCA_MATERIALS }]) => {
+        const sources = vcaLibraryDocs(VCA_MATERIALS);
+        if (result.error) {
+          // The connected shelf is still unknown. Preserve that failure for
+          // subject-count consumers while allowing the view to show sources.
+          const error = new Error('อัปเดตรายการเอกสารไม่สำเร็จ แสดงแหล่งข้อมูลที่มีอยู่ก่อน', { cause: result.error });
+          error.partialDocs = sources;
+          throw error;
+        }
+        const combined = { ...result, docs: mergeLibrarySources(result.docs, sources), configured: result.configured || sources.length > 0 };
+        saveCatalogSnapshot(combined);
+        return combined;
       })
       .catch((err) => {
         _catalogPromise = null; // a failed fetch must not poison the session
@@ -314,7 +328,12 @@ export function getLibraryCatalog() {
   return _catalogPromise;
 }
 if (typeof window !== 'undefined') {
-  window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; });
+  window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; _subjectCounts = null; });
+  window.addEventListener('vmx-library-auth-changed', () => {
+    _catalogPromise = null;
+    _subjectCounts = null;
+    _urlIntent.clear();
+  });
 }
 
 // ── Instant-paint snapshot ────────────────────────────────────────────────
@@ -325,11 +344,15 @@ if (typeof window !== 'undefined') {
 
 const SNAPSHOT_KEY = 'vmx-library-catalog-v1';
 
-function saveCatalogSnapshot(result) {
+export function saveCatalogSnapshot(result) {
   if (typeof window === 'undefined') return;
-  if (!result?.configured || !Array.isArray(result.docs) || result.docs.length === 0) return;
+  if (!result?.configured || !Array.isArray(result.docs)) return;
   try {
-    window.localStorage.setItem(SNAPSHOT_KEY, JSON.stringify({ at: Date.now(), docs: result.docs }));
+    // A signed-in reader can see restricted rows. Persist only public metadata
+    // so the next signed-out reader on this device cannot inherit that shelf.
+    const docs = result.docs.filter((doc) => doc?.status === 'public');
+    if (!docs.length) window.localStorage.removeItem(SNAPSHOT_KEY);
+    else window.localStorage.setItem(SNAPSHOT_KEY, JSON.stringify({ at: Date.now(), docs }));
   } catch { /* quota or private mode — the shelf just loads from network */ }
 }
 
@@ -340,7 +363,8 @@ export function readCatalogSnapshot() {
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed?.docs) || parsed.docs.length === 0) return null;
-    return { docs: parsed.docs, at: parsed.at || 0 };
+    const docs = parsed.docs.filter((doc) => doc?.status === 'public');
+    return docs.length ? { docs, at: parsed.at || 0 } : null;
   } catch {
     return null;
   }
@@ -405,7 +429,7 @@ export async function fetchLibraryDocs() {
   }
 
   if (error) {
-    if (isPreMigration(error)) return { docs: [], configured: true };
+    if (isMissingLibraryTable(error)) return { docs: [], configured: true };
     throw error;
   }
   // RLS already restricts rows to public (anon) or public+restricted (signed
@@ -441,6 +465,7 @@ const _urlIntent = new Map(); // slug -> { at: number, p: Promise<string> }
 const INTENT_TTL_MS = 60_000;
 
 export function prefetchDocUrl(doc) {
+  if (doc?.storage_provider === 'google-drive') return;
   if (!doc?.slug) return;
   const hit = _urlIntent.get(doc.slug);
   if (hit && Date.now() - hit.at < INTENT_TTL_MS) return;
@@ -455,6 +480,11 @@ export function prefetchDocUrl(doc) {
 
 export async function resolveDocUrl(doc) {
   if (!doc) throw new Error('resolveDocUrl: missing doc');
+  if (doc.storage_provider === 'google-drive') {
+    const url = googleDriveSourceUrl(doc.external_url);
+    if (!url) throw new Error('ลิงก์เอกสารต้นฉบับไม่ถูกต้อง');
+    return url;
+  }
   const hit = doc.slug ? _urlIntent.get(doc.slug) : null;
   if (hit && Date.now() - hit.at < INTENT_TTL_MS) return hit.p;
 
@@ -572,6 +602,7 @@ export function docTypeLabel(mime) {
  *  'tab'      → a new tab the browser renders natively (images, video, audio)
  *  'download' → the browser will save it (Office files, zip, unknown) */
 export function docOpenMode(doc) {
+  if (doc?.storage_provider === 'google-drive') return { action: 'tab', label: 'เปิดใน Google Drive' };
   const m = String(doc?.mime || '');
   if (m === 'application/pdf') return { action: 'read', label: 'เปิดอ่าน' };
   if (/^image\//.test(m)) return { action: 'tab', label: 'เปิดดูรูป' };

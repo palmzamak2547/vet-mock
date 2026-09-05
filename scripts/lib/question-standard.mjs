@@ -59,6 +59,7 @@ export const examOriginIsADeck = (q) => DECK_SHAPED.test(String(q?.examOrigin ||
  *  for a third of what a first cut of this rule flagged. */
 export const NEEDS_FIGURE = new RegExp([
   'จากภาพ(?!รวม)', 'จากรูป(?!แบบ)',
+  '(?:จาก|ตาม|ดัง)\\s+(?:ภาพ(?!รวม)|รูป(?!แบบ|ของ))',
   '(?:จาก|ตาม|ใน)กราฟ', 'เส้นของ',
   'แผนภาพ', 'ลูกศร', 'ที่ชี้',
   '(?:ภาพ|รูป)นี้', '(?:ภาพ|รูป)ที่\\s*\\d',

@@ -1073,10 +1073,11 @@ export const QB_COM4 = [
 
   { id: 1042, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
     tags: ['imha', 'diagnosis', 'coombs'], type: 'mcq',
-    q: 'Coombs\' test (Direct Antiglobulin Test, DAT) ใน IMHA — เป็น gold standard เพราะตรวจอะไร',
+    q: 'Direct Coombs\' test หรือ direct antiglobulin test (DAT) ตรวจพบสิ่งใดเพื่อช่วยประเมิน IMHA',
     options: ['Detects Ab/complement บน RBC surface', 'นับจำนวน RBC ใน circulation โดยตรง', 'วัดระดับ hemoglobin ใน plasma', 'ประเมิน bone marrow regeneration', 'นับ spherocyte ใน blood smear'],
-    answer: 0, explain: 'Direct Coombs\' (DAT):\n• Add Coombs\' reagent (multi-species: anti-IgG + anti-IgM + anti-C3) ลงบน RBC ของผู้ป่วยที่ล้างแล้ว\n• ถ้า RBC ของผู้ป่วยมี IgG/IgM/C3 เคลือบอยู่ → reagent จะจับและ cross-link → agglutination (+)\n• Sensitivity ~60-70% (อาจ false negative ถ้า low Ab titer หรือ steroid pretreatment)\n• Specificity > 90%\n\n💡 ก่อนทำ Coombs\': ทำ slide agglutination test ก่อน (1 หยด blood + 1 หยด saline) — ถ้า positive ไม่ต้องทำ Coombs\' (autoagglutination = strong IMHA)',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7' },
+    answer: 0, explain: 'Direct Coombs\' test ตรวจ immunoglobulin หรือ complement ที่จับอยู่บนผิวเม็ดเลือดแดง โดยใช้ antiglobulin reagent ที่เหมาะกับชนิดสัตว์ ผลบวกเป็นหลักฐานประกอบการประเมิน IMHA และต้องแปลร่วมกับภาวะซีด หลักฐาน hemolysis และการตรวจอื่น ไม่ควรใช้ผลเพียงค่าเดียวเป็นข้อสรุปในทุกกรณี',
+    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7; Cornell eClinpath, Mechanisms of anemia: https://eclinpath.com/hematology/anemia/mechanisms-of-anemia/; เทียบเพิ่มเติมกับ Hematology (VCA58-68).pdf หน้า 11',
+    sourceDocument: { id: '1uh-PrLaztgUHM-Dz56hOodqG5xRRl22U', url: 'https://drive.google.com/file/d/1uh-PrLaztgUHM-Dz56hOodqG5xRRl22U/view', page: 11 } },
 
   { id: 1043, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
     tags: ['imha', 'treatment', 'glucocorticoid', 'dose'], type: 'mcq',

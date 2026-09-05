@@ -115,7 +115,7 @@ test.describe('desktop layout', () => {
   for (const width of [1024, 1280, 1920]) {
     test(`no horizontal overflow at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto('./');
+      await page.goto('./', { waitUntil: 'domcontentloaded' });
       await page.waitForSelector('.vmx-app', { timeout: 15000 });
       const m = await measure(page);
       expect(m).not.toBeNull();

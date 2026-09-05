@@ -36,9 +36,10 @@
 // hook never imports finishExam directly.
 // ============================================================
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { timeForQuestion, isWritingType } from './utils.js';
 import { confirmDialog } from '../lib/dialog.js';
+import { secondsUntilDeadline } from '../lib/exam-clock.js';
 
 // localStorage init helpers — preserve the in-flight resume behavior
 // that App.jsx used to do inline (Three useState(() => { ... }) blocks).
@@ -50,7 +51,12 @@ function _loadInflight() {
     // shared set's own first question then started with the wrong time left.
     if (/[?&]qset=/.test(window.location?.search || '')) return null;
     const raw = window.localStorage?.getItem('vmx-inflight-exam');
-    if (raw) return JSON.parse(raw) || null;
+    if (raw) {
+      const saved = JSON.parse(raw);
+      if (!Array.isArray(saved?.questions) || !saved.questions.length) return null;
+      if (saved.questions.some((q) => !q || q.id == null || typeof q.q !== 'string')) return null;
+      return saved;
+    }
   } catch {}
   return null;
 }
@@ -68,11 +74,24 @@ function _loadInflight() {
  */
 export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
   // ── State (with localStorage hydration for in-flight resume) ────────
-  const [questions, setQuestions] = useState(() => _loadInflight()?.questions || []);
-  const [answers, setAnswers] = useState(() => _loadInflight()?.answers || {});
-  const [currentIdx, setCurrentIdx] = useState(() => _loadInflight()?.currentIdx || 0);
-  const [timeLeft, setTimeLeft] = useState(0);
+  const [initialSaved] = useState(_loadInflight);
+  const [questions, setQuestions] = useState(() => initialSaved?.questions || []);
+  const [answers, setAnswers] = useState(() => initialSaved?.answers || {});
+  const [currentIdx, setCurrentIdx] = useState(() => (
+    Number.isInteger(initialSaved?.currentIdx)
+      && initialSaved.currentIdx >= 0 && initialSaved.currentIdx < initialSaved.questions.length
+      ? initialSaved.currentIdx : 0
+  ));
+  const [timeLeft, setRemainingTime] = useState(0);
+  const [questionDeadline, setQuestionDeadline] = useState(null);
   const [examStartTime, setExamStartTime] = useState(null);
+  const setTimeLeft = useCallback((seconds) => {
+    const duration = Math.max(0, Number(seconds) || 0);
+    setQuestionDeadline(Date.now() + duration * 1000);
+    setRemainingTime(duration);
+  }, []);
+  const positionRef = useRef(null);
+  positionRef.current = { questions, currentIdx, view };
 
   // ── Shadow-start clock ──────────────────────────────────────────────
   // When entering view='exam' via a share-link (?qset=) the normal
@@ -88,7 +107,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
   }, [view, questions, currentIdx, timePerQ, examStartTime]);
 
   // ── Timer tick ──────────────────────────────────────────────────────
-  // Decrements timeLeft once per second. On time-up: advance to next Q
+  // Reconciles with wall time. On time-up: advance to next Q
   // (with its own per-Q time budget) or fire onFinish if on the last Q.
   useEffect(() => {
     if (view !== 'exam' || !useTimer) return;
@@ -107,10 +126,17 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
       } else onFinish?.();
       return;
     }
-    const t = setTimeout(() => setTimeLeft((x) => x - 1), 1000);
-    return () => clearTimeout(t);
+    const update = () => setRemainingTime(secondsUntilDeadline(questionDeadline));
+    const t = setTimeout(update, 1000);
+    document.addEventListener('visibilitychange', update);
+    window.addEventListener('pageshow', update);
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener('visibilitychange', update);
+      window.removeEventListener('pageshow', update);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- onFinish stable via ref pattern in caller
-  }, [timeLeft, view, useTimer, currentIdx, questions, timePerQ]);
+  }, [timeLeft, questionDeadline, view, useTimer, currentIdx, questions, timePerQ, examStartTime]);
 
   // ── Navigation callbacks ────────────────────────────────────────────
   const answerCurrent = useCallback((val) => {
@@ -137,6 +163,9 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
           confirmLabel: isLast ? 'ส่งข้อสอบ' : 'ข้ามไปข้อถัดไป',
         });
         if (!go) return;
+        // The timer or navigation may have moved on while the dialog was open.
+        const live = positionRef.current;
+        if (live.view !== 'exam' || live.questions !== questions || live.currentIdx !== currentIdx) return;
       }
     }
     if (currentIdx < questions.length - 1) {
@@ -195,12 +224,22 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
 
   /** Called by App.resumePendingExam to rehydrate from localStorage. */
   const primeFromSaved = useCallback((saved) => {
-    if (!saved?.questions?.length) return false;
+    if (!Array.isArray(saved?.questions) || !saved.questions.length) return false;
+    if (saved.questions.some((q) => !q || q.id == null || typeof q.q !== 'string')) return false;
+    const index = Number.isInteger(saved.currentIdx) && saved.currentIdx >= 0
+      && saved.currentIdx < saved.questions.length ? saved.currentIdx : 0;
     setQuestions(saved.questions);
     setAnswers(saved.answers || {});
-    setCurrentIdx(saved.currentIdx || 0);
+    setCurrentIdx(index);
+    setExamStartTime(Number.isFinite(saved.examStartTime) ? saved.examStartTime : Date.now());
+    if (Number.isFinite(saved.questionDeadline) && saved.questionDeadline > 0) {
+      setQuestionDeadline(saved.questionDeadline);
+      setRemainingTime(secondsUntilDeadline(saved.questionDeadline));
+    } else {
+      setTimeLeft(timeForQuestion(saved.questions[index], saved.timePerQ ?? timePerQ));
+    }
     return true;
-  }, []);
+  }, [setTimeLeft, timePerQ]);
 
   /** Called by App.goHome / App.dismissPendingExam to clear runtime state. */
   const resetSession = useCallback(() => {
@@ -221,6 +260,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     answers, setAnswers,
     currentIdx, setCurrentIdx,
     timeLeft, setTimeLeft,
+    questionDeadline,
     examStartTime, setExamStartTime,
     // Derived
     currentQ, currentAnswer,

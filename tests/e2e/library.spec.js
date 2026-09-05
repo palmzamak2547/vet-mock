@@ -66,12 +66,28 @@ test.describe('Study library', () => {
       .toBeVisible({ timeout: 15_000 });
     await expect(page.getByRole('searchbox', { name: 'ค้นหาเอกสารในคลัง' })).toBeVisible();
 
-    // Whichever empty state applies (no credentials, or credentials plus an
-    // empty shelf), the reader gets a sentence — never a spinner that never
-    // resolves, and never a raw error string.
+    // Original VCA sources are available even without a connected catalog.
+    // Searching for a missing title must still reach an honest empty state.
+    await page.getByRole('searchbox', { name: 'ค้นหาเอกสารในคลัง' }).fill('no-such-vca-document-314159');
     await expect(page.locator('.vmx-empty-state')).toBeVisible({ timeout: 15_000 });
 
     expect(pageErrors).toEqual([]);
+  });
+
+  test('VCA sources remain searchable and open the original Drive file', async ({ page }) => {
+    await stubVercelAnalytics(page);
+    await page.context().route('https://drive.google.com/**', (route) => route.fulfill({ body: '<p>Original document</p>', contentType: 'text/html' }));
+    await page.goto('/app/library?q=VCA%20Pharmacology');
+    const card = page.locator('.vmx-lib-card').filter({ has: page.getByRole('heading', { name: 'Pharmacology & Toxicology (VCA58-68)', exact: true }) });
+    await expect(card).toBeVisible({ timeout: 15_000 });
+    await expect(card.getByRole('button', { name: 'เปิดใน Google Drive' })).toBeVisible();
+    await card.getByText(/ไฟล์ที่เกี่ยวข้อง/).click();
+    await expect(card.getByRole('link', { name: 'Pharmacology & Toxicology (VCA58-68).docx', exact: true })).toHaveAttribute('href', 'https://docs.google.com/document/d/1UgefaMtbTexqQ1s-a2npPj2EMgcbQUpf/edit');
+    const popupPromise = page.waitForEvent('popup');
+    await card.getByRole('button', { name: 'เปิดใน Google Drive' }).click();
+    const popup = await popupPromise;
+    await expect(popup).toHaveURL('https://drive.google.com/file/d/16bBE7EWhFWDHZhuGQsJ9BT5HgHidheaP/view');
+    await popup.close();
   });
 
   test('the library keeps a visible way back out', async ({ page }) => {

@@ -276,7 +276,7 @@ test('catalog snapshot survives corrupt or empty localStorage without throwing',
     assert.equal(readCatalogSnapshot(), null);
     window._store.set('vmx-library-catalog-v1', JSON.stringify({ at: 1, docs: [] }));
     assert.equal(readCatalogSnapshot(), null, 'an empty snapshot is no snapshot');
-    window._store.set('vmx-library-catalog-v1', JSON.stringify({ at: 5, docs: [{ slug: 'a', title: 'T' }] }));
+    window._store.set('vmx-library-catalog-v1', JSON.stringify({ at: 5, docs: [{ slug: 'a', title: 'T', status: 'public' }] }));
     assert.equal(readCatalogSnapshot().docs[0].slug, 'a');
   } finally {
     delete globalThis.window;
