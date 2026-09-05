@@ -24,6 +24,30 @@
 //   • lh3.googleusercontent.com     — Google Drive sharing link host
 // ============================================================
 
+// Resolve a relative path the way the browser will, and hand back the path
+// only if it stayed on this origin. A string check like
+// `startsWith('/') && !startsWith('//')` looked safe and was not: the URL
+// parser treats a backslash as a slash in http(s) URLs and strips tabs and
+// newlines before parsing, so `/\\evil.example/x.png` and `/\t/evil.example`
+// both pass the string check and both fetch from evil.example — the exact
+// tracking-pixel leak this file exists to stop. Verified by execution:
+// new URL('/\\evil.com/x.png', base).origin === 'https://evil.com'.
+//
+// The base is a fixed placeholder origin, so the check is the same in the
+// browser and in node, and the returned value is the NORMALISED path (never
+// the raw input), so what renders is what was checked.
+const SAME_ORIGIN_BASE = 'https://same-origin.invalid';
+function sameOriginPath(raw) {
+  try {
+    const u = new URL(raw, SAME_ORIGIN_BASE);
+    if (u.origin !== SAME_ORIGIN_BASE) return null;
+    if (u.username || u.password) return null;
+    return u.pathname + u.search + u.hash;
+  } catch {
+    return null;
+  }
+}
+
 const ALLOWED_HOSTS = [
   /^mpovsdzdggvksmeehqfj\.supabase\.co$/i,
   /^i\.imgur\.com$/i,
@@ -43,8 +67,9 @@ export function safeImageUrl(url) {
   const trimmed = url.trim();
   if (!trimmed) return null;
 
-  // Same-origin relative path
-  if (trimmed.startsWith('/') && !trimmed.startsWith('//')) return trimmed;
+  // Same-origin relative path — resolved, not string-matched (see
+  // sameOriginPath for the bypass this closes).
+  if (trimmed.startsWith('/')) return sameOriginPath(trimmed);
 
   // data: URIs — only image/* MIME types allowed
   if (/^data:image\/(png|jpeg|jpg|gif|webp|svg\+xml|avif);/i.test(trimmed)) {
@@ -79,7 +104,7 @@ export function safeLinkUrl(url) {
   const trimmed = url.trim();
   if (!trimmed || trimmed.length > 2048) return null;
   if (trimmed.startsWith('#')) return trimmed;
-  if (trimmed.startsWith('/') && !trimmed.startsWith('//')) return trimmed;
+  if (trimmed.startsWith('/')) return sameOriginPath(trimmed);
 
   try {
     const parsed = new URL(trimmed);
