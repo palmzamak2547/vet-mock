@@ -20,6 +20,7 @@ import {
   listQComments, postQComment, deleteQComment, subscribeQComments,
 } from '../lib/api.js';
 import { confirmDialog } from '../lib/dialog.js';
+import { thaiError } from '../lib/errors.js';
 
 function fmtTime(iso) {
   if (!iso) return '';
@@ -38,19 +39,29 @@ export default function QComments({ qSubject, qId, user, setView }) {
   const [posting, setPosting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
+  const [loadErr, setLoadErr] = useState(null);
+  const [reloadTick, setReloadTick] = useState(0);
   const channelRef = useRef(null);
 
   // Initial fetch
   useEffect(() => {
     if (!hasSupabase) { setLoading(false); return; }
     let cancelled = false;
+    setLoading(true); setLoadErr(null);
     listQComments(qSubject, qId).then((rows) => {
       if (cancelled) return;
       setComments(rows);
       setLoading(false);
+    }).catch((e) => {
+      // A read that failed is not an empty thread — a classmate's
+      // correction of the answer key may be sitting right there. Say so
+      // and offer a retry instead of "be the first".
+      if (cancelled) return;
+      setLoadErr(thaiError(e, 'โหลดความเห็นไม่สำเร็จ'));
+      setLoading(false);
     });
     return () => { cancelled = true; };
-  }, [qSubject, qId]);
+  }, [qSubject, qId, reloadTick]);
 
   // Realtime — new INSERTs append, DELETEs remove, UPDATEs replace
   useEffect(() => {
@@ -67,10 +78,20 @@ export default function QComments({ qSubject, qId, user, setView }) {
         if (payload.eventType === 'UPDATE') return prev.map((c) => c.id === payload.new.id ? { ...c, ...payload.new } : c);
         return prev;
       });
-    }).then((ch) => { channelRef.current = ch; });
+    }).then((ch) => {
+      // subscribeQComments awaits getSupabase() (a dynamic import on first
+      // use) before it joins the channel. A second tap on 💬 inside that
+      // window unmounts this thread while channelRef is still null, so the
+      // cleanup below finds nothing to unsubscribe — the channel then lands
+      // here, joined, for a component that is gone, and stays joined until
+      // reload. Drop it on arrival instead of storing it.
+      if (!active) { ch?.unsubscribe?.(); return; }
+      channelRef.current = ch;
+    });
     return () => {
       active = false;
       const ch = channelRef.current;
+      channelRef.current = null;
       if (ch) ch.unsubscribe?.();
     };
   }, [qSubject, qId]);
@@ -83,7 +104,8 @@ export default function QComments({ qSubject, qId, user, setView }) {
     if (!hasSupabase) return;
     const onVis = () => {
       if (document.visibilityState === 'visible') {
-        listQComments(qSubject, qId).then((rows) => setComments(rows));
+        // A failed background refresh keeps what is already on screen.
+        listQComments(qSubject, qId).then((rows) => setComments(rows)).catch(() => {});
       }
     };
     document.addEventListener('visibilitychange', onVis);
@@ -104,7 +126,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
       setComments((prev) => prev.find((c) => c.id === row.id) ? prev : [...prev, row]);
       setDraft('');
     } catch (e) {
-      setErr(e.message || 'โพสต์ไม่สำเร็จ');
+      setErr(thaiError(e, 'โพสต์ไม่สำเร็จ'));
     } finally {
       setPosting(false);
     }
@@ -116,7 +138,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
       await deleteQComment(id);
       setComments((prev) => prev.filter((c) => c.id !== id));
     } catch (e) {
-      setErr(e.message);
+      setErr(thaiError(e, 'ลบไม่สำเร็จ'));
     }
   }
 
@@ -136,7 +158,18 @@ export default function QComments({ qSubject, qId, user, setView }) {
 
       {loading && <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>กำลังโหลด…</div>}
 
-      {!loading && comments.length === 0 && (
+      {!loading && loadErr && (
+        <div style={{ fontSize: 12, color: 'var(--clr-rose-text, #c0392b)', marginBottom: 8 }}>
+          {loadErr}{' '}
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => setReloadTick((t) => t + 1)}
+          >ลองใหม่</button>
+        </div>
+      )}
+
+      {!loading && !loadErr && comments.length === 0 && (
         <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginBottom: 8 }}>
           ยังไม่มีความเห็น — เป็นคนแรกได้
         </div>
