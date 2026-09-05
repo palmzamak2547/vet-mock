@@ -237,6 +237,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // together silently replaced each correct pending save with the snapshot
   // from before that stroke, so nothing a student drew ever reached storage.
   const latestRef = useRef({});
+  // The page the most recent stroke was committed to. currentPage follows
+  // the reader's eye down the column, so after a stroke near the bottom of
+  // page 3 currentPage may already read 4 — and undo, keyed on currentPage,
+  // then removed page 4's older ink while the mark just made on page 3
+  // stayed. Undo means "take back what I just did"; this is where that is.
+  const lastStrokePageRef = useRef(null);
   latestRef.current = { fileHash, fileName, pageCount, strokesByPage, currentPage, deleted };
 
   // Appends tombstones and returns the new list synchronously, because the
@@ -1007,6 +1013,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
     setStrokesByPage((prev) => {
       const page = drawPageRef.current;
+      lastStrokePageRef.current = page;
       const pageList = [...(prev[page] || []), ref.stroke];
       const next = { ...prev, [page]: pageList };
       currentStrokesRef.current = pageList;
@@ -1073,18 +1080,28 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
   }
 
+  // The page undo acts on: where the last stroke went, if it still has ink
+  // to take back, otherwise the page in view (the button's own rule).
+  function undoPage() {
+    const p = lastStrokePageRef.current;
+    return (p && (latestRef.current.strokesByPage?.[p] || []).length) ? p : currentPage;
+  }
+
   function undoLast() {
+    const page = undoPage();
     setStrokesByPage((prev) => {
-      const pageList = prev[currentPage] || [];
+      const pageList = prev[page] || [];
       if (pageList.length === 0) return prev;
       const undone = pageList[pageList.length - 1];
       const trimmed = pageList.slice(0, -1);
-      const next = { ...prev, [currentPage]: trimmed };
-      currentStrokesRef.current = trimmed;
-      redrawOverlay(trimmed, currentPage);
+      const next = { ...prev, [page]: trimmed };
+      // currentStrokesRef is the page under the PEN; only refresh it when
+      // that is the page being undone.
+      if (page === drawPageRef.current) currentStrokesRef.current = trimmed;
+      redrawOverlay(trimmed, page);
       const tombs = undone?.id ? addTomb(undone.id) : latestRef.current.deleted;
       scheduleSave(next, tombs);
-      setRedoStack((r) => [...r, { page: currentPage, stroke: undone }].slice(-40));
+      setRedoStack((r) => [...r, { page: page, stroke: undone }].slice(-40));
       return next;
     });
   }
@@ -1833,7 +1850,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
         <span aria-hidden="true" style={{ width: 1, height: 22, background: 'var(--clr-border)', margin: '0 2px', flexShrink: 0 }} />
 
-        <ToolButton icon="undo" label="ย้อนกลับ" onClick={undoLast} disabled={(strokesByPage[currentPage] || []).length === 0} />
+        <ToolButton icon="undo" label="ย้อนกลับ" onClick={undoLast} disabled={(strokesByPage[undoPage()] || []).length === 0} />
         <ToolButton icon="redo" label="ทำซ้ำ" onClick={redoLast} disabled={!canRedo} />
 
         <span aria-hidden="true" style={{ width: 1, height: 22, background: 'var(--clr-border)', margin: '0 2px', flexShrink: 0 }} />

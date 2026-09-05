@@ -726,3 +726,46 @@ test('a pinch that interrupts a stroke on page 2 does not paint page 1 ink there
   });
   expect(inkOnPage2, 'page 1 ink was painted onto page 2 overlay').toBe(0);
 });
+
+// Undo was keyed on currentPage, which follows the reader's eye down the
+// column. Draw near the bottom of page 1, scroll on so page 2 is what is in
+// view, and Ctrl+Z either did nothing (page 2 empty — the button greyed out
+// and the shortcut silently no-oped) or removed an OLDER page-2 stroke while
+// the mark just made stayed. Undo means "take back what I just did".
+test('undo after scrolling on still takes back the last stroke', async ({ page }) => {
+  await openReaderWithPdf(page, 2);
+  await page.waitForTimeout(500);
+
+  const b1 = await overlayBox(page);
+  await page.mouse.move(b1.x + b1.w * 0.2, b1.y + 40);
+  await page.mouse.down();
+  await page.mouse.move(b1.x + b1.w * 0.7, b1.y + 40, { steps: 8 });
+  await page.mouse.up();
+  await page.waitForTimeout(900);
+  let rec = await storedRecordRaw(page);
+  expect((rec.strokesByPage['1'] || []).length, 'the stroke must be stored on page 1').toBe(1);
+
+  // Scroll so page 2 is the page in view.
+  await page.evaluate(() => {
+    const el = document.querySelector('[data-page="2"]');
+    el.parentElement.scrollTop = el.offsetTop - 8;
+  });
+  await page.waitForTimeout(1200);
+  const inView = await page.evaluate(() => {
+    const rows = [...document.querySelectorAll('[data-page]')];
+    const wrap = rows[0].parentElement.getBoundingClientRect();
+    const mid = wrap.top + wrap.height / 2;
+    const row = rows.find((r) => { const b = r.getBoundingClientRect(); return b.top <= mid && b.bottom >= mid; });
+    return Number(row?.dataset.page);
+  });
+  expect(inView, 'page 2 should be the page in view').toBe(2);
+
+  // The undo button must still be live, and the shortcut must take back the
+  // page-1 stroke.
+  await expect(page.locator('button[aria-label="ย้อนกลับ"]')).toBeEnabled();
+  await page.keyboard.press('Control+z');
+  await page.waitForTimeout(900);
+  rec = await storedRecordRaw(page);
+  expect((rec.strokesByPage['1'] || []).length, 'the last stroke was not taken back').toBe(0);
+  expect((rec.deleted || []).length, 'the undo must be a tombstone').toBe(1);
+});
