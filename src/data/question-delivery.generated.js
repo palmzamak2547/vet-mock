@@ -178,6 +178,71 @@ export const BLOCKED_QUESTIONS = [
     "source": "questions-y5-vision-batch.js"
   },
   {
+    "key": "poultry:1702",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1707",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1714",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1719",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1728",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1729",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1731",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1736",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1741",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1747",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1750",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1759",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
+    "key": "poultry:1763",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-poultry.js"
+  },
+  {
     "key": "rec-adv-bioscience:8041",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-y5-final-mixed.js"
@@ -256,6 +321,11 @@ export const BLOCKED_QUESTIONS = [
     "key": "vca:8037",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-y5-final-mixed.js"
+  },
+  {
+    "key": "vet-juris:93037",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vet-juris.js"
   }
 ];
 
@@ -263,4 +333,4 @@ const BLOCKED_KEYS = new Set(BLOCKED_QUESTIONS.map((item) => item.key));
 
 export const questionDeliveryKey = (question) => `${question?.subject || ''}:${question?.id ?? ''}`;
 export const isQuestionDeliverable = (question) => !BLOCKED_KEYS.has(questionDeliveryKey(question));
-export const BLOCKED_QUESTION_COUNT = 51;
+export const BLOCKED_QUESTION_COUNT = 65;

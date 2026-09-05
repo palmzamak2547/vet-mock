@@ -111,7 +111,27 @@ export function isHighPredictionQuestion(question, options = {}) {
     && isCurrentScopeQuestion(question, options);
 }
 
+// Severities the app can explain to the student: the card renders a
+// documented conflict as a major/minor chip with the flag's note under it.
+const DELIVERABLE_FLAG_SEVERITIES = new Set(['major', 'minor']);
+
+// A flag the gate cannot read is a flag it cannot vouch for. Fourteen bank
+// questions carry `flag` as a bare string ('verify-2026', 'tricky-stem',
+// 'minor') instead of `{ severity, note }`. The card renders any of those as
+// an UNCLEAR chip whose explanation is `undefined`, so delivering them as
+// verified told the student two different things about the same field.
+// Only a documented major/minor conflict is deliverable, and it ships with
+// its warning; everything else waits for a human to say what it means.
+function flagIsDocumentedConflict(flag) {
+  return typeof flag === 'object'
+    && DELIVERABLE_FLAG_SEVERITIES.has(flag?.severity)
+    && typeof flag.note === 'string'
+    && flag.note.trim().length > 0;
+}
+
 export function questionNeedsAnswerReview(question) {
-  return question?.answerStatus === 'needs-review'
-    || question?.flag?.severity === 'unclear';
+  if (question?.answerStatus === 'needs-review') return true;
+  const flag = question?.flag;
+  if (!flag) return false;
+  return !flagIsDocumentedConflict(flag);
 }

@@ -10,9 +10,9 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4718;
+export const QB_TOTAL = 4704;
 export const QB_SOURCE_TOTAL = 4769;
-export const QB_BLOCKED_TOTAL = 51;
+export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 139,
@@ -38,7 +38,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'milk-meat-hygiene': 290,
   'one-health': 91,
   'poa-clinical': 71,
-  'poultry': 191,
+  'poultry': 178,
   'practrum': 117,
   'rec-adv-bioscience': 4,
   'repro': 31,
@@ -54,7 +54,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-histo': 104,
   'vet-imaging': 35,
-  'vet-juris': 47,
+  'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
   'zoonoses': 194,
@@ -88,7 +88,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'milk-meat-hygiene': 290,
   'one-health': 91,
   'poa-clinical': 71,
-  'poultry': 134,
+  'poultry': 132,
   'practrum': 113,
   'rec-adv-bioscience': 4,
   'repro': 31,
@@ -104,7 +104,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-histo': 104,
   'vet-imaging': 35,
-  'vet-juris': 47,
+  'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
   'zoonoses': 194,
@@ -114,7 +114,7 @@ export const Q_COUNTS_BY_YEAR = {
   1: 298,
   2: 144,
   3: 62,
-  4: 2090,
+  4: 2076,
   5: 2124,
 };
 
@@ -126,7 +126,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   1: 298,
   2: 144,
   3: 62,
-  4: 1984,
+  4: 1981,
   5: 2108,
 };
 
@@ -494,7 +494,7 @@ export const Q_COUNTS_BY_TOPIC = {
   "poultry": {
     "avian-drugs": 12,
     "avian-zoonosis": 10,
-    "biosecurity": 20,
+    "biosecurity": 18,
     "first-week-mortality": 17,
     "mahahon-poultry-biosec": 8,
     "mahahon-poultry-drugs": 8,
@@ -505,7 +505,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "midterm-disease": 2,
     "physiology": 3,
     "quality-assurance": 15,
-    "uncertain-scope": 52,
+    "uncertain-scope": 41,
   },
   "practrum": {
     "animal-nutrition": 5,
@@ -711,7 +711,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "ultrasound-basics": 12,
   },
   "vet-juris": {
-    "animal-epidemic-act-2558": 12,
+    "animal-epidemic-act-2558": 11,
     "animal-hospital-act-2557": 12,
     "drug-act-2510": 15,
     "slaughter-act-2559": 3,
@@ -995,12 +995,12 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "poultry": {
     "avian-drugs": 11,
     "avian-zoonosis": 9,
-    "biosecurity": 19,
+    "biosecurity": 17,
     "first-week-mortality": 17,
     "midterm-disease": 2,
     "physiology": 3,
     "quality-assurance": 14,
-    "uncertain-scope": 52,
+    "uncertain-scope": 41,
   },
   "practrum": {
     "bovine-anesthesia": 5,
@@ -1133,7 +1133,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "ultrasound-basics": 12,
   },
   "vet-juris": {
-    "animal-epidemic-act-2558": 12,
+    "animal-epidemic-act-2558": 11,
     "animal-hospital-act-2557": 12,
     "drug-act-2510": 15,
     "slaughter-act-2559": 3,
@@ -1193,4 +1193,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-02T19:52:46.058Z
+// Built: 2026-09-05T00:56:16.535Z
