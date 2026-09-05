@@ -721,7 +721,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const reach = ((size * 4 * inkDpr() * pageScale) / 2) / Math.max(1, c.height) + 0.004;
     setStrokesByPage((prev) => {
       const list = prev[page] || [];
-      const gone = list.filter((st) => strokeHit(st, x, y, reach, aspect));
+      // A pixel-eraser stroke is a hole, not ink. Deleting one un-erases:
+      // touching a rubbed-out area brought the erased ink straight back.
+      const gone = list.filter((st) => st.mode !== 'eraser' && strokeHit(st, x, y, reach, aspect));
       if (!gone.length) return prev;
       const kept = list.filter((st) => !gone.includes(st));
       const next = { ...prev, [page]: kept };
@@ -769,7 +771,18 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   function onPointerDown(e) {
     if (!pdfDoc) return;
     const onPage = Number(e.currentTarget?.dataset?.page || e.currentTarget?.parentElement?.dataset?.page || 0);
-    if (onPage) drawPageRef.current = onPage;
+    if (onPage) {
+      // currentStrokesRef means "the committed strokes of the page under the
+      // pen". It was only refreshed when a stroke committed, so between
+      // landing on a new page and that first commit it still held the
+      // PREVIOUS page's list — and the pinch-discard, shape-snap and
+      // highlighter repaints all redraw from it, painting page 3's ink onto
+      // page 4's overlay. Refresh it the moment the page changes.
+      if (drawPageRef.current !== onPage) {
+        currentStrokesRef.current = (latestRef.current.strokesByPage || {})[onPage] || [];
+      }
+      drawPageRef.current = onPage;
+    }
     // Anything aimed at the page dismisses the panels, the way a menu closes
     // when you go back to work. Done here rather than with a document-level
     // listener so it cannot fight the toolbar's own buttons.
@@ -802,6 +815,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       }
       return;
     }
+    // A hand that settled on the glass before the pen came down was booked
+    // as a scrolling finger. Once the pen is drawing, that hand must not drag
+    // the page under the nib.
+    if (penOnly && e.pointerType === 'pen' && panRef.current) panRef.current = null;
     e.preventDefault();
     // Capture on the canvas the stroke started on, so a line that runs past
     // the bottom of a page keeps reporting to that page instead of jumping to
@@ -1117,12 +1134,20 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const activePointers = useRef(new Map());
 
   function gestureDown(e) {
+    // Pen-only mode: the stylus draws and never pinches, and a touch that
+    // lands while the pen is down is the hand settling on the glass — the
+    // very thing this mode exists to ignore. Both used to be booked as pinch
+    // fingers, so a palm resting mid-stroke threw the stroke away and started
+    // zooming against the hand.
+    if (penOnly && e.pointerType === 'pen') return false;
+    if (penOnly && e.pointerType !== 'pen' && drawingRef.current?.on) return true;
     activePointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (activePointers.current.size !== 2) return false;
-    // A second finger means this was never a stroke. Throw away what the
-    // first finger drew rather than leaving a stray mark behind every pinch.
+    // A second finger means this was never a stroke — when the stroke belongs
+    // to one of these two pointers. Throw it away rather than leaving a stray
+    // mark behind every pinch.
     const d = drawingRef.current;
-    if (d?.on) {
+    if (d?.on && activePointers.current.has(d.pointerId)) {
       clearTimeout(holdTimerRef.current);
       drawingRef.current = { on: false, points: [] };
       redrawOverlay(currentStrokesRef.current, drawPageRef.current);
@@ -2050,6 +2075,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         {sidebarOpen && (
           <div className="vmx-pdf-sidebar-wrap" style={{ width: 140, flexShrink: 0, overflow: 'hidden', height: '100%' }}>
             <PdfThumbnailSidebar
+              // Keyed by document: each thumbnail renders once and then
+              // holds its raster, so opening a second file without leaving
+              // the reader kept showing the first file's pages in the rail.
+              key={fileHash || 'no-doc'}
               pdfDoc={pdfDoc}
               currentPage={currentPage}
               onPageSelect={(n) => goToPage(n)}

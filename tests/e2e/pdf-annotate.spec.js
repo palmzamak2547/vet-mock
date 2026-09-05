@@ -572,3 +572,157 @@ test('a save merges with what is already stored instead of replacing it', async 
   expect(otherTabStrokes.length, 'the other tab\'s stroke was overwritten').toBe(1);
   expect((after?.strokesByPage?.[1] || []).length, 'this tab\'s own strokes must survive too').toBeGreaterThanOrEqual(2);
 });
+
+// ── Synthetic pointers ──────────────────────────────────────────────────
+// Playwright's mouse cannot claim to be a pen, and pen-only mode treats a
+// mouse as a scrolling finger. The reader's handlers wrap setPointerCapture
+// in try/catch precisely so synthetic PointerEvents can drive them.
+async function installPointerRig(page) {
+  return page.evaluate(() => {
+    const ov = [...document.querySelectorAll('canvas')]
+      .find((c) => getComputedStyle(c).position === 'absolute');
+    const r = ov.getBoundingClientRect();
+    window.__fire = (type, id, pointerType, cx, cy) => ov.dispatchEvent(new PointerEvent(type, {
+      pointerId: id, pointerType, clientX: cx, clientY: cy, bubbles: true, cancelable: true,
+      isPrimary: id === 1, pressure: type === 'pointerup' ? 0 : 0.5, buttons: type === 'pointerup' ? 0 : 1,
+    }));
+    const x = r.left + r.width * 0.2;
+    const y = r.top + Math.min(r.height * 0.4, 160);
+    return { x, y, w: r.width, h: r.height, top: r.top, left: r.left };
+  });
+}
+
+// A hand resting on the glass while the Pencil writes is the whole reason
+// pen-only mode exists. onPointerDown booked every pointer as a possible pinch
+// finger before deciding what it was for, so the palm became "the second
+// finger": the stroke in progress was thrown away and a pinch-zoom started
+// between the pen and the hand.
+test('a hand resting on the glass mid-stroke keeps the stroke and does not zoom', async ({ page }) => {
+  await openReaderWithPdf(page);
+  const rig = await installPointerRig(page);
+  const pageWidth = () => page.evaluate(() => document.querySelector('[data-page="1"] canvas')?.width || 0);
+
+  // One stylus contact switches pen-only mode on, as it does for a student.
+  await page.evaluate(({ x, y }) => { window.__fire('pointerdown', 1, 'pen', x, y); window.__fire('pointerup', 1, 'pen', x, y); }, rig);
+  await page.waitForTimeout(400);
+  const before = await pageWidth();
+  const strokesBefore = ((await storedRecordRaw(page))?.strokesByPage?.['1'] || []).length;
+
+  // Pen writes a line; the palm lands part way through; the pen keeps going.
+  await page.evaluate(({ x, y }) => {
+    const f = window.__fire;
+    f('pointerdown', 1, 'pen', x, y + 40);
+    f('pointermove', 1, 'pen', x + 40, y + 40);
+    f('pointermove', 1, 'pen', x + 80, y + 40);
+    f('pointerdown', 2, 'touch', x + 60, y + 140);           // the palm
+    f('pointermove', 1, 'pen', x + 120, y + 40);
+    f('pointermove', 1, 'pen', x + 160, y + 40);
+    f('pointermove', 2, 'touch', x + 62, y + 141);           // it shifts a hair
+    f('pointermove', 1, 'pen', x + 200, y + 40);
+    f('pointerup', 1, 'pen', x + 200, y + 40);
+    f('pointerup', 2, 'touch', x + 62, y + 141);
+  }, rig);
+  await page.waitForTimeout(1200);
+
+  const rec = await storedRecordRaw(page);
+  const strokes = rec?.strokesByPage?.['1'] || [];
+  const long = strokes.filter((st) => (st.points || []).length >= 4);
+  expect(long.length, 'the pen stroke was discarded when the palm landed').toBeGreaterThanOrEqual(1);
+  expect(strokes.length).toBeGreaterThan(strokesBefore);
+  expect(await pageWidth(), 'the palm started a pinch-zoom').toBe(before);
+});
+
+// The whole-stroke eraser tested every stored stroke for a hit — including
+// the pixel eraser's own strokes, which are holes, not ink. Deleting a hole
+// un-erases: touching a rubbed-out area brought the erased ink straight back.
+test('the whole-stroke eraser leaves pixel-eraser strokes alone', async ({ page }) => {
+  await openReaderWithPdf(page);
+  const box = await overlayBox(page);
+
+  // Ink at 30% down the page.
+  await page.mouse.move(box.x + box.w * 0.2, box.y + box.h * 0.3);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.w * 0.7, box.y + box.h * 0.3, { steps: 8 });
+  await page.mouse.up();
+  await page.waitForTimeout(300);
+
+  // A pixel-eraser pass at 60% — it touches nothing, so it is purely a hole.
+  await page.locator('button[aria-label="ยางลบ"]').click();
+  await page.mouse.move(box.x + box.w * 0.2, box.y + box.h * 0.6);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.w * 0.7, box.y + box.h * 0.6, { steps: 8 });
+  await page.mouse.up();
+  await page.waitForTimeout(900);
+
+  let rec = await storedRecordRaw(page);
+  const holes = (rec.strokesByPage['1'] || []).filter((st) => st.mode === 'eraser');
+  expect(holes.length, 'the pixel-eraser pass should be stored as an eraser stroke').toBe(1);
+  const total = rec.strokesByPage['1'].length;
+
+  // Whole-stroke mode, one tap on the hole.
+  await page.locator('button[aria-label="ยางลบ, แตะซ้ำเพื่อเลือกโหมดลบ"]').click();
+  await page.locator('button:text-is("ลบทั้งเส้นที่แตะ")').click();
+  await page.locator('button[aria-label="ยางลบ, แตะซ้ำเพื่อเลือกโหมดลบ"]').click();
+  const box2 = await overlayBox(page);
+  await page.mouse.click(box2.x + box2.w * 0.45, box2.y + box2.h * 0.6);
+  await page.waitForTimeout(900);
+
+  rec = await storedRecordRaw(page);
+  expect(rec.strokesByPage['1'].length, 'a hole was deleted, which un-erases').toBe(total);
+  expect((rec.deleted || []).length, 'no tombstone should have been written').toBe(0);
+});
+
+// currentStrokesRef meant "the committed strokes of the page under the pen"
+// but was only refreshed when a stroke committed. Between landing on a new
+// page and that first commit it still held the previous page's list, and the
+// pinch-discard repaint drew page 1's ink onto page 2's overlay.
+test('a pinch that interrupts a stroke on page 2 does not paint page 1 ink there', async ({ page }) => {
+  await openReaderWithPdf(page, 2);
+  await page.waitForTimeout(500);
+
+  // Ink on page 1 (mouse), committed.
+  const b1 = await overlayBox(page);
+  await page.mouse.move(b1.x + b1.w * 0.2, b1.y + 40);
+  await page.mouse.down();
+  await page.mouse.move(b1.x + b1.w * 0.7, b1.y + 40, { steps: 8 });
+  await page.mouse.up();
+  await page.waitForTimeout(900);
+
+  // Scroll page 2 into view.
+  await page.evaluate(() => {
+    const el = document.querySelector('[data-page="2"]');
+    el.parentElement.scrollTop = el.offsetTop - 8;
+  });
+  await page.waitForTimeout(1200);
+
+  // On page 2: a finger starts a stroke, a second finger interrupts it.
+  const r2 = await page.evaluate(() => {
+    const el = document.querySelector('[data-page="2"]');
+    const ov = [...el.querySelectorAll('canvas')].find((c) => getComputedStyle(c).position === 'absolute');
+    const r = ov.getBoundingClientRect();
+    const w = el.parentElement.getBoundingClientRect();
+    window.__fire2 = (type, id, cx, cy) => ov.dispatchEvent(new PointerEvent(type, {
+      pointerId: id, pointerType: 'touch', clientX: cx, clientY: cy, bubbles: true, cancelable: true,
+      isPrimary: id === 1, pressure: type === 'pointerup' ? 0 : 0.5, buttons: type === 'pointerup' ? 0 : 1,
+    }));
+    return { x: r.left + 40, y: Math.max(r.top, w.top) + 40 };
+  });
+  await page.evaluate(({ x, y }) => {
+    window.__fire2('pointerdown', 1, x, y);
+    window.__fire2('pointermove', 1, x + 30, y);
+    window.__fire2('pointerdown', 2, x + 120, y + 80);   // pinch begins, stroke discarded
+    window.__fire2('pointerup', 1, x + 30, y);
+    window.__fire2('pointerup', 2, x + 120, y + 80);
+  }, r2);
+  await page.waitForTimeout(600);
+
+  const inkOnPage2 = await page.evaluate(() => {
+    const el = document.querySelector('[data-page="2"]');
+    const ov = [...el.querySelectorAll('canvas')].find((c) => getComputedStyle(c).position === 'absolute');
+    const d = ov.getContext('2d').getImageData(0, 0, ov.width, ov.height).data;
+    let n = 0;
+    for (let i = 3; i < d.length; i += 4) if (d[i] > 8) n++;
+    return n;
+  });
+  expect(inkOnPage2, 'page 1 ink was painted onto page 2 overlay').toBe(0);
+});
