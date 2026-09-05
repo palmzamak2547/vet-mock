@@ -185,7 +185,10 @@ export async function saveExamResult(result) {
       // not sit in the dedupe window looking like an attempt that landed:
       // drop it so a retry really hits the DB, and reject so the caller
       // knows this score never reached the leaderboard.
-      if (sig) _saveDedupeMap.delete(sig);
+      // Only drop OUR entry. A slow failure landing after a retry has already
+      // re-populated the same signature would otherwise delete the retry's
+      // in-flight entry and let a second identical insert through.
+      if (sig && _saveDedupeMap.get(sig)?.promise === promise) _saveDedupeMap.delete(sig);
       console.error('Save result error:', error);
       throw new Error(thaiError(error, 'บันทึกคะแนนไม่สำเร็จ คะแนนนี้ยังไม่ขึ้นกระดานอันดับ'));
     }

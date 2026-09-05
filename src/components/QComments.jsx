@@ -159,7 +159,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
       {loading && <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>กำลังโหลด…</div>}
 
       {!loading && loadErr && (
-        <div style={{ fontSize: 12, color: 'var(--clr-rose-text, #c0392b)', marginBottom: 8 }}>
+        <div style={{ fontSize: 12, color: 'var(--clr-rose-text)', marginBottom: 8 }}>
           {loadErr}{' '}
           <button
             type="button"
@@ -235,7 +235,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
           {!user ? 'Login' : posting ? '...' : 'โพสต์'}
         </button>
       </div>
-      {err && <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-rose-text, #c0392b)' }}>{err}</div>}
+      {err && <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-rose-text)' }}>{err}</div>}
     </div>
   );
 }
