@@ -4,6 +4,7 @@ import { qualifiesForLeaderboard } from '../lib/leaderboard-gate.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/questions.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
 
 export default function GroupDetailView({ group, user, goBack }) {
@@ -13,6 +14,9 @@ export default function GroupDetailView({ group, user, goBack }) {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  // Errors from an action the student took (delete), separate from `error`
+  // which is the load failure and replaces the whole tab with a panel.
+  const [actionError, setActionError] = useState('');
 
   const load = async () => {
     setLoading(true);
@@ -63,6 +67,8 @@ export default function GroupDetailView({ group, user, goBack }) {
         <button className={`vmx-nav-btn ${tab === 'members' ? 'active' : ''}`} onClick={() => setTab('members')}>👤 Members ({members.length})</button>
       </div>
 
+      {actionError && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 13 }}>⚠️ {actionError}</div>}
+
       {loading && <StatePanel kind="loading" title="กำลังโหลดข้อมูลกลุ่ม…" />}
       {!loading && error && <StatePanel kind="error" title="โหลดข้อมูลกลุ่มไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />}
 
@@ -112,7 +118,14 @@ export default function GroupDetailView({ group, user, goBack }) {
                   <span>by {q.author_name || 'Anon'}, {SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}</span>
                   {q.author_id === user.id && (
                     <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
-                      if (await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' })) { await deleteSharedQuestion(q.id); load(); }
+                      if (!(await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
+                      // deleteSharedQuestion throws on any PostgREST or network
+                      // error. Unhandled, the row just stayed in the list with
+                      // nothing said — the student could not tell a failed
+                      // delete from one that had not happened yet.
+                      setActionError('');
+                      try { await deleteSharedQuestion(q.id); await load(); }
+                      catch (e) { setActionError(thaiError(e, 'ลบไม่สำเร็จ ลองใหม่อีกครั้ง')); }
                     }}>🗑</button>
                   )}
                 </div>
