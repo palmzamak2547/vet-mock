@@ -377,7 +377,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         task = pdfjs.getDocument({ url, rangeChunkSize: 65536 });
       } else {
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) {
+          // The worker answers an offline request for a document that was
+          // never opened on this device with a 503 whose body says so. Turning
+          // that into "HTTP 503" made the catch below tell an offline student
+          // to press retry, which cannot succeed until they are back online.
+          const body = await res.clone().json().catch(() => ({}));
+          if (res.status === 503 && (body.error === 'offline_not_cached' || body.error === 'Offline')) {
+            throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
+          }
+          throw new Error(`HTTP ${res.status}`);
+        }
         // Read the body as a stream so the wait can be counted out loud.
         // Exactly one document in the shelf of 1,383 is linearized, so this
         // branch IS the reader: everyone waits for the whole file before page

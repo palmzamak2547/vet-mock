@@ -606,6 +606,19 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
         const data = await r.json().catch(() => null);
         if (ctrl.signal.aborted) return;
         if (!r.ok) {
+          // The catch below only fires when fetch REJECTS. Our own service
+          // worker answers an offline /api/* request with a synthetic 503
+          // {"error":"Offline"} instead, so an offline student landed here and
+          // was told YouTube could not be reached — the wrong thing to go and
+          // check. Same detection library.js uses for the document shelf.
+          const swSaysOffline = r.status === 503 && data?.error === 'Offline';
+          const browserSaysOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
+          if (swSaysOffline || browserSaysOffline) {
+            setListReason('offline');
+            setListError('เชื่อมต่อไม่ได้ — ตรวจอินเทอร์เน็ตแล้วกดลองใหม่');
+            setLoadingList(false);
+            return;
+          }
           setListReason(data?.reason || (r.status === 429 ? 'rate_limited' : 'upstream_unreachable'));
           setListError(r.status === 429
             ? 'กำลังโหลดหลายรายการพร้อมกัน รอสักครู่แล้วกดลองใหม่'
