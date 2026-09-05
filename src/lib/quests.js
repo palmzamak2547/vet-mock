@@ -241,6 +241,18 @@ function readState(date, year) {
       }
     }
   } catch {}
+  // Nothing stored for `date` yet. Only the panel knows which year the
+  // student is in; the event recorders (recordQuestEvent, claim*) do not.
+  // A set generated without a year skips templateFitsYear, gets PERSISTED,
+  // and is then what getTodaysQuests(year) hands back for the rest of the
+  // day -- so a set that started at 23:50 and finished at 00:05 gave a
+  // year-2 student "COM V" missions nobody in that year can earn. Without
+  // a year there is no set to record against: return an empty state that
+  // is neither persisted nor cached, and let the next getTodaysQuests(year)
+  // generate the real one.
+  if (!Number.isFinite(year)) {
+    return { date, quests: [], bonusClaimed: false };
+  }
   // Generate fresh
   const templates = pickDailyTemplates(date, year);
   const fresh = {
