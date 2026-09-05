@@ -157,7 +157,11 @@ export async function fetchMySubmissions(limit = 50) {
     .eq('contributor_id', user.id)
     .order('created_at', { ascending: false })
     .limit(limit);
-  if (error) return [];
+  // Same rule as fetchMyReputation above: a failed read is not an empty
+  // list. Returning [] here told a contributor with fifteen submissions in
+  // review that they had never sent anything, and the caller's catch block
+  // could never run because nothing was ever thrown.
+  if (error) throw error;
   return data || [];
 }
 
@@ -172,31 +176,36 @@ export async function fetchReviewQueue({ founderOnly = false, limit = 50 } = {})
     .limit(limit);
   q = founderOnly ? q.eq('status', 'palm_review') : q.in('status', ['in_peer_review', 'palm_review']);
   const { data, error } = await q;
-  if (error) return [];
+  // ReviewQueueView wraps this in try/catch and owns a queueError state with
+  // a Thai message; swallowing the error here meant that path was dead code
+  // and a reviewer whose request failed saw "nothing pending" instead.
+  if (error) throw error;
   return data || [];
 }
 
 export async function fetchSubmissionReviews(submissionId) {
   const supabase = await getSupabase();
   if (!supabase) return [];
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('submission_reviews')
     .select('id, reviewer_id, verdict, feedback, is_palm_review, created_at')
     .eq('submission_id', submissionId)
     .order('created_at', { ascending: true });
+  if (error) throw error;
   return data || [];
 }
 
 export async function fetchLeaderboard(limit = 20) {
   const supabase = await getSupabase();
   if (!supabase) return [];
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('contributor_reputation')
     .select('user_id, display_name, score, role, submissions_total, approved_count, reviews_done')
     .neq('role', 'banned')
     .order('score', { ascending: false })
     .order('approved_count', { ascending: false })
     .limit(limit);
+  if (error) throw error;
   return data || [];
 }
 

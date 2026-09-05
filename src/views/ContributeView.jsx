@@ -13,6 +13,7 @@
 // ============================================================
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import BackBar from '../components/BackBar.jsx';
+import StatePanel from '../components/StatePanel.jsx';
 import { thaiError } from '../lib/errors.js';
 import {
   CONTRIBUTION_SOURCE_TYPES,
@@ -118,19 +119,27 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
   const [mySubs, setMySubs] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
   const [loadingSubs, setLoadingSubs] = useState(true);
+  const [loadError, setLoadError] = useState('');
 
   const toastTimerRef = useRef(null);
   useEffect(() => () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current); }, []);
 
   const refreshAll = useCallback(async () => {
     setLoadingSubs(true);
+    setLoadError('');
     try {
       await ensureContributorRow();
       const [r, s] = await Promise.all([fetchMyReputation(), fetchMySubmissions(20)]);
       setRep(r);
       setMySubs(s || []);
     } catch (e) {
+      // A failed lookup used to fall through to the same screen as a brand-new
+      // contributor: score 0, approved 0, "ยังไม่มีคำถามที่ส่ง". Someone with
+      // fifteen questions in review read that as their record being wiped,
+      // and nothing offered a retry. Keep what we already had on screen and
+      // say that the refresh failed instead.
       console.warn('[contribute] refresh failed', e);
+      setLoadError(thaiError(e, 'โหลดข้อมูลการส่งคำถามไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally {
       setLoadingSubs(false);
     }
@@ -235,11 +244,11 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           <span style={{ fontWeight: 600, color: roleMeta.color }}>{roleMeta.label}</span>
           <span style={{ width: 1, height: 16, background: 'var(--clr-border)' }} />
           <span style={{ fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-            score <strong style={{ color: 'var(--clr-ink)' }}>{rep?.score ?? 0}</strong>
+            score <strong style={{ color: 'var(--clr-ink)' }}>{loadError && !rep ? '—' : (rep?.score ?? 0)}</strong>
           </span>
           <span style={{ width: 1, height: 16, background: 'var(--clr-border)' }} />
           <span style={{ fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-            approved <strong style={{ color: 'var(--clr-ink)' }}>{rep?.approved_count ?? 0}</strong>
+            approved <strong style={{ color: 'var(--clr-ink)' }}>{loadError && !rep ? '—' : (rep?.approved_count ?? 0)}</strong>
           </span>
         </div>
       </div>
@@ -618,8 +627,20 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
         <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
           {mySubs.length > 0
             ? `${mySubs.length} รายการ, แตะเพื่อดูรายละเอียด`
-            : loadingSubs ? 'กำลังโหลด...' : 'ยังไม่มีคำถามที่ส่ง — เริ่มส่งข้อแรกได้เลย ⬆️'}
+            : loadingSubs ? 'กำลังโหลด...'
+            : loadError ? 'ยังโหลดรายการไม่ได้'
+            : 'ยังไม่มีคำถามที่ส่ง — เริ่มส่งข้อแรกได้เลย ⬆️'}
         </p>
+
+        {loadError && !loadingSubs && (
+          <StatePanel
+            kind="error"
+            title="โหลดคำถามที่ส่งไม่สำเร็จ"
+            body={loadError}
+            actionLabel="ลองอีกครั้ง"
+            onAction={refreshAll}
+          />
+        )}
 
         {mySubs.length > 0 && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
