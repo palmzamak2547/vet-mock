@@ -19,9 +19,12 @@ import { readFileSync } from 'node:fs';
 const APP = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
 const EXAM = readFileSync(new URL('../../src/views/ExamView.jsx', import.meta.url), 'utf8');
 
+// The record is assembled into inflightRef and written by writeInflight
+// (on a debounce, a 3 s ceiling, and on pagehide/visibilitychange), so the
+// fields live where the snapshot is BUILT, not where setItem is called.
 const autosave = APP.slice(
-  APP.indexOf("setItem('vmx-inflight-exam'"),
-  APP.indexOf('savedAt: Date.now()'),
+  APP.indexOf('inflightRef.current = {'),
+  APP.indexOf('inflightWrittenAtRef.current >= 3000'),
 );
 const resume = APP.slice(
   APP.indexOf('const resumePendingExam'),

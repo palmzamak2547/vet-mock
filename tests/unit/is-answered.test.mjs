@@ -49,3 +49,14 @@ test('the submit dialog and its warning are counted the same way', () => {
   assert.ok(dialog.includes('isAnswered(answers[q.id])'), 'the submit dialog counts with a different rule');
   assert.ok(dialog.includes('questions.length - answered'), 'remaining is no longer derived from answered');
 });
+
+test('a cleared fill-in-the-blank is not an answer either', () => {
+  // Fill stores one string per blank; typing into a blank and deleting it
+  // leaves [''] behind. Arrays are objects, so the pair-map rule above
+  // counted that as answered — the one shape this function did not cover.
+  assert.equal(isAnswered(['']), false, 'an emptied blank counted as answered');
+  assert.equal(isAnswered(['', '']), false, 'two emptied blanks counted as answered');
+  assert.equal(isAnswered(['   ']), false, 'whitespace in a blank counted as answered');
+  assert.equal(isAnswered(['gauze']), true);
+  assert.equal(isAnswered(['', 'padding']), true, 'one filled blank is an answer in progress');
+});

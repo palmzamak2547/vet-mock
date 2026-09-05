@@ -123,6 +123,11 @@ export const isWritingType = (q) => q?.type === 'essay' || q?.type === 'short';
 export const isAnswered = (ua) => {
   if (ua === undefined || ua === null) return false;
   if (typeof ua === 'string') return ua.trim().length > 0;
+  // Fill-in-the-blank stores one string per blank. A blank that was typed
+  // into and then deleted is [''] — an array with a key, so the object rule
+  // below counted it as answered and the submit dialog stopped warning
+  // about it in the one shape it was written to catch.
+  if (Array.isArray(ua)) return ua.some((v) => (typeof v === 'string' ? v.trim().length > 0 : v != null));
   // Match questions store a pair map; an empty one is a cleared question.
   if (typeof ua === 'object') return Object.keys(ua).length > 0;
   return true; // numbers (MCQ index, including 0) and booleans (true/false)

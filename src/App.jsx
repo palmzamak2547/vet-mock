@@ -352,8 +352,12 @@ function buildExamPool({
       && (q.year == null || !selectedYear || q.year === selectedYear));
   } else if (practiceMode === 'wrong') {
     const wrongSet = new Set();
+    const wrongCount = new Map();
     for (const item of history) {
-      if (item?.correct === false) wrongSet.add(`${item.subject || ''}:${item.questionId}`);
+      if (item?.correct !== false) continue;
+      const key = `${item.subject || ''}:${item.questionId}`;
+      wrongSet.add(key);
+      wrongCount.set(key, (wrongCount.get(key) || 0) + 1);
     }
     // Year-scoped, like 'weak' directly above. The home chip counts this
     // year's wrong answers, so serving every year's meant the button said
@@ -361,6 +365,11 @@ function buildExamPool({
     // 'weak' branch was fixed for, left behind here.
     pool = deliverableQuestions.filter((q) => wrongSet.has(`${q.subject}:${q.id}`)
       && (q.year == null || !selectedYear || q.year === selectedYear));
+    // Most-missed first. ConfigView and the Home chip both promise
+    // "เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)"; a Set-membership filter kept bank
+    // order and startExam then shuffled it, so the promise was never kept.
+    pool.sort((a, b) => (wrongCount.get(`${b.subject}:${b.id}`) || 0)
+      - (wrongCount.get(`${a.subject}:${a.id}`) || 0));
   } else {
     pool = subject === 'all'
       ? deliverableQuestions.filter((q) => !selectedYear || yearForSubject(q.subject) === selectedYear)
@@ -954,6 +963,9 @@ export default function App() {
   // that are 1 click away from home.
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    // A visitor who asked their browser to save data gets nothing they did
+    // not tap for. The chunks still load on demand, one tap later.
+    if (navigator.connection?.saveData) return;
     const ric = window.requestIdleCallback || ((cb) => setTimeout(cb, 1500));
     const cic = window.cancelIdleCallback || clearTimeout;
     const id = ric(() => {
@@ -1189,12 +1201,28 @@ export default function App() {
   // updating per keystroke) doesn't cause a localStorage write
   // every 30ms — that throttles down to ≤2/sec, which is plenty
   // safe for crash recovery and far easier on slow phones.
+  // One writer, three triggers. The old effect was a resetting debounce with
+  // no flush: every change cancelled the pending write and armed a fresh
+  // 500 ms timer, so a student typing an essay steadily never wrote at all,
+  // and when the tab was backgrounded or closed the pending timer was simply
+  // discarded — while ExamView promised "คำตอบยังถูกเก็บไว้ผ่าน auto-save".
+  // The notes draft in this same file already commits on pagehide and
+  // visibilitychange; the exam now does too, and a 3-second ceiling turns the
+  // debounce into the throttle its comment always claimed it was.
+  const inflightRef = useRef(null);
+  const inflightWrittenAtRef = useRef(0);
+  const writeInflight = useCallback(() => {
+    const snap = inflightRef.current;
+    if (!snap) return;
+    try {
+      window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({ ...snap, savedAt: Date.now() }));
+      inflightWrittenAtRef.current = Date.now();
+    } catch {}
+  }, []);
   useEffect(() => {
-    if (view !== 'exam' || questions.length === 0) return;
-    const timer = setTimeout(() => {
-      try {
-        window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({
-          questions, answers, currentIdx,
+    if (view !== 'exam' || questions.length === 0) { inflightRef.current = null; return undefined; }
+    inflightRef.current = {
+      questions, answers, currentIdx,
           // The settings that decide how this set is GRADED and SHOWN, not
           // just what is in it. Without them a resumed mock came back as
           // whatever mode happened to be after a reload — `mode` resets to
@@ -1203,13 +1231,21 @@ export default function App() {
           // to find the answers already showing and the options they had
           // answered locked. The timer settings went the same way, so a
           // timed mock came back untimed.
-          mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase,
-          savedAt: Date.now(),
-        }));
-      } catch {}
-    }, 500);
+      mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase,
+    };
+    if (Date.now() - inflightWrittenAtRef.current >= 3000) { writeInflight(); return undefined; }
+    const timer = setTimeout(writeInflight, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase]);
+  }, [view, questions, answers, currentIdx, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, writeInflight]);
+  useEffect(() => {
+    const onHide = () => writeInflight();
+    window.addEventListener('pagehide', onHide);
+    document.addEventListener('visibilitychange', onHide);
+    return () => {
+      window.removeEventListener('pagehide', onHide);
+      document.removeEventListener('visibilitychange', onHide);
+    };
+  }, [writeInflight]);
 
   // Detect a previous in-flight exam at boot and surface as a non-modal
   // banner on HomeView (replaces the old window.confirm prompt — that
@@ -1485,10 +1521,21 @@ export default function App() {
     // Use compound (subject:id) lookup to avoid stat leakage. Pre-build a
     // map once per pass instead of O(n) Array.find per history entry.
     const qByCompound = new Map();
-    for (const q of allQuestions) qByCompound.set(q.subject + ':' + q.id, q);
+    // Same pass, second index: bare id -> FIRST question carrying it, which is
+    // exactly what the old `allQuestions.find` returned. The find ran once per
+    // history row that misses the compound key — every row a student earned
+    // while the app served them another year's bank — and each miss scanned
+    // the whole loaded bank. Measured: 2,000 out-of-scope rows cost 52 ms on
+    // desktop V8 at the moment the app becomes usable, for lookups that all
+    // came back undefined.
+    const qById = new Map();
+    for (const q of allQuestions) {
+      qByCompound.set(q.subject + ':' + q.id, q);
+      if (!qById.has(q.id)) qById.set(q.id, q);
+    }
     history.forEach((h) => {
       const q = qByCompound.get((h.subject || '') + ':' + h.questionId)
-        || allQuestions.find((x) => x.id === h.questionId); // fallback for legacy history without subject
+        || qById.get(h.questionId); // fallback for legacy history without subject
       if (!q) return;
       totalScored++;
       if (!bySubject[q.subject]) bySubject[q.subject] = { correct: 0, total: 0 };
@@ -1553,6 +1600,7 @@ export default function App() {
     const _numQuestions = 'numQuestions' in overrides ? overrides.numQuestions : numQuestions;
     const _useTimer = 'useTimer' in overrides ? overrides.useTimer : useTimer;
     const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
+    const _mode = 'mode' in overrides ? overrides.mode : mode;
 
     // Palm bug 2026-05-20: practiceMode='wrong'/'weak'/'bookmarks' gets
     // sticky from HomeView shortcuts ("ทบทวนข้อที่ตอบผิด" etc.) and
@@ -1665,8 +1713,21 @@ export default function App() {
     // ConfigView run from touching the student's own setting.
     if ('useTimer' in overrides) setUseTimer(_useTimer);
     if ('timePerQ' in overrides) setTimePerQ(_timePerQ);
+    // Same for mode. VetWiki's "ฝึกจากหัวข้อนี้" asks for a quick practice,
+    // and this function read every other override key but never this one —
+    // so after a visit to โหมดสอบ (which sets mode to 'exam' and stays set
+    // until something resets it) the practice ran as a graded 50-question
+    // exam with no instant feedback and a pass/fail verdict.
+    if ('mode' in overrides) setMode(_mode);
 
-    let picked = shuffle(pool).slice(0, Math.min(qCount, pool.length));
+    // A curated set keeps its order. 'weak' is built most-missed-first and
+    // 'wrong' is sorted the same way below, and both screens that offer them
+    // say so ("เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)"). Shuffling here threw that
+    // order away, so a student who stopped after ten questions had drilled
+    // ten random ones from everything they had ever missed, not their ten
+    // weakest. Ordinary practice still shuffles.
+    const ordered = USER_CURATED_MODES.has(_practiceMode);
+    let picked = (ordered ? pool : shuffle(pool)).slice(0, Math.min(qCount, pool.length));
     // Mock-tagged questions (examOrigin set) belong to a structured
     // exam — passage Q1 must come before Q2, etc. Re-sort by ID
     // after the random pick so passage flow is preserved while still

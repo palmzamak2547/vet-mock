@@ -58,7 +58,12 @@ export function getShuffledOptions(q) {
   }
   // Detect "All/None of the above" by text — keep those pinned to the
   // bottom even when shuffling the rest.
-  const TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ)/i;
+  // ไม่มีข้อใดถูก is the corpus's own "none of the above" (23 questions, the
+  // author put it last in every one) and it starts with ไม่มี, which none of
+  // the earlier alternatives matched — so it shuffled into the middle and
+  // read as a broken question. ไม่มีข้อกำหนด ("no requirement") is a real
+  // option and must keep shuffling, hence the ถูก|ผิด tail.
+  const TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ|ไม่มีข้อ(?:ใด|ไหน)?(?:ถูก|ผิด))/i;
   const tailIndices = [];
   const headIndices = [];
   for (let i = 0; i < options.length; i++) {

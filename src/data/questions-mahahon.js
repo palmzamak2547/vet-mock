@@ -725,13 +725,13 @@ export const QB_MAHAHON = [
     tags: ['turtle', 'sexing', 'sexual-dimorphism'], type: 'mcq',
     q: 'การแยกเพศเต่าญี่ปุ่น (Mauremys/aquatic turtle) ดูจากอะไร',
     options: [
-      'ไม่มีข้อใดถูก',
       'ตัวผู้: เล็บยาว หางยาว',
       'ตัวเมีย: เล็บยาว หางยาว',
       'ตัวผู้: หางยาว กระดองเว้า',
       'ตัวเมีย: เล็บสั้น หางยาว',
+      'ไม่มีข้อใดถูก',
     ],
-    answer: 1,
+    answer: 0,
     explain: 'Aquatic turtle ♂: long forelimb claws (courtship — กระดิก dance ต่อหน้า ♀) + long tail (cloaca placement), ♀: short claws + short tail, concave plastron พบมากใน tortoise ไม่ใช่ pond turtle',
     verified: 'Blackboard p22 highlight' },
 
