@@ -127,12 +127,14 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
   // Re-load when another tab / component mutates the store
   useEffect(() => {
     const onChange = () => setDecks(loadDecks());
-    window.addEventListener(IMAGE_OCCLUSION_EVENT, onChange);
-    window.addEventListener('storage', (e) => {
+    const onStorage = (e) => {
       if (e.key === null || e.key === 'vmx-image-occlusion-decks') onChange();
-    });
+    };
+    window.addEventListener(IMAGE_OCCLUSION_EVENT, onChange);
+    window.addEventListener('storage', onStorage);
     return () => {
       window.removeEventListener(IMAGE_OCCLUSION_EVENT, onChange);
+      window.removeEventListener('storage', onStorage);
     };
   }, []);
 
