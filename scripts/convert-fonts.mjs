@@ -15,6 +15,10 @@
 // next page's rare glyph; the whole point of a study app is the long
 // tail of pathology terms.
 //
+// vercel.json serves /fonts/* as `max-age=31536000, immutable`, so a
+// changed weight MUST ship under a new filename — regenerating the same
+// name leaves every returning browser on the old bytes for a year.
+//
 // Run after adding a weight to @font-face:
 //   node scripts/convert-fonts.mjs
 // Regenerating overwrites public/fonts/ — the outputs are committed

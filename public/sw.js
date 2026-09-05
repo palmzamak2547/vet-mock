@@ -21,6 +21,12 @@
 const SW_VERSION = 'v142-2026-09-04';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
+// Hashed chunks are immutable, so the assets cache is deliberately kept
+// across worker versions — but every deploy mints new hashes and nothing
+// ever removed the old ones, so a phone that has followed a semester of
+// deploys carried hundreds of dead chunks. FIFO-capped like the library
+// cache: 300 entries is several complete builds, not a hoard.
+const ASSETS_MAX_ENTRIES = 300;
 // Library documents, cached by CONTENT HASH (the `h` query param), not by
 // URL — the signed token in the URL rotates every mint window, but the same
 // bytes keep the same hash forever. Unversioned on purpose: a worker update
@@ -68,7 +74,19 @@ function cacheFirst(request, cacheName) {
     cache.match(request).then((hit) => {
       if (hit) return hit;
       return fetch(request).then((res) => {
-        if (res && res.ok && res.type === 'basic') cache.put(request, res.clone());
+        if (res && res.ok && res.type === 'basic') {
+          const clone = res.clone();
+          // Evict + store off the response path, oldest first —
+          // cache.keys() preserves insertion order.
+          cache.keys().then(async (keys) => {
+            if (cacheName === ASSETS) {
+              for (let i = 0; i <= keys.length - ASSETS_MAX_ENTRIES; i++) {
+                await cache.delete(keys[i]).catch(() => {});
+              }
+            }
+            await cache.put(request, clone);
+          }).catch(() => {});
+        }
         return res;
       });
     })
