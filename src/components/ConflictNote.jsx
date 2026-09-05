@@ -21,10 +21,10 @@ export default function ConflictNote({ item }) {
   const strong = item.severity === 'contradicts';
   return (
     <div style={{ marginTop: 12, padding: '11px 13px', borderRadius: 10, background: 'var(--clr-surface-2)', borderLeft: `3px solid ${strong ? 'var(--clr-rose)' : 'var(--clr-gold)'}` }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: strong ? 'var(--clr-rose-text)' : 'var(--clr-gold-text)', marginBottom: 6 }}>
+      <div style={{ fontSize: 11.5, fontWeight: 700, color: strong ? 'var(--clr-rose-text)' : 'var(--clr-gold-text)', marginBottom: 6 }}>
         {strong ? 'หลักฐานขัดกับที่บรรยาย' : 'ที่บรรยายกว้างกว่าที่หลักฐานรองรับ'}
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 5, fontSize: 13, lineHeight: 1.6 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5, fontSize: 14, lineHeight: 1.65 }}>
         <div><span style={{ color: 'var(--clr-ink-soft)' }}>ที่บรรยายสอน: </span><RichText text={item.lectureSays} /></div>
         <div><span style={{ color: 'var(--clr-ink-soft)' }}>ที่แหล่งอ้างอิงพบ: </span><RichText text={item.evidenceSays} /></div>
         {item.examAdvice && (

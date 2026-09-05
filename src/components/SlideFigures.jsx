@@ -47,7 +47,7 @@ export default function SlideFigures({ sectionId, source = '' }) {
           {/* The file is already served as a plain image, so saving it costs
               nothing extra to host — this only spares the reader a
               right-click. */}
-          <figcaption style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
+          <figcaption style={{ marginTop: 4, fontSize: 11.5, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
             <a href={src} download style={{ color: 'inherit' }}>⬇ บันทึกภาพ</a>
           </figcaption>
         </figure>

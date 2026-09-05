@@ -58,12 +58,12 @@ function StatusBadge({ label }) {
 
 // ---- note-body renderer (bullets | sub | table | callout | string) ----
 function NoteBody({ item }) {
-  if (typeof item === 'string') return <p style={{ margin: '0 0 10px' }}><RichText text={item} /></p>;
+  if (typeof item === 'string') return <p style={{ margin: '0 0 12px', lineHeight: 1.75 }}><RichText text={item} /></p>;
   if (item?.bullets) {
     return (
-      <ul style={{ margin: '0 0 10px', paddingLeft: 20 }}>
+      <ul style={{ margin: '0 0 12px', paddingLeft: 20, lineHeight: 1.7 }}>
         {item.bullets.map((b, i) => (
-          <li key={i} style={{ marginBottom: 4 }}>
+          <li key={i} style={{ marginBottom: 7 }}>
             <RichText text={typeof b === 'string' ? b : `${b.label}: ${b.value}`} />
           </li>
         ))}
@@ -82,20 +82,20 @@ function NoteBody({ item }) {
     const { headers = [], rows = [] } = item.table;
     return (
       <div style={{ overflowX: 'auto', margin: '0 0 12px' }}>
-        <table style={{ borderCollapse: 'collapse', width: '100%', fontSize: 13.5 }}>
+        <table style={{ borderCollapse: 'collapse', width: '100%', fontSize: 14, lineHeight: 1.5 }}>
           <thead><tr>{headers.map((h, i) => (
-            <th key={i} style={{ textAlign: 'left', padding: '7px 10px', borderBottom: '2px solid var(--clr-border)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}><RichText text={h} /></th>
+            <th key={i} style={{ textAlign: 'left', padding: '9px 12px', borderBottom: '2px solid var(--clr-border)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}><RichText text={h} /></th>
           ))}</tr></thead>
           <tbody>{rows.map((r, i) => (
             <tr key={i}>{r.map((c, j) => (
-              <td key={j} style={{ padding: '7px 10px', borderBottom: '1px solid var(--clr-border)', verticalAlign: 'top' }}><RichText text={c} /></td>
+              <td key={j} style={{ padding: '9px 12px', borderBottom: '1px solid var(--clr-border)', verticalAlign: 'top' }}><RichText text={c} /></td>
             ))}</tr>
           ))}</tbody>
         </table>
       </div>
     );
   }
-  if (item?.callout) return <p style={{ margin: '0 0 10px', padding: 10, borderRadius: 10, background: 'var(--clr-surface-2)' }}><RichText text={item.callout} /></p>;
+  if (item?.callout) return <p style={{ margin: '0 0 12px', padding: '12px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', lineHeight: 1.7 }}><RichText text={item.callout} /></p>;
   return null;
 }
 
@@ -106,18 +106,18 @@ function NoteBody({ item }) {
 function VerifiedClaim({ claim }) {
   const ev = EVIDENCE_LABEL[claim.evidenceStatus];
   return (
-    <div style={{ marginTop: 12, padding: '11px 13px', borderRadius: 10, background: 'var(--clr-surface-2)', borderLeft: '3px solid var(--clr-sage)' }}>
+    <div style={{ marginTop: 12, padding: '12px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', borderLeft: '3px solid var(--clr-sage)' }}>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', marginBottom: 5 }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--clr-sage-text)' }}>✓ ตรวจทานกับแหล่งอ้างอิง</span>
+        <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--clr-sage-text)' }}>✓ ตรวจทานกับแหล่งอ้างอิง</span>
         {ev && <StatusBadge label={ev} />}
       </div>
-      <div style={{ fontSize: 13.5, lineHeight: 1.6, color: 'var(--clr-ink)' }}><RichText text={claim.statement} /></div>
+      <div style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--clr-ink)' }}><RichText text={claim.statement} /></div>
       <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 3 }}>
         {(claim.sourceRefs || []).map((ref, i) => {
           const src = resolveSource(ref);
           if (!src) return null;
           return (
-            <div key={i} style={{ fontSize: 11.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
+            <div key={i} style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.55 }}>
               {src.url
                 ? <a href={src.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean-text)' }}>{src.citation}</a>
                 : <span>{src.citation}</span>}
@@ -127,7 +127,7 @@ function VerifiedClaim({ claim }) {
         })}
       </div>
       {Array.isArray(claim.limitations) && claim.limitations.length > 0 && (
-        <ul style={{ margin: '6px 0 0', paddingLeft: 18, fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>
+        <ul style={{ margin: '6px 0 0', paddingLeft: 18, fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.55 }}>
           {claim.limitations.map((l, i) => <li key={i}>{l}</li>)}
         </ul>
       )}
@@ -178,7 +178,7 @@ function ProvenancePanel({ prov, onClose }) {
             </div>
           </>
         )}
-        <p style={{ fontSize: 11.5, lineHeight: 1.5, color: 'var(--clr-ink-soft)', marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' }}>
+        <p style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--clr-ink-soft)', marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' }}>
           {prov.draftSectionCount > 0
             ? 'เนื้อหาที่รอตรวจทานมาจากโน้ตเลกเชอร์ ยังไม่ได้เทียบกับตำราต้นฉบับ — ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก'
             : 'ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก — ทุกจุดความรู้บอกแหล่งอ้างอิงที่ตามไปอ่านได้'}
@@ -311,11 +311,11 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                           </span>
                         )}
                       </span>
-                      {t.summary && <span style={{ display: 'block', fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5, marginTop: 2, overflowWrap: 'anywhere' }}>{t.summary}</span>}
+                      {t.summary && <span style={{ display: 'block', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.55, marginTop: 2, overflowWrap: 'anywhere' }}>{t.summary}</span>}
                       {/* Which sections matched — a hit is only useful if you
                           can see where in the article it landed. */}
                       {query && (matchById.get(t.id) || []).length > 0 && (
-                        <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-sage-text)', marginTop: 4, lineHeight: 1.5 }}>
+                        <span style={{ display: 'block', fontSize: 12, color: 'var(--clr-sage-text)', marginTop: 4, lineHeight: 1.5 }}>
                           พบใน: {(matchById.get(t.id) || []).slice(0, 3).map((s) => s.heading).join(', ')}
                           {(matchById.get(t.id) || []).length > 3 ? ` และอีก ${(matchById.get(t.id) || []).length - 3} หัวข้อ` : ''}
                         </span>
@@ -377,7 +377,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
   );
 
   return (
-    <div className="vmx-view" style={{ maxWidth: 780, margin: '0 auto' }}>
+    <div className="vmx-view" style={{ maxWidth: 680, margin: '0 auto' }}>
       {/* Breadcrumb */}
       <nav aria-label="breadcrumb" style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', fontSize: 12.5, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
         <button type="button" onClick={onBackToIndex} style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ocean-text)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>VetWiki</button>
@@ -391,7 +391,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       <h1 style={{ fontFamily: 'Fraunces, serif', fontSize: 28, margin: '0 0 8px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{knowledge.title}</h1>
 
       {/* Metadata line */}
-      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 14 }}>
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', fontSize: 12.5, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 14 }}>
         {knowledge.lecturer && <span>บรรยาย: {knowledge.lecturer}</span>}
         <span>{knowledge.sections.length} หัวข้อย่อย</span>
         {prov?.verifiedClaimCount > 0 && <span style={{ color: 'var(--clr-sage-text)' }}>ตรวจทานแล้ว {prov.verifiedClaimCount} จุด</span>}
@@ -408,7 +408,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       </div>
 
       {knowledge.summary && (
-        <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--clr-ink)', margin: '0 0 16px', paddingLeft: 14, borderLeft: '3px solid var(--clr-border)' }}>
+        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--clr-ink)', margin: '0 0 18px', paddingLeft: 14, borderLeft: '3px solid var(--clr-border)' }}>
           {knowledge.summary}
         </p>
       )}
@@ -442,7 +442,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
               <li key={s.id}>
                 <a href={`#${s.id}`}
                   onClick={(e) => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }}
-                  style={{ fontSize: 13.5, color: 'var(--clr-ocean-text)', lineHeight: 1.6 }}>
+                  style={{ fontSize: 14, color: 'var(--clr-ocean-text)', lineHeight: 1.6 }}>
                   {s.heading}
                 </a>
                 {(s.claims || []).some((c) => c.reviewStatus === 'verified') && (
@@ -458,7 +458,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       )}
 
       {/* Sections */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
         {knowledge.sections.map((s) => {
           const rev = REVIEW_LABEL[s.reviewStatus];
           const noteRef = (s.sourceRefs || [])[0];
@@ -478,7 +478,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
                   the neuroanatomy articles were describing structures the
                   extracted slides already show. */}
               <SlideFigures sectionId={s.id} source={noteRef?.locator || ''} />
-              {noteRef && <div style={{ marginTop: 4, fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>ที่มา: {noteRef.locator}</div>}
+              {noteRef && <div style={{ marginTop: 4, fontSize: 12.5, color: 'var(--clr-ink-soft)' }}>ที่มา: {noteRef.locator}</div>}
               {(s.corrections || []).map((c, i) => (
                 <React.Suspense key={i} fallback={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>
                   <ConflictNote item={c} />

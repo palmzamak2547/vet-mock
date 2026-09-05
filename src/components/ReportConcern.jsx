@@ -70,7 +70,7 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        style={{ all: 'unset', cursor: 'pointer', marginTop: 8, fontSize: 11.5, color: 'var(--clr-ink-soft)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}
+        style={{ all: 'unset', cursor: 'pointer', marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}
         title="แจ้งว่าหัวข้อนี้มีข้อมูลที่อาจไม่ถูกต้อง"
       >
         ⚑ พบข้อมูลที่อาจไม่ถูกต้อง?
@@ -100,7 +100,7 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
           ยกเลิก
         </button>
       </div>
-      <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
+      <div style={{ fontSize: 11.5, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
         ข้อกังวลจะถูกส่งให้ทีมตรวจทาน ไม่เปลี่ยนเนื้อหาทันที
       </div>
     </div>
