@@ -1,12 +1,12 @@
 # VetMock — Launch Readiness
 
-## Current source candidate — v5.78.0 (2026-09-05)
+## Current source candidate — v5.79.0 (2026-09-05)
 
-VCA intake and current verification scope are recorded in
-[`vca-import-2026-09-05.md`](./vca-import-2026-09-05.md). Current counts come from
+VCA archive coverage and recovery are recorded in
+[`vca-archive.md`](./vca-archive.md). Current question counts come from
 [`content-inventory.md`](./content-inventory.md). The last production baseline
-checked before this candidate was v5.77.0, SHA `d93f51c`, with successful Build
-`33956987124`, Smoke `33956987119`, and Production deployment `6279214432`.
+checked before this candidate was v5.78.0, SHA `fdff304`, with successful Build
+`33962635917`, Smoke `33962635916`, and Production deployment `6280280811`.
 
 The candidate must pass the full release gate and a live changed-capability
 flow before being described as the production release. Historical evidence

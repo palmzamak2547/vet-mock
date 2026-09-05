@@ -22,7 +22,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
-import { googleDriveSourceUrl, mergeLibrarySources } from '../lib/vca-library.js';
+import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc } from '../lib/vca-library.js';
 import {
   LIBRARY_KINDS,
   SEMESTERS,
@@ -156,13 +156,25 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
           </button>
         )}
       </div>
-      {doc.source_files?.length > 1 && (
+      {doc.source_files?.length > 0 && (
         <details style={{ fontSize: 12, lineHeight: 1.6 }}>
           <summary style={{ cursor: 'pointer', padding: '10px 0', minHeight: 44, boxSizing: 'border-box' }}>ไฟล์ที่เกี่ยวข้อง {doc.source_files.length} ไฟล์</summary>
           {doc.source_files.map((file) => {
             const href = googleDriveSourceUrl(file.url);
-            return href ? <a key={file.id} href={href} target="_blank" rel="noopener noreferrer"
-              style={{ display: 'block', padding: '10px 0', minHeight: 44, boxSizing: 'border-box', overflowWrap: 'anywhere' }}>{file.title}</a> : null;
+            return <div key={file.id} style={{ padding: '6px 0', overflowWrap: 'anywhere' }}>
+              <span>{file.title}</span>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {(file.backups || []).map((copy) => {
+                  const variant = vcaFileDoc(file, copy);
+                  return <button key={copy.slug} type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                    disabled={busy} {...intentProps(variant)} onClick={() => onOpen(variant)}>
+                    เปิด {copy.format.toUpperCase()} จากคลัง
+                  </button>;
+                })}
+                {href && <a href={href} target="_blank" rel="noopener noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44 }}>ที่มาใน Google Drive</a>}
+              </div>
+            </div>;
           })}
         </details>
       )}
@@ -484,6 +496,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
       {(subjectFilter === 'vca' || /vca/i.test(debouncedQuery)) && (
         <p style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', margin: '0 0 16px' }}>
           ชุดนี้รวมเอกสารและบันทึกข้อสอบย้อนหลัง เฉลยในต้นฉบับบางข้อยังต้องตรวจเทียบ
+          {' '}เปิดอ่านจากสำเนาที่เก็บไว้ในคลัง VetMock ได้ แม้ลิงก์ต้นทางจะใช้งานไม่ได้
           {' '}กำหนดการและเกณฑ์รอบปัจจุบันดูได้ที่{' '}
           <a href="https://eval.vetcouncil.or.th/students/news" target="_blank" rel="noopener noreferrer"
             style={{ display: 'inline-block', minHeight: 44, padding: '10px 0', boxSizing: 'border-box' }}>ประกาศศูนย์ประเมินฯ สัตวแพทยสภา</a>

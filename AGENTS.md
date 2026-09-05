@@ -22,7 +22,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
 - **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX (no TypeScript)
-- **Current source version**: v5.78.0 (2026-09-05); verify exact-SHA CI/deployment and live flow before describing production as current.
+- **Current source version**: v5.79.0 (2026-09-05); verify exact-SHA CI/deployment and live flow before describing production as current.
 - **Hosting**: Vercel (auto-deploy on push to `main`)
 - **Production**: https://vetmock.vercel.app
 - **Audience**: ~50-100 vet students at Chulalongkorn (Vet 86 cohort) · Thai-language
@@ -96,7 +96,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 | Routing/state | `src/App.jsx` + `src/lib/view-route.js` (`view` state; readable stable `/app/*` routes) |
 | Views (lazy) | `src/views/*.jsx` |
 | Question banks / loader | `src/data/questions-*.js` + `bank-registry.generated.js` |
-| VCA source inventory | `src/data/vca-materials.js` + `src/lib/vca-library.js`; original files stay on Drive |
+| VCA source inventory | `src/data/vca-materials.js` + `src/lib/vca-library.js`; verified R2 copies and original Drive provenance; recovery in `docs/vca-archive.md` |
 | Notes / shared lazy loader | `src/data/notes-*.js` + `src/data/note-corpus.js` |
 | VetWiki | `src/lib/vetwiki/` + `wiki/` editorial/review layer |
 | JSON validation | `src/lib/user-data-schema.js` |

@@ -20,13 +20,13 @@
 
 import { useState } from 'react';
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
-import { googleDriveSourceUrl } from '../lib/vca-library.js';
+import { archivedSourceUrl, googleDriveSourceUrl } from '../lib/vca-library.js';
 
 export { isDisplayableWikiRef, getEligibleCitationForQuestion };
 
 export default function QSourceChip({ q, store }) {
   const [open, setOpen] = useState(false);
-  const sourceDocumentUrl = googleDriveSourceUrl(q?.sourceDocument?.url);
+  const sourceDocumentUrl = archivedSourceUrl(q?.sourceDocument) || googleDriveSourceUrl(q?.sourceDocument?.url);
 
   // Evaluate strict citation eligibility via getEligibleCitationForQuestion
   const eligibleCitation = getEligibleCitationForQuestion(q?.id, q?.subject);

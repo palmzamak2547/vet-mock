@@ -79,11 +79,12 @@ test('CDN URLs are only built from a configured base and a safe key', () => {
   assert.equal(cdnUrlFor(doc({ storage_key: '../secret.pdf' }), 'https://files.example.com'), null);
 });
 
-test('streaming is claimed only for linearized PDFs', () => {
+test('streaming is claimed for linearized PDFs or verified range-capable archives', () => {
   assert.equal(canStream(doc()), true);
   // Without a front-loaded hint table pdf.js would chase the cross-reference
   // table over dozens of ranges — slower than one sequential download.
   assert.equal(canStream(doc({ linearized: false })), false);
+  assert.equal(canStream(doc({ linearized: false, range_supported: true })), true);
   assert.equal(canStream(doc({ mime: 'application/zip' })), false);
   assert.equal(canStream(null), false);
 });

@@ -74,19 +74,23 @@ test.describe('Study library', () => {
     expect(pageErrors).toEqual([]);
   });
 
-  test('VCA sources remain searchable and open the original Drive file', async ({ page }) => {
+  test('VCA sources open owned copies when Google Drive is unavailable', async ({ page }) => {
     await stubVercelAnalytics(page);
-    await page.context().route('https://drive.google.com/**', (route) => route.fulfill({ body: '<p>Original document</p>', contentType: 'text/html' }));
+    await page.context().route(/https:\/\/(drive|docs)\.google\.com\//, (route) => route.abort());
+    await page.route('**/api/library-file?slug=*', (route) => route.fulfill({ json: { url: '/__archive-test.pdf' } }));
+    await page.context().route('**/__archive-test.pdf', (route) => route.fulfill({ body: '<p>Owned archive copy</p>', contentType: 'text/html' }));
     await page.goto('/app/library?q=VCA%20Pharmacology');
     const card = page.locator('.vmx-lib-card').filter({ has: page.getByRole('heading', { name: 'Pharmacology & Toxicology (VCA58-68)', exact: true }) });
     await expect(card).toBeVisible({ timeout: 15_000 });
-    await expect(card.getByRole('button', { name: 'เปิดใน Google Drive' })).toBeVisible();
+    await expect(card.getByRole('button', { name: 'เปิดอ่าน', exact: true })).toBeVisible();
     await card.getByText(/ไฟล์ที่เกี่ยวข้อง/).click();
-    await expect(card.getByRole('link', { name: 'Pharmacology & Toxicology (VCA58-68).docx', exact: true })).toHaveAttribute('href', 'https://docs.google.com/document/d/1UgefaMtbTexqQ1s-a2npPj2EMgcbQUpf/edit');
+    await expect(card.getByRole('button', { name: 'เปิด DOCX จากคลัง', exact: true })).toBeVisible();
+    await expect(card.getByRole('link', { name: 'ที่มาใน Google Drive' }).last()).toHaveAttribute('href', 'https://docs.google.com/document/d/1UgefaMtbTexqQ1s-a2npPj2EMgcbQUpf/edit');
     const popupPromise = page.waitForEvent('popup');
-    await card.getByRole('button', { name: 'เปิดใน Google Drive' }).click();
+    await card.getByRole('button', { name: 'เปิดไฟล์ต้นฉบับ' }).click();
     const popup = await popupPromise;
-    await expect(popup).toHaveURL('https://drive.google.com/file/d/16bBE7EWhFWDHZhuGQsJ9BT5HgHidheaP/view');
+    await expect(popup).toHaveURL(/\/__archive-test\.pdf$/);
+    await expect(popup.getByText('Owned archive copy')).toBeVisible();
     await popup.close();
   });
 

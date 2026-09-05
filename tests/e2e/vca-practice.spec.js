@@ -13,7 +13,7 @@ test('a shared VCA set loads the reviewed bank and grades the corrected egg calc
   await expect(page.getByText(/1,700 × 0\.95 = 1,615/)).toBeVisible();
   await page.getByRole('button', { name: /ที่มา:/ }).click();
   await expect(page.getByText(/หน้า 9/).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'เปิดเอกสารต้นฉบับ (อ้างหน้า 9)' })).toHaveAttribute('href', 'https://drive.google.com/file/d/1zcwLGGxCXE3SYkVpLYfRk3jmk6WLcqkB/view');
+  await expect(page.getByRole('link', { name: 'เปิดเอกสารต้นฉบับ (อ้างหน้า 9)' })).toHaveAttribute('href', '/api/library-file?source=1zcwLGGxCXE3SYkVpLYfRk3jmk6WLcqkB&open=1');
   const width = await page.evaluate(() => ({ viewport: document.documentElement.clientWidth, content: document.documentElement.scrollWidth }));
   expect(width.content).toBeLessThanOrEqual(width.viewport + 1);
 });

@@ -52,6 +52,8 @@ export default memo(function PdfPage({
   const taskRef = useRef(null);
   const [near, setNear] = useState(false);
   const [size, setSize] = useState(null); // { w, h } in CSS px at this scale
+  const [renderStatus, setRenderStatus] = useState('idle');
+  const [renderAttempt, setRenderAttempt] = useState(0);
 
   // ── near the viewport? ───────────────────────────────────────────────
   useEffect(() => {
@@ -103,10 +105,12 @@ export default memo(function PdfPage({
       // clearing the context leaves the backing store allocated.
       base.width = 0; base.height = 0;
       overlay.width = 0; overlay.height = 0;
+      setRenderStatus('idle');
       return undefined;
     }
 
     const dpr = inkDpr();
+    setRenderStatus('loading');
     (async () => {
       try {
         if (taskRef.current) { try { taskRef.current.cancel(); } catch { /* already done */ } taskRef.current = null; }
@@ -138,8 +142,10 @@ export default memo(function PdfPage({
           putCached?.(key, base);
         }
         redrawInk(overlay, strokes, dpr * scale);
+        if (!cancelled) setRenderStatus('ready');
       } catch (e) {
-        if (e?.name !== 'RenderingCancelledException') {
+        if (!cancelled && e?.name !== 'RenderingCancelledException') {
+          setRenderStatus('error');
           console.error('[pdf-page] render failed on page', pageNum, e);
         }
       }
@@ -151,7 +157,7 @@ export default memo(function PdfPage({
     // `strokes` is deliberately absent: repainting the ink does not need the
     // page rendered again, and the effect below does it on its own.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pdfDoc, pageNum, scale, near, size?.w, size?.h, cacheKeyPrefix]);
+  }, [pdfDoc, pageNum, scale, near, size?.w, size?.h, cacheKeyPrefix, renderAttempt]);
 
   // ── ink follows its strokes ──────────────────────────────────────────
   useEffect(() => {
@@ -174,6 +180,7 @@ export default memo(function PdfPage({
     <div
       ref={rowRef}
       data-page={pageNum}
+      data-render-state={renderStatus}
       className="vmx-pdf-page"
       style={{ position: 'relative', width: w, height: h, margin: '0 auto 14px', lineHeight: 0 }}
     >
@@ -194,6 +201,15 @@ export default memo(function PdfPage({
           WebkitTouchCallout: 'none', WebkitUserSelect: 'none', userSelect: 'none',
         }}
       />
+      {near && renderStatus !== 'ready' && (
+        <div style={{ position: 'absolute', inset: 0, display: 'grid', placeContent: 'center',
+          padding: 16, textAlign: 'center', lineHeight: 1.6, fontSize: 13, color: 'var(--clr-ink)', background: 'var(--clr-surface)' }}>
+          {renderStatus === 'error' ? <>
+            <p role="alert">โหลดหน้า {pageNum} ไม่สำเร็จ</p>
+            <button type="button" className="vmx-btn vmx-btn-ghost" onClick={() => setRenderAttempt((n) => n + 1)}>ลองโหลดหน้าอีกครั้ง</button>
+          </> : <span role="status">กำลังโหลดหน้า {pageNum}…</span>}
+        </div>
+      )}
       {/* The page number sits on the page itself, because in a scrolling
           column the one at the bottom of the screen is not the one the
           toolbar is talking about. */}

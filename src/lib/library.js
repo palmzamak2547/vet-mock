@@ -139,7 +139,7 @@ export function cdnUrlFor(doc, base = CDN_BASE) {
 // small ranges chasing a cross-reference table at the end of the file, which is
 // slower than one sequential download.
 export function canStream(doc) {
-  return !!(doc && doc.linearized && doc.mime === 'application/pdf');
+  return !!(doc && (doc.linearized || doc.range_supported) && doc.mime === 'application/pdf');
 }
 
 // One lookup for "what is this subject called and what icon does it wear",
@@ -207,6 +207,7 @@ export function indexDocs(docs) {
       doc.cohort, kindLabel(doc.kind), semesterLabel(doc.semester),
       doc.academic_year, buddhistYear(doc.academic_year),
       ...(Array.isArray(doc.topics) ? doc.topics : []),
+      ...(doc.source_files || []).map((file) => file.title),
     ].filter(Boolean).join(' ').toLowerCase(),
   }));
 }
@@ -621,6 +622,7 @@ export function readerPayload(doc) {
     sha256: doc.sha256_16,
     slug: doc.slug,
     linearized: doc.linearized,
+    rangeSupported: doc.range_supported,
     title: doc.title,
     subject: doc.subject,
   };

@@ -1,8 +1,12 @@
 # VetMock project knowledge base
 
-Current source candidate: **2026-09-05 · v5.78.0**
-Last production baseline checked before this candidate: `d93f51c` · v5.77.0.
+Current source candidate: **2026-09-05 · v5.79.0**
+Last production baseline checked before this candidate: `fdff304` · v5.78.0.
 Production: [vetmock.vercel.app](https://vetmock.vercel.app)
+
+VCA sources now have verified copies in owned storage. See
+[`vca-archive.md`](./vca-archive.md) for the independent recovery manifest,
+deduplication counts and restore command.
 
 This is the current-state map for maintainers and coding agents. Historical
 plans, changelogs, audits, and session logs explain how the system got here;

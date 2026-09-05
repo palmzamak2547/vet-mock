@@ -44,6 +44,7 @@ export function mintBlobToken(doc, { ttlSeconds = 300, expiresAtSec = null, env 
     k: doc.storage_key,
     m: doc.mime || 'application/octet-stream',
     n: doc.byte_size ?? null,
+    ...(doc.file_name ? { f: doc.file_name } : {}),
     // A fixed expiry makes the token — and therefore the URL — identical for
     // every mint inside a time window, which is what lets the browser's HTTP
     // cache serve a re-opened document instead of re-streaming it.

@@ -20,6 +20,21 @@
 import { presign, r2Config, cfConfig } from './_lib/r2.js';
 import { mintBlobToken } from './_lib/blob-token.js';
 
+const ARCHIVE_ORIGIN = 'https://vetmock-library-archive.palmzamak2547.workers.dev';
+let archiveIndex;
+async function archives() {
+  if (!archiveIndex) archiveIndex = import('../src/data/vca-materials.js').then(({ VCA_MATERIALS }) => {
+    const sources = new Map(); const slugs = new Map();
+    for (const file of VCA_MATERIALS.flatMap((material) => material.files).filter((file) => !file.archiveOnly)) {
+      const copies = file.backups || [];
+      sources.set(file.id, copies.find((copy) => copy.mime === 'application/pdf') || copies[0]);
+      for (const copy of copies) slugs.set(copy.slug, { ...copy, title: file.title });
+    }
+    return { sources, slugs };
+  });
+  return archiveIndex;
+}
+
 const TTL_SECONDS = 300;
 
 // Blob links are minted against a fixed WINDOW boundary instead of
@@ -46,7 +61,22 @@ export default async function handler(req, res) {
 
   const env = process.env;
   const url = new URL(req.url, 'http://localhost');
-  const slug = (url.searchParams.get('slug') || '').trim();
+  let slug = (url.searchParams.get('slug') || '').trim();
+  if (!slug && url.searchParams.has('source')) {
+    const source = url.searchParams.get('source');
+    if (!/^[\w-]{10,100}$/.test(source)) return send(res, 400, { error: 'bad_source' });
+    slug = (await archives()).sources.get(source)?.slug || '';
+    if (!slug) return send(res, 404, { error: 'not_found' });
+  }
+  const sendLink = (body, cacheSeconds = 0) => {
+    if (url.searchParams.get('open') === '1') {
+      res.statusCode = 302;
+      res.setHeader('Location', body.url);
+      res.setHeader('Cache-Control', 'no-store');
+      return res.end();
+    }
+    return send(res, 200, body, cacheSeconds);
+  };
   // Thai belongs in the character class: slugify deliberately keeps Thai
   // (ตารางเรียน, เฉลย…), and the first ASCII-only guard here answered 400
   // for every Thai-titled deck in the shelf — found by running the gate
@@ -104,6 +134,17 @@ export default async function handler(req, res) {
     return send(res, 400, { error: 'not_r2' });
   }
 
+  // Archive objects use a private R2 binding so large PDFs and videos can seek
+  // without the management API's full-download behavior or a Vercel proxy.
+  if (doc.storage_key.startsWith('archives/vca/')) {
+    const copy = (await archives()).slugs.get(slug);
+    if (copy) doc.file_name = copy.title.replace(/\.(pdf|docx|xlsx|mp4)$/i, '') + '.' + copy.format;
+    const expiresAtSec = (Math.floor(Date.now() / 1000 / WINDOW_SEC) + 1) * WINDOW_SEC + GRACE_SEC;
+    const token = mintBlobToken(doc, { expiresAtSec, env });
+    if (!token) return send(res, 503, { error: 'storage_not_configured' });
+    return sendLink({ url: `${ARCHIVE_ORIGIN}/?${new URLSearchParams(token)}`, expiresIn: expiresAtSec - Math.floor(Date.now() / 1000), mime: doc.mime, byteSize: doc.byte_size });
+  }
+
   // Two ways to hand over the bytes, tried in order of preference:
   //
   //   1. Permanent S3 keys → a presigned R2 URL. The browser talks to R2
@@ -123,7 +164,7 @@ export default async function handler(req, res) {
     env,
   });
   if (signed) {
-    return send(res, 200, { url: signed, expiresIn: TTL_SECONDS, mime: doc.mime, byteSize: doc.byte_size });
+    return sendLink({ url: signed, expiresIn: TTL_SECONDS, mime: doc.mime, byteSize: doc.byte_size });
   }
 
   if (!cfConfig(env).configured) return send(res, 503, { error: 'storage_not_configured' });
@@ -137,7 +178,7 @@ export default async function handler(req, res) {
   const mintCacheSec = doc.status === 'public'
     ? Math.max(0, expiresAtSec - GRACE_SEC - nowSec)
     : 0;
-  return send(res, 200, {
+  return sendLink({
     url: `/api/library-blob?t=${tok.t}&s=${tok.s}`,
     expiresIn: expiresAtSec - nowSec,
     mime: doc.mime,

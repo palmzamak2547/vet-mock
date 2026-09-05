@@ -4,6 +4,10 @@ Source collection: [CUVET85 VCA](https://drive.google.com/drive/folders/1FszyjmG
 
 ## Reconciled scope
 
+The table below records the initial intake. The subsequent
+[`owned archive reconciliation`](./vca-archive.md) identifies two Word lock
+files, verifies all source bytes and reconciles additional binary duplicates.
+
 | Item | Result |
 |---|---:|
 | Accessible source-file IDs inventoried, including linked older collections | 487 |
@@ -20,8 +24,9 @@ Alternate formats within the same named collection share a library entry.
 Different years and editions remain distinct. Content hashes reconcile
 verified binary copies without discarding their original links.
 
-The files remain on their original Drive URLs. They are not mirrored into the
-application bundle or relabelled as licensed public-domain material. The
+Original Drive URLs remain provenance. Verified copies now live in private R2,
+as documented in the archive reconciliation; file bytes are not bundled into
+the application or relabelled as public-domain material. The
 1,518 existing public catalog rows were read in full and had no VCA-tagged
 documents or content-hash overlap with the 132 acquired recent source files.
 

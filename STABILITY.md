@@ -17,7 +17,9 @@ optimizations. When in doubt, choose the boring stable pattern.
   and database outages must remain retryable errors, not an empty catalog.
 - Persist only public library metadata and clear empty snapshots. Account
   changes invalidate both the catalog and prefetched document URLs.
-- Original Drive documents open as validated external links, never as PDF bytes.
+- Drive provenance links are never treated as PDF bytes. Verified archive
+  copies use catalog-gated expiring reads; only range-capable sources may opt
+  into partial PDF fetching. Keep archive-only files out of the learner catalog.
   Duplicate binary copies retain their alternate source links on one card.
 
 ## 0. Shared dialogs use `useModalFocus` — DO NOT reimplement focus traps

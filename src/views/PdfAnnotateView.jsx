@@ -370,11 +370,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         loadPdfjs(),
         doc.url ? Promise.resolve(doc.url) : doc.resolve(),
       ]);
-      const stream = !!doc.linearized;
+      const stream = !!(doc.linearized || doc.rangeSupported);
       let task;
       if (stream) {
         sourceRef.current = { kind: 'url', url };
-        task = pdfjs.getDocument({ url, rangeChunkSize: 65536 });
+        task = pdfjs.getDocument({ url, rangeChunkSize: doc.rangeSupported ? 262144 : 65536,
+          ...(doc.rangeSupported ? { disableAutoFetch: true, disableStream: true } : {}) });
       } else {
         const res = await fetch(url);
         if (!res.ok) {
@@ -1674,6 +1675,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   useEffect(() => {
     for (const bmp of pageCacheRef.current.values()) bmp?.close?.();
     pageCacheRef.current.clear();
+    // Range readers can still have requests in flight after leaving a large
+    // document. Release the PDF worker and its network requests with the view.
+    return () => { pdfDoc?.destroy?.().catch(() => {}); };
   }, [pdfDoc]);
 
   const annotatedPages = new Set(
