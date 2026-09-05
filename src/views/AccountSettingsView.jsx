@@ -29,6 +29,7 @@ import {
   updateUsername,
 } from '../lib/supabase.js';
 import { thaiAuthError } from '../lib/auth-errors.js';
+import { thaiError } from '../lib/errors.js';
 import {
   passwordStrength,
   validateUsername,
@@ -152,7 +153,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       URL.revokeObjectURL(url);
       setInfo('✓ ดาวน์โหลด JSON เรียบร้อย — เปิดด้วย text editor หรือ import ที่ Question Manager ได้');
     } catch (err) {
-      setError(`ส่งออกไม่สำเร็จ: ${err?.message || err}`);
+      setError(thaiError(err, 'ส่งออกไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally { setLoading(false); }
   };
 

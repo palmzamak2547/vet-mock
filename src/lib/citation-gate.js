@@ -108,14 +108,22 @@ export function evaluateCitationEligibility(record) {
  * trusted server-side / authoritative question-bank storage.
  * Client components or forged parameters cannot supply stores or override status.
  *
- * @param {string} questionId - Stable Question ID
+ * @param {string|number} questionId - Stable Question ID (bank ids are numbers)
+ * @param {string} [subject] - Bank subject; ids repeat across banks
  * @returns {object|null} Minimal sanitized citation metadata or null
  */
-export function getEligibleCitationForQuestion(questionId) {
-  if (!questionId || typeof questionId !== 'string') return null;
+export function getEligibleCitationForQuestion(questionId, subject) {
+  // Bank ids are numbers. The old guard rejected anything that was not a
+  // string and then compared the string to the number, so this never
+  // returned a citation for any real question. Compare as strings, and
+  // scope by subject because ids repeat across banks.
+  if (questionId === undefined || questionId === null || questionId === '') return null;
+  if (typeof questionId === 'object') return null;
+  const idStr = String(questionId);
 
   // Look up question strictly from server-authoritative Question Bank
-  const q = QB.find((item) => item.id === questionId || item.questionCode === questionId);
+  const q = QB.find((item) => (String(item.id) === idStr || item.questionCode === questionId)
+    && (!subject || item.subject === subject));
   if (!q) return null;
 
   const ref = q.questionWikiRef || (Array.isArray(q.wikiRefs) && q.wikiRefs[0]);

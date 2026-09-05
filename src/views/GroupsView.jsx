@@ -18,7 +18,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
     setLoading(true);
     setLoadError('');
     try { setGroups(await getMyGroups(user.id)); }
-    catch (e) { setLoadError(e?.message || 'โหลดกลุ่มไม่สำเร็จ'); }
+    catch (e) { setLoadError(thaiError(e, 'โหลดกลุ่มไม่สำเร็จ')); }
     finally { setLoading(false); }
   };
 

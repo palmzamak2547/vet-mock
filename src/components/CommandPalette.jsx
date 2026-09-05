@@ -297,7 +297,7 @@ function buildStaticItems() {
 // Dispatch table — translates a cached item back into an action.
 // Keeps the item array pure data so we don't have to rebuild closures.
 function runItem(item, handlers) {
-  const { goView, setSubject, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onPanic, onSketch, onOpenWiki } = handlers;
+  const { goView, setSubject, setTopic, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onPanic, onSketch, onOpenWiki } = handlers;
   switch (item.type) {
     case 'wiki': onOpenWiki?.(item.payload.subject, item.payload.topic); return;
     case 'exam': goView?.(item.payload); return; // payload = 'schedule'
@@ -316,21 +316,21 @@ function runItem(item, handlers) {
         // voice-settings opens an overlay instead of navigating — keeps
         // the user on the current Q if they triggered from ExamView.
         case 'voice':     openVoiceSettings?.(); return;
-        case 'bookmarks': setPracticeMode?.('bookmarks'); goView?.('config'); return;
+        case 'bookmarks': setTopic?.(null); setPracticeMode?.('bookmarks'); goView?.('config'); return;
         default: return;
       }
     }
     case 'subject':    setSubject?.(item.payload); goView?.('topic-select'); return;
     case 'summary':    goView?.('videos'); return;
     case 'instructor': openInstructor?.(item.payload); return;
-    case 'question':   setSubject?.(item.payload.subject); setPracticeMode?.('all'); goView?.('config'); return;
+    case 'question':   setSubject?.(item.payload.subject); setTopic?.(null); setPracticeMode?.('all'); goView?.('config'); return;
     // User flashcard → jump into SR review. v1 doesn't scroll to the
     // specific card; the user can rip through the deck from the top.
     case 'flashcard':  goView?.('sr-session'); return;
     // Per-Q note → open Bookmarks practice so the user can fuzzy-find
     // their noted Q in a quick-review set. Cheapest navigation that
     // gets them into a context where the note matters.
-    case 'q-note':     setPracticeMode?.('bookmarks'); goView?.('config'); return;
+    case 'q-note':     setTopic?.(null); setPracticeMode?.('bookmarks'); goView?.('config'); return;
     default: return;
   }
 }
@@ -631,6 +631,7 @@ function AskAnswerCard({ ask, onOpenWiki, onClose }) {
 export default function CommandPalette({
   open,
   onClose,
+  setTopic,
   signedIn = false,
   scaffold = false,
   hasSupabase = true,
@@ -831,6 +832,24 @@ export default function CommandPalette({
     }
   }, [activeIdx]);
 
+  // A settled question with an empty list should not need ANY key — the
+  // person already typed what they want to know. Once per query string;
+  // never while sources are still streaming in (results may yet arrive).
+  // Declared ABOVE the early return: a hook after `if (!open) return null`
+  // changes the hook count with the prop, which React treats as a crash.
+  const lastAutoAsk = useRef('');
+  useEffect(() => {
+    if (!open) return;
+    const q = debouncedQuery.trim();
+    if (q.length < 12 || !looksLikeQuestion(q)) return;
+    if (sourcesLoading) return;
+    if (view.flat.some((i) => i.type !== 'ask')) return;
+    if (lastAutoAsk.current === q || ask?.phase === 'loading') return;
+    lastAutoAsk.current = q;
+    runAsk();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runAsk reads live state
+  }, [open, debouncedQuery, view, sourcesLoading]);
+
   if (!open) return null;
 
   const fire = (item) => {
@@ -924,20 +943,6 @@ export default function CommandPalette({
     }
   };
 
-  // A settled question with an empty list should not need ANY key — the
-  // person already typed what they want to know. Once per query string;
-  // never while sources are still streaming in (results may yet arrive).
-  const lastAutoAsk = useRef('');
-  useEffect(() => {
-    const q = debouncedQuery.trim();
-    if (q.length < 12 || !looksLikeQuestion(q)) return;
-    if (sourcesLoading) return;
-    if (view.flat.some((i) => i.type !== 'ask')) return;
-    if (lastAutoAsk.current === q || ask?.phase === 'loading') return;
-    lastAutoAsk.current = q;
-    runAsk();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- runAsk reads live state
-  }, [debouncedQuery, view, sourcesLoading]);
 
   const runAgent = async (spoken) => {
     const utterance = (typeof spoken === 'string' ? spoken : query).trim();

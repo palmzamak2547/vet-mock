@@ -364,7 +364,12 @@ function reconcileDirty(field, entry, remote) {
 
   const policy = USER_DATA_FIELDS[field].merge;
   if (policy === 'set-array') return applySetArrayChanges(base, local, remote);
-  if (policy === 'append-array') return unionArrays(remote, local);
+  // append-array used to union here, which cannot express a deletion:
+  // "ล้างข้อมูลทั้งหมด" (history → []) came straight back on the next
+  // flush whenever the cloud row had moved on, and was then pushed back to
+  // every other device. With a base in hand the set logic is exact — drop
+  // what this device removed, keep what the other device added.
+  if (policy === 'append-array') return applySetArrayChanges(base, local, remote);
   if (policy === 'keyed-object') return applyKeyedObjectChanges(base, local, remote);
   if (policy === 'keyed-array') return applyKeyedArrayChanges(base, local, remote);
   if (policy === 'streak') return mergeStreak(local, remote);

@@ -58,7 +58,7 @@ function snippetFor(pin) {
   }
 }
 
-export default function PinboardView({ goHome, setView, setSubject, setPracticeMode, notes, selectedYear = 4, selectedPhase }) {
+export default function PinboardView({ goHome, setView, setSubject, setTopic, setPracticeMode, notes, selectedYear = 4, selectedPhase }) {
   const [pins, setPins] = useState(() => loadPins());
   const [filter, setFilter] = useState('all');
   // Year scope — 'current' shows only pins whose source subject lives in
@@ -118,12 +118,16 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
     switch (pin.type) {
       case 'question': {
         if (p.subject && typeof setSubject === 'function') setSubject(p.subject);
+        // A topic picked for another subject used to survive the jump and
+        // leave ConfigView with an empty pool and a disabled start button.
+        if (typeof setTopic === 'function') setTopic(null);
         if (typeof setPracticeMode === 'function') setPracticeMode('bookmarks');
         if (typeof setView === 'function') setView('config');
         return;
       }
       case 'note': {
         if (p.subject && typeof setSubject === 'function') setSubject(p.subject);
+        if (typeof setTopic === 'function') setTopic(null);
         if (typeof setPracticeMode === 'function') setPracticeMode('bookmarks');
         if (typeof setView === 'function') setView('config');
         return;
@@ -141,7 +145,7 @@ export default function PinboardView({ goHome, setView, setSubject, setPracticeM
       }
       default: return;
     }
-  }, [setView, setSubject, setPracticeMode]);
+  }, [setView, setSubject, setTopic, setPracticeMode]);
 
   const onClearAll = useCallback(async () => {
     if (!pins.length) return;

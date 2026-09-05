@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { QB } from '../data/questions.js';
+import { QB, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
@@ -17,7 +17,14 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   // view used to render EVERY subject as "🚧 รอข้อสอบเพิ่ม" and disabled —
   // telling a first-time user the whole curriculum is empty. Loading and
   // genuinely-empty are different states and must look different.
-  const qbLoading = !qbReady && QB.length === 0;
+  // ...and also while the SELECTED year's banks are still arriving: after
+  // the first year lands QB is never empty again, so the old guard read every
+  // subject of a newly picked year as "ยังไม่มีเนื้อหา" (card disabled) until
+  // that year's chunks finished downloading. Scaffold years have no banks to
+  // wait for.
+  const yearIsScaffold = !!YEARS.find((y) => y.id === selectedYear)?.scaffold;
+  const qbLoading = (!qbReady && QB.length === 0)
+    || (Number.isFinite(selectedYear) && !yearIsScaffold && !isQBYearLoaded(selectedYear) && !isQBFullyLoaded());
 
   // Per-subject coverage — "เรียนวิชานี้ไปกี่ %". Memoised on the same
   // inputs HomeView uses; the bank lazy-loads in place, so QB.length is
@@ -27,6 +34,19 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [history, customQuestions, QB.length],
   );
+
+  // One count per subject per bank change. The render body used to call
+  // visibleQuestionCount — a full scan of the bank — for every card on
+  // every keystroke in the search box.
+  const countBySubject = useMemo(() => {
+    const m = new Map();
+    for (const s of SUBJECTS) {
+      if (s.id === 'all') continue;
+      m.set(s.id, visibleQuestionCount(s.id, allQuestions));
+    }
+    return m;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [customQuestions, QB.length]);
 
   // Filter subjects to selectedYear (or show all if no year selected — for
   // legacy "all subjects" flow).
@@ -156,8 +176,8 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           // The all-card counts this year only, matching the pool the exam
           // will actually draw from.
           const count = s.id === 'all' && selectedYear
-            ? yearSubjects.reduce((n, y) => n + visibleQuestionCount(y.id, allQuestions), 0)
-            : visibleQuestionCount(s.id, allQuestions);
+            ? yearSubjects.reduce((n, y) => n + (countBySubject.get(y.id) ?? 0), 0)
+            : (countBySubject.get(s.id) ?? visibleQuestionCount(s.id, allQuestions));
           // A subject with notes and no questions is still worth opening —
           // this selector is also where the Notes feature lands, and gating
           // it on the question count locked students out of written material

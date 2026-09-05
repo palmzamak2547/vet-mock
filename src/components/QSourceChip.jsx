@@ -27,7 +27,7 @@ export default function QSourceChip({ q, store }) {
   const [open, setOpen] = useState(false);
 
   // Evaluate strict citation eligibility via getEligibleCitationForQuestion
-  const eligibleCitation = getEligibleCitationForQuestion(q, store);
+  const eligibleCitation = getEligibleCitationForQuestion(q?.id, q?.subject);
 
   // Filter valid, approved, and verified wikiReferences
   const displayableWikiRefs = Array.isArray(q?.wikiRefs)
@@ -101,10 +101,9 @@ export default function QSourceChip({ q, store }) {
                 }}
                 style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
               >
-                <Row label="Citation" value={eligibleCitation.title} icon="🔗" iconColor="var(--clr-sage)" />
+                <Row label="อ้างอิง VetWiki" value={eligibleCitation.title} icon="🔗" iconColor="var(--clr-sage)" />
                 <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 11, opacity: 0.9, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  <div>Ref: <code>{eligibleCitation.pageId}#{eligibleCitation.anchorId}</code></div>
-                  <div>Approval: <code>{eligibleCitation.sourceApprovalRef}</code></div>
+                  <div>เปิดบทความ: <code>{eligibleCitation.pageId}#{eligibleCitation.anchorId}</code></div>
                 </div>
               </a>
             </div>

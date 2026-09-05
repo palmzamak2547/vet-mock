@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v144-2026-09-05';
+const SW_VERSION = 'v145-2026-09-05';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Hashed chunks are immutable, so the assets cache is deliberately kept
@@ -40,14 +40,17 @@ self.addEventListener('install', (event) => {
   // Keep updates waiting until the page explicitly sends SKIP_WAITING.
   event.waitUntil(
     caches.open(RUNTIME).then((cache) =>
-      // Best-effort precache of the app shell. Failures are silent —
-      // runtime caching will fill in any missed assets on first request.
-      cache.addAll([
+      // Best-effort precache of the app shell, one request per entry.
+      // addAll is atomic: a single failed icon (a Wi-Fi blip during
+      // install) used to leave the NEW worker with no shell at all after
+      // activate had already dropped the old one — and every offline
+      // navigation depends on '/'.
+      Promise.allSettled([
         '/',
         '/manifest.webmanifest',
         '/favicon.svg',
         '/icon-192.png',
-      ]).catch(() => {})
+      ].map((url) => cache.add(url)))
     )
   );
 });

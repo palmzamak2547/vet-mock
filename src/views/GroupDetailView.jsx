@@ -32,7 +32,7 @@ export default function GroupDetailView({ group, user, goBack }) {
       setMembers(m); setQuestions(q);
       setLeaderboard((Array.isArray(lb) ? lb : []).filter(qualifiesForLeaderboard));
     } catch (err) {
-      setError(err?.message || 'โหลดข้อมูลกลุ่มไม่สำเร็จ');
+      setError(thaiError(err, 'โหลดข้อมูลกลุ่มไม่สำเร็จ'));
     } finally { setLoading(false); }
   };
 

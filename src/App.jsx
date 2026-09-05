@@ -43,7 +43,7 @@ import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { appPathForView, isAppPath, viewForAppPath, frontDoorFor } from './lib/view-route.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
-import { SEMESTER } from './data/schedule.js';
+import { SEMESTER } from './data/semester.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from './lib/question-prediction.js';
 
 // Eager — needed for first paint
@@ -389,7 +389,17 @@ function buildExamPool({
       const hidden = hiddenTopicIdsFor(subject);
       if (hidden.size) pool = pool.filter((q) => !hidden.has(q.topic));
     } else {
-      pool = pool.filter((q) => !hiddenTopicIdsFor(q.subject).has(q.topic));
+      // hiddenTopicIdsFor does a SUBJECTS.find plus a fresh Set per call;
+      // once per subject, not once per question (20x on a 2,000-row pool).
+      const hiddenBySubject = new Map();
+      pool = pool.filter((q) => {
+        let hiddenForSubject = hiddenBySubject.get(q.subject);
+        if (!hiddenForSubject) {
+          hiddenForSubject = hiddenTopicIdsFor(q.subject);
+          hiddenBySubject.set(q.subject, hiddenForSubject);
+        }
+        return !hiddenForSubject.has(q.topic);
+      });
     }
 
     if (practiceMode === 'current-scope' || practiceMode === 'predicted') {
@@ -2240,6 +2250,12 @@ export default function App() {
           space normally reserved for it is dead weight (58px of it, on every
           exam screen). See the .vmx-app padding rule in styles.css. */}
       <div className={`vmx-app${FOCUS_VIEWS.has(view) ? ' is-focus' : ''}`}>
+        {/* Skip-to-main link — keyboard/screen-reader only, visible on
+            focus so sighted users don't see it. First in DOM order on
+            purpose: rendered after the sidebar it was the thirteenth tab
+            stop on desktop, with nothing left to skip. It is position:fixed,
+            so moving it changes nothing visually. */}
+        <a href="#main" className="vmx-skip-link">ข้ามไปเนื้อหาหลัก</a>
         {!FOCUS_VIEWS.has(view) && (
           <Sidebar
             view={view}
@@ -2256,10 +2272,6 @@ export default function App() {
           />
         )}
         <div className="vmx-container">
-          {/* Skip-to-main link — keyboard/screen-reader only, visible on
-              focus so sighted users don't see it. Lets users bypass the
-              header chrome straight to the active view's content. */}
-          <a href="#main" className="vmx-skip-link">ข้ามไปเนื้อหาหลัก</a>
           {/* Network-status banner — shown when offline OR briefly after
               regaining connectivity. The "Play game" action lives on a
               dedicated button so a stray tap on the banner text doesn't
@@ -2430,7 +2442,7 @@ export default function App() {
                   onExit={libraryDoc ? () => { setLibraryDoc(null); setView('library'); } : null}
                 />
               )}
-              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setPracticeMode, notes, selectedYear, selectedPhase }} />}
+              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions }} />}
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
@@ -2487,6 +2499,7 @@ export default function App() {
             onClose={() => setPaletteOpen(false)}
             goView={setView}
             setSubject={setSubject}
+            setTopic={setTopic}
             setPracticeMode={setPracticeMode}
             openInstructor={(ins) => setOpenInstructor(ins)}
             openVoiceSettings={() => setVoiceSettingsOpen(true)}

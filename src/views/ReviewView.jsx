@@ -603,8 +603,11 @@ function ReviewShareButton({ questions }) {
       className="vmx-btn vmx-btn-ghost"
       onClick={async () => {
         const res = await copyShareUrl(questions);
-        setHint(res.ok ? 'คัดลอกลิงก์แล้ว' : 'คัดลอกไม่ได้');
-        setTimeout(() => setHint(''), 3000);
+        if (res.ok) setHint('คัดลอกลิงก์แล้ว');
+        // The link was built even when the clipboard refused it (LINE and
+        // Instagram webviews) — show it, as ResultsView already does.
+        else setHint('คัดลอกไม่ได้: ' + (res.url || ''));
+        setTimeout(() => setHint(''), res.ok ? 3000 : 8000);
       }}
       title="แชร์ชุดโจทย์นี้ให้เพื่อน"
     >

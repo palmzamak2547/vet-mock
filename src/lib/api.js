@@ -213,8 +213,8 @@ export async function saveExamResult(result) {
  *     attempts (that read clause exposed full histories by user_id),
  *     so cross-user ranking goes through the RPC, which returns only
  *     leaderboard-safe fields and honors show_on_leaderboard. If the
- *     RPC isn't on the live DB yet (migration pending), fall back to
- *     the RLS-scoped query rather than erroring the whole board.
+ *     RPC fails the board reports the failure — an RLS-scoped fallback
+ *     would show the caller their own rows under a global heading.
  *
  *  Both paths drop runs under LEADERBOARD_MIN_QUESTIONS — the RPC has
  *  the same floor baked in (p_min_total), so client and data layer
@@ -253,10 +253,12 @@ export async function getLeaderboard(opts = {}) {
     p_limit: limit && limit > 0 ? limit : 200,
   });
   if (!error) return data || [];
-  console.warn('[leaderboard] RPC unavailable, falling back to RLS-scoped query:', error.message);
-  const { data: fbData, error: fbError } = await rlsQuery();
-  if (fbError) throw fbError;
-  return fbData;
+  // No fallback here. The old one re-ran rlsQuery() with no group filter,
+  // and the SELECT policy on exam_results only exposes the caller's own
+  // rows (plus their groups'), so the "global board" quietly became a
+  // board of one and the view's error state never fired. Say it failed.
+  console.warn('[leaderboard] RPC failed:', error.message);
+  throw new Error(thaiError(error, 'โหลดกระดานอันดับไม่สำเร็จ ลองใหม่อีกครั้ง'));
 }
 
 /** Per-user stats. Optional year filter scopes to a single curriculum
