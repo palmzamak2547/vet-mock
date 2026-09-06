@@ -1,0 +1,7035 @@
+{
+  "source": "https://simtk.org/projects/dogmodel",
+  "license": "MIT",
+  "modelFile": "stark(2016)spezzoo.osim",
+  "modelSha256": "b0eb6316753be1f215beaca7f0775aec35e0215144bf05b06af5857863e8ba47",
+  "pose": "published default generalized coordinates",
+  "bodies": [
+    {
+      "id": "thorax",
+      "sourceName": "thorax",
+      "parent": "ground",
+      "matrix": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0.998629534754565,
+          -0.052335956243113706,
+          -0.1
+        ],
+        [
+          0,
+          0.052335956243113706,
+          0.998629534754565,
+          0.23
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "thorax_sagittal": 0.05235987756,
+        "thorax_frontal": 0,
+        "thorax_horizontal": 0,
+        "thorax_transx": 0,
+        "thorax_transy": -0.1,
+        "thorax_transz": 0.23
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new-thorax.obj",
+          "sha256": "c461bf268ed4258bb87dda806e6f5520a2d733178fadd1479a7841379f95bb29",
+          "bytes": 25014339
+        }
+      ]
+    },
+    {
+      "id": "cervix",
+      "sourceName": "cervix",
+      "parent": "thorax",
+      "matrix": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0.9925461516413956,
+          0.12186934340454889,
+          -0.3208894855411897
+        ],
+        [
+          0,
+          -0.12186934340454889,
+          0.9925461516413956,
+          0.29853346027560956
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "cervix_sagittal": -0.174532925199,
+        "cervix_frontal": 0,
+        "cervix_horizontal": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new-cervix.obj",
+          "sha256": "64b9626ea4048695aa0c7800883af3bfa3a9abdf9ec5167dbcccb57bfe4a9721",
+          "bytes": 5695807
+        }
+      ]
+    },
+    {
+      "id": "caput",
+      "sourceName": "caput",
+      "parent": "cervix",
+      "matrix": [
+        [
+          1,
+          0,
+          0,
+          0.00699
+        ],
+        [
+          0,
+          0.9925461516413956,
+          0.12186934340454889,
+          -0.49200240281798246
+        ],
+        [
+          0,
+          -0.12186934340454889,
+          0.9925461516413956,
+          0.36140843971445674
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "caput_sagittal": 0,
+        "caput_frontal": 0,
+        "caput_horizontal": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new-caput.obj",
+          "sha256": "1daef9719e68ca3a064b21be7ebdc5c7e0881bb108243caed9e7f7565a07c50c",
+          "bytes": 20310159
+        }
+      ]
+    },
+    {
+      "id": "abdomen",
+      "sourceName": "abdomen",
+      "parent": "thorax",
+      "matrix": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0.998629534754565,
+          -0.052335956243113706,
+          -0.06048663769129788
+        ],
+        [
+          0,
+          0.052335956243113706,
+          0.998629534754565,
+          0.39319161804167896
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "abdomen_sagittal": 0,
+        "abdomen_frontal": 0,
+        "abdomen_horizontal": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new-abdomen.obj",
+          "sha256": "81ae7c84cd8dc305e10fd728a4f6d6ab88e9ec9f1f6a8576c1e0c10955d81866",
+          "bytes": 6361122
+        }
+      ]
+    },
+    {
+      "id": "cauda",
+      "sourceName": "cauda",
+      "parent": "abdomen",
+      "matrix": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0.998629534754565,
+          -0.052335956243113706,
+          0.14590618030367863
+        ],
+        [
+          0,
+          0.052335956243113706,
+          0.998629534754565,
+          0.39109050402942647
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "cauda_sagittal": 0,
+        "cauda_frontal": 0,
+        "cauda_horizontal": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new-cauda.obj",
+          "sha256": "b3d4a1152734cee25f49fc1b7be26a4e9c574220578a818b24ff4a7293e17f71",
+          "bytes": 2927254
+        }
+      ]
+    },
+    {
+      "id": "left-scapula",
+      "sourceName": "left_scapula",
+      "parent": "thorax",
+      "matrix": [
+        [
+          0.9987924459540269,
+          0.005229712809736596,
+          -0.048849769795771845,
+          0.06561
+        ],
+        [
+          0.0015277706736668561,
+          0.9905310405447948,
+          0.13728045612546214,
+          -0.28850616004682794
+        ],
+        [
+          0.049105150666105386,
+          -0.13718931380094418,
+          0.9893269309772605,
+          0.33027176883051235
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_m_superioris_sagittal": -0.190240888467,
+        "left_r_m_superioris_frontal": -0.048869219056,
+        "left_r_m_superioris_horizontal": -0.005235987756,
+        "left_r_m_superioris_transx": 0.06561,
+        "left_r_m_superioris_transy": -0.183,
+        "left_r_m_superioris_transz": 0.11
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-scapula_l.obj",
+          "sha256": "60967d2b4c1ee51531dfdc80dd791948c86f2739ac00f1cc0c25f4d02cc332b6",
+          "bytes": 3470802
+        }
+      ]
+    },
+    {
+      "id": "left-humerus",
+      "sourceName": "left_humerus",
+      "parent": "left_scapula",
+      "matrix": [
+        [
+          0.9975592365249321,
+          -0.06019770138916778,
+          -0.03538087578417595,
+          0.07137346735869049
+        ],
+        [
+          0.017566623719091703,
+          0.7067707087123979,
+          -0.7072245605444475,
+          -0.30470299027086156
+        ],
+        [
+          0.06757945956358741,
+          0.704876870136647,
+          0.7061031189503825,
+          0.213547503852412
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_deltoidea_sagittal": 0.923279174305,
+        "left_r_deltoidea_frontal": -0.001745329252,
+        "left_r_deltoidea_horizontal": 0.024434609528
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-humerus_l.obj",
+          "sha256": "da25d0b1f7b1936f510b6aec118adaeb4f02832233f71d02c4750ef42d523fe3",
+          "bytes": 1833093
+        }
+      ]
+    },
+    {
+      "id": "left-antebrachium",
+      "sourceName": "left_antebrachium",
+      "parent": "left_humerus",
+      "matrix": [
+        [
+          0.9999755286952761,
+          0.005381362957088358,
+          0.004470228554237786,
+          0.0765480023678532
+        ],
+        [
+          -0.005725573330532509,
+          0.9967026342964348,
+          0.08093872124381626,
+          -0.20126976068659885
+        ],
+        [
+          -0.004019927939620366,
+          -0.08096233518909622,
+          0.9967090550707808,
+          0.11027828769802082
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_cubitalis_sagittal": -0.865683308989,
+        "left_r_cubitalis_frontal": 0.073303828584,
+        "left_r_cubitalis_horizontal": -0.01745329252
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-antebrachium_l.obj",
+          "sha256": "d9549dddf51be066690e86374660f3eed2fa1c138bb6cb388eaf39676b1b18bf",
+          "bytes": 1955340
+        }
+      ]
+    },
+    {
+      "id": "left-carpus",
+      "sourceName": "left_carpus",
+      "parent": "left_antebrachium",
+      "matrix": [
+        [
+          0.9997075708286263,
+          -0.012375583344667825,
+          0.020775412506280174,
+          0.07568483333994447
+        ],
+        [
+          -0.004636002331761702,
+          0.7451053469509392,
+          0.6669306781274204,
+          -0.21689844644360984
+        ],
+        [
+          -0.023733527135822486,
+          -0.6668319630026742,
+          0.7448300831785014,
+          -0.08217907230825312
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_carpalis_sagittal": -0.649262481742,
+        "left_r_carpalis_frontal": 0.013962634016,
+        "left_r_carpalis_horizontal": 0.013962634016
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-carpus_l.obj",
+          "sha256": "3f91db0561d4f6b3772456bc21784a4bb50e82aec3f2eff3f6024dce2134a4ad",
+          "bytes": 465948
+        },
+        {
+          "file": "new_stretched-carpus_metacarpus_l.obj",
+          "sha256": "7a33d88954497645e946c71dc095238f1a8249d485e46808867a10803ab8ee87",
+          "bytes": 1105018
+        }
+      ]
+    },
+    {
+      "id": "left-forepaw",
+      "sourceName": "left_forepaw",
+      "parent": "left_carpus",
+      "matrix": [
+        [
+          0.9997075708286263,
+          -0.012375583344667825,
+          0.020775412506280174,
+          0.07360131063949153
+        ],
+        [
+          -0.004636002331761702,
+          0.7451053469509392,
+          0.6669306781274204,
+          -0.28378353029390185
+        ],
+        [
+          -0.023733527135822486,
+          -0.6668319630026742,
+          0.7448300831785014,
+          -0.15687652468439955
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_forepaw_sagittal": 0,
+        "left_r_forepaw_frontal": 0,
+        "left_r_forepaw_horizontal": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-digiti_manus_l.obj",
+          "sha256": "2799284ccd4082024a8056c0da2fb060b24db253b361ca58e6ca762839a7a6a0",
+          "bytes": 897034
+        }
+      ]
+    },
+    {
+      "id": "right-scapula",
+      "sourceName": "right_scapula",
+      "parent": "thorax",
+      "matrix": [
+        [
+          0.9987924459540269,
+          0.005229712809736596,
+          -0.048849769795771845,
+          -0.06561
+        ],
+        [
+          0.0015277706736668561,
+          0.9905310405447948,
+          0.13728045612546214,
+          -0.28850616004682794
+        ],
+        [
+          0.049105150666105386,
+          -0.13718931380094418,
+          0.9893269309772605,
+          0.33027176883051235
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_m_superioris_sagittal": -0.190240888467,
+        "right_r_m_superioris_frontal": -0.048869219056,
+        "right_r_m_superioris_horizontal": -0.005235987756,
+        "right_r_m_superioris_transx": -0.06561,
+        "right_r_m_superioris_transy": -0.183,
+        "right_r_m_superioris_transz": 0.11
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-scapula_r.obj",
+          "sha256": "bd5a4747cb8734ba1349545f3793daea3950feb885ee1bb96df9a50d541fd6e1",
+          "bytes": 3468591
+        }
+      ]
+    },
+    {
+      "id": "right-humerus",
+      "sourceName": "right_humerus",
+      "parent": "right_scapula",
+      "matrix": [
+        [
+          0.9975592365249321,
+          -0.06019770138916778,
+          -0.03538087578417595,
+          -0.05984653264130952
+        ],
+        [
+          0.017566623719091703,
+          0.7067707087123979,
+          -0.7072245605444475,
+          -0.30470299027086156
+        ],
+        [
+          0.06757945956358741,
+          0.704876870136647,
+          0.7061031189503825,
+          0.213547503852412
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_deltoidea_sagittal": 0.923279174305,
+        "right_r_deltoidea_frontal": -0.001745329252,
+        "right_r_deltoidea_horizontal": 0.024434609528
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-humerus_r.obj",
+          "sha256": "2eb743f34a3fa4af418231d33d629aac1f937267197eb7b65cb2eaa71a13c453",
+          "bytes": 1836905
+        }
+      ]
+    },
+    {
+      "id": "right-antebrachium",
+      "sourceName": "right_antebrachium",
+      "parent": "right_humerus",
+      "matrix": [
+        [
+          0.9999755286952761,
+          0.005381362957088358,
+          0.004470228554237786,
+          -0.054671997632146814
+        ],
+        [
+          -0.005725573330532509,
+          0.9967026342964348,
+          0.08093872124381626,
+          -0.20126976068659885
+        ],
+        [
+          -0.004019927939620366,
+          -0.08096233518909622,
+          0.9967090550707808,
+          0.11027828769802082
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_cubitalis_sagittal": -0.865683308989,
+        "right_r_cubitalis_frontal": 0.073303828584,
+        "right_r_cubitalis_horizontal": -0.01745329252
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-antebrachium_r.obj",
+          "sha256": "0cf130f67ec5834cc59a3f38f63ed44e9fe1c8a50acebd4bc3bc8a2e3e6fc00c",
+          "bytes": 1964174
+        }
+      ]
+    },
+    {
+      "id": "right-carpus",
+      "sourceName": "right_carpus",
+      "parent": "right_antebrachium",
+      "matrix": [
+        [
+          0.9997075708286263,
+          -0.012375583344667825,
+          0.020775412506280174,
+          -0.055535166660055535
+        ],
+        [
+          -0.004636002331761702,
+          0.7451053469509392,
+          0.6669306781274204,
+          -0.21689844644360984
+        ],
+        [
+          -0.023733527135822486,
+          -0.6668319630026742,
+          0.7448300831785014,
+          -0.08217907230825312
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_carpalis_sagittal": -0.649262481742,
+        "right_r_carpalis_frontal": 0.013962634016,
+        "right_r_carpalis_horizontal": 0.013962634016
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-carpus_r.obj",
+          "sha256": "66195640b89fa9298ab918d54cf1d88b6477da0358796280ac1ae08753810c64",
+          "bytes": 466688
+        },
+        {
+          "file": "new_stretched-carpus_metacarpus_r.obj",
+          "sha256": "263e2784ae8584a74317095a0861fcb7d17015181165f28daff10961afb4efeb",
+          "bytes": 1105117
+        }
+      ]
+    },
+    {
+      "id": "right-forepaw",
+      "sourceName": "right_forepaw",
+      "parent": "right_carpus",
+      "matrix": [
+        [
+          0.9997075708286263,
+          -0.012375583344667825,
+          0.020775412506280174,
+          -0.05761868936050848
+        ],
+        [
+          -0.004636002331761702,
+          0.7451053469509392,
+          0.6669306781274204,
+          -0.28378353029390185
+        ],
+        [
+          -0.023733527135822486,
+          -0.6668319630026742,
+          0.7448300831785014,
+          -0.15687652468439955
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_forepaw_sagittal": 0,
+        "right_r_forepaw_frontal": 0,
+        "right_r_forepaw_horizontal": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-digiti_manus_r.obj",
+          "sha256": "94d37f58e9908660d70c2dddd81b68ec3564bd635c5028ad6496d126ace8fc17",
+          "bytes": 897000
+        }
+      ]
+    },
+    {
+      "id": "pelvis",
+      "sourceName": "pelvis",
+      "parent": "cauda",
+      "matrix": [
+        [
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0.8471219213822326,
+          -0.5313985795179306,
+          0.14590618030367863
+        ],
+        [
+          0,
+          0.5313985795179306,
+          0.8471219213822326,
+          0.39109050402942647
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "m_inferioris_sagittal": 0.50789081233,
+        "m_inferioris_frontal": 0,
+        "m_inferioris_horizontal": 0,
+        "m_inferioris_transx": 0,
+        "m_inferioris_transy": 0,
+        "m_inferioris_transz": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-pelvis.obj",
+          "sha256": "cd119e8c86a5ec6903b2a04d4fa98f702ce9f1c4d7449ff9ac603fc4e992905f",
+          "bytes": 4202969
+        }
+      ]
+    },
+    {
+      "id": "left-femur",
+      "sourceName": "left_femur",
+      "parent": "pelvis",
+      "matrix": [
+        [
+          0.9999604000354533,
+          -0.0017452619091477904,
+          0.008726535498402285,
+          0.05553
+        ],
+        [
+          -0.00021586467296832684,
+          0.9755364065271931,
+          0.21983783328274914,
+          0.20064023399402547
+        ],
+        [
+          -0.008896727678161319,
+          -0.21983101146307663,
+          0.9754973985796893,
+          0.30383694612705653
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_coxae_sagittal": -0.781907504893,
+        "left_r_coxae_frontal": 0.00872664626,
+        "left_r_coxae_horizontal": 0.001745329252
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-femur_l.obj",
+          "sha256": "cfddc269e58adecc1eeee45d4f782fe7cdefe84efc1cf5db59dcbd736ffa9b3e",
+          "bytes": 1954460
+        }
+      ]
+    },
+    {
+      "id": "left-crus",
+      "sourceName": "left_crus",
+      "parent": "left_femur",
+      "matrix": [
+        [
+          0.9992927604299428,
+          0.01036646725064918,
+          0.03614575091274946,
+          0.05404231999717755
+        ],
+        [
+          0.003272878267518632,
+          0.9336229319852531,
+          -0.3582422492380055,
+          0.16316277819287267
+        ],
+        [
+          -0.03746020849049447,
+          0.3581071867863035,
+          0.9329287087188647,
+          0.13753635949241438
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_genus_sagittal": 0.588175957922,
+        "left_r_genus_frontal": 0.027925268032,
+        "left_r_genus_horizontal": -0.006981317008
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-crus_l.obj",
+          "sha256": "6b7889a0ba5aeac68714222d834ae548acdc40200cd61e5dbb5d596692450a3e",
+          "bytes": 2007253
+        }
+      ]
+    },
+    {
+      "id": "left-calx",
+      "sourceName": "left_calx",
+      "parent": "left_crus",
+      "matrix": [
+        [
+          0.9945178421459436,
+          -0.06617926768918872,
+          0.0809602753299355,
+          0.046143356093530805
+        ],
+        [
+          0.00020460984036755643,
+          0.7754730479569221,
+          0.6313806379888557,
+          0.2414497835541061
+        ],
+        [
+          -0.10456681972877191,
+          -0.6279027443963945,
+          0.7712353232258534,
+          -0.06633740184219372
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_talocruralis_sagittal": -1.050688209701,
+        "left_r_talocruralis_frontal": 0.054105206812,
+        "left_r_talocruralis_horizontal": 0.040142572796
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-calx_l.obj",
+          "sha256": "2917fa9f9b4d5c7210c6f7b895528b5196d4b435a1976258c4263ef5ae454c57",
+          "bytes": 621313
+        },
+        {
+          "file": "new_stretched-calx_tarsus_l.obj",
+          "sha256": "cc254737fc90555fe537347f063dce48db357d15e6bb5123c61125185fca264d",
+          "bytes": 288686
+        },
+        {
+          "file": "new_stretched-calx_metatarsus_l.obj",
+          "sha256": "d0822e9d34371951bb1ada9054bf0683133b0817b8c973b8f6c68e344e3998bc",
+          "bytes": 971345
+        }
+      ]
+    },
+    {
+      "id": "left-hindpaw",
+      "sourceName": "left_hindpaw",
+      "parent": "left_calx",
+      "matrix": [
+        [
+          0.9945178421459436,
+          -0.06617926768918872,
+          0.0809602753299355,
+          0.03526781308175244
+        ],
+        [
+          0.00020460984036755643,
+          0.7754730479569221,
+          0.6313806379888557,
+          0.15663525868658873
+        ],
+        [
+          -0.10456681972877191,
+          -0.6279027443963945,
+          0.7712353232258534,
+          -0.1699388643590115
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "left_r_hindpaw_sagittal": 0,
+        "left_r_hindpaw_frontal": 0,
+        "left_r_hindpaw_horizontal": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-digiti_pedis_l.obj",
+          "sha256": "ff757688193212a6a336daf1be6fe0372ca09082b66dd7e63f758573873961bc",
+          "bytes": 756698
+        }
+      ]
+    },
+    {
+      "id": "right-femur",
+      "sourceName": "right_femur",
+      "parent": "pelvis",
+      "matrix": [
+        [
+          0.9999604000354533,
+          -0.0017452619091477904,
+          0.008726535498402285,
+          -0.05553
+        ],
+        [
+          -0.00021586467296832684,
+          0.9755364065271931,
+          0.21983783328274914,
+          0.20064023399402547
+        ],
+        [
+          -0.008896727678161319,
+          -0.21983101146307663,
+          0.9754973985796893,
+          0.30383694612705653
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_coxae_sagittal": -0.781907504893,
+        "right_r_coxae_frontal": 0.00872664626,
+        "right_r_coxae_horizontal": 0.001745329252
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-femur_r.obj",
+          "sha256": "724982339eac8a199811b7a23ca8e1c9e4c070fb4305bdfbdc2d5c34bc4a8fce",
+          "bytes": 1961636
+        }
+      ]
+    },
+    {
+      "id": "right-crus",
+      "sourceName": "right_crus",
+      "parent": "right_femur",
+      "matrix": [
+        [
+          0.9992927604299428,
+          0.01036646725064918,
+          0.03614575091274946,
+          -0.05701768000282246
+        ],
+        [
+          0.003272878267518632,
+          0.9336229319852531,
+          -0.3582422492380055,
+          0.16316277819287267
+        ],
+        [
+          -0.03746020849049447,
+          0.3581071867863035,
+          0.9329287087188647,
+          0.13753635949241438
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_genus_sagittal": 0.588175957922,
+        "right_r_genus_frontal": 0.027925268032,
+        "right_r_genus_horizontal": -0.006981317008
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-crus_r.obj",
+          "sha256": "1c2da124ef269a6963ee12fa73313a012ef5e681e6445155dc19136ebb556d71",
+          "bytes": 2009382
+        }
+      ]
+    },
+    {
+      "id": "right-calx",
+      "sourceName": "right_calx",
+      "parent": "right_crus",
+      "matrix": [
+        [
+          0.9945178421459436,
+          -0.06617926768918872,
+          0.0809602753299355,
+          -0.0649166439064692
+        ],
+        [
+          0.00020460984036755643,
+          0.7754730479569221,
+          0.6313806379888557,
+          0.2414497835541061
+        ],
+        [
+          -0.10456681972877191,
+          -0.6279027443963945,
+          0.7712353232258534,
+          -0.06633740184219372
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_talocruralis_sagittal": -1.050688209701,
+        "right_r_talocruralis_frontal": 0.054105206812,
+        "right_r_talocruralis_horizontal": 0.040142572796
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-calx_r.obj",
+          "sha256": "0c01679515ead7c4e0e00d748b7650b5670382437d398c54c6911c414f619707",
+          "bytes": 625572
+        },
+        {
+          "file": "new_stretched-calx_tarsus_r.obj",
+          "sha256": "7c0fc8d337c71731524d17e56db0d0fb7b22f545374171cad4a4504e4b12a305",
+          "bytes": 289802
+        },
+        {
+          "file": "new_stretched-calx_metatarsus_r.obj",
+          "sha256": "e30b2f26b8cba5b25ad2a366f7aeb8531ecc35067edc2159db7d009f50c6f076",
+          "bytes": 972418
+        }
+      ]
+    },
+    {
+      "id": "right-hindpaw",
+      "sourceName": "right_hindpaw",
+      "parent": "right_calx",
+      "matrix": [
+        [
+          0.9945178421459436,
+          -0.06617926768918872,
+          0.0809602753299355,
+          -0.07579218691824757
+        ],
+        [
+          0.00020460984036755643,
+          0.7754730479569221,
+          0.6313806379888557,
+          0.15663525868658873
+        ],
+        [
+          -0.10456681972877191,
+          -0.6279027443963945,
+          0.7712353232258534,
+          -0.1699388643590115
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "defaults": {
+        "right_r_hindpaw_sagittal": 0,
+        "right_r_hindpaw_frontal": 0,
+        "right_r_hindpaw_horizontal": 0
+      },
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "sources": [
+        {
+          "file": "new_stretched-digiti_pedis_r.obj",
+          "sha256": "82a9035f600f0cd80633b71744122effb0a7ef9c7e26d1191379752820ab133f",
+          "bytes": 756485
+        }
+      ]
+    }
+  ],
+  "musclePaths": [
+    {
+      "id": "path-left-trapezius-cervical",
+      "sourceName": "left_trapezius_cervical",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.020154558348,
+            -0.000621088782,
+            -0.011890180876
+          ],
+          "world": [
+            0.08631780511218555,
+            -0.2907228656752199,
+            0.31958339204379416
+          ]
+        },
+        {
+          "body": "cervix",
+          "local": [
+            0,
+            -0.01029,
+            0.06891
+          ],
+          "world": [
+            0,
+            -0.32270476898757217,
+            0.36818385112885094
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-trapezius-thoracic",
+      "sourceName": "left_trapezius_thoracic",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.017877317112,
+            0.002483488687,
+            0.008091073722
+          ],
+          "world": [
+            0.08308347012926919,
+            -0.28490812868160414,
+            0.3388136462056979
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0.00632,
+            -0.1179,
+            0.16775
+          ],
+          "world": [
+            0.00632,
+            -0.22651777880734555,
+            0.3913496952140152
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-rhomboideus-thoracic",
+      "sourceName": "left_rhomboideus_thoracic",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.002857620016,
+            0.047355441872,
+            0.037555215695
+          ],
+          "world": [
+            0.06687726100502527,
+            -0.2364391620053406,
+            0.36106981840250774
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0.00608,
+            -0.11277,
+            0.16399
+          ],
+          "world": [
+            0.00608,
+            -0.2211980260985805,
+            0.38786333161886516
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-rhomboideus-cervicis",
+      "sourceName": "left_rhomboideus_cervicis",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.018544316732,
+            0.007714496519,
+            0.049625779682
+          ],
+          "world": [
+            0.04470421322056422,
+            -0.27408039357552333,
+            0.37739892118977286
+          ]
+        },
+        {
+          "body": "cervix",
+          "local": [
+            -0.00274,
+            -0.14652,
+            0.08612
+          ],
+          "world": [
+            -0.00274,
+            -0.45582195982568724,
+            0.4018678310506011
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-latissimus-dorsi",
+      "sourceName": "left_latissimus_dorsi",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.00084,
+            0.07482,
+            0.19937
+          ],
+          "world": [
+            -0.00084,
+            -0.03571675780585304,
+            0.43301254659012733
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.012086744518,
+            0.024393177047,
+            -0.151195749945
+          ],
+          "world": [
+            0.06105129776863055,
+            -0.28511864829476524,
+            0.17674973692949822
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-brachiocephalicus-1",
+      "sourceName": "left_brachiocephalicus_1",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            0.001638206661,
+            -0.003978322512,
+            -0.074878887289
+          ],
+          "world": [
+            0.0758964420253443,
+            -0.25452978617514616,
+            0.15798176959426607
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.00386862322,
+            -0.021816822294,
+            -0.028072154571
+          ],
+          "world": [
+            0.06982082650053015,
+            -0.3003371226938498,
+            0.17808605507278677
+          ]
+        },
+        {
+          "body": "cervix",
+          "local": [
+            0.00006,
+            -0.11578,
+            0.08114
+          ],
+          "world": [
+            0.00006,
+            -0.4259180004543853,
+            0.3931786875991711
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-brachiocephalicus-2",
+      "sourceName": "left_brachiocephalicus_2",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            0.001638206661,
+            -0.003978322512,
+            -0.074878887289
+          ],
+          "world": [
+            0.0758964420253443,
+            -0.25452978617514616,
+            0.15798176959426607
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.00386862322,
+            -0.021816822294,
+            -0.028072154571
+          ],
+          "world": [
+            0.06982082650053015,
+            -0.3003371226938498,
+            0.17808605507278677
+          ]
+        },
+        {
+          "body": "cervix",
+          "local": [
+            0.02375,
+            -0.21087,
+            0.05245
+          ],
+          "world": [
+            0.02375,
+            -0.5237956454762421,
+            0.37629109437291797
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-1",
+      "sourceName": "left_serratus_1",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            0.02624,
+            -0.01886,
+            -0.02412
+          ],
+          "world": [
+            0.02624,
+            -0.3425483945240641,
+            0.2768917029146289
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.005686546529,
+            0.003637964223,
+            0.024821479122
+          ],
+          "world": [
+            0.05873682225026684,
+            -0.28150382732299967,
+            0.35404999805313464
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-2",
+      "sourceName": "left_serratus_2",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            0.01914,
+            -0.05044,
+            -0.02618
+          ],
+          "world": [
+            0.01914,
+            -0.37414405284031277,
+            0.2786956917069633
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.006833004063,
+            -0.005414559936,
+            0.025592602864
+          ],
+          "world": [
+            0.057506737806865035,
+            -0.29036652480293895,
+            0.35599850414581147
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-3",
+      "sourceName": "left_serratus_3",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            0.02026,
+            -0.07584,
+            0.00084
+          ],
+          "world": [
+            0.02026,
+            -0.3960618154332133,
+            0.30860977004678936
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.006728207356,
+            -0.011841292223,
+            0.028825792096
+          ],
+          "world": [
+            0.05741985745232205,
+            -0.2962883888246393,
+            0.36008401037649723
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-4",
+      "sourceName": "left_serratus_4",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            0.02258,
+            -0.09421,
+            0.02007
+          ],
+          "world": [
+            0.02258,
+            -0.41195134076519624,
+            0.3299351723811949
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.007964078494,
+            -0.023556059501,
+            0.027345248845
+          ],
+          "world": [
+            0.056196538024002235,
+            -0.30809736722674863,
+            0.3601657223115775
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-5",
+      "sourceName": "left_serratus_5",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            0.02509,
+            -0.10999,
+            0.03679
+          ],
+          "world": [
+            0.02509,
+            -0.42557606361637346,
+            0.34845364227556286
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.007646793795,
+            -0.008010777072,
+            0.043087963325
+          ],
+          "world": [
+            0.055825708968921584,
+            -0.2905376306840629,
+            0.37362334739699926
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-6",
+      "sourceName": "left_serratus_6",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            0.07414,
+            -0.01866,
+            0.01374
+          ],
+          "world": [
+            0.07414,
+            -0.11935352315730056,
+            0.24274458086403122
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            0.004152274356,
+            0.057583087354,
+            0.023361047998
+          ],
+          "world": [
+            0.06891722145297055,
+            -0.22825496556456412,
+            0.34568759656800946
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-7",
+      "sourceName": "left_serratus_7",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            0.07205,
+            -0.04904,
+            0.00649
+          ],
+          "world": [
+            0.07205,
+            -0.14931245274038168,
+            0.23391455038639483
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            0.000040634113,
+            0.051039189941,
+            0.027373040626
+          ],
+          "world": [
+            0.06458033861735506,
+            -0.2341924125437215,
+            0.35035261900382797
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-8",
+      "sourceName": "left_serratus_8",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            0.05734,
+            -0.08359,
+            -0.00597
+          ],
+          "world": [
+            0.05734,
+            -0.1831629971513627,
+            0.21966341909515338
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.002005745893,
+            0.04505925947,
+            0.033531878164
+          ],
+          "world": [
+            0.062204298610884515,
+            -0.23927335766848773,
+            0.3571656176030642
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-9",
+      "sourceName": "left_serratus_9",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            0.05623,
+            -0.11696,
+            0.00059
+          ],
+          "world": [
+            0.05623,
+            -0.21683058859907736,
+            0.22446797798331064
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.00343274024,
+            0.037870141864,
+            0.038336076101
+          ],
+          "world": [
+            0.06050674645297125,
+            -0.24573705944736432,
+            0.362834737342676
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-10",
+      "sourceName": "left_serratus_10",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            0.05173,
+            -0.14994,
+            0.0012
+          ],
+          "world": [
+            0.05173,
+            -0.2497973155885912,
+            0.22335110216261303
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.00496439121,
+            0.028584520234,
+            0.044301735906
+          ],
+          "world": [
+            0.058636962791758174,
+            -0.254118127414948,
+            0.36993540135679626
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-11",
+      "sourceName": "left_serratus_11",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            0.03682,
+            -0.18139,
+            0.00511
+          ],
+          "world": [
+            0.03682,
+            -0.28140884804553284,
+            0.22560977781965744
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.00587146582,
+            0.019333804326,
+            0.042178151902
+          ],
+          "world": [
+            0.05778634152562756,
+            -0.26357416105176135,
+            0.3690590398436431
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-serratus-12",
+      "sourceName": "left_serratus_12",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            0.03331,
+            -0.2001,
+            0.00603
+          ],
+          "world": [
+            0.03331,
+            -0.30014135572053446,
+            0.225549311250323
+          ]
+        },
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.005097744821,
+            0.01267746714,
+            0.033506713768
+          ],
+          "world": [
+            0.058947915239501394,
+            -0.2713567065648743,
+            0.36143132458457816
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-pectoralis-profundus",
+      "sourceName": "left_pectoralis_profundus",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.005466925885,
+            -0.012844487356,
+            0.012544110812
+          ],
+          "world": [
+            0.06624927193460262,
+            -0.32274863638886864,
+            0.2129817056784349
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0,
+            -0.10342,
+            -0.06043
+          ],
+          "world": [
+            0,
+            -0.20011560464854578,
+            0.16424023262011883
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-pectoralis-superficialis",
+      "sourceName": "left_pectoralis_superficialis",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.003107408812,
+            -0.013185129997,
+            -0.026464444785
+          ],
+          "world": [
+            0.07000369274859296,
+            -0.2953601352915237,
+            0.18535698667564507
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0,
+            -0.19787,
+            -0.05229
+          ],
+          "world": [
+            0,
+            -0.2948621788899333,
+            0.16742594596585889
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-supraspinatus",
+      "sourceName": "left_supraspinatus",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.004928456961,
+            -0.011596354703,
+            -0.006026604319
+          ],
+          "world": [
+            0.07076625821175317,
+            -0.30081251477510557,
+            0.32614239544129997
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            0.003891996322,
+            -0.005653561456,
+            0.026113540856
+          ],
+          "world": [
+            0.07467237569722511,
+            -0.32709853012910717,
+            0.2282643108015056
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-infraspinatus",
+      "sourceName": "left_infraspinatus",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.011759515406,
+            0.019392370837,
+            -0.007862939449
+          ],
+          "world": [
+            0.07784083446777197,
+            -0.2703588768542956,
+            0.3204097778046437
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            0.013195803881,
+            -0.002097807916,
+            0.0166053638
+          ],
+          "world": [
+            0.08407583430409393,
+            -0.3176975748530826,
+            0.22468567203970488
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-subscapularis",
+      "sourceName": "left_subscapularis",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.001852594852,
+            0.010901819243,
+            -0.0109406219
+          ],
+          "world": [
+            0.06435110250139121,
+            -0.2792123335930412,
+            0.3178613318927429
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.017779668848,
+            0.013791301693,
+            0.019163863978
+          ],
+          "world": [
+            0.0521289555249799,
+            -0.30882118623191096,
+            0.23559879713892337
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-deltoideus-sca",
+      "sourceName": "left_deltoideus_sca",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.017721178493,
+            0.003865961573,
+            0.00461301584
+          ],
+          "world": [
+            0.08310465231912338,
+            -0.28401645429178446,
+            0.33517538215854803
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            0.012969798485,
+            -0.009329429249,
+            -0.022934313874
+          ],
+          "world": [
+            0.08568465593970327,
+            -0.29484921197243297,
+            0.1916539063780621
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-deltoideus-acr",
+      "sourceName": "left_deltoideus_acr",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.025973289357,
+            -0.007613362639,
+            -0.088220669258
+          ],
+          "world": [
+            0.0958216688907136,
+            -0.308118724549335,
+            0.24531257914806726
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            0.009924597307,
+            -0.012565230843,
+            -0.031804785826
+          ],
+          "world": [
+            0.0831555202619037,
+            -0.29091626003344484,
+            0.18290380371635948
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-teres-major",
+      "sourceName": "left_teres_major",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.009751655469,
+            0.05306233256,
+            0.011393922233
+          ],
+          "world": [
+            0.07507079010013402,
+            -0.23436721142798767,
+            0.3347433544635451
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.010636288636,
+            -0.005808150566,
+            -0.028888219939
+          ],
+          "world": [
+            0.06213486722218663,
+            -0.2885644059916673,
+            0.1883366160225318
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-teres-minor",
+      "sourceName": "left_teres_minor",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.007655489116,
+            0.018710345635,
+            -0.056311545022
+          ],
+          "world": [
+            0.07610490044455497,
+            -0.27769176067002427,
+            0.272370305283129
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            0.013929641437,
+            0.004130514346,
+            0.006905276157
+          ],
+          "world": [
+            0.08477614764849983,
+            -0.30642254784509915,
+            0.22227620254857341
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-coracobrachialis",
+      "sourceName": "left_coracobrachialis",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            -0.00817776974,
+            -0.016493552991,
+            -0.091828775462
+          ],
+          "world": [
+            0.06184166335552779,
+            -0.3174623261909346,
+            0.2412842568290713
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.010341820828,
+            -0.000151690181,
+            -0.031400944027
+          ],
+          "world": [
+            0.06217701276957782,
+            -0.2827843524824715,
+            0.19056938177448748
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-biceps-brachii",
+      "sourceName": "left_biceps_brachii",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.001004534475,
+            -0.014366245628,
+            -0.096525759538
+          ],
+          "world": [
+            0.07125345123933516,
+            -0.3159859378763746,
+            0.23679645858287912
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.01110679439,
+            -0.005175473724,
+            -0.013760813735
+          ],
+          "world": [
+            0.06535211469053176,
+            -0.20747835888227978,
+            0.09702642699469678
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-brachialis",
+      "sourceName": "left_brachialis",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.006121036477,
+            0.012847228677,
+            -0.128143182014
+          ],
+          "world": [
+            0.07805059725329996,
+            -0.29336278419351025,
+            0.20203433977493562
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.011409244911,
+            -0.006666451807,
+            -0.007578903474
+          ],
+          "world": [
+            0.0650692826284334,
+            -0.20846233305127793,
+            0.10330992182608562
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.008196260653,
+            0.011643700576,
+            -0.017212119343
+          ],
+          "world": [
+            0.06833765915964232,
+            -0.1910106522876542,
+            0.0922130596802176
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-triceps-caput-longum",
+      "sourceName": "left_triceps_caput_longum",
+      "points": [
+        {
+          "body": "left_scapula",
+          "local": [
+            0.002660341728,
+            0.013683790201,
+            -0.067950339463
+          ],
+          "world": [
+            0.0716580499547947,
+            -0.2842761303037214,
+            0.261300034724225
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.005421396284,
+            0.031707921111,
+            0.029052226107
+          ],
+          "world": [
+            0.07142724067531439,
+            -0.1672839015548369,
+            0.13668955081408707
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-triceps-caput-laterale",
+      "sourceName": "left_triceps_caput_laterale",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            0.01322074719,
+            -0.003372305638,
+            -0.011553978001
+          ],
+          "world": [
+            0.08517374074009185,
+            -0.2986829362111562,
+            0.20390559465649122
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            0.004279553435,
+            0.030118753845,
+            0.015832674547
+          ],
+          "world": [
+            0.0810603066967021,
+            -0.1699933458528718,
+            0.12360316964430516
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-triceps-caput-accessorium",
+      "sourceName": "left_triceps_caput_accessorium",
+      "points": [
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.0107022265,
+            0.035554672614,
+            0.021321090194
+          ],
+          "world": [
+            0.06613268050964818,
+            -0.1640453466722256,
+            0.12869364421597168
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            0.003242795455,
+            0.020530102455,
+            0.004481850022
+          ],
+          "world": [
+            0.07321391116100001,
+            -0.2933056246534822,
+            0.2314024928580033
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-triceps-caput-medial",
+      "sourceName": "left_triceps_caput_medial",
+      "points": [
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.013914398641,
+            0.008295748039,
+            0.037459942315
+          ],
+          "world": [
+            0.06284604116531742,
+            -0.18988973902405554,
+            0.1469992431522926
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.011374204288,
+            -0.003796421102,
+            -0.027226971266
+          ],
+          "world": [
+            0.06121887472526201,
+            -0.288330413081971,
+            0.1908777825190696
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-anconeus",
+      "sourceName": "left_anconeus",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            0.005736356497,
+            0.024376493587,
+            -0.15326305567
+          ],
+          "world": [
+            0.08105099501937096,
+            -0.178982233012438,
+            0.12289806860040083
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            0.007829775658,
+            0.000146842056,
+            0.028272811699
+          ],
+          "world": [
+            0.08450476256159331,
+            -0.19887986755236536,
+            0.13841469132103895
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            0.007561889215,
+            -0.002257025694,
+            0.029802726349
+          ],
+          "world": [
+            0.08423078565741449,
+            -0.2011504457324338,
+            0.14013527073690202
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-pronator-teres",
+      "sourceName": "left_pronator_teres",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.019274010871,
+            0.01023481947,
+            -0.137531666708
+          ],
+          "world": [
+            0.05639637799940182,
+            -0.20054212640852404,
+            0.12234772531159105
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.018892963067,
+            -0.003936772887,
+            0.004531733283
+          ],
+          "world": [
+            0.057654574316046835,
+            -0.20471858685128333,
+            0.11518978597248845
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.010223120267,
+            -0.009970514038,
+            -0.062586383397
+          ],
+          "world": [
+            0.06599170188086952,
+            -0.21621452690823587,
+            0.048746204948442916
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-supinator",
+      "sourceName": "left_supinator",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            0.012822990689,
+            0.002751823663,
+            -0.144744313225
+          ],
+          "world": [
+            0.0891206872679143,
+            -0.20016609194606594,
+            0.11414936046540335
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            0.012944762931,
+            -0.001038293321,
+            0.002963264896
+          ],
+          "world": [
+            0.08950010756175057,
+            -0.2021389036928308,
+            0.11326382629013872
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.000670676332,
+            -0.007742127558,
+            -0.03605500514
+          ],
+          "world": [
+            0.07567450513622839,
+            -0.21190076562266738,
+            0.07497145439131225
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-flexor-carpi-radialis",
+      "sourceName": "left_flexor_carpi_radialis",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            0.011258055627,
+            0.017350920336,
+            -0.112592009958
+          ],
+          "world": [
+            0.08554316313211677,
+            -0.2126142672178038,
+            0.1470370101876151
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.006305999322,
+            -0.015340333266,
+            -0.066674477767
+          ],
+          "world": [
+            0.06986155530634422,
+            -0.22191995277232612,
+            0.04509057083219255
+          ]
+        },
+        {
+          "body": "left_carpus",
+          "local": [
+            -0.012650248047,
+            -0.005858857598,
+            -0.003933137871
+          ],
+          "world": [
+            0.06302907881329302,
+            -0.2238283962949352,
+            -0.08090148319753673
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-flexor-carpi-ulnaris",
+      "sourceName": "left_flexor_carpi_ulnaris",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            0.013152721961,
+            0.009798747153,
+            -0.146503837208
+          ],
+          "world": [
+            0.08908765864738749,
+            -0.19393536199596834,
+            0.11789645152802562
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            0.008709615668,
+            0.016159857412,
+            -0.103713730762
+          ],
+          "world": [
+            0.0848807428775441,
+            -0.1936075125206933,
+            0.0055625212925969475
+          ]
+        },
+        {
+          "body": "left_carpus",
+          "local": [
+            0.012171533366,
+            0.005124491984,
+            -0.001799017541
+          ],
+          "world": [
+            0.08775201348536052,
+            -0.21433640731157236,
+            -0.08722508315946445
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-extensor-carpi-ulnaris",
+      "sourceName": "left_extensor_carpi_ulnaris",
+      "points": [
+        {
+          "body": "left_carpus",
+          "local": [
+            -0.008173769429,
+            0.013702124014,
+            0.025044561752
+          ],
+          "world": [
+            0.06786419348326816,
+            -0.18994804040939603,
+            -0.07246815117035842
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.008336032333,
+            0.025471637664,
+            0.004670991485
+          ],
+          "world": [
+            0.06837012655533488,
+            -0.17545631968490083,
+            0.11290517419019187
+          ]
+        },
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.009900520352,
+            0.036760500393,
+            -0.142086314595
+          ],
+          "world": [
+            0.06431135245689266,
+            -0.17840873267229634,
+            0.13846246860360562
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-extensor-carpi-radialis",
+      "sourceName": "left_extensor_carpi_radialis",
+      "points": [
+        {
+          "body": "left_humerus",
+          "local": [
+            -0.019129256865,
+            0.012762159728,
+            -0.142983455185
+          ],
+          "world": [
+            0.05658152767185754,
+            -0.19489769479423716,
+            0.12028944655244814
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            -0.021390171712,
+            -0.00239793048,
+            -0.017097092169
+          ],
+          "world": [
+            0.05506902205739621,
+            -0.20492113009333135,
+            0.09351759011797904
+          ]
+        },
+        {
+          "body": "left_carpus",
+          "local": [
+            -0.020954202236,
+            0.009417550308,
+            0.003657873694
+          ],
+          "world": [
+            0.05469620488009061,
+            -0.2073446874402694,
+            -0.08523718437167711
+          ]
+        },
+        {
+          "body": "left_carpus",
+          "local": [
+            -0.009928926349,
+            0.008441936294,
+            -0.026314242555
+          ],
+          "world": [
+            0.06510764736858213,
+            -0.22811205967824094,
+            -0.107172416286811
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-abductor-policis-longum",
+      "sourceName": "left_abductor_policis_longum",
+      "points": [
+        {
+          "body": "left_carpus",
+          "local": [
+            -0.025123119012,
+            0.008505328609,
+            -0.0038376899
+          ],
+          "world": [
+            0.05038407306700131,
+            -0.21300408290859815,
+            -0.0901128639411979
+          ]
+        },
+        {
+          "body": "left_carpus",
+          "local": [
+            -0.025319023983,
+            0.002574900798,
+            0.004224533163
+          ],
+          "world": [
+            0.0504291138978257,
+            -0.2120450242697573,
+            -0.08014862933197991
+          ]
+        },
+        {
+          "body": "left_antebrachium",
+          "local": [
+            0.003191367966,
+            -0.001520508459,
+            -0.098681166904
+          ],
+          "world": [
+            0.07928998245895826,
+            -0.21079065534452557,
+            0.012032149926116259
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-trapezius-cervical",
+      "sourceName": "right_trapezius_cervical",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.021214978982,
+            -0.000791122123,
+            -0.009862411841
+          ],
+          "world": [
+            -0.08632172154173183,
+            -0.29067611908528196,
+            0.31958138795371976
+          ]
+        },
+        {
+          "body": "cervix",
+          "local": [
+            0,
+            -0.01029,
+            0.06891
+          ],
+          "world": [
+            0,
+            -0.32270476898757217,
+            0.36818385112885094
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-trapezius-thoracic",
+      "sourceName": "right_trapezius_thoracic",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.017020114909,
+            0.002340056409,
+            0.009801606075
+          ],
+          "world": [
+            -0.08307613057779364,
+            -0.28486869541676996,
+            0.3388119556473731
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            -0.00632,
+            -0.1179,
+            0.16775
+          ],
+          "world": [
+            -0.00632,
+            -0.22651777880734555,
+            0.3913496952140152
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-rhomboideus-thoracic",
+      "sourceName": "right_rhomboideus_thoracic",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            0.000440568342,
+            0.047345507524,
+            0.037673689888
+          ],
+          "world": [
+            -0.06676271133928827,
+            -0.2364364307948123,
+            0.3610697013120341
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            -0.00608,
+            -0.11277,
+            0.16399
+          ],
+          "world": [
+            -0.00608,
+            -0.2211980260985805,
+            0.38786333161886516
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-rhomboideus-cervicis",
+      "sourceName": "right_rhomboideus_cervicis",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            0.023244708905,
+            0.007886254003,
+            0.04757744901
+          ],
+          "world": [
+            -0.044676264925313944,
+            -0.2741276141772741,
+            0.377400945601141
+          ]
+        },
+        {
+          "body": "cervix",
+          "local": [
+            -0.00274,
+            -0.14652,
+            0.08612
+          ],
+          "world": [
+            -0.00274,
+            -0.45582195982568724,
+            0.4018678310506011
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-latissimus-dorsi",
+      "sourceName": "right_latissimus_dorsi",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.00084,
+            0.07482,
+            0.19937
+          ],
+          "world": [
+            -0.00084,
+            -0.03571675780585304,
+            0.43301254659012733
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.00295787993,
+            0.024430697683,
+            -0.151643210326
+          ],
+          "world": [
+            -0.06102880668198253,
+            -0.28512896369374663,
+            0.17675017916472757
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-brachiocephalicus-1",
+      "sourceName": "right_brachiocephalicus_1",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.00932580419,
+            -0.003763324957,
+            -0.074325132318
+          ],
+          "world": [
+            -0.06629334296288944,
+            -0.2549620619699137,
+            0.157783382582119
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            0.000165493705,
+            -0.021895928863,
+            -0.028275904123
+          ],
+          "world": [
+            -0.05736293202850557,
+            -0.30017807039825106,
+            0.17815904992947867
+          ]
+        },
+        {
+          "body": "cervix",
+          "local": [
+            -0.00006,
+            -0.11578,
+            0.08114
+          ],
+          "world": [
+            -0.00006,
+            -0.4259180004543853,
+            0.3931786875991711
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-brachiocephalicus-2",
+      "sourceName": "right_brachiocephalicus_2",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.00932580419,
+            -0.003763324957,
+            -0.074325132318
+          ],
+          "world": [
+            -0.06629334296288944,
+            -0.2549620619699137,
+            0.157783382582119
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            0.000165493705,
+            -0.021895928863,
+            -0.028275904123
+          ],
+          "world": [
+            -0.05736293202850557,
+            -0.30017807039825106,
+            0.17815904992947867
+          ]
+        },
+        {
+          "body": "cervix",
+          "local": [
+            -0.02375,
+            -0.21087,
+            0.05245
+          ],
+          "world": [
+            -0.02375,
+            -0.5237956454762421,
+            0.37629109437291797
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-1",
+      "sourceName": "right_serratus_1",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            -0.02624,
+            -0.01886,
+            -0.02412
+          ],
+          "world": [
+            -0.02624,
+            -0.3425483945240641,
+            0.2768917029146289
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.008056689436,
+            0.003694450432,
+            0.024147840736
+          ],
+          "world": [
+            -0.05872333499819499,
+            -0.28151935685164753,
+            0.354050663824574
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-2",
+      "sourceName": "right_serratus_2",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            -0.01914,
+            -0.05044,
+            -0.02618
+          ],
+          "world": [
+            -0.01914,
+            -0.37414405284031277,
+            0.2786956917069633
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.00934725921,
+            -0.005348057277,
+            0.02479951116
+          ],
+          "world": [
+            -0.0575134473255402,
+            -0.2903848081140744,
+            0.35599928797599345
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-3",
+      "sourceName": "right_serratus_3",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            -0.02026,
+            -0.07584,
+            0.00084
+          ],
+          "world": [
+            -0.02026,
+            -0.3960618154332133,
+            0.30860977004678936
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.009611860986,
+            -0.011774132748,
+            0.028024867388
+          ],
+          "world": [
+            -0.05744032950893956,
+            -0.2963068527120029,
+            0.36008480194872566
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-4",
+      "sourceName": "right_serratus_4",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            -0.02258,
+            -0.09421,
+            0.02007
+          ],
+          "world": [
+            -0.02258,
+            -0.41195134076519624,
+            0.3299351723811949
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.010793041522,
+            -0.023478965678,
+            0.026425849944
+          ],
+          "world": [
+            -0.056243676592945865,
+            -0.30811856232464047,
+            0.36016663097427953
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-5",
+      "sourceName": "right_serratus_5",
+      "points": [
+        {
+          "body": "cervix",
+          "local": [
+            -0.02509,
+            -0.10999,
+            0.03679
+          ],
+          "world": [
+            -0.02509,
+            -0.42557606361637346,
+            0.34845364227556286
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.011889375935,
+            -0.007930481269,
+            0.042130378528
+          ],
+          "world": [
+            -0.05583451456099581,
+            -0.2905597060892876,
+            0.3736242938005484
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-6",
+      "sourceName": "right_serratus_6",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.07414,
+            -0.01866,
+            0.01374
+          ],
+          "world": [
+            -0.07414,
+            -0.11935352315730056,
+            0.24274458086403122
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.002319830953,
+            0.05755648629,
+            0.023678284679
+          ],
+          "world": [
+            -0.06878270449384039,
+            -0.22824765224058824,
+            0.3456872830354078
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-7",
+      "sourceName": "right_serratus_7",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.07205,
+            -0.04904,
+            0.00649
+          ],
+          "world": [
+            -0.07205,
+            -0.14931245274038168,
+            0.23391455038639483
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.002217978183,
+            0.051048139064,
+            0.02726631594
+          ],
+          "world": [
+            -0.06445968629560032,
+            -0.23419487289076166,
+            0.3503527244823339
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-8",
+      "sourceName": "right_serratus_8",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.05734,
+            -0.08359,
+            -0.00597
+          ],
+          "world": [
+            -0.05734,
+            -0.1831629971513627,
+            0.21966341909515338
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.004905823357,
+            0.045087666779,
+            0.03319310072
+          ],
+          "world": [
+            -0.06209578047030817,
+            -0.23928116757637308,
+            0.3571659524242392
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-9",
+      "sourceName": "right_serratus_9",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.05623,
+            -0.11696,
+            0.00059
+          ],
+          "world": [
+            -0.05623,
+            -0.21683058859907736,
+            0.22446797798331064
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.0068547111,
+            0.037912424419,
+            0.037831826438
+          ],
+          "world": [
+            -0.060413371254940465,
+            -0.24574868402143699,
+            0.36283523570444864
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-10",
+      "sourceName": "right_serratus_10",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.05173,
+            -0.14994,
+            0.0012
+          ],
+          "world": [
+            -0.05173,
+            -0.2497973155885912,
+            0.22335110216261303
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.009038527993,
+            0.02864207377,
+            0.043615368889
+          ],
+          "world": [
+            -0.058563197427740514,
+            -0.254133950378906,
+            0.3699360797094616
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-11",
+      "sourceName": "right_serratus_11",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.03682,
+            -0.18139,
+            0.00511
+          ],
+          "world": [
+            -0.03682,
+            -0.28140884804553284,
+            0.22560977781965744
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.009809406611,
+            0.019398254433,
+            0.041409538338
+          ],
+          "world": [
+            -0.05773383789310741,
+            -0.26359188006382395,
+            0.36905979948261
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-serratus-12",
+      "sourceName": "right_serratus_12",
+      "points": [
+        {
+          "body": "thorax",
+          "local": [
+            -0.03331,
+            -0.2001,
+            0.00603
+          ],
+          "world": [
+            -0.03331,
+            -0.30014135572053446,
+            0.225549311250323
+          ]
+        },
+        {
+          "body": "right_scapula",
+          "local": [
+            0.008245978471,
+            0.012732311308,
+            0.032852657893
+          ],
+          "world": [
+            -0.05891223743737296,
+            -0.27137178465380596,
+            0.3614319710020033
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-pectoralis-profundus",
+      "sourceName": "right_pectoralis_profundus",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            0.006196065621,
+            -0.013073191495,
+            0.011955052702
+          ],
+          "world": [
+            -0.053301594307789704,
+            -0.3222888020290704,
+            0.21319274031490548
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0,
+            -0.10342,
+            -0.06043
+          ],
+          "world": [
+            0,
+            -0.20011560464854578,
+            0.16424023262011883
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-pectoralis-superficialis",
+      "sourceName": "right_pectoralis_superficialis",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.000091806556,
+            -0.013244264115,
+            -0.026616752619
+          ],
+          "world": [
+            -0.05819911684471585,
+            -0.29524123976292593,
+            0.18541155213772215
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0,
+            -0.19787,
+            -0.05229
+          ],
+          "world": [
+            0,
+            -0.2948621788899333,
+            0.16742594596585889
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-supraspinatus",
+      "sourceName": "right_supraspinatus",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.005398945647,
+            -0.011638801462,
+            -0.005520396405
+          ],
+          "world": [
+            -0.07079362362387012,
+            -0.300800845056977,
+            0.32614189514397895
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.00146019841,
+            -0.005548608187,
+            0.026383862044
+          ],
+          "world": [
+            -0.06190263773928312,
+            -0.32730955000711187,
+            0.22816746613976646
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-infraspinatus",
+      "sourceName": "right_infraspinatus",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.012630733305,
+            0.019292124236,
+            -0.00666742714
+          ],
+          "world": [
+            -0.07779888646173083,
+            -0.2703313164559162,
+            0.32040859625291684
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.011528140441,
+            -0.001612986472,
+            0.017854086301
+          ],
+          "world": [
+            -0.07188113074985508,
+            -0.31867236070627575,
+            0.22423830751882537
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-subscapularis",
+      "sourceName": "right_subscapularis",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            0.000684310624,
+            0.010912246204,
+            -0.011064970846
+          ],
+          "world": [
+            -0.06432892652568262,
+            -0.2792152002347496,
+            0.3178614547896265
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            0.020145024421,
+            0.013047621625,
+            0.017248416458
+          ],
+          "world": [
+            -0.04114637837071548,
+            -0.30732593717373013,
+            0.2362850210673846
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-deltoideus-sca",
+      "sourceName": "right_deltoideus_sca",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.017216204796,
+            0.003722365091,
+            0.006325506444
+          ],
+          "world": [
+            -0.08309494793147444,
+            -0.2839769758828944,
+            0.33517368966467476
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.015568583127,
+            -0.008769809019,
+            -0.021492937093
+          ],
+          "world": [
+            -0.07408875525716424,
+            -0.2959743888577176,
+            0.19113752196873804
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-deltoideus-acr",
+      "sourceName": "right_deltoideus_acr",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.034413051228,
+            -0.00786155713,
+            -0.08526077269
+          ],
+          "world": [
+            -0.09585764017626645,
+            -0.3080504894260593,
+            0.24530965381500508
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.013561152712,
+            -0.012104689632,
+            -0.030618600316
+          ],
+          "world": [
+            -0.07156259840074883,
+            -0.29184222785473346,
+            0.18247884355827332
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-teres-major",
+      "sourceName": "right_teres_major",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.00902544018,
+            0.052985156635,
+            0.01231430026
+          ],
+          "world": [
+            -0.07494899505371101,
+            -0.2343459937579977,
+            0.3347424448336126
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            0.007437354023,
+            -0.006162563658,
+            -0.029801058278
+          ],
+          "world": [
+            -0.05100197173231308,
+            -0.2878518202109058,
+            0.18866364743648262
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-teres-minor",
+      "sourceName": "right_teres_minor",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.01327897497,
+            0.018624302689,
+            -0.055285421435
+          ],
+          "world": [
+            -0.07607486002554155,
+            -0.2776681052250922,
+            0.27236929114192104
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.012991099231,
+            0.004658413625,
+            0.008264951384
+          ],
+          "world": [
+            -0.07337877068243005,
+            -0.30748394633400383,
+            0.22178908835325167
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-coracobrachialis",
+      "sourceName": "right_coracobrachialis",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.000706882747,
+            -0.016462846825,
+            -0.092194968422
+          ],
+          "world": [
+            -0.06189842212506111,
+            -0.3174707681149001,
+            0.24128461874536672
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            0.007112724679,
+            -0.000493963156,
+            -0.032282513871
+          ],
+          "world": [
+            -0.05157924938108131,
+            -0.282096175716964,
+            0.19088521100700723
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-biceps-brachii",
+      "sourceName": "right_biceps_brachii",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.010321649815,
+            -0.014412797489,
+            -0.095970595345
+          ],
+          "world": [
+            -0.07130641916689072,
+            -0.3159731395582535,
+            0.23679590990196242
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.011707408792,
+            -0.005204423632,
+            -0.013242241449
+          ],
+          "world": [
+            -0.04305207807410857,
+            -0.2075958651474409,
+            0.09745392508722543
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-brachialis",
+      "sourceName": "right_brachialis",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.018728651809,
+            0.012745093729,
+            -0.126925149818
+          ],
+          "world": [
+            -0.07804911841989343,
+            -0.2933347046393994,
+            0.2020331359653772
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.011724876983,
+            -0.006695807674,
+            -0.007053059359
+          ],
+          "world": [
+            -0.04301496893091031,
+            -0.20858148708234878,
+            0.10374341463364535
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.008999370141,
+            0.011621880312,
+            -0.016821258548
+          ],
+          "world": [
+            -0.04568550103155264,
+            -0.19109921967440824,
+            0.09253527559672596
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-triceps-caput-longum",
+      "sourceName": "right_triceps_caput_longum",
+      "points": [
+        {
+          "body": "right_scapula",
+          "local": [
+            -0.009404941009,
+            0.013634200564,
+            -0.067358947625
+          ],
+          "world": [
+            -0.07164181199592567,
+            -0.2842624968223248,
+            0.26129945023796064
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.00417616509,
+            0.031695742359,
+            0.029270380969
+          ],
+          "world": [
+            -0.05019452315172613,
+            -0.16733333451491547,
+            0.1368693922555322
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-triceps-caput-laterale",
+      "sourceName": "right_triceps_caput_laterale",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.014438915885,
+            -0.002829916542,
+            -0.010156982311
+          ],
+          "world": [
+            -0.0737204891473587,
+            -0.2997734680417566,
+            0.20340511011642576
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            -0.004918109548,
+            0.030130425149,
+            0.015623609471
+          ],
+          "world": [
+            -0.05935800296863372,
+            -0.16994597259945882,
+            0.12343082159633494
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-triceps-caput-accessorium",
+      "sourceName": "right_triceps_caput_accessorium",
+      "points": [
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.009812560935,
+            0.035528640531,
+            0.021787396212
+          ],
+          "world": [
+            -0.044571089672576975,
+            -0.16415100962494208,
+            0.12907805529759048
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.001969603146,
+            0.020632314408,
+            0.004745110582
+          ],
+          "world": [
+            -0.06322123252167451,
+            -0.29351113281777386,
+            0.23130817772155154
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-triceps-caput-medial",
+      "sourceName": "right_triceps_caput_medial",
+      "points": [
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.012218961183,
+            0.008262586312,
+            0.038053959825
+          ],
+          "world": [
+            -0.04223876158934866,
+            -0.19002434085510392,
+            0.14748893641092437
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            0.008416933696,
+            -0.004184513228,
+            -0.028226554464
+          ],
+          "world": [
+            -0.050199564394582556,
+            -0.28755011196703906,
+            0.19123589095131896
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-anconeus",
+      "sourceName": "right_anconeus",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.020185840377,
+            0.024884812033,
+            -0.1519538135
+          ],
+          "world": [
+            -0.07610485363991655,
+            -0.18000426212088932,
+            0.12242902243990257
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            -0.009105921183,
+            0.000168332479,
+            0.027887859266
+          ],
+          "world": [
+            -0.06365212501840035,
+            -0.19879263897464905,
+            0.13809734611137411
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            -0.008913924476,
+            -0.002236118836,
+            0.029428227169
+          ],
+          "world": [
+            -0.06346618643846491,
+            -0.20106558581725836,
+            0.13982654292881871
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-pronator-teres",
+      "sourceName": "right_pronator_teres",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            0.005709554838,
+            0.009744907009,
+            -0.138793501804
+          ],
+          "world": [
+            -0.049826898831431876,
+            -0.19955710451657266,
+            0.12279978752113938
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.018657495806,
+            -0.003984422254,
+            0.00538526418
+          ],
+          "world": [
+            -0.03601232666002559,
+            -0.20491199330742202,
+            0.1158934156115645
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.013030971144,
+            -0.010000022139,
+            -0.062057812346
+          ],
+          "world": [
+            -0.041972571726484026,
+            -0.2163342988508898,
+            0.04918194577421327
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-supinator",
+      "sourceName": "right_supinator",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.027218615422,
+            0.003537015099,
+            -0.142721947623
+          ],
+          "world": [
+            -0.08216200653915913,
+            -0.201744804090164,
+            0.11342483230545988
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            -0.013068627375,
+            -0.001005283828,
+            0.002371974322
+          ],
+          "world": [
+            -0.06773511173059324,
+            -0.20200491977337126,
+            0.11277638104971356
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.002288571758,
+            -0.007745882673,
+            -0.035987740724
+          ],
+          "world": [
+            -0.05258603871075705,
+            -0.21191600745180625,
+            0.07502690550262556
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-flexor-carpi-radialis",
+      "sourceName": "right_flexor_carpi_radialis",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.021853656558,
+            0.018000220785,
+            -0.110919649775
+          ],
+          "world": [
+            -0.07880598715762702,
+            -0.2139197558634397,
+            0.14643787418242193
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.00929003791,
+            -0.015360123738,
+            -0.066319976116
+          ],
+          "world": [
+            -0.04576131091334548,
+            -0.22200028133242927,
+            0.04538281317479312
+          ]
+        },
+        {
+          "body": "right_carpus",
+          "local": [
+            0.012729670528,
+            -0.006231308069,
+            -0.002991797036
+          ],
+          "world": [
+            -0.04279425840426366,
+            -0.2235957634126097,
+            -0.08055433733261089
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-flexor-carpi-ulnaris",
+      "sourceName": "right_flexor_carpi_ulnaris",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.027448068675,
+            0.010594903855,
+            -0.144453229094
+          ],
+          "world": [
+            -0.08275451417613873,
+            -0.19553612099352247,
+            0.11716180526827483
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            -0.003947168394,
+            0.016175918141,
+            -0.104001422486
+          ],
+          "world": [
+            -0.058996931075583646,
+            -0.19354232280476757,
+            0.005325355391969114
+          ]
+        },
+        {
+          "body": "right_carpus",
+          "local": [
+            -0.011849460435,
+            0.005477000226,
+            -0.002689955875
+          ],
+          "world": [
+            -0.06750482798286175,
+            -0.21455658425960555,
+            -0.08755364168766662
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-extensor-carpi-ulnaris",
+      "sourceName": "right_extensor_carpi_ulnaris",
+      "points": [
+        {
+          "body": "right_carpus",
+          "local": [
+            0.006694466335,
+            0.013483932556,
+            0.025596024414
+          ],
+          "world": [
+            -0.048477761547737655,
+            -0.18981175783995233,
+            -0.07226478382866927
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.008179771197,
+            0.025450680061,
+            0.005046399644
+          ],
+          "world": [
+            -0.04633290869812268,
+            -0.1755413855709092,
+            0.11321465133803794
+          ]
+        },
+        {
+          "body": "right_humerus",
+          "local": [
+            -0.003030539054,
+            0.036625784256,
+            -0.14243329403
+          ],
+          "world": [
+            -0.06003504820645708,
+            -0.17813787133706385,
+            0.1385867766766658
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-extensor-carpi-radialis",
+      "sourceName": "right_extensor_carpi_radialis",
+      "points": [
+        {
+          "body": "right_humerus",
+          "local": [
+            0.005115386436,
+            0.012286737083,
+            -0.144207969819
+          ],
+          "world": [
+            -0.05038106071639878,
+            -0.19394180624399854,
+            0.12072813841577418
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.022138768101,
+            -0.002453166194,
+            -0.016107668972
+          ],
+          "world": [
+            -0.03261897763515204,
+            -0.2051453291635479,
+            0.09433324598878098
+          ]
+        },
+        {
+          "body": "right_carpus",
+          "local": [
+            0.02089268713,
+            0.008803446932,
+            0.005209974252
+          ],
+          "world": [
+            -0.03464929758823566,
+            -0.20696111794831648,
+            -0.08466480370857364
+          ]
+        },
+        {
+          "body": "right_carpus",
+          "local": [
+            0.012093648666,
+            0.008118754861,
+            -0.025497425547
+          ],
+          "world": [
+            -0.04407524839073814,
+            -0.227910200280074,
+            -0.10687119207914653
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-abductor-policis-longum",
+      "sourceName": "right_abductor_policis_longum",
+      "points": [
+        {
+          "body": "right_carpus",
+          "local": [
+            0.025576765573,
+            0.00776130747,
+            -0.001957231869
+          ],
+          "world": [
+            -0.03010259348632596,
+            -0.21253936667086268,
+            -0.0894193922395008
+          ]
+        },
+        {
+          "body": "right_carpus",
+          "local": [
+            0.025001161033,
+            0.001836451752,
+            0.006090908142
+          ],
+          "world": [
+            -0.03043750272838722,
+            -0.21158378836706707,
+            -0.07946035115076429
+          ]
+        },
+        {
+          "body": "right_antebrachium",
+          "local": [
+            0.001291850611,
+            -0.001518098081,
+            -0.098724343387
+          ],
+          "world": [
+            -0.05382966845000203,
+            -0.21078087173783647,
+            0.011996556307599646
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-longissimus",
+      "sourceName": "left_longissimus",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.029590037958,
+            0.006585585475,
+            -0.012019890216
+          ],
+          "world": [
+            0.029590037958,
+            0.15787232671143142,
+            0.384407762301554
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0.02552,
+            -0.08467,
+            0.12568
+          ],
+          "world": [
+            0.02552,
+            -0.1911315456883035,
+            0.3510764745128493
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-quadratus-lumborum",
+      "sourceName": "left_quadratus_lumborum",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.034660034214,
+            -0.021447763406,
+            -0.027019854654
+          ],
+          "world": [
+            0.034660034214,
+            0.1420956221397529,
+            0.3568040818316763
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0.00516,
+            -0.00432,
+            0.13748
+          ],
+          "world": [
+            0.00516,
+            -0.11150922685444299,
+            0.36706549710708736
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-iliocostalis",
+      "sourceName": "left_iliocostalis",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.036849994735,
+            -0.011254262988,
+            -0.004860161738
+          ],
+          "world": [
+            0.036849994735,
+            0.13895513046134372,
+            0.3809928551143591
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            0.02771,
+            -0.10938,
+            0.11044
+          ],
+          "world": [
+            0.02771,
+            -0.2150100815189438,
+            0.3345641389244224
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-longissimus",
+      "sourceName": "right_longissimus",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.0318899604,
+            0.006585673602,
+            -0.012020040123
+          ],
+          "world": [
+            -0.0318899604,
+            0.15787248102611184,
+            0.3844076821426107
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            -0.02552,
+            -0.08467,
+            0.12568
+          ],
+          "world": [
+            -0.02552,
+            -0.1911315456883035,
+            0.3510764745128493
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-quadratus-lumborum",
+      "sourceName": "right_quadratus_lumborum",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.035209952981,
+            -0.017487475928,
+            -0.029178407577
+          ],
+          "world": [
+            -0.035209952981,
+            0.14659752043443877,
+            0.3570800154724311
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            -0.00309,
+            -0.00416,
+            0.13702
+          ],
+          "world": [
+            -0.00309,
+            -0.11132537158901044,
+            0.36661450127409917
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-iliocostalis",
+      "sourceName": "right_iliocostalis",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.039230002525,
+            -0.011290335451,
+            -0.005172101783
+          ],
+          "world": [
+            -0.039230002525,
+            0.13909033718398592,
+            0.3807094350084847
+          ]
+        },
+        {
+          "body": "thorax",
+          "local": [
+            -0.0277,
+            -0.11235,
+            0.11056
+          ],
+          "world": [
+            -0.0277,
+            -0.217982291551914,
+            0.33452853667855087
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-sacrocaudalis",
+      "sourceName": "left_sacrocaudalis",
+      "points": [
+        {
+          "body": "cauda",
+          "local": [
+            0.015085,
+            0.069395,
+            0.018305
+          ],
+          "world": [
+            0.015085,
+            0.21424806718894146,
+            0.41300227134659967
+          ]
+        },
+        {
+          "body": "abdomen",
+          "local": [
+            0.01098,
+            0.01654,
+            0.03546
+          ],
+          "world": [
+            0.01098,
+            -0.04582513819483819,
+            0.42946865806033696
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-psoas-major",
+      "sourceName": "left_psoas_major",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            -0.010319345502,
+            0.008374071421,
+            -0.026535005446
+          ],
+          "world": [
+            0.04496488952886566,
+            0.20297827501481733,
+            0.2762030451593913
+          ]
+        },
+        {
+          "body": "abdomen",
+          "local": [
+            0.02734,
+            0.04867,
+            0.00284
+          ],
+          "world": [
+            0.02734,
+            -0.012031972350523648,
+            0.39857491691073427
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-psoas-minor",
+      "sourceName": "left_psoas_minor",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.027390211878,
+            -0.019350396679,
+            -0.098571306488
+          ],
+          "world": [
+            0.027390211878,
+            0.18189468733840555,
+            0.29730581617582585
+          ]
+        },
+        {
+          "body": "abdomen",
+          "local": [
+            0.00912,
+            -0.00102,
+            -0.00319
+          ],
+          "world": [
+            0.00912,
+            -0.06133828811633201,
+            0.38995260715044394
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-adductor-longus",
+      "sourceName": "left_adductor_longus",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.001879738903,
+            0.012542732547,
+            -0.039588051924
+          ],
+          "world": [
+            0.0570423075716278,
+            0.20417276890287683,
+            0.262444899352913
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.013970248729,
+            -0.019603083024,
+            -0.113686296295
+          ],
+          "world": [
+            0.013970248729,
+            0.1897127153091899,
+            0.2843672998040506
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-gemelli",
+      "sourceName": "left_gemelli",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.007255201316,
+            0.012083928236,
+            -0.008650038125
+          ],
+          "world": [
+            0.0626883395258616,
+            0.21052537414123282,
+            0.29267788672157813
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.043390313806,
+            0.022129158226,
+            -0.116164576256
+          ],
+          "world": [
+            0.043390313806,
+            0.22638196615139994,
+            0.30444434824211475
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-gluteus-medius",
+      "sourceName": "left_gluteus_medius",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.013589261255,
+            0.005552460408,
+            0.00169419141
+          ],
+          "world": [
+            0.06912381704456441,
+            0.20642637519513424,
+            0.3041481224958751
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.038030052125,
+            -0.004557051982,
+            -0.024472752242
+          ],
+          "world": [
+            0.038030052125,
+            0.15505058745114114,
+            0.3679374881786479
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-gluteus-profundus",
+      "sourceName": "left_gluteus_profundus",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.014732265347,
+            0.002341535314,
+            -0.005648852128
+          ],
+          "world": [
+            0.0702083004488019,
+            0.20167947535200617,
+            0.2976806945419034
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.03504016356,
+            0.000987865302,
+            -0.066882479435
+          ],
+          "world": [
+            0.03504016356,
+            0.1822842772227719,
+            0.33495783976187943
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-gluteus-superficialis",
+      "sourceName": "left_gluteus_superficialis",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.000330120427,
+            0.023318882901,
+            -0.035684843053
+          ],
+          "world": [
+            0.000330120427,
+            0.18462299209994554,
+            0.37325271246768205
+          ]
+        },
+        {
+          "body": "left_femur",
+          "local": [
+            0.014591084912,
+            0.014533371666,
+            -0.012476147123
+          ],
+          "world": [
+            0.06998626902482248,
+            0.21207218831278934,
+            0.28834179836197593
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-iliacus",
+      "sourceName": "left_iliacus",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            -0.009455294291,
+            0.008713722512,
+            -0.024707316912
+          ],
+          "world": [
+            0.04584426313222879,
+            0.2037112255887027,
+            0.2779035974985189
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.035350100902,
+            -0.019312904656,
+            -0.053122895654
+          ],
+          "world": [
+            0.035350100902,
+            0.15777522669443092,
+            0.3358260844930585
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-obturator-ext",
+      "sourceName": "left_obturator_ext",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.004209904066,
+            0.01161296981,
+            -0.014866152637
+          ],
+          "world": [
+            0.05958973967137532,
+            0.20870005727704852,
+            0.2867447076333256
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.024070341899,
+            0.009881354066,
+            -0.134674552823
+          ],
+          "world": [
+            0.024070341899,
+            0.2258427580132814,
+            0.28225567559509984
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-obturator-int",
+      "sourceName": "left_obturator_int",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.086200280237,
+            -0.000600991163,
+            -0.116228274867
+          ],
+          "world": [
+            0.086200280237,
+            0.20716060767908773,
+            0.29231161865483013
+          ]
+        },
+        {
+          "body": "left_femur",
+          "local": [
+            -0.015315700111,
+            0.023452662277,
+            -0.007778206833
+          ],
+          "world": [
+            0.04010609855399916,
+            0.22181252185682987,
+            0.29122996273908336
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-piriformis",
+      "sourceName": "left_piriformis",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.029240584611,
+            0.006980351158,
+            0.005104419878
+          ],
+          "world": [
+            0.08480178804516167,
+            0.20856565327590917,
+            0.30702165126543907
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.03945014979,
+            0.021405439531,
+            -0.049280285133
+          ],
+          "world": [
+            0.03945014979,
+            0.19022667088512535,
+            0.36071891436202563
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-pectineus",
+      "sourceName": "left_pectineus",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            -0.002899265401,
+            -0.007947706876,
+            -0.138237773284
+          ],
+          "world": [
+            0.05143838340409994,
+            0.16249768988047214,
+            0.17075930431916822
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.026650229529,
+            -0.019072309836,
+            -0.105638603788
+          ],
+          "world": [
+            0.026650229529,
+            0.18588581254540973,
+            0.2914667286614232
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-sartorius-caudal",
+      "sourceName": "left_sartorius_caudal",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.04473999888,
+            -0.031443428054,
+            -0.018515197933
+          ],
+          "world": [
+            0.04473999888,
+            0.12910871299681967,
+            0.3586968809785813
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.008774928087,
+            -0.018130485315,
+            -0.019362931599
+          ],
+          "world": [
+            0.04438576110177069,
+            0.15314364223119922,
+            0.11330817826315069
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.00381767538,
+            -0.023818137424,
+            -0.046995118799
+          ],
+          "world": [
+            0.04828176082847084,
+            0.1577487611716275,
+            0.0853068287234593
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-sartorius-cranial",
+      "sourceName": "left_sartorius_cranial",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.048849972083,
+            -0.02228697058,
+            -0.002187262142
+          ],
+          "world": [
+            0.048849972083,
+            0.1281887069594519,
+            0.3773943618131589
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.003727453896,
+            -0.025238303034,
+            0.007270880659
+          ],
+          "world": [
+            0.05776831708963935,
+            0.1370071825775654,
+            0.13514192389801538
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.004132105,
+            -0.025868633169,
+            0.002325107298
+          ],
+          "world": [
+            0.05798737901968734,
+            0.1381918012556783,
+            0.13028698587660825
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-tensor-fasciae",
+      "sourceName": "left_tensor_fasciae",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.045370000402,
+            -0.028631727591,
+            -0.017493660813
+          ],
+          "world": [
+            0.045370000402,
+            0.13094772272089472,
+            0.3610563810985071
+          ]
+        },
+        {
+          "body": "left_femur",
+          "local": [
+            0.026102871013,
+            -0.008694875912,
+            -0.087679025782
+          ],
+          "world": [
+            0.08088187804501534,
+            0.17287726425166122,
+            0.21998545779797413
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-quadratus-femoris",
+      "sourceName": "left_quadratus_femoris",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.042840391888,
+            0.02709491718,
+            -0.145262367879
+          ],
+          "world": [
+            0.042840391888,
+            0.24605109455320437,
+            0.28243376834884326
+          ]
+        },
+        {
+          "body": "left_femur",
+          "local": [
+            0.001076417067,
+            0.015265928131,
+            -0.027735629256
+          ],
+          "world": [
+            0.05633769544477448,
+            0.2094351296644528,
+            0.27341541092838423
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-vastus-lateralis",
+      "sourceName": "left_vastus_lateralis",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.013775224777,
+            0.001680698334,
+            -0.021819857462
+          ],
+          "world": [
+            0.0691113342590919,
+            0.19748001263585602,
+            0.28205970789722196
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.012981411705,
+            -0.023431854473,
+            -0.003943969457
+          ],
+          "world": [
+            0.06662908744452803,
+            0.1427416445873913,
+            0.1249795152841864
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.007768907297,
+            -0.0246578426,
+            -0.029535423915
+          ],
+          "world": [
+            0.06048253802180239,
+            0.1507479142715921,
+            0.10086073906513474
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-vastus-medialis",
+      "sourceName": "left_vastus_medialis",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            -0.004496534692,
+            -0.000768908564,
+            -0.027525099635
+          ],
+          "world": [
+            0.05079478655838087,
+            0.19384004807489352,
+            0.2771953174294641
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.000199345085,
+            -0.021996104787,
+            0.005765744724
+          ],
+          "world": [
+            0.05422190937014926,
+            0.14056182942311737,
+            0.13503095755860337
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.000088689606,
+            -0.02530997365,
+            -0.02963702527
+          ],
+          "world": [
+            0.052620065569814564,
+            0.15014975070845454,
+            0.10082676664669966
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-rectus-femoris",
+      "sourceName": "left_rectus_femoris",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.042470185714,
+            -0.010372079412,
+            -0.082727876357
+          ],
+          "world": [
+            0.042470185714,
+            0.18108124044610088,
+            0.3154981981918289
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.008196549603,
+            -0.024658706242,
+            0.005634525931
+          ],
+          "world": [
+            0.062181113176072646,
+            0.13814914563840655,
+            0.13365546611432164
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.002931831067,
+            -0.024508905531,
+            -0.027539709585
+          ],
+          "world": [
+            0.05572256330782901,
+            0.15015618498254596,
+            0.10295713157684137
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-abductor-cruris",
+      "sourceName": "left_abductor_cruris",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.032130286999,
+            0.032414926628,
+            -0.099000312901
+          ],
+          "world": [
+            0.032130286999,
+            0.22597420087767614,
+            0.32445041471258623
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.011686606058,
+            0.062269107183,
+            -0.033270636111
+          ],
+          "world": [
+            0.06516357935969647,
+            0.23325584096614124,
+            0.1283584600046439
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.010674251062,
+            -0.02627992507,
+            -0.113522825797
+          ],
+          "world": [
+            0.0603332240396883,
+            0.1793308454743609,
+            0.021816766505467614
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-adductoren",
+      "sourceName": "left_adductoren",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.007449845368,
+            0.001537602769,
+            -0.094528803215
+          ],
+          "world": [
+            0.062151957877966235,
+            0.181357606033931,
+            0.21122005248255146
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            0.011560339045,
+            0.00170914809,
+            -0.138171618096
+          ],
+          "world": [
+            0.011560339045,
+            0.2207782387035146,
+            0.2749505362946627
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-biceps-femoris-longum",
+      "sourceName": "left_biceps_femoris_longum",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.060400374868,
+            0.033543767893,
+            -0.134683265953
+          ],
+          "world": [
+            0.060400374868,
+            0.24589233762385632,
+            0.29482246760730624
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.022340907742,
+            0.055414499124,
+            -0.0254138582
+          ],
+          "world": [
+            0.07602327696734235,
+            0.22407646213432497,
+            0.13283447690490954
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.011436791953,
+            -0.025387260693,
+            -0.039426230671
+          ],
+          "world": [
+            0.06378275647853363,
+            0.15362222221198862,
+            0.09123471190486374
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-biceps-femoris-breve",
+      "sourceName": "left_biceps_femoris_breve",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.017794940954,
+            0.037877546519,
+            -0.070861918123
+          ],
+          "world": [
+            0.0726397509918323,
+            0.2220091877717079,
+            0.22622635323297485
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.022340907742,
+            0.055414499124,
+            -0.0254138582
+          ],
+          "world": [
+            0.07602327696734235,
+            0.22407646213432497,
+            0.13283447690490954
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.011436791953,
+            -0.025387260693,
+            -0.039426230671
+          ],
+          "world": [
+            0.06378275647853363,
+            0.15362222221198862,
+            0.09123471190486374
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-gracilis-tractus-calcaneus",
+      "sourceName": "left_gracilis_tractus_calcaneus",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.010180360341,
+            0.006437580278,
+            -0.14411085076
+          ],
+          "world": [
+            0.010180360341,
+            0.22793989706481482,
+            0.27243196425684896
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.026245862556,
+            0.038552786982,
+            -0.027879617567
+          ],
+          "world": [
+            0.02720694604527809,
+            0.20905830160313607,
+            0.12631586944831355
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.0054671396,
+            -0.018663377094,
+            -0.069324665003
+          ],
+          "world": [
+            0.04587978161389799,
+            0.1705553519855896,
+            0.06638270001099611
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-semimembranosus",
+      "sourceName": "left_semimembranosus",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.043210416887,
+            0.035467113903,
+            -0.15059739349
+          ],
+          "world": [
+            0.043210416887,
+            0.25597839095875935,
+            0.28236332464867636
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.015668835537,
+            0.010617329758,
+            -0.004643129573
+          ],
+          "world": [
+            0.0383268008769104,
+            0.17468744372181955,
+            0.1375937505523003
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.007684329738,
+            -0.012849368177,
+            -0.016712369935
+          ],
+          "world": [
+            0.045626141206007,
+            0.157128240521116,
+            0.11763131529357113
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-semitendinosus",
+      "sourceName": "left_semitendinosus",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            0.058500386071,
+            0.032890100906,
+            -0.139641174838
+          ],
+          "world": [
+            0.058500386071,
+            0.24797322772875305,
+            0.29027515659823744
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.018198579252,
+            0.039206765016,
+            -0.048330810023
+          ],
+          "world": [
+            0.03451609372558287,
+            0.21702168945636813,
+            0.10716910620220235
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.00557563908,
+            -0.016864136399,
+            -0.070229106747
+          ],
+          "world": [
+            0.045757318912770614,
+            0.17255881849768787,
+            0.06618730577943452
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-gastrocnemius-lateralis",
+      "sourceName": "left_gastrocnemius_lateralis",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.017643146689,
+            0.001749349861,
+            -0.160225807954
+          ],
+          "world": [
+            0.07177117874646768,
+            0.16711928548250887,
+            0.14699555966177633
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.021601944477,
+            0.021833894317,
+            -0.013310884816
+          ],
+          "world": [
+            0.07537419514765711,
+            0.18838662447221313,
+            0.13212791403565977
+          ]
+        },
+        {
+          "body": "left_calx",
+          "local": [
+            0.013404137829,
+            0.018517695679,
+            0.039175656506
+          ],
+          "world": [
+            0.06142019472068396,
+            0.2805472510803309,
+            -0.04915269173492981
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-gastrocnemius-medialis",
+      "sourceName": "left_gastrocnemius_medialis",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            -0.005165693681,
+            0.000445013356,
+            -0.157173728491
+          ],
+          "world": [
+            0.04899215209433439,
+            0.1665227438945389,
+            0.15046251289280022
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.00494738822,
+            0.0247725204,
+            -0.02284399064
+          ],
+          "world": [
+            0.04852952109181119,
+            0.1944584617104445,
+            0.12528109258690828
+          ]
+        },
+        {
+          "body": "left_calx",
+          "local": [
+            0.010467216261,
+            0.019074861555,
+            0.039645388727
+          ],
+          "world": [
+            0.05850053064061314,
+            0.28127529710673593,
+            -0.04883315908810311
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-peroneus-longus",
+      "sourceName": "left_peroneus_longus",
+      "points": [
+        {
+          "body": "left_crus",
+          "local": [
+            0.019227241545,
+            -0.000991801721,
+            -0.027629216281
+          ],
+          "world": [
+            0.07224700302646649,
+            0.17219769036835036,
+            0.11068484262333689
+          ]
+        },
+        {
+          "body": "left_calx",
+          "local": [
+            0.020911464402,
+            0.00797791324,
+            -0.001474797552
+          ],
+          "world": [
+            0.06629280807494264,
+            0.24670956032277178,
+            -0.07467081675524403
+          ]
+        },
+        {
+          "body": "left_calx",
+          "local": [
+            0.018858351716,
+            0.023089715559,
+            -0.012165395578
+          ],
+          "world": [
+            0.06238534910621763,
+            0.25167809903801197,
+            -0.0921898382640599
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-tibialis-caudalis",
+      "sourceName": "left_tibialis_caudalis",
+      "points": [
+        {
+          "body": "left_calx",
+          "local": [
+            -0.007351064575,
+            0.001991383139,
+            0.011773405856
+          ],
+          "world": [
+            0.039653981116771535,
+            0.25042604390707024,
+            -0.05773905286526662
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.005693826143,
+            0.012505658384,
+            -0.208646882474
+          ],
+          "world": [
+            0.04094046200878953,
+            0.2495658409138898,
+            -0.05242464909504099
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.015872254387,
+            0.012514213095,
+            -0.03045292065
+          ],
+          "world": [
+            0.06893233339364538,
+            0.18580780526007706,
+            0.11301280724143542
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-tibialis-cranialis",
+      "sourceName": "left_tibialis_cranialis",
+      "points": [
+        {
+          "body": "left_calx",
+          "local": [
+            -0.006618191624,
+            0.024794134471,
+            -0.00878855536
+          ],
+          "world": [
+            0.037209064916745936,
+            0.2551266887464574,
+            -0.0879917080047485
+          ]
+        },
+        {
+          "body": "left_calx",
+          "local": [
+            -0.0065026123,
+            0.006635825576,
+            -0.003158623692
+          ],
+          "world": [
+            0.03898151501972229,
+            0.24460006309895096,
+            -0.07226013960860816
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.005099351135,
+            -0.021228794116,
+            -0.039517135815
+          ],
+          "world": [
+            0.05748962052234469,
+            0.157516486361099,
+            0.0928764825078287
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-left-popliteus",
+      "sourceName": "left_popliteus",
+      "points": [
+        {
+          "body": "left_femur",
+          "local": [
+            0.019253912464,
+            0.004113410461,
+            -0.178161843774
+          ],
+          "world": [
+            0.07322123537700015,
+            0.16548214570526756,
+            0.12896497900122272
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            0.01997307869,
+            -0.000684712956,
+            -0.008634818955
+          ],
+          "world": [
+            0.07368206286603353,
+            0.16568224089470576,
+            0.12848729267235132
+          ]
+        },
+        {
+          "body": "left_crus",
+          "local": [
+            -0.00734565206,
+            0.003696280456,
+            -0.043950016974
+          ],
+          "world": [
+            0.04515157407712528,
+            0.18233442189946952,
+            0.09813296116202597
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-sacrocaudalis",
+      "sourceName": "right_sacrocaudalis",
+      "points": [
+        {
+          "body": "cauda",
+          "local": [
+            -0.015085,
+            0.069395,
+            0.018305
+          ],
+          "world": [
+            -0.015085,
+            0.21424806718894146,
+            0.41300227134659967
+          ]
+        },
+        {
+          "body": "abdomen",
+          "local": [
+            -0.01098,
+            0.01654,
+            0.03546
+          ],
+          "world": [
+            -0.01098,
+            -0.04582513819483819,
+            0.42946865806033696
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-psoas-major",
+      "sourceName": "right_psoas_major",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            0.010799800465,
+            0.008359756141,
+            -0.02634766147
+          ],
+          "world": [
+            -0.04497514097379602,
+            0.20300093635423258,
+            0.276201054372637
+          ]
+        },
+        {
+          "body": "abdomen",
+          "local": [
+            -0.02734,
+            0.04867,
+            0.00284
+          ],
+          "world": [
+            -0.02734,
+            -0.012031972350523648,
+            0.39857491691073427
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-psoas-minor",
+      "sourceName": "right_psoas_minor",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.029689786598,
+            -0.019350314859,
+            -0.098571445666
+          ],
+          "world": [
+            -0.029689786598,
+            0.18189483060891265,
+            0.29730574175412294
+          ]
+        },
+        {
+          "body": "abdomen",
+          "local": [
+            -0.00912,
+            -0.00102,
+            -0.00319
+          ],
+          "world": [
+            -0.00912,
+            -0.06133828811633201,
+            0.38995260715044394
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-adductor-longus",
+      "sourceName": "right_adductor_longus",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.001160138168,
+            0.01254479308,
+            -0.039615018102
+          ],
+          "world": [
+            -0.0570576880378273,
+            0.20416950704376155,
+            0.26244518590584653
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.016269750464,
+            -0.019603039677,
+            -0.113686370029
+          ],
+          "world": [
+            -0.016269750464,
+            0.18971279121152668,
+            0.2843672603768971
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-gemelli",
+      "sourceName": "right_gemelli",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.007084218814,
+            0.012093647985,
+            -0.008777240427
+          ],
+          "world": [
+            -0.06271163976252123,
+            0.2105099876060213,
+            0.2926792384205893
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.045689683815,
+            0.022129285915,
+            -0.11616479346
+          ],
+          "world": [
+            -0.045689683815,
+            0.22638218974144803,
+            0.3044442320975982
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-gluteus-medius",
+      "sourceName": "right_gluteus_medius",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.013609638853,
+            0.005570896753,
+            0.001452915078
+          ],
+          "world": [
+            -0.06913614367068241,
+            0.20639719013651267,
+            0.3041506863887076
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.040329945783,
+            -0.004556939659,
+            -0.024472943308
+          ],
+          "world": [
+            -0.040329945783,
+            0.1550507841346177,
+            0.3679373860107335
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-gluteus-profundus",
+      "sourceName": "right_gluteus_profundus",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.014626547417,
+            0.002361435721,
+            -0.00590928864
+          ],
+          "world": [
+            -0.07021165714714288,
+            0.20164797265554962,
+            0.2976834620374683
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.037339834507,
+            0.000987969053,
+            -0.066882655919
+          ],
+          "world": [
+            -0.037339834507,
+            0.1822844588958653,
+            0.3349577453915483
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-gluteus-superficialis",
+      "sourceName": "right_gluteus_superficialis",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.002629879494,
+            0.023318887144,
+            -0.035684850271
+          ],
+          "world": [
+            -0.002629879494,
+            0.18462299952991879,
+            0.3732527086078802
+          ]
+        },
+        {
+          "body": "right_femur",
+          "local": [
+            -0.014347744835,
+            0.014552987394,
+            -0.012732858044
+          ],
+          "world": [
+            -0.07001368917709336,
+            0.21204113626796062,
+            0.28834452626861035
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-iliacus",
+      "sourceName": "right_iliacus",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            0.009903922845,
+            0.008700600173,
+            -0.024535584934
+          ],
+          "world": [
+            -0.045855764828962815,
+            0.20373199848414228,
+            0.27790177261044463
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.037649897148,
+            -0.019312800016,
+            -0.053123073649
+          ],
+          "world": [
+            -0.037649897148,
+            0.15777540992355893,
+            0.33582598931513946
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-obturator-ext",
+      "sourceName": "right_obturator_ext",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.003929766775,
+            0.011618487158,
+            -0.014938358128
+          ],
+          "world": [
+            -0.059610248571945655,
+            0.2086913232195816,
+            0.28674547491536273
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.026369656755,
+            0.009881426367,
+            -0.134674675811
+          ],
+          "world": [
+            -0.026369656755,
+            0.22584288461669194,
+            0.28225560982991765
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-obturator-int",
+      "sourceName": "right_obturator_int",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.088499715098,
+            -0.000600740745,
+            -0.116228700838
+          ],
+          "world": [
+            -0.088499715098,
+            0.20716104617404935,
+            0.29231139087722763
+          ]
+        },
+        {
+          "body": "right_femur",
+          "local": [
+            0.015483054423,
+            0.023431785828,
+            -0.007504996869
+          ],
+          "world": [
+            -0.04015394593026788,
+            0.22184556964423308,
+            0.2912270595072153
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-piriformis",
+      "sourceName": "right_piriformis",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.029317047387,
+            0.007020043524,
+            0.004584966127
+          ],
+          "world": [
+            -0.08481812737785963,
+            0.208502819560974,
+            0.3070271711750552
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.041749848042,
+            0.021405555924,
+            -0.049280483123
+          ],
+          "world": [
+            -0.041749848042,
+            0.1902268746957919,
+            0.36071880849143123
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-pectineus",
+      "sourceName": "right_pectineus",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            0.005340401397,
+            -0.007953292004,
+            -0.138164680748
+          ],
+          "world": [
+            -0.05138162849629192,
+            0.1625065312365377,
+            0.17075852761056856
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.028949768987,
+            -0.019072230138,
+            -0.105638739358
+          ],
+          "world": [
+            -0.028949768987,
+            0.18588595210103806,
+            0.29146665616850836
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-sartorius-caudal",
+      "sourceName": "right_sartorius_caudal",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.04703999867,
+            -0.031443296495,
+            -0.01851542172
+          ],
+          "world": [
+            -0.04703999867,
+            0.12910894336342646,
+            0.3586967613139736
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.010392053527,
+            -0.018008856036,
+            -0.018663421674
+          ],
+          "world": [
+            -0.04749426775461777,
+            0.15306933530395653,
+            0.1132863283457566
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.007534614043,
+            -0.023746098393,
+            -0.046580810523
+          ],
+          "world": [
+            -0.05141825626281884,
+            0.15770475039563406,
+            0.08529388737449972
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-sartorius-cranial",
+      "sourceName": "right_sartorius_cranial",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.051150025247,
+            -0.022286827238,
+            -0.002187505972
+          ],
+          "world": [
+            -0.051150025247,
+            0.12818895795851798,
+            0.377394231431156
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.003927346894,
+            -0.025286878648,
+            0.006991514339
+          ],
+          "world": [
+            -0.0609516713852689,
+            0.1370368588580901,
+            0.13515065019490888
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.003962397141,
+            -0.025919999027,
+            0.002029693826
+          ],
+          "world": [
+            -0.06117260879335858,
+            0.13822318217924925,
+            0.1302962134225605
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-tensor-fasciae",
+      "sourceName": "right_tensor_fasciae",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.047669997113,
+            -0.028631594225,
+            -0.017493887672
+          ],
+          "world": [
+            -0.047669997113,
+            0.13094795625070724,
+            0.3610562597917781
+          ]
+        },
+        {
+          "body": "right_femur",
+          "local": [
+            -0.024555080438,
+            -0.008660538219,
+            -0.088128402952
+          ],
+          "world": [
+            -0.080838048786997,
+            0.17282290708004255,
+            0.21999023304666757
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-quadratus-femoris",
+      "sourceName": "right_quadratus_femoris",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.045139605763,
+            0.027095043293,
+            -0.145262582401
+          ],
+          "world": [
+            -0.045139605763,
+            0.2460513153829773,
+            0.2824336536388235
+          ]
+        },
+        {
+          "body": "right_femur",
+          "local": [
+            -0.000563516616,
+            0.015267039734,
+            -0.027750176799
+          ],
+          "world": [
+            -0.056362302186598594,
+            0.20943336997706435,
+            0.27341556551660806
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-vastus-lateralis",
+      "sourceName": "right_vastus_lateralis",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.013383676948,
+            0.001699107567,
+            -0.022060778977
+          ],
+          "world": [
+            -0.06910862651344878,
+            0.197450870496454,
+            0.2820622680184522
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.012361375245,
+            -0.023592674,
+            -0.00486886892
+          ],
+          "world": [
+            -0.06979087439969427,
+            0.14283989399637023,
+            0.12500840547695793
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.005282228254,
+            -0.024740662119,
+            -0.03001173255
+          ],
+          "world": [
+            -0.0636374423288115,
+            0.1507985111682603,
+            0.10087561705915062
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-vastus-medialis",
+      "sourceName": "right_vastus_medialis",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            0.004983081963,
+            -0.000775334172,
+            -0.027441007737
+          ],
+          "world": [
+            -0.05078522713380068,
+            0.1938502199266593,
+            0.2771944238372378
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.000340288391,
+            -0.021999529178,
+            0.005746050493
+          ],
+          "world": [
+            -0.05737808981730849,
+            0.14056392148408614,
+            0.13503157272859925
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.002569504924,
+            -0.025293105356,
+            -0.029540012945
+          ],
+          "world": [
+            -0.05577993843258972,
+            0.15013944536815269,
+            0.10082373636579986
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-rectus-femoris",
+      "sourceName": "right_rectus_femoris",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.044769811956,
+            -0.010371954361,
+            -0.082728089075
+          ],
+          "world": [
+            -0.044769811956,
+            0.18108145941758733,
+            0.31549808444567173
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.00827226463,
+            -0.024763213568,
+            0.005033487164
+          ],
+          "world": [
+            -0.06535886202916318,
+            0.13821299225786685,
+            0.13367424018378132
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.000605766165,
+            -0.024531354313,
+            -0.027668816213
+          ],
+          "world": [
+            -0.0588774313660059,
+            0.150169899608582,
+            0.10296116435679159
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-abductor-cruris",
+      "sourceName": "right_abductor_cruris",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.034429711224,
+            0.032415022036,
+            -0.099000475194
+          ],
+          "world": [
+            -0.034429711224,
+            0.2259743679421541,
+            0.32445032793030393
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.010018651535,
+            0.062131370585,
+            -0.034062781865
+          ],
+          "world": [
+            -0.06761638796129855,
+            0.2333399883304451,
+            0.12838320349839394
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.002037115263,
+            -0.026360588492,
+            -0.113986734361
+          ],
+          "world": [
+            -0.0634467568221803,
+            0.17938012514662188,
+            0.02183125716949605
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-adductoren",
+      "sourceName": "right_adductoren",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.005769620053,
+            0.001546563375,
+            -0.094646070609
+          ],
+          "world": [
+            -0.06212802302935265,
+            0.18134342123707678,
+            0.21122129860958744
+          ]
+        },
+        {
+          "body": "pelvis",
+          "local": [
+            -0.013859660276,
+            0.001709184527,
+            -0.138171680078
+          ],
+          "world": [
+            -0.013859660276,
+            0.22077830250724279,
+            0.27495050315092173
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-biceps-femoris-longum",
+      "sourceName": "right_biceps_femoris_longum",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.062699621845,
+            0.033543944347,
+            -0.134683566108
+          ],
+          "world": [
+            -0.062699621845,
+            0.24589264660384846,
+            0.2948223071068309
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.02112956672,
+            0.05513864544,
+            -0.027000337956
+          ],
+          "world": [
+            -0.07853665758525863,
+            0.22424498931408454,
+            0.1328840322445212
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.008209863861,
+            -0.025511933875,
+            -0.040143246579
+          ],
+          "world": [
+            -0.0669372139419247,
+            0.15369838874904815,
+            0.09125710864014211
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-biceps-femoris-breve",
+      "sourceName": "right_biceps_femoris_breve",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.016483672859,
+            0.037900781736,
+            -0.071165997265
+          ],
+          "world": [
+            -0.07270019949824218,
+            0.22197240601384177,
+            0.22622958449201597
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.02112956672,
+            0.05513864544,
+            -0.027000337956
+          ],
+          "world": [
+            -0.07853665758525863,
+            0.22424498931408454,
+            0.1328840322445212
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.008209863861,
+            -0.025511933875,
+            -0.040143246579
+          ],
+          "world": [
+            -0.0669372139419247,
+            0.15369838874904815,
+            0.09125710864014211
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-gracilis-tractus-calcaneus",
+      "sourceName": "right_gracilis_tractus_calcaneus",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.012479639053,
+            0.00643761276,
+            -0.144110906012
+          ],
+          "world": [
+            -0.012479639053,
+            0.2279399539418634,
+            0.2724319347125572
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.027717485052,
+            0.038895226038,
+            -0.025910194421
+          ],
+          "world": [
+            -0.029853135199746555,
+            0.20884909544872943,
+            0.1262543524755816
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.010741851107,
+            -0.018560518548,
+            -0.068733108643
+          ],
+          "world": [
+            -0.048960242790132724,
+            0.17049251265535179,
+            0.06636422213530559
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-semimembranosus",
+      "sourceName": "right_semimembranosus",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.045509580744,
+            0.035467241076,
+            -0.150597609816
+          ],
+          "world": [
+            -0.045509580744,
+            0.2559786136451246,
+            0.28236320897373113
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.015829770326,
+            0.010817212704,
+            -0.003493569989
+          ],
+          "world": [
+            -0.04121324654616125,
+            0.1745653293154988,
+            0.13755784286728753
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.009044308021,
+            -0.01274321207,
+            -0.01610184876
+          ],
+          "world": [
+            -0.04869388397944415,
+            0.15706338661300867,
+            0.11761224503163327
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-semitendinosus",
+      "sourceName": "right_semitendinosus",
+      "points": [
+        {
+          "body": "pelvis",
+          "local": [
+            -0.060799610744,
+            0.032890271913,
+            -0.139641465728
+          ],
+          "world": [
+            -0.060799610744,
+            0.24797352717106427,
+            0.29027500105181864
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.021174678077,
+            0.039456618697,
+            -0.046893860542
+          ],
+          "world": [
+            -0.03714396555298628,
+            0.21686904644670932,
+            0.10712422159632282
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.010893175153,
+            -0.016759629072,
+            -0.069628067979
+          ],
+          "world": [
+            -0.048822705881947065,
+            0.17249497187880297,
+            0.06616853171126587
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-gastrocnemius-lateralis",
+      "sourceName": "right_gastrocnemius_lateralis",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.014795541528,
+            0.001771337913,
+            -0.160513565463
+          ],
+          "world": [
+            -0.07172877440065582,
+            0.16708447800727755,
+            0.14699861747991722
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.020849222308,
+            0.021564508927,
+            -0.014860164358
+          ],
+          "world": [
+            -0.07816574093964003,
+            0.1885511999811904,
+            0.1321763073873538
+          ]
+        },
+        {
+          "body": "right_calx",
+          "local": [
+            -0.018922652608,
+            0.019653942097,
+            0.03623484242
+          ],
+          "world": [
+            -0.08210266022217982,
+            0.2795649921000713,
+            -0.04875389401323037
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-gastrocnemius-medialis",
+      "sourceName": "right_gastrocnemius_medialis",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            0.007953775783,
+            0.000436120531,
+            -0.157057348142
+          ],
+          "world": [
+            -0.04894786685463567,
+            0.16653682139377002,
+            0.1504612761921069
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.006284982652,
+            0.024843798455,
+            -0.02243405886
+          ],
+          "world": [
+            -0.05129049581970111,
+            0.19441491583675813,
+            0.1252682879421345
+          ]
+        },
+        {
+          "body": "right_calx",
+          "local": [
+            -0.016086933027,
+            0.020008206827,
+            0.037229720014
+          ],
+          "world": [
+            -0.0792253859200224,
+            0.28046844151617945,
+            -0.04850557524488924
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-peroneus-longus",
+      "sourceName": "right_peroneus_longus",
+      "points": [
+        {
+          "body": "right_crus",
+          "local": [
+            -0.017148052028,
+            -0.001222631011,
+            -0.028956753365
+          ],
+          "world": [
+            -0.07521294220858722,
+            0.17233871081294183,
+            0.11072630961926212
+          ]
+        },
+        {
+          "body": "right_calx",
+          "local": [
+            -0.019696080236,
+            0.009405217853,
+            -0.005168923621
+          ],
+          "world": [
+            -0.08554565503099368,
+            0.24547568820389526,
+            -0.07416986395190883
+          ]
+        },
+        {
+          "body": "right_calx",
+          "local": [
+            -0.014702589587,
+            0.024269340842,
+            -0.015218482123
+          ],
+          "world": [
+            -0.08237685128349452,
+            0.25065834002220716,
+            -0.09177581550582586
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-tibialis-caudalis",
+      "sourceName": "right_tibialis_caudalis",
+      "points": [
+        {
+          "body": "right_calx",
+          "local": [
+            0.005229311999,
+            0.001549198573,
+            0.012917860598
+          ],
+          "world": [
+            -0.05877269109769429,
+            0.2508083023279106,
+            -0.057894250009215296
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.02072822776,
+            0.012673326692,
+            -0.207682594548
+          ],
+          "world": [
+            -0.04367957777104764,
+            0.24946340738168482,
+            -0.05245476962726697
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.013767613947,
+            0.012326125273,
+            -0.031534644548
+          ],
+          "world": [
+            -0.07178762198143801,
+            0.18592271367758226,
+            0.11304659600870119
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-tibialis-cranialis",
+      "sourceName": "right_tibialis_cranialis",
+      "points": [
+        {
+          "body": "right_calx",
+          "local": [
+            0.009803977163,
+            0.024216915693,
+            -0.007294607317
+          ],
+          "world": [
+            -0.05735964485693598,
+            0.25562568114718925,
+            -0.08819429921120513
+          ]
+        },
+        {
+          "body": "right_calx",
+          "local": [
+            0.007411443436,
+            0.006146763848,
+            -0.001892842259
+          ],
+          "world": [
+            -0.05810586453387556,
+            0.24502284575154473,
+            -0.07243178961264708
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.00193587048,
+            -0.021273438022,
+            -0.03977389024
+          ],
+          "world": [
+            -0.060610368886626347,
+            0.15754376064546688,
+            0.09288450249854552
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-right-popliteus",
+      "sourceName": "right_popliteus",
+      "points": [
+        {
+          "body": "right_femur",
+          "local": [
+            -0.016084658485,
+            0.004137364153,
+            -0.178475325597
+          ],
+          "world": [
+            -0.07317871358156589,
+            0.1654442265882035,
+            0.12896831017631222
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            -0.019280260089,
+            -0.000933805662,
+            -0.010067391939
+          ],
+          "world": [
+            -0.07665787803614824,
+            0.16583441900076235,
+            0.12853204057465736
+          ]
+        },
+        {
+          "body": "right_crus",
+          "local": [
+            0.010482239076,
+            0.003809412174,
+            -0.04329937792
+          ],
+          "world": [
+            -0.04806845276350714,
+            0.18226530638503688,
+            0.09811263777688511
+          ]
+        }
+      ]
+    }
+  ],
+  "archive": {
+    "archiveName": "Full linear.zip",
+    "archiveBytes": 49391860,
+    "archiveSha256": "20836f8cbda9f9f8f55a05f1ef9a9fe653ee971e34a7cf8a261beb70bbe96d20"
+  },
+  "derivation": {
+    "archiveName": "Full linear.zip",
+    "archiveBytes": 49391860,
+    "archiveSha256": "20836f8cbda9f9f8f55a05f1ef9a9fe653ee971e34a7cf8a261beb70bbe96d20",
+    "sourceToThreeAxes": "(x,y,z) -> (y,z,x)",
+    "musclePathRadiusMeters": 0.0013,
+    "musclePathMeaning": "Illustrative centerlines between published fixed path points, not tissue volumes or muscle thickness",
+    "excludedSimulationObjects": [
+      "ground box",
+      "CoordinateActuator",
+      "PointActuator",
+      "TorqueActuator"
+    ],
+    "anatomicalReview": "pending"
+  }
+}

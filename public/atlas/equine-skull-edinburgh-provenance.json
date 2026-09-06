@@ -1,0 +1,72 @@
+{
+  "id": "equine-skull-edinburgh",
+  "sources": [
+    {
+      "filename": "edinburgh-horse.stl",
+      "sha256": "f2f57bab41be0cab7560e91af1f973f426e8b98ca50274457f332247d7808cfa",
+      "bytes": 35165884
+    }
+  ],
+  "sourceBounds": [
+    [
+      -464.5160217285156,
+      -166.8780059814453,
+      229.55601501464844
+    ],
+    [
+      -240.9340057373047,
+      422.69403076171875,
+      559.4000244140625
+    ]
+  ],
+  "sourceToDisplay": {
+    "rotationDegreesXYZ": [
+      -90,
+      0,
+      -90
+    ],
+    "center": [
+      127.90801239013672,
+      394.47801971435547,
+      -352.72501373291016
+    ],
+    "scale": 0.0033922911457065293
+  },
+  "profiles": {
+    "quick": {
+      "model": "/atlas/equine-skull-edinburgh-quick-6b6287ec664d.glb",
+      "bytes": 147336,
+      "gzipBytes": 117898,
+      "sha256": "6b6287ec664d60295914035a800240898119466d8cfede52d2d13bc3c2e3d593",
+      "relativeErrorLimit": 0.003,
+      "parts": [
+        {
+          "id": "specimen",
+          "originalName": "edinburgh-horse.stl",
+          "sourceTriangles": 703316,
+          "triangles": 12614,
+          "vertices": 5853,
+          "error": 0.0029998882673680782
+        }
+      ]
+    },
+    "detail": {
+      "model": "/atlas/equine-skull-edinburgh-detail-adbca8b69dc9.glb",
+      "bytes": 658568,
+      "gzipBytes": 529833,
+      "sha256": "adbca8b69dc9e5d33f6cd8b4aa8ef47e05f0eaea518e17735f45e7c58e145cf7",
+      "relativeErrorLimit": 0.001,
+      "parts": [
+        {
+          "id": "specimen",
+          "originalName": "edinburgh-horse.stl",
+          "sourceTriangles": 703316,
+          "triangles": 55574,
+          "vertices": 26975,
+          "error": 0.0009924673940986395
+        }
+      ]
+    }
+  },
+  "poster": "/atlas/equine-skull-edinburgh-ea6347d3fa28.webp"
+}

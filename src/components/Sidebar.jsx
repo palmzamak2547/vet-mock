@@ -65,6 +65,7 @@ export default function Sidebar({
     schedule: 'calendar',
     pinboard: 'pin',
     library: 'files',
+    atlas: 'atlas',
   };
 
   // Destinations the primary rows already own — see the note above.

@@ -18,9 +18,12 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v147-2026-09-05';
+const SW_VERSION = 'v149-2026-09-06';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
+// Atlas verifies content hashes and owns a bounded public-model cache.
+const ATLAS_MODELS = 'vmx-atlas-models-v1';
+const ATLAS_SHELL = 'vmx-atlas-shell-v1';
 // Hashed chunks are immutable, so the assets cache is deliberately kept
 // across worker versions — but every deploy mints new hashes and nothing
 // ever removed the old ones, so a phone that has followed a semester of
@@ -62,7 +65,7 @@ self.addEventListener('activate', (event) => {
       caches.keys().then((keys) =>
         Promise.all(
           keys
-            .filter((k) => k.startsWith('vmx-') && k !== RUNTIME && k !== ASSETS && k !== LIB_DOCS)
+            .filter((k) => k.startsWith('vmx-') && k !== RUNTIME && k !== ASSETS && k !== LIB_DOCS && k !== ATLAS_MODELS && k !== ATLAS_SHELL)
             .map((k) => caches.delete(k))
         )
       ),
@@ -74,8 +77,12 @@ self.addEventListener('activate', (event) => {
 // ── Helpers ─────────────────────────────────────────────────────────
 function cacheFirst(request, cacheName) {
   return caches.open(cacheName).then((cache) =>
-    cache.match(request).then((hit) => {
+    cache.match(request).then(async (hit) => {
       if (hit) return hit;
+      if (cacheName === ASSETS) {
+        const atlasHit = await caches.open(ATLAS_SHELL).then(atlas => atlas.match(request)).catch(() => undefined);
+        if (atlasHit) return atlasHit;
+      }
       return fetch(request).then((res) => {
         if (res && res.ok && res.type === 'basic') {
           const clone = res.clone();
@@ -138,7 +145,8 @@ async function networkFirst(request, cacheName, timeoutMs) {
 
 function staleWhileRevalidate(request, cacheName) {
   return caches.open(cacheName).then((cache) =>
-    cache.match(request).then((cached) => {
+    cache.match(request).then(async (cached) => {
+      if (!cached) cached = await caches.open(ATLAS_SHELL).then(atlas => atlas.match(request)).catch(() => undefined);
       const fetchPromise = fetch(request).then((res) => {
         if (res && res.ok) cache.put(request, res.clone());
         return res;
@@ -231,6 +239,30 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // The entry is committed to the offline cache only after its full dependency
+  // graph is durable. Preserve that last working document across SW upgrades.
+  if (['/app/atlas', '/app/atlas/', '/atlas.html'].includes(url.pathname)) {
+    event.respondWith((async () => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), NAV_TIMEOUT_MS);
+      try {
+        const response = await fetch(request, { signal: controller.signal });
+        if (response.ok) return response;
+      } catch { /* Use the last complete Atlas entry below. */ }
+      finally { clearTimeout(timer); }
+      return await caches.open(ATLAS_SHELL).then(cache => cache.match('/app/atlas'))
+        || new Response('Atlas is not available offline yet.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+    })());
+    return;
+  }
+
+  // Do not duplicate multi-megabyte geometry in the generic runtime cache.
+  // Atlas checks its own content-addressed cache before making this request.
+  if (/^\/atlas\/[a-z0-9-]+-[a-f0-9]{12}\.glb$/.test(url.pathname)) {
+    event.respondWith(fetch(request).catch(() => new Response('Offline', { status: 503 })));
+    return;
+  }
+
   // Navigation requests (HTML) — network-first so deploys propagate
   // immediately when online; fall back to cached index.html when offline.
   if (request.mode === 'navigate' || (request.headers.get('Accept') || '').includes('text/html')) {
@@ -272,4 +304,5 @@ self.addEventListener('message', (event) => {
   if (event.data === 'GET_VERSION') {
     event.ports?.[0]?.postMessage({ version: SW_VERSION });
   }
+  if (event.data === 'ATLAS_OFFLINE_CAPABILITY') event.ports?.[0]?.postMessage({ atlasShell: true });
 });

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Atlas สัตว์ 3D | VetMock</title>
+    <meta name="description" content="สำรวจและเปรียบเทียบกะโหลกสัตว์จากโมเดลที่มีแหล่งอ้างอิง ใน VetMock" />
+    <link rel="canonical" href="https://vetmock.vercel.app/atlas/" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#4a6b4a" />
+    <link rel="preload" href="/fonts/sarabun-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/sarabun-600.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      try {
+        var theme = JSON.parse(localStorage.getItem('vmx-theme'));
+        if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.documentElement.style.background = theme === 'dark' ? '#1a1612' : '#f6efe4';
+        var palette = JSON.parse(localStorage.getItem('vmx-palette'));
+        if (typeof palette === 'string' && palette !== 'default') document.documentElement.dataset.palette = palette;
+      } catch (_) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"><p style="padding:24px">กำลังเปิด Atlas…</p></div>
+    <noscript><p>เปิดดูตัวอย่างและแหล่งอ้างอิงได้ที่ <a href="/atlas/">Atlas สัตว์ใน VetMock</a></p></noscript>
+    <script type="module" src="/src/atlas-main.jsx"></script>
+  </body>
+</html>

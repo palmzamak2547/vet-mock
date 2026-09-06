@@ -10,6 +10,9 @@
   "theme_color": "#4a6b4a",
   "lang": "th",
   "categories": ["education", "medical"],
+  "shortcuts": [
+    { "name": "Atlas สัตว์ 3D", "short_name": "Atlas", "description": "สำรวจและเปรียบเทียบโมเดลกายวิภาคสัตว์", "url": "/app/atlas", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ],
   "icons": [
     { "src": "/favicon.svg",         "sizes": "any",     "type": "image/svg+xml", "purpose": "any" },
     { "src": "/icon-192.png",        "sizes": "192x192", "type": "image/png",     "purpose": "any maskable" },

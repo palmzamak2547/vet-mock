@@ -136,6 +136,14 @@
       "destination": "/"
     },
     {
+      "source": "/app/atlas",
+      "destination": "/atlas.html"
+    },
+    {
+      "source": "/app/atlas/",
+      "destination": "/atlas.html"
+    },
+    {
       "source": "/app/:path*",
       "destination": "/"
     }

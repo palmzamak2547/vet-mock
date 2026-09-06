@@ -1,0 +1,568 @@
+{
+  "id": "canine-visible-ajou",
+  "sources": [
+    {
+      "filename": "assembled.glb",
+      "sha256": "fa2b0cf1e393008036633b56e8c4f12e0ad9c9a19ef1b9c45b93033ce68289ba",
+      "bytes": 130398428
+    }
+  ],
+  "sourceBounds": [
+    [
+      95.51210021972656,
+      -2095.7099609375,
+      0.968500018119812
+    ],
+    [
+      991.864990234375,
+      -137.69900512695312,
+      3551.010009765625
+    ]
+  ],
+  "sourceToDisplay": {
+    "rotationDegreesXYZ": [
+      0,
+      90,
+      180
+    ],
+    "center": [
+      1775.9892548918724,
+      1116.7044830322266,
+      543.6885452270508
+    ],
+    "scale": 0.0005633736942254089
+  },
+  "profiles": {
+    "quick": {
+      "model": "/atlas/canine-visible-ajou-quick-bbcf8dd18470.glb",
+      "bytes": 5493632,
+      "gzipBytes": 3041971,
+      "sha256": "bbcf8dd18470abecae01970dfde741e84f0e39281a82a8fd0f2fba4e65e65cb7",
+      "relativeErrorLimit": 0.003,
+      "parts": [
+        {
+          "id": "muscle",
+          "originalName": "muscle",
+          "sourceTriangles": 1125752,
+          "triangles": 136694,
+          "vertices": 163896,
+          "error": 0.0029768540989607573
+        },
+        {
+          "id": "bones",
+          "originalName": "bones",
+          "sourceTriangles": 1530889,
+          "triangles": 28505,
+          "vertices": 25728,
+          "error": 0.0029873554594814777
+        },
+        {
+          "id": "esophagus",
+          "originalName": "esophagus",
+          "sourceTriangles": 56836,
+          "triangles": 852,
+          "vertices": 443,
+          "error": 0.001313546090386808
+        },
+        {
+          "id": "stomach",
+          "originalName": "stomach",
+          "sourceTriangles": 74768,
+          "triangles": 1740,
+          "vertices": 874,
+          "error": 0.002998891519382596
+        },
+        {
+          "id": "small-intestine",
+          "originalName": "small-intestine",
+          "sourceTriangles": 539634,
+          "triangles": 26302,
+          "vertices": 24170,
+          "error": 0.0029762464109808207
+        },
+        {
+          "id": "ascending-colon",
+          "originalName": "ascending-colon",
+          "sourceTriangles": 35456,
+          "triangles": 812,
+          "vertices": 413,
+          "error": 0.0029821721836924553
+        },
+        {
+          "id": "transverse-colon",
+          "originalName": "transverse-colon",
+          "sourceTriangles": 47124,
+          "triangles": 706,
+          "vertices": 364,
+          "error": 0.002990586217492819
+        },
+        {
+          "id": "descending-colon",
+          "originalName": "descending-colon",
+          "sourceTriangles": 30000,
+          "triangles": 788,
+          "vertices": 413,
+          "error": 0.0029784846119582653
+        },
+        {
+          "id": "sigmoid-colon",
+          "originalName": "sigmoid-colon",
+          "sourceTriangles": 18276,
+          "triangles": 740,
+          "vertices": 376,
+          "error": 0.002999573014676571
+        },
+        {
+          "id": "rectum",
+          "originalName": "rectum",
+          "sourceTriangles": 33552,
+          "triangles": 502,
+          "vertices": 253,
+          "error": 0.0020067505538463593
+        },
+        {
+          "id": "anus",
+          "originalName": "anus",
+          "sourceTriangles": 6628,
+          "triangles": 726,
+          "vertices": 383,
+          "error": 0.0029293838888406754
+        },
+        {
+          "id": "liver",
+          "originalName": "liver",
+          "sourceTriangles": 853312,
+          "triangles": 12796,
+          "vertices": 7645,
+          "error": 0.0015403312863782048
+        },
+        {
+          "id": "gallbladder",
+          "originalName": "gallbladder",
+          "sourceTriangles": 57512,
+          "triangles": 1034,
+          "vertices": 599,
+          "error": 0.0029933257028460503
+        },
+        {
+          "id": "cystic-duct",
+          "originalName": "cystic-duct",
+          "sourceTriangles": 5834,
+          "triangles": 1768,
+          "vertices": 944,
+          "error": 0.0029292278923094273
+        },
+        {
+          "id": "trachea",
+          "originalName": "trachea",
+          "sourceTriangles": 36982,
+          "triangles": 1118,
+          "vertices": 587,
+          "error": 0.0029839351773262024
+        },
+        {
+          "id": "right-lung",
+          "originalName": "right-lung",
+          "sourceTriangles": 142488,
+          "triangles": 2980,
+          "vertices": 2211,
+          "error": 0.0029990850016474724
+        },
+        {
+          "id": "left-lung",
+          "originalName": "left-lung",
+          "sourceTriangles": 78732,
+          "triangles": 1698,
+          "vertices": 1188,
+          "error": 0.0029193826485425234
+        },
+        {
+          "id": "right-bronchus",
+          "originalName": "right-bronchus",
+          "sourceTriangles": 87920,
+          "triangles": 3904,
+          "vertices": 2656,
+          "error": 0.0029638109263032675
+        },
+        {
+          "id": "left-bronchus",
+          "originalName": "left-bronchus",
+          "sourceTriangles": 62506,
+          "triangles": 3266,
+          "vertices": 2302,
+          "error": 0.0029672104865312576
+        },
+        {
+          "id": "right-kidney",
+          "originalName": "right-kidney",
+          "sourceTriangles": 113118,
+          "triangles": 1696,
+          "vertices": 946,
+          "error": 0.0024317288771271706
+        },
+        {
+          "id": "left-kidney",
+          "originalName": "left-kidney",
+          "sourceTriangles": 128706,
+          "triangles": 1930,
+          "vertices": 1164,
+          "error": 0.002971485024318099
+        },
+        {
+          "id": "genital-organs",
+          "originalName": "genital-organs",
+          "sourceTriangles": 95818,
+          "triangles": 1982,
+          "vertices": 1710,
+          "error": 0.0029984184075146914
+        },
+        {
+          "id": "heart",
+          "originalName": "heart",
+          "sourceTriangles": 267733,
+          "triangles": 4015,
+          "vertices": 2224,
+          "error": 0.0010641766712069511
+        },
+        {
+          "id": "aorta",
+          "originalName": "aorta",
+          "sourceTriangles": 81150,
+          "triangles": 1216,
+          "vertices": 675,
+          "error": 0.0008608408970758319
+        },
+        {
+          "id": "spleen",
+          "originalName": "spleen",
+          "sourceTriangles": 169612,
+          "triangles": 2544,
+          "vertices": 1336,
+          "error": 0.0017567501636222005
+        },
+        {
+          "id": "brainstem",
+          "originalName": "brainstem",
+          "sourceTriangles": 78972,
+          "triangles": 1900,
+          "vertices": 994,
+          "error": 0.0029601731803268194
+        },
+        {
+          "id": "cerebellum",
+          "originalName": "cerebellum",
+          "sourceTriangles": 115832,
+          "triangles": 2156,
+          "vertices": 1145,
+          "error": 0.002953713294118643
+        },
+        {
+          "id": "cerebrum",
+          "originalName": "cerebrum",
+          "sourceTriangles": 387896,
+          "triangles": 5818,
+          "vertices": 2999,
+          "error": 0.0017238166183233261
+        },
+        {
+          "id": "optic-nerve",
+          "originalName": "optic-nerve",
+          "sourceTriangles": 34932,
+          "triangles": 1064,
+          "vertices": 580,
+          "error": 0.002997949253767729
+        },
+        {
+          "id": "eyeball",
+          "originalName": "eyeball",
+          "sourceTriangles": 88824,
+          "triangles": 1332,
+          "vertices": 672,
+          "error": 0.0013808601070195436
+        },
+        {
+          "id": "lens",
+          "originalName": "lens",
+          "sourceTriangles": 21152,
+          "triangles": 400,
+          "vertices": 204,
+          "error": 0.0022604770492762327
+        },
+        {
+          "id": "skin",
+          "originalName": "skin",
+          "sourceTriangles": 660232,
+          "triangles": 9902,
+          "vertices": 5568,
+          "error": 0.0008625119808129966
+        }
+      ]
+    },
+    "detail": {
+      "model": "/atlas/canine-visible-ajou-detail-f6d63d2d1614.glb",
+      "bytes": 10148632,
+      "gzipBytes": 6322771,
+      "sha256": "f6d63d2d161414805427081ab8a88ad05c7bb3538d12c06ccc5a3533dcd82f93",
+      "relativeErrorLimit": 0.001,
+      "parts": [
+        {
+          "id": "muscle",
+          "originalName": "muscle",
+          "sourceTriangles": 1125752,
+          "triangles": 192204,
+          "vertices": 207867,
+          "error": 0.0009956161957234144
+        },
+        {
+          "id": "bones",
+          "originalName": "bones",
+          "sourceTriangles": 1530889,
+          "triangles": 91851,
+          "vertices": 60263,
+          "error": 0.0003959927416872233
+        },
+        {
+          "id": "esophagus",
+          "originalName": "esophagus",
+          "sourceTriangles": 56836,
+          "triangles": 3410,
+          "vertices": 1732,
+          "error": 0.0004135585331823677
+        },
+        {
+          "id": "stomach",
+          "originalName": "stomach",
+          "sourceTriangles": 74768,
+          "triangles": 5758,
+          "vertices": 2883,
+          "error": 0.0009763552225194871
+        },
+        {
+          "id": "small-intestine",
+          "originalName": "small-intestine",
+          "sourceTriangles": 539634,
+          "triangles": 54336,
+          "vertices": 40560,
+          "error": 0.0009765364811755717
+        },
+        {
+          "id": "ascending-colon",
+          "originalName": "ascending-colon",
+          "sourceTriangles": 35456,
+          "triangles": 2822,
+          "vertices": 1424,
+          "error": 0.0009944203775376081
+        },
+        {
+          "id": "transverse-colon",
+          "originalName": "transverse-colon",
+          "sourceTriangles": 47124,
+          "triangles": 2826,
+          "vertices": 1441,
+          "error": 0.0009453094098716974
+        },
+        {
+          "id": "descending-colon",
+          "originalName": "descending-colon",
+          "sourceTriangles": 30000,
+          "triangles": 2858,
+          "vertices": 1486,
+          "error": 0.0009763080743141472
+        },
+        {
+          "id": "sigmoid-colon",
+          "originalName": "sigmoid-colon",
+          "sourceTriangles": 18276,
+          "triangles": 2580,
+          "vertices": 1303,
+          "error": 0.0009942034957930446
+        },
+        {
+          "id": "rectum",
+          "originalName": "rectum",
+          "sourceTriangles": 33552,
+          "triangles": 2012,
+          "vertices": 1008,
+          "error": 0.0005839266232214868
+        },
+        {
+          "id": "anus",
+          "originalName": "anus",
+          "sourceTriangles": 6628,
+          "triangles": 2174,
+          "vertices": 1123,
+          "error": 0.0009789241012185812
+        },
+        {
+          "id": "liver",
+          "originalName": "liver",
+          "sourceTriangles": 853312,
+          "triangles": 51198,
+          "vertices": 27350,
+          "error": 0.00046462350292131305
+        },
+        {
+          "id": "gallbladder",
+          "originalName": "gallbladder",
+          "sourceTriangles": 57512,
+          "triangles": 3748,
+          "vertices": 1977,
+          "error": 0.0009970831451937556
+        },
+        {
+          "id": "cystic-duct",
+          "originalName": "cystic-duct",
+          "sourceTriangles": 5834,
+          "triangles": 4216,
+          "vertices": 2205,
+          "error": 0.0009992284467443824
+        },
+        {
+          "id": "trachea",
+          "originalName": "trachea",
+          "sourceTriangles": 36982,
+          "triangles": 4096,
+          "vertices": 2102,
+          "error": 0.0009889479260891676
+        },
+        {
+          "id": "right-lung",
+          "originalName": "right-lung",
+          "sourceTriangles": 142488,
+          "triangles": 8548,
+          "vertices": 5173,
+          "error": 0.0009600795456208289
+        },
+        {
+          "id": "left-lung",
+          "originalName": "left-lung",
+          "sourceTriangles": 78732,
+          "triangles": 4792,
+          "vertices": 2817,
+          "error": 0.0009921257151290774
+        },
+        {
+          "id": "right-bronchus",
+          "originalName": "right-bronchus",
+          "sourceTriangles": 87920,
+          "triangles": 11704,
+          "vertices": 6737,
+          "error": 0.0009974453132599592
+        },
+        {
+          "id": "left-bronchus",
+          "originalName": "left-bronchus",
+          "sourceTriangles": 62506,
+          "triangles": 9312,
+          "vertices": 5534,
+          "error": 0.0009992927080020308
+        },
+        {
+          "id": "right-kidney",
+          "originalName": "right-kidney",
+          "sourceTriangles": 113118,
+          "triangles": 6786,
+          "vertices": 3538,
+          "error": 0.0007880539633333683
+        },
+        {
+          "id": "left-kidney",
+          "originalName": "left-kidney",
+          "sourceTriangles": 128706,
+          "triangles": 7722,
+          "vertices": 4129,
+          "error": 0.0009132176637649536
+        },
+        {
+          "id": "genital-organs",
+          "originalName": "genital-organs",
+          "sourceTriangles": 95818,
+          "triangles": 5748,
+          "vertices": 3664,
+          "error": 0.0006322586559690535
+        },
+        {
+          "id": "heart",
+          "originalName": "heart",
+          "sourceTriangles": 267733,
+          "triangles": 16063,
+          "vertices": 8321,
+          "error": 0.00035546350409276783
+        },
+        {
+          "id": "aorta",
+          "originalName": "aorta",
+          "sourceTriangles": 81150,
+          "triangles": 4868,
+          "vertices": 2535,
+          "error": 0.0002586398913990706
+        },
+        {
+          "id": "spleen",
+          "originalName": "spleen",
+          "sourceTriangles": 169612,
+          "triangles": 10176,
+          "vertices": 5182,
+          "error": 0.000622214691247791
+        },
+        {
+          "id": "brainstem",
+          "originalName": "brainstem",
+          "sourceTriangles": 78972,
+          "triangles": 6852,
+          "vertices": 3501,
+          "error": 0.0009950442472472787
+        },
+        {
+          "id": "cerebellum",
+          "originalName": "cerebellum",
+          "sourceTriangles": 115832,
+          "triangles": 7414,
+          "vertices": 3809,
+          "error": 0.0009966084035113454
+        },
+        {
+          "id": "cerebrum",
+          "originalName": "cerebrum",
+          "sourceTriangles": 387896,
+          "triangles": 23272,
+          "vertices": 11795,
+          "error": 0.0005178390420041978
+        },
+        {
+          "id": "optic-nerve",
+          "originalName": "optic-nerve",
+          "sourceTriangles": 34932,
+          "triangles": 3938,
+          "vertices": 2062,
+          "error": 0.0009994046995416284
+        },
+        {
+          "id": "eyeball",
+          "originalName": "eyeball",
+          "sourceTriangles": 88824,
+          "triangles": 5328,
+          "vertices": 2671,
+          "error": 0.00040476792491972446
+        },
+        {
+          "id": "lens",
+          "originalName": "lens",
+          "sourceTriangles": 21152,
+          "triangles": 1268,
+          "vertices": 638,
+          "error": 0.0007517181220464408
+        },
+        {
+          "id": "skin",
+          "originalName": "skin",
+          "sourceTriangles": 660232,
+          "triangles": 39612,
+          "vertices": 20680,
+          "error": 0.0002589498180896044
+        }
+      ]
+    }
+  },
+  "poster": "/atlas/canine-visible-ajou-982cf18739b2.webp"
+}

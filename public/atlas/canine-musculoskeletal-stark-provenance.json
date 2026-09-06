@@ -1,0 +1,2968 @@
+{
+  "id": "canine-musculoskeletal-stark",
+  "sources": [
+    {
+      "filename": "assembled.glb",
+      "sha256": "3a5f1eb996cde100d2b229ced0dd47cffcc57ab6f46e6a053c1f3cb655cb4fba",
+      "bytes": 74070560
+    }
+  ],
+  "sourceBounds": [
+    [
+      -0.698764443397522,
+      -0.21144744753837585,
+      -0.11197993904352188
+    ],
+    [
+      0.5230486989021301,
+      0.43389710783958435,
+      0.10715287923812866
+    ]
+  ],
+  "sourceToDisplay": {
+    "rotationDegreesXYZ": [
+      0,
+      0,
+      0
+    ],
+    "center": [
+      -0.08785787224769592,
+      0.11122483015060425,
+      -0.0024135299026966095
+    ],
+    "scale": 1.636911513519713
+  },
+  "profiles": {
+    "quick": {
+      "model": "/atlas/canine-musculoskeletal-stark-quick-ef5f381a5cfe.glb",
+      "bytes": 978544,
+      "gzipBytes": 598351,
+      "sha256": "ef5f381a5cfe490e924ba09e5b460174ea60c69252be15df180110a683e62ae5",
+      "relativeErrorLimit": 0.003,
+      "parts": [
+        {
+          "id": "thorax",
+          "originalName": "thorax",
+          "sourceTriangles": 524060,
+          "triangles": 7857,
+          "vertices": 3913,
+          "error": 0.002761979354545474
+        },
+        {
+          "id": "cervix",
+          "originalName": "cervix",
+          "sourceTriangles": 125330,
+          "triangles": 3792,
+          "vertices": 1848,
+          "error": 0.0029905864503234625
+        },
+        {
+          "id": "caput",
+          "originalName": "caput",
+          "sourceTriangles": 424874,
+          "triangles": 9063,
+          "vertices": 4388,
+          "error": 0.0029989643953740597
+        },
+        {
+          "id": "abdomen",
+          "originalName": "abdomen",
+          "sourceTriangles": 140033,
+          "triangles": 2989,
+          "vertices": 1501,
+          "error": 0.002983325393870473
+        },
+        {
+          "id": "cauda",
+          "originalName": "cauda",
+          "sourceTriangles": 65613,
+          "triangles": 983,
+          "vertices": 486,
+          "error": 0.0029739185702055693
+        },
+        {
+          "id": "left-scapula",
+          "originalName": "left-scapula",
+          "sourceTriangles": 70646,
+          "triangles": 1058,
+          "vertices": 531,
+          "error": 0.002409590408205986
+        },
+        {
+          "id": "left-humerus",
+          "originalName": "left-humerus",
+          "sourceTriangles": 37836,
+          "triangles": 1034,
+          "vertices": 516,
+          "error": 0.0029261508025228977
+        },
+        {
+          "id": "left-antebrachium",
+          "originalName": "left-antebrachium",
+          "sourceTriangles": 40360,
+          "triangles": 728,
+          "vertices": 368,
+          "error": 0.0029026209376752377
+        },
+        {
+          "id": "left-carpus",
+          "originalName": "left-carpus",
+          "sourceTriangles": 33353,
+          "triangles": 3459,
+          "vertices": 1758,
+          "error": 0.0029778280295431614
+        },
+        {
+          "id": "left-forepaw",
+          "originalName": "left-forepaw",
+          "sourceTriangles": 19130,
+          "triangles": 2800,
+          "vertices": 1429,
+          "error": 0.00292551820166409
+        },
+        {
+          "id": "right-scapula",
+          "originalName": "right-scapula",
+          "sourceTriangles": 70646,
+          "triangles": 1058,
+          "vertices": 531,
+          "error": 0.0023841739166527987
+        },
+        {
+          "id": "right-humerus",
+          "originalName": "right-humerus",
+          "sourceTriangles": 37836,
+          "triangles": 1050,
+          "vertices": 523,
+          "error": 0.002978340955451131
+        },
+        {
+          "id": "right-antebrachium",
+          "originalName": "right-antebrachium",
+          "sourceTriangles": 40360,
+          "triangles": 712,
+          "vertices": 360,
+          "error": 0.00299934484064579
+        },
+        {
+          "id": "right-carpus",
+          "originalName": "right-carpus",
+          "sourceTriangles": 33353,
+          "triangles": 3435,
+          "vertices": 1746,
+          "error": 0.0029855689499527216
+        },
+        {
+          "id": "right-forepaw",
+          "originalName": "right-forepaw",
+          "sourceTriangles": 19130,
+          "triangles": 2808,
+          "vertices": 1433,
+          "error": 0.0029291650280356407
+        },
+        {
+          "id": "pelvis",
+          "originalName": "pelvis",
+          "sourceTriangles": 92430,
+          "triangles": 2166,
+          "vertices": 1081,
+          "error": 0.0029837514739483595
+        },
+        {
+          "id": "left-femur",
+          "originalName": "left-femur",
+          "sourceTriangles": 40220,
+          "triangles": 862,
+          "vertices": 433,
+          "error": 0.0029996142257004976
+        },
+        {
+          "id": "left-crus",
+          "originalName": "left-crus",
+          "sourceTriangles": 41282,
+          "triangles": 886,
+          "vertices": 449,
+          "error": 0.0029884728137403727
+        },
+        {
+          "id": "left-calx",
+          "originalName": "left-calx",
+          "sourceTriangles": 40401,
+          "triangles": 2394,
+          "vertices": 1198,
+          "error": 0.0029821053612977266
+        },
+        {
+          "id": "left-hindpaw",
+          "originalName": "left-hindpaw",
+          "sourceTriangles": 16068,
+          "triangles": 1870,
+          "vertices": 959,
+          "error": 0.002979417098686099
+        },
+        {
+          "id": "right-femur",
+          "originalName": "right-femur",
+          "sourceTriangles": 40220,
+          "triangles": 896,
+          "vertices": 450,
+          "error": 0.0029946942813694477
+        },
+        {
+          "id": "right-crus",
+          "originalName": "right-crus",
+          "sourceTriangles": 41282,
+          "triangles": 918,
+          "vertices": 465,
+          "error": 0.00299272988922894
+        },
+        {
+          "id": "right-calx",
+          "originalName": "right-calx",
+          "sourceTriangles": 40401,
+          "triangles": 2290,
+          "vertices": 1145,
+          "error": 0.002977766329422593
+        },
+        {
+          "id": "right-hindpaw",
+          "originalName": "right-hindpaw",
+          "sourceTriangles": 16068,
+          "triangles": 1900,
+          "vertices": 974,
+          "error": 0.002964349929243326
+        },
+        {
+          "id": "path-left-trapezius-cervical",
+          "originalName": "path-left-trapezius-cervical",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-trapezius-thoracic",
+          "originalName": "path-left-trapezius-thoracic",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-rhomboideus-thoracic",
+          "originalName": "path-left-rhomboideus-thoracic",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-rhomboideus-cervicis",
+          "originalName": "path-left-rhomboideus-cervicis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-latissimus-dorsi",
+          "originalName": "path-left-latissimus-dorsi",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-brachiocephalicus-1",
+          "originalName": "path-left-brachiocephalicus-1",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-brachiocephalicus-2",
+          "originalName": "path-left-brachiocephalicus-2",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-1",
+          "originalName": "path-left-serratus-1",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-2",
+          "originalName": "path-left-serratus-2",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-3",
+          "originalName": "path-left-serratus-3",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-4",
+          "originalName": "path-left-serratus-4",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-5",
+          "originalName": "path-left-serratus-5",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-6",
+          "originalName": "path-left-serratus-6",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-7",
+          "originalName": "path-left-serratus-7",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-8",
+          "originalName": "path-left-serratus-8",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-9",
+          "originalName": "path-left-serratus-9",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-10",
+          "originalName": "path-left-serratus-10",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-11",
+          "originalName": "path-left-serratus-11",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-12",
+          "originalName": "path-left-serratus-12",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-pectoralis-profundus",
+          "originalName": "path-left-pectoralis-profundus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-pectoralis-superficialis",
+          "originalName": "path-left-pectoralis-superficialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-supraspinatus",
+          "originalName": "path-left-supraspinatus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-infraspinatus",
+          "originalName": "path-left-infraspinatus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-subscapularis",
+          "originalName": "path-left-subscapularis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-deltoideus-sca",
+          "originalName": "path-left-deltoideus-sca",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-deltoideus-acr",
+          "originalName": "path-left-deltoideus-acr",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-teres-major",
+          "originalName": "path-left-teres-major",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-teres-minor",
+          "originalName": "path-left-teres-minor",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-coracobrachialis",
+          "originalName": "path-left-coracobrachialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-biceps-brachii",
+          "originalName": "path-left-biceps-brachii",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-brachialis",
+          "originalName": "path-left-brachialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-triceps-caput-longum",
+          "originalName": "path-left-triceps-caput-longum",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-triceps-caput-laterale",
+          "originalName": "path-left-triceps-caput-laterale",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-triceps-caput-accessorium",
+          "originalName": "path-left-triceps-caput-accessorium",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-triceps-caput-medial",
+          "originalName": "path-left-triceps-caput-medial",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-anconeus",
+          "originalName": "path-left-anconeus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-pronator-teres",
+          "originalName": "path-left-pronator-teres",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-supinator",
+          "originalName": "path-left-supinator",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-flexor-carpi-radialis",
+          "originalName": "path-left-flexor-carpi-radialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-flexor-carpi-ulnaris",
+          "originalName": "path-left-flexor-carpi-ulnaris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-extensor-carpi-ulnaris",
+          "originalName": "path-left-extensor-carpi-ulnaris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-extensor-carpi-radialis",
+          "originalName": "path-left-extensor-carpi-radialis",
+          "sourceTriangles": 72,
+          "triangles": 72,
+          "vertices": 120,
+          "error": 0
+        },
+        {
+          "id": "path-left-abductor-policis-longum",
+          "originalName": "path-left-abductor-policis-longum",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-trapezius-cervical",
+          "originalName": "path-right-trapezius-cervical",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-trapezius-thoracic",
+          "originalName": "path-right-trapezius-thoracic",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-rhomboideus-thoracic",
+          "originalName": "path-right-rhomboideus-thoracic",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-rhomboideus-cervicis",
+          "originalName": "path-right-rhomboideus-cervicis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-latissimus-dorsi",
+          "originalName": "path-right-latissimus-dorsi",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-brachiocephalicus-1",
+          "originalName": "path-right-brachiocephalicus-1",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-brachiocephalicus-2",
+          "originalName": "path-right-brachiocephalicus-2",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-1",
+          "originalName": "path-right-serratus-1",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-2",
+          "originalName": "path-right-serratus-2",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-3",
+          "originalName": "path-right-serratus-3",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-4",
+          "originalName": "path-right-serratus-4",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-5",
+          "originalName": "path-right-serratus-5",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-6",
+          "originalName": "path-right-serratus-6",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-7",
+          "originalName": "path-right-serratus-7",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-8",
+          "originalName": "path-right-serratus-8",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-9",
+          "originalName": "path-right-serratus-9",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-10",
+          "originalName": "path-right-serratus-10",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-11",
+          "originalName": "path-right-serratus-11",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-12",
+          "originalName": "path-right-serratus-12",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-pectoralis-profundus",
+          "originalName": "path-right-pectoralis-profundus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-pectoralis-superficialis",
+          "originalName": "path-right-pectoralis-superficialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-supraspinatus",
+          "originalName": "path-right-supraspinatus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-infraspinatus",
+          "originalName": "path-right-infraspinatus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-subscapularis",
+          "originalName": "path-right-subscapularis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-deltoideus-sca",
+          "originalName": "path-right-deltoideus-sca",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-deltoideus-acr",
+          "originalName": "path-right-deltoideus-acr",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-teres-major",
+          "originalName": "path-right-teres-major",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-teres-minor",
+          "originalName": "path-right-teres-minor",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-coracobrachialis",
+          "originalName": "path-right-coracobrachialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-biceps-brachii",
+          "originalName": "path-right-biceps-brachii",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-brachialis",
+          "originalName": "path-right-brachialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-triceps-caput-longum",
+          "originalName": "path-right-triceps-caput-longum",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-triceps-caput-laterale",
+          "originalName": "path-right-triceps-caput-laterale",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-triceps-caput-accessorium",
+          "originalName": "path-right-triceps-caput-accessorium",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-triceps-caput-medial",
+          "originalName": "path-right-triceps-caput-medial",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-anconeus",
+          "originalName": "path-right-anconeus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-pronator-teres",
+          "originalName": "path-right-pronator-teres",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-supinator",
+          "originalName": "path-right-supinator",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-flexor-carpi-radialis",
+          "originalName": "path-right-flexor-carpi-radialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-flexor-carpi-ulnaris",
+          "originalName": "path-right-flexor-carpi-ulnaris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-extensor-carpi-ulnaris",
+          "originalName": "path-right-extensor-carpi-ulnaris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-extensor-carpi-radialis",
+          "originalName": "path-right-extensor-carpi-radialis",
+          "sourceTriangles": 72,
+          "triangles": 72,
+          "vertices": 120,
+          "error": 0
+        },
+        {
+          "id": "path-right-abductor-policis-longum",
+          "originalName": "path-right-abductor-policis-longum",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-longissimus",
+          "originalName": "path-left-longissimus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-quadratus-lumborum",
+          "originalName": "path-left-quadratus-lumborum",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-iliocostalis",
+          "originalName": "path-left-iliocostalis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-longissimus",
+          "originalName": "path-right-longissimus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-quadratus-lumborum",
+          "originalName": "path-right-quadratus-lumborum",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-iliocostalis",
+          "originalName": "path-right-iliocostalis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-sacrocaudalis",
+          "originalName": "path-left-sacrocaudalis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-psoas-major",
+          "originalName": "path-left-psoas-major",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-psoas-minor",
+          "originalName": "path-left-psoas-minor",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-adductor-longus",
+          "originalName": "path-left-adductor-longus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-gemelli",
+          "originalName": "path-left-gemelli",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-gluteus-medius",
+          "originalName": "path-left-gluteus-medius",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-gluteus-profundus",
+          "originalName": "path-left-gluteus-profundus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-gluteus-superficialis",
+          "originalName": "path-left-gluteus-superficialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-iliacus",
+          "originalName": "path-left-iliacus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-obturator-ext",
+          "originalName": "path-left-obturator-ext",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-obturator-int",
+          "originalName": "path-left-obturator-int",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-piriformis",
+          "originalName": "path-left-piriformis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-pectineus",
+          "originalName": "path-left-pectineus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-sartorius-caudal",
+          "originalName": "path-left-sartorius-caudal",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-sartorius-cranial",
+          "originalName": "path-left-sartorius-cranial",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-tensor-fasciae",
+          "originalName": "path-left-tensor-fasciae",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-quadratus-femoris",
+          "originalName": "path-left-quadratus-femoris",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-vastus-lateralis",
+          "originalName": "path-left-vastus-lateralis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-vastus-medialis",
+          "originalName": "path-left-vastus-medialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-rectus-femoris",
+          "originalName": "path-left-rectus-femoris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-abductor-cruris",
+          "originalName": "path-left-abductor-cruris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-adductoren",
+          "originalName": "path-left-adductoren",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-biceps-femoris-longum",
+          "originalName": "path-left-biceps-femoris-longum",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-biceps-femoris-breve",
+          "originalName": "path-left-biceps-femoris-breve",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-gracilis-tractus-calcaneus",
+          "originalName": "path-left-gracilis-tractus-calcaneus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-semimembranosus",
+          "originalName": "path-left-semimembranosus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-semitendinosus",
+          "originalName": "path-left-semitendinosus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-gastrocnemius-lateralis",
+          "originalName": "path-left-gastrocnemius-lateralis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-gastrocnemius-medialis",
+          "originalName": "path-left-gastrocnemius-medialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-peroneus-longus",
+          "originalName": "path-left-peroneus-longus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-tibialis-caudalis",
+          "originalName": "path-left-tibialis-caudalis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-tibialis-cranialis",
+          "originalName": "path-left-tibialis-cranialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-popliteus",
+          "originalName": "path-left-popliteus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-sacrocaudalis",
+          "originalName": "path-right-sacrocaudalis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-psoas-major",
+          "originalName": "path-right-psoas-major",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-psoas-minor",
+          "originalName": "path-right-psoas-minor",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-adductor-longus",
+          "originalName": "path-right-adductor-longus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-gemelli",
+          "originalName": "path-right-gemelli",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-gluteus-medius",
+          "originalName": "path-right-gluteus-medius",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-gluteus-profundus",
+          "originalName": "path-right-gluteus-profundus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-gluteus-superficialis",
+          "originalName": "path-right-gluteus-superficialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-iliacus",
+          "originalName": "path-right-iliacus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-obturator-ext",
+          "originalName": "path-right-obturator-ext",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-obturator-int",
+          "originalName": "path-right-obturator-int",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-piriformis",
+          "originalName": "path-right-piriformis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-pectineus",
+          "originalName": "path-right-pectineus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-sartorius-caudal",
+          "originalName": "path-right-sartorius-caudal",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-sartorius-cranial",
+          "originalName": "path-right-sartorius-cranial",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-tensor-fasciae",
+          "originalName": "path-right-tensor-fasciae",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-quadratus-femoris",
+          "originalName": "path-right-quadratus-femoris",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-vastus-lateralis",
+          "originalName": "path-right-vastus-lateralis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-vastus-medialis",
+          "originalName": "path-right-vastus-medialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-rectus-femoris",
+          "originalName": "path-right-rectus-femoris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-abductor-cruris",
+          "originalName": "path-right-abductor-cruris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-adductoren",
+          "originalName": "path-right-adductoren",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-biceps-femoris-longum",
+          "originalName": "path-right-biceps-femoris-longum",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-biceps-femoris-breve",
+          "originalName": "path-right-biceps-femoris-breve",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-gracilis-tractus-calcaneus",
+          "originalName": "path-right-gracilis-tractus-calcaneus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-semimembranosus",
+          "originalName": "path-right-semimembranosus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-semitendinosus",
+          "originalName": "path-right-semitendinosus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-gastrocnemius-lateralis",
+          "originalName": "path-right-gastrocnemius-lateralis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-gastrocnemius-medialis",
+          "originalName": "path-right-gastrocnemius-medialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-peroneus-longus",
+          "originalName": "path-right-peroneus-longus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-tibialis-caudalis",
+          "originalName": "path-right-tibialis-caudalis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-tibialis-cranialis",
+          "originalName": "path-right-tibialis-cranialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-popliteus",
+          "originalName": "path-right-popliteus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        }
+      ]
+    },
+    "detail": {
+      "model": "/atlas/canine-musculoskeletal-stark-detail-ab6241daac4f.glb",
+      "bytes": 2771428,
+      "gzipBytes": 2001515,
+      "sha256": "ab6241daac4f87df504b94be6c3d28410244961760dab4c83c7ddc5538f7c8fe",
+      "relativeErrorLimit": 0.001,
+      "parts": [
+        {
+          "id": "thorax",
+          "originalName": "thorax",
+          "sourceTriangles": 524060,
+          "triangles": 31441,
+          "vertices": 15689,
+          "error": 0.0008279141038656235
+        },
+        {
+          "id": "cervix",
+          "originalName": "cervix",
+          "sourceTriangles": 125330,
+          "triangles": 13583,
+          "vertices": 6740,
+          "error": 0.000996016664430499
+        },
+        {
+          "id": "caput",
+          "originalName": "caput",
+          "sourceTriangles": 424874,
+          "triangles": 32012,
+          "vertices": 15764,
+          "error": 0.000992326415143907
+        },
+        {
+          "id": "abdomen",
+          "originalName": "abdomen",
+          "sourceTriangles": 140033,
+          "triangles": 10705,
+          "vertices": 5369,
+          "error": 0.0009763324051164091
+        },
+        {
+          "id": "cauda",
+          "originalName": "cauda",
+          "sourceTriangles": 65613,
+          "triangles": 3931,
+          "vertices": 1951,
+          "error": 0.0009290092275477946
+        },
+        {
+          "id": "left-scapula",
+          "originalName": "left-scapula",
+          "sourceTriangles": 70646,
+          "triangles": 4238,
+          "vertices": 2121,
+          "error": 0.0008275086292997003
+        },
+        {
+          "id": "left-humerus",
+          "originalName": "left-humerus",
+          "sourceTriangles": 37836,
+          "triangles": 3410,
+          "vertices": 1701,
+          "error": 0.0009867165936157107
+        },
+        {
+          "id": "left-antebrachium",
+          "originalName": "left-antebrachium",
+          "sourceTriangles": 40360,
+          "triangles": 2618,
+          "vertices": 1313,
+          "error": 0.0009754030033946037
+        },
+        {
+          "id": "left-carpus",
+          "originalName": "left-carpus",
+          "sourceTriangles": 33353,
+          "triangles": 12445,
+          "vertices": 6251,
+          "error": 0.000997945200651884
+        },
+        {
+          "id": "left-forepaw",
+          "originalName": "left-forepaw",
+          "sourceTriangles": 19130,
+          "triangles": 9774,
+          "vertices": 4916,
+          "error": 0.0009764100541360676
+        },
+        {
+          "id": "right-scapula",
+          "originalName": "right-scapula",
+          "sourceTriangles": 70646,
+          "triangles": 4238,
+          "vertices": 2121,
+          "error": 0.0008071447955444455
+        },
+        {
+          "id": "right-humerus",
+          "originalName": "right-humerus",
+          "sourceTriangles": 37836,
+          "triangles": 3432,
+          "vertices": 1712,
+          "error": 0.000988247338682413
+        },
+        {
+          "id": "right-antebrachium",
+          "originalName": "right-antebrachium",
+          "sourceTriangles": 40360,
+          "triangles": 2574,
+          "vertices": 1291,
+          "error": 0.0009966108482331038
+        },
+        {
+          "id": "right-carpus",
+          "originalName": "right-carpus",
+          "sourceTriangles": 33353,
+          "triangles": 12447,
+          "vertices": 6252,
+          "error": 0.0009974787244573236
+        },
+        {
+          "id": "right-forepaw",
+          "originalName": "right-forepaw",
+          "sourceTriangles": 19130,
+          "triangles": 9756,
+          "vertices": 4907,
+          "error": 0.0009909418877214193
+        },
+        {
+          "id": "pelvis",
+          "originalName": "pelvis",
+          "sourceTriangles": 92430,
+          "triangles": 7568,
+          "vertices": 3782,
+          "error": 0.0009975737193599343
+        },
+        {
+          "id": "left-femur",
+          "originalName": "left-femur",
+          "sourceTriangles": 40220,
+          "triangles": 3000,
+          "vertices": 1502,
+          "error": 0.0009955583373084664
+        },
+        {
+          "id": "left-crus",
+          "originalName": "left-crus",
+          "sourceTriangles": 41282,
+          "triangles": 3370,
+          "vertices": 1691,
+          "error": 0.000997047172859311
+        },
+        {
+          "id": "left-calx",
+          "originalName": "left-calx",
+          "sourceTriangles": 40401,
+          "triangles": 8415,
+          "vertices": 4207,
+          "error": 0.000999634969048202
+        },
+        {
+          "id": "left-hindpaw",
+          "originalName": "left-hindpaw",
+          "sourceTriangles": 16068,
+          "triangles": 6521,
+          "vertices": 3285,
+          "error": 0.0009954702109098434
+        },
+        {
+          "id": "right-femur",
+          "originalName": "right-femur",
+          "sourceTriangles": 40220,
+          "triangles": 2976,
+          "vertices": 1490,
+          "error": 0.0009987951489165425
+        },
+        {
+          "id": "right-crus",
+          "originalName": "right-crus",
+          "sourceTriangles": 41282,
+          "triangles": 3416,
+          "vertices": 1714,
+          "error": 0.0009767520241439342
+        },
+        {
+          "id": "right-calx",
+          "originalName": "right-calx",
+          "sourceTriangles": 40401,
+          "triangles": 8087,
+          "vertices": 4043,
+          "error": 0.0009765117429196835
+        },
+        {
+          "id": "right-hindpaw",
+          "originalName": "right-hindpaw",
+          "sourceTriangles": 16068,
+          "triangles": 6527,
+          "vertices": 3288,
+          "error": 0.0009966874495148659
+        },
+        {
+          "id": "path-left-trapezius-cervical",
+          "originalName": "path-left-trapezius-cervical",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-trapezius-thoracic",
+          "originalName": "path-left-trapezius-thoracic",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-rhomboideus-thoracic",
+          "originalName": "path-left-rhomboideus-thoracic",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-rhomboideus-cervicis",
+          "originalName": "path-left-rhomboideus-cervicis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-latissimus-dorsi",
+          "originalName": "path-left-latissimus-dorsi",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-brachiocephalicus-1",
+          "originalName": "path-left-brachiocephalicus-1",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-brachiocephalicus-2",
+          "originalName": "path-left-brachiocephalicus-2",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-1",
+          "originalName": "path-left-serratus-1",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-2",
+          "originalName": "path-left-serratus-2",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-3",
+          "originalName": "path-left-serratus-3",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-4",
+          "originalName": "path-left-serratus-4",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-5",
+          "originalName": "path-left-serratus-5",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-6",
+          "originalName": "path-left-serratus-6",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-7",
+          "originalName": "path-left-serratus-7",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-8",
+          "originalName": "path-left-serratus-8",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-9",
+          "originalName": "path-left-serratus-9",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-10",
+          "originalName": "path-left-serratus-10",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-11",
+          "originalName": "path-left-serratus-11",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-serratus-12",
+          "originalName": "path-left-serratus-12",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-pectoralis-profundus",
+          "originalName": "path-left-pectoralis-profundus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-pectoralis-superficialis",
+          "originalName": "path-left-pectoralis-superficialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-supraspinatus",
+          "originalName": "path-left-supraspinatus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-infraspinatus",
+          "originalName": "path-left-infraspinatus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-subscapularis",
+          "originalName": "path-left-subscapularis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-deltoideus-sca",
+          "originalName": "path-left-deltoideus-sca",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-deltoideus-acr",
+          "originalName": "path-left-deltoideus-acr",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-teres-major",
+          "originalName": "path-left-teres-major",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-teres-minor",
+          "originalName": "path-left-teres-minor",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-coracobrachialis",
+          "originalName": "path-left-coracobrachialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-biceps-brachii",
+          "originalName": "path-left-biceps-brachii",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-brachialis",
+          "originalName": "path-left-brachialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-triceps-caput-longum",
+          "originalName": "path-left-triceps-caput-longum",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-triceps-caput-laterale",
+          "originalName": "path-left-triceps-caput-laterale",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-triceps-caput-accessorium",
+          "originalName": "path-left-triceps-caput-accessorium",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-triceps-caput-medial",
+          "originalName": "path-left-triceps-caput-medial",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-anconeus",
+          "originalName": "path-left-anconeus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-pronator-teres",
+          "originalName": "path-left-pronator-teres",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-supinator",
+          "originalName": "path-left-supinator",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-flexor-carpi-radialis",
+          "originalName": "path-left-flexor-carpi-radialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-flexor-carpi-ulnaris",
+          "originalName": "path-left-flexor-carpi-ulnaris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-extensor-carpi-ulnaris",
+          "originalName": "path-left-extensor-carpi-ulnaris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-extensor-carpi-radialis",
+          "originalName": "path-left-extensor-carpi-radialis",
+          "sourceTriangles": 72,
+          "triangles": 72,
+          "vertices": 120,
+          "error": 0
+        },
+        {
+          "id": "path-left-abductor-policis-longum",
+          "originalName": "path-left-abductor-policis-longum",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-trapezius-cervical",
+          "originalName": "path-right-trapezius-cervical",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-trapezius-thoracic",
+          "originalName": "path-right-trapezius-thoracic",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-rhomboideus-thoracic",
+          "originalName": "path-right-rhomboideus-thoracic",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-rhomboideus-cervicis",
+          "originalName": "path-right-rhomboideus-cervicis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-latissimus-dorsi",
+          "originalName": "path-right-latissimus-dorsi",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-brachiocephalicus-1",
+          "originalName": "path-right-brachiocephalicus-1",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-brachiocephalicus-2",
+          "originalName": "path-right-brachiocephalicus-2",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-1",
+          "originalName": "path-right-serratus-1",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-2",
+          "originalName": "path-right-serratus-2",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-3",
+          "originalName": "path-right-serratus-3",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-4",
+          "originalName": "path-right-serratus-4",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-5",
+          "originalName": "path-right-serratus-5",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-6",
+          "originalName": "path-right-serratus-6",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-7",
+          "originalName": "path-right-serratus-7",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-8",
+          "originalName": "path-right-serratus-8",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-9",
+          "originalName": "path-right-serratus-9",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-10",
+          "originalName": "path-right-serratus-10",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-11",
+          "originalName": "path-right-serratus-11",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-serratus-12",
+          "originalName": "path-right-serratus-12",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-pectoralis-profundus",
+          "originalName": "path-right-pectoralis-profundus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-pectoralis-superficialis",
+          "originalName": "path-right-pectoralis-superficialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-supraspinatus",
+          "originalName": "path-right-supraspinatus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-infraspinatus",
+          "originalName": "path-right-infraspinatus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-subscapularis",
+          "originalName": "path-right-subscapularis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-deltoideus-sca",
+          "originalName": "path-right-deltoideus-sca",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-deltoideus-acr",
+          "originalName": "path-right-deltoideus-acr",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-teres-major",
+          "originalName": "path-right-teres-major",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-teres-minor",
+          "originalName": "path-right-teres-minor",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-coracobrachialis",
+          "originalName": "path-right-coracobrachialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-biceps-brachii",
+          "originalName": "path-right-biceps-brachii",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-brachialis",
+          "originalName": "path-right-brachialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-triceps-caput-longum",
+          "originalName": "path-right-triceps-caput-longum",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-triceps-caput-laterale",
+          "originalName": "path-right-triceps-caput-laterale",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-triceps-caput-accessorium",
+          "originalName": "path-right-triceps-caput-accessorium",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-triceps-caput-medial",
+          "originalName": "path-right-triceps-caput-medial",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-anconeus",
+          "originalName": "path-right-anconeus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-pronator-teres",
+          "originalName": "path-right-pronator-teres",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-supinator",
+          "originalName": "path-right-supinator",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-flexor-carpi-radialis",
+          "originalName": "path-right-flexor-carpi-radialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-flexor-carpi-ulnaris",
+          "originalName": "path-right-flexor-carpi-ulnaris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-extensor-carpi-ulnaris",
+          "originalName": "path-right-extensor-carpi-ulnaris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-extensor-carpi-radialis",
+          "originalName": "path-right-extensor-carpi-radialis",
+          "sourceTriangles": 72,
+          "triangles": 72,
+          "vertices": 120,
+          "error": 0
+        },
+        {
+          "id": "path-right-abductor-policis-longum",
+          "originalName": "path-right-abductor-policis-longum",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-longissimus",
+          "originalName": "path-left-longissimus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-quadratus-lumborum",
+          "originalName": "path-left-quadratus-lumborum",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-iliocostalis",
+          "originalName": "path-left-iliocostalis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-longissimus",
+          "originalName": "path-right-longissimus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-quadratus-lumborum",
+          "originalName": "path-right-quadratus-lumborum",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-iliocostalis",
+          "originalName": "path-right-iliocostalis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-sacrocaudalis",
+          "originalName": "path-left-sacrocaudalis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-psoas-major",
+          "originalName": "path-left-psoas-major",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-psoas-minor",
+          "originalName": "path-left-psoas-minor",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-adductor-longus",
+          "originalName": "path-left-adductor-longus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-gemelli",
+          "originalName": "path-left-gemelli",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-gluteus-medius",
+          "originalName": "path-left-gluteus-medius",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-gluteus-profundus",
+          "originalName": "path-left-gluteus-profundus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-gluteus-superficialis",
+          "originalName": "path-left-gluteus-superficialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-iliacus",
+          "originalName": "path-left-iliacus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-obturator-ext",
+          "originalName": "path-left-obturator-ext",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-obturator-int",
+          "originalName": "path-left-obturator-int",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-piriformis",
+          "originalName": "path-left-piriformis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-pectineus",
+          "originalName": "path-left-pectineus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-sartorius-caudal",
+          "originalName": "path-left-sartorius-caudal",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-sartorius-cranial",
+          "originalName": "path-left-sartorius-cranial",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-tensor-fasciae",
+          "originalName": "path-left-tensor-fasciae",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-quadratus-femoris",
+          "originalName": "path-left-quadratus-femoris",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-vastus-lateralis",
+          "originalName": "path-left-vastus-lateralis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-vastus-medialis",
+          "originalName": "path-left-vastus-medialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-rectus-femoris",
+          "originalName": "path-left-rectus-femoris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-abductor-cruris",
+          "originalName": "path-left-abductor-cruris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-adductoren",
+          "originalName": "path-left-adductoren",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-left-biceps-femoris-longum",
+          "originalName": "path-left-biceps-femoris-longum",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-biceps-femoris-breve",
+          "originalName": "path-left-biceps-femoris-breve",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-gracilis-tractus-calcaneus",
+          "originalName": "path-left-gracilis-tractus-calcaneus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-semimembranosus",
+          "originalName": "path-left-semimembranosus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-semitendinosus",
+          "originalName": "path-left-semitendinosus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-gastrocnemius-lateralis",
+          "originalName": "path-left-gastrocnemius-lateralis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-gastrocnemius-medialis",
+          "originalName": "path-left-gastrocnemius-medialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-peroneus-longus",
+          "originalName": "path-left-peroneus-longus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-tibialis-caudalis",
+          "originalName": "path-left-tibialis-caudalis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-tibialis-cranialis",
+          "originalName": "path-left-tibialis-cranialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-left-popliteus",
+          "originalName": "path-left-popliteus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-sacrocaudalis",
+          "originalName": "path-right-sacrocaudalis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-psoas-major",
+          "originalName": "path-right-psoas-major",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-psoas-minor",
+          "originalName": "path-right-psoas-minor",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-adductor-longus",
+          "originalName": "path-right-adductor-longus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-gemelli",
+          "originalName": "path-right-gemelli",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-gluteus-medius",
+          "originalName": "path-right-gluteus-medius",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-gluteus-profundus",
+          "originalName": "path-right-gluteus-profundus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-gluteus-superficialis",
+          "originalName": "path-right-gluteus-superficialis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-iliacus",
+          "originalName": "path-right-iliacus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-obturator-ext",
+          "originalName": "path-right-obturator-ext",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-obturator-int",
+          "originalName": "path-right-obturator-int",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-piriformis",
+          "originalName": "path-right-piriformis",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-pectineus",
+          "originalName": "path-right-pectineus",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-sartorius-caudal",
+          "originalName": "path-right-sartorius-caudal",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-sartorius-cranial",
+          "originalName": "path-right-sartorius-cranial",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-tensor-fasciae",
+          "originalName": "path-right-tensor-fasciae",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-quadratus-femoris",
+          "originalName": "path-right-quadratus-femoris",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-vastus-lateralis",
+          "originalName": "path-right-vastus-lateralis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-vastus-medialis",
+          "originalName": "path-right-vastus-medialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-rectus-femoris",
+          "originalName": "path-right-rectus-femoris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-abductor-cruris",
+          "originalName": "path-right-abductor-cruris",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-adductoren",
+          "originalName": "path-right-adductoren",
+          "sourceTriangles": 24,
+          "triangles": 24,
+          "vertices": 40,
+          "error": 0
+        },
+        {
+          "id": "path-right-biceps-femoris-longum",
+          "originalName": "path-right-biceps-femoris-longum",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-biceps-femoris-breve",
+          "originalName": "path-right-biceps-femoris-breve",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-gracilis-tractus-calcaneus",
+          "originalName": "path-right-gracilis-tractus-calcaneus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-semimembranosus",
+          "originalName": "path-right-semimembranosus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-semitendinosus",
+          "originalName": "path-right-semitendinosus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-gastrocnemius-lateralis",
+          "originalName": "path-right-gastrocnemius-lateralis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-gastrocnemius-medialis",
+          "originalName": "path-right-gastrocnemius-medialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-peroneus-longus",
+          "originalName": "path-right-peroneus-longus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-tibialis-caudalis",
+          "originalName": "path-right-tibialis-caudalis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-tibialis-cranialis",
+          "originalName": "path-right-tibialis-cranialis",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        },
+        {
+          "id": "path-right-popliteus",
+          "originalName": "path-right-popliteus",
+          "sourceTriangles": 48,
+          "triangles": 48,
+          "vertices": 80,
+          "error": 0
+        }
+      ]
+    }
+  },
+  "poster": "/atlas/canine-musculoskeletal-stark-cd6194689385.webp"
+}

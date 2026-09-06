@@ -129,6 +129,7 @@ const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
 // full CUVETSMO imaging workstation. Keep it lazy: the Cornerstone/DICOM
 // stack is only downloaded when a learner opens #lab.
 const LabView = lazy(() => import('./views/LabView.jsx'));
+const AtlasView = lazy(() => import('./views/AtlasView.jsx'));
 
 // PinboardView — personal pin grid (Qs / summaries / flashcards /
 // notes). Lazy because most sessions never open it.
@@ -274,13 +275,13 @@ const IS_LOCAL_HOST = typeof window !== 'undefined'
 const WIDE_VIEWS = new Set([
   'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
   'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate', 'library',
-  'image-occlusion', 'knowledge', 'wiki',
+  'image-occlusion', 'knowledge', 'wiki', 'atlas',
 ]);
 
 // Focus views intentionally remove navigation chrome. In particular, hiding
 // the footer prevents keyboard/scroll users from leaving an active exam
 // without going through ExamView's confirmation flow.
-const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select', 'phase-select', 'config']);
+const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select', 'phase-select', 'config', 'atlas']);
 // Marketing/ecosystem links belong on destination pages, not after every
 // internal workflow. Keeping the footer off topic, notes, schedule and tool
 // views shortens those tasks without removing any top-level navigation.
@@ -2434,6 +2435,7 @@ export default function App() {
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'race' && user && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
+              {view === 'atlas' && <AtlasView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} theme={theme} onToggleTheme={() => setTheme(current => current === 'dark' ? 'light' : 'dark')} />}
               {view === 'library' && <LibraryView goHome={goHome} selectedYear={selectedYear} onOpenDoc={(doc) => { setLibraryDoc(doc); setView('pdf-annotate'); }} />}
               {view === 'pdf-annotate' && (
                 <PdfAnnotateView

@@ -1,6 +1,6 @@
 # VetMock project knowledge base
 
-Current source candidate: **2026-09-05 · v5.79.0**
+Current source candidate: **2026-09-06 · v5.80.0**
 Last production baseline checked before this candidate: `fdff304` · v5.78.0.
 Production: [vetmock.vercel.app](https://vetmock.vercel.app)
 
@@ -62,7 +62,30 @@ source access and scored practice.
 | Stable URLs | `src/lib/view-route.js` | App history and Vercel rewrites |
 | User study data | `src/lib/user-data-sync.js` | local-first store + Supabase replica |
 | Imported JSON | `src/lib/user-data-schema.js` | backup + custom-question ingress |
-| Offline/update behavior | `public/sw.js`, `src/main.jsx` | PWA cache and update/retry UI |
+| Atlas specimens | `src/data/atlas-catalog.js`, per-specimen conversion ledgers | generated asset registry, shared AtlasView, `/atlas/` discovery page |
+| Atlas direct entry | `atlas.html`, `src/atlas-main.jsx` | `/app/atlas` opens without exam/account dependencies |
+| Offline/update behavior | `public/sw.js`, `src/lib/app-lifecycle.js` | shared PWA update/retry rules; verified bounded Atlas model and shell caches |
+
+### Atlas
+
+The same AtlasView runs inside the main app and through a lightweight direct
+entry. Vite dev/preview middleware and Vercel rewrites keep `/app/atlas`
+consistent. The generated offline manifest follows static dependencies of that
+entry plus its explicit lazy renderer; following unrelated dynamic exports of a
+shared chunk would pull in the video corpus.
+
+Offline readiness requires both verified model bytes and a complete cached
+entry/dependency graph. HTML is committed after its dependencies, security
+headers are retained, and irrelevant CORS/compression variants are removed from
+verified offline copies. The last complete Atlas shell survives worker updates.
+The shared catalog includes the Visible dog whole-body specimen (32 source
+surfaces in 12 systems), the Stark skeletal/path model, CT organ surfaces and
+skull specimens. Muscle and Bones in Visible dog remain composites. Source
+review status is retained independently of software checks.
+See [`veterinary-atlas-full-body.md`](./veterinary-atlas-full-body.md) for current
+coverage and conversion evidence; [`veterinary-atlas-pilot.md`](./veterinary-atlas-pilot.md)
+records the earlier skull pilot. Optional workstation assets are loaded only by
+the dev plugin and are never automatically included in release builds.
 
 ### Notes and VetWiki
 

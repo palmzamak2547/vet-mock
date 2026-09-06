@@ -1,0 +1,136 @@
+{
+  "id": "canine-abdomen-pixelbeaker",
+  "sources": [
+    {
+      "filename": "assembled.glb",
+      "sha256": "fb68748e50a6c2d80fe7ada1df624177cf328cbc58b4465d7ae972a2bf33f748",
+      "bytes": 46425460
+    }
+  ],
+  "sourceBounds": [
+    [
+      40.450401306152344,
+      15.646550178527832,
+      0
+    ],
+    [
+      130.08689880371094,
+      136.4459991455078,
+      274.6859130859375
+    ]
+  ],
+  "sourceToDisplay": {
+    "rotationDegreesXYZ": [
+      0,
+      90,
+      0
+    ],
+    "center": [
+      137.34295654296875,
+      76.04627466201782,
+      -85.26865005493164
+    ],
+    "scale": 0.007281043201419235
+  },
+  "profiles": {
+    "quick": {
+      "model": "/atlas/canine-abdomen-pixelbeaker-quick-bf58191333f0.glb",
+      "bytes": 887332,
+      "gzipBytes": 707032,
+      "sha256": "bf58191333f040791d3085ed432e7048ac2871e4e723fbaecdf01e8ef12c5db5",
+      "relativeErrorLimit": 0.003,
+      "parts": [
+        {
+          "id": "bones",
+          "originalName": "bones",
+          "sourceTriangles": 181836,
+          "triangles": 5750,
+          "vertices": 3133,
+          "error": 0.002996455878019333
+        },
+        {
+          "id": "vascular",
+          "originalName": "vascular",
+          "sourceTriangles": 120822,
+          "triangles": 7594,
+          "vertices": 3968,
+          "error": 0.002967317122966051
+        },
+        {
+          "id": "lungs",
+          "originalName": "lungs",
+          "sourceTriangles": 321833,
+          "triangles": 12279,
+          "vertices": 6131,
+          "error": 0.0029295438434928656
+        },
+        {
+          "id": "vascular-liver-pancreas",
+          "originalName": "vascular-liver-pancreas",
+          "sourceTriangles": 398363,
+          "triangles": 22025,
+          "vertices": 12062,
+          "error": 0.0029296320863068104
+        },
+        {
+          "id": "intestines",
+          "originalName": "intestines",
+          "sourceTriangles": 266657,
+          "triangles": 22775,
+          "vertices": 12985,
+          "error": 0.002999639604240656
+        }
+      ]
+    },
+    "detail": {
+      "model": "/atlas/canine-abdomen-pixelbeaker-detail-2d7c5f9f3c03.glb",
+      "bytes": 3111296,
+      "gzipBytes": 2482638,
+      "sha256": "2d7c5f9f3c035639fc953f036c9820a4d2e57465cf15eb6ab82a2f6347eba59a",
+      "relativeErrorLimit": 0.001,
+      "parts": [
+        {
+          "id": "bones",
+          "originalName": "bones",
+          "sourceTriangles": 181836,
+          "triangles": 19650,
+          "vertices": 10071,
+          "error": 0.0009949860395863652
+        },
+        {
+          "id": "vascular",
+          "originalName": "vascular",
+          "sourceTriangles": 120822,
+          "triangles": 27058,
+          "vertices": 13369,
+          "error": 0.0009984364733099937
+        },
+        {
+          "id": "lungs",
+          "originalName": "lungs",
+          "sourceTriangles": 321833,
+          "triangles": 53497,
+          "vertices": 26718,
+          "error": 0.0009964557830244303
+        },
+        {
+          "id": "vascular-liver-pancreas",
+          "originalName": "vascular-liver-pancreas",
+          "sourceTriangles": 398363,
+          "triangles": 75193,
+          "vertices": 37974,
+          "error": 0.0009939952287822962
+        },
+        {
+          "id": "intestines",
+          "originalName": "intestines",
+          "sourceTriangles": 266657,
+          "triangles": 81871,
+          "vertices": 42052,
+          "error": 0.0009987219236791134
+        }
+      ]
+    }
+  },
+  "poster": "/atlas/canine-abdomen-pixelbeaker-e83570871814.webp"
+}

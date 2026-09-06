@@ -1,0 +1,193 @@
+{
+  "id": "canine-skull-base-cuhl9",
+  "sources": [
+    {
+      "filename": "BASISPHENOID.ply",
+      "sha256": "04a2327f3909337ad44708f2b0a4e90b308f21f86af993995dec64e70facf158",
+      "bytes": 31056355
+    },
+    {
+      "filename": "L-PALATINE.ply",
+      "sha256": "a74d675afeb07f7b2ee63587868029fe4de3f26330fa63c8fab5c7a165c814f2",
+      "bytes": 17284221
+    },
+    {
+      "filename": "L-PTERYGOID.ply",
+      "sha256": "3777467374de2a782ed665fb2d3dc8a7d1bee6ae45568628399512d27a199501",
+      "bytes": 2590005
+    },
+    {
+      "filename": "PRESPHENOID.ply",
+      "sha256": "49f5d70879ee4cf0f03826c7c10035df31f7153a91f792e4cf1785d246b83d29",
+      "bytes": 14430022
+    },
+    {
+      "filename": "R-PALATINE.ply",
+      "sha256": "a1eed932239108ecc20dad1bc73ccb3b9b1fe9c5a553709eb48f3691bb22eb37",
+      "bytes": 17590745
+    },
+    {
+      "filename": "R-PTERYGOID.ply",
+      "sha256": "e8870f4f67a9b16e8c5125ad69bb12f81b90b451f17b2cc36bb9fa4955981426",
+      "bytes": 2880871
+    },
+    {
+      "filename": "VOMER.ply",
+      "sha256": "65d29a23d01956f215e38ec2114b96041cac4c943f0a19937fceecff3f81440d",
+      "bytes": 5899035
+    }
+  ],
+  "sourceBounds": [
+    [
+      91.39070129394531,
+      109.97100067138672,
+      65.14620208740234
+    ],
+    [
+      138.2519989013672,
+      153.9969940185547,
+      144.093994140625
+    ]
+  ],
+  "sourceToDisplay": {
+    "center": [
+      114.82135009765625,
+      131.9839973449707,
+      104.62009811401367
+    ],
+    "scale": 0.025333197395206442
+  },
+  "profiles": {
+    "quick": {
+      "model": "/atlas/canine-skull-base-cuhl9-quick-6f9b364ff8bf.glb",
+      "bytes": 459112,
+      "gzipBytes": 349704,
+      "sha256": "6f9b364ff8bfa4a775f5d50dce86962baa344eac9d9859baaef3f862b7aa4d96",
+      "relativeErrorLimit": 0.003,
+      "parts": [
+        {
+          "id": "basisphenoid",
+          "originalName": "BASISPHENOID.ply",
+          "sourceTriangles": 828284,
+          "triangles": 12301,
+          "vertices": 5940,
+          "error": 0.002004845067858696
+        },
+        {
+          "id": "palatine-left",
+          "originalName": "L-PALATINE.ply",
+          "sourceTriangles": 468244,
+          "triangles": 7018,
+          "vertices": 3500,
+          "error": 0.0011946071172133088
+        },
+        {
+          "id": "pterygoid-left",
+          "originalName": "L-PTERYGOID.ply",
+          "sourceTriangles": 75188,
+          "triangles": 1177,
+          "vertices": 586,
+          "error": 0.0029992086347192526
+        },
+        {
+          "id": "presphenoid",
+          "originalName": "PRESPHENOID.ply",
+          "sourceTriangles": 393914,
+          "triangles": 5903,
+          "vertices": 2923,
+          "error": 0.0029950658790767193
+        },
+        {
+          "id": "palatine-right",
+          "originalName": "R-PALATINE.ply",
+          "sourceTriangles": 476178,
+          "triangles": 7140,
+          "vertices": 3560,
+          "error": 0.0013146842829883099
+        },
+        {
+          "id": "pterygoid-right",
+          "originalName": "R-PTERYGOID.ply",
+          "sourceTriangles": 83388,
+          "triangles": 1980,
+          "vertices": 981,
+          "error": 0.0029745749197900295
+        },
+        {
+          "id": "vomer",
+          "originalName": "VOMER.ply",
+          "sourceTriangles": 168912,
+          "triangles": 2513,
+          "vertices": 1205,
+          "error": 0.0018899563001468778
+        }
+      ]
+    },
+    "detail": {
+      "model": "/atlas/canine-skull-base-cuhl9-detail-5c37c4e6f82b.glb",
+      "bytes": 1834088,
+      "gzipBytes": 1367306,
+      "sha256": "5c37c4e6f82bccd71ffdaf3f031604f586e7726429bc20e932aa9e8b4440da45",
+      "relativeErrorLimit": 0.001,
+      "parts": [
+        {
+          "id": "basisphenoid",
+          "originalName": "BASISPHENOID.ply",
+          "sourceTriangles": 828284,
+          "triangles": 49611,
+          "vertices": 24300,
+          "error": 0.0006342615815810859
+        },
+        {
+          "id": "palatine-left",
+          "originalName": "L-PALATINE.ply",
+          "sourceTriangles": 468244,
+          "triangles": 28094,
+          "vertices": 14031,
+          "error": 0.0004365570785012096
+        },
+        {
+          "id": "pterygoid-left",
+          "originalName": "L-PTERYGOID.ply",
+          "sourceTriangles": 75188,
+          "triangles": 5133,
+          "vertices": 2549,
+          "error": 0.000982775236479938
+        },
+        {
+          "id": "presphenoid",
+          "originalName": "PRESPHENOID.ply",
+          "sourceTriangles": 393914,
+          "triangles": 23632,
+          "vertices": 11756,
+          "error": 0.0009929676307365298
+        },
+        {
+          "id": "palatine-right",
+          "originalName": "R-PALATINE.ply",
+          "sourceTriangles": 476178,
+          "triangles": 28570,
+          "vertices": 14284,
+          "error": 0.00045671939733438194
+        },
+        {
+          "id": "pterygoid-right",
+          "originalName": "R-PTERYGOID.ply",
+          "sourceTriangles": 83388,
+          "triangles": 7830,
+          "vertices": 3905,
+          "error": 0.0009991872357204556
+        },
+        {
+          "id": "vomer",
+          "originalName": "VOMER.ply",
+          "sourceTriangles": 168912,
+          "triangles": 10127,
+          "vertices": 4965,
+          "error": 0.0007068518898449838
+        }
+      ]
+    }
+  },
+  "poster": "/atlas/canine-skull-base-cuhl9-f4f9dd75bf95.webp"
+}

@@ -1,0 +1,67 @@
+{
+  "id": "canine-skull-nih282",
+  "sources": [
+    {
+      "filename": "nih-dog-skull.glb",
+      "sha256": "e8df798451d792a324bf7dcf48cb85a6ac07e6faf6d1cd8af7aa8e97911a0e42",
+      "bytes": 8595272
+    }
+  ],
+  "sourceBounds": [
+    [
+      0.23921309411525726,
+      0.16965170204639435,
+      0.000999900046736002
+    ],
+    [
+      0.38199999928474426,
+      0.2549999952316284,
+      0.08128520101308823
+    ]
+  ],
+  "sourceToDisplay": {
+    "center": [
+      0.31060654670000076,
+      0.21232584863901138,
+      0.041142550529912114
+    ],
+    "scale": 14.006886679321292
+  },
+  "profiles": {
+    "quick": {
+      "model": "/atlas/canine-skull-nih282-quick-f4079f6aa532.glb",
+      "bytes": 311940,
+      "gzipBytes": 251571,
+      "sha256": "f4079f6aa5324a3e72aa5941524ed7bc5c6e678a9d6928022d1ec538256cb88a",
+      "relativeErrorLimit": 0.003,
+      "parts": [
+        {
+          "id": "specimen",
+          "originalName": "Bespoke%20dog%20skull_logoply",
+          "sourceTriangles": 431048,
+          "triangles": 26734,
+          "vertices": 12510,
+          "error": 0.0029889142606407404
+        }
+      ]
+    },
+    "detail": {
+      "model": "/atlas/canine-skull-nih282-detail-c7f152d71b0a.glb",
+      "bytes": 2489512,
+      "gzipBytes": 1304623,
+      "sha256": "c7f152d71b0a50566944b56c128ccb9bc3c4a46258f7f0a94e960b6a3d7dad56",
+      "relativeErrorLimit": 0.001,
+      "parts": [
+        {
+          "id": "specimen",
+          "originalName": "Bespoke%20dog%20skull_logoply",
+          "sourceTriangles": 431048,
+          "triangles": 139258,
+          "vertices": 68083,
+          "error": 0.0009765588329173625
+        }
+      ]
+    }
+  },
+  "poster": "/atlas/canine-skull-nih282-84e8b2215e00.webp"
+}

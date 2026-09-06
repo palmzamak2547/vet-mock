@@ -2,9 +2,17 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { atlasLocalPlugin } from './scripts/atlas-local-plugin.mjs'
+
+const atlasEntry = (server) => {
+  server.middlewares.use((request, _response, next) => {
+    if (/^\/app\/atlas\/?(?:\?|$)/.test(request.url || '')) request.url = `/atlas.html${(request.url || '').includes('?') ? (request.url || '').slice(request.url.indexOf('?')) : ''}`;
+    next();
+  });
+};
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry }],
   // '@' is the alias the shadcn CLI writes into installed block imports
   // (@/lib/utils, @/components/ui/*). jsconfig.json mirrors it for the
   // CLI + editors.
@@ -28,6 +36,7 @@ export default defineConfig({
   },
   worker: { format: 'es' },
   build: {
+    manifest: true,
     // Palm compat audit 2026-05-24: was 'esnext' which emits whatever
     // the latest spec supports — could include features iOS 14-15
     // doesn't parse (top-level await, logical assignment, etc.).
@@ -64,6 +73,7 @@ export default defineConfig({
       resolveDependencies(_filename, deps) {
         const SKIP_PRELOAD_PATTERNS = [
           /vendor-cornerstone/,        // Practical Imaging Lab only
+          /vendor-atlas/,              // Anatomy viewer only
           /data-q-/,                   // Q banks · 16 chunks · ~2 MB (Phase 2+3 will lazy them)
           /data-video-summaries/,      // VideoView only · 2 MB
           /data-notes-/,               // NotesView only · per-subject
@@ -74,9 +84,15 @@ export default defineConfig({
       },
     },
     rollupOptions: {
+      input: {
+        main: fileURLToPath(new URL('./index.html', import.meta.url)),
+        atlas: fileURLToPath(new URL('./atlas.html', import.meta.url)),
+      },
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            if (/[\\/]node_modules[\\/]three[\\/]/.test(id)) return 'vendor-atlas'
+            if (/[\\/]node_modules[\\/]lucide-react[\\/]/.test(id)) return 'vendor-icons'
             // Runtime schemas are only needed when importing JSON in two lazy
             // views. Keep them out of the shared first-load vendor chunk.
             if (/[\\/]node_modules[\\/]valibot[\\/]/.test(id)) return 'vendor-validation'

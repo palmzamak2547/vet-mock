@@ -1,0 +1,1913 @@
+{
+  "source": "https://sites.google.com/ajou.ac.kr/anatomy",
+  "extraction": {
+    "sourceSha256": "e3ef86b1366dacecfc11c6c4f1089d5a26d35a649a18aad8ae699f62d64bf8bc",
+    "counts": [
+      45,
+      2,
+      0
+    ],
+    "tree": {
+      "name": "Model",
+      "part_name": "",
+      "has_part": false,
+      "children": [
+        {
+          "name": "Visible dog",
+          "part_name": "Visible dog",
+          "has_part": true,
+          "children": []
+        }
+      ]
+    },
+    "transformStatus": "All C API representation-item localCoordinateIndex values are 0; both products report identity placement. Raw PRC coordinate frame preserved without recentering or rescaling.",
+    "meshes": [
+      {
+        "name": "Muscle",
+        "tess_index": 0,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-00.npz",
+        "vertices": 754621,
+        "triangles": 1125752,
+        "bounds": [
+          [
+            112.98999786376953,
+            -1931.06005859375,
+            860.5889892578125
+          ],
+          [
+            966.9639892578125,
+            -245.89999389648438,
+            3526.06005859375
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.1294119954109192,
+              0.007842999882996082,
+              0.007842999882996082
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Muscular_system",
+          "Muscle"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Muscle",
+        "sourceSystem": "Muscular_system"
+      },
+      {
+        "name": "Bones",
+        "tess_index": 1,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-01.npz",
+        "vertices": 796004,
+        "triangles": 1532284,
+        "bounds": [
+          [
+            103.60600280761719,
+            -2085.590087890625,
+            80.98979949951172
+          ],
+          [
+            945.3389892578125,
+            -148.27499389648438,
+            3535.919921875
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.749019980430603,
+              0.7607839703559875,
+              0.6470590233802795
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Skeletal_system",
+          "Bones"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Bones",
+        "sourceSystem": "Skeletal_system"
+      },
+      {
+        "name": "Esophagus",
+        "tess_index": 2,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-02.npz",
+        "vertices": 28502,
+        "triangles": 56860,
+        "bounds": [
+          [
+            492.93701171875,
+            -1558.97998046875,
+            895.8779907226562
+          ],
+          [
+            781,
+            -1160.8900146484375,
+            2521
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.4745100140571594,
+              0.5294119715690613,
+              0.2588239908218384
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Esophagus"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Esophagus",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Stomach",
+        "tess_index": 3,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-03.npz",
+        "vertices": 37393,
+        "triangles": 74768,
+        "bounds": [
+          [
+            473.9049987792969,
+            -1467.22998046875,
+            1905.780029296875
+          ],
+          [
+            894.8150024414062,
+            -1092.280029296875,
+            2221.169921875
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              1,
+              0.7333329916000366,
+              0.10980399698019028
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Stomach"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Stomach",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Small_intestine",
+        "tess_index": 4,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-04.npz",
+        "vertices": 291087,
+        "triangles": 540608,
+        "bounds": [
+          [
+            218.50999450683594,
+            -1506.1800537109375,
+            1975.8399658203125
+          ],
+          [
+            862.4329833984375,
+            -888.8200073242188,
+            2775.820068359375
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.9215689897537231,
+              0.8549020290374756,
+              0.8549020290374756
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Small_intestine"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Small_intestine",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Ascending_colon",
+        "tess_index": 5,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-05.npz",
+        "vertices": 17766,
+        "triangles": 35456,
+        "bounds": [
+          [
+            223.77099609375,
+            -1422.8599853515625,
+            2270.300048828125
+          ],
+          [
+            504.1189880371094,
+            -1183.4599609375,
+            2636.090087890625
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.4352940022945404,
+              0.4274510145187378,
+              0.5098040103912354
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Ascending_colon"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Ascending_colon",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Transverse_colon",
+        "tess_index": 6,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-06.npz",
+        "vertices": 23655,
+        "triangles": 47124,
+        "bounds": [
+          [
+            249.4600067138672,
+            -1316.4200439453125,
+            2115.97998046875
+          ],
+          [
+            740.5050048828125,
+            -1071.1199951171875,
+            2266.699951171875
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.19607800245285034,
+              0.21568599343299866,
+              0.8196079730987549
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Transverse_colon"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Transverse_colon",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Descending_colon",
+        "tess_index": 7,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-07.npz",
+        "vertices": 15132,
+        "triangles": 30000,
+        "bounds": [
+          [
+            566.8569946289062,
+            -1364.43994140625,
+            2270.320068359375
+          ],
+          [
+            806.7210083007812,
+            -1117.739990234375,
+            2636.56005859375
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.16862699389457703,
+              0.18431399762630463,
+              0.7019609808921814
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Descending_colon"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Descending_colon",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Sigmoid_colon",
+        "tess_index": 8,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-08.npz",
+        "vertices": 9157,
+        "triangles": 18276,
+        "bounds": [
+          [
+            518.6519775390625,
+            -1359.010009765625,
+            2640.43994140625
+          ],
+          [
+            778.8870239257812,
+            -1213.7900390625,
+            2821.510009765625
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.2705880105495453,
+              0.007842999882996082,
+              0.2666670083999634
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Sigmoid_colon"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Sigmoid_colon",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Rectum",
+        "tess_index": 9,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-09.npz",
+        "vertices": 16792,
+        "triangles": 33568,
+        "bounds": [
+          [
+            451.6080017089844,
+            -1330,
+            2521
+          ],
+          [
+            782.0020141601562,
+            -1058.0699462890625,
+            3286.610107421875
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.7882350087165833,
+              0.5098040103912354,
+              0.1411760002374649
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Rectum"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Rectum",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Anus",
+        "tess_index": 10,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-10.npz",
+        "vertices": 3358,
+        "triangles": 6628,
+        "bounds": [
+          [
+            462.59600830078125,
+            -1175.6700439453125,
+            3290.409912109375
+          ],
+          [
+            575.8699951171875,
+            -1068.3199462890625,
+            3326.2900390625
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.5176470279693604,
+              0.7803919911384583,
+              0.8117650151252747
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Anus"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Anus",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Liver",
+        "tess_index": 11,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-11.npz",
+        "vertices": 430966,
+        "triangles": 853394,
+        "bounds": [
+          [
+            239.3800048828125,
+            -1516.5899658203125,
+            1810.699951171875
+          ],
+          [
+            900.6290283203125,
+            -885.3289794921875,
+            2350.949951171875
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.4196079969406128,
+              0.1411760002374649,
+              0.01960800029337406
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Liver"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Liver",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Gallbladder",
+        "tess_index": 12,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-12.npz",
+        "vertices": 29023,
+        "triangles": 57528,
+        "bounds": [
+          [
+            417.3039855957031,
+            -1174.8800048828125,
+            1896.280029296875
+          ],
+          [
+            520.781982421875,
+            -918.1699829101562,
+            2066.02001953125
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.007842999882996082,
+              0.23921599984169006,
+              0.04705899953842163
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Gallbladder"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Gallbladder",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Cystic_duct",
+        "tess_index": 13,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-13.npz",
+        "vertices": 3024,
+        "triangles": 5834,
+        "bounds": [
+          [
+            471.97698974609375,
+            -1188.449951171875,
+            1956.5400390625
+          ],
+          [
+            518.1480102539062,
+            -1142.1800537109375,
+            2005.489990234375
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.7803919911384583,
+              0.9882349967956543,
+              0.1568630039691925
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Alimentary_system",
+          "Cystic_duct"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Cystic_duct",
+        "sourceSystem": "Alimentary_system"
+      },
+      {
+        "name": "Trachea",
+        "tess_index": 14,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-14.npz",
+        "vertices": 18594,
+        "triangles": 36982,
+        "bounds": [
+          [
+            529.6539916992188,
+            -1289.989990234375,
+            1360.7900390625
+          ],
+          [
+            620.75,
+            -1207.43994140625,
+            1536.3299560546875
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.3019610047340393,
+              0.5176470279693604,
+              0.9215689897537231
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Respiratory_system",
+          "Trachea"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Trachea",
+        "sourceSystem": "Respiratory_system"
+      },
+      {
+        "name": "Right_lung",
+        "tess_index": 15,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-15.npz",
+        "vertices": 73117,
+        "triangles": 142588,
+        "bounds": [
+          [
+            290.1669921875,
+            -1506.5,
+            1362.3900146484375
+          ],
+          [
+            793.6950073242188,
+            -994.0260009765625,
+            2049.889892578125
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.12156900018453598,
+              0.10196100175380707,
+              0.10196100175380707
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Respiratory_system",
+          "Right_lung"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Right_lung",
+        "sourceSystem": "Respiratory_system"
+      },
+      {
+        "name": "Left_lung",
+        "tess_index": 16,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-16.npz",
+        "vertices": 40206,
+        "triangles": 78748,
+        "bounds": [
+          [
+            619.5020141601562,
+            -1467.8499755859375,
+            1367.739990234375
+          ],
+          [
+            869.2760009765625,
+            -1048.75,
+            1975.010009765625
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.2588239908218384,
+              0.2509799897670746,
+              0.2509799897670746
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Respiratory_system",
+          "Left_lung"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Left_lung",
+        "sourceSystem": "Respiratory_system"
+      },
+      {
+        "name": "Right_bronchus",
+        "tess_index": 17,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-17.npz",
+        "vertices": 46177,
+        "triangles": 87920,
+        "bounds": [
+          [
+            394.40899658203125,
+            -1378.489990234375,
+            1540.75
+          ],
+          [
+            598.302001953125,
+            -1131.719970703125,
+            1741.219970703125
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.4000000059604645,
+              0.8901960253715515,
+              0.8588240146636963
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Respiratory_system",
+          "Right_bronchus"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Right_bronchus",
+        "sourceSystem": "Respiratory_system"
+      },
+      {
+        "name": "Left_bronchus",
+        "tess_index": 18,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-18.npz",
+        "vertices": 33463,
+        "triangles": 62506,
+        "bounds": [
+          [
+            543.4929809570312,
+            -1321.989990234375,
+            1540.8499755859375
+          ],
+          [
+            793.6749877929688,
+            -1134.8499755859375,
+            1740.8699951171875
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.7803919911384583,
+              0.9333329796791077,
+              0.9411770105361938
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Respiratory_system",
+          "Left_bronchus"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Left_bronchus",
+        "sourceSystem": "Respiratory_system"
+      },
+      {
+        "name": "Right_kidney",
+        "tess_index": 19,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-19.npz",
+        "vertices": 56827,
+        "triangles": 113118,
+        "bounds": [
+          [
+            337.68499755859375,
+            -1521.969970703125,
+            2121.2099609375
+          ],
+          [
+            547.7869873046875,
+            -1355.280029296875,
+            2425.9599609375
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.16078400611877441,
+              0.02352900058031082,
+              0.01960800029337406
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Urinary_system",
+          "Right_kidney"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Right_kidney",
+        "sourceSystem": "Urinary_system"
+      },
+      {
+        "name": "Left_kidney",
+        "tess_index": 20,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-20.npz",
+        "vertices": 65025,
+        "triangles": 128714,
+        "bounds": [
+          [
+            648.0250244140625,
+            -1484.3499755859375,
+            2240.93994140625
+          ],
+          [
+            842.2899780273438,
+            -1299.56005859375,
+            2546.010009765625
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.20000000298023224,
+              0.05490199849009514,
+              0.05490199849009514
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Urinary_system",
+          "Left_kidney"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Left_kidney",
+        "sourceSystem": "Urinary_system"
+      },
+      {
+        "name": "Genital_organs",
+        "tess_index": 21,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-21.npz",
+        "vertices": 49732,
+        "triangles": 95818,
+        "bounds": [
+          [
+            403.3949890136719,
+            -1448.300048828125,
+            2496.2099609375
+          ],
+          [
+            773.3099975585938,
+            -1038.25,
+            3210.85009765625
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.043136999011039734,
+              0.4588240087032318,
+              0.2980389893054962
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Genital_system",
+          "Genital_organs"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Genital_organs",
+        "sourceSystem": "Genital_system"
+      },
+      {
+        "name": "Heart",
+        "tess_index": 22,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-22.npz",
+        "vertices": 134666,
+        "triangles": 267818,
+        "bounds": [
+          [
+            428.4219970703125,
+            -1270.75,
+            1501.050048828125
+          ],
+          [
+            892.75,
+            -947.68701171875,
+            2211
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.5882350206375122,
+              0.443136990070343,
+              0.443136990070343
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Cardiovascular_system",
+          "Heart"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Heart",
+        "sourceSystem": "Cardiovascular_system"
+      },
+      {
+        "name": "Aorta",
+        "tess_index": 23,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-23.npz",
+        "vertices": 40798,
+        "triangles": 81230,
+        "bounds": [
+          [
+            577.9639892578125,
+            -1474.8699951171875,
+            1501.4000244140625
+          ],
+          [
+            892.25,
+            -1108.0400390625,
+            2544.889892578125
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              1,
+              0,
+              0
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Cardiovascular_system",
+          "Aorta"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Aorta",
+        "sourceSystem": "Cardiovascular_system"
+      },
+      {
+        "name": "Spleen",
+        "tess_index": 24,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-24.npz",
+        "vertices": 85096,
+        "triangles": 169612,
+        "bounds": [
+          [
+            618.52099609375,
+            -1503.1800537109375,
+            2046.5799560546875
+          ],
+          [
+            898.0919799804688,
+            -1045.8699951171875,
+            2429.4599609375
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.01176500041037798,
+              0.07451000064611435,
+              0.2509799897670746
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Lymphoid_system",
+          "Spleen"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Spleen",
+        "sourceSystem": "Lymphoid_system"
+      },
+      {
+        "name": "Brainstem",
+        "tess_index": 25,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-25.npz",
+        "vertices": 39730,
+        "triangles": 78972,
+        "bounds": [
+          [
+            570.1519775390625,
+            -1912.52001953125,
+            685.8330078125
+          ],
+          [
+            678.93798828125,
+            -1767.4000244140625,
+            836.3900146484375
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.7098039984703064,
+              0.7098039984703064,
+              0.6039220094680786
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Central_nervous_system",
+          "Brainstem"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Brainstem",
+        "sourceSystem": "Central_nervous_system"
+      },
+      {
+        "name": "Cerebellum",
+        "tess_index": 26,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-26.npz",
+        "vertices": 58221,
+        "triangles": 115832,
+        "bounds": [
+          [
+            519.9739990234375,
+            -1962.5999755859375,
+            685.9530029296875
+          ],
+          [
+            722.5540161132812,
+            -1804.449951171875,
+            801.1849975585938
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.9098039865493774,
+              0.8313729763031006,
+              0.6627449989318848
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Central_nervous_system",
+          "Cerebellum"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Cerebellum",
+        "sourceSystem": "Central_nervous_system"
+      },
+      {
+        "name": "Cerebrum",
+        "tess_index": 27,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-27.npz",
+        "vertices": 194422,
+        "triangles": 387904,
+        "bounds": [
+          [
+            485.61199951171875,
+            -2067.610107421875,
+            441.0840148925781
+          ],
+          [
+            769.3189697265625,
+            -1813.510009765625,
+            771.2520141601562
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.9686279892921448,
+              0.8274509906768799,
+              0.756862998008728
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Central_nervous_system",
+          "Cerebrum"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Cerebrum",
+        "sourceSystem": "Central_nervous_system"
+      },
+      {
+        "name": "Optic_nerve",
+        "tess_index": 28,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-28.npz",
+        "vertices": 17685,
+        "triangles": 34932,
+        "bounds": [
+          [
+            500.6520080566406,
+            -1918.6700439453125,
+            452.2919921875
+          ],
+          [
+            740.9810180664062,
+            -1835.47998046875,
+            665.9580078125
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.6313729882240295,
+              0.564706027507782,
+              0.4235289990901947
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Peripheral_nervous_system",
+          "Optic_nerve"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Optic_nerve",
+        "sourceSystem": "Peripheral_nervous_system"
+      },
+      {
+        "name": "Eyeball",
+        "tess_index": 29,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-29.npz",
+        "vertices": 44425,
+        "triangles": 88824,
+        "bounds": [
+          [
+            437.66400146484375,
+            -1968.77001953125,
+            370.8890075683594
+          ],
+          [
+            801.3900146484375,
+            -1857.1199951171875,
+            486.1910095214844
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.9411770105361938,
+              0.9137259721755981,
+              0.9137259721755981
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Sensory_system",
+          "Eyeball"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Eyeball",
+        "sourceSystem": "Sensory_system"
+      },
+      {
+        "name": "Lens",
+        "tess_index": 30,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-30.npz",
+        "vertices": 10580,
+        "triangles": 21152,
+        "bounds": [
+          [
+            461.5870056152344,
+            -1946.469970703125,
+            390.885009765625
+          ],
+          [
+            781.1859741210938,
+            -1883.5699462890625,
+            451.0610046386719
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              0.9411770105361938,
+              1,
+              0.2901960015296936
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Sensory_system",
+          "Lens"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Lens",
+        "sourceSystem": "Sensory_system"
+      },
+      {
+        "name": "Skin",
+        "tess_index": 31,
+        "part_index": -1,
+        "product_index": -1,
+        "mark_up_index": -1,
+        "file": "part-31.npz",
+        "vertices": 331764,
+        "triangles": 660240,
+        "bounds": [
+          [
+            95.51210021972656,
+            -2095.7099609375,
+            0.968500018119812
+          ],
+          [
+            991.864990234375,
+            -137.69900512695312,
+            3551.010009765625
+          ]
+        ],
+        "materials": [
+          {
+            "face": 0,
+            "is_material": true,
+            "diffuse": [
+              1,
+              0.6705880165100098,
+              0.36078399419784546
+            ]
+          }
+        ],
+        "sourcePath": [
+          "Model",
+          "Visible dog",
+          "Visible dog",
+          "Integumentary_system",
+          "Skin"
+        ],
+        "localCoordinateIndex": 0,
+        "tessFileIndex": 0,
+        "sourceName": "Skin",
+        "sourceSystem": "Integumentary_system"
+      }
+    ],
+    "cApiWheelVersion": "nanoprc-py 0.1.2; struct ABI from nanoPRC commit81e6966",
+    "nameMappingValidation": {
+      "leafCount": 32,
+      "tessellationCount": 32,
+      "bijection": true,
+      "biasedIndexRule": "0 means none; positive value minus1 is tessellation index",
+      "source": "https://github.com/mvrhel/nanoPRC/blob/81e6966/src/prc_api.c",
+      "allRepresentationLocalCoordinateIndicesZero": true,
+      "allProductLocationSetFalse": true,
+      "sourceFramePreserved": true,
+      "unitScaleApplied": 1,
+      "physicalUnitConfirmed": false
+    }
+  },
+  "derivedParts": [
+    {
+      "id": "muscle",
+      "sourceName": "Muscle",
+      "sourceSystem": "Muscular_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Muscular_system",
+        "Muscle"
+      ],
+      "sourceTriangles": 1125752,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "bones",
+      "sourceName": "Bones",
+      "sourceSystem": "Skeletal_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Skeletal_system",
+        "Bones"
+      ],
+      "sourceTriangles": 1532284,
+      "removedZeroAreaTriangles": 1395
+    },
+    {
+      "id": "esophagus",
+      "sourceName": "Esophagus",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Esophagus"
+      ],
+      "sourceTriangles": 56860,
+      "removedZeroAreaTriangles": 24
+    },
+    {
+      "id": "stomach",
+      "sourceName": "Stomach",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Stomach"
+      ],
+      "sourceTriangles": 74768,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "small-intestine",
+      "sourceName": "Small_intestine",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Small_intestine"
+      ],
+      "sourceTriangles": 540608,
+      "removedZeroAreaTriangles": 974
+    },
+    {
+      "id": "ascending-colon",
+      "sourceName": "Ascending_colon",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Ascending_colon"
+      ],
+      "sourceTriangles": 35456,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "transverse-colon",
+      "sourceName": "Transverse_colon",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Transverse_colon"
+      ],
+      "sourceTriangles": 47124,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "descending-colon",
+      "sourceName": "Descending_colon",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Descending_colon"
+      ],
+      "sourceTriangles": 30000,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "sigmoid-colon",
+      "sourceName": "Sigmoid_colon",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Sigmoid_colon"
+      ],
+      "sourceTriangles": 18276,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "rectum",
+      "sourceName": "Rectum",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Rectum"
+      ],
+      "sourceTriangles": 33568,
+      "removedZeroAreaTriangles": 16
+    },
+    {
+      "id": "anus",
+      "sourceName": "Anus",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Anus"
+      ],
+      "sourceTriangles": 6628,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "liver",
+      "sourceName": "Liver",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Liver"
+      ],
+      "sourceTriangles": 853394,
+      "removedZeroAreaTriangles": 82
+    },
+    {
+      "id": "gallbladder",
+      "sourceName": "Gallbladder",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Gallbladder"
+      ],
+      "sourceTriangles": 57528,
+      "removedZeroAreaTriangles": 16
+    },
+    {
+      "id": "cystic-duct",
+      "sourceName": "Cystic_duct",
+      "sourceSystem": "Alimentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Alimentary_system",
+        "Cystic_duct"
+      ],
+      "sourceTriangles": 5834,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "trachea",
+      "sourceName": "Trachea",
+      "sourceSystem": "Respiratory_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Respiratory_system",
+        "Trachea"
+      ],
+      "sourceTriangles": 36982,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "right-lung",
+      "sourceName": "Right_lung",
+      "sourceSystem": "Respiratory_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Respiratory_system",
+        "Right_lung"
+      ],
+      "sourceTriangles": 142588,
+      "removedZeroAreaTriangles": 100
+    },
+    {
+      "id": "left-lung",
+      "sourceName": "Left_lung",
+      "sourceSystem": "Respiratory_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Respiratory_system",
+        "Left_lung"
+      ],
+      "sourceTriangles": 78748,
+      "removedZeroAreaTriangles": 16
+    },
+    {
+      "id": "right-bronchus",
+      "sourceName": "Right_bronchus",
+      "sourceSystem": "Respiratory_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Respiratory_system",
+        "Right_bronchus"
+      ],
+      "sourceTriangles": 87920,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "left-bronchus",
+      "sourceName": "Left_bronchus",
+      "sourceSystem": "Respiratory_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Respiratory_system",
+        "Left_bronchus"
+      ],
+      "sourceTriangles": 62506,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "right-kidney",
+      "sourceName": "Right_kidney",
+      "sourceSystem": "Urinary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Urinary_system",
+        "Right_kidney"
+      ],
+      "sourceTriangles": 113118,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "left-kidney",
+      "sourceName": "Left_kidney",
+      "sourceSystem": "Urinary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Urinary_system",
+        "Left_kidney"
+      ],
+      "sourceTriangles": 128714,
+      "removedZeroAreaTriangles": 8
+    },
+    {
+      "id": "genital-organs",
+      "sourceName": "Genital_organs",
+      "sourceSystem": "Genital_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Genital_system",
+        "Genital_organs"
+      ],
+      "sourceTriangles": 95818,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "heart",
+      "sourceName": "Heart",
+      "sourceSystem": "Cardiovascular_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Cardiovascular_system",
+        "Heart"
+      ],
+      "sourceTriangles": 267818,
+      "removedZeroAreaTriangles": 85
+    },
+    {
+      "id": "aorta",
+      "sourceName": "Aorta",
+      "sourceSystem": "Cardiovascular_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Cardiovascular_system",
+        "Aorta"
+      ],
+      "sourceTriangles": 81230,
+      "removedZeroAreaTriangles": 80
+    },
+    {
+      "id": "spleen",
+      "sourceName": "Spleen",
+      "sourceSystem": "Lymphoid_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Lymphoid_system",
+        "Spleen"
+      ],
+      "sourceTriangles": 169612,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "brainstem",
+      "sourceName": "Brainstem",
+      "sourceSystem": "Central_nervous_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Central_nervous_system",
+        "Brainstem"
+      ],
+      "sourceTriangles": 78972,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "cerebellum",
+      "sourceName": "Cerebellum",
+      "sourceSystem": "Central_nervous_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Central_nervous_system",
+        "Cerebellum"
+      ],
+      "sourceTriangles": 115832,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "cerebrum",
+      "sourceName": "Cerebrum",
+      "sourceSystem": "Central_nervous_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Central_nervous_system",
+        "Cerebrum"
+      ],
+      "sourceTriangles": 387904,
+      "removedZeroAreaTriangles": 8
+    },
+    {
+      "id": "optic-nerve",
+      "sourceName": "Optic_nerve",
+      "sourceSystem": "Peripheral_nervous_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Peripheral_nervous_system",
+        "Optic_nerve"
+      ],
+      "sourceTriangles": 34932,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "eyeball",
+      "sourceName": "Eyeball",
+      "sourceSystem": "Sensory_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Sensory_system",
+        "Eyeball"
+      ],
+      "sourceTriangles": 88824,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "lens",
+      "sourceName": "Lens",
+      "sourceSystem": "Sensory_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Sensory_system",
+        "Lens"
+      ],
+      "sourceTriangles": 21152,
+      "removedZeroAreaTriangles": 0
+    },
+    {
+      "id": "skin",
+      "sourceName": "Skin",
+      "sourceSystem": "Integumentary_system",
+      "sourcePath": [
+        "Model",
+        "Visible dog",
+        "Visible dog",
+        "Integumentary_system",
+        "Skin"
+      ],
+      "sourceTriangles": 660240,
+      "removedZeroAreaTriangles": 8
+    }
+  ],
+  "displayConversion": {
+    "rotationDegreesXYZ": [
+      0,
+      90,
+      180
+    ],
+    "center": [
+      1775.9892548918724,
+      1116.7044830322266,
+      543.6885452270508
+    ],
+    "scale": 0.0005633736942254089
+  },
+  "physicalUnitConfirmed": false,
+  "terminology": "Names retained from the PRC hierarchy. Sigmoid_colon requires veterinary nomenclature review. Muscle and Bones are composite surfaces."
+}

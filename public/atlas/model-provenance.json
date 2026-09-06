@@ -1,0 +1,158 @@
+{
+  "source": "https://doi.org/10.18563/m3.sf.1859",
+  "license": "CC-BY-NC-4.0",
+  "relativeErrorLimit": 0.001,
+  "parts": [
+    {
+      "id": "basisphenoid",
+      "filename": "BASISPHENOID.ply",
+      "sha256": "04a2327f3909337ad44708f2b0a4e90b308f21f86af993995dec64e70facf158",
+      "sourceTriangles": 828284,
+      "triangles": 49614,
+      "vertices": 24305,
+      "simplifierError": 0.0006400423008017242,
+      "bounds": [
+        [
+          91.65730285644531,
+          110.05799865722656,
+          117.8290023803711
+        ],
+        [
+          138.2519989013672,
+          149.8470001220703,
+          144.093994140625
+        ]
+      ]
+    },
+    {
+      "id": "presphenoid",
+      "filename": "PRESPHENOID.ply",
+      "sha256": "49f5d70879ee4cf0f03826c7c10035df31f7153a91f792e4cf1785d246b83d29",
+      "sourceTriangles": 393914,
+      "triangles": 23630,
+      "vertices": 11756,
+      "simplifierError": 0.0009765058639459312,
+      "bounds": [
+        [
+          98.30380249023438,
+          124.31300354003906,
+          106.06199645996094
+        ],
+        [
+          126.25399780273438,
+          149.68699645996094,
+          132.93600463867188
+        ]
+      ]
+    },
+    {
+      "id": "palatine-left",
+      "filename": "L-PALATINE.ply",
+      "sha256": "a74d675afeb07f7b2ee63587868029fe4de3f26330fa63c8fab5c7a165c814f2",
+      "sourceTriangles": 468244,
+      "triangles": 28094,
+      "vertices": 14033,
+      "simplifierError": 0.0004309874784667045,
+      "bounds": [
+        [
+          91.39600372314453,
+          118.71700286865234,
+          65.15080261230469
+        ],
+        [
+          113.2490005493164,
+          153.99200439453125,
+          123.58599853515625
+        ]
+      ]
+    },
+    {
+      "id": "palatine-right",
+      "filename": "R-PALATINE.ply",
+      "sha256": "a1eed932239108ecc20dad1bc73ccb3b9b1fe9c5a553709eb48f3691bb22eb37",
+      "sourceTriangles": 476178,
+      "triangles": 28570,
+      "vertices": 14284,
+      "simplifierError": 0.00047879794146865606,
+      "bounds": [
+        [
+          112.70700073242188,
+          116.72799682617188,
+          65.14700317382812
+        ],
+        [
+          136.13699340820312,
+          151.22799682617188,
+          120.02400207519531
+        ]
+      ]
+    },
+    {
+      "id": "pterygoid-left",
+      "filename": "L-PTERYGOID.ply",
+      "sha256": "3777467374de2a782ed665fb2d3dc8a7d1bee6ae45568628399512d27a199501",
+      "sourceTriangles": 75188,
+      "triangles": 5125,
+      "vertices": 2546,
+      "simplifierError": 0.0009829247137531638,
+      "bounds": [
+        [
+          101.90599822998047,
+          111.23200225830078,
+          111.94000244140625
+        ],
+        [
+          111.31099700927734,
+          127.35700225830078,
+          135.8209991455078
+        ]
+      ]
+    },
+    {
+      "id": "pterygoid-right",
+      "filename": "R-PTERYGOID.ply",
+      "sha256": "e8870f4f67a9b16e8c5125ad69bb12f81b90b451f17b2cc36bb9fa4955981426",
+      "sourceTriangles": 83388,
+      "triangles": 7892,
+      "vertices": 3937,
+      "simplifierError": 0.0009965479839593172,
+      "bounds": [
+        [
+          114.11199951171875,
+          109.97100067138672,
+          111.4000015258789
+        ],
+        [
+          120.9749984741211,
+          126.66100311279297,
+          135.62399291992188
+        ]
+      ]
+    },
+    {
+      "id": "vomer",
+      "filename": "VOMER.ply",
+      "sha256": "65d29a23d01956f215e38ec2114b96041cac4c943f0a19937fceecff3f81440d",
+      "sourceTriangles": 168912,
+      "triangles": 10125,
+      "vertices": 4963,
+      "simplifierError": 0.000690462242346257,
+      "bounds": [
+        [
+          109.14399719238281,
+          128.90199279785156,
+          65.78389739990234
+        ],
+        [
+          116.95500183105469,
+          146.98599243164062,
+          113.07599639892578
+        ]
+      ]
+    }
+  ],
+  "model": "/atlas/cuhl9-base-ff970306ba58.glb",
+  "sha256": "ff970306ba58efe6b8b145a91879c230cd34f83f669ebd7d6c42a2a92a3fb8d5",
+  "bytes": 2744668,
+  "gzipBytes": 2029915
+}

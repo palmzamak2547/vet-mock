@@ -1,0 +1,28 @@
+{
+  "id": "canine-abdomen-pixelbeaker",
+  "source": "https://sketchfab.com/3d-models/3d-canine-anatomy-normal-abdomen-962de878d2e94b75b10075931f0edaa3",
+  "license": "CC BY 4.0",
+  "copyright": "Pixelbeaker",
+  "licenseText": "3D Canine Anatomy: Normal Abdomen by Pixelbeaker is licensed under Creative Commons Attribution 4.0 International (https://creativecommons.org/licenses/by/4.0/). Converted from the original OBJ; display coordinates and mesh resolution modified.",
+  "representation": "Five source CT surface composites. Not individually segmented organs and not registered to another specimen. Source units unspecified.",
+  "archive": {
+    "filename": "3d-canine-anatomy-normal-abdomen.zip",
+    "bytes": 35593528,
+    "sha256": "1fc4d9d4783607eecfcf8ee201446897840fa06da85e9cbaed3203b242f9a0ab"
+  },
+  "original": {
+    "filename": "Z01A.obj",
+    "bytes": 131468479,
+    "sha256": "1e131b1515acb46e0755f14597dee980eedac91bd9400d7dd4de48afa0ccbeae"
+  },
+  "sourceObjects": [
+    "bones",
+    "vascular",
+    "lungs",
+    "vascular_liver_pancreas",
+    "intestines"
+  ],
+  "sourceUnits": null,
+  "sourceCheckedAt": "2026-09-06",
+  "derivation": "Removed non-anatomical mmGroup fragments, retained five source objects and all source triangles before the separately recorded display conversion."
+}
