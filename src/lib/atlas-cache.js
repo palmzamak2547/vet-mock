@@ -47,31 +47,36 @@ async function readCached(asset) {
   }
   return null;
 }
-async function storeCached(asset, bytes) {
-  if (cacheWritesDisabled) return false;
+async function storeCached(asset, bytes, signal) {
+  if (cacheWritesDisabled || signal?.aborted) return false;
   let stored = false;
   cacheWrite = cacheWrite
     .catch(() => {})
     .then(async () => {
-      if (cacheWritesDisabled) return;
+      if (cacheWritesDisabled || signal?.aborted) return;
       try {
         await bounded(
           (async () => {
             const cache = await caches.open(ATLAS_CACHE_NAME);
+            if (signal?.aborted) return;
             const entries = await cache.keys();
+            if (signal?.aborted) return;
             let total = 0;
             const inventory = [];
             for (const request of entries) {
               const response = await cache.match(request);
+              if (signal?.aborted) return;
               const size = Number(response?.headers.get('X-Atlas-Bytes')) || 0;
               inventory.push({ request, size });
               total += size;
             }
             for (const entry of inventory) {
+              if (signal?.aborted) return;
               if (total + bytes.byteLength <= ATLAS_CACHE_BUDGET) break;
               await cache.delete(entry.request);
               total -= entry.size;
             }
+            if (signal?.aborted) return;
             await cache.put(
               asset.model,
               new Response(bytes, {
@@ -83,7 +88,7 @@ async function storeCached(asset, bytes) {
           5000,
         );
       } catch {
-        cacheWritesDisabled = true;
+        if (!signal?.aborted) cacheWritesDisabled = true;
         /* Network result remains usable even if persistent caching fails. */
       }
     });
@@ -133,9 +138,10 @@ export async function loadAtlasAsset(asset, { signal, onProgress = () => {}, onS
   if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
   // Rendering can start as soon as validated bytes arrive. Storage is optional,
   // bounded work; the UI only promises offline readiness after it completes.
-  void storeCached(asset, bytes)
-    .then(onStored)
-    .catch(() => onStored(false));
+  const reportStored = stored => { if (!signal?.aborted) onStored(stored); };
+  void storeCached(asset, bytes, signal)
+    .then(reportStored)
+    .catch(() => reportStored(false));
   return { bytes, cached: false, stored: false };
 }
 

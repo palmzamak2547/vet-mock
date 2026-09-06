@@ -3,7 +3,7 @@ import * as T from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { loadAtlasAsset } from '../lib/atlas-cache.js';
-import { atlasFitDistance } from '../lib/atlas-workspace.js';
+import { atlasFitDistance, atlasMotionValue } from '../lib/atlas-workspace.js';
 import { atlasIsTap } from '../lib/atlas.js';
 
 // Comparison shares one WebGL context, with independently clipped viewports.
@@ -43,6 +43,7 @@ export default function AtlasScene({
   useEffect(() => {
     const el = host.current;
     let disposed = false,
+      departed = false,
       frame = 0,
       inView = true,
       lost = false,
@@ -58,7 +59,7 @@ export default function AtlasScene({
     const viewData = [specimen, comparison].filter(Boolean);
     const states = viewData.map(() => ({ kind: 'loading', progress: 0 }));
     const emit = () => {
-      if (!disposed)
+      if (!disposed && !departed)
         latest.current.onStatus({
           kind: lost || states[0].kind === 'error' ? 'error' : states[0].kind,
           message: lost ? 'การแสดงผล 3D หยุดชั่วคราว กดลองใหม่ได้' : states[0].message,
@@ -77,6 +78,15 @@ export default function AtlasScene({
       emit();
       return undefined;
     }
+    const pagehide = event => {
+      // BFCache keeps this document alive; a real navigation does not.
+      if (event.persisted) return;
+      departed = true;
+      abort.abort();
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+    };
+    window.addEventListener('pagehide', pagehide);
     const canvas = renderer.domElement;
     canvas.setAttribute('aria-hidden', 'true');
     el.prepend(canvas);
@@ -116,19 +126,16 @@ export default function AtlasScene({
       };
     });
     function requestRender() {
-      if (!disposed && !lost && !frame && inView && !document.hidden) frame = requestAnimationFrame(render);
+      if (!disposed && !departed && !lost && !frame && inView && !document.hidden) frame = requestAnimationFrame(render);
     }
     function render() {
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
-      if (disposed || lost || document.hidden || !inView) return;
+      if (disposed || departed || lost || document.hidden || !inView) return;
       const now = performance.now();
-      const elapsed = Math.min(64, Math.max(0, now - lastMotionTime));
+      const elapsed = now - lastMotionTime;
       lastMotionTime = now;
-      const difference = targetExplosion - displayedExplosion;
-      displayedExplosion = reducedMotion.matches || Math.abs(difference) < 0.02
-        ? targetExplosion
-        : displayedExplosion + difference * (1 - Math.exp(-elapsed / 55));
+      displayedExplosion = atlasMotionValue(displayedExplosion, targetExplosion, elapsed, reducedMotion.matches);
       placeParts(displayedExplosion);
       let moving = displayedExplosion !== targetExplosion;
       for (const view of views) {
@@ -249,14 +256,14 @@ export default function AtlasScene({
           output.width - 40,
         );
         output.toBlob((blob) => {
-          if (!disposed) latest.current.onExport?.(blob);
+          if (!disposed && !departed) latest.current.onExport?.(blob);
         }, 'image/png');
       } catch {
         latest.current.onExport?.(null);
       }
     }
     function applyState() {
-      if (disposed) return;
+      if (disposed || departed) return;
       const value = latest.current,
         visible = new Set(value.visibleIds);
       if (targetExplosion !== value.exploded && displayedExplosion === targetExplosion)
@@ -452,13 +459,13 @@ export default function AtlasScene({
               }
             },
           });
-          if (disposed) return;
+          if (disposed || departed) return;
           const gltf = await new GLTFLoader().parseAsync(loaded.bytes, '');
           const meshes = [];
           gltf.scene.traverse((mesh) => {
             if (mesh.isMesh) meshes.push(mesh);
           });
-          if (disposed) {
+          if (disposed || departed) {
             meshes.forEach((mesh) => {
               mesh.geometry.dispose();
               mesh.material.dispose();
@@ -546,6 +553,7 @@ export default function AtlasScene({
       observer.disconnect();
       theme.disconnect();
       document.removeEventListener('visibilitychange', visibility);
+      window.removeEventListener('pagehide', pagehide);
       canvas.removeEventListener('webglcontextlost', contextLost);
       for (const view of views) {
         view.cleanups.forEach((cleanup) => cleanup());

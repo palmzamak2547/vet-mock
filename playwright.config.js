@@ -65,7 +65,11 @@ export default defineConfig({
       // Gecko engine, desktop viewport. Catches Firefox-only regressions
       // (flexbox gap edge cases, focus-visible, scrollbar sizing).
       name: 'firefox-desktop',
-      use: { ...devices['Desktop Firefox'], viewport: { width: 1280, height: 800 } },
+      use: {
+        ...devices['Desktop Firefox'], viewport: { width: 1280, height: 800 },
+        // CI supplies Xvfb and Mesa so Firefox exercises a real WebGL backend.
+        ...(process.env.CI && process.platform === 'linux' ? { headless: false } : {}),
+      },
     },
   ],
   // Spin up a fresh production preview automatically. Never reuse an unknown

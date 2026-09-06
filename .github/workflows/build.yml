@@ -49,6 +49,9 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
+      - name: Contract tests
+        run: npm run test:unit
+
       - name: Build production bundle
         run: npm run build
 

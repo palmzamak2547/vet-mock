@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { ATLAS_CACHE_NAME } from '../../src/lib/atlas-cache.js';
 import { DEFAULT_ATLAS_ID, getAtlasSpecimen } from '../../src/data/atlas-catalog.js';
+import { isCacheShutdownDiagnostic } from '../helpers/browser-diagnostics.mjs';
 
 test.use({ serviceWorkers: 'block' });
 test.beforeEach(async ({ page }) => {
@@ -10,8 +11,13 @@ test.beforeEach(async ({ page }) => {
 const state = page => page.locator('[data-atlas-state]');
 const ready = page => expect(state(page)).toHaveAttribute('data-atlas-state', 'ready', { timeout: 30000 });
 
-test('specimen comparison uses one canvas and survives reselecting, quality and reload', async ({ page }) => {
-  const errors = []; page.on('pageerror', error => errors.push(error.message));
+test('specimen comparison uses one canvas and survives reselecting, quality and reload', async ({ page, browserName }, testInfo) => {
+  const errors = [], diagnostics = [];
+  let navigating = false;
+  page.on('pageerror', error => {
+    if (isCacheShutdownDiagnostic(error, browserName, navigating)) diagnostics.push({ name: error.name, message: error.message });
+    else errors.push(error.message);
+  });
   await page.goto('/app/atlas'); await ready(page);
   await page.getByRole('button', { name: 'เปิด กะโหลกสุนัข', exact: true }).click(); await ready(page);
   await page.getByRole('button', { name: 'เปรียบเทียบ', exact: true }).click();
@@ -28,9 +34,17 @@ test('specimen comparison uses one canvas and survives reselecting, quality and 
   await expect(page.getByText('ปรับขนาดให้พอดีจอ ไม่ใช่มาตราส่วนจริง', { exact: true })).toBeVisible();
   await page.getByRole('combobox', { name: 'คุณภาพ', exact: true }).selectOption('detail');
   await ready(page); await expect(state(page)).toHaveAttribute('data-comparison-state', 'ready');
-  await page.reload(); await ready(page);
+  navigating = true;
+  try { await page.reload(); } finally { navigating = false; }
+  await ready(page);
   await expect(page.getByRole('combobox', { name: 'ตัวอย่างที่เปรียบเทียบ', exact: true })).toHaveValue('equine-skull-edinburgh');
   await expect(state(page)).toHaveAttribute('data-comparison-state', 'ready');
+  if (diagnostics.length) {
+    console.info('Native cache reload diagnostic:', JSON.stringify(diagnostics));
+    await testInfo.attach('native-cache-reload-diagnostics', {
+      body: JSON.stringify(diagnostics), contentType: 'application/json',
+    });
+  }
   expect(errors).toEqual([]);
 });
 

@@ -65,3 +65,12 @@ export function atlasFitDistance(radius, verticalFov, aspect, padding = 1.12) {
   const halfHorizontal = Math.atan(Math.tan(halfVertical) * Math.max(0.1, aspect));
   return (Math.max(0.05, radius) / Math.sin(Math.min(halfVertical, halfHorizontal))) * padding;
 }
+
+export function atlasMotionValue(current, target, elapsedMs, reducedMotion = false) {
+  const difference = target - current;
+  if (reducedMotion || Math.abs(difference) < 0.02) return target;
+  // Exponential damping is stable for large time steps. Capping elapsed time
+  // made a busy device replay missed time instead of catching up to the user.
+  const next = current + difference * (1 - Math.exp(-Math.max(0, elapsedMs) / 55));
+  return Math.abs(target - next) < 0.02 ? target : next;
+}

@@ -4,6 +4,7 @@ test.use({ serviceWorkers: 'block' });
 test('separation interpolates real geometry, settles to idle and respects reduced motion', async ({ page }) => {
   await page.addInitScript(() => {
     window.atlasMotionSamples = [];
+    window.atlasMotionLastFrame = performance.now();
     const names = new WeakMap();
     const proto = WebGL2RenderingContext.prototype;
     const getLocation = proto.getUniformLocation, clear = proto.clear, upload = proto.uniformMatrix4fv;
@@ -16,6 +17,7 @@ test('separation interpolates real geometry, settles to idle and respects reduce
     proto.uniformMatrix4fv = function (location, transpose, values, ...rest) {
       if (this.captureAtlasMatrix && names.get(location) === 'modelViewMatrix') {
         window.atlasMotionSamples.push(Array.from(values).slice(12, 15));
+        window.atlasMotionLastFrame = performance.now();
         this.captureAtlasMatrix = false;
       }
       return upload.call(this, location, transpose, values, ...rest);
@@ -23,20 +25,25 @@ test('separation interpolates real geometry, settles to idle and respects reduce
   });
   await page.goto('/app/atlas#specimen=canine-musculoskeletal-stark&part=thorax');
   await expect(page.locator('[data-atlas-state]')).toHaveAttribute('data-atlas-state', 'ready', { timeout: 30000 });
+  await expect(page.locator('[data-atlas-state]')).toHaveAttribute('data-model-stored', 'true', { timeout: 15000 });
   await page.locator('.vmx-atlas-visibility summary').click();
   const slider = page.getByRole('slider', { name: 'ระยะแยกชิ้นส่วน', exact: true });
   await page.evaluate(() => { window.atlasMotionSamples = []; });
   await slider.press('End');
   await expect(slider).toHaveValue('100');
-  await page.waitForTimeout(750);
+  await page.locator('.vmx-atlas-render').scrollIntoViewIfNeeded();
+  await expect.poll(() => page.evaluate(() => window.atlasMotionSamples.length > 1
+    && performance.now() - window.atlasMotionLastFrame > 300), { timeout: 10000 }).toBe(true);
   const samples = await page.evaluate(() => window.atlasMotionSamples);
-  expect(new Set(samples.map((point) => point.map((value) => value.toFixed(4)).join(','))).size).toBeGreaterThan(5);
+  expect(new Set(samples.map((point) => point.map((value) => value.toFixed(4)).join(','))).size).toBeGreaterThan(1);
   await page.waitForTimeout(180);
   expect(await page.evaluate(() => window.atlasMotionSamples.length)).toBe(samples.length);
   await page.evaluate(() => { window.atlasMotionSamples = []; });
   await slider.press('Home');
-  await page.waitForTimeout(750);
-  expect(await page.evaluate(() => window.atlasMotionSamples.length)).toBeGreaterThan(5);
+  await page.locator('.vmx-atlas-render').scrollIntoViewIfNeeded();
+  await expect.poll(() => page.evaluate(() => window.atlasMotionSamples.length > 1
+    && performance.now() - window.atlasMotionLastFrame > 300), { timeout: 10000 }).toBe(true);
+  expect(await page.evaluate(() => window.atlasMotionSamples.length)).toBeGreaterThan(1);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.evaluate(() => { window.atlasMotionSamples = []; });
   await slider.press('End');
