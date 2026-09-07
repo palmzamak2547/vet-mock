@@ -154,6 +154,7 @@ const HighlightToCard = lazy(() => import('./components/HighlightToCard.jsx'));
 // Tiny, but only opened on `?` press from exam/review, so lazy keeps
 // it out of the first-paint bundle.
 const ShortcutSheet = lazy(() => import('./components/ShortcutSheet.jsx'));
+const OnboardingTour = lazy(() => import('./components/OnboardingTour.jsx'));
 
 // View Transitions API helper — wraps a state update so the browser
 // snapshots the DOM before/after and crossfades automatically. Falls
@@ -728,6 +729,40 @@ export default function App() {
   // in exam or review. Closed by Esc / overlay click. State lives here
   // so the global keydown handler can trigger it from any view-scope.
   const [shortcutSheetOpen, setShortcutSheetOpen] = useState(false);
+  // First-time tour (7 steps). State lives at App level so ANY view can
+  // open it — previously it was trapped inside HomeView and reachable
+  // only via a first-visit banner that disappears after one exam attempt,
+  // locking mid-term newcomers out of the tour forever. Return-focus ref
+  // keeps the e2e focus-restoration contract with whichever button opened it.
+  const [tourOpen, setTourOpen] = useState(false);
+  const [tourStep, setTourStep] = useState(0);
+  const tourReturnRef = useRef(null);
+  const openTour = useCallback((launcherEl) => {
+    if (launcherEl instanceof HTMLElement) tourReturnRef.current = launcherEl;
+    setTourStep(0);
+    setTourOpen(true);
+  }, []);
+  const finishTourStart = useCallback(() => {
+    setTourOpen(false);
+    setTourStep(0);
+    // Mirror HomeView's "ฝึก 1 ข้อด่วน": a single random untimed question from
+    // the whole pool — the lowest-friction first touch with the product.
+    setMode('quick');
+    setSubject('all');
+    setTopic(null);
+    setPracticeMode('all');
+    setNumQuestions(1);
+    setUseTimer(false);
+    startExam({
+      practiceMode: 'all',
+      subject: 'all',
+      topic: null,
+      questionCategory: 'all',
+      numQuestions: 1,
+      useTimer: false,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Service worker update available — true after a new SW finishes
   // installing while an old one is still controlling the page. We show
   // a small toast (NOT during exam) with a "Refresh" button.
@@ -2534,7 +2569,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true) }} onStartPanic={startPanicSession} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour }} onStartPanic={startPanicSession} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -2556,7 +2591,7 @@ export default function App() {
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} />}
               {view === 'privacy' && <PrivacyView {...{ goHome, setView, consent, analyticsAllowed }} onConsent={(choice, prefs) => { setConsent(choice); if (prefs) setConsentPrefs(prefs); }} />}
-              {view === 'about' && <AboutView {...{ goHome, setView }} />}
+              {view === 'about' && <AboutView {...{ goHome, setView, onOpenTour: openTour }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}
@@ -2678,6 +2713,22 @@ export default function App() {
       {shortcutSheetOpen && (
         <Suspense fallback={null}>
           <ShortcutSheet open={shortcutSheetOpen} onClose={() => setShortcutSheetOpen(false)} />
+        </Suspense>
+      )}
+
+      {/* First-time tour — mounted only when open. Rendered in the outer
+          fragment (outside .vmx-app) so it overlays any view, exactly like
+          ShortcutSheet. */}
+      {tourOpen && (
+        <Suspense fallback={null}>
+          <OnboardingTour
+            step={tourStep}
+            onNext={() => setTourStep((s) => s + 1)}
+            onBack={() => setTourStep((s) => Math.max(0, s - 1))}
+            onDismiss={() => { setTourOpen(false); setTourStep(0); }}
+            onStart={finishTourStart}
+            returnFocusRef={tourReturnRef}
+          />
         </Suspense>
       )}
 

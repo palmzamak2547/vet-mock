@@ -624,4 +624,42 @@ test.describe('landing accessibility', () => {
     await expect(launcher).toBeFocused();
     await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('');
   });
+
+  test('tour stays reachable for returning users via the permanent วิธีใช้ button', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      try {
+        window.localStorage.setItem('vmx-seen-landing', '1');
+        window.localStorage.setItem('vmx-selected-year', '5');
+        window.localStorage.setItem('vmx-selected-phase', JSON.stringify('1-mid'));
+        window.localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+        // Simulate a user past the first-visit banner: dismissed it once.
+        window.localStorage.setItem('vmx-welcome-dismissed', JSON.stringify(true));
+      } catch {}
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    // First-visit banner is gone — the hero button is the surviving entry.
+    await expect(page.getByText('ใช้ VetMock ครั้งแรก?')).toHaveCount(0);
+    const heroButton = page.getByRole('button', { name: 'เปิดทัวร์วิธีใช้งาน' });
+    await expect(heroButton).toBeVisible();
+    await heroButton.click();
+
+    const dialog = page.getByRole('dialog', { name: 'ยินดีต้อนรับสู่ VetMock' });
+    await expect(dialog).toBeVisible();
+    // The dialog's accessible name follows the current step title, so for
+    // the walk-through use a step-agnostic locator.
+    const tour = page.locator('.vmx-tour-dialog');
+
+    // Walk all 7 steps and land on the final CTA.
+    for (let i = 0; i < 6; i++) {
+      await tour.getByRole('button', { name: 'ถัดไป' }).click();
+    }
+    await expect(tour.getByRole('button', { name: 'เริ่มฝึกซ้อม' })).toBeVisible();
+
+    // Escape closes and returns focus to the button that opened the tour.
+    await page.keyboard.press('Escape');
+    await expect(tour).toBeHidden();
+    await expect(heroButton).toBeFocused();
+  });
 });

@@ -2,7 +2,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { QUESTION_SOURCES } from '../data/sources.js';
 import BackBar from '../components/BackBar.jsx';
 
-export default function AboutView({ goHome, setView }) {
+export default function AboutView({ goHome, setView, onOpenTour }) {
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
@@ -10,6 +10,26 @@ export default function AboutView({ goHome, setView }) {
         <h1>เกี่ยวกับ <em>VetMock</em></h1>
         <p>คลังโจทย์ฝึกและเครื่องมือทบทวนสำหรับสัตวแพทย์ จุฬาฯ</p>
       </div>
+
+      {/* Tutorial — permanent entry so newcomers who arrive mid-term (past
+          the first-visit banner) can still learn where everything lives. */}
+      {typeof onOpenTour === 'function' && (
+        <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
+          <h3>เพิ่งเริ่มใช้ VetMock?</h3>
+          <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', marginBottom: 10 }}>
+            ทัวร์แนะนำ 7 ขั้น พาไปรู้จักฝึกข้อสอบ โหมดสอบ การค้นหา การทบทวน และหน้าติดตามความคืบหน้า — เปิดดูได้ตลอดเวลา ไม่กี่นาทีก็จบ
+          </div>
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-primary"
+            style={{ padding: '8px 16px', fontSize: 14 }}
+            onClick={(e) => onOpenTour(e.currentTarget)}
+            aria-label="เปิดคำแนะนำการใช้งาน"
+          >
+            คำแนะนำการใช้งาน →
+          </button>
+        </div>
+      )}
 
       {/* Who */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>

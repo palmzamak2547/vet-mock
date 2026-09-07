@@ -2132,6 +2132,121 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 .vmx-modal h2 { font-family: 'Fraunces', serif; margin: 0 0 16px; font-size: 24px; color: var(--clr-ink); }
 
+/* ── Onboarding tour ─────────────────────────────────────────────────
+   First-time walkthrough (7 steps), mounted at App level so any view can
+   open it. Class family replaces the old inline-styled tour that lived in
+   HomeView — keep tokens only, no raw hex. */
+.vmx-tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  padding-top: max(var(--space-4), env(safe-area-inset-top, 0px));
+  padding-right: max(var(--space-4), env(safe-area-inset-right, 0px));
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom, 0px));
+  padding-left: max(var(--space-4), env(safe-area-inset-left, 0px));
+}
+.vmx-tour-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: color-mix(in srgb, var(--clr-ink) 45%, transparent);
+  cursor: default;
+}
+.vmx-tour-dialog {
+  position: relative;
+  z-index: var(--z-raised);
+  background: var(--clr-bg);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-lg);
+  padding: var(--space-6);
+  max-width: 460px;
+  width: 100%;
+  box-shadow: var(--shadow-md);
+  max-height: min(90vh, calc(100dvh - 24px));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  outline: none;
+  animation: vmx-card-in var(--dur-slow) var(--ease-out);
+}
+.vmx-tour-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--clr-ink-soft);
+  cursor: pointer;
+  padding: 0;
+}
+.vmx-tour-icon {
+  display: inline-block;
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+.vmx-tour-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0 0 10px;
+  color: var(--clr-ink);
+}
+.vmx-tour-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--clr-ink);
+  white-space: pre-line;
+  margin-bottom: var(--space-4);
+}
+.vmx-tour-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: var(--space-4);
+}
+.vmx-tour-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: var(--clr-border);
+  transition: all var(--dur);
+}
+.vmx-tour-dot.is-active {
+  width: 18px;
+  background: var(--clr-sage);
+}
+.vmx-tour-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.vmx-tour-skip {
+  all: unset;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--clr-ink-soft);
+  font-family: var(--vmx-mono);
+  padding: 8px 0;
+  min-height: 24px;
+}
+.vmx-tour-nav {
+  display: flex;
+  gap: 8px;
+}
+@media (max-width: 480px) {
+  .vmx-tour-dialog { padding: var(--space-5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-tour-dialog { animation: none; }
+}
+
 /* ── Footer ──────────────────────────────────────────────────────────
    Grouped, left-aligned, plain type. (Was one italic centred blob of
    wrapping links + long emoji-prefixed ecosystem lines.) */

@@ -12,7 +12,6 @@ import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generated.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
-import { useModalFocus } from '../hooks/useModalFocus.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
 // Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap once
 // a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
@@ -75,7 +74,7 @@ const shortThaiDate = (dateStr) => {
   return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
 };
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings }) {
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings, onOpenTour }) {
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
   // carry none, so the countdown banner hides itself when getNextExam
@@ -176,10 +175,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // New design: a small dismissible banner ("👋 มาทัวร์ก่อนไหม?") with
   // a "ลองทัวร์" CTA that opens the tour modal on demand. First impression
   // is now the actual home page; tour is opt-in.
+  // The tour itself now lives at App level (OnboardingTour component) so
+  // it can be re-opened from anywhere — the hero "วิธีใช้" button below
+  // outlives this banner, which only shows before the first exam attempt.
   const [welcomeDismissed, setWelcomeDismissed] = useLocalStorage('vmx-welcome-dismissed', false);
-  const [tourOpen, setTourOpen] = useState(false);
-  const [tourStep, setTourStep] = useState(0);
-  const tourLauncherRef = useRef(null);
   // Legacy flag — once true, hide the welcome banner too (users who
   // already saw + dismissed the old auto-modal don't need the banner).
   const [legacyOnboardingSeen] = useLocalStorage('vmx-onboarding-seen', false);
@@ -696,21 +695,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
 
   return (
     <>
-      {tourOpen && (
-        <OnboardingTour
-          step={tourStep}
-          onNext={() => setTourStep((s) => s + 1)}
-          onBack={() => setTourStep((s) => Math.max(0, s - 1))}
-          onDismiss={() => { setTourOpen(false); setTourStep(0); }}
-          returnFocusRef={tourLauncherRef}
-          onStart={() => { 
-            setTourOpen(false); 
-            setTourStep(0); 
-            setWelcomeDismissed(true); 
-            launchRandomQ(); 
-          }}
-        />
-      )}
       <div className="vmx-hero">
         <h1>
           {user
@@ -724,6 +708,20 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             ลองทำ <strong>1 ข้อแรก</strong> ใช้เวลาเพียง 20 วินาทีเพื่อเริ่มสะสมสถิติ
           </p>
         ) : null)}
+        {/* Permanent tutorial entry — unlike the first-visit banner below,
+            this survives exam attempts and dismissal so mid-term newcomers
+            (and anyone who wants a refresher) can always reach the tour. */}
+        {typeof onOpenTour === 'function' && (
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            style={{ marginTop: 10 }}
+            onClick={(e) => onOpenTour(e.currentTarget)}
+            aria-label="เปิดทัวร์วิธีใช้งาน"
+          >
+            📖 วิธีใช้
+          </button>
+        )}
       </div>
 
       {bannerWinner === 'wrapped' && (
@@ -825,13 +823,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         }}>
           <div className="vmx-welcome-copy" style={{ flex: 1, minWidth: 180, fontSize: 13, lineHeight: 1.5 }}>
             <strong>ใช้ VetMock ครั้งแรก?</strong>
-            <span className="vmx-welcome-copy-detail"> แนะนำตำแหน่งและเมนูสำคัญใน 30 วินาที</span>
+            <span className="vmx-welcome-copy-detail"> แนะนำตำแหน่งและเมนูสำคัญใน 1 นาที</span>
           </div>
           <button
-            ref={tourLauncherRef}
             type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-welcome-tour"
-            onClick={() => { setTourOpen(true); setTourStep(0); }}
+            onClick={(e) => onOpenTour(e.currentTarget)}
             aria-label="เปิดคำแนะนำการใช้งาน"
           >
             <span className="vmx-welcome-tour-desktop">คำแนะนำการใช้งาน</span>
@@ -2014,164 +2011,6 @@ function DailyQRow({ user, setView, selectedYear }) {
           />
         </Suspense>
       )}
-    </div>
-  );
-}
-
-function OnboardingTour({ step, onNext, onBack, onDismiss, onStart, returnFocusRef }) {
-  const steps = [
-    {
-      title: 'ยินดีต้อนรับสู่ VetMock',
-      body: 'ฝึกทำข้อสอบสัตวแพทย์ จัดการจุดที่ยังไม่แม่น และเตรียมตัวให้เป็นระบบตามจังหวะของคุณ',
-    },
-    {
-      title: 'เลือกโหมดให้เหมาะกับเป้าหมาย',
-      body: 'ใช้โหมดฝึกฝนเพื่อทบทวนเฉพาะเรื่อง หรือเลือก Mock Exam เมื่อต้องการจำลองการทำข้อสอบแบบจับเวลา',
-    },
-    {
-      title: 'ค้นหา ถาม หรือสั่งงาน ในช่องเดียว',
-      body: 'กดปุ่มค้นหา (หรือ Ctrl+K) แล้วพิมพ์หรือพูดใส่ไมค์ได้เลย จากนั้นค้นข้อสอบ เอกสาร และบทความ ถามคำถามให้ตอบพร้อมแหล่งที่มา หรือสั่งเช่น "จัดข้อสอบ COM5 20 ข้อ" แล้วกดยืนยันให้ระบบจัดให้',
-    },
-    {
-      title: 'ทบทวนจากสิ่งที่พลาด',
-      body: 'หลังทำข้อสอบ คุณสามารถย้อนดูข้อที่ตอบผิดและทบทวนแหล่งอ้างอิงที่พร้อมใช้งานสำหรับข้อนั้นได้',
-    },
-  ];
-
-  const current = steps[step] || steps[0];
-  const isLast = step >= steps.length - 1;
-  const isFirst = step === 0;
-
-  const dialogRef = useModalFocus({ onClose: onDismiss, returnFocusRef });
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = previousOverflow; };
-  }, []);
-
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 'var(--z-modal)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 16,
-      }}
-    >
-      <div
-        aria-hidden="true"
-        onClick={onDismiss}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          border: 'none',
-          background: 'color-mix(in srgb, var(--clr-ink) 45%, transparent)',
-          cursor: 'default',
-        }}
-      />
-      <div
-        ref={dialogRef}
-        tabIndex="-1"
-        role="dialog"
-        aria-modal="true"
-        aria-label={current.title}
-        data-vmx-modal="true"
-        style={{
-          background: 'var(--clr-bg)',
-          border: '1px solid var(--clr-border)',
-          borderRadius: 16,
-          padding: 28,
-          maxWidth: 460,
-          width: '100%',
-          boxShadow: 'var(--shadow-md)',
-          position: 'relative',
-          zIndex: 'var(--z-raised)',
-          outline: 'none',
-        }}
-      >
-        <button
-          type="button"
-          aria-label="ข้าม"
-          onClick={onDismiss}
-          className="vmx-icon-close"
-          style={{
-            position: 'absolute',
-            top: 12,
-            right: 12,
-            appearance: 'none',
-            background: 'transparent',
-            border: 'none',
-            color: 'var(--clr-ink-soft)',
-            cursor: 'pointer',
-            padding: 0,
-          }}
-          title="ข้าม"
-        ><NavIcon name="close" size={16} /></button>
-
-        <h2 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, margin: '0 0 10px', lineHeight: 1.2 }}>
-          {current.title}
-        </h2>
-        <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', whiteSpace: 'pre-line', marginBottom: 18 }}>
-          {current.body}
-        </div>
-
-        {/* Dots indicator */}
-        <div style={{ display: 'flex', gap: 6, marginBottom: 18 }}>
-          {steps.map((_, i) => (
-            <span
-              key={i}
-              style={{
-                width: i === step ? 18 : 8,
-                height: 8,
-                borderRadius: 8,
-                background: i === step ? 'var(--clr-sage)' : 'var(--clr-border)',
-                transition: 'all 0.2s',
-              }}
-            />
-          ))}
-        </div>
-
-        <div style={{ display: 'flex', gap: 10, justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
-          <div>
-            <button
-              type="button"
-              onClick={onDismiss}
-              style={{
-                all: 'unset',
-                cursor: 'pointer',
-                fontSize: 13,
-                color: 'var(--clr-ink-soft)',
-                fontFamily: 'var(--vmx-mono)',
-                padding: '8px 0',
-              }}
-            >
-              ข้าม
-            </button>
-          </div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            {!isFirst && (
-              <button
-                type="button"
-                className="vmx-btn vmx-btn-ghost"
-                onClick={onBack}
-              >
-                ย้อนกลับ
-              </button>
-            )}
-            <button
-              type="button"
-              className="vmx-btn vmx-btn-primary"
-              onClick={isLast ? onStart : onNext}
-              style={isLast ? { background: 'var(--clr-sage)', borderColor: 'var(--clr-sage)' } : {}}
-            >
-              {isLast ? 'เริ่มฝึกซ้อม' : 'ถัดไป'}
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
