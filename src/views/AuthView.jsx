@@ -16,7 +16,7 @@ import {
   getSupabase,
 } from '../lib/supabase.js';
 
-import { thaiAuthError } from '../lib/auth-errors.js';
+import { isWebAuthnDismissal, thaiAuthError } from '../lib/auth-errors.js';
 import { STAY_SIGNED_IN_KEY } from '../lib/auth-storage.js';
 import {
   deriveUsernameFromEmail,
@@ -410,8 +410,11 @@ export default function AuthView({ onBack, onSuccess, user }) {
     } catch (err) {
       const code = err?.code || err?.name || '';
       const msg = err?.message || '';
-      if (/NotAllowedError|AbortError|cancel/i.test(code + msg)) {
-        // user dismissed the prompt — say nothing
+      // auth-js reports a dismissed prompt or a device without a passkey with
+      // a passthrough `code`, so the browser's NotAllowedError only survives
+      // on `name`/`cause`; the shared check reads all of them.
+      if (isWebAuthnDismissal(err)) {
+        // user dismissed the prompt, or this device has no passkey — say nothing
       } else if (/webauthn_credential_not_found|passkey_disabled|PASSKEY_UNSUPPORTED/i.test(code + msg)) {
         setError('ยังไม่มี passkey บนอุปกรณ์นี้ — เข้าสู่ระบบด้วยวิธีอื่นก่อน แล้วสร้าง passkey ได้ในหน้าตั้งค่าบัญชี');
       } else {

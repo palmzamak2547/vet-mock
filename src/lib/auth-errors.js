@@ -40,6 +40,27 @@ const PATTERNS = [
   { match: /same.*password|new password should be different/i, th: 'รหัสผ่านใหม่ต้องไม่ซ้ำกับรหัสผ่านเดิม' },
 ];
 
+/**
+ * True when a WebAuthn ceremony ended because the person dismissed the
+ * browser/OS prompt, it timed out, or the device holds no matching passkey.
+ * Browsers report all of these as NotAllowedError (AbortError when the page
+ * aborts the ceremony). auth-js wraps that DOMException before it reaches the
+ * app: `code` becomes ERROR_PASSTHROUGH_SEE_CAUSE_PROPERTY or
+ * ERROR_CEREMONY_ABORTED, while the original name survives on `name` and
+ * `cause`. Checking `code || name` alone therefore misses every dismissal and
+ * turns a normal "no thanks" into a red sign-in failure banner.
+ *
+ * Server-side outcomes such as webauthn_credential_not_found are not
+ * dismissals; callers keep their own messages for those.
+ */
+export function isWebAuthnDismissal(err) {
+  if (!err) return false;
+  const parts = [err.code, err.name, err.cause?.name, err.originalError?.name, err.message]
+    .filter((v) => typeof v === 'string')
+    .join(' ');
+  return /NotAllowedError|AbortError|ERROR_CEREMONY_ABORTED|cancel/i.test(parts);
+}
+
 export function thaiAuthError(err) {
   if (!err) return '';
   const raw = typeof err === 'string' ? err : (err.message || err.error_description || err.code || '');
