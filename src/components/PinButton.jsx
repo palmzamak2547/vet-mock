@@ -17,6 +17,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { addPin, removePinByKey, isPinned, payloadKey, PINBOARD_EVENT } from '../lib/pinboard.js';
 import NavIcon from './NavIcon.jsx';
+import { alertDialog } from '../lib/dialog.js';
 
 export default function PinButton({ type, payload, label, compact = false, style }) {
   const key = payloadKey(type, payload);
@@ -36,10 +37,10 @@ export default function PinButton({ type, payload, label, compact = false, style
     e?.stopPropagation?.();
     e?.preventDefault?.();
     if (!type || !key) return;
-    if (pinned) {
-      removePinByKey(type, key);
-    } else {
-      addPin({ type, payload, label });
+    const saved = pinned ? removePinByKey(type, key) : addPin({ type, payload, label });
+    if (!saved) {
+      alertDialog('บันทึก Pinboard ไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม กรุณาลองใหม่');
+      return;
     }
     // Tiny scale bounce so users get tactile feedback without needing
     // a toast layer. Cleared by setTimeout in a hook below.

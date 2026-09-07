@@ -37,7 +37,7 @@ export function aggregateLeaderboard(rows, opts = {}) {
     if (Number(r.total) < minQuestions) continue;
     const prev = byUser.get(r.user_id);
     if (!prev) {
-      byUser.set(r.user_id, { ...r, attempts: 1 });
+      byUser.set(r.user_id, { ...r, attempts: Math.max(1, Number(r.attempt_count) || 1) });
       continue;
     }
     // Keep the higher pct; tie-break on correct count; tie-break on
@@ -47,7 +47,7 @@ export function aggregateLeaderboard(rows, opts = {}) {
       (r.pct === prev.pct && r.correct > prev.correct) ||
       (r.pct === prev.pct && r.correct === prev.correct
         && new Date(r.created_at) > new Date(prev.created_at));
-    const attempts = prev.attempts + 1;
+    const attempts = prev.attempts + Math.max(1, Number(r.attempt_count) || 1);
     byUser.set(r.user_id, keepNew ? { ...r, attempts } : { ...prev, attempts });
   }
   return Array.from(byUser.values()).sort((a, b) => {

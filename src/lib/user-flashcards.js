@@ -1,3 +1,4 @@
+import { readLocalExtra, writeLocalExtra } from './local-extras.js';
 // ============================================================
 // user-flashcards.js — localStorage layer for user-authored
 // "Highlight → Flashcard" entries (created from SummaryModal
@@ -60,8 +61,8 @@ function safeParse(raw) {
 }
 
 function readRaw() {
-  if (typeof window === 'undefined' || !window.localStorage) return [];
-  return safeParse(window.localStorage.getItem(STORAGE_KEY));
+  const value = readLocalExtra(STORAGE_KEY, []);
+  return Array.isArray(value) ? value : [];
 }
 
 /**
@@ -73,16 +74,7 @@ function readRaw() {
  * localStorage saw "✓ เพิ่ม flashcard แล้ว" for a card that was never
  * stored, and found out when they opened their deck and it was not there.
  */
-function writeRaw(arr) {
-  if (typeof window === 'undefined' || !window.localStorage) return false;
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-    return true;
-  } catch {
-    // Quota exceeded or storage disabled. The caller decides what to say.
-    return false;
-  }
-}
+function writeRaw(arr) { return writeLocalExtra(STORAGE_KEY, arr); }
 
 /**
  * Read all user-authored cards (oldest first by id).
@@ -178,7 +170,7 @@ export function deleteUserFlashcard(id) {
   const list = readRaw();
   const next = list.filter((c) => c.id !== id);
   if (next.length !== list.length) {
-    writeRaw(next);
+    if (!writeRaw(next)) return false;
     notifyPaletteInvalidate();
     import('../components/CommandPalette.jsx')
       .then((m) => m?.invalidateCommandPaletteCache?.())
@@ -272,7 +264,7 @@ export function deleteClozeGroup(deckGroupId) {
   );
   const removed = list.length - next.length;
   if (removed > 0) {
-    writeRaw(next);
+    if (!writeRaw(next)) return false;
     notifyPaletteInvalidate();
     import('../components/CommandPalette.jsx')
       .then((m) => m?.invalidateCommandPaletteCache?.())

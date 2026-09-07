@@ -12,13 +12,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 
-const src = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8');
+const src = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const APP = src('src/App.jsx');
 
 test('the global leaderboard reports an RPC failure instead of showing a board of one', () => {
   const api = src('src/lib/api.js');
   const fn = api.slice(api.indexOf('export async function getLeaderboard'), api.indexOf('/** Per-user stats'));
-  const afterRpc = fn.slice(fn.indexOf("supabase.rpc('get_global_leaderboard'"));
+  const afterRpc = fn.slice(fn.indexOf("await supabase.rpc("));
   assert.ok(!afterRpc.includes('await rlsQuery()'), 'the global path must not substitute the RLS-scoped query');
   assert.ok(afterRpc.includes('โหลดกระดานอันดับไม่สำเร็จ'), 'the failure must be said in Thai');
   assert.ok(fn.includes("if (groupId) {") && fn.includes('await rlsQuery()'), 'the group board still uses the RLS query');

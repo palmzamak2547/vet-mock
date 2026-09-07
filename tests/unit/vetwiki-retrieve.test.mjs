@@ -113,3 +113,23 @@ test('no keys at all → 503 without a single network call', async () => {
     () => chatJSON({ system: 's', user: 'u', env: {} }));
   assert.deepEqual(out, { ok: false, status: 503 });
 });
+
+test('a transport exception gives the next provider a chance within the same budget', async () => {
+  let calls = 0;
+  const out = await withFetch(async () => {
+    if (++calls === 1) throw new Error('connection reset');
+    return jsonRes({ choices: [{ message: { content: '{"claims":[]}' } }] });
+  }, () => chatJSON({ system: 's', user: 'u', env: { DEEPSEEK_API_KEY: 'test' } }));
+  assert.equal(out.ok, true);
+  assert.equal(calls, 2);
+});
+
+test('an exhausted shared time budget does not start another provider', async () => {
+  let calls = 0;
+  const out = await withFetch((_url, init) => new Promise((_resolve, reject) => {
+    calls++;
+    init.signal.addEventListener('abort', () => reject(new DOMException('timeout', 'AbortError')), { once: true });
+  }), () => chatJSON({ system: 's', user: 'u', timeoutMs: 5, env: { DEEPSEEK_API_KEY: 'test' } }));
+  assert.deepEqual(out, { ok: false, status: 504 });
+  assert.equal(calls, 1);
+});

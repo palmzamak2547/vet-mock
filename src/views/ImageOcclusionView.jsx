@@ -174,7 +174,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
 
   const handleDelete = useCallback(async (deck) => {
     if (!(await confirmDialog({ title: `ลบ deck "${deck.name}"?`, note: 'ย้อนกลับไม่ได้', confirmLabel: 'ลบ deck', tone: 'danger' }))) return;
-    deleteDeck(deck.id);
+    if (!deleteDeck(deck.id)) { setToast('ยังลบไม่สำเร็จ ข้อมูลเดิมยังอยู่ กรุณาลองใหม่'); return; }
     setDecks(loadDecks());
     setToast(`ลบ "${deck.name}" แล้ว`);
   }, []);

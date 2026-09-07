@@ -117,14 +117,14 @@ test('global leaderboard RPC carries the min-questions gate, and the 3-arg overl
   );
   assert.match(
     sql,
-    /r\.total\s*>=\s*COALESCE\(p_min_total,\s*5\)/i,
+    /r\.total\s*>=\s*GREATEST\(5,\s*COALESCE\(p_min_total,\s*5\)\)/i,
     'RPC must filter runs below the min-questions floor',
   );
   // A parameter-count change would silently CREATE an overloaded
   // function and leave the ungated 3-arg version serving every
   // existing client call — the drop is the whole fix.
   assert.match(
-    sql,
+    readFileSync(join(MIGRATIONS_DIR, '20260903000000_global_leaderboard_min_questions.sql'), 'utf8'),
     /DROP FUNCTION IF EXISTS\s+(public\.)?get_global_leaderboard\(INT,\s*TEXT,\s*INT\)/i,
     'the ungated 3-arg overload must be dropped, not left in place',
   );
@@ -138,7 +138,7 @@ test('global leaderboard RPC carries the min-questions gate, and the 3-arg overl
   );
   assert.match(
     schemaSql,
-    /r\.total\s*>=\s*COALESCE\(p_min_total,\s*5\)/i,
+    /r\.total\s*>=\s*GREATEST\(5,\s*COALESCE\(p_min_total,\s*5\)\)/i,
     'supabase-schema.sql must filter runs below the floor',
   );
   assert.doesNotMatch(

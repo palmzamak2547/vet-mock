@@ -204,7 +204,7 @@ test('personal API responses use private cache directives', () => {
   assert.match(explain, /Cache-Control', 'private, no-store'/);
   assert.match(tts, /Cache-Control', 'private, max-age=86400, immutable'/);
   assert.match(iapp, /Cache-Control', 'private, max-age=86400, immutable'/);
-  assert.match(grade, /provider:anthropic:daily/);
+  assert.match(grade, /provider:llm:daily/);
   assert.match(explain, /provider:llm:daily/);
   assert.match(playlist, /provider:youtube-data-api:daily/);
   assert.match(feedback, /provider:resend:daily/);

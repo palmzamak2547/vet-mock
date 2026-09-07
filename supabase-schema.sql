@@ -195,6 +195,7 @@ CREATE TABLE IF NOT EXISTS user_data (
   custom_questions JSONB DEFAULT '[]'::JSONB,
   history JSONB DEFAULT '[]'::JSONB,
   streak_data JSONB DEFAULT '{}'::JSONB,
+  reading_checklist JSONB NOT NULL DEFAULT '{}'::JSONB CHECK (jsonb_typeof(reading_checklist) = 'object'),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
 
@@ -359,8 +360,8 @@ AS $$
   JOIN auth.users u ON u.id = r.user_id
   WHERE (p_year IS NULL OR r.year = p_year)
     AND (p_phase IS NULL OR r.phase = p_phase)
-    AND r.total >= COALESCE(p_min_total, 5)
-    AND COALESCE(u.raw_user_meta_data->>'show_on_leaderboard', 'true')::boolean
+    AND r.total >= GREATEST(5, COALESCE(p_min_total, 5))
+    AND lower(btrim(COALESCE(u.raw_user_meta_data->>'show_on_leaderboard', 'true'))) IN ('true', 't', 'yes', 'y', 'on', '1')
   ORDER BY r.pct DESC, r.correct DESC, r.created_at DESC
   LIMIT GREATEST(1, LEAST(1000, COALESCE(p_limit, 200)));
 $$;

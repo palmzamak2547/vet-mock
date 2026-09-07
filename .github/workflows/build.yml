@@ -37,7 +37,7 @@ jobs:
     # CI lost its gate-the-deploy purpose. 10m gives the whole job real
     # headroom; the audit step carries its own 2m cap so it cannot be
     # the thing that blows this budget.
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
 
@@ -54,6 +54,12 @@ jobs:
 
       - name: Build production bundle
         run: npm run build
+
+      - name: Install browser for contrast checks
+        run: npx playwright install --with-deps chromium
+
+      - name: Generated data, content and accessibility gates
+        run: npm run lint:all && npm run lint:atlas
 
       - name: Report bundle sizes
         run: |

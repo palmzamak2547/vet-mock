@@ -55,3 +55,6 @@ ds-bundle/
 # account. Not repo content — the manifest is regenerated, never committed.
 .mcv/
 .r2env
+
+# Local Supabase CLI cache
+supabase/.temp/

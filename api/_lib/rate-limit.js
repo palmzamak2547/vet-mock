@@ -1,33 +1,6 @@
-// ============================================================
-// Rate limiter — dual-backend (Upstash KV when configured, else
-// in-memory fallback).
-// ============================================================
-// Original: in-memory only, so rate limits reset every cold start
-// and didn't share across Vercel instances. A user could burst past
-// the limit just by hitting different regions.
-//
-// Now: if env vars UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN
-// are present, we use a Redis-backed atomic INCR counter via Upstash's
-// REST API (works in Vercel edge + node runtimes, no SDK install
-// needed — fetch is universal). Otherwise we fall back to the
-// in-memory Map (still fine for local dev).
-//
-// ACTIVATED 2026-05-26 via Vercel MCP:
-//   - DB: vetmock-ratelimit on Upstash (Free plan, 10k req/day)
-//   - Region picked to match our Vercel lambda region (iad1 = US East)
-//     so RTT < 1ms intra-region. NOTE: an older comment in this file
-//     said ap-southeast-1 / Singapore — that was wrong, our Vercel
-//     functionDefaultRegion is iad1 not sin1.
-//   - Env vars (Production + Preview): UPSTASH_REDIS_REST_URL +
-//     UPSTASH_REDIS_REST_TOKEN. Created in Vercel under the project
-//     env vars; never put values in this repo.
-//   - Confirmation log on first request after deploy:
-//     "[rate-limit] using upstash"
-//
-// If env vars are missing (e.g. local `vercel dev` without a pulled
-// .env or a Preview deploy without the vars), behavior gracefully
-// degrades to in-memory + a one-time console.log of the active backend.
-// ============================================================
+// Shared quotas use Upstash in deployed environments. A configured limiter
+// outage returns a retryable 503; it never grants a fresh instance-local budget.
+// The in-memory backend is only for development without shared credentials.
 
 // --- In-memory fallback (current behavior) ---
 const buckets = new Map();
@@ -70,11 +43,32 @@ const UPSTASH_URL = (typeof process !== 'undefined' && process.env?.UPSTASH_REDI
 const UPSTASH_TOKEN = (typeof process !== 'undefined' && process.env?.UPSTASH_REDIS_REST_TOKEN) || '';
 const HAS_UPSTASH = !!(UPSTASH_URL && UPSTASH_TOKEN);
 let _loggedBackend = false;
+let lastFailureLog = 0;
+const SHARED_TIMEOUT_MS = 1800;
+
+function unavailable() {
+  if (Date.now() - lastFailureLog > 60_000) {
+    console.warn('[rate-limit] shared limiter unavailable; request deferred');
+    lastFailureLog = Date.now();
+  }
+  return { ok: false, unavailable: true, retryAfter: 30 };
+}
+
+export function sendRateLimitFailure(res, limit) {
+  res.setHeader('Cache-Control', 'private, no-store');
+  res.setHeader('Retry-After', String(limit.retryAfter));
+  return res.status(limit.unavailable ? 503 : 429).json({
+    error: limit.unavailable ? 'Service temporarily unavailable' : 'Too many requests',
+    reason: limit.unavailable ? 'temporarily_unavailable' : 'rate_limited',
+    retryAfter: limit.retryAfter,
+  });
+}
 
 async function upstashPipeline(commands) {
   // Upstash REST pipeline: POST array of commands → array of results.
   const res = await fetch(`${UPSTASH_URL}/pipeline`, {
     method: 'POST',
+    signal: AbortSignal.timeout(SHARED_TIMEOUT_MS),
     headers: {
       'Authorization': `Bearer ${UPSTASH_TOKEN}`,
       'Content-Type': 'application/json',
@@ -98,9 +92,9 @@ async function rateLimitUpstash(key, max, winMs) {
       ['EXPIRE', k, String(winSec), 'NX'],
     ]);
     const count = Array.isArray(results) && results[0]?.result;
-    if (typeof count !== 'number') {
-      // Unexpected shape — graceful degrade to in-memory
-      return rateLimitInMemory(key, max, winMs);
+    if (!Number.isFinite(count) || results[0]?.error || results[1]?.error
+      || typeof results[1]?.result !== 'number') {
+      return unavailable();
     }
     if (count > max) {
       // Get current TTL to surface a useful retryAfter
@@ -114,12 +108,9 @@ async function rateLimitUpstash(key, max, winMs) {
     }
     return { ok: true, retryAfter: 0 };
   } catch (err) {
-    // Network/auth failure → fall back to in-memory so the API stays
-    // up. Better an unprotected burst than an outage.
-    if (!_loggedBackend) {
-      console.warn('[rate-limit] upstash failed, falling back to in-memory:', err?.message || err);
-    }
-    return rateLimitInMemory(key, max, winMs);
+    // A local counter cannot enforce a shared spending ceiling. Keep the
+    // request retryable instead of silently granting fresh quotas per instance.
+    return unavailable();
   }
 }
 
@@ -133,11 +124,13 @@ async function rateLimitUpstash(key, max, winMs) {
  * @returns {Promise<{ ok: boolean, retryAfter: number }>}
  */
 export async function rateLimit(key, max, winMs) {
+  const sharedRequired = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
   if (!_loggedBackend) {
-    console.log(`[rate-limit] using ${HAS_UPSTASH ? 'upstash' : 'in-memory'}`);
+    console.log(`[rate-limit] using ${HAS_UPSTASH ? 'upstash' : sharedRequired ? 'unconfigured' : 'in-memory'}`);
     _loggedBackend = true;
   }
   if (HAS_UPSTASH) return rateLimitUpstash(key, max, winMs);
+  if (sharedRequired) return unavailable();
   return rateLimitInMemory(key, max, winMs);
 }
 

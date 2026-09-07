@@ -175,6 +175,12 @@ const srCardsSchema = v.pipe(
   v.check((value) => Object.keys(value).length <= 50_000, 'จำนวนการ์ดทบทวนมากเกินขอบเขตที่รองรับ'),
 );
 
+const readingChecklistSchema = v.pipe(
+  v.record(v.string(), v.union([v.boolean(), nonNegativeNumber('วันที่อ่านต้องเป็น timestamp')])),
+  v.check(safeRecordKeys, 'พบชื่อช่องข้อมูลที่ไม่ปลอดภัยในรายการอ่าน'),
+  v.check(value => Object.keys(value).length <= 50_000, 'รายการอ่านมีขนาดใหญ่เกินไป'),
+);
+
 const backupSchema = v.pipe(
   v.looseObject({
     exportDate: v.optional(v.string('วันส่งออกต้องเป็นข้อความ ISO')),
@@ -182,6 +188,7 @@ const backupSchema = v.pipe(
     bookmarks: v.optional(v.pipe(v.array(idSchema), v.maxLength(50_000, 'จำนวนข้อที่บันทึกไว้มากเกินขอบเขตที่รองรับ'))),
     history: v.optional(v.pipe(v.array(historyEntrySchema), v.maxLength(500_000, 'จำนวนประวัติมากเกินขอบเขตที่รองรับ'))),
     notes: v.optional(notesSchema),
+    readingChecklist: v.optional(readingChecklistSchema),
     srCards: v.optional(srCardsSchema),
     streak: v.optional(nonNegativeNumber('จำนวนวันต่อเนื่องต้องเป็นตัวเลขตั้งแต่ 0 ขึ้นไป')),
     streakData: v.optional(streakDataSchema),
@@ -201,6 +208,7 @@ export const BACKUP_FIELDS = Object.freeze([
   'streakData',
   'streak',
   'customQuestions',
+  'readingChecklist',
 ]);
 
 function firstIssueReason(issues, fallback) {
@@ -214,6 +222,7 @@ function firstIssueReason(issues, fallback) {
     streak: 'วันต่อเนื่อง',
     streakData: 'ข้อมูลวันต่อเนื่อง',
     customQuestions: 'ข้อสอบส่วนตัว',
+    readingChecklist: 'รายการอ่าน',
     pairs: 'คู่คำตอบ',
     left: 'ด้านซ้าย',
     right: 'ด้านขวา',
@@ -247,6 +256,15 @@ export function parseUserBackup(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     return { success: false, reason: 'ไฟล์ backup ต้องเป็น object' };
   }
+  // Inspect raw record keys before the schema normalizes them away. Silently
+  // stripping an unsafe key could turn a malformed import into an empty map
+  // that the user then overwrites their real notes with.
+  for (const field of ['notes', 'srCards', 'readingChecklist']) {
+    const record = value[field];
+    if (record && typeof record === 'object' && !safeRecordKeys(record)) {
+      return { success: false, reason: 'พบชื่อช่องข้อมูลที่ไม่ปลอดภัยในไฟล์ backup' };
+    }
+  }
   const result = v.safeParse(backupSchema, value, { abortEarly: true });
   if (!result.success) {
     return {
@@ -270,10 +288,26 @@ export function describeBackupFields(data, fields) {
     streakData: () => `ฝึกต่อเนื่อง ${data.streakData.streak} วัน`,
     streak: () => `ฝึกต่อเนื่อง ${data.streak} วัน (backup รุ่นเดิม)`,
     customQuestions: () => `ข้อสอบส่วนตัว ${data.customQuestions.length} ข้อ`,
+    readingChecklist: () => `รายการอ่าน ${Object.keys(data.readingChecklist).length} หัวข้อ`,
   };
   return fields
     // Prefer the complete v5.1 streak record over its legacy numeric mirror.
     .filter((field) => field !== 'streak' || !fields.includes('streakData'))
     .map((field) => labels[field]?.())
     .filter(Boolean);
+}
+
+/** Convert an already validated backup into one atomic user-data command. */
+export function userDataPatchFromBackup(data) {
+  const has = field => Object.prototype.hasOwnProperty.call(data, field);
+  const patch = Object.fromEntries(BACKUP_FIELDS
+    .filter(field => field !== 'streak' && has(field))
+    .map(field => [field, data[field]]));
+  if (has('streakData')) {
+    const { freezeJustUsed: _transient, ...streakData } = data.streakData;
+    patch.streakData = streakData;
+  } else if (has('streak')) {
+    patch.streakData = { streak: data.streak, lastDate: null, freezeUsedAt: null };
+  }
+  return patch;
 }

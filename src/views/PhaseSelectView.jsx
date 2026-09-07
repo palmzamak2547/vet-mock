@@ -76,7 +76,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
                 {subjectsInPhase.length === 0
                   ? 'ไม่มีวิชา'
                   : liveCount > 0
-                    ? `${subjectsInPhase.length} วิชา, ${liveCount} เปิดเต็ม`
+                    ? `${subjectsInPhase.length} วิชา, ${liveCount} มีชุดฝึก`
                     : `${subjectsInPhase.length} วิชา, กำลังเตรียมเนื้อหา`}
               </div>
               {isCurrent && (

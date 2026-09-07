@@ -4,7 +4,7 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 // content, only renders "ปี 4 · 2,012 ข้อ" style labels. The lightweight
 // q-counts.js (~1 KB) replaces a static QB import that would have
 // dragged every per-subject Q chunk into this view's load graph.
-import { Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { detectCurrentPhase } from './PhaseSelectView.jsx';
 
 // ──────────────────────────────────────────────────────────────
@@ -55,7 +55,9 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
       {/* LIVE year cards — primary CTA */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 16 }}>
         {liveYears.map((y) => {
-          const subjectCount = (SUBJECTS_BY_YEAR[y.id] || []).length;
+          const yearSubjects = SUBJECTS_BY_YEAR[y.id] || [];
+          const subjectCount = yearSubjects.length;
+          const readySubjects = yearSubjects.filter(subject => Q_VISIBLE_COUNTS_BY_SUBJECT[subject.id] > 0).length;
           // Q_COUNTS_BY_YEAR is precomputed by regen-q-counts.mjs and already
           // sums every subject the year owns — VCA included, because VCA is a
           // year-5 subject. The old code added the VCA bank on top for EVERY
@@ -89,7 +91,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                     {y.desc}
                   </div>
                   <div style={{ marginTop: 8, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.04em' }}>
-                    {totalCount.toLocaleString()} ข้อ, {subjectCount} วิชา
+                    {totalCount.toLocaleString()} ข้อ, มีชุดฝึก {readySubjects}/{subjectCount} วิชา
                   </div>
                 </div>
               </div>
@@ -136,7 +138,9 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
           {showAll && (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 8, marginBottom: 16 }}>
               {scaffoldYears.map((y) => {
-                const subjectCount = (SUBJECTS_BY_YEAR[y.id] || []).length;
+                const yearSubjects = SUBJECTS_BY_YEAR[y.id] || [];
+          const subjectCount = yearSubjects.length;
+          const readySubjects = yearSubjects.filter(subject => Q_VISIBLE_COUNTS_BY_SUBJECT[subject.id] > 0).length;
                 return (
                   <button
                     key={y.id}

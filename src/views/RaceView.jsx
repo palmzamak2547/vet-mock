@@ -1,290 +1,128 @@
-// ============================================================
-// RaceView — multiplayer Q-race over Supabase Realtime broadcast
-// ============================================================
-//
-// Two phases:
-//   1. Lobby — create or join via 5-char code. Creator picks subject
-//      + question count; once both players are present + the creator
-//      taps Start, the same question set is broadcast to everyone.
-//   2. Run — local-state quiz UI; on each answer, broadcast { idx,
-//      correct, finished } over the channel. We render TWO progress
-//      bars: self + opponent. First to finish wins on time; tied
-//      score broken by duration. Final score recorded to race_results
-//      so a leaderboard view can pick it up later.
-//
-// The race uses ONE Supabase channel per code:
-//   • broadcast events: 'start', 'progress', 'finish'
-//   • presence: who's in the lobby
-// No DB rows during the race itself. Free tier OK for low-volume.
-// ============================================================
-
+// Server-owned room membership, start and sequential answers. Snapshots
+// survive reconnects and never accept another browser's claimed identity.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { hasSupabase, getSupabase } from '../lib/supabase.js';
-import { recordRaceResult } from '../lib/api.js';
+import { questionRevision } from '../lib/study-events.js';
+import { ownedRpc } from '../lib/owned-rpc.js';
+import { resolveRaceQuestions, mergeRaceProgress, rankRacePlayers } from '../lib/race-session.js';
 import { QB, loadQBForYear } from '../data/questions.js';
-import { isCorrect } from '../hooks/utils.js';
-import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
+import { SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
-const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-const randomCode = () => Array.from({ length: 5 }, () => CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]).join('');
-
 export default function RaceView({ goHome, setView, user, profile }) {
-  const raceSubjectsByYear = YEARS
-    .map((y) => ({
-      year: y.id,
-      label: y.label,
-      items: (SUBJECTS_BY_YEAR[y.id] || []).filter((s) => !s.scaffold),
-    }))
-    .filter((shelf) => shelf.items.length > 0);
-
-  const [phase, setPhase] = useState('lobby');     // lobby | run | done
+  const raceSubjectsByYear = YEARS.map(y => ({ year: y.id, label: y.label,
+    items: (SUBJECTS_BY_YEAR[y.id] || []).filter(s => !s.scaffold) })).filter(shelf => shelf.items.length);
+  const [phase, setPhase] = useState('lobby');
   const [code, setCode] = useState('');
   const [isHost, setIsHost] = useState(false);
   const [subject, setSubject] = useState('com3');
   const [count, setCount] = useState(15);
-  const [participants, setParticipants] = useState({}); // { user_id: { username, avatar, idx, correct, finished } }
-  const [questions, setQuestions] = useState([]);  // shared question set
+  const [participants, setParticipants] = useState({});
+  const [questions, setQuestions] = useState([]);
   const [idx, setIdx] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [finished, setFinished] = useState(false);
   const [startedAt, setStartedAt] = useState(0);
   const [endedAt, setEndedAt] = useState(0);
-  const channelRef = useRef(null);
   const [error, setError] = useState(null);
-  // QB is loaded per year by App, but this screen offers EVERY year's
-  // subjects and defaults to a year-4 one. Reading QB directly meant a
-  // year-5 student was told COM III has 0 MCQ questions when it has 335,
-  // and a guest resolved the host's ids against a bank that never held
-  // them. Load the bank the chosen subject actually needs.
+  const [busy, setBusy] = useState(false);
+  const busyRef = useRef(false);
+  const context = useRef({});
+  context.current = { code, owner: user?.id };
   const [bankTick, setBankTick] = useState(0);
   const [loadingBank, setLoadingBank] = useState(false);
-
+  const progressRef = useRef({});
   useEffect(() => {
     let alive = true;
-    const year = yearForSubject(subject);
-    if (!Number.isFinite(year)) return undefined;
     setLoadingBank(true);
-    loadQBForYear(year)
-      .then(() => { if (alive) setBankTick((n) => n + 1); })
-      .catch(() => {})
+    loadQBForYear(yearForSubject(subject)).then(() => { if (alive) setBankTick(n => n + 1); })
+      .catch(() => { if (alive) setError('โหลดคลังข้อสอบไม่สำเร็จ ลองเลือกวิชาอีกครั้ง'); })
       .finally(() => { if (alive) setLoadingBank(false); });
     return () => { alive = false; };
   }, [subject]);
+  const eligibleQs = useMemo(() => QB.filter(q => isQuestionDeliverable(q) && q.type === 'mcq'
+    && q.subject === subject && q.options?.length >= 3), [subject, bankTick]);
 
-  // Eligible MCQ pool — race only supports MCQ for fairness + speed.
-  // bankTick is the dependency that matters: QB is mutated in place, so its
-  // identity never changes and only the load completing tells us to recount.
-  const eligibleQs = useMemo(() =>
-    QB.filter((q) => isQuestionDeliverable(q) && q.type === 'mcq' && q.subject === subject && q.options?.length >= 3),
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [subject, bankTick]);
-
-  // ── Channel setup ────────────────────────────────────────────
-  // Whenever code changes (host: just generated; guest: just typed),
-  // open a Realtime channel for that code. Subscribe to broadcast +
-  // presence so we can see other participants live.
-  // The channel has to outlive the lobby. Gating it on phase === 'lobby'
-  // meant the effect re-ran the instant the race started, hit the guard,
-  // returned early — and the cleanup from the lobby run unsubscribed the
-  // channel. From then on nobody received a 'progress' broadcast because the
-  // listener was gone, and nobody sent one either because answerQ() sends on
-  // channelRef.current, which now pointed at an unsubscribed channel. Both
-  // racers watched an opponent frozen at zero for the whole race, which is
-  // the entire point of the feature.
-  useEffect(() => {
-    if (!code) return;
-    if (!hasSupabase || !user) {
-      setError('ต้อง login + Supabase ก่อน');
-      return;
+  async function applySnapshot(snapshot, owner, expectedCode) {
+    if (context.current.owner !== owner || (expectedCode && context.current.code !== expectedCode)) return;
+    let qs = [];
+    if (snapshot.started_at) qs = await resolveRaceQuestions(snapshot, QB, loadQBForYear);
+    if (context.current.owner !== owner || (expectedCode && context.current.code !== expectedCode)) return;
+    if (snapshot.code !== context.current.code) progressRef.current = {};
+    const merged = mergeRaceProgress(progressRef.current, snapshot.participants);
+    progressRef.current = merged;
+    setCode(snapshot.code);
+    setIsHost(snapshot.host_id === owner);
+    setParticipants(merged);
+    if (snapshot.started_at) {
+      const me = merged[owner];
+      const start = Date.parse(snapshot.started_at);
+      setQuestions(qs); setSubject(snapshot.subject); setStartedAt(start);
+      setIdx(me?.idx || 0); setCorrect(me?.correct || 0); setFinished(!!me?.finished);
+      setEndedAt(me?.finished ? start + me.duration_ms : 0);
+      setPhase(me?.finished ? 'done' : 'run');
     }
-    let active = true;
-    let cleanupFn = () => {};
-    (async () => {
-      const supabase = await getSupabase();
-      if (!supabase) return;
-      const ch = supabase.channel(`race:${code}`, {
-        config: { presence: { key: user.id } },
-      });
-      ch.on('broadcast', { event: 'start' }, async (payload) => {
-        if (!active) return;
-        const { qIds } = payload.payload || {};
-        if (!Array.isArray(qIds) || qIds.length === 0) return;
-        // The host's subject may belong to a year this student never loaded.
-        // Without this the ids resolved to nothing, `if (qs.length)` was
-        // false, and the guest sat in the lobby forever with no message —
-        // or ran a SHORTER set than the host while the podium compared both
-        // out of the host's denominator.
-        const hostSubject = String(qIds[0]).split(':')[0];
-        const hostYear = yearForSubject(hostSubject);
-        if (Number.isFinite(hostYear)) {
-          try { await loadQBForYear(hostYear); } catch { /* fall through to the count check */ }
-        }
-        if (!active) return;
-        const qs = qIds.map((k) => {
-          const [s, idStr] = k.split(':');
-          const id = parseInt(idStr, 10);
-          return QB.find((q) => isQuestionDeliverable(q) && q.subject === s && q.id === id);
-        }).filter(Boolean);
-        if (qs.length !== qIds.length) {
-          // Never start a race on a different set from the host's: the score
-          // would be compared against the wrong total.
-          setError(`เริ่มไม่ได้ ชุดข้อสอบของห้องนี้มี ${qIds.length} ข้อ แต่เครื่องนี้โหลดได้ ${qs.length} ข้อ ลองรีเฟรชแล้วเข้าห้องใหม่`);
-          return;
-        }
-        setQuestions(qs);
-        setStartedAt(Date.now());
-        setPhase('run');
-      });
-      ch.on('broadcast', { event: 'progress' }, (payload) => {
-        if (!active) return;
-        const { user_id, username, avatar, idx: pIdx, correct: pCorrect, finished: pFinished } = payload.payload || {};
-        if (!user_id) return;
-        setParticipants((prev) => ({
-          ...prev,
-          [user_id]: { username, avatar, idx: pIdx, correct: pCorrect, finished: pFinished },
-        }));
-      });
-      ch.on('presence', { event: 'sync' }, () => {
-        if (!active) return;
-        const state = ch.presenceState();
-        const merged = {};
-        for (const k of Object.keys(state)) {
-          const meta = state[k]?.[0] || {};
-          merged[k] = {
-            username: meta.username || 'ผู้ใช้',
-            avatar: meta.avatar || '🐾',
-            idx: 0, correct: 0, finished: false,
-          };
-        }
-        setParticipants((prev) => {
-          const merged2 = { ...merged };
-          for (const k of Object.keys(prev)) {
-            if (merged2[k]) merged2[k] = { ...merged2[k], ...prev[k] };
-          }
-          return merged2;
-        });
-      });
-      await ch.subscribe(async (status) => {
-        if (status === 'SUBSCRIBED') {
-          await ch.track({
-            username: profile?.username || user.email?.split('@')[0] || 'guest',
-            avatar: profile?.avatar_emoji || '🐾',
-            joined_at: Date.now(),
-          });
-        }
-      });
-      channelRef.current = ch;
-      cleanupFn = () => {
-        try { ch.untrack?.(); } catch {}
-        try { ch.unsubscribe?.(); } catch {}
-      };
-    })();
-    return () => { active = false; cleanupFn(); };
-    // phase is deliberately NOT a dependency: it changes three times during a
-    // race and each change would drop the connection the race runs on.
-  }, [code, user, profile]);
-
-  // Reconnect race-channel presence when tab returns to foreground.
-  // iOS Safari kills background WebSockets; without this the race
-  // partner sees us as "left" and we miss broadcast events. Re-tracking
-  // re-announces presence and Supabase's reconnect handles the rest.
+    setError(null);
+  }
   useEffect(() => {
-    if (!user || !code) return;
-    const onVis = () => {
-      if (document.visibilityState !== 'visible') return;
-      const ch = channelRef.current;
-      if (!ch) return;
+    if (!code || !user?.id) return;
+    let alive = true, reading = false;
+    const owner = user.id;
+    const refresh = async () => {
+      if (!alive || reading || document.visibilityState === 'hidden') return;
+      reading = true;
       try {
-        ch.track({
-          username: profile?.username || user.email?.split('@')[0] || 'guest',
-          avatar: profile?.avatar_emoji || '🐾',
-          joined_at: Date.now(),
-        });
-      } catch {}
+        const state = await ownedRpc(owner, 'race_snapshot', { p_code: code });
+        if (alive) await applySnapshot(state, owner, code);
+      } catch { if (alive) setError('การเชื่อมต่อสะดุด ระบบกำลังลองใหม่ คำตอบที่ส่งสำเร็จยังอยู่'); }
+      finally { reading = false; }
     };
-    document.addEventListener('visibilitychange', onVis);
-    return () => document.removeEventListener('visibilitychange', onVis);
-  }, [user, profile, code]);
+    refresh();
+    const timer = setInterval(refresh, 2000);
+    window.addEventListener('online', refresh); document.addEventListener('visibilitychange', refresh);
+    return () => { alive = false; clearInterval(timer); window.removeEventListener('online', refresh); document.removeEventListener('visibilitychange', refresh); };
+  }, [code, user?.id]);
 
-  // ── Lobby actions ────────────────────────────────────────────
-  function createRace() {
-    setIsHost(true);
-    setCode(randomCode());
-    setError(null);
+  async function act(work) {
+    if (busyRef.current) return;
+    busyRef.current = true; setBusy(true); setError(null);
+    try { await work(); }
+    catch (failure) { setError(failure.message || 'ยังส่งไม่สำเร็จ กรุณาลองอีกครั้ง'); }
+    finally { busyRef.current = false; setBusy(false); }
   }
-  function joinRace(input) {
-    const c = String(input || '').trim().toUpperCase();
-    if (!/^[A-Z0-9]{4,8}$/.test(c)) {
-      setError('Code ต้องเป็นตัวอักษร/ตัวเลข 4-8 ตัว');
-      return;
-    }
-    setIsHost(false);
-    setCode(c);
-    setError(null);
-  }
-  async function startRace() {
-    if (!isHost) return;
-    if (loadingBank) {
-      setError('กำลังโหลดคลังข้อสอบของวิชานี้ รอสักครู่แล้วกดใหม่');
-      return;
-    }
-    if (eligibleQs.length < count) {
-      setError(`มีข้อ MCQ ในวิชานี้แค่ ${eligibleQs.length} ข้อ`);
-      return;
-    }
-    // Pick `count` random Qs from the eligible pool (Fisher-Yates lite)
-    const shuffled = [...eligibleQs].sort(() => Math.random() - 0.5).slice(0, count);
-    const qIds = shuffled.map((q) => `${q.subject}:${q.id}`);
-    const ch = channelRef.current;
-    if (!ch) return;
-    await ch.send({ type: 'broadcast', event: 'start', payload: { qIds } });
-    // Local state for host (broadcast doesn't echo to sender by default)
-    setQuestions(shuffled);
-    setStartedAt(Date.now());
-    setPhase('run');
-  }
-
-  // ── Run — answer + broadcast progress ────────────────────────
-  async function answer(optionIdx) {
-    if (phase !== 'run' || finished) return;
-    const q = questions[idx];
-    if (!q) return;
-    const wasCorrect = isCorrect(q, optionIdx);
-    const newCorrect = correct + (wasCorrect ? 1 : 0);
-    const newIdx = idx + 1;
-    const isFinished = newIdx >= questions.length;
-    setCorrect(newCorrect);
-    setIdx(newIdx);
-    if (isFinished) {
-      setFinished(true);
-      const ms = Date.now() - startedAt;
-      setEndedAt(Date.now());
-      // Persist final result + broadcast finish
-      try {
-        await recordRaceResult(code, user.id, subject, questions.length, newCorrect, ms);
-      } catch {}
-      const ch = channelRef.current;
-      if (ch) {
-        await ch.send({
-          type: 'broadcast', event: 'progress',
-          payload: { user_id: user.id, username: profile?.username || 'me', avatar: profile?.avatar_emoji || '🐾', idx: newIdx, correct: newCorrect, finished: true },
-        });
-      }
-      setPhase('done');
-    } else {
-      const ch = channelRef.current;
-      if (ch) {
-        await ch.send({
-          type: 'broadcast', event: 'progress',
-          payload: { user_id: user.id, username: profile?.username || 'me', avatar: profile?.avatar_emoji || '🐾', idx: newIdx, correct: newCorrect, finished: false },
-        });
-      }
-    }
-  }
+  const createRace = () => act(async () => {
+    const owner = user.id;
+    await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: null }), owner);
+  });
+  const joinRace = input => act(async () => {
+    const value = String(input || '').trim().toUpperCase();
+    if (!/^[A-F0-9]{6}$/.test(value)) throw new Error('ใส่รหัสห้อง 6 ตัวจากเพื่อน (ห้องรุ่นเก่าต้องสร้างใหม่)');
+    const owner = user.id;
+    await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: value }), owner);
+  });
+  const startRace = () => act(async () => {
+    if (!isHost || loadingBank || eligibleQs.length < count) throw new Error('รอโหลดคลัง หรือเลือกจำนวนไม่เกินข้อสอบที่มี');
+    const shuffled = [...eligibleQs];
+    for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
+    const owner = user.id;
+    const sb = await getSupabase();
+    const { data: { session } = {} } = await sb.auth.getSession();
+    if (session?.user?.id !== owner) throw new Error('กรุณาเข้าสู่บัญชีเดิม');
+    const response = await fetch('/api/race-start', { method: 'POST', signal: AbortSignal.timeout(30_000),
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + session.access_token },
+      body: JSON.stringify({ code, questionIds: shuffled.slice(0, count).map(q => q.id), questionVersions: Object.fromEntries(shuffled.slice(0, count).map(q => [q.id, questionRevision(q)])) }) });
+    if (!response.ok) throw new Error('ยังเริ่มไม่ได้ กรุณาตรวจว่ามีเพื่อนในห้องและลองอีกครั้ง');
+    await applySnapshot(await response.json(), owner, code);
+  });
+  const answer = option => act(async () => {
+    if (phase !== 'run' || finished || !questions[idx]) return;
+    const owner = user.id;
+    const state = await ownedRpc(owner, 'answer_race', { p_code: code, p_index: idx, p_answer: option });
+    await applySnapshot(state, owner, code);
+  });
 
   // ── Render: Lobby ────────────────────────────────────────────
   if (!hasSupabase) {
@@ -314,10 +152,10 @@ export default function RaceView({ goHome, setView, user, profile }) {
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-hero"><h1>แข่งกับ <em>เพื่อน</em></h1><p>ทำข้อสอบพร้อมกัน สร้างรหัสห้องหรือใส่รหัสจากเพื่อน</p></div>
         <div style={{ display: 'grid', gap: 12, gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginBottom: 18 }}>
-          <button className="vmx-btn vmx-btn-primary" onClick={createRace} style={{ padding: '14px 20px' }}>
+          <button className="vmx-btn vmx-btn-primary" onClick={createRace} disabled={busy} style={{ padding: '14px 20px' }}>
             สร้าง Race ใหม่
           </button>
-          <JoinForm onJoin={joinRace} />
+          <JoinForm onJoin={joinRace} busy={busy} />
         </div>
         {error && <div style={{ color: 'var(--clr-rose-text, #c0392b)', fontSize: 13 }}>{error}</div>}
       </>
@@ -328,7 +166,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
     const others = Object.entries(participants).filter(([k]) => k !== user.id);
     return (
       <>
-        <BackBar onBack={() => { setCode(''); setParticipants({}); setIsHost(false); }} label="กลับ Lobby" />
+        <BackBar onBack={() => { setCode(''); setParticipants({}); setIsHost(false); progressRef.current = {}; }} label="กลับ Lobby" />
         <div className="vmx-hero"><h1>รหัส <em>ห้องแข่ง</em></h1></div>
         <div style={{ padding: 24, borderRadius: 12, background: 'var(--clr-surface-2)', textAlign: 'center', marginBottom: 16 }}>
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>RACE CODE</div>
@@ -357,7 +195,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
               <label htmlFor="vmx-race-count" style={{ fontSize: 13, marginLeft: 12 }}>จำนวนข้อ:</label>
               <input id="vmx-race-count" type="number" min="5" max="50" value={count} onChange={(e) => setCount(Math.max(5, Math.min(50, parseInt(e.target.value || 0, 10))))} style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }} />
             </div>
-            <button className="vmx-btn vmx-btn-primary" onClick={startRace} disabled={others.length === 0} style={{ width: '100%' }}>
+            <button className="vmx-btn vmx-btn-primary" onClick={startRace} disabled={busy || loadingBank || others.length === 0} style={{ width: '100%' }}>
               {others.length === 0 ? '🕐 รอเพื่อนเข้าห้อง…' : `🏁 เริ่ม! (${others.length + 1} คน)`}
             </button>
           </div>
@@ -389,13 +227,15 @@ export default function RaceView({ goHome, setView, user, profile }) {
       <>
         <BackBar onBack={async () => { if (await confirmDialog({ title: 'ออกจาก race?', body: 'คะแนนรอบนี้ของคุณจะหาย', confirmLabel: 'ออก', tone: 'danger' })) goHome(); }} label="ออก" subtitle={`Race ${code}`} />
         <ProgressBars myIdx={idx} myCorrect={correct} mySelf={profile} others={others} total={questions.length} />
+        {busy && <p role="status">กำลังบันทึกคำตอบ…</p>}
+        {error && <p role="alert" style={{ color: 'var(--clr-rose-text)' }}>{error}</p>}
         {q && (
           <div style={{ marginTop: 18 }}>
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 4 }}>Q{idx + 1} / {questions.length}</div>
             <div style={{ fontSize: 16, lineHeight: 1.6, marginBottom: 14 }}><RichText text={q.q} /></div>
             <div className="vmx-options">
               {q.options.map((opt, i) => (
-                <button key={i} className="vmx-option" onClick={() => answer(i)}>
+                <button key={i} className="vmx-option" disabled={busy} onClick={() => answer(i)}>
                   <div className="vmx-option-letter">{String.fromCharCode(65 + i)}</div>
                   <div className="vmx-option-text"><RichText text={opt} /></div>
                 </button>
@@ -408,16 +248,13 @@ export default function RaceView({ goHome, setView, user, profile }) {
   }
 
   if (phase === 'done') {
-    // Build podium — sort participants by correct desc, then idx (faster finish)
-    const allRows = Object.entries({
-      ...participants,
-      [user.id]: { username: profile?.username || 'me', avatar: profile?.avatar_emoji || '🐾', idx, correct, finished: true },
-    }).map(([k, p]) => ({ ...p, user_id: k }));
-    allRows.sort((a, b) => (b.correct - a.correct) || (b.idx - a.idx));
+    const allRows = rankRacePlayers(participants);
     return (
       <>
         <BackBar onBack={goHome} label="หน้าแรก" subtitle={`Race ${code} จบแล้ว`} />
         <div className="vmx-hero"><h1>ผลการ <em>แข่ง</em></h1><p>เวลา: {fmtMs(elapsed)}, ตอบถูก {correct}/{questions.length} ข้อ</p></div>
+        <p>เรียงผู้ที่ตอบครบก่อน แล้วเรียงคะแนนเท่ากันด้วยเวลาที่ใช้ สมาชิกที่ยังไม่จบจะแสดงสถานะไว้</p>
+        {error && <p role="alert">{error}</p>}
         <ol style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
           {allRows.map((p, i) => (
             <li key={p.user_id} style={{ padding: 12, borderRadius: 10, background: i === 0 ? 'rgba(184, 137, 64, 0.18)' : 'var(--clr-surface)', border: i === 0 ? '1px solid var(--clr-gold)' : '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -430,7 +267,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         </ol>
         <div className="vmx-btn-row" style={{ marginTop: 16 }}>
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
-          <button className="vmx-btn vmx-btn-primary" onClick={() => { setPhase('lobby'); setCode(''); setParticipants({}); setIdx(0); setCorrect(0); setFinished(false); setQuestions([]); }}>🔄 race อีกรอบ</button>
+          <button className="vmx-btn vmx-btn-primary" onClick={() => { setPhase('lobby'); setCode(''); setParticipants({}); setIdx(0); setCorrect(0); setFinished(false); setQuestions([]); progressRef.current = {}; }}>🔄 race อีกรอบ</button>
         </div>
       </>
     );
@@ -439,7 +276,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
   return null;
 }
 
-function JoinForm({ onJoin }) {
+function JoinForm({ onJoin, busy }) {
   const [val, setVal] = useState('');
   return (
     <form onSubmit={(e) => { e.preventDefault(); onJoin(val); }} style={{ display: 'flex', gap: 6, padding: '14px 16px', borderRadius: 10, border: '1px solid var(--clr-border)', alignItems: 'center' }}>
@@ -447,11 +284,11 @@ function JoinForm({ onJoin }) {
         type="text"
         value={val}
         onChange={(e) => setVal(e.target.value.toUpperCase())}
-        placeholder="ใส่ code (เช่น A3K7Q)"
-        maxLength={8}
-        style={{ flex: 1, padding: '8px 12px', borderRadius: 6, border: '1px solid var(--clr-border)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }}
+        aria-label="รหัสห้องแข่ง" placeholder="รหัส 6 ตัว เช่น A3C7F2"
+        maxLength={6}
+        style={{ flex: 1, minWidth: 0, padding: '8px 12px', borderRadius: 6, border: '1px solid var(--clr-border)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.1em', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }}
       />
-      <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={!val.trim()}>
+      <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={busy || !val.trim()}>
         เข้าห้อง
       </button>
     </form>

@@ -1,3 +1,4 @@
+import { readLocalExtra, writeLocalExtra } from './local-extras.js';
 // ============================================================
 // image-occlusion.js — localStorage layer for Image Occlusion
 // (Anki-style) decks. User uploads an anatomy / radiograph /
@@ -62,8 +63,8 @@ function safeParse(raw) {
 }
 
 function readRaw() {
-  if (typeof window === 'undefined' || !window.localStorage) return [];
-  return safeParse(window.localStorage.getItem(STORAGE_KEY));
+  const value = readLocalExtra(STORAGE_KEY, []);
+  return Array.isArray(value) ? value : [];
 }
 
 // Returns { ok, evicted: [names], reason } so the caller can tell the student
@@ -72,36 +73,7 @@ function readRaw() {
 // either way — so "saved ✓" could mean "saved, and two of your decks are
 // gone". Its own comment promised a "บันทึกไม่สำเร็จ" toast that it gave the
 // caller no way to raise.
-function writeRaw(arr) {
-  if (typeof window === 'undefined' || !window.localStorage) {
-    return { ok: false, evicted: [], reason: 'no-storage' };
-  }
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-    return { ok: true, evicted: [], reason: null };
-  } catch {
-    // Quota exceeded. Image decks run 100-300 KB each, so one oversized
-    // upload can fill the 5 MB budget. Evicting is still the least-bad
-    // option — the alternative is that nothing saves at all — but the
-    // student has to be told which decks it cost them.
-    const byRecency = arr.slice().sort(
-      (a, b) => (b.lastOpened || b.createdAt || 0) - (a.lastOpened || a.createdAt || 0),
-    );
-    const fallback = byRecency.slice();
-    const evicted = [];
-    while (fallback.length > 1) {
-      const dropped = fallback.pop();
-      evicted.push((dropped && dropped.name) || 'ชุดที่ไม่มีชื่อ');
-      try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(fallback));
-        return { ok: true, evicted, reason: 'quota' };
-      } catch {
-        /* keep evicting */
-      }
-    }
-    return { ok: false, evicted, reason: 'quota' };
-  }
-}
+function writeRaw(arr) { const ok = writeLocalExtra(STORAGE_KEY, arr); return { ok, evicted: [], reason: ok ? null : 'quota' }; }
 
 function notifyChange() {
   if (typeof window === 'undefined') return;
@@ -235,11 +207,8 @@ export function saveDeck(deck) {
   let next = list.filter((d) => d.id !== id);
   next.push(normalized);
 
-  // LRU evict if over cap
-  if (next.length > MAX_DECKS) {
-    next.sort((a, b) => (b.lastOpened || 0) - (a.lastOpened || 0));
-    next = next.slice(0, MAX_DECKS);
-  }
+  // Adding a deck must never delete another student's stored work.
+  if (next.length > MAX_DECKS && !list.some(item => item.id === normalized.id)) return null;
 
   // Hand back what actually happened. A quota eviction deletes other decks,
   // and the caller has to be able to say so instead of showing "saved ✓".
@@ -263,9 +232,10 @@ export function touchDeck(deckId) {
 export function deleteDeck(deckId) {
   const list = readRaw();
   const next = list.filter((d) => d.id !== deckId);
-  if (next.length === list.length) return;
-  writeRaw(next);
+  if (next.length === list.length) return true;
+  if (!writeRaw(next)) return false;
   notifyChange();
+  return true;
 }
 
 /**

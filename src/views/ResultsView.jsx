@@ -1,6 +1,8 @@
+import { clearCompletedExam } from '../lib/exam-recovery.js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { isCorrect, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
+import ExamSaveNotice from '../components/ExamSaveNotice.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
 import ScoreBurst from '../components/ScoreBurst.jsx';
 import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
@@ -115,6 +117,7 @@ const PHASE_LABEL_RES = {
 };
 
 export default function ResultsView({
+  saveStatus,
   score,
   questions,
   answers,
@@ -162,8 +165,9 @@ export default function ResultsView({
   // through finishExam so a chunk-load failure mid-deploy doesn't
   // strand the user on a blank screen — ReviewView can replay.
   useEffect(() => {
-    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
-  }, []);
+    if (!saveStatus?.committed) return;
+    try { clearCompletedExam(window.localStorage, saveStatus.owner, saveStatus.sessionId); } catch {}
+  }, [saveStatus?.committed, saveStatus?.owner, saveStatus?.sessionId]);
 
   // Night-rank promotion banner — App.jsx's finishExam compares the
   // rank ladder before/after the session and fires NIGHT_RANK_EVENT
@@ -288,6 +292,7 @@ export default function ResultsView({
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
+      <ExamSaveNotice status={saveStatus} />
       {rankPromo && (
         <div className="vmx-night-rank-promo" role="status">
           <span className="vmx-night-rank-promo-icon" aria-hidden="true">{rankPromo.to.icon}</span>

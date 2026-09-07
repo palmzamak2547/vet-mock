@@ -107,7 +107,40 @@ test('a stalled upstream ends as a 504 with a hint', async () => {
   timeout.name = 'TimeoutError';
   await withFetch(async () => { throw timeout; }, () => handler(gradeReq(), res));
   assert.equal(res.statusCode, 504);
-  assert.match(res.body.hint, /self-grade/);
+  assert.match(res.body.hint, /ประเมินตามเกณฑ์/);
+});
+
+test('grading works with the configured primary provider and no optional provider key', async () => {
+  const old = process.env.ANTHROPIC_API_KEY;
+  delete process.env.ANTHROPIC_API_KEY;
+  const previousPrimary = process.env.DEEPSEEK_API_KEY;
+  process.env.DEEPSEEK_API_KEY = 'test-primary';
+  try {
+    const { default: handler } = await import('../../api/grade-summary.js');
+    const res = fakeRes();
+    await withFetch(async () => new Response(JSON.stringify({ choices: [{ message: { content: '{"totalScore":2,"scores":{}}' } }] }), {
+      headers: { 'content-type': 'application/json' },
+    }), () => handler(gradeReq(), res));
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body._meta.model, 'deepseek-v4-flash');
+  } finally {
+    if (old === undefined) delete process.env.ANTHROPIC_API_KEY; else process.env.ANTHROPIC_API_KEY = old;
+    if (previousPrimary === undefined) delete process.env.DEEPSEEK_API_KEY; else process.env.DEEPSEEK_API_KEY = previousPrimary;
+  }
+});
+
+test('the grading client deadline covers a stalled response body too', async () => {
+  const { gradeWithAI } = await import('../../src/lib/ai-grade.js');
+  const originalTimeout = globalThis.setTimeout;
+  globalThis.setTimeout = (fn, ms, ...args) => originalTimeout(fn, ms === 60000 ? 5 : ms, ...args);
+  try {
+    const result = await withFetch(async (_url, options) => ({
+      ok: true, status: 200,
+      json: () => new Promise((_resolve, reject) => options.signal.addEventListener('abort', () => reject(new DOMException('aborted', 'AbortError')), { once: true })),
+    }), () => gradeWithAI({ question: 'example', userAnswer: 'example' }));
+    assert.equal(result.ok, false);
+    assert.match(result.error, /หมดเวลา/);
+  } finally { globalThis.setTimeout = originalTimeout; }
 });
 
 // ── /api/library-file ───────────────────────────────────────────────

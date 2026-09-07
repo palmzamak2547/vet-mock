@@ -34,6 +34,7 @@ export default function Footer({ setView }) {
         <nav className="vmx-footer-col" aria-label="เกี่ยวกับ VetMock">
           <h2>เกี่ยวกับ</h2>
           <button type="button" className="vmx-footer-link" onClick={() => handleNav('about')}>เกี่ยวกับเรา</button>
+          <button type="button" className="vmx-footer-link" onClick={() => handleNav('privacy')}>ข้อมูลและความเป็นส่วนตัว</button>
           <button type="button" className="vmx-footer-link" onClick={() => handleNav('landing')}>หน้าแนะนำ</button>
           <a href="/blog/">บทความ</a>
           <button type="button" className="vmx-footer-link" onClick={() => handleNav('feedback')}>แจ้งปัญหา</button>

@@ -19,7 +19,7 @@ import {
   deleteNote,
   formatTimestamp,
 } from '../lib/video-notes.js';
-import { confirmDialog } from '../lib/dialog.js';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
 export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
   const [notes, setNotes] = useState(() => (videoId ? loadNotes(videoId) : []));
@@ -105,7 +105,10 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
   const saveCompose = () => {
     const text = composeText.trim();
     if (!text) { cancelCompose(); return; }
-    addNote(videoId, composeT, text);
+    if (!addNote(videoId, composeT, text)) {
+      alertDialog('บันทึกโน้ตไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม ข้อความยังอยู่ในช่องนี้เพื่อให้คัดลอกหรือลองใหม่');
+      return;
+    }
     setNotes(loadNotes(videoId));
     setComposing(false);
     setComposeText('');
@@ -127,14 +130,20 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
       cancelEdit();
       return;
     }
-    updateNote(videoId, editingId, text);
+    if (!updateNote(videoId, editingId, text)) {
+      alertDialog('บันทึกการแก้ไขไม่สำเร็จ ข้อความยังอยู่ในช่องนี้ กรุณาลองใหม่');
+      return;
+    }
     setNotes(loadNotes(videoId));
     cancelEdit();
   };
 
   const removeNote = async (id) => {
     if (!(await confirmDialog({ title: 'ลบโน้ตนี้?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
-    deleteNote(videoId, id);
+    if (!deleteNote(videoId, id)) {
+      alertDialog('ลบโน้ตไม่สำเร็จ กรุณาลองใหม่');
+      return;
+    }
     setNotes(loadNotes(videoId));
   };
 

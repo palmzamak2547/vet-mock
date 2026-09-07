@@ -8,6 +8,7 @@ import { flushSync } from 'react-dom';
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded } from './data/questions.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject } from './data/curriculum.js';
 import { useLocalStorage } from './hooks/useStorage.js';
+import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
@@ -22,7 +23,7 @@ import SyncStatusNotice from './components/SyncStatusNotice.jsx';
 import AuthRequiredState, { AuthUnavailableState } from './components/AuthRequiredState.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
-import { shuffle, isCorrect, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
+import { shuffle, isCorrect, downloadJSON, updateStreak, timeForQuestion, isWritingType, questionCategory as catOf } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
 import { isFlashcardCompatible } from './hooks/sr-filter.js';
 // Global stylesheet. 2026-05-27: converted from a JS template-literal
@@ -34,7 +35,8 @@ import './styles.css';
 import './styles-landing.css';
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
-import { saveExamResult } from './lib/api.js';
+import { useExamResultOutbox } from './hooks/useExamResultOutbox.js';
+import { createAttemptEntries } from './lib/study-events.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
@@ -231,6 +233,7 @@ const LibraryView = lazy(() => import('./views/LibraryView.jsx'));
 const KnowledgeView = lazy(() => import('./views/KnowledgeView.jsx'));
 const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx'));
 const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
+const PrivacyView = lazy(() => import('./views/PrivacyView.jsx'));
 const AccountSettingsView = lazy(() => import('./views/AccountSettingsView.jsx'));
 const OfflineGameView = lazy(() => import('./views/OfflineGameView.jsx'));
 // PomodoroView — Forest-style focus timer with a hatching-chick companion.
@@ -285,7 +288,7 @@ const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select',
 // Marketing/ecosystem links belong on destination pages, not after every
 // internal workflow. Keeping the footer off topic, notes, schedule and tool
 // views shortens those tasks without removing any top-level navigation.
-const FOOTER_VIEWS = new Set(['home', 'about']);
+const FOOTER_VIEWS = new Set(['home', 'about', 'privacy']);
 const AUTH_REQUIRED_VIEWS = new Set([
   'groups',
   'group-detail',
@@ -462,7 +465,7 @@ export default function App() {
   // ดูว่าคุณได้เท่าไหร่" banner so the receiver knows what to beat.
   const [challengeSender, setChallengeSender] = useState(() => readSenderInfoFromLocation());
   useEffect(() => {
-    if (sharedResolvedRef.current) return;
+    if (sharedResolvedRef.current || authLoading) return;
     let cancelled = false;
     let hasSharedSet = false;
     try {
@@ -491,9 +494,7 @@ export default function App() {
         .filter(Boolean);
       sharedResolvedRef.current = true;
       if (matched.length > 0) {
-        setQuestions(matched);
-        setAnswers({});
-        setCurrentIdx(0);
+        session.startNewSession(matched, timeForQuestion(matched[0], timePerQ));
         setView('exam');
       } else {
         // URL referenced Q IDs that no longer exist — drop to home
@@ -513,7 +514,7 @@ export default function App() {
     // setView/session setters are initialized later in the component but are
     // read only after this effect runs, once the full render has completed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [authLoading, user?.id]);
 
   // Realtime presence — mounted at App level so the WebSocket survives
   // every view navigation. (Was in HomeView previously, which caused
@@ -1055,6 +1056,7 @@ export default function App() {
   // exam starts or the user goes home.
   const finishingRef = useRef(false);
   const session = useExamSession({
+    ownerId: user?.id ?? null,
     view, useTimer, timePerQ,
     onFinish: useCallback(() => finishExamRef.current?.(), []),
   });
@@ -1064,6 +1066,7 @@ export default function App() {
     currentIdx, setCurrentIdx,
     timeLeft, setTimeLeft, questionDeadline,
     examStartTime, setExamStartTime,
+    sessionId: examSessionId, getQuestionTimes,
     currentQ, currentAnswer,
     answerCurrent, nextQ, prevQ, jumpToQ,
   } = session;
@@ -1117,6 +1120,16 @@ export default function App() {
   const [consent, setConsent] = useLocalStorage('vmx-consent', 'ask');
   const [consentPrefs, setConsentPrefs] = useLocalStorage('vmx-consent-prefs', { analytics: true, personal: true });
   const analyticsAllowed = consent === 'all' || (consent === 'custom' && !!consentPrefs.analytics);
+  const diagnosticView = useRef(view);
+  diagnosticView.current = view;
+  useEffect(() => {
+    if (!analyticsAllowed || IS_LOCAL_HOST) return;
+    let active = true, stop;
+    import('./lib/client-diagnostics.js').then(({ installClientDiagnostics }) => {
+      if (active) stop = installClientDiagnostics({ getView: () => diagnosticView.current });
+    }).catch(() => {});
+    return () => { active = false; stop?.(); };
+  }, [analyticsAllowed]);
   // Color palette — overlays on top of theme to recolor accent vars
   // (sage / gold). 'default' uses the original sage+gold; alternatives:
   // ocean / plum / cherry / mono / forest. Stored in localStorage so
@@ -1131,6 +1144,7 @@ export default function App() {
       customQuestions,
       streakData,
       readingChecklist,
+      pendingExamResults,
     },
     set: {
       bookmarks: setBookmarks,
@@ -1140,9 +1154,53 @@ export default function App() {
       customQuestions: setCustomQuestions,
       streakData: setStreakData,
       readingChecklist: setReadingChecklist,
+      pendingExamResults: setPendingExamResults,
     },
     sync: userDataSync,
+    change: changeUserData,
   } = useUserDataSync(user?.id ?? null);
+  const examResultSync = useExamResultOutbox(user?.id ?? null, pendingExamResults, setPendingExamResults);
+  const [examSaveError, setExamSaveError] = useState(null);
+  const [detailSaveError, setDetailSaveError] = useState(null);
+  const [detailsSaved, setDetailsSaved] = useState(false);
+  const eventContextRef = useRef(null);
+  eventContextRef.current = { owner: user?.id ?? null, sessionId: examSessionId };
+  const finishedEntriesRef = useRef(null);
+  const completedAtRef = useRef(null);
+  const localSaveFailedRef = useRef(false);
+  useEffect(() => {
+    setExamSaveError(null);
+    setDetailSaveError(null);
+    setDetailsSaved(false);
+    finishedEntriesRef.current = null;
+    completedAtRef.current = session.completedAt;
+    localSaveFailedRef.current = false;
+  }, [examSessionId, session.completedAt]);
+  useEffect(() => {
+    const owner = user?.id;
+    if (!owner) return undefined;
+    const sync = async (pull = false) => {
+      if (navigator.onLine !== false) (await import('./lib/study-event-sync.js')).syncStudyEvents(owner, { pull });
+    };
+    sync(true).catch(() => {});
+    const retry = () => sync().catch(() => {});
+    const timer = setInterval(retry, 30_000);
+    window.addEventListener('online', retry);
+    return () => { clearInterval(timer); window.removeEventListener('online', retry); };
+  }, [user?.id]);
+
+
+  const priorExamOwnerRef = useRef(user?.id ?? null);
+  useEffect(() => {
+    const owner = user?.id ?? null;
+    if (authLoading) return;
+    if (priorExamOwnerRef.current !== owner && questions.length) {
+      writeInflight();
+      session.resetSession();
+      setView('home');
+    }
+    priorExamOwnerRef.current = owner;
+  }, [user?.id, authLoading]);
 
   // Legacy reading progress used bare topic ids, which collide across
   // subjects (for example `nutrition`). Safely promote only globally unique
@@ -1226,14 +1284,14 @@ export default function App() {
     const snap = inflightRef.current;
     if (!snap) return;
     try {
-      window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify({ ...snap, savedAt: Date.now() }));
+      window.localStorage?.setItem(inflightExamKey(snap.ownerId), JSON.stringify({ ...snap, questionTimes: getQuestionTimes(), savedAt: Date.now() }));
       inflightWrittenAtRef.current = Date.now();
     } catch {}
-  }, []);
+  }, [getQuestionTimes]);
   useEffect(() => {
     if (view !== 'exam' || questions.length === 0) { inflightRef.current = null; return undefined; }
     inflightRef.current = {
-      questions, answers, currentIdx, questionDeadline, examStartTime,
+      questions, answers, currentIdx, questionDeadline, examStartTime, sessionId: examSessionId, ownerId: session.sessionOwner,
           // The settings that decide how this set is GRADED and SHOWN, not
           // just what is in it. Without them a resumed mock came back as
           // whatever mode happened to be after a reload — `mode` resets to
@@ -1247,7 +1305,7 @@ export default function App() {
     if (Date.now() - inflightWrittenAtRef.current >= 3000) { writeInflight(); return undefined; }
     const timer = setTimeout(writeInflight, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, writeInflight]);
+  }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, examSessionId, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, writeInflight]);
   useEffect(() => {
     const onHide = () => writeInflight();
     window.addEventListener('pagehide', onHide);
@@ -1270,23 +1328,27 @@ export default function App() {
     // something to resume, the guard fired and the resume card never
     // appeared for anyone. Gate on the view instead: skip only when we
     // booted straight into an exam (e.g. a ?qset= share link).
-    if (view === 'exam') return;
-    let raw;
-    try { raw = window.localStorage?.getItem('vmx-inflight-exam'); } catch {}
-    if (!raw) return;
+    setPendingResume(null);
+    if (view === 'exam' || authLoading) return;
     let saved;
-    try { saved = JSON.parse(raw); } catch { return; }
-    if (!saved?.questions?.length) return;
+    try {
+      saved = readOwnedExam(window.localStorage, user?.id ?? null);
+      if (!saved) {
+        if (readUnclaimedExam(window.localStorage)) setPendingResume({ legacy: true });
+        return;
+      }
+    } catch { return; }
     // A submitted set is kept only so a failed ResultsView chunk load stays
     // recoverable (see finishExam). It is finished work, so never offer it back
     // as something to resume.
-    if (saved.submitted) return;
+    if (saved.submitted && saved.localSaved && saved.detailsSaved) return;
     const ageMs = Date.now() - (saved.savedAt || 0);
-    if (ageMs > 6 * 60 * 60 * 1000) {
-      try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+    if (!saved.submitted && ageMs > 6 * 60 * 60 * 1000) {
+      try { window.localStorage?.removeItem(inflightExamKey(user?.id ?? null)); } catch {}
       return;
     }
     setPendingResume({
+      submitted: !!saved.submitted,
       qCount: saved.questions.length,
       answered: Object.keys(saved.answers || {}).length,
       // The timestamp, not a precomputed age: this is read once when the
@@ -1303,16 +1365,23 @@ export default function App() {
     // reached a Home screen with no resume card at all, and the promise was
     // only kept on their NEXT visit.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [view]);
+  }, [view, user?.id, authLoading]);
 
   // Handler triggered by the resume banner on HomeView.
-  const resumePendingExam = useCallback(() => {
-    let raw;
-    try { raw = window.localStorage?.getItem('vmx-inflight-exam'); } catch {}
-    if (!raw) { setPendingResume(null); return; }
+  const resumePendingExam = useCallback(async () => {
+    const owner = user?.id ?? null;
     let saved;
-    try { saved = JSON.parse(raw); } catch { setPendingResume(null); return; }
-    if (!session.primeFromSaved(saved)) { setPendingResume(null); return; }
+    try {
+      saved = readOwnedExam(window.localStorage, owner);
+      if (!saved && readUnclaimedExam(window.localStorage)) {
+        if (!(await confirmDialog({ title: 'ชุดที่ค้างไว้นี้เป็นของคุณหรือไม่?',
+          body: 'ชุดรุ่นก่อนยังไม่ระบุเจ้าของ กู้คืนเฉพาะเมื่อเป็นคำตอบของคุณ ข้อมูลจะผูกกับบัญชีหรือโหมดผู้เยี่ยมชมที่เปิดอยู่นี้',
+          confirmLabel: 'เป็นของฉัน กู้คืน', cancelLabel: 'ยังไม่กู้คืน' }))) return;
+        if (eventContextRef.current.owner !== owner) return;
+        saved = claimLegacyExam(window.localStorage, owner);
+      }
+    } catch { alertDialog('ยังเก็บการกู้คืนไม่ได้ กรุณาลองใหม่'); return; }
+    if (authLoading || !saved || !session.primeFromSaved(saved)) { setPendingResume(null); return; }
     // Put the session back the way it was graded, not the way the app boots.
     // Older records predate these fields; defaulting to 'exam' would be wrong
     // for a practice set, so only restore what was actually saved.
@@ -1324,16 +1393,15 @@ export default function App() {
     if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
     setPendingResume(null);
     finishingRef.current = false; // arm the finish latch for the resumed session
-    setView('exam');
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- session is stable across renders
-  }, []);
+    setView(saved.submitted ? 'results' : 'exam');
+  }, [user?.id, authLoading, session.primeFromSaved]);
 
   const dismissPendingExam = useCallback(() => {
-    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+    try { window.localStorage?.removeItem(inflightExamKey(user?.id ?? null)); } catch {}
     session.resetSession();
     setPendingResume(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- session is stable across renders
-  }, []);
+  }, [user?.id, session.resetSession]);
 
   // Shadow-start + timer-tick effects moved into useExamSession 2026-05-27.
   // Previously these lived inline here (~30 LOC of clock priming + tick
@@ -1762,8 +1830,13 @@ export default function App() {
   };
 
   const finishExam = async () => {
+    if (authLoading || session.sessionOwner !== (user?.id ?? null)) {
+      alertDialog('บัญชีเปลี่ยนระหว่างทำข้อสอบ กรุณากลับไปใช้บัญชีที่เริ่มชุดนี้');
+      return;
+    }
     if (finishingRef.current) return; // guard against timer+submit double-fire
     finishingRef.current = true;
+    setDetailsSaved(false);
     // Only count auto-graded questions in history/percentage —
     // writing Qs need self-grading and shouldn't penalize the
     // correctness percentage by always being marked wrong.
@@ -1776,21 +1849,61 @@ export default function App() {
     //   the subject→year curriculum map on every read.
     //   Q's own `year` is preferred (set in q-bank source); falls back
     //   to selectedYear when missing (legacy Qs / custom Qs).
-    const newEntries = autoQs.map((q) => ({
-      date: Date.now(),
-      questionId: q.id,
-      correct: isCorrect(q, answers[q.id]),
-      subject: q.subject,
-      year: q.year ?? selectedYear ?? null,
-      phase: selectedPhase ?? null,
-    }));
-    setHistory((h) => [...h, ...newEntries]);
+    const completedAt = completedAtRef.current ?? Date.now();
+    completedAtRef.current = completedAt;
+    const detailedEntries = createAttemptEntries({ questions: autoQs, answers, sessionId: examSessionId,
+      questionTimes: getQuestionTimes(), year: selectedYear, phase: selectedPhase, mode, now: completedAt });
+    let newEntries = detailedEntries.map(({ date, questionId, correct, subject, year, phase }) => ({ date, questionId, correct, subject, year, phase }));
+    const eventOwner = user?.id ?? null;
+    finishedEntriesRef.current = { owner: eventOwner, entries: newEntries, details: detailedEntries };
+    import('./lib/study-event-log.js').then(async ({ appendStudyEvents }) => {
+      const result = await appendStudyEvents(eventOwner, detailedEntries);
+      if (!result.ok && eventContextRef.current.owner === eventOwner && eventContextRef.current.sessionId === examSessionId) {
+        setDetailSaveError('รายละเอียดคำตอบยังเก็บถาวรไม่ได้ กรุณาสำรองรายละเอียดชุดนี้ก่อนปิดหน้า');
+      }
+      if (result.ok) {
+        markExamDetailsSaved(window.localStorage, eventOwner, examSessionId);
+        if (eventContextRef.current.owner === eventOwner && eventContextRef.current.sessionId === examSessionId) setDetailsSaved(true);
+        if (eventOwner) (await import('./lib/study-event-sync.js')).syncStudyEvents(eventOwner);
+      }
+    }).catch(() => {
+      if (eventContextRef.current.owner === eventOwner && eventContextRef.current.sessionId === examSessionId) {
+        setDetailSaveError('ยังบันทึกรายละเอียดคำตอบไม่ได้ กรุณาสำรองรายละเอียดชุดนี้ก่อนปิดหน้า');
+      }
+    });
+    const years = new Set(autoQs.map(q => q.year ?? yearForSubject(q.subject) ?? selectedYear));
+    const runResult = user && autoQs.length ? {
+      id: examSessionId, user_id: user.id, mode, subject,
+      total: autoQs.length, correct, pct: Math.round(correct / autoQs.length * 100),
+      duration_sec: examStartTime ? Math.max(0, Math.round((completedAt - examStartTime) / 1000)) : 0,
+      year: years.size === 1 ? [...years][0] : null, phase: selectedPhase ?? null,
+      question_ids: autoQs.map(q => q.id),
+      answers: Object.fromEntries(autoQs.map(q => [q.id, answers[q.id] ?? null])),
+      question_versions: Object.fromEntries(detailedEntries.map(entry => [entry.questionId, entry.questionVersion])),
+    } : null;
+    let savedStreak = null;
+    const saved = changeUserData(current => {
+      const identity = entry => `${entry.date}:${entry.subject || ''}:${entry.questionId}`;
+      const known = new Set(current.history.map(identity));
+      newEntries = newEntries.filter(entry => !known.has(identity(entry)));
+      const patch = { history: [...current.history, ...newEntries] };
+      if (newEntries.length) {
+        savedStreak = updateStreak(current.streakData.lastDate, current.streakData.streak, current.streakData.freezeUsedAt);
+        patch.streakData = savedStreak;
+        if (runResult && !current.pendingExamResults.some(entry => entry.id === runResult.id)) {
+          patch.pendingExamResults = [...current.pendingExamResults, runResult];
+        }
+      }
+      return patch;
+    });
+    localSaveFailedRef.current = !saved.accepted;
+    setExamSaveError(saved.accepted ? null : 'ยังบันทึกผลชุดนี้ในเครื่องไม่ได้ กรุณาลองใหม่หรือดาวน์โหลดข้อมูลสำรองก่อนออก');
+    if (!saved.accepted) newEntries = [];
 
     // Streak counts DAYS THE USER ACTUALLY PRACTISED, so it moves here (a
     // finished set with graded answers) rather than when a set is opened.
     if (newEntries.length > 0) {
-      const newStreak = updateStreak(streakData.lastDate, streakData.streak, streakData.freezeUsedAt);
-      setStreakData(newStreak);
+      const newStreak = savedStreak;
       // Streak-freeze used → flash a one-time toast so the user knows
       // their streak survived a skipped day. (UI surface in HomeView.)
       if (newStreak.freezeJustUsed) {
@@ -1859,35 +1972,6 @@ export default function App() {
       }));
     } catch {}
 
-    if (user) {
-      const pct = autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0;
-      const duration = examStartTime ? Math.round((Date.now() - examStartTime) / 1000) : 0;
-      // Year/phase from selectedYear/Phase (data-layer audit 2026-05-18).
-      // Mock that crosses years (subject='all' or mixed) sends year=null
-      // so the leaderboard can show it under "ทั้งหมด" tab but not in
-      // year-specific tabs. saveExamResult RPC accepts these as nullable.
-      const resolvedYear = (() => {
-        // If single-subject mock, prefer the subject's curriculum year
-        // for correctness even when selectedYear differs (e.g. user
-        // browsing Y5 but exam is from Y4 VCA add-on).
-        if (subject && subject !== 'all') {
-          const ySubj = yearForSubject(subject);
-          if (Number.isFinite(ySubj)) return ySubj;
-        }
-        return selectedYear ?? null;
-      })();
-      saveExamResult({
-        user_id: user.id,
-        mode,
-        subject,
-        total: autoQs.length,
-        correct,
-        pct,
-        duration_sec: duration,
-        year: resolvedYear,
-        phase: selectedPhase ?? null,
-      }).catch(() => {});
-    }
     // We used to clear `vmx-inflight-exam` here, but that left
     // submitted exams unrecoverable if the ResultsView chunk failed
     // to load (deploy mid-session 404, slow network, etc). Now we
@@ -1896,13 +1980,13 @@ export default function App() {
     // does its own clear once it has actually mounted with score in
     // hand (see ResultsView's `useEffect` cleanup).
     try {
-      const raw = window.localStorage?.getItem('vmx-inflight-exam');
-      if (raw) {
-        const obj = JSON.parse(raw);
-        obj.submitted = true;
-        obj.submittedAt = Date.now();
-        window.localStorage?.setItem('vmx-inflight-exam', JSON.stringify(obj));
-      }
+      window.localStorage?.setItem(inflightExamKey(eventOwner), JSON.stringify({
+        questions, answers, currentIdx, questionDeadline, examStartTime, sessionId: examSessionId,
+        ownerId: eventOwner, questionTimes: getQuestionTimes(), mode, practiceMode, useTimer, timePerQ,
+        selectedYear, selectedPhase, submitted: true, submittedAt: completedAt,
+        localSaved: saved.accepted, detailsSaved: false, savedAt: Date.now(),
+      }));
+      inflightRef.current = null;
     } catch {}
     setView('results');
   };
@@ -1913,6 +1997,50 @@ export default function App() {
   // stable; only its `.current` changes. The hook reads via callback
   // closure at fire time, so it always sees the latest finishExam.
   finishExamRef.current = finishExam;
+  useEffect(() => {
+    if (view === 'results' && session.completedAt && !finishedEntriesRef.current && !authLoading
+      && session.sessionOwner === (user?.id ?? null)) {
+      finishingRef.current = false;
+      finishExamRef.current?.();
+    }
+  }, [view, session.completedAt, examSessionId, authLoading, user?.id]);
+  const retryFinishedSave = () => {
+    if (!localSaveFailedRef.current || finishedEntriesRef.current?.owner !== (user?.id ?? null)) return;
+    finishingRef.current = false;
+    finishExam();
+  };
+  const exportFinishedRecovery = async () => {
+    const finished = finishedEntriesRef.current;
+    if (!finished || finished.owner !== (user?.id ?? null)) return;
+    const identity = entry => `${entry.date}:${entry.subject || ''}:${entry.questionId}`;
+    const entries = new Map(history.map(entry => [identity(entry), entry]));
+    for (const entry of finished.entries) entries.set(identity(entry), entry);
+    downloadJSON({ version: '5.2', exportDate: new Date().toISOString(), bookmarks, history: [...entries.values()],
+      notes, srCards, streakData, customQuestions, readingChecklist }, `vetmock-recovery-${Date.now()}.json`);
+  };
+  const retryDetails = async () => {
+    const finished = finishedEntriesRef.current;
+    if (!finished || finished.owner !== (user?.id ?? null)) return;
+    try {
+      const { appendStudyEvents } = await import('./lib/study-event-log.js');
+      const result = await appendStudyEvents(finished.owner, finished.details);
+      if (result.ok && eventContextRef.current.owner === finished.owner) {
+        setDetailSaveError(null);
+        setDetailsSaved(true);
+        markExamDetailsSaved(window.localStorage, finished.owner, examSessionId);
+        if (finished.owner) (await import('./lib/study-event-sync.js')).syncStudyEvents(finished.owner);
+      }
+    } catch {}
+  };
+  const examSaveStatus = { ...examResultSync, owner: user?.id ?? null, sessionId: examSessionId,
+    committed: !!finishedEntriesRef.current && !localSaveFailedRef.current && detailsSaved, retryDetails, localError: examSaveError,
+    detailError: detailSaveError, retryLocal: retryFinishedSave, exportRecovery: exportFinishedRecovery,
+    exportDetails: () => {
+      const finished = finishedEntriesRef.current;
+      if (finished?.owner === (user?.id ?? null)) downloadJSON({ format: 'vetmock-study-events-v1', events: finished.details }, `vetmock-session-${examSessionId}.json`);
+    },
+  };
+
 
   const toggleBookmark = (qId) => setBookmarks((bk) => bk.includes(qId) ? bk.filter((x) => x !== qId) : [...bk, qId]);
   // Notes are the one field a user edits a character at a time, and every
@@ -2077,8 +2205,12 @@ export default function App() {
 
   const handleSignOut = async () => {
     if (!(await confirmDialog({ title: 'ออกจากระบบ?', confirmLabel: 'ออกจากระบบ' }))) return;
-    await signOut();
-    goHome();
+    try {
+      await signOut();
+      goHome();
+    } catch {
+      alertDialog('ออกจากระบบไม่สำเร็จ กรุณาตรวจการเชื่อมต่อแล้วลองใหม่');
+    }
   };
 
   // Safety net for the removed Mock demo-stub: if stale browser history
@@ -2415,14 +2547,15 @@ export default function App() {
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
-              {view === 'sr-session' && <SRSessionView {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, onOpenWiki: openWiki }} />}
-              {view === 'dashboard' && <DashboardView {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase }} />}
+              {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, onOpenWiki: openWiki }} />}
+              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} />}
+              {view === 'privacy' && <PrivacyView {...{ goHome, setView, consent, analyticsAllowed }} onConsent={(choice, prefs) => { setConsent(choice); if (prefs) setConsentPrefs(prefs); }} />}
               {view === 'about' && <AboutView {...{ goHome, setView }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
@@ -2430,15 +2563,17 @@ export default function App() {
               {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
-              {view === 'account-settings' && user && <AccountSettingsView {...{ user, goHome, onSignedOut: goHome }} />}
+              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
-              {view === 'race' && user && <RaceView goHome={goHome} setView={setView} user={user} profile={profile} />}
+              {view === 'race' && user && <RaceView key={user?.id ?? 'guest'} goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
               {view === 'atlas' && <AtlasView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} theme={theme} onToggleTheme={() => setTheme(current => current === 'dark' ? 'light' : 'dark')} />}
               {view === 'library' && <LibraryView goHome={goHome} selectedYear={selectedYear} onOpenDoc={(doc) => { setLibraryDoc(doc); setView('pdf-annotate'); }} />}
               {view === 'pdf-annotate' && (
                 <PdfAnnotateView
+                  key={user?.id || 'guest'}
+                  ownerId={user?.id || null}
                   goHome={goHome}
                   initialDoc={libraryDoc}
                   onExit={libraryDoc ? () => { setLibraryDoc(null); setView('library'); } : null}
@@ -2562,7 +2697,7 @@ export default function App() {
           (or was never asked, e.g. deep-linked past the landing, where
           we default to the prior always-on behaviour to avoid silently
           dropping the existing signal for returning users). */}
-      {(analyticsAllowed || consent === 'ask') && !IS_LOCAL_HOST && (
+      {analyticsAllowed && !IS_LOCAL_HOST && (
         <Suspense fallback={null}>
           <Analytics />
           <SpeedInsights />

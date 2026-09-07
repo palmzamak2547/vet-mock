@@ -4,6 +4,7 @@ import {
   createBrowserLifecycle,
   createEmptyUserData,
   createUserDataSync,
+  USER_DATA_FIELDS,
 } from '../lib/user-data-sync.js';
 
 function browserStorage() {
@@ -63,20 +64,18 @@ export function useUserDataSync(userId) {
     store.send({ type: 'SESSION_CHANGED', userId: principalId });
   }, [store, principalId]);
 
-  const setters = useMemo(() => ({
-    bookmarks: setterFor(store, 'bookmarks', principalId),
-    history: setterFor(store, 'history', principalId),
-    notes: setterFor(store, 'notes', principalId),
-    srCards: setterFor(store, 'srCards', principalId),
-    customQuestions: setterFor(store, 'customQuestions', principalId),
-    streakData: setterFor(store, 'streakData', principalId),
-    readingChecklist: setterFor(store, 'readingChecklist', principalId),
-  }), [store, principalId]);
+  const setters = useMemo(() => Object.fromEntries(Object.keys(USER_DATA_FIELDS)
+    .map(field => [field, setterFor(store, field, principalId)])), [store, principalId]);
 
   const retry = useMemo(
     () => () => store.send({ type: 'REFRESH_REQUESTED' }),
     [store],
   );
+  // One command owns the complete backup patch. A rejected local write must
+  // leave every field unchanged, rather than applying half an import.
+  const change = useMemo(() => patch => store.send({
+    type: 'CHANGE', principalId, derive: current => typeof patch === 'function' ? patch(current) : patch,
+  }), [store, principalId]);
   const emptyData = useMemo(() => createEmptyUserData(), []);
   const isCurrentPrincipal = snapshot.principalId === principalId;
   const visibleSync = isCurrentPrincipal
@@ -92,6 +91,7 @@ export function useUserDataSync(userId) {
   return {
     data: isCurrentPrincipal ? snapshot.data : emptyData,
     set: setters,
+    change,
     sync: { ...visibleSync, retry },
   };
 }

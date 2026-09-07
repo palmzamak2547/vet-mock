@@ -13,6 +13,7 @@ const VIEW_TO_PATH = Object.freeze({
   scores: '/app/course-scores',
   videos: '/app/videos',
   about: '/app/about',
+  privacy: '/app/privacy',
   feedback: '/app/feedback',
   'ig-cards': '/app/tools/cards',
   'year-select': '/app/year',

@@ -39,27 +39,9 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { timeForQuestion, isWritingType } from './utils.js';
 import { confirmDialog } from '../lib/dialog.js';
+import { inflightExamKey, isOwnedExam } from '../lib/exam-recovery.js';
 import { secondsUntilDeadline } from '../lib/exam-clock.js';
-
-// localStorage init helpers — preserve the in-flight resume behavior
-// that App.jsx used to do inline (Three useState(() => { ... }) blocks).
-function _loadInflight() {
-  try {
-    // A share link (?qset=) is a new set by definition. Hydrating the parked
-    // exam under it painted the OLD exam's first question until the shared
-    // set resolved, and primed the clock against that question — so the
-    // shared set's own first question then started with the wrong time left.
-    if (/[?&]qset=/.test(window.location?.search || '')) return null;
-    const raw = window.localStorage?.getItem('vmx-inflight-exam');
-    if (raw) {
-      const saved = JSON.parse(raw);
-      if (!Array.isArray(saved?.questions) || !saved.questions.length) return null;
-      if (saved.questions.some((q) => !q || q.id == null || typeof q.q !== 'string')) return null;
-      return saved;
-    }
-  } catch {}
-  return null;
-}
+import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/study-events.js';
 
 /**
  * @param {object} params
@@ -72,9 +54,15 @@ function _loadInflight() {
  *                                            question. App.jsx wraps its
  *                                            real finishExam via ref.
  */
-export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
+export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = null }) {
   // ── State (with localStorage hydration for in-flight resume) ────────
-  const [initialSaved] = useState(_loadInflight);
+  const [initialSaved] = useState(null);
+  const [sessionId, setSessionId] = useState(() => validSessionId(initialSaved?.sessionId) ? initialSaved.sessionId : newStudySessionId());
+  const [sessionOwner, setSessionOwner] = useState(ownerId);
+  const [completedAt, setCompletedAt] = useState(null);
+  const timingRef = useRef(null);
+  if (!timingRef.current) timingRef.current = createQuestionTiming(initialSaved?.questionTimes);
+  const getQuestionTimes = useCallback(() => timingRef.current.snapshot(), []);
   const [questions, setQuestions] = useState(() => initialSaved?.questions || []);
   const [answers, setAnswers] = useState(() => initialSaved?.answers || {});
   const [currentIdx, setCurrentIdx] = useState(() => (
@@ -93,6 +81,15 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
   const positionRef = useRef(null);
   positionRef.current = { questions, currentIdx, view };
 
+  const timedQuestionId = view === 'exam' ? questions[currentIdx]?.id : null;
+  useEffect(() => {
+    const timer = timingRef.current;
+    timer.enter(timedQuestionId, document.visibilityState !== 'hidden');
+    const onVisibility = () => timer.visibility(document.visibilityState !== 'hidden');
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => { timer.stop(); document.removeEventListener('visibilitychange', onVisibility); };
+  }, [timedQuestionId, sessionId]);
+
   // ── Shadow-start clock ──────────────────────────────────────────────
   // When entering view='exam' via a share-link (?qset=) the normal
   // startExam() never ran, so timeLeft + examStartTime stay at their
@@ -102,9 +99,10 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     if (view !== 'exam') return;
     if (questions.length === 0) return;
     if (examStartTime !== null) return;
+    setSessionOwner(ownerId);
     setExamStartTime(Date.now());
     setTimeLeft(timeForQuestion(questions[currentIdx], timePerQ));
-  }, [view, questions, currentIdx, timePerQ, examStartTime]);
+  }, [view, questions, currentIdx, timePerQ, examStartTime, ownerId]);
 
   // ── Timer tick ──────────────────────────────────────────────────────
   // Reconciles with wall time. On time-up: advance to next Q
@@ -201,31 +199,44 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
   // view transition + disabling useTimer for the redo round.
   const replayQuestions = useCallback((qs) => {
     if (!Array.isArray(qs) || qs.length === 0) return;
+    timingRef.current.reset();
+    setSessionOwner(ownerId);
+    setCompletedAt(null);
+    setSessionId(newStudySessionId());
     // Same hygiene as resetSession — drop in-flight marker so reload
     // behaves predictably during the replay round.
-    try { window.localStorage?.removeItem('vmx-inflight-exam'); } catch {}
+    try { window.localStorage?.removeItem(inflightExamKey(ownerId)); } catch {}
     setQuestions(qs);
     setAnswers({});
     setCurrentIdx(0);
     setExamStartTime(Date.now());
     setTimeLeft(0);
-  }, []);
+  }, [ownerId]);
 
   // ── Lifecycle helpers (App.jsx calls these from startExam/goHome) ───
 
   /** Called by App.startExam after the pool is built + picked. */
   const startNewSession = useCallback((picked, firstTime) => {
+    timingRef.current.reset();
+    setSessionOwner(ownerId);
+    setCompletedAt(null);
+    setSessionId(newStudySessionId());
     setQuestions(picked);
     setAnswers({});
     setCurrentIdx(0);
     setTimeLeft(firstTime);
     setExamStartTime(Date.now());
-  }, []);
+  }, [ownerId]);
 
   /** Called by App.resumePendingExam to rehydrate from localStorage. */
   const primeFromSaved = useCallback((saved) => {
+    if (!isOwnedExam(saved, ownerId)) return false;
     if (!Array.isArray(saved?.questions) || !saved.questions.length) return false;
     if (saved.questions.some((q) => !q || q.id == null || typeof q.q !== 'string')) return false;
+    setSessionOwner(ownerId);
+    setCompletedAt(saved.submitted && Number.isFinite(saved.submittedAt) ? saved.submittedAt : null);
+    timingRef.current.reset(saved.questionTimes);
+    setSessionId(validSessionId(saved.sessionId) ? saved.sessionId : newStudySessionId());
     const index = Number.isInteger(saved.currentIdx) && saved.currentIdx >= 0
       && saved.currentIdx < saved.questions.length ? saved.currentIdx : 0;
     setQuestions(saved.questions);
@@ -239,16 +250,20 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
       setTimeLeft(timeForQuestion(saved.questions[index], saved.timePerQ ?? timePerQ));
     }
     return true;
-  }, [setTimeLeft, timePerQ]);
+  }, [setTimeLeft, timePerQ, ownerId]);
 
   /** Called by App.goHome / App.dismissPendingExam to clear runtime state. */
   const resetSession = useCallback(() => {
+    timingRef.current.reset();
+    setSessionOwner(ownerId);
+    setCompletedAt(null);
+    setSessionId(newStudySessionId());
     setQuestions([]);
     setAnswers({});
     setCurrentIdx(0);
     setExamStartTime(null);
     setTimeLeft(0);
-  }, []);
+  }, [ownerId]);
 
   // ── Derived ─────────────────────────────────────────────────────────
   const currentQ = questions[currentIdx];
@@ -262,6 +277,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish }) {
     timeLeft, setTimeLeft,
     questionDeadline,
     examStartTime, setExamStartTime,
+    sessionId, getQuestionTimes, sessionOwner, completedAt,
     // Derived
     currentQ, currentAnswer,
     // Actions

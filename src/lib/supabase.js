@@ -175,7 +175,8 @@ export async function signInWithGoogle() {
 export async function signOut() {
   const supabase = await getSupabase();
   if (!supabase) return;
-  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
   notifyAuthChanged();
 }
 
@@ -241,9 +242,11 @@ export async function updatePassword(newPassword, nonce) {
 
 /** Can this browser do passkeys at all? Cheap, synchronous, no SDK load. */
 export function isPasskeySupported() {
+  const policy = typeof document !== 'undefined' ? (document.permissionsPolicy || document.featurePolicy) : null;
   return typeof window !== 'undefined'
     && typeof window.PublicKeyCredential === 'function'
-    && !!navigator?.credentials;
+    && typeof navigator !== 'undefined' && !!navigator.credentials
+    && policy?.allowsFeature?.('publickey-credentials-get') !== false;
 }
 
 /** Register a passkey for the signed-in user. Requires an existing confirmed,
@@ -333,7 +336,8 @@ export async function resendVerificationEmail(email) {
 export async function signOutAllDevices() {
   const supabase = await getSupabase();
   if (!supabase) return;
-  await supabase.auth.signOut({ scope: 'global' });
+  const { error } = await supabase.auth.signOut({ scope: 'global' });
+  if (error) throw error;
   notifyAuthChanged();
 }
 
@@ -382,14 +386,20 @@ export async function deleteAccountData() {
         'content-type': 'application/json',
       },
     });
-    report = await res.json().catch(() => null);
+    report = await res.json();
     if (!res.ok) {
       throw new Error(report?.error || `delete-account returned ${res.status}`);
+    }
+    if (!report || typeof report.ok !== 'boolean' || !Array.isArray(report.errors)
+      || !report.deleted || typeof report.deleted !== 'object'
+      || (!report.ok && report.errors.length === 0)) {
+      throw new Error('ผลการลบไม่ครบ จึงยังยืนยันสถานะไม่ได้');
     }
   } catch (e) {
     // Network failure / function error → return diagnostic so the UI
     // can show the user something actionable. Don't silently signOut
-    // in this case because their data is still intact + recoverable.
+    // in this case: the server may already have deleted data before the
+    // connection or response body failed. The outcome is unknown.
     return { ok: false, errors: [{ table: '__network__', error: e?.message || String(e) }] };
   }
 

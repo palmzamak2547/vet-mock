@@ -1,12 +1,12 @@
 // ============================================================
 // /api/grade-summary.js — AI grading for short-answer + essay Qs
 // ============================================================
-// Calls Anthropic Claude API to grade student writing against the
+// Uses the configured shared provider chain to grade student writing against the
 // rubric and model answer. Returns structured JSON the frontend
 // can render as a per-criterion score breakdown.
 //
 // Env vars required (set in Vercel Dashboard → Settings → Env):
-//   ANTHROPIC_API_KEY = sk-ant-...
+//   DEEPSEEK_API_KEY or ANTHROPIC_API_KEY (server-side only)
 //
 // Optional:
 //   AI_GRADER_MODEL = claude-sonnet-4-5-20250929 (default)
@@ -15,12 +15,12 @@
 //   • Origin-aware CORS (same-origin auto-allow + static allowlist)
 //   • Rate limit: 20 / hour / IP — generous for studying but bounded
 //   • Input length capped (passage 20k, answer 5k)
-//   • Returns 503 if ANTHROPIC_API_KEY isn't set so the UI can fall
+//   • Returns 503 if no provider is configured so the UI can fall
 //     back to self-grade gracefully
 // ============================================================
 
-import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { extractJSON } from './_lib/llm.js';
+import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { extractJSON, chatJSON, llmConfigured } from './_lib/llm.js';
 
 const MAX_PASSAGE = 20000;
 const MAX_ANSWER = 5000;
@@ -28,7 +28,6 @@ const MAX_MODEL = 8000;
 const MAX_RUBRIC = 4000;
 const MAX_QUESTION = 2000;
 
-const DEFAULT_MODEL = 'claude-sonnet-4-5-20250929';
 // Bounded so a stalled upstream ends as a clean 504 with a hint, instead of
 // the platform's generic timeout page the client cannot explain.
 const UPSTREAM_TIMEOUT_MS = 45_000;
@@ -55,16 +54,12 @@ export default async function handler(req, res) {
   // ── Rate limit: 20/hr/IP ──
   const ip = clientIP(req);
   const rl = await rateLimit(`grade:${ip}`, 20, 60 * 60 * 1000);
-  if (!rl.ok) {
-    res.setHeader('Retry-After', String(rl.retryAfter));
-    return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });
-  }
+  if (!rl.ok) return sendRateLimitFailure(res, rl);
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
+  if (!llmConfigured(process.env)) {
     return res.status(503).json({
       error: 'AI grading not configured',
-      hint: 'ANTHROPIC_API_KEY is not set in Vercel environment. Falling back to self-grade.',
+      hint: 'ใช้การประเมินตามเกณฑ์ด้วยตนเองได้ในระหว่างนี้',
     });
   }
 
@@ -88,9 +83,10 @@ export default async function handler(req, res) {
     }
 
     // A per-IP limit does not stop distributed quota burn. Keep one shared
-    // daily ceiling for both Anthropic-backed VetMock routes; on exhaustion
+    // daily ceiling shared with the other metered study routes; on exhaustion
     // the UI already falls back to self-grade / normal VetWiki reading.
-    const providerBudget = await rateLimit('provider:anthropic:daily', 1000, 24 * 60 * 60 * 1000);
+    const providerBudget = await rateLimit('provider:llm:daily', 600, 24 * 60 * 60 * 1000);
+    if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
       return res.status(503).json({
@@ -106,34 +102,19 @@ export default async function handler(req, res) {
 
     const userPrompt = buildUserPrompt({ passage, question, userAnswer, modelAnswer, rubric, type });
 
-    // Call Anthropic API
-    const aiResp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-      headers: {
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: process.env.AI_GRADER_MODEL || DEFAULT_MODEL,
-        max_tokens: 1500,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userPrompt }],
-      }),
+    // Use the same configured provider chain as the other study tools. An
+    // absent optional provider must not disable a working configured one.
+    const reply = await chatJSON({
+      system: systemPrompt, user: userPrompt, maxTokens: 1500,
+      timeoutMs: UPSTREAM_TIMEOUT_MS,
     });
-
-    if (!aiResp.ok) {
-      const errText = await aiResp.text();
-      console.error('Anthropic API error:', aiResp.status, errText);
-      return res.status(502).json({
-        error: `AI service error (${aiResp.status})`,
-        hint: 'Try again in a moment, or use self-grade.',
+    if (!reply.ok) {
+      return res.status(reply.status === 504 ? 504 : 502).json({
+        error: reply.status === 504 ? 'Automatic grading timed out' : 'Automatic grading unavailable',
+        hint: 'ลองอีกครั้งภายหลัง หรือประเมินตามเกณฑ์ด้วยตนเอง',
       });
     }
-
-    const aiData = await aiResp.json();
-    const aiText = aiData?.content?.[0]?.text || '';
+    const aiText = reply.text;
 
     // The model wraps the object in prose or a ```json fence, and sometimes
     // appends junk after it. A greedy `{...}` match ran from the first brace
@@ -151,7 +132,7 @@ export default async function handler(req, res) {
 
     // Tag with metadata for the UI
     grading._meta = {
-      model: process.env.AI_GRADER_MODEL || DEFAULT_MODEL,
+      model: reply.model,
       gradedAt: new Date().toISOString(),
       type,
       wordCount: userAnswer.trim().split(/\s+/).length,

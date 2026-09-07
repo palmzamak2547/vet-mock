@@ -15,29 +15,14 @@
 
 name: Smoke e2e
 
+# Every production input must produce the check required by Vercel, including
+# API, build-script and configuration-only changes. A path-filtered check can
+# otherwise leave a deployment waiting for a check that will never run.
 on:
   push:
     branches: [main]
-    paths:
-      - 'src/**'
-      - 'public/**'
-      - 'index.html'
-      - 'vite.config.js'
-      - 'playwright.config.js'
-      - 'tests/e2e/**'
-      - 'tests/helpers/**'
-      - 'scripts/check-ci-graphics.mjs'
-      - '.github/workflows/smoke-e2e.yml'
-      - 'package.json'
-      - 'package-lock.json'
   pull_request:
-    paths:
-      - 'src/**'
-      - 'tests/e2e/**'
-      - 'tests/helpers/**'
-      - 'scripts/check-ci-graphics.mjs'
-      - '.github/workflows/smoke-e2e.yml'
-      - 'playwright.config.js'
+    branches: [main]
 
 jobs:
   smoke:

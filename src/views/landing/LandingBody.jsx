@@ -358,6 +358,7 @@ export default function LandingBody(p) {
               <p style={{ fontSize: 12.5, lineHeight: 1.55, color: 'var(--clr-ink-soft)', maxWidth: '46ch', margin: 0 }}>{t.footIndependent}</p>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 28px' }}>
+              <a href="/app/privacy" style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>ข้อมูลและความเป็นส่วนตัว</a>
               {t.footLinks.map((l) => <a key={l.label} href={l.href} style={{ fontSize: 13.5, color: 'var(--clr-ink-soft)' }}>{l.label}</a>)}
             </div>
           </div>

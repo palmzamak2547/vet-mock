@@ -8,7 +8,7 @@
 // client (same trust shape as wiki-explain's citations). The client shows
 // the validated plan and the STUDENT confirms before anything runs.
 
-import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 import { chatJSON, extractJSON, llmConfigured, hasCJK } from './_lib/llm.js';
 import { buildCatalog, validateAction } from './_lib/agent-actions.js';
 
@@ -63,10 +63,7 @@ export default async function handler(req, res) {
 
   const ip = clientIP(req);
   const rl = await rateLimit(`agent-action:${ip}`, 30, 60 * 60 * 1000);
-  if (!rl.ok) {
-    res.setHeader('Retry-After', String(rl.retryAfter));
-    return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });
-  }
+  if (!rl.ok) return sendRateLimitFailure(res, rl);
   if (!llmConfigured()) {
     return res.status(503).json({ error: 'Agent not configured' });
   }
@@ -76,6 +73,8 @@ export default async function handler(req, res) {
     if (!utterance) return res.status(400).json({ error: 'utterance is required' });
 
     const providerBudget = await rateLimit('provider:llm:daily', 600, 24 * 60 * 60 * 1000);
+
+    if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
       return res.status(503).json({ error: 'AI daily capacity reached', reason: 'budget' });

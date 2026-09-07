@@ -61,6 +61,23 @@ const DB_VERSION = 1;
 const STORE = 'docs';
 const LEGACY_KEY = 'vmx-pdf-annotations';
 
+// The document hash identifies bytes, not the person who wrote on them.
+// Keep the existing store/schema so older builds can still read legacy work;
+// new records use a qualified key and retain their logical document hash.
+export function annotationKey(hash, ownerId = null) {
+  return `owner:${encodeURIComponent(ownerId || 'guest')}:${hash}`;
+}
+
+function storedRecord(rec, ownerId) {
+  return { ...rec, hash: annotationKey(rec.hash, ownerId), docHash: rec.hash, ownerId: ownerId || null };
+}
+
+function publicRecord(rec, ownerId) {
+  if (!rec?.docHash || rec.ownerId !== (ownerId || null)
+    || rec.hash !== annotationKey(rec.docHash, ownerId)) return null;
+  return ensureIds({ ...rec, hash: rec.docHash });
+}
+
 // Coordinates are stored to 4 decimals. On the widest canvas this reader ever
 // paints (~2600 device pixels) that is a quarter of a pixel — invisible — and
 // it cuts a stored point from ~38 bytes to ~15. Precision beyond what can be
@@ -102,18 +119,17 @@ export function newStrokeId() {
   return `${deviceId()}-${Date.now().toString(36)}${_seq.toString(36)}`;
 }
 
-// Tombstones are ids, about a dozen bytes each. Ten thousand deletions is
-// ~150 KB, so they are kept rather than garbage-collected — pruning them is
-// what would break convergence, because a device that has been offline still
-// holds the stroke a prune would forget to suppress. The cap exists only so a
-// pathological session cannot grow without bound; it drops the OLDEST
-// tombstones, which are the ones every device has long since seen.
-const MAX_TOMBSTONES = 20000;
+// Tombstones cannot be discarded merely because they are old: another offline
+// device may still hold the erased stroke. Oversized sync records stay local
+// with an explicit warning instead of resurrecting previously deleted work.
 
 /** Union of strokes by id, minus the union of tombstones. Order-independent. */
 export function mergeRecords(a, b) {
   if (!a) return b;
   if (!b) return a;
+  if (a.ownerId !== undefined && b.ownerId !== undefined && a.ownerId !== b.ownerId) {
+    throw new Error('Cannot merge annotations from different accounts');
+  }
   const deleted = new Set([...(a.deleted || []), ...(b.deleted || [])]);
   const pages = new Set([
     ...Object.keys(a.strokesByPage || {}),
@@ -133,10 +149,12 @@ export function mergeRecords(a, b) {
   const tombs = [...deleted];
   return {
     hash: a.hash || b.hash,
+    ...(a.ownerId !== undefined ? { ownerId: a.ownerId }
+      : b.ownerId !== undefined ? { ownerId: b.ownerId } : {}),
     fileName: a.fileName || b.fileName || 'untitled.pdf',
     pageCount: Math.max(a.pageCount || 0, b.pageCount || 0) || 1,
     strokesByPage,
-    deleted: tombs.length > MAX_TOMBSTONES ? tombs.slice(-MAX_TOMBSTONES) : tombs,
+    deleted: tombs,
     // The reading position is the one field where "most recent wins" is right:
     // it describes where a person is, not what they made.
     lastPage: (a.lastOpened || 0) >= (b.lastOpened || 0)
@@ -287,36 +305,79 @@ export async function hashFile(file) {
 
 /** Loads one document's record. READ ONLY — unlike the old version, opening a
  *  document never writes, so it can never evict anything. */
-export async function loadAnnotations(fileHash) {
+export async function loadAnnotations(fileHash, ownerId = null) {
   if (!fileHash) return null;
   await migrateLegacy().catch(() => {});
+  const key = annotationKey(fileHash, ownerId);
   try {
-    const raw = await tx('readonly', (s) => s.get(fileHash));
-    const rec = raw ? ensureIds({ deleted: [], ...raw }) : null;
-    if (rec) mirror.set(fileHash, rec);
+    const raw = await tx('readonly', (s) => s.get(key));
+    const rec = publicRecord(raw, ownerId);
+    if (rec) mirror.set(key, rec);
     return rec;
   } catch {
     idbUsable = false;
-    return mirror.get(fileHash) || null;
+    return mirror.get(key) || null;
   }
 }
 
 /** Synchronous read of whatever this session already knows. */
-export function peekAnnotations(fileHash) {
-  return mirror.get(fileHash) || null;
+export function peekAnnotations(fileHash, ownerId = null) {
+  return mirror.get(annotationKey(fileHash, ownerId)) || null;
+}
+
+// Legacy marks have no provable account owner. Never upload or merge them on
+// open. The reader offers an explicit recovery action after the file is picked.
+export async function loadLegacyAnnotations(fileHash, ownerId = null) {
+  if (!fileHash) return null;
+  await migrateLegacy().catch(() => {});
+  try {
+    const rec = await tx('readonly', s => s.get(fileHash));
+    if (!rec || rec.docHash || rec.claimedOwner !== undefined) return null;
+    return ensureIds(rec);
+  } catch { return null; }
+}
+
+export async function claimLegacyAnnotations(fileHash, ownerId = null) {
+  await migrateLegacy().catch(() => {});
+  const key = annotationKey(fileHash, ownerId);
+  let recovered = null;
+  try {
+    await tx('readwrite', store => {
+      const legacy = store.get(fileHash);
+      legacy.onsuccess = () => {
+        const rec = legacy.result;
+        if (!rec || rec.docHash || (rec.claimedOwner !== undefined && rec.claimedOwner !== (ownerId || null))) return;
+        const current = store.get(key);
+        current.onsuccess = () => {
+          recovered = { ...mergeRecords(ensureIds(rec), publicRecord(current.result, ownerId)), ownerId: ownerId || null };
+          store.put(storedRecord(recovered, ownerId));
+          // Preserve the original bytes for recovery, without offering them to
+          // the next account on this shared browser.
+          store.put({ ...rec, claimedOwner: ownerId || null });
+        };
+      };
+      return null;
+    });
+    if (!recovered) return { ok: false };
+    mirror.set(key, recovered);
+    return { ok: true, record: recovered };
+  } catch { return { ok: false }; }
 }
 
 /** Saves one document. Returns { ok, evicted } — `evicted` is always 0 now and
  *  kept so callers written against the old contract keep compiling; nothing is
  *  ever deleted to make room for something else again. */
-export async function saveAnnotations(fileHash, data) {
+export async function saveAnnotations(fileHash, data, ownerId = null) {
   if (!fileHash || !data) return { ok: false, evicted: 0 };
-  const prev = mirror.get(fileHash) || {};
+  if (data.ownerId !== undefined && data.ownerId !== (ownerId || null)) return { ok: false, evicted: 0 };
+  const key = annotationKey(fileHash, ownerId);
+  const prev = mirror.get(key) || {};
   // Field-by-field merge: a stroke autosave that carries no lastPage must not
   // erase the reading position, and the page tracker that carries no strokes
   // must not erase the strokes.
   const rec = {
     hash: fileHash,
+    ownerId: ownerId || null,
     fileName: data.fileName || prev.fileName || 'untitled.pdf',
     pageCount: data.pageCount || prev.pageCount || 1,
     strokesByPage: data.strokesByPage
@@ -326,83 +387,40 @@ export async function saveAnnotations(fileHash, data) {
     lastPage: Number.isFinite(data.lastPage) ? data.lastPage : (prev.lastPage ?? 1),
     lastOpened: Date.now(),
   };
-  mirror.set(fileHash, rec);
-  try {
-    // Merge against what is IN THE DATABASE, inside the same transaction —
-    // not against `mirror`, which is this tab's own memory.
-    //
-    // With two tabs open on the same document, tab B's mirror was populated
-    // when it opened, before tab A drew anything. B's autosave then put() a
-    // whole record built from that stale picture, and A's strokes were gone
-    // from storage while still on A's screen. Nobody sees it until the file
-    // is reopened, which is exactly when a student is counting on it.
-    //
-    // A union is safe because every removal path in the reader tombstones
-    // what it removes — eraser, undo, the double-tap trim and clear-page all
-    // call addTomb — and mergeRecords drops tombstoned ids.
-    // Rescue the pages this tab is not writing, from what is IN THE DATABASE,
-    // inside the same transaction — not from `mirror`, which is this tab's
-    // own memory.
-    //
-    // With two tabs open on the same document, tab B's mirror was populated
-    // when it opened, before tab A drew anything. B's autosave then put() a
-    // whole record built from that stale picture, and A's strokes were gone
-    // from storage while still on A's screen. Nobody sees it until the file
-    // is reopened, which is exactly when a student is counting on it.
-    //
-    // Deliberately page-level, not stroke-level: a page this save carries is
-    // this tab's authoritative view of that page, so undo, the eraser and
-    // clear-page keep behaving exactly as they did. Only pages the incoming
-    // record says nothing about are taken from storage. Two tabs drawing on
-    // the SAME page at the same time is still last-writer-wins, which is the
-    // honest limit of a merge that has no per-stroke clock.
-    //
-    // The merged record is captured in a closure, not returned: an
-    // IDBRequest's `result` is read-only and assigning to it silently does
-    // nothing.
-    let merged = rec;
-    await tx('readwrite', (store) => {
-      const get = store.get(fileHash);
-      get.onsuccess = () => {
-        const stored = get.result;
-        if (stored?.strokesByPage) {
-          const pages = { ...rec.strokesByPage };
-          let rescued = false;
-          for (const [page, strokes] of Object.entries(stored.strokesByPage)) {
-            if (pages[page] === undefined && Array.isArray(strokes) && strokes.length) {
-              pages[page] = strokes;
-              rescued = true;
-            }
-          }
-          if (rescued) merged = { ...rec, strokesByPage: pages };
-        }
-        store.put(merged);
-      };
-      // Returning null keeps tx() from resolving with the get request.
-      return null;
-    });
-    mirror.set(fileHash, merged);
-    idbUsable = true;
-    return { ok: true, evicted: 0 };
-  } catch {
-    idbUsable = false;
-    return { ok: false, evicted: 0 };
-  }
+  return { ...(await writeMergedRecord(rec, ownerId)), evicted: 0 };
 }
 
-/** Writes a whole record as-is. Used by the sync layer after a merge, where
- *  the fields have already been reconciled and must not be merged again. */
-export async function putRecord(rec) {
-  if (!rec?.hash) return { ok: false };
-  mirror.set(rec.hash, rec);
+// Both an autosave and a remote pull reconcile against the latest durable
+// record in one transaction. A network response must never erase a stroke
+// committed by another tab while that response was in flight.
+async function writeMergedRecord(rec, ownerId) {
+  const key = annotationKey(rec.hash, ownerId);
+  const visible = mergeRecords(mirror.get(key), ensureIds(rec));
+  mirror.set(key, visible);
   try {
-    await tx('readwrite', (s) => s.put(rec));
+    let committed = visible;
+    await tx('readwrite', store => {
+      const get = store.get(key);
+      get.onsuccess = () => {
+        committed = mergeRecords(publicRecord(get.result, ownerId), visible);
+        store.put(storedRecord(committed, ownerId));
+      };
+      return null;
+    });
+    mirror.set(key, mergeRecords(mirror.get(key), committed));
     idbUsable = true;
-    return { ok: true };
+    return { ok: true, record: committed };
   } catch {
     idbUsable = false;
     return { ok: false };
   }
+}
+
+/** Reconcile a remote record without overwriting newer local work. */
+export async function putRecord(rec, ownerId = null) {
+  if (!rec?.hash) return { ok: false };
+  if (rec.ownerId !== undefined && rec.ownerId !== (ownerId || null)) return { ok: false };
+  return writeMergedRecord({ ...rec, ownerId: ownerId || null }, ownerId);
 }
 
 function packAll(byPage) {
@@ -413,15 +431,16 @@ function packAll(byPage) {
   return out;
 }
 
-export async function listRecentPdfs() {
+export async function listRecentPdfs(ownerId = null) {
   await migrateLegacy().catch(() => {});
   let all = [];
   try {
     all = await tx('readonly', (s) => s.getAll());
-    for (const r of all) mirror.set(r.hash, r);
+    all = all.map(r => publicRecord(r, ownerId)).filter(Boolean);
+    for (const r of all) mirror.set(annotationKey(r.hash, ownerId), r);
   } catch {
     idbUsable = false;
-    all = [...mirror.values()];
+    all = [...mirror.values()].filter(r => r.ownerId === (ownerId || null));
   }
   return all
     .map((v) => ({
@@ -436,19 +455,12 @@ export async function listRecentPdfs() {
     .sort((a, b) => b.lastOpened - a.lastOpened);
 }
 
-export async function deleteAnnotations(fileHash) {
+export async function deleteAnnotations(fileHash, ownerId = null) {
   if (!fileHash) return;
-  mirror.delete(fileHash);
-  try { await tx('readwrite', (s) => s.delete(fileHash)); } catch { idbUsable = false; }
-  // Drop it from the legacy blob too, or the next migration would resurrect
-  // a document the student deleted on purpose.
+  const key = annotationKey(fileHash, ownerId);
   try {
-    const raw = window.localStorage.getItem(LEGACY_KEY);
-    if (!raw) return;
-    const legacy = JSON.parse(raw);
-    if (legacy && legacy[fileHash]) {
-      delete legacy[fileHash];
-      window.localStorage.setItem(LEGACY_KEY, JSON.stringify(legacy));
-    }
-  } catch { /* legacy cleanup is best effort */ }
+    await tx('readwrite', (s) => s.delete(key));
+    mirror.delete(key);
+    return { ok: true };
+  } catch { idbUsable = false; return { ok: false }; }
 }

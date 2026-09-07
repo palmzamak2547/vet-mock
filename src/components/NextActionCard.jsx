@@ -4,6 +4,7 @@
 
 import { useMemo, useState } from 'react';
 import ConfirmDialog from './ConfirmDialog.jsx';
+import { buildDailyPlan } from '../lib/daily-plan.js';
 import { fmtThaiDate } from '../data/schedule.js';
 
 export default function NextActionCard({
@@ -24,8 +25,10 @@ export default function NextActionCard({
   onPickWeakSubject,
   onPickRandom,
   onOpenSchedule,
+  onPickPlannedPractice,
 }) {
   const [confirmDiscard, setConfirmDiscard] = useState(false);
+  const [minutes, setMinutes] = useState(30);
 
   const actions = useMemo(() => {
     const out = [];
@@ -44,15 +47,15 @@ export default function NextActionCard({
           ? `${mins} นาทีที่แล้ว`
           : `${Math.round(mins / 60)} ชั่วโมงที่แล้ว`;
       out.push({
-        title: 'ทำต่อจากครั้งล่าสุด',
-        sub: `ตอบไปแล้ว ${pendingResume.answered}/${pendingResume.qCount} ข้อ (${timeAgo})`,
-        cta: 'ทำต่อ',
+        title: pendingResume.legacy ? 'พบชุดค้างจากรุ่นก่อน' : pendingResume.submitted ? 'กู้ผลชุดที่ยังบันทึกไม่สำเร็จ' : 'ทำต่อจากครั้งล่าสุด',
+        sub: pendingResume.legacy ? 'ยืนยันเจ้าของก่อนเปิดคำตอบและกู้คืน' : `ตอบไปแล้ว ${pendingResume.answered}/${pendingResume.qCount} ข้อ (${timeAgo})`,
+        cta: pendingResume.legacy ? 'ตรวจแล้วกู้คืน' : pendingResume.submitted ? 'กู้ผลชุดนี้' : 'ทำต่อ',
         kind: 'resume',
         onClick: () => onPickResume?.(),
         // Escape hatch — a user who wants a clean start could not drop the
         // in-flight set from here (the discard action existed in App but its
         // only UI was dead-coded in HomeView).
-        secondary: onDismissResume ? { label: 'ไม่ทำต่อ', title: 'ลบชุดที่ค้างไว้ แล้วเริ่มใหม่' } : null,
+        secondary: !pendingResume.legacy && onDismissResume ? { label: 'ไม่ทำต่อ', title: 'ลบชุดที่ค้างไว้ แล้วเริ่มใหม่' } : null,
       });
     }
 
@@ -78,7 +81,6 @@ export default function NextActionCard({
     // Priority 2: SR cards due
     if (
       cardStats?.due >= 5
-      && cardStats.due <= 100
       && Array.isArray(history)
       && history.length >= 10
     ) {
@@ -140,8 +142,23 @@ export default function NextActionCard({
       });
     }
 
-    return out.slice(0, 3);
-  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickPanic, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom]);
+    if (pendingResume) return out.slice(0, 1);
+    const weak = Object.entries(accBySubject || {}).filter(([, a]) => a.total >= 5)
+      .sort((a, b) => a[1].correct / a[1].total - b[1].correct / b[1].total)[0];
+    const plan = buildDailyPlan({ minutes, due: cardStats?.due, wrong: quickStats?.wrongCount,
+      exam: !!(nextExam?.daysLeft >= 0 && nextExam.daysLeft <= 7 && nextExam.subject), weakSubject: weak?.[0] });
+    return plan.steps.map(step => ({ kind: step.kind, cta: 'เริ่มฝึก',
+      title: step.kind === 'sr' ? `ทบทวนตามรอบ ${step.count} ข้อ`
+        : step.kind === 'wrong' ? `ทบทวนข้อผิด ${step.count} ข้อ`
+        : step.kind === 'exam' ? `เตรียม ${nextExam.subject_name || nextExam.title || 'วิชาที่ใกล้สอบ'} ${step.count} ข้อ`
+        : step.kind === 'weak' ? `ฝึก ${subjects?.find(s => s.id === step.subject)?.name || step.subject} ${step.count} ข้อ`
+        : `ฝึกโจทย์ ${step.count} ข้อ`,
+      sub: `เผื่อเวลาประมาณ ${step.minutes} นาที รวมดูเฉลย`,
+      onClick: () => step.kind === 'sr' ? onPickSR?.(step.count)
+        : step.kind === 'wrong' ? onPickWrong?.(step.count)
+        : onPickPlannedPractice?.(step.kind === 'exam' ? nextExam.subject : step.kind === 'weak' ? step.subject : 'all', step.count),
+    }));
+  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickPanic, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom, minutes, onPickPlannedPractice]);
 
   if (actions.length === 0) return null;
 
@@ -205,7 +222,15 @@ export default function NextActionCard({
             ทำอะไรต่อดี
           </h2>
         </div>
-        <span className="vmx-next-actions-note">{guidanceNote}</span>
+        {pendingResume ? <span className="vmx-next-actions-note">{guidanceNote}</span> : (
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
+            วันนี้มีเวลา
+            <select id="vmx-daily-minutes" value={minutes} onChange={e => setMinutes(Number(e.target.value))}
+              style={{ minHeight: 44, padding: '4px 7px', borderRadius: 8, background: 'var(--clr-surface)', color: 'var(--clr-ink)' }}>
+              {[15, 30, 60].map(n => <option key={n} value={n}>{n} นาที</option>)}
+            </select>
+          </label>
+        )}
       </header>
 
       <div className={`vmx-next-actions-layout${showExamContext ? ' has-exam' : ''}`}>

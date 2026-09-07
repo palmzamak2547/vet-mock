@@ -147,7 +147,15 @@ export async function chatJSON({ system, user, maxTokens = 1200, timeoutMs = 25_
     }
     let last = { ok: false, status: 503 };
     for (const attempt of attempts) {
-      last = await attempt();
+      try {
+        last = await attempt();
+      } catch (err) {
+        if (ac.signal.aborted || err?.name === 'TimeoutError' || err?.name === 'AbortError') return { ok: false, status: 504 };
+        // Transport failures are provider failures too. Preserve the shared
+        // time budget while allowing the next configured provider to answer.
+        console.error('[llm] provider transport', cut(err?.message || err));
+        last = { ok: false, status: 502 };
+      }
       if (last.ok) return last;
       // 4xx that is not rate-limiting means the REQUEST is wrong — the next
       // provider gets a chance, but a retry of the same one would not help.

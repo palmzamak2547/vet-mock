@@ -27,7 +27,7 @@
 // ============================================================
 
 import { MsEdgeTTS, OUTPUT_FORMAT } from 'msedge-tts';
-import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 
 export const config = {
   runtime: 'nodejs',
@@ -85,10 +85,7 @@ export default async function handler(req, res) {
 
   // ── Rate limit ─────────────────────────────────────────────
   const limit = await rateLimit(`tts:${clientIP(req)}`, 60, 5 * 60_000);
-  if (!limit.ok) {
-    res.setHeader('Retry-After', String(limit.retryAfter));
-    return res.status(429).json({ error: 'rate limited', retryAfter: limit.retryAfter });
-  }
+  if (!limit.ok) return sendRateLimitFailure(res, limit);
 
   // ── Parse body ─────────────────────────────────────────────
   // Vercel's HTTP edge layer mangles non-ASCII bytes BEFORE reaching

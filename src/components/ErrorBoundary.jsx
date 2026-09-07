@@ -27,6 +27,7 @@ export default class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
+    try { window.dispatchEvent(new CustomEvent('vmx-render-error', { detail: { name: error?.name } })); } catch {}
     // Log to console in dev; could ship to an error service later.
     console.error('[ErrorBoundary]', error, info);
   }

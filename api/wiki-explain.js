@@ -27,7 +27,7 @@
 // instead of breaking.
 // ============================================================
 
-import { rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
 import { createHash } from 'node:crypto';
 
 import { chatJSON, extractJSON, llmConfigured, hasCJK } from './_lib/llm.js';
@@ -107,10 +107,7 @@ export default async function handler(req, res) {
 
   const ip = clientIP(req);
   const rl = await rateLimit(`wiki-explain:${ip}`, 20, 60 * 60 * 1000);
-  if (!rl.ok) {
-    res.setHeader('Retry-After', String(rl.retryAfter));
-    return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });
-  }
+  if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   if (!llmConfigured()) {
     // Degrade honestly — the wiki itself still works without the model.
@@ -169,6 +166,8 @@ export default async function handler(req, res) {
     }
 
     const providerBudget = await rateLimit('provider:llm:daily', 600, 24 * 60 * 60 * 1000);
+
+    if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
       // 'budget' vs 'not_configured' matter to the reader: one is "come back

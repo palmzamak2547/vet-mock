@@ -40,12 +40,9 @@ export async function gradeWithAI({
       signal: controller.signal,
     });
 
-    clearTimeout(timer);
-
     if (resp.status === 503) {
-      // AI not configured — let the UI suggest self-grade
       const data = await resp.json().catch(() => ({}));
-      return { ok: false, error: 'AI grading ยังไม่ได้ตั้งค่า', hint: data.hint };
+      return { ok: false, error: 'ตรวจคำตอบอัตโนมัติยังไม่พร้อม ลองใหม่ภายหลังหรือประเมินตามเกณฑ์ด้วยตัวเอง', hint: data.hint };
     }
 
     if (resp.status === 429) {
@@ -61,10 +58,11 @@ export async function gradeWithAI({
     const grading = await resp.json();
     return { ok: true, grading };
   } catch (err) {
-    clearTimeout(timer);
     if (err.name === 'AbortError') {
       return { ok: false, error: 'AI grading หมดเวลา — ลองใหม่ภายหลัง' };
     }
     return { ok: false, error: err.message || 'Network error' };
+  } finally {
+    clearTimeout(timer);
   }
 }

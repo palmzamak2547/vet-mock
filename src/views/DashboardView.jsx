@@ -1,9 +1,10 @@
-import { useMemo, useState, useEffect, lazy, Suspense } from 'react';
+import { useMemo, useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS, QB } from '../data/questions.js';
 import { downloadJSON, subjectText } from '../hooks/utils.js';
 import {
   describeBackupFields,
   parseUserBackup,
+  userDataPatchFromBackup,
   USER_DATA_IMPORT_MAX_BYTES,
 } from '../lib/user-data-schema.js';
 import BackBar from '../components/BackBar.jsx';
@@ -275,7 +276,11 @@ function WebVitalsPanel() {
   );
 }
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase }) {
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, restoreUserData, ownerId = null }) {
+  const [archiveBusy, setArchiveBusy] = useState(false);
+  const [eventArchiveParts, setEventArchiveParts] = useState([]);
+  const mountedRef = useRef(true);
+  useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
   // Year-scope toggle: 'current' restricts charts/heatmap/learning-curve
   // to the user's current year context; 'all' shows the lifetime view.
   // Persist user preference so they don't have to re-pick every visit.
@@ -370,7 +375,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const exportData = () => {
     const data = {
       exportDate: new Date().toISOString(),
-      version: '5.1',
+      version: '5.2',
       bookmarks,
       history,
       notes,
@@ -380,8 +385,41 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       // the real last-study/freeze timestamps instead of inventing "today".
       streakData: streakData || { streak, lastDate: null, freezeUsedAt: null },
       customQuestions,
+      readingChecklist,
     };
     downloadJSON(data, `vetmock-backup-${Date.now()}.json`);
+  };
+
+  const exportDetails = async () => {
+    setArchiveBusy(true);
+    try {
+      const [{ listStudyEvents }, { studyEventArchive }] = await Promise.all([
+        import('../lib/study-event-log.js'), import('../lib/study-event-archive.js'),
+      ]);
+      const events = await listStudyEvents(ownerId);
+      if (!mountedRef.current) return;
+      if (!events.length) { alertDialog('ยังไม่มีประวัติแบบละเอียดในเครื่องนี้ ประวัติรุ่นเดิมยังอยู่ในไฟล์สำรองข้อมูลหลัก'); return; }
+      const parts = [];
+      let chunk = [], bytes = 0;
+      for (const event of events) {
+        const size = new TextEncoder().encode(JSON.stringify(event)).byteLength;
+        if (chunk.length && (bytes + size > 10 * 1024 * 1024 || chunk.length >= 10000)) {
+          parts.push(studyEventArchive(chunk)); chunk = []; bytes = 0;
+        }
+        chunk.push(event); bytes += size;
+      }
+      if (chunk.length) parts.push(studyEventArchive(chunk));
+      if (parts.length === 1) downloadJSON(parts[0], `vetmock-study-events-${Date.now()}.json`);
+      else setEventArchiveParts(parts);
+    } catch { alertDialog('อ่านประวัติแบบละเอียดไม่สำเร็จ กรุณาลองใหม่'); }
+    finally { if (mountedRef.current) setArchiveBusy(false); }
+  };
+
+  const exportExtras = async () => {
+    try {
+      const { exportLocalExtras } = await import('../lib/local-extras.js');
+      downloadJSON(exportLocalExtras(), `vetmock-local-tools-${Date.now()}.json`);
+    } catch { alertDialog('อ่านข้อมูลเครื่องมือไม่ครบ ยังไม่สร้างไฟล์สำรอง กรุณาลองใหม่และอย่าเพิ่งล้างข้อมูลเว็บไซต์'); }
   };
 
   const importData = (e) => {
@@ -396,6 +434,29 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
     reader.onload = async (ev) => {
       try {
         const decoded = JSON.parse(ev.target.result);
+        if (!mountedRef.current) return;
+        if (decoded?.format === 'vetmock-study-events-v1') {
+          const { parseStudyEventArchive } = await import('../lib/study-event-archive.js');
+          const parsedEvents = parseStudyEventArchive(decoded);
+          if (!parsedEvents.success) { alertDialog(parsedEvents.reason); return; }
+          if (!(await confirmDialog({ title: 'นำเข้าประวัติแบบละเอียด?', body: `เพิ่ม ${parsedEvents.events.length} รายการให้บัญชีที่เปิดอยู่นี้ รายการเดิมที่มีรหัสเดียวกันจะคงเดิม`, confirmLabel: 'นำเข้า' })) || !mountedRef.current) return;
+          const { appendStudyEvents } = await import('../lib/study-event-log.js');
+          const result = await appendStudyEvents(ownerId, parsedEvents.events, { keepOnFailure: false });
+          alertDialog(result.ok ? 'นำเข้าประวัติแบบละเอียดแล้ว' : 'นำเข้าไม่สำเร็จ ข้อมูลเดิมยังอยู่ กรุณาลองใหม่');
+          if (result.ok && ownerId) (await import('../lib/study-event-sync.js')).syncStudyEvents(ownerId);
+          e.target.value = '';
+          return;
+        }
+        if (decoded?.format === 'vetmock-local-extras-v1') {
+          const { parseLocalExtras, restoreLocalExtras } = await import('../lib/local-extras.js');
+          const parsedExtras = parseLocalExtras(decoded);
+          if (!parsedExtras.success) { alertDialog(parsedExtras.reason); return; }
+          if (!(await confirmDialog({ title: 'นำเข้าข้อมูลเครื่องมือในเครื่อง?', body: `แทนที่: ${parsedExtras.labels.join(', ')} ข้อมูลส่วนนี้อยู่ในเบราว์เซอร์ ไม่ได้ย้ายตามบัญชี`, confirmLabel: 'นำเข้าและแทนที่', tone: 'danger' })) || !mountedRef.current) return;
+          const result = restoreLocalExtras(decoded);
+          alertDialog(result.ok ? 'นำเข้าข้อมูลเครื่องมือแล้ว' : result.reason);
+          e.target.value = '';
+          return;
+        }
         const parsed = parseUserBackup(decoded);
         if (!parsed.success) {
           alertDialog(`ไฟล์ backup ไม่ผ่านการตรวจสอบ\n\n${parsed.reason}\n\nข้อมูลในเครื่องยังไม่ถูกเปลี่ยน`);
@@ -411,24 +472,12 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           confirmLabel: 'นำเข้าและทับรายการนี้',
           tone: 'danger',
         });
-        if (accepted) {
-          const has = (field) => Object.prototype.hasOwnProperty.call(data, field);
-          // Presence checks (not truthiness) are intentional: an empty array
-          // in a backup means "restore as empty" and must be respected.
-          if (has('bookmarks')) setBookmarks(data.bookmarks);
-          if (has('history')) setHistory(data.history);
-          if (has('srCards')) setSrCards(data.srCards);
-          if (has('notes') && setNotes) setNotes(data.notes);
-          if (has('customQuestions') && setCustomQuestions) setCustomQuestions(data.customQuestions);
-          if (setStreakData) {
-            if (has('streakData')) {
-              const { freezeJustUsed: _transient, ...restoredStreak } = data.streakData;
-              setStreakData(restoredStreak);
-            } else if (has('streak')) {
-              // Legacy backups did not retain the last-study timestamp. Null is
-              // honest; setting Date.now() would falsely claim practice today.
-              setStreakData({ streak: data.streak, lastDate: null, freezeUsedAt: null });
-            }
+        if (accepted && mountedRef.current) {
+          const result = restoreUserData?.(userDataPatchFromBackup(data));
+          if (!result?.accepted) {
+            alertDialog('นำเข้าไม่สำเร็จ ข้อมูลเดิมยังไม่ถูกเปลี่ยน พื้นที่ในเครื่องอาจเต็มหรือบัญชีมีการเปลี่ยนแปลง กรุณาลองใหม่');
+            e.target.value = '';
+            return;
           }
           alertDialog('นำเข้าข้อมูลเรียบร้อยแล้ว หน้านี้อัปเดตทันที');
         }
@@ -702,33 +751,39 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       <div className="vmx-dash-card">
         <h2>สำรองและย้ายข้อมูล</h2>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
-          เก็บข้อที่บันทึกไว้ ประวัติ โน้ต และการ์ดทบทวนเป็นไฟล์ JSON — ก่อนนำเข้าระบบจะตรวจไฟล์และสรุปรายการที่จะเขียนทับ
+          ข้อมูลหลักรวมข้อที่บันทึก ประวัติ โน้ต การ์ดทบทวน และ checklist ส่วนประวัติรายละเอียดและเครื่องมือในเครื่องมีไฟล์สำรองแยก ก่อนนำเข้าระบบจะตรวจและสรุปรายการให้ยืนยัน
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportData}>ส่งออกไฟล์สำรอง</button>
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={archiveBusy} onClick={exportDetails}>{archiveBusy ? 'กำลังอ่านประวัติ…' : 'สำรองประวัติแบบละเอียด'}</button>
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportExtras}>สำรองเครื่องมือในเครื่อง</button>
           <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
             นำเข้าไฟล์สำรอง
             <input type="file" accept=".json" onChange={importData} style={{ display: 'none' }} />
           </label>
         </div>
+        {eventArchiveParts.length > 0 && <div style={{ marginTop: 12 }}>
+          <p>ข้อมูลมีหลายรายการ แยกไฟล์เพื่อให้นำเข้ากลับได้ กรุณาเก็บทุกส่วน</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{eventArchiveParts.map((part, index) => (
+            <button key={index} type="button" className="vmx-btn vmx-btn-ghost" onClick={() => downloadJSON(part, `vetmock-study-events-part-${index + 1}.json`)}>ส่วน {index + 1}, {part.events.length} รายการ</button>
+          ))}</div>
+        </div>}
+        <p style={{ marginTop: 12, fontSize: 13, color: 'var(--clr-ink-soft)' }}>เครื่องมือในเครื่องรวมโน้ตวิดีโอ Pinboard Flashcard/Cloze และชุดปิดภาพ รอยเขียน PDF ส่งออกพร้อมไฟล์ได้จากหน้าอ่าน PDF</p>
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 20 }}>
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
           if (await confirmDialog({
-            title: 'ล้างข้อมูลทั้งหมด?',
-            body: 'bookmarks, ประวัติการฝึก, โน้ต, SR cards และ streak จะหายหมด',
+            title: 'ล้างความคืบหน้าหลัก?',
+            body: 'ข้อที่บันทึก ประวัติการฝึก โน้ต การ์ดทบทวน checklist และ streak จะถูกล้าง ประวัติรายละเอียดและเครื่องมือในเครื่องเป็นข้อมูลแยก',
             note: 'กู้คืนไม่ได้ — ส่งออกไฟล์สำรองไว้ก่อนถ้ายังไม่แน่ใจ',
             confirmLabel: 'ล้างทั้งหมด',
             tone: 'danger',
           })) {
-            setHistory([]);
-            setBookmarks([]);
-            setSrCards({});
-            if (setNotes) setNotes({});
-            if (setStreakData) setStreakData({ streak: 0, lastDate: null });
+            const result = restoreUserData?.({ history: [], bookmarks: [], srCards: {}, notes: {}, readingChecklist: {}, streakData: { streak: 0, lastDate: null } });
+            if (!result?.accepted) alertDialog('ล้างข้อมูลไม่สำเร็จ ข้อมูลเดิมยังอยู่ กรุณาลองใหม่');
           }
-        }}>ล้างข้อมูลทั้งหมด</button>
+        }}>ล้างความคืบหน้าหลัก</button>
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

@@ -114,7 +114,7 @@ export const FEATURES = [
   {
     id: 'atlas', category: 'learn',
     label: 'Atlas สัตว์', labelEn: 'Veterinary Atlas', icon: '🦴',
-    hint: 'สำรวจและเปรียบเทียบกะโหลก 3D พร้อมแหล่งอ้างอิง',
+    hint: 'สำรวจโครงกระดูกและอวัยวะ 3D พร้อมขอบเขตและที่มา',
     kw: 'atlas anatomy กายวิภาค กระดูก skeleton skull 3d สุนัข canine ม้า equine เปรียบเทียบ',
     invoke: { kind: 'view', view: 'atlas' },
   },

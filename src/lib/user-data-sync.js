@@ -21,6 +21,10 @@ export const USER_DATA_FIELDS = Object.freeze({
     type: 'array',
     merge: 'append-array',
   },
+  pendingExamResults: {
+    localKey: 'vmx-pending-exam-results', remoteKey: null,
+    initial: [], type: 'array', merge: 'keyed-array',
+  },
   notes: {
     localKey: 'vmx-notes',
     remoteKey: 'notes',
@@ -51,7 +55,7 @@ export const USER_DATA_FIELDS = Object.freeze({
   },
   readingChecklist: {
     localKey: 'vmx-reading-checklist',
-    remoteKey: null,
+    remoteKey: 'reading_checklist',
     initial: {},
     type: 'object',
     merge: 'keyed-object',

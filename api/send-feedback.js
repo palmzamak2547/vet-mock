@@ -13,7 +13,7 @@
 //   • All HTML output escaped via escapeHtml()
 // ============================================================
 
-import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 
 const MAX_SUBJECT = 200;
 const MAX_MESSAGE = 5000;
@@ -55,10 +55,7 @@ export default async function handler(req, res) {
   // ── Rate limit: 3 / 10 minutes / IP ──
   const ip = clientIP(req);
   const rl = await rateLimit(`feedback:${ip}`, 3, 10 * 60 * 1000);
-  if (!rl.ok) {
-    res.setHeader('Retry-After', String(rl.retryAfter));
-    return res.status(429).json({ error: 'Too many requests', retryAfter: rl.retryAfter });
-  }
+  if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   try {
     const body = req.body || {};
@@ -93,6 +90,8 @@ export default async function handler(req, res) {
     }
 
     const providerBudget = await rateLimit('provider:resend:daily', 100, 24 * 60 * 60 * 1000);
+
+    if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
       // Distinct from the per-IP 3-per-10-minutes limit above: this one is

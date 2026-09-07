@@ -24,7 +24,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
-const SRC = readFileSync(join(resolve(process.cwd()), 'src/lib/supabase.js'), 'utf8');
+const SRC = readFileSync(join(resolve(process.cwd()), 'src/lib/supabase.js'), 'utf8').replace(/\r\n/g, '\n');
 
 function migrateBody() {
   const start = SRC.indexOf('export async function migrateLocalToCloud()');

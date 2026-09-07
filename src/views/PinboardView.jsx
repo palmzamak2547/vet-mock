@@ -17,7 +17,7 @@ import { useEffect, useMemo, useState, useCallback } from 'react';
 import { subjectText } from '../hooks/utils.js';
 import { loadPins, removePin, clearPinboard, PINBOARD_EVENT, PINBOARD_MAX } from '../lib/pinboard.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
-import { confirmDialog } from '../lib/dialog.js';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
 const TYPE_META = {
   question:  { label: 'ข้อสอบ',     icon: '❓', color: '#c26d6d' },
@@ -155,7 +155,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
       confirmLabel: 'ล้างทั้งหมด',
       tone: 'danger',
     });
-    if (ok) clearPinboard();
+    if (ok && !clearPinboard()) alertDialog('ล้าง Pinboard ไม่สำเร็จ ข้อมูลยังอยู่ กรุณาลองใหม่');
   }, [pins.length]);
 
   return (
@@ -333,7 +333,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                   <span style={{ flex: 1 }} />
                   <button
                     type="button"
-                    onClick={(e) => { e.stopPropagation(); removePin(pin.id); }}
+                    onClick={(e) => { e.stopPropagation(); if (!removePin(pin.id)) alertDialog('ลบพินไม่สำเร็จ กรุณาลองใหม่'); }}
                     aria-label="ลบพินนี้"
                     title="ลบพินนี้"
                     style={{

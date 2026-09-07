@@ -41,19 +41,23 @@ const rewritten = SRC.replace(/from '(\.[^']+)'/g, (_m, spec) => {
   if (spec === './supabase.js') return `from '${supabaseStub}'`;
   return `from '${pathToFileURL(resolve(dirname(API_PATH), spec)).href}'`;
 });
-const api = await import('data:text/javascript;base64,' + Buffer.from(rewritten).toString('base64'));
+const api = await import('data:text/javascript;base64,' + Buffer.from(rewritten + '\n//# sourceURL=api-under-test.mjs').toString('base64'));
 
 /** A Supabase client whose reads and inserts answer with what the test says. */
 function fakeClient({ select = { data: [], error: null }, insert = { error: null } } = {}) {
   const calls = { selects: 0, inserts: 0 };
   const client = {
     from() {
+      let result = select;
       const q = {
-        select() { calls.selects++; return q; },
+        select() { calls.selects++; result = select; return q; },
         eq() { return q; },
         order() { return q; },
-        limit() { return Promise.resolve(select); },
-        insert() { calls.inserts++; return Promise.resolve(insert); },
+        limit() { return q; },
+        abortSignal() { return q; },
+        maybeSingle() { return q; },
+        then(resolve, reject) { return Promise.resolve(result).then(resolve, reject); },
+        insert() { calls.inserts++; result = insert; return q; },
       };
       return q;
     },

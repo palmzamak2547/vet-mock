@@ -12,8 +12,8 @@ test('a resumed timer preserves its deadline and expires after a suspended inter
     if (!sessionStorage.getItem('clock-fixture')) {
       sessionStorage.setItem('clock-fixture', '1');
       const now = Date.now();
-      localStorage.setItem('vmx-inflight-exam', JSON.stringify({
-        questions: [{ id: 6006, subject: 'vca', type: 'mcq', q: 'ตรวจการคืนเวลาที่เหลือของข้อสอบ', options: ['A', 'B', 'C'], answer: 1, explain: 'ตัวอย่างสำหรับตรวจการทำงานของเวลา' }],
+      localStorage.setItem('vmx-inflight-exam:guest', JSON.stringify({
+        ownerId: null, questions: [{ id: 6006, subject: 'vca', type: 'mcq', q: 'ตรวจการคืนเวลาที่เหลือของข้อสอบ', options: ['A', 'B', 'C'], answer: 1, explain: 'ตัวอย่างสำหรับตรวจการทำงานของเวลา' }],
         answers: {}, currentIdx: 0, useTimer: true, timePerQ: 60,
         questionDeadline: now + 25_000, examStartTime: now - 35_000,
         savedAt: now, mode: 'exam', selectedYear: 4, selectedPhase: '2-final',

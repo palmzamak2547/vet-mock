@@ -38,7 +38,7 @@ import {
 import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
 
-export default function AccountSettingsView({ user, goHome, onSignedOut }) {
+export default function AccountSettingsView({ user, goHome, onSignedOut, coreData }) {
   const [section, setSection] = useState(null); // null | 'profile' | 'password' | 'email' | 'delete'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -112,36 +112,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
     reset();
     setLoading(true);
     try {
-      // Bundle local + cloud-mirrored state into a single JSON download
-      // — matches the data Cloud sync covers + local-only flags.
-      const read = (k) => {
-        try {
-          const raw = window.localStorage?.getItem(k);
-          return raw ? JSON.parse(raw) : null;
-        } catch { return null; }
-      };
-      const exportBlob = {
-        version: 1,
-        exported_at: new Date().toISOString(),
-        user: {
-          id: user.id,
-          email: user.email,
-          username: md.username,
-          metadata: md,
-        },
-        progress: {
-          bookmarks:        read('vmx-bookmarks') || [],
-          history:          read('vmx-history') || [],
-          notes:            read('vmx-notes') || {},
-          sr_cards:         read('vmx-sr-cards') || {},
-          custom_questions: read('vmx-custom-q') || [],
-          streak_data:      read('vmx-streak') || null,
-          reading_checklist: read('vmx-reading-checklist') || {},
-          selected_year:    read('vmx-selected-year'),
-          last_session:     read('vmx-last-session-config'),
-          theme:            read('vmx-theme'),
-        },
-      };
+      if (!coreData) throw new Error('ยังโหลดข้อมูลบัญชีไม่ครบ กรุณาลองใหม่');
+      const exportBlob = { version: '5.2', exportDate: new Date().toISOString(), ...coreData,
+        account: { id: user.id, email: user.email, username: md.username } };
       const blob = new Blob([JSON.stringify(exportBlob, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -151,7 +124,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      setInfo('✓ ดาวน์โหลด JSON เรียบร้อย — เปิดด้วย text editor หรือ import ที่ Question Manager ได้');
+      setInfo('✓ ดาวน์โหลดข้อมูลหลักของบัญชีแล้ว นำเข้าคืนได้ที่ Dashboard ส่วนเครื่องมือและลายมือ PDF ส่งออกแยกจากหน้าของแต่ละส่วน');
     } catch (err) {
       setError(thaiError(err, 'ส่งออกไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally { setLoading(false); }
@@ -300,7 +273,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut }) {
           .filter(([, v]) => v && v !== 0)
           .length;
         setError(networkOnly
-          ? 'ลบไม่สำเร็จ — ติดต่อเซิร์ฟเวอร์ไม่ได้ ข้อมูลของคุณยังอยู่ครบ โปรดลองใหม่อีกครั้ง'
+          ? 'ยังยืนยันผลการลบไม่ได้ เพราะการเชื่อมต่อขาดหาย ข้อมูลบางส่วนอาจถูกลบแล้ว กรุณาตรวจสถานะบัญชีหรือติดต่อทีมงานก่อนลองอีกครั้ง'
           : purged > 0
             ? 'ลบยังไม่เสร็จสมบูรณ์ — บัญชียังอยู่ แต่ข้อมูลบางส่วนถูกลบไปแล้ว กดลบอีกครั้งเพื่อให้เสร็จ หรือส่งเมลให้ทีมงานลบให้'
             : 'ลบไม่สำเร็จ — บัญชีและข้อมูลยังอยู่ โปรดลองใหม่ หรือส่งเมลให้ทีมงานลบให้');

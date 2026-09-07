@@ -28,22 +28,25 @@
 import { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
+import { confirmDialog } from '../lib/dialog.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import PdfPage from '../components/PdfPage.jsx';
 import { drawStroke, applyBrush, resetBrush, widthAt, strokeAsOnePath, redrawInk, tiltOf, inkDpr } from '../lib/ink.js';
 import {
   hashFile,
-  loadAnnotations,
-  saveAnnotations,
-  listRecentPdfs,
-  deleteAnnotations,
+  loadAnnotations as loadOwnedAnnotations,
+  saveAnnotations as saveOwnedAnnotations,
+  listRecentPdfs as listOwnedPdfs,
+  deleteAnnotations as deleteOwnedAnnotations,
+  loadLegacyAnnotations,
+  claimLegacyAnnotations,
   storageHealth,
   newStrokeId,
-  peekAnnotations,
+  peekAnnotations as peekOwnedAnnotations,
   mergeRecords,
 } from '../lib/pdf-annotations.js';
-import { pullAndMerge, schedulePush, flushPushes, onSyncState, syncState, subscribeLive } from '../lib/annotation-sync.js';
+import * as annotationSync from '../lib/annotation-sync.js';
 import { searchPages, pageTextFromItems } from '../lib/thai-search.js';
 import { fitShape, strokeHit } from '../lib/shape-fit.js';
 import { exportAnnotatedPdf, exportFileName, downloadBlob } from '../lib/pdf-export.js';
@@ -108,8 +111,25 @@ async function loadPdfjs() {
   return _pdfjsPromise;
 }
 
-export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = null }) {
+export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = null, ownerId = null }) {
+  // These closures retain the owner across async saves and unmount cleanup.
+  // App keys the reader by account, so another account never inherits its ink.
+  const { loadAnnotations, saveAnnotations, listRecentPdfs, deleteAnnotations, peekAnnotations,
+    pullAndMerge, schedulePush, flushPushes, onSyncState, syncState, subscribeLive } = useMemo(() => ({
+    loadAnnotations: hash => loadOwnedAnnotations(hash, ownerId),
+    saveAnnotations: (hash, data) => saveOwnedAnnotations(hash, data, ownerId),
+    listRecentPdfs: () => listOwnedPdfs(ownerId),
+    deleteAnnotations: hash => deleteOwnedAnnotations(hash, ownerId),
+    peekAnnotations: hash => peekOwnedAnnotations(hash, ownerId),
+    pullAndMerge: (hash, local) => annotationSync.pullAndMerge(hash, local, ownerId),
+    schedulePush: (hash, rec) => annotationSync.schedulePush(hash, rec, ownerId),
+    flushPushes: () => annotationSync.flushPushes(ownerId),
+    onSyncState: fn => annotationSync.onSyncState(fn, ownerId),
+    syncState: () => annotationSync.syncState(ownerId),
+    subscribeLive: (hash, fn) => annotationSync.subscribeLive(hash, fn, ownerId),
+  }), [ownerId]);
   const [pdfDoc, setPdfDoc] = useState(null);
+  const [legacyAvailable, setLegacyAvailable] = useState(false);
   const [fileHash, setFileHash] = useState(null);
   const [fileName, setFileName] = useState('');
   const [pageCount, setPageCount] = useState(0);
@@ -271,9 +291,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // instead of during render. Nothing depends on it being there immediately.
   const refreshRecent = useCallback(() => {
     listRecentPdfs().then(setRecent).catch(() => {});
-  }, []);
+  }, [listRecentPdfs]);
   useEffect(() => { refreshRecent(); }, [refreshRecent]);
-  useEffect(() => onSyncState(setSync), []);
+  useEffect(() => onSyncState(setSync), [onSyncState]);
 
   // ── Toast helper ───────────────────────────────────────────
   const showToast = useCallback((msg, ms = 2500) => {
@@ -310,6 +330,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const doc = await pdfjs.getDocument({ data: buf }).promise;
       const local = await loadAnnotations(hash);
       const existing = await pullAndMerge(hash, local);
+      setLegacyAvailable(Boolean(await loadLegacyAnnotations(hash, ownerId)));
       const restoredStrokes = existing?.strokesByPage || {};
       setDeleted(existing?.deleted || []);
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), doc.numPages);
@@ -415,6 +436,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // is a union, so a device that has been offline contributes rather than
       // overwrites; signed out this returns the local record untouched.
       const existing = await pullAndMerge(hash, local);
+      setLegacyAvailable(Boolean(await loadLegacyAnnotations(hash, ownerId)));
       const restoredStrokes = existing?.strokesByPage || {};
       setDeleted(existing?.deleted || []);
       // Resume where the reader left off — a 300-page textbook that always
@@ -1598,7 +1620,39 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   function removeRecent(hash, ev) {
     ev?.stopPropagation?.();
-    deleteAnnotations(hash).then(refreshRecent).catch(() => {});
+    deleteAnnotations(hash).then(result => {
+      if (result?.ok) refreshRecent();
+      else showToast('ลบลายเส้นในเครื่องไม่สำเร็จ กรุณาลองอีกครั้ง');
+    }).catch(() => showToast('ลบลายเส้นในเครื่องไม่สำเร็จ กรุณาลองอีกครั้ง'));
+  }
+
+  async function recoverLegacy() {
+    const hash = fileHash;
+    if (!(await confirmDialog({ title: 'นำเข้าลายเส้นเดิม?',
+      body: 'ทำต่อเฉพาะเมื่อเป็นงานของคุณ ลายเส้นจะรวมกับเอกสารของบัญชีที่เปิดอยู่นี้',
+      confirmLabel: 'ยืนยันว่าเป็นงานของฉันและนำเข้า' }))) return;
+    if (latestRef.current.fileHash !== hash) return;
+    clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = null;
+    const saved = await saveAnnotations(hash, latestRef.current);
+    if (!saved.ok) { showToast('ยังบันทึกลายเส้นปัจจุบันไม่ได้ กรุณาลองนำเข้าอีกครั้ง'); return; }
+    const result = await claimLegacyAnnotations(hash, ownerId);
+    if (!result.ok) { showToast('นำเข้าไม่สำเร็จ ลายเส้นต้นฉบับยังถูกเก็บไว้ กรุณาลองใหม่'); return; }
+    if (latestRef.current.fileHash !== hash) return;
+    // A slow IndexedDB transaction must not replace work drawn while recovery
+    // was in flight. Include current strokes/tombstones and replace any older
+    // pending autosave with this merged record, as pullLatest does.
+    const rec = mergeRecords(result.record, {
+      ...latestRef.current, hash, ownerId, lastPage: latestRef.current.currentPage, lastOpened: Date.now(),
+    });
+    latestRef.current = { ...latestRef.current, strokesByPage: rec.strokesByPage || {}, deleted: rec.deleted || [] };
+    setDeleted(rec.deleted || []);
+    setStrokesByPage(rec.strokesByPage || {});
+    currentStrokesRef.current = rec.strokesByPage?.[drawPageRef.current] || [];
+    setLegacyAvailable(false);
+    scheduleSave(rec.strokesByPage || {}, rec.deleted || []);
+    schedulePush(hash, rec);
+    showToast('นำเข้าลายเส้นเดิมแล้ว');
   }
 
   function backToEmpty() {
@@ -1817,6 +1871,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   return (
     <div ref={rootRef} className="vmx-reader" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
       <BackBar onBack={backToEmpty} label="เปลี่ยน PDF" subtitle={fileName} />
+      {legacyAvailable && (
+        <div role="status" style={{ padding: 12, background: 'var(--clr-surface)', color: 'var(--clr-ink)', fontSize: 14 }}>
+          <p style={{ margin: '0 0 8px' }}>พบลายเส้นรุ่นเก่าในเครื่องที่ยังไม่ได้ระบุเจ้าของ</p>
+          <button type="button" className="vmx-btn vmx-btn-ghost" onClick={recoverLegacy}>นำเข้าลายเส้นของฉัน</button>
+        </div>
+      )}
       {/* Toolbar — one row.
           It used to be a wall of labelled chips: 207 px tall on a phone, which
           with the search row put 264 px of chrome above an 812 px screen

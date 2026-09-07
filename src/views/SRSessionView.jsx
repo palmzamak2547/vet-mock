@@ -1,4 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
+import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../lib/study-events.js';
+import { alertDialog } from '../lib/dialog.js';
 import { QB, SUBJECTS } from '../data/questions.js';
 import { updateCard, initCard, getDueCards, getCardStats, previewInterval } from '../hooks/sm2.js';
 import { isFlashcardCompatible } from '../hooks/sr-filter.js';
@@ -34,7 +36,7 @@ import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 const SIZE_PRESETS = [25, 50, 100, 200];
 
-export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true, onOpenWiki = null }) {
+export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true, onOpenWiki = null, ownerId = null }) {
   // Merge in user-authored flashcards (from "Highlight → Flashcard"
   // in SummaryModal). They live in localStorage and don't trigger
   // React updates by themselves — we read on mount and let the
@@ -61,6 +63,18 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   const [showAnswer, setShowAnswer] = useState(false);
   const [reviewedCount, setReviewedCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
+  const [reviewSessionId, setReviewSessionId] = useState(newStudySessionId);
+  const timingRef = useRef(null);
+  if (!timingRef.current) timingRef.current = createQuestionTiming();
+  const gradedRef = useRef(null);
+  const activeQuestion = sessionCards?.[currentIdx]?.questionId;
+  useEffect(() => {
+    timingRef.current.enter(activeQuestion, document.visibilityState !== 'hidden');
+    const onVisibility = () => timingRef.current.visibility(document.visibilityState !== 'hidden');
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => { timingRef.current.stop(); document.removeEventListener('visibilitychange', onVisibility); };
+  }, [activeQuestion, reviewSessionId, currentIdx]);
+
 
   // Build filtered pool of due cards (most overdue first — getDueCards already sorts)
   // Also track how many questions were excluded for transparency.
@@ -133,6 +147,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   }, [allQuestions]);
 
   const startSession = () => {
+    timingRef.current.reset();
+    setReviewSessionId(newStudySessionId());
+    gradedRef.current = null;
     const cap = sessionSize === 'all' ? duePool.length : Math.min(sessionSize, duePool.length);
     setSessionCards(duePool.slice(0, cap));
     setCurrentIdx(0);
@@ -334,8 +351,23 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   const RELEARN_CAP = 2;
 
   const handleGrade = (quality) => {
-    const updated = updateCard(currentCard, quality);
-    setSrCards({ ...srCards, [currentCard.questionId]: updated });
+    const token = `${reviewSessionId}:${currentIdx}`;
+    if (gradedRef.current === token) return;
+    let event;
+    const result = setSrCards(current => {
+      const { _relearn: _runtime, ...before } = current[currentCard.questionId] || initCard(currentCard.questionId);
+      const updated = updateCard(before, quality);
+      event = createReviewEvent({ question: currentQ, quality, before, after: updated,
+        sessionId: reviewSessionId, elapsedMs: timingRef.current.snapshot()[currentQ.id] || 0 });
+      return { ...current, [currentCard.questionId]: updated };
+    });
+    if (result?.accepted === false) { alertDialog('บันทึกการทบทวนไม่สำเร็จ กรุณาลองใหม่ก่อนข้ามไปข้อถัดไป'); return; }
+    gradedRef.current = token;
+    if (event) import('../lib/study-event-log.js').then(async ({ appendStudyEvents }) => {
+      const saved = await appendStudyEvents(ownerId, [event]);
+      if (!saved.ok) alertDialog('บันทึกตารางทบทวนแล้ว แต่รายละเอียดรอบนี้ยังเก็บถาวรไม่ได้');
+      else if (ownerId) (await import('../lib/study-event-sync.js')).syncStudyEvents(ownerId);
+    }).catch(() => alertDialog('บันทึกตารางทบทวนแล้ว แต่รายละเอียดรอบนี้ยังเก็บถาวรไม่ได้'));
     if (quality >= 2) setCorrectCount(correctCount + 1);
     setReviewedCount(reviewedCount + 1);
     setShowAnswer(false);

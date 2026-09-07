@@ -18,7 +18,7 @@
 // Returns: { items: [{id, title}], count, source: 'api'|'rss', note? }
 // ============================================================
 
-import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 
 const YT_API = 'https://www.googleapis.com/youtube/v3/playlistItems';
 const YT_RSS = 'https://www.youtube.com/feeds/videos.xml';
@@ -50,13 +50,7 @@ export default async function handler(req, res) {
   // now clears a full page plus scrolling while still stopping a scripted flood.
   const ip = clientIP(req);
   const rl = await rateLimit(`playlist:${ip}`, 120, 60_000);
-  if (!rl.ok) {
-    res.setHeader('Retry-After', String(rl.retryAfter));
-    // Never cache a rate-limit answer: a cached 429 would lock out everyone
-    // sharing the CDN node for its lifetime.
-    res.setHeader('Cache-Control', 'no-store');
-    return res.status(429).json({ error: 'Too many requests', reason: 'rate_limited', retryAfter: rl.retryAfter });
-  }
+  if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   const rawId = Array.isArray(req.query?.id) ? req.query.id[0] : req.query?.id;
   const id = String(rawId || '').trim();
@@ -76,6 +70,7 @@ export default async function handler(req, res) {
     // /app/videos costs 41 — the budget died after ~6 visitors and every
     // playlist silently degraded to an empty RSS answer for the rest of the day.
     const providerBudget = await rateLimit('provider:youtube-data-api:daily', 2000, 24 * 60 * 60 * 1000);
+    if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (providerBudget.ok) {
       try {
         const items = await fromDataApi(id, apiKey);

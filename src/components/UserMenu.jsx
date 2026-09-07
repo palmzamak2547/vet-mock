@@ -11,7 +11,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
-import { confirmDialog } from '../lib/dialog.js';
 import NavIcon from './NavIcon.jsx';
 
 export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, onAccount }) {
@@ -119,7 +118,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
           <div style={{ height: 1, background: 'var(--clr-border)', margin: '4px 0' }} />
           <MenuItem icon="logout" danger onClick={async () => {
             setOpen(false);
-            if (await confirmDialog({ title: 'ออกจากระบบ?', confirmLabel: 'ออกจากระบบ' })) onLogout();
+            await onLogout();
           }}>ออกจากระบบ</MenuItem>
         </div>
       )}

@@ -5,7 +5,20 @@ import {
   describeBackupFields,
   parseCustomQuestion,
   parseUserBackup,
+  userDataPatchFromBackup,
 } from '../../src/lib/user-data-schema.js';
+
+test('backup patch preserves explicit empties, reading timestamps and legacy streak uncertainty', () => {
+  const input = { bookmarks: [], notes: {}, readingChecklist: { 'topic:s/t': 100, other: false }, streak: 3 };
+  const parsed = parseUserBackup(input);
+  assert.equal(parsed.success, true);
+  assert.deepEqual(userDataPatchFromBackup(parsed.data), {
+    bookmarks: [], notes: {}, readingChecklist: input.readingChecklist,
+    streakData: { streak: 3, lastDate: null, freezeUsedAt: null },
+  });
+  assert.equal(parseUserBackup({ readingChecklist: { bad: 'not-a-time' } }).success, false);
+  assert.equal(parseUserBackup(JSON.parse('{"readingChecklist":{"__proto__":true}}')).success, false);
+});
 
 test('custom question parser accepts every supported renderer contract', () => {
   const fixtures = [

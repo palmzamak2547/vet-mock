@@ -27,7 +27,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const APP = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+const APP = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
 function between(startMarker, endMarker) {
   const a = APP.indexOf(startMarker);

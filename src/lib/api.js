@@ -149,6 +149,7 @@ const _saveDedupeMap = new Map(); // key → { promise, ts }
 const SAVE_DEDUPE_WINDOW_MS = 5000;
 function _saveSignature(r) {
   if (!r || typeof r !== 'object') return null;
+  if (r.id) return `${r.user_id}|${r.id}`;
   return [
     r.user_id || '',
     r.mode || '',
@@ -166,7 +167,24 @@ function _purgeStaleSaves(now) {
 
 export async function saveExamResult(result) {
   const supabase = await getSupabase();
-  if (!supabase) return;
+  if (!supabase) throw new Error('ยังเชื่อมต่อบัญชีไม่ได้ ผลสอบยังรอส่งอยู่');
+  if (Array.isArray(result.question_ids)) {
+    const { data: { session } = {} } = await supabase.auth.getSession();
+    if (session?.user?.id !== result.user_id) throw new Error('กรุณาเข้าสู่บัญชีเดิมเพื่อส่งผลสอบ');
+    const response = await fetch('/api/exam-result', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+      body: JSON.stringify(result), signal: AbortSignal.timeout(30000),
+    });
+    const receipt = await response.json().catch(() => null);
+    if (!response.ok || receipt?.ok !== true || receipt.id !== result.id) {
+      const error = new Error(receipt?.error === 'result_conflict'
+        ? 'ชุดนี้ถูกส่งจากอีกแท็บด้วยคำตอบต่างกันแล้ว กรุณาสำรองผลชุดนี้'
+        : 'ผลสอบยังรอส่ง ระบบจะลองใหม่เมื่อเชื่อมต่อได้');
+      error.retryAfter = Number(receipt?.retryAfter) || 0;
+      throw error;
+    }
+    return receipt;
+  }
   const sig = _saveSignature(result);
   const now = Date.now();
   if (sig) {
@@ -179,7 +197,16 @@ export async function saveExamResult(result) {
     }
   }
   const promise = (async () => {
-    const { error } = await supabase.from('exam_results').insert(result);
+    const { question_ids: _ids, answers: _answers, question_versions: _versions, ...row } = result;
+    const { error } = await supabase.from('exam_results').insert(row).abortSignal(AbortSignal.timeout(15_000));
+    if (error?.code === '23505' && result.id) {
+      // An offline retry after a lost response must acknowledge the same run,
+      // not insert it twice or accept a colliding row belonging to someone else.
+      const { data, error: readError } = await supabase.from('exam_results')
+        .select('id,user_id,total,correct,pct').eq('id', result.id).eq('user_id', result.user_id)
+        .abortSignal(AbortSignal.timeout(15_000)).maybeSingle();
+      if (!readError && data && data.total === result.total && data.correct === result.correct && data.pct === result.pct) return;
+    }
     if (error) {
       // A refused insert must not resolve like a saved one, and it must
       // not sit in the dedupe window looking like an attempt that landed:
@@ -194,7 +221,11 @@ export async function saveExamResult(result) {
     }
   })();
   if (sig) _saveDedupeMap.set(sig, { promise, ts: now });
-  return promise;
+  try { return await promise; }
+  catch (error) {
+    if (sig && _saveDedupeMap.get(sig)?.promise === promise) _saveDedupeMap.delete(sig);
+    throw error;
+  }
 }
 
 /** Leaderboard query.
@@ -247,10 +278,11 @@ export async function getLeaderboard(opts = {}) {
     if (error) throw error;
     return data;
   }
-  const { data, error } = await supabase.rpc('get_global_leaderboard', {
+  const { data, error } = await supabase.rpc(opts.scoreSource ? 'get_leaderboard_by_source' : 'get_global_leaderboard', {
     p_year: Number.isFinite(year) ? year : null,
     p_phase: phase || null,
     p_limit: limit && limit > 0 ? limit : 200,
+    ...(opts.scoreSource ? { p_source: opts.scoreSource } : {}),
   });
   if (!error) return data || [];
   // No fallback here. The old one re-ran rlsQuery() with no group filter,

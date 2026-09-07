@@ -17,6 +17,7 @@ import {
 } from '../lib/supabase.js';
 
 import { thaiAuthError } from '../lib/auth-errors.js';
+import { STAY_SIGNED_IN_KEY } from '../lib/auth-storage.js';
 import {
   deriveUsernameFromEmail,
   sanitizeUsername,
@@ -467,6 +468,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
   return (
     <>
+      <p style={{ textAlign: 'center', fontSize: 13 }}><a href="/app/privacy">ข้อมูลที่จัดเก็บและความเป็นส่วนตัว</a></p>
       <div className="vmx-hero">
         <h1>{heading.title} <em>VetMock</em></h1>
         <p>{heading.sub}</p>

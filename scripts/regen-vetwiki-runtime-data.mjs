@@ -84,7 +84,7 @@ const extraRuntimeFiles = fs.existsSync(OUTPUT_DIR)
 
 if (checkOnly) {
   const stale = [...expected].filter(([file, content]) => {
-    try { return fs.readFileSync(file, 'utf8') !== content; } catch { return true; }
+    try { return fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n') !== content; } catch { return true; }
   });
   if (stale.length || extraRuntimeFiles.length) {
     const count = stale.length + extraRuntimeFiles.length;

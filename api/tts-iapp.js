@@ -28,7 +28,7 @@
 // proxy the original Content-Type header.
 // ============================================================
 
-import { rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
 
 export const config = {
   runtime: 'nodejs',
@@ -106,10 +106,7 @@ export default async function handler(req, res) {
   // 30/5min/IP = ≤1 call every 10 s on average per user — plenty for
   // ExamView Q-by-Q reading.
   const limit = await rateLimit(`tts-iapp:${clientIP(req)}`, 30, 5 * 60_000);
-  if (!limit.ok) {
-    res.setHeader('Retry-After', String(limit.retryAfter));
-    return res.status(429).json({ error: 'rate limited', retryAfter: limit.retryAfter });
-  }
+  if (!limit.ok) return sendRateLimitFailure(res, limit);
 
   // ── Parse body (same b64 sentinel trick as /api/tts) ───────
   // Vercel edge HTTP layer mangles non-ASCII bytes upstream of any
@@ -156,6 +153,7 @@ export default async function handler(req, res) {
   // Protect the shared Thai-voice quota even when callers rotate IPs. A 503
   // intentionally tells the client dispatcher to continue to Edge TTS.
   const providerBudget = await rateLimit('provider:iapp:daily', 200, 24 * 60 * 60 * 1000);
+  if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
   if (!providerBudget.ok) {
     res.setHeader('Retry-After', String(providerBudget.retryAfter));
     return res.status(503).json({ error: 'iapp daily capacity reached' });

@@ -187,3 +187,7 @@ Historical v5.31.0 evidence (2026-08-21):
 Durable cross-session context is mirrored in the MycOS VetMock project hub and
 the local `vetmock-project-operations` skill. Update those after a substantial
 release; do not rewrite dated historical evidence as though it were current.
+
+
+- v5.81 data storage, scoring, races and release gates: [data-durability-and-operations.md](data-durability-and-operations.md)
+- Audit repair register and evidence-dependent content queue: [audit-remediation-2026-09-07.md](audit-remediation-2026-09-07.md)

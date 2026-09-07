@@ -1,3 +1,4 @@
+import { readLocalExtra, writeLocalExtra } from './local-extras.js';
 // ============================================================
 // pinboard.js — Personal pinboard storage
 // ============================================================
@@ -41,26 +42,11 @@ export function payloadKey(type, payload) {
 }
 
 function safeRead() {
-  if (typeof window === 'undefined' || !window.localStorage) return [];
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
+  const value = readLocalExtra(STORAGE_KEY, []);
+  return Array.isArray(value) ? value : [];
 }
 
-function safeWrite(list) {
-  if (typeof window === 'undefined' || !window.localStorage) return;
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  } catch {
-    // localStorage may be disabled or full — fail silent rather than
-    // crash the UI. The pin simply won't survive a reload.
-  }
-}
+function safeWrite(value) { return writeLocalExtra(STORAGE_KEY, value); }
 
 function fire() {
   if (typeof window === 'undefined') return;
@@ -108,7 +94,7 @@ export function addPin({ type, payload, label }) {
     list.length = MAX_PINS;
   }
 
-  safeWrite(list);
+  if (!safeWrite(list)) return null;
   fire();
   return pin;
 }
@@ -117,23 +103,26 @@ export function removePin(id) {
   if (id == null) return;
   const list = safeRead();
   const next = list.filter((p) => p.id !== id);
-  if (next.length === list.length) return;
-  safeWrite(next);
+  if (next.length === list.length) return true;
+  if (!safeWrite(next)) return false;
   fire();
+  return true;
 }
 
 export function removePinByKey(type, key) {
   if (!type || !key) return;
   const list = safeRead();
   const next = list.filter((p) => !(p.type === type && payloadKey(p.type, p.payload) === key));
-  if (next.length === list.length) return;
-  safeWrite(next);
+  if (next.length === list.length) return true;
+  if (!safeWrite(next)) return false;
   fire();
+  return true;
 }
 
 export function clearPinboard() {
-  safeWrite([]);
+  if (!safeWrite([])) return false;
   fire();
+  return true;
 }
 
 export const PINBOARD_EVENT = EVENT_NAME;

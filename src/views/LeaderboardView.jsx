@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { getLeaderboard } from '../lib/api.js';
 import { aggregateLeaderboard, LEADERBOARD_MIN_QUESTIONS } from '../lib/leaderboard-gate.js';
 import { SUBJECTS } from '../data/questions.js';
@@ -17,6 +17,8 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
   // to [] gaslights the user about what's wrong. Track the failure
   // explicitly and surface it with a retry button.
   const [error, setError] = useState(null);
+  const [scoreSource, setScoreSource] = useState('server');
+  const requestId = useRef(0);
   // Year-scope toggle — Palm directive 2026-05-18 Q2=C: user picks
   // between current-year leaderboard and lifetime cross-year ranking.
   // Default = current year (most relevant context). Survives view
@@ -32,21 +34,23 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
   }, [yearScope]);
 
   const load = useCallback(() => {
+    const request = ++requestId.current;
     setLoading(true);
     setError(null);
     const yearArg = yearScope === 'current' && Number.isFinite(selectedYear)
       ? selectedYear
       : null;
-    getLeaderboard({ year: yearArg })
-      .then((rows) => setRawScores(Array.isArray(rows) ? rows : []))
+    getLeaderboard({ year: yearArg, scoreSource })
+      .then((rows) => { if (request === requestId.current) setRawScores(Array.isArray(rows) ? rows : []); })
       .catch((err) => {
+        if (request !== requestId.current) return;
         setRawScores([]);
         setError(err?.message || 'โหลดข้อมูลไม่สำเร็จ');
       })
-      .finally(() => setLoading(false));
-  }, [yearScope, selectedYear]);
+      .finally(() => { if (request === requestId.current) setLoading(false); });
+  }, [yearScope, selectedYear, scoreSource]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { load(); return () => { requestId.current++; }; }, [load]);
 
   return (
     <>
@@ -59,6 +63,17 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
         </p>
       </div>
 
+      <div className="vmx-btn-row" role="group" aria-label="แหล่งคะแนน" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
+        {[['server', 'ตรวจคำตอบบนระบบ'], ['client', 'คะแนนเดิม / ชุดส่วนตัว']].map(([value, label]) => (
+          <button key={value} className={scoreSource === value ? 'vmx-btn vmx-btn-primary' : 'vmx-btn vmx-btn-ghost'} aria-pressed={scoreSource === value}
+            onClick={() => setScoreSource(value)}>{label}</button>
+        ))}
+      </div>
+      <p style={{ textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 13, margin: '10px 0 20px' }}>
+        {scoreSource === 'server'
+          ? 'ตรวจคะแนนกับเฉลยของชุดที่ใช้บนระบบ เป็นผลฝึกทำเอง ไม่มีการคุมสอบ'
+          : 'เก็บคะแนนเดิมและชุดส่วนตัวไว้ให้ดูย้อนหลัง คะแนนกลุ่มนี้ส่งมาจากเครื่องผู้ใช้'}
+      </p>
       {/* Year-scope toggle — Palm directive Q2=C. Defaults to current
           year (sticky via localStorage). Hidden when selectedYear is
           null (no year context, just show lifetime). */}
@@ -82,8 +97,9 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
               key={opt.id}
               type="button"
               onClick={() => setYearScope(opt.id)}
+              aria-pressed={yearScope === opt.id}
               style={{
-                all: 'unset',
+                border: 0, minHeight: 44,
                 cursor: 'pointer',
                 padding: '6px 14px',
                 borderRadius: 999,
@@ -105,7 +121,9 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
       ) : error ? (
         <StatePanel kind="error" title="โหลดอันดับคะแนนไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : scores.length === 0 ? (
-        <StatePanel title="ยังไม่มีคะแนน" body="ลองทำชุดแรก แล้วกลับมาดูอันดับของ cohort ได้ที่นี่" />
+        <StatePanel title="ยังไม่มีคะแนนในหมวดนี้" body={scoreSource === 'server'
+          ? 'ทำชุดมาตรฐานอย่างน้อย 5 ข้อแล้วส่งผลสำเร็จ คะแนนจะปรากฏที่นี่ คะแนนก่อนหน้านี้อยู่ในหมวดคะแนนเดิม'
+          : 'ยังไม่มีคะแนนเดิมหรือชุดส่วนตัวในขอบเขตปีที่เลือก'} />
       ) : (
         <div>
           {scores.map((r, idx) => (
@@ -121,7 +139,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                 <div style={{ flex: 1, minWidth: 160 }}>
                   <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 17 }}>
                     {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
-                    {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
+                    {r.user_id === user?.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                     {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}

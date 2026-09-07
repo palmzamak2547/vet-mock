@@ -485,9 +485,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // pool source. Sorted by wrong-frequency so the user sees their
   // most-confused Qs first. Goes 1-click direct to ExamView via
   // startExam overrides (matches the random-Q fix 2026-05-16).
-  const launchWrongReview = () => {
+  const launchWrongReview = (requestedCount) => {
     if (quickStats.wrongCount === 0) return;
-    const n = Math.min(quickStats.wrongCount, 50);
+    const n = Math.min(quickStats.wrongCount, Number.isInteger(requestedCount) ? requestedCount : 50);
     if (setMode) setMode('quick');
     if (setSubject) setSubject('all');
     if (setTopic) setTopic(null);
@@ -795,7 +795,12 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             }
           }}
           onPickPanic={onStartPanic}
-          onPickSR={() => { setMode && setMode('sr'); setView('sr-session'); }}
+          onPickSR={(count) => {
+            if (Number.isInteger(count)) { try { window.localStorage.setItem('vmx-sr-session-size', JSON.stringify(count)); } catch {} }
+            setMode && setMode('sr'); setView('sr-session');
+          }}
+          onPickPlannedPractice={(subjectId, count) => startExam?.({ mode: 'quick', subject: subjectId,
+            topic: null, practiceMode: 'all', questionCategory: 'mcq', numQuestions: count, useTimer: false })}
           onPickWrong={launchWrongReview}
           onPickWeakSubject={(subjectId) => {
             setSubject && setSubject(subjectId);

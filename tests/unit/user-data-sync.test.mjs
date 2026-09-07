@@ -81,6 +81,25 @@ async function settle(ms = 20) {
   await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+test('a backup patch is accepted as a whole or leaves every field unchanged', () => {
+  const storage = new MemoryStorage();
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
+  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: [1], notes: { old: 'keep' } }) });
+  const before = clone(sync.getSnapshot().data);
+  const write = storage.setItem.bind(storage);
+  storage.setItem = (key, value) => {
+    if (key.startsWith('vmx-user-op-v1:')) throw new Error('quota exceeded');
+    write(key, value);
+  };
+  const patch = { bookmarks: [], notes: { restored: 'new' }, readingChecklist: { 'topic:s/t': 100 } };
+  const refused = sync.send({ type: 'CHANGE', principalId: null, derive: () => patch });
+  assert.equal(refused.accepted, false);
+  assert.deepEqual(sync.getSnapshot().data, before);
+  storage.setItem = write;
+  assert.equal(sync.send({ type: 'CHANGE', principalId: null, derive: () => patch }).accepted, true);
+  for (const [key, value] of Object.entries(patch)) assert.deepEqual(sync.getSnapshot().data[key], value);
+});
+
 test('failed remote push keeps an offline note durable and retries after reload', async () => {
   const storage = new MemoryStorage();
   const lifecycle = createLifecycle(true);

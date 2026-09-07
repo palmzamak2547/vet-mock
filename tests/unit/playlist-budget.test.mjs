@@ -16,6 +16,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { sendRateLimitFailure } from '../../api/_lib/rate-limit.js';
 
 const SRC = readFileSync(new URL('../../api/playlist.js', import.meta.url), 'utf8');
 
@@ -54,7 +55,6 @@ test('a degraded or rejected answer is never cacheable', () => {
   // Each of these paths hands back something that is NOT the truth about the
   // playlist. Caching one poisons every later visitor behind the same CDN node.
   for (const marker of [
-    "reason: 'rate_limited'",
     "reason: 'bad_id'",
     "reason: 'upstream_unreachable'",
     "reason: 'playlist_not_found'",
@@ -67,6 +67,11 @@ test('a degraded or rejected answer is never cacheable', () => {
       `${marker} is returned without no-store — a cached failure locks out later visitors`,
     );
   }
+  const res = { headers: {}, setHeader(k, v) { this.headers[k] = v; }, status(s) { this.code = s; return this; }, json(data) { this.body = data; return this; } };
+  sendRateLimitFailure(res, { ok: false, retryAfter: 30 });
+  assert.match(res.headers['Cache-Control'], /no-store/);
+  assert.equal(res.body.reason, 'rate_limited');
+  assert.ok(SRC.includes('sendRateLimitFailure(res, rl)'), 'playlist must route quota failures through the shared response');
   // The empty-RSS answer may only be cached when it is the genuine truth
   // (a real multi-channel playlist), never when we merely failed to reach the API.
   assert.ok(
@@ -76,7 +81,7 @@ test('a degraded or rejected answer is never cacheable', () => {
 });
 
 test('the endpoint names the cause instead of letting the UI guess', () => {
-  for (const reason of ['rate_limited', 'multi_channel', 'budget_exhausted', 'api_error']) {
+  for (const reason of ['multi_channel', 'budget_exhausted', 'api_error']) {
     assert.ok(SRC.includes(reason), `no '${reason}' reason is ever reported to the client`);
   }
 });
