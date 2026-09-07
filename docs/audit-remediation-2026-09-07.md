@@ -41,6 +41,10 @@ Current inventory was measured with npm run stats: 4,890 source questions,
 4,825 learner-ready, 65 held, 74 banks, 43 subjects with questions.
 Notes: 4,032 sections; governed VetWiki: 1,769 sections.
 
+The exact-commit verification of v5.81.1, the isolated browser check, the
+temporary QA account cleanup and the one follow-up fix (v5.81.2) are recorded
+in [the verification and cleanup receipt](reports/qa-cleanup-receipt-2026-09-07.md).
+
 See [the held-content queue](content-repair-queue.csv) for every retained
 question key, reason and source bank. For each item, locate the original
 question and figure, verify the answer and current scope, then rerun delivery,

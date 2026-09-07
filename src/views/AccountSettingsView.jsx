@@ -28,7 +28,7 @@ import {
   updateProfileMetadata,
   updateUsername,
 } from '../lib/supabase.js';
-import { thaiAuthError } from '../lib/auth-errors.js';
+import { isWebAuthnDismissal, thaiAuthError } from '../lib/auth-errors.js';
 import { thaiError } from '../lib/errors.js';
 import {
   passwordStrength,
@@ -149,7 +149,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
     } catch (err) {
       const t = `${err?.code || err?.name || ''} ${err?.message || ''}`;
       // Dismissing the OS prompt is a normal choice, not a failure to report.
-      if (/NotAllowedError|AbortError|cancel/i.test(t)) { /* no banner */ }
+      // auth-js hides the browser's NotAllowedError behind a passthrough
+      // `code`, so the shared check also reads `name` and `cause`.
+      if (isWebAuthnDismissal(err)) { /* no banner */ }
       else if (/webauthn_credential_exists/i.test(t)) setInfo('อุปกรณ์นี้มี passkey อยู่แล้ว');
       else setError(thaiAuthError(err));
     } finally { setLoading(false); }
