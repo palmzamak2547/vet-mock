@@ -175,7 +175,7 @@ export async function signInWithGoogle() {
 export async function signOut() {
   const supabase = await getSupabase();
   if (!supabase) return;
-  const { error } = await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut({ scope: 'local' });
   if (error) throw error;
   notifyAuthChanged();
 }

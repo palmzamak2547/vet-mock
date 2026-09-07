@@ -48,3 +48,14 @@ test('an unreadable deletion response is an uncertain result and does not sign o
   assert.equal(result.errors[0].table, '__network__');
   assert.equal(signouts, 0);
 });
+
+
+test('device sign-out keeps the global action explicit', async () => {
+  const scopes=[];
+  for (const name of ['signOut','signOutAllDevices']) {
+    const body=source.match(new RegExp('export async function '+name+'\\(\\) \\{([\\s\\S]*?)\\n\\}'))?.[1];
+    assert.ok(body);
+    await new AsyncFunction('getSupabase','notifyAuthChanged',body)(async()=>({auth:{signOut:async options=>{scopes.push(options.scope);return {error:null};}}}),()=>{});
+  }
+  assert.deepEqual(scopes,['local','global']);
+});

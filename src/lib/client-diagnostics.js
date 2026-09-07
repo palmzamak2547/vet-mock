@@ -1,10 +1,11 @@
+import { LATEST_CHANGELOG } from '../data/latest-changelog.generated.js';
 import { APP_VIEW_ROUTES } from './view-route.js';
 const views = new Set([...Object.keys(APP_VIEW_ROUTES), 'exam', 'results', 'landing', 'auth', 'notes', 'topic-select', 'review']);
 const names = new Set(['TypeError', 'ReferenceError', 'SyntaxError', 'RangeError', 'NetworkError', 'ChunkLoadError', 'Error']);
 export function diagnosticRecord(error, view, kind = 'error') {
   // Deliberately discard messages, stacks, document titles, user identifiers
   // and URLs. Arbitrary exception text can contain the learner's own input.
-  return { release: '5.81.0', view: views.has(view) ? view : 'other',
+  return { release: LATEST_CHANGELOG.version, view: views.has(view) ? view : 'other',
     kind: ['error', 'rejection', 'render'].includes(kind) ? kind : 'error',
     category: names.has(error?.name) ? error.name : 'Error' };
 }

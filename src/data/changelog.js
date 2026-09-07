@@ -44,6 +44,13 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.81.1', date: '2026-09-07',
+    headline: 'ออกจากระบบเฉพาะอุปกรณ์ได้ตรงตามที่เลือก',
+    changes: [{ scope: 'auth', kind: 'fix', icon: '🔐', title: 'ออกจากเครื่องนี้ โดยให้เครื่องอื่นใช้งานต่อได้',
+      desc: 'ปุ่ม Logout เฉพาะอุปกรณ์จะไม่ยกเลิก session ของเครื่องอื่น ปุ่ม Logout ทุกอุปกรณ์ยังใช้เมื่อต้องการออกจากทุกเครื่อง',
+    }],
+  },
+  {
     version: '5.81.0', date: '2026-09-07', scope: 'multi',
     headline: 'เก็บคำตอบให้ครบ กู้คืนได้ และฝึกตามเวลาที่มี',
     changes: [
