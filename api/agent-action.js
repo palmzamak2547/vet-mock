@@ -98,7 +98,9 @@ export default async function handler(req, res) {
     // THE trust gate — nothing outside the catalog survives this call.
     const verdict = validateAction(parsed, catalog);
     if (!verdict.ok) {
-      return res.status(200).json({ action: null, reason: verdict.reason });
+      // Same rule as `say` below: a CJK-contaminated reason is not shown.
+      const reason = hasCJK(verdict.reason) ? 'ยังไม่มีสิ่งที่ตรงกับคำสั่งนี้ในแอป' : verdict.reason;
+      return res.status(200).json({ action: null, reason });
     }
     // The plan line renders verbatim — a CJK-contaminated say falls back to
     // a deterministic Thai sentence instead of broken language on a button.

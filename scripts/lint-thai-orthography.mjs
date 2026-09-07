@@ -87,4 +87,7 @@ if (import.meta.url === `file://${process.argv[1].replace(/\\/g, '/')}` || proce
   }
   console.log(`\n${rows.length} question(s) contain at least one violation; ${show.length} above the reporting threshold`);
   console.log('Every one still needs eyes — this finds candidates, it does not judge meaning.');
+  // Wired into lint:all, yet it could never fail — the broken-Thai gate was
+  // decorative. Rows above the threshold now block.
+  if (show.length) process.exitCode = 1;
 }

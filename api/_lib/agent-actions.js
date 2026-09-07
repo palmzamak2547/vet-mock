@@ -49,7 +49,7 @@ export function validateAction(parsed, catalog = buildCatalog()) {
 
   if (type === 'practice') {
     const subject = catalog.practiceSubjects.find((s) => s.id === String(p.subject));
-    if (!subject) return { ok: false, reason: 'unknown practice subject' };
+    if (!subject) return { ok: false, reason: 'ไม่พบวิชานี้ในคลังข้อสอบ ลองเปิดชั้นเอกสารของวิชาแทน' };
     const numQuestions = clampInt(p.numQuestions, 5, 50, 10);
     const useTimer = p.useTimer === true;
     const timePerQ = useTimer ? clampInt(p.timePerQ, 20, 300, 60) : undefined;
@@ -70,7 +70,7 @@ export function validateAction(parsed, catalog = buildCatalog()) {
 
   if (type === 'library') {
     const subject = catalog.librarySubjects.find((s) => s.id === String(p.subject));
-    if (!subject) return { ok: false, reason: 'unknown library subject' };
+    if (!subject) return { ok: false, reason: 'ไม่พบวิชานี้ในคลังเอกสาร' };
     return {
       ok: true,
       say: say || `เปิดชั้นเอกสารวิชา ${subject.name}`,
@@ -83,7 +83,7 @@ export function validateAction(parsed, catalog = buildCatalog()) {
 
   if (type === 'wiki') {
     const topic = catalog.wikiTopics.find((t) => t.subject === String(p.subject) && t.topic === String(p.topic));
-    if (!topic) return { ok: false, reason: 'unknown wiki topic' };
+    if (!topic) return { ok: false, reason: 'ไม่พบบทความนี้ใน VetWiki' };
     return {
       ok: true,
       say: say || `เปิดบทความ ${topic.title}`,
@@ -93,7 +93,7 @@ export function validateAction(parsed, catalog = buildCatalog()) {
 
   if (type === 'feature') {
     const feature = catalog.features.find((f) => f.id === String(p.id));
-    if (!feature) return { ok: false, reason: 'unknown feature' };
+    if (!feature) return { ok: false, reason: 'ไม่พบเครื่องมือนี้ในแอป' };
     return {
       ok: true,
       say: say || `เปิด ${feature.label}`,
@@ -102,8 +102,8 @@ export function validateAction(parsed, catalog = buildCatalog()) {
   }
 
   if (type === 'none') {
-    return { ok: false, reason: String(p.reason || 'no matching action').slice(0, 200) };
+    return { ok: false, reason: String(p.reason || 'ยังไม่มีสิ่งที่ตรงกับคำสั่งนี้ในแอป').slice(0, 200) };
   }
 
-  return { ok: false, reason: `unknown action type ${type.slice(0, 40)}` };
+  return { ok: false, reason: 'ยังไม่มีสิ่งที่ตรงกับคำสั่งนี้ในแอป' };
 }

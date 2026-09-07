@@ -50,14 +50,11 @@ export function findAutoPromoteCandidates({ history, srCards, threshold = DEFAUL
   for (const [id, count] of wrongCounts.entries()) {
     if (count < threshold) continue;
     const existing = cards[id];
-    if (existing) {
-      // Skip if there's a fresh, future-scheduled review still pending
-      const totalReviews = Number(existing.totalReviews) || 0;
-      const nextReview = Number(existing.nextReview) || 0;
-      if (totalReviews > 0 && nextReview > now) continue;
-      // Also skip if the card was already injected by this helper today
-      if (existing.autoPromoted && nextReview > now) continue;
-    }
+    // A card already in the SR system — reviewed, pending, or promoted before —
+    // is served by the queue when due. Re-promoting it once it came due
+    // replaced it with a fresh 1-day card on every exam finish, so a missed
+    // question the student never got to review was deferred forever.
+    if (existing) continue;
     out.push({ questionId: id, subject: subjectFor.get(id), wrongCount: count });
   }
   return out;

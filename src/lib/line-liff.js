@@ -124,6 +124,14 @@ export async function signInWithLineViaLiff() {
   if (!idToken) {
     throw new Error('LIFF_NO_ID_TOKEN');
   }
+  // The SDK's login lasts 12 hours but a LINE ID token only one. Posting a
+  // stale one failed as "LINE login ยังไม่เปิดในตอนนี้"; ask LINE for a fresh,
+  // consented token instead.
+  if (idTokenExpired(idToken)) {
+    liff.logout();
+    liff.login();
+    return null;
+  }
 
   // Exchange LINE ID token for a Supabase magic-link via the Edge Function.
   const endpoint = getLineAuthEndpoint();
@@ -171,6 +179,15 @@ export async function signInWithLineViaLiff() {
  * Best-effort logout — clears the LIFF session if loaded.
  * Safe to call even when LIFF isn't initialised.
  */
+function idTokenExpired(token) {
+  try {
+    const payload = JSON.parse(atob(String(token).split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+    return Number(payload.exp) * 1000 < Date.now() + 30_000;
+  } catch {
+    return false;
+  }
+}
+
 export async function liffLogoutIfInitialised() {
   if (!_liffPromise) return;
   try {

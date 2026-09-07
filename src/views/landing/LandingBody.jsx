@@ -470,6 +470,8 @@ function LabSection({ p }) {
                 <img
                   src="/images/thoracic-xray.jpg"
                   alt="Canine Lateral Thoracic Radiograph"
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
                 

@@ -350,6 +350,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // keeps pressing Again can always finish.
   const RELEARN_CAP = 2;
 
+  // A re-queued relearn copy is the PRE-Again snapshot; the grade already
+  // reads the live record, the interval previews on the buttons did not.
+  const liveCard = (currentCard && srCards[currentCard.questionId])
+    ? { ...srCards[currentCard.questionId] }
+    : currentCard;
+
   const handleGrade = (quality) => {
     const token = `${reviewSessionId}:${currentIdx}`;
     if (gradedRef.current === token) return;
@@ -363,6 +369,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     });
     if (result?.accepted === false) { alertDialog('บันทึกการทบทวนไม่สำเร็จ กรุณาลองใหม่ก่อนข้ามไปข้อถัดไป'); return; }
     gradedRef.current = token;
+    // XP and the SR daily quests listen for this at App level; nothing ever
+    // dispatched it. Once per card per session — a relearn copy earns no
+    // second credit.
+    if (!currentCard._relearn) {
+      try { window.dispatchEvent(new CustomEvent('vmx-sr-card-graded', { detail: { quality } })); } catch { /* no-op */ }
+    }
     if (event) import('../lib/study-event-log.js').then(async ({ appendStudyEvents }) => {
       const saved = await appendStudyEvents(ownerId, [event]);
       if (!saved.ok) alertDialog('บันทึกตารางทบทวนแล้ว แต่รายละเอียดรอบนี้ยังเก็บถาวรไม่ได้');
@@ -385,7 +397,10 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   // Session complete
   if (!currentQ || currentIdx >= sessionCards.length) {
-    const remaining = duePool.length - reviewedCount;
+    // duePool is live — every graded card has already left it, so subtracting
+    // the session count again went negative and hid the continue button
+    // while cards were still due.
+    const remaining = duePool.length;
     return (
       <>
         <div className="vmx-hero">
@@ -589,19 +604,19 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-sr-grade">
           <button className="vmx-sr-btn again" onClick={() => handleGrade(0)}>
             <div className="label">Again</div>
-            <div className="sub">{relearnLeft > 0 ? 'ท้ายรอบนี้' : `${previewInterval(currentCard, 0)} วัน`}</div>
+            <div className="sub">{relearnLeft > 0 ? 'ท้ายรอบนี้' : `${previewInterval(liveCard, 0)} วัน`}</div>
           </button>
           <button className="vmx-sr-btn hard" onClick={() => handleGrade(1)}>
             <div className="label">Hard</div>
-            <div className="sub">{previewInterval(currentCard, 1)} วัน</div>
+            <div className="sub">{previewInterval(liveCard, 1)} วัน</div>
           </button>
           <button className="vmx-sr-btn good" onClick={() => handleGrade(2)}>
             <div className="label">Good</div>
-            <div className="sub">{previewInterval(currentCard, 2)} วัน</div>
+            <div className="sub">{previewInterval(liveCard, 2)} วัน</div>
           </button>
           <button className="vmx-sr-btn easy" onClick={() => handleGrade(3)}>
             <div className="label">Easy</div>
-            <div className="sub">{previewInterval(currentCard, 3)} วัน</div>
+            <div className="sub">{previewInterval(liveCard, 3)} วัน</div>
           </button>
         </div>
       )}

@@ -108,6 +108,11 @@ export function useModalFocus({ active = true, onClose, initialFocusRef, returnF
       }
 
       if (event.key === 'Escape') {
+        // An element inside the dialog that handles Escape itself (a mask
+        // editor deselecting, a note box cancelling a draft) opts out with
+        // data-vmx-owns-escape. This capture-phase close used to swallow the
+        // key before those handlers ran and threw the draft away.
+        if (event.target?.closest?.('[data-vmx-owns-escape]')) return;
         event.preventDefault();
         event.stopPropagation();
         closeRef.current?.();

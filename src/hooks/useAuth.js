@@ -144,7 +144,9 @@ export function useAuth() {
       if (!cancelled) {
         setProfile({
           id: user.id,
-          username: user.email?.split('@')[0] || 'user',
+          // Never the email local-part: for @student.chula.ac.th accounts that
+          // is the 10-digit student id, and this name is broadcast to peers.
+          username: 'นิสิต',
           avatar_emoji: '🐾',
         });
       }

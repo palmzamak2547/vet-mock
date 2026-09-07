@@ -28,7 +28,7 @@ const RETRACK_DELAY_MS = 1500;
 
 function presencePayload({ user, username, avatar, subject, view, qKey, joinedAt }) {
   return {
-    username: username || user?.email?.split('@')[0] || 'guest',
+    username: username || 'นิสิต',
     avatar: avatar || '🐾',
     subject: subject || null,
     view: view || 'home',

@@ -38,11 +38,13 @@ const HARD_GROWTH = 1.2;
  *  computes its own "2 วัน" will eventually advertise timing the scheduler does
  *  not produce, and nobody finds out. */
 export function previewInterval(card, quality) {
+  // Mirrors updateCard exactly — sm2-honesty pins the two against each other.
+  const base = card.interval || 1;
   if (quality === 0) return 1;
-  if (quality === 1) return Math.max(1, Math.round((card.interval || 1) * HARD_GROWTH));
+  if (quality === 1) return Math.max(base + (card.repetitions >= 1 ? 1 : 0), Math.round(base * HARD_GROWTH));
   if (card.repetitions === 0) return 1;
   if (card.repetitions === 1) return 6;
-  return Math.round((card.interval || 1) * card.easeFactor);
+  return Math.max(base + 1, Math.round(base * card.easeFactor));
 }
 
 export function updateCard(card, quality) {
@@ -57,13 +59,17 @@ export function updateCard(card, quality) {
     c.lapses++;
   } else if (quality === 1) {
     // Struggled but recalled - keep the streak, grow slowly
-    c.interval = Math.max(1, Math.round((c.interval || 1) * HARD_GROWTH));
+    // Grows by at least a day once the card has a streak; round(1 × 1.2)
+    // is 1 again, which pinned low-ease cards at one day forever.
+    c.interval = Math.max((c.interval || 1) + (c.repetitions >= 1 ? 1 : 0), Math.round((c.interval || 1) * HARD_GROWTH));
     c.repetitions++;
   } else {
     // Passed - increase interval
     if (c.repetitions === 0) c.interval = 1;
     else if (c.repetitions === 1) c.interval = 6;
-    else c.interval = Math.round(c.interval * c.easeFactor);
+    // Monotone: with ease below 1.5, round(1 × ease) is 1 again forever —
+    // a low-ease card could never be spaced out by pressing Good.
+    else c.interval = Math.max((c.interval || 1) + 1, Math.round((c.interval || 1) * c.easeFactor));
     c.repetitions++;
   }
 

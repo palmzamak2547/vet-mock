@@ -845,8 +845,16 @@ export default function CommandPalette({
     if (sourcesLoading) return;
     if (view.flat.some((i) => i.type !== 'ask')) return;
     if (lastAutoAsk.current === q || ask?.phase === 'loading') return;
-    lastAutoAsk.current = q;
-    runAsk();
+    // The person is still typing when the 60 ms debounce settles. Wait for a
+    // real pause, and do not re-ask while the text merely extends the
+    // question already answered — that cost 3-6 model calls per question
+    // and spent the hourly cap on four or five real ones.
+    if (lastAutoAsk.current && q.startsWith(lastAutoAsk.current)) return;
+    const t = setTimeout(() => {
+      lastAutoAsk.current = q;
+      runAsk();
+    }, 900);
+    return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- runAsk reads live state
   }, [open, debouncedQuery, view, sourcesLoading]);
 

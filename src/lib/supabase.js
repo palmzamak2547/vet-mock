@@ -177,6 +177,10 @@ export async function signOut() {
   if (!supabase) return;
   const { error } = await supabase.auth.signOut({ scope: 'local' });
   if (error) throw error;
+  // The LIFF SDK keeps its own login for 12 hours; without this the next
+  // person on a shared browser inherits the LINE identity for up to an hour.
+  // Inline (not a helper): auth-action-failure runs this body in a sandbox.
+  try { const { liffLogoutIfInitialised } = await import('./line-liff.js'); await liffLogoutIfInitialised(); } catch { /* no-op */ }
   notifyAuthChanged();
 }
 
@@ -338,6 +342,10 @@ export async function signOutAllDevices() {
   if (!supabase) return;
   const { error } = await supabase.auth.signOut({ scope: 'global' });
   if (error) throw error;
+  // The LIFF SDK keeps its own login for 12 hours; without this the next
+  // person on a shared browser inherits the LINE identity for up to an hour.
+  // Inline (not a helper): auth-action-failure runs this body in a sandbox.
+  try { const { liffLogoutIfInitialised } = await import('./line-liff.js'); await liffLogoutIfInitialised(); } catch { /* no-op */ }
   notifyAuthChanged();
 }
 

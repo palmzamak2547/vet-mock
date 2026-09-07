@@ -2288,7 +2288,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           color: '#fff', zIndex: 1000,
         }}>
-          <div style={{ background: '#fff', color: 'var(--clr-ink)', padding: 16, borderRadius: 8 }}>
+          <div style={{ background: 'var(--clr-bg, #fff)', color: 'var(--clr-ink)', padding: 16, borderRadius: 8 }}>
             ⏳ {loadingMsg || 'กำลังโหลด…'}
           </div>
         </div>

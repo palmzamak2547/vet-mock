@@ -200,3 +200,15 @@ Avoid:
 - "I think..." / "It seems..." (be direct)
 - Asking permission repeatedly before doing
 - Mentioning Codex/AI in any user-facing artifact (see Rule 1)
+
+## 2026-09-06 — Vercel cost pass (Claude)
+
+The whole Vercel team got paused by the Pro spend limit (see vault `knowledge/learnings/vercel-spend-audit-2026-09.md`
+and skill `~/.claude/skills/vercel-cost-discipline/SKILL.md`). vetmock itself is cheap ($1.64/cycle), but its
+builds are not: 48 production + 23 preview builds in 5 days, 19 previews from a single `claude/*` branch.
+
+- Push to `main` is the deploy; never run `vercel --prod` on top of a push.
+- The Ignored Build Step now skips `claude/*`, `codex/*`, `agent/*`, `grok/*` branches and production pushes
+  that only touch `docs/`, root `*.md`, `.github/`, `.claude/`. `[skip ci]` still works for anything else.
+- One session = one push. Squash content batches (Q-bank, notes, summaries) before pushing.
+- Vercel runtime logs keep 1 day now (Observability Plus is off). Use Supabase logs and the app's own tables for history.

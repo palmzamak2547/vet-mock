@@ -204,6 +204,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
             aria-label="โน้ต ณ เวลานี้"
             value={composeText}
             onChange={(e) => setComposeText(e.target.value)}
+            data-vmx-owns-escape="true"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); saveCompose(); }
               else if (e.key === 'Escape') { e.preventDefault(); cancelCompose(); }
@@ -261,6 +262,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
                     value={editingText}
                     onChange={(e) => setEditingText(e.target.value)}
                     onBlur={saveEdit}
+                    data-vmx-owns-escape="true"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); saveEdit(); }
                       else if (e.key === 'Escape') { e.preventDefault(); cancelEdit(); }

@@ -291,6 +291,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
     >
       <div
         ref={dialogRef}
+        data-vmx-owns-escape="true"
         className="vmx-modal"
         style={{
           maxWidth: 980,
