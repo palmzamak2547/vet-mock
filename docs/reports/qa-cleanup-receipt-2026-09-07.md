@@ -1,4 +1,4 @@
-# VetMock v5.81.1 verification and QA cleanup receipt — 7 September 2026
+# VetMock v5.81.1 verification, QA cleanup and v5.81.2 deployment receipt — 7 September 2026
 
 This receipt closes the remediation register in
 [audit-remediation-2026-09-07.md](../audit-remediation-2026-09-07.md). It
@@ -112,9 +112,29 @@ and no failure banner appears.
 
 Gates on the follow-up: `npm run test:unit` 764 pass / 0 fail, `npm run
 lint:all` and `npm run lint:atlas` clean, `npm run build` succeeded. The
-service worker version moves to v153 because the entry chunk changed. This
-branch is not deployed by itself; production changes only when the follow-up
-reaches `main` and passes the Build and Smoke checks that gate the alias.
+service worker version moves to v153 because the entry chunk changed.
+
+### Deployment record for v5.81.2
+
+The follow-up reached `main` as a squash merge of pull request #16 and was
+promoted to production only after both GitHub checks passed on that exact
+commit. All times are UTC on 7 September 2026.
+
+| Item | Value |
+| --- | --- |
+| Released commit | `449c8c450f321cfd043b4a72ce75638d98b47ae1` (v5.81.2, `main`, squash of PR #16 head `89ab8ef`) |
+| GitHub Actions Build | run 34145936585 (#684), push event, exact SHA, conclusion success at 17:04:23 |
+| GitHub Actions Smoke e2e | run 34145936616 (#305), push event, exact SHA, conclusion success at 17:11:36 |
+| Vercel deployment | `dpl_HATdLQv33LJKWhD8Lc5Jz3bQKZEk`, target production, state READY at 17:03:45, meta `githubCommitSha` = 449c8c4 |
+| Alias promotion | The deployment held only the branch aliases while Smoke ran; `vetmock.vercel.app` moved onto it after the Smoke conclusion (observed live between 17:11:17 and 17:16:16), with `aliasError` null |
+| Live service worker | `https://vetmock.vercel.app/sw.js` served `SW_VERSION = 'v152-2026-09-07'` up to the alias move and `v153-2026-09-07` afterwards (fresh edge fetch, last-modified 17:16:16) |
+| Live entry document | `https://vetmock.vercel.app/` now loads `/assets/main-zsNCK9wt.js`, replacing the v5.81.1 entry chunk `main-Dlb_wADD.js`; the shared vendor, lifecycle and stylesheet chunk hashes are unchanged |
+| Commit-side check | At 449c8c4, `package.json` reads 5.81.2 and `public/sw.js` reads v153, closing the chain alias, deployment, commit, release |
+
+The same egress boundary as section 2 applies: the user-visible flows for
+this bundle were exercised on the identical build served locally (48 checks,
+all passing), while the production origin itself is verified by the deployment
+record and the live worker and entry document above.
 
 ## 5. Deferred and honest boundaries
 
