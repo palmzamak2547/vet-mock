@@ -11,6 +11,44 @@ test.beforeEach(async ({ context }) => {
   });
 });
 
+test('reading light starts automatically for a mouse and remembers an explicit opt-out', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/wiki/zoonoses/zoo-rabies', { waitUntil: 'domcontentloaded' });
+  const picker = page.getByRole('combobox', { name: 'ตัวชี้ขณะอ่าน', exact: true });
+  await expect(picker).toHaveValue('auto', { timeout: 25_000 });
+  const fine = await page.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches);
+  const stage = page.locator('.vmx-reading-effect-stage');
+  await expect(stage).toHaveAttribute('data-reading-pointer', fine ? 'spotlight' : 'none');
+  await expect(stage.locator('canvas')).toHaveCount(fine ? 1 : 0);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(stage.locator('canvas')).toHaveCount(0);
+  await expect(picker).toHaveValue('auto');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await picker.selectOption('none');
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await expect(picker).toHaveValue('none');
+  await expect(stage.locator('canvas')).toHaveCount(0);
+  await page.goto('/wiki/com5/rabies', { waitUntil: 'domcontentloaded' });
+  await expect(picker).toHaveValue('none');
+  await expect(stage.locator('canvas')).toHaveCount(0);
+});
+
+test('reading pointer reports a storage failure without preventing the current choice', async ({ page }) => {
+  await page.addInitScript(() => {
+    const write = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (key, value) {
+      if (key === 'vmx-motion-settings') throw new DOMException('Storage full', 'QuotaExceededError');
+      return write.call(this, key, value);
+    };
+  });
+  await page.goto('/wiki/zoonoses/zoo-rabies', { waitUntil: 'domcontentloaded' });
+  await page.getByRole('combobox', { name: 'ตัวชี้ขณะอ่าน', exact: true }).selectOption('none');
+  await expect(page.getByText('ใช้ตัวชี้ที่เลือกได้ในครั้งนี้ แต่เบราว์เซอร์จำค่าไว้ไม่ได้', { exact: true })).toBeVisible();
+  await expect(page.locator('.vmx-reading-effect-stage canvas')).toHaveCount(0);
+  await page.getByRole('button', { name: 'โฟกัสทีละย่อหน้า', exact: true }).click();
+  await expect(page.locator('.vm-reading-selected')).toHaveCount(1);
+});
+
 test('reading effects target real paragraphs, preserve text and sleep when the pointer rests', async ({ page }) => {
   await page.addInitScript(() => {
     window.__readingPaints = 0;

@@ -34,6 +34,9 @@ to the existing focus timer.
 - Reading particles stay in a viewport-sized transparent layer, capped at 1.25
   DPR. A resting pointer sleeps after 700 ms. There is no per-frame React state
   update, document-wide trail, or permanently running reading animation loop.
+- Automatic reading mode uses the subtle light for fine mouse input. Touch
+  scrolling stays clear by default. Quiet/off and reduced motion remove the
+  pointer surface; explicit pointer choices persist between Notes/Wiki visits.
 - The existing scope owns listeners, observers, timers, frames and animations.
   Quiet/off, visibility and disposal contracts also apply to the new consumers.
 - PDF progress reflects actual transfer information, not a simulated clock. The

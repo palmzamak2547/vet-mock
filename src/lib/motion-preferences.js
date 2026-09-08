@@ -1,7 +1,8 @@
 // Device-only appearance preferences. These are never mixed into study backups.
 export const MOTION_STORAGE_KEY = 'vmx-motion-settings';
 export const MOTION_CHANGE_EVENT = 'vmx-motion-settings-change';
-export const MOTION_DEFAULTS = Object.freeze({ mode: 'auto', companion: true, loader: 'pages', celebration: 'contextual' });
+export const MOTION_DEFAULTS = Object.freeze({ mode: 'auto', companion: true, loader: 'pages', celebration: 'contextual', readingPointer: 'auto' });
+export const READING_POINTER_CHOICES = Object.freeze(['auto', 'none', 'spotlight', 'halo', 'ink', 'paw', 'comet', 'orbit', 'leaf', 'mochi']);
 export const LOADER_CHOICES = Object.freeze(['pawsteps', 'orbital', 'pages', 'heartbeat', 'dots', 'helix', 'skeleton', 'progress']);
 export const CELEBRATION_CHOICES = Object.freeze(['contextual', 'confetti', 'pawburst', 'fireflies', 'hearts', 'streak', 'chapter']);
 
@@ -12,7 +13,16 @@ export function normalizeMotionPreferences(value) {
     companion: typeof v.companion === 'boolean' ? v.companion : MOTION_DEFAULTS.companion,
     loader: LOADER_CHOICES.includes(v.loader) ? v.loader : MOTION_DEFAULTS.loader,
     celebration: CELEBRATION_CHOICES.includes(v.celebration) ? v.celebration : MOTION_DEFAULTS.celebration,
+    readingPointer: READING_POINTER_CHOICES.includes(v.readingPointer) ? v.readingPointer : MOTION_DEFAULTS.readingPointer,
   };
+}
+
+// Automatic decoration belongs to mouse reading, never touch scrolling or
+// reduced motion. Explicit pointer choices remain usable on touch devices.
+export function resolveReadingPointer(choice, { finePointer = false, reduced = false } = {}) {
+  if (reduced) return 'none';
+  if (choice === 'auto') return finePointer ? 'spotlight' : 'none';
+  return READING_POINTER_CHOICES.includes(choice) ? choice : 'none';
 }
 let current;
 export function readMotionPreferences() {

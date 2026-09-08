@@ -127,7 +127,7 @@
     {
       "id": "kit-effects-in-real-flows",
       "choice": "Apply the supplied interaction, loading, focus, celebration and break effects to real controls and state transitions. Keep the example gallery optional.",
-      "rationale": "The product needs working effects beyond the mascot. Reading pointers are opt-in, viewport-bounded and sleep when idle; action effects never own saves or answers. Timer ambience and activities follow actual focus/break state. All effects respect quiet/off, visibility and disposal without new dependencies.",
+      "rationale": "The product needs working effects beyond the mascot. A gentle reading light defaults to automatic on fine mouse input; touch stays undecorated unless selected. Persist manual pointer choices, including off. Reading effects are viewport-bounded and sleep when idle; action effects never own saves or answers. Timer ambience and activities follow actual focus/break state. All effects respect quiet/off, reduced motion, visibility and disposal without new dependencies.",
       "inspiration": "User correction on 2026-09-08; docs/motion-kit-real-usage.md"
     }
   ],
