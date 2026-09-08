@@ -1,4 +1,6 @@
 import Mochi from './Mochi.jsx';
+import MotionLoader from './MotionLoader.jsx';
+import { MotionButton, MotionEnter } from './MotionFeedback.jsx';
 
 export default function StatePanel({
   kind = 'empty',
@@ -11,7 +13,8 @@ export default function StatePanel({
   const isError = kind === 'error';
   const isLoading = kind === 'loading';
   return (
-    <div
+    <MotionEnter
+      effect={isError ? 'retry' : 'reveal'}
       className={`vmx-state-panel vmx-state-panel--${kind}`}
       role={isError ? 'alert' : 'status'}
       aria-live={isError ? 'assertive' : 'polite'}
@@ -19,19 +22,20 @@ export default function StatePanel({
     >
       <div className="vmx-state-panel__icon vmx-state-panel__mochi" aria-hidden="true">
         <Mochi state={isLoading ? 'loading' : isError ? 'encourage' : 'curious'} size={56} slot="status" animate={isLoading} fallback={isLoading ? '•••' : isError ? '!' : '—'} />
+        {(isLoading || busy) && <MotionLoader label={title || 'กำลังโหลด'} />}
       </div>
       {title && <div className="vmx-state-panel__title">{title}</div>}
       {body && <div className="vmx-state-panel__body">{body}</div>}
       {actionLabel && onAction && (
-        <button
+        <MotionButton
           type="button"
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
           onClick={onAction}
           disabled={busy}
         >
           {busy ? 'กำลังลองใหม่…' : actionLabel}
-        </button>
+        </MotionButton>
       )}
-    </div>
+    </MotionEnter>
   );
 }

@@ -1,0 +1,2 @@
+# Content-hashed artwork must keep identical bytes on Windows and Linux.
+public/motion/poses/*.svg text eol=lf

@@ -1,4 +1,7 @@
 import Mochi from '../components/Mochi.jsx';
+import ReadingEffects from '../components/ReadingEffects.jsx';
+import { MotionEnter } from '../components/MotionFeedback.jsx';
+import MotionLoader from '../components/MotionLoader.jsx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   NOTE_SUBJECT_IDS,
@@ -203,7 +206,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>กำลังเปิด <em>โน้ต</em></h1></div>
         <div className="vmx-config-panel" role="status" aria-live="polite">
-          <Mochi state="loading" size={36} animate slot="loading" className="vmx-status-mochi" />
+          <Mochi state="loading" size={36} animate slot="loading" className="vmx-status-mochi" /><MotionLoader label="กำลังโหลดสรุปบทเรียน" />
           กำลังโหลดเฉพาะวิชา {subjectMeta?.name || subject}…
         </div>
       </>
@@ -391,6 +394,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           {/* highlight prop uses the debounced value so RichText doesn't
               re-walk every text node on every keystroke. The visible
               <input> still reads `search` for instant feedback. */}
+          <ReadingEffects contentKey={`${subject}:${validTopic}:${debouncedSearch}`}>
           {filteredSections.map((section, idx) => (
             <SectionBlock
               key={idx}
@@ -401,6 +405,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               figSectionId={sectionId(subject, validTopic, section.heading)}
             />
           ))}
+          </ReadingEffects>
         </div>
       </div>
 
@@ -431,6 +436,8 @@ function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null 
     <div style={{ marginBottom: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', overflow: 'hidden' }}>
       <button
         onClick={() => setOpen(!open)}
+        type="button"
+        aria-expanded={open}
         style={{ all: 'unset', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', width: '100%', boxSizing: 'border-box', borderBottom: open ? '1px solid var(--clr-border)' : 'none' }}
       >
         <div style={{ flex: 1 }}>
@@ -454,7 +461,7 @@ function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null 
       </button>
 
       {open && (
-        <div style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
+        <MotionEnter effect="accordion" style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
           {section.body.map((item, i) => <BodyItem key={i} item={item} highlight={highlight} />)}
           {conflicts.map((c, i) => <ConflictNote key={i} item={c} />)}
           {/* Shared with the VetWiki article page — one figure renderer,
@@ -465,7 +472,7 @@ function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null 
               แหล่งที่มา: {section.source}
             </div>
           )}
-        </div>
+        </MotionEnter>
       )}
     </div>
   );

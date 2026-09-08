@@ -19,6 +19,7 @@
 // ============================================================
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import ReadingEffects from '../components/ReadingEffects.jsx';
 import { RichText } from '../lib/richtext.jsx';
 import { SUBJECTS } from '../data/curriculum.js';
 import {
@@ -461,6 +462,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       )}
 
       {/* Sections */}
+      <ReadingEffects contentKey={knowledge.id}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
         {knowledge.sections.map((s) => {
           const rev = REVIEW_LABEL[s.reviewStatus];
@@ -494,6 +496,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
         })}
       </div>
 
+      </ReadingEffects>
       {/* Related topics in the same subject */}
       {related.length > 0 && (
         <section style={{ marginTop: 34, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>

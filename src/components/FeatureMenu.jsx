@@ -16,6 +16,7 @@
 // ============================================================
 
 import { useState } from 'react';
+import { MotionButton } from './MotionFeedback.jsx';
 import { FEATURE_CATEGORIES, featuresByCategory, visibleFeatures } from '../lib/feature-registry.js';
 import { commandShortcutLabel } from '../lib/nav.js';
 
@@ -83,8 +84,9 @@ export default function FeatureMenu({
             </div>
             <div id={gridId} className="vmx-feature-grid">
               {shown.map((f) => (
-                <button
+                <MotionButton
                   key={f.id}
+                  effect={f.id === 'library' || f.id === 'atlas' ? 'tilt' : 'ripple'}
                   type="button"
                   className="vmx-feature-card"
                   onClick={() => dispatch(f.invoke)}
@@ -96,7 +98,7 @@ export default function FeatureMenu({
                     {f.hint && <span className="vmx-feature-card-sub">{f.hint}</span>}
                   </span>
                   <span className="vmx-feature-card-arrow" aria-hidden>›</span>
-                </button>
+                </MotionButton>
               ))}
             </div>
             {hiddenCount > 0 && (

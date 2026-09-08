@@ -1,9 +1,9 @@
 // Device-only appearance preferences. These are never mixed into study backups.
 export const MOTION_STORAGE_KEY = 'vmx-motion-settings';
 export const MOTION_CHANGE_EVENT = 'vmx-motion-settings-change';
-export const MOTION_DEFAULTS = Object.freeze({ mode: 'auto', companion: true, loader: 'pages', celebration: 'pawburst' });
+export const MOTION_DEFAULTS = Object.freeze({ mode: 'auto', companion: true, loader: 'pages', celebration: 'contextual' });
 export const LOADER_CHOICES = Object.freeze(['pawsteps', 'orbital', 'pages', 'heartbeat', 'dots', 'helix', 'skeleton', 'progress']);
-export const CELEBRATION_CHOICES = Object.freeze(['confetti', 'pawburst', 'fireflies', 'hearts', 'streak', 'chapter']);
+export const CELEBRATION_CHOICES = Object.freeze(['contextual', 'confetti', 'pawburst', 'fireflies', 'hearts', 'streak', 'chapter']);
 
 export function normalizeMotionPreferences(value) {
   const v = value && typeof value === 'object' && !Array.isArray(value) ? value : {};

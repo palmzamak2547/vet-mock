@@ -1,4 +1,5 @@
 import { element, svgPaw } from "./core.js";
+import { playFeedback } from './feedback.js';
 export const INTERACTION_PRESETS = ["magnet", "tilt", "ripple", "flip", "bookmark", "reveal", "retry", "like", "accordion", "toast"];
 export function createInteraction(root, { variant = "magnet", scope, onEvent = () => {
 } } = {}) {
@@ -28,7 +29,7 @@ export function createInteraction(root, { variant = "magnet", scope, onEvent = (
     scope.on(b, "click", () => {
       b.style.translate = "0 0";
       feedback("พร้อมแล้ว ไปทีละนิดด้วยกัน");
-      scope.animate(b, [{ scale: 1 }, { scale: 0.94 }, { scale: 1 }]);
+      playFeedback(b, 'magnet', { scope });
     });
   }
   if (variant === "tilt") {
@@ -41,7 +42,7 @@ export function createInteraction(root, { variant = "magnet", scope, onEvent = (
     });
     scope.on(card, "pointerleave", () => card.style.transform = "");
     scope.on(card, "click", () => {
-      scope.animate(card, [{ scale: 1 }, { scale: 1.025 }, { scale: 1 }]);
+      playFeedback(card, 'tilt', { scope });
       feedback("ทีละก้าวก็เป็นความก้าวหน้า");
     });
   }
@@ -83,7 +84,7 @@ export function createInteraction(root, { variant = "magnet", scope, onEvent = (
       active = !active;
       b.setAttribute("aria-pressed", active);
       b.textContent = heart ? active ? "♥ ส่งกำลังใจแล้ว" : "♡ ส่งกำลังใจ" : active ? "★ บันทึกแล้ว" : "☆ บันทึกไว้อ่าน";
-      scope.animate(b, [{ transform: "scale(1)" }, { transform: "scale(1.16) rotate(-3deg)" }, { transform: "scale(1)" }]);
+      playFeedback(b, variant, { scope });
       feedback(active ? heart ? "Mochi ได้รับหัวใจแล้ว" : "บันทึกตัวอย่างนี้แล้ว" : "ยกเลิกแล้ว");
     });
   }
@@ -97,14 +98,14 @@ export function createInteraction(root, { variant = "magnet", scope, onEvent = (
       paper.hidden = !active;
       b.setAttribute("aria-expanded", active);
       b.textContent = active ? "ซ่อนเฉลย" : "เปิดเฉลย ✦";
-      if (active) scope.animate(paper, [{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "translateY(0)" }]);
+      if (active) playFeedback(paper, 'reveal', { scope });
       feedback(active ? "เฉลยพร้อมแล้ว" : "ซ่อนเฉลยแล้ว");
     });
   }
   if (variant === "retry") {
     const b = button("ลองคำตอบนี้", "vm-button vm-button-warm");
     scope.on(b, "click", () => {
-      scope.animate(b, [{ transform: "translateX(0)" }, { transform: "translateX(-7px)" }, { transform: "translateX(6px)" }, { transform: "translateX(-3px)" }, { transform: "translateX(0)" }], { duration: 380 });
+      playFeedback(b, 'retry', { scope });
       feedback("ยังไม่ใช่ แต่ลองใหม่ได้เสมอ ♡");
     });
   }
@@ -113,7 +114,7 @@ export function createInteraction(root, { variant = "magnet", scope, onEvent = (
     details.append(summary, content);
     wrap.append(details);
     scope.on(details, "toggle", () => {
-      if (details.open) scope.animate(content, [{ opacity: 0, transform: "translateY(-8px)" }, { opacity: 1, transform: "translateY(0)" }], { duration: 300 });
+      if (details.open) playFeedback(content, 'accordion', { scope });
       feedback(details.open ? "เปิดจดหมายแล้ว" : "พับจดหมายแล้ว");
     });
   }
@@ -127,7 +128,7 @@ export function createInteraction(root, { variant = "magnet", scope, onEvent = (
       version++;
       const v = version;
       toast.hidden = false;
-      scope.animate(toast, [{ opacity: 0, transform: "translateY(18px)" }, { opacity: 1, transform: "translateY(0)" }]);
+      playFeedback(toast, 'toast', { scope });
       scope.later(() => {
         if (v === version) toast.hidden = true;
       }, 3200);

@@ -2,9 +2,12 @@ import { useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import MotionSettings from '../components/MotionSettings.jsx';
 import MotionSurface from '../components/MotionSurface.jsx';
+import StudyBreak from '../components/StudyBreak.jsx';
+import { MotionButton } from '../components/MotionFeedback.jsx';
 import { EFFECTS, GROUPS } from '../lib/motion-kit/catalog.js';
 
-export default function MochiView({ goHome }) {
+export default function MochiView({ goHome, onOpenFocus }) {
+  const [examplesOpen, setExamplesOpen] = useState(false);
   const [selected, setSelected] = useState('mochi-hello');
   const [group, setGroup] = useState('mochi');
   const [paused, setPaused] = useState(false);
@@ -15,10 +18,14 @@ export default function MochiView({ goHome }) {
   return <div className="vmx-mochi-page">
     <BackBar onBack={goHome} label="กลับไปเรียน" />
     <header className="vmx-mochi-heading">
-      <div><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักกับ Mochi</h1><p>พื้นที่เล็ก ๆ ให้พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
-      <span className="vmx-mochi-count">{EFFECTS.length} กิจกรรม · 2D / 3D</span>
+      <div><img src="/motion/assets/mochi.png" width="64" height="64" className="vmx-mochi-rest-portrait" alt="" /><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักกับ Mochi</h1><p>พื้นที่เล็ก ๆ ให้พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
+      {onOpenFocus && <MotionButton className="vmx-btn vmx-btn-ghost" onClick={onOpenFocus}>จับเวลาอ่านพร้อมช่วงพัก</MotionButton>}
     </header>
+    <StudyBreak />
     <MotionSettings />
+    <details className="vmx-motion-examples" onToggle={event => setExamplesOpen(event.currentTarget.open)}>
+    <summary>ดูตัวอย่างเอฟเฟกต์และท่า Mochi</summary>
+    {examplesOpen && <>
     <div className="vmx-mochi-groups" role="group" aria-label="หมวดกิจกรรม">
       {GROUPS.map(item => <button type="button" key={item.id} aria-pressed={group === item.id} onClick={() => pickGroup(item.id)}>{item.name}<span>{EFFECTS.filter(e => e.group === item.id).length}</span></button>)}
     </div>
@@ -40,5 +47,7 @@ export default function MochiView({ goHome }) {
         <div className="vmx-mochi-choices">{choices.map((item, i) => <button type="button" key={item.id} aria-pressed={selected === item.id} onClick={() => setSelected(item.id)}><span className="vmx-mochi-choice-number" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span><strong>{item.th}</strong><span>{item.name}</span></span></button>)}</div>
       </section>
     </div>
+    </>}
+    </details>
   </div>;
 }

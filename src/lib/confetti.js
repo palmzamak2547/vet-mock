@@ -5,7 +5,7 @@ import { motionIsReduced, readMotionPreferences, subscribeMotionPreferences } fr
 let active = null;
 
 export function clearConfetti() { active?.destroy(); }
-export function fireConfetti({ count = 120, originXRatio = .5, originYRatio = .55 } = {}) {
+export function fireConfetti({ count = 120, originXRatio = .5, originYRatio = .55, preset } = {}) {
   if (typeof document === 'undefined' || document.hidden || motionIsReduced()) return () => {};
   if (!active) {
     const root = document.createElement('div');
@@ -13,7 +13,7 @@ export function fireConfetti({ count = 120, originXRatio = .5, originYRatio = .5
     root.setAttribute('aria-hidden', 'true');
     root.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:100;overflow:hidden;';
     document.body.append(root);
-    const scope = createScope(root), fx = createParticles(root, { scope, kind: 'burst', preset: readMotionPreferences().celebration });
+    const scope = createScope(root), fx = createParticles(root, { scope, kind: 'burst', preset: 'pawburst' });
     if (fx.canvas) fx.canvas.style.cssText += ';position:absolute;inset:0;pointer-events:none;';
     let timer, destroyed = false;
     const destroy = () => {
@@ -29,7 +29,8 @@ export function fireConfetti({ count = 120, originXRatio = .5, originYRatio = .5
     active = { root, fx, destroy, extend() { clearTimeout(timer); timer = setTimeout(destroy, 2800); } };
   }
   active.fx.setIntensity(Math.min(2, Math.max(.25, count / 70)));
-  active.fx.burst(readMotionPreferences().celebration, window.innerWidth * originXRatio, window.innerHeight * originYRatio);
+  const choice = readMotionPreferences().celebration;
+  active.fx.burst(choice === 'contextual' ? preset || 'pawburst' : choice, window.innerWidth * originXRatio, window.innerHeight * originYRatio);
   active.extend();
   return active.destroy;
 }

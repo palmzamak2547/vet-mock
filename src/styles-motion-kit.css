@@ -1047,6 +1047,9 @@
 .vmx-motion-loader { display: block; width: 40px; height: 28px; overflow: hidden; }
 .vmx-motion-loader .vm-loader { width: 280px; transform: scale(.14); transform-origin: top left; gap: 0; }
 .vmx-motion-loader .vm-loader-caption { display: none; }
+.vmx-motion-loader.is-measured { width: min(100%, 280px); height: 40px; overflow: visible; }
+.vmx-motion-loader.is-measured .vm-loader { width: 100%; transform: none; }
+.vmx-motion-loader.is-measured .vm-loader-art { width: 100%; min-height: 0; height: 28px; margin: 0; }
 @media (max-width: 380px) {
   .vm-host .vm-play, .vm-host .vm-interaction { padding: 12px; }
   .vm-host .vm-bubble { width: 46px; height: 46px; }

@@ -2623,7 +2623,7 @@ export default function App() {
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
-              {view === 'mochi' && <MochiView goHome={goHome} />}
+              {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'race' && user && <RaceView key={user?.id ?? 'guest'} goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}

@@ -17,6 +17,7 @@ import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import MatchDragDrop from './MatchDragDrop.jsx';
 import Mochi from './Mochi.jsx';
+import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -61,6 +62,7 @@ function writeFlags(map) {
 }
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki }) {
+  const bookmarkMotion = useMotionFeedback('bookmark', isBookmarked);
   const compoundId = (currentQ?.subject || '?') + ':' + currentQ?.id;
   const figureSrc = safeImageUrl(currentQ?.image || currentQ?.imagePath);
   const figureAlt = currentQ?.imageAlt
@@ -452,7 +454,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           line. Spacing now comes from `gap`, so size and spacing cannot
           disagree again. */}
       <div className="vmx-q-toolbar">
-        <button type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="บันทึกข้อนี้ (B)">
+        <button ref={bookmarkMotion} data-motion-feedback="bookmark" type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="บันทึกข้อนี้ (B)">
           <NavIcon name="star" size={18} filled={isBookmarked} />
         </button>
         <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้ (N)">
@@ -702,7 +704,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 // when the student later opens full review.
 function InstantFeedback({ ok, correctNode, explain, wikiLink }) {
   return (
-    <div className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
+    <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <Mochi state={ok ? 'correct' : 'encourage'} size={48} slot="feedback" animate className="vmx-feedback-mochi" />
       <div className="v">{ok ? '✓ ถูกต้อง!' : '✗ ยังไม่ใช่ — คำตอบที่ถูกถูกทำเครื่องหมาย ✓ ไว้'}</div>
       {!ok && correctNode != null && (
@@ -712,6 +714,6 @@ function InstantFeedback({ ok, correctNode, explain, wikiLink }) {
         <div className="w"><span className="k">เหตุผล</span><RichText text={explain} /></div>
       )}
       {wikiLink}
-    </div>
+    </MotionEnter>
   );
 }

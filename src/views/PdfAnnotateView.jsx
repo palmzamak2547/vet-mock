@@ -27,6 +27,8 @@
 
 import { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from 'react';
 import BackBar from '../components/BackBar.jsx';
+import MotionLoader from '../components/MotionLoader.jsx';
+import { MotionEnter } from '../components/MotionFeedback.jsx';
 import { thaiError } from '../lib/errors.js';
 import { confirmDialog } from '../lib/dialog.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
@@ -154,6 +156,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [size, setSize] = useState(3);
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState('');
+  const [downloadProgress, setDownloadProgress] = useState(null);
   const [error, setError] = useState(null);
   const [toast, setToast] = useState(null);
   const [dragging, setDragging] = useState(false);
@@ -305,6 +308,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const ingestFile = useCallback(async (file) => {
     if (!file) return;
     setError(null);
+    setDownloadProgress(null);
     const isPdf = file.type === 'application/pdf'
       || file.name.toLowerCase().endsWith('.pdf');
     if (!isPdf) {
@@ -381,6 +385,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const ingestRemote = useCallback(async (doc) => {
     if (!doc?.url && !doc?.resolve) return;
     setError(null);
+    setDownloadProgress(null);
     setLoading(true);
     setLoadingMsg('กำลังเปิดเอกสาร…');
     try {
@@ -417,12 +422,25 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         // nothing for fifteen seconds is indistinguishable from a hang — and
         // a student who cannot tell the difference reloads, which starts the
         // download again from zero.
-        const buf = await readWithProgress(res, setLoadingMsg);
+        const buf = await readWithProgress(res, setLoadingMsg, setDownloadProgress);
         sourceRef.current = { kind: 'url', url };
         task = pdfjs.getDocument({ data: buf });
       }
       setLoadingMsg('กำลังแกะ PDF…');
+      setDownloadProgress(null);
+      if (stream) {
+        let lastProgressAt = 0;
+        task.onProgress = ({ loaded, total }) => {
+          const now = Date.now();
+          if (now - lastProgressAt < 250) return;
+          lastProgressAt = now;
+          const measured = Number.isFinite(total) && total > 0 && Number.isFinite(loaded);
+          setDownloadProgress(measured ? Math.min(99, (loaded / total) * 100) : null);
+          setLoadingMsg(measured ? `กำลังโหลด ${mb(loaded)} / ${mb(total)} MB` : 'กำลังโหลดเอกสาร…');
+        };
+      }
       const pdf = await task.promise;
+      setDownloadProgress(null);
       // library_docs.sha256_16 is NOT NULL, so this normally comes straight
       // from the catalog. The slug fallback exists only so a malformed row
       // degrades to "annotations scoped to this document" rather than
@@ -1806,7 +1824,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
           {loading && (
             <div style={{ marginTop: 16, textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 13 }}>
-              <div style={{ marginBottom: 6 }}>⏳ {loadingMsg || 'กำลังประมวลผล…'}</div>
+              <div className="vmx-document-loading"><MotionLoader progress={downloadProgress} label="ดาวน์โหลดเอกสาร" /><span>{loadingMsg || 'กำลังประมวลผล…'}</span></div>
             </div>
           )}
 
@@ -2288,7 +2306,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           color: '#fff', zIndex: 1000,
         }}>
           <div style={{ background: 'var(--clr-bg, #fff)', color: 'var(--clr-ink)', padding: 16, borderRadius: 8 }}>
-            ⏳ {loadingMsg || 'กำลังโหลด…'}
+            <div className="vmx-document-loading"><MotionLoader progress={downloadProgress} label="ดาวน์โหลดเอกสาร" /><span>{loadingMsg || 'กำลังโหลด…'}</span></div>
           </div>
         </div>
       )}
@@ -2368,7 +2386,7 @@ function Toast({ text }) {
         maxWidth: '90vw',
         textAlign: 'center',
       }}
-    >{text}</div>
+    ><MotionEnter key={text} effect="toast">{text}</MotionEnter></div>
   );
 }
 
@@ -2377,8 +2395,11 @@ function Toast({ text }) {
 // Falls back to arrayBuffer() whenever the stream is unavailable — no
 // getReader (older Safari), or an unknown length. Progress is a nicety; the
 // bytes are not, so nothing here may become a reason a document fails to open.
-async function readWithProgress(res, onProgress) {
-  const total = Number(res.headers.get('content-length')) || 0;
+async function readWithProgress(res, onProgress, onPercent = () => {}) {
+  // A compressed Content-Length describes transferred bytes, while fetch's
+  // stream is decoded. In that case show received MB, never a false percent.
+  const encoding = res.headers.get('content-encoding');
+  const total = !encoding || encoding === 'identity' ? Number(res.headers.get('content-length')) || 0 : 0;
   if (!res.body?.getReader) return res.arrayBuffer();
   try {
     const reader = res.body.getReader();
@@ -2395,6 +2416,7 @@ async function readWithProgress(res, onProgress) {
       const now = Date.now();
       if (now - lastPaint > 250) {
         lastPaint = now;
+        onPercent(total > 0 ? Math.min(99, (got / total) * 100) : null);
         onProgress(total
           ? `กำลังโหลด ${mb(got)} / ${mb(total)} MB (${Math.round((got / total) * 100)}%)`
           : `กำลังโหลด ${mb(got)} MB`);

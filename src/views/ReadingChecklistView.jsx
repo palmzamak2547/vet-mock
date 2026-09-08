@@ -1,4 +1,6 @@
 import Mochi from '../components/Mochi.jsx';
+import { useEffect, useRef } from 'react';
+import { fireConfetti } from '../lib/confetti.js';
 // ============================================================
 // ReadingChecklistView — รายการอ่าน (study progress checklist)
 // ============================================================
@@ -52,6 +54,13 @@ export default function ReadingChecklistView({
   const totalTopics = subjects.reduce((acc, s) => acc + s.topics.length, 0);
   const totalDone = subjects.reduce((acc, s) => acc + s.topics.filter((t) => isTopicRead(readingChecklist, s.id, t.id)).length, 0);
   const overallPct = totalTopics > 0 ? Math.round((totalDone / totalTopics) * 100) : 0;
+  const previous = useRef({ year: selectedYear, done: totalDone });
+  useEffect(() => {
+    if (previous.current.year === selectedYear && totalDone > previous.current.done) {
+      fireConfetti({ count: 32, preset: 'chapter' });
+    }
+    previous.current = { year: selectedYear, done: totalDone };
+  }, [selectedYear, totalDone]);
 
   return (
     <>

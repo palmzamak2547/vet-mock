@@ -18,11 +18,12 @@ import { useEffect, useState, useCallback } from 'react';
 import { addPin, removePinByKey, isPinned, payloadKey, PINBOARD_EVENT } from '../lib/pinboard.js';
 import NavIcon from './NavIcon.jsx';
 import { alertDialog } from '../lib/dialog.js';
+import { useMotionFeedback } from './MotionFeedback.jsx';
 
 export default function PinButton({ type, payload, label, compact = false, style }) {
   const key = payloadKey(type, payload);
   const [pinned, setPinned] = useState(() => isPinned(type, key));
-  const [bumped, setBumped] = useState(false);
+  const motionRef = useMotionFeedback('bookmark', pinned);
 
   // Re-read on mount + listen for cross-component changes (other
   // PinButton instance, PinboardView clear-all, etc.).
@@ -42,21 +43,14 @@ export default function PinButton({ type, payload, label, compact = false, style
       alertDialog('บันทึก Pinboard ไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม กรุณาลองใหม่');
       return;
     }
-    // Tiny scale bounce so users get tactile feedback without needing
-    // a toast layer. Cleared by setTimeout in a hook below.
-    setBumped(true);
   }, [type, key, payload, label, pinned]);
-
-  useEffect(() => {
-    if (!bumped) return;
-    const t = setTimeout(() => setBumped(false), 220);
-    return () => clearTimeout(t);
-  }, [bumped]);
 
   const size = compact ? 36 : 44;
 
   return (
     <button
+      ref={motionRef}
+      data-motion-feedback="bookmark"
       type="button"
       onClick={onClick}
       aria-label={pinned ? 'ปลดหมุดจาก Pinboard' : 'เพิ่มเข้า Pinboard'}
@@ -77,8 +71,7 @@ export default function PinButton({ type, payload, label, compact = false, style
         cursor: 'pointer',
         fontSize: compact ? 16 : 18,
         lineHeight: 1,
-        transform: bumped ? 'scale(1.18)' : 'scale(1)',
-        transition: 'transform 180ms ease, background 180ms ease, border-color 180ms ease',
+        transition: 'background 180ms ease, border-color 180ms ease',
         WebkitTapHighlightColor: 'transparent',
         touchAction: 'manipulation',
         ...style,

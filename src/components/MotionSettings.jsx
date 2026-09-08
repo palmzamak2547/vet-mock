@@ -24,7 +24,7 @@ export default function MotionSettings() {
       </label>
       <label>เอฟเฟกต์เมื่อทำสำเร็จ
         <select value={preferences.celebration} onChange={e => save({ celebration: e.target.value })}>
-          {CELEBRATION_CHOICES.map(id => <option value={id} key={id}>{names[id]}</option>)}
+          {CELEBRATION_CHOICES.map(id => <option value={id} key={id}>{id === 'contextual' ? 'ตามกิจกรรมที่ทำสำเร็จ' : names[id]}</option>)}
         </select>
       </label>
       <label className="vmx-motion-checkbox"><input type="checkbox" checked={preferences.companion} onChange={e => save({ companion: e.target.checked })} />แสดง Mochi ในหน้าต่าง ๆ ของ VetMock</label>

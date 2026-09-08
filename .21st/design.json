@@ -92,7 +92,7 @@
       "Keep learner-facing copy Thai-first"
     ],
     "avoid": [
-      "Gradients, glass, glow, huge headlines, and decorative animation in the app",
+      "Large decorative backgrounds, heavy glow, huge headlines, and competing motion in the study app",
       "Emoji used as a new interface icon",
       "New dependencies when existing React and CSS primitives are sufficient",
       "Competing primary actions above the subject list",
@@ -120,9 +120,15 @@
     },
     {
       "id": "mochi-motion-scope",
-      "choice": "Embed small contextual 2D companions in existing study UI; reserve full motion controls and 3D for the optional break room.",
+      "choice": "Embed small contextual 2D companions in existing study UI; keep global motion controls in the theme menu and reserve 3D for the optional break room.",
       "rationale": "Shared presence policy, one device preference, local artwork failure containment and finite reactions preserve studying, exam grading and focused workspaces without eager 3D.",
       "inspiration": "Supplied VetMock Motion FX Kit; docs/motion-kit-integration.md"
+    },
+    {
+      "id": "kit-effects-in-real-flows",
+      "choice": "Apply the supplied interaction, loading, focus, celebration and break effects to real controls and state transitions. Keep the example gallery optional.",
+      "rationale": "The product needs working effects beyond the mascot. Reading pointers are opt-in, viewport-bounded and sleep when idle; action effects never own saves or answers. Timer ambience and activities follow actual focus/break state. All effects respect quiet/off, visibility and disposal without new dependencies.",
+      "inspiration": "User correction on 2026-09-08; docs/motion-kit-real-usage.md"
     }
   ],
   "evidence": [

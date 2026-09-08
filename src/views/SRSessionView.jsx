@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import { MotionEnter, MotionButton } from '../components/MotionFeedback.jsx';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../lib/study-events.js';
 import { alertDialog } from '../lib/dialog.js';
@@ -578,7 +579,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           {currentQ.imagePath && <ZoomableImage src={currentQ.imagePath} maxHeight={240} />}
         </div>
         {showAnswer && (
-          <div className="back vmx-reveal-rise">
+          <MotionEnter effect="flip" className="back">
             <div className="answer">
               {answerNode || answerText}
             </div>
@@ -589,15 +590,15 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                 every reveal: the student explicitly asked to see this
                 answer, right or wrong. */}
             <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} onlyWhenWrong={false} />
-          </div>
+          </MotionEnter>
         )}
       </div>
 
       {!showAnswer ? (
         <div className="vmx-btn-row" style={{ justifyContent: 'center' }}>
-          <button className="vmx-btn vmx-btn-primary" onClick={() => setShowAnswer(true)} style={{ minWidth: 240 }}>
+          <MotionButton className="vmx-btn vmx-btn-primary" onClick={() => setShowAnswer(true)} style={{ minWidth: 240 }}>
             แสดงคำตอบ (Space)
-          </button>
+          </MotionButton>
         </div>
       ) : (
         // Every sublabel is computed by the scheduler itself. They used to be

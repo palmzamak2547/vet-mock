@@ -21,6 +21,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PomodoroChick from './PomodoroChick.jsx';
+import FocusBackdrop from './FocusBackdrop.jsx';
+import StudyBreak from './StudyBreak.jsx';
+import { MotionButton } from './MotionFeedback.jsx';
 
 const VISIBILITY_GRACE_MS = 5_000; // 5 s — survives glances at notifications
 const FOCUS_PER_CYCLE = 4; // every 4th focus → long break
@@ -109,6 +112,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
   // State machine
   const [state, setState] = useState('idle'); // 'idle' | 'focus' | 'shortBreak' | 'longBreak' | 'failed'
   const [focusCount, setFocusCount] = useState(0); // # of completed focus sessions this run
+  const [ambience, setAmbience] = useState('rain');
 
   // Wall-clock anchors
   const [startedAt, setStartedAt] = useState(null);
@@ -331,7 +335,8 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
       `}</style>
 
       {/* Ring + chick */}
-      <div style={{ position: 'relative', width: RING_SIZE, height: RING_SIZE, maxWidth: '90vw', maxHeight: '90vw' }}>
+      <div className="vmx-focus-scene" style={{ position: 'relative', width: RING_SIZE, height: RING_SIZE, maxWidth: '90vw', maxHeight: '90vw' }}>
+        <FocusBackdrop preset={ambience} paused={!isTimerActive || paused} />
         <svg
           viewBox={`0 0 ${RING_SIZE} ${RING_SIZE}`}
           width="100%"
@@ -458,11 +463,14 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
       )}
 
       {/* Actions */}
+      <label className="vmx-focus-scene-picker">บรรยากาศ <select aria-label="บรรยากาศโฟกัส" value={ambience} onChange={event => setAmbience(event.target.value)}>
+        <option value="rain">ฝนเบา ๆ</option><option value="glow">สวนหิ่งห้อย</option><option value="garden">สวนดาว</option><option value="none">ปิดบรรยากาศ</option>
+      </select></label>
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
         {state === 'idle' && (
-          <button type="button" onClick={startFocus} style={primaryBtn} aria-label="เริ่ม focus session">
+          <MotionButton type="button" onClick={startFocus} style={primaryBtn} aria-label="เริ่ม focus session">
             ▶ Start
-          </button>
+          </MotionButton>
         )}
         {isTimerActive && !paused && (
           <button type="button" onClick={pause} style={ghostBtn} aria-label="หยุดชั่วคราว">
@@ -480,6 +488,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
           </button>
         )}
       </div>
+      {(state === 'shortBreak' || state === 'longBreak') && <StudyBreak paused={paused} />}
     </div>
   );
 }

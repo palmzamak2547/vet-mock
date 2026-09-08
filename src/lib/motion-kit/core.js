@@ -77,7 +77,9 @@ export function createScope(root, { paused = false, quiet = false } = {}) {
     animate(el, keyframes, options = {}) {
       if (disposed || reduced() || typeof el.animate !== 'function') return null;
       elementAnimations.get(el)?.cancel();
-      const a = el.animate(keyframes, { duration: 240, easing: 'cubic-bezier(.2,.8,.2,1)', ...options });
+      let a;
+      try { a = el.animate(keyframes, { duration: 240, easing: 'cubic-bezier(.2,.8,.2,1)', ...options }); }
+      catch { return null; } // Optional motion can never break a real action.
       elementAnimations.set(el, a);
       animations.add(a);
       a.finished.then(() => animations.delete(a), () => animations.delete(a));
@@ -98,8 +100,7 @@ export function createScope(root, { paused = false, quiet = false } = {}) {
     },
   };
 }
-export function localPoint(event, root) {
-  const b = root.getBoundingClientRect();
+export function localPoint(event, root, b = root.getBoundingClientRect()) {
   return { x: clamp(event.clientX - b.left, 0, b.width), y: clamp(event.clientY - b.top, 0, b.height) };
 }
 export function element(tag, className, text) {

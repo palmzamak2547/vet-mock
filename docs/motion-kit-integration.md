@@ -1,5 +1,9 @@
 # Mochi and Motion FX integration
 
+The subsequent real-workflow integration is mapped in
+[motion-kit-real-usage.md](motion-kit-real-usage.md): reading pointers/focus,
+actual control feedback, PDF progress, contextual celebrations and timer breaks.
+
 The supplied VetMock Motion FX Kit is integrated as source, with MIT attribution
 in `docs/licenses/vetmock-motion-kit.txt`. The original download remains intact.
 The app does not load the kit's duplicate standalone bundles or playground page.

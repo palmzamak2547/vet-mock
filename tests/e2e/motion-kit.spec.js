@@ -14,6 +14,7 @@ async function open(page) {
   // A cold WebKit page can still be inside Suspense at five seconds while
   // the cross-engine suite is busy. Wait for this view's actual readiness.
   await expect(page.getByRole('heading', { level: 1, name: 'พักกับ Mochi' })).toBeVisible({ timeout: 20_000 });
+  await page.getByText('ดูตัวอย่างเอฟเฟกต์และท่า Mochi', { exact: true }).click();
   await expect(page.locator('.vmx-motion-stage')).toHaveAttribute('data-ready', 'true', { timeout: 20_000 });
 }
 async function pick(page, effect) {
@@ -23,6 +24,9 @@ async function pick(page, effect) {
   await expect(page.locator('.vmx-motion-stage')).toHaveAttribute('data-effect', effect.id);
 }
 async function group(page, id) {
+  if (!(await page.getByRole('group', { name: 'หมวดกิจกรรม' }).isVisible())) {
+    await page.getByText('ดูตัวอย่างเอฟเฟกต์และท่า Mochi', { exact: true }).click();
+  }
   const item = GROUPS.find(g => g.id === id);
   await page.getByRole('group', { name: 'หมวดกิจกรรม' }).getByRole('button', { name: new RegExp(`^${item.name}`) }).click();
 }
@@ -78,26 +82,26 @@ test('quiet preference persists, reduced motion remains functional, games keep r
   await group(page, 'play');
   await pick(page, EFFECTS.find(e => e.id === 'fetch'));
   await page.getByRole('button', { name: 'โยนบอลให้ Mochi ↗', exact: true }).click();
-  await expect(page.locator('.vm-game-status')).toContainText('เก็บบอลแล้ว 1 ครั้ง');
+  await expect(page.locator('.vmx-motion-stage .vm-game-status')).toContainText('เก็บบอลแล้ว 1 ครั้ง');
   await pick(page, EFFECTS.find(e => e.id === 'bubbles'));
   for (let i = 1; i < 12; i++) await page.getByRole('button', { name: `จิ้มฟองที่ ${i}`, exact: true }).click();
   await page.getByRole('button', { name: 'จิ้มฟองที่ 12', exact: true }).press('Enter');
-  await expect(page.locator('.vm-game-status')).toContainText('หมดแล้ว');
+  await expect(page.locator('.vmx-motion-stage .vm-game-status')).toContainText('หมดแล้ว');
   await expect(page.getByRole('button', { name: 'จิ้มฟองที่ 12', exact: true })).toBeFocused();
   await page.getByRole('button', { name: 'เริ่มกิจกรรมใหม่', exact: true }).click();
-  await expect(page.locator('.vm-game-status')).toHaveText('จิ้มฟองได้ 0/12 ฟอง');
+  await expect(page.locator('.vmx-motion-stage .vm-game-status')).toHaveText('จิ้มฟองได้ 0/12 ฟอง');
   await pick(page, EFFECTS.find(e => e.id === 'memory'));
   const symbols = await page.locator('.vm-memory-tile').evaluateAll(nodes => nodes.map(n => n.dataset.symbol));
   for (const s of new Set(symbols)) {
     for (const i of symbols.map((v, i) => v === s ? i : -1).filter(i => i >= 0)) await page.locator('.vm-memory-tile').nth(i).click();
   }
-  await expect(page.locator('.vm-game-status')).toContainText('ครบทุกคู่แล้ว! ใช้ 4 ตา');
+  await expect(page.locator('.vmx-motion-stage .vm-game-status')).toContainText('ครบทุกคู่แล้ว! ใช้ 4 ตา');
   await pick(page, EFFECTS.find(e => e.id === 'breath'));
-  await page.getByRole('button', { name: 'เริ่มหายใจไปด้วยกัน', exact: true }).click();
-  await expect(page.locator('.vm-breath-circle strong')).toHaveText('หายใจเข้า');
-  await expect(page.locator('.vm-breath-circle span')).not.toHaveText('4 วินาที', { timeout: 2500 });
-  await page.getByRole('button', { name: 'พักก่อน', exact: true }).click();
-  await expect(page.locator('.vm-breath-circle strong')).toHaveText('พักได้ตามสบาย');
+  await page.locator('.vmx-motion-stage').getByRole('button', { name: 'เริ่มหายใจไปด้วยกัน', exact: true }).click();
+  await expect(page.locator('.vmx-motion-stage .vm-breath-circle strong')).toHaveText('หายใจเข้า');
+  await expect(page.locator('.vmx-motion-stage .vm-breath-circle span')).not.toHaveText('4 วินาที', { timeout: 2500 });
+  await page.locator('.vmx-motion-stage').getByRole('button', { name: 'พักก่อน', exact: true }).click();
+  await expect(page.locator('.vmx-motion-stage .vm-breath-circle strong')).toHaveText('พักได้ตามสบาย');
 });
 
 test('3D is optional, preserves the selected model when switching presets, and cleans up on leave', async ({ page }) => {

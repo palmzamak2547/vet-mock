@@ -1,28 +1,29 @@
 import { clamp, lerp, random, createScope, localPoint, svgPaw } from "./core.js";
 export const POINTER_PRESETS = ["paw", "halo", "comet", "orbit", "mochi", "leaf", "ink", "spotlight"];
 export const BURST_PRESETS = ["confetti", "pawburst", "fireflies", "hearts", "streak", "chapter"];
-export function createParticles(root, { scope: providedScope, preset = "paw", kind = "cursor", intensity = 1, assetBase = "./assets", onCatch = () => {
+export function createParticles(root, { scope: providedScope, preset = "paw", kind = "cursor", intensity = 1, assetBase = "./assets", eventTarget = root, maxDpr = 2, pointerBursts = true, idleTimeout = 0, onCatch = () => {
 } } = {}) {
-  const ownsScope = !providedScope, scope = providedScope || createScope(root), oldCursor = root.style.cursor;
+  const ownsScope = !providedScope, scope = providedScope || createScope(root), oldCursor = eventTarget.style.cursor;
   if (kind === "cursor") {
     const cursors = { paw: svgPaw("#476b43"), halo: '<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="12" fill="none" stroke="#476b43" stroke-width="2"/><circle cx="20" cy="20" r="3" fill="#476b43"/></svg>', ink: '<svg viewBox="0 0 40 40"><path d="M9 30L13 19 27 5 35 13 21 27Z" fill="#476b43" stroke="white" stroke-width="2"/></svg>' };
     if (cursors[preset]) {
       const svg = cursors[preset].replace("<svg ", '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" ');
-      root.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svg)}") 16 16, auto`;
+      eventTarget.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svg)}") 16 16, auto`;
     }
   }
   const canvas = document.createElement("canvas");
   canvas.className = "vm-particles";
   canvas.setAttribute("aria-hidden", "true");
   root.append(canvas);
-  const ctx = canvas.getContext("2d");
+  let ctx;
+  try { ctx = canvas.getContext("2d"); } catch { ctx = null; }
   if (!ctx) {
     canvas.remove();
     return { burst() {
     }, setPreset() {
     }, setIntensity() {
     }, destroy() {
-      root.style.cursor = oldCursor;
+      eventTarget.style.cursor = oldCursor;
       if (ownsScope) scope.destroy();
     }, setTarget() {
     } };
@@ -36,14 +37,14 @@ export function createParticles(root, { scope: providedScope, preset = "paw", ki
   if (kind === 'fetch' || preset === 'mochi') mascot.src = `${assetBase}/mochi.png`;
   let catches = 0, hadTarget = false;
   const halo = { x: 0, y: 0 };
-  let lastEmit = 0, phase = 0;
+  let lastEmit = 0, phase = 0, lastMove = 0;
   const previousPosition = root.style.position;
   if (getComputedStyle(root).position === "static") root.style.position = "relative";
   function resize() {
     const b = root.getBoundingClientRect();
     W = b.width || 600;
     H = b.height || 440;
-    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = Math.min(devicePixelRatio || 1, clamp(maxDpr, 1, 2));
     canvas.width = W * dpr;
     canvas.height = H * dpr;
     canvas.style.width = `${W}px`;
@@ -138,13 +139,23 @@ export function createParticles(root, { scope: providedScope, preset = "paw", ki
     ctx.restore();
   }
   function move(e) {
-    if (e.target.closest?.("button,input,select,textarea,a")) return;
-    const p = localPoint(e, root);
+    if (e.target.closest?.("button,input,select,textarea,a")) {
+      if (pointer.active) { pointer.active = false; wake(); }
+      return;
+    }
+    const bounds = root.getBoundingClientRect();
+    if (e.clientX < bounds.left || e.clientX > bounds.right || e.clientY < bounds.top || e.clientY > bounds.bottom) {
+      pointer.active = false;
+      wake();
+      return;
+    }
+    const p = localPoint(e, root, bounds);
     pointer.px = pointer.x;
     pointer.py = pointer.y;
     pointer.x = p.x;
     pointer.y = p.y;
     pointer.active = true;
+    lastMove = performance.now() / 1000;
     if (!scope.reduced() && !scope.isPaused) wake();
     const distance = Math.hypot(pointer.x - pointer.px, pointer.y - pointer.py);
     if (scope.reduced() || scope.isPaused || kind !== "cursor") return;
@@ -166,20 +177,20 @@ export function createParticles(root, { scope: providedScope, preset = "paw", ki
       }
     }
   }
-  scope.on(root, "pointermove", move, { passive: true });
-  scope.on(root, "pointerleave", () => {
+  scope.on(eventTarget, "pointermove", move, { passive: true });
+  scope.on(eventTarget, "pointerleave", () => {
     pointer.active = false;
     pointer.down = false;
     wake();
   });
-  scope.on(root, "pointerdown", (e) => {
+  scope.on(eventTarget, "pointerdown", (e) => {
     if (e.target.closest?.("button,input,select,textarea,a")) return;
     pointer.down = true;
     move(e);
-    if (kind === "cursor") burst(preset === "paw" ? "pawburst" : preset === "leaf" ? "confetti" : "fireflies", pointer.x, pointer.y);
+    if (kind === "cursor" && pointerBursts) burst(preset === "paw" ? "pawburst" : preset === "leaf" ? "confetti" : "fireflies", pointer.x, pointer.y);
     if (kind === "fetch") setTarget(pointer.x, pointer.y);
   }, { passive: true });
-  scope.on(root, "pointerup", () => pointer.down = false, { passive: true });
+  scope.on(eventTarget, "pointerup", () => pointer.down = false, { passive: true });
   function setTarget(x, y) {
     target.x = clamp(x, 55, W - 55);
     target.y = clamp(y, 65, H - 60);
@@ -265,7 +276,8 @@ export function createParticles(root, { scope: providedScope, preset = "paw", ki
         burst("pawburst", target.x, target.y);
       }
     }
-    const pointerAnimation = kind === 'cursor' && pointer.active && ['halo', 'orbit', 'mochi', 'spotlight'].includes(preset);
+    const pointerAnimation = kind === 'cursor' && pointer.active && ['halo', 'orbit', 'mochi', 'spotlight'].includes(preset)
+      && (!idleTimeout || performance.now() / 1000 - lastMove < idleTimeout);
     if (kind !== 'ambient' && kind !== 'fetch' && !pointerAnimation && !parts.length && !ink.length) {
       stop?.(); stop = null;
     }
@@ -344,7 +356,7 @@ export function createParticles(root, { scope: providedScope, preset = "paw", ki
     observer?.disconnect();
     canvas.remove();
     root.style.position = previousPosition;
-    root.style.cursor = oldCursor;
+    eventTarget.style.cursor = oldCursor;
     if (ownsScope) scope.destroy();
   }, get particleCount() {
     return parts.length;

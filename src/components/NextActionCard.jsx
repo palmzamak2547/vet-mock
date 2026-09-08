@@ -3,6 +3,7 @@
 // ============================================================
 
 import { useMemo, useState } from 'react';
+import { MotionButton } from './MotionFeedback.jsx';
 import ConfirmDialog from './ConfirmDialog.jsx';
 import { buildDailyPlan } from '../lib/daily-plan.js';
 import { fmtThaiDate } from '../data/schedule.js';
@@ -179,8 +180,9 @@ export default function NextActionCard({
 
   const renderAction = (action, { primary = false } = {}) => {
     const main = (
-      <button
+      <MotionButton
         key={action.kind}
+        effect={primary ? 'magnet' : 'ripple'}
         type="button"
         onClick={action.onClick}
         className={`vmx-next-action${primary ? ' is-primary' : ''}`}
@@ -192,7 +194,7 @@ export default function NextActionCard({
           <span className="vmx-next-action-sub">{action.sub}</span>
         </span>
         <span className="vmx-next-action-cta">{action.cta}</span>
-      </button>
+      </MotionButton>
     );
 
     if (!action.secondary) return main;

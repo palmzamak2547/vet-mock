@@ -243,17 +243,17 @@ export default function ResultsView({
       started = true;
       clearBurst = m.clearConfetti;
       if (isPerfect) {
-        m.fireConfetti({ count: 140 });
+        m.fireConfetti({ count: 140, preset: 'confetti' });
         later(() => m.fireConfetti({ count: 80, originXRatio: 0.2 }), 250);
         later(() => m.fireConfetti({ count: 80, originXRatio: 0.8 }), 500);
       } else if (isExcellent) {
-        m.fireConfetti({ count: 90 });
+        m.fireConfetti({ count: 90, preset: 'fireflies' });
       } else if (isGood) {
         m.fireConfetti({ count: 50 });
       }
       if (isPB) {
         // Distinct PB burst (gold) — fires after the score burst
-        later(() => m.fireConfetti({ count: 60, originXRatio: 0.5 }), 700);
+        later(() => m.fireConfetti({ count: 60, originXRatio: 0.5, preset: 'streak' }), 700);
       }
     }).catch(() => {});
     return () => { cancelled = true; burstTimers.forEach(clearTimeout); clearBurst?.(); if (!started) firedRef.current = false; };

@@ -8,6 +8,8 @@ import { EFFECTS } from "./catalog.js";
 import { createParticles } from "./particles.js";
 import { createLoader } from "./loaders.js";
 import { createInteraction } from "./interactions.js";
+import { selectReadingItem } from './reading.js';
+export { playFeedback, bindHoverFeedback } from './feedback.js';
 import { createPlay } from "./play.js";
 export { EFFECTS, GROUPS } from "./catalog.js";
 export { createScope } from "./core.js";
@@ -83,9 +85,9 @@ export function mountEffect(root, id = "paw", options = {}) {
   if (id === "focus") {
     let select = function(i) {
       current = i;
+      selectReadingItem(bs, i);
       bs.forEach((b, j) => {
         b.classList.toggle("is-focused", i === j);
-        b.setAttribute("aria-pressed", i === j);
       });
     };
     const article = add(element("div", "vm-focus-article")), lines = ["ค่อย ๆ อ่านทีละบรรทัด", "ไม่จำเป็นต้องจำได้ทั้งหมดในครั้งเดียว", "เว้นพื้นที่ให้ตัวเองได้พักบ้าง", "แล้วเราจะกลับมาพร้อมใจกว่าเดิม"];

@@ -1504,6 +1504,51 @@ html, body {
 .vmx-feature-more { min-height: var(--touch-min, 44px); margin-top: 6px; padding: 6px 10px; border: 0; background: transparent; color: var(--clr-ink-soft); font-size: 12px; font-weight: 600; cursor: pointer; }
 .vmx-feature-more:hover { text-decoration: underline; text-underline-offset: 3px; }
 
+/* Supplied interaction effects, attached to actual controls and reading. */
+.vmx-motion-action { position: relative; }
+.vmx-motion-action-layer { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
+.vmx-motion-action-layer > .vm-ripple { position: absolute; border-radius: 50%; background: currentColor; pointer-events: none; }
+.vmx-bookmark-btn[data-motion-feedback] { animation: none; }
+.vmx-reading-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); padding: var(--space-3); border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface); }
+.vmx-reading-tools label { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--clr-ink-soft); }
+.vmx-reading-tools select { min-height: var(--touch-min); max-width: 100%; padding: var(--space-2); font: inherit; color: var(--clr-ink); background: var(--clr-bg); border: 1px solid var(--clr-border); border-radius: var(--r-sm); }
+.vmx-reading-focus-controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.vmx-reading-effects.is-focused .vmx-reading-tools { position: sticky; top: var(--space-2); z-index: var(--z-nav); }
+.vmx-reading-effect-hint { flex-basis: 100%; font-size: var(--text-sm); color: var(--clr-ink-soft); }
+.vmx-reading-effect-anchor { position: sticky; top: calc(var(--space-16) + var(--space-2)); height: 0; z-index: var(--z-raised); pointer-events: none; }
+.vmx-reading-effect-stage { position: absolute; width: 100%; height: min(60vh, 480px); overflow: hidden; pointer-events: none; }
+.vmx-reading-effect-stage canvas { position: absolute; inset: 0; pointer-events: none; }
+.vm-reading-selected { background: var(--clr-sage-soft); box-shadow: inset 3px 0 var(--clr-sage); outline: 1px solid var(--clr-sage); outline-offset: 3px; transition: background var(--dur-fast), outline-color var(--dur-fast); }
+.vmx-document-loading { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+.vmx-focus-atmosphere { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; pointer-events: none; opacity: .4; }
+.vmx-focus-atmosphere canvas { position: absolute; inset: 0; pointer-events: none; }
+.vmx-focus-scene-picker { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); color: var(--clr-ink-soft); font-size: var(--text-sm); }
+.vmx-focus-scene-picker select, .vmx-study-break select { min-height: var(--touch-min); max-width: 100%; padding: var(--space-2); border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface); color: var(--clr-ink); font: inherit; }
+.vmx-study-break { width: 100%; max-width: 680px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); padding: var(--space-4); }
+.vmx-study-break-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-3); }
+.vmx-study-break-heading h2 { font-size: var(--text-lg); margin: 0; }
+.vmx-study-break-heading p { color: var(--clr-ink-soft); font-size: var(--text-sm); margin: var(--space-1) 0; }
+.vmx-study-break-heading label { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; font-size: var(--text-sm); }
+.vmx-study-break .vmx-break-stage { min-height: 300px; height: 340px; margin-block: var(--space-3); }
+.vmx-break-complete { padding: var(--space-3); margin-bottom: var(--space-2); background: var(--clr-sage-soft); color: var(--clr-sage-text); border-radius: var(--r-sm); }
+.vmx-theme-motion-settings { margin-top: var(--space-3); max-width: 280px; }
+.vmx-theme-motion-settings .vmx-motion-settings-body { display: flex; flex-direction: column; }
+.vmx-theme-motion-settings select { width: 100%; max-width: 100%; min-width: 0; }
+.vmx-mochi-rest-portrait { float: right; object-fit: contain; margin-left: var(--space-3); }
+.vmx-mochi-page > .vmx-study-break { max-width: none; }
+.vmx-motion-examples { margin-top: var(--space-4); border-top: 1px solid var(--clr-border); }
+.vmx-motion-examples > summary { min-height: var(--touch-min); padding: var(--space-3) 0; cursor: pointer; font-weight: 600; }
+@media (max-width: 640px) {
+  .vmx-reading-tools select { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vm-reading-selected { transition: none; }
+}
+@media print {
+  .vmx-reading-tools, .vmx-reading-effect-anchor { display: none !important; }
+  .vm-reading-selected { background: none; box-shadow: none; outline: none; }
+}
+
 /* One reading flow: the shelf also opens personal PDFs in the shared reader. */
 .vmx-library-intro { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4); padding: var(--space-1) 0 var(--space-4); }
 .vmx-library-intro-copy { flex: 1 1 320px; min-width: 0; }

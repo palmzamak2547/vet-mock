@@ -16,8 +16,11 @@ export default function MotionLoader({ progress, label = 'กำลังโห�
     loader.current = createLoader(host.current, { scope: scope.current, variant, label, progress: measured ? progress : 0 });
     return () => { loader.current?.destroy(); scope.current?.destroy(); loader.current = null; scope.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variant, preferences.mode, label]);
+  }, [variant, preferences.mode]);
   useEffect(() => { scope.current?.setQuiet(reduced); }, [reduced]);
+  useEffect(() => { loader.current?.setLabel(label); }, [label]);
   useEffect(() => { if (measured) loader.current?.setProgress(progress); }, [measured, progress]);
-  return <span ref={host} className="vmx-motion-loader" aria-hidden="true" />;
+  return <span className={`vmx-motion-loader${measured ? ' is-measured' : ''}`} role={measured ? 'progressbar' : undefined} aria-label={measured ? label : undefined} aria-valuemin={measured ? 0 : undefined} aria-valuemax={measured ? 100 : undefined} aria-valuenow={measured ? Math.max(0, Math.min(100, Math.round(progress))) : undefined}>
+    <span ref={host} aria-hidden="true" />
+  </span>;
 }

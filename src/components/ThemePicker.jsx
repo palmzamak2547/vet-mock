@@ -13,6 +13,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 import NavIcon from './NavIcon.jsx';
+import MotionSettings from './MotionSettings.jsx';
 
 const PALETTES = [
   { id: 'default', name: 'Sage + Gold', dot: '#4a6b4a' },
@@ -77,7 +78,10 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
             padding: 10,
             boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
             minWidth: DROPDOWN_MIN_W,
+            width: DROPDOWN_MIN_W,
             maxWidth: 'calc(100vw - 24px)',
+            maxHeight: 'min(75dvh, 620px)',
+            overflowY: 'auto',
           }}
         >
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
@@ -114,6 +118,7 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
               </button>
             ))}
           </div>
+          <div className="vmx-theme-motion-settings"><MotionSettings /></div>
         </div>
       )}
     </div>
