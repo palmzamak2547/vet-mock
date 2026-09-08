@@ -16,6 +16,8 @@
 // rule is line SVGs for interface art. Pass a <NavIcon> or an illustration.
 // ============================================================
 
+import Mochi from './Mochi.jsx';
+
 export default function EmptyState({
   icon = null,
   title,
@@ -26,9 +28,9 @@ export default function EmptyState({
 }) {
   return (
     <div className="vmx-empty-state" style={style}>
-      {icon && (
+      {(
         <span className="icon" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>
-          {icon}
+          <Mochi state="curious" size={52} slot="empty" fallback={icon} />
         </span>
       )}
       <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: body ? 6 : 0 }}>

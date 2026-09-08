@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 // ============================================================
 // LibraryView — คลังเอกสารการเรียน
 // ============================================================
@@ -563,7 +564,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
 
       {!loading && !configured && (
         <div className="vmx-empty-state">
-          <p>คลังเอกสารยังไม่พร้อมใช้งานในเครื่องนี้</p>
+          <Mochi state="encourage" size={56} slot="library-status" className="vmx-empty-mochi" /><p>คลังเอกสารยังไม่พร้อมใช้งานในเครื่องนี้</p>
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>ลองเปิดจากเว็บหลักอีกครั้ง หรือกดลองใหม่</p>
           <button
             type="button"
@@ -577,7 +578,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
 
       {!loading && configured && docs.length === 0 && (
         <div className="vmx-empty-state">
-          <p>ยังไม่มีเอกสารในคลัง</p>
+          <Mochi state="curious" size={56} slot="library-status" className="vmx-empty-mochi" /><p>ยังไม่มีเอกสารในคลัง</p>
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
             เอกสารจะขึ้นที่นี่เมื่อมีการเพิ่มเข้าคลัง
           </p>
@@ -586,7 +587,7 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
 
       {!loading && configured && docs.length > 0 && filtered.length === 0 && (
         <div className="vmx-empty-state">
-          <p>ไม่พบเอกสารที่ตรงกับที่เลือก</p>
+          <Mochi state="curious" size={56} slot="library-status" className="vmx-empty-mochi" /><p>ไม่พบเอกสารที่ตรงกับที่เลือก</p>
           {(searching || hasFilters) && (
             <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={resetFilters}>
               ล้างตัวกรอง

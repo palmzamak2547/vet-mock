@@ -32,6 +32,7 @@ import ReportConcern from '../components/ReportConcern.jsx';
 import SlideFigures from '../components/SlideFigures.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
+import Mochi from '../components/Mochi.jsx';
 
 const ConflictNote = React.lazy(() => import('../components/ConflictNote.jsx'));
 
@@ -251,6 +252,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
 
   return (
     <div className="vmx-view" style={{ maxWidth: 780, margin: '0 auto' }}>
+      <Mochi state="read" size={44} slot="wiki-index" className="vmx-hero-mochi" />
       <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome} style={{ marginBottom: 16 }}>← หน้าแรก</button>
 
       <h1 style={{ fontFamily: 'Fraunces, serif', fontSize: 30, margin: '0 0 6px', letterSpacing: '-0.01em' }}>VetWiki</h1>
@@ -378,6 +380,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
 
   return (
     <div className="vmx-view" style={{ maxWidth: 680, margin: '0 auto' }}>
+      <Mochi state="read" size={36} slot="wiki-reading" className="vmx-hero-mochi" />
       {/* Breadcrumb */}
       <nav aria-label="breadcrumb" style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', fontSize: 12.5, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
         <button type="button" onClick={onBackToIndex} style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ocean-text)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>VetWiki</button>

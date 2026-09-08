@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 import { useState } from 'react';
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 // Use precomputed counts (Phase 2 perf) — this view never reads Q
@@ -44,6 +45,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
   return (
     <>
       <div className="vmx-hero">
+        <Mochi state="wave" size={56} animate slot="welcome" className="vmx-hero-mochi" />
         {firstTime ? (
           <h1>เลือก <em>ชั้นปี</em></h1>
         ) : (

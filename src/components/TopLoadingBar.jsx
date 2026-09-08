@@ -13,7 +13,9 @@
 //   • No external lib, ~50 LOC
 // ============================================================
 
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+const MotionLoader = lazy(() => import('./MotionLoader.jsx'));
+import Mochi from './Mochi.jsx';
 
 export default function TopLoadingBar() {
   const [progress, setProgress] = useState(0);
@@ -134,10 +136,12 @@ export function ViewFallback() {
           display: 'flex',
           alignItems: 'center',
           gap: 8,
+          flexWrap: 'wrap',
         }}
       >
-        <span aria-hidden style={{ fontSize: 14 }}>⏳</span>
+        <span className="vmx-loading-mark" aria-hidden="true">{showLongHint ? <Suspense fallback={null}><MotionLoader /></Suspense> : '…'}</span>
         <span>กำลังโหลด…</span>
+        {showLongHint && <Mochi state="loading" size={32} slot="loading" />}
         {showLongHint && (
           <span style={{ color: 'var(--clr-gold-text, #b88940)', marginLeft: 4 }}>
            , โหลดครั้งแรก ครั้งต่อไปจะเร็วขึ้น

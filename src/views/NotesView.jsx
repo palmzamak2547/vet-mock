@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   NOTE_SUBJECT_IDS,
@@ -202,6 +203,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>กำลังเปิด <em>โน้ต</em></h1></div>
         <div className="vmx-config-panel" role="status" aria-live="polite">
+          <Mochi state="loading" size={36} animate slot="loading" className="vmx-status-mochi" />
           กำลังโหลดเฉพาะวิชา {subjectMeta?.name || subject}…
         </div>
       </>
@@ -214,6 +216,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>เปิดโน้ต<em>ไม่สำเร็จ</em></h1></div>
         <div className="vmx-empty" role="alert">
+          <Mochi state="encourage" size={52} slot="error" className="vmx-empty-mochi" />
           การเชื่อมต่อสะดุดขณะโหลดวิชา {subjectMeta?.name || subject} ข้อมูลเดิมยังอยู่ครบ
         </div>
         <div className="vmx-btn-row">
@@ -229,7 +232,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
       <>
         <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>ทวน <em>เนื้อหา</em></h1></div>
-        <div className="vmx-empty">ยังไม่มีโน้ตสำหรับวิชานี้</div>
+        <div className="vmx-empty"><Mochi state="curious" size={52} slot="empty" className="vmx-empty-mochi" />ยังไม่มีโน้ตสำหรับวิชานี้</div>
         <div className="vmx-btn-row">
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
         </div>
@@ -382,7 +385,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           </div>
 
           {filteredSections.length === 0 && (
-            <div className="vmx-empty">ไม่พบเนื้อหาที่ตรงกับ “{search}”</div>
+            <div className="vmx-empty"><Mochi state="curious" size={48} slot="search-empty" className="vmx-empty-mochi" />ไม่พบเนื้อหาที่ตรงกับ “{search}”</div>
           )}
 
           {/* highlight prop uses the debounced value so RichText doesn't

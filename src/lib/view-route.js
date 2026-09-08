@@ -24,6 +24,7 @@ const VIEW_TO_PATH = Object.freeze({
   faculty: '/app/faculty',
   'account-settings': '/app/account',
   'offline-game': '/app/game',
+  mochi: '/app/mochi',
   pomodoro: '/app/focus',
   race: '/app/race',
   'pdf-annotate': '/app/tools/pdf',

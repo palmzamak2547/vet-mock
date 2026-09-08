@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 // ============================================================
 // ReadingChecklistView — รายการอ่าน (study progress checklist)
 // ============================================================
@@ -55,6 +56,7 @@ export default function ReadingChecklistView({
   return (
     <>
       <div className="vmx-hero">
+        <Mochi state="read" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1>รายการ <em>อ่าน</em></h1>
         <p>ติ๊กหัวข้อที่อ่านเสร็จแล้ว ดูเหลือต้องอ่านอีกกี่คาบ, เก็บไว้ในเครื่อง (sync cloud ถ้า login)</p>
       </div>

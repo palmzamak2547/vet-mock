@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 
 // PhaseSelectView — second step of the year picker.
@@ -36,6 +37,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
   return (
     <>
       <div className="vmx-hero">
+        <Mochi state="curious" size={56} animate slot="welcome" className="vmx-hero-mochi" />
         <h1>เลือก <em>ช่วงสอบ</em></h1>
         <p>{yearMeta?.label || `ปี ${selectedYear}`}, {yearMeta?.desc || ''} — เลือกช่วงที่จะดูเนื้อหา</p>
       </div>

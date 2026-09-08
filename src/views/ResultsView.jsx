@@ -5,6 +5,8 @@ import BackBar from '../components/BackBar.jsx';
 import ExamSaveNotice from '../components/ExamSaveNotice.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
 import ScoreBurst from '../components/ScoreBurst.jsx';
+import Mochi from '../components/Mochi.jsx';
+import { mochiResultPose } from '../lib/mochi-presence.js';
 import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
@@ -233,11 +235,17 @@ export default function ResultsView({
 
     if (!isPerfect && !isExcellent && !isGood && !isPB) return;
     firedRef.current = true;
+    let cancelled = false, started = false, clearBurst;
+    const burstTimers = [];
+    const later = (fn, delay) => burstTimers.push(setTimeout(() => { if (!cancelled) fn(); }, delay));
     import('../lib/confetti.js').then((m) => {
+      if (cancelled) return;
+      started = true;
+      clearBurst = m.clearConfetti;
       if (isPerfect) {
         m.fireConfetti({ count: 140 });
-        setTimeout(() => m.fireConfetti({ count: 80, originXRatio: 0.2 }), 250);
-        setTimeout(() => m.fireConfetti({ count: 80, originXRatio: 0.8 }), 500);
+        later(() => m.fireConfetti({ count: 80, originXRatio: 0.2 }), 250);
+        later(() => m.fireConfetti({ count: 80, originXRatio: 0.8 }), 500);
       } else if (isExcellent) {
         m.fireConfetti({ count: 90 });
       } else if (isGood) {
@@ -245,9 +253,10 @@ export default function ResultsView({
       }
       if (isPB) {
         // Distinct PB burst (gold) — fires after the score burst
-        setTimeout(() => m.fireConfetti({ count: 60, originXRatio: 0.5 }), 700);
+        later(() => m.fireConfetti({ count: 60, originXRatio: 0.5 }), 700);
       }
     }).catch(() => {});
+    return () => { cancelled = true; burstTimers.forEach(clearTimeout); clearBurst?.(); if (!started) firedRef.current = false; };
   }, [score.correct, score.total, questions]);
 
   // Split writing from auto-graded for the result counts so writing
@@ -291,7 +300,7 @@ export default function ResultsView({
 
   return (
     <>
-      <BackBar onBack={goHome} label="หน้าแรก" />
+      <BackBar onBack={goHome} label="หน้าแรก" mochi={false} />
       <ExamSaveNotice status={saveStatus} />
       {rankPromo && (
         <div className="vmx-night-rank-promo" role="status">
@@ -342,6 +351,7 @@ export default function ResultsView({
 
       <div className="vmx-results-hero">
         {celebrate && <ScoreBurst strong={perfect} />}
+        <Mochi state={mochiResultPose(score, autoQs.length)} size={84} animate slot="result" className="vmx-result-mochi" />
         {autoQs.length > 0 ? (
           <>
             <h2 className={`vmx-score-big ${score.pct >= 60 ? 'pass' : 'fail'}`}>

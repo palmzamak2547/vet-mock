@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import NavIcon from './NavIcon.jsx';
+import Mochi from './Mochi.jsx';
 
 // The first-time tour, upgraded 2026-09-07 from the old 4-slide version that
 // lived inside HomeView. It now covers the whole feature map (7 steps) and
@@ -78,7 +79,7 @@ export default function OnboardingTour({ step, onNext, onBack, onDismiss, onStar
           title="ข้าม"
         ><NavIcon name="close" size={16} /></button>
 
-        <span className="vmx-tour-icon" aria-hidden="true">{current.icon}</span>
+        <span className="vmx-tour-icon" aria-hidden="true"><Mochi state={['wave', 'think', 'curious', 'think', 'encourage', 'read', 'happy'][step] || 'wave'} size={48} animate slot="guide" fallback={current.icon} /></span>
         <h2 className="vmx-tour-title">{current.title}</h2>
         <div className="vmx-tour-body">{current.body}</div>
 

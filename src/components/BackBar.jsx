@@ -14,7 +14,9 @@
 // styles.js — they mirror the bottom ghost button so the two
 // affordances feel like the same control at different positions.
 // ============================================================
-export default function BackBar({ onBack, label = 'ย้อนกลับ', subtitle }) {
+import Mochi from './Mochi.jsx';
+
+export default function BackBar({ onBack, label = 'ย้อนกลับ', subtitle, mochi = true }) {
   if (!onBack) return null;
   return (
     <div className="vmx-back-bar">
@@ -27,6 +29,7 @@ export default function BackBar({ onBack, label = 'ย้อนกลับ', su
           {subtitle}
         </span>
       )}
+      {mochi && <Mochi slot="wayfinding" className="vmx-back-mochi" />}
     </div>
   );
 }

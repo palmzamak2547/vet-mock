@@ -1,3 +1,4 @@
+import Mochi from '../../components/Mochi.jsx';
 // ============================================================
 // LandingBody — hero → footer for LandingView
 // ============================================================
@@ -42,7 +43,7 @@ export default function LandingBody(p) {
         <div className="lp-stack" style={{ ...container, display: 'grid', gridTemplateColumns: '1.02fr 1.12fr', gap: 54, alignItems: 'center' }}>
           <div className="lp-reveal lp-center-md">
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-border)', borderRadius: 999, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 22 }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)' }} />{t.heroEyebrow}
+              <Mochi state="wave" size={32} animate slot="landing-welcome" />{t.heroEyebrow}
             </div>
             <h1 style={{ fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(38px,5.4vw,60px)', lineHeight: .98, letterSpacing: '-.035em', color: 'var(--clr-ink)', margin: '0 0 20px', textWrap: 'balance' }}>
               {t.heroPre}<em style={em}>{t.heroEm}</em>{t.heroPost}

@@ -3,6 +3,7 @@ import { QB, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
+import Mochi from '../components/Mochi.jsx';
 import { librarySubjectCounts } from '../lib/library.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 
@@ -150,7 +151,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
 
       {visibleSubjects.length === 0 && (
         <div className="vmx-subject-grid">
-          <div className="vmx-empty" style={{ gridColumn: '1 / -1' }}>ไม่พบวิชาที่ค้นหา</div>
+          <div className="vmx-empty" style={{ gridColumn: '1 / -1' }}><Mochi state="curious" size={48} slot="search-empty" className="vmx-empty-mochi" />ไม่พบวิชาที่ค้นหา</div>
         </div>
       )}
 

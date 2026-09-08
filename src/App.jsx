@@ -237,6 +237,7 @@ const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
 const PrivacyView = lazy(() => import('./views/PrivacyView.jsx'));
 const AccountSettingsView = lazy(() => import('./views/AccountSettingsView.jsx'));
 const OfflineGameView = lazy(() => import('./views/OfflineGameView.jsx'));
+const MochiView = lazy(() => import('./views/MochiView.jsx'));
 // PomodoroView — Forest-style focus timer with a hatching-chick companion.
 // Lazy: only loaded when the user opens it from the command palette.
 const PomodoroView = lazy(() => import('./views/PomodoroView.jsx'));
@@ -254,6 +255,7 @@ const PhaseWrappedView = lazy(() => import('./views/PhaseWrappedView.jsx'));
 //  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
+import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
@@ -279,7 +281,7 @@ const IS_LOCAL_HOST = typeof window !== 'undefined'
 const WIDE_VIEWS = new Set([
   'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
   'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate', 'library',
-  'image-occlusion', 'knowledge', 'wiki', 'atlas',
+  'image-occlusion', 'knowledge', 'wiki', 'atlas', 'mochi',
 ]);
 
 // Focus views intentionally remove navigation chrome. In particular, hiding
@@ -636,6 +638,7 @@ export default function App() {
   }, []);
 
   const [view, setViewRaw] = useState(initialView);
+  useEffect(() => { window.dispatchEvent(new Event('vmx-view-change')); }, [view]);
   const viewRef = useRef(initialView);
   const [mode, setMode] = useState('quick');
   // Seed from /wiki/<subject>/<topic> so a shared article link opens directly
@@ -2408,7 +2411,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <MochiProvider view={view} mode={mode}>
       {/* Global CSS now loaded via `import './styles.css'` at the top of
           this file (Vite injects it) — no more <style>{STYLES}</style>. */}
       <TopLoadingBar />
@@ -2600,6 +2603,7 @@ export default function App() {
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
+              {view === 'mochi' && <MochiView goHome={goHome} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'race' && user && <RaceView key={user?.id ?? 'guest'} goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
@@ -2754,6 +2758,6 @@ export default function App() {
           <SpeedInsights />
         </Suspense>
       )}
-    </>
+    </MochiProvider>
   );
 }

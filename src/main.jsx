@@ -7,6 +7,11 @@ import { applyIdMigration } from './lib/id-migration.js'
 
 import './lib/dom-compat.js'
 import './lib/app-lifecycle.js'
+import { applyMotionPreference, subscribeMotionPreferences } from './lib/motion-preferences.js'
+
+applyMotionPreference()
+const stopMotionSync = subscribeMotionPreferences(applyMotionPreference)
+if (import.meta.hot) import.meta.hot.dispose(stopMotionSync)
 
 // One-time migration of user-stored Q IDs after the 2026-05-13 renumber
 // of 165 cross-subject ID collisions. Runs once per browser (gated by

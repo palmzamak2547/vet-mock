@@ -1,0 +1,164 @@
+[
+  {
+    "name": "idle",
+    "duration": 4.8,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "wave",
+    "duration": 3.6,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "walk",
+    "duration": 1.2,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "run",
+    "duration": 0.72,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "hop",
+    "duration": 2.4,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "dance",
+    "duration": 3.6,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "stretch",
+    "duration": 4.8,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "yawn",
+    "duration": 4.4,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "sleepy",
+    "duration": 5.4,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "wake",
+    "duration": 4,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "pet",
+    "duration": 3.6,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "treat",
+    "duration": 4.2,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "bow",
+    "duration": 3.2,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "shake",
+    "duration": 2.8,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "curious",
+    "duration": 4.8,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "peek",
+    "duration": 4.6,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "float",
+    "duration": 4.4,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "hearts",
+    "duration": 3.8,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "highfive",
+    "duration": 3.4,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "read",
+    "duration": 5.6,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "happy",
+    "duration": 3.2,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "correct",
+    "duration": 3.4,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "encourage",
+    "duration": 4,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "think",
+    "duration": 4.8,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "loading",
+    "duration": 3.6,
+    "loop": true,
+    "tracks": 60
+  },
+  {
+    "name": "celebrate",
+    "duration": 4.4,
+    "loop": false,
+    "tracks": 60
+  },
+  {
+    "name": "breathe",
+    "duration": 10,
+    "loop": true,
+    "tracks": 60
+  }
+]

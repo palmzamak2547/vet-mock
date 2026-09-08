@@ -16,6 +16,7 @@ import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import MatchDragDrop from './MatchDragDrop.jsx';
+import Mochi from './Mochi.jsx';
 
 // Strip RichText markup so TTS reads naturally — markdown bold/italic
 // markers and HTML entities sound weird as speech.
@@ -702,6 +703,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 function InstantFeedback({ ok, correctNode, explain, wikiLink }) {
   return (
     <div className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
+      <Mochi state={ok ? 'correct' : 'encourage'} size={48} slot="feedback" animate className="vmx-feedback-mochi" />
       <div className="v">{ok ? '✓ ถูกต้อง!' : '✗ ยังไม่ใช่ — คำตอบที่ถูกถูกทำเครื่องหมาย ✓ ไว้'}</div>
       {!ok && correctNode != null && (
         <div className="a"><span className="k">เฉลย</span>{correctNode}</div>

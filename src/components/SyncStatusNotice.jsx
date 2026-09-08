@@ -1,3 +1,5 @@
+import Mochi from './Mochi.jsx';
+
 export default function SyncStatusNotice({
   online,
   justChanged,
@@ -61,7 +63,7 @@ export default function SyncStatusNotice({
         color,
       }}
     >
-      <span>{message}</span>
+      <span><Mochi state={hasSyncProblem ? 'encourage' : online ? 'happy' : 'sleepy'} size={28} slot="connection" className="vmx-status-mochi" />{message}</span>
       <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
         {online && hasSyncProblem && sync?.error?.retryable !== false && (
           <button

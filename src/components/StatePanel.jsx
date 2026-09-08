@@ -1,3 +1,5 @@
+import Mochi from './Mochi.jsx';
+
 export default function StatePanel({
   kind = 'empty',
   title,
@@ -15,8 +17,8 @@ export default function StatePanel({
       aria-live={isError ? 'assertive' : 'polite'}
       aria-busy={isLoading || busy ? 'true' : undefined}
     >
-      <div className="vmx-state-panel__icon" aria-hidden="true">
-        {isLoading ? '•••' : isError ? '!' : '—'}
+      <div className="vmx-state-panel__icon vmx-state-panel__mochi" aria-hidden="true">
+        <Mochi state={isLoading ? 'loading' : isError ? 'encourage' : 'curious'} size={56} slot="status" animate={isLoading} fallback={isLoading ? '•••' : isError ? '!' : '—'} />
       </div>
       {title && <div className="vmx-state-panel__title">{title}</div>}
       {body && <div className="vmx-state-panel__body">{body}</div>}

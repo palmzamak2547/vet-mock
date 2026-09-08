@@ -4,6 +4,7 @@ dist
 .env
 .env.local
 scratch/
+work/
 *.log
 .vercel
 

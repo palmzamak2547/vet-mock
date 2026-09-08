@@ -42,25 +42,30 @@ window.addEventListener('vite:preloadError', (event) => {
     return
   }
 
-  if (readSessionFlag(reloadKey) === '1') {
-    // Already tried once this session — don't reload again
+  const entry = document.querySelector?.('script[type="module"][src]')?.getAttribute('src')
+  const reloadMarker = entry ? `build:${entry}` : '1'
+  const previousReload = readSessionFlag(reloadKey)
+  if (previousReload === reloadMarker || previousReload === '1') {
+    // An HTML load is not proof that later lazy chunks work. Keep the marker
+    // for this entry bundle; a new deployment's hash gets its own recovery.
     console.error('[chunk] preload failed twice — letting ErrorBoundary handle:', event?.payload)
     return
   }
   // Without a durable reload marker, another failure would loop forever.
-  if (!writeSessionFlag(reloadKey, '1')) return
+  if (!writeSessionFlag(reloadKey, reloadMarker)) return
   console.warn('[chunk] preload failed — reloading for fresh deploy:', event?.payload?.message)
   // Prevent default so React doesn't see the error first
   event.preventDefault?.()
   window.location.reload()
 })
 
-// Clear the reload flag once the app loads successfully
+// Clear the deferred-exam notice after a new document loads. The chunk retry
+// marker persists for the entry bundle: resetting it on a timer can loop when
+// a slow failing import arrives after that timer, or during another navigation.
 window.addEventListener('load', () => {
   // Wait a beat in case lazy-loads happen on first paint
   setTimeout(() => {
     try {
-      sessionStorage.removeItem('vmx-chunk-reload')
       sessionStorage.removeItem('vmx-update-deferred')
     } catch { /* Storage restrictions must not break an otherwise usable page. */ }
   }, 3000)

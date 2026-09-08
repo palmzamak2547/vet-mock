@@ -45,6 +45,7 @@ import { featuresByCategory, visibleFeatures } from '../lib/feature-registry.js'
 import { LATEST_CHANGELOG } from '../data/latest-changelog.generated.js';
 import NavIcon from './NavIcon.jsx';
 import Wordmark from './Wordmark.jsx';
+import Mochi from './Mochi.jsx';
 
 export default function Sidebar({
   view, setView, goHome, setSubject, setPracticeMode, setMode, onMockExam,
@@ -144,6 +145,7 @@ export default function Sidebar({
 
       <div className="vmx-sidebar-foot">
         <span className="vmx-sidebar-version">v{LATEST_CHANGELOG.version}</span>
+        <Mochi size={36} slot="chrome" />
       </div>
     </aside>
   );

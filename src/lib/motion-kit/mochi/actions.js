@@ -1,0 +1,22 @@
+export const MOCHI_ACTIONS = {
+  "mochi-hello": ["wave", "Hello again", "ทักทายกัน"],
+  "mochi-walk": ["walk", "Little steps", "เดินไปด้วยกัน"],
+  "mochi-run": ["run", "Happy trot", "วิ่งเหยาะ"],
+  "mochi-hop": ["hop", "Tiny hop", "กระโดดนิดหนึ่ง"],
+  "mochi-dance": ["dance", "Happy dance", "เต้นดุ๊กดิ๊ก"],
+  "mochi-stretch": ["stretch", "Morning stretch", "บิดขี้เกียจ"],
+  "mochi-yawn": ["yawn", "Sleepy yawn", "หาวเบา ๆ"],
+  "mochi-rest": ["sleepy", "Little nap", "งีบด้วยกัน"],
+  "mochi-wake": ["wake", "Good morning", "ตื่นแล้ว"],
+  "mochi-pet": ["pet", "Head pats", "ลูบหัว Mochi"],
+  "mochi-treat": ["treat", "Treat time", "ส่งขนมให้"],
+  "mochi-bow": ["bow", "Let’s play", "ชวนเล่น"],
+  "mochi-shake": ["shake", "Floppy ears", "สะบัดหู"],
+  "mochi-curious": ["curious", "Curious pup", "สงสัยนิดหนึ่ง"],
+  "mochi-peek": ["peek", "Peekaboo", "จ๊ะเอ๋"],
+  "mochi-float": ["float", "Cloud dream", "ฝันลอย ๆ"],
+  "mochi-hearts": ["hearts", "Love you", "ส่งหัวใจ"],
+  "mochi-five": ["highfive", "High five", "แตะอุ้งเท้า"],
+  "mochi-study": ["read", "Study buddy", "อ่านด้วยกัน"],
+  "mochi-showcase": ["idle", "Motion mix", "เล่นท่าต่อเนื่อง"]
+};

@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../lib/study-events.js';
 import { alertDialog } from '../lib/dialog.js';
@@ -164,6 +165,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return (
       <>
         <div className="vmx-hero">
+          <Mochi state="read" size={56} slot="review-intro" className="vmx-hero-mochi" />
           <h1>ทบทวน <em>ตามรอบ</em></h1>
           <p>เลือกขนาด session ที่ทำได้สบายๆ — ทำติดต่อกันทุกวันสำคัญกว่าทำเยอะๆ ครั้งเดียว</p>
         </div>
@@ -408,6 +410,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           <p>ทบทวนเสร็จแล้ว, กลับมาทบทวนพรุ่งนี้นะ</p>
         </div>
         <div className="vmx-results-hero">
+          <Mochi state={reviewedCount > 0 ? 'happy' : 'idle'} size={80} animate slot="review-complete" className="vmx-result-mochi" />
           <div className="vmx-score-big pass">{reviewedCount}</div>
           <div className="vmx-score-label">Cards Reviewed</div>
           <div className="vmx-score-frac">{correctCount} ได้, {reviewedCount - correctCount} ต้องทบทวน</div>
@@ -487,7 +490,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return (
       <>
         <div className="vmx-exam-top">
-          <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
+          <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             next: {fmtDate(currentCard.nextReview)}
           </div>
@@ -512,7 +515,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return (
       <>
         <div className="vmx-exam-top">
-          <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
+          <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             next: {fmtDate(currentCard.nextReview)}
           </div>
@@ -536,7 +539,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   return (
     <>
       <div className="vmx-exam-top">
-        <div className="vmx-progress"><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
+        <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
         <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
           next: {fmtDate(currentCard.nextReview)}
         </div>

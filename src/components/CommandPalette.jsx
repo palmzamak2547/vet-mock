@@ -1,3 +1,4 @@
+import Mochi from './Mochi.jsx';
 // ============================================================
 // CommandPalette — the AI Search surface (⌘K / Ctrl+K / 🔍)
 // ============================================================
@@ -1258,6 +1259,7 @@ export default function CommandPalette({
         <div ref={listRef} style={{ maxHeight: '52vh', overflowY: 'auto', padding: 4 }}>
           {view.flat.filter((it) => it.type !== 'ask').length === 0 && !sourcesLoading && intents.length === 0 && !ask && (
             <div style={{ padding: '32px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14 }}>
+              <Mochi state="curious" size={48} slot="search-empty" className="vmx-empty-mochi" />
               {debouncedQuery.trim().length >= 8
                 ? <>ไม่พบรายการที่ตรง — ลองถามคลังความรู้ด้านบนได้เลย</>
                 : <>ไม่พบที่ตรงกับ "{query}"</>}
@@ -1361,6 +1363,7 @@ export default function CommandPalette({
           ))}
           {sourcesLoading && (
             <div style={{ padding: '8px 16px 14px', display: 'flex', flexDirection: 'column', gap: 8 }} aria-label="กำลังโหลดแหล่งข้อมูล">
+              <Mochi state="loading" size={32} animate slot="search-loading" />
               {[0, 1, 2].map((i) => (
                 <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                   <div className="vmx-omni-shimmer" style={{ width: 22, height: 22, borderRadius: 6 }} />

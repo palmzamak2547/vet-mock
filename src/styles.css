@@ -12,6 +12,13 @@
    ============================================================ */
 
 :root, [data-theme="light"] {
+  /* Motion Kit aliases follow the selected VetMock palette. */
+  --vm-green: var(--clr-sage);
+  --vm-sage: var(--clr-sage-soft);
+  --vm-ink: var(--clr-ink);
+  --vm-cream: var(--clr-surface);
+  --vm-gold: var(--clr-gold);
+  --vm-line: var(--clr-border);
   /* Monospace stack. JetBrains Mono has NO Thai glyphs, and it was named
      directly in 359 places — including on chips and badges whose text is
      Thai ("ปรนัย, แนวข้อสอบเก่า VCA"). Those characters fell through to
@@ -3964,3 +3971,103 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-subject-exam { font-size: 11px; margin-top: 4px; color: var(--clr-sage-text); font-weight: 600; }
 .vmx-subject-exam.is-none { color: var(--clr-ink-soft); font-weight: 400; }
 .vmx-scope-chip { color: var(--clr-ink-soft); }
+
+
+/* Mochi break room: bounded activity, existing study/navigation contracts. */
+.vmx-mochi-page { min-width: 0; padding-bottom: 80px; }
+.vmx-mochi-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 12px 0 24px; }
+.vmx-mochi-heading h1 { font-size: clamp(26px, 4vw, 38px); margin: 4px 0 8px; line-height: 1.3; }
+.vmx-mochi-heading p, .vmx-mochi-player-heading p { color: var(--clr-ink-soft); margin: 0; line-height: 1.7; }
+.vmx-mochi-count { flex-shrink: 0; color: var(--clr-ink-soft); font-size: 12px; }
+.vmx-motion-settings { border: 1px solid var(--clr-border); border-radius: var(--r-md); margin-bottom: 20px; background: var(--clr-surface); }
+.vmx-motion-settings summary { min-height: 48px; padding: 12px 16px; cursor: pointer; font-weight: 600; }
+.vmx-motion-settings-body { padding: 8px 16px 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.vmx-motion-settings label, .vmx-mochi-select { display: flex; flex-direction: column; gap: 8px; font-size: 14px; min-width: 0; }
+.vmx-motion-settings select, .vmx-mochi-select select { min-height: 44px; width: 100%; min-width: 0; font: inherit; border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface-2); color: var(--clr-ink); padding: 8px; }
+.vmx-motion-settings .vmx-motion-checkbox { flex-direction: row; align-items: center; min-height: 44px; }
+.vmx-motion-checkbox input { width: 20px; height: 20px; accent-color: var(--clr-sage); }
+.vmx-motion-settings-body p { grid-column: 1 / -1; margin: 0; color: var(--clr-ink-soft); font-size: 13px; line-height: 1.7; }
+.vmx-motion-notice:empty { display: none; }
+.vmx-mochi-groups { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.vmx-mochi-groups button { min-height: 44px; display: flex; gap: 10px; align-items: center; padding: 8px 14px; border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; }
+.vmx-mochi-groups button span { font-family: var(--vmx-mono); font-size: 11px; }
+.vmx-mochi-groups button[aria-pressed=true] { background: var(--clr-sage); color: var(--clr-sage-on); border-color: var(--clr-sage); }
+.vmx-mochi-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 270px; align-items: start; gap: 24px; }
+.vmx-mochi-player { min-width: 0; border: 1px solid var(--clr-border); border-radius: var(--r-xl); background: var(--clr-surface); overflow: hidden; }
+.vmx-mochi-player-heading { padding: 20px 24px 8px; }
+.vmx-mochi-player-heading h2 { font-size: 20px; margin: 0 0 4px; }
+.vmx-mochi-player-heading p { font-size: 13px; }
+.vmx-motion-stage { --i: 0; height: 460px; min-width: 0; position: relative; }
+.vmx-motion-stage:not([data-effect^="mochi-"]) { height: 380px; }
+.vmx-mochi-controls { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px; border-top: 1px solid var(--clr-border); }
+.vmx-mochi-controls .vmx-btn { min-height: 44px; font-size: 13px; scroll-margin-block: 100px 160px; }
+.vmx-mochi-controls [aria-pressed=true] { background: var(--clr-surface-2); }
+.vmx-mochi-example-note { padding: 0 16px 16px; margin: 0; color: var(--clr-ink-soft); font-size: 12px; line-height: 1.7; }
+.vmx-mochi-picker { min-width: 0; }
+.vmx-mochi-select { display: none; }
+.vmx-mochi-choices { display: grid; gap: 6px; max-height: 600px; overflow: auto; padding: 3px; }
+.vmx-mochi-choices button { display: flex; align-items: center; gap: 12px; min-height: 60px; width: 100%; text-align: left; border: 1px solid transparent; border-radius: var(--r-md); background: transparent; color: var(--clr-ink); padding: 10px 12px; font: inherit; cursor: pointer; }
+.vmx-mochi-choices button[aria-pressed=true] { background: var(--clr-surface); border-color: var(--clr-sage); }
+.vmx-mochi-choices strong { display: block; font-size: 14px; font-weight: 500; }
+.vmx-mochi-choices button span span { display: block; font-size: 11px; color: var(--clr-ink-soft); margin-top: 2px; }
+.vmx-mochi-choice-number { font: 11px var(--vmx-mono); color: var(--clr-ink-soft); }
+.vmx-mochi-page button:focus-visible, .vmx-mochi-page select:focus-visible, .vmx-motion-settings summary:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-loading-mark { display: inline-block; width: 40px; height: 28px; flex-shrink: 0; }
+.vmx-bookmark-btn[aria-pressed=true] { animation: vmx-motion-save 220ms var(--ease-out); }
+@keyframes vmx-motion-save { 0% { transform: scale(1); } 50% { transform: scale(1.12) rotate(-4deg); } 100% { transform: scale(1); } }
+/* The user's device preference takes precedence; quiet mode also covers legacy
+   CSS animations without hiding any answer, progress value or navigation. */
+:root[data-vmx-motion=quiet] *, :root[data-vmx-motion=off] *,
+:root[data-vmx-motion=quiet] *::before, :root[data-vmx-motion=off] *::before,
+:root[data-vmx-motion=quiet] *::after, :root[data-vmx-motion=off] *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 0ms !important; scroll-behavior: auto !important; }
+:root[data-vmx-motion=quiet] .vmx-burst, :root[data-vmx-motion=off] .vmx-burst { display: none; }
+@media (max-width: 900px) {
+  .vmx-mochi-workspace { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .vmx-mochi-picker { grid-row: 1; }
+  .vmx-mochi-select { display: flex; }
+  .vmx-mochi-choices { display: none; }
+  .vmx-mochi-heading { align-items: start; flex-direction: column; gap: 8px; }
+}
+@media (max-width: 500px) {
+  /* Stable rows keep Pause/Resume from moving beneath fixed navigation or
+     the update notice when the label becomes shorter. */
+  .vmx-mochi-controls { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .vmx-motion-settings-body { grid-template-columns: minmax(0, 1fr); }
+  .vmx-mochi-player-heading { padding: 16px 16px 4px; }
+  .vmx-mochi-groups { gap: 6px; }
+  .vmx-mochi-groups button { padding: 8px 12px; font-size: 13px; }
+  .vmx-motion-stage { height: 470px; }
+}
+
+
+/* Mochi lives in existing UI slots; artwork never receives input or owns data. */
+.vmx-mochi { display: inline-flex; position: relative; flex: 0 0 auto; vertical-align: middle; pointer-events: none; user-select: none; line-height: 0; max-width: 100%; }
+.vmx-mochi > img { width: 100%; height: 100%; object-fit: contain; }
+.vmx-mochi.is-reacting { animation: vmx-mochi-greet 900ms var(--ease-out) both; }
+.vmx-mochi.is-reacting[data-mochi-pose=correct], .vmx-mochi.is-reacting[data-mochi-pose=celebrate], .vmx-mochi.is-reacting[data-mochi-pose=happy] { animation-name: vmx-mochi-cheer; }
+@keyframes vmx-mochi-greet {
+  0% { transform: translateY(3px) rotate(-6deg); }
+  40% { transform: translateY(-2px) rotate(6deg); }
+  70% { transform: rotate(-2deg); }
+  100% { transform: translateY(0) rotate(0); }
+}
+@keyframes vmx-mochi-cheer {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-5px) scale(1.04); }
+  70% { transform: translateY(1px) scale(.99); }
+}
+@media (prefers-reduced-motion: reduce) { .vmx-mochi.is-reacting { animation: none; } }
+@media print { .vmx-mochi { display: none !important; } }
+.vmx-back-mochi { margin-inline-start: auto; }
+.vmx-back-bar > span:not(.vmx-mochi) { min-width: 0; overflow-wrap: anywhere; }
+.vmx-sidebar-foot { display: flex; align-items: center; justify-content: space-between; }
+.vmx-welcome-mochi { float: left; margin-inline-end: 6px; margin-top: -3px; }
+.vmx-hero-mochi { float: right; margin: -4px 0 4px 12px; }
+.vmx-result-mochi { display: flex; margin: -8px auto 0; }
+.vmx-status-mochi { margin: -5px 5px -5px 0; }
+.vmx-feedback-mochi { float: right; margin: -3px 0 4px 8px; }
+.vmx-empty-mochi { display: flex; margin: 0 auto 8px; }
+.vmx-state-panel .vmx-state-panel__mochi { width: 56px; height: 56px; background: transparent; color: inherit; animation: none; }
+.vmx-loading-mark { height: 32px; }
+.vmx-empty-state > .icon { height: auto; line-height: 1; }
+@media (max-width: 380px) { .vmx-back-mochi { width: 36px !important; height: 36px !important; } }

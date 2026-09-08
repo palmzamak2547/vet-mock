@@ -260,6 +260,13 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'pdf-annotate' },
   },
   {
+    id: 'mochi', category: 'tools', fab: true, fabHint: 'พักสมอง',
+    label: 'พักกับ Mochi', labelEn: 'Mochi break', icon: '♡',
+    hint: 'เล่น พักสายตา และตั้งค่าการเคลื่อนไหว',
+    kw: 'mochi motion effect animation มอจิ โมจิ พัก สงบ เคลื่อนไหว เกม หายใจ 3d',
+    invoke: { kind: 'view', view: 'mochi' },
+  },
+  {
     id: 'pomodoro', category: 'tools', fab: true, fabHint: 'focus timer',
     label: 'จับเวลาโฟกัส', labelEn: 'Pomodoro', icon: '🍅',
     hint: 'โฟกัสครั้งละ 25 นาที',

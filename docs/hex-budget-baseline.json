@@ -57,12 +57,15 @@
     "components/lab/NorbergOverlay.jsx": 27,
     "components/lab/TagInspector.jsx": 1,
     "components/lab/VHSOverlay.jsx": 32,
-    "lib/confetti.js": 7,
     "lib/contributions.js": 15,
     "lib/web-vitals.js": 3,
     "App.jsx": 1
   },
   "exempt": {
-    "views/ResultsView.jsx": "Canvas IG-story export needs literal colors (ctx.fillStyle cannot resolve CSS vars; shared image must not follow dark mode) + alpha-suffix gradient literals."
+    "views/ResultsView.jsx": "Canvas IG-story export needs literal colors (ctx.fillStyle cannot resolve CSS vars; shared image must not follow dark mode) + alpha-suffix gradient literals.",
+    "lib/motion-kit/mochi/model-3d.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
+    "lib/motion-kit/mochi/renderer-3d.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
+    "lib/motion-kit/mochi/svg-art.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
+    "lib/motion-kit/particles.js": "Bounded decorative particle and cursor artwork; no text surfaces."
   }
 }

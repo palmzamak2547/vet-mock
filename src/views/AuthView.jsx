@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 import { useState, useEffect, useRef } from 'react';
 import {
   signUpWithEmail,
@@ -473,6 +474,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     <>
       <p style={{ textAlign: 'center', fontSize: 13 }}><a href="/app/privacy">ข้อมูลที่จัดเก็บและความเป็นส่วนตัว</a></p>
       <div className="vmx-hero">
+        <Mochi state="wave" size={56} animate slot="welcome" className="vmx-hero-mochi" />
         <h1>{heading.title} <em>VetMock</em></h1>
         <p>{heading.sub}</p>
       </div>

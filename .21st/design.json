@@ -117,6 +117,12 @@
       "choice": "Keep landing motion at state-transition level: CSS hover and press feedback plus IntersectionObserver-driven navigation state, with no scroll-frame listener, pointer physics, injected progress rail, or cursor spotlight.",
       "rationale": "The removed layer attached pointermove handlers across buttons, cards, and question demos, updated React or DOM state on every scroll, and injected a rail at widths where CSS still hid it. The remaining observer work communicates location without continuous main-thread work or decorative motion.",
       "inspiration": "Taste Skill motion discipline and the existing VetMock reduced-motion contract"
+    },
+    {
+      "id": "mochi-motion-scope",
+      "choice": "Embed small contextual 2D companions in existing study UI; reserve full motion controls and 3D for the optional break room.",
+      "rationale": "Shared presence policy, one device preference, local artwork failure containment and finite reactions preserve studying, exam grading and focused workspaces without eager 3D.",
+      "inspiration": "Supplied VetMock Motion FX Kit; docs/motion-kit-integration.md"
     }
   ],
   "evidence": [

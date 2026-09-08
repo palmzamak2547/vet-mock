@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 import { useState } from 'react';
 import { QB, SUBJECTS } from '../data/questions.js';
 import { yearForSubject } from '../data/curriculum.js';
@@ -228,6 +229,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     return (
       <>
         <div className="vmx-hero">
+        <Mochi state="think" size={44} slot="page-intro" className="vmx-hero-mochi" />
           <h1>{editingId ? 'แก้ไข' : 'เพิ่ม'} <em>ข้อสอบ</em></h1>
         </div>
 
@@ -360,6 +362,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
   return (
     <>
       <div className="vmx-hero">
+        <Mochi state="think" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1>จัดการ <em>ข้อสอบส่วนตัว</em></h1>
         <p>เพิ่ม แก้ไข หรือนำเข้าข้อสอบของตัวเอง — มี {customQuestions.length} ข้อ</p>
       </div>

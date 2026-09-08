@@ -42,6 +42,7 @@ import NextActionCard from '../components/NextActionCard.jsx';
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
 import FeatureMenu from '../components/FeatureMenu.jsx';
+import Mochi from '../components/Mochi.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { truncateThai } from '../lib/thai-text.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
@@ -722,7 +723,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             onClick={(e) => onOpenTour(e.currentTarget)}
             aria-label="เปิดทัวร์วิธีใช้งาน"
           >
-            📖 วิธีใช้
+            <Mochi state="wave" size={24} animate slot="guide" fallback="📖" /> วิธีใช้
           </button>
         )}
       </div>
@@ -825,6 +826,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           flexWrap: 'wrap',
         }}>
           <div className="vmx-welcome-copy" style={{ flex: 1, minWidth: 180, fontSize: 13, lineHeight: 1.5 }}>
+            <Mochi state="wave" size={32} animate slot="welcome" className="vmx-welcome-mochi" />
             <strong>ใช้ VetMock ครั้งแรก?</strong>
             <span className="vmx-welcome-copy-detail"> แนะนำตำแหน่งและเมนูสำคัญใน 1 นาที</span>
           </div>

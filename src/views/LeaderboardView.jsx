@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getLeaderboard } from '../lib/api.js';
 import { aggregateLeaderboard, LEADERBOARD_MIN_QUESTIONS } from '../lib/leaderboard-gate.js';
@@ -55,6 +56,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
   return (
     <>
       <div className="vmx-hero">
+        <Mochi state="happy" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1>อันดับคะแนน <em>รวม</em></h1>
         <p>
           {yearScope === 'current' && Number.isFinite(selectedYear)

@@ -4,6 +4,7 @@ import QuestionComponent from '../components/Question.jsx';
 import { fmtTime, isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
 import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { motionIsReduced } from '../lib/motion-preferences.js';
 
 export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
@@ -32,10 +33,12 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
     const back = currentIdx < prevIdxRef.current;
     prevIdxRef.current = currentIdx;
     if (!el) return;
-    if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    el.classList.remove('vmx-q-advance', 'vmx-q-back');
-    void el.offsetWidth; // force reflow so the animation restarts
-    el.classList.add(back ? 'vmx-q-back' : 'vmx-q-advance');
+    if (motionIsReduced() || typeof el.animate !== 'function') return;
+    const animation = el.animate([
+      { opacity: .6, transform: 'translateX(' + (back ? -8 : 8) + 'px)' },
+      { opacity: 1, transform: 'translateX(0)' },
+    ], { duration: 160, easing: 'ease-out' });
+    return () => animation.cancel();
   }, [currentIdx]);
   // Keyboard on the last Q (Space/Enter/J in App) asks to submit — surface
   // the same confirm dialog the button opens, so a keypress can't end the

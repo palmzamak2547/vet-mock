@@ -1,3 +1,4 @@
+import Mochi from '../components/Mochi.jsx';
 import { useState, useEffect } from 'react';
 import { getGroupMembers, getSharedQuestions, getLeaderboard, deleteSharedQuestion } from '../lib/api.js';
 import { qualifiesForLeaderboard } from '../lib/leaderboard-gate.js';
@@ -53,6 +54,7 @@ export default function GroupDetailView({ group, user, goBack }) {
   return (
     <>
       <div className="vmx-hero">
+        <Mochi state="hearts" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1><em>{group.name}</em></h1>
         <p>
           Code: <strong style={{ color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)' }}>{group.code}</strong>

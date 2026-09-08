@@ -1,3 +1,5 @@
+import Mochi from './Mochi.jsx';
+
 export default function AuthRequiredState({ onSignIn, onHome }) {
   return (
     <section
@@ -5,7 +7,7 @@ export default function AuthRequiredState({ onSignIn, onHome }) {
       aria-labelledby="vmx-auth-required-title"
       style={{ maxWidth: 480, margin: '48px auto', textAlign: 'center' }}
     >
-      <div aria-hidden style={{ fontSize: 36, marginBottom: 12 }}>🔒</div>
+      <div aria-hidden style={{ fontSize: 36, marginBottom: 12 }}><Mochi state="wave" size={64} slot="auth" fallback="🔒" /></div>
       <h1 id="vmx-auth-required-title" style={{ fontSize: 22, margin: '0 0 8px' }}>
         หน้านี้ใช้บัญชี VetMock
       </h1>
@@ -31,7 +33,7 @@ export function AuthUnavailableState({ onHome }) {
       aria-labelledby="vmx-auth-unavailable-title"
       style={{ maxWidth: 480, margin: '48px auto', textAlign: 'center' }}
     >
-      <div aria-hidden style={{ fontSize: 36, marginBottom: 12 }}>🌿</div>
+      <div aria-hidden style={{ fontSize: 36, marginBottom: 12 }}><Mochi state="encourage" size={64} slot="auth" fallback="🌿" /></div>
       <h1 id="vmx-auth-unavailable-title" style={{ fontSize: 22, margin: '0 0 8px' }}>
         เข้าสู่ระบบไม่พร้อมใช้งานชั่วคราว
       </h1>
