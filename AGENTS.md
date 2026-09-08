@@ -3,15 +3,19 @@
 > ⭐ **Read this first when working on VetMock.** Detailed context lives in
 > the **MycOS vault** (Obsidian) at `C:\Users\palmz\OneDrive\Desktop\MycOS\`.
 > Read `MycOS/AGENTS.md` for full context — this file is just the quick refresh.
+>
+> ⚠️ The vault lives on the owner's Windows machine. On other checkouts
+> (e.g. this macOS one) those paths do not exist — use the in-repo
+> `docs/PROJECT_KNOWLEDGE_BASE.md` as the fallback knowledge map.
 
 ---
 
 ## 🧭 Ecosystem role (canonical · locked 2026-05-29)
 - **Role:** Standalone vet study platform — own brand, may consume cuvetsmo-source/mcp, NOT part of the council site.
 - **Layer:** Product · **Live:** https://vetmock.vercel.app
-- **OWNS:** the question bank (**4,506 source questions / 4,480 learner-ready across 65 banks** at the 2026-08-21 checkpoint) + lint/fix tooling + exam/SRS engine (MCQ/TF/Fill/Match/Short/Writing · Quick/Exam/SM-2 · analytics · groups) + a deliberately simple educational Imaging Practical. Re-run `npm run stats` before quoting current totals.
+- **OWNS:** the question bank (**4,769 source questions / 4,704 learner-ready across 73 banks** at the 2026-09-07 checkpoint) + lint/fix tooling + exam/SRS engine (MCQ/TF/Fill/Match/Short/Writing · Quick/Exam/SM-2 · analytics · groups) + a deliberately simple educational Imaging Practical. Re-run `npm run stats` before quoting current totals.
 
-### ⛔ No-duplication — see `cuvetsmo-docs/NO_DUPLICATION.md`
+### ⛔ No-duplication — rules mirrored from `cuvetsmo-docs/NO_DUPLICATION.md` (sibling repo, not in this tree)
 Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp) · AI inference (→ shared ai-chat) · the full clinical/pro DICOM workstation (→ cuvetsmo-imaging).
 
 > 🩻 PRODUCT SPLIT 2026-08-11: VetMock keeps its own approachable **Imaging Practical** for quick study, local files, public teaching cases, and basic measurements. `https://imaging.cuvetsmo.com` is the separate **Imaging Pro** product for the full toolset. Keep the Practical intentionally narrow; advanced workflows belong in Pro.
@@ -21,9 +25,9 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 ## 🎯 Project At a Glance
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
-- **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX (no TypeScript)
-- **Current source version**: v5.80.1 (2026-09-06); verify exact-SHA CI/deployment and live flow before describing production as current.
-- **Hosting**: Vercel (auto-deploy on push to `main`)
+- **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX app code, TS only at the edges (`db/schema.ts` + `src/db/schema.ts`, `drizzle.config.ts`, `supabase/functions/*`)
+- **Current source version**: v5.83.0 (2026-09-08); verify exact-SHA CI/deployment and live flow before describing production as current.
+- **Hosting**: Vercel (auto-deploy on push to `main` · `api/*.js` are Vercel serverless functions · `vercel.json` also CSP-rewrites `/venipuncture/*` to a separate app and `/wiki/*` + `/app/*` to the SPA)
 - **Production**: https://vetmock.vercel.app
 - **Audience**: ~50-100 vet students at Chulalongkorn (Vet 86 cohort) · Thai-language
 
@@ -95,6 +99,9 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 |------|-------|
 | Routing/state | `src/App.jsx` + `src/lib/view-route.js` (`view` state; readable stable `/app/*` routes) |
 | Views (lazy) | `src/views/*.jsx` |
+| Vercel serverless functions | `api/*.js` (wiki-explain, tts, library-file/blob, send-feedback, …) |
+| DB schema (drizzle) | `db/schema.ts` ≡ `src/db/schema.ts` · push via `npm run db:push` |
+| Supabase edge functions | `supabase/functions/*` (LINE auth, account deletion — TS) |
 | Question banks / loader | `src/data/questions-*.js` + `bank-registry.generated.js` |
 | VCA source inventory | `src/data/vca-materials.js` + `src/lib/vca-library.js`; verified R2 copies and original Drive provenance; recovery in `docs/vca-archive.md` |
 | Notes / shared lazy loader | `src/data/notes-*.js` + `src/data/note-corpus.js` |
@@ -105,30 +112,40 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 | Changelog (homepage banner) | `src/data/changelog.js` |
 | Curriculum / subjects / topics | `src/data/curriculum.js` |
 | Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` |
+| Tailwind v4 (scoped) | `src/styles-tailwind.css` — utilities ONLY for `src/components/shadcn-space/**`; no preflight, everything layered so hand-written CSS always wins; `@` alias → `src/` |
 | Static blog (SEO) | `public/blog/*.html` |
 | SEO config | `public/{robots.txt,sitemap.xml}` + `index.html` meta |
 | Scripts (transcript, lint, ping) | `scripts/*.{mjs,cjs}` |
+| Tests | `tests/unit/*.test.mjs` (node --test) · `tests/e2e/` (Playwright) |
 
 ---
 
 ## 🛠️ Common Commands
 
 ```bash
-npm run dev               # Vite dev server
-npm run build             # Production build (always run before commit)
+npm run dev               # Vite dev server (predev regenerates latest-changelog)
+npm run build             # Production build + wiki prerender (always run before commit)
 npm run preview           # Preview built dist
-npm run test:unit         # Node contract suite
+npm run test:unit         # Node contract suite (tests/unit/*.test.mjs)
 npm run test:e2e          # Cross-browser Playwright suite
-npm run lint:all          # All generated/data/content integrity gates
+npm run test:e2e:prod     # Live flows against vetmock.vercel.app
+npm run lint:all          # All generated/data/content integrity gates (release gate)
 npm run stats             # Authoritative current inventory
 npm run stats:check       # Fail if README/docs inventory drifted
 npm run lint:questions    # Detect bias issues (release gate: 0 errors; warnings tracked separately)
 npm run fix:questions     # Auto-balance answer position
 npm run fix:length        # Auto-trim trailing parentheticals from correct option
+npm run regen:changelog   # Hand-regen latest-changelog.generated.js
 npm run fetch:videos      # Fetch YouTube transcripts to data-cache/transcripts/
 npm run flat:transcript   # Flatten transcript JSON → text (with timestamps)
 npm run ping:indexnow     # Notify Bing/Yandex/Naver after deploy
+npm run db:push           # Push drizzle schema to Postgres (drizzle-kit)
 ```
+
+Generated files — never hand-edit; the matching `lint:*` or `regen:*` script owns them:
+`bank-registry.generated.js`, `latest-changelog.generated.js`, `docs/content-inventory.md`,
+notes/wiki/citation registries (`regen:notes-registry`, `regen:wiki-registry`,
+`regen:citation-index`, `regen:wiki-runtime`), question delivery + q-counts.
 
 ---
 
@@ -179,7 +196,13 @@ Local reusable skill for future agents:
 - `C:\Users\palmz\.codex\skills\vetmock-project-operations\SKILL.md`
 
 Canonical repo knowledge map:
-- `docs/PROJECT_KNOWLEDGE_BASE.md`
+- `docs/PROJECT_KNOWLEDGE_BASE.md` (read this when the vault is unavailable)
+- `docs/QUESTION-STANDARD.md` — before writing/editing questions
+- `docs/DESIGN_SYSTEM.md` + `docs/css-token-baseline.json` — before styling changes
+- `wiki/guides/content-pipeline.md` — content pipeline detail
+- `wiki/operations/testing-and-ci.md` — lint/CI gates detail
+- `STABILITY.md` — regression guardrails
+- `ADDING-QUESTIONS.md` / `DECISIONS.md` / `RISKS.md` — as referenced
 
 User profile + communication style:
 - `MycOS/people/palm.md`
