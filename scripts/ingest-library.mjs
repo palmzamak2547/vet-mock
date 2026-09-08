@@ -254,21 +254,30 @@ async function main() {
     try {
       // Google Drive links are not ours to mirror and cannot be fetched
       // without a browser session; they stay as catalog rows pointing home.
-      if (!/^https?:\/\/mycourseville/i.test(it.url)) { skipped++; continue; }
+      // A SharePoint/OneDrive share behind the university sign-in arrives
+      // the other way round: the file is saved by hand and the manifest item
+      // carries its `path`, while `url` stays the share link for provenance.
+      if (!it.path && !/^https?:\/\/mycourseville/i.test(it.url)) { skipped++; continue; }
 
       const publication = publicationMetadata(it);
 
-      const res = await fetchMaterial(it.url);
-      if (!res.ok) { failed++; console.warn(`  ✗ ${res.status} ${name}`); continue; }
-      const buf = Buffer.from(await res.arrayBuffer());
+      let buf;
+      if (it.path) {
+        buf = readFileSync(it.path);
+      } else {
+        const res = await fetchMaterial(it.url);
+        if (!res.ok) { failed++; console.warn(`  ✗ ${res.status} ${name}`); continue; }
+        buf = Buffer.from(await res.arrayBuffer());
+      }
       if (!buf.length) { failed++; console.warn(`  ✗ empty ${name}`); continue; }
+      const fileName = it.path ? String(it.path).split(/[\\/]/).pop() : it.url.split('?')[0];
 
       const sha = createHash('sha256').update(buf).digest('hex').slice(0, 16);
       if (known.has(sha)) { skipped++; continue; }
 
-      const ext = (it.url.split('?')[0].split('.').pop() || 'bin').toLowerCase().slice(0, 5);
+      const ext = (fileName.split('.').pop() || 'bin').toLowerCase().slice(0, 5);
       const key = `docs/${sha}/${slugify(name, sha)}.${ext}`;
-      const mime = mimeFor(it.url.split('?')[0]);
+      const mime = mimeFor(fileName);
 
       if (DRY) {
         console.log(`  would upload ${(buf.length / 1048576).toFixed(1)} MB  ${key}`);
