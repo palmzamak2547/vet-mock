@@ -140,6 +140,34 @@ test('a stroke made a moment before leaving is not thrown away', async ({ page }
   expect(stored.strokesOnPage1, 'leaving the reader discarded the last stroke').toBe(1);
 });
 
+test('a personal PDF opened from the shelf retains ink when returning to the search', async ({ page }) => {
+  await page.goto('/app/library?q=VCA%20Pharmacology');
+  await page.getByRole('button', { name: 'เปิด PDF ของฉัน', exact: true }).click();
+  await page.locator('input[type=file]').setInputFiles({ name: 'personal.pdf', mimeType: 'application/pdf', buffer: TINY_PDF });
+  // Canvases exist while the loading cover still intercepts input. Drawing
+  // starts only after the PDF page is ready, as it does for a real reader.
+  await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByRole('button', { name: 'กลับคลังเอกสาร', exact: true })).toBeVisible();
+  const box = await overlayBox(page);
+  const y = box.y + box.h * 0.3;
+  await page.mouse.move(box.x + 30, y);
+  await page.mouse.down();
+  for (let i = 1; i <= 15; i++) await page.mouse.move(box.x + 30 + i * ((box.w - 60) / 15), y);
+  await page.mouse.up();
+  await expect.poll(() => inkPixels(page)).toBeGreaterThan(100);
+
+  // Exercise the shelf exit path before the debounced autosave can run.
+  await page.getByRole('button', { name: 'กลับคลังเอกสาร', exact: true }).click();
+  await expect(page.getByRole('searchbox', { name: 'ค้นหาเอกสารในคลัง' })).toHaveValue('VCA Pharmacology');
+  await expect.poll(async () => (await storedRecord(page)).strokesOnPage1).toBe(1);
+
+  // Selecting the same local file must restore its own saved strokes.
+  await page.getByRole('button', { name: 'เปิด PDF ของฉัน', exact: true }).click();
+  await page.locator('input[type=file]').setInputFiles({ name: 'personal.pdf', mimeType: 'application/pdf', buffer: TINY_PDF });
+  await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
+  await expect.poll(() => inkPixels(page)).toBeGreaterThan(100);
+});
+
 
 test('the reader is a scrolling column and a stroke lands on the page it was drawn on', async ({ page }) => {
   // `currentPage` follows the reader's eye down the column now, so the page a

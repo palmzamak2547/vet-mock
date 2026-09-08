@@ -2195,9 +2195,29 @@ export default function App() {
   // on the way out (below) — a stale value would silently reopen the last
   // library document when someone later picks "เขียนบน PDF" from the tools menu.
   const [libraryDoc, setLibraryDoc] = useState(null);
+  const [pdfLibraryReturnPath, setPdfLibraryReturnPath] = useState(null);
   useEffect(() => {
-    if (libraryDoc && view !== 'pdf-annotate' && view !== 'library') setLibraryDoc(null);
-  }, [view, libraryDoc]);
+    if (view !== 'pdf-annotate' && view !== 'library') {
+      if (libraryDoc) setLibraryDoc(null);
+      if (pdfLibraryReturnPath) setPdfLibraryReturnPath(null);
+    }
+  }, [view, libraryDoc, pdfLibraryReturnPath]);
+
+  const openLibraryReader = (doc = null) => {
+    // Local files and shelf documents use the same reader. Explicitly clear
+    // the remote payload so opening a personal file never reopens an old deck.
+    setLibraryDoc(doc);
+    setPdfLibraryReturnPath(view === 'library'
+      ? window.location.pathname + window.location.search
+      : '/app/library');
+    setView('pdf-annotate');
+  };
+  const returnToLibrary = () => {
+    const path = pdfLibraryReturnPath || '/app/library';
+    setLibraryDoc(null);
+    setPdfLibraryReturnPath(null);
+    setView('library', { path });
+  };
 
   const goHome = () => {
     setView('home');
@@ -2608,14 +2628,15 @@ export default function App() {
               {view === 'race' && user && <RaceView key={user?.id ?? 'guest'} goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
               {view === 'atlas' && <AtlasView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} theme={theme} onToggleTheme={() => setTheme(current => current === 'dark' ? 'light' : 'dark')} />}
-              {view === 'library' && <LibraryView goHome={goHome} selectedYear={selectedYear} onOpenDoc={(doc) => { setLibraryDoc(doc); setView('pdf-annotate'); }} />}
+              {view === 'library' && <LibraryView goHome={goHome} selectedYear={selectedYear} onOpenDoc={openLibraryReader} onOpenLocalPdf={() => openLibraryReader()} />}
               {view === 'pdf-annotate' && (
                 <PdfAnnotateView
                   key={user?.id || 'guest'}
                   ownerId={user?.id || null}
                   goHome={goHome}
                   initialDoc={libraryDoc}
-                  onExit={libraryDoc ? () => { setLibraryDoc(null); setView('library'); } : null}
+                  onExit={libraryDoc || pdfLibraryReturnPath ? returnToLibrary : null}
+                  onOpenLibrary={returnToLibrary}
                 />
               )}
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, notes, selectedYear, selectedPhase }} />}
@@ -2682,7 +2703,7 @@ export default function App() {
             onSketch={() => setSketchOpen(true)}
             onPanic={startPanicSession}
             onOpenWiki={openWiki}
-            onOpenLibraryDoc={(doc) => { setLibraryDoc(doc); setView('pdf-annotate'); }}
+            onOpenLibraryDoc={openLibraryReader}
             onPractice={(inv) => {
               setMode(inv.mode || 'quick');
               setSubject(inv.subject || 'all');

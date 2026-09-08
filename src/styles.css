@@ -1504,6 +1504,18 @@ html, body {
 .vmx-feature-more { min-height: var(--touch-min, 44px); margin-top: 6px; padding: 6px 10px; border: 0; background: transparent; color: var(--clr-ink-soft); font-size: 12px; font-weight: 600; cursor: pointer; }
 .vmx-feature-more:hover { text-decoration: underline; text-underline-offset: 3px; }
 
+/* One reading flow: the shelf also opens personal PDFs in the shared reader. */
+.vmx-library-intro { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4); padding: var(--space-1) 0 var(--space-4); }
+.vmx-library-intro-copy { flex: 1 1 320px; min-width: 0; }
+.vmx-library-local-pdf { flex: 0 1 auto; }
+.vmx-pdf-dropzone { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-8) var(--space-4); border: 2px dashed var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface); transition: border-color var(--dur-fast), background var(--dur-fast); }
+.vmx-pdf-dropzone[data-dragging] { border-color: var(--clr-sage); background: var(--clr-sage-soft); }
+.vmx-pdf-library-link { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-2); margin-top: var(--space-3); color: var(--clr-ink-soft); font-size: var(--text-sm); }
+.vmx-pdf-open-error { margin-top: var(--space-3); padding: var(--space-3); border-radius: var(--r-sm); background: var(--clr-rose-soft); color: var(--clr-rose-text); font-size: var(--text-sm); }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-pdf-dropzone { transition: none; }
+}
+
 .vmx-footer-link { border: 0; background: transparent; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
 
 .vmx-config-panel { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 28px; margin-bottom: 20px; }

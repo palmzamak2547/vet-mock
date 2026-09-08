@@ -40,6 +40,86 @@ test.describe('Study library', () => {
   // is the library view.
   test.use({ serviceWorkers: 'block' });
 
+  test('Home exposes reading entry points before expanding the feature menu', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('vmx-selected-year', '5');
+      localStorage.setItem('vmx-selected-phase', JSON.stringify('1-mid'));
+      localStorage.setItem('vmx-seen-landing', '1');
+      localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    });
+    await stubVercelAnalytics(page);
+    await page.goto('/');
+    const menu = page.locator('.vmx-feature-menu');
+    await expect(menu.getByRole('button', { name: /^สรุปบทเรียน / })).toBeVisible({ timeout: 20_000 });
+    await menu.getByRole('button', { name: /^คลังเอกสาร / }).click();
+    await expect(page).toHaveURL(/\/app\/library$/);
+    await expect(page.getByRole('button', { name: 'เปิด PDF ของฉัน', exact: true })).toBeVisible();
+  });
+
+  test('the personal reader and shelf connect without losing the shelf search', async ({ page }) => {
+    await stubVercelAnalytics(page);
+    await page.goto('/app/tools/pdf');
+    await page.getByRole('button', { name: 'เปิดคลังเอกสาร', exact: true }).click();
+    const search = page.getByRole('searchbox', { name: 'ค้นหาเอกสารในคลัง' });
+    await search.fill('VCA Pharmacology');
+    await expect(page).toHaveURL(/q=VCA\+Pharmacology/);
+    await page.getByRole('button', { name: 'เปิด PDF ของฉัน', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'เลือกไฟล์ PDF', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'กลับคลังเอกสาร', exact: true }).click();
+    await expect(search).toHaveValue('VCA Pharmacology');
+    await expect(page).toHaveURL(/\/app\/library\?q=VCA\+Pharmacology$/);
+  });
+
+  test('a shelf document does not reopen when switching to a personal PDF', async ({ page }) => {
+    await stubVercelAnalytics(page);
+    const pdf = Buffer.from('%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n'
+      + '2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj\n'
+      + '3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 400 500]>>endobj\n'
+      + 'trailer<</Root 1 0 R>>\n', 'latin1');
+    let documentRequests = 0;
+    await page.route('**/api/library-file?slug=*', (route) => route.fulfill({ json: { url: '/__reading-fixture.pdf' } }));
+    await page.route('**/__reading-fixture.pdf', (route) => {
+      documentRequests++;
+      return route.fulfill({ body: pdf, contentType: 'application/pdf' });
+    });
+    await page.goto('/app/library?q=VCA%20Pharmacology');
+    const card = page.locator('.vmx-lib-card').filter({ has: page.getByRole('heading', { name: 'Pharmacology & Toxicology (VCA58-68)', exact: true }) });
+    await card.getByRole('button', { name: 'เปิดอ่าน', exact: true }).click();
+    await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByRole('button', { name: 'กลับคลังเอกสาร', exact: true })).toBeVisible();
+
+    // Browser Back retains the old reader payload in App until the next open.
+    await page.goBack();
+    await expect(page.getByRole('searchbox', { name: 'ค้นหาเอกสารในคลัง' })).toHaveValue('VCA Pharmacology');
+    await page.getByRole('button', { name: 'เปิด PDF ของฉัน', exact: true }).click();
+    const chooserPromise = page.waitForEvent('filechooser');
+    await page.getByRole('button', { name: 'เลือกไฟล์ PDF', exact: true }).click();
+    await (await chooserPromise).setFiles({ name: 'my-own-notes.pdf', mimeType: 'application/pdf', buffer: pdf });
+    await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('my-own-notes.pdf', { exact: true }).first()).toBeVisible();
+    expect(documentRequests).toBe(1);
+  });
+
+  test('the file picker is keyboard accessible and errors stay readable on a narrow dark screen', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 740 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.addInitScript(() => localStorage.setItem('vmx-theme', JSON.stringify('dark')));
+    await stubVercelAnalytics(page);
+    await page.goto('/app/tools/pdf');
+    const pick = page.getByRole('button', { name: 'เลือกไฟล์ PDF', exact: true });
+    await expect(pick).toBeVisible({ timeout: 20_000 });
+    await pick.focus();
+    await expect(pick).toBeFocused();
+    const chooserPromise = page.waitForEvent('filechooser');
+    await pick.press('Enter');
+    await (await chooserPromise).setFiles({ name: 'wrong.txt', mimeType: 'text/plain', buffer: Buffer.from('not a PDF') });
+    await expect(page.getByRole('alert')).toContainText('ไฟล์ต้องเป็น PDF เท่านั้น');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)).toBeLessThanOrEqual(1);
+    const box = await pick.boundingBox();
+    expect(box.height).toBeGreaterThanOrEqual(44);
+    await expect(page.getByRole('button', { name: 'เปิดคลังเอกสาร', exact: true })).toBeVisible();
+  });
+
   test('/app/library renders a reload-safe route without page errors', async ({ page }) => {
     const pageErrors = [];
     page.on('pageerror', (error) => pageErrors.push(error.message));

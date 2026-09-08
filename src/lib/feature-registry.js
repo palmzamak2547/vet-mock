@@ -111,12 +111,21 @@ export const FEATURES = [
   },
 
   // ── 📚 Learn & Review ────────────────────────────────────
+  // Reading entry points lead the shared list, so the four-card Home
+  // preview exposes the shelf and notes before specialist destinations.
   {
-    id: 'atlas', category: 'learn',
-    label: 'Atlas สัตว์', labelEn: 'Veterinary Atlas', icon: '🦴',
-    hint: 'สำรวจโครงกระดูกและอวัยวะ 3D พร้อมขอบเขตและที่มา',
-    kw: 'atlas anatomy กายวิภาค กระดูก skeleton skull 3d สุนัข canine ม้า equine เปรียบเทียบ',
-    invoke: { kind: 'view', view: 'atlas' },
+    id: 'library', category: 'learn',
+    label: 'คลังเอกสาร', labelEn: 'Study library', icon: '📚',
+    hint: 'อ่านเอกสารในคลัง หรือเปิด PDF ของตัวเองแล้วจด',
+    kw: 'library คลัง เอกสาร textbook ตำรา handout สไลด์ slide pdf โหลด download อ่าน',
+    invoke: { kind: 'view', view: 'library' },
+  },
+  {
+    id: 'notes', category: 'learn',
+    label: 'สรุปบทเรียน', labelEn: 'Lecture notes', icon: '📓',
+    hint: 'สรุปจากสไลด์พร้อมแหล่งอ้างอิง เลือกวิชาก่อน',
+    kw: 'notes สรุป โน้ต อ่าน slide สไลด์ lecture',
+    invoke: { kind: 'view', view: 'subject-select' },
   },
   {
     id: 'videos', category: 'learn',
@@ -134,6 +143,13 @@ export const FEATURES = [
     kw: 'vetwiki wiki ความรู้ knowledge อ้างอิง source ตรวจสอบ verified rabies พิษสุนัขบ้า',
     flag: 'VETWIKI_ENABLED',
     invoke: { kind: 'view', view: 'knowledge' },
+  },
+  {
+    id: 'atlas', category: 'learn',
+    label: 'Atlas สัตว์', labelEn: 'Veterinary Atlas', icon: '🦴',
+    hint: 'สำรวจโครงกระดูกและอวัยวะ 3D พร้อมขอบเขตและที่มา',
+    kw: 'atlas anatomy กายวิภาค กระดูก skeleton skull 3d สุนัข canine ม้า equine เปรียบเทียบ',
+    invoke: { kind: 'view', view: 'atlas' },
   },
   {
     id: 'faculty', category: 'learn',
@@ -167,13 +183,6 @@ export const FEATURES = [
     hint: 'รวมข้อและบันทึกที่เก็บไว้',
     kw: 'pinboard pin หมุด รวบรวม board collect saved',
     invoke: { kind: 'view', view: 'pinboard' },
-  },
-  {
-    id: 'notes', category: 'learn',
-    label: 'สรุปบทเรียน', labelEn: 'Lecture notes', icon: '📓',
-    hint: 'สรุปจากสไลด์พร้อมแหล่งอ้างอิง เลือกวิชาก่อน',
-    kw: 'notes สรุป โน้ต อ่าน slide สไลด์ lecture',
-    invoke: { kind: 'view', view: 'subject-select' },
   },
 
   // ── 📊 Progress ──────────────────────────────────────────
@@ -244,13 +253,6 @@ export const FEATURES = [
     hint: 'ทำแฟลชการ์ดจากรูปด้วยการปิดบางส่วน',
     kw: 'image occlusion mask anatomy รูป ปกปิด anki flashcard',
     invoke: { kind: 'view', view: 'image-occlusion' },
-  },
-  {
-    id: 'library', category: 'learn',
-    label: 'คลังเอกสาร', labelEn: 'Study library', icon: '📚',
-    hint: 'เปิดอ่านเอกสารการเรียนแล้วขีดเขียนได้เลย',
-    kw: 'library คลัง เอกสาร textbook ตำรา handout สไลด์ slide pdf โหลด download อ่าน',
-    invoke: { kind: 'view', view: 'library' },
   },
   {
     id: 'pdf-annotate', category: 'tools',

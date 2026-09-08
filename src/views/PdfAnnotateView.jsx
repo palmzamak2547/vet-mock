@@ -111,7 +111,7 @@ async function loadPdfjs() {
   return _pdfjsPromise;
 }
 
-export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = null, ownerId = null }) {
+export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = null, onOpenLibrary = null, ownerId = null }) {
   // These closures retain the owner across async saves and unmount cleanup.
   // App keys the reader by account, so another account never inherits its ink.
   const { loadAnnotations, saveAnnotations, listRecentPdfs, deleteAnnotations, peekAnnotations,
@@ -1744,7 +1744,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   if (!pdfDoc) {
     return (
       <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
-        <BackBar onBack={goHome} label="กลับหน้าแรก" subtitle="เขียนทับ PDF" />
+        <BackBar onBack={onExit || goHome} label={onExit ? 'กลับคลังเอกสาร' : 'กลับหน้าแรก'} subtitle="เขียนทับ PDF" />
         <div style={{ padding: '8px 16px 24px', maxWidth: 720, margin: '0 auto', width: '100%' }}>
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             สไลด์บรรยาย และตำรา
@@ -1756,29 +1756,21 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             จึงต้องเลือกไฟล์เดิมอีกครั้งเมื่อจะเขียนต่อ
           </p>
 
-          <label
+          <div
+            className="vmx-pdf-dropzone"
+            data-dragging={dragging || undefined}
             onDragOver={onDragOver}
             onDragLeave={onDragLeave}
             onDrop={onDrop}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              padding: '32px 16px',
-              borderRadius: 12,
-              border: `2px dashed ${dragging ? 'var(--clr-accent, #4a6b4a)' : 'var(--clr-border, #d8d3c4)'}`,
-              background: dragging ? 'var(--clr-accent-soft, #e8efe4)' : 'var(--clr-surface, #f7f7f4)',
-              cursor: 'pointer',
-              transition: 'background 120ms, border-color 120ms',
-            }}
           >
             <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)' }}>
               <NavIcon name="files" size={30} />
             </span>
             <strong style={{ fontSize: 15 }}>ลาก PDF มาวางที่นี่</strong>
-            <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หรือกดเพื่อเลือกไฟล์, สูงสุด {SIZE_HARD_MB} MB</span>
+            <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>ไฟล์ขนาดไม่เกิน {SIZE_HARD_MB} MB</span>
+            <button type="button" className="vmx-btn vmx-btn-primary" onClick={() => fileInputRef.current?.click()}>
+              เลือกไฟล์ PDF
+            </button>
             <input
               ref={fileInputRef}
               type="file"
@@ -1786,10 +1778,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               onChange={onFilePicked}
               style={{ display: 'none' }}
             />
-          </label>
+          </div>
+
+          {!onExit && onOpenLibrary && (
+            <div className="vmx-pdf-library-link">
+              <span>หาเอกสารสำหรับอ่านอยู่?</span>
+              <button type="button" className="vmx-btn vmx-btn-ghost" onClick={onOpenLibrary}>เปิดคลังเอกสาร</button>
+            </div>
+          )}
 
           {error && (
-            <div className="vmx-error" style={{ marginTop: 12, padding: 10, borderRadius: 8, background: '#fdecea', color: '#8a1f15', fontSize: 13 }}>
+            <div className="vmx-error vmx-pdf-open-error" role="alert">
               {error}
               {(initialDoc?.resolve || initialDoc?.url) && (
                 <div style={{ marginTop: 8 }}>
@@ -1870,7 +1869,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // ── Viewing state ──────────────────────────────────────────
   return (
     <div ref={rootRef} className="vmx-reader" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
-      <BackBar onBack={backToEmpty} label="เปลี่ยน PDF" subtitle={fileName} />
+      <BackBar onBack={backToEmpty} label={onExit ? 'กลับคลังเอกสาร' : 'เปลี่ยน PDF'} subtitle={fileName} />
       {legacyAvailable && (
         <div role="status" style={{ padding: 12, background: 'var(--clr-surface)', color: 'var(--clr-ink)', fontSize: 14 }}>
           <p style={{ margin: '0 0 8px' }}>พบลายเส้นรุ่นเก่าในเครื่องที่ยังไม่ได้ระบุเจ้าของ</p>

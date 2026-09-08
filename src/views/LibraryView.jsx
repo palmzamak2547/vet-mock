@@ -229,7 +229,7 @@ function ChipRow({ label, options, value, onChange, allLabel = 'ทั้งห�
 
 // ── View ──────────────────────────────────────────────────────────────────
 
-export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) {
+export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selectedYear = null }) {
   const [docs, setDocs] = useState([]);
   const [configured, setConfigured] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -478,7 +478,8 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
     <div>
       <BackBar onBack={goHome} label="กลับหน้าแรก" subtitle="คลังเอกสาร" />
 
-      <div style={{ padding: '4px 0 16px' }}>
+      <div className="vmx-library-intro">
+        <div className="vmx-library-intro-copy">
         <div style={{ ...mono, fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
           📚 Study library
         </div>
@@ -491,6 +492,12 @@ export default function LibraryView({ goHome, onOpenDoc, selectedYear = null }) 
           <div style={{ ...mono, fontSize: 11.5, color: 'var(--clr-ink-soft)', marginTop: 6 }}>
             {docs.length.toLocaleString()} รายการ จาก {subjectTotal} วิชา
           </div>
+        )}
+        </div>
+        {onOpenLocalPdf && (
+          <button type="button" className="vmx-btn vmx-library-local-pdf" onClick={onOpenLocalPdf}>
+            เปิด PDF ของฉัน
+          </button>
         )}
       </div>
 
