@@ -710,8 +710,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         ) : null)}
         {/* Permanent tutorial entry — unlike the first-visit banner below,
             this survives exam attempts and dismissal so mid-term newcomers
-            (and anyone who wants a refresher) can always reach the tour. */}
-        {typeof onOpenTour === 'function' && (
+            (and anyone who wants a refresher) can always reach the tour.
+            Hidden while the banner itself is showing: two tour buttons on
+            one screen is redundant, and stacking both pushes the first
+            subject card below the mobile fold. */}
+        {typeof onOpenTour === 'function' && bannerWinner !== 'welcome' && (
           <button
             type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
