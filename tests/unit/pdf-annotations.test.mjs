@@ -81,8 +81,9 @@ function uninstall() { delete globalThis.window; delete globalThis.indexedDB; }
 let n = 0;
 const fresh = () => import(`../../src/lib/pdf-annotations.js?t=${++n}`);
 
-test('stroke autosave and page tracker cannot clobber each other', async () => {
+test('stroke autosave and page tracker cannot clobber each other in one clock tick', async (t) => {
   install();
+  t.mock.method(Date, 'now', () => 1_700_000_000_000);
   try {
     const { saveAnnotations, loadAnnotations } = await fresh();
     await saveAnnotations('h1', { fileName: 'a.pdf', pageCount: 10, strokesByPage: { 2: [{ mode: 'pen' }] } });
@@ -102,6 +103,22 @@ test('lastPage defaults to 1 for records that predate the field', async () => {
     const { saveAnnotations, loadAnnotations } = await fresh();
     await saveAnnotations('old', { fileName: 'b.pdf', pageCount: 3 });
     assert.equal((await loadAnnotations('old')).lastPage, 1);
+  } finally { uninstall(); }
+});
+
+test('a corrected system clock cannot restore an older reading position', async (t) => {
+  install();
+  let now = 1_700_000_000_000;
+  t.mock.method(Date, 'now', () => now);
+  try {
+    const { saveAnnotations, loadAnnotations } = await fresh();
+    await saveAnnotations('clock', { pageCount: 10, lastPage: 3 });
+    now -= 10_000;
+    await saveAnnotations('clock', { lastPage: 8 });
+    await saveAnnotations('clock', { strokesByPage: { 8: [{ id: 'ink', mode: 'pen' }] } });
+    const record = await loadAnnotations('clock');
+    assert.equal(record.lastPage, 8);
+    assert.equal(record.strokesByPage[8][0].id, 'ink');
   } finally { uninstall(); }
 });
 

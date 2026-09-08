@@ -168,6 +168,25 @@ test('a personal PDF opened from the shelf retains ink when returning to the sea
   await expect.poll(() => inkPixels(page)).toBeGreaterThan(100);
 });
 
+test('same-millisecond native saves keep the page tracker and new ink together', async ({ page }) => {
+  await page.clock.setFixedTime(new Date('2026-09-08T08:30:00Z'));
+  await openReaderWithPdf(page, 4);
+  await page.locator('[data-page="3"]').evaluate(el => { el.parentElement.scrollTop = el.offsetTop - 8; });
+  await expect(page.locator('[data-page="3"][data-render-state="ready"]')).toBeVisible();
+  await expect.poll(async () => (await storedRecordRaw(page))?.lastPage).toBe(3);
+  const box = await page.locator('[data-page="3"]').evaluate(el => {
+    const canvas = el.querySelectorAll('canvas')[1].getBoundingClientRect();
+    const viewport = el.parentElement.getBoundingClientRect();
+    return { x: canvas.left, y: Math.max(canvas.top, viewport.top) + 30, width: canvas.width };
+  });
+  await page.mouse.move(box.x + 30, box.y);
+  await page.mouse.down();
+  for (let i = 1; i <= 15; i++) await page.mouse.move(box.x + 30 + i * ((box.width - 60) / 15), box.y);
+  await page.mouse.up();
+  await expect.poll(async () => (await storedRecordRaw(page))?.strokesByPage?.[3]?.length).toBe(1);
+  expect((await storedRecordRaw(page)).lastPage).toBe(3);
+});
+
 
 test('the reader is a scrolling column and a stroke lands on the page it was drawn on', async ({ page }) => {
   // `currentPage` follows the reader's eye down the column now, so the page a

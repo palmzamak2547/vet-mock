@@ -50,8 +50,11 @@ The original all-preset, Mochi, instant-feedback, PDF and study suites remain pa
 of regression coverage. Release proof must still include exact-SHA CI, Vercel
 Production and canonical live use; the source usage map is not deployment proof.
 
-Local v5.85.0 validation on 2026-09-08: build, lint and all 784 unit tests passed;
+Local v5.85.0 validation on 2026-09-08: build, lint and all 785 unit tests passed;
 64 final integration/kit cases passed across the four browser profiles with no
 retry or skip. The Safari artwork-failure/draft-preservation case also passed
 twice in isolation. Dependency audit reported no vulnerabilities. The optional
 3D failure notice now survives pose completion instead of being overwritten.
+The PDF store also keeps local saves strictly ordered within one clock tick or
+after a clock correction. Frozen-clock unit checks reproduce the old failure;
+all 72 PDF browser cases passed, including real IndexedDB under a fixed clock.

@@ -385,7 +385,10 @@ export async function saveAnnotations(fileHash, data, ownerId = null) {
       : (prev.strokesByPage || {}),
     deleted: Array.isArray(data.deleted) ? data.deleted : (prev.deleted || []),
     lastPage: Number.isFinite(data.lastPage) ? data.lastPage : (prev.lastPage ?? 1),
-    lastOpened: Date.now(),
+    // Multiple local writers can finish in the same millisecond (or after a
+    // clock correction). mergeRecords keeps the old side on equal timestamps,
+    // so a local update needs a strictly newer revision than its own mirror.
+    lastOpened: Math.max(Date.now(), (Number.isFinite(prev.lastOpened) ? prev.lastOpened : 0) + 1),
   };
   return { ...(await writeMergedRecord(rec, ownerId)), evicted: 0 };
 }
