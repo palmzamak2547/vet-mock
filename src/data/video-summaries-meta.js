@@ -479,6 +479,15 @@ export const VIDEO_META = {
     "instructor": "อ.ธนศักดิ์ (Aj. Thanasak — verified [3:41]–[4:13])",
     "examFormat": "MCQ — Final scope, LDA/Hardware/bloat high-yield"
   },
+  '6l0OlwXTaIk': {
+    "videoId": "6l0OlwXTaIk",
+    "title": "12.1 Hernia ในสัตว์เคี้ยวเอื้อง — umbilical, ventral, inguinal/scrotal, diaphragmatic",
+    "subject": "cliapprum",
+    "date": "9 Apr 68",
+    "durationMin": 84,
+    "instructor": null,
+    "examFormat": "ไม่ได้บอกรูปแบบข้อสอบไว้ แต่ระบุขอบเขตไว้ 3 จุด: (1) ภาวะที่สะดือ สำหรับปี 4 เน้นแค่ 3 อันแรกจาก 5 ภาวะที่ยกมา ไม่ลงถึงการแก้ไข complicated surgery [20:25] (2) เทคนิควาง mesh แบบ overlay ผู้สอนบอกเองว่าให้รู้ไว้เฉย ๆ ไม่ได้ออกสอบ [51:40] (3) ปิดคาบด้วยสไลด์ key words สำคัญ และเน้นย้ำเฉพาะ 4 hernia ที่สอนในคาบ [83:11-83:38]"
+  },
   '8n3oMcJXUiY': {
     "videoId": "8n3oMcJXUiY",
     "title": "Ruminant GI Surgery II",
@@ -496,6 +505,15 @@ export const VIDEO_META = {
     "durationMin": 143,
     "instructor": "verify (ไม่ได้ระบุชื่อ — เรียกตัวเองว่า \"พี่\", อ้างถึง อ.วิโรธ + อ.มนชัย ม.ขอนแก่น เป็นผู้พัฒนา KCF)",
     "examFormat": "MCQ — Final scope, 15 ข้อต่อคาบ"
+  },
+  '9oqgIbAh7PA': {
+    "videoId": "9oqgIbAh7PA",
+    "title": "2 — Female Reproductive Management ในโค: จับสัด ผสมเทียม และการเหนี่ยวนำด้วยฮอร์โมน",
+    "subject": "cliapprum",
+    "date": "15 Jan 68",
+    "durationMin": 170,
+    "instructor": null,
+    "examFormat": null
   },
   'HD0tbvDa-Cc': {
     "videoId": "HD0tbvDa-Cc",
@@ -523,6 +541,15 @@ export const VIDEO_META = {
     "durationMin": 95,
     "instructor": "Surgery staff (อ.ตั้ม + อ.ผึ้ง สอนภาคของคาบนี้)",
     "examFormat": "MCQ — Final scope, เน้น **หลักการ** ของแต่ละ procedure, Aj. confirm [90:09] \"ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล\""
+  },
+  'jpJIimOFpkc': {
+    "videoId": "jpJIimOFpkc",
+    "title": "5.1 Gestation Period and Parturition in Ruminant II (วินิจฉัยการตั้งท้องและการคลอดในโค)",
+    "subject": "cliapprum",
+    "date": "5 Feb 68",
+    "durationMin": 94,
+    "instructor": null,
+    "examFormat": "เคยเอากราฟ timing ของฮอร์โมนช่วงคลอดไปออกข้อสอบมาแล้ว และย้ำว่าจะไม่ออกข้อสอบแบบ \"ข้อใดไม่ใช่\" เพราะถ้าตัวเลือกมี negative อยู่ด้วยจะกลายเป็น double negative"
   },
   'szG9lXVvqNo': {
     "videoId": "szG9lXVvqNo",
@@ -1739,6 +1766,15 @@ export const VIDEO_META = {
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
     "examFormat": "MCQ — drug of choice + duration + zoonosis flag, จับคู่ pathogen ↔ sign ↔ Tx"
   },
+  'fJCnA5FMVuk': {
+    "videoId": "fJCnA5FMVuk",
+    "title": "7.2 Hedgehog (เม่นแคระ) — พฤติกรรม การจัดการ และโรคที่พบบ่อย",
+    "subject": "exotic",
+    "date": "19 Feb 68",
+    "durationMin": 26,
+    "instructor": null,
+    "examFormat": "เรื่องนกจะยกไปสอบหลังมิดเทอม เพราะเนื้อหายังสอนไม่จบ ออกข้อสอบครึ่ง ๆ กลาง ๆ ลำบาก รอบนี้น่าจะออกเฉพาะสิ่งที่สอนไปแล้ว รวมเรื่องไก่ชน ส่วน pet bird จะรวมทั้งโรคติดเชื้อและโรคไม่ติดเชื้อ ไปออกในสอบไฟนอลอีกทีหนึ่ง [25:36-26:01]"
+  },
   'izL_CBa697Q': {
     "videoId": "izL_CBa697Q",
     "title": "2. โรคไม่ติดเชื้อ",
@@ -2486,6 +2522,24 @@ export const VIDEO_META = {
     "instructor": "CUVET small animal medicine team",
     "examFormat": "Multiple choice + clinical scenarios, ออก differentiate collapse types, seizure DDx"
   },
+  '-aUgXN1c5WM': {
+    "videoId": "-aUgXN1c5WM",
+    "title": "11 — Avian Immune System และการทำวัคซีนในสัตว์ปีก",
+    "subject": "poultry",
+    "date": "1 Apr 68",
+    "durationMin": 100,
+    "instructor": null,
+    "examFormat": null
+  },
+  '-iGwhTzmVYg': {
+    "videoId": "-iGwhTzmVYg",
+    "title": "15 — การประเมินและเฝ้าระวังโรคของฟาร์มสัตว์ปีก",
+    "subject": "poultry",
+    "date": "29 Apr 68",
+    "durationMin": 90,
+    "instructor": null,
+    "examFormat": "อาจารย์พูดถึงข้อสอบไว้ 5 จุด: (1) จะไม่ออกเรื่อง incidence / prevalence เพราะเป็นเรื่องของสาธารณสุข [2:49]; (2) ถ้าถามเรื่องจำนวนซีรัมที่เก็บต่อโรงเรือน ให้ตอบ 20 ตัว (ชีวิตจริง 10 ตัวก็ได้) [24:32]; (3) เตือนว่าเคยมีอาจารย์ออกข้อสอบหลอก โดยเอากราฟผล ELISA มาให้แปลผลเป็นกราฟไทเตอร์ตามอายุไก่ ซึ่งเป็นคนละกราฟกัน [43:58]; (4) ข้อสอบ VCA เคยออกเรื่อง crop fill [70:11]; (5) เรื่องการคำนวณอัตราการไข่ (hen-house / hen-day production) เคยเรียนกับอาจารย์จักรกฤตแล้ว และจะออกข้อสอบอีกครั้ง [73:43]"
+  },
   'M64_XJhnZ-Y': {
     "videoId": "M64_XJhnZ-Y",
     "title": "AHRA First Week Mortality (L9)",
@@ -2702,6 +2756,15 @@ export const VIDEO_META = {
     "instructor": "Parasitology + Rickettsia team",
     "examFormat": "MCQ + diagnostics + treatment"
   },
+  '48-y2JJRIWY': {
+    "videoId": "48-y2JJRIWY",
+    "title": "6.1 Management of Newborn and Neonatology",
+    "subject": "repro-lect",
+    "date": "14 Feb 68",
+    "durationMin": 158,
+    "instructor": null,
+    "examFormat": null
+  },
   '6E8Z7p0ufVI': {
     "videoId": "6E8Z7p0ufVI",
     "title": "20. Reproductive Diseases in Exotic Pets",
@@ -2737,6 +2800,24 @@ export const VIDEO_META = {
     "durationMin": 207,
     "instructor": "Aj. Ampika Thongphakdee (AT) — ZPO Wildlife Repro Center",
     "examFormat": "Wildlife conservation + ART pipeline, case-driven, cross-refs Q1820-Q1824, Q1870-Q1873"
+  },
+  'cB2Vg7L2W0k': {
+    "videoId": "cB2Vg7L2W0k",
+    "title": "2 — Puberty and Reproductive Cycles in Dog and Cat",
+    "subject": "repro-lect",
+    "date": "17 Jan 68",
+    "durationMin": 173,
+    "instructor": null,
+    "examFormat": "รูปเซลล์ vaginal cytology ออกสอบแน่นอน รวมถึงสอบแลบ แต่จะใช้รูปที่ใกล้เคียงไม่ใช่รูปในสไลด์ ส่วนรายละเอียดปลีกย่อยของความยาวแต่ละระยะในแมวจะไม่ออก"
+  },
+  'ds5F-LHCTJM': {
+    "videoId": "ds5F-LHCTJM",
+    "title": "9.1 Breeding Management in Dogs and Cats",
+    "subject": "repro-lect",
+    "date": "21 Mar 68",
+    "durationMin": 111,
+    "instructor": null,
+    "examFormat": "อาจารย์บอกเองว่าส่วนการรวมเครื่องมือทั้ง 4 อย่างเป็นข้อสอบ [36:35] รูปแบบคือเคสให้อ่าน โดยให้ผล vaginal cytology, vaginal appearance, behavior และผลฮอร์โมนมา แล้วให้ตอบว่าจะนัดสุนัขตัวเมียมาผสมเทียมได้ตั้งแต่วันไหนถึงวันไหน และกี่ครั้ง โดยแยกกรณีน้ำเชื้อสดกับน้ำเชื้อแช่แข็ง และให้เอาปฏิทินจริงมาคำนวณ [36:35-37:14] ท้ายคาบมี case study เพิ่มอีกชุด ให้หมาพันธุ์หนึ่งมา แล้วต้องหาวันตกไข่ วางแผนผสมด้วยน้ำเชื้อแช่แข็ง วางแผนผ่าคลอด และคิดค่าใช้จ่ายว่ากี่บาท โดยค่าตรวจ progesterone ครั้งละ 400 บาท และอีกรายการ 500 บาท [110:48-111:12]"
   },
   'jibDxn3Ajsk': {
     "videoId": "jibDxn3Ajsk",
@@ -2791,6 +2872,33 @@ export const VIDEO_META = {
     "durationMin": 33,
     "instructor": "Anesthesiology team (CUVET)",
     "examFormat": "MCQ — IV cat sizes, 3-tape securing, 20 vs 60 drop sets, drops/min calculation, induction sequence ออกบ่อย"
+  },
+  'KJlSRbvXYfc': {
+    "videoId": "KJlSRbvXYfc",
+    "title": "Brief lab stifle — เตรียมสัตว์ ปูผ้า และตรวจข้อเข่าก่อนเปิดข้อ",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 8,
+    "instructor": null,
+    "examFormat": null
+  },
+  'MMkOzqVVsRA': {
+    "videoId": "MMkOzqVVsRA",
+    "title": "1.1 Gastrotomy — การเปิดผ่ากระเพาะอาหาร",
+    "subject": "surg2",
+    "date": "9 Jan 68",
+    "durationMin": 26,
+    "instructor": null,
+    "examFormat": "ในแลปใช้ร่างอาจารย์ใหญ่ดองนิ่ม จึงไม่มีขั้นตอนวางยาสลบจริง แต่อาจารย์ถามได้ ต้องตอบขั้นตอนทั้งหมดให้ได้ และทั้งกลุ่มต้องตอบตรงกัน"
+  },
+  'zO-xo1Einss': {
+    "videoId": "zO-xo1Einss",
+    "title": "L1 — Orientation Surgery Lab III (Lab 1-6)",
+    "subject": "surg3",
+    "date": "8 Jan 68",
+    "durationMin": 192,
+    "instructor": null,
+    "examFormat": "คะแนนของรายวิชามี 3 ส่วน: assignment ที่ทำทุกอาทิตย์ + การเข้าห้อง + สอบอีกนิดหน่อย [61:01]. แลบ orthopedic examination อาจมี pre-test และ post-test [17:53] และใบตอบวิดีโอสุนัขเดินใช้เช็คชื่อไปในตัว เป็นคะแนนของแลบเลย โดยเข้าเรียนก็ให้เต็ม ไม่คำนึงว่าผิดหรือถูก แล้วเฉลยตอน discussion [27:06]. Lab 2 (anatomy) มี quiz ทาง QR code ให้ทำก่อนเข้าแลบ deadline 16 มกราคมก่อนเที่ยงคืน เปิดหนังสือ/เอกสาร/แอปได้ และไม่ได้เก็บคะแนนว่าถูกหรือผิด [42:50]. Lab 1 ต้องถ่ายรูปผลงาน tape muzzle อัปขึ้น Google Drive โดยต้องติดร่างสัตว์ด้วย ถ้ามีแต่รูปนิสิตไม่ได้คะแนน [15:35]. Lab 5 มี assignment sheet 4 คะแนน ส่งอาทิตย์ถัดไป ถ้าทำใน iPad ต้องปริ้นมาส่ง [126:30]. ผู้สอนย้ำว่าทักษะ special manipulation เหล่านี้ต้องทำได้ตอนสอบปี 6 ด้วย (ชื่อการสอบในคลิปฟังไม่ชัด) [26:14]."
   },
   '3Et9b2Qj9Q0': {
     "videoId": "3Et9b2Qj9Q0",

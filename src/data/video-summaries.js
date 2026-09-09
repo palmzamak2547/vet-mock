@@ -35,6 +35,8 @@ const _lazyLoaders = {
   'rec-adv-bioscience': () => import('./video-summaries-rec-adv-bioscience.js').then((m) => m.VIDEO_SUMMARIES_REC_ADV_BIOSCIENCE),
   'repro-lect': () => import('./video-summaries-repro-lect.js').then((m) => m.VIDEO_SUMMARIES_REPRO_LECT),
   'surg1': () => import('./video-summaries-surg1.js').then((m) => m.VIDEO_SUMMARIES_SURG1),
+  'surg2': () => import('./video-summaries-surg2.js').then((m) => m.VIDEO_SUMMARIES_SURG2),
+  'surg3': () => import('./video-summaries-surg3.js').then((m) => m.VIDEO_SUMMARIES_SURG3),
   'swine-clinic': () => import('./video-summaries-swine-clinic.js').then((m) => m.VIDEO_SUMMARIES_SWINE_CLINIC),
   'swine-herd': () => import('./video-summaries-swine-herd.js').then((m) => m.VIDEO_SUMMARIES_SWINE_HERD),
   'swine-repro': () => import('./video-summaries-swine-repro.js').then((m) => m.VIDEO_SUMMARIES_SWINE_REPRO),

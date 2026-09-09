@@ -47,12 +47,38 @@ async function readExisting() {
   return entries;
 }
 
+// Front matter + raw body. Summaries are written this way rather than as JSON
+// because escaping a 30k-character markdown body into a JSON string pushed the
+// writers into shelling out, and one of them wrote the same file eight times.
+// Values are single-line; an empty value means "not recorded", not "".
+function parseFrontMatter(text, name) {
+  const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(text.replace(/^﻿/, '').trimStart());
+  if (!m) throw new Error(name + ': no front matter block');
+  const entry = { summary: m[2].trim() };
+  for (const line of m[1].split(/\r?\n/)) {
+    const i = line.indexOf(':');
+    if (i < 0) continue;
+    const key = line.slice(0, i).trim();
+    const value = line.slice(i + 1).trim();
+    if (!key) continue;
+    entry[key] = value === '' ? null : value;
+  }
+  if (entry.durationMin != null) {
+    const n = parseInt(String(entry.durationMin).replace(/[^0-9]/g, ''), 10);
+    entry.durationMin = Number.isFinite(n) ? n : null;
+  }
+  return entry;
+}
+
 function readGenerated(existing) {
   const added = [];
   const skipped = [];
   if (!fs.existsSync(GENERATED)) return { added, skipped };
-  for (const f of fs.readdirSync(GENERATED).filter((n) => n.endsWith('.json'))) {
-    const raw = JSON.parse(fs.readFileSync(path.join(GENERATED, f), 'utf8'));
+  const files = fs.readdirSync(GENERATED).filter((n) => n.endsWith('.json') || n.endsWith('.md'));
+  for (const f of files) {
+    const text = fs.readFileSync(path.join(GENERATED, f), 'utf8');
+    const raw = f.endsWith('.md') ? parseFrontMatter(text, f) : JSON.parse(text);
+    if (!raw.videoId) raw.videoId = f.replace(/\.(json|md)$/, '');
     if (!raw || !raw.videoId || !raw.subject || !raw.summary) throw new Error(f + ': missing required fields');
     if (existing.has(raw.videoId)) { skipped.push(raw.videoId); continue; }
     // "absent" has one representation here. An empty string for instructor or
