@@ -71,6 +71,10 @@ export default function ReadingEffects({ children, contentKey }) {
         <button type="button" aria-label="ย่อหน้าถัดไป" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={!place.total || place.index >= place.total} onClick={() => select(position.current + 1, true)}>ถัดไป</button>
       </div>}
       {effectivePointer !== 'none' && <span className="vmx-reading-effect-hint">ตัวชี้ชั่วคราว ไม่บันทึกรอยลงในเนื้อหา</span>}
+      {/* A chosen pointer that resolves to none is not broken — reduced motion
+          turns it off on purpose. Saying nothing made the picker look dead. */}
+      {pointer !== 'auto' && pointer !== 'none' && effectivePointer === 'none'
+        && <span className="vmx-reading-effect-hint">ปิดตัวชี้ไว้ตามการตั้งค่าลดการเคลื่อนไหว เปลี่ยนได้ที่เมนูธีม</span>}
       {notice && <span className="vmx-reading-effect-hint" role="status">{notice}</span>}
     </div>
     <div className="vmx-reading-effect-anchor" aria-hidden="true"><div ref={stage} className="vmx-reading-effect-stage" data-reading-pointer={effectivePointer} /></div>

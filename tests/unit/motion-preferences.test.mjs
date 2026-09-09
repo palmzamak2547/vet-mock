@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { normalizeMotionPreferences, MOTION_DEFAULTS, resolveReadingPointer } from '../../src/lib/motion-preferences.js';
 import { createMotion, STATES } from '../../src/lib/motion-kit/mochi/motion.js';
 import { EFFECTS, GROUPS } from '../../src/lib/motion-kit/catalog.js';
@@ -29,6 +30,16 @@ test('older motion settings keep their choices while receiving the automatic rea
   assert.equal(old.readingPointer, 'auto');
   assert.equal(normalizeMotionPreferences({ readingPointer: 'none' }).readingPointer, 'none');
   assert.equal(normalizeMotionPreferences({ readingPointer: 'comet' }).readingPointer, 'comet');
+});
+
+test('a reading pointer switched off by reduced motion says so instead of looking broken', () => {
+  // resolveReadingPointer returns 'none' for an explicit choice under reduced
+  // motion, so the picker keeps the student's selection while nothing renders.
+  // Without a line of copy that reads as a dead control, not a setting.
+  assert.equal(resolveReadingPointer('halo', { finePointer: true, reduced: true }), 'none');
+  const source = readFileSync(new URL('../../src/components/ReadingEffects.jsx', import.meta.url), 'utf8');
+  assert.match(source, /pointer !== 'auto' && pointer !== 'none' && effectivePointer === 'none'/);
+  assert.match(source, /ปิดตัวชี้ไว้ตามการตั้งค่าลดการเคลื่อนไหว/);
 });
 
 test('all sixty supplied activities remain reachable in their seven categories', () => {
