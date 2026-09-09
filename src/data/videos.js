@@ -393,6 +393,32 @@ export const VIDEO_LIBRARY = [
     duration: 'Playlist',
     tags: ['lecture', 'review', 'dekdok', 'y5-sem2'],
   },
+  {
+    subject: 'preclinic-orientation',
+    topic: 'ปฐมนิเทศ Year 6 — DekDokVet85',
+    url: 'https://www.youtube.com/playlist?list=PLUaGvD-v40dk',
+    author: 'DekDokVet85 (Vet 85)',
+    duration: 'Playlist',
+    tags: ['lecture', 'review', 'dekdok', 'y6'],
+  },
+  // Recorded by students rather than lifted from a lecture feed, so they
+  // cover the same courses from the bench rather than the podium.
+  {
+    subject: 'com2',
+    topic: 'COM II — บันทึกโดยนิสิต (Vet 86)',
+    url: 'https://www.youtube.com/playlist?list=PLHN1MlbLvVssCSHQ8FulskGd7WnOT28qN',
+    author: 'Dai (@dai.1387)',
+    duration: 'Playlist',
+    tags: ['lecture', 'review', 'dai', 'student', 'y4-sem1'],
+  },
+  {
+    subject: 'surg2',
+    topic: 'Surgery Lab — บันทึกโดยนิสิต (Vet 86)',
+    url: 'https://www.youtube.com/playlist?list=PLHN1MlbLvVstwf4KMsS-fFUY-6MUdg3Ao',
+    author: 'Dai (@dai.1387)',
+    duration: 'Playlist',
+    tags: ['lecture', 'review', 'dai', 'student', 'surg2', 'surg3'],
+  },
 
   // ═════════════════════════════════════════════════════════════════
   // 🎬 คลิปจากช่องอื่นๆ (สามารถเพิ่มได้)

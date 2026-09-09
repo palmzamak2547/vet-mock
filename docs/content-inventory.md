@@ -34,7 +34,7 @@ Consistency: source banks **4890**, learner-ready **4825**, fail-closed **65**, 
 
 ## Video summaries
 
-400 summarised videos across 27 files.
+402 summarised videos across 29 files.
 
 ## Curriculum
 
