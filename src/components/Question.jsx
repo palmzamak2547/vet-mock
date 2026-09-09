@@ -62,7 +62,12 @@ function writeFlags(map) {
 }
 
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki }) {
-  const bookmarkMotion = useMotionFeedback('bookmark', isBookmarked);
+  // Count presses, not the value. This component is not remounted between
+  // questions, so keying the "saved" bounce to isBookmarked replayed it on
+  // plain navigation onto (or off) an already-bookmarked question — a save
+  // confirmation for something the student never pressed.
+  const [bookmarkPresses, setBookmarkPresses] = useState(0);
+  const bookmarkMotion = useMotionFeedback('bookmark', bookmarkPresses);
   const compoundId = (currentQ?.subject || '?') + ':' + currentQ?.id;
   const figureSrc = safeImageUrl(currentQ?.image || currentQ?.imagePath);
   const figureAlt = currentQ?.imageAlt
@@ -454,7 +459,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           line. Spacing now comes from `gap`, so size and spacing cannot
           disagree again. */}
       <div className="vmx-q-toolbar">
-        <button ref={bookmarkMotion} data-motion-feedback="bookmark" type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => toggleBookmark(currentQ.id)} title="บันทึกข้อนี้ (B)">
+        <button ref={bookmarkMotion} data-motion-feedback="bookmark" type="button" aria-label="บันทึกข้อนี้" aria-pressed={isBookmarked} className={`vmx-bookmark-btn ${isBookmarked ? 'active' : ''}`} onClick={() => { setBookmarkPresses((n) => n + 1); toggleBookmark(currentQ.id); }} title="บันทึกข้อนี้ (B)">
           <NavIcon name="star" size={18} filled={isBookmarked} />
         </button>
         <button type="button" aria-label="เปิดโน้ตของข้อนี้" aria-expanded={showNote} className={`vmx-note-btn ${note ? 'has-note' : ''}`} onClick={() => setShowNote(!showNote)} title="โน้ตของข้อนี้ (N)">

@@ -745,7 +745,14 @@ export default function App() {
     setTourStep(0);
     setTourOpen(true);
   }, []);
-  const finishTourStart = useCallback(() => {
+  // NOT memoized on purpose. startExam is rebuilt every render (it closes over
+  // session, selectedYear, selectedPhase), so an empty-dep useCallback pinned
+  // this to the FIRST render's copy — whose session.startNewSession was built
+  // while user was still null, because auth resolves asynchronously. It stamped
+  // sessionOwner=null onto the set, and finishExam then refused to submit it
+  // for every signed-in student. A fresh closure per render is what every other
+  // caller of startExam already gets.
+  const finishTourStart = () => {
     setTourOpen(false);
     setTourStep(0);
     // Mirror HomeView's "ฝึก 1 ข้อด่วน": a single random untimed question from
@@ -764,8 +771,7 @@ export default function App() {
       numQuestions: 1,
       useTimer: false,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
   // Service worker update available — true after a new SW finishes
   // installing while an old one is still controlling the page. We show
   // a small toast (NOT during exam) with a "Refresh" button.

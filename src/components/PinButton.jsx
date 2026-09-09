@@ -23,7 +23,11 @@ import { useMotionFeedback } from './MotionFeedback.jsx';
 export default function PinButton({ type, payload, label, compact = false, style }) {
   const key = payloadKey(type, payload);
   const [pinned, setPinned] = useState(() => isPinned(type, key));
-  const motionRef = useMotionFeedback('bookmark', pinned);
+  // Presses, not the value: `pinned` also moves when another PinButton for the
+  // same payload changes it (PINBOARD_EVENT below), and the bounce is meant to
+  // confirm THIS button's press.
+  const [presses, setPresses] = useState(0);
+  const motionRef = useMotionFeedback('bookmark', presses);
 
   // Re-read on mount + listen for cross-component changes (other
   // PinButton instance, PinboardView clear-all, etc.).
@@ -43,6 +47,7 @@ export default function PinButton({ type, payload, label, compact = false, style
       alertDialog('บันทึก Pinboard ไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม กรุณาลองใหม่');
       return;
     }
+    setPresses((n) => n + 1);
   }, [type, key, payload, label, pinned]);
 
   const size = compact ? 36 : 44;

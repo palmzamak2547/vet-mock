@@ -34,11 +34,19 @@ export default function ReadingChecklistView({
     .map((s) => ({ ...s, topics: Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden) : [] }))
     .filter((s) => s.topics.length > 0);
 
+  // The celebration below watches a derived count, which also moves when the
+  // cloud pull lands, when another tab ticks a topic, or when the tab regains
+  // focus. Only a tick made HERE should be celebrated, so the writers raise
+  // this flag and the effect consumes it.
+  const tickedHere = useRef(false);
+
   const toggle = (subjectId, topicId) => {
+    tickedHere.current = true;
     setReadingChecklist((prev) => setTopicRead(prev, subjectId, topicId));
   };
 
   const setSubjectAll = (subj, value) => {
+    tickedHere.current = true;
     setReadingChecklist((prev) => {
       let next = prev;
       const completedAt = Date.now();
@@ -56,9 +64,10 @@ export default function ReadingChecklistView({
   const overallPct = totalTopics > 0 ? Math.round((totalDone / totalTopics) * 100) : 0;
   const previous = useRef({ year: selectedYear, done: totalDone });
   useEffect(() => {
-    if (previous.current.year === selectedYear && totalDone > previous.current.done) {
+    if (tickedHere.current && previous.current.year === selectedYear && totalDone > previous.current.done) {
       fireConfetti({ count: 32, preset: 'chapter' });
     }
+    tickedHere.current = false;
     previous.current = { year: selectedYear, done: totalDone };
   }, [selectedYear, totalDone]);
 

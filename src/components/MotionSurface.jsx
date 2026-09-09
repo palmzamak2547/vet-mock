@@ -9,7 +9,11 @@ export default function MotionSurface({ effect, restart = 0, paused = false }) {
   const { reduced } = useMotionPreferences();
   const [error, setError] = useState(false);
   // Switching Mochi poses reuses the rig, including the selected 3D camera.
-  const family = effect.startsWith('mochi-') ? 'mochi' : effect;
+  // The family name must not collide with a catalog id: the cursor effect IS
+  // called 'mochi', so folding the lab poses onto that name made the remount
+  // key identical for two different rigs — going from the cursor follower to
+  // the Mochi lab (or back) never re-mounted, leaving the wrong one on stage.
+  const family = effect.startsWith('mochi-') ? 'mochi-lab' : effect;
   useEffect(() => {
     const root = host.current;
     setError(false);
@@ -27,7 +31,7 @@ export default function MotionSurface({ effect, restart = 0, paused = false }) {
     // State changes use the controller methods below; they must not reset games.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [family, restart]);
-  useEffect(() => { if (family === 'mochi') handle.current?.setEffect(effect); }, [effect, family]);
+  useEffect(() => { if (family === 'mochi-lab') handle.current?.setEffect(effect); }, [effect, family]);
   useEffect(() => { handle.current?.setPaused(paused); }, [paused]);
   useEffect(() => { handle.current?.setQuiet(reduced); }, [reduced]);
   return <div className="vmx-motion-surface">

@@ -259,3 +259,52 @@ For codex, so nothing here gets redone or "fixed":
 - **A Thai-named zip on MyCourseVille**: its S3 key is the Thai title with the backslashes stripped (`u0e01u0e32…`), so a plain GET answers `AccessDenied`; `repairMcvUrl()` in `scripts/ingest-library.mjs` restores the percent-encoding. The zip held one 51.7 MB PDF, which is what went on the shelf (a zip would only be a download button) as a `path` item, with the zip's **original** MyCourseVille URL kept as `source_url` — that is the string the diff compares, so keep it verbatim, never the repaired form.
 - **`.mcv/rows-to-sql.mjs`** (gitignored, in `.mcv/`) now carries subject/kind/status/evidence per row and only batch-wide constants in the SELECT; a folder without a label (`_other`) must become a real `NULL` description, not the string `'null'`. Same `not exists (sha256_16 or slug)` guard as always.
 - **21 same-title pairs exist on the shelf and are not duplicates** (18 from the VCA archive, 3 older MyCourseVille rows such as two different "ANS" handouts): different bytes, different sizes, sha differs. Leave them; a title-dedup pass would delete real files.
+
+## 2026-09-09 — Bug hunt over the 5.83-5.85.1 arc, and two findings left open (Claude)
+
+Ground-truth pass over `f57803e3..HEAD` (the Mochi motion kit, the reading effects, the PDF flows, the
+tour). Six confirmed defects shipped as **5.85.2**, each pinned by a test proven red on the old code
+(`tests/unit/polish-feedback-and-delete.test.mjs`). Three other reported findings were refuted against
+production and are NOT bugs — do not "fix" them.
+
+Fixed, with the reason so the shape does not come back:
+
+- **`finishTourStart` must not be memoized** (`src/App.jsx`). It was `useCallback(…, [])`, so it kept the
+  FIRST render's `startExam` — which closes over `session.startNewSession`, memoized on `ownerId`. Auth
+  resolves asynchronously, so render 0 always has `user === null`; the set was stamped `sessionOwner=null`
+  and `finishExam` then refused to submit it for **every signed-in student**, every time, with
+  "บัญชีเปลี่ยนระหว่างทำข้อสอบ". Signed-out was fine, which is why the e2e stayed green. **Rule: anything that
+  calls `startExam` from a stored callback must read the current render's copy.**
+- **A motion family name must not collide with a catalog id** (`src/components/MotionSurface.jsx`). The
+  remount key folded `mochi-*` lab poses onto `'mochi'`, but `'mochi'` is itself the cursor-follower effect,
+  so switching between the two never re-mounted and the stage kept the wrong rig. The family is now
+  `'mochi-lab'`; the test asserts no catalog id ever takes that name.
+- **`useMotionFeedback` fires on any change of its signal**, so keying the bookmark bounce to the boolean
+  replayed the "saved" animation on plain ถัดไป navigation onto an already-bookmarked question, and again
+  while the star emptied. Both call sites (`Question.jsx`, `PinButton.jsx`) now pass a press counter.
+- **The reading-checklist confetti** was keyed to a derived count, so a cloud pull or a second tab fired a
+  "chapter complete" for work done elsewhere. Gated on a flag the local writers raise.
+- **The recent-list trash button did not delete** (`src/views/PdfAnnotateView.jsx`). `deleteAnnotations` is
+  local-only and there is no remote delete anywhere in `annotation-sync.js`, so the next open ran
+  `pullAndMerge` — which restores unconditionally when the local record is gone — and every stroke came
+  back. It now **tombstones every stroke id and pushes that** before dropping the local record, which is the
+  two-phase set the eraser already uses; a failed push keeps the (now ink-free) record so the deletion can
+  still travel. Do not replace this with a raw remote DELETE: an offline device would re-push its strokes.
+- **The local PDF path promised the ink would return** even when `storageHealth().persistent` is false. The
+  shelf path already warned; the two branches now match.
+
+Left open, deliberately, with the reason:
+
+- **Shelf documents dead-end in the reader's recent list.** `ingestRemote` writes a record for library docs,
+  so they appear under "ไฟล์ล่าสุด" — and `pickRecent` opens the OS file chooser, asking for a file that only
+  exists on the shelf. The clean fix needs the shelf identity on the record (`slug` through
+  `saveAnnotations`'s field whitelist **and** `mergeRecords`, which rebuilds from an explicit literal and
+  drops anything not named there) plus the sync payload. A cheaper route that touches no schema: look the
+  hash up in the already-cached library catalogue (`sha256_16`) and route those rows to `onOpenLibrary`.
+- **Completing the 7-step tour does not dismiss the first-visit welcome banner.** `showWelcome` is gated on
+  `history.length === 0 && !welcomeDismissed`, and `setWelcomeDismissed(true)` is only called by the banner's
+  own dismiss. เกษม owns that surface and made a deliberate banner decision in `a654ca94`; the call is his.
+
+Refuted against production, do not re-report: the PDF trash button is owner-bound (the reader builds an
+owner-bound facade at `PdfAnnotateView.jsx:117-131`, so `deleteAnnotations(hash)` does carry the account);
+Ctrl+K does not open the palette during the tour; the tour's stale closure does not affect signed-out use.

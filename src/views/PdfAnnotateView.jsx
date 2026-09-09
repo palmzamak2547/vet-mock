@@ -117,7 +117,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // These closures retain the owner across async saves and unmount cleanup.
   // App keys the reader by account, so another account never inherits its ink.
   const { loadAnnotations, saveAnnotations, listRecentPdfs, deleteAnnotations, peekAnnotations,
-    pullAndMerge, schedulePush, flushPushes, onSyncState, syncState, subscribeLive } = useMemo(() => ({
+    pullAndMerge, schedulePush, pushNow, flushPushes, onSyncState, syncState, subscribeLive } = useMemo(() => ({
     loadAnnotations: hash => loadOwnedAnnotations(hash, ownerId),
     saveAnnotations: (hash, data) => saveOwnedAnnotations(hash, data, ownerId),
     listRecentPdfs: () => listOwnedPdfs(ownerId),
@@ -125,6 +125,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     peekAnnotations: hash => peekOwnedAnnotations(hash, ownerId),
     pullAndMerge: (hash, local) => annotationSync.pullAndMerge(hash, local, ownerId),
     schedulePush: (hash, rec) => annotationSync.schedulePush(hash, rec, ownerId),
+    pushNow: (hash, rec) => annotationSync.pushNow(hash, rec, ownerId),
     flushPushes: () => annotationSync.flushPushes(ownerId),
     onSyncState: fn => annotationSync.onSyncState(fn, ownerId),
     syncState: () => annotationSync.syncState(ownerId),
@@ -355,7 +356,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         strokesByPage: restoredStrokes,
       });
       refreshRecent();
-      if (existing && Object.keys(restoredStrokes).length > 0) {
+      // The shelf path warns when this browser cannot keep the record; the
+      // local path used to promise the ink would come back anyway, which is
+      // false in a private window or with site data blocked.
+      if (!storageHealth().persistent) {
+        showToast('เบราว์เซอร์นี้เก็บรอยเขียนถาวรไม่ได้ รอยที่เขียนจะอยู่แค่จนกว่าจะปิดแท็บ', 6000);
+      } else if (existing && Object.keys(restoredStrokes).length > 0) {
         showToast('นำรอยเขียนเดิมกลับมาแล้ว', 3000);
       } else {
         showToast('รอบหน้าเลือกไฟล์เดิมอีกครั้ง แล้วรอยเขียนจะกลับมาเอง', 4500);
@@ -1636,12 +1642,43 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     fileInputRef.current?.click();
   }
 
-  function removeRecent(hash, ev) {
+  // Dropping the local record alone is not a deletion for a signed-in student:
+  // the next open runs pullAndMerge, finds the untouched account copy and
+  // writes every stroke back. Tombstone them first — the same two-phase set the
+  // eraser and undo already use — so the removal is what travels, and an
+  // offline device holding those strokes merges to "deleted" rather than
+  // resurrecting them. The local record is dropped only once that removal is
+  // durable; otherwise it stays (now ink-free) so the tombstones can still go.
+  async function removeRecent(hash, ev) {
     ev?.stopPropagation?.();
-    deleteAnnotations(hash).then(result => {
+    try {
+      const record = peekAnnotations(hash) || await loadAnnotations(hash);
+      const ids = [];
+      for (const page of Object.values(record?.strokesByPage || {})) {
+        for (const stroke of page || []) if (stroke?.id) ids.push(stroke.id);
+      }
+      if (ids.length) {
+        const saved = await saveAnnotations(hash, {
+          ...record,
+          strokesByPage: {},
+          deleted: [...(record?.deleted || []), ...ids],
+        });
+        if (!saved?.ok) { showToast('ลบรอยเขียนไม่สำเร็จ กรุณาลองอีกครั้ง'); return; }
+        if (ownerId) {
+          const pushed = await pushNow(hash, peekAnnotations(hash));
+          if (!pushed?.ok) {
+            refreshRecent();
+            showToast('ลบรอยเขียนออกจากเครื่องแล้ว จะลบออกจากบัญชีให้เมื่อเชื่อมต่อได้', 5000);
+            return;
+          }
+        }
+      }
+      const result = await deleteAnnotations(hash);
       if (result?.ok) refreshRecent();
       else showToast('ลบลายเส้นในเครื่องไม่สำเร็จ กรุณาลองอีกครั้ง');
-    }).catch(() => showToast('ลบลายเส้นในเครื่องไม่สำเร็จ กรุณาลองอีกครั้ง'));
+    } catch {
+      showToast('ลบลายเส้นในเครื่องไม่สำเร็จ กรุณาลองอีกครั้ง');
+    }
   }
 
   async function recoverLegacy() {
