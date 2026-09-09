@@ -26,6 +26,9 @@ const localE2eUrl = `http://127.0.0.1:${localE2ePort}`;
 
 export default defineConfig({
   testDir: './tests/e2e',
+  // Scratch repros live in testDir too. They are gitignored, but an
+  // `add -A` or a local run should not be able to promote one into the gate.
+  testIgnore: ['**/zz-*.spec.js'],
   timeout: 30_000,
   expect: { timeout: 5_000 },
   fullyParallel: true,
@@ -38,6 +41,19 @@ export default defineConfig({
     // below). Override via PLAYWRIGHT_BASE_URL=https://vetmock.vercel.app
     // to smoke-test the actual production build.
     baseURL: process.env.PLAYWRIGHT_BASE_URL || localE2eUrl,
+    // Run against the app, not against the app plus its update banner.
+    // The production worker registers, finds itself out of date and raises
+    // .vmx-update-notice, which is fixed over the primary CTA — the click
+    // then times out with "intercepts pointer events" and a healthy build
+    // sits behind a red required check. Sixteen specs already opted out one
+    // by one; the two that never did produced most of the recent CI noise,
+    // so the majority policy becomes the default and the exception declares
+    // itself: tests/e2e/atlas-offline.spec.js sets 'allow' and is where
+    // worker behaviour is actually tested. Engine-neutral in Playwright
+    // 1.63 — it patches navigator.serviceWorker.register in an init script,
+    // so firefox is covered too. tests/e2e/service-worker-guard.spec.js
+    // fails if this line is removed.
+    serviceWorkers: 'block',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },

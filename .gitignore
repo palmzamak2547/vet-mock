@@ -59,3 +59,6 @@ ds-bundle/
 
 # Local Supabase CLI cache
 supabase/.temp/
+
+# Scratch e2e repros (see testIgnore in playwright.config.js)
+tests/e2e/zz-*.spec.js
