@@ -19,6 +19,7 @@ const _lazyLoaders = {
   'com2': () => import('./video-summaries-com2.js').then((m) => m.VIDEO_SUMMARIES_COM2),
   'com3': () => import('./video-summaries-com3.js').then((m) => m.VIDEO_SUMMARIES_COM3),
   'com4': () => import('./video-summaries-com4.js').then((m) => m.VIDEO_SUMMARIES_COM4),
+  'com5': () => import('./video-summaries-com5.js').then((m) => m.VIDEO_SUMMARIES_COM5),
   'epidemiology': () => import('./video-summaries-epidemiology.js').then((m) => m.VIDEO_SUMMARIES_EPIDEMIOLOGY),
   'equine-medicine': () => import('./video-summaries-equine-medicine.js').then((m) => m.VIDEO_SUMMARIES_EQUINE_MEDICINE),
   'equine-repro': () => import('./video-summaries-equine-repro.js').then((m) => m.VIDEO_SUMMARIES_EQUINE_REPRO),

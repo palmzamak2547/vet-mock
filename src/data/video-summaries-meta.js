@@ -479,6 +479,15 @@ export const VIDEO_META = {
     "instructor": "อ.ธนศักดิ์ (Aj. Thanasak — verified [3:41]–[4:13])",
     "examFormat": "MCQ — Final scope, LDA/Hardware/bloat high-yield"
   },
+  '4KvzjWqHZmg': {
+    "videoId": "4KvzjWqHZmg",
+    "title": "11.1 Surgical correction of abomasum — impaction, displacement และ volvulus",
+    "subject": "cliapprum",
+    "date": "2 Apr 68",
+    "durationMin": 61,
+    "instructor": null,
+    "examFormat": null
+  },
   '6l0OlwXTaIk': {
     "videoId": "6l0OlwXTaIk",
     "title": "12.1 Hernia ในสัตว์เคี้ยวเอื้อง — umbilical, ventral, inguinal/scrotal, diaphragmatic",
@@ -515,6 +524,15 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": null
   },
+  'CoWciFNMErA': {
+    "videoId": "CoWciFNMErA",
+    "title": "1 — Clinical Examination in Ruminants",
+    "subject": "cliapprum",
+    "date": "8 Jan 68",
+    "durationMin": 168,
+    "instructor": "อ.ธนศักดิ์",
+    "examFormat": null
+  },
   'HD0tbvDa-Cc': {
     "videoId": "HD0tbvDa-Cc",
     "title": "Ruminant Anesthesia",
@@ -533,6 +551,15 @@ export const VIDEO_META = {
     "instructor": "อ.ศวิตา (per syllabus)",
     "examFormat": "MCQ — Final scope, ★★★ Locomotion scoring application, Foot rot/Laminitis/Sole ulcer/DD mentioned briefly"
   },
+  'MR8b8nARoac': {
+    "videoId": "MR8b8nARoac",
+    "title": "3 — Male reproductive management: Bull Breeding Soundness Examination (BBSE)",
+    "subject": "cliapprum",
+    "date": "22 Jan 68",
+    "durationMin": 151,
+    "instructor": null,
+    "examFormat": "คีย์เวิร์ดตัวแดงในสไลด์ควรไปอยู่ในข้อสอบ, เคยคิดออกเป็นข้อเขียนข้อเดียว 10 คะแนนให้วิเคราะห์ผลตรวจน้ำเชื้อ แต่สรุปว่าเอาแบบปกติ กระจายความเสี่ยง"
+  },
   'OQIW6zyubcs': {
     "videoId": "OQIW6zyubcs",
     "title": "Ruminant Surgery (Head/Neck/Udder/Urinary/Stifle/Digit)",
@@ -541,6 +568,33 @@ export const VIDEO_META = {
     "durationMin": 95,
     "instructor": "Surgery staff (อ.ตั้ม + อ.ผึ้ง สอนภาคของคาบนี้)",
     "examFormat": "MCQ — Final scope, เน้น **หลักการ** ของแต่ละ procedure, Aj. confirm [90:09] \"ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล\""
+  },
+  'WkrtCFIzwKg': {
+    "videoId": "WkrtCFIzwKg",
+    "title": "15.1 — Foot lameness in Cattle",
+    "subject": "cliapprum",
+    "date": "30 Apr 68",
+    "durationMin": 53,
+    "instructor": null,
+    "examFormat": "ตอนสรุปบอกให้ไปจัดระบบเองว่าแบ่ง infectious (รักษาทางยาและการจัดการ) กับ non infectious (จบด้วยการผ่าตัด) อันไหนเป็นโรคเฉพาะ อันไหนเกี่ยวกับโรคทางระบบ แล้วปิดท้ายว่า \"ก็พยายามบอกข้อสอบอยู่\""
+  },
+  'hGR4xl7BVe0': {
+    "videoId": "hGR4xl7BVe0",
+    "title": "8 — ระบบเมตาบอลิซึมและโภชนาการในโคนม (การประเมินและมอนิเตอร์การจัดการอาหารในฟาร์ม)",
+    "subject": "cliapprum",
+    "date": "26 Feb 68",
+    "durationMin": 137,
+    "instructor": null,
+    "examFormat": null
+  },
+  'jkttPLZdzJc': {
+    "videoId": "jkttPLZdzJc",
+    "title": "16 — การประเมินและจัดการสุขภาพกีบในฝูงโคนม (การออกแบบ locomotion scoring และการแปลผล)",
+    "subject": "cliapprum",
+    "date": "7 May 68",
+    "durationMin": 57,
+    "instructor": null,
+    "examFormat": "อาจารย์บอกว่าข้อสอบส่วนของตัวเองเป็นแบบ take home 10 คะแนน ให้ผังฟาร์มและประวัติฟาร์มมา แล้วให้ออกแบบ timing, location, identification เอง พร้อมแปลผลตารางผลการประเมิน โจทย์ไม่ต่างจากที่เรียนวันนี้"
   },
   'jpJIimOFpkc': {
     "videoId": "jpJIimOFpkc",
@@ -551,6 +605,24 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": "เคยเอากราฟ timing ของฮอร์โมนช่วงคลอดไปออกข้อสอบมาแล้ว และย้ำว่าจะไม่ออกข้อสอบแบบ \"ข้อใดไม่ใช่\" เพราะถ้าตัวเลือกมี negative อยู่ด้วยจะกลายเป็น double negative"
   },
+  'oSKLSsiDl4M': {
+    "videoId": "oSKLSsiDl4M",
+    "title": "7.1 Postpartum period in ruminant",
+    "subject": "cliapprum",
+    "date": "19 Feb 68",
+    "durationMin": 74,
+    "instructor": null,
+    "examFormat": "หัวข้อนี้ถูกสลับขึ้นมาสอนก่อน และจะสอบตามตาราง โดยรวมเรื่องการจัดการหลังคลอดเข้าไปด้วย ส่วน reproductive surgery ย้ายไปหลังมิดเทอมและไปสอบพร้อมหัวข้ออื่น"
+  },
+  'suXRmJJ-L5E': {
+    "videoId": "suXRmJJ-L5E",
+    "title": "7.2 — การจัดการระบบสืบพันธุ์หลังคลอดในโค (CUI, COA, PD)",
+    "subject": "cliapprum",
+    "date": "19 Feb 68",
+    "durationMin": 33,
+    "instructor": null,
+    "examFormat": "หัวข้อนี้อยู่ในสอบมิดเทอมด้วย เพราะสลับตารางกับหัวข้อศัลยกรรมระบบสืบพันธุ์ที่ย้ายไปหลังมิดเทอม"
+  },
   'szG9lXVvqNo': {
     "videoId": "szG9lXVvqNo",
     "title": "Ruminant GI Surgery I (Standing)",
@@ -559,6 +631,15 @@ export const VIDEO_META = {
     "durationMin": 125,
     "instructor": "อ.แฮม (Surgery — สัตว์ใหญ่/ม้า, รับสอน ruminant year นี้) [10:05]",
     "examFormat": "MCQ — Final scope, Standing field surgery, Rumenotomy/Rumenostomy/RDA omentopexy/Cecal typhlotomy high-yield"
+  },
+  'wLRd9N5vlGY': {
+    "videoId": "wLRd9N5vlGY",
+    "title": "4.2 Gestation period and Parturition in ruminant I — ตั้งแต่ผสมเทียมถึงการวินิจฉัยการตั้งท้อง",
+    "subject": "cliapprum",
+    "date": "29 Jan 68",
+    "durationMin": 91,
+    "instructor": null,
+    "examFormat": "\"วัตถุประสงค์มีไว้เพื่อออกข้อสอบเหมือนเดิม ถ้าตอบวัตถุประสงค์ได้หมด เราก็จะทำข้อสอบได้แน่นอน\" และปิดท้ายว่าคาบนี้สอนถึงหน้า 31"
   },
   '0C218gD_tZM': {
     "videoId": "0C218gD_tZM",
@@ -848,6 +929,15 @@ export const VIDEO_META = {
     "instructor": "อ. (รุ่นพี่ — ปกติสอน 3 ชม. รวบ 2 ชม.)",
     "examFormat": "MCQ — extensor mechanism, MPL > LPL, 4 grades, varus + external torsion, 6 surgical methods, concurrent CCL rupture (10-40%) ออกบ่อย"
   },
+  'CS1k__pRZ3o': {
+    "videoId": "CS1k__pRZ3o",
+    "title": "Legg-Calvé-Perthes disease (avascular necrosis ของ femoral head) ในสุนัขพันธุ์เล็ก",
+    "subject": "com2",
+    "date": null,
+    "durationMin": 11,
+    "instructor": "Dr. Lara",
+    "examFormat": null
+  },
   'GOuoS07lt8g': {
     "videoId": "GOuoS07lt8g",
     "title": "11.0.2 (เพิ่มเติม) Closed Reduction of Elbow Luxation",
@@ -956,6 +1046,15 @@ export const VIDEO_META = {
     "instructor": "อ. (รุ่นพี่ — แทน อ.วรพันธ์)",
     "examFormat": "MCQ — DOD multifactorial concept, LCP signalment, pathogenesis (avascular necrosis), FHO indication ออกบ่อย"
   },
+  'UaFXlCuHGmI': {
+    "videoId": "UaFXlCuHGmI",
+    "title": "Total Hip Replacement — การเลือกและวางอิมแพลนต์ + hip laxity และค่า DI (ช่วงถาม-ตอบท้ายคาบ)",
+    "subject": "com2",
+    "date": "8 Oct 68",
+    "durationMin": 6,
+    "instructor": null,
+    "examFormat": null
+  },
   'VJ8ixtXP9XU': {
     "videoId": "VJ8ixtXP9XU",
     "title": "8.2. Degenerative Joint Disease (DJD/OA)",
@@ -1037,6 +1136,33 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ Ophtho (Med III)",
     "examFormat": "MCQ — anatomy + test names ออก STT/IOP/PLR ทุกปี"
   },
+  '0Z1zSeuwJng': {
+    "videoId": "0Z1zSeuwJng",
+    "title": "8.1 Neurological examination II — panniculus reflex, palpation, pain และ neurological grading",
+    "subject": "com3",
+    "date": "27 Feb 68",
+    "durationMin": 9,
+    "instructor": null,
+    "examFormat": null
+  },
+  '1BsBuO4MBEE': {
+    "videoId": "1BsBuO4MBEE",
+    "title": "1.1 — Ocular Examination (โครงสร้างลูกตาปกติและการตรวจตา)",
+    "subject": "com3",
+    "date": "9 Jan 68",
+    "durationMin": 88,
+    "instructor": null,
+    "examFormat": "สอบ midterm 40% + Final 40% + รายงาน (infographic งานกลุ่ม) 20%"
+  },
+  '2XTZ1Wqhjz0': {
+    "videoId": "2XTZ1Wqhjz0",
+    "title": "15.1 Small animal emergency anesthesia — การวางยาสลบในสถานการณ์ฉุกเฉิน",
+    "subject": "com3",
+    "date": "1 May 68",
+    "durationMin": 66,
+    "instructor": null,
+    "examFormat": null
+  },
   '74q8uuQdK14': {
     "videoId": "74q8uuQdK14",
     "title": "3. Diseases of the cornea",
@@ -1045,6 +1171,15 @@ export const VIDEO_META = {
     "durationMin": 119,
     "instructor": "อาจารย์ Ophtho",
     "examFormat": "MCQ — cornea characteristics + ulcer depth + treatment choice"
+  },
+  'AV8fG5w5yKE': {
+    "videoId": "AV8fG5w5yKE",
+    "title": "14.1 — Neurological Emergency (Acute Spinal Cord Injury, Head Trauma, Seizure)",
+    "subject": "com3",
+    "date": "24 Apr 68",
+    "durationMin": 49,
+    "instructor": null,
+    "examFormat": "อาจารย์ระบุเองว่า primary vs secondary injury ต้องจำไปตอบข้อสอบ และเกณฑ์ตัดสินใจว่าเมื่อไหร่ต้องผ่าตัดใน spinal cord injury \"ออกสอบ\""
   },
   'AVN3WDyArGk': {
     "videoId": "AVN3WDyArGk",
@@ -1055,6 +1190,24 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ (Ear surgery)",
     "examFormat": "MCQ — surgical technique + indications"
   },
+  'BYTkqnPg61A': {
+    "videoId": "BYTkqnPg61A",
+    "title": "2.1 Ophthalmic Surgery — considerations, ประเภทการผ่าตัดตา และเครื่องมือ",
+    "subject": "com3",
+    "date": "16 Jan 68",
+    "durationMin": 34,
+    "instructor": null,
+    "examFormat": null
+  },
+  'EgSi5kLy1zY': {
+    "videoId": "EgSi5kLy1zY",
+    "title": "9.2 — Vertebral disorders (ความผิดปกติของกระดูกสันหลัง)",
+    "subject": "com3",
+    "date": "20 Mar 68",
+    "durationMin": 25,
+    "instructor": null,
+    "examFormat": "\"อาจารย์บอกว่า พูดเฉพาะสิ่งที่ต้องออกข้อสอบ มีแค่ที่พูดในคาบนี้เท่านั้น ไม่เอาเยอะ อยากให้จำเฉพาะสิ่งที่ต้องจำ\""
+  },
   'Gmk3Omj81vw': {
     "videoId": "Gmk3Omj81vw",
     "title": "6. Glaucoma (ต่อ) + Diseases of orbit + Ear examination",
@@ -1063,6 +1216,15 @@ export const VIDEO_META = {
     "durationMin": 103,
     "instructor": "อาจารย์ Ophtho",
     "examFormat": "MCQ — glaucoma surgery + orbit signs + ear basics"
+  },
+  'KehorqnoVxM': {
+    "videoId": "KehorqnoVxM",
+    "title": "11.1 Triage of emergency patients",
+    "subject": "com3",
+    "date": "3 Apr 68",
+    "durationMin": 54,
+    "instructor": null,
+    "examFormat": null
   },
   'KiJyyUhIV6M': {
     "videoId": "KiJyyUhIV6M",
@@ -1091,6 +1253,15 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ Neuro",
     "examFormat": "MCQ — exam findings → localization, CN deficit interpretation"
   },
+  'T-MrEgj38hg': {
+    "videoId": "T-MrEgj38hg",
+    "title": "12.1 Respiratory and Cardiovascular emergency",
+    "subject": "com3",
+    "date": "10 Apr 68",
+    "durationMin": 70,
+    "instructor": null,
+    "examFormat": null
+  },
   'U9w_pJNkulc': {
     "videoId": "U9w_pJNkulc",
     "title": "7. Metabolic, Endocrine, UT + Nutrition",
@@ -1108,6 +1279,15 @@ export const VIDEO_META = {
     "durationMin": 117,
     "instructor": "อาจารย์ Ophtho",
     "examFormat": "MCQ — fundus interpretation + glaucoma classification"
+  },
+  'YHfjegbzWDk': {
+    "videoId": "YHfjegbzWDk",
+    "title": "12.2 — Acute abdomen (ภาวะปวดท้องเฉียบพลัน)",
+    "subject": "com3",
+    "date": "10 Apr 68",
+    "durationMin": 34,
+    "instructor": null,
+    "examFormat": null
   },
   'agw6OuRWy5A': {
     "videoId": "agw6OuRWy5A",
@@ -1136,6 +1316,24 @@ export const VIDEO_META = {
     "instructor": "อ.รัสมา (ER section)",
     "examFormat": "Case-based MCQ — DO₂ formula, shock type, fluid choice, pressor selection, fail quadrant"
   },
+  'iObvtzU1iSo': {
+    "videoId": "iObvtzU1iSo",
+    "title": "10.1 Seizure & Narcolepsy",
+    "subject": "com3",
+    "date": "27 Mar 68",
+    "durationMin": 62,
+    "instructor": null,
+    "examFormat": null
+  },
+  'kWtLRouyBCM': {
+    "videoId": "kWtLRouyBCM",
+    "title": "5.1 — Fundus (posterior segment): vitreous, retina, choroid, optic disc, sclera",
+    "subject": "com3",
+    "date": "6 Feb 68",
+    "durationMin": 66,
+    "instructor": null,
+    "examFormat": null
+  },
   'kw5a1xIobXs': {
     "videoId": "kw5a1xIobXs",
     "title": "4. Diseases of the Uvea & Lens",
@@ -1153,6 +1351,24 @@ export const VIDEO_META = {
     "durationMin": 113,
     "instructor": "อาจารย์ Neuro",
     "examFormat": "MCQ — seizure type + AED selection + age of onset + first-line drug"
+  },
+  'xe288fVUfro': {
+    "videoId": "xe288fVUfro",
+    "title": "13.2 A step-by-step CPCR (cardiopulmonary cerebral resuscitation)",
+    "subject": "com3",
+    "date": "17 Apr 68",
+    "durationMin": 59,
+    "instructor": null,
+    "examFormat": "บอกว่าไม่ได้สุ่มหัวข้อ ส่งข้อสอบไปทุกเรื่องที่สอน แต่ปีที่แล้วมีบางเรื่องหลุดไปไม่ได้ออกโดยไม่ทราบสาเหตุ [58:32]"
+  },
+  'xvtX013Jjbo': {
+    "videoId": "xvtX013Jjbo",
+    "title": "1.2 Ophthalmic Medications — การซึมผ่านของยาที่ตา ช่องทางบริหารยา และกลุ่มยาพื้นฐาน",
+    "subject": "com3",
+    "date": "9 Jan 68",
+    "durationMin": 41,
+    "instructor": null,
+    "examFormat": null
   },
   'yP72i_yb-DM': {
     "videoId": "yP72i_yb-DM",
@@ -1190,6 +1406,15 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ Imaging",
     "examFormat": "MCQ — modality choice for given clinical scenario (5 questions)"
   },
+  '6mHilI_Pcjo': {
+    "videoId": "6mHilI_Pcjo",
+    "title": "2.1 — Canine Cutaneous Round Cell Tumor I (TVT, Mast cell tumor, Histiocytoma, Plasmacytoma)",
+    "subject": "com4",
+    "date": "16 Jan 68",
+    "durationMin": 60,
+    "instructor": null,
+    "examFormat": "ถ้าฟังตามนี้ทำข้อสอบได้ แต่ข้อสอบยากนิดนึง จะออกโดสยาทั้งหมด เพราะเรียน med จึงต้องออกเรื่องการรักษา"
+  },
   'BdHpzNra1rU': {
     "videoId": "BdHpzNra1rU",
     "title": "8. Clinical oncology",
@@ -1199,6 +1424,24 @@ export const VIDEO_META = {
     "instructor": "พี่หมอ Oncology specialist",
     "examFormat": "Case-based MCQ — staging + cytology pattern + diagnostic approach"
   },
+  'C5Mos6m-2qs': {
+    "videoId": "C5Mos6m-2qs",
+    "title": "11.1 — Bacterial skin disease (pyoderma) ในสุนัขและแมว",
+    "subject": "com4",
+    "date": "3 Apr 68",
+    "durationMin": 55,
+    "instructor": null,
+    "examFormat": "อาจารย์ชี้จุดที่จะออกเอง 2 จุด — โดส enrofloxacin ที่อัปเดตแล้ว \"น่าจะออกข้อสอบตรงนี้\" [44:38] และ deep pyoderma ต้องเพาะเชื้อก่อน \"คีย์เลย ออกข้อสอบแน่ๆ\" [49:44]"
+  },
+  'CUv8bucSvhY': {
+    "videoId": "CUv8bucSvhY",
+    "title": "9.1 — Inflammatory Bowel Disease (IBD) ในสุนัขและแมว",
+    "subject": "com4",
+    "date": "20 Mar 68",
+    "durationMin": 26,
+    "instructor": null,
+    "examFormat": null
+  },
   'Cpb5HfKStKs': {
     "videoId": "Cpb5HfKStKs",
     "title": "6. Diabetes mellitus",
@@ -1207,6 +1450,33 @@ export const VIDEO_META = {
     "durationMin": 68,
     "instructor": "พี่หมอ Endocrine specialist",
     "examFormat": "Case-based MCQ — ALIVE criteria + insulin curve interpretation + remission"
+  },
+  'DbQU8yHQwFo': {
+    "videoId": "DbQU8yHQwFo",
+    "title": "5.1 — Feline hyperthyroidism (ภาวะไทรอยด์เป็นพิษในแมว)",
+    "subject": "com4",
+    "date": "6 Feb 68",
+    "durationMin": 49,
+    "instructor": null,
+    "examFormat": null
+  },
+  'F9I7sa9GGao': {
+    "videoId": "F9I7sa9GGao",
+    "title": "9.3 Systemic Lupus Erythematosus (SLE) ในสุนัขและแมว",
+    "subject": "com4",
+    "date": "20 Mar 68",
+    "durationMin": 18,
+    "instructor": null,
+    "examFormat": null
+  },
+  'FI3-vC6XLnw': {
+    "videoId": "FI3-vC6XLnw",
+    "title": "13.2 — Autoimmune skin disease (Pemphigus complex, bullous pemphigoid, DLE)",
+    "subject": "com4",
+    "date": "17 Apr 68",
+    "durationMin": 51,
+    "instructor": null,
+    "examFormat": null
   },
   'KZK4rKve1tQ': {
     "videoId": "KZK4rKve1tQ",
@@ -1226,6 +1496,42 @@ export const VIDEO_META = {
     "instructor": "พี่หมอ Oncology specialist",
     "examFormat": "Case-based MCQ — cytology pattern + treatment protocol (CHOP, vinblastine)"
   },
+  'M5G8Ro7DSj4': {
+    "videoId": "M5G8Ro7DSj4",
+    "title": "10.2 Parasitic skin disease",
+    "subject": "com4",
+    "date": "27 Mar 68",
+    "durationMin": 45,
+    "instructor": null,
+    "examFormat": "ตารางสรุปผลิตภัณฑ์กันเห็บหมัด (อายุที่เริ่มใช้ได้ ครอบคลุมเห็บ/หมัด/intestinal parasite/Sarcoptes) อาจารย์บอกว่าออกข้อสอบได้ประมาณ 10 ข้อ ให้ไปดู detail เอง แต่ตัวอาจารย์เองจะโฟกัสที่โรคและ concept มากกว่า"
+  },
+  'Mg4EEIioKLY': {
+    "videoId": "Mg4EEIioKLY",
+    "title": "3.2 Paraneoplastic syndrome (PNS) ในสุนัขและแมว",
+    "subject": "com4",
+    "date": "23 Jan 68",
+    "durationMin": 57,
+    "instructor": null,
+    "examFormat": "ข้อสอบเป็นแบบตัวเลือก (ช้อยส์) เหมือนกับของอาจารย์เทพ [56:20]"
+  },
+  'NYAyyy0suCY': {
+    "videoId": "NYAyyy0suCY",
+    "title": "7 — Immune mediated disease: hypersensitivity, vaccine adverse reaction และ drug adverse reaction",
+    "subject": "com4",
+    "date": "20 Feb 68",
+    "durationMin": 109,
+    "instructor": null,
+    "examFormat": "อาจารย์บอกว่าตารางสรุป hypersensitivity type 1-4 กับโรคที่คู่กัน \"ถูกถามบ่อยๆ ในการสอบทั้งหลาย\" และจะเอาเปเปอร์ vaccine adverse reaction ปี 2023 ไปออกข้อสอบ BCA ด้วย"
+  },
+  'S-95a1XKq74': {
+    "videoId": "S-95a1XKq74",
+    "title": "3.1 — Round cell tumor II: Lymphoma — classification, staging, การวินิจฉัย และ chemotherapy ในสุนัขและแมว",
+    "subject": "com4",
+    "date": "23 Jan 68",
+    "durationMin": 59,
+    "instructor": null,
+    "examFormat": "ข้อสอบน่าจะเป็น multiple choice ทั้งหมด ง่ายๆ สมศักดิ์ศรีจุฬาลงกรณ์มหาวิทยาลัย และย้ำระหว่างสอนว่าอาการทางคลินิกของ lymphoma \"ต้องท่อง\""
+  },
   'SVJ7i6ES9DU': {
     "videoId": "SVJ7i6ES9DU",
     "title": "1. Drug used for immune mediated diseases + IMHA",
@@ -1244,6 +1550,24 @@ export const VIDEO_META = {
     "instructor": "พี่หมอ Dermatology specialist",
     "examFormat": "Case-based MCQ — Food trial protocol + Atopy Tx ladder"
   },
+  'SmfGPVQ5zpY': {
+    "videoId": "SmfGPVQ5zpY",
+    "title": "5.2 — Hypothyroidism ในสุนัข",
+    "subject": "com4",
+    "date": "6 Feb 68",
+    "durationMin": 54,
+    "instructor": null,
+    "examFormat": "ตารางสรุปผลการตรวจ endocrine ท้ายบท \"กลับไปดูเอง ออกข้อสอบได้ทุกบรรทัด\" [33:39]"
+  },
+  'W5FlTJWknEM': {
+    "videoId": "W5FlTJWknEM",
+    "title": "14 — Pediatrics and Geriatrics (การดูแลสัตว์เลี้ยงวัยเด็กและวัยชรา)",
+    "subject": "com4",
+    "date": "24 Apr 68",
+    "durationMin": 98,
+    "instructor": null,
+    "examFormat": "ของ Component 4 น่าจะเป็นช้อยส์เหมือนเดิม"
+  },
   'Z26xw6gCVrk': {
     "videoId": "Z26xw6gCVrk",
     "title": "5. Hypothyroidism",
@@ -1252,6 +1576,15 @@ export const VIDEO_META = {
     "durationMin": 65,
     "instructor": "พี่หมอ Endocrine specialist",
     "examFormat": "Case-based MCQ — Total T4 + Free T4 + TSH interpretation"
+  },
+  'b31E3TGP-TE': {
+    "videoId": "b31E3TGP-TE",
+    "title": "8.1 Drugs used in immune-mediated diseases (ยากดภูมิคุ้มกันในสุนัขและแมว)",
+    "subject": "com4",
+    "date": "27 Feb 68",
+    "durationMin": 66,
+    "instructor": null,
+    "examFormat": "จบการบรรยายที่สไลด์ 50 เพราะเวลาจำกัด ส่วนที่เหลือคือการเปรียบเทียบ small molecular drug กับ biologic ให้นิสิตไปทบทวนเองก่อนสอบ"
   },
   'cMPpvQcg0kY': {
     "videoId": "cMPpvQcg0kY",
@@ -1271,6 +1604,15 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ (ผู้สอนหลัก ภาควิชา Med II)",
     "examFormat": "Case-based MCQ — อาจารย์บอกย้ำว่าข้อสอบเป็น \"เคสกรณีเคส\""
   },
+  't-Gyf2w3-F0': {
+    "videoId": "t-Gyf2w3-F0",
+    "title": "8.3 — Immune Mediated Thrombocytopenia (IMT)",
+    "subject": "com4",
+    "date": "27 Feb 68",
+    "durationMin": 9,
+    "instructor": null,
+    "examFormat": "อาจารย์สรุปท้ายคาบว่า \"ข้อสอบเป็นช้อยส์นะ ไม่ได้เขียนนะคะ\" และเนื้อหา IMT ที่ออกสอบจบแค่ตรงนี้"
+  },
   'tOo5b1rqAgU': {
     "videoId": "tOo5b1rqAgU",
     "title": "6. Autoimmune skin diseases + Endocrine skin diseases",
@@ -1289,6 +1631,15 @@ export const VIDEO_META = {
     "instructor": "พี่หมอ Oncology specialist",
     "examFormat": "Case-based MCQ — drug class + side effects + paraneoplastic recognition"
   },
+  'vVBv7HbbynA': {
+    "videoId": "vVBv7HbbynA",
+    "title": "15.2 — Nutritional skin disease (โรคผิวหนังที่เกี่ยวกับสารอาหาร)",
+    "subject": "com4",
+    "date": "1 May 68",
+    "durationMin": 32,
+    "instructor": null,
+    "examFormat": "ข้อสอบเหมือนเดิม 5 ช้อยส์ เป็นภาษาอังกฤษ ถ้าแปลไม่ออกให้ยกมือถามในห้อง อย่าอ่านไม่รู้เรื่องแล้วมั่วตอบ"
+  },
   'xh7DdpW3Ft8': {
     "videoId": "xh7DdpW3Ft8",
     "title": "7. Immune-mediated disease I: Introduction",
@@ -1306,6 +1657,96 @@ export const VIDEO_META = {
     "durationMin": 119,
     "instructor": "อาจารย์ (Dermatology + Endocrinology)",
     "examFormat": "MCQ — primary/secondary lesion identification + drug choice + species-specific treatment ออกเยอะ"
+  },
+  '9m6IQXmL8EI': {
+    "videoId": "9m6IQXmL8EI",
+    "title": "14 — โรคพิษสุนัขบ้า (Rabies)",
+    "subject": "com5",
+    "date": "22 Apr 68",
+    "durationMin": 53,
+    "instructor": null,
+    "examFormat": "คาถา 5 ย จะออกสอบแน่นอน 2 ข้อ (4 ช้อยส์ จะมี ย. หนึ่งที่ผิด) และอาจออกแนวเคส เช่น หมาของเราถูกสุนัขไม่ทราบประวัติกัด จะทำอย่างไรต่อ"
+  },
+  'DvVOkHwoK_Y': {
+    "videoId": "DvVOkHwoK_Y",
+    "title": "9 — FIP (Feline Infectious Peritonitis)",
+    "subject": "com5",
+    "date": "18 Mar 68",
+    "durationMin": 59,
+    "instructor": null,
+    "examFormat": null
+  },
+  'FUWc-G5L1EM': {
+    "videoId": "FUWc-G5L1EM",
+    "title": "1 — Feline Upper Respiratory Disease Complex (หวัดแมว)",
+    "subject": "com5",
+    "date": "7 Jan 68",
+    "durationMin": 55,
+    "instructor": null,
+    "examFormat": "ตัวหนังสือสีฟ้าในสไลด์ให้จำไว้ \"อาจจะออกข้อสอบ\" [54:29]"
+  },
+  'ZblHFqIn5wA': {
+    "videoId": "ZblHFqIn5wA",
+    "title": "6 Canine heartworm — พยาธิหนอนหัวใจในสุนัข",
+    "subject": "com5",
+    "date": "11 Feb 68",
+    "durationMin": 54,
+    "instructor": null,
+    "examFormat": "ตอนทำข้อสอบให้ดูโจทย์ให้ดีว่าเป็นหมาหรือแมว เพราะรายละเอียดต่างกันเยอะจนต้องแยกสอน 2 ชั่วโมง, และมีควิซใน MyCourseVille 2 ครั้งรวม 4 คะแนน (2+2) เปิดวันนี้ปิดวันพรุ่งนี้"
+  },
+  'fpCZv3Hwx08': {
+    "videoId": "fpCZv3Hwx08",
+    "title": "10 — Canine Viral Enteritis (Parvovirus, Coronavirus)",
+    "subject": "com5",
+    "date": "25 Mar 68",
+    "durationMin": 50,
+    "instructor": null,
+    "examFormat": null
+  },
+  'hETs-kXs8bA': {
+    "videoId": "hETs-kXs8bA",
+    "title": "7 — Feline Heartworm (Dirofilaria immitis ในแมว)",
+    "subject": "com5",
+    "date": "18 Feb 68",
+    "durationMin": 54,
+    "instructor": null,
+    "examFormat": "อาจารย์ย้ำระหว่างสอนว่า \"อย่าลืม terminology นะ ออกข้อสอบหมดเลย\""
+  },
+  'siQlQuXBuDE': {
+    "videoId": "siQlQuXBuDE",
+    "title": "8 Retroviruses ในแมว — FeLV และ FIV",
+    "subject": "com5",
+    "date": "25 Feb 68",
+    "durationMin": 60,
+    "instructor": null,
+    "examFormat": "ท้ายคาบมีคนถามเรื่องข้อสอบ อาจารย์ตอบว่า \"อาจารย์ออกอยู่ 4 ข้อเองค่ะ\" [60:08]"
+  },
+  'uSfNgp_MTbc': {
+    "videoId": "uSfNgp_MTbc",
+    "title": "4 — Parasitic blood infection part I (Anaplasmosis, Babesiosis, Borreliosis)",
+    "subject": "com5",
+    "date": "28 Jan 68",
+    "durationMin": 52,
+    "instructor": null,
+    "examFormat": null
+  },
+  'v6uVIpRJxZU': {
+    "videoId": "v6uVIpRJxZU",
+    "title": "11 — Enteric parasitic protozoa ในสัตว์เลี้ยง (สุนัขและแมว)",
+    "subject": "com5",
+    "date": "1 Apr 68",
+    "durationMin": 57,
+    "instructor": null,
+    "examFormat": "\"ข้อสอบเป็นแบบช้อยส์ ออกจากสิ่งที่อาจารย์เน้นในคาบนี้ (หน้าตาเชื้อ, เทคนิคที่ใช้ตรวจ, และสุดท้ายจะรักษาด้วยอะไร)\""
+  },
+  'x5tJTIF-7FQ': {
+    "videoId": "x5tJTIF-7FQ",
+    "title": "2 Leptospirosis ในสุนัขและแมว",
+    "subject": "com5",
+    "date": "14 Jan 68",
+    "durationMin": 56,
+    "instructor": null,
+    "examFormat": null
   },
   '19nuIoprxC8': {
     "videoId": "19nuIoprxC8",
@@ -1739,6 +2180,24 @@ export const VIDEO_META = {
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
     "examFormat": "MCQ — viral disease ID จาก clinical sign + lesion, inclusion body location, vaccine availability, PCR certificate validity"
   },
+  'CauaEmuYdIs': {
+    "videoId": "CauaEmuYdIs",
+    "title": "16 — เรียนต่อต่างประเทศด้านสัตว์ป่าและ exotic (post-graduate courses for wildlife vet med)",
+    "subject": "exotic",
+    "date": "7 May 68",
+    "durationMin": 45,
+    "instructor": null,
+    "examFormat": "กากบาท 7 ข้อ — ราว 4 ข้อจาก 2 ตารางเปรียบเทียบอเมริกากับยุโรป (ใส่ข้อมูลที่ดูไม่จริงแล้วให้เลือกว่าอันไหนผิด และให้เอาช้อยส์มาเติม) ที่เหลือถามว่าอะไรไม่ใช่สิ่งที่ต้องเรียนของสัตว์ป่าในธรรมชาติ vs ในสวนสัตว์ และสโคปไหนไม่อยู่ในสโคปสัตว์ป่า ไม่ออกตัวเลขคะแนน IELTS"
+  },
+  'EiJ_5dftct8': {
+    "videoId": "EiJ_5dftct8",
+    "title": "8 การตรวจรักษาสัตว์ปีก (นกเลี้ยง: การประเมิน ตรวจร่างกาย เก็บตัวอย่าง วางยา และหัตถการ)",
+    "subject": "exotic",
+    "date": "26 Feb 68",
+    "durationMin": 56,
+    "instructor": null,
+    "examFormat": "พาร์ทนกไม่ออกในมิดเทอมเพราะสอนไม่หมด ให้ไปรวมสอบตอน Final ส่วนมิดเทอมคาดว่าเป็นข้อสอบช้อยส์ ไม่มีเติมคำ และให้เวลาประมาณ 1 ชั่วโมงครึ่ง"
+  },
   'KjBUKGa6-V4': {
     "videoId": "KjBUKGa6-V4",
     "title": "6. Role of vet in conservation medicine",
@@ -1747,6 +2206,15 @@ export const VIDEO_META = {
     "durationMin": 70,
     "instructor": "อ. ไพศิลป์ เล็กเจริญ",
     "examFormat": "MCQ concept-based, ecosystem services 4, 5 vet roles, interface examples, case studies (Gaur/LSD/Rabies/HPAI/Mange/Malaria/Tiger poisoning), surveillance vs research"
+  },
+  'MBIvx9Dm6iw': {
+    "videoId": "MBIvx9Dm6iw",
+    "title": "3.2 — ไก่ชน (ปัญหาที่เจอจริงบนคลินิก และศัพท์ที่เจ้าของใช้)",
+    "subject": "exotic",
+    "date": "22 Jan 68",
+    "durationMin": 17,
+    "instructor": null,
+    "examFormat": null
   },
   'Ml-PPOphv4E': {
     "videoId": "Ml-PPOphv4E",
@@ -1757,6 +2225,24 @@ export const VIDEO_META = {
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
     "examFormat": "MCQ — clinical reasoning + technique steps, pitfall (เช่น \"นกท้องเสีย\" จริงหรือไม่, NPO กี่ชม.)"
   },
+  'PHNPmbEs4TQ': {
+    "videoId": "PHNPmbEs4TQ",
+    "title": "9 Role of Wildlife Vets in Conservation Medicine",
+    "subject": "exotic",
+    "date": "19 Mar 68",
+    "durationMin": 56,
+    "instructor": "เพชรศิน (ชื่อตามที่ได้ยินในคลิป)",
+    "examFormat": null
+  },
+  'Qxm2HTpQS10': {
+    "videoId": "Qxm2HTpQS10",
+    "title": "10 โรคไม่ติดเชื้อในสัตว์ปีก I",
+    "subject": "exotic",
+    "date": "26 Mar 68",
+    "durationMin": 61,
+    "instructor": null,
+    "examFormat": "บอกว่ายังไม่ได้ตรวจคะแนน, พาร์ทที่สอบไปแล้วมักได้คะแนนดี ส่วนพาร์ทของอาจารย์พิเศษที่เนื้อหากว้างและเวลาจำกัดอาจได้คะแนนไม่เยอะ"
+  },
   'YAVsi8g1VuY': {
     "videoId": "YAVsi8g1VuY",
     "title": "4. โรคติดเชื้อ (ตอน 2) — Bacterial / Fungal / Protozoal",
@@ -1765,6 +2251,24 @@ export const VIDEO_META = {
     "durationMin": 61,
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
     "examFormat": "MCQ — drug of choice + duration + zoonosis flag, จับคู่ pathogen ↔ sign ↔ Tx"
+  },
+  '_vUIe6dhTww': {
+    "videoId": "_vUIe6dhTww",
+    "title": "4 — Rabbit: ชีววิทยา การจัดการ การ handle และการตรวจร่างกาย",
+    "subject": "exotic",
+    "date": "29 Jan 68",
+    "durationMin": 59,
+    "instructor": null,
+    "examFormat": null
+  },
+  'dZzJXJFa_F4': {
+    "videoId": "dZzJXJFa_F4",
+    "title": "1 Introduction of Exotic Animal + Chelonian (เต่า)",
+    "subject": "exotic",
+    "date": "8 Jan 68",
+    "durationMin": 89,
+    "instructor": null,
+    "examFormat": null
   },
   'fJCnA5FMVuk': {
     "videoId": "fJCnA5FMVuk",
@@ -1783,6 +2287,15 @@ export const VIDEO_META = {
     "durationMin": 86,
     "instructor": "อ.น.สพ.ผศ. ธวัช เล็กดำรงศักดิ์",
     "examFormat": "MCQ + case-based — sign → DDx, history → predisposing cause, Tx (Ca/Vit A/heavy metal/egg bind/crop stasis)"
+  },
+  'qGvJogFhK7w': {
+    "videoId": "qGvJogFhK7w",
+    "title": "11.1 โรคไม่ติดเชื้อในสัตว์ปีก II — ภาวะช็อก, ฝีในนก และแผลที่เท้า",
+    "subject": "exotic",
+    "date": "2 Apr 68",
+    "durationMin": 13,
+    "instructor": null,
+    "examFormat": null
   },
   '7owfQF79jwU': {
     "videoId": "7owfQF79jwU",
@@ -2522,6 +3035,15 @@ export const VIDEO_META = {
     "instructor": "CUVET small animal medicine team",
     "examFormat": "Multiple choice + clinical scenarios, ออก differentiate collapse types, seizure DDx"
   },
+  '-WmVKSKIGlw': {
+    "videoId": "-WmVKSKIGlw",
+    "title": "5 — การทำความสะอาด ฆ่าเชื้อ และการควบคุมแมลง/สัตว์ฟันแทะในฟาร์มสัตว์ปีก",
+    "subject": "poultry",
+    "date": "4 Feb 68",
+    "durationMin": 110,
+    "instructor": null,
+    "examFormat": "ข้อสอบวิชานี้เป็นช้อยส์/ถูก-ผิด/จับคู่ ไม่ต้องเขียนบรรยายยาว [84:47]"
+  },
   '-aUgXN1c5WM': {
     "videoId": "-aUgXN1c5WM",
     "title": "11 — Avian Immune System และการทำวัคซีนในสัตว์ปีก",
@@ -2539,6 +3061,15 @@ export const VIDEO_META = {
     "durationMin": 90,
     "instructor": null,
     "examFormat": "อาจารย์พูดถึงข้อสอบไว้ 5 จุด: (1) จะไม่ออกเรื่อง incidence / prevalence เพราะเป็นเรื่องของสาธารณสุข [2:49]; (2) ถ้าถามเรื่องจำนวนซีรัมที่เก็บต่อโรงเรือน ให้ตอบ 20 ตัว (ชีวิตจริง 10 ตัวก็ได้) [24:32]; (3) เตือนว่าเคยมีอาจารย์ออกข้อสอบหลอก โดยเอากราฟผล ELISA มาให้แปลผลเป็นกราฟไทเตอร์ตามอายุไก่ ซึ่งเป็นคนละกราฟกัน [43:58]; (4) ข้อสอบ VCA เคยออกเรื่อง crop fill [70:11]; (5) เรื่องการคำนวณอัตราการไข่ (hen-house / hen-day production) เคยเรียนกับอาจารย์จักรกฤตแล้ว และจะออกข้อสอบอีกครั้ง [73:43]"
+  },
+  'CrVef2lgpII': {
+    "videoId": "CrVef2lgpII",
+    "title": "14 — ความปลอดภัยทางชีวภาพ (Biosecurity) และการป้องกัน ควบคุม กำจัดโรคในฟาร์มสัตว์ปีก",
+    "subject": "poultry",
+    "date": "22 Apr 68",
+    "durationMin": 61,
+    "instructor": null,
+    "examFormat": "ออกข้อสอบเล็กๆ น้อยๆ ตามที่มีในสไลด์ เป็นถูก-ผิดหรือช้อยส์ ไม่ให้เขียนเยอะ ถูก-ผิดอาจมีหลอกเล็กน้อยให้ค่อยๆ คิด ส่วนสไลด์ prevalence/incidence บอกชัดว่าไม่ออก"
   },
   'M64_XJhnZ-Y': {
     "videoId": "M64_XJhnZ-Y",
@@ -2567,6 +3098,15 @@ export const VIDEO_META = {
     "instructor": "Aj. Ekasingh Sarueng (เอกสิงห์ สาเรือง, Betagro) — L14-15",
     "examFormat": "T/F ~10 ข้อ + MCQ"
   },
+  'iJDTWhK7864': {
+    "videoId": "iJDTWhK7864",
+    "title": "7.2 เทคนิคการใช้ยาในสัตว์ปีก",
+    "subject": "poultry",
+    "date": "18 Feb 68",
+    "durationMin": 53,
+    "instructor": null,
+    "examFormat": "ท้ายคาบบอกว่า \"กำลังพิจารณาอาจจะไม่มีสอบ ใครมาเข้าเรียนวันนี้เอาคะแนนไปเลย\" และเนื้อหาที่เหลือให้ไปอ่านเอง หลายคำถามในคาบไม่เฉลย"
+  },
   'jd9eTltQy8g': {
     "videoId": "jd9eTltQy8g",
     "title": "Avian Zoonosis (L10)",
@@ -2585,6 +3125,42 @@ export const VIDEO_META = {
     "instructor": "Prof. Niwat Chansiripornchai (DVM, MSc, PhD, DTBVM, CU Vet) — L13",
     "examFormat": "MCQ + essay (3 ตัวยาห้ามใช้)"
   },
+  'oGy1Ft3l1Kg': {
+    "videoId": "oGy1Ft3l1Kg",
+    "title": "2 — การจัดการสิ่งแวดล้อมที่มีผลต่อสุขภาพสัตว์ปีก",
+    "subject": "poultry",
+    "date": "14 Jan 68",
+    "durationMin": 119,
+    "instructor": null,
+    "examFormat": "วิชานี้มีข้อคำนวณในข้อสอบ อาจารย์จะพยายามออกตัวเลขไม่ซับซ้อน ไม่ต้องจำตาราง effective temperature แต่ต้องรู้ principle และให้ไปดูวิดีโอเรื่องการใช้ยาฆ่าเชื้อเพราะจะออกมิดเทอม"
+  },
+  'vtQJz72MU3M': {
+    "videoId": "vtQJz72MU3M",
+    "title": "8 — การประกันคุณภาพของฟาร์มสัตว์ปีก (Poultry Farm Quality Assurance)",
+    "subject": "poultry",
+    "date": "25 Feb 68",
+    "durationMin": 107,
+    "instructor": "คุณหมอจากเบทาโกร สำนักประกันคุณภาพและสุขภาพสัตว์ (ชื่อในคลิปฟังไม่ชัด — \"เอกสิท/เอกสิน\") · เปิดคาบโดย อ.สมศักดิ์",
+    "examFormat": "พาร์ทนี้มีข้อสอบถูก-ผิด 10 ข้อ สอบวันจันทร์ที่ 4 มีนาคม 13:00 น. (2 ชั่วโมง) แต่ละคาบราว 6.5 คะแนน จาก 15 คาบรวม 100 คะแนน"
+  },
+  'xYO4_1o4-ic': {
+    "videoId": "xYO4_1o4-ic",
+    "title": "6.1 ปัญหาการจัดการด้านสัตวบาลในสัตว์ปีก (พ่อแม่พันธุ์ โรงฟัก ถึงคุณภาพซาก)",
+    "subject": "poultry",
+    "date": "11 Feb 68",
+    "durationMin": 114,
+    "instructor": null,
+    "examFormat": "ข้อสอบประมาณ 40 ข้อ มีคำนวณแน่นอน ต้องใช้ความรู้ปี 2 ด้วย และออกเนื้อหาวิดีโอยาฆ่าเชื้อ + การกำจัดสัตว์รังควานใน MS Teams ที่ไม่ได้สอนในห้อง"
+  },
+  'zbw4xlTQCmg': {
+    "videoId": "zbw4xlTQCmg",
+    "title": "16 — การตายของลูกไก่ใน 7 วันแรก (First-week mortality management)",
+    "subject": "poultry",
+    "date": "6 May 68",
+    "durationMin": 111,
+    "instructor": null,
+    "examFormat": "พาร์ทของผู้สอน 2 พาร์ท (การจัดการฟาร์ม + ลูกไก่ตายสัปดาห์แรก) รวม 13 คะแนน, ปีที่แล้วเป็นข้อเขียนแล้วรุ่นพี่ตอบไม่ครบ ปีนี้อาจเปลี่ยนเป็นช้อยส์หรือถูก-ผิด และผู้สอนบอกว่าจะไม่หลอกคำพูด"
+  },
   'ApuBcCrnYL8': {
     "videoId": "ApuBcCrnYL8",
     "title": "6.3 Lab Sire Summary — เดินโปรแกรมประเมินพันธุกรรม (VCE/BLUP) และอ่านสมุดพ่อพันธุ์",
@@ -2593,6 +3169,24 @@ export const VIDEO_META = {
     "durationMin": 95,
     "instructor": "อาจารย์โย (ภาคแรก สาธิตโปรแกรมประเมินพันธุกรรม) และผู้สอนภาคหลังที่คุมแบบฝึกหัด EPD (ในคลิปเอ่ยชื่ออาจารย์ชาตรี)",
     "examFormat": "อาจารย์บอกว่าประมาณ 5 ข้อ อาจออกไม่หมด รูปแบบคือเปิด sire summary ขึ้นมา 3 ตัว แล้วให้เลือกว่าจะเอาพ่อพันธุ์ตัวไหนพร้อมเหตุผล เน้นลักษณะการให้ผลผลิต ความสมบูรณ์พันธุ์ สุขภาพและ somatic cell ว่าค่ามากหรือน้อยถึงดี ใช้สมุดพ่อพันธุ์ของกรมเป็นฐาน บวกตัวอย่างของ ABS ท้ายสไลด์ หน้า 4 ข้อ 4 (PL, SCS, SCE, FI) และ TPI"
+  },
+  'CPu5STtQEsA': {
+    "videoId": "CPu5STtQEsA",
+    "title": "6.2 The Dairy Sire Summary — อ่านสมุดพ่อพันธุ์และเลือกน้ำเชื้อโคนม",
+    "subject": "practrum",
+    "date": "10 Feb 68",
+    "durationMin": 81,
+    "instructor": null,
+    "examFormat": "ในห้องสอบให้เปิดสมุด sire summary + ตารางค่าเฉลี่ยได้ ต้อง \"อ่านเป็น\" ไม่ใช่ท่องจำ และบอกชัดว่าออกสอบ DCE/SCE กับ somatic cell score (แบบให้ 2 ตัวเลือกแล้วเลือกตัวที่ดีกว่า) รวมถึงขั้นตอนการทดสอบลูกสาว 7 ขั้น และหน้า 5-38 ของ PDF สมุดกรมปศุสัตว์"
+  },
+  'ufJsdwZyQPI': {
+    "videoId": "ufJsdwZyQPI",
+    "title": "6.1 — Ruminant Sire Summary: การอ่านแคตตาล็อกน้ำเชื้อโคเนื้อ (EBV, EPD, accuracy, index)",
+    "subject": "practrum",
+    "date": "10 Feb 68",
+    "durationMin": 63,
+    "instructor": null,
+    "examFormat": "อาจารย์ชี้ตัวอย่างการคำนวณ breeding value ของโคนมว่า \"ตัวอย่างนี้จะออกสอบ\" และย้ำอีกครั้งว่า \"นี่ข้อสอบนะ\" ตรงคำถามว่า EBV = 0 แปลว่าถ่ายทอดพันธุกรรมหรือไม่"
   },
   'Smt-f5BBo74': {
     "videoId": "Smt-f5BBo74",
@@ -2756,6 +3350,15 @@ export const VIDEO_META = {
     "instructor": "Parasitology + Rickettsia team",
     "examFormat": "MCQ + diagnostics + treatment"
   },
+  '2ikRf-sGIOI': {
+    "videoId": "2ikRf-sGIOI",
+    "title": "1.1 — Congenital Disorders and Anomalies of Reproductive Organs in the Female",
+    "subject": "repro-lect",
+    "date": "10 Jan 68",
+    "durationMin": 63,
+    "instructor": null,
+    "examFormat": "รายละเอียด embryology และการพัฒนาของ duct ต่าง ๆ จะไม่ออกข้อสอบเยอะ เพราะเรียนมาแล้วในวิชา embryology และไม่มีความสำคัญทางคลินิกมากนัก"
+  },
   '48-y2JJRIWY': {
     "videoId": "48-y2JJRIWY",
     "title": "6.1 Management of Newborn and Neonatology",
@@ -2774,6 +3377,15 @@ export const VIDEO_META = {
     "instructor": "Aj. Chaowaphan Yinharnmingmongkol (CY) — Animal Space Exotic Hospital",
     "examFormat": "Species-by-species clinical, rabbit + guinea pig + ferret + reptile + bird, cross-refs Q1825-Q1829"
   },
+  '7ZgySvz5n9c': {
+    "videoId": "7ZgySvz5n9c",
+    "title": "5.2 Postpartum disorders — ความผิดปกติหลังคลอดในสุนัขและแมว",
+    "subject": "repro-lect",
+    "date": "7 Feb 68",
+    "durationMin": 133,
+    "instructor": null,
+    "examFormat": "ข้อสอบถาม 3 อย่าง คือรู้ว่าความผิดปกติหลังคลอดมีอะไรบ้าง, แนวทางการวินิจฉัย (โดยเฉพาะอันที่มีความจำเพาะ) และแนวทางการรักษาแต่ละอัน โดยย้ำว่า SIPS จะถามในข้อสอบด้วย"
+  },
   '9piuvH_sdXc': {
     "videoId": "9piuvH_sdXc",
     "title": "15. Hormonal applications in dogs and cats",
@@ -2782,6 +3394,42 @@ export const VIDEO_META = {
     "durationMin": 128,
     "instructor": "Aj. Suppawiwat Ponglowhapan (SP) — Theriogenology, Chula Vet",
     "examFormat": "Case-based MCQ + drug class matching, \"ออก 2 ล้านข้อ จำไป\" Progestin AE"
+  },
+  'EYWklXP5wxw': {
+    "videoId": "EYWklXP5wxw",
+    "title": "9.2 Infertility in Dogs and Cats",
+    "subject": "repro-lect",
+    "date": "21 Mar 68",
+    "durationMin": 127,
+    "instructor": null,
+    "examFormat": "ศัพท์ semen quality \"ออกข้อสอบทุกปี\" มักถามแบบ \"ข้อใดไม่ใช่สาเหตุของ...\" / \"ข้อใดใช่\" ส่วน alkaline phosphatase ในน้ำเชื้อบอกว่าไม่ค่อยออก"
+  },
+  'GBKkUzt2slA': {
+    "videoId": "GBKkUzt2slA",
+    "title": "7.1 Vaginal and preputial discharge — POA ในสุนัขเพศเมียและเพศผู้",
+    "subject": "repro-lect",
+    "date": "21 Feb 68",
+    "durationMin": 144,
+    "instructor": null,
+    "examFormat": "บอกว่าคำถาม post-quiz วันนี้ (สิ่งที่ต้องทำกับลูกสัตว์ทุกครั้งก่อนป้อนนม) เป็นคำถามที่จะถามในข้อสอบด้วย"
+  },
+  'Gl5gSfKf8DA': {
+    "videoId": "Gl5gSfKf8DA",
+    "title": "4.3 CEH and Pyometra in Dogs and Cats",
+    "subject": "repro-lect",
+    "date": "31 Jan 68",
+    "durationMin": 138,
+    "instructor": null,
+    "examFormat": "เล่าว่าคำถาม \"หมาเป็น pyometra แล้วเกิด azotemia ต้องแก้ไขอะไรอย่างไร\" เคยเป็นข้อสอบสัมภาษณ์คัดคนเข้าคลินิกสมัยที่ตนบริหารโรงพยาบาล ไม่ได้พูดถึงรูปแบบข้อสอบของวิชานี้"
+  },
+  'H0CHW8xesGg': {
+    "videoId": "H0CHW8xesGg",
+    "title": "8.1 — Semen Characterization and Evaluation in Dogs and Cats I",
+    "subject": "repro-lect",
+    "date": "28 Feb 68",
+    "durationMin": 54,
+    "instructor": null,
+    "examFormat": "อาจารย์บอกเองว่าเรื่อง teratospermia ในแมว (normal morphology น้อยกว่า 60%) \"ออกข้อสอบทุกปีเลย\" มักเป็นช้อยส์ให้เลือกระหว่าง oligospermia / azoospermia / teratospermia"
   },
   'JSD9HlA4PRA': {
     "videoId": "JSD9HlA4PRA",
@@ -2792,6 +3440,15 @@ export const VIDEO_META = {
     "instructor": "Aj. Sroisuda Chotimanukul (SC) — Theriogenology, Chula Vet",
     "examFormat": "MCQ + clinical scenario, breed/sex/age recall heavy"
   },
+  'Q9GyQhZROzE': {
+    "videoId": "Q9GyQhZROzE",
+    "title": "8.2 — Semen Preservation and Semen Collection in Dogs and Cats",
+    "subject": "repro-lect",
+    "date": "28 Feb 68",
+    "durationMin": 34,
+    "instructor": null,
+    "examFormat": null
+  },
   'WF_eMCY5Pqs': {
     "videoId": "WF_eMCY5Pqs",
     "title": "19. Conservation and ART (Assisted Reproductive Technology)",
@@ -2801,6 +3458,15 @@ export const VIDEO_META = {
     "instructor": "Aj. Ampika Thongphakdee (AT) — ZPO Wildlife Repro Center",
     "examFormat": "Wildlife conservation + ART pipeline, case-driven, cross-refs Q1820-Q1824, Q1870-Q1873"
   },
+  '_NdD_YkJY0w': {
+    "videoId": "_NdD_YkJY0w",
+    "title": "7.2 Disease of the prostate gland — โรคของต่อมลูกหมากในสุนัข",
+    "subject": "repro-lect",
+    "date": "21 Feb 68",
+    "durationMin": 109,
+    "instructor": null,
+    "examFormat": "ข้อสอบออกตรงกับ objective ของแต่ละหัวข้อ ให้กลับไปอ่านวัตถุประสงค์ก่อนอ่านสอบ, เรื่อง finasteride ระบุว่า \"ออกข้อสอบ VCA\" 2 จุด, ส่วนเทคนิคการผ่าตัดต่อมลูกหมาก \"ไม่เคยเอาไปออกสอบ\""
+  },
   'cB2Vg7L2W0k': {
     "videoId": "cB2Vg7L2W0k",
     "title": "2 — Puberty and Reproductive Cycles in Dog and Cat",
@@ -2809,6 +3475,15 @@ export const VIDEO_META = {
     "durationMin": 173,
     "instructor": null,
     "examFormat": "รูปเซลล์ vaginal cytology ออกสอบแน่นอน รวมถึงสอบแลบ แต่จะใช้รูปที่ใกล้เคียงไม่ใช่รูปในสไลด์ ส่วนรายละเอียดปลีกย่อยของความยาวแต่ละระยะในแมวจะไม่ออก"
+  },
+  'ckTf-XW33ZM': {
+    "videoId": "ckTf-XW33ZM",
+    "title": "6.2 Dystocia and Caesarean section",
+    "subject": "repro-lect",
+    "date": "14 Feb 68",
+    "durationMin": 96,
+    "instructor": null,
+    "examFormat": "ออกข้อสอบตาม Hand out เป็นหลัก, ไม่ออกโดสยา/ข้อความจำ, อาจให้ choices แล้วถามว่าข้อใดใช่หรือไม่ใช่ obstructive dystocia"
   },
   'ds5F-LHCTJM': {
     "videoId": "ds5F-LHCTJM",
@@ -2828,6 +3503,33 @@ export const VIDEO_META = {
     "instructor": "Aj. Nantapong Kamprasert (NK) — UNE Australia / Roslin Edinburgh",
     "examFormat": "Quantitative genetics applied, concept-heavy, cross-refs Q1830-Q1834"
   },
+  'kcg7qJT2ijg': {
+    "videoId": "kcg7qJT2ijg",
+    "title": "4.1 — Mammary gland abnormalities (หมาและแมว)",
+    "subject": "repro-lect",
+    "date": "31 Jan 68",
+    "durationMin": 166,
+    "instructor": null,
+    "examFormat": "อาจารย์ย้ำว่าจุดที่ไฮไลท์ = มีโอกาสออกข้อสอบสูง, ชื่อเต้านม M1-M5 กับ lymphatic drainage \"การันตีว่าออกสอบทุกปี\", และท้ายคาบให้ทำโจทย์เลือกวิธีผ่าตัด 6 ข้อพร้อมเฉลย"
+  },
+  'kxiZSjK5NT0': {
+    "videoId": "kxiZSjK5NT0",
+    "title": "13 — Reproductive ultrasound ในสุนัขและแมว",
+    "subject": "repro-lect",
+    "date": "21 Apr 68",
+    "durationMin": 109,
+    "instructor": null,
+    "examFormat": "\"พี่ก็ใช้ออกข้อสอบด้วย ว่าเวลาอัลตราซาวด์ระบบสืบพันธุ์นิสิตต้องดูอะไรก่อน (คำตอบ = กระเพาะปัสสาวะ)\""
+  },
+  'mDo2VEZ_AUU': {
+    "videoId": "mDo2VEZ_AUU",
+    "title": "5.1 Pregnancy and parturition in dogs and cats",
+    "subject": "repro-lect",
+    "date": "7 Feb 68",
+    "durationMin": 137,
+    "instructor": null,
+    "examFormat": "ปิดท้ายว่าให้ถามในห้อง เพราะเวลาออกข้อสอบมาแล้วนิสิตมักจะมาโวยวายทีหลัง [136:48]"
+  },
   'q44qQOIMTXk': {
     "videoId": "q44qQOIMTXk",
     "title": "17. Preserved Semen & 18. Infertility Problems",
@@ -2836,6 +3538,24 @@ export const VIDEO_META = {
     "durationMin": 148,
     "instructor": "Aj. Theerawat Tharasanit (TT) — Theriogenology, Chula Vet",
     "examFormat": "Cryobiology concepts + infertility differential dx, cross-refs Q1851-Q1859"
+  },
+  'rjtWqFYxI0M': {
+    "videoId": "rjtWqFYxI0M",
+    "title": "10.1 Assisted reproductive technologies ในสุนัข แมว และสัตว์ป่า",
+    "subject": "repro-lect",
+    "date": "28 Mar 68",
+    "durationMin": 140,
+    "instructor": "พี่แอม (ชื่อเล่นตามที่เรียกในคลิป)",
+    "examFormat": "ย้ำระยะไข่ที่พร้อมปฏิสนธิคือ Metaphase II แล้วบอกว่า \"เดี๋ยวข้อสอบออกจะได้ตอบได้\" [66:46]"
+  },
+  'y9ImTcx3hLc': {
+    "videoId": "y9ImTcx3hLc",
+    "title": "6.3 Lab Dystocia discussion — วิเคราะห์เคสคลอดยากในสุนัขและแมว 6 เคส",
+    "subject": "repro-lect",
+    "date": "14 Feb 68",
+    "durationMin": 71,
+    "instructor": "อาจารย์ผู้คอมเมนต์ 3 ท่าน เรียกในคลิปว่า พี่แก้ว, อาจารย์นุ่น, พี่น็อต",
+    "examFormat": null
   },
   'zPgMJzPumXk': {
     "videoId": "zPgMJzPumXk",
@@ -2855,6 +3575,15 @@ export const VIDEO_META = {
     "instructor": "Aj. Sroisuda Chotimanukul (SC) — Theriogenology, Chula Vet",
     "examFormat": "OHE/orchiectomy technique, ligation rules, ORS prevention, cryptorchid"
   },
+  'zxR6MK_ygWk': {
+    "videoId": "zxR6MK_ygWk",
+    "title": "12.2 — Hormonal applications in small animal reproduction",
+    "subject": "repro-lect",
+    "date": "11 Apr 68",
+    "durationMin": 104,
+    "instructor": null,
+    "examFormat": "ข้อสอบ VCA ชอบหลอกเรื่องฮอร์โมนตรวจการตั้งท้อง (relaxin ไม่ใช่ progesterone) [14:04], เรื่องยาคุม \"เวลาสอบหลอกเยอะมาก\" [54:30] และ side effect ของ estrogen มักออกสอบ [75:39]"
+  },
   'FxBAoD9i_nE': {
     "videoId": "FxBAoD9i_nE",
     "title": "5. Epidural Nerve Block + Endotracheal Intubation",
@@ -2873,6 +3602,42 @@ export const VIDEO_META = {
     "instructor": "Anesthesiology team (CUVET)",
     "examFormat": "MCQ — IV cat sizes, 3-tape securing, 20 vs 60 drop sets, drops/min calculation, induction sequence ออกบ่อย"
   },
+  '8dI5GELZEqE': {
+    "videoId": "8dI5GELZEqE",
+    "title": "Bridging plate และ Neutralization plate — แลบใส่แผ่นดามกระดูก",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 19,
+    "instructor": null,
+    "examFormat": null
+  },
+  'HfSWNmDchrc': {
+    "videoId": "HfSWNmDchrc",
+    "title": "External skeletal fixation — การใส่ ESF Type II บน femur และการทำ connecting bar (lab 14)",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 15,
+    "instructor": "พี่พล, พี่มด",
+    "examFormat": null
+  },
+  'IQxjlkjHTTs': {
+    "videoId": "IQxjlkjHTTs",
+    "title": "Cerclage wire — เทคนิคการมัดลวดแบบ twist knot",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 9,
+    "instructor": null,
+    "examFormat": null
+  },
+  'JP9fDENkPLE': {
+    "videoId": "JP9fDENkPLE",
+    "title": "Cerclage wire — double loop และ single loop (สาธิตในแล็บ)",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 7,
+    "instructor": null,
+    "examFormat": null
+  },
   'KJlSRbvXYfc': {
     "videoId": "KJlSRbvXYfc",
     "title": "Brief lab stifle — เตรียมสัตว์ ปูผ้า และตรวจข้อเข่าก่อนเปิดข้อ",
@@ -2890,6 +3655,132 @@ export const VIDEO_META = {
     "durationMin": 26,
     "instructor": null,
     "examFormat": "ในแลปใช้ร่างอาจารย์ใหญ่ดองนิ่ม จึงไม่มีขั้นตอนวางยาสลบจริง แต่อาจารย์ถามได้ ต้องตอบขั้นตอนทั้งหมดให้ได้ และทั้งกลุ่มต้องตอบตรงกัน"
+  },
+  'Mgy_fLuilzc': {
+    "videoId": "Mgy_fLuilzc",
+    "title": "ล้างแผล — wound lavage และการเลือก dressing",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 6,
+    "instructor": null,
+    "examFormat": null
+  },
+  'N8oKKxdew5k': {
+    "videoId": "N8oKKxdew5k",
+    "title": "Hanging limb (ต่อ) — การปูผ้าคลุมและพันขาให้ปลอดเชื้อ",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 5,
+    "instructor": null,
+    "examFormat": null
+  },
+  'Od_JhhqLu-A': {
+    "videoId": "Od_JhhqLu-A",
+    "title": "Dental nerve block ในสุนัขและแมว — infraorbital, caudal maxillary, mental และ inferior alveolar block",
+    "subject": "surg2",
+    "date": "7 Nov 68",
+    "durationMin": 32,
+    "instructor": null,
+    "examFormat": null
+  },
+  'RYz6annqcr0': {
+    "videoId": "RYz6annqcr0",
+    "title": "Lab 13 (ต่อ) — Pinning: การใช้สว่าน, ใส่ IM pin ในกระดูก femur และ cross pin",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 5,
+    "instructor": null,
+    "examFormat": null
+  },
+  'SFBJQ24NXcI': {
+    "videoId": "SFBJQ24NXcI",
+    "title": "Pinning — ชนิดของ pin, biomechanics, การเลือกไซส์ และเทคนิคการใส่",
+    "subject": "surg2",
+    "date": "8 Apr 69",
+    "durationMin": 19,
+    "instructor": "พี่พล",
+    "examFormat": null
+  },
+  'Wv7RXGj21rY': {
+    "videoId": "Wv7RXGj21rY",
+    "title": "Dental scaling — สาธิตอุปกรณ์ขูดหินปูนในแลบ",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 11,
+    "instructor": null,
+    "examFormat": null
+  },
+  'a-HpL32v7G4': {
+    "videoId": "a-HpL32v7G4",
+    "title": "Dental nerve block — สาธิตการวาง nerve block ช่องปากในสุนัขและแมว (แล็บ)",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 4,
+    "instructor": null,
+    "examFormat": null
+  },
+  'dijPq_Mgt54': {
+    "videoId": "dijPq_Mgt54",
+    "title": "Hanging limb — การเตรียมขาสัตว์ก่อนผ่าตัด (โกน พันเทป ห้อยขา และสครับ)",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 4,
+    "instructor": null,
+    "examFormat": null
+  },
+  'hsivBYZJmHE': {
+    "videoId": "hsivBYZJmHE",
+    "title": "Aural hematoma — ขั้นตอนการผ่าตัดแก้ไข (surgery lab demo)",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 15,
+    "instructor": null,
+    "examFormat": null
+  },
+  'nWcmS5s2RMc': {
+    "videoId": "nWcmS5s2RMc",
+    "title": "10 — Ophthalmic examination ในสุนัขและแมว",
+    "subject": "surg2",
+    "date": "27 Mar 68",
+    "durationMin": 63,
+    "instructor": null,
+    "examFormat": "\"ปลายเทอมไม่มีสอบ แบบฝึกหัดที่ทำในแลบวันนี้ตอน 15:00 น. คิดเป็นคะแนนเลย ขาดแล้วเสียหลายเปอร์เซ็นต์\""
+  },
+  'r7qmPx-v6VQ': {
+    "videoId": "r7qmPx-v6VQ",
+    "title": "0 — Introduction + Course syllabus (แลบศัลยกรรม soft tissue)",
+    "subject": "surg2",
+    "date": "9 Jan 68",
+    "durationMin": 21,
+    "instructor": null,
+    "examFormat": "สอบครั้งที่ 6 วันที่ 13 กุมภาพันธ์ สอบ 2 แลบ จับฉลากทั้งหัตถการจาก 3 แลบที่ผ่าไปและตำแหน่งในการผ่าตัด กลุ่มที่อยู่ติดกันอาจได้คนละข้อ [10:35-11:14]"
+  },
+  'sSWyqRT3f4Q': {
+    "videoId": "sSWyqRT3f4Q",
+    "title": "Local block lab — incisional block, fan-shaped block และ testicular block",
+    "subject": "surg2",
+    "date": "7 Nov 68",
+    "durationMin": 11,
+    "instructor": null,
+    "examFormat": null
+  },
+  'tq8AmQEJQsY': {
+    "videoId": "tq8AmQEJQsY",
+    "title": "1.3 — Cystotomy: ข้อบ่งชี้ การเลือกไหม ขั้นตอนการผ่าตัด และการปิดกระเพาะปัสสาวะ",
+    "subject": "surg2",
+    "date": "9 Jan 68",
+    "durationMin": 21,
+    "instructor": null,
+    "examFormat": "อาจารย์บอกว่าเรื่องใบมีดเบอร์ไหนคู่กับด้ามมีดเบอร์อะไร เป็นอะไรที่ข้อสอบ VCA ชอบออก จึงเอาสไลด์นี้มาแทรกให้"
+  },
+  'vPD0Ewptp64': {
+    "videoId": "vPD0Ewptp64",
+    "title": "Anesthetic process — ขั้นตอนการวางยาสลบสุนัขตั้งแต่ premedication จนถอดท่อ",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 13,
+    "instructor": null,
+    "examFormat": null
   },
   'zO-xo1Einss': {
     "videoId": "zO-xo1Einss",
