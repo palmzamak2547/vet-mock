@@ -478,6 +478,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         fileName: doc.fileName || 'document.pdf',
         pageCount: pdf.numPages,
         strokesByPage: restoredStrokes,
+        // Remember that this came from the shelf. The recent list mixes shelf
+        // documents with personal files, and without this it offered the file
+        // picker for both — which cannot reopen something the student never
+        // had on disk.
+        slug: doc.slug || null,
       });
       refreshRecent();
       if (!storageHealth().persistent) {
@@ -820,6 +825,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       redrawOverlay(currentStrokesRef.current, page);
       const ctx = inkCtxFor(page);
       if (ctx) drawStroke(ctx, cur.stroke, c.width, c.height, inkDpr() * pageScale);
+      // The snap is the one thing this view does that nothing else can see:
+      // it happens mid-stroke, so it is not in storage yet, and it leaves no
+      // DOM. Announce it the way the rest of the app announces state changes.
+      try {
+        window.dispatchEvent(new CustomEvent('vmx-pdf-shape-snap', {
+          detail: { kind: shape.kind, points: shape.points.length, page },
+        }));
+      } catch { /* announcing is a nicety, never a requirement */ }
     }, 600);
   }
 
@@ -1277,8 +1290,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       if (e.key === 'Escape' && (optionsOpen || menuOpen || searchOpen)) {
         e.preventDefault();
         if (optionsOpen || menuOpen) {
+          // Return focus to whichever trigger opened the panel. Closing without
+          // this dropped focus to BODY in all three engines, so a keyboard
+          // reader lost their place in the toolbar — the search branch below
+          // already did the right thing and this branch did not.
+          const wasOptions = optionsOpen;
           setOptionsOpen(false);
           setMenuOpen(false);
+          const trigger = wasOptions
+            ? document.querySelector('.vmx-pdf-swatch')
+            : document.querySelector('button[aria-label="เครื่องมืออื่น"]');
+          trigger?.focus();
         } else {
           // Nothing else is open, so Escape is about the search. Close the row
           // and put the reader back on the button that opened it; the results
@@ -1519,7 +1541,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       page: Number(best.row.dataset.page),
       fx: (px - best.b.left) / Math.max(1, best.b.width),
       fy: (py - best.b.top) / Math.max(1, best.b.height),
-      until: performance.now() + 450,
+      // A safety bound, NOT the normal exit. The loop below finishes when the
+      // page says it has re-rasterised at the new scale; a stopwatch here made
+      // zoom lose the reader's place on exactly the slow devices the anchor
+      // exists for (measured: the row still grew 250px at t=644ms).
+      until: performance.now() + 5000,
+      start: performance.now(),
     };
   }
 
@@ -1545,8 +1572,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     let raf = 0;
     let lastH = -1;
     let stable = 0;
+    let sawRender = false;
+    // Holding the reader's place must never fight the reader. Any real input
+    // ends the restore immediately — they have taken over.
+    let done = false;
+    const stop = () => { done = true; cancelAnimationFrame(raf); zoomAnchorRef.current = null; };
     const place = () => {
+      if (done) return;
       const row = wrap.querySelector(`[data-page="${a.page}"]`);
+      let settled = false;
       if (row) {
         const rw = wrap.getBoundingClientRect();
         const rb = row.getBoundingClientRect();
@@ -1554,15 +1588,32 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         wrap.scrollLeft += (rb.left + a.fx * rb.width) - (rw.left + a.ax);
         stable = Math.abs(rb.height - lastH) < 0.5 ? stable + 1 : 0;
         lastH = rb.height;
+        if (row.getAttribute('data-render-state') !== 'ready') sawRender = true;
+        // Done when the page itself says it has finished re-rasterising and
+        // has held its height for a few frames. The elapsed check only covers
+        // a zoom that triggers no re-render at all, where the anchor is
+        // already correct and there is nothing to wait for.
+        settled = row.getAttribute('data-render-state') === 'ready'
+          && stable >= 3
+          && (sawRender || performance.now() - a.start > 600);
       }
-      if (performance.now() < a.until && stable < 3) {
+      if (!settled && performance.now() < a.until) {
         raf = requestAnimationFrame(place);
       } else {
         zoomAnchorRef.current = null;
       }
     };
+    const opts = { passive: true };
+    wrap.addEventListener('wheel', stop, opts);
+    wrap.addEventListener('pointerdown', stop, opts);
+    window.addEventListener('keydown', stop, opts);
     place();
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      wrap.removeEventListener('wheel', stop, opts);
+      wrap.removeEventListener('pointerdown', stop, opts);
+      window.removeEventListener('keydown', stop, opts);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [zoom]);
 
@@ -1634,10 +1685,20 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   function pickRecent(hash) {
-    // We can't restore a PDF without re-uploaded bytes — prompt the user.
     const entry = recent.find((r) => r.hash === hash);
     if (!entry) return;
     setError(null);
+    // A shelf document was never a file on this device, so asking for it back
+    // through the file picker was a dead end: the student had opened it from
+    // the web. Send them to the shelf, where one tap reopens it with the ink
+    // still attached to the same hash.
+    if (entry.slug && onOpenLibrary) {
+      try { sessionStorage.setItem('vmx-library-q', entry.fileName || ''); } catch { /* storage disabled */ }
+      showToast(`"${entry.fileName}" เป็นเอกสารจากคลัง เปิดจากคลังเพื่อเขียนต่อ`, 4000);
+      onOpenLibrary();
+      return;
+    }
+    // A personal file genuinely needs its bytes again — we never keep them.
     showToast(`เลือกไฟล์ "${entry.fileName}" อีกครั้งเพื่อเขียนต่อ`, 4000);
     fileInputRef.current?.click();
   }
@@ -1983,6 +2044,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
         <span aria-hidden="true" style={{ width: 1, height: 22, background: 'var(--clr-border)', margin: '0 2px', flexShrink: 0 }} />
 
+        {/* Search sits ahead of the zoom cluster so that what scrolls out of a
+            narrow viewport is only zoom — which pinch and Ctrl+wheel already
+            cover — rather than the only way to find a page in a 100-page deck. */}
+        <ToolButton icon="search" label="ค้นหาในเอกสาร" active={searchOpen}
+          onClick={() => { setSearchOpen((v) => !v); setTimeout(() => document.getElementById('vmx-pdf-search')?.focus(), 30); }} />
+
         <ToolButton icon="zoom-out" label="ย่อ" onClick={() => zoomOut()} disabled={zoom <= ZOOM_STEPS[0]} />
         <button
           type="button"
@@ -2002,13 +2069,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           />
         )}
 
-        <ToolButton icon="search" label="ค้นหาในเอกสาร" active={searchOpen}
-          onClick={() => { setSearchOpen((v) => !v); setTimeout(() => document.getElementById('vmx-pdf-search')?.focus(), 30); }} />
-
         <span style={{ flex: 1, minWidth: 4 }} />
         <SyncBadge state={sync} />
-        <ToolButton icon="more" label="เครื่องมืออื่น" active={menuOpen}
-          onClick={() => setMenuOpen((v) => !v)} expanded={menuOpen} />
+        {/* Sticky, so the gateway to everything else stays on screen while the
+            row scrolls. At 390px this button sat at x=504 — outside the
+            viewport — so the rest of the tools could only be found by first
+            discovering that the toolbar scrolls sideways. The single row is
+            kept deliberately: wrapping it cost 264px of chrome above the page. */}
+        <span style={{ position: 'sticky', right: 0, display: 'inline-flex', alignItems: 'center', background: 'var(--clr-surface, #f7f7f4)', paddingInlineStart: 4 }}>
+          <ToolButton icon="more" label="เครื่องมืออื่น" active={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)} expanded={menuOpen} />
+        </span>
       </div>
 
       {/* Colour, size and — for the eraser — mode, for the tool in hand. */}

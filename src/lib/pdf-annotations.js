@@ -153,6 +153,11 @@ export function mergeRecords(a, b) {
       : b.ownerId !== undefined ? { ownerId: b.ownerId } : {}),
     fileName: a.fileName || b.fileName || 'untitled.pdf',
     pageCount: Math.max(a.pageCount || 0, b.pageCount || 0) || 1,
+    // Where the document came from. A shelf document has a slug, a personal
+    // file does not, and the merge must not drop it: without it the recent
+    // list cannot tell them apart, and reopening a shelf document asked for a
+    // local file the student never had.
+    ...(a.slug || b.slug ? { slug: a.slug || b.slug } : {}),
     strokesByPage,
     deleted: tombs,
     // The reading position is the one field where "most recent wins" is right:
@@ -380,6 +385,9 @@ export async function saveAnnotations(fileHash, data, ownerId = null) {
     ownerId: ownerId || null,
     fileName: data.fileName || prev.fileName || 'untitled.pdf',
     pageCount: data.pageCount || prev.pageCount || 1,
+    // Shelf documents carry their slug so the reader can offer to reopen them
+    // from the shelf; a personal file has none and still needs its bytes.
+    slug: data.slug || prev.slug || null,
     strokesByPage: data.strokesByPage
       ? packAll(data.strokesByPage)
       : (prev.strokesByPage || {}),
@@ -450,6 +458,9 @@ export async function listRecentPdfs(ownerId = null) {
       hash: v.hash,
       fileName: v.fileName || 'untitled.pdf',
       pageCount: v.pageCount || 0,
+      // Carried so the recent list can offer the right way back: the shelf for
+      // a shelf document, the file picker only for a personal file.
+      slug: v.slug || null,
       lastOpened: v.lastOpened || 0,
       annotatedPageCount: v.strokesByPage
         ? Object.values(v.strokesByPage).filter((a) => Array.isArray(a) && a.length > 0).length

@@ -42,7 +42,13 @@ async function openReaderWithPdf(page, pages = 1) {
     buffer: pages > 1 ? manyPagePdf(pages) : TINY_PDF,
   });
   await page.waitForFunction(() => document.querySelectorAll('canvas').length >= 2, null, { timeout: 30000 });
-  await page.waitForTimeout(600);
+  // Wait for the page to say it is rendered rather than sleeping for a number
+  // that happened to be enough on a fast laptop. A row still in `loading`
+  // holds a placeholder-sized canvas, so coordinates measured here can land
+  // off the real overlay once the raster arrives — and points outside the
+  // canvas are CLAMPED to its edge (pointFromEvent), where consecutive
+  // duplicates are then dropped by the near-duplicate filter.
+  await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
 }
 
 // The part of the overlay that is BOTH on the canvas and inside the window.
@@ -94,6 +100,42 @@ function storedRecord(page) {
       pointComponents: stroke?.points?.[3]?.length ?? null,
     };
   });
+}
+
+// ── Synthetic pointers ──────────────────────────────────────────────────
+// Playwright's mouse cannot claim to be a pen, and pen-only mode treats a
+// mouse as a scrolling finger. The reader's handlers wrap setPointerCapture
+// in try/catch precisely so synthetic PointerEvents can drive them.
+async function installPointerRig(page) {
+  return page.evaluate(() => {
+    const ov = [...document.querySelectorAll('canvas')]
+      .find((c) => getComputedStyle(c).position === 'absolute');
+    const r = ov.getBoundingClientRect();
+    window.__fire = (type, id, pointerType, cx, cy) => ov.dispatchEvent(new PointerEvent(type, {
+      pointerId: id, pointerType, clientX: cx, clientY: cy, bubbles: true, cancelable: true,
+      isPrimary: id === 1, pressure: type === 'pointerup' ? 0 : 0.5, buttons: type === 'pointerup' ? 0 : 1,
+    }));
+    const x = r.left + r.width * 0.2;
+    const y = r.top + Math.min(r.height * 0.4, 160);
+    return { x, y, w: r.width, h: r.height, top: r.top, left: r.left };
+  });
+}
+
+// Unlike storedRecord above (a summary for the older tests), this returns the
+// record RAW: the eraser/colour/shape tests assert on exact stroke lists,
+// tombstones and point counts.
+function storedRecordRaw(page) {
+  return page.evaluate(() => new Promise((resolve) => {
+    const req = indexedDB.open('vmx-pdf-annotations');
+    req.onsuccess = () => {
+      const db = req.result;
+      const tx = db.transaction('docs', 'readonly');
+      const all = tx.objectStore('docs').getAll();
+      all.onsuccess = () => { db.close(); resolve(all.result?.[0] || null); };
+      all.onerror = () => { db.close(); resolve(null); };
+    };
+    req.onerror = () => resolve(null);
+  }));
 }
 
 test('a stroke that is drawn is a stroke that is stored', async ({ page }) => {
@@ -461,23 +503,6 @@ test('zoom keeps the point under the cursor put and never widens the layout', as
 });
 
 
-// Unlike storedRecord above (a summary for the older tests), this returns the
-// record RAW: the eraser/colour/shape tests assert on exact stroke lists,
-// tombstones and point counts.
-function storedRecordRaw(page) {
-  return page.evaluate(() => new Promise((resolve) => {
-    const req = indexedDB.open('vmx-pdf-annotations');
-    req.onsuccess = () => {
-      const db = req.result;
-      const tx = db.transaction('docs', 'readonly');
-      const all = tx.objectStore('docs').getAll();
-      all.onsuccess = () => { db.close(); resolve(all.result?.[0] || null); };
-      all.onerror = () => { db.close(); resolve(null); };
-    };
-    req.onerror = () => resolve(null);
-  }));
-}
-
 test('the whole-stroke eraser tombstones the stroke it touches and redo brings it back', async ({ page }) => {
   await openReaderWithPdf(page);
   const box = await overlayBox(page);
@@ -542,25 +567,65 @@ test('a colour mixed in the custom picker is the colour the stroke stores', asyn
 
 test('a rough rectangle held still snaps to a clean five-point rectangle', async ({ page }) => {
   await openReaderWithPdf(page);
-  const box = await overlayBox(page);
-  const x0 = box.x + box.w * 0.25;
-  const x1 = box.x + box.w * 0.65;
-  const y0 = box.y + box.h * 0.25;
-  const y1 = box.y + box.h * 0.55;
-  await page.mouse.move(x0, y0);
-  await page.mouse.down();
-  // Around the box with enough samples to read as edges-with-corners.
-  await page.mouse.move(x1, y0, { steps: 8 });
-  await page.mouse.move(x1, y1, { steps: 8 });
-  await page.mouse.move(x0, y1, { steps: 8 });
-  await page.mouse.move(x0, y0 + 4, { steps: 8 });
-  // Hold still: the snap timer arms on the last movement and fires at 600ms.
-  await page.waitForTimeout(1000);
-  await page.mouse.up();
-  await page.waitForTimeout(900);
-  const rec = await storedRecordRaw(page);
-  const stroke = rec.strokesByPage['1'][rec.strokesByPage['1'].length - 1];
-  expect(stroke.points.length, 'the held stroke should have snapped to a rectangle').toBe(5);
+
+  // Driven with synthetic PointerEvents rather than page.mouse for two
+  // reasons, both about determinism rather than convenience:
+  //   • every dispatch runs the handler synchronously, so the stroke is
+  //     EXACTLY 33 points on every engine under any load. fitShape is a
+  //     geometric fit with a corner test, and it degrades once the path is
+  //     thinned — at 33 points it fits a rectangle 100% of the time, at 14
+  //     it returns null 6-26% of the time depending on the box. A test that
+  //     lets the browser decide the sample count is asserting on a coin flip.
+  //   • the snap fires 600 ms after the LAST point and is cancelled outright
+  //     by pointerup, so nothing may sit between the two except a wait on the
+  //     snap itself.
+  // This is the same rig the palm-rejection tests use; setPointerCapture is
+  // wrapped in try/catch in the view precisely to allow it.
+  const rig = await installPointerRig(page);
+  expect(rig.w, 'the overlay must have a real size before drawing').toBeGreaterThan(0);
+
+  // Arm the listener BEFORE the last movement so the signal cannot be missed.
+  // The success path is the event; the timeout only BOUNDS a failure, so a
+  // slow machine can never turn a pass into a fail. 10 s against a 600 ms
+  // timer is a 16x margin, and nothing lifts the pointer while we wait.
+  const snapped = page.evaluate(() => new Promise((resolve) => {
+    const t = setTimeout(() => resolve(null), 10_000);
+    window.addEventListener('vmx-pdf-shape-snap', (e) => { clearTimeout(t); resolve(e.detail); }, { once: true });
+  }));
+
+  await page.evaluate(() => {
+    const f = window.__fire;
+    const ov = [...document.querySelectorAll('canvas')]
+      .find((c) => getComputedStyle(c).position === 'absolute');
+    const r = ov.getBoundingClientRect();
+    const x0 = r.left + r.width * 0.25;
+    const x1 = r.left + r.width * 0.65;
+    const y0 = r.top + r.height * 0.25;
+    const y1 = r.top + r.height * 0.55;
+    const seg = (ax, ay, bx, by) => {
+      for (let i = 1; i <= 8; i++) f('pointermove', 1, 'mouse', ax + (bx - ax) * i / 8, ay + (by - ay) * i / 8);
+    };
+    f('pointerdown', 1, 'mouse', x0, y0);
+    seg(x0, y0, x1, y0);
+    seg(x1, y0, x1, y1);
+    seg(x1, y1, x0, y1);
+    seg(x0, y1, x0, y0 + (y1 - y0) * 0.013);
+    window.__lift = () => f('pointerup', 1, 'mouse', x0, y0 + (y1 - y0) * 0.013);
+  });
+
+  // The hand is now still. Wait for the view to say the shape snapped, rather
+  // than sleeping longer than 600 ms and hoping the timer beat the lift.
+  const detail = await snapped;
+  expect(detail, 'the held stroke never snapped: no vmx-pdf-shape-snap was announced').not.toBeNull();
+  expect(detail.kind, 'the held box should have been read as a rectangle').toBe('rect');
+  expect(detail.points, 'a snapped rectangle is five points').toBe(5);
+
+  // And the clean shape is what reaches storage — the assertion that matters,
+  // unchanged.
+  await page.evaluate(() => window.__lift());
+  await expect
+    .poll(async () => (await storedRecordRaw(page))?.strokesByPage?.['1']?.at(-1)?.points?.length)
+    .toBe(5);
 });
 
 
@@ -619,25 +684,6 @@ test('a save merges with what is already stored instead of replacing it', async 
   expect(otherTabStrokes.length, 'the other tab\'s stroke was overwritten').toBe(1);
   expect((after?.strokesByPage?.[1] || []).length, 'this tab\'s own strokes must survive too').toBeGreaterThanOrEqual(2);
 });
-
-// ── Synthetic pointers ──────────────────────────────────────────────────
-// Playwright's mouse cannot claim to be a pen, and pen-only mode treats a
-// mouse as a scrolling finger. The reader's handlers wrap setPointerCapture
-// in try/catch precisely so synthetic PointerEvents can drive them.
-async function installPointerRig(page) {
-  return page.evaluate(() => {
-    const ov = [...document.querySelectorAll('canvas')]
-      .find((c) => getComputedStyle(c).position === 'absolute');
-    const r = ov.getBoundingClientRect();
-    window.__fire = (type, id, pointerType, cx, cy) => ov.dispatchEvent(new PointerEvent(type, {
-      pointerId: id, pointerType, clientX: cx, clientY: cy, bubbles: true, cancelable: true,
-      isPrimary: id === 1, pressure: type === 'pointerup' ? 0 : 0.5, buttons: type === 'pointerup' ? 0 : 1,
-    }));
-    const x = r.left + r.width * 0.2;
-    const y = r.top + Math.min(r.height * 0.4, 160);
-    return { x, y, w: r.width, h: r.height, top: r.top, left: r.left };
-  });
-}
 
 // A hand resting on the glass while the Pencil writes is the whole reason
 // pen-only mode exists. onPointerDown booked every pointer as a possible pinch
