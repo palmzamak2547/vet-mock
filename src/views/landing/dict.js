@@ -54,7 +54,7 @@ export const DICT = {
     labExamples: [{ emoji: '🔬', label: 'Histopathology slides' }, { emoji: '🩻', label: 'Radiographic images' }, { emoji: '🪱', label: 'Parasitology specimens' }, { emoji: '🦴', label: 'Anatomy identification' }, { emoji: '🦠', label: 'Microbiology results' }, { emoji: '🐕', label: 'Clinical photographs' }],
     panicLabel: 'When time is short', panicHead: 'Exam tomorrow?',
     panicCalm: 'Take a breath. Here’s the most efficient way to use the time you have left.',
-    panicDesc: 'Panic Mode turns the highest-yield topics into a focused revision session based on the time you have left.',
+    panicDesc: 'Panic Mode builds a set sized to the time you have left, drawing on the questions you have been getting wrong once there is enough history.',
     panicTimeQ: 'How much time do you have left?',
     panicTimes: [{ key: '15', label: '15 minutes' }, { key: '30', label: '30 minutes' }, { key: '60', label: '1 hour' }, { key: 'tonight', label: 'Tonight' }],
     panicPlanTitle: 'Your revision set',
@@ -67,7 +67,9 @@ export const DICT = {
       { title: 'Understand every mistake', body: 'Review explanations, find your weak topics, and practise them again.' },
     ],
     subjLabel: 'Question bank',
-    subjPre: 'Every subject, from ', subjEm: 'preclinical to clinical.', subjPost: '',
+    // Same correction as the Thai copy below: "every subject" overstated a
+    // bank that covers 43 of 86 curriculum subjects.
+    subjPre: 'Questions spanning ', subjEm: 'preclinical to clinical.', subjPost: '',
     subjSub: 'Structured questions across preclinical, paraclinical, and clinical veterinary subjects.',
     subjRealNote: 'Live now — real question counts. Pick one to start practising.',
     subjShowcaseNote: 'The full subject map VetMock is built around.',
@@ -169,7 +171,11 @@ export const DICT = {
     labExamples: [{ emoji: '🔬', label: 'Histopathology slides' }, { emoji: '🩻', label: 'Radiographic images' }, { emoji: '🪱', label: 'Parasitology specimens' }, { emoji: '🦴', label: 'Anatomy identification' }, { emoji: '🦠', label: 'Microbiology results' }, { emoji: '🐕', label: 'Clinical photographs' }],
     panicLabel: 'เมื่อเวลาเหลือน้อย', panicHead: 'พรุ่งนี้สอบแล้ว?',
     panicCalm: 'หายใจเข้าลึก ๆ แล้วเราจะช่วยจัดให้คุ้มที่สุดกับเวลาที่เหลือ',
-    panicDesc: 'Panic Mode จะจัดหัวข้อ high-yield ที่สำคัญที่สุด ให้เป็นแผนทบทวนแบบโฟกัส ตามเวลาที่คุณเหลือ',
+    // What it actually does: pick a set sized to the time left, drawn from the
+    // student's own missed questions once there is enough history. It does not
+    // build a concept-and-trap plan, and the four tiles below are labelled as
+    // an example rather than a promise.
+    panicDesc: 'Panic Mode จะจัดชุดโจทย์ให้พอดีกับเวลาที่เหลือ และถ้ามีประวัติมากพอ จะดึงข้อที่คุณยังตอบผิดมาให้ก่อน',
     panicTimeQ: 'เหลือเวลาเท่าไหร่?',
     panicTimes: [{ key: '15', label: '15 นาที' }, { key: '30', label: '30 นาที' }, { key: '60', label: '1 ชั่วโมง' }, { key: 'tonight', label: 'คืนนี้' }],
     panicPlanTitle: 'ชุดทบทวนของคุณ',
@@ -182,8 +188,12 @@ export const DICT = {
       { title: 'เข้าใจทุกข้อที่ผิด', body: 'อ่านเฉลย หาหัวข้อที่อ่อน แล้วกลับมาฝึกซ้ำ' },
     ],
     subjLabel: 'คลังโจทย์',
-    subjPre: 'ครบทุกวิชา ตั้งแต่ ', subjEm: 'preclinical ถึง clinical', subjPost: '',
-    subjSub: 'โจทย์จัดหมวดครบ ทั้งวิชา preclinical, paraclinical และ clinical',
+    // Not "ครบทุกวิชา": questions exist for 43 of the 86 subjects in the
+    // curriculum, and the year picker is already honest about it (year 3 shows
+    // 1 of 20 ready). A landing claim must not be broader than what a student
+    // can actually open.
+    subjPre: 'โจทย์ครอบคลุมตั้งแต่ ', subjEm: 'preclinical ถึง clinical', subjPost: '',
+    subjSub: 'จัดหมวดตามหลักสูตร ทั้ง preclinical, paraclinical และ clinical — ดูจำนวนข้อจริงของแต่ละวิชาได้เลย',
     subjRealNote: 'เปิดให้ฝึกแล้ว จำนวนข้อจริง เลือกวิชาเพื่อเริ่มฝึกได้เลย',
     subjShowcaseNote: 'ภาพรวมรายวิชาทั้งหมดที่ VetMock ออกแบบไว้',
     subjToggleReal: 'ฝึกเลย', subjToggleShowcase: 'ดูรายวิชาทั้งหมด',

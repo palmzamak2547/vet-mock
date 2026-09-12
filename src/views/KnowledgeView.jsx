@@ -199,6 +199,9 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
     loading: false,
     results: topics.map((entry) => ({ topic: entry, matchedSections: [], inTitle: false })),
   }));
+  // Bumped by "ค้นอีกครั้ง". Without it the retry button could not re-run the
+  // search, because the effect's inputs (query, topics) had not changed.
+  const [retryNonce, setRetryNonce] = useState(0);
 
   // Opening the index stays metadata-only. Full note bodies are imported only
   // after someone starts typing, then cached by the browser for the session.
@@ -221,17 +224,20 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
       import('../lib/vetwiki/runtime-search.js')
         .then(({ searchTopics }) => searchTopics(query))
         .then((results) => {
-          if (active) setSearchState({ query, loading: false, results });
+          // A partial search must say so. Falling back silently to
+          // title-and-summary matches made "ค้นครบแล้วแต่เจอเท่านี้" out of
+          // "ค้นไม่ครบ", which is a different answer to the student's question.
+          if (active) setSearchState({ query, loading: false, results, incomplete: results.incompleteSubjects || 0 });
         })
         .catch(() => {
-          if (active) setSearchState({ query, loading: false, results: metadataHits });
+          if (active) setSearchState({ query, loading: false, results: metadataHits, incomplete: -1 });
         });
     }, 120);
     return () => {
       active = false;
       window.clearTimeout(timer);
     };
-  }, [query, topics]);
+  }, [query, topics, retryNonce]);
   const results = searchState.results;
   const matchById = useMemo(() => {
     const m = new Map();
@@ -273,6 +279,20 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
           ? searchState.loading ? 'กำลังค้นหาในเนื้อหาทุกหัวข้อ…' : `${shown} / ${total} หัวข้อ`
           : `${total} หัวข้อ`}
       </div>
+
+      {/* An incomplete search is a different answer from "found nothing", so it
+          is never presented as a finished one. -1 means the whole full-text
+          pass failed and only titles and summaries were matched. */}
+      {query && !searchState.loading && searchState.incomplete ? (
+        <div style={{ padding: 10, borderRadius: 10, background: 'var(--clr-gold-soft)', marginBottom: 14, fontSize: 12.5 }}>
+          {searchState.incomplete === -1
+            ? 'ค้นได้เฉพาะชื่อหัวข้อและคำโปรย เพราะโหลดเนื้อหาไม่สำเร็จ ผลจึงยังไม่ครบ'
+            : `ค้นไม่ครบ ${searchState.incomplete} วิชา เพราะโหลดเนื้อหาไม่สำเร็จ`}
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setRetryNonce((n) => n + 1)} style={{ marginInlineStart: 8 }}>
+            ค้นอีกครั้ง
+          </button>
+        </div>
+      ) : null}
 
       {groups.length === 0 && (
         <div className="vmx-empty">ไม่พบหัวข้อที่ตรงกับ “{q}”</div>

@@ -144,6 +144,12 @@ export default function NextActionCard({
     }
 
     if (pendingResume) return out.slice(0, 1);
+    // A brand-new student is invited by the hero to try one question in 20
+    // seconds. The plan below then offered a 12-question, 24-minute session as
+    // the prominent button, so the two surfaces described very different first
+    // steps. With no history there is nothing to plan from anyway: honour the
+    // small first step the hero promised.
+    if (!history?.length) return out.slice(0, 1);
     const weak = Object.entries(accBySubject || {}).filter(([, a]) => a.total >= 5)
       .sort((a, b) => a[1].correct / a[1].total - b[1].correct / b[1].total)[0];
     const plan = buildDailyPlan({ minutes, due: cardStats?.due, wrong: quickStats?.wrongCount,

@@ -278,7 +278,7 @@ function usePlaylistPreview(playlistId) {
 // VideoView — main page (grid of subject cards / playlist tiles)
 // ============================================================
 
-export default function VideoView({ goHome, initialSubject = null }) {
+export default function VideoView({ goHome, initialSubject = null, selectedYear = null }) {
   const initialFilter = initialSubject && VIDEO_LIBRARY.some((video) => video.subject === initialSubject)
     ? initialSubject
     : 'all';
@@ -309,6 +309,14 @@ export default function VideoView({ goHome, initialSubject = null }) {
 
   const save = () => {
     if (!form.url.trim() || !form.topic.trim()) { alertDialog('กรุณากรอก URL และหัวข้อ'); return; }
+    // The form already warned that the link was not a YouTube URL, then saved
+    // it anyway — so the list grew a card that can never play. Accept all three
+    // shapes the player supports; allowing only a video id would reject the
+    // playlist and channel entries the library itself is built from.
+    if (!getVideoId(form.url) && !getPlaylistId(form.url) && !isChannelUrl(form.url)) {
+      alertDialog('ลิงก์นี้เปิดดูไม่ได้ กรุณาวางลิงก์คลิป playlist หรือ channel ของ YouTube');
+      return;
+    }
     const newVid = { ...form, custom: true };
     if (editingIdx !== null) {
       const arr = [...customVideos]; arr[editingIdx] = newVid; setCustomVideos(arr);
@@ -361,9 +369,17 @@ export default function VideoView({ goHome, initialSubject = null }) {
           const sem2 = yearSubjects.filter((s) => s.semester === 2);
           const sem0 = yearSubjects.filter((s) => !s.semester);
 
-          if (sem1.length) groups.push({ key: `${year.id}-1`, label: `${year.label}, เทอม 1`, subjects: sem1 });
-          if (sem2.length) groups.push({ key: `${year.id}-2`, label: `${year.label}, เทอม 2`, subjects: sem2 });
-          if (sem0.length) groups.push({ key: `${year.id}-block`, label: `${year.label}, บล็อก`, subjects: sem0 });
+          if (sem1.length) groups.push({ key: `${year.id}-1`, year: year.id, label: `${year.label}, เทอม 1`, subjects: sem1 });
+          if (sem2.length) groups.push({ key: `${year.id}-2`, year: year.id, label: `${year.label}, เทอม 2`, subjects: sem2 });
+          if (sem0.length) groups.push({ key: `${year.id}-block`, year: year.id, label: `${year.label}, บล็อก`, subjects: sem0 });
+        }
+
+        // The student's own year first. Every year stays listed — a Y5 student
+        // still wants the Y4 clips — but the page used to open on year 4 term 1
+        // even when the header said year 5, so the section they came for was
+        // several screens down on a phone.
+        if (selectedYear) {
+          groups.sort((a, b) => (a.year === selectedYear ? 0 : 1) - (b.year === selectedYear ? 0 : 1));
         }
 
         return (

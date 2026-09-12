@@ -257,6 +257,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     const days = new Set();
     let todayCount = 0;
     const wrongFreq = new Map();
+    // Latest verdict per question, so "ข้อที่ตอบผิด" means still wrong rather
+    // than ever wrong. Same rule as lib/wrong-pool.js, which the exam pool and
+    // the weak list use; when these disagreed, the chip promised one number
+    // and the button handed over a different set.
+    const latestVerdict = new Map();
     // Year scoping — Palm directive 2026-05-19 data-layer audit round 3.
     //   • streak  → CROSS-YEAR (habit counter, intentional, all years count)
     //   • todayCount → year-scoped (only counts current-year Qs · so user
@@ -282,9 +287,13 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       // todayCount is year-scoped per the rule above.
       if (dayKey === todayKey && inYear(h)) todayCount++;
       // Wrong tally is year-scoped to match the year-filtered pool.
-      if (h.correct === false && inYear(h)) {
+      if (inYear(h) && h.questionId != null) {
         const compoundId = (h.subject || '?') + ':' + h.questionId;
-        wrongFreq.set(compoundId, (wrongFreq.get(compoundId) || 0) + 1);
+        // Track the latest verdict so a question since answered correctly
+        // leaves the chip, exactly as it now leaves the pool the chip starts.
+        // Counting stays on misses only, for most-missed-first ordering.
+        latestVerdict.set(compoundId, h.correct === false);
+        if (h.correct === false) wrongFreq.set(compoundId, (wrongFreq.get(compoundId) || 0) + 1);
       }
     }
     // The saved streak is the authority, because it is the only one that
@@ -303,6 +312,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     }
     if (streakData?.lastDate) streak = streakData.streak || 0;
     const wrongIds = [...wrongFreq.entries()]
+      .filter(([k]) => latestVerdict.get(k) === true)
       .sort((a, b) => b[1] - a[1])
       .map(([k]) => k);
     return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
@@ -1445,7 +1455,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             }}>
               <div className="icon"><NavIcon name="exam" size={20} /></div>
               <div className="title">จำลองสนามสอบ</div>
-              <div className="sub">50 ข้อ × 60 วิ, จับเวลาเหมือนสนามจริง</div>
+              {/* Not "เหมือนสนามจริง": the clock is a per-question budget that
+                  refills when you navigate back, so it is a timed drill rather
+                  than a room where time runs out once. */}
+              <div className="sub">50 ข้อ, จับเวลา 60 วิ ต่อข้อ</div>
             </button>
 
             <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>

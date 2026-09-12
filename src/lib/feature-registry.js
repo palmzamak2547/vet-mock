@@ -73,8 +73,15 @@ export const FEATURES = [
   {
     id: 'exam-mode', category: 'practice', primary: true,
     label: 'โหมดสอบ', labelEn: 'Exam Mode', icon: '🎓',
-    hint: '50 ข้อ × 60 วิ จับเวลาเหมือนสนามจริง',
-    kw: 'exam mode สอบ จับเวลา timed mock จำลอง สนามจริง',
+    // "เหมือนสนามจริง" promised a room where the clock runs once. It does not:
+    // the timer is a budget PER QUESTION, and moving back or jumping refills
+    // that question's budget, so time is not a fixed resource the way it is in
+    // an exam hall. The mode is a useful timed drill — so it says that, rather
+    // than claiming a simulation it does not implement. Making the clock a
+    // single non-refillable session budget is a live-engine change with a
+    // mid-exam blast radius and is left as an owner decision.
+    hint: '50 ข้อ จับเวลา 60 วิ ต่อข้อ',
+    kw: 'exam mode สอบ จับเวลา timed mock ข้อละ 60 วิ',
     hideOnScaffold: true,
     invoke: { kind: 'practice', mode: 'exam', subject: 'all', practiceMode: 'all', numQuestions: 50, useTimer: true, timePerQ: 60 },
   },

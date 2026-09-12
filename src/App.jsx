@@ -7,11 +7,16 @@ import { flushSync } from 'react-dom';
 // after first paint) and gates exam-start paths on the populated QB.
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded } from './data/questions.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject, semesterForSubject } from './data/curriculum.js';
+import { stillWrong } from './lib/wrong-pool.js';
 
 // Which semester each exam phase belongs to. Mid vs final inside one semester
 // cannot be scoped from ordinary question data, so the phase narrows the pool
 // to its term and no further.
 const PHASE_SEMESTER = { '1-mid': 1, '1-final': 1, '2-mid': 2, '2-final': 2 };
+
+// A tag only counts as weak below this accuracy — the same line the accuracy
+// chart on the dashboard already draws.
+const WEAK_TAG_MAX_PCT = 70;
 import { useLocalStorage } from './hooks/useStorage.js';
 import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
 import { useAuth } from './hooks/useAuth.js';
@@ -346,6 +351,7 @@ function buildExamPool({
   questionCategory,
   selectedYear,
   selectedPhase = null,
+  excludeIds = null,
   bookmarks = [],
   weakQuestions = [],
   history = [],
@@ -363,14 +369,9 @@ function buildExamPool({
     pool = deliverableQuestions.filter((q) => weakQuestions.includes(q.id)
       && (q.year == null || !selectedYear || q.year === selectedYear));
   } else if (practiceMode === 'wrong') {
-    const wrongSet = new Set();
-    const wrongCount = new Map();
-    for (const item of history) {
-      if (item?.correct !== false) continue;
-      const key = `${item.subject || ''}:${item.questionId}`;
-      wrongSet.add(key);
-      wrongCount.set(key, (wrongCount.get(key) || 0) + 1);
-    }
+    // Still wrong, not ever wrong: see lib/wrong-pool.js. A question answered
+    // wrong once and then correctly ten times used to stay here permanently.
+    const { keys: wrongSet, counts: wrongCount } = stillWrong(history);
     // Year-scoped, like 'weak' directly above. The home chip counts this
     // year's wrong answers, so serving every year's meant the button said
     // one number and handed over a different set — the same divergence the
@@ -450,6 +451,12 @@ function buildExamPool({
 
   if (questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');
   else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
+
+  // Applied last so it holds for every mode. Compound keys, because ids
+  // collide across subjects.
+  if (excludeIds && excludeIds.size) {
+    pool = pool.filter((q) => !excludeIds.has(`${q.subject}:${q.id}`));
+  }
 
   return pool;
 }
@@ -838,9 +845,16 @@ export default function App() {
       try {
         const quality = Number(e?.detail?.quality);
         const safeQ = Number.isFinite(quality) ? Math.max(0, Math.min(3, quality)) : 0;
-        if (safeQ < 1) return; // "Again" (0) — no XP, no quest credit
-        awardXp(XP_AWARDS.srGrade, 'sr');
+        // Grading a card is the work, whatever the answer. "Again" used to be
+        // dropped before the quest event, so a "ทบทวน N การ์ด" quest ignored
+        // every card the student honestly admitted they had forgotten — the
+        // reviews that matter most. Credit the review; keep XP behind the
+        // guard so the reward still tracks recall rather than clicking.
+        // Farming is blocked upstream: relearn copies do not dispatch, and the
+        // same index cannot be graded twice.
         recordQuestEvent('sr-graded', { quality: safeQ });
+        if (safeQ < 1) return; // "Again" (0) — no XP
+        awardXp(XP_AWARDS.srGrade, 'sr');
       } catch {}
     };
     window.addEventListener('vmx-sr-card-graded', handler);
@@ -1709,11 +1723,25 @@ export default function App() {
       if (h.correct) questionStats[h.questionId].correct++;
       else questionStats[h.questionId].wrong++;
     });
+    // "หัวข้อที่อ่อน" has to mean weak. Every tag with 2+ attempts used to
+    // qualify, sorted by accuracy, so a topic answered 100% correctly appeared
+    // under that heading whenever the student had few weak topics. 70% is the
+    // threshold the dashboard's own accuracy chart already draws.
     const weakTags = Object.entries(byTag).filter(([_, s]) => s.total >= 2)
       .map(([tag, s]) => ({ tag, pct: Math.round((s.correct / s.total) * 100), total: s.total }))
+      .filter((t) => t.pct < WEAK_TAG_MAX_PCT)
       .sort((a, b) => a.pct - b.pct).slice(0, 8);
+    // Same rule as the 'wrong' pool: a question the student has since got
+    // right is not a weak question any more. questionStats is keyed by bare id
+    // (that is what history rows carry), so reduce the compound keys to ids.
+    const stillWrongIds = new Set();
+    for (const key of stillWrong(history).keys) {
+      const id = Number(key.slice(key.indexOf(':') + 1));
+      if (Number.isFinite(id)) stillWrongIds.add(id);
+    }
     const weakQuestions = Object.entries(questionStats).filter(([_, s]) => s.wrong >= 1)
-      .sort((a, b) => b[1].wrong - a[1].wrong).slice(0, WEAK_POOL_CAP).map(([id]) => parseInt(id));
+      .sort((a, b) => b[1].wrong - a[1].wrong).map(([id]) => parseInt(id))
+      .filter((id) => stillWrongIds.has(id)).slice(0, WEAK_POOL_CAP);
     const overallPct = totalScored ? Math.round((totalCorrect / totalScored) * 100) : 0;
     return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, totalScored, overallPct };
   }, [history, allQuestions]);
@@ -1811,9 +1839,31 @@ export default function App() {
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       history,
+      // "ต่ออีก 5 ข้อ" asks for MORE questions, so the ones just answered are
+      // excluded. Without this a topic holding a single question re-served
+      // that same question, five times over.
+      excludeIds: overrides.excludeIds,
     });
 
     if (!pool.length) {
+      // An exclusion emptied it: the student has answered everything there is
+      // here, which is a different fact from "there are no questions". Loading
+      // more banks cannot change it, so say so before the retry path runs.
+      if (overrides.excludeIds?.size) {
+        const again = await confirmDialog({
+          title: 'ทำครบทุกข้อของส่วนนี้แล้ว',
+          body: _topic
+            ? 'ไม่มีข้อใหม่ในหัวข้อนี้อีกแล้ว จะทำข้อเดิมซ้ำอีกครั้งไหม'
+            : 'ไม่มีข้อใหม่ในส่วนนี้อีกแล้ว จะทำข้อเดิมซ้ำอีกครั้งไหม',
+          confirmLabel: 'ทำซ้ำ',
+          cancelLabel: 'ไว้ก่อน',
+        });
+        if (again) {
+          const { excludeIds: _drop, ...rest } = overrides;
+          return startExam(rest);
+        }
+        return;
+      }
       // Year-switch race: QB may already hold ANOTHER year's banks (so the
       // top-of-function "QB completely empty" guard was skipped), while the
       // picked subject's year-banks haven't merged in yet → the filtered
@@ -2688,7 +2738,7 @@ export default function App() {
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
-              {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} />}
+              {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} selectedYear={selectedYear} />}
               {view === 'privacy' && <PrivacyView {...{ goHome, setView, consent, analyticsAllowed }} onConsent={(choice, prefs) => { setConsent(choice); if (prefs) setConsentPrefs(prefs); }} />}
               {view === 'about' && <AboutView {...{ goHome, setView, onOpenTour: openTour }} />}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}

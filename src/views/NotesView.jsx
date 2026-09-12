@@ -22,6 +22,29 @@ import BackBar from '../components/BackBar.jsx';
 import ImageAnnotator from '../components/ImageAnnotator.jsx';
 import TemplateLibrary from '../components/TemplateLibrary.jsx';
 import { saveNoteRetryTarget } from '../lib/note-retry.js';
+import { recordQuestEvent } from '../lib/quests.js';
+
+// One topic can only count once a day towards the reading quests, so
+// re-opening the same page cannot tick the counter three times.
+const READ_LOG_LS = 'vmx-notes-read-day';
+const DWELL_MS = 10_000;
+
+function markTopicReadOnce(subject, topic) {
+  const key = `${subject}:${topic}`;
+  const day = new Date().toISOString().slice(0, 10);
+  try {
+    const raw = localStorage.getItem(READ_LOG_LS);
+    const saved = raw ? JSON.parse(raw) : null;
+    const log = saved && saved.day === day ? saved : { day, topics: [] };
+    if (log.topics.includes(key)) return false;
+    log.topics.push(key);
+    localStorage.setItem(READ_LOG_LS, JSON.stringify(log));
+    return true;
+  } catch {
+    // Storage disabled: crediting the read is better than never crediting it.
+    return true;
+  }
+}
 
 // ============================================================
 // NotesView — ทวนเนื้อหา (study notes per topic)
@@ -176,6 +199,23 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     if (mainRef.current) mainRef.current.scrollTop = 0;
     setSearch('');
   }, [validTopic, subject]);
+
+  // Credit the reading quests. The quest templates and their matcher existed,
+  // but nothing in the app ever emitted 'notes-read', so "อ่าน 3 หัวข้อ" had a
+  // target that could not be reached however much the student read.
+  //
+  // The dwell timer is the point: clicking down a topic list is not reading,
+  // so the topic has to stay open. Dedup is per topic per day, in storage, so
+  // reloading the page cannot farm it.
+  useEffect(() => {
+    if (!validTopic || notesState.status !== 'ready') return undefined;
+    const t = setTimeout(() => {
+      if (markTopicReadOnce(subject, validTopic)) {
+        recordQuestEvent('notes-read', { subject, topic: validTopic });
+      }
+    }, DWELL_MS);
+    return () => clearTimeout(t);
+  }, [validTopic, subject, notesState.status]);
 
   const topicSections = topic?.sections || EMPTY_SECTIONS;
   // Filter sections by search. Each section's haystack is cached in

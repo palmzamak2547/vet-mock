@@ -640,7 +640,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
           <div className="vmx-dash-grid">
             <div className="vmx-dash-card">
-              <h2>เรียนไปแล้วกี่ % รายวิชา</h2>
+              {/* Says what it measures. "เรียนไปแล้ว" read as reading or
+                  understanding, but this counts distinct questions attempted —
+                  right or wrong — while reading progress is recorded by the
+                  checklist on another screen entirely. */}
+              <h2>ทำข้อสอบไปแล้วกี่ % รายวิชา</h2>
               {coverageRows.length === 0 ? (
                 <div className="vmx-empty" style={{ padding: 20 }}>ยังไม่ได้เริ่มทำข้อสอบ — กด "เริ่มฝึก" ชุดแรกแล้วความคืบหน้าของแต่ละวิชาจะขึ้นที่นี่</div>
               ) : (

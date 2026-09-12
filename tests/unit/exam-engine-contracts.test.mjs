@@ -50,9 +50,12 @@ test('a curated set is picked in order; ordinary practice still shuffles', () =>
   assert.doesNotMatch(fn, /let picked = shuffle\(pool\)\.slice/, 'the unconditional shuffle is back');
 });
 
-test("the 'wrong' pool is sorted most-missed-first", () => {
+test("the 'wrong' pool means still wrong, sorted most-missed-first", () => {
   const branch = between("} else if (practiceMode === 'wrong') {", '  } else {\n    pool = subject === \'all\'');
-  assert.match(branch, /const wrongCount = new Map\(\);/);
+  // Membership now comes from the shared definition (lib/wrong-pool.js) so the
+  // pool, the home chip and the weak list cannot drift apart. The counts it
+  // returns still drive the ordering both surfaces promise.
+  assert.match(branch, /stillWrong\(history\)/, 'membership must use the shared rule');
   assert.match(branch, /pool\.sort\(\(a, b\) => \(wrongCount\.get\(`\$\{b\.subject\}:\$\{b\.id\}`\) \|\| 0\)/);
 });
 

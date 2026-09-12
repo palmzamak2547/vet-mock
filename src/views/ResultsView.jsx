@@ -1,4 +1,9 @@
 import { clearCompletedExam } from '../lib/exam-recovery.js';
+// The app's own practice mark, not any course's passing grade. It is named and
+// shown next to the verdict because "ผ่านเกณฑ์" on its own reads as a faculty
+// threshold, and this number applies across every subject and format the
+// engine can auto-grade.
+export const PRACTICE_PASS_PCT = 60;
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { isCorrect, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
@@ -281,7 +286,7 @@ export default function ResultsView({
           : 'ยังไม่ได้เขียนคำตอบ ลองเริ่มจากชุดสั้นก่อน')
     : score.pct === 100 ? 'ถูกทุกข้อ รักษาความแม่นด้วยการทบทวนตามรอบ'
     : score.pct >= 80 ? 'แม่นดีมาก ลองเพิ่มจำนวนข้อหรือเปิดจับเวลา'
-    : score.pct >= 60 ? 'ผ่านเกณฑ์แล้ว ทบทวนข้อที่ผิดเพื่อปิดจุดอ่อน'
+    : score.pct >= PRACTICE_PASS_PCT ? 'ถึงเกณฑ์ซ้อมของแอปแล้ว ทบทวนข้อที่ผิดเพื่อปิดจุดอ่อน'
     : score.pct >= 40 ? 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิดในรอบนี้'
     : 'กลับไปทบทวนหัวข้อนี้ แล้วลองชุดสั้นอีกครั้ง';
 
@@ -289,7 +294,10 @@ export default function ResultsView({
   // pass/fail only meaningful for auto-graded sessions; pure-writing
   // mocks (autoQs.length === 0) get neither banner since the engine
   // can't actually compute pass/fail without manual grading
-  const passed = autoQs.length > 0 && score.pct >= 60;
+  // Exact counts, not the rounded percentage: 59.5% rounds to 60 and would
+  // otherwise read as having reached the mark.
+  const passed = autoQs.length > 0 && score.total > 0
+    && score.correct / score.total >= PRACTICE_PASS_PCT / 100;
   // A strong result over a real set earns a one-shot confetti burst behind
   // the score. Three questions is the floor so 1/1 does not throw a party.
   // Both gates use the exact counts, not the rounded pct: 199/200 rounds to
@@ -329,7 +337,7 @@ export default function ResultsView({
       )}
       {showPassFail && (
         <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'var(--vmx-mono)', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
-          {passed ? 'ผ่านเกณฑ์' : 'ยังไม่ผ่านเกณฑ์'}, โหมดสอบ
+          {passed ? `ถึงเกณฑ์ซ้อมของแอป (${PRACTICE_PASS_PCT}%)` : `ยังไม่ถึงเกณฑ์ซ้อมของแอป (${PRACTICE_PASS_PCT}%)`}, โหมดสอบ
         </div>
       )}
       {isExam && autoQs.length === 0 && writingQs.length > 0 && (
@@ -562,6 +570,11 @@ function NextPlayPanel({
       questionCategory: 'all',
       numQuestions: n,
       useTimer: false,
+      // "ต่ออีก" means more, not again. A topic can hold fewer questions than
+      // the button offers — one, in the case of com1:left-sided-heart-failure
+      // — and without this the set was padded out with the questions the
+      // student had just finished answering.
+      excludeIds: new Set((questions || []).map((q) => `${q.subject}:${q.id}`)),
     });
   };
 

@@ -55,9 +55,15 @@ export async function searchTopics(query) {
     return topics.map((topic) => ({ topic, matchedSections: [], inTitle: false }));
   }
 
+  // One subject chunk failing must not fail the search. Promise.all rejected
+  // the whole thing, and the caller's catch then quietly fell back to
+  // title-and-summary matches — so an incomplete search was presented as a
+  // complete one that simply found less. The failures are counted instead, and
+  // reported to the caller so it can say the search was partial.
+  let failed = 0;
   const indexed = await Promise.all(topics.map(async (topic) => ({
     topic,
-    index: await indexTopic(topic),
+    index: await indexTopic(topic).catch(() => { failed += 1; return null; }),
   })));
   const results = [];
   for (const { topic, index } of indexed) {
@@ -73,5 +79,9 @@ export async function searchTopics(query) {
   }
   results.sort((a, b) => (Number(b.inTitle) - Number(a.inTitle))
     || (b.matchedSections.length - a.matchedSections.length));
+  // Non-enumerable so the array still deep-equals a plain array: a test
+  // asserting `deepEqual(await searchTopics(...), [])` must keep passing, and
+  // callers that ignore this are unaffected.
+  Object.defineProperty(results, 'incompleteSubjects', { value: failed });
   return results;
 }

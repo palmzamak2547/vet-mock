@@ -136,7 +136,7 @@ const QUEST_POOL = [
   },
   {
     id: 'read-1-topic',
-    label: 'อ่าน {N} หัวข้อใน NotesView',
+    label: 'อ่าน {N} หัวข้อในสรุปบทเรียน',
     icon: '📖',
     target: 1,
     xp: 10,
@@ -144,7 +144,7 @@ const QUEST_POOL = [
   },
   {
     id: 'read-3-topics',
-    label: 'อ่าน {N} หัวข้อใน NotesView',
+    label: 'อ่าน {N} หัวข้อในสรุปบทเรียน',
     icon: '📚',
     target: 3,
     xp: 18,

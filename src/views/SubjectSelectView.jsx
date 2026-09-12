@@ -247,7 +247,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 if (qbLoading || !cov || cov.covered === 0 || cov.total === 0 || isEmpty) return null;
                 return (
                   <div
-                    title={`เรียนไปแล้ว ${cov.covered}/${cov.total} ข้อ (${cov.pct}%)`}
+                    title={`ทำข้อสอบไปแล้ว ${cov.covered}/${cov.total} ข้อ (${cov.pct}%)`}
                     style={{ marginTop: 6, height: 4, borderRadius: 999, background: 'var(--clr-surface-2)', overflow: 'hidden' }}
                   >
                     <div style={{

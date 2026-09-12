@@ -117,8 +117,13 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     const due = getDueCards(pool);
     return {
       duePool: due,
-      dueReviewedCount: due.filter((c) => c.totalReviews > 0).length,
-      newCount: due.filter((c) => c.totalReviews === 0).length,
+      // An auto-promoted card is not new: the app promoted it because the
+      // student already met that question and missed it twice. sm2.js counts
+      // it as due for exactly that reason, so counting it as new here made
+      // Home say "ทบทวน 1" while this screen said 0 due and 1 new — the same
+      // card, described two ways, one screen apart.
+      dueReviewedCount: due.filter((c) => c.totalReviews > 0 || c.autoPromoted).length,
+      newCount: due.filter((c) => c.totalReviews === 0 && !c.autoPromoted).length,
       excludedCount: inSubject.length - eligible.length,
       eligibleCount: eligible.length,
     };

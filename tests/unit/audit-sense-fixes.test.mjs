@@ -10,6 +10,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { semesterForSubject, SUBJECTS_BY_YEAR } from '../../src/data/curriculum.js';
+import { stillWrong } from '../../src/lib/wrong-pool.js';
 
 const src = (p) => readFileSync(new URL('../../' + p, import.meta.url), 'utf8');
 const APP = src('src/App.jsx');
@@ -84,6 +85,52 @@ test('the config count and the exam pool are computed by the same builder', () =
   const count = APP.slice(APP.indexOf('const configAvailableCount'), APP.indexOf('// startExam accepts'));
   assert.ok(count.includes('buildExamPool({'), 'the count must come from buildExamPool');
   assert.ok(count.includes('selectedPhase'), 'and must be given the phase');
+});
+
+test('a question answered wrong then right is no longer wrong', () => {
+  // Chronological, oldest first — the shape App stores.
+  const { keys, counts } = stillWrong([
+    { subject: 'com4', questionId: 1, correct: false },
+    { subject: 'com4', questionId: 1, correct: true },   // learnt it
+    { subject: 'com4', questionId: 2, correct: true },
+    { subject: 'com4', questionId: 2, correct: false },   // lost it again
+    { subject: 'com3', questionId: 3, correct: false },
+    { subject: 'com3', questionId: 3, correct: false },
+  ]);
+  assert.ok(!keys.has('com4:1'), 'answered correctly since, so not still wrong');
+  assert.ok(keys.has('com4:2'), 'the latest attempt was wrong');
+  assert.ok(keys.has('com3:3'));
+  assert.equal(keys.size, 2);
+  // Ordering still ranks by how often it was ever missed.
+  assert.equal(counts.get('com3:3'), 2);
+  assert.equal(counts.get('com4:2'), 1);
+});
+
+test('the same id in two subjects is tracked separately', () => {
+  // Q ids collide across subjects (com4/engprof, com3/exotic), which is why
+  // the key is compound; a bare id would leak one subject's verdict into
+  // another's pool.
+  const { keys } = stillWrong([
+    { subject: 'com4', questionId: 7, correct: false },
+    { subject: 'exotic', questionId: 7, correct: true },
+  ]);
+  assert.ok(keys.has('com4:7'));
+  assert.ok(!keys.has('exotic:7'));
+});
+
+test('every surface that shows "wrong" uses the one definition', () => {
+  assert.ok(APP.includes("from './lib/wrong-pool.js'"), 'the pool must import the shared rule');
+  assert.ok(APP.includes('stillWrong(history).keys'), 'the weak list must use it too');
+  const home = src('src/views/HomeView.jsx');
+  assert.ok(home.includes('latestVerdict'), 'the home chip must follow the latest verdict');
+  assert.ok(home.includes('.filter(([k]) => latestVerdict.get(k) === true)'),
+    'a question since answered correctly must leave the chip as well as the pool');
+});
+
+test('the weak-topic list only contains topics that are actually weak', () => {
+  assert.ok(APP.includes('const WEAK_TAG_MAX_PCT = 70'), 'the threshold must be named');
+  assert.ok(APP.includes('.filter((t) => t.pct < WEAK_TAG_MAX_PCT)'),
+    'every tag with two attempts used to qualify, so a 100%-correct topic appeared as weak');
 });
 
 test('the shelf says a group is capped instead of rendering nothing', () => {
