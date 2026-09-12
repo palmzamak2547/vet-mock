@@ -547,7 +547,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
 }
 
 // ================= SHELL =================
-export default function KnowledgeView({ subject, topic, setView, setSubject, setTopic, goHome, startExam }) {
+export default function KnowledgeView({ subject, topic, openNonce = 0, setView, setSubject, setTopic, goHome, startExam }) {
   const topics = useMemo(() => listTopics(), []);
   // Opening VetWiki from the app lands on the index (a reference opens at its
   // contents); a direct subject+topic entry (e.g. from a note page) opens the
@@ -607,9 +607,12 @@ export default function KnowledgeView({ subject, topic, setView, setSubject, set
   // view and returned early, and the previous article stayed on screen with its
   // old URL and heading.
   //
-  // The dep list is deliberately only [subject, topic]: adding openId or topics
-  // would make leaving an article (backToIndex, which does not write App state)
-  // immediately bounce back into it.
+  // The dep list is deliberately [subject, topic, openNonce] and NOT openId or
+  // topics: adding those would make leaving an article (backToIndex, which does
+  // not write App state) immediately bounce back into it. openNonce is what
+  // makes asking for the SAME article twice work — App still holds the article
+  // the student just left, so setting subject/topic to those values changes
+  // nothing and React bails out before this effect would ever run.
   useEffect(() => {
     const id = subject && topic ? `${subject}--${topic}` : null;
     if (!id || id === openId) return;
@@ -618,7 +621,7 @@ export default function KnowledgeView({ subject, topic, setView, setSubject, set
     syncUrl(id);
     window.scrollTo({ top: 0, behavior: 'auto' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subject, topic]);
+  }, [subject, topic, openNonce]);
 
   // Normalise the URL on first paint (e.g. entering from the app's feature
   // button, which arrives at "/"), and follow Back/Forward. Topic buttons

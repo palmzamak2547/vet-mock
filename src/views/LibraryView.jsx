@@ -761,8 +761,13 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                             )}
                             {shown.length < sg.docs.length && (
                               <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 10 }}>
+                                {/* Do not blame open years. One year is open by
+                                    default and a single year's shelf already
+                                    passes the card budget on its own, so the
+                                    old wording told a student with nothing else
+                                    open to go and close it. */}
                                 {shown.length === 0
-                                  ? `ยังไม่ได้แสดง ${sg.docs.length} ไฟล์ของวิชานี้ เพราะเปิดหลายชั้นปีพร้อมกัน ปิดชั้นปีอื่นหรือใช้ช่องค้นหาเพื่อดู`
+                                  ? `ยังไม่ได้แสดง ${sg.docs.length} ไฟล์ของวิชานี้ ใช้ช่องค้นหาเพื่อเปิดดูได้เลย`
                                   : `แสดง ${shown.length} จาก ${sg.docs.length} — ใช้ช่องค้นหาเพื่อดูที่เหลือ`}
                               </p>
                             )}

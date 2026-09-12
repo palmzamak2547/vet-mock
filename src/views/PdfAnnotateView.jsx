@@ -30,7 +30,7 @@ import BackBar from '../components/BackBar.jsx';
 import MotionLoader from '../components/MotionLoader.jsx';
 import { MotionEnter } from '../components/MotionFeedback.jsx';
 import { thaiError } from '../lib/errors.js';
-import { confirmDialog } from '../lib/dialog.js';
+import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import PdfPage from '../components/PdfPage.jsx';
@@ -1297,8 +1297,13 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           const wasOptions = optionsOpen;
           setOptionsOpen(false);
           setMenuOpen(false);
+          // The eraser has no swatch — its options panel is opened by tapping
+          // the eraser button a second time, so that button is its trigger.
+          // Querying only the swatch dropped focus to BODY for exactly the one
+          // panel this branch was added to fix.
           const trigger = wasOptions
-            ? document.querySelector('.vmx-pdf-swatch')
+            ? (document.querySelector('.vmx-pdf-swatch')
+              || document.querySelector('button[aria-label^="ยางลบ"]'))
             : document.querySelector('button[aria-label="เครื่องมืออื่น"]');
           trigger?.focus();
         } else {
@@ -1693,8 +1698,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // the web. Send them to the shelf, where one tap reopens it with the ink
     // still attached to the same hash.
     if (entry.slug && onOpenLibrary) {
-      try { sessionStorage.setItem('vmx-library-q', entry.fileName || ''); } catch { /* storage disabled */ }
-      showToast(`"${entry.fileName}" เป็นเอกสารจากคลัง เปิดจากคลังเพื่อเขียนต่อ`, 4000);
+      // Search the shelf by TITLE. The recent list stores "<title>.pdf" as the
+      // file name, and the shelf index is built from title, description,
+      // subject and topics — never the extension — so every term had to match
+      // and ".pdf" matched nothing: the student arrived at an empty shelf with
+      // the "เปิดล่าสุด" row hidden because a search was active.
+      const title = (entry.fileName || '').replace(/\.pdf$/i, '');
+      try { sessionStorage.setItem('vmx-library-q', title); } catch { /* storage disabled */ }
+      // alertDialog, not the local toast: onOpenLibrary unmounts this view in
+      // the same batch, so a toast rendered by this component never painted
+      // and the student was thrown to the shelf with no explanation at all.
+      alertDialog(`"${title}" เป็นเอกสารจากคลัง เปิดจากคลังเพื่อเขียนต่อได้เลย ลายเส้นเดิมยังอยู่`);
       onOpenLibrary();
       return;
     }

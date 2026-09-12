@@ -401,10 +401,18 @@ function buildExamPool({
     // specific chosen subject is left alone: the student named it.
     const phaseSemester = PHASE_SEMESTER[selectedPhase];
     if (phaseSemester && subject === 'all') {
-      pool = pool.filter((q) => {
+      const scoped = pool.filter((q) => {
         const sem = semesterForSubject(q.subject);
         return sem == null || sem === 0 || sem === phaseSemester;
       });
+      // The phase narrows the pool; it must never empty it. Years 1 and 3
+      // have no term-1 banks at all (every subject that carries questions
+      // there is semester 2), and the year card still advertises 298 and 62
+      // questions — so filtering unconditionally handed a student who tapped
+      // ปี 1 in September, when the phase defaults to เทอม 1, a year that
+      // promised questions and then had none. Where there is nothing in scope,
+      // the whole year is better than an empty screen.
+      if (scoped.length) pool = scoped;
     }
 
     if (topic) {
@@ -2275,9 +2283,17 @@ export default function App() {
   // Push the article path before the large lazy KnowledgeView chunk mounts.
   // Besides making the link immediately shareable, this keeps history as one
   // atomic entry instead of relying on a later effect to rewrite `/`.
+  const [wikiOpenNonce, setWikiOpenNonce] = useState(0);
   const openWiki = (subj, top, sectionId) => {
     setSubject(subj);
     setTopic(top);
+    // Bump a counter as well as the values. The reader moves between the index
+    // and its articles without writing App state, so after leaving an article
+    // App still holds that article's subject/topic — asking for the same one
+    // again set state to what it already was, React bailed out, and the
+    // follow-the-props effect never fired: the student picked Rabies from the
+    // palette and stayed on the index, with no way to get back in but a reload.
+    setWikiOpenNonce((n) => n + 1);
     setView('knowledge', { path: wikiPath(subj, top, sectionId) });
   };
 
@@ -2417,7 +2433,13 @@ export default function App() {
   // onto a whole exam set.
   const openQuestionById = async (id) => {
     if (!id) return false;
-    const find = () => [...QB, ...customQuestions].find((q) => q.id === id);
+    // Compare as strings. Bank ids are numbers, but the callers are storage
+    // keys: a note is keyed by question id in a localStorage OBJECT, so it
+    // comes back as "900" and never matched the numeric 900 — every note in
+    // the palette missed, downloaded the whole bank looking again, and then
+    // dropped the student in the bookmarks pool. Pins have the same shape.
+    const wanted = String(id);
+    const find = () => [...QB, ...customQuestions].find((q) => String(q.id) === wanted);
     let q = find();
     // A pin can name a question from another year, so load the rest of the
     // bank before concluding it is gone.
@@ -2727,7 +2749,7 @@ export default function App() {
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
-              {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, setView, setSubject, setTopic, goHome, startExam }} />}
+              {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}

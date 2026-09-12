@@ -26,6 +26,11 @@ import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 // is a small but persistent watermark — when shared, friends who see
 // the story can find the app from that handle.
 function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, writingDone, writingTotal }) {
+  // The card must agree with the screen the student shared it from, so it
+  // reads the same exact-count bar rather than the rounded percentage it
+  // prints. At 28/47 the number rounds to 60 while the session did not reach
+  // the bar, and a card captioned "ผ่านครับ" would contradict the banner.
+  const reached = total > 0 && correct / total >= PRACTICE_PASS_PCT / 100;
   const W = 1080, H = 1920;
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
@@ -70,7 +75,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   } else {
     ctx.textAlign = 'center';
     ctx.font = '700 480px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-    const scoreColor = pct >= 80 ? '#4a6b4a' : pct >= 60 ? '#b88940' : '#c26d6d';
+    const scoreColor = pct >= 80 ? '#4a6b4a' : reached ? '#b88940' : '#c26d6d';
     ctx.fillStyle = scoreColor;
     ctx.fillText(`${pct}`, W / 2, 850);
     ctx.font = '500 100px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
@@ -97,7 +102,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   if (isWritingOnly) msg = 'เขียนไปแล้ว, ไปดูเฉลยกันใน VetMock';
   else if (pct === 100) msg = 'เต็มทุกข้อ รักษาระดับนี้ไว้';
   else if (pct >= 80) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
-  else if (pct >= 60) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
+  else if (reached) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
   else if (pct >= 40) msg = 'สู้ๆ, กลับไปทบทวนเนื้อหาอีกรอบ';
   else msg = 'เริ่มใหม่ได้เสมอ';
   ctx.font = '400 44px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
@@ -275,6 +280,15 @@ export default function ResultsView({
     return typeof ua === 'string' && ua.trim().length > 0;
   }).length;
 
+  // One verdict for the whole screen. Exact counts, not the rounded
+  // percentage: 59.5% rounds to 60 and would otherwise read as having reached
+  // the mark. Every place that speaks about the bar reads this — the message,
+  // the banner and the colour of the big number — because when the message
+  // used the rounded value and the banner used the exact one, a 28/47 session
+  // said "ถึงเกณฑ์ซ้อมของแอปแล้ว" and "ยังไม่ถึงเกณฑ์ซ้อมของแอป (60%)" on the
+  // same screen, in green.
+  const reached = score.total > 0 && score.correct / score.total >= PRACTICE_PASS_PCT / 100;
+
   // Pick a message that matches what the user actually did:
   // pure-writing sessions don't have a percentage, so a "low score"
   // pep-talk is misleading. Show a writing-specific message instead.
@@ -286,7 +300,7 @@ export default function ResultsView({
           : 'ยังไม่ได้เขียนคำตอบ ลองเริ่มจากชุดสั้นก่อน')
     : score.pct === 100 ? 'ถูกทุกข้อ รักษาความแม่นด้วยการทบทวนตามรอบ'
     : score.pct >= 80 ? 'แม่นดีมาก ลองเพิ่มจำนวนข้อหรือเปิดจับเวลา'
-    : score.pct >= PRACTICE_PASS_PCT ? 'ถึงเกณฑ์ซ้อมของแอปแล้ว ทบทวนข้อที่ผิดเพื่อปิดจุดอ่อน'
+    : reached ? 'ถึงเกณฑ์ซ้อมของแอปแล้ว ทบทวนข้อที่ผิดเพื่อปิดจุดอ่อน'
     : score.pct >= 40 ? 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิดในรอบนี้'
     : 'กลับไปทบทวนหัวข้อนี้ แล้วลองชุดสั้นอีกครั้ง';
 
@@ -294,10 +308,7 @@ export default function ResultsView({
   // pass/fail only meaningful for auto-graded sessions; pure-writing
   // mocks (autoQs.length === 0) get neither banner since the engine
   // can't actually compute pass/fail without manual grading
-  // Exact counts, not the rounded percentage: 59.5% rounds to 60 and would
-  // otherwise read as having reached the mark.
-  const passed = autoQs.length > 0 && score.total > 0
-    && score.correct / score.total >= PRACTICE_PASS_PCT / 100;
+  const passed = autoQs.length > 0 && reached;
   // A strong result over a real set earns a one-shot confetti burst behind
   // the score. Three questions is the floor so 1/1 does not throw a party.
   // Both gates use the exact counts, not the rounded pct: 199/200 rounds to
@@ -362,7 +373,7 @@ export default function ResultsView({
         <Mochi state={mochiResultPose(score, autoQs.length)} size={84} animate slot="result" className="vmx-result-mochi" />
         {autoQs.length > 0 ? (
           <>
-            <h2 className={`vmx-score-big ${score.pct >= 60 ? 'pass' : 'fail'}`}>
+            <h2 className={`vmx-score-big ${reached ? 'pass' : 'fail'}`}>
               <DigitRoll value={score.pct} /><span style={{ fontSize: '0.4em', fontWeight: 400 }}>%</span>
             </h2>
             <div className="vmx-score-label">คะแนนตรวจอัตโนมัติ</div>

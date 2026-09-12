@@ -43,6 +43,7 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 import { FEATURES, visibleFeatures, FEATURE_FLAGS, rememberViewIntent } from '../lib/feature-registry.js';
 import { listTopics } from '../lib/vetwiki/registry.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { alertDialog } from '../lib/dialog.js';
 import ErrorBoundary from './ErrorBoundary.jsx';
 // Async sources (library shelf, drug DB) + deterministic intent cards —
 // the pieces that turn the palette into the app's AI search surface.
@@ -336,6 +337,11 @@ function runItem(item, handlers) {
       if (id && onOpenQuestion) {
         onOpenQuestion(id).then((opened) => {
           if (opened) return;
+          // Say why. The fallback lands on a set that may not contain the
+          // question — and with nothing on screen, a revised-out question
+          // looked like the app had simply ignored the tap. The pinboard
+          // already explains this; the palette was the surface that did not.
+          alertDialog('ไม่พบข้อนี้ในคลังแล้ว อาจถูกแก้ไขหรือนำออกไป จึงเปิดรายการที่ใกล้เคียงให้แทน');
           if (item.payload?.subject) setSubject?.(item.payload.subject);
           setTopic?.(null);
           setPracticeMode?.(item.type === 'q-note' ? 'bookmarks' : 'all');

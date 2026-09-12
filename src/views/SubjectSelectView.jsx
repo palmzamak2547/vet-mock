@@ -210,11 +210,16 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 setSubject(s.id);
                 setPracticeMode('all');
                 if (setTopic) setTopic(null);
-                // Carry the reading intent one more hop so the topic screen
-                // opens on its reading tab rather than practice-by-topic.
-                if (readingIntent) rememberViewIntent('notes');
                 // ถ้าวิชามี topics → ไป TopicSelectView ก่อน
                 const hasTopics = Array.isArray(s.topics) && s.topics.length > 0;
+                // Carry the reading intent one more hop so the topic screen
+                // opens on its reading tab rather than practice-by-topic — but
+                // only when that screen is where we are going. รวมทุกวิชา has
+                // no topics and goes straight to config, which never takes the
+                // intent, so stashing it there left it in sessionStorage for
+                // the rest of the session and the next subject card the
+                // student tapped opened on the reading tab instead.
+                rememberViewIntent(readingIntent && hasTopics ? 'notes' : undefined);
                 setView(hasTopics ? 'topic-select' : 'config');
               }}
               style={{

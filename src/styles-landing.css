@@ -334,7 +334,7 @@ html.lp-active { background: var(--clr-bg); }
 .lp-cookie-icon { flex: 0 0 auto; }
 .lp-cookie-copy { flex: 1; min-width: 0; }
 .lp-cookie-title {
-  font-family: Fraunces, serif;
+  font-family: var(--vmx-display);
   font-weight: 600;
   font-size: 15px;
   color: var(--clr-ink);

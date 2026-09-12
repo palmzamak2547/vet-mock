@@ -138,8 +138,11 @@ test('the shelf says a group is capped instead of rendering nothing', () => {
   assert.ok(!s.includes('if (budget <= 0) return null;'),
     'returning null made an expanded year silently empty when another year used the budget');
   assert.ok(s.includes('Math.max(0, MAX_BROWSE_CARDS - rendered)'));
-  assert.ok(s.includes('เพราะเปิดหลายชั้นปีพร้อมกัน'),
-    'the starved group must explain itself');
+  assert.ok(s.includes('ใช้ช่องค้นหาเพื่อเปิดดูได้เลย'),
+    'the starved group must explain itself, and point at something that works');
+  assert.ok(!s.includes('เพราะเปิดหลายชั้นปีพร้อมกัน'),
+    'one year is open by default and already exceeds the budget on its own, so '
+    + 'blaming open years told a student with none open to go and close them');
   assert.ok(s.includes('{shown.length > 0 && ('),
     'only the card grid is skipped, so nothing extra is mounted');
 });
@@ -252,8 +255,11 @@ test('"more questions" excludes the ones just answered', () => {
 
 test('an incomplete wiki search is reported as incomplete', () => {
   const search = src('src/lib/vetwiki/runtime-search.js');
-  assert.ok(search.includes('.catch(() => { failed += 1; return null; })'),
+  assert.ok(search.includes('.catch(() => { failedSubjects.add(topic.subject); return null; })'),
     'one failed chunk must not reject the whole search');
+  assert.ok(search.includes('failedSubjects.size'),
+    'indexTopic loads one chunk per SUBJECT and rejects once per article in it, '
+    + 'so counting rejections reported more failed subjects than VetWiki has');
   assert.ok(search.includes("Object.defineProperty(results, 'incompleteSubjects'"),
     'non-enumerable so the array still deep-equals a plain array');
   const view = src('src/views/KnowledgeView.jsx');
@@ -284,4 +290,136 @@ test('a pin that pushes the board over its cap says what it dropped', () => {
   const btn = src('src/components/PinButton.jsx');
   assert.ok(btn.includes('saved.evicted?.length'), 'and surfaced to the student');
   assert.ok(btn.includes('PINBOARD_MAX'), 'the message must use the real cap');
+});
+
+// ── Second pass, 2026-09-13 ─────────────────────────────────────────────────
+// A pre-push review of the first pass found these. Each one is a defect that
+// first pass introduced, so each gets a check that fails if it comes back.
+
+test('the phase scope narrows a year, and never empties one', async () => {
+  // The real data, not a fixture. Years 1 and 3 carry questions only in
+  // subjects the curriculum places in term 2, so a term-1 phase filters every
+  // question in those years away — while the year card still advertises them.
+  // The guard is the `if (scoped.length)`; without it a student who tapped
+  // ปี 1 in September got a year that promised 298 questions and served none.
+  const { Q_VISIBLE_COUNTS_BY_SUBJECT: counts } = await import('../../src/data/q-counts.js');
+  const inScope = (subjects, phaseSemester) => subjects.reduce((n, s) => {
+    const sem = semesterForSubject(s.id);
+    const keep = sem == null || sem === 0 || sem === phaseSemester;
+    return n + (keep ? (counts[s.id] || 0) : 0);
+  }, 0);
+
+  let sawAnEmptyOne = false;
+  for (const [year, subjects] of Object.entries(SUBJECTS_BY_YEAR)) {
+    const total = (subjects || []).reduce((n, s) => n + (counts[s.id] || 0), 0);
+    if (!total) continue;
+    for (const semester of [1, 2]) {
+      const scoped = inScope(subjects || [], semester);
+      if (scoped === 0) sawAnEmptyOne = true;
+      // What the engine actually serves, guard included.
+      const served = scoped || total;
+      assert.ok(served > 0, `year ${year} term ${semester} must serve something`);
+      assert.ok(served <= total, `year ${year} term ${semester} must not invent questions`);
+    }
+  }
+  assert.ok(sawAnEmptyOne,
+    'if no year is empty in either term the guard is untested — check the data, not this test');
+  assert.ok(APP.includes('if (scoped.length) pool = scoped;'),
+    'the phase filter must be applied only when it leaves something behind');
+});
+
+test('the latest attempt wins even when the rows arrive out of order', () => {
+  // A sync merge keeps the remote rows and appends this device's local-only
+  // rows after them whatever their date, so position is not chronology.
+  const later = { subject: 'com3', questionId: 742, correct: true, date: 20000 };
+  const earlier = { subject: 'com3', questionId: 742, correct: false, date: 9000 };
+  const key = 'com3:742';
+
+  assert.ok(!stillWrong([later, earlier]).keys.has(key),
+    'a correct answer from 20:00 must survive a wrong row from 09:00 appended after it');
+  assert.ok(!stillWrong([earlier, later]).keys.has(key), 'and in the other order');
+  assert.ok(stillWrong([{ ...later, correct: false }, { ...earlier, correct: true }]).keys.has(key),
+    'the mirror case must keep a genuinely missed question in the pool');
+
+  // Every past miss still counts, for "most missed first" ordering.
+  assert.equal(stillWrong([earlier, later, { ...earlier, date: 1000 }]).counts.get(key), 2);
+
+  // Undated legacy rows fall back to array order rather than disappearing.
+  const undated = [{ subject: 'com3', questionId: 9, correct: false },
+    { subject: 'com3', questionId: 9, correct: true }];
+  assert.ok(!stillWrong(undated).keys.has('com3:9'));
+  assert.ok(stillWrong([...undated].reverse()).keys.has('com3:9'));
+});
+
+test('the results screen reaches one verdict and every part of it agrees', () => {
+  const s = src('src/views/ResultsView.jsx');
+  // 28/47 = 59.57%, which rounds to 60. The message used the rounded value and
+  // the banner used the exact one, so the same screen said both.
+  assert.ok(Math.round((28 / 47) * 100) === 60 && (28 / 47) < 0.6,
+    'the boundary this guards must still exist');
+  assert.ok(s.includes('const reached = score.total > 0 && score.correct / score.total >= PRACTICE_PASS_PCT / 100;'));
+  assert.ok(s.includes(': reached ?'), 'the message reads it');
+  assert.ok(s.includes('const passed = autoQs.length > 0 && reached;'), 'the banner reads it');
+  assert.ok(s.includes("reached ? 'pass' : 'fail'"), 'the colour of the big number reads it');
+  assert.ok(!s.includes('score.pct >= PRACTICE_PASS_PCT') && !s.includes('score.pct >= 60'),
+    'nothing about the bar may go back to the rounded percentage');
+  // The shared card is a second surface that must not contradict the first.
+  assert.ok(s.includes('const reached = total > 0 && correct / total >= PRACTICE_PASS_PCT / 100;'),
+    'buildScoreCard has the counts, so it can use the same bar');
+  assert.ok(!s.includes('else if (pct >= 60)'),
+    'and must not caption the share card off the rounded value');
+});
+
+test('a stored question id opens the question it names', () => {
+  // Notes and pins are keyed by question id inside a localStorage OBJECT, so
+  // they come back as strings while every bank id is a number. A === compare
+  // matched nothing, downloaded the whole bank to look again, and then sent
+  // the student to the bookmarks pool.
+  assert.ok(APP.includes('const wanted = String(id);'));
+  assert.ok(APP.includes('.find((q) => String(q.id) === wanted)'));
+  assert.ok(!APP.includes('.find((q) => q.id === id)'), 'the strict compare must not come back');
+  const palette = src('src/components/CommandPalette.jsx');
+  assert.ok(palette.includes("alertDialog('ไม่พบข้อนี้ในคลังแล้ว"),
+    'and when it genuinely is gone, say so instead of silently opening a different set');
+});
+
+test('a view intent is only stashed for a screen that takes it', () => {
+  const s = src('src/views/SubjectSelectView.jsx');
+  assert.ok(s.includes("rememberViewIntent(readingIntent && hasTopics ? 'notes' : undefined)"),
+    'config never calls takeViewIntent, so stashing on that branch orphaned the '
+    + 'intent and the next subject card opened on the reading tab');
+  const idx = s.indexOf('const hasTopics =');
+  assert.ok(idx > 0 && idx < s.indexOf('rememberViewIntent(readingIntent'),
+    'hasTopics must be computed before it is used');
+});
+
+test('asking for the same wiki article twice still opens it', () => {
+  // The reader leaves an article without writing App state, so App still holds
+  // it; setting subject/topic to the values they already have changes nothing
+  // and the follow-the-props effect never runs.
+  assert.ok(APP.includes('setWikiOpenNonce((n) => n + 1);'), 'openWiki must signal every request');
+  assert.ok(APP.includes('openNonce: wikiOpenNonce'), 'and pass it down');
+  const view = src('src/views/KnowledgeView.jsx');
+  assert.ok(view.includes('}, [subject, topic, openNonce]);'), 'the effect must follow it');
+});
+
+test('a shelf document reopened from the reader lands on that document', () => {
+  const s = src('src/views/PdfAnnotateView.jsx');
+  assert.ok(s.includes("replace(/\\.pdf$/i, '')"),
+    'the shelf index is built from title/description/subject/topics and never '
+    + 'contains ".pdf", so every term had to match and the last one never could');
+  assert.ok(s.includes('alertDialog(`"${title}" เป็นเอกสารจากคลัง'),
+    'onOpenLibrary unmounts this view in the same batch, so a local toast never painted');
+  assert.ok(s.includes('button[aria-label^="ยางลบ"]'),
+    'the eraser has no swatch, so Escape from its panel had nothing to focus');
+});
+
+test('the display token reaches every heading that asked for it', () => {
+  // Fraunces carries no Thai glyphs, so a literal stack renders Thai in the
+  // platform generic serif. The landing sheet kept one.
+  const landing = src('src/styles-landing.css');
+  assert.ok(!/font-family:\s*Fraunces/.test(landing),
+    'no literal Fraunces stack may remain in the landing stylesheet');
+  assert.ok(src('src/styles.css').includes("--vmx-display: 'Fraunces', 'Sarabun', 'IBM Plex Sans Thai', serif;"),
+    'and the token it defers to must still name the Thai faces');
 });

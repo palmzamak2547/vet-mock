@@ -60,10 +60,14 @@ export async function searchTopics(query) {
   // title-and-summary matches — so an incomplete search was presented as a
   // complete one that simply found less. The failures are counted instead, and
   // reported to the caller so it can say the search was partial.
-  let failed = 0;
+  // Count SUBJECTS, not articles. indexTopic loads one chunk per subject, so a
+  // single failed chunk rejects once for every article in it — counting those
+  // rejections told the student "ค้นไม่ครบ 24 วิชา" when one subject had failed
+  // and VetWiki only has 21 subjects in total.
+  const failedSubjects = new Set();
   const indexed = await Promise.all(topics.map(async (topic) => ({
     topic,
-    index: await indexTopic(topic).catch(() => { failed += 1; return null; }),
+    index: await indexTopic(topic).catch(() => { failedSubjects.add(topic.subject); return null; }),
   })));
   const results = [];
   for (const { topic, index } of indexed) {
@@ -82,6 +86,6 @@ export async function searchTopics(query) {
   // Non-enumerable so the array still deep-equals a plain array: a test
   // asserting `deepEqual(await searchTopics(...), [])` must keep passing, and
   // callers that ignore this are unaffected.
-  Object.defineProperty(results, 'incompleteSubjects', { value: failed });
+  Object.defineProperty(results, 'incompleteSubjects', { value: failedSubjects.size });
   return results;
 }
