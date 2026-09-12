@@ -449,7 +449,7 @@ export default function LandingView({
             permanently ellipsised. Three gaps buy back 12px, which is more than
             the 7px it was short by. */}
         <div className="lp-pad" style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 24px' }}>
-          <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)' }}>
+          <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'var(--vmx-display)', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)' }}>
             <img src="/vetmock-logo.svg" width={30} height={30} style={{ borderRadius: 7, display: 'block' }} alt="VetMock logo" />
             <span className="lp-wordmark">Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
           </a>
@@ -601,23 +601,23 @@ export default function LandingView({
             <div className="lp-hide-md" style={{ background: 'var(--clr-bg)', borderRight: '1px solid var(--clr-border)', padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
               <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 14, padding: 18 }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 10 }}>Canine Endocrinology</div>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 10 }}>Canine Endocrinology</div>
                 <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>{t.lgReturnCase}</div>
                 <div className="vmx-bar"><div className="vmx-bar-fill" style={{ width: '58%' }} /></div>
               </div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 13, color: 'var(--clr-ocean-text)' }}>“I always mix these two up.”</div>
+              <div style={{ fontFamily: 'var(--vmx-display)', fontStyle: 'italic', fontSize: 13, color: 'var(--clr-ocean-text)' }}>“I always mix these two up.”</div>
               <div style={{ marginTop: 'auto', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.lgCtx}</div>
             </div>
             <div style={{ padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 20 }}>Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
+                <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 800, fontSize: 20 }}>Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
                 <button type="button" onClick={closeLogin} aria-label={t.lgClose} className="lp-iconbtn" style={{ background: 'var(--clr-bg)' }}>
                   <NavIcon name="close" size={17} />
                 </button>
               </div>
               {loginStep === 'email' ? (
                 <div>
-                  <h3 id="vmx-login-title" style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px' }}>{t.lgHead}</h3>
+                  <h3 id="vmx-login-title" style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px' }}>{t.lgHead}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--clr-ink-soft)', margin: '0 0 18px' }}>{t.lgBody}</p>
                   <button type="button" onClick={doGoogle} className="vmx-btn vmx-btn-ghost" style={{ width: '100%', justifyContent: 'center' }}>{t.lgGoogle}</button>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0', color: 'var(--clr-ink-soft)', fontSize: 11, fontFamily: 'var(--vmx-mono)' }}><span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} />{t.lgOr}<span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} /></div>
@@ -632,7 +632,7 @@ export default function LandingView({
                 </div>
               ) : (
                 <div>
-                  <h3 id="vmx-login-title" tabIndex={-1} style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px', outline: 'none' }}>{t.lgSentHead}</h3>
+                  <h3 id="vmx-login-title" tabIndex={-1} style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px', outline: 'none' }}>{t.lgSentHead}</h3>
                   <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--clr-ink-soft)', margin: '0 0 18px' }}>{t.lgSentBody} <strong style={{ color: 'var(--clr-ink)' }}>{loginEmail}</strong>. {t.lgSentHint}</p>
                   <div style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '16px 18px', borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', marginBottom: 16 }}>
                     <span style={{ fontSize: 26 }}>📬</span>

@@ -25,7 +25,7 @@
 // + Vercel preview deploys.
 //
 // Deploy:  supabase functions deploy delete-account
-// or via MCP: mcp__4f4fe027-...__deploy_edge_function
+//          (this file does NOT ship with the web build)
 // ============================================================
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
@@ -80,7 +80,10 @@ Deno.serve(async (req: Request) => {
   const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
   const anonKey = Deno.env.get('SUPABASE_ANON_KEY') || '';
   const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
-  if (!supabaseUrl || !serviceRoleKey) {
+  // anonKey is in the guard because createClient throws on an empty key, and
+  // an uncaught throw answers 500 with no CORS headers — the browser then
+  // reports a CORS error and hides the real cause.
+  if (!supabaseUrl || !serviceRoleKey || !anonKey) {
     console.error('[delete-account] missing env');
     return json({ error: 'server_misconfigured' }, 500, origin);
   }

@@ -74,7 +74,7 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
 
   // Header
   ctx.fillStyle = '#2b2419';
-  ctx.font = '600 64px "Fraunces", Georgia, serif';
+  ctx.font = '600 64px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif';
   ctx.textAlign = 'left';
   ctx.fillText('VetMock', 80, 180);
   ctx.font = '500 32px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
@@ -82,7 +82,7 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
   ctx.fillText('ข้อวันนี้, DAILY Q', 80, 230);
 
   // Date — right-aligned for balance
-  ctx.font = '500 36px "Fraunces", serif';
+  ctx.font = '500 36px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#3d342a';
   ctx.textAlign = 'right';
   ctx.fillText(formatThaiShortDate(todayDate), W - 80, 200);
@@ -109,13 +109,13 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
   const correct = daysCorrect(history);
   const total = history.length;
   ctx.fillStyle = '#2b2419';
-  ctx.font = '600 72px "Fraunces", serif';
+  ctx.font = '600 72px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.textAlign = 'center';
   ctx.fillText(`${correct} / ${total} days`, W / 2, gridY + 200);
 
   if (streak > 0) {
     ctx.fillStyle = '#b88940';
-    ctx.font = '600 56px "Fraunces", serif';
+    ctx.font = '600 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
     ctx.fillText(`streak ${streak} วัน`, W / 2, gridY + 280);
   }
 
@@ -127,11 +127,11 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
     total,
   });
   ctx.fillStyle = '#3d342a';
-  ctx.font = '400 44px "Fraunces", serif';
+  ctx.font = '400 44px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillText(motivation, W / 2, gridY + 400);
 
   // Bottom watermark — vetmock URL + IG handle
-  ctx.font = '600 56px "Fraunces", serif';
+  ctx.font = '600 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
   ctx.fillText('vetmock.vercel.app', W / 2, 1700);
   ctx.font = '500 40px "JetBrains Mono", "IBM Plex Sans Thai", monospace';

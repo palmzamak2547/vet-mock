@@ -42,7 +42,7 @@ export default function DomainDetailView({
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
           <span style={{ fontSize: 28 }}>🩺</span>
           <div>
-            <h1 style={{ margin: 0, fontSize: 24, fontFamily: 'Fraunces, Georgia, serif' }}>{domain.name}</h1>
+            <h1 style={{ margin: 0, fontSize: 24, fontFamily: 'var(--vmx-display)' }}>{domain.name}</h1>
             <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
               Slug: <code>{domain.slug}</code>
             </div>

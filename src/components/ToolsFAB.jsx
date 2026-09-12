@@ -24,7 +24,7 @@ import { useEffect, useRef, useState } from 'react';
 // Quick-access tools come from the shared feature registry (flagged `fab`)
 // so the floating menu can't drift from the home grid / ⌘K. Adding a new
 // quick tool = set fab:true on its registry entry; nothing here changes.
-import { fabFeatures } from '../lib/feature-registry.js';
+import { fabFeatures, rememberViewIntent } from '../lib/feature-registry.js';
 
 export default function ToolsFAB({ onSketch, onView }) {
   const [open, setOpen] = useState(false);
@@ -39,7 +39,7 @@ export default function ToolsFAB({ onSketch, onView }) {
     switch (inv.kind) {
       case 'event': try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
       case 'sketch': onSketch?.(); return;
-      case 'view': if (inv.view) onView?.(inv.view); return;
+      case 'view': if (inv.view) { rememberViewIntent(inv.intent); onView?.(inv.view); } return;
       case 'external': if (inv.url) window.location.assign(inv.url); return;
       default: return;
     }

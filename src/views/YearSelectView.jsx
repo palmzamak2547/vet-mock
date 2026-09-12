@@ -83,7 +83,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
               <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                 <div style={{ fontSize: 40, lineHeight: 1 }}>🎓</div>
                 <div style={{ flex: 1, textAlign: 'left' }}>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 22, letterSpacing: '-0.015em', display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
+                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 22, letterSpacing: '-0.015em', display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
                     <span>{y.label}</span>
                     <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', fontWeight: 700, letterSpacing: '0.08em', padding: '2px 8px', borderRadius: 999, background: 'rgba(74, 107, 74, 0.12)' }}>
                       LIVE

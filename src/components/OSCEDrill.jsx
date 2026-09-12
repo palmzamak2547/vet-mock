@@ -192,7 +192,7 @@ export default function OSCEDrill({ onClose }) {
 
             {done && (
               <div style={{ marginTop: 16, padding: 14, borderRadius: 10, background: liveScore >= 70 ? 'rgba(74, 107, 74, 0.08)' : 'rgba(192, 57, 43, 0.08)', border: `1px solid ${liveScore >= 70 ? 'var(--clr-sage)' : 'var(--clr-rose, #c0392b)'}` }}>
-                <div style={{ fontSize: 22, fontFamily: 'Fraunces, serif', fontWeight: 700, marginBottom: 4 }}>
+                <div style={{ fontSize: 22, fontFamily: 'var(--vmx-display)', fontWeight: 700, marginBottom: 4 }}>
                   {liveScore}%, {fmtMs(elapsed)}
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>

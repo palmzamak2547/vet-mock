@@ -89,7 +89,7 @@ export default function PublicWikiView({
           {activePage ? (
             <div>
               <div style={{ borderBottom: '1px solid var(--clr-border)', paddingBottom: 12, marginBottom: 16 }}>
-                <h1 style={{ margin: 0, fontSize: 22, fontFamily: 'Fraunces, Georgia, serif' }}>{activePage.title}</h1>
+                <h1 style={{ margin: 0, fontSize: 22, fontFamily: 'var(--vmx-display)' }}>{activePage.title}</h1>
                 <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 4 }}>
                   Page ID: <code>{activePage.pageId}</code> | Approval Ref: <code>{activePage.sourceApprovalRef}</code>
                 </div>
@@ -117,7 +117,7 @@ export default function PublicWikiView({
                         border: isTarget ? '2px solid var(--clr-sage)' : '1px solid var(--clr-border)',
                       }}
                     >
-                      <h4 style={{ margin: 0, fontSize: 15, fontFamily: 'Fraunces, Georgia, serif' }}>
+                      <h4 style={{ margin: 0, fontSize: 15, fontFamily: 'var(--vmx-display)' }}>
                         <a href={`#${anchor.anchorId}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                           # {anchor.title}
                         </a>

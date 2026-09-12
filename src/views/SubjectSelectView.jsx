@@ -6,9 +6,13 @@ import BackBar from '../components/BackBar.jsx';
 import Mochi from '../components/Mochi.jsx';
 import { librarySubjectCounts } from '../lib/library.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
+import { takeViewIntent, rememberViewIntent } from '../lib/feature-registry.js';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, qbReady = true, history = [] }) {
   const allQuestions = [...QB, ...customQuestions];
+  // Read once, on mount: someone who chose สรุปบทเรียน is here to read, and
+  // this screen used to describe practice to them regardless.
+  const [readingIntent] = useState(() => takeViewIntent() === 'notes');
   const [searchQuery, setSearchQuery] = useState('');
   // Real documents per subject — a scaffold-year card with zero questions
   // but a full shelf opens the shelf instead of dead-ending. Fetched only
@@ -129,6 +133,8 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
             <>
               <strong>{yearMeta.label}</strong>, {yearMeta.desc} — วิชาที่มีชั้นเอกสารเปิดอ่านได้เลย ข้อสอบกำลังทยอยเพิ่ม
             </>
+          ) : readingIntent ? (
+            'เลือกวิชาเพื่ออ่านสรุปจากสไลด์ พร้อมแหล่งอ้างอิงในแต่ละส่วน'
           ) : mode === 'exam' ? (
             'จำลองสนามสอบ — ตั้งค่าจำนวนข้อและเวลาได้ในขั้นถัดไป'
           ) : (
@@ -204,6 +210,9 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 setSubject(s.id);
                 setPracticeMode('all');
                 if (setTopic) setTopic(null);
+                // Carry the reading intent one more hop so the topic screen
+                // opens on its reading tab rather than practice-by-topic.
+                if (readingIntent) rememberViewIntent('notes');
                 // ถ้าวิชามี topics → ไป TopicSelectView ก่อน
                 const hasTopics = Array.isArray(s.topics) && s.topics.length > 0;
                 setView(hasTopics ? 'topic-select' : 'config');

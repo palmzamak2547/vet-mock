@@ -255,7 +255,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                 <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   Due ทบทวน
                 </div>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: dueReviewedCount > 100 ? 'var(--clr-rose-text)' : 'var(--clr-ink)' }}>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: dueReviewedCount > 100 ? 'var(--clr-rose-text)' : 'var(--clr-ink)' }}>
                   {dueReviewedCount}
                   <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 6 }}>ใบ</span>
                 </div>
@@ -265,7 +265,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                   <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     ใหม่
                   </div>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-gold-text)' }}>
+                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-gold-text)' }}>
                     {newCount}
                     <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 6 }}>ใบ</span>
                   </div>
@@ -276,7 +276,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 จะทำวันนี้
               </div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-sage-text)' }}>
+              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-sage-text)' }}>
                 {sessionSize === 'all' ? dueCount : Math.min(sessionSize, dueCount)}
               </div>
             </div>

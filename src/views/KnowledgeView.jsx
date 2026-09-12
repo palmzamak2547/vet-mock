@@ -192,7 +192,19 @@ function ProvenancePanel({ prov, onClose }) {
 
 // ================= INDEX =================
 function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
-  const [q, setQ] = useState('');
+  // Survive the stale-deploy reload. When a subject chunk fails to load, the
+  // app reloads to pick up a fresh deploy — correct, and not something to
+  // remove — but it took the student's search term with it, so a recovery in
+  // the middle of typing looked like the app had simply forgotten.
+  const [q, setQ] = useState(() => {
+    try { return sessionStorage.getItem('vmx-wiki-q') || ''; } catch { return ''; }
+  });
+  useEffect(() => {
+    try {
+      if (q) sessionStorage.setItem('vmx-wiki-q', q);
+      else sessionStorage.removeItem('vmx-wiki-q');
+    } catch { /* storage disabled: the query simply does not survive */ }
+  }, [q]);
   const query = q.trim();
   const [searchState, setSearchState] = useState(() => ({
     query: '',
@@ -262,7 +274,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
       <Mochi state="read" size={44} slot="wiki-index" className="vmx-hero-mochi" />
       <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome} style={{ marginBottom: 16 }}>← หน้าแรก</button>
 
-      <h1 style={{ fontFamily: 'Fraunces, serif', fontSize: 30, margin: '0 0 6px', letterSpacing: '-0.01em' }}>VetWiki</h1>
+      <h1 style={{ fontFamily: 'var(--vmx-display)', fontSize: 30, margin: '0 0 6px', letterSpacing: '-0.01em' }}>VetWiki</h1>
       <p style={{ color: 'var(--clr-ink-soft)', margin: '0 0 20px', lineHeight: 1.65, fontSize: 14.5, maxWidth: '60ch' }}>
         คลังความรู้ที่ตรวจสอบได้ — ทุกจุดความรู้ผ่านการตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว และทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน (ข้อมูลรายวิชา เช่น ตารางสอนหรือเกณฑ์คะแนน แยกประกาศไว้ชัดเจน)
       </p>
@@ -303,7 +315,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
         return (
           <section key={subjectId} style={{ marginBottom: 26 }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingBottom: 7, marginBottom: 10, borderBottom: '1px solid var(--clr-border)' }}>
-              <h2 style={{ fontFamily: 'Fraunces, serif', fontSize: 17, margin: 0 }}>{subjectName(subjectId)}</h2>
+              <h2 style={{ fontFamily: 'var(--vmx-display)', fontSize: 17, margin: 0 }}>{subjectName(subjectId)}</h2>
               {meta?.code && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{meta.code}</span>}
             </div>
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -412,7 +424,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       </nav>
 
       {/* Title — plain text, no emoji (citable, screen-reader clean) */}
-      <h1 style={{ fontFamily: 'Fraunces, serif', fontSize: 28, margin: '0 0 8px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{knowledge.title}</h1>
+      <h1 style={{ fontFamily: 'var(--vmx-display)', fontSize: 28, margin: '0 0 8px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{knowledge.title}</h1>
 
       {/* Metadata line */}
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', fontSize: 12.5, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 14 }}>
@@ -490,7 +502,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
           return (
             <section key={s.id} id={s.id} style={{ scrollMarginTop: 70 }}>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginBottom: 8, paddingBottom: 6, borderBottom: '1px solid var(--clr-border)' }}>
-                <h2 style={{ fontFamily: 'Fraunces, serif', fontSize: 20, margin: 0, flex: 1, minWidth: 0, lineHeight: 1.3 }}>{s.heading}</h2>
+                <h2 style={{ fontFamily: 'var(--vmx-display)', fontSize: 20, margin: 0, flex: 1, minWidth: 0, lineHeight: 1.3 }}>{s.heading}</h2>
                 <StatusBadge label={rev} />
                 <button type="button" onClick={() => copyAnchor(s.id)}
                   title="คัดลอกลิงก์มายังหัวข้อนี้" aria-label={`คัดลอกลิงก์: ${s.heading}`}

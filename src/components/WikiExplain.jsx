@@ -72,7 +72,7 @@ export default function WikiExplain({ knowledge, onJumpToSection }) {
 
   return (
     <section style={{ marginTop: 30, padding: '16px 18px', borderRadius: 14, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}>
-      <h2 style={{ fontFamily: 'Fraunces, serif', fontSize: 17, margin: '0 0 4px' }}>ถามจากหัวข้อนี้</h2>
+      <h2 style={{ fontFamily: 'var(--vmx-display)', fontSize: 17, margin: '0 0 4px' }}>ถามจากหัวข้อนี้</h2>
       <p style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', margin: '0 0 12px', lineHeight: 1.6 }}>
         ตอบโดยใช้เฉพาะเนื้อหาในหน้านี้ และบอกทุกประโยคว่ามาจากหัวข้อย่อยไหน
       </p>

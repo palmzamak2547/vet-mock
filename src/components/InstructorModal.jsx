@@ -80,7 +80,7 @@ export default function InstructorModal({ instructor, onClose }) {
             {nameTh || nameEn}
           </h2>
           {nameTh && nameEn && (
-            <div style={{ fontFamily: 'Fraunces, serif', fontSize: 16, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+            <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 16, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
               {nameEn}
             </div>
           )}

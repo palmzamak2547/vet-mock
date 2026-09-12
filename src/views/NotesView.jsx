@@ -311,6 +311,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                   return (
                     <button
                       key={sid}
+                      // vmx-link-btn is the project's remedy for `all: unset`
+                      // pills: it restores the 44px touch floor these had lost
+                      // (measured ~33.4px), which is below the size the design
+                      // system requires for a tap target.
+                      className="vmx-link-btn"
                       onClick={() => switchSubject(sid)}
                       onPointerEnter={() => preloadNotesSubject(sid)}
                       onFocus={() => preloadNotesSubject(sid)}
@@ -386,7 +391,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
               {topic.lecturer ? `หัวข้อ — ผู้สอน ${topic.lecturer}` : 'หัวข้อ'}
             </div>
-            <h2 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 600 }}>
+            <h2 style={{ margin: '0 0 8px', fontFamily: 'var(--vmx-display)', fontSize: 22, fontWeight: 600 }}>
               {topic.icon} {topic.title}
             </h2>
             {topic.summary && (
@@ -423,7 +428,9 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               placeholder="ค้นหาใน notes ของหัวข้อนี้..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              style={{ width: '100%', padding: '8px 12px', fontSize: 13, borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'inherit' }}
+              // No fontSize here: the inline 13px beat styles.css's max(16px, 1em)
+        // floor, and iOS zooms the page whenever a focused input is under 16px.
+        style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'inherit' }}
             />
           </div>
 
@@ -474,6 +481,12 @@ function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null 
 
   return (
     <div style={{ marginBottom: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', overflow: 'hidden' }}>
+      {/* The ARIA accordion pattern: the heading WRAPS the button. These
+          section titles were styled divs inside the button, so they looked like
+          headings but a screen reader could not jump between them the way it
+          can in the wiki — and heading-inside-button is invalid content model,
+          which most assistive tech flattens anyway. */}
+      <h3 style={{ margin: 0, font: 'inherit' }}>
       <button
         onClick={() => setOpen(!open)}
         type="button"
@@ -484,7 +497,7 @@ function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null 
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
             §{idx + 1}
           </div>
-          <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>
+          <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>
             <RichText text={section.heading} highlight={highlight} />
           </div>
           {/* The note body below has already been corrected to match the
@@ -499,6 +512,7 @@ function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null 
         </div>
         <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 10 }}>{open ? '▾' : '▸'}</div>
       </button>
+      </h3>
 
       {open && (
         <MotionEnter effect="accordion" style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
@@ -541,7 +555,7 @@ function BodyItem({ item, highlight }) {
   if (item.sub) {
     return (
       <div style={{ margin: '12px 0', paddingLeft: 14, borderLeft: '3px solid var(--clr-border)' }}>
-        <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 14, marginBottom: 8, color: 'var(--clr-ink)' }}>
+        <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 14, marginBottom: 8, color: 'var(--clr-ink)' }}>
           <RichText text={item.sub} highlight={highlight} />
         </div>
         {item.body?.map((b, i) => <BodyItem key={i} item={b} highlight={highlight} />)}

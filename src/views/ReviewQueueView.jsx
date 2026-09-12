@@ -765,7 +765,7 @@ function FounderStat({ label, value, color, small }) {
       <div style={{
         fontSize: small ? 13 : 18,
         fontWeight: 600,
-        fontFamily: 'Fraunces, serif',
+        fontFamily: 'var(--vmx-display)',
         color: color || 'var(--clr-ink)',
       }}>
         {value}

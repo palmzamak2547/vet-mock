@@ -59,7 +59,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
             <img src="/ig-qr.png" alt="QR code → instagram.com/vetmock.cu" width="120" height="120" loading="lazy" decoding="async" style={{ display: 'block' }} />
           </a>
           <div style={{ flex: '1 1 220px', fontSize: 14, lineHeight: 1.7 }}>
-            <div style={{ fontFamily: 'Fraunces, serif', fontSize: 18, fontWeight: 600, marginBottom: 4 }}>
+            <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 18, fontWeight: 600, marginBottom: 4 }}>
               @vetmock.cu
             </div>
             <div style={{ color: 'var(--clr-ink-soft)', marginBottom: 10, fontSize: 13 }}>
@@ -190,7 +190,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
               marginBottom: 14, paddingLeft: 12,
               borderLeft: `3px solid ${s.color}`,
             }}>
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, marginBottom: 4 }}>
+              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, marginBottom: 4 }}>
                 {s.icon} {s.name}
               </div>
               <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6, overflowWrap: 'anywhere' }}>
@@ -249,7 +249,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
 function FeatureGroup({ title, items }) {
   return (
     <div style={{ marginBottom: 14 }}>
-      <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 14, marginBottom: 4 }}>
+      <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 14, marginBottom: 4 }}>
         {title}
       </div>
       <ul style={{ paddingLeft: 22, margin: 0, fontSize: 13, lineHeight: 1.65, color: 'var(--clr-ink)' }}>

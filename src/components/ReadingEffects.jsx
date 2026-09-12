@@ -64,7 +64,14 @@ export default function ReadingEffects({ children, contentKey }) {
   return <div className={`vmx-reading-effects${focus ? ' is-focused' : ''}`}>
     <div className="vmx-reading-tools" role="group" aria-label="ช่วยโฟกัสการอ่าน">
       <MotionButton className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-pressed={focus} onClick={() => setFocus(value => !value)}>โฟกัสทีละย่อหน้า</MotionButton>
-      <label>ตัวชี้ขณะอ่าน <select aria-label="ตัวชี้ขณะอ่าน" value={pointer} onChange={event => setPointer(event.target.value)}>{POINTERS.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>
+      {/* Folded away. Ten decorative pointer options sat directly above the
+          article, ahead of the thing the student came to read, while the way to
+          turn them off lived under the theme panel. "ปิดตัวชี้" is already one
+          of the options in here, so nothing new is needed to switch it off. */}
+      <details className="vmx-reading-pointer-picker">
+        <summary>ตัวชี้ขณะอ่าน</summary>
+        <label>เลือกตัวชี้ <select aria-label="ตัวชี้ขณะอ่าน" value={pointer} onChange={event => setPointer(event.target.value)}>{POINTERS.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>
+      </details>
       {focus && <div className="vmx-reading-focus-controls">
         <button type="button" aria-label="ย่อหน้าก่อนหน้า" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={place.index <= 1} onClick={() => select(position.current - 1, true)}>ก่อนหน้า</button>
         <span role="status">{place.total ? `${place.index} / ${place.total}` : 'เปิดเนื้อหาเพื่อเริ่มโฟกัส'}</span>

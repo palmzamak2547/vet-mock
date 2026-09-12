@@ -13,7 +13,7 @@ const e = (s) => `data:image/svg+xml;utf8,${encodeURIComponent(s.trim())}`;
 export const IMG_SPINAL_LOCALIZATION = e(`
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 240'>
   <rect width='460' height='240' fill='#fdf8ef'/>
-  <text x='20' y='24' font-family='Fraunces, serif' font-size='14' fill='#2b2419'>Spinal cord lesion → limb pattern</text>
+  <text x='20' y='24' font-family='Fraunces, Sarabun, IBM Plex Sans Thai, serif' font-size='14' fill='#2b2419'>Spinal cord lesion → limb pattern</text>
   <!-- Spine -->
   <rect x='40' y='110' width='380' height='28' fill='#e8d4a8' stroke='#b88940' stroke-width='1.5' rx='4'/>
   <!-- Segments -->
@@ -40,7 +40,7 @@ export const IMG_SPINAL_LOCALIZATION = e(`
 export const IMG_FRANKEL = e(`
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 220'>
   <rect width='460' height='220' fill='#fdf8ef'/>
-  <text x='20' y='24' font-family='Fraunces, serif' font-size='14' fill='#2b2419'>Modified Frankel grade — IVDD prognosis</text>
+  <text x='20' y='24' font-family='Fraunces, Sarabun, IBM Plex Sans Thai, serif' font-size='14' fill='#2b2419'>Modified Frankel grade — IVDD prognosis</text>
   <!-- Bar -->
   <rect x='30' y='50' width='80' height='40' fill='#a8c0a8' stroke='#4a6b4a' stroke-width='1.5' rx='4'/>
   <rect x='110' y='50' width='80' height='40' fill='#c8d8c0' stroke='#4a6b4a' stroke-width='1.5'/>
@@ -84,7 +84,7 @@ export const IMG_FRANKEL = e(`
 export const IMG_MGCS = e(`
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 220'>
   <rect width='460' height='220' fill='#fdf8ef'/>
-  <text x='20' y='24' font-family='Fraunces, serif' font-size='14' fill='#2b2419'>Modified Glasgow Coma Scale (MGCS) — head trauma</text>
+  <text x='20' y='24' font-family='Fraunces, Sarabun, IBM Plex Sans Thai, serif' font-size='14' fill='#2b2419'>Modified Glasgow Coma Scale (MGCS) — head trauma</text>
   <!-- Score scale 3-18 -->
   <rect x='30' y='60' width='400' height='30' fill='url(#grad)' stroke='#5c4f3d' stroke-width='1' rx='4'/>
   <defs>
@@ -117,7 +117,7 @@ export const IMG_MGCS = e(`
 export const IMG_CUSHING_REFLEX = e(`
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 220'>
   <rect width='460' height='220' fill='#fdf8ef'/>
-  <text x='20' y='24' font-family='Fraunces, serif' font-size='14' fill='#2b2419'>Cushing's reflex (↑ ICP — terminal sign)</text>
+  <text x='20' y='24' font-family='Fraunces, Sarabun, IBM Plex Sans Thai, serif' font-size='14' fill='#2b2419'>Cushing's reflex (↑ ICP — terminal sign)</text>
   <!-- 3 circles -->
   <circle cx='110' cy='110' r='55' fill='#fdf8ef' stroke='#c26d6d' stroke-width='2.5'/>
   <text x='110' y='95' font-family='sans-serif' font-size='13' fill='#2b2419' text-anchor='middle' font-weight='600'>↓ HR</text>
@@ -141,7 +141,7 @@ export const IMG_CUSHING_REFLEX = e(`
 export const IMG_HAIR_CYCLE = e(`
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 200'>
   <rect width='460' height='200' fill='#fdf8ef'/>
-  <text x='20' y='24' font-family='Fraunces, serif' font-size='14' fill='#2b2419'>Hair growth cycle — 3 phases</text>
+  <text x='20' y='24' font-family='Fraunces, Sarabun, IBM Plex Sans Thai, serif' font-size='14' fill='#2b2419'>Hair growth cycle — 3 phases</text>
   <!-- Cycle arrows -->
   <path d='M 60 110 Q 60 50 230 50 Q 400 50 400 110' stroke='#b88940' stroke-width='2' fill='none' marker-end='url(#arr)'/>
   <path d='M 400 110 Q 400 170 230 170 Q 60 170 60 110' stroke='#b88940' stroke-width='2' fill='none' marker-end='url(#arr)'/>
@@ -165,7 +165,7 @@ export const IMG_HAIR_CYCLE = e(`
 export const IMG_SPHEROCYTE = e(`
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 460 200'>
   <rect width='460' height='200' fill='#fdf8ef'/>
-  <text x='20' y='24' font-family='Fraunces, serif' font-size='14' fill='#2b2419'>Normal RBC vs spherocyte (IMHA hallmark)</text>
+  <text x='20' y='24' font-family='Fraunces, Sarabun, IBM Plex Sans Thai, serif' font-size='14' fill='#2b2419'>Normal RBC vs spherocyte (IMHA hallmark)</text>
   <!-- Normal RBC (biconcave with central pallor) -->
   <text x='115' y='50' font-family='sans-serif' font-size='12' fill='#2b2419' text-anchor='middle' font-weight='600'>Normal RBC</text>
   <circle cx='80' cy='100' r='22' fill='#e8b8b8' stroke='#c26d6d' stroke-width='1.5'/>

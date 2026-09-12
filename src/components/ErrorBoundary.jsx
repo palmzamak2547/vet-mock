@@ -53,7 +53,7 @@ export default class ErrorBoundary extends Component {
           textAlign: 'center',
         }}>
           <div style={{ fontSize: 36, marginBottom: 8 }}>😿</div>
-          <h2 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontSize: 20 }}>
+          <h2 style={{ margin: '0 0 8px', fontFamily: 'var(--vmx-display)', fontSize: 20 }}>
             หน้านี้ขัดข้อง
           </h2>
           <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink-soft, #6b6357)' }}>

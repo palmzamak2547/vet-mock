@@ -542,7 +542,10 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
           placeholder="ค้นหาชื่อเอกสาร วิชา ผู้สอน หรือหัวข้อ…"
           aria-label="ค้นหาเอกสารในคลัง"
           style={{
-            width: '100%', padding: '10px 14px', fontSize: 14,
+            // fontSize omitted deliberately: the inline 14px overrode the
+            // max(16px, 1em) input floor in styles.css, and iOS zooms the whole
+            // page when a focused input is under 16px.
+            width: '100%', padding: '10px 14px',
             border: '1px solid var(--clr-border)', borderRadius: 8,
             background: 'var(--clr-bg)', color: 'var(--clr-ink)',
           }}

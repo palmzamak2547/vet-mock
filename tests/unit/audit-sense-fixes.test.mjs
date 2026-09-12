@@ -192,6 +192,77 @@ test('one failed group section does not blank the other two', () => {
   assert.ok(s.includes('loadWarning'), 'a partial failure says so while leaving what loaded on screen');
 });
 
+test('a shelf document keeps its origin through a merge', async () => {
+  const { mergeRecords } = await import('../../src/lib/pdf-annotations.js');
+  // The reader merges a local record with whatever the account holds. Dropping
+  // the slug here would send the student back to the file picker for a
+  // document they only ever opened from the web.
+  const local = { hash: 'h1', fileName: 'deck.pdf', slug: 'avian-2-1', strokesByPage: {}, deleted: [], lastOpened: 2 };
+  const remote = { hash: 'h1', fileName: 'deck.pdf', strokesByPage: {}, deleted: [], lastOpened: 1 };
+  assert.equal(mergeRecords(local, remote).slug, 'avian-2-1');
+  assert.equal(mergeRecords(remote, local).slug, 'avian-2-1', 'either side may carry it');
+  // A personal file has none, and must not gain one.
+  const personal = { hash: 'h2', fileName: 'mine.pdf', strokesByPage: {}, deleted: [], lastOpened: 1 };
+  assert.equal(mergeRecords(personal, { ...personal, lastOpened: 2 }).slug, undefined);
+});
+
+test('the reader offers the shelf for a shelf document and the picker for a file', () => {
+  const s = src('src/views/PdfAnnotateView.jsx');
+  const fn = s.slice(s.indexOf('function pickRecent'), s.indexOf('async function removeRecent'));
+  assert.ok(fn.includes('entry.slug && onOpenLibrary'), 'a shelf document must route back to the shelf');
+  assert.ok(fn.includes('fileInputRef.current?.click()'), 'a personal file still needs its bytes');
+  assert.ok(s.includes('slug: doc.slug || null'), 'the origin must be recorded when the document is opened');
+});
+
+test('custom clips and watch history are in the restorable bundle', async () => {
+  const { LOCAL_EXTRA_FIELDS, parseLocalExtras } = await import('../../src/lib/local-extras.js');
+  assert.ok(LOCAL_EXTRA_FIELDS['vmx-custom-videos'], 'clips a student added are their own work');
+  assert.ok(LOCAL_EXTRA_FIELDS['vmx-watched-videos'], 'watch history is the only record of what they got through');
+
+  const wrap = (data) => ({ format: 'vetmock-local-extras-v1', data });
+  const ok = parseLocalExtras(wrap({
+    'vmx-custom-videos': [{ url: 'https://youtu.be/abc', topic: 'Avian 2.1', subject: 'poultry' }],
+    'vmx-watched-videos': { abc: { watchedAt: 1_700_000_000_000 } },
+  }));
+  assert.equal(ok.success, true, ok.reason);
+
+  // A clip with no playable url would restore as a dead card.
+  assert.equal(parseLocalExtras(wrap({ 'vmx-custom-videos': [{ topic: 'no url' }] })).success, false);
+  // A malformed watch entry would make the "watched" badge lie.
+  assert.equal(parseLocalExtras(wrap({ 'vmx-watched-videos': { abc: { watchedAt: 'yesterday' } } })).success, false);
+});
+
+test('the video list reads through the bundle a restore actually writes', () => {
+  const s = src('src/views/VideoView.jsx');
+  assert.ok(s.includes("useLocalExtra('vmx-custom-videos'") && s.includes("useLocalExtra('vmx-watched-videos'"),
+    'reading the raw key would ignore a restored bundle entirely');
+  assert.ok(s.includes("from '../lib/local-extras.js'"));
+});
+
+test('"more questions" excludes the ones just answered', () => {
+  const pool = APP.slice(APP.indexOf('function buildExamPool'), APP.indexOf('// The question bank loads lazily'));
+  assert.ok(pool.includes('excludeIds = null'), 'the pool builder must accept an exclusion');
+  assert.ok(pool.includes('!excludeIds.has(`${q.subject}:${q.id}`)'), 'compound keys: ids collide across subjects');
+  const results = src('src/views/ResultsView.jsx');
+  assert.ok(results.includes('excludeIds: new Set((questions || []).map('),
+    'the continue button must pass the set it just showed');
+  assert.ok(APP.includes('ทำครบทุกข้อของส่วนนี้แล้ว'),
+    'an exhausted topic must say so rather than silently repeating');
+});
+
+test('an incomplete wiki search is reported as incomplete', () => {
+  const search = src('src/lib/vetwiki/runtime-search.js');
+  assert.ok(search.includes('.catch(() => { failed += 1; return null; })'),
+    'one failed chunk must not reject the whole search');
+  assert.ok(search.includes("Object.defineProperty(results, 'incompleteSubjects'"),
+    'non-enumerable so the array still deep-equals a plain array');
+  const view = src('src/views/KnowledgeView.jsx');
+  assert.ok(view.includes('searchState.incomplete'), 'the view must surface it');
+  assert.ok(view.includes('setRetryNonce'), 'and the retry must actually re-run the search');
+  assert.ok(view.includes("sessionStorage.getItem('vmx-wiki-q')"),
+    'the stale-deploy reload must not take the query with it');
+});
+
 test('the signed-in header cannot overflow onto its own controls', () => {
   const css = src('src/styles.css');
   const mobile = css.slice(css.indexOf('@media (max-width: 600px)'), css.indexOf('@media (max-width: 340px)'));

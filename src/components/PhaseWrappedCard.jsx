@@ -55,20 +55,20 @@ async function buildPhaseCanvas(stats) {
 
   // Header
   ctx.fillStyle = '#2b2419';
-  ctx.font = '600 64px "Fraunces", Georgia, serif';
+  ctx.font = '600 64px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif';
   ctx.textAlign = 'left';
   ctx.fillText('Phase Wrapped', 80, 170);
-  ctx.font = '500 36px "Fraunces", serif';
+  ctx.font = '500 36px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#6b6055';
   ctx.fillText(stats.phaseLabel || '', 80, 230);
 
   // Big number: total Qs
   ctx.textAlign = 'center';
-  ctx.font = '700 360px "Fraunces", serif';
+  ctx.font = '700 360px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#4a6b4a';
   const qLabel = stats.qCount.toLocaleString();
   ctx.fillText(qLabel, W / 2, 540);
-  ctx.font = '500 56px "Fraunces", serif';
+  ctx.font = '500 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
   ctx.fillText('ข้อทำมาในเทอมนี้', W / 2, 620);
 
@@ -93,7 +93,7 @@ async function buildPhaseCanvas(stats) {
   ctx.stroke();
   // Centered pct text
   ctx.fillStyle = accent;
-  ctx.font = '700 100px "Fraunces", serif';
+  ctx.font = '700 100px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillText(`${stats.correctPct}%`, ringCx, ringCy + 30);
   ctx.fillStyle = '#6b6055';
   ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
@@ -125,7 +125,7 @@ async function buildPhaseCanvas(stats) {
   ctx.fillStyle = '#6b6055';
   if (stats.longestStreak > 0) {
     ctx.fillText('STREAK', W / 4, yRow);
-    ctx.font = '700 84px "Fraunces", serif';
+    ctx.font = '700 84px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
     ctx.fillStyle = '#b88940';
     ctx.fillText(`${stats.longestStreak}`, W / 4, yRow + 80);
     ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
@@ -139,7 +139,7 @@ async function buildPhaseCanvas(stats) {
   ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#6b6055';
   ctx.fillText(hrApprox ? 'ที่อ่าน (ประมาณ)' : 'ที่อ่าน', (W * 3) / 4, yRow);
-  ctx.font = '700 84px "Fraunces", serif';
+  ctx.font = '700 84px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
   const hr = (stats.totalStudyMin / 60).toFixed(1);
   ctx.fillText(`${hrApprox}${hr}`, (W * 3) / 4, yRow + 80);
@@ -174,12 +174,12 @@ async function buildPhaseCanvas(stats) {
   // Encouragement line
   const msg = pickWrappedMessage(stats);
   ctx.textAlign = 'center';
-  ctx.font = '400 44px "Fraunces", serif';
+  ctx.font = '400 44px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#3d342a';
   ctx.fillText(msg, W / 2, 1740);
 
   // Watermark
-  ctx.font = '600 50px "Fraunces", serif';
+  ctx.font = '600 50px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
   ctx.fillText('vetmock.vercel.app', W / 2, 1820);
   ctx.font = '500 36px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
@@ -202,12 +202,12 @@ function drawSubjectPill(ctx, { x, y, w, h, icon, label, name, pct, tint }) {
   ctx.font = '500 24px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = tint;
   ctx.fillText(label.toUpperCase(), x + 28, y + 38);
-  ctx.font = '600 44px "Fraunces", serif';
+  ctx.font = '600 44px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
   const nameStr = `${icon} ${name}`;
   ctx.fillText(truncate(nameStr, 18), x + 28, y + 88);
   ctx.textAlign = 'right';
-  ctx.font = '600 40px "Fraunces", serif';
+  ctx.font = '600 40px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = tint;
   ctx.fillText(`${pct}%`, x + w - 28, y + 88);
 }
@@ -383,7 +383,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
         <div className="vmx-kicker">
           Phase Wrapped
         </div>
-        <h2 style={{ margin: '6px 0 0', fontSize: 24, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
+        <h2 style={{ margin: '6px 0 0', fontSize: 24, fontFamily: 'var(--vmx-display)', fontWeight: 600 }}>
           {stats.phaseLabel}
         </h2>
       </div>
@@ -396,10 +396,10 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
         <>
           {/* Big Q count */}
           <div style={{ textAlign: 'center', margin: '16px 0 8px' }}>
-            <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 'clamp(64px, 18vw, 96px)', lineHeight: 1, color: 'var(--clr-sage-text, #4a6b4a)' }}>
+            <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 'clamp(64px, 18vw, 96px)', lineHeight: 1, color: 'var(--clr-sage-text, #4a6b4a)' }}>
               {qShown.toLocaleString()}
             </div>
-            <div style={{ fontFamily: 'Fraunces, serif', fontSize: 16, color: 'var(--clr-ink, #2b2419)', marginTop: 6 }}>
+            <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 16, color: 'var(--clr-ink, #2b2419)', marginTop: 6 }}>
               ข้อทำมาในเทอมนี้
             </div>
           </div>
@@ -550,7 +550,7 @@ function MasteryRing({ pct, accent }) {
         position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'center', pointerEvents: 'none',
       }}>
-        <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 40, lineHeight: 1, color: accent }}>
+        <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 40, lineHeight: 1, color: accent }}>
           {pct}%
         </div>
         <div style={{ fontSize: 9, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.12em', marginTop: 2 }}>
@@ -570,10 +570,10 @@ function SubjectRow({ tint, label, icon, name, pct }) {
       <div className="vmx-kicker" style={{ color: tint, minWidth: 86 }}>
         {label}
       </div>
-      <div style={{ flex: 1, fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink, #2b2419)', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      <div style={{ flex: 1, fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink, #2b2419)', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {icon} {name}
       </div>
-      <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 18, color: tint }}>
+      <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 18, color: tint }}>
         {pct}%
       </div>
     </div>
@@ -586,7 +586,7 @@ function StatCell({ label, value, unit, tint = 'var(--clr-ink, #2b2419)' }) {
       <div className="vmx-kicker" style={{ fontSize: 9 }}>
         {label}
       </div>
-      <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 28, color: tint, lineHeight: 1.1, marginTop: 2 }}>
+      <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 28, color: tint, lineHeight: 1.1, marginTop: 2 }}>
         {value}
       </div>
       <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)' }}>

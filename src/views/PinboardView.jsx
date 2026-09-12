@@ -180,7 +180,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
         >
           ← Home
         </button>
-        <h1 style={{ margin: 0, fontFamily: 'Fraunces, serif', fontSize: 22, fontWeight: 600, flex: 1, minWidth: 200 }}>
+        <h1 style={{ margin: 0, fontFamily: 'var(--vmx-display)', fontSize: 22, fontWeight: 600, flex: 1, minWidth: 200 }}>
           <Mochi state="read" size={32} slot="pinboard" className="vmx-status-mochi" />Pinboard
           <span style={{ marginLeft: 10, fontSize: 13, color: 'var(--clr-ink-soft)', fontWeight: 400, fontFamily: 'var(--vmx-mono)' }}>
             {pins.length} / {PINBOARD_MAX}

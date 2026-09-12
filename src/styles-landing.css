@@ -35,7 +35,7 @@
    vmx-stat-*) is REUSED from styles.css — do not re-declare it here or
    it would fork the design system and leak into the practice app. */
 .vmx-explain { margin-top: 16px; padding: 14px; border-radius: 12px; background: var(--clr-surface-2); border-left: 3px solid var(--clr-gold); font-size: 13.5px; line-height: 1.6; color: var(--clr-ink-soft); }
-.vmx-explain .k { font-family: 'Fraunces', serif; font-style: italic; font-weight: 600; color: var(--clr-gold-text); margin-right: 6px; }
+.vmx-explain .k { font-family: var(--vmx-display); font-style: italic; font-weight: 600; color: var(--clr-gold-text); margin-right: 6px; }
 .vmx-badge-live { font-family: var(--vmx-mono); font-size: 10px; padding: 3px 8px; border-radius: 999px; background: var(--clr-gold); color: var(--clr-gold-on); font-weight: 600; letter-spacing: .05em; }
 
 /* ---- Landing shell ---- */
@@ -192,7 +192,7 @@ html.lp-active { background: var(--clr-bg); }
 }
 .lp-mobile-menu-title {
   margin: 0;
-  font-family: 'Fraunces', serif;
+  font-family: var(--vmx-display);
   font-size: clamp(var(--text-xl), 7vw, calc(var(--text-2xl) + var(--space-2)));
   font-weight: 650;
   line-height: 1.08;

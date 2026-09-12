@@ -11,9 +11,26 @@ test.beforeEach(async ({ context }) => {
   });
 });
 
+// The pointer picker moved behind a disclosure in 5.87.0: ten decorative
+// options used to sit between the reader and the article, which the
+// 2026-09-12 audit called out. A collapsed <details> takes its contents out of
+// the accessibility tree, so the control has to be opened before it can be
+// queried by role or driven - the assertions below are unchanged, they just
+// reach the control where it now lives. It closes again on navigation, so this
+// is called after each goto/reload.
+async function openPointerPicker(page) {
+  const picker = page.locator('.vmx-reading-pointer-picker');
+  await picker.waitFor({ state: 'attached', timeout: 25_000 });
+  if (!(await picker.evaluate((el) => el.open))) {
+    await picker.locator('summary').click();
+  }
+  await expect(page.getByRole('combobox', { name: 'ตัวชี้ขณะอ่าน', exact: true })).toBeVisible();
+}
+
 test('reading light starts automatically for a mouse and remembers an explicit opt-out', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.goto('/wiki/zoonoses/zoo-rabies', { waitUntil: 'domcontentloaded' });
+  await openPointerPicker(page);
   const picker = page.getByRole('combobox', { name: 'ตัวชี้ขณะอ่าน', exact: true });
   await expect(picker).toHaveValue('auto', { timeout: 25_000 });
   const fine = await page.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches);
@@ -26,9 +43,11 @@ test('reading light starts automatically for a mouse and remembers an explicit o
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await picker.selectOption('none');
   await page.reload({ waitUntil: 'domcontentloaded' });
+  await openPointerPicker(page);
   await expect(picker).toHaveValue('none');
   await expect(stage.locator('canvas')).toHaveCount(0);
   await page.goto('/wiki/com5/rabies', { waitUntil: 'domcontentloaded' });
+  await openPointerPicker(page);
   await expect(picker).toHaveValue('none');
   await expect(stage.locator('canvas')).toHaveCount(0);
 });
@@ -42,6 +61,7 @@ test('reading pointer reports a storage failure without preventing the current c
     };
   });
   await page.goto('/wiki/zoonoses/zoo-rabies', { waitUntil: 'domcontentloaded' });
+  await openPointerPicker(page);
   await page.getByRole('combobox', { name: 'ตัวชี้ขณะอ่าน', exact: true }).selectOption('none');
   await expect(page.getByText('ใช้ตัวชี้ที่เลือกได้ในครั้งนี้ แต่เบราว์เซอร์จำค่าไว้ไม่ได้', { exact: true })).toBeVisible();
   await expect(page.locator('.vmx-reading-effect-stage canvas')).toHaveCount(0);
@@ -70,6 +90,7 @@ test('reading effects target real paragraphs, preserve text and sleep when the p
   await page.getByRole('button', { name: 'ย่อหน้าถัดไป', exact: true }).click();
   await expect(content.locator('.vm-reading-selected')).not.toHaveText(first);
   expect(await originalSection.innerText()).toBe(original);
+  await openPointerPicker(page);
   await page.getByRole('combobox', { name: 'ตัวชี้ขณะอ่าน', exact: true }).selectOption('halo');
   const line = content.locator('.vm-reading-selected');
   await line.scrollIntoViewIfNeeded();
@@ -88,6 +109,7 @@ test('reading effects target real paragraphs, preserve text and sleep when the p
 test('the real theme menu stops effects without disabling reading or overflowing mobile', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });
   await page.goto('/wiki/zoonoses/zoo-rabies');
+  await openPointerPicker(page);
   await page.getByRole('combobox', { name: 'ตัวชี้ขณะอ่าน', exact: true }).selectOption('paw');
   await expect(page.locator('.vmx-reading-effect-stage canvas')).toHaveCount(1);
   await page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี', exact: true }).click();

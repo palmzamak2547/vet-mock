@@ -9,7 +9,23 @@ import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, 
 //     cached at module scope so subsequent opens are instant.
 import { VIDEO_META } from '../data/video-summaries-meta.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
-import { useLocalStorage } from '../hooks/useStorage.js';
+import { readLocalExtra, writeLocalExtra } from '../lib/local-extras.js';
+
+// Stable defaults: a fresh [] or {} per render would make the state initialiser
+// look like a new value every time.
+const EMPTY_CLIPS = Object.freeze([]);
+const EMPTY_WATCHED = Object.freeze({});
+
+// useLocalStorage's shape, backed by the restorable local-extras bundle.
+function useLocalExtra(key, fallback) {
+  const [value, setValue] = useState(() => readLocalExtra(key, fallback));
+  const update = (next) => {
+    const resolved = typeof next === 'function' ? next(value) : next;
+    setValue(resolved);
+    writeLocalExtra(key, resolved);
+  };
+  return [value, update];
+}
 import { copyText } from '../lib/clipboard.js';
 import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
@@ -286,8 +302,13 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
   const [playing, setPlaying] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
   const [editingIdx, setEditingIdx] = useState(null);
-  const [customVideos, setCustomVideos] = useLocalStorage('vmx-custom-videos', []);
-  const [watched, setWatched] = useLocalStorage('vmx-watched-videos', {});
+  // Through the local-extras bundle, not the raw keys. restoreLocalExtras only
+  // writes the bundle, and readLocalExtra prefers it, so a reader still on the
+  // raw key would never show clips the student had just restored — listing the
+  // fields in LOCAL_EXTRA_FIELDS alone would have looked like a fix while
+  // changing nothing on screen.
+  const [customVideos, setCustomVideos] = useLocalExtra('vmx-custom-videos', EMPTY_CLIPS);
+  const [watched, setWatched] = useLocalExtra('vmx-watched-videos', EMPTY_WATCHED);
 
   const [form, setForm] = useState({ subject: 'surg2', topic: '', url: '', author: '', duration: '' });
 
@@ -480,7 +501,7 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
             <span>{subject?.icon} {subject?.name}</span>
             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage-text)' }}>✓ ดูแล้ว</span>}
           </div>
-          <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, marginBottom: 4, lineHeight: 1.3 }}>
+          <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, marginBottom: 4, lineHeight: 1.3 }}>
             {video.topic}
           </div>
           <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
@@ -853,7 +874,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
         {/* Header bar */}
         <div style={{ padding: '14px 18px', borderBottom: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <h2 id="vmx-player-title" style={{ margin: 0, fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>{video.topic}</h2>
+            <h2 id="vmx-player-title" style={{ margin: 0, fontSize: 17, fontFamily: 'var(--vmx-display)', fontWeight: 600 }}>{video.topic}</h2>
             {playlistItems.length > 0 && (
               <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                 📋 {playlistItems.length} คลิป

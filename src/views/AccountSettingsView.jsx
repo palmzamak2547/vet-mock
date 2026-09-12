@@ -640,7 +640,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
 
 const cardHeading = {
   margin: '0 0 12px',
-  fontFamily: 'Fraunces, serif',
+  fontFamily: 'var(--vmx-display)',
   fontSize: 16,
   fontWeight: 600,
   color: 'var(--clr-ink)',

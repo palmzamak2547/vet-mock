@@ -135,11 +135,11 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
               borderLeft: idx < 3 ? '4px solid var(--clr-gold)' : undefined,
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-                <div style={{ width: 44, height: 44, borderRadius: '50%', background: idx < 3 ? 'var(--clr-gold)' : 'var(--clr-surface-2)', color: idx < 3 ? 'var(--clr-surface)' : 'var(--clr-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 20, flexShrink: 0 }}>
+                <div style={{ width: 44, height: 44, borderRadius: '50%', background: idx < 3 ? 'var(--clr-gold)' : 'var(--clr-surface-2)', color: idx < 3 ? 'var(--clr-surface)' : 'var(--clr-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 20, flexShrink: 0 }}>
                   {idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : idx + 1}
                 </div>
                 <div style={{ flex: 1, minWidth: 160 }}>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 17 }}>
+                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 17 }}>
                     {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
                     {r.user_id === user?.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
@@ -153,7 +153,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                   </div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 24, color: r.pct >= 80 ? 'var(--clr-sage-text)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
+                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 24, color: r.pct >= 80 ? 'var(--clr-sage-text)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
                   <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{r.correct}/{r.total}</div>
                 </div>
               </div>

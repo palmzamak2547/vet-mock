@@ -274,7 +274,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
               {formData.options.map((opt, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6, alignItems: 'center' }}>
                   <input type="radio" name="answer" checked={formData.answer == i} onChange={() => setFormData({ ...formData, answer: i })} aria-label={`ตั้งตัวเลือก ${String.fromCharCode(65 + i)} เป็นคำตอบที่ถูก`} />
-                  <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, minWidth: 20 }}>{String.fromCharCode(65 + i)}.</span>
+                  <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, minWidth: 20 }}>{String.fromCharCode(65 + i)}.</span>
                   <input value={opt} onChange={(e) => { const opts = [...formData.options]; opts[i] = e.target.value; setFormData({ ...formData, options: opts }); }} aria-label={`ข้อความตัวเลือก ${String.fromCharCode(65 + i)}`} />
                 </div>
               ))}

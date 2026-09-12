@@ -28,6 +28,13 @@
      Thai face before the generic keeps digits and codes in JetBrains Mono
      while Thai gets IBM Plex Sans Thai — which the page already loads. */
   --vmx-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', ui-monospace, monospace;
+  /* Display face for headings and numerals. Fraunces carries no Thai glyphs,
+     and the inline 'var(--vmx-display)' stacks scattered through the views fell
+     straight through to the generic serif for Thai text — so a Thai heading
+     rendered in whatever the platform calls serif while its English neighbour
+     rendered in Fraunces. Naming the Thai faces here keeps both in the same
+     family, and having one token means the stack can be changed in one place. */
+  --vmx-display: 'Fraunces', 'Sarabun', 'IBM Plex Sans Thai', serif;
 
   --clr-bg: #f6efe4;
   --clr-surface: #fdf8ef;
@@ -740,7 +747,7 @@ html, body {
   gap: 16px; flex-wrap: nowrap;
 }
 .vmx-header-context { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 0; }
-.vmx-logo { font-family: 'Fraunces', serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; cursor: pointer; }
+.vmx-logo { font-family: var(--vmx-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; cursor: pointer; }
 .vmx-wordmark-text { color: var(--clr-ink); font-style: normal; font-weight: 800; }
 .vmx-wordmark-text > span { color: var(--clr-rose-text); font-style: italic; font-weight: 500; }
 /* ── The mark ────────────────────────────────────────────────────────────
@@ -1231,7 +1238,7 @@ html, body {
   line-height: 1;
   text-align: right;
 }
-.vmx-next-exam-count strong { font-family: 'Fraunces', serif; font-size: var(--text-2xl); font-weight: 700; }
+.vmx-next-exam-count strong { font-family: var(--vmx-display); font-size: var(--text-2xl); font-weight: 700; }
 .vmx-next-exam-count span { margin-top: 4px; color: var(--clr-ink-soft); font-size: var(--text-xs); }
 .vmx-next-exam-count.is-imminent { color: var(--clr-rose-text); }
 .vmx-next-exam-count.is-imminent strong { max-width: 11ch; font-family: inherit; font-size: var(--text-lg); line-height: 1.25; }
@@ -1961,7 +1968,7 @@ html, body {
 .vmx-option-text { font-size: 15px; line-height: 1.4; flex: 1; }
 
 .vmx-tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.vmx-tf-btn { padding: 24px; border-radius: 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; transition: all 0.15s; font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px; color: var(--clr-ink); }
+.vmx-tf-btn { padding: 24px; border-radius: 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; transition: all 0.15s; font-family: var(--vmx-display); font-weight: 600; font-size: 20px; color: var(--clr-ink); }
 .vmx-tf-btn:hover { border-color: var(--clr-ink); }
 .vmx-tf-btn.selected-true { background: var(--clr-sage); color: var(--clr-surface); border-color: var(--clr-sage); }
 .vmx-tf-btn.selected-false { background: var(--clr-rose); color: var(--clr-rose-on); border-color: var(--clr-rose); }
@@ -2087,7 +2094,7 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .vmx-burst { display: none; }
 }
-.vmx-score-big { font-family: 'Fraunces', serif; font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
+.vmx-score-big { font-family: var(--vmx-display); font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
 .vmx-score-big.pass { color: var(--clr-sage-text); }
 .vmx-score-big.fail { color: var(--clr-rose-text); }
 .vmx-score-label { font-family: inherit; font-size: 13px; color: var(--clr-ink-soft); margin: 8px 0 20px; }
@@ -2145,7 +2152,7 @@ html, body {
 .vmx-sr-grade { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
 .vmx-sr-btn { padding: 14px 8px; border-radius: 12px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-family: inherit; transition: all 0.15s; text-align: center; color: var(--clr-ink); }
 .vmx-sr-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.vmx-sr-btn .label { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+.vmx-sr-btn .label { font-family: var(--vmx-display); font-weight: 600; font-size: 16px; margin-bottom: 4px; }
 .vmx-sr-btn .sub { font-family: var(--vmx-mono); font-size: var(--text-xs); color: var(--clr-ink-soft); letter-spacing: 0.05em; }
 .vmx-sr-btn.again { border-color: var(--clr-rose); }
 .vmx-sr-btn.again .label { color: var(--clr-rose-text); }
@@ -2159,7 +2166,7 @@ html, body {
 .vmx-flashcard { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); padding: 40px; min-height: 300px; text-align: center; margin-bottom: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: center; }
 .vmx-flashcard .front { font-size: 20px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-flashcard .back { font-size: 17px; line-height: 1.5; color: var(--clr-ink); border-top: 1px dashed var(--clr-border); padding-top: 20px; margin-top: 20px; }
-.vmx-flashcard .back .answer { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; color: var(--clr-sage-text); margin-bottom: 12px; }
+.vmx-flashcard .back .answer { font-family: var(--vmx-display); font-weight: 600; font-size: 22px; color: var(--clr-sage-text); margin-bottom: 12px; }
 
 .vmx-form-group { margin-bottom: 16px; }
 .vmx-form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--clr-ink); }
@@ -2205,7 +2212,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
-.vmx-modal h2 { font-family: 'Fraunces', serif; margin: 0 0 16px; font-size: 24px; color: var(--clr-ink); }
+.vmx-modal h2 { font-family: var(--vmx-display); margin: 0 0 16px; font-size: 24px; color: var(--clr-ink); }
 
 /* ── Onboarding tour ─────────────────────────────────────────────────
    First-time walkthrough (7 steps), mounted at App level so any view can
@@ -2265,7 +2272,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   margin-bottom: var(--space-2);
 }
 .vmx-tour-title {
-  font-family: 'Fraunces', serif;
+  font-family: var(--vmx-display);
   font-weight: 600;
   font-size: 22px;
   line-height: 1.2;
@@ -2343,7 +2350,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 .vmx-footer-brand { min-width: 0; }
 .vmx-footer-wordmark {
-  font-family: 'Fraunces', serif; font-weight: 800; font-size: 18px;
+  font-family: var(--vmx-display); font-weight: 800; font-size: 18px;
   letter-spacing: -0.02em; color: var(--clr-ink); margin-bottom: var(--space-2);
 }
 .vmx-footer-wordmark span { color: var(--clr-rose-text); font-style: italic; font-weight: 500; }
@@ -2405,9 +2412,22 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 
 /* ────────── Responsive layouts for inline-grid views ────────── */
 @media (max-width: 880px) {
-  /* NotesView stacks: sidebar above, content below */
+  /* NotesView stacks: sidebar above, content below. The sidebar carries every
+     subject and every topic of the open subject, so stacking it whole pushed
+     the article the student had just chosen to roughly y=1877px at 390x844 —
+     they arrived at a screen of navigation and had to scroll past all of it to
+     reach the first line. Capping it keeps the picker reachable (it scrolls
+     inside itself) while the article starts within the first screen. */
   .vmx-notes-grid { grid-template-columns: 1fr !important; }
-  .vmx-notes-sidebar { position: static !important; max-height: none !important; }
+  /* No overscroll-behavior here on purpose: `contain` on an in-page panel
+     swallows the wheel when its content happens to fit, which once stopped the
+     page scrolling at all from over the left menu. That property belongs to
+     overlays that deliberately block the page behind them. */
+  .vmx-notes-sidebar {
+    position: static !important;
+    max-height: 45vh !important;
+    overflow-y: auto !important;
+  }
 
   /* Player modal: sidebar below the player */
   .vmx-player-grid { grid-template-columns: 1fr !important; }
@@ -2575,7 +2595,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
    ============================================================ */
 .vmx-summary-body { font-family: 'Sarabun', 'Inter', sans-serif; }
 .vmx-summary-body .vmx-md-h1 {
-  font-family: 'Fraunces', serif;
+  font-family: var(--vmx-display);
   font-size: 22px;
   font-weight: 600;
   margin: 4px 0 12px;
@@ -2584,7 +2604,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   color: var(--clr-ink);
 }
 .vmx-summary-body .vmx-md-h2 {
-  font-family: 'Fraunces', serif;
+  font-family: var(--vmx-display);
   font-size: 18px;
   font-weight: 600;
   margin: 22px 0 8px;
@@ -2724,7 +2744,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   line-height: 1;
 }
 .vmx-streak-count {
-  font-family: 'Fraunces', serif;
+  font-family: var(--vmx-display);
   font-size: 14px;
   font-weight: 700;
   color: var(--clr-gold-text);
@@ -2790,7 +2810,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 .vmx-streak-num {
-  font-family: 'Fraunces', serif;
+  font-family: var(--vmx-display);
   font-size: 24px;
   font-weight: 700;
   color: var(--clr-gold-text);
@@ -3584,7 +3604,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   font-weight: 600;
 }
 .vmx-vetcalc-result-value {
-  font-family: 'Fraunces', serif;
+  font-family: var(--vmx-display);
   font-weight: 700;
   font-size: 20px;
   color: var(--clr-ink);

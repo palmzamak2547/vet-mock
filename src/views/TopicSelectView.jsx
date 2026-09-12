@@ -4,6 +4,7 @@ import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
 import { announced } from '../data/curriculum.js';
 import { librarySubjectCounts } from '../lib/library.js';
+import { takeViewIntent } from '../lib/feature-registry.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -21,7 +22,7 @@ const VCA_NOTES_MAP = {
   dogcat:   { subject: 'com5',     label: 'Notes COM V (Dog-Cat)' },
 };
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics' }) {
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
   const [shelfDocs, setShelfDocs] = useState(0);
@@ -31,7 +32,13 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     return () => { alive = false; };
   }, [subject]);
   const [openInstructor, setOpenInstructor] = useState(null);
-  const [activeSection, setActiveSection] = useState('topics');
+  // Open on the reading tab when the student came here from สรุปบทเรียน. The
+  // per-topic summary buttons were always on this screen, but under the
+  // practice tab, so the reading intent quietly became a practice flow.
+  const [activeSection, setActiveSection] = useState(() => {
+    if (initialSection === 'resources') return 'resources';
+    return takeViewIntent() === 'notes' ? 'resources' : 'topics';
+  });
   // Palm bug 2026-05-20: subjects with 50+ topics in curriculum but only
   // ~30 with Qs (e.g. COM I has 31 filled + 26 empty) flooded the view
   // with disabled "🚧 รอข้อสอบเพิ่ม" cards. Collapse empties behind a

@@ -89,7 +89,7 @@ export default function PhaseWrappedView({ goHome, history = [], srCards = {}, b
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             Phase Wrapped
           </div>
-          <h2 style={{ margin: '8px 0 0', fontSize: 22, fontFamily: 'Fraunces, serif' }}>
+          <h2 style={{ margin: '8px 0 0', fontSize: 22, fontFamily: 'var(--vmx-display)' }}>
             ยังไม่มี phase ที่จบ
           </h2>
           <p style={{ margin: '12px 0 0', fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink, #2b2419)' }}>

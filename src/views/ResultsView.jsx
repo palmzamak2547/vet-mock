@@ -48,7 +48,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
 
   // Top label row: VetMock + mode tag
   ctx.fillStyle = '#2b2419';
-  ctx.font = '600 64px "Fraunces", Georgia, serif';
+  ctx.font = '600 64px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif';
   ctx.textAlign = 'left';
   ctx.fillText('VetMock', 80, 180);
   ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
@@ -58,10 +58,10 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   // Big score (or writing icon)
   if (isWritingOnly) {
     ctx.textAlign = 'center';
-    ctx.font = '600 360px "Fraunces", serif';
+    ctx.font = '600 360px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
     ctx.fillStyle = '#b88940';
     ctx.fillText('✍️', W / 2, 800);
-    ctx.font = '500 60px "Fraunces", serif';
+    ctx.font = '500 60px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
     ctx.fillStyle = '#2b2419';
     ctx.fillText('Writing Practice', W / 2, 920);
     ctx.font = '400 44px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
@@ -69,13 +69,13 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
     ctx.fillText(`${writingDone} / ${writingTotal}`, W / 2, 990);
   } else {
     ctx.textAlign = 'center';
-    ctx.font = '700 480px "Fraunces", serif';
+    ctx.font = '700 480px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
     const scoreColor = pct >= 80 ? '#4a6b4a' : pct >= 60 ? '#b88940' : '#c26d6d';
     ctx.fillStyle = scoreColor;
     ctx.fillText(`${pct}`, W / 2, 850);
-    ctx.font = '500 100px "Fraunces", serif';
+    ctx.font = '500 100px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
     ctx.fillText('%', W / 2 + (`${pct}`.length === 3 ? 280 : 220), 700);
-    ctx.font = '500 56px "Fraunces", serif';
+    ctx.font = '500 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
     ctx.fillStyle = '#2b2419';
     ctx.fillText(`${correct} / ${total} ถูก`, W / 2, 970);
   }
@@ -100,12 +100,12 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   else if (pct >= 60) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
   else if (pct >= 40) msg = 'สู้ๆ, กลับไปทบทวนเนื้อหาอีกรอบ';
   else msg = 'เริ่มใหม่ได้เสมอ';
-  ctx.font = '400 44px "Fraunces", serif';
+  ctx.font = '400 44px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#3d342a';
   ctx.fillText(msg, W / 2, 1300);
 
   // Bottom watermark — persistent IG handle
-  ctx.font = '600 56px "Fraunces", serif';
+  ctx.font = '600 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
   ctx.fillText('vetmock.vercel.app', W / 2, 1700);
   ctx.font = '500 40px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
@@ -615,7 +615,7 @@ function NextPlayPanel({
           >
             <div style={{ fontSize: 28, lineHeight: 1 }}>🎯</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
+              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 แก้ข้อที่ผิด {wrongQs.length} ข้อ ทันที
               </div>
               <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
@@ -654,7 +654,7 @@ function NextPlayPanel({
           >
             <div style={{ fontSize: 28, lineHeight: 1 }}>🚀</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
+              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 {continueLabel.replace('🚀 ', '')}
               </div>
               <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
@@ -1041,7 +1041,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: hasTimes ? 12 : 0 }}>
         <div style={{ fontSize: 36, lineHeight: 1, flexShrink: 0 }} aria-hidden>{verdictMeta.icon}</div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 18, color: 'var(--clr-ink)' }}>
+          <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 18, color: 'var(--clr-ink)' }}>
             {verdictMeta.label}
           </div>
           <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.45 }}>

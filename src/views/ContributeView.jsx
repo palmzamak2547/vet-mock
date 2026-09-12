@@ -619,7 +619,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
       {/* ─── My Submissions ─────────────────────────────────────── */}
       <div style={{ maxWidth: 600, margin: '28px auto 0' }}>
         <h2 style={{
-          fontFamily: 'Fraunces, "Times New Roman", serif',
+          fontFamily: 'var(--vmx-display)',
           fontSize: 20, marginBottom: 4,
         }}>
           คำถามที่ส่งล่าสุด

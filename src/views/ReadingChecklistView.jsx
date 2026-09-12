@@ -93,7 +93,7 @@ export default function ReadingChecklistView({
           <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             ภาพรวม
           </div>
-          <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 22, color: 'var(--clr-ink)' }}>
+          <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 22, color: 'var(--clr-ink)' }}>
             {totalDone}/{totalTopics} <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>{overallPct}%</span>
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function ReadingChecklistView({
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10, marginBottom: 10, flexWrap: 'wrap' }}>
               <div>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 17, lineHeight: 1.2 }}>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 17, lineHeight: 1.2 }}>
                   {subj.icon} {subj.name}
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>

@@ -49,7 +49,7 @@ function renderQCard({ question, brand = '@vetmock.cu' }) {
 
   // Top label — VetMock + subject pill
   ctx.fillStyle = '#2b2419';
-  ctx.font = '600 56px "Fraunces", Georgia, serif';
+  ctx.font = '600 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif';
   ctx.textAlign = 'left';
   ctx.fillText('VetMock', 80, 130);
 
@@ -70,7 +70,7 @@ function renderQCard({ question, brand = '@vetmock.cu' }) {
   // Question stem — wrap text
   const stemFontSize = question.q.length > 280 ? 36 : question.q.length > 180 ? 42 : 48;
   ctx.fillStyle = '#2b2419';
-  ctx.font = `500 ${stemFontSize}px "Fraunces", Georgia, serif`;
+  ctx.font = `500 ${stemFontSize}px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif`;
   ctx.textAlign = 'left';
   const stem = question.q.replace(/\*\*/g, '').replace(/★/g, ''); // remove star markers
   wrapText(ctx, stem, 80, 290, W - 160, stemFontSize * 1.4);
@@ -89,7 +89,7 @@ function renderQCard({ question, brand = '@vetmock.cu' }) {
       y += 88;
     });
   } else {
-    ctx.font = '400 36px "Fraunces", serif';
+    ctx.font = '400 36px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
     ctx.fillStyle = '#6b6055';
     ctx.fillText('ตอบในแคปชั่น ⬇', 80, 1100);
   }

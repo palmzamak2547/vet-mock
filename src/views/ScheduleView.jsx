@@ -89,7 +89,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                   <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, letterSpacing: '0.1em', color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>
                     {new Date(exam.date).toLocaleDateString('en', { month: 'short' })}
                   </div>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 32, lineHeight: 1, color: 'var(--clr-ink)' }}>
+                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, color: 'var(--clr-ink)' }}>
                     {new Date(exam.date).getDate()}
                   </div>
                   <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
@@ -105,7 +105,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
 
                 {/* Info */}
                 <div style={{ flex: 1, minWidth: 240 }}>
-                  <h2 style={{ margin: '0 0 8px', fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18 }}>
+                  <h2 style={{ margin: '0 0 8px', fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 18 }}>
                     {exam.icon} {exam.title}
                     {exam.weight_pct && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>{exam.weight_pct}%</span>}
                   </h2>

@@ -6,6 +6,12 @@ export const LOCAL_EXTRA_FIELDS = Object.freeze({
   'vmx-pinboard': { label: 'Pinboard', type: 'array' },
   'vmx-user-flashcards': { label: 'Flashcard และ Cloze ส่วนตัว', type: 'array' },
   'vmx-image-occlusion-decks': { label: 'ชุดปิดภาพทบทวน', type: 'array' },
+  // Clips a student added themselves are their own work, and the watch history
+  // is the only record of what they have been through. Neither was in the main
+  // backup nor in this bundle, so "ย้ายข้อมูล" restored everything except
+  // those two — they were simply gone on the new device.
+  'vmx-custom-videos': { label: 'คลิปที่เพิ่มเอง', type: 'array' },
+  'vmx-watched-videos': { label: 'ประวัติการดูคลิป', type: 'object' },
 });
 const BUNDLE_KEY = 'vmx-local-extras-v1';
 let cachedStorage, cachedBundle, cacheReady = false, corrupt = false;
@@ -111,6 +117,14 @@ export function parseLocalExtras(value) {
     if (key === 'vmx-image-occlusion-decks') valid = data.every(deck => object(deck) && positiveId(deck.id)
       && typeof deck.imageDataUrl === 'string' && /^data:image\/(png|jpeg|webp|gif);base64,/.test(deck.imageDataUrl)
       && Array.isArray(deck.masks) && deck.masks.every(mask => object(mask) && mask.w > 0 && mask.h > 0 && ['x', 'y', 'w', 'h'].every(k => Number.isFinite(mask[k]) && mask[k] >= 0 && mask[k] <= 1)));
+    // A custom clip needs the two fields the list renders from; anything else
+    // on the object is the student's own metadata and is carried as-is.
+    if (key === 'vmx-custom-videos') valid = data.every(clip => object(clip)
+      && typeof clip.url === 'string' && clip.url.length > 0 && typeof clip.topic === 'string');
+    // videoId -> { watchedAt }. A malformed entry would make the "watched"
+    // badge lie about what the student has been through.
+    if (key === 'vmx-watched-videos') valid = Object.values(data).every(entry => object(entry)
+      && Number.isFinite(entry.watchedAt));
     if (!valid) return { success: false, reason: `ข้อมูล ${LOCAL_EXTRA_FIELDS[key].label} ไม่ครบหรือผิดชนิด` };
   }
   return { success: true, data: value.data, labels: keys.map(key => LOCAL_EXTRA_FIELDS[key].label) };

@@ -109,11 +109,11 @@ export default function GroupDetailView({ group, user, goBack }) {
             leaderboard.map((r, idx) => (
               <div key={r.id} className="vmx-review-item" style={{ background: idx === 0 ? 'rgba(184, 137, 64, 0.1)' : 'var(--clr-surface)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: idx < 3 ? 'var(--clr-gold)' : 'var(--clr-surface-2)', color: idx < 3 ? 'var(--clr-surface)' : 'var(--clr-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 18, flexShrink: 0 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: '50%', background: idx < 3 ? 'var(--clr-gold)' : 'var(--clr-surface-2)', color: idx < 3 ? 'var(--clr-surface)' : 'var(--clr-ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 18, flexShrink: 0 }}>
                     {idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : idx + 1}
                   </div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16 }}>
+                    <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
                       {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
@@ -122,7 +122,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontSize: 22, color: r.pct >= 80 ? 'var(--clr-sage-text)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
+                    <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 22, color: r.pct >= 80 ? 'var(--clr-sage-text)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
                     <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{r.correct}/{r.total}</div>
                   </div>
                 </div>
@@ -173,7 +173,7 @@ export default function GroupDetailView({ group, user, goBack }) {
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 40, marginBottom: 8 }}>{m.avatar_emoji || '🐾'}</div>
-              <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16 }}>
+              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
                 {m.username}
                 {m.id === user.id && <div style={{ fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>

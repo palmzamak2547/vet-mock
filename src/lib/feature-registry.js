@@ -20,6 +20,11 @@
 //
 //   invoke shapes:
 //     { kind: 'view',     view: 'dashboard' }              setView(view)
+//       An optional `intent` on a view invoke is stashed for the destination to
+//       read once (see rememberViewIntent below). It exists because several
+//       features share one landing screen: สรุปบทเรียน and ฝึกตามวิชา both open
+//       the subject picker, and without the intent the reading entry described
+//       and behaved like the practice one.
 //     { kind: 'practice', mode, subject, practiceMode,     start a config flow
 //                         numQuestions?, useTimer?, timePerQ? }
 //     { kind: 'event',    event: 'vmx-open-vetcalc' }      window event (calc)
@@ -132,7 +137,11 @@ export const FEATURES = [
     label: 'สรุปบทเรียน', labelEn: 'Lecture notes', icon: '📓',
     hint: 'สรุปจากสไลด์พร้อมแหล่งอ้างอิง เลือกวิชาก่อน',
     kw: 'notes สรุป โน้ต อ่าน slide สไลด์ lecture',
-    invoke: { kind: 'view', view: 'subject-select' },
+    // The intent to READ has to survive the subject picker. Without it the next
+    // two screens described practice ("สุ่มข้อสอบตามจำนวนที่เลือก") and opened
+    // on the practice-by-topic tab, so someone who chose สรุปบทเรียน was walked
+    // into the exam flow and had to find the reading buttons themselves.
+    invoke: { kind: 'view', view: 'subject-select', intent: 'notes' },
   },
   {
     id: 'videos', category: 'learn',
@@ -352,6 +361,28 @@ export const FEATURES = [
 // ── Helpers ──────────────────────────────────────────────
 
 /** Features in one category, in registry order. */
+// One-shot hand-off for a view invoke's `intent`. sessionStorage rather than a
+// prop because four separate surfaces invoke features (the feature menu, the
+// command palette, the sidebar and the tools button) and all of them just call
+// setView — threading a prop through each would be four chances to forget.
+// Read-once, so returning to the same screen later is not still "reading".
+const VIEW_INTENT_KEY = 'vmx-view-intent';
+
+export function rememberViewIntent(intent) {
+  try {
+    if (intent) sessionStorage.setItem(VIEW_INTENT_KEY, intent);
+    else sessionStorage.removeItem(VIEW_INTENT_KEY);
+  } catch { /* storage disabled: the screen just uses its default wording */ }
+}
+
+export function takeViewIntent() {
+  try {
+    const v = sessionStorage.getItem(VIEW_INTENT_KEY);
+    if (v) sessionStorage.removeItem(VIEW_INTENT_KEY);
+    return v || null;
+  } catch { return null; }
+}
+
 export function featuresByCategory(categoryId) {
   return FEATURES.filter((f) => f.category === categoryId);
 }

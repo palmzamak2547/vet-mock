@@ -28,7 +28,7 @@ function OptionRow({ opt, onClick, disabled }) {
 // a forbidden project rule. textTransform:uppercase is a no-op on Thai
 // and only affects the Latin labels, which is fine.
 const label = (color) => ({ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: color || 'var(--clr-sage-text)', marginBottom: 14 });
-const h2 = { fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(28px,4vw,42px)', lineHeight: 1.04, letterSpacing: '-.03em', color: 'var(--clr-ink)', margin: 0, textWrap: 'balance' };
+const h2 = { fontFamily: 'var(--vmx-display)', fontWeight: 500, fontSize: 'clamp(28px,4vw,42px)', lineHeight: 1.04, letterSpacing: '-.03em', color: 'var(--clr-ink)', margin: 0, textWrap: 'balance' };
 const em = { fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-text)' };
 const container = { maxWidth: 1200, margin: '0 auto' };
 const chip = (active) => `vmx-chip${active ? ' active' : ''}`;
@@ -45,7 +45,7 @@ export default function LandingBody(p) {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-border)', borderRadius: 999, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 22 }}>
               <Mochi state="wave" size={32} animate slot="landing-welcome" />{t.heroEyebrow}
             </div>
-            <h1 style={{ fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(38px,5.4vw,60px)', lineHeight: .98, letterSpacing: '-.035em', color: 'var(--clr-ink)', margin: '0 0 20px', textWrap: 'balance' }}>
+            <h1 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 500, fontSize: 'clamp(38px,5.4vw,60px)', lineHeight: .98, letterSpacing: '-.035em', color: 'var(--clr-ink)', margin: '0 0 20px', textWrap: 'balance' }}>
               {t.heroPre}<em style={em}>{t.heroEm}</em>{t.heroPost}
             </h1>
             <p style={{ fontSize: 17, lineHeight: 1.62, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '0 0 24px' }}>{t.heroSub}</p>
@@ -62,15 +62,15 @@ export default function LandingBody(p) {
                 so the page was contradicting itself.) */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', marginTop: '28px', paddingTop: '24px', borderTop: '1px solid var(--clr-border)' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage-text)', lineHeight: 1 }}>{QB_TOTAL.toLocaleString('en-US')}</div>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage-text)', lineHeight: 1 }}>{QB_TOTAL.toLocaleString('en-US')}</div>
                 <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statQuestions}</div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-gold-text)', lineHeight: 1 }}>{SUBJECTS_WITH_QUESTIONS}</div>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: '28px', color: 'var(--clr-gold-text)', lineHeight: 1 }}>{SUBJECTS_WITH_QUESTIONS}</div>
                 <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statSubjects}</div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean-text)', lineHeight: 1 }}>{t.statFreeValue}</div>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean-text)', lineHeight: 1 }}>{t.statFreeValue}</div>
                 <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statFree}</div>
               </div>
             </div>
@@ -126,7 +126,7 @@ export default function LandingBody(p) {
               </div>
               {/* mini exam navigator (desktop only) */}
               <div className="lp-hide-md" style={{ width: 120, flexShrink: 0, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 14, display: 'flex', flexDirection: 'column', gap: 11 }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 13, color: 'var(--clr-ink)' }}>{t.navTitle}</div>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 13, color: 'var(--clr-ink)' }}>{t.navTitle}</div>
                 <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 22, fontWeight: 600, color: 'var(--clr-ink)', lineHeight: 1 }}>04<span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}> / 20</span></div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 5 }}>
                   {Array.from({ length: 20 }).map((_, i) => {
@@ -168,7 +168,7 @@ export default function LandingBody(p) {
             {t.problems.map((pr) => (
               <div key={pr.title} className="lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
                 <div style={{ width: 48, height: 48, borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>{pr.emoji}</div>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{pr.title}</h3>
+                <h3 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{pr.title}</h3>
                 <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{pr.body}</p>
               </div>
             ))}
@@ -188,7 +188,7 @@ export default function LandingBody(p) {
             <div className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🎓</div>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.mockName}</h3>
+                <h3 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.mockName}</h3>
               </div>
               <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.mockDesc}</p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
@@ -199,7 +199,7 @@ export default function LandingBody(p) {
             <div className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--clr-ocean)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🔬</div>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.labFName}</h3>
+                <h3 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.labFName}</h3>
               </div>
               <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.labFDesc}</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 10, marginTop: 4 }}>
@@ -218,7 +218,7 @@ export default function LandingBody(p) {
               <span>🚨</span>{t.panicLabel}
             </div>
             <h2 style={{ ...h2, fontSize: 'clamp(32px,4.6vw,50px)', lineHeight: 1, margin: '0 0 8px' }}>{t.panicHead}</h2>
-            <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 19, color: 'var(--clr-ink-soft)', margin: '0 0 14px' }}>{t.panicCalm}</p>
+            <p style={{ fontFamily: 'var(--vmx-display)', fontStyle: 'italic', fontSize: 19, color: 'var(--clr-ink-soft)', margin: '0 0 14px' }}>{t.panicCalm}</p>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '48ch', margin: 0 }}>{t.panicDesc}</p>
             <div style={{ margin: '24px 0 22px' }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 11 }}>{t.panicTimeQ}</div>
@@ -232,7 +232,7 @@ export default function LandingBody(p) {
           </div>
           <div className="lp-reveal lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: '3px solid var(--clr-gold)', borderRadius: 20, padding: 28, boxShadow: 'var(--shadow-md)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
-              <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 18, color: 'var(--clr-ink)' }}>{t.panicPlanTitle}</span>
+              <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 18, color: 'var(--clr-ink)' }}>{t.panicPlanTitle}</span>
               {/* This card recomputes as the time chips change, but the
                   numbers are an illustrative example set, not a live feed
                   — so it's framed as a preview, not "LIVE". */}
@@ -241,7 +241,7 @@ export default function LandingBody(p) {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
               {[[p.panic.c, t.panicStatConcepts, 'var(--clr-ink)'], [p.panic.t, t.panicStatTraps, 'var(--clr-gold-text)'], [p.panic.q, t.panicStatQ, 'var(--clr-sage-text)'], [p.panic.w, t.panicStatWeak, 'var(--clr-rose-text)']].map(([v, lbl, c]) => (
                 <div key={lbl} style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 13, padding: 15 }}>
-                  <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 30, lineHeight: 1, color: c }}>{v}</div>
+                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 30, lineHeight: 1, color: c }}>{v}</div>
                   <div style={{ fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 6 }}>{lbl}</div>
                 </div>
               ))}
@@ -266,7 +266,7 @@ export default function LandingBody(p) {
             {t.steps.map((s, i) => (
               <div key={s.title} className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
                 <div style={{ fontFamily: 'var(--vmx-mono)', fontWeight: 600, fontSize: 14, width: 44, height: 44, borderRadius: '50%', background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{i + 1}</div>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{s.title}</h3>
+                <h3 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{s.title}</h3>
                 <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{s.body}</p>
               </div>
             ))}
@@ -291,11 +291,11 @@ export default function LandingBody(p) {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
               <div style={{ position: 'relative', width: 200, height: 200, borderRadius: '50%', background: p.readinessRing, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <div style={{ width: 150, height: 150, borderRadius: '50%', background: 'var(--clr-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 54, lineHeight: 1, color: 'var(--clr-sage-text)' }}>72<span style={{ fontSize: 22 }}>%</span></span>
+                  <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 800, fontSize: 54, lineHeight: 1, color: 'var(--clr-sage-text)' }}>72<span style={{ fontSize: 22 }}>%</span></span>
                   <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 2 }}>{t.rScoreWord}</span>
                 </div>
               </div>
-              <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 16, color: 'var(--clr-ink-soft)', textAlign: 'center', margin: 0 }}>{t.rMsg}</p>
+              <p style={{ fontFamily: 'var(--vmx-display)', fontStyle: 'italic', fontSize: 16, color: 'var(--clr-ink-soft)', textAlign: 'center', margin: 0 }}>{t.rMsg}</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {t.rMetricLabels.map((lbl, i) => {
@@ -333,7 +333,7 @@ export default function LandingBody(p) {
       {/* ================= FINAL CTA ================= */}
       <section id="cta" data-screen-label="Final CTA" className="lp-pad" style={{ padding: '100px 24px', scrollMarginTop: 80 }}>
         <div className="lp-reveal" style={{ maxWidth: 920, margin: '0 auto', textAlign: 'center', background: 'var(--clr-ink)', borderRadius: 26, padding: '64px 40px' }}>
-          <h2 style={{ fontFamily: 'Fraunces, serif', fontWeight: 500, fontSize: 'clamp(30px,4.5vw,46px)', lineHeight: 1.05, letterSpacing: '-.03em', color: 'var(--clr-bg)', margin: '0 0 18px', textWrap: 'balance' }}>{t.ctaPre}<em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-soft)' }}>{t.ctaEm}</em>{t.ctaPost}</h2>
+          <h2 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 500, fontSize: 'clamp(30px,4.5vw,46px)', lineHeight: 1.05, letterSpacing: '-.03em', color: 'var(--clr-bg)', margin: '0 0 18px', textWrap: 'balance' }}>{t.ctaPre}<em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-soft)' }}>{t.ctaEm}</em>{t.ctaPost}</h2>
           {/* On the inverted (--clr-ink) panel, text/border derive from
               --clr-bg via color-mix so they stay legible in BOTH themes
               (a hardcoded cream would vanish on the cream box dark mode
@@ -351,11 +351,11 @@ export default function LandingBody(p) {
         <div style={container}>
           <div className="lp-stack" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 30, alignItems: 'start', marginBottom: 36 }}>
             <div>
-              <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'Fraunces, serif', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)', marginBottom: 12 }}>
+              <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'var(--vmx-display)', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)', marginBottom: 12 }}>
                 <img src="/vetmock-logo.svg" width={28} height={28} style={{ borderRadius: 7, display: 'block' }} alt="VetMock logo" />
                 Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span>
               </a>
-              <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontSize: 15, color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>{t.footTagline}</p>
+              <p style={{ fontFamily: 'var(--vmx-display)', fontStyle: 'italic', fontSize: 15, color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>{t.footTagline}</p>
               <p style={{ fontSize: 12.5, lineHeight: 1.55, color: 'var(--clr-ink-soft)', maxWidth: '46ch', margin: 0 }}>{t.footIndependent}</p>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 28px' }}>
@@ -553,7 +553,7 @@ function AnalyticsSection({ p }) {
         <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div className="lp-eyebrow" style={label()}>{t.aLabel}</div><h2 style={h2}>{t.aHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '56ch', margin: '14px 0 0' }}>{t.aSub}</p></div>
         <div className="lp-reveal lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 26, boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-            <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>📊 {t.progressTitle}</span>
+            <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>📊 {t.progressTitle}</span>
             <span className="vmx-tag-pill" style={{ marginLeft: 'auto' }}>{t.aSample}</span>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(148px,1fr))', gap: 12, marginBottom: 20 }}>
@@ -567,7 +567,7 @@ function AnalyticsSection({ p }) {
           <div className="lp-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 18 }}>
               <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 16 }}>
-                <span style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)' }}>{t.aActivityTitle}</span>
+                <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)' }}>{t.aActivityTitle}</span>
                 <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.aActivitySub}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 112 }}>
@@ -581,7 +581,7 @@ function AnalyticsSection({ p }) {
             </div>
             <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 18, display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)', marginBottom: 11 }}>{t.aMasteryTitle}</div>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)', marginBottom: 11 }}>{t.aMasteryTitle}</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
                   {MASTERY.map((m) => {
                     const cls = m.pct >= 75 ? '' : m.pct >= 60 ? 'mid' : 'low';
@@ -595,7 +595,7 @@ function AnalyticsSection({ p }) {
                 </div>
               </div>
               <div style={{ borderTop: '1px dashed var(--clr-border)', paddingTop: 13 }}>
-                <div style={{ fontFamily: 'Fraunces, serif', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)', marginBottom: 10 }}>{t.aConfTitle}</div>
+                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)', marginBottom: 10 }}>{t.aConfTitle}</div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ width: 92, color: 'var(--clr-ink-soft)', flexShrink: 0 }}>{t.aConfConfident}</span><div className="vmx-bar" style={{ flex: 1 }}><div className="vmx-bar-fill" style={{ width: '88%' }} /></div><span style={{ fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>88%</span></div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ width: 92, color: 'var(--clr-ink-soft)', flexShrink: 0 }}>{t.aConfUnsure}</span><div className="vmx-bar" style={{ flex: 1 }}><div className="vmx-bar-fill low" style={{ width: '44%' }} /></div><span style={{ fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>44%</span></div>

@@ -17,7 +17,7 @@
 
 import { useState } from 'react';
 import { MotionButton } from './MotionFeedback.jsx';
-import { FEATURE_CATEGORIES, featuresByCategory, visibleFeatures } from '../lib/feature-registry.js';
+import { FEATURE_CATEGORIES, featuresByCategory, visibleFeatures, rememberViewIntent } from '../lib/feature-registry.js';
 import { commandShortcutLabel } from '../lib/nav.js';
 
 const PREVIEW_LIMIT = 4;
@@ -37,7 +37,7 @@ export default function FeatureMenu({
   const dispatch = (inv) => {
     if (!inv) return;
     switch (inv.kind) {
-      case 'view': setView?.(inv.view); return;
+      case 'view': rememberViewIntent(inv.intent); setView?.(inv.view); return;
       case 'practice': onPractice?.(inv); return;
       case 'event': try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
       case 'sketch': onSketch?.(); return;

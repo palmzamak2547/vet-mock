@@ -40,7 +40,7 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 // palette's "Quick Actions" are derived from it so a feature added once
 // shows up in BOTH the home grid and search (no more hand-synced drift,
 // which had left 7 navigable features unsearchable).
-import { FEATURES, visibleFeatures, FEATURE_FLAGS } from '../lib/feature-registry.js';
+import { FEATURES, visibleFeatures, FEATURE_FLAGS, rememberViewIntent } from '../lib/feature-registry.js';
 import { listTopics } from '../lib/vetwiki/registry.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import ErrorBoundary from './ErrorBoundary.jsx';
@@ -308,7 +308,7 @@ function runItem(item, handlers) {
       const inv = item.payload;
       if (!inv || typeof inv !== 'object') return;
       switch (inv.kind) {
-        case 'view':      goView?.(inv.view); return;
+        case 'view':      rememberViewIntent(inv.intent); goView?.(inv.view); return;
         case 'practice':  onPractice?.(inv); return;
         case 'panic':     onPanic?.(inv.timeKey || '30'); return;
         case 'event':     try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;

@@ -216,7 +216,7 @@ export default function SummaryModal({ summary, onClose }) {
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               สรุปจากคลิปอาจารย์
             </div>
-            <h2 id="vmx-summary-title" style={{ margin: '4px 0 0', fontSize: 17, fontFamily: 'Fraunces, serif', fontWeight: 600 }}>
+            <h2 id="vmx-summary-title" style={{ margin: '4px 0 0', fontSize: 17, fontFamily: 'var(--vmx-display)', fontWeight: 600 }}>
               {summary.title}
             </h2>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 3, fontStyle: 'italic' }}>

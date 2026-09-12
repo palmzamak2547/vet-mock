@@ -706,7 +706,7 @@ export default function VetCalculator({ showFab = false, initialOpen = false } =
               <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
                 Vet Calculator
               </div>
-              <h2 id="vmx-vetcalc-title" style={{ margin: '6px 0 0', fontSize: 26, fontFamily: 'Fraunces, serif', fontWeight: 800 }}>คำนวณคลินิก</h2>
+              <h2 id="vmx-vetcalc-title" style={{ margin: '6px 0 0', fontSize: 26, fontFamily: 'var(--vmx-display)', fontWeight: 800 }}>คำนวณคลินิก</h2>
               <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
                 สูตรพื้นฐานที่นิสิต/สัตวแพทย์ใช้บ่อย, ทุกผลลัพธ์มีสูตรกำกับให้ตรวจมือซ้ำได้
               </p>

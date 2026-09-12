@@ -422,7 +422,7 @@ function FacultyCard({ instructor, onClick }) {
             {nameTh}
           </div>
         )}
-        <div style={{ fontFamily: 'Fraunces, serif', fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.2 }}>
+        <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.2 }}>
           {nameEn}
         </div>
       </div>
