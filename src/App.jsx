@@ -6,7 +6,12 @@ import { flushSync } from 'react-dom';
 // App.jsx kicks off loadQB() in a top-level effect (background load
 // after first paint) and gates exam-start paths on the populated QB.
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded } from './data/questions.js';
-import { SUBJECTS, YEARS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject } from './data/curriculum.js';
+import { SUBJECTS, YEARS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject, semesterForSubject } from './data/curriculum.js';
+
+// Which semester each exam phase belongs to. Mid vs final inside one semester
+// cannot be scoped from ordinary question data, so the phase narrows the pool
+// to its term and no further.
+const PHASE_SEMESTER = { '1-mid': 1, '1-final': 1, '2-mid': 2, '2-final': 2 };
 import { useLocalStorage } from './hooks/useStorage.js';
 import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
 import { useAuth } from './hooks/useAuth.js';
@@ -381,6 +386,25 @@ function buildExamPool({
     pool = subject === 'all'
       ? deliverableQuestions.filter((q) => !selectedYear || yearForSubject(q.subject) === selectedYear)
       : deliverableQuestions.filter((q) => q.subject === subject);
+
+    // Honour the phase the student picked. Until now only the curated
+    // current-scope and predicted modes looked at it, so an ordinary
+    // "เทอม 1 กลางภาค" set was filtered by YEAR alone: a probe for year 4 term
+    // 1 midterm returned 1,981 questions of which 1,633 belonged to term 2,
+    // and the id list was identical to the term 2 final set.
+    //
+    // Only the SEMESTER can be honoured here. Ordinary questions carry no
+    // mid/final marker, so narrowing further would be a promise the data
+    // cannot keep — the phase screen's own wording says which part is scoped.
+    // Semester 0 means the course runs all year and always qualifies. A
+    // specific chosen subject is left alone: the student named it.
+    const phaseSemester = PHASE_SEMESTER[selectedPhase];
+    if (phaseSemester && subject === 'all') {
+      pool = pool.filter((q) => {
+        const sem = semesterForSubject(q.subject);
+        return sem == null || sem === 0 || sem === phaseSemester;
+      });
+    }
 
     if (topic) {
       if (topic.startsWith('_') && topic.endsWith('-all')) {

@@ -229,6 +229,15 @@ function ChipRow({ label, options, value, onChange, allLabel = 'ทั้งห�
 
 // ── View ──────────────────────────────────────────────────────────────────
 
+// Read one filter back out of the URL. Defined outside the component so the
+// state initialisers can use it before anything else runs.
+function paramOr(key, fallback) {
+  try {
+    const v = new URLSearchParams(window.location.search).get(key);
+    return v == null || v === '' ? fallback : v;
+  } catch { return fallback; } // no window in tests
+}
+
 export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selectedYear = null }) {
   const [docs, setDocs] = useState([]);
   const [configured, setConfigured] = useState(true);
@@ -251,9 +260,13 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
     return '';
   });
   const [debouncedQuery, setDebouncedQuery] = useState(query);
-  const [kind, setKind] = useState('all');
-  const [semester, setSemester] = useState('all');
-  const [academicYear, setAcademicYear] = useState('all');
+  // Only `q` used to be mirrored into the URL, so opening a document and
+  // coming back dropped every other filter: a shelf narrowed to one academic
+  // year and one kind reopened as everything, and the four files the student
+  // had been working through were gone.
+  const [kind, setKind] = useState(() => paramOr('kind', 'all'));
+  const [semester, setSemester] = useState(() => paramOr('semester', 'all'));
+  const [academicYear, setAcademicYear] = useState(() => paramOr('ay', 'all'));
   // A subject-card hand-off filters by EXACT subject id, so the shelf shows
   // precisely the N files the card promised — the old name-as-text query
   // also matched other subjects' descriptions and the numbers disagreed.
@@ -262,7 +275,9 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
       const sid = sessionStorage.getItem('vmx-library-subject');
       if (sid) { sessionStorage.removeItem('vmx-library-subject'); return sid; }
     } catch { /* storage disabled */ }
-    return null;
+    // The sessionStorage hand-off is read-once, so without the URL copy a
+    // subject-scoped shelf was unrecoverable after a reader round-trip.
+    return paramOr('subject', null);
   });
   const [openYears, setOpenYears] = useState(() => new Set());
 
@@ -279,17 +294,25 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
     return () => clearTimeout(t);
   }, [query, debouncedQuery]);
 
-  // Mirror the search into ?q= so the current view is shareable and survives
-  // a refresh. replaceState, never pushState — typing must not grow history.
+  // Mirror the whole filter set into the URL so the current view is shareable
+  // and survives both a refresh and a trip through the reader. replaceState,
+  // never pushState — typing must not grow history. A param is deleted when it
+  // is at its default, so an unfiltered shelf keeps a clean URL.
   useEffect(() => {
     try {
       const url = new URL(window.location.href);
-      const q = debouncedQuery.trim();
-      if (q) url.searchParams.set('q', q);
-      else url.searchParams.delete('q');
+      const set = (key, value, dflt) => {
+        if (value != null && value !== dflt && value !== '') url.searchParams.set(key, String(value));
+        else url.searchParams.delete(key);
+      };
+      set('q', debouncedQuery.trim(), '');
+      set('kind', kind, 'all');
+      set('semester', semester, 'all');
+      set('ay', academicYear, 'all');
+      set('subject', subjectFilter, null);
       window.history.replaceState(window.history.state, '', url);
     } catch { /* test envs without a real history */ }
-  }, [debouncedQuery]);
+  }, [debouncedQuery, kind, semester, academicYear, subjectFilter]);
 
   const [reloadKey, setReloadKey] = useState(0);
   useEffect(() => {
@@ -690,8 +713,14 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                   {open && (
                     <div style={{ padding: '4px 16px 16px', display: 'flex', flexDirection: 'column', gap: 18 }}>
                       {group.subjects.map((sg) => {
-                        const budget = MAX_BROWSE_CARDS - rendered;
-                        if (budget <= 0) return null;
+                        // The render budget is shared across the whole tree, so
+                        // expanding a second year can leave nothing for a
+                        // subject in a year that is still open. Returning null
+                        // there made the group vanish with no explanation — the
+                        // shelf looked empty rather than capped. Keep the
+                        // heading and the count line; only the card grid is
+                        // skipped, so nothing extra is mounted.
+                        const budget = Math.max(0, MAX_BROWSE_CARDS - rendered);
                         const shown = sg.docs.slice(0, budget);
                         rendered += shown.length;
                         return (
@@ -713,21 +742,25 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                                 {sg.count} ไฟล์
                               </span>
                             </div>
-                            <div className="vmx-stagger" style={gridStyle}>
-                              {shown.map((doc) => (
-                                <DocCard
-                                  key={doc.id}
-                                  doc={doc}
-                                  busy={busyId === doc.id}
-                                  onOpen={openDoc}
-                                  onOpenOriginal={openOriginal}
-                                  showSubject={false}
-                                />
-                              ))}
-                            </div>
+                            {shown.length > 0 && (
+                              <div className="vmx-stagger" style={gridStyle}>
+                                {shown.map((doc) => (
+                                  <DocCard
+                                    key={doc.id}
+                                    doc={doc}
+                                    busy={busyId === doc.id}
+                                    onOpen={openDoc}
+                                    onOpenOriginal={openOriginal}
+                                    showSubject={false}
+                                  />
+                                ))}
+                              </div>
+                            )}
                             {shown.length < sg.docs.length && (
                               <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 10 }}>
-                                แสดง {shown.length} จาก {sg.docs.length} — ใช้ช่องค้นหาเพื่อดูที่เหลือ
+                                {shown.length === 0
+                                  ? `ยังไม่ได้แสดง ${sg.docs.length} ไฟล์ของวิชานี้ เพราะเปิดหลายชั้นปีพร้อมกัน ปิดชั้นปีอื่นหรือใช้ช่องค้นหาเพื่อดู`
+                                  : `แสดง ${shown.length} จาก ${sg.docs.length} — ใช้ช่องค้นหาเพื่อดูที่เหลือ`}
                               </p>
                             )}
                           </div>

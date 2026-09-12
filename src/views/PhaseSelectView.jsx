@@ -10,11 +10,16 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 // (Aug-Oct = 1-mid, Oct-Dec = 1-final, Jan-Mar = 2-mid, Mar-May = 2-final).
 // Y6 is block-based (no fixed semester) — bypasses this view in App routing.
 
+// `sub` says what the choice actually scopes. It used to read
+// "เนื้อหาก่อนสอบกลางภาค", which promised mid-only content that the question
+// data cannot support: ordinary questions carry no mid/final marker, so the
+// practice pool narrows to the TERM. The curated "ตามสไลด์ปัจจุบัน" and
+// "ชุดน่าจะออก" sets are the ones that really do scope to mid or final.
 const PHASES = [
-  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'เนื้อหาก่อนสอบกลางภาค', icon: '📚', months: [8, 9, 10] },
-  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'เนื้อหาก่อนสอบปลายภาค', icon: '🎯', months: [11, 12] },
-  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'เนื้อหาก่อนสอบกลางภาค', icon: '📖', months: [2, 3] },
-  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'เนื้อหาก่อนสอบปลายภาค', icon: '🏁', months: [4, 5] },
+  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'วิชาของเทอม 1', icon: '📚', months: [8, 9, 10] },
+  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'วิชาของเทอม 1', icon: '🎯', months: [11, 12] },
+  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'วิชาของเทอม 2', icon: '📖', months: [2, 3] },
+  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'วิชาของเทอม 2', icon: '🏁', months: [4, 5] },
 ];
 
 export function detectCurrentPhase(now = new Date()) {

@@ -2229,6 +2229,29 @@ const _SUBJECT_TO_YEAR = (() => {
   return map;
 })();
 
+// Same shape for the term a subject is taught in. The phase control (เทอม 1
+// กลางภาค and friends) promised a narrower scope than the practice pool
+// applied: a term-1 selection served term-2 questions because the pool only
+// ever filtered by year. Semester 0 means the course runs across both terms.
+const _SUBJECT_TO_SEMESTER = (() => {
+  const map = new Map();
+  for (const list of Object.values(SUBJECTS_BY_YEAR)) {
+    for (const subj of (list || [])) {
+      if (subj?.id && !map.has(subj.id) && subj.semester != null) {
+        map.set(subj.id, subj.semester);
+      }
+    }
+  }
+  return map;
+})();
+
+/** Returns the teaching semester (1, 2, or 0 for year-long) for a subject id,
+ *  or null when unknown / 'all'. */
+export function semesterForSubject(subjectId) {
+  if (!subjectId || subjectId === 'all') return null;
+  return _SUBJECT_TO_SEMESTER.get(subjectId) ?? null;
+}
+
 /** Returns the curriculum year (1-6) for a subject id, or null when
  *  unknown / 'all'. */
 export function yearForSubject(subjectId) {
