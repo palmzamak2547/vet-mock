@@ -396,7 +396,17 @@ export async function deleteAccountData() {
     });
     report = await res.json();
     if (!res.ok) {
-      throw new Error(report?.error || `delete-account returned ${res.status}`);
+      // A status line is an ANSWER, not a lost connection. Routing this into
+      // the catch below labelled it `__network__`, and the screen then told the
+      // student the connection dropped and some of their data might already be
+      // deleted — while the server had in fact refused cleanly and deleted
+      // nothing. On a destructive privacy action that is the worst possible
+      // thing to be wrong about, so a refusal reports itself as a refusal.
+      return {
+        ok: false,
+        deleted: report?.deleted || {},
+        errors: [{ table: '__server__', status: res.status, error: report?.error || `delete-account returned ${res.status}` }],
+      };
     }
     if (!report || typeof report.ok !== 'boolean' || !Array.isArray(report.errors)
       || !report.deleted || typeof report.deleted !== 'object'

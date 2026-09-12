@@ -78,11 +78,34 @@ export async function getMyGroups(userId) {
 
 export async function getGroupMembers(groupId) {
   const supabase = await getSupabase();
-  const { data, error } = await supabase.from('group_members')
-    .select('user_id, role, joined_at, profiles(id, username, avatar_emoji)')
+  // Two queries, joined here, because there is no relationship to embed:
+  // group_members' foreign keys go to auth.users and groups, never to
+  // profiles, so asking PostgREST for `profiles(...)` answered 400 PGRST200
+  // and the member list was empty for every group that ever existed.
+  // Adding the missing key would also work, but it would have to hold for
+  // every historical row on a live database; reading the two tables cannot
+  // fail that way. profiles is readable by design (username and emoji only),
+  // so the second query returns the other members, not just the caller.
+  const { data: rows, error } = await supabase.from('group_members')
+    .select('user_id, role, joined_at')
     .eq('group_id', groupId);
   if (error) throw error;
-  return data.map((r) => ({ ...r.profiles, role: r.role, joined_at: r.joined_at }));
+  const ids = [...new Set((rows || []).map((r) => r.user_id).filter(Boolean))];
+  let byId = new Map();
+  if (ids.length) {
+    const { data: people, error: peopleErr } = await supabase.from('profiles')
+      .select('id, username, avatar_emoji')
+      .in('id', ids);
+    if (peopleErr) throw peopleErr;
+    byId = new Map((people || []).map((p) => [p.id, p]));
+  }
+  // A member whose profile row is missing is still a member: show them rather
+  // than dropping them from the count.
+  return (rows || []).map((r) => ({
+    ...(byId.get(r.user_id) || { id: r.user_id, username: null, avatar_emoji: null }),
+    role: r.role,
+    joined_at: r.joined_at,
+  }));
 }
 
 // ==========================================================

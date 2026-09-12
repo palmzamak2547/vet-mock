@@ -15,7 +15,7 @@
 // CustomEvent — no polling, no React context needed.
 
 import { useEffect, useState, useCallback } from 'react';
-import { addPin, removePinByKey, isPinned, payloadKey, PINBOARD_EVENT } from '../lib/pinboard.js';
+import { addPin, removePinByKey, isPinned, payloadKey, PINBOARD_EVENT, PINBOARD_MAX } from '../lib/pinboard.js';
 import NavIcon from './NavIcon.jsx';
 import { alertDialog } from '../lib/dialog.js';
 import { useMotionFeedback } from './MotionFeedback.jsx';
@@ -46,6 +46,15 @@ export default function PinButton({ type, payload, label, compact = false, style
     if (!saved) {
       alertDialog('บันทึก Pinboard ไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม กรุณาลองใหม่');
       return;
+    }
+    // The board is capped, so a new pin can push the oldest one off. Say which
+    // one left: it was saved on purpose, and losing it quietly is what made the
+    // board behave like a cache instead of a collection.
+    if (saved.evicted?.length) {
+      const dropped = saved.evicted[0]?.label;
+      alertDialog(dropped
+        ? `กระดานเต็ม ${PINBOARD_MAX} รายการแล้ว จึงเอารายการที่เก่าสุดออก: ${dropped}`
+        : `กระดานเต็ม ${PINBOARD_MAX} รายการแล้ว จึงเอารายการที่เก่าสุดออกให้`);
     }
     setPresses((n) => n + 1);
   }, [type, key, payload, label, pinned]);

@@ -18,20 +18,40 @@ export default function GroupDetailView({ group, user, goBack }) {
   // Errors from an action the student took (delete), separate from `error`
   // which is the load failure and replaces the whole tab with a panel.
   const [actionError, setActionError] = useState('');
+  // A section that failed while the others loaded. Distinct from `error`,
+  // which replaces the whole tab and so must mean "nothing loaded".
+  const [loadWarning, setLoadWarning] = useState('');
 
   const load = async () => {
     setLoading(true);
     setError('');
     try {
-      const [m, q, lb] = await Promise.all([
+      // Three independent sections, so one failure must not blank the other
+      // two: Promise.all turned a single broken members query into "โหลดข้อมูล
+      // กลุ่มไม่สำเร็จ" over the whole tab, hiding shared questions and the
+      // board that had both loaded fine.
+      const [m, q, lb] = await Promise.allSettled([
         getGroupMembers(group.id),
         getSharedQuestions(group.id),
         getLeaderboard(group.id),
       ]);
+      if (m.status === 'fulfilled') setMembers(m.value);
+      if (q.status === 'fulfilled') setQuestions(q.value);
       // Same min-questions gate as the global board — a 2-question
       // sprint topping a group board is the same luck problem.
-      setMembers(m); setQuestions(q);
-      setLeaderboard((Array.isArray(lb) ? lb : []).filter(qualifiesForLeaderboard));
+      if (lb.status === 'fulfilled') {
+        setLeaderboard((Array.isArray(lb.value) ? lb.value : []).filter(qualifiesForLeaderboard));
+      }
+      const rejected = [m, q, lb].filter((r) => r.status === 'rejected');
+      // `error` hides every tab, so it is only honest when there is nothing
+      // left to show. A partial failure says so inline and leaves what did
+      // load on screen.
+      setLoadWarning('');
+      if (rejected.length === 3) {
+        setError(thaiError(rejected[0].reason, 'โหลดข้อมูลกลุ่มไม่สำเร็จ'));
+      } else if (rejected.length) {
+        setLoadWarning(thaiError(rejected[0].reason, 'บางส่วนของกลุ่มโหลดไม่สำเร็จ'));
+      }
     } catch (err) {
       setError(thaiError(err, 'โหลดข้อมูลกลุ่มไม่สำเร็จ'));
     } finally { setLoading(false); }
@@ -70,6 +90,13 @@ export default function GroupDetailView({ group, user, goBack }) {
       </div>
 
       {actionError && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 13 }}>⚠️ {actionError}</div>}
+
+      {!loading && !error && loadWarning && (
+        <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-gold-soft)', marginBottom: 16, fontSize: 13 }}>
+          ⚠️ {loadWarning}{' '}
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={load} style={{ marginInlineStart: 8 }}>ลองอีกครั้ง</button>
+        </div>
+      )}
 
       {loading && <StatePanel kind="loading" title="กำลังโหลดข้อมูลกลุ่ม…" />}
       {!loading && error && <StatePanel kind="error" title="โหลดข้อมูลกลุ่มไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />}

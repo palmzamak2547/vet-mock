@@ -85,12 +85,17 @@ Deno.serve(async (req: Request) => {
     return json({ error: 'server_misconfigured' }, 500, origin);
   }
 
-  // Identify the caller using their JWT (anon-key client + their token).
+  // Identify the caller using their JWT. getUser() MUST be handed the token:
+  // with persistSession:false there is no stored session, and supabase-js looks
+  // for one BEFORE it would ever put the Authorization header on the wire. So
+  // the argument-less call failed with "Auth session missing!" and EVERY delete
+  // answered 401 invalid_token no matter how valid the token was — the feature
+  // could not have worked for anyone.
+  const bearer = authHeader.replace(/^Bearer\s+/i, '').trim();
   const userClient = createClient(supabaseUrl, anonKey, {
-    global: { headers: { Authorization: authHeader } },
     auth: { autoRefreshToken: false, persistSession: false },
   });
-  const { data: { user }, error: userErr } = await userClient.auth.getUser();
+  const { data: { user }, error: userErr } = await userClient.auth.getUser(bearer);
   if (userErr || !user) {
     return json({ error: 'invalid_token', detail: userErr?.message }, 401, origin);
   }

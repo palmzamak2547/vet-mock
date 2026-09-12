@@ -36,17 +36,48 @@ test('CommandPalette declares every hook above its early return', () => {
   assert.equal(s.slice(ret).includes('useEffect('), false, 'no hook may follow the early return');
 });
 
-test('a jump into ConfigView from a pin or the palette clears the previous topic', () => {
+test('a pin or a palette hit on a question opens that question, and any pool fallback clears the topic', () => {
+  // Superseded the 2026-09 shape, which asserted the exact one-liners that
+  // routed a named question into ConfigView. Clearing the topic was only ever
+  // damage control for landing in a pool at all: the student had chosen ONE
+  // question, so the destination is that question. The topic-clearing
+  // assertion is kept for the paths that do still end in a pool.
   const pin = src('src/views/PinboardView.jsx');
   assert.ok(pin.includes('setTopic,'), 'PinboardView must receive setTopic');
-  assert.ok(pin.split("setTopic(null)").length >= 3, 'both the question and the note pin must clear the topic');
+  assert.ok(pin.includes('onOpenQuestion'), 'PinboardView must be able to open the pinned question itself');
+  assert.ok(pin.includes('await onOpenQuestion(p.id)'), 'the pinned id must be what is opened');
+  assert.ok(pin.includes('setTopic(null)'), 'the pool fallback must still clear the topic');
   assert.ok(APP.includes('<PinboardView {...{ goHome, setView, setSubject, setTopic,'), 'App must pass setTopic to PinboardView');
+  assert.ok(APP.includes('onOpenQuestion: openQuestionById'), 'App must give PinboardView a way to open one question');
+
   const pal = src('src/components/CommandPalette.jsx');
-  assert.ok(pal.includes("case 'question':   setSubject?.(item.payload.subject); setTopic?.(null);"));
-  assert.ok(pal.includes("case 'q-note':     setTopic?.(null);"));
-  assert.ok(pal.includes("case 'bookmarks': setTopic?.(null);"));
+  assert.ok(pal.includes("case 'question':\n    case 'q-note': {"), 'both named-question rows share one handler');
+  assert.ok(pal.includes('onOpenQuestion(id).then'), 'the palette must open the found question');
+  assert.ok(pal.includes("case 'bookmarks': setTopic?.(null);"), 'the bookmarks pool row still clears the topic');
+  // Every remaining route into ConfigView from this handler must clear the
+  // topic, or a leftover topic silently scopes the set again.
+  const handler = pal.slice(pal.indexOf("case 'question':"), pal.indexOf("case 'flashcard':"));
+  const configRoutes = handler.split("goView?.('config')").length - 1;
+  const clears = handler.split('setTopic?.(null)').length - 1;
+  assert.ok(configRoutes > 0 && clears >= configRoutes,
+    `every ConfigView fallback must clear the topic (${configRoutes} routes, ${clears} clears)`);
+
   const palBlock = APP.slice(APP.indexOf('<CommandPalette'), APP.indexOf('/>', APP.indexOf('<CommandPalette')));
   assert.ok(palBlock.includes('setTopic={setTopic}'), 'App must pass setTopic to CommandPalette');
+  assert.ok(palBlock.includes('onOpenQuestion={openQuestionById}'), 'App must pass the question opener to the palette');
+});
+
+test('openQuestionById resolves across years and is not pinned to the first render', () => {
+  // The bank is empty on the first render and fills in asynchronously, so a
+  // memoized-with-[] lookup would search an empty array forever — the same
+  // trap that once stamped a null account onto a whole exam set.
+  const open = APP.slice(APP.indexOf('const openQuestionById'), APP.indexOf('const isBookmarked'));
+  assert.ok(open.includes('const openQuestionById = async (id)'),
+    'openQuestionById must be a plain per-render function, not a [] useCallback');
+  assert.ok(open.includes('isQBFullyLoaded()') && open.includes('await loadQB()'),
+    'a pin can name another year: load the rest of the bank before reporting not-found');
+  assert.ok(open.includes('replayQuestions([q])'), 'a found question opens as a one-question round');
+  assert.ok(open.includes('return false'), 'not-found must be reported so callers can say so');
 });
 
 test('the review screen shows the share link when the clipboard refuses it', () => {

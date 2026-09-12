@@ -894,10 +894,21 @@ export default function App() {
       );
     } catch {}
     const onPopState = (event) => {
+      // The restored URL names the article, not just the view. Reading only
+      // `isWiki` to pick 'knowledge' threw the subject and topic away, so Back
+      // out of an article landed on the index instead of the article — the page
+      // the student had actually been reading.
+      const wiki = parseWikiPath(window.location.pathname);
       const next = event.state?.vmxView
         || viewForAppPath(window.location.pathname)
-        || (parseWikiPath(window.location.pathname).isWiki ? 'knowledge' : null)
+        || (wiki.isWiki ? 'knowledge' : null)
         || (window.location.hash === '#lab' ? 'lab' : 'home');
+      // Wiki paths only: `subject` doubles as the exam scope, so writing it on
+      // every popstate would silently re-scope the practice flow.
+      if (wiki.isWiki && wiki.subject && wiki.topic) {
+        setSubject(wiki.subject);
+        setTopic(wiki.topic);
+      }
       const nextVideoSubject = next === 'videos'
         ? event.state?.vmxVideoSubject || null
         : null;
@@ -2290,6 +2301,11 @@ export default function App() {
   const startMockExam = () => {
     setMode('exam');
     setSubject('all');
+    // A topic left over from browsing one subject silently scoped this
+    // cross-subject set to it: the config screen said รวมทุกวิชา while the pool
+    // had been filtered down to that one topic, and nothing on screen showed
+    // the topic was still applied.
+    setTopic(null);
     setPracticeMode('all');
     setNumQuestions(50);
     setUseTimer(true);
@@ -2312,6 +2328,33 @@ export default function App() {
     setView('exam');
     // eslint-disable-next-line react-hooks/exhaustive-deps -- session/setView stable
   }, []);
+
+  // Open ONE named question as a single-question round.
+  //
+  // A pin, a palette hit and a question note all name a specific question, but
+  // every one of them routed to a pool instead: the id was dropped and the
+  // student landed in their bookmarks (or an empty set, if they had none). This
+  // is the missing destination — "the thing you chose", not "the page that kind
+  // of thing lives on".
+  //
+  // NOT memoized: it reads customQuestions and the question bank through the
+  // current render, and an empty-dep useCallback here would pin the first
+  // render's empty bank forever — the same trap that once stamped a null owner
+  // onto a whole exam set.
+  const openQuestionById = async (id) => {
+    if (!id) return false;
+    const find = () => [...QB, ...customQuestions].find((q) => q.id === id);
+    let q = find();
+    // A pin can name a question from another year, so load the rest of the
+    // bank before concluding it is gone.
+    if (!q && !isQBFullyLoaded()) {
+      try { await loadQB(); } catch { /* fall through to the not-found answer */ }
+      q = find();
+    }
+    if (!q) return false;
+    replayQuestions([q]);
+    return true;
+  };
 
   // currentQ / currentAnswer destructured from useExamSession at top of
   // component (2026-05-27 refactor). Only isBookmarked stays local
@@ -2606,7 +2649,10 @@ export default function App() {
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, qbReady, history }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
-              {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
+              {/* setSubject is what makes Back correct: NotesView already calls it when the
+    reader switches subject, but without the prop the call was swallowed and
+    Back returned to the previous subject's topic list. */}
+{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
@@ -2616,7 +2662,7 @@ export default function App() {
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, onOpenWiki: openWiki }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
-              {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}
+              {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} />}
               {view === 'privacy' && <PrivacyView {...{ goHome, setView, consent, analyticsAllowed }} onConsent={(choice, prefs) => { setConsent(choice); if (prefs) setConsentPrefs(prefs); }} />}
@@ -2645,7 +2691,7 @@ export default function App() {
                   onOpenLibrary={returnToLibrary}
                 />
               )}
-              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, notes, selectedYear, selectedPhase }} />}
+              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion: openQuestionById, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions }} />}
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
@@ -2709,6 +2755,7 @@ export default function App() {
             onSketch={() => setSketchOpen(true)}
             onPanic={startPanicSession}
             onOpenWiki={openWiki}
+            onOpenQuestion={openQuestionById}
             onOpenLibraryDoc={openLibraryReader}
             onPractice={(inv) => {
               setMode(inv.mode || 'quick');

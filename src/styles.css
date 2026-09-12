@@ -996,8 +996,19 @@ html, body {
   .vmx-cmdk-kbd { display: none; }
   .vmx-cmdk-btn { padding: 5px 8px; font-size: 12px; }
   .vmx-header { display: flex; flex-wrap: nowrap; padding-bottom: 12px; margin-bottom: 16px; gap: 6px; }
-  .vmx-header-context { flex: 1 1 auto; gap: 6px; flex-wrap: nowrap; }
+  /* min-width:0 is what makes `flex: 1 1 auto` able to actually shrink. Without
+     it the context keeps its min-content width, overflows the row, and the
+     right-hand group — later in the DOM, so painted on top — ends up covering
+     the pills: signed in at 390px a tap on the phase pill opened search, and at
+     320px it opened the account menu. The pills now truncate instead. */
+  .vmx-header-context { flex: 1 1 auto; gap: 6px; flex-wrap: nowrap; min-width: 0; }
+  .vmx-context-group { min-width: 0; }
+  .vmx-context-pill { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .vmx-header-right { flex: 0 0 auto; gap: 4px; width: auto; justify-content: flex-end; flex-wrap: nowrap; }
+  /* Avatar + caret only: the name is the widest thing in the row and the one
+     part already available through aria-label. */
+  .vmx-usermenu-name { display: none; }
+  .vmx-usermenu-trigger { min-height: var(--touch-min); padding-inline: 8px !important; }
   /* WCAG 2.5.5 floor — don't shrink below 44×44 on mobile. Was 32×32
      pre-2026-05-20 audit; sub-44 hit targets cause mis-taps on
      thumb-reach scenarios. Slightly smaller font compensates for

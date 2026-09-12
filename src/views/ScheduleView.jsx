@@ -10,7 +10,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import BackBar from '../components/BackBar.jsx';
 
-export default function ScheduleView({ goHome, setSubject, setMode, setView, setPracticeMode, selectedYear = 4, selectedPhase }) {
+export default function ScheduleView({ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear = 4, selectedPhase }) {
   const [showPast, setShowPast] = useState(false);
   const [, setTick] = useState(0);
   const yearKey = `y${selectedYear}`;
@@ -26,6 +26,10 @@ export default function ScheduleView({ goHome, setSubject, setMode, setView, set
 
   const practiceSubject = (subjId) => {
     setSubject(subjId);
+    // Clear the topic with the subject. A topic belongs to whichever subject
+    // was open before, so carrying it into a different subject filters the
+    // pool down to nothing while the screen still offers to start.
+    if (setTopic) setTopic(null);
     setPracticeMode('all');
     setMode('quick');
     setView('config');

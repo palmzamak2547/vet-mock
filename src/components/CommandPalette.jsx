@@ -298,7 +298,7 @@ function buildStaticItems() {
 // Dispatch table — translates a cached item back into an action.
 // Keeps the item array pure data so we don't have to rebuild closures.
 function runItem(item, handlers) {
-  const { goView, setSubject, setTopic, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onPanic, onSketch, onOpenWiki } = handlers;
+  const { goView, setSubject, setTopic, setPracticeMode, openInstructor, openVoiceSettings, onPractice, onPanic, onSketch, onOpenWiki, onOpenQuestion } = handlers;
   switch (item.type) {
     case 'wiki': onOpenWiki?.(item.payload.subject, item.payload.topic); return;
     case 'exam': goView?.(item.payload); return; // payload = 'schedule'
@@ -324,14 +324,34 @@ function runItem(item, handlers) {
     case 'subject':    setSubject?.(item.payload); goView?.('topic-select'); return;
     case 'summary':    goView?.('videos'); return;
     case 'instructor': openInstructor?.(item.payload); return;
-    case 'question':   setSubject?.(item.payload.subject); setTopic?.(null); setPracticeMode?.('all'); goView?.('config'); return;
+    // A search result names ONE question. Open that question, rather than the
+    // whole subject's config screen or the bookmarks pool: the student already
+    // found what they wanted, and sending them to an aggregate made them search
+    // for it a second time inside a set that might not even contain it.
+    case 'question':
+    case 'q-note': {
+      // A question row carries { subject, id }; a note row's payload IS the
+      // question id, because notes are keyed by it (App.setNote).
+      const id = item.type === 'q-note' ? item.payload : item.payload?.id;
+      if (id && onOpenQuestion) {
+        onOpenQuestion(id).then((opened) => {
+          if (opened) return;
+          if (item.payload?.subject) setSubject?.(item.payload.subject);
+          setTopic?.(null);
+          setPracticeMode?.(item.type === 'q-note' ? 'bookmarks' : 'all');
+          goView?.('config');
+        });
+        return;
+      }
+      if (item.payload?.subject) setSubject?.(item.payload.subject);
+      setTopic?.(null);
+      setPracticeMode?.(item.type === 'q-note' ? 'bookmarks' : 'all');
+      goView?.('config');
+      return;
+    }
     // User flashcard → jump into SR review. v1 doesn't scroll to the
     // specific card; the user can rip through the deck from the top.
     case 'flashcard':  goView?.('sr-session'); return;
-    // Per-Q note → open Bookmarks practice so the user can fuzzy-find
-    // their noted Q in a quick-review set. Cheapest navigation that
-    // gets them into a context where the note matters.
-    case 'q-note':     setTopic?.(null); setPracticeMode?.('bookmarks'); goView?.('config'); return;
     default: return;
   }
 }

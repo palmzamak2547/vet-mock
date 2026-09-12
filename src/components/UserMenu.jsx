@@ -40,6 +40,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
     <div ref={ref} style={{ position: 'relative' }}>
       <button
         ref={triggerRef}
+        className="vmx-usermenu-trigger"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="menu"
@@ -57,7 +58,12 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
         <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--clr-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
           {profile.avatar_emoji || '🐾'}
         </span>
-        <span style={{ maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        {/* Hidden below 600px (see styles.css): signed in with a long name on
+            a phone, this pill pushed the study-context pills out of the row
+            and the header controls ended up overlapping, so a tap on the
+            phase pill opened search or this menu instead. The name still
+            reaches assistive tech through the button's aria-label. */}
+        <span className="vmx-usermenu-name" style={{ maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {profile.username}
         </span>
         <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>

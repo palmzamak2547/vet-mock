@@ -59,7 +59,7 @@ function snippetFor(pin) {
   }
 }
 
-export default function PinboardView({ goHome, setView, setSubject, setTopic, setPracticeMode, notes, selectedYear = 4, selectedPhase }) {
+export default function PinboardView({ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion, notes, selectedYear = 4, selectedPhase }) {
   const [pins, setPins] = useState(() => loadPins());
   const [filter, setFilter] = useState('all');
   // Year scope — 'current' shows only pins whose source subject lives in
@@ -114,20 +114,25 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
 
   const hiddenByYearScope = pins.length - yearFilteredPins.length;
 
-  const onOpen = useCallback((pin) => {
+  const onOpen = useCallback(async (pin) => {
     const p = pin.payload || {};
     switch (pin.type) {
-      case 'question': {
+      // Both of these name ONE question, so open that question. They used to
+      // route into the bookmarks pool — a different store entirely — which
+      // showed the student's bookmarks without the pinned question in them, or
+      // nothing at all if they had never bookmarked anything.
+      case 'question':
+      case 'note': {
+        if (p.id && typeof onOpenQuestion === 'function') {
+          const opened = await onOpenQuestion(p.id);
+          if (opened) return;
+          // Say it plainly rather than silently showing a different set: a
+          // question can disappear when a bank is revised.
+          alertDialog('ไม่พบข้อนี้ในคลังแล้ว อาจถูกแก้ไขหรือนำออกไป จึงเปิดรายการที่บันทึกไว้ให้แทน');
+        }
         if (p.subject && typeof setSubject === 'function') setSubject(p.subject);
         // A topic picked for another subject used to survive the jump and
         // leave ConfigView with an empty pool and a disabled start button.
-        if (typeof setTopic === 'function') setTopic(null);
-        if (typeof setPracticeMode === 'function') setPracticeMode('bookmarks');
-        if (typeof setView === 'function') setView('config');
-        return;
-      }
-      case 'note': {
-        if (p.subject && typeof setSubject === 'function') setSubject(p.subject);
         if (typeof setTopic === 'function') setTopic(null);
         if (typeof setPracticeMode === 'function') setPracticeMode('bookmarks');
         if (typeof setView === 'function') setView('config');
@@ -146,7 +151,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
       }
       default: return;
     }
-  }, [setView, setSubject, setTopic, setPracticeMode]);
+  }, [setView, setSubject, setTopic, setPracticeMode, onOpenQuestion]);
 
   const onClearAll = useCallback(async () => {
     if (!pins.length) return;

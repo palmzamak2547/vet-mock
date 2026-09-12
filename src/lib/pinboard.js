@@ -89,14 +89,21 @@ export function addPin({ type, payload, label }) {
 
   // Evict oldest to keep <= MAX_PINS. Sorting by addedAt desc and
   // slicing keeps the newest survivors.
+  //
+  // The eviction is REPORTED to the caller. A pin is something the student
+  // deliberately kept, so dropping one and returning plain success made the
+  // board behave like a cache: the oldest thing they saved disappeared and
+  // nothing on screen said so.
+  let evicted = [];
   if (list.length > MAX_PINS) {
     list.sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0));
+    evicted = list.slice(MAX_PINS);
     list.length = MAX_PINS;
   }
 
   if (!safeWrite(list)) return null;
   fire();
-  return pin;
+  return evicted.length ? { ...pin, evicted } : pin;
 }
 
 export function removePin(id) {

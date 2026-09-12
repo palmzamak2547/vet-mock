@@ -569,6 +569,25 @@ export default function KnowledgeView({ subject, topic, setView, setSubject, set
   const openTopic = (id) => { setOpenId(id); syncUrl(id); window.scrollTo({ top: 0, behavior: 'auto' }); };
   const backToIndex = () => { setOpenId(null); syncUrl(null); };
 
+  // Follow the props when they change. `openId` is otherwise only ever read in
+  // the mount initializer, so choosing a different article from the command
+  // palette while this view was already open changed nothing: App saw the same
+  // view and returned early, and the previous article stayed on screen with its
+  // old URL and heading.
+  //
+  // The dep list is deliberately only [subject, topic]: adding openId or topics
+  // would make leaving an article (backToIndex, which does not write App state)
+  // immediately bounce back into it.
+  useEffect(() => {
+    const id = subject && topic ? `${subject}--${topic}` : null;
+    if (!id || id === openId) return;
+    if (!topics.some((t) => t.id === id)) return;
+    setOpenId(id);
+    syncUrl(id);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subject, topic]);
+
   // Normalise the URL on first paint (e.g. entering from the app's feature
   // button, which arrives at "/"), and follow Back/Forward. Topic buttons
   // already sync their own URL. A popstate-derived openId must not sync again:
