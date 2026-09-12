@@ -97,7 +97,10 @@ async function gotoSurface(page, path) {
       await page.goto(routeUrl(path), { waitUntil: 'domcontentloaded' });
       return;
     } catch (error) {
-      const transientNavigationCancel = /NS_BINDING_ABORTED|NS_ERROR_FAILURE|frame was detached|interrupted by another navigation|Frame load interrupted/i.test(String(error));
+      // "unknown error" is how Gecko reports some of these same aborts when
+      // it supplies no code. Sibling copies of this list live in
+      // mochi-presence.spec.js and system-polish.spec.js; keep them together.
+      const transientNavigationCancel = /NS_BINDING_ABORTED|NS_ERROR_FAILURE|unknown error|frame was detached|interrupted by another navigation|Frame load interrupted/i.test(String(error));
       if (!transientNavigationCancel || attempt === 2) throw error;
       await page.waitForTimeout(100 * (attempt + 1));
     }

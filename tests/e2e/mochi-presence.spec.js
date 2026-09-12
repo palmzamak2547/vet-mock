@@ -18,7 +18,11 @@ async function open(page, url) {
   for (let attempt = 0; attempt < 3; attempt++) {
     try { await page.goto(url, { waitUntil: 'domcontentloaded' }); break; }
     catch (error) {
-      if (attempt === 2 || !/NS_BINDING_ABORTED|NS_ERROR_FAILURE|frame was detached|interrupted by another navigation|Frame load interrupted/i.test(String(error))) throw error;
+      // Gecko reports some of these same aborts as a bare "<unknown error>"
+      // with no code, so the named list alone rethrew on the first attempt.
+      // A route that is genuinely broken still fails: the assertions below
+      // run after the last attempt succeeds.
+      if (attempt === 2 || !/NS_BINDING_ABORTED|NS_ERROR_FAILURE|unknown error|frame was detached|interrupted by another navigation|Frame load interrupted/i.test(String(error))) throw error;
       await page.waitForTimeout(100 * (attempt + 1));
     }
   }

@@ -57,7 +57,7 @@ test('unknown app destinations canonicalize safely to home', async ({ page }) =>
   } catch (error) {
     // Some engines report the app's immediate replaceState canonicalization as
     // an aborted/interrupted document navigation even though Home is ready.
-    if (!/NS_BINDING_ABORTED|interrupted by another navigation/.test(String(error))) throw error;
+    if (!/NS_BINDING_ABORTED|unknown error|interrupted by another navigation/i.test(String(error))) throw error;
   }
   await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();

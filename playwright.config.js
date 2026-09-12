@@ -30,7 +30,17 @@ export default defineConfig({
   // `add -A` or a local run should not be able to promote one into the gate.
   testIgnore: ['**/zz-*.spec.js'],
   timeout: 30_000,
-  expect: { timeout: 5_000 },
+  // 2026-09-13: was 5s. A cold entry chunk paints in ~1.1s on the slowest
+  // engine when it has the machine to itself, but the suite runs fullyParallel
+  // across four projects, and under that contention the first assertion after
+  // a goto crossed 5s and failed on the app's own "กำลังโหลด…" state. Three
+  // different specs failed that way on two consecutive runs, never the same
+  // one twice. Specs bitten earlier had been patched one at a time with an
+  // explicit { timeout: 15_000 }, so this is that same number generalised
+  // rather than a new allowance. An expect timeout is how long a condition
+  // may take to become true, so nothing here weakens what is asserted; the
+  // 30s test timeout still bounds a genuinely stuck wait.
+  expect: { timeout: 15_000 },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
