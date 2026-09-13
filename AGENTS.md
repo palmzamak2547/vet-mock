@@ -353,6 +353,42 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.92.0: 65 illustrations wired, and what was deliberately left out
+
+- **Assets**: generated from the art brief (artifact defbd0c7), delivered as 65 PNGs at exact
+  dimensions with verified alpha. Shipped as WebP — **9.0 MB to 1.3 MB, minus 86%** — which the repo
+  can afford where 9 MB of PNG on a phone plan it cannot. Originals stay in
+  `work/art-brief-20260914/` (gitignored) and are regenerable from `prompts.json` there.
+- **`src/data/art.js` is the only place a path is written.** Components reference ids, so a renamed
+  file fails `lint:art` instead of failing silently as a broken image on the one screen that exists
+  to say "nothing here yet". The lint also scans `public/blog/*.html`, because those four headers are
+  referenced from static markup and would otherwise be reported as dead weight.
+- **Wired**: 8 empty states (EmptyState and StatePanel both take an `art` prop), 9 subject-kit Mochi
+  on the subject cards, 14 badges on the wrapped view, a 10-option backdrop picker in IG Card Studio,
+  4 blog headers, 8 game sprites, the spinning loading book, 5 seasonal Mochi on the next-action card.
+- **Left out on purpose, and this is the interesting part**: 4 of the 12 empty-state pictures
+  (`race`, `contribute`, `schedule`, `sr-session`) are NOT rendered. Those screens' "empty" states are
+  a login gate, a list subtitle, a per-row note and a state that does not exist — and the brief's own
+  rule is that the mood must read "nothing here yet", never "something went wrong". An illustration
+  of an empty starting line above a login prompt tells the user the wrong thing. They stay in the
+  registry for when those screens get a real first-run state.
+- **The game keeps its emoji.** `drawSprite` returns false until an image has decoded and every call
+  site falls back to the original `fillText`, so the game is playable on the first frame, on a device
+  that blocks images, and offline before the sprites are cached. Sprites load on mount; nothing waits.
+- **Badges are derived, never stored** (`src/lib/badges.js`): every one is a function of history,
+  SR cards and custom questions, so a badge cannot disagree with the dashboard and clearing data
+  clears the badges. Each renders **why** it was given — a mark with no stated basis is decoration
+  pretending to be an achievement. `perfect` requires a set of at least 10, and `corrected-mistakes`
+  requires the same question wrong-then-right, not 40 first-time-correct ones.
+- **The seasonal Mochi keys off `nextExam.daysLeft`**, the app's own field, so it agrees with the
+  countdown the student is already reading rather than re-deriving dates and drifting a day. It
+  changes the picture, never the words, and returns null outside a real window — a cheering Mochi
+  shown to someone whose exam is a month away is a small lie about where they are.
+- Trap, hit while writing this very entry: a Python heredoc piped through Bash interprets a
+  backslash-u sequence inside a triple-quoted string, so a script containing one dies with
+  "truncated \uXXXX escape" and, if it was the last step, the commit goes out without it. Write the
+  script to a file with the Write tool instead of piping it through the shell.
+
 ## 2026-09-14 — 5.91.1: localStorage filled because five key families never got cleaned
 
 - **Reported as "พื้นที่จัดเก็บในเครื่องไม่พอ ขึ้นบ่อยจัง".** It is not a transient failure: the
