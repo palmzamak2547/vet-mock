@@ -1556,6 +1556,21 @@ html, body {
 .vmx-mochi-page > .vmx-study-break { max-width: none; }
 .vmx-motion-examples { margin-top: var(--space-4); border-top: 1px solid var(--clr-border); }
 .vmx-motion-examples > summary { min-height: var(--touch-min); padding: var(--space-3) 0; cursor: pointer; font-weight: 600; }
+
+/* Home: quests + daily goal folded into one row so the subject grid is not
+   competing with a progress report for the first screen. */
+.vmx-home-extras { margin-top: var(--space-5); border-top: 1px solid var(--clr-border); }
+.vmx-home-extras > summary {
+  min-height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--clr-ink-soft);
+}
+.vmx-home-extras[open] > summary { color: var(--clr-ink); }
 @media (max-width: 640px) {
   .vmx-reading-tools select { font-size: 16px; }
 }
@@ -2593,6 +2608,35 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 /* ============================================================
    SummaryModal markdown rendering — styled for Thai reading
    ============================================================ */
+/* Reading progress across a lecture summary, and the arrival of each block as
+   it scrolls in. The reveal class is only ever applied by JS when an observer
+   exists to take it off again, so a failure leaves the text plainly visible. */
+.vmx-summary-progress {
+  height: 2px;
+  background: var(--clr-border);
+  overflow: hidden;
+}
+.vmx-summary-progress > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--clr-gold-text), var(--clr-sage-text));
+}
+.vmx-summary-progress > span.is-eased { transition: transform 140ms ease-out; }
+
+.vmx-summary-body > .vmx-reveal {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 260ms ease-out, transform 260ms ease-out;
+}
+.vmx-summary-body > .vmx-reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-summary-body > .vmx-reveal { opacity: 1; transform: none; transition: none; }
+  .vmx-summary-progress > span.is-eased { transition: none; }
+}
+
 .vmx-summary-body { font-family: 'Sarabun', 'Inter', sans-serif; }
 .vmx-summary-body .vmx-md-h1 {
   font-family: var(--vmx-display);

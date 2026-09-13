@@ -70,6 +70,17 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
   const subjMeta = SUBJECTS.find((s) => s.id === subject);
   const topicMeta = topic && subjMeta?.topics?.find((t) => t.id === topic);
   const isExamMode = mode === 'exam';
+  // Exam mode runs one clock for the whole paper. The per-question number is
+  // still how the budget is chosen, so show what it adds up to rather than a
+  // per-question figure the clock no longer enforces.
+  const examBudgetLabel = (() => {
+    const total = Math.max(0, Math.round((Number(numQuestions) || 0) * (Number(timePerQ) || 0)));
+    if (!total) return '0 นาที';
+    const m = Math.floor(total / 60);
+    const sec = total % 60;
+    if (!m) return `${sec} วินาที`;
+    return sec ? `${m} นาที ${sec} วินาที` : `${m} นาที`;
+  })();
 
   // The phase comes from the app's one phase selector; this page only names it.
   const phaseScope = examScopeForPhase(selectedPhase);
@@ -203,7 +214,9 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
               onClick={() => setUseTimer(!useTimer)}
             />
             <span id="vmx-timer-state" style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-              {useTimer ? `${timePerQ} วินาที / ข้อ` : 'ปิด — โหมดอ่านไม่จับเวลา'}
+              {!useTimer ? 'ปิด — โหมดอ่านไม่จับเวลา'
+                : isExamMode ? `${examBudgetLabel} สำหรับทั้งชุด`
+                : `${timePerQ} วินาที / ข้อ`}
             </span>
           </div>
         </div>
@@ -232,7 +245,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
         {/* Time per question — only when timer on */}
         {useTimer && (
           <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-time-label">
-            <div id="vmx-config-time-label" className="vmx-label">เวลาต่อข้อ</div>
+            <div id="vmx-config-time-label" className="vmx-label">{isExamMode ? 'เวลาต่อข้อ (รวมเป็นงบของทั้งชุด)' : 'เวลาต่อข้อ'}</div>
             <div className="vmx-chip-row">
               {SECONDS_PRESETS.map((t) => (
                 <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} aria-pressed={timePerQ === t} onClick={() => { timePerQuestionRef.current = t; setTimePerQ(t); }}>

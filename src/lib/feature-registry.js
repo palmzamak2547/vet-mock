@@ -85,7 +85,7 @@ export const FEATURES = [
     // than claiming a simulation it does not implement. Making the clock a
     // single non-refillable session budget is a live-engine change with a
     // mid-exam blast radius and is left as an owner decision.
-    hint: '50 ข้อ จับเวลา 60 วิ ต่อข้อ',
+    hint: '50 ข้อ จับเวลารวม 50 นาที',
     kw: 'exam mode สอบ จับเวลา timed mock ข้อละ 60 วิ',
     hideOnScaffold: true,
     invoke: { kind: 'practice', mode: 'exam', subject: 'all', practiceMode: 'all', numQuestions: 50, useTimer: true, timePerQ: 60 },

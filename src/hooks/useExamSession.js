@@ -48,13 +48,22 @@ import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/
  * @param {string} params.view             — current app view (gates timer)
  * @param {boolean} params.useTimer        — timer enabled (from config)
  * @param {number} params.timePerQ         — base seconds per Q (from config)
+ * @param {boolean} params.sessionBudget   — one clock for the whole set
+ *                                            instead of a per-question one.
+ *                                            Exam mode passes true: an exam
+ *                                            hall gives you an hour for the
+ *                                            paper, not a minute per question
+ *                                            that refills every time you look
+ *                                            back. Practice passes false,
+ *                                            where a per-question pace is the
+ *                                            point of the drill.
  * @param {() => void} params.onFinish     — called when timer expires on
  *                                            the LAST question OR when
  *                                            nextQ is called on the last
  *                                            question. App.jsx wraps its
  *                                            real finishExam via ref.
  */
-export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = null }) {
+export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = null, sessionBudget = false }) {
   // ── State (with localStorage hydration for in-flight resume) ────────
   const [initialSaved] = useState(null);
   const [sessionId, setSessionId] = useState(() => validSessionId(initialSaved?.sessionId) ? initialSaved.sessionId : newStudySessionId());
@@ -78,6 +87,15 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setQuestionDeadline(Date.now() + duration * 1000);
     setRemainingTime(duration);
   }, []);
+  // Whether THIS session runs on one clock for the whole set. Held in a ref,
+  // not read from the prop, so a session that started under the per-question
+  // clock finishes under it: a student mid-exam when a new version deploys
+  // must not have the rules changed underneath them.
+  const sessionClockRef = useRef(sessionBudget);
+  /** Total budget for a set: the same per-question allowances, added up. */
+  const budgetFor = useCallback((qs) => (
+    (qs || []).reduce((total, q) => total + timeForQuestion(q, timePerQ), 0)
+  ), [timePerQ]);
   const positionRef = useRef(null);
   positionRef.current = { questions, currentIdx, view };
 
@@ -101,8 +119,9 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     if (examStartTime !== null) return;
     setSessionOwner(ownerId);
     setExamStartTime(Date.now());
-    setTimeLeft(timeForQuestion(questions[currentIdx], timePerQ));
-  }, [view, questions, currentIdx, timePerQ, examStartTime, ownerId]);
+    sessionClockRef.current = sessionBudget;
+    setTimeLeft(sessionBudget ? budgetFor(questions) : timeForQuestion(questions[currentIdx], timePerQ));
+  }, [view, questions, currentIdx, timePerQ, examStartTime, ownerId, sessionBudget, budgetFor]);
 
   // ── Timer tick ──────────────────────────────────────────────────────
   // Reconciles with wall time. On time-up: advance to next Q
@@ -117,6 +136,10 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // immediately fires onFinish on single-Q exams.
     if (examStartTime === null) return;
     if (timeLeft <= 0) {
+      // One clock for the set: time up ends the paper wherever they are, the
+      // same as an invigilator calling time. The per-question clock instead
+      // carries them to the next question with a fresh budget.
+      if (sessionClockRef.current) { onFinish?.(); return; }
       if (currentIdx < questions.length - 1) {
         const next = questions[currentIdx + 1];
         setCurrentIdx((i) => i + 1);
@@ -169,7 +192,10 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     if (currentIdx < questions.length - 1) {
       const next = questions[currentIdx + 1];
       setCurrentIdx(currentIdx + 1);
-      setTimeLeft(timeForQuestion(next, timePerQ));
+      // One clock for the set keeps running across the move; refilling it here
+      // is what let a student hold the paper open indefinitely by stepping
+      // back and forth.
+      if (!sessionClockRef.current) setTimeLeft(timeForQuestion(next, timePerQ));
     } else onFinish?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- onFinish stable via ref
   }, [currentIdx, questions, timePerQ, answers]);
@@ -180,14 +206,14 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     if (currentIdx > 0) {
       const prev = questions[currentIdx - 1];
       setCurrentIdx(currentIdx - 1);
-      setTimeLeft(timeForQuestion(prev, timePerQ));
+      if (!sessionClockRef.current) setTimeLeft(timeForQuestion(prev, timePerQ));
     }
   }, [currentIdx, questions, timePerQ]);
 
   const jumpToQ = useCallback((idx) => {
     if (idx >= 0 && idx < questions.length) {
       setCurrentIdx(idx);
-      setTimeLeft(timeForQuestion(questions[idx], timePerQ));
+      if (!sessionClockRef.current) setTimeLeft(timeForQuestion(questions[idx], timePerQ));
     }
   }, [questions, timePerQ]);
 
@@ -210,6 +236,8 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setAnswers({});
     setCurrentIdx(0);
     setExamStartTime(Date.now());
+    // A replay round is not a timed paper — the caller turns the timer off.
+    sessionClockRef.current = false;
     setTimeLeft(0);
   }, [ownerId]);
 
@@ -224,9 +252,13 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setQuestions(picked);
     setAnswers({});
     setCurrentIdx(0);
-    setTimeLeft(firstTime);
+    // firstTime is the caller's per-question allowance. Under one clock the
+    // set gets every question's allowance at once, so the total time on offer
+    // is unchanged — only the freedom to spend it where it is needed.
+    sessionClockRef.current = sessionBudget;
+    setTimeLeft(sessionBudget && firstTime > 0 ? budgetFor(picked) : firstTime);
     setExamStartTime(Date.now());
-  }, [ownerId]);
+  }, [ownerId, sessionBudget, budgetFor]);
 
   /** Called by App.resumePendingExam to rehydrate from localStorage. */
   const primeFromSaved = useCallback((saved) => {
@@ -243,14 +275,21 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setAnswers(saved.answers || {});
     setCurrentIdx(index);
     setExamStartTime(Number.isFinite(saved.examStartTime) ? saved.examStartTime : Date.now());
+    // A saved exam carries the clock it was started under. Records written
+    // before the session clock existed have no `clock` field, and those resume
+    // per-question: their deadline IS a per-question one, and treating it as a
+    // whole-paper deadline would end someone's exam the moment they reopened it.
+    sessionClockRef.current = saved.clock === 'session';
     if (Number.isFinite(saved.questionDeadline) && saved.questionDeadline > 0) {
       setQuestionDeadline(saved.questionDeadline);
       setRemainingTime(secondsUntilDeadline(saved.questionDeadline));
+    } else if (sessionClockRef.current) {
+      setTimeLeft(budgetFor(saved.questions));
     } else {
       setTimeLeft(timeForQuestion(saved.questions[index], saved.timePerQ ?? timePerQ));
     }
     return true;
-  }, [setTimeLeft, timePerQ, ownerId]);
+  }, [setTimeLeft, timePerQ, ownerId, budgetFor]);
 
   /** Called by App.goHome / App.dismissPendingExam to clear runtime state. */
   const resetSession = useCallback(() => {

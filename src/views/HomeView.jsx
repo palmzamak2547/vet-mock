@@ -1488,25 +1488,33 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           Quests now have per-quest "▶️ ลุย" action buttons (Phase 4)
           wired to handleQuestStart. */}
 
-      {/* Daily Quests panel — 3 randomized quests resets at local
-          midnight. Hidden on scaffold years (no Q bank to act against)
-          so empty quests don't taunt users on Y1–Y3 / Y5–Y6 shells. */}
-      {!isScaffoldYear && (
-        <Suspense fallback={null}>
-          <div style={{ marginTop: 28 }}>
-            <QuestsPanel onStart={handleQuestStart} year={selectedYear} />
-          </div>
-        </Suspense>
-      )}
-
-      {/* Daily goal card — only mount once user has history. Avoids
-          showing an empty quota widget to brand-new visitors. */}
-      {history.length > 0 && (
-        <Suspense fallback={null}>
-          <div style={{ marginBottom: 18 }}>
-            <DailyGoalCard history={history} selectedYear={selectedYear} />
-          </div>
-        </Suspense>
+      {/* Quests + daily goal, behind ONE disclosure. Both are "what to do
+          today" surfaces, and stacked open they were two of seven such
+          surfaces competing on the same screen — the audit's point was that
+          a student who opens the app to study scrolls past a progress report
+          to reach the subject they came for. Folded, they stay one tap away
+          for the people who use them and cost nothing to everyone else.
+          Quests are hidden on scaffold years (no Q bank to act against) and
+          the goal card only mounts once there is history, so the whole
+          disclosure disappears when it would be empty. */}
+      {(!isScaffoldYear || history.length > 0) && (
+        <details className="vmx-home-extras">
+          <summary>เป้าหมายและภารกิจวันนี้</summary>
+          {!isScaffoldYear && (
+            <Suspense fallback={null}>
+              <div style={{ marginTop: 14 }}>
+                <QuestsPanel onStart={handleQuestStart} year={selectedYear} />
+              </div>
+            </Suspense>
+          )}
+          {history.length > 0 && (
+            <Suspense fallback={null}>
+              <div style={{ marginBottom: 18 }}>
+                <DailyGoalCard history={history} selectedYear={selectedYear} />
+              </div>
+            </Suspense>
+          )}
+        </details>
       )}
 
       {/* Study buddies — Supabase presence list. Hidden when no buddies

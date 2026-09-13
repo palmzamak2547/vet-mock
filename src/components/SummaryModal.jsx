@@ -1,6 +1,6 @@
 // ============================================================
-// SummaryModal — แสดงสรุปคลิปอาจารย์ (Claude อ่าน YouTube ASR
-// แล้วถอดเป็น markdown), มี download .md + open in new tab
+// SummaryModal — แสดงสรุปคลิปอาจารย์ (ถอดจาก ASR ของ YouTube
+// เป็น markdown), มี download .md + open in new tab
 // ============================================================
 //
 // Props:
@@ -11,9 +11,10 @@
 // blockquote, bold, italic, code) — เขียนเองเพื่อไม่เพิ่ม
 // dependency, summary content เราเขียนเองทั้งหมด ไม่ห่วง XSS
 
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PinButton from './PinButton.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import { safeLinkUrl } from '../lib/safe-url.js';
 
 // ─────────────────────────────────────────────────────────────
@@ -159,6 +160,46 @@ function renderMarkdown(md) {
 export default function SummaryModal({ summary, onClose }) {
   const html = useMemo(() => renderMarkdown(summary?.summary || ''), [summary]);
   const dialogRef = useModalFocus({ active: Boolean(summary), onClose });
+  const { reduced } = useMotionPreferences();
+  const bodyRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+
+  // How far through the lecture they have read. A summary of a two-hour
+  // lecture is long enough that "how much is left" is a real question, and the
+  // modal's own scrollbar is easy to miss beside the page's.
+  const trackProgress = useCallback(() => {
+    const el = bodyRef.current;
+    if (!el) return;
+    const span = el.scrollHeight - el.clientHeight;
+    setProgress(span > 8 ? Math.min(1, Math.max(0, el.scrollTop / span)) : 0);
+  }, []);
+
+  // Bring each block in as it arrives. The class is added from JS and only
+  // when there is an observer to take it off again, so if anything here fails
+  // the summary is simply visible — never a blank modal.
+  useEffect(() => {
+    const el = bodyRef.current;
+    if (!el) return undefined;
+    trackProgress();
+    if (reduced || typeof IntersectionObserver !== 'function') return undefined;
+    const blocks = Array.from(el.children);
+    if (!blocks.length) return undefined;
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      }
+    }, { root: el, rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+    for (const block of blocks) {
+      block.classList.add('vmx-reveal');
+      io.observe(block);
+    }
+    return () => {
+      io.disconnect();
+      for (const block of blocks) block.classList.remove('vmx-reveal', 'is-in');
+    };
+  }, [html, reduced, trackProgress]);
 
   if (!summary) return null;
 
@@ -193,7 +234,7 @@ export default function SummaryModal({ summary, onClose }) {
           overflowX: 'hidden',
           overflowY: 'hidden',
           display: 'grid',
-          gridTemplateRows: 'auto minmax(0, 1fr) auto',
+          gridTemplateRows: 'auto auto minmax(0, 1fr) auto',
         }}
         onClick={(e) => e.stopPropagation()}
         tabIndex={-1}
@@ -261,7 +302,19 @@ export default function SummaryModal({ summary, onClose }) {
             Keep `overscroll-behavior: contain` so wheel scrolling
             doesn't leak into the underlying VideoView player when the
             user reaches the top/bottom. */}
+        {/* Reading progress for the summary itself. Rendered even under
+            reduced motion, because it is information rather than decoration;
+            only the easing of its movement is dropped. */}
+        <div className="vmx-summary-progress" aria-hidden="true">
+          <span
+            className={reduced ? '' : 'is-eased'}
+            style={{ transform: `scaleX(${progress})` }}
+          />
+        </div>
+
         <div
+          ref={bodyRef}
+          onScroll={trackProgress}
           className="vmx-summary-body"
           style={{
             overflowY: 'auto',

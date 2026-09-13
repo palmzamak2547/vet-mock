@@ -423,3 +423,55 @@ test('the display token reaches every heading that asked for it', () => {
   assert.ok(src('src/styles.css').includes("--vmx-display: 'Fraunces', 'Sarabun', 'IBM Plex Sans Thai', serif;"),
     'and the token it defers to must still name the Thai faces');
 });
+
+test('a summary can never be hidden by its own entrance animation', () => {
+  const s = src('src/components/SummaryModal.jsx');
+  // The dangerous shape is CSS that hides blocks by default and JS that is
+  // supposed to reveal them: anything that stops the observer running leaves a
+  // blank modal. So the hiding class is only ever added from inside the
+  // effect, after the reduced-motion and IntersectionObserver guards, and is
+  // removed again on cleanup.
+  const effect = s.slice(s.indexOf('const io = new IntersectionObserver'), s.indexOf('if (!summary) return null;'));
+  assert.ok(effect.includes("block.classList.add('vmx-reveal')"),
+    'the class must be applied by the same code that observes the block');
+  assert.ok(effect.includes("block.classList.remove('vmx-reveal', 'is-in')"),
+    'and taken off on cleanup, so an unmount cannot leave text hidden');
+  const guardIdx = s.indexOf("if (reduced || typeof IntersectionObserver !== 'function') return undefined;");
+  assert.ok(guardIdx > 0 && guardIdx < s.indexOf("block.classList.add('vmx-reveal')"),
+    'reduced motion and a missing observer must both return BEFORE anything is hidden');
+  const css = src('src/styles.css');
+  assert.ok(css.includes('.vmx-summary-body > .vmx-reveal.is-in { opacity: 1; transform: none; }'));
+  assert.ok(/@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.vmx-summary-body > \.vmx-reveal \{ opacity: 1;/.test(css),
+    'the system-level preference must also un-hide, not just the app setting');
+});
+
+test('the exam clock is a budget for the paper', () => {
+  const hook = src('src/hooks/useExamSession.js');
+  // Navigation must not buy more time — that was the whole defect.
+  const refills = hook.match(/setTimeLeft\(timeForQuestion\(/g) || [];
+  const guarded = hook.match(/if \(!sessionClockRef\.current\) setTimeLeft\(timeForQuestion\(/g) || [];
+  assert.equal(refills.length - guarded.length, 2,
+    'only the per-question tick and the legacy resume may set a per-question clock unguarded; '
+    + 'every navigation path must be behind the session-clock check');
+  assert.ok(hook.includes('if (sessionClockRef.current) { onFinish?.(); return; }'),
+    'time up on one clock ends the paper rather than advancing with a fresh budget');
+  assert.ok(hook.includes("sessionClockRef.current = saved.clock === 'session';"),
+    'a resumed exam keeps the clock it started under');
+  const app = src('src/App.jsx');
+  assert.ok(app.includes("sessionBudget: mode === 'exam',"), 'exam mode opts in');
+  assert.ok(app.includes("clock: mode === 'exam' ? 'session' : 'per-question',"),
+    'and the in-flight record says which clock, so a deploy cannot change the rules mid-exam');
+});
+
+test('the home screen folds its two coaching surfaces into one row', () => {
+  const home = src('src/views/HomeView.jsx');
+  const details = home.indexOf('<details className="vmx-home-extras">');
+  assert.ok(details > 0, 'quests and the daily goal share one disclosure');
+  assert.ok(home.indexOf('<QuestsPanel') > details && home.indexOf('<DailyGoalCard') > details,
+    'both live inside it');
+  assert.ok(home.includes('{(!isScaffoldYear || history.length > 0) && ('),
+    'and the whole row disappears when it would be empty rather than opening onto nothing');
+  const css = src('src/styles.css');
+  assert.ok(/\.vmx-home-extras > summary \{[\s\S]*?min-height: var\(--touch-min\);/.test(css),
+    'the summary is a touch target');
+});

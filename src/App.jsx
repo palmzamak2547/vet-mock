@@ -1159,6 +1159,9 @@ export default function App() {
   const session = useExamSession({
     ownerId: user?.id ?? null,
     view, useTimer, timePerQ,
+    // Exam mode gets one clock for the paper; practice keeps a per-question
+    // pace, which is the point of a drill.
+    sessionBudget: mode === 'exam',
     onFinish: useCallback(() => finishExamRef.current?.(), []),
   });
   const {
@@ -1402,6 +1405,10 @@ export default function App() {
           // answered locked. The timer settings went the same way, so a
           // timed mock came back untimed.
       mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase,
+      // Which clock this session started under. A record without it predates
+      // the session clock and resumes per-question, so nobody mid-exam has the
+      // rules changed by a deploy.
+      clock: mode === 'exam' ? 'session' : 'per-question',
     };
     if (Date.now() - inflightWrittenAtRef.current >= 3000) { writeInflight(); return undefined; }
     const timer = setTimeout(writeInflight, 500);
