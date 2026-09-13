@@ -57,7 +57,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
   {
     id: 104506, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'Heat treatment ใดข้อใดต่อไปนี้ใช้อุณหภูมิสูงที่สุด',
+    q: 'Heat treatment ข้อใดต่อไปนี้ใช้อุณหภูมิสูงที่สุด',
     options: [
       'Ultra pasteurization',
       'HTST',
@@ -979,7 +979,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
   {
     id: 104622, subject: 'milk-meat-hygiene', topic: 'milk-quality-composition', year: 5,
     type: 'tf',
-    q: 'β-lactoglobulin และ α-lactalbumin เป็นกระดอะมิโนที่พบได้มากในน้ำนมโค ช่วยในการเสริมสร้างภูมิคุ้มกันโรคให้กับผู้บริโภค',
+    q: 'β-lactoglobulin และ α-lactalbumin เป็นกรดอะมิโนที่พบได้มากในน้ำนมโค ช่วยในการเสริมสร้างภูมิคุ้มกันโรคให้กับผู้บริโภค',
     answer: false,
     explain: 'ประโยคนี้ผิดสองจุด จุดแรกคือ β-lactoglobulin และ α-lactalbumin เป็นโปรตีนในกลุ่ม whey protein ไม่ใช่กรดอะมิโน จุดที่สองซึ่งเป็นจุดที่ข้อสอบต้องการคือหน้าที่ ทั้งสองตัวนี้ไม่ได้ให้ภูมิคุ้มกันโรค α-lactalbumin ทำหน้าที่เป็น regulatory subunit ของเอนไซม์ lactose synthase คือไปช่วยสร้างน้ำตาลแลคโตส ส่วน β-lactoglobulin เป็นโปรตีนกลุ่ม lipocalin ที่จับและขนส่ง retinol และกรดไขมัน (และยังเป็นสารก่อภูมิแพ้นมวัวที่พบบ่อยด้วย) โปรตีนที่ให้ภูมิคุ้มกันจริง ๆ คือ immunoglobulin โดยเฉพาะ IgG ซึ่งพบมากในนมน้ำเหลือง (colostrum) และให้ภูมิคุ้มกันแก่ลูกโคไม่ใช่ผู้บริโภค ในน้ำนมปกติจะมี immunoglobulin และ serum albumin รั่วเข้ามาเพิ่มขึ้นเมื่อเต้านมอักเสบ ข้อนี้จึงเป็นเท็จ',
     source: 'สรุปรวมรุ่นพี่ Milk Hygiene, บันทึกแบบทดสอบไว้ทั้งชุด',
@@ -1051,7 +1051,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
   {
     id: 104634, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'การกระบวนการ Maillard reaction เกิดจากการทำปฏิกิริยาของสารใด',
+    q: 'กระบวนการ Maillard reaction เกิดจากการทำปฏิกิริยาของสารใด',
     options: [
       'Sugar + amino acids',
       'Milk fat + amino acids',
@@ -1077,7 +1077,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
   {
     id: 104638, subject: 'milk-meat-hygiene', topic: 'milk-industry-std', year: 5,
     type: 'tf',
-    q: 'การจำกัดซากโคนม ให้ถือปฏิบัติตามความเหมาะสมและเป็น minor nonconformity',
+    q: 'การกำจัดซากโคนม ให้ถือปฏิบัติตามความเหมาะสมและเป็น minor nonconformity',
     answer: false,
     explain: 'ในระบบตรวจประเมินฟาร์ม ข้อบกพร่องแบ่งเป็น major (กระทบความปลอดภัยอาหาร/สุขภาพสัตว์โดยตรง ต้องแก้ไข) กับ minor (ข้อปลีกย่อย) การกำจัดซากสัตว์เป็นมาตรการชีวนิรภัยหลัก ถ้าทำไม่ถูกต้องจะเป็นแหล่งแพร่เชื้อและแมลงพาหะ จึงจัดเป็น major nonconformity ทั้งในฟาร์มโคนมและฟาร์มแพะนม ไม่ใช่ปล่อยให้ทำ "ตามความเหมาะสม" ข้อนี้จึงเป็นเท็จ ที่หลายคนตอบ True เพราะคำว่า "ตามความเหมาะสม" ฟังดูยืดหยุ่นเหมือนข้อแนะนำ แต่ข้อกำหนดจริงบังคับชัดเจน',
     source: 'สรุปรวมรุ่นพี่ Milk Hygiene, บันทึกแบบทดสอบไว้ทั้งชุด',
@@ -1097,7 +1097,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
   {
     id: 104642, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'การทำระเหย เป็นกระบวนการสำคัญในการผลิตในผลิตภัณฑ์นมชนิดใด',
+    q: 'การทำระเหย เป็นกระบวนการสำคัญในการผลิตผลิตภัณฑ์นมชนิดใด',
     options: [
       'นมข้นหวาน',
       'นมยูเอชที',
@@ -1847,7 +1847,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
   {
     id: 104756, subject: 'milk-meat-hygiene', topic: 'milk-processing', year: 5,
     type: 'mcq',
-    q: 'ระบบให้ความเย็นข้อใด มีประสิทธิภาพในการลดความเย็นต่ำสุด',
+    q: 'ระบบให้ความเย็นข้อใดมีประสิทธิภาพในการลดอุณหภูมิน้ำนมต่ำที่สุด',
     options: [
       'Surface cooler',
       'Immersion coolers',

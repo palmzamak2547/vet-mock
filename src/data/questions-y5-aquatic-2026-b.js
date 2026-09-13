@@ -1298,7 +1298,7 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "topic": "aqua-conservation",
     "year": 5,
     "type": "mcq",
-    "q": "หญ้าทะเลชนิดใดที่ระบุไว้ ชีววิทยาของพะยูน โดยมีชื่อไทยว่าหญ้าใบมะกรูด",
+    "q": "หญ้าทะเลชนิดใดที่พะยูนกินเป็นอาหาร โดยมีชื่อไทยว่าหญ้าใบมะกรูด",
     "options": [
       "Halophila ovalis",
       "Cymodocea serrulata",

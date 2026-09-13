@@ -353,6 +353,22 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.94.3: 21 transcription-garbled stems rewritten, review-first
+
+- 10 readers over the 2,525-stem transcription-risk pool; 7 batches back so far, 21 flagged
+  (2 garbled, 19 awkward, 0 unrecoverable). **Every proposal was read before any file was
+  touched** (`review.md`, old → new → basis); applied by explicit id list only. Two were tuned by
+  hand: 105937's rewrite still referenced "the topic it came from", so it now asks the fact
+  (explain confirms Halophila ovalis is dugong forage); 105708 exposed a scaffolding phrase the
+  voice lint missed — "กระดาษคำตอบระบุว่า" — added to `lint-question-voice`.
+- Two applier bugs, both caught by running not reading: `optionsRewrite: []` on a T/F item made
+  `0 === 0` walk into `q.options.length` (TypeError); and banks are stored in TWO encodings —
+  hand-written single-quoted JS and JSON-style double-quoted — so a locator that only tries one
+  reports "could not locate" for the other. Try both.
+- Rewriting a stem changes which glossary terms it mentions, so `lint:glossary-related` goes stale
+  and fails the chain. Regenerate after any stem edit; that gate is doing its job.
+- Remaining 3 batches land as wave 2 under the same review-first rule.
+
 ## 2026-09-14 — 5.94.2: the banner names its own hog, and the first unreadable past-paper stem
 
 - **`describeUsage(storage)`** (storage-gc.js) is attached to every quota `publicError` as `detail`

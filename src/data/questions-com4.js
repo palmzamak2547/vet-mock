@@ -1656,7 +1656,7 @@ export const QB_COM4 = [
   // ── IBD T/F (TJ86) ────────────────────────────────────────
   { id: 1103, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
     tags: ['ibd', 'tf', 'duration', 'tj86', 'critical'], type: 'mcq',
-    q: '[T/F] โรค IBD เป็นความผิดปกติของระบบทางอาหารอย่างเรื้อรังในสัตว์เลี้ยง ที่เกิดขึ้นนานกว่า "2 สัปดาห์" ขึ้นไป',
+    q: '[T/F] โรค IBD เป็นความผิดปกติของระบบทางเดินอาหารอย่างเรื้อรังในสัตว์เลี้ยง ที่เกิดขึ้นนานกว่า "2 สัปดาห์" ขึ้นไป',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 1, explain: '❌ ผิด, IBD criteria: chronic GI signs > 3 สัปดาห์ (ไม่ใช่ 2 สัปดาห์)\n\n💡 IBD diagnostic criteria (Aj. Sariya / WSAVA):\n1. Chronic GI signs > 3 wks (vomit, diarrhea, weight loss)\n2. Histopath inflammation ใน intestinal biopsy (lymphocytic, plasmacytic, eosinophilic, neutrophilic)\n3. Failure to respond to: deworming, dietary trial, antibiotic trial\n4. Exclusion of other causes: parasites, infection, neoplasia, exocrine pancreatic insufficiency, hyperthyroidism (cat)\n\n💡 Step-wise approach (Aj. Sariya):\n1. Diet trial (novel/hydrolyzed) × 2-3 wks\n2. Antibiotic trial (Tylosin/Metronidazole) × 2 wks\n3. Immunosuppression (prednisolone) — diagnostic + therapeutic if responds\n4. Biopsy (endoscopic or surgical) ก่อน start immunosuppression in severe cases\n\n💡 Naming convention (newer 2010s):\n— Chronic Enteropathy (CE) = umbrella term\n— Food-Responsive Enteropathy (FRE)\n— Antibiotic-Responsive Enteropathy (ARE)\n— Steroid-Responsive Enteropathy (SRE) = traditional IBD',
     verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #10 (F)' },
@@ -1713,7 +1713,7 @@ export const QB_COM4 = [
 
   { id: 1111, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 SLE T/F',
     tags: ['sle', 'tf', 'ana', 'tj86'], type: 'mcq',
-    q: '[T/F] การตรวจหาซีรั่ม ANA test เป็นวิธีการตรวจที่สำคัญของโรค SLE ร่วมกับค่าทางห้องอื่นๆ',
+    q: '[T/F] การตรวจ ANA test ในซีรั่มเป็นวิธีการตรวจที่สำคัญของโรค SLE ร่วมกับค่าทางห้องปฏิบัติการอื่น ๆ',
     options: ['ถูก (True)', 'ผิด (False)'],
     answer: 0, explain: '✅ ถูก\n\n💡 ANA (Anti-Nuclear Antibody) test in SLE:\n\nSensitivity: 60-100% (depends on substrate — Hep-2 cells > rat liver/kidney)\nSpecificity: moderate (false positive ใน chronic inflammation, neoplasia, infection)\n\nPositive ANA + ≥ 2 organ systems = supports SLE diagnosis\n\n💡 ANA patterns (helpful but not diagnostic):\n— Homogeneous (diffuse) — anti-dsDNA, anti-histone (most common in SLE)\n— Speckled — anti-Sm, anti-RNP\n— Nucleolar — anti-RNA polymerase (scleroderma-like)\n— Centromeric — limited scleroderma\n\n💡 ANA negative ≠ rule out SLE — 5-10% of SLE are ANA-negative\n\n💡 Other supportive lab:\n— Anti-dsDNA (highly specific, 90%)\n— Anti-Sm (Smith antigen, very specific)\n— Hypocomplementemia (C3, C4 ↓)\n— Coombs\' positive (if IMHA component)\n— Polyarthritis tap: non-degenerate neutrophils\n— GN: UPC > 0.5, proteinuria',
     verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #21 (T)' },

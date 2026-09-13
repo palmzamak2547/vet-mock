@@ -1298,7 +1298,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "topic": "milk-microbiology",
     "year": 5,
     "type": "mcq",
-    "q": "แบคทีเรียใดที่กระดาษคำตอบระบุว่าใช้เป็นตัวบ่งชี้คุณภาพน้ำนมได้เหมาะสม",
+    "q": "แบคทีเรียใดเหมาะสมที่สุดที่จะใช้เป็นตัวบ่งชี้คุณภาพน้ำนม",
     "options": [
       "Coliform bacteria",
       "Escherichia coli",

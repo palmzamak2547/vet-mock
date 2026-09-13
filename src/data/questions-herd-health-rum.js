@@ -83,7 +83,7 @@ export const QB_HERD_HEALTH_RUM = [
       "diagnosis"
     ],
     "type": "mcq",
-    "q": "วัวอาการลดลง มีท้องเสียมีกลิ่นเปรี้ยว HX: เพิ่งเปลี่ยนอาหารข้นจาก 4 → 8 kg/วัน เมื่อ 2 วันก่อน ไม่มีการให้ roughage เพิ่ม PE: ซึม Rumen pH 5.0 Rumen fluid มีกลิ่นเปรี้ยว ไม่มี protozoa เคลื่อนไหว Dehydration +2% Blood: HCO3- ↓, Anion gap ↑, Lactate ↑ — diagnosis คือข้อใด",
+    "q": "โคตัวหนึ่งท้องเสีย อุจจาระมีกลิ่นเปรี้ยว HX: เพิ่งเปลี่ยนอาหารข้นจาก 4 → 8 kg/วัน เมื่อ 2 วันก่อน ไม่มีการให้ roughage เพิ่ม PE: ซึม Rumen pH 5.0 Rumen fluid มีกลิ่นเปรี้ยว ไม่มี protozoa เคลื่อนไหว Dehydration +2% Blood: HCO3- ↓, Anion gap ↑, Lactate ↑ — diagnosis คือข้อใด",
     "options": [
       "Milk fever (hypocalcemia หลังคลอดของแม่โครีดนม)",
       "Grass tetany (hypomagnesemia ของวัวกินหญ้าอ่อน)",
@@ -759,7 +759,7 @@ export const QB_HERD_HEALTH_RUM = [
       "coliform"
     ],
     "type": "mcq",
-    "q": "แม่โคหลังคลอด 5 วัน เต้านมแข็ง บวม นมเป็นน้ำเหลือง+เลือด ลายขนข้อพับ HR 120 RR 50 อุณหภูมิ 37.2°C ขาเหยียบเย็น, ตาลึก toxic line ของหน้าผิวเลือดออก — แนวทาง fluid therapy เริ่มต้นที่เหมาะสมที่สุดคือข้อใด",
+    "q": "แม่โคหลังคลอด 5 วัน เต้านมแข็ง บวม น้ำนมเป็นน้ำเหลืองปนเลือด HR 120 RR 50 อุณหภูมิ 37.2°C ขาเย็น ตาลึก พบ toxic line ที่เยื่อเมือก — แนวทาง fluid therapy เริ่มต้นที่เหมาะสมที่สุดคือข้อใด",
     "options": [
       "Oral electrolyte solution 4 L SID",
       "Hypertonic saline 7.2% 1-2 L IV เร็ว ตามด้วย Acetated Ringer's 20-40 L",
@@ -984,7 +984,7 @@ export const QB_HERD_HEALTH_RUM = [
       "herd-evaluation"
     ],
     "type": "mcq",
-    "q": "ฟาร์มโคนม มีโค 50 ตัว อยู่ในฟาร์มผลตลอด 30 วัน เกิด clinical mastitis 10 ตัว (ตัวละ at-risk-out 7 วันในการรักษา) — Incidence Rate ของ clinical mastitis ต่อเดือนคือเท่าไหร่",
+    "q": "ฟาร์มโคนมแห่งหนึ่งมีโค 50 ตัว อยู่ในฟาร์มตลอด 30 วัน เกิด clinical mastitis 10 ตัว โดยแต่ละตัวไม่นับเป็นสัตว์กลุ่มเสี่ยง (at risk) เป็นเวลา 7 วันระหว่างการรักษา — Incidence rate ของ clinical mastitis ต่อเดือนคือเท่าใด",
     "options": [
       "ประมาณ 4.89% ต่อเดือน",
       "Incidence rate = 10 / 50 = 20%",
