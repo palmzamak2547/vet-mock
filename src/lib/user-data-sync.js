@@ -455,6 +455,89 @@ function foldChangeRecord(field, prior, next) {
   return { ...prior, value: next.value };
 }
 
+/** Rewrite one field-change map from the old `{base, value}` shape to the
+ *  delta shape where the policy allows it. Returns null when nothing changed
+ *  so callers can skip the write. Never makes an entry larger. */
+function compactChangeMap(map) {
+  if (!map || typeof map !== 'object') return null;
+  let touched = false;
+  const out = { ...map };
+  for (const [field, entry] of Object.entries(map)) {
+    if (!entry || entry.legacy || isDelta(entry)) continue;
+    if (!Object.prototype.hasOwnProperty.call(entry, 'base')) continue;
+    const policy = USER_DATA_FIELDS[field]?.merge;
+    if (!KEY_ARRAY_POLICIES.has(policy) || !Array.isArray(entry.base) || !Array.isArray(entry.value)) continue;
+    out[field] = { ...changeDelta(entry.base, entry.value), value: entry.value };
+    touched = true;
+  }
+  return touched ? out : null;
+}
+
+/**
+ * Shrink the sync records a previous build left on this device.
+ *
+ * The delta shape only helps records written AFTER it shipped. A device that
+ * was already full holds meta, outbox and possibly a stranded recovery journal
+ * in the old shape — each carrying a full extra copy of `history` as `base` —
+ * and cannot get out of that state by itself, because every write that would
+ * replace those records fails for lack of room. Replacing a key with a SMALLER
+ * value is the one write a full storage still accepts, so this runs before
+ * anything else at boot and again inside the quota handlers.
+ *
+ * Nothing the student made is touched: values are carried over byte for byte;
+ * only the redundant `base` copy is replaced by the keys it differed in.
+ *
+ * @returns {{ records: number, bytes: number }} what it freed
+ */
+export function compactSyncRecords(storage) {
+  const result = { records: 0, bytes: 0 };
+  if (!storage || typeof storage.key !== 'function' || !Number.isFinite(storage.length)) return result;
+  const keys = [];
+  try {
+    for (let i = 0; i < storage.length; i += 1) {
+      const k = storage.key(i);
+      if (typeof k === 'string') keys.push(k);
+    }
+  } catch { return result; }
+
+  const rewrite = (key, transform) => {
+    let raw = null;
+    try { raw = storage.getItem(key); } catch { return; }
+    if (!raw) return;
+    let parsed = null;
+    try { parsed = JSON.parse(raw); } catch { return; }
+    const next = transform(parsed);
+    if (!next) return;
+    const json = JSON.stringify(next);
+    if (json.length >= raw.length) return;      // never grow a record
+    try {
+      storage.setItem(key, json);
+      result.records += 1;
+      result.bytes += raw.length - json.length;
+    } catch { /* still no room even for the smaller record; leave it */ }
+  };
+
+  for (const key of keys) {
+    if (key.startsWith(META_PREFIX)) {
+      rewrite(key, (meta) => {
+        const dirty = compactChangeMap(meta?.dirty);
+        return dirty ? { ...meta, dirty } : null;
+      });
+    } else if (key.startsWith(OPERATION_PREFIX)) {
+      rewrite(key, (op) => {
+        const changes = compactChangeMap(op?.changes);
+        return changes ? { ...op, changes } : null;
+      });
+    } else if (key === JOURNAL_KEY) {
+      rewrite(key, (journal) => {
+        const dirty = compactChangeMap(journal?.meta?.dirty);
+        return dirty ? { ...journal, meta: { ...journal.meta, dirty } } : null;
+      });
+    }
+  }
+  return result;
+}
+
 function reconcileDirty(field, entry, remote) {
   const local = entry.value;
 
@@ -661,6 +744,11 @@ export function createUserDataSync({
     throw new TypeError('createUserDataSync requires a remote adapter');
   }
 
+  // A device that filled up under the previous build cannot free itself:
+  // every write that would replace its oversized records fails for lack of
+  // room. Shrinking them in place is the one write a full storage accepts.
+  try { compactSyncRecords(storage); } catch { /* best effort */ }
+
   const localInitial = readLocalData(storage);
   const ownerAtBoot = parseJson(storage, CURRENT_OWNER_KEY, null);
   const bootAnonymousOperations = ownerAtBoot && ownerAtBoot !== ANONYMOUS
@@ -800,6 +888,31 @@ export function createUserDataSync({
     }, delay);
   };
 
+  // Storage that is full stays full, so a retry is worth exactly one attempt
+  // — after something was actually freed. The first version of the hydrate
+  // handler re-scheduled on every failure at debounceMs, which on a full
+  // device was a 1.5 s loop that made the error banner flicker without end.
+  let quotaRetryUsed = false;
+
+  const reclaimForQuota = () => {
+    let bytes = 0;
+    try { bytes += compactSyncRecords(storage).bytes; } catch { /* keep going */ }
+    try {
+      bytes += reclaim(storage, {
+        today: todayKey(),
+        operationPrefix: operationKeyPrefix(userId),
+        protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
+      }).bytes;
+    } catch { /* keep going */ }
+    return bytes;
+  };
+
+  const quotaMessage = (what) => publicError(
+    'LOCAL_WRITE_FAILED',
+    `พื้นที่จัดเก็บในเครื่องไม่พอ จึงยัง${what}ไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ`,
+    false,
+  );
+
   const scheduleRetry = (kind) => {
     retryAttempt += 1;
     const base = Math.min(30000, 1500 * (2 ** Math.min(retryAttempt - 1, 5)));
@@ -931,26 +1044,17 @@ export function createUserDataSync({
       // while the actual problem is local and permanent. Worse, the retry
       // below then loops on a condition the network can never fix.
       if (isQuotaError(error)) {
-        let recovered = false;
-        try {
-          reclaim(storage, {
-            today: todayKey(),
-            operationPrefix: operationKeyPrefix(userId),
-            protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
-          });
-          recovered = true;
-        } catch { recovered = false; }
+        const freed = reclaimForQuota();
         publish(state.data, syncShape({
           phase: 'error',
-          error: publicError(
-            'LOCAL_WRITE_FAILED',
-            'พื้นที่จัดเก็บในเครื่องไม่พอ จึงยังดึงข้อมูลจากบัญชีมาเก็บไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ',
-            false,
-          ),
+          error: quotaMessage('ดึงข้อมูลจากบัญชีมาเก็บ'),
         }));
-        // Retry once, and only if the reclaim actually ran — repeating a write
-        // into a storage that is still full is how the old loop burned.
-        if (recovered) schedule('hydrate', debounceMs);
+        // One retry per session, and only when space actually came back. No
+        // reschedule otherwise: the banner stays put and stops flickering.
+        if (freed > 0 && !quotaRetryUsed) {
+          quotaRetryUsed = true;
+          schedule('hydrate', debounceMs);
+        }
         return;
       }
 
@@ -1116,6 +1220,23 @@ export function createUserDataSync({
       if (hasRemotePending) schedule('flush', 0);
     } catch (error) {
       if (disposed || generation !== sessionGeneration) return;
+
+      // The local commit before the push can hit the quota too. Retrying that
+      // on the network back-off would loop every 30 s on a condition the
+      // network cannot change, and blame the account for a full disk.
+      if (isQuotaError(error)) {
+        const freed = reclaimForQuota();
+        publish(state.data, syncShape({
+          phase: 'error',
+          error: quotaMessage('ส่งข้อมูลขึ้นบัญชี'),
+        }));
+        if (freed > 0 && !quotaRetryUsed) {
+          quotaRetryUsed = true;
+          schedule('flush', debounceMs);
+        }
+        return;
+      }
+
       const invalidRemote = error?.code === 'INVALID_REMOTE_DATA';
       const code = invalidRemote
         ? 'INVALID_REMOTE_DATA'
@@ -1200,20 +1321,10 @@ export function createUserDataSync({
       let recovered = false;
       if (isQuotaError(writeError)) {
         try {
-          // Reclaim, then RETRY REGARDLESS of what came back. The first
-          // version of this gated the retry on `freed.bytes > 0`, which meant
-          // it never ran: by the time a student sees this message the boot
-          // sweep and the daily-question write have already cleared the dead
-          // keys, so there is nothing left to free and the retry was skipped —
-          // the same failure as before the fix, for a new reason.
-          //
-          // Sweeping other instances' outbox records is the part that can
-          // still free real space here, and it is not in the boot sweep.
-          reclaim(storage, {
-            today: todayKey(),
-            operationPrefix: operationKeyPrefix(userId),
-            protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
-          });
+          // Shrink the old-shape records first (that is where the room is on
+          // a device that filled up under the previous build), sweep the dead
+          // keys, then try the write once more.
+          reclaimForQuota();
           persistOperation(operationChanges);
           recovered = true;
         } catch {
@@ -1305,6 +1416,7 @@ export function createUserDataSync({
     sessionGeneration += 1;
     activeOperation = null;
     retryAttempt = 0;
+    quotaRetryUsed = false;
     const previousUserId = userId;
     userId = normalized;
     hydratedUserId = null;

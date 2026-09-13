@@ -353,6 +353,39 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.94.1: the storage banner flickered because I made it retry forever
+
+- **The regression was mine, in 5.93.0.** The hydrate quota branch did `reclaim(); recovered = true;
+  if (recovered) schedule('hydrate', debounceMs)`. `reclaim()` swallows its own errors and never
+  throws, so `recovered` was always true and the store re-hydrated every 1.5 s on a device that
+  was genuinely full — publish, fail, publish, fail. The comment above it said "retry once". Nothing
+  enforced once. **A retry with no counter is a loop.** Now: `quotaRetryUsed`, one per session
+  (reset in `sessionChanged`), and only when the reclaim reports bytes > 0. Otherwise the error is
+  published once and nothing is rescheduled, so the banner sits still.
+- **The flush catch had the same exposure**, one step slower: a quota throw inside the local commit
+  before `remote.push` went to `scheduleRetry('flush')` — exponential back-off to 30 s, uncapped —
+  and reported "ยังส่งขึ้นบัญชีไม่สำเร็จ" for a disk problem. It is quota-aware now with the same
+  single-retry budget.
+- **Why the delta fix alone could not help Palm's device**: the delta shape only applies to records
+  written AFTER it shipped. His device already held meta, outbox and a stranded recovery journal in
+  the old `{base, value}` shape — each with a full extra copy of `history` — and could not replace
+  them because every write failed for lack of room. Replacing a key with a SMALLER value is the one
+  write a full storage still accepts. `compactSyncRecords(storage)` does exactly that, in place, for
+  every meta / outbox / journal record, before the first read at boot and inside both quota
+  handlers. Values are carried over byte for byte; only `base` becomes the keys it differed in. It
+  never grows a record and is idempotent. Test pins all three plus the boot call.
+- **The stranded journal is worth knowing about.** `recoverJournal` removes `JOURNAL_KEY` only if
+  every re-write succeeded; on a full disk it sets `recovered=false` and LEAVES the journal — up to
+  4x the history — sitting there across every boot. Compaction now shrinks its embedded meta. If a
+  device is still full after all this, the journal's `snapshot` (a duplicate of the field keys) is
+  the next thing to look at.
+- **Test-writing trap that cost two rounds**: `subscribe(listener)` notifies with NO payload
+  (useSyncExternalStore style) — read `getSnapshot()` inside the listener. And `remote.pull` returns
+  the RAW row; `fromRemoteRow` converts it. A fake that returns `{found, row}` silently yields an
+  empty remote.
+- Measured with a fake scheduler and a sealed storage: one hydrate, one `LOCAL_WRITE_FAILED`
+  publish, zero timers left. Full suite 942/942.
+
 ## 2026-09-14 — 5.92.0: 65 illustrations wired, and what was deliberately left out
 
 - **Assets**: generated from the art brief (artifact defbd0c7), delivered as 65 PNGs at exact
