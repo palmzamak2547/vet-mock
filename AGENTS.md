@@ -376,6 +376,17 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - Tests pin all of it (quota-loop, user-data-sync, storage-gc, the three library harnesses now fake
   the Cache API). Tooling: a Python patch over ~200 lines through the Bash heredoc gets truncated
   mid-script (bash: unexpected EOF) — write it to the scratchpad with the Write tool and run it.
+- Verified on the built bundle (vite preview, 5.95.0): a seeded 3,369 KB device — 2,500-row
+  history in the 5.94 shapes (`{base,value}` meta + outbox, `{added,removed,value}` anonymous
+  meta), a 1 MB catalog key, the dismissal flag — boots into 879 KB in one load: account meta and
+  outbox are `{put:[1 row], removed:[]}`, anonymous dirty is `{}`, both dead keys gone, history
+  intact, no banner, no toast. The shelf then writes its snapshot to the Cache API (1,873 docs,
+  1.34 MB — the same weight Palm's phone had in localStorage) and repaints from it on reload.
+  Auto-update fired exactly once on visibilitychange→hidden and once on a sidebar navigation
+  (library → subject-select), never showing `.vmx-update-notice`.
+- Smoke gate lesson: removing user-facing text also removes what an e2e spec asserts.
+  `motion-kit.spec.js` waited for the toast and failed on all four browsers, which held the alias
+  on v175 for an extra cycle. Before deleting UI copy, grep tests/e2e for the string.
 
 ## 2026-09-14 — 5.94.4: wave 2 — all 2,525 transcription-risk stems read, 67 more rewritten
 
