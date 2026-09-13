@@ -1,7 +1,7 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.94.1",
+  "version": "5.94.2",
   "type": "module",
   "engines": {
     "node": ">=20"

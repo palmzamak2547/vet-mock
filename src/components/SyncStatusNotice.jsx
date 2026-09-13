@@ -63,7 +63,16 @@ export default function SyncStatusNotice({
         color,
       }}
     >
-      <span><Mochi state={hasSyncProblem ? 'encourage' : online ? 'happy' : 'sleepy'} size={28} slot="connection" className="vmx-status-mochi" />{message}</span>
+      <span>
+        <Mochi state={hasSyncProblem ? 'encourage' : online ? 'happy' : 'sleepy'} size={28} slot="connection" className="vmx-status-mochi" />{message}
+        {/* When the device is full, say WHICH keys are using the room. A
+            screenshot of this line is what ends the guessing. */}
+        {localFailure && sync?.error?.detail && (
+          <span style={{ display: 'block', fontSize: 11.5, opacity: 0.8, marginTop: 2, fontFamily: 'var(--vmx-mono)' }}>
+            {sync.error.detail}
+          </span>
+        )}
+      </span>
       <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
         {online && hasSyncProblem && sync?.error?.retryable !== false && (
           <button

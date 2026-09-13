@@ -1,5 +1,5 @@
 
-import { isQuotaError, reclaim } from './storage-gc.js';
+import { isQuotaError, reclaim, describeUsage } from './storage-gc.js';
 import { todayKey } from './daily-q.js';// User-owned study data has two durability layers:
 //   1) localStorage is the immediate, offline-capable source
 //   2) Supabase is a remote replica for signed-in users
@@ -682,8 +682,8 @@ export function toRemoteUserData(data) {
   return payload;
 }
 
-function publicError(code, message, retryable = true) {
-  return { code, message, retryable };
+function publicError(code, message, retryable = true, detail = null) {
+  return detail ? { code, message, retryable, detail } : { code, message, retryable };
 }
 
 export function createBrowserLifecycle() {
@@ -907,11 +907,18 @@ export function createUserDataSync({
     return bytes;
   };
 
-  const quotaMessage = (what) => publicError(
-    'LOCAL_WRITE_FAILED',
-    `พื้นที่จัดเก็บในเครื่องไม่พอ จึงยัง${what}ไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ`,
-    false,
-  );
+  const quotaMessage = (what) => {
+    // Name the keys that are actually using the room. A banner that only says
+    // "full" leaves everyone guessing which of a dozen families it is.
+    let detail = null;
+    try { detail = describeUsage(storage).line; } catch { detail = null; }
+    return publicError(
+      'LOCAL_WRITE_FAILED',
+      `พื้นที่จัดเก็บในเครื่องไม่พอ จึงยัง${what}ไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ`,
+      false,
+      detail,
+    );
+  };
 
   const scheduleRetry = (kind) => {
     retryAttempt += 1;

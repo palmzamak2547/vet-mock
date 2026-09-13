@@ -157,3 +157,14 @@ test('a quota failure is recognised across browsers', () => {
   assert.equal(isQuotaError(new Error('something else')), false);
   assert.equal(isQuotaError(null), false);
 });
+
+test('describeUsage names the biggest keys first, in KB', async () => {
+  const { describeUsage } = await import('../../src/lib/storage-gc.js');
+  const s = makeStorage({ 'vmx-history': 'h'.repeat(300 * 1024), 'vmx-notes': 'n'.repeat(10 * 1024), 'vmx-small': 'x' });
+  const u = describeUsage(s, 2);
+  assert.equal(u.top[0].key, 'vmx-history');
+  assert.equal(u.top[0].kb, 300);
+  assert.equal(u.top.length, 2);
+  assert.match(u.line, /history 300 KB/);
+  assert.equal(u.keys, 3);
+});

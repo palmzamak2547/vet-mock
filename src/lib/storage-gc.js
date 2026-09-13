@@ -178,6 +178,25 @@ export function outboxPrefixes(storage) {
 }
 
 /**
+ * The largest keys, for the error banner. When a device is still full after
+ * every reclaim, the one thing that ends the guessing is the user's own
+ * screenshot naming the key that is actually eating the room.
+ */
+export function describeUsage(storage, top = 3) {
+  const rows = [];
+  let total = 0;
+  for (const key of keysOf(storage)) {
+    const size = sizeOf(storage, key);
+    total += size;
+    rows.push({ key, kb: Math.round(size / 1024) });
+  }
+  rows.sort((x, y) => y.kb - x.kb);
+  const totalKB = Math.round(total / 1024);
+  const shown = rows.slice(0, top).map((r) => `${r.key.replace(/^vmx-/, '').slice(0, 28)} ${r.kb} KB`);
+  return { totalKB, keys: rows.length, top: rows.slice(0, top), line: `ใช้ไป ${totalKB} KB ใน ${rows.length} คีย์ — ${shown.join(', ')}` };
+}
+
+/**
  * Last resort before telling the user a write failed. Sweeps what is provably
  * dead and reports how much came back, so the caller can retry the write once.
  *
