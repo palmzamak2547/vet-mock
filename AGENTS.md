@@ -353,6 +353,30 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.94.2: the banner names its own hog, and the first unreadable past-paper stem
+
+- **`describeUsage(storage)`** (storage-gc.js) is attached to every quota `publicError` as `detail`
+  and rendered as a muted mono line under the banner by SyncStatusNotice: total KB, key count, the
+  three largest keys by name. Rationale: after three rounds of "still full", the only thing that
+  ends the guessing is the user's own screenshot naming the key. `publicError` grew an optional
+  4th arg; nothing else changed shape.
+- **Verified on PRODUCTION (v172), not just locally**: seeded the live origin with an old-shape
+  meta (1,430 KB) plus a stranded recovery journal (2,860 KB) to 5.86 M chars, cold-loaded once —
+  meta 715 KB, journal recovered and removed, total 2.20 M, banner absent, 0 state changes in 8 s.
+  So a device in Palm's state self-heals on first load; if the banner persists after that, the
+  hog is outside the sync families and the detail line will say which.
+- **Question 8055 (aquatic, final-mixed) was transcription garbage** — legal Thai letters, not
+  Thai words: "ตุ่มยมโฟลและสำเลี่ยอาการพิษหายตัว", options "ผู้ป่วยเชื้อ…". Neither
+  `lint-thai-orthography` (character-level) nor `lint-question-voice` (scaffolding phrases) can see
+  this class, and a "token seen nowhere else" heuristic is useless in an unspaced script (every
+  clause is unique). Rewritten from the record's own `explain` (Pythium: deep pit ulcers,
+  cotton-like margins, water-borne spread across farms); same five options, same order, answer
+  index untouched. A 10-reader pass over the 2,525 past-paper stems is the only honest detector;
+  every proposed rewrite is read before it is written.
+- Pool definition for "transcription risk": `verified` matching `สรุป N p.` / `Vet 8N marked` /
+  past-paper, or `examOrigin`, or a `*-pastpaper` bank — 2,525 of 5,169 stems, dumped as 10
+  subject-grouped batches under the scratchpad for the readers.
+
 ## 2026-09-14 — 5.94.1: the storage banner flickered because I made it retry forever
 
 - **The regression was mine, in 5.93.0.** The hydrate quota branch did `reclaim(); recovered = true;
