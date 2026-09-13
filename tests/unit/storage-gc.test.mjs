@@ -168,3 +168,12 @@ test('describeUsage names the biggest keys first, in KB', async () => {
   assert.match(u.line, /history 300 KB/);
   assert.equal(u.keys, 3);
 });
+
+test('keys no build reads any more are swept at boot', () => {
+  // The catalog snapshot moved to the Cache API; the dismissal flag went with
+  // the tap-to-update toast. Both were still sitting in localStorage.
+  const s = makeStorage({ 'vmx-library-catalog-v1': 'x'.repeat(1000), 'vmx-update-dismissed': 'v174', 'vmx-history': '[]' });
+  const out = sweepStaleKeys(s, { now: NOW, today: '2026-09-14' });
+  assert.deepEqual(s.keys(), ['vmx-history']);
+  assert.ok(out.bytes >= 1000);
+});

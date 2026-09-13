@@ -353,6 +353,30 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.95.0: the storage banner's real cause, and updates that apply themselves
+
+- Palm's phone, read off the 5.94.2 diagnostic line: 4071 KB in 89 keys — `library-catalog-v1`
+  1371 KB, one outbox record 541 KB, `user-sync-v1:anonymous` 523 KB. Not a full device: `history`
+  stored ~6× plus a 1.3 MB shelf cache, all inside localStorage's 5 MB.
+- Sync engine (`user-data-sync.js`): change records for key-array fields (history, bookmarks) are
+  now `{ put: [items], removed: [keys] }` — no `value`, no `base`. Every earlier shape is still
+  read, and `compactSyncRecords` converts them in place at boot, so a device that is already full
+  gets its room back without any write having to succeed first. The anonymous principal no longer
+  tracks a dirty set (nothing to push; first sign-in uses `markLegacyDirty` anyway) and a stale one
+  is dropped at boot. The recovery journal stores a whole-dataset commit once (`patchIsSnapshot`).
+- The library catalog snapshot moved from localStorage to the Cache API (`vmx-library-catalog-v1`,
+  allow-listed in sw.js activate so a worker update keeps it). `vmx-library-catalog-v1` and
+  `vmx-update-dismissed` are `DEAD_KEYS` in storage-gc, swept at boot. `readCatalogSnapshot` is
+  async now; LibraryView paints the snapshot when it lands unless the fresh catalog already did.
+- Expected on that phone after one boot on 5.95.0: 4071 KB → roughly 1.1 MB (catalog −1371,
+  outbox −540, anonymous meta −520, account meta ≈ −500).
+- Updates: the มีเวอร์ชันใหม่พร้อมใช้ / รีเฟรชตอนนี้ toast is gone. App.jsx applies a waiting worker at
+  the next navigation or when the tab goes hidden, never from or into exam / sr-session / race /
+  pomodoro; app-lifecycle calls `reg.update()` hourly and on visibilitychange → visible.
+- Tests pin all of it (quota-loop, user-data-sync, storage-gc, the three library harnesses now fake
+  the Cache API). Tooling: a Python patch over ~200 lines through the Bash heredoc gets truncated
+  mid-script (bash: unexpected EOF) — write it to the scratchpad with the Write tool and run it.
+
 ## 2026-09-14 — 5.94.4: wave 2 — all 2,525 transcription-risk stems read, 67 more rewritten
 
 - The 10-reader workflow finished all batches: 93 flagged in total (21 shipped in 5.94.3, 72 new).

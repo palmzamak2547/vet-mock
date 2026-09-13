@@ -10,7 +10,7 @@
 // unreachable) with `new Map()` — byte-identical to a successful fetch of a
 // catalog with zero documents. Every card then asserted the subject was
 // empty and disabled itself, with no retry, while LibraryView on the same
-// device painted that subject's whole shelf from its localStorage snapshot.
+// device painted that subject's whole shelf from its catalog snapshot.
 //
 // Under plain node the catalog fetch genuinely fails (supabase.js reads
 // import.meta.env without a guard), so the failure branch is exercised here
@@ -30,6 +30,14 @@ const SNAPSHOT_KEY = 'vmx-library-catalog-v1';
 
 function fakeWindow(seed = []) {
   const store = new Map(seed);
+  // The snapshot lives in the Cache API now; back it with the same map so the
+  // tests seed and update it by the one key they always used.
+  const cache = {
+    put: async (url, res) => { store.set(SNAPSHOT_KEY, await res.text()); },
+    match: async () => (store.has(SNAPSHOT_KEY) ? new Response(store.get(SNAPSHOT_KEY)) : undefined),
+    delete: async () => store.delete(SNAPSHOT_KEY),
+  };
+  globalThis.caches = { open: async () => cache };
   return {
     localStorage: {
       getItem: (k) => store.get(k) ?? null,
@@ -62,6 +70,7 @@ test('a failed fetch counts from the snapshot LibraryView paints from', async ()
     assert.equal(counts.size, 2, 'unclassified rows are not counted under any subject');
   } finally {
     delete globalThis.window;
+    delete globalThis.caches;
   }
 });
 
@@ -77,6 +86,7 @@ test('a failed fetch with no snapshot answers null, never an empty shelf', async
     );
   } finally {
     delete globalThis.window;
+    delete globalThis.caches;
   }
 });
 
@@ -95,5 +105,6 @@ test('the snapshot fallback is not remembered as the session answer', async () =
     assert.equal((await librarySubjectCounts())?.get('com5'), 3, 'the second call reflects the newer snapshot');
   } finally {
     delete globalThis.window;
+    delete globalThis.caches;
   }
 });

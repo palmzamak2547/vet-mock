@@ -171,7 +171,9 @@ function readPrincipalData(storage, userId) {
 
 function recoverJournal(storage) {
   const journal = parseJson(storage, JOURNAL_KEY, null);
-  if (!journal || journal.version !== SYNC_VERSION || !journal.patch) return null;
+  if (!journal || journal.version !== SYNC_VERSION) return null;
+  const patch = journal.patch || (journal.patchIsSnapshot ? journal.snapshot : null);
+  if (!patch) return null;
 
   let recovered = true;
   try {
@@ -184,7 +186,7 @@ function recoverJournal(storage) {
     if (Object.prototype.hasOwnProperty.call(journal, 'owner')) {
       storage.setItem(CURRENT_OWNER_KEY, JSON.stringify(journal.owner));
     }
-    for (const [field, value] of Object.entries(journal.patch)) {
+    for (const [field, value] of Object.entries(patch)) {
       const definition = USER_DATA_FIELDS[field];
       if (!definition || !isValidValue(value, definition)) continue;
       storage.setItem(definition.localKey, JSON.stringify(value));
@@ -194,7 +196,7 @@ function recoverJournal(storage) {
     recovered = false;
   }
 
-  return { patch: journal.patch, recovered };
+  return { patch, recovered };
 }
 
 function readLocalData(storage) {
@@ -222,9 +224,14 @@ function writeLocalCommit(storage, {
   snapshotStorageKey = null,
   owner,
 }) {
+  // A hydrate or a session change commits the whole dataset as both the
+  // patch and the snapshot. Writing it twice doubled the journal — the
+  // largest single write the engine makes and the first to fail on a nearly
+  // full device — so the same object is stored once.
   const journal = {
     version: SYNC_VERSION,
-    patch,
+    patch: patch === snapshot ? null : patch,
+    patchIsSnapshot: patch === snapshot,
     meta,
     metaKey: metaStorageKey,
     snapshot,
@@ -404,6 +411,62 @@ function isDelta(entry) {
   return !!entry && Array.isArray(entry.added) && Array.isArray(entry.removed);
 }
 
+/** The record written since 5.95: the items this device added and the keys
+ *  it removed — nothing else. Earlier shapes also carried `value`, the whole
+ *  current array, and before that `base` as well: with `history` at a few
+ *  thousand rows that put five or six copies of it in one phone's
+ *  localStorage. The current array already lives in the principal snapshot
+ *  and the field's own local key; a change record only has to say what
+ *  changed. */
+function isItemDelta(entry) {
+  return !!entry && Array.isArray(entry.put) && Array.isArray(entry.removed);
+}
+
+function itemDelta(base, value) {
+  const baseKeys = keySetOf(base);
+  const valueKeys = keySetOf(value);
+  return {
+    put: value.filter((item) => !baseKeys.has(stableItemKey(item))),
+    removed: [...baseKeys].filter((k) => !valueKeys.has(k)),
+  };
+}
+
+/** Any earlier record for a key-array field, as an item delta — or null when
+ *  it cannot be expressed as one (a legacy whole-value record, or a field
+ *  whose merge policy needs the full base). */
+function toItemDelta(field, entry) {
+  if (!entry || entry.legacy) return null;
+  if (isItemDelta(entry)) return entry;
+  const policy = USER_DATA_FIELDS[field]?.merge;
+  if (!KEY_ARRAY_POLICIES.has(policy) || !Array.isArray(entry.value)) return null;
+  if (isDelta(entry)) {
+    const added = new Set(entry.added);
+    return {
+      put: entry.value.filter((item) => added.has(stableItemKey(item))),
+      removed: [...entry.removed],
+    };
+  }
+  if (Array.isArray(entry.base)) return itemDelta(entry.base, entry.value);
+  return null;
+}
+
+/** `remote` with this device's removals taken out and its additions put in.
+ *  An item the remote already has keeps the remote's copy. */
+function applyItemDelta(entry, remote) {
+  const current = Array.isArray(remote) ? remote : [];
+  if (!entry.put.length && !entry.removed.length) return current;
+  const removed = new Set(entry.removed);
+  const result = current.filter((item) => !removed.has(stableItemKey(item)));
+  const present = new Set(result.map(stableItemKey));
+  for (const item of entry.put) {
+    const key = stableItemKey(item);
+    if (present.has(key)) continue;
+    result.push(item);
+    present.add(key);
+  }
+  return result;
+}
+
 /** applySetArrayChanges, given the base as keys rather than as items. */
 function applySetArrayChangesByKeys(baseKeys, local, remote) {
   const localKeys = keySetOf(local);
@@ -420,54 +483,61 @@ function applySetArrayChangesByKeys(baseKeys, local, remote) {
   return result;
 }
 
-/** Fold a newer change into the one already recorded against the same base. */
-function mergeDelta(prior, next) {
-  const addedNext = new Set(next.added || []);
-  const removedNext = new Set(next.removed || []);
-  const added = new Set([...(prior.added || []), ...addedNext]);
-  const removed = new Set([...(prior.removed || []), ...removedNext]);
-  // Added then removed, or removed then re-added, must not end up in both.
-  for (const k of removedNext) added.delete(k);
-  for (const k of addedNext) removed.delete(k);
-  return { added: [...added], removed: [...removed] };
+/** Fold a newer item delta into the one already recorded against the same base. */
+function mergeItemDelta(prior, next) {
+  const removedNext = new Set(next.removed);
+  const putNext = new Set(next.put.map(stableItemKey));
+  // Added then removed must not stay added; removed then put back must not
+  // stay removed; an item put twice keeps the newer copy.
+  const put = prior.put
+    .filter((item) => {
+      const key = stableItemKey(item);
+      return !removedNext.has(key) && !putNext.has(key);
+    })
+    .concat(next.put);
+  const removed = new Set([...prior.removed, ...next.removed]);
+  for (const key of putNext) removed.delete(key);
+  return { put, removed: [...removed] };
 }
 
-/** The record to store for one field's change: a delta where that is enough,
- *  the full base where the merge policy genuinely needs the old values. */
+/** The record to store for one field's change: an item delta where the merge
+ *  policy works on keys, the full base where it genuinely needs old values. */
 function changeRecord(field, base, value) {
   const policy = USER_DATA_FIELDS[field]?.merge;
   if (!KEY_ARRAY_POLICIES.has(policy) || !Array.isArray(base) || !Array.isArray(value)) {
     return { base, value };
   }
-  return { ...changeDelta(base, value), value };
+  return itemDelta(base, value);
 }
 
 function foldChangeRecord(field, prior, next) {
-  if (isDelta(prior) && isDelta(next)) {
-    return { ...mergeDelta(prior, next), value: next.value };
+  if (isItemDelta(next)) {
+    const before = toItemDelta(field, prior);
+    if (before) return mergeItemDelta(before, next);
+    // A legacy record is the whole value, union-merged. It cannot become a
+    // delta, so it is carried forward whole with the new change applied.
+    return { ...prior, value: applyItemDelta(next, prior.value) };
   }
-  // Mixed shapes only happen across an upgrade, where a record written by the
-  // previous build is still in storage. Keep the older base: it is the one the
-  // remote still agrees with.
+  // Records written by earlier builds are still in storage at upgrade time.
+  // Keep the older base: it is the one the remote still agrees with.
   if (Object.prototype.hasOwnProperty.call(prior, 'base')) {
     return { base: prior.base, value: next.value };
   }
   return { ...prior, value: next.value };
 }
 
-/** Rewrite one field-change map from the old `{base, value}` shape to the
- *  delta shape where the policy allows it. Returns null when nothing changed
- *  so callers can skip the write. Never makes an entry larger. */
+/** Rewrite one field-change map so every key-array entry is an item delta.
+ *  Returns null when nothing changed so callers can skip the write. Never
+ *  makes an entry larger: a delta is a subset of the value it replaces. */
 function compactChangeMap(map) {
   if (!map || typeof map !== 'object') return null;
   let touched = false;
   const out = { ...map };
   for (const [field, entry] of Object.entries(map)) {
-    if (!entry || entry.legacy || isDelta(entry)) continue;
-    if (!Object.prototype.hasOwnProperty.call(entry, 'base')) continue;
-    const policy = USER_DATA_FIELDS[field]?.merge;
-    if (!KEY_ARRAY_POLICIES.has(policy) || !Array.isArray(entry.base) || !Array.isArray(entry.value)) continue;
-    out[field] = { ...changeDelta(entry.base, entry.value), value: entry.value };
+    if (!entry || entry.legacy || isItemDelta(entry)) continue;
+    const compact = toItemDelta(field, entry);
+    if (!compact) continue;
+    out[field] = compact;
     touched = true;
   }
   return touched ? out : null;
@@ -484,8 +554,9 @@ function compactChangeMap(map) {
  * value is the one write a full storage still accepts, so this runs before
  * anything else at boot and again inside the quota handlers.
  *
- * Nothing the student made is touched: values are carried over byte for byte;
- * only the redundant `base` copy is replaced by the keys it differed in.
+ * Nothing the student made is touched: the current values live in the
+ * principal snapshot and the field's own key; only the change records shrink
+ * to the items that changed.
  *
  * @returns {{ records: number, bytes: number }} what it freed
  */
@@ -518,7 +589,15 @@ export function compactSyncRecords(storage) {
   };
 
   for (const key of keys) {
-    if (key.startsWith(META_PREFIX)) {
+    if (key === metaKey(null)) {
+      // The anonymous principal has no remote, so its dirty set was never
+      // going to be pushed — it only ever grew, to a full copy of history on
+      // the phone that reported this. Since 5.95 it is not written at all;
+      // what an earlier build left behind is dropped here.
+      rewrite(key, (meta) => (
+        meta?.dirty && Object.keys(meta.dirty).length ? { ...meta, dirty: {} } : null
+      ));
+    } else if (key.startsWith(META_PREFIX)) {
       rewrite(key, (meta) => {
         const dirty = compactChangeMap(meta?.dirty);
         return dirty ? { ...meta, dirty } : null;
@@ -539,6 +618,7 @@ export function compactSyncRecords(storage) {
 }
 
 function reconcileDirty(field, entry, remote) {
+  if (isItemDelta(entry)) return applyItemDelta(entry, remote);
   const local = entry.value;
 
   // A delta carries the base as the keys it changed, which is all the
@@ -590,10 +670,16 @@ function readPendingOperations(storage, userId) {
       const changes = {};
       for (const [field, change] of Object.entries(operation.changes)) {
         const definition = USER_DATA_FIELDS[field];
-        if (!definition || !change || !isValidValue(change.value, definition)) continue;
-        // Either shape is valid: records written by the previous build carry a
-        // full `base` and are still sitting in storage at upgrade time.
-        if (!isDelta(change) && !isValidValue(change.base, definition)) continue;
+        if (!definition || !change) continue;
+        // Every shape ever written is still valid: records from earlier builds
+        // carry `value` and possibly a full `base` and sit in storage at
+        // upgrade time; an item delta carries only what changed.
+        if (isItemDelta(change)) {
+          if (!isValidValue(change.put, definition)) continue;
+        } else {
+          if (!isValidValue(change.value, definition)) continue;
+          if (!isDelta(change) && !isValidValue(change.base, definition)) continue;
+        }
         changes[field] = change;
       }
       if (Object.keys(changes).length === 0) continue;
@@ -974,9 +1060,9 @@ export function createUserDataSync({
             : clone(definition.initial);
           const value = remoteSnapshot.found
             ? reconcileDirty(field, dirty, remoteValue)
-            : dirty.value;
+            : (isItemDelta(dirty) ? merged[field] : dirty.value);
           merged[field] = value;
-          nextDirty[field] = { ...dirty, value };
+          nextDirty[field] = isItemDelta(dirty) ? dirty : { ...dirty, value };
           continue;
         }
 
@@ -1132,12 +1218,9 @@ export function createUserDataSync({
             : clone(definition.initial);
           const value = remoteSnapshot.found
             ? reconcileDirty(field, dirty, remoteValue)
-            : dirty.value;
+            : (isItemDelta(dirty) ? rebasedData[field] : dirty.value);
           rebasedData[field] = value;
-          rebasedDirty[field] = {
-            base: clone(remoteValue),
-            value,
-          };
+          rebasedDirty[field] = changeRecord(field, clone(remoteValue), value);
         } else if (remoteSnapshot.present.has(field)) {
           rebasedData[field] = remoteSnapshot.data[field];
         }
@@ -1155,10 +1238,7 @@ export function createUserDataSync({
         const remoteValue = remoteSnapshot.present.has(field)
           ? remoteSnapshot.data[field]
           : clone(definition.initial);
-        rebasedDirty[field] = {
-          base: clone(remoteValue),
-          value: rebasedData[field],
-        };
+        rebasedDirty[field] = changeRecord(field, clone(remoteValue), rebasedData[field]);
       }
 
       const rebaseChanged = (
@@ -1194,10 +1274,7 @@ export function createUserDataSync({
       for (const field of afterAck.touched) {
         const definition = USER_DATA_FIELDS[field];
         if (!definition.remoteKey) continue;
-        remainingDirty[field] = {
-          base: clone(rebasedData[field]),
-          value: afterAck.data[field],
-        };
+        remainingDirty[field] = changeRecord(field, clone(rebasedData[field]), afterAck.data[field]);
       }
       const hasRemotePending = remainingOperations.some(operationTouchesRemote);
       const syncedAt = hasRemotePending
@@ -1302,6 +1379,10 @@ export function createUserDataSync({
     };
     for (const [field, value] of Object.entries(changed)) {
       if (!USER_DATA_FIELDS[field].remoteKey) continue;
+      // Signed out there is nothing to push to, and the first sign-in marks
+      // the whole workspace dirty anyway (markLegacyDirty), so tracking here
+      // only ever accumulated a copy of everything the student did.
+      if (!userId) continue;
       const existing = nextMeta.dirty[field];
       nextMeta.dirty[field] = existing
         ? foldChangeRecord(field, existing, changeRecord(field, currentData[field], value))

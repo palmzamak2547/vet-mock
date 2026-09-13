@@ -330,13 +330,24 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
     // mount frame, then the fresh fetch swaps in silently. First-ever visits
     // still see the skeleton.
     const { stale, fresh } = getLibraryCatalogFast();
-    if (stale?.docs?.length) {
-      setDocs(stale.docs);
+    // The snapshot comes from the Cache API, so it lands a tick after mount
+    // rather than in it — still far ahead of the network. Once the fresh
+    // catalog is on screen the snapshot must not paint over it; if the fetch
+    // failed, the snapshot is still the best shelf there is.
+    let snapshot = null;
+    let outcome = null;
+    let partial = null;
+    stale.then((snap) => {
+      if (cancelled || !snap?.docs?.length) return;
+      snapshot = snap;
+      if (outcome === 'ok') return;
+      setDocs(partial ? mergeLibrarySources(snap.docs, partial) : snap.docs);
       setLoading(false);
-    }
+    }).catch(() => {});
     fresh
       .then(({ docs: rows, configured: ok, error: fetchError }) => {
         if (cancelled) return;
+        outcome = 'ok';
         setDocs(rows);
         setConfigured(ok);
         setError(fetchError ? thaiError(fetchError, 'อัปเดตรายการเอกสารไม่สำเร็จ แสดงแหล่งข้อมูลที่มีอยู่ก่อน') : null);
@@ -345,7 +356,11 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         // With a snapshot already on screen, a background revalidation
         // failure is not worth an alert banner.
         if (!cancelled) {
-          if (e.partialDocs) setDocs(mergeLibrarySources(stale?.docs || [], e.partialDocs));
+          outcome = 'failed';
+          if (e.partialDocs) {
+            partial = e.partialDocs;
+            setDocs(mergeLibrarySources(snapshot?.docs || [], e.partialDocs));
+          }
           setError(thaiError(e, 'โหลดรายการเอกสารไม่สำเร็จ'));
         }
       })

@@ -172,7 +172,7 @@ export async function librarySubjectCounts() {
     // answer null — the callers' own "not known yet" state — never "empty".
     // Not cached, so the next mount reads the device again and retries the
     // network (getLibraryCatalog drops its failed promise).
-    const snap = readCatalogSnapshot();
+    const snap = await readCatalogSnapshot();
     return snap ? countBySubject(snap.docs) : null;
   }
   _subjectCounts = countBySubject(docs);
@@ -339,30 +339,49 @@ if (typeof window !== 'undefined') {
 
 // ── Instant-paint snapshot ────────────────────────────────────────────────
 // The catalog changes rarely and its metadata is public, so the last good
-// fetch is kept in localStorage. A returning visitor paints the whole shelf
-// from the snapshot in the same frame the view mounts, while the fresh fetch
+// fetch is kept on the device. A returning visitor paints the whole shelf
+// from the snapshot as soon as the view mounts, while the fresh fetch
 // revalidates in the background and swaps in silently if anything changed.
+//
+// It lives in the Cache API, not localStorage. At ~1,500 rows the snapshot is
+// 1.3 MB — a third of localStorage's 5 MB — and on one phone it was the
+// biggest single key on the day the student's own history could no longer be
+// written. Cache storage has a quota of its own with room to spare, so the
+// shelf cache can never again crowd out a student's work. The old
+// localStorage key is swept at boot by storage-gc.
 
-const SNAPSHOT_KEY = 'vmx-library-catalog-v1';
+const SNAPSHOT_CACHE = 'vmx-library-catalog-v1';
+const SNAPSHOT_URL = '/__vmx/library-catalog.json';
 
-export function saveCatalogSnapshot(result) {
-  if (typeof window === 'undefined') return;
+const openSnapshotCache = async () => {
+  if (typeof window === 'undefined' || typeof caches === 'undefined') return null;
+  return caches.open(SNAPSHOT_CACHE);
+};
+
+export async function saveCatalogSnapshot(result) {
   if (!result?.configured || !Array.isArray(result.docs)) return;
   try {
+    const cache = await openSnapshotCache();
+    if (!cache) return;
     // A signed-in reader can see restricted rows. Persist only public metadata
     // so the next signed-out reader on this device cannot inherit that shelf.
     const docs = result.docs.filter((doc) => doc?.status === 'public');
-    if (!docs.length) window.localStorage.removeItem(SNAPSHOT_KEY);
-    else window.localStorage.setItem(SNAPSHOT_KEY, JSON.stringify({ at: Date.now(), docs }));
-  } catch { /* quota or private mode — the shelf just loads from network */ }
+    if (!docs.length) {
+      await cache.delete(SNAPSHOT_URL);
+      return;
+    }
+    await cache.put(SNAPSHOT_URL, new Response(JSON.stringify({ at: Date.now(), docs }), {
+      headers: { 'content-type': 'application/json' },
+    }));
+  } catch { /* private mode or no room — the shelf just loads from network */ }
 }
 
-export function readCatalogSnapshot() {
-  if (typeof window === 'undefined') return null;
+export async function readCatalogSnapshot() {
   try {
-    const raw = window.localStorage.getItem(SNAPSHOT_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
+    const cache = await openSnapshotCache();
+    const hit = cache ? await cache.match(SNAPSHOT_URL) : null;
+    if (!hit) return null;
+    const parsed = await hit.json();
     if (!Array.isArray(parsed?.docs) || parsed.docs.length === 0) return null;
     const docs = parsed.docs.filter((doc) => doc?.status === 'public');
     return docs.length ? { docs, at: parsed.at || 0 } : null;
@@ -371,10 +390,10 @@ export function readCatalogSnapshot() {
   }
 }
 
-/** Snapshot-first access: `{ stale, fresh }` where `stale` is the instant
- *  local copy (or null on a first-ever visit) and `fresh` is the shared
- *  session promise. Callers render `stale` immediately and swap when
- *  `fresh` resolves. */
+/** Snapshot-first access: `{ stale, fresh }` where `stale` resolves to the
+ *  local copy (or null on a first-ever visit) a tick after mount, and `fresh`
+ *  is the shared session promise. Callers render `stale` as soon as it lands
+ *  and swap when `fresh` resolves. */
 export function getLibraryCatalogFast() {
   return { stale: readCatalogSnapshot(), fresh: getLibraryCatalog() };
 }

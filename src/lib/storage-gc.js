@@ -40,6 +40,12 @@ const DAILY_PREFIXES = ['vmx-todays-q-', 'vmx-daily-q-pulse-fired-'];
 const PLAYLIST_PREVIEW_PREFIX = 'vmx-pl-preview-';
 const PLAYLIST_MISS_PREFIX = 'vmx-pl-miss-';
 
+// Keys no build reads any more. The library catalog snapshot moved to the
+// Cache API in 5.95 — at ~1,500 rows it was 1.3 MB of localStorage, the
+// biggest single key on the phone whose history could no longer be saved —
+// and the update-dismissal flag went with the tap-to-update toast.
+const DEAD_KEYS = new Set(['vmx-library-catalog-v1', 'vmx-update-dismissed']);
+
 // Matches VideoView's own cache lifetime. A preview older than this is
 // already ignored on read; this is what finally frees its bytes.
 const PLAYLIST_TTL_MS = 24 * 60 * 60 * 1000;
@@ -109,6 +115,11 @@ export function sweepStaleKeys(storage, { now = Date.now(), today = null } = {})
   const todayKeys = today ? DAILY_PREFIXES.map((p) => `${p}${today}`) : [];
 
   for (const key of keysOf(storage)) {
+    if (DEAD_KEYS.has(key)) {
+      drop(storage, key, tally);
+      continue;
+    }
+
     const dailyPrefix = DAILY_PREFIXES.find((p) => key.startsWith(p));
     if (dailyPrefix) {
       // Without a `today` to protect we leave the whole family alone rather

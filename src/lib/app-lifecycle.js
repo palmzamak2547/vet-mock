@@ -105,9 +105,9 @@ window.addEventListener('load', () => {
 
 // ── Service worker — true offline + asset caching ─────────────────
 // Registered after window.load to avoid contending with first paint.
-// New SW versions don't reload mid-session — instead we set a flag
-// that App.jsx watches; the next idle/safe moment shows a soft toast
-// "อัปเดตใหม่พร้อมแล้ว · กดเพื่อรีเฟรช".
+// New SW versions don't reload mid-session — they are announced to
+// App.jsx, which applies them at the next moment nothing can be lost (a
+// navigation, or the tab going to the background) and never mid-exam.
 //
 // In dev mode we deliberately UNREGISTER any prior SW so HMR works;
 // the SW is production-only.
@@ -174,6 +174,15 @@ window.addEventListener('load', () => {
   navigator.serviceWorker.register('/sw.js').then((reg) => {
     // A worker may already be waiting when this tab opens.
     announceWaitingWorker(reg.waiting)
+
+    // A tab left open for days never asked for a new worker again, so the
+    // update it eventually got was already several releases stale. Check
+    // hourly and whenever the tab comes back into view.
+    const check = () => reg.update().catch(() => {})
+    setInterval(check, 60 * 60 * 1000)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') check()
+    })
 
     // When a new worker is installed *after* one was already controlling
     // this page, surface an "update available" toast.

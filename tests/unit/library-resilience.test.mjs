@@ -12,26 +12,38 @@ test('only a missing table becomes an empty library, never denied access or an o
   ]) assert.equal(isMissingLibraryTable(error), false);
 });
 
-test('catalog snapshots neither retain restricted documents nor resurrect a cleared shelf', () => {
+// The snapshot lives in the Cache API. A real cache hands back a fresh
+// Response on every match; so does this one.
+function fakeCaches() {
+  const store = new Map();
+  const cache = {
+    put: async (url, res) => { store.set(String(url), await res.text()); },
+    match: async (url) => (store.has(String(url)) ? new Response(store.get(String(url))) : undefined),
+    delete: async (url) => store.delete(String(url)),
+  };
+  return { open: async () => cache, _store: store };
+}
+
+test('catalog snapshots neither retain restricted documents nor resurrect a cleared shelf', async () => {
   const previous = globalThis.window;
-  const storage = new Map();
-  globalThis.window = { localStorage: {
-    getItem: (key) => storage.get(key) ?? null,
-    setItem: (key, value) => storage.set(key, value),
-    removeItem: (key) => storage.delete(key),
-  } };
+  const previousCaches = globalThis.caches;
+  const caches = fakeCaches();
+  globalThis.window = {};
+  globalThis.caches = caches;
   try {
     const publicDoc = { id: 'public', title: 'Open document', status: 'public' };
     const privateDoc = { id: 'restricted', title: 'Restricted document', status: 'restricted' };
-    saveCatalogSnapshot({ configured: true, docs: [publicDoc, privateDoc] });
-    assert.deepEqual(readCatalogSnapshot().docs, [publicDoc]);
-    storage.set('vmx-library-catalog-v1', JSON.stringify({ docs: [privateDoc, publicDoc] }));
-    assert.deepEqual(readCatalogSnapshot().docs, [publicDoc], 'old caches are filtered on read too');
-    saveCatalogSnapshot({ configured: true, docs: [] });
-    assert.equal(readCatalogSnapshot(), null);
-    assert.equal(storage.size, 0);
+    await saveCatalogSnapshot({ configured: true, docs: [publicDoc, privateDoc] });
+    assert.deepEqual((await readCatalogSnapshot()).docs, [publicDoc]);
+    caches._store.set('/__vmx/library-catalog.json', JSON.stringify({ docs: [privateDoc, publicDoc] }));
+    assert.deepEqual((await readCatalogSnapshot()).docs, [publicDoc], 'old caches are filtered on read too');
+    await saveCatalogSnapshot({ configured: true, docs: [] });
+    assert.equal(await readCatalogSnapshot(), null);
+    assert.equal(caches._store.size, 0);
   } finally {
     if (previous === undefined) delete globalThis.window;
     else globalThis.window = previous;
+    if (previousCaches === undefined) delete globalThis.caches;
+    else globalThis.caches = previousCaches;
   }
 });

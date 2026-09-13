@@ -611,12 +611,14 @@ test('an append-only field records a delta, not a second copy of itself', async 
 
   const storage = new MemoryStorage();
   const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
+  sync.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
   const big = Array.from({ length: 400 }, (_, i) => ({ id: i, pad: 'x'.repeat(60) }));
-  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: big.map((b) => b.id) }) });
-  const meta = JSON.parse(storage.getItem('vmx-user-sync-v1:anonymous'));
+  sync.send({ type: 'CHANGE', principalId: 'user-1', derive: () => ({ bookmarks: big.map((b) => b.id) }) });
+  const meta = JSON.parse(storage.getItem('vmx-user-sync-v1:user-1'));
   assert.ok(meta.dirty.bookmarks, 'bookmarks should be dirty');
-  assert.ok(!('base' in meta.dirty.bookmarks), 'the old array must not be stored again');
-  assert.ok(Array.isArray(meta.dirty.bookmarks.added));
+  assert.ok(!('base' in meta.dirty.bookmarks) && !('value' in meta.dirty.bookmarks), 'neither copy of the array is stored');
+  assert.ok(Array.isArray(meta.dirty.bookmarks.put));
+  sync.close();
 });
 
 test('clearing a list still deletes it rather than merging it back', () => {
@@ -624,13 +626,14 @@ test('clearing a list still deletes it rather than merging it back', () => {
   // "ล้างข้อมูลทั้งหมด" must not resurrect from the cloud copy.
   const storage = new MemoryStorage();
   const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
-  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: [1, 2, 3] }) });
-  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: [] }) });
-  const meta = JSON.parse(storage.getItem('vmx-user-sync-v1:anonymous'));
+  sync.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  sync.send({ type: 'CHANGE', principalId: 'user-1', derive: () => ({ bookmarks: [1, 2, 3] }) });
+  sync.send({ type: 'CHANGE', principalId: 'user-1', derive: () => ({ bookmarks: [] }) });
+  const meta = JSON.parse(storage.getItem('vmx-user-sync-v1:user-1'));
   const entry = meta.dirty.bookmarks;
-  assert.deepEqual(entry.value, []);
   assert.equal(entry.removed.length, 3, 'all three must be recorded as removed');
-  assert.deepEqual(entry.added, [], 'nothing was added on the way to empty');
+  assert.deepEqual(entry.put, [], 'nothing was added on the way to empty');
+  sync.close();
 });
 
 test('a record written by the previous build still loads', () => {

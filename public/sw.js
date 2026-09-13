@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v175-2026-09-14';
+const SW_VERSION = 'v176-2026-09-14';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Atlas verifies content hashes and owns a bounded public-model cache.
@@ -37,6 +37,10 @@ const ASSETS_MAX_ENTRIES = 300;
 const LIB_DOCS = 'vmx-lib-docs-v1';
 const LIB_DOC_MAX_ENTRIES = 6;
 const LIB_DOC_MAX_BYTES = 40 * 1024 * 1024;
+// The shelf's catalog snapshot (library.js keeps it here rather than in
+// localStorage, which it was filling). Unversioned like LIB_DOCS: a worker
+// update must not make the next library visit paint late.
+const CATALOG = 'vmx-library-catalog-v1';
 const NAV_TIMEOUT_MS = 4000;
 
 self.addEventListener('install', (event) => {
@@ -65,7 +69,7 @@ self.addEventListener('activate', (event) => {
       caches.keys().then((keys) =>
         Promise.all(
           keys
-            .filter((k) => k.startsWith('vmx-') && k !== RUNTIME && k !== ASSETS && k !== LIB_DOCS && k !== ATLAS_MODELS && k !== ATLAS_SHELL)
+            .filter((k) => k.startsWith('vmx-') && k !== RUNTIME && k !== ASSETS && k !== LIB_DOCS && k !== ATLAS_MODELS && k !== ATLAS_SHELL && k !== CATALOG)
             .map((k) => caches.delete(k))
         )
       ),

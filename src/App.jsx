@@ -815,40 +815,36 @@ export default function App() {
       useTimer: false,
     });
   };
-  // Service worker update available — true after a new SW finishes
-  // installing while an old one is still controlling the page. We show
-  // a small toast (NOT during exam) with a "Refresh" button.
-  // A waiting worker keeps waiting until the user acts, and main.jsx announces
-  // it on every page load — so an update someone chose to ignore came back on
-  // every single load with no way to make it stop. The dismissal is keyed to
-  // the build being offered, so saying "later" silences THAT update and a
-  // genuinely newer one still gets through.
-  const [swUpdateReady, setSwUpdateReady] = useState(false);
-  const [swUpdateVersion, setSwUpdateVersion] = useState(null);
+  // A new build used to wait behind a "รีเฟรชตอนนี้" toast — and with several
+  // releases a day, that toast was simply always there. The update now
+  // applies itself at the next moment nothing can be lost: a navigation (the
+  // view is being torn down anyway) or the tab going to the background. A
+  // running session is never interrupted; the update waits for it to end.
+  const UPDATE_UNSAFE_VIEWS = ['exam', 'sr-session', 'race', 'pomodoro'];
+  const pendingUpdateRef = useRef(null);
   useEffect(() => {
-    const handler = (e) => {
-      // Not every announcement carries a version. The deferred-during-exam
-      // notice (app-lifecycle.js, vite:preloadError) has none, and with a null
-      // key the dismissal below stored nothing and the comparison never
-      // matched — so that banner came back on every single load and "ไว้ก่อน"
-      // did nothing at all. Fall back to the reason so it still has a key.
-      const version = e?.detail?.version || (e?.detail?.reason ? `pending:${e.detail.reason}` : 'pending');
-      let dismissed = null;
-      try { dismissed = window.localStorage.getItem('vmx-update-dismissed'); } catch {}
-      if (dismissed === version) return;
-      setSwUpdateVersion(version);
-      setSwUpdateReady(true);
-    };
+    const handler = (e) => { pendingUpdateRef.current = e?.detail?.reason || 'pending'; };
     window.addEventListener('vmx-sw-update', handler);
     return () => window.removeEventListener('vmx-sw-update', handler);
   }, []);
-
-  const dismissSwUpdate = () => {
-    try {
-      if (swUpdateVersion) window.localStorage.setItem('vmx-update-dismissed', swUpdateVersion);
-    } catch {}
-    setSwUpdateReady(false);
-  };
+  const applyPendingUpdate = useCallback((leavingView = null) => {
+    const reason = pendingUpdateRef.current;
+    if (!reason) return false;
+    if (UPDATE_UNSAFE_VIEWS.includes(leavingView) || UPDATE_UNSAFE_VIEWS.includes(viewRef.current)) return false;
+    pendingUpdateRef.current = null;
+    // A waiting worker activates and app-lifecycle.js reloads on
+    // controllerchange; a deferred chunk failure has no worker to wait for.
+    if (reason === 'service-worker') window.dispatchEvent(new Event('vmx-sw-apply-update'));
+    else window.location.reload();
+    return true;
+  }, []);
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') applyPendingUpdate();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, [applyPendingUpdate]);
 
   // SR-card graded — listen defensively at App level so XP/quest credit
   // applies no matter which surface dispatches it (SRSessionView today,
@@ -936,7 +932,8 @@ export default function App() {
     }
     viewRef.current = next;
     withTransition(() => setViewRaw(next));
-  }, []);
+    applyPendingUpdate(previous);
+  }, [applyPendingUpdate]);
 
   useEffect(() => { viewRef.current = view; }, [view]);
 
@@ -2707,41 +2704,6 @@ export default function App() {
               onRetry={userDataSync.retry}
               onOfflineGame={() => setView('offline-game')}
             />
-          )}
-
-          {/* New service-worker version installed — shown only when NOT in
-              an exam (don't yank state mid-session). Reload only happens
-              on user click, not auto-reload. */}
-          {swUpdateReady && view !== 'exam' && (
-            <div
-              role="status"
-              aria-live="polite"
-              className="vmx-update-notice"
-            >
-              <span>มีเวอร์ชันใหม่พร้อมใช้</span>
-              <button
-                type="button"
-                onClick={() => {
-                  if (window.__VMX_UPDATE_STATUS__?.reason === 'service-worker') {
-                    window.dispatchEvent(new Event('vmx-sw-apply-update'));
-                  } else {
-                    window.location.reload();
-                  }
-                }}
-                className="vmx-btn vmx-btn-primary vmx-btn-sm vmx-update-notice__refresh"
-              >
-                รีเฟรชตอนนี้
-              </button>
-              <button
-                type="button"
-                onClick={dismissSwUpdate}
-                className="vmx-icon-close vmx-update-notice__close"
-                aria-label="ปิดการแจ้งเตือนอัปเดตนี้"
-                title="ไว้ทีหลัง"
-              >
-                ✕
-              </button>
-            </div>
           )}
 
           {/* Header — hidden on full-screen / focus views (exam in progress,

@@ -255,10 +255,18 @@ test('readerPayload defers the mint behind resolve() and keys strokes by sha256'
   assert.equal(p.url, undefined, 'no url yet — the reader resolves it while its chunk loads');
 });
 
-// ── snapshot + recents — localStorage guards ──────────────────────────────
+// ── snapshot + recents — storage guards ──────────────────────────────
 
 function fakeWindow(seed = []) {
   const store = new Map(seed);
+  // The catalog snapshot lives in the Cache API; the recents still use
+  // localStorage. One map backs both so a test can seed either by key.
+  const cache = {
+    put: async (url, res) => { store.set('vmx-library-catalog-v1', await res.text()); },
+    match: async () => (store.has('vmx-library-catalog-v1') ? new Response(store.get('vmx-library-catalog-v1')) : undefined),
+    delete: async () => store.delete('vmx-library-catalog-v1'),
+  };
+  globalThis.caches = { open: async () => cache };
   return {
     localStorage: {
       getItem: (k) => store.get(k) ?? null,
@@ -270,17 +278,18 @@ function fakeWindow(seed = []) {
   };
 }
 
-test('catalog snapshot survives corrupt or empty localStorage without throwing', async () => {
+test('catalog snapshot survives a corrupt or empty cache without throwing', async () => {
   const { readCatalogSnapshot } = await import('../../src/lib/library.js');
   globalThis.window = fakeWindow([['vmx-library-catalog-v1', '{corrupt']]);
   try {
-    assert.equal(readCatalogSnapshot(), null);
+    assert.equal(await readCatalogSnapshot(), null);
     window._store.set('vmx-library-catalog-v1', JSON.stringify({ at: 1, docs: [] }));
-    assert.equal(readCatalogSnapshot(), null, 'an empty snapshot is no snapshot');
+    assert.equal(await readCatalogSnapshot(), null, 'an empty snapshot is no snapshot');
     window._store.set('vmx-library-catalog-v1', JSON.stringify({ at: 5, docs: [{ slug: 'a', title: 'T', status: 'public' }] }));
-    assert.equal(readCatalogSnapshot().docs[0].slug, 'a');
+    assert.equal((await readCatalogSnapshot()).docs[0].slug, 'a');
   } finally {
     delete globalThis.window;
+    delete globalThis.caches;
   }
 });
 
