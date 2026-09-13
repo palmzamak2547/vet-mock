@@ -59,9 +59,11 @@ test('Mochi keeps one rig through all 27 poses and pauses without losing the cho
     await expect(pose).toHaveValue(state);
     await expect(page.locator('.vm-mochi-rig')).toHaveCount(1);
   }
-  // The real update banner must coexist with Pause/Resume and fixed mobile nav.
+  // An update announced mid-session raises no banner any more — it applies
+  // itself at the next navigation — so Pause/Resume must keep working with
+  // one pending, and nothing may reload the page under the controls.
   await page.evaluate(() => window.dispatchEvent(new CustomEvent('vmx-sw-update', { detail: { version: 'motion-control-regression' } })));
-  await expect(page.getByText('มีเวอร์ชันใหม่พร้อมใช้', { exact: true })).toBeVisible();
+  await expect(page.locator('.vmx-update-notice')).toHaveCount(0);
   await page.getByRole('button', { name: 'พักการเคลื่อนไหว', exact: true }).click();
   await expect(page.locator('.vmx-motion-stage')).toHaveClass(/vm-paused/);
   const before = await page.locator('[data-rig=body]').getAttribute('transform');
