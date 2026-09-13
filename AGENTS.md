@@ -353,6 +353,57 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.90.0: every route gets its own link preview
+
+- **What was wrong:** `/app/*` is one SPA shell, so all 31 routes served the same `index.html` and
+  therefore the same Open Graph tags — `icon-512.png`, a 512px SQUARE image, declared alongside
+  `twitter:card=summary_large_image`. A link to the video shelf and a link to the focus timer
+  previewed identically, and neither filled the frame that card shape reserves. The 208 wiki
+  articles had real titles but the same square icon, because `prerender-wiki.mjs` set
+  `og:image` only when passed one and never set `twitter:image` at all.
+- **The covers** are a design study Palm produced separately (`work/og-design-20260913/`, 35 PNGs at
+  1200x630, reproducible with its own `render.mjs`). 33 are wired; `notes.png` and `imaging.png`
+  were dropped from `public/og/` because neither view has a URL, so nothing can link to them.
+- **How it works:** `src/data/og-covers.js` is the single registry (id, route, title, description,
+  cover headline, indexable). `scripts/prerender-og.mjs` runs after `vite build` and writes
+  `dist/app/<path>/index.html` — the built shell with a rewritten `<head>`. **Vercel checks the
+  filesystem before applying the `/app/:path*` rewrite**, which is not a guess: it is how
+  `prerender-wiki.mjs` has served `/wiki/<subject>/<topic>` since launch, and
+  `curl https://vetmock.vercel.app/wiki/zoonoses/zoo-vbz` returns that article's real title today.
+  No vercel.json rewrites were added; the fallback still catches anything unprerendered.
+- **The head builder moved to `scripts/lib/og-head.mjs`** and `prerender-wiki.mjs` now uses it too,
+  so an article card and an app card cannot drift. That is what gave the wiki a real cover and a
+  `twitter:image` for the first time.
+- **Copy is not invented.** `description` comes from `src/lib/feature-registry.js` — the app's own
+  words for that destination — so a preview cannot promise something the screen does not do. Four
+  routes the registry does not describe (study, privacy, year, phase) are written out explicitly in
+  the data file. `og:image:alt` is the headline actually printed on the PNG (manifest `title`), so
+  the alt describes the image rather than the page; I had invented nicer lines for blog and wiki
+  first and had to correct them against the manifest.
+- **noindex is deliberate and is not a preview problem.** App screens need a year or an account to
+  mean anything, so they ship `noindex, follow`: shareable, not indexed. Only home, about, privacy,
+  wiki and blog stay indexable, and those keep the shell's rich
+  `index, follow, max-snippet:-1, max-image-preview:large` — flattening it to a bare `index, follow`
+  would have shrunk the very preview the covers exist to produce (caught by a test, not by eye).
+  Only about and privacy are added to the sitemap; listing a noindex URL is a contradiction a
+  search console reports back.
+- **`/app/atlas` is patched in place, not shadowed.** It is a separate Vite entry reached through an
+  existing rewrite; writing `dist/app/atlas/index.html` would have booted the wrong bundle. The
+  script edits `dist/atlas.html` instead and fails loudly if that entry ever moves.
+- **Two cache rules added to vercel.json**: `/og/(.*)` gets the same 7-day + SWR treatment as
+  `/images/`, and `/app/(.*)` gets `max-age=0, must-revalidate` — a hard-cached shell outlives the
+  hashed bundle it names and the app stops booting after the next deploy.
+- **Gates:** `scripts/lint-og.mjs` (in `lint:all`) fails if a route in `APP_VIEW_ROUTES` has no
+  cover, if a named cover file is missing or is not a 1200x630 PNG, on duplicate ids or routes, and
+  on copy too long to survive a preview. `tests/unit/og-head.test.mjs` pins the tag PAIRS that break
+  silently: og:image not swallowing og:image:width (only the closing quote separates them),
+  twitter:image tracking og:image, a large card never paired with a square image, and noindex not
+  stripping the preview tags.
+- Verified: all 29 generated shells are byte-identical to `dist/index.html` apart from head meta and
+  name the same entry bundle. Note `vite preview` serves `index.html` for `/app/*` via its own SPA
+  fallback, so it CANNOT verify this locally — production is the only place the filesystem-first
+  behaviour shows, and the wiki is the standing proof.
+
 ## 2026-09-13 — 5.90.0: the glossary learns which subject it is in
 
 - **The bug was structural, not a typo.** `src/data/glossary.js` carried a `subjects` field on all
@@ -431,3 +482,8 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - Covers all 31 `APP_VIEW_ROUTES` plus Wiki/blog and internal Notes/Imaging concepts; individual article/subject covers remain future template work. Uses existing logo, Mochi, and repository CC0 skull poster with original CSS editorial illustration; no private learner data or lecture figures.
 - Verified all 35 images decode, route coverage has no gaps, all heading bounds fit, gallery filtering works, and 390px gallery has no horizontal overflow (`verification.json`). Visually reviewed six lead exports. No app code, OG metadata, commit, or deployment changed; release gates were unnecessary for local-only artwork.
 - Next: review visual direction with owner, then integrate crawler-readable metadata and dynamic-title templates if requested. SPA client metadata alone is insufficient proof of share previews.
+
+### OG typography revision
+
+- Owner requested cute Thai typography without overlaps or broken tone marks. Selected Mali SemiBold 600 after rendered comparison with Itim and Bai Jamjuree; kept Sarabun descriptions. Removed negative tracking, reserved 1.9 line height, fitted each explicit headline line to 610px, and separated flashcard labels.
+- All 35 exports regenerated; loaded-font, text-width, ink-height and footer-clearance checks pass in work/og-design-20260913/typography-verification.json. Six lead covers and the stacked-mark-heavy card inspected visually. Font sources/OFL files, comparison and editable renderer retained in the same directory. Local artwork only; production remains unchanged.
