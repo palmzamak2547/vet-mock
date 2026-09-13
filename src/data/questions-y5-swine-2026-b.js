@@ -18,7 +18,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "สุกรขุนถ่ายเหลว ถ่ายเป็นมูกเลือดและอุจจาระสีดำ หนึ่งใน DDx ที่เอกสารให้ไว้คือ proliferative enteropathy หรือ ileitis เชื้อก่อโรคของ ileitis คือข้อใด",
+    "q": "สุกรขุนถ่ายเหลว ถ่ายเป็นมูกเลือดและอุจจาระสีดำ หนึ่งใน DDx คือ proliferative enteropathy หรือ ileitis เชื้อก่อโรคของ ileitis คือข้อใด",
     "options": [
       "Lawsonia intracellularis",
       "Brachyspira hyodysenteriae",
@@ -158,7 +158,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pcv2",
     "year": 5,
     "type": "mcq",
-    "q": "รอยโรคใดที่เอกสารระบุว่าพบได้ทั้งใน Salmonella และ swine fever",
+    "q": "รอยโรคใดที่พบได้ทั้งใน Salmonella และ swine fever",
     "options": [
       "Vesicle ที่ลิ้น และ erosion ที่กีบเท้าทั้งสี่",
       "Button ulcer ที่ลำไส้ และ turkey egg kidney",
@@ -518,7 +518,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "โปรแกรมวัคซีน PED ในแม่สุกรอุ้มท้องตามที่เอกสารบันทึกไว้ ฉีดที่ช่วงเวลาใด",
+    "q": "โปรแกรมวัคซีน PED ในแม่สุกรอุ้มท้องตาม ฉีดที่ช่วงเวลาใด",
     "options": [
       "4 และ 2 สัปดาห์ก่อนคลอด",
       "6 และ 3 สัปดาห์ก่อนคลอด",
@@ -538,7 +538,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "Rotavirus ในสุกรตามที่เอกสารบันทึกไว้ มีลักษณะทางระบาดวิทยาอย่างไร",
+    "q": "Rotavirus ในสุกรตาม มีลักษณะทางระบาดวิทยาอย่างไร",
     "options": [
       "ทำให้ลูกสุกรตายเกือบทั้งครอกภายในสัปดาห์แรก",
       "พบเฉพาะในแม่สุกรอุ้มท้องและทำให้แท้งเป็นหลัก",
@@ -558,7 +558,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "เหตุผลที่เอกสารระบุให้ใช้ autogenous vaccine กับ rotavirus ในสุกร คือข้อใด",
+    "q": "เหตุผลให้ใช้ autogenous vaccine กับ rotavirus ในสุกร คือข้อใด",
     "options": [
       "วัคซีนสำเร็จรูปกระตุ้นภูมิได้แต่ทำให้แม่สุกรแท้ง",
       "เชื้อไม่ตอบสนองต่อการสร้างภูมิผ่านน้ำนมเหลือง",
@@ -578,7 +578,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "วิธีสร้างภูมิให้แม่สุกรก่อนคลอดที่เอกสารบันทึกไว้สำหรับโรคท้องเสียจากไวรัส คือข้อใด",
+    "q": "วิธีสร้างภูมิให้แม่สุกรก่อนคลอดสำหรับโรคท้องเสียจากไวรัส คือข้อใด",
     "options": [
       "ฉีดยาต้านจุลชีพขนาดสูงให้แม่สุกรต่อเนื่องนาน 7 วัน",
       "ให้แม่สุกรกินอุจจาระหรือซากลูกสุกรป่วยที่ปั่น",
@@ -658,7 +658,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-resp-viral",
     "year": 5,
     "type": "mcq",
-    "q": "ซับไทป์ของ influenza A ที่เอกสารระบุว่าพบมากในสุกร คือข้อใด",
+    "q": "ซับไทป์ของ influenza A ที่พบมากในสุกร คือข้อใด",
     "options": [
       "H1N1, H3N2 และ H1N2",
       "H5N1, H7N9 และ H9N2",
@@ -678,7 +678,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-resp-viral",
     "year": 5,
     "type": "mcq",
-    "q": "เหตุผลที่ต้องปรับ antigen ในวัคซีน swine influenza ตามที่เอกสารบันทึกไว้ คือข้อใด",
+    "q": "เหตุผลที่ต้องปรับ antigen ในวัคซีน swine influenza ตาม คือข้อใด",
     "options": [
       "วัคซีนเดิมเสื่อมสภาพเร็วเมื่อเก็บในอุณหภูมิของฟาร์ม",
       "เชื้อกลายพันธุ์จนแอนติเจนเดิมครอบคลุมได้ไม่พอ",
@@ -718,7 +718,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-resp-viral",
     "year": 5,
     "type": "mcq",
-    "q": "Porcine respiratory coronavirus (PRCV) มีลักษณะทางคลินิกอย่างไรตามที่เอกสารบันทึกไว้",
+    "q": "Porcine respiratory coronavirus (PRCV) มีลักษณะทางคลินิกอย่างไรตาม",
     "options": [
       "ทำให้ท้องเสียรุนแรงและตายสูงในลูกสุกรแรกเกิด",
       "ทำให้แม่สุกรแท้งในระยะท้ายของการอุ้มท้องเป็นหลัก",
@@ -758,7 +758,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "PHEV แสดงออกได้สองกลุ่มอาการตามที่เอกสารบันทึกไว้ คือข้อใด",
+    "q": "PHEV แสดงออกได้สองกลุ่มอาการตาม คือข้อใด",
     "options": [
       "สมองและไขสันหลังอักเสบ และ vomiting and wasting",
       "ข้ออักเสบเฉียบพลัน และเยื่อหุ้มปอดอักเสบมีไฟบริน",
@@ -778,7 +778,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "กลุ่มอาการของ PHEV ตามที่เอกสารบันทึกไว้ พบในสุกรอายุช่วงใด",
+    "q": "กลุ่มอาการของ PHEV ตาม พบในสุกรอายุช่วงใด",
     "options": [
       "สุกรขุนอายุมากกว่า 4 เดือนขึ้นไป",
       "แม่สุกรอุ้มท้องหลังผสมสามสัปดาห์",
@@ -798,7 +798,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "การรักษา tetanus ในสุกรที่ยังไม่แสดงอาการเกร็ง ตามที่เอกสารบันทึกไว้ใช้ยาชุดใด",
+    "q": "การรักษา tetanus ในสุกรที่ยังไม่แสดงอาการเกร็ง ตามใช้ยาชุดใด",
     "options": [
       "กลุ่ม aminoglycoside ร่วมกับยาลดไข้ชนิดฉีด",
       "กลุ่ม macrolide ร่วมกับ corticosteroid ขนาดต่ำ",
@@ -838,7 +838,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "แนวทางจัดการโรค rabies ในสุกรตามที่เอกสารบันทึกไว้ คือข้อใด",
+    "q": "แนวทางจัดการโรค rabies ในสุกรตาม คือข้อใด",
     "options": [
       "ให้ยาต้านไวรัสขนาดสูงจนกว่าอาการทางประสาทจะหาย",
       "ทำลายสุกรที่แสดงอาการ และคุมไม่ให้สุนัขเข้าฟาร์ม",
@@ -858,7 +858,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "บทบาทของสุกรต่อเชื้อ Listeria monocytogenes ตามที่เอกสารบันทึกไว้ คือข้อใด",
+    "q": "บทบาทของสุกรต่อเชื้อ Listeria monocytogenes ตาม คือข้อใด",
     "options": [
       "สุกรเป็นโฮสต์สุดท้ายที่เชื้อไม่แพร่ต่อไปไหน",
       "สุกรไม่ติดเชื้อชนิดนี้เพราะมีภูมิโดยกำเนิด",
@@ -1178,7 +1178,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดคือความแตกต่างของ M. hyorhinis กับ M. hyosynoviae ตามที่บันทึกไว้",
+    "q": "ข้อใดคือความแตกต่างของ M. hyorhinis กับ M. hyosynoviae",
     "options": [
       "hyorhinis ทำให้ข้ออักเสบอย่างเดียว ส่วน hyosynoviae ทำให้ปอดบวมรุนแรง",
       "hyorhinis ก่อโรคเฉพาะในแม่สุกร ส่วน hyosynoviae ก่อโรคเฉพาะลูกสุกรดูดนม",

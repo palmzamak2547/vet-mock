@@ -462,7 +462,7 @@ export const QB_VET_PHARM2 = [
     topic: 'antiparasitic',
     year: 3,
     type: 'mcq',
-    q: 'ข้อใดไม่ใช่ข้อห้ามหรือข้อควรระวังของการใช้ ivermectin ตามที่เรียนมา',
+    q: 'ข้อใดไม่ใช่ข้อห้ามหรือข้อควรระวังของการใช้ ivermectin',
     options: [
       'ลูกสุนัขและลูกแมวที่อายุน้อยกว่า 6 สัปดาห์',
       'สัตว์ที่มี ABCB-1 gene mutation เช่นสุนัขพันธุ์ collie',

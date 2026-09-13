@@ -1179,7 +1179,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "โปรแกรมวัคซีนม้าในประเทศไทยตามที่เอกสารระบุ ประกอบด้วยวัคซีนใดบ้าง",
+    "q": "โปรแกรมวัคซีนม้าในประเทศไทย ประกอบด้วยวัคซีนใดบ้าง",
     "options": [
       "Tetanus, Influenza, Leptospira, Equine herpesvirus",
       "Tetanus, Strangles, Rabies, Japanese encephalitis",
@@ -1219,7 +1219,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ในลำดับชั้นทางสังคมของฝูงม้าตามที่เอกสารระบุ ม้ากลุ่มใดมักอยู่ในลำดับต่ำสุด",
+    "q": "ในลำดับชั้นทางสังคมของฝูงม้า ม้ากลุ่มใดมักอยู่ในลำดับต่ำสุด",
     "options": [
       "Stallion",
       "Gelding",
@@ -1299,7 +1299,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ยากลุ่ม alpha-2 agonist ตัวใดที่เอกสารระบุว่าราคาถูกที่สุดและนิยมใช้ตอนทำฟันม้า",
+    "q": "ยากลุ่ม alpha-2 agonist ตัวใดที่ราคาถูกที่สุดและนิยมใช้ตอนทำฟันม้า",
     "options": [
       "Detomidine",
       "Xylazine",
@@ -1419,7 +1419,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ม้าที่ใช้แข่ง show jumping มักพบรอยโรคที่ตำแหน่งใดมากที่สุดตามที่เอกสารระบุ",
+    "q": "ม้าที่ใช้แข่ง show jumping มักพบรอยโรคที่ตำแหน่งใดมากที่สุด",
     "options": [
       "ขาหลังและกล้ามเนื้อสะโพกจากการบังคับท่วงท่า",
       "หลังส่วนล่างและ loin จากการหยุดแบบ sliding stop",
@@ -1439,7 +1439,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ใครเป็นผู้มีอำนาจออก equine passport ตามที่เอกสารระบุ",
+    "q": "ใครเป็นผู้มีอำนาจออก equine passport",
     "options": [
       "สัตวแพทย์เท่านั้น",
       "เจ้าของม้าที่ขึ้นทะเบียนแล้ว",
@@ -1519,7 +1519,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-nutrition",
     "year": 5,
     "type": "mcq",
-    "q": "ขีดจำกัด starch ที่เอกสารระบุสำหรับม้าที่มีปัญหา metabolic disease เช่น insulin resistance คือเท่าใด",
+    "q": "ขีดจำกัด starch สำหรับม้าที่มีปัญหา metabolic disease เช่น insulin resistance คือเท่าใด",
     "options": [
       "น้อยกว่า 0.3 g starch/kg BW/meal",
       "น้อยกว่า 1 g starch/kg BW/meal",
@@ -1579,7 +1579,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-nutrition",
     "year": 5,
     "type": "mcq",
-    "q": "วิตามินคู่ใดที่ม้าสังเคราะห์ได้เองตามที่เอกสารระบุ",
+    "q": "วิตามินคู่ใดที่ม้าสังเคราะห์ได้เอง",
     "options": [
       "Vitamin A และ Vitamin E",
       "Vitamin K และ Vitamin B",
@@ -1839,7 +1839,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-nutrition",
     "year": 5,
     "type": "mcq",
-    "q": "เหตุใดเอกสารจึงไม่แนะนำอิเล็กโทรไลต์รูปแบบ paste ในม้า",
+    "q": "เหตุใดจึงไม่แนะนำอิเล็กโทรไลต์รูปแบบ paste ในม้า",
     "options": [
       "อาจทำให้ภาวะขาดน้ำแย่ลงมากกว่ารูปแบบผง",
       "ทำให้ม้าเบื่ออาหารและปฏิเสธหญ้าแห้งทันที",
@@ -1899,7 +1899,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-nutrition",
     "year": 5,
     "type": "mcq",
-    "q": "สาเหตุของ topline ที่ไม่ดีตามที่เอกสารระบุ ข้อใดถูกต้อง",
+    "q": "สาเหตุของ topline ที่ไม่ดี ข้อใดถูกต้อง",
     "options": [
       "โปรตีนสูงเกิน แคลเซียมเกิน และออกกำลังกายหนักเกินไป",
       "ได้รับวิตามินซีเกิน ร่วมกับการเสริมไบโอตินระยะยาว",
@@ -2259,7 +2259,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-parasites",
     "year": 5,
     "type": "mcq",
-    "q": "ค่านับไข่พยาธิต่ำกว่าเท่าใดที่เอกสารระบุว่ายังไม่ต้องให้ยาถ่ายพยาธิ",
+    "q": "ค่านับไข่พยาธิต่ำกว่าเท่าใดที่ยังไม่ต้องให้ยาถ่ายพยาธิ",
     "options": [
       "น้อยกว่า 100 EPG",
       "น้อยกว่า 200 EPG",
@@ -2339,7 +2339,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-parasites",
     "year": 5,
     "type": "mcq",
-    "q": "เห็บพาหะของ equine piroplasmosis ตามที่เอกสารระบุคือชนิดใด",
+    "q": "เห็บพาหะของ equine piroplasmosis คือชนิดใด",
     "options": [
       "Amblyomma testudinarium",
       "Rhipicephalus microplus",
@@ -3079,7 +3079,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-colic-bestfit",
     "year": 5,
     "type": "mcq",
-    "q": "การรักษา spasmodic colic ตามที่เอกสารระบุคือข้อใด",
+    "q": "การรักษา spasmodic colic คือข้อใด",
     "options": [
       "Omeprazole ร่วมกับ sucralfate",
       "Praziquantel ร่วมกับ ivermectin",
@@ -3219,7 +3219,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-colic-bestfit",
     "year": 5,
     "type": "mcq",
-    "q": "ภาวะใดที่เอกสารระบุว่าเป็นจุดที่ควรพิจารณาการุณยฆาตในเคส colic",
+    "q": "ภาวะใดที่เป็นจุดที่ควรพิจารณาการุณยฆาตในเคส colic",
     "options": [
       "Spasmodic colic ที่กลับเป็นซ้ำมากกว่าสองครั้งในหนึ่งเดือน",
       "GI rupture เพราะสิ่งที่รั่วออกมาจะทำให้เกิด peritonitis",

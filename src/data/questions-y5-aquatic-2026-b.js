@@ -598,7 +598,7 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "topic": "aqua-fish-diseases",
     "year": 5,
     "type": "mcq",
-    "q": "ตามที่บันทึกไว้ในเลกเชอร์ ปลาที่สงสัย Koi Herpes Virus ต้องกักโรคไว้อย่างน้อยกี่วัน",
+    "q": "ปลาที่สงสัย Koi Herpes Virus ต้องกักโรคไว้อย่างน้อยกี่วัน",
     "options": [
       "7 วัน",
       "14 วัน",
@@ -618,7 +618,7 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "topic": "aqua-fish-diseases",
     "year": 5,
     "type": "mcq",
-    "q": "ในกลุ่ม Megalocytivirus ทั้งสามชนิด ชนิดใดที่ยังอยู่ในบัญชีรายชื่อโรคของ WOAH ตามที่บันทึกไว้",
+    "q": "ในกลุ่ม Megalocytivirus ทั้งสามชนิด ชนิดใดที่ยังอยู่ในบัญชีรายชื่อโรคของ WOAH",
     "options": [
       "ISKNV",
       "SDDV",

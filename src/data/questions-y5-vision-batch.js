@@ -137,7 +137,7 @@ export const QB_Y5_VISION_BATCH = [
     source: 'รวมๆข้อมูลไฟนอล เยอะมาก.pdf p.10',
     examOrigin: 'OSCE 14 May 2025 · course 3107525/3108517 ภาคปลาย 2567 · station prep doc',
     tags: ['PSPS', 'TMR', 'feed', 'ruminant nutrition'], type: 'mcq',
-    q: 'หลังเขย่า TMR ด้วย Penn State Particle Separator (PSPS) แล้ว นิสิตต้องวิเคราะห์ผลลง "กระดาษคำตอบ". ในเอกสารระบุว่า หลังเขย่าเสร็จไม่ต้องทำสิ่งใด?',
+    q: 'หลังเขย่า TMR ด้วย Penn State Particle Separator (PSPS) แล้ว นิสิตต้องวิเคราะห์ผลลง "กระดาษคำตอบ". หลังเขย่าเสร็จไม่ต้องทำสิ่งใด?',
     options: [
       'ไม่ต้องนำแต่ละชั้นมาชั่ง',
       'ไม่ต้องแปลผล',
@@ -532,7 +532,7 @@ export const QB_Y5_VISION_BATCH = [
     source: '9. ข้อสอบฝึกงานคลินิกสูติกรรม ปี 5.pdf p.3',
     examOrigin: 'Vet 5 Small Animal Repro practicum past paper · pdfplumber extraction',
     tags: ['labour', 'parturition stages', 'canine'], type: 'mcq',
-    q: 'ใน canine parturition, Stage 2 (active expulsion) ที่ยาวนานเกินจะถือว่าเป็น dystocia เริ่มที่กี่ชั่วโมง (ตามที่ระบุในเอกสารเรียน)?',
+    q: 'ใน canine parturition, Stage 2 (active expulsion) ที่ยาวนานเกินจะถือว่าเป็น dystocia เริ่มที่กี่ชั่วโมง?',
     options: [
       '> 12 ชั่วโมง = dystocia',
       '> 2 ชั่วโมง = dystocia',

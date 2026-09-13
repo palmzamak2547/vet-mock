@@ -59,7 +59,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ลูกเป็ดอายุ 2 สัปดาห์ตายเฉียบพลันภายใน 24 ชั่วโมง ท่าตายเป็น opisthotonus ผ่าซากพบตับมีจุดเลือดออกทั่ว เชื้อสาเหตุที่เอกสารระบุว่าพบในไทยคือข้อใด",
+    "q": "ลูกเป็ดอายุ 2 สัปดาห์ตายเฉียบพลันภายใน 24 ชั่วโมง ท่าตายเป็น opisthotonus ผ่าซากพบตับมีจุดเลือดออกทั่ว เชื้อสาเหตุที่พบในไทยคือข้อใด",
     "options": [
       "Picornavirus, DVH type 1",
       "Anatid herpesvirus 1 (DP)",
@@ -119,7 +119,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ฟาร์มทำวัคซีน Avian encephalomyelitis ในไก่พันธุ์ แล้วเก็บซีรัมที่ 2 สัปดาห์หลังทำวัคซีน พบว่า Ab ยังไม่ขึ้น คำอธิบายใดตรงกับเอกสารมากที่สุด",
+    "q": "ฟาร์มทำวัคซีน Avian encephalomyelitis ในไก่พันธุ์ แล้วเก็บซีรัมที่ 2 สัปดาห์หลังทำวัคซีน พบว่า Ab ยังไม่ขึ้น คำอธิบายใดถูกต้องมากที่สุด",
     "options": [
       "ต้องใช้ ELISA เท่านั้น AGP ตรวจ AE ไม่ได้เลย",
       "MDA ในไก่พันธุ์สูงเกินไปจนกดวัคซีนทั้งหมด",
@@ -199,7 +199,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ฟาร์มไก่เนื้อพบ Staphylococcus aureus ทำให้ข้ออักเสบและกระดูกอักเสบซ้ำ ๆ ทั้งที่ให้ยาปฏิชีวนะตามผลความไวยาแล้ว ข้อใดคือคำอธิบายที่เอกสารให้ไว้",
+    "q": "ฟาร์มไก่เนื้อพบ Staphylococcus aureus ทำให้ข้ออักเสบและกระดูกอักเสบซ้ำ ๆ ทั้งที่ให้ยาปฏิชีวนะตามผลความไวยาแล้ว ข้อใดคือคำอธิบาย",
     "options": [
       "เชื้อสร้าง biofilm ที่ผิวข้อจนยาเข้าไม่ถึงเสมอ",
       "S. aureus เป็น Gram negative ยา penicillin จึงใช้ไม่ได้",
@@ -279,7 +279,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "Avian adenovirus เป็น non-enveloped DNA virus ที่ทนต่อสารฆ่าเชื้อได้ดี สารกลุ่มใดที่เอกสารระบุว่าใช้ทำลายเชื้อในโรงเรือนได้",
+    "q": "Avian adenovirus เป็น non-enveloped DNA virus ที่ทนต่อสารฆ่าเชื้อได้ดี สารกลุ่มใดที่ใช้ทำลายเชื้อในโรงเรือนได้",
     "options": [
       "Aldehydes หรือ hypochlorite",
       "Quaternary ammonium compounds",
@@ -299,7 +299,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "ไก่ไข่ฝูงหนึ่งไข่ตกในช่วงเริ่มให้ไข่ สงสัย Egg drop syndrome การตรวจทางซีรัมวิทยาที่เอกสารระบุว่าเป็น test of choice คือข้อใด",
+    "q": "ไก่ไข่ฝูงหนึ่งไข่ตกในช่วงเริ่มให้ไข่ สงสัย Egg drop syndrome การตรวจทางซีรัมวิทยาที่เป็น test of choice คือข้อใด",
     "options": [
       "Agar gel precipitation test",
       "Virus neutralization ในไข่ฟัก",
@@ -379,7 +379,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "การเพาะแยก Campylobacter ต้องใช้บรรยากาศแบบ microaerophilic ตามสัดส่วนใดที่เอกสารระบุ",
+    "q": "การเพาะแยก Campylobacter ต้องใช้บรรยากาศแบบ microaerophilic ตามสัดส่วนใด",
     "options": [
       "20% O2, 5% CO2, 75% N2",
       "10% O2, 20% CO2, 70% N2",
@@ -499,7 +499,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ผ่าซากไก่พบแผ่นสีขาวคล้ายเนยแข็งคลุมผนัง crop ล้างไม่ออก ข้อใดคือภาวะที่เอกสารเตือนให้วินิจฉัยแยกจากรอยโรคนี้",
+    "q": "ผ่าซากไก่พบแผ่นสีขาวคล้ายเนยแข็งคลุมผนัง crop ล้างไม่ออก ข้อใดคือภาวะที่ต้องวินิจฉัยแยกจากรอยโรคนี้",
     "options": [
       "พิษจาก aflatoxin B1 ในอาหารสัตว์",
       "พิษจาก trichothecene mycotoxin",
@@ -619,7 +619,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ฟาร์มพบว่าอาหารปนเปื้อน mycotoxin หลายชนิดพร้อมกัน สารจับพิษกลุ่มใดที่เอกสารระบุว่าจับได้หลายชนิดกว่ากลุ่มดินเหนียว",
+    "q": "ฟาร์มพบว่าอาหารปนเปื้อน mycotoxin หลายชนิดพร้อมกัน สารจับพิษกลุ่มใดที่จับได้หลายชนิดกว่ากลุ่มดินเหนียว",
     "options": [
       "ถ่านกัมมันต์บดผสมในอาหารสัตว์",
       "Glucomannan จากผนังเซลล์ยีสต์",
@@ -679,7 +679,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-vaccine-prog",
     "year": 5,
     "type": "mcq",
-    "q": "ตามโปรแกรมที่เอกสารบันทึกไว้ วัคซีน IBD ในไก่เนื้อทำที่ช่วงอายุใดและด้วยวิธีใด",
+    "q": "วัคซีน IBD ในไก่เนื้อทำที่ช่วงอายุใดและด้วยวิธีใด",
     "options": [
       "อายุ 1 วัน โดยการพ่นละอองในตู้ฟัก",
       "อายุ 7-14 วัน โดยการหยอดตาทีละตัว",
@@ -819,7 +819,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-serology",
     "year": 5,
     "type": "mcq",
-    "q": "การเจาะเลือดไก่เพื่อส่งตรวจซีรัม ข้อใดตรงกับที่เอกสารระบุ",
+    "q": "การเจาะเลือดไก่เพื่อส่งตรวจซีรัม ข้อใดถูกต้อง",
     "options": [
       "เจาะลูกเจี๊ยบ 3 cc ไก่โต 5 cc ใช้เข็มเบอร์ 18",
       "เจาะจาก wing vein เท่านั้น ห้ามเจาะ jugular vein",
@@ -959,7 +959,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "แบคทีเรียในสัตว์ปีกข้อใดที่เอกสารระบุว่าเป็นเชื้อที่อยู่ในเซลล์ (intracellular bacteria)",
+    "q": "แบคทีเรียในสัตว์ปีกข้อใดที่เป็นเชื้อที่อยู่ในเซลล์ (intracellular bacteria)",
     "options": [
       "Avibacterium paragallinarum",
       "Salmonella Enteritidis",

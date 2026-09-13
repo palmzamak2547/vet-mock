@@ -106,7 +106,7 @@ export const QB_Y5_FIQC_2026 = [
   {
     id: 103006, subject: 'food-industry', topic: 'fiqc-aquatic', year: 5,
     type: 'mcq',
-    q: 'อุณหภูมิเก็บรักษาผลิตภัณฑ์สัตว์น้ำในรูปแบบ frozen ตามบทเรียนคือข้อใด',
+    q: 'อุณหภูมิเก็บรักษาผลิตภัณฑ์สัตว์น้ำในรูปแบบ frozen คือข้อใด',
     options: [
       'ลบ 4 องศาเซลเซียสหรือต่ำกว่า',
       'ลบ 10 องศาเซลเซียสหรือต่ำกว่า',
@@ -138,7 +138,7 @@ export const QB_Y5_FIQC_2026 = [
   {
     id: 103008, subject: 'food-industry', topic: 'fiqc-aquatic', year: 5,
     type: 'mcq',
-    q: 'ข้อใดอธิบายแหล่งที่มาของ Opisthorchis viverrini และ Anisakis spp. ได้ถูกต้องตามบทเรียน',
+    q: 'ข้อใดอธิบายแหล่งที่มาของ Opisthorchis viverrini และ Anisakis spp. ได้ถูกต้อง',
     options: [
       'Opisthorchis viverrini จากปลาน้ำจืดดิบ ส่วน Anisakis จากปลาทะเลดิบ',
       'Opisthorchis viverrini จากปลาทะเลดิบ ส่วน Anisakis จากปลาน้ำจืดดิบ',

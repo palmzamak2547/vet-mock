@@ -138,7 +138,7 @@ export const QB_Y5_ZOONOSES_2026 = [
   {
     id: 104008, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
     type: 'mcq',
-    q: 'chain of infection ตามบทเรียนประกอบด้วย 6 ข้อต่อ เรียงลำดับตามข้อใดจึงถูกต้อง',
+    q: 'chain of infection ประกอบด้วย 6 ข้อต่อ เรียงลำดับตามข้อใดจึงถูกต้อง',
     options: [
       'infectious agent, reservoir, portal of exit, mode of transmission, portal of entry, susceptible host',
       'infectious agent, portal of exit, reservoir, portal of entry, mode of transmission, susceptible host',
@@ -235,7 +235,7 @@ export const QB_Y5_ZOONOSES_2026 = [
   {
     id: 104014, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
     type: 'mcq',
-    q: 'ตามบทเรียน attributable risk (AR) คำนวณอย่างไร และ relative risk (RR) เป็นดัชนีที่ใช้ในการศึกษารูปแบบใด',
+    q: 'attributable risk (AR) คำนวณอย่างไร และ relative risk (RR) เป็นดัชนีที่ใช้ในการศึกษารูปแบบใด',
     options: [
       'AR = incidence กลุ่มสัมผัส หาร กลุ่มไม่สัมผัส และ RR ใช้ใน cohort study',
       'AR = incidence กลุ่มสัมผัส ลบ กลุ่มไม่สัมผัส และ RR ใช้ใน case-control',
