@@ -1298,10 +1298,10 @@ export const QB_COM3 = [
     tags: ['triage', 'definition'], type: 'mcq', examOrigin: 'COM III Final 86',
     q: 'ข้อใดต่อไปนี้คือคำนิยามของคำว่า triage',
     options: [
-      'การรีซีเอตช่วยชีวิตสัตว์ป่วยตามระดับความรุนแรงของโรคที่แสดง',
+      'การกู้ชีพสัตว์ป่วยตามระดับความรุนแรงของโรคที่แสดง',
       'การจัดกลุ่มสัตว์ป่วยฉุกเฉินตามความรุนแรงของโรคและภาวะคุกคามชีวิต',
       'การทำ problem list ในแบบเวชศาสตร์ฉุกเฉินอย่างเป็นระบบครบถ้วน',
-      'การจัดประเภทวิธีสัตว์ป่วยจากการมีลักษณะอยู่ในภาวะฉุกเฉินวิกฤต',
+      'การจัดประวัติสัตว์ป่วยที่มีลักษณะอยู่ในภาวะฉุกเฉินวิกฤต',
       'การประเมินปัญหาสัตว์ป่วยตามลำดับก่อนหลังตามความสำคัญทางคลินิก',
     ],
     answer: 1, explain: 'Triage (จากภาษาฝรั่งเศส "trier" = แยก/จัดกลุ่ม) = การจัดลำดับความเร่งด่วนของผู้ป่วยฉุกเฉิน ตามความรุนแรง + คุกคามชีวิต → ตัดสินว่าใครต้องรักษาก่อน-หลัง, เริ่มตั้งแต่รับเข้ารพ. ใช้ 30 วิ ก่อน primary survey, ระบบ 5 ระดับ: Immediate / Urgent / Less urgent / Non-urgent / Dead',
@@ -1649,8 +1649,8 @@ export const QB_COM3 = [
     q: 'เมื่อตรวจสุนัขที่มีภาวะอัมพาตของขาหลังสองข้าง (posterior paraplegia) สุนัขจะแสดงอาการ',
     options: [
       'มีอาการเดินวน เดินเหมือนคนเมา ไม่ตรงทาง (forebrain/cerebellar pattern)',
-      'ไม่สามารถหดหรือเหยียดขาหลังทั้งสองข้างกับได้ (motor function loss bilateral)',
-      'ทานอาหารและน้ำไม่ได้ ตามจุด (dysphagia — ไม่ใช่ paraplegia)',
+      'ไม่สามารถหดหรือเหยียดขาหลังทั้งสองข้างได้ (motor function loss bilateral)',
+      'ทานอาหารและน้ำไม่ได้ (dysphagia — ไม่ใช่ paraplegia)',
       'มีอาการคอเอียง ตากระตุก (head tilt + nystagmus = vestibular)',
       'เคลื่อนไหวตัวเองไปไหนไม่ได้ นอน นิ่งอยู่กับที่ (recumbent — น่าจะเป็น tetraplegia)',
     ],
@@ -1672,7 +1672,7 @@ export const QB_COM3 = [
 
   { id: 1333, subject: 'com3', topic: 'shock', year: 4, source: 'DC3final 86',
     tags: ['hypertonic', 'fluid-type'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'สารน้ำชนิดใดให้ผลเป็น volume effect คล้ายกับ plasma มากที่สุด (osmolarity ใกล้กัน + stay intravascular)',
+    q: 'สารน้ำชนิดใดมี volume effect (การขยาย plasma volume) สูงที่สุด',
     options: [
       'NSS (0.9% NaCl — isotonic crystalloid, 70% leak interstitial ใน 1 hr)',
       'D5 1/2S (5% dextrose ใน 0.45% saline — hypotonic หลัง dextrose ถูกใช้)',
@@ -1698,7 +1698,7 @@ export const QB_COM3 = [
 
   { id: 1335, subject: 'com3', topic: 'spinal', year: 4, source: 'DC3final 86',
     tags: ['posture', 'tetanus-ddx'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้ ไม่ใช่ posture ที่สัตวแพทย์ประจำคลินิกพึงนิยมจัดอยู่ในการพิจารณา differential ของโรคบาดทะยัก (tetanus)',
+    q: 'ข้อใดต่อไปนี้ ไม่ใช่ posture ที่ควรนำมาพิจารณาเป็น differential ของโรคบาดทะยัก (tetanus)',
     options: [
       'Decerebellate rigidity (ทั้ง 4 ขา rigid extension — cerebellar lesion)',
       'Cross extensor posture (reflex แทนการเคลื่อนไหวปกติ — UMN sign)',
@@ -1750,7 +1750,7 @@ export const QB_COM3 = [
 
   { id: 1339, subject: 'com3', topic: 'neuro-er', year: 4, source: 'DC3final 86',
     tags: ['imaging', 'small-breed', 'puppy'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'สุนัขพันธุ์ Chihuahua เพศผู้ 3 เดือน 0.8 kg มีอาการซึม สงสัยมีรายโรคทางระบบประสาทส่วนกลาง, เลือก imaging ที่เหมาะสมที่สุด',
+    q: 'สุนัขพันธุ์ Chihuahua เพศผู้ 3 เดือน 0.8 kg มีอาการซึม สงสัยมีรอยโรคทางระบบประสาทส่วนกลาง, เลือก imaging ที่เหมาะสมที่สุด',
     options: [
       'Ultrasonography (cranial — ใช้ได้เพราะ fontanelle ยังเปิดใน puppy เล็ก)',
       'Radiography (skull plain film — เห็นแค่ bone, ไม่เห็น parenchyma)',
@@ -1763,7 +1763,7 @@ export const QB_COM3 = [
 
   { id: 1340, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'DC3final 86',
     tags: ['paradoxical-respiration'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'Pattern ของการหายใจอย่างต่อเนื่อง (normal respiration vs. paradoxical respiration) ในส่วน "เข้า-ออก" ของลักษณะการขยับท้องสำหรับเทียบเข้ากันคืออะไร',
+    q: 'เมื่อเทียบกับการหายใจปกติ ลักษณะการขยับของท้องขณะหายใจเข้าและขณะหายใจออก (ตามลำดับ) ใน paradoxical respiration คือข้อใด',
     options: [
       'หายใจเข้าท้องแฟ่บ vs. หายใจออกท้องป่อง (กลับด้าน — paradoxical)',
       'หายใจเข้าท้องป่อง vs. หายใจออกท้องแฟ่บ (ปกติ — diaphragm-driven)',
@@ -1776,7 +1776,7 @@ export const QB_COM3 = [
 
   { id: 1341, subject: 'com3', topic: 'cpcr', year: 4, source: 'DC3final 86',
     tags: ['bls', 'apnea'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดบนข้อต่อไปนี้ ไม่ถูกต้อง สำหรับขั้นตอน Basic Life Support (BLS) ตามหลักการ "RECOVER"',
+    q: 'ข้อใดต่อไปนี้ ไม่ถูกต้อง สำหรับขั้นตอน Basic Life Support (BLS) ตามหลักการ "RECOVER"',
     options: [
       'การเริ่มกดหน้าอก (chest compression) ทันทีเมื่อสงสัย cardiac arrest',
       'เมื่อต้องหยุดทำ chest compression ระหว่างตรวจสอบ ROSC ควรใช้เวลาให้สั้นที่สุด',
@@ -1815,7 +1815,7 @@ export const QB_COM3 = [
 
   { id: 1344, subject: 'com3', topic: 'ataxia-tremor', year: 4, source: 'DC3final 86',
     tags: ['otitis', 'cn7', 'facial-nerve'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'เส้นประสาทสมองคู่ใด เมื่อมีปัญหาการอักเสบหรือเนื้องอกกล้ามใน tympanic bulla จะได้รับผลกระทบมาพร้อมกับเส้นประสาทสมองคู่ที่ VIII (vestibulocochlear)',
+    q: 'เส้นประสาทสมองคู่ใดจะได้รับผลกระทบร่วมกับเส้นประสาทสมองคู่ที่ VIII (vestibulocochlear) เมื่อมีการอักเสบหรือเนื้องอกใน tympanic bulla',
     options: [
       'Abducent nerve (CN VI — ส่งกล้ามตา, ไม่ผ่าน middle ear)',
       'Glossopharyngeal nerve (CN IX — pharynx + taste, ไม่ใกล้ ear)',
@@ -1830,18 +1830,18 @@ export const QB_COM3 = [
     tags: ['hemoabdomen', 'clinical-sign'], type: 'mcq', examOrigin: 'COM III Final 86',
     q: 'สุนัขพันธุ์ผสม 3 ปี มีประวัติตกที่สูง, สงสัย hemoabdomen, ข้อใด ไม่ถูกต้อง สำหรับ hemoabdomen',
     options: [
-      'เยื่อเมือกซีดขึ้นและชีพจรเร็วกว่าปกติ (mm normal/red — ผิด, mm จะ pale ลง)',
+      'เยื่อเมือกสีชมพูปกติหรือแดงขึ้น และชีพจรเร็วกว่าปกติ (mm normal/red + tachycardia)',
       'มีรอยฟกช้ำที่ผิวหนังบริเวณรอบสะดือ (Cullen sign — peritoneal blood)',
       'เก็บของเหลวในช่องท้องได้สีของเหลวสีแดง, PCV ในของเหลว > PCV ในเลือด',
       'มีอาการ guarding เมื่อกดคลำช่องท้อง (peritoneal irritation จากเลือด)',
       'Triage ด้วย AFAST ที่ตำแหน่ง splenorenal view ได้ผล positive (free fluid)',
     ],
-    answer: 0, explain: 'Hemoabdomen = blood ใน peritoneal cavity → ถ้า ongoing = hypovolemia → mm จะ pale + tachycardia + weak pulse, ตัวเลือก a บอก "เยื่อเมือกซีดขึ้นและชีพจรเร็วกว่าปกติ" — ฟังดูผิดเพราะ "ซีดขึ้น" หมายถึงสีซีดน้อยลง = ดีขึ้น (ตรงข้ามกับ shock) — เป็นการกล่าวที่ผิด, ที่จริง mm จะ pale หรือ white ไป + CRT prolonged + tachycardia\n\n✓ AFAST splenorenal view + diaphragmatic-hepatic view = sensitive to free fluid (>2 ml/kg)',
+    answer: 0, explain: 'Hemoabdomen = blood ใน peritoneal cavity → ถ้า ongoing = hypovolemia → mm จะ pale + tachycardia + weak pulse, ตัวเลือกที่บอกว่าเยื่อเมือกสีปกติหรือแดงขึ้นจึงเป็นข้อที่ผิด — ที่จริง mm จะ pale หรือ white + CRT prolonged + tachycardia\n\n✓ AFAST splenorenal view + diaphragmatic-hepatic view = sensitive to free fluid (>2 ml/kg)',
     verified: 'Acute Abdomen 1 hr.pdf, DC3final 86' },
 
   { id: 1346, subject: 'com3', topic: 'resp-cv-er', year: 4, source: 'DC3final 86',
     tags: ['cardiomyopathy', 'breed-age'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'ข้อใดต่อไปนี้เป็นโรคหัวใจที่เป็นพบได้บ่อยที่สุดในสุนัขพันธุ์เล็ก-กลาง อายุมาก',
+    q: 'ข้อใดต่อไปนี้เป็นโรคหัวใจที่พบได้บ่อยที่สุดในสุนัขพันธุ์เล็ก-กลาง อายุมาก',
     options: [
       'Hypertrophic cardiomyopathy (HCM — แมวพันธุ์ Maine Coon, Persian; ไม่ใช่ dog)',
       'Degenerative mitral valve disease (DMVD/MMVD — small breed senior, #1 in dog)',
@@ -1906,7 +1906,7 @@ export const QB_COM3 = [
 
   { id: 1351, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'DC3final 86',
     tags: ['dka', 'management'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'สัตว์ป่วย DKA จะมีภาวะขาดน้ำ + metabolic acidosis รุนแรง + ketone bodies + lactic acid, ในการรักษาขั้นต่ำที่ต้องทำก่อนผลสร้างเร่งใน DKA นั้น คืออะไร',
+    q: 'สัตว์ป่วย DKA จะมีภาวะขาดน้ำ + metabolic acidosis รุนแรง + ketone bodies + lactic acid ในการรักษา DKA สิ่งแรกที่ต้องทำก่อนเพื่อให้การรักษาประสบผลสำเร็จคือข้อใด',
     options: [
       'Acid-base correction (sodium bicarbonate — ไม่ใช่ first ใน DKA, ระวัง CSF acidosis)',
       'Volume resuscitation (IV fluid LRS/0.9% NaCl — fix perfusion ก่อนเสมอ)',
@@ -1945,7 +1945,7 @@ export const QB_COM3 = [
 
   { id: 1354, subject: 'com3', topic: 'neuro-er', year: 4, source: 'DC3final 86',
     tags: ['imaging', 'menace', 'mri'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'สุนัขพันธุ์ผสม เพศผู้ 10 ปี 5.6 kg ตรวจร่างกายพบ menace และ dazzle reflex ไม่ตอบสนองต่อ ขณะที่ neuro exam ส่วนอื่นปกติ, เลือก imaging ที่เหมาะสมที่สุด',
+    q: 'สุนัขพันธุ์ผสม เพศผู้ 10 ปี 5.6 kg ตรวจร่างกายพบว่า menace และ dazzle reflex ไม่ตอบสนอง ขณะที่ neuro exam ส่วนอื่นปกติ, เลือก imaging ที่เหมาะสมที่สุด',
     options: [
       'Radiography (skull plain — ไม่เห็น brain parenchyma หรือ optic pathway)',
       'Ultrasonography (cranial — ใช้ได้แค่ใน puppy ที่ fontanelle ยังเปิด)',
@@ -1971,7 +1971,7 @@ export const QB_COM3 = [
 
   { id: 1356, subject: 'com3', topic: 'shock', year: 4, source: 'DC3final 86',
     tags: ['critical-issue', 'priority'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'แมว 2 ปี ตกที่สูง 1 ชม.ก่อน, HR 180 bpm RR 50 lung crackle pupils ปกติ ขาหลังแขนมีบาดแผล, ในเบื้องต้นนี้ ปัญหาวิกฤตเร่งด่วนที่สุดคือ',
+    q: 'แมว 2 ปี ตกจากที่สูงเมื่อ 1 ชม. ก่อน HR 180 bpm, RR 50, lung crackle, pupils ปกติ, มีบาดแผลที่ขาหลัง ในเบื้องต้นปัญหาวิกฤตเร่งด่วนที่สุดคือข้อใด',
     options: [
       'Acute pain and shock (ปวดเป็น symptom, shock เป็น syndrome — ต้องระบุชนิด)',
       'Neurological deficit and contaminated wound (สำคัญแต่ stabilize CV ก่อน)',
@@ -2010,7 +2010,7 @@ export const QB_COM3 = [
 
   { id: 1359, subject: 'com3', topic: 'metabolic-er', year: 4, source: 'DC3final 86',
     tags: ['hyperkalemia', 'urethral-obstruction'], type: 'mcq', examOrigin: 'COM III Final 86',
-    q: 'แมวเคสฉุกเฉินด้วยอาการซึมอย่างรุนแรง, พบ distended UB, HR 120 weak pulse, K serum 7.8 mEq/L + severe metabolic acidosis, ในการรักษาเบื้องต้นทันทีก่อนอย่างอื่นควรทำคืออะไร',
+    q: 'แมวเคสฉุกเฉิน ซึมอย่างรุนแรง พบ distended UB, HR 120 weak pulse, K serum 7.8 mEq/L + severe metabolic acidosis สิ่งที่ควรทำทันทีเป็นอันดับแรกก่อนการรักษาอื่นคือข้อใด',
     options: [
       'Calcium gluconate 10% 0.5-1 ml/kg slow IV (cardioprotective ทันทีต่อ hyperK)',
       'Bolus sodium bicarbonate (8.4% 1-2 mEq/kg — แก้ acidosis + ดัน K เข้า cell)',

@@ -465,7 +465,7 @@ export const QB_BIOCHEM_LECT4 = [
 
   { id: 76035, subject: 'biochem-1', topic: 'lect-protein', year: 1, type: 'mcq',
   tags: ['alpha-helix', 'hydrogen-bond'],
-    q: 'พันธะชนิดใดที่อยู่ระหว่าง O ของ C=O กับ H ของ NH ของกรดอะมิโนในข้อที่ 4 ตัวในสายเปปไทด์เดียวกัน (ค้ำ α-helix)',
+    q: 'พันธะชนิดใดเกิดระหว่าง O ของหมู่ C=O กับ H ของหมู่ NH ของกรดอะมิโนที่อยู่ถัดไป 4 ตำแหน่งในสายเปปไทด์เดียวกัน (พันธะที่ค้ำโครงสร้าง α-helix)',
     options: ['Covalent bond', 'Disulfide bond', 'Intrachain hydrogen bond', 'Interchain hydrogen bond', 'Hydrophobic interaction'],
     answer: 2,
     explain: "α-helix ค้ำด้วย intrachain hydrogen bond ระหว่าง C=O ของกรดอะมิโนตัวที่ n กับ N-H ของตัวที่ n+4 ในสายเดียวกัน\n\n❌ ทำไมข้ออื่นผิด\n— \"Covalent bond\" = พันธะ peptide ที่ต่อกรดอะมิโนเป็นสายเป็น covalent ก็จริง แต่ไม่ใช่พันธะที่ค้ำเกลียวไว้ตามที่โจทย์บรรยาย\n— \"Disulfide bond\" = พันธะระหว่างหมู่ -SH ของ cysteine ไม่ใช่พันธะระหว่าง C=O กับ N-H\n— \"Interchain hydrogen bond\" = เป็นพันธะไฮโดรเจนข้ามสาย แต่โจทย์ระบุว่าอยู่ในสายเปปไทด์เดียวกัน จึงต้องเป็น intrachain\n— \"Hydrophobic interaction\" = แรงระหว่างหมู่ไม่ชอบน้ำที่ซุกตัวเข้าด้านในโปรตีน ไม่ใช่พันธะระหว่างหมู่ C=O กับ N-H\n\n💡 intra แปลว่าภายในสายเดียวกัน inter แปลว่าข้ามสาย อ่านคำนี้ก่อนแล้วเทียบกับที่โจทย์บรรยาย",

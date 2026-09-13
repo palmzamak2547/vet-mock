@@ -353,6 +353,28 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.94.4: wave 2 — all 2,525 transcription-risk stems read, 67 more rewritten
+
+- The 10-reader workflow finished all batches: 93 flagged in total (21 shipped in 5.94.3, 72 new).
+  67 applied by explicit id list from `wave2.md` after reading every proposal; 4 left untouched as
+  unrecoverable (8040, 8044, 8047, 8049 — garbled beyond what their own explain can restore) and
+  70037 (PCR, biochem-lab) whose wrong options cannot be rebuilt without the source. Do not guess
+  these; they need the original paper.
+- Two proposals were more than readability: 74019 asked ข้อใดถูกต้อง while explain + verified both
+  say the paper asked for the WRONG statement (stem now ไม่ถูกต้อง, key unchanged); 8023 carried its
+  own answer key inside the stem (`= S. suis + Glasser`). 1345's proposal kept a gloss that literally
+  said `— ผิด` on the keyed option (a giveaway) — gloss neutralised, and its explain rewritten because
+  it argued ซีดขึ้น means *less* pale, which is not what the Thai means.
+- Residual class worth a lint later: stems ending in a dangling `ตาม` / `ที่แนบไว้` (swine-clinic
+  1056xx) — left behind when source references were stripped for the voice lint; the noun went, the
+  particle stayed.
+- Tooling lesson (cost two edits): the Bash tool's heredoc collapses `\` to `\`, so a Python edit
+  that must write a literal backslash-n into a JS string must build it with `chr(92)`; the first
+  attempt silently dropped an explain tail, the second inserted real newlines into a single-quoted
+  string. After any scripted bank edit, prove it with a `node -e import()` of that bank, not a grep.
+- `apply-rewrites.tmp.mjs` is gone from the repo (it had been committed by accident); a copy sits in
+  the session scratchpad. It only ever applied ids named on the command line.
+
 ## 2026-09-14 — 5.94.3: 21 transcription-garbled stems rewritten, review-first
 
 - 10 readers over the 2,525-stem transcription-risk pool; 7 batches back so far, 21 flagged

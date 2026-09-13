@@ -518,7 +518,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "โปรแกรมวัคซีน PED ในแม่สุกรอุ้มท้องตาม ฉีดที่ช่วงเวลาใด",
+    "q": "โปรแกรมวัคซีน PED ในแม่สุกรอุ้มท้อง ควรฉีดที่ช่วงเวลาใด",
     "options": [
       "4 และ 2 สัปดาห์ก่อนคลอด",
       "6 และ 3 สัปดาห์ก่อนคลอด",
@@ -538,7 +538,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "Rotavirus ในสุกรตาม มีลักษณะทางระบาดวิทยาอย่างไร",
+    "q": "Rotavirus ในสุกรมีลักษณะทางระบาดวิทยาอย่างไร",
     "options": [
       "ทำให้ลูกสุกรตายเกือบทั้งครอกภายในสัปดาห์แรก",
       "พบเฉพาะในแม่สุกรอุ้มท้องและทำให้แท้งเป็นหลัก",
@@ -678,7 +678,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-resp-viral",
     "year": 5,
     "type": "mcq",
-    "q": "เหตุผลที่ต้องปรับ antigen ในวัคซีน swine influenza ตาม คือข้อใด",
+    "q": "เหตุผลที่ต้องปรับ antigen ในวัคซีน swine influenza คือข้อใด",
     "options": [
       "วัคซีนเดิมเสื่อมสภาพเร็วเมื่อเก็บในอุณหภูมิของฟาร์ม",
       "เชื้อกลายพันธุ์จนแอนติเจนเดิมครอบคลุมได้ไม่พอ",
@@ -718,7 +718,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-resp-viral",
     "year": 5,
     "type": "mcq",
-    "q": "Porcine respiratory coronavirus (PRCV) มีลักษณะทางคลินิกอย่างไรตาม",
+    "q": "Porcine respiratory coronavirus (PRCV) มีลักษณะทางคลินิกอย่างไร",
     "options": [
       "ทำให้ท้องเสียรุนแรงและตายสูงในลูกสุกรแรกเกิด",
       "ทำให้แม่สุกรแท้งในระยะท้ายของการอุ้มท้องเป็นหลัก",
@@ -758,7 +758,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "PHEV แสดงออกได้สองกลุ่มอาการตาม คือข้อใด",
+    "q": "PHEV แสดงออกได้เป็นสองกลุ่มอาการใด",
     "options": [
       "สมองและไขสันหลังอักเสบ และ vomiting and wasting",
       "ข้ออักเสบเฉียบพลัน และเยื่อหุ้มปอดอักเสบมีไฟบริน",
@@ -778,7 +778,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "กลุ่มอาการของ PHEV ตาม พบในสุกรอายุช่วงใด",
+    "q": "กลุ่มอาการของ PHEV พบในสุกรอายุช่วงใด",
     "options": [
       "สุกรขุนอายุมากกว่า 4 เดือนขึ้นไป",
       "แม่สุกรอุ้มท้องหลังผสมสามสัปดาห์",
@@ -798,7 +798,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "การรักษา tetanus ในสุกรที่ยังไม่แสดงอาการเกร็ง ตามใช้ยาชุดใด",
+    "q": "การรักษา tetanus ในสุกรที่ยังไม่แสดงอาการเกร็ง ใช้ยาชุดใด",
     "options": [
       "กลุ่ม aminoglycoside ร่วมกับยาลดไข้ชนิดฉีด",
       "กลุ่ม macrolide ร่วมกับ corticosteroid ขนาดต่ำ",
@@ -838,7 +838,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "แนวทางจัดการโรค rabies ในสุกรตาม คือข้อใด",
+    "q": "แนวทางจัดการโรค rabies ในสุกร คือข้อใด",
     "options": [
       "ให้ยาต้านไวรัสขนาดสูงจนกว่าอาการทางประสาทจะหาย",
       "ทำลายสุกรที่แสดงอาการ และคุมไม่ให้สุนัขเข้าฟาร์ม",
@@ -858,7 +858,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-cns",
     "year": 5,
     "type": "mcq",
-    "q": "บทบาทของสุกรต่อเชื้อ Listeria monocytogenes ตาม คือข้อใด",
+    "q": "บทบาทของสุกรต่อเชื้อ Listeria monocytogenes คือข้อใด",
     "options": [
       "สุกรเป็นโฮสต์สุดท้ายที่เชื้อไม่แพร่ต่อไปไหน",
       "สุกรไม่ติดเชื้อชนิดนี้เพราะมีภูมิโดยกำเนิด",
@@ -1158,7 +1158,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "ปัญหาในการเพาะแยกเชื้อ Mycoplasma hyopneumoniae ที่แนบไว้ คือข้อใด",
+    "q": "ปัญหาในการเพาะแยกเชื้อ Mycoplasma hyopneumoniae คือข้อใด",
     "options": [
       "เชื้อเติบโตเร็วจนกลบเชื้อชนิดอื่นในอาหารเลี้ยง",
       "เชื้อเติบโตยากและถูก M. hyorhinis ขึ้นกลบ",
@@ -1198,7 +1198,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "เบาะแสทางคลินิกที่ช่วยชี้ไปที่ M. hyosynoviae ที่แนบไว้ คือข้อใด",
+    "q": "เบาะแสทางคลินิกที่ช่วยชี้ว่าน่าจะเป็น M. hyosynoviae คือข้อใด",
     "options": [
       "ขาเจ็บพร้อมไข้สูงและตอบสนองดีต่อ penicillin",
       "ขาเจ็บระบาดในฝูงและไม่ตอบสนองต่อ penicillin",
@@ -1238,7 +1238,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "Streptococcus suis ที่แนบไว้ มีลักษณะทางระบาดวิทยาอย่างไร",
+    "q": "Streptococcus suis มีลักษณะทางระบาดวิทยาอย่างไร",
     "options": [
       "ก่อโรคเฉพาะในแม่สุกรอุ้มท้องและทำให้แท้งเป็นหลัก",
       "พบเฉพาะในสุกรขุนระยะสุดท้ายก่อนส่งเข้าโรงฆ่า",
@@ -1258,7 +1258,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "Actinobacillus suis ที่แนบไว้ ก่อรอยโรคในลักษณะใด",
+    "q": "Actinobacillus suis ก่อรอยโรคในลักษณะใด",
     "options": [
       "ปอดอักเสบเรื้อรังเฉพาะสุกรขุนอายุมากกว่า 5 เดือน",
       "ข้ออักเสบเดี่ยวโดยไม่มีรอยโรคในอวัยวะภายในอื่น",
@@ -1278,7 +1278,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "แหล่งเชื้อ Glässerella parasuis ในฟาร์ม ที่แนบไว้ คือข้อใด",
+    "q": "แหล่งเชื้อ Glässerella parasuis ในฟาร์มคือข้อใด",
     "options": [
       "แยกได้บ่อยจากสารคัดหลั่งจมูกของสุกรที่ปกติดี",
       "พบเฉพาะในสุกรที่แสดงอาการทางระบบประสาทแล้ว",
@@ -1318,7 +1318,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "Mycoplasma hyopneumoniae เอื้อให้เกิดปอดบวมจากเชื้อคู่ใด ที่แนบไว้",
+    "q": "Mycoplasma hyopneumoniae เอื้อให้เกิดปอดบวมจากเชื้อคู่ใด",
     "options": [
       "Listeria monocytogenes และ Erysipelothrix rhusiopathiae",
       "Pasteurella multocida และ Actinobacillus pleuropneumoniae",

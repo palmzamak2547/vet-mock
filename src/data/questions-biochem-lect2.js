@@ -143,7 +143,7 @@ export const QB_BIOCHEM_LECT2 = [
 
   { id: 74008, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
   tags: ['palindrome', 'DNA-sequence'],
-    q: 'ข้อใดเป็นชื่อสามสำนวนที่บอกว่าลำดับเบสอ่านจากหน้าไปหลังเหมือนอ่านจากหลังมาหน้า (palindrome)',
+    q: 'ข้อใดเป็นชื่อที่มีลักษณะเป็น palindrome คืออ่านจากหน้าไปหลังได้เหมือนกับอ่านจากหลังมาหน้า เช่นเดียวกับลำดับเบสบางตำแหน่งบน DNA',
     options: ['VOLVO', 'CIVIC', 'ISUZU', 'MAZDA', 'TOYOTA'],
     answer: 1,
     explain: 'palindrome คือลำดับที่อ่านหน้า→หลัง เหมือนอ่านหลัง→หน้า; "CIVIC" อ่านกลับได้เหมือนเดิม (เปรียบกับ restriction site ของ DNA ที่เป็น palindrome)',
@@ -283,7 +283,7 @@ export const QB_BIOCHEM_LECT2 = [
 
   { id: 74019, subject: 'biochem-1', topic: 'lect-nucleic-acid', year: 1, type: 'mcq',
   tags: ['prokaryote-vs-eukaryote', 'nucleoside'],
-    q: 'ข้อใดถูกต้องเกี่ยวกับ DNA ของ prokaryotes และ eukaryotes',
+    q: 'ข้อใดไม่ถูกต้องเกี่ยวกับ DNA ของ prokaryotes และ eukaryotes',
     options: [
       'DNA ใน eukaryotes มีการจัดเก็บอย่างเป็นระบบ (ด้วย histone)',
       'ปริมาณ DNA ใน eukaryote มีมากกว่า prokaryote เมื่อเทียบต่อเซลล์',
@@ -891,7 +891,7 @@ export const QB_BIOCHEM_LECT2 = [
   { id: 74063, subject: 'biochem-1', topic: 'lect-drug-delivery', year: 1, type: 'mcq',
   tags: ['cell-based-therapy', 'stem-cell-therapy'],
     q: 'การปลูกถ่ายเซลล์ต้นกำเนิด (stem cell) เพื่อรักษาโรคเลือดบางชนิด (เช่น โรคไขกระดูกฝ่อ) จัดเป็นการรักษาด้วยชีววัตถุประเภทใด',
-    options: ['ยาสามัญ', 'ชาชีววัตถุ (cell-based therapy)', 'ยาสมุนไพร', 'ยาสังเคราะห์', 'ยาเคมีบำบัด'],
+    options: ['ยาสามัญ', 'ยาชีววัตถุ (cell-based therapy)', 'ยาสมุนไพร', 'ยาสังเคราะห์', 'ยาเคมีบำบัด'],
     answer: 1,
     explain: "การใช้เซลล์ต้นกำเนิดรักษาโรคจัดเป็นชีววัตถุประเภท cell-based therapy คือใช้เซลล์ของสิ่งมีชีวิตเป็นตัวรักษา ไม่ใช่ยาเคมีสังเคราะห์หรือสมุนไพร\n\n❌ ทำไมข้ออื่นผิด\n— \"ยาสามัญ\" = เป็นการจัดกลุ่มในเชิงทะเบียนยา ไม่ได้หมายถึงการรักษาด้วยเซลล์\n— \"ยาสมุนไพร\" = เป็นสารสกัดจากพืช ไม่ใช่เซลล์ที่นำมาปลูกถ่าย\n— \"ยาสังเคราะห์\" = ผลิตด้วยการสังเคราะห์ทางเคมี ไม่ได้มาจากสิ่งมีชีวิต\n— \"ยาเคมีบำบัด\" = ยาเคมีที่ใช้ทำลายเซลล์ที่แบ่งตัวเร็ว ไม่ใช่การให้เซลล์เข้าไปทดแทน\n\n💡 stem cell แบ่งตัวและเปลี่ยนไปเป็นเซลล์เม็ดเลือดได้ จึงใช้ทดแทนไขกระดูกที่ทำงานไม่ได้",
     source: 'Biochemistry I Lecture Final (Blackboard) 12 พ.ค. 2022',
@@ -956,7 +956,7 @@ export const QB_BIOCHEM_LECT2 = [
     options: [
       'มีขนาดในช่วง 10-100 นาโนเมตร',
       'มีขนาดใหญ่กว่า small molecule drugs',
-      'มีขนาดเล็กกว่าเซลล์เรือดอัดวีเมื่อเทียบกับเซลล์สัตว์เลี้ยงลูกด้วยนม',
+      'มีขนาดเล็กกว่าเซลล์ เช่น เซลล์สัตว์เลี้ยงลูกด้วยนม',
       'ถูกทุกข้อ',
       'มีขนาดใหญ่กว่าเซลล์แบคทีเรียทั่วไป',
     ],
