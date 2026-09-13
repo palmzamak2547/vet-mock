@@ -1,4 +1,6 @@
-// User-owned study data has two durability layers:
+
+import { isQuotaError, reclaim } from './storage-gc.js';
+import { todayKey } from './daily-q.js';// User-owned study data has two durability layers:
 //   1) localStorage is the immediate, offline-capable source
 //   2) Supabase is a remote replica for signed-in users
 //
@@ -1057,19 +1059,40 @@ export function createUserDataSync({
       // tabs can overwrite shared snapshots, but never each other's outbox
       // entries; replay restores both changes after a crash or reload.
       persistOperation(operationChanges);
-    } catch {
-      publish(state.data, syncShape({
-        phase: 'error',
-        error: publicError(
-          'LOCAL_WRITE_FAILED',
-          'พื้นที่จัดเก็บในเครื่องไม่พอ จึงยังไม่บันทึกการเปลี่ยนแปลงนี้',
-          false,
-        ),
-      }));
-      return {
-        accepted: false,
-        error: { code: 'LOCAL_WRITE_FAILED' },
-      };
+    } catch (writeError) {
+      // Out of room is not a blip — the quota stays full, so the next write
+      // fails too and the student sees the same message on every action with
+      // no way out from inside the app. Reclaim what is provably dead (old
+      // daily-question keys, expired caches, superseded outbox records) and
+      // try once more before giving up. Nothing the student wrote is touched.
+      let recovered = false;
+      if (isQuotaError(writeError)) {
+        try {
+          const freed = reclaim(storage, {
+            today: todayKey(),
+            operationPrefix: operationKeyPrefix(userId),
+            protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
+          });
+          if (freed.bytes > 0) {
+            persistOperation(operationChanges);
+            recovered = true;
+          }
+        } catch { recovered = false; }
+      }
+      if (!recovered) {
+        publish(state.data, syncShape({
+          phase: 'error',
+          error: publicError(
+            'LOCAL_WRITE_FAILED',
+            'พื้นที่จัดเก็บในเครื่องไม่พอ จึงยังไม่บันทึกการเปลี่ยนแปลงนี้',
+            false,
+          ),
+        }));
+        return {
+          accepted: false,
+          error: { code: 'LOCAL_WRITE_FAILED' },
+        };
+      }
     }
 
     try {

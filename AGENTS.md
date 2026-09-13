@@ -353,6 +353,42 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.91.1: localStorage filled because five key families never got cleaned
+
+- **Reported as "พื้นที่จัดเก็บในเครื่องไม่พอ ขึ้นบ่อยจัง".** It is not a transient failure: the
+  quota stays full, so the NEXT write fails too. There was no recovery path anywhere — once a user
+  hit it, every save failed forever and nothing in the app could get them out.
+- **Five per-item key families were written and never removed.** Found by grepping every
+  `setItem` with a dynamic key:
+  - `vmx-todays-q-<date>` — one per calendar day, forever
+  - `vmx-daily-q-pulse-fired-<date>` — a SECOND key per day (nearly missed; a sweep that only
+    handled the first would have halved the reclaim and left the count growing)
+  - `vmx-pl-preview-<id>` — TTL was checked on read and a stale entry ignored, but never deleted,
+    so it held a playlist's bytes forever
+  - `vmx-pl-miss-<id>` — a back-off timestamp, never removed once its moment passed
+  - `…-op-<uuid>` — one sync outbox record per page load (random `instanceId` each load), removed
+    only after a successful `remote.push`. Offline or signed-out means they accumulate exactly when
+    the user cannot help it, and each carries `base` AND `value` of every dirty field.
+- **`src/lib/storage-gc.js`** knows which keys are provably dead. Wired in four places: a boot sweep
+  on idle (this is what clears the backlog for someone already stuck), on each daily-question write,
+  on a stale playlist read, and — the important one — inside `user-data-sync`'s quota catch, which
+  now reclaims and retries the write once before reporting failure.
+- **What it will never touch, and there are tests for each:** history, bookmarks, notes, SR cards,
+  custom questions, pending exam results, and passage highlights/pen strokes. Running out of room is
+  not a reason to delete a student's work; if the sweep is not enough the honest answer is to say so.
+  Capping the outbox is safe for a different reason worth remembering: **every push uploads the whole
+  current dataset, and boot replays every record into the snapshot before anything new is written**,
+  so the records are a crash journal, not a queue of edits — keeping the newest four loses nothing.
+- **Deliberate refusal:** with no `today` passed in, the daily family is skipped entirely rather than
+  guessing the timezone rule and deleting the entry the app is about to read.
+- **The update banner was a separate bug.** `vite:preloadError` during an exam dispatches
+  `vmx-sw-update` with no `version`; the handler's `if (version && dismissed === version)` could
+  never match and `dismissSwUpdate` stored nothing, so that banner returned on every load and
+  "ไว้ก่อน" did nothing. Falls back to the reason as the key now.
+- **Worth saying plainly:** most of the reported update-banner frequency was not a bug. Four SW
+  versions shipped in eleven hours (13:38 v163, 22:05 v164, 23:21 v165, 00:43 v166); each was a real
+  build and the banner was correct every time. Check the deploy cadence before hunting a phantom.
+
 ## 2026-09-14 — 5.91.0: 82 scoped glossary entries, and what the lint caught
 
 - 5.90.0 made the glossary subject-aware, which left the disciplines it had no entries for showing
@@ -517,3 +553,9 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 
 - Owner requested cute Thai typography without overlaps or broken tone marks. Selected Mali SemiBold 600 after rendered comparison with Itim and Bai Jamjuree; kept Sarabun descriptions. Removed negative tracking, reserved 1.9 line height, fitted each explicit headline line to 610px, and separated flashcard labels.
 - All 35 exports regenerated; loaded-font, text-width, ink-height and footer-clearance checks pass in work/og-design-20260913/typography-verification.json. Six lead covers and the stacked-mark-heavy card inspected visually. Font sources/OFL files, comparison and editable renderer retained in the same directory. Local artwork only; production remains unchanged.
+
+## 2026-09-14 — Decorative art brief assets (local only)
+
+- Owner requested images from the linked VetMock Art Brief. Its itemized rows total **65**, despite the 61-image heading. All 65 PNGs across eight sets are in `work/art-brief-20260914/` (gitignored), with `index.html`, prompts, source manifest, native originals, contact sheets and verification metadata.
+- Owner explicitly authorized script-based background removal and sizing after the image tool painted checkerboards into some Mochi outputs. Final checks: 65/65 exact requested sizes, 50 real-alpha assets and 15 opaque plates; all ten IG center regions are flat paper; farmyard left/right boundary RGB difference is zero after a narrow blend. All eight contact sheets visually reviewed. Metal trays and an enclosed ribbon gap required targeted mask corrections after generic segmentation.
+- These are decorative raster illustrations only. Some soft shading/additional decoration and small badge-rim differences remain; no clinical imagery, application integration, commit or deployment. See the local README for processing details. Next: use the gallery to select assets; integrate into existing surfaces only when requested.

@@ -29,6 +29,7 @@
 // ============================================================
 
 import { yearForSubject } from '../data/curriculum.js';
+import { sweepStaleKeys } from './storage-gc.js';
 
 export const TODAY_KEY_PREFIX = 'vmx-todays-q-';
 
@@ -82,6 +83,10 @@ export function recordTodaysQAnswer({ qSubject, qId, choice, correct, dateStr = 
   try {
     const payload = JSON.stringify({ qSubject, qId, choice, correct, ts: Date.now() });
     window.localStorage.setItem(TODAY_KEY_PREFIX + dateStr, payload);
+    // One key was written per calendar day and none was ever removed, so a
+    // term of daily questions is hundreds of dead entries. Yesterday's answer
+    // is read by nothing; clear the other days as today's lands.
+    sweepStaleKeys(window.localStorage, { today: dateStr });
   } catch {}
   // Fire-and-forget class-pulse increment — Palm spec 2026-05-18 round 2.
   // Deduped per device per day (localStorage flag) so refreshing the

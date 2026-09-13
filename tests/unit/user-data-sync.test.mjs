@@ -544,3 +544,56 @@ test('a boot whose session has lapsed restores the signed-out workspace instead 
   );
   lapsed.close();
 });
+
+test('a full disk recovers by reclaiming dead keys instead of refusing forever', () => {
+  // The reported symptom: "พื้นที่จัดเก็บในเครื่องไม่พอ" on every action with no
+  // way out, because the quota stayed full and nothing ever reclaimed it.
+  const storage = new MemoryStorage();
+  // Months of daily questions, none of which anything reads any more.
+  for (let d = 1; d <= 60; d += 1) {
+    storage.setItem(`vmx-todays-q-2026-01-${String(d).padStart(2, '0')}`, 'x'.repeat(200));
+  }
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
+
+  const write = storage.setItem.bind(storage);
+  let full = true;
+  storage.setItem = (key, value) => {
+    if (full && key.startsWith('vmx-user-op-v1:')) {
+      const error = new Error('The quota has been exceeded.');
+      error.name = 'QuotaExceededError';
+      throw error;
+    }
+    write(key, value);
+  };
+  // The reclaim pass sweeps the dead daily keys; that is what makes room, so
+  // let the retry through once space has actually come back.
+  const dailyLeft = () => [...storage.values.keys()].filter((k) => k.startsWith('vmx-todays-q-')).length;
+  const origRemove = storage.removeItem.bind(storage);
+  storage.removeItem = (key) => { origRemove(key); if (dailyLeft() === 0) full = false; };
+
+  const accepted = sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: [7] }) });
+  assert.equal(accepted.accepted, true, 'the write should succeed after reclaiming');
+  assert.deepEqual(sync.getSnapshot().data.bookmarks, [7]);
+  assert.equal(dailyLeft(), 0, 'the dead daily-question keys should be gone');
+});
+
+test('reclaiming never trades a student\u2019s work for space', () => {
+  const storage = new MemoryStorage();
+  storage.setItem('vmx-todays-q-2020-01-01', 'x'.repeat(100));
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
+  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ notes: { 12: 'my note' } }) });
+
+  const write = storage.setItem.bind(storage);
+  let thrown = 0;
+  storage.setItem = (key, value) => {
+    if (key.startsWith('vmx-user-op-v1:') && thrown < 1) {
+      thrown += 1;
+      const error = new Error('quota');
+      error.name = 'QuotaExceededError';
+      throw error;
+    }
+    write(key, value);
+  };
+  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: [1] }) });
+  assert.deepEqual(sync.getSnapshot().data.notes, { 12: 'my note' }, 'notes must survive a reclaim');
+});

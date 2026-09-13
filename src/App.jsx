@@ -827,10 +827,15 @@ export default function App() {
   const [swUpdateVersion, setSwUpdateVersion] = useState(null);
   useEffect(() => {
     const handler = (e) => {
-      const version = e?.detail?.version || null;
+      // Not every announcement carries a version. The deferred-during-exam
+      // notice (app-lifecycle.js, vite:preloadError) has none, and with a null
+      // key the dismissal below stored nothing and the comparison never
+      // matched — so that banner came back on every single load and "ไว้ก่อน"
+      // did nothing at all. Fall back to the reason so it still has a key.
+      const version = e?.detail?.version || (e?.detail?.reason ? `pending:${e.detail.reason}` : 'pending');
       let dismissed = null;
       try { dismissed = window.localStorage.getItem('vmx-update-dismissed'); } catch {}
-      if (version && dismissed === version) return;
+      if (dismissed === version) return;
       setSwUpdateVersion(version);
       setSwUpdateReady(true);
     };

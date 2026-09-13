@@ -148,6 +148,9 @@ function readCachedPreview(playlistId) {
       PLAYLIST_PREVIEW_CACHE.set(playlistId, parsed.data);
       return parsed.data;
     }
+    // Past its TTL this entry can never be used again. It used to be ignored
+    // and left in place, holding a playlist's worth of bytes for good.
+    window.localStorage.removeItem('vmx-pl-preview-' + playlistId);
   } catch {}
   return null;
 }

@@ -71,6 +71,29 @@ window.addEventListener('load', () => {
   }, 3000)
 })
 
+// ── Reclaim storage the app has stopped needing ───────────────────
+// Existing installs already carry months of dead keys — a daily-question
+// record and a pulse flag per calendar day, expired playlist caches, back-off
+// markers whose moment passed. Nothing removed them, so localStorage filled
+// and every save started failing with "พื้นที่จัดเก็บในเครื่องไม่พอ". Sweeping
+// on boot is what clears the backlog for someone already stuck; the write
+// paths keep it from building up again. Runs when the browser is idle so it
+// never competes with first paint, and it never touches a student's own work.
+window.addEventListener('load', () => {
+  const sweep = () => {
+    Promise.all([import('./storage-gc.js'), import('./daily-q.js')])
+      .then(([gc, daily]) => {
+        const freed = gc.sweepStaleKeys(window.localStorage, { today: daily.todayKey() });
+        if (freed.removed.length) {
+          console.info(`[storage] reclaimed ${freed.removed.length} dead key(s), ${(freed.bytes / 1024).toFixed(0)} KB`);
+        }
+      })
+      .catch(() => { /* a sweep that cannot run must never break the app */ });
+  };
+  if (typeof requestIdleCallback === 'function') requestIdleCallback(sweep, { timeout: 8000 });
+  else setTimeout(sweep, 4000);
+});
+
 // ── Service worker — true offline + asset caching ─────────────────
 // Registered after window.load to avoid contending with first paint.
 // New SW versions don't reload mid-session — instead we set a flag
