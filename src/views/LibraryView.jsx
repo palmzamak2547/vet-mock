@@ -24,6 +24,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc } from '../lib/vca-library.js';
+import { EMPTY_ART } from '../data/art.js';
 import {
   LIBRARY_KINDS,
   SEMESTERS,
@@ -611,7 +612,16 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
 
       {!loading && configured && docs.length === 0 && (
         <div className="vmx-empty-state">
-          <Mochi state="curious" size={56} slot="library-status" className="vmx-empty-mochi" /><p>ยังไม่มีเอกสารในคลัง</p>
+          <img
+            src={EMPTY_ART.library.src}
+            alt={EMPTY_ART.library.alt}
+            width={640}
+            height={480}
+            loading="lazy"
+            decoding="async"
+            style={{ width: 'min(240px, 70%)', height: 'auto', margin: '0 auto 4px', display: 'block' }}
+          />
+          <p>ยังไม่มีเอกสารในคลัง</p>
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
             เอกสารจะขึ้นที่นี่เมื่อมีการเพิ่มเข้าคลัง
           </p>

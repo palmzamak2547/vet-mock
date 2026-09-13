@@ -15,6 +15,8 @@ import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { hasNoteTopic } from '../data/notes-registry.generated.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { isTopicRead, setTopicRead } from '../lib/study-progress.js';
+import { EMPTY_ART } from '../data/art.js';
+import EmptyState from '../components/EmptyState.jsx';
 
 export default function ReadingChecklistView({
   selectedYear = 4,
@@ -231,7 +233,7 @@ export default function ReadingChecklistView({
       })}
 
       {totalTopics === 0 && (
-        <div className="vmx-empty">วิชาในปีนี้ยังไม่มีรายการหัวข้อให้ติ๊ก — เลือกปีอื่นดูได้จากหน้าแรก</div>
+        <EmptyState art={EMPTY_ART.reading} title="ยังไม่มีรายการหัวข้อให้ติ๊ก" body="วิชาในปีนี้ยังไม่มีรายการให้ติ๊ก เลือกปีอื่นดูได้จากหน้าแรก" />
       )}
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

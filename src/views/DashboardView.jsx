@@ -16,6 +16,7 @@ import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import EmptyState from '../components/EmptyState.jsx';
 import NavIcon from '../components/NavIcon.jsx';
+import { EMPTY_ART } from '../data/art.js';
 
 // OSCE drill is a heavier interactive modal — lazy load when launched.
 const OSCEDrill = lazy(() => import('../components/OSCEDrill.jsx'));
@@ -535,6 +536,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
       {!scopedAnalytics ? (
         <EmptyState
+          art={EMPTY_ART.dashboard}
           icon={<NavIcon name="progress" size={44} />}
           title="ยังไม่มีความคืบหน้าให้ดู"
           body="พอทำข้อสอบไปสักชุด ตรงนี้จะเก็บให้หมดว่าถูกกี่ข้อ วิชาไหนยังไม่แน่น และทำต่อเนื่องมากี่วันแล้ว"

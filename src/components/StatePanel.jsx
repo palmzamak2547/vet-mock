@@ -1,11 +1,16 @@
 import Mochi from './Mochi.jsx';
 import MotionLoader from './MotionLoader.jsx';
 import { MotionButton, MotionEnter } from './MotionFeedback.jsx';
+import { LOADING_ART } from '../data/art.js';
 
+// `art` (an entry from EMPTY_ART) replaces the mascot on a first-run empty
+// panel. Only on `kind="empty"`: an illustration of an empty shelf beside an
+// error message would be telling the user the wrong thing.
 export default function StatePanel({
   kind = 'empty',
   title,
   body,
+  art = null,
   actionLabel,
   onAction,
   busy = false,
@@ -20,10 +25,36 @@ export default function StatePanel({
       aria-live={isError ? 'assertive' : 'polite'}
       aria-busy={isLoading || busy ? 'true' : undefined}
     >
-      <div className="vmx-state-panel__icon vmx-state-panel__mochi" aria-hidden="true">
-        <Mochi state={isLoading ? 'loading' : isError ? 'encourage' : 'curious'} size={56} slot="status" animate={isLoading} fallback={isLoading ? '•••' : isError ? '!' : '—'} />
-        {(isLoading || busy) && <MotionLoader label={title || 'กำลังโหลด'} />}
-      </div>
+      {isLoading ? (
+        <div className="vmx-state-panel__icon" aria-hidden="true">
+          <img
+            className="vmx-state-panel__loader-art"
+            src={LOADING_ART.book.src}
+            alt=""
+            width={400}
+            height={400}
+            decoding="async"
+            style={{ width: 64, height: 64, display: 'block', margin: '0 auto' }}
+          />
+          <MotionLoader label={title || 'กำลังโหลด'} />
+        </div>
+      ) : art && !isError ? (
+        <img
+          className="vmx-state-panel__art"
+          src={art.src}
+          alt={art.alt || ''}
+          width={640}
+          height={480}
+          loading="lazy"
+          decoding="async"
+          style={{ width: 'min(240px, 70%)', height: 'auto', margin: '0 auto 4px', display: 'block' }}
+        />
+      ) : (
+        <div className="vmx-state-panel__icon vmx-state-panel__mochi" aria-hidden="true">
+          <Mochi state={isLoading ? 'loading' : isError ? 'encourage' : 'curious'} size={56} slot="status" animate={isLoading} fallback={isLoading ? '•••' : isError ? '!' : '—'} />
+          {(isLoading || busy) && <MotionLoader label={title || 'กำลังโหลด'} />}
+        </div>
+      )}
       {title && <div className="vmx-state-panel__title">{title}</div>}
       {body && <div className="vmx-state-panel__body">{body}</div>}
       {actionLabel && onAction && (

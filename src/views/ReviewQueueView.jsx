@@ -32,6 +32,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
+import { EMPTY_ART } from '../data/art.js';
 
 const STEM_PREVIEW_CHARS = 150;
 const FEEDBACK_MIN_CHARS = 10;
@@ -265,7 +266,15 @@ export default function ReviewQueueView({ goHome, setView, user }) {
         <StatePanel kind="error" title="โหลด Review Queue ไม่สำเร็จ" body={queueError} actionLabel="ลองอีกครั้ง" onAction={loadQueue} />
       ) : queue.length === 0 ? (
         <div style={emptyPanelStyle}>
-          <div style={{ fontSize: 40, marginBottom: 10 }}>🎉</div>
+          <img
+            src={EMPTY_ART['review-queue'].src}
+            alt={EMPTY_ART['review-queue'].alt}
+            width={640}
+            height={480}
+            loading="lazy"
+            decoding="async"
+            style={{ width: 'min(220px, 70%)', height: 'auto', margin: '0 auto 6px', display: 'block' }}
+          />
           <div style={{ fontSize: 14, color: 'var(--clr-ink)' }}>
             {tab === 'palm'
               ? 'ไม่มี Q รอ Palm final, ทุกอย่างเรียบร้อย'

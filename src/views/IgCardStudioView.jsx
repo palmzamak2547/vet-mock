@@ -21,13 +21,29 @@ import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 import { shuffle } from '../hooks/utils.js';
+import { IG_BACKGROUNDS } from '../data/art.js';
 
 // Render one Q card. Optimised for legibility on a phone-screen IG feed
 // preview at 9:16-cropped size: keeps the question stem inside the
 // safe vertical band, options below, and a "Answer in caption" pointer
 // at the bottom — IG captions live below the image so this matches the
 // reading flow.
-function renderQCard({ question, brand = '@vetmock.cu' }) {
+// `backdrop` is a decoded 1080x1350 plate from IG_BACKGROUNDS. Every plate is
+// drawn with its middle left as flat paper, so the question text that lands
+// there stays readable; drawing it first means nothing can cover the words.
+// Decode the plate once per batch. A failed load returns null and the card
+// falls back to the plain gradient rather than failing the whole export.
+function loadBackdrop(src) {
+  if (!src) return Promise.resolve(null);
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+function renderQCard({ question, brand = '@vetmock.cu', backdrop = null }) {
   const W = 1080, H = 1350;
   const canvas = document.createElement('canvas');
   canvas.width = W; canvas.height = H;
@@ -40,11 +56,15 @@ function renderQCard({ question, brand = '@vetmock.cu' }) {
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
 
-  // Speckle texture
-  ctx.fillStyle = 'rgba(43, 36, 25, 0.04)';
-  for (let i = 0; i < 60; i++) {
-    const x = Math.random() * W, y = Math.random() * H, r = 1 + Math.random() * 2;
-    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  if (backdrop) {
+    ctx.drawImage(backdrop, 0, 0, W, H);
+  } else {
+    // Speckle texture
+    ctx.fillStyle = 'rgba(43, 36, 25, 0.04)';
+    for (let i = 0; i < 60; i++) {
+      const x = Math.random() * W, y = Math.random() * H, r = 1 + Math.random() * 2;
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+    }
   }
 
   // Top label — VetMock + subject pill
@@ -127,6 +147,7 @@ function wrapText(ctx, text, x, y, maxW, lineH, maxLines = 999) {
 export default function IgCardStudioView({ goHome }) {
   const [subject, setSubject] = useState('all');
   const [count, setCount] = useState(7);
+  const [bgId, setBgId] = useState('none');
   const [cards, setCards] = useState([]);
   const [busy, setBusy] = useState(false);
   // QB is lazy-loaded and mutated in place. Without this tick, opening the
@@ -158,9 +179,10 @@ export default function IgCardStudioView({ goHome }) {
     if (busy) return;
     setBusy(true); setCards([]);
     const picks = shuffle([...pool]).slice(0, count);
+    const backdrop = await loadBackdrop(IG_BACKGROUNDS.find((b) => b.id === bgId)?.src || null);
     const built = [];
     for (const q of picks) {
-      const blob = await renderQCard({ question: q });
+      const blob = await renderQCard({ question: q, backdrop });
       if (blob) built.push({ q, url: URL.createObjectURL(blob), blob });
     }
     setCards(built);
@@ -201,6 +223,18 @@ export default function IgCardStudioView({ goHome }) {
           <label style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
             จำนวน:
             <input type="number" min="1" max="30" value={count} onChange={(e) => setCount(Math.max(1, Math.min(30, parseInt(e.target.value) || 7)))} style={{ width: 72, padding: '6px 10px', borderRadius: 8, minHeight: 44, boxSizing: 'border-box' }} />
+          </label>
+          <label style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
+            ลาย:
+            <select
+              value={bgId}
+              onChange={(e) => setBgId(e.target.value)}
+              style={{ padding: '6px 10px', borderRadius: 8, maxWidth: '100%', minWidth: 0, minHeight: 44 }}
+            >
+              {IG_BACKGROUNDS.map((b) => (
+                <option key={b.id} value={b.id}>{b.label}</option>
+              ))}
+            </select>
           </label>
           <button className="vmx-btn vmx-btn-primary" onClick={generate} disabled={busy || pool.length === 0}>
             {busy ? 'กำลังสร้าง…' : `สร้างการ์ด ${count} ใบ`}

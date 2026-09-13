@@ -5,6 +5,8 @@ import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON } from '../hooks/utils.js';
 import { confirmDialog, alertDialog, promptDialog } from '../lib/dialog.js';
 import { parseCustomQuestion, USER_DATA_IMPORT_MAX_BYTES } from '../lib/user-data-schema.js';
+import { EMPTY_ART } from '../data/art.js';
+import EmptyState from '../components/EmptyState.jsx';
 
 export default function QuestionManagerView({ customQuestions, setCustomQuestions, goHome }) {
   const [showForm, setShowForm] = useState(false);
@@ -391,7 +393,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
       )}
 
       {customQuestions.length === 0 ? (
-        <div className="vmx-empty">ยังไม่มีข้อสอบส่วนตัว — กด “เพิ่มข้อสอบ” เพื่อสร้าง</div>
+        <EmptyState art={EMPTY_ART['question-manager']} title="ยังไม่มีข้อสอบส่วนตัว" body="กด เพิ่มข้อสอบ เพื่อสร้างข้อแรกของตัวเอง" />
       ) : (
         <div style={{ paddingBottom: selectedIds.size > 0 ? 96 : 0 }}>
           {customQuestions.map((q) => {

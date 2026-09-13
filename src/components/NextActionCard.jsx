@@ -7,6 +7,8 @@ import { MotionButton } from './MotionFeedback.jsx';
 import ConfirmDialog from './ConfirmDialog.jsx';
 import { buildDailyPlan } from '../lib/daily-plan.js';
 import { fmtThaiDate } from '../data/schedule.js';
+import { seasonalMochiKey } from '../lib/seasonal-mochi.js';
+import { SEASONAL_MOCHI } from '../data/art.js';
 
 export default function NextActionCard({
   nextExam,
@@ -221,9 +223,28 @@ export default function NextActionCard({
     );
   };
 
+  const seasonal = (() => {
+    const key = seasonalMochiKey({ daysLeft: nextExam?.daysLeft ?? null });
+    return key ? SEASONAL_MOCHI[key] || null : null;
+  })();
+
   return (
     <section className="vmx-next-actions" aria-labelledby="vmx-next-actions-title">
       <header className="vmx-next-actions-header">
+        {seasonal && (
+          // Changes the picture, never the words — and only inside a window
+          // the schedule actually puts the student in.
+          <img
+            className="vmx-next-actions-mochi"
+            src={seasonal.src}
+            alt={seasonal.alt}
+            width={512}
+            height={512}
+            loading="lazy"
+            decoding="async"
+            style={{ width: 48, height: 48, objectFit: 'contain', flexShrink: 0 }}
+          />
+        )}
         <div>
           <span className="vmx-next-actions-kicker">แผนฝึกวันนี้</span>
           <h2 id="vmx-next-actions-title" className="vmx-next-actions-heading">

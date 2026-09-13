@@ -7,6 +7,7 @@ import Mochi from '../components/Mochi.jsx';
 import { librarySubjectCounts } from '../lib/library.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import { takeViewIntent, rememberViewIntent } from '../lib/feature-registry.js';
+import { SUBJECT_MOCHI } from '../data/art.js';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, qbReady = true, history = [] }) {
   const allQuestions = [...QB, ...customQuestions];
@@ -231,7 +232,24 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                   : (isEmpty ? 'ยังไม่มีเนื้อหาของวิชานี้ในแอป' : ''))}
             >
               <div className="accent" style={{ background: s.color }}></div>
-              <div className="icon">{s.icon}</div>
+              {SUBJECT_MOCHI[s.id] ? (
+                // The disciplines with their own kit get Mochi wearing it; the
+                // rest keep the emoji they have always had, because a card with
+                // a stand-in illustration reads worse than one without.
+                <img
+                  className="icon"
+                  src={SUBJECT_MOCHI[s.id].src}
+                  alt=""
+                  aria-hidden="true"
+                  width={512}
+                  height={512}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ width: 52, height: 52, objectFit: 'contain' }}
+                />
+              ) : (
+                <div className="icon">{s.icon}</div>
+              )}
               <div className="title">{s.name}</div>
               <div className="sub">{s.name_en}</div>
               <div className="count" style={{ color: (isEmpty && !qbLoading && shelfDocs === 0) ? 'var(--clr-rose-text)' : (shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)') }}>

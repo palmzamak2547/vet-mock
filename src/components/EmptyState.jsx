@@ -18,8 +18,16 @@
 
 import Mochi from './Mochi.jsx';
 
+// `art` takes an entry from EMPTY_ART (src/data/art.js): an illustration of
+// the thing that is missing — an empty shelf, a podium with nobody on it. It
+// replaces the 52px Mochi rather than sitting next to it, because two mascots
+// of different sizes in one column reads as a mistake.
+//
+// Width and height are declared so the picture reserves its space before it
+// loads; without them the title and button jump down when it arrives.
 export default function EmptyState({
   icon = null,
+  art = null,
   title,
   body = null,
   ctaLabel = null,
@@ -28,7 +36,18 @@ export default function EmptyState({
 }) {
   return (
     <div className="vmx-empty-state" style={style}>
-      {(
+      {art ? (
+        <img
+          className="vmx-empty-art"
+          src={art.src}
+          alt={art.alt || ''}
+          width={640}
+          height={480}
+          loading="lazy"
+          decoding="async"
+          style={{ width: 'min(240px, 70%)', height: 'auto', margin: '0 auto 4px', display: 'block' }}
+        />
+      ) : (
         <span className="icon" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>
           <Mochi state="curious" size={52} slot="empty" fallback={icon} />
         </span>

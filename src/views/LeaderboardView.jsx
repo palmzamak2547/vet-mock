@@ -4,6 +4,7 @@ import { getLeaderboard } from '../lib/api.js';
 import { aggregateLeaderboard, LEADERBOARD_MIN_QUESTIONS } from '../lib/leaderboard-gate.js';
 import { SUBJECTS } from '../data/questions.js';
 import StatePanel from '../components/StatePanel.jsx';
+import { EMPTY_ART } from '../data/art.js';
 
 export default function LeaderboardView({ user, goHome, selectedYear }) {
   // Raw rows from the API — 1 row per exam attempt. The display below
@@ -123,7 +124,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
       ) : error ? (
         <StatePanel kind="error" title="โหลดอันดับคะแนนไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : scores.length === 0 ? (
-        <StatePanel title="ยังไม่มีคะแนนในหมวดนี้" body={scoreSource === 'server'
+        <StatePanel art={EMPTY_ART.leaderboard} title="ยังไม่มีคะแนนในหมวดนี้" body={scoreSource === 'server'
           ? 'ทำชุดมาตรฐานอย่างน้อย 5 ข้อแล้วส่งผลสำเร็จ คะแนนจะปรากฏที่นี่ คะแนนก่อนหน้านี้อยู่ในหมวดคะแนนเดิม'
           : 'ยังไม่มีคะแนนเดิมหรือชุดส่วนตัวในขอบเขตปีที่เลือก'} />
       ) : (

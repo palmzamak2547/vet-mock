@@ -40,8 +40,40 @@
 // every frame.
 // ──────────────────────────────────────────────────────────────────
 import { useEffect, useRef, useState } from 'react';
+import { GAME_ART } from '../data/art.js';
 
 // ── Tuning constants ─────────────────────────────────────────────
+// ── Sprites ───────────────────────────────────────────────────────
+// The game drew every actor with ctx.fillText and an emoji, so it looked like
+// whatever emoji font the device happened to have — a different chick on iOS,
+// Android and Windows, and none of them matching the rest of the app. These
+// are the drawn sprites. Loading is best effort: an image that fails leaves
+// its slot empty and the emoji path below still runs, so the game is playable
+// before the first byte arrives and on a device that blocks images.
+const SPRITES = {};
+let spritesRequested = false;
+
+function loadSprites() {
+  if (spritesRequested || typeof Image === 'undefined') return;
+  spritesRequested = true;
+  for (const [key, src] of Object.entries(GAME_ART)) {
+    const img = new Image();
+    img.decoding = 'async';
+    img.onload = () => { SPRITES[key] = img; };
+    img.onerror = () => { delete SPRITES[key]; };
+    img.src = src;
+  }
+}
+
+/** Draw a sprite into a box; false means it is not ready and the caller
+ *  should fall back. */
+function drawSprite(ctx, key, x, y, w, h) {
+  const img = SPRITES[key];
+  if (!img) return false;
+  ctx.drawImage(img, x, y, w, h);
+  return true;
+}
+
 const CANVAS_W = 600;
 const CANVAS_H = 200;
 const GROUND_Y = 160;
@@ -81,6 +113,11 @@ function cssVar(name, fallback) {
 }
 
 export default function OfflineGame({ onClose }) {
+  // Start fetching the sprites as the game mounts. Nothing waits on them:
+  // until each arrives its actor is drawn with the old emoji, so the game
+  // is playable on the first frame and offline.
+  useEffect(() => { loadSprites(); }, []);
+
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const stateRef = useRef(makeFreshState());
@@ -716,13 +753,21 @@ function render(ctx, s) {
     ctx.arc(pk.x + 10, pk.y + 14, 16, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
-    ctx.fillText(pk.type, pk.x, pk.y + PLAYER_SIZE - 4);
+    const pickupSprite = pk.type === '💉' ? 'shield' : 'speed';
+    if (!drawSprite(ctx, pickupSprite, pk.x, pk.y + 2, 26, 26)) {
+      ctx.fillText(pk.type, pk.x, pk.y + PLAYER_SIZE - 4);
+    }
   }
 
   // ── Obstacles ────────────────────────────────────────────────────
   ctx.font = '24px "Apple Color Emoji","Segoe UI Emoji",sans-serif';
   for (const o of s.obstacles) {
-    ctx.fillText(o.type, o.x, o.y + PLAYER_SIZE);
+    // Two blob shapes stand in for the whole obstacle cast; alternating on
+    // position keeps a run from reading as one sprite repeated.
+    const germ = Math.floor(o.x / 40) % 2 === 0 ? 'germRound' : 'germTall';
+    if (!drawSprite(ctx, germ, o.x, o.y + 2, 28, 28)) {
+      ctx.fillText(o.type, o.x, o.y + PLAYER_SIZE);
+    }
   }
 
   // ── Player (with squash/stretch + shield ring + horizontal flip) ─
@@ -744,12 +789,21 @@ function render(ctx, s) {
   const squash = p.squash;
   const fontSize = (p.ducking ? 24 : 30) - squash * 0.5;
   const yOffset = p.ducking ? 4 : 0;
-  ctx.save();
-  ctx.font = `${fontSize}px "Apple Color Emoji","Segoe UI Emoji",sans-serif`;
-  ctx.translate(p.x + PLAYER_SIZE, p.y + PLAYER_SIZE - yOffset + (squash > 0 ? squash * 0.5 : 0));
-  ctx.scale(-1, 1); // flip horizontal so chick faces right (forward)
-  ctx.fillText('🐤', 0, 0);
-  ctx.restore();
+  // The drawn chick already faces right, so unlike the emoji it is NOT
+  // mirrored. Squash still applies — it is what sells the jump and landing.
+  const frame = s.state === 'gameover'
+    ? 'chickTumbling'
+    : (p.jumping ? 'chickJumping' : 'chickRunning');
+  const sw = (p.ducking ? 30 : 34) + squash * 0.4;
+  const sh = (p.ducking ? 24 : 34) - squash * 0.6;
+  if (!drawSprite(ctx, frame, p.x + (PLAYER_SIZE - sw) / 2, p.y + PLAYER_SIZE - sh - yOffset, sw, sh)) {
+    ctx.save();
+    ctx.font = `${fontSize}px "Apple Color Emoji","Segoe UI Emoji",sans-serif`;
+    ctx.translate(p.x + PLAYER_SIZE, p.y + PLAYER_SIZE - yOffset + (squash > 0 ? squash * 0.5 : 0));
+    ctx.scale(-1, 1); // flip horizontal so chick faces right (forward)
+    ctx.fillText('🐤', 0, 0);
+    ctx.restore();
+  }
 
   // ── Overlays ─────────────────────────────────────────────────────
   if (s.state === 'ready') {

@@ -4,6 +4,7 @@ import { thaiError } from '../lib/errors.js';
 import { createGroup, joinGroupByCode, getMyGroups, leaveGroup } from '../lib/api.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import StatePanel from '../components/StatePanel.jsx';
+import { EMPTY_ART } from '../data/art.js';
 
 export default function GroupsView({ user, profile, goHome, setActiveGroup, setView }) {
   const [groups, setGroups] = useState([]);
@@ -106,7 +107,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
       ) : loadError ? (
         <StatePanel kind="error" title="โหลดกลุ่มไม่สำเร็จ" body={loadError} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : groups.length === 0 ? (
-        <StatePanel title="ยังไม่มีกลุ่ม" body="สร้างกลุ่มใหม่ หรือ join ด้วย invite code เพื่อเริ่มติวกับเพื่อน" />
+        <StatePanel art={EMPTY_ART.groups} title="ยังไม่มีกลุ่ม" body="สร้างกลุ่มใหม่ หรือ join ด้วย invite code เพื่อเริ่มติวกับเพื่อน" />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {groups.map((g) => (

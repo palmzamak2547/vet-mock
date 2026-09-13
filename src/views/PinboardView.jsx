@@ -19,6 +19,8 @@ import { subjectText } from '../hooks/utils.js';
 import { loadPins, removePin, clearPinboard, PINBOARD_EVENT, PINBOARD_MAX } from '../lib/pinboard.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import { EMPTY_ART } from '../data/art.js';
+import EmptyState from '../components/EmptyState.jsx';
 
 const TYPE_META = {
   question:  { label: 'ข้อสอบ',     icon: '❓', color: '#c26d6d' },
@@ -277,10 +279,11 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
       {filtered.length === 0 && (
         <div className="vmx-empty">
           {pins.length === 0 ? (
-            <>
-              <div style={{ fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 6 }}>ไม่มีรายการบันทึก</div>
-              <div style={{ fontSize: 14 }}>กดปุ่มพินในข้อสอบหรือสรุปเพื่อบันทึกเนื้อหาเก็บไว้ทบทวน</div>
-            </>
+            <EmptyState
+              art={EMPTY_ART.pinboard}
+              title="ไม่มีรายการบันทึก"
+              body="กดปุ่มพินในข้อสอบหรือสรุปเพื่อบันทึกเนื้อหาเก็บไว้ทบทวน"
+            />
           ) : (
             <div style={{ fontSize: 14 }}>ไม่มีพินในหมวด <strong>{TYPE_META[filter]?.label || filter}</strong> โปรดเลือกหมวดอื่น</div>
           )}

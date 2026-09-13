@@ -23,6 +23,7 @@ import {
   markWrappedDismissed,
 } from '../lib/phase-wrapped.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import { earnedBadges } from '../lib/badges.js';
 
 // Day formatter shared with the empty-state countdown.
 function daysUntil(date) {
@@ -58,6 +59,13 @@ export default function PhaseWrappedView({ goHome, history = [], srCards = {}, b
       subjects: SUBJECTS,
     });
   }, [phase, history, srCards, bookmarks, customQuestions]);
+
+  // Earned marks, derived from the same history the numbers above come from —
+  // nothing extra is stored, so a badge cannot drift from the stats.
+  const badges = useMemo(
+    () => (stats ? earnedBadges({ history, srCards, customQuestions, stats }) : []),
+    [stats, history, srCards, customQuestions],
+  );
 
   // Mark "shown" so the home banner stops surfacing it.
   // We treat opening the wrapped view as an implicit "I've seen
@@ -131,6 +139,36 @@ export default function PhaseWrappedView({ goHome, history = [], srCards = {}, b
           onClose={goHome}
           onDismissPhase={handleDismissPhase}
         />
+        {badges.length > 0 && (
+          <section style={{ maxWidth: 680, margin: '28px auto 0' }} aria-label="เหรียญที่ได้">
+            <h2 style={{ fontSize: 15, margin: '0 0 12px', color: 'var(--clr-ink)' }}>
+              เหรียญที่ได้ {badges.length} อัน
+            </h2>
+            <ul style={{
+              listStyle: 'none', margin: 0, padding: 0, display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(104px, 1fr))', gap: 14,
+            }}>
+              {badges.map((b) => (
+                <li key={b.id} style={{ textAlign: 'center', minWidth: 0 }}>
+                  <img
+                    src={b.src}
+                    alt=""
+                    aria-hidden="true"
+                    width={512}
+                    height={512}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ width: 72, height: 72, objectFit: 'contain', display: 'block', margin: '0 auto 6px' }}
+                  />
+                  <div style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--clr-ink)' }}>{b.label}</div>
+                  {/* The reason is the point: a mark with no stated basis is
+                      decoration pretending to be an achievement. */}
+                  <div style={{ fontSize: 11.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{b.why}</div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </>
   );

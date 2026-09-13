@@ -4520,3 +4520,11 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-loading-mark { height: 32px; }
 .vmx-empty-state > .icon { height: auto; line-height: 1; }
 @media (max-width: 380px) { .vmx-back-mochi { width: 36px !important; height: 36px !important; } }
+
+/* The loading book is radially symmetrical so it can turn on its own centre.
+   Held still for anyone who asked for less motion. */
+.vmx-state-panel__loader-art { animation: vmx-art-spin 2.4s linear infinite; }
+@keyframes vmx-art-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-state-panel__loader-art { animation: none; }
+}
