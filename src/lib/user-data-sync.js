@@ -358,8 +358,113 @@ function mergeLegacy(field, local, remote) {
   return local;
 }
 
+// ── Key-array deltas ─────────────────────────────────────────────
+// `base` used to be a FULL SECOND COPY of the field's previous value, kept so
+// a merge could tell a deletion from a value the other device had not seen
+// yet. For `history` that is the single most expensive thing in localStorage:
+// the array is written to vmx-history, to the principal snapshot, to
+// meta.dirty as base AND value, to the outbox record as base AND value, and
+// into the recovery journal which embeds patch + meta + snapshot. Ten copies
+// at the peak of a write, for an array that only ever grows by one row when a
+// student answers a question.
+//
+// applySetArrayChanges only ever consumes `base` as a SET OF KEYS
+// (base.map(stableItemKey)), so the keys are all that has to be stored — and
+// not even all of them: the base key set can be rebuilt from the value plus
+// which keys this change added and removed. Both of those are empty or
+// one-element in normal use.
+//
+// Only for the two policies that read base as keys. keyed-object and
+// keyed-array compare VALUES per key, so they keep the full base.
+const KEY_ARRAY_POLICIES = new Set(['set-array', 'append-array']);
+
+function keySetOf(items) {
+  return new Set((Array.isArray(items) ? items : []).map(stableItemKey));
+}
+
+/** The change from `base` to `value`, as the keys it added and removed. */
+export function changeDelta(base, value) {
+  const baseKeys = keySetOf(base);
+  const valueKeys = keySetOf(value);
+  return {
+    added: [...valueKeys].filter((k) => !baseKeys.has(k)),
+    removed: [...baseKeys].filter((k) => !valueKeys.has(k)),
+  };
+}
+
+/** Rebuild the base key set from the value and the delta that produced it. */
+function baseKeysFrom(value, delta) {
+  const keys = keySetOf(value);
+  for (const k of delta.added || []) keys.delete(k);
+  for (const k of delta.removed || []) keys.add(k);
+  return keys;
+}
+
+function isDelta(entry) {
+  return !!entry && Array.isArray(entry.added) && Array.isArray(entry.removed);
+}
+
+/** applySetArrayChanges, given the base as keys rather than as items. */
+function applySetArrayChangesByKeys(baseKeys, local, remote) {
+  const localKeys = keySetOf(local);
+  const removed = new Set([...baseKeys].filter((key) => !localKeys.has(key)));
+  const result = remote.filter((item) => !removed.has(stableItemKey(item)));
+  const present = new Set(result.map(stableItemKey));
+  for (const item of local) {
+    const key = stableItemKey(item);
+    if (!baseKeys.has(key) && !present.has(key)) {
+      result.push(item);
+      present.add(key);
+    }
+  }
+  return result;
+}
+
+/** Fold a newer change into the one already recorded against the same base. */
+function mergeDelta(prior, next) {
+  const addedNext = new Set(next.added || []);
+  const removedNext = new Set(next.removed || []);
+  const added = new Set([...(prior.added || []), ...addedNext]);
+  const removed = new Set([...(prior.removed || []), ...removedNext]);
+  // Added then removed, or removed then re-added, must not end up in both.
+  for (const k of removedNext) added.delete(k);
+  for (const k of addedNext) removed.delete(k);
+  return { added: [...added], removed: [...removed] };
+}
+
+/** The record to store for one field's change: a delta where that is enough,
+ *  the full base where the merge policy genuinely needs the old values. */
+function changeRecord(field, base, value) {
+  const policy = USER_DATA_FIELDS[field]?.merge;
+  if (!KEY_ARRAY_POLICIES.has(policy) || !Array.isArray(base) || !Array.isArray(value)) {
+    return { base, value };
+  }
+  return { ...changeDelta(base, value), value };
+}
+
+function foldChangeRecord(field, prior, next) {
+  if (isDelta(prior) && isDelta(next)) {
+    return { ...mergeDelta(prior, next), value: next.value };
+  }
+  // Mixed shapes only happen across an upgrade, where a record written by the
+  // previous build is still in storage. Keep the older base: it is the one the
+  // remote still agrees with.
+  if (Object.prototype.hasOwnProperty.call(prior, 'base')) {
+    return { base: prior.base, value: next.value };
+  }
+  return { ...prior, value: next.value };
+}
+
 function reconcileDirty(field, entry, remote) {
   const local = entry.value;
+
+  // A delta carries the base as the keys it changed, which is all the
+  // set/append merge ever read out of it.
+  if (isDelta(entry)) {
+    if (!entry.added.length && !entry.removed.length) return remote;
+    return applySetArrayChangesByKeys(baseKeysFrom(local, entry), local, remote);
+  }
+
   if (entry.legacy || !Object.prototype.hasOwnProperty.call(entry, 'base')) {
     return mergeLegacy(field, local, remote);
   }
@@ -402,12 +507,10 @@ function readPendingOperations(storage, userId) {
       const changes = {};
       for (const [field, change] of Object.entries(operation.changes)) {
         const definition = USER_DATA_FIELDS[field];
-        if (
-          !definition ||
-          !change ||
-          !isValidValue(change.base, definition) ||
-          !isValidValue(change.value, definition)
-        ) continue;
+        if (!definition || !change || !isValidValue(change.value, definition)) continue;
+        // Either shape is valid: records written by the previous build carry a
+        // full `base` and are still sitting in storage at upgrade time.
+        if (!isDelta(change) && !isValidValue(change.base, definition)) continue;
         changes[field] = change;
       }
       if (Object.keys(changes).length === 0) continue;
@@ -667,9 +770,7 @@ export function createUserDataSync({
     };
     for (const [field, change] of Object.entries(changes)) {
       const prior = cumulativeChanges[field];
-      cumulativeChanges[field] = prior
-        ? { base: prior.base, value: change.value }
-        : change;
+      cumulativeChanges[field] = prior ? foldChangeRecord(field, prior, change) : change;
     }
     const token = `${instanceId}:${++localOperationSequence}`;
     storage.setItem(key, JSON.stringify({
@@ -822,6 +923,37 @@ export function createUserDataSync({
       if (hasPending) schedule('flush', debounceMs);
     } catch (error) {
       if (disposed || generation !== sessionGeneration) return;
+
+      // A full disk lands here too. `writeLocalCommit` writes the recovery
+      // journal outside its own try, so a QuotaExceededError escapes the whole
+      // hydrate — and this catch used to report every escape as "ยังอ่านข้อมูล
+      // จากบัญชีไม่ได้", which sends the student to check their connection
+      // while the actual problem is local and permanent. Worse, the retry
+      // below then loops on a condition the network can never fix.
+      if (isQuotaError(error)) {
+        let recovered = false;
+        try {
+          reclaim(storage, {
+            today: todayKey(),
+            operationPrefix: operationKeyPrefix(userId),
+            protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
+          });
+          recovered = true;
+        } catch { recovered = false; }
+        publish(state.data, syncShape({
+          phase: 'error',
+          error: publicError(
+            'LOCAL_WRITE_FAILED',
+            'พื้นที่จัดเก็บในเครื่องไม่พอ จึงยังดึงข้อมูลจากบัญชีมาเก็บไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ',
+            false,
+          ),
+        }));
+        // Retry once, and only if the reclaim actually ran — repeating a write
+        // into a storage that is still full is how the old loop burned.
+        if (recovered) schedule('hydrate', debounceMs);
+        return;
+      }
+
       const isOffline = lifecycle.isOnline() === false;
       const code = error?.code === 'INVALID_REMOTE_DATA'
         ? 'INVALID_REMOTE_DATA'
@@ -1044,14 +1176,14 @@ export function createUserDataSync({
       if (!USER_DATA_FIELDS[field].remoteKey) continue;
       const existing = nextMeta.dirty[field];
       nextMeta.dirty[field] = existing
-        ? { ...existing, value }
-        : { base: currentData[field], value };
+        ? foldChangeRecord(field, existing, changeRecord(field, currentData[field], value))
+        : changeRecord(field, currentData[field], value);
     }
 
     const operationChanges = Object.fromEntries(
       Object.entries(changed).map(([field, value]) => [
         field,
-        { base: currentData[field], value },
+        changeRecord(field, currentData[field], value),
       ]),
     );
     try {

@@ -319,9 +319,23 @@ export default function OfflineGame({ onClose }) {
     ro.observe(canvas);
 
     // ── Main loop ──────────────────────────────────────────────────
-    const loop = () => {
+    // Every advance below used to be "per requestAnimationFrame", with the
+    // constants written for 60 Hz (SHIELD_DURATION is commented "~4 sec at
+    // 60fps"). A ProMotion iPad, a 120 Hz phone or a 144 Hz monitor calls rAF
+    // twice as often, so the whole game ran at double speed: the shield lasted
+    // two seconds instead of four and the score climbed twice as fast. `f` is
+    // how many 60 Hz frames of time have actually passed.
+    //
+    // Clamped at both ends: a background tab or a dropped frame would
+    // otherwise hand back a huge f and teleport the chick through an obstacle,
+    // and a <= 0 f would freeze the physics.
+    let lastTs = 0;
+    const loop = (ts) => {
       if (!alive) { rafId = null; return; }
       rafId = null;
+      const now = typeof ts === 'number' ? ts : lastTs;
+      const f = lastTs ? Math.min(3, Math.max(0.25, (now - lastTs) / (1000 / 60))) : 1;
+      lastTs = now;
       try {
         const s = stateRef.current;
 
@@ -329,8 +343,8 @@ export default function OfflineGame({ onClose }) {
         if (s.state === 'playing') {
           // Player physics
           const p = s.player;
-          p.vy += GRAVITY;
-          p.y += p.vy;
+          p.vy += GRAVITY * f;
+          p.y += p.vy * f;
           if (p.y >= GROUND_Y) {
             const wasJumping = p.jumping;
             p.y = GROUND_Y;
@@ -344,12 +358,12 @@ export default function OfflineGame({ onClose }) {
 
           // Shield decay
           if (p.shieldTimer > 0) {
-            p.shieldTimer--;
+            p.shieldTimer -= f;
             if (p.shieldTimer === 0) p.shield = false;
           }
 
           // Spawn obstacles + pickups
-          s.spawnTimer++;
+          s.spawnTimer += f;
           if (s.spawnTimer >= s.nextSpawn) {
             s.spawnTimer = 0;
             s.nextSpawn = Math.max(40, 70 + Math.floor(Math.random() * 80) - s.stage * 3);
@@ -358,7 +372,7 @@ export default function OfflineGame({ onClose }) {
 
           // Move + cull
           s.obstacles = s.obstacles.filter((o) => {
-            o.x -= s.speed;
+            o.x -= s.speed * f;
             if (!o.passed && o.x < p.x - 20) {
               // Player passed without hit — combo++
               o.passed = true;
@@ -372,7 +386,7 @@ export default function OfflineGame({ onClose }) {
             return o.x > -40;
           });
           s.pickups = s.pickups.filter((pk) => {
-            pk.x -= s.speed;
+            pk.x -= s.speed * f;
             return pk.x > -40;
           });
           s.particles = s.particles.filter((pt) => {
@@ -390,13 +404,13 @@ export default function OfflineGame({ onClose }) {
 
           // Combo timeout
           if (s.combo > 0) {
-            s.comboTimer--;
+            s.comboTimer -= f;
             if (s.comboTimer <= 0) s.combo = 0;
           }
 
           // Score multiplier from combo
           const mult = s.combo >= 20 ? 3 : s.combo >= 10 ? 2 : s.combo >= 5 ? 1.5 : 1;
-          s.score += 0.1 * mult;
+          s.score += 0.1 * mult * f;
 
           // Collisions — obstacles
           const px = p.x;
@@ -463,7 +477,7 @@ export default function OfflineGame({ onClose }) {
             setComboDisplay(s.combo);
           }
 
-          s.frame++;
+          s.frame += f;
         } else {
           // Animate clouds + particles even when not playing (subtle life)
           s.clouds = s.clouds.map((c) => {
@@ -478,7 +492,7 @@ export default function OfflineGame({ onClose }) {
             pt.life--;
             return pt.life > 0;
           });
-          s.frame++;
+          s.frame += f;
         }
 
         // ── render ──

@@ -597,3 +597,54 @@ test('reclaiming never trades a student\u2019s work for space', () => {
   sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: [1] }) });
   assert.deepEqual(sync.getSnapshot().data.notes, { 12: 'my note' }, 'notes must survive a reclaim');
 });
+
+test('an append-only field records a delta, not a second copy of itself', async () => {
+  // `history` grows by one row per answer. Storing the previous array
+  // alongside the new one put a full copy of it into meta AND the outbox AND
+  // the journal — ten copies at the peak of a write.
+  const { changeDelta } = await import('../../src/lib/user-data-sync.js');
+  const base = [{ id: 1 }, { id: 2 }];
+  const value = [{ id: 1 }, { id: 2 }, { id: 3 }];
+  const delta = changeDelta(base, value);
+  assert.deepEqual(delta.added, ['id:3']);
+  assert.deepEqual(delta.removed, []);
+
+  const storage = new MemoryStorage();
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
+  const big = Array.from({ length: 400 }, (_, i) => ({ id: i, pad: 'x'.repeat(60) }));
+  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: big.map((b) => b.id) }) });
+  const meta = JSON.parse(storage.getItem('vmx-user-sync-v1:anonymous'));
+  assert.ok(meta.dirty.bookmarks, 'bookmarks should be dirty');
+  assert.ok(!('base' in meta.dirty.bookmarks), 'the old array must not be stored again');
+  assert.ok(Array.isArray(meta.dirty.bookmarks.added));
+});
+
+test('clearing a list still deletes it rather than merging it back', () => {
+  // This is what `base` existed for. The delta has to preserve it exactly:
+  // "ล้างข้อมูลทั้งหมด" must not resurrect from the cloud copy.
+  const storage = new MemoryStorage();
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
+  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: [1, 2, 3] }) });
+  sync.send({ type: 'CHANGE', principalId: null, derive: () => ({ bookmarks: [] }) });
+  const meta = JSON.parse(storage.getItem('vmx-user-sync-v1:anonymous'));
+  const entry = meta.dirty.bookmarks;
+  assert.deepEqual(entry.value, []);
+  assert.equal(entry.removed.length, 3, 'all three must be recorded as removed');
+  assert.deepEqual(entry.added, [], 'nothing was added on the way to empty');
+});
+
+test('a record written by the previous build still loads', () => {
+  // Old-shape records with a full `base` are sitting in storage at upgrade
+  // time; refusing them would drop changes a student already made.
+  const storage = new MemoryStorage();
+  storage.setItem('vmx-user-op-v1:anonymous:legacy', JSON.stringify({
+    version: 1, token: 'legacy:1', createdAt: 1,
+    changes: { bookmarks: { base: [1], value: [1, 2] } },
+  }));
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
+  // 2 was added locally and survives; 1 was already in the base and is absent
+  // from the empty remote, so the merge reads it as deleted elsewhere. What
+  // matters here is that the record was READ at all rather than rejected by
+  // the validation — a rejected record would leave bookmarks empty.
+  assert.deepEqual(sync.getSnapshot().data.bookmarks, [2], 'the old-shape record must still replay');
+});
