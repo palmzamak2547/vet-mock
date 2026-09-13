@@ -57,3 +57,86 @@ test('the weak pool is ordered by how often the question was missed', () => {
     'weak questions are no longer ranked by wrong-count — the cap would truncate arbitrarily',
   );
 });
+
+// ── What Panic Mode draws from ──────────────────────────────────────
+// Panic is opened the night before a paper, so what it serves has to be the
+// closest thing to one that the bank holds. Three promises the card now makes,
+// all three broken in the first build: the tap said only "เริ่มทบทวน" while
+// opening a fixed 25-question set, the 25 came from a 30-minute default the
+// card never passed, and the set itself was a plain shuffle of the subject.
+
+test('both Panic entries draw from the Panic pool', () => {
+  const panics = [...APP.matchAll(/const startPanicSession|const startSubjectPanic/g)];
+  assert.equal(panics.length, 2, 'expected the cross-subject and per-subject Panic entries');
+  assert.equal([...APP.matchAll(/panicPool: true/g)].length, 2, 'a Panic entry stopped asking for the Panic pool');
+  assert.ok(
+    APP.includes('if (overrides.panicPool) {'),
+    'startExam no longer honours panicPool, so asking for it does nothing',
+  );
+  assert.match(APP, /ranked = panicPool\(ranked, \(q\) =>/,
+    'the Panic pool is no longer told what this student keeps missing');
+});
+
+test('a per-subject Panic is not cut to a fixed size', () => {
+  const fn = APP.slice(APP.indexOf('const startSubjectPanic'), APP.indexOf('const landingPickSubject'));
+  assert.match(fn, /numQuestions: PANIC_SUBJECT_MAX/, 'the per-subject cram is back on a fixed size');
+  assert.doesNotMatch(fn, /PANIC_SIZE/, 'the per-subject cram reads a time preset again');
+  const cap = Number(APP.match(/export const PANIC_SUBJECT_MAX = (\d+);/)?.[1]);
+  assert.ok(cap >= 500, `PANIC_SUBJECT_MAX ${cap} would truncate the largest subject pool`);
+});
+
+test('the card prints the number the session will serve', async () => {
+  const { Q_PANIC_COUNTS_BY_SUBJECT } = await import('../../src/data/q-counts.js');
+  const view = readFileSync(new URL('../../src/views/TopicSelectView.jsx', import.meta.url), 'utf8');
+  assert.match(view, /Q_PANIC_COUNTS_BY_SUBJECT\[subject\] \|\| countFor\('all'\)/,
+    'the card prints its own number again — it can disagree with the set it opens');
+  assert.match(view, /questionCount=\{panicCount\}/);
+  // The generated counts are what both sides read, so they have to be real.
+  assert.ok(Q_PANIC_COUNTS_BY_SUBJECT['milk-meat-hygiene'] > 0, 'the counts index lost its subjects');
+});
+
+test('the Panic pool is a filter with one honest fallback', async () => {
+  const { panicPool } = await import('../../src/lib/question-metadata.js');
+  const paper = { id: 1, subject: 's', sourceType: 'past-paper' };
+  const aligned = { id: 2, subject: 's', tags: ['topic', 'อิงแนวข้อสอบ'] };
+  const ordinary = { id: 3, subject: 's', sourceType: 'student-compilation' };
+  assert.deepEqual(panicPool([ordinary, aligned, paper]).map((q) => q.id), [1, 2],
+    'an ordinary question reached a cram that is supposed to exclude it');
+  // A subject holding neither would otherwise open an empty session.
+  assert.deepEqual(panicPool([ordinary]).map((q) => q.id), [3]);
+  assert.deepEqual(panicPool([]), []);
+});
+
+test('inside a band, what the student keeps missing comes first', async () => {
+  const { panicPool } = await import('../../src/lib/question-metadata.js');
+  const paper = (id) => ({ id, subject: 's', sourceType: 'past-paper' });
+  const missed = { 11: 3, 12: 0, 13: 1 };
+  const out = panicPool([paper(12), paper(13), paper(11)], (q) => missed[q.id]);
+  assert.deepEqual(out.map((q) => q.id), [11, 13, 12]);
+  // Provenance still outranks it: a missed ordinary-band question cannot jump
+  // ahead of a past paper.
+  const alignedMissed = { id: 20, subject: 's', tags: ['อิงแนวข้อสอบ'] };
+  const paperUnseen = paper(21);
+  assert.deepEqual(
+    panicPool([alignedMissed, paperUnseen], (q) => (q.id === 20 ? 9 : 0)).map((q) => q.id),
+    [21, 20],
+  );
+});
+
+test('ties keep the order they arrived in, so two crams are not identical', async () => {
+  const { panicPool } = await import('../../src/lib/question-metadata.js');
+  const paper = (id) => ({ id, subject: 's', sourceType: 'past-paper' });
+  const given = [paper(5), paper(6), paper(7)];
+  assert.deepEqual(panicPool(given).map((q) => q.id), [5, 6, 7]);
+  assert.deepEqual(panicPool([...given].reverse()).map((q) => q.id), [7, 6, 5]);
+});
+
+test('the mock re-sort cannot undo the Panic order', () => {
+  // Panic's whole value is the sequence. The examOrigin re-sort runs right
+  // after the pick and orders by id, and most past-paper questions carry
+  // examOrigin — so without this guard the cram came back in id order and the
+  // priority work was invisible. Caught on the real screen: สุขศาสตร์น้ำนม
+  // opened on an อิงแนวข้อสอบ question while 80 past-paper ones waited.
+  assert.match(APP, /if \(!overrides\.panicPool && picked\.some\(\(q\) => q\.examOrigin\)\)/,
+    'the id re-sort is unguarded again and will flatten the Panic order');
+});

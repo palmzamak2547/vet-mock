@@ -46,7 +46,16 @@ test('startExam reads the mode override and applies it like the timer overrides'
 test('a curated set is picked in order; ordinary practice still shuffles', () => {
   const fn = between('const startExam = async (overrides = {}) => {', 'const finishExam = async () => {');
   assert.match(fn, /const ordered = USER_CURATED_MODES\.has\(_practiceMode\);/);
-  assert.match(fn, /\(ordered \? pool : shuffle\(pool\)\)\.slice\(/, 'the pick must only shuffle non-curated pools');
+  assert.match(fn, /let ranked = ordered \? pool : shuffle\(pool\);/, 'the pick must only shuffle non-curated pools');
+  // Panic Mode narrows and re-orders `ranked` between the shuffle and the
+  // slice. That step must stay AFTER the curated check, or a most-missed-first
+  // set would be re-sorted by provenance and stop being most-missed-first.
+  assert.match(fn, /let picked = ranked\.slice\(/, 'the pick no longer comes from the ranked list');
+  assert.ok(
+    fn.indexOf('let ranked = ordered') < fn.indexOf('overrides.panicPool')
+      && fn.indexOf('overrides.panicPool') < fn.indexOf('let picked = ranked.slice('),
+    'the Panic narrowing must sit between the curated check and the slice',
+  );
   assert.doesNotMatch(fn, /let picked = shuffle\(pool\)\.slice/, 'the unconditional shuffle is back');
 });
 

@@ -11,17 +11,10 @@
 
 const TIMEOUT_MS = 60_000; // AI calls can take 10-30s; allow up to 60s
 
-export async function gradeWithAI({
-  type,           // 'essay' | 'short'
-  passage,        // string (optional but recommended)
-  question,       // string (the prompt the student answered)
-  userAnswer,     // string (student's response)
-  modelAnswer,    // string (KEY from textbook)
-  rubric,         // string (marking criteria)
-  targetWords,    // number (essay only)
-  softMaxWords,   // number (essay only)
-  hardMaxWords,   // number (essay only)
-}) {
+// The question id is all the server needs: it holds the question, the model
+// answer and the rubric itself. Sending them from here would let anyone with
+// the network tab open post their own key and use this to answer anything.
+export async function gradeWithAI({ qid, userAnswer }) {
   if (!userAnswer || !userAnswer.trim()) {
     return { ok: false, error: 'ยังไม่ได้เขียนคำตอบ' };
   }
@@ -33,10 +26,7 @@ export async function gradeWithAI({
     const resp = await fetch('/api/grade-summary', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type, passage, question, userAnswer, modelAnswer, rubric,
-        targetWords, softMaxWords, hardMaxWords,
-      }),
+      body: JSON.stringify({ qid, userAnswer }),
       signal: controller.signal,
     });
 

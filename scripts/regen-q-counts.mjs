@@ -40,7 +40,7 @@ const predictionM = await import(pathToFileURL(path.join(root, 'src/lib/question
 const deliveryM = await import(pathToFileURL(path.join(root, 'src/data/question-delivery.generated.js')).href);
 const { QB, loadQB } = m;
 const { SUBJECTS } = curM;
-const { UNASSIGNED_TOPIC, isPastPaperQuestion, questionTopicId } = metadataM;
+const { UNASSIGNED_TOPIC, isPastPaperQuestion, questionTopicId, panicRank } = metadataM;
 const { isCurrentScopeQuestion, isHighPredictionQuestion } = predictionM;
 const { isQuestionDeliverable } = deliveryM;
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
@@ -75,6 +75,7 @@ const byYear = {};
 const byVisibleYear = {};
 const byTopic = {};
 const byPastPaperTopic = {};
+const byPanicSubject = {};
 const byCurrentScopePhase = {};
 const byHighPredictionPhase = {};
 
@@ -107,6 +108,9 @@ for (const q of deliverableQuestions) {
   const isVisible = !hidden || !hidden.has(q.topic);
   if (isVisible) {
     byVisibleSubject[subj] = (byVisibleSubject[subj] || 0) + 1;
+    // What Panic Mode will actually serve for this subject, counted the same
+    // way the session builds it so the card's number and the set agree.
+    if (panicRank(q) < 2) byPanicSubject[subj] = (byPanicSubject[subj] || 0) + 1;
     if (q.curriculumVersion && isCurrentScopeQuestion(q, { curriculumVersion: q.curriculumVersion })) {
       incrementScopedPrediction(byCurrentScopePhase, q, subj);
     }
@@ -150,6 +154,16 @@ lines.push('// the page doesn\'t need to scan the full QB at render time.');
 lines.push('export const Q_VISIBLE_COUNTS_BY_SUBJECT = {');
 for (const k of Object.keys(byVisibleSubject).sort()) {
   lines.push(`  '${k}': ${byVisibleSubject[k]},`);
+}
+lines.push('};');
+lines.push('');
+lines.push('// What Panic Mode holds per subject: questions from a real paper plus the');
+lines.push('// ones written from what a senior cohort marked, hidden topics excluded.');
+lines.push('// A subject missing from this map has neither, and its Panic card falls');
+lines.push('// back to the whole subject.');
+lines.push('export const Q_PANIC_COUNTS_BY_SUBJECT = {');
+for (const k of Object.keys(byPanicSubject).sort()) {
+  lines.push(`  '${k}': ${byPanicSubject[k]},`);
 }
 lines.push('};');
 lines.push('');

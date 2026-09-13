@@ -17,6 +17,13 @@
 
 const DEEPSEEK_URL = 'https://api.deepseek.com/chat/completions';
 
+// One ceiling on model spend per day, shared by every route that bills to the
+// same key, and therefore one number. It lived in each route before, and they
+// drifted apart: grading had been raised to 4000 while wiki-explain still
+// checked the same counter against 600, so the wiki answered "capacity
+// reached" for the rest of the day at a point where the budget was 15% spent.
+export const LLM_DAILY_BUDGET = 4000;
+
 const cut = (s, n = 300) => String(s ?? '').slice(0, n);
 
 async function callDeepSeek({ apiKey, model, thinkingOff, system, user, maxTokens, signal }) {

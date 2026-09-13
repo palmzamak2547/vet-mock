@@ -30,7 +30,7 @@
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
 import { createHash } from 'node:crypto';
 
-import { chatJSON, extractJSON, llmConfigured, hasCJK } from './_lib/llm.js';
+import { chatJSON, extractJSON, llmConfigured, hasCJK, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { loadTopic } from '../src/lib/vetwiki/index.js';
 import { retrieveSections, sectionsForPicks } from '../src/lib/vetwiki/retrieve.js';
 import { validateAnswer, allowedFromSections } from '../src/lib/vetwiki/answer.js';
@@ -165,7 +165,7 @@ export default async function handler(req, res) {
       });
     }
 
-    const providerBudget = await rateLimit('provider:llm:daily', 600, 24 * 60 * 60 * 1000);
+    const providerBudget = await rateLimit('provider:llm:daily', LLM_DAILY_BUDGET, 24 * 60 * 60 * 1000);
 
     if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {

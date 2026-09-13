@@ -521,7 +521,9 @@ test('the panic artwork each card points at is actually in the repo', async () =
 test('a panic session is scoped to its own subject', () => {
   // The cross-subject cram already existed; the card's whole point is that it
   // does NOT hand a student revising one paper questions from another.
-  assert.ok(APP.includes('const startSubjectPanic = (subjectId, timeKey'));
+  // No time argument: the per-subject cram serves everything the Panic pool
+  // holds for that subject rather than a slice sized by a time preset.
+  assert.ok(APP.includes('const startSubjectPanic = (subjectId) =>'));
   const fn = APP.slice(APP.indexOf('const startSubjectPanic'), APP.indexOf('// Pick a real subject from the landing'));
   assert.ok(fn.includes('subject: subjectId'), 'the pool must be built for that subject');
   assert.ok(!fn.includes("subject: 'all'"), 'never the cross-subject pool');

@@ -32,7 +32,7 @@ const PLAY_MS = 3400;
 // The ripple only makes sense where the animal is in water.
 const RIPPLE_SUBJECTS = new Set(['aquatic-clinic', 'milk-meat-hygiene']);
 
-export default function PanicCard({ subjectId, subjectName, onStart }) {
+export default function PanicCard({ subjectId, subjectName, onStart, questionCount = 25 }) {
   const card = panicCardFor(subjectId);
   const [playing, setPlaying] = useState(false);
   const timer = useRef(0);
@@ -84,7 +84,7 @@ export default function PanicCard({ subjectId, subjectName, onStart }) {
       onClick={() => { play(); onStart?.(subjectId); }}
       onFocus={play}
       onPointerEnter={(e) => { if (e.pointerType === 'mouse') play(); }}
-      aria-label={`Panic Mode เริ่มทบทวนเร่งด่วน วิชา${subjectName || card.th}`}
+      aria-label={`Panic Mode เริ่มทบทวนเร่งด่วน ${questionCount} ข้อ วิชา${subjectName || card.th}`}
       style={{
         '--panic-ink': card.ink,
         '--panic-paper': card.paper,
@@ -116,8 +116,11 @@ export default function PanicCard({ subjectId, subjectName, onStart }) {
         <span className="vmx-panic-sub">ทบทวนเร่งด่วน</span>
         <span className="vmx-panic-sub">{subjectName || card.th}</span>
       </span>
+      {/* One tap, so the tap has to say what it gives. It used to read just
+          "เริ่มทบทวน", and the set it opened was 25 questions for no reason
+          the card ever stated. */}
       <span className="vmx-panic-cta">
-        <span>เริ่มทบทวน</span>
+        <span>เริ่มทบทวน {questionCount} ข้อ</span>
         <span className="vmx-panic-arrow" aria-hidden="true">→</span>
       </span>
     </button>

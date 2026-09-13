@@ -57,6 +57,7 @@ import { appPathForView, isAppPath, viewForAppPath, frontDoorFor } from './lib/v
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import { SEMESTER } from './data/semester.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from './lib/question-prediction.js';
+import { panicPool } from './lib/question-metadata.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -319,6 +320,9 @@ function isInteractiveKeyTarget(target) {
 
 // How many questions a Panic session asks for, per "how long have I got".
 export const PANIC_SIZE = { 15: 12, 30: 25, 60: 50, tonight: 120 };
+// A per-subject Panic serves everything it has rather than a slice of it, so
+// this is a ceiling, not a size. The largest subject pool today is 237.
+export const PANIC_SUBJECT_MAX = 1000;
 
 // 'weak' means "the questions you miss most", which is why it is capped and
 // ordered — that is what separates it from 'wrong' (everything ever missed).
@@ -1950,12 +1954,31 @@ export default function App() {
     // ten random ones from everything they had ever missed, not their ten
     // weakest. Ordinary practice still shuffles.
     const ordered = USER_CURATED_MODES.has(_practiceMode);
-    let picked = (ordered ? pool : shuffle(pool)).slice(0, Math.min(qCount, pool.length));
+    let ranked = ordered ? pool : shuffle(pool);
+    // Panic Mode is opened the day before a paper, so it narrows to the
+    // questions closest to one — a real paper first, then the ones written
+    // from what a senior cohort marked — and inside each band puts what this
+    // student keeps getting wrong at the top. panicPool owns both rules and
+    // the fallback for a subject that holds neither kind.
+    if (overrides.panicPool) {
+      const { keys: missedKeys, counts: missedCounts } = stillWrong(history);
+      ranked = panicPool(ranked, (q) => {
+        const key = `${q.subject}:${q.id}`;
+        return missedKeys.has(key) ? (missedCounts.get(key) || 1) : 0;
+      });
+    }
+    let picked = ranked.slice(0, Math.min(qCount, pool.length));
     // Mock-tagged questions (examOrigin set) belong to a structured
     // exam — passage Q1 must come before Q2, etc. Re-sort by ID
     // after the random pick so passage flow is preserved while still
     // sampling randomly from the larger pool.
-    if (picked.some((q) => q.examOrigin)) {
+    //
+    // Not for a Panic set. Its order IS the feature — real papers first, then
+    // what the cohort marked, then what this student keeps missing — and 214
+    // of the 493 questions Panic can serve carry examOrigin, so this line
+    // silently re-sorted the whole cram by id and threw all of that away. It
+    // was doing so for nothing: not one of those questions has a passage.
+    if (!overrides.panicPool && picked.some((q) => q.examOrigin)) {
       picked = picked.sort((a, b) => a.id - b.id);
     }
     // Per-question time uses timeForQuestion(): essays get 25 min minimum,
@@ -2517,41 +2540,45 @@ export default function App() {
   // empty pool.
   const startPanicSession = (timeKey = '30') => {
     const n = PANIC_SIZE[timeKey] || PANIC_SIZE['30'];
-    const knowsWeakSpots = Array.isArray(history) && history.length >= 20;
     setMode('quick');
     setSubject('all');
     startExam({
       subject: 'all',
       topic: null,
-      practiceMode: knowsWeakSpots ? 'weak' : 'all',
+      practiceMode: 'all',
       questionCategory: 'all',
       numQuestions: n,
       useTimer: timeKey !== 'tonight',
       timePerQ: 60,
+      // The size here is what the student SAID they had time for, so it
+      // stays; which questions fill it is panicPool's decision.
+      panicPool: true,
     });
   };
   // The same cram, scoped to ONE subject. The cross-subject Panic above is for
   // "my exam is tomorrow and I do not know where to start"; this one is for
   // "the สุขศาสตร์น้ำนม paper is tomorrow", where questions from equine repro
-  // are not revision, they are noise. Weak-topic prioritisation is kept — it
-  // is what makes a cram worth more than a shuffle — but only within the
-  // subject, and it falls back to the whole subject when there is not enough
-  // history to know where the student is weak.
-  const startSubjectPanic = (subjectId, timeKey = '30') => {
+  // are not revision, they are noise.
+  //
+  // It is NOT cut to a fixed size. The card opened a 25-question set because
+  // it passed no time and 30 minutes was the default — a number that appeared
+  // nowhere and had nothing to do with the subject. What Panic holds for a
+  // subject is a real quantity (237 for สุขศาสตร์น้ำนม, 23 for คลินิกสัตว์น้ำ),
+  // the card prints it, and the session serves all of it in priority order.
+  const startSubjectPanic = (subjectId) => {
     if (!subjectId) return;
-    const n = PANIC_SIZE[timeKey] || PANIC_SIZE['30'];
-    const knowsWeakSpots = Array.isArray(history) && history.length >= 20;
     setMode('quick');
     setSubject(subjectId);
     setTopic(null);
     startExam({
       subject: subjectId,
       topic: null,
-      practiceMode: knowsWeakSpots ? 'weak' : 'all',
+      practiceMode: 'all',
       questionCategory: 'all',
-      numQuestions: n,
-      useTimer: timeKey !== 'tonight',
+      numQuestions: PANIC_SUBJECT_MAX,
+      useTimer: true,
       timePerQ: 60,
+      panicPool: true,
     });
   };
   // Pick a real subject from the landing → the exact sequence a subject

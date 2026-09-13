@@ -16,6 +16,7 @@ import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
 import { promptDialog, alertDialog } from '../lib/dialog.js';
 import MatchDragDrop from './MatchDragDrop.jsx';
+import MissCoach from './MissCoach.jsx';
 import Mochi from './Mochi.jsx';
 import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
 
@@ -284,6 +285,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               ok={mcqOk}
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
               explain={currentQ.explain}
+              coach={!mcqOk && <MissCoach q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
             />
           )}
@@ -707,7 +709,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, correctNode, explain, wikiLink }) {
+function InstantFeedback({ ok, correctNode, explain, coach, wikiLink }) {
   return (
     <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <Mochi state={ok ? 'correct' : 'encourage'} size={48} slot="feedback" animate className="vmx-feedback-mochi" />
@@ -718,6 +720,7 @@ function InstantFeedback({ ok, correctNode, explain, wikiLink }) {
       {explain && (
         <div className="w"><span className="k">เหตุผล</span><RichText text={explain} /></div>
       )}
+      {coach}
       {wikiLink}
     </MotionEnter>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import AiGradePanel from './AiGradePanel.jsx';
 
 // ============================================================
 // SmartGrader — rubric-based self-grading without an LLM
@@ -278,6 +279,12 @@ export default function SmartGrader({ q, userAnswer }) {
           <ShortRubric grade={shortGrade} setGrade={setShortGrade} rubric={q.rubric} />
         )
       )}
+
+      {/* ── A second opinion, asked for ──
+          Last on purpose. The panels above are where the student thinks about
+          their own answer, and a score handed over before that replaces the
+          thinking instead of checking it. Never fires on its own. */}
+      {trimmedAns && <AiGradePanel q={q} userAnswer={ans} />}
 
       {!trimmedAns && (
         <div style={{ padding: 12, fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'center' }}>

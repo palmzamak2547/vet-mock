@@ -16,6 +16,7 @@ import PinButton from './PinButton.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import { safeLinkUrl } from '../lib/safe-url.js';
+import RecallQuiz from './RecallQuiz.jsx';
 
 // ─────────────────────────────────────────────────────────────
 // Mini markdown → HTML renderer
@@ -162,6 +163,11 @@ export default function SummaryModal({ summary, onClose }) {
   const dialogRef = useModalFocus({ active: Boolean(summary), onClose });
   const { reduced } = useMotionPreferences();
   const bodyRef = useRef(null);
+  // The scroll container now holds the recall panel as well as the prose, so
+  // the reveal observer needs the prose element itself — observing the
+  // container's children would have animated two big blocks instead of each
+  // paragraph, and swept the panel into the same fade.
+  const proseRef = useRef(null);
   const [progress, setProgress] = useState(0);
 
   // How far through the lecture they have read. A summary of a two-hour
@@ -179,10 +185,11 @@ export default function SummaryModal({ summary, onClose }) {
   // the summary is simply visible — never a blank modal.
   useEffect(() => {
     const el = bodyRef.current;
-    if (!el) return undefined;
+    const prose = proseRef.current;
+    if (!el || !prose) return undefined;
     trackProgress();
     if (reduced || typeof IntersectionObserver !== 'function') return undefined;
-    const blocks = Array.from(el.children);
+    const blocks = Array.from(prose.children);
     if (!blocks.length) return undefined;
     const io = new IntersectionObserver((entries) => {
       for (const entry of entries) {
@@ -325,8 +332,10 @@ export default function SummaryModal({ summary, onClose }) {
             fontSize: 15,
             color: 'var(--clr-ink)',
           }}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        >
+          <div ref={proseRef} dangerouslySetInnerHTML={{ __html: html }} />
+          <RecallQuiz videoId={summary.videoId} />
+        </div>
 
         {/* Footer */}
         {summary.examFormat && (

@@ -18,6 +18,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { NIGHT_RANK_EVENT, takePromotion } from '../lib/night-rank.js';
 import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
+import WeakSpots from '../components/WeakSpots.jsx';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
 // canvas and return a Blob. Pure-canvas, no external deps. Designed to
@@ -447,6 +448,13 @@ export default function ResultsView({
         setUseTimer={setUseTimer}
         replayQuestions={replayQuestions}
         receiverDurationSec={receiverDurationSec}
+      />
+
+      {/* The pattern across the misses, before the standing advice about what
+          the system does next — the specific thing is the reason to read on. */}
+      <WeakSpots
+        wrongQs={autoQs.filter((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id]))}
+        answers={answers}
       />
 
       <RecommendationsBox

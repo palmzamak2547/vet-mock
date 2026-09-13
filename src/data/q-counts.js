@@ -10,13 +10,13 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4985;
-export const QB_SOURCE_TOTAL = 5050;
+export const QB_TOTAL = 5104;
+export const QB_SOURCE_TOTAL = 5169;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 139,
-  'avian-medicine': 232,
+  'avian-medicine': 302,
   'biochem-1': 272,
   'cliapprum': 136,
   'com1': 31,
@@ -31,7 +31,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'equine-medicine': 219,
   'equine-repro': 144,
   'exotic': 151,
-  'food-industry': 86,
+  'food-industry': 135,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 68,
@@ -66,7 +66,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 139,
-  'avian-medicine': 232,
+  'avian-medicine': 302,
   'biochem-1': 272,
   'cliapprum': 134,
   'com1': 31,
@@ -81,7 +81,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'equine-medicine': 219,
   'equine-repro': 144,
   'exotic': 108,
-  'food-industry': 70,
+  'food-industry': 119,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 68,
@@ -110,12 +110,56 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'zoonoses': 194,
 };
 
+// What Panic Mode holds per subject: questions from a real paper plus the
+// ones written from what a senior cohort marked, hidden topics excluded.
+// A subject missing from this map has neither, and its Panic card falls
+// back to the whole subject.
+export const Q_PANIC_COUNTS_BY_SUBJECT = {
+  'aquatic-clinic': 23,
+  'avian-medicine': 74,
+  'biochem-1': 272,
+  'cliapprum': 8,
+  'com1': 31,
+  'com2': 42,
+  'com3': 178,
+  'com4': 33,
+  'com5': 10,
+  'comp-repro-clinic': 48,
+  'engprof': 1,
+  'equine-repro': 65,
+  'exotic': 34,
+  'food-industry': 49,
+  'food-safety-y4': 31,
+  'herd-health-rum': 35,
+  'livestock-pathology': 68,
+  'milk-meat-hygiene': 237,
+  'one-health': 10,
+  'poa-clinical': 16,
+  'poultry': 68,
+  'practrum': 17,
+  'rec-adv-bioscience': 4,
+  'repro': 31,
+  'repro-lect': 78,
+  'ruminant-clinical': 15,
+  'surg1': 29,
+  'surg2': 18,
+  'surg3': 40,
+  'swine-clinic': 33,
+  'swine-herd': 27,
+  'swine-repro': 29,
+  'vca': 18,
+  'vet-dev-anat': 26,
+  'vet-imaging': 35,
+  'vet-juris': 46,
+  'zoonoses': 2,
+};
+
 export const Q_COUNTS_BY_YEAR = {
   1: 298,
   2: 144,
   3: 62,
   4: 2076,
-  5: 2405,
+  5: 2524,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -127,7 +171,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 2389,
+  5: 2508,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -146,24 +190,24 @@ export const Q_COUNTS_BY_TOPIC = {
     "aqua-water-quality": 8,
   },
   "avian-medicine": {
-    "avian-ai": 7,
-    "avian-cia": 21,
-    "avian-coli": 3,
-    "avian-coryza": 3,
-    "avian-fowl-cholera": 4,
-    "avian-ib": 16,
-    "avian-ibd": 12,
-    "avian-intro": 42,
-    "avian-lt": 15,
-    "avian-marek": 17,
+    "avian-ai": 9,
+    "avian-cia": 23,
+    "avian-coli": 4,
+    "avian-coryza": 5,
+    "avian-fowl-cholera": 5,
+    "avian-ib": 18,
+    "avian-ibd": 13,
+    "avian-intro": 84,
+    "avian-lt": 16,
+    "avian-marek": 19,
     "avian-mpv": 12,
     "avian-myco": 8,
-    "avian-nd": 21,
-    "avian-pox": 16,
-    "avian-reo": 10,
-    "avian-rss": 8,
-    "avian-serology": 12,
-    "avian-vaccine-prog": 5,
+    "avian-nd": 23,
+    "avian-pox": 18,
+    "avian-reo": 13,
+    "avian-rss": 9,
+    "avian-serology": 13,
+    "avian-vaccine-prog": 10,
   },
   "biochem-1": {
     "lab-carbohydrate": 7,
@@ -394,12 +438,12 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "food-industry": {
     "fiqc-aquatic": 16,
-    "fiqc-feed-qc": 9,
+    "fiqc-feed-qc": 15,
     "fiqc-haccp": 17,
-    "fiqc-intro": 9,
+    "fiqc-intro": 42,
     "fiqc-livestock-qc": 9,
     "fiqc-poultry-export": 17,
-    "fiqc-slaughter-qc": 9,
+    "fiqc-slaughter-qc": 19,
   },
   "food-safety-y4": {
     "dose-response": 1,
@@ -1203,4 +1247,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-13T12:27:14.106Z
+// Built: 2026-09-13T14:25:51.625Z

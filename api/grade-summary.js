@@ -13,14 +13,17 @@
 //
 // Security:
 //   • Origin-aware CORS (same-origin auto-allow + static allowlist)
-//   • Rate limit: 20 / hour / IP — generous for studying but bounded
+//   • The question is identified by ID and looked up server-side, so this
+//     cannot be used to grade — or answer — anything outside the corpus
+//   • Rate limit: 120 / hour / IP, under a shared 4000 / day provider budget
 //   • Input length capped (passage 20k, answer 5k)
 //   • Returns 503 if no provider is configured so the UI can fall
 //     back to self-grade gracefully
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { extractJSON, chatJSON, llmConfigured } from './_lib/llm.js';
+import { extractJSON, chatJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
+import WRITTEN from './_lib/written-questions.generated.json' with { type: 'json' };
 
 const MAX_PASSAGE = 20000;
 const MAX_ANSWER = 5000;
@@ -51,9 +54,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
 
-  // ── Rate limit: 20/hr/IP ──
+  // ── Rate limit ──
+  // 20/hr was tight for the thing this is actually for: a student works
+  // through a set of written answers in one sitting, re-reads the feedback and
+  // asks again after rewriting. The shared daily budget below is what protects
+  // the bill; this number only needs to stop one machine hammering it.
   const ip = clientIP(req);
-  const rl = await rateLimit(`grade:${ip}`, 20, 60 * 60 * 1000);
+  const rl = await rateLimit(`grade:${ip}`, 120, 60 * 60 * 1000);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   if (!llmConfigured(process.env)) {
@@ -65,27 +72,44 @@ export default async function handler(req, res) {
 
   try {
     const body = req.body || {};
-    const type = body.type === 'essay' ? 'essay' : 'short';
-    const passage = String(body.passage || '').slice(0, MAX_PASSAGE);
-    const question = String(body.question || '').slice(0, MAX_QUESTION);
     const userAnswer = String(body.userAnswer || '').slice(0, MAX_ANSWER);
-    const modelAnswer = String(body.modelAnswer || '').slice(0, MAX_MODEL);
-    const rubric = String(body.rubric || '').slice(0, MAX_RUBRIC);
-    const targetWords = Number(body.targetWords) || 150;
-    const softMax = Number(body.softMaxWords) || 180;
-    const hardMax = Number(body.hardMaxWords) || 200;
-
     if (!userAnswer.trim()) {
       return res.status(400).json({ error: 'Empty answer — write something first' });
     }
-    if (!question) {
-      return res.status(400).json({ error: 'Question text is required for grading context' });
+
+    // The question, its model answer and its rubric are looked up HERE, from
+    // the corpus, rather than taken from the request. Accepting them from the
+    // caller made this a general-purpose language model behind our key: post
+    // your own "model answer" and it will answer anything, on a daily budget
+    // shared with every real student. A question id can only ever name one of
+    // our own written questions.
+    const known = WRITTEN[String(body.qid ?? '')];
+    if (!known) {
+      return res.status(400).json({
+        error: 'Unknown question',
+        hint: 'ข้อนี้ยังไม่รองรับการตรวจอัตโนมัติ ใช้เกณฑ์ให้คะแนนด้วยตนเองได้',
+      });
     }
+    if (!known.model_answer) {
+      return res.status(422).json({
+        error: 'No model answer for this question',
+        hint: 'ข้อนี้ยังไม่มีคำตอบตัวอย่างให้เทียบ',
+      });
+    }
+
+    const type = known.type === 'essay' ? 'essay' : 'short';
+    const passage = String(known.passage || '').slice(0, MAX_PASSAGE);
+    const question = String(known.q || '').slice(0, MAX_QUESTION);
+    const modelAnswer = String(known.model_answer || '').slice(0, MAX_MODEL);
+    const rubric = String(known.rubric || '').slice(0, MAX_RUBRIC);
+    const targetWords = Number(known.target_words) || 150;
+    const softMax = Number(known.soft_max_words) || 180;
+    const hardMax = Number(known.hard_max_words) || 200;
 
     // A per-IP limit does not stop distributed quota burn. Keep one shared
     // daily ceiling shared with the other metered study routes; on exhaustion
     // the UI already falls back to self-grade / normal VetWiki reading.
-    const providerBudget = await rateLimit('provider:llm:daily', 600, 24 * 60 * 60 * 1000);
+    const providerBudget = await rateLimit('provider:llm:daily', LLM_DAILY_BUDGET, 24 * 60 * 60 * 1000);
     if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));

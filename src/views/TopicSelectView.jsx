@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
+import { Q_PANIC_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
 import { announced } from '../data/curriculum.js';
@@ -124,6 +125,12 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     && Number(selectedYear) === PANIC_CARD_SCOPE.year
     && selectedPhase === PANIC_CARD_SCOPE.phase,
   );
+  // What a tap actually opens. Panic narrows to the questions from a real
+  // paper plus the ones written from what a senior cohort marked, so the
+  // number is a property of the subject and differs a lot between them. A
+  // subject with neither falls back to its whole visible bank, and the card
+  // prints that instead — either way the button and the session agree.
+  const panicCount = Q_PANIC_COUNTS_BY_SUBJECT[subject] || countFor('all');
 
   return (
     <>
@@ -353,6 +360,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             key="panic"
             subjectId={subject}
             subjectName={subjectMeta?.name}
+            questionCount={panicCount}
             onStart={onStartPanic}
           />
         )}
