@@ -353,6 +353,36 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.91.0: 82 scoped glossary entries, and what the lint caught
+
+- 5.90.0 made the glossary subject-aware, which left the disciplines it had no entries for showing
+  nothing. This fills them: 16 avian, 14 swine, 16 ruminant, 16 equine, 20 public-health/epidemiology.
+  145 entries total (117 scoped, 28 universal). Questions carrying a tappable term go 726 -> **1,466
+  (28.4% of 5,169)**, and the subjects the cohort is actually sitting now lead the table —
+  avian-medicine 698 hits, milk-meat-hygiene 411, swine-clinic 213, epidemiology 208.
+- **IBD is now answered, not merely suppressed**: `avian-medicine` resolves to โรคกัมโบโร, `com4` to
+  ลำไส้อักเสบเรื้อรัง. Same for pyometra (equine vs small-animal) and uterine edema, whose equine card
+  names hypoalbuminaemia only to say it is NOT that.
+- **What the gates caught before it shipped**, all of it invisible by eye:
+  - `relative risk` shipped `odds ratio` and `attributable risk` as ALIASES. Three different
+    measures; tapping one would have opened a card headed as another. Same class: `sensitivity`
+    claimed `specificity`, and `R0` claimed `herd immunity`. Fixed by dropping the conflated aliases
+    and renaming one entry to `sensitivity & specificity` so the header is true for both words
+    that open it. **The rule is: an alias may only be a different name for the SAME thing, never a
+    neighbouring concept the card happens to discuss.**
+  - `aMPV` listed `AMPV` as an alias — the term again once lowercased. `lint:glossary` calls that
+    ambiguous, correctly.
+  - A 2-char alias (`RR`) that the detector can never match.
+- **Grounding check worth reusing**: every number in all 82 new entries was matched against the
+  material this repo holds for that discipline (notes + video summaries + that family's own question
+  stems, options and explanations). 0 numbers appeared that the corpus could not account for. It does
+  not prove a number is right in context, but it proves none was invented.
+- **A test that only passed because its branch never ran**: `assert.notMatch` does not exist on
+  node's assert (it is `doesNotMatch`), and the original assertion sat inside `if (avian) {...}` when
+  no avian entry existed. The moment the content landed, the test threw TypeError rather than
+  failing an assertion. Guarded branches in tests hide broken assertions — prefer asserting the
+  positive case exists.
+
 ## 2026-09-14 — 5.90.0: every route gets its own link preview
 
 - **What was wrong:** `/app/*` is one SPA shell, so all 31 routes served the same `index.html` and

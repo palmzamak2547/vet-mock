@@ -28,19 +28,37 @@ test('a term with one meaning per discipline resolves to the right one', () => {
   assert.match(`${smallAnimal.thai} ${smallAnimal.defShort}`, /enteropathy|bowel|ลำไส้/i);
 });
 
-test('a scoped card never opens in a discipline it was not written for', () => {
-  // If no avian IBD entry exists yet, the answer must be "nothing" —
-  // never the small-animal card. That is the whole fix.
+test('one spelling, two diseases, each in its own discipline', () => {
+  // The reported bug: a poultry Gumboro question opened a card about canine
+  // inflammatory bowel disease. Both senses now exist and neither can reach
+  // the other's subject.
   const avian = resolveGlossaryEntry('IBD', 'avian-medicine');
-  if (avian) {
-    assert.notMatch(`${avian.thai} ${avian.defShort} ${avian.defLong}`, /inflammatory bowel|chronic enteropathy|ลำไส้อักเสบเรื้อรัง/i,
-      'the small-animal IBD card must not be what opens on an avian question');
-  }
+  assert.ok(avian, 'IBD must resolve in avian medicine');
+  assert.deepEqual(avian.scope, ['avian']);
+  assert.doesNotMatch(`${avian.thai} ${avian.defShort} ${avian.defLong}`,
+    /inflammatory bowel|chronic enteropathy|ลำไส้อักเสบเรื้อรัง/i,
+    'the small-animal IBD card must never be what opens on an avian question');
+
+  const small = resolveGlossaryEntry('IBD', 'com4');
+  assert.notEqual(small, avian);
+  assert.match(`${small.thai} ${small.defShort}`, /bowel|enteropathy|ลำไส้/i);
 });
 
 test('a term with no in-scope entry resolves to nothing, not to a guess', () => {
-  assert.equal(resolveGlossaryEntry('pyometra', 'equine-repro'), null);
+  // The dosing on the enrofloxacin card is small-animal, and there is no
+  // poultry drug card yet — so a poultry question gets no card at all rather
+  // than a dog dose.
   assert.equal(resolveGlossaryEntry('enrofloxacin', 'poultry'), null);
+  assert.equal(resolveGlossaryEntry('FLUTD', 'aquatic-clinic'), null);
+});
+
+test('a mare with pyometra does not get the small-animal treatment', () => {
+  // The small-animal card prescribes ovariohysterectomy and warns of
+  // endotoxic shock; a mare is managed with PGF2alpha and lavage.
+  const mare = resolveGlossaryEntry('pyometra', 'equine-repro');
+  assert.ok(mare);
+  assert.deepEqual(mare.scope, ['equine']);
+  assert.notEqual(mare, resolveGlossaryEntry('pyometra', 'com4'));
 });
 
 test('universal entries resolve in every subject', () => {
@@ -66,7 +84,22 @@ test('detection is subject-aware, not just lookup', () => {
 test('a qualifier that changes the meaning suppresses the card', () => {
   assert.deepEqual(termsOf('สุนัขมี mitral regurgitation', 'com3'), []);
   assert.deepEqual(termsOf('regurgitation หลังกินอาหาร', 'com3'), ['regurgitation']);
-  assert.deepEqual(termsOf('uterine edema เกรด 3', 'equine-repro'), []);
+  // Outside equine there is no uterine-oedema card, and the general one is
+  // about hypoalbuminaemia — so nothing opens rather than the wrong thing.
+  assert.deepEqual(termsOf('uterine edema', 'com3'), []);
+});
+
+test('a discipline with its own card gets that one, not the general one', () => {
+  // The audit found the general `edema` card teaching hypoalbuminaemia on the
+  // two mare-cycle staging questions, where uterine oedema is a normal
+  // oestrogen effect. Longest-match plus scope now lands on the equine card.
+  const hit = detectTerms('uterine edema เกรด 3 ในม้า', 'equine-repro')[0];
+  assert.ok(hit, 'uterine edema should resolve in equine repro');
+  assert.equal(hit.term, 'uterine edema');
+  assert.deepEqual(hit.entry.scope, ['equine']);
+  // It may mention hypoalbuminaemia — the good card names it precisely to say
+  // this is NOT that. What matters is which reading it teaches.
+  assert.match(hit.entry.defLong, /estrogen|estrus|physiologic/i);
 });
 
 test('match offsets point at the term itself', () => {
