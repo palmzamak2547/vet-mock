@@ -167,6 +167,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-milk-hygiene-2026.js', export: 'QB_Y5_MILK_HYGIENE_2026', year: 5, count: 130,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-y5-milk-hygiene-2026.js').then((m) => m.QB_Y5_MILK_HYGIENE_2026) },
+  { file: 'questions-y5-milk-hygiene-pastpaper.js', export: 'QB_Y5_MILK_HYGIENE_PASTPAPER', year: 5, count: 157,
+    subjects: ['milk-meat-hygiene'],
+    load: () => import('./questions-y5-milk-hygiene-pastpaper.js').then((m) => m.QB_Y5_MILK_HYGIENE_PASTPAPER) },
   { file: 'questions-y5-one-health-2026-b.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_B', year: 5, count: 61,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-b.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_B) },
@@ -176,6 +179,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-one-health-2026.js', export: 'QB_Y5_ONE_HEALTH_2026', year: 5, count: 14,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026.js').then((m) => m.QB_Y5_ONE_HEALTH_2026) },
+  { file: 'questions-y5-one-health-pastpaper.js', export: 'QB_Y5_ONE_HEALTH_PASTPAPER', year: 5, count: 3,
+    subjects: ['one-health'],
+    load: () => import('./questions-y5-one-health-pastpaper.js').then((m) => m.QB_Y5_ONE_HEALTH_PASTPAPER) },
   { file: 'questions-y5-osce-med.js', export: 'QB_Y5_OSCE_MED', year: 5, count: 14,
     subjects: ['poa-clinical'],
     load: () => import('./questions-y5-osce-med.js').then((m) => m.QB_Y5_OSCE_MED) },
@@ -232,4 +238,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-05T11:00:17.112Z — 74 banks · 4890 Qs
+// Built: 2026-09-13T12:27:13.457Z — 76 banks · 5050 Qs

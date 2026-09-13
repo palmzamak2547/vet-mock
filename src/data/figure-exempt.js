@@ -16,4 +16,5 @@ export const FIGURE_EXEMPT = {
   2202: '"แผนผังโครงสร้างฟาร์ม" is part of the DEFINITION being tested — conceptual biosecurity IS farm layout. No diagram is referred to',
   105755: 'asks what a HACCP flow diagram must COVER, which is the standard scope of that artefact, not a reading off one printed on a slide',
   75029: "the stem DESCRIBES the plot instead of pointing at one — same y-intercept as uninhibited, different slope — which is exactly the reading a student must do; competitive inhibition follows from the description alone",
+  104658: 'the same case as 105755 — asks what a HACCP flow diagram must SPAN (receiving to distribution), which is the defined scope of that artefact. Nothing is being read off a printed diagram',
 };

@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 4825;
-export const QB_SOURCE_TOTAL = 4890;
+export const QB_TOTAL = 4985;
+export const QB_SOURCE_TOTAL = 5050;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -35,8 +35,8 @@ export const Q_COUNTS_BY_SUBJECT = {
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 68,
-  'milk-meat-hygiene': 290,
-  'one-health': 91,
+  'milk-meat-hygiene': 447,
+  'one-health': 94,
   'poa-clinical': 71,
   'poultry': 178,
   'practrum': 117,
@@ -85,8 +85,8 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 68,
-  'milk-meat-hygiene': 290,
-  'one-health': 91,
+  'milk-meat-hygiene': 447,
+  'one-health': 94,
   'poa-clinical': 71,
   'poultry': 132,
   'practrum': 113,
@@ -115,7 +115,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 2245,
+  5: 2405,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -127,7 +127,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 2229,
+  5: 2389,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -460,26 +460,27 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "milk-meat-hygiene": {
     "milk-biosec-dairy": 12,
-    "milk-borne-pathogens": 24,
-    "milk-cleaning": 10,
-    "milk-industry-std": 26,
-    "milk-mastitis": 27,
-    "milk-microbiology": 20,
-    "milk-overview": 9,
-    "milk-processing": 36,
-    "milk-products-storage": 10,
-    "milk-quality-composition": 37,
-    "milk-quality-determination": 11,
-    "milk-raw-std": 33,
-    "milk-raw-storage": 35,
+    "milk-borne-pathogens": 29,
+    "milk-cleaning": 13,
+    "milk-industry-std": 43,
+    "milk-mastitis": 65,
+    "milk-microbiology": 41,
+    "milk-overview": 21,
+    "milk-processing": 65,
+    "milk-products-storage": 11,
+    "milk-quality-composition": 58,
+    "milk-quality-determination": 16,
+    "milk-raw-std": 34,
+    "milk-raw-storage": 39,
   },
   "one-health": {
     "oh-amr": 10,
     "oh-collaboration": 6,
-    "oh-concept": 8,
+    "oh-communication": 1,
+    "oh-concept": 9,
     "oh-disease-prevention": 3,
     "oh-foodborne": 6,
-    "oh-global-network": 22,
+    "oh-global-network": 23,
     "oh-risk-analysis": 17,
     "oh-vet-role": 19,
   },
@@ -992,6 +993,9 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "milk-raw-storage": 14,
   },
   "one-health": {
+    "oh-communication": 1,
+    "oh-concept": 1,
+    "oh-global-network": 1,
     "oh-risk-analysis": 7,
   },
   "poa-clinical": {
@@ -1199,4 +1203,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-05T11:00:18.741Z
+// Built: 2026-09-13T12:27:14.106Z
