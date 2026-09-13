@@ -475,3 +475,118 @@ test('the home screen folds its two coaching surfaces into one row', () => {
   assert.ok(/\.vmx-home-extras > summary \{[\s\S]*?min-height: var\(--touch-min\);/.test(css),
     'the summary is a touch target');
 });
+
+// ── Panic cards, 2026-09-13 ────────────────────────────────────────────────
+
+test('every panic card names a real subject and agrees with its course code', async () => {
+  const { PANIC_CARDS, PANIC_CARD_SCOPE, PANIC_CARDS_NOT_EXAMINED } =
+    await import('../../src/data/panic-cards.js');
+  const inScope = (SUBJECTS_BY_YEAR[PANIC_CARD_SCOPE.year] || [])
+    .filter((s) => s.semester === PANIC_CARD_SCOPE.semester);
+  const byId = new Map(inScope.map((s) => [s.id, s]));
+
+  // The code is printed on the artwork AND stored in the curriculum. Two
+  // copies of one fact drift; a student reads both.
+  for (const [id, card] of Object.entries(PANIC_CARDS)) {
+    const subject = byId.get(id);
+    assert.ok(subject, `${id} must be a subject taught in the card's own term`);
+    assert.equal(String(card.code), String(subject.code),
+      `${id}: the card says ${card.code}, the curriculum says ${subject.code}`);
+    assert.match(card.paper, /^#[0-9a-f]{6}$/i);
+    assert.match(card.ink, /^#[0-9a-f]{6}$/i);
+    assert.ok(card.en && card.th, `${id} needs both titles for its accessible name`);
+  }
+
+  // A subject is either carded or deliberately not examined. Nothing may be
+  // simply absent, which is how a subject quietly loses its card.
+  const excused = new Set(PANIC_CARDS_NOT_EXAMINED);
+  for (const s of inScope) {
+    assert.ok(PANIC_CARDS[s.id] || excused.has(s.id),
+      `${s.id} is taught this term with neither a card nor a place on the not-examined list`);
+  }
+  for (const id of excused) {
+    assert.ok(!PANIC_CARDS[id], `${id} cannot be both carded and not examined`);
+    assert.ok(byId.has(id), `${id} is marked not-examined but is not taught this term`);
+  }
+});
+
+test('the panic artwork each card points at is actually in the repo', async () => {
+  const { PANIC_CARDS } = await import('../../src/data/panic-cards.js');
+  for (const [id, card] of Object.entries(PANIC_CARDS)) {
+    const p = new URL('../../public' + card.art, import.meta.url);
+    assert.ok(readFileSync(p).length > 1000, `${id}: ${card.art} is missing or empty`);
+  }
+});
+
+test('a panic session is scoped to its own subject', () => {
+  // The cross-subject cram already existed; the card's whole point is that it
+  // does NOT hand a student revising one paper questions from another.
+  assert.ok(APP.includes('const startSubjectPanic = (subjectId, timeKey'));
+  const fn = APP.slice(APP.indexOf('const startSubjectPanic'), APP.indexOf('// Pick a real subject from the landing'));
+  assert.ok(fn.includes('subject: subjectId'), 'the pool must be built for that subject');
+  assert.ok(!fn.includes("subject: 'all'"), 'never the cross-subject pool');
+  assert.ok(fn.includes('if (!subjectId) return;'), 'no subject means no session, not an all-subject one');
+  assert.ok(APP.includes('onStartPanic: startSubjectPanic'), 'and the subject screen is wired to it');
+});
+
+test('the card shows only for the exam it was drawn for', () => {
+  const view = src('src/views/TopicSelectView.jsx');
+  assert.ok(view.includes('Number(selectedYear) === PANIC_CARD_SCOPE.year'));
+  assert.ok(view.includes('selectedPhase === PANIC_CARD_SCOPE.phase'));
+  assert.ok(view.includes('panicCardFor(subject)'),
+    'a subject with no card must not render an empty slot');
+  // Placement: before the tabs, or it is not the first thing on the screen.
+  assert.ok(view.indexOf('vmx-panic-card-slot') < view.indexOf('className="vmx-section-tabs"'),
+    'the card belongs above the tabs');
+});
+
+test('the panic card is one control, and its motion cannot run away', () => {
+  const c = src('src/components/PanicCard.jsx');
+  // ONE button. The design kit is explicit that "เริ่มทบทวน →" is drawn
+  // inside the single button rather than being a control of its own —
+  // a button inside a button is invalid and unreachable by keyboard.
+  assert.equal((c.match(/<button/g) || []).length, 1, 'exactly one button');
+  assert.ok(!/<a\s/.test(c), 'and no link nested inside it');
+  assert.ok(c.includes('aria-label={`Panic Mode'), 'the button announces the subject');
+  // The artwork carries no words now, so it is purely decorative.
+  assert.ok((c.match(/aria-hidden="true"/g) || []).length >= 3,
+    'art layers, scrim and arrow are decorative');
+
+  // Motion: once, then still, and never against the reader's wishes.
+  assert.ok(c.includes('const PLAY_MS = 3400;'), 'a cycle is bounded');
+  assert.ok(c.includes("matchMedia('(prefers-reduced-motion: reduce)')"));
+  assert.ok(c.includes("document.addEventListener('visibilitychange'"),
+    'a hidden tab must not animate');
+  assert.ok(c.includes('if (reduced.current || document.hidden) return;'),
+    'both guards run before anything starts');
+  assert.ok(c.includes('clearTimeout(timer.current)'), 'and the timer is always cleared');
+
+  const css = src('src/styles.css');
+  assert.ok(/\.vmx-panic-card:focus-visible \{ outline: 3px solid/.test(css), 'keyboard focus visible');
+  // Only the picture moves. If the type or the CTA ever animates, the card
+  // stops being a place to read and starts being a distraction.
+  const playing = css.match(/\.vmx-panic-card\.is-playing [^{]+\{[^}]*animation[^}]*\}/g) || [];
+  assert.ok(playing.length >= 4, 'per-subject motion is wired');
+  for (const rule of playing) {
+    assert.ok(/vmx-panic-art|vmx-panic-ripple/.test(rule),
+      `only the art layers may animate, found: ${rule.slice(0, 60)}`);
+  }
+  assert.ok(css.includes('animation: none !important'), 'reduced motion stops all of it');
+  // Square drawings must never be cropped to fill.
+  assert.ok(/\.vmx-panic-art \{[\s\S]*?background-size: contain;/.test(css),
+    'contain, not cover — cover cuts the chicken head off');
+});
+
+test('the panic card sits in the topic grid, not above it', () => {
+  const view = src('src/views/TopicSelectView.jsx');
+  const grid = view.indexOf('className="vmx-topic-grid"');
+  const card = view.indexOf('<PanicCard');
+  // Match the rendered title, not the word wherever it appears — it is also
+  // in the comment above the card, which put this assertion the wrong way
+  // round the first time.
+  const allTopics = view.indexOf('<div className="title">รวมทุกหัวข้อ</div>');
+  assert.ok(grid > 0 && card > grid, 'the card is inside the grid');
+  assert.ok(card < allTopics, 'and comes before รวมทุกหัวข้อ');
+  assert.ok(!view.includes('vmx-panic-card-slot'),
+    'the full-width poster wrapper is gone — the kit rules it out explicitly');
+});

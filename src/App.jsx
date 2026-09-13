@@ -2530,6 +2530,30 @@ export default function App() {
       timePerQ: 60,
     });
   };
+  // The same cram, scoped to ONE subject. The cross-subject Panic above is for
+  // "my exam is tomorrow and I do not know where to start"; this one is for
+  // "the สุขศาสตร์น้ำนม paper is tomorrow", where questions from equine repro
+  // are not revision, they are noise. Weak-topic prioritisation is kept — it
+  // is what makes a cram worth more than a shuffle — but only within the
+  // subject, and it falls back to the whole subject when there is not enough
+  // history to know where the student is weak.
+  const startSubjectPanic = (subjectId, timeKey = '30') => {
+    if (!subjectId) return;
+    const n = PANIC_SIZE[timeKey] || PANIC_SIZE['30'];
+    const knowsWeakSpots = Array.isArray(history) && history.length >= 20;
+    setMode('quick');
+    setSubject(subjectId);
+    setTopic(null);
+    startExam({
+      subject: subjectId,
+      topic: null,
+      practiceMode: knowsWeakSpots ? 'weak' : 'all',
+      questionCategory: 'all',
+      numQuestions: n,
+      useTimer: timeKey !== 'tonight',
+      timePerQ: 60,
+    });
+  };
   // Pick a real subject from the landing → the exact sequence a subject
   // card uses in HomeView (reset practiceMode, set subject, topic-select).
   const landingPickSubject = (year, subjectId) => {
@@ -2751,7 +2775,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}

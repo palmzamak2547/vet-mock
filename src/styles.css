@@ -1557,6 +1557,177 @@ html, body {
 .vmx-motion-examples { margin-top: var(--space-4); border-top: 1px solid var(--clr-border); }
 .vmx-motion-examples > summary { min-height: var(--touch-min); padding: var(--space-3) 0; cursor: pointer; font-weight: 600; }
 
+/* Panic card — first cell of a subject's topic grid during its exam week.
+   One cell beside รวมทุกหัวข้อ at the same height, never a full-width poster.
+   The type is real text over a transparent illustration, so it stays crisp,
+   follows the theme and can be read aloud. */
+.vmx-panic-card {
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--panic-tint);
+  border-color: color-mix(in srgb, var(--panic-strong) 42%, var(--clr-border));
+  justify-content: flex-start;
+  /* The illustration needs somewhere to go, and the copy must not sit under
+     the widest part of it. */
+  padding-right: 46px;
+}
+/* Light: the ink colour reads on the pale paper. Dark: the paper colour is
+   what stays legible, so the roles swap rather than the card being dimmed. */
+.vmx-panic-card {
+  --panic-strong: var(--panic-ink);
+  --panic-tint: color-mix(in srgb, var(--panic-paper) 65%, var(--clr-surface));
+}
+[data-theme="dark"] .vmx-panic-card,
+html.dark .vmx-panic-card {
+  --panic-strong: var(--panic-paper);
+  --panic-tint: color-mix(in srgb, var(--panic-ink) 25%, var(--clr-surface));
+}
+.vmx-panic-card .accent, .vmx-panic-card::before { background: var(--panic-strong); }
+.vmx-panic-card:hover { border-color: var(--panic-strong); box-shadow: 0 0 0 1px var(--panic-strong); }
+.vmx-panic-card:focus-visible { outline: 3px solid var(--panic-strong); outline-offset: 3px; }
+
+.vmx-panic-kicker { display: block; font-size: 11px; font-weight: 600; color: var(--panic-strong); margin-bottom: 8px; }
+.vmx-panic-title {
+  display: block;
+  font-family: var(--vmx-display);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  color: var(--panic-strong);
+  margin-bottom: 8px;
+  white-space: nowrap;
+}
+.vmx-panic-sub { display: block; font-size: 13px; line-height: 1.6; color: var(--panic-strong); }
+.vmx-panic-copy { position: relative; z-index: 1; text-align: left; }
+.vmx-panic-cta {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding: 8px 11px;
+  border-radius: 6px;
+  background: var(--clr-surface);
+  color: var(--panic-strong);
+  font-size: 14px;
+  font-weight: 600;
+}
+.vmx-panic-arrow { font-size: 21px; font-weight: 400; }
+
+/* Sized from the card's HEIGHT, never `cover`: these drawings are square and
+   cropping them cuts off the chicken's head and the fish's fins. */
+.vmx-panic-art {
+  position: absolute;
+  z-index: -2;
+  right: 0;
+  top: 50%;
+  height: calc(100% - 40px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.7;
+  pointer-events: none;
+}
+[data-theme="dark"] .vmx-panic-art,
+html.dark .vmx-panic-art { filter: brightness(0) invert(1); opacity: 0.25; }
+/* The drawing splits at --panic-cut so the animal moves and its footing does
+   not. The side fades keep it from ending in a hard edge against the card. */
+.vmx-panic-art-main {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(var(--panic-cut) - 7%), transparent calc(var(--panic-cut) + 9%)), linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(var(--panic-cut) - 7%), transparent calc(var(--panic-cut) + 9%)), linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.vmx-panic-art-base {
+  -webkit-mask-image: linear-gradient(to bottom, transparent calc(var(--panic-cut) - 9%), #000 calc(var(--panic-cut) + 5%)), linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to bottom, transparent calc(var(--panic-cut) - 9%), #000 calc(var(--panic-cut) + 5%)), linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+/* Keeps the copy readable where it crosses the drawing. */
+.vmx-panic-scrim {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--panic-tint) 0%, color-mix(in srgb, var(--panic-tint) 94%, transparent) 31%, color-mix(in srgb, var(--panic-tint) 25%, transparent) 64%, transparent 100%);
+}
+[data-theme="dark"] .vmx-panic-scrim,
+html.dark .vmx-panic-scrim {
+  background: linear-gradient(90deg, var(--panic-tint), color-mix(in srgb, var(--panic-tint) 92%, transparent) 31%, color-mix(in srgb, var(--panic-tint) 20%, transparent) 75%, transparent);
+}
+
+/* 3.2s, once, then still. Only the picture moves. */
+.vmx-panic-card.is-playing .vmx-panic-art-main { animation: vmx-panic-drift 3200ms cubic-bezier(.42, 0, .22, 1) both; }
+.vmx-panic-card.is-playing .vmx-panic-art-base { animation: vmx-panic-ground 3200ms ease-in-out both; }
+.vmx-panic-card.is-playing[data-motif="aquatic-clinic"] .vmx-panic-art-main { animation-name: vmx-panic-fish; }
+.vmx-panic-card.is-playing[data-motif="avian-medicine"] .vmx-panic-art-main { animation-name: vmx-panic-wing; }
+.vmx-panic-card.is-playing[data-motif="swine-clinic"] .vmx-panic-art-main { animation-name: vmx-panic-step; }
+.vmx-panic-card.is-playing[data-motif="zoonoses"] .vmx-panic-art-main { animation-name: vmx-panic-flight; }
+@keyframes vmx-panic-drift {
+  0%, 100% { transform: translateY(-50%) rotate(0); }
+  36% { transform: translate(var(--panic-dx), calc(-50% - var(--panic-lift))) rotate(var(--panic-turn)); }
+  68% { transform: translate(calc(var(--panic-dx) * -0.3), calc(-50% - var(--panic-lift) * 0.35)) rotate(calc(var(--panic-turn) * -0.4)); }
+}
+@keyframes vmx-panic-ground {
+  0%, 100% { transform: translateY(-50%); }
+  50% { transform: translate(calc(var(--panic-dx) * -0.6), -50%); }
+}
+@keyframes vmx-panic-fish {
+  0%, 100% { transform: translateY(-50%) rotate(0); }
+  28% { transform: translate(-4px, calc(-50% - 4px)) rotate(-1deg); }
+  55% { transform: translate(4px, calc(-50% - 12px)) rotate(-2deg); }
+  80% { transform: translate(6px, calc(-50% - 2px)) rotate(1deg); }
+}
+@keyframes vmx-panic-wing {
+  0%, 100% { transform: translateY(-50%); }
+  25%, 55% { transform: translateY(calc(-50% - 4px)) rotate(-1.3deg); }
+  40%, 70% { transform: translateY(calc(-50% - 1px)) rotate(0.5deg); }
+}
+@keyframes vmx-panic-step {
+  0%, 100% { transform: translateY(-50%); }
+  25%, 65% { transform: translate(3px, calc(-50% - 3px)) rotate(0.7deg); }
+  45%, 80% { transform: translate(-2px, -50%) rotate(-0.4deg); }
+}
+@keyframes vmx-panic-flight {
+  0%, 100% { transform: translateY(-50%); }
+  30% { transform: translate(6px, calc(-50% - 7px)) rotate(1deg); }
+  60% { transform: translate(-4px, calc(-50% - 4px)) rotate(-1deg); }
+}
+.vmx-panic-ripple {
+  position: absolute;
+  z-index: -1;
+  right: 20px;
+  bottom: 18px;
+  width: 90px;
+  height: 14px;
+  border: 1px solid var(--panic-strong);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+.vmx-panic-ripple + .vmx-panic-ripple { bottom: 15px; right: 10px; width: 112px; }
+.vmx-panic-card.is-playing .vmx-panic-ripple { animation: vmx-panic-ring 1800ms 1200ms ease-out both; }
+.vmx-panic-card.is-playing .vmx-panic-ripple + .vmx-panic-ripple { animation-delay: 1400ms; }
+@keyframes vmx-panic-ring {
+  0% { opacity: 0; transform: scale(0.4); }
+  20% { opacity: 0.35; }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-panic-card .vmx-panic-art,
+  .vmx-panic-card .vmx-panic-ripple { animation: none !important; }
+  .vmx-panic-card { transition: none; }
+}
+@media (max-width: 600px) {
+  .vmx-panic-title { font-size: 22px; }
+  .vmx-panic-card { padding-right: 40px; }
+}
+
 /* Home: quests + daily goal folded into one row so the subject grid is not
    competing with a progress report for the first screen. */
 .vmx-home-extras { margin-top: var(--space-5); border-top: 1px solid var(--clr-border); }

@@ -1455,10 +1455,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
             }}>
               <div className="icon"><NavIcon name="exam" size={20} /></div>
               <div className="title">จำลองสนามสอบ</div>
-              {/* Not "เหมือนสนามจริง": the clock is a per-question budget that
-                  refills when you navigate back, so it is a timed drill rather
-                  than a room where time runs out once. */}
-              <div className="sub">50 ข้อ, จับเวลา 60 วิ ต่อข้อ</div>
+              {/* One clock for the whole paper since 5.88.0 — it no longer
+                  refills on back/jump, so 50 questions really is 50 minutes
+                  and this line must say the total, not a per-question figure
+                  the engine stopped enforcing. */}
+              <div className="sub">50 ข้อ, จับเวลารวม 50 นาที</div>
             </button>
 
             <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>

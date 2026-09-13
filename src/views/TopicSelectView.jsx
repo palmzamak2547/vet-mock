@@ -1,5 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
+import PanicCard from '../components/PanicCard.jsx';
+import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
 import { announced } from '../data/curriculum.js';
@@ -22,7 +24,7 @@ const VCA_NOTES_MAP = {
   dogcat:   { subject: 'com5',     label: 'Notes COM V (Dog-Cat)' },
 };
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics' }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', selectedYear = null, selectedPhase = null, onStartPanic = null }) {
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
   const [shelfDocs, setShelfDocs] = useState(0);
@@ -113,6 +115,15 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     setTopic(topicId === 'all' ? null : topicId);
     setView('config');
   };
+
+  // Only for the exam these cards were drawn for. A card that showed all year
+  // would stop meaning "this is the one coming up".
+  const showPanicCard = Boolean(
+    onStartPanic
+    && panicCardFor(subject)
+    && Number(selectedYear) === PANIC_CARD_SCOPE.year
+    && selectedPhase === PANIC_CARD_SCOPE.phase,
+  );
 
   return (
     <>
@@ -332,6 +343,20 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       <section id="vmx-topic-panel-topics" role="tabpanel" aria-labelledby="vmx-topic-tab-topics">
       <div className="vmx-section-label">เลือกหัวข้อที่จะฝึก</div>
       <div className="vmx-topic-grid">
+        {/* Panic Mode takes the first cell, immediately before รวมทุกหัวข้อ and
+            the same height as it — one cell of this grid, not a banner across
+            the row. It only appears while this subject's own exam is the one
+            in scope, so it reads as "the paper is this week" rather than
+            permanent furniture. */}
+        {showPanicCard && (
+          <PanicCard
+            key="panic"
+            subjectId={subject}
+            subjectName={subjectMeta?.name}
+            onStart={onStartPanic}
+          />
+        )}
+
         {/* All-topics card */}
         <button
           key="all"
