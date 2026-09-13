@@ -108,6 +108,17 @@ const REPLACEMENTS = [
 const CLAIM_PATTERNS = [
   {
     re: /ตรง(มาก|เลย|ทุกข้อ|เกือบหมด|สุด ?ๆ|เป๊ะ)/g,
+    // "ตรงมาก" and its family are ordinary Thai as often as they are a claim,
+    // and Thai does not space its words, so the pattern matches inside longer
+    // ones: ตรงไปตรง|มาก|ว่า (more straightforward), ยืนตัวตรง|มาก| (standing
+    // upright), ไม่|ตรงเลย| of a vaccine serovar, มาไม่|ตรงเป๊ะ| of a puppy's
+    // vaccination week. Four such lines in the lecture corpus were flagged,
+    // none of them about an exam. Narrowing the pattern is what let real
+    // violations through before (see the note above), so it stays broad and
+    // the CLAIM is what gets qualified: this only counts when an exam is
+    // actually being talked about nearby. The other claim patterns below do
+    // not need this — they name a cohort or a paper themselves.
+    needsExamContext: true,
     why: 'อ้างว่าข้อสอบเก่าตรงกับข้อสอบจริง',
     use: 'เขียนว่า "อิงแนวสอบ <รุ่น>" แทน',
   },
@@ -191,9 +202,27 @@ for (const f of files) {
   // "...Myco Protozoa ตรงมาก.pdf" and renaming it in our prose would break
   // the reference students use to find it.
   const withoutFilenames = before.replace(/"[^"\r\n]*\.(pdf|jpe?g|png|docx?|pptx?)"/gi, '""');
-  for (const { re, why, use } of CLAIM_PATTERNS) {
+  // Words that make a line about an EXAM rather than about veterinary medicine.
+  // Deliberately generous — it only has to appear within a short window of the
+  // phrase, so a real claim ("Vet 82 final ตรงมาก") keeps firing while a
+  // serovar that does not match does not.
+  const EXAM_NEARBY = /ข้อสอบ|โพย|สนามสอบ|มิดเทอม|ไฟนอล|final|midterm|past[- ]paper|แนวสอบ|เก็งข้อสอบ|ออกสอบ|รุ่นพี่ที่สอบ|Vet\s*\d{2}/i;
+  const WINDOW = 60;
+  for (const { re, why, use, needsExamContext } of CLAIM_PATTERNS) {
     re.lastIndex = 0;
-    const hits = withoutFilenames.match(re);
+    let hits = withoutFilenames.match(re);
+    if (hits && hits.length && needsExamContext) {
+      // Re-scan with positions so each hit can be judged on its own context.
+      re.lastIndex = 0;
+      const kept = [];
+      let m;
+      while ((m = re.exec(withoutFilenames)) !== null) {
+        const around = withoutFilenames.slice(Math.max(0, m.index - WINDOW), m.index + m[0].length + WINDOW);
+        if (EXAM_NEARBY.test(around)) kept.push(m[0]);
+        if (m.index === re.lastIndex) re.lastIndex++;
+      }
+      hits = kept;
+    }
     if (hits && hits.length) {
       claimFindings.push({
         file: relative(ROOT, f), why, use,

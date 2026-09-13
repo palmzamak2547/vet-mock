@@ -479,12 +479,39 @@ export const VIDEO_META = {
     "instructor": "อ.ธนศักดิ์ (Aj. Thanasak — verified [3:41]–[4:13])",
     "examFormat": "MCQ — Final scope, LDA/Hardware/bloat high-yield"
   },
+  '1HybucaLFTE': {
+    "videoId": "1HybucaLFTE",
+    "title": "9.2 : Ruminant anesthesia part II (2025-3-19)",
+    "subject": "cliapprum",
+    "date": "19 Mar 68",
+    "durationMin": 48,
+    "instructor": null,
+    "examFormat": null
+  },
+  '26IPq2BidZk': {
+    "videoId": "26IPq2BidZk",
+    "title": "14 : Reproductive surgery in ruminant (2025-4-23)",
+    "subject": "cliapprum",
+    "date": "23 Apr 68",
+    "durationMin": 115,
+    "instructor": null,
+    "examFormat": null
+  },
   '4KvzjWqHZmg': {
     "videoId": "4KvzjWqHZmg",
     "title": "11.1 Surgical correction of abomasum — impaction, displacement และ volvulus",
     "subject": "cliapprum",
     "date": "2 Apr 68",
     "durationMin": 61,
+    "instructor": null,
+    "examFormat": null
+  },
+  '6TO_Q7Gv6fM': {
+    "videoId": "6TO_Q7Gv6fM",
+    "title": "5.2 : Calving Management steps and Consideration (2025-2-5)",
+    "subject": "cliapprum",
+    "date": "5 Feb 68",
+    "durationMin": 79,
     "instructor": null,
     "examFormat": null
   },
@@ -569,6 +596,15 @@ export const VIDEO_META = {
     "instructor": "Surgery staff (อ.ตั้ม + อ.ผึ้ง สอนภาคของคาบนี้)",
     "examFormat": "MCQ — Final scope, เน้น **หลักการ** ของแต่ละ procedure, Aj. confirm [90:09] \"ข้อสอบง่าย เอาแค่หลักการ ไม่ลงดีเทล\""
   },
+  'Rh57M_-eK0k': {
+    "videoId": "Rh57M_-eK0k",
+    "title": "9.1 : Ruminant anesthesia part I (2025-3-19)",
+    "subject": "cliapprum",
+    "date": "19 Mar 68",
+    "durationMin": 50,
+    "instructor": null,
+    "examFormat": null
+  },
   'WkrtCFIzwKg': {
     "videoId": "WkrtCFIzwKg",
     "title": "15.1 — Foot lameness in Cattle",
@@ -577,6 +613,24 @@ export const VIDEO_META = {
     "durationMin": 53,
     "instructor": null,
     "examFormat": "ตอนสรุปบอกให้ไปจัดระบบเองว่าแบ่ง infectious (รักษาทางยาและการจัดการ) กับ non infectious (จบด้วยการผ่าตัด) อันไหนเป็นโรคเฉพาะ อันไหนเกี่ยวกับโรคทางระบบ แล้วปิดท้ายว่า \"ก็พยายามบอกข้อสอบอยู่\""
+  },
+  '_PiswEhFDRI': {
+    "videoId": "_PiswEhFDRI",
+    "title": "15.2 : Head region and respiratory system (2025-4-30 ของรุ่นพี่)",
+    "subject": "cliapprum",
+    "date": "30 Apr 68",
+    "durationMin": 45,
+    "instructor": null,
+    "examFormat": null
+  },
+  'fduRnVnt110': {
+    "videoId": "fduRnVnt110",
+    "title": "11.2 : Bovine GI surgery - rumen&reticulum (2025-4-2)",
+    "subject": "cliapprum",
+    "date": "2 Apr 68",
+    "durationMin": 49,
+    "instructor": null,
+    "examFormat": null
   },
   'hGR4xl7BVe0': {
     "videoId": "hGR4xl7BVe0",
@@ -605,6 +659,15 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": "เคยเอากราฟ timing ของฮอร์โมนช่วงคลอดไปออกข้อสอบมาแล้ว และย้ำว่าจะไม่ออกข้อสอบแบบ \"ข้อใดไม่ใช่\" เพราะถ้าตัวเลือกมี negative อยู่ด้วยจะกลายเป็น double negative"
   },
+  'nn9E6_2w9_M': {
+    "videoId": "nn9E6_2w9_M",
+    "title": "4.1 : Ruminant Sire Summary (2025-1-29)",
+    "subject": "cliapprum",
+    "date": "29 Jan 68",
+    "durationMin": 76,
+    "instructor": null,
+    "examFormat": null
+  },
   'oSKLSsiDl4M': {
     "videoId": "oSKLSsiDl4M",
     "title": "7.1 Postpartum period in ruminant",
@@ -613,6 +676,15 @@ export const VIDEO_META = {
     "durationMin": 74,
     "instructor": null,
     "examFormat": "หัวข้อนี้ถูกสลับขึ้นมาสอนก่อน และจะสอบตามตาราง โดยรวมเรื่องการจัดการหลังคลอดเข้าไปด้วย ส่วน reproductive surgery ย้ายไปหลังมิดเทอมและไปสอบพร้อมหัวข้ออื่น"
+  },
+  'rrlIJwOUAk4': {
+    "videoId": "rrlIJwOUAk4",
+    "title": "12.2 + 12.3 : Bovine esophageal surgery + Tendon surgery (2025-4-9)",
+    "subject": "cliapprum",
+    "date": "9 Apr 68",
+    "durationMin": 50,
+    "instructor": null,
+    "examFormat": "\"จบเรื่องแรก ข้อสอบเป็น choice เนาะ\" [28:33]"
   },
   'suXRmJJ-L5E': {
     "videoId": "suXRmJJ-L5E",
@@ -631,6 +703,15 @@ export const VIDEO_META = {
     "durationMin": 125,
     "instructor": "อ.แฮม (Surgery — สัตว์ใหญ่/ม้า, รับสอน ruminant year นี้) [10:05]",
     "examFormat": "MCQ — Final scope, Standing field surgery, Rumenotomy/Rumenostomy/RDA omentopexy/Cecal typhlotomy high-yield"
+  },
+  'vxLwcuecvGE': {
+    "videoId": "vxLwcuecvGE",
+    "title": "10 : Ruminant gastrointestinal disorder (2025-3-26)",
+    "subject": "cliapprum",
+    "date": "26 Mar 68",
+    "durationMin": 145,
+    "instructor": "อาจารย์ธนศักดิ์",
+    "examFormat": null
   },
   'wLRd9N5vlGY': {
     "videoId": "wLRd9N5vlGY",
@@ -857,6 +938,15 @@ export const VIDEO_META = {
     "instructor": "อ.วชิรา (Med II) — small animal urology",
     "examFormat": "Define problem + species/age × disease pattern + hyperkalemia management ออกบ่อย"
   },
+  '-Pbm049pI34': {
+    "videoId": "-Pbm049pI34",
+    "title": "22:10:2025 2",
+    "subject": "com2",
+    "date": "22 Oct 2025",
+    "durationMin": 1,
+    "instructor": null,
+    "examFormat": null
+  },
   '09hdZ-OBvnI': {
     "videoId": "09hdZ-OBvnI",
     "title": "9.3.5 (เพิ่มเติม) Distal Femoral Osteotomy II — Combined Correction",
@@ -875,6 +965,24 @@ export const VIDEO_META = {
     "instructor": "อ.มาริสาก (orthopedic surgeon, CUVET)",
     "examFormat": "Supplementary — modern PUO alternative technique, ออกบ่อย"
   },
+  '25UCstSSFIM': {
+    "videoId": "25UCstSSFIM",
+    "title": "8:10:2025 1",
+    "subject": "com2",
+    "date": "8 Oct 2025",
+    "durationMin": 1,
+    "instructor": null,
+    "examFormat": null
+  },
+  '4AR6I7LgwBo': {
+    "videoId": "4AR6I7LgwBo",
+    "title": "29:10:2025",
+    "subject": "com2",
+    "date": "29 Oct 2025",
+    "durationMin": 1,
+    "instructor": null,
+    "examFormat": null
+  },
   '5KOc0NTBZFI': {
     "videoId": "5KOc0NTBZFI",
     "title": "9.3.4 (เพิ่มเติม) Distal Femoral Osteotomy I — Reference Lines",
@@ -883,6 +991,33 @@ export const VIDEO_META = {
     "durationMin": 3,
     "instructor": "Aj. Kongthit (CUVET)",
     "examFormat": "Supplementary — reference line drawing technique for DFO"
+  },
+  '6Liof8TfdvQ': {
+    "videoId": "6Liof8TfdvQ",
+    "title": "8:10:2025 2",
+    "subject": "com2",
+    "date": "8 Oct 2025",
+    "durationMin": 0,
+    "instructor": null,
+    "examFormat": null
+  },
+  '8McjVTGZRrA': {
+    "videoId": "8McjVTGZRrA",
+    "title": "8:10:2025 4",
+    "subject": "com2",
+    "date": "8 Oct 2025",
+    "durationMin": 3,
+    "instructor": null,
+    "examFormat": null
+  },
+  '8X78ZLjXzG8': {
+    "videoId": "8X78ZLjXzG8",
+    "title": "22:10:2025 1",
+    "subject": "com2",
+    "date": "22 Oct 2025",
+    "durationMin": 1,
+    "instructor": null,
+    "examFormat": null
   },
   '9U-Dgu0ouUk': {
     "videoId": "9U-Dgu0ouUk",
@@ -902,6 +1037,15 @@ export const VIDEO_META = {
     "instructor": "อ. (ortho team)",
     "examFormat": "MCQ — bandage type, cast technique, digit 3-4 marker, sling indications, M/D/N union types ออกบ่อย"
   },
+  'AP8O8PfMlN4': {
+    "videoId": "AP8O8PfMlN4",
+    "title": "22:10:2025 3",
+    "subject": "com2",
+    "date": "22 Oct 2025",
+    "durationMin": 1,
+    "instructor": null,
+    "examFormat": null
+  },
   'BLk5OjwlduA': {
     "videoId": "BLk5OjwlduA",
     "title": "6.1. Muscle and tendon disorders",
@@ -910,6 +1054,15 @@ export const VIDEO_META = {
     "durationMin": 38,
     "instructor": "พี่ (อาจารย์รุ่นพี่)",
     "examFormat": "MCQ — Quad contracture, Achilles plantigrade, suture choice for tendon, grade-based treatment"
+  },
+  'BbUmo4YSYjQ': {
+    "videoId": "BbUmo4YSYjQ",
+    "title": "15:10:2025 1 - หลักการวัดมุมเพื่อซ่อมกระดูกที่เป็น varus (คลิปนี้ควรต้องดู***)",
+    "subject": "com2",
+    "date": "15 Oct 2025",
+    "durationMin": 5,
+    "instructor": null,
+    "examFormat": null
   },
   'C1Q5SHxSkGw': {
     "videoId": "C1Q5SHxSkGw",
@@ -938,6 +1091,24 @@ export const VIDEO_META = {
     "instructor": "Dr. Lara",
     "examFormat": null
   },
+  'Fdd0OTFxuI8': {
+    "videoId": "Fdd0OTFxuI8",
+    "title": "15.10.25 elbow 3 synovial joints",
+    "subject": "com2",
+    "date": "15 Oct 2025",
+    "durationMin": 2,
+    "instructor": null,
+    "examFormat": null
+  },
+  'FiRwNI7_Jdo': {
+    "videoId": "FiRwNI7_Jdo",
+    "title": "15.10.68 Patella luxation grade",
+    "subject": "com2",
+    "date": "15 Oct 68",
+    "durationMin": 1,
+    "instructor": null,
+    "examFormat": null
+  },
   'GOuoS07lt8g': {
     "videoId": "GOuoS07lt8g",
     "title": "11.0.2 (เพิ่มเติม) Closed Reduction of Elbow Luxation",
@@ -946,6 +1117,15 @@ export const VIDEO_META = {
     "durationMin": 1,
     "instructor": "Aj. Kongthit (CUVET)",
     "examFormat": "Supplementary — manipulation technique, clinical procedure"
+  },
+  'IdST55vFbwA': {
+    "videoId": "IdST55vFbwA",
+    "title": "15.10.25 soft tissue reconstruction",
+    "subject": "com2",
+    "date": "15 Oct 2025",
+    "durationMin": 0,
+    "instructor": null,
+    "examFormat": null
   },
   'KqbNuuu8X90': {
     "videoId": "KqbNuuu8X90",
@@ -1028,6 +1208,15 @@ export const VIDEO_META = {
     "instructor": "อ. (Dental/Maxillofacial Sx) — Sx ortho block",
     "examFormat": "MCQ — tooth fracture types, TMJ luxation direction, Salter-Harris in maxilla, 30-min/48-hr time windows, plate placement rules ออกบ่อย"
   },
+  'PyP4DL418tQ': {
+    "videoId": "PyP4DL418tQ",
+    "title": "22:10:2025 5",
+    "subject": "com2",
+    "date": "22 Oct 2025",
+    "durationMin": 0,
+    "instructor": null,
+    "examFormat": null
+  },
   'SgIZmpoh-8Q': {
     "videoId": "SgIZmpoh-8Q",
     "title": "11.0.1 (เพิ่มเติม) Screw and Washer Position for Hip Luxation",
@@ -1073,6 +1262,24 @@ export const VIDEO_META = {
     "instructor": "Aj. Kongthit (CUVET)",
     "examFormat": "Supplementary — hands-on technique demo, CRITICAL clinical skill"
   },
+  '_5F143IZTWI': {
+    "videoId": "_5F143IZTWI",
+    "title": "15:10:2025 2",
+    "subject": "com2",
+    "date": "15 Oct 2025",
+    "durationMin": 2,
+    "instructor": null,
+    "examFormat": null
+  },
+  'aWgDJimmQCE': {
+    "videoId": "aWgDJimmQCE",
+    "title": "8:10:2025 3",
+    "subject": "com2",
+    "date": "8 Oct 2025",
+    "durationMin": 0,
+    "instructor": null,
+    "examFormat": null
+  },
   'cd3VUI6K23A': {
     "videoId": "cd3VUI6K23A",
     "title": "9.3.2 (เพิ่มเติม) MPL & LPL Direction Orientation",
@@ -1081,6 +1288,15 @@ export const VIDEO_META = {
     "durationMin": 1,
     "instructor": "Aj. Kongthit (CUVET)",
     "examFormat": "Supplementary — confusing direction concept, helps confirm MCQ on PL types"
+  },
+  'coNscKnIc_c': {
+    "videoId": "coNscKnIc_c",
+    "title": "22:10:2025 4",
+    "subject": "com2",
+    "date": "22 Oct 2025",
+    "durationMin": 0,
+    "instructor": null,
+    "examFormat": null
   },
   'hIlH1i845wI': {
     "videoId": "hIlH1i845wI",
@@ -1099,6 +1315,15 @@ export const VIDEO_META = {
     "durationMin": 19,
     "instructor": "อ.มาริสาก (orthopedic surgeon, CUVET)",
     "examFormat": "MCQ — 3 OC stages (latens/manifesta/dissecans), 4 predictable locations, Polygenic + nutritional etiology, 3 surgical groups (palliative/reparative/restorative), Prognosis hierarchy (Shoulder best → Hock worst) ออกบ่อย"
+  },
+  'lgp6H8VBiJg': {
+    "videoId": "lgp6H8VBiJg",
+    "title": "22.10.25 Closed reduction of lateral elbow luxation",
+    "subject": "com2",
+    "date": "22 Oct 2025",
+    "durationMin": 1,
+    "instructor": null,
+    "examFormat": null
   },
   'u_T60WiAG4s': {
     "videoId": "u_T60WiAG4s",
@@ -1163,6 +1388,15 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": null
   },
+  '61MdiJpS1QY': {
+    "videoId": "61MdiJpS1QY",
+    "title": "13.1 : Metabolic, endocrine and urinary tract emergency (2025-4-17)",
+    "subject": "com3",
+    "date": "17 Apr 68",
+    "durationMin": 64,
+    "instructor": null,
+    "examFormat": null
+  },
   '74q8uuQdK14': {
     "videoId": "74q8uuQdK14",
     "title": "3. Diseases of the cornea",
@@ -1190,12 +1424,30 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ (Ear surgery)",
     "examFormat": "MCQ — surgical technique + indications"
   },
+  'BUlcTy9z2WU': {
+    "videoId": "BUlcTy9z2WU",
+    "title": "3 : Diseases of the cornea (2025-1-23)",
+    "subject": "com3",
+    "date": "2025-1-23",
+    "durationMin": 111,
+    "instructor": null,
+    "examFormat": null
+  },
   'BYTkqnPg61A': {
     "videoId": "BYTkqnPg61A",
     "title": "2.1 Ophthalmic Surgery — considerations, ประเภทการผ่าตัดตา และเครื่องมือ",
     "subject": "com3",
     "date": "16 Jan 68",
     "durationMin": 34,
+    "instructor": null,
+    "examFormat": null
+  },
+  'DhgfPhm9PIw': {
+    "videoId": "DhgfPhm9PIw",
+    "title": "6.1 : Glaucoma II + Disease of the Orbit (2025-2-13)",
+    "subject": "com3",
+    "date": "13 Feb 68",
+    "durationMin": 47,
     "instructor": null,
     "examFormat": null
   },
@@ -1217,6 +1469,24 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ Ophtho",
     "examFormat": "MCQ — glaucoma surgery + orbit signs + ear basics"
   },
+  'H32WCnoUjUY': {
+    "videoId": "H32WCnoUjUY",
+    "title": "15.2 : ปัญหาพิเศษ Walking through neurological cases from the start (2025-5-1)",
+    "subject": "com3",
+    "date": "1 May 2025",
+    "durationMin": 51,
+    "instructor": "น.สพ. พัคฆริว เฉลิมวงศ์ (ชื่ออาจารย์ในคลิปฟังไม่ชัด)",
+    "examFormat": null
+  },
+  'J6IP8Hp6NOk': {
+    "videoId": "J6IP8Hp6NOk",
+    "title": "4.2 : Diseases of the lens (2025-1-30)",
+    "subject": "com3",
+    "date": "30 Jan 2025",
+    "durationMin": 55,
+    "instructor": null,
+    "examFormat": null
+  },
   'KehorqnoVxM': {
     "videoId": "KehorqnoVxM",
     "title": "11.1 Triage of emergency patients",
@@ -1234,6 +1504,24 @@ export const VIDEO_META = {
     "durationMin": 74,
     "instructor": "อาจารย์ Surgeon (Spinal)",
     "examFormat": "MCQ — fracture type + spinal pivot points + IVDD breeds"
+  },
+  'MgfR-1167hc': {
+    "videoId": "MgfR-1167hc",
+    "title": "7.2 : Neurological examination I (2025-2-20)",
+    "subject": "com3",
+    "date": "20 Feb 68",
+    "durationMin": 65,
+    "instructor": "พี่กิจ",
+    "examFormat": null
+  },
+  'N3DjcaoMD7s': {
+    "videoId": "N3DjcaoMD7s",
+    "title": "7.1 : Surgery of the ear (2025-2-20)",
+    "subject": "com3",
+    "date": "2025-2-20",
+    "durationMin": 36,
+    "instructor": null,
+    "examFormat": null
   },
   'QOfXfxJqyzU': {
     "videoId": "QOfXfxJqyzU",
@@ -1271,6 +1559,15 @@ export const VIDEO_META = {
     "instructor": "อ.รัสมา (ER metabolic)",
     "examFormat": "MCQ — Addison crisis + DKA management + RER calc + UT obstruction"
   },
+  'UWS0mmn_Ato': {
+    "videoId": "UWS0mmn_Ato",
+    "title": "8.2 : Neurological localization (2025-2-27)",
+    "subject": "com3",
+    "date": "27 Feb 68",
+    "durationMin": 56,
+    "instructor": null,
+    "examFormat": null
+  },
   'V3cpqbldxro': {
     "videoId": "V3cpqbldxro",
     "title": "5. Fundus + Glaucoma",
@@ -1280,12 +1577,57 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ Ophtho",
     "examFormat": "MCQ — fundus interpretation + glaucoma classification"
   },
+  'XSJil6p1tZY': {
+    "videoId": "XSJil6p1tZY",
+    "title": "4.1 : Disease of the Uvea (2025-1-30)",
+    "subject": "com3",
+    "date": "30 Jan 68",
+    "durationMin": 56,
+    "instructor": null,
+    "examFormat": null
+  },
+  'XT7P0AOKZxA': {
+    "videoId": "XT7P0AOKZxA",
+    "title": "5.2 : Glaucoma I (2025-2-6)",
+    "subject": "com3",
+    "date": "6 Feb 68",
+    "durationMin": 41,
+    "instructor": null,
+    "examFormat": null
+  },
+  'YHBDLUyt2yg': {
+    "videoId": "YHBDLUyt2yg",
+    "title": "14.2 : Nutritional management in critical illness (2025-4-24)",
+    "subject": "com3",
+    "date": "24 Apr 68",
+    "durationMin": 60,
+    "instructor": null,
+    "examFormat": null
+  },
   'YHfjegbzWDk': {
     "videoId": "YHfjegbzWDk",
     "title": "12.2 — Acute abdomen (ภาวะปวดท้องเฉียบพลัน)",
     "subject": "com3",
     "date": "10 Apr 68",
     "durationMin": 34,
+    "instructor": null,
+    "examFormat": null
+  },
+  'YQclwfNnCNA': {
+    "videoId": "YQclwfNnCNA",
+    "title": "11.2 : Shock (2025-4-3)",
+    "subject": "com3",
+    "date": "3 Apr 68",
+    "durationMin": 62,
+    "instructor": null,
+    "examFormat": null
+  },
+  'ZKLCt1pamvs': {
+    "videoId": "ZKLCt1pamvs",
+    "title": "10.2 : Head tilt & Nystagmus (2025-3-27)",
+    "subject": "com3",
+    "date": "2025-3-27",
+    "durationMin": 39,
     "instructor": null,
     "examFormat": null
   },
@@ -1325,6 +1667,15 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": null
   },
+  'jTORDwo1UeQ': {
+    "videoId": "jTORDwo1UeQ",
+    "title": "9.1 : Spinal injury in dogs and cats (2025-3-20)",
+    "subject": "com3",
+    "date": "2025-3-20",
+    "durationMin": 41,
+    "instructor": null,
+    "examFormat": null
+  },
   'kWtLRouyBCM': {
     "videoId": "kWtLRouyBCM",
     "title": "5.1 — Fundus (posterior segment): vitreous, retina, choroid, optic disc, sclera",
@@ -1343,6 +1694,15 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ Ophtho",
     "examFormat": "MCQ — uveitis signs + cataract stages"
   },
+  'nCE5boaMFTg': {
+    "videoId": "nCE5boaMFTg",
+    "title": "2.2 : Ocular Adnexa (2025-1-16)",
+    "subject": "com3",
+    "date": "2025-1-16",
+    "durationMin": 80,
+    "instructor": null,
+    "examFormat": null
+  },
   'pIcgxusqLag': {
     "videoId": "pIcgxusqLag",
     "title": "4. Seizure & Narcolepsy",
@@ -1351,6 +1711,15 @@ export const VIDEO_META = {
     "durationMin": 113,
     "instructor": "อาจารย์ Neuro",
     "examFormat": "MCQ — seizure type + AED selection + age of onset + first-line drug"
+  },
+  'ulqmV3W1eJs': {
+    "videoId": "ulqmV3W1eJs",
+    "title": "6.2 : The ear (2025-2-13)",
+    "subject": "com3",
+    "date": "13 Feb 68",
+    "durationMin": 45,
+    "instructor": null,
+    "examFormat": null
   },
   'xe288fVUfro': {
     "videoId": "xe288fVUfro",
@@ -1406,6 +1775,24 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ Imaging",
     "examFormat": "MCQ — modality choice for given clinical scenario (5 questions)"
   },
+  '2VrGsoKLebQ': {
+    "videoId": "2VrGsoKLebQ",
+    "title": "2.2 Principle of Chemotherapy (2025-1-16)",
+    "subject": "com4",
+    "date": "16 Jan 68",
+    "durationMin": 52,
+    "instructor": null,
+    "examFormat": null
+  },
+  '5IaS4az4Pew': {
+    "videoId": "5IaS4az4Pew",
+    "title": "1 : Clinical Animal Oncology (2025-1-9)",
+    "subject": "com4",
+    "date": "9 Jan 68",
+    "durationMin": 113,
+    "instructor": null,
+    "examFormat": null
+  },
   '6mHilI_Pcjo': {
     "videoId": "6mHilI_Pcjo",
     "title": "2.1 — Canine Cutaneous Round Cell Tumor I (TVT, Mast cell tumor, Histiocytoma, Plasmacytoma)",
@@ -1414,6 +1801,15 @@ export const VIDEO_META = {
     "durationMin": 60,
     "instructor": null,
     "examFormat": "ถ้าฟังตามนี้ทำข้อสอบได้ แต่ข้อสอบยากนิดนึง จะออกโดสยาทั้งหมด เพราะเรียน med จึงต้องออกเรื่องการรักษา"
+  },
+  '997u9fQ1MF8': {
+    "videoId": "997u9fQ1MF8",
+    "title": "13.1 Allergic skin disease (2025-4-17)",
+    "subject": "com4",
+    "date": "17 Apr 68",
+    "durationMin": 60,
+    "instructor": null,
+    "examFormat": null
   },
   'BdHpzNra1rU': {
     "videoId": "BdHpzNra1rU",
@@ -1469,6 +1865,15 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": null
   },
+  'FDj1EJ1belQ': {
+    "videoId": "FDj1EJ1belQ",
+    "title": "8.2 : IMHA (2025-2-27 ของรุ่นพี่)",
+    "subject": "com4",
+    "date": "27 Feb 68",
+    "durationMin": 46,
+    "instructor": null,
+    "examFormat": null
+  },
   'FI3-vC6XLnw': {
     "videoId": "FI3-vC6XLnw",
     "title": "13.2 — Autoimmune skin disease (Pemphigus complex, bullous pemphigoid, DLE)",
@@ -1486,6 +1891,15 @@ export const VIDEO_META = {
     "durationMin": 115,
     "instructor": "อาจารย์ (ผู้สอนหลัก ภาควิชา Med II)",
     "examFormat": "Case-based MCQ — อาจารย์ย้ำว่าตารางสรุป LDDS/ACTH stim \"พี่จะเอาตรงนี้ไปออกข้อสอบ\""
+  },
+  'Ksj4CKo9lKk': {
+    "videoId": "Ksj4CKo9lKk",
+    "title": "15.1 : Endocrine skin disease (2025-5-1)",
+    "subject": "com4",
+    "date": "1 May 2025",
+    "durationMin": 74,
+    "instructor": null,
+    "examFormat": null
   },
   'LRhlotxM-SI': {
     "videoId": "LRhlotxM-SI",
@@ -1514,6 +1928,15 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": "ข้อสอบเป็นแบบตัวเลือก (ช้อยส์) เหมือนกับของอาจารย์เทพ [56:20]"
   },
+  'N7kk6OveEww': {
+    "videoId": "N7kk6OveEww",
+    "title": "6.2 : DM (2025-2-13)",
+    "subject": "com4",
+    "date": "13 Feb 68",
+    "durationMin": 59,
+    "instructor": null,
+    "examFormat": null
+  },
   'NYAyyy0suCY': {
     "videoId": "NYAyyy0suCY",
     "title": "7 — Immune mediated disease: hypersensitivity, vaccine adverse reaction และ drug adverse reaction",
@@ -1522,6 +1945,15 @@ export const VIDEO_META = {
     "durationMin": 109,
     "instructor": null,
     "examFormat": "อาจารย์บอกว่าตารางสรุป hypersensitivity type 1-4 กับโรคที่คู่กัน \"ถูกถามบ่อยๆ ในการสอบทั้งหลาย\" และจะเอาเปเปอร์ vaccine adverse reaction ปี 2023 ไปออกข้อสอบ BCA ด้วย"
+  },
+  'RH7uztAvP8w': {
+    "videoId": "RH7uztAvP8w",
+    "title": "9.2 : Glomerular diseases in companion animals (2025-3-20 ของรุ่นพี่)",
+    "subject": "com4",
+    "date": "20 Mar 68",
+    "durationMin": 35,
+    "instructor": null,
+    "examFormat": null
   },
   'S-95a1XKq74': {
     "videoId": "S-95a1XKq74",
@@ -1577,6 +2009,15 @@ export const VIDEO_META = {
     "instructor": "พี่หมอ Endocrine specialist",
     "examFormat": "Case-based MCQ — Total T4 + Free T4 + TSH interpretation"
   },
+  'aBV9tUukK3g': {
+    "videoId": "aBV9tUukK3g",
+    "title": "11.2 : Fungal skin disease (2025-4-3)",
+    "subject": "com4",
+    "date": "3 Apr 68",
+    "durationMin": 45,
+    "instructor": null,
+    "examFormat": null
+  },
   'b31E3TGP-TE': {
     "videoId": "b31E3TGP-TE",
     "title": "8.1 Drugs used in immune-mediated diseases (ยากดภูมิคุ้มกันในสุนัขและแมว)",
@@ -1594,6 +2035,42 @@ export const VIDEO_META = {
     "durationMin": 121,
     "instructor": "พี่หมอ Dermatology specialist",
     "examFormat": "Case-based MCQ — pyoderma depth + dermatophyte Dx + Tx duration"
+  },
+  'd077P4eVtIc': {
+    "videoId": "d077P4eVtIc",
+    "title": "6.1 : Parathyroid hormone (2025-2-13)",
+    "subject": "com4",
+    "date": "13 Feb 68",
+    "durationMin": 41,
+    "instructor": null,
+    "examFormat": null
+  },
+  'd2aVzwUSx9k': {
+    "videoId": "d2aVzwUSx9k",
+    "title": "4.2 : Hypoadrenocorticism (2025-1-30)",
+    "subject": "com4",
+    "date": "30 Jan 68",
+    "durationMin": 40,
+    "instructor": null,
+    "examFormat": null
+  },
+  'emuNdIzTOp8': {
+    "videoId": "emuNdIzTOp8",
+    "title": "10.1 : Small animal dermatology (2025-3-27)",
+    "subject": "com4",
+    "date": "27 Mar 2025",
+    "durationMin": 57,
+    "instructor": null,
+    "examFormat": null
+  },
+  'g7Xfpf44LdY': {
+    "videoId": "g7Xfpf44LdY",
+    "title": "4.1 : Hyperadrenocorticism (2025-1-30)",
+    "subject": "com4",
+    "date": "30 Jan 68",
+    "durationMin": 68,
+    "instructor": null,
+    "examFormat": null
   },
   'pewBPGWFqoo': {
     "videoId": "pewBPGWFqoo",
@@ -1658,6 +2135,15 @@ export const VIDEO_META = {
     "instructor": "อาจารย์ (Dermatology + Endocrinology)",
     "examFormat": "MCQ — primary/secondary lesion identification + drug choice + species-specific treatment ออกเยอะ"
   },
+  '1yU1WxNcsz0': {
+    "videoId": "1yU1WxNcsz0",
+    "title": "5 : Parasitic blood infection part II (2025-2-4)",
+    "subject": "com5",
+    "date": "4 Feb 68",
+    "durationMin": 47,
+    "instructor": null,
+    "examFormat": null
+  },
   '9m6IQXmL8EI': {
     "videoId": "9m6IQXmL8EI",
     "title": "14 — โรคพิษสุนัขบ้า (Rabies)",
@@ -1666,6 +2152,15 @@ export const VIDEO_META = {
     "durationMin": 53,
     "instructor": null,
     "examFormat": "คาถา 5 ย จะออกสอบแน่นอน 2 ข้อ (4 ช้อยส์ จะมี ย. หนึ่งที่ผิด) และอาจออกแนวเคส เช่น หมาของเราถูกสุนัขไม่ทราบประวัติกัด จะทำอย่างไรต่อ"
+  },
+  'CbRDV3iORso': {
+    "videoId": "CbRDV3iORso",
+    "title": "15 : FPV (2025-4-29 ของรุ่นพี่)",
+    "subject": "com5",
+    "date": "29 Apr 68",
+    "durationMin": 46,
+    "instructor": null,
+    "examFormat": null
   },
   'DvVOkHwoK_Y': {
     "videoId": "DvVOkHwoK_Y",
@@ -1684,6 +2179,24 @@ export const VIDEO_META = {
     "durationMin": 55,
     "instructor": null,
     "examFormat": "ตัวหนังสือสีฟ้าในสไลด์ให้จำไว้ \"อาจจะออกข้อสอบ\" [54:29]"
+  },
+  'Mv9Gl1IcR0U': {
+    "videoId": "Mv9Gl1IcR0U",
+    "title": "16 : General considerations for small animal vaccinations (2025-5-6)",
+    "subject": "com5",
+    "date": "6 May 2025",
+    "durationMin": 60,
+    "instructor": null,
+    "examFormat": null
+  },
+  'YtRFc6-3jhk': {
+    "videoId": "YtRFc6-3jhk",
+    "title": "3 : CIRD complex + Canine Distemper (2025-1-21)",
+    "subject": "com5",
+    "date": "21 Jan 68",
+    "durationMin": 50,
+    "instructor": null,
+    "examFormat": null
   },
   'ZblHFqIn5wA': {
     "videoId": "ZblHFqIn5wA",
@@ -1738,6 +2251,15 @@ export const VIDEO_META = {
     "durationMin": 57,
     "instructor": null,
     "examFormat": "\"ข้อสอบเป็นแบบช้อยส์ ออกจากสิ่งที่อาจารย์เน้นในคาบนี้ (หน้าตาเชื้อ, เทคนิคที่ใช้ตรวจ, และสุดท้ายจะรักษาด้วยอะไร)\""
+  },
+  'vOVNXWTq54M': {
+    "videoId": "vOVNXWTq54M",
+    "title": "12 : Sporotrichosis&Cryptococcosis in cats (2025-4-8)",
+    "subject": "com5",
+    "date": "8 Apr 68",
+    "durationMin": 60,
+    "instructor": "พี่เบล (คลินิกโรคแมว)",
+    "examFormat": null
   },
   'x5tJTIF-7FQ': {
     "videoId": "x5tJTIF-7FQ",
@@ -2162,6 +2684,15 @@ export const VIDEO_META = {
     "instructor": "อ. ปัณณวัฒน์ สุภาพรรณชาติ",
     "examFormat": "MCQ 7 ข้อ × 5 choices, ออกจากสไลด์ ⭐ 5 สไลด์, เน้นตารางเปรียบเทียบ + scope 4 + wildlife in nature vs captive + แหล่งทุน"
   },
+  '18ojHa24uzI': {
+    "videoId": "18ojHa24uzI",
+    "title": "11.2 : โรคติดเชื้อในสัตว์ปีก (2025-4-1)",
+    "subject": "exotic",
+    "date": "1 Apr 68",
+    "durationMin": 43,
+    "instructor": null,
+    "examFormat": null
+  },
   '4KKnxqEESB0': {
     "videoId": "4KKnxqEESB0",
     "title": "5. Zoo Vet",
@@ -2197,6 +2728,15 @@ export const VIDEO_META = {
     "durationMin": 56,
     "instructor": null,
     "examFormat": "พาร์ทนกไม่ออกในมิดเทอมเพราะสอนไม่หมด ให้ไปรวมสอบตอน Final ส่วนมิดเทอมคาดว่าเป็นข้อสอบช้อยส์ ไม่มีเติมคำ และให้เวลาประมาณ 1 ชั่วโมงครึ่ง"
+  },
+  'FdB-f3FJYjY': {
+    "videoId": "FdB-f3FJYjY",
+    "title": "15 : Zoo Vet (2025-4-30)",
+    "subject": "exotic",
+    "date": "30 Apr 68",
+    "durationMin": 78,
+    "instructor": null,
+    "examFormat": null
   },
   'KjBUKGa6-V4': {
     "videoId": "KjBUKGa6-V4",
@@ -2294,6 +2834,24 @@ export const VIDEO_META = {
     "subject": "exotic",
     "date": "2 Apr 68",
     "durationMin": 13,
+    "instructor": null,
+    "examFormat": null
+  },
+  'qHRRHATPi68': {
+    "videoId": "qHRRHATPi68",
+    "title": "7.1 : Sugar gliders (2025-2-19)",
+    "subject": "exotic",
+    "date": "19 Feb 68",
+    "durationMin": 36,
+    "instructor": null,
+    "examFormat": null
+  },
+  'zrIw9O8-WTc': {
+    "videoId": "zrIw9O8-WTc",
+    "title": "3.1 : Guinea pig (2025-1-22)",
+    "subject": "exotic",
+    "date": "22 Jan 68",
+    "durationMin": 45,
     "instructor": null,
     "examFormat": null
   },
@@ -3089,6 +3647,24 @@ export const VIDEO_META = {
     "instructor": "Aj. Nataya/ณทยา เจริญวิศาล (ผศ.สพ.ญ.ดร.) — L11",
     "examFormat": "MCQ + fill-in — mortality threshold / Se-Sp / sample collection / HenHoused vs HenDay"
   },
+  'RiQGEN43YXs': {
+    "videoId": "RiQGEN43YXs",
+    "title": "3 : การจัดการอาหารและน้ำสำหรับสัตว์ปีก (2025-1-21)",
+    "subject": "poultry",
+    "date": "21 Jan 68",
+    "durationMin": 100,
+    "instructor": null,
+    "examFormat": null
+  },
+  'Vng6SDwrfWY': {
+    "videoId": "Vng6SDwrfWY",
+    "title": "9 : Poultry farm management (2025-3-18)",
+    "subject": "poultry",
+    "date": "18 Mar 68",
+    "durationMin": 103,
+    "instructor": "อู๋",
+    "examFormat": null
+  },
   'ZRvrSjTlEgc': {
     "videoId": "ZRvrSjTlEgc",
     "title": "Poultry Farm Quality Assurance (L14-15)",
@@ -3097,6 +3673,15 @@ export const VIDEO_META = {
     "durationMin": 110,
     "instructor": "Aj. Ekasingh Sarueng (เอกสิงห์ สาเรือง, Betagro) — L14-15",
     "examFormat": "T/F ~10 ข้อ + MCQ"
+  },
+  'ekzWNxZberk': {
+    "videoId": "ekzWNxZberk",
+    "title": "1 : Avian Physiology (2025-1-7)",
+    "subject": "poultry",
+    "date": "7 Jan 68",
+    "durationMin": 108,
+    "instructor": null,
+    "examFormat": "อาจารย์บอกท้ายคาบว่าข้อสอบของท่านเป็น multiple choice ทั้งหมด [107:09]"
   },
   'iJDTWhK7864': {
     "videoId": "iJDTWhK7864",
@@ -3133,6 +3718,24 @@ export const VIDEO_META = {
     "durationMin": 119,
     "instructor": null,
     "examFormat": "วิชานี้มีข้อคำนวณในข้อสอบ อาจารย์จะพยายามออกตัวเลขไม่ซับซ้อน ไม่ต้องจำตาราง effective temperature แต่ต้องรู้ principle และให้ไปดูวิดีโอเรื่องการใช้ยาฆ่าเชื้อเพราะจะออกมิดเทอม"
+  },
+  'tDB9r2mjJ88': {
+    "videoId": "tDB9r2mjJ88",
+    "title": "10 : Avian Zoonoses (2025-3-25)",
+    "subject": "poultry",
+    "date": "25 Mar 68",
+    "durationMin": 84,
+    "instructor": null,
+    "examFormat": "อาจารย์อธิบายรูปแบบตอนท้ายว่า \"น่าจะให้เขียนอาการที่สำคัญด้วย ไม่ใช่แค่ติ๊ก\" และ \"น่าจะออกให้เติมคำ ว่าเป็นสัตว์สปีชีส์ไหน เป็นอะไรยังไง\" [82:34-82:56]"
+  },
+  'ufLVjegldfk': {
+    "videoId": "ufLVjegldfk",
+    "title": "6.2 : Poultry Drugs and Its Application Techniques (2025-2-11 ชดเชยครั้งที่ 4)",
+    "subject": "poultry",
+    "date": "11 Feb 68",
+    "durationMin": 64,
+    "instructor": "ศ. นิวัฒน์",
+    "examFormat": null
   },
   'vtQJz72MU3M': {
     "videoId": "vtQJz72MU3M",
@@ -3188,6 +3791,24 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": "อาจารย์ชี้ตัวอย่างการคำนวณ breeding value ของโคนมว่า \"ตัวอย่างนี้จะออกสอบ\" และย้ำอีกครั้งว่า \"นี่ข้อสอบนะ\" ตรงคำถามว่า EBV = 0 แปลว่าถ่ายทอดพันธุกรรมหรือไม่"
   },
+  'FutkFh-G7eU': {
+    "videoId": "FutkFh-G7eU",
+    "title": null,
+    "subject": "preclinic-orientation",
+    "date": null,
+    "durationMin": null,
+    "instructor": null,
+    "examFormat": "พยาธิชีววิทยาสอบวันศุกร์เป็นการสอบปากเปล่า (oral exam) แบบ 1 ต่อ 1 กับอาจารย์ 1 ท่าน และเช็คลิสต์ว่าต้องไปอ่านอะไรบ้างอยู่ใน MyCourseVille [44:31-44:55]; รังสีวินิจฉัยสอบ OSCE อ่านแปลผลภาพ X-ray เป็นการสอบเดี่ยวทีละคน ในวันศุกร์สัปดาห์ที่ 2 [105:57-106:09]"
+  },
+  'OG8btFPo6U0': {
+    "videoId": "OG8btFPo6U0",
+    "title": null,
+    "subject": "preclinic-orientation",
+    "date": "มิถุนายน 69",
+    "durationMin": null,
+    "instructor": "อาจารย์เกรียงวิทย, อาจารย์ศิริรัตน์ (พี่หน่อง), อาจารย์ไซแก้ว, คุณหมอชด, อาจารย์ปิยานัส, อาจารย์นที",
+    "examFormat": "ควิส SOP กลาง 100 ข้อ ต้องได้ 80 คะแนนขึ้นไป แล้วแคปหน้าจอคะแนนส่งเป็น assignment [70:15, 72:30]; ส่วนรายวิชา soft skill ปี 6 อาจารย์ระบุว่า \"ไม่มีสอบปลายภาครายวิชานี้ ไม่มีสอบ\" ตัดเป็น letter grade A B C D E F I [43:03-43:26]"
+  },
   'Smt-f5BBo74': {
     "videoId": "Smt-f5BBo74",
     "title": "ปฐมนิเทศ OSCE",
@@ -3205,6 +3826,24 @@ export const VIDEO_META = {
     "durationMin": 82,
     "instructor": "CUVET Clinical Practice Team",
     "examFormat": "Orientation — info only"
+  },
+  'gsbPz6CF-5M': {
+    "videoId": "gsbPz6CF-5M",
+    "title": null,
+    "subject": "preclinic-orientation",
+    "date": null,
+    "durationMin": null,
+    "instructor": null,
+    "examFormat": "วิชาฝึกงานโคปี 6 — \"ท้ายสัปดาห์ที่ 1 กับ 2 นี่ก็จะมีการสอบปฏิบัติ ... ที่ต่างกับของปี 5 คือของปี 6 เนี่ยจะให้ทำบนตัวโคเลย\" [102:36-102:47]"
+  },
+  'r-LT4yGdHCY': {
+    "videoId": "r-LT4yGdHCY",
+    "title": null,
+    "subject": "preclinic-orientation",
+    "date": "27 มิ.ย. 69",
+    "durationMin": null,
+    "instructor": "พี่หน่อง (ผู้ประสานงานรายวิชาสหกิจ)",
+    "examFormat": null
   },
   'sPp6qcqbbsY': {
     "videoId": "sPp6qcqbbsY",
@@ -3395,6 +4034,15 @@ export const VIDEO_META = {
     "instructor": "Aj. Suppawiwat Ponglowhapan (SP) — Theriogenology, Chula Vet",
     "examFormat": "Case-based MCQ + drug class matching, \"ออก 2 ล้านข้อ จำไป\" Progestin AE"
   },
+  'AFtqfozc7kY': {
+    "videoId": "AFtqfozc7kY",
+    "title": "12.1 : Ovarian Remnant Syndrome (2025-4-11)",
+    "subject": "repro-lect",
+    "date": "11 Apr 68",
+    "durationMin": 65,
+    "instructor": null,
+    "examFormat": null
+  },
   'EYWklXP5wxw': {
     "videoId": "EYWklXP5wxw",
     "title": "9.2 Infertility in Dogs and Cats",
@@ -3403,6 +4051,15 @@ export const VIDEO_META = {
     "durationMin": 127,
     "instructor": null,
     "examFormat": "ศัพท์ semen quality \"ออกข้อสอบทุกปี\" มักถามแบบ \"ข้อใดไม่ใช่สาเหตุของ...\" / \"ข้อใดใช่\" ส่วน alkaline phosphatase ในน้ำเชื้อบอกว่าไม่ค่อยออก"
+  },
+  'FlwtHVbPwK0': {
+    "videoId": "FlwtHVbPwK0",
+    "title": "0 : Introduction + Course Syllabus (2025-1-10)",
+    "subject": "repro-lect",
+    "date": "10 Jan 2025",
+    "durationMin": 43,
+    "instructor": "พี่แก้ว (ผู้ดูแลวิชาแลบ 3108410) และอาจารย์สุภวัฒน์ / พี่น็อต (ผู้ดูแลวิชาเลคเชอร์ 3108409)",
+    "examFormat": "สอบมิดเทอมครอบคลุมเลคเชอร์ 1-12 คิดเป็น 50% สอบไฟนอลเลคเชอร์ 13-22 อีก 40% ส่วนที่เหลือ 10% เป็นควิซ/แลบ + attendance [15:11-15:53]; วิชาแลบสอบปลายภาคเป็นลักษณะดูสไลด์ แล้วสอบเช็คแลบแบบลงมือปฏิบัติกับโมเดล (OSCE) ประมาณ 5-6 สเตชัน [16:22-17:23, 23:31-23:42]"
   },
   'GBKkUzt2slA': {
     "videoId": "GBKkUzt2slA",
@@ -3485,6 +4142,15 @@ export const VIDEO_META = {
     "instructor": null,
     "examFormat": "ออกข้อสอบตาม Hand out เป็นหลัก, ไม่ออกโดสยา/ข้อความจำ, อาจให้ choices แล้วถามว่าข้อใดใช่หรือไม่ใช่ obstructive dystocia"
   },
+  'ctUAl-GO9cQ': {
+    "videoId": "ctUAl-GO9cQ",
+    "title": "4.2 : Canine Transmissible Venereal Tumor (2025-1-31)",
+    "subject": "repro-lect",
+    "date": "31 Jan 2025",
+    "durationMin": 39,
+    "instructor": null,
+    "examFormat": null
+  },
   'ds5F-LHCTJM': {
     "videoId": "ds5F-LHCTJM",
     "title": "9.1 Breeding Management in Dogs and Cats",
@@ -3548,6 +4214,24 @@ export const VIDEO_META = {
     "instructor": "พี่แอม (ชื่อเล่นตามที่เรียกในคลิป)",
     "examFormat": "ย้ำระยะไข่ที่พร้อมปฏิสนธิคือ Metaphase II แล้วบอกว่า \"เดี๋ยวข้อสอบออกจะได้ตอบได้\" [66:46]"
   },
+  'v6Jv8erRqog': {
+    "videoId": "v6Jv8erRqog",
+    "title": "1.2 : Congenital Disorders of repro organ in male (2025-1-10)",
+    "subject": "repro-lect",
+    "date": "10 Jan 68",
+    "durationMin": 45,
+    "instructor": null,
+    "examFormat": null
+  },
+  'wrAVuCV9IBg': {
+    "videoId": "wrAVuCV9IBg",
+    "title": "11.1 : Surgical neutering - OVH + Castration (2025-4-4)",
+    "subject": "repro-lect",
+    "date": "4 Apr 68",
+    "durationMin": 103,
+    "instructor": null,
+    "examFormat": null
+  },
   'y9ImTcx3hLc': {
     "videoId": "y9ImTcx3hLc",
     "title": "6.3 Lab Dystocia discussion — วิเคราะห์เคสคลอดยากในสุนัขและแมว 6 เคส",
@@ -3601,6 +4285,33 @@ export const VIDEO_META = {
     "durationMin": 33,
     "instructor": "Anesthesiology team (CUVET)",
     "examFormat": "MCQ — IV cat sizes, 3-tape securing, 20 vs 60 drop sets, drops/min calculation, induction sequence ออกบ่อย"
+  },
+  '0zkTYJYCUWA': {
+    "videoId": "0zkTYJYCUWA",
+    "title": "ปูโต๊ะผ่า",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 2,
+    "instructor": null,
+    "examFormat": null
+  },
+  '6Yrut75JuZA': {
+    "videoId": "6Yrut75JuZA",
+    "title": "8 : Aural Hematoma lab (2025-2-27)",
+    "subject": "surg2",
+    "date": "27 Feb 2025",
+    "durationMin": 42,
+    "instructor": null,
+    "examFormat": null
+  },
+  '8IfgZNKe0Bw': {
+    "videoId": "8IfgZNKe0Bw",
+    "title": "Dental nerve block (dog)",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 3,
+    "instructor": null,
+    "examFormat": null
   },
   '8dI5GELZEqE': {
     "videoId": "8dI5GELZEqE",
@@ -3699,6 +4410,15 @@ export const VIDEO_META = {
     "date": "8 Apr 69",
     "durationMin": 19,
     "instructor": "พี่พล",
+    "examFormat": null
+  },
+  'VJJoHtRJAVw': {
+    "videoId": "VJJoHtRJAVw",
+    "title": "Dental nerve block (dog 2)",
+    "subject": "surg2",
+    "date": null,
+    "durationMin": 3,
+    "instructor": null,
     "examFormat": null
   },
   'Wv7RXGj21rY': {

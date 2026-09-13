@@ -54,7 +54,11 @@ async function readExisting() {
 function parseFrontMatter(text, name) {
   const m = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/.exec(text.replace(/^﻿/, '').trimStart());
   if (!m) throw new Error(name + ': no front matter block');
-  const entry = { summary: m[2].trim() };
+  // Normalise the body's line endings. A summary edited on Windows comes back
+  // with CRLF while the generated module stores LF, and the round-trip check
+  // then reports drift on four files whose text is character-for-character
+  // identical — a real failure signal wasted on an invisible difference.
+  const entry = { summary: m[2].replace(/\r\n/g, '\n').trim() };
   for (const line of m[1].split(/\r?\n/)) {
     const i = line.indexOf(':');
     if (i < 0) continue;
