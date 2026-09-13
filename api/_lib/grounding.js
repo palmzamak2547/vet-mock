@@ -79,3 +79,28 @@ export function quotesFrom(quote, source) {
   if (q.length < 8) return false;
   return flat(source).includes(q);
 }
+
+/**
+ * A verbatim quote is proof of provenance, not something a student should have
+ * to read as source text. The summaries are markdown, so a line copied exactly
+ * out of one arrives carrying its formatting: `| **MERS** | Camels |` for a
+ * table row, an orphan `**` where the model started copying mid-emphasis, a
+ * leading bullet or star.
+ *
+ * Run this AFTER quotesFrom has passed, never before — the check is against
+ * what the summary really says, and this only decides how it is shown.
+ */
+export function tidyQuote(quote) {
+  let s = String(quote ?? '').trim();
+  // A table row becomes its cells, in order, rather than its pipes.
+  if (/^\|.*\|?$/.test(s) && s.includes('|')) {
+    const cells = s.split('|').map((c) => c.trim()).filter(Boolean);
+    if (cells.length) s = cells.join(' — ');
+  }
+  return s
+    .replace(/\*\*|__|`/g, '')                       // emphasis, opened or not
+    .replace(/^[\s>#*\-•⭐🔻🎯⚠️💡📋🔹]+/u, '')        // heading, bullet and callout marks
+    .replace(/[\s|]+$/, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}

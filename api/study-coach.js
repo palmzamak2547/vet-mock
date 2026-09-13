@@ -31,7 +31,7 @@
 import { createHash } from 'node:crypto';
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
 import { chatJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET } from './_lib/llm.js';
-import { checkText, quotesFrom } from './_lib/grounding.js';
+import { checkText, quotesFrom, tidyQuote } from './_lib/grounding.js';
 import { questionCatalog } from './_lib/question-catalog.js';
 import { VIDEO_META } from '../src/data/video-summaries-meta.js';
 import { loadVideoSummariesForSubject } from '../src/data/video-summaries.js';
@@ -40,6 +40,10 @@ const MAX_ITEMS = 25;          // one session's worth of wrong answers
 const MAX_SUMMARY_CHARS = 14000;
 const TIMEOUT_MS = 30000;
 const CACHE_SECONDS = { miss: 7 * 86400, review: 86400, recall: 7 * 86400 };
+// Bump when a guard or a presentation rule changes, so entries written under
+// the old rule are ignored rather than served for another week. v1 recall
+// answers were stored with their markdown still on them.
+const CACHE_VERSION = 'v2';
 
 const clip = (s, n) => String(s ?? '').replace(/\s+/g, ' ').trim().slice(0, n);
 const hash = (v) => createHash('sha1').update(JSON.stringify(v)).digest('hex').slice(0, 24);
@@ -93,7 +97,7 @@ async function buildMiss(body) {
   ].filter(Boolean).join('\n\n');
 
   return {
-    cacheKey: `coach:miss:${qid}:${chosen}`,
+    cacheKey: `coach:${CACHE_VERSION}:miss:${qid}:${chosen}`,
     system: MISS_SYSTEM,
     user: material,
     maxTokens: 600,
@@ -168,7 +172,7 @@ async function buildReview(body) {
   ].join('\n')).join('\n\n');
 
   return {
-    cacheKey: `coach:review:${hash(picked.map((p) => [p.q.id, p.chose]))}`,
+    cacheKey: `coach:${CACHE_VERSION}:review:${hash(picked.map((p) => [p.q.id, p.chose]))}`,
     system: REVIEW_SYSTEM,
     user: material,
     maxTokens: 900,
@@ -218,7 +222,7 @@ async function buildRecall(body) {
   if (summary.length < 200) return { error: 404, message: 'No summary for this lecture' };
 
   return {
-    cacheKey: `coach:recall:${videoId}`,
+    cacheKey: `coach:${CACHE_VERSION}:recall:${videoId}`,
     system: RECALL_SYSTEM,
     user: `LECTURE: ${meta.title}\n\nSUMMARY:\n${summary.slice(0, MAX_SUMMARY_CHARS)}`,
     maxTokens: 1200,
@@ -233,7 +237,11 @@ async function buildRecall(body) {
         // model, it is FOUND in the summary. An item whose quote is not there
         // is a fabricated answer however plausible it reads.
         if (!quotesFrom(quote, summary)) continue;
-        items.push({ q, quote });
+        // Verified first, then tidied: the check is against what the summary
+        // really says, and tidying only decides how it is shown.
+        const shown = tidyQuote(quote);
+        if (shown.length < 8) continue;
+        items.push({ q, quote: shown });
       }
       if (items.length < 2) return { blocked: 'no-quotable-items' };
       return { payload: { items, lecture: { videoId, title: meta.title, subject: meta.subject } } };

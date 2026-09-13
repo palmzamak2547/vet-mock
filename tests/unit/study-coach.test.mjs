@@ -282,3 +282,30 @@ test('a True/False question is not a miss the coach takes on', async () => {
   assert.equal(res.statusCode, 400);
   assert.equal(called, false);
 });
+
+test('a verified quote is shown without its markdown', async () => {
+  const { tidyQuote } = await import('../../api/_lib/grounding.js');
+  // All six came back from the live endpoint on the first production run.
+  assert.equal(tidyQuote('| **MERS** | Camels |'), 'MERS — Camels');
+  assert.equal(tidyQuote('Spillover events** — animal → human'), 'Spillover events — animal → human');
+  assert.equal(tidyQuote('- ⭐⭐ **75% zoonotic** of emerging'), '75% zoonotic of emerging');
+  // A '>' that is part of the sentence is not a blockquote mark.
+  assert.equal(tidyQuote('Prevention > response'), 'Prevention > response');
+});
+
+test('tidying happens after the quote is verified, never before', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../../api/study-coach.js', import.meta.url), 'utf8');
+  const check = src.indexOf('if (!quotesFrom(quote, summary)) continue;');
+  const tidy = src.indexOf('const shown = tidyQuote(quote);');
+  assert.ok(check > 0 && tidy > check, 'a tidied string would be checked against the summary instead of the real line');
+});
+
+test('a cache written under an older guard is not served again', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../../api/study-coach.js', import.meta.url), 'utf8');
+  assert.match(src, /const CACHE_VERSION = 'v\d+';/);
+  for (const mode of ['miss', 'review', 'recall']) {
+    assert.ok(src.includes(`coach:\${CACHE_VERSION}:${mode}:`), `${mode} keys do not carry the cache version`);
+  }
+});
