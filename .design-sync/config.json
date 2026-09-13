@@ -41,7 +41,6 @@
     "SummaryModal": "./src/components/SummaryModal.jsx",
     "TemplateLibrary": "./src/components/TemplateLibrary.jsx",
     "TermLinkedRichText": "./src/components/TermLinkedRichText.jsx",
-    "TermPopover": "./src/components/TermPopover.jsx",
     "TermPopup": "./src/components/TermPopup.jsx",
     "ThemePicker": "./src/components/ThemePicker.jsx",
     "TodaysQModal": "./src/components/TodaysQModal.jsx",

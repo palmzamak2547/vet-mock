@@ -8,7 +8,7 @@
     "views/ImageOcclusionView.jsx": 4,
     "views/LabView.jsx": 2,
     "views/OfflineGameView.jsx": 5,
-    "views/PdfAnnotateView.jsx": 53,
+    "views/PdfAnnotateView.jsx": 48,
     "views/PhaseWrappedView.jsx": 5,
     "views/PinboardView.jsx": 9,
     "views/PomodoroView.jsx": 1,
@@ -43,9 +43,8 @@
     "components/SummaryModal.jsx": 1,
     "components/SyncStatusNotice.jsx": 3,
     "components/TemplateLibrary.jsx": 1,
-    "components/TermLinkedRichText.jsx": 4,
-    "components/TermPopover.jsx": 5,
-    "components/TermPopup.jsx": 7,
+    "components/TermLinkedRichText.jsx": 1,
+    "components/TermPopup.jsx": 5,
     "components/ThemePicker.jsx": 6,
     "components/TodaysQModal.jsx": 3,
     "components/TopLoadingBar.jsx": 3,
@@ -59,7 +58,11 @@
     "components/lab/VHSOverlay.jsx": 32,
     "lib/contributions.js": 15,
     "lib/web-vitals.js": 3,
-    "App.jsx": 1
+    "App.jsx": 1,
+    "lib/motion-kit/mochi/model-3d.js": 13,
+    "lib/motion-kit/mochi/renderer-3d.js": 5,
+    "lib/motion-kit/mochi/svg-art.js": 50,
+    "lib/motion-kit/particles.js": 21
   },
   "exempt": {
     "views/ResultsView.jsx": "Canvas IG-story export needs literal colors (ctx.fillStyle cannot resolve CSS vars; shared image must not follow dark mode) + alpha-suffix gradient literals.",

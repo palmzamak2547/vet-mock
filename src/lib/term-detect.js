@@ -9,22 +9,35 @@
 // 1. Longest-first sort prevents partial swallow: "USG" won't match
 //    inside "USGcost", and "ACE inhibitor" (15 chars) wins over a
 //    bare "ACE" (3 chars) when both could fit.
-// 2. Word-boundary: ASCII negative lookbehind/ahead — Thai context
-//    around an English term still produces a match (Thai chars are
-//    treated as boundaries), which is what we want for the bilingual
-//    Q stems VetMock uses.
-// 3. Caches per-entry related-question IDs in a WeakMap keyed by the
+// 2. Word boundary WITHOUT lookbehind. The repo ships to `ios >= 14`
+//    (package.json browserslist, STABILITY.md rule 7) and lookbehind
+//    only landed in Safari 16.4 — a module-scope RegExp using it
+//    throws while the module is evaluating, which takes the whole
+//    question stem down with it on those phones. So the boundary is a
+//    captured leading character that we subtract back off the match
+//    offset. Thai characters count as boundaries, which is what the
+//    bilingual stems need: "ค่า BUN สูง" still matches.
+// 3. A match is only a hit if the glossary can resolve it FOR THIS
+//    SUBJECT. IBD is inflammatory bowel disease in small animal and
+//    infectious bursal disease in poultry; an unresolvable term is
+//    left as plain text rather than defined wrongly.
+// 4. Caches per-entry related-question IDs in a WeakMap keyed by the
 //    entry object, so a 200-Q exam re-rendering doesn't rebuild the
 //    list per click.
 // ============================================================
 
 import {
-  findGlossaryEntry,
+  resolveGlossaryEntry,
   getAllDetectableTerms,
   getAllSearchableStrings,
 } from '../data/glossary.js';
 
-const MIN_TERM_LEN = 3; // skip 1-2 char abbreviations unless explicitly aliased
+const MIN_TERM_LEN = 3; // two letters are never unambiguous enough to auto-open
+// Measured, not assumed: in this bank PD is polydipsia in small animal and
+// pregnancy diagnosis in ruminant practice, PU is polyuria and perineal
+// urethrostomy, DM is diabetes mellitus, dry matter and the dorsomedial
+// nucleus. Scope separates some of those; it cannot separate the ones that
+// collide inside one discipline, so two-letter keys are not detected at all.
 
 function escapeRegex(s) {
   return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -34,49 +47,56 @@ function escapeRegex(s) {
 // All known terms + aliases, sorted longest-first so the regex engine
 // prefers the longer match (e.g. "pulmonary edema" over "edema").
 const ALL_TERMS = getAllDetectableTerms()
-  .filter((t) => {
-    // Allow short terms only when they're all-uppercase abbreviations
-    // (BUN, ALT, ALP, CHF, MMVD, etc.) — we look at the *canonical*
-    // term casing to decide. Synonyms/aliases already lowercased in
-    // the index, so check the original glossary entry.
-    if (t.length >= MIN_TERM_LEN) return true;
-    return false; // 1-2 char strings are too noisy
-  })
+  .filter((t) => t.length >= MIN_TERM_LEN)
   .slice()
   .sort((a, b) => b.length - a.length);
 
 const ALTERNATION = ALL_TERMS.map(escapeRegex).join('|');
 
 // 'gi' = global + case-insensitive.
-// Lookbehind/ahead = ASCII word-boundary that still allows Thai chars
-// adjacent (so "BUN" inside Thai sentence "ค่า BUN สูง" still matches).
-// We explicitly allow `'` (Cushing's) inside terms — the alternation
-// already escapes it, no boundary issue because `'` isn't [A-Za-z0-9].
+// Group 1 is the boundary character (empty at start of string), group 2
+// the term. `'` (Cushing's) is fine inside a term — it is not [A-Za-z0-9]
+// so it cannot break the boundary either side.
 const TERM_RE = ALL_TERMS.length
-  ? new RegExp(`(?<![A-Za-z0-9])(${ALTERNATION})(?![A-Za-z0-9])`, 'gi')
+  ? new RegExp(`(^|[^A-Za-z0-9])(${ALTERNATION})(?![A-Za-z0-9])`, 'gi')
   : null;
 
+// A qualifier immediately before the term can change what the term
+// means. "mitral regurgitation" is a leaking heart valve, not food
+// coming back up; "uterine edema" on a mare-cycle scan is a normal
+// oestrogen effect, not hypoalbuminaemia. Entries declare these in
+// `notAfter`, and a match preceded by one is left alone.
+const WORD_BEFORE_RE = /([A-Za-z฀-๿]+)[\s-]*$/;
+
+function blockedByContext(entry, text, start) {
+  const guards = entry && entry.notAfter;
+  if (!guards || !guards.length) return false;
+  const before = WORD_BEFORE_RE.exec(text.slice(Math.max(0, start - 40), start));
+  if (!before) return false;
+  const prev = before[1].toLowerCase();
+  return guards.some((g) => String(g).toLowerCase() === prev);
+}
+
 // ────────────────────────────────────────────────────────────
-// detectTerms(text) — return non-overlapping matches with positions
+// detectTerms(text, subject) — non-overlapping matches with positions
 // ────────────────────────────────────────────────────────────
 // Returns Array<{ term, entry, start, end }> sorted by start asc.
-// Empty array for null/empty input or when no terms hit.
-export function detectTerms(text) {
+// `subject` is the question's subject id; without one, only terms whose
+// meaning does not change with discipline can resolve.
+export function detectTerms(text, subject = null) {
   if (!TERM_RE || !text) return [];
   const str = String(text);
   TERM_RE.lastIndex = 0;
   const out = [];
   let m;
   while ((m = TERM_RE.exec(str)) !== null) {
-    const matched = m[1];
-    const entry = findGlossaryEntry(matched);
-    if (!entry) continue;
-    out.push({
-      term: matched,
-      entry,
-      start: m.index,
-      end: m.index + matched.length,
-    });
+    const lead = m[1] || '';
+    const matched = m[2];
+    const start = m.index + lead.length;
+    const entry = resolveGlossaryEntry(matched, subject);
+    if (entry && !blockedByContext(entry, str, start)) {
+      out.push({ term: matched, entry, start, end: start + matched.length });
+    }
     // Zero-length guard (shouldn't fire with our regex shape).
     if (m.index === TERM_RE.lastIndex) TERM_RE.lastIndex++;
   }
@@ -84,11 +104,10 @@ export function detectTerms(text) {
 }
 
 // ────────────────────────────────────────────────────────────
-// getEntryByTerm(term) — case-insensitive lookup
+// getEntryByTerm(term, subject) — case-insensitive lookup
 // ────────────────────────────────────────────────────────────
-// Returns the canonical glossary entry or null.
-export function getEntryByTerm(term) {
-  return findGlossaryEntry(term);
+export function getEntryByTerm(term, subject = null) {
+  return resolveGlossaryEntry(term, subject);
 }
 
 // ────────────────────────────────────────────────────────────
@@ -99,16 +118,19 @@ export function getEntryByTerm(term) {
 // Returns numeric IDs (matching q.id). Result cached per entry so
 // repeated popover opens for the same term don't re-scan QB.
 //
-// Caller responsibility: pass the current QB array (already loaded).
-// We don't import questions.js here to avoid pulling the whole bank
-// into a module that may be imported pre-load.
+// The COUNT the card shows does not come from here — it comes from the
+// build-time index in glossary-related.generated.js, because at render
+// time QB holds only the banks the session has loaded and a number that
+// changes with load order is a number we would be making up. This stays
+// for the click itself, where a live scan of what is actually loaded is
+// the honest answer.
 const relatedCache = new WeakMap();
 
 export function getRelatedQuestionIds(entry, QB) {
   if (!entry || !Array.isArray(QB) || QB.length === 0) return [];
 
   // Cache key = entry object — same entry across calls returns cached.
-  // We also nest by QB length so a hot-reload that adds Qs invalidates.
+  // We also nest by QB length so a later bank load invalidates.
   const cached = relatedCache.get(entry);
   if (cached && cached.qbLen === QB.length) return cached.ids;
 
@@ -118,7 +140,7 @@ export function getRelatedQuestionIds(entry, QB) {
   // Build a per-call regex (one entry's needles, longest-first).
   const sorted = needles.slice().sort((a, b) => b.length - a.length);
   const alternation = sorted.map(escapeRegex).join('|');
-  const re = new RegExp(`(?<![A-Za-z0-9])(${alternation})(?![A-Za-z0-9])`, 'i');
+  const re = new RegExp(`(^|[^A-Za-z0-9])(${alternation})(?![A-Za-z0-9])`, 'i');
 
   const ids = [];
   for (const q of QB) {

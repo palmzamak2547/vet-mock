@@ -353,6 +353,66 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-13 — 5.90.0: the glossary learns which subject it is in
+
+- **The bug was structural, not a typo.** `src/data/glossary.js` carried a `subjects` field on all
+  63 entries and **no line of code ever read it**, so one flat list of small-animal definitions fired
+  on all 43 subjects. Measured before the fix: 291 term hits across 5,169 stems, **200 of them
+  (68.7%) on a subject the entry was never written for**. The reported case was a poultry
+  Infectious Bursal Disease (Gumboro) question opening a card about canine inflammatory bowel
+  disease. The same collision class is all over the bank — the bank's own text expands `AI` as both
+  avian influenza and artificial insemination, `FPV` as both feline panleukopenia and fowlpox virus,
+  `RDA` as both right displaced abomasum and recommended daily allowance, `PCV` as both packed cell
+  volume and porcine circovirus.
+- **`scope` replaced `subjects`, and resolution can now refuse.** Every entry declares either
+  `'universal'` (the concept does not change with species — azotemia, ALT, Salmonella: 28 entries)
+  or a list of families/subject ids from `SCOPE_FAMILIES` (35 entries). `resolveGlossaryEntry(term,
+  subject)` prefers a scoped entry, falls back to a universal one, and otherwise **returns null and
+  the word is simply not underlined**. Withholding is the feature: a confident, well-typeset
+  definition of the wrong disease is worse than no definition, because nothing on screen invites
+  doubt. `scripts/lint-glossary.mjs` fails the build if two entries can both answer to one key in
+  one subject.
+- **A naive gate would have been wrong too** — a strict `subjects.includes(q.subject)` drops 200 of
+  291 hits but silences BUN, ALT, jaundice, E. coli and 25 other entries that were correct
+  everywhere. That is why the universal/scoped split exists rather than a subject list per entry.
+  Result: 258 in-scope stem hits, and extending detection to `explain` (where 13 of the 63 entries
+  actually live) takes questions carrying a tappable term from 247 to 726.
+- **Two guards that scope cannot express** live in `notAfter` on the entry: "mitral regurgitation"
+  is a leaking valve, not food coming back up, and "uterine edema" on a mare-cycle scan is a normal
+  oestrogen effect, not hypoalbuminaemia. The detector checks the preceding word.
+- **Two-letter keys are never detected** (`MIN_TERM_LEN = 3`), and lint now rejects a 2-char alias
+  outright. I lowered it to 2 mid-change and measured the consequence before shipping it: `PD` is
+  polydipsia in small animal and pregnancy diagnosis in ruminant practice, `PU` is polyuria and
+  perineal urethrostomy. Scope separates senses across disciplines; it cannot separate two senses
+  inside one.
+- **The regex had a real crash risk.** Both detectors built a module-scope `RegExp` with lookbehind,
+  which is Safari 16.4+, while `package.json` declares `ios >= 14` and STABILITY.md rule 7 pins it.
+  On those phones the module throws while evaluating and takes the question stem with it. Replaced
+  with a captured leading character subtracted back off the offset; a test greps for `(?<`.
+- **"ข้อที่เกี่ยวข้อง N ข้อ" was a no-op.** It dispatched `vmx:open-related-qs` and nothing listened.
+  App.jsx now listens and `startExam({ onlyIds })` treats an explicit id set as its own pool (the
+  subject/topic filters would otherwise discard the cross-subject questions the card just counted).
+  N itself moved to build time — `scripts/regen-glossary-related.mjs` — because it was counted
+  against whatever slice of the bank the session had loaded, so the same card showed different
+  numbers depending on what you had browsed first.
+- **Ten factual corrections to the cards**, each checked against the repo or a named source before
+  editing: bradycardia thresholds now match the course's own table
+  (`video-summaries-com1.js:1114`), distemper hard-pad is classic not pathognomonic, hepatic
+  lipidosis had its pathogenesis inverted, DOCP is mineralocorticoid-only and needs a glucocorticoid
+  alongside, metronidazole does not cover feline *Tritrichomonas foetus*, marbofloxacin's retinal
+  safety is relative not absolute, pimobendan gained its contraindication, milbemycin gained the
+  pre-treatment heartworm test, the FeLV vaccine line was the superseded recommendation, ALP was
+  missing isoenzymes.
+- **Popup placement**: the old rule picked whichever side had more room, which on a tablet is always
+  below — i.e. on top of options A-D while the student is still reading. It now prefers above
+  whenever there is a readable gap, caps its own height to that gap and scrolls inside. Verified in
+  the browser at 1180x820 with the term at the reported y: card lands at 8-224, first option at 286,
+  no overlap.
+- Dead code removed: `src/lib/term-detector.js` (a divergent copy that could not even load) and
+  `src/components/TermPopover.jsx` (unimported; also dropped from `.design-sync/config.json`).
+- Trap for next time: `npm run lint:hex-budget` FAILS when a file improves, until you run it with
+  `--write` to record the new baseline. Deleting a component with hardcoded hexes trips it.
+
 ## 2026-09-13 — 5.89.0: three grounded study aids, and Panic Mode made accurate
 
 - **`api/study-coach.js` is one endpoint with three modes**, all sharing the spine every other model route uses (origin CORS, per-IP limit, one shared daily budget, KV cache): `miss` explains the wrong option a student picked, `review` names the pattern across one session's misses, `recall` asks questions about a lecture summary just read. Client: `src/lib/study-coach.js` + `MissCoach.jsx` / `WeakSpots.jsx` / `RecallQuiz.jsx`.
@@ -364,3 +424,10 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - `MissCoach` does not offer itself when the bank's own explanation already accounts for the chosen option — either it carries a `ทำไมข้ออื่นผิด` section (about a third of MCQs) or it quotes the option outright. That is 33% of wrong-option pairs where the button would have been noise and a paraphrase billed to the daily budget.
 - **Verify before you prettify, and version the cache when presentation changes.** The first live `recall` probe returned five answers that all passed the verbatim guard and still looked like raw notes (`| **MERS** | Camels |`). `tidyQuote()` in `grounding.js` strips markdown, table pipes and bullet glyphs — but it runs AFTER `quotesFrom`, never before, or the guard would be checking a string the summary never contained. A test pins that order. `CACHE_VERSION` in `study-coach.js` is in every cache key for the same reason: recall entries live a week, so a presentation fix that does not bump it ships to nobody.
 - Trap worth remembering: a `.jsx` module cannot be imported from a node test (`ERR_UNKNOWN_FILE_EXTENSION`). Pure logic that needs a test belongs in a plain `.js` lib — `alreadyExplained` moved to `src/lib/study-coach.js` for exactly this reason.
+
+## 2026-09-13 — OG design studies (local review only)
+
+- Requested section-by-section OG design exploration. Created `work/og-design-20260913/`: 35 PNG covers at 1200x630, editable `render.mjs`, `manifest.json`, `index.html` gallery, six-cover `overview.png`, and provenance/scope in `README.md`. Work directory is gitignored; preserve it for iteration.
+- Covers all 31 `APP_VIEW_ROUTES` plus Wiki/blog and internal Notes/Imaging concepts; individual article/subject covers remain future template work. Uses existing logo, Mochi, and repository CC0 skull poster with original CSS editorial illustration; no private learner data or lecture figures.
+- Verified all 35 images decode, route coverage has no gaps, all heading bounds fit, gallery filtering works, and 390px gallery has no horizontal overflow (`verification.json`). Visually reviewed six lead exports. No app code, OG metadata, commit, or deployment changed; release gates were unnecessary for local-only artwork.
+- Next: review visual direction with owner, then integrate crawler-readable metadata and dynamic-title templates if requested. SPA client metadata alone is insufficient proof of share previews.

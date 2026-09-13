@@ -23,10 +23,10 @@
 
 import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
-import { detectTerms, getEntryByTerm, getRelatedQuestionIds } from '../lib/term-detect.js';
-import { findGlossaryEntry } from '../data/glossary.js';
+import { detectTerms, getEntryByTerm } from '../lib/term-detect.js';
+import { entryKey } from '../data/glossary.js';
+import { GLOSSARY_RELATED } from '../data/glossary-related.generated.js';
 import TermPopup from './TermPopup.jsx';
-import { QB } from '../data/questions.js';
 
 // One-shot stylesheet injection. We attach a single <style> to the
 // document head when the first TermLinkedRichText mounts. Cheaper
@@ -54,18 +54,18 @@ function ensureTermStyles() {
   color: inherit;
 }
 .vmx-term:hover {
-  text-decoration-color: var(--clr-accent, #b88940);
+  text-decoration-color: var(--clr-gold);
   background: var(--clr-gold-soft, rgba(184, 137, 64, 0.08));
   border-radius: 3px;
 }
 .vmx-term:focus-visible {
-  outline: 2px solid var(--clr-accent, #b88940);
+  outline: 2px solid var(--clr-gold);
   outline-offset: 1px;
   border-radius: 3px;
 }
 .vmx-term.active {
   background: var(--clr-gold-soft, rgba(184, 137, 64, 0.15));
-  text-decoration-color: var(--clr-accent, #b88940);
+  text-decoration-color: var(--clr-gold);
   border-radius: 3px;
 }
 `;
@@ -88,7 +88,7 @@ function defaultOpenRelated(ids, entry) {
   } catch {}
 }
 
-export default function TermLinkedRichText({ text, highlight, onOpenRelated }) {
+export default function TermLinkedRichText({ text, highlight, onOpenRelated, subject = null }) {
   if (typeof document !== 'undefined') ensureTermStyles();
 
   const wrapperRef = useRef(null);
@@ -101,7 +101,7 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated }) {
   const { segments, relatedCountByTerm } = useMemo(() => {
     if (!text) return { segments: [], relatedCountByTerm: new Map() };
     const str = String(text);
-    const matches = detectTerms(str);
+    const matches = detectTerms(str, subject);
     if (matches.length === 0) {
       return { segments: [{ type: 'text', value: str }], relatedCountByTerm: new Map() };
     }
@@ -123,18 +123,16 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated }) {
       segs.push({ type: 'text', value: str.slice(cursor) });
     }
 
-    // Pre-compute related-Q counts ONCE per unique entry hit.
-    // (getRelatedQuestionIds is internally cached but we still skip
-    // duplicate calls for the same entry within one render.)
+    // Related-Q counts come from the build-time index, not a scan of
+    // whatever the session has loaded — see regen-glossary-related.mjs.
     const counts = new Map();
     for (const m of matches) {
       const key = m.entry.term.toLowerCase();
       if (counts.has(key)) continue;
-      const ids = getRelatedQuestionIds(m.entry, QB);
-      counts.set(key, ids.length);
+      counts.set(key, (GLOSSARY_RELATED[entryKey(m.entry)] || []).length);
     }
     return { segments: segs, relatedCountByTerm: counts };
-  }, [text]);
+  }, [text, subject]);
 
   // Delegated click handler — fires for any descendant.
   // Walks up to the nearest .vmx-term button (closest()) and toggles
@@ -164,7 +162,7 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated }) {
   }, []);
 
   const openRelated = useCallback((entry) => {
-    const ids = getRelatedQuestionIds(entry, QB);
+    const ids = GLOSSARY_RELATED[entryKey(entry)] || [];
     if (typeof onOpenRelated === 'function') {
       onOpenRelated(ids, entry);
     } else {
@@ -177,7 +175,7 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated }) {
   // Resolve the currently-open entry for the popup. We look up via the
   // glossary index (not the segment array) so the popup survives
   // re-renders that might shuffle segment order.
-  const openEntry = openTerm ? (getEntryByTerm(openTerm) || findGlossaryEntry(openTerm)) : null;
+  const openEntry = openTerm ? getEntryByTerm(openTerm, subject) : null;
   const openRelatedCount = openTerm ? (relatedCountByTerm.get(openTerm) ?? 0) : 0;
 
   return (

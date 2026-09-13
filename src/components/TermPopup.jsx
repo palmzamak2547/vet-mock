@@ -30,12 +30,16 @@ const CATEGORY_LABELS = {
 };
 
 const POPUP_MAX_WIDTH = 360;
+// Below this a card is a sliver, not something you can read — at that point
+// it scrolls internally instead of shrinking further.
+const MIN_READABLE_HEIGHT = 180;
 const POPUP_MARGIN = 8;     // gap between anchor edge and popup
 const VIEWPORT_PAD = 8;     // min distance from screen edges
 
 export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, relatedCount = 0 }) {
   const popupRef = useRef(null);
   const [pos, setPos] = useState({ top: 0, left: 0, placement: 'above', ready: false });
+  const [maxHeight, setMaxHeight] = useState(null);
 
   // ───── Esc close ─────
   useEffect(() => {
@@ -57,12 +61,22 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
     const onDocDown = (e) => {
       if (!popupRef.current) return;
       if (popupRef.current.contains(e.target)) return;
+      // Tapping another term must re-anchor the card to it. This handler used
+      // to fire first and close, so the wrapper's click saw no open popup and
+      // the "different term" path never ran — you had to tap twice.
+      if (e.target?.closest?.('.vmx-term')) return;
       // If user tapped a DIFFERENT term button, the wrapper handler
       // will reopen the popup with the new entry — we don't try to
       // mediate that here, just close.
       onClose?.();
     };
-    const onScroll = () => { onClose?.(); };
+    // Scrolling the page detaches the card from its anchor, so it closes.
+    // Scrolling the card's OWN body must not — that is how a long entry is
+    // read at all now that it has a height cap.
+    const onScroll = (e) => {
+      if (popupRef.current && e.target instanceof Node && popupRef.current.contains(e.target)) return;
+      onClose?.();
+    };
     document.addEventListener('mousedown', onDocDown);
     document.addEventListener('touchstart', onDocDown, { passive: true });
     // Capture-phase scroll listener so nested scroll containers also
@@ -85,29 +99,34 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
     const vw = window.innerWidth;
     const vh = window.innerHeight;
 
-    // Vertical: prefer above the anchor; flip below when cramped.
-    const above = anchorRect.top;
-    const below = vh - anchorRect.bottom;
-    let placement = 'above';
-    let top;
-    if (above >= rect.height + POPUP_MARGIN + VIEWPORT_PAD) {
-      top = anchorRect.top - rect.height - POPUP_MARGIN;
-    } else if (below >= rect.height + POPUP_MARGIN + VIEWPORT_PAD) {
-      placement = 'below';
-      top = anchorRect.bottom + POPUP_MARGIN;
-    } else {
-      // Tight on both sides — pick the bigger and clamp.
-      placement = below > above ? 'below' : 'above';
-      top = placement === 'below'
-        ? anchorRect.bottom + POPUP_MARGIN
-        : Math.max(VIEWPORT_PAD, anchorRect.top - rect.height - POPUP_MARGIN);
-    }
+    // Vertical. The old rule only asked which side was BIGGER, so on a
+    // tablet a term near the top of the stem always flipped below — landing
+    // squarely on options A-D, i.e. covering the question it was explaining
+    // while the student was still reading it. Now the card is allowed to
+    // shrink: whichever side it can fit in after capping its height wins,
+    // and `above` is preferred because the answer options live below.
+    const aboveGap = anchorRect.top - POPUP_MARGIN - VIEWPORT_PAD;
+    const belowGap = vh - anchorRect.bottom - POPUP_MARGIN - VIEWPORT_PAD;
+    // Above wins whenever there is a readable amount of room, even when
+    // below has MORE room. Below is where the answer options are, and a
+    // card that fits comfortably on top of the thing you are trying to
+    // read is not a better card. Checked against the reported case: term
+    // at y=263 on a 1080-tall tablet gives 247px above and ~700px below —
+    // the old "pick the bigger side" rule chose below and landed on
+    // options A to D.
+    const placement = aboveGap >= MIN_READABLE_HEIGHT ? 'above' : 'below';
+    const gap = placement === 'above' ? aboveGap : belowGap;
+    const height = Math.min(rect.height, Math.max(gap, MIN_READABLE_HEIGHT));
+    let top = placement === 'above'
+      ? anchorRect.top - height - POPUP_MARGIN
+      : anchorRect.bottom + POPUP_MARGIN;
+    setMaxHeight(Math.max(MIN_READABLE_HEIGHT, Math.floor(gap)));
 
     // Horizontal: center on anchor, clamp to viewport.
     let left = anchorRect.left + anchorRect.width / 2 - rect.width / 2;
     left = Math.max(VIEWPORT_PAD, Math.min(left, vw - rect.width - VIEWPORT_PAD));
     // Final vertical clamp (popup taller than viewport edge case).
-    top = Math.max(VIEWPORT_PAD, Math.min(top, vh - rect.height - VIEWPORT_PAD));
+    top = Math.max(VIEWPORT_PAD, Math.min(top, vh - height - VIEWPORT_PAD));
 
     setPos({ top, left, placement, ready: true });
   }, [anchorRect, entry]);
@@ -144,8 +163,13 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
         zIndex: 9000,
         fontSize: 14,
         lineHeight: 1.5,
-        // iPhone notch-safe (popover may land near top edge)
-        paddingTop: `max(12px, env(safe-area-inset-top))`,
+        // A long entry used to run off the bottom of the screen with no way
+        // to reach the rest: the card had no height cap, and the one gesture
+        // that could have revealed more — scrolling — closed it.
+        maxHeight: maxHeight ? `${maxHeight}px` : undefined,
+        overflowY: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        overscrollBehavior: 'contain',
       }}
     >
       {/* Header: term + thai + close */}
@@ -223,8 +247,8 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
               gap: 6,
               padding: '8px 14px',
               minHeight: 36,
-              background: 'var(--clr-accent, #b88940)',
-              color: '#fff',
+              background: 'var(--clr-gold)',
+              color: 'var(--clr-gold-on)',
               borderRadius: 999,
               fontSize: 13,
               fontWeight: 600,

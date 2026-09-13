@@ -1002,6 +1002,20 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // A glossary card's "ข้อที่เกี่ยวข้อง N ข้อ" hands up the ids it counted.
+  // Without this listener the button dispatched into nothing: it looked
+  // like a working control and did not move the app at all.
+  useEffect(() => {
+    const onOpenRelated = (e) => {
+      const ids = e?.detail?.ids;
+      if (!Array.isArray(ids) || ids.length === 0) return;
+      startExam({ onlyIds: ids, practiceMode: 'all', subject: 'all', topic: null });
+    };
+    window.addEventListener('vmx:open-related-qs', onOpenRelated);
+    return () => window.removeEventListener('vmx:open-related-qs', onOpenRelated);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Unknown /app/* paths must not revive an unrelated stored screen. Repair
   // the address bar to Home once, while known app routes keep their URL.
   useEffect(() => {
@@ -1819,6 +1833,12 @@ export default function App() {
     _practiceMode = normalizePracticeMode(_practiceMode, _subject, explicitMode);
 
     const isUserCuratedPool = USER_CURATED_MODES.has(_practiceMode);
+    // A glossary term card hands over the exact question ids it counted.
+    // Those are the set; the subject/topic filters must not narrow them
+    // further or the card's own number stops being true.
+    const onlyIds = Array.isArray(overrides.onlyIds) && overrides.onlyIds.length
+      ? new Set(overrides.onlyIds)
+      : null;
 
     // Phase 3: QB lazy. App.jsx kicks off background load on mount so
     // by the time the user clicks "Start" this usually resolves
@@ -1826,7 +1846,7 @@ export default function App() {
     // very quick OR background-load is slow (cold cache, slow network)
     // we hold here until QB is populated rather than starting an exam
     // against an empty pool.
-    const needsFullRegistry = isUserCuratedPool;
+    const needsFullRegistry = isUserCuratedPool || !!onlyIds;
     const scopeReady = needsFullRegistry
       ? isQBFullyLoaded()
       : isQBYearLoaded(selectedYear);
@@ -1847,7 +1867,9 @@ export default function App() {
     // started this async handler and can otherwise be stale on slow WebKit.
     const examQuestions = [...QB, ...customQuestions];
 
-    const pool = buildExamPool({
+    const pool = onlyIds
+      ? examQuestions.filter((q) => onlyIds.has(q.id))
+      : buildExamPool({
       questions: examQuestions,
       practiceMode: _practiceMode,
       subject: _subject,
@@ -1926,7 +1948,7 @@ export default function App() {
       return;
     }
 
-    const qCount = Math.max(1, _numQuestions);
+    const qCount = onlyIds ? pool.length : Math.max(1, _numQuestions);
     const baseTime = _useTimer ? Math.max(5, _timePerQ) : 0;
 
     // The timer overrides have to reach the thing that actually ticks.
