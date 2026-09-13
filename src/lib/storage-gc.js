@@ -160,6 +160,24 @@ export function sweepOldOperations(storage, prefix, { keep = KEEP_OPERATIONS, pr
 }
 
 /**
+ * Every sync-outbox key prefix present in this storage.
+ *
+ * The boot sweep has no user id to build a prefix from, and a signed-out boot
+ * still has to clear records a previous session left behind. Outbox keys look
+ * like `vmx-user-op-v1:<uid>:<instanceId>`, so the prefix is everything up to
+ * and including the last colon.
+ */
+export function outboxPrefixes(storage) {
+  const out = new Set();
+  for (const key of keysOf(storage)) {
+    if (!key.startsWith('vmx-user-op-')) continue;
+    const cut = key.lastIndexOf(':');
+    if (cut > 0) out.add(key.slice(0, cut + 1));
+  }
+  return [...out];
+}
+
+/**
  * Last resort before telling the user a write failed. Sweeps what is provably
  * dead and reports how much came back, so the caller can retry the write once.
  *

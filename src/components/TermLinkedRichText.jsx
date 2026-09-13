@@ -23,7 +23,7 @@
 
 import { Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
-import { detectTerms, getEntryByTerm } from '../lib/term-detect.js';
+import { detectTerms } from '../lib/term-detect.js';
 import { entryKey } from '../data/glossary.js';
 import { GLOSSARY_RELATED } from '../data/glossary-related.generated.js';
 import TermPopup from './TermPopup.jsx';
@@ -92,7 +92,12 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
   if (typeof document !== 'undefined') ensureTermStyles();
 
   const wrapperRef = useRef(null);
-  const [openTerm, setOpenTerm] = useState(null);       // lowercased term key
+  // WHICH OCCURRENCE is open, not which entry. One card can be reached by
+  // several different words in the same sentence — the avian IBD card answers
+  // to "Infectious bursal disease", "IBD" and "Gumboro", and that stem holds
+  // all three. Keyed on the entry, tapping any one of them lit all three, so
+  // the highlight said which CARD was open instead of which WORD was tapped.
+  const [openAt, setOpenAt] = useState(null);           // segment index
   const [anchorRect, setAnchorRect] = useState(null);
 
   // Compute segments + related-Q counts once per text change.
@@ -143,21 +148,21 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
     if (!btn || !wrapperRef.current?.contains(btn)) return;
     e.preventDefault();
     e.stopPropagation();
-    const termKey = btn.dataset.term;
-    if (!termKey) return;
-    if (openTerm === termKey) {
-      // Same term clicked again → toggle close.
-      setOpenTerm(null);
+    const at = Number(btn.dataset.at);
+    if (!Number.isInteger(at)) return;
+    if (openAt === at) {
+      // Same word clicked again → toggle close.
+      setOpenAt(null);
       setAnchorRect(null);
       return;
     }
     const rect = btn.getBoundingClientRect();
-    setOpenTerm(termKey);
+    setOpenAt(at);
     setAnchorRect(rect);
-  }, [openTerm]);
+  }, [openAt]);
 
   const closePopup = useCallback(() => {
-    setOpenTerm(null);
+    setOpenAt(null);
     setAnchorRect(null);
   }, []);
 
@@ -175,8 +180,13 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
   // Resolve the currently-open entry for the popup. We look up via the
   // glossary index (not the segment array) so the popup survives
   // re-renders that might shuffle segment order.
-  const openEntry = openTerm ? getEntryByTerm(openTerm, subject) : null;
-  const openRelatedCount = openTerm ? (relatedCountByTerm.get(openTerm) ?? 0) : 0;
+  // Read the entry off the segment that was actually clicked. If the text
+  // changed under us the index no longer names a term, and nothing opens.
+  const openSegment = openAt != null ? segments[openAt] : null;
+  const openEntry = openSegment && openSegment.type === 'term' ? openSegment.entry : null;
+  const openRelatedCount = openEntry
+    ? (relatedCountByTerm.get(openEntry.term.toLowerCase()) ?? 0)
+    : 0;
 
   return (
     <>
@@ -205,14 +215,13 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
           // Term segment — render as a button. We deliberately keep
           // the original casing inside so the underlined word reads
           // naturally inline with surrounding text.
-          const termKey = seg.entry.term.toLowerCase();
-          const isActive = openTerm === termKey;
+          const isActive = openAt === i;
           return (
             <button
               key={i}
               type="button"
               className={`vmx-term${isActive ? ' active' : ''}`}
-              data-term={termKey}
+              data-at={i}
               aria-haspopup="dialog"
               aria-expanded={isActive ? 'true' : 'false'}
               aria-label={`Definition: ${seg.entry.term}`}

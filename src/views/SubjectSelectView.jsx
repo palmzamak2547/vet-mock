@@ -236,17 +236,22 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 // The disciplines with their own kit get Mochi wearing it; the
                 // rest keep the emoji they have always had, because a card with
                 // a stand-in illustration reads worse than one without.
-                <img
-                  className="icon"
-                  src={SUBJECT_MOCHI[s.id].src}
-                  alt=""
-                  aria-hidden="true"
-                  width={512}
-                  height={512}
-                  loading="lazy"
-                  decoding="async"
-                  style={{ width: 52, height: 52, objectFit: 'contain' }}
-                />
+                // `.icon` is a 36px tinted chip with grid centring. The image
+                // goes INSIDE it rather than replacing it, so the card keeps
+                // the same slot, the same alignment and the same chip as every
+                // card that still uses an emoji.
+                <div className="icon">
+                  <img
+                    src={SUBJECT_MOCHI[s.id].src}
+                    alt=""
+                    aria-hidden="true"
+                    width={512}
+                    height={512}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ width: 30, height: 30, objectFit: 'contain', display: 'block' }}
+                  />
+                </div>
               ) : (
                 <div className="icon">{s.icon}</div>
               )}

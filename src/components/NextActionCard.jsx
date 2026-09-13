@@ -231,25 +231,29 @@ export default function NextActionCard({
   return (
     <section className="vmx-next-actions" aria-labelledby="vmx-next-actions-title">
       <header className="vmx-next-actions-header">
-        {seasonal && (
-          // Changes the picture, never the words — and only inside a window
-          // the schedule actually puts the student in.
-          <img
-            className="vmx-next-actions-mochi"
-            src={seasonal.src}
-            alt={seasonal.alt}
-            width={512}
-            height={512}
-            loading="lazy"
-            decoding="async"
-            style={{ width: 48, height: 48, objectFit: 'contain', flexShrink: 0 }}
-          />
-        )}
-        <div>
-          <span className="vmx-next-actions-kicker">แผนฝึกวันนี้</span>
-          <h2 id="vmx-next-actions-title" className="vmx-next-actions-heading">
-            ทำอะไรต่อดี
-          </h2>
+        {/* The header is flex with space-between, so it must keep exactly TWO
+            children — a third one pushes the title into the middle of the row.
+            The picture belongs WITH the title, not beside it as a peer. */}
+        <div className="vmx-next-actions-lead">
+          {seasonal && (
+            // Changes the picture, never the words — and only inside a window
+            // the schedule actually puts the student in.
+            <img
+              className="vmx-next-actions-mochi"
+              src={seasonal.src}
+              alt={seasonal.alt}
+              width={512}
+              height={512}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+          <div>
+            <span className="vmx-next-actions-kicker">แผนฝึกวันนี้</span>
+            <h2 id="vmx-next-actions-title" className="vmx-next-actions-heading">
+              ทำอะไรต่อดี
+            </h2>
+          </div>
         </div>
         {pendingResume ? <span className="vmx-next-actions-note">{guidanceNote}</span> : (
           <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>

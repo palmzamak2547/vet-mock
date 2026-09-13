@@ -140,7 +140,7 @@ export default function PhaseWrappedView({ goHome, history = [], srCards = {}, b
           onDismissPhase={handleDismissPhase}
         />
         {badges.length > 0 && (
-          <section style={{ maxWidth: 680, margin: '28px auto 0' }} aria-label="เหรียญที่ได้">
+          <section style={{ maxWidth: 480, margin: '28px auto 0' }} aria-label="เหรียญที่ได้">
             <h2 style={{ fontSize: 15, margin: '0 0 12px', color: 'var(--clr-ink)' }}>
               เหรียญที่ได้ {badges.length} อัน
             </h2>

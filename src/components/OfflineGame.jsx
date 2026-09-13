@@ -665,10 +665,13 @@ function spawnEntity(s) {
   const pick = r * total;
   if (pick < cumGround) {
     const type = GROUND_OBSTACLES[Math.floor(Math.random() * GROUND_OBSTACLES.length)];
-    s.obstacles.push({ x: CANVAS_W + 20, y: GROUND_Y + 4, type, air: false, passed: false });
+    // The sprite is chosen ONCE here. Deriving it from o.x at draw time made
+    // every obstacle strobe between the two blobs about sixteen times as it
+    // crossed the screen.
+    s.obstacles.push({ x: CANVAS_W + 20, y: GROUND_Y + 4, type, air: false, passed: false, sprite: Math.random() < 0.5 ? 'germRound' : 'germTall' });
   } else if (pick < cumAir) {
     const type = AIR_OBSTACLES[Math.floor(Math.random() * AIR_OBSTACLES.length)];
-    s.obstacles.push({ x: CANVAS_W + 20, y: GROUND_Y - 32, type, air: true, passed: false });
+    s.obstacles.push({ x: CANVAS_W + 20, y: GROUND_Y - 32, type, air: true, passed: false, sprite: 'germTall' });
   } else if (pick < cumCorn) {
     s.pickups.push({ x: CANVAS_W + 20, y: GROUND_Y - 4, type: '🌽' });
   } else {
@@ -742,6 +745,22 @@ function render(ctx, s) {
   }
   ctx.globalAlpha = 1;
 
+  // ── Backdrop ─────────────────────────────────────────────────────
+  // A 1600x400 strip whose left and right edges match, so two copies offset by
+  // its width scroll seamlessly. It parallaxes at a third of the run speed —
+  // at full speed the ground and the background fight each other.
+  const yard = SPRITES.farmyard;
+  if (yard) {
+    const scale = CANVAS_H / yard.height;
+    const w = yard.width * scale;
+    const shift = ((s.frame || 0) * 0.6) % w;
+    ctx.save();
+    ctx.globalAlpha = 0.55;
+    ctx.drawImage(yard, -shift, CANVAS_H - CANVAS_H, w, CANVAS_H);
+    ctx.drawImage(yard, w - shift, CANVAS_H - CANVAS_H, w, CANVAS_H);
+    ctx.restore();
+  }
+
   // ── Pickups ──────────────────────────────────────────────────────
   ctx.font = '22px "Apple Color Emoji","Segoe UI Emoji",sans-serif';
   for (const pk of s.pickups) {
@@ -762,10 +781,7 @@ function render(ctx, s) {
   // ── Obstacles ────────────────────────────────────────────────────
   ctx.font = '24px "Apple Color Emoji","Segoe UI Emoji",sans-serif';
   for (const o of s.obstacles) {
-    // Two blob shapes stand in for the whole obstacle cast; alternating on
-    // position keeps a run from reading as one sprite repeated.
-    const germ = Math.floor(o.x / 40) % 2 === 0 ? 'germRound' : 'germTall';
-    if (!drawSprite(ctx, germ, o.x, o.y + 2, 28, 28)) {
+    if (!drawSprite(ctx, o.sprite || 'germRound', o.x, o.y + 2, 28, 28)) {
       ctx.fillText(o.type, o.x, o.y + PLAYER_SIZE);
     }
   }
@@ -794,8 +810,11 @@ function render(ctx, s) {
   const frame = s.state === 'gameover'
     ? 'chickTumbling'
     : (p.jumping ? 'chickJumping' : 'chickRunning');
-  const sw = (p.ducking ? 30 : 34) + squash * 0.4;
-  const sh = (p.ducking ? 24 : 34) - squash * 0.6;
+  // Ducking widens rather than squashing: the drawn chick keeps its shape and
+  // fills the crouched box, instead of being crushed to 24px and hanging out
+  // the top of it.
+  const sw = (p.ducking ? 40 : 34) + squash * 0.4;
+  const sh = (p.ducking ? 20 : 34) - squash * 0.6;
   if (!drawSprite(ctx, frame, p.x + (PLAYER_SIZE - sw) / 2, p.y + PLAYER_SIZE - sh - yOffset, sw, sh)) {
     ctx.save();
     ctx.font = `${fontSize}px "Apple Color Emoji","Segoe UI Emoji",sans-serif`;

@@ -1068,16 +1068,28 @@ export function createUserDataSync({
       let recovered = false;
       if (isQuotaError(writeError)) {
         try {
-          const freed = reclaim(storage, {
+          // Reclaim, then RETRY REGARDLESS of what came back. The first
+          // version of this gated the retry on `freed.bytes > 0`, which meant
+          // it never ran: by the time a student sees this message the boot
+          // sweep and the daily-question write have already cleared the dead
+          // keys, so there is nothing left to free and the retry was skipped —
+          // the same failure as before the fix, for a new reason.
+          //
+          // Sweeping other instances' outbox records is the part that can
+          // still free real space here, and it is not in the boot sweep.
+          reclaim(storage, {
             today: todayKey(),
             operationPrefix: operationKeyPrefix(userId),
             protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
           });
-          if (freed.bytes > 0) {
-            persistOperation(operationChanges);
-            recovered = true;
-          }
-        } catch { recovered = false; }
+          persistOperation(operationChanges);
+          recovered = true;
+        } catch {
+          // Still no room. Fall through and say so — the alternative is
+          // deleting the student's own work to make space, which is worse
+          // than the honest refusal.
+          recovered = false;
+        }
       }
       if (!recovered) {
         publish(state.data, syncShape({

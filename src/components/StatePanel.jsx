@@ -26,7 +26,10 @@ export default function StatePanel({
       aria-busy={isLoading || busy ? 'true' : undefined}
     >
       {isLoading ? (
-        <div className="vmx-state-panel__icon" aria-hidden="true">
+        // __mochi is what makes the icon slot 56px and transparent; without
+        // it the box snaps back to the 38px grey chip and a 64px picture sits
+        // on top of it.
+        <div className="vmx-state-panel__icon vmx-state-panel__mochi" aria-hidden="true">
           <img
             className="vmx-state-panel__loader-art"
             src={LOADING_ART.book.src}
@@ -34,7 +37,6 @@ export default function StatePanel({
             width={400}
             height={400}
             decoding="async"
-            style={{ width: 64, height: 64, display: 'block', margin: '0 auto' }}
           />
           <MotionLoader label={title || 'กำลังโหลด'} />
         </div>
@@ -47,7 +49,6 @@ export default function StatePanel({
           height={480}
           loading="lazy"
           decoding="async"
-          style={{ width: 'min(240px, 70%)', height: 'auto', margin: '0 auto 4px', display: 'block' }}
         />
       ) : (
         <div className="vmx-state-panel__icon vmx-state-panel__mochi" aria-hidden="true">

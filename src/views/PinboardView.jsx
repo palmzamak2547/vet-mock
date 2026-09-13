@@ -277,17 +277,21 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
 
       {/* Empty state */}
       {filtered.length === 0 && (
-        <div className="vmx-empty">
-          {pins.length === 0 ? (
+        // `.vmx-empty` is italic with its own 40px padding — it was written to
+        // BE the empty state, not to contain one. The illustrated state brings
+        // its own padding and must not inherit the italics, so only the
+        // filter-miss line stays inside it.
+        pins.length === 0 ? (
             <EmptyState
               art={EMPTY_ART.pinboard}
               title="ไม่มีรายการบันทึก"
               body="กดปุ่มพินในข้อสอบหรือสรุปเพื่อบันทึกเนื้อหาเก็บไว้ทบทวน"
             />
-          ) : (
+        ) : (
+          <div className="vmx-empty">
             <div style={{ fontSize: 14 }}>ไม่มีพินในหมวด <strong>{TYPE_META[filter]?.label || filter}</strong> โปรดเลือกหมวดอื่น</div>
-          )}
-        </div>
+          </div>
+        )
       )}
 
       {/* Grid */}

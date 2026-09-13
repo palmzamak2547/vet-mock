@@ -84,6 +84,15 @@ window.addEventListener('load', () => {
     Promise.all([import('./storage-gc.js'), import('./daily-q.js')])
       .then(([gc, daily]) => {
         const freed = gc.sweepStaleKeys(window.localStorage, { today: daily.todayKey() });
+        // Outbox records from tabs that were closed or crashed are the other
+        // family that accumulates, and nothing swept them until a write
+        // failed. The prefix is read off the keys themselves so this module
+        // never has to know how user ids are encoded.
+        for (const prefix of gc.outboxPrefixes(window.localStorage)) {
+          const dropped = gc.sweepOldOperations(window.localStorage, prefix);
+          freed.removed.push(...dropped.removed);
+          freed.bytes += dropped.bytes;
+        }
         if (freed.removed.length) {
           console.info(`[storage] reclaimed ${freed.removed.length} dead key(s), ${(freed.bytes / 1024).toFixed(0)} KB`);
         }

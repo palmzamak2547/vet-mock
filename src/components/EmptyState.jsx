@@ -45,7 +45,6 @@ export default function EmptyState({
           height={480}
           loading="lazy"
           decoding="async"
-          style={{ width: 'min(240px, 70%)', height: 'auto', margin: '0 auto 4px', display: 'block' }}
         />
       ) : (
         <span className="icon" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>

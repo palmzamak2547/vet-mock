@@ -4528,3 +4528,31 @@ body.vmx-reading .vmx-pdf-body {
 @media (prefers-reduced-motion: reduce) {
   .vmx-state-panel__loader-art { animation: none; }
 }
+
+/* The seasonal picture rides with the title, inside one flex child, so the
+   header still resolves as two items and the heading keeps its edge. */
+.vmx-next-actions-lead { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.vmx-next-actions-mochi { width: 48px; height: 48px; object-fit: contain; flex-shrink: 0; }
+@media (max-width: 600px) { .vmx-next-actions-mochi { width: 38px; height: 38px; } }
+
+/* The illustrations replace elements the stylesheet already spaced — the 48px
+   .icon slot and the state panel's icon chip — so the spacing has to move with
+   them. Sizing lives here rather than inline: an inline width is what let the
+   subject-card image escape its 36px chip. */
+.vmx-empty-art,
+.vmx-state-panel__art {
+  display: block;
+  width: min(240px, 70%);
+  height: auto;
+  margin: 0 auto var(--space-3);
+}
+.vmx-state-panel__loader-art {
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .vmx-empty-art,
+  .vmx-state-panel__art { width: min(200px, 72%); }
+}
