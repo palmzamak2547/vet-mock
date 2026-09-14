@@ -58,7 +58,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "ตามคำตอบตัวอย่าง การตรวจหา antibody ต่อ ileitis ใช้วิธีใด",
+    "q": "การตรวจหา antibody ต่อ ileitis ใช้วิธีใด",
     "options": [
       "ตรวจ fecal PCR ร่วมกับ bacterial culture",
       "ตรวจ histopathology ร่วมกับ fecal count",
@@ -78,7 +78,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-gi-viral",
     "year": 5,
     "type": "mcq",
-    "q": "การจัดการอาหารเพื่อควบคุม hemolytic E. coli ตามคำตอบตัวอย่าง คือข้อใด",
+    "q": "การจัดการอาหารเพื่อควบคุม hemolytic E. coli คือข้อใด",
     "options": [
       "เพิ่ม fiber ในอาหาร และปรับ protein ลง",
       "เพิ่ม protein ในอาหาร และลด fiber ลง",
@@ -166,7 +166,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "Granuloma ที่ตับ และ abscess ที่ม้ามหลายตำแหน่ง"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า Salmonella และ swine fever พบ hemorrhagic lymph node, button ulcer, hemorrhage ที่ผิวหนัง และ turkey egg kidney ร่วมกัน จึงเป็นคู่ที่แยกยากที่สุดในสามโรค vesicle ที่ลิ้นและ erosion ที่กีบเป็นภาพของโรคกลุ่มตุ่มน้ำอย่าง FMD ส่วน interstitial pneumonia และรอยโรค granuloma หรือ abscess ไม่ได้ถูกยกเป็นจุดร่วมของสองโรคนี้ในเอกสาร",
+    "explain": "Salmonella และ swine fever พบ hemorrhagic lymph node, button ulcer, hemorrhage ที่ผิวหนัง และ turkey egg kidney ร่วมกัน จึงเป็นคู่ที่แยกยากที่สุดในสามโรค vesicle ที่ลิ้นและ erosion ที่กีบเป็นภาพของโรคกลุ่มตุ่มน้ำอย่าง FMD ส่วน interstitial pneumonia และรอยโรค granuloma หรือ abscess ไม่ได้ถูกยกเป็นจุดร่วมของสองโรคนี้ในเอกสาร",
     "verified": "หมูกระทุตุ๊ต๊ะ ไฟนอล น.2",
     "sourceType": "student-compilation",
     "examOrigin": "Swine Medicine ไฟนอล Vet 85 บันทึกหลังสอบ ชุดข้อเขียนที่ 1"
@@ -198,7 +198,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-fmd",
     "year": 5,
     "type": "mcq",
-    "q": "ฟาร์มสุกรขุนสงสัย FMD ตามคำตอบตัวอย่าง ตัวอย่างที่ควรเก็บส่งตรวจ PCR คือข้อใด",
+    "q": "ฟาร์มสุกรขุนสงสัย FMD ตัวอย่างที่ควรเก็บส่งตรวจ PCR คือข้อใด",
     "options": [
       "ซีรัมจากสุกรที่หายป่วยแล้ว",
       "อุจจาระจากสุกรที่กำลังท้องเสีย",
@@ -238,7 +238,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-fmd",
     "year": 5,
     "type": "mcq",
-    "q": "ตามคำตอบตัวอย่าง การทำวัคซีน FMD ให้ฟาร์มที่กำลังมีการระบาด ควรทำอย่างไร",
+    "q": "การทำวัคซีน FMD ให้ฟาร์มที่กำลังมีการระบาด ควรทำอย่างไร",
     "options": [
       "ใช้วัคซีนเชื้อเป็นชนิดใดก็ได้ที่หาซื้อได้เร็วที่สุด",
       "ใช้วัคซีนเชื้อตายให้ตรงกับ serotype ที่กำลังระบาด",
@@ -546,7 +546,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "ทำให้ท้องเสียแต่มีอัตราการตายต่ำกว่า TGE"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า rotavirus ทำให้ลูกสุกรช่วงอายุ 7 วันและช่วงหย่านมท้องเสีย แต่อัตราการตายต่ำกว่า TGE โรคที่ตายเกือบทั้งครอกในสัปดาห์แรกคือ TGE และ PED ส่วนการแท้งในแม่สุกรเป็นภาพของโรคกลุ่มอื่น",
+    "explain": "rotavirus ทำให้ลูกสุกรช่วงอายุ 7 วันและช่วงหย่านมท้องเสีย แต่อัตราการตายต่ำกว่า TGE โรคที่ตายเกือบทั้งครอกในสัปดาห์แรกคือ TGE และ PED ส่วนการแท้งในแม่สุกรเป็นภาพของโรคกลุ่มอื่น",
     "verified": "Swine Medicine midterm essay recall (Vet 85)",
     "sourceType": "student-compilation",
     "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
@@ -626,7 +626,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "Parvovirus"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า porcine cytomegalovirus เกิดจาก beta-herpesvirus ส่วน alpha herpesvirus ในสุกรคือ pseudorabies alpha coronavirus คือกลุ่มของ TGE, PED และ PRCV และ parvovirus ในสุกรก่อปัญหาทางระบบสืบพันธุ์",
+    "explain": "porcine cytomegalovirus เกิดจาก beta-herpesvirus ส่วน alpha herpesvirus ในสุกรคือ pseudorabies alpha coronavirus คือกลุ่มของ TGE, PED และ PRCV และ parvovirus ในสุกรก่อปัญหาทางระบบสืบพันธุ์",
     "verified": "Swine Medicine midterm essay recall (Vet 85)",
     "sourceType": "student-compilation",
     "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
@@ -726,7 +726,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "ทำให้เกิดข้ออักเสบหลายข้อและเยื่อหุ้มสมองอักเสบ"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า PRCV เป็น alpha coronavirus ที่ทำให้เกิด pneumonia โดยมากอาการไม่รุนแรง ท้องเสียรุนแรงในลูกแรกเกิดเป็นภาพของ TGE และ PED ซึ่งเป็น coronavirus ในกลุ่มเดียวกันแต่ก่อโรคที่ลำไส้ ส่วนข้ออักเสบและเยื่อหุ้มสมองอักเสบเป็นภาพของ Glässerella parasuis",
+    "explain": "PRCV เป็น alpha coronavirus ที่ทำให้เกิด pneumonia โดยมากอาการไม่รุนแรง ท้องเสียรุนแรงในลูกแรกเกิดเป็นภาพของ TGE และ PED ซึ่งเป็น coronavirus ในกลุ่มเดียวกันแต่ก่อโรคที่ลำไส้ ส่วนข้ออักเสบและเยื่อหุ้มสมองอักเสบเป็นภาพของ Glässerella parasuis",
     "verified": "Swine Medicine midterm essay recall (Vet 85)",
     "sourceType": "student-compilation",
     "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
@@ -826,7 +826,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "บาดแผลที่ผิวหนัง เช่น แผลจากการตอน"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่าเชื้อสร้างสปอร์อยู่ในดินและเข้าสู่ร่างกายทางบาดแผล จึงเน้นการรักษาความสะอาดในหัตถการที่ทำให้เกิดแผล สปอร์ที่ถูกกินเข้าไปไม่ใช่ทางเข้าหลัก เพราะเชื้อต้องการภาวะไร้ออกซิเจนในเนื้อเยื่อบาดแผลจึงจะสร้าง toxin",
+    "explain": "เชื้อสร้างสปอร์อยู่ในดินและเข้าสู่ร่างกายทางบาดแผล จึงเน้นการรักษาความสะอาดในหัตถการที่ทำให้เกิดแผล สปอร์ที่ถูกกินเข้าไปไม่ใช่ทางเข้าหลัก เพราะเชื้อต้องการภาวะไร้ออกซิเจนในเนื้อเยื่อบาดแผลจึงจะสร้าง toxin",
     "verified": "Swine Medicine midterm essay recall (Vet 85)",
     "sourceType": "student-compilation",
     "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
@@ -846,7 +846,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "แยกสุกรป่วยไว้ 21 วันแล้วนำกลับเข้าฝูงเดิมตามปกติ"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าสุกรมักติดจากการถูกสุนัขกัด แนวทางคือทำลายสุกรที่แสดงอาการ และใช้ biosecurity กันไม่ให้สุนัขหรือสัตว์อื่นเข้ามาสัมผัสสุกร ไม่มีการรักษาสัตว์ที่แสดงอาการแล้ว และการแยกไว้แล้วนำกลับเข้าฝูงเป็นอันตรายเพราะเป็นโรคติดต่อสู่คน",
+    "explain": "สุกรมักติดจากการถูกสุนัขกัด แนวทางคือทำลายสุกรที่แสดงอาการ และใช้ biosecurity กันไม่ให้สุนัขหรือสัตว์อื่นเข้ามาสัมผัสสุกร ไม่มีการรักษาสัตว์ที่แสดงอาการแล้ว และการแยกไว้แล้วนำกลับเข้าฝูงเป็นอันตรายเพราะเป็นโรคติดต่อสู่คน",
     "verified": "Swine Medicine midterm essay recall (Vet 85)",
     "sourceType": "student-compilation",
     "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
@@ -866,7 +866,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "สุกรติดเชื้อจากยุงที่เป็นพาหะนำโรคเท่านั้น"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าสุกรมักเป็นพาหะของเชื้อ อาจพบการแท้งในแม่สุกร และเชื้อปนเปื้อนไปสู่คนได้ ทำให้เป็นโรคติดต่อระหว่างสัตว์และคน Listeria ไม่ได้ถ่ายทอดโดยแมลงพาหะ",
+    "explain": "สุกรมักเป็นพาหะของเชื้อ อาจพบการแท้งในแม่สุกร และเชื้อปนเปื้อนไปสู่คนได้ ทำให้เป็นโรคติดต่อระหว่างสัตว์และคน Listeria ไม่ได้ถ่ายทอดโดยแมลงพาหะ",
     "verified": "Swine Medicine midterm essay recall (Vet 85)",
     "sourceType": "student-compilation",
     "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
@@ -898,7 +898,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "รูปแบบ peracute ของ APP มีลักษณะเด่นตามคำตอบที่บันทึกไว้ คือข้อใด",
+    "q": "รูปแบบ peracute ของ APP มีลักษณะเด่นคือข้อใด",
     "options": [
       "ตายใน 6 ถึง 8 ชั่วโมง มีของเหลวปนเลือดออกจมูก",
       "ไอแห้งเรื้อรังนานหลายสัปดาห์โดยแทบไม่มีไข้",
@@ -918,7 +918,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "วิธีวินิจฉัย APP ที่คำตอบระบุว่าเป็น gold standard คือข้อใด",
+    "q": "วิธีวินิจฉัย APP ที่ถือเป็น gold standard คือข้อใด",
     "options": [
       "ELISA ตรวจแอนติบอดีจากซีรัมของทั้งฝูง",
       "PCR เพื่อจำแนก subtype ของเชื้อ",
@@ -938,7 +938,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "DIVA vaccine ของ APP ที่คำตอบกล่าวถึง อาศัยการตัดองค์ประกอบใดออก",
+    "q": "DIVA vaccine ของ APP อาศัยการตัดองค์ประกอบใดออก",
     "options": [
       "ตัด ApxI ออกจากวัคซีน",
       "ตัด ApxIII ออกจากวัคซีน",
@@ -958,7 +958,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดเป็นปัจจัยทางการจัดการที่ทำให้การควบคุมโรค APP ไม่ได้ผล ตามคำตอบที่บันทึกไว้",
+    "q": "ข้อใดเป็นปัจจัยทางการจัดการที่ทำให้การควบคุมโรค APP ไม่ได้ผล",
     "options": [
       "ซื้อสุกรทดแทนเข้าฟาร์มจากหลายแหล่งพร้อมกัน",
       "เลี้ยงด้วยระบบ all in all out และพักเล้าทุกรุ่น",
@@ -998,7 +998,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "topic": "swine-pornchalit-set",
     "year": 5,
     "type": "mcq",
-    "q": "รอยโรคของ Actinobacillus pleuropneumoniae ที่ควรตอบในข้อบอกรอยโรค คือข้อใด",
+    "q": "รอยโรคที่สำคัญของ Actinobacillus pleuropneumoniae คือข้อใด",
     "options": [
       "Cranioventral consolidation ขอบเขตชัด เยื่อหุ้มปอดใสและแห้ง",
       "Turbinate ฝ่อ กระดูกจมูกคด และใบหน้าผิดรูปชัดเจน",

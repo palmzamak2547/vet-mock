@@ -87,7 +87,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ล้างและฆ่าเชื้อรางน้ำวันละสองครั้ง"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าแยกไวรัสได้จากยุง และไวรัสอยู่ในยุงได้ หัวข้อ prevention จึงขึ้นต้นด้วย vector borne control ยาปฏิชีวนะไม่มีผลกับไวรัส การลดความหนาแน่นและการล้างรางน้ำเป็นการจัดการทั่วไปที่ดี แต่ไม่ตัดวงจรพาหะซึ่งเป็นกลไกที่เอกสารชี้",
+    "explain": "แยกไวรัสได้จากยุง และไวรัสอยู่ในยุงได้ หัวข้อ prevention จึงขึ้นต้นด้วย vector borne control ยาปฏิชีวนะไม่มีผลกับไวรัส การลดความหนาแน่นและการล้างรางน้ำเป็นการจัดการทั่วไปที่ดี แต่ไม่ตัดวงจรพาหะซึ่งเป็นกลไกที่เอกสารชี้",
     "verified": "Avian Med KFC น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -127,7 +127,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ต้องรอ 3-5 สัปดาห์ Ab ของ AE จึงจะตรวจพบ"
     ],
     "answer": 3,
-    "explain": "เอกสารเขียนไว้ตรงว่า AE มีข้อจำกัดกว่าโรคอื่น โรคทั่วไปหลังทำวัคซีนราว 2 สัปดาห์ก็เห็น titer ขึ้นแล้ว แต่ AE ใช้เวลานาน ถ้าเก็บตัวอย่างจากฝูงแม่พันธุ์ก่อน 3-5 สัปดาห์ ตรวจ Ab จะยังไม่ขึ้น เอกสารระบุว่าทั้ง ELISA และ AGP ใช้ได้ MDA ที่สูงเป็นปัญหาของการทำวัคซีนในลูกไก่ไม่ใช่คำอธิบายของกรณีนี้ และ AE กระตุ้น humoral antibody ได้ มิฉะนั้นการตรวจซีรัมทั้งหมดจะไม่มีความหมาย",
+    "explain": "เอกสารเขียนไว้ตรงว่า AE มีข้อจำกัดกว่าโรคอื่น โรคทั่วไปหลังทำวัคซีนราว 2 สัปดาห์ก็เห็น titer ขึ้นแล้ว แต่ AE ใช้เวลานาน ถ้าเก็บตัวอย่างจากฝูงแม่พันธุ์ก่อน 3-5 สัปดาห์ ตรวจ Ab จะยังไม่ขึ้น ทั้ง ELISA และ AGP ใช้ได้ MDA ที่สูงเป็นปัญหาของการทำวัคซีนในลูกไก่ไม่ใช่คำอธิบายของกรณีนี้ และ AE กระตุ้น humoral antibody ได้ มิฉะนั้นการตรวจซีรัมทั้งหมดจะไม่มีความหมาย",
     "verified": "Avian Med KFC น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -247,7 +247,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เชื้อทั้งสองถูกทำลายด้วยความร้อนในตู้ฟักจนหมด"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าการควบคุมโรคที่ดีที่สุดคือกำจัดสัตว์พาหะ และปิดท้ายหัวข้อว่าในไทย 2 โรคนี้หายไปนานแล้วเพราะฟาร์มควบคุมสัตว์พาหะได้ดี เอกสารยังระบุตรงกันข้ามกับตัวเลือกแรกว่า วัคซีนของสองโรคนี้ในไทยไม่มี การผสมยาในน้ำล้างไข่มีทำจริงบางที่แต่เอกสารเตือนว่าทำให้ไข่เน่าได้และไม่ใช่เหตุผลที่โรคหายไป ส่วนอุณหภูมิตู้ฟักไม่ได้สูงพอจะเป็นมาตรการฆ่าเชื้อ",
+    "explain": "การควบคุมโรคที่ดีที่สุดคือกำจัดสัตว์พาหะ และปิดท้ายหัวข้อว่าในไทย 2 โรคนี้หายไปนานแล้วเพราะฟาร์มควบคุมสัตว์พาหะได้ดี เอกสารยังระบุตรงกันข้ามกับตัวเลือกแรกว่า วัคซีนของสองโรคนี้ในไทยไม่มี การผสมยาในน้ำล้างไข่มีทำจริงบางที่แต่เอกสารเตือนว่าทำให้ไข่เน่าได้และไม่ใช่เหตุผลที่โรคหายไป ส่วนอุณหภูมิตู้ฟักไม่ได้สูงพอจะเป็นมาตรการฆ่าเชื้อ",
     "verified": "Avian Med KFC น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -327,7 +327,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "อายุ 30-35 สัปดาห์ ระหว่างให้ไข่"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า EDS ใช้วัคซีนเชื้อตายทำในไก่รุ่นอายุ 14-16 สัปดาห์ เหตุผลผูกกับพยาธิกำเนิดคือเชื้ออยู่ใน shell gland และโรคเริ่มแสดงผลตอนไก่เริ่มสร้างไข่ จึงต้องทำให้เสร็จก่อนเข้าไข่ อายุ 1 วันและ 7-14 วันเป็นช่วงของโปรแกรม Marek, ND และ IB ส่วนการทำตอน 30-35 สัปดาห์คือทำหลังโรคเริ่มมีผลไปแล้ว",
+    "explain": "EDS ใช้วัคซีนเชื้อตายทำในไก่รุ่นอายุ 14-16 สัปดาห์ เหตุผลผูกกับพยาธิกำเนิดคือเชื้ออยู่ใน shell gland และโรคเริ่มแสดงผลตอนไก่เริ่มสร้างไข่ จึงต้องทำให้เสร็จก่อนเข้าไข่ อายุ 1 วันและ 7-14 วันเป็นช่วงของโปรแกรม Marek, ND และ IB ส่วนการทำตอน 30-35 สัปดาห์คือทำหลังโรคเริ่มมีผลไปแล้ว",
     "verified": "Avian Med KFC น.8",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -367,7 +367,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ยังไม่มีวัคซีนในโลก ต้องพึ่งยาปฏิชีวนะอย่างเดียว"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าไม่มีวัคซีนเชื้อเป็นเช่นเดียวกับ infectious coryza แต่มีวัคซีนเชื้อตายซึ่งไทยไม่นำเข้า และใช้กับไก่พันธุ์มากกว่า ข้อนี้ยังโยงกับอีกประโยคในหน้าเดียวกันว่า การตรวจ Ab ด้วย ELISA ไม่ค่อยมีประโยชน์ เพราะไทยไม่มีวัคซีน ไก่ที่ seropositive จึงแปลว่าเคยได้รับเชื้อจริง",
+    "explain": "ไม่มีวัคซีนเชื้อเป็นเช่นเดียวกับ infectious coryza แต่มีวัคซีนเชื้อตายซึ่งไทยไม่นำเข้า และใช้กับไก่พันธุ์มากกว่า ข้อนี้ยังโยงกับอีกประโยคในหน้าเดียวกันว่า การตรวจ Ab ด้วย ELISA ไม่ค่อยมีประโยชน์ เพราะไทยไม่มีวัคซีน ไก่ที่ seropositive จึงแปลว่าเคยได้รับเชื้อจริง",
     "verified": "Avian Med KFC น.9",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -427,7 +427,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Gram negative ที่ต้องการ CO2 5-10% ในการเจริญ"
     ],
     "answer": 0,
-    "explain": "เอกสารเปิดหัวข้อ listeriosis ด้วย Gram positive, facultative intracellular ซึ่งมีผลต่อการเลือกยาที่ต้องเข้าเซลล์ได้ และเอกสารระบุว่ารักษาด้วย tetracycline เชื้อที่ต้องการ CO2 5-10% ในเอกสารคือ ORT และ Campylobacter ซึ่งเป็น Gram negative ส่วนการสร้างสปอร์เป็นคุณสมบัติของ Clostridium และ Bacillus ไม่ใช่ Listeria",
+    "explain": "เอกสารเปิดหัวข้อ listeriosis ด้วย Gram positive, facultative intracellular ซึ่งมีผลต่อการเลือกยาที่ต้องเข้าเซลล์ได้ และรักษาด้วย tetracycline เชื้อที่ต้องการ CO2 5-10% ในเอกสารคือ ORT และ Campylobacter ซึ่งเป็น Gram negative ส่วนการสร้างสปอร์เป็นคุณสมบัติของ Clostridium และ Bacillus ไม่ใช่ Listeria",
     "verified": "Avian Med KFC น.10",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -487,7 +487,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Favus จาก Microsporum gallinae"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า A. fumigatus พบบ่อยที่สุด มักพบในไก่อ่อนอายุน้อยกว่า 2 สัปดาห์โดยเฉพาะสัปดาห์แรก และรอยโรคของ pulmonary aspergillosis คือ white miliary foci บนเยื่อถุงลม ถุงลมหนาขุ่นพร้อม granuloma และ granulomatous pneumonia A. flavus เป็นตัวสร้าง aflatoxin ในอาหาร ไม่ใช่ตัวที่เอกสารระบุว่าพบบ่อยที่สุดในรอยโรคนี้ Candida ก่อรอยโรคที่ crop และ Microsporum gallinae ก่อ favus ที่หงอนและหน้า",
+    "explain": "A. fumigatus พบบ่อยที่สุด มักพบในไก่อ่อนอายุน้อยกว่า 2 สัปดาห์โดยเฉพาะสัปดาห์แรก และรอยโรคของ pulmonary aspergillosis คือ white miliary foci บนเยื่อถุงลม ถุงลมหนาขุ่นพร้อม granuloma และ granulomatous pneumonia A. flavus เป็นตัวสร้าง aflatoxin ในอาหาร ไม่ใช่ตัวที่พบบ่อยที่สุดในรอยโรคนี้ Candida ก่อรอยโรคที่ crop และ Microsporum gallinae ก่อ favus ที่หงอนและหน้า",
     "verified": "Avian Med KFC น.11",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -627,7 +627,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Zeolite ธรรมชาติบดละเอียด"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า clay, HSCAS ชนิดอะลูมิโนซิลิเกต และ zeolites จับได้เฉพาะ aflatoxin ส่วน glucomannan ที่ทำจากผนังเซลล์ยีสต์ Saccharomyces cerevisiae แพงกว่า zeolite แต่จับได้หลายชนิด ทั้ง aflatoxin, ochratoxin, fumonisin, zearalenone และ T-2 ซึ่งตรงกับสถานการณ์ที่ปนเปื้อนหลายตัวพร้อมกัน ถ่านกัมมันต์ไม่ได้อยู่ในรายการ binding agents ที่เอกสารให้ไว้",
+    "explain": "clay, HSCAS ชนิดอะลูมิโนซิลิเกต และ zeolites จับได้เฉพาะ aflatoxin ส่วน glucomannan ที่ทำจากผนังเซลล์ยีสต์ Saccharomyces cerevisiae แพงกว่า zeolite แต่จับได้หลายชนิด ทั้ง aflatoxin, ochratoxin, fumonisin, zearalenone และ T-2 ซึ่งตรงกับสถานการณ์ที่ปนเปื้อนหลายตัวพร้อมกัน ถ่านกัมมันต์ไม่ได้อยู่ในรายการ binding agents ที่เอกสารให้ไว้",
     "verified": "Avian Med KFC น.15",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -647,7 +647,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เพาะแยกเชื้อราจากลำไส้แล้วระบุชนิดด้วย PCR"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่าการตรวจสารพิษในสัตว์ป่วยหรือสัตว์ตายไม่นิยม เพราะสารพิษถูกขับออกหรือสลายตัวอย่างรวดเร็วจนตรวจไม่พบ และเขียนชัดว่าการตรวจสารพิษจากอาหารและวัตถุดิบเป็นวิธีที่ดีที่สุด โดย screening ด้วย test kit แบบ ELISA แล้วยืนยันด้วย HPLC หรือ mass spectrometry ให้สังเกตว่า ELISA ในที่นี้ใช้ตรวจตัวสารพิษในอาหาร ไม่ใช่ตรวจแอนติบอดีในซีรัมสัตว์",
+    "explain": "การตรวจสารพิษในสัตว์ป่วยหรือสัตว์ตายไม่นิยม เพราะสารพิษถูกขับออกหรือสลายตัวอย่างรวดเร็วจนตรวจไม่พบ และเขียนชัดว่าการตรวจสารพิษจากอาหารและวัตถุดิบเป็นวิธีที่ดีที่สุด โดย screening ด้วย test kit แบบ ELISA แล้วยืนยันด้วย HPLC หรือ mass spectrometry ให้สังเกตว่า ELISA ในที่นี้ใช้ตรวจตัวสารพิษในอาหาร ไม่ใช่ตรวจแอนติบอดีในซีรัมสัตว์",
     "verified": "Avian Med KFC น.15",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -767,7 +767,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "28-35 วันหลังทำวัคซีน"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าตรวจครั้งแรกในวันที่ทำวัคซีน แล้วตรวจอีกครั้ง 14-21 วันต่อมา แล้วทำ paired serology หากเกิด seroconversion หรือ 4-fold rise แปลว่าวัคซีนได้ผล ให้แยกจากช่วงเวลาของการวินิจฉัยโรคซึ่งใช้ 7-14 วัน ที่ 3-5 วันยังเร็วเกินกว่าจะเห็นการเปลี่ยนแปลง และที่ 28-35 วัน titer จากวัคซีนเชื้อเป็นอาจเริ่มลดลงตามธรรมชาติแล้ว",
+    "explain": "ตรวจครั้งแรกในวันที่ทำวัคซีน แล้วตรวจอีกครั้ง 14-21 วันต่อมา แล้วทำ paired serology หากเกิด seroconversion หรือ 4-fold rise แปลว่าวัคซีนได้ผล ให้แยกจากช่วงเวลาของการวินิจฉัยโรคซึ่งใช้ 7-14 วัน ที่ 3-5 วันยังเร็วเกินกว่าจะเห็นการเปลี่ยนแปลง และที่ 28-35 วัน titer จากวัคซีนเชื้อเป็นอาจเริ่มลดลงตามธรรมชาติแล้ว",
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -847,7 +847,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "วางไว้ที่อุณหภูมิห้องราว 3 ชั่วโมงก่อนส่ง"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่าตัวอย่างที่จะส่งแลปไม่ต้องแช่เย็นทันที ให้วางนอนไว้ที่อุณหภูมิห้องราว 3 ชั่วโมง พอถึงแลปจะแยกซีรัมได้ง่ายกว่ามาก ถ้าส่งวันนั้นไม่ได้จึงเก็บในตู้เย็นปกติ แต่พ้นวันที่ 3 คุณภาพจะเริ่มแย่ การแช่แข็งทันทีและการเขย่าแรงรบกวนการแยกซีรัม และ EDTA เป็นสารกันเลือดแข็งซึ่งใช้กับงานที่ต้องการพลาสมาหรือเลือดครบส่วน ไม่ใช่การเก็บซีรัม",
+    "explain": "ตัวอย่างที่จะส่งแลปไม่ต้องแช่เย็นทันที ให้วางนอนไว้ที่อุณหภูมิห้องราว 3 ชั่วโมง พอถึงแลปจะแยกซีรัมได้ง่ายกว่ามาก ถ้าส่งวันนั้นไม่ได้จึงเก็บในตู้เย็นปกติ แต่พ้นวันที่ 3 คุณภาพจะเริ่มแย่ การแช่แข็งทันทีและการเขย่าแรงรบกวนการแยกซีรัม และ EDTA เป็นสารกันเลือดแข็งซึ่งใช้กับงานที่ต้องการพลาสมาหรือเลือดครบส่วน ไม่ใช่การเก็บซีรัม",
     "verified": "Avian Med KFC น.17",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -927,7 +927,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "กระตุ้นภูมิได้เร็วและกระตุ้น mucosal IgA ได้"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่าลูกไก่ต้องการกระตุ้นภูมิเร็ว กระตุ้น mucosal immunity ชนิด IgA และให้ได้ในรูปแบบหมู่ เช่น หยอดตา พ่นละออง และผสมน้ำกิน ข้อดีที่ระบุคือให้ครั้งเดียวภูมิขึ้นเร็ว และโอกาสถูก MDA รบกวนน้อยกว่าเชื้อตาย ซึ่งเป็นคำว่าน้อยกว่า ไม่ใช่ไม่ถูกรบกวนเลย ส่วนข้อเสียที่เอกสารเขียนไว้คือเสี่ยงเกิด reaction ถ้าคุมสุขภาพสัตว์ไม่ดี ซึ่งตรงข้ามกับตัวเลือกที่สาม",
+    "explain": "ลูกไก่ต้องการกระตุ้นภูมิเร็ว กระตุ้น mucosal immunity ชนิด IgA และให้ได้ในรูปแบบหมู่ เช่น หยอดตา พ่นละออง และผสมน้ำกิน ข้อดีที่ระบุคือให้ครั้งเดียวภูมิขึ้นเร็ว และโอกาสถูก MDA รบกวนน้อยกว่าเชื้อตาย ซึ่งเป็นคำว่าน้อยกว่า ไม่ใช่ไม่ถูกรบกวนเลย ส่วนข้อเสียที่เอกสารเขียนไว้คือเสี่ยงเกิด reaction ถ้าคุมสุขภาพสัตว์ไม่ดี ซึ่งตรงข้ามกับตัวเลือกที่สาม",
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
@@ -1007,7 +1007,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Neurotropic velogenic ที่เด่นอาการประสาทร่วมกับระบบหายใจ"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่า viscerotropic velogenic (vvNDV) เด่นที่ hemorrhage lesion in GI ซึ่งตรงกับเลือดออกที่ proventriculus และ GALT ส่วน neurotropic velogenic เด่นอาการทางประสาทร่วมกับระบบหายใจ mesogenic ตายในไก่เล็กและเด่นอาการทางประสาท ส่วน lentogenic ก่ออาการทางระบบหายใจใน young naive chick และใช้ทำวัคซีนเชื้อเป็น",
+    "explain": "viscerotropic velogenic (vvNDV) เด่นที่ hemorrhage lesion in GI ซึ่งตรงกับเลือดออกที่ proventriculus และ GALT ส่วน neurotropic velogenic เด่นอาการทางประสาทร่วมกับระบบหายใจ mesogenic ตายในไก่เล็กและเด่นอาการทางประสาท ส่วน lentogenic ก่ออาการทางระบบหายใจใน young naive chick และใช้ทำวัคซีนเชื้อเป็น",
     "verified": "KFC MED Mid น.2",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1027,7 +1027,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "วันแรกให้เชื้อเป็นแบบสเปรย์ร่วมกับเชื้อตาย แล้ววันที่ 14 ให้เชื้อเป็นซ้ำ"
     ],
     "answer": 3,
-    "explain": "สรุประบุว่าไก่เนื้อต้องให้มากกว่า 1 เข็ม โดยวันที่ 1 ให้เชื้อเป็นแบบสเปรย์ร่วมกับเชื้อตายหรือ recombinant และวันที่ 14 ให้เชื้อเป็นซ้ำแบบสเปรย์หรือผสมน้ำ ตัวเลือกอื่นผิดเพราะวัคซีนเข็มเดียวไม่พอ และเชื้อตายไม่กระตุ้น mucosal antibody จึงไม่ใช้เป็นตัวหลักในโปรแกรมไก่เนื้อ",
+    "explain": "ไก่เนื้อต้องให้มากกว่า 1 เข็ม โดยวันที่ 1 ให้เชื้อเป็นแบบสเปรย์ร่วมกับเชื้อตายหรือ recombinant และวันที่ 14 ให้เชื้อเป็นซ้ำแบบสเปรย์หรือผสมน้ำ ตัวเลือกอื่นผิดเพราะวัคซีนเข็มเดียวไม่พอ และเชื้อตายไม่กระตุ้น mucosal antibody จึงไม่ใช้เป็นตัวหลักในโปรแกรมไก่เนื้อ",
     "verified": "KFC MED Mid น.2",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1039,7 +1039,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-nd",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดเปรียบเทียบวัคซีน ND เชื้อเป็นกับเชื้อตายได้ถูกต้องตามสรุปชุดนี้",
+    "q": "ข้อใดเปรียบเทียบวัคซีน ND เชื้อเป็นกับเชื้อตายได้ถูกต้อง",
     "options": [
       "เชื้อเป็นกระตุ้น mucosal antibody ได้ ส่วนเชื้อตายกระตุ้น humoral antibody ได้ดีและอยู่นาน",
       "เชื้อตายกระตุ้น mucosal antibody ได้ ส่วนเชื้อเป็นกระตุ้น humoral antibody ได้ดีและอยู่นาน",
@@ -1047,7 +1047,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เชื้อตายราคาถูกกว่าเชื้อเป็น และให้ได้ทั้งการหยอดตา ผสมน้ำให้กิน และสเปรย์"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่าเชื้อเป็นราคาไม่แพง ให้ง่าย และกระตุ้น mucosal antibody ได้ ส่วนเชื้อตายแพงกว่า กระตุ้น humoral antibody ได้ดี ภูมิสูงและอยู่นาน ให้โดย S/C หรือ IM ตัวเลือกที่เหลือสลับคุณสมบัติ ราคา หรือวิธีให้ของวัคซีนสองชนิดนี้",
+    "explain": "เชื้อเป็นราคาไม่แพง ให้ง่าย และกระตุ้น mucosal antibody ได้ ส่วนเชื้อตายแพงกว่า กระตุ้น humoral antibody ได้ดี ภูมิสูงและอยู่นาน ให้โดย S/C หรือ IM ตัวเลือกที่เหลือสลับคุณสมบัติ ราคา หรือวิธีให้ของวัคซีนสองชนิดนี้",
     "verified": "KFC MED Mid น.2",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1059,7 +1059,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-ib",
     "year": 5,
     "type": "mcq",
-    "q": "การจำแนก genotype ของ infectious bronchitis virus อาศัยยีนใดเป็นหลัก และในไทยพบ genotype ใดบ้างตามสรุปชุดนี้",
+    "q": "การจำแนก genotype ของ infectious bronchitis virus อาศัยยีนใดเป็นหลัก และในไทยพบ genotype ใดบ้าง",
     "options": [
       "N gene แบ่งเป็น GI-1 Massachusetts, GI-13 4/91 และ GI-19 QX-like",
       "S1 gene แบ่งเป็น GI-1 Massachusetts, GI-13 4/91 และ GI-19 QX",
@@ -1087,7 +1087,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ไตฝ่อถาวร ทำให้ไก่ขับ urate ไม่ได้และตายในช่วงเริ่มให้ไข่"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่าปัญหาระบบสืบพันธุ์ของ IB มักเป็นเมื่อติดเชื้ออายุน้อยกว่า 2 สัปดาห์ และพบ false layer กับ penguin-like posture จากท่อนำไข่ไม่พัฒนา ส่วนพังผืดถุงลมเป็นผลของ secondary infection ไม่ใช่ผลระยะยาวต่อระบบสืบพันธุ์ torticollis เป็นอาการของ ND ไม่ใช่ IB และไตของ IB จะบวมซีดหรือสี marble ไม่ใช่ฝ่อถาวร",
+    "explain": "ปัญหาระบบสืบพันธุ์ของ IB มักเป็นเมื่อติดเชื้ออายุน้อยกว่า 2 สัปดาห์ และพบ false layer กับ penguin-like posture จากท่อนำไข่ไม่พัฒนา ส่วนพังผืดถุงลมเป็นผลของ secondary infection ไม่ใช่ผลระยะยาวต่อระบบสืบพันธุ์ torticollis เป็นอาการของ ND ไม่ใช่ IB และไตของ IB จะบวมซีดหรือสี marble ไม่ใช่ฝ่อถาวร",
     "verified": "KFC MED Mid น.2",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1127,7 +1127,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ไวรัสแทรกจีโนมเข้า T lymphocyte แล้วเปลี่ยนเป็นเซลล์มะเร็งที่ขับเชื้อต่อได้"
     ],
     "answer": 1,
-    "explain": "สรุประบุว่าไก่ที่หายจากอาการของโรคสามารถเป็นพาหะได้ เพราะไวรัสยังซ่อนอยู่ในร่างกายโดยแอบอยู่ใน trigeminal ganglion ในระยะ latent ส่วนการหลบใน feather follicle epithelium และการขับออกมากับ dander เป็นกลไกของ Marek disease การแทรกจีโนมเข้า T lymphocyte จนเป็น T-cell lymphoma ก็เป็นของ Marek เช่นกัน ส่วน bursa of Fabricius เป็นเป้าหมายของ IBDV",
+    "explain": "ไก่ที่หายจากอาการของโรคสามารถเป็นพาหะได้ เพราะไวรัสยังซ่อนอยู่ในร่างกายโดยแอบอยู่ใน trigeminal ganglion ในระยะ latent ส่วนการหลบใน feather follicle epithelium และการขับออกมากับ dander เป็นกลไกของ Marek disease การแทรกจีโนมเข้า T lymphocyte จนเป็น T-cell lymphoma ก็เป็นของ Marek เช่นกัน ส่วน bursa of Fabricius เป็นเป้าหมายของ IBDV",
     "verified": "KFC MED Mid น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1139,7 +1139,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-lt",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดอธิบายความเสี่ยงของวัคซีน ILT ชนิด chicken embryo origin (CEO) ได้ถูกต้องตามสรุปชุดนี้",
+    "q": "ข้อใดอธิบายความเสี่ยงของวัคซีน ILT ชนิด chicken embryo origin (CEO) ได้ถูกต้อง",
     "options": [
       "เชื้อวัคซีนไม่แพร่ระหว่างตัว จึงต้องฉีดเข้ารายตัวให้ครบทุกตัวในฝูง",
       "ให้ได้เฉพาะทาง eye drop เท่านั้น เพราะเชื้อไม่ทนต่อการละลายน้ำ",
@@ -1147,7 +1147,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ป้องกันโรคได้ด้อยกว่า tissue culture origin จึงไม่นิยมใช้ในไก่ไข่"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่า CEO ก่อให้เกิดการแพร่วัคซีนได้ และการทำวัคซีนไม่ทั่วฝูงอาจทำให้ไวรัสพัฒนาจนเกิด rolling infection ตัวเลือกแรกผิดเพราะ CEO แพร่ระหว่างตัวได้ ตัวเลือกที่สองเป็นคุณสมบัติของ TCO ที่ให้ eye drop อย่างเดียว และตัวเลือกสุดท้ายกลับด้าน เพราะสรุประบุว่า CEO ป้องกันโรคได้ดีกว่า TCO",
+    "explain": "CEO ก่อให้เกิดการแพร่วัคซีนได้ และการทำวัคซีนไม่ทั่วฝูงอาจทำให้ไวรัสพัฒนาจนเกิด rolling infection ตัวเลือกแรกผิดเพราะ CEO แพร่ระหว่างตัวได้ ตัวเลือกที่สองเป็นคุณสมบัติของ TCO ที่ให้ eye drop อย่างเดียว และตัวเลือกสุดท้ายกลับด้าน เพราะสรุประบุว่า CEO ป้องกันโรคได้ดีกว่า TCO",
     "verified": "KFC MED Mid น.2, น.3",
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป Avian Medicine"
@@ -1167,7 +1167,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Eosinophilic intranuclear inclusion body ในเซลล์เยื่อบุหลอดลม"
     ],
     "answer": 3,
-    "explain": "สรุประบุว่า HP ของ ILT พบ eosinophilic intranuclear inclusion body ในเซลล์เยื่อบุ ซึ่งสอดคล้องกับการเป็น herpesvirus ส่วน fowlpox ก็พบ eosinophilic inclusion body เช่นกันแต่อยู่ใน cytoplasm ของเซลล์เยื่อบุ acid fast bacilli เป็นของวัณโรคสัตว์ปีก และ multinucleated giant cell ไม่ใช่ลักษณะที่สรุประบุไว้สำหรับ ILT",
+    "explain": "HP ของ ILT พบ eosinophilic intranuclear inclusion body ในเซลล์เยื่อบุ ซึ่งสอดคล้องกับการเป็น herpesvirus ส่วน fowlpox ก็พบ eosinophilic inclusion body เช่นกันแต่อยู่ใน cytoplasm ของเซลล์เยื่อบุ acid fast bacilli เป็นของวัณโรคสัตว์ปีก และ multinucleated giant cell ไม่ใช่ลักษณะที่สรุประบุไว้สำหรับ ILT",
     "verified": "KFC MED Mid น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1179,7 +1179,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-lt",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดถูกต้องเกี่ยวกับการให้วัคซีน ILT เชื้อเป็นทั้งสองชนิดตามสรุปชุดนี้",
+    "q": "ข้อใดถูกต้องเกี่ยวกับการให้วัคซีน ILT เชื้อเป็นทั้งสองชนิด",
     "options": [
       "TCO ให้ได้ทาง eye drop เท่านั้น ส่วน CEO ให้ได้ทั้งหยอดตา ผสมน้ำ และสเปรย์",
       "CEO ให้ได้ทาง eye drop เท่านั้น ส่วน TCO ให้ได้ทั้งหยอดตา ผสมน้ำ และสเปรย์",
@@ -1187,7 +1187,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ทั้งสองชนิดให้ได้เฉพาะการแทงที่ wing web และเริ่มให้ได้ตั้งแต่อายุ 1 วัน"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่า CEO ให้ทาง eye drop, drinking water และ coarse spray ส่วน TCO ให้ทาง eye drop เท่านั้น ตัวเลือกที่สองสลับกัน ส่วนการฉีดใต้ผิวหนังอายุ 1 วันเป็นวิธีของ recombinant fowlpox-ILT ไม่ใช่วัคซีนเชื้อเป็น และ wing web เป็นวิธีของ FPV-ILT ในไก่พ่อแม่พันธุ์อายุ 7 สัปดาห์",
+    "explain": "CEO ให้ทาง eye drop, drinking water และ coarse spray ส่วน TCO ให้ทาง eye drop เท่านั้น ตัวเลือกที่สองสลับกัน ส่วนการฉีดใต้ผิวหนังอายุ 1 วันเป็นวิธีของ recombinant fowlpox-ILT ไม่ใช่วัคซีนเชื้อเป็น และ wing web เป็นวิธีของ FPV-ILT ในไก่พ่อแม่พันธุ์อายุ 7 สัปดาห์",
     "verified": "KFC MED Mid น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1247,7 +1247,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ต้องเก็บจาก cloacal swab เท่านั้น เพราะเชื้อขับออกทางมูลนานกว่าทางเดินหายใจ"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่าต้องเก็บทันทีในช่วงที่กำลังติดเชื้อ หรือช่วงที่ไวรัสอยู่บริเวณ sinus และ turbinate ประมาณ 6-7 วัน ตัวอย่างที่ใช้คือ oropharyngeal swab, choanal cleft swab, tracheal swab และ nasal exudate ตัวเลือกอื่นระบุจังหวะเวลาและชนิดตัวอย่างที่ไม่ตรงกับที่สรุปเขียนไว้",
+    "explain": "ต้องเก็บทันทีในช่วงที่กำลังติดเชื้อ หรือช่วงที่ไวรัสอยู่บริเวณ sinus และ turbinate ประมาณ 6-7 วัน ตัวอย่างที่ใช้คือ oropharyngeal swab, choanal cleft swab, tracheal swab และ nasal exudate ตัวเลือกอื่นระบุจังหวะเวลาและชนิดตัวอย่างที่ไม่ตรงกับที่สรุปเขียนไว้",
     "verified": "KFC MED Mid น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1267,7 +1267,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ทั้งไก่งวงและไก่ป่วยราว 4-10% เท่ากัน แต่ไก่ตายสูงกว่าไก่งวงชัดเจน"
     ],
     "answer": 1,
-    "explain": "สรุประบุว่าในลูกไก่งวงอัตราป่วยอาจถึง 100% และอัตราตาย 50% ในขณะที่ในไก่ morbidity rate 4-10% และ mortality rate ต่ำ 0.4-2% ซึ่งอาจเพิ่มขึ้นจาก secondary infection สอดคล้องกับที่โรคนี้เป็นโรคสำคัญในไก่งวงจนมีชื่อว่า turkey rhinotracheitis ตัวเลือกอื่นสลับตัวเลขหรือทำให้สองชนิดสัตว์เท่ากัน",
+    "explain": "ในลูกไก่งวงอัตราป่วยอาจถึง 100% และอัตราตาย 50% ในขณะที่ในไก่ morbidity rate 4-10% และ mortality rate ต่ำ 0.4-2% ซึ่งอาจเพิ่มขึ้นจาก secondary infection สอดคล้องกับที่โรคนี้เป็นโรคสำคัญในไก่งวงจนมีชื่อว่า turkey rhinotracheitis ตัวเลือกอื่นสลับตัวเลขหรือทำให้สองชนิดสัตว์เท่ากัน",
     "verified": "KFC MED Mid น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1279,7 +1279,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-pox",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดเปรียบเทียบ fowlpox สองรูปแบบได้ถูกต้องตามสรุปชุดนี้",
+    "q": "ข้อใดเปรียบเทียบ fowlpox สองรูปแบบได้ถูกต้อง",
     "options": [
       "Cutaneous form มีอัตราการตายสูงกว่า diphtheritic form เพราะเชื้อลามเข้ากระแสเลือดเร็ว",
       "Diphtheritic form มีอัตราการตายสูงกว่า cutaneous form เพราะรอยโรคขวางทางเดินหายใจ",
@@ -1287,7 +1287,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Cutaneous form พบรอยโรคเฉพาะผิวหนังที่มีขนปกคลุม ส่วน diphtheritic พบที่ผิวหนังไม่มีขน"
     ],
     "answer": 1,
-    "explain": "สรุประบุว่า diphtheritic form (wet form) มีอัตราการตายสูงกว่า cutaneous form เพราะมีเยื่อสีเหลืองคลุมเยื่อเมือกในปาก หลอดอาหาร กล่องเสียง และท่อลม ทำให้หายใจลำบากและไม่กินอาหาร ส่วน cutaneous form มีอัตราการตายต่ำและพบที่ผิวหนังส่วนที่ไม่มีขน และสรุประบุชัดว่าอาจพบทั้ง 2 form ในไก่ 1 ตัวได้",
+    "explain": "diphtheritic form (wet form) มีอัตราการตายสูงกว่า cutaneous form เพราะมีเยื่อสีเหลืองคลุมเยื่อเมือกในปาก หลอดอาหาร กล่องเสียง และท่อลม ทำให้หายใจลำบากและไม่กินอาหาร ส่วน cutaneous form มีอัตราการตายต่ำและพบที่ผิวหนังส่วนที่ไม่มีขน และสรุประบุชัดว่าอาจพบทั้ง 2 form ในไก่ 1 ตัวได้",
     "verified": "KFC MED Mid น.4",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1299,7 +1299,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-pox",
     "year": 5,
     "type": "mcq",
-    "q": "การให้วัคซีน fowlpox เชื้อเป็นตามสรุปชุดนี้ทำอย่างไร",
+    "q": "การให้วัคซีน fowlpox เชื้อเป็นทำอย่างไร",
     "options": [
       "แทงที่ wing web ช่วงอายุ 4-8 สัปดาห์ และห้ามให้ขณะแม่ไก่กำลังไข่",
       "หยอดตาช่วงอายุ 4-8 สัปดาห์ และให้ซ้ำทุก 8 สัปดาห์ขณะแม่ไก่กำลังไข่",
@@ -1347,7 +1347,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เพราะ poxvirus เป็น RNA virus ที่กลายพันธุ์เร็ว จึงปรับให้ตรงสายพันธุ์ได้ทัน"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่า poxvirus ใช้เป็น vector โดยตัดยีนส่วนที่กระตุ้นภูมิของไวรัสอื่นมาใส่ เช่น F gene ของ NDV หรือ HN gene ของ ILT แล้วไก่จะสร้างภูมิคุ้มกันต่อไวรัสทั้งสอง ตัวเลือกแรกผิดเพราะ fowlpox ก่อโรคในไก่ ตัวเลือกที่สองผิดเพราะสรุประบุว่า fowlpox แพร่ระบาดช้า และตัวเลือกสุดท้ายผิดเพราะ poxvirus เป็น dsDNA virus",
+    "explain": "poxvirus ใช้เป็น vector โดยตัดยีนส่วนที่กระตุ้นภูมิของไวรัสอื่นมาใส่ เช่น F gene ของ NDV หรือ HN gene ของ ILT แล้วไก่จะสร้างภูมิคุ้มกันต่อไวรัสทั้งสอง ตัวเลือกแรกผิดเพราะ fowlpox ก่อโรคในไก่ ตัวเลือกที่สองผิดเพราะสรุประบุว่า fowlpox แพร่ระบาดช้า และตัวเลือกสุดท้ายผิดเพราะ poxvirus เป็น dsDNA virus",
     "verified": "KFC MED Mid น.4",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1367,7 +1367,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เป็น recombinant ที่ใส่ยีนของ MG ลงใน fowl pox virus แล้วแทงเข้าที่ wing web"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่า ts-11 ให้ภูมิกลางๆ ให้โดยหยอดตา ไวต่ออุณหภูมิสูง ถ้าเกิน 35 องศาเชื้อจะตาย มันจึงอยู่แค่ที่ upper respiratory ไม่ผ่านไปไข่ และต้องเก็บรักษาที่ -20 องศา ตัวเลือกที่เหลือเป็นคุณสมบัติของ strain F, strain 6/85 และวัคซีน FP-MG ตามลำดับ ซึ่งเป็นวัคซีน MG จริงทั้งหมดแต่คนละสายพันธุ์",
+    "explain": "ts-11 ให้ภูมิกลางๆ ให้โดยหยอดตา ไวต่ออุณหภูมิสูง ถ้าเกิน 35 องศาเชื้อจะตาย มันจึงอยู่แค่ที่ upper respiratory ไม่ผ่านไปไข่ และต้องเก็บรักษาที่ -20 องศา ตัวเลือกที่เหลือเป็นคุณสมบัติของ strain F, strain 6/85 และวัคซีน FP-MG ตามลำดับ ซึ่งเป็นวัคซีน MG จริงทั้งหมดแต่คนละสายพันธุ์",
     "verified": "KFC MED Mid น.11",
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป หมวดวัคซีน Mycoplasma"
@@ -1427,7 +1427,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Egg apex abnormality โดยชั้น palisade และ mammillary บางลง"
     ],
     "answer": 3,
-    "explain": "สรุประบุว่าถ้าติดเชื้อ MS ในไก่รุ่นอายุประมาณ 10-12 สัปดาห์ อาจมีปัญหา EAA หรือ Egg Apex Abnormality เปลือกบางเป็นวงที่ด้านแหลม โดยชั้น palisade และ mammillary layers บางกว่าปกติ ทำให้ไข่เปลือกบางแตกง่าย แต่ข้างในยังดีอยู่ ฟักได้ปกติ ส่วน egg drop syndrome, false layer และ egg peritonitis เป็นภาวะที่มีจริงแต่กลไกและตำแหน่งไม่ตรงกับโจทย์",
+    "explain": "ถ้าติดเชื้อ MS ในไก่รุ่นอายุประมาณ 10-12 สัปดาห์ อาจมีปัญหา EAA หรือ Egg Apex Abnormality เปลือกบางเป็นวงที่ด้านแหลม โดยชั้น palisade และ mammillary layers บางกว่าปกติ ทำให้ไข่เปลือกบางแตกง่าย แต่ข้างในยังดีอยู่ ฟักได้ปกติ ส่วน egg drop syndrome, false layer และ egg peritonitis เป็นภาวะที่มีจริงแต่กลไกและตำแหน่งไม่ตรงกับโจทย์",
     "verified": "KFC MED Mid น.11",
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป หมวด Mycoplasma"
@@ -1487,7 +1487,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เป็น confirmatory test ที่แทน PCR ได้ เพราะให้ผลตรงกันเสมอในซีรัมที่แช่แข็ง"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่า SPA เป็น screening test ตรวจหา IgM หลังทำวัคซีน 2 สัปดาห์ มี high sensitivity แต่ low specificity และถ้าตั้งซีรัมแช่แข็งจะให้ false positive จึงควรคอนเฟิร์มด้วย ELISA หรือทำ SPA ซ้ำอีกครั้ง ส่วน ELISA คือวิธีที่ตรวจหา IgY และ PCR คือวิธีหลักที่ใช้ยืนยัน จึงแทนกันไม่ได้",
+    "explain": "SPA เป็น screening test ตรวจหา IgM หลังทำวัคซีน 2 สัปดาห์ มี high sensitivity แต่ low specificity และถ้าตั้งซีรัมแช่แข็งจะให้ false positive จึงควรคอนเฟิร์มด้วย ELISA หรือทำ SPA ซ้ำอีกครั้ง ส่วน ELISA คือวิธีที่ตรวจหา IgY และ PCR คือวิธีหลักที่ใช้ยืนยัน จึงแทนกันไม่ได้",
     "verified": "KFC MED Mid น.11",
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป หมวดการตรวจ Mycoplasma"
@@ -1539,7 +1539,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-coryza",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดถูกต้องเกี่ยวกับการให้วัคซีน infectious coryza ตามสรุปชุดนี้",
+    "q": "ข้อใดถูกต้องเกี่ยวกับการให้วัคซีน infectious coryza",
     "options": [
       "ใช้ bacterin เข็มแรกอายุ 8-10 สัปดาห์ แล้วกระตุ้นอีก 4 สัปดาห์ถัดมา",
       "ใช้วัคซีนเชื้อเป็นหยอดตาเข็มแรกอายุ 1 วัน แล้วกระตุ้นที่อายุ 4 สัปดาห์",
@@ -1567,7 +1567,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เพราะเชื้ออยู่ที่ infraorbital sinus ซึ่งมีเลือดมาเลี้ยงน้อย ยาจึงเข้าไม่ถึง"
     ],
     "answer": 3,
-    "explain": "สรุประบุว่าเชื้อชอบอยู่ที่ infraorbital sinus เพราะไม่ค่อยมีเลือดมาเลี้ยง อาการจึงดีขึ้นเมื่อให้ยา แต่ส่วนที่เชื้ออยู่มักไม่มีเลือดมาเลี้ยง ไก่จึงเป็นพาหะต่อ และพอปลายฝนต้นหนาวก็กลับมาติดเชื้อทำให้ไข่ลด ส่วนการหลบใน latent ที่ปมประสาทเป็นกลไกของ ILT ซึ่งเป็น herpesvirus และ Avibacterium เป็นแบคทีเรียที่ไม่สร้างสปอร์",
+    "explain": "เชื้อชอบอยู่ที่ infraorbital sinus เพราะไม่ค่อยมีเลือดมาเลี้ยง อาการจึงดีขึ้นเมื่อให้ยา แต่ส่วนที่เชื้ออยู่มักไม่มีเลือดมาเลี้ยง ไก่จึงเป็นพาหะต่อ และพอปลายฝนต้นหนาวก็กลับมาติดเชื้อทำให้ไข่ลด ส่วนการหลบใน latent ที่ปมประสาทเป็นกลไกของ ILT ซึ่งเป็น herpesvirus และ Avibacterium เป็นแบคทีเรียที่ไม่สร้างสปอร์",
     "verified": "KFC MED Mid น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1587,7 +1587,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Coryza จากเชื้อ Avibacterium paragallinarum"
     ],
     "answer": 1,
-    "explain": "สรุประบุว่า enlarged liver ที่มี pinpoint necrotic foci หรือที่เรียกว่า salted liver ร่วมกับ hard fibrous consolidated lungs เป็น pathognomonic lesion ของ fowl cholera จุดสำคัญคือถ้า necrotic foci มีหลายขนาดให้คิดถึง Salmonella ส่วน E. coli ก็ทำให้เกิด necrotic foci ได้แต่มีหลายขนาดเช่นกัน และ coryza เชื้ออยู่แค่ทางเดินหายใจส่วนบน ไม่ลงไปที่ตับหรือปอด",
+    "explain": "enlarged liver ที่มี pinpoint necrotic foci หรือที่เรียกว่า salted liver ร่วมกับ hard fibrous consolidated lungs เป็น pathognomonic lesion ของ fowl cholera จุดสำคัญคือถ้า necrotic foci มีหลายขนาดให้คิดถึง Salmonella ส่วน E. coli ก็ทำให้เกิด necrotic foci ได้แต่มีหลายขนาดเช่นกัน และ coryza เชื้ออยู่แค่ทางเดินหายใจส่วนบน ไม่ลงไปที่ตับหรือปอด",
     "verified": "KFC MED Mid น.13",
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป Avian Medicine"
@@ -1599,7 +1599,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-fowl-cholera",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดถูกต้องเกี่ยวกับความไวรับต่อ fowl cholera ตามสรุปชุดนี้",
+    "q": "ข้อใดถูกต้องเกี่ยวกับความไวรับต่อ fowl cholera",
     "options": [
       "ไก่ไวรับมากกว่าเป็ดและห่าน และไก่อายุน้อยไวรับมากกว่าไก่อายุมาก",
       "ไก่ไวรับมากกว่าเป็ดและห่าน และไก่อายุมากไวรับมากกว่าไก่อายุน้อย",
@@ -1627,7 +1627,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ติดสีแบบ acid fast จึงแยกออกจากวัณโรคสัตว์ปีกได้ยากในสเมียร์"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่า Pasteurella multocida เป็น gram negative, nonmotile, non-spore forming rod ที่มี bipolar staining คือติดสีหัวท้าย ซึ่งใช้เป็นเบาะแสในการทำ impression smear จากเลือด หัวใจ และตับ ส่วนการติดสีแบบ acid fast เป็นของ Mycobacterium ซึ่งสรุปยกไว้เป็นประเด็นแยก E. coli ออกจากวัณโรคต่างหาก",
+    "explain": "Pasteurella multocida เป็น gram negative, nonmotile, non-spore forming rod ที่มี bipolar staining คือติดสีหัวท้าย ซึ่งใช้เป็นเบาะแสในการทำ impression smear จากเลือด หัวใจ และตับ ส่วนการติดสีแบบ acid fast เป็นของ Mycobacterium ซึ่งสรุปยกไว้เป็นประเด็นแยก E. coli ออกจากวัณโรคต่างหาก",
     "verified": "KFC MED Mid น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1667,7 +1667,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Coligranuloma และต้องแยกจากโรค Marek แบบอวัยวะภายใน"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่าพบ coligranuloma คล้ายเนื้องอกตาม visceral organ เรียกอีกอย่างว่า Hjarre's disease และเขียนกำกับไว้ว่าไม่ใช่วัณโรค จึงเป็นการเน้นว่าต้องแยกจากวัณโรคสัตว์ปีก ส่วน colisepticemia หมายถึงการติดเชื้อเข้ากระแสเลือด ไม่ใช่ชื่อของรอยโรคก้อน granuloma และแม้ Marek แบบอวัยวะภายในจะเป็นก้อนเหมือนกัน แต่ไม่ใช่โรคที่สรุปยกมาเปรียบเทียบตรงจุดนี้",
+    "explain": "พบ coligranuloma คล้ายเนื้องอกตาม visceral organ เรียกอีกอย่างว่า Hjarre's disease และเขียนกำกับไว้ว่าไม่ใช่วัณโรค จึงเป็นการเน้นว่าต้องแยกจากวัณโรคสัตว์ปีก ส่วน colisepticemia หมายถึงการติดเชื้อเข้ากระแสเลือด ไม่ใช่ชื่อของรอยโรคก้อน granuloma และแม้ Marek แบบอวัยวะภายในจะเป็นก้อนเหมือนกัน แต่ไม่ใช่โรคที่สรุปยกมาเปรียบเทียบตรงจุดนี้",
     "verified": "KFC MED Mid น.12",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1679,7 +1679,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-coli",
     "year": 5,
     "type": "mcq",
-    "q": "ภาวะ fibrinous pericarditis ร่วมกับ perihepatitis และ airsacculitis ในไก่ เกิดจากเชื้อใดเป็นหลักตามสรุปชุดนี้",
+    "q": "ภาวะ fibrinous pericarditis ร่วมกับ perihepatitis และ airsacculitis ในไก่ เกิดจากเชื้อใดเป็นหลัก",
     "options": [
       "เชื้อ Mycoplasma gallisepticum โดยตรง",
       "เชื้อ Escherichia coli ที่ลงกระแสเลือด",
@@ -1699,7 +1699,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-ai",
     "year": 5,
     "type": "mcq",
-    "q": "ฟาร์มทำวัคซีน H5N3 ไว้ ต่อมามีการระบาดของ H5N1 ตามคำอธิบายในสรุปชุดนี้ วัคซีนจะยังป้องกันโรคได้หรือไม่ เพราะเหตุใด",
+    "q": "ฟาร์มทำวัคซีน H5N3 ไว้ ต่อมามีการระบาดของ H5N1 วัคซีนจะยังป้องกันโรคได้หรือไม่ เพราะเหตุใด",
     "options": [
       "ได้ เพราะมี H5 เหมือนกัน แม้ว่า N จะต่างกัน ก็ยังให้การป้องกันโรคได้",
       "ไม่ได้ เพราะการป้องกันขึ้นกับ N เป็นหลัก เมื่อ N ต่างกันจึงไม่คุ้มโรค",
@@ -1747,7 +1747,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "รัศมี 20 กิโลเมตร โดย 10 กิโลเมตรแรกเก็บตัวอย่างตรวจ 10 กิโลเมตรถัดมาเฝ้าระวังอาการ"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่ามาตรการหลักคือการกำจัดโรค โดยกำหนดพื้นที่รอบจุดเกิดโรคเป็นเขตเฝ้าระวังรัศมี 10 กิโลเมตร แบ่งเป็น 5 กิโลเมตรแรกที่ต้องเก็บตัวอย่างมาตรวจ ตัวไหนผลบวกให้ทำลายทิ้ง และ 5 กิโลเมตรถัดมาที่เฝ้าระวังโดยการสังเกตอาการ ร่วมกับการฆ่าสัตว์ป่วยและควบคุมการเคลื่อนย้ายในเขตโรคระบาด",
+    "explain": "มาตรการหลักคือการกำจัดโรค โดยกำหนดพื้นที่รอบจุดเกิดโรคเป็นเขตเฝ้าระวังรัศมี 10 กิโลเมตร แบ่งเป็น 5 กิโลเมตรแรกที่ต้องเก็บตัวอย่างมาตรวจ ตัวไหนผลบวกให้ทำลายทิ้ง และ 5 กิโลเมตรถัดมาที่เฝ้าระวังโดยการสังเกตอาการ ร่วมกับการฆ่าสัตว์ป่วยและควบคุมการเคลื่อนย้ายในเขตโรคระบาด",
     "verified": "KFC MED Mid น.14, น.15",
     "sourceType": "student-compilation",
     "examOrigin": "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine"
@@ -1807,7 +1807,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ทั้ง H7N2 และ H9N2 เป็น LPAI ทั้งคู่ ต่างกันเพียงระดับการลดลงของไข่"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่า H7N2 จัดอยู่ในกลุ่ม HPAI ทำให้ไก่ป่วยรุนแรง อัตราการตายสูง อาการที่พบคือซึม ไข้ หายใจลำบาก หน้าบวมคล้ำ เหนียงบวม มีจุดเลือดออกและเนื้อตายในอวัยวะต่างๆ ส่วน H9N2 จัดอยู่ในกลุ่ม LPAI อัตราตายต่ำ อาการเด่นคือการผลิตไข่ลดลงมาก ซึม หน้าบวม ไตบวมถ้าไม่กินน้ำ และมีรอยโรค เช่น รังไข่เสื่อม ถุงไข่แดงแตก จุดเลือดออกเล็กน้อย",
+    "explain": "H7N2 จัดอยู่ในกลุ่ม HPAI ทำให้ไก่ป่วยรุนแรง อัตราการตายสูง อาการที่พบคือซึม ไข้ หายใจลำบาก หน้าบวมคล้ำ เหนียงบวม มีจุดเลือดออกและเนื้อตายในอวัยวะต่างๆ ส่วน H9N2 จัดอยู่ในกลุ่ม LPAI อัตราตายต่ำ อาการเด่นคือการผลิตไข่ลดลงมาก ซึม หน้าบวม ไตบวมถ้าไม่กินน้ำ และมีรอยโรค เช่น รังไข่เสื่อม ถุงไข่แดงแตก จุดเลือดออกเล็กน้อย",
     "verified": "KFC MED Mid น.15",
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อเขียนที่รุ่นพี่ Vet 85 คัดมาจากสรุปรุ่นก่อนหน้าและบันทึกว่าอาจารย์สอนเน้น"
@@ -1847,7 +1847,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ก่อรอยโรคที่ jejunum เป็นหลัก และพบ oocyst ที่ jejunum ด้วย"
     ],
     "answer": 1,
-    "explain": "สรุประบุว่า E. necatrix ติดเชื้อเฉพาะที่ duodenum และ jejunum อัตราการตายอาจถึง 25% ด้าน serosa มีจุดเนื้อตายสีขาวกลมๆ เล็กๆ ในไก่ที่ตายจะเห็นเป็นเลือดออกสีดำเรียกว่า salt and pepper lesion และจุดที่เป็นกับดักคือ sexual phase เกิดขึ้นที่ cecum จึงเจอ oocyst ที่ cecum ทั้งที่รอยโรคอยู่ที่ลำไส้เล็ก ส่วนการก่อรอยโรคที่ ceca เป็นของ E. tenella และ ileum กับ rectum เป็นของ E. brunetti",
+    "explain": "E. necatrix ติดเชื้อเฉพาะที่ duodenum และ jejunum อัตราการตายอาจถึง 25% ด้าน serosa มีจุดเนื้อตายสีขาวกลมๆ เล็กๆ ในไก่ที่ตายจะเห็นเป็นเลือดออกสีดำเรียกว่า salt and pepper lesion และจุดที่เป็นกับดักคือ sexual phase เกิดขึ้นที่ cecum จึงเจอ oocyst ที่ cecum ทั้งที่รอยโรคอยู่ที่ลำไส้เล็ก ส่วนการก่อรอยโรคที่ ceca เป็นของ E. tenella และ ileum กับ rectum เป็นของ E. brunetti",
     "verified": "KFC MED Mid น.9",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1867,7 +1867,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ที่ duodenum และ jejunum เป็นเส้นขาวเรียงขวางคล้ายขั้นบันได"
     ],
     "answer": 3,
-    "explain": "สรุประบุว่า E. acervulina ตัวเล็กที่สุด ติดเชื้อเฉพาะที่ duodenum และ jejunum มีจุดหรือเส้นขาดขวางสีขาวคล้ายขั้นบันได ผนังลำไส้หนาตัวขึ้น มูลเป็น watery และ mucoid ส่วน cecal core เป็นของ E. tenella รอยโรคที่ ileum กับ rectum เป็นของ E. brunetti และของเหลวสีส้มในลำไส้ที่ jejunum เป็นของ E. maxima",
+    "explain": "E. acervulina ตัวเล็กที่สุด ติดเชื้อเฉพาะที่ duodenum และ jejunum มีจุดหรือเส้นขาดขวางสีขาวคล้ายขั้นบันได ผนังลำไส้หนาตัวขึ้น มูลเป็น watery และ mucoid ส่วน cecal core เป็นของ E. tenella รอยโรคที่ ileum กับ rectum เป็นของ E. brunetti และของเหลวสีส้มในลำไส้ที่ jejunum เป็นของ E. maxima",
     "verified": "KFC MED Mid น.9",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1879,7 +1879,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดเปรียบเทียบ Marek's disease กับ Avian leukosis ได้ถูกต้องตามสรุปชุดนี้",
+    "q": "ข้อใดเปรียบเทียบ Marek’s disease กับ Avian leukosis ได้ถูกต้อง",
     "options": [
       "Marek แพร่ผ่านไข่ได้ ส่วน Avian leukosis แพร่ทางรังแคขนเท่านั้น",
       "Marek เป็นเนื้องอกของ B lymphocyte ส่วน Avian leukosis ของ T lymphocyte",
@@ -1887,7 +1887,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Marek ไม่มีวัคซีนป้องกัน ส่วน Avian leukosis มีวัคซีนเชื้อเป็นใช้แพร่หลาย"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่า Marek เป็น oncogenic virus ตัวเดียวที่ไม่มี vertical transmission โดยแพร่ผ่าน feather debris หรือ dander ส่วน avian leukosis ติดต่อได้ทั้ง vertical และ horizontal เซลล์เป้าหมายของ Marek คือ T lymphocyte ส่วน ALV คือ B lymphocyte ซึ่งตรงข้ามกับตัวเลือกที่สอง และเรื่องวัคซีนก็กลับด้าน เพราะ Marek เป็นโรคเนื้องอกที่เกิดจากไวรัสชนิดเดียวที่มีวัคซีน ส่วน ALV ไม่มีวัคซีน ต้องกำจัดออกจากฝูงพ่อแม่พันธุ์",
+    "explain": "Marek เป็น oncogenic virus ตัวเดียวที่ไม่มี vertical transmission โดยแพร่ผ่าน feather debris หรือ dander ส่วน avian leukosis ติดต่อได้ทั้ง vertical และ horizontal เซลล์เป้าหมายของ Marek คือ T lymphocyte ส่วน ALV คือ B lymphocyte ซึ่งตรงข้ามกับตัวเลือกที่สอง และเรื่องวัคซีนก็กลับด้าน เพราะ Marek เป็นโรคเนื้องอกที่เกิดจากไวรัสชนิดเดียวที่มีวัคซีน ส่วน ALV ไม่มีวัคซีน ต้องกำจัดออกจากฝูงพ่อแม่พันธุ์",
     "verified": "KFC MED Mid น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1899,7 +1899,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ลักษณะการตายของฝูงไก่ที่ติด chicken infectious anemia virus ตามสรุปชุดนี้เป็นอย่างไร",
+    "q": "ลักษณะการตายของฝูงไก่ที่ติด chicken infectious anemia virus เป็นอย่างไร",
     "options": [
       "ตายยอดเดียวที่อายุ 17-24 วัน จากการติดเชื้อภายในฝูงเท่านั้น",
       "ตายสองยอด ยอดแรก 30-34 วันจากพ่อแม่ ยอดสอง 17-24 วันจากในฝูง",
@@ -1907,7 +1907,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ตายสองยอด ยอดแรก 17-24 วันจากพ่อแม่ ยอดสอง 30-34 วันจากในฝูง"
     ],
     "answer": 3,
-    "explain": "สรุประบุว่าฝูงไก่ที่ติดเชื้อ CIAV จะตายเป็น 2 peaks โดย peak ที่ 1 ที่อายุ 17-24 วัน เกิดจากการติดเชื้อจากพ่อแม่ ซึ่งไก่จะตายเยอะ และ peak ที่ 2 ที่อายุ 30-34 วัน เกิดจากการติดเชื้อภายในฝูง ซึ่งตายน้อยกว่า ตัวเลือกที่สลับที่มาของสองยอดหรือเหลือยอดเดียวจึงไม่ตรงกับที่สรุปบันทึกไว้",
+    "explain": "ฝูงไก่ที่ติดเชื้อ CIAV จะตายเป็น 2 peaks โดย peak ที่ 1 ที่อายุ 17-24 วัน เกิดจากการติดเชื้อจากพ่อแม่ ซึ่งไก่จะตายเยอะ และ peak ที่ 2 ที่อายุ 30-34 วัน เกิดจากการติดเชื้อภายในฝูง ซึ่งตายน้อยกว่า ตัวเลือกที่สลับที่มาของสองยอดหรือเหลือยอดเดียวจึงไม่ตรงกับที่สรุปบันทึกไว้",
     "verified": "KFC MED Mid น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1927,7 +1927,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "นำไวรัสสายพันธุ์อ่อนมาละลายน้ำให้กิน เพื่อกระตุ้นภูมิที่ GALT โดยตรง"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่า immune-complex vaccine มีใช้แค่ใน IBD เพราะลูกไก่ได้ MDA สูงมากจนวัคซีนธรรมดาอาจไม่ได้ผล จึงเอาแอนติบอดีมาหุ้มผิวไวรัสเพื่อลบ MDA พอเวลาผ่านไปแอนติบอดีที่หุ้มหลุดออก ไวรัสข้างในก็ทำหน้าที่เหมือนวัคซีนเชื้อเป็น ส่วนตัวเลือกที่สองคือ recombinant vaccine ที่ใช้ VP2 ใน rHVT ซึ่งเป็นวัคซีน IBD จริงแต่คนละชนิด และอีกสองตัวเลือกคือวัคซีนเชื้อตายกับเชื้อเป็นแบบทั่วไป",
+    "explain": "immune-complex vaccine มีใช้แค่ใน IBD เพราะลูกไก่ได้ MDA สูงมากจนวัคซีนธรรมดาอาจไม่ได้ผล จึงเอาแอนติบอดีมาหุ้มผิวไวรัสเพื่อลบ MDA พอเวลาผ่านไปแอนติบอดีที่หุ้มหลุดออก ไวรัสข้างในก็ทำหน้าที่เหมือนวัคซีนเชื้อเป็น ส่วนตัวเลือกที่สองคือ recombinant vaccine ที่ใช้ VP2 ใน rHVT ซึ่งเป็นวัคซีน IBD จริงแต่คนละชนิด และอีกสองตัวเลือกคือวัคซีนเชื้อตายกับเชื้อเป็นแบบทั่วไป",
     "verified": "KFC MED Mid น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1947,7 +1947,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Runting-stunting syndrome จากเชื้อ Astrovirus"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่าใน necrotic enteritis ด้านใน jejunum และ ileum อาจมีเนื้อตายคลุมเป็น fibrinonecrotic debris ลักษณะ Turkish towel แปะบนผนังลำไส้ และมี focal to confluent pseudomembrane ที่ intestinal mucosa โดยเชื้อคือ Clostridium perfringens ส่วน ulcerative enteritis เกิดจาก C. colinum ซึ่งเป็น differential diagnosis ที่สรุประบุไว้ และ coccidiosis เป็นปัจจัยเสี่ยงที่ทำให้เยื่อบุลำไส้เสียหายก่อนเกิด NE",
+    "explain": "ใน necrotic enteritis ด้านใน jejunum และ ileum อาจมีเนื้อตายคลุมเป็น fibrinonecrotic debris ลักษณะ Turkish towel แปะบนผนังลำไส้ และมี focal to confluent pseudomembrane ที่ intestinal mucosa โดยเชื้อคือ Clostridium perfringens ส่วน ulcerative enteritis เกิดจาก C. colinum ซึ่งเป็น differential diagnosis ที่สรุประบุไว้ และ coccidiosis เป็นปัจจัยเสี่ยงที่ทำให้เยื่อบุลำไส้เสียหายก่อนเกิด NE",
     "verified": "KFC MED Mid น.10",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1999,7 +1999,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "หลักการเก็บตัวอย่างเลือดเพื่อส่งตรวจซีรัมในฟาร์มไก่ตามสรุปชุดนี้เป็นอย่างไร",
+    "q": "หลักการเก็บตัวอย่างเลือดเพื่อส่งตรวจซีรัมในฟาร์มไก่เป็นอย่างไร",
     "options": [
       "เก็บ 5 ตัวต่อโรงเรือน แล้วรวมซีรัมทั้งหมดเป็น 1 ตัวอย่างส่งตรวจ",
       "เก็บ 20 ตัวต่อโรงเรือน แล้วส่งตรวจแยกรายตัวห้ามรวมซีรัมเด็ดขาด",
@@ -2019,7 +2019,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "topic": "avian-intro",
     "year": 5,
     "type": "mcq",
-    "q": "ข้อใดถูกต้องเกี่ยวกับ serotype และช่วงอายุที่ไก่เป็นโรค infectious bursal disease ตามสรุปชุดนี้",
+    "q": "ข้อใดถูกต้องเกี่ยวกับ serotype และช่วงอายุที่ไก่เป็นโรค infectious bursal disease",
     "options": [
       "มี 2 serotype และก่อโรคทั้งคู่ ไก่เป็นได้ตั้งแต่แรกเกิดจนถึงอายุ 20 สัปดาห์",
       "มี 2 serotype แต่ก่อโรคเฉพาะ serotype 1 ไก่เป็นช่วงอายุ 3 ถึง 6 สัปดาห์",
@@ -2027,7 +2027,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "มี 1 serotype เท่านั้น และมี cross protection กับ IBV ในไก่ทุกช่วงอายุ"
     ],
     "answer": 1,
-    "explain": "สรุประบุว่า IBDV มี 2 ซีโรไทป์ แต่มีแค่ซีโรไทป์ 1 ที่ก่อโรคในไก่ และไม่มี cross protection ระหว่างซีโรไทป์ ส่วนช่วงอายุคือก่อโรคได้ตั้งแต่อายุ 3 ถึง 6 สัปดาห์ หลัง 8 สัปดาห์ไก่จะไม่เป็น เพราะเมื่อไก่โต bursa จะฝ่อเอง และไก่ไข่จะไวต่อ IBDV มากกว่าไก่เนื้อ",
+    "explain": "IBDV มี 2 ซีโรไทป์ แต่มีแค่ซีโรไทป์ 1 ที่ก่อโรคในไก่ และไม่มี cross protection ระหว่างซีโรไทป์ ส่วนช่วงอายุคือก่อโรคได้ตั้งแต่อายุ 3 ถึง 6 สัปดาห์ หลัง 8 สัปดาห์ไก่จะไม่เป็น เพราะเมื่อไก่โต bursa จะฝ่อเอง และไก่ไข่จะไวต่อ IBDV มากกว่าไก่เนื้อ",
     "verified": "KFC MED Mid น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"

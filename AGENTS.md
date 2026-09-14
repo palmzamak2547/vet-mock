@@ -353,6 +353,30 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.98.2: the voice lint had a hole the width of "ตามสรุปชุดนี้" (Claude)
+
+Found while checking the swine bank for overlap before ingesting the Mid-86 compilations.
+
+- **29 stems referenced the compilation they were written from** — "ตามสรุปชุดนี้",
+  "ตามคำตอบที่บันทึกไว้", "ที่ควรตอบในข้อบอกรอยโรค". Exactly the D1 defect Palm raised in August
+  ("ทำไมคำถามถึงชอบถามว่าสไลด์นี้"), in different words. `lint-question-voice` never fired because
+  its patterns named เอกสาร / สไลด์ / เลกเชอร์ / กระดาษคำตอบ and none of them says สรุป or คำตอบ.
+  **A word list is only as good as the words someone thought of** — the same lesson the deck-alias
+  work produced, relearned on a different field.
+- Fixed all 29 by hand plus 168 explains whose opening clause narrated the source, and extended
+  the lint with three pattern groups so the class cannot return. id 8503 stays: its "ในสถานีนี้"
+  names an OSCE station the stem itself introduces, so it still stands alone.
+- The five OSCE equine items asked "which answer scored marks at this station". Rewritten to ask
+  what is clinically correct — which is what the options and explanations already supported, and
+  is the thing worth knowing.
+
+- **Near miss worth recording.** The first version of the explain fixer normalised whitespace with
+  `/\s{2,}/g → " "`, which eats the blank line before "❌ ทำไมข้ออื่นผิด" — a line every explain in
+  the repo has. It reported **2,380 proposals**. A blind `--apply` would have reformatted the whole
+  bank while claiming to fix 52 defects. The review file is what caught it. Rule: a proposal must
+  exist because a RULE fired, never because normalisation changed something; and collapse
+  `[ \t]` only, never `\s`.
+
 ## 2026-09-14 — 5.98.1: a lesson is content, not a destination (Claude)
 
 Palm, on finding "ระบาดวิทยา Module 5" in the left rail: "อย่าลืมสิเรามีชั้นปีอื่นด้วย

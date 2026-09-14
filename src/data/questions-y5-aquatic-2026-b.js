@@ -626,7 +626,7 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
       "CEVD"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่า ISKNV ยังอยู่ในบัญชีของ WOAH ขณะที่ SDDV ไม่อยู่ในบัญชี RSIV เป็นชนิดที่ใกล้เคียง ISKNV แต่ไม่ได้ระบุสถานะไว้ ส่วน CEVD ไม่ใช่ Megalocytivirus และไม่ใช่โรคใน WOAH lists จึงไม่ต้องตรวจตอนนำเข้า",
+    "explain": "ISKNV ยังอยู่ในบัญชีของ WOAH ขณะที่ SDDV ไม่อยู่ในบัญชี RSIV เป็นชนิดที่ใกล้เคียง ISKNV แต่ไม่ได้ระบุสถานะไว้ ส่วน CEVD ไม่ใช่ Megalocytivirus และไม่ใช่โรคใน WOAH lists จึงไม่ต้องตรวจตอนนำเข้า",
     "verified": "Aquamed final (Vet 85) น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากโน้ตเลกเชอร์ Aquatic Med 3107520 (สรุป Vet 85)"

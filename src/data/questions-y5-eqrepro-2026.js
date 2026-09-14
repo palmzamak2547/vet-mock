@@ -2487,7 +2487,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Caslick's vulvoplasty เย็บปิดขอบบนของช่องคลอด"
     ],
     "answer": 3,
-    "explain": "สรุประบุว่าโครงสร้างฝีเย็บที่ไม่ดีเป็นสิ่งที่ตรวจใน breeding soundness examination และแก้ได้ด้วย Caslick's vulvoplasty ซึ่งเย็บปิดขอบบนของช่องคลอดเพื่อกันลมและสิ่งสกปรก. Uterine lavage และ oxytocin เป็นการรักษาปลายทางที่ไม่ได้แก้โครงสร้าง. Hysterectomy เป็นทางเลือกสุดท้ายของ pyometra ที่รักษาไม่ได้",
+    "explain": "โครงสร้างฝีเย็บที่ไม่ดีเป็นสิ่งที่ตรวจใน breeding soundness examination และแก้ได้ด้วย Caslick's vulvoplasty ซึ่งเย็บปิดขอบบนของช่องคลอดเพื่อกันลมและสิ่งสกปรก. Uterine lavage และ oxytocin เป็นการรักษาปลายทางที่ไม่ได้แก้โครงสร้าง. Hysterectomy เป็นทางเลือกสุดท้ายของ pyometra ที่รักษาไม่ได้",
     "verified": "Equine Repro Final (Vet 85) น.3",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Repro (Vet 85) recalled exam point"
@@ -2647,7 +2647,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "วันที่ 60-70 ผลิต relaxin"
     ],
     "answer": 0,
-    "explain": "สรุประบุว่าวัน 35-40 trophoblast พิเศษสร้าง endometrial cup ที่ผลิต eCG ซึ่งออกฤทธิ์คล้าย LH ทำให้ไข่ตกเพิ่มและได้ accessory CL. วัน 16-17 คือช่วง fixation ของตัวอ่อน. eFSH เป็นผลิตภัณฑ์ FSH ไม่ใช่สิ่งที่ endometrial cup สร้าง. Relaxin ไม่ใช่ผลผลิตของ endometrial cup และไม่ใช่ช่วงเวลานี้",
+    "explain": "วัน 35-40 trophoblast พิเศษสร้าง endometrial cup ที่ผลิต eCG ซึ่งออกฤทธิ์คล้าย LH ทำให้ไข่ตกเพิ่มและได้ accessory CL. วัน 16-17 คือช่วง fixation ของตัวอ่อน. eFSH เป็นผลิตภัณฑ์ FSH ไม่ใช่สิ่งที่ endometrial cup สร้าง. Relaxin ไม่ใช่ผลผลิตของ endometrial cup และไม่ใช่ช่วงเวลานี้",
     "verified": "Equine Repro Final (Vet 85) น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -2667,7 +2667,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Adrenal cortex ของตัวอ่อนเอง"
     ],
     "answer": 2,
-    "explain": "สรุประบุว่าก่อน 35 วันใช้ primary CL ช่วง 35-120 วันใช้ accessory CL ที่เกิดจาก eCG ของ endometrial cup และตั้งแต่วันที่ 150 เป็นต้นไปรกจะสร้าง P4 ต่อจนคลอด. รกจึงยังไม่ใช่แหล่งหลักในช่วงนี้. Adrenal cortex ของ fetus เกี่ยวข้องกับการเตรียมคลอด ไม่ใช่แหล่ง P4 ช่วงนี้",
+    "explain": "ก่อน 35 วันใช้ primary CL ช่วง 35-120 วันใช้ accessory CL ที่เกิดจาก eCG ของ endometrial cup และตั้งแต่วันที่ 150 เป็นต้นไปรกจะสร้าง P4 ต่อจนคลอด. รกจึงยังไม่ใช่แหล่งหลักในช่วงนี้. Adrenal cortex ของ fetus เกี่ยวข้องกับการเตรียมคลอด ไม่ใช่แหล่ง P4 ช่วงนี้",
     "verified": "Equine Repro Final (Vet 85) น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -2727,7 +2727,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Stage I นานกว่า 45 นาที หรือ stage II นานกว่า 20 นาที"
     ],
     "answer": 3,
-    "explain": "สรุประบุว่า dystocia มักเกิดตอน stage I นานกว่า 45 นาที หรือ stage II นานกว่า 20 นาที และในม้าสาเหตุหลักคือ malposition ไม่ใช่ลูกตัวโต. Stage III เกิน 3 ชม. คือ retained placenta ซึ่งเป็นคนละภาวะ. ข้อควรระวังคือเอกสารเขียนค่าปกติของ stage II ไว้ที่ 5-30 นาที ซึ่งไม่สอดคล้องกับเกณฑ์ 20 นาทีในบรรทัดเดียวกัน ให้ยึดตัวเลขที่อาจารย์บรรยายในปีนี้",
+    "explain": "dystocia มักเกิดตอน stage I นานกว่า 45 นาที หรือ stage II นานกว่า 20 นาที และในม้าสาเหตุหลักคือ malposition ไม่ใช่ลูกตัวโต. Stage III เกิน 3 ชม. คือ retained placenta ซึ่งเป็นคนละภาวะ. ข้อควรระวังคือเอกสารเขียนค่าปกติของ stage II ไว้ที่ 5-30 นาที ซึ่งไม่สอดคล้องกับเกณฑ์ 20 นาทีในบรรทัดเดียวกัน ให้ยึดตัวเลขที่อาจารย์บรรยายในปีนี้",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -2859,7 +2859,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "topic": "eqrepro-postpartum",
     "year": 5,
     "type": "mcq",
-    "q": "คำแนะนำเรื่องการผสมม้าหลังคลอดในสรุปนี้เป็นอย่างไร",
+    "q": "คำแนะนำเรื่องช่วงเวลาที่ควรผสมม้าหลังคลอดเป็นอย่างไร",
     "options": [
       "รอมดลูกฟื้นสภาพราว 20-30 วันหลังคลอดแล้วค่อยผสม",
       "ผสมใน foal heat ที่ 10-15 วันหลังคลอดเพราะได้ผลดีที่สุด",
@@ -2867,7 +2867,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "ผสมทันทีภายใน 7 วันหลังคลอดขณะที่ปากมดลูกยังเปิด"
     ],
     "answer": 0,
-    "explain": "Foal heat คือการกลับสัดที่ 10-15 วันหลังคลอดซึ่งผสมได้จริง แต่สรุประบุว่าไม่แนะนำเพราะอัตราการตั้งท้องต่ำและมดลูกยังฟื้นไม่ดี จึงควรรอราว 20-30 วัน. การรอจนหย่านมนานเกินความจำเป็น. การผสมภายใน 7 วันเร็วเกินไปและไม่ได้ระบุไว้ในสรุป",
+    "explain": "Foal heat คือการกลับสัดที่ 10-15 วันหลังคลอดซึ่งผสมได้จริง แต่ไม่แนะนำเพราะอัตราการตั้งท้องต่ำและมดลูกยังฟื้นไม่ดี จึงควรรอราว 20-30 วัน. การรอจนหย่านมนานเกินความจำเป็น. การผสมภายใน 7 วันเร็วเกินไปและไม่ได้ระบุไว้ในสรุป",
     "verified": "Equine Repro Final (Vet 85) น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -2887,7 +2887,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "12 ชั่วโมง"
     ],
     "answer": 1,
-    "explain": "สรุประบุว่า stage III ม้าจะขับรกออกภายใน 3 ชม. ถ้าเกินถือว่าเป็น retained placenta ซึ่งพบไม่บ่อยเมื่อเทียบกับวัว อาการร่วมคือรกค้างและมีกลิ่นเหม็น รักษาด้วย oxytocin ยาปฏิชีวนะ และการล้วงเอาออก. เกณฑ์ในวัวยาวกว่านี้ ส่วน 1 ชั่วโมงเร็วเกินไปสำหรับการคลอดปกติของม้า",
+    "explain": "stage III ม้าจะขับรกออกภายใน 3 ชม. ถ้าเกินถือว่าเป็น retained placenta ซึ่งพบไม่บ่อยเมื่อเทียบกับวัว อาการร่วมคือรกค้างและมีกลิ่นเหม็น รักษาด้วย oxytocin ยาปฏิชีวนะ และการล้วงเอาออก. เกณฑ์ในวัวยาวกว่านี้ ส่วน 1 ชั่วโมงเร็วเกินไปสำหรับการคลอดปกติของม้า",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"

@@ -227,7 +227,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "หลุด 165 F แต่ยังไม่ต่ำกว่า 160 F สินค้ายังปลอดภัย แค่ควรปรับกระบวนการ"
     ],
     "answer": 3,
-    "explain": "OL เป็นค่าที่ตั้งเผื่อไว้ก่อนถึง CL เมื่อหลุด OL แต่ยังไม่ถึง CL สินค้ายังปลอดภัย ใช้เป็นจุดเตือนให้ปรับกระบวนการหรือตรวจเครื่องจักร ส่วน corrective action กับผลิตภัณฑ์เกิดเมื่อหลุด CL คือ 160 F และเอกสารระบุว่า CL กับ OL เป็นเลขเดียวกันได้ ไม่มีข้อบังคับเรื่องระยะห่าง",
+    "explain": "OL เป็นค่าที่ตั้งเผื่อไว้ก่อนถึง CL เมื่อหลุด OL แต่ยังไม่ถึง CL สินค้ายังปลอดภัย ใช้เป็นจุดเตือนให้ปรับกระบวนการหรือตรวจเครื่องจักร ส่วน corrective action กับผลิตภัณฑ์เกิดเมื่อหลุด CL คือ 160 F และ CL กับ OL เป็นเลขเดียวกันได้ ไม่มีข้อบังคับเรื่องระยะห่าง",
     "verified": "FIQC final น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"
@@ -407,7 +407,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "กรมปศุสัตว์หยุดออกใบรับรองการส่งออกให้เนื้อไก่ดิบแล้ว"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าตั้งแต่ AI ระบาด การขายเนื้อดิบถูกจำกัด ไทยจึงขายเนื้อสุกเพิ่มขึ้นจน cooked มากกว่า raw ส่วนภาษี ค่าขนส่ง และใบรับรองไม่ใช่เหตุผลที่เอกสารกล่าวถึง",
+    "explain": "ตั้งแต่ AI ระบาด การขายเนื้อดิบถูกจำกัด ไทยจึงขายเนื้อสุกเพิ่มขึ้นจน cooked มากกว่า raw ส่วนภาษี ค่าขนส่ง และใบรับรองไม่ใช่เหตุผลที่เอกสารกล่าวถึง",
     "verified": "FIQC final น.3, 7",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"
@@ -567,7 +567,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "Five Freedoms เป็นแนวคิดของฝรั่งเศสที่พัฒนามาจากหลัก 3S"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า Five Freedoms ใช้ฝั่ง EU และ UK ส่วน Five Domains (nutrition, environment, health, behavior, mental state) เป็นแนวคิดจากออสเตรเลีย ขณะที่ 3S เป็นแนวคิดฝรั่งเศสเรื่องหัตถการที่เจ็บปวด และ ISO/TS 34700 ปี 2019 เป็นการแปลงหลัก OIE เป็นข้อกำหนดที่ audit ได้",
+    "explain": "Five Freedoms ใช้ฝั่ง EU และ UK ส่วน Five Domains (nutrition, environment, health, behavior, mental state) เป็นแนวคิดจากออสเตรเลีย ขณะที่ 3S เป็นแนวคิดฝรั่งเศสเรื่องหัตถการที่เจ็บปวด และ ISO/TS 34700 ปี 2019 เป็นการแปลงหลัก OIE เป็นข้อกำหนดที่ audit ได้",
     "verified": "FIQC final น.10",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"

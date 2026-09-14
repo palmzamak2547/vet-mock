@@ -31,6 +31,13 @@ const SCAFFOLDING = [
   [/(ตามบทเรียน|ตามสไลด์|ในสไลด์|ตามเลกเชอร์|ในเลกเชอร์|ตามนิยามในเลกเชอร์)/, 'อ้างถึงสไลด์หรือเลกเชอร์'],
   [/(ตามที่เรียนมา|ตามที่สอน|ตามที่บันทึกไว้\s*$)/, 'อ้างถึงสิ่งที่เรียนมา'],
   [/กระดาษคำตอบ(ระบุ|บอก|ให้|กำหนด)|เฉลย(ระบุ|บอก)ว่า/, 'อ้างถึงกระดาษคำตอบหรือเฉลย'],
+  // The same defect wearing the compilation's own words. Twenty-nine stems
+  // reached production saying "ตามสรุปชุดนี้" or "ตามคำตอบที่บันทึกไว้" —
+  // they point at the senior's answer key, which the student cannot open, and
+  // the patterns above never mentioned สรุป or คำตอบ so none of them fired.
+  [/ตามสรุป|ในสรุปนี้|ในสรุปชุดนี้/, 'อ้างถึงสรุปที่เขียนมา'],
+  [/ตามคำตอบ|ที่คำตอบ(ระบุ|กล่าว|บอก)|ที่ควรตอบใน/, 'อ้างถึงคำตอบตัวอย่าง'],
+  [/ที่บันทึกไว้ว่า|ตามที่บันทึกไว้ใน/, 'อ้างถึงบันทึกหลังสอบ'],
 ];
 
 // Stems that are genuinely ABOUT documents — a quality record, an audit

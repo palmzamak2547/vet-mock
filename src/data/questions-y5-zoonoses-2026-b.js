@@ -67,7 +67,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "Zoonotic tuberculosis"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่าปัจจุบันผู้ป่วย leptospirosis ในคนไม่ค่อยมี jaundice แต่มีเลือดออกที่ปอด ซึ่งเกิดจาก serovar Lai Melioidosis ให้ฝีในอวัยวะภายในมากกว่า Q fever ให้ไข้และปัญหาระบบสืบพันธุ์ในสัตว์ ส่วน zoonotic TB ดำเนินโรคเรื้อรังไม่ใช่เฉียบพลันแบบนี้",
+    "explain": "ปัจจุบันผู้ป่วย leptospirosis ในคนไม่ค่อยมี jaundice แต่มีเลือดออกที่ปอด ซึ่งเกิดจาก serovar Lai Melioidosis ให้ฝีในอวัยวะภายในมากกว่า Q fever ให้ไข้และปัญหาระบบสืบพันธุ์ในสัตว์ ส่วน zoonotic TB ดำเนินโรคเรื้อรังไม่ใช่เฉียบพลันแบบนี้",
     "verified": "Zoonoses 85 น.2",
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses (Vet 85) recalled matching section"
@@ -347,7 +347,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "Hardjo ซึ่งพบมากในโค"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าหนูเป็น reservoir ของ serovar Icterohaemorrhagiae ซึ่งทำให้โรครุนแรง Canicola ผูกกับสุนัข Pomona ผูกกับสุกร และ Hardjo ผูกกับโค ทั้งหมดเป็น serovar จริงแต่ไม่ใช่ตัวที่หนูเป็นแหล่งรังโรค ในกระดาษคำตอบปีก่อน โจทย์ถามสอง serovar และคำตอบที่บันทึกไว้คือ Grippotyphosa กับ Icterohaemorrhagiae โดยผู้เขียนระบุเองว่าจำได้แน่เฉพาะตัวหลัง",
+    "explain": "หนูเป็น reservoir ของ serovar Icterohaemorrhagiae ซึ่งทำให้โรครุนแรง Canicola ผูกกับสุนัข Pomona ผูกกับสุกร และ Hardjo ผูกกับโค ทั้งหมดเป็น serovar จริงแต่ไม่ใช่ตัวที่หนูเป็นแหล่งรังโรค ในกระดาษคำตอบปีก่อน โจทย์ถามสอง serovar และคำตอบที่บันทึกไว้คือ Grippotyphosa กับ Icterohaemorrhagiae โดยผู้เขียนระบุเองว่าจำได้แน่เฉพาะตัวหลัง",
     "verified": "Zoonoses 85 น.3",
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses (Vet 85) recalled choice section"
@@ -407,7 +407,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "แยกเลี้ยงตัวที่ผลบวกไว้ 30 วันแล้วนำกลับเข้าฝูง"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่าใช้มาตรการควบคุมและคัดทิ้ง ทำ TB test ทุก 3 เดือน และคัดทิ้งวัวที่เป็นผลบวก ไม่ใช้การรักษาด้วยยาต้านวัณโรคในสัตว์เศรษฐกิจ การฉีด BCG จะรบกวนการอ่านผล tuberculin test และการนำสัตว์ผลบวกกลับเข้าฝูงจะทำให้เชื้อคงอยู่",
+    "explain": "ใช้มาตรการควบคุมและคัดทิ้ง ทำ TB test ทุก 3 เดือน และคัดทิ้งวัวที่เป็นผลบวก ไม่ใช้การรักษาด้วยยาต้านวัณโรคในสัตว์เศรษฐกิจ การฉีด BCG จะรบกวนการอ่านผล tuberculin test และการนำสัตว์ผลบวกกลับเข้าฝูงจะทำให้เชื้อคงอยู่",
     "verified": "Zoonoses 85 น.3",
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses (Vet 85) recalled short-answer section"
@@ -427,7 +427,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ให้ ciprofloxacin เร็วที่สุด และให้ต่อเนื่องนาน 60 วัน"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่าใช้ ciprofloxacin ยิ่งเร็วยิ่งดี ควรให้ตั้งแต่ก่อนแสดงอาการหรือทันทีที่เริ่มแสดงอาการ และให้นาน 60 วัน เพราะระยะ germination ของสปอร์อาจนานได้ถึง 60 วัน การให้ยาสั้นเพียง 7 ถึง 14 วันจึงไม่ครอบคลุมสปอร์ที่ยังไม่งอก",
+    "explain": "ใช้ ciprofloxacin ยิ่งเร็วยิ่งดี ควรให้ตั้งแต่ก่อนแสดงอาการหรือทันทีที่เริ่มแสดงอาการ และให้นาน 60 วัน เพราะระยะ germination ของสปอร์อาจนานได้ถึง 60 วัน การให้ยาสั้นเพียง 7 ถึง 14 วันจึงไม่ครอบคลุมสปอร์ที่ยังไม่งอก",
     "verified": "Zoonoses 85 น.3",
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses (Vet 85) recalled short-answer section"
@@ -447,7 +447,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "นกที่ติดเชื้อมักตายเสียก่อนที่จะเก็บตัวอย่างส่งตรวจได้ทัน"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าผล false negative มักเกิดจาก intermittent shedding ในนกที่เป็น carrier คือช่วงที่เก็บตัวอย่างนกอาจไม่ได้ขับเชื้อออกมา ส่วนปฏิกิริยาข้ามกลุ่มกับ Chlamydia ชนิดอื่นจะทำให้เกิด false positive ไม่ใช่ false negative",
+    "explain": "ผล false negative มักเกิดจาก intermittent shedding ในนกที่เป็น carrier คือช่วงที่เก็บตัวอย่างนกอาจไม่ได้ขับเชื้อออกมา ส่วนปฏิกิริยาข้ามกลุ่มกับ Chlamydia ชนิดอื่นจะทำให้เกิด false positive ไม่ใช่ false negative",
     "verified": "Zoonoses 85 น.3",
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses (Vet 85) recalled short-answer section"
@@ -487,7 +487,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "น้ำลาย"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าระยะที่เชื้อเพิ่มจำนวนและแพร่ให้สัตว์อื่นได้จะพบเชื้อในปัสสาวะปริมาณมาก และการเพาะแยกเชื้อเมื่อติดเชื้อมาสักระยะจึงใช้ urine เชื้อไม่ได้ขับออกทางอุจจาระหรือน้ำลายเป็นหลัก",
+    "explain": "ระยะที่เชื้อเพิ่มจำนวนและแพร่ให้สัตว์อื่นได้จะพบเชื้อในปัสสาวะปริมาณมาก และการเพาะแยกเชื้อเมื่อติดเชื้อมาสักระยะจึงใช้ urine เชื้อไม่ได้ขับออกทางอุจจาระหรือน้ำลายเป็นหลัก",
     "verified": "Zoonoses 85 น.3",
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses (Vet 85) recalled short-answer section"
@@ -607,7 +607,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "gram negative อยู่ในเซลล์ ทนความร้อนและน้ำยาฆ่าเชื้อ"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า Coxiella burnetii เป็น gram negative intracellular bacteria ที่ทนทานต่อความร้อนและน้ำยาฆ่าเชื้อ ตัวที่ gram positive และสร้างสปอร์คือ Bacillus anthracis ส่วนคุณสมบัติที่ตายง่ายเมื่อพาสเจอร์ไรซ์ขัดกับความทนทานที่ทำให้เชื้อนี้อยู่ในบัญชี biological weapon",
+    "explain": "Coxiella burnetii เป็น gram negative intracellular bacteria ที่ทนทานต่อความร้อนและน้ำยาฆ่าเชื้อ ตัวที่ gram positive และสร้างสปอร์คือ Bacillus anthracis ส่วนคุณสมบัติที่ตายง่ายเมื่อพาสเจอร์ไรซ์ขัดกับความทนทานที่ทำให้เชื้อนี้อยู่ในบัญชี biological weapon",
     "verified": "Zoonoses 85 น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป bacterial zoonosis ในเอกสาร Vet 85"
@@ -627,7 +627,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "เชื้อสร้าง toxin ทำลายเยื่อแก้วหู"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า S. suis ทำลาย CN 8 ซึ่งเป็นเส้นประสาท vestibulocochlear จึงทำให้หูดับและเดินเซ CN 7 เป็นเส้นประสาทใบหน้าที่ทำให้กล้ามเนื้อหน้าอ่อนแรง ไม่ใช่การได้ยิน",
+    "explain": "S. suis ทำลาย CN 8 ซึ่งเป็นเส้นประสาท vestibulocochlear จึงทำให้หูดับและเดินเซ CN 7 เป็นเส้นประสาทใบหน้าที่ทำให้กล้ามเนื้อหน้าอ่อนแรง ไม่ใช่การได้ยิน",
     "verified": "Zoonoses 85 น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป bacterial zoonosis ในเอกสาร Vet 85"
@@ -647,7 +647,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "อุณหภูมิ 37 องศาเซลเซียส ในสภาวะไร้ออกซิเจน"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าเชื้อโตได้ดีที่ 28 ถึง 30 องศาเซลเซียสและความชื้นสูง ซึ่งอธิบายว่าทำไมไทยจึงเจอบ่อยช่วงปลายฤดูฝนต่อต้นฤดูหนาว อุณหภูมิ 41 ถึง 45 องศาในลำไส้สัตว์ปีกเป็นสภาวะของ Campylobacter ไม่ใช่ Leptospira",
+    "explain": "เชื้อโตได้ดีที่ 28 ถึง 30 องศาเซลเซียสและความชื้นสูง ซึ่งอธิบายว่าทำไมไทยจึงเจอบ่อยช่วงปลายฤดูฝนต่อต้นฤดูหนาว อุณหภูมิ 41 ถึง 45 องศาในลำไส้สัตว์ปีกเป็นสภาวะของ Campylobacter ไม่ใช่ Leptospira",
     "verified": "Zoonoses 85 น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป bacterial zoonosis ในเอกสาร Vet 85"
@@ -667,7 +667,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "สัตว์ที่ได้รับวัคซีน BCG มาก่อนหน้านี้ไม่นาน"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า false negative เกิดในช่วงแรกที่ติดเชื้อ ในสัตว์อายุมาก และในสัตว์ที่พึ่งคลอดลูก 4 ถึง 6 สัปดาห์ ส่วนการติด Mycobacterium spp. อื่นและการได้รับ BCG จะทำให้เกิด false positive ไม่ใช่ false negative",
+    "explain": "false negative เกิดในช่วงแรกที่ติดเชื้อ ในสัตว์อายุมาก และในสัตว์ที่พึ่งคลอดลูก 4 ถึง 6 สัปดาห์ ส่วนการติด Mycobacterium spp. อื่นและการได้รับ BCG จะทำให้เกิด false positive ไม่ใช่ false negative",
     "verified": "Zoonoses 85 น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป bacterial zoonosis ในเอกสาร Vet 85"
@@ -707,7 +707,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ย้อมสี Ziehl-Neelsen จากรอยโรคในสมองส่วน medulla"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าวินิจฉัยจาก histopathology ที่พบ neural vacuolation หรือจากน้ำไขสันหลัง และย้ำว่าตรวจจาก serology ไม่ได้เพราะ prion ไม่ทำให้เกิดการสร้าง antibody prion ไม่ใช่สิ่งมีชีวิตจึงเพาะเลี้ยงไม่ได้ ส่วน Ziehl-Neelsen เป็นการย้อมหาเชื้อทนกรดในกลุ่ม Mycobacterium",
+    "explain": "วินิจฉัยจาก histopathology ที่พบ neural vacuolation หรือจากน้ำไขสันหลัง และย้ำว่าตรวจจาก serology ไม่ได้เพราะ prion ไม่ทำให้เกิดการสร้าง antibody prion ไม่ใช่สิ่งมีชีวิตจึงเพาะเลี้ยงไม่ได้ ส่วน Ziehl-Neelsen เป็นการย้อมหาเชื้อทนกรดในกลุ่ม Mycobacterium",
     "verified": "Zoonoses 85 น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85"
@@ -727,7 +727,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ติดต่อจากคนสู่คนโดย direct contact ได้ง่ายกว่า CJD มาก"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า vCJD สัมพันธ์กับการที่คนกินวัวที่เป็น BSE มี median duration of illness 14 เดือน ขณะที่ CJD อยู่ที่ 5 เดือน และ vCJD มี incubation 2 ปีซึ่งไม่นานเท่า CJD ส่วน CJD ต่างหากที่เกิดในคนแก่และฟักตัวนานมาก",
+    "explain": "vCJD สัมพันธ์กับการที่คนกินวัวที่เป็น BSE มี median duration of illness 14 เดือน ขณะที่ CJD อยู่ที่ 5 เดือน และ vCJD มี incubation 2 ปีซึ่งไม่นานเท่า CJD ส่วน CJD ต่างหากที่เกิดในคนแก่และฟักตัวนานมาก",
     "verified": "Zoonoses 85 น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85"
@@ -747,7 +747,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "การดื่มน้ำนมดิบจากแม่วัวที่ติดเชื้อ prion"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า BSE ไม่ติดต่อแบบ direct contact แต่ติดจากการที่วัวกิน BSE contaminated meat และ bone ของวัวที่มี prion และย้ำว่ายังไม่มีรายงานการพบ prion ในนมและผลิตภัณฑ์จากนม",
+    "explain": "BSE ไม่ติดต่อแบบ direct contact แต่ติดจากการที่วัวกิน BSE contaminated meat และ bone ของวัวที่มี prion และย้ำว่ายังไม่มีรายงานการพบ prion ในนมและผลิตภัณฑ์จากนม",
     "verified": "Zoonoses 85 น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85"
@@ -767,7 +767,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ตรวจไม่พบ prion ในน้ำนมและในสิ่งแวดล้อมเลย"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า scrapie พบในแกะมากกว่าแพะและเป็นตลอดชีวิต ลูกแกะแรกเกิดติดจากการกิน fetal membrane, fetal fluid และ placenta จากแม่ที่มี prion นอกจากนี้ยังพบเชื้อในนมและปัสสาวะจึงปนเปื้อนสิ่งแวดล้อมได้ และยังไม่มีรายงานว่าคนติด scrapie จากแกะ",
+    "explain": "scrapie พบในแกะมากกว่าแพะและเป็นตลอดชีวิต ลูกแกะแรกเกิดติดจากการกิน fetal membrane, fetal fluid และ placenta จากแม่ที่มี prion นอกจากนี้ยังพบเชื้อในนมและปัสสาวะจึงปนเปื้อนสิ่งแวดล้อมได้ และยังไม่มีรายงานว่าคนติด scrapie จากแกะ",
     "verified": "Zoonoses 85 น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85"
@@ -787,7 +787,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ค่าเบี่ยงเบนมาตรฐานสองเท่าของจำนวนเคสเดิม"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าหลักเกณฑ์ตัดสินว่าเคสโรคระบาดเกินจำนวนที่คาดการณ์ในกรณีโรคประจำถิ่นให้ดูจากค่า median ไม่ใช่ mean ซึ่งไวต่อค่าสุดโต่ง และไม่ใช่ mode หรือค่าเบี่ยงเบนมาตรฐาน",
+    "explain": "หลักเกณฑ์ตัดสินว่าเคสโรคระบาดเกินจำนวนที่คาดการณ์ในกรณีโรคประจำถิ่นให้ดูจากค่า median ไม่ใช่ mean ซึ่งไวต่อค่าสุดโต่ง และไม่ใช่ mode หรือค่าเบี่ยงเบนมาตรฐาน",
     "verified": "Zoonoses 85 น.10",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุประบาดวิทยาในเอกสาร Vet 85"
@@ -807,7 +807,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "20 คน"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่าถ้าเป็นโรคอุบัติใหม่ แค่มี 1 คนก็นับว่าเกินคาดแล้ว เพราะพื้นฐานของโรคนั้นในพื้นที่คือศูนย์ ต่างจากโรคประจำถิ่นที่ต้องเทียบกับค่ามัธยฐานย้อนหลัง",
+    "explain": "ถ้าเป็นโรคอุบัติใหม่ แค่มี 1 คนก็นับว่าเกินคาดแล้ว เพราะพื้นฐานของโรคนั้นในพื้นที่คือศูนย์ ต่างจากโรคประจำถิ่นที่ต้องเทียบกับค่ามัธยฐานย้อนหลัง",
     "verified": "Zoonoses 85 น.10",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุประบาดวิทยาในเอกสาร Vet 85"
@@ -887,7 +887,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "แจ้งภายใน 24 ชั่วโมง และลงสอบสวนภายใน 3 วัน"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าเจอโรคปุ๊บต้องแจ้งภายใน 3 ชั่วโมง แล้วลงสอบสวนภายใน 12 ชั่วโมง ตัวเลขนี้เป็นกรอบของโรคติดต่ออันตราย ต่างจากกำหนดส่งรายงานสอบสวนที่เป็น 3 วันและ 15 วัน",
+    "explain": "เจอโรคปุ๊บต้องแจ้งภายใน 3 ชั่วโมง แล้วลงสอบสวนภายใน 12 ชั่วโมง ตัวเลขนี้เป็นกรอบของโรคติดต่ออันตราย ต่างจากกำหนดส่งรายงานสอบสวนที่เป็น 3 วันและ 15 วัน",
     "verified": "Zoonoses 85 น.12",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุปโรคติดต่ออันตรายในเอกสาร Vet 85"
@@ -1067,7 +1067,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "สครับไทฟัส"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า SFTS มีอาการเหมือนไข้เลือดออกมาก ทั้งไข้สูง ต่อมน้ำเหลืองโต เกล็ดเลือดและเม็ดเลือดขาวต่ำ ค่าตับขึ้น จึงต้องตรวจว่าไม่เป็นไข้เลือดออกก่อน แล้วจึงมาสงสัยว่าอาจเป็น SFTS โดยระบุ diff dx ไว้เป็น dengue hemorrhagic fever",
+    "explain": "SFTS มีอาการเหมือนไข้เลือดออกมาก ทั้งไข้สูง ต่อมน้ำเหลืองโต เกล็ดเลือดและเม็ดเลือดขาวต่ำ ค่าตับขึ้น จึงต้องตรวจว่าไม่เป็นไข้เลือดออกก่อน แล้วจึงมาสงสัยว่าอาจเป็น SFTS โดยระบุ diff dx ไว้เป็น dengue hemorrhagic fever",
     "verified": "Zoonoses 85 น.11",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุปเคส SFTS ที่เพชรบูรณ์ในเอกสาร Vet 85"
@@ -1087,7 +1087,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "เห็บแกะที่พบในเขตอบอุ่น"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าจุดที่แปลกคือเห็บที่มีเชื้อในไทยเป็น brown dog tick แต่ที่จีนเป็นเห็บป่าอีกชนิดหนึ่ง สอดคล้องกับผู้ป่วยรายที่มีประวัตินอนกับสุนัขที่มีเห็บ",
+    "explain": "จุดที่แปลกคือเห็บที่มีเชื้อในไทยเป็น brown dog tick แต่ที่จีนเป็นเห็บป่าอีกชนิดหนึ่ง สอดคล้องกับผู้ป่วยรายที่มีประวัตินอนกับสุนัขที่มีเห็บ",
     "verified": "Zoonoses 85 น.11",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุปเคส SFTS ที่เพชรบูรณ์ในเอกสาร Vet 85"
@@ -1107,7 +1107,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "เพราะผู้ป่วยส่วนใหญ่หายเองก่อนผลตรวจจะออกมา"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าโรคนี้ถูกจัดเป็น biosafety level 4 จึงมีข้อจำกัดในการตรวจหา ทั้งที่วิธีตรวจอย่าง CBC, RT-PCR และ ELISA มีอยู่แล้ว และโรคนี้รุนแรงถึงขั้นมีผู้เสียชีวิตในการระบาดปี 2568",
+    "explain": "โรคนี้ถูกจัดเป็น biosafety level 4 จึงมีข้อจำกัดในการตรวจหา ทั้งที่วิธีตรวจอย่าง CBC, RT-PCR และ ELISA มีอยู่แล้ว และโรคนี้รุนแรงถึงขั้นมีผู้เสียชีวิตในการระบาดปี 2568",
     "verified": "Zoonoses 85 น.11",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุปเคส SFTS ที่เพชรบูรณ์ในเอกสาร Vet 85"
@@ -1127,7 +1127,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ส่วนใหญ่ได้รับวัคซีนหลังสัมผัสโรคครบตามกำหนด"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าปี 2568 มีผู้ป่วย 7 ราย ส่วนใหญ่เป็นผู้ชาย และส่วนใหญ่ถูกหมาที่มีเจ้าของกัด ซึ่งเป็นหมาที่ไม่ได้ทำวัคซีน แถมพอโดนกัดก็ไม่ได้ไปฉีดวัคซีนที่โรงพยาบาล ผู้เขียนทำเครื่องหมายไว้ว่าจุดที่โจทย์เล่นคำคือคำว่าไม่มีเจ้าของ",
+    "explain": "ปี 2568 มีผู้ป่วย 7 ราย ส่วนใหญ่เป็นผู้ชาย และส่วนใหญ่ถูกหมาที่มีเจ้าของกัด ซึ่งเป็นหมาที่ไม่ได้ทำวัคซีน แถมพอโดนกัดก็ไม่ได้ไปฉีดวัคซีนที่โรงพยาบาล ผู้เขียนทำเครื่องหมายไว้ว่าจุดที่โจทย์เล่นคำคือคำว่าไม่มีเจ้าของ",
     "verified": "Zoonoses 85 น.11",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุปสถานการณ์ rabies ในเอกสาร Vet 85"
@@ -1147,7 +1147,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "1 ถึง 3 เดือน"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่าหลังโดนกัด 1 ถึง 3 เดือนจึงมีอาการ และเมื่อเริ่มมีอาการแล้วจะอยู่ได้ไม่เกิน 10 วัน จึงต้องให้ PEP ทันทีหลังสัมผัส ไม่ใช่รอดูอาการ",
+    "explain": "หลังโดนกัด 1 ถึง 3 เดือนจึงมีอาการ และเมื่อเริ่มมีอาการแล้วจะอยู่ได้ไม่เกิน 10 วัน จึงต้องให้ PEP ทันทีหลังสัมผัส ไม่ใช่รอดูอาการ",
     "verified": "Zoonoses 85 น.11",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนขึ้นจากสรุปสถานการณ์ rabies ในเอกสาร Vet 85"

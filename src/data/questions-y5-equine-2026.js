@@ -627,7 +627,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ทางเดินหายใจส่วนต้น เช่น กล่องเสียง"
     ],
     "answer": 3,
-    "explain": "โน้ตในเอกสารระบุว่า ถ้ามี obstruction of upper respiratory เสียง turbulence จะเกิดขึ้นตอนหายใจเข้า ส่วนเสียงที่ดังตอนหายใจออกจะเอนไปทาง lower respiratory ตัวเลือกเนื้อปอด หลอดลมฝอย และช่องเยื่อหุ้มปอด ล้วนเป็นโครงสร้างส่วนล่างจึงไม่ตรงกับจังหวะหายใจเข้า",
+    "explain": "โน้ตใน ถ้ามี obstruction of upper respiratory เสียง turbulence จะเกิดขึ้นตอนหายใจเข้า ส่วนเสียงที่ดังตอนหายใจออกจะเอนไปทาง lower respiratory ตัวเลือกเนื้อปอด หลอดลมฝอย และช่องเยื่อหุ้มปอด ล้วนเป็นโครงสร้างส่วนล่างจึงไม่ตรงกับจังหวะหายใจเข้า",
     "verified": "Ekwai Med น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสไลด์ Equine respiratory diseases ที่รุ่นพี่ Vet 85 จดกำกับ"
@@ -747,7 +747,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ม้าไม่มี third eyelid มาช่วยปกป้องผิวกระจกตาเลย"
     ],
     "answer": 2,
-    "explain": "บรรทัดที่ขีดเส้นใต้ในเอกสารระบุว่า น้ำตาม้ามี polymorphonuclear cell รวมถึง collagenase และ proteinase จำนวนมาก ย่อยโปรตีนในกระจกตา ทำให้รอยโรครุนแรงกว่าในสัตว์เล็ก และลูกศรโยงไปที่คำว่า melting cornea โดยตรง ส่วนม้ามี third eyelid จริง (เอกสารพูดถึงการเย็บ nictitating membrane flap) และเอกสารระบุว่ากระจกตาม้าโค้งและกว้างมาก ไม่ได้บอกว่าบางกว่า",
+    "explain": "บรรทัดที่ขีดเส้นใต้ใน น้ำตาม้ามี polymorphonuclear cell รวมถึง collagenase และ proteinase จำนวนมาก ย่อยโปรตีนในกระจกตา ทำให้รอยโรครุนแรงกว่าในสัตว์เล็ก และลูกศรโยงไปที่คำว่า melting cornea โดยตรง ส่วนม้ามี third eyelid จริง (เอกสารพูดถึงการเย็บ nictitating membrane flap) และกระจกตาม้าโค้งและกว้างมาก ไม่ได้บอกว่าบางกว่า",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
@@ -767,7 +767,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ยาต้าน collagenase เช่น NAC และ Na EDTA"
     ],
     "answer": 3,
-    "explain": "เอกสารเขียนไว้ตรง ๆ ว่าการรักษาต้องใช้ ABO ร่วมกับ anti-collagenase เช่น NAC และ Na EDTA เพื่อหยุดกระบวนการย่อยโปรตีนที่ทำให้กระจกตาละลาย ยาลดความดันลูกตาใช้กับ glaucoma tropicamide ใช้ตอนตรวจเลนส์และในกรณี uveitis ส่วน cyclosporin A เอกสารระบุว่าใช้กับ eosinophilic keratitis ไม่ใช่แผลติดเชื้อ",
+    "explain": "เอกสารเขียนไว้ตรง ๆ ว่าการรักษาต้องใช้ ABO ร่วมกับ anti-collagenase เช่น NAC และ Na EDTA เพื่อหยุดกระบวนการย่อยโปรตีนที่ทำให้กระจกตาละลาย ยาลดความดันลูกตาใช้กับ glaucoma tropicamide ใช้ตอนตรวจเลนส์และในกรณี uveitis ส่วน cyclosporin A ใช้กับ eosinophilic keratitis ไม่ใช่แผลติดเชื้อ",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
@@ -807,7 +807,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Bullet hole lesion กระจายอยู่ที่ชั้น retina"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า glaucoma เกิดจาก aqueous humor ระบายออกจากมุมตาไม่ได้จน IOP สูง และพบรอยโรคเช่น descemet streak หรือ Haab striae ซึ่งเป็นรอยร้าวจากความดัน ส่วน corpora nigra เป็นโครงสร้างปกติของม่านตาม้า star of Winslow เป็นลักษณะปกติของ fundus และ bullet hole lesion เป็นรอยโรคของ chorioretinitis จาก ERU",
+    "explain": "glaucoma เกิดจาก aqueous humor ระบายออกจากมุมตาไม่ได้จน IOP สูง และพบรอยโรคเช่น descemet streak หรือ Haab striae ซึ่งเป็นรอยร้าวจากความดัน ส่วน corpora nigra เป็นโครงสร้างปกติของม่านตาม้า star of Winslow เป็นลักษณะปกติของ fundus และ bullet hole lesion เป็นรอยโรคของ chorioretinitis จาก ERU",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
@@ -879,7 +879,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-poa",
     "year": 5,
     "type": "mcq",
-    "q": "ม้าผอม เลี้ยงรวมกับวัว ไม่เคยตรวจโรคก่อนซื้อ พบจุดเลือดออกที่ vulva mucosa ชุดการตรวจใดที่บันทึกไว้ว่าได้คะแนนในสถานีนี้",
+    "q": "ม้าผอม เลี้ยงรวมกับวัว ไม่เคยตรวจโรคก่อนซื้อ พบจุดเลือดออกที่ vulva mucosa ชุดการตรวจใดเหมาะสมที่สุด",
     "options": [
       "PCR, ELISA และ viral isolation เป็นชุดคัดกรองแรก",
       "CBC, blood chemistry, Woo's technique และ AGID",
@@ -887,7 +887,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "CBC ร่วมกับอัลตราซาวด์ช่องท้องและการตัดชิ้นเนื้อตับ"
     ],
     "answer": 1,
-    "explain": "บันทึกหลังสอบระบุคำตอบที่ได้คะแนนว่า CBC, blood chemistry, Woo's technique สำหรับดู Trypanosoma, buffy coat smear และ AGID สำหรับ EIA โดยเน้นว่า Woo และ AGID ต้องมี ซึ่งเข้ากับบริบทที่เลี้ยงรวมกับวัวและไม่เคยตรวจโรคก่อนซื้อ ส่วน PCR, ELISA และ viral isolation เป็นชุดที่บันทึกไว้ว่ามีคนตอบเยอะแต่ไม่ได้คะแนน นี่เป็นการเรียบเรียงจากความจำของรุ่นก่อน สถานีของปีนี้อาจต่างออกไป",
+    "explain": "CBC, blood chemistry, Woo's technique สำหรับดู Trypanosoma, buffy coat smear และ AGID สำหรับ EIA โดยเน้นว่า Woo และ AGID ต้องมี ซึ่งเข้ากับบริบทที่เลี้ยงรวมกับวัวและไม่เคยตรวจโรคก่อนซื้อ ส่วน PCR, ELISA และ viral isolation เป็นชุดที่บันทึกไว้ว่ามีคนตอบเยอะแต่ไม่ได้คะแนน นี่เป็นการเรียบเรียงจากความจำของรุ่นก่อน สถานีของปีนี้อาจต่างออกไป",
     "verified": "Ekwai Med น.3",
     "sourceType": "student-compilation",
     "examOrigin": "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)"
@@ -899,7 +899,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-poa",
     "year": 5,
     "type": "mcq",
-    "q": "เหตุผลที่บันทึกไว้ว่าทำไมการตอบ PCR เป็นการตรวจคัดกรองในสถานีนี้จึงไม่ได้คะแนน คือข้อใด",
+    "q": "เหตุใด PCR จึงไม่เหมาะจะใช้เป็นการตรวจคัดกรองปรสิตในกระแสเลือดของม้า",
     "options": [
       "sensitivity สูง แต่ specificity ต่ำ ไม่เหมาะคัดกรอง",
       "ตรวจได้เฉพาะไวรัส ใช้กับปรสิตในกระแสเลือดไม่ได้เลย",
@@ -907,7 +907,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ใช้ได้เฉพาะตัวอย่างจากไขกระดูก ไม่สามารถใช้กับเลือดส่วนปลาย"
     ],
     "answer": 0,
-    "explain": "เอกสารบันทึกเหตุผลของผู้ตรวจไว้ว่า PCR ไม่ใช่ screening test ที่ดีสำหรับพยาธิหรือปรสิต เพราะ sensitivity สูงแต่ specificity ต่ำ และถ้าจะตอบต้องระบุว่าหา antigen อะไร ข้อควรระวัง ตามหลักการทั่วไป test ที่ sensitivity สูงมักเหมาะกับการคัดกรอง คำอธิบายนี้จึงเป็นถ้อยคำที่รุ่นก่อนบันทึกไว้ ถ้าผู้สอนปีนี้อธิบายต่างออกไปให้ยึดของผู้สอนปัจจุบัน ส่วนตัวเลือกที่ว่า PCR ตรวจได้เฉพาะไวรัสหรือใช้ได้เฉพาะไขกระดูกนั้นไม่จริง",
+    "explain": "PCR ไม่ใช่ screening test ที่ดีสำหรับพยาธิหรือปรสิต เพราะ sensitivity สูงแต่ specificity ต่ำ และถ้าจะตอบต้องระบุว่าหา antigen อะไร ข้อควรระวัง ตามหลักการทั่วไป test ที่ sensitivity สูงมักเหมาะกับการคัดกรอง คำอธิบายนี้จึงเป็นถ้อยคำที่รุ่นก่อนบันทึกไว้ ถ้าผู้สอนปีนี้อธิบายต่างออกไปให้ยึดของผู้สอนปัจจุบัน ส่วนตัวเลือกที่ว่า PCR ตรวจได้เฉพาะไวรัสหรือใช้ได้เฉพาะไขกระดูกนั้นไม่จริง",
     "verified": "Ekwai Med น.3",
     "sourceType": "student-compilation",
     "examOrigin": "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)"
@@ -919,7 +919,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-poa",
     "year": 5,
     "type": "mcq",
-    "q": "เมื่อผลตรวจไม่ตรงกับที่เจ้าของม้าคาดไว้ คำอธิบายใดที่บันทึกไว้ว่าได้คะแนนในสถานีนี้",
+    "q": "เมื่อผลตรวจไม่ตรงกับที่เจ้าของม้าคาดไว้ คำอธิบายใดเหมาะสมที่สุดในการสื่อสารกับเจ้าของ",
     "options": [
       "ผลคลาดเคลื่อนเพราะชุดตรวจของแล็บผิดพลาด",
       "เจ้าของเก็บและนำส่งตัวอย่างผิดวิธีมาตั้งแต่ต้น",
@@ -927,7 +927,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "เคยติดเชื้อมาก่อน หรือติดจริงแต่เชื้อยังน้อย"
     ],
     "answer": 3,
-    "explain": "บันทึกระบุคำตอบที่ถูกว่า เคยติดเชื้อมาก่อนหน้านี้จึงตรวจเจอ หรือติดเชื้อจริงแต่เชื้อยังมีน้อย และย้ำว่าห้ามตอบว่าผล lab หรือชุดตรวจผิดพลาด เพราะจะถูกลบคะแนน เหตุผลที่ให้ไว้เป็นเรื่องวิชาชีพ คือไม่ควรพูดกับเจ้าของแบบนั้นเพราะไม่ professional และทำให้ขาดความน่าเชื่อถือ การโทษเจ้าของว่าเก็บตัวอย่างผิดก็อยู่ในตรรกะเดียวกันคือโยนความผิดโดยไม่มีหลักฐาน",
+    "explain": "เคยติดเชื้อมาก่อนหน้านี้จึงตรวจเจอ หรือติดเชื้อจริงแต่เชื้อยังมีน้อย และย้ำว่าห้ามตอบว่าผล lab หรือชุดตรวจผิดพลาด เพราะจะถูกลบคะแนน เหตุผลที่ให้ไว้เป็นเรื่องวิชาชีพ คือไม่ควรพูดกับเจ้าของแบบนั้นเพราะไม่ professional และทำให้ขาดความน่าเชื่อถือ การโทษเจ้าของว่าเก็บตัวอย่างผิดก็อยู่ในตรรกะเดียวกันคือโยนความผิดโดยไม่มีหลักฐาน",
     "verified": "Ekwai Med น.3",
     "sourceType": "student-compilation",
     "examOrigin": "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)"
@@ -939,7 +939,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-poa",
     "year": 5,
     "type": "mcq",
-    "q": "ม้าขาหลังซ้ายบวมที่ fetlock ชุดท่าถ่ายภาพรังสีที่บันทึกไว้ว่าได้คะแนนคือข้อใด",
+    "q": "ม้าขาหลังซ้ายบวมที่ fetlock ชุดท่าถ่ายภาพรังสีที่เหมาะสมคือข้อใด",
     "options": [
       "AP, Lateral, DMPLO และ DLPMO ที่ fetlock",
       "Lateral เพียงท่าเดียวที่ข้อ tarsus ข้างซ้าย",
@@ -947,7 +947,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "DP และ Lateral ที่ carpus ข้างเดียวกัน"
     ],
     "answer": 0,
-    "explain": "บันทึกระบุว่าถ่าย x-ray ที่ fetlock ท่า AP, Lateral, DMPLO และ DLPMO ซึ่งเป็นชุดสี่ท่ามาตรฐานที่ทำให้เห็น proximal sesamoid bone ทั้งด้าน medial และ lateral โดยไม่ซ้อนทับกัน ตัวเลือกอื่นเป็นท่าและตำแหน่งจริงทั้งหมด แต่ถ่ายผิดข้อ คือ tarsus, navicular และ carpus ไม่ใช่ fetlock ที่โจทย์ระบุว่าบวม",
+    "explain": "ถ่าย x-ray ที่ fetlock ท่า AP, Lateral, DMPLO และ DLPMO ซึ่งเป็นชุดสี่ท่ามาตรฐานที่ทำให้เห็น proximal sesamoid bone ทั้งด้าน medial และ lateral โดยไม่ซ้อนทับกัน ตัวเลือกอื่นเป็นท่าและตำแหน่งจริงทั้งหมด แต่ถ่ายผิดข้อ คือ tarsus, navicular และ carpus ไม่ใช่ fetlock ที่โจทย์ระบุว่าบวม",
     "verified": "Ekwai Med น.3",
     "sourceType": "student-compilation",
     "examOrigin": "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)"
@@ -959,7 +959,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "topic": "equine-poa",
     "year": 5,
     "type": "mcq",
-    "q": "การระบุตำแหน่งอัลตราซาวด์ในสถานีนี้ การตอบแบบใดที่บันทึกไว้ว่าจะไม่ได้คะแนน",
+    "q": "ในการระบุตำแหน่งที่ตรวจอัลตราซาวด์บริเวณ fetlock การตอบแบบใดถือว่าไม่ถูกต้อง",
     "options": [
       "ระบุ 3C และ 3D ซึ่งอยู่บริเวณเดียวกัน",
       "ระบุเพียงตำแหน่งเดียวคือ 3C ที่ fetlock",
@@ -967,7 +967,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ระบุกระจาย เช่น 1A, 2A, 3C หรือติ๊กทุกข้อ"
     ],
     "answer": 3,
-    "explain": "บันทึกระบุว่าตำแหน่งที่ให้คะแนนคือ 3C และ 3D ใครตอบเพิ่มอีก 1-2 ตำแหน่งที่อยู่ใกล้กันก็ยังได้เต็ม และตอบแค่ช่วงตำแหน่ง fetlock ก็รับได้ แต่ถ้าตอบกระจายเช่น 1A, 2A, 3C หรือติ๊กหมดทุกข้อจะไม่ได้คะแนน เพราะอยู่คนละตำแหน่งกันเลย หลักคิดคือการตอบให้ครอบคลุมทุกอย่างไม่ใช่การตอบที่ถูก แต่คือการแสดงว่าระบุตำแหน่งไม่ได้",
+    "explain": "ตำแหน่งที่ให้คะแนนคือ 3C และ 3D ใครตอบเพิ่มอีก 1-2 ตำแหน่งที่อยู่ใกล้กันก็ยังได้เต็ม และตอบแค่ช่วงตำแหน่ง fetlock ก็รับได้ แต่ถ้าตอบกระจายเช่น 1A, 2A, 3C หรือติ๊กหมดทุกข้อจะไม่ได้คะแนน เพราะอยู่คนละตำแหน่งกันเลย หลักคิดคือการตอบให้ครอบคลุมทุกอย่างไม่ใช่การตอบที่ถูก แต่คือการแสดงว่าระบุตำแหน่งไม่ได้",
     "verified": "Ekwai Med น.3",
     "sourceType": "student-compilation",
     "examOrigin": "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)"
@@ -1007,7 +1007,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "เก็บตัวอย่างเยื่อบุกระเพาะส่งตรวจทางพยาธิวิทยา"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าทำ NG intubation เพื่อล้างกระเพาะและกรอกยา แล้วเอาสิ่งที่ได้มาดูว่าเป็นอาหารค้าง (content) หรืออาหารจากลำไส้เล็กย้อนขึ้นมา (reflux ingesta) ซึ่งการมี reflux เป็นข้อมูลสำคัญในการแยกสาเหตุ ส่วนการระบายลมลำไส้ใหญ่ทำทางอื่น การวัดความดันช่องท้องและการเก็บชิ้นเนื้อไม่ใช่จุดประสงค์ของสายที่ลงถึงกระเพาะ",
+    "explain": "ทำ NG intubation เพื่อล้างกระเพาะและกรอกยา แล้วเอาสิ่งที่ได้มาดูว่าเป็นอาหารค้าง (content) หรืออาหารจากลำไส้เล็กย้อนขึ้นมา (reflux ingesta) ซึ่งการมี reflux เป็นข้อมูลสำคัญในการแยกสาเหตุ ส่วนการระบายลมลำไส้ใหญ่ทำทางอื่น การวัดความดันช่องท้องและการเก็บชิ้นเนื้อไม่ใช่จุดประสงค์ของสายที่ลงถึงกระเพาะ",
     "verified": "Ekwai Med น.4",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากคาบเรียนเคสจริงที่รุ่นพี่ Vet 85 จดไว้"
@@ -1067,7 +1067,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "จุดสูงสุดของ loin"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าวัด height (cm) จากพื้นถึง highest point of wither โดยใช้ไม้วัดเฉพาะของม้า ส่วน croup, poll",
+    "explain": "วัด height (cm) จากพื้นถึง highest point of wither โดยใช้ไม้วัดเฉพาะของม้า ส่วน croup, poll",
     "verified": "Equine Med 85 น.3",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1187,7 +1187,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Tetanus, Influenza, Rabies, Japanese encephalitis"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุ 4 ตัวคือ tetanus, influenza, rabies และ japanese encephalitis โดย JE เป็นตัวที่เอกสารระบุว่าฉีดทาง SC",
+    "explain": "เอกสารระบุ 4 ตัวคือ tetanus, influenza, rabies และ japanese encephalitis โดย JE เป็นตัวที่ฉีดทาง SC",
     "verified": "Equine Med 85 น.4",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1227,7 +1227,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Foal"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า gelding คือตัวผู้ที่ทำหมันแล้วและอยู่ลำดับต่ำสุด ส่วนฝูงมักมี stallion หรือ alpha mare เป็นจ่าฝูง ลูกม้ายังอยู่ในความดูแลของแม่จึงไม่ได้ถูกจัดอันดับในความหมายเดียวกัน",
+    "explain": "gelding คือตัวผู้ที่ทำหมันแล้วและอยู่ลำดับต่ำสุด ส่วนฝูงมักมี stallion หรือ alpha mare เป็นจ่าฝูง ลูกม้ายังอยู่ในความดูแลของแม่จึงไม่ได้ถูกจัดอันดับในความหมายเดียวกัน",
     "verified": "Equine Med 85 น.4",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1247,7 +1247,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ด้านขวาของม้า"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า the horses should be approached from the left side ซึ่งเป็นฝั่งเดียวกับ near side ที่ใช้ขึ้นม้า การเข้าจากด้านหลังและด้านหน้าตรงจมูกเป็นจุด blind spot ทั้งคู่จึงต้องหลีกเลี่ยง",
+    "explain": "the horses should be approached from the left side ซึ่งเป็นฝั่งเดียวกับ near side ที่ใช้ขึ้นม้า การเข้าจากด้านหลังและด้านหน้าตรงจมูกเป็นจุด blind spot ทั้งคู่จึงต้องหลีกเลี่ยง",
     "verified": "Equine Med 85 น.5",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1307,7 +1307,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Romifidine"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า xylazine เป็นยาที่ถูกที่สุดในกลุ่มนี้และนิยมใช้ทำฟัน มี onset 1-2 นาที duration 15-30 นาที และ maximum dose 1.1 mg/kg",
+    "explain": "xylazine เป็นยาที่ถูกที่สุดในกลุ่มนี้และนิยมใช้ทำฟัน มี onset 1-2 นาที duration 15-30 นาที และ maximum dose 1.1 mg/kg",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1327,7 +1327,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "แรงกว่าราว 10 เท่า แต่ให้ได้ทางหลอดเลือดดำเท่านั้น"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า detomidine แรงกว่าและแพงกว่า xylazine ประมาณ 100 เท่า เวลาม้าล้มจะ smooth กว่า ให้ได้ทั้ง IV, IM",
+    "explain": "detomidine แรงกว่าและแพงกว่า xylazine ประมาณ 100 เท่า เวลาม้าล้มจะ smooth กว่า ให้ได้ทั้ง IV, IM",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1427,7 +1427,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ขาหน้า navicular bone และเอ็นต่างๆ จากการลงน้ำหนัก"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า show jumping มัก lesion ที่ขาหน้า navicular bone และเอ็นต่างๆ และถ้าใช้งานหนักจนเครียดยังเกิด gastric ulcer ได้",
+    "explain": "show jumping มัก lesion ที่ขาหน้า navicular bone และเอ็นต่างๆ และถ้าใช้งานหนักจนเครียดยังเกิด gastric ulcer ได้",
     "verified": "Equine Med 85 น.7",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1447,7 +1447,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "กรรมการตัดสินการแข่งขัน"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า equine passport ออกโดยสัตวแพทย์เท่านั้น เพราะต้องระบุ diagram ลักษณะม้า การฝังไมโครชิพ ประวัติวัคซีน การตรวจโรค",
+    "explain": "equine passport ออกโดยสัตวแพทย์เท่านั้น เพราะต้องระบุ diagram ลักษณะม้า การฝังไมโครชิพ ประวัติวัคซีน การตรวจโรค",
     "verified": "Equine Med 85 น.3",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1467,7 +1467,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ประมาณ 90%"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า cecum รวมกับลำไส้ใหญ่เป็น hindgut fermenter สร้างพลังงานได้ถึง 70% และ hindgut คิดเป็น 60% ของปริมาตรทางเดินอาหาร โดยดูดซึมในรูป VFA ตัวเลข 30% เป็นสัดส่วนปริมาตรของลำไส้เล็ก ไม่ใช่สัดส่วนพลังงานจาก hindgut",
+    "explain": "cecum รวมกับลำไส้ใหญ่เป็น hindgut fermenter สร้างพลังงานได้ถึง 70% และ hindgut คิดเป็น 60% ของปริมาตรทางเดินอาหาร โดยดูดซึมในรูป VFA ตัวเลข 30% เป็นสัดส่วนปริมาตรของลำไส้เล็ก ไม่ใช่สัดส่วนพลังงานจาก hindgut",
     "verified": "Equine Med 85 น.8",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1487,7 +1487,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "2-3 เดือน"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า microbial population ใช้เวลา 2-3 วันในการปรับตัวกับอาหารชนิดใหม่ แม้จะเป็นหญ้าคนละล็อตก็ตาม จึงเป็นเหตุผลที่การเปลี่ยนอาหารต้องค่อยเป็นค่อยไป",
+    "explain": "microbial population ใช้เวลา 2-3 วันในการปรับตัวกับอาหารชนิดใหม่ แม้จะเป็นหญ้าคนละล็อตก็ตาม จึงเป็นเหตุผลที่การเปลี่ยนอาหารต้องค่อยเป็นค่อยไป",
     "verified": "Equine Med 85 น.8",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1587,7 +1587,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Vitamin C และ Vitamin D"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า C และ D ม้าสังเคราะห์ได้เอง ส่วน K และ B ได้จาก microbes ในทางเดินอาหาร ซึ่งเป็นคนละกลไกกับการสังเคราะห์เอง",
+    "explain": "C และ D ม้าสังเคราะห์ได้เอง ส่วน K และ B ได้จาก microbes ในทางเดินอาหาร ซึ่งเป็นคนละกลไกกับการสังเคราะห์เอง",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1607,7 +1607,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Phosphorus, Vitamin A และ Vitamin C"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่าการเก็บหญ้ามีผลต่อ nutrient loss เช่น protein, vitamin A และ E จึงควรเสริมสองวิตามินนี้เพราะม้าสังเคราะห์เองไม่ได้ ต่างจาก vitamin C",
+    "explain": "การเก็บหญ้ามีผลต่อ nutrient loss เช่น protein, vitamin A และ E จึงควรเสริมสองวิตามินนี้เพราะม้าสังเคราะห์เองไม่ได้ ต่างจาก vitamin C",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1627,7 +1627,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "มากกว่า 30%"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าถ้าเก็บที่ความชื้นเกิน 20% จะบูดและขึ้นราแน่นอน ซึ่งเป็นจุดที่ต้องระวังคู่กับการสูญเสีย protein",
+    "explain": "ถ้าเก็บที่ความชื้นเกิน 20% จะบูดและขึ้นราแน่นอน ซึ่งเป็นจุดที่ต้องระวังคู่กับการสูญเสีย protein",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1747,7 +1747,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "หญ้ามีน้ำตาลสูงจากการสังเคราะห์แสงสะสมมาทั้งวัน"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่าหญ้าตอนบ่ายมีน้ำตาลสูงมากเพราะสังเคราะห์แสงเต็มที่มาทั้งวัน ถ้าปล่อยม้าไปกินตอนนั้นจะทำให้ท้องเสียได้ ซึ่งกลไกเชื่อมกับ hindgut acidosis จากการได้ NSC ปริมาณมากในครั้งเดียว",
+    "explain": "หญ้าตอนบ่ายมีน้ำตาลสูงมากเพราะสังเคราะห์แสงเต็มที่มาทั้งวัน ถ้าปล่อยม้าไปกินตอนนั้นจะทำให้ท้องเสียได้ ซึ่งกลไกเชื่อมกับ hindgut acidosis จากการได้ NSC ปริมาณมากในครั้งเดียว",
     "verified": "Equine Med 85 น.11",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1767,7 +1767,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Least cost formula ไม่มี guaranteed analysis จึงได้สารอาหารไม่ครบ"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า fixed formula เป็นสูตรตายตัว เหมาะกับม้า sensitive แต่แพงกว่า ส่วน least cost formula เหมาะกับม้าปกติและราคาคงที่",
+    "explain": "fixed formula เป็นสูตรตายตัว เหมาะกับม้า sensitive แต่แพงกว่า ส่วน least cost formula เหมาะกับม้าปกติและราคาคงที่",
     "verified": "Equine Med 85 น.11",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Med midterm recall (Vet 85)"
@@ -1807,7 +1807,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ภาวะขาดวิตามินดี ทำให้กระดูกโค้งงอผิดรูปในลูกม้า"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่ารำข้าวมี P สูงมาก ถ้าใช้จน Ca:P เสียสมดุลจะเกิดภาวะพาราไทรอยด์ทุติยภูมิจากอาหาร แสดงออกเป็น big head หรือม้าหน้าโป",
+    "explain": "รำข้าวมี P สูงมาก ถ้าใช้จน Ca:P เสียสมดุลจะเกิดภาวะพาราไทรอยด์ทุติยภูมิจากอาหาร แสดงออกเป็น big head หรือม้าหน้าโป",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1827,7 +1827,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "10 กรัม"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า 1 L of sweat contain ประมาณ 10 g of electrolyte เมื่อคูณกับอัตราการหลั่งเหงื่อ 10-12 ลิตรต่อชั่วโมงและสูงได้ถึง 30 ลิตรต่อชั่วโมง จะเห็นว่าความต้องการ Na",
+    "explain": "1 L of sweat contain ประมาณ 10 g of electrolyte เมื่อคูณกับอัตราการหลั่งเหงื่อ 10-12 ลิตรต่อชั่วโมงและสูงได้ถึง 30 ลิตรต่อชั่วโมง จะเห็นว่าความต้องการ Na",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1847,7 +1847,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ดูดซึมเร็วเกินไปจนเกิดภาวะโพแทสเซียมในเลือดสูง"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่าไม่แนะนำแบบ paste เพราะอาจทำให้เกิด dehydration มากกว่า ในทางกลับกันแบบผงกระตุ้นให้ม้าอยากกินน้ำและแตกตัวได้ดีเมื่อกินพร้อมน้ำ ซึ่งเป็นเหตุผลว่าทำไมแบบผงจึงเหมาะกว่า",
+    "explain": "ไม่แนะนำแบบ paste เพราะอาจทำให้เกิด dehydration มากกว่า ในทางกลับกันแบบผงกระตุ้นให้ม้าอยากกินน้ำและแตกตัวได้ดีเมื่อกินพร้อมน้ำ ซึ่งเป็นเหตุผลว่าทำไมแบบผงจึงเหมาะกว่า",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1887,7 +1887,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "มีร่องไขมันกลางหลังและคอหนาแข็งเมื่อคลำดู"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า BCS 5 คือกำลังดี เห็นซี่โครงได้บ้างในขณะหายใจ และคลำแล้วต้องเจอ ส่วน BCS 3 คือผอมจนเห็นซี่โครงและ hip bone ชัด",
+    "explain": "BCS 5 คือกำลังดี เห็นซี่โครงได้บ้างในขณะหายใจ และคลำแล้วต้องเจอ ส่วน BCS 3 คือผอมจนเห็นซี่โครงและ hip bone ชัด",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1927,7 +1927,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "12 ถึง 24 ชั่วโมง"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า small intestine คิดเป็น 30% ของทางเดินอาหาร ยาว 15-25 เมตร ย่อยได้ทุกอย่างยกเว้นไฟเบอร์ และอาหารอยู่ในนั้น 2-3 ชั่วโมง",
+    "explain": "small intestine คิดเป็น 30% ของทางเดินอาหาร ยาว 15-25 เมตร ย่อยได้ทุกอย่างยกเว้นไฟเบอร์ และอาหารอยู่ในนั้น 2-3 ชั่วโมง",
     "verified": "Equine Med 85 น.8",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1947,7 +1947,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ได้รับตัวอ่อนผ่านน้ำนมแม่ม้าในช่วงแรกเกิด"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าติดจากการกิน oribatid mite ที่มี cysticercoid ซึ่งเป็น intermediate host การติดผ่านแมลงวันตอมแผลเป็นกลไกของ Habronema",
+    "explain": "ติดจากการกิน oribatid mite ที่มี cysticercoid ซึ่งเป็น intermediate host การติดผ่านแมลงวันตอมแผลเป็นกลไกของ Habronema",
     "verified": "Equine Med 85 น.12",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1967,7 +1967,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Duodenum ส่วนต้น"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าเกิด ulcer ที่ ileocecal valve แล้วนำไปสู่ enteritis และ colic ซึ่งสอดคล้องกับตำแหน่งที่พยาธิอยู่คือ ileum และ cecum",
+    "explain": "เกิด ulcer ที่ ileocecal valve แล้วนำไปสู่ enteritis และ colic ซึ่งสอดคล้องกับตำแหน่งที่พยาธิอยู่คือ ileum และ cecum",
     "verified": "Equine Med 85 น.12",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2027,7 +2027,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Rhipicephalus microplus"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า Musca domestica หรือแมลงวันบ้าน เป็นพาหะของ H. muscae และ D. megastoma ส่วน Stomoxys calcitrans หรือแมลงวันคอกเป็นพาหะของ H. microstoma",
+    "explain": "Musca domestica หรือแมลงวันบ้าน เป็นพาหะของ H. muscae และ D. megastoma ส่วน Stomoxys calcitrans หรือแมลงวันคอกเป็นพาหะของ H. microstoma",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2067,7 +2067,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Eosinophilic granuloma"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่าเป็น eosinophilic granuloma เกิดเป็นแผลหลุมบริเวณหัวตาที่แมลงวันตอม โดยแมลงวันนำ L3 ของ Habronema หรือ Draschia มาชอนไชผิวหนัง การพบ eosinophil เด่นสอดคล้องกับการตอบสนองต่อปรสิต",
+    "explain": "เป็น eosinophilic granuloma เกิดเป็นแผลหลุมบริเวณหัวตาที่แมลงวันตอม โดยแมลงวันนำ L3 ของ Habronema หรือ Draschia มาชอนไชผิวหนัง การพบ eosinophil เด่นสอดคล้องกับการตอบสนองต่อปรสิต",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2087,7 +2087,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Imidocarb"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า ivermectin รับจบทุกกรณี และเตือนด้วยว่าการให้ยาปฏิชีวนะจะรักษาแผล cutaneous form ไม่หายเพราะไม่ได้แก้ที่ตัวพยาธิ",
+    "explain": "ivermectin รับจบทุกกรณี และเตือนด้วยว่าการให้ยาปฏิชีวนะจะรักษาแผล cutaneous form ไม่หายเพราะไม่ได้แก้ที่ตัวพยาธิ",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2147,7 +2147,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "รูปกระสวย มีปุ่มยื่นออกทั้งสองขั้ว"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่าไข่ Oxyuris เป็น asymmetrical egg คือด้านหนึ่งแบนอีกด้านโค้งนูน ส่วนไข่กลมเปลือกหนาเป็นลักษณะของ Parascaris equorum",
+    "explain": "ไข่ Oxyuris เป็น asymmetrical egg คือด้านหนึ่งแบนอีกด้านโค้งนูน ส่วนไข่กลมเปลือกหนาเป็นลักษณะของ Parascaris equorum",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2207,7 +2207,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Ulcer ที่ ileocecal valve จนเกิด enteritis"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าระยะตัวอ่อนของสองชนิดนี้ทำให้เกิด peritonitis และเลือดออกที่ตับกับตับอ่อน นำไปสู่ colic",
+    "explain": "ระยะตัวอ่อนของสองชนิดนี้ทำให้เกิด peritonitis และเลือดออกที่ตับกับตับอ่อน นำไปสู่ colic",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2227,7 +2227,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "มี non-migratory life cycle PPP 6-12 สัปดาห์ L4 สร้าง nodule"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า small strongyles พบบ่อยกว่า large strongyles มี non-migratory life cycle PPP 6-12 สัปดาห์ ไข่เปลือกบาง 2 ชั้นภายในมี segmented embryo L4 กระตุ้นการสร้าง nodule ใน colonic mucosa",
+    "explain": "small strongyles พบบ่อยกว่า large strongyles มี non-migratory life cycle PPP 6-12 สัปดาห์ ไข่เปลือกบาง 2 ชั้นภายในมี segmented embryo L4 กระตุ้นการสร้าง nodule ใน colonic mucosa",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2267,7 +2267,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "น้อยกว่า 1,000 EPG"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าถ้าน้อยกว่า 200 EPG ไม่ต้องให้ยาถ่าย เพื่อให้ฝูงยังสร้างภูมิต้านทานได้และชะลอการดื้อยา",
+    "explain": "ถ้าน้อยกว่า 200 EPG ไม่ต้องให้ยาถ่าย เพื่อให้ฝูงยังสร้างภูมิต้านทานได้และชะลอการดื้อยา",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2287,7 +2287,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "เพื่อแยก tapeworm ออกจาก roundworm ด้วยลักษณะไข่"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า fecal culture ใช้แยก large กับ small strongyle จาก L3 เพราะดูแค่ไข่ไม่สามารถแยกชนิดได้ ถ้าดู L3 แล้วยังแยกไม่ออกจึงค่อยใช้ molecular diagnosis",
+    "explain": "fecal culture ใช้แยก large กับ small strongyle จาก L3 เพราะดูแค่ไข่ไม่สามารถแยกชนิดได้ ถ้าดู L3 แล้วยังแยกไม่ออกจึงค่อยใช้ molecular diagnosis",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2307,7 +2307,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "วิเคราะห์ nemabiome ได้ละเอียดกว่าการดูสัณฐานวิทยา"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า metabarcoding ใช้ NGS วิเคราะห์ nemabiome ซึ่งคือกลุ่มพยาธิในลำไส้ ได้ละเอียดกว่าการดูแค่ morphology",
+    "explain": "metabarcoding ใช้ NGS วิเคราะห์ nemabiome ซึ่งคือกลุ่มพยาธิในลำไส้ ได้ละเอียดกว่าการดูแค่ morphology",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2467,7 +2467,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "เป็นเหาดูดเลือด ไม่มีตาแต่มี ocular point อยู่ที่หาง"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า Haematopinus asini เป็น sucking louse ตัวใหญ่ราว 3 มม. ไม่มีตาแต่มี ocular point เห็น thoracic sternal plate ชัดที่ด้าน ventral",
+    "explain": "Haematopinus asini เป็น sucking louse ตัวใหญ่ราว 3 มม. ไม่มีตาแต่มี ocular point เห็น thoracic sternal plate ชัดที่ด้าน ventral",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2507,7 +2507,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "กินขี้ไคลบริเวณหลังและสะโพก"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า Chorioptes equi ปากไม่แหลม ไม่แทงผิวหนัง จึงกินเศษ tissue บริเวณ fetlock",
+    "explain": "Chorioptes equi ปากไม่แหลม ไม่แทงผิวหนัง จึงกินเศษ tissue บริเวณ fetlock",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2527,7 +2527,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "เพราะดูดเลือดโดยตรงจนทำให้ม้าเกิดภาวะโลหิตจาง"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า Psoroptes ปากแหลมจึงก่อโรคมากกว่า Chorioptes และกำกับลักษณะทางสัณฐานไว้ว่า epimere ของขาคู่แรกไม่ fuse กัน ทั้งสองสกุลเป็น non-burrowing mite จึงไม่ขุดรู",
+    "explain": "Psoroptes ปากแหลมจึงก่อโรคมากกว่า Chorioptes และกำกับลักษณะทางสัณฐานไว้ว่า epimere ของขาคู่แรกไม่ fuse กัน ทั้งสองสกุลเป็น non-burrowing mite จึงไม่ขุดรู",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2547,7 +2547,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ทั้งสองชนิดมีระยะฟักตัวเท่ากันคือ 12-19 วัน"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า Babesia caballi ซึ่งเป็น large babesia มี incubation period 10-30 วัน ส่วน Babesia equi ซึ่งเป็น small babesia มี 12-19 วัน",
+    "explain": "Babesia caballi ซึ่งเป็น large babesia มี incubation period 10-30 วัน ส่วน Babesia equi ซึ่งเป็น small babesia มี 12-19 วัน",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2607,7 +2607,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Ileocecal fold"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่ากระเพาะมี 2 ส่วนแบ่งกันด้วย margo plicatus โดยส่วน non-glandular เป็น squamous cell บางๆ",
+    "explain": "กระเพาะมี 2 ส่วนแบ่งกันด้วย margo plicatus โดยส่วน non-glandular เป็น squamous cell บางๆ",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2627,7 +2627,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ประมาณ 30 ลิตร อยู่ด้านขวาเป็นหลัก"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า cecum ใหญ่มาก จุได้ถึง 30 ลิตร อยู่ด้านขวาเป็นหลัก และแบ่งเป็น 3 ส่วนคือ base, body",
+    "explain": "cecum ใหญ่มาก จุได้ถึง 30 ลิตร อยู่ด้านขวาเป็นหลัก และแบ่งเป็น 3 ส่วนคือ base, body",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2667,7 +2667,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Duodenocolic ligament"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า ileocecal fold หรือ mesentery เป็นเยื่อบางๆ ที่เชื่อมกัน ใช้ระบุตำแหน่ง ileum ได้ ส่วน margo plicatus อยู่ในกระเพาะ",
+    "explain": "ileocecal fold หรือ mesentery เป็นเยื่อบางๆ ที่เชื่อมกัน ใช้ระบุตำแหน่ง ileum ได้ ส่วน margo plicatus อยู่ในกระเพาะ",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2747,7 +2747,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "มีน้ำลายไหลออกมาตามท่อ"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าถ้าม้ากลืนตามให้ดันไปจนสุด แต่ถ้าเข้าหลอดลมม้าจะไอ นอกจากนี้ยังยืนยันตำแหน่งได้ด้วยการดม เป่า หรือดูดออกมา",
+    "explain": "ถ้าม้ากลืนตามให้ดันไปจนสุด แต่ถ้าเข้าหลอดลมม้าจะไอ นอกจากนี้ยังยืนยันตำแหน่งได้ด้วยการดม เป่า หรือดูดออกมา",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2907,7 +2907,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ม้าไม่มีถุงน้ำดีจึงไม่สามารถย่อยไขมันได้เลยตลอดชีวิต"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าม้าไม่มี gallbladder น้ำดีเข้าลำไส้เล็กผ่าน major orifice โดยตรง และในบทโภชนาการเสริมว่าม้าหลั่งน้ำดีได้ตลอดเวลา ซึ่งเป็นเหตุผลที่ม้ายังย่อยไขมันได้ดี โดยมี digestibility 85-100% ที่ลำไส้เล็ก",
+    "explain": "ม้าไม่มี gallbladder น้ำดีเข้าลำไส้เล็กผ่าน major orifice โดยตรง และในบทโภชนาการเสริมว่าม้าหลั่งน้ำดีได้ตลอดเวลา ซึ่งเป็นเหตุผลที่ม้ายังย่อยไขมันได้ดี โดยมี digestibility 85-100% ที่ลำไส้เล็ก",
     "verified": "Equine Med 85 น.9, น.16",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2927,7 +2927,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "น้อยกว่า 5 mmol/L และ peritoneal fluid แม่นกว่าเลือด"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่าม้าปกติมี lactate น้อยกว่า 1 mmol/L และการเจาะ peritoneal fluid ให้ค่าแม่นกว่าการเจาะเลือด",
+    "explain": "ม้าปกติมี lactate น้อยกว่า 1 mmol/L และการเจาะ peritoneal fluid ให้ค่าแม่นกว่าการเจาะเลือด",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2947,7 +2947,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Gastric reflux ซึ่งอาจมีการอุดตันที่ลำไส้เล็ก"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่าถ้ามีน้ำไหลออกมามากกว่า 4 ลิตรเรียกว่า gastric reflux ซึ่งเป็นการผสมของคอนเทนต์กับเอนไซม์ย่อยอาหาร แสดงว่าอาหารอาจติดที่ลำไส้เล็ก กรณีนี้จะไม่ drenching เพราะไม่ช่วยอะไร ทำแค่ lavage แล้วหาทางวินิจฉัยด้วยวิธีอื่น",
+    "explain": "ถ้ามีน้ำไหลออกมามากกว่า 4 ลิตรเรียกว่า gastric reflux ซึ่งเป็นการผสมของคอนเทนต์กับเอนไซม์ย่อยอาหาร แสดงว่าอาหารอาจติดที่ลำไส้เล็ก กรณีนี้จะไม่ drenching เพราะไม่ช่วยอะไร ทำแค่ lavage แล้วหาทางวินิจฉัยด้วยวิธีอื่น",
     "verified": "Equine Med 85 น.18",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Med midterm recall (Vet 85)"
@@ -2967,7 +2967,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Peritonitis และ GI rupture"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่าถ้าคอนเทนต์น้อยกว่า 0.5 ลิตร ม้าอาจยังขาดน้ำ แต่อย่างน้อยตัดโรค impaction",
+    "explain": "ถ้าคอนเทนต์น้อยกว่า 0.5 ลิตร ม้าอาจยังขาดน้ำ แต่อย่างน้อยตัดโรค impaction",
     "verified": "Equine Med 85 น.18",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Med midterm recall (Vet 85)"
@@ -2987,7 +2987,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "มากกว่า 20"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าถ้าคะแนนไม่เกิน 14 ให้รักษาด้วยยาอย่างเดียว แต่ถ้าเกิน 14 ต้องผ่าตัดหรือพิจารณาการุณยฆาต พร้อมเตือนไว้เองว่าอย่าเชื่อคะแนนอย่างเดียว เพราะบางเคสคะแนนต่ำแต่ม้าไม่ไหว",
+    "explain": "ถ้าคะแนนไม่เกิน 14 ให้รักษาด้วยยาอย่างเดียว แต่ถ้าเกิน 14 ต้องผ่าตัดหรือพิจารณาการุณยฆาต พร้อมเตือนไว้เองว่าอย่าเชื่อคะแนนอย่างเดียว เพราะบางเคสคะแนนต่ำแต่ม้าไม่ไหว",
     "verified": "Equine Med 85 น.18",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Med midterm recall (Vet 85)"
@@ -3007,7 +3007,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ประมาณ 48 ชั่วโมง"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า flunixin meglumine เป็นยาสามัญประจำม้า ให้ analgesia นาน 12 ชั่วโมงและลด endotoxemia ได้ดี แต่ข้อเสียคืออาจปิดบังอาการ",
+    "explain": "flunixin meglumine เป็นยาสามัญประจำม้า ให้ analgesia นาน 12 ชั่วโมงและลด endotoxemia ได้ดี แต่ข้อเสียคืออาจปิดบังอาการ",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3027,7 +3027,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ออกฤทธิ์สั้นราว 30 นาที จึงไม่ปิดบังอาการที่ต้องติดตาม"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า xylazine ออกฤทธิ์แค่ 30 นาที จึงไม่ปิดบังอาการ และใช้ดีกับ spasmodic colic การไม่ปิดบังอาการสำคัญมากเพราะต้องประเมินซ้ำเพื่อคิดคะแนน CCS",
+    "explain": "xylazine ออกฤทธิ์แค่ 30 นาที จึงไม่ปิดบังอาการ และใช้ดีกับ spasmodic colic การไม่ปิดบังอาการสำคัญมากเพราะต้องประเมินซ้ำเพื่อคิดคะแนน CCS",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3067,7 +3067,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Sand colic ที่มีทรายสะสมในลำไส้ใหญ่จำนวนมาก"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า buscopan เป็น smooth muscle relaxant ใช้ดีกับ spasmodic colic และอาการปวดไม่รุนแรง ซึ่งสมเหตุสมผลเพราะ spasmodic colic เกิดจากการบีบเกร็งของลำไส้",
+    "explain": "buscopan เป็น smooth muscle relaxant ใช้ดีกับ spasmodic colic และอาการปวดไม่รุนแรง ซึ่งสมเหตุสมผลเพราะ spasmodic colic เกิดจากการบีบเกร็งของลำไส้",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3087,7 +3087,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Phenylbutazone ร่วมกับ detomidine"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า spasmodic colic เจอบ่อย เกิดจาก pain from intestinal spasm ระหว่างการ peristalsis",
+    "explain": "spasmodic colic เจอบ่อย เกิดจาก pain from intestinal spasm ระหว่างการ peristalsis",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3107,7 +3107,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ม้าที่ไม่ได้เคลื่อนไหว เช่น ขาเจ็บ หรือช่วงฤดูหนาว"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า pelvic flexure impaction มักเกิดในม้าที่ไม่ได้เคลื่อนไหว เช่น ขาเจ็บหรือช่วงฤดูหนาว รักษาด้วย NG ใส่น้ำและพาราฟิน ให้ IV fluid",
+    "explain": "pelvic flexure impaction มักเกิดในม้าที่ไม่ได้เคลื่อนไหว เช่น ขาเจ็บหรือช่วงฤดูหนาว รักษาด้วย NG ใส่น้ำและพาราฟิน ให้ IV fluid",
     "verified": "Equine Med 85 น.18",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Med midterm recall (Vet 85)"
@@ -3127,7 +3127,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "กระเพาะอาหารเคลื่อนผ่านกระบังลมเข้าไปในช่องอก"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุว่า colon ขยับขึ้นไปอยู่ในช่องว่างระหว่างไตซ้ายกับม้าม ซึ่งเป็นที่มาของชื่อ nephrosplenic",
+    "explain": "colon ขยับขึ้นไปอยู่ในช่องว่างระหว่างไตซ้ายกับม้าม ซึ่งเป็นที่มาของชื่อ nephrosplenic",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3147,7 +3147,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "เห็นตับขยายใหญ่และมีของเหลวอิสระในช่องท้องจำนวนมาก"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่า Dx ด้วย ultrasound จะไม่เจอม้ามและไต แต่เจอแก๊สใน colon เพราะลำไส้ที่เข้าไปแทรกอยู่บังโครงสร้างด้านหลังไว้ ปกติ spleen ต้องอยู่ติดไตซ้ายและติดกับกระเพาะ ตับ",
+    "explain": "Dx ด้วย ultrasound จะไม่เจอม้ามและไต แต่เจอแก๊สใน colon เพราะลำไส้ที่เข้าไปแทรกอยู่บังโครงสร้างด้านหลังไว้ ปกติ spleen ต้องอยู่ติดไตซ้ายและติดกับกระเพาะ ตับ",
     "verified": "Equine Med 85 น.17-18",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3167,7 +3167,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "เจาะ peritoneal fluid แล้ววัดค่า lactate เทียบกับเลือด"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุว่า sand colic เจอบ่อยในไทยและอาจทำให้อุดตัน ทดสอบเบื้องต้นโดยเอาอุจจาระไปใส่น้ำแล้วทรายจะตกตะกอนลงมา",
+    "explain": "sand colic เจอบ่อยในไทยและอาจทำให้อุดตัน ทดสอบเบื้องต้นโดยเอาอุจจาระไปใส่น้ำแล้วทรายจะตกตะกอนลงมา",
     "verified": "Equine Med 85 น.19",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Med midterm recall (Vet 85)"
@@ -3187,7 +3187,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "6 ตำแหน่ง"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุว่า ultrasound สำคัญมากในม้าและใช้ FLASH protocol ซาวน์ 6 ตำแหน่ง โดยต้องรวม cranial ventral thorax ด้วยเพราะม้าเกิด diaphragmatic hernia ได้",
+    "explain": "ultrasound สำคัญมากในม้าและใช้ FLASH protocol ซาวน์ 6 ตำแหน่ง โดยต้องรวม cranial ventral thorax ด้วยเพราะม้าเกิด diaphragmatic hernia ได้",
     "verified": "Equine Med 85 น.17",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3227,7 +3227,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Pelvic flexure impaction ที่ไม่ตอบสนองต่อพาราฟิน"
     ],
     "answer": 1,
-    "explain": "เอกสารระบุว่าเมื่อเกิด GI rupture ถือว่าเย็บไม่ทันแล้ว เพราะสิ่งที่ออกมาจะทำให้เกิด peritonitis จึงเป็นจุดตัดสินใจ",
+    "explain": "เมื่อเกิด GI rupture ถือว่าเย็บไม่ทันแล้ว เพราะสิ่งที่ออกมาจะทำให้เกิด peritonitis จึงเป็นจุดตัดสินใจ",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
