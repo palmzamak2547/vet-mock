@@ -195,9 +195,9 @@ export const FEATURES = [
   },
   {
     id: 'bench', category: 'learn',
-    label: 'โต๊ะทดลองผลตรวจ', labelEn: 'Screening Bench', icon: '🎯',
-    hint: 'ผลบวกหนึ่งครั้งเชื่อได้แค่ไหน — Se, Sp, ความชุก, PPV',
-    kw: 'bench screening ppv npv sensitivity specificity prevalence ระบาดวิทยา ความชุก ความไว ความจำเพาะ คัดกรอง ผลบวก epidemiology 2x2',
+    label: 'ระบาดวิทยา Module 5', labelEn: 'Epidemiology Module 5', icon: '🎯',
+    hint: 'สัตวแพทย์ในวันข้างหน้า บทเรียนพร้อมโจทย์ 22 ข้อ และโต๊ะทดลองผลตรวจ',
+    kw: 'bench screening ppv npv sensitivity specificity prevalence ระบาดวิทยา epidemiology module 5 ความชุก ความไว ความจำเพาะ คัดกรอง ผลบวก ผลบวกลวง 2x2 amr one health big data ai อนาคต สัตวแพทย์',
     invoke: { kind: 'view', view: 'bench' },
   },
   {

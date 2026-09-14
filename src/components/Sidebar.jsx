@@ -155,7 +155,7 @@ export default function Sidebar({
                 <button
                   type="button"
                   className="vmx-nav-row is-secondary vmx-sidebar-more"
-                  title={learnRest.map((f) => f.label).join(' · ')}
+                  title={learnRest.map((f) => f.label).join(', ')}
                   onClick={() => setPaletteOpen(true)}
                 >
                   <span className="vmx-sidebar-icon" aria-hidden="true"><NavIcon name="more" size={17} /></span>

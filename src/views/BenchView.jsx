@@ -1,381 +1,376 @@
 // ============================================================
-// BenchView — what a positive result is actually worth
+// BenchView — Module 5 as something you work through, not read
 // ============================================================
-// Built from Module 5 of Veterinary Epidemiology (3107508, อ.ชัยเดช
-// อินทร์ไชยศรี, 2026/1), which makes two claims with numbers attached:
-// a system can be "99% accurate" while finding none of the sick animals,
-// and a good test can still be wrong about most of the animals it flags.
+// The deck is 19 slides that a student scrolls past in four minutes and
+// keeps nothing from. The content here is the same deck (data in
+// src/data/epi-module5.js, grounded slide by slide), but every place the
+// lecture asks a question, the question is asked — you answer before the
+// answer appears, and what you cleared is remembered.
 //
-// A slide can only assert those. Here every figure on screen is computed
-// from four dials, so the student moves prevalence and watches the alert
-// they would act on turn mostly false — which is the part that does not
-// survive being read once and forgotten.
-//
-// The maths lives in lib/screening.js and is pinned against the slide's own
-// printed table by tests/unit/screening.test.mjs.
-import { useState, useMemo, useCallback, useId } from 'react';
-import { screeningTable, ppvCurve, LECTURE_SCENARIOS } from '../lib/screening.js';
+// The screening bench sits inside sections 3 and 4, where the lecture puts
+// its two worked numbers, rather than being a separate toy.
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
+import { MODULE5, ALL_CHECKS } from '../data/epi-module5.js';
+import ScreeningBench from '../components/ScreeningBench.jsx';
 
-const nf = (v) => Math.round(v).toLocaleString('en-US');
-const pct1 = (v) => `${(v * 100).toFixed(1)}%`;
-const pct0 = (v) => `${Math.round(v * 100)}%`;
+const PROGRESS_KEY = 'vmx-epi-m5-progress-v1';
 
-// Population sizes offered as buttons rather than a free field: the bench is
-// about the ratio, and a typed 7 would spend the student's attention on
-// rounding artefacts instead of on prevalence.
-const SIZES = [1000, 10000, 100000];
+function readProgress() {
+  try {
+    const raw = window.localStorage.getItem(PROGRESS_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    return Array.isArray(parsed) ? new Set(parsed.filter((v) => typeof v === 'string')) : new Set();
+  } catch {
+    return new Set();
+  }
+}
 
-// At most this many dots are drawn. Beyond it each dot stands for several
-// animals and the scale is printed — a field of 40,000 elements would say
-// nothing extra and would cost a phone its frame rate.
-const MAX_DOTS = 600;
+function writeProgress(set) {
+  try {
+    window.localStorage.setItem(PROGRESS_KEY, JSON.stringify([...set]));
+  } catch {
+    // Out of room, or storage disabled. The lesson still works for this
+    // sitting; only the memory of it is lost, which is not worth an error.
+  }
+}
 
-function Dial({ label, hint, value, min, max, step, onChange, format, tone }) {
-  const id = useId();
+/** A column count that the items actually fill, so the last row is never a
+ *  single stranded card. Five in three columns is 3 + 2, which reads as a
+ *  list; four in three is 3 + 1, which reads as a bug. */
+function columnsFor(n) {
+  if (n <= 3) return n;
+  if (n % 3 === 0) return 3;
+  if (n % 2 === 0) return 2;
+  return 3;
+}
+
+// ── blocks ───────────────────────────────────────────────────────
+function Block({ block }) {
+  switch (block.t) {
+    case 'p':
+      return <p className="vmx-lesson-p">{block.text}</p>;
+    case 'quote':
+      return <blockquote className="vmx-lesson-quote">{block.text}</blockquote>;
+    case 'note':
+      return <p className="vmx-lesson-note">{block.text}</p>;
+    case 'key':
+      return (
+        <div className="vmx-lesson-key">
+          {block.title && <p className="vmx-lesson-key__title">{block.title}</p>}
+          <p className="vmx-lesson-key__text">{block.text}</p>
+        </div>
+      );
+    case 'warn':
+      return (
+        <div className="vmx-lesson-warn">
+          {block.title && <p className="vmx-lesson-key__title">{block.title}</p>}
+          <p className="vmx-lesson-key__text">{block.text}</p>
+        </div>
+      );
+    case 'prompt':
+      return <p className="vmx-lesson-prompt">{block.text}</p>;
+    case 'table':
+      return (
+        <div className="vmx-lesson-tablewrap">
+          <table className="vmx-lesson-table">
+            <thead>
+              <tr>{block.head.map((h) => <th key={h} scope="col">{h}</th>)}</tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row) => (
+                <tr key={row[0]}>
+                  {row.map((cell, i) => (i === 0
+                    ? <th key={i} scope="row">{cell}</th>
+                    : <td key={i}>{cell}</td>))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    case 'cards':
+      return (
+        <div className="vmx-lesson-cards">
+          {block.title && <p className="vmx-lesson-cards__title">{block.title}</p>}
+          {/* An explicit column count, not auto-fit: four items in a
+              three-column track leaves one card alone on its own row, which
+              reads as a mistake rather than a list. */}
+          <ul className="vmx-lesson-cards__grid" style={{ '--cols': columnsFor(block.items.length) }}>
+            {block.items.map((it, i) => (
+              <li key={it.label} className="vmx-lesson-card">
+                {block.numbered && <span className="vmx-lesson-card__n">{i + 1}</span>}
+                <span className="vmx-lesson-card__label">{it.label}</span>
+                {it.text && <span className="vmx-lesson-card__text">{it.text}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    case 'cycle':
+      return (
+        <div className="vmx-lesson-cycle">
+          {block.title && <p className="vmx-lesson-cards__title">{block.title}</p>}
+          <ol className={`vmx-lesson-cycle__steps ${block.linear ? 'is-linear' : ''}`}>
+            {block.steps.map((s) => <li key={s}>{s}</li>)}
+          </ol>
+          {block.note && <p className="vmx-lesson-note">{block.note}</p>}
+          {!block.linear && <p className="vmx-lesson-cycle__loop">แล้ววนกลับไปที่ข้อแรก</p>}
+        </div>
+      );
+    case 'compare':
+      return (
+        <div className="vmx-lesson-compare">
+          {block.title && <p className="vmx-lesson-cards__title">{block.title}</p>}
+          <div className="vmx-lesson-compare__grid">
+            {[block.left, block.right].map((side) => (
+              <div key={side.label} className={`vmx-lesson-compare__side is-${side.tone}`}>
+                <p className="vmx-lesson-compare__label">{side.label}</p>
+                <table className="vmx-lesson-table">
+                  <thead>
+                    <tr>{block.head.map((h) => <th key={h} scope="col">{h}</th>)}</tr>
+                  </thead>
+                  <tbody>
+                    {side.rows.map(([label, before, after, tone]) => (
+                      <tr key={label}>
+                        <th scope="row">{label}</th>
+                        <td>{before}</td>
+                        <td className={`vmx-lesson-compare__after ${tone ? `is-${tone}` : ''}`}>
+                          {after}
+                          {tone === 'alarm' && <span className="vmx-sr-only"> (แย่ลง)</span>}
+                          {tone === 'good' && <span className="vmx-sr-only"> (ดีขึ้น)</span>}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </div>
+          {block.note && <p className="vmx-lesson-note">{block.note}</p>}
+        </div>
+      );
+    case 'reading':
+      return (
+        <div className="vmx-lesson-cards">
+          {block.title && <p className="vmx-lesson-cards__title">{block.title}</p>}
+          <ul className="vmx-lesson-reading">
+            {block.items.map((r) => <li key={r}>{r}</li>)}
+          </ul>
+        </div>
+      );
+    case 'bench':
+      return (
+        <div className="vmx-lesson-bench">
+          {block.note && <p className="vmx-lesson-note">{block.note}</p>}
+          <ScreeningBench />
+        </div>
+      );
+    default:
+      return null;
+  }
+}
+
+// ── a check ──────────────────────────────────────────────────────
+function Check({ check, cleared, onClear }) {
+  const [picked, setPicked] = useState(null);
+  const answered = picked !== null;
+  const correct = answered && picked === check.answer;
+
+  const choose = (i) => {
+    if (answered) return;
+    setPicked(i);
+    if (i === check.answer) onClear(check.id);
+  };
+
   return (
-    <div className="vmx-bench-dial">
-      <label className="vmx-bench-dial__head" htmlFor={id}>
-        <span className="vmx-bench-dial__label">{label}</span>
-        <output className={`vmx-bench-dial__value vmx-bench-dial__value--${tone}`} htmlFor={id}>
-          {format(value)}
-        </output>
-      </label>
-      <input
-        id={id}
-        type="range"
-        className={`vmx-bench-range vmx-bench-range--${tone}`}
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-      />
-      <p className="vmx-bench-dial__hint">{hint}</p>
+    <div className={`vmx-check ${answered ? 'is-answered' : ''} ${cleared && !answered ? 'is-cleared' : ''}`}>
+      <p className="vmx-check__q">
+        {check.q}
+        {cleared && !answered && <span className="vmx-check__done" title="เคยตอบถูกแล้ว">ตอบถูกแล้ว</span>}
+      </p>
+      <ul className="vmx-check__options">
+        {check.options.map((opt, i) => {
+          const isAnswer = i === check.answer;
+          const state = !answered ? '' : (isAnswer ? 'is-right' : (i === picked ? 'is-wrong' : ''));
+          return (
+            <li key={opt}>
+              <button
+                type="button"
+                className={`vmx-check__option ${state}`}
+                onClick={() => choose(i)}
+                disabled={answered}
+                aria-pressed={picked === i}
+              >
+                <span className="vmx-check__mark" aria-hidden="true">{String.fromCharCode(97 + i)}</span>
+                <span>{opt}</span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      {answered && (
+        <div className={`vmx-check__why ${correct ? 'is-right' : 'is-wrong'}`}>
+          <p className="vmx-check__verdict">{correct ? 'ถูกต้อง' : 'ยังไม่ใช่'}</p>
+          <p>{check.why}</p>
+        </div>
+      )}
     </div>
   );
 }
 
-/** The flagged group, one dot per animal (or per k animals when the group is
- *  larger than the field). Truly diseased first, so the eye reads a
- *  proportion instead of a texture. */
-function FlaggedField({ table }) {
-  const { flagged, tp, fp } = table;
-  const perDot = Math.max(1, Math.ceil(flagged / MAX_DOTS));
-  const dots = Math.ceil(flagged / perDot);
-  const hitDots = Math.round(tp / perDot);
-
-  if (flagged === 0) {
-    return (
-      <p className="vmx-bench-field__empty">
-        เครื่องมือนี้ไม่ปลุกสัตว์ตัวไหนเลย จึงไม่มีกลุ่ม “ผลบวก” ให้คิดสัดส่วน
-      </p>
-    );
-  }
-
-  return (
-    <figure className="vmx-bench-field">
-      <figcaption className="vmx-bench-field__caption">
-        ปลุกมาทั้งหมด <b>{nf(flagged)}</b> ตัว — เป็นโรคจริง{' '}
-        <b className="vmx-bench-hit">{nf(tp)}</b> ตัว, ปลุกผิด{' '}
-        <b className="vmx-bench-miss">{nf(fp)}</b> ตัว
-        {perDot > 1 && <span className="vmx-bench-field__scale"> · 1 จุด = {nf(perDot)} ตัว</span>}
-      </figcaption>
-      <div
-        className="vmx-bench-field__grid"
-        role="img"
-        aria-label={`จากสัตว์ที่ถูกปลุก ${nf(flagged)} ตัว เป็นโรคจริง ${nf(tp)} ตัว ที่เหลือ ${nf(fp)} ตัวเป็นการปลุกผิด`}
-      >
-        {Array.from({ length: dots }, (_, i) => (
-          <span
-            key={i}
-            className={`vmx-bench-dot ${i < hitDots ? 'is-hit' : 'is-false'}`}
-            style={{ '--d': `${Math.min(i, 120) * 4}ms` }}
-          />
-        ))}
-      </div>
-    </figure>
-  );
-}
-
-/** PPV against prevalence, with this test held still. Log x, because
- *  everything that matters happens below 10%. */
-function PrevalenceCurve({ sensitivity, specificity, prevalence, ppv }) {
-  const W = 520;
-  const H = 190;
-  const PAD = { l: 40, r: 12, t: 14, b: 28 };
-  const FROM = 0.001;
-  const TO = 0.5;
-
-  const points = useMemo(
-    () => ppvCurve({ sensitivity, specificity, from: FROM, to: TO, steps: 72 }),
-    [sensitivity, specificity],
-  );
-
-  const x = useCallback((p) => {
-    const lo = Math.log(FROM);
-    const hi = Math.log(TO);
-    const t = (Math.log(Math.min(TO, Math.max(FROM, p))) - lo) / (hi - lo);
-    return PAD.l + t * (W - PAD.l - PAD.r);
-  }, [PAD.l, PAD.r]);
-  const y = useCallback((v) => PAD.t + (1 - v) * (H - PAD.t - PAD.b), [PAD.t, PAD.b]);
-
-  const d = points
-    .filter((pt) => pt.ppv !== null)
-    .map((pt, i) => `${i === 0 ? 'M' : 'L'}${x(pt.prevalence).toFixed(1)},${y(pt.ppv).toFixed(1)}`)
-    .join(' ');
-
-  const ticks = [0.001, 0.01, 0.1, 0.5];
-  const inRange = prevalence >= FROM && prevalence <= TO;
-
-  // A test that can never flag anything has no predictive value to plot at
-  // any prevalence. Drawing the empty axes would read as a broken chart
-  // rather than as the answer, which here is that the question does not
-  // arise.
-  if (!d) {
-    return (
-      <p className="vmx-bench-field__empty">
-        เครื่องมือนี้ไม่ปลุกสัตว์ตัวไหนเลยไม่ว่าโรคจะชุกเท่าไร จึงไม่มีค่าทำนายผลบวกให้เขียนเป็นกราฟ
-      </p>
-    );
-  }
-
-  return (
-    <figure className="vmx-bench-curve">
-      <figcaption className="vmx-bench-curve__caption">
-        ถ้าเครื่องมือเดิม (Se {pct0(sensitivity)} · Sp {pct0(specificity)}) ไปใช้กับฝูงที่โรคชุกต่างกัน
-      </figcaption>
-      <svg viewBox={`0 0 ${W} ${H}`} className="vmx-bench-curve__svg" role="img"
-        aria-label={`กราฟค่าทำนายผลบวกเทียบกับความชุก ที่ความชุก ${pct1(prevalence)} ค่าทำนายผลบวกเท่ากับ ${ppv === null ? 'ไม่นิยาม' : pct1(ppv)}`}>
-        {[0, 0.25, 0.5, 0.75, 1].map((v) => (
-          <g key={v}>
-            <line x1={PAD.l} x2={W - PAD.r} y1={y(v)} y2={y(v)} className="vmx-bench-curve__grid" />
-            <text x={PAD.l - 6} y={y(v) + 4} className="vmx-bench-curve__axis" textAnchor="end">{pct0(v)}</text>
-          </g>
-        ))}
-        {ticks.map((t) => (
-          <text key={t} x={x(t)} y={H - 8} className="vmx-bench-curve__axis" textAnchor="middle">
-            {t < 0.01 ? '0.1%' : pct0(t)}
-          </text>
-        ))}
-        {d && <path d={d} className="vmx-bench-curve__line" />}
-        {inRange && ppv !== null && (
-          <g>
-            <line x1={x(prevalence)} x2={x(prevalence)} y1={y(ppv)} y2={H - PAD.b} className="vmx-bench-curve__drop" />
-            <circle cx={x(prevalence)} cy={y(ppv)} r="5" className="vmx-bench-curve__now" />
-          </g>
-        )}
-      </svg>
-      <p className="vmx-bench-curve__axis-title">ความชุกของโรคในฝูงที่คัดกรอง (แกนลอการิทึม)</p>
-    </figure>
-  );
-}
-
+// ── the view ─────────────────────────────────────────────────────
 export default function BenchView({ goHome }) {
-  const [n, setN] = useState(10000);
-  const [prevalence, setPrevalence] = useState(1);      // percent
-  const [sensitivity, setSensitivity] = useState(90);   // percent
-  const [specificity, setSpecificity] = useState(95);   // percent
-  const [guess, setGuess] = useState(null);             // null = not guessing
-  const [committed, setCommitted] = useState(null);
+  const [cleared, setCleared] = useState(() => (typeof window === 'undefined' ? new Set() : readProgress()));
+  const [active, setActive] = useState(MODULE5.sections[0].id);
+  const sectionRefs = useRef({});
 
-  const table = useMemo(
-    () => screeningTable({
-      n,
-      prevalence: prevalence / 100,
-      sensitivity: sensitivity / 100,
-      specificity: specificity / 100,
-    }),
-    [n, prevalence, sensitivity, specificity],
-  );
-
-  const applyScenario = useCallback((s) => {
-    setN(s.input.n);
-    setPrevalence(s.input.prevalence * 100);
-    setSensitivity(s.input.sensitivity * 100);
-    setSpecificity(s.input.specificity * 100);
-    setGuess(null);
-    setCommitted(null);
+  const onClear = useCallback((id) => {
+    setCleared((prev) => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.add(id);
+      writeProgress(next);
+      return next;
+    });
   }, []);
 
-  // Changing a dial invalidates a committed guess — it was a guess about a
-  // different test.
-  const onDial = useCallback((setter) => (v) => {
-    setter(v);
-    setCommitted(null);
+  const reset = useCallback(() => {
+    setCleared(new Set());
+    writeProgress(new Set());
   }, []);
 
-  const hidden = guess !== null && committed === null;
+  const total = ALL_CHECKS.length;
+  const done = useMemo(() => ALL_CHECKS.filter((c) => cleared.has(c.id)).length, [cleared]);
+
+  // Which section is on screen, so the contents list can say where you are
+  // without the page having to be a router.
+  useEffect(() => {
+    const els = MODULE5.sections.map((s) => sectionRefs.current[s.id]).filter(Boolean);
+    if (!els.length || typeof IntersectionObserver === 'undefined') return undefined;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const top = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (top?.target?.dataset?.section) setActive(top.target.dataset.section);
+      },
+      { rootMargin: '-80px 0px -60% 0px', threshold: 0 },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  const jump = (id) => {
+    sectionRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const groups = [
+    { id: 'core', label: 'บทเรียนหลัก', minutes: 60 },
+    { id: 'extended', label: 'ช่วงขยาย', minutes: 30 },
+  ];
 
   return (
-    <div className="vmx-bench">
-      <header className="vmx-bench__head">
-        <p className="vmx-bench__eyebrow">ระบาดวิทยา · โต๊ะทดลอง</p>
-        <h1 className="vmx-bench__title">ผลบวกหนึ่งครั้ง เชื่อได้แค่ไหน</h1>
-        <p className="vmx-bench__lede">
-          เครื่องมือคัดกรองที่ “แม่นมาก” ยังปลุกสัตว์ที่ไม่ได้เป็นโรคได้เป็นส่วนใหญ่
-          ถ้าโรคนั้นชุกน้อย ลองหมุนดูว่าตัวเลขไหนเป็นตัวตัดสินจริง ๆ
-        </p>
+    <div className="vmx-lesson">
+      <header className="vmx-lesson__head">
+        <div className="vmx-lesson__headmain">
+          <p className="vmx-lesson__eyebrow">{MODULE5.module} &nbsp;&#124;&nbsp; {MODULE5.course}</p>
+          <h1 className="vmx-lesson__title">{MODULE5.title}</h1>
+          <p className="vmx-lesson__sub">{MODULE5.subtitle}</p>
+          <p className="vmx-lesson__by">{MODULE5.lecturer}</p>
+        </div>
+        <div className="vmx-lesson__progress">
+          <p className="vmx-lesson__progresslabel">
+            ตอบถูกแล้ว <b>{done}</b> จาก {total} ข้อ
+          </p>
+          <div
+            className="vmx-lesson__bar"
+            role="progressbar"
+            aria-valuenow={done}
+            aria-valuemin={0}
+            aria-valuemax={total}
+            aria-label="ความคืบหน้าของบทเรียน"
+          >
+            <span style={{ width: `${(done / total) * 100}%` }} />
+          </div>
+          {done > 0 && (
+            <button type="button" className="vmx-lesson__reset" onClick={reset}>
+              เริ่มนับใหม่
+            </button>
+          )}
+        </div>
       </header>
 
-      <section className="vmx-bench__scenarios" aria-label="สถานการณ์ตั้งต้น">
-        {LECTURE_SCENARIOS.map((s) => (
-          <button
-            key={s.id}
-            type="button"
-            className="vmx-bench-scenario"
-            onClick={() => applyScenario(s)}
-          >
-            <span className="vmx-bench-scenario__label">{s.label}</span>
-            <span className="vmx-bench-scenario__note">{s.note}</span>
-          </button>
-        ))}
-      </section>
+      <p className="vmx-lesson__disclaimer">{MODULE5.disclaimer}</p>
 
-      <div className="vmx-bench__body">
-        <section className="vmx-bench__controls" aria-label="ตั้งค่าเครื่องมือและฝูงสัตว์">
-          <Dial
-            label="ความชุกของโรค" tone="gold" value={prevalence} min={0.1} max={50} step={0.1}
-            onChange={onDial(setPrevalence)} format={(v) => `${v.toFixed(1)}%`}
-            hint="สัดส่วนสัตว์ที่เป็นโรคจริงในฝูงที่เอามาคัดกรอง"
-          />
-          <Dial
-            label="Sensitivity" tone="hit" value={sensitivity} min={0} max={100} step={1}
-            onChange={onDial(setSensitivity)} format={(v) => `${v}%`}
-            hint="ในสัตว์ที่เป็นโรค เครื่องมือปลุกได้กี่เปอร์เซ็นต์"
-          />
-          <Dial
-            label="Specificity" tone="miss" value={specificity} min={0} max={100} step={1}
-            onChange={onDial(setSpecificity)} format={(v) => `${v}%`}
-            hint="ในสัตว์ที่ไม่เป็นโรค เครื่องมือปล่อยผ่านได้กี่เปอร์เซ็นต์"
-          />
-          <div className="vmx-bench-sizes">
-            <span className="vmx-bench-dial__label">จำนวนที่คัดกรอง</span>
-            <div className="vmx-bench-sizes__row" role="group" aria-label="จำนวนสัตว์ที่คัดกรอง">
-              {SIZES.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  className={`vmx-bench-size ${n === s ? 'is-on' : ''}`}
-                  aria-pressed={n === s}
-                  onClick={() => { setN(s); setCommitted(null); }}
-                >
-                  {nf(s)}
-                </button>
-              ))}
+      <div className="vmx-lesson__body">
+        <nav className="vmx-lesson__toc" aria-label="สารบัญบทเรียน">
+          {groups.map((g) => (
+            <div key={g.id} className="vmx-lesson__tocgroup">
+              <p className="vmx-lesson__tochead">{g.label} ({g.minutes} นาที)</p>
+              <ol className="vmx-lesson__toclist">
+                {MODULE5.sections.filter((s) => s.group === g.id).map((s) => {
+                  const n = MODULE5.sections.indexOf(s) + 1;
+                  const sectionChecks = s.checks.filter((c) => cleared.has(c.id)).length;
+                  return (
+                    <li key={s.id}>
+                      <button
+                        type="button"
+                        className={`vmx-lesson__tocitem ${active === s.id ? 'is-active' : ''}`}
+                        onClick={() => jump(s.id)}
+                      >
+                        <span className="vmx-lesson__tocn">{n}</span>
+                        <span className="vmx-lesson__toclabel">{s.title}</span>
+                        {s.checks.length > 0 && (
+                          <span className={`vmx-lesson__toccount ${sectionChecks === s.checks.length ? 'is-full' : ''}`}>
+                            {sectionChecks}/{s.checks.length}
+                          </span>
+                        )}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
             </div>
-          </div>
-        </section>
+          ))}
+        </nav>
 
-        <section className="vmx-bench__readout" aria-label="ผลที่ได้">
-          <div className="vmx-bench-headline">
-            <div className="vmx-bench-headline__main">
-              <p className="vmx-bench-headline__label">ในตัวที่ถูกปลุก เป็นโรคจริงกี่เปอร์เซ็นต์ (PPV)</p>
-              {hidden ? (
-                <div className="vmx-bench-guess">
-                  <output className="vmx-bench-guess__value">{guess}%</output>
-                  <input
-                    type="range" min="0" max="100" step="1" value={guess}
-                    className="vmx-bench-range vmx-bench-range--gold"
-                    aria-label="เดาค่าทำนายผลบวก"
-                    onChange={(e) => setGuess(Number(e.target.value))}
-                  />
-                  <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => setCommitted(guess)}>
-                    ดูคำตอบ
-                  </button>
+        <div className="vmx-lesson__main">
+          {MODULE5.sections.map((s, i) => (
+            <section
+              key={s.id}
+              className="vmx-lesson__section"
+              data-section={s.id}
+              ref={(el) => { sectionRefs.current[s.id] = el; }}
+              aria-labelledby={`h-${s.id}`}
+            >
+              <div className="vmx-lesson__sectionhead">
+                <span className="vmx-lesson__sectionn">{String(i + 1).padStart(2, '0')}</span>
+                <h2 className="vmx-lesson__sectiontitle" id={`h-${s.id}`}>{s.title}</h2>
+                <span className="vmx-lesson__sectionmin">{s.minutes} นาที</span>
+              </div>
+              {s.blocks.map((b, bi) => <Block key={bi} block={b} />)}
+              {s.checks.length > 0 && (
+                <div className="vmx-lesson__checks">
+                  <p className="vmx-lesson__checkshead">ลองตอบดู</p>
+                  {s.checks.map((c) => (
+                    <Check key={c.id} check={c} cleared={cleared.has(c.id)} onClear={onClear} />
+                  ))}
                 </div>
-              ) : (
-                <p className={`vmx-bench-headline__value ${table.ppv !== null && table.ppv < 0.5 ? 'is-low' : ''}`}>
-                  {table.ppv === null ? '—' : pct1(table.ppv)}
-                </p>
               )}
-              {committed !== null && (
-                <p className="vmx-bench-guess__verdict">
-                  คุณเดา <b>{committed}%</b> · จริง{' '}
-                  <b>{table.ppv === null ? 'ไม่นิยาม' : pct1(table.ppv)}</b>
-                  {table.ppv !== null && (
-                    <> — ต่างกัน {Math.abs(committed - table.ppv * 100).toFixed(1)} จุด</>
-                  )}
-                </p>
-              )}
-              {!hidden && committed === null && (
-                <button type="button" className="vmx-bench-guess__start" onClick={() => setGuess(50)}>
-                  ลองเดาก่อนดูคำตอบ
-                </button>
-              )}
-            </div>
-            <dl className="vmx-bench-headline__side">
-              <div>
-                <dt>Accuracy</dt>
-                <dd>{pct1(table.accuracy)}</dd>
-              </div>
-              <div>
-                <dt>NPV</dt>
-                <dd>{table.npv === null ? '—' : pct1(table.npv)}</dd>
-              </div>
-              <div>
-                <dt>ปลุกผิดต่อการเจอ 1 ตัว</dt>
-                <dd>{table.falseAlertsPerHit === null ? '—' : `${table.falseAlertsPerHit.toFixed(1)} ตัว`}</dd>
-              </div>
-            </dl>
-          </div>
+            </section>
+          ))}
 
-          {!hidden && <FlaggedField table={table} />}
-
-          <table className="vmx-bench-table">
-            <caption className="vmx-bench-table__caption">
-              จาก {nf(table.n)} ตัว — เป็นโรคจริง {nf(table.diseased)} ตัว
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col"><span className="vmx-sr-only">ผลของเครื่องมือ</span></th>
-                <th scope="col">เป็นโรค</th>
-                <th scope="col">ไม่เป็นโรค</th>
-                <th scope="col">รวม</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">ปลุก</th>
-                <td className="is-hit">{nf(table.tp)}</td>
-                <td className="is-false">{nf(table.fp)}</td>
-                <td>{nf(table.flagged)}</td>
-              </tr>
-              <tr>
-                <th scope="row">ไม่ปลุก</th>
-                <td className="is-missed">{nf(table.fn)}</td>
-                <td>{nf(table.tn)}</td>
-                <td>{nf(table.notFlagged)}</td>
-              </tr>
-              <tr className="vmx-bench-table__total">
-                <th scope="row">รวม</th>
-                <td>{nf(table.diseased)}</td>
-                <td>{nf(table.healthy)}</td>
-                <td>{nf(table.n)}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <PrevalenceCurve
-            sensitivity={sensitivity / 100}
-            specificity={specificity / 100}
-            prevalence={prevalence / 100}
-            ppv={table.ppv}
-          />
-        </section>
+          <footer className="vmx-lesson__foot">
+            <p>
+              เนื้อหาทั้งหมดมาจากสไลด์ {MODULE5.module} วิชา{MODULE5.course} ({MODULE5.courseNo}) โดย{MODULE5.lecturer}
+              ซึ่งอยู่ในคลังเอกสารของแอป ตัวเลขในโต๊ะทดลองคำนวณสดจากค่าที่ตั้ง ไม่ได้พิมพ์ค้างไว้
+            </p>
+            {goHome && (
+              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome}>
+                กลับหน้าแรก
+              </button>
+            )}
+          </footer>
+        </div>
       </div>
-
-      <footer className="vmx-bench__foot">
-        <p>
-          ตัวเลขทุกตัวบนหน้านี้คำนวณสด ไม่ได้พิมพ์ไว้ สถานการณ์ตั้งต้นมาจาก Veterinary
-          Epidemiology · Module 5 (อ.ชัยเดช อินทร์ไชยศรี) ซึ่งระบุไว้เองว่าเป็นตัวอย่างสมมติเพื่อการสอน
-          ไม่ใช่ผลจากฟาร์มหรือระบบจริง
-        </p>
-        {goHome && (
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome}>
-            กลับหน้าแรก
-          </button>
-        )}
-      </footer>
     </div>
   );
 }

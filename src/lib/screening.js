@@ -123,7 +123,7 @@ export const LECTURE_SCENARIOS = Object.freeze([
   {
     id: 'false-alerts',
     label: 'เครื่องมือคัดกรองในฟาร์ม',
-    note: 'Se 90% · Sp 95% · ความชุก 1% · คัดกรอง 10,000 ตัว',
+    note: 'ความไว 90% ความจำเพาะ 95% ความชุก 1% คัดกรอง 10,000 ตัว',
     source: 'Vet Epidemiology Module 5 — “False alerts matter”',
     input: { n: 10000, prevalence: 0.01, sensitivity: 0.9, specificity: 0.95 },
     // The slide's own table: flagged 585, of which 90 are truly diseased.
@@ -132,7 +132,7 @@ export const LECTURE_SCENARIOS = Object.freeze([
   {
     id: 'accuracy-trap',
     label: 'ระบบที่ตอบว่า “ปกติ” ทุกตัว',
-    note: 'Se 0% · Sp 100% · ความชุก 1% · ตรวจ 1,000 ตัว',
+    note: 'ความไว 0% ความจำเพาะ 100% ความชุก 1% ตรวจ 1,000 ตัว',
     source: 'Vet Epidemiology Module 5 — “Why 99% accurate can be misleading”',
     input: { n: 1000, prevalence: 0.01, sensitivity: 0, specificity: 1 },
     // 990 of 1,000 calls are right, and not one diseased animal is found.

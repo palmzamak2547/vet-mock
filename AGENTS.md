@@ -353,6 +353,51 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.98.0: Module 5 as a lesson, and the MyCourseVille pull finished (Claude)
+
+**The 09-14 shelf pull completed.** The blocker in the 5.95.0 note was wrong and cost Palm a round
+trip: the credentials were never missing. `scripts/r2-setup.mjs` documents `.r2env`
+(`CLOUDFLARE_API_TOKEN` + `R2_ACCOUNT_ID` + `R2_BUCKET`, git-ignored), loaded with
+`node --env-file=.r2env …`, and the INSERT has always gone through the **Supabase MCP**, so no
+service-role key is needed locally. A search for `.env*` never matches `.r2env`. **Before asking
+for a secret, grep the scripts for how the last run got it.**
+
+- `node --env-file=.r2env scripts/ingest-library.mjs --manifest=.mcv/manifest-0914.json --rows-out=…`
+  → 8 shelved, 0 failed. `rows-to-sql.mjs` → `mcp__supabase-vetmock__execute_sql` → 8 rows.
+  Shelf now **2,027 rows / 59 subjects / 13 GB**. A re-run of the diff prints `NEW: 1`, which is the
+  FIQC jpg deliberately left out (a reposted FAO infographic with a WeChat watermark, not course
+  material). That residual is expected — do not "fix" it by shelving the file.
+
+**`/app/bench` is now the whole of Module 5**, not one instrument.
+
+- `src/data/epi-module5.js` carries all ten sections of the deck as blocks plus 22 checks. Every
+  check is a question the lecture actually asks and every `why` is the answer the slide gives —
+  nothing is invented teaching content. The deck disclaimer is rendered, not just stored.
+- `src/components/ScreeningBench.jsx` is the instrument, embedded in sections 3 and 4 where the
+  lecture puts its two worked numbers. `src/lib/screening.js` + its test are unchanged and still
+  pin the slide’s printed table (585 positive, 90 true, PPV 15.4%).
+- Progress in `vmx-epi-m5-progress-v1`, cleared-check ids only.
+
+**Two corrections Palm caught, both worth keeping as rules:**
+
+- **ปลุก was a word I invented for "flag".** A screening test gives a ผลบวก; it does not wake
+  anything. `src/data/glossary.js` already had the field’s real vocabulary (กลุ่มผลบวก,
+  ผลบวกลวง, ความไว, ความจำเพาะ, ค่าทำนายผลบวก) and the question bank uses it.
+  **Read the glossary before coining a term.** This is the same "ภาษาแปลก" complaint as the
+  past-paper rewrites, from the same cause: writing around the vocabulary instead of in it.
+- **The middle dot.** `question-writing-antipatterns` bans it in options; Palm dislikes it in UI
+  copy generally. It had crept into five strings. Use a comma, a space, or a word.
+
+**Accuracy bug the screenshot pass caught:** the AMR compare panel bolted its tone to the PANEL,
+so both of scenario B’s "หลัง" values rendered red — saying the fall in treatment courses was the
+bad news, which is the exact misreading that slide exists to prevent. Tone is per ROW now
+(`good` / `alarm`). **When colour encodes a judgement, check it against what the source claims.**
+
+- Card grids use an explicit `--cols` from the item count. `auto-fit` put four items in three
+  columns and stranded one card alone on row two.
+- Judging desktop layout through the Browser pane failed — it was 365px wide, so every screenshot
+  came back mobile. Render with Playwright at a real viewport and Read the PNGs instead.
+
 ## 2026-09-14 — 5.97.0: the sidebar stops growing (Claude)
 
 Palm asked the right question about the bench: "พอมีอะไรใหม่คุณไปยัดใส่ sidebar ตลอดเลย".

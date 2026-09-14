@@ -4711,3 +4711,188 @@ body.vmx-reading .vmx-pdf-body {
   font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums;
   color: var(--clr-ink-soft);
 }
+
+/* ── Module 5 lesson (/app/bench) ───────────────────────────────────
+   A worked-through lecture, not a document: the contents list tracks
+   position, each section ends in checks that answer back. Colour carries
+   meaning only where it means something — right/wrong on a check, good/bad
+   on the AMR comparison — so the reading column stays plain. */
+.vmx-lesson { display: flex; flex-direction: column; gap: var(--space-5); }
+
+.vmx-lesson__head {
+  display: flex; flex-wrap: wrap; gap: var(--space-5);
+  align-items: flex-start; justify-content: space-between;
+  padding-bottom: var(--space-4); border-bottom: 1px solid var(--clr-border);
+}
+.vmx-lesson__headmain { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.vmx-lesson__eyebrow {
+  margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--clr-gold-text);
+}
+.vmx-lesson__title {
+  margin: 0; font-family: var(--vmx-display); font-size: clamp(28px, 4.6vw, 40px);
+  line-height: 1.15; text-wrap: balance; color: var(--clr-ink);
+}
+.vmx-lesson__sub { margin: 0; font-size: 17px; line-height: 1.5; color: var(--clr-ink-soft); max-width: 54ch; }
+.vmx-lesson__by { margin: var(--space-1) 0 0; font-size: 14px; font-weight: 600; color: var(--clr-sage-text); }
+
+.vmx-lesson__progress { flex: 0 1 260px; display: flex; flex-direction: column; gap: var(--space-2); }
+.vmx-lesson__progresslabel { margin: 0; font-size: 13px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-lesson__progresslabel b { color: var(--clr-ink); font-size: 17px; font-family: var(--vmx-display); }
+.vmx-lesson__bar { height: 8px; border-radius: var(--r-pill); background: var(--clr-bg); border: 1px solid var(--clr-border); overflow: hidden; }
+.vmx-lesson__bar > span { display: block; height: 100%; background: var(--clr-sage); transition: width 320ms ease; }
+.vmx-lesson__reset {
+  align-self: flex-start; padding: 0; background: none; border: 0; cursor: pointer;
+  font-size: 12px; color: var(--clr-ink-soft); text-decoration: underline;
+}
+.vmx-lesson__disclaimer {
+  margin: 0; padding: var(--space-3) var(--space-4); font-size: 12px; line-height: 1.6;
+  color: var(--clr-ink-soft); background: var(--clr-surface);
+  border: 1px dashed var(--clr-border); border-radius: var(--r-md);
+}
+
+.vmx-lesson__body { display: grid; grid-template-columns: minmax(0, 250px) minmax(0, 1fr); gap: var(--space-8); align-items: start; }
+.vmx-lesson__toc { position: sticky; top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-5); max-height: calc(100vh - 80px); overflow-y: auto; }
+.vmx-lesson__tochead { margin: 0 0 var(--space-2); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-lesson__toclist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.vmx-lesson__tocitem {
+  display: flex; align-items: baseline; gap: var(--space-2); width: 100%;
+  padding: 7px var(--space-2); text-align: left; cursor: pointer;
+  background: none; border: 0; border-radius: var(--r-sm);
+  font-size: 13px; line-height: 1.4; color: var(--clr-ink-soft);
+}
+.vmx-lesson__tocitem:hover { background: var(--clr-surface); color: var(--clr-ink); }
+.vmx-lesson__tocitem.is-active { background: var(--clr-surface); color: var(--clr-ink); font-weight: 700; }
+.vmx-lesson__tocn { flex: 0 0 auto; font-size: 11px; font-variant-numeric: tabular-nums; color: var(--clr-gold-text); font-weight: 700; }
+.vmx-lesson__toclabel { flex: 1 1 auto; min-width: 0; }
+.vmx-lesson__toccount {
+  flex: 0 0 auto; font-size: 11px; font-variant-numeric: tabular-nums;
+  color: var(--clr-ink-soft); opacity: 0.8;
+}
+.vmx-lesson__toccount.is-full { color: var(--clr-sage-text); opacity: 1; font-weight: 700; }
+
+.vmx-lesson__main { min-width: 0; display: flex; flex-direction: column; gap: var(--space-12); }
+.vmx-lesson__section { display: flex; flex-direction: column; gap: var(--space-4); scroll-margin-top: var(--space-6); }
+.vmx-lesson__sectionhead { display: flex; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
+.vmx-lesson__sectionn { font-family: var(--vmx-display); font-size: 15px; color: var(--clr-gold-text); font-variant-numeric: tabular-nums; }
+.vmx-lesson__sectiontitle { margin: 0; flex: 1 1 auto; font-family: var(--vmx-display); font-size: clamp(21px, 3vw, 27px); line-height: 1.25; color: var(--clr-ink); text-wrap: balance; }
+.vmx-lesson__sectionmin { font-size: 12px; color: var(--clr-ink-soft); }
+
+.vmx-lesson-p { margin: 0; line-height: 1.75; color: var(--clr-ink); max-width: 68ch; }
+.vmx-lesson-note { margin: 0; font-size: 13px; line-height: 1.7; color: var(--clr-ink-soft); max-width: 72ch; }
+.vmx-lesson-quote {
+  margin: 0; padding: var(--space-4) var(--space-5); line-height: 1.75; color: var(--clr-ink);
+  background: var(--clr-surface); border-left: 3px solid var(--clr-sage);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+}
+.vmx-lesson-prompt {
+  margin: 0; padding: var(--space-4) var(--space-5); font-family: var(--vmx-display);
+  font-size: 19px; line-height: 1.7; color: var(--clr-ink);
+  background: var(--clr-surface); border: 1px solid var(--clr-gold); border-radius: var(--r-md);
+}
+.vmx-lesson-key, .vmx-lesson-warn {
+  padding: var(--space-4) var(--space-5); border-radius: var(--r-md);
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-left: 3px solid var(--clr-sage);
+}
+.vmx-lesson-warn { border-left-color: var(--clr-rose); }
+.vmx-lesson-key__title { margin: 0 0 var(--space-1); font-size: 13px; font-weight: 700; color: var(--clr-sage-text); }
+.vmx-lesson-warn .vmx-lesson-key__title { color: var(--clr-rose-text); }
+.vmx-lesson-key__text { margin: 0; line-height: 1.7; color: var(--clr-ink); }
+
+.vmx-lesson-tablewrap { overflow-x: auto; }
+.vmx-lesson-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.vmx-lesson-table th, .vmx-lesson-table td {
+  padding: var(--space-2) var(--space-3); text-align: left; vertical-align: top;
+  border-bottom: 1px solid var(--clr-border); line-height: 1.55;
+}
+.vmx-lesson-table thead th { font-size: 12px; font-weight: 700; color: var(--clr-ink-soft); white-space: nowrap; }
+.vmx-lesson-table tbody th { font-weight: 700; color: var(--clr-ink); }
+.vmx-lesson-table td { color: var(--clr-ink-soft); }
+
+.vmx-lesson-cards__title { margin: 0 0 var(--space-3); font-size: 14px; font-weight: 700; color: var(--clr-ink); }
+.vmx-lesson-cards__grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: var(--space-3); }
+.vmx-lesson-card {
+  display: flex; flex-direction: column; gap: 3px; min-width: 0;
+  padding: var(--space-3) var(--space-4); background: var(--clr-surface);
+  border: 1px solid var(--clr-border); border-radius: var(--r-md);
+}
+.vmx-lesson-card__n { font-family: var(--vmx-display); font-size: 13px; color: var(--clr-gold-text); }
+.vmx-lesson-card__label { font-weight: 700; color: var(--clr-ink); line-height: 1.45; }
+.vmx-lesson-card__text { font-size: 13px; line-height: 1.55; color: var(--clr-ink-soft); }
+
+.vmx-lesson-cycle__steps { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: stretch; }
+.vmx-lesson-cycle__steps li {
+  flex: 1 1 180px; padding: var(--space-3); background: var(--clr-surface);
+  border: 1px solid var(--clr-border); border-radius: var(--r-md);
+  font-size: 14px; line-height: 1.45; color: var(--clr-ink);
+}
+.vmx-lesson-cycle__loop { margin: var(--space-2) 0 0; font-size: 12px; font-style: italic; color: var(--clr-ink-soft); }
+
+.vmx-lesson-compare__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); }
+.vmx-lesson-compare__side { padding: var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface); }
+.vmx-lesson-compare__side.is-good { border-left: 3px solid var(--clr-sage); }
+.vmx-lesson-compare__side.is-bad { border-left: 3px solid var(--clr-rose); }
+.vmx-lesson-compare__label { margin: 0 0 var(--space-2); font-weight: 700; color: var(--clr-ink); }
+/* Tone is per ROW. In scenario B the drop in treatment courses is real
+   improvement and only the deaths worsened; painting the whole panel red
+   would say the opposite of what the slide teaches. */
+.vmx-lesson-compare__after.is-alarm { color: var(--clr-rose-text); font-weight: 700; }
+.vmx-lesson-compare__after.is-good { color: var(--clr-sage-text); font-weight: 700; }
+.vmx-lesson-compare .vmx-lesson-table td { font-variant-numeric: tabular-nums; text-align: right; }
+.vmx-lesson-compare .vmx-lesson-table thead th:not(:first-child) { text-align: right; }
+
+.vmx-lesson-reading { margin: 0; padding-left: var(--space-5); display: flex; flex-direction: column; gap: var(--space-1); font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-lesson-bench { display: flex; flex-direction: column; gap: var(--space-3); }
+
+/* ── checks ─────────────────────────────────────────────────────── */
+.vmx-lesson__checks { display: flex; flex-direction: column; gap: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--clr-border); }
+.vmx-lesson__checkshead { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-gold-text); }
+.vmx-check { display: flex; flex-direction: column; gap: var(--space-3); }
+.vmx-check__q { margin: 0; font-weight: 700; line-height: 1.6; color: var(--clr-ink); }
+.vmx-check__done { margin-left: var(--space-2); font-size: 11px; font-weight: 600; color: var(--clr-sage-text); }
+.vmx-check__options { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-2); }
+.vmx-check__option {
+  display: flex; align-items: flex-start; gap: var(--space-3); width: 100%;
+  padding: var(--space-3) var(--space-4); text-align: left; cursor: pointer;
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-radius: var(--r-md); color: var(--clr-ink); line-height: 1.6;
+  transition: border-color 140ms ease;
+}
+.vmx-check__option:hover:not(:disabled) { border-color: var(--clr-sage); }
+.vmx-check__option:disabled { cursor: default; }
+.vmx-check__mark {
+  flex: 0 0 22px; height: 22px; display: grid; place-items: center;
+  border-radius: var(--r-pill); background: var(--clr-bg);
+  border: 1px solid var(--clr-border); font-size: 12px; font-weight: 700;
+  color: var(--clr-ink-soft);
+}
+.vmx-check__option.is-right { border-color: var(--clr-sage); background: var(--clr-surface); }
+.vmx-check__option.is-right .vmx-check__mark { background: var(--clr-sage); border-color: var(--clr-sage); color: var(--clr-sage-on); }
+.vmx-check__option.is-wrong { border-color: var(--clr-rose); }
+.vmx-check__option.is-wrong .vmx-check__mark { background: var(--clr-rose); border-color: var(--clr-rose); color: var(--clr-rose-on); }
+.vmx-check__why {
+  padding: var(--space-3) var(--space-4); border-radius: var(--r-md);
+  background: var(--clr-surface); border-left: 3px solid var(--clr-sage);
+  font-size: 14px; line-height: 1.7; color: var(--clr-ink);
+}
+.vmx-check__why.is-wrong { border-left-color: var(--clr-rose); }
+.vmx-check__why p { margin: 0; }
+.vmx-check__verdict { font-weight: 700; color: var(--clr-sage-text); margin-bottom: 2px !important; }
+.vmx-check__why.is-wrong .vmx-check__verdict { color: var(--clr-rose-text); }
+
+.vmx-lesson__foot { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; padding-top: var(--space-4); border-top: 1px solid var(--clr-border); }
+.vmx-lesson__foot p { margin: 0; flex: 1 1 340px; font-size: 12px; line-height: 1.6; color: var(--clr-ink-soft); }
+
+@media (max-width: 700px) {
+  .vmx-lesson-cards__grid { grid-template-columns: minmax(0, 1fr); }
+  .vmx-lesson-cycle__steps li { flex-basis: 100%; }
+}
+@media (max-width: 900px) {
+  .vmx-lesson__body { grid-template-columns: minmax(0, 1fr); }
+  .vmx-lesson__toc { position: static; max-height: none; }
+  .vmx-lesson__main { gap: var(--space-10); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-lesson__bar > span { transition: none; }
+}
