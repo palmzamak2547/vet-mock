@@ -200,6 +200,16 @@ const PATHS = {
       <path d="M14 3v4h4" />
     </>
   ),
+  // 2x2 contingency table with the cell that decides it marked — the
+  // screening bench. A target glyph would have been the obvious pick and is
+  // exactly the emoji this file exists to replace.
+  grid2x2: (
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M12 3v18M3 12h18" />
+      <circle cx="7.6" cy="7.6" r="1.7" />
+    </>
+  ),
   calendar: (
     <>
       <rect x="3" y="5" width="18" height="16" rx="2" />

@@ -353,6 +353,37 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.97.0: the sidebar stops growing (Claude)
+
+Palm asked the right question about the bench: "พอมีอะไรใหม่คุณไปยัดใส่ sidebar ตลอดเลย".
+He was right, and it was already broken, not hypothetical.
+
+- **Measured before designing.** At 1280x640 (a 1366x768 laptop) the nav overflowed its
+  container by **153px** — `กระดานทบทวน` sat 106px below the fold behind a nested
+  `overflow-y: auto` with no affordance. The `learn` category rendered 1:1 into the rail, so it
+  was append-only: 8 rows and one more per feature shipped, forever.
+- **`tools` never had this problem** — 17 features and zero sidebar rows, because it lives in
+  the FAB + palette. The fix is to give `learn` the same treatment, not to prune it by hand.
+- `src/lib/nav-usage.js`: count opens per destination, rank `count desc, registry order asc`,
+  cap at 6, hand the rest to the palette. **Counts are read once per mount and the order is
+  frozen** — a menu that re-sorts while on screen moves the row out from under the cursor of
+  the person reaching for it. Recorded in `setView` (App.jsx), the one choke point every
+  navigation passes through, so the sidebar, the palette and a Home card all feed it.
+- Registry order is the tiebreak, so a fresh install is not random and a newly shipped feature
+  placed high in the registry is visible on day one without any "new feature" state machine.
+- **The overflow row is `position: sticky; bottom: 0`.** A cap of 6 still overflows a 640px
+  viewport (608 vs 497), and an escape hatch below the fold is not an escape hatch. Pinned, it
+  is the one row always reachable however short the window. Needs an opaque background — rows
+  scroll under it.
+- One flaw the tests caught before it shipped: the trim that keeps the record small could evict
+  the entry that had just been incremented, so re-opening a destination reset its count every
+  time. Same `protectKey` rule `storage-gc` already uses — the view being opened always
+  survives its own write.
+- Net: 14 rows → 13, overflow 153px → 111px with the hatch always visible, and the row count is
+  now **bounded** — shipping a learn feature adds nothing to anyone’s rail.
+- Also 5.96.0 follow-up: the bench fell back to the raw emoji 🎯 in the rail, which is exactly
+  what `NavIcon` exists to prevent (its own header says so). Added a `grid2x2` line icon.
+
 ## 2026-09-14 — 5.96.0: the screening bench, and the MyCourseVille pull (Claude)
 
 **Screening bench** — `/app/bench`, built from Veterinary Epidemiology Module 5 (3107508,

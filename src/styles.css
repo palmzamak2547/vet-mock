@@ -4688,3 +4688,26 @@ body.vmx-reading .vmx-pdf-body {
   .vmx-bench-dot { animation: none; }
   .vmx-bench-scenario:hover { transform: none; }
 }
+
+/* The rail's overflow row — everything the cap left out, handed to the
+   command palette rather than given permanent rows. Quieter than a real
+   destination, because it is a door, not a place.
+
+   Sticky to the bottom of the scrolling nav: on a 1366x768 laptop the list
+   still outgrows the viewport, and an escape hatch that is itself below the
+   fold is no escape at all. Pinned, it is the one row that is always
+   reachable however short the window gets. The background must be opaque —
+   rows scroll underneath it. */
+.vmx-sidebar-more {
+  position: sticky;
+  bottom: 0;
+  color: var(--clr-ink-soft);
+  background: var(--vmx-surface);
+  box-shadow: 0 -8px 12px -8px rgba(0, 0, 0, 0.18);
+}
+.vmx-sidebar-count {
+  margin-left: auto; padding: 1px 7px; border-radius: var(--r-pill);
+  background: var(--clr-bg); border: 1px solid var(--clr-border);
+  font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums;
+  color: var(--clr-ink-soft);
+}

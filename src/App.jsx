@@ -54,6 +54,7 @@ import { computePromotion, stashPromotion, NIGHT_RANK_EVENT } from './lib/night-
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { appPathForView, isAppPath, viewForAppPath, frontDoorFor } from './lib/view-route.js';
+import { recordViewOpen } from './lib/nav-usage.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import { SEMESTER } from './data/semester.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from './lib/question-prediction.js';
@@ -890,6 +891,10 @@ export default function App() {
   const setView = useCallback((next, navigationState = null) => {
     if (!next || next === viewRef.current) return;
     const previous = viewRef.current;
+    // Every navigation passes through here whatever opened it — a sidebar
+    // row, the palette, a card on Home — so this is the one place the
+    // sidebar's ranking can learn from without each caller remembering to.
+    recordViewOpen(next);
     const enteringLab = next === 'lab';
     const nextVideoSubject = next === 'videos'
       ? navigationState?.subject || null
@@ -2690,6 +2695,7 @@ export default function App() {
             signedIn={!!user}
             hasSupabase={hasSupabase}
             scaffold={Boolean(YEARS.find((year) => year.id === selectedYear)?.scaffold)}
+            setPaletteOpen={setPaletteOpen}
             selectedYear={selectedYear}
           />
         )}

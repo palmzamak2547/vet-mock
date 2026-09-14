@@ -39,9 +39,10 @@
 // is not smuggled in here.
 // ============================================================
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { NAV_ITEMS, runNav, isNavActive } from '../lib/nav.js';
 import { featuresByCategory, visibleFeatures } from '../lib/feature-registry.js';
+import { splitForSidebar, readUsage } from '../lib/nav-usage.js';
 import { LATEST_CHANGELOG } from '../data/latest-changelog.generated.js';
 import NavIcon from './NavIcon.jsx';
 import Wordmark from './Wordmark.jsx';
@@ -50,6 +51,7 @@ import Mochi from './Mochi.jsx';
 export default function Sidebar({
   view, setView, goHome, setSubject, setPracticeMode, setMode, onMockExam,
   signedIn = false, hasSupabase = true, scaffold = false, selectedYear,
+  setPaletteOpen,
 }) {
   const handlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam };
   const activeIndex = NAV_ITEMS.findIndex((item) => isNavActive(item.id, view));
@@ -67,13 +69,24 @@ export default function Sidebar({
     pinboard: 'pin',
     library: 'files',
     atlas: 'atlas',
+    bench: 'grid2x2',
   };
 
   // Destinations the primary rows already own — see the note above.
   const primaryViews = new Set(NAV_ITEMS.map((item) => (item.id === 'wiki' ? 'knowledge' : item.id)));
-  const learn = visibleFeatures(featuresByCategory('learn'), {
+  const learnAll = visibleFeatures(featuresByCategory('learn'), {
     signedIn, hasSupabase, scaffold, selectedYear,
   }).filter((f) => f.invoke?.kind === 'view' && !primaryViews.has(f.invoke.view));
+
+  // The rail is a shortcut list, not a site map — the palette is the site
+  // map. Read the counts ONCE per mount and freeze the order: a list that
+  // re-sorts while it is on screen moves the row out from under the cursor
+  // of the person reaching for it.
+  const { visible: learn, rest: learnRest } = useMemo(
+    () => splitForSidebar(learnAll, readUsage()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [learnAll.map((f) => f.id).join(',')],
+  );
 
   return (
     <aside className="vmx-sidebar">
@@ -138,6 +151,18 @@ export default function Sidebar({
                   </button>
                 );
               })}
+              {learnRest.length > 0 && setPaletteOpen && (
+                <button
+                  type="button"
+                  className="vmx-nav-row is-secondary vmx-sidebar-more"
+                  title={learnRest.map((f) => f.label).join(' · ')}
+                  onClick={() => setPaletteOpen(true)}
+                >
+                  <span className="vmx-sidebar-icon" aria-hidden="true"><NavIcon name="more" size={17} /></span>
+                  <span className="vmx-sidebar-label">ทั้งหมด</span>
+                  <span className="vmx-sidebar-count" aria-hidden="true">+{learnRest.length}</span>
+                </button>
+              )}
             </div>
           </>
         )}
