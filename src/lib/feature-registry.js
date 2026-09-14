@@ -194,7 +194,11 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'schedule' },
   },
   {
-    id: 'bench', category: 'learn',
+    // `rail: false` — a lesson is content, not a destination. This is one
+    // module of one year-5 subject, so it lives on that subject's page
+    // (src/data/lessons.js) and stays out of a rail that every year sees.
+    // The entry remains so the command palette can still find it by name.
+    id: 'bench', category: 'learn', rail: false, years: [5],
     label: 'ระบาดวิทยา Module 5', labelEn: 'Epidemiology Module 5', icon: '🎯',
     hint: 'สัตวแพทย์ในวันข้างหน้า บทเรียนพร้อมโจทย์ 22 ข้อ และโต๊ะทดลองผลตรวจ',
     kw: 'bench screening ppv npv sensitivity specificity prevalence ระบาดวิทยา epidemiology module 5 ความชุก ความไว ความจำเพาะ คัดกรอง ผลบวก ผลบวกลวง 2x2 amr one health big data ai อนาคต สัตวแพทย์',

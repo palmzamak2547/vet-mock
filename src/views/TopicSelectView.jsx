@@ -8,6 +8,7 @@ import { createStudyCatalog } from '../lib/study-catalog.js';
 import { announced } from '../data/curriculum.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { takeViewIntent } from '../lib/feature-registry.js';
+import { lessonsForSubject } from '../data/lessons.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -262,6 +263,21 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <div className="title">คลังเอกสาร</div>
           <div className="sub">{shelfDocs > 0 ? `เอกสารจริง ${shelfDocs} ไฟล์ของวิชานี้` : 'ยังไม่มีเอกสารในวิชานี้'}</div>
         </button>
+
+        {/* Interactive lessons belong to their subject, not to the left rail:
+            a year-5 module is not a destination a first year should walk past
+            on every screen. */}
+        {lessonsForSubject(subject).map((lesson) => (
+          <button
+            key={lesson.id}
+            className="vmx-mode-card"
+            onClick={() => setView(lesson.view)}
+          >
+            <div className="icon"><NavIcon name="grid2x2" size={20} /></div>
+            <div className="title">{lesson.title}</div>
+            <div className="sub">{lesson.sub}</div>
+          </button>
+        ))}
       </div>
 
       {subjectMeta?.examFormat && (

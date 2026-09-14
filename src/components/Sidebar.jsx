@@ -76,7 +76,11 @@ export default function Sidebar({
   const primaryViews = new Set(NAV_ITEMS.map((item) => (item.id === 'wiki' ? 'knowledge' : item.id)));
   const learnAll = visibleFeatures(featuresByCategory('learn'), {
     signedIn, hasSupabase, scaffold, selectedYear,
-  }).filter((f) => f.invoke?.kind === 'view' && !primaryViews.has(f.invoke.view));
+  }).filter((f) => f.invoke?.kind === 'view'
+    && !primaryViews.has(f.invoke.view)
+    // A feature can opt out of the rail. Lessons do: they belong to one
+    // subject and one year, and the rail is the same list for everybody.
+    && f.rail !== false);
 
   // The rail is a shortcut list, not a site map — the palette is the site
   // map. Read the counts ONCE per mount and freeze the order: a list that

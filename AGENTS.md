@@ -353,6 +353,28 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.98.1: a lesson is content, not a destination (Claude)
+
+Palm, on finding "ระบาดวิทยา Module 5" in the left rail: "อย่าลืมสิเรามีชั้นปีอื่นด้วย
+มันไม่ควรอยู่ sidebar ตั้งแต่แรกแล้ว". Correct, and a sharper point than the 5.97.0 one — that
+release bounded the rail's LENGTH but left the wrong thing in it. **The rail is one list shared
+by every year.** A single module of one year-5 subject is content; it was never a destination.
+
+- `src/data/lessons.js` registers a lesson against its SUBJECT. `TopicSelectView` renders it as a
+  study-resource card in the สื่อเรียนและโหมดสอบ tab, beside สรุปบทเรียน, VetWiki and คลังเอกสาร —
+  where someone taking that subject already looks.
+- `rail: false` on the registry entry, honoured by `Sidebar`. The entry stays so the command
+  palette still finds it by name; `years: [5]` keeps it out of every other year entirely
+  (verified: year 3 does not see it in the registry at all).
+- **Rule for anything built from one subject's material: register it in `lessons.js`, not as a
+  rail destination.** The rail holds what is true for every student.
+
+- Verification trap worth knowing: `/app/study` is filtered by the selected PHASE, so a year-5
+  browser with the default phase shows only three subjects and ระบาดวิทยา is absent. Clearing
+  `vmx-selected-phase` shows all 17. And `TopicSelectView` opens on the ฝึกตามหัวข้อ tab — the
+  study-resource cards live behind สื่อเรียนและโหมดสอบ, so a check that only looks at first paint
+  reports the card missing when it is there.
+
 ## 2026-09-14 — 5.98.0: Module 5 as a lesson, and the MyCourseVille pull finished (Claude)
 
 **The 09-14 shelf pull completed.** The blocker in the 5.95.0 note was wrong and cost Palm a round
