@@ -194,6 +194,13 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'schedule' },
   },
   {
+    id: 'bench', category: 'learn',
+    label: 'โต๊ะทดลองผลตรวจ', labelEn: 'Screening Bench', icon: '🎯',
+    hint: 'ผลบวกหนึ่งครั้งเชื่อได้แค่ไหน — Se, Sp, ความชุก, PPV',
+    kw: 'bench screening ppv npv sensitivity specificity prevalence ระบาดวิทยา ความชุก ความไว ความจำเพาะ คัดกรอง ผลบวก epidemiology 2x2',
+    invoke: { kind: 'view', view: 'bench' },
+  },
+  {
     id: 'pinboard', category: 'learn',
     label: 'กระดานทบทวน', labelEn: 'Pinboard', icon: '📌',
     hint: 'รวมข้อและบันทึกที่เก็บไว้',

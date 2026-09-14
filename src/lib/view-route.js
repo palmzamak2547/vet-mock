@@ -33,6 +33,7 @@ const VIEW_TO_PATH = Object.freeze({
   'phase-wrapped': '/app/wrapped',
   contribute: '/app/contribute',
   'review-queue': '/app/review-queue',
+  bench: '/app/bench',
 });
 
 const PATH_TO_VIEW = new Map(

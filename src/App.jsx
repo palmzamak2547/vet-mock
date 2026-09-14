@@ -150,6 +150,10 @@ const PinboardView = lazy(() => import('./views/PinboardView.jsx'));
 const ContributeView = lazy(() => import('./views/ContributeView.jsx'));
 const ReviewQueueView = lazy(() => import('./views/ReviewQueueView.jsx'));
 
+// BenchView — the screening-test bench. Self-contained and rarely the first
+// screen of a session, so it stays out of the main bundle.
+const BenchView = lazy(() => import('./views/BenchView.jsx'));
+
 // HighlightToCard — listens for text selections inside
 // .vmx-summary-body (SummaryModal content) and offers a floating
 // "✨ ทำ flashcard" button that opens a save modal. Lazy because
@@ -292,7 +296,7 @@ const IS_LOCAL_HOST = typeof window !== 'undefined'
 const WIDE_VIEWS = new Set([
   'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
   'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate', 'library',
-  'image-occlusion', 'knowledge', 'wiki', 'atlas', 'mochi',
+  'image-occlusion', 'knowledge', 'wiki', 'atlas', 'mochi', 'bench',
 ]);
 
 // Focus views intentionally remove navigation chrome. In particular, hiding
@@ -2820,6 +2824,7 @@ export default function App() {
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
               {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
+              {view === 'bench' && <BenchView goHome={goHome} />}
               {view === 'race' && user && <RaceView key={user?.id ?? 'guest'} goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
               {view === 'atlas' && <AtlasView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} theme={theme} onToggleTheme={() => setTheme(current => current === 'dark' ? 'light' : 'dark')} />}

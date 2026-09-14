@@ -162,6 +162,10 @@ export const OG_COVERS = [
     description: 'วิธีใช้ VetMock และเบื้องหลังการทำคลังข้อสอบ',
     cover: 'เรื่องเรียน นอกห้องเรียน',
     indexable: true },
+  { id: 'bench', route: '/app/bench',
+    title: 'โต๊ะทดลองผลตรวจ',
+    description: 'ผลบวกหนึ่งครั้งเชื่อได้แค่ไหน — หมุน Se, Sp และความชุก แล้วดู PPV ขยับ',
+    cover: 'ผลบวกหนึ่งครั้ง เชื่อได้แค่ไหน' },
 ];
 
 export const OG_IMAGE_WIDTH = 1200;

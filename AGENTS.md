@@ -353,6 +353,60 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.96.0: the screening bench, and the MyCourseVille pull (Claude)
+
+**Screening bench** — `/app/bench`, built from Veterinary Epidemiology Module 5 (3107508,
+อ.ชัยเดช อินทร์ไชยศรี, 2026/1), which is one of the nine files this session shelved.
+
+- `src/lib/screening.js` is the whole calculation and is the only place it lives. Every figure
+  on the page derives from four dials; nothing is typed in. `LECTURE_SCENARIOS` carries the
+  slide's own printed numbers as `expect`, and `tests/unit/screening.test.mjs` recomputes them —
+  so if the maths ever stops agreeing with the course, the build fails instead of a student
+  being misled. The lecture prints flagged 585 / PPV 15.4% and the bench reproduces it exactly.
+- **PPV of an empty column is `null`, not 0.** The "labels every animal healthy" scenario flags
+  nobody; reporting 0% would assert that everything flagged was healthy, which is a different
+  and false claim. The view renders `—` plus a sentence, and the prevalence curve is replaced by
+  a sentence too rather than drawing empty axes that read as a broken chart.
+- Cell counts are rounded once per split with the partner taking the remainder, so the four
+  cells always sum to n. Rounding each cell independently would let the table disagree with its
+  own total — pinned across 240 input combinations.
+- Registration for a new view is four places and lint catches the fifth: `view-route.js`,
+  `feature-registry.js`, the lazy import + render in `App.jsx`, `WIDE_VIEWS` — and then
+  `og-covers.js` **plus a real 1200x630 `public/og/<id>.png`**, which `lint:og` and
+  `og-head.test.mjs` both enforce.
+- **The cover number is the array index.** `pinboard` sits at index 27 and its image prints
+  "/ 27". Inserting a row mid-array would silently invalidate the printed number on every later
+  cover, so a new cover is APPENDED. bench is index 34 and prints "/ 34".
+- The 33 existing covers came from a design study with no generator. the bench cover was rendered by
+  screenshotting an HTML file in Playwright at 1200x630 using `public/Sarabun/*.ttf` — a PDF
+  text writer does not shape Thai marks correctly, a browser does. The HTML and the runner are
+  in this session scratchpad (`og-bench.html`, `make-og-bench.mjs`); only the PNG is
+  committed, matching how the other 33 are held.
+
+**MyCourseVille, 2026-09-14** — the first pull since 09-09.
+
+- `.mcv/dump-current.py` → 105 files on 2026/1 (96 on 09-09). `diff-current.mjs 0914`: 86
+  already shelved, 10 external links already shelved, **9 new, 0 duplicates**.
+- **One of the nine was not course material and was dropped.** The FIQC "AddFile" jpg is a
+  reposted infographic of FAO agricultural-production values carrying a WeChat account
+  watermark. Shelving it under `attribution: คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์` with
+  `license: instructor-permission` would have been false on both counts. **Look at a file before
+  shelving it — the folder it sits in is not evidence of what it is.**
+- The remaining 8 (53 MB, all year 5) are staged in `.mcv/manifest-0914.json` with licence,
+  evidence, status and attribution filled on the 09-09 pattern, and `--dry-run` reports
+  "8 shelved · 0 already there · 0 failed". Six are the Epidemiology Module 1-5 + Study Design
+  decks, one Avian, one One Health.
+- **BLOCKED on credentials.** `ingest-library.mjs` needs `R2_ACCOUNT_ID`,
+  `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` and `SUPABASE_SERVICE_ROLE_KEY`;
+  `.env.local` holds only the Supabase URL + anon key and none of the five are in the
+  environment or anywhere on disk. They were supplied per-invocation on 09-08/09-09. Nothing
+  was uploaded and no row was written. Resume with:
+  `node scripts/ingest-library.mjs --manifest=.mcv/manifest-0914.json --rows-out=.mcv/rows-0914.ndjson`
+  then `node .mcv/rows-to-sql.mjs .mcv/rows-0914.ndjson .mcv/insert-0914.sql` and run the INSERT.
+- The six Epidemiology decks are downloaded to the session scratchpad under `mcv0914/`.
+  **Five of the six have no text layer** (image-only PDF export) — `pdftotext`/pymupdf return 0
+  characters, so any question-writing from them has to read the pages as images.
+
 ## 2026-09-14 — 5.95.0: the storage banner's real cause, and updates that apply themselves
 
 - Palm's phone, read off the 5.94.2 diagnostic line: 4071 KB in 89 keys — `library-catalog-v1`
