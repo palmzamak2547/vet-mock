@@ -324,6 +324,9 @@ export const GLOSSARY_RELATED = {
   52000,
   91018,
   91019,
+  202157,
+  202158,
+  202059,
   200207,
   105900,
   105498,
@@ -2615,6 +2618,7 @@ export const GLOSSARY_RELATED = {
   2042
  ],
  "colic|equine": [
+  202066,
   105568,
   107414,
   107415,
@@ -2650,6 +2654,7 @@ export const GLOSSARY_RELATED = {
   105381
  ],
  "ehv-1|equine": [
+  202091,
   105538,
   105540,
   105569
@@ -2687,10 +2692,12 @@ export const GLOSSARY_RELATED = {
   105391
  ],
  "laminitis|equine": [
+  202066,
   105446,
   105404
  ],
  "nephrosplenic entrapment|equine": [
+  202058,
   107411,
   105363,
   105377,
@@ -2699,6 +2706,7 @@ export const GLOSSARY_RELATED = {
   105387
  ],
  "pelvic flexure impaction|equine": [
+  202060,
   105328,
   105362,
   105383,
@@ -2735,6 +2743,7 @@ export const GLOSSARY_RELATED = {
   105281
  ],
  "strangles|equine": [
+  202091,
   105479,
   105481,
   105537,
@@ -2973,6 +2982,9 @@ export const GLOSSARY_RELATED = {
   92507,
   92514,
   92516,
+  202005,
+  202016,
+  202021,
   105101,
   105109,
   100004,
@@ -3101,6 +3113,12 @@ export const GLOSSARY_RELATED = {
   93028,
   93033,
   93034,
+  202003,
+  202008,
+  202011,
+  202012,
+  202021,
+  202027,
   105110,
   105111,
   105112,
@@ -3154,6 +3172,7 @@ export const GLOSSARY_RELATED = {
   93027,
   93028,
   93029,
+  202002,
   8031,
   8036,
   104732,

@@ -10,12 +10,12 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 5104;
-export const QB_SOURCE_TOTAL = 5169;
+export const QB_TOTAL = 5322;
+export const QB_SOURCE_TOTAL = 5387;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 139,
+  'aquatic-clinic': 263,
   'avian-medicine': 302,
   'biochem-1': 272,
   'cliapprum': 136,
@@ -28,8 +28,8 @@ export const Q_COUNTS_BY_SUBJECT = {
   'engprof': 70,
   'engprof1': 30,
   'epidemiology': 100,
-  'equine-medicine': 219,
-  'equine-repro': 144,
+  'equine-medicine': 279,
+  'equine-repro': 147,
   'exotic': 151,
   'food-industry': 135,
   'food-safety-y4': 31,
@@ -57,7 +57,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
-  'zoonoses': 194,
+  'zoonoses': 225,
 };
 
 // Visible counts exclude hidden-topic Qs (midterm leftovers,
@@ -65,7 +65,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // HomeView SubjectGrid renders these for the per-card Q badges so
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 139,
+  'aquatic-clinic': 263,
   'avian-medicine': 302,
   'biochem-1': 272,
   'cliapprum': 134,
@@ -78,8 +78,8 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'engprof': 70,
   'engprof1': 30,
   'epidemiology': 100,
-  'equine-medicine': 219,
-  'equine-repro': 144,
+  'equine-medicine': 279,
+  'equine-repro': 147,
   'exotic': 108,
   'food-industry': 119,
   'food-safety-y4': 31,
@@ -107,7 +107,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
-  'zoonoses': 194,
+  'zoonoses': 225,
 };
 
 // What Panic Mode holds per subject: questions from a real paper plus the
@@ -115,7 +115,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 // A subject missing from this map has neither, and its Panic card falls
 // back to the whole subject.
 export const Q_PANIC_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 23,
+  'aquatic-clinic': 147,
   'avian-medicine': 74,
   'biochem-1': 272,
   'cliapprum': 8,
@@ -126,7 +126,8 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'com5': 10,
   'comp-repro-clinic': 48,
   'engprof': 1,
-  'equine-repro': 65,
+  'equine-medicine': 60,
+  'equine-repro': 68,
   'exotic': 34,
   'food-industry': 49,
   'food-safety-y4': 31,
@@ -151,7 +152,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 46,
-  'zoonoses': 2,
+  'zoonoses': 33,
 };
 
 export const Q_COUNTS_BY_YEAR = {
@@ -159,7 +160,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 2524,
+  5: 2742,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -171,7 +172,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 2508,
+  5: 2726,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -179,15 +180,15 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
 // retained under "__unassigned__" so nested totals remain exact.
 export const Q_COUNTS_BY_TOPIC = {
   "aquatic-clinic": {
-    "aqua-aquarium-vet": 3,
+    "aqua-aquarium-vet": 27,
     "aqua-conservation": 7,
     "aqua-disease-control": 29,
-    "aqua-fish-biology": 18,
-    "aqua-fish-diseases": 15,
-    "aqua-intro-thailand": 43,
-    "aqua-life-support": 3,
-    "aqua-shrimp-diseases": 13,
-    "aqua-water-quality": 8,
+    "aqua-fish-biology": 33,
+    "aqua-fish-diseases": 34,
+    "aqua-intro-thailand": 78,
+    "aqua-life-support": 7,
+    "aqua-shrimp-diseases": 31,
+    "aqua-water-quality": 17,
   },
   "avian-medicine": {
     "avian-ai": 9,
@@ -398,29 +399,29 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "equine-medicine": {
     "equine-anesthesia": 4,
-    "equine-colic-bestfit": 30,
-    "equine-gi": 26,
+    "equine-colic-bestfit": 36,
+    "equine-gi": 32,
     "equine-infectious": 6,
-    "equine-intro": 44,
-    "equine-nutrition": 24,
+    "equine-intro": 66,
+    "equine-nutrition": 38,
     "equine-ophth": 7,
     "equine-ortho": 16,
-    "equine-parasites": 38,
+    "equine-parasites": 50,
     "equine-poa": 8,
     "equine-respi": 7,
     "equine-tumors": 9,
   },
   "equine-repro": {
     "eqrepro-ai": 11,
-    "eqrepro-anatomy-cycle": 11,
-    "eqrepro-art-female": 10,
+    "eqrepro-anatomy-cycle": 12,
+    "eqrepro-art-female": 11,
     "eqrepro-endometritis": 16,
     "eqrepro-exam-mare": 11,
     "eqrepro-infertility": 5,
     "eqrepro-male": 16,
     "eqrepro-postpartum": 11,
     "eqrepro-pregnancy": 35,
-    "eqrepro-stallion-infect": 10,
+    "eqrepro-stallion-infect": 11,
     "eqrepro-surgery": 8,
   },
   "exotic": {
@@ -786,21 +787,21 @@ export const Q_COUNTS_BY_TOPIC = {
     "nsaids": 2,
   },
   "zoonoses": {
-    "zoo-ai-basic": 6,
+    "zoo-ai-basic": 10,
     "zoo-bacterial": 36,
-    "zoo-corona": 12,
-    "zoo-ebola-nipah": 12,
+    "zoo-corona": 14,
+    "zoo-ebola-nipah": 15,
     "zoo-eid-wildlife": 13,
     "zoo-epi-approach": 16,
-    "zoo-helminthic": 13,
-    "zoo-intro": 13,
+    "zoo-helminthic": 16,
+    "zoo-intro": 16,
     "zoo-mycoses": 17,
     "zoo-prion": 4,
-    "zoo-protozoal": 11,
-    "zoo-rabies": 14,
-    "zoo-rickettsial": 12,
-    "zoo-siv-civ": 6,
-    "zoo-vbz": 9,
+    "zoo-protozoal": 12,
+    "zoo-rabies": 19,
+    "zoo-rickettsial": 14,
+    "zoo-siv-civ": 7,
+    "zoo-vbz": 16,
   },
 };
 
@@ -808,9 +809,14 @@ export const Q_COUNTS_BY_TOPIC = {
 // or source-name conventions only when no canonical marker is present.
 export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "aquatic-clinic": {
+    "aqua-aquarium-vet": 13,
     "aqua-disease-control": 18,
-    "aqua-fish-diseases": 2,
+    "aqua-fish-biology": 8,
+    "aqua-fish-diseases": 4,
+    "aqua-intro-thailand": 11,
+    "aqua-life-support": 2,
     "aqua-shrimp-diseases": 3,
+    "aqua-water-quality": 1,
   },
   "avian-medicine": {
     "avian-ai": 1,
@@ -948,14 +954,20 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "engprof": {
     "paraphrasing": 1,
   },
+  "equine-medicine": {
+    "equine-intro": 3,
+    "equine-nutrition": 2,
+  },
   "equine-repro": {
     "eqrepro-ai": 11,
+    "eqrepro-anatomy-cycle": 1,
+    "eqrepro-art-female": 1,
     "eqrepro-exam-mare": 5,
     "eqrepro-infertility": 1,
     "eqrepro-male": 16,
     "eqrepro-postpartum": 6,
     "eqrepro-pregnancy": 14,
-    "eqrepro-stallion-infect": 4,
+    "eqrepro-stallion-infect": 5,
     "eqrepro-surgery": 8,
   },
   "exotic": {
@@ -1195,6 +1207,11 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
   "zoonoses": {
     "zoo-bacterial": 2,
+    "zoo-corona": 1,
+    "zoo-helminthic": 3,
+    "zoo-intro": 3,
+    "zoo-protozoal": 1,
+    "zoo-rickettsial": 1,
   },
 };
 
@@ -1247,4 +1264,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-13T14:25:51.625Z
+// Built: 2026-09-14T16:39:35.670Z

@@ -59,8 +59,10 @@ export function panicRank(question) {
  *
  * The one exception to rule 1 is a subject that holds neither kind, where
  * filtering would open an empty session: there the whole subject is returned,
- * because something to revise beats a card that does nothing. Today that is
- * อายุรศาสตร์ม้า, and โรคสัตว์สู่คน has two. Both close when their papers arrive.
+ * because something to revise beats a card that does nothing. Of the eleven
+ * subjects Panic Mode covers, that is now only ระบาดวิทยา. อายุรศาสตร์ม้า and
+ * โรคสัตว์สู่คน closed on 2026-09-14, when the Vet 85 midterm compilations were
+ * ingested: 0 to 60 and 2 to 33.
  *
  * @param {Array} questions
  * @param {(q) => number} [missCountOf] how often this student has missed it

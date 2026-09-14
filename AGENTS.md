@@ -353,6 +353,74 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-14 — 5.99.0: the Vet 85 Mid-86 ingest, and a guessability class no lint caught (Claude)
+
+218 questions from five senior compilations. Swine contributed 0 — its page-5 content already
+ships as 105621-105628, which is the dedup working, not a failure.
+
+**Panic Mode pools:** equine-medicine 0 to 60, zoonoses 2 to 33, aquatic-clinic 23 to 147,
+equine-repro 65 to 68. อายุรศาสตร์ม้า was the subject `panicPool` fell back to whole-subject on;
+that is closed. Of the eleven subjects Panic Mode covers, only ระบาดวิทยา still has an empty pool.
+The comment in `question-metadata.js` was updated with it — it names specific subjects, so it
+goes stale every time a paper arrives.
+
+### The Thai in these PDFs is corrupt in three different ways
+
+Natural Thai runs 0.10-0.15 tone marks per Thai character. Measured before repair: Aqua 0.024,
+Zoonosis 0.041, Equine Med 0.072. **Always measure this before writing anything from a PDF.**
+
+1. **PUA** — display fonts put shifted tone-mark glyphs at U+F700-U+F71D. 19 mappings, all
+   derived from context in the files (`เป<F712>นฝ<F710><F713>ง` = เป็นฝั่ง pins three at once).
+2. **ASCII cmap** (Equine Repro) — `N . 0` = mai ek, `8 I` = mai tho. Safe only because all 106
+   hits sit BETWEEN two Thai letters. It still turned `ซม.` into `ซม่` six times.
+3. **XMind export** (Aqua p.17-18, 45-52) — scrambled cmap, ~15% of Thai becomes random Latin.
+   Not recoverable. Rendered them as PNG to check: all mind maps, zero numbered questions, so
+   nothing exam-shaped was lost. Aqua p.19-42 are image-only slides with no text layer at all.
+
+Scripts: `<scratchpad>/repair-thai.py` then `repair-thai-2.py`. **Scan page by page** — corruption
+was confined to 8 of 52 content pages in Aqua while the rest was clean.
+
+### Guessable from the SHAPE of the options — 24 of 218
+
+The old workflow's verify stage found one and named it well: "ถูกทุกข้อ in disguise". Three
+distractors each carried "โดยไม่...", only the key did not, so the key is findable without
+knowing any medicine. **No existing lint catches this** — there is no banned phrase, no length
+bias, no position clustering.
+
+Generalised to: no feature may split the options 3-against-1 and land on the correct one.
+Checked: Latin/English term, digit, negation, compound-and-longest, trailing qualifier clause,
+shared opening prefix (at 3/5/8 chars, BOTH directions). Found 11 in equine-medicine, 24 in
+aquatic-clinic, 1 each in zoonoses and equine-repro.
+
+- **Calibrate before trusting the checker.** First version flagged 19/60; two rules over-fired —
+  `ไม่สบาย` is one lexical word, not a negated clause, and bare `และ` is too common in Thai to be
+  a tell unless the option is also the longest. Real count was 11.
+- **A tell fix reliably creates the mirror tell.** Strip `และ` from three distractors and the key
+  becomes the only compound one. This happened to me once and to two agents twice each. **Re-run
+  the same rule over the fix** — never accept an agent's "0 flags" self-report.
+- Subtle case worth keeping: `ควรให้` and `ควรใช้` share the 4-char prefix `ควรใ`, because ใ is a
+  leading vowel. Aligning three options to "start with ควร" still left 3-against-1.
+- Fix by giving the DISTRACTORS the missing feature, not by stripping it from the key — a
+  distractor naming a real disease teaches something; a flattened key just gets vaguer.
+
+### One file per subject, or the registry drops it
+
+`regen-bank-registry.mjs` registers exactly ONE export per file. The first write put all four
+subjects in `questions-mid86-vet85.js`; the registry took `QUESTIONS_MID86_AQUATIC_CLINIC` and
+**silently dropped 94 questions**. Both `regen:registry` and `regen:q-counts` reported success.
+Caught only by recomputing the panic pools and seeing they had not moved. **Verify an ingest by
+the metric it was supposed to change, never by the fact that the generators exited 0.**
+
+### What was deliberately NOT written
+
+A senior compilation is a study aid, not a verified source. Dropped rather than guessed:
+yellow fever "2016 ระบาดใหญ่ที่จีน" (the 2016 outbreak was Angola/DRC), RVF "2019 ฝรั่งเศส"
+(Mayotte), CEM as a cause of poor stallion semen quality (stallions are asymptomatic carriers),
+eCG for superovulation in mares (eFSH is what works), a 42 °C hatchery temperature, and every
+item whose recalled answer was crossed out or whose two source lines had merged. Also five
+past-paper questions that remain unrecoverable without the original paper: 8040, 8044, 8047,
+8049, 70037.
+
 ## 2026-09-14 — 5.98.2: the voice lint had a hole the width of "ตามสรุปชุดนี้" (Claude)
 
 Found while checking the swine bank for overlap before ingesting the Mid-86 compilations.

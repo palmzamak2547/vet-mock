@@ -107,6 +107,18 @@ export const BANK_REGISTRY = [
   { file: 'questions-vet-juris.js', export: 'QB_VET_JURIS', year: 4, count: 47,
     subjects: ['vet-juris'],
     load: () => import('./questions-vet-juris.js').then((m) => m.QB_VET_JURIS) },
+  { file: 'questions-mid86-aquatic-clinic.js', export: 'QUESTIONS_MID86_AQUATIC_CLINIC', year: 5, count: 124,
+    subjects: ['aquatic-clinic'],
+    load: () => import('./questions-mid86-aquatic-clinic.js').then((m) => m.QUESTIONS_MID86_AQUATIC_CLINIC) },
+  { file: 'questions-mid86-equine-medicine.js', export: 'QUESTIONS_MID86_EQUINE_MEDICINE', year: 5, count: 60,
+    subjects: ['equine-medicine'],
+    load: () => import('./questions-mid86-equine-medicine.js').then((m) => m.QUESTIONS_MID86_EQUINE_MEDICINE) },
+  { file: 'questions-mid86-equine-repro.js', export: 'QUESTIONS_MID86_EQUINE_REPRO', year: 5, count: 3,
+    subjects: ['equine-repro'],
+    load: () => import('./questions-mid86-equine-repro.js').then((m) => m.QUESTIONS_MID86_EQUINE_REPRO) },
+  { file: 'questions-mid86-zoonoses.js', export: 'QUESTIONS_MID86_ZOONOSES', year: 5, count: 31,
+    subjects: ['zoonoses'],
+    load: () => import('./questions-mid86-zoonoses.js').then((m) => m.QUESTIONS_MID86_ZOONOSES) },
   { file: 'questions-vca-reviewed.js', export: 'QB_VCA_REVIEWED', year: 5, count: 121,
     subjects: ['vca'],
     load: () => import('./questions-vca-reviewed.js').then((m) => m.QB_VCA_REVIEWED) },
@@ -244,4 +256,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-13T13:19:19.197Z — 78 banks · 5169 Qs
+// Built: 2026-09-14T16:39:04.033Z — 82 banks · 5387 Qs
