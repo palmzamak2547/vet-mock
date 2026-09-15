@@ -42,8 +42,12 @@ let rolledThisLoad = false;
 
 function useRollUp(target, enabled) {
   const [value, setValue] = useState(enabled ? 0 : target);
+  // Roll from zero once; when the day count changes later (08:30 passes,
+  // the window rolls to the final) the number just updates.
+  const first = useRef(true);
   useEffect(() => {
-    if (!enabled) { setValue(target); return undefined; }
+    if (!enabled || !first.current) { setValue(target); return undefined; }
+    first.current = false;
     let raf = 0;
     const t0 = performance.now();
     const dur = 560;
@@ -85,7 +89,9 @@ export default function ExamCountdown({ window: w, subjects = [], onOpenSchedule
 
   const nowMs = useNow();
   const next = w?.next;
-  const sitting = w?.countdown?.kind === 'now';
+  // From the live tick, not HomeView's minute tick: at 08:30:00 the clock
+  // must read as sitting, not hold 00:00:00 until the next minute.
+  const sitting = !!next && msUntilExam(next, new Date(nowMs)) <= 0 && examEndMs(next) > nowMs;
   // Counting to the start of the next paper, or, once it has begun, to the
   // moment it ends — the same instant getNextExam rolls over.
   const targetMs = !next ? 0 : sitting ? examEndMs(next) : nowMs + msUntilExam(next, new Date(nowMs));

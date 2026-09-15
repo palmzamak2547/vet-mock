@@ -6,7 +6,7 @@ import { QB, isQBYearLoaded } from '../data/questions.js';
 // full QB to be scanned on every re-render.
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
-import { SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClassToday, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
+import { SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
@@ -18,6 +18,7 @@ import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } f
 import { getCompletedPhase, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
 import { isTopicRead } from '../lib/study-progress.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
+import { stillWrong } from '../lib/wrong-pool.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
@@ -77,7 +78,9 @@ const shortThaiDate = (dateStr) => {
   return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
 };
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings, onOpenTour }) {
+const DOW_TH = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
+
+export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
   // carry none, so the countdown banner hides itself when getNextExam
@@ -90,7 +93,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const examWindow = isScaffoldYear ? null : examWindowFor(`y${selectedYear}`);
   // Today's timetable + the registrar's deadlines, surfaced as chips so the
   // published schedule is one tap away instead of buried in a PDF.
-  const nextClassToday = getNextClassToday(selectedYear);
+  // After the last class of the day this is tomorrow's first (dayOffset 1),
+  // so the chip does not go dark every evening.
+  const nextClassToday = getNextClass(selectedYear);
   const currentClassNow = getCurrentClass(selectedYear);
   const topMilestone = getTopMilestone();
   // Faculty/สโมสร announcements with a real date+room (e.g. the stethoscope
@@ -261,12 +266,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     const todayKey = ymd(Date.now());
     const days = new Set();
     let todayCount = 0;
-    const wrongFreq = new Map();
-    // Latest verdict per question, so "ข้อที่ตอบผิด" means still wrong rather
-    // than ever wrong. Same rule as lib/wrong-pool.js, which the exam pool and
-    // the weak list use; when these disagreed, the chip promised one number
-    // and the button handed over a different set.
-    const latestVerdict = new Map();
     // Year scoping — Palm directive 2026-05-19 data-layer audit round 3.
     //   • streak  → CROSS-YEAR (habit counter, intentional, all years count)
     //   • todayCount → year-scoped (only counts current-year Qs · so user
@@ -291,15 +290,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       // Streak counts a day if ANY answer occurred (any year — habit).
       // todayCount is year-scoped per the rule above.
       if (dayKey === todayKey && inYear(h)) todayCount++;
-      // Wrong tally is year-scoped to match the year-filtered pool.
-      if (inYear(h) && h.questionId != null) {
-        const compoundId = (h.subject || '?') + ':' + h.questionId;
-        // Track the latest verdict so a question since answered correctly
-        // leaves the chip, exactly as it now leaves the pool the chip starts.
-        // Counting stays on misses only, for most-missed-first ordering.
-        latestVerdict.set(compoundId, h.correct === false);
-        if (h.correct === false) wrongFreq.set(compoundId, (wrongFreq.get(compoundId) || 0) + 1);
-      }
     }
     // The saved streak is the authority, because it is the only one that
     // knows about the freeze. Walking back over days that have answers stops
@@ -316,10 +306,11 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       cursor.setDate(cursor.getDate() - 1);
     }
     if (streakData?.lastDate) streak = streakData.streak || 0;
-    const wrongIds = [...wrongFreq.entries()]
-      .filter(([k]) => latestVerdict.get(k) === true)
-      .sort((a, b) => b[1] - a[1])
-      .map(([k]) => k);
+    // The pool's own verdict rule (latest attempt by date, not array order —
+    // two synced devices interleave rows), year-scoped like the pool the chip
+    // opens, so the number on the button is the number of questions it serves.
+    const { keys: wrongKeys, counts: wrongCounts } = stillWrong(history.filter(inYear));
+    const wrongIds = [...wrongKeys].sort((a, b) => (wrongCounts.get(b) || 0) - (wrongCounts.get(a) || 0));
     return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
   }, [history, yearSubjects, selectedYear, streakData]);
 
@@ -604,7 +595,8 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
     || nextClassToday
     || nextEvent
     || topMilestone
-    || showChangelogChip,
+    || showChangelogChip
+    || (history.length === 0 && quickActionPending),
   );
 
   // ─── Phase 6 (2026-05-18) — eager-prefetch downstream chunks ────
@@ -1135,7 +1127,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                 minHeight: 44, boxSizing: 'border-box',
               }}
             >
-              {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.start} น.`} {truncateThai(nextClassToday.title, 26)}, {nextClassToday.room}
+              {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.dayOffset === 1 ? 'พรุ่งนี้ ' : nextClassToday.dayOffset > 1 ? `วัน${DOW_TH[nextClassToday.dow]} ` : ''}${nextClassToday.start} น.`} {truncateThai(nextClassToday.title, 26)}, {nextClassToday.room}
             </button>
           )}
           {nextEvent && (
@@ -1363,7 +1355,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
                     const subjMeta = SUBJECTS.find((s) => s.id === nextExam.subject);
                     const label = subjMeta?.name || nextExam.subject;
                     const scoped = nextExamCurrentCount > 0 ? `, ${nextExamCurrentCount} ข้อตรงขอบเขต` : '';
-                    return `${label}${scoped}, อีก ${nextExam.daysLeft} วันจะสอบ`;
+                    // The hero counts hours to 08:30; a second day-count here disagreed
+                    // with it every morning, so this names the date instead.
+                    return `${label}${scoped}, สอบ ${shortThaiDate(nextExam.date)}`;
                   })()}
                 </div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-rose)' }}>แนะนำ</div>
@@ -1634,6 +1628,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       <FeatureMenu
         setView={setView}
         signedIn={!!user}
+        isAdmin={isAdmin}
         scaffold={isScaffoldYear}
         hasSupabase={hasSupabase}
         selectedYear={selectedYear}

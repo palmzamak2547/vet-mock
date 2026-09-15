@@ -11,9 +11,11 @@
 //
 //   vmx-todays-q-<date>      one key per calendar day, forever, and its
 //   vmx-daily-q-pulse-…      sibling pulse flag is a second. The worst of
-//                            the four: months of use is hundreds of dead keys,
-//                            and yesterday's daily question is of no use to
-//                            anyone.
+//                            the four: months of use is hundreds of dead keys.
+//                            Yesterday's daily question is NOT dead, though:
+//                            the streak and the 7-day share grid read back up
+//                            to a year, so that family keeps a year and only
+//                            the pulse flag is one-day.
 //   vmx-pl-preview-<id>      a YouTube playlist cache. The TTL was checked on
 //                            read and a stale entry was ignored — but never
 //                            deleted, so it kept its bytes forever.
@@ -106,6 +108,14 @@ function drop(storage, key, tally) {
  *
  * @returns {{removed: string[], bytes: number}}
  */
+/** 'YYYY-MM-DD' minus n days, as the same kind of string; null if unparseable. */
+function isoDaysBefore(ymd, n) {
+  const [y, m, d] = String(ymd).split('-').map(Number);
+  if (!y || !m || !d) return null;
+  const t = new Date(y, m - 1, d - n);
+  return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+}
+
 export function sweepStaleKeys(storage, { now = Date.now(), today = null } = {}) {
   const tally = { removed: [], bytes: 0 };
   if (!storage || typeof storage.removeItem !== 'function') return tally;
@@ -113,6 +123,9 @@ export function sweepStaleKeys(storage, { now = Date.now(), today = null } = {})
   // Today's key uses the app's own local-date string; the caller passes it so
   // this module never has to guess the timezone rule and delete today's.
   const todayKeys = today ? DAILY_PREFIXES.map((p) => `${p}${today}`) : [];
+  // The daily-question answers feed a 365-day streak walk (daily-q.js) and the
+  // share grid, so a key is dead only once it is older than that.
+  const keepFrom = today ? isoDaysBefore(today, 365) : null;
 
   for (const key of keysOf(storage)) {
     if (DEAD_KEYS.has(key)) {
@@ -124,7 +137,9 @@ export function sweepStaleKeys(storage, { now = Date.now(), today = null } = {})
     if (dailyPrefix) {
       // Without a `today` to protect we leave the whole family alone rather
       // than risk deleting the entry the app is about to read.
-      if (todayKeys.length && !todayKeys.includes(key)) drop(storage, key, tally);
+      if (!todayKeys.length || todayKeys.includes(key)) continue;
+      if (dailyPrefix === 'vmx-todays-q-' && keepFrom && key.slice(dailyPrefix.length) >= keepFrom) continue;
+      drop(storage, key, tally);
       continue;
     }
 

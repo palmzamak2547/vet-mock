@@ -34,6 +34,7 @@ const VIEW_TO_PATH = Object.freeze({
   contribute: '/app/contribute',
   'review-queue': '/app/review-queue',
   bench: '/app/bench',
+  admin: '/app/admin',
 });
 
 const PATH_TO_VIEW = new Map(

@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 
 const PING_URL = '/favicon.ico';
 const PING_INTERVAL_MS = 30_000;
-const PING_TIMEOUT_MS = 4_000;
+const PING_TIMEOUT_MS = 6_000;
 
 async function pingReachable() {
   if (typeof fetch === 'undefined') return true;
@@ -32,13 +32,19 @@ async function pingReachable() {
     const r = await fetch(`${PING_URL}?t=${Date.now()}`, {
       method: 'HEAD',
       cache: 'no-store',
+      // The service worker's first install fetches every chunk; without
+      // priority the ping queues behind that flood and times out on a
+      // healthy link (seen in the local e2e: a 200 that arrived too late).
+      priority: 'high',
       signal: ac.signal,
     });
     clearTimeout(t);
     return r.ok;
-  } catch {
+  } catch (e) {
     clearTimeout(t);
-    return false;
+    // A timeout is 'slow', a refusal is 'down'. The caller treats them
+    // differently while the OS still says we are online.
+    return e?.name === 'AbortError' ? 'slow' : false;
   }
 }
 
@@ -99,11 +105,13 @@ export function useOnlineStatus() {
       const reachable = await pingReachable();
       if (disposed || version !== probeVersion) return;
       clearTimeout(retryTimer);
-      if (reachable) {
+      if (reachable === true) {
         failedProbes = 0;
         // A real network response is stronger than a stale OS/interface flag.
         setStatus(true);
-      } else if (!navigator.onLine || ++failedProbes >= 2) {
+      } else if (!navigator.onLine || ++failedProbes >= (reachable === 'slow' ? 3 : 2)) {
+        // Two refusals, or three timeouts with the OS still claiming a link
+        // (the hung-WebView case), and the page is offline for real.
         setStatus(false);
       } else {
         // A single delayed HEAD during a busy page load is not proof that the

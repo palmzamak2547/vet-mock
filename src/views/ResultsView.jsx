@@ -101,8 +101,8 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   // Encouragement line — short Thai
   let msg = '';
   if (isWritingOnly) msg = 'เขียนไปแล้ว, ไปดูเฉลยกันใน VetMock';
-  else if (pct === 100) msg = 'เต็มทุกข้อ รักษาระดับนี้ไว้';
-  else if (pct >= 80) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
+  else if (total > 0 && correct === total) msg = 'เต็มทุกข้อ รักษาระดับนี้ไว้';
+  else if (total > 0 && correct / total >= 0.8) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
   else if (reached) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
   else if (pct >= 40) msg = 'สู้ๆ, กลับไปทบทวนเนื้อหาอีกรอบ';
   else msg = 'เริ่มใหม่ได้เสมอ';
@@ -299,8 +299,9 @@ export default function ResultsView({
         : writingAttempted > 0
           ? 'เขียนได้บางส่วนแล้ว ใช้หน้าเฉลยช่วยเติมส่วนที่ขาด'
           : 'ยังไม่ได้เขียนคำตอบ ลองเริ่มจากชุดสั้นก่อน')
-    : score.pct === 100 ? 'ถูกทุกข้อ รักษาความแม่นด้วยการทบทวนตามรอบ'
-    : score.pct >= 80 ? 'แม่นดีมาก ลองเพิ่มจำนวนข้อหรือเปิดจับเวลา'
+    // The exact counts, not the rounded percent: 199/200 rounds to 100.
+    : score.total > 0 && score.correct === score.total ? 'ถูกทุกข้อ รักษาความแม่นด้วยการทบทวนตามรอบ'
+    : score.total > 0 && score.correct / score.total >= 0.8 ? 'แม่นดีมาก ลองเพิ่มจำนวนข้อหรือเปิดจับเวลา'
     : reached ? 'ถึงเกณฑ์ซ้อมของแอปแล้ว ทบทวนข้อที่ผิดเพื่อปิดจุดอ่อน'
     : score.pct >= 40 ? 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิดในรอบนี้'
     : 'กลับไปทบทวนหัวข้อนี้ แล้วลองชุดสั้นอีกครั้ง';

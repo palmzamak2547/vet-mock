@@ -205,6 +205,15 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'bench' },
   },
   {
+    // The back-office. Only the account listed in admin_users sees it, and
+    // the database (not this flag) is what refuses everyone else.
+    id: 'admin', category: 'tools', rail: false, adminOnly: true,
+    label: 'หลังบ้าน', labelEn: 'Back office', icon: '🗝️',
+    hint: 'สถิติทั้งหมด และโจทย์ที่คนผิดบ่อย เห็นได้เฉพาะผู้ดูแล',
+    kw: 'admin หลังบ้าน backoffice stats สถิติ ผู้ดูแล',
+    invoke: { kind: 'view', view: 'admin' },
+  },
+  {
     id: 'pinboard', category: 'learn',
     label: 'กระดานทบทวน', labelEn: 'Pinboard', icon: '📌',
     hint: 'รวมข้อและบันทึกที่เก็บไว้',
@@ -419,8 +428,9 @@ export function fabFeatures() {
 const yearHasTopics = (year) =>
   (SUBJECTS_BY_YEAR[year] || []).some((s) => (s.topics || []).length > 0);
 
-export function visibleFeatures(list, { signedIn, scaffold, hasSupabase, selectedYear } = {}) {
+export function visibleFeatures(list, { signedIn, scaffold, hasSupabase, selectedYear, isAdmin } = {}) {
   return list.filter((f) => {
+    if (f.adminOnly && !isAdmin) return false;
     if (f.flag && FEATURE_FLAGS[f.flag] === false) return false;
     if (f.auth && !signedIn) return false;
     if (f.auth && hasSupabase === false) return false;

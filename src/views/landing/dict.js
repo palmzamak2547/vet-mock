@@ -47,6 +47,13 @@ export const DICT = {
     // No cohort here: a signed-out reader may be any year, and every year
     // sits the same week.
     cdUnits: ['days', 'hours', 'min', 'sec'], cdDuring: 'Now sitting: ',
+    cdTerm: { midterm: 'Midterm exams', final: 'Final exams' }, cdSemester: 'Semester 1, 2026',
+    cdRange: (a, b) => {
+      const f = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); };
+      return `${f(a)} to ${f(b)}`;
+    },
+    footPrivacy: 'Data and privacy', footTagline: 'Practice before the real exam.',
+    labImgAlt: 'Canine lateral thoracic radiograph', labZoomOut: 'Zoom out', labZoomIn: 'Zoom in',
     cdLine: 'Every year sits the same week. Pick your year inside the app to see your own papers.',
     cdPanicLine: 'Pick your year inside the app and Panic Mode knows which paper is next for you.',
     cdDuringLine: 'Exam week is under way. Counting to its last day.',
@@ -144,6 +151,9 @@ export const DICT = {
     navTitle: 'ความคืบหน้า', legAnswered: 'ตอบแล้ว', legCurrent: 'ข้อนี้', legFlagged: 'ปักหมุด',
 
     cdUnits: ['วัน', 'ชม.', 'นาที', 'วินาที'], cdDuring: 'กำลัง',
+    cdTerm: { midterm: 'สอบกลางภาค', final: 'สอบปลายภาค' },
+    footPrivacy: 'ข้อมูลและความเป็นส่วนตัว', footTagline: 'ซ้อมก่อนถึงวันสอบจริง',
+    labImgAlt: 'ภาพรังสีทรวงอกสุนัข มุมด้านข้าง', labZoomOut: 'ย่อภาพ', labZoomIn: 'ขยายภาพ',
     cdLine: 'ทุกชั้นปีสอบสัปดาห์เดียวกัน เข้าแอปแล้วเลือกปีของคุณ จะเห็นตารางวิชาของตัวเอง',
     cdPanicLine: 'เลือกปีของคุณในแอป แล้ว Panic Mode จะรู้เองว่าวิชาถัดไปของคุณคืออะไร',
     cdDuringLine: 'สัปดาห์สอบกำลังดำเนินอยู่ นับถอยหลังถึงวันสุดท้าย',

@@ -31,6 +31,7 @@ export default function FeatureMenu({
   scaffold = false,
   hasSupabase = true,
   selectedYear,
+  isAdmin = false,
 }) {
   const [expanded, setExpanded] = useState({});
   const shortcutLabel = commandShortcutLabel();
@@ -69,7 +70,7 @@ export default function FeatureMenu({
         // dead cards (e.g. Leaderboard when signed out).
         const feats = visibleFeatures(
           featuresByCategory(cat.id).filter((f) => !f.primary),
-          { signedIn, scaffold, hasSupabase, selectedYear }
+          { signedIn, scaffold, hasSupabase, selectedYear, isAdmin }
         );
         if (feats.length === 0) return null;
         const isExpanded = Boolean(expanded[cat.id]);

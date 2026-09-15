@@ -102,8 +102,10 @@ export function facultyExamWindow(now = new Date(), semester = SEMESTER) {
   const nowMs = now.getTime();
   for (const [term, period] of [['midterm', semester.midtermPeriod], ['final', semester.finalPeriod]]) {
     if (!period?.start || !period?.end) continue;
-    const start = new Date(period.start); start.setHours(8, 30, 0, 0);
-    const end = new Date(period.end); end.setHours(17, 0, 0, 0);
+    const [sy, sm, sd] = period.start.split('-').map(Number);
+    const [ey, em, ed] = period.end.split('-').map(Number);
+    const start = new Date(sy, sm - 1, sd, 8, 30, 0, 0);
+    const end = new Date(ey, em - 1, ed, 17, 0, 0, 0);
     if (nowMs >= end.getTime()) continue;
     const during = nowMs >= start.getTime();
     return {

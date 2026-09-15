@@ -121,10 +121,13 @@ test('the same id in two subjects is tracked separately', () => {
 test('every surface that shows "wrong" uses the one definition', () => {
   assert.ok(APP.includes("from './lib/wrong-pool.js'"), 'the pool must import the shared rule');
   assert.ok(APP.includes('stillWrong(history).keys'), 'the weak list must use it too');
+  // The home chip once kept its own copy of the rule and it drifted: it read
+  // array order while the pool read the latest attempt by date, so two synced
+  // devices saw a count that did not match the set. One function, everywhere.
   const home = src('src/views/HomeView.jsx');
-  assert.ok(home.includes('latestVerdict'), 'the home chip must follow the latest verdict');
-  assert.ok(home.includes('.filter(([k]) => latestVerdict.get(k) === true)'),
-    'a question since answered correctly must leave the chip as well as the pool');
+  assert.ok(home.includes("from '../lib/wrong-pool.js'"), 'the home chip must import the shared rule');
+  assert.ok(home.includes('stillWrong(history.filter(inYear))'), 'the home chip must count with it, year-scoped');
+  assert.ok(!home.includes('latestVerdict'), 'no private copy of the verdict rule may come back');
 });
 
 test('the weak-topic list only contains topics that are actually weak', () => {
@@ -376,7 +379,9 @@ test('a stored question id opens the question it names', () => {
   // matched nothing, downloaded the whole bank to look again, and then sent
   // the student to the bookmarks pool.
   assert.ok(APP.includes('const wanted = String(id);'));
-  assert.ok(APP.includes('.find((q) => String(q.id) === wanted)'));
+  // ...and the delivery gate applies to a named question too: a pin from
+  // before a key was held back must not open what the pool refuses to serve.
+  assert.ok(APP.includes('.find((q) => String(q.id) === wanted && isQuestionDeliverable(q))'));
   assert.ok(!APP.includes('.find((q) => q.id === id)'), 'the strict compare must not come back');
   const palette = src('src/components/CommandPalette.jsx');
   assert.ok(palette.includes("alertDialog('ไม่พบข้อนี้ในคลังแล้ว"),

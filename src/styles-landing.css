@@ -56,7 +56,9 @@ html.lp-active { background: var(--clr-bg); }
    accent link colour and rendered accent-on-ink at 2.5:1. On the one
    control that exists for keyboard and screen-reader users. */
 .lp-root a.lp-skip { position: absolute; left: -999px; top: 8px; z-index: 200; background: var(--clr-ink); color: var(--clr-bg); padding: 9px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
-.lp-skip:focus { left: 8px; }
+/* Same specificity as the rule above, or `left` never changes on focus;
+   above the nav's z-index, or it lands under the bar. */
+.lp-root a.lp-skip:focus-visible { left: 8px; z-index: calc(var(--z-nav) + 1); }
 .lp-nav-sentinel { position: absolute; top: 8px; left: 0; width: 1px; height: 1px; pointer-events: none; }
 
 /* ================================================================
@@ -458,7 +460,10 @@ html.lp-active { background: var(--clr-bg); }
 .lp-marquee-viewport { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
 .lp-marquee-viewport::-webkit-scrollbar { display: none; }
 .lp-marquee { display: flex; gap: 10px; width: max-content; animation: lp-marquee 80s linear infinite; }
-.lp-marquee:hover, .lp-marquee:focus-within { animation-play-state: paused; }
+.lp-marquee:hover { animation-play-state: paused; }
+/* A paused track can be translated past what the scroller can reach, so a
+   focused chip may be invisible; with the animation off the track sits at 0. */
+.lp-marquee:focus-within { animation: none; }
 .lp-marquee-track { display: flex; gap: 10px; padding-right: 10px; }
 .lp-marquee-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 7px 14px 7px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); font-family: inherit; font-size: 13px; white-space: nowrap; cursor: pointer; transition: border-color var(--dur-fast), transform var(--dur-fast); }
 .lp-marquee-chip:hover, .lp-marquee-chip:focus-visible { border-color: var(--chip-color); transform: translateY(-1px); }

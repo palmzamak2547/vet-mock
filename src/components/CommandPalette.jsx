@@ -663,6 +663,7 @@ export default function CommandPalette({
   scaffold = false,
   hasSupabase = true,
   selectedYear,
+  isAdmin = false,
   ...handlers
 }) {
   const [query, setQuery] = useState('');
@@ -725,8 +726,8 @@ export default function CommandPalette({
 
   const staticItems = useMemo(() => buildStaticItems(), []);
   const visibleFeatureIds = useMemo(() => new Set(
-    visibleFeatures(FEATURES, { signedIn, scaffold, hasSupabase, selectedYear }).map((feature) => feature.id),
-  ), [signedIn, scaffold, hasSupabase, selectedYear]);
+    visibleFeatures(FEATURES, { signedIn, scaffold, hasSupabase, selectedYear, isAdmin }).map((feature) => feature.id),
+  ), [signedIn, scaffold, hasSupabase, selectedYear, isAdmin]);
 
   // Async sources stream in while the palette is open. Each one caches at
   // module level (omni-sources), so the spinner shows once per session.

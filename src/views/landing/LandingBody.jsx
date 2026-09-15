@@ -20,7 +20,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Mochi from '../../components/Mochi.jsx';
 import NavIcon from '../../components/NavIcon.jsx';
-import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT, Q_PAST_PAPER_COUNTS_BY_TOPIC } from '../../data/q-counts.js';
+import { Q_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_PAST_PAPER_COUNTS_BY_TOPIC } from '../../data/q-counts.js';
 import { SUBJECTS_BY_YEAR } from '../../data/curriculum.js';
 import { SEMESTER } from '../../data/semester.js';
 import { facultyExamWindow, splitCountdown } from '../../lib/exam-countdown.js';
@@ -29,7 +29,13 @@ import { facultyExamWindow, splitCountdown } from '../../lib/exam-countdown.js';
 const SUBJECTS_WITH_QUESTIONS = Object.values(Q_COUNTS_BY_SUBJECT).filter((n) => n > 0).length;
 const PAST_PAPER_TOTAL = Object.values(Q_PAST_PAPER_COUNTS_BY_TOPIC)
   .reduce((sum, byTopic) => sum + Object.values(byTopic).reduce((a, b) => a + b, 0), 0);
-const SUBJECTS_WITH_PAST_PAPERS = Object.values(Q_PANIC_COUNTS_BY_SUBJECT).filter((n) => n > 0).length;
+// Past papers only — the Panic pool also holds senior-marked questions, and
+// the card says past papers.
+const PAST_BY_SUBJECT = Object.fromEntries(Object.entries(Q_PAST_PAPER_COUNTS_BY_TOPIC)
+  .map(([subject, byTopic]) => [subject, Object.values(byTopic).reduce((a, b) => a + b, 0)]));
+const SUBJECTS_WITH_PAST_PAPERS = Object.values(PAST_BY_SUBJECT).filter((n) => n > 0).length;
+// The number a student can open today: hidden topics are not on offer.
+const VISIBLE_TOTAL = Object.values(Q_VISIBLE_COUNTS_BY_SUBJECT).reduce((a, b) => a + b, 0);
 const ALL_SUBJECTS = Object.values(SUBJECTS_BY_YEAR).flat();
 const subjectName = (id) => ALL_SUBJECTS.find((s) => s.id === id)?.name || id;
 const two = (n) => String(n).padStart(2, '0');
@@ -104,13 +110,16 @@ function Countdown({ t, variant = 'hero' }) {
   if (!w) return null;
   const c = splitCountdown(w.targetMs - now);
   const cells = [c.days, c.hours, c.minutes, c.seconds];
-  const term = w.during ? `${t.cdDuring}${w.label}` : w.label;
+  const termName = t.cdTerm?.[w.term] || w.label;
+  const term = w.during ? `${t.cdDuring}${termName}` : termName;
+  const semester = t.cdSemester || SEMESTER.short;
+  const range = t.cdRange ? t.cdRange(w.start, w.end) : w.range;
   const line = w.during ? t.cdDuringLine : variant === 'night' ? t.cdPanicLine : t.cdLine;
   return (
-    <div className={`lp-countdown is-${variant}${w.during ? ' is-sitting' : ''}`} role="group" aria-label={`${term} ${SEMESTER.short}, ${w.range}, ${line}`}>
+    <div className={`lp-countdown is-${variant}${w.during ? ' is-sitting' : ''}`} role="group" aria-label={`${term} ${semester}, ${range}, ${line}`}>
       <div className="lp-countdown-head">
-        <span className="lp-countdown-term">{term} {SEMESTER.short}</span>
-        <span className="lp-countdown-range">{w.range}</span>
+        <span className="lp-countdown-term">{term} {semester}</span>
+        <span className="lp-countdown-range">{range}</span>
       </div>
       <div className="lp-countdown-cells" aria-hidden="true">
         {cells.map((v, i) => (
@@ -279,13 +288,13 @@ export default function LandingBody(p) {
               <p style={{ fontSize: 12.5, lineHeight: 1.55, color: 'var(--clr-ink-soft)', maxWidth: '46ch', margin: 0 }}>{t.footIndependent}</p>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 28px' }}>
-              <a href="/app/privacy" style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>ข้อมูลและความเป็นส่วนตัว</a>
+              <a href="/app/privacy" style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>{t.footPrivacy}</a>
               {t.footLinks.map((l) => <a key={l.label} href={l.href} style={{ fontSize: 13.5, color: 'var(--clr-ink-soft)' }}>{l.label}</a>)}
             </div>
           </div>
           <div style={{ paddingTop: 20, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 8, fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
             <span>{t.copyright}</span>
-            <span>Practice before the real exam.</span>
+            <span>{t.footTagline}</span>
           </div>
         </div>
       </footer>
@@ -297,7 +306,7 @@ export default function LandingBody(p) {
 function ProofBand({ p }) {
   const { t } = p;
   const ref = useRef(null);
-  const total = useCountUp(QB_TOTAL, ref);
+  const total = useCountUp(VISIBLE_TOTAL, ref);
   const past = useCountUp(PAST_PAPER_TOTAL, ref);
   const subjects = useCountUp(SUBJECTS_WITH_QUESTIONS, ref);
   const chips = p.realSubjects;
@@ -338,7 +347,7 @@ function ProofBand({ p }) {
 /* ---- Three things: numbered, each with a live piece of the real product ---- */
 function ThreeThings({ p }) {
   const { t } = p;
-  const topPast = Object.entries(Q_PANIC_COUNTS_BY_SUBJECT)
+  const topPast = Object.entries(PAST_BY_SUBJECT)
     .filter(([, n]) => n > 0)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 4);
@@ -452,7 +461,7 @@ function SubjectsSection({ p }) {
           {cards.map((s) => {
             const clickable = !showcase && s.hasQ;
             return (
-              <div key={s.id || s.name} className="vmx-subject-card" tabIndex={0} role={clickable ? 'button' : undefined}
+              <div key={s.id || s.name} className="vmx-subject-card" tabIndex={clickable ? 0 : undefined} role={clickable ? 'button' : undefined}
                 onClick={clickable ? () => p.onPickSubject(s.year, s.id) : undefined}
                 onKeyDown={clickable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); p.onPickSubject(s.year, s.id); } } : undefined}
                 style={clickable ? { cursor: 'pointer' } : undefined}>
@@ -511,7 +520,7 @@ function LabSection({ p }) {
               <div style={{ position: 'absolute', inset: 0, transform: `scale(${p.labZoom})`, transition: 'transform .25s ease', transformOrigin: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <img
                   src="/images/thoracic-xray.jpg"
-                  alt="Canine Lateral Thoracic Radiograph"
+                  alt={t.labImgAlt}
                   loading="lazy"
                   decoding="async"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
@@ -540,9 +549,9 @@ function LabSection({ p }) {
                 <span style={{ color: '#7fd18a' }}>W: 350 L: 40 (CHEST WINDOW)</span>
               </div>
               <div style={{ position: 'absolute', right: 10, bottom: 10, display: 'flex', alignItems: 'center', gap: 6, zIndex: 2 }}>
-                <button type="button" onClick={() => p.setLabZoom((z) => Math.max(1, +(z - 0.25).toFixed(2)))} aria-label="Zoom out" style={labZoomBtn}>−</button>
+                <button type="button" onClick={() => p.setLabZoom((z) => Math.max(1, +(z - 0.25).toFixed(2)))} aria-label={t.labZoomOut} style={labZoomBtn}>−</button>
                 <span style={{ display: 'flex', alignItems: 'center', padding: '0 9px', height: 28, fontFamily: 'var(--vmx-mono)', fontSize: 11, color: '#fff', background: 'rgba(0,0,0,.5)', borderRadius: 999 }}>{Math.round(p.labZoom * 100)}%</span>
-                <button type="button" onClick={() => p.setLabZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)))} aria-label="Zoom in" style={labZoomBtn}>+</button>
+                <button type="button" onClick={() => p.setLabZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)))} aria-label={t.labZoomIn} style={labZoomBtn}>+</button>
               </div>
             </div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>

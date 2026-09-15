@@ -28,17 +28,20 @@ function makeStorage(seed = {}) {
 }
 
 // ── what gets reclaimed ──────────────────────────────────────────
-test('a daily-question key from another day is dead weight', () => {
+test('a daily-question answer keeps a year (the streak reads it); the pulse flag keeps a day', () => {
   const s = makeStorage({
     'vmx-todays-q-2026-09-14': '{"correct":true}',
     'vmx-todays-q-2026-09-13': '{"correct":false}',
-    'vmx-todays-q-2026-05-02': '{"correct":true}',
+    'vmx-todays-q-2025-09-14': '{"correct":true}',
+    'vmx-todays-q-2025-09-13': '{"correct":true}',
     'vmx-daily-q-pulse-fired-2026-09-14': '1',
-    'vmx-daily-q-pulse-fired-2026-05-02': '1',
+    'vmx-daily-q-pulse-fired-2026-09-13': '1',
   });
   const out = sweepStaleKeys(s, { now: NOW, today: '2026-09-14' });
-  assert.deepEqual(s.keys(), ['vmx-daily-q-pulse-fired-2026-09-14', 'vmx-todays-q-2026-09-14']);
-  assert.equal(out.removed.length, 3);
+  // Yesterday's answer and the one exactly a year back survive; older and the
+  // stale pulse flag go.
+  assert.deepEqual(s.keys(), ['vmx-daily-q-pulse-fired-2026-09-14', 'vmx-todays-q-2025-09-14', 'vmx-todays-q-2026-09-13', 'vmx-todays-q-2026-09-14']);
+  assert.equal(out.removed.length, 2);
   assert.ok(out.bytes > 0);
 });
 

@@ -15,6 +15,7 @@
 // The cohort year lives in curriculum.js so there is exactly one place to
 // move it each August. curriculum.js imports nothing, so no cycle.
 import { CURRENT_YEAR } from './curriculum.js';
+import { SEMESTER } from './semester.js';
 
 export const EXAM_SCHEDULE = {
   y4: [
@@ -285,7 +286,10 @@ export function parseExamStart(timeStr) {
 // Helper: ms until exam start. Negative if already started/passed.
 export function msUntilExam(exam, now = new Date()) {
   const start = parseExamStart(exam.time);
-  const dt = new Date(exam.date);
+  // Split the date: new Date('YYYY-MM-DD') is UTC midnight, which is the
+  // previous evening anywhere west of Greenwich.
+  const [y, m, d] = String(exam.date).split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
   if (start) dt.setHours(start.hour, start.minute, 0, 0);
   else dt.setHours(8, 0, 0, 0);
   return dt - now;
@@ -297,7 +301,10 @@ export function msUntilExam(exam, now = new Date()) {
 // "next exam" for the rest of the day).
 function examEndMs(exam) {
   const start = parseExamStart(exam.time);
-  const dt = new Date(exam.date);
+  // Split the date: new Date('YYYY-MM-DD') is UTC midnight, which is the
+  // previous evening anywhere west of Greenwich.
+  const [y, m, d] = String(exam.date).split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
   if (start) dt.setHours(start.hour, start.minute, 0, 0);
   else dt.setHours(8, 0, 0, 0);
   // Use declared duration if available; fall back to 3 hr (longest in y4)
@@ -516,7 +523,15 @@ export const OFF_SCHEDULE_EXAMS = [
 // ── Helpers: ตารางเรียน + ปฏิทินการศึกษา ─────────────────────────────
 
 /** คาบเรียนของวันนั้น (default = วันนี้) เรียงตามเวลา. เสาร์-อาทิตย์ = [] */
+/** True inside สอบกลางภาค or สอบปลายภาค — the faculty suspends classes for the
+ *  whole period, so the weekly timetable must not claim a lecture that day. */
+export function isExamPeriodDay(date = new Date()) {
+  const ymd = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  return [SEMESTER.midtermPeriod, SEMESTER.finalPeriod].some((p) => p?.start && p?.end && ymd >= p.start && ymd <= p.end);
+}
+
 export function getClassesForDay(year = 5, date = new Date()) {
+  if (isExamPeriodDay(date)) return [];
   const rows = CLASS_TIMETABLE[`y${year}`] || [];
   const dow = date.getDay(); // 0=Sun
   return rows.filter((r) => r.dow === dow).sort((a, b) => a.start.localeCompare(b.start));
@@ -526,6 +541,19 @@ export function getClassesForDay(year = 5, date = new Date()) {
 export function getNextClassToday(year = 5, date = new Date()) {
   const hhmm = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
   return getClassesForDay(year, date).find((c) => c.end > hhmm) || null;
+}
+
+/** คาบถัดไปนับจากตอนนี้ ข้ามไปวันหน้าได้ถึง 7 วัน — dayOffset 0 = วันนี้, 1 = พรุ่งนี้.
+ *  หลังคาบสุดท้ายของวันจบ หน้าแรกจึงบอกคาบแรกของวันถัดไปแทนที่จะเงียบไปทั้งเย็น */
+export function getNextClass(year = 5, now = new Date()) {
+  const today = getNextClassToday(year, now);
+  if (today) return { ...today, dayOffset: 0 };
+  for (let i = 1; i <= 7; i++) {
+    const d = new Date(now); d.setDate(d.getDate() + i);
+    const first = getClassesForDay(year, d)[0];
+    if (first) return { ...first, dayOffset: i };
+  }
+  return null;
 }
 
 /** คาบที่กำลังเรียนอยู่ตอนนี้ (ถ้ามี) */

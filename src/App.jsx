@@ -43,7 +43,9 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 // the sheet now loads in <head> before JS runs (better FOUC behavior).
 import './styles.css';
 import './styles-landing.css';
+import './styles-admin.css';
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
+import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
 import { useExamResultOutbox } from './hooks/useExamResultOutbox.js';
 import { createAttemptEntries } from './lib/study-events.js';
@@ -154,6 +156,10 @@ const ReviewQueueView = lazy(() => import('./views/ReviewQueueView.jsx'));
 // BenchView — the screening-test bench. Self-contained and rarely the first
 // screen of a session, so it stays out of the main bundle.
 const BenchView = lazy(() => import('./views/BenchView.jsx'));
+
+// AdminView — the back-office. One account ever sees it, so its code stays
+// out of everyone else's bundle.
+const AdminView = lazy(() => import('./views/AdminView.jsx'));
 
 // HighlightToCard — listens for text selections inside
 // .vmx-summary-body (SummaryModal content) and offers a floating
@@ -297,7 +303,7 @@ const IS_LOCAL_HOST = typeof window !== 'undefined'
 const WIDE_VIEWS = new Set([
   'home', 'subject-select', 'topic-select', 'dashboard', 'videos', 'notes',
   'reading-checklist', 'faculty', 'pinboard', 'lab', 'pdf-annotate', 'library',
-  'image-occlusion', 'knowledge', 'wiki', 'atlas', 'mochi', 'bench',
+  'image-occlusion', 'knowledge', 'wiki', 'atlas', 'mochi', 'bench', 'admin',
 ]);
 
 // Focus views intentionally remove navigation chrome. In particular, hiding
@@ -493,6 +499,16 @@ function offerBankRetry() {
 
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
+
+  // The back-office door. The database decides who is an admin (is_admin());
+  // this only says whether to draw the entry in the menu and palette.
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    if (!user?.id || !hasSupabase) { setIsAdmin(false); return undefined; }
+    checkIsAdmin().then((ok) => { if (alive) setIsAdmin(ok); }).catch(() => { if (alive) setIsAdmin(false); });
+    return () => { alive = false; };
+  }, [user?.id]);
 
   // Phase 3 perf: QB lazy-load tracker. `qbReady` flips true on first
   // successful loadQB() resolution; we use it to (a) trigger a single
@@ -825,7 +841,10 @@ export default function App() {
   // applies itself at the next moment nothing can be lost: a navigation (the
   // view is being torn down anyway) or the tab going to the background. A
   // running session is never interrupted; the update waits for it to end.
-  const UPDATE_UNSAFE_VIEWS = ['exam', 'sr-session', 'race', 'pomodoro'];
+  // ...and views a reload cannot restore: results, review, config and
+  // topic-select have no URL, so an update applied there lands on Home with
+  // the score screen gone.
+  const UPDATE_UNSAFE_VIEWS = ['exam', 'sr-session', 'race', 'pomodoro', 'results', 'review', 'config', 'topic-select'];
   const pendingUpdateRef = useRef(null);
   useEffect(() => {
     const handler = (e) => { pendingUpdateRef.current = e?.detail?.reason || 'pending'; };
@@ -2445,7 +2464,7 @@ export default function App() {
   // pops back to 'mock-exam'/'mock-results', bounce to home instead of a
   // dead/blank view. (New Mock Exam nav goes through 'config' → real exam.)
   useEffect(() => {
-    if (['mock-exam', 'mock-results', 'domain-detail', 'admin', 'wiki-public'].includes(view)) goHome();
+    if (['mock-exam', 'mock-results', 'domain-detail', 'wiki-public'].includes(view)) goHome();
   }, [view]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // "Mock Exam" preset — one handler shared by the desktop Sidebar and the
@@ -2473,8 +2492,24 @@ export default function App() {
   // is handled by session.replayQuestions; the App-only side effects
   // (setUseTimer false → redo rounds run untimed, setView('exam') →
   // route transition) wrap around it.
-  const replayQuestions = useCallback((qs) => {
+  const replayQuestions = useCallback(async (qs) => {
     if (!Array.isArray(qs) || qs.length === 0) return;
+    // A parked mock (the Home "ทำต่อ" card) sits under the very key this round
+    // is about to autosave to. Ask before throwing it away, as goHome does.
+    // Owner and view come from refs: this callback is memoised once.
+    if (viewRef.current !== 'exam') {
+      let parked = null;
+      try { parked = readOwnedExam(window.localStorage, eventContextRef.current?.owner ?? null); } catch { parked = null; }
+      if (parked && !parked.submitted && parked.questions?.length) {
+        const answered = Object.keys(parked.answers || {}).length;
+        const ok = await confirmDialog({
+          title: 'มีชุดข้อสอบที่ทำค้างไว้',
+          body: `ทำไว้ ${answered}/${parked.questions.length} ข้อ ถ้าเปิดข้อนี้ตอนนี้ ชุดนั้นจะถูกทิ้ง`,
+          confirmLabel: 'เปิดข้อนี้ ทิ้งชุดเดิม', cancelLabel: 'กลับไปทำชุดเดิม',
+        });
+        if (!ok) return;
+      }
+    }
     finishingRef.current = false; // arm the finish latch for the redo round
     setUseTimer(false); // redo rounds never on a clock — focused review
     session.replayQuestions(qs);
@@ -2502,7 +2537,9 @@ export default function App() {
     // the palette missed, downloaded the whole bank looking again, and then
     // dropped the student in the bookmarks pool. Pins have the same shape.
     const wanted = String(id);
-    const find = () => [...QB, ...customQuestions].find((q) => String(q.id) === wanted);
+    // The delivery gate applies here too: a pin or note from before a key was
+    // held back must not open the question the exam pool refuses to serve.
+    const find = () => [...QB, ...customQuestions].find((q) => String(q.id) === wanted && isQuestionDeliverable(q));
     let q = find();
     // A pin can name a question from another year, so load the rest of the
     // bank before concluding it is gone.
@@ -2794,7 +2831,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour }} onStartPanic={startPanicSession} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -2831,6 +2868,7 @@ export default function App() {
               {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'bench' && <BenchView goHome={goHome} />}
+              {view === 'admin' && <AdminView goHome={goHome} user={user} onOpenQuestion={openQuestionById} onlineCount={onlineCount} onlineStatus={onlineStatus} />}
               {view === 'race' && user && <RaceView key={user?.id ?? 'guest'} goHome={goHome} setView={setView} user={user} profile={profile} />}
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
               {view === 'atlas' && <AtlasView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} theme={theme} onToggleTheme={() => setTheme(current => current === 'dark' ? 'light' : 'dark')} />}
@@ -2924,6 +2962,7 @@ export default function App() {
             scaffold={Boolean(YEARS.find((year) => year.id === selectedYear)?.scaffold)}
             hasSupabase={hasSupabase}
             selectedYear={selectedYear}
+            isAdmin={isAdmin}
           />
         </Suspense>
       )}

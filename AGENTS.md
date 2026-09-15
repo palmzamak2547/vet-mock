@@ -113,7 +113,8 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 | Video summaries | `src/data/video-summaries-*.js` + metadata barrel |
 | Changelog (homepage banner) | `src/data/changelog.js` |
 | Curriculum / subjects / topics | `src/data/curriculum.js` |
-| Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` |
+| Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` + `src/styles-admin.css` (`.ad-*`, the back-office only) |
+| Back-office (one account) | `src/views/AdminView.jsx` at `/app/admin`; reads `src/lib/admin-api.js` (RPCs gated by `is_admin()`), flags from `src/lib/question-quality.js`; schema in `supabase/migrations/20260915121049_admin_backoffice_v1.sql` |
 | Tailwind v4 (scoped) | `src/styles-tailwind.css` — utilities ONLY for `src/components/shadcn-space/**`; no preflight, everything layered so hand-written CSS always wins; `@` alias → `src/` |
 | Static blog (SEO) | `public/blog/*.html` |
 | SEO config | `public/{robots.txt,sitemap.xml}` + `index.html` meta |
@@ -353,6 +354,176 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-15 — 5.102.0: the back-office, for one account (Claude)
+
+Palm: "หลังบ้านให้เฉพาะผมคนเดียวเข้าไปดูได้ ... มีสถิติทุกอย่าง ... ยันไปว่าใครเคยทำผิดข้อไหนบ้าง
+เผื่อจะเอาไปปรับปรุงคุณภาพโจทย์ โดยไม่ต้องรอคนแจ้ง".
+
+### The gate is the database, not a flag
+
+- `supabase/migrations/20260915121049_admin_backoffice_v1.sql` (applied to prod as
+  `admin_backoffice_v1`): `admin_users` (RLS on, zero policies, every grant revoked — REST cannot
+  read or write it), `is_admin()` (SECURITY DEFINER, so it may consult that table), and six
+  jsonb readers — `admin_overview(days)`, `admin_questions(days, min_attempts, lim)`,
+  `admin_question_detail(qid)`, `admin_users_list(days)`, `admin_user_detail(uid)`,
+  `admin_subjects(days)` — each `raise exception 'forbidden'` (42501) unless `is_admin()`.
+  `admin_history(days)` flattens `user_data.history` and is executable by nobody but the owner.
+  Verified with a stranger's JWT claims: 42501 on every call, no rows; as Palm: data.
+- The client never decides who may look. `feature-registry` `adminOnly` + App's `isAdmin`
+  state (from `checkIsAdmin()`, `src/lib/admin-api.js`) only decide whether the door is drawn.
+  Adding an admin is one row in `admin_users`; no deploy.
+
+### The page — `src/views/AdminView.jsx`, `src/styles-admin.css` (`.ad-*`), `/app/admin`
+
+- Order: range chips (7/30/90/ทั้งหมด) → six KPI tiles (the ink one is "โจทย์ที่ควรดู", the count
+  of flagged questions) → one-series daily bars with a hover tooltip → the questions table,
+  worst-first → subjects → people. The questions table is the point: a row opens the options
+  with the keyed answer marked and how many chose each, who got it wrong and how often, and
+  "เปิดข้อนี้" through `openQuestionById`. A person opens their subjects, the questions they
+  got wrong, and the exams they submitted.
+- Chosen-option counts come from `study_event_batches` attempt events (only ~60 so far —
+  history rows carry correct/incorrect, not the option), so the distribution is thin until
+  the event stream grows. The page says so instead of showing an empty bar.
+- Flags are pure, `src/lib/question-quality.js` (6 tests): always-wrong (≥3 attempts, 0
+  correct), high-wrong (≥5, ≥70%), most-users-wrong (≥3 people, ≥75% of them), one-distractor
+  (≥4 answer events, one wrong option ≥60% — needs the bank's key, so it appears once the
+  registry has loaded). Blunt thresholds on purpose: a wrong key on 8 attempts must show.
+- Stems come from the local bank (`BANK_REGISTRY`, every bank loaded lazily on the page);
+  the database stores ids only. Field names in the view were checked against
+  `pg_get_functiondef` of the six functions before the first render.
+- Data at build time: 26 users with history, 10,805 rows, 1,974 distinct questions. Top of
+  the 30-day list: 4012 (poultry) 8/8 wrong by 2 people; 2051 and 2210 (practrum) 6/6 by 4.
+- The old `src/views/AdminView.jsx` was a Clerk-era stub, never routed, with `checkIsAdmin`
+  by "email contains admin" — replaced. **App.jsx had a safety net bouncing view `'admin'` to
+  Home** (leftover from that stub); it is removed from the list, or the new view would have
+  gone straight back to Home. Registration followed the five-place rule above; `admin` is
+  cover index 35.
+
+### v2 and v3, the same evening
+
+- Palm: "จำนวนคนออนไลน์เอาไปใส่ admin ก็ได้ รวมถึง changelog ทั้งหมด ใส่ให้ครบ ให้หน้า admin
+  powerful ที่สุด". `admin_backoffice_v2` adds `email`/`last_sign_in_at`/`providers` to the people
+  list (joins `auth.users`, `auth.identities`) and `admin_extras(days)`: sign-ins in range, recent
+  sign-ins, identity providers, 40 recent exams, `daily_q_pulse`, event kinds, the client error
+  counts (`private.client_error_counts`, 14-day rolling, written by `record_client_diagnostic`),
+  contributors, submissions, groups, what people keep (bookmarks/notes/SR/custom/checklist/PDF
+  ink), library by status/kind/year, imaging, and a row count for every table. The page renders
+  all of it in sections with a sticky jump bar, plus the online count from `useOnlineCount`
+  (anonymous presence keys only — never track usernames, presence state is readable by every
+  client) and the whole `CHANGELOG` (168 releases) searchable in `<details>` rows.
+- `admin_backoffice_v3` came out of the audit: v1 cast unvalidated JSON, so one malformed
+  `user_data.history` row (a 20-digit questionId, a non-boolean `correct`, a history that is not
+  an array) would have raised inside every admin reader. Every cast is guarded now; days are
+  bucketed in Asia/Bangkok and a range of N days is N calendar days ending today, so the bars
+  and the KPI agree. All three files are in `supabase/migrations/`.
+
+### Bug hunt, 2026-09-15 (four read-only auditors, then verified by hand)
+
+Fixed in 5.102.0:
+
+- Home: the class chip contradicted the countdown on exam days (`getClassesForDay` now returns
+  `[]` inside `SEMESTER.midtermPeriod`/`finalPeriod`); after the last class it says
+  "พรุ่งนี้ 09:00 น." (`getNextClass`, 3 tests) instead of vanishing; the ซ้อมใกล้สอบ card names the
+  date instead of a day count that disagreed with the hero every morning; `hasQuickChips` lists
+  the first-load hint. Countdown: `useRollUp` rolls once (a `first` ref), `sitting` derives from
+  the live tick. Wordmark holds on `:focus-visible` too.
+- Landing: the skip link never showed (`.lp-skip:focus` lost specificity to `.lp-root a.lp-skip`;
+  now `:focus-visible` at the same specificity, above `--z-nav`); a focused marquee chip could sit
+  in unreachable negative overflow (`:focus-within { animation: none }`); "most past-paper
+  questions" ranked by Panic counts (past + senior-marked) — now `Q_PAST_PAPER_COUNTS_BY_TOPIC`
+  summed per subject, 37 subjects not 38; the headline stat is the visible total (5,211) like
+  the chips beneath it; EN countdown labels/range come from the dict; five stray strings moved
+  into the dict; inert showcase cards are no longer focusable; `facultyExamWindow` and
+  `msUntilExam` parse 'YYYY-MM-DD' locally (UTC-midnight parsing is a day early west of UTC).
+- Storage/sync: the daily sweep deleted every `vmx-todays-q-<date>` but today's, which the
+  daily-Q streak (365-day walk) and the 7-day share grid read — streak 7 became 1 on every
+  boot. The family now keeps a year; the pulse flag stays one-day. `hydrate` still wrote the
+  old `{base, value}` record after replaying an unpushed outbox (3x history in one setItem) —
+  now `changeRecord`. `UPDATE_UNSAFE_VIEWS` gains results/review/config/topic-select: none has
+  a URL, so an update applied there reloaded onto Home with the score screen gone.
+- `useOnlineStatus`: the HEAD ping was starved by the service worker's first-install precache
+  (a 200 arriving after the 4 s abort) and two such timeouts showed "ออฟไลน์" on a healthy link
+  — the cause of the `core mobile journey` e2e failing locally under load. A timeout now
+  counts as 'slow' (three strikes while `navigator.onLine`), a refusal as 'down' (two), and the
+  ping asks for `priority: 'high'`.
+
+- Exam flows (fifth auditor, the 09-13 audit-fix batch): `replayQuestions` (pins, notes,
+  palette hits, admin "เปิดข้อนี้", the Home 1-question button) overwrote a parked, unsubmitted
+  mock under the same inflight key without a word — it now reads `readOwnedExam` through
+  `eventContextRef` (the callback is memoised once) and asks first; `openQuestionById` applies
+  `isQuestionDeliverable`, so a pin from before a key was held back cannot open it; the Home
+  wrong-count chip used array order while the pool used latest-by-date (`stillWrong`), so two
+  synced devices saw a number that did not match the set — the chip now calls `stillWrong`;
+  ResultsView's 100/80 messages read the rounded percent (199/200 said ถูกทุกข้อ) — now exact
+  counts; the PDF reader's `wheel` → `stop` cancelled the zoom anchor on every ctrl/meta wheel
+  event, which is exactly what a trackpad pinch sends.
+
+Left open, with the analysis (all pre-existing):
+
+- `openQuestionById`: a failed `loadQB()` is swallowed and both callers then say the question
+  was removed ("ไม่พบข้อนี้ในคลังแล้ว") — offline or cold cache. Return 'unavailable' and route it
+  to `offerBankRetry()`.
+
+- Outbox cap (`storage-gc.js` keep-4 + `app-lifecycle.js` boot sweep): when the dataset journal
+  cannot be written on a nearly full device, the op record is the only copy of an answer and the
+  cap can delete it. Fix: delete records only after the commit that absorbed them succeeded
+  (the anonymous path already does), or stamp `committedAt`.
+- `controllerchange` reload (`app-lifecycle.js`) is not re-checked against the current view: a
+  student who taps into an exam within the activation window is reloaded mid-exam (autosave
+  recovers it). Fix: keep the flag armed and reload on the next `vmx-view-change` when the view
+  is unsafe.
+- `admin_questions`/`admin_question_detail` `jsonb_each` every event batch per call — fine at 60
+  events, O(all events) later; add a range filter when the stream grows.
+- Dev-only: StrictMode's double render flips the once-per-load flags in `ExamCountdown` and
+  `Wordmark` during render, so `npm run dev` never plays the entrance; flip them in an effect.
+
+Refuted or by design, do not re-report: `useNow` cleanup and drift; `splitCountdown` clamps;
+the window rolls to the final at 11:30 on 25 Sep; `admin_users` reachable by nothing but
+`is_admin()`; every admin reader raises before any read; `service_role` gets `forbidden` too
+(`auth.uid()` is null — a footgun, not a hole); all i18n keys exist in both locales; the
+marquee copy is `aria-hidden`; `home-desktop.jpg` is exactly 2x its attributes.
+
+### The gate, this time
+
+- The first full run had 14 failures: 9 Firefox atlas/motion GFX crashes (RenderCompositorSWGL,
+  the known local flake), 1 Firefox teardown hang, 2 load flakes that passed alone (library PDF
+  render, WebKit theme toggle), and `core mobile journey` on chromium + WebKit — the offline
+  banner above (a real product finding, fixed). Four auditors and a Firefox rerun were running
+  beside that gate; the machine was oversubscribed. **Run the gate alone.** It also outlives the
+  Bash tool's 10-minute cap: start it detached (`Start-Process cmd /c npm run gate > log`) and
+  watch the log.
+
+### OG covers: a runner again
+
+- `bench.png` re-rendered: its legend said "ปลุกผิด", a word that does not exist — now
+  "ผลบวกลวง"; its description no longer says "การปลุก". `admin.png` is index 35. Both come from
+  `work/og-covers-20260915/make-og.mjs <cover.html> <out.png>` (Playwright, Sarabun TTFs
+  inlined as data URIs — `page.setContent` cannot load `file://` fonts, and a PDF writer cannot
+  shape Thai marks). `work/` is untracked, so the runner lives outside git; it is 30 lines.
+
+### The countdown after the exams (Palm asked)
+
+- `examWindow` takes the first paper whose end (start + duration) is still ahead. After the
+  last midterm paper it rolls to the final by itself; in the two-month gap the day strip hides
+  (`STRIP_MAX_DAYS`) and only the day count shows; after the final it returns null, the card
+  renders nothing and `NextActionCard` gets `examContext={false}`, so the old chip returns.
+  The landing's `facultyExamWindow` is null after 4 Dec 17:00. No date is hard-coded.
+
+### Checks
+
+- Gate 2 (`npm run gate`, detached, alone, on the final tree): build (32 routes prerendered, 35
+  covers), lint:all (contrast light/dark across five palettes), unit 987/0, e2e 529 passed /
+  9 failed in 11.4 min. The nine (wiki share URL, cold video shelf, motion-kit WebGL fallback,
+  wiki chunk retry, exam-clock resume, exam-scope midterm, VCA share set, Mochi presence, Firefox
+  atlas panes) were all timeouts in one stretch of the chromium phase, and **all nine pass alone
+  on the same dist in 18.8 s** (`npx playwright test --last-failed`). Every test in the suite is
+  green on this build, in one run or the other. Gate 1 earlier: 525/14, triaged above. If the
+  local flake rate keeps this shape, cap local workers at 4 in `playwright.config.js` (CI runs 2).
+- Preview after the build: `/app/admin` signed out shows the locked card and fires no RPC; Home
+  shows "พรุ่งนี้ 08:00 น. CLI PROB SOLV COMP, VET6 807" in the evening; no horizontal overflow at
+  372px; the two console errors (a 404 and a 401) are the same on Home and predate this work.
+- Production: see the 5.102.0 proof note below once the alias moved.
+
 ## 2026-09-15 — 5.101.0: the landing rebuilt, and the gate rule that stops Smoke failing (Claude)
 
 ### The rule, first
@@ -461,11 +632,11 @@ so the presence he saw was either an anonymous session or his own tab.
    Constraints from e2e: keep `.lp-nav-burger`, `#lp-mobile-menu`, `.lp-mobile-menu-link`,
    `.lp-sound-toggle`, `.lp-theme-toggle`, `.lp-navlink[href="#progress"]`, the cookie dock
    classes, a button matching /เริ่มฝึกเลย|Start Practicing/, and NO `.lp-rail`/`.lp-spotlight`.
-2. **Admin back-office for Palm only** — "หลังบ้านให้เฉพาะผมคนเดียวเข้าไปดูได้ ออกแบบดี ๆ สวย ๆ".
-   Gate it server-side (an `is_admin()` on his auth uid, RLS, never a client-side flag), then
-   design: what he actually needs to see is usage (exam_results, user_data sync, profiles),
-   content health (bank counts, panic pools), and the submission review queue.
+2. **Admin back-office for Palm only** — shipped in 5.102.0 (section above). Left for later, not
+   asked: the submission review queue and bank/panic-pool health are not on the page yet.
 3. Art assets arrive from GPT Image → stage 2 of the landing (drop-in), then photos → stage 3.
+4. Still open from earlier sessions: five past-paper questions that could not be recovered
+   (8040, 8044, 8047, 8049, 70037), and explains that cite a document mid-sentence.
 
 ## 2026-09-15 — 5.100.0: the exam countdown, and a wordmark that plays with words (Claude)
 
@@ -732,7 +903,7 @@ He was right, and it was already broken, not hypothetical.
   `og-head.test.mjs` both enforce.
 - **The cover number is the array index.** `pinboard` sits at index 27 and its image prints
   "/ 27". Inserting a row mid-array would silently invalidate the printed number on every later
-  cover, so a new cover is APPENDED. bench is index 34 and prints "/ 34".
+  cover, so a new cover is APPENDED. bench is index 34 and prints "/ 34"; admin is 35.
 - The 33 existing covers came from a design study with no generator. the bench cover was rendered by
   screenshotting an HTML file in Playwright at 1200x630 using `public/Sarabun/*.ttf` — a PDF
   text writer does not shape Thai marks correctly, a browser does. The HTML and the runner are

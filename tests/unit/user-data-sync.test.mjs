@@ -549,9 +549,10 @@ test('a full disk recovers by reclaiming dead keys instead of refusing forever',
   // The reported symptom: "พื้นที่จัดเก็บในเครื่องไม่พอ" on every action with no
   // way out, because the quota stayed full and nothing ever reclaimed it.
   const storage = new MemoryStorage();
-  // Months of daily questions, none of which anything reads any more.
+  // Daily questions older than the year the streak can reach, which nothing
+  // reads any more.
   for (let d = 1; d <= 60; d += 1) {
-    storage.setItem(`vmx-todays-q-2026-01-${String(d).padStart(2, '0')}`, 'x'.repeat(200));
+    storage.setItem(`vmx-todays-q-2024-01-${String(d).padStart(2, '0')}`, 'x'.repeat(200));
   }
   const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null) });
 

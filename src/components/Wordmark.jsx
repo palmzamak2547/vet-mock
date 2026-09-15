@@ -76,7 +76,7 @@ export default function Wordmark({ size = 22, cycle = false }) {
     let timer = 0;
     let cur = 0;
     const tick = () => {
-      const held = document.hidden || textRef.current?.closest('button')?.matches(':hover');
+      const held = document.hidden || textRef.current?.closest('button')?.matches(':hover, :focus-visible');
       if (!held) {
         const next = (cur + 1) % PHRASES.length;
         setPhrase({ cur: next, prev: cur });

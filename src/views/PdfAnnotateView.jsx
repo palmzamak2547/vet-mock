@@ -1608,14 +1608,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         zoomAnchorRef.current = null;
       }
     };
+    // A trackpad pinch is a stream of ctrl/meta wheel events; each one is a
+    // zoom step, not the user scrolling away, so it must not drop the anchor.
+    const stopUnlessZoom = (e) => { if (e.ctrlKey || e.metaKey) return; stop(e); };
     const opts = { passive: true };
-    wrap.addEventListener('wheel', stop, opts);
+    wrap.addEventListener('wheel', stopUnlessZoom, opts);
     wrap.addEventListener('pointerdown', stop, opts);
     window.addEventListener('keydown', stop, opts);
     place();
     return () => {
       cancelAnimationFrame(raf);
-      wrap.removeEventListener('wheel', stop, opts);
+      wrap.removeEventListener('wheel', stopUnlessZoom, opts);
       wrap.removeEventListener('pointerdown', stop, opts);
       window.removeEventListener('keydown', stop, opts);
     };

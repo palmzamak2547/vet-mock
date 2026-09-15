@@ -1090,10 +1090,10 @@ export function createUserDataSync({
         const remoteValue = remoteSnapshot.present.has(field)
           ? remoteSnapshot.data[field]
           : clone(definition.initial);
-        nextDirty[field] = {
-          base: clone(remoteValue),
-          value: merged[field],
-        };
+        // The delta shape, like every other writer: the old {base, value}
+        // record here was the one place still writing three copies of a
+        // history in one setItem after a boot with unpushed work.
+        nextDirty[field] = changeRecord(field, clone(remoteValue), merged[field]);
       }
 
       const nextMeta = {
