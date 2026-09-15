@@ -11,15 +11,20 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 // Y6 is block-based (no fixed semester) — bypasses this view in App routing.
 
 // `sub` says what the choice actually scopes. It used to read
-// "เนื้อหาก่อนสอบกลางภาค", which promised mid-only content that the question
-// data cannot support: ordinary questions carry no mid/final marker, so the
-// practice pool narrows to the TERM. The curated "ตามสไลด์ปัจจุบัน" and
-// "ชุดน่าจะออก" sets are the ones that really do scope to mid or final.
+// "เนื้อหาก่อนสอบกลางภาค", which promised mid-only content the data could not
+// support: ordinary questions carried no mid/final marker and the pool
+// narrowed to the TERM alone, so กลางภาค and ปลายภาค served the same pile.
+//
+// 2026-09-16: the pool now narrows to the PAPER as well (lib/exam-scope.js —
+// a question takes its paper from its own field, its topic's, or the faculty
+// timetable). The subtitle says exactly what that guarantees and no more: a
+// paper we KNOW belongs to the other exam is removed, and a topic whose paper
+// is not yet mapped is still shown rather than silently withheld.
 const PHASES = [
-  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'วิชาของเทอม 1', icon: '📚', months: [8, 9, 10] },
-  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'วิชาของเทอม 1', icon: '🎯', months: [11, 12] },
-  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'วิชาของเทอม 2', icon: '📖', months: [2, 3] },
-  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'วิชาของเทอม 2', icon: '🏁', months: [4, 5] },
+  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหาปลายภาค', icon: '📚', months: [8, 9, 10] },
+  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหากลางภาค', icon: '🎯', months: [11, 12] },
+  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหาปลายภาค', icon: '📖', months: [2, 3] },
+  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหากลางภาค', icon: '🏁', months: [4, 5] },
 ];
 
 export function detectCurrentPhase(now = new Date()) {

@@ -65,17 +65,28 @@ test('ordinary practice honours the chosen term, and only the term', () => {
   assert.ok(!phaseBlock.includes('isCurrentScopeQuestion'));
 });
 
-test('the phase screen stops promising midterm-only content', () => {
+test('the phase screen promises exactly what the pool now delivers', () => {
   const s = src('src/views/PhaseSelectView.jsx');
   // Assert on the rendered field, not the file: the comment above PHASES
   // quotes the old wording on purpose so the reason survives.
   const subs = [...s.matchAll(/sub: '([^']+)'/g)].map((m) => m[1]);
   assert.equal(subs.length, 4, 'all four phases must declare what they scope');
   for (const sub of subs) {
-    assert.ok(!sub.includes('ก่อนสอบ'),
-      `"${sub}" promises a mid/final scope the question data cannot support`);
+    // "ก่อนสอบกลางภาค" claimed midterm-ONLY content. The pool removes the other
+    // paper's content but keeps anything whose paper is still unmapped, so the
+    // subtitle says what is excluded, never that what remains is exhaustive.
+    assert.ok(!sub.includes('ก่อนสอบ'), `"${sub}" over-promises: it claims only-this-paper content`);
+    assert.ok(/ไม่รวมเนื้อหา(กลางภาค|ปลายภาค)/.test(sub),
+      `"${sub}" must name the paper it excludes, which is the guarantee buildExamPool keeps`);
   }
-  assert.deepEqual(new Set(subs), new Set(['วิชาของเทอม 1', 'วิชาของเทอม 2']));
+  assert.deepEqual(new Set(subs), new Set([
+    'วิชาเทอม 1 ไม่รวมเนื้อหาปลายภาค', 'วิชาเทอม 1 ไม่รวมเนื้อหากลางภาค',
+    'วิชาเทอม 2 ไม่รวมเนื้อหาปลายภาค', 'วิชาเทอม 2 ไม่รวมเนื้อหากลางภาค',
+  ]));
+  // ...and the guarantee is real: the pool builder must apply the paper filter.
+  const app = src('src/App.jsx');
+  assert.ok(app.includes('questionInScope(q, wantedScope)'),
+    'buildExamPool must filter by the paper, or the subtitle is a lie again');
 });
 
 test('the config count and the exam pool are computed by the same builder', () => {

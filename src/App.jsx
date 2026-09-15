@@ -60,6 +60,7 @@ import { recordViewOpen } from './lib/nav-usage.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import { SEMESTER } from './data/semester.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from './lib/question-prediction.js';
+import { scopeForPhase, questionInScope } from './lib/exam-scope.js';
 import { panicPool } from './lib/question-metadata.js';
 
 // Eager — needed for first paint
@@ -430,6 +431,19 @@ function buildExamPool({
       if (scoped.length) pool = scoped;
     }
 
+    // ...and then by the PAPER. The term filter above is only half of what
+    // "เทอม 1 กลางภาค" says: until now '1-mid' and '1-final' both mapped to
+    // semester 1 and nothing else, so the two picks served an identical pool
+    // — the midterm pile and the final pile were the same pile. lib/exam-scope
+    // resolves each question to its paper (its own field, its topic's, or the
+    // faculty timetable, which alone settles a subject sitting one paper:
+    // epidemiology has no midterm, POA has no written paper at all).
+    //
+    // Unlike the term filter this applies to a named subject too: picking
+    // กลางภาค and then สุขศาสตร์น้ำนม asks for that subject's midterm content,
+    // not all of it. A question whose paper is still unknown stays in — see
+    // questionInScope — so this can only ever remove content we KNOW belongs
+    // to the other paper.
     if (topic) {
       if (topic.startsWith('_') && topic.endsWith('-all')) {
         const collectionId = topic.slice(1, -4);
@@ -477,6 +491,19 @@ function buildExamPool({
 
   // Applied last so it holds for every mode. Compound keys, because ids
   // collide across subjects.
+  // The paper filter runs LAST, after the topic narrowing, and that order is
+  // the point: a student who names a topic has asked for exactly that content,
+  // so when the filter would empty their pool the never-empty guard hands it
+  // straight back. Filtering before the topic step instead gave 0 questions
+  // for หัวข้อ fiqc-aquatic under เทอม 1 กลางภาค — the syllabus marks it
+  // "ไม่ออกสอบ — handout only", which is a reason to keep it out of a WHOLE-
+  // subject set, not a reason to refuse the student who asked for it by name.
+  const wantedScope = scopeForPhase(selectedPhase);
+  if (wantedScope && !curated) {
+    const onPaper = pool.filter((q) => questionInScope(q, wantedScope));
+    if (onPaper.length) pool = onPaper;
+  }
+
   if (excludeIds && excludeIds.size) {
     pool = pool.filter((q) => !excludeIds.has(`${q.subject}:${q.id}`));
   }

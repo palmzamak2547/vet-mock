@@ -47,19 +47,29 @@ export function examScopeForPhase(selectedPhase) {
 }
 
 export function predictionMetadataIssues(question) {
+  // `examScope` is NOT one of these. Which paper a question sits is a fact
+  // about the syllabus — lib/exam-scope.js resolves it from the topic and the
+  // faculty timetable — while everything below is a claim about how well we
+  // predict the paper's CONTENT. Folding the two together meant that labelling
+  // a legacy question's paper flipped it from "no prediction metadata, fine"
+  // to "partial prediction metadata, invalid": 5,169 questions would have
+  // failed the standard ratchet the moment the separation work began, and
+  // most of them cannot honestly claim `answerStatus: 'verified'` or a
+  // curriculum version. Separate axes, separate contracts.
   const keys = [
     'answerStatus',
     'curriculumVersion',
-    'examScope',
     'predictionTier',
     'predictionSignals',
     'predictionEvidence',
   ];
-  if (!keys.some((key) => question?.[key] != null)) return [];
+  const scopeInvalid = question?.examScope != null && !EXAM_SCOPES.has(question.examScope);
+  if (!keys.some((key) => question?.[key] != null)) return scopeInvalid ? ['examScope'] : [];
 
   const issues = [];
   if (!ANSWER_STATUSES.has(question?.answerStatus)) issues.push('answerStatus');
   if (!VERSION_PATTERN.test(String(question?.curriculumVersion || ''))) issues.push('curriculumVersion');
+  // A prediction still has to say which paper it predicts.
   if (!EXAM_SCOPES.has(question?.examScope)) issues.push('examScope');
   if (!PREDICTION_TIERS.has(question?.predictionTier)) issues.push('predictionTier');
   if (!PREDICTION_SOURCE_TYPES.has(question?.sourceType)) issues.push('sourceType');

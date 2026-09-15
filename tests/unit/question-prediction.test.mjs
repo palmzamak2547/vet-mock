@@ -100,6 +100,12 @@ test('the phase selector keeps midterm, final and no-paper courses apart', () =>
 test('prediction metadata is all-or-nothing and high tier needs two signals', () => {
   assert.deepEqual(predictionMetadataIssues(BASE), []);
   assert.deepEqual(predictionMetadataIssues({ q: 'legacy question' }), []);
+  // ...but which PAPER a question sits is a separate axis: saying so alone is
+  // a complete statement, not half a prediction. Folding the two together is
+  // what would have failed 5,169 questions the moment we started separating
+  // the midterm pile from the final one.
+  assert.deepEqual(predictionMetadataIssues({ q: 'legacy', examScope: 'midterm' }), []);
+  assert.deepEqual(predictionMetadataIssues({ q: 'legacy', examScope: 'nonsense' }), ['examScope']);
   assert.deepEqual(
     predictionMetadataIssues({ ...BASE, predictionSignals: ['current-lecture'] }),
     ['highTierNeedsTwoSignals'],

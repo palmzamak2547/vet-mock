@@ -91,6 +91,45 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 - A build or push is not production proof. Require exact-SHA GitHub Build + Smoke E2E, successful Vercel Production deployment, and a live flow against `vetmock.vercel.app`.
 - Push one real commit; avoid burst pushes and empty redeploy commits.
 
+### 10. A paper examines TOPICS — never mix กลางภาค with ปลายภาค
+
+Palm, 2026-09-16: "กลางภาคก็ควรอยู่กลางภาค ปลายภาคก็ต้องอยู่ปลายภาค ... แยกให้ชัด สร้างมาตรฐาน
+และความมั่นคง". The separation had been a label, not a filter: `'1-mid'` and `'1-final'` both
+mapped to semester 1 and nothing else, so the two picks served an identical pool.
+
+**The model, in one line: scope belongs to the TOPIC, and a question inherits it.** Resolution
+lives in `src/lib/exam-scope.js`, first hit wins:
+
+1. `question.examScope` — a hand-set fact about that one question. Use it only when a past
+   paper disagrees with where its topic sits **this** year ("อาจมีบางปีที่ไม่ตรงกับรุ่นปัจจุบัน
+   ก็ให้เทียบหัวข้อเอา").
+2. `topic.examScope` in `curriculum.js` — **the normal path, and the one to reach for.**
+3. `subject.examScope` — a subject taught and examined as one block (POA is `'continuous'`).
+4. The faculty timetable, via `src/data/exam-papers.generated.js` — a subject sitting exactly
+   one paper is settled with no data entry at all (epidemiology sits only the final, so all 100
+   of its questions are final scope and can never pad a midterm set).
+5. Unknown — and **unknown is never filtered out**. Missing metadata must not silently shrink a
+   student's practice set; `lint:exam-scope` is what stops unknown from becoming the norm.
+
+Rules that follow from it, and they are not negotiable:
+
+- **Never read an absence as a fact.** "Not in the timetable" does NOT mean "no exam": the
+  year-4 COM III/IV/V banks and the VCA compilation (2,000 questions) are absent from the
+  current timetable and would have vanished from every phase-filtered pool. A course with no
+  written paper says so out loud with `examScope: 'continuous'`.
+- **Adding a topic means declaring its paper.** `npm run lint:exam-scope` fails when a topic in
+  a both-paper subject does not say which paper it sits, against a budget that may only
+  shrink. Lower the budget when you map a batch; never raise it.
+- **`examScope` is not prediction metadata.** It is a fact about the syllabus and is validated
+  on its own; `predictionMetadataIssues` deliberately excludes it. Folding the two together
+  meant labelling a legacy question's paper flipped it to "partial metadata, invalid" and would
+  have failed 5,169 questions against the standard ratchet.
+- **The timetable is the source of truth for which papers exist.** After it changes, run
+  `npm run regen:exam-papers`; `lint:exam-scope` fails if the generated map has drifted.
+- **Copy may promise only what the engine keeps.** The phase subtitles say *"ไม่รวมเนื้อหา
+  ปลายภาค"* (what is excluded), never *"เฉพาะกลางภาค"* (that what remains is exhaustive),
+  because unmapped topics are still shown. `audit-sense-fixes.test.mjs` pins both halves.
+
 ---
 
 ## 🗂️ Where Things Live
@@ -353,6 +392,93 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - Owner decisions, both asked and both taken: the exam clock is now **one budget for the whole paper** (50 questions = 50 minutes, spent where the student needs it, no refill on back/jump, time up ends the paper where they stand) and the home screen folds **quests + daily goal into one closed disclosure** under the subject grid. In-flight exams keep the clock they started under: the saved record carries `clock: 'session' | 'per-question'`, and a record without that field predates the change and resumes per-question — those records hold a PER-QUESTION deadline, so reading it as a whole-paper deadline would end someone's exam the moment they reopened it.
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
+
+## 2026-09-16 — 5.103.0: กลางภาค and ปลายภาค become two different piles (Claude)
+
+Palm: "การแยกกลางภาคกับปลายภาค มันยังแปลกๆอยู่ เหมือนมันปนกัน ... แยกให้ชัด สร้างมาตรฐานและ
+ความมั่นคง ... เราไม่ได้มีแค่ข้อสอบ choice อย่างเดียว". He was right on every count.
+
+### What was actually wrong
+
+`PHASE_SEMESTER = { '1-mid': 1, '1-final': 1, ... }` — mid and final mapped to the SAME
+semester and `buildExamPool` filtered by nothing else, so **the two picks served an identical
+pool, 2,641 questions, id for id.** `examScope` existed but only 218 of 5,387 questions carried
+it and the pool never read it. The separation was a label.
+
+### The model (now Critical Rule 10)
+
+Scope belongs to the TOPIC; a question inherits it. `src/lib/exam-scope.js` resolves
+question → topic → subject → faculty timetable → unknown, and **unknown is kept**, never
+filtered out. Three consequences worth remembering:
+
+- The timetable settles a whole subject for free when it sits one paper: epidemiology has no
+  midterm, so its 100 questions can never pad a midterm set. POA sits no written paper
+  (`examScope: 'continuous'` on the subject) so it pads neither.
+- **Absence is not a fact.** The first cut read "not in the timetable" as "no exam" and
+  silently removed the year-4 COM III/IV/V banks and VCA — 2,000 questions — from every
+  phase-filtered pool. Only an explicit declaration means continuous.
+- The filter runs AFTER the topic narrowing. Before that, picking หัวข้อ fiqc-aquatic (marked
+  "ไม่ออกสอบ — handout only") under เทอม 1 กลางภาค returned zero questions; now the never-empty
+  guard hands the student what they named.
+
+### The data, and how it was decided
+
+424 topics across years 4 and 5 now declare their paper, from the faculty timetable, the
+lecture dates either side of the midterm week, and the senior compilations themselves.
+Result for year 5 term 1: midterm 2,449 / final 1,125, with 1,663 midterm-only and 339
+final-only. Year 4 term 1: 139 / 303.
+
+Two cross-checks changed a verdict, and both are the rule in action:
+- `milk-cleaning` was mapped `final` from the lecture list, but the Mid 86 paper Palm supplied
+  examines it — 10 of the 25 questions in its set F are CIP sequence, the 4-hour stop rule,
+  85 °C sanitising, the phenol coefficient table. **A real past paper outranks a lecture date.**
+- `zoo-epi-approach` and `zoo-eid-wildlife` had evidence pointing both ways (bank header says
+  midterm; Paisin taught Emerging threat diseases on 14 พ.ย.). Contested evidence takes
+  `'both'` — visible in either pile, hidden from neither. Never coin-flip a split.
+
+### The 15 PDFs, read page by page
+
+Eight parallel auditors read every page of the compilations Palm sent. **260 questions were
+missing from the bank** and are now in `questions-mid86-<subject>.js`: aquatic-clinic 62,
+equine-medicine 59, one-health 46, zoonoses 29, avian-medicine 27, food-industry 19,
+equine-repro 8, swine-clinic 7, milk-meat-hygiene 3. Not only MCQ, as he insisted: 24 short
+answer, 8 true or false, 5 matching, 2 fill-in. Bank 5,322 → 5,647; the whole corpus now reads
+mcq 5,293 / tf 200 / short 71 / match 49 / fill 29 / essay 5.
+
+### Guardrails, so it cannot drift back
+
+- `npm run lint:exam-scope` (in `lint:all`): fails when a topic in a both-paper subject does not
+  declare its paper (budget 0, may only shrink), when a scope contradicts the timetable, and
+  when `exam-papers.generated.js` has drifted from `EXAM_SCHEDULE`.
+- `npm run regen:exam-papers` after the faculty timetable changes.
+- `examScope` was removed from the all-or-nothing prediction-metadata bundle — folding the two
+  axes together would have invalidated 5,169 questions against the standard ratchet the moment
+  labelling began.
+- `tests/unit/exam-scope.test.mjs` (5), plus the phase-copy pin in `audit-sense-fixes` which now
+  also asserts `buildExamPool` applies the filter, so the subtitle cannot become a lie again.
+
+### Left for the next batch
+
+- **Per-question overrides.** Several auditors resolved split topics down to individual ids
+  (equine-repro `eqrepro-pregnancy` 35 questions split 24 midterm / 9 final / 2 both,
+  `eqrepro-surgery`, `eqrepro-ai`). The topic split is correct without them; these refine it.
+- **com1 has zero midterm questions.** Commit b2b78c51 added 26 midterm TOPICS but its diff to
+  `questions-com1.js` was three cosmetic edits — the questions were never applied. A real gap.
+- **Four dairy topics are filed under swine-herd** (mastitis-subclinical-scc,
+  contagious-vs-environmental-mastitis-pathogens, milking-machine-pulsation,
+  milk-letdown-oxytocin), all sourced from the same `Udder Health.pdf` deck that feeds
+  herd-health-rum. They look cross-filed.
+- 228 topics in years 1-3 subjects are unscoped; they sit outside the current timetable, so the
+  lint does not hold them yet.
+
+Checks: `npm run gate` alone on the final tree — build, lint:all (every generated artifact
+re-checked), unit 992/0, e2e 536 passed / 1 failed in 6.1 min; the one failure is the known
+Firefox `NS_BINDING_ABORTED` on `page.reload` in system-polish, which passes alone in 7 s.
+`lint:question-standard` 0 defects across 5,647 questions, `lint:exam-scope` 0 unscoped topics.
+Four earlier gate runs failed on generated artifacts going stale behind the new questions
+(glossary links, written-questions, q-counts, stats/README) — **after a question ingest,
+regenerate registry, q-counts, delivery, written-questions, glossary-related, citation-index,
+conflict-summary, notes-registry AND `npm run stats -- --write` before starting the gate.**
 
 ## 2026-09-15 — 5.102.1: the fourth auditor's twelve, eleven fixed (Claude)
 
@@ -751,9 +877,17 @@ Zoonosis 0.041, Equine Med 0.072. **Always measure this before writing anything 
    derived from context in the files (`เป<F712>นฝ<F710><F713>ง` = เป็นฝั่ง pins three at once).
 2. **ASCII cmap** (Equine Repro) — `N . 0` = mai ek, `8 I` = mai tho. Safe only because all 106
    hits sit BETWEEN two Thai letters. It still turned `ซม.` into `ซม่` six times.
-3. **XMind export** (Aqua p.17-18, 45-52) — scrambled cmap, ~15% of Thai becomes random Latin.
-   Not recoverable. Rendered them as PNG to check: all mind maps, zero numbered questions, so
-   nothing exam-shaped was lost. Aqua p.19-42 are image-only slides with no text layer at all.
+3. **XMind export** (Aqua p.45-52) — scrambled cmap, ~15% of Thai becomes random Latin. Not
+   recoverable, and those eight pages really are mind maps with no numbered questions.
+   **Corrected 2026-09-16, and the correction is the lesson:** this entry used to include
+   p.17-18 and describe p.19-42 as "image-only slides", concluding "nothing exam-shaped was
+   lost". Both claims were wrong. p.17-18 are legible Vet 80 midterm recall — about 13 written
+   questions, 4 essay prompts and 26 fill-in items with answers — and p.19-42 are 23 pages of
+   screenshots of a COMPLETE 41-item past paper with stems, five options each and the marked
+   key. 62 questions were sitting there unread for two days. A page with no text layer has not
+   been read until someone has LOOKED at it: render it and view the image (the 204 MB file
+   exceeds the Read tool's limit, so PyMuPDF at 140 dpi into the scratchpad), and never write
+   "nothing was lost" about pages that were only sampled.
 
 Scripts: `<scratchpad>/repair-thai.py` then `repair-thai-2.py`. **Scan page by page** — corruption
 was confined to 8 of 52 content pages in Aqua while the rest was clean.

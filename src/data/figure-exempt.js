@@ -11,6 +11,7 @@
 // defect count until it gets its figure or gets rewritten.
 
 export const FIGURE_EXEMPT = {
+  202429: 'every option DESCRIBES a curve behaviour in words — earliest rise, latest rise, highest plateau, shallowest slope — so the student answers from the principle that a low Ct means more starting template, not by reading a particular plot',
   105022: 'the clinical picture IS the stem — 60% mortality with airsaculitis, pericarditis and perihepatitis are all stated; "ภาพนี้" means this presentation, not a photograph',
   106291: 'the radiograph finding is given ("ยืนยันจากภาพรังสีว่าแมวมี pleural effusion"); the question is what to do next',
   2202: '"แผนผังโครงสร้างฟาร์ม" is part of the DEFINITION being tested — conceptual biosecurity IS farm layout. No diagram is referred to',
