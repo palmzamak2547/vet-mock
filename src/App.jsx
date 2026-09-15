@@ -501,7 +501,15 @@ function buildExamPool({
   const wantedScope = scopeForPhase(selectedPhase);
   if (wantedScope && !curated) {
     const onPaper = pool.filter((q) => questionInScope(q, wantedScope));
-    if (onPaper.length) pool = onPaper;
+    // The never-empty guard is only kind when the student NAMED what they
+    // want. Across all subjects it was the opposite: a subject holding
+    // nothing for the chosen paper got its whole other-paper bank handed
+    // back, so a midterm cram served all 100 epidemiology questions (that
+    // subject has no midterm), all 46 vet-juris and every com1 topic.
+    // That is what "ทำไม Equine Repro มี final ติดมาด้วย" looks like at scale,
+    // and the pool is in no danger of emptying when it spans a whole year.
+    const named = subject !== 'all' || Boolean(topic);
+    if (onPaper.length || !named) pool = onPaper;
   }
 
   if (excludeIds && excludeIds.size) {

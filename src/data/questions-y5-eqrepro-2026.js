@@ -14,7 +14,10 @@
 export const QUESTIONS_Y5_EQREPRO_2026 = [
   {
     "id": 105432,
-    "tags": ["endometrial-cups","early-gestation"],
+    "tags": [
+      "endometrial-cups",
+      "early-gestation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -30,11 +33,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "Endometrial cups เริ่มก่อตัวราววันที่ 35 ถึง 38 ของการตั้งท้อง แล้วเสื่อมสลายไปราววันที่ 100 ถึง 120 ข้อสอบเดิมตั้งโจทย์ว่าวันที่ 15 จึงตอบเท็จ วันที่ 25 เป็นช่วงที่ตัวอ่อนหยุดเคลื่อนที่และเริ่มยึดเกาะ ส่วนวันที่ 60 เป็นช่วงที่ eCG ขึ้นสูงเต็มที่แล้ว ไม่ใช่วันเริ่มพัฒนา",
     "verified": "Repro horse final น.6",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105433,
-    "tags": ["endometrial-cups","chorionic-girdle"],
+    "tags": [
+      "endometrial-cups",
+      "chorionic-girdle"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -50,11 +57,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "Endometrial cups เกิดจากเซลล์ trophoblast ที่บริเวณ chorionic girdle ของถุงตัวอ่อน ซึ่งรุกเข้าไปฝังในชั้น endometrium ราววันที่ 36 ข้อสอบเดิมเขียนว่ามาจาก caruncles จึงเป็นเท็จ เพราะ caruncle เป็นโครงสร้างของสัตว์เคี้ยวเอื้องและไม่มีในม้า ส่วน endometrial glands และ yolk sac เป็นคนละโครงสร้างที่ไม่ได้ให้กำเนิด cups",
     "verified": "Repro horse final น.10",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105434,
-    "tags": ["endometrial-cups","eCG"],
+    "tags": [
+      "endometrial-cups",
+      "eCG"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -70,11 +81,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "Endometrial cups สร้าง eCG ซึ่งมีฤทธิ์คล้าย LH และ FSH ไปกระตุ้น follicle บนรังไข่ให้เกิด accessory corpora lutea ในช่วงวันที่ 40 ถึง 120 PSPB เป็นตัวชี้วัดการตั้งท้องในสัตว์เคี้ยวเอื้อง IFN tau เป็นสัญญาณ maternal recognition ของสัตว์เคี้ยวเอื้อง ส่วน placental lactogen ไม่ใช่ผลผลิตหลักของ cups ในม้า",
     "verified": "Repro horse final น.11",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105435,
-    "tags": ["maternal-recognition-of-pregnancy","transuterine-migration"],
+    "tags": [
+      "maternal-recognition-of-pregnancy",
+      "transuterine-migration"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -90,11 +105,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ตัวอ่อนม้าเคลื่อนที่ไปมาทั่วโพรงมดลูกวันละหลายสิบครั้งจนถึงราววันที่ 16 เพื่อส่งสัญญาณไปทั่ว endometrium และยับยั้งการหลั่ง PGF2 alpha ซึ่งเป็นกลไกจำเพาะของม้า interferon tau เป็นของสัตว์เคี้ยวเอื้อง estrone sulfate ใช้ตรวจการตั้งท้องระยะหลังไม่ใช่กลไกจดจำ และ endometrial cups เกิดหลังวันที่ 35 ซึ่งช้ากว่าช่วงที่ต้องรักษา corpus luteum ไว้",
     "verified": "Repro horse final น.5",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105436,
-    "tags": ["uterotubal-junction","PGE2"],
+    "tags": [
+      "uterotubal-junction",
+      "PGE2"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -110,11 +129,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ตัวอ่อนม้าผลิต PGE2 ซึ่งทำให้กล้ามเนื้อเรียบบริเวณ utero tubal junction คลายตัว ตัวอ่อนจึงผ่านเข้ามดลูกได้ ขณะที่ไข่ที่ไม่ได้ผสมจะค้างอยู่ในท่อนำไข่ ข้อสอบเดิมเขียนว่า PGF2 alpha จึงเป็นเท็จ เพราะ PGF2 alpha เป็นตัวสลาย corpus luteum ส่วน oxytocin และ relaxin ไม่เกี่ยวกับการผ่าน utero tubal junction",
     "verified": "Repro horse final น.14",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105437,
-    "tags": ["interferon-tau","maternal-recognition-of-pregnancy"],
+    "tags": [
+      "interferon-tau",
+      "maternal-recognition-of-pregnancy"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -130,11 +153,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "Interferon tau เป็นสัญญาณ maternal recognition ของสัตว์เคี้ยวเอื้อง ไม่ใช่ของม้า ม้าใช้การเคลื่อนที่ของตัวอ่อนไปทั่วมดลูกร่วมกับสารที่ตัวอ่อนสร้างเอง เช่น estrogen แทน ข้อสอบเดิมจึงตอบเท็จ ส่วนข้อที่บอกว่า endometrial cups หรือรกม้าสร้าง interferon tau ก็ผิดทั้งคู่ เพราะไม่มีการสร้างสารนี้ในม้า",
     "verified": "Repro horse final น.9",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105438,
-    "tags": ["fetal-gonad","estrogen"],
+    "tags": [
+      "fetal-gonad",
+      "estrogen"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -150,11 +177,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ช่วงกลางถึงปลายการตั้งท้อง fetal gonad ของลูกม้าจะขยายใหญ่มากและส่ง precursor ให้รกเปลี่ยนเป็น estrogen จึงพบ estrogen สูงมากในวันที่ 200 ถึง 260 ข้อสอบเดิมเขียนว่ามาจาก follicle ที่ตอบสนอง eCG จึงเป็นเท็จ เพราะ follicle และ accessory corpora lutea ที่เกิดจาก eCG เป็นเรื่องของช่วงวันที่ 40 ถึง 120 และให้ progestin ไม่ใช่ estrogen ช่วงนี้",
     "verified": "Repro horse final น.7",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105439,
-    "tags": ["diffuse-placenta","microcotyledonary"],
+    "tags": [
+      "diffuse-placenta",
+      "microcotyledonary"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -170,11 +201,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "รกม้าเป็น diffuse epitheliochorial เมื่อดูด้วยตาเปล่า แต่ในระดับจุลทรรศน์จะเห็น microcotyledon กระจายอยู่ทั่วผิว ข้อสอบเดิมเขียนว่า gross เป็น cotyledonary เหมือนสัตว์เคี้ยวเอื้องจึงเป็นเท็จ รกแบบ zonary เป็นของสุนัขและแมว ส่วน discoid เป็นของสัตว์ฟันแทะและคน",
     "verified": "Repro horse final น.13",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105440,
-    "tags": ["feto-placental-unit","progestin-source"],
+    "tags": [
+      "feto-placental-unit",
+      "progestin-source"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -190,11 +225,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "หลังราววันที่ 100 ถึง 120 โครงสร้าง luteal ทั้ง primary corpus luteum และ accessory corpora lutea จะสลายไป และรกร่วมกับลูกม้าซึ่งเรียกรวมว่า feto placental unit จะผลิต progestin ค้ำจุนการตั้งท้องแทน การตัดรังไข่หลังวันที่ 150 จึงไม่ทำให้แท้ง ส่วน endometrial cups ก็เสื่อมสลายตั้งแต่ราววันที่ 120 แล้วเช่นกัน",
     "verified": "Repro horse final น.18",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105441,
-    "tags": ["gestation-length","foaling-date"],
+    "tags": [
+      "gestation-length",
+      "foaling-date"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -210,11 +249,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ม้าตั้งท้องราว 11 เดือน หรือประมาณ 335 ถึง 342 วัน ผสมเดือนเมษายนจึงครบกำหนดคลอดราวเดือนมีนาคมของปีถัดไป ข้อสอบเดิมเขียนว่าเดือนมกราคมจึงเป็นเท็จ เดือนธันวาคมปีเดียวกันสั้นเกินไปเพราะเท่ากับ 8 เดือน ส่วนเดือนพฤษภาคมปีหน้ายาวเกินไปเพราะเท่ากับ 13 เดือน",
     "verified": "Repro horse final น.21",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105442,
-    "tags": ["fetal-presentation","normal-foaling"],
+    "tags": [
+      "fetal-presentation",
+      "normal-foaling"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -230,11 +273,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ลูกม้าคลอดปกติในท่า dorsal longitudinal anterior presentation คือหลังลูกม้าหันไปทางด้านหลังของแม่ ตัวขนานกับแนวลำตัวแม่ และเอาขาหน้ากับหัวออกมาก่อน ท่า posterior คือเอาท้ายออกก่อนซึ่งเป็นภาวะคลอดยาก ท่า ventral คือหงายท้องขึ้น และท่า transverse คือขวางลำ ทั้งสามแบบผิดปกติ",
     "verified": "Repro horse final น.12",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105443,
-    "tags": ["parturition-stages","normal-foaling"],
+    "tags": [
+      "parturition-stages",
+      "normal-foaling"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -250,11 +297,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "แม่ม้าส่วนใหญ่จะนอนตะแคงในระยะขับลูกออก ซึ่งเป็นท่าปกติของม้า ไม่ใช่สัญญาณอันตรายในตัวมันเอง สิ่งที่ต้องเฝ้าคือระยะเวลาของระยะที่ 2 ซึ่งในม้าสั้นมากราว 20 ถึง 30 นาที ไม่ใช่ท่าที่แม่นอน uterine inertia และท่าผิดต้องประเมินจากการเบ่งที่ไม่คืบหน้าและการล้วงตรวจ",
     "verified": "Repro horse final น.20",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105444,
-    "tags": ["teat-waxing","impending-parturition"],
+    "tags": [
+      "teat-waxing",
+      "impending-parturition"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -270,11 +321,16 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "Teat waxing คือหยดน้ำนมเหลืองแห้งติดอยู่ที่ปลายหัวนม พบได้ในแม่ม้าส่วนใหญ่ราว 1 ถึง 4 วันก่อนคลอด โดยเฉลี่ยราว 2 วัน จึงใช้เป็นสัญญาณเตือนให้เริ่มเฝ้าคลอด แต่ไม่แม่นพอจะกำหนดชั่วโมงคลอดได้ ระยะ 2 สัปดาห์และ 1 เดือนเป็นช่วงที่เต้านมเพิ่งเริ่มขยาย ยังไม่มี wax",
     "verified": "Repro horse final น.3",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105445,
-    "tags": ["pregnancy-hormone-profile","estrogen","progestin"],
+    "tags": [
+      "pregnancy-hormone-profile",
+      "estrogen",
+      "progestin"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -290,11 +346,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ม้ามี estrogen รวมสูงมากในช่วงกลางการตั้งท้องราววันที่ 200 ถึง 260 ซึ่งมาจาก fetal gonad ผ่านรก และมี progestin จาก feto placental unit สูงขึ้นอีกครั้งในระยะท้ายก่อนคลอด แบบแผนนี้ต่างจากสัตว์อื่นหลายชนิดที่ progesterone มักลดลงชัดเจนก่อนคลอด",
     "verified": "Repro horse final น.15",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105446,
-    "tags": ["retained-fetal-membranes","placental-expulsion"],
+    "tags": [
+      "retained-fetal-membranes",
+      "placental-expulsion"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -314,7 +374,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105447,
-    "tags": ["retained-fetal-membranes","diffuse-placenta"],
+    "tags": [
+      "retained-fetal-membranes",
+      "diffuse-placenta"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -334,7 +397,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105448,
-    "tags": ["foal-heat","postpartum-estrus"],
+    "tags": [
+      "foal-heat",
+      "postpartum-estrus"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -354,7 +420,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105449,
-    "tags": ["foal-heat","postpartum-breeding"],
+    "tags": [
+      "foal-heat",
+      "postpartum-breeding"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -374,7 +443,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105450,
-    "tags": ["navel-dip","antiseptic"],
+    "tags": [
+      "navel-dip",
+      "antiseptic"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -394,7 +466,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105451,
-    "tags": ["failure-of-passive-transfer","IgG"],
+    "tags": [
+      "failure-of-passive-transfer",
+      "IgG"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -414,7 +489,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105452,
-    "tags": ["seminiferous-tubule","spermatogenesis"],
+    "tags": [
+      "seminiferous-tubule",
+      "spermatogenesis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -434,7 +512,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105453,
-    "tags": ["Sertoli-cell","blood-testis-barrier"],
+    "tags": [
+      "Sertoli-cell",
+      "blood-testis-barrier"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -454,7 +535,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105454,
-    "tags": ["spermatogenic-cycle","spermatogenesis"],
+    "tags": [
+      "spermatogenic-cycle",
+      "spermatogenesis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -474,7 +558,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105455,
-    "tags": ["sperm-rich-fraction","cauda-epididymis"],
+    "tags": [
+      "sperm-rich-fraction",
+      "cauda-epididymis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -494,7 +581,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105456,
-    "tags": ["gel-fraction","seminal-vesicle"],
+    "tags": [
+      "gel-fraction",
+      "seminal-vesicle"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -514,7 +604,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105457,
-    "tags": ["pre-sperm-fraction","bulbourethral-gland"],
+    "tags": [
+      "pre-sperm-fraction",
+      "bulbourethral-gland"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -534,7 +627,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105458,
-    "tags": ["hypothalamic-pituitary-testis-axis","spermatogenesis"],
+    "tags": [
+      "hypothalamic-pituitary-testis-axis",
+      "spermatogenesis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -554,7 +650,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105459,
-    "tags": ["gubernaculum","testicular-descent"],
+    "tags": [
+      "gubernaculum",
+      "testicular-descent"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -574,7 +673,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105460,
-    "tags": ["testicular-descent","cryptorchidism"],
+    "tags": [
+      "testicular-descent",
+      "cryptorchidism"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -594,7 +696,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105461,
-    "tags": ["testicular-torsion","cauda-epididymis"],
+    "tags": [
+      "testicular-torsion",
+      "cauda-epididymis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -614,7 +719,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105462,
-    "tags": ["photoperiod","spermatogenesis"],
+    "tags": [
+      "photoperiod",
+      "spermatogenesis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -634,7 +742,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105463,
-    "tags": ["epididymal-sperm-harvest","cauda-epididymis"],
+    "tags": [
+      "epididymal-sperm-harvest",
+      "cauda-epididymis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -654,7 +765,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105464,
-    "tags": ["flehmen","pheromone"],
+    "tags": [
+      "flehmen",
+      "pheromone"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -674,7 +788,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105465,
-    "tags": ["tail-flagging","ejaculation"],
+    "tags": [
+      "tail-flagging",
+      "ejaculation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -694,7 +811,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105466,
-    "tags": ["harem","mating-system"],
+    "tags": [
+      "harem",
+      "mating-system"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -714,7 +834,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105467,
-    "tags": ["breeding-soundness-examination","lameness"],
+    "tags": [
+      "breeding-soundness-examination",
+      "lameness"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-male",
     "year": 5,
@@ -734,7 +857,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105468,
-    "tags": ["chilled-semen","semen-storage"],
+    "tags": [
+      "chilled-semen",
+      "semen-storage"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -754,7 +880,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105469,
-    "tags": ["frozen-semen","insemination-dose"],
+    "tags": [
+      "frozen-semen",
+      "insemination-dose"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -774,7 +903,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105470,
-    "tags": ["deep-horn-insemination","insemination-dose"],
+    "tags": [
+      "deep-horn-insemination",
+      "insemination-dose"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -794,7 +926,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105471,
-    "tags": ["ovulation-induction","hCG","frozen-semen"],
+    "tags": [
+      "ovulation-induction",
+      "hCG",
+      "frozen-semen"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -814,7 +950,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105472,
-    "tags": ["semen-extender","sperm-longevity"],
+    "tags": [
+      "semen-extender",
+      "sperm-longevity"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -834,7 +973,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105473,
-    "tags": ["semen-collection","artificial-vagina"],
+    "tags": [
+      "semen-collection",
+      "artificial-vagina"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -854,7 +996,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105474,
-    "tags": ["artificial-vagina","collection-temperature"],
+    "tags": [
+      "artificial-vagina",
+      "collection-temperature"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -874,7 +1019,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105475,
-    "tags": ["sperm-DNA-integrity","semen-evaluation"],
+    "tags": [
+      "sperm-DNA-integrity",
+      "semen-evaluation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -894,7 +1042,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105476,
-    "tags": ["cryosensitivity","frozen-semen"],
+    "tags": [
+      "cryosensitivity",
+      "frozen-semen"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -914,7 +1065,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105477,
-    "tags": ["semen-collection","sedation"],
+    "tags": [
+      "semen-collection",
+      "sedation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -934,7 +1088,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105478,
-    "tags": ["insemination-site","uterine-body"],
+    "tags": [
+      "insemination-site",
+      "uterine-body"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-ai",
     "year": 5,
@@ -950,11 +1107,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "การผสมเทียมม้าทำโดยสอดมือผ่าน cervix แล้วปล่อยน้ำเชื้อในตัวมดลูก ซึ่งทำได้ง่ายเพราะ cervix ของม้าคลายตัวมากขณะเป็นสัด ข้อสอบเดิมเขียนว่าปล่อยที่ intracervix จึงเป็นเท็จ กรณีน้ำเชื้อจำกัดอาจปล่อยลึกถึงปลายปีกมดลูกข้างที่จะตกไข่ ส่วนการฉีดเข้าท่อนำไข่ใช้เฉพาะงานวิจัยและเทคโนโลยีช่วยการสืบพันธุ์",
     "verified": "Repro horse final น.58",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105479,
-    "tags": ["contagious-equine-metritis","Taylorella-equigenitalis"],
+    "tags": [
+      "contagious-equine-metritis",
+      "Taylorella-equigenitalis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -974,7 +1135,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105480,
-    "tags": ["equine-coital-exanthema","EHV-3"],
+    "tags": [
+      "equine-coital-exanthema",
+      "EHV-3"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -994,7 +1158,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105481,
-    "tags": ["equine-viral-arteritis","carrier-stallion"],
+    "tags": [
+      "equine-viral-arteritis",
+      "carrier-stallion"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -1014,7 +1181,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105482,
-    "tags": ["Streptococcus-zooepidemicus","post-breeding-endometritis"],
+    "tags": [
+      "Streptococcus-zooepidemicus",
+      "post-breeding-endometritis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -1034,7 +1204,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105483,
-    "tags": ["closed-castration","scrotal-hernia"],
+    "tags": [
+      "closed-castration",
+      "scrotal-hernia"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1050,11 +1223,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "closed castration ไม่เปิด vaginal tunic จึงกันไม่ให้ลำไส้หรือ omentum เลื่อนออกมาทาง inguinal ring ที่กว้าง เหมาะกับกรณี scrotal hernia หรือ inguinal hernia ข้อสอบเดิมเขียนว่าใช้ open castration จึงเป็นเท็จ เพราะจะเกิดไส้เลื่อนออกมาหลังผ่าตัดซึ่งเป็นภาวะแทรกซ้อนร้ายแรง ส่วนการกดกลับด้วยมืออย่างเดียวไม่ได้แก้ปัญหาถาวร",
     "verified": "Repro horse final น.23",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105484,
-    "tags": ["emasculator","castration"],
+    "tags": [
+      "emasculator",
+      "castration"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1070,11 +1247,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "emasculator บีบเพื่อห้ามเลือดและตัด spermatic cord ในจังหวะเดียว โดยต้องวางด้านที่บีบไว้ทางฝั่งลำตัวเสมอ Burdizzo เป็นคีมบีบสายโดยไม่ตัดที่ใช้ในโคและแพะ elastrator เป็นห่วงยางที่ใช้ในแกะ ส่วน Henderson tool ใช้บิดสายซึ่งเป็นเทคนิคคนละแบบ",
     "verified": "Repro horse final น.32",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105485,
-    "tags": ["standing-castration","castration"],
+    "tags": [
+      "standing-castration",
+      "castration"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1090,11 +1271,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "standing castration ทำได้ในม้าที่จับบังคับได้ดี โดยใช้ยาซึมร่วมกับยาชาเฉพาะที่ ข้อดีคือไม่ต้องเสี่ยงกับการวางยาสลบ แต่ผู้ทำต้องระวังการถูกเตะ การให้ม้านอนตะแคงเลือกใช้ในม้าเด็ก ม้าดุ หรือกรณีที่ต้องมองเห็นสนามผ่าตัดชัด อายุไม่ได้จำกัดที่ 3 ปี และการคลำพบอัณฑะครบสองข้างคือเงื่อนไขที่เหมาะกับการผ่าตัดตามปกติ",
     "verified": "Repro horse final น.68",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105486,
-    "tags": ["scirrhous-cord","castration-complication"],
+    "tags": [
+      "scirrhous-cord",
+      "castration-complication"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1110,11 +1295,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "Scirrhous cord คือการติดเชื้อและอักเสบเรื้อรังของตอ spermatic cord หลังทำ castration ทำให้ตอบวมแข็ง มีหนองและรูระบายเรื้อรังที่แผล การรักษาคือผ่าตัดเอาเนื้อเยื่อที่ติดเชื้อออกให้หมด ข้อสอบเดิมเทียบกับ varicocele ซึ่งคือหลอดเลือดขอดจึงเป็นคนละภาวะ ส่วนการบิดหมุนของ cord และเนื้องอก Sertoli cell ก็เป็นคนละโรค",
     "verified": "Repro horse final น.42",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105487,
-    "tags": ["intratesticular-block","local-anesthesia"],
+    "tags": [
+      "intratesticular-block",
+      "local-anesthesia"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1130,11 +1319,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "การฉีดยาชาเข้าเนื้ออัณฑะจะกระจายไปตาม spermatic cord ทำให้ชาถึงสาย cord ซึ่งเป็นจุดที่เจ็บที่สุดตอนบีบและตัด ร่วมกับฉีดใต้ผิวหนังตามแนวที่จะลงมีด ข้อสอบเดิมเขียนว่าฉีดที่ cremaster muscle จึงเป็นเท็จ การฉีดที่ perineum ไม่ครอบคลุมอัณฑะ ส่วนการทำ epidural ไม่ใช่วิธีมาตรฐานของการทำหมันม้า",
     "verified": "Repro horse final น.25",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105488,
-    "tags": ["pneumovagina","Caslick-vulvoplasty"],
+    "tags": [
+      "pneumovagina",
+      "Caslick-vulvoplasty"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1150,11 +1343,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "Caslick vulvoplasty คือการเย็บปิดขอบบนของ vulva ให้เหลือช่องเปิดพอปัสสาวะได้ เป็นวิธีมาตรฐานแก้ pneumovagina ที่เกิดจากรูปทรง vulva ไม่ดี และต้องเปิดแผลก่อนคลอดทุกครั้ง urethral extension ใช้แก้ urovagina ส่วน perineal body transection เป็นขั้นตอนหนึ่งของการซ่อม rectovaginal fistula ไม่ใช่การรักษา pneumovagina",
     "verified": "Repro horse final น.71",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105489,
-    "tags": ["penile-paralysis","acepromazine"],
+    "tags": [
+      "penile-paralysis",
+      "acepromazine"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1170,11 +1367,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ยากลุ่ม phenothiazine โดยเฉพาะ acepromazine ทำให้กล้ามเนื้อ retractor penis คลายตัวจนอวัยวะเพศยื่นออกมาและอาจไม่หดกลับ เกิด paraphimosis หรือ penile paralysis จึงควรเลี่ยงในพ่อพันธุ์ ข้อสอบเดิมเขียนว่า xylazine จึงเป็นเท็จ เพราะ alpha 2 agonist ทำให้อวัยวะเพศยื่นชั่วคราวแต่กลับคืนได้ ส่วน opioid และ NSAID ไม่ก่อภาวะนี้",
     "verified": "Repro horse final น.60",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "final"
   },
   {
     "id": 105490,
-    "tags": ["gelding","castration"],
+    "tags": [
+      "gelding",
+      "castration"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-surgery",
     "year": 5,
@@ -1190,11 +1391,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "gelding คือม้าเพศผู้ที่ถูกตัดอัณฑะแล้ว ข้อสอบเดิมเขียนว่าเรียก colt จึงเป็นเท็จ เพราะ colt คือม้าเพศผู้อายุน้อยที่ยังไม่ทำหมัน stallion คือพ่อม้าที่ยังสมบูรณ์และใช้ผสมพันธุ์ได้ ส่วน filly คือม้าเพศเมียอายุน้อย",
     "verified": "Repro horse final น.53",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105491,
-    "tags": ["pneumovagina","perineal-conformation"],
+    "tags": [
+      "pneumovagina",
+      "perineal-conformation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -1214,7 +1419,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105492,
-    "tags": ["ovarian-tumor","unilateral-ovariectomy"],
+    "tags": [
+      "ovarian-tumor",
+      "unilateral-ovariectomy"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -1234,7 +1442,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105493,
-    "tags": ["breeding-history","history-taking"],
+    "tags": [
+      "breeding-history",
+      "history-taking"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1254,7 +1465,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105494,
-    "tags": ["estrus-signs","estrus-detection"],
+    "tags": [
+      "estrus-signs",
+      "estrus-detection"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1274,7 +1488,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105495,
-    "tags": ["rectal-palpation","corpus-luteum"],
+    "tags": [
+      "rectal-palpation",
+      "corpus-luteum"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1294,7 +1511,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105496,
-    "tags": ["female-genital-anatomy","perineum"],
+    "tags": [
+      "female-genital-anatomy",
+      "perineum"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1314,7 +1534,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105497,
-    "tags": ["ultrasonography","pregnancy-diagnosis"],
+    "tags": [
+      "ultrasonography",
+      "pregnancy-diagnosis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1334,7 +1557,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105498,
-    "tags": ["diestrus","uterine-edema"],
+    "tags": [
+      "diestrus",
+      "uterine-edema"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1354,7 +1580,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105499,
-    "tags": ["estrus","uterine-edema"],
+    "tags": [
+      "estrus",
+      "uterine-edema"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1374,7 +1603,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105500,
-    "tags": ["anestrus","rectal-palpation"],
+    "tags": [
+      "anestrus",
+      "rectal-palpation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1394,7 +1626,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105501,
-    "tags": ["breeding-season","corpus-luteum"],
+    "tags": [
+      "breeding-season",
+      "corpus-luteum"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1414,7 +1649,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105502,
-    "tags": ["ovulation-timing","ultrasonography"],
+    "tags": [
+      "ovulation-timing",
+      "ultrasonography"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1434,7 +1672,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105503,
-    "tags": ["rectal-palpation","uterine-bifurcation"],
+    "tags": [
+      "rectal-palpation",
+      "uterine-bifurcation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-exam-mare",
     "year": 5,
@@ -1454,7 +1695,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105504,
-    "tags": ["ovarian-anatomy","cortex-medulla-inversion"],
+    "tags": [
+      "ovarian-anatomy",
+      "cortex-medulla-inversion"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1474,7 +1718,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105505,
-    "tags": ["ovulation-fossa","ovarian-anatomy"],
+    "tags": [
+      "ovulation-fossa",
+      "ovarian-anatomy"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1494,7 +1741,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105506,
-    "tags": ["preovulatory-follicle","follicle-size"],
+    "tags": [
+      "preovulatory-follicle",
+      "follicle-size"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1514,7 +1764,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105507,
-    "tags": ["seasonal-polyestrus","spontaneous-ovulation"],
+    "tags": [
+      "seasonal-polyestrus",
+      "spontaneous-ovulation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1534,7 +1787,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105508,
-    "tags": ["melatonin","photoperiod"],
+    "tags": [
+      "melatonin",
+      "photoperiod"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1554,7 +1810,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105509,
-    "tags": ["artificial-lighting","photoperiod"],
+    "tags": [
+      "artificial-lighting",
+      "photoperiod"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1574,7 +1833,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105510,
-    "tags": ["luteolysis","PGF2alpha"],
+    "tags": [
+      "luteolysis",
+      "PGF2alpha"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1594,7 +1856,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105511,
-    "tags": ["diestrus-ovulation","follicular-wave"],
+    "tags": [
+      "diestrus-ovulation",
+      "follicular-wave"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -1614,7 +1879,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105512,
-    "tags": ["maternal-recognition-of-pregnancy","transuterine-migration"],
+    "tags": [
+      "maternal-recognition-of-pregnancy",
+      "transuterine-migration"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1630,11 +1898,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ตัวอ่อนม้าเคลื่อนที่ไปทั่วทั้งสองปีกมดลูกวันละหลายรอบในช่วงก่อน fixation เพื่อส่งสัญญาณยับยั้งการหลั่ง PGF2 alpha ให้ทั่วทั้งมดลูก interferon-tau เป็นสัญญาณของสัตว์เคี้ยวเอื้อง estrogen จาก conceptus เป็นสัญญาณของสุกร ส่วน prostaglandin E ในม้าสร้างจากตัวอ่อนเพื่อช่วยการเคลื่อนผ่านท่อนำไข่ ไม่ใช่จากเยื่อบุมดลูก",
     "verified": "Equine repro mid 85 น.5",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105513,
-    "tags": ["interferon-tau","maternal-recognition-of-pregnancy"],
+    "tags": [
+      "interferon-tau",
+      "maternal-recognition-of-pregnancy"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1650,11 +1922,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "interferon-tau เป็นสัญญาณ maternal recognition ของสัตว์เคี้ยวเอื้อง เช่น โคและแกะ ในม้าใช้กลไกการเคลื่อนที่ของตัวอ่อนแทน ในสุกรใช้ estrogen จาก conceptus ส่วนสุนัขไม่ต้องมีสัญญาณจากตัวอ่อน เพราะ CL คงอยู่นานเท่ากันทั้งตอนท้องและไม่ท้อง",
     "verified": "Equine repro mid 85 น.5",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105514,
-    "tags": ["endometrial-cups","early-gestation"],
+    "tags": [
+      "endometrial-cups",
+      "early-gestation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1670,11 +1946,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "endometrial cups เริ่มก่อตัวราววันที่ 35 ถึง 40 ของการตั้งท้อง แล้วอยู่ต่อไปอีกหลายเดือน จุดนี้คือเส้นแบ่งทางคลินิกที่สำคัญ เพราะการเสียตัวอ่อนก่อนวันนี้ม้าจะกลับเป็นสัดตามปกติ แต่ถ้าเสียหลังจากนี้ cups ที่สร้างไปแล้วจะทำให้ม้าไม่กลับมาเป็นสัดไปอีกนาน",
     "verified": "Equine repro mid 85 น.5",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105515,
-    "tags": ["endometrial-cups","twin-reduction"],
+    "tags": [
+      "endometrial-cups",
+      "twin-reduction"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1690,11 +1970,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "เมื่อทำลายตัวอ่อนหลังวันที่ 35 ถึง 40 endometrial cup ที่สร้างขึ้นแล้วจะยังคงอยู่และหลั่ง eCG ต่อไป ทำให้เกิด accessory CL และมี progesterone ค้างในระบบ ม้าจึงไม่กลับมาเป็นสัดจนกว่า cup จะสลายไปเอง ส่วนมดลูกอักเสบและความเครียดไม่ใช่กลไกที่อธิบายการไม่กลับเป็นสัดยาวนานแบบนี้",
     "verified": "Equine repro mid 85 น.3",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105516,
-    "tags": ["endometrial-cups","embryonic-death"],
+    "tags": [
+      "endometrial-cups",
+      "embryonic-death"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1710,11 +1994,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "endometrial cup ที่สร้างขึ้นแล้วจะคงอยู่และหลั่ง eCG ต่อไปแม้ตัวอ่อนจะตายแล้ว จึงกดไม่ให้ม้ากลับมาเป็นสัด ต้องรอจน cup สลายไปเองซึ่งกินเวลาราว 3 เดือน ต่างจากการเสียตัวอ่อนก่อนวันที่ 35 ที่ม้าจะกลับมาเป็นสัดภายในไม่กี่สัปดาห์",
     "verified": "Equine repro mid 85 น.3",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105517,
-    "tags": ["endometrial-cups","eCG"],
+    "tags": [
+      "endometrial-cups",
+      "eCG"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1730,11 +2018,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "endometrial cups สร้าง eCG ซึ่งเดิมเรียก PMSG มีฤทธิ์คล้าย LH ในม้า ทำให้เกิด accessory CL และช่วยพยุงการตั้งท้องช่วงแรก hCG มาจากรกของคน FSH สร้างจากต่อมใต้สมองส่วนหน้า ส่วน PGF2 alpha สร้างจากเยื่อบุมดลูกและมีฤทธิ์สลาย CL ซึ่งตรงข้ามกับสิ่งที่ cups ทำ",
     "verified": "Equine repro mid 85 น.5",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105518,
-    "tags": ["diffuse-placenta","placentation-types"],
+    "tags": [
+      "diffuse-placenta",
+      "placentation-types"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1750,11 +2042,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "รกม้าเป็นแบบ diffuse epitheliochorial คือมี microcotyledon กระจายอยู่ทั่วผิวรกทั้งใบ ไม่รวมกลุ่มเป็นปุ่ม cotyledonary เป็นแบบของโคและแกะซึ่งประกบกับ caruncle เกิดเป็น placentome zonary เป็นแบบของสุนัขและแมว ส่วน discoid เป็นแบบของคนและสัตว์ฟันแทะ",
     "verified": "Equine repro mid 85 น.5",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105519,
-    "tags": ["gestation-length","foaling-date"],
+    "tags": [
+      "gestation-length",
+      "foaling-date"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1770,11 +2066,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ระยะตั้งท้องของม้าประมาณ 11 เดือน ผสมเดือนเมษายนจึงคลอดราวเดือนมีนาคมของปีถัดไป การนับผิดเป็น 9 หรือ 12 เดือนเป็นความสับสนที่มาจากการเทียบกับคนหรือโค ซึ่งมีระยะตั้งท้องต่างกัน",
     "verified": "Equine repro mid 85 น.5",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105520,
-    "tags": ["twin-reduction","ultrasound-guided-puncture"],
+    "tags": [
+      "twin-reduction",
+      "ultrasound-guided-puncture"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1790,11 +2090,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ก่อน fixation ราววันที่ 16 ตัวอ่อนยังเคลื่อนที่ได้ จึงนิยมบีบทำลายตัวอ่อนใบหนึ่งผ่านทางทวารหนัก แต่หลัง fixation ตัวอ่อนยึดอยู่กับที่แล้ว จึงใช้การเจาะถุงตัวอ่อนภายใต้ ultrasound guidance และควรทำให้เสร็จก่อนวันที่ 35 คือก่อนที่ endometrial cup จะสร้างขึ้น การฉีด prostaglandin จะยุติการตั้งท้องทั้งหมด ไม่ใช่การลดจำนวนตัวอ่อน",
     "verified": "Equine repro mid 85 น.4",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105521,
-    "tags": ["twin-pregnancy","multiple-ovulation"],
+    "tags": [
+      "twin-pregnancy",
+      "multiple-ovulation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1810,11 +2114,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ลูกแฝดในม้าเกิดจาก double ovulation เป็นหลัก ส่วน embryonic division หรือการแบ่งตัวของตัวอ่อนพบได้น้อยมากในม้า การตกไข่ในระยะ diestrus เป็นคนละภาวะกันและไม่ได้เป็นสาเหตุหลัก และในทางปฏิบัติการย้ายฝากตัวอ่อนจะทำครั้งละหนึ่งใบ",
     "verified": "Equine repro mid 85 น.3-4",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105522,
-    "tags": ["foal-heat","postpartum-estrus"],
+    "tags": [
+      "foal-heat",
+      "postpartum-estrus"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -1830,11 +2138,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "foal heat คือการเป็นสัดรอบแรกของแม่ม้าหลังคลอด โดยทั่วไปเกิดราว 5 ถึง 12 วันหลังคลอด คำว่า foal ในชื่อหมายถึงว่ามีลูกม้าอยู่ข้างกาย ไม่ได้แปลว่าเป็นการเป็นสัดของลูกม้า และไม่เกี่ยวกับอาการไข้แต่อย่างใด",
     "verified": "Equine repro mid 85 น.4",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105523,
-    "tags": ["ovulation-induction","hCG"],
+    "tags": [
+      "ovulation-induction",
+      "hCG"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1854,7 +2166,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105524,
-    "tags": ["insemination-site","uterine-body"],
+    "tags": [
+      "insemination-site",
+      "uterine-body"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1874,7 +2189,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105525,
-    "tags": ["embryo-collection","blastocyst"],
+    "tags": [
+      "embryo-collection",
+      "blastocyst"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1894,7 +2212,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105526,
-    "tags": ["embryo-cryopreservation","expanded-blastocyst"],
+    "tags": [
+      "embryo-cryopreservation",
+      "expanded-blastocyst"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1914,7 +2235,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105527,
-    "tags": ["embryo-transfer","recipient-synchrony"],
+    "tags": [
+      "embryo-transfer",
+      "recipient-synchrony"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1934,7 +2258,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105528,
-    "tags": ["somatic-cell-nuclear-transfer","enucleation"],
+    "tags": [
+      "somatic-cell-nuclear-transfer",
+      "enucleation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1954,7 +2281,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105529,
-    "tags": ["somatic-cell-nuclear-transfer","mitochondrial-DNA"],
+    "tags": [
+      "somatic-cell-nuclear-transfer",
+      "mitochondrial-DNA"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1974,7 +2304,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105530,
-    "tags": ["studbook-regulation","natural-cover"],
+    "tags": [
+      "studbook-regulation",
+      "natural-cover"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -1994,7 +2327,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105531,
-    "tags": ["uterotubal-junction","PGE2"],
+    "tags": [
+      "uterotubal-junction",
+      "PGE2"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -2014,7 +2350,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105532,
-    "tags": ["oviductal-obstruction","PGE2"],
+    "tags": [
+      "oviductal-obstruction",
+      "PGE2"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-art-female",
     "year": 5,
@@ -2034,7 +2373,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105533,
-    "tags": ["pneumovagina","Caslick-vulvoplasty"],
+    "tags": [
+      "pneumovagina",
+      "Caslick-vulvoplasty"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -2054,7 +2396,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105534,
-    "tags": ["pneumovagina","vulvar-seal"],
+    "tags": [
+      "pneumovagina",
+      "vulvar-seal"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -2074,7 +2419,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105535,
-    "tags": ["post-breeding-endometritis","uterine-inflammation"],
+    "tags": [
+      "post-breeding-endometritis",
+      "uterine-inflammation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2094,7 +2442,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105536,
-    "tags": ["post-breeding-endometritis","infertility"],
+    "tags": [
+      "post-breeding-endometritis",
+      "infertility"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2114,7 +2465,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105537,
-    "tags": ["Streptococcus-zooepidemicus","post-breeding-endometritis"],
+    "tags": [
+      "Streptococcus-zooepidemicus",
+      "post-breeding-endometritis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2134,7 +2488,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105538,
-    "tags": ["EHV-1","equine-abortion"],
+    "tags": [
+      "EHV-1",
+      "equine-abortion"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2154,7 +2511,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105539,
-    "tags": ["EHV-1","intranuclear-inclusion-body"],
+    "tags": [
+      "EHV-1",
+      "intranuclear-inclusion-body"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2174,7 +2534,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105540,
-    "tags": ["equine-coital-exanthema","EHV-3"],
+    "tags": [
+      "equine-coital-exanthema",
+      "EHV-3"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2194,7 +2557,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105541,
-    "tags": ["equine-viral-arteritis","semen-transmission"],
+    "tags": [
+      "equine-viral-arteritis",
+      "semen-transmission"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2214,7 +2580,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105542,
-    "tags": ["dourine","venereal-transmission"],
+    "tags": [
+      "dourine",
+      "venereal-transmission"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2234,7 +2603,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105543,
-    "tags": ["contagious-equine-metritis","Taylorella-equigenitalis"],
+    "tags": [
+      "contagious-equine-metritis",
+      "Taylorella-equigenitalis"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
     "year": 5,
@@ -2254,7 +2626,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105544,
-    "tags": ["flehmen","stallion-behavior"],
+    "tags": [
+      "flehmen",
+      "stallion-behavior"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -2274,7 +2649,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105545,
-    "tags": ["gelding","castration"],
+    "tags": [
+      "gelding",
+      "castration"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -2294,7 +2672,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105546,
-    "tags": ["breeding-timing","ovulation-timing"],
+    "tags": [
+      "breeding-timing",
+      "ovulation-timing"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-infertility",
     "year": 5,
@@ -2314,7 +2695,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105547,
-    "tags": ["caruncle","placentation-types"],
+    "tags": [
+      "caruncle",
+      "placentation-types"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2330,11 +2714,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "caruncle เป็นปุ่มบนเยื่อบุมดลูกของสัตว์เคี้ยวเอื้อง เช่น โคและแกะ ซึ่งจะประกบกับ cotyledon ของรกกลายเป็น placentome ม้าและสุกรมีรกแบบ diffuse จึงไม่มี caruncle ส่วนสุนัขมีรกแบบ zonary ซึ่งเป็นแถบคาดรอบตัวอ่อน",
     "verified": "Equine repro mid 85 น.5",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
+    "examOrigin": "Equine Reproduction midterm recall (Vet 85)",
+    "examScope": "midterm"
   },
   {
     "id": 105548,
-    "tags": ["chronic-active-endometritis","endometrial-biopsy"],
+    "tags": [
+      "chronic-active-endometritis",
+      "endometrial-biopsy"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2354,7 +2742,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105549,
-    "tags": ["pyometra","corpus-luteum"],
+    "tags": [
+      "pyometra",
+      "corpus-luteum"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2374,7 +2765,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105550,
-    "tags": ["pyometra","PGF2alpha"],
+    "tags": [
+      "pyometra",
+      "PGF2alpha"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2394,7 +2788,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105551,
-    "tags": ["intrauterine-antibiotic","antimicrobial-spectrum","ceftiofur"],
+    "tags": [
+      "intrauterine-antibiotic",
+      "antimicrobial-spectrum",
+      "ceftiofur"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2414,7 +2812,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105552,
-    "tags": ["intrauterine-antibiotic","antimicrobial-spectrum"],
+    "tags": [
+      "intrauterine-antibiotic",
+      "antimicrobial-spectrum"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2434,7 +2835,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105553,
-    "tags": ["mucolytic","N-acetylcysteine"],
+    "tags": [
+      "mucolytic",
+      "N-acetylcysteine"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2454,7 +2858,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105554,
-    "tags": ["innate-immunity","uterine-clearance"],
+    "tags": [
+      "innate-immunity",
+      "uterine-clearance"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2474,7 +2881,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105555,
-    "tags": ["Caslick-vulvoplasty","perineal-conformation","pneumovagina"],
+    "tags": [
+      "Caslick-vulvoplasty",
+      "perineal-conformation",
+      "pneumovagina"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2494,7 +2905,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105556,
-    "tags": ["post-breeding-endometritis","intrauterine-fluid"],
+    "tags": [
+      "post-breeding-endometritis",
+      "intrauterine-fluid"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2514,7 +2928,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105557,
-    "tags": ["cloprostenol","luteolysis","uterine-clearance"],
+    "tags": [
+      "cloprostenol",
+      "luteolysis",
+      "uterine-clearance"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2534,7 +2952,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105558,
-    "tags": ["metritis","postpartum-disease"],
+    "tags": [
+      "metritis",
+      "postpartum-disease"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2554,7 +2975,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105559,
-    "tags": ["endometrosis","endometrial-biopsy"],
+    "tags": [
+      "endometrosis",
+      "endometrial-biopsy"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2574,7 +2998,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105560,
-    "tags": ["intrauterine-fluid","diestrus"],
+    "tags": [
+      "intrauterine-fluid",
+      "diestrus"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
     "year": 5,
@@ -2594,7 +3021,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105561,
-    "tags": ["diestrus","cervical-tone"],
+    "tags": [
+      "diestrus",
+      "cervical-tone"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-anatomy-cycle",
     "year": 5,
@@ -2614,7 +3044,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105562,
-    "tags": ["early-blastocyst","uterotubal-junction","PGE2"],
+    "tags": [
+      "early-blastocyst",
+      "uterotubal-junction",
+      "PGE2"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2630,11 +3064,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "สรุประบุลำดับ zygote ไป morula ไป early blastocyst ที่วัน 6-7 และระบุว่าวัน 6.5-7 blastocyst สร้าง PGE2 ไปคลายกล้ามเนื้อ uterotubal junction ให้ตัวอ่อนผ่านลงมดลูก. PGF2α เป็นตัวสลาย CL ไม่ใช่ตัวเปิด UTJ. Zygote ยังอยู่ในช่วงวันแรกๆ ใน oviduct. Oxytocin ไม่เกี่ยวข้องกับขั้นตอนนี้",
     "verified": "Equine Repro Final (Vet 85) น.5",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Repro (Vet 85) recalled exam point"
+    "examOrigin": "Equine Repro (Vet 85) recalled exam point",
+    "examScope": "midterm"
   },
   {
     "id": 105563,
-    "tags": ["endometrial-cups","eCG"],
+    "tags": [
+      "endometrial-cups",
+      "eCG"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2650,11 +3088,16 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "วัน 35-40 trophoblast พิเศษสร้าง endometrial cup ที่ผลิต eCG ซึ่งออกฤทธิ์คล้าย LH ทำให้ไข่ตกเพิ่มและได้ accessory CL. วัน 16-17 คือช่วง fixation ของตัวอ่อน. eFSH เป็นผลิตภัณฑ์ FSH ไม่ใช่สิ่งที่ endometrial cup สร้าง. Relaxin ไม่ใช่ผลผลิตของ endometrial cup และไม่ใช่ช่วงเวลานี้",
     "verified": "Equine Repro Final (Vet 85) น.5",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Repro (Vet 85) study summary"
+    "examOrigin": "Equine Repro (Vet 85) study summary",
+    "examScope": "midterm"
   },
   {
     "id": 105564,
-    "tags": ["accessory-CL","progestin-source","eCG"],
+    "tags": [
+      "accessory-CL",
+      "progestin-source",
+      "eCG"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2670,11 +3113,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ก่อน 35 วันใช้ primary CL ช่วง 35-120 วันใช้ accessory CL ที่เกิดจาก eCG ของ endometrial cup และตั้งแต่วันที่ 150 เป็นต้นไปรกจะสร้าง P4 ต่อจนคลอด. รกจึงยังไม่ใช่แหล่งหลักในช่วงนี้. Adrenal cortex ของ fetus เกี่ยวข้องกับการเตรียมคลอด ไม่ใช่แหล่ง P4 ช่วงนี้",
     "verified": "Equine Repro Final (Vet 85) น.5",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Repro (Vet 85) study summary"
+    "examOrigin": "Equine Repro (Vet 85) study summary",
+    "examScope": "both"
   },
   {
     "id": 105565,
-    "tags": ["pregnancy-diagnosis","twin-pregnancy"],
+    "tags": [
+      "pregnancy-diagnosis",
+      "twin-pregnancy"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2690,11 +3137,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "สรุประบุรอบแรกวัน 14-16 เพื่อดูว่ามีลูกแฝดหรือไม่ เพราะแฝดในม้ามักแท้งระยะท้าย จึงต้องบี้ทิ้งถุงหนึ่ง. รอบสองวัน 22-30 ดูหัวใจเต้น. รอบสามดูการสร้าง endometrial cup. รอบสี่วัน 60 ขึ้นไปจึงดูเพศได้",
     "verified": "Equine Repro Final (Vet 85) น.5",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Repro (Vet 85) study summary"
+    "examOrigin": "Equine Repro (Vet 85) study summary",
+    "examScope": "midterm"
   },
   {
     "id": 105566,
-    "tags": ["red-bag-delivery","premature-placental-separation"],
+    "tags": [
+      "red-bag-delivery",
+      "premature-placental-separation"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2710,11 +3161,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "ถุงสีแดงเข้มหรือ red bag คือ premature separation of the placenta ที่ chorioallantois ไม่แตกที่ cervical star จึงลอกออกมาพร้อมลูก การแลกเปลี่ยนออกซิเจนหยุดทันที ต้องรีบฉีกถุงและช่วยคลอดโดยเร็ว. การรอให้แตกเองทำให้ลูกขาดออกซิเจนนานขึ้น. Oxytocin ใช้กับ uterine inertia. การส่งผ่าคลอดช้าเกินไปสำหรับภาวะที่ต้องแก้ในไม่กี่นาที",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Repro (Vet 85) study summary"
+    "examOrigin": "Equine Repro (Vet 85) study summary",
+    "examScope": "final"
   },
   {
     "id": 105567,
-    "tags": ["dystocia","parturition-stages"],
+    "tags": [
+      "dystocia",
+      "parturition-stages"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2730,11 +3185,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "dystocia มักเกิดตอน stage I นานกว่า 45 นาที หรือ stage II นานกว่า 20 นาที และในม้าสาเหตุหลักคือ malposition ไม่ใช่ลูกตัวโต. Stage III เกิน 3 ชม. คือ retained placenta ซึ่งเป็นคนละภาวะ. ข้อควรระวังคือเอกสารเขียนค่าปกติของ stage II ไว้ที่ 5-30 นาที ซึ่งไม่สอดคล้องกับเกณฑ์ 20 นาทีในบรรทัดเดียวกัน ให้ยึดตัวเลขที่อาจารย์บรรยายในปีนี้",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Repro (Vet 85) study summary"
+    "examOrigin": "Equine Repro (Vet 85) study summary",
+    "examScope": "final"
   },
   {
     "id": 105568,
-    "tags": ["premature-lactation","placental-dysfunction"],
+    "tags": [
+      "premature-lactation",
+      "placental-dysfunction"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2750,11 +3209,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "กล่องในสรุประบุว่า premature mammary development หรือ early udder filling อาจบ่งชี้ placental dysfunction ตรวจต่อด้วย ultrasound จะเห็นรกหนาและลูกโตช้า. Hypocalcemia แสดงออกเป็นอ่อนแรง สั่น นอนไม่ลุก. Uterine torsion แสดงเป็น colic และหัวใจเต้นเร็ว. NI เกิดหลังลูกกินนมน้ำเหลือง ไม่ใช่สัญญาณก่อนคลอด",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Repro (Vet 85) study summary"
+    "examOrigin": "Equine Repro (Vet 85) study summary",
+    "examScope": "final"
   },
   {
     "id": 105569,
-    "tags": ["EHV-1","pregnant-mare-vaccination"],
+    "tags": [
+      "EHV-1",
+      "pregnant-mare-vaccination"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2770,11 +3233,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "EHV-1 และ influenza เป็นคู่ที่วิชานี้แนะนำให้ฉีดแม่ม้าท้อง 3 ครั้ง ที่เดือน 5, 7 และ 9 เพื่อส่งภูมิผ่านน้ำนม\n\n❌ ทำไมข้ออื่นผิด\n— \"Tetanus และ Rabies\" = ทั้งคู่ฉีด 1 เดือนก่อนคลอด ไม่ใช่ฉีด 3 ครั้ง\n— \"WEE/EEE ร่วมกับ WNV\" = ฉีด 1 เดือนก่อนคลอดเช่นกัน\n— \"Rotavirus และ Leptospira\" = ไม่ได้อยู่ในโปรแกรมที่วิชานี้ระบุไว้\n\n💡 แยกเป็นสองกลุ่ม กลุ่มที่ฉีดสามครั้งกลางท้องมีแค่ EHV-1 กับ influenza ที่เหลือฉีดครั้งเดียวใกล้คลอด",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Repro (Vet 85) study summary"
+    "examOrigin": "Equine Repro (Vet 85) study summary",
+    "examScope": "midterm"
   },
   {
     "id": 105570,
-    "tags": ["Caslick-vulvoplasty","pre-foaling-management"],
+    "tags": [
+      "Caslick-vulvoplasty",
+      "pre-foaling-management"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
     "year": 5,
@@ -2790,11 +3257,15 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "สรุประบุให้เปิดรอยเย็บ Caslick ราว 2 สัปดาห์ก่อนคลอด และถ้าไม่เคยเย็บก็ไม่ต้องทำ. การรอถึง stage I เสี่ยงต่อการฉีกขาดของฝีเย็บขณะลูกออก. การเปิดหลังคลอดไม่ทันการณ์. อายุครรภ์ 60 วันเร็วเกินไปเพราะยังต้องการรอยเย็บไว้กันลมและสิ่งสกปรกตลอดการตั้งท้อง",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "Equine Repro (Vet 85) study summary"
+    "examOrigin": "Equine Repro (Vet 85) study summary",
+    "examScope": "both"
   },
   {
     "id": 105571,
-    "tags": ["1-2-3-rule","colostrum"],
+    "tags": [
+      "1-2-3-rule",
+      "colostrum"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2814,7 +3285,11 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105572,
-    "tags": ["failure-of-passive-transfer","IgG","plasma-transfusion"],
+    "tags": [
+      "failure-of-passive-transfer",
+      "IgG",
+      "plasma-transfusion"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2834,7 +3309,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105573,
-    "tags": ["neonatal-isoerythrolysis","colostrum"],
+    "tags": [
+      "neonatal-isoerythrolysis",
+      "colostrum"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2854,7 +3332,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105574,
-    "tags": ["postpartum-breeding","uterine-involution"],
+    "tags": [
+      "postpartum-breeding",
+      "uterine-involution"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2874,7 +3355,10 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
   },
   {
     "id": 105575,
-    "tags": ["retained-fetal-membranes","placental-expulsion"],
+    "tags": [
+      "retained-fetal-membranes",
+      "placental-expulsion"
+    ],
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
     "year": 5,
@@ -2891,5 +3375,5 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
-  }
+  },
 ];

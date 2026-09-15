@@ -2,7 +2,8 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
-import { Q_PANIC_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
+import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
+import { scopeForPhase } from '../lib/exam-scope.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
 import { announced } from '../data/curriculum.js';
@@ -73,10 +74,23 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
 
   // Counts are generated metadata plus a tiny custom-question overlay. This
   // view no longer scans or forces the full Q bank to load just to render.
+  // Every topic number sits beside a button that opens buildExamPool with the
+  // selected phase, so once a paper is picked the count is that paper's.
+  const scopedTopics = Q_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase]?.[subject] || null;
   const countFor = (topicId) => {
-    if (topicId === 'all') return resources.questions?.count || 0;
+    if (topicId === 'all') {
+      if (scopedTopics) return Object.values(scopedTopics).reduce((a, b) => a + b, 0);
+      return resources.questions?.count || 0;
+    }
     const coll = collections.find((c) => c.id === topicId);
-    if (coll) return coll.questionCount || 0;
+    if (coll) {
+      if (!scopedTopics) return coll.questionCount || 0;
+      const prefix = coll.topicPrefix || String(coll.id).replace(/^_|-all$/g, '');
+      return Object.entries(scopedTopics)
+        .filter(([id]) => id.startsWith(prefix))
+        .reduce((a, [, n]) => a + n, 0);
+    }
+    if (scopedTopics) return scopedTopics[topicId] || 0;
     return topics.find((topic) => topic.id === topicId)?.questionCount || 0;
   };
 
@@ -131,7 +145,12 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // number is a property of the subject and differs a lot between them. A
   // subject with neither falls back to its whole visible bank, and the card
   // prints that instead — either way the button and the session agree.
-  const panicCount = Q_PANIC_COUNTS_BY_SUBJECT[subject] || countFor('all');
+  // ...and once a paper is chosen, the count is that paper's. The pool the
+  // session builds narrows to the paper (lib/exam-scope.js), so printing the
+  // whole-subject figure promised 10 One Health questions and opened 3.
+  const panicPaper = scopeForPhase(selectedPhase);
+  const panicScoped = panicPaper ? Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE[panicPaper]?.[subject] : undefined;
+  const panicCount = panicScoped ?? Q_PANIC_COUNTS_BY_SUBJECT[subject] ?? countFor('all');
 
   return (
     <>

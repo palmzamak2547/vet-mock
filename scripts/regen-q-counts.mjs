@@ -39,10 +39,11 @@ const metadataM = await import(pathToFileURL(path.join(root, 'src/lib/question-m
 const predictionM = await import(pathToFileURL(path.join(root, 'src/lib/question-prediction.js')).href);
 const deliveryM = await import(pathToFileURL(path.join(root, 'src/data/question-delivery.generated.js')).href);
 const { QB, loadQB } = m;
-const { SUBJECTS } = curM;
+const { SUBJECTS, semesterForSubject } = curM;
 const { UNASSIGNED_TOPIC, isPastPaperQuestion, questionTopicId, panicRank } = metadataM;
 const { isCurrentScopeQuestion, isHighPredictionQuestion } = predictionM;
 const { isQuestionDeliverable } = deliveryM;
+const { questionInScope } = await import(pathToFileURL(path.join(root, 'src/lib/exam-scope.js')).href);
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 
 // Phase 3 lazy QB rework (2026-05-17): QB exports empty until loadQB()
@@ -76,6 +77,23 @@ const byVisibleYear = {};
 const byTopic = {};
 const byPastPaperTopic = {};
 const byPanicSubject = {};
+// ...and the same count once the student has said which paper they are
+// sitting. The card promises a number and the button must hand over that
+// many; since buildExamPool began narrowing to the paper, one figure could
+// not keep that promise for both picks (one-health printed 10, served 3).
+const byPanicSubjectScope = { midterm: {}, final: {} };
+// The three tables the UI prints beside a button that opens a session:
+// per subject, per year, per topic. Phase-blind they promised 338 equine
+// medicine questions and opened 57 — see lib/exam-scope.js.
+// Keyed by the phase the student can actually pick, because that is what the
+// session applies: the TERM narrows which subjects are in play and the PAPER
+// narrows which of their questions are. A table that knew only the paper
+// still promised year 4 1,772 questions where a midterm serves 139.
+const PHASE_IDS = ['1-mid', '1-final', '2-mid', '2-final'];
+const blank = () => Object.fromEntries(PHASE_IDS.map((k) => [k, {}]));
+const byVisibleSubjectScope = blank();
+const byYearScope = blank();
+const byTopicScope = blank();
 const byCurrentScopePhase = {};
 const byHighPredictionPhase = {};
 
@@ -110,7 +128,21 @@ for (const q of deliverableQuestions) {
     byVisibleSubject[subj] = (byVisibleSubject[subj] || 0) + 1;
     // What Panic Mode will actually serve for this subject, counted the same
     // way the session builds it so the card's number and the set agree.
-    if (panicRank(q) < 2) byPanicSubject[subj] = (byPanicSubject[subj] || 0) + 1;
+    for (const phase of PHASE_IDS) {
+      const [termKey, paperKey] = phase.split('-');
+      if (!questionInScope(q, paperKey === 'mid' ? 'midterm' : 'final')) continue;
+      const sem = semesterForSubject(subj);
+      if (sem != null && sem !== 0 && sem !== Number(termKey)) continue;
+      byVisibleSubjectScope[phase][subj] = (byVisibleSubjectScope[phase][subj] || 0) + 1;
+      if (q.year != null) byYearScope[phase][q.year] = (byYearScope[phase][q.year] || 0) + 1;
+      incrementNested(byTopicScope[phase], subj, topic);
+    }
+    if (panicRank(q) < 2) {
+      byPanicSubject[subj] = (byPanicSubject[subj] || 0) + 1;
+      for (const paper of ['midterm', 'final']) {
+        if (questionInScope(q, paper)) byPanicSubjectScope[paper][subj] = (byPanicSubjectScope[paper][subj] || 0) + 1;
+      }
+    }
     if (q.curriculumVersion && isCurrentScopeQuestion(q, { curriculumVersion: q.curriculumVersion })) {
       incrementScopedPrediction(byCurrentScopePhase, q, subj);
     }
@@ -164,6 +196,56 @@ lines.push('// back to the whole subject.');
 lines.push('export const Q_PANIC_COUNTS_BY_SUBJECT = {');
 for (const k of Object.keys(byPanicSubject).sort()) {
   lines.push(`  '${k}': ${byPanicSubject[k]},`);
+}
+lines.push('};');
+lines.push('');
+lines.push('// The same count, narrowed to one paper. A Panic card opened with a phase');
+lines.push('// selected must print what that phase will actually serve — see');
+lines.push('// lib/exam-scope.js. A subject absent from a paper holds nothing for it.');
+lines.push('export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {');
+for (const paper of ['midterm', 'final']) {
+  lines.push(`  ${paper}: {`);
+  for (const k of Object.keys(byPanicSubjectScope[paper]).sort()) {
+    lines.push(`    '${k}': ${byPanicSubjectScope[paper][k]},`);
+  }
+  lines.push('  },');
+}
+lines.push('};');
+lines.push('');
+lines.push('// What each surface may print once a paper is chosen. Every one of these');
+lines.push('// sits next to a button that opens buildExamPool with the same phase, so');
+lines.push('// the number and the set have to come from the same rule.');
+lines.push('export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {');
+for (const phase of PHASE_IDS) {
+  lines.push(`  '${phase}': {`);
+  for (const k of Object.keys(byVisibleSubjectScope[phase]).sort()) {
+    lines.push(`    '${k}': ${byVisibleSubjectScope[phase][k]},`);
+  }
+  lines.push('  },');
+}
+lines.push('};');
+lines.push('');
+lines.push('export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {');
+for (const phase of PHASE_IDS) {
+  lines.push(`  '${phase}': {`);
+  for (const k of Object.keys(byYearScope[phase]).sort((a, b) => Number(a) - Number(b))) {
+    lines.push(`    ${k}: ${byYearScope[phase][k]},`);
+  }
+  lines.push('  },');
+}
+lines.push('};');
+lines.push('');
+lines.push('export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {');
+for (const phase of PHASE_IDS) {
+  lines.push(`  '${phase}': {`);
+  for (const subj of Object.keys(byTopicScope[phase]).sort()) {
+    lines.push(`    '${subj}': {`);
+    for (const t of Object.keys(byTopicScope[phase][subj]).sort()) {
+      lines.push(`      '${t}': ${byTopicScope[phase][subj][t]},`);
+    }
+    lines.push('    },');
+  }
+  lines.push('  },');
 }
 lines.push('};');
 lines.push('');

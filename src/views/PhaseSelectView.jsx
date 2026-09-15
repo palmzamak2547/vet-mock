@@ -1,5 +1,6 @@
 import Mochi from '../components/Mochi.jsx';
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 
 // PhaseSelectView — second step of the year picker.
 // After user picks a year, they pick a 4-quadrant exam phase:
@@ -55,7 +56,13 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
       <div className="vmx-mode-grid">
         {PHASES.map((p) => {
           // semester 0 = cross-semester (e.g. VCA) — count in every phase
-          const subjectsInPhase = subjects.filter((s) => s.semester === p.semester || s.semester === 0);
+          // A subject belongs to a phase only if it sits that PAPER, not merely
+          // that term. Counting by semester alone put epidemiology (no midterm)
+          // and POA (no written paper) under กลางภาค on the very screen that
+          // explains what a phase means.
+          const scoped = Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[p.id] || null;
+          const subjectsInPhase = subjects.filter((s) => (s.semester === p.semester || s.semester === 0)
+            && (!scoped || !s.has_questions || (scoped[s.id] || 0) > 0));
           const liveCount = subjectsInPhase.filter((s) => !s.scaffold).length;
           const isCurrent = p.id === currentPhase;
           const isPicked = p.id === selectedPhase;

@@ -4,6 +4,7 @@ import { QB, isQBYearLoaded } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
 // full QB to be scanned on every re-render.
+import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
@@ -1250,7 +1251,10 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           //      topic-select. Notes button works; Exam/SR buttons disabled.
           //   2. otherwise scaffold/empty → feedback (request content).
           //   3. has_questions → topic-select normally.
-          const totalQ = (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0)
+          // Once a paper is picked the card must print what tapping it opens:
+          // phase-blind it said 338 for เวชปฏิบัติม้า and served 57.
+          const scopedTable = Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[selectedPhase];
+          const totalQ = (scopedTable ? (scopedTable[s.id] || 0) : (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0))
             + (customQuestions || []).filter((q) => q.subject === s.id).length;
           const hasUsableContent = totalQ > 0 || hasNotes(s.id);
           if (!hasUsableContent) {

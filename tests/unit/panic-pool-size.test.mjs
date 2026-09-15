@@ -88,11 +88,46 @@ test('a per-subject Panic is not cut to a fixed size', () => {
 test('the card prints the number the session will serve', async () => {
   const { Q_PANIC_COUNTS_BY_SUBJECT } = await import('../../src/data/q-counts.js');
   const view = readFileSync(new URL('../../src/views/TopicSelectView.jsx', import.meta.url), 'utf8');
-  assert.match(view, /Q_PANIC_COUNTS_BY_SUBJECT\[subject\] \|\| countFor\('all'\)/,
-    'the card prints its own number again — it can disagree with the set it opens');
+  assert.match(view, /Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE\[panicPaper\]\?\.\[subject\]/,
+    'the card must read the count for the paper the student picked');
+  assert.match(view, /panicScoped \?\? Q_PANIC_COUNTS_BY_SUBJECT\[subject\] \?\? countFor\('all'\)/,
+    'and fall back to the whole subject only when no paper is picked');
   assert.match(view, /questionCount=\{panicCount\}/);
   // The generated counts are what both sides read, so they have to be real.
   assert.ok(Q_PANIC_COUNTS_BY_SUBJECT['milk-meat-hygiene'] > 0, 'the counts index lost its subjects');
+});
+
+test('the printed number equals the set, for every subject and both papers', async () => {
+  // Palm, 2026-09-16: "จำนวนข้อ Panic mode ตรงแสดงกับกดเข้าไปจริงก็ไม่ตรง". The card
+  // printed the whole-subject figure while the session had started narrowing to
+  // the paper — One Health promised 10 and opened 3. A string match cannot catch
+  // that again, so this recomputes both sides from the live bank.
+  const { Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE } = await import('../../src/data/q-counts.js');
+  const { BANK_REGISTRY } = await import('../../src/data/bank-registry.generated.js');
+  const { panicPool } = await import('../../src/lib/question-metadata.js');
+  const { questionInScope } = await import('../../src/lib/exam-scope.js');
+  const { isQuestionDeliverable } = await import('../../src/data/question-delivery.generated.js');
+  const { hiddenTopicIdsFor } = await import('../../src/data/curriculum.js');
+
+  const all = [];
+  for (const entry of BANK_REGISTRY) for (const q of await entry.load()) all.push(q);
+
+  for (const paper of ['midterm', 'final']) {
+    const table = Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE[paper];
+    assert.ok(table && Object.keys(table).length, `${paper} panic counts are missing`);
+    for (const [subject, printed] of Object.entries(table)) {
+      const hidden = hiddenTopicIdsFor(subject);
+      const served = panicPool(
+        all.filter((q) => q.subject === subject
+          && isQuestionDeliverable(q)
+          && !hidden.has(q.topic)
+          && questionInScope(q, paper)),
+        () => 0,
+      ).length;
+      assert.equal(printed, served,
+        `${subject} ${paper}: the card would print ${printed} and the session serve ${served}`);
+    }
+  }
 });
 
 test('the Panic pool is a filter with one honest fallback', async () => {

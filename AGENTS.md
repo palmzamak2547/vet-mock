@@ -393,6 +393,49 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-16 — 5.103.1: the count and the set agree again (Claude)
+
+5.103.0 taught `buildExamPool` which paper a question sits and left **ten of the twelve count
+tables in q-counts.js not knowing**. Every question count outside the exam session reads one of
+those tables, so for a day the app promised one number and opened another. Palm found it in
+under an hour: "จำนวนข้อ Panic mode ตรงแสดงกับกดเข้าไปจริงก็ไม่ตรง ... One health ทำไมเหลือแค่
+ข้อเขียน และทำไม Equine Repro มี final ติดมาด้วย". A four-lens sweep measured **25 divergences
+across 54 places**; `counts.md`, `panic.md`, `regressions.md` in the sweep output carry the full
+tables.
+
+**The rule this leaves behind: a number printed beside a button that opens a session must be
+computed by the same rule the session applies.** `Q_*_BY_SCOPE` tables are keyed by the phase id
+a student can actually pick (`'1-mid'`…`'2-final'`) so BOTH the term and the paper are in them —
+a table that knew only the paper still promised year 4 1,772 where a midterm serves 139.
+
+Fixed:
+- **The never-empty guard was the real leak.** It is kind when the student NAMED a subject or a
+  topic and the opposite across all subjects: a subject with nothing for the chosen paper had
+  its whole other-paper bank handed back. A midterm cram served all 100 epidemiology questions
+  (no midterm paper), all 47 vet-juris, all 97 POA (no written paper at all) and every com1
+  topic. Now `if (onPaper.length || !named) pool = onPaper`.
+- Panic card: `Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE`, one-health 10→3 printed and served, 28=28
+  for equine-repro. `panic-pool-size.test.mjs` now RECOMPUTES both sides from the live bank for
+  every subject × both papers; the old test matched a string, and a string cannot notice that a
+  card says 10 and a session gives 3.
+- Home subject cards, topic cards and their collection roll-ups, the phase screen's "N วิชา"
+  (it counted epidemiology under กลางภาค on the very screen that explains phases).
+- **equine-repro per-question overrides applied, 44 questions** — foaling presentation, dystocia
+  timing, red bag, teat waxing are final. These were resolved by the PDF audit during 5.103.0
+  and I deferred them while reporting the work finished; that deferral is what Palm saw.
+
+Checks: `npm run gate` alone — build, lint:all, unit 993/0, **e2e 536 passed / 0 failed in
+6.0 min**, the first clean four-browser run of this arc.
+
+Left, deliberately, and none of it sits beside a session button:
+- The landing proof band (5,471 / 1,736) is a bank figure; max reachable in one phase is 3,040.
+- The year card on the year screen, where no phase is chosen yet.
+- `computeSubjectProgress` denominators and the "เรียนไป X%" chips.
+- `Q_CURRENT_SCOPE_COUNTS` buckets on the raw `question.examScope` field rather than
+  `scopeOfQuestion()`, so it is exact today and will drift the first time a question inherits its
+  paper from its topic. Switch it when it is next touched.
+- `SRSessionView` receives `selectedPhase` and ignores it entirely.
+
 ## 2026-09-16 — 5.103.0: กลางภาค and ปลายภาค become two different piles (Claude)
 
 Palm: "การแยกกลางภาคกับปลายภาค มันยังแปลกๆอยู่ เหมือนมันปนกัน ... แยกให้ชัด สร้างมาตรฐานและ
