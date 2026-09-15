@@ -1183,10 +1183,26 @@ html, body {
   animation: vmx-countdown-day-in 360ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
   animation-delay: calc(120ms + var(--i, 0) * 28ms);
 }
+/* Phones: one compact row. The first subject card has to stay within the
+   first screen on a 375x812 phone (the smoke test pins it at y < 650), and
+   the full card with the strip is ~380px tall there — it pushed the card to
+   y = 830 and failed the gate on every browser. The strip is the part that
+   costs the height, and the timetable is one tap away anyway. */
 @media (max-width: 640px) {
-  .vmx-countdown { grid-template-columns: 1fr; gap: 10px; padding: 14px 14px; }
-  .vmx-countdown-eyebrow { white-space: normal; }
-  .vmx-countdown-strip { padding-inline: 0; }
+  /* One ticker row: label, days, clock. Measured 56px including its
+     margin, against ~380px for the full card; the compact two-line
+     version still left the first subject card at y = 680. */
+  .vmx-countdown { display: flex; align-items: baseline; flex-wrap: nowrap; gap: 10px; padding: 9px 14px; margin-bottom: 12px; overflow: hidden; }
+  .vmx-countdown-lead { display: contents; }
+  .vmx-countdown-eyebrow { white-space: nowrap; flex-shrink: 0; }
+  .vmx-countdown-eyebrow > span { display: none; }
+  .vmx-countdown-num { font-size: 24px; letter-spacing: -0.02em; }
+  .vmx-countdown-unit { font-size: 12px; margin-left: 4px; }
+  .vmx-countdown-clock { font-size: 15px; margin-top: 0; flex-wrap: nowrap; white-space: nowrap; }
+  .vmx-countdown-clock i { font-size: 9.5px; margin: 0 6px 0 2px; }
+  .vmx-countdown.is-hours .vmx-countdown-clock { font-size: 22px; }
+  .vmx-countdown-caption,
+  .vmx-countdown-strip { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .vmx-countdown-enter .vmx-countdown-day { animation: none; }

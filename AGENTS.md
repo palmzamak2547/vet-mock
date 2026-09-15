@@ -353,6 +353,45 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-15 — 5.100.1: the Smoke gate caught the countdown on phones (Claude)
+
+5.100.0 failed `connected-study.spec.js:202` on every browser: on a 375x812 phone the first
+subject card must sit at y < 650, and the full countdown card (number, clock, caption, strip)
+is ~380px tall there, so the card landed at y = 830. The alias never moved; nobody saw it.
+
+- Phones now get a one-row ticker (label, days, clock) at 56px including margin. The two-line
+  compact version I tried first still left the card at y = 680 — measured locally with the
+  same test before pushing this time (`npx playwright test tests/e2e/connected-study.spec.js
+  -g "core mobile journey" --project=chromium-mobile --project=webkit-mobile`).
+- **Rule this encodes:** anything added above the subject cards on Home has to be checked
+  against that assertion on a phone BEFORE pushing. A green desktop screenshot says nothing.
+- The other failure in that run (`pdf-annotate.spec.js:185`, ink pixels 0) passed on retry and
+  the run tallied it as flaky; it is unrelated to this change.
+
+**Is a deploy safe for someone mid-exam?** Yes, by construction, checked in code:
+`app-lifecycle.js` only sends SKIP_WAITING on `beforeunload`/`pagehide` or on an explicit
+`vmx-sw-apply-update`, and `App.jsx` refuses to apply while the view is in
+`UPDATE_UNSAFE_VIEWS = [exam, sr-session, race, pomodoro]`. And the alias only moves after
+Smoke passes. Palm asked because he saw someone start a paper; the DB at that moment showed
+0 exam results and 0 sync writes in the previous hour (last activity 2026-09-14 16:51 UTC),
+so the presence he saw was either an anonymous session or his own tab.
+
+### Queue Palm has asked for, in order (he asked not to drop any of it)
+
+1. **Landing redesign, stage 1** — brief with section plan, Thai copy rules and six art
+   prompts is published (claude.ai/artifact/VREPximoX2tCQSKYZ5gBn8). Stage 1 = new copy
+   (นิสิต, not นักศึกษา), cut the five fake sections (72% gauge, fake dashboard, weakness
+   cards, problem cards, how-it-works), add the live countdown to the hero, a real-subject
+   marquee, 01/02/03 with real app screenshots, motion. Art slots reserved for A1 to A6.
+   Constraints from e2e: keep `.lp-nav-burger`, `#lp-mobile-menu`, `.lp-mobile-menu-link`,
+   `.lp-sound-toggle`, `.lp-theme-toggle`, `.lp-navlink[href="#progress"]`, the cookie dock
+   classes, a button matching /เริ่มฝึกเลย|Start Practicing/, and NO `.lp-rail`/`.lp-spotlight`.
+2. **Admin back-office for Palm only** — "หลังบ้านให้เฉพาะผมคนเดียวเข้าไปดูได้ ออกแบบดี ๆ สวย ๆ".
+   Gate it server-side (an `is_admin()` on his auth uid, RLS, never a client-side flag), then
+   design: what he actually needs to see is usage (exam_results, user_data sync, profiles),
+   content health (bank counts, panic pools), and the submission review queue.
+3. Art assets arrive from GPT Image → stage 2 of the landing (drop-in), then photos → stage 3.
+
 ## 2026-09-15 — 5.100.0: the exam countdown, and a wordmark that plays with words (Claude)
 
 Two asks from Palm in one message: "ตรง sidebar ที่เขียนว่า VetMock ... สลับไปมาระหว่าง Mock Love
