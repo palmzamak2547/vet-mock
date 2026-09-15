@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { QB, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } from '../data/curriculum.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
 import Mochi from '../components/Mochi.jsx';
@@ -9,7 +10,7 @@ import { computeSubjectProgress } from '../lib/subject-progress.js';
 import { takeViewIntent, rememberViewIntent } from '../lib/feature-registry.js';
 import { SUBJECT_MOCHI } from '../data/art.js';
 
-export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, qbReady = true, history = [] }) {
+export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, selectedPhase = null, qbReady = true, history = [] }) {
   const allQuestions = [...QB, ...customQuestions];
   // Read once, on mount: someone who chose สรุปบทเรียน is here to read, and
   // this screen used to describe practice to them regardless.
@@ -183,9 +184,18 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           // subject across the bank.
           // The all-card counts this year only, matching the pool the exam
           // will actually draw from.
+          // Once a paper is picked this card opens a set narrowed to it, so the
+          // number has to be that paper's: phase-blind it printed 100 for
+          // ระบาดวิทยา under กลางภาค, a course with no midterm at all.
+          const scopedCounts = Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[selectedPhase] || null;
+          // The all-card never falls back to a bank scan — it reads the memo or
+          // zero, once per year subject.
+          const countOf = (id) => (scopedCounts ? (scopedCounts[id] || 0) : (countBySubject.get(id) ?? 0));
           const count = s.id === 'all' && selectedYear
-            ? yearSubjects.reduce((n, y) => n + (countBySubject.get(y.id) ?? 0), 0)
-            : (countBySubject.get(s.id) ?? visibleQuestionCount(s.id, allQuestions));
+            ? yearSubjects.reduce((n, y) => n + countOf(y.id), 0)
+            : (scopedCounts
+              ? (scopedCounts[s.id] || 0)
+              : (countBySubject.get(s.id) ?? visibleQuestionCount(s.id, allQuestions)));
           // A subject with notes and no questions is still worth opening —
           // this selector is also where the Notes feature lands, and gating
           // it on the question count locked students out of written material

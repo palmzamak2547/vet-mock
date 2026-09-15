@@ -99,7 +99,10 @@ test('the subject selector waits for the SELECTED year, and counts once per bank
   assert.ok(s.includes('!yearIsScaffold'), 'a scaffold year has no banks to wait for');
   assert.ok(s.includes('const countBySubject = useMemo('), 'counts must be memoised');
   const render = s.slice(s.indexOf('group.items.map((s) =>'));
-  assert.ok(render.includes('countBySubject.get(y.id)'), 'the all-card must read the memo');
+  // The all-card sums through countOf, which reads the memo (or the phase-scoped
+  // table) and falls back to zero — never to a bank scan.
+  assert.ok(render.includes('countOf(y.id)'), 'the all-card must sum through the shared accessor');
+  assert.ok(render.includes('countBySubject.get(id) ?? 0'), 'and that accessor must read the memo');
   assert.equal((render.match(/visibleQuestionCount\(y\.id/g) || []).length, 0, 'no per-render bank scan for the all-card');
 });
 

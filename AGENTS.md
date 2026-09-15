@@ -427,6 +427,13 @@ Fixed:
 Checks: `npm run gate` alone — build, lint:all, unit 993/0, **e2e 536 passed / 0 failed in
 6.0 min**, the first clean four-browser run of this arc.
 
+**5.103.2, found on production not in a test:** the subject-select screen (`/app/study`) was
+still printing whole-subject counts — ระบาดวิทยา 100 under กลางภาค for a course with no
+midterm, and รวมทุกวิชา 2,986 where the phase serves 2,437. It now takes `selectedPhase` and
+reads the scoped table; the all-card keeps its no-bank-scan guarantee. **The lesson: after a
+pool rule changes, walk the real screens on production, because the four surfaces a test
+names are never all of them.** Gate: 538 passed / 0 failed.
+
 Left, deliberately, and none of it sits beside a session button:
 - The landing proof band (5,471 / 1,736) is a bank figure; max reachable in one phase is 3,040.
 - The year card on the year screen, where no phase is chosen yet.

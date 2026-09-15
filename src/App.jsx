@@ -2874,7 +2874,7 @@ export default function App() {
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
-              {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, qbReady, history }} />}
+              {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
               {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
