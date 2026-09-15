@@ -286,7 +286,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
               explain={currentQ.explain}
               subject={currentQ.subject}
-              coach={!mcqOk && <MissCoach q={currentQ} chosen={currentAnswer} />}
+              coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
             />
           )}

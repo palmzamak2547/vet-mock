@@ -354,6 +354,41 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-15 — 5.102.1: the fourth auditor's twelve, eleven fixed (Claude)
+
+The auditor over the 09-13/14 shipments reported after 5.102.0 had shipped. Fixed here, each
+re-checked by hand: glossary "ข้อที่เกี่ยวข้อง" links opened 67 blocked questions in 39 entries —
+`regen-glossary-related.mjs` now skips `!isQuestionDeliverable` (2,913 → 2,846 links) and the
+`onlyIds` branch of `startExam` applies the gate too; a Panic set started from the exam-mode
+config screen ran on one paper clock (the hook's `sessionBudget` prop is derived from `mode`
+STATE and the handler sets mode and starts in one go) — `startNewSession(picked, firstTime,
+{ sessionBudget })` names the clock and the in-flight record reads `session.clockKind()`;
+ScreeningBench: a dial move after a committed guess re-entered guess mode (`setGuess(null)` with
+`setCommitted(null)`), and guess mode leaked the answer through the 2x2 table, the
+false-alerts-per-hit row and the curve marker (all gated on `!hidden`); BenchView เริ่มนับใหม่
+remounts the checks (`resetCount` in the key); SummaryModal's observer used a −8% bottom margin
+so the last block never revealed above ~1,320px viewports; `MissCoach` is keyed by question;
+`badges.js` read `h.id` where rows carry `questionId`, and `perfect` read the rounded percent;
+`agent-action.js` budgeted the shared LLM key at 600 (now `LLM_DAILY_BUDGET`, test pins it);
+the game shield's `=== 0` never hit on fractional frames; `NextActionCard` gets `lastExamDate`
+so `exam-finished`/`holiday` Mochi can appear.
+
+Seen on production 5.102.0 (`/app/admin` as Palm, real data: 29 accounts, 140 attempts in 30 days,
+8 exams, the people table with emails and sign-ins): the accuracy percentages in all three tables
+rendered as an 8px sliver — `.ad-bar > span` styled the number span like the track; now
+`:first-child`. And the online tile read "realtime ไม่ต่อ" after a reload: `useOnlineCount` set
+`error` on the first CHANNEL_ERROR and never retried; it now re-subscribes up to three times.
+
+Left open: `stats.phaseCompleted` is still set nowhere (the `exam-finished` badge is unreachable);
+set it in `PhaseWrappedView` from the phase's last paper date. The 5.102.0 open list stands.
+
+Checks: unit 987/0 (badge, clock and route pins repinned to the new truth); `npm run gate` alone on
+the final tree — build, lint:all, then e2e 531 passed / 5 failed / 3 did not run in 9.4 min, and
+**all 8 pass alone on the same dist in 35.6 s** (`--last-failed`): the five were the same load
+shape as gate 2 (a 30 s journey test running out of budget at its last click, the 120 s
+whole-app 320px audit, two wiki chunk loads). The offline-banner failure did not recur. Glossary
+links regenerated: 143 entries, 2,846 links (was 2,913).
+
 ## 2026-09-15 — 5.102.0: the back-office, for one account (Claude)
 
 Palm: "หลังบ้านให้เฉพาะผมคนเดียวเข้าไปดูได้ ... มีสถิติทุกอย่าง ... ยันไปว่าใครเคยทำผิดข้อไหนบ้าง

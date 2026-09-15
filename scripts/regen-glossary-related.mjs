@@ -28,6 +28,9 @@ const checkOnly = process.argv.includes('--check');
 const load = (rel) => import(pathToFileURL(path.join(ROOT, rel)).href);
 const { GLOSSARY, entryKey, getAllSearchableStrings } = await load('src/data/glossary.js');
 const { BANK_REGISTRY } = await load('src/data/bank-registry.generated.js');
+// The delivery gate is the only thing standing between a student and an
+// unverified key; a card link that bypasses the exam pool must apply it too.
+const { isQuestionDeliverable } = await load('src/data/question-delivery.generated.js');
 
 const questions = [];
 for (const entry of BANK_REGISTRY) for (const q of await entry.load()) questions.push(q);
@@ -44,7 +47,7 @@ for (const entry of GLOSSARY) {
   const scope = entry.__scope;
   const ids = [];
   for (const q of questions) {
-    if (!q || q.id == null) continue;
+    if (!q || q.id == null || !isQuestionDeliverable(q)) continue;
     // A card scoped to one discipline must not offer another discipline's
     // questions — that is the same wrong-sense mistake one step later.
     if (scope !== 'universal' && !scope.has(q.subject)) continue;

@@ -1456,7 +1456,7 @@ export default function App() {
       // Which clock this session started under. A record without it predates
       // the session clock and resumes per-question, so nobody mid-exam has the
       // rules changed by a deploy.
-      clock: mode === 'exam' ? 'session' : 'per-question',
+      clock: session.clockKind(),
     };
     if (Date.now() - inflightWrittenAtRef.current >= 3000) { writeInflight(); return undefined; }
     const timer = setTimeout(writeInflight, 500);
@@ -1898,7 +1898,9 @@ export default function App() {
     const examQuestions = [...QB, ...customQuestions];
 
     const pool = onlyIds
-      ? examQuestions.filter((q) => onlyIds.has(q.id))
+      // A named set skips buildExamPool, so it must apply the delivery gate
+      // itself: glossary cards once linked to 67 blocked questions this way.
+      ? examQuestions.filter((q) => onlyIds.has(q.id) && isQuestionDeliverable(q))
       : buildExamPool({
       questions: examQuestions,
       practiceMode: _practiceMode,
@@ -2040,7 +2042,7 @@ export default function App() {
     // useExamSession owns the runtime state shape; this single call
     // primes questions/answers/currentIdx/timeLeft/examStartTime in
     // one synchronous batch (was 5 inline setters pre-refactor).
-    session.startNewSession(picked, firstTime);
+    session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam' });
     setView('exam');
     // NOTE: the streak used to be bumped right here — i.e. for merely OPENING
     // a set, before a single answer. That inflated the header counter and made

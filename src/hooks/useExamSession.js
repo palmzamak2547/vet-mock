@@ -244,7 +244,12 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   // ── Lifecycle helpers (App.jsx calls these from startExam/goHome) ───
 
   /** Called by App.startExam after the pool is built + picked. */
-  const startNewSession = useCallback((picked, firstTime) => {
+  // `opts.sessionBudget` names the clock explicitly. The prop is derived from
+  // App's `mode` STATE, and a Panic session started from the exam-mode config
+  // screen (setMode('quick') then startExam in one handler) rendered with the
+  // old mode still in this closure: 25 questions on one paper clock, saved
+  // as per-question.
+  const startNewSession = useCallback((picked, firstTime, opts = {}) => {
     timingRef.current.reset();
     setSessionOwner(ownerId);
     setCompletedAt(null);
@@ -255,8 +260,9 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // firstTime is the caller's per-question allowance. Under one clock the
     // set gets every question's allowance at once, so the total time on offer
     // is unchanged — only the freedom to spend it where it is needed.
-    sessionClockRef.current = sessionBudget;
-    setTimeLeft(sessionBudget && firstTime > 0 ? budgetFor(picked) : firstTime);
+    const oneClock = typeof opts.sessionBudget === 'boolean' ? opts.sessionBudget : sessionBudget;
+    sessionClockRef.current = oneClock;
+    setTimeLeft(oneClock && firstTime > 0 ? budgetFor(picked) : firstTime);
     setExamStartTime(Date.now());
   }, [ownerId, sessionBudget, budgetFor]);
 
@@ -323,5 +329,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     answerCurrent, nextQ, prevQ, jumpToQ, replayQuestions,
     // Lifecycle helpers
     startNewSession, primeFromSaved, resetSession,
+    // Which clock this session is actually on, for the in-flight record.
+    clockKind: () => (sessionClockRef.current ? 'session' : 'per-question'),
   };
 }

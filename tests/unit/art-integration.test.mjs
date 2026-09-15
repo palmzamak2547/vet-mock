@@ -54,10 +54,13 @@ test('a badge carries the reason it was given', () => {
 
 test('a perfect set needs to be a real set, not one lucky answer', () => {
   const history = [{ date: day(1), correct: true, id: 1 }];
-  const few = earnedBadges({ history, stats: { correctPct: 100, qCount: 3 } }).map((b) => b.id);
+  const few = earnedBadges({ history, stats: { correctPct: 100, qCount: 3, correct: 3 } }).map((b) => b.id);
   assert.ok(!few.includes('perfect'), '3 questions is not a set');
-  const real = earnedBadges({ history, stats: { correctPct: 100, qCount: 20 } }).map((b) => b.id);
+  const real = earnedBadges({ history, stats: { correctPct: 100, qCount: 20, correct: 20 } }).map((b) => b.id);
   assert.ok(real.includes('perfect'));
+  // 199/200 rounds to 100% and is not a perfect set.
+  const nearly = earnedBadges({ history, stats: { correctPct: 100, qCount: 200, correct: 199 } }).map((b) => b.id);
+  assert.ok(!nearly.includes('perfect'), 'the badge reads the counts, not the rounded percent');
 });
 
 test('going back and fixing a wrong answer is what earns that badge', () => {

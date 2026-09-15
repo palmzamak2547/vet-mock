@@ -9,7 +9,7 @@
 // the validated plan and the STUDENT confirms before anything runs.
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { chatJSON, extractJSON, llmConfigured, hasCJK } from './_lib/llm.js';
+import { chatJSON, extractJSON, llmConfigured, hasCJK, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { buildCatalog, validateAction } from './_lib/agent-actions.js';
 
 const MAX_UTTERANCE = 300;
@@ -72,7 +72,7 @@ export default async function handler(req, res) {
     const utterance = String(req.body?.utterance || '').slice(0, MAX_UTTERANCE).trim();
     if (!utterance) return res.status(400).json({ error: 'utterance is required' });
 
-    const providerBudget = await rateLimit('provider:llm:daily', 600, 24 * 60 * 60 * 1000);
+    const providerBudget = await rateLimit('provider:llm:daily', LLM_DAILY_BUDGET, 24 * 60 * 60 * 1000);
 
     if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {

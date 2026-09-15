@@ -359,7 +359,9 @@ export default function OfflineGame({ onClose }) {
           // Shield decay
           if (p.shieldTimer > 0) {
             p.shieldTimer -= f;
-            if (p.shieldTimer === 0) p.shield = false;
+            // f is fractional, so the timer skips zero; a strict === kept the
+            // shield up until a collision spent it.
+            if (p.shieldTimer <= 0) { p.shieldTimer = 0; p.shield = false; }
           }
 
           // Spawn obstacles + pickups

@@ -96,7 +96,7 @@ function PositiveField({ table }) {
 
 /** Predictive value against prevalence, with this test held still. Log x,
  *  because everything that matters happens below 10%. */
-function PrevalenceCurve({ sensitivity, specificity, prevalence, ppv }) {
+function PrevalenceCurve({ sensitivity, specificity, prevalence, ppv, showNow = true }) {
   const W = 520;
   const H = 190;
   const PAD = { l: 40, r: 12, t: 14, b: 28 };
@@ -158,7 +158,7 @@ function PrevalenceCurve({ sensitivity, specificity, prevalence, ppv }) {
           </text>
         ))}
         <path d={d} className="vmx-bench-curve__line" />
-        {inRange && ppv !== null && (
+        {showNow && inRange && ppv !== null && (
           <g>
             <line x1={x(prevalence)} x2={x(prevalence)} y1={y(ppv)} y2={H - PAD.b} className="vmx-bench-curve__drop" />
             <circle cx={x(prevalence)} cy={y(ppv)} r="5" className="vmx-bench-curve__now" />
@@ -200,9 +200,13 @@ export default function ScreeningBench({ preset = 0 }) {
 
   // Moving a dial invalidates a committed guess — it was a guess about a
   // different test.
+  // A guess was about a different test, so it ends: readout back, slider
+  // gone. Nulling only `committed` kept the slider and hid the answer on
+  // every move after the first reveal.
   const onDial = useCallback((setter) => (v) => {
     setter(v);
     setCommitted(null);
+    setGuess(null);
   }, []);
 
   const hidden = guess !== null && committed === null;
@@ -244,7 +248,7 @@ export default function ScreeningBench({ preset = 0 }) {
                   type="button"
                   className={`vmx-bench-size ${n === s ? 'is-on' : ''}`}
                   aria-pressed={n === s}
-                  onClick={() => { setN(s); setCommitted(null); }}
+                  onClick={() => { setN(s); setCommitted(null); setGuess(null); }}
                 >
                   {nf(s)}
                 </button>
@@ -299,13 +303,14 @@ export default function ScreeningBench({ preset = 0 }) {
               </div>
               <div>
                 <dt>ผลบวกลวงต่อการเจอจริงหนึ่งตัว</dt>
-                <dd>{table.falseAlertsPerHit === null ? '—' : `${table.falseAlertsPerHit.toFixed(1)} ตัว`}</dd>
+                <dd>{hidden || table.falseAlertsPerHit === null ? '—' : `${table.falseAlertsPerHit.toFixed(1)} ตัว`}</dd>
               </div>
             </dl>
           </div>
 
           {!hidden && <PositiveField table={table} />}
 
+          {hidden ? <p className="vmx-bench-field__empty">ตาราง 2x2 จะแสดงหลังกดดูคำตอบ</p> : (
           <table className="vmx-bench-table">
             <caption className="vmx-bench-table__caption">
               จากสัตว์ {nf(table.n)} ตัว เป็นโรคจริง {nf(table.diseased)} ตัว
@@ -339,8 +344,10 @@ export default function ScreeningBench({ preset = 0 }) {
               </tr>
             </tbody>
           </table>
+          )}
 
           <PrevalenceCurve
+            showNow={!hidden}
             sensitivity={sensitivity / 100}
             specificity={specificity / 100}
             prevalence={prevalence / 100}

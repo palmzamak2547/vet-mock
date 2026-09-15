@@ -58,9 +58,10 @@
 .ad-stem { display: block; max-width: 46ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ad-id { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); }
 .ad-bar { display: inline-grid; grid-template-columns: 64px auto; align-items: center; gap: 8px; }
-.ad-bar > span { height: 8px; border-radius: 999px; background: var(--clr-surface-2); overflow: hidden; }
-.ad-bar > span > span { display: block; height: 100%; border-radius: 999px; background: var(--clr-rose); }
-.ad-bar.is-good > span > span { background: var(--clr-sage); }
+.ad-bar > span:first-child { height: 8px; border-radius: 999px; background: var(--clr-surface-2); overflow: hidden; }
+.ad-bar > span:first-child > span { display: block; height: 100%; border-radius: 999px; background: var(--clr-rose); }
+.ad-bar.is-good > span:first-child > span { background: var(--clr-sage); }
+.ad-bar > .num { font-family: var(--vmx-mono); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--clr-ink); }
 .ad-flags { display: inline-flex; flex-wrap: wrap; gap: 4px; }
 .ad-flag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; line-height: 1.5; white-space: nowrap; }
 .ad-flag.alarm { background: color-mix(in srgb, var(--clr-rose) 16%, var(--clr-surface)); color: var(--clr-rose-text); }

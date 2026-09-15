@@ -221,6 +221,9 @@ function Check({ check, cleared, onClear }) {
 // ── the view ─────────────────────────────────────────────────────
 export default function BenchView({ goHome }) {
   const [cleared, setCleared] = useState(() => (typeof window === 'undefined' ? new Set() : readProgress()));
+  // Each Check keeps its own pick; bumping this remounts them on reset so
+  // every check can be answered again, not only counted again.
+  const [resetCount, setResetCount] = useState(0);
   const [active, setActive] = useState(MODULE5.sections[0].id);
   const sectionRefs = useRef({});
 
@@ -237,6 +240,7 @@ export default function BenchView({ goHome }) {
   const reset = useCallback(() => {
     setCleared(new Set());
     writeProgress(new Set());
+    setResetCount((n) => n + 1);
   }, []);
 
   const total = ALL_CHECKS.length;
@@ -351,7 +355,7 @@ export default function BenchView({ goHome }) {
                 <div className="vmx-lesson__checks">
                   <p className="vmx-lesson__checkshead">ลองตอบดู</p>
                   {s.checks.map((c) => (
-                    <Check key={c.id} check={c} cleared={cleared.has(c.id)} onClear={onClear} />
+                    <Check key={`${c.id}:${resetCount}`} check={c} cleared={cleared.has(c.id)} onClear={onClear} />
                   ))}
                 </div>
               )}

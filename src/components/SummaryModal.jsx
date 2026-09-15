@@ -197,7 +197,9 @@ export default function SummaryModal({ summary, onClose }) {
         entry.target.classList.add('is-in');
         io.unobserve(entry.target);
       }
-    }, { root: el, rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+    // No negative bottom margin: with the root shrunk by 8% the last block
+    // (61px) never entered it on viewports taller than ~1,320px.
+    }, { root: el, rootMargin: '0px', threshold: 0.01 });
     for (const block of blocks) {
       block.classList.add('vmx-reveal');
       io.observe(block);

@@ -91,6 +91,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // The exam period as a whole — null for a year with no timetable, which
   // is the only gate the hero countdown needs. Recomputed on the tick below.
   const examWindow = isScaffoldYear ? null : examWindowFor(`y${selectedYear}`);
+  // The last paper of the year's timetable: after it the seasonal Mochi
+  // celebrates for three days, then the holiday picture takes over.
+  const lastExamDate = (EXAM_SCHEDULE[`y${selectedYear}`] || []).map((e) => e.date).filter(Boolean).sort().at(-1) || null;
   // Today's timetable + the registrar's deadlines, surfaced as chips so the
   // published schedule is one tap away instead of buried in a PDF.
   // After the last class of the day this is tomorrow's first (dayOffset 1),
@@ -794,6 +797,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {!isScaffoldYear && (
         <NextActionCard
           nextExam={nextExam}
+          lastExamDate={lastExamDate}
           examContext={!examWindow}
           quickStats={quickStats}
           cardStats={cardStats}

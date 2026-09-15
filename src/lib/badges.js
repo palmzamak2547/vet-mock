@@ -89,7 +89,8 @@ export function earnedBadges({
   const seen = new Map();
   let corrected = 0;
   for (const h of history) {
-    const key = `${h?.subject || '?'}:${h?.id ?? h?.qId ?? '?'}`;
+    // History rows carry `questionId` (the older fixtures used `id`).
+    const key = `${h?.subject || '?'}:${h?.questionId ?? h?.id ?? h?.qId ?? '?'}`;
     const prior = seen.get(key);
     if (prior === false && h?.correct) { corrected += 1; seen.set(key, 'done'); }
     else if (prior === undefined) seen.set(key, h?.correct ? 'done' : false);
@@ -100,7 +101,8 @@ export function earnedBadges({
     ['streak-30', streak >= 30, `ทำข้อสอบต่อเนื่อง ${streak} วัน`],
     ['questions-100', answered >= 100, `ทำไปแล้ว ${answered.toLocaleString()} ข้อ`],
     ['questions-1000', answered >= 1000, `ทำไปแล้ว ${answered.toLocaleString()} ข้อ`],
-    ['perfect', stats?.correctPct === 100 && (stats?.qCount || 0) >= 10, 'มีชุดที่ถูกทุกข้อ'],
+    // The exact counts: 199/200 rounds to 100 but is not every one right.
+    ['perfect', (stats?.qCount || 0) >= 10 && stats?.correct === stats?.qCount, 'มีชุดที่ถูกทุกข้อ'],
     ['panic-survivor', (stats?.qCount || 0) >= 50, `ทำ ${stats?.qCount || 0} ข้อในช่วงสอบนี้`],
     ['night-owl', nightAnswers >= 50, `ทำข้อสอบหลังสี่ทุ่ม ${nightAnswers} ข้อ`],
     ['early-bird', earlyAnswers >= 50, `ทำข้อสอบก่อนแปดโมง ${earlyAnswers} ข้อ`],

@@ -35,6 +35,7 @@ export function useOnlineCount() {
 
     let channel = null;
     let cancelled = false;
+    let retries = 0;
 
     const start = async () => {
       // ── Defer SDK load so it doesn't block initial paint ──
@@ -76,6 +77,15 @@ export function useOnlineCount() {
             setStatus('connected');
           } else if (subStatus === 'CHANNEL_ERROR' || subStatus === 'TIMED_OUT') {
             setStatus('error');
+            // The previous page's channel may still be closing, or a proxy
+            // timed out; a fresh subscribe usually lands. Three tries, then
+            // the count honestly says it is not connected.
+            if (retries < 3) {
+              retries += 1;
+              const old = channel; channel = null;
+              try { old?.unsubscribe(); } catch {}
+              setTimeout(() => { if (!cancelled) start(); }, 8000);
+            }
           }
         });
     };

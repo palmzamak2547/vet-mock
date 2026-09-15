@@ -103,9 +103,7 @@ export const GLOSSARY_RELATED = {
   297,
   267,
   91021,
-  8035,
   8235,
-  8570,
   6104,
   6731,
   7063
@@ -121,9 +119,7 @@ export const GLOSSARY_RELATED = {
   611,
   297,
   267,
-  8035,
   8235,
-  8570,
   6104,
   6731,
   7063
@@ -337,11 +333,9 @@ export const GLOSSARY_RELATED = {
   8004,
   8005,
   8020,
-  8021,
   8028,
   8030,
   8033,
-  8035,
   8045,
   8330,
   8204,
@@ -358,8 +352,6 @@ export const GLOSSARY_RELATED = {
   105003,
   8406,
   105585,
-  8558,
-  8561,
   6213,
   6223,
   6401,
@@ -422,13 +414,10 @@ export const GLOSSARY_RELATED = {
   1891,
   1898,
   1899,
-  8035,
   8405,
   8408,
   8434,
   8447,
-  8564,
-  8570,
   52004,
   52006,
   52012,
@@ -482,12 +471,8 @@ export const GLOSSARY_RELATED = {
   628,
   200224,
   200373,
-  8006,
   8009,
   8015,
-  8505,
-  8508,
-  8509,
   107317,
   107320,
   107333,
@@ -507,8 +492,6 @@ export const GLOSSARY_RELATED = {
   94112,
   529,
   532,
-  8000,
-  8006,
   8011,
   105014,
   7020
@@ -535,8 +518,6 @@ export const GLOSSARY_RELATED = {
   627,
   91,
   8011,
-  8511,
-  8512,
   52032,
   7020,
   7100
@@ -556,7 +537,6 @@ export const GLOSSARY_RELATED = {
   605,
   620,
   91,
-  8511,
   52032,
   7020
  ],
@@ -583,13 +563,9 @@ export const GLOSSARY_RELATED = {
   627,
   200224,
   200311,
-  8006,
   8008,
   8014,
   8015,
-  8505,
-  8508,
-  8509,
   6120,
   6156,
   7021,
@@ -643,7 +619,6 @@ export const GLOSSARY_RELATED = {
   1155,
   1157,
   108,
-  8013,
   2069,
   52060
  ],
@@ -719,8 +694,6 @@ export const GLOSSARY_RELATED = {
   267,
   91021,
   91034,
-  8013,
-  8035,
   52060,
   6104,
   6651,
@@ -770,7 +743,6 @@ export const GLOSSARY_RELATED = {
   1160,
   541,
   622,
-  8569,
   6101,
   6270,
   6291,
@@ -983,13 +955,11 @@ export const GLOSSARY_RELATED = {
  "marbofloxacin|small-animal": [
   919,
   1137,
-  1160,
-  8569
+  1160
  ],
  "clavamox|small-animal": [
   1137,
-  106,
-  8569
+  106
  ],
  "fenbendazole|small-animal": [
   1130,
@@ -1044,10 +1014,8 @@ export const GLOSSARY_RELATED = {
   262,
   2049,
   8002,
-  8035,
   107333,
   8408,
-  8570,
   7045,
   7141
  ],
@@ -1075,7 +1043,6 @@ export const GLOSSARY_RELATED = {
   107320,
   107333,
   8408,
-  8570,
   7045,
   7141
  ],
@@ -1121,7 +1088,6 @@ export const GLOSSARY_RELATED = {
   105705,
   101047,
   104630,
-  8574,
   6822,
   6833,
   7140
@@ -1171,7 +1137,6 @@ export const GLOSSARY_RELATED = {
   107422,
   105404,
   8001,
-  8003,
   8008,
   8016,
   8020,
@@ -1263,8 +1228,6 @@ export const GLOSSARY_RELATED = {
   100039,
   105548,
   8020,
-  8021,
-  8024,
   8028,
   106245,
   105671,
@@ -1289,10 +1252,6 @@ export const GLOSSARY_RELATED = {
   105577,
   105580,
   105599,
-  8558,
-  8561,
-  8569,
-  8570,
   104010,
   104015,
   6075,
@@ -1319,7 +1278,6 @@ export const GLOSSARY_RELATED = {
   92513,
   92514,
   92527,
-  1714,
   1755,
   1901,
   1906,
@@ -1353,7 +1311,6 @@ export const GLOSSARY_RELATED = {
   109128,
   100036,
   8009,
-  8024,
   8029,
   8033,
   8046,
@@ -1397,8 +1354,6 @@ export const GLOSSARY_RELATED = {
   105586,
   105643,
   8356,
-  8557,
-  8560,
   104011,
   6080,
   6103,
@@ -1462,7 +1417,6 @@ export const GLOSSARY_RELATED = {
   105632,
   105643,
   8353,
-  8559,
   6110,
   6156,
   6220,
@@ -1491,10 +1445,8 @@ export const GLOSSARY_RELATED = {
   94033,
   200021,
   105819,
-  8508,
   105632,
   8353,
-  8559,
   6156,
   6223,
   6262,
@@ -1634,7 +1586,6 @@ export const GLOSSARY_RELATED = {
   1159,
   273,
   200127,
-  8013,
   8038,
   6112,
   6130,
@@ -1649,7 +1600,6 @@ export const GLOSSARY_RELATED = {
   1140,
   1157,
   1159,
-  8013,
   6112,
   6130,
   7005
@@ -1662,7 +1612,6 @@ export const GLOSSARY_RELATED = {
  "ampv|avian": [
   1700,
   1701,
-  1702,
   1703,
   1704,
   105831,
@@ -2000,7 +1949,6 @@ export const GLOSSARY_RELATED = {
  "icpi|avian": [
   1717,
   1718,
-  1719,
   1720,
   1722,
   1723,
@@ -2075,7 +2023,6 @@ export const GLOSSARY_RELATED = {
   1746,
   1748,
   1749,
-  1750,
   105789,
   105818,
   105819,
@@ -2093,7 +2040,6 @@ export const GLOSSARY_RELATED = {
   109112
  ],
  "marek's disease|avian": [
-  1714,
   1765,
   1911,
   1916,
@@ -2164,7 +2110,6 @@ export const GLOSSARY_RELATED = {
  ],
  "newcastle disease|avian": [
   1703,
-  1714,
   1715,
   1716,
   1722,
@@ -2240,8 +2185,6 @@ export const GLOSSARY_RELATED = {
   105598
  ],
  "ileitis|swine": [
-  8024,
-  8027,
   105576,
   105577,
   105579,
@@ -2270,7 +2213,6 @@ export const GLOSSARY_RELATED = {
  "pcv2|swine": [
   8016,
   8020,
-  8024,
   8026,
   8040,
   8042,
@@ -2282,7 +2224,6 @@ export const GLOSSARY_RELATED = {
  ],
  "ped|swine": [
   92022,
-  8024,
   105588,
   105600,
   105602,
@@ -2317,7 +2258,6 @@ export const GLOSSARY_RELATED = {
  "streptococcus suis|swine": [
   91522,
   8019,
-  8021,
   8023,
   8046,
   105599,
@@ -2331,8 +2271,6 @@ export const GLOSSARY_RELATED = {
  "swine dysentery|swine": [
   92022,
   91505,
-  8024,
-  8027,
   8028,
   105576,
   105577,
@@ -2341,7 +2279,6 @@ export const GLOSSARY_RELATED = {
   8351
  ],
  "tge|swine": [
-  8024,
   105600,
   105601,
   105602,
@@ -2418,7 +2355,6 @@ export const GLOSSARY_RELATED = {
   3015,
   3019,
   3049,
-  8551,
   2221
  ],
  "hardware disease|ruminant": [
@@ -2530,8 +2466,7 @@ export const GLOSSARY_RELATED = {
   2047,
   8321,
   8330,
-  8331,
-  8550
+  8331
  ],
  "metritis|ruminant": [
   2122,
@@ -3137,7 +3072,6 @@ export const GLOSSARY_RELATED = {
   105940,
   105948,
   102009,
-  8563,
   106006,
   106009,
   106013,
@@ -3181,7 +3115,6 @@ export const GLOSSARY_RELATED = {
   102009,
   8231,
   8237,
-  8562,
   106005,
   106007,
   106008,

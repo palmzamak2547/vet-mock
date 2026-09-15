@@ -12,6 +12,7 @@ import { SEASONAL_MOCHI } from '../data/art.js';
 
 export default function NextActionCard({
   nextExam,
+  lastExamDate = null,
   examContext = true,
   quickStats,
   cardStats,
@@ -230,7 +231,7 @@ export default function NextActionCard({
   };
 
   const seasonal = (() => {
-    const key = seasonalMochiKey({ daysLeft: nextExam?.daysLeft ?? null });
+    const key = seasonalMochiKey({ daysLeft: nextExam?.daysLeft ?? null, lastExamDate });
     return key ? SEASONAL_MOCHI[key] || null : null;
   })();
 

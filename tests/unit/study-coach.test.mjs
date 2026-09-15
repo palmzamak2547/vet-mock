@@ -246,7 +246,7 @@ test('a cross-origin caller that is not ours is refused', async () => {
 
 test('every route on the shared key checks the same daily ceiling', async () => {
   const { readFileSync } = await import('node:fs');
-  const routes = ['grade-summary', 'study-coach', 'wiki-explain'];
+  const routes = ['grade-summary', 'study-coach', 'wiki-explain', 'agent-action'];
   for (const route of routes) {
     const src = readFileSync(new URL(`../../api/${route}.js`, import.meta.url), 'utf8');
     assert.match(src, /rateLimit\('provider:llm:daily', LLM_DAILY_BUDGET/,
