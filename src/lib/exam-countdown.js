@@ -12,6 +12,7 @@
 // null and the component renders nothing — that is the whole year gate.
 // ============================================================
 import { getUpcomingExams, msUntilExam, shortCountdown, fmtThaiRange } from '../data/schedule.js';
+import { SEMESTER } from '../data/semester.js';
 
 const DAY = 24 * 60 * 60 * 1000;
 export const TERM_LABEL = { midterm: 'สอบกลางภาค', final: 'สอบปลายภาค' };
@@ -87,6 +88,35 @@ export function examWindow(exams, now = new Date()) {
 
 export function examWindowFor(yearKey, now = new Date()) {
   return examWindow(getUpcomingExams(yearKey), now);
+}
+
+/**
+ * The FACULTY's exam period, for a reader with no year — the signed-out
+ * landing page. Every year sits the same week (the faculty board fixes the
+ * window for all of them), so this counts to the week itself rather than
+ * to one cohort's first paper, which would read as nonsense to a first-year.
+ * 08:30 is the first slot on both published timetables; 17:00 is after the
+ * last one ends. Rolls from midterm to final on its own; null after finals.
+ */
+export function facultyExamWindow(now = new Date(), semester = SEMESTER) {
+  const nowMs = now.getTime();
+  for (const [term, period] of [['midterm', semester.midtermPeriod], ['final', semester.finalPeriod]]) {
+    if (!period?.start || !period?.end) continue;
+    const start = new Date(period.start); start.setHours(8, 30, 0, 0);
+    const end = new Date(period.end); end.setHours(17, 0, 0, 0);
+    if (nowMs >= end.getTime()) continue;
+    const during = nowMs >= start.getTime();
+    return {
+      term,
+      label: TERM_LABEL[term],
+      range: fmtThaiRange(period.start, period.end),
+      start: period.start,
+      end: period.end,
+      during,
+      targetMs: during ? end.getTime() : start.getTime(),
+    };
+  }
+  return null;
 }
 
 /** Milliseconds into the four cells of a clock. Never negative — a paper

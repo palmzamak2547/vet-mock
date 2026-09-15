@@ -353,6 +353,81 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-15 — 5.101.0: the landing rebuilt, and the gate rule that stops Smoke failing (Claude)
+
+### The rule, first
+
+Two consecutive pushes failed the Smoke gate (5.100.0 on every browser, 5.100.1 on Firefox
+only). Palm: "รอบนี้และรอบต่อ ๆ ไปต้องห้าม failed อีก ต้องแก้ให้หายขาด". The fix is not a test
+tweak, it is the process: **before every push, run the full suite exactly as CI does —
+`npm run build` then `npx playwright test` with all four projects (chromium-desktop,
+chromium-mobile, webkit-mobile, firefox-desktop) — and push only on green.** A subset is not a
+gate: 5.100.1 passed the three browsers I ran and failed the one I skipped. It takes ~13 min;
+run it in the background and do other work. `npm run gate` chains build, lint:all, unit and
+the full e2e for exactly this.
+
+- Trap: `gh run list --commit <sha>` returned nothing here, so a watcher keyed on it reported
+  "not started" while the run had already failed. List without the filter and match `headSha`.
+- `mobile-compat.spec.js` audits every surface, the landing included, at 320/390/667 in every
+  engine: an element escapes when its rect leaves the viewport, UNLESS an ancestor is a real
+  horizontal scroller (`overflow-x: auto|scroll`, wider than its box, itself inside the
+  viewport). `overflow: hidden` is not a scroller — a clipped child still reports its rect.
+  Firefox measures Thai and mono text wider than Blink/WebKit, so a row that just fits in
+  Chromium overflows there. The phone ticker now wraps instead of clipping; the marquee lives
+  in an `overflow-x: auto` viewport with the scrollbar hidden.
+- `getByRole("status")` in connected-study is now scoped by id: the sync/offline notice is a
+  second status region, and a network blink during a run made the bare query ambiguous.
+
+### Landing, stage 1 (`src/views/landing/*`, `src/styles-landing.css`)
+
+Seven sections, none alike: hero (title, live CUVET86 midterm countdown from the timetable,
+the real question card), proof band (three counted-up numbers from q-counts and a marquee of
+real subjects with real counts, each a working link), three things (01/02/03 with a live piece
+of the product each — top past-paper subjects from `Q_PANIC_COUNTS_BY_SUBJECT`, an explanation
+in the app's own shape, the time chips), Panic band (dark, the real next paper and clock),
+subjects (kept), lab (kept, film comes up like a light box), your home (a real screenshot at
+`public/images/landing/home-desktop.jpg`, captured from the app), CTA with Mochi.
+
+Cut, because they were invented: trust bullets, problem cards, how-it-works, the 72% gauge,
+the 68% dashboard, the weakness cards. Copy rewritten in both locales — นิสิต not นักศึกษา, no
+section labels, no emoji as icons, no middle dots. The brief with the six art prompts is at
+claude.ai/artifact/VREPximoX2tCQSKYZ5gBn8; slots A1 to A6 are marked in comments in
+LandingBody.jsx and the layout stands without them.
+
+e2e contract kept: `#progress` exists and is a nav target, `.lp-navlink[href="#progress"]`,
+the bookmark button with its svg in the hero, `.lp-nav-burger`, `#lp-mobile-menu`, the cookie
+dock, and no `.lp-rail`/`.lp-spotlight`. One contract CHANGED on purpose: two smoke tests find
+the landing by its h1 text, and the regex now reads `Past papers from the years above
+you|ข้อสอบเก่าของรุ่นพี่`. Change the headline again and change that regex with it.
+
+Full-suite result before this push: 526 passed, 13 failed on the first run — 8 were that regex
+(fixed, then green on all four projects), 1 was a WebKit CORS wobble on the imaging stub, 4
+were local Firefox crashes (`RenderCompositorSWGL failed mapping default framebuffer`,
+`browserContext.close` protocol errors). Every one of the 13 was re-run and passed; the Firefox
+matching-smoke test 3 of 3 on both engines. Local Firefox under parallel load is flaky on this
+Windows machine in a way CI's Linux/xvfb Firefox is not; when a Firefox-only failure shows up
+here, re-run it in isolation before treating it as a regression.
+
+Three corrections from Palm during the build, all kept as rules:
+
+- **No cohort on the landing.** The first cut counted down to "สอบกลางภาค CUVET86" and named the
+  first paper. "ปีอื่นเข้ามาเห็นละ จะไม่งงหรอ" — a signed-out reader has no year. The hero and
+  the Panic band now count to the FACULTY exam week from `SEMESTER.midtermPeriod`/`finalPeriod`
+  (`facultyExamWindow` in exam-countdown.js: every year sits the same week, 08:30 on the first
+  day to 17:00 on the last, rolls to the final, null after), and the header/login context chips
+  lost their "ปี 5". The year-specific countdown stays on Home, where a year is known.
+- **Thai display type.** "ดูเรื่องฟอนต์และวรรณยุกต์ดี ๆ อย่าให้ทับหรือชนกัน". Headlines had
+  `line-height: 1` with `letter-spacing: -.03em` inherited from the design handoff; at 48px the
+  ุ of "พรุ่ง" sat on the ึ่ of "ครึ่ง" on the next line. Fraunces has no Thai, so those lines
+  are Sarabun and take Sarabun's metrics: **line-height 1.2 and no negative tracking** on any
+  heading that can carry Thai. Verified with 2x element crops, not a full-page screenshot.
+- **Contrast is audited per palette.** `audit:contrast -- --landing` runs light and dark across
+  ocean/plum/cherry/mono/forest. `--clr-gold` becomes a mid grey in mono and an olive in
+  forest, so gold digits on a dark band measured 2.3:1 there. On an inverted (ink) panel use
+  `--clr-gold-soft` in light themes and `--clr-gold-text` in dark ones — both are the light
+  member of the pair in every palette — and keep the Panic band dark in dark mode
+  (`--clr-surface-2`) instead of letting the ink/bg inversion turn it cream.
+
 ## 2026-09-15 — 5.100.1: the Smoke gate caught the countdown on phones (Claude)
 
 5.100.0 failed `connected-study.spec.js:202` on every browser: on a 375x812 phone the first

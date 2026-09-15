@@ -297,7 +297,7 @@ test.describe('VetMock smoke flow', () => {
     // either locale's hero heading.
     const landingHeading = page.getByRole('heading', {
       level: 1,
-      name: /Practice before the real exam|ลุยโจทย์ให้ชิน/i,
+      name: /Past papers from the years above you|ข้อสอบเก่าของรุ่นพี่/i,
     });
     await expect(landingHeading).toBeVisible();
     // Decorative hero layers must never consume layout space and push the
@@ -332,7 +332,7 @@ test.describe('VetMock smoke flow', () => {
     // The front door for someone who has never seen the landing page.
     const landingHeading = page.getByRole('heading', {
       level: 1,
-      name: /Practice before the real exam|ลุยโจทย์ให้ชิน/i,
+      name: /Past papers from the years above you|ข้อสอบเก่าของรุ่นพี่/i,
     });
     await expect(landingHeading).toBeVisible({ timeout: 20_000 });
 

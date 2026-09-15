@@ -1,7 +1,7 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.100.1",
+  "version": "5.101.0",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -58,6 +58,7 @@
     "db:push": "npx drizzle-kit push:pg",
     "db:seed": "node scripts/seed-vetmock.mjs",
     "test:e2e": "playwright test",
+    "gate": "npm run build && npm run lint:all && npm run test:unit && npx playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:prod": "node scripts/test-e2e-prod.mjs",
     "test:unit": "node --test tests/unit/*.test.mjs",

@@ -34,8 +34,6 @@ const HERO_OPTIONS = ['Abdominal radiographs', 'Low-dose dexamethasone suppressi
 const HERO_ANSWER = 1;
 const LAB_OPTIONS = ['Left atrial enlargement with cardiogenic pulmonary oedema', 'Pleural effusion', 'Spontaneous pneumothorax', 'Megaesophagus'];
 const LAB_ANSWER = 0;
-const PANIC_DATA = { '15': { c: 8, t: 5, q: 12, w: 2 }, '30': { c: 15, t: 10, q: 25, w: 3 }, '60': { c: 30, t: 20, q: 50, w: 5 }, tonight: { c: 60, t: 40, q: 120, w: 6 } };
-const READINESS = { score: 72 };
 const FOCUSABLE_SELECTOR = 'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])';
 
 // Real subjects (year-4 default = current cohort) with REAL question
@@ -391,9 +389,6 @@ export default function LandingView({
   // the grid. Kept independent so switching modes never empties the list.
   const realSubjects = useMemo(() => liveYears.flatMap((y) => buildRealSubjects(y)), []); // eslint-disable-line
 
-  const panic = PANIC_DATA[panicTime] || PANIC_DATA['30'];
-  const readinessRing = `conic-gradient(var(--clr-sage) 0% ${READINESS.score}%, var(--clr-surface-2) ${READINESS.score}% 100%)`;
-
   // ---- interactions (all sims respect reduced-motion) ----
   const onCheckHero = () => { if (heroPicked === null) return; setHeroRevealed(true); beep(); };
   const onCheckLab = () => { if (labPicked === null) return; setLabRevealed(true); beep(); };
@@ -546,9 +541,9 @@ export default function LandingView({
         {...{ t, lang, heroOptions, heroPicked, heroRevealed, heroBookmarked, heroConfidence,
           setHeroPicked, setHeroBookmarked, setHeroConfidence, onCheckHero,
           subjectTab, setSubjectTab, showcaseMode, setShowcaseMode, realSubjects,
-          panicTime, setPanicTime, panic,
+          panicTime, setPanicTime,
           labOptions, labPicked, labRevealed, labZoom, labTool, setLabPicked, setLabZoom, setLabTool, onCheckLab,
-          readinessRing, onEnterApp, onPickSubject, openLogin,
+          onEnterApp, onPickSubject, openLogin,
           onStartMockExam, onStartPanic, onOpenLab }}
       />
 

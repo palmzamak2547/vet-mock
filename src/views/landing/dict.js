@@ -1,10 +1,19 @@
 // ============================================================
 // Landing i18n dictionary (en / th)
 // ============================================================
-// Verbatim from design_handoff_vetmock_landing, plus a few honest
-// keys the real auth flow needs (magic-link states, errors) that the
-// design's fake 6-digit-OTP flow didn't have.
-// Clinical / technical terms stay English in both languages.
+// Rewritten 2026-09-15. The previous copy was lifted from a design handoff
+// and read like a translated SaaS template — twelve sections in one rhythm,
+// a fake 72% readiness gauge, a fake dashboard, invented weakness cards, and
+// it called the reader "นักศึกษา" on a page for Chula นิสิต.
+//
+// Rules for every string here:
+//   - นิสิต, never นักศึกษา. This is Chula.
+//   - Say it the way a fifth-year would say it to a first-year. No feature
+//     lists translated from English, no section labels ("ทางออก", "ใช้งานยังไง").
+//   - Every number on the page is read from q-counts.js or the timetable in
+//     LandingBody. Nothing here is a typed-in statistic.
+//   - Clinical and technical terms stay English in both languages.
+//   - No middle dots, no emoji as icons.
 // ============================================================
 
 export const DICT = {
@@ -15,100 +24,82 @@ export const DICT = {
     bookmark: 'Save question', unbookmark: 'Remove saved question',
     menuOpen: 'Open menu', menuClose: 'Close menu', menuTitle: 'Explore VetMock',
     menuContext: 'Study context', menuNavLabel: 'Landing sections', menuLanguageLabel: 'Language',
-    nav: [{ label: 'Practice', href: '#solution' }, { label: 'Progress', href: '#progress' }, { label: 'Lab', href: '#lab' }, { label: 'Panic Mode', href: '#panic' }, { label: 'Subjects', href: '#subjects' }],
-    ctxChip: 'CUVET / Y5 / S1 Midterm',
-    heroEyebrow: 'Built for veterinary students',
-    heroPre: 'Practice before the ', heroEm: 'real exam.', heroPost: '',
-    heroSub: 'Practise timed veterinary questions, review explanations, open real lecture slides, and track weak topics in one place.',
-    heroCta1: 'Start Exam Mode', heroCta2: 'Browse Subjects',
-    // Hero stat labels. The VALUES are derived from the shipped question
-    // bank in LandingBody — never hand-typed marketing numbers.
-    statQuestions: 'Questions', statSubjects: 'Subjects', statFree: 'Cost', statFreeValue: 'Free',
-    heroBankLabel: 'Question bank', heroBankLine: 'Sample question from the shipped veterinary question bank',
-    floats: ['Clinical reasoning', 'Timed practice', 'Instant explanation', 'Weak-topic detection'],
+    nav: [{ label: 'Practice', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'Subjects', href: '#subjects' }, { label: 'Lab', href: '#lab' }, { label: 'Your home', href: '#progress' }],
+    // No year in the chip: the reader has not picked one yet.
+    ctxChip: 'CUVET / Semester 1, 2026',
+
+    heroEyebrow: 'Made by a Chula vet student, for Chula vet students',
+    heroPre: 'Past papers from the years above you, ', heroEm: 'before exam day.', heroPost: '',
+    heroSub: 'Practise the kind of questions that actually get asked, read an explanation that says why the other options are wrong, then open the lecturer\'s slide the question came from. Free.',
+    heroCta1: 'Start Practicing', heroCta2: 'Browse subjects',
+    heroBankLabel: 'Question bank', heroBankLine: 'A real question from the shipped bank',
     heroTag: 'Small Animal Med — Endocrine',
     heroQ: 'A 7-year-old Labrador Retriever presents with polyuria, polydipsia, abdominal distension, and bilateral symmetrical alopecia. Which diagnostic test is the most appropriate next step?',
-    heroExplain: 'The signalment and signs — PU/PD, a pot-bellied abdomen, and endocrine (bilaterally symmetrical) alopecia — point to hyperadrenocorticism (Cushing’s). The LDDST is the screening test of choice, with the highest sensitivity for spontaneous disease.',
+    heroExplain: 'The signalment and signs — PU/PD, a pot-bellied abdomen, and endocrine (bilaterally symmetrical) alopecia — point to hyperadrenocorticism (Cushing\'s). The LDDST is the screening test of choice, with the highest sensitivity for spontaneous disease.',
     heroConfQ: 'How confident are you?', conf: ['Guessing', 'Unsure', 'Confident'],
-    check: 'Check answer', reset: 'Reset demo', demoNote: 'Interactive demo — this doesn’t affect your progress.',
-    previewBadge: 'Preview', labDemoNote: 'Sample station — for demonstration.', weakPreviewNote: 'Example insights — what VetMock surfaces once you’ve practised.',
+    check: 'Check answer', reset: 'Reset demo', demoNote: 'Interactive demo — this does not touch your progress.',
+    previewBadge: 'Example', labDemoNote: 'Sample station, for demonstration.',
     correct: 'Correct', wrong: 'Not quite', why: 'Why',
     navTitle: 'Exam progress', legAnswered: 'Answered', legCurrent: 'Current', legFlagged: 'Flagged',
-    trustLabel: 'Why VetMock',
-    trust: ['Designed around real veterinary examination formats', 'Built specifically for veterinary students', 'Practice written and visual questions in one place', 'Review explanations immediately after each session'],
-    probLabel: 'The problem', probHead: 'Reading everything is not the same as being ready.',
-    problems: [
-      { emoji: '📖', title: 'You remember the lecture, but can’t answer the question', body: 'Knowledge feels familiar — until the choices look almost identical.' },
-      { emoji: '🔬', title: 'Lab exams are hard to practise alone', body: 'Slides, radiographs, specimens, and clinical images need repeated visual exposure.' },
-      { emoji: '⏳', title: 'You find your weak topics too late', body: 'Without realistic practice, it’s hard to know what you truly understand.' },
+
+    // Countdown under the hero. The dates, the paper and the counts come from
+    // the faculty timetable; only these labels live here.
+    // No cohort here: a signed-out reader may be any year, and every year
+    // sits the same week.
+    cdUnits: ['days', 'hours', 'min', 'sec'], cdDuring: 'Now sitting: ',
+    cdLine: 'Every year sits the same week. Pick your year inside the app to see your own papers.',
+    cdPanicLine: 'Pick your year inside the app and Panic Mode knows which paper is next for you.',
+    cdDuringLine: 'Exam week is under way. Counting to its last day.',
+
+    proofQuestions: 'questions you can open today', proofPast: 'from real past papers', proofSubjects: 'subjects',
+    proofMarqueeLabel: 'Every subject with questions, with its real count. Tap one to start.',
+
+    threeHead: 'Three things you can do here',
+    three: [
+      { title: 'Work through real past papers', body: 'Questions the years above you actually sat, plus the ones written from what they marked as examined. Timed or untimed, by subject or by topic, on the phone in the queue for the bus.' },
+      { title: 'Read why the other options are wrong, then open the slide', body: 'Every explanation names the wrong options and says why. Where the question came from a lecture, the slide is one tap away, so you check the source instead of trusting a summary.' },
+      { title: 'The night before, Panic Mode', body: 'Tell it how much time you have. It picks past-paper questions and the ones you keep getting wrong, sized to fit, and stops when the time is up.' },
     ],
-    solLabel: 'The solution',
-    solPre: 'One place to practise like it’s the ', solEm: 'real exam.', solPost: '',
-    solSub: 'Two core ways to train — timed written questions and image-based practical stations — with an explanation after every answer.',
-    mockName: 'Exam Mode', mockDesc: 'Take realistic, timed examinations built around veterinary subjects and clinical scenarios.',
-    // Every bullet here must be a shipped capability (no "Difficulty
-    // selection" — questions carry no difficulty field and the exam config
-    // has no such control).
-    mockBullets: ['Timed and untimed modes', 'Subject-specific exams', 'Detailed answer explanations', 'Question bookmarking'],
-    labFName: 'Lab Practice', labFDesc: 'Train your visual recognition and practical examination skills through image-based questions.',
-    labExamples: [{ emoji: '🔬', label: 'Histopathology slides' }, { emoji: '🩻', label: 'Radiographic images' }, { emoji: '🪱', label: 'Parasitology specimens' }, { emoji: '🦴', label: 'Anatomy identification' }, { emoji: '🦠', label: 'Microbiology results' }, { emoji: '🐕', label: 'Clinical photographs' }],
-    panicLabel: 'When time is short', panicHead: 'Exam tomorrow?',
-    panicCalm: 'Take a breath. Here’s the most efficient way to use the time you have left.',
-    panicDesc: 'Panic Mode builds a set sized to the time you have left, drawing on the questions you have been getting wrong once there is enough history.',
-    panicTimeQ: 'How much time do you have left?',
+    threePastLabel: 'Most past-paper questions right now',
+    threeSlideBtn: 'Open the lecturer\'s slide',
+    threePanicLine: (n, subjects) => `${n.toLocaleString('en-US')} past-paper questions across ${subjects} subjects, ready to revise`,
+
+    panicHead: 'Exam tomorrow, half an hour left?',
+    panicCalm: 'Breathe. Half an hour used well is worth more than a whole night used badly.',
+    panicDesc: 'Say how much time you have. Panic Mode fills it with past-paper questions and, once there is enough history, the ones you have been getting wrong.',
+    panicTimeQ: 'How long do you have?',
     panicTimes: [{ key: '15', label: '15 minutes' }, { key: '30', label: '30 minutes' }, { key: '60', label: '1 hour' }, { key: 'tonight', label: 'Tonight' }],
-    panicPlanTitle: 'Your revision set',
-    panicStatConcepts: 'Essential concepts', panicStatTraps: 'Common traps', panicStatQ: 'High-yield Q', panicStatWeak: 'Weak topics',
-    panicFocusTitle: 'Prioritised for you', panicCta: 'Enter Panic Mode', panicFocus: PANIC_LABELS(),
-    howLabel: 'How it works', howHead: 'From “I read it” to “I’ve got it.”',
-    steps: [
-      { title: 'Choose what you’re preparing for', body: 'Select a subject, examination type, or practical lab.' },
-      { title: 'Practise under realistic conditions', body: 'Answer questions with optional timers, confidence ratings, and exam settings.' },
-      { title: 'Understand every mistake', body: 'Review explanations, find your weak topics, and practise them again.' },
-    ],
+    panicCta: 'Open Panic Mode',
+
     subjLabel: 'Question bank',
-    // Same correction as the Thai copy below: "every subject" overstated a
-    // bank that covers 43 of 86 curriculum subjects.
-    subjPre: 'Questions spanning ', subjEm: 'preclinical to clinical.', subjPost: '',
-    subjSub: 'Structured questions across preclinical, paraclinical, and clinical veterinary subjects.',
-    subjRealNote: 'Live now — real question counts. Pick one to start practising.',
+    subjPre: 'Questions from ', subjEm: 'preclinical to clinical.', subjPost: '',
+    subjSub: 'Grouped by the curriculum. The count on each card is the real number of questions you can open.',
+    subjRealNote: 'Open now, real counts. Pick a subject to start.',
     subjShowcaseNote: 'The full subject map VetMock is built around.',
     subjToggleReal: 'Practise now', subjToggleShowcase: 'See all subjects',
     tabs: [{ key: 'all', label: 'All' }, { key: 'preclinical', label: 'Preclinical' }, { key: 'paraclinical', label: 'Paraclinical' }, { key: 'clinical', label: 'Clinical' }],
     qWord: 'questions', startPractice: 'Start practising',
-    labSecLabel: 'Lab simulation', labSecHead: 'Practical exams require practical preparation.',
-    labSecSub: 'OSPE-style stations that recreate the laboratory bench — a diagnostic image, a prompt, and a countdown. Move from one station to the next.',
+
+    labSecHead: 'A practical exam needs practical practice.',
+    labSecSub: 'OSPE-style stations built like the real bench: an image, a prompt, a clock. Then the next station.',
     labStation: 'Station 3 — Diagnostic Imaging',
     labPrompt: 'Identify the radiographic abnormality and select the most likely diagnosis.',
     labExplain: 'A dorsally elevated cardiac silhouette with left atrial enlargement and a caudodorsal interstitial-to-alveolar pattern is classic for cardiogenic pulmonary oedema in the dog.',
     labNext: 'Next station', labImgPlaceholder: 'Radiograph preview',
     toolAnnotate: 'Annotate', toolMeasure: 'Measure', toolReset: 'Reset view',
-    aLabel: 'Performance Insights', aHead: 'Know what to study next.', progressTitle: 'Progress',
-    aSub: 'VetMock turns each practice session into a clear picture of your strengths, weak areas, and exam readiness.',
-    aSample: 'Sample dashboard',
-    aStatLabels: ['Overall accuracy', 'Questions completed', 'Strongest subject', 'Weakest subject'],
-    aStatVals: ['68%', '1,240', 'Pharmacology', 'Parasitology'],
-    aConfTitle: 'Confidence vs correctness', aConfConfident: 'When confident', aConfUnsure: 'When unsure',
-    aActivityTitle: 'Recent activity', aActivitySub: 'questions / day', aDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    aMasteryTitle: 'Topic mastery',
-    rLabel: 'Exam readiness', rHeadPre: 'Your ', rHeadEm: 'readiness score', rHeadPost: ', at a glance.',
-    rScoreWord: 'Readiness score', rMsg: 'On track — keep closing the gaps.',
-    rMetricLabels: ['Knowledge coverage', 'Question accuracy', 'Practical recognition', 'Time management', 'Consistency'],
-    rDisclaimer: 'A study-progress indicator — not a prediction or guarantee of your actual examination result.',
-    weakLabel: 'Weakness detection', weakHead: 'VetMock notices the patterns you miss.', weakSub: 'Every session updates a picture of how you think — then turns it into focused practice.', weakCta: 'Open VetMock to practise weak topics',
-    weaknessCards: [
-      { tag: 'Pattern', text: 'You often confuse hyperadrenocorticism with hypothyroidism.', color: 'var(--clr-gold-text)' },
-      { tag: 'Accuracy', text: 'Your accuracy drops on questions that require diagnostic test selection.', color: 'var(--clr-rose-text)' },
-      { tag: 'Visual', text: 'Thoracic radiographic pattern recognition needs more practice.', color: 'var(--clr-ocean-text)' },
-      { tag: 'Speed', text: 'You answer pharmacology accurately — but slowly.', color: 'var(--clr-sage-text)' },
-    ],
-    ctaPre: 'Your first attempt shouldn’t be in the ', ctaEm: 'exam room.', ctaPost: '',
-    ctaSub: 'Start practising with realistic veterinary questions and walk into your next exam knowing what to expect.',
-    cta1: 'Start Practicing', cta2: 'View Subjects',
-    footTagline: 'Built for veterinary students.',
+
+    progHead: 'Your home page knows how long is left, and what to do next.',
+    progSub: 'The countdown runs on the faculty timetable. Under it, one suggested next step, sized to the time you say you have today.',
+    progCaption: 'Screenshot of the real app, year 5, 15 September 2026.',
+    progAlt: 'VetMock home page showing the midterm countdown and the suggested next step',
+
+    ctaPre: 'The first time you meet a question like this should not be in the ', ctaEm: 'exam room.', ctaPost: '',
+    cta1: 'Start Practicing',
+    footTagline: 'Made by a Chula vet student.',
     footIndependent: 'VetMock is an independent study tool. Not affiliated with any faculty, university, or examination board.',
-    footLinks: [{ label: 'Practice', href: '#solution' }, { label: 'Lab', href: '#lab' }, { label: 'Panic Mode', href: '#panic' }, { label: 'Subjects', href: '#subjects' }, { label: 'About', href: '#why' }],
+    footLinks: [{ label: 'Practice', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'Subjects', href: '#subjects' }, { label: 'Lab', href: '#lab' }],
     copyright: '© 2026 VetMock',
+
     ckHead: 'Can we remember where you left off?',
     ckBody: 'VetMock uses essential cookies to keep the platform working and remember your study context. Optional cookies help us improve the learning experience.',
     ckAccept: 'Sounds good', ckEssential: 'Essential only', ckPrefs: 'Choose preferences', ckSave: 'Save preferences', ckAlways: 'Always on',
@@ -118,7 +109,7 @@ export const DICT = {
     lgHead: 'Pick up where you left off.', lgBody: 'Your curriculum, recent cases, saved mistakes, and study context will be ready.',
     lgGoogle: 'Continue with Google', lgGuest: 'Continue as guest', lgPassword: 'Sign in with a password', lgEmailLabel: 'Email',
     lgSend: 'Email me a sign-in link', lgSending: 'Sending…', lgOr: 'or',
-    lgCtx: 'CUVET / Year 5 / Semester 1 Midterm', lgSaved: 'Your study context will be saved',
+    lgCtx: 'CUVET / Semester 1, 2026', lgSaved: 'Your study context will be saved',
     lgReturn: 'Continue where you stopped', lgReturnCase: 'Decision 7 of 12',
     lgSentHead: 'Check your inbox', lgSentBody: 'We sent a sign-in link to', lgSentHint: 'Open it on this device to continue.',
     lgSentTip: 'The link signs you in — no code to type. It expires shortly, so use it soon.',
@@ -126,7 +117,7 @@ export const DICT = {
     lgIndependent: 'Independent platform — not an official university sign-in. We store your study context, never patient records.',
     lgClose: 'Close sign in',
     lgErrEmail: 'Enter a valid email address.', lgErrRate: 'Too many attempts — wait a moment and try again.',
-    lgErrNoUser: 'No account for this email yet. Use "Sign in with a password" to create one.', lgErrGeneric: 'Couldn’t send the link. Please try again.',
+    lgErrNoUser: 'No account for this email yet. Use "Sign in with a password" to create one.', lgErrGeneric: 'Couldn\'t send the link. Please try again.',
   },
   th: {
     start: 'เริ่มฝึกเลย', signIn: 'เข้าสู่ระบบ', skip: 'ข้ามไปเนื้อหาหลัก',
@@ -135,103 +126,77 @@ export const DICT = {
     bookmark: 'บันทึกข้อนี้', unbookmark: 'เลิกบันทึกข้อนี้',
     menuOpen: 'เปิดเมนู', menuClose: 'ปิดเมนู', menuTitle: 'สำรวจ VetMock',
     menuContext: 'บริบทการเรียน', menuNavLabel: 'ส่วนต่าง ๆ ในหน้าแนะนำ', menuLanguageLabel: 'ภาษา',
-    nav: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'ความคืบหน้า', href: '#progress' }, { label: 'แล็บ', href: '#lab' }, { label: 'Panic Mode', href: '#panic' }, { label: 'รายวิชา', href: '#subjects' }],
-    // Abbreviated to match the in-app header, which already shows this as
-    // "ทม.1 กลาง". The long form pushed the Thai nav row past its 1200px cap,
-    // so the chip rendered permanently ellipsised.
-    ctxChip: 'CUVET / ปี 5 / ทม.1 กลาง',
-    heroEyebrow: 'สร้างเพื่อนักศึกษาสัตวแพทย์',
-    heroPre: 'ลุยโจทย์ให้ชิน ก่อนเข้า', heroEm: 'ห้องสอบจริง', heroPost: '',
-    heroSub: 'ฝึกข้อสอบสัตวแพทย์แบบจับเวลา อ่านเฉลย เปิดสไลด์จริง และติดตามหัวข้อที่ยังไม่แม่นในที่เดียว',
-    heroCta1: 'เริ่มโหมดสอบ', heroCta2: 'ดูรายวิชา',
-    statQuestions: 'ข้อสอบ', statSubjects: 'รายวิชา', statFree: 'ค่าใช้จ่าย', statFreeValue: 'ฟรี',
-    heroBankLabel: 'คลังข้อสอบ', heroBankLine: 'โจทย์ตัวอย่างจากคลังข้อสอบที่เปิดใช้งานจริง',
-    floats: ['การให้เหตุผลทางคลินิก', 'ฝึกแบบจับเวลา', 'เฉลยทันที', 'ตรวจจับหัวข้อที่อ่อน'],
+    nav: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'รายวิชา', href: '#subjects' }, { label: 'แล็บ', href: '#lab' }, { label: 'หน้าแรกของคุณ', href: '#progress' }],
+    ctxChip: 'CUVET / ภาคต้น 2569',
+
+    heroEyebrow: 'ทำโดยนิสิตสัตวแพทย์จุฬา ให้นิสิตสัตวแพทย์จุฬา',
+    heroPre: 'ข้อสอบเก่าของรุ่นพี่ ทำได้', heroEm: 'ก่อนถึงวันสอบ', heroPost: '',
+    heroSub: 'ทำโจทย์แนวเดียวกับที่ออกจริง อ่านเฉลยที่บอกว่าทำไมข้ออื่นถึงผิด แล้วเปิดสไลด์อาจารย์ที่ออกข้อนั้นได้เลย ฟรี ไม่มีค่าใช้จ่าย',
+    heroCta1: 'เริ่มฝึกเลย', heroCta2: 'ดูรายวิชา',
+    heroBankLabel: 'คลังข้อสอบ', heroBankLine: 'โจทย์จริงจากคลังที่เปิดใช้อยู่',
     heroTag: 'Small Animal Med — Endocrine',
-    heroQ: 'สุนัขพันธุ์ Labrador Retriever อายุ 7 ปี มาด้วยอาการ polyuria, polydipsia, ท้องกาง และ bilateral symmetrical alopecia — ควรส่งตรวจอะไรเป็นลำดับถัดไปเหมาะสมที่สุด?',
-    heroExplain: 'อาการ PU/PD ท้องกางแบบ pot-belly และ endocrine alopecia ที่สมมาตรสองข้าง ชี้ไปที่ hyperadrenocorticism (Cushing’s) — LDDST เป็น screening test ที่ไวที่สุด และเป็น test of choice สำหรับโรคที่เกิดเอง',
-    heroConfQ: 'มั่นใจแค่ไหน?', conf: ['เดา', 'ไม่แน่ใจ', 'มั่นใจ'],
-    previewBadge: 'ตัวอย่าง', labDemoNote: 'สถานีตัวอย่าง เพื่อการสาธิต', weakPreviewNote: 'ตัวอย่างของสิ่งที่ VetMock จะบอกเมื่อคุณฝึกไปสักพัก', check: 'ตรวจคำตอบ', reset: 'ลองใหม่', demoNote: 'เดโมทดลอง ไม่มีผลกับความคืบหน้าของคุณ',
+    heroQ: 'สุนัขพันธุ์ Labrador Retriever อายุ 7 ปี มาด้วยอาการ polyuria, polydipsia, ท้องกาง และ bilateral symmetrical alopecia ควรส่งตรวจอะไรเป็นลำดับถัดไป',
+    heroExplain: 'อาการ PU/PD ท้องกางแบบ pot-belly และ endocrine alopecia ที่สมมาตรสองข้าง ชี้ไปที่ hyperadrenocorticism (Cushing\'s) ซึ่ง LDDST เป็น screening test ที่ไวที่สุด และเป็น test of choice สำหรับโรคที่เกิดเอง',
+    heroConfQ: 'มั่นใจแค่ไหน', conf: ['เดา', 'ไม่แน่ใจ', 'มั่นใจ'],
+    check: 'ตรวจคำตอบ', reset: 'ลองใหม่', demoNote: 'ลองเล่นได้ ไม่มีผลกับความคืบหน้าของคุณ',
+    previewBadge: 'ตัวอย่าง', labDemoNote: 'สถานีตัวอย่าง เพื่อการสาธิต',
     correct: 'ถูกต้อง', wrong: 'ยังไม่ใช่', why: 'เฉลย',
     navTitle: 'ความคืบหน้า', legAnswered: 'ตอบแล้ว', legCurrent: 'ข้อนี้', legFlagged: 'ปักหมุด',
-    trustLabel: 'ทำไมต้อง VetMock',
-    trust: ['ออกแบบตามรูปแบบข้อสอบสัตวแพทย์จริง', 'สร้างมาเพื่อนักศึกษาสัตวแพทย์โดยเฉพาะ', 'ฝึกทั้งข้อเขียนและข้อภาพในที่เดียว', 'อ่านเฉลยได้ทันทีหลังฝึกจบ'],
-    probLabel: 'ปัญหาที่เจอ', probHead: 'อ่านครบทุกอย่าง ไม่เท่ากับพร้อมสอบ',
-    problems: [
-      { emoji: '📖', title: 'จำเลกเชอร์ได้ แต่พอเจอโจทย์กลับตอบไม่ได้', body: 'ความรู้เหมือนคุ้นเคยดี จนกระทั่งตัวเลือกมันคล้ายกันไปหมด' },
-      { emoji: '🔬', title: 'สอบแล็บ ฝึกเองคนเดียวยาก', body: 'สไลด์ ฟิล์ม specimen และภาพ clinical ต้องเห็นซ้ำ ๆ บ่อย ๆ ถึงจะจำได้' },
-      { emoji: '⏳', title: 'กว่าจะรู้ว่าอ่อนตรงไหน ก็สายไปแล้ว', body: 'ถ้าไม่ได้ลองทำโจทย์จริง ๆ ก็ยากที่จะรู้ว่าเข้าใจจริงหรือแค่คิดว่าเข้าใจ' },
+
+    cdUnits: ['วัน', 'ชม.', 'นาที', 'วินาที'], cdDuring: 'กำลัง',
+    cdLine: 'ทุกชั้นปีสอบสัปดาห์เดียวกัน เข้าแอปแล้วเลือกปีของคุณ จะเห็นตารางวิชาของตัวเอง',
+    cdPanicLine: 'เลือกปีของคุณในแอป แล้ว Panic Mode จะรู้เองว่าวิชาถัดไปของคุณคืออะไร',
+    cdDuringLine: 'สัปดาห์สอบกำลังดำเนินอยู่ นับถอยหลังถึงวันสุดท้าย',
+
+    proofQuestions: 'ข้อ เปิดทำได้วันนี้', proofPast: 'ข้อ จากข้อสอบเก่าจริง', proofSubjects: 'วิชา',
+    proofMarqueeLabel: 'ทุกวิชาที่มีข้อสอบ พร้อมจำนวนข้อจริง กดวิชาไหนก็เริ่มได้เลย',
+
+    threeHead: 'สามอย่างที่ทำได้ที่นี่',
+    three: [
+      { title: 'ทำข้อสอบเก่าของจริง', body: 'ข้อที่รุ่นพี่สอบมาแล้วจริง ๆ กับข้อที่เขียนจากจุดที่รุ่นพี่บอกว่าออก จะจับเวลาหรือไม่จับก็ได้ เลือกเป็นวิชาหรือเป็นหัวข้อ ทำบนมือถือตอนรอรถก็ได้' },
+      { title: 'อ่านว่าทำไมข้ออื่นผิด แล้วเปิดสไลด์', body: 'เฉลยทุกข้อไล่ตัวเลือกที่ผิดทีละข้อว่าผิดตรงไหน ข้อไหนมาจากเลกเชอร์ กดเดียวเปิดสไลด์อาจารย์หน้านั้นได้เลย ไม่ต้องเชื่อสรุปใครทั้งนั้น' },
+      { title: 'คืนก่อนสอบ เข้า Panic Mode', body: 'บอกว่ามีเวลาเท่าไหร่ มันจะเลือกข้อสอบเก่ากับข้อที่คุณยังผิดอยู่มาให้พอดีเวลา หมดเวลาก็หยุด ไม่ลากคุณอ่านต่อจนสว่าง' },
     ],
-    solLabel: 'ทางออก',
-    solPre: 'ที่เดียว ฝึกให้เหมือน', solEm: 'สอบจริง', solPost: '',
-    solSub: 'ฝึกสองรูปแบบหลัก — ข้อเขียนแบบจับเวลา และสถานีภาพแบบปฏิบัติ — พร้อมเฉลยหลังตอบทุกข้อ',
-    mockName: 'โหมดสอบ', mockDesc: 'ทำข้อสอบเสมือนจริงแบบจับเวลา อิงตามรายวิชาและ clinical scenario ทางสัตวแพทย์',
-    mockBullets: ['โหมดจับเวลาและไม่จับเวลา', 'ข้อสอบแยกตามรายวิชา', 'เฉลยละเอียดทุกข้อ', 'บุ๊กมาร์กข้อที่อยากกลับมาดู'],
-    labFName: 'Lab Practice', labFDesc: 'ฝึกการดูภาพและทักษะสอบปฏิบัติ ผ่านโจทย์ที่ใช้ภาพจริง',
-    labExamples: [{ emoji: '🔬', label: 'Histopathology slides' }, { emoji: '🩻', label: 'Radiographic images' }, { emoji: '🪱', label: 'Parasitology specimens' }, { emoji: '🦴', label: 'Anatomy identification' }, { emoji: '🦠', label: 'Microbiology results' }, { emoji: '🐕', label: 'Clinical photographs' }],
-    panicLabel: 'เมื่อเวลาเหลือน้อย', panicHead: 'พรุ่งนี้สอบแล้ว?',
-    panicCalm: 'หายใจเข้าลึก ๆ แล้วเราจะช่วยจัดให้คุ้มที่สุดกับเวลาที่เหลือ',
-    // What it actually does: pick a set sized to the time left, drawn from the
-    // student's own missed questions once there is enough history. It does not
-    // build a concept-and-trap plan, and the four tiles below are labelled as
-    // an example rather than a promise.
-    panicDesc: 'Panic Mode จะจัดชุดโจทย์ให้พอดีกับเวลาที่เหลือ และถ้ามีประวัติมากพอ จะดึงข้อที่คุณยังตอบผิดมาให้ก่อน',
-    panicTimeQ: 'เหลือเวลาเท่าไหร่?',
+    threePastLabel: 'วิชาที่มีข้อสอบเก่ามากที่สุดตอนนี้',
+    threeSlideBtn: 'เปิดสไลด์อาจารย์',
+    threePanicLine: (n, subjects) => `ข้อสอบเก่า ${n.toLocaleString('en-US')} ข้อ ใน ${subjects} วิชา พร้อมให้ทบทวน`,
+
+    panicHead: 'พรุ่งนี้สอบ เหลืออีกครึ่งชั่วโมง?',
+    panicCalm: 'หายใจก่อน ครึ่งชั่วโมงที่ใช้ถูก มีค่ากว่าทั้งคืนที่ใช้ผิด',
+    panicDesc: 'บอกว่ามีเวลาเท่าไหร่ Panic Mode จะเติมให้เต็มด้วยข้อสอบเก่า และถ้าเคยทำมาพอ จะหยิบข้อที่คุณยังตอบผิดมาก่อน',
+    panicTimeQ: 'มีเวลาเท่าไหร่',
     panicTimes: [{ key: '15', label: '15 นาที' }, { key: '30', label: '30 นาที' }, { key: '60', label: '1 ชั่วโมง' }, { key: 'tonight', label: 'คืนนี้' }],
-    panicPlanTitle: 'ชุดทบทวนของคุณ',
-    panicStatConcepts: 'คอนเซ็ปต์สำคัญ', panicStatTraps: 'กับดักที่ออกบ่อย', panicStatQ: 'โจทย์ high-yield', panicStatWeak: 'หัวข้อที่อ่อน',
-    panicFocusTitle: 'จัดให้ตามจุดอ่อนของคุณ', panicCta: 'เข้าสู่ Panic Mode', panicFocus: PANIC_LABELS(),
-    howLabel: 'ใช้งานยังไง', howHead: 'จาก “อ่านแล้ว” เป็น “เข้าใจแล้ว”',
-    steps: [
-      { title: 'เลือกสิ่งที่กำลังจะสอบ', body: 'เลือกวิชา ประเภทข้อสอบ หรือแล็บปฏิบัติ' },
-      { title: 'ฝึกในเงื่อนไขเหมือนจริง', body: 'ทำโจทย์พร้อมตัวจับเวลา ระดับความมั่นใจ และการตั้งค่าแบบห้องสอบ' },
-      { title: 'เข้าใจทุกข้อที่ผิด', body: 'อ่านเฉลย หาหัวข้อที่อ่อน แล้วกลับมาฝึกซ้ำ' },
-    ],
-    subjLabel: 'คลังโจทย์',
-    // Not "ครบทุกวิชา": questions exist for 43 of the 86 subjects in the
-    // curriculum, and the year picker is already honest about it (year 3 shows
-    // 1 of 20 ready). A landing claim must not be broader than what a student
-    // can actually open.
-    subjPre: 'โจทย์ครอบคลุมตั้งแต่ ', subjEm: 'preclinical ถึง clinical', subjPost: '',
-    subjSub: 'จัดหมวดตามหลักสูตร ทั้ง preclinical, paraclinical และ clinical — ดูจำนวนข้อจริงของแต่ละวิชาได้เลย',
-    subjRealNote: 'เปิดให้ฝึกแล้ว จำนวนข้อจริง เลือกวิชาเพื่อเริ่มฝึกได้เลย',
+    panicCta: 'เข้า Panic Mode',
+
+    subjLabel: 'คลังข้อสอบ',
+    subjPre: 'โจทย์ตั้งแต่ ', subjEm: 'preclinical ถึง clinical', subjPost: '',
+    subjSub: 'จัดตามหลักสูตร ตัวเลขบนการ์ดคือจำนวนข้อจริงที่เปิดทำได้',
+    subjRealNote: 'เปิดให้ฝึกแล้ว จำนวนข้อจริง เลือกวิชาเพื่อเริ่ม',
     subjShowcaseNote: 'ภาพรวมรายวิชาทั้งหมดที่ VetMock ออกแบบไว้',
     subjToggleReal: 'ฝึกเลย', subjToggleShowcase: 'ดูรายวิชาทั้งหมด',
     tabs: [{ key: 'all', label: 'ทั้งหมด' }, { key: 'preclinical', label: 'Preclinical' }, { key: 'paraclinical', label: 'Paraclinical' }, { key: 'clinical', label: 'Clinical' }],
     qWord: 'ข้อ', startPractice: 'เริ่มฝึก',
-    labSecLabel: 'จำลองสอบแล็บ', labSecHead: 'สอบปฏิบัติ ต้องเตรียมแบบปฏิบัติ',
-    labSecSub: 'สถานีแบบ OSPE ที่จำลองโต๊ะแล็บจริง — มีภาพวินิจฉัย โจทย์ และเวลานับถอยหลัง เปลี่ยนจากสถานีหนึ่งไปอีกสถานี',
+
+    labSecHead: 'สอบปฏิบัติ ต้องซ้อมแบบปฏิบัติ',
+    labSecSub: 'สถานีแบบ OSPE ที่ทำเหมือนโต๊ะแล็บจริง มีภาพ มีโจทย์ มีเวลานับถอยหลัง เสร็จแล้วไปสถานีถัดไป',
     labStation: 'สถานีที่ 3 — Diagnostic Imaging',
     labPrompt: 'ระบุความผิดปกติในภาพรังสี แล้วเลือก diagnosis ที่เป็นไปได้มากที่สุด',
     labExplain: 'เงาหัวใจยกตัวติด sternum ร่วมกับ left atrial enlargement และ interstitial-to-alveolar pattern บริเวณ caudodorsal เป็นภาพคลาสสิกของ cardiogenic pulmonary oedema ในสุนัข',
     labNext: 'สถานีถัดไป', labImgPlaceholder: 'ตัวอย่างภาพรังสี',
     toolAnnotate: 'ทำเครื่องหมาย', toolMeasure: 'วัดระยะ', toolReset: 'รีเซ็ตภาพ',
-    aLabel: 'สรุปผลการฝึก', aHead: 'รู้ว่าควรอ่านอะไรต่อ', progressTitle: 'ความคืบหน้า',
-    aSub: 'VetMock เปลี่ยนทุกครั้งที่ฝึก ให้เป็นภาพรวมชัด ๆ ว่าคุณเก่งตรงไหน อ่อนตรงไหน และพร้อมสอบแค่ไหน',
-    aSample: 'ตัวอย่างแดชบอร์ด',
-    aStatLabels: ['ความแม่นโดยรวม', 'จำนวนข้อที่ทำ', 'วิชาที่แข็งสุด', 'วิชาที่อ่อนสุด'],
-    aStatVals: ['68%', '1,240', 'Pharmacology', 'Parasitology'],
-    aConfTitle: 'ความมั่นใจ vs ความถูกต้อง', aConfConfident: 'ตอนมั่นใจ', aConfUnsure: 'ตอนไม่แน่ใจ',
-    aActivityTitle: 'กิจกรรมล่าสุด', aActivitySub: 'ข้อ / วัน', aDays: ['จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.', 'อา.'],
-    aMasteryTitle: 'ความเชี่ยวชาญรายหัวข้อ',
-    rLabel: 'ความพร้อมสอบ', rHeadPre: 'ดู ', rHeadEm: 'คะแนนความพร้อม', rHeadPost: 'ของคุณแบบรวดเดียว',
-    rScoreWord: 'คะแนนความพร้อม', rMsg: 'มาถูกทางแล้ว ค่อย ๆ อุดจุดอ่อนต่อไป',
-    rMetricLabels: ['ความครอบคลุมเนื้อหา', 'ความแม่นในการตอบ', 'การจำภาพ/ปฏิบัติ', 'การบริหารเวลา', 'ความสม่ำเสมอ'],
-    rDisclaimer: 'เป็นตัวชี้วัดความคืบหน้าในการอ่าน ไม่ใช่การทำนายหรือรับประกันผลสอบจริง',
-    weakLabel: 'ตรวจจับจุดอ่อน', weakHead: 'VetMock เห็นแพตเทิร์นที่คุณพลาดบ่อย', weakSub: 'ทุกครั้งที่ฝึกจะอัปเดตภาพว่าคุณคิดยังไง แล้วเปลี่ยนเป็นชุดฝึกที่โฟกัส', weakCta: 'เข้าแอปเพื่อฝึกหัวข้อที่อ่อน',
-    weaknessCards: [
-      { tag: 'Pattern', text: 'คุณมักสับสนระหว่าง hyperadrenocorticism กับ hypothyroidism', color: 'var(--clr-gold-text)' },
-      { tag: 'Accuracy', text: 'ความแม่นของคุณลดลงในข้อที่ต้องเลือก diagnostic test', color: 'var(--clr-rose-text)' },
-      { tag: 'Visual', text: 'การอ่าน pattern ภาพรังสีทรวงอก ยังต้องฝึกเพิ่ม', color: 'var(--clr-ocean-text)' },
-      { tag: 'Speed', text: 'คุณตอบ pharmacology ได้แม่น แต่ช้า', color: 'var(--clr-sage-text)' },
-    ],
-    ctaPre: 'ครั้งแรกที่ลองทำ ไม่ควรเป็นตอนอยู่ใน', ctaEm: 'ห้องสอบ', ctaPost: '',
-    ctaSub: 'เริ่มฝึกกับโจทย์สัตวแพทย์เสมือนจริง แล้วเดินเข้าห้องสอบครั้งหน้าแบบรู้ว่าจะเจออะไร',
-    cta1: 'เริ่มฝึกเลย', cta2: 'ดูรายวิชา',
-    footTagline: 'สร้างเพื่อนักศึกษาสัตวแพทย์',
+
+    progHead: 'หน้าแรกของคุณรู้ว่าเหลือเวลาเท่าไหร่ และควรทำอะไรต่อ',
+    progSub: 'นาฬิกานับถอยหลังเดินตามตารางสอบของคณะ ข้างใต้มีข้อแนะนำหนึ่งอย่างว่าวันนี้ควรทำอะไร ปรับตามเวลาที่คุณบอกว่ามี',
+    progCaption: 'ภาพจากแอปจริง ชั้นปี 5 วันที่ 15 ก.ย. 2569',
+    progAlt: 'หน้าแรกของ VetMock แสดงนาฬิกานับถอยหลังสอบกลางภาคและข้อแนะนำสิ่งที่ควรทำต่อ',
+
+    ctaPre: 'ครั้งแรกที่เจอโจทย์แบบนี้ ไม่ควรเป็นตอนอยู่ใน', ctaEm: 'ห้องสอบ', ctaPost: '',
+    cta1: 'เริ่มฝึกเลย',
+    footTagline: 'ทำโดยนิสิตสัตวแพทย์จุฬา',
     footIndependent: 'VetMock เป็นเครื่องมือฝึกอิสระ ไม่ได้สังกัดคณะ มหาวิทยาลัย หรือหน่วยงานจัดสอบใด ๆ',
-    footLinks: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'แล็บ', href: '#lab' }, { label: 'Panic Mode', href: '#panic' }, { label: 'รายวิชา', href: '#subjects' }, { label: 'เกี่ยวกับ', href: '#why' }],
+    footLinks: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'รายวิชา', href: '#subjects' }, { label: 'แล็บ', href: '#lab' }],
     copyright: '© 2026 VetMock',
+
     ckHead: 'ให้เราจำที่ที่คุณค้างไว้ได้ไหม?',
     ckBody: 'VetMock ใช้คุกกี้ที่จำเป็นเพื่อให้ระบบทำงานและจำบริบทการเรียนของคุณ ส่วนคุกกี้เสริมช่วยให้เราปรับปรุงประสบการณ์การเรียนให้ดีขึ้น',
     ckAccept: 'โอเคเลย', ckEssential: 'เฉพาะที่จำเป็น', ckPrefs: 'เลือกเอง', ckSave: 'บันทึกการตั้งค่า', ckAlways: 'เปิดตลอด',
@@ -241,7 +206,7 @@ export const DICT = {
     lgHead: 'กลับมาต่อจากที่ค้างไว้', lgBody: 'หลักสูตร เคสล่าสุด ข้อที่พลาด และบริบทการเรียนของคุณ พร้อมแล้ว',
     lgGoogle: 'เข้าสู่ระบบด้วย Google', lgGuest: 'ใช้งานแบบผู้เยี่ยมชม', lgPassword: 'เข้าสู่ระบบด้วยรหัสผ่าน', lgEmailLabel: 'อีเมล',
     lgSend: 'ส่งลิงก์เข้าสู่ระบบให้ฉัน', lgSending: 'กำลังส่ง…', lgOr: 'หรือ',
-    lgCtx: 'CUVET / ปี 5 / เทอม 1 กลางภาค', lgSaved: 'บริบทการเรียนของคุณจะถูกบันทึกไว้',
+    lgCtx: 'CUVET / ภาคต้น 2569', lgSaved: 'บริบทการเรียนของคุณจะถูกบันทึกไว้',
     lgReturn: 'ไปต่อจากที่หยุดไว้', lgReturnCase: 'ตัดสินใจข้อ 7 จาก 12',
     lgSentHead: 'เช็กอีเมลของคุณ', lgSentBody: 'เราส่งลิงก์เข้าสู่ระบบไปที่', lgSentHint: 'เปิดลิงก์บนเครื่องนี้เพื่อไปต่อ',
     lgSentTip: 'ลิงก์จะพาเข้าสู่ระบบเลย ไม่ต้องกรอกรหัส ลิงก์มีอายุจำกัด ใช้ให้เร็วนะ',
@@ -252,8 +217,3 @@ export const DICT = {
     lgErrNoUser: 'ยังไม่มีบัญชีสำหรับอีเมลนี้ ใช้ "เข้าสู่ระบบด้วยรหัสผ่าน" เพื่อสมัคร', lgErrGeneric: 'ส่งลิงก์ไม่สำเร็จ ลองอีกครั้ง',
   },
 };
-
-// Shared (language-independent) focus labels for Panic Mode.
-function PANIC_LABELS() {
-  return ['Canine hyperadrenocorticism', 'GnRH agonists vs antagonists', 'IMHA — saline agglutination', 'Rumenotomy — left flank approach', 'Poultry drug withdrawal times', 'Status epilepticus — first-line'];
-}

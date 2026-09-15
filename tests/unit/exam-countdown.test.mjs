@@ -10,7 +10,19 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { examWindow, examWindowFor, splitCountdown, STRIP_MAX_DAYS } from '../../src/lib/exam-countdown.js';
+import { examWindow, examWindowFor, facultyExamWindow, splitCountdown, STRIP_MAX_DAYS } from '../../src/lib/exam-countdown.js';
+
+test('the faculty window has no year in it and rolls midterm to final to nothing', () => {
+  const before = facultyExamWindow(new Date(2026, 8, 15, 20, 0));
+  assert.equal(before.term, 'midterm');
+  assert.equal(before.during, false);
+  assert.equal(before.targetMs, new Date(2026, 8, 21, 8, 30).getTime());
+  const during = facultyExamWindow(new Date(2026, 8, 23, 10, 0));
+  assert.equal(during.during, true);
+  assert.equal(during.targetMs, new Date(2026, 8, 25, 17, 0).getTime());
+  assert.equal(facultyExamWindow(new Date(2026, 8, 26, 9, 0)).term, 'final');
+  assert.equal(facultyExamWindow(new Date(2026, 11, 5, 9, 0)), null);
+});
 
 test('the clock splits cleanly and never goes negative', () => {
   assert.deepEqual(splitCountdown(((5 * 24 + 13) * 3600 + 42 * 60 + 7) * 1000), { days: 5, hours: 13, minutes: 42, seconds: 7 });

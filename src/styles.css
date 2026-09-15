@@ -1192,7 +1192,10 @@ html, body {
   /* One ticker row: label, days, clock. Measured 56px including its
      margin, against ~380px for the full card; the compact two-line
      version still left the first subject card at y = 680. */
-  .vmx-countdown { display: flex; align-items: baseline; flex-wrap: nowrap; gap: 10px; padding: 9px 14px; margin-bottom: 12px; overflow: hidden; }
+  /* Wrapping, not clipping: at 320px in Firefox the row is wider than the
+     screen, and a clipped child still reports a rect past the viewport —
+     which is exactly what the 320px smoke test measures (28 offenders). */
+  .vmx-countdown { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; padding: 9px 14px; margin-bottom: 12px; }
   .vmx-countdown-lead { display: contents; }
   .vmx-countdown-eyebrow { white-space: nowrap; flex-shrink: 0; }
   .vmx-countdown-eyebrow > span { display: none; }
@@ -1203,6 +1206,13 @@ html, body {
   .vmx-countdown.is-hours .vmx-countdown-clock { font-size: 22px; }
   .vmx-countdown-caption,
   .vmx-countdown-strip { display: none; }
+}
+@media (max-width: 360px) {
+  .vmx-countdown { gap: 2px 8px; padding: 8px 12px; }
+  .vmx-countdown-num { font-size: 20px; }
+  .vmx-countdown-clock { font-size: 13px; }
+  .vmx-countdown-clock i { font-size: 9px; margin-right: 4px; }
+  .vmx-countdown.is-hours .vmx-countdown-clock { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .vmx-countdown-enter .vmx-countdown-day { animation: none; }

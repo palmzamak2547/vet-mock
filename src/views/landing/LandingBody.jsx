@@ -1,18 +1,38 @@
-import Mochi from '../../components/Mochi.jsx';
 // ============================================================
 // LandingBody — hero → footer for LandingView
 // ============================================================
-// Split out of LandingView.jsx so each file stays focused. Receives
-// everything as props from LandingView (single state owner). Pure
-// presentation + the design's simulated interactions.
+// Rebuilt 2026-09-15. What it replaced was twelve sections in one rhythm
+// (label, headline with one italic word, three cards) carrying a fake 72%
+// readiness gauge, a fake dashboard, invented weakness cards and emoji for
+// icons — the SaaS template, in Thai that had been translated rather than
+// spoken. Seven sections now, no two alike, and nothing on the page is a
+// typed-in number: counts come from q-counts.js, dates from the timetable.
+//
+// Real, wired to existing systems: sign-in, the subject grid, every CTA,
+// the countdown (faculty timetable via exam-countdown.js). Interactive
+// examples that never touch progress: the hero question and the lab
+// station. Art slots A1 to A6 are reserved for the illustrated set Palm is
+// generating; the layout stands without them.
+//
+// Receives everything as props from LandingView (single state owner).
 // ============================================================
 
-import { QB_TOTAL, Q_COUNTS_BY_SUBJECT } from '../../data/q-counts.js';
+import { useEffect, useRef, useState } from 'react';
+import Mochi from '../../components/Mochi.jsx';
 import NavIcon from '../../components/NavIcon.jsx';
+import { QB_TOTAL, Q_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT, Q_PAST_PAPER_COUNTS_BY_TOPIC } from '../../data/q-counts.js';
+import { SUBJECTS_BY_YEAR } from '../../data/curriculum.js';
+import { SEMESTER } from '../../data/semester.js';
+import { facultyExamWindow, splitCountdown } from '../../lib/exam-countdown.js';
 
-// Derived once at module load — the number of subjects that actually ship
-// questions today. Regenerated with the bank, so it can't drift.
+// Derived once at module load, regenerated with the bank, so it cannot drift.
 const SUBJECTS_WITH_QUESTIONS = Object.values(Q_COUNTS_BY_SUBJECT).filter((n) => n > 0).length;
+const PAST_PAPER_TOTAL = Object.values(Q_PAST_PAPER_COUNTS_BY_TOPIC)
+  .reduce((sum, byTopic) => sum + Object.values(byTopic).reduce((a, b) => a + b, 0), 0);
+const SUBJECTS_WITH_PAST_PAPERS = Object.values(Q_PANIC_COUNTS_BY_SUBJECT).filter((n) => n > 0).length;
+const ALL_SUBJECTS = Object.values(SUBJECTS_BY_YEAR).flat();
+const subjectName = (id) => ALL_SUBJECTS.find((s) => s.id === id)?.name || id;
+const two = (n) => String(n).padStart(2, '0');
 
 function OptionRow({ opt, onClick, disabled }) {
   return (
@@ -23,60 +43,113 @@ function OptionRow({ opt, onClick, disabled }) {
     </button>
   );
 }
-// Section eyebrow. NO letterSpacing: these labels are Thai in the TH
-// locale (e.g. 'ปัญหาที่เจอ') and tracking breaks Thai glyph shaping —
-// a forbidden project rule. textTransform:uppercase is a no-op on Thai
-// and only affects the Latin labels, which is fine.
-const label = (color) => ({ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: color || 'var(--clr-sage-text)', marginBottom: 14 });
-const h2 = { fontFamily: 'var(--vmx-display)', fontWeight: 500, fontSize: 'clamp(28px,4vw,42px)', lineHeight: 1.04, letterSpacing: '-.03em', color: 'var(--clr-ink)', margin: 0, textWrap: 'balance' };
+
+// Thai headlines: no negative tracking (it makes glyphs collide) and a line
+// height with room for a stacked vowel and tone mark under the descender of
+// the line above. 1.15 is the app's own h1 value; 1.06 clipped "ครึ่ง" into "รุ่ง".
+const h2 = { fontFamily: 'var(--vmx-display)', fontWeight: 500, fontSize: 'clamp(28px,4vw,42px)', lineHeight: 1.2, letterSpacing: 0, color: 'var(--clr-ink)', margin: 0, textWrap: 'balance' };
 const em = { fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-text)' };
 const container = { maxWidth: 1200, margin: '0 auto' };
 const chip = (active) => `vmx-chip${active ? ' active' : ''}`;
+
+/** Wall clock once a second, paused while the tab is hidden. */
+function useNow() {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    let id = 0;
+    const stop = () => { if (id) { window.clearInterval(id); id = 0; } };
+    const start = () => { stop(); setNow(Date.now()); id = window.setInterval(() => setNow(Date.now()), 1000); };
+    const onVisibility = () => (document.hidden ? stop() : start());
+    start();
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => { stop(); document.removeEventListener('visibilitychange', onVisibility); };
+  }, []);
+  return now;
+}
+
+/** Count up from 0 the first time the element is on screen. Reduced motion
+ *  shows the final value at once. */
+function useCountUp(target, ref) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || typeof IntersectionObserver === 'undefined') { setValue(target); return undefined; }
+    let raf = 0;
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      io.disconnect();
+      const t0 = performance.now();
+      const tick = (t) => {
+        const p = Math.min(1, (t - t0) / 900);
+        const eased = 1 - (1 - p) * (1 - p) * (1 - p);
+        setValue(Math.round(target * eased));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    }, { threshold: 0.4 });
+    if (ref.current) io.observe(ref.current);
+    return () => { io.disconnect(); cancelAnimationFrame(raf); };
+  }, [target, ref]);
+  return value;
+}
+
+/* ---- Countdown: the FACULTY exam week, live, with no year in it ----
+   A signed-out reader has no year yet. Every year sits the same week, so the
+   page counts to the week the faculty published, and tells the reader that
+   their own papers appear once they pick a year inside the app. Palm, on
+   the first cut that said "CUVET86": "ปีอื่นเข้ามาเห็นละ จะไม่งงหรอ". */
+function Countdown({ t, variant = 'hero' }) {
+  const now = useNow();
+  const w = facultyExamWindow(new Date(now));
+  if (!w) return null;
+  const c = splitCountdown(w.targetMs - now);
+  const cells = [c.days, c.hours, c.minutes, c.seconds];
+  const term = w.during ? `${t.cdDuring}${w.label}` : w.label;
+  const line = w.during ? t.cdDuringLine : variant === 'night' ? t.cdPanicLine : t.cdLine;
+  return (
+    <div className={`lp-countdown is-${variant}${w.during ? ' is-sitting' : ''}`} role="group" aria-label={`${term} ${SEMESTER.short}, ${w.range}, ${line}`}>
+      <div className="lp-countdown-head">
+        <span className="lp-countdown-term">{term} {SEMESTER.short}</span>
+        <span className="lp-countdown-range">{w.range}</span>
+      </div>
+      <div className="lp-countdown-cells" aria-hidden="true">
+        {cells.map((v, i) => (
+          <span key={t.cdUnits[i]} className="lp-countdown-cell">
+            <b>{i === 0 ? v : two(v)}</b>
+            <i>{t.cdUnits[i]}</i>
+          </span>
+        ))}
+      </div>
+      <p className="lp-countdown-line">{line}</p>
+    </div>
+  );
+}
 
 export default function LandingBody(p) {
   const { t } = p;
   return (
     <main id="lp-main">
       {/* ================= HERO ================= */}
-      <section id="lp-top" data-screen-label="Hero" className="lp-pad" style={{ padding: '74px 24px 88px', scrollMarginTop: 80, position: 'relative', overflow: 'hidden' }}>
-        {/* Decorative floating orbs — CSS animates these, aria-hidden so SR skips */}
+      {/* Art slot A1 (the study-desk scene) is decided once the art exists —
+          the live question card stays the hero object until then. */}
+      <section id="lp-top" data-screen-label="Hero" className="lp-pad" style={{ padding: '64px 24px 72px', scrollMarginTop: 80, position: 'relative', overflow: 'hidden' }}>
         <div className="lp-stack" style={{ ...container, display: 'grid', gridTemplateColumns: '1.02fr 1.12fr', gap: 54, alignItems: 'center' }}>
           <div className="lp-reveal lp-center-md">
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-border)', borderRadius: 999, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 22 }}>
+            <div className="lp-hero-eyebrow">
               <Mochi state="wave" size={32} animate slot="landing-welcome" />{t.heroEyebrow}
             </div>
-            <h1 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 500, fontSize: 'clamp(38px,5.4vw,60px)', lineHeight: .98, letterSpacing: '-.035em', color: 'var(--clr-ink)', margin: '0 0 20px', textWrap: 'balance' }}>
+            <h1 className="lp-hero-title">
               {t.heroPre}<em style={em}>{t.heroEm}</em>{t.heroPost}
             </h1>
-            <p style={{ fontSize: 17, lineHeight: 1.62, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '0 0 24px' }}>{t.heroSub}</p>
-            <div className="lp-center-md lp-flex" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 18 }}>
-              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary lp-feature-cta" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'var(--vmx-mono)' }}>→</span></button>
+            <p style={{ fontSize: 17, lineHeight: 1.62, color: 'var(--clr-ink-soft)', maxWidth: '50ch', margin: '0 0 24px' }}>{t.heroSub}</p>
+            <div className="lp-center-md lp-flex" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 26 }}>
+              <button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-primary lp-feature-cta" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta1} <span style={{ fontFamily: 'var(--vmx-mono)' }}>→</span></button>
               <a href="#subjects" className="vmx-btn vmx-btn-ghost" style={{ fontSize: 15, padding: '15px 26px' }}>{t.heroCta2}</a>
             </div>
-            {/* Hero stats — every figure DERIVED from the shipped question
-                bank, never typed by hand. (This block used to read
-                "10K+ Questions / 500+ Students / 95% Pass Rate": the bank
-                actually holds QB_TOTAL questions, and the app has never
-                measured a student count or an exam pass rate — the subject
-                grid further down this same page renders the honest counts,
-                so the page was contradicting itself.) */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', marginTop: '28px', paddingTop: '24px', borderTop: '1px solid var(--clr-border)' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: '28px', color: 'var(--clr-sage-text)', lineHeight: 1 }}>{QB_TOTAL.toLocaleString('en-US')}</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statQuestions}</div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: '28px', color: 'var(--clr-gold-text)', lineHeight: 1 }}>{SUBJECTS_WITH_QUESTIONS}</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statSubjects}</div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: '28px', color: 'var(--clr-ocean-text)', lineHeight: 1 }}>{t.statFreeValue}</div>
-                <div style={{ fontSize: '12px', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '.05em' }}>{t.statFree}</div>
-              </div>
-            </div>
+            <Countdown t={t} variant="hero" />
           </div>
 
-          {/* hero exam preview */}
+          {/* hero exam preview — real bank classes, non-scoring */}
           <div className="lp-reveal" style={{ position: 'relative' }}>
             <div className="lp-stack" style={{ position: 'relative', zIndex: 2, display: 'flex', gap: 14, alignItems: 'stretch' }}>
               <div className="vmx-question-card" style={{ flex: 1, minWidth: 0, padding: 24 }}>
@@ -86,14 +159,10 @@ export default function LandingBody(p) {
                   <button type="button" onClick={p.onEnterApp} style={{ flexShrink: 0, padding: '6px 13px', borderRadius: 999, border: 'none', background: 'var(--clr-sage)', color: 'var(--clr-surface)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600, cursor: 'pointer', minHeight: 32 }}>{t.startPractice}</button>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                  {/* badge shrinks + truncates so the timer never overlaps the
-                      bookmark on narrow cards; timer + bookmark stay fixed-size */}
                   <span className="vmx-qtype-badge" style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>MCQ — {t.heroTag}</span>
                   <span className="vmx-timer" style={{ marginLeft: 'auto', flexShrink: 0 }}>01:24</span>
-                  {/* the app's .vmx-bookmark-btn is position:absolute (pins to a
-                      card corner in the exam view); on the landing it sits inline
-                      in this flex row, so force it back into flow or it floats to
-                      the corner and overlaps the timer/question. */}
+                  {/* the app's .vmx-bookmark-btn is position:absolute in the
+                      exam view; inline here, so force it back into flow. */}
                   <button
                     type="button"
                     className={`vmx-bookmark-btn ${p.heroBookmarked ? 'active' : ''}`}
@@ -149,130 +218,14 @@ export default function LandingBody(p) {
         </div>
       </section>
 
-      {/* ================= TRUST BAND ================= */}
-      <section id="why" data-screen-label="Trust" className="lp-pad" style={{ padding: '32px 24px', background: 'var(--clr-surface)', borderTop: '1px solid var(--clr-border)', borderBottom: '1px solid var(--clr-border)' }}>
-        <div className="lp-reveal" style={{ ...container, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '14px 30px' }}>
-          <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', color: 'var(--clr-sage-text)' }}>{t.trustLabel}</span>
-          {t.trust.map((tp) => <span key={tp} style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 14, color: 'var(--clr-ink)', fontWeight: 500 }}><span className="lp-check" style={{ color: 'var(--clr-sage-text)', fontSize: 15 }}>✓</span>{tp}</span>)}
-        </div>
-      </section>
+      {/* ================= PROOF: real numbers, real subjects ================= */}
+      <ProofBand p={p} />
 
-      {/* ================= PROBLEM ================= */}
-      <section data-screen-label="Problem" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 44 }}>
-            <div className="lp-eyebrow" style={label()}>{t.probLabel}</div>
-            <h2 style={h2}>{t.probHead}</h2>
-          </div>
-          <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
-            {t.problems.map((pr) => (
-              <div key={pr.title} className="lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>{pr.emoji}</div>
-                <h3 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{pr.title}</h3>
-                <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{pr.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= SOLUTION / FEATURES ================= */}
-      <section id="solution" data-screen-label="Features" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 44 }}>
-            <div className="lp-eyebrow" style={label()}>{t.solLabel}</div>
-            <h2 style={h2}>{t.solPre}<em style={em}>{t.solEm}</em>{t.solPost}</h2>
-            <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.solSub}</p>
-          </div>
-          <div className="lp-stack lp-reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 22 }}>
-            <div className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🎓</div>
-                <h3 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.mockName}</h3>
-              </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.mockDesc}</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 4 }}>
-                {t.mockBullets.map((b) => <div key={b} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 14, color: 'var(--clr-ink)' }}><span style={{ color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>✓</span>{b}</div>)}
-              </div>
-              <button type="button" onClick={p.onStartMockExam || p.onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm lp-feature-cta" style={{ alignSelf: 'flex-start', marginTop: 4 }}>{t.heroCta1} →</button>
-            </div>
-            <div className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 20, padding: 30, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 46, height: 46, borderRadius: 12, background: 'var(--clr-ocean)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🔬</div>
-                <h3 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 23, letterSpacing: '-.02em', margin: 0, color: 'var(--clr-ink)' }}>{t.labFName}</h3>
-              </div>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{t.labFDesc}</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 10, marginTop: 4 }}>
-                {t.labExamples.map((e) => <div key={e.label} style={{ minWidth: 0, display: 'flex', alignItems: 'center', gap: 9, padding: '11px 12px', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 11, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ fontSize: 16, flexShrink: 0 }}>{e.emoji}</span><span style={{ minWidth: 0, overflowWrap: 'anywhere' }}>{e.label}</span></div>)}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ================= THREE THINGS ================= */}
+      <ThreeThings p={p} />
 
       {/* ================= PANIC MODE ================= */}
-      <section id="panic" data-screen-label="Panic Mode" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, borderTop: '1px dashed var(--clr-border)' }}>
-        <div className="lp-stack" style={{ ...container, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 46, alignItems: 'center' }}>
-          <div className="lp-reveal">
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px', border: '1px solid var(--clr-gold)', borderRadius: 999, background: 'color-mix(in srgb, var(--clr-gold) 16%, var(--clr-surface))', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink)', marginBottom: 18 }}>
-              <span>🚨</span>{t.panicLabel}
-            </div>
-            <h2 style={{ ...h2, fontSize: 'clamp(32px,4.6vw,50px)', lineHeight: 1, margin: '0 0 8px' }}>{t.panicHead}</h2>
-            <p style={{ fontFamily: 'var(--vmx-display)', fontStyle: 'italic', fontSize: 19, color: 'var(--clr-ink-soft)', margin: '0 0 14px' }}>{t.panicCalm}</p>
-            <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '48ch', margin: 0 }}>{t.panicDesc}</p>
-            <div style={{ margin: '24px 0 22px' }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 11 }}>{t.panicTimeQ}</div>
-              <div style={{ display: 'flex', gap: 9, flexWrap: 'wrap' }}>
-                {t.panicTimes.map((pt) => <button key={pt.key} type="button" className={chip(p.panicTime === pt.key)} onClick={() => p.setPanicTime(pt.key)}>{pt.label}</button>)}
-              </div>
-            </div>
-            {/* Runs a REAL cram session sized to the time the user just picked
-                (weak topics when there's enough history to know them). */}
-            <button type="button" onClick={() => (p.onStartPanic ? p.onStartPanic(p.panicTime) : p.onEnterApp())} className="vmx-btn" style={{ background: 'var(--clr-gold)', color: 'var(--clr-gold-on)', fontSize: 15, padding: '15px 26px' }}>{t.panicCta} →</button>
-          </div>
-          <div className="lp-reveal lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: '3px solid var(--clr-gold)', borderRadius: 20, padding: 28, boxShadow: 'var(--shadow-md)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
-              <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 18, color: 'var(--clr-ink)' }}>{t.panicPlanTitle}</span>
-              {/* This card recomputes as the time chips change, but the
-                  numbers are an illustrative example set, not a live feed
-                  — so it's framed as a preview, not "LIVE". */}
-              <span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
-              {[[p.panic.c, t.panicStatConcepts, 'var(--clr-ink)'], [p.panic.t, t.panicStatTraps, 'var(--clr-gold-text)'], [p.panic.q, t.panicStatQ, 'var(--clr-sage-text)'], [p.panic.w, t.panicStatWeak, 'var(--clr-rose-text)']].map(([v, lbl, c]) => (
-                <div key={lbl} style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 13, padding: 15 }}>
-                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 30, lineHeight: 1, color: c }}>{v}</div>
-                  <div style={{ fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 6 }}>{lbl}</div>
-                </div>
-              ))}
-            </div>
-            <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginBottom: 10 }}>{t.panicFocusTitle}</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {t.panicFocus.slice(0, p.panic.w).map((f, i) => (
-                <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 11, padding: '11px 13px', background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 11, fontSize: 13.5, color: 'var(--clr-ink)' }}>
-                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-gold-text)', fontWeight: 700, flexShrink: 0 }}>{String(i + 1).padStart(2, '0')}</span>{f}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= HOW IT WORKS ================= */}
-      <section data-screen-label="How it works" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 44 }}><div className="lp-eyebrow" style={label()}>{t.howLabel}</div><h2 style={h2}>{t.howHead}</h2></div>
-          <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 20 }}>
-            {t.steps.map((s, i) => (
-              <div key={s.title} className="lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 18, padding: 28, display: 'flex', flexDirection: 'column', gap: 13 }}>
-                <div style={{ fontFamily: 'var(--vmx-mono)', fontWeight: 600, fontSize: 14, width: 44, height: 44, borderRadius: '50%', background: 'var(--clr-sage)', color: 'var(--clr-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{i + 1}</div>
-                <h3 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 19, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: 0, lineHeight: 1.25 }}>{s.title}</h3>
-                <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--clr-ink-soft)', margin: 0 }}>{s.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PanicBand p={p} />
 
       {/* ================= SUBJECTS (real + showcase) ================= */}
       <SubjectsSection p={p} />
@@ -280,68 +233,35 @@ export default function LandingBody(p) {
       {/* ================= LAB SIMULATION ================= */}
       <LabSection p={p} />
 
-      {/* ================= ANALYTICS ================= */}
-      <AnalyticsSection p={p} />
-
-      {/* ================= READINESS ================= */}
-      <section data-screen-label="Readiness" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}><div className="lp-eyebrow" style={label()}>{t.rLabel}</div><span className="vmx-badge-live" style={{ background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)' }}>{t.previewBadge}</span></div><h2 style={h2}>{t.rHeadPre}<em style={em}>{t.rHeadEm}</em>{t.rHeadPost}</h2></div>
-          <div className="lp-stack lp-reveal lp-card" style={{ display: 'grid', gridTemplateColumns: '290px 1fr', gap: 38, alignItems: 'center', background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 34 }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 }}>
-              <div style={{ position: 'relative', width: 200, height: 200, borderRadius: '50%', background: p.readinessRing, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ width: 150, height: 150, borderRadius: '50%', background: 'var(--clr-bg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 800, fontSize: 54, lineHeight: 1, color: 'var(--clr-sage-text)' }}>72<span style={{ fontSize: 22 }}>%</span></span>
-                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)', marginTop: 2 }}>{t.rScoreWord}</span>
-                </div>
-              </div>
-              <p style={{ fontFamily: 'var(--vmx-display)', fontStyle: 'italic', fontSize: 16, color: 'var(--clr-ink-soft)', textAlign: 'center', margin: 0 }}>{t.rMsg}</p>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              {t.rMetricLabels.map((lbl, i) => {
-                const pct = [78, 68, 64, 81, 70][i];
-                const cls = pct >= 75 ? '' : pct >= 60 ? 'mid' : 'low';
-                return (
-                  <div key={lbl}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, marginBottom: 6, color: 'var(--clr-ink)' }}><span>{lbl}</span><span style={{ fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>{pct}%</span></div>
-                    <div className="vmx-bar" style={{ height: 9 }}><div className={`vmx-bar-fill ${cls}`} style={{ width: `${pct}%`, transition: 'width .8s ease' }} /></div>
-                  </div>
-                );
-              })}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 9, marginTop: 6, padding: '12px 14px', background: 'var(--clr-surface-2)', borderRadius: 11, fontSize: 12.5, lineHeight: 1.5, color: 'var(--clr-ink-soft)' }}><span style={{ color: 'var(--clr-gold-text)', flexShrink: 0 }}>ⓘ</span>{t.rDisclaimer}</div>
-            </div>
+      {/* ================= YOUR HOME (real screenshot) ================= */}
+      <section id="progress" data-screen-label="Your home" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
+        <div className="lp-stack lp-home-grid" style={{ ...container, display: 'grid', gridTemplateColumns: '0.9fr 1.3fr', gap: 44, alignItems: 'center' }}>
+          <div className="lp-reveal">
+            <h2 style={h2}>{t.progHead}</h2>
+            <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '46ch', margin: '16px 0 22px' }}>{t.progSub}</p>
+            <button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '14px 24px' }}>{t.start} →</button>
           </div>
-        </div>
-      </section>
-
-      {/* ================= WEAKNESS ================= */}
-      <section id="weakness" data-screen-label="Weakness detection" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
-        <div style={container}>
-          <div className="lp-reveal" style={{ maxWidth: 660, marginBottom: 34 }}><div className="lp-eyebrow" style={label()}>{t.weakLabel}</div><h2 style={h2}>{t.weakHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '58ch', margin: '14px 0 0' }}>{t.weakSub}</p><p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: '10px 0 0', fontStyle: 'italic' }}>{t.weakPreviewNote}</p></div>
-          <div className="lp-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 16, marginBottom: 26 }}>
-            {t.weaknessCards.map((w) => (
-              <div key={w.text} style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderTop: `3px solid ${w.color}`, borderRadius: 16, padding: 20, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', fontWeight: 700, color: w.color }}>{w.tag}</span>
-                <p style={{ fontSize: 14.5, lineHeight: 1.5, color: 'var(--clr-ink)', margin: 0 }}>{w.text}</p>
-              </div>
-            ))}
-          </div>
-          <div className="lp-reveal" style={{ textAlign: 'center' }}><button type="button" onClick={p.onEnterApp} className="vmx-btn vmx-btn-primary" style={{ fontSize: 15, padding: '15px 28px' }}>{t.weakCta} →</button></div>
+          <figure className="lp-reveal lp-shot">
+            <img src="/images/landing/home-desktop.jpg" width={1024} height={560} alt={t.progAlt} loading="lazy" decoding="async" />
+            <figcaption>{t.progCaption}</figcaption>
+          </figure>
         </div>
       </section>
 
       {/* ================= FINAL CTA ================= */}
-      <section id="cta" data-screen-label="Final CTA" className="lp-pad" style={{ padding: '100px 24px', scrollMarginTop: 80 }}>
-        <div className="lp-reveal" style={{ maxWidth: 920, margin: '0 auto', textAlign: 'center', background: 'var(--clr-ink)', borderRadius: 26, padding: '64px 40px' }}>
-          <h2 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 500, fontSize: 'clamp(30px,4.5vw,46px)', lineHeight: 1.05, letterSpacing: '-.03em', color: 'var(--clr-bg)', margin: '0 0 18px', textWrap: 'balance' }}>{t.ctaPre}<em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-soft)' }}>{t.ctaEm}</em>{t.ctaPost}</h2>
-          {/* On the inverted (--clr-ink) panel, text/border derive from
-              --clr-bg via color-mix so they stay legible in BOTH themes
-              (a hardcoded cream would vanish on the cream box dark mode
-              produces). */}
-          <p style={{ fontSize: 16, lineHeight: 1.6, color: 'color-mix(in srgb, var(--clr-bg) 72%, transparent)', maxWidth: '52ch', margin: '0 auto 30px' }}>{t.ctaSub}</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
+      {/* Art slot A4 (the procession) walks in along the bottom edge once it exists. */}
+      <section id="cta" data-screen-label="Final CTA" className="lp-pad" style={{ padding: '40px 24px 100px', scrollMarginTop: 80 }}>
+        {/* The panel is the FIRST child div of .lp-reveal: styles-landing.css
+            draws the gradient edge and the ink fill on `#cta .lp-reveal > div`.
+            Putting lp-reveal on the panel itself handed that treatment to the
+            Mochi wrapper instead — a bordered strip around the mascot. */}
+        <div className="lp-reveal" style={{ maxWidth: 920, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', background: 'var(--clr-ink)', borderRadius: 26, padding: '52px 40px 58px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12 }}>
+              <Mochi state="wave" size={88} animate slot="landing-cta" />
+            </div>
+            <h2 style={{ fontFamily: 'var(--vmx-display)', fontWeight: 500, fontSize: 'clamp(30px,4.5vw,46px)', lineHeight: 1.2, letterSpacing: 0, color: 'var(--clr-bg)', margin: '0 0 26px', textWrap: 'balance' }}>{t.ctaPre}<em style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--clr-sage-soft)' }}>{t.ctaEm}</em>{t.ctaPost}</h2>
             <button type="button" onClick={p.onEnterApp} className="vmx-btn" style={{ background: 'var(--clr-surface)', color: 'var(--clr-ink)', fontSize: 15, padding: '15px 28px' }}>{t.cta1} →</button>
-            <a href="#subjects" className="vmx-btn" style={{ background: 'transparent', color: 'var(--clr-bg)', border: '1.5px solid color-mix(in srgb, var(--clr-bg) 30%, transparent)', fontSize: 15, padding: '15px 28px' }}>{t.cta2}</a>
           </div>
         </div>
       </section>
@@ -373,6 +293,135 @@ export default function LandingBody(p) {
   );
 }
 
+/* ---- Proof band: three counted-up numbers and a marquee of real subjects ---- */
+function ProofBand({ p }) {
+  const { t } = p;
+  const ref = useRef(null);
+  const total = useCountUp(QB_TOTAL, ref);
+  const past = useCountUp(PAST_PAPER_TOTAL, ref);
+  const subjects = useCountUp(SUBJECTS_WITH_QUESTIONS, ref);
+  const chips = p.realSubjects;
+  return (
+    <section id="proof" data-screen-label="Proof" className="lp-proof" aria-label={t.proofMarqueeLabel}>
+      <div className="lp-pad" style={{ ...container, padding: '0 24px' }}>
+        <div ref={ref} className="lp-proof-stats">
+          <span><b>{total.toLocaleString('en-US')}</b><i>{t.proofQuestions}</i></span>
+          <span><b>{past.toLocaleString('en-US')}</b><i>{t.proofPast}</i></span>
+          <span><b>{subjects}</b><i>{t.proofSubjects}</i></span>
+        </div>
+      </div>
+      {/* Two copies of the row make the loop seamless; the second is hidden
+          from assistive tech and, under reduced motion, from everyone. The
+          viewport is a real horizontal scroller (overflow-x: auto, scrollbar
+          hidden), not overflow: hidden — the mobile audit exempts children of
+          a scroller that fits the screen, and clipping would have reported
+          every off-screen chip as an overflow. */}
+      <div className="lp-marquee-viewport">
+        <div className="lp-marquee">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="lp-marquee-track" aria-hidden={copy === 1 ? 'true' : undefined} data-copy={copy}>
+              {chips.map((s) => (
+                <button key={`${copy}-${s.id}`} type="button" className="lp-marquee-chip" style={{ '--chip-color': s.color }} onClick={() => p.onPickSubject(s.year, s.id)} tabIndex={copy === 1 ? -1 : 0}>
+                  <span className="lp-marquee-dot" />
+                  <span className="lp-marquee-name">{s.name}</span>
+                  <span className="lp-marquee-count">{s.count} {t.qWord}</span>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---- Three things: numbered, each with a live piece of the real product ---- */
+function ThreeThings({ p }) {
+  const { t } = p;
+  const topPast = Object.entries(Q_PANIC_COUNTS_BY_SUBJECT)
+    .filter(([, n]) => n > 0)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4);
+  const visuals = [
+    // 01 — which subjects hold the most past-paper questions, today
+    <div key="v1" className="lp-three-card">
+      <div className="lp-three-card-label">{t.threePastLabel}</div>
+      {topPast.map(([id, n], i) => (
+        <div key={id} className="lp-three-row" style={{ '--i': i }}>
+          <span className="lp-three-row-name">{subjectName(id)}</span>
+          <span className="lp-three-row-bar"><span style={{ width: `${Math.round((n / topPast[0][1]) * 100)}%` }} /></span>
+          <span className="lp-three-row-n">{n}</span>
+        </div>
+      ))}
+    </div>,
+    // 02 — an explanation the way the app writes them, and the slide button
+    <div key="v2" className="lp-three-card">
+      <div className="vmx-explain" style={{ marginTop: 0 }}><span className="k">{t.why}</span>{t.heroExplain}</div>
+      <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ marginTop: 12 }} onClick={p.onEnterApp}>
+        <NavIcon name="files" size={16} /> {t.threeSlideBtn}
+      </button>
+    </div>,
+    // 03 — the time chips, live, and the real count for the paper that is next
+    <div key="v3" className="lp-three-card">
+      <div className="lp-three-card-label">{t.panicTimeQ}</div>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {t.panicTimes.map((pt) => <button key={pt.key} type="button" className={chip(p.panicTime === pt.key)} onClick={() => p.setPanicTime(pt.key)}>{pt.label}</button>)}
+      </div>
+      <p className="lp-three-note">{t.threePanicLine(PAST_PAPER_TOTAL, SUBJECTS_WITH_PAST_PAPERS)}</p>
+      <a href="#panic" className="lp-three-link">{t.panicCta} →</a>
+    </div>,
+  ];
+  return (
+    <section id="solution" data-screen-label="Three things" className="lp-pad" style={{ padding: '96px 24px 80px', scrollMarginTop: 80 }}>
+      <div style={container}>
+        <h2 className="lp-reveal" style={{ ...h2, marginBottom: 48 }}>{t.threeHead}</h2>
+        <ol className="lp-three">
+          {t.three.map((item, i) => (
+            <li key={item.title} className="lp-reveal lp-three-item">
+              <span className="lp-three-num" aria-hidden="true">{two(i + 1)}</span>
+              <div className="lp-three-copy">
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+              <div className="lp-three-visual">{visuals[i]}</div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+/* ---- Panic Mode: the night before, as a dark band ---- */
+function PanicBand({ p }) {
+  const { t } = p;
+  return (
+    <section id="panic" data-screen-label="Panic Mode" className="lp-pad" style={{ padding: '0 24px 92px', scrollMarginTop: 80 }}>
+      {/* Art slot A2 (the 2 a.m. window) becomes this band's backdrop, two layers. */}
+      <div className="lp-reveal lp-panic" style={container}>
+        <div className="lp-stack lp-panic-grid">
+          <div>
+            <h2 className="lp-panic-head">{t.panicHead}</h2>
+            <p className="lp-panic-calm">{t.panicCalm}</p>
+            <p className="lp-panic-desc">{t.panicDesc}</p>
+            <div style={{ margin: '22px 0 20px' }}>
+              <div className="lp-panic-q">{t.panicTimeQ}</div>
+              <div style={{ display: 'flex', gap: 9, flexWrap: 'wrap' }}>
+                {t.panicTimes.map((pt) => <button key={pt.key} type="button" className={`lp-panic-chip${p.panicTime === pt.key ? ' active' : ''}`} onClick={() => p.setPanicTime(pt.key)}>{pt.label}</button>)}
+              </div>
+            </div>
+            {/* Runs a REAL cram session sized to the time just picked. */}
+            <button type="button" onClick={() => (p.onStartPanic ? p.onStartPanic(p.panicTime) : p.onEnterApp())} className="vmx-btn" style={{ background: 'var(--clr-gold)', color: 'var(--clr-gold-on)', fontSize: 15, padding: '15px 26px' }}>{t.panicCta} →</button>
+          </div>
+          <div className="lp-panic-side">
+            <Countdown t={t} variant="night" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---- Subjects (real curriculum + showcase toggle) ---- */
 function SubjectsSection({ p }) {
   const { t } = p;
@@ -381,11 +430,10 @@ function SubjectsSection({ p }) {
     ? SHOWCASE_FILTER(p.subjectTab)
     : p.realSubjects;
   return (
-    <section id="subjects" data-screen-label="Subjects" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
+    <section id="subjects" data-screen-label="Subjects" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
       <div style={container}>
         <div className="lp-reveal" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: 22, marginBottom: 30 }}>
           <div style={{ maxWidth: 620 }}>
-            <div className="lp-eyebrow" style={label()}>{t.subjLabel}</div>
             <h2 style={h2}>{t.subjPre}<em style={em}>{t.subjEm}</em>{t.subjPost}</h2>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '52ch', margin: '14px 0 4px' }}>{t.subjSub}</p>
             <p style={{ fontSize: 13, color: showcase ? 'var(--clr-ink-soft)' : 'var(--clr-sage-text)', margin: 0, fontWeight: 500 }}>{showcase ? t.subjShowcaseNote : t.subjRealNote}</p>
@@ -412,7 +460,7 @@ function SubjectsSection({ p }) {
                 <span className="icon">{s.emoji}</span>
                 <span className="title">{s.name}</span>
                 <span className="sub">{s.sub}</span>
-                <span className="count">{showcase ? '' : `${s.count} ${t.qWord}`}{clickable ? '' : ''}</span>
+                <span className="count">{showcase ? '' : `${s.count} ${t.qWord}`}</span>
                 {clickable && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-sage-text)', marginTop: 2 }}>{t.startPractice} →</span>}
               </div>
             );
@@ -444,29 +492,22 @@ function SHOWCASE_FILTER(tab) {
   return tab === 'all' ? SHOWCASE : SHOWCASE.filter((s) => s.group === tab);
 }
 
-/* ---- Lab simulation ---- */
+/* ---- Lab simulation (kept: a real radiograph, a real station) ---- */
 function LabSection({ p }) {
   const { t } = p;
   return (
-    <section id="lab" data-screen-label="Lab simulation" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, background: 'var(--clr-surface)', borderTop: '1px dashed var(--clr-border)' }}>
+    <section id="lab" data-screen-label="Lab simulation" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80, borderTop: '1px dashed var(--clr-border)' }}>
+      {/* Art slot A3 (the lab bench) heads this section once it exists. */}
       <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 38 }}><div className="lp-eyebrow" style={label()}>{t.labSecLabel}</div><h2 style={h2}>{t.labSecHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '60ch', margin: '14px 0 0' }}>{t.labSecSub}</p></div>
-        <div className="lp-stack lp-reveal lp-card" style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 22, display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 22 }}>
+        <div className="lp-reveal" style={{ maxWidth: 680, marginBottom: 38 }}><h2 style={h2}>{t.labSecHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '60ch', margin: '14px 0 0' }}>{t.labSecSub}</p></div>
+        <div className="lp-stack lp-reveal lp-card lp-lab" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 22, display: 'grid', gridTemplateColumns: '1.15fr 1fr', gap: 22 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {/* wrap: the station badge is deliberately nowrap and non-shrinking,
-                so on a phone it took 220 of the 316px available and pushed the
-                timer clean outside the card. Wrapping drops the timer to a
-                second line instead; on desktop it still fits on one. */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              {/* letterSpacing:normal overrides the shared vmx-qtype-badge's
-                  .1em tracking, which would otherwise sit on the Thai
-                  labStation string in the TH locale. */}
               <span className="vmx-qtype-badge" style={{ background: 'var(--clr-ink)', color: 'var(--clr-bg)', borderColor: 'var(--clr-ink)', whiteSpace: 'nowrap', flexShrink: 0, letterSpacing: 'normal' }}>{t.labStation}</span>
               <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>{t.labDemoNote}</span>
               <span className="vmx-timer" style={{ marginLeft: 'auto' }}>04:59</span>
             </div>
-            <div style={{ position: 'relative', aspectRatio: '4 / 3', background: '#0a0a0c', border: '1px solid var(--clr-border)', borderRadius: 14, overflow: 'hidden', cursor: p.labTool ? 'crosshair' : 'default' }}>
-              {/* Main Radiograph Image */}
+            <div className="lp-lab-film" style={{ position: 'relative', aspectRatio: '4 / 3', background: '#0a0a0c', border: '1px solid var(--clr-border)', borderRadius: 14, overflow: 'hidden', cursor: p.labTool ? 'crosshair' : 'default' }}>
               <div style={{ position: 'absolute', inset: 0, transform: `scale(${p.labZoom})`, transition: 'transform .25s ease', transformOrigin: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <img
                   src="/images/thoracic-xray.jpg"
@@ -475,8 +516,6 @@ function LabSection({ p }) {
                   decoding="async"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
-                
-                {/* Interactive Annotate Overlay */}
                 {p.labTool === 'annotate' && (
                   <div style={{ position: 'absolute', top: '48%', left: '42%', width: 84, height: 84, borderRadius: '50%', border: '2px dashed #4ade80', boxShadow: '0 0 12px rgba(74,222,128,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', animation: 'lp-pulse 2s infinite' }}>
                     <span style={{ position: 'absolute', top: -20, background: 'rgba(0,0,0,0.85)', color: '#4ade80', fontSize: 11, fontFamily: 'var(--vmx-mono)', padding: '2px 6px', borderRadius: 4, whiteSpace: 'nowrap', border: '1px solid #4ade80' }}>
@@ -484,8 +523,6 @@ function LabSection({ p }) {
                     </span>
                   </div>
                 )}
-
-                {/* Interactive Measure Overlay */}
                 {p.labTool === 'measure' && (
                   <div style={{ position: 'absolute', top: '40%', left: '35%', width: 140, height: 2, background: '#f59e0b', pointerEvents: 'none' }}>
                     <div style={{ position: 'absolute', left: 0, top: -4, width: 2, height: 10, background: '#f59e0b' }} />
@@ -496,17 +533,12 @@ function LabSection({ p }) {
                   </div>
                 )}
               </div>
-
-              {/* DICOM HUD Info Overlay */}
               <div style={{ position: 'absolute', top: 10, left: 10, pointerEvents: 'none', background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)', padding: '5px 9px', borderRadius: 6, fontFamily: 'var(--vmx-mono)', fontSize: 9.5, color: 'rgba(255,255,255,0.85)', display: 'flex', flexDirection: 'column', gap: 2, border: '1px solid rgba(255,255,255,0.1)' }}>
                 <span>PATIENT: BUSTER (CANINE, 8Y MN)</span>
                 <span>VIEW: LATERAL THORAX (DR)</span>
-                {/* Viewer green, not an app token: this HUD sits on a near-black
-                    radiograph in both themes, so a colour tuned for the page
-                    surface reads at 2.6 here whichever theme is on. */}
+                {/* Viewer green, not an app token: it sits on a near-black radiograph in both themes. */}
                 <span style={{ color: '#7fd18a' }}>W: 350 L: 40 (CHEST WINDOW)</span>
               </div>
-
               <div style={{ position: 'absolute', right: 10, bottom: 10, display: 'flex', alignItems: 'center', gap: 6, zIndex: 2 }}>
                 <button type="button" onClick={() => p.setLabZoom((z) => Math.max(1, +(z - 0.25).toFixed(2)))} aria-label="Zoom out" style={labZoomBtn}>−</button>
                 <span style={{ display: 'flex', alignItems: 'center', padding: '0 9px', height: 28, fontFamily: 'var(--vmx-mono)', fontSize: 11, color: '#fff', background: 'rgba(0,0,0,.5)', borderRadius: 999 }}>{Math.round(p.labZoom * 100)}%</span>
@@ -514,9 +546,9 @@ function LabSection({ p }) {
               </div>
             </div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <button type="button" onClick={() => p.setLabTool((x) => x === 'annotate' ? null : 'annotate')} style={labTool(p.labTool === 'annotate')}>✏️ {t.toolAnnotate}</button>
-              <button type="button" onClick={() => p.setLabTool((x) => x === 'measure' ? null : 'measure')} style={labTool(p.labTool === 'measure')}>📏 {t.toolMeasure}</button>
-              <button type="button" onClick={() => { p.setLabZoom(1); p.setLabTool(null); }} style={labTool(false)}>↺ {t.toolReset}</button>
+              <button type="button" onClick={() => p.setLabTool((x) => x === 'annotate' ? null : 'annotate')} style={labTool(p.labTool === 'annotate')}>{t.toolAnnotate}</button>
+              <button type="button" onClick={() => p.setLabTool((x) => x === 'measure' ? null : 'measure')} style={labTool(p.labTool === 'measure')}>{t.toolMeasure}</button>
+              <button type="button" onClick={() => { p.setLabZoom(1); p.setLabTool(null); }} style={labTool(false)}>{t.toolReset}</button>
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -540,71 +572,3 @@ function LabSection({ p }) {
 }
 const labZoomBtn = { width: 32, height: 32, borderRadius: '50%', border: '1px solid rgba(255,255,255,.25)', background: 'rgba(0,0,0,.5)', color: '#fff', fontSize: 17, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' };
 const labTool = (active) => ({ padding: '9px 14px', borderRadius: 10, border: `1px solid ${active ? 'var(--clr-sage)' : 'var(--clr-border)'}`, background: active ? 'color-mix(in srgb, var(--clr-sage) 12%, transparent)' : 'var(--clr-surface)', color: active ? 'var(--clr-sage-text)' : 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 12.5, cursor: 'pointer', minHeight: 40 });
-
-/* ---- Analytics ---- */
-function AnalyticsSection({ p }) {
-  const { t } = p;
-  const ACTIVITY = [3, 7, 5, 9, 6, 11, 8]; const maxA = Math.max(...ACTIVITY);
-  const MASTERY = [{ name: 'Pharmacology', pct: 82 }, { name: 'Physiology', pct: 76 }, { name: 'Surgery', pct: 69 }, { name: 'Pathology', pct: 61 }, { name: 'Parasitology', pct: 51 }];
-  const statColors = ['var(--clr-sage)', 'var(--clr-ink)', 'var(--clr-sage)', 'var(--clr-rose)'];
-  return (
-    <section id="progress" data-screen-label="Progress" className="lp-pad" style={{ padding: '92px 24px', scrollMarginTop: 80 }}>
-      <div style={container}>
-        <div className="lp-reveal" style={{ maxWidth: 640, marginBottom: 38 }}><div className="lp-eyebrow" style={label()}>{t.aLabel}</div><h2 style={h2}>{t.aHead}</h2><p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--clr-ink-soft)', maxWidth: '56ch', margin: '14px 0 0' }}>{t.aSub}</p></div>
-        <div className="lp-reveal lp-card" style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 22, padding: 26, boxShadow: 'var(--shadow-sm)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-            <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>📊 {t.progressTitle}</span>
-            <span className="vmx-tag-pill" style={{ marginLeft: 'auto' }}>{t.aSample}</span>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(148px,1fr))', gap: 12, marginBottom: 20 }}>
-            {t.aStatLabels.map((lbl, i) => (
-              <div key={lbl} className="vmx-stat-card" style={{ textAlign: 'left' }}>
-                <div className="vmx-stat-num" style={{ color: statColors[i], fontSize: 26 }}>{t.aStatVals[i]}</div>
-                <div className="vmx-stat-lbl">{lbl}</div>
-              </div>
-            ))}
-          </div>
-          <div className="lp-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-            <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 18 }}>
-              <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 16 }}>
-                <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)' }}>{t.aActivityTitle}</span>
-                <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.aActivitySub}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, height: 112 }}>
-                {ACTIVITY.map((v, i) => (
-                  <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, height: '100%', justifyContent: 'flex-end' }}>
-                    <div style={{ width: '100%', maxWidth: 26, height: `${Math.round((v / maxA) * 100)}%`, background: 'var(--clr-sage)', borderRadius: '6px 6px 0 0', minHeight: 5 }} />
-                    <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.aDays[i]}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div style={{ background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', borderRadius: 16, padding: 18, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div>
-                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)', marginBottom: 11 }}>{t.aMasteryTitle}</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
-                  {MASTERY.map((m) => {
-                    const cls = m.pct >= 75 ? '' : m.pct >= 60 ? 'mid' : 'low';
-                    return (
-                      <div key={m.name}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginBottom: 4, color: 'var(--clr-ink)' }}><span>{m.name}</span><span style={{ fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>{m.pct}%</span></div>
-                        <div className="vmx-bar"><div className={`vmx-bar-fill ${cls}`} style={{ width: `${m.pct}%`, transition: 'width .8s ease' }} /></div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              <div style={{ borderTop: '1px dashed var(--clr-border)', paddingTop: 13 }}>
-                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, color: 'var(--clr-ink)', marginBottom: 10 }}>{t.aConfTitle}</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ width: 92, color: 'var(--clr-ink-soft)', flexShrink: 0 }}>{t.aConfConfident}</span><div className="vmx-bar" style={{ flex: 1 }}><div className="vmx-bar-fill" style={{ width: '88%' }} /></div><span style={{ fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>88%</span></div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12.5, color: 'var(--clr-ink)' }}><span style={{ width: 92, color: 'var(--clr-ink-soft)', flexShrink: 0 }}>{t.aConfUnsure}</span><div className="vmx-bar" style={{ flex: 1 }}><div className="vmx-bar-fill low" style={{ width: '44%' }} /></div><span style={{ fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>44%</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}

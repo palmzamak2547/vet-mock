@@ -215,7 +215,11 @@ test.describe('connected study experience', () => {
     await expect(page.getByText('รูปแบบของชุดโจทย์ฝึก')).not.toBeVisible();
 
     await page.getByRole('button', { name: introLabel }).click();
-    await expect(page.getByRole('status')).toContainText(`มี ${introCount} ข้อในชุดนี้`);
+    // By id, not a bare getByRole('status'): the sync/offline notice is a
+    // second status region, and when a run's network blinks the bare query
+    // resolves to both and fails strict mode for a reason unrelated to the
+    // count it is checking.
+    await expect(page.locator('#vmx-config-count-help')).toContainText(`มี ${introCount} ข้อในชุดนี้`);
     // ConfigView caps its count chips at what the topic actually has, so
     // the pressed chip IS the availability. Reading it from q-counts keeps
     // this assertion true as the bank grows or shrinks.

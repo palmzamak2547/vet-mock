@@ -405,79 +405,149 @@ html.lp-active { background: var(--clr-bg); }
 #cta .lp-reveal > div > * { position: relative; z-index: 2; }
 
 /* ================================================================
-   TRUST BAND — static top line (the looping shimmer is gone)
+   HERO — eyebrow chip and title
    ================================================================ */
-#why {
-  background: linear-gradient(135deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-surface) 80%, var(--clr-bg)) 100%) !important;
-  border-top: 1px solid var(--clr-border) !important;
-  border-bottom: 1px solid var(--clr-border) !important;
-  position: relative;
-  overflow: hidden;
-}
-#why::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--clr-sage-soft), var(--clr-gold-soft), transparent);
-  opacity: 0.6;
-}
-
-/* Trust checkmarks pop once on reveal.
-   Was `span[style*="color: var(--clr-sage)"]` — a selector reading the
-   inline style as a STRING, so renaming the token to --clr-sage-text
-   silently unhooked the animation with nothing to catch it. Same trap
-   the card-hover selectors were pulled out of; a real class cannot
-   drift out of sync with a colour rename. */
-#why .lp-reveal .lp-check {
-  display: inline-block;
-  animation: lp-check-pop .5s cubic-bezier(.16,1,.3,1) both;
-  animation-delay: calc(var(--i, 0) * .1s);
-}
+.lp-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px 5px 7px; border: 1px solid var(--clr-border); border-radius: 999px; background: var(--clr-surface); font-size: 13px; font-weight: 600; color: var(--clr-sage-text); margin-bottom: 22px; }
+/* Thai display type: no negative tracking, and line-height with room for a
+   tone mark stacked on a vowel beneath the previous line's ุ/ู. Fraunces
+   carries no Thai, so these lines are Sarabun and take Sarabun's metrics. */
+.lp-hero-title { font-family: var(--vmx-display); font-weight: 500; font-size: clamp(38px, 5.4vw, 58px); line-height: 1.2; letter-spacing: 0; color: var(--clr-ink); margin: 0 0 20px; text-wrap: balance; }
 
 /* ================================================================
-   ✨ SECTION BACKGROUNDS — subtle alternating depth
+   COUNTDOWN — the faculty timetable, live. Two variants: on the cream
+   hero, and on the dark Panic band. Tabular numerals, so a second ticking
+   over moves nothing but that digit; the seconds carry the one accent.
    ================================================================ */
-#solution {
-  background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-bg) 20%, var(--clr-surface)) 100%) !important;
-  position: relative;
-  overflow: hidden;
+.lp-countdown { display: grid; gap: 8px; padding: 18px 20px; border: 1px solid var(--clr-border); border-radius: 18px; background: var(--clr-surface); box-shadow: var(--shadow-sm); max-width: 520px; }
+.lp-countdown-head { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.lp-countdown-term { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; font-weight: 600; color: var(--clr-sage-text); }
+.lp-countdown-range { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); }
+.lp-countdown-cells { display: flex; gap: 6px; align-items: stretch; }
+.lp-countdown-cell { flex: 1 1 0; min-width: 0; display: grid; justify-items: center; gap: 4px; padding: 10px 4px 8px; border-radius: 12px; background: var(--clr-bg); border: 1px solid var(--clr-border); }
+.lp-countdown-cell b { font-family: var(--vmx-display); font-weight: 600; font-size: clamp(28px, 3.2vw, 38px); line-height: 1; letter-spacing: -.03em; color: var(--clr-ink); font-variant-numeric: tabular-nums; }
+.lp-countdown-cell:last-child b { color: var(--clr-rose-text); }
+.lp-countdown-cell i { font-style: normal; font-size: 11px; color: var(--clr-ink-soft); letter-spacing: .04em; }
+.lp-countdown-line { margin: 2px 0 0; font-size: 13px; line-height: 1.5; color: var(--clr-ink-soft); }
+.lp-countdown.is-sitting .lp-countdown-term { color: var(--clr-rose-text); }
+.lp-countdown.is-night { max-width: none; box-shadow: none; background: color-mix(in srgb, var(--clr-bg) 8%, transparent); border-color: color-mix(in srgb, var(--clr-bg) 22%, transparent); }
+/* gold-soft on the inverted panel: plain gold on ink is 3.9:1, short of 4.5
+   for an 11px label; the soft tint is ~10:1 here and, when dark mode turns
+   the panel cream, it flips to the dark gold and still clears it. */
+.lp-countdown.is-night .lp-countdown-term { color: var(--clr-gold-soft); }
+.lp-countdown.is-night .lp-countdown-range,
+.lp-countdown.is-night .lp-countdown-line,
+.lp-countdown.is-night .lp-countdown-cell i { color: color-mix(in srgb, var(--clr-bg) 70%, transparent); }
+.lp-countdown.is-night .lp-countdown-cell { background: color-mix(in srgb, var(--clr-bg) 6%, transparent); border-color: color-mix(in srgb, var(--clr-bg) 16%, transparent); }
+.lp-countdown.is-night .lp-countdown-cell b { color: var(--clr-bg); }
+/* gold-soft, not gold: the mono and forest palettes turn --clr-gold into a
+   mid grey or olive that measures 2.3:1 on the night cells. The soft tint is
+   a light colour in every light palette, so it clears 3:1 on all of them. */
+.lp-countdown.is-night .lp-countdown-cell:last-child b { color: var(--clr-gold-soft); }
+
+/* ================================================================
+   PROOF — three counted numbers and a marquee of real subjects. The
+   track is duplicated so the loop is seamless; translating the pair by
+   half its width lands exactly on the start of the second copy.
+   ================================================================ */
+.lp-proof { padding: 26px 0 22px; background: var(--clr-surface); border-top: 1px solid var(--clr-border); border-bottom: 1px solid var(--clr-border); overflow: hidden; }
+.lp-proof-stats { display: flex; flex-wrap: wrap; gap: 10px 40px; align-items: baseline; margin-bottom: 18px; }
+.lp-proof-stats > span { display: inline-flex; align-items: baseline; gap: 8px; }
+.lp-proof-stats b { font-family: var(--vmx-display); font-weight: 600; font-size: 30px; line-height: 1; letter-spacing: -.02em; color: var(--clr-sage-text); font-variant-numeric: tabular-nums; }
+.lp-proof-stats > span:nth-child(2) b { color: var(--clr-gold-text); }
+.lp-proof-stats i { font-style: normal; font-size: 13px; color: var(--clr-ink-soft); }
+.lp-marquee-viewport { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+.lp-marquee-viewport::-webkit-scrollbar { display: none; }
+.lp-marquee { display: flex; gap: 10px; width: max-content; animation: lp-marquee 80s linear infinite; }
+.lp-marquee:hover, .lp-marquee:focus-within { animation-play-state: paused; }
+.lp-marquee-track { display: flex; gap: 10px; padding-right: 10px; }
+.lp-marquee-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 7px 14px 7px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); font-family: inherit; font-size: 13px; white-space: nowrap; cursor: pointer; transition: border-color var(--dur-fast), transform var(--dur-fast); }
+.lp-marquee-chip:hover, .lp-marquee-chip:focus-visible { border-color: var(--chip-color); transform: translateY(-1px); }
+.lp-marquee-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--chip-color); flex-shrink: 0; }
+.lp-marquee-count { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); }
+@keyframes lp-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ================================================================
+   THREE THINGS — numbered like a printed spread, each row carrying a live
+   piece of the product instead of an icon.
+   ================================================================ */
+.lp-three { list-style: none; margin: 0; padding: 0; display: grid; }
+.lp-three-item { display: grid; grid-template-columns: 84px minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px 32px; align-items: center; padding: 30px 0; border-top: 1px dashed var(--clr-border); }
+/* sage-text, not sage-soft: the soft tint measured 2.26:1 on the dark theme
+   and the contrast audit holds large decorative type to 3:1 too. */
+.lp-three-num { font-family: var(--vmx-display); font-style: italic; font-weight: 400; font-size: 64px; line-height: .9; letter-spacing: -.04em; color: var(--clr-sage-text); font-variant-numeric: tabular-nums; }
+.lp-three-copy h3 { font-family: var(--vmx-display); font-weight: 600; font-size: 24px; letter-spacing: 0; line-height: 1.3; margin: 0 0 10px; color: var(--clr-ink); text-wrap: balance; }
+.lp-three-copy p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--clr-ink-soft); max-width: 46ch; }
+.lp-three-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: 18px; padding: 18px 20px; box-shadow: var(--shadow-sm); }
+.lp-three-card-label { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--clr-ink-soft); margin-bottom: 12px; }
+.lp-three-row { display: grid; grid-template-columns: minmax(0, 1fr) 110px 44px; gap: 10px; align-items: center; padding: 6px 0; font-size: 13.5px; color: var(--clr-ink); }
+.lp-three-row-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lp-three-row-bar { height: 8px; border-radius: 999px; background: var(--clr-surface-2); overflow: hidden; }
+.lp-three-row-bar > span { display: block; height: 100%; border-radius: 999px; background: var(--clr-sage); transform-origin: left; transform: scaleX(0); }
+.lp-reveal.in .lp-three-row-bar > span { animation: lp-bar-in .9s cubic-bezier(.16,1,.3,1) forwards; animation-delay: calc(var(--i, 0) * 90ms + .2s); }
+.lp-three-row-n { font-family: var(--vmx-mono); font-size: 12px; text-align: right; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.lp-three-note { margin: 12px 0 0; font-size: 13px; line-height: 1.5; color: var(--clr-ink-soft); }
+.lp-three-link { display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 600; }
+@keyframes lp-bar-in { to { transform: scaleX(1); } }
+
+/* ================================================================
+   PANIC — the night before, as one dark band with rounded corners. Colours
+   derive from --clr-bg so the inverted panel stays legible in both themes,
+   the same rule the final CTA already follows.
+   ================================================================ */
+.lp-panic { position: relative; overflow: hidden; border-radius: 28px; padding: 56px 52px; background: var(--clr-ink); color: var(--clr-bg); }
+/* The night stays night. The inverted-panel trick (ink background, bg text)
+   turns this band cream in dark mode, and gold numerals on cream measured
+   1.4:1. Dark mode gets a dark surface with the theme's own ink instead. */
+[data-theme="dark"] .lp-panic { background: var(--clr-surface-2); color: var(--clr-ink); }
+[data-theme="dark"] .lp-panic-head { color: var(--clr-ink); }
+[data-theme="dark"] .lp-panic-calm { color: color-mix(in srgb, var(--clr-ink) 82%, transparent); }
+[data-theme="dark"] .lp-panic-desc { color: color-mix(in srgb, var(--clr-ink) 78%, transparent); }
+[data-theme="dark"] .lp-panic-q { color: color-mix(in srgb, var(--clr-ink) 88%, transparent); }
+[data-theme="dark"] .lp-panic-chip { border-color: color-mix(in srgb, var(--clr-ink) 30%, transparent); color: var(--clr-ink); }
+[data-theme="dark"] .lp-countdown.is-night { background: color-mix(in srgb, var(--clr-ink) 6%, transparent); border-color: color-mix(in srgb, var(--clr-ink) 20%, transparent); }
+[data-theme="dark"] .lp-countdown.is-night .lp-countdown-term { color: var(--clr-gold-text); }
+[data-theme="dark"] .lp-countdown.is-night .lp-countdown-range,
+[data-theme="dark"] .lp-countdown.is-night .lp-countdown-line,
+[data-theme="dark"] .lp-countdown.is-night .lp-countdown-cell i { color: color-mix(in srgb, var(--clr-ink) 78%, transparent); }
+[data-theme="dark"] .lp-countdown.is-night .lp-countdown-cell { background: color-mix(in srgb, var(--clr-ink) 5%, transparent); border-color: color-mix(in srgb, var(--clr-ink) 16%, transparent); }
+[data-theme="dark"] .lp-countdown.is-night .lp-countdown-cell b { color: var(--clr-ink); }
+[data-theme="dark"] .lp-countdown.is-night .lp-countdown-cell:last-child b { color: var(--clr-gold-text); }
+.lp-panic::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 85% 15%, color-mix(in srgb, var(--clr-gold) 18%, transparent) 0%, transparent 55%), radial-gradient(ellipse at 8% 95%, color-mix(in srgb, var(--clr-rose) 12%, transparent) 0%, transparent 50%); }
+.lp-panic > * { position: relative; }
+.lp-panic-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 44px; align-items: center; }
+.lp-panic-head { font-family: var(--vmx-display); font-weight: 500; font-size: clamp(32px, 4.6vw, 48px); line-height: 1.2; letter-spacing: 0; margin: 0 0 14px; color: var(--clr-bg); text-wrap: balance; }
+.lp-panic-calm { font-family: var(--vmx-display); font-style: italic; font-size: 19px; margin: 0 0 14px; color: color-mix(in srgb, var(--clr-bg) 78%, transparent); }
+.lp-panic-desc { font-size: 15.5px; line-height: 1.6; margin: 0; max-width: 48ch; color: color-mix(in srgb, var(--clr-bg) 72%, transparent); }
+.lp-panic-q { font-size: 13px; font-weight: 600; margin-bottom: 10px; color: color-mix(in srgb, var(--clr-bg) 85%, transparent); }
+.lp-panic-chip { min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--clr-bg) 28%, transparent); background: transparent; color: var(--clr-bg); font-family: inherit; font-size: 13.5px; cursor: pointer; transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast); }
+.lp-panic-chip:hover { border-color: var(--clr-gold); }
+.lp-panic-chip.active { background: var(--clr-gold); color: var(--clr-gold-on); border-color: var(--clr-gold); }
+
+/* ================================================================
+   YOUR HOME — one real screenshot; and the lab film comes up like a light
+   box being switched on as the station scrolls into view.
+   ================================================================ */
+.lp-shot { margin: 0; }
+.lp-shot img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--clr-border); box-shadow: var(--shadow-md); background: var(--clr-surface); }
+.lp-shot figcaption { margin-top: 10px; font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); }
+.lp-motion-ready .lp-reveal .lp-lab-film { filter: brightness(.3); transition: filter 1.1s ease .15s; }
+.lp-motion-ready .lp-reveal.in .lp-lab-film { filter: none; }
+
+@media (max-width: 1000px) {
+  .lp-center-md .lp-countdown { margin-inline: auto; text-align: left; }
+  .lp-three-item { grid-template-columns: 56px minmax(0, 1fr); }
+  .lp-three-visual { grid-column: 2; }
+  .lp-three-num { font-size: 44px; }
+  .lp-panic { padding: 36px 24px; border-radius: 22px; }
 }
-#solution::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--clr-sage-soft), transparent);
-  opacity: 0.5;
-}
-[data-screen-label="How it works"] {
-  background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-sage-soft) 4%, var(--clr-surface)) 100%) !important;
-  position: relative;
-  overflow: hidden;
-}
-[data-screen-label="How it works"]::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 20% 50%, color-mix(in srgb, var(--clr-sage) 6%, transparent) 0%, transparent 60%);
-  pointer-events: none;
-}
-[data-screen-label="Readiness"] {
-  background: linear-gradient(180deg, var(--clr-surface) 0%, color-mix(in srgb, var(--clr-ocean) 4%, var(--clr-surface)) 100%) !important;
-  position: relative;
-  overflow: hidden;
-}
-[data-screen-label="Readiness"]::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 80% 50%, color-mix(in srgb, var(--clr-ocean) 6%, transparent) 0%, transparent 60%);
-  pointer-events: none;
+@media (max-width: 640px) {
+  .lp-countdown { padding: 14px 14px; }
+  .lp-countdown-cell b { font-size: 26px; }
+  .lp-proof-stats { gap: 8px 22px; }
+  .lp-proof-stats b { font-size: 24px; }
+  .lp-three-item { grid-template-columns: 1fr; }
+  .lp-three-visual { grid-column: 1; }
+  .lp-three-num { font-size: 36px; }
 }
 
 /* ================================================================
@@ -529,18 +599,6 @@ html.lp-active { background: var(--clr-bg); }
 /* ================================================================
    HERO EYEBROW CHIP — static dot (the infinite pulse is gone)
    ================================================================ */
-
-/* ================================================================
-   ✨ READINESS RING — smooth spin-in on reveal
-   ================================================================ */
-.lp-root .lp-reveal.in [style*="conic-gradient"] {
-  animation: lp-ring-in 1s cubic-bezier(.16,1,.3,1) both;
-  animation-delay: .25s;
-}
-@keyframes lp-ring-in {
-  from { opacity: 0; transform: scale(.85) rotate(-30deg); }
-  to   { opacity: 1; transform: scale(1) rotate(0deg); }
-}
 
 /* ================================================================
    ✨ RESPONSIVE — desktop <-> mobile at 1000px
@@ -680,6 +738,12 @@ html.lp-active { background: var(--clr-bg); }
   .lp-mobile-menu,
   .lp-mobile-menu-link { transition-duration: .001ms !important; transition-delay: 0s !important; transform: none !important; }
   #cta .lp-reveal > div::before { animation: none !important; }
-  #why::after { animation: none !important; }
+  /* The marquee stands still and shows one copy, wrapped; bars and the
+     light-box film show their final state. */
+  .lp-marquee { animation: none !important; width: auto; flex-wrap: wrap; }
+  .lp-marquee-track { flex-wrap: wrap; }
+  .lp-marquee-track[data-copy="1"] { display: none; }
+  .lp-three-row-bar > span { transform: none !important; animation: none !important; }
+  .lp-lab-film { filter: none !important; transition: none !important; }
   .lp-root *, .lp-root *::before, .lp-root *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
 }
