@@ -471,6 +471,13 @@ mcq 5,293 / tf 200 / short 71 / match 49 / fill 29 / essay 5.
 - 228 topics in years 1-3 subjects are unscoped; they sit outside the current timetable, so the
   lint does not hold them yet.
 
+Production proof (v188, promoted 18:22Z 2026-09-16, Smoke run 35005739645 success): on
+vetmock.vercel.app with year 5 selected, the config screen for ทุกวิชา reads **"มี 2,443
+ข้อในชุดนี้" under เทอม 1 กลางภาค and "มี 1,118 ข้อในชุดนี้" under เทอม 1 ปลายภาค.** The same
+screen showed the same number for both picks before this release. (2,443 and 1,118 rather than
+the 2,449 and 1,125 the pool holds: the config default asks for the mcq category, which leaves
+out the handful of new written items.)
+
 Checks: `npm run gate` alone on the final tree — build, lint:all (every generated artifact
 re-checked), unit 992/0, e2e 536 passed / 1 failed in 6.1 min; the one failure is the known
 Firefox `NS_BINDING_ABORTED` on `page.reload` in system-polish, which passes alone in 7 s.
