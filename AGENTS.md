@@ -557,7 +557,13 @@ marquee copy is `aria-hidden`; `home-desktop.jpg` is exactly 2x its attributes.
 - Preview after the build: `/app/admin` signed out shows the locked card and fires no RPC; Home
   shows "พรุ่งนี้ 08:00 น. CLI PROB SOLV COMP, VET6 807" in the evening; no horizontal overflow at
   372px; the two console errors (a 404 and a 401) are the same on Home and predate this work.
-- Production: see the 5.102.0 proof note below once the alias moved.
+- Production 5.102.0: Smoke run 34976425333 success, `sw.js` v186 at 13:54Z; `/app/admin` opened as
+  Palm in his Chrome: real data (29 accounts, 140 attempts / 137 distinct in 30 days, 8 exams, the
+  people table with emails and sign-ins, subjects, the daily chart). Production 5.102.1: Smoke run
+  34980143541 success, v187 at 14:28Z; sidebar reads v5.102.1, the accuracy percentages are in the
+  table as text ("74%", "56%", ...) beside the bars, the online tile reads "แท็บที่เปิดอยู่ตอนนี้"
+  (connected). Screenshots of that tab timed out (CDP) while it loaded its 82 bank chunks; text
+  queries were the proof.
 
 ## 2026-09-15 — 5.101.0: the landing rebuilt, and the gate rule that stops Smoke failing (Claude)
 
