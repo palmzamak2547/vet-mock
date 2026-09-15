@@ -100,7 +100,7 @@ export default function Sidebar({
         onClick={goHome}
         aria-label="VetMock — หน้าแรก"
       >
-        <Wordmark size={24} />
+        <Wordmark size={24} cycle />
       </button>
 
       <nav className="vmx-sidebar-nav" aria-label="เมนูหลัก">

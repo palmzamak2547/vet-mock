@@ -353,6 +353,58 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-15 — 5.100.0: the exam countdown, and a wordmark that plays with words (Claude)
+
+Two asks from Palm in one message: "ตรง sidebar ที่เขียนว่า VetMock ... สลับไปมาระหว่าง Mock Love
+CU 86 87 88 89 90" and "นาฬิกานับถอยหลังกลางภาคที่จะถึงด้วย ลองออกแบบดูเอาสวยๆ creative ๆ".
+
+### Wordmark cycle — `src/components/Wordmark.jsx`, `cycle` prop, sidebar only
+
+- The wordmark was already two voices (bold ink lead, rose italic tail). Every phrase keeps that
+  split — `Mock`·*Love*, `CUVET`·*86* — so the brand changes WORDS, never typeface. The list is
+  one array (`PHRASES`); the cohort numbers are every year in the building and go stale
+  together with `YEARS.current` in curriculum.js.
+- **Corrected by Palm mid-build, twice:** I had written "CU 86". A cohort is written CUVET86,
+  one token — "มีแต่ CUVET86 อย่ามั่ว". I then over-corrected and dropped "CU Vet" as well; that
+  one is the faculty's own name and is fine — "CU Vet ก็ถูก แต่ CU86 ไม่ถูก". Never abbreviate a
+  name the faculty already has a spelling for, and fix exactly what was wrong, not its neighbours.
+- All phrases sit in ONE grid cell (`grid-area: 1/1`), so the button is as wide as its widest
+  phrase from first paint. Measured: 145.83px before, during and after cycling. Nothing shifts.
+- `backwards` fill, not `both` — same reason as the settle: a filling animation outranks a
+  transition and would pin the tail, killing the hover nudge.
+- Held still while the pointer is on the button (`closest("button").matches(":hover")`), while
+  the tab is hidden, and never started under prefers-reduced-motion. The brand phrase dwells
+  6.4 s, the wordplay 3.2 s. The first swap waits 5.2 s so it never lands on top of the settle.
+- The five old `.vmx-wordmark-text > span` selectors became `.vmx-wordmark-tail`, because the
+  phrase spans are now the direct children and would have inherited the italic.
+
+### Exam countdown — `src/lib/exam-countdown.js` (pure, 5 tests) + `ExamCountdown.jsx`
+
+- **Corrected by Palm mid-build:** the first cut showed days only, on my own theory that
+  seconds are anxiety. He had asked for a countdown — "อยากให้มี หลักนาที วินาที ด้วย คุณเข้าใจ
+  คำว่า countdown ไหม". A countdown counts. The clock now ticks live (hours, minutes, seconds,
+  tabular, paused while the tab is hidden, owned by the component so Home does not re-render
+  every second). Rule: do not narrow an ask on taste without saying so first.
+- Evidence, per the routing rule: Lazyweb "one-year" (days-left number over a dot grid of
+  days) and "days" (big numeral hero). Coverage for exam-specific countdowns was weak (0.43);
+  those two were the useful neighbours. No 21st/shadcn — VetMock is custom CSS on tokens.
+- Everything about WHEN comes from `EXAM_SCHEDULE` via `getUpcomingExams`, so it is the same
+  clock as the schedule page and `shortCountdown` gives the imminent text. The window rolls
+  from midterm to final by itself; a year with no timetable returns null and the hero renders
+  nothing. That null is the entire year gate — nothing is special-cased per year.
+- Pinned to the published ภาคต้น 2569 timetable at three moments: a week out (6 days, 9 papers,
+  strip 15th to 25th, exam days 2/2/2/2/1), mid-week mid-paper (4 sat, running paper is next,
+  sat days read as done, strip starts at the first paper), and the morning after (rolls to
+  the final; the 58-day gap exceeds `STRIP_MAX_DAYS` so the strip hides and the number stands).
+- The strip is a BUTTON that opens ตารางสอบ; the cells are decoration with `title` tooltips.
+  Exam pills take `--exam-color` from the schedule entry inline, mixed with `color-mix` — no
+  new hex in CSS, so hex-budget and css-tokens stay green.
+- `NextActionCard` gained `examContext`; Home passes `!examWindow` so the old "สอบถัดไป N วัน"
+  chip hides whenever the hero countdown shows. Two counters for one paper is clutter.
+- Verified with Playwright at 1280x820 / 390x844 / dark, NOT the Browser pane: the pane is
+  ~365px wide and scales a desktop emulation down to an unreadable thumbnail (again). Mobile:
+  scrollWidth == clientWidth, the strip scrolls inside its own box.
+
 ## 2026-09-14 — 5.99.0: the Vet 85 Mid-86 ingest, and a guessability class no lint caught (Claude)
 
 218 questions from five senior compilations. Swine contributed 0 — its page-5 content already

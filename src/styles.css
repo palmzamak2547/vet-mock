@@ -749,7 +749,7 @@ html, body {
 .vmx-header-context { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 0; }
 .vmx-logo { font-family: var(--vmx-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; cursor: pointer; }
 .vmx-wordmark-text { color: var(--clr-ink); font-style: normal; font-weight: 800; }
-.vmx-wordmark-text > span { color: var(--clr-rose-text); font-style: italic; font-weight: 500; }
+.vmx-wordmark-tail { color: var(--clr-rose-text); font-style: italic; font-weight: 500; }
 /* ── The mark ────────────────────────────────────────────────────────────
    Inline SVG so the pad and toes can move against each other. Everything
    here is transform/opacity only, and every bit of it is decoration: the
@@ -780,12 +780,12 @@ html, body {
 .vmx-logo-btn:hover .vmx-mark { transform: rotate(-5deg) translateY(-1px); }
 .vmx-logo-btn:hover .vmx-mark-toes { transform: translateY(-7%) scale(1.04); }
 .vmx-logo-btn:hover .vmx-mark-pad { transform: scale(1.06); }
-.vmx-logo-btn:hover .vmx-wordmark-text > span { transform: translateX(1px); }
+.vmx-logo-btn:hover .vmx-wordmark-tail { transform: translateX(1px); }
 
 .vmx-logo-btn:active .vmx-mark { transform: rotate(-2deg) scale(0.94); }
 .vmx-logo-btn:active .vmx-mark-toes { transform: translateY(4%) scale(0.97); }
 
-.vmx-wordmark-text > span {
+.vmx-wordmark-tail {
   display: inline-block;
   transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -820,24 +820,54 @@ html, body {
 }
 .vmx-mark-settle-text { animation: vmx-mark-text-in 380ms cubic-bezier(0.22, 1, 0.36, 1) 120ms backwards; }
 
+/* ── The cycle (sidebar) ─────────────────────────────────────────────────
+   Every phrase sits in the same grid cell, so the brand is as wide as its
+   widest phrase from the first paint and a swap moves nothing around it.
+   Transform and opacity only, like everything else on the mark. The tail
+   rises a beat after the lead — two voices, not one block — which is the
+   hover gesture at a different tempo. `backwards`, not `both`, for the same
+   reason as the settle: a filling animation would pin the tail and kill
+   the hover nudge. The exit holds its last frame because the element is
+   invisible either way once the next swap demotes it. */
+.vmx-wordmark-cycle { display: inline-grid; align-items: center; }
+.vmx-wordmark-phrase { grid-area: 1 / 1; white-space: nowrap; visibility: hidden; }
+.vmx-wordmark-phrase.is-in,
+.vmx-wordmark-phrase.is-out { visibility: visible; }
+.vmx-wordmark-phrase.is-in { animation: vmx-word-in 460ms cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.vmx-wordmark-phrase.is-in .vmx-wordmark-tail { animation: vmx-word-in 460ms cubic-bezier(0.22, 1, 0.36, 1) 70ms backwards; }
+.vmx-wordmark-phrase.is-out { animation: vmx-word-out 300ms cubic-bezier(0.4, 0, 0.6, 1) forwards; }
+@keyframes vmx-word-in {
+  from { opacity: 0; transform: translateY(0.42em) scaleY(0.92); }
+  to   { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+@keyframes vmx-word-out {
+  to   { opacity: 0; transform: translateY(-0.34em) scaleY(0.96); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  /* The component never starts the cycle under this query, so this only
+     matters if the preference flips mid-session: phrases then cut, not rise. */
+  .vmx-wordmark-phrase.is-in,
+  .vmx-wordmark-phrase.is-in .vmx-wordmark-tail,
+  .vmx-wordmark-phrase.is-out { animation: none !important; }
+  .vmx-wordmark-phrase.is-out { visibility: hidden; }
   .vmx-mark,
   .vmx-mark-pad,
   .vmx-mark-toes,
-  .vmx-wordmark-text > span { transition: none; }
+  .vmx-wordmark-tail { transition: none; }
   .vmx-logo-btn:hover .vmx-mark,
   .vmx-logo-btn:hover .vmx-mark-toes,
   .vmx-logo-btn:hover .vmx-mark-pad,
   .vmx-logo-btn:active .vmx-mark,
   .vmx-logo-btn:active .vmx-mark-toes,
-  .vmx-logo-btn:hover .vmx-wordmark-text > span { transform: none; }
+  .vmx-logo-btn:hover .vmx-wordmark-tail { transform: none; }
   .vmx-mark-settle,
   .vmx-mark-settle .vmx-mark-toes,
   .vmx-mark-settle-text { animation: none !important; opacity: 1; }
 }
 
 .vmx-logo-btn { border: 0; background: transparent; color: var(--clr-ink); padding: 8px 2px; min-height: 44px; display: inline-flex; align-items: center; gap: 9px; }
-.vmx-logo-btn:hover .vmx-wordmark-text > span { color: var(--clr-rose-text); }
+.vmx-logo-btn:hover .vmx-wordmark-tail { color: var(--clr-rose-text); }
 .vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .vmx-subtitle { font-size: 12px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
 .vmx-streak { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-pill); font-size: 13px; font-weight: 600; color: var(--clr-gold-text); }
@@ -1070,6 +1100,99 @@ html, body {
 .vmx-hero h1 { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 700; font-size: clamp(26px, 4vw, 36px); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 8px; color: var(--clr-ink); }
 .vmx-hero h1 em { font-style: normal; color: var(--clr-sage-text); font-weight: 700; }
 .vmx-hero p { font-size: 14px; color: var(--clr-ink-soft); max-width: 520px; line-height: 1.5; margin: 0; }
+
+/* ── Exam countdown ──────────────────────────────────────────────────────
+   One number, one row of days. The number is set in the display face and
+   tabular, so it can roll up without the caption shuffling under it. The
+   strip is a button (it opens the timetable) whose children are decoration;
+   exam days stack one pill per paper, coloured by the paper, so a day with
+   two papers is visibly heavier than a day with one. */
+.vmx-countdown {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px 28px;
+  align-items: center;
+  margin: 0 0 var(--space-5);
+  padding: 16px 18px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-xl);
+  background: var(--clr-surface);
+  box-shadow: var(--shadow-sm);
+}
+.vmx-countdown-lead { display: grid; gap: 4px; min-width: 0; }
+.vmx-countdown-eyebrow {
+  font-family: var(--vmx-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--clr-ink-soft); white-space: nowrap;
+}
+.vmx-countdown-eyebrow > span { color: var(--clr-sage-text); margin-left: 8px; letter-spacing: 0.02em; }
+.vmx-countdown-num {
+  font-family: var(--vmx-display); font-weight: 600; font-size: clamp(46px, 6vw, 66px);
+  line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--clr-ink);
+  display: flex; align-items: baseline; white-space: nowrap;
+}
+.vmx-countdown-num.is-text { font-size: clamp(26px, 3.2vw, 34px); font-weight: 500; letter-spacing: -0.01em; color: var(--clr-rose-text); }
+.vmx-countdown-unit { font-family: inherit; font-size: 16px; font-weight: 600; color: var(--clr-sage-text); margin-left: 8px; letter-spacing: 0; }
+.vmx-countdown-caption { font-size: 13px; line-height: 1.45; color: var(--clr-ink-soft); }
+/* The clock: tabular so a second ticking over moves nothing but that digit.
+   The seconds carry the one accent, the same rose the wordmark's tail uses. */
+.vmx-countdown-clock {
+  display: inline-flex; align-items: baseline; flex-wrap: wrap;
+  font-family: var(--vmx-mono); font-variant-numeric: tabular-nums; font-size: 22px; line-height: 1;
+  letter-spacing: 0.02em; color: var(--clr-ink); margin-top: 2px;
+}
+.vmx-countdown-clock b { font-weight: 600; }
+.vmx-countdown-clock b:last-of-type { color: var(--clr-rose-text); }
+.vmx-countdown-clock i { font-style: normal; font-size: 10.5px; letter-spacing: 0.06em; color: var(--clr-ink-soft); margin: 0 10px 0 3px; }
+.vmx-countdown-clock i:last-of-type { margin-right: 0; }
+/* Under a day the clock is the hero. */
+.vmx-countdown.is-hours .vmx-countdown-clock { font-size: clamp(36px, 4.6vw, 50px); letter-spacing: 0; margin-top: 4px; }
+.vmx-countdown.is-hours .vmx-countdown-clock i { font-size: 12px; }
+.vmx-countdown.is-sitting .vmx-countdown-eyebrow { color: var(--clr-rose-text); }
+
+.vmx-countdown-strip {
+  display: flex; gap: 6px; align-items: start;
+  padding: 6px 4px; margin: 0; border: 0; background: transparent; color: inherit;
+  cursor: pointer; overflow-x: auto; scrollbar-width: none; min-width: 0;
+  border-radius: var(--r-md, 12px);
+}
+.vmx-countdown-strip::-webkit-scrollbar { display: none; }
+.vmx-countdown-strip:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-countdown-day { flex: 0 0 34px; display: grid; gap: 4px; justify-items: center; }
+.vmx-countdown-dow { font-size: 10px; color: var(--clr-ink-soft); opacity: 0.7; line-height: 1; }
+.vmx-countdown-daynum {
+  font-family: var(--vmx-mono); font-size: 11.5px; line-height: 1; color: var(--clr-ink);
+  width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%;
+}
+.vmx-countdown-day.is-weekend .vmx-countdown-daynum,
+.vmx-countdown-day.is-weekend .vmx-countdown-dow { opacity: 0.45; }
+.vmx-countdown-day.is-today .vmx-countdown-daynum { background: var(--clr-sage); color: var(--clr-sage-on); font-weight: 700; }
+.vmx-countdown-dot { width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--clr-border); }
+.vmx-countdown-pill {
+  width: 26px; height: 22px; border-radius: 7px; display: grid; place-items: center;
+  font-size: 12px; line-height: 1;
+  background: color-mix(in srgb, var(--exam-color) 16%, var(--clr-surface));
+  box-shadow: inset 0 0 0 1.5px var(--exam-color);
+}
+.vmx-countdown-day.is-done .vmx-countdown-pill { color: var(--clr-sage-text); font-size: 11px; font-weight: 700; opacity: 0.55; }
+.vmx-countdown-strip:hover .vmx-countdown-day.is-exam:not(.is-done) .vmx-countdown-pill { transform: translateY(-1px); }
+.vmx-countdown-pill { transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Entrance, once per load, gated in the component. */
+@keyframes vmx-countdown-day-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.vmx-countdown-enter .vmx-countdown-day {
+  animation: vmx-countdown-day-in 360ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(120ms + var(--i, 0) * 28ms);
+}
+@media (max-width: 640px) {
+  .vmx-countdown { grid-template-columns: 1fr; gap: 10px; padding: 14px 14px; }
+  .vmx-countdown-eyebrow { white-space: normal; }
+  .vmx-countdown-strip { padding-inline: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-countdown-enter .vmx-countdown-day { animation: none; }
+  .vmx-countdown-pill { transition: none; }
+  .vmx-countdown-strip:hover .vmx-countdown-day.is-exam:not(.is-done) .vmx-countdown-pill { transform: none; }
+}
 
 /* Study focus surface — adapts a progress-card hierarchy to VetMock:
    context header -> one dominant next step -> compact supporting context.

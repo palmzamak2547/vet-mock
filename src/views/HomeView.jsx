@@ -38,6 +38,8 @@ const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 // subject · random fallback). Replaces the "menu of tools" feel called
 // out in Palm's friend's review.
 import NextActionCard from '../components/NextActionCard.jsx';
+import ExamCountdown from '../components/ExamCountdown.jsx';
+import { examWindowFor } from '../lib/exam-countdown.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
@@ -83,6 +85,9 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const yearMeta = YEARS.find((y) => y.id === selectedYear) || YEARS.find((y) => y.current) || YEARS[0];
   const isScaffoldYear = !!yearMeta?.scaffold;
   const nextExam = getNextExam(`y${selectedYear}`);
+  // The exam period as a whole — null for a year with no timetable, which
+  // is the only gate the hero countdown needs. Recomputed on the tick below.
+  const examWindow = isScaffoldYear ? null : examWindowFor(`y${selectedYear}`);
   // Today's timetable + the registrar's deadlines, surfaced as chips so the
   // published schedule is one tap away instead of buried in a PDF.
   const nextClassToday = getNextClassToday(selectedYear);
@@ -738,6 +743,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         )}
       </div>
 
+      {examWindow && (
+        <ExamCountdown
+          window={examWindow}
+          subjects={yearSubjects}
+          onOpenSchedule={() => setView('schedule')}
+        />
+      )}
+
       {bannerWinner === 'wrapped' && (
         <div
           style={{
@@ -789,6 +802,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
       {!isScaffoldYear && (
         <NextActionCard
           nextExam={nextExam}
+          examContext={!examWindow}
           quickStats={quickStats}
           cardStats={cardStats}
           accBySubject={accBySubject}

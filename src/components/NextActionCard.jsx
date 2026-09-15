@@ -12,6 +12,7 @@ import { SEASONAL_MOCHI } from '../data/art.js';
 
 export default function NextActionCard({
   nextExam,
+  examContext = true,
   quickStats,
   cardStats,
   accBySubject,
@@ -74,7 +75,10 @@ export default function NextActionCard({
     } else if (nextExam && nextExam.daysLeft != null && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7) {
       out.push({
         title: `ติว ${nextExam.subject_name || nextExam.title || 'วิชาที่จะสอบ'}`,
-        sub: nextExam.daysLeft === 0 ? 'กำหนดสอบวันนี้' : `กำหนดสอบในอีก ${nextExam.daysLeft} วัน`,
+        // The date, not "อีก N วัน": the hero countdown above counts real time
+        // (5 วัน 15 ชม.) while daysLeft counts calendar days (6), and the two
+        // on one screen read as a contradiction.
+        sub: nextExam.daysLeft === 0 ? 'กำหนดสอบวันนี้' : `กำหนดสอบ ${fmtThaiDate(nextExam.date)}`,
         cta: 'เริ่มฝึก',
         kind: 'exam',
         onClick: () => onPickExamPrep?.(nextExam),
@@ -173,7 +177,9 @@ export default function NextActionCard({
 
   const primaryAction = actions[0];
   const secondaryActions = actions.slice(1);
-  const showExamContext = nextExam
+  // `examContext` is false when the hero already carries the countdown —
+  // two counters for one paper on one screen is clutter, not emphasis.
+  const showExamContext = examContext && nextExam
     && nextExam.daysLeft != null
     && nextExam.daysLeft >= 0
     && nextExam.daysLeft <= 30;

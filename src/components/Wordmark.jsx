@@ -24,16 +24,73 @@
 // Sidebar for focus views, so leaving an exam remounts this component, and a
 // brand that re-animates every time you come back from a question would go
 // from charming to nagging by the third one.
+//
+// ── The cycle (sidebar only) ─────────────────────────────────────────────
+// The wordmark is already two voices: a bold lead and a rose italic tail.
+// Every phrase below keeps that split, so "CU 86" is set exactly the way
+// "VetMock" is and the brand never changes typeface, only words. Phrases
+// swap by rising into place, the tail a beat behind the lead — the same
+// two-voice gesture the hover already makes.
+//
+// It holds still while the pointer is on the button (you are about to
+// click it; it should not change under you), while the tab is hidden, and
+// entirely under prefers-reduced-motion, where it stays "VetMock".
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 let settledThisLoad = false;
 
-export default function Wordmark({ size = 22 }) {
+// [lead, tail]. A trailing space on the lead is the gap between the words —
+// the tail is an inline-block, so a leading space inside it would collapse.
+// "CU Vet" is the faculty. A cohort is written the way the faculty writes
+// it, CUVET86, one token — never "CU 86" (Palm: "CU Vet ก็ถูก แต่ CU86 ไม่ถูก").
+// The cohorts are every year in the building right now: CUVET86 is in year 5
+// as of ภาคต้น 2569 (curriculum.js, YEARS.current). Bump all five together.
+const PHRASES = [
+  ['Vet', 'Mock'],
+  ['Mock ', 'Love'],
+  ['CU ', 'Vet'],
+  ['CUVET', '86'],
+  ['CUVET', '87'],
+  ['CUVET', '88'],
+  ['CUVET', '89'],
+  ['CUVET', '90'],
+  ['Vet', 'Mochi'],
+];
+// The brand name gets the long dwell; the wordplay is a passing wink.
+const DWELL_MS = (i) => (i === 0 ? 6400 : 3200);
+const FIRST_SWAP_MS = 5200; // after the settle, not on top of it
+
+export default function Wordmark({ size = 22, cycle = false }) {
   // Read on first render and never again, so the flag flips exactly once
   // and re-renders cannot restart the animation.
   const playSettle = useRef(!settledThisLoad);
   settledThisLoad = true;
+
+  const [phrase, setPhrase] = useState({ cur: 0, prev: -1 });
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    if (!cycle) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    let timer = 0;
+    let cur = 0;
+    const tick = () => {
+      const held = document.hidden || textRef.current?.closest('button')?.matches(':hover');
+      if (!held) {
+        const next = (cur + 1) % PHRASES.length;
+        setPhrase({ cur: next, prev: cur });
+        cur = next;
+      }
+      // A held tick retries on the short dwell instead of waiting out a
+      // 6-second hold on the brand phrase.
+      timer = window.setTimeout(tick, held ? DWELL_MS(1) : DWELL_MS(cur));
+    };
+    timer = window.setTimeout(tick, FIRST_SWAP_MS);
+    return () => window.clearTimeout(timer);
+  }, [cycle]);
+
+  const settleText = playSettle.current ? ' vmx-mark-settle-text' : '';
 
   return (
     <>
@@ -54,9 +111,25 @@ export default function Wordmark({ size = 22 }) {
           </g>
         </svg>
       </span>
-      <span className={`vmx-wordmark-text${playSettle.current ? ' vmx-mark-settle-text' : ''}`}>
-        Vet<span>Mock</span>
-      </span>
+      {cycle ? (
+        // Every phrase is stacked in one grid cell, so the button is as wide
+        // as the widest phrase from the start and nothing shifts on a swap.
+        // The button carries the accessible name; this is decoration.
+        <span ref={textRef} className={`vmx-wordmark-text vmx-wordmark-cycle${settleText}`} aria-hidden="true">
+          {PHRASES.map(([lead, tail], i) => (
+            <span
+              key={lead + tail}
+              className={`vmx-wordmark-phrase${i === phrase.cur ? ' is-in' : i === phrase.prev ? ' is-out' : ''}`}
+            >
+              {lead}<span className="vmx-wordmark-tail">{tail}</span>
+            </span>
+          ))}
+        </span>
+      ) : (
+        <span className={`vmx-wordmark-text${settleText}`}>
+          Vet<span className="vmx-wordmark-tail">Mock</span>
+        </span>
+      )}
     </>
   );
 }
