@@ -31,28 +31,83 @@ claim against a reliable source before it ships. Your transcript should
 therefore record *what was said*, faithfully, including anything that sounds
 doubtful — flag it, do not silently correct it.
 
-## Source
+## Source — checked on the channel, 2026-09-16
 
 Channel: https://www.youtube.com/@dai.1387 (CUVET86, the current cohort)
 
-Start with **Equine Reproduction (3108515)**, lectures 1 to 6 — those are the
-ones the department's schedule places before สอบกลางภาค 21-25 ก.ย. 2569:
+**Equine Reproduction is NOT on this channel.** The home page carries five
+sections — ปี3 เทอม1 Final, ปี3 เทอม2, ปี4 เทอม1, ปี4 เทอม2, ปี5 เทอม1 — and no
+playlist for it in any of them; "equine", "horse" and "ม้า" do not appear in the
+fully-scrolled page text. The public /playlists tab lists only two items, so the
+rest of the playlists are unlisted and surface only through the home sections.
 
-1. บทนำ กายวิภาคและการทำหน้าที่ของระบบสืบพันธุ์ม้าเพศเมีย
-2. วงจรการเป็นสัดและการควบคุมวงจรการเป็นสัด
-3. การตรวจระบบสืบพันธุ์ม้าเพศเมีย
-4. เทคโนโลยีชีวภาพทางการสืบพันธุ์ที่สำคัญในม้าเพศเมีย
-5. โรคติดเชื้อที่สำคัญของม้าเพศเมีย
-6. ภาวะความไม่สมบูรณ์พันธุ์และการตรวจวินิจฉัย
+**ปี5 เทอม1 actually holds six subjects:**
 
-Lectures 7 to 14 are the ปลายภาค material and can follow later.
+| playlist | videos |
+|---|---|
+| Epidemiology VET86 | 12 |
+| Aquatic animal medicine VET86 | 10 |
+| Avian medicine VET86 | 7 |
+| Clinical Problem Solving Comp VET86 | 5 |
+| One health VET86 | 5 |
+| Milk hygiene VET86 | 4 |
+
+Of these, Epidemiology has no midterm paper at all (checked against the faculty
+timetable), so for midterm work the targets are Milk hygiene, Avian medicine,
+One health and Aquatic animal medicine.
+
+**Lecture length is about two hours.** The first Milk hygiene video
+("2.Milk Introduction + Mastitis & Milk quality 19 Aug 69") runs 7,798 seconds.
+Budget accordingly: four Milk hygiene videos is roughly eight hours of audio.
+
+## How to get the transcript — the route that actually works
+
+The videos are **unlisted** and carry a **Thai auto-generated (ASR)** caption
+track. Two things that do NOT work, both verified:
+
+- Fetching `captionTracks[0].baseUrl` (with `&fmt=json3`, `&fmt=srv3`, or bare)
+  returns **HTTP 200 with a zero-byte body**. YouTube has required a
+  proof-of-origin token on that endpoint since 2024. Signing in does not change it.
+- The player's CC button reports "คำบรรยาย/คำบรรยายแทนเสียงไม่พร้อมใช้งาน".
+
+What works is the **transcript panel in the page**:
+
+1. Load the watch URL and let the player initialise (allow ~5 s).
+2. Click the button whose label is `แสดงข้อความถอดเสียง` (Show transcript).
+3. Read `ytd-engagement-panel-section-list-renderer` whose text contains
+   `ข้อความถอดเสียง`. Cues render as `m:ss` followed by the line.
+
+Caution learned the hard way: the cue list is **virtualised**. Scrolling it in a
+tight loop (50 iterations) froze the renderer and the tab stopped responding.
+Scroll in small steps with real waits, or drive the panel by seeking the video.
+
+## What the ASR actually produces, and why step 1 of the hard rules matters
+
+Verbatim from the first minute of the Milk hygiene lecture:
+
+> `0:02` มันเป็น horor มีเวลาเราพูดถึงฝุ่น the food chนมันจะมีพีฮharวestกับ poost harvest
+> `0:09` ใช่ป่ะของอาจารย์จักกฤตอ่ะค่ะเป็นพีฮ harวest
+
+The Thai is readable. **The English technical terms are destroyed** — "pre-harvest"
+became `พีฮharวest` and `พีฮ harวest`, "post-harvest" became `poost harvest`,
+"food chain" became `the food chน`. Those terms are precisely what a question
+turns on, which is why the ASR text is raw material and never the answer.
+
+The lecturer's own emphasis does survive, and that is the part worth having:
+asides, repetition, and `[เสียงหัวเราะ]` markers all come through, so "what was
+stressed" is recoverable even where the terminology is not.
+
+**Therefore:** repair every English term against the lecture slides (visible in
+the video frame) or a textbook before it reaches a question, and mark anything
+still uncertain as `[ฟังไม่ชัด]`.
 
 ## Hard rules
 
-1. **Do not paste auto-captions.** Thai auto-caption degrades worst on exactly
-   the veterinary terms a question turns on — endometrial cups, pneumovagina,
-   maternal recognition of pregnancy, interferon tau. Those are the words that
-   decide whether a question is right. Listen and transcribe them.
+1. **Never ship raw ASR.** The Thai auto-caption is your starting material, not
+   your output. It destroys exactly the veterinary terms a question turns on —
+   see the sample above, where pre-harvest and post-harvest both came out
+   unrecognisable. Repair every English term against the slide on screen or a
+   textbook. If you cannot confirm a term, write `[ฟังไม่ชัด]` and move on.
 2. **Timestamp everything.** Every paragraph carries `[mm:ss]`. Question
    authoring cites lecture and timestamp the way it currently cites a PDF page
    and item number; without a timestamp a claim cannot be re-checked.
@@ -69,18 +124,19 @@ Lectures 7 to 14 are the ปลายภาค material and can follow later.
 
 ## Output format
 
-One Markdown file per lecture, named
-`equine-repro-L<N>-<short-slug>.md`, containing:
+One Markdown file per lecture, named `<subject>-L<N>-<short-slug>.md`
+(e.g. `milk-hygiene-L2-intro-mastitis.md`), containing:
 
 ```markdown
 ---
-subject: equine-repro
-lecture: 6
-title: ภาวะความไม่สมบูรณ์พันธุ์และการตรวจวินิจฉัย
-lecturer: <as named on the recording>
+subject: milk-meat-hygiene          # the VetMock subject id
+lecture: 2
+title: Milk Introduction + Mastitis & Milk quality
+lectureDate: 19 Aug 69               # printed in the video title
+lecturer: <as named on the recording, or omit>
 videoUrl: <url>
 recordedFor: CUVET86
-examPaper: midterm      # lectures 1-6 midterm, 7-14 final
+examPaper: midterm                   # from the faculty timetable, by lecture date
 transcribedBy: <agent>
 ---
 
