@@ -172,7 +172,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'comp-repro-clinic': 48,
     'engprof': 1,
     'equine-medicine': 60,
-    'equine-repro': 28,
+    'equine-repro': 17,
     'exotic': 34,
     'food-industry': 67,
     'food-safety-y4': 15,
@@ -209,7 +209,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com5': 10,
     'comp-repro-clinic': 48,
     'engprof': 1,
-    'equine-repro': 50,
+    'equine-repro': 60,
     'exotic': 34,
     'food-safety-y4': 21,
     'herd-health-rum': 33,
@@ -245,7 +245,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com1': 4,
     'com2': 14,
     'equine-medicine': 281,
-    'equine-repro': 103,
+    'equine-repro': 58,
     'food-industry': 104,
     'food-safety-y4': 15,
     'herd-health-rum': 24,
@@ -268,7 +268,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'engprof1': 30,
     'epidemiology': 100,
     'equine-medicine': 57,
-    'equine-repro': 70,
+    'equine-repro': 108,
     'food-industry': 34,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
@@ -335,12 +335,12 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 2437,
+    5: 2392,
   },
   '1-final': {
     2: 104,
     4: 302,
-    5: 1091,
+    5: 1129,
   },
   '2-mid': {
     1: 298,
@@ -420,15 +420,12 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'equine-respi': 7,
     },
     'equine-repro': {
-      'eqrepro-ai': 1,
       'eqrepro-anatomy-cycle': 12,
       'eqrepro-art-female': 13,
-      'eqrepro-endometritis': 16,
       'eqrepro-exam-mare': 14,
       'eqrepro-infertility': 6,
-      'eqrepro-pregnancy': 27,
+      'eqrepro-pregnancy': 1,
       'eqrepro-stallion-infect': 12,
-      'eqrepro-surgery': 2,
     },
     'food-industry': {
       'fiqc-feed-qc': 17,
@@ -732,13 +729,13 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'equine-tumors': 9,
     },
     'equine-repro': {
-      'eqrepro-ai': 10,
-      'eqrepro-infertility': 5,
+      'eqrepro-ai': 11,
+      'eqrepro-endometritis': 16,
       'eqrepro-male': 16,
       'eqrepro-postpartum': 11,
-      'eqrepro-pregnancy': 11,
+      'eqrepro-pregnancy': 35,
       'eqrepro-stallion-infect': 11,
-      'eqrepro-surgery': 6,
+      'eqrepro-surgery': 8,
     },
     'food-industry': {
       'fiqc-haccp': 17,
@@ -2520,4 +2517,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-16T06:46:20.495Z
+// Built: 2026-09-16T08:33:16.108Z

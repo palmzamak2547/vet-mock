@@ -393,7 +393,94 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
-## 2026-09-16 — 5.103.3: the marker was in a third field, and a senior's final is this cohort's midterm (Claude)
+## 2026-09-16 — MID 86 paper audit: what the three unread papers actually hold (Claude)
+
+Nine agents read every page of AVIAN MED (82), MILK HYGIENE (145) and FOOD
+INDUSTRY (22). Full structured report, with a page cite on every item, is
+checked in at `docs/mid86-paper-audit-2026-09-16.json`. Read that before any
+ingest rather than re-reading 249 pages.
+
+**FOOD INDUSTRY carries a second faculty timetable** (page 2, อุตสาหกรรมอาหารและ
+การควบคุมคุณภาพ 3109501, ภาคต้น 2569). สอบกลางภาค 21-25 ก.ย. covers exactly four
+lectures: บทนำ + การคุ้มครองด้านสุขภาพ, การควบคุมคุณภาพอาหารสัตว์, การควบคุม
+กระบวนการฆ่าและการจำหน่ายเนื้อสัตว์, การควบคุมคุณภาพในกระบวนการผลิตปศุสัตว์.
+HACCP, มาตรฐานเพื่อการส่งออก, สัตว์น้ำ and the meat-inspection practical are
+ปลายภาค. **The bank already matches this exactly** — fiqc-intro, fiqc-feed-qc,
+fiqc-slaughter-qc, fiqc-livestock-qc midterm; fiqc-haccp, fiqc-poultry-export
+final. No change needed, and that is now evidenced rather than assumed.
+
+**`fiqc-aquatic` looked like a conflict and is not one.** The topic is scoped
+`continuous` and hidden, and this timetable does list it as a taught lecture on
+28 ต.ค. 69. But the curriculum's own `lecturerNote` on that topic reads
+"ไม่ออกสอบ — handout only", attributed to the lecturer who teaches it. **A
+timetable says what is TAUGHT; the lecturer said what is EXAMINED**, and the
+second is the more specific claim about the thing we are deciding. It stays
+as it is. The 16 questions are already written and the topic carries a note
+saying to drop `hidden: true` if the year turns out otherwise — no work needed
+to reverse it.
+
+**What is actually in the two big papers, and it is more than was assumed:**
+- MILK HYGIENE p38-145 is not notes. It is ~119 reproduced exam questions,
+  one per page, as online-quiz screenshots with the correct option highlighted
+  green. p1-37 adds 42 matching items. 199 items total.
+- AVIAN MED p43-82 is the same shape: 40 pages, one quiz item per page with the
+  answer visible. p1-42 adds the senior's summary sheets plus 34 matching items
+  and 7 essay prompts. 186 items total.
+- FOOD INDUSTRY: 48 items, mostly slide content behind the four midterm topics.
+
+Against the bank today (avian 329 / milk 450 / food 154, of which matching
+questions number 6 and 0), the matching sets alone are a large un-ingested
+seam. **Nothing from this audit has been ingested** — it is an inventory, and
+each item still needs the question-writing rules, dedup against the existing
+bank, and the lints.
+
+**Two hazards the agents recorded, worth obeying:**
+- AVIAN p3-4 have a live text layer whose Thai font substitutes tone marks with
+  ASCII (`+`=ไม้โท, `E`/`1`=ไม้เอก): naive extraction yields เชื+อ, ทีE. Read
+  those pages as images. This is the tone-mark corruption already in memory,
+  now with the exact substitution map.
+- The AVIAN compiler states a colour key on p1: anything not blue or black is
+  lifted from the senior key, and a pink star marks a disease they could NOT
+  find in it. The highlighting is exam signal, not emphasis. The same compiler
+  warns "อย่าจำแต่โพย เพราะท่าจะเปลี่ยนข้อสอบบ้าง" and records that two
+  lecturers did not follow it at all — so nothing here may be ingested with a
+  claim that it will appear.
+
+## 2026-09-16 — 5.103.4: the department's own schedule settles equine repro (Claude)
+
+Palm asked one question — "คุณมั่นใจใช่ไหมครับว่ารุ่นผมออกกลางภาคจริง" — and the
+answer was no. Measuring the evidence actually attached to each question:
+**20** equine-repro questions scoped midterm cite a real `Equine Repro Mid 86.pdf`
+or `Equine reprod mid TJ.pdf` by page and number. **15** cite nothing but a
+document called `Repro horse final`, and I had marked them midterm anyway from
+`scope-audit/equine-repro-mid.report.md` — a file that is **not in this repo and
+that I could not produce**. Three of those 15 sat in topics the curriculum
+itself marks `final`. That was the "final ติดมาด้วย" Palm kept seeing, and it
+was mine, not the data's.
+
+He then sent the thing that settles it: **Horse reproduction (3108515) Course
+Schedule 2026**, the department's own sheet. สอบกลางภาค 21-25 ก.ย. 2569 covers
+**lecture 1-6**; สอบปลายภาค 23 พ.ย.-4 ธ.ค. covers **lecture 7-14**. A sheet like
+that outranks every senior paper for THIS cohort, and it moved three topics:
+
+- `eqrepro-endometritis` **midterm → final** (lecture 7). Sixteen questions had
+  been sitting in the midterm pool; not one of them cited Mid 86.
+- `eqrepro-pregnancy` **both → final** (lecture 13, การตั้งท้องและการคลอด).
+- `eqrepro-infertility` **both → midterm** (lecture 6).
+
+The split now reproduces the sheet exactly — กลางภาค 58 (anatomy-cycle 12,
+exam-mare 14, art-female 13, infertility 6, stallion-infect 12, pregnancy 1),
+ปลายภาค 108. The single pregnancy question left at midterm is 202249, day-14
+ultrasound pregnancy diagnosis, which is lecture 3 content and cites the real
+Mid 86 paper. `eqrepro-stallion-infect` stays `both` on purpose: lecture 5 is
+โรคติดเชื้อของม้าเพศเมีย and lecture 11 is เพศผู้, the topic straddles them, and
+two of its questions carry genuine Mid 86 citations.
+
+**Rule to carry forward:** a per-question `examScope` that contradicts its
+topic's may only stand when the question cites the paper it claims. 44 overrides
+were cleared here for failing that test.
+
+ the marker was in a third field, and a senior's final is this cohort's midterm (Claude)
 
 Two reports, both correct, both with a cause one layer under where the symptom
 sat. Neither was a leak of the wrong paper into a cram; 5.103.1's pool filter
