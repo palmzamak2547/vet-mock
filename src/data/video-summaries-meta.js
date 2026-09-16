@@ -2585,6 +2585,15 @@ export const VIDEO_META = {
     "instructor": "CUVET equine repro team",
     "examFormat": "Recap session, self-assessment"
   },
+  '5MGooHx0w7w': {
+    "videoId": "5MGooHx0w7w",
+    "title": "Equine Repro — Female Reproductive Anatomy + Estrous Cycle and Its Control",
+    "subject": "equine-repro",
+    "date": "2026-08-06",
+    "durationMin": 93,
+    "instructor": "Theerawat Tharasanit",
+    "examFormat": "อาจารย์แจ้งสัดส่วนคะแนนไว้ว่า midterm 40% + ปลายภาค 50% รวม 90% ที่เหลืออีก 10% เป็นคะแนนดิบ คือ 5% ให้ฟรีถ้าเข้าไปทำแบบประเมินรายวิชา และอีก 5% เป็นควิส surprise ที่อาจเป็นควิสออนไลน์หรือควิสในคาบ รวม 100 แล้วตัดเกรด A B C"
+  },
   'Cxuu_6N6hM4': {
     "videoId": "Cxuu_6N6hM4",
     "title": "Equine Repro — 1.2 Examination of Reproductive Organs in Mare",
@@ -2593,6 +2602,15 @@ export const VIDEO_META = {
     "durationMin": 51,
     "instructor": "CUVET equine repro team",
     "examFormat": "Multiple choice, ออก mare repro exam, ultrasound, palpation"
+  },
+  'FBNU52oH1z8': {
+    "videoId": "FBNU52oH1z8",
+    "title": "Equine Repro — การตรวจระบบสืบพันธุ์แม่ม้า และเทคโนโลยีชีวภาพการสืบพันธุ์",
+    "subject": "equine-repro",
+    "date": "2026-08-20",
+    "durationMin": 84,
+    "instructor": "Theerawat Tharasanit",
+    "examFormat": "อาจารย์ระบุสองจุดที่ออกข้อสอบ คือพฤติกรรมเป็นสัดของแม่ม้าซึ่ง \"ออกสอบ VCA บ่อยมาก\" [12:06] และชนิดหัวตรวจ linear transrectal ที่ \"เคยออกข้อสอบ\" [32:29] ส่วนโจทย์แนวเคสที่ให้ผลตรวจรังไข่ซ้ายขวา คะแนน uterine edema และขนาด cervix แล้วถามระยะของวงรอบนั้น อาจารย์บอกชัดว่าจะไม่ออกในรูปแบบนี้ \"ไม่ต้องถ่ายนะ เพราะว่าไม่ออกข้อสอบแบบนี้นะ มันง่ายไป\" [43:46] แต่ตรรกะการอ่านค่ายังต้องได้"
   },
   'FL4v85SwdXo': {
     "videoId": "FL4v85SwdXo",
@@ -2674,6 +2692,15 @@ export const VIDEO_META = {
     "durationMin": 4,
     "instructor": "CUVET equine repro team",
     "examFormat": "Brief intro"
+  },
+  'zFsNom4JMC8': {
+    "videoId": "zFsNom4JMC8",
+    "title": "Equine Repro — Infertility, Reproductive Diseases และ Fertility Disorder in Mares",
+    "subject": "equine-repro",
+    "date": "2026-08-27",
+    "durationMin": 128,
+    "instructor": "Theerawat Tharasanit",
+    "examFormat": "อาจารย์สรุปตอนท้ายว่ามิดเทอมตัดที่คาบนี้ ออกเลคเชอร์ 1 2 3 4 บวกเรื่อง infertility ของวันนี้ ส่วนชั่วโมง endometritis ที่สอนหลังมิดเทอมยกไปสอบ final และบอกว่า \"ข้อสอบยากมาก จริงๆถ้าจัดประเด็นได้ แทบไม่ต้องอ่าน\" [126:36-127:43]"
   },
   '-g_IvpY1lTA': {
     "videoId": "-g_IvpY1lTA",

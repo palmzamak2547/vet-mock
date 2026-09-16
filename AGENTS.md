@@ -393,6 +393,64 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-16 — The cohort's own lectures become the source (Claude)
+
+Palm pointed at the channel his year records its lectures on and asked for
+summaries built from what the lecturer actually says. Two things had to be
+repaired before that was even possible, and the second was invisible.
+
+**The transcript fetcher had been fetching nothing.** YouTube moved playlist
+rows to the `LockupView` renderer, so `item.id`, `item.title` and
+`item.duration` all read undefined, and the loop's `if (!videoId) continue`
+swallowed every row. A run over a 12-video playlist reported **0 new, 0 cached,
+0 failed** — which reads as "nothing to do", not "nothing works". It had been
+silently broken across all 46 playlists. `readPlaylistItem()` now reads
+`content_id`, `metadata.title.text` and the runtime from a thumbnail badge, and
+**an unreadable row counts as failed and prints its renderer type** — that one
+line is what would have surfaced this on day one.
+
+**The channel cannot be enumerated by browsing it.** The playlists tab and
+channel search show only the two public playlists; the other 52 are unlisted and
+reachable only through the home shelves. Browsing it signed-out produced a
+confident wrong answer twice — I reported that Equine Reproduction was not on
+the channel and that the videos had no captions. Both were false, and Palm had
+to push back hard before I checked properly. **Innertube reads the home shelves
+directly**: `yt.getChannel(id)` then the shelves, giving all 52 playlists with
+no browser and no login. That is the method. Do not click through YouTube.
+
+Fetched: **59 new transcripts**, 17 failures all of them DekDokVet85 videos whose
+owner disabled captions. All ten VET86 year-5 subjects came back complete —
+62 clips, 4.13M characters, into `data-cache/` which is gitignored.
+
+**Three Equine Repro summaries, at the standard that was asked for.** The bank
+measures median 5,891 characters and p75 12,941; the thinnest are 380-630 and
+two of those were equine-repro, which is what "มีแค่ overview" referred to. The
+new ones are **30,616 / 29,881 / 33,928** characters across 18, 19 and 23
+sections. Each was written by one agent and then fact-checked against the
+transcript by another, which found and fixed real fabrications:
+
+- `PGE2` throughout, where in 93 minutes the lecturer only ever said
+  "prostaglandin E" — the subscript was the author's addition
+- a "Caslick vulvoplasty" synonym that was never spoken
+- a student exchange that never happened; the lecturer asked and answered his
+  own rhetorical question
+- "Microsoft Teams" where the audio stops at "Micros"
+- a quotation attributed 13 minutes away from where it was said
+
+Two things worth keeping. The summaries carry the lecturer's emphasis verbatim
+("จำนะครับ ม้าไม่มี LH surge", the 3 ยอ mnemonic, the trap question about
+follicle versus corpus luteum, and the grading split). And the fact-checker
+resolved the garbled name of the lecture-8 teacher against this repo's own
+instructor roster to **Theerawat Swangchan-Uthai** — independently confirming
+the endometritis lecturer correction made earlier the same day from the faculty
+schedule, by a completely different route.
+
+**Next, and already paid for:** transcripts for the other nine VET86 subjects
+are on disk. Summarising them needs no fetching, only the same two-agent pass —
+write, then fact-check against the transcript with permission to edit the file.
+The fact-check is not optional; it caught an invented subscript that a student
+would have memorised.
+
 ## 2026-09-16 — 5.103.5: the first matching questions, and nine that did not survive review (Claude)
 
 **17 questions added, 9 authored-then-dropped.** Five agents transcribed the
