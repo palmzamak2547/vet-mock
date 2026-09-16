@@ -19,6 +19,7 @@
 // ============================================================
 
 import { useState } from 'react';
+import { originPaperNote } from '../lib/exam-scope.js';
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl } from '../lib/vca-library.js';
 
@@ -43,6 +44,7 @@ export default function QSourceChip({ q, store }) {
 
   // Compact summary: prefer examOrigin (most user-meaningful), fall
   // back to source filename if examOrigin missing.
+  const paperNote = originPaperNote(q);
   const summary = q.examOrigin
     ? q.examOrigin
     : (typeof q.source === 'string' ? q.source.replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง'));
@@ -88,6 +90,12 @@ export default function QSourceChip({ q, store }) {
           {open ? '▴ ซ่อน' : '▾ ดูเต็ม'}
         </span>
       </button>
+
+      {paperNote && (
+        <div style={{ marginTop: 6, fontSize: 11, lineHeight: 1.5, opacity: 0.85 }}>
+          หมายเหตุ: {paperNote}
+        </div>
+      )}
 
       {open && (
         <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>

@@ -136,3 +136,37 @@ export function countByScope(questions) {
   }
   return tally;
 }
+
+/**
+ * A question transcribed from a senior cohort's paper keeps that paper's name
+ * in `examOrigin`, and that name must never be rewritten — it is the evidence
+ * the question rests on. But a topic can sit on a different paper from one
+ * cohort to the next: the equine reproduction pregnancy block was examined at
+ * ปลายภาค by an earlier cohort and at กลางภาค by 86. So "Equine reproduction
+ * final exam" printed under a question in a midterm cram reads exactly like a
+ * leak from the wrong paper, which is what it was reported as.
+ *
+ * It is not a leak, and the honest fix is not to hide the origin but to say
+ * both things: what the source is called, and which paper the question is on
+ * now. The note reports the SOURCE's label rather than what a cohort sat,
+ * because some of these origins are summary documents carrying a paper's name
+ * (24 One Health questions come from one called "One Health final" that in
+ * fact covers the whole course) and "รุ่นก่อนหน้าสอบ" would not be true of
+ * those. Returns that sentence, or null when the two agree or neither is known.
+ */
+const ORIGIN_NAMES_FINAL = /final|ปลายภาค/i;
+const ORIGIN_NAMES_MID = /\bmid(?:term)?\b|กลางภาค/i;
+
+export function originPaperNote(question) {
+  const scope = scopeOfQuestion(question);
+  if (scope !== 'midterm' && scope !== 'final') return null;
+  const origin = String(question?.examOrigin || '');
+  if (!origin) return null;
+  const named = ORIGIN_NAMES_FINAL.test(origin)
+    ? 'final'
+    : (ORIGIN_NAMES_MID.test(origin) ? 'midterm' : null);
+  if (!named || named === scope) return null;
+  return named === 'final'
+    ? 'ชื่อแหล่งที่มาของข้อนี้ระบุปลายภาค แต่หลักสูตรรุ่นนี้จัดเนื้อหานี้ไว้ในกลางภาค'
+    : 'ชื่อแหล่งที่มาของข้อนี้ระบุกลางภาค แต่หลักสูตรรุ่นนี้จัดเนื้อหานี้ไว้ในปลายภาค';
+}

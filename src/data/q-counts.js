@@ -134,7 +134,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 35,
   'livestock-pathology': 68,
   'milk-meat-hygiene': 240,
-  'one-health': 10,
+  'one-health': 56,
   'poa-clinical': 16,
   'poultry': 68,
   'practrum': 17,
@@ -179,7 +179,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'herd-health-rum': 20,
     'livestock-pathology': 68,
     'milk-meat-hygiene': 240,
-    'one-health': 3,
+    'one-health': 49,
     'poultry': 68,
     'practrum': 17,
     'rec-adv-bioscience': 4,
@@ -2520,4 +2520,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-15T18:58:31.038Z
+// Built: 2026-09-16T06:46:20.495Z

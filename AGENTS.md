@@ -393,6 +393,67 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-16 — 5.103.3: the marker was in a third field, and a senior's final is this cohort's midterm (Claude)
+
+Two reports, both correct, both with a cause one layer under where the symptom
+sat. Neither was a leak of the wrong paper into a cram; 5.103.1's pool filter
+holds. They were a detector reading two fields out of three, and a label
+telling the student the truth about the wrong cohort.
+
+**One Health opened with three written questions.** Panic Mode serves two bands
+and nothing else — transcribed from a real paper, or written from what a senior
+cohort marked — so a subject's whole cram is decided by `panicRank`. The 46 One
+Health questions ingested from the Mid 86 compilation carry their
+`อิงแนวข้อสอบ` marker in **`examOrigin`**; `isExamAlignedQuestion` read `tags`
+and `verified` only. So all 46 ranked 2 and were filtered out, the subject's
+seven past-paper MCQ are final-scoped, and what survived a midterm cram was
+three short-answer questions. The detector now reads all three fields, which is
+where the marker has actually been written across successive ingests. One
+Health midterm Panic: **3 → 49** (39 MCQ, 5 short, 3 matching, 2 T/F). It is
+the only subject that moves — every other bank already put the marker somewhere
+the detector looked, which is exactly why this stayed invisible.
+
+**Equine Repro looked like it still carried final.** It does not: all 28
+questions in its midterm Panic pool resolve to midterm. What Palm was reading
+is `examOrigin`, printed verbatim by `QSourceChip` — twenty of those questions
+say **"Equine reproduction final exam"**, because that is the paper the senior
+cohort sat. His own message contains the answer he was checking against
+("หรือเนื้อหาไฟนอลรุ่นอื่นมันตรงรุ่นผม"), and it is yes: the pregnancy block
+moved papers between cohorts, and the PDF audit resolved those ids one by one.
+The origin string is evidence and is never rewritten. Instead:
+
+- `originPaperNote()` in `src/lib/exam-scope.js` compares the paper the origin
+  names with the paper the question resolves to, and returns a sentence when
+  they differ. `QSourceChip` prints it under the source line.
+- `Question.jsx`'s scope chip read the raw `examScope` field, so a question
+  taking its paper from its topic printed **nothing** — leaving an origin that
+  names the other paper as the only scope signal on screen. It now resolves
+  through `scopeOfQuestion()`, so every scoped question says which paper it is
+  on beside the origin that names the other one.
+
+**One Health WAS re-read, and its split is confirmed by the faculty's own
+timetable** on page 2 of the PDF. Six lectures sit before the midterm block of
+21-25 ก.ย. 69 — role of vets, One World One Health concept, emerging and
+re-emerging diseases, global activity network, communication skills,
+transdisciplinary collaboration — and the bank's 107 midterm questions sit in
+exactly those six topics and no others. The seven One Health **past-paper** MCQ
+are all risk analysis (exposure assessment, risk characterization), which is
+the 7 ต.ค. lecture, AFTER the midterm: correctly final-scoped, and the reason a
+midterm Panic could never reach them. The three written questions on pages 5-6
+are ingested as 108000 / 108002 / 108004. Nothing is missing from this paper
+that the split would explain.
+
+**One concrete gap, found and NOT closed:** page 7 carries a senior's note that
+the emerging and re-emerging diseases lecture was examined with **17 ถูกผิด**
+items. `oh-disease-prevention` holds 2 T/F. That is a specific ~15-question
+lead for the next ingest, with the source page named.
+
+**Not re-audited this round:** Avian Med, Milk Hygiene and Food Industry MID 86.
+Usage was at 3% and the choice was between shipping the two fixes with One
+Health verified or starting three audits that could not finish. Present state
+for whoever picks it up: avian-medicine 329 (306 midterm, 95 panic),
+milk-meat-hygiene 450 (450, 240), food-industry 154 (104, 67).
+
 ## 2026-09-16 — 5.103.1: the count and the set agree again (Claude)
 
 5.103.0 taught `buildExamPool` which paper a question sits and left **ten of the twelve count

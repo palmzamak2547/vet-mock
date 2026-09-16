@@ -32,7 +32,12 @@ const EXAM_ALIGNED = 'อิงแนวข้อสอบ';
 
 export function isExamAlignedQuestion(question) {
   if (Array.isArray(question?.tags) && question.tags.some((t) => String(t).includes(EXAM_ALIGNED))) return true;
-  return String(question?.verified || '').includes(EXAM_ALIGNED);
+  // Three fields, because the marker has been written into all three across
+  // successive ingests. Reading only two left 46 One Health questions out of
+  // the band they belong to, and Panic Mode — which serves bands 0 and 1 and
+  // nothing else — opened that subject with three short-answer questions.
+  return String(question?.verified || '').includes(EXAM_ALIGNED)
+    || String(question?.examOrigin || '').includes(EXAM_ALIGNED);
 }
 
 /** 0 = sat by a previous cohort, 1 = written from what they marked, 2 = neither. */
