@@ -360,6 +360,14 @@ export const VIDEO_LIBRARY = [
     tags: ['lecture', 'review', 'dekdok', 'y5-sem1'],
   },
   {
+    subject: 'equine-repro',
+    topic: 'Equine Reproduction — VET86 (รุ่นปัจจุบัน)',
+    url: 'https://www.youtube.com/playlist?list=PLK_0ekR-txos',
+    author: 'WW (VET86)',
+    duration: 'Playlist',
+    tags: ['lecture', 'vet86', 'y5-sem1'],
+  },
+  {
     subject: 'zoonoses',
     topic: 'Zoonoses — DekDokVet85',
     url: 'https://www.youtube.com/playlist?list=PLaZuHrnxtHBeh0qDN1ZbCQxt57GaPCIi7',

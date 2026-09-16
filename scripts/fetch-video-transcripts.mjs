@@ -41,6 +41,29 @@ const INDEX_FILE = path.join(CACHE_DIR, 'index.json');
 // ─────────────────────────────────────────────────────────────────
 const args = process.argv.slice(2);
 const subjectFilter = args.find((a) => a.startsWith('--playlist='))?.split('=')[1] || null;
+
+/**
+ * Read a playlist row whichever renderer YouTube served.
+ * Classic PlaylistVideo exposes id/title/duration directly; LockupView (rolled
+ * out 2025) carries the id in content_id, the title under metadata.title, and
+ * the runtime in a thumbnail badge like "1:34:10".
+ */
+function readPlaylistItem(item) {
+  const videoId = item?.id || item?.video_id || item?.content_id || null;
+  const title = item?.title?.text || item?.metadata?.title?.text
+    || (typeof item?.title === 'string' ? item.title : null) || '(no title)';
+  let durSec = item?.duration?.seconds ?? null;
+  if (durSec == null) {
+    const badge = item?.content_image?.overlays
+      ?.flatMap((o) => o?.badges || [])
+      ?.map((b) => b?.text)
+      ?.find((s) => /^d+(:dd){1,2}$/.test(String(s || '')));
+    if (badge) {
+      durSec = String(badge).split(':').reduce((acc, n) => acc * 60 + Number(n), 0);
+    }
+  }
+  return { videoId, title, durSec };
+}
 const limitArg = args.find((a) => a.startsWith('--limit='))?.split('=')[1];
 const limit = limitArg ? Number(limitArg) : Infinity;
 const force = args.includes('--force');
@@ -150,8 +173,13 @@ async function main() {
       if (count >= limit) break;
       count++;
 
-      const videoId = item.id;
-      if (!videoId) continue;
+      const { videoId, title, durSec } = readPlaylistItem(item);
+      if (!videoId) {
+        // Never swallow this again — a renderer change once cost a silent zero.
+        console.log(`   ⚠️  unreadable playlist row (type=${item?.type || 'unknown'}) — skipped`);
+        totalFailed++;
+        continue;
+      }
 
       const cachePath = path.join(TRANSCRIPT_DIR, `${videoId}.json`);
       if (!force && fs.existsSync(cachePath)) {
@@ -171,8 +199,6 @@ async function main() {
         continue;
       }
 
-      const title = item.title?.text || item.title || '(no title)';
-      const durSec = item.duration?.seconds || null;
 
       let segments = [];
       let language = null;
