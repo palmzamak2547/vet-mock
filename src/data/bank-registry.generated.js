@@ -110,7 +110,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-mid86-aquatic-clinic.js', export: 'QUESTIONS_MID86_AQUATIC_CLINIC', year: 5, count: 186,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-mid86-aquatic-clinic.js').then((m) => m.QUESTIONS_MID86_AQUATIC_CLINIC) },
-  { file: 'questions-mid86-avian-medicine.js', export: 'QUESTIONS_MID86_AVIAN_MEDICINE', year: 5, count: 27,
+  { file: 'questions-mid86-avian-medicine.js', export: 'QUESTIONS_MID86_AVIAN_MEDICINE', year: 5, count: 37,
     subjects: ['avian-medicine'],
     load: () => import('./questions-mid86-avian-medicine.js').then((m) => m.QUESTIONS_MID86_AVIAN_MEDICINE) },
   { file: 'questions-mid86-equine-medicine.js', export: 'QUESTIONS_MID86_EQUINE_MEDICINE', year: 5, count: 119,
@@ -122,7 +122,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-mid86-food-industry.js', export: 'QUESTIONS_MID86_FOOD_INDUSTRY', year: 5, count: 19,
     subjects: ['food-industry'],
     load: () => import('./questions-mid86-food-industry.js').then((m) => m.QUESTIONS_MID86_FOOD_INDUSTRY) },
-  { file: 'questions-mid86-milk-meat-hygiene.js', export: 'QUESTIONS_MID86_MILK_MEAT_HYGIENE', year: 5, count: 3,
+  { file: 'questions-mid86-milk-meat-hygiene.js', export: 'QUESTIONS_MID86_MILK_MEAT_HYGIENE', year: 5, count: 10,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-mid86-milk-meat-hygiene.js').then((m) => m.QUESTIONS_MID86_MILK_MEAT_HYGIENE) },
   { file: 'questions-mid86-one-health.js', export: 'QUESTIONS_MID86_ONE_HEALTH', year: 5, count: 46,
@@ -271,4 +271,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-16T08:33:19.985Z — 87 banks · 5647 Qs
+// Built: 2026-09-16T10:21:00.529Z — 87 banks · 5664 Qs

@@ -94,6 +94,10 @@ const blank = () => Object.fromEntries(PHASE_IDS.map((k) => [k, {}]));
 const byVisibleSubjectScope = blank();
 const byYearScope = blank();
 const byTopicScope = blank();
+// The "อิงแนวเดิม X/Y" chip divides past-paper questions by the topic's total.
+// The denominator is phase-scoped, so the numerator has to be counted over the
+// same set or the chip prints a ratio above 1 — pregnancy showed 15/1, 1500%.
+const byPastPaperTopicScope = blank();
 const byCurrentScopePhase = {};
 const byHighPredictionPhase = {};
 
@@ -136,6 +140,7 @@ for (const q of deliverableQuestions) {
       byVisibleSubjectScope[phase][subj] = (byVisibleSubjectScope[phase][subj] || 0) + 1;
       if (q.year != null) byYearScope[phase][q.year] = (byYearScope[phase][q.year] || 0) + 1;
       incrementNested(byTopicScope[phase], subj, topic);
+      if (isPastPaperQuestion(q)) incrementNested(byPastPaperTopicScope[phase], subj, topic);
     }
     if (panicRank(q) < 2) {
       byPanicSubject[subj] = (byPanicSubject[subj] || 0) + 1;
@@ -242,6 +247,22 @@ for (const phase of PHASE_IDS) {
     lines.push(`    '${subj}': {`);
     for (const t of Object.keys(byTopicScope[phase][subj]).sort()) {
       lines.push(`      '${t}': ${byTopicScope[phase][subj][t]},`);
+    }
+    lines.push('    },');
+  }
+  lines.push('  },');
+}
+lines.push('};');
+lines.push('');
+lines.push('// Past-paper counts per topic, counted over the SAME phase-scoped set as');
+lines.push('// Q_COUNTS_BY_TOPIC_BY_SCOPE so the two can be shown as a ratio.');
+lines.push('export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {');
+for (const phase of PHASE_IDS) {
+  lines.push(`  '${phase}': {`);
+  for (const subj of Object.keys(byPastPaperTopicScope[phase]).sort()) {
+    lines.push(`    '${subj}': {`);
+    for (const t of Object.keys(byPastPaperTopicScope[phase][subj]).sort()) {
+      lines.push(`      '${t}': ${byPastPaperTopicScope[phase][subj][t]},`);
     }
     lines.push('    },');
   }

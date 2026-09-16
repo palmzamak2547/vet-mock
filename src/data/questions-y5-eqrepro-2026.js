@@ -1323,7 +1323,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "Caslick vulvoplasty คือการเย็บปิดขอบบนของ vulva ให้เหลือช่องเปิดพอปัสสาวะได้ เป็นวิธีมาตรฐานแก้ pneumovagina ที่เกิดจากรูปทรง vulva ไม่ดี และต้องเปิดแผลก่อนคลอดทุกครั้ง urethral extension ใช้แก้ urovagina ส่วน perineal body transection เป็นขั้นตอนหนึ่งของการซ่อม rectovaginal fistula ไม่ใช่การรักษา pneumovagina",
     "verified": "Repro horse final น.71",
     "sourceType": "past-paper",
-    "examOrigin": "Equine reproduction final exam recall (Vet 85)"
+    "examOrigin": "Equine reproduction final exam recall (Vet 85)",
+    "examScope": "both"
   },
   {
     "id": 105489,
@@ -2866,7 +2867,8 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "explain": "โครงสร้างฝีเย็บที่ไม่ดีเป็นสิ่งที่ตรวจใน breeding soundness examination และแก้ได้ด้วย Caslick's vulvoplasty ซึ่งเย็บปิดขอบบนของช่องคลอดเพื่อกันลมและสิ่งสกปรก. Uterine lavage และ oxytocin เป็นการรักษาปลายทางที่ไม่ได้แก้โครงสร้าง. Hysterectomy เป็นทางเลือกสุดท้ายของ pyometra ที่รักษาไม่ได้",
     "verified": "Equine Repro Final (Vet 85) น.3",
     "sourceType": "student-compilation",
-    "examOrigin": "Equine Repro (Vet 85) recalled exam point"
+    "examOrigin": "Equine Repro (Vet 85) recalled exam point",
+    "examScope": "both"
   },
   {
     "id": 105556,

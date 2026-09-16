@@ -393,6 +393,67 @@ Ctrl+K does not open the palette during the tour; the tour's stale closure does 
 - 21st was consulted for the summary-reading polish and its components were **not** installed: Scroll Progress and Reading Text Reveal both pull in `motion/react`, a new dependency for what a scroll listener and a transform already do. The reading bar and the block reveal are built natively, off under reduced motion, and structured so they cannot fail closed — the class that hides a block is added only by the code that observes it, after both guards, and removed on cleanup.
 - Traps worth remembering: PowerShell `Get-Content`/`Set-Content` round-trips CORRUPT Thai source - use Python with explicit utf-8 or the editor tools; `PINBOARD_MAX` is exported, not `MAX_PINS`, and Vite ships an undefined identifier silently; `overscroll-behavior: contain` belongs to overlays only, never an in-page panel.
 
+## 2026-09-16 — 5.103.5: the first matching questions, and nine that did not survive review (Claude)
+
+**17 questions added, 9 authored-then-dropped.** Five agents transcribed the
+matching sets and essay prompts out of the MID 86 compilations; a sixth pass
+re-opened the same pages and tried to refute every pair. All five batches came
+back PROBLEMS, which is the point. What the review caught:
+
+- The milk processing set: page 2 has handwritten corrections over four of the
+  twenty dropdowns, and the author used the letters in the boxes that had been
+  REPLACED. Two pairs were wrong. Dropped.
+- Two left-hand cards carried words ("เรียงขวาง", "หนา") the page does not
+  print — checked at 6x zoom by the reviewer.
+- An explain claimed cecal core is "ชนิดเดียวที่ลงไส้ตัน". Not true; E. necatrix
+  also reaches the caeca.
+- An HPAI written answer had pulled in the egg sign the page tags to H9 (LPAI).
+- An H7N2/H9N2 explain imported "E. coli หรือ Mycoplasma" from the Infectious
+  bronchitis page — a different disease.
+
+Kept only where the reviewer confirmed content AND key and asked for metadata
+alone. **milk-meat-hygiene went from 0 matching questions to 7**; avian gained
+10. `lint:question-standard` then caught one more: an explain saying a fact sat
+"ในสไลด์คนละใบของชุดเดียวกัน" narrates the document instead of teaching. Reworded.
+0 defects across 5664.
+
+**The "อิงแนวเดิม 15/1, 1500%" chip.** My own regression from 5.103.1: the
+denominator became phase-scoped and the numerator (`topic.pastPaperCount`) did
+not, so a topic reduced to one midterm question still counted fifteen
+past-papers. Fixed at the source with `Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE`,
+counted in the same loop over the same set; the "รวมทุกหัวข้อ" card had the same
+break and reads the same table now; and `Math.min(ppCount, count)` means no
+future mismatch can print a ratio above 1. An invariant check over all 499
+topic/phase cells passes.
+
+**Caslick, and why a lecture title is not the last word.** Palm sat the lecture and reported Caslick was taught before the midterm; the surgery question had just left the midterm pool with topic `eqrepro-surgery` (lecture 12). Both are true: Caslick corrects pneumovagina, which is lecture 6 (ภาวะไม่สมบูรณ์พันธุ์, before the paper), and lecture 12 is ศัลยกรรมของม้าเพศผู้และเพศเมีย. The content is taught twice, so 105488 and 105555 are `both`, not `final`. Note that 105488 was the ONLY non-castration item among the eight questions in `eqrepro-surgery` — a topic whose other members are scrotal hernia, emasculator, scirrhous cord and penile paralysis. **A question sitting alone in a topic it does not resemble is a signal worth checking.** 105570 (when to open the sutures in a pregnant mare) stays final: that genuinely is lecture 13.
+
+**fiqc-livestock-qc stays TBD on purpose.** The faculty timetable for 3109501 names สพ.ญ.ดร. มินตรา ลักขณา for the 9 ก.ย. 69 lecture, and I filled it in — `lint:instructors` then failed, correctly. The `lecturer` field is contractually bound to a profile in `instructors-directory.js` carrying publications with URLs and a verification source, and no profile exists for that name. Fabricating one to clear a lint is the precise failure this repo exists to prevent, so the field went back to TBD. **The name is evidenced and ready** — it needs a verified profile, not another reading of the timetable.
+
+**Lecturers, from documents only.** Six TBDs filled in equine repro and one in
+food industry, and **two wrong names corrected**: endometritis was Theerawat
+Tharasanit where the schedule says TS (Theerawat Swangchan-Uthai), and pregnancy
+was Nawapen Phutikanit where lecture 13 says SSa (Sawita Santiviparat).
+Spellings checked against `instructors-directory.js`; มินตรา ลักขณา is not in it,
+so the Thai spelling from the timetable is used rather than a transliteration I
+invented. 760 TBDs remain across years 1-4 and stay TBD — there is no document
+for them and a guessed name is exactly the failure mode being guarded against.
+
+**Two process traps, both mine, both already written down before I hit them:**
+- PowerShell `Set-Content` for a one-line version bump wrote a UTF-8 BOM into
+  `package.json` (Vite's JSON loader threw, build dead in 100 ms) and mojibaked
+  44 Thai lines in `sw.js`. The trap was already in this file. Use node or the
+  editor tools for every repo file regardless of edit size, and check
+  `git diff --stat` matches the intent.
+- A Monitor filtering only for success lines is silent identically whether the
+  job is running or died. Thirty minutes were spent watching a dead log.
+  Always include `Build failed`, `ERR!`, `✗`.
+
+**Left for next time, with the work already done:** MILK HYGIENE p3 is a second
+20-item matching set, not yet converted. The nine dropped questions each carry
+the reviewer's exact correction in the workflow journal, so they can be repaired
+without re-reading a PDF.
+
 ## 2026-09-16 — MID 86 paper audit: what the three unread papers actually hold (Claude)
 
 Nine agents read every page of AVIAN MED (82), MILK HYGIENE (145) and FOOD

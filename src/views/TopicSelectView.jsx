@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
-import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
+import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
@@ -94,8 +94,25 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     return topics.find((topic) => topic.id === topicId)?.questionCount || 0;
   };
 
+  // Counted over the SAME set as countFor(). topic.pastPaperCount spans the whole
+  // topic regardless of paper, so once the denominator became phase-scoped the
+  // chip could divide a whole-topic numerator by one paper's total — equine
+  // pregnancy printed "อิงแนวเดิม 15/1, 1500%" the day the split landed.
   const pastPaperCountFor = (topicId) => {
-    if (topicId === 'all') return resources.questions?.pastPaperCount || 0;
+    const scopedPast = Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase]?.[subject] || null;
+    if (topicId === 'all') {
+      if (scopedPast) return Object.values(scopedPast).reduce((a, b) => a + b, 0);
+      return resources.questions?.pastPaperCount || 0;
+    }
+    const coll = collections.find((c) => c.id === topicId);
+    if (coll) {
+      if (!scopedPast) return coll.pastPaperCount || 0;
+      const prefix = coll.topicPrefix || String(coll.id).replace(/^_|-all$/g, '');
+      return Object.entries(scopedPast)
+        .filter(([id]) => id.startsWith(prefix))
+        .reduce((a, [, n]) => a + n, 0);
+    }
+    if (scopedPast) return scopedPast[topicId] || 0;
     return topics.find((topic) => topic.id === topicId)?.pastPaperCount || 0;
   };
 
@@ -444,7 +461,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           const empty = topicEntries.filter(({ t }) => !hasTopicContent(t));
           const visible = showEmptyTopics ? [...ready, ...empty] : ready;
           return visible.map(({ t, count }) => {
-          const ppCount = pastPaperCountFor(t.id);
+          const ppCount = Math.min(pastPaperCountFor(t.id), count);
           const ppPct = count > 0 ? Math.round((ppCount / count) * 100) : 0;
           const hasQuestions = count > 0;
           const hasNotesForTopic = t.resources?.notes?.enabled;
