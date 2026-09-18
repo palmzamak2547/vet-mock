@@ -499,18 +499,6 @@ export const VIDEO_LIBRARY = [
     duration: 'Playlist',
     tags: ['lecture', 'review', 'dai', 'student', 'surg2', 'surg3'],
   },
-
-  // ═════════════════════════════════════════════════════════════════
-  // 🎬 คลิปจากช่องอื่นๆ (สามารถเพิ่มได้)
-  // ═════════════════════════════════════════════════════════════════
-  {
-    subject: 'surg2',
-    topic: 'Mastectomy in Dog',
-    url: 'https://www.youtube.com/watch?v=rGFTSX3YxjY',
-    author: 'Veterinary Surgery',
-    duration: '12:34',
-    tags: ['mastectomy', 'mammary'],
-  },
 ];
 
 // ============================================================
