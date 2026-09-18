@@ -3170,6 +3170,15 @@ export const VIDEO_META = {
     "instructor": "อ.ธนศักดิ์ (เน้น zoonotic risk + brucellosis screening at coop level)",
     "examFormat": "Multiple choice + scenario, ออกเรื่อง 4 species ของ Brucella + abortion in last trimester + sudden death in buffalo + abortion storm Lepto"
   },
+  '3ihoAGQwxGk': {
+    "videoId": "3ihoAGQwxGk",
+    "title": "Milk-Meat — Determination of Milk Quality (ต่อ), องค์ประกอบน้ำนมดิบ และมาตรฐานน้ำนมดิบ",
+    "subject": "milk-meat-hygiene",
+    "date": "2026-09-02",
+    "durationMin": 168,
+    "instructor": "ศ.สพ.ญ.ดร. รุ่งทิพย์ ชวนชื่น (Rungtip Chuanchuen) ช่วง Determination of milk quality — ในเสียงเรียกกันว่า \"อาจารย์รุ่งทิพย์\" [78:14] · และ รศ.สพ.ญ.ดร. สหฤทัย เจียมศรีพงษ์ (Saharuetai Jeamsripong) ช่วง Composition & Standard of raw milk — ในเสียงอาจารย์ช่วงแรกเรียกท่านว่า \"อาจารย์ฝน\" [63:23] และออกชื่อจริงไว้ครั้งหนึ่งที่ [48:05] (เสียงถอดออกมาเป็น \"อาจารย์สาฤทธย\")",
+    "examFormat": "อาจารย์ช่วงหลังบอกว่าข้อสอบของท่านเป็นกากบาทล้วน 4-5 ตัวเลือก [134:16] และบอกแนวข้อสอบของอาจารย์ช่วงแรกว่าจะให้ไปดูมาว่า \"ถ้าเจอวัวเป็นแบบนี้ อันนี้เพิ่มหรือลด\" [134:02] ส่วนตัวเลขปลีกย่อยของผลิตภัณฑ์นมแต่ละชนิดท่านบอกว่าไม่ถามรายตัวเลข ยกเว้นโคลิฟอร์มกับ E. coli ที่อาจให้ตัวเลขมาเลือก [154:30-155:09] · สำหรับ **ข้อสอบ VCA** ท่านบอกแยกไว้ว่า \"ออกเรื่องนมไม่เยอะมาก\" และ \"ถ้าเป็นองค์ประกอบเป็นตัวเลข ตอนสอบ VCA ไม่ต้องจำ เพราะเขาจะไม่ถามลึกๆ ถึงตัวเลขว่ามันตัวเลขเท่าไหร่แน่ๆ\" แต่จะถามแนว \"ถ้ามีค่านี้เพิ่มสูงขึ้น คุณคิดว่ามีอะไรอยู่ในน้ำนม\" หรือถาม alkaline phosphatase / beta-lactoglobulin หรือ \"ปัจจัยในข้อใดใช้กำหนดราคาในการรับซื้อน้ำนม\" [108:04-108:45]"
+  },
   '5ExcMb--C34': {
     "videoId": "5ExcMb--C34",
     "title": "Milk-Meat — 1.1 Composition and Quality of Raw Milk",
@@ -3296,6 +3305,14 @@ export const VIDEO_META = {
     "instructor": "CUVET food hygiene team",
     "examFormat": "Multiple choice, ออก molecular techniques, DNA testing, species ID"
   },
+  'cHediceYO_Y': {
+    "videoId": "cHediceYO_Y",
+    "title": "Milk-Meat — Introduction to Milk Hygiene, กายวิภาคเต้านม และผลของ Mastitis ต่อคุณภาพน้ำนม",
+    "subject": "milk-meat-hygiene",
+    "date": "2026-08-19",
+    "durationMin": 130,
+    "examFormat": "อาจารย์บอกว่าวิชานี้จะมีควิส 2 ครั้ง เอาไว้ช่วยดันคะแนนคนที่ทำได้ไม่ถึง 50 และให้ไปตามเพื่อนที่ขาดมาทำควิสด้วย ควิสวันนี้เป็นการเติมชื่อระบบท่อน้ำนม 6 ตำแหน่ง ให้เวลา 10 นาที เปิดสมุดได้ [2:34-3:14, 63:02-63:28] และอาจารย์ระบุชัดว่าจะไม่ออกสอบส่วน anatomy ของระบบท่อน้ำนมและภาพ suspensory ligament \"ไม่ต้องไปท่อง สอบแล้วพี่จะไม่ออกตรง[นั้น]แล้วนะคะ\" [18:42-19:09, 69:36-69:49]"
+  },
   'gWjJHkmTrHY': {
     "videoId": "gWjJHkmTrHY",
     "title": "Milk-Meat — 2.1 Milk Microbiology",
@@ -3304,6 +3321,14 @@ export const VIDEO_META = {
     "durationMin": 49,
     "instructor": "CUVET food hygiene team",
     "examFormat": "Multiple choice, ออก milk microflora, spoilage organisms, pathogens"
+  },
+  'hPV3Rhh8r3Q': {
+    "videoId": "hPV3Rhh8r3Q",
+    "title": "Milk-Meat — Milk Microbiology และ Milk Borne Pathogens ทั้ง 10 ตัว",
+    "subject": "milk-meat-hygiene",
+    "date": "2026-09-09",
+    "durationMin": 129,
+    "examFormat": "อาจารย์บอกก่อนเข้าครึ่งหลังว่า \"ให้อ่านเฉพาะอันที่มันเป็นไฮไลท์จุดสำคัญ อันที่เป็นจุดเล็กจุดน้อยไม่ออก จะออกเฉพาะจุดเน้นจุดใหญ่\" และ \"ข้อสอบมันมีปริมาณจำกัด ไม่สามารถออกได้ทุกข้อที่บอกไป\" [70:06-70:29] ส่วนหัวข้อไหนที่เธอเห็นว่าเกี่ยวข้องกับข้อสอบสัตวแพทยสภา เธอบอกว่าจะชี้ให้ระหว่างสอน [72:49]"
   },
   'ikNOlIazPoc': {
     "videoId": "ikNOlIazPoc",
@@ -3340,6 +3365,14 @@ export const VIDEO_META = {
     "durationMin": 36,
     "instructor": "CUVET food hygiene team",
     "examFormat": "Multiple choice, ออก meat quality factors, grading"
+  },
+  'vMFY6A8LaIU': {
+    "videoId": "vMFY6A8LaIU",
+    "title": "Milk-Meat — การเก็บรักษาน้ำนมดิบ การเก็บผลิตภัณฑ์นม และการตรวจคุณภาพน้ำนม",
+    "subject": "milk-meat-hygiene",
+    "date": "2026-08-26",
+    "durationMin": 171,
+    "examFormat": "อาจารย์ระบุระหว่างคาบว่าตารางจำนวนตัวอย่างตามมกอช. \"พี่จะไม่ออกข้อสอบ พี่สัญญา\" [119:51] และเรื่องชนิดของชีส (สวิสชีส) \"ไม่ออกข้อสอบค่ะ\" [69:09] ส่วนจุดที่เตือนตรงๆ คือการจำสับสนว่าวิธีไหนเป็น platform test วิธีไหนเป็น laboratory test \"ถ้าจำสับสนแล้วคะแนนจะหมดไปเลย\" [126:11]"
   },
   'vryAe657soA': {
     "videoId": "vryAe657soA",

@@ -1805,3 +1805,77 @@ He was right, and it was already broken, not hypothetical.
 - Owner requested images from the linked VetMock Art Brief. Its itemized rows total **65**, despite the 61-image heading. All 65 PNGs across eight sets are in `work/art-brief-20260914/` (gitignored), with `index.html`, prompts, source manifest, native originals, contact sheets and verification metadata.
 - Owner explicitly authorized script-based background removal and sizing after the image tool painted checkerboards into some Mochi outputs. Final checks: 65/65 exact requested sizes, 50 real-alpha assets and 15 opaque plates; all ten IG center regions are flat paper; farmyard left/right boundary RGB difference is zero after a narrow blend. All eight contact sheets visually reviewed. Metal trays and an enclosed ribbon gap required targeted mask corrections after generic segmentation.
 - These are decorative raster illustrations only. Some soft shading/additional decoration and small badge-rim differences remain; no clinical imagery, application integration, commit or deployment. See the local README for processing details. Next: use the gallery to select assets; integrate into existing surfaces only when requested.
+
+## 2026-09-18 — Milk Hygiene: the fact-check the rate limit had cut in half (Claude)
+
+The 2026-09-16 pass shipped three Equine Repro summaries and then started Milk
+Hygiene. Its workflow had two phases and only the first finished: all four
+summaries were written, and then three of the four fact-checkers died on
+*"You've hit your weekly limit"* — one of them mid-`Edit` — while the fourth
+never started. **Four long summaries were sitting in `data-cache/generated/`
+with no completed check.** This session re-ran all four from scratch, two agents
+at a time (four at once tripped the limit again immediately).
+
+**The check earned its place again.** Every one of the four came back with real
+defects that had survived the author's own review:
+
+- **`sakazakii` appears nowhere in the recording** — grep-confirmed. The audio
+  keeps only the tail `…ตอร`, and the full species name had been inserted
+  *inside quotation marks*. Same class as the `PGE2` catch.
+- **"enterotoxin"** was never said; the audio has `เendดอกซิน`, which reads as
+  *endo*toxin, and elsewhere only "ท็อกซิน".
+- **"1 teat ต่อ 1 mammary gland"** — she says a cow has **one udder and four
+  mammary glands**; "teat" is not in that passage.
+- **Two invented spellings** — the doc claimed she spelled out `p-r-o-p-e-l-l-e-r`
+  and `G-A-S-K-E-T`; the audio carries seven letters for the first and only
+  "G… G-A… GET" for the second.
+- **An invented student answer** ("นิสิตตอบว่าประมาณ 250 ซีซี") where she
+  actually said "เปิด Google เลย".
+- **A claim quietly sanitised**: "Salmonella ผลิตกรดเพราะย่อยน้ำตาลได้" had
+  dropped the word **แลคโตส** she really said. Cleaning up a lecturer's error by
+  deleting a word is the same defect as inventing one — restored, and noted.
+- Misattributed timestamps, quotes spliced from two different minutes, and a
+  specific gravity figure cited to a passage where she only points at a slide.
+
+**Names were resolved, not guessed.** `instructors-directory.js` and
+`curriculum.js` between them settled the two-lecturer split on lecture 4 —
+**รุ่งทิพย์ ชวนชื่น** then **สหฤทัย เจียมศรีพงษ์** — and `curriculum.js:1777`
+independently assigns that topic and date to Saharuetai, with its own note that
+an earlier cohort's summary had credited the wrong lecturer.
+
+**Two owner rules were applied to the output and belong to every future batch.**
+
+1. **No machine vocabulary in a document a student reads.** The words `ASR`,
+   `ถอดเสียง`, `ถอดได้`, `transcript` must not appear. The accepted Equine Repro
+   summaries contain none of them; their only device for unclear audio is a
+   plain `[ฟังไม่ชัด]`. Nine such leaks were removed here.
+2. **Never distort what the clip says; a correction goes at the bottom, and only
+   when you are certain.** The body stays a faithful record of the lecture. Where
+   the lecture conflicts with the textbook, a `# 📌 หมายเหตุท้ายบท` section at the
+   end states what the clip says, what the textbook says, and which to answer
+   with. Four such notes were added: potassium in mastitis (she says both
+   directions in one lecture; the correct one is that it falls), the third sugar
+   in TSI (sucrose, not fructose), *Salmonella* as a lactose non-fermenter, and
+   *Campylobacter* as microaerophilic rather than anaerobic. Removing a
+   fabrication from the body is restoring the record; adding your own knowledge
+   to the body is not.
+
+**A generator trap worth knowing.** `rebuild-video-summaries.mjs` never lets a
+staged `data-cache/generated/<id>.md` overwrite an id that is already in
+`src/data/`. Editing a summary *after* the first rebuild therefore changes
+nothing. Restore the generated files to HEAD and rebuild, or edit before the
+first run.
+
+**Gates:** `lint:video-summaries` 0 errors, 574 warnings against a 572 baseline —
+the two new ones are `no sections`, which the *accepted* shipped summary
+`zFsNom4JMC8` also raises, so they are the house style rather than a defect.
+`lint:all` green, `test:unit` 993/993, `npm run build` green, stats regenerated
+(596 → 600 summarised videos). No existing entry was lost: the milk file went
+23 → 27.
+
+**Next:** Avian Medicine, 7 recordings, transcripts already on disk. Then Food
+Industry (4), One Health (5), Swine Medicine (5), Equine Medicine (5), Zoonoses
+(8), Aquatic (9), Epidemiology (12). Nothing needs re-fetching —
+`data-cache/transcripts/` holds 695 files covering all ten VET86 year-5
+playlists. Write, then fact-check against `data-cache/plain/<id>.txt`, then the
+two rules above, then rebuild and ship one subject per commit.
