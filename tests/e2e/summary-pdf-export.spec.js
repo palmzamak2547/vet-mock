@@ -88,20 +88,35 @@ test('the printed sheet hides the app and sets Thai type on white', async ({ pag
 
   await page.emulateMedia({ media: 'print' });
   const printed = await page.evaluate(() => {
+    const doc = document.querySelector('.vmx-print-doc');
     const body = document.querySelector('.vmx-print-body');
     const app = document.querySelector('.vmx-app');
     return {
-      docShown: getComputedStyle(document.querySelector('.vmx-print-doc')).display,
+      // Paint, not declared display. The first version of this test asked
+      // getComputedStyle(doc).display and got "block" while the page printed
+      // blank, because the handout was rendering inside .vmx-app and the
+      // print sheet hides .vmx-app. getComputedStyle reports an element's own
+      // value and knows nothing about a hidden ancestor, so the assertion was
+      // structurally incapable of catching it. A box that is really on the
+      // page has client rects and a height.
+      rects: doc.getClientRects().length,
+      height: Math.round(doc.getBoundingClientRect().height),
+      visible: typeof doc.checkVisibility === 'function' ? doc.checkVisibility() : true,
+      insideApp: !!doc.closest('.vmx-app'),
       appDisplay: app ? getComputedStyle(app).display : 'absent',
       overlay: getComputedStyle(document.querySelector('.vmx-modal-overlay')).display,
       font: getComputedStyle(body).fontFamily,
       htmlBg: getComputedStyle(document.documentElement).backgroundColor,
-      dots: (document.querySelector('.vmx-print-doc').textContent.match(/·/g) || []).length,
+      dots: (doc.textContent.match(/·/g) || []).length,
     };
   });
   await page.emulateMedia({ media: 'screen' });
 
-  expect(printed.docShown).toBe('block');
+  expect(printed.rects).toBeGreaterThan(0);
+  expect(printed.height).toBeGreaterThan(200);
+  expect(printed.visible).toBe(true);
+  // The handout must not live under anything the print sheet hides.
+  expect(printed.insideApp).toBe(false);
   expect(printed.appDisplay).toBe('none');
   expect(printed.overlay).toBe('none');
   // Sarabun is the only face this app ships; anything else means the PDF would

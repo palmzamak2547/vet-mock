@@ -12,6 +12,7 @@
 // dependency, summary content เราเขียนเองทั้งหมด ไม่ห่วง XSS
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import PinButton from './PinButton.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
@@ -267,8 +268,17 @@ export default function SummaryModal({ summary, onClose }) {
         override, and the page furniture (scroll container, quiz, buttons)
         has no place on paper. It renders from the same `html` as the screen,
         so the two can never drift apart, and it is mounted only while a
-        print is running. */}
-    {printing && (
+        print is running.
+
+        It hangs off <body> through a portal, and that is the whole reason the
+        first version printed a blank page. The print sheet hides .vmx-app to
+        clear the screen furniture, and this modal renders inside .vmx-app —
+        so the handout was a descendant of a display:none ancestor. It still
+        computed as display:block, because getComputedStyle reports an
+        element's own value and knows nothing about its ancestors, which is
+        exactly why the test that asserted display:block passed on a blank
+        page. Outside .vmx-app there is nothing above it to hide. */}
+    {printing && createPortal((
     <div className="vmx-print-doc" aria-hidden="true">
       <header className="vmx-print-head">
         <p className="vmx-print-eyebrow">สรุปจากคลิปบรรยาย</p>
@@ -290,7 +300,7 @@ export default function SummaryModal({ summary, onClose }) {
         สรุปจากคลิปบรรยายของรุ่น ถอดตามที่อาจารย์พูด ส่วนที่เป็นข้อสังเกตเพิ่มเติมอยู่ในหมายเหตุท้ายบท
       </footer>
     </div>
-    )}
+    ), document.body)}
     <div className="vmx-modal-overlay" onClick={onClose} style={{ zIndex: 1100 }}>
       {/* Grid > flex for the header / body / footer split: with
           flex-column we needed `min-height: 0` on the body to bypass
