@@ -168,6 +168,42 @@ export default function SummaryModal({ summary, onClose }) {
   // container's children would have animated two big blocks instead of each
   // paragraph, and swept the panel into the same fade.
   const proseRef = useRef(null);
+
+  // A PDF, not a markdown file. A student revising from this has no reason to
+  // own a .md reader, and "save as PDF" is something they already know how to
+  // do with a handout. The browser writes it: it is the only engine here that
+  // shapes Thai vowels and tone marks correctly, and it paginates, so nothing
+  // has to be laid out by hand.
+  //
+  // The printed copy is mounted only for the print itself. These summaries run
+  // past 60,000 characters, and keeping a second copy of that in the DOM for
+  // every reader — when almost none of them will print — is a cost with no
+  // matching benefit.
+  const [printing, setPrinting] = useState(false);
+  useEffect(() => {
+    if (!printing) return undefined;
+    let settled = false;
+    const done = () => {
+      if (settled) return;
+      settled = true;
+      window.removeEventListener('afterprint', done);
+      clearTimeout(timer);
+      document.documentElement.removeAttribute('data-vmx-printing');
+      setPrinting(false);
+    };
+    // afterprint has been unreliable in Safari, so the timer is the floor:
+    // the app can never be left wearing its print skin.
+    const timer = setTimeout(done, 60000);
+    window.addEventListener('afterprint', done);
+    document.documentElement.setAttribute('data-vmx-printing', 'summary');
+    // One frame so the copy is committed and its webfont is applied before
+    // the print dialog snapshots the page.
+    const raf = requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
+    return () => {
+      cancelAnimationFrame(raf);
+      done();
+    };
+  }, [printing]);
   const [progress, setProgress] = useState(0);
 
   // How far through the lecture they have read. A summary of a two-hour
@@ -225,6 +261,36 @@ export default function SummaryModal({ summary, onClose }) {
   };
 
   return (
+    <>
+    {/* The printed handout. It is its own document rather than a restyled
+        modal: the modal carries inline styles that a print sheet cannot
+        override, and the page furniture (scroll container, quiz, buttons)
+        has no place on paper. It renders from the same `html` as the screen,
+        so the two can never drift apart, and it is mounted only while a
+        print is running. */}
+    {printing && (
+    <div className="vmx-print-doc" aria-hidden="true">
+      <header className="vmx-print-head">
+        <p className="vmx-print-eyebrow">สรุปจากคลิปบรรยาย</p>
+        <h1 className="vmx-print-title">{summary.title}</h1>
+        <p className="vmx-print-meta">
+          {[summary.subject?.toUpperCase(), summary.date,
+            summary.durationMin ? `${summary.durationMin} นาที` : null,
+            summary.instructor].filter(Boolean).join('  ·  ').replace(/·/g, '—')}
+        </p>
+      </header>
+      {summary.examFormat && (
+        <aside className="vmx-print-exam">
+          <p className="vmx-print-exam-label">แนวข้อสอบที่อาจารย์บอกไว้</p>
+          <p className="vmx-print-exam-body">{summary.examFormat}</p>
+        </aside>
+      )}
+      <div className="vmx-print-body" dangerouslySetInnerHTML={{ __html: html }} />
+      <footer className="vmx-print-foot">
+        สรุปจากคลิปบรรยายของรุ่น ถอดตามที่อาจารย์พูด ส่วนที่เป็นข้อสังเกตเพิ่มเติมอยู่ในหมายเหตุท้ายบท
+      </footer>
+    </div>
+    )}
     <div className="vmx-modal-overlay" onClick={onClose} style={{ zIndex: 1100 }}>
       {/* Grid > flex for the header / body / footer split: with
           flex-column we needed `min-height: 0` on the body to bypass
@@ -281,14 +347,29 @@ export default function SummaryModal({ summary, onClose }) {
             compact
             style={{ flexShrink: 0 }}
           />
+          {/* Offered only when there is a summary to print. When the body
+              failed to load it is one apologetic sentence, and a PDF of that
+              is worse than no button. */}
+          {(summary.summary || '').length > 400 && (
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+              onClick={() => setPrinting(true)}
+              disabled={printing}
+              title="บันทึกเป็น PDF หรือสั่งพิมพ์ ในหน้าต่างที่เปิดขึ้นให้เลือกปลายทางเป็น บันทึกเป็น PDF"
+              style={{ flexShrink: 0 }}
+            >
+              {printing ? 'กำลังเตรียม…' : 'บันทึกเป็น PDF'}
+            </button>
+          )}
           <button
             type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={downloadMd}
-            title="ดาวน์โหลด .md เพื่ออ่านใน Notability/Obsidian/etc"
+            title="ดาวน์โหลดเป็นไฟล์ .md สำหรับเปิดใน Obsidian หรือ Notability"
             style={{ flexShrink: 0 }}
           >
-            💾 .md
+            .md
           </button>
           <button
             type="button"
@@ -360,5 +441,6 @@ export default function SummaryModal({ summary, onClose }) {
         )}
       </div>
     </div>
+    </>
   );
 }

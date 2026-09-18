@@ -5045,3 +5045,138 @@ body.vmx-reading .vmx-pdf-body {
 @media (prefers-reduced-motion: reduce) {
   .vmx-lesson__bar > span { transition: none; }
 }
+
+
+/* ============================================================
+   The printed lecture summary
+   ============================================================
+   A student revising for an exam wants a handout, not a markdown
+   file, so the summary prints as its own document. The browser is
+   the PDF writer on purpose: it is the only engine in this app that
+   shapes Thai vowels and tone marks correctly, and it paginates, so
+   no layout has to be computed by hand.
+
+   `.vmx-print-doc` is built in SummaryModal from the same rendered
+   HTML the screen shows, and is invisible until a print starts with
+   data-vmx-printing="summary" on <html>.
+
+   Page numbers come from the browser's own print header and footer.
+   Chrome does not support content in @page margin boxes, so this
+   sheet does not pretend to draw them.
+   ============================================================ */
+
+.vmx-print-doc { display: none; }
+
+@media print {
+  @page { size: A4; margin: 18mm 16mm 16mm; }
+
+  /* The paper colour lives on <html>, and the older print block only
+     resets <body> — so with backgrounds on, a cream panel printed under
+     the document. Reset both. */
+  html[data-vmx-printing="summary"],
+  html[data-vmx-printing="summary"] body { background: #fff !important; }
+
+  /* Hide the app's own surfaces, never an ancestor of the print
+     document: a descendant of display:none cannot be shown again,
+     and .vmx-print-doc sits inside the same React root. */
+
+  html[data-vmx-printing="summary"] .vmx-print-doc {
+    display: block !important;
+    color: #16181c;
+    background: #fff;
+    font-size: 10.5pt;
+    line-height: 1.62;
+    /* Sarabun for everything, named explicitly rather than through
+       --vmx-display. That token starts with Fraunces, which this app does
+       not ship and which has no Thai, so the PDF would set Latin in one
+       face and Thai in whatever the reader's machine happened to fall back
+       to — and would differ from machine to machine. Sarabun is the one
+       face bundled here (400/500/600/700 plus italics), it draws Thai and
+       Latin from a single design, and it was made for running body text. */
+    font-family: 'Sarabun', 'IBM Plex Sans Thai', 'Noto Sans Thai', sans-serif;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Everything the app paints around the document goes. The modal is
+     still in the tree because the student printed from inside it. */
+  html[data-vmx-printing="summary"] .vmx-app,
+  html[data-vmx-printing="summary"] .vmx-modal-overlay,
+  html[data-vmx-printing="summary"] .vmx-header,
+  html[data-vmx-printing="summary"] .vmx-footer,
+  html[data-vmx-printing="summary"] .vmx-bottom-nav,
+  html[data-vmx-printing="summary"] .vmx-tools-fab { display: none !important; }
+
+  /* --- the title block ------------------------------------- */
+  .vmx-print-head { border-bottom: 1.4pt solid #16181c; padding-bottom: 7pt; margin-bottom: 14pt; }
+  .vmx-print-eyebrow {
+    margin: 0; font-size: 7.5pt; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #6b7280; font-weight: 600;
+  }
+  .vmx-print-title {
+    margin: 4pt 0 0; font-size: 19pt; line-height: 1.26; font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+  .vmx-print-meta { margin: 5pt 0 0; font-size: 9pt; color: #5b6270; font-weight: 500; }
+
+  /* --- what the lecturer said about the exam ---------------- */
+  /* First on the page rather than last: it is the line that decides
+     what a student reads the rest of the document for. */
+  .vmx-print-exam {
+    border-left: 2.4pt solid #7c8b63; padding: 6pt 0 6pt 9pt; margin: 0 0 13pt;
+    break-inside: avoid;
+  }
+  .vmx-print-exam-label {
+    margin: 0 0 2pt; font-size: 7.5pt; letter-spacing: 0.13em; text-transform: uppercase;
+    color: #5f6b4a; font-weight: 700;
+  }
+  .vmx-print-exam-body { margin: 0; font-size: 9.5pt; line-height: 1.5; }
+
+  /* --- the body -------------------------------------------- */
+  .vmx-print-body .vmx-md-h1 {
+    font-size: 13pt; font-weight: 700; margin: 15pt 0 5pt; padding-bottom: 2.5pt;
+    border-bottom: 0.7pt solid #c9ced8; break-after: avoid; break-inside: avoid;
+  }
+  .vmx-print-body .vmx-md-h2 {
+    font-size: 11.5pt; font-weight: 700; margin: 12pt 0 4pt;
+    break-after: avoid; break-inside: avoid;
+  }
+  .vmx-print-body .vmx-md-h3 {
+    font-size: 10.5pt; font-weight: 700; margin: 9pt 0 3pt; color: #2c313a;
+    break-after: avoid; break-inside: avoid;
+  }
+  .vmx-print-body p { margin: 0 0 6pt; orphans: 2; widows: 2; }
+  .vmx-print-body ul, .vmx-print-body ol { margin: 0 0 6pt; padding-left: 14pt; }
+  .vmx-print-body li { margin: 0 0 2pt; }
+
+  /* A quote in these summaries is the lecturer's own voice, which is
+     the most valuable thing on the page, so it gets a mark of its own
+     rather than the grey wash a screen uses. */
+  .vmx-print-body .vmx-md-quote {
+    border-left: 2pt solid #b48a8a; margin: 7pt 0; padding: 3pt 0 3pt 9pt;
+    background: none; font-size: 10pt; break-inside: avoid;
+  }
+
+  .vmx-print-body table {
+    width: 100%; border-collapse: collapse; margin: 7pt 0; font-size: 9pt;
+    break-inside: auto;
+  }
+  .vmx-print-body thead { display: table-header-group; }
+  .vmx-print-body tr { break-inside: avoid; }
+  .vmx-print-body th, .vmx-print-body td {
+    border: 0.5pt solid #c9ced8; padding: 3.5pt 5pt; text-align: left; vertical-align: top;
+  }
+  .vmx-print-body th { background: #f1f2f5; font-weight: 700; }
+
+  .vmx-print-body .vmx-md-hr { border: none; border-top: 0.5pt solid #d7dbe2; margin: 11pt 0; }
+  .vmx-print-body code, .vmx-print-body .vmx-md-pre {
+    font-family: var(--vmx-mono), monospace; font-size: 8.5pt; background: #f4f5f7;
+  }
+  .vmx-print-body .vmx-md-pre { padding: 5pt 7pt; break-inside: avoid; white-space: pre-wrap; }
+  .vmx-print-body img { max-width: 100%; }
+
+  .vmx-print-foot {
+    margin-top: 14pt; padding-top: 6pt; border-top: 0.5pt solid #d7dbe2;
+    font-size: 7.5pt; color: #6b7280; line-height: 1.45;
+  }
+}
