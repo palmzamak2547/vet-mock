@@ -2142,3 +2142,33 @@ about 29 lectures, and starting a subject that cannot be finished wastes the
 whole spend, because a half-checked subject cannot ship. The 388 middle dots in
 shipped summary bodies still need their own careful pass; `·` is a real
 character in chemical hydrate formulae, so no blind sweep.
+
+### 2026-09-19 close — six subjects done, four to go
+
+Live: Equine Reproduction 3, Milk Hygiene 5, Food Industry 4, Avian Medicine 7,
+One Health 5, Swine Medicine 5 — **29 lectures**. Left untouched: Equine
+Medicine and Surgery 5, Zoonoses 8, Aquatic Animal Medicine 9, Epidemiology 12
+— **34 lectures, 2.73M characters of speech**, against 1.50M already done.
+
+Resuming is cheap and does not need this conversation:
+
+- `npm run video:progress` joins the playlists, the transcripts and the shipped
+  ids, and prints **STAGED, NOT fact-checked — do not ship** for any draft
+  without an entry in `data-cache/fact-checked.txt`.
+- `docs/SUMMARY-CHECK-STANDARD.md` is the whole standard. A write or check
+  prompt points at it and adds only what is specific to its lecture.
+- `rebuild --only <subject>` ships one subject per commit; `--refresh <id>`
+  pulls a correction back into a summary that already shipped.
+
+**Two gates were found broken today and both are worth remembering, because
+each was reporting success.** The staged-summary linter located the closing
+note by the first mention of its name anywhere, so on seventeen of twenty files
+its correction check read between three and forty-eight percent of the
+document. And the academic-safety lint was one `--apply` from rewriting three
+of a lecturer's own words inside quotation marks; it now shields verbatim
+speech marked `**"…"**`, on the reasoning already written into it for
+filenames.
+
+A green gate is a claim about coverage as much as about correctness. When you
+fix one, measure the before and after coverage rather than re-running it and
+trusting the same green.
