@@ -1879,3 +1879,198 @@ Industry (4), One Health (5), Swine Medicine (5), Equine Medicine (5), Zoonoses
 `data-cache/transcripts/` holds 695 files covering all ten VET86 year-5
 playlists. Write, then fact-check against `data-cache/plain/<id>.txt`, then the
 two rules above, then rebuild and ship one subject per commit.
+
+## 2026-09-18 (later) — a subject is never finished, and Avian in progress (Claude)
+
+**Milk Hygiene gained a sixth lecture hours after the first four shipped.** The
+owner noticed a topic missing and said it looked like it had appeared about six
+hours earlier; re-fetching the playlist found `aZGyfwMEKCM`, "6.Standard of milk
+industry and products + Processing", 95,172 characters. The cached four were
+lectures 2 to 5 — there is no lecture 1 on that playlist at all.
+
+**So: the cohort uploads as the term runs, and a subject reading `0 todo` in
+`npm run video:progress` only means nothing is outstanding as of the last
+fetch.** Re-run `node scripts/fetch-video-transcripts.mjs --playlist=<subject>`
+before calling a subject done. The progress output now says so itself. Its
+plain transcript is ready; the summary is not written.
+
+**Tooling added this session, all of it because the same mistakes kept
+repeating:**
+
+- `npm run lint:staged-summaries` — checks a `data-cache/generated/*.md` before
+  the generator takes it: middle dots, machine vocabulary, a correction that
+  escaped the closing note, front matter, timestamps, length. It earned its
+  keep on the first file it ever saw: Avian lecture 1 came back with **279
+  middle dots**, lecture 2 with **155**. Both were written from prompts that
+  told them the other rules but not that one. **A rule in a prompt is a wish; a
+  rule behind a non-zero exit is a rule.**
+- `npm run video:progress` — which lectures have no summary, read from
+  `src/data` rather than from anyone's memory, and marking the ones that are
+  written but not shipped.
+- `rebuild-video-summaries.mjs --refresh <id>` — pull a corrected staged file
+  back in after its id has already shipped. Without it the fix is silently
+  ignored, and once the bad text is in HEAD even restoring the generated files
+  does not help.
+
+**Avian Medicine, in flight:** lectures 1, 2 and 3 are written and pass the
+staged linter (62.5k, 67.0k and 61.8k characters); lecture 1 is being
+fact-checked; lecture 4 is being written; 5, 6 and 7 are not started. Plain
+transcripts for **every** remaining VET86 lecture are already on disk, so no
+subject needs a fetch except to pick up new uploads.
+
+**Cost, measured on this batch, for whoever plans the remaining subjects:** a
+write agent runs about 465-490k tokens and 35 minutes, a fact-check about
+460-480k and 10-20 minutes — roughly 950k tokens per lecture. Two agents at a
+time is the ceiling that works; four tripped the session limit immediately and
+killed all four at once.
+
+## 2026-09-18 — Interactive experience handoff (planning only)
+
+- Owner clarified that interactive includes playful, tactile UI and asked for an actionable handoff. `docs/INTERACTIVE-EXPERIENCE-HANDOFF.md` contains IX-00–IX-08, dependencies, existing source seams, acceptance criteria and release boundaries.
+- Direction: a living veterinary study notebook — continuous navigation/item feedback, explorable teaching images, personal Pinboard collections, and contextual Mochi. Existing ripple/tilt/reveal/reading effects and break activities must be reused rather than proposed as absent.
+- Documentation only: no application changes, commit, push or deploy. Current summary-pipeline edits belong to concurrent work and were preserved. Next implementer should recheck current source and the user's implementation/release scope, then begin IX-00; this handoff does not establish release authorization or completion.
+
+### Interactive asset preparation (same day)
+
+- Owner requested necessary assets, avoiding generic decorative output. Created `design/interactive-assets-v1/`: 12 original layered SVGs, editable generator, manifest, interaction gallery, PNG contact sheet and integration README. Covers/desk props/stickers/folio/closing card map to IX-02/04/05/06/07. Existing Mochi identity is reused; no clinical teaching imagery was invented.
+- File checks and bounded gallery observations live in `verification.json` and `browser-review.json`. Rebuild with `build.mjs`; preview with `preview.mjs`. Sample motion CSS is preview-only and must be adapted to existing application preferences/scopes and real action success.
+- No application imports, public asset replacements, commit or deployment. Next: implement from the handoff using this pack selectively; IX-03 needs sourced teaching images separately. Preserve concurrent video-summary work.
+
+### Motion revision 2 after user review
+
+- User asked for larger, smoother and less strange movement. The initial CSS offsets are superseded by explicit SVG rigs plus `motion-model.mjs` / `motion-runtime.js`: spine opening/page turn, connected lamp joints, phased leaves, whole-sticker motion, staged folder opening and a bookmark parented to its card. Gallery supports clicking artwork, horizontal drag, range/keyboard control, interruption and reduced motion.
+- Checks: `verify-motion.mjs` samples 132 poses for edge clipping and checks spring settling/reversal and rigid/hinge invariants. Browser checks include actual drag, all 12 native range controls, cancelled drag followed by keyboard activation, and prefers-reduced-motion emulation. See current JSON receipts for exact scope; no app release or measured device-FPS claim.
+- Rebuild `build.mjs` after changing motion sources (they are inlined for local HTML compatibility). Runtime is preview-only: adapt it to existing motion scopes and learner-data actions rather than importing its global bootstrap.
+
+### Final asset handoff preparation
+
+- Start at `design/interactive-assets-v1/START-HERE.md`; `INTEGRATION.md` maps assets to IX tasks and existing app seams. `prepare.mjs` rebuilds/checks the pack. Added 24 static rest/open exports and shared spring presets; verification now covers 156 poses including overshoot and all three spring families. Fixed unclaimed pointer drag remaining after release outside the artwork; browser verified subsequent hover does not drag and keyboard still toggles.
+- `package.ps1` creates `work/interactive-delivery-20260918/vetmock-interactive-ready.zip` with preview dependencies, notices, handoff and per-file hashes, then reads the archive back to verify it. Check `delivery.json` for the actual receipt. This is the portable review/implementation reference, not an app build.
+- Preparation is complete; actual IX implementation, clinical-image selection/review, cross-browser app QA and release remain with the receiving implementation task. No changes to application source, user data, production asset registry or deployment in this preparation.
+
+### Status at 2026-09-18 21:40 — Avian, four written, three checked
+
+Session limit reached; it resets at midnight Bangkok. Banked on disk, all four
+passing `npm run lint:staged-summaries` with 0 errors:
+
+| lecture | written | fact-checked | fixes found |
+|---|---|---|---|
+| 1 ND, IB, ILT, AMPV, pox | yes, 62.5k | yes | 11 |
+| 2 Mycoplasmosis | yes, 67.0k | yes | 10 |
+| 3 Colibacillosis, fowl cholera, coryza | yes, 61.8k | yes | 9 |
+| 4 Avian influenza | yes, 64.5k | **no** | — |
+| 5, 6, 7 | no | no | — |
+
+Nothing is committed yet; Avian ships as one commit when all seven are written
+and checked. Also uncommitted and waiting to ride along: the three new scripts,
+the `--refresh` flag, and a two-dot fix in the Milk `3ihoAGQwxGk` front matter
+that the new staged linter found **after** that batch had already shipped —
+`lint:video-summaries` reads only the summary body, so front matter had never
+been checked by anything.
+
+**Defect classes this course has produced so far**, all now in the write prompts:
+inventing a fact; supplying an **English term the lecturer never said** (`synovitis`
+for his "ซิโนวี", the species *synoviae* — a different word); printing **units onto
+bare numbers** he recited without them; **correcting him towards the textbook in
+silence** (Giemsa where he twice said Gram); **deleting a word** to tidy an error;
+splicing a quote from two minutes; and **guessing at a garbled word** where
+refusing to guess is the correct output. The closing note is not exempt from any
+of this — one note warned of a contradiction that existed only because the units
+underneath it had been invented.
+
+## 2026-09-18 — MyCourseVille check: four new files on R2, rows not yet inserted (Claude)
+
+Ran the usual pipeline. MyCourseVille now lists **108 files across the 11
+current courses**, up from 96 at the 09-09 check. The diff against the shelf
+found **4 new, 0 external links pending, nothing duplicated**:
+
+| course | file |
+|---|---|
+| 3106510 Equine Medicine and Surgery | Eq Respi (5.5 MB pdf) |
+| 3107522 Clinical Problem Solving | POA - anorexia and weight loss (1.6 MB pdf) |
+| 3109501 Food Industry and QC | AddFile (0.2 MB jpg) |
+| 3109504 Zoonoses | Protozoal zoonoses, Dr. Woraporn (7.2 MB pdf) |
+
+The manifest carries the same licence wording the 09-09 and 09-14 batches used
+(`instructor-permission`, evidence naming the 2026/1 cohort and stating that no
+new instructor statement was collected), dated for today.
+
+**The bytes are on R2 — "4 shelved, 0 failed". The catalog rows are NOT in the
+database.** `ingest-library.mjs` only inserts when `SUPABASE_SERVICE_ROLE_KEY`
+is present; without it the rows go to `.mcv/rows.ndjson` for a session to load
+through the Supabase MCP. That is where they are now, as the last four lines:
+`eq-respi-57f2ab`, `poa-anorexia-and-weight-loss-cc16ec`, `addfile-966cb6`,
+`protozoal-zoonoses-dr-woraporn-4c615e`.
+
+**Why it stopped there, and what unblocks it.** VetMock's Supabase project is
+`mpovsdzdggvksmeehqfj`, and this session has MCP servers for arnfa, cuvetsmo,
+miracle and tipjai only — none of them is it (checked: `library_docs` does not
+exist in either candidate). The service-role key is not in `.env.local`, not in
+the shell, and not in the project's Vercel environment, which holds only the URL
+and the anon key. So the insert needs **either** an MCP server pointed at
+`mpovsdzdggvksmeehqfj`, **or** `SUPABASE_SERVICE_ROLE_KEY` exported before
+re-running the same command — the ingest is content-addressed by sha256, so
+re-running it uploads nothing and only writes the four missing rows.
+
+Do **not** re-run the fetch or the upload to fix this. The bytes are already
+there; only the four rows are missing.
+
+**R2 credentials note for whoever picks this up:** they are not on disk. They
+come from the project's own Vercel production environment
+(`R2_ACCOUNT_ID`, `R2_BUCKET`, `CLOUDFLARE_API_TOKEN` — all three pull with real
+values, none is marked sensitive). Pull to a temp file, source it, run, delete
+the file.
+
+## 2026-09-18 (late) — a ledger for what has been checked, and status (Claude)
+
+**A session was killed with seven avian lectures staged and no record of which
+had been fact-checked.** Reading the files did not settle it: fact-checked files
+in this subject usually gain an "as heard" caveat, and one file had none, which
+could mean unchecked or could mean it needed none. An ambiguous measurement is a
+reason to write things down, not to measure harder, so there is now
+`data-cache/fact-checked.txt` — one videoId per line, appended by hand when a
+check has reported and its fixes are on disk. `npm run video:progress` reads it
+and prints **STAGED, NOT fact-checked — do not ship** for anything missing.
+
+It is deliberately hand-written. Whether a summary has been checked is a
+judgement someone made; a script can infer that a file changed, not that
+anybody read it against the audio. Anything not in the ledger gets checked
+again, because a redundant check costs tokens and shipping an unchecked summary
+costs a student the exam.
+
+**Status.** Avian all 7 written; 1, 2, 3, 5 checked and in the ledger; 4, 6, 7
+in check now. Milk 6 written, in check. Food Industry 1 and 3 checked, 2 in
+check, 4 being written. One Health 1, 2, 3, 4 being written. Not started: One
+Health 5, Swine 5, Equine Medicine 5, Zoonoses 8, Aquatic 9, Epidemiology 12.
+
+**My own briefs were wrong three times today**, each time by asserting a lecture
+contained something it did not — chilling temperatures and carcass pH that the
+Food Industry lecturer defers to year 5 five separate times, a section number
+and penalty in an hour on a public-health act that contains no four-digit number
+at all, and a transcript size off by a factor of two. Every write and check
+prompt now ends with a line telling the agent the recording outranks the brief
+and to say so when they disagree. All three times the agent followed the
+recording and reported the discrepancy, which is the behaviour to keep.
+
+**How to prove an absence.** State the searches and name the false positives.
+The lecture-1 check did not say "I could not find a section number", it said
+`มาตรา` appears 0 times, the transcript contains no four-digit number, and the
+only `บาท` hit is the substring inside **บทบาท**. A grep that returns hits
+disproves nothing until you look at what the hits are.
+
+**Marek and the UK.** Avian lecture 5 says at [37:11] that Marek's disease was
+named after its discoverer, reported in **1907**, and **first found in the UK**.
+The check left it as said and flagged it rather than deciding. It is now a third
+closing-note item, because the sentence does not hold together on its own terms:
+1907 is exactly the year József Marek, a **Hungarian** veterinarian, described
+the disease **in Hungary**, so the year and the attribution are right and only
+the country is out of place. The body still says UK. The note is explicit that
+this one item needed a fact from outside the recording, unlike the two beside
+it, and it carries the usual advice: answer as she taught for this course's
+paper, carry Hungary for a textbook or council paper.
+
+Writing that note I made the mistake the prompts forbid: I first quoted her as
+"เขาตั้งชื่อมาเล็ก", tidying the audio's garbled
+"เขาจ้างชื่อมาเลก" inside quotation marks. Fixed to quote as heard with
+the garble named. Quotation marks are a promise about bytes, and cleaning one
+word is how the Giemsa-for-Gram class of defect starts.

@@ -29,6 +29,28 @@ const DATA = path.join(ROOT, 'src', 'data');
 const GENERATED = path.join(ROOT, 'data-cache', 'generated');
 const checkOnly = process.argv.includes('--check');
 
+// Correcting a summary that has already shipped: without this the fix sits in
+// data-cache/generated/ and the rebuild quietly keeps the old text, because an
+// id already in src/data is never overwritten. Naming the id here is the
+// supported way to pull the corrected file back in.
+//   node scripts/rebuild-video-summaries.mjs --refresh <id>[,<id>...]
+const refreshArg = process.argv.indexOf('--refresh');
+const refresh = new Set(
+  refreshArg === -1 ? [] : (process.argv[refreshArg + 1] || '').split(',').map((s) => s.trim()).filter(Boolean),
+);
+
+// Ship one subject per commit, which is how this content is reviewed and how
+// the cohort reads it. Staging holds work from several subjects at once, so
+// without this a release of Milk would also carry whichever avian and food
+// lectures happened to be finished that hour.
+//   node scripts/rebuild-video-summaries.mjs --only milk-meat-hygiene
+// Existing entries are untouched either way; this only narrows what is taken
+// from data-cache/generated/.
+const onlyArg = process.argv.indexOf('--only');
+const only = new Set(
+  onlyArg === -1 ? [] : (process.argv[onlyArg + 1] || '').split(',').map((s) => s.trim()).filter(Boolean),
+);
+
 const FIELDS = ['videoId', 'title', 'subject', 'date', 'durationMin', 'instructor', 'examFormat'];
 
 const constName = (subject) => 'VIDEO_SUMMARIES_' + subject.toUpperCase().replace(/-/g, '_');
@@ -74,17 +96,48 @@ function parseFrontMatter(text, name) {
   return entry;
 }
 
+// Nothing reaches src/data without a fact-check on record.
+//
+// The summaries are built from recordings of the cohort's own lectures, and a
+// pass that does not reopen the audio misses the defects that matter: a header
+// that groups a disease the lecturer never grouped, a table cell filled from a
+// phrase she used two minutes later about a different row, a quote that gained
+// a "ไม่". Every checked lecture so far has produced between seven and eleven
+// of these. A staged file is therefore a draft, and drafts share a directory
+// with finished work.
+//
+// data-cache/fact-checked.txt is the list of ids somebody has read against the
+// audio. It used to be advisory, printed by npm run video:progress, which made
+// it a note rather than a rule — and the generator would happily sweep the whole
+// staging directory into a release. Now it is the door. To ship a summary, put
+// its id in the ledger; that is the honest action, because the ledger is a claim
+// that the work was done.
+//
+// The ledger lives under data-cache/, which is untracked, like the staged files
+// it governs. A fresh clone therefore has an empty ledger and ships nothing from
+// staging until someone does the checking — the right way round for a default.
+const CHECKED = (() => {
+  const p = path.join(ROOT, 'data-cache', 'fact-checked.txt');
+  if (!fs.existsSync(p)) return new Set();
+  return new Set(
+    fs.readFileSync(p, 'utf8').split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith('#')),
+  );
+})();
+
 function readGenerated(existing) {
   const added = [];
   const skipped = [];
-  if (!fs.existsSync(GENERATED)) return { added, skipped };
+  const unchecked = [];
+  if (!fs.existsSync(GENERATED)) return { added, skipped, unchecked };
   const files = fs.readdirSync(GENERATED).filter((n) => n.endsWith('.json') || n.endsWith('.md'));
   for (const f of files) {
     const text = fs.readFileSync(path.join(GENERATED, f), 'utf8');
     const raw = f.endsWith('.md') ? parseFrontMatter(text, f) : JSON.parse(text);
     if (!raw.videoId) raw.videoId = f.replace(/\.(json|md)$/, '');
     if (!raw || !raw.videoId || !raw.subject || !raw.summary) throw new Error(f + ': missing required fields');
-    if (existing.has(raw.videoId)) { skipped.push(raw.videoId); continue; }
+    if (existing.has(raw.videoId) && !refresh.has(raw.videoId)) { skipped.push(raw.videoId); continue; }
+    if (only.size && !only.has(raw.subject)) continue;
+    if (!CHECKED.has(raw.videoId)) { unchecked.push(raw.videoId); continue; }
     // "absent" has one representation here. An empty string for instructor or
     // examFormat renders as a blank row in the UI instead of being omitted,
     // and reads in the data as though something was recorded when nothing was.
@@ -93,7 +146,7 @@ function readGenerated(existing) {
     }
     added.push(raw);
   }
-  return { added, skipped };
+  return { added, skipped, unchecked };
 }
 
 // The summary body is markdown that legitimately contains backticks and $.
@@ -183,7 +236,7 @@ function renderBarrel(subjects) {
 
 const existing = await readExisting();
 const before = new Map(existing);
-const { added, skipped } = readGenerated(existing);
+const { added, skipped, unchecked } = readGenerated(existing);
 for (const e of added) existing.set(e.videoId, e);
 
 const bySubject = new Map();
@@ -197,6 +250,15 @@ for (const s of subjects) bySubject.get(s).sort();
 
 console.log('existing entries : ' + before.size);
 console.log('new from cache   : ' + added.length + (skipped.length ? ' (' + skipped.length + ' already present, left alone)' : ''));
+if (unchecked.length) {
+  console.log('');
+  console.log('HELD BACK, not fact-checked : ' + unchecked.length);
+  for (const id of unchecked.sort()) console.log('   ' + id);
+  console.log('');
+  console.log('These are staged but their ids are not in data-cache/fact-checked.txt,');
+  console.log('so they were not written to src/data. Fact-check them against');
+  console.log('data-cache/plain/<id>.txt, then append the id to that file.');
+}
 console.log('total after      : ' + existing.size);
 console.log('subjects         : ' + subjects.length + ' — ' + subjects.join(' '));
 

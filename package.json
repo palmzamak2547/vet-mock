@@ -46,6 +46,8 @@
     "regen:written-questions": "node scripts/regen-written-questions.mjs",
     "lint:written-questions": "node scripts/regen-written-questions.mjs --check",
     "lint:video-summaries": "node scripts/lint-video-summaries.mjs",
+    "lint:staged-summaries": "node scripts/lint-staged-summaries.mjs",
+    "video:progress": "node scripts/video-summary-progress.mjs",
     "lint:video-corpus": "node scripts/rebuild-video-summaries.mjs --check",
     "regen:wiki-registry": "node scripts/regen-vetwiki-topic-registry.mjs",
     "regen:citation-index": "node scripts/regen-citation-index.mjs",
