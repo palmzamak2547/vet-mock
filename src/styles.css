@@ -896,6 +896,34 @@ html, body {
 .vmx-context-pill:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
 .vmx-context-sep { width: 1px; background: var(--clr-border); flex: 0 0 auto; }
 
+/* The two halves do not carry the same weight. The year is settled and changes
+   once a term; the paper is the thing that decides what the next screen shows,
+   and it is the one a student flips between. So the year reads as a quiet
+   label and the paper carries the emphasis, with a caret to say it opens
+   something — it was a pair of identical grey buttons that gave no sign either
+   was a control. The caret is drawn from a border rather than an icon so the
+   control stays two elements and the 44px targets are untouched. */
+.vmx-context-pill.is-quiet {
+  background: var(--clr-surface-2);
+  color: var(--clr-ink-soft);
+  font-weight: 500;
+}
+.vmx-context-pill.is-quiet:hover { background: var(--clr-surface-2); color: var(--clr-ink); }
+.vmx-context-pill:not(.is-quiet) { gap: 7px; letter-spacing: 0.01em; }
+.vmx-context-caret {
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4.5px solid var(--clr-ink-soft);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.vmx-context-pill:hover .vmx-context-caret,
+.vmx-context-pill:focus-visible .vmx-context-caret { transform: translateY(1px); }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-context-pill:hover .vmx-context-caret,
+  .vmx-context-pill:focus-visible .vmx-context-caret { transform: none; }
+}
+
 /* Shared reset for a full-card button. Keeps native keyboard semantics while
    allowing feature cards to retain their visual layout. */
 .vmx-pressable-card {
@@ -2913,6 +2941,20 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 
 /* Smooth scroll for long modal/sidebar */
 .vmx-modal, .vmx-app { -webkit-overflow-scrolling: touch; }
+
+/* The topic picker lists every subject and every topic of the open one, so on
+   a wide screen it is routinely taller than the viewport — and a sticky element
+   taller than the viewport cannot stick. The student got two columns scrolling
+   against each other, which is what "เลื่อนใช้ยาก" described: the article moved,
+   then stopped while the nav column caught up. Capping it makes sticky do what
+   it was put there to do — the picker holds still and scrolls inside itself
+   while the article scrolls with the page.
+
+   No overscroll-behavior here, deliberately: `contain` on an in-page panel
+   swallows the wheel when its content happens to fit, which once stopped the
+   page scrolling at all from over the left menu. Below 880px the block after
+   this one takes over and stacks the two. */
+.vmx-notes-sidebar { max-height: calc(100vh - 32px); overflow-y: auto; }
 
 /* ────────── Responsive layouts for inline-grid views ────────── */
 @media (max-width: 880px) {

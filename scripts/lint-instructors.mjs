@@ -34,6 +34,21 @@ const PLACEHOLDER_PATTERNS = [
   /^อ\.น้ำ$/u,
 ];
 
+// Named on the course's own 2569 schedule or on the title slide of the lecture
+// they gave, but not in the directory, which holds Chulalongkorn veterinary
+// faculty verified against university profiles. These are guest and visiting
+// lecturers and co-lecturers: an equine ambulatory practitioner, an aquarium
+// specialist, and three who appear beside a course coordinator on one slot.
+// Listing them here keeps this gate catching typos in faculty names while
+// letting a student see who actually stood in front of them.
+const OFF_DIRECTORY_LECTURERS = new Set([
+  'Nantarika Chansue',
+  'Thapana Jarutumnasaki',
+  'Waleemas Jairak',
+  'มินตรา ลักขณา',
+  'อรปวีณ์ สการะเศรณี',
+]);
+
 const ORGANIZATION_SLUGS = new Set(['culi-eng-vet-prof-i']);
 const errors = [];
 const warnings = [];
@@ -141,6 +156,7 @@ const lecturerValues = [...new Map(curriculum.lecturers.map((entry) => [entry.va
 
 for (const entry of lecturerValues) {
   const placeholder = PLACEHOLDER_PATTERNS.some((pattern) => pattern.test(entry.value));
+  if (OFF_DIRECTORY_LECTURERS.has(entry.value)) continue;
   if (!placeholder && !getInstructorByLecturerString(entry.value)) {
     fail(`unmapped lecturer "${entry.value}" (${entry.subjectId || 'unknown subject'} / ${entry.topicId || 'unknown topic'})`);
   }

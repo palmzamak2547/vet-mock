@@ -124,7 +124,24 @@ export function questionInScope(question, wantedScope) {
   const scope = scopeOfQuestion(question);
   if (scope == null) return true;
   if (scope === 'continuous') return false;
-  return scope === wantedScope || scope === 'both';
+  if (scope !== wantedScope && scope !== 'both') return false;
+  // A question cannot sit on a paper its own lecture is not on.
+  //
+  // The two examScope fields do not mean the same thing. A topic's is THIS
+  // year's timetable, written beside the entry as "(Course Schedule 2026)". A
+  // question's is the paper it was recorded from, and many of those papers
+  // belong to another cohort: the aquatic conservation questions are marked
+  // midterm because Vet 85 sat that lecture before their midterm, while Vet 86
+  // is taught it in the block after theirs.
+  //
+  // Reading the question's tag alone put four of them into a Vet 86 midterm
+  // set for a lecture that has not happened yet, and the topic list — which
+  // does follow the timetable — was not showing that topic at all. The list and
+  // the set now answer the same question. A topic with no scope of its own
+  // still keeps everything, as always.
+  const topicScope = scopeForTopic(question?.subject, question?.topic);
+  if (!topicScope) return true;
+  return topicScope === wantedScope || topicScope === 'both';
 }
 
 /** Split a pool by the paper, for counting and for explaining a count. */

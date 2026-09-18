@@ -26,6 +26,7 @@ async function ask(payload) {
     if (!resp.ok) {
       if (resp.status === 429) return { ok: false, reason: 'rate' };
       if (resp.status === 503) return { ok: false, reason: data.reason === 'budget' ? 'budget' : 'off' };
+      if (resp.status === 504) return { ok: false, reason: 'timeout' };
       return { ok: false, reason: 'error' };
     }
     if (data.blocked) return { ok: false, reason: 'blocked' };

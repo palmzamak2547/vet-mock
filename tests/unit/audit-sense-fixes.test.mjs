@@ -553,7 +553,7 @@ test('a panic session is scoped to its own subject', () => {
   // than passed inline. The guarantee is unchanged: this subject, never the
   // cross-subject pool, and the panic ranking still armed.
   assert.ok(fn.includes('setSubject(subjectId)'), 'the pool must be built for that subject');
-  assert.ok(fn.includes('panicPendingRef.current = true'), 'the panic pool must still be armed');
+  assert.ok(fn.includes('setPanicPending(true)'), 'the panic pool must still be armed');
   assert.ok(/setView\('config'\)/.test(fn), 'and the student must reach the controls');
   assert.ok(!fn.includes("subject: 'all'"), 'never the cross-subject pool');
   assert.ok(fn.includes('if (!subjectId) return;'), 'no subject means no session, not an all-subject one');

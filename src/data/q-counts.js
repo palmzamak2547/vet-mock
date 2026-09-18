@@ -160,7 +160,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
 // lib/exam-scope.js. A subject absent from a paper holds nothing for it.
 export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   midterm: {
-    'aquatic-clinic': 158,
+    'aquatic-clinic': 70,
     'avian-medicine': 105,
     'biochem-1': 272,
     'cliapprum': 8,
@@ -172,7 +172,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'comp-repro-clinic': 48,
     'engprof': 1,
     'equine-medicine': 60,
-    'equine-repro': 18,
+    'equine-repro': 16,
     'exotic': 34,
     'food-industry': 67,
     'food-safety-y4': 15,
@@ -195,10 +195,10 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 18,
     'vet-dev-anat': 26,
     'vet-imaging': 5,
-    'zoonoses': 62,
+    'zoonoses': 60,
   },
   final: {
-    'aquatic-clinic': 45,
+    'aquatic-clinic': 103,
     'avian-medicine': 48,
     'biochem-1': 272,
     'cliapprum': 8,
@@ -240,12 +240,12 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
 // the number and the set have to come from the same rule.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   '1-mid': {
-    'aquatic-clinic': 302,
+    'aquatic-clinic': 170,
     'avian-medicine': 316,
     'com1': 4,
     'com2': 14,
-    'equine-medicine': 281,
-    'equine-repro': 60,
+    'equine-medicine': 286,
+    'equine-repro': 57,
     'food-industry': 104,
     'food-safety-y4': 15,
     'herd-health-rum': 24,
@@ -258,16 +258,16 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 455,
     'vet-histo': 104,
     'vet-imaging': 5,
-    'zoonoses': 254,
+    'zoonoses': 197,
   },
   '1-final': {
-    'aquatic-clinic': 63,
+    'aquatic-clinic': 147,
     'avian-medicine': 107,
     'com1': 31,
     'com2': 39,
     'engprof1': 30,
     'epidemiology': 100,
-    'equine-medicine': 57,
+    'equine-medicine': 50,
     'equine-repro': 108,
     'food-industry': 34,
     'food-safety-y4': 21,
@@ -335,12 +335,12 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 2411,
+    5: 2224,
   },
   '1-final': {
     2: 104,
     4: 302,
-    5: 1129,
+    5: 1206,
   },
   '2-mid': {
     1: 298,
@@ -362,16 +362,11 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
   '1-mid': {
     'aquatic-clinic': {
       'aqua-amphibian': 3,
-      'aqua-aquarium-vet': 27,
-      'aqua-conservation': 4,
-      'aqua-disease-control': 30,
       'aqua-fish-biology': 41,
-      'aqua-fish-diseases': 40,
       'aqua-frog-diseases': 1,
       'aqua-intro-thailand': 82,
       'aqua-life-support': 10,
       'aqua-ornamental': 5,
-      'aqua-shrimp-diseases': 31,
       'aqua-shrimp-immunology': 4,
       'aqua-turtle': 3,
       'aqua-water-quality': 21,
@@ -416,18 +411,14 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'equine-intro': 83,
       'equine-nutrition': 45,
       'equine-parasites': 54,
-      'equine-poa': 2,
-      'equine-respi': 7,
+      'equine-respi': 14,
     },
     'equine-repro': {
       'eqrepro-anatomy-cycle': 12,
       'eqrepro-art-female': 13,
-      'eqrepro-endometritis': 1,
       'eqrepro-exam-mare': 14,
       'eqrepro-infertility': 6,
-      'eqrepro-pregnancy': 1,
       'eqrepro-stallion-infect': 12,
-      'eqrepro-surgery': 1,
     },
     'food-industry': {
       'fiqc-feed-qc': 17,
@@ -604,15 +595,12 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'zoonoses': {
       'zoo-ai-basic': 12,
-      'zoo-bacterial': 36,
       'zoo-corona': 17,
       'zoo-ebola-nipah': 18,
       'zoo-eid-wildlife': 13,
       'zoo-epi-approach': 16,
       'zoo-helminthic': 21,
       'zoo-intro': 20,
-      'zoo-mycoses': 17,
-      'zoo-prion': 4,
       'zoo-protozoal': 13,
       'zoo-rabies': 24,
       'zoo-rickettsial': 18,
@@ -622,15 +610,11 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': {
+      'aqua-aquarium-vet': 27,
       'aqua-conservation': 7,
       'aqua-disease-control': 34,
-      'aqua-fish-biology': 1,
-      'aqua-fish-diseases': 8,
-      'aqua-intro-thailand': 1,
-      'aqua-ornamental': 1,
-      'aqua-shrimp-diseases': 6,
-      'aqua-shrimp-immunology': 3,
-      'aqua-water-quality': 2,
+      'aqua-fish-diseases': 42,
+      'aqua-shrimp-diseases': 37,
     },
     'avian-medicine': {
       'avian-intro': 84,
@@ -727,7 +711,6 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'equine-ophth': 7,
       'equine-ortho': 16,
       'equine-poa': 8,
-      'equine-respi': 7,
       'equine-tumors': 9,
     },
     'equine-repro': {
@@ -1393,14 +1376,10 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
 export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
   '1-mid': {
     'aquatic-clinic': {
-      'aqua-aquarium-vet': 13,
-      'aqua-disease-control': 18,
       'aqua-fish-biology': 9,
-      'aqua-fish-diseases': 8,
       'aqua-intro-thailand': 12,
       'aqua-life-support': 2,
       'aqua-ornamental': 1,
-      'aqua-shrimp-diseases': 3,
       'aqua-shrimp-immunology': 3,
       'aqua-water-quality': 2,
     },
@@ -1436,9 +1415,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'eqrepro-art-female': 2,
       'eqrepro-exam-mare': 6,
       'eqrepro-infertility': 1,
-      'eqrepro-pregnancy': 1,
       'eqrepro-stallion-infect': 6,
-      'eqrepro-surgery': 1,
     },
     'food-safety-y4': {
       'dose-response': 1,
@@ -1552,7 +1529,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'zoonoses': {
       'zoo-ai-basic': 2,
-      'zoo-bacterial': 2,
       'zoo-corona': 4,
       'zoo-ebola-nipah': 3,
       'zoo-helminthic': 8,
@@ -1565,14 +1541,10 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': {
+      'aqua-aquarium-vet': 13,
       'aqua-disease-control': 23,
-      'aqua-fish-biology': 1,
-      'aqua-fish-diseases': 8,
-      'aqua-intro-thailand': 1,
-      'aqua-ornamental': 1,
-      'aqua-shrimp-diseases': 6,
-      'aqua-shrimp-immunology': 3,
-      'aqua-water-quality': 2,
+      'aqua-fish-diseases': 12,
+      'aqua-shrimp-diseases': 9,
     },
     'com1': {
       'acute-chf-collapse': 1,
@@ -3174,4 +3146,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-16T11:34:05.154Z
+// Built: 2026-09-18T22:06:56.883Z

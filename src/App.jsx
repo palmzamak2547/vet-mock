@@ -1858,13 +1858,33 @@ export default function App() {
     return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, totalScored, overallPct };
   }, [history, allQuestions]);
 
+  // Panic sends the student through the ordinary config screen, so the
+  // pool it asks for has to survive that trip: ConfigView starts the set
+  // with only a count and a per-question time, and everything else comes
+  // from here.
+  //
+  // State rather than a ref because the config screen has to COUNT that pool,
+  // not just build it later. Panic narrows to the questions closest to a paper
+  // and the screen was counting the whole subject: the card offered 158 and
+  // the next screen said 302, then served at most 158. It is cleared on
+  // leaving the config screen by any route, so an ordinary practice run that
+  // follows can never inherit the panic ranking.
+  const [panicPending, setPanicPending] = useState(false);
+  // Cleared on leaving the config screen by ANY route — back, home, a card on
+  // the home screen that opens config for something else — rather than only
+  // when a set starts. startExam reads it before the view changes, so a panic
+  // run still gets its pool; nothing that follows does.
+  useEffect(() => {
+    if (view !== 'config') setPanicPending(false);
+  }, [view]);
+
   const configPracticeMode = normalizePracticeMode(practiceMode, subject, false);
   const configAvailableCount = useMemo(() => {
     const scopeReady = USER_CURATED_MODES.has(configPracticeMode)
       ? isQBFullyLoaded()
       : isQBYearLoaded(selectedYear);
     if (!scopeReady) return null;
-    return buildExamPool({
+    const pool = buildExamPool({
       questions: allQuestions,
       practiceMode: configPracticeMode,
       subject,
@@ -1875,8 +1895,11 @@ export default function App() {
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       history,
-    }).length;
-  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, questionCategory, selectedPhase, selectedYear, subject, topic]);
+    });
+    // Panic keeps only the questions closest to a paper, so counting the whole
+    // subject here printed a number the session would never serve.
+    return panicPending ? panicPool(pool).length : pool.length;
+  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, panicPending, questionCategory, selectedPhase, selectedYear, subject, topic]);
 
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
@@ -1885,12 +1908,6 @@ export default function App() {
   // Use `'key' in overrides` so callers can explicitly pass null (e.g.,
   // topic: null means "no topic filter"); `??` would default null back
   // to the state value.
-  // Panic sends the student through the ordinary config screen, so the
-  // pool it asks for has to survive that trip: ConfigView starts the set
-  // with only a count and a per-question time, and everything else comes
-  // from here. The ref is cleared as soon as a set starts, so an ordinary
-  // practice run that follows cannot inherit the panic ranking.
-  const panicPendingRef = useRef(false);
   const startExam = async (overrides = {}) => {
     finishingRef.current = false; // arm the finish latch for a fresh session
     // A new set replaces whatever was saved, so the resume card's numbers
@@ -1904,10 +1921,9 @@ export default function App() {
     const _numQuestions = 'numQuestions' in overrides ? overrides.numQuestions : numQuestions;
     const _useTimer = 'useTimer' in overrides ? overrides.useTimer : useTimer;
     const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
-    if (panicPendingRef.current && !('panicPool' in overrides)) {
+    if (panicPending && !('panicPool' in overrides)) {
       overrides = { ...overrides, panicPool: true };
     }
-    panicPendingRef.current = false;
     const _mode = 'mode' in overrides ? overrides.mode : mode;
 
     // Palm bug 2026-05-20: practiceMode='wrong'/'weak'/'bookmarks' gets
@@ -2711,7 +2727,7 @@ export default function App() {
     setNumQuestions(PANIC_SUBJECT_MAX);
     setUseTimer(true);
     setTimePerQ(60);
-    panicPendingRef.current = true;
+    setPanicPending(true);
     setView('config');
   };
   // Pick a real subject from the landing → the exact sequence a subject

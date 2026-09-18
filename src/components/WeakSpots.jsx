@@ -27,16 +27,22 @@ export default function WeakSpots({ wrongQs, answers }) {
   // compare it against, and the server refuses those anyway.
   const gradeable = (wrongQs || []).filter((q) => q.type === 'mcq' || q.type === 'tf');
   if (gradeable.length < 2) return null;
+  // The server reads the first 25 and no more, so a 79-miss session was being
+  // offered "เทียบ 79 ข้อ" and given a pattern drawn from a third of them. Say
+  // the number that is actually compared, and send only those.
+  const COMPARED = 25;
+  const considered = gradeable.slice(0, COMPARED);
+  const trimmed = gradeable.length - considered.length;
 
   const run = async () => {
     setState({ status: 'loading' });
-    const res = await reviewMisses(gradeable.map((q) => ({ qid: String(q.id), chosen: answers[q.id] })));
+    const res = await reviewMisses(considered.map((q) => ({ qid: String(q.id), chosen: answers[q.id] })));
     setState(res.ok
       ? { status: 'done', data: res.data }
       : { status: 'failed', message: COACH_MESSAGE[res.reason] || COACH_MESSAGE.error });
   };
 
-  const byId = new Map(gradeable.map((q) => [String(q.id), q]));
+  const byId = new Map(considered.map((q) => [String(q.id), q]));
   const data = state.data;
   const patterns = data?.patterns || [];
 
@@ -58,7 +64,8 @@ export default function WeakSpots({ wrongQs, answers }) {
 
       {state.status === 'idle' && (
         <p className="vmx-coach-foot">
-          เทียบ {gradeable.length} ข้อที่ผิดรอบนี้ดูว่าพลาดด้วยเหตุผลเดียวกันหรือเปล่า
+          เทียบ {considered.length} ข้อที่ผิดรอบนี้ดูว่าพลาดด้วยเหตุผลเดียวกันหรือเปล่า
+          {trimmed > 0 && ` (จากทั้งหมด ${gradeable.length} ข้อ)`}
         </p>
       )}
       {state.status === 'failed' && <p className="vmx-coach-foot">{state.message}</p>}

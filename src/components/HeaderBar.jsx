@@ -75,7 +75,7 @@ export default function HeaderBar({
             {showYear && (
               <button
                 type="button"
-                className="vmx-context-pill"
+                className="vmx-context-pill is-quiet"
                 onClick={() => setView('year-select')}
                 aria-label={`สลับชั้นปี — ปัจจุบันปี ${selectedYear}`}
               >
@@ -91,6 +91,7 @@ export default function HeaderBar({
                 aria-label="สลับช่วงสอบ (Phase)"
               >
                 {PHASE_PILL_LABELS[selectedPhase] || selectedPhase}
+                <span className="vmx-context-caret" aria-hidden="true" />
               </button>
             )}
           </div>

@@ -36,6 +36,17 @@ import { questionCatalog } from './_lib/question-catalog.js';
 import { VIDEO_META } from '../src/data/video-summaries-meta.js';
 import { loadVideoSummariesForSubject } from '../src/data/video-summaries.js';
 
+// Without this the platform gives the function its 10-second default, and the
+// 30 seconds the provider is allowed below can never be reached: a review of a
+// long miss list was being cut off mid-flight and the browser saw a 504, which
+// is why "หาจุดร่วม" took a while and then said to try again. The internal
+// timeout stays well under this ceiling so a slow provider returns our own
+// honest answer rather than the platform's.
+export const config = {
+  runtime: 'nodejs',
+  maxDuration: 60,
+};
+
 const MAX_ITEMS = 25;          // one session's worth of wrong answers
 const MAX_SUMMARY_CHARS = 14000;
 const TIMEOUT_MS = 30000;

@@ -67,3 +67,38 @@ test('countByScope separates the piles and names the unknown one', () => {
   ]);
   assert.deepEqual(t, { midterm: 2, final: 1, both: 1, continuous: 1, unknown: 1 });
 });
+
+test('a question cannot sit on a paper its own lecture is not on', () => {
+  // Find a real topic that sits on exactly one paper, and hand it a question
+  // tagged with the other one. That is not hypothetical: the aquatic
+  // conservation questions are tagged midterm because Vet 85 sat that lecture
+  // before their midterm, while Vet 86 is taught it after theirs. Reading the
+  // question's tag alone put them into a midterm set for a lecture that has
+  // not happened, while the topic list — which does follow the timetable —
+  // was not showing that topic at all.
+  let found = null;
+  for (const s of SUBJECTS) {
+    for (const t of s.topics || []) {
+      if (t.examScope === 'midterm' || t.examScope === 'final') {
+        found = { subject: s.id, topic: t.id, scope: t.examScope };
+        break;
+      }
+    }
+    if (found) break;
+  }
+  assert.ok(found, 'at least one curriculum topic must sit on exactly one paper');
+  const other = found.scope === 'midterm' ? 'final' : 'midterm';
+
+  assert.equal(
+    questionInScope({ subject: found.subject, topic: found.topic, examScope: other }, other),
+    false,
+    'the senior cohort’s paper does not move a lecture onto this year’s',
+  );
+  assert.equal(
+    questionInScope({ subject: found.subject, topic: found.topic, examScope: found.scope }, found.scope),
+    true,
+    'a question that agrees with the timetable is still served',
+  );
+  // A topic with no scope of its own keeps everything, as always.
+  assert.equal(questionInScope({ subject: 'nope', topic: 'nope', examScope: 'midterm' }, 'midterm'), true);
+});
