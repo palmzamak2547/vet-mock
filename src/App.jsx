@@ -1202,6 +1202,20 @@ export default function App() {
     if (view === 'exam') {
       import('./views/ResultsView.jsx').catch(() => {});
       import('./views/ReviewView.jsx').catch(() => {});
+      // ReviewView lazy-loads two more chunks of its own, so warming only
+      // ReviewView left the answer screen one 404 away from a deploy: the
+      // student submits (Results is warm), opens the answers (Review is warm),
+      // reaches a question carrying an image or taps the comments, and THAT
+      // chunk is the one whose hash no longer exists. Same failure as 05-08,
+      // one screen further in. A lazy import anywhere on the exam path has to
+      // be warmed before the exam starts, and
+      // tests/unit/exam-path-prewarm.test.mjs fails if a new one is added
+      // without being added here.
+      import('./components/ImageAnnotator.jsx').catch(() => {});
+      import('./components/QComments.jsx').catch(() => {});
+      // Confetti is cosmetic, but its import is a bare .then() in ResultsView,
+      // so a 404 there is an unhandled rejection on the score screen.
+      import('./lib/confetti.js').catch(() => {});
     }
   }, [view]);
 
