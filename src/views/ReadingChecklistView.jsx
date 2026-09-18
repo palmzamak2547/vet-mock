@@ -15,11 +15,13 @@ import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { hasNoteTopic } from '../data/notes-registry.generated.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { isTopicRead, setTopicRead } from '../lib/study-progress.js';
+import { scopeForPhase, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
 import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
 
 export default function ReadingChecklistView({
   selectedYear = 4,
+  selectedPhase = null,
   readingChecklist = {},
   setReadingChecklist,
   goHome,
@@ -32,8 +34,20 @@ export default function ReadingChecklistView({
   // hides topics in TopicSelectView (and excludes them from visibleQuestionCount)
   // must also hide them from the reading checklist; otherwise non-Final topics
   // (e.g. Poultry midterm scope, Exotic week 1-6) show up in รายการอ่าน.
+  //
+  // The list also follows the paper the student picked, which is what the phase
+  // screen already promises them: เทอม 1 กลางภาค is described there as
+  // "วิชาเทอม 1 ไม่รวมเนื้อหาปลายภาค". It was not true here — a year-5 student on
+  // กลางภาค was handed 86 topics that sit on the final paper. Same rule as the
+  // topic list: the topic's own examScope decides, and a topic without one is
+  // kept, because filtering on absent metadata would quietly shrink the list the
+  // day someone adds a topic and forgets the field. Nothing is erased; a tick on
+  // a final topic is still in storage and reappears under ปลายภาค.
+  const paperScope = scopeForPhase(selectedPhase);
+  const onThisPaper = (t) => !paperScope || !t?.examScope
+    || t.examScope === paperScope || t.examScope === 'both';
   const subjects = (SUBJECTS_BY_YEAR[selectedYear] || [])
-    .map((s) => ({ ...s, topics: Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden) : [] }))
+    .map((s) => ({ ...s, topics: Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden && onThisPaper(t)) : [] }))
     .filter((s) => s.topics.length > 0);
 
   // The celebration below watches a derived count, which also moves when the
@@ -79,6 +93,11 @@ export default function ReadingChecklistView({
         <Mochi state="read" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1>รายการ <em>อ่าน</em></h1>
         <p>ติ๊กหัวข้อที่อ่านเสร็จแล้ว ดูเหลือต้องอ่านอีกกี่คาบ, เก็บไว้ในเครื่อง (sync cloud ถ้า login)</p>
+        {paperScope && (
+          <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+            แสดงเฉพาะหัวข้อของ{EXAM_SCOPE_LABEL[paperScope]}ตามช่วงสอบที่เลือกไว้ ที่ติ๊กไว้ในอีกช่วงยังอยู่ครบ สลับช่วงสอบที่หน้าแรกแล้วกลับมาดูได้
+          </p>
+        )}
       </div>
 
       {/* Overall progress card */}
@@ -233,7 +252,9 @@ export default function ReadingChecklistView({
       })}
 
       {totalTopics === 0 && (
-        <EmptyState art={EMPTY_ART.reading} title="ยังไม่มีรายการหัวข้อให้ติ๊ก" body="วิชาในปีนี้ยังไม่มีรายการให้ติ๊ก เลือกปีอื่นดูได้จากหน้าแรก" />
+        <EmptyState art={EMPTY_ART.reading} title="ยังไม่มีรายการหัวข้อให้ติ๊ก" body={paperScope
+            ? `วิชาในปีนี้ยังไม่มีหัวข้อของ${EXAM_SCOPE_LABEL[paperScope]}ให้ติ๊ก สลับช่วงสอบที่หน้าแรกหรือเลือกปีอื่นดูได้`
+            : "วิชาในปีนี้ยังไม่มีรายการให้ติ๊ก เลือกปีอื่นดูได้จากหน้าแรก"} />
       )}
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

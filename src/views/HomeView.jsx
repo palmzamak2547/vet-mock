@@ -170,12 +170,6 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   // ในปีนี้" number. Subject grid uses Q_VISIBLE_COUNTS_BY_SUBJECT
   // directly (per-subject) so no aggregate needed there.
 
-  // Reading checklist progress — scoped to the active year + phase.
-  const checklistTopics = yearSubjects
-    .filter((s) => Array.isArray(s.topics) && s.topics.length > 0)
-    .flatMap((s) => s.topics.map((t) => t.id));
-  // (readingDone/readingTotal badge moved into FeatureMenu's registry-driven
-  // card; the bespoke progress count is no longer rendered on HomeView.)
 
   // Changelog announcement banner — show until user dismisses this version
   const [lastSeenChangelog, setLastSeenChangelog] = useLocalStorage('vmx-last-seen-changelog', null);
@@ -1850,7 +1844,16 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
 
         // Per-subject progress (Phase 3) — readingChecklist + bookmarks
         // are local-storage backed and cheap to compute.
-        const topics = Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden) : [];
+        //
+        // Counted over the same topics the reading list counts. That list now
+        // follows the paper the student picked, so a whole-subject denominator
+        // here would put two different percentages for the same reading on two
+        // screens — the card saying 40% while the list says 78%.
+        const cardScope = examScopeForPhase(selectedPhase);
+        const topics = Array.isArray(s.topics)
+          ? s.topics.filter((t) => !t.hidden
+              && (!cardScope || !t.examScope || t.examScope === cardScope || t.examScope === 'both'))
+          : [];
         const readDone = topics.filter((t) => isTopicRead(readingChecklist, s.id, t.id)).length;
         // O(1) lookup using bookmarksBySubject precomputed above
         const bookmarkCount = isScaffold ? 0 : (bookmarksBySubject[s.id] || 0);
