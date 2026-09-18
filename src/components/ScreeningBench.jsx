@@ -311,6 +311,7 @@ export default function ScreeningBench({ preset = 0 }) {
           {!hidden && <PositiveField table={table} />}
 
           {hidden ? <p className="vmx-bench-field__empty">ตาราง 2x2 จะแสดงหลังกดดูคำตอบ</p> : (
+          <div className="vmx-bench-table-scroll">
           <table className="vmx-bench-table">
             <caption className="vmx-bench-table__caption">
               จากสัตว์ {nf(table.n)} ตัว เป็นโรคจริง {nf(table.diseased)} ตัว
@@ -344,6 +345,7 @@ export default function ScreeningBench({ preset = 0 }) {
               </tr>
             </tbody>
           </table>
+          </div>
           )}
 
           <PrevalenceCurve

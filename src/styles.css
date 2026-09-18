@@ -2213,7 +2213,20 @@ html.dark .vmx-panic-scrim {
 .vmx-back-chip .arrow { display: inline-block; transition: transform 0.15s; font-weight: 700; }
 .vmx-back-chip:hover .arrow { transform: translateX(-2px); }
 
-.vmx-exam-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+/* Exit on the left, position in the middle, clock and score on the right.
+   Four children under space-between put them at 0, a third, two thirds and the
+   right edge, so the clock sat off-centre with nothing to balance it — which is
+   what it looked like. Three columns with equal outer tracks centre the
+   position properly however many of the optional pieces are on screen. */
+.vmx-exam-top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.vmx-exam-top-left { justify-self: start; display: flex; align-items: center; min-width: 0; }
+.vmx-exam-top-right { justify-self: end; display: flex; align-items: center; gap: 10px; min-width: 0; }
 .vmx-progress { font-family: var(--vmx-mono); font-size: 13px; color: var(--clr-ink-soft); }
 .vmx-progress strong { color: var(--clr-ink); font-size: 16px; }
 .vmx-timer { font-family: var(--vmx-mono); font-size: 16px; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: var(--clr-surface); border: 1px solid var(--clr-border); color: var(--clr-ink); }
@@ -2998,7 +3011,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-stat-grid:has(> :nth-child(3):last-child) .vmx-stat-num { font-size: 28px; }
   .vmx-dash-grid { grid-template-columns: 1fr; }
   .vmx-progress-bar { height: 6px; }
-  .vmx-exam-top { gap: 8px; flex-wrap: wrap; }
+  .vmx-exam-top { gap: 8px; }
+  .vmx-exam-top-right { gap: 6px; }
   .vmx-options { gap: 8px; }
   .vmx-next-actions { padding: var(--space-3); border-radius: var(--r-lg); }
   .vmx-next-actions-header { align-items: start; margin-bottom: var(--space-2); }
@@ -4825,7 +4839,18 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-bench-dot.is-hit { background: var(--clr-sage); }
 @keyframes vmx-bench-pop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
 
+/* The 2x2 table is four columns of five-figure numbers inside a side panel.
+   At iPad width the panel is narrower than the smallest the table can be, and
+   the totals column was simply cut off: 74,66… / 25,34… / 100,00… with no way
+   to reach the rest. It scrolls now instead of hiding numbers, and the cells
+   tighten before it comes to that. */
+.vmx-bench-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .vmx-bench-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.vmx-bench-table { min-width: 22rem; }
+@media (max-width: 900px) {
+  .vmx-bench-table th, .vmx-bench-table td { padding: var(--space-2); }
+  .vmx-bench-table { font-size: 14px; }
+}
 .vmx-bench-table__caption { padding-bottom: var(--space-2); text-align: left; font-size: 13px; color: var(--clr-ink-soft); }
 .vmx-bench-table th, .vmx-bench-table td {
   padding: var(--space-2) var(--space-3); text-align: right;

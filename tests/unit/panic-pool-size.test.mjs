@@ -79,7 +79,10 @@ test('both Panic entries draw from the Panic pool', () => {
 
 test('a per-subject Panic is not cut to a fixed size', () => {
   const fn = APP.slice(APP.indexOf('const startSubjectPanic'), APP.indexOf('const landingPickSubject'));
-  assert.match(fn, /numQuestions: PANIC_SUBJECT_MAX/, 'the per-subject cram is back on a fixed size');
+  // The default the config screen opens on is still the whole pool. A student
+  // may now choose a smaller set on purpose, which is what that screen is for,
+  // but nothing hands them a fixed slice without asking.
+  assert.match(fn, /setNumQuestions\(PANIC_SUBJECT_MAX\)/, 'the per-subject cram is back on a fixed size');
   assert.doesNotMatch(fn, /PANIC_SIZE/, 'the per-subject cram reads a time preset again');
   const cap = Number(APP.match(/export const PANIC_SUBJECT_MAX = (\d+);/)?.[1]);
   assert.ok(cap >= 500, `PANIC_SUBJECT_MAX ${cap} would truncate the largest subject pool`);

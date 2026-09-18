@@ -68,6 +68,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
   return (
     <>
       <div className="vmx-exam-top">
+        <div className="vmx-exam-top-left">
         {goHome && (
           <button
             type="button"
@@ -81,6 +82,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
             <span>ออก</span>
           </button>
         )}
+        </div>
         <div className="vmx-progress">
           <strong>{currentIdx + 1}</strong> / {questions.length}
           {(currentQ?.type === 'essay' || currentQ?.type === 'short') && (
@@ -99,6 +101,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
             </span>
           )}
         </div>
+        <div className="vmx-exam-top-right">
         {useTimer && (
           <div className={`vmx-timer ${timeLeft <= 10 ? 'warn' : (timeLeft <= 60 && (currentQ?.type === 'essay' || currentQ?.type === 'short')) ? 'warn' : ''}`}>
             {fmtTime(timeLeft)}
@@ -117,6 +120,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
             </div>
           );
         })()}
+        </div>
       </div>
       <div className="vmx-progress-bar">
         <div

@@ -548,7 +548,13 @@ test('a panic session is scoped to its own subject', () => {
   // holds for that subject rather than a slice sized by a time preset.
   assert.ok(APP.includes('const startSubjectPanic = (subjectId) =>'));
   const fn = APP.slice(APP.indexOf('const startSubjectPanic'), APP.indexOf('// Pick a real subject from the landing'));
-  assert.ok(fn.includes('subject: subjectId'), 'the pool must be built for that subject');
+  // Panic now opens the config screen so the student can choose the count and
+  // the reveal, which Palm asked for, so the subject is set on the app rather
+  // than passed inline. The guarantee is unchanged: this subject, never the
+  // cross-subject pool, and the panic ranking still armed.
+  assert.ok(fn.includes('setSubject(subjectId)'), 'the pool must be built for that subject');
+  assert.ok(fn.includes('panicPendingRef.current = true'), 'the panic pool must still be armed');
+  assert.ok(/setView\('config'\)/.test(fn), 'and the student must reach the controls');
   assert.ok(!fn.includes("subject: 'all'"), 'never the cross-subject pool');
   assert.ok(fn.includes('if (!subjectId) return;'), 'no subject means no session, not an all-subject one');
   assert.ok(APP.includes('onStartPanic: startSubjectPanic'), 'and the subject screen is wired to it');

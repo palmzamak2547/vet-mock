@@ -1885,6 +1885,12 @@ export default function App() {
   // Use `'key' in overrides` so callers can explicitly pass null (e.g.,
   // topic: null means "no topic filter"); `??` would default null back
   // to the state value.
+  // Panic sends the student through the ordinary config screen, so the
+  // pool it asks for has to survive that trip: ConfigView starts the set
+  // with only a count and a per-question time, and everything else comes
+  // from here. The ref is cleared as soon as a set starts, so an ordinary
+  // practice run that follows cannot inherit the panic ranking.
+  const panicPendingRef = useRef(false);
   const startExam = async (overrides = {}) => {
     finishingRef.current = false; // arm the finish latch for a fresh session
     // A new set replaces whatever was saved, so the resume card's numbers
@@ -1898,6 +1904,10 @@ export default function App() {
     const _numQuestions = 'numQuestions' in overrides ? overrides.numQuestions : numQuestions;
     const _useTimer = 'useTimer' in overrides ? overrides.useTimer : useTimer;
     const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
+    if (panicPendingRef.current && !('panicPool' in overrides)) {
+      overrides = { ...overrides, panicPool: true };
+    }
+    panicPendingRef.current = false;
     const _mode = 'mode' in overrides ? overrides.mode : mode;
 
     // Palm bug 2026-05-20: practiceMode='wrong'/'weak'/'bookmarks' gets
@@ -2686,21 +2696,23 @@ export default function App() {
   // nowhere and had nothing to do with the subject. What Panic holds for a
   // subject is a real quantity (237 for สุขศาสตร์น้ำนม, 23 for คลินิกสัตว์น้ำ),
   // the card prints it, and the session serves all of it in priority order.
+  // Panic used to start the set on the spot with the count, the clock and the
+  // reveal fixed, so there was no way to say "ten questions" or "show me the
+  // answer after each one" — the two controls every other practice route has.
+  // It now lands on the same config screen with the panic pool armed and its
+  // own defaults filled in, which is one more tap and no lost choices.
   const startSubjectPanic = (subjectId) => {
     if (!subjectId) return;
     setMode('quick');
     setSubject(subjectId);
     setTopic(null);
-    startExam({
-      subject: subjectId,
-      topic: null,
-      practiceMode: 'all',
-      questionCategory: 'all',
-      numQuestions: PANIC_SUBJECT_MAX,
-      useTimer: true,
-      timePerQ: 60,
-      panicPool: true,
-    });
+    setPracticeMode('all');
+    setQuestionCategory('all');
+    setNumQuestions(PANIC_SUBJECT_MAX);
+    setUseTimer(true);
+    setTimePerQ(60);
+    panicPendingRef.current = true;
+    setView('config');
   };
   // Pick a real subject from the landing → the exact sequence a subject
   // card uses in HomeView (reset practiceMode, set subject, topic-select).
