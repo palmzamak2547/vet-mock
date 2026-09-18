@@ -9,7 +9,10 @@ test('a shared VCA set loads the reviewed bank and grades the corrected egg calc
   await page.goto(`/?qset=${encoded}`);
   await expect(page.getByRole('heading', { name: /hen-day egg production 85%/ })).toBeVisible({ timeout: 20_000 });
   await page.getByRole('group', { name: 'ตัวเลือกคำตอบ' }).getByRole('button', { name: /^[A-E] 1615$/ }).click();
-  await expect(page.getByText('✓ ถูกต้อง!', { exact: true })).toBeVisible();
+  // "คุณตอบถูก", not "ถูกต้อง". On a true/false question the old
+  // wording read as a verdict on the statement, and sat right above an
+  // explanation that opened with "ไม่ถูกต้อง" about that same statement.
+  await expect(page.getByText('✓ คุณตอบถูก', { exact: true })).toBeVisible();
   await expect(page.getByText(/1,700 × 0\.95 = 1,615/)).toBeVisible();
   await page.getByRole('button', { name: /ที่มา:/ }).click();
   await expect(page.getByText(/หน้า 9/).first()).toBeVisible();

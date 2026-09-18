@@ -1245,6 +1245,7 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
         shelfCounts={shelfCounts}
         examByPhase={examByPhase}
         phaseScope={phaseScope}
+        selectedPhase={selectedPhase}
         onPick={(s) => {
           // Routing precedence:
           //   1. has_notes (scaffold or empty-LIVE but Notes available) →
@@ -1768,7 +1769,7 @@ function FeedbackChip() {
 // or PREVIEW state (faculty count from vault_lecturers, course code).
 // LIVE cards link to TopicSelectView (= subject detail). PREVIEW cards
 // are visually distinct + non-interactive (subjects without Qs yet).
-function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = {}, bookmarks = NO_ITEMS, history = [], accBySubject = {}, shelfCounts = null, examByPhase = null, phaseScope = null, onPick }) {
+function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = {}, bookmarks = NO_ITEMS, history = [], accBySubject = {}, shelfCounts = null, examByPhase = null, phaseScope = null, selectedPhase = null, onPick }) {
   // Per-subject coverage — "เรียนวิชานี้ไปกี่ %". One memoised pass over
   // history + bank, shared by every card below. Same memo reasoning as
   // bookmarksBySubject: Home re-renders constantly (countdowns, sync,
@@ -1821,7 +1822,18 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
         // Use precomputed visible counts + custom-Q overlay so this
         // render path never iterates the full QB. Saves ~5 ms per
         // HomeView re-render with the year's typical 8 subjects.
-        const builtInCount = Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0;
+        // The number on the card is the paper the student picked, because the
+        // handler that opens the card already works that way and said so:
+        // "phase-blind it said 338 for เวชปฏิบัติม้า and served 57". That fix
+        // landed on the routing and never reached the line that prints the
+        // number, so the card kept announcing the whole subject. Under
+        // ปลายภาค the Milk Hygiene card offered 457 questions and the final
+        // paper has none; under กลางภาค Epidemiology offered 100 and the
+        // midterm has none.
+        const scopedSubjectCounts = Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[selectedPhase] || null;
+        const builtInCount = scopedSubjectCounts
+          ? (scopedSubjectCounts[s.id] || 0)
+          : (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0);
         const customCount = customQuestions.filter((q) => q.subject === s.id).length;
         const count = builtInCount + customCount;
         // `scaffold: true` is an explicit flag for placeholder subjects.

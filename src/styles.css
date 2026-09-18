@@ -2451,8 +2451,18 @@ html.dark .vmx-panic-scrim {
 .vmx-tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .vmx-tf-btn { padding: 24px; border-radius: 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; transition: all 0.15s; font-family: var(--vmx-display); font-weight: 600; font-size: 20px; color: var(--clr-ink); }
 .vmx-tf-btn:hover { border-color: var(--clr-ink); }
-.vmx-tf-btn.selected-true { background: var(--clr-sage); color: var(--clr-surface); border-color: var(--clr-sage); }
-.vmx-tf-btn.selected-false { background: var(--clr-rose); color: var(--clr-rose-on); border-color: var(--clr-rose); }
+/* Which option is chosen, not whether it is right.
+   These used to fill True green and False red, so the colour said "False" and
+   the student read "wrong": a correct False answer came up in the same red the
+   app uses for a mistake, under a banner reading ✓ ถูกต้อง!. The ✓ and ✗ glyphs
+   already name the two options; the fill is now neutral until the answer is
+   revealed, and after that correctness owns the colour. */
+.vmx-tf-btn.selected-true,
+.vmx-tf-btn.selected-false {
+  background: var(--clr-surface-2);
+  color: var(--clr-ink);
+  border-color: var(--clr-ink);
+}
 
 .vmx-fill-row { display: flex; flex-direction: column; gap: 12px; }
 .vmx-fill-label { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); margin-bottom: 4px; }
@@ -3958,8 +3968,19 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-option.is-wrong { border-color: var(--clr-rose); background: rgba(194, 109, 109, 0.10); color: var(--clr-ink); }
 .vmx-option.is-wrong .vmx-option-letter { background: var(--clr-rose); border-color: var(--clr-rose); color: var(--clr-rose-on); }
 .vmx-option:disabled, .vmx-option[aria-disabled="true"] { cursor: default; pointer-events: none; }
-.vmx-tf-btn.reveal-correct { border-color: var(--clr-sage); box-shadow: inset 0 0 0 2px var(--clr-sage); }
-.vmx-tf-btn.reveal-wrong { border-color: var(--clr-rose); box-shadow: inset 0 0 0 2px var(--clr-rose); opacity: 0.85; }
+/* After the reveal the fill is the verdict: the right answer is green whoever
+   picked it, and a wrong pick is red. An inset ring alone could not say this,
+   because it was sitting on top of a fill that already meant something else. */
+.vmx-tf-btn.reveal-correct {
+  background: var(--clr-sage);
+  color: var(--clr-surface);
+  border-color: var(--clr-sage);
+}
+.vmx-tf-btn.reveal-wrong {
+  background: var(--clr-rose);
+  color: var(--clr-rose-on);
+  border-color: var(--clr-rose);
+}
 .vmx-tf-btn:disabled, .vmx-tf-btn[aria-disabled="true"] { cursor: default; pointer-events: none; }
 .vmx-instant-feedback { margin-top: 10px; padding: 12px 14px; border-radius: 10px; font-size: 13px; line-height: 1.55; animation: vmx-instant-in 0.18s ease-out; }
 .vmx-instant-feedback.is-ok { background: rgba(74, 107, 74, 0.10); border-left: 3px solid var(--clr-sage); }
@@ -5179,4 +5200,43 @@ body.vmx-reading .vmx-pdf-body {
     margin-top: 14pt; padding-top: 6pt; border-top: 0.5pt solid #d7dbe2;
     font-size: 7.5pt; color: #6b7280; line-height: 1.45;
   }
+}
+
+/* ============================================================
+   The answer on a matching row that got it wrong
+   ============================================================
+   After revealing, this screen showed the student's own choice in a
+   disabled select with a ✗ beside it, and a banner reading
+   "ถูกบางคู่ — ดูเฉลยด้านล่าง". Nothing below it carried the answer:
+   `pair.right` was never rendered anywhere, so the page told a student
+   to look at something it had not drawn. The answer now sits on the row
+   it belongs to, with their own choice still in the select above it so
+   the two can be compared without leaving the question.
+
+   The right-hand column is a flex row, so the answer claims a full basis
+   to drop onto its own line rather than squeezing in beside the select.
+   ============================================================ */
+.vmx-match-select-right { flex-wrap: wrap; }
+
+.vmx-match-answer {
+  flex-basis: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--clr-border);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+.vmx-match-answer-label {
+  flex: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--clr-sage-text);
+}
+.vmx-match-answer-text {
+  color: var(--clr-ink);
+  font-weight: 600;
 }

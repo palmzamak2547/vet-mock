@@ -62,8 +62,45 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   const catalog = createStudyCatalog({ customQuestions, readingChecklist });
   const subjectPage = catalog.browse({ subject });
   const subjectMeta = subjectPage.subject;
-  const topics = subjectPage.topics || [];
   const resources = subjectPage.resources || {};
+
+  // Only the topics that sit on the paper the student picked.
+  //
+  // Every topic in curriculum.js carries examScope — equine reproduction marks
+  // endometritis, the male organs, AI, surgery and pregnancy as 'final', and
+  // stallion infectious disease as 'both'. Nothing read it. The catalog has no
+  // scope logic at all, and this view used scopeForPhase only for the panic
+  // card, so choosing กลางภาค still listed all ten topics. The five final ones
+  // came up with no questions behind them and printed "รอเนื้อหาเพิ่ม", which
+  // says the content is coming — when the truth is that the topic is not on
+  // this paper. A topic genuinely on the midterm with nothing written yet
+  // still shows that line, and should.
+  //
+  // A topic with no examScope is kept, which is the rule exam-scope.js already
+  // applies to questions: filtering on absent metadata would quietly shrink a
+  // student's practice set the day someone adds a topic and forgets the field.
+  // The topic's own scope decides, and a question's does not, because the two
+  // fields answer different questions. A topic's examScope comes from this
+  // year's timetable — the entries carry the note "(Course Schedule 2026)"
+  // beside them. A question's examScope is the paper it was recorded from,
+  // and many of those papers belong to another cohort: the one midterm-scoped
+  // question under equine pregnancy is sourced "บันทึกหลังสอบของรุ่นพี่ Vet 85",
+  // and the ten under equine dentistry are "รวบรวมโดยรุ่นพี่ Vet 85".
+  //
+  // Counting those questions as evidence that a topic sits on this year's
+  // midterm is how endometritis, pregnancy and surgery kept appearing under
+  // กลางภาค with "1 ข้อ" beside them — one senior's paper from a year whose
+  // split was different. Vet 86 is taught pregnancy in lecture 13, after the
+  // midterm. Those questions stay reachable on the final paper and on the
+  // whole-semester view; they just stop claiming a place on a paper their
+  // topic is not on.
+  const paperScope = scopeForPhase(selectedPhase);
+  const topics = (subjectPage.topics || []).filter((t) => {
+    if (!paperScope) return true;
+    if (!t?.examScope) return true; // unknown scope is kept, as for questions
+    return t.examScope === paperScope || t.examScope === 'both';
+  });
+  const scopedTopics = Q_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase]?.[subject] || null;
 
   // Reading-checklist summary for this subject
   const subjReadDone = subjectPage.progress?.read || 0;
@@ -76,7 +113,6 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // view no longer scans or forces the full Q bank to load just to render.
   // Every topic number sits beside a button that opens buildExamPool with the
   // selected phase, so once a paper is picked the count is that paper's.
-  const scopedTopics = Q_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase]?.[subject] || null;
   const countFor = (topicId) => {
     if (topicId === 'all') {
       if (scopedTopics) return Object.values(scopedTopics).reduce((a, b) => a + b, 0);
@@ -455,6 +491,31 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         {/* A topic is useful when any connected resource is ready. Notes-only
             topics stay visible instead of being disabled just because the Q
             bank is still empty. */}
+        {/* A subject can be real and still have nothing on the paper the
+            student picked — Epidemiology's topics are seventeen final and
+            seven continuous, and the faculty timetable gives it no midterm at
+            all. Filtering by the paper is right, but landing on a blank list
+            with no explanation is the same dead end as an answer key that
+            points at nothing. Say which paper emptied the page, and give back
+            the control that changes it. */}
+        {paperScope && topics.length === 0 && (subjectPage.topics || []).length > 0 && (
+          <div className="vmx-empty-state">
+            <span className="icon" aria-hidden="true">🗓</span>
+            <div>
+              วิชานี้ไม่มีหัวข้อที่อยู่ใน{paperScope === 'midterm' ? 'ช่วงกลางภาค' : 'ช่วงปลายภาค'}
+              <br />
+              เนื้อหาทั้งหมดของวิชาอยู่ในอีกช่วงสอบหนึ่ง ตามตารางเรียนปีนี้
+            </div>
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-sm cta"
+              onClick={() => setView('phase-select')}
+            >
+              เปลี่ยนช่วงสอบ
+            </button>
+          </div>
+        )}
+
         {(() => {
           const topicEntries = topics.map((t) => ({ t, count: countFor(t.id) }));
           const ready = topicEntries.filter(({ t }) => hasTopicContent(t));

@@ -168,6 +168,20 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                     {isCorrect ? '✓' : '✗'}
                   </span>
                 )}
+
+                {/* The answer, on the row it belongs to.
+                    After revealing, this screen showed the student's own choice
+                    in a disabled select and a ✗ beside it, while the banner said
+                    "ดูเฉลยด้านล่าง" — and nothing below it carried the answer.
+                    pair.right was never rendered anywhere, so a student who got
+                    three of four pairs wrong could not find out what the right
+                    pairing was from the page that told them to look. */}
+                {isRevealed && !isCorrect && (
+                  <div className="vmx-match-answer">
+                    <span className="vmx-match-answer-label">เฉลย</span>
+                    <span className="vmx-match-answer-text">{strip(pair.right)}</span>
+                  </div>
+                )}
               </div>
             </div>
           );
@@ -190,7 +204,9 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                   {isAllCorrect ? '🎉' : correct > 0 ? '⚡' : '❌'} ได้ <strong>{correct}/{total}</strong> คู่ ({pct}%)
                 </span>
                 <span className="vmx-match-reveal-msg">
-                  {isAllCorrect ? 'ถูกต้องครบทุกคู่!' : correct > 0 ? 'ถูกบางคู่ — ดูเฉลยด้านล่าง' : 'ยังไม่ถูก — ลองศึกษาเฉลยอีกครั้ง'}
+                  {isAllCorrect
+                    ? 'ถูกต้องครบทุกคู่!'
+                    : 'เฉลยของคู่ที่ยังไม่ถูก แสดงไว้ใต้ช่องคำตอบของคู่นั้นแล้ว'}
                 </span>
               </div>
             );

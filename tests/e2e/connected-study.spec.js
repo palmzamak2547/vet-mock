@@ -190,7 +190,12 @@ test.describe('connected study experience', () => {
     await expect(page.getByText('แนะนำ', { exact: true })).toBeVisible();
     await expect(page.locator('.vmx-bottom-nav')).toHaveCount(0);
 
-    await page.getByRole('button', { name: /เทอม 1 กลางภาค/ }).click();
+    // The final paper, because this journey opens ระบาดวิทยา and the faculty
+    // timetable gives that subject no midterm at all: its topics are seventeen
+    // final and seven continuous. The topic list now shows the paper the
+    // student picked, so asking for these topics under กลางภาค was asking to
+    // see a subject on a paper it is not on.
+    await page.getByRole('button', { name: /เทอม 1 ปลายภาค/ }).click();
     const headerContextBox = await page.locator('.vmx-header-context').boundingBox();
     const headerToolsBox = await page.locator('.vmx-header-right').boundingBox();
     expect(headerContextBox).not.toBeNull();

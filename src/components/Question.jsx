@@ -326,6 +326,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               <InstantFeedback
                 ok={tfOk}
                 correctNode={<>{correctIsTrue ? '✓ True' : '✗ False'}</>}
+                // Say what the statement was even when the student got it
+                // right: on a true/false question "คุณตอบถูก" and "ข้อความนี้ผิด"
+                // are both true at once, and only one of them was on screen.
+                alwaysShowCorrect
                 explain={currentQ.explain}
                 subject={currentQ.subject}
                 wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={tfOk} />}
@@ -712,12 +716,16 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, correctNode, explain, coach, wikiLink, subject }) {
+function InstantFeedback({ ok, correctNode, explain, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   return (
     <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <Mochi state={ok ? 'correct' : 'encourage'} size={48} slot="feedback" animate className="vmx-feedback-mochi" />
-      <div className="v">{ok ? '✓ ถูกต้อง!' : '✗ ยังไม่ใช่ — คำตอบที่ถูกถูกทำเครื่องหมาย ✓ ไว้'}</div>
-      {!ok && correctNode != null && (
+      {/* "คุณตอบถูก", not "ถูกต้อง". On a true/false question the
+          second reads as a verdict on the STATEMENT, and it sat directly above
+          an explanation opening with "ไม่ถูกต้อง" — which is about the statement.
+          Two lines, opposite words, neither saying whose. */}
+      <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ — คำตอบที่ถูกถูกทำเครื่องหมาย ✓ ไว้'}</div>
+      {(alwaysShowCorrect || !ok) && correctNode != null && (
         <div className="a"><span className="k">เฉลย</span>{correctNode}</div>
       )}
       {explain && (
