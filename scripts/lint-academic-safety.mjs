@@ -178,9 +178,31 @@ const findings = []; // [{ file, pattern, count }]
 const claimFindings = []; // [{ file, why, use, samples, count }] — detect-only
 let totalHits = 0;
 
+// A lecturer's own words are a record, not a claim this app is making — the
+// same reasoning that already skips filenames below. The summaries mark
+// verbatim speech as **"…"**, and two of those quotes contain banned
+// vocabulary because the lecturer used it: one jokes about crib sheets
+// existing every year, another says clinical exams reward data that matches
+// exactly. Rewriting either would put words in his mouth inside quotation
+// marks, which is the failure every fact-check pass this week existed to
+// catch. The marker is deliberately narrow: ordinary prose, titles and
+// examFormat are still scanned, so the lint keeps its reach over anything the
+// app says in its own voice.
+const SPEECH = /\*\*"[^"\r\n]*"\*\*/g;
+function shieldSpeech(text) {
+  const kept = [];
+  const masked = text.replace(SPEECH, (m) => {
+    kept.push(m);
+    return '@@VMXQUOTE' + (kept.length - 1) + '@@';
+  });
+  return { masked, restore: (s) => s.replace(/@@VMXQUOTE(\d+)@@/g, (_m, i) => kept[Number(i)]) };
+}
+
 for (const f of files) {
   let content = readFileSync(f, 'utf8');
   const before = content;
+  const shield = shieldSpeech(content);
+  content = shield.masked;
   for (const [pat, rep] of REPLACEMENTS) {
     let count = 0;
     while (content.includes(pat)) {
@@ -192,6 +214,7 @@ for (const f of files) {
       totalHits += count;
     }
   }
+  content = shield.restore(content);
   if (APPLY && content !== before) {
     writeFileSync(f, content, 'utf8');
   }
@@ -201,7 +224,7 @@ for (const f of files) {
   // making, so matches inside one are skipped — seniors named a PDF
   // "...Myco Protozoa ตรงมาก.pdf" and renaming it in our prose would break
   // the reference students use to find it.
-  const withoutFilenames = before.replace(/"[^"\r\n]*\.(pdf|jpe?g|png|docx?|pptx?)"/gi, '""');
+  const withoutFilenames = shieldSpeech(before).masked.replace(/"[^"\r\n]*\.(pdf|jpe?g|png|docx?|pptx?)"/gi, '""');
   // Words that make a line about an EXAM rather than about veterinary medicine.
   // Deliberately generous — it only has to appear within a short window of the
   // phrase, so a real claim ("Vet 82 final ตรงมาก") keeps firing while a
