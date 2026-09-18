@@ -99,7 +99,19 @@ for (const id of files) {
   }
 
   // A correction belongs in the closing note, so measure from where that starts.
-  const noteAt = body.indexOf(NOTE_HEADING);
+  //
+  // Anchor on the heading, not on the words. indexOf(NOTE_HEADING) used to
+  // match the first mention of the phrase anywhere, and nearly every summary
+  // mentions it in prose — a trap line that says the extra observations live
+  // in หมายเหตุท้ายบท, a pointer inside a part. One file put that sentence on
+  // line 51 of 1,190, so `beforeNote` was 50 lines long and this check ran
+  // over four percent of the document while reporting a clean pass. It let
+  // ตามตำรา through in the body, on the same line that had turned the
+  // lecturer's hyposecretion into hypersecretion.
+  //
+  // The note is the last such heading in the file, so search from the end.
+  const headings = [...body.matchAll(new RegExp('^#{1,6}[^\\n]*' + NOTE_HEADING, 'gm'))];
+  const noteAt = headings.length ? headings[headings.length - 1].index : -1;
   const beforeNote = noteAt === -1 ? body : body.slice(0, noteAt);
   for (const phrase of CORRECTION_PHRASES) {
     if (beforeNote.includes(phrase)) {

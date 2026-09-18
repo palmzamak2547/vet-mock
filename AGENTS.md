@@ -2074,3 +2074,71 @@ Writing that note I made the mistake the prompts forbid: I first quoted her as
 "เขาจ้างชื่อมาเลก" inside quotation marks. Fixed to quote as heard with
 the garble named. Quotation marks are a promise about bytes, and cleaning one
 word is how the Giemsa-for-Gram class of defect starts.
+
+### Shipped 2026-09-19, and verified by content rather than by bundle hash
+
+Four commits: Milk lecture 6 with the staging gate, the PDF export, seven Avian
+lectures, four Food Industry lectures. All three subjects confirmed live —
+the content-hashed data chunk built locally is served from production with the
+new ids inside it. **The entry bundle hash differed and that proved nothing**;
+comparing `main-*.js` would have reported "not promoted" while the content was
+already there. Fetch the chunk whose name is a hash of what you shipped.
+
+Sixty defects came out of the seven avian checks, thirty out of the four food
+ones, seven out of Milk 6. Two defect classes were named for the first time
+today and belong in every check prompt from here:
+
+- **Numbers written off as unusable that were audible all along.** Four in one
+  Food Industry lecture, including "ก่อนปี 25" read as noise when it is the
+  same two-digit register as "ปี 58", and "19590", which has one digit too many
+  rather than too few. This is the mirror of an over-cautious ฟังไม่ชัด.
+- **The transcript splits words.** A search for ข้อสอบ missed a real hit
+  rendered as "ข้อ สอบ", and a search for CCP hit "HAC CP". Any absence proof
+  has to say which spellings it searched and name the false positives, or it is
+  only a claim that nothing was found.
+
+Still true and still not done: 388 middle dots sit in shipped summary bodies
+across 17 files. Most belong to older content with no staged source, so the
+refresh path cannot reach them, and a blind sweep is unsafe because `·` is a
+real character in chemical hydrate formulae. It needs its own careful pass.
+
+### 2026-09-19 — four subjects shipped, and two holes on the exam path
+
+Live on production: **Milk lecture 6, seven Avian, four Food Industry, five One
+Health** — 22 lectures, each written from the cohort's own recording and read
+back against the audio by an independent pass. Roughly 140 defects came out of
+those checks. `docs/SUMMARY-CHECK-STANDARD.md` now holds the standard so it
+does not have to be retyped into every prompt, and `data-cache/fact-checked.txt`
+is a hand-written ledger the generator refuses to ship without.
+
+**Two user-facing bugs, both found because Palm said so.**
+
+The PDF export printed a blank page. The handout rendered inside `.vmx-app`,
+and the print sheet hides `.vmx-app`. A descendant of a `display:none` ancestor
+is not painted. It now hangs off `<body>` through a portal. **The test could
+not have caught it**: it asked `getComputedStyle(doc).display` and got "block",
+because that reports an element's own value and knows nothing about a hidden
+ancestor. It now measures paint — client rects, height, `checkVisibility()` —
+and reverting the portal turns it red.
+
+The answer screen was one chunk away from a deploy. Warming ResultsView and
+ReviewView at exam start has been in place since a student was stranded at
+submit on 2026-05-08, but **ReviewView lazy-loads ImageAnnotator and QComments
+itself and those were never warmed** — the failure had moved one screen later,
+not been fixed. `tests/unit/exam-path-prewarm.test.mjs` now reads the dynamic
+imports out of the answer path and fails if any is unwarmed.
+
+**On whether a student was hit: the app cannot say who, by design.**
+`client-diagnostics.js` records `{release, view, kind, category}` and
+deliberately discards messages, stacks, URLs and identifiers, because exception
+text can contain a learner's own input. Whether anyone was hit is answerable
+from `client_diagnostics` (look for `view` review/results with `kind`
+render/rejection); reading it needs the VetMock Supabase, which no MCP here
+reaches. Do not route around the anonymity to answer the "who".
+
+**Still open:** Swine (5 written or in flight, checks starting) is the last
+subject in this run. Zoonoses 8, Aquatic 9 and Epidemiology 12 are untouched —
+about 29 lectures, and starting a subject that cannot be finished wastes the
+whole spend, because a half-checked subject cannot ship. The 388 middle dots in
+shipped summary bodies still need their own careful pass; `·` is a real
+character in chemical hydrate formulae, so no blind sweep.
