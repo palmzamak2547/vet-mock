@@ -80,6 +80,20 @@ said. The second decides what should have been said, and once that is allowed
 there is no principled place to stop, because a well-read author can always
 supply the likely answer.
 
+### A bracket can delete the evidence
+
+The sharpest case found so far. A summary's headline claim was that a virus
+this faculty researches is never taught in the recording, resting on a count:
+the token appears **once**. It appears twice. The second occurrence had been
+written down as `คู่กับตัว[อื่น]` — a guess placed inside brackets where the
+audio has `ตัวเพ` — so the document had **erased its own counter-evidence and
+then counted what was left**, and propagated the number to four other places.
+
+A bracketed reading is not a safe way to record uncertainty about a word. It
+overwrites the sounds that were actually there, and everything downstream that
+counts, greps or reasons about those sounds is now working from the guess. Put
+the audio inside the quotation marks and the reading outside them, always.
+
 ## How to prove an absence
 
 Not "I could not find it". **State the searches and name the false positives.**

@@ -122,6 +122,29 @@ for (const id of files) {
     }
   }
 
+  // Stars rate a section's importance, so they belong on headings. One file
+  // put 412 of them in the body as well, in front of terms that were already
+  // bold — emphasis on top of emphasis, 626 marks in one document. Palm read
+  // the result and said the emphasis was everywhere, which is what happens
+  // when a mark stops selecting anything.
+  //
+  // Measured per 1,000 characters of body text, outside headings: the three
+  // reference summaries and Milk 6 sit at 0, the other avian files at 0.65 and
+  // 0.84, and the file that drew the complaint at 5.0. A ceiling of 1.0 leaves
+  // a deliberate star on a genuinely critical line alone and catches drift.
+  const bodyStars = body
+    .split(/\r?\n/)
+    .filter((l) => !/^\s*#/.test(l))
+    .reduce((n, l) => n + (l.match(/⭐/g) || []).length, 0);
+  const starRate = bodyStars / (body.length / 1000);
+  if (starRate > 1) {
+    warn(
+      id,
+      `${bodyStars} stars outside headings (${starRate.toFixed(1)} per 1,000 chars; the accepted files run 0 to 0.84) — `
+        + 'a star on every point marks nothing, and bold already carries the emphasis',
+    );
+  }
+
   if (!/^#\s+\S/m.test(body)) err(id, 'no H1 heading');
 
   const timestamps = (body.match(/\[\d{1,3}:\d{2}/g) || []).length;

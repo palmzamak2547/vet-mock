@@ -156,6 +156,17 @@ function renderMarkdown(md) {
   return out.join('\n');
 }
 
+// Front matter is one line of plain text in the source file, but the people
+// writing these use markdown emphasis inside it — **ข้อสอบ VCA** in one,
+// ten bold pairs in another — and every place that showed examFormat or
+// instructor printed the string raw, so a student read the asterisks. They
+// go through the same inline subset the body uses. renderInline escapes the
+// string before it substitutes anything, so metadata cannot carry markup of
+// its own into the page.
+function Inline({ text }) {
+  return <span dangerouslySetInnerHTML={{ __html: renderInline(String(text ?? '')) }} />;
+}
+
 // ─────────────────────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────────────────────
@@ -284,15 +295,15 @@ export default function SummaryModal({ summary, onClose }) {
         <p className="vmx-print-eyebrow">สรุปจากคลิปบรรยาย</p>
         <h1 className="vmx-print-title">{summary.title}</h1>
         <p className="vmx-print-meta">
-          {[summary.subject?.toUpperCase(), summary.date,
+          <Inline text={[summary.subject?.toUpperCase(), summary.date,
             summary.durationMin ? `${summary.durationMin} นาที` : null,
-            summary.instructor].filter(Boolean).join('  ·  ').replace(/·/g, '—')}
+            summary.instructor].filter(Boolean).join('  ·  ').replace(/·/g, '—')} />
         </p>
       </header>
       {summary.examFormat && (
         <aside className="vmx-print-exam">
           <p className="vmx-print-exam-label">แนวข้อสอบที่อาจารย์บอกไว้</p>
-          <p className="vmx-print-exam-body">{summary.examFormat}</p>
+          <p className="vmx-print-exam-body"><Inline text={summary.examFormat} /></p>
         </aside>
       )}
       <div className="vmx-print-body" dangerouslySetInnerHTML={{ __html: html }} />
@@ -347,7 +358,7 @@ export default function SummaryModal({ summary, onClose }) {
             </h2>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 3, fontStyle: 'italic' }}>
               {summary.subject?.toUpperCase()}, {summary.date}, {summary.durationMin} นาที
-              {summary.instructor && <>, {summary.instructor}</>}
+              {summary.instructor && <>, <Inline text={summary.instructor} /></>}
             </div>
           </div>
           <PinButton
@@ -446,7 +457,7 @@ export default function SummaryModal({ summary, onClose }) {
             <span style={{ fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', fontSize: 11, letterSpacing: '0.08em' }}>
               Exam format
             </span>
-            <span style={{ flex: 1 }}>{summary.examFormat}</span>
+            <span style={{ flex: 1 }}><Inline text={summary.examFormat} /></span>
           </div>
         )}
       </div>
