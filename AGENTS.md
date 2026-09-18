@@ -2172,3 +2172,47 @@ filenames.
 A green gate is a claim about coverage as much as about correctness. When you
 fix one, measure the before and after coverage rather than re-running it and
 trusting the same green.
+
+### 2026-09-19 — the bug sweep, and what the timetable settled
+
+Palm sent a queue of screenshots and nine of his own subject summaries with
+one rule above the rest: **ห้ามมั่ว, and the current year decides.** The full
+queue with evidence is `docs/BUG-SWEEP-2026-09-19.md`. What matters for the
+next person:
+
+**The first page of a "Mid 86" summary is a primary source.** Each one carries
+the cohort's own course outline or timetable — lecture by lecture, with the
+lecturer, and with MIDTERM EXAMINATION printed in its place in the sequence.
+That is what settled eight aquatic topics, two equine ones and three zoonoses
+ones that were describing the senior cohort's papers. The senior cohort's
+folders are not a substitute: Vet 85 sat conservation before their midterm and
+shrimp immunology after it, and Vet 86 is the other way round.
+
+**Read a row's own comment before overriding it.** `eqrepro-endometritis`
+carries `/* lecture 7 = ปลายภาค (Course Schedule 2026) */`. A pass that knew
+the lecture number beat an inference from a deck title, and the change was
+reverted. Rows that carry a lecture number are the strongest scope evidence in
+the file.
+
+**The two examScope fields answer different questions.** A topic's is this
+year's timetable. A question's is the paper it was recorded from. They are
+intersected now: a question cannot sit on a paper its own lecture is not on.
+`node scripts/audit-scope-contradictions.mjs` prints every disagreement; it was
+79 before this sweep and 37 after, and most of what is left is `both` against a
+specific paper, which is harmless.
+
+**MyCourseVille reaches the current syllabus.** `.mcv/dump-current.json` already
+holds this semester's listings; the Zoonoses and One Health syllabi and the
+Avian timetable are files in it. A Thai filename arrives with its characters
+escaped as `u0e15...` and 403s — `repairMcvUrl` in `scripts/ingest-library.mjs`
+is the fix.
+
+**A number next to a button must count the pool that button will serve.** Three
+separate bugs this sweep were the same bug: the subject card counted the whole
+subject, the reading list counted the whole year, and Panic counted 158 on the
+card and 302 on the next screen. `tests/e2e/counts-agree.spec.js` now walks that
+chain and insists the number does not change.
+
+**A serverless function with no `maxDuration` gets ten seconds.** `study-coach`
+waited thirty internally, so every long review was cut off mid-flight and the
+browser saw a 504. Check the export before blaming the model.
