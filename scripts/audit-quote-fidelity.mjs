@@ -90,18 +90,33 @@ function measure(id) {
     else garbled += hits.length;
   }
 
-  let present = 0; let absent = 0; const sample = [];
-  for (const s of spans) {
-    // A span carrying markdown bold or a table pipe was mis-paired by the
-    // extractor, not written by a careless hand; a pure-ASCII span is a term or
-    // a slide caption, which Thai audio has no reason to contain.
-    if (s.includes('**') || s.includes('|')) continue;
-    if (!THAI.test(s)) continue;
-    if (joined.includes(s.replace(/\s+/g, ''))) { present += 1; continue; }
-    absent += 1;
-    if (sample.length < 3) sample.push(s.slice(0, 60));
+  // A quote the line says appears ZERO times is not speech being reported —
+  // it is the search term used to prove the clip never said it. Those spans
+  // SHOULD be missing from the transcript; that absence is the finding. The
+  // aquatic pass wrote 29 of them ("คำว่า \"สอบ\" ปรากฏ 0 ครั้ง", "\"วัคซีน\"
+  // ปรากฏ 0 ครั้ง") and the audit read every one as drift, which would have
+  // pushed the next writer to delete the evidence to make a number go green.
+  // Only an ABSENT span is excused this way: a span that IS in the audio still
+  // counts as present, so the loose end — a line claiming 0 for a word the clip
+  // does say — is not something this excuses, it just is not what this measures.
+  const CLAIMS_ZERO = /0\s*ครั้ง/;
+  let present = 0; let absent = 0; let claimedAbsent = 0; const sample = [];
+  for (const line of md.split('\n')) {
+    const zero = CLAIMS_ZERO.test(line.replace(/\*/g, ''));
+    for (const m of line.matchAll(/"([^"\n]{2,})"/g)) {
+      const s = m[1];
+      // A span carrying markdown bold or a table pipe was mis-paired by the
+      // extractor, not written by a careless hand; a pure-ASCII span is a term
+      // or a slide caption, which Thai audio has no reason to contain.
+      if (s.includes('**') || s.includes('|')) continue;
+      if (!THAI.test(s)) continue;
+      if (joined.includes(s.replace(/\s+/g, ''))) { present += 1; continue; }
+      if (zero) { claimedAbsent += 1; continue; }
+      absent += 1;
+      if (sample.length < 3) sample.push(s.slice(0, 60));
+    }
   }
-  return { id, spans: present + absent, present, absent, sample, share, garbled, thaiSpans: thaiSpans.length };
+  return { id, spans: present + absent, present, absent, claimedAbsent, sample, share, garbled, thaiSpans: thaiSpans.length };
 }
 
 // data-cache/ is gitignored, so a fresh clone (CI) has neither the summaries
