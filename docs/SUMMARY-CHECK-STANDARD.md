@@ -138,6 +138,56 @@ in the audio still counts as present, so the phrase is not a way to hide a real
 garble. Bold is still the house style, because a document where every quotation
 mark is a claim about the audio is the one worth auditing in the first place.
 
+### A garbled quote is not a quote
+
+Palm read two summaries on 2026-09-19 and said **"ทำไมเริ่มมีภาษาแปลกๆหลุดมาอีกแล้ว"**
+and **"มันดูรกมาก"**. The measurement agreed with him: 895 fused Thai+Latin tokens
+inside quotation marks in the equine file, 602 in aquatic, 324 in zoonoses, while
+every other summary in the corpus sat between 0 and 12.
+
+The rule above is what produced it, and it was almost right. "A garbled word stays
+garbled inside the marks and the reading goes outside them" protects fidelity for a
+sentence that is mostly intelligible. It never said what to do when the WHOLE
+sentence arrived as mush, so writers quoted the mush and explained it underneath:
+
+> เสียงที่ได้ยินคือ **"มันก็จะมีสอ่าพวกเอไซม์ ต่างๆที่produิceมาจากแพนเคียสใช่มั้ยคะ
+> แล้วแล้วก็พวกbyักต่างๆนะคะที่produิceมา"** คือ **เอนไซม์จากตับอ่อน และสารที่มาจากตับ**
+
+The meaning is already there, in plain Thai, at the end of the line. Everything in
+front of it is what the student has to read past.
+
+**A quotation mark is a promise that the reader is hearing the lecturer.** Printing
+`produิce`, `byัก`, `epิumsแวareมน`, `การทำsurรี่`, `hyฮปเปอร์คatนiz` does not keep that
+promise — it breaks it twice, once by being unreadable and once by making the page
+look like machine output, which is the same complaint the square brackets earned.
+
+So, when a sentence comes out garbled:
+
+- **If the point is the content** — write the content as ordinary Thai prose and keep
+  the `[mm:ss]`. Do not quote. Stating what he meant outside quotation marks has
+  always been allowed; that is what "the reading goes outside them" means.
+- **If the point is that one TERM was unclear** — say so in one sentence and put the
+  raw sound in `# 📌 หมายเหตุท้ายบท`, once. Not in the body, not repeated per section.
+- **One mildly fused token in a readable sentence is fine.** Judgement, not a counter:
+  if you would not want to read it, do not make a student read it.
+
+`node scripts/audit-quote-garble.mjs --budget` counts fused tokens inside quoted runs
+per shipped file and ratchets them down. A Thai letter directly against a Latin letter
+does not occur in written Thai — it is the signature of a half-heard English word fused
+into a Thai one. Latin words standing on their own are normal in a vet lecture and are
+not counted.
+
+### Clutter is a defect, not thoroughness
+
+The same reading produced **"ดูรกมาก"**. His standing instruction for these is
+**"แก่นหลักคือเนื้อหา จุดเน้น และแนวข้อสอบ บางอย่างอาจไม่จำเป็น"** — content, emphasis,
+what the exam is likely to ask. A summary is not a transcript with headings.
+
+Cut: how the lecturer planned to split the class across two weeks, the vote he took
+from the room, mic checks, "อ่ะเรามาต่อพาร์ท 2 กันนะคะ", and a ⚠️ block for every
+section. Keep an audio-gap note where content is actually missing, and a ⚠️ where
+something genuinely conflicts — those earn their space. Nothing else does.
+
 ## Recovery is not substitution
 
 A garbled token may be resolved when **the sounds support the word**:

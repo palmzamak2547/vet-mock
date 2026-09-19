@@ -1,0 +1,17 @@
+{
+ "note": "Fused Thai+Latin tokens sitting INSIDE quoted speech, per shipped summary file. A quotation mark promises the reader is hearing the lecturer; a sentence transcribed as `produิce` / `การทำsurรี่` does not keep that promise. Ratchet: a number may only go down and a file may only leave. Write the reading as prose and keep the anchor, or put the raw sound in the closing note — not both, and not in the body. See docs/SUMMARY-CHECK-STANDARD.md, \"A garbled quote is not a quote\".",
+ "measured": "2026-09-19",
+ "total": 1054,
+ "totalSpans": 702,
+ "files": {
+  "video-summaries-aquatic-clinic.js": 475,
+  "video-summaries-equine-medicine.js": 414,
+  "video-summaries-zoonoses.js": 136,
+  "video-summaries-swine-clinic.js": 12,
+  "video-summaries-one-health.js": 7,
+  "video-summaries-avian-medicine.js": 6,
+  "video-summaries-surg2.js": 2,
+  "video-summaries-meta.js": 1,
+  "video-summaries-milk-meat-hygiene.js": 1
+ }
+}
