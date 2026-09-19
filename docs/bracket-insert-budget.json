@@ -1,8 +1,10 @@
 {
- "note": "Bracketed editorial inserts sitting INSIDE quoted speech, per shipped summary file. Ratchet: a number may only go down, and a file may only leave. See docs/SUMMARY-CHECK-STANDARD.md, \"A bracket can delete the evidence\".",
+ "note": "Bracketed spans in shipped summaries: `files` counts those INSIDE quoted speech, `outsideFiles` those outside it. Both ratchet: a number may only go down and a file may only leave. A `[...]` reads as machine output wherever it sits, which is what Palm said on 2026-09-19. See docs/SUMMARY-CHECK-STANDARD.md, \"A bracket can delete the evidence\".",
  "measured": "2026-09-19",
  "total": 0,
+ "totalOutside": 0,
  "files": {},
+ "outsideFiles": {},
  "transcriberAnnotations": [
   "[เสียงกระแอม]",
   "[เสียงสูดหายใจ]"

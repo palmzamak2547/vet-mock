@@ -57,8 +57,10 @@ export function scanLine(line, audioText = null, allowed = null) {
     // An odd number of quote marks before the bracket means it opened a quote
     // that has not closed yet, so the bracket is being spoken.
     const quotesBefore = (line.slice(0, m.index).match(/"/g) || []).length;
-    if (quotesBefore % 2 === 1 && allowed && allowed.has(span)) continue;
-    if (quotesBefore % 2 === 1 && audioText && audioText.includes(span.replace(/\s+/g, ''))) continue;
+    // A transcriber annotation is evidence wherever it sits — including in a note
+    // that exists to explain it.
+    if (allowed && allowed.has(span)) continue;
+    if (audioText && audioText.includes(span.replace(/\s+/g, ''))) continue;
     (quotesBefore % 2 === 1 ? inside : outside).push(span);
   }
   return { inside, outside };
@@ -119,14 +121,20 @@ const totalOut = rows.reduce((a, r) => a + r.outside, 0);
 
 if (writeBudget) {
   const budget = {};
+  const budgetOut = {};
   for (const r of rows) if (r.inside > 0) budget[r.file] = r.inside;
+  for (const r of rows) if (r.outside > 0) budgetOut[r.file] = r.outside;
   writeFileSync(BUDGET_FILE, `${JSON.stringify({
-    note: 'Bracketed editorial inserts sitting INSIDE quoted speech, per shipped '
-      + 'summary file. Ratchet: a number may only go down, and a file may only '
-      + 'leave. See docs/SUMMARY-CHECK-STANDARD.md, "A bracket can delete the evidence".',
+    note: 'Bracketed spans in shipped summaries: `files` counts those INSIDE quoted '
+      + 'speech, `outsideFiles` those outside it. Both ratchet: a number may only go '
+      + 'down and a file may only leave. A `[...]` reads as machine output wherever '
+      + 'it sits, which is what Palm said on 2026-09-19. '
+      + 'See docs/SUMMARY-CHECK-STANDARD.md, "A bracket can delete the evidence".',
     measured: new Date().toISOString().slice(0, 10),
     total,
+    totalOutside: totalOut,
     files: budget,
+    outsideFiles: budgetOut,
     transcriberAnnotations: [...excusedHere].sort(),
   }, null, 1)}\n`);
   console.log(`wrote ${BUDGET_FILE}: ${Object.keys(budget).length} files, ${total} inserts`);
@@ -145,11 +153,17 @@ if (budgetMode) {
       for (const s of r.sample) console.error(`    ${s}`);
       failed = true;
     }
+    const capOut = budget.outsideFiles?.[r.file] ?? 0;
+    if (r.outside > capOut) {
+      console.error(`✖ ${r.file}: ${r.outside} bracketed spans outside the quotes, budget ${capOut}.`);
+      failed = true;
+    }
   }
   console.log(`${rows.length} summary files · ${total} inserts inside quotes · ${totalOut} outside`);
   if (failed) {
-    console.error('A bracket inside a quotation mark rewrites what the lecturer said. '
-      + 'Put the audio inside the marks and the reading outside.');
+    console.error('A bracket inside a quotation mark rewrites what the lecturer said; '
+      + 'a bracket outside one reads as machine output. Put the audio inside the '
+      + 'marks and write the reading as an ordinary sentence.');
     process.exit(1);
   }
   console.log('✅ no summary exceeds its bracket-insert budget.');

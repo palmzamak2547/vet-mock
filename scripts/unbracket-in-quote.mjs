@@ -26,6 +26,10 @@ const PLACEHOLDER = /ฟังไม่ชัด|ไม่ชัด|ออกเ
 
 const [subject, ...rest] = process.argv.slice(2);
 const dry = rest.includes('--dry');
+// `--outside` does the same job for a bracket that sits OUTSIDE the quotes. Palm
+// did not distinguish the two ("เห็นหลายจุดเลย") and he is right that they read
+// the same on the page: `สิ่ง[ปลูก]สร้าง` is machine output wherever it sits.
+const outside = rest.includes('--outside');
 if (!subject) { console.error('usage: node scripts/unbracket-in-quote.mjs <subject> [--dry]'); process.exit(2); }
 
 const file = `src/data/video-summaries-${subject}.js`;
@@ -56,7 +60,7 @@ for (let i = 0; i < lines.length; i += 1) {
     const span = m[0]; const inner = m[1];
     if (!THAI.test(span) || TIMESTAMP.test(span)) continue;
     const quotesBefore = (lines[i].slice(0, m.index).match(/"/g) || []).length;
-    if (quotesBefore % 2 !== 1) continue;
+    if ((quotesBefore % 2 === 1) === outside) continue;
     if (audio && audio.includes(span.replace(/\s+/g, ''))) { skippedTranscriber += 1; continue; }
     if (PLACEHOLDER.test(inner)) { skippedPlaceholder += 1; continue; }
     out += lines[i].slice(cursor, m.index) + inner;
@@ -68,7 +72,7 @@ for (let i = 0; i < lines.length; i += 1) {
   if (touched) lines[i] = out + lines[i].slice(cursor);
 }
 
-console.log(`${subject}: unbracketed ${changed}`
+console.log(`${subject}${outside ? ' (outside quotes)' : ''}: unbracketed ${changed}`
   + `, left ${skippedPlaceholder} placeholder(s) for a hand rewrite`
   + `, left ${skippedTranscriber} transcriber annotation(s) alone`);
 for (const s of samples) console.log(`    ${s}`);
