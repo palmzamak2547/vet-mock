@@ -2604,3 +2604,23 @@ term, so read the per-file direction: a file that goes UP had a quote altered.
   are genuinely unrecoverable (a person, a company); many are standard names the
   context settles. That needs knowledge per line, not a script.
 
+### Correction, same day (5.124.1)
+
+I reported the first cleanup as "meta 150 -> 0, pointers 172 -> 0". Those were
+the counts REMOVED. The pass skipped every line that carried a quotation mark,
+so 304 meta clauses and 74 note pointers were still standing — found by reading
+the bundle prod was actually serving, not by re-reading my own tally. **Report
+what remains, not what you removed.** Second pass brought them to 14 and 0.
+
+Two loose ends worth knowing:
+
+- Some glob-wide passes (front-matter bracket cleanup, fused-token replacement,
+  dangling lead-in repair) touched archive `.md` files for ids that are NOT in
+  `fact-checked.txt`. Those ids are held back by the rebuild, so nothing shipped
+  for them, but if one is ever added to the ledger it will carry those edits.
+  They are all the same benign class (an unreadable word replaced by a plain
+  note); no previous-cohort SHIPPED content changed — `git show --stat` on
+  3d24b3f6 lists only the 8 subjects that hold the 45 checked summaries.
+- 14 `สรุปนี้` clauses remain, mid-sentence ones the pass deliberately left
+  rather than risk breaking the grammar around them.
+
