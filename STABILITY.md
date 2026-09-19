@@ -40,6 +40,21 @@ regression coverage.
 active config/exam/results screens to the map unless their complete state can be
 reconstructed from the URL. Add the matching Vercel rewrite and route tests.
 
+## 0.1.1 Automatic updates preserve every open document
+
+Install updates automatically and let the browser activate after every document
+using the old worker closes. Never call `skipWaiting` or reload an open page
+on update availability, `controllerchange`, visibility change or SPA navigation.
+A URL cannot restore a draft, a loaded local PDF, playback or reading position.
+The next online document load receives the new UI through network-first navigation,
+even while the old worker remains active. Keep import failures rejected
+so the view can offer an explicit retry; do not suppress Vite's rejection.
+See `docs/UPDATE-AND-FLOW-CONTRACT.md` and the real two-tab worker regression.
+
+Retain a previous usable offline shell until the new shell is cached; prefer
+current-runtime exact matches. Never evict immutable assets while live tabs
+may need them. Cache work must participate in `FetchEvent.waitUntil`.
+
 ## 0.2 Browser projections are generated, never hand-edited
 
 **Rule:** canonical VetWiki notes/evidence remain the editing source. Update

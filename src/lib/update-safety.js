@@ -1,19 +1,15 @@
-// Views where applying a new build costs the student something.
-//
-// Two paths can swap the app underneath someone: a waiting service worker,
-// and a lazy chunk whose hash died in a deploy (vite:preloadError, which
-// recovers by reloading). Both used to decide for themselves whether the
-// moment was safe — App.jsx held this list of eight, while app-lifecycle.js
-// checked only `activeView === 'exam'`. So a student who had just submitted
-// and was reading the score, or was on the answers, got reloaded to Home with
-// the screen gone, from the one path that was never told about them.
-//
-// None of these views has a URL of its own, which is exactly why a reload
-// cannot put the student back: exam, sr-session, race and pomodoro are work in
-// progress, and results, review, config and topic-select are state that only
-// exists in memory.
-export const UPDATE_UNSAFE_VIEWS = [
-  'exam', 'sr-session', 'race', 'pomodoro', 'results', 'review', 'config', 'topic-select',
-];
-
-export const isUpdateUnsafe = (view) => UPDATE_UNSAFE_VIEWS.includes(view);
+// Installing a worker and replacing a running document are different actions.
+// Every view can hold work not represented by its URL: a draft, a PDF, a
+// playing clip, a dialog, or simply the current reading position. There is no
+// safe-view list. Automatic updates prepare the NEXT document; the current
+// document is only replaced by a browser navigation or an explicit retry.
+export function publishUpdateStatus(target, reason, version = null) {
+  const detail = { state: reason === 'preload-error' ? 'deferred' : 'ready', reason, version };
+  target.__VMX_UPDATE_STATUS__ = detail;
+  target.document.documentElement.dataset.vmxUpdateStatus = detail.state;
+  if (detail.state === 'deferred') {
+    target.dispatchEvent(new target.CustomEvent('vmx-update-deferred', { detail }));
+  }
+  target.dispatchEvent(new target.CustomEvent('vmx-sw-update', { detail }));
+  return detail;
+}

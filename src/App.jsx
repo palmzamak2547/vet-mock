@@ -8,7 +8,6 @@ import { flushSync } from 'react-dom';
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded } from './data/questions.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject, semesterForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
-import { UPDATE_UNSAFE_VIEWS } from './lib/update-safety.js';
 
 // Which semester each exam phase belongs to. Mid vs final inside one semester
 // cannot be scoped from ordinary question data, so the phase narrows the pool
@@ -66,6 +65,7 @@ import { panicPool } from './lib/question-metadata.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import OptionalFeature from './components/OptionalFeature.jsx';
 
 // Lazy — HomeView is 1300+ lines and pulls curriculum.js + changelog.
 // Splitting it shaves ~80KB off the initial bundle. We prefetch it on
@@ -94,9 +94,8 @@ const VoiceSettings = lazy(() => import('./components/VoiceSettings.jsx'));
 // promise rather than React.lazy: a chunk that fails to arrive (offline, a
 // flaky connection) is caught here and answered with a retry, instead of
 // being thrown at a tree with no error boundary above this host. No idle
-// warm-up on purpose: main.jsx reloads the page once when a chunk fails to
-// load (stale-deploy recovery), and an automatic fetch that keeps failing
-// would turn that into a reload loop. The first tap fetches a small chunk.
+// warm-up on purpose: the first tap fetches a small chunk. A failed import
+// offers an explicit retry without interrupting the student's current work.
 const loadVetCalculator = () => import('./components/VetCalculator.jsx');
 function VetCalculatorHost() {
   const [Calculator, setCalculator] = useState(null);
@@ -738,6 +737,7 @@ export default function App() {
   }, []);
 
   const [view, setViewRaw] = useState(initialView);
+  const [topicSection, setTopicSection] = useState('topics');
   useEffect(() => { window.dispatchEvent(new Event('vmx-view-change')); }, [view]);
   const viewRef = useRef(initialView);
   const [mode, setMode] = useState('quick');
@@ -872,39 +872,8 @@ export default function App() {
       useTimer: false,
     });
   };
-  // A new build used to wait behind a "รีเฟรชตอนนี้" toast — and with several
-  // releases a day, that toast was simply always there. The update now
-  // applies itself at the next moment nothing can be lost: a navigation (the
-  // view is being torn down anyway) or the tab going to the background. A
-  // running session is never interrupted; the update waits for it to end.
-  // ...and views a reload cannot restore: results, review, config and
-  // topic-select have no URL, so an update applied there lands on Home with
-  // the score screen gone. The list lives in lib/update-safety.js because the
-  // chunk-reload path has to agree with it.
-  const pendingUpdateRef = useRef(null);
-  useEffect(() => {
-    const handler = (e) => { pendingUpdateRef.current = e?.detail?.reason || 'pending'; };
-    window.addEventListener('vmx-sw-update', handler);
-    return () => window.removeEventListener('vmx-sw-update', handler);
-  }, []);
-  const applyPendingUpdate = useCallback((leavingView = null) => {
-    const reason = pendingUpdateRef.current;
-    if (!reason) return false;
-    if (UPDATE_UNSAFE_VIEWS.includes(leavingView) || UPDATE_UNSAFE_VIEWS.includes(viewRef.current)) return false;
-    pendingUpdateRef.current = null;
-    // A waiting worker activates and app-lifecycle.js reloads on
-    // controllerchange; a deferred chunk failure has no worker to wait for.
-    if (reason === 'service-worker') window.dispatchEvent(new Event('vmx-sw-apply-update'));
-    else window.location.reload();
-    return true;
-  }, []);
-  useEffect(() => {
-    const onVisibility = () => {
-      if (document.visibilityState === 'hidden') applyPendingUpdate();
-    };
-    document.addEventListener('visibilitychange', onVisibility);
-    return () => document.removeEventListener('visibilitychange', onVisibility);
-  }, [applyPendingUpdate]);
+  // Update installation belongs to app-lifecycle.js. Navigation and hiding
+  // a tab never replace this document: every view may hold unsaved work.
 
   // SR-card graded — listen defensively at App level so XP/quest credit
   // applies no matter which surface dispatches it (SRSessionView today,
@@ -944,8 +913,16 @@ export default function App() {
   // Leaving an active exam replaces its history entry, so Back cannot revive
   // a stale/completed session; browser Back while still in an exam asks first.
   const setView = useCallback((next, navigationState = null) => {
-    if (!next || next === viewRef.current) return;
+    if (!next) return;
+    if (next === viewRef.current) {
+      // A palette result can carry a new subject/query even when its
+      // destination is already open. Deliver it without remounting the view,
+      // dropping drafts, or adding a duplicate browser Back step.
+      window.dispatchEvent(new CustomEvent('vmx-view-intent', { detail: { view: next, navigationState } }));
+      return;
+    }
     const previous = viewRef.current;
+    if (next === 'topic-select' && previous !== 'notes') setTopicSection('topics');
     // Every navigation passes through here whatever opened it — a sidebar
     // row, the palette, a card on Home — so this is the one place the
     // sidebar's ranking can learn from without each caller remembering to.
@@ -996,8 +973,7 @@ export default function App() {
     }
     viewRef.current = next;
     withTransition(() => setViewRaw(next));
-    applyPendingUpdate(previous);
-  }, [applyPendingUpdate]);
+  }, []);
 
   useEffect(() => { viewRef.current = view; }, [view]);
 
@@ -1028,6 +1004,7 @@ export default function App() {
       const nextVideoSubject = next === 'videos'
         ? event.state?.vmxVideoSubject || null
         : null;
+      if (next === 'topic-select' && viewRef.current !== 'notes') setTopicSection('topics');
       if (viewRef.current === 'exam' && next !== 'exam') {
         // The app's own dialog is async, and popstate can't be un-fired, so
         // put the exam entry back straight away and only navigate once they
@@ -2774,10 +2751,10 @@ export default function App() {
         </Suspense>
         </ErrorBoundary>
         {analyticsAllowed && !IS_LOCAL_HOST && (
-          <Suspense fallback={null}>
+          <OptionalFeature>
             <Analytics />
             <SpeedInsights />
-          </Suspense>
+          </OptionalFeature>
         )}
       </>
     );
@@ -2918,7 +2895,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
@@ -3001,9 +2978,9 @@ export default function App() {
             />
           )}
           {sketchOpen && (
-            <Suspense fallback={null}>
+            <OptionalFeature label="กระดานวาด" onClose={() => setSketchOpen(false)}>
               <ImageAnnotator src={null} mode="sketch" onClose={() => setSketchOpen(false)} />
-            </Suspense>
+            </OptionalFeature>
           )}
         </div>
       </div>
@@ -3014,7 +2991,7 @@ export default function App() {
           closing fully unmounts the modal too (cleaner than leaving
           a hidden overlay in the tree). */}
       {paletteOpen && (
-        <Suspense fallback={null}>
+        <OptionalFeature label="การค้นหา" onClose={() => setPaletteOpen(false)}>
           <CommandPalette
             open={paletteOpen}
             onClose={() => setPaletteOpen(false)}
@@ -3044,34 +3021,34 @@ export default function App() {
             selectedYear={selectedYear}
             isAdmin={isAdmin}
           />
-        </Suspense>
+        </OptionalFeature>
       )}
 
       {openInstructor && (
-        <Suspense fallback={null}>
+        <OptionalFeature label="ข้อมูลอาจารย์" onClose={() => setOpenInstructor(null)}>
           <InstructorModal instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
-        </Suspense>
+        </OptionalFeature>
       )}
 
       {voiceSettingsOpen && (
-        <Suspense fallback={null}>
+        <OptionalFeature label="การตั้งค่าเสียง" onClose={() => setVoiceSettingsOpen(false)}>
           <VoiceSettings onClose={() => setVoiceSettingsOpen(false)} />
-        </Suspense>
+        </OptionalFeature>
       )}
 
       {/* ShortcutSheet — Linear-style "?" help. Mounted only when open
           (lazy chunk loads on first '?' press from exam/review). */}
       {shortcutSheetOpen && (
-        <Suspense fallback={null}>
+        <OptionalFeature label="รายการปุ่มลัด" onClose={() => setShortcutSheetOpen(false)}>
           <ShortcutSheet open={shortcutSheetOpen} onClose={() => setShortcutSheetOpen(false)} />
-        </Suspense>
+        </OptionalFeature>
       )}
 
       {/* First-time tour — mounted only when open. Rendered in the outer
           fragment (outside .vmx-app) so it overlays any view, exactly like
           ShortcutSheet. */}
       {tourOpen && (
-        <Suspense fallback={null}>
+        <OptionalFeature label="คู่มือเริ่มต้น" onClose={() => { setTourOpen(false); setTourStep(0); }}>
           <OnboardingTour
             step={tourStep}
             onNext={() => setTourStep((s) => s + 1)}
@@ -3080,16 +3057,16 @@ export default function App() {
             onStart={finishTourStart}
             returnFocusRef={tourReturnRef}
           />
-        </Suspense>
+        </OptionalFeature>
       )}
 
       {/* HighlightToCard — global listener for text selections inside
           SummaryModal (.vmx-summary-body). Self-contained state; no
           props. Mounted always so the listener catches selections
           made on any SummaryModal that opens, regardless of view. */}
-      <Suspense fallback={null}>
+      <OptionalFeature>
         <HighlightToCard />
-      </Suspense>
+      </OptionalFeature>
 
       {/* Anonymous, privacy-preserving usage signal so Palm can see
           if Imaging Lab is getting organic visits + which views people
@@ -3100,10 +3077,10 @@ export default function App() {
           we default to the prior always-on behaviour to avoid silently
           dropping the existing signal for returning users). */}
       {analyticsAllowed && !IS_LOCAL_HOST && (
-        <Suspense fallback={null}>
+        <OptionalFeature>
           <Analytics />
           <SpeedInsights />
-        </Suspense>
+        </OptionalFeature>
       )}
     </MochiProvider>
   );

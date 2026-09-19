@@ -27,7 +27,7 @@ const VCA_NOTES_MAP = {
   dogcat:   { subject: 'com5',     label: 'Notes COM V (Dog-Cat)' },
 };
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', selectedYear = null, selectedPhase = null, onStartPanic = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null }) {
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
   const [shelfDocs, setShelfDocs] = useState(0);
@@ -44,6 +44,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     if (initialSection === 'resources') return 'resources';
     return takeViewIntent() === 'notes' ? 'resources' : 'topics';
   });
+  // Preserve the tab that actually opened Notes, including topic-card entry.
+  useEffect(() => { onSectionChange?.(activeSection); }, [activeSection, onSectionChange]);
   // Palm bug 2026-05-20: subjects with 50+ topics in curriculum but only
   // ~30 with Qs (e.g. COM I has 31 filled + 26 empty) flooded the view
   // with disabled "🚧 รอข้อสอบเพิ่ม" cards. Collapse empties behind a

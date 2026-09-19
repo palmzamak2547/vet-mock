@@ -218,6 +218,12 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     essayWords > hardMax ? 'var(--clr-rose)' :
     essayWords > softMax ? 'var(--clr-gold)' :
     'var(--clr-sage)';
+  // Fill tokens belong to the progress bar; the number needs text contrast.
+  const essayTextColor =
+    essayWords === 0 ? 'var(--clr-ink-soft)' :
+    essayWords > hardMax ? 'var(--clr-rose-text)' :
+    essayWords > softMax ? 'var(--clr-gold-text)' :
+    'var(--clr-sage-text)';
 
   // FAB action — smooth scroll passage into view. SmartPassage manages
   // open/closed itself; we don't need to force it open from here.
@@ -415,7 +421,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               />
             </div>
             <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-              <strong style={{ color: essayBarColor }}>{essayWords}</strong>
+              <strong style={{ color: essayTextColor }}>{essayWords}</strong>
               <span> / target {target} words</span>
               {essayWords > hardMax && <span style={{ color: 'var(--clr-rose-text)', marginLeft: 8 }}>, −2 pts (เกิน {hardMax})</span>}
               {essayWords > softMax && essayWords <= hardMax && <span style={{ color: 'var(--clr-gold-text)', marginLeft: 8 }}>, −1 pt (เกิน {softMax})</span>}

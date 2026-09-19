@@ -64,7 +64,10 @@ test('midterm phase: the card, the set and the subject grid all speak midterm', 
   const counter = await page.locator('text=/\\d+\\s*\\/\\s*\\d+/').first().innerText();
   expect(Number(counter.split('/')[1])).toBe(Math.min(count, 50));
   for (let i = 0; i < 3; i++) {
-    await expect(page.locator(SCOPE_CHIP).first()).toHaveText('กลางภาค');
+    // A topic explicitly examined on both papers is valid here too. The
+    // exact alternatives still reject a final-only item; sampling a shared
+    // topic must not make a correct phase filter randomly fail the gate.
+    await expect(page.locator(SCOPE_CHIP).first()).toHaveText(/^(?:กลางภาค|กลางภาคและปลายภาค)$/);
     await page.locator('.vmx-option:visible').first().click();
     await page.getByRole('button', { name: /ข้อถัดไป/ }).click();
   }
@@ -84,7 +87,7 @@ test('final phase: the same page flips to the final paper', async ({ page, conte
 
   await card.click();
   await expect(page.locator(SCOPE_CHIP).first()).toBeVisible({ timeout: 20000 });
-  await expect(page.locator(SCOPE_CHIP).first()).toHaveText('ปลายภาค');
+  await expect(page.locator(SCOPE_CHIP).first()).toHaveText(/^(?:ปลายภาค|กลางภาคและปลายภาค)$/);
 });
 
 test('no phase: the whole semester, and the grid carries no exam lines', async ({ page, context }) => {

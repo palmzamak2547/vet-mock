@@ -1,78 +1,12 @@
-// ── Stale-chunk recovery ───────────────────────────────────────────
-// After a Vercel deploy, an open browser tab still has the OLD
-// index.html which references chunks with the OLD hash. When the
-// user navigates and a lazy chunk is requested, the file is gone
-// (404) → "Failed to fetch dynamically imported module" error and
-// the app crashes to the ErrorBoundary fallback.
-//
-// Vite emits a `vite:preloadError` event for this exact case. On a view a
-// reload can restore we reload once for fresh hashes. On one it cannot we
-// defer the update and surface status, so nothing in progress is interrupted.
-//
-// That list is shared with App.jsx rather than repeated here: this file used
-// to check only for the exam view, so a deploy landing while a student read
-// their score or the answers reloaded them to Home with the screen gone.
-import { isUpdateUnsafe } from './update-safety.js'
-const readSessionFlag = (key) => { try { return sessionStorage.getItem(key) } catch { return null } }
-const writeSessionFlag = (key, value) => { try { sessionStorage.setItem(key, value); return true } catch { return false } }
+// An update never replaces a running document. A lazy import may fail
+// offline or because an old hash is no longer served. Preserve the rejection
+// so the importing view can offer its existing explicit retry; preventing the
+// Vite event would turn a rejected import into an undefined module instead.
+import { publishUpdateStatus } from './update-safety.js'
 
-window.addEventListener('vite:preloadError', (event) => {
-  const reloadKey = 'vmx-chunk-reload'
-  const deferredKey = 'vmx-update-deferred'
-  const activeView = window.history.state?.vmxView
-
-  if (isUpdateUnsafe(activeView)) {
-    event.preventDefault?.()
-    const detail = {
-      state: 'deferred',
-      reason: 'preload-error',
-      message: event?.payload?.message || 'A newer app version is ready',
-    }
-    window.__VMX_UPDATE_STATUS__ = detail
-    document.documentElement.dataset.vmxUpdateStatus = 'deferred'
-    writeSessionFlag(deferredKey, '1')
-    window.dispatchEvent(new CustomEvent('vmx-update-deferred', { detail }))
-    window.dispatchEvent(new CustomEvent('vmx-sw-update', { detail }))
-    console.warn(`[chunk] preload failed on ${activeView} - update deferred:`, detail.message)
-    return
-  }
-
-  // A lazy chunk can fail because the device is genuinely offline, not
-  // because a deploy replaced its hash. Let the importing component receive
-  // that rejection so it can show its own retry UI; reloading here only throws
-  // the student back to Home and cannot restore connectivity.
-  if (navigator.onLine === false) {
-    console.warn('[chunk] preload failed while offline — leaving retry to the current view')
-    return
-  }
-
-  const entry = document.querySelector?.('script[type="module"][src]')?.getAttribute('src')
-  const reloadMarker = entry ? `build:${entry}` : '1'
-  const previousReload = readSessionFlag(reloadKey)
-  if (previousReload === reloadMarker || previousReload === '1') {
-    // An HTML load is not proof that later lazy chunks work. Keep the marker
-    // for this entry bundle; a new deployment's hash gets its own recovery.
-    console.error('[chunk] preload failed twice — letting ErrorBoundary handle:', event?.payload)
-    return
-  }
-  // Without a durable reload marker, another failure would loop forever.
-  if (!writeSessionFlag(reloadKey, reloadMarker)) return
-  console.warn('[chunk] preload failed — reloading for fresh deploy:', event?.payload?.message)
-  // Prevent default so React doesn't see the error first
-  event.preventDefault?.()
-  window.location.reload()
-})
-
-// Clear the deferred-exam notice after a new document loads. The chunk retry
-// marker persists for the entry bundle: resetting it on a timer can loop when
-// a slow failing import arrives after that timer, or during another navigation.
-window.addEventListener('load', () => {
-  // Wait a beat in case lazy-loads happen on first paint
-  setTimeout(() => {
-    try {
-      sessionStorage.removeItem('vmx-update-deferred')
-    } catch { /* Storage restrictions must not break an otherwise usable page. */ }
-  }, 3000)
+window.addEventListener('vite:preloadError', () => {
+  if (navigator.onLine === false) return
+  publishUpdateStatus(window, 'preload-error')
 })
 
 // ── Reclaim storage the app has stopped needing ───────────────────
@@ -109,62 +43,27 @@ window.addEventListener('load', () => {
 
 // ── Service worker — true offline + asset caching ─────────────────
 // Registered after window.load to avoid contending with first paint.
-// New SW versions don't reload mid-session — they are announced to
-// App.jsx, which applies them at the next moment nothing can be lost (a
-// navigation, or the tab going to the background) and never mid-exam.
+// Updates install automatically. The browser activates the waiting worker
+// after all documents using the old worker close; existing tabs keep their
+// current document and controller. Online new documents already get the latest
+// build through network-first navigation, without an update button.
 //
 // In dev mode we deliberately UNREGISTER any prior SW so HMR works;
 // the SW is production-only.
-let waitingWorker = null
-let reloadAfterActivation = false
+// Waiting status is informational. Never request an early worker takeover: an
+// older document may have armed its own controllerchange reload handler.
+const announceWaitingWorker = (worker) => {
+  if (!worker || !navigator.serviceWorker.controller || worker.state === 'redundant') return
+  publishUpdateStatus(window, 'service-worker')
+}
 
-// Ask a worker which build it is, so the UI can tell a genuinely new update
-// apart from the one the user already said no to. Resolves to null rather than
-// hanging if the worker does not answer.
-const workerVersion = (worker) => new Promise((resolve) => {
-  if (!worker) return resolve(null)
-  let done = false
-  const finish = (v) => { if (!done) { done = true; resolve(v) } }
-  try {
-    const ch = new MessageChannel()
-    ch.port1.onmessage = (e) => finish(e.data?.version || null)
-    setTimeout(() => finish(null), 1500)
-    worker.postMessage('GET_VERSION', [ch.port2])
-  } catch { finish(null) }
+window.addEventListener('pagehide', (event) => {
+  // BFCache keeps this document alive. A real departure gives the worker a
+  // chance to trim old assets after the last window closes, never mid-study.
+  if (event.persisted) return
+  try { navigator.serviceWorker?.controller?.postMessage('TRIM_ASSETS_IF_UNUSED') }
+  catch { /* Closing a page must never depend on optional cache cleanup. */ }
 })
-
-const announceWaitingWorker = async (worker) => {
-  if (!worker || !navigator.serviceWorker.controller) return
-  waitingWorker = worker
-  // A waiting worker stays waiting until the user acts, and this runs on every
-  // page load — so without a version to key on, the same pending update
-  // re-announced itself every single load and the banner looked broken.
-  const version = await workerVersion(worker)
-  const detail = { state: 'ready', reason: 'service-worker', version }
-  window.__VMX_UPDATE_STATUS__ = detail
-  document.documentElement.dataset.vmxUpdateStatus = 'ready'
-  window.dispatchEvent(new CustomEvent('vmx-sw-update', { detail }))
-}
-
-const activateWaitingWorker = (reloadWhenReady = false) => {
-  if (!waitingWorker) return
-  reloadAfterActivation = reloadAfterActivation || reloadWhenReady
-  waitingWorker.postMessage('SKIP_WAITING')
-}
-
-// Existing update UI refreshes with location.reload(). Translate that
-// explicit unload into SKIP_WAITING without changing the active view.
-window.addEventListener('beforeunload', () => activateWaitingWorker(false))
-window.addEventListener('pagehide', () => activateWaitingWorker(false))
-window.addEventListener('vmx-sw-apply-update', () => activateWaitingWorker(true))
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!reloadAfterActivation) return
-    reloadAfterActivation = false
-    window.location.reload()
-  })
-}
 
 window.addEventListener('load', () => {
   if (!('serviceWorker' in navigator)) return
@@ -182,14 +81,22 @@ window.addEventListener('load', () => {
     // A tab left open for days never asked for a new worker again, so the
     // update it eventually got was already several releases stale. Check
     // hourly and whenever the tab comes back into view.
-    const check = () => reg.update().catch(() => {})
+    // Visibility and hourly events can overlap; share one discovery request.
+    let updateCheck = null
+    const check = () => {
+      if (updateCheck) return updateCheck
+      updateCheck = reg.update().catch(() => {})
+        .then(() => announceWaitingWorker(reg.waiting))
+        .finally(() => { updateCheck = null })
+      return updateCheck
+    }
     setInterval(check, 60 * 60 * 1000)
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') check()
     })
 
     // When a new worker is installed *after* one was already controlling
-    // this page, surface an "update available" toast.
+    // this page, prepare it for the next document.
     reg.addEventListener('updatefound', () => {
       const nw = reg.installing
       if (!nw) return

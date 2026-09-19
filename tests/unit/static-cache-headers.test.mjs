@@ -49,8 +49,8 @@ test('the worker still revalidates itself and the shell on every load', () => {
   assert.match(cacheControl('/index.html'), /max-age=0/);
 });
 
-test('the assets cache is capped in the service worker', () => {
+test('the assets cache has a bounded cleanup target in the service worker', () => {
   const sw = readFileSync(join(resolve(process.cwd()), 'public/sw.js'), 'utf8');
   assert.match(sw, /const ASSETS_MAX_ENTRIES = \d+;/);
-  assert.match(sw, /keys\.length - ASSETS_MAX_ENTRIES/, 'cacheFirst must evict oldest-first before storing');
+  assert.match(sw, /keys\.length \+ incoming - ASSETS_MAX_ENTRIES/, 'cleanup must account for an incoming asset');
 });

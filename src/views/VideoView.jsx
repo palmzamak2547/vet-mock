@@ -10,6 +10,7 @@ import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, handleThumbnail
 import { VIDEO_META } from '../data/video-summaries-meta.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { readLocalExtra, writeLocalExtra } from '../lib/local-extras.js';
+import { videoSubjectForNavigation, videoSubjectNavigation } from '../lib/video-navigation.js';
 
 // Stable defaults: a fresh [] or {} per render would make the state initialiser
 // look like a new value every time.
@@ -298,10 +299,6 @@ function usePlaylistPreview(playlistId) {
 // ============================================================
 
 export default function VideoView({ goHome, initialSubject = null, selectedYear = null }) {
-  const initialFilter = initialSubject && VIDEO_LIBRARY.some((video) => video.subject === initialSubject)
-    ? initialSubject
-    : 'all';
-  const [filter, setFilter] = useState(initialFilter);
   const [playing, setPlaying] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
   const [editingIdx, setEditingIdx] = useState(null);
@@ -312,10 +309,48 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
   // changing nothing on screen.
   const [customVideos, setCustomVideos] = useLocalExtra('vmx-custom-videos', EMPTY_CLIPS);
   const [watched, setWatched] = useLocalExtra('vmx-watched-videos', EMPTY_WATCHED);
+  const allVideos = useMemo(() => [...VIDEO_LIBRARY, ...customVideos], [customVideos]);
+  const availableSubjects = useMemo(() => new Set(allVideos.map((video) => video.subject)), [allVideos]);
+  const [filter, setFilter] = useState(() => videoSubjectForNavigation(
+    typeof window === 'undefined' ? '' : window.location.search,
+    initialSubject,
+    availableSubjects,
+  ));
+
+  // Share/reload and a trip to another page must return to the shelf the
+  // student chose. Changing chips replaces the entry instead of adding a
+  // Back step for every filter change, matching the document shelf.
+  useEffect(() => {
+    const navigation = videoSubjectNavigation(window.location.href, window.history.state, filter);
+    if (navigation) window.history.replaceState(navigation.state, '', navigation.url);
+  }, [filter]);
+
+  useEffect(() => {
+    const followNavigation = (event) => {
+      if (window.location.pathname.replace(/\/+$/, '') !== '/app/videos') return;
+      setFilter(videoSubjectForNavigation(
+        window.location.search,
+        (event ? event.state : window.history.state)?.vmxVideoSubject,
+        availableSubjects,
+      ));
+    };
+    const followIntent = (event) => {
+      const detail = event.detail;
+      if (detail?.view !== 'videos'
+        || !Object.prototype.hasOwnProperty.call(detail.navigationState || {}, 'subject')) return;
+      setFilter(videoSubjectForNavigation('', detail.navigationState.subject, availableSubjects));
+    };
+    followNavigation();
+    window.addEventListener('popstate', followNavigation);
+    window.addEventListener('vmx-view-intent', followIntent);
+    return () => {
+      window.removeEventListener('popstate', followNavigation);
+      window.removeEventListener('vmx-view-intent', followIntent);
+    };
+  }, [initialSubject, availableSubjects]);
 
   const [form, setForm] = useState({ subject: 'surg2', topic: '', url: '', author: '', duration: '' });
 
-  const allVideos = [...VIDEO_LIBRARY, ...customVideos];
   const filtered = filter === 'all' ? allVideos : allVideos.filter((v) => v.subject === filter);
 
   const startAdd = () => {
@@ -412,6 +447,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
             <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, flexWrap: 'wrap' }}>
               <button
                 className={`vmx-chip ${filter === 'all' ? 'active' : ''}`}
+                aria-pressed={filter === 'all'}
                 onClick={() => setFilter('all')}
                 style={{ fontWeight: 600 }}
               >
@@ -434,6 +470,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
                       <button
                         key={s.id}
                         className={`vmx-chip ${filter === s.id ? 'active' : ''}`}
+                        aria-pressed={filter === s.id}
                         onClick={() => setFilter(s.id)}
                         title={`${count} ชุดวิดีโอ`}
                       >

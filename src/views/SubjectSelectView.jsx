@@ -14,7 +14,16 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   const allQuestions = [...QB, ...customQuestions];
   // Read once, on mount: someone who chose สรุปบทเรียน is here to read, and
   // this screen used to describe practice to them regardless.
-  const [readingIntent] = useState(() => takeViewIntent() === 'notes');
+  const [readingIntent, setReadingIntent] = useState(() => takeViewIntent() === 'notes');
+  useEffect(() => {
+    const receiveIntent = (event) => {
+      if (event.detail?.view !== 'subject-select') return;
+      const intent = takeViewIntent();
+      setReadingIntent(intent === 'notes');
+    };
+    window.addEventListener('vmx-view-intent', receiveIntent);
+    return () => window.removeEventListener('vmx-view-intent', receiveIntent);
+  }, []);
   const [searchQuery, setSearchQuery] = useState('');
   // Real documents per subject — a scaffold-year card with zero questions
   // but a full shelf opens the shelf instead of dead-ending. Fetched only

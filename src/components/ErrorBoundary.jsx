@@ -30,6 +30,7 @@ export default class ErrorBoundary extends Component {
     try { window.dispatchEvent(new CustomEvent('vmx-render-error', { detail: { name: error?.name } })); } catch {}
     // Log to console in dev; could ship to an error service later.
     console.error('[ErrorBoundary]', error, info);
+    this.props.onError?.(error);
   }
 
   reset = () => {
@@ -39,7 +40,9 @@ export default class ErrorBoundary extends Component {
 
   render() {
     if (this.state.error) {
+      if (Object.prototype.hasOwnProperty.call(this.props, 'fallback')) return this.props.fallback;
       const msg = this.state.error?.message || String(this.state.error);
+      const chunkFailed = /dynamically imported module|module script|loading chunk|ChunkLoadError|Importing a module script failed/i.test(msg);
       return (
         <div style={{
           margin: '40px auto',
@@ -57,8 +60,8 @@ export default class ErrorBoundary extends Component {
             หน้านี้ขัดข้อง
           </h2>
           <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink-soft, #6b6357)' }}>
-            มีบางอย่างผิดพลาดในหน้านี้ — ลองกลับหน้าแรกแล้วเข้าใหม่<br/>
-            ถ้าเจอบ่อย ช่วย <strong>แจ้งปัญหา</strong> ให้รู้ได้นะ
+            {chunkFailed ? 'โหลดส่วนนี้ไม่สำเร็จ ตรวจการเชื่อมต่อแล้วลองโหลดหน้านี้ใหม่เมื่อพร้อม งานที่ยังไม่ได้บันทึกอาจหายไป'
+              : <>มีบางอย่างผิดพลาดในหน้านี้ — ลองกลับหน้าแรกแล้วเข้าใหม่<br/>ถ้าเจอบ่อย ช่วย <strong>แจ้งปัญหา</strong> ให้รู้ได้นะ</>}
           </p>
           <details style={{ marginTop: 12, fontSize: 11, color: 'var(--clr-ink-soft, #6b6357)', textAlign: 'left' }}>
             <summary style={{ cursor: 'pointer' }}>รายละเอียด (technical)</summary>
@@ -73,7 +76,8 @@ export default class ErrorBoundary extends Component {
               maxHeight: 160,
             }}>{msg}</pre>
           </details>
-          <div style={{ marginTop: 16, display: 'flex', gap: 8, justifyContent: 'center' }}>
+          <div style={{ marginTop: 16, display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+            {chunkFailed && <button type="button" className="vmx-btn" onClick={() => window.location.reload()}>โหลดหน้านี้ใหม่</button>}
             <button
               onClick={this.reset}
               style={{

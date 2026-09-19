@@ -287,6 +287,29 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
   // change; after that, their choice is never overwritten.
   const touchedRef = useRef(false);
 
+  useEffect(() => {
+    const receiveIntent = (event) => {
+      if (event.detail?.view !== 'library') return;
+      try {
+        const subject = sessionStorage.getItem('vmx-library-subject');
+        const query = sessionStorage.getItem('vmx-library-q');
+        if (subject === null && query === null) return;
+        sessionStorage.removeItem('vmx-library-subject');
+        sessionStorage.removeItem('vmx-library-q');
+        setSubjectFilter(subject || null);
+        setQuery(query || '');
+        setDebouncedQuery(query || '');
+        // The explicit search result names a new set. Old year/type filters
+        // must not silently hide the files the chosen result promised.
+        setKind('all'); setSemester('all'); setAcademicYear('all');
+        touchedRef.current = false;
+        setOpenYears(new Set());
+      } catch { /* storage disabled: keep the current shelf usable */ }
+    };
+    window.addEventListener('vmx-view-intent', receiveIntent);
+    return () => window.removeEventListener('vmx-view-intent', receiveIntent);
+  }, []);
+
   // 80 ms sits below the input-echo threshold, so typing stays instant while
   // the filter runs once per burst instead of once per keystroke.
   useEffect(() => {

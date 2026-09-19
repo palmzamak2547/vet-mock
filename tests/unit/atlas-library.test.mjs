@@ -73,6 +73,6 @@ test('camera fit encloses a sphere in portrait, landscape and comparison panes',
 test('worker preserves the bounded atlas cache and does not duplicate geometry', () => {
   const worker = readFileSync(new URL('../../public/sw.js', import.meta.url), 'utf8');
   assert.match(worker, /const ATLAS_MODELS = 'vmx-atlas-models-v1'/);
-  assert.match(worker, /k !== ATLAS_MODELS/);
+  assert.match(worker, /const retained = new Set\(\[.*ATLAS_MODELS/);
   assert.match(worker, /event\.respondWith\(fetch\(request\)\.catch/);
 });

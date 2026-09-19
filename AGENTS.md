@@ -26,7 +26,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
 - **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX app code, TS only at the edges (`db/schema.ts` + `src/db/schema.ts`, `drizzle.config.ts`, `supabase/functions/*`)
-- **Current source version**: v5.85.1 (2026-09-08); verify exact-SHA CI/deployment and live flow before describing production as current.
+- **Current source version**: v5.122.1 (2026-09-19); verify exact-SHA CI/deployment and live flow before describing production as current.
 - **Hosting**: Vercel (auto-deploy on push to `main` · `api/*.js` are Vercel serverless functions · `vercel.json` also CSP-rewrites `/venipuncture/*` to a separate app and `/wiki/*` + `/app/*` to the SPA)
 - **Production**: https://vetmock.vercel.app
 - **Audience**: ~50-100 vet students at Chulalongkorn (Vet 86 cohort) · Thai-language
@@ -2439,3 +2439,66 @@ which is the archive — once an id is in `src/data` the rebuild treats it as
 authoritative and never refreshes it, so nothing verified what actually ships.
 Its absolute number mixes speech quotes with quotation marks used to name a
 term, so read the per-file direction: a file that goes UP had a quote altered.
+
+## 2026-09-19 — Session-safe updates and connected navigation (5.122.1)
+
+- Release branch `codex/flow-production-release` includes main `f8d79967` and
+  all 5.122.0 summaries/ratchets. This supersedes the staged 5.121.1 note above.
+  No question bank, lecture summary, curriculum, API, schema or learner-data
+  writer changed. Main's pending work and `design/` were preserved.
+  Contract: `docs/UPDATE-AND-FLOW-CONTRACT.md`.
+- This supersedes the earlier eight-view update denylist: EVERY open document
+  may hold a draft, local PDF, player or reading position. The worker installs
+  automatically; no update/visibility/navigation/controllerchange handler may
+  reload a running document. The browser activates the waiting worker once all
+  documents using its predecessor leave. New online documents already receive
+  the latest UI through network-first navigation. Explicit failed-module retry
+  remains available; Vite import rejection is not swallowed.
+- Never restore `skipWaiting` or an activation message handler. Production v193
+  documents can arm a reload before sending `SKIP_WAITING`; v194 ignores it.
+  A capability handshake preserved drafts but exposed intermittent browser
+  takeover stalls, so it was removed rather than adding more retries. Hourly
+  and visible update discovery coalesces overlapping requests. Real-worker tests
+  pin the old lifecycle at `tests/fixtures/legacy-update-e6ab5ea2/`.
+- Optional global overlays use `OptionalFeature` + the shared ErrorBoundary and
+  dialog. Failed imports close only that overlay; automatic helpers fail quietly.
+  Network-abort tests proved the previous unguarded palette/helper could unmount
+  the whole page. Preserve this boundary when adding an optional global feature.
+- Worker v194 retains the visited offline shell until natural online navigation,
+  keeps the previous runtime and immutable dependencies, and ties cache writes
+  to `waitUntil`. Last-tab departures request cleanup; BFCache entries do not.
+  Optional asset maintenance never runs during activation. The 300-file limit
+  is a SOFT target: a complete build can exceed it.
+  Cached HTML/JS/CSS dependency graphs are protected, live clients are rechecked,
+  and read errors cancel pruning. The earlier candidate build scan protected
+  all 328 manifest-reachable files; cache-graph coverage remains in unit tests.
+- Video subjects survive URL/reload/Back; same-view search intents reach Library
+  and subject selection without remounting; Notes returns to its originating tab.
+  No sidebar items, clinical content, user-data schema or API contract changed.
+- Release validation: build, `lint:all`, `lint:atlas`, unit 1,081/1,081,
+  and complete four-profile E2E passed (707 passed, 41 intentional skips,
+  zero failures, 17.3 minutes). Natural-worker stress passed 60/60 across the
+  four profiles with three repetitions. An additional Chromium probe at the
+  actual production root scope passed 5/5 (`root-worker.log`); it observes the
+  worker directly after all documents close, without a controlled observer.
+  Exact-SHA CI, Vercel and live transition proof remain required before
+  describing production as updated.
+  Injected navigation tests wait for URL/history readiness; offline tests prove
+  the old cache is durable before simulating a deployment. A visible DOM alone
+  proves neither precondition. Scope E2E accepts a selected paper OR an explicit
+  shared topic, still rejecting opposite-only questions; scope data is unchanged.
+- The contrast gate found an existing essay counter using progress-bar fill
+  colours for text (the zero was 1.55/1.61:1). `Question.jsx` now gives its number
+  separate text tokens; grading and bar colours are unchanged. All 48 measured
+  count/theme/palette cases passed, minimum 5.87:1. Dark 390px reading-return and
+  preserved-draft snapshots/screenshots were visually reviewed; no overflow.
+- Release checks use a clean checkout without concurrent draft `data-cache`.
+  Transcript-dependent checks warn where the raw source is unavailable; this
+  is not a new transcription audit. No summary or budget was modified here.
+  Receipts: `work/release-flow-20260919/`
+  in the release checkout. Coordination: `work/flow-update-safety-20260919/RELEASE-STATUS.md`
+  in main. Update that note with exact release receipts after deployment.
+- Do not reapply this patch from the original branch after release. Fetch main
+  before the next content push, preserve lifecycle/cache logic, and avoid
+  version/changelog collisions. Old never-downloaded chunks still require
+  explicit retry; future APIs must support still-open older documents.
