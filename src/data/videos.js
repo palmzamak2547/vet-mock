@@ -543,6 +543,36 @@ export function getThumbnail(url, quality = 'hq') {
 }
 
 // Filter videos by subject
+/**
+ * What to do when a thumbnail will not load.
+ *
+ * A video that has been made private 404s on EVERY size, so a single retry at a
+ * smaller size fails too and leaves the row showing the browser's broken-image
+ * glyph — having asked for a second 404 to get there. One of the cohort's own
+ * playlists has such a video today, and since the students record and publish
+ * these themselves it will keep happening.
+ *
+ * So: retry once at the smallest size, which fixes the ordinary case of a video
+ * that simply has no high-resolution still; then stop and hide the image. The
+ * tile behind it is black, which reads as "video" rather than "broken".
+ *
+ * Takes the <img> rather than an event so it can be tested without a DOM event.
+ */
+export function handleThumbnailError(img, videoId) {
+  if (!img) return 'ignored';
+  if (img.dataset?.thumbFallback) {
+    img.style.visibility = 'hidden';
+    return 'hidden';
+  }
+  if (!videoId) {
+    img.style.visibility = 'hidden';
+    return 'hidden';
+  }
+  img.dataset.thumbFallback = '1';
+  img.src = `https://img.youtube.com/vi/${videoId}/default.jpg`;
+  return 'retried';
+}
+
 export function getVideosBySubject(subjectId) {
   if (!subjectId || subjectId === 'all') return VIDEO_LIBRARY;
   return VIDEO_LIBRARY.filter((v) => v.subject === subjectId);

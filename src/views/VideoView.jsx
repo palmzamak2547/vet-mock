@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { subjectText } from '../hooks/utils.js';
-import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, isPlaylistUrl, isChannelUrl } from '../data/videos.js';
+import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, handleThumbnailError, isPlaylistUrl, isChannelUrl } from '../data/videos.js';
 // Palm audit 2026-05-20 P0: VIDEO_SUMMARIES file is ~2 MB (62k lines of
 // markdown). Importing it statically pulled the whole chunk on every
 // /videos visit even when user just browses the playlist. Now:
@@ -1099,7 +1099,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                           alt=""
                           loading="lazy"
                           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          onError={(e) => { e.target.src = `https://img.youtube.com/vi/${item.id}/default.jpg`; }}
+                          onError={(e) => handleThumbnailError(e.target, item.id)}
                         />
                         {item.duration && (
                           <div style={{ position: 'absolute', bottom: 3, right: 3, padding: '0px 5px', background: 'rgba(0,0,0,0.85)', color: 'white', borderRadius: 3, fontSize: 11, fontFamily: 'var(--vmx-mono)', fontWeight: 600 }}>
