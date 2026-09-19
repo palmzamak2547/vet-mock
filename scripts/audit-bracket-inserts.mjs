@@ -36,7 +36,12 @@ const writeBudget = args.includes('--write-budget');
 const THAI = /[฀-๿]/;
 const TIMESTAMP = /^\[\d+:\d{2}/;
 
-export function scanLine(line) {
+// A bracket the TRANSCRIBER produced is evidence, not an insert. Auto-captions
+// write [เสียงสูดหายใจ] and [เสียงกระแอม] for a breath or a throat-clear, and a
+// quote that carries one is byte-faithful — deleting it to satisfy a gate would
+// remove part of the record. Those are looked up against the transcript and
+// excused; every other bracket is a writer's word.
+export function scanLine(line, audioText = null) {
   const inside = [];
   const outside = [];
   for (const m of line.matchAll(/\[[^\[\]\n]{1,80}\]/g)) {
@@ -46,16 +51,29 @@ export function scanLine(line) {
     // An odd number of quote marks before the bracket means it opened a quote
     // that has not closed yet, so the bracket is being spoken.
     const quotesBefore = (line.slice(0, m.index).match(/"/g) || []).length;
+    if (quotesBefore % 2 === 1 && audioText && audioText.includes(span.replace(/\s+/g, ''))) continue;
     (quotesBefore % 2 === 1 ? inside : outside).push(span);
   }
   return { inside, outside };
 }
 
+const audioCache = new Map();
+function audioFor(id) {
+  if (audioCache.has(id)) return audioCache.get(id);
+  const p = `data-cache/plain/${id}.txt`;
+  const t = existsSync(p) ? readFileSync(p, 'utf8').replace(/\s+/g, '') : null;
+  audioCache.set(id, t);
+  return t;
+}
+
 function measure(file) {
   const src = readFileSync(`${DIR}/${file}`, 'utf8');
   let inside = 0; let outside = 0; const sample = [];
+  let id = null;
   for (const line of src.split('\n')) {
-    const r = scanLine(line);
+    const idm = line.match(/^\s*['"]([A-Za-z0-9_-]{11})['"]\s*:/);
+    if (idm) id = idm[1];
+    const r = scanLine(line, id ? audioFor(id) : null);
     inside += r.inside.length;
     outside += r.outside.length;
     for (const s of r.inside) if (sample.length < 4) sample.push(s);
