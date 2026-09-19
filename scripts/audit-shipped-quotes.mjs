@@ -30,12 +30,12 @@
 
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import { normaliseAudio, quotedSpans } from './lib/audio-text.mjs';
 
 const DIR = 'src/data';
 const PLAIN = 'data-cache/plain';
 
 const THAI = /[฀-๿]/;
-const strip = (s) => s.replace(/\s+/g, '');
 const MIN = 8;
 
 if (!existsSync(PLAIN)) {
@@ -52,7 +52,7 @@ const audioCache = new Map();
 function audioFor(id) {
   if (audioCache.has(id)) return audioCache.get(id);
   const p = `${PLAIN}/${id}.txt`;
-  const t = existsSync(p) ? strip(readFileSync(p, 'utf8')) : null;
+  const t = existsSync(p) ? normaliseAudio(readFileSync(p, 'utf8')) : null;
   audioCache.set(id, t);
   return t;
 }
@@ -82,10 +82,8 @@ for (const file of files) {
       // in the audio. Four such phantoms appeared the first time this ran
       // against an edited file, and the edit was innocent. Splitting keeps the
       // pairing the renderer sees.
-      const parts = line.split('"');
-      for (let i = 1; i < parts.length; i += 2) {
-        const raw = parts[i];
-        const span = strip(raw);
+      for (const raw of quotedSpans(line)) {
+        const span = raw.replace(/\s+/g, '');
         if (!THAI.test(span) || span.length < MIN) continue;
         totalSpans += 1;
         if (!audio.includes(span)) {

@@ -30,6 +30,7 @@
 //   node scripts/audit-quote-fidelity.mjs --write-budget   # after lowering it
 
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { normaliseAudio } from './lib/audio-text.mjs';
 
 const GEN = 'data-cache/generated';
 const PLAIN = 'data-cache/plain';
@@ -53,11 +54,9 @@ function measure(id) {
   const plain = readFileSync(`${PLAIN}/${id}.txt`, 'utf8');
   // The transcript's own markup is not speech: `# ...` headers and inline
   // [m:ss] cues. Missing this step reported every quote that spans a cue
-  // marker as a defect, which is how this audit first lied to me.
-  const joined = plain
-    .replace(/^#.*$/gm, '')
-    .replace(/\[\d+:\d\d(?::\d\d)?\]/g, '')
-    .replace(/\s+/g, '');
+  // marker as a defect, which is how this audit first lied to me. The rule
+  // lives in scripts/lib/audio-text.mjs so a later sibling cannot miss it.
+  const joined = normaliseAudio(plain);
 
   const spans = [...md.matchAll(/"([^"\n]{2,})"/g)].map((m) => m[1]);
 

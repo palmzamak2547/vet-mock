@@ -2502,3 +2502,62 @@ term, so read the per-file direction: a file that goes UP had a quote altered.
   before the next content push, preserve lifecycle/cache logic, and avoid
   version/changelog collisions. Old never-downloaded chunks still require
   explicit retry; future APIs must support still-open older documents.
+
+## 2026-09-19 — Flow/update release shipped separately (5.122.1)
+
+- Production is `32d6dbc7da6b351574699ebfb4f258dc68082a93`, 5.122.1 / SW v194,
+  based on `f8d79967`; all 5.122.0 content and both new ratchets are retained.
+  One fast-forward push, no schema/API change or learner-data deletion.
+- This checkout is intentionally still on `f8d79967` while content work continues;
+  do not switch files underneath its running processes. Fetch and reconcile
+  `origin/main` before the next content push. Preserve current changes, use a
+  three-way merge/rebase, never force-push or restore old package/changelog files.
+  `design/` and `scratchpad/` were preserved. The modified CLAUDE.md pointer and
+  this section are local handoff notes to retain with the next appropriate commit.
+  Closeout also observed ongoing `video-summaries-aquatic-clinic.js` and
+  `video-summaries-meta.js` edits in main; they were left intact, not released.
+- Final implementation uses natural worker activation: no `skipWaiting`, no
+  capability handshake and no auto document reload. New online documents get
+  the latest UI; the worker switches when all old controlled documents leave.
+  Preserve cached shell dependencies and OptionalFeature boundaries. Contract:
+  `docs/UPDATE-AND-FLOW-CONTRACT.md` in the release commit.
+- Build/lint/atlas and unit 1,081/1,081 passed. Full local E2E: 707 passed,
+  41 intentional skips, zero failures. Worker stress 60/60; root-scope probe 5/5.
+  Exact-SHA Build 35446340231 and Smoke 35446340265 succeeded; Vercel Production
+  deployment 6541648480 succeeded and the public worker matches the release.
+- Real production legacy/modern draft transition passed through natural v193
+  to v194 activation without submitting feedback. Production app/core checks
+  passed 44/44 + 16/16. CI had one WebKit Quick Practice timeout that passed
+  retry; the same case passed live and three additional live repetitions. Its
+  first CI timeout is not a proven product defect, but do not call CI zero-flake.
+- Full closeout and receipts map: `work/flow-update-safety-20260919/RELEASE-STATUS.md`.
+  Read it before the next push. Do not reapply the old 521f034e/a3d0191f/69fb08b3
+  candidate branches or the pre-rebase stash: their final replacement is already
+  on origin/main. No production or source verification remains for this release.
+
+## 2026-09-19 — Aquatic clinic complete, and a gate that was measuring its own noise (5.123.0)
+
+- Rebased onto `32d6dbc7` as that closeout note asked. `package.json` is
+  5.123.0; BOTH changelog entries are kept, 5.123.0 above 5.122.1, and
+  `latest-changelog.generated.js` was regenerated rather than hand-merged.
+  `design/` and `scratchpad/` untouched; nothing force-pushed.
+- Four aquatic-clinic summaries shipped (fish biology, aquaculture in Thailand,
+  LSS + pond water quality, ornamental fish). The subject is now complete for
+  the 24 Sep paper. Corpus 638. Zoonoses is 3 of 6 and still in progress —
+  `oWZEdlLXcpo`, `DhtSsPLtFTo`, `u_cH2UtCIAg` are staged in
+  `data-cache/generated/` and verified but deliberately NOT in
+  `fact-checked.txt` yet; they ship with the other three as one zoonoses push.
+- `scripts/lib/audio-text.mjs` is new and is now the only place that knows how
+  to turn a stored transcript into "what was said". `data-cache/plain/<id>.txt`
+  carries inline `[m:ss]` cues that can land in the MIDDLE of a word, so any
+  check comparing a quote against it must strip them first.
+  `audit-quote-fidelity` had that fix inline; `audit-shipped-quotes`, written
+  hours later, did not, and reported 975 drifted quotes in one subject when the
+  real number was 2. Both import the helper now. Fidelity's numbers are
+  identical across the refactor (16290 spans / 3675 misses), so it is a proven
+  no-op, and `docs/shipped-quote-budget.json` is re-snapshotted at the
+  corrected corpus figure of 4038.
+- Do not "fix" the two remaining aquatic misses: they are quotation marks
+  around unit names (`มิลลิกรัม`, `เซลเซียส`), not speech, and that class is
+  what makes the absolute number uninterpretable. Read the per-file direction.
+
