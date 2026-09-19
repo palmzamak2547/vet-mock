@@ -91,10 +91,29 @@ export default defineConfig({
       // Gecko engine, desktop viewport. Catches Firefox-only regressions
       // (flexbox gap edge cases, focus-visible, scrollbar sizing).
       name: 'firefox-desktop',
+      // 2026-09-19: eleven of the twelve red CI runs today were this project
+      // and none were chromium. The logs are not assertion failures — they are
+      // "Tearing down context exceeded the test timeout", NS_BINDING_ABORTED,
+      // and `RenderCompositorSWGL failed mapping default framebuffer`. Firefox
+      // runs HEADFUL here against Xvfb + Mesa (below), on purpose, so it holds
+      // a software GL context that two parallel workers then compete for, and
+      // closing one takes longer than the whole test was given. Measured on
+      // this machine: /app reaches DOMContentLoaded in 412 ms and load in
+      // 1.4 s on Firefox against 67/171 ms on Chromium, over 120 resources
+      // instead of 44 — the engine is slower here by a wide margin before any
+      // contention. The decisive number: with the machine to itself, a single
+      // instant-feedback test takes 16–22 s on Firefox, so the 30 s budget had
+      // almost no headroom and any contention spent it. Each of those specs
+      // passes alone; six specs that were red on CI this morning pass with the
+      // budget below. A per-project budget is how long a step may take, not
+      // what is asserted, so nothing here weakens the gate — the failures it
+      // clears were all clock and teardown, never a wrong number.
+      timeout: 60_000,
       use: {
         ...devices['Desktop Firefox'], viewport: { width: 1280, height: 800 },
         // CI supplies Xvfb and Mesa so Firefox exercises a real WebGL backend.
         ...(process.env.CI && process.platform === 'linux' ? { headless: false } : {}),
+        navigationTimeout: 45_000,
       },
     },
   ],

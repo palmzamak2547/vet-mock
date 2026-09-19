@@ -78,7 +78,7 @@ async function findMcq(page) {
     if (!writing) {
       throw new Error('question card has no MCQ options and no writing control — the answer controls did not render');
     }
-    const next = page.getByRole('button', { name: /ถัดไป/ });
+    const next = page.getByRole('button', { name: /ข้อถัดไป/ }).first();
     if (!(await next.isVisible().catch(() => false))) return 'no-mcq';
     await next.click();
   }

@@ -42,7 +42,7 @@ async function startQuestions(page, exam = false) {
   await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
   for (let i = 0; i < 10; i++) {
     if (await page.locator('.vmx-option').first().isVisible()) return;
-    await page.getByRole('button', { name: /ถัดไป/ }).click();
+    await page.getByRole('button', { name: /ข้อถัดไป/ }).first().click();
   }
   throw new Error('No MCQ found in this ten-question fixture');
 }
