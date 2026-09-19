@@ -67,6 +67,31 @@ speakers say years as two digits.
 summary supplied *synovitis* for his "ซิโนวี", which is the species name
 *synoviae* — a different word.
 
+**9. A reading that is right, resting on evidence that is invented.** The newest
+class, and the hardest to see, because the conclusion is correct. A summary read
+`"ไอmex"` as **ivermectin** — which it is — and justified it by saying the
+syllable **"เมก"** appears in both occurrences. It appears nowhere in the
+recording. Another kept **fenbendazole** and wrote that the sound is
+"เฟน-เบน-ดา-โซล ครบ"; the audio is เฟน-เบน-**นา**-โซ**น**. A student
+cannot check a reading whose stated grounds are false, and the next pass cannot
+either — it has to redo the work from the audio to find out. **Check the grounds,
+not only the answer**, on every reading a summary makes. One of the nine drug
+readings in a single clinical lecture did not survive that check and was
+withdrawn.
+
+**10. Quotation marks used as a tidy-up.** The same promise as class 4, at scale:
+in one 100-minute clinical lecture **372 of 719 quoted spans did not occur in the
+audio**, and in its 52-minute companion **137 of 389**. Almost none was a
+fabrication of meaning — they were ASR garbles quietly
+normalised (`เมาบolic` → metabolic, `พาสตรอล` → พลาสตรอน), 55 deleted `เอ่อ`
+fillers, and 24 bracketed guesses sitting **inside** the marks. Each edit looks
+like kindness and together they make the marks meaningless. Extract every quoted
+span and match it against the transcript mechanically; do not sample by eye.
+
+The bar is reachable: a third file checked the same week carried 181 quotes with
+**zero** drift. Byte-faithful is the house standard, not a stricter one invented
+by whoever is checking.
+
 ## Recovery is not substitution
 
 A garbled token may be resolved when **the sounds support the word**:
