@@ -2561,3 +2561,46 @@ term, so read the per-file direction: a file that goes UP had a quote altered.
   around unit names (`มิลลิกรัม`, `เซลเซียส`), not speech, and that class is
   what makes the absolute number uninterpretable. Read the per-file direction.
 
+## 2026-09-19 — Summaries stop reading like transcription audits (5.124.0)
+
+- Scope was the **45 ids in `data-cache/fact-checked.txt`** — the Vet 86
+  lectures checked against their own recordings. The 497 DekDokVet85 clips and
+  the other 102 are **deliberately short** (mean 9,010 and 6,822 chars against
+  67,754 for a checked one) because they are a previous cohort's. Do not run a
+  de-verbose pass over them: a short file with five bold spans scores a high
+  bold ratio without being cluttered. I proposed exactly that and was wrong.
+- What came out of those 45: 681 quotes of transcriber mush that sat beside the
+  plain-Thai reading of the same sentence, 150 sentences about the summary
+  rather than the lecture, 172 pointers into the closing note (nine to a note
+  number that does not exist), the audio-gap logs and word-count proofs, and
+  bold covering 16-60% of the characters.
+- **Two rules of mine caused it.** "Record the raw sound in the closing note"
+  put captured noise in prose, where `lint:garble` — inside-quotes only — could
+  not see it. "Never write a term the audio does not support" turned into a
+  rule against naming anything: an amphibian taxonomy table printed the sounds
+  and never wrote Caudata or Gymnophiona. `lint:garble` now counts prose too,
+  budgeted at 0.
+- ⛔ **Editing text that contains verbatim quotes:** never run a whole-file
+  `re.sub(r'\*\*(.+?)\*\*', ...)`. With a bold run nested inside a quotation it
+  mis-pairs the asterisks and leaves a stray marker INSIDE the quote; that broke
+  11 files at once and `data-cache/` is gitignored, so recovery only worked
+  because `src/data` still held the untouched copy. Split each line on the quote
+  character, rewrite only even-index segments, and carry an invariant that
+  refuses the write unless every surviving quoted span is byte-identical to one
+  that existed before. It caught three of my bugs in one session, including a
+  trailing whitespace tidy that was rewriting speech.
+- `audit-quote-fidelity.mjs` had the same phantom-quote bug
+  `audit-shipped-quotes.mjs` was fixed for that morning: `/"([^"
+]{2,})"/g`
+  skips a one-character quote, so its closing mark pairs with the next opening
+  one and the prose between two real quotes is reported as drift. Both pair by
+  position now.
+- CI Smoke is **two steps**: chromium with 2 workers, then webkit + firefox with
+  `--workers=1`. Those two run headful on Mesa software GL and a competing
+  worker slows them 3-5x — a commit whose only change was one line of `.mailmap`
+  failed `summary-pdf-export` at the 60s timeout while the byte-identical bundle
+  had passed 20 minutes earlier and the same two tests finish in 11.4s locally.
+- Still open: **602 lines across 43 files still refuse to name a term.** Some
+  are genuinely unrecoverable (a person, a company); many are standard names the
+  context settles. That needs knowledge per line, not a script.
+
