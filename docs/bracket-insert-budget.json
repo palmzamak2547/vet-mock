@@ -2,5 +2,9 @@
  "note": "Bracketed editorial inserts sitting INSIDE quoted speech, per shipped summary file. Ratchet: a number may only go down, and a file may only leave. See docs/SUMMARY-CHECK-STANDARD.md, \"A bracket can delete the evidence\".",
  "measured": "2026-09-19",
  "total": 0,
- "files": {}
+ "files": {},
+ "transcriberAnnotations": [
+  "[เสียงกระแอม]",
+  "[เสียงสูดหายใจ]"
+ ]
 }

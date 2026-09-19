@@ -39,9 +39,15 @@ const TIMESTAMP = /^\[\d+:\d{2}/;
 // A bracket the TRANSCRIBER produced is evidence, not an insert. Auto-captions
 // write [เสียงสูดหายใจ] and [เสียงกระแอม] for a breath or a throat-clear, and a
 // quote that carries one is byte-faithful — deleting it to satisfy a gate would
-// remove part of the record. Those are looked up against the transcript and
-// excused; every other bracket is a writer's word.
-export function scanLine(line, audioText = null) {
+// remove part of the record. Those are excused; every other bracket is a
+// writer's word.
+//
+// The excused spans are ALSO written into the budget file, and the budget file
+// is what CI trusts. `data-cache/` is gitignored, so a gate that decides this
+// by reading the transcript passes on this machine and fails on a fresh clone —
+// which is exactly what happened: two Build workflows died on the four aquatic
+// breath markers while the same command exited 0 locally.
+export function scanLine(line, audioText = null, allowed = null) {
   const inside = [];
   const outside = [];
   for (const m of line.matchAll(/\[[^\[\]\n]{1,80}\]/g)) {
@@ -51,6 +57,7 @@ export function scanLine(line, audioText = null) {
     // An odd number of quote marks before the bracket means it opened a quote
     // that has not closed yet, so the bracket is being spoken.
     const quotesBefore = (line.slice(0, m.index).match(/"/g) || []).length;
+    if (quotesBefore % 2 === 1 && allowed && allowed.has(span)) continue;
     if (quotesBefore % 2 === 1 && audioText && audioText.includes(span.replace(/\s+/g, ''))) continue;
     (quotesBefore % 2 === 1 ? inside : outside).push(span);
   }
@@ -66,6 +73,16 @@ function audioFor(id) {
   return t;
 }
 
+// The committed allow-list. CI has this file; CI does not have the transcripts.
+const committed = existsSync(BUDGET_FILE)
+  ? JSON.parse(readFileSync(BUDGET_FILE, 'utf8'))
+  : { files: {}, transcriberAnnotations: [] };
+const ALLOWED = new Set(committed.transcriberAnnotations || []);
+
+// Spans this machine can excuse from the transcript, collected so that
+// --write-budget can hand them to the machines that have no transcript.
+const excusedHere = new Set();
+
 function measure(file) {
   const src = readFileSync(`${DIR}/${file}`, 'utf8');
   let inside = 0; let outside = 0; const sample = [];
@@ -73,7 +90,17 @@ function measure(file) {
   for (const line of src.split('\n')) {
     const idm = line.match(/^\s*['"]([A-Za-z0-9_-]{11})['"]\s*:/);
     if (idm) id = idm[1];
-    const r = scanLine(line, id ? audioFor(id) : null);
+    const audio = id ? audioFor(id) : null;
+    if (audio) {
+      for (const m of line.matchAll(/\[[^\[\]\n]{1,80}\]/g)) {
+        // Same filter the gate uses: a timestamp is an anchor, not speech, and
+        // an all-ASCII bracket is not what this gate is about. Without this the
+        // allow-list fills with every [mm:ss] in the corpus.
+        if (!THAI.test(m[0]) || TIMESTAMP.test(m[0])) continue;
+        if (audio.includes(m[0].replace(/\s+/g, ''))) excusedHere.add(m[0]);
+      }
+    }
+    const r = scanLine(line, audio, ALLOWED);
     inside += r.inside.length;
     outside += r.outside.length;
     for (const s of r.inside) if (sample.length < 4) sample.push(s);
@@ -100,6 +127,7 @@ if (writeBudget) {
     measured: new Date().toISOString().slice(0, 10),
     total,
     files: budget,
+    transcriberAnnotations: [...excusedHere].sort(),
   }, null, 1)}\n`);
   console.log(`wrote ${BUDGET_FILE}: ${Object.keys(budget).length} files, ${total} inserts`);
   process.exit(0);
