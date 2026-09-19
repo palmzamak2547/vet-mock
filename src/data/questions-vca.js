@@ -1171,7 +1171,7 @@ export const QB_VCA = [
     q: 'ผสม amoxicillin 50% (กิน 10 mg/kg) ใน feed, หมู 1,000 kg น้ำหนักรวม กินอาหาร 250 ppm, ใช้ amoxicillin power กี่กรัม',
     options: ['125 g', '250 g', '500 g', '750 g', '1,000 g'],
     answer: 2,
-    explain: 'ต้องการ 10 mg/kg active drug, 50% = 20 mg powder/kg = 20 g/1000 kg = 20 g, แต่ผสมใน feed 250 ppm: 1,000 kg feed × 250 mg/kg = 250 g powder' },
+    explain: 'ppm ในอาหารผสมยาหมายถึงความเข้มข้นของตัวยาสำคัญ ไม่ใช่ของผงที่ชั่ง\n\n250 ppm = 250 mg active ต่ออาหาร 1 kg คูณอาหาร 1,000 kg = 250,000 mg = 250 g active\nผลิตภัณฑ์เป็น amoxicillin 50% จึงต้องชั่งผงเป็นสองเท่าของตัวยา = 500 g powder\n\n💡 ด่านที่พลาดกันคือลืมหารด้วยความแรงของผลิตภัณฑ์ ถ้าตอบ 250 g คือตอบน้ำหนักของตัวยา ไม่ใช่น้ำหนักผงที่ต้องชั่งจริง' },
 
   { id: 6501, subject: 'vca', topic: 'swine', year: 5, source: SRC,
     tags: ['calc', 'colistin', 'ppm'], type: 'mcq',
@@ -2013,8 +2013,8 @@ export const QB_VCA = [
     tags: ['care', 'dehydration'], type: 'mcq',
     q: 'สุนัขแสดง tachycardia (HR 180) + skin tent slow + sunken eye + prolonged CRT, estimated dehydration',
     options: ['<5%', '5-7%', '8-10%', '10-12%', '>12% (moribund)'],
-    answer: 3,
-    explain: '8-10% dehydration: sunken eye + dry MM + prolonged CRT + mild tachycardia, 10-12% = clinical shock (hypotension + cold extremity), >12% moribund, 5-6% = subtle (skin tent only)' },
+    answer: 2,
+    explain: '8-10% dehydration: ตาลึก (retracted globes) + skin tent ค้าง + เยื่อเมือกแห้ง + CRT ยาว + หัวใจเต้นเร็ว ตรงกับโจทย์ทุกข้อ\n\n❌ ทำไมข้ออื่นผิด\n— 10-12% ต้องมีหลักฐานของ hypovolemia เพิ่มเข้ามาด้วย เช่น ความดันตก ชีพจรเบา ปลายเท้าเย็น ระดับความรู้สึกตัวเปลี่ยน ซึ่งโจทย์ไม่ได้ให้ไว้\n— 5-7% ยังไม่ถึงขั้นตาลึก อย่างมากคือ skin tent คืนตัวช้าลงและเยื่อเมือกเหนียว\n— น้อยกว่า 5% ตรวจร่างกายยังจับไม่ได้\n— มากกว่า 12% คือ moribund\n\n💡 ตาลึกบวก skin tent ค้าง = 8-10% ส่วน 10-12% รอจนมีสัญญาณว่าปริมาตรเลือดพร่องแล้ว' },
 
   { id: 7052, subject: 'vca', topic: 'dogcat', year: 5, source: SRC,
     tags: ['care', 'maintenance'], type: 'mcq',

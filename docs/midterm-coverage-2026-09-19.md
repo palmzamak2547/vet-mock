@@ -1,6 +1,3 @@
-<!-- Generated: node scripts/audit-midterm-coverage.mjs > docs/midterm-coverage-2026-09-19.md -->
-<!-- Do not hand-edit. The script only prints; the redirect is what updates this file. -->
-
 # midterm coverage, year 5
 
 ## Recent Advances in Vet Biosciences (rec-adv-bioscience) — 4 ข้อ, 14 หัวข้อบนกระดาษ, สรุปคลิป 13 คาบ
@@ -20,35 +17,6 @@
 | Bacterial diagnosis in Clinical Microbiology | 1 | 1 | — |
 | Blood protozoa & rickettsia | 1 | 1 | — |
 | Helminths in animals | 2 | 2 | — |
-
-## อายุรศาสตร์สัตว์ปีก (avian-medicine) — 316 ข้อ, 25 หัวข้อบนกระดาษ, สรุปคลิป 39 คาบ
-| หัวข้อ | ข้อ | จากข้อสอบเก่า | โน้ต |
-|---|---:|---:|---|
-| Egg breakout analysis | 0 | 0 | — |
-| Coccidiosis | 0 | 0 | — |
-| Leukocytozoonosis | 0 | 0 | — |
-| Avian Malaria | 0 | 0 | — |
-| Avian Encephalomyelitis | 0 | 0 | — |
-| Necrotic Enteritis | 1 | 1 | — |
-| Avian Salmonellosis | 1 | 1 | — |
-| Adenovirus Infections | 2 | 2 | — |
-| Omphalitis / Ascites / Staphylococcosis | 3 | 1 | — |
-| Colibacillosis (E. coli) | 6 | 0 | มี |
-| Fowl Cholera | 7 | 3 | มี |
-| Infectious Coryza | 8 | 0 | มี |
-| Runting and Stunting Syndrome | 9 | 0 | — |
-| Avian Metapneumovirus | 13 | 0 | มี |
-| Reovirus Infections | 13 | 0 | — |
-| Infectious Bursal Disease (Gumboro) | 14 | 2 | — |
-| Infectious Laryngotracheitis (ILT) | 16 | 0 | มี |
-| Avian Influenza (ไข้หวัดนก) | 16 | 8 | มี |
-| Mycoplasmosis | 17 | 7 | มี |
-| Avian Pox | 18 | 0 | มี |
-| Infectious Bronchitis | 19 | 0 | มี |
-| Neoplastic Diseases (Marek / Leukosis) | 22 | 4 | — |
-| Newcastle Disease | 23 | 0 | มี |
-| Chicken Infectious Anemia | 23 | 0 | — |
-| Intro to Avian Medicine | 85 | 1 | มี |
 
 ## คลินิกปฏิบัติโค (ruminant-clinical) — 15 ข้อ, 8 หัวข้อบนกระดาษ, สรุปคลิป 0 คาบ
 | หัวข้อ | ข้อ | จากข้อสอบเก่า | โน้ต |
@@ -99,6 +67,35 @@
 | Common slaughterhouse lesions | 3 | 3 | — |
 | Avian pathology | 10 | 10 | — |
 | Swine pathology systemic review | 54 | 54 | — |
+
+## อายุรศาสตร์สัตว์ปีก (avian-medicine) — 389 ข้อ, 25 หัวข้อบนกระดาษ, สรุปคลิป 39 คาบ
+| หัวข้อ | ข้อ | จากข้อสอบเก่า | โน้ต |
+|---|---:|---:|---|
+| Egg breakout analysis | 0 | 0 | — |
+| Colibacillosis (E. coli) | 6 | 0 | มี |
+| Fowl Cholera | 7 | 3 | มี |
+| Infectious Coryza | 8 | 0 | มี |
+| Avian Encephalomyelitis | 8 | 0 | — |
+| Runting and Stunting Syndrome | 9 | 0 | — |
+| Avian Malaria | 9 | 0 | — |
+| Leukocytozoonosis | 10 | 0 | — |
+| Necrotic Enteritis | 11 | 1 | — |
+| Avian Salmonellosis | 11 | 1 | — |
+| Chicken Infectious Anemia | 12 | 0 | — |
+| Adenovirus Infections | 12 | 2 | — |
+| Avian Metapneumovirus | 13 | 0 | มี |
+| Reovirus Infections | 13 | 0 | — |
+| Omphalitis / Ascites / Staphylococcosis | 13 | 1 | — |
+| Infectious Bursal Disease (Gumboro) | 14 | 2 | — |
+| Infectious Laryngotracheitis (ILT) | 16 | 0 | มี |
+| Avian Influenza (ไข้หวัดนก) | 16 | 8 | มี |
+| Mycoplasmosis | 17 | 7 | มี |
+| Avian Pox | 18 | 0 | มี |
+| Infectious Bronchitis | 19 | 0 | มี |
+| Coccidiosis | 19 | 0 | — |
+| Neoplastic Diseases (Marek / Leukosis) | 22 | 4 | — |
+| Newcastle Disease | 23 | 0 | มี |
+| Intro to Avian Medicine | 83 | 1 | มี |
 
 ## โรคติดต่อระหว่างสัตว์-คน (zoonoses) — 197 ข้อ, 13 หัวข้อบนกระดาษ, สรุปคลิป 19 คาบ
 | หัวข้อ | ข้อ | จากข้อสอบเก่า | โน้ต |
@@ -193,4 +190,4 @@
 | GI viral diseases in swine | 16 | 3 | มี |
 | Swine medicine Dr. Pornchalit set | 36 | 23 | มี |
 
-ว่างเปล่า 20 หัวข้อ · ต่ำกว่า 5 ข้อ 41 หัวข้อ
+ว่างเปล่า 16 หัวข้อ · ต่ำกว่า 5 ข้อ 33 หัวข้อ

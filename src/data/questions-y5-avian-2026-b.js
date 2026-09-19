@@ -96,7 +96,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105776,
     "tags": ["goose-parvovirus","age-related-susceptibility"],
     "subject": "avian-medicine",
-    "topic": "avian-intro",
+    "topic": "avian-goose-parvo",
     "year": 5,
     "type": "mcq",
     "q": "ลูกห่านที่ติด Goose parvovirus ตั้งแต่อายุน้อยกว่า 10 วัน มักเป็นอย่างไร",

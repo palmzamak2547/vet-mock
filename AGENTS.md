@@ -2138,6 +2138,23 @@ summary is only ever a claim about bytes. I got the first one wrong first:
 I "restored" the transcriber's spacing into 1,622 spans of shipped summaries
 before noticing the premise did not hold, and reverted it.
 
+**The same gate has a second half, and it is about what a student can read.**
+Byte-faithful quoting makes the cheapest way to stay green "quote more", and one
+batch did exactly that: pages 40-60% quoted, carrying tokens with Thai and Latin
+letters fused inside one word — `areีย`, `harบonyma`, `Profเฟessเซอร์` — which
+Palm read back as "บางคำไม่เป็นภาษา บางอันเหมือนพิมพ์ไม่จบ". So `lint:quotes`
+also counts those, and the distinction that matters is **bare versus declared**:
+a garble is a defect only when nothing on its line tells the reader what it is.
+The good pattern is the raw sound inside the marks and the reading outside it —
+`**"...แคโostสาอ่าทอกโซคาร..."** [7:49] อ่านได้ว่า นีมาโทด, ทอกโซคารา` — or a
+plain statement that a word was not pronounced fully and is therefore not
+written. Counting declared garbles instead flagged two files whose every span
+was already handled correctly, so measure the bare ones. Do not gate on quoted
+share: `ezb2wLM_R2o` is 75% quoted with zero garbles and reads well, because it
+is the lecturer's own clean Thai. And never satisfy this gate by pasting the
+same parenthetical onto every line — that is raising the budget by rewriting the
+ruler.
+
 **Two user-facing bugs, both found because Palm said so.**
 
 The PDF export printed a blank page. The handout rendered inside `.vmx-app`,

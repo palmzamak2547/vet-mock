@@ -241,7 +241,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
 export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   '1-mid': {
     'aquatic-clinic': 216,
-    'avian-medicine': 389,
+    'avian-medicine': 388,
     'com1': 4,
     'com2': 14,
     'equine-medicine': 286,
@@ -250,7 +250,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-safety-y4': 15,
     'herd-health-rum': 24,
     'milk-meat-hygiene': 457,
-    'one-health': 107,
+    'one-health': 105,
     'surg1': 29,
     'swine-clinic': 75,
     'swine-herd': 31,
@@ -272,7 +272,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-industry': 34,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
-    'one-health': 33,
+    'one-health': 35,
     'surg1': 29,
     'swine-clinic': 84,
     'swine-herd': 16,
@@ -335,12 +335,12 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 2343,
+    5: 2340,
   },
   '1-final': {
     2: 104,
     4: 302,
-    5: 1203,
+    5: 1205,
   },
   '2-mid': {
     1: 298,
@@ -383,7 +383,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'avian-fowl-cholera': 7,
       'avian-ib': 19,
       'avian-ibd': 14,
-      'avian-intro': 83,
+      'avian-intro': 82,
       'avian-leuko': 10,
       'avian-lt': 16,
       'avian-malaria': 9,
@@ -481,12 +481,12 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'milk-raw-storage': 40,
     },
     'one-health': {
-      'oh-collaboration': 9,
+      'oh-collaboration': 8,
       'oh-communication': 5,
       'oh-concept': 11,
       'oh-disease-prevention': 14,
       'oh-global-network': 37,
-      'oh-vet-role': 31,
+      'oh-vet-role': 30,
     },
     'surg1': {
       'brachial-plexus-block': 3,
@@ -621,7 +621,8 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'aqua-shrimp-diseases': 37,
     },
     'avian-medicine': {
-      'avian-intro': 83,
+      'avian-goose-parvo': 1,
+      'avian-intro': 82,
       'avian-serology': 13,
       'avian-vaccine-prog': 10,
     },
@@ -776,7 +777,9 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'one-health': {
       'oh-amr': 10,
+      'oh-env-carcinogen': 1,
       'oh-foodborne': 6,
+      'oh-livestock-waste': 1,
       'oh-risk-analysis': 17,
     },
     'surg1': {
@@ -2073,9 +2076,10 @@ export const Q_COUNTS_BY_TOPIC = {
     "avian-coli": 6,
     "avian-coryza": 8,
     "avian-fowl-cholera": 7,
+    "avian-goose-parvo": 1,
     "avian-ib": 19,
     "avian-ibd": 14,
-    "avian-intro": 83,
+    "avian-intro": 82,
     "avian-leuko": 10,
     "avian-lt": 16,
     "avian-malaria": 9,
@@ -2402,14 +2406,16 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "one-health": {
     "oh-amr": 10,
-    "oh-collaboration": 9,
+    "oh-collaboration": 8,
     "oh-communication": 5,
     "oh-concept": 11,
     "oh-disease-prevention": 14,
+    "oh-env-carcinogen": 1,
     "oh-foodborne": 6,
     "oh-global-network": 37,
+    "oh-livestock-waste": 1,
     "oh-risk-analysis": 17,
-    "oh-vet-role": 31,
+    "oh-vet-role": 30,
   },
   "poa-clinical": {
     "poa-diarrhea": 14,
@@ -3161,4 +3167,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-19T05:12:32.457Z
+// Built: 2026-09-19T07:26:33.618Z

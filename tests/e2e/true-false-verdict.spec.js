@@ -42,9 +42,13 @@ async function startTopic(page, context) {
 test('a correct answer never arrives in the colour of a mistake', async ({ page, context }) => {
   await startTopic(page, context);
 
-  // Walk to a true/false question; this topic has three of them.
+  // Walk to a true/false question. Three of this topic's questions are
+  // true/false, but the set is drawn in a random order and the topic has grown
+  // to thirteen questions, so a six-question walk missed all three about one
+  // run in five. Walk the whole set instead; the loop still ends at the last
+  // question because the "next" button stops existing there.
   let found = false;
-  for (let i = 0; i < 6 && !found; i += 1) {
+  for (let i = 0; i < 40 && !found; i += 1) {
     const tfRow = page.locator('.vmx-tf-row');
     if (await tfRow.count()) { found = true; break; }
     const next = page.getByRole('button', { name: /ข้อถัดไป/ });
