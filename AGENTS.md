@@ -2122,6 +2122,22 @@ those checks. `docs/SUMMARY-CHECK-STANDARD.md` now holds the standard so it
 does not have to be retyped into every prompt, and `data-cache/fact-checked.txt`
 is a hand-written ledger the generator refuses to ship without.
 
+**The quote debt is a number now: `npm run lint:quotes`.** A census on
+2026-09-19 measured every summary that has a transcript beside it — 12,467 Thai
+quoted spans across 206 files, **3,713 of them not in the audio**, nearly all
+from the batch written on 2026-09-18 before defect class 10 existed. It is
+ratcheted per file in `docs/quote-fidelity-budget.json`; a number may only go
+down and a file may only leave. Work it off as each lecture gets its read-back,
+and never raise a budget to make a commit pass.
+
+Two things that audit taught, both now in the standard: **whitespace is not
+evidence** (Thai has no inter-word spaces, so the transcriber put every one of
+them there — ignore spacing and count changed characters), and **an absence
+proof belongs in bold, not in quotation marks**, so that a quotation mark in a
+summary is only ever a claim about bytes. I got the first one wrong first:
+I "restored" the transcriber's spacing into 1,622 spans of shipped summaries
+before noticing the premise did not hold, and reverted it.
+
 **Two user-facing bugs, both found because Palm said so.**
 
 The PDF export printed a blank page. The handout rendered inside `.vmx-app`,

@@ -92,6 +92,40 @@ The bar is reachable: a third file checked the same week carried 181 quotes with
 **zero** drift. Byte-faithful is the house standard, not a stricter one invented
 by whoever is checking.
 
+### Whitespace is not evidence, and a changed character is
+
+Thai is written without spaces between words, so every space in an auto-caption
+was put there by the transcriber. `อัน นี้` and `อันนี้` are the same utterance,
+and closing one up is not the defect this class is about. Two write passes on
+2026-09-19 disagreed on exactly this — one treated 9 such spans as drift and
+fixed them, the other accepted 256 as a "normalisation convention" — and the
+disagreement cost half a session. Worse, restoring the transcriber's spacing
+back into a quote makes the page read like a typo while proving nothing about
+speech; that repair was made across the shipped summaries and then reverted
+once the premise failed to hold up.
+
+What counts is a **changed character**: a garble corrected (`วิลาย` written as
+`วิลลัส`), a filler deleted, a stutter tidied, a bracketed guess placed inside
+the marks. `node scripts/audit-quote-fidelity.mjs` measures exactly that,
+ignoring spacing on both sides, and `npm run lint:quotes` holds every file to
+`docs/quote-fidelity-budget.json` as a ratchet.
+
+The census on the day it was written: **12,467 Thai quoted spans across 206
+summaries, of which 3,713 are not in the audio**, nearly all from one batch
+written on 2026-09-18 before this class existed. Five files checked that week
+scored 3,889 spans with **5** not in the audio, and those five are declared
+absence proofs. The debt is a backlog to work off a file at a time as each
+lecture gets its read-back, not a reason to lower the bar.
+
+### State an absence in bold, never in quotation marks
+
+An absence proof quotes the string it searched for — `"ผมชื่อ"` appears 0 times
+— and that quotation mark is then a claim about bytes that are deliberately
+absent, so every audit of the file trips over it. Put the search string in
+**bold**. Then a quotation mark in the document is only ever a claim that the
+audio contains those characters, which is the only thing that makes the marks
+worth auditing.
+
 ## Recovery is not substitution
 
 A garbled token may be resolved when **the sounds support the word**:
