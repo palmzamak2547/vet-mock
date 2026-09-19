@@ -74,7 +74,9 @@ for (const { subject, onPaper, byTopic, total } of rows) {
   emptyTotal += empty.length;
   console.log(`## ${subject.name} (${subject.id}) — ${total} ข้อ, ${onPaper.length} หัวข้อบนกระดาษ`
     + `, สรุปคลิป ${summariesBySubject[subject.id] || 0} คาบ`);
-  console.log('| หัวข้อ | ข้อ | จากข้อสอบเก่า | สรุป |');
+  // The heading counts lecture CLIPS; this column checks written NOTES. Calling
+  // both of them สรุป in one table misread as "this topic has a clip summary".
+  console.log('| หัวข้อ | ข้อ | จากข้อสอบเก่า | โน้ต |');
   console.log('|---|---:|---:|---|');
   for (const t of [...onPaper].sort((a, b) => (byTopic.get(a.id)?.n || 0) - (byTopic.get(b.id)?.n || 0))) {
     const c = byTopic.get(t.id) || { n: 0, past: 0 };

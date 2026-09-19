@@ -10,13 +10,13 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 5620;
-export const QB_SOURCE_TOTAL = 5685;
+export const QB_TOTAL = 5693;
+export const QB_SOURCE_TOTAL = 5758;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 346,
-  'avian-medicine': 339,
+  'avian-medicine': 412,
   'biochem-1': 272,
   'cliapprum': 136,
   'com1': 31,
@@ -66,7 +66,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 346,
-  'avian-medicine': 339,
+  'avian-medicine': 412,
   'biochem-1': 272,
   'cliapprum': 134,
   'com1': 31,
@@ -241,7 +241,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
 export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   '1-mid': {
     'aquatic-clinic': 216,
-    'avian-medicine': 316,
+    'avian-medicine': 389,
     'com1': 4,
     'com2': 14,
     'equine-medicine': 286,
@@ -262,7 +262,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': 130,
-    'avian-medicine': 108,
+    'avian-medicine': 106,
     'com1': 31,
     'com2': 39,
     'engprof1': 30,
@@ -335,12 +335,12 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 2270,
+    5: 2343,
   },
   '1-final': {
     2: 104,
     4: 302,
-    5: 1205,
+    5: 1203,
   },
   '2-mid': {
     1: 298,
@@ -372,26 +372,30 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'aqua-water-quality': 22,
     },
     'avian-medicine': {
-      'avian-adeno': 2,
-      'avian-ahra-set': 3,
+      'avian-adeno': 12,
+      'avian-ae': 8,
+      'avian-ahra-set': 13,
       'avian-ai': 16,
-      'avian-cia': 23,
+      'avian-cia': 12,
+      'avian-cocci': 19,
       'avian-coli': 6,
       'avian-coryza': 8,
       'avian-fowl-cholera': 7,
       'avian-ib': 19,
       'avian-ibd': 14,
-      'avian-intro': 85,
+      'avian-intro': 83,
+      'avian-leuko': 10,
       'avian-lt': 16,
+      'avian-malaria': 9,
       'avian-marek': 22,
       'avian-mpv': 13,
       'avian-myco': 17,
       'avian-nd': 23,
-      'avian-ne': 1,
+      'avian-ne': 11,
       'avian-pox': 18,
       'avian-reo': 13,
       'avian-rss': 9,
-      'avian-salmonella': 1,
+      'avian-salmonella': 11,
     },
     'com1': {
       'anemia-regen-vs-non': 1,
@@ -617,7 +621,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'aqua-shrimp-diseases': 37,
     },
     'avian-medicine': {
-      'avian-intro': 85,
+      'avian-intro': 83,
       'avian-serology': 13,
       'avian-vaccine-prog': 10,
     },
@@ -2024,7 +2028,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 3040,
+  5: 3113,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2036,7 +2040,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 3024,
+  5: 3097,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2060,26 +2064,30 @@ export const Q_COUNTS_BY_TOPIC = {
     "aqua-water-quality": 22,
   },
   "avian-medicine": {
-    "avian-adeno": 2,
-    "avian-ahra-set": 3,
+    "avian-adeno": 12,
+    "avian-ae": 8,
+    "avian-ahra-set": 13,
     "avian-ai": 16,
-    "avian-cia": 23,
+    "avian-cia": 12,
+    "avian-cocci": 19,
     "avian-coli": 6,
     "avian-coryza": 8,
     "avian-fowl-cholera": 7,
     "avian-ib": 19,
     "avian-ibd": 14,
-    "avian-intro": 85,
+    "avian-intro": 83,
+    "avian-leuko": 10,
     "avian-lt": 16,
+    "avian-malaria": 9,
     "avian-marek": 22,
     "avian-mpv": 13,
     "avian-myco": 17,
     "avian-nd": 23,
-    "avian-ne": 1,
+    "avian-ne": 11,
     "avian-pox": 18,
     "avian-reo": 13,
     "avian-rss": 9,
-    "avian-salmonella": 1,
+    "avian-salmonella": 11,
     "avian-serology": 13,
     "avian-vaccine-prog": 10,
   },
@@ -3110,7 +3118,7 @@ export const Q_CURRENT_SCOPE_COUNTS =
 {
   "2569-1": {
     "all": {
-      "avian-medicine": 40,
+      "avian-medicine": 113,
       "epidemiology": 40,
       "equine-medicine": 30,
       "food-industry": 36,
@@ -3119,7 +3127,7 @@ export const Q_CURRENT_SCOPE_COUNTS =
       "zoonoses": 16
     },
     "midterm": {
-      "avian-medicine": 40,
+      "avian-medicine": 113,
       "equine-medicine": 30,
       "food-industry": 36,
       "one-health": 16,
@@ -3153,4 +3161,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-19T03:25:38.299Z
+// Built: 2026-09-19T05:12:32.457Z

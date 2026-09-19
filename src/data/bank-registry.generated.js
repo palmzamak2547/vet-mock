@@ -158,6 +158,12 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-avian-2026.js', export: 'QB_Y5_AVIAN_2026', year: 5, count: 59,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-2026.js').then((m) => m.QB_Y5_AVIAN_2026) },
+  { file: 'questions-y5-avian-ae-bacterial.js', export: 'QUESTIONS_Y5_AVIAN_AE_BACTERIAL', year: 5, count: 38,
+    subjects: ['avian-medicine'],
+    load: () => import('./questions-y5-avian-ae-bacterial.js').then((m) => m.QUESTIONS_Y5_AVIAN_AE_BACTERIAL) },
+  { file: 'questions-y5-avian-parasitic.js', export: 'QB_Y5_AVIAN_PARASITIC', year: 5, count: 35,
+    subjects: ['avian-medicine'],
+    load: () => import('./questions-y5-avian-parasitic.js').then((m) => m.QB_Y5_AVIAN_PARASITIC) },
   { file: 'questions-y5-avian-pastpaper.js', export: 'QB_Y5_AVIAN_PASTPAPER', year: 5, count: 70,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-pastpaper.js').then((m) => m.QB_Y5_AVIAN_PASTPAPER) },
@@ -274,4 +280,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-19T03:09:41.242Z — 88 banks · 5685 Qs
+// Built: 2026-09-19T05:11:26.890Z — 90 banks · 5758 Qs
