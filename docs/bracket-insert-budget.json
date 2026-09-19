@@ -1,10 +1,9 @@
 {
  "note": "Bracketed editorial inserts sitting INSIDE quoted speech, per shipped summary file. Ratchet: a number may only go down, and a file may only leave. See docs/SUMMARY-CHECK-STANDARD.md, \"A bracket can delete the evidence\".",
  "measured": "2026-09-19",
- "total": 320,
+ "total": 288,
  "files": {
   "video-summaries-swine-clinic.js": 251,
-  "video-summaries-avian-medicine.js": 32,
   "video-summaries-food-industry.js": 20,
   "video-summaries-milk-meat-hygiene.js": 6,
   "video-summaries-one-health.js": 6,
