@@ -2407,3 +2407,35 @@ contiguous audio) — it may only fall. Then `npm run test:unit` (1018) and
 
 Read each gate's exit code from the npm command itself. Piping a gate into
 `grep` or `tail` reports the filter's status and has cost two Build workflows.
+
+### main moved to 5.122.0 while the flow release was being prepared
+
+`work/flow-update-safety-20260919/RELEASE-STATUS.md` says that release is
+staged as **5.121.1 / SW v194** on `codex/flow-production-release`, rebased on
+`e6ab5ea2` (5.121.0). Main is now **`1e434ffa`, v5.122.0** — pushed
+fast-forward, fetched first, nothing forced, and none of that release's files
+touched. Two things follow for whoever finishes it:
+
+- **The version needs renumbering.** 5.121.1 now sorts below main. The
+  changelog is keyed by version and the banner compares against it.
+- **Three summary files and `package.json` changed underneath you**
+  (`video-summaries-equine-medicine.js`, `-aquatic-clinic.js`, `-zoonoses.js`,
+  plus two new lint entries). Reconcile with a three-way merge as your own note
+  asks; the lifecycle and service-worker logic was not touched by this side.
+
+### Two more gates in `lint:all`, both ratchets
+
+`lint:garble` counts fused Thai+Latin tokens inside quoted speech per shipped
+summary — the `produิce` / `การทำsurรี่` shape a transcriber leaves behind. Palm
+read one of these on the live site and called it "ภาษาแปลกๆ". Corpus went
+1,850 → 1,054 in one pass; the budget is per file and may only fall. The rule
+is in `docs/SUMMARY-CHECK-STANDARD.md` under **"A garbled quote is not a
+quote"**: write the reading as ordinary Thai, keep the timestamp, and let the
+closing note hold the raw sound once.
+
+`lint:shipped-quotes` checks quoted spans in `src/data/video-summaries-*.js`
+against the recordings. `lint:quotes` only ever read `data-cache/generated`,
+which is the archive — once an id is in `src/data` the rebuild treats it as
+authoritative and never refreshes it, so nothing verified what actually ships.
+Its absolute number mixes speech quotes with quotation marks used to name a
+term, so read the per-file direction: a file that goes UP had a quote altered.
