@@ -2348,3 +2348,62 @@ It sat unapplied for a day because I claimed I had no way to reach
 So: before handing DB work back to the owner, read every `.mcp.json` under the
 project, and remember the token you already hold may reach further than the
 server that carries it.
+
+## 2026-09-19 — Handoff for the polish / flow / structure pass
+
+Palm has handed the next arc (ความลื่นไหล เสถียร polish make sense แบ่งส่วนชัดเจน
+เชื่อมโยงกันทั้งระบบ โดยไม่รก) to another agent. Two things below are not
+suggestions: one is a guarantee that already exists and is easy to break by
+accident, the other is what this session is still holding.
+
+### The auto-update guarantee already exists. Extend it, do not rebuild it.
+
+"เวลาอัพเดตอะไร ให้มันออโต้ โดยไม่กระทบคนเลย ไม่ว่าจะอยู่หน้าไหน" is already the
+contract, and it is enforced in code as of 5.117.0:
+
+- **`src/lib/update-safety.js`** is the single list of views where a new build
+  must not be applied: `exam`, `sr-session`, `race`, `pomodoro`, `results`,
+  `review`, `config`, `topic-select`. None of them has a URL of its own, so a
+  reload cannot put the student back where they were.
+- **Two** paths can swap the app underneath someone, and both must consult it:
+  the waiting service worker (`app-lifecycle.js` announces → `App.jsx`
+  `applyPendingUpdate` applies at the next navigation or tab-hide), and the
+  stale-chunk path (`vite:preloadError` in `app-lifecycle.js`). Until today the
+  second one checked only for `exam`, so a deploy landing while a student read
+  their score reloaded them to Home. Seven of the eight views failed the test
+  against that old check.
+- There is **no press-to-update banner**; updates apply themselves at a moment
+  nothing can be lost. Do not add one.
+
+If the polish pass introduces a view that holds unsaved state or has no URL,
+add it to that list — do not write a second list, and do not inline the check.
+`tests/unit/update-safety.test.mjs` fails if either path stops importing it.
+`tests/unit/app-lifecycle.test.mjs` compiles app-lifecycle.js as a **vm script**,
+where a top-level `import` is a syntax error; its harness strips the import line
+and passes the REAL `isUpdateUnsafe` in through the context. Replacing that with
+a stub makes the two paths free to drift apart with the tests still green.
+
+Also: `SW_VERSION` in `sw.js` must bump whenever the shell layout changes, or
+open tabs keep serving the old shell.
+
+### Files this session is still holding
+
+Three lecture summaries for Equine Medicine (`jgGGQzDTm4E`, `zJQ3gItuG6E`,
+`ha7c8qpdsA4` — this cohort's own recordings, exam 23 Sep) are being written
+into `data-cache/generated/`. When they land they will touch
+`src/data/video-summaries-equine-medicine.js`, `video-summaries-meta.js`,
+`package.json` and `src/data/changelog.js`. Expect a merge there; nothing else
+in `src/` is held.
+
+### Gates, in the order that matters
+
+`npm run build` **before** `npm run lint:all` — lint reads `dist/`, so linting a
+stale build passes for the wrong reason. `lint:all` now carries seven gates
+including **`lint:brackets`, whose budget is 0**: a single new `[...]` inside a
+quotation mark in a shipped summary fails the build. `lint:quotes` is a
+ratchet on a separate, still-open debt (3,675 quoted spans that are not
+contiguous audio) — it may only fall. Then `npm run test:unit` (1018) and
+`npx playwright test --project=chromium-desktop`.
+
+Read each gate's exit code from the npm command itself. Piping a gate into
+`grep` or `tail` reports the filter's status and has cost two Build workflows.
