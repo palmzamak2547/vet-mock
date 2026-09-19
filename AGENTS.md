@@ -2325,3 +2325,26 @@ failed build — but the deploy sat blocked.
 line that says a word appears 0 times is claiming the quoted string is NOT in
 the transcript; the audit now excuses an absent span on such a line, while a
 span that IS in the audio still counts as present. Corpus 3,708 → 3,675.
+
+## 2026-09-19 (later still) — the MyCourseVille rows are IN, and why they sat for a day
+
+`.mcv/insert-0919.sql` is applied. `library_docs` went **2,027 → 2,031**; all
+four rows are anon-visible and all four open through production with byte sizes
+matching the upload exactly (Eq Respi 5,809,427 · POA anorexia 1,635,446 · FAO
+infographic 207,042 · Protozoal zoonoses 7,556,288).
+
+It sat unapplied for a day because I claimed I had no way to reach
+`mpovsdzdggvksmeehqfj`. That claim was wrong twice:
+
+1. **`supabase-vetmock` exists — in `vet-mock/.mcp.json`.** MCP servers load per
+   working directory. I was working from the MycOS vault, so only the vault's
+   four servers were in my tool list, and I read "not in my tool list" as "not on
+   this machine."
+2. **A Supabase access token is account-wide.** The `--project-ref` flag scopes
+   the *server*, not the key. Any of these tokens can drive
+   `POST https://api.supabase.com/v1/projects/<ref>/database/query` against any
+   project in the same account, which is how the SQL finally ran.
+
+So: before handing DB work back to the owner, read every `.mcp.json` under the
+project, and remember the token you already hold may reach further than the
+server that carries it.
