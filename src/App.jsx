@@ -8,6 +8,7 @@ import { flushSync } from 'react-dom';
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded } from './data/questions.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, hiddenTopicIdsFor, yearForSubject, semesterForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
+import { UPDATE_UNSAFE_VIEWS } from './lib/update-safety.js';
 
 // Which semester each exam phase belongs to. Mid vs final inside one semester
 // cannot be scoped from ordinary question data, so the phase narrows the pool
@@ -878,8 +879,8 @@ export default function App() {
   // running session is never interrupted; the update waits for it to end.
   // ...and views a reload cannot restore: results, review, config and
   // topic-select have no URL, so an update applied there lands on Home with
-  // the score screen gone.
-  const UPDATE_UNSAFE_VIEWS = ['exam', 'sr-session', 'race', 'pomodoro', 'results', 'review', 'config', 'topic-select'];
+  // the score screen gone. The list lives in lib/update-safety.js because the
+  // chunk-reload path has to agree with it.
   const pendingUpdateRef = useRef(null);
   useEffect(() => {
     const handler = (e) => { pendingUpdateRef.current = e?.detail?.reason || 'pending'; };

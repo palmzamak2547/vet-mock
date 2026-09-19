@@ -5,9 +5,14 @@
 // (404) → "Failed to fetch dynamically imported module" error and
 // the app crashes to the ErrorBoundary fallback.
 //
-// Vite emits a `vite:preloadError` event for this exact case. Outside an
-// exam we reload once for fresh hashes. During an exam we defer the update
-// and surface status so in-progress answers are never interrupted.
+// Vite emits a `vite:preloadError` event for this exact case. On a view a
+// reload can restore we reload once for fresh hashes. On one it cannot we
+// defer the update and surface status, so nothing in progress is interrupted.
+//
+// That list is shared with App.jsx rather than repeated here: this file used
+// to check only for the exam view, so a deploy landing while a student read
+// their score or the answers reloaded them to Home with the screen gone.
+import { isUpdateUnsafe } from './update-safety.js'
 const readSessionFlag = (key) => { try { return sessionStorage.getItem(key) } catch { return null } }
 const writeSessionFlag = (key, value) => { try { sessionStorage.setItem(key, value); return true } catch { return false } }
 
@@ -15,9 +20,8 @@ window.addEventListener('vite:preloadError', (event) => {
   const reloadKey = 'vmx-chunk-reload'
   const deferredKey = 'vmx-update-deferred'
   const activeView = window.history.state?.vmxView
-  const examActive = activeView === 'exam'
 
-  if (examActive) {
+  if (isUpdateUnsafe(activeView)) {
     event.preventDefault?.()
     const detail = {
       state: 'deferred',
@@ -29,7 +33,7 @@ window.addEventListener('vite:preloadError', (event) => {
     writeSessionFlag(deferredKey, '1')
     window.dispatchEvent(new CustomEvent('vmx-update-deferred', { detail }))
     window.dispatchEvent(new CustomEvent('vmx-sw-update', { detail }))
-    console.warn('[chunk] preload failed during exam - update deferred:', detail.message)
+    console.warn(`[chunk] preload failed on ${activeView} - update deferred:`, detail.message)
     return
   }
 
