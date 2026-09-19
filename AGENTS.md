@@ -2216,3 +2216,30 @@ chain and insists the number does not change.
 **A serverless function with no `maxDuration` gets ten seconds.** `study-coach`
 waited thirty internally, so every long review was cut off mid-flight and the
 browser saw a 504. Check the export before blaming the model.
+
+### 2026-09-19 — unfinished: four MyCourseVille files are on R2 but not on the shelf
+
+`npm`-side is done; the INSERT is not, because no Supabase MCP in that session
+reached VetMock's project (`mpovsdzdggvksmeehqfj` — the four configured ones are
+cuvetsmo, miracle, tipjai, arnfa), and no service-role key exists in any Vercel
+environment for it.
+
+The bytes are uploaded and addressed by hash. What remains is one statement:
+
+```
+.mcv/insert-0919.sql        ← 4 rows, guarded by `not exists (sha256_16 or slug)`
+```
+
+It is idempotent, so running it twice is safe. The four files:
+
+| file | subject | note |
+|---|---|---|
+| Eq Respi | equine-medicine | the 2026 course links a file that lives under the 2025_1 folder; said so in its description rather than restamping the year |
+| POA - anorexia and weight loss | poa-clinical | |
+| Protozoal zoonoses (Dr. Woraporn) | zoonoses | |
+| อินโฟกราฟิก มูลค่าผลผลิตการเกษตรโลก 2024 (FAO) | food-industry | MyCourseVille called it **AddFile**, which is its placeholder, not a title — a student cannot search for that. Renamed from the image itself. |
+
+A previous pull on 09-18 found the same four and stopped at the manifest: it
+wrote `.mcv/manifest-0918.json` and never produced rows or SQL, and nobody
+noticed because the diff prints "NEW: 4" and exits 0 either way. If a pull ends
+without an `insert-<date>.sql`, it did not finish.
