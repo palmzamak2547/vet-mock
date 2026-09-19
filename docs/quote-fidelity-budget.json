@@ -1,7 +1,7 @@
 {
  "note": "Quoted spans that are not in the clip transcript, per summary. Whitespace is ignored (Thai spacing in an auto-caption is the transcriber's artifact, not speech); a changed character is what counts. Ratchet: a number may only go down, and a file may only leave. See docs/SUMMARY-CHECK-STANDARD.md class 10.",
  "measured": "2026-09-19",
- "total": 3713,
+ "total": 3708,
  "files": {
   "2I7DU_E8vho": 352,
   "ezb2wLM_R2o": 284,
@@ -50,7 +50,6 @@
   "FDj1EJ1belQ": 5,
   "g7Xfpf44LdY": 5,
   "hGR4xl7BVe0": 5,
-  "IJaulz_PkS8": 5,
   "Mv9Gl1IcR0U": 5,
   "N8oKKxdew5k": 5,
   "RiQGEN43YXs": 5,
