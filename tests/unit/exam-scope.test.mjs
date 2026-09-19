@@ -21,7 +21,7 @@ test('a phase names a paper, and a year alone names none', () => {
   assert.equal(scopeForPhase('1'), null);
 });
 
-test('a question inherits its topic, and its own field wins over the topic', () => {
+test('a question inherits its topic, and the topic wins over the question', () => {
   // Find a real topic that declares a scope, so the test moves with the data.
   let found = null;
   for (const s of SUBJECTS) {
@@ -34,11 +34,18 @@ test('a question inherits its topic, and its own field wins over the topic', () 
   assert.equal(scopeForTopic(found.subject, found.topic), found.scope);
   assert.equal(scopeOfQuestion({ subject: found.subject, topic: found.topic }), found.scope);
 
+  // A past paper that disagrees with where the topic sits THIS year does not
+  // move the question: the paper it was copied from belonged to another cohort,
+  // and Palm's instruction for that case is to go by the topic ("อาจมีบางปีที่
+  // ไม่ตรงกับรุ่นปัจจุบันก็ให้เทียบหัวข้อเอา"). Letting the question's own tag
+  // win put four conservation questions into a Vet 86 midterm set for a lecture
+  // that had not happened yet; making the two agree as an AND then hid eleven
+  // questions from both papers at once.
   const other = found.scope === 'midterm' ? 'final' : 'midterm';
   assert.equal(
     scopeOfQuestion({ subject: found.subject, topic: found.topic, examScope: other }),
-    other,
-    'a past paper that disagrees with this year’s topic placement overrides it',
+    found.scope,
+    'this year’s topic placement decides which paper a question is on',
   );
 });
 

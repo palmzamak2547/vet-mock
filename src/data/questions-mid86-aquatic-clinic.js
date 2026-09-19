@@ -2263,7 +2263,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202184,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-ornamental",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2288,7 +2288,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202185,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-ornamental",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2313,7 +2313,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202186,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-ornamental",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2338,7 +2338,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202187,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-ornamental",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2363,7 +2363,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202188,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-ornamental",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2388,7 +2388,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202189,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-ornamental",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2413,7 +2413,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202190,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-frog-diseases",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2438,7 +2438,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202191,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-frog-diseases",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2463,7 +2463,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202192,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-frog-diseases",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2488,7 +2488,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202193,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-frog-diseases",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2513,7 +2513,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202194,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-amphibian",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2538,7 +2538,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202195,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-amphibian",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2563,7 +2563,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202196,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-amphibian",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2588,7 +2588,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202197,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-amphibian",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2613,7 +2613,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202198,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-frog-diseases",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2632,13 +2632,13 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "Amoxicillin โดยให้ทางปาก"
     ],
     "answer": 0,
-    "explain": "โปรโตซัวมีขนในกบที่พบบ่อยคือ Opalina และ Balantidium ติดต่อทางการกินอาหารสดที่ไม่มีคุณภาพแบบ fecal-oral ถ้าอาการหนักจะถ่ายเหลวและมีมูลสีขาว รักษาด้วย metronidazole ทางปาก\n\n❌ ทำไมข้ออื่นผิด\n— Doxycycline ใช้รักษา chlamydiosis ในกบ ไม่ใช่โปรโตซัวกลุ่มนี้\n— Ivermectin ใช้กับปรสิตกลุ่มพยาธิ ไม่ใช่โปรโตซัวในทางเดินอาหาร\n— Amoxicillin เป็นยาปฏิชีวนะที่ไม่ครอบคลุมโปรโตซัว\n\n💡 โปรโตซัวในลำไส้ ให้นึกถึง metronidazole ก่อน",
+    "explain": "โปรโตซัวมีขนในกบที่พบบ่อยคือ Opalina และ Balantidium ติดต่อทางการกินอาหารสดที่ไม่มีคุณภาพแบบ fecal-oral ถ้าอาการหนักจะถ่ายเหลวและมีมูลสีขาว รักษาด้วย metronidazole ทางปาก\n\n❌ ทำไมข้ออื่นผิด\n— Doxycycline ใช้รักษา chlamydiosis ในกบ ไม่ใช่โปรโตซัวกลุ่มนี้\n— Ivermectin ใช้กับปรสิตกลุ่มพยาธิ ไม่ใช่โปรโตซัวในทางเดินอาหาร\n— Amoxicillin เป็นยาปฏิชีวนะที่ไม่ครอบคลุมโปรโตซัว\n\n💡 โปรโตซัวในลำไส้ ให้นึกถึง metronidazole ก่อน\n\n⚠️ ตอนใช้จริงในฟาร์ม กบเลี้ยงเป็นสัตว์ที่ส่งไปบริโภค metronidazole อยู่ในกลุ่ม nitroimidazole ที่สหรัฐห้ามใช้นอกฉลากในสัตว์เพื่อการบริโภค (21 CFR 530.41(a)(6)) ในห้องสอบตอบตามที่อาจารย์สอน แต่หน้างานต้องดูข้อกำหนดสารตกค้างของปลายทางที่ส่งไปด้วย",
     "verified": "Aqua Med Mid 86 p.11"
   },
   {
     "id": 202199,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-frog-diseases",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2663,7 +2663,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202200,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-turtle",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2688,7 +2688,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202201,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-turtle",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2713,7 +2713,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202202,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-turtle",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2738,7 +2738,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202203,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-turtle",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2763,7 +2763,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202204,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-turtle",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",
@@ -2788,7 +2788,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202205,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-turtle",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2813,7 +2813,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202206,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-turtle",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -2838,7 +2838,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
   {
     "id": 202207,
     "subject": "aquatic-clinic",
-    "topic": "aqua-aquarium-vet",
+    "topic": "aqua-turtle",
     "year": 5,
     "source": "Aqua Med Mid 86 (รวบรวมโดยรุ่นพี่ Vet 85)",
     "sourceType": "exam-aligned",

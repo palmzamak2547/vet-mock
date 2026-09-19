@@ -4,6 +4,8 @@
 
 ## คำสั่งตั้งต้นสำหรับผู้รับงาน
 
+**อัปเดต 2026-09-19 — ชุด v2:** เริ่มที่ `design/interactive-experience-v2/START-HERE.md` สำหรับฉากที่ใช้งานร่วมกัน 4 แบบ: อ่าน–เก็บ, บอร์ดจัดกอง/Undo, lens/compare/hotspots และมุมพัก/สรุป. มี native SVG ใหม่ 6 ชิ้น รวมกับ artwork v1 เป็น 18 ชิ้น และภาพนิ่ง v1 อีก 24 exports. ใช้ `SCENES.md` เป็น state/integration contract; ข้อมูลทั้งหมดใน demo อยู่ใน memory ชั่วคราว ไม่มี backend หรือ learner writes. ZIP รวม v1+v2: `work/interactive-delivery-20260919/vetmock-interactive-v2-ready.zip`. Checkbox IX ยังเป็นงานนำเข้าแอปจริง ไม่ได้ถูกทำเสร็จเพราะมี demo.
+
 **สถานะส่งต่อสุดท้าย 2026-09-18:** งานเตรียม asset/motion เสร็จใน `design/interactive-assets-v1/START-HERE.md` พร้อม `INTEGRATION.md`, ภาพต้นฉบับ 12 ชิ้น, ภาพนิ่ง rest/open 24 ไฟล์, gallery และผลตรวจ 156 ท่า. ZIP แบบเปิดดูแยกจาก repo อยู่ที่ `work/interactive-delivery-20260918/vetmock-interactive-ready.zip` พร้อม hashes. Checkbox IX ด้านล่างยังเป็นงาน implementation ในแอป ไม่ใช่รายการ asset ที่ขาด.
 
 อ่าน `AGENTS.md`, `STABILITY.md` และเอกสารนี้ก่อนทำงาน ตรวจ source/working tree ปัจจุบันอีกครั้ง แล้วดำเนินงานตามชุดด้านล่างเมื่อได้รับมอบหมายให้ implement ไม่ต้องสร้างระบบซ้ำกับของเดิม งานนี้เน้นลูกเล่นและประสบการณ์สัมผัสเว็บ ไม่ใช่เพิ่มฟีเจอร์การเรียนทั่วไปหรือ redesign ทั้งแอป

@@ -100,11 +100,13 @@ mapped to semester 1 and nothing else, so the two picks served an identical pool
 **The model, in one line: scope belongs to the TOPIC, and a question inherits it.** Resolution
 lives in `src/lib/exam-scope.js`, first hit wins:
 
-1. `question.examScope` — a hand-set fact about that one question. Use it only when a past
-   paper disagrees with where its topic sits **this** year ("อาจมีบางปีที่ไม่ตรงกับรุ่นปัจจุบัน
-   ก็ให้เทียบหัวข้อเอา").
-2. `topic.examScope` in `curriculum.js` — **the normal path, and the one to reach for.**
+1. `question.examScope: 'continuous'` — the course has no written paper. Nothing overrides it.
+2. `topic.examScope` in `curriculum.js` — **the normal path, the one to reach for, and the one
+   that DECIDES.** A topic's scope is this year's timetable; a question's is the paper it was
+   transcribed from, often another cohort's. When they disagree the topic wins, which is Palm's
+   own instruction: "อาจมีบางปีที่ไม่ตรงกับรุ่นปัจจุบันก็ให้เทียบหัวข้อเอา".
 3. `subject.examScope` — a subject taught and examined as one block (POA is `'continuous'`).
+   Then `question.examScope`, read only when nothing above answers.
 4. The faculty timetable, via `src/data/exam-papers.generated.js` — a subject sitting exactly
    one paper is settled with no data entry at all (epidemiology sits only the final, so all 100
    of its questions are final scope and can never pad a midterm set).
@@ -117,6 +119,15 @@ Rules that follow from it, and they are not negotiable:
   year-4 COM III/IV/V banks and the VCA compilation (2,000 questions) are absent from the
   current timetable and would have vanished from every phase-filtered pool. A course with no
   written paper says so out loud with `examScope: 'continuous'`.
+- **Never require both scopes to agree.** An AND between the question's scope and its topic's is
+  unsatisfiable for a question tagged `midterm` on a `final` topic, and it hid eleven of them
+  from midterm and final alike on 2026-09-19. `tests/unit/exam-scope-reachable.test.mjs` fails if
+  any question is invisible in every phase; a hidden question is worse than a loosely placed one.
+- **A question on the wrong topic is a scope bug, not a topic bug.** 24 frog/amphibian/turtle/
+  ornamental questions sat on `aqua-aquarium-vet` (a post-midterm lecture), so กลางภาค showed
+  none of them. When a set looks thin, check what its questions are filed under before writing
+  new ones — `node scripts/audit-scope-contradictions.mjs` lists the disagreements, and the
+  cohort's own midterm sheet is the evidence for where a lecture actually sat.
 - **Adding a topic means declaring its paper.** `npm run lint:exam-scope` fails when a topic in
   a both-paper subject does not say which paper it sits, against a budget that may only
   shrink. Lower the budget when you map a batch; never raise it.
@@ -2243,3 +2254,11 @@ A previous pull on 09-18 found the same four and stopped at the manifest: it
 wrote `.mcv/manifest-0918.json` and never produced rows or SQL, and nobody
 noticed because the diff prints "NEW: 4" and exits 0 either way. If a pull ends
 without an `insert-<date>.sql`, it did not finish.
+
+## 2026-09-19 — Interactive experience v2, local handoff only
+
+- Owner asked to go further and prepare another agent handoff. Added `design/interactive-experience-v2/`: four working local scenes (native text selection/save-failure/retry, board move/reorder/Undo, registered image wipe/hotspots/lens, interactive desk + bounded demo timer + state-derived summary). Start at its `START-HERE.md`; `SCENES.md` names exact production seams and boundaries.
+- Added six original native SVGs; v2 reuses v1's twelve rigs/assets. The leaf pair is fictional and nonclinical, with shared geometry and coordinates from its manifest. No application source/data/registry or deployment changed.
+- Verified: five state/timer tests; six SVG decode/shape checks; matching specimen geometry, unique DOM ids, inline script and local references. Browser evidence covers native selection and short-selection rejection, simulated failure then retry, menu and mouse move/Undo, lens after scroll, actual 30-second completion, summary/Escape focus, 320/390px and reduced motion. Hidden-page branch was source-reviewed but not browser-proven because IAB did not change document.hidden during the attempted tab switch; receipt states that limit.
+- Three review catches fixed: lens bounds refresh after scroll, source sampling separated from clamped lens position, and transient rigs reset before their timers are cleared. Desk bases align to actual opaque artwork, not transparent canvas bounds.
+- `prepare.mjs` builds/checks v2; `package.ps1` bundles v1+v2, preview fonts/Mochi/notices and handoff into `work/interactive-delivery-20260919/vetmock-interactive-v2-ready.zip`, then verifies archive hashes. Actual app integration, production persistence/Undo semantics, clinical-image validation and cross-engine release QA remain with the implementation task. Never copy the demo bootstrap or full-snapshot Undo directly into production.

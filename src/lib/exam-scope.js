@@ -102,11 +102,27 @@ export function scopeForTopic(subjectId, topicId) {
   return scopeFromTimetable(subjectId);
 }
 
-/** The scope of one question: its own field, else its topic's, else null. */
+/**
+ * The scope of one question: its topic's, else its own field, else null.
+ *
+ * The topic decides, and that is Palm's own instruction — "อาจมีบางปีที่ไม่
+ * ตรงกับรุ่นปัจจุบันก็ให้เทียบหัวข้อเอา". The two fields are not the same
+ * fact. A topic's examScope is THIS year's timetable, written beside the entry
+ * as "(Course Schedule 2026)". A question's is the paper it was transcribed
+ * FROM, and many of those papers belong to another cohort: the aquatic
+ * conservation questions are tagged midterm because Vet 85 sat that lecture
+ * before their midterm, while Vet 86 is taught it in the block after theirs.
+ *
+ * `continuous` on a question is the one thing a topic cannot override: it says
+ * the course has no written paper at all, so those questions belong to neither
+ * pile no matter what the topic they sit under says.
+ */
 export function scopeOfQuestion(question) {
   if (!question) return null;
-  if (SCOPE_SET.has(question.examScope)) return question.examScope;
-  return scopeForTopic(question.subject, question.topic);
+  if (question.examScope === 'continuous') return 'continuous';
+  const topicScope = scopeForTopic(question.subject, question.topic);
+  if (topicScope) return topicScope;
+  return SCOPE_SET.has(question.examScope) ? question.examScope : null;
 }
 
 /**
@@ -124,24 +140,7 @@ export function questionInScope(question, wantedScope) {
   const scope = scopeOfQuestion(question);
   if (scope == null) return true;
   if (scope === 'continuous') return false;
-  if (scope !== wantedScope && scope !== 'both') return false;
-  // A question cannot sit on a paper its own lecture is not on.
-  //
-  // The two examScope fields do not mean the same thing. A topic's is THIS
-  // year's timetable, written beside the entry as "(Course Schedule 2026)". A
-  // question's is the paper it was recorded from, and many of those papers
-  // belong to another cohort: the aquatic conservation questions are marked
-  // midterm because Vet 85 sat that lecture before their midterm, while Vet 86
-  // is taught it in the block after theirs.
-  //
-  // Reading the question's tag alone put four of them into a Vet 86 midterm
-  // set for a lecture that has not happened yet, and the topic list — which
-  // does follow the timetable — was not showing that topic at all. The list and
-  // the set now answer the same question. A topic with no scope of its own
-  // still keeps everything, as always.
-  const topicScope = scopeForTopic(question?.subject, question?.topic);
-  if (!topicScope) return true;
-  return topicScope === wantedScope || topicScope === 'both';
+  return scope === wantedScope || scope === 'both';
 }
 
 /** Split a pool by the paper, for counting and for explaining a count. */
