@@ -2295,3 +2295,33 @@ without an `insert-<date>.sql`, it did not finish.
 - Verified: five state/timer tests; six SVG decode/shape checks; matching specimen geometry, unique DOM ids, inline script and local references. Browser evidence covers native selection and short-selection rejection, simulated failure then retry, menu and mouse move/Undo, lens after scroll, actual 30-second completion, summary/Escape focus, 320/390px and reduced motion. Hidden-page branch was source-reviewed but not browser-proven because IAB did not change document.hidden during the attempted tab switch; receipt states that limit.
 - Three review catches fixed: lens bounds refresh after scroll, source sampling separated from clamped lens position, and transient rigs reset before their timers are cleared. Desk bases align to actual opaque artwork, not transparent canvas bounds.
 - `prepare.mjs` builds/checks v2; `package.ps1` bundles v1+v2, preview fonts/Mochi/notices and handoff into `work/interactive-delivery-20260919/vetmock-interactive-v2-ready.zip`, then verifies archive hashes. Actual app integration, production persistence/Undo semantics, clinical-image validation and cross-engine release QA remain with the implementation task. Never copy the demo bootstrap or full-snapshot Undo directly into production.
+
+## 2026-09-19 (later) — update safety, and the pipe that failed two builds
+
+**The two paths that can swap the app mid-session now read one list.** App.jsx
+has held `UPDATE_UNSAFE_VIEWS` (exam, sr-session, race, pomodoro, results,
+review, config, topic-select) since the deferral was written, and the
+service-worker path obeyed it. The `vite:preloadError` path in
+`src/lib/app-lifecycle.js` checked only `activeView === 'exam'`, so a deploy
+landing while a student read their score or the answers reloaded them to Home.
+The list now lives in `src/lib/update-safety.js` and both import it. Seven of
+the eight views fail the new tests against the old check.
+
+If you touch that list, note that `tests/unit/app-lifecycle.test.mjs` compiles
+app-lifecycle.js as a **vm script**, where a top-level `import` is a syntax
+error. The harness strips the import line and passes the real `isUpdateUnsafe`
+in through the context on purpose — do not replace it with a stub, or the two
+paths can drift apart again with the tests green.
+
+**Two Build workflows failed today for the same reason and it was mine.** 5.112.0
+failed because `src/data/latest-changelog.generated.js` was not staged with
+`changelog.js`; 5.116.0 failed because the stats block was stale. Both times the
+local gate had told me, and both times I ran it as `npm run lint:all | grep ...`
+and read **grep's** exit code. Run the gate unpiped and read `$?` from the npm
+command. Production was never affected either time — Vercel does not promote a
+failed build — but the deploy sat blocked.
+
+**`audit-quote-fidelity.mjs` no longer counts an absence proof as drift.** A
+line that says a word appears 0 times is claiming the quoted string is NOT in
+the transcript; the audit now excuses an absent span on such a line, while a
+span that IS in the audio still counts as present. Corpus 3,708 → 3,675.

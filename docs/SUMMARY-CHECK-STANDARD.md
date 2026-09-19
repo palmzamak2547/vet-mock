@@ -110,9 +110,11 @@ the marks. `node scripts/audit-quote-fidelity.mjs` measures exactly that,
 ignoring spacing on both sides, and `npm run lint:quotes` holds every file to
 `docs/quote-fidelity-budget.json` as a ratchet.
 
-The census on the day it was written: **12,467 Thai quoted spans across 206
-summaries, of which 3,713 are not in the audio**, nearly all from one batch
-written on 2026-09-18 before this class existed. Five files checked that week
+The census, re-measured after the aquatic pass on 2026-09-19: **12,648 Thai
+quoted spans across 206 summaries, of which 3,675 are not in the audio**, nearly
+all from one batch written on 2026-09-18 before this class existed. (It read
+12,467 / 3,713 when the class was written; the corpus grew by two summaries and
+the audit stopped miscounting absence proofs, which is most of the drop.) Five files checked that week
 scored 3,889 spans with **5** not in the audio, and those five are declared
 absence proofs. The debt is a backlog to work off a file at a time as each
 lecture gets its read-back, not a reason to lower the bar.
@@ -125,6 +127,16 @@ absent, so every audit of the file trips over it. Put the search string in
 **bold**. Then a quotation mark in the document is only ever a claim that the
 audio contains those characters, which is the only thing that makes the marks
 worth auditing.
+
+The rule above is how to write one. What the audit does when somebody did not
+follow it is a separate question, and the first answer was wrong: it counted
+every quoted absence proof as drift. The aquatic pass wrote 29 of them and the
+census read them as 29 broken quotes, which points the next writer at deleting
+the evidence to make a number go green. `audit-quote-fidelity.mjs` now excuses
+an **absent** span on a line that says the word appears 0 times. A span that IS
+in the audio still counts as present, so the phrase is not a way to hide a real
+garble. Bold is still the house style, because a document where every quotation
+mark is a claim about the audio is the one worth auditing in the first place.
 
 ## Recovery is not substitution
 
