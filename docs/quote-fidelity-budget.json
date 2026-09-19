@@ -1,27 +1,27 @@
 {
  "note": "Quoted spans that are not in the clip transcript, per summary. Whitespace is ignored (Thai spacing in an auto-caption is the transcriber's artifact, not speech); a changed character is what counts. Ratchet: a number may only go down, and a file may only leave. See docs/SUMMARY-CHECK-STANDARD.md class 10.",
  "measured": "2026-09-19",
- "total": 3675,
+ "total": 3659,
  "files": {
-  "2I7DU_E8vho": 350,
-  "ezb2wLM_R2o": 284,
+  "2I7DU_E8vho": 347,
+  "ezb2wLM_R2o": 279,
   "F1jwpqQCGBM": 255,
   "ScpsvwW0FhM": 248,
-  "fe_SEPc0U_o": 238,
   "YlS2efVw0OQ": 238,
+  "fe_SEPc0U_o": 237,
   "R0xTpIvGn98": 158,
   "R4k7-CbupPc": 149,
   "jOm4PZtiC8o": 141,
-  "RWCDahVkYTk": 141,
+  "RWCDahVkYTk": 140,
   "aZGyfwMEKCM": 138,
   "7XyI0SjnuBA": 123,
-  "8ekNMuG25gI": 109,
+  "8ekNMuG25gI": 104,
   "WRttiWQ7D9s": 95,
   "QvEF0KAC1zI": 94,
   "xkJw4A0OS7A": 85,
   "WQX71m1GSds": 74,
-  "DSaNbrj2A3A": 71,
   "66FigWI5wF0": 70,
+  "DSaNbrj2A3A": 70,
   "rhqufdfIEkM": 50,
   "3ihoAGQwxGk": 28,
   "hPV3Rhh8r3Q": 28,
@@ -174,7 +174,5 @@
   "ZKLCt1pamvs": 1,
   "zrIw9O8-WTc": 1
  },
- "garbles": {
-  "IJaulz_PkS8": 6
- }
+ "garbles": {}
 }

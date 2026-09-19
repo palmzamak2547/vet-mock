@@ -190,8 +190,8 @@ export const VIDEO_SUMMARIES_SWINE_HERD = {
 - Vaccine cost: 60฿/dose
 - 10,000 pigs × 60฿ = **600,000฿ vaccination cost**
 - Without vaccine: pigs take 24 weeks to slaughter (instead of 21)
-- Extra 3 weeks × 10,000 pigs × 3 kg feed/day × 15฿/kg × 21 days = **9.45 MILLION฿ feed cost**
-- **Savings**: 9.45M − 0.6M = **8.85 MILLION฿ benefit**
+- Extra 3 weeks × 10,000 pigs × 3 kg feed/day × 15฿/kg × 21 days = **9.45 ล้านบาท feed cost**
+- **Savings**: 9.45M − 0.6M = **8.85 ล้านบาท benefit**
 - ROI = 14.75x ⭐⭐
 
 > ⭐ Vaccine "cost" is far less than disease "cost" — modern math wins always

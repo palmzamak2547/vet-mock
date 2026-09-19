@@ -2597,7 +2597,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 - อาการนก: chronic, น้ำหนักลด, ผอมแกร็น, ไข่รด, ตาย → ผ่าซากเจอ **granulomatous tubercles/ถุงหนอง** [27:16-27:48]
 - Dx: ผ่าซาก, **acid-fast stain อึ**, culture, PCR [27:48]
 - **คน = non-TB Mycobacterium** [27:48], 3 อาการ: (1) internal organ infection (2) **chronic pulmonary** (3) **lymphadenitis** [28:20]
-- ★ **มัก dื้อยา TB ปกติ** [28:50]
+- ★ **มักดื้อยา TB ปกติ** [28:50]
 - **ไทยภาคอีสาน prevalence ~17%** [29:21]
 
 ---

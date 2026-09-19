@@ -4591,7 +4591,7 @@ export const VIDEO_SUMMARIES_COM4 = {
 - Block **IL-31 receptor signaling**
 - ใช้ **atopic dermatitis** ในสุนัข **อายุ > 12 เดือน** เท่านั้น
 - Dose: **0.6 mg/kg BID × 2 weeks** → SID maintenance
-- 70% caseคุมได้ด้วย SID, 20-30% ต้อง BID ตลอด
+- 70% ของ case คุมได้ด้วย SID, 20-30% ต้อง BID ตลอด
 - SE น้อย (mild GI possible)
 - Off-label: ใช้ในแมว (extra-label, dose สูงกว่า) สำหรับ DM/liver disease cat ที่ต้อง alt to steroid, pemphigus (high dose)
 - ราคาแพง 100+ บาท/เม็ด
@@ -6005,7 +6005,7 @@ TRH (hypothalamus) → TSH (pituitary) → **T4** (thyroid, mainly inactive) →
 | **Deep** | Dermis + SC (follicle ruptured) | Deep folliculitis, Furunculosis, Cellulitis | **Systemic 6-12 wk** + culture |
 
 ### Common Lesions
-- **Crust** (เซoidate แห้ง)
+- **Crust** (สารคัดหลั่งที่แห้งตัว)
 - **Erythematous patch** (> 1 cm แดง)
 - **Folliculitis bumps** (papules/pustules)
 - **Epidermal collarette** = pus exit ring (oval scaly border)

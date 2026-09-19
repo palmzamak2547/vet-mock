@@ -49,6 +49,20 @@ const FUSED = /[฀-๿][A-Za-z]|[A-Za-z][฀-๿]/;
 // for, and leaving this one out reported a correctly-written line as a defect.
 const DECLARES_GARBLE = /ฟังไม่ชัด|ออกเสียง|ออกมาเป็น|ได้ยิน|เสียงที่|เสียงในคลิป|เสียงตรงนี้|คลิปเขียน|ยืนยัน|สะกด|อ่านได้ว่า|อ่านไม่ออก|อ่านได้แค่|ไม่ชัดพอ|ยังไม่พอ|ครึ่งไทยครึ่งอังกฤษ|ไม่เขียนชื่อ|พยางค์/;
 
+// Pair the marks by position, never with a regex carrying a length floor.
+// `/"([^"\n]{2,})"/g` skips a one-character quote such as `"ก"`, so its CLOSING
+// mark then pairs with the next OPENING one and the prose between two real
+// quotes is reported as a quote that is not in the audio. That phantom is what
+// put three files one span over budget on 2026-09-19 after an edit that only
+// removed bold markers - the lengths shifted, so different quotes fell under
+// the floor. audit-shipped-quotes.mjs already learned this; this file had not.
+function quotedSpansOf(line) {
+  const parts = line.split('"');
+  const out = [];
+  for (let i = 1; i < parts.length; i += 2) out.push(parts[i]);
+  return out;
+}
+
 function measure(id) {
   const md = readFileSync(`${GEN}/${id}.md`, 'utf8');
   const plain = readFileSync(`${PLAIN}/${id}.txt`, 'utf8');
@@ -58,7 +72,7 @@ function measure(id) {
   // lives in scripts/lib/audio-text.mjs so a later sibling cannot miss it.
   const joined = normaliseAudio(plain);
 
-  const spans = [...md.matchAll(/"([^"\n]{2,})"/g)].map((m) => m[1]);
+  const spans = md.split('\n').flatMap(quotedSpansOf);
 
   // How much of what a student reads is transcript pasted inside quotes, and
   // how much of that is unreadable. Byte-faithful quoting is the rule, but a
@@ -82,7 +96,7 @@ function measure(id) {
   // is what a student cannot read.
   let garbled = 0; let declaredGarbles = 0;
   for (const line of md.split('\n')) {
-    const hits = [...line.matchAll(/"([^"\n]{2,})"/g)].map((m) => m[1])
+    const hits = quotedSpansOf(line)
       .filter((s) => THAI.test(s) && s.split(/\s+/).some((w) => FUSED.test(w)));
     if (!hits.length) continue;
     if (DECLARES_GARBLE.test(line)) declaredGarbles += hits.length;
@@ -102,7 +116,7 @@ function measure(id) {
   let present = 0; let absent = 0; let claimedAbsent = 0; const sample = [];
   for (const line of md.split('\n')) {
     const zero = CLAIMS_ZERO.test(line.replace(/\*/g, ''));
-    for (const m of line.matchAll(/"([^"\n]{2,})"/g)) {
+    for (const m of quotedSpansOf(line).map((x) => [null, x])) {
       const s = m[1];
       // A span carrying markdown bold or a table pipe was mis-paired by the
       // extractor, not written by a careless hand; a pure-ASCII span is a term

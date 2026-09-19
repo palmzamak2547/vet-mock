@@ -69,13 +69,31 @@ jobs:
         # specific bugs (TDZ, dead-code removal regressions).
         run: npm run build
 
-      - name: Run smoke e2e
-        # playwright.config.js webServer boots `npm run preview`
-        # automatically when PLAYWRIGHT_BASE_URL is unset.
-        timeout-minutes: 24
+      # Two steps, not one, because the contention was the bug.
+      # Chromium is hardware-independent here and parallelises fine. Firefox
+      # and WebKit both run headful against Mesa software GL, and when a second
+      # worker competes for that context they slow down 3-5x: on 2026-09-19 a
+      # commit whose ONLY change was one line of .mailmap failed
+      # summary-pdf-export on firefox at the 60s test timeout, while the
+      # byte-identical bundle had passed the same suite 20 minutes earlier and
+      # the same two tests finish in 11.4s on a developer machine. Raising the
+      # timeout again would have been treating the symptom; giving the
+      # software-GL engines the machine to themselves removes it.
+      - name: Run smoke e2e (chromium)
+        timeout-minutes: 14
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run --auto-servernum npx playwright test
+        run: >-
+          xvfb-run --auto-servernum npx playwright test
+          --project=chromium-desktop --project=chromium-mobile
+
+      - name: Run smoke e2e (software-GL engines, one worker)
+        timeout-minutes: 16
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: >-
+          xvfb-run --auto-servernum npx playwright test
+          --project=webkit-mobile --project=firefox-desktop --workers=1
 
       - name: Upload HTML report on failure
         if: failure() || cancelled()

@@ -1,11 +1,11 @@
 {
  "note": "Quoted Thai spans in SHIPPED summaries that are not in the recording, per file. The total mixes real speech quotes with quotation marks used to name a term, so read the direction, not the number: a file that goes up had a quote altered. Ratchet — a number may only go down.",
  "measured": "2026-09-19",
- "total": 4038,
- "spans": 14545,
+ "total": 4033,
+ "spans": 14611,
  "files": {
   "video-summaries-aquatic-clinic.js": 2,
-  "video-summaries-avian-medicine.js": 1431,
+  "video-summaries-avian-medicine.js": 1430,
   "video-summaries-cliapprum.js": 57,
   "video-summaries-com1.js": 9,
   "video-summaries-com2.js": 34,
@@ -27,7 +27,7 @@
   "video-summaries-repro-lect.js": 64,
   "video-summaries-surg2.js": 27,
   "video-summaries-surg3.js": 4,
-  "video-summaries-swine-clinic.js": 868,
+  "video-summaries-swine-clinic.js": 864,
   "video-summaries-swine-herd.js": 2,
   "video-summaries-vet-imaging.js": 2,
   "video-summaries-vet-juris.js": 17,

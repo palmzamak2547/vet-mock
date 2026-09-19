@@ -3183,7 +3183,7 @@ Plaque → Calculus (tartar) → Gingivitis → Periodontitis
 # 😬 Part 7: Tooth Count Abnormalities
 
 ## Persistent Deciduous (ฟันน้ำนมค้าง)
-- เห็น 2 ซี่คู่กัน (n้ำนม + permanent)
+- เห็น 2 ซี่คู่กัน (น้ำนม + permanent)
 - Permanent อยู่ด้านหน้ากว่า (incisor) หรือด้านนอก (canine, lower) หรือด้านหลัง (canine, upper)
 - **Tx**: ถอน deciduous ออก
 
@@ -5601,7 +5601,7 @@ Memory: "**ParaSym = Pee, Sym = Storage**"
 
 ---
 
-# 🟧 PART 1 — Liver Disease (เฮปาตlogy)
+# 🟧 PART 1 — Liver Disease
 
 ## 1. Anatomy + Function Recap
 
