@@ -33,6 +33,12 @@
 // the reader knows which one answered.
 
 const ZERO_WIDTH = /[​-‏⁠﻿­]/g;
+// The same characters without /g, for testing one at a time (see THAI_MARKS).
+const ZERO_WIDTH_CHAR = /[​-‏⁠﻿­]/;
+// One base character with the marks that lean on it. NFC only ever composes
+// or reorders inside such a cluster, so a cluster it leaves alone maps back
+// character by character and one it changes maps back as a whole.
+const CLUSTER = /\P{M}\p{M}*|\p{M}+/gu;
 // Thai above/below vowels, tone marks and thanthakhat — the marks that a
 // reader hears as the same word and a keyboard gets wrong.
 //
@@ -55,7 +61,14 @@ function foldChar(ch, { dropMarks }) {
 
 /**
  * Folds `text` for matching and returns the folded string together with a map
- * from each folded index back to the index in the ORIGINAL text.
+ * from each folded index back to where that character starts (`map`) and
+ * ends (`ends`, exclusive) in the ORIGINAL text — the text the caller slices
+ * its quote from, not a cleaned copy of it. Folding drops zero-width
+ * characters and merges a decomposed สระอำ, so the two strings stop lining
+ * up by index a few characters in; the map is what makes a match land on the
+ * words that are actually on the slide. (It used to point into the cleaned
+ * copy, and on a line with sixty word-break hints before the word the quote
+ * came back from sixty characters too early, without the word in it.)
  *
  * `dropSpaces` removes whitespace entirely, which is correct when the query is
  * Thai (a Thai word never contains a space, so any space in the haystack is an
@@ -63,20 +76,46 @@ function foldChar(ch, { dropMarks }) {
  * "the cat" must not match "theca t").
  */
 export function fold(text, { dropSpaces = false, dropMarks = false } = {}) {
-  const src = String(text || '')
-    .normalize('NFC')
-    // Decomposed สระอำ -> the single codepoint, before anything else looks at it.
-    .replace(/ํา/g, 'ำ')
-    .replace(ZERO_WIDTH, '');
+  const src = String(text || '');
   let out = '';
   const map = [];
-  for (let i = 0; i < src.length; i++) {
-    const ch = src[i];
-    if (dropSpaces && /\s/.test(ch)) continue;
-    const folded = foldChar(ch, { dropMarks });
-    for (let k = 0; k < folded.length; k++) { out += folded[k]; map.push(i); }
+  const ends = [];
+  const put = (folded, start, end) => {
+    for (let k = 0; k < folded.length; k++) { out += folded[k]; map.push(start); ends.push(end); }
+  };
+  const take = (ch, start, end) => {
+    if (ZERO_WIDTH_CHAR.test(ch)) return;
+    if (dropSpaces && /\s/.test(ch)) return;
+    put(foldChar(ch, { dropMarks }), start, end);
+  };
+  // Decomposed สระอำ (NIKHAHIT + SARA AA) becomes the single codepoint. The
+  // nikhahit waits one character to see whether SARA AA follows it.
+  let held = null; // { start, end } of a NIKHAHIT not yet placed
+  const emit = (ch, start, end) => {
+    if (held) {
+      const h = held;
+      held = null;
+      if (ch === 'า') { take('ำ', h.start, end); return; }
+      take('ํ', h.start, h.end);
+    }
+    if (ch === 'ํ') { held = { start, end }; return; }
+    take(ch, start, end);
+  };
+  if (src.normalize('NFC') === src) {
+    // The common case, and all of Thai: NFC changes nothing, so every
+    // character is its own source position.
+    for (let i = 0; i < src.length; i++) emit(src[i], i, i + 1);
+  } else {
+    for (const m of src.matchAll(CLUSTER)) {
+      const start = m.index;
+      const end = start + m[0].length;
+      const piece = m[0].normalize('NFC');
+      if (piece === m[0]) for (let i = 0; i < piece.length; i++) emit(piece[i], start + i, start + i + 1);
+      else for (let i = 0; i < piece.length; i++) emit(piece[i], start, end);
+    }
   }
-  return { text: out, map, src };
+  if (held) take('ํ', held.start, held.end);
+  return { text: out, map, ends, src };
 }
 
 /**
@@ -100,8 +139,9 @@ export function findIn(haystack, needle) {
     const endFolded = at + n.text.length - 1;
     return {
       at: h.map[at],
-      // +1 so the caller can slice; the last mapped index is inclusive.
-      end: (h.map[endFolded] ?? h.map[at]) + 1,
+      // Exclusive, so the caller can slice; a folded character that came
+      // from two source characters (a decomposed สระอำ) ends after both.
+      end: h.ends[endFolded],
       loose: dropMarks,
     };
   };

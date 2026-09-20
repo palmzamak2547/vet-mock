@@ -2470,8 +2470,13 @@ export default function App() {
   // library document when someone later picks "เขียนบน PDF" from the tools menu.
   const [libraryDoc, setLibraryDoc] = useState(null);
   const [pdfLibraryReturnPath, setPdfLibraryReturnPath] = useState(null);
+  // Where the reader's back goes: the shelf, or the topic screen when a
+  // lecturer's cover opened the deck's slides.
+  const [pdfReturnView, setPdfReturnView] = useState('library');
   useEffect(() => {
-    if (view !== 'pdf-annotate' && view !== 'library') {
+    // The topic screen is an origin too: a lecturer's cover hands the deck
+    // to the reader, and the view flips a render later than the payload.
+    if (view !== 'pdf-annotate' && view !== 'library' && view !== 'topic-select') {
       if (libraryDoc) setLibraryDoc(null);
       if (pdfLibraryReturnPath) setPdfLibraryReturnPath(null);
     }
@@ -2481,16 +2486,20 @@ export default function App() {
     // Local files and shelf documents use the same reader. Explicitly clear
     // the remote payload so opening a personal file never reopens an old deck.
     setLibraryDoc(doc);
-    setPdfLibraryReturnPath(view === 'library'
+    const fromTopic = view === 'topic-select';
+    setPdfReturnView(fromTopic ? 'topic-select' : 'library');
+    setPdfLibraryReturnPath(view === 'library' || fromTopic
       ? window.location.pathname + window.location.search
       : '/app/library');
     setView('pdf-annotate');
   };
   const returnToLibrary = () => {
     const path = pdfLibraryReturnPath || '/app/library';
+    const target = pdfReturnView;
     setLibraryDoc(null);
     setPdfLibraryReturnPath(null);
-    setView('library', { path });
+    setPdfReturnView('library');
+    setView(target, { path });
   };
 
   const goHome = () => {
@@ -2951,7 +2960,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
@@ -2993,6 +3002,7 @@ export default function App() {
                   goHome={goHome}
                   initialDoc={libraryDoc}
                   onExit={libraryDoc || pdfLibraryReturnPath ? returnToLibrary : null}
+                  exitLabel={pdfReturnView === 'topic-select' ? 'กลับหน้าหัวข้อ' : 'กลับคลังเอกสาร'}
                   onOpenLibrary={returnToLibrary}
                 />
               )}

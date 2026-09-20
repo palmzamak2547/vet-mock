@@ -48,10 +48,15 @@ export function loadHistory() {
     if (!raw) return emptyHistory();
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object') return emptyHistory();
+    const sessions = Array.isArray(parsed.sessions) ? parsed.sessions : [];
     return {
-      sessions: Array.isArray(parsed.sessions) ? parsed.sessions : [],
+      sessions,
       totalMin: Number(parsed.totalMin) || 0,
-      currentStreak: Number(parsed.currentStreak) || 0,
+      // Derived from the session dates on every read. The stored number is
+      // the streak as of the last recorded session; handing it back as-is
+      // meant a streak never expired while the student stayed away, and the
+      // view still said 3 วัน after three days without a session.
+      currentStreak: computeStreak(sessions),
     };
   } catch {
     return emptyHistory();
@@ -87,15 +92,23 @@ function computeStreak(sessions) {
     if (s.completed && s.date) days.add(startOfDay(s.date));
   }
   if (days.size === 0) return 0;
-  const DAY = 24 * 60 * 60 * 1000;
   let cursor = startOfDay(Date.now());
-  if (!days.has(cursor)) cursor -= DAY;
+  if (!days.has(cursor)) cursor = previousDay(cursor);
   let streak = 0;
   while (days.has(cursor)) {
     streak += 1;
-    cursor -= DAY;
+    cursor = previousDay(cursor);
   }
   return streak;
+}
+
+// Local midnight of the day before `dayStart`. Stepping by calendar day
+// rather than by 24 h keeps the walk on midnights across a DST change.
+function previousDay(dayStart) {
+  const d = new Date(dayStart);
+  d.setDate(d.getDate() - 1);
+  d.setHours(0, 0, 0, 0);
+  return d.getTime();
 }
 
 export function recordSession({ durationMin, completed }) {

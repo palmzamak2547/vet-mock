@@ -43,7 +43,9 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
   const ref = refRangeForSpecies(species);
   const [cardCollapsed, setCardCollapsed] = useState(false);
   const [worldPoints, setWorldPoints] = useState([]);
-  const [, setTick] = useState(0);
+  // Tick re-renders SVG positions when the camera moves (zoom/pan); the
+  // projection below depends on its value, not just on the setter.
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     if (!active || worldPoints.length === 0) return;
@@ -117,8 +119,11 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
         return { x: -100, y: -100 };
       }
     });
+    // `tick` is the camera clock: every poll bumps it so the points are
+    // projected against the camera as it is now. Without it the markers
+    // stayed where they were first drawn while the image moved under them.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [worldPoints, viewportRef]);
+  }, [worldPoints, viewportRef, tick]);
 
   const HIT_RADIUS_PX = 16;
   const [draggingIdx, setDraggingIdx] = useState(null);

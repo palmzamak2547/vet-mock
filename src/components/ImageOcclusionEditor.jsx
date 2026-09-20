@@ -86,6 +86,12 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [selectedId]);
 
+  // The image on screen right now, readable from inside the async file
+  // handler, and a ticket so the last picked file wins when two reads are in
+  // flight (a slow first pick must not land on top of a fast second one).
+  const imageRef = useRef(initialDeck?.imageDataUrl || '');
+  const pickSeq = useRef(0);
+
   const onFile = useCallback(async (file) => {
     if (!file) return;
     if (!file.type.startsWith('image/')) {
@@ -95,18 +101,26 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
     if (file.size > WARN_SIZE_BYTES) {
       setToast(`รูปใหญ่ ${(file.size / 1024 / 1024).toFixed(1)} MB — อาจช้าหรือเต็มที่เก็บข้อมูล`);
     }
+    const ticket = ++pickSeq.current;
     try {
       const dataUrl = await readFileAsDataUrl(file);
+      if (ticket !== pickSeq.current) return; // a later pick owns the editor now
+      const previous = imageRef.current;
+      imageRef.current = dataUrl;
       setImageDataUrl(dataUrl);
-      // Reset masks when image swaps — coordinates are normalized but
-      // user almost certainly wants to re-mark from scratch.
-      if (initialDeck?.imageDataUrl && initialDeck.imageDataUrl !== dataUrl) {
+      // Reset masks when the image actually changes — coordinates are
+      // normalized, but boxes drawn over one picture mean nothing on another.
+      // Compared with the image on screen, not with the deck as it was
+      // opened: a new deck and a second swap reset too, and picking the same
+      // picture again keeps the boxes.
+      if (previous !== dataUrl) {
         setMasks([]);
+        setSelectedId(null);
       }
     } catch {
-      setToast('อ่านไฟล์ไม่ได้');
+      if (ticket === pickSeq.current) setToast('อ่านไฟล์ไม่ได้');
     }
-  }, [initialDeck]);
+  }, []);
 
   // Drag-drop on the canvas zone
   const onDragOver = (e) => { e.preventDefault(); setDragOver(true); };
@@ -273,6 +287,10 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
       imageDataUrl,
       masks: valid.map((m) => ({
         id: m.id,
+        // The slot is the mask's card id (deck.id + slot). Leaving it out
+        // made every save renumber the survivors from zero, so after a
+        // deletion the next box inherited the deleted box's review history.
+        ...(Number.isInteger(m.slot) ? { slot: m.slot } : {}),
         x: m.x,
         y: m.y,
         w: m.w,

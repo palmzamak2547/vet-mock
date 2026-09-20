@@ -49,6 +49,26 @@ export default function PomodoroView({ goHome }) {
     return () => window.removeEventListener('vmx-pomodoro-changed', refreshStats);
   }, [refreshStats]);
 
+  // Today's minutes and the streak are read from the clock, so a tab left
+  // open across midnight or in the background shows yesterday's numbers.
+  // Recompute when the page comes back into view and when the local day
+  // turns over; nothing is written.
+  useEffect(() => {
+    const onVisible = () => { if (document.visibilityState === 'visible') refreshStats(); };
+    document.addEventListener('visibilitychange', onVisible);
+    let timer = 0;
+    const armMidnight = () => {
+      const next = new Date();
+      next.setHours(24, 0, 0, 0);
+      timer = window.setTimeout(() => { refreshStats(); armMidnight(); }, Math.max(1000, next.getTime() - Date.now()));
+    };
+    armMidnight();
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      window.clearTimeout(timer);
+    };
+  }, [refreshStats]);
+
   // Surface the escape event briefly so the user sees a banner even if their
   // eyes were on the timer ring.
   useEffect(() => {

@@ -25,8 +25,14 @@ test('a wrong pair shows what the right pairing was', async ({ page, context }) 
   // The topic holds more questions than the default count now (written ones
   // joined the multiple choice and the matching set), and a shorter random
   // draw can leave the matching question out. Ask for all of them.
-  const countInput = page.locator('.vmx-config-panel input[type="number"]').first();
-  if (await countInput.count()) await countInput.fill('40');
+  // A value above the topic's total is clamped back to the default, so read
+  // the total the panel reports and ask for exactly that.
+  const availability = page.locator('#vmx-config-count-help');
+  await expect(availability).toContainText(/มี [\d,]+ ข้อ/, { timeout: 20000 });
+  const available = Number((await availability.textContent()).match(/มี ([\d,]+) ข้อ/)[1].replace(/,/g, ''));
+  const countInput = page.getByLabel('จำนวนข้อแบบกำหนดเอง');
+  await countInput.fill(String(available));
+  await expect(countInput).toHaveValue(String(available));
   await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
   await expect(page.getByRole('heading', { level: 2 })).toBeVisible({ timeout: 20000 });
 

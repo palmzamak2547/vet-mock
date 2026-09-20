@@ -104,3 +104,58 @@ test('an empty or whitespace query finds nothing rather than everything', async 
   assert.equal(findIn('อะไรก็ตาม', '   '), null);
   assert.deepEqual(searchPages([null, 'อะไรก็ตาม'], ''), []);
 });
+
+// The offsets a hit reports are what the reader slices its quote with, so
+// they have to point into the text as it was extracted — not into the cleaned
+// copy the matcher folded. Every case below is a way the two drift apart.
+
+test('offsets survive the invisible characters before the match', async () => {
+  // A long Thai line carries a zero-width word-break hint between almost
+  // every word. With the map built on the cleaned copy, the hit sat sixty
+  // characters early and the quote did not contain the word at all.
+  const page = 'A​'.repeat(60) + 'วินิจฉัย' + ' tail';
+  const hit = findIn(page, 'วินิจฉัย');
+  assert.ok(hit);
+  assert.equal(hit.at, page.indexOf('วินิจฉัย'), 'the match started before the word');
+  assert.equal(page.slice(hit.at, hit.end), 'วินิจฉัย');
+  const [shown] = searchPages([null, page], 'วินิจฉัย');
+  assert.ok(shown.quote.includes('วินิจฉัย'), 'the quote did not contain the word that was searched for');
+});
+
+test('a decomposed สระอำ spans both of its source codepoints', async () => {
+  const page = 'สรุป จํานวนสัตว์ป่วย'; // U+0E4D + U+0E32
+  const hit = findIn(page, 'จำนวน');
+  assert.ok(hit);
+  assert.equal(hit.at, page.indexOf('จ'));
+  assert.equal(page.slice(hit.at, hit.end), 'จํานวน', 'the slice cut the decomposed vowel in half');
+});
+
+test('a Latin accent that NFC composes does not shift the Thai after it', async () => {
+  // 'e' + COMBINING ACUTE is two code units that NFC makes one; a map built
+  // on the normalised string is then one short for everything after it.
+  const page = 'café latte เชื้อแบคทีเรีย';
+  const hit = findIn(page, 'เชื้อ');
+  assert.ok(hit);
+  assert.equal(page.slice(hit.at, hit.end), 'เชื้อ');
+  const latin = findIn(page, 'café');
+  assert.ok(latin, 'the composed spelling in the query did not match the decomposed page');
+  assert.equal(page.slice(latin.at, latin.end).normalize('NFC'), 'café');
+});
+
+test('Thai digits, run breaks and a tone slip all keep original offsets', async () => {
+  const page = 'ปี ๒๕๖๘​ การ​วินิจ ฉัย​โรค';
+  const year = findIn(page, '2568');
+  assert.equal(page.slice(year.at, year.end), '๒๕๖๘');
+  const exact = findIn(page, 'วินิจฉัย');
+  assert.equal(exact.loose, false);
+  assert.equal(page.slice(exact.at, exact.end).replace(/[\s​]/g, ''), 'วินิจฉัย');
+  const loose = findIn(page, 'วินิจฉย'); // no ั
+  assert.equal(loose.loose, true);
+  assert.equal(page.slice(loose.at, loose.end).replace(/[\s​]/g, ''), 'วินิจฉัย');
+});
+
+test('English offsets are original too, past an invisible prefix', async () => {
+  const page = '​​see the cat';
+  const hit = findIn(page, 'the cat');
+  assert.equal(page.slice(hit.at, hit.end), 'the cat');
+});

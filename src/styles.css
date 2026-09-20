@@ -5406,17 +5406,31 @@ body.vmx-reading .vmx-pdf-body {
   margin: 10px -16px 0; padding: 4px 16px 8px;
 }
 .vmx-lect-cover {
-  flex: 0 0 232px; min-width: 0; scroll-snap-align: start;
-  appearance: none; margin: 0; padding: 0; overflow: hidden;
-  display: flex; flex-direction: column; align-items: stretch; text-align: left;
+  flex: 0 0 232px; min-width: 0; scroll-snap-align: start; overflow: hidden;
+  display: flex; flex-direction: column; align-items: stretch;
   border: 1px solid var(--clr-border); border-radius: var(--r-lg);
   background: var(--clr-surface-2); color: var(--clr-ink);
-  font: inherit; cursor: pointer;
   transition: border-color .15s, box-shadow .15s;
 }
 .vmx-lect-cover:hover { border-color: var(--clr-ink); }
-.vmx-lect-cover:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
-.vmx-lect-cover:disabled { cursor: default; opacity: .55; }
+/* The practice hit area (image, title, count). The footer under it holds the
+   session date and, when the deck's slides are on the shelf, a pill that
+   opens them — a button cannot sit inside a button. */
+.vmx-lect-cover-hit {
+  appearance: none; margin: 0; padding: 0; border: 0; background: none;
+  display: flex; flex-direction: column; align-items: stretch; text-align: left;
+  color: inherit; font: inherit; cursor: pointer;
+}
+.vmx-lect-cover-hit:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
+.vmx-lect-cover-hit:disabled { cursor: default; opacity: .55; }
+.vmx-lect-cover-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 10px 10px; }
+.vmx-lect-cover-foot .s { padding: 0; }
+.vmx-lect-doc {
+  appearance: none; font: inherit; font-size: 11px; line-height: 1.2; padding: 4px 9px; border-radius: 999px;
+  border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); cursor: pointer; white-space: nowrap;
+}
+.vmx-lect-doc:hover { border-color: var(--clr-ink); }
+.vmx-lect-doc:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-lect-cover img, .vmx-lect-cover-blank {
   display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
   background: var(--clr-surface); border-bottom: 1px solid var(--clr-border);

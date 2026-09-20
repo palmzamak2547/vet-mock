@@ -30,6 +30,65 @@
 const RENDER_SCALE = 2; // ink raster at 2x the PDF's own points ≈ 144 dpi
 
 /**
+ * Where a page's ink raster goes back onto the page, in PDF user space.
+ *
+ * The reader authors ink against the frame pdf.js displays: the CropBox
+ * clipped to the MediaBox (or the MediaBox alone when that leaves nothing),
+ * turned by the page's /Rotate. A stroke at normalised (0.25, 0.25) is a
+ * quarter of the way across and down THAT frame. Stamping the raster at
+ * (0, 0) over getSize() — the raw, unturned MediaBox — put the ink on the
+ * wrong quarter of every rotated page and off by the crop offset on every
+ * cropped one.
+ *
+ * So the raster takes the displayed frame's proportions and is drawn turned
+ * back by the same angle onto the crop box. pdf-lib turns an image counter-
+ * clockwise about its lower-left corner, which is why the anchor walks the
+ * box's corners with the angle. The page's own boxes and /Rotate are not
+ * touched.
+ *
+ * @param {object} opts
+ * @param {{x:number,y:number,width:number,height:number}} opts.mediaBox
+ * @param {{x:number,y:number,width:number,height:number}|null} opts.cropBox
+ * @param {number} opts.rotate  the page's /Rotate, in degrees
+ * @returns {{rotation:number, width:number, height:number, x:number, y:number}}
+ *   width/height: the displayed frame in points, which the raster must
+ *   share; x/y: where to anchor the raster; rotation: how far to turn it.
+ */
+export function inkFrame({ mediaBox, cropBox, rotate }) {
+  const media = normalRect(mediaBox);
+  let box = media;
+  if (cropBox) {
+    // pdf.js: the view is CropBox ∩ MediaBox, unless that is empty.
+    const crop = normalRect(cropBox);
+    const x0 = Math.max(crop.x, media.x);
+    const y0 = Math.max(crop.y, media.y);
+    const x1 = Math.min(crop.x + crop.width, media.x + media.width);
+    const y1 = Math.min(crop.y + crop.height, media.y + media.height);
+    if (x1 - x0 > 0 && y1 - y0 > 0) box = { x: x0, y: y0, width: x1 - x0, height: y1 - y0 };
+  }
+  // pdf.js: an angle that is not a multiple of 90 counts as 0; negatives wrap.
+  const raw = Number(rotate) || 0;
+  const rotation = raw % 90 !== 0 ? 0 : ((raw % 360) + 360) % 360;
+  const turned = rotation === 90 || rotation === 270;
+  const width = turned ? box.height : box.width;
+  const height = turned ? box.width : box.height;
+  const [x, y] = rotation === 90 ? [box.x + box.width, box.y]
+    : rotation === 180 ? [box.x + box.width, box.y + box.height]
+      : rotation === 270 ? [box.x, box.y + box.height]
+        : [box.x, box.y];
+  return { rotation, width, height, x, y };
+}
+
+// pdf-lib hands a box back exactly as the file wrote it, so one written
+// upper-right corner first has a negative width. pdf.js normalises, and the
+// frame has to agree with what pdf.js displayed.
+function normalRect({ x, y, width, height }) {
+  const x0 = Math.min(x, x + width);
+  const y0 = Math.min(y, y + height);
+  return { x: x0, y: y0, width: Math.max(x, x + width) - x0, height: Math.max(y, y + height) - y0 };
+}
+
+/**
  * @param {object} opts
  * @param {ArrayBuffer|Uint8Array} opts.bytes  the ORIGINAL pdf
  * @param {object} opts.strokesByPage          { [pageNumber]: Stroke[] }
@@ -42,7 +101,7 @@ const RENDER_SCALE = 2; // ink raster at 2x the PDF's own points ≈ 144 dpi
 export async function exportAnnotatedPdf({
   bytes, strokesByPage, paint, annotatedOnly = false, onProgress,
 }) {
-  const { PDFDocument } = await import('pdf-lib');
+  const { PDFDocument, degrees } = await import('pdf-lib');
   // ignoreEncryption: a deck that merely forbids editing still belongs to the
   // student who is allowed to read it; refusing to give them their own notes
   // back would be the wrong side to err on.
@@ -64,9 +123,16 @@ export async function exportAnnotatedPdf({
   let done = 0;
   for (const pageNo of inked) {
     const page = pages[pageNo - 1];
-    const { width, height } = page.getSize();
-    const w = Math.max(1, Math.round(width * RENDER_SCALE));
-    const h = Math.max(1, Math.round(height * RENDER_SCALE));
+    // The frame the ink was drawn in: what pdf.js showed for this page.
+    let cropBox = null;
+    try { cropBox = page.getCropBox(); } catch { /* pdf.js ignores a malformed box too */ }
+    const frame = inkFrame({
+      mediaBox: page.getMediaBox(),
+      cropBox,
+      rotate: page.getRotation().angle,
+    });
+    const w = Math.max(1, Math.round(frame.width * RENDER_SCALE));
+    const h = Math.max(1, Math.round(frame.height * RENDER_SCALE));
 
     const canvas = document.createElement('canvas');
     canvas.width = w;
@@ -79,10 +145,12 @@ export async function exportAnnotatedPdf({
 
     const dataUrl = canvas.toDataURL('image/png');
     const png = await pdf.embedPng(dataUrl);
-    // The rotation a page declares is applied by the viewer AFTER content is
-    // drawn, and getSize() reports the unrotated box — so ink drawn in that
-    // box lands correctly in the rotated result without any correction here.
-    page.drawImage(png, { x: 0, y: 0, width, height });
+    // Turned back by the page's own angle onto its crop box, so the ink
+    // covers the content it was drawn over (see inkFrame).
+    page.drawImage(png, {
+      x: frame.x, y: frame.y, width: frame.width, height: frame.height,
+      rotate: degrees(frame.rotation),
+    });
 
     // Free the bitmap before building the next one: a 30-page export at this
     // resolution is otherwise several hundred megabytes of live canvases.

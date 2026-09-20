@@ -17,6 +17,11 @@
 //                   means nobody has announced it and the format is what a
 //                   previous cohort recorded; the card says so in its note.
 //   count         — announced item count, or null.
+//   decks[].doc   — the library_docs slug of the deck itself, so the cover can
+//                   open the real slides in the reader. Verified against the
+//                   catalog titles; the One Health decks named only E1-E3 were
+//                   opened and read (E1 concept, E2 collaboration, E3
+//                   communication). No slug: no slide button.
 //   decks[].cover — an id into LECTURE_COVERS in art.js: the title slide of
 //                   that deck, cropped from the recording, so the row reads as
 //                   "the slides this lecturer taught from".
@@ -58,11 +63,11 @@ export const LECTURER_SETS = {
         sessions: [
           {
             n: 1, date: '2026-08-05', videoId: 'R4k7-CbupPc',
-            decks: [{ cover: 'oh-vet-role', title: 'Role of Veterinarians in One Health', topics: ['oh-vet-role'] }],
+            decks: [{ cover: 'oh-vet-role', title: 'Role of Veterinarians in One Health', topics: ['oh-vet-role'], doc: 'role-of-veterinarians-in-one-health-sj-5-aug-2026-735daf' }],
           },
           {
             n: 4, date: '2026-09-02', videoId: 'DSaNbrj2A3A',
-            decks: [{ cover: 'oh-global-network', title: 'Global One Health Activity Network', topics: ['oh-global-network'] }],
+            decks: [{ cover: 'oh-global-network', title: 'Global One Health Activity Network', topics: ['oh-global-network'], doc: 'global-one-health-activity-network-sj-2-sep-2026-148570' }],
           },
         ],
       },
@@ -77,17 +82,17 @@ export const LECTURER_SETS = {
         sessions: [
           {
             n: 2, date: '2026-08-19', videoId: '8z3MTk9B6Q4',
-            decks: [{ cover: 'oh-concept', title: 'One World One Health Concept', topics: ['oh-concept'] }],
+            decks: [{ cover: 'oh-concept', title: 'One World One Health Concept', topics: ['oh-concept'], doc: 'ohvph-sp-e1-22822e' }],
           },
           // One recording (9 ก.ย.) carries both the communication deck and the
           // collaboration deck; the timetable lists them as two sessions.
           {
             n: 5, date: '2026-09-09', videoId: 'xkJw4A0OS7A',
-            decks: [{ cover: 'oh-communication', title: 'One Health Communication', topics: ['oh-communication'] }],
+            decks: [{ cover: 'oh-communication', title: 'One Health Communication', topics: ['oh-communication'], doc: 'ohvph-sp-e3-861eb8' }],
           },
           {
             n: 6, date: '2026-09-16', videoId: 'xkJw4A0OS7A',
-            decks: [{ cover: 'oh-collaboration', title: 'Collaboration and Partnership in One Health', topics: ['oh-collaboration'] }],
+            decks: [{ cover: 'oh-collaboration', title: 'Collaboration and Partnership in One Health', topics: ['oh-collaboration'], doc: 'ohvph-sp-e2-497888' }],
           },
         ],
       },
@@ -102,7 +107,7 @@ export const LECTURER_SETS = {
         sessions: [
           {
             n: 3, date: '2026-08-26', videoId: 'nbomxmIJth0',
-            decks: [{ cover: 'oh-disease-prevention', title: 'Emerging and Re-emerging Diseases', topics: ['oh-disease-prevention'] }],
+            decks: [{ cover: 'oh-disease-prevention', title: 'Emerging and Re-emerging Diseases', topics: ['oh-disease-prevention'], doc: 'one-health-approach-to-combat-emergind-and-reemerging-94ffad' }],
           },
         ],
       },
@@ -124,30 +129,30 @@ export const LECTURER_SETS = {
           {
             n: 1, date: '2026-08-04', videoId: '7XyI0SjnuBA',
             decks: [
-              { cover: 'avian-nd', topics: ['avian-nd'] },
-              { cover: 'avian-ib', topics: ['avian-ib'] },
-              { cover: 'avian-lt', topics: ['avian-lt'] },
-              { cover: 'avian-mpv', topics: ['avian-mpv'] },
-              { cover: 'avian-pox', topics: ['avian-pox'] },
+              { cover: 'avian-nd', topics: ['avian-nd'], doc: 'powerpoint-newcastle-disease-virus-9adf4c' },
+              { cover: 'avian-ib', topics: ['avian-ib'], doc: 'powerpoint-infectious-bronchitis-1555d5' },
+              { cover: 'avian-lt', topics: ['avian-lt'], doc: 'powerpoint-infectious-laryngotracheitis-23fc44' },
+              { cover: 'avian-mpv', topics: ['avian-mpv'], doc: 'powerpoint-avian-metapneumovirus-b5342d' },
+              { cover: 'avian-pox', topics: ['avian-pox'], doc: 'powerpoint-fowlpox-fc63f2' },
             ],
           },
           {
             n: 5, date: '2026-09-01', videoId: 'ScpsvwW0FhM',
             decks: [
-              { cover: 'avian-ibd', topics: ['avian-ibd'] },
-              { cover: 'avian-marek', title: 'Neoplastic Diseases (Marek, ALV, RE)', topics: ['avian-marek'] },
-              { cover: 'avian-cia', topics: ['avian-cia'] },
-              { cover: 'avian-reo', topics: ['avian-reo'] },
+              { cover: 'avian-ibd', topics: ['avian-ibd'], doc: 'infectious-bursal-disease-199f26' },
+              { cover: 'avian-marek', title: 'Neoplastic Diseases (Marek, ALV, RE)', topics: ['avian-marek'], doc: 'neoplastic-diseases-94a972' },
+              { cover: 'avian-cia', topics: ['avian-cia'], doc: 'chicken-infectious-anemia-698e8a' },
+              { cover: 'avian-reo', topics: ['avian-reo'], doc: 'reovirus-infection-566454' },
             ],
           },
           {
             n: 6, date: '2026-09-08', videoId: 'RWCDahVkYTk',
             decks: [
-              { cover: 'avian-rss', topics: ['avian-rss'] },
-              { cover: 'avian-cocci', topics: ['avian-cocci'] },
-              { cover: 'avian-ne', topics: ['avian-ne'] },
-              { cover: 'avian-leuko', topics: ['avian-leuko'] },
-              { cover: 'avian-malaria', topics: ['avian-malaria'] },
+              { cover: 'avian-rss', topics: ['avian-rss'], doc: 'runting-and-stunting-syndrome-337271' },
+              { cover: 'avian-cocci', topics: ['avian-cocci'], doc: 'coccidiosis-2c6dee' },
+              { cover: 'avian-ne', topics: ['avian-ne'], doc: 'necrotic-enteritis-5e2984' },
+              { cover: 'avian-leuko', topics: ['avian-leuko'], doc: 'leucocytozoon-9f8a81' },
+              { cover: 'avian-malaria', topics: ['avian-malaria'], doc: 'avian-malaria-40af41' },
             ],
           },
         ],
@@ -163,14 +168,14 @@ export const LECTURER_SETS = {
         sessions: [
           {
             n: 2, date: '2026-08-11', videoId: '8ekNMuG25gI',
-            decks: [{ cover: 'avian-myco', topics: ['avian-myco'] }],
+            decks: [{ cover: 'avian-myco', topics: ['avian-myco'], doc: 'mycoplasmosis-fc353f' }],
           },
           {
             n: 3, date: '2026-08-18', videoId: 'R0xTpIvGn98',
             decks: [
-              { cover: 'avian-coryza', topics: ['avian-coryza'] },
-              { cover: 'avian-fowl-cholera', topics: ['avian-fowl-cholera'] },
-              { cover: 'avian-coli', topics: ['avian-coli'] },
+              { cover: 'avian-coryza', topics: ['avian-coryza'], doc: 'infectious-coryza-a2c442' },
+              { cover: 'avian-fowl-cholera', topics: ['avian-fowl-cholera'], doc: 'fowl-cholera-b4b384' },
+              { cover: 'avian-coli', topics: ['avian-coli'], doc: 'avian-pathogenic-e-coli-7b243b' },
             ],
           },
         ],
@@ -188,8 +193,8 @@ export const LECTURER_SETS = {
             n: 4, date: '2026-08-25', videoId: 'F1jwpqQCGBM',
             alsoTopics: ['avian-intro'],
             decks: [
-              { cover: 'avian-ai', topics: ['avian-ai'] },
-              { cover: 'avian-egg-breakout', topics: ['avian-egg-breakout'] },
+              { cover: 'avian-ai', topics: ['avian-ai'], doc: 'avian-influenza-jiroj-2026' },
+              { cover: 'avian-egg-breakout', topics: ['avian-egg-breakout'], doc: 'embryo-breakout-analysis-jiroj-2026' },
             ],
           },
         ],
@@ -210,6 +215,7 @@ export const LECTURER_SETS = {
                 cover: 'avian-ahra-set',
                 title: 'Omphalitis, Ascites, Staphylococcosis, Salmonellosis, Adenovirus, AE',
                 topics: ['avian-ahra-set', 'avian-salmonella', 'avian-adeno', 'avian-ae'],
+                doc: 'ae-adeno-salmo-omphalitis-ascites-staph-717e8d',
               },
             ],
           },

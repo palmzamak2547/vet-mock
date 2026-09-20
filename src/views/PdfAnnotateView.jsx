@@ -113,7 +113,7 @@ async function loadPdfjs() {
   return _pdfjsPromise;
 }
 
-export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = null, onOpenLibrary = null, ownerId = null }) {
+export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = null, onOpenLibrary = null, ownerId = null, exitLabel = 'กลับคลังเอกสาร' }) {
   // These closures retain the owner across async saves and unmount cleanup.
   // App keys the reader by account, so another account never inherits its ink.
   const { loadAnnotations, saveAnnotations, listRecentPdfs, deleteAnnotations, peekAnnotations,
@@ -250,10 +250,24 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // over. The browser already holds a local File on disk, and a library
   // document re-reads from cache.
   const sourceRef = useRef(null);
+  // Which open the reader is waiting for. Opening B while A was still loading
+  // (the command palette, a second tap on the shelf) let whichever finished
+  // LAST publish itself: a slow A replaced B on screen while sourceRef still
+  // pointed at B, so an export stamped A's ink onto B's pages. Every open takes
+  // the next number; only the newest may publish, and a document that arrives
+  // for a superseded open is destroyed instead of shown. `pendingTaskRef` is
+  // the pdf.js load still in flight, so the next open can cancel it outright.
+  const loadGenRef = useRef(0);
+  const pendingTaskRef = useRef(null);
   const [exporting, setExporting] = useState(null); // null | {done,total}
   // Page text, extracted once per document and reused for every later search.
+  // `pending` is the extraction still running, so a second query joins it.
   const textRef = useRef({ hash: null, pages: null });
   const searchAbortRef = useRef(0);
+  // The search whose result may still be shown. Clearing or editing the box,
+  // submitting again or changing document moves it on, and a search that
+  // finishes to find it moved publishes nothing and goes nowhere.
+  const searchReqRef = useRef(0);
 
   // What a flush should write, always current. A flush that closes over
   // render-time state writes whatever was true when its effect last ran, and
@@ -305,6 +319,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setTimeout(() => setToast((t) => (t === msg ? null : t)), ms);
   }, []);
 
+  // Numbers an open and withdraws the one still in flight (see loadGenRef):
+  // its pdf.js load is destroyed, so the promise it awaits rejects and its
+  // catch, seeing it is no longer current, says nothing.
+  const supersedeOpen = useCallback(() => {
+    const gen = ++loadGenRef.current;
+    const prev = pendingTaskRef.current;
+    pendingTaskRef.current = null;
+    if (prev) { try { prev.destroy?.()?.catch?.(() => {}); } catch { /* already settled */ } }
+    return gen;
+  }, []);
+
   // ── File ingest ────────────────────────────────────────────
   const ingestFile = useCallback(async (file) => {
     if (!file) return;
@@ -324,22 +349,37 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (sizeMB > SIZE_WARN_MB) {
       showToast(`ไฟล์ขนาด ${sizeMB.toFixed(1)} MB — อาจโหลดช้า`, 4000);
     }
+    const gen = supersedeOpen();
+    const current = () => gen === loadGenRef.current;
     setLoading(true);
     setLoadingMsg('กำลังอ่านไฟล์…');
     try {
       const hash = await hashFile(file);
+      if (!current()) return;
       setLoadingMsg('กำลังแกะ PDF…');
       const pdfjs = await loadPdfjs();
       const buf = await file.arrayBuffer();
-      sourceRef.current = { kind: 'file', file };
-      const doc = await pdfjs.getDocument({ data: buf }).promise;
+      if (!current()) return;
+      const task = pdfjs.getDocument({ data: buf });
+      pendingTaskRef.current = task;
+      const doc = await task.promise;
+      if (pendingTaskRef.current === task) pendingTaskRef.current = null;
+      // Superseded while loading: the newer open owns the screen, so this
+      // document is released, never published.
+      const superseded = () => { if (current()) return false; doc.destroy?.().catch(() => {}); return true; };
+      if (superseded()) return;
       const local = await loadAnnotations(hash);
       const existing = await pullAndMerge(hash, local);
-      setLegacyAvailable(Boolean(await loadLegacyAnnotations(hash, ownerId)));
+      const legacy = Boolean(await loadLegacyAnnotations(hash, ownerId));
+      if (superseded()) return;
+      setLegacyAvailable(legacy);
       const restoredStrokes = existing?.strokesByPage || {};
       setDeleted(existing?.deleted || []);
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), doc.numPages);
       resumeTo.current = startPage > 1 ? startPage : 0;
+      // The source is published with the document it belongs to, never ahead
+      // of it: an export reads sourceRef, and it must be the file on screen.
+      sourceRef.current = { kind: 'file', file };
       setPdfDoc(doc);
       setFileHash(hash);
       setFileName(file.name);
@@ -367,14 +407,19 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         showToast('รอบหน้าเลือกไฟล์เดิมอีกครั้ง แล้วรอยเขียนจะกลับมาเอง', 4500);
       }
     } catch (e) {
+      // A withdrawn open was cancelled on purpose; the open that replaced it
+      // owns the screen and whatever message is on it.
+      if (!current()) return;
       console.error('[pdf-annotate] load failed:', e);
       // pdf.js says things like "Invalid PDF structure." — true, in English,
       // and not something a student can act on. The remote path already went
       // through thaiError; this one had been left behind.
       setError(thaiError(e, 'เปิดไฟล์นี้ไม่สำเร็จ ไฟล์อาจเสียหรือไม่ใช่ PDF'));
     } finally {
-      setLoading(false);
-      setLoadingMsg('');
+      if (current()) {
+        setLoading(false);
+        setLoadingMsg('');
+      }
     }
   }, [showToast, refreshRecent]);
 
@@ -390,6 +435,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // over dozens of small ranges is slower than one sequential download.
   const ingestRemote = useCallback(async (doc) => {
     if (!doc?.url && !doc?.resolve) return;
+    const gen = supersedeOpen();
+    const current = () => gen === loadGenRef.current;
     setError(null);
     setDownloadProgress(null);
     setLoading(true);
@@ -402,14 +449,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         loadPdfjs(),
         doc.url ? Promise.resolve(doc.url) : doc.resolve(),
       ]);
+      if (!current()) return;
       const stream = !!(doc.linearized || doc.rangeSupported);
       let task;
       if (stream) {
-        sourceRef.current = { kind: 'url', url };
         task = pdfjs.getDocument({ url, rangeChunkSize: doc.rangeSupported ? 262144 : 65536,
           ...(doc.rangeSupported ? { disableAutoFetch: true, disableStream: true } : {}) });
       } else {
         const res = await fetch(url);
+        if (!current()) return;
         if (!res.ok) {
           // The worker answers an offline request for a document that was
           // never opened on this device with a 503 whose body says so. Turning
@@ -428,15 +476,20 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         // nothing for fifteen seconds is indistinguishable from a hang — and
         // a student who cannot tell the difference reloads, which starts the
         // download again from zero.
-        const buf = await readWithProgress(res, setLoadingMsg, setDownloadProgress);
-        sourceRef.current = { kind: 'url', url };
+        // Progress from a withdrawn open must not write over the newer one's.
+        const buf = await readWithProgress(res,
+          (msg) => { if (current()) setLoadingMsg(msg); },
+          (pct) => { if (current()) setDownloadProgress(pct); });
+        if (!current()) return;
         task = pdfjs.getDocument({ data: buf });
       }
+      pendingTaskRef.current = task;
       setLoadingMsg('กำลังแกะ PDF…');
       setDownloadProgress(null);
       if (stream) {
         let lastProgressAt = 0;
         task.onProgress = ({ loaded, total }) => {
+          if (!current()) return;
           const now = Date.now();
           if (now - lastProgressAt < 250) return;
           lastProgressAt = now;
@@ -446,6 +499,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         };
       }
       const pdf = await task.promise;
+      if (pendingTaskRef.current === task) pendingTaskRef.current = null;
+      // Superseded while loading: the newer open owns the screen, so this
+      // document is released, never published.
+      const superseded = () => { if (current()) return false; pdf.destroy?.().catch(() => {}); return true; };
+      if (superseded()) return;
       setDownloadProgress(null);
       // library_docs.sha256_16 is NOT NULL, so this normally comes straight
       // from the catalog. The slug fallback exists only so a malformed row
@@ -460,13 +518,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // is a union, so a device that has been offline contributes rather than
       // overwrites; signed out this returns the local record untouched.
       const existing = await pullAndMerge(hash, local);
-      setLegacyAvailable(Boolean(await loadLegacyAnnotations(hash, ownerId)));
+      const legacy = Boolean(await loadLegacyAnnotations(hash, ownerId));
+      if (superseded()) return;
+      setLegacyAvailable(legacy);
       const restoredStrokes = existing?.strokesByPage || {};
       setDeleted(existing?.deleted || []);
       // Resume where the reader left off — a 300-page textbook that always
       // reopened at page 1 made every return trip start with scrolling.
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), pdf.numPages);
       resumeTo.current = startPage > 1 ? startPage : 0;
+      // Published with the document it belongs to (see ingestFile).
+      sourceRef.current = { kind: 'url', url };
       setPdfDoc(pdf);
       setFileHash(hash);
       setFileName(doc.fileName || 'document.pdf');
@@ -494,13 +556,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         showToast('นำรอยเขียนเดิมกลับมาแล้ว', 3000);
       }
     } catch (e) {
+      // A withdrawn open was cancelled on purpose (see ingestFile).
+      if (!current()) return;
       console.error('[pdf-annotate] remote load failed:', e);
       // The old line pasted raw pdf.js/HTTP text into Thai and then asserted
       // 'ลิงก์อาจหมดอายุ' as the cause for every failure, expiry or not.
       setError(thaiError(e, 'เปิดเอกสารจากคลังไม่สำเร็จ ลองกดลองเปิดอีกครั้ง'));
     } finally {
-      setLoading(false);
-      setLoadingMsg('');
+      if (current()) {
+        setLoading(false);
+        setLoadingMsg('');
+      }
     }
   }, [showToast, refreshRecent]);
 
@@ -1352,33 +1418,56 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // document, and match against it.
   //
   // Extraction is incremental and abortable — a 300-page textbook must not
-  // freeze the reader while it is read, and typing a new query must not leave
-  // the old one still working in the background.
+  // freeze the reader while it is read, and a change of document abandons the
+  // read still running for the previous one. A second query joins the read in
+  // progress rather than restarting it: the text belongs to the document, not
+  // to the query that first asked for it.
   async function ensureText() {
     if (!pdfDoc) return [];
-    if (textRef.current.hash === fileHash && textRef.current.pages) return textRef.current.pages;
-    const pages = [];
+    const cached = textRef.current;
+    if (cached.hash === fileHash && cached.pages) return cached.pages;
+    if (cached.hash === fileHash && cached.pending) return cached.pending;
+    const doc = pdfDoc;
+    const hash = fileHash;
     const token = ++searchAbortRef.current;
-    for (let i = 1; i <= pdfDoc.numPages; i++) {
-      if (token !== searchAbortRef.current) return pages;
-      try {
-        const page = await pdfDoc.getPage(i);
-        const tc = await page.getTextContent();
-        pages[i] = pageTextFromItems(tc.items);
-      } catch {
-        pages[i] = '';
+    const pending = (async () => {
+      const pages = [];
+      for (let i = 1; i <= doc.numPages; i++) {
+        if (token !== searchAbortRef.current) return pages;
+        try {
+          const page = await doc.getPage(i);
+          const tc = await page.getTextContent();
+          pages[i] = pageTextFromItems(tc.items);
+        } catch {
+          pages[i] = '';
+        }
       }
-    }
-    textRef.current = { hash: fileHash, pages };
-    return pages;
+      if (token === searchAbortRef.current) textRef.current = { hash, pages };
+      return pages;
+    })();
+    textRef.current = { hash, pages: null, pending };
+    return pending;
+  }
+
+  // The query in the box is the intent. Clearing or editing it while an older
+  // search is still reading the document withdraws that search: it may neither
+  // fill the results nor jump to a page when it finishes. The extraction is
+  // left running, because the document will still need it.
+  function dropSearch() {
+    searchReqRef.current += 1;
+    setSearching(false);
   }
 
   async function runSearch(q) {
     const needle = q.trim();
-    if (!needle) { setHits(null); return; }
+    // This submission is the one that may answer; an older one still running
+    // is withdrawn by the same move.
+    const req = ++searchReqRef.current;
+    if (!needle) { setHits(null); setSearching(false); return; }
     setSearching(true);
     try {
       const pages = await ensureText();
+      if (req !== searchReqRef.current) return;
       // lib/thai-search.js, not indexOf: a Thai word broken across pdf.js text
       // runs, a zero-width space, a decomposed สระอำ or a Thai digit each make
       // a plain substring match come back empty on text that is right there on
@@ -1388,7 +1477,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       setHitIdx(0);
       if (found.length) goToPage(found[0].page);
     } finally {
-      setSearching(false);
+      // A withdrawn search must not switch the newer one's busy state off.
+      if (req === searchReqRef.current) setSearching(false);
     }
   }
 
@@ -1407,13 +1497,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     goToPage(shownHits[next].page);
   }
 
-  // A new document invalidates the extracted text, and abandons any extraction
-  // still running for the previous one.
+  // A new document invalidates the extracted text, abandons any extraction
+  // still running for the previous one, and withdraws a search waiting on it.
   useEffect(() => {
     searchAbortRef.current += 1;
+    searchReqRef.current += 1;
     textRef.current = { hash: null, pages: null };
     setQuery('');
     setHits(null);
+    setSearching(false);
   }, [fileHash]);
 
   // Choosing a tool closes whatever was open. The colour panel is hidden while
@@ -1847,6 +1939,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   // Cleanup on unmount
   useEffect(() => () => {
+    // An open still in flight has no reader left to publish to: withdraw it
+    // and cancel its pdf.js load, so the worker and its requests go with it.
+    supersedeOpen();
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     if (prerenderRef.current) clearTimeout(prerenderRef.current);
     if (renderTaskRef.current) { try { renderTaskRef.current.cancel(); } catch {} }
@@ -1877,7 +1972,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   if (!pdfDoc) {
     return (
       <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
-        <BackBar onBack={onExit || goHome} label={onExit ? 'กลับคลังเอกสาร' : 'กลับหน้าแรก'} subtitle="เขียนทับ PDF" />
+        <BackBar onBack={onExit || goHome} label={onExit ? exitLabel : 'กลับหน้าแรก'} subtitle="เขียนทับ PDF" />
         <div style={{ padding: '8px 16px 24px', maxWidth: 720, margin: '0 auto', width: '100%' }}>
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             สไลด์บรรยาย และตำรา
@@ -2002,7 +2097,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // ── Viewing state ──────────────────────────────────────────
   return (
     <div ref={rootRef} className="vmx-reader" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
-      <BackBar onBack={backToEmpty} label={onExit ? 'กลับคลังเอกสาร' : 'เปลี่ยน PDF'} subtitle={fileName} />
+      <BackBar onBack={backToEmpty} label={onExit ? exitLabel : 'เปลี่ยน PDF'} subtitle={fileName} />
       {legacyAvailable && (
         <div role="status" style={{ padding: 12, background: 'var(--clr-surface)', color: 'var(--clr-ink)', fontSize: 14 }}>
           <p style={{ margin: '0 0 8px' }}>พบลายเส้นรุ่นเก่าในเครื่องที่ยังไม่ได้ระบุเจ้าของ</p>
@@ -2248,7 +2343,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             id="vmx-pdf-search"
             type="search"
             value={query}
-            onChange={(e) => { setQuery(e.target.value); if (!e.target.value.trim()) setHits(null); }}
+            onChange={(e) => { setQuery(e.target.value); dropSearch(); if (!e.target.value.trim()) setHits(null); }}
             placeholder={`ค้นหาในเอกสาร ${pageCount} หน้า`}
             style={{
               flex: 1, minWidth: 0, minHeight: 36, padding: '6px 10px',

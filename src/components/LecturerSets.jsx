@@ -12,7 +12,9 @@
 // lecturer's format yet, the card says so and offers the mixed set instead of
 // opening an empty session.
 // ============================================================
+import { useEffect, useState } from 'react';
 import { LECTURER_SETS, LECTURER_SET_SCOPE, FORMAT_LABEL, lecturerTopics } from '../data/lecturer-sets.js';
+import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
 import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 
@@ -22,8 +24,25 @@ function thaiDate(iso) {
   return m ? `${d} ${TH_MONTH[m - 1]}` : '';
 }
 
-export default function LecturerSets({ subject, topics = [], onStart, onOpenInstructor, selectedPhase = LECTURER_SET_SCOPE.phase }) {
+export default function LecturerSets({ subject, topics = [], onStart, onOpenInstructor, onOpenDoc = null, selectedPhase = LECTURER_SET_SCOPE.phase }) {
   const set = LECTURER_SETS[subject];
+
+  // The deck's own slides: a deck names its library_docs slug
+  // (lecturer-sets.js) and the catalog row supplies the reader payload.
+  // Session snapshot first, the fresh fetch after; no catalog, no pill.
+  const wantDocs = Boolean(onOpenDoc && set?.lecturers.some((l) => l.sessions.some((s) => s.decks.some((d) => d.doc))));
+  const [docsBySlug, setDocsBySlug] = useState(null);
+  useEffect(() => {
+    if (!wantDocs) return undefined;
+    let live = true;
+    const index = (r) => new Map((r?.docs || []).filter((d) => d?.slug).map((d) => [d.slug, d]));
+    const { stale, fresh } = getLibraryCatalogFast();
+    stale.then((s) => { if (live && s) setDocsBySlug((cur) => cur || index(s)); }).catch(() => {});
+    fresh.then((f) => { if (live) setDocsBySlug(index(f)); }).catch(() => {});
+    return () => { live = false; };
+  }, [wantDocs]);
+  const openDeckDoc = (doc) => { recordRecentDoc(doc); onOpenDoc(readerPayload(doc)); };
+
   if (!set || typeof onStart !== 'function') return null;
 
   const labelOf = (topicId) => topics.find((t) => t.id === topicId)?.label || topicId;
@@ -95,21 +114,29 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
                 const countText = n > 0
                   ? `${formatLabel} ${n} ${unit}`
                   : (nAll > 0 ? `ยังไม่มีข้อแบบ${formatLabel} (รวม ${nAll} ข้อ)` : 'ยังไม่มีข้อสอบ');
+                const doc = deck.doc && docsBySlug ? docsBySlug.get(deck.doc) : null;
                 return (
-                  <button
-                    key={`${s.n}-${deck.cover}`}
-                    type="button"
-                    role="listitem"
-                    className="vmx-lect-cover"
-                    disabled={shown === 0}
-                    aria-label={`${title} คาบ ${s.n} ${thaiDate(s.date)}, ${countText}`}
-                    onClick={() => onStart({ subjectId: subject, topics: deck.topics, questionCategory: usable })}
-                  >
-                    {art ? <img src={art.src} alt={art.alt} loading="lazy" decoding="async" /> : <span className="vmx-lect-cover-blank" aria-hidden="true" />}
-                    <span className="t">{title}</span>
-                    <span className="c">{countText}</span>
-                    <span className="s">คาบ {s.n} ({thaiDate(s.date)})</span>
-                  </button>
+                  <div key={`${s.n}-${deck.cover}`} role="listitem" className="vmx-lect-cover">
+                    <button
+                      type="button"
+                      className="vmx-lect-cover-hit"
+                      disabled={shown === 0}
+                      aria-label={`${title} คาบ ${s.n} ${thaiDate(s.date)}, ${countText}`}
+                      onClick={() => onStart({ subjectId: subject, topics: deck.topics, questionCategory: usable })}
+                    >
+                      {art ? <img src={art.src} alt={art.alt} loading="lazy" decoding="async" /> : <span className="vmx-lect-cover-blank" aria-hidden="true" />}
+                      <span className="t">{title}</span>
+                      <span className="c">{countText}</span>
+                    </button>
+                    <div className="vmx-lect-cover-foot">
+                      <span className="s">คาบ {s.n} ({thaiDate(s.date)})</span>
+                      {doc && (
+                        <button type="button" className="vmx-lect-doc" title={doc.title} aria-label={`เปิดสไลด์ ${title}`} onClick={() => openDeckDoc(doc)}>
+                          สไลด์ PDF
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 );
               }))}
             </div>

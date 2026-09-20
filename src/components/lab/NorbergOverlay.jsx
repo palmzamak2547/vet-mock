@@ -36,7 +36,7 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
   // Tick re-renders SVG positions when the camera moves (zoom/pan).
   // Polling is cheaper than wiring into Cornerstone's event system and
   // 80 ms is well below perceptual lag for an annotation overlay.
-  const [, setTick] = useState(0);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     if (!active || worldPoints.length === 0) return;
@@ -114,9 +114,12 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
         return { x: -100, y: -100 };
       }
     });
-    // tick is intentionally a stale-read dep below via setTick above
+    // `tick` is the camera clock: every poll bumps it so the points are
+    // projected against the camera as it is now. Listing the setter here
+    // instead (a stable identity) froze the markers where they were first
+    // drawn while the image panned and zoomed underneath them.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [worldPoints, viewportRef, setTick]);
+  }, [worldPoints, viewportRef, tick]);
 
   // Hit-test radius for grabbing existing points (in CSS pixels).
   // Slightly bigger than the visible 7 px circle so it's tappable.

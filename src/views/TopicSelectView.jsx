@@ -32,7 +32,7 @@ const VCA_NOTES_MAP = {
 // that no other screen needs, so the topic screen's own chunk stays as it was.
 const LecturerSets = lazy(() => import('../components/LecturerSets.jsx'));
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null, onStartLecturer = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null, onStartLecturer = null, onOpenDoc = null }) {
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
   const [shelfDocs, setShelfDocs] = useState(0);
@@ -457,6 +457,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             <LecturerSets
               subject={subject}
               topics={topics}
+              onOpenDoc={onOpenDoc}
               selectedPhase={selectedPhase}
               onStart={onStartLecturer}
               onOpenInstructor={openInstructorFor}

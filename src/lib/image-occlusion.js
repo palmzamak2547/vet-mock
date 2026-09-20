@@ -15,10 +15,12 @@ import { readLocalExtra, writeLocalExtra } from './local-extras.js';
 //       imageDataUrl: string,                // inlined data: URL
 //       masks: [{
 //         id:     string,
+//         slot:   number,                    // 0..99, fixed for the mask's life
 //         x: number, y: number, w: number, h: number,  // NORMALIZED 0..1
 //         label:  string,                    // short tag (front hint)
 //         answer: string,                    // full back answer
 //       }],
+//       nextSlot:     number,                // first slot never handed out yet
 //       createdAt:    number,
 //       lastOpened:   number,
 //     }
@@ -118,20 +120,32 @@ function normalizeDeck(d) {
   // different masks. deck.id is already stride-spaced by nextDeckId (80000,
   // 80100, ...), so it is the natural base and needs no new bookkeeping.
   const rawMasks = Array.isArray(d.masks) ? d.masks.filter(isValidMask) : [];
+  const validSlot = (s) => Number.isInteger(s) && s >= 0 && s < ID_STRIDE;
   const taken = new Set();
+  let highest = -1;
   for (const m of rawMasks) {
-    if (Number.isInteger(m?.slot) && m.slot >= 0 && m.slot < ID_STRIDE) taken.add(m.slot);
+    if (validSlot(m?.slot)) { taken.add(m.slot); highest = Math.max(highest, m.slot); }
   }
+  // A new mask takes a slot ABOVE every slot the deck has ever handed out.
+  // Refilling the lowest free slot meant a box drawn after another was
+  // deleted took the deleted box's card id, and with it that card's review
+  // history. `nextSlot` is the high-water mark; a deck saved before it
+  // existed starts from its highest surviving slot.
+  let cursor = Number.isInteger(d.nextSlot) && d.nextSlot >= 0 ? Math.max(d.nextSlot, highest + 1) : highest + 1;
   let probe = 0;
   const nextFreeSlot = () => {
+    while (cursor < ID_STRIDE && taken.has(cursor)) cursor++;
+    if (cursor < ID_STRIDE) { taken.add(cursor); return cursor++; }
+    // Every slot has been handed out at least once: reuse the lowest free one
+    // rather than leave the mask out of SR.
     while (probe < ID_STRIDE && taken.has(probe)) probe++;
     if (probe >= ID_STRIDE) return null; // deck is full; mask stays out of SR
     taken.add(probe);
-    return probe;
+    return probe++;
   };
   const seen = new Set();
   const masks = rawMasks.map((m) => {
-    const keep = Number.isInteger(m?.slot) && m.slot >= 0 && m.slot < ID_STRIDE && !seen.has(m.slot);
+    const keep = validSlot(m?.slot) && !seen.has(m.slot);
     if (keep) seen.add(m.slot);
     return {
       id: typeof m.id === 'string' && m.id ? m.id : genMaskId(),
@@ -149,6 +163,7 @@ function normalizeDeck(d) {
     name: (d.name || '').toString().trim() || 'Untitled deck',
     imageDataUrl: d.imageDataUrl,
     masks,
+    nextSlot: cursor,
     createdAt: typeof d.createdAt === 'number' ? d.createdAt : Date.now(),
     lastOpened: typeof d.lastOpened === 'number' ? d.lastOpened : (d.createdAt || Date.now()),
   };
@@ -195,9 +210,22 @@ export function saveDeck(deck) {
   const now = Date.now();
   const isNew = typeof deck.id !== 'number';
   const id = isNew ? nextDeckId() : deck.id;
+  // A mask that comes back without its slot (a caller that serialised only
+  // geometry and text) keeps the slot the stored copy gave it, matched by
+  // mask id. Otherwise a save renumbered the survivors from zero and a later
+  // mask took the card id, and the review schedule, of a deleted one.
+  const stored = isNew ? null : list.find((d) => d && d.id === id);
+  const storedSlots = new Map((stored?.masks || []).map((m) => [m?.id, m?.slot]));
+  const masks = (Array.isArray(deck.masks) ? deck.masks : []).map((m) => (
+    m && typeof m === 'object' && !Number.isInteger(m.slot) && Number.isInteger(storedSlots.get(m.id))
+      ? { ...m, slot: storedSlots.get(m.id) }
+      : m
+  ));
   const normalized = normalizeDeck({
     ...deck,
     id,
+    masks,
+    nextSlot: Number.isInteger(deck.nextSlot) ? deck.nextSlot : stored?.nextSlot,
     createdAt: deck.createdAt || now,
     lastOpened: now,
   });
@@ -233,7 +261,10 @@ export function deleteDeck(deckId) {
   const list = readRaw();
   const next = list.filter((d) => d.id !== deckId);
   if (next.length === list.length) return true;
-  if (!writeRaw(next)) return false;
+  // writeRaw hands back { ok, evicted, reason }; testing the object itself
+  // made a refused write (quota, private mode) look like a deletion, and the
+  // view said "ลบแล้ว" over a deck that was still there after reload.
+  if (!writeRaw(next).ok) return false;
   notifyChange();
   return true;
 }

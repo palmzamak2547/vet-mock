@@ -81,6 +81,9 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
   useEffect(() => {
     if (!file) return;
     let cancelled = false;
+    // This mount's entry in the loader's file registry, so the cleanup can
+    // release exactly that entry and no other viewport's.
+    let fileIndex = null;
     const seq = ++engineSeq;
     const engineId = `lab-engine-${seq}`;
     const viewportId = `lab-vp-${seq}`;
@@ -96,6 +99,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
 
         const loader = getDicomImageLoader();
         const imageId = loader.wadouri.fileManager.add(file);
+        fileIndex = Number(imageId.split(':')[1]);
 
         const engine = new RenderingEngine(engineId);
         engineRef.current = engine;
@@ -106,6 +110,10 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         });
         const viewport = engine.getViewport(viewportId);
         await viewport.setStack([imageId]);
+        // Unmounted or switched files while the image was decoding: the
+        // cleanup has already destroyed this engine, so no tool group may be
+        // created for it and nothing rendered into it.
+        if (cancelled) return;
 
         const tg = ToolGroupManager.createToolGroup(toolGroupId);
         Object.values(TOOLS).forEach(({ cls }) => tg.addTool(cls.toolName));
@@ -166,12 +174,11 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         setStatus('ready');
         setActiveTool('wl');
       } catch (err) {
+        if (cancelled) return; // a load this cleanup abandoned is not an error
         // eslint-disable-next-line no-console
         console.error('[DicomViewport] load error:', err);
-        if (!cancelled) {
-          setStatus('error');
-          setErrorMsg(err?.message || String(err));
-        }
+        setStatus('error');
+        setErrorMsg(err?.message || String(err));
       }
     })();
 
@@ -181,6 +188,14 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         if (toolGroupIdRef.current) ToolGroupManager.destroyToolGroup(toolGroupIdRef.current);
         engineRef.current?.destroy();
       } catch { /* noop */ }
+      // The loader's file registry is a module-global list that only grows,
+      // so every DICOM ever opened stayed referenced for the life of the tab.
+      // Release only the entry this mount registered; the other viewport in
+      // compare mode keeps its own. The parsed dataset cache is separate and
+      // is left alone here.
+      if (Number.isInteger(fileIndex)) {
+        try { getDicomImageLoader().wadouri.fileManager.remove(fileIndex); } catch { /* noop */ }
+      }
     };
   }, [file]);
 

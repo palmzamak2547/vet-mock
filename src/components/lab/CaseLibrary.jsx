@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { thaiError } from '../../lib/errors.js';
 
 // DICOM Modality (0008,0060) values map into 5 user-facing buckets.
@@ -114,7 +114,17 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
     return () => { cancelled = true; };
   }, []);
 
+  // Every open takes a ticket, and only the newest ticket may hand files to
+  // the parent, clear the loading marker or show an error. A slower earlier
+  // open that finished late used to reopen ITS case over the one the student
+  // chose last. Leaving the list retires every open still in flight, so a
+  // download that completes after Back cannot reopen the viewer.
+  const openSeqRef = useRef(0);
+  useEffect(() => () => { openSeqRef.current += 1; }, []);
+
   const handleOpen = useCallback(async (c) => {
+    const ticket = ++openSeqRef.current;
+    const current = () => ticket === openSeqRef.current;
     setOpeningId(c.id);
     try {
       const { getSupabase } = await import('../../lib/supabase.js');
@@ -142,13 +152,15 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
         const buf = await res.arrayBuffer();
         return new File([buf], `${c.slug}_${row.view_name}.dcm`, { type: 'application/dicom' });
       }));
+      if (!current()) return; // the student picked another case meanwhile, or left
       onOpenCase(fetched, c);  // array — LabView now accepts File[]
     } catch (e) {
+      if (!current()) return;
       // eslint-disable-next-line no-console
       console.error('[CaseLibrary] open case error:', e);
       setError(thaiError(e, 'เปิดเคสไม่สำเร็จ ลองใหม่อีกครั้ง'));
     } finally {
-      setOpeningId(null);
+      if (current()) setOpeningId(null);
     }
   }, [onOpenCase]);
 
