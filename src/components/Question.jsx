@@ -12,6 +12,7 @@ import SmartPassage from './SmartPassage.jsx';
 import NavIcon from './NavIcon.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
+import HandwritingInput from './HandwritingInput.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
@@ -398,6 +399,16 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
             {(typeof currentAnswer === 'string' ? currentAnswer.length : 0)}/1000 chars
           </div>
+          {/* Optional third way in: handwriting, transcribed into the same
+              box so the student edits it before it is graded. */}
+          <HandwritingInput
+            maxChars={1000}
+            onText={(text) => {
+              const cur = typeof currentAnswer === 'string' ? currentAnswer : '';
+              const sep = cur && !cur.endsWith('\n') ? '\n' : '';
+              answerCurrent((cur + sep + text).slice(0, 1000));
+            }}
+          />
         </div>
       )}
 
@@ -439,6 +450,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               minHeight: 240, padding: 12, fontFamily: 'inherit', fontSize: 14, lineHeight: 1.6,
               border: '1px solid var(--clr-border)', borderRadius: 10, background: 'var(--clr-bg)', color: 'var(--clr-ink)',
               resize: 'vertical',
+            }}
+          />
+          <HandwritingInput
+            maxChars={5000}
+            onText={(text) => {
+              const cur = essayText || '';
+              const sep = cur && !cur.endsWith('\n') ? '\n' : '';
+              answerCurrent((cur + sep + text).slice(0, 5000));
             }}
           />
           {/* Word-count bar (visual) */}

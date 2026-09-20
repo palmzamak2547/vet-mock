@@ -10,6 +10,8 @@
 //   2. DeepSeek `deepseek-chat` alias — in case the flash id or the
 //      thinking parameter ever stops being accepted.
 //   3. Anthropic — only if ANTHROPIC_API_KEY is present.
+// visionJSON (one image + text) walks the same order: DeepSeek's flash model
+// takes images OpenAI-style since 2026; Anthropic as the fallback.
 //
 // Every non-OK provider response is logged WITH ITS BODY (truncated).
 // A bare status code cost a day of guessing on another surface; the
@@ -26,7 +28,15 @@ export const LLM_DAILY_BUDGET = 4000;
 
 const cut = (s, n = 300) => String(s ?? '').slice(0, n);
 
-async function callDeepSeek({ apiKey, model, thinkingOff, system, user, maxTokens, signal }) {
+async function callDeepSeek({ apiKey, model, thinkingOff, system, user, image, maxTokens, signal }) {
+  // An image rides along OpenAI-style as a data URL (docs: Vision guide,
+  // user messages only). Text-only calls send the plain string as before.
+  const content = image
+    ? [
+      { type: 'text', text: user },
+      { type: 'image_url', image_url: { url: `data:${image.mediaType};base64,${image.data}` } },
+    ]
+    : user;
   const body = {
     model,
     max_tokens: maxTokens,
@@ -34,7 +44,7 @@ async function callDeepSeek({ apiKey, model, thinkingOff, system, user, maxToken
     response_format: { type: 'json_object' },
     messages: [
       { role: 'system', content: system },
-      { role: 'user', content: user },
+      { role: 'user', content },
     ],
   };
   if (thinkingOff) body.thinking = { type: 'disabled' };
@@ -59,7 +69,15 @@ async function callDeepSeek({ apiKey, model, thinkingOff, system, user, maxToken
   return { ok: true, text, model };
 }
 
-async function callAnthropic({ apiKey, model, system, user, maxTokens, signal }) {
+async function callAnthropic({ apiKey, model, system, user, image, maxTokens, signal }) {
+  // An image rides along as a content block. Anthropic is the only provider
+  // here that takes one — see visionJSON.
+  const content = image
+    ? [
+      { type: 'image', source: { type: 'base64', media_type: image.mediaType, data: image.data } },
+      { type: 'text', text: user },
+    ]
+    : user;
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     signal,
@@ -72,7 +90,7 @@ async function callAnthropic({ apiKey, model, system, user, maxTokens, signal })
       model,
       max_tokens: maxTokens,
       system,
-      messages: [{ role: 'user', content: user }],
+      messages: [{ role: 'user', content }],
     }),
   });
   if (!res.ok) {
@@ -112,6 +130,53 @@ export function extractJSON(text) {
     }
   }
   return null;
+}
+
+/**
+ * Ask the first working provider for a JSON answer about one base64 image
+ * ({ mediaType, data }). Same order as chatJSON: DeepSeek's flash model
+ * (`deepseek-flash`; the retired `deepseek-v4-flash-vision-exp` id is still
+ * served by it), then Anthropic. Without any key: 503, the caller degrades.
+ * @returns {{ ok: true, text, model } | { ok: false, status }}
+ */
+export async function visionJSON({ system, user, image, maxTokens = 800, timeoutMs = 25_000, env = process.env }) {
+  if (!image?.data || !image?.mediaType) return { ok: false, status: 400 };
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), timeoutMs);
+  try {
+    const attempts = [];
+    if (env.DEEPSEEK_API_KEY) {
+      for (const model of [env.LLM_VISION_MODEL || 'deepseek-flash', 'deepseek-v4-flash-vision-exp']) {
+        attempts.push(() => callDeepSeek({
+          apiKey: env.DEEPSEEK_API_KEY, model, thinkingOff: true, system, user, image, maxTokens, signal: ac.signal,
+        }));
+      }
+    }
+    if (env.ANTHROPIC_API_KEY) {
+      attempts.push(() => callAnthropic({
+        apiKey: env.ANTHROPIC_API_KEY, model: env.AI_VISION_MODEL || env.AI_GRADER_MODEL || 'claude-sonnet-4-5-20250929',
+        system, user, image, maxTokens, signal: ac.signal,
+      }));
+    }
+    let last = { ok: false, status: 503 };
+    for (const attempt of attempts) {
+      try {
+        last = await attempt();
+      } catch (err) {
+        if (ac.signal.aborted || err?.name === 'TimeoutError' || err?.name === 'AbortError') return { ok: false, status: 504 };
+        console.error('[llm] vision transport', cut(err?.message || err));
+        last = { ok: false, status: 502 };
+      }
+      if (last.ok) return last;
+    }
+    return last;
+  } catch (err) {
+    if (err?.name === 'AbortError') return { ok: false, status: 504 };
+    console.error('[llm] vision transport', cut(err?.message || err));
+    return { ok: false, status: 502 };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 export function llmConfigured(env = process.env) {

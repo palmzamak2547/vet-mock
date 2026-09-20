@@ -8397,3 +8397,222 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     }
   }
 };
+
+// One entry per matching question of a subject that has a lecturer set:
+// the card shows the set (label, length, the diseases its bank names).
+export const MATCH_SETS_BY_SCOPE =
+{
+  "1-mid": {
+    "avian-medicine": [
+      {
+        "id": 206144,
+        "topic": "avian-cocci",
+        "topics": null,
+        "items": 5,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 206145,
+        "topic": "avian-rss",
+        "topics": null,
+        "items": 5,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 206151,
+        "topic": "avian-ibd",
+        "topics": null,
+        "items": 5,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 206155,
+        "topic": "avian-malaria",
+        "topics": null,
+        "items": 5,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 206158,
+        "topic": "avian-nd",
+        "topics": [
+          "avian-nd",
+          "avian-ib",
+          "avian-lt",
+          "avian-mpv",
+          "avian-pox"
+        ],
+        "items": 19,
+        "past": false,
+        "label": "ชุดจับคู่รวมคาบที่ 1"
+      },
+      {
+        "id": 206159,
+        "topic": "avian-cia",
+        "topics": [
+          "avian-cia",
+          "avian-ibd",
+          "avian-marek",
+          "avian-reo"
+        ],
+        "items": 16,
+        "past": false,
+        "label": "ชุดจับคู่รวมคาบที่ 5"
+      },
+      {
+        "id": 206160,
+        "topic": "avian-leuko",
+        "topics": [
+          "avian-leuko",
+          "avian-malaria",
+          "avian-cocci",
+          "avian-ne"
+        ],
+        "items": 12,
+        "past": false,
+        "label": "ชุดจับคู่รวมคาบที่ 6"
+      },
+      {
+        "id": 206161,
+        "topic": "avian-marek",
+        "topics": [
+          "avian-marek",
+          "avian-ibd",
+          "avian-cia",
+          "avian-pox",
+          "avian-reo"
+        ],
+        "items": 18,
+        "past": true,
+        "label": "ชุดจับคู่ข้อสอบเก่า ชุดที่ 1"
+      },
+      {
+        "id": 206162,
+        "topic": "avian-cocci",
+        "topics": [
+          "avian-cocci",
+          "avian-ne",
+          "avian-leuko",
+          "avian-malaria"
+        ],
+        "items": 14,
+        "past": true,
+        "label": "ชุดจับคู่ข้อสอบเก่า ชุดที่ 2"
+      },
+      {
+        "id": 109008,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109012,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109014,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 6,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109016,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 5,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109018,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109020,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      }
+    ]
+  },
+  "1-final": {
+    "avian-medicine": [
+      {
+        "id": 109008,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109010,
+        "topic": "avian-vaccine-prog",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109012,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109014,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 6,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109016,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 5,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109018,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      },
+      {
+        "id": 109020,
+        "topic": "avian-intro",
+        "topics": null,
+        "items": 4,
+        "past": false,
+        "label": null
+      }
+    ]
+  },
+  "2-mid": {},
+  "2-final": {}
+};
