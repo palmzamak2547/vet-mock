@@ -11,6 +11,7 @@ import { librarySubjectCounts } from '../lib/library.js';
 import { takeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet } from '../data/lecturer-sets.js';
+import { hasWrapUp } from '../data/exam-wrapups.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -32,7 +33,7 @@ const VCA_NOTES_MAP = {
 // that no other screen needs, so the topic screen's own chunk stays as it was.
 const LecturerSets = lazy(() => import('../components/LecturerSets.jsx'));
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
   const [shelfDocs, setShelfDocs] = useState(0);
@@ -195,6 +196,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // The paper split by lecturer, only where the class has been told how each
   // part is written and only while that paper is the one in scope.
   const showLecturers = Boolean(onStartLecturer && hasLecturerSet(subject, selectedYear, selectedPhase));
+  // The one-page wrap-up of this paper (exam-wrapups.js): first thing on the
+  // topics tab the week of the exam, above the lecturer block.
+  const showWrapUp = Boolean(onOpenWrapUp && hasWrapUp(subject, selectedYear, selectedPhase));
 
   // Only for the exam these cards were drawn for. A card that showed all year
   // would stop meaning "this is the one coming up".
@@ -450,6 +454,22 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       {/* The paper split by lecturer comes FIRST here, not on its own tab:
           the week of the exam a student opens this screen to practise in the
           format each lecturer set, and the topic grid below is the finer cut. */}
+      {showWrapUp && (
+        <section className="vmx-wrap-entry" aria-label="Wrap-up ก่อนสอบ">
+          <div className="vmx-wrap-entry-text">
+            <div className="vmx-wrap-entry-eyebrow">Wrap-up ก่อนสอบ</div>
+            <h3>
+              {subject === 'avian-medicine'
+                ? 'ทุกโรคที่เรียน คีย์เวิร์ดของโรค จุดที่อาจารย์เน้น และที่มีในข้อสอบเก่า'
+                : 'ทุกคาบที่เรียน กรอบคิดและคีย์เวิร์ด จุดที่อาจารย์เน้น และที่มีในข้อสอบเก่า'}
+            </h3>
+            <p>หน้าเดียวจบ อ่านคืนก่อนสอบหรือตอนว่าง ทุกบรรทัดอ้างคลิปบันทึกคาบ สไลด์ หรือข้อสอบเก่า</p>
+          </div>
+          <button type="button" className="vmx-wrap-entry-btn" onClick={() => onOpenWrapUp(subject, subjectMeta?.name)}>
+            เปิด wrap-up
+          </button>
+        </section>
+      )}
       {showLecturers && (
         <div className="vmx-lect-block">
           <div className="vmx-section-label">ข้อสอบกลางภาคแยกตามอาจารย์ผู้สอน</div>

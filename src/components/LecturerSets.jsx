@@ -78,9 +78,28 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
         window.open(url, '_blank', 'noopener');
         return;
       }
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`ดาวน์โหลดไม่สำเร็จ (${res.status})`);
-      saveBlob(await res.blob(), `${doc.title}.pdf`);
+      const name = `${doc.title}.pdf`;
+      const abs = new URL(url, window.location.href);
+      if (abs.origin === window.location.origin) {
+        // The library's own blob route: let the browser stream the file
+        // straight to disk with its own progress, instead of buffering the
+        // whole deck here first and only then handing it over.
+        abs.searchParams.set('dl', '1');
+        abs.searchParams.set('name', name);
+        const a = document.createElement('a');
+        a.href = abs.href;
+        a.download = name;
+        a.rel = 'noopener';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setDlNote('เริ่มดาวน์โหลดแล้ว ไฟล์จะอยู่ในรายการดาวน์โหลดของเบราว์เซอร์');
+        setTimeout(() => setDlNote((cur) => (cur.startsWith('เริ่มดาวน์โหลด') ? '' : cur)), 6000);
+      } else {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`ดาวน์โหลดไม่สำเร็จ (${res.status})`);
+        saveBlob(await res.blob(), name);
+      }
       recordRecentDoc(doc);
     } catch (err) {
       // The library's own messages are Thai (offline, no access); anything

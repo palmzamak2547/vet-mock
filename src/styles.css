@@ -2537,6 +2537,72 @@ html.dark .vmx-panic-scrim {
 .vmx-lect-reveal .vmx-reveal-toggle { margin-top: 0; }
 .vmx-lect-reveal-hint { font-size: 12px; line-height: 1.4; color: var(--clr-ink-soft); }
 .vmx-lect-and { font-size: 13px; color: var(--clr-ink-soft); }
+/* Wrap-up (WrapUpView.jsx): the whole paper on one page, the night before. */
+.vmx-wrap { max-width: 880px; margin: 0 auto; padding-bottom: 48px; }
+.vmx-wrap-empty { font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-wrap-hero { padding: 6px 0 14px; border-bottom: 1px solid var(--clr-border); margin-bottom: 14px; }
+.vmx-wrap-eyebrow { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-hero h1 { margin: 4px 0 8px; font-family: var(--vmx-display); font-size: clamp(26px, 4vw, 36px); line-height: 1.2; letter-spacing: 0; color: var(--clr-ink); text-wrap: balance; }
+.vmx-wrap-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.vmx-wrap-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; font-family: var(--vmx-mono); background: var(--clr-gold-soft); color: var(--clr-ink); }
+.vmx-wrap-intro { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: var(--clr-ink); max-width: 70ch; }
+.vmx-wrap-legend { margin: 0; font-size: 12px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-wrap-legend b { color: var(--clr-ink); font-weight: 700; }
+.vmx-wrap-index { position: sticky; top: 0; z-index: 2; display: flex; gap: 6px; overflow-x: auto; padding: 8px 0; margin: 0 0 12px; background: var(--clr-bg); scrollbar-width: thin; }
+.vmx-wrap-index a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font-size: 12px; text-decoration: none; white-space: nowrap; }
+.vmx-wrap-index a b { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); }
+.vmx-wrap-index a:hover { border-color: var(--clr-ink); }
+.vmx-wrap-group { margin: 0 0 22px; }
+.vmx-wrap-group-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 10px; }
+.vmx-wrap-group-head h2 { margin: 0; font-size: 17px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); }
+.vmx-wrap-group-note { flex: 1 0 100%; margin: 0; font-size: 12px; line-height: 1.45; color: var(--clr-ink-soft); }
+.vmx-wrap-item { scroll-margin-top: 56px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); padding: 14px 16px; margin: 0 0 10px; break-inside: avoid; }
+.vmx-wrap-item-head { display: flex; align-items: flex-start; gap: 12px; }
+.vmx-wrap-n { flex: 0 0 auto; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 999px; background: var(--clr-ink); color: var(--clr-bg); font-family: var(--vmx-mono); font-size: 12px; font-weight: 700; }
+.vmx-wrap-title { flex: 1 1 auto; min-width: 0; }
+.vmx-wrap-title h3 { margin: 2px 0; font-size: 17px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); }
+.vmx-wrap-th { font-size: 13px; color: var(--clr-ink-soft); }
+/* The causative agent is a Thai sentence with Latin names in it, not a code
+   token: monospace broke it into a ragged column with Thai falling back to
+   another face mid-line. */
+.vmx-wrap-agent { margin-top: 4px; font-size: 12.5px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-wrap-cover { flex: 0 0 auto; width: 84px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r-sm); border: 1px solid var(--clr-border); }
+.vmx-wrap-keys { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 0; }
+.vmx-wrap-key { display: inline-flex; padding: 3px 9px; border-radius: 999px; background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 12px; font-weight: 600; line-height: 1.3; }
+.vmx-wrap-mode { display: inline-flex; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin: 0 0 10px; }
+.vmx-wrap-mode button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 12px; font-weight: 600; padding: 5px 12px; cursor: pointer; }
+.vmx-wrap-mode button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
+.vmx-wrap-mode button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
+.vmx-wrap-keylist { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: wrapkey; display: grid; gap: 4px; }
+.vmx-wrap-keylist li { counter-increment: wrapkey; position: relative; padding: 6px 10px 6px 34px; border-radius: var(--r-sm); background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 13px; line-height: 1.5; }
+.vmx-wrap-keylist li::before { content: counter(wrapkey); position: absolute; left: 10px; top: 6px; font-family: var(--vmx-mono); font-size: 11px; font-weight: 700; color: var(--clr-ink-soft); }
+/* The lecturer numbered the list themselves; ours would sit beside theirs. */
+.vmx-wrap-keylist.is-self-numbered li { padding-left: 10px; }
+.vmx-wrap-keylist.is-self-numbered li::before { content: none; }
+.vmx-wrap-cols { display: grid; grid-template-columns: 1fr; gap: 10px 18px; margin-top: 12px; }
+@media (min-width: 720px) { .vmx-wrap-cols { grid-template-columns: 1fr 1fr; } }
+.vmx-wrap-list-label { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--clr-ink-soft); margin-bottom: 4px; }
+.vmx-wrap-list ul { margin: 0; padding-left: 18px; }
+.vmx-wrap-list li { font-size: 13.5px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 4px; }
+.vmx-wrap-src { display: block; font-family: var(--vmx-mono); font-size: 10.5px; color: var(--clr-ink-soft); }
+.vmx-wrap-none { margin: 0; font-size: 13px; line-height: 1.5; color: var(--clr-ink-soft); font-style: italic; }
+.vmx-wrap-pitfall { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--clr-gold-soft); background: var(--clr-surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 13px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-wrap-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+.vmx-wrap-foot { margin-top: 8px; font-size: 12px; line-height: 1.5; color: var(--clr-ink-soft); }
+/* Entry card on the topic screen, and the strip under the countdown on Home. */
+.vmx-wrap-entry { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin: 0 0 18px; padding: 14px 16px; border-radius: var(--r-lg); border: 1px solid var(--clr-border); background: var(--clr-surface); }
+.vmx-wrap-entry-text { flex: 1 1 320px; min-width: 0; }
+.vmx-wrap-entry-eyebrow { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-entry h3 { margin: 3px 0 4px; font-size: 16px; line-height: 1.25; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); text-wrap: balance; }
+.vmx-wrap-entry p { margin: 0; font-size: 12px; line-height: 1.45; color: var(--clr-ink-soft); }
+.vmx-wrap-entry-btn { appearance: none; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); font: inherit; font-weight: 700; font-size: 13px; padding: 8px 16px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+.vmx-wrap-entry-btn:hover { opacity: .92; }
+.vmx-wrap-entry-btn:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-wrap-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: -8px 0 18px; }
+.vmx-wrap-strip-label { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-strip-btn { appearance: none; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
+.vmx-wrap-strip-btn:hover { border-color: var(--clr-ink); }
+@media print { .vmx-wrap-index, .vmx-wrap-actions { display: none !important; } .vmx-wrap-item { break-inside: avoid; } }
 /* The pad keeps the page still under a pen or a finger. */
 .vmx-hand-pad { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 /* AnswerReveal: when a matching set or a written answer shows เฉลย. */

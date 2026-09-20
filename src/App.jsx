@@ -146,6 +146,7 @@ const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
 // full CUVETSMO imaging workstation. Keep it lazy: the Cornerstone/DICOM
 // stack is only downloaded when a learner opens #lab.
 const LabView = lazy(() => import('./views/LabView.jsx'));
+const WrapUpView = lazy(() => import('./views/WrapUpView.jsx'));
 const AtlasView = lazy(() => import('./views/AtlasView.jsx'));
 
 // PinboardView — personal pin grid (Qs / summaries / flashcards /
@@ -774,6 +775,9 @@ export default function App() {
   // context separate from the last exam subject so global Videos never
   // inherits a stale filter.
   const [videoSubject, setVideoSubject] = useState(null);
+  // The wrap-up page's subject and display name (exam-wrapups.js). Set by
+  // the topic screen's card or Home's strip right before the view opens.
+  const [wrapup, setWrapup] = useState({ subject: null, name: '' });
   const [practiceMode, setPracticeModeRaw] = useState('all');
   // Choosing a curated pool (bookmarks / weak / wrong) is a whole-library
   // intent, and those pools ignore the subject filter entirely. But a subject
@@ -2484,7 +2488,7 @@ export default function App() {
   useEffect(() => {
     // The topic screen is an origin too: a lecturer's cover hands the deck
     // to the reader, and the view flips a render later than the payload.
-    if (view !== 'pdf-annotate' && view !== 'library' && view !== 'topic-select') {
+    if (view !== 'pdf-annotate' && view !== 'library' && view !== 'topic-select' && view !== 'wrapup') {
       if (libraryDoc) setLibraryDoc(null);
       if (pdfLibraryReturnPath) setPdfLibraryReturnPath(null);
     }
@@ -2494,9 +2498,11 @@ export default function App() {
     // Local files and shelf documents use the same reader. Explicitly clear
     // the remote payload so opening a personal file never reopens an old deck.
     setLibraryDoc(doc);
-    const fromTopic = view === 'topic-select';
-    setPdfReturnView(fromTopic ? 'topic-select' : 'library');
-    setPdfLibraryReturnPath(view === 'library' || fromTopic
+    // The topic screen and the wrap-up both open decks; the reader's back
+    // returns to whichever it was.
+    const origin = view === 'topic-select' || view === 'wrapup' ? view : 'library';
+    setPdfReturnView(origin);
+    setPdfLibraryReturnPath(view === 'library' || origin !== 'library'
       ? window.location.pathname + window.location.search
       : '/app/library');
     setView('pdf-annotate');
@@ -2781,6 +2787,14 @@ export default function App() {
       timePerQ: category === 'tf' ? 45 : 60,
     });
   };
+  // The pre-exam wrap-up of one subject (WrapUpView). The subject is set so
+  // that "ฝึกหัวข้อนี้" and the reader's way back land on that subject.
+  const openWrapUp = (subjectId, name = '') => {
+    if (!subjectId) return;
+    setWrapup({ subject: subjectId, name });
+    setSubject(subjectId);
+    setView('wrapup');
+  };
   // Pick a real subject from the landing → the exact sequence a subject
   // card uses in HomeView (reset practiceMode, set subject, topic-select).
   const landingPickSubject = (year, subjectId) => {
@@ -2961,17 +2975,27 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
+{view === 'wrapup' && (
+                <WrapUpView
+                  subject={wrapup.subject || subject}
+                  subjectName={wrapup.name}
+                  goBack={() => setView('topic-select')}
+                  onStartTopic={startLecturerPractice}
+                  onOpenDoc={openLibraryReader}
+                  selectedPhase={selectedPhase}
+                />
+              )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
@@ -3010,7 +3034,7 @@ export default function App() {
                   goHome={goHome}
                   initialDoc={libraryDoc}
                   onExit={libraryDoc || pdfLibraryReturnPath ? returnToLibrary : null}
-                  exitLabel={pdfReturnView === 'topic-select' ? 'กลับหน้าหัวข้อ' : 'กลับคลังเอกสาร'}
+                  exitLabel={pdfReturnView === 'topic-select' ? 'กลับหน้าหัวข้อ' : pdfReturnView === 'wrapup' ? 'กลับหน้า wrap-up' : 'กลับคลังเอกสาร'}
                   onOpenLibrary={returnToLibrary}
                 />
               )}

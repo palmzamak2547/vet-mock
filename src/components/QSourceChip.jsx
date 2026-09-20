@@ -20,6 +20,7 @@
 
 import { useState } from 'react';
 import { originPaperNote } from '../lib/exam-scope.js';
+import { humanSource } from '../lib/source-label.js';
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl } from '../lib/vca-library.js';
 
@@ -131,7 +132,9 @@ export default function QSourceChip({ q, store }) {
             <Row label="Source"   value={q.source} />
           )}
           {q.verified && (
-            <Row label="Verified" value={q.verified} icon="✓" iconColor="var(--clr-sage)" />
+            // Rendered through humanSource: the field stores "7XyI0SjnuBA
+            // [12:34]" and the student reads "คาบ 1 (4 ส.ค.) นาที 12:34".
+            <Row label="Verified" value={humanSource(q.verified)} icon="✓" iconColor="var(--clr-sage)" />
           )}
           {sourceDocumentUrl && (
             <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer"

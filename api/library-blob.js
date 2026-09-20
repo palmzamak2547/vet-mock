@@ -32,6 +32,9 @@ export function contentHeaders(payload, fallback) {
 // RFC 5987 value: encodeURIComponent leaves !'()* alone, and a quote inside
 // filename*=UTF-8''... ends the value early.
 const rfc5987 = (s) => encodeURIComponent(s).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+// The plain filename= fallback for clients that ignore filename*: ASCII only,
+// no quotes.
+const asciiName = (s) => (String(s).replace(/[^\x20-\x7E]/g, '_').replace(/"/g, '').trim() || 'document');
 
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
@@ -102,7 +105,14 @@ export default async function handler(req, res) {
   // Inline: the shelf opens decks in a tab. `filename` keeps a sensible
   // save-as name — the key's basename is the slugified title.
   const basename = payload.k.split('/').pop() || 'document';
-  res.setHeader('Content-Disposition', `${content.disposition}; filename*=UTF-8''${rfc5987(basename)}`);
+  // ?dl=1 asks for a download (the deck cover's download glyph) and may name
+  // the file with ?name= — one line, 150 chars, no path characters. Neither
+  // is signed: they change how the bytes are labelled, never which bytes.
+  const wantDownload = url.searchParams.get('dl') === '1';
+  const askedName = String(url.searchParams.get('name') || '').replace(/[\r\n"\\/]+/g, ' ').trim().slice(0, 150);
+  const saveAs = wantDownload && askedName ? askedName : basename;
+  const disposition = wantDownload ? 'attachment' : content.disposition;
+  res.setHeader('Content-Disposition', `${disposition}; filename="${asciiName(saveAs)}"; filename*=UTF-8''${rfc5987(saveAs)}`);
   // Private but cacheable for the token's own lifetime — the URL is stable
   // for the whole mint window, so a re-open is a browser cache hit.
   res.setHeader('Cache-Control', `private, max-age=${cacheSeconds}`);

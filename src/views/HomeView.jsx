@@ -7,7 +7,7 @@ import { QB, isQBYearLoaded } from '../data/questions.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
-import { SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
+import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
@@ -41,7 +41,9 @@ const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 // out in Palm's friend's review.
 import NextActionCard from '../components/NextActionCard.jsx';
 import ExamCountdown from '../components/ExamCountdown.jsx';
-import { examWindowFor } from '../lib/exam-countdown.js';
+import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
+import { examWindowFor, examEndMs } from '../lib/exam-countdown.js';
+import { scopeForPhase } from '../lib/exam-scope.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
@@ -81,7 +83,7 @@ const shortThaiDate = (dateStr) => {
 
 const DOW_TH = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
 
-export default function HomeView({ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
   // carry none, so the countdown banner hides itself when getNextExam
@@ -121,6 +123,14 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
   const yearSubjects = useMemo(() => (phaseMeta
     ? allYearSubjects.filter((s) => s.semester === phaseMeta.semester || s.semester === 0)
     : allYearSubjects), [allYearSubjects, phaseMeta]);
+  // Subjects with a one-page wrap-up for the paper in scope (exam-wrapups.js),
+  // minus the ones already sat. Deliberately NOT memoised: the tick below
+  // re-renders Home every minute or five, and that is what makes the strip
+  // disappear on its own when a paper ends. The list is a handful of items.
+  const wrapSubjects = yearSubjects.filter((s) => (
+    hasWrapUp(s.id, selectedYear, selectedPhase)
+    && wrapUpStillAhead(s.id, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(selectedPhase))
+  ));
   // The current-term sets follow the phase picked at the top of the page —
   // the one control the app already had, the same one the subject grid and
   // the exam countdown obey. No phase = the whole semester. A course with
@@ -739,6 +749,16 @@ export default function HomeView({ setView, setMode, setSubject, setTopic, setPr
           subjects={yearSubjects}
           onOpenSchedule={() => setView('schedule')}
         />
+      )}
+      {examWindow && onOpenWrapUp && wrapSubjects.length > 0 && (
+        <div className="vmx-wrap-strip" role="group" aria-label="Wrap-up ก่อนสอบ">
+          <span className="vmx-wrap-strip-label">Wrap-up ก่อนสอบ</span>
+          {wrapSubjects.map((s) => (
+            <button key={s.id} type="button" className="vmx-wrap-strip-btn" onClick={() => onOpenWrapUp(s.id, s.name)}>
+              {s.name}
+            </button>
+          ))}
+        </div>
       )}
 
       {bannerWinner === 'wrapped' && (
