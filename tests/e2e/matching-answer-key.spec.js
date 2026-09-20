@@ -22,12 +22,17 @@ test('a wrong pair shows what the right pairing was', async ({ page, context }) 
   await expect(page.locator('.vmx-subject-grid')).toBeVisible({ timeout: 20000 });
   await page.locator('.vmx-subject-card', { hasText: 'One Health' }).first().click();
   await page.getByRole('button', { name: /ฝึกข้อสอบ Transdisciplinary collaboration/ }).first().click();
+  // The topic holds more questions than the default count now (written ones
+  // joined the multiple choice and the matching set), and a shorter random
+  // draw can leave the matching question out. Ask for all of them.
+  const countInput = page.locator('.vmx-config-panel input[type="number"]').first();
+  if (await countInput.count()) await countInput.fill('40');
   await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
   await expect(page.getByRole('heading', { level: 2 })).toBeVisible({ timeout: 20000 });
 
   // Walk to the matching question in this small set.
   let rows = 0;
-  for (let i = 0; i < 12; i += 1) {
+  for (let i = 0; i < 40; i += 1) {
     rows = await page.locator('.vmx-match-select-row').count();
     if (rows > 0) break;
     const next = page.getByRole('button', { name: /^ข้อถัดไป/ });
