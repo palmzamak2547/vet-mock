@@ -99,6 +99,9 @@ const byTopicScope = blank();
 // Written to its own module: the topic screen imports it, the home screen
 // does not, and the boot chunk stays the size it is.
 const byTopicKindScope = blank();
+// The same split over past-paper questions only, for the card's
+// "ฝึกเฉพาะข้อสอบเก่า" button.
+const byPastTopicKindScope = blank();
 const kindOf = (q) => (q.type === 'tf' ? 'tf'
   : q.type === 'match' ? 'match'
     : (q.type === 'short' || q.type === 'essay' || q.type === 'fill') ? 'writing' : 'mcq');
@@ -151,7 +154,24 @@ for (const q of deliverableQuestions) {
       byTopicKindScope[phase][subj] ||= {};
       const kinds = (byTopicKindScope[phase][subj][topic] ||= { mcq: 0, tf: 0, match: 0, writing: 0 });
       kinds[kindOf(q)] += 1;
-      if (isPastPaperQuestion(q)) incrementNested(byPastPaperTopicScope[phase], subj, topic);
+      // A printed matching set keys its items to organisms from several
+      // lectures. It is counted once, under its own topic, above; here every
+      // other topic it names gets a `_matchCovers` mark so a deck cover can
+      // say the set includes that disease. LecturerSets adds the mark to a
+      // deck's count and leaves it out of the lecturer's whole-part sum.
+      if (q.type === 'match' && Array.isArray(q.topics)) {
+        for (const extra of q.topics) {
+          if (extra === topic || extra === q.topic) continue;
+          const row = (byTopicKindScope[phase][subj][extra] ||= { mcq: 0, tf: 0, match: 0, writing: 0 });
+          row._matchCovers = (row._matchCovers || 0) + 1;
+        }
+      }
+      if (isPastPaperQuestion(q)) {
+        incrementNested(byPastPaperTopicScope[phase], subj, topic);
+        byPastTopicKindScope[phase][subj] ||= {};
+        const pastKinds = (byPastTopicKindScope[phase][subj][topic] ||= { mcq: 0, tf: 0, match: 0, writing: 0 });
+        pastKinds[kindOf(q)] += 1;
+      }
     }
     if (panicRank(q) < 2) {
       byPanicSubject[subj] = (byPanicSubject[subj] || 0) + 1;
@@ -357,6 +377,11 @@ console.log('  Subjects:', Object.keys(bySubject).length, '· Years:', Object.ke
     'export const Q_KIND_COUNTS_QB_TOTAL = ' + deliverableQuestions.length + ';',
     'export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =',
     JSON.stringify(byTopicKindScope, null, 2) + ';',
+    '',
+    '// The same table over past-paper questions only (sourceType past-paper),',
+    '// behind the "ฝึกเฉพาะข้อสอบเก่า" button on a lecturer card.',
+    'export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =',
+    JSON.stringify(byPastTopicKindScope, null, 2) + ';',
     '',
   ].join('\n');
   fs.writeFileSync(kindOut, body, 'utf8');

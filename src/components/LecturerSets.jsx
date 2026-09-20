@@ -14,7 +14,7 @@
 // ============================================================
 import { LECTURER_SETS, LECTURER_SET_SCOPE, FORMAT_LABEL, lecturerTopics } from '../data/lecturer-sets.js';
 import { LECTURE_COVERS } from '../data/art.js';
-import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
+import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function thaiDate(iso) {
@@ -28,11 +28,22 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
 
   const labelOf = (topicId) => topics.find((t) => t.id === topicId)?.label || topicId;
   const kindTable = Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE[selectedPhase]?.[subject] || {};
-  const countOf = (topicIds, kind) => topicIds.reduce((sum, id) => {
+  // `_matchCovers` marks a matching set filed under another topic whose bank
+  // names this one. A deck cover counts it (the set does include that
+  // disease); the lecturer's whole-part button does not, or one set spanning
+  // five decks would be counted five times.
+  const countOf = (topicIds, kind, { covers = false } = {}) => topicIds.reduce((sum, id) => {
     const row = kindTable[id] || {};
-    return sum + (kind === 'all' ? Object.values(row).reduce((a, b) => a + b, 0) : (row[kind] || 0));
+    if (kind === 'all') return sum + Object.entries(row).reduce((a, [k, v]) => (k.startsWith('_') ? a : a + v), 0);
+    return sum + (row[kind] || 0) + (covers && kind === 'match' ? (row._matchCovers || 0) : 0);
   }, 0);
   const covers = LECTURE_COVERS[subject] || {};
+  // Past papers only, for the third button. Counts sum the lecturer's own
+  // topics; the pool would also admit a set filed under another topic that
+  // names one of these diseases, but such a set's home topic is the same
+  // lecturer's today, so the number and the session agree.
+  const pastTable = Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE[selectedPhase]?.[subject] || {};
+  const pastCountOf = (topicIds, kind) => topicIds.reduce((sum, id) => sum + ((pastTable[id] || {})[kind] || 0), 0);
 
   return (
     <div className="vmx-lect-list">
@@ -43,11 +54,15 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
         const all = lecturerTopics(lec);
         const inFormat = countOf(all, lec.format);
         const inAny = countOf(all, 'all');
+        const pastInFormat = pastCountOf(all, lec.format);
         const formatLabel = FORMAT_LABEL[lec.format] || lec.format;
+        // A matching question is a whole printed set (one answer list, the
+        // items down the page), so it is counted in ชุด, not ข้อ.
+        const unit = lec.format === 'match' ? 'ชุด' : 'ข้อ';
         const wholeCategory = inFormat > 0 ? lec.format : 'all';
         const wholeCount = inFormat > 0 ? inFormat : inAny;
         const wholeLabel = inFormat > 0
-          ? `ฝึกแบบ${formatLabel}ทุกหัวข้อของอาจารย์ (${wholeCount} ข้อ)`
+          ? `ฝึกแบบ${formatLabel}ทุกหัวข้อของอาจารย์ (${wholeCount} ${unit})`
           : `ยังไม่มีข้อแบบ${formatLabel} ฝึกรวมทุกประเภท (${wholeCount} ข้อ)`;
         return (
           <article key={lec.id} className="vmx-lect" aria-label={lec.name}>
@@ -70,12 +85,12 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
               {lec.sessions.map((s) => s.decks.map((deck) => {
                 const art = covers[deck.cover];
                 const title = deck.title || labelOf(deck.topics[0]);
-                const n = countOf(deck.topics, lec.format);
+                const n = countOf(deck.topics, lec.format, { covers: true });
                 const nAll = countOf(deck.topics, 'all');
                 const usable = n > 0 ? lec.format : 'all';
                 const shown = n > 0 ? n : nAll;
                 const countText = n > 0
-                  ? `${formatLabel} ${n} ข้อ`
+                  ? `${formatLabel} ${n} ${unit}`
                   : (nAll > 0 ? `ยังไม่มีข้อแบบ${formatLabel} (รวม ${nAll} ข้อ)` : 'ยังไม่มีข้อสอบ');
                 return (
                   <button
@@ -112,6 +127,15 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
                   onClick={() => onStart({ subjectId: subject, topics: all, questionCategory: lec.format, numQuestions: lec.count })}
                 >
                   จำลองชุด {lec.count} ข้อ
+                </button>
+              )}
+              {pastInFormat > 0 && (
+                <button
+                  type="button"
+                  className="vmx-lect-btn"
+                  onClick={() => onStart({ subjectId: subject, topics: all, questionCategory: lec.format, pastPaperOnly: true })}
+                >
+                  ฝึกเฉพาะข้อสอบเก่า ({pastInFormat} {unit})
                 </button>
               )}
             </div>

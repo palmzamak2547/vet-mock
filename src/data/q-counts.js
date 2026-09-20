@@ -10,13 +10,13 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 5812;
-export const QB_SOURCE_TOTAL = 5877;
+export const QB_TOTAL = 5800;
+export const QB_SOURCE_TOTAL = 5865;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 346,
-  'avian-medicine': 531,
+  'avian-medicine': 519,
   'biochem-1': 272,
   'cliapprum': 136,
   'com1': 31,
@@ -66,7 +66,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 346,
-  'avian-medicine': 531,
+  'avian-medicine': 519,
   'biochem-1': 272,
   'cliapprum': 134,
   'com1': 31,
@@ -116,7 +116,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 // back to the whole subject.
 export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 174,
-  'avian-medicine': 163,
+  'avian-medicine': 158,
   'biochem-1': 272,
   'cliapprum': 8,
   'com1': 31,
@@ -161,7 +161,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
 export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   midterm: {
     'aquatic-clinic': 95,
-    'avian-medicine': 157,
+    'avian-medicine': 152,
     'biochem-1': 272,
     'cliapprum': 8,
     'com1': 4,
@@ -241,7 +241,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
 export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   '1-mid': {
     'aquatic-clinic': 216,
-    'avian-medicine': 507,
+    'avian-medicine': 495,
     'com1': 4,
     'com2': 14,
     'equine-medicine': 286,
@@ -335,7 +335,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 2459,
+    5: 2447,
   },
   '1-final': {
     2: 104,
@@ -382,18 +382,18 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'avian-coryza': 18,
       'avian-egg-breakout': 1,
       'avian-fowl-cholera': 17,
-      'avian-ib': 20,
-      'avian-ibd': 17,
+      'avian-ib': 19,
+      'avian-ibd': 15,
       'avian-intro': 84,
-      'avian-leuko': 13,
+      'avian-leuko': 11,
       'avian-lt': 16,
       'avian-malaria': 10,
-      'avian-marek': 23,
-      'avian-mpv': 14,
+      'avian-marek': 20,
+      'avian-mpv': 13,
       'avian-myco': 34,
       'avian-nd': 24,
-      'avian-ne': 13,
-      'avian-pox': 19,
+      'avian-ne': 11,
+      'avian-pox': 18,
       'avian-reo': 13,
       'avian-rss': 10,
       'avian-salmonella': 23,
@@ -1402,12 +1402,11 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'avian-cocci': 1,
       'avian-coli': 9,
       'avian-fowl-cholera': 3,
-      'avian-ibd': 3,
+      'avian-ibd': 2,
       'avian-intro': 1,
-      'avian-leuko': 1,
-      'avian-marek': 4,
+      'avian-marek': 2,
       'avian-myco': 10,
-      'avian-ne': 2,
+      'avian-ne': 1,
       'avian-salmonella': 1,
     },
     'com1': {
@@ -2036,7 +2035,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 3232,
+  5: 3220,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2048,7 +2047,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 3216,
+  5: 3204,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2083,18 +2082,18 @@ export const Q_COUNTS_BY_TOPIC = {
     "avian-egg-breakout": 1,
     "avian-fowl-cholera": 17,
     "avian-goose-parvo": 1,
-    "avian-ib": 20,
-    "avian-ibd": 17,
+    "avian-ib": 19,
+    "avian-ibd": 15,
     "avian-intro": 84,
-    "avian-leuko": 13,
+    "avian-leuko": 11,
     "avian-lt": 16,
     "avian-malaria": 10,
-    "avian-marek": 23,
-    "avian-mpv": 14,
+    "avian-marek": 20,
+    "avian-mpv": 13,
     "avian-myco": 34,
     "avian-nd": 24,
-    "avian-ne": 13,
-    "avian-pox": 19,
+    "avian-ne": 11,
+    "avian-pox": 18,
     "avian-reo": 13,
     "avian-rss": 10,
     "avian-salmonella": 23,
@@ -2724,12 +2723,11 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "avian-cocci": 1,
     "avian-coli": 9,
     "avian-fowl-cholera": 3,
-    "avian-ibd": 3,
+    "avian-ibd": 2,
     "avian-intro": 1,
-    "avian-leuko": 1,
-    "avian-marek": 4,
+    "avian-marek": 2,
     "avian-myco": 10,
-    "avian-ne": 2,
+    "avian-ne": 1,
     "avian-salmonella": 1,
   },
   "biochem-1": {
@@ -3177,4 +3175,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-19T19:53:05.818Z
+// Built: 2026-09-20T02:56:09.083Z

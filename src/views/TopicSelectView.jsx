@@ -258,35 +258,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         >
           สื่อเรียนและโหมดสอบ
         </button>
-        {showLecturers && (
-          <button
-            type="button"
-            role="tab"
-            id="vmx-topic-tab-lecturers"
-            aria-controls="vmx-topic-panel-lecturers"
-            aria-selected={activeSection === 'lecturers'}
-            className={activeSection === 'lecturers' ? 'active' : ''}
-            onClick={() => setActiveSection('lecturers')}
-          >
-            แยกตามอาจารย์
-          </button>
-        )}
       </div>
-
-      {activeSection === 'lecturers' && showLecturers && (
-      <section id="vmx-topic-panel-lecturers" role="tabpanel" aria-labelledby="vmx-topic-tab-lecturers">
-        <div className="vmx-section-label">ข้อสอบกลางภาคแยกตามอาจารย์ผู้สอน</div>
-        <Suspense fallback={<div className="vmx-lect-intro">กำลังโหลด</div>}>
-          <LecturerSets
-            subject={subject}
-            topics={topics}
-            selectedPhase={selectedPhase}
-            onStart={onStartLecturer}
-            onOpenInstructor={openInstructorFor}
-          />
-        </Suspense>
-      </section>
-      )}
 
       {activeSection === 'resources' && (
       <section id="vmx-topic-panel-resources" role="tabpanel" aria-labelledby="vmx-topic-tab-resources">
@@ -475,6 +447,23 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
 
       {activeSection === 'topics' && (
       <section id="vmx-topic-panel-topics" role="tabpanel" aria-labelledby="vmx-topic-tab-topics">
+      {/* The paper split by lecturer comes FIRST here, not on its own tab:
+          the week of the exam a student opens this screen to practise in the
+          format each lecturer set, and the topic grid below is the finer cut. */}
+      {showLecturers && (
+        <div className="vmx-lect-block">
+          <div className="vmx-section-label">ข้อสอบกลางภาคแยกตามอาจารย์ผู้สอน</div>
+          <Suspense fallback={<div className="vmx-lect-intro">กำลังโหลด</div>}>
+            <LecturerSets
+              subject={subject}
+              topics={topics}
+              selectedPhase={selectedPhase}
+              onStart={onStartLecturer}
+              onOpenInstructor={openInstructorFor}
+            />
+          </Suspense>
+        </div>
+      )}
       <div className="vmx-section-label">เลือกหัวข้อที่จะฝึก</div>
       <div className="vmx-topic-grid">
         {/* Panic Mode takes the first cell, immediately before รวมทุกหัวข้อ and

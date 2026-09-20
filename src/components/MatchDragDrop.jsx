@@ -40,7 +40,16 @@ function shuffledRights(q) {
 function strip(s) { return String(s || '').replace(/\*\*/g, '').replace(/\*/g, '').trim(); }
 
 export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, revealAnswer }) {
-  const rightPool = useMemo(() => shuffledRights(currentQ), [currentQ.id, currentQ.subject, currentQ.pairs, currentQ.distractors, currentQ.shuffle]);
+  // A printed matching set: `bank` is the answer list in printed order (A, B,
+  // C ...) and the items reuse those letters — seven viruses across eighteen
+  // statements. So the pool is the bank itself, unshuffled, and a letter is
+  // never "used up". Without `bank` this is the ordinary one-to-one match.
+  const bank = Array.isArray(currentQ.bank) && currentQ.bank.length ? currentQ.bank : null;
+  const rightPool = useMemo(
+    () => (bank ? bank : shuffledRights(currentQ)),
+    [bank, currentQ.id, currentQ.subject, currentQ.pairs, currentQ.distractors, currentQ.shuffle],
+  );
+  const letterOf = (r) => (bank ? String.fromCharCode(65 + bank.indexOf(r)) : '');
 
   const ans = currentAnswer && typeof currentAnswer === 'object' ? currentAnswer : {};
   const getVal = (i) => (Array.isArray(ans) ? ans[i] : ans[i]) || '';
@@ -70,8 +79,9 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
       }
     }
     
-    // Remove the rightVal from other slots if it's already used
-    if (rightVal) {
+    // Remove the rightVal from other slots if it's already used — not in a
+    // bank set, where the same letter answers several items.
+    if (rightVal && !bank) {
       for (const k of Object.keys(obj)) {
         if (obj[k] === rightVal && Number(k) !== leftIdx) {
           delete obj[k];
@@ -86,7 +96,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
     }
     
     answerCurrent(obj);
-  }, [ans, answerCurrent]);
+  }, [ans, answerCurrent, bank]);
 
   // Revealing the answer disables every select at once. Whichever one the
   // keyboard user was standing on stops being focusable, so the browser drops
@@ -110,7 +120,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
       <div className="vmx-match-dnd-header">
         <div className="vmx-match-dnd-status">
           <span className="vmx-match-dnd-hint" style={{ fontSize: '15px' }}>
-            💡 <strong>เลือกคำตอบ</strong> จากเมนูตัวเลือกในแต่ละข้อ ({filledCount}/{totalSlots} ข้อ)
+            💡 <strong>เลือกคำตอบ</strong> {bank ? 'ตามตัวอักษรของรายการด้านล่างในแต่ละข้อ ตัวเลือกใช้ซ้ำได้' : 'จากเมนูตัวเลือกในแต่ละข้อ'} ({filledCount}/{totalSlots} ข้อ)
           </span>
         </div>
         {filledCount > 0 && !isRevealed && (
@@ -124,6 +134,14 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
           </button>
         )}
       </div>
+
+      {bank && (
+        <ol className="vmx-match-bank" aria-label="รายการคำตอบ">
+          {bank.map((r, k) => (
+            <li key={k}><span className="vmx-match-bank-letter">{String.fromCharCode(65 + k)}.</span> <RichText text={r} /></li>
+          ))}
+        </ol>
+      )}
 
       <div className="vmx-match-select-grid">
         {currentQ.pairs.map((pair, i) => {
@@ -154,10 +172,11 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                 >
                   <option value="">— เลือกคำตอบ —</option>
                   {rightPool.map((r, j) => {
-                    const isUsedElsewhere = usedRights.has(r) && r !== val;
+                    const isUsedElsewhere = !bank && usedRights.has(r) && r !== val;
+                    const label = bank ? `${letterOf(r)}. ${strip(r)}` : strip(r);
                     return (
                       <option key={j} value={r} disabled={isUsedElsewhere}>
-                        {isUsedElsewhere ? `[ใช้แล้ว] ${strip(r)}` : strip(r)}
+                        {isUsedElsewhere ? `[ใช้แล้ว] ${label}` : label}
                       </option>
                     );
                   })}
@@ -179,7 +198,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                 {isRevealed && !isCorrect && (
                   <div className="vmx-match-answer">
                     <span className="vmx-match-answer-label">เฉลย</span>
-                    <span className="vmx-match-answer-text">{strip(pair.right)}</span>
+                    <span className="vmx-match-answer-text">{bank ? `${letterOf(pair.right)}. ` : ''}{strip(pair.right)}</span>
                   </div>
                 )}
               </div>

@@ -9,9 +9,9 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **5,812** |
+| **Questions ready for learners** | **5,800** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 65 |
-| Total questions in source banks | 5,877 |
+| Total questions in source banks | 5,865 |
 | Question banks (files) | 90 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
@@ -19,9 +19,9 @@ Generated from the working tree at the time of the run.
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 3,232 |
+| — year 5 | 3,220 |
 
-Consistency: source banks **5877**, learner-ready **5812**, fail-closed **65**, registry sums to **5877**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **5865**, learner-ready **5800**, fail-closed **65**, registry sums to **5865**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 

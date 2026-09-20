@@ -5377,3 +5377,21 @@ body.vmx-reading .vmx-pdf-body {
   .vmx-lect-strip { margin: 10px -14px 0; padding: 4px 14px 8px; }
   .vmx-lect-cover { flex-basis: 204px; }
 }
+.vmx-lect-block { margin-bottom: 22px; }
+
+/* Printed matching set: the answer list stays in view while the student works
+   down eighteen items, the way the key sits at the top of the paper. */
+.vmx-match-bank {
+  position: sticky; top: 0; z-index: 2;
+  margin: 8px 0 12px; padding: 8px 12px;
+  list-style: none;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2px 14px;
+  border: 1px solid var(--clr-border); border-radius: var(--r-lg);
+  background: var(--clr-surface); box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+  font-size: 13px; line-height: 1.45;
+}
+.vmx-match-bank li { display: flex; gap: 6px; align-items: baseline; min-width: 0; }
+.vmx-match-bank-letter { font-family: var(--vmx-mono); font-weight: 700; flex: 0 0 auto; }
+@media (max-width: 600px) {
+  .vmx-match-bank { grid-template-columns: 1fr 1fr; font-size: 12px; gap: 1px 10px; }
+}

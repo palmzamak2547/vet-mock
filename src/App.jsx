@@ -61,7 +61,7 @@ import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import { SEMESTER } from './data/semester.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from './lib/question-prediction.js';
 import { scopeForPhase, questionInScope } from './lib/exam-scope.js';
-import { panicPool } from './lib/question-metadata.js';
+import { panicPool, isPastPaperQuestion } from './lib/question-metadata.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -369,6 +369,7 @@ function buildExamPool({
   selectedPhase = null,
   excludeIds = null,
   onlyTopics = null,
+  onlyPastPaper = false,
   bookmarks = [],
   weakQuestions = [],
   history = [],
@@ -476,7 +477,13 @@ function buildExamPool({
     // is a Set of topic ids rather than a second topic argument. It runs after
     // the single-topic branch above and narrows only; the card that opened
     // the session printed a count from exactly these topics.
-    if (onlyTopics && onlyTopics.size) pool = pool.filter((q) => onlyTopics.has(q.topic));
+    if (onlyTopics && onlyTopics.size) {
+      // A printed matching set belongs to every disease its bank names.
+      pool = pool.filter((q) => onlyTopics.has(q.topic)
+        || (Array.isArray(q.topics) && q.topics.some((t) => onlyTopics.has(t))));
+    }
+    // "ฝึกเฉพาะข้อสอบเก่า": the lecturer's part, past papers only.
+    if (onlyPastPaper) pool = pool.filter(isPastPaperQuestion);
 
     if (practiceMode === 'current-scope' || practiceMode === 'predicted') {
       const matchesScope = practiceMode === 'predicted'
@@ -1939,6 +1946,7 @@ export default function App() {
     const _onlyTopics = Array.isArray(overrides.onlyTopics) && overrides.onlyTopics.length
       ? new Set(overrides.onlyTopics)
       : null;
+    const _onlyPastPaper = overrides.onlyPastPaper === true;
 
     // Phase 3: QB lazy. App.jsx kicks off background load on mount so
     // by the time the user clicks "Start" this usually resolves
@@ -1980,6 +1988,7 @@ export default function App() {
       selectedYear,
       selectedPhase,
       onlyTopics: _onlyTopics,
+      onlyPastPaper: _onlyPastPaper,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       history,
@@ -2730,7 +2739,7 @@ export default function App() {
   // already names the topics and the format, so both go straight in as
   // overrides and the config screen is skipped: there is nothing left for it
   // to ask. A single deck keeps `topic` set so the results screen names it.
-  const startLecturerPractice = ({ subjectId, topics, questionCategory: category, numQuestions: wanted }) => {
+  const startLecturerPractice = ({ subjectId, topics, questionCategory: category, numQuestions: wanted, pastPaperOnly = false }) => {
     if (!subjectId || !Array.isArray(topics) || !topics.length) return;
     const single = topics.length === 1 ? topics[0] : null;
     setMode('quick');
@@ -2739,10 +2748,14 @@ export default function App() {
     setPracticeMode('all');
     startExam({
       subject: subjectId,
-      topic: single,
+      // The pool comes from onlyTopics, not the single-topic branch: a
+      // session's matching set sits under one disease and names the rest
+      // in `topics`, which only the onlyTopics filter reads.
+      topic: null,
       practiceMode: 'all',
       questionCategory: category || 'all',
       onlyTopics: topics,
+      onlyPastPaper: pastPaperOnly,
       numQuestions: wanted || PANIC_SUBJECT_MAX,
       useTimer: category !== 'writing',
       timePerQ: category === 'tf' ? 45 : 60,
