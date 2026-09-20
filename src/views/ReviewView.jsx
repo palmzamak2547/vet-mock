@@ -6,6 +6,7 @@ import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
+import { MatchReview } from '../components/AnswerReveal.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import { copyShareUrl } from '../lib/share-link.js';
@@ -465,13 +466,17 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 )}
                 <SmartGrader q={q} userAnswer={userAns} />
               </>
+            ) : q.type === 'match' ? (
+              // One row per item and the explain organism by organism — an
+              // eighteen-row set used to print as one run-on line.
+              <MatchReview q={q} userAns={userAns} answered={answered} />
             ) : (
               <>
                 <div className="vmx-review-ans"><span className="k">คำตอบของคุณ:</span>{userDisplay}</div>
                 {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย:</span>{correctDisplay}</div>}
               </>
             )}
-            {q.explain && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichText text={q.explain} /></div>}
+            {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichText text={q.explain} /></div>}
             {/* For a missed question, offer the checked VetWiki summary — the
                 highest-value moment to read the verified version. Correct
                 answers don't need the nudge. */}

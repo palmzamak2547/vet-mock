@@ -38,6 +38,76 @@ export const FORMAT_LABEL = {
 };
 
 export const LECTURER_SETS = {
+  // One Health 3109502 — timetable in the students' course file (ONE HEALTH
+  // MID 86, page 2): six Wednesday sessions 5 ส.ค. to 16 ก.ย., midterm the
+  // week of 21 ก.ย. What each lecturer said about the paper comes from the
+  // VET86 recordings (video-summaries-one-health.js, examFormat) and two
+  // students' records of the 26 ส.ค. session.
+  'one-health': {
+    examDate: '2026-09-21',
+    coverage: 'เนื้อหาตั้งแต่ 5 ส.ค. ถึง 16 ก.ย.',
+    lecturers: [
+      {
+        id: 'saharuetai',
+        name: 'รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์',
+        lecturer: 'Saharuetai Jeamsripong',
+        format: 'mcq',
+        count: null,
+        announced: true,
+        note: 'อาจารย์แจ้งท้ายคาบที่ 4 ว่าข้อสอบส่วนนี้เป็นแบบกากบาท และให้ดูหน้าที่ของ 4 องค์กรหลัก (คาบแรกแจ้งว่าทั้งวิชามีทั้งข้อเขียนและกากบาท ข้อสอบเยอะ ต้องแบ่งเวลา)',
+        sessions: [
+          {
+            n: 1, date: '2026-08-05', videoId: 'R4k7-CbupPc',
+            decks: [{ cover: 'oh-vet-role', title: 'Role of Veterinarians in One Health', topics: ['oh-vet-role'] }],
+          },
+          {
+            n: 4, date: '2026-09-02', videoId: 'DSaNbrj2A3A',
+            decks: [{ cover: 'oh-global-network', title: 'Global One Health Activity Network', topics: ['oh-global-network'] }],
+          },
+        ],
+      },
+      {
+        id: 'sirawit',
+        name: 'อ.น.สพ.ดร.สิรวิทย์ ภักดีพาณิชย์กิจ',
+        lecturer: 'Sirawit Pagdepanichkit',
+        format: 'writing',
+        count: null,
+        announced: true,
+        note: 'อาจารย์แจ้งในคาบที่ 2 ว่าข้อสอบเป็นเขียนสั้นแบบคีย์เวิร์ด 4-5 ข้อย่อย เน้น 4 องค์ประกอบของ One World One Health รุ่นก่อนหน้าบันทึกไว้ 3 ข้อ 3 เรื่อง',
+        sessions: [
+          {
+            n: 2, date: '2026-08-19', videoId: '8z3MTk9B6Q4',
+            decks: [{ cover: 'oh-concept', title: 'One World One Health Concept', topics: ['oh-concept'] }],
+          },
+          // One recording (9 ก.ย.) carries both the communication deck and the
+          // collaboration deck; the timetable lists them as two sessions.
+          {
+            n: 5, date: '2026-09-09', videoId: 'xkJw4A0OS7A',
+            decks: [{ cover: 'oh-communication', title: 'One Health Communication', topics: ['oh-communication'] }],
+          },
+          {
+            n: 6, date: '2026-09-16', videoId: 'xkJw4A0OS7A',
+            decks: [{ cover: 'oh-collaboration', title: 'Collaboration and Partnership in One Health', topics: ['oh-collaboration'] }],
+          },
+        ],
+      },
+      {
+        id: 'kamonpan',
+        name: 'อ.สพ.ญ.ดร.กมลพรรณ เจริญกุล และ ศ.น.สพ.ดร.อลงกร อมรศิลป์',
+        lecturer: 'Kamonpan Charoenkul',
+        format: 'writing',
+        count: null,
+        announced: true,
+        note: 'อาจารย์แจ้งในคาบว่าเป็นข้อเขียนและอิงแนวข้อสอบรอบก่อน (บันทึกของนิสิตสองแหล่งตรงกัน รุ่นก่อนหน้าเป็นถูกผิด)',
+        sessions: [
+          {
+            n: 3, date: '2026-08-26', videoId: 'nbomxmIJth0',
+            decks: [{ cover: 'oh-disease-prevention', title: 'Emerging and Re-emerging Diseases', topics: ['oh-disease-prevention'] }],
+          },
+        ],
+      },
+    ],
+  },
   'avian-medicine': {
     examDate: '2026-09-21',
     coverage: 'เนื้อหาตั้งแต่ 4 ส.ค. ถึง 15 ก.ย.',

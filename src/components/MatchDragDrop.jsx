@@ -1,5 +1,6 @@
 import { useMemo, useCallback, useRef, useEffect } from 'react';
 import { RichText } from '../lib/richtext.jsx';
+import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, explainParagraphFor } from './AnswerReveal.jsx';
 
 const SESSION_SEED = (() => {
   try {
@@ -68,6 +69,12 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
   // answer is on record. The equivalent for a match question is all pairs
   // filled — revealing after the first selection would lock the rest.
   const isRevealed = Boolean(revealAnswer) && totalSlots > 0 && filledCount === totalSlots;
+  // The student's choice (AnswerReveal): with "เฉลยทีละข้อ" a row shows its
+  // verdict and answer as soon as it is filled, and locks; the set's score
+  // banner still waits for the last row. "เฉลยหลังทำครบ" is the rule above.
+  // Scoring never changes — only when a row shows what it holds.
+  const [timing, setTiming] = useRevealTiming();
+  const rowReveals = Boolean(revealAnswer) && timing === REVEAL_ROW;
 
   const setPair = useCallback((leftIdx, rightVal) => {
     let obj = {};
@@ -122,6 +129,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
           <span className="vmx-match-dnd-hint" style={{ fontSize: '15px' }}>
             💡 <strong>เลือกคำตอบ</strong> {bank ? 'ตามตัวอักษรของรายการด้านล่างในแต่ละข้อ ตัวเลือกใช้ซ้ำได้' : 'จากเมนูตัวเลือกในแต่ละข้อ'} ({filledCount}/{totalSlots} ข้อ)
           </span>
+          {revealAnswer && <RevealTimingToggle mode={timing} onChange={setTiming} />}
         </div>
         {filledCount > 0 && !isRevealed && (
           <button
@@ -148,9 +156,13 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
           const val = getVal(i);
           const isCorrect = val === pair.right;
           const isAnswered = Boolean(val);
+          const revealed = isRevealed || (rowReveals && isAnswered);
+          // The set's explain is written organism by organism; a wrong row
+          // gets the paragraph of the card it should have chosen.
+          const why = revealed && isAnswered && !isCorrect ? explainParagraphFor(currentQ.explain, pair.right) : null;
           
           let stateClass = 'empty';
-          if (isRevealed && isAnswered) stateClass = isCorrect ? 'correct' : 'wrong';
+          if (revealed && isAnswered) stateClass = isCorrect ? 'correct' : 'wrong';
           else if (isAnswered) stateClass = 'filled';
 
           return (
@@ -166,7 +178,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                 <select
                   className={`vmx-match-native-select ${isAnswered ? 'has-value' : ''}`}
                   value={val}
-                  disabled={isRevealed}
+                  disabled={revealed}
                   onChange={(e) => setPair(i, e.target.value)}
                   aria-label={`จับคู่ข้อ ${i + 1}: ${strip(pair.left)}`}
                 >
@@ -182,7 +194,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                   })}
                 </select>
                 
-                {isRevealed && isAnswered && (
+                {revealed && isAnswered && (
                   <span className={`vmx-match-dnd-badge ${isCorrect ? 'ok' : 'no'}`}>
                     {isCorrect ? '✓' : '✗'}
                   </span>
@@ -195,10 +207,16 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                     pair.right was never rendered anywhere, so a student who got
                     three of four pairs wrong could not find out what the right
                     pairing was from the page that told them to look. */}
-                {isRevealed && !isCorrect && (
+                {revealed && !isCorrect && (
                   <div className="vmx-match-answer">
                     <span className="vmx-match-answer-label">เฉลย</span>
                     <span className="vmx-match-answer-text">{bank ? `${letterOf(pair.right)}. ` : ''}{strip(pair.right)}</span>
+                    {why && (
+                      <details className="vmx-match-why">
+                        <summary>เหตุผล</summary>
+                        <RichText text={why} />
+                      </details>
+                    )}
                   </div>
                 )}
               </div>

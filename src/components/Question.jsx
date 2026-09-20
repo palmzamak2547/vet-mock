@@ -13,6 +13,7 @@ import NavIcon from './NavIcon.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
 import HandwritingInput from './HandwritingInput.jsx';
+import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, WrittenReveal } from './AnswerReveal.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
@@ -191,6 +192,27 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // We just hold a ref so the mobile FAB can scroll the passage into
   // view when the user taps "📄 Passage".
   const passageRef = useRef(null);
+
+  // A written answer's เฉลย inside the session (AnswerReveal): when the
+  // student has chosen "เฉลยได้ทันที", a button under the box opens the
+  // keyword checklist and the model answer for this question; otherwise
+  // nothing shows until the review, as before. ExamView never passes
+  // revealAnswer, so a timed paper is untouched. Scoring is unchanged.
+  const [writtenTiming, setWrittenTiming] = useRevealTiming();
+  const [writtenRevealed, setWrittenRevealed] = useState(false);
+  useEffect(() => { setWrittenRevealed(false); }, [currentQ.id]);
+  const writtenReveal = Boolean(revealAnswer) && (currentQ.type === 'short' || currentQ.type === 'essay');
+  const writtenRevealBar = writtenReveal ? (
+    <div className="vmx-written-reveal-bar">
+      <RevealTimingToggle mode={writtenTiming} onChange={setWrittenTiming} rowLabel="เฉลยได้ทันที" endLabel="เฉลยหลังส่งทั้งชุด" />
+      {writtenTiming === REVEAL_ROW && !writtenRevealed && (
+        <button type="button" className="vmx-written-reveal-btn" onClick={() => setWrittenRevealed(true)}>ดูเฉลยข้อนี้</button>
+      )}
+    </div>
+  ) : null;
+  const writtenRevealPanel = writtenReveal && writtenTiming === REVEAL_ROW && writtenRevealed
+    ? <WrittenReveal q={currentQ} answer={currentAnswer} subject={currentQ.subject} />
+    : null;
 
   // Word count for essay-type writing questions
   const essayText = (currentQ.type === 'essay' && typeof currentAnswer === 'string') ? currentAnswer : '';
@@ -409,6 +431,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               answerCurrent((cur + sep + text).slice(0, 1000));
             }}
           />
+          {writtenRevealBar}
+          {writtenRevealPanel}
         </div>
       )}
 
@@ -460,6 +484,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               answerCurrent((cur + sep + text).slice(0, 5000));
             }}
           />
+          {writtenRevealBar}
+          {writtenRevealPanel}
           {/* Word-count bar (visual) */}
           <div style={{ marginTop: 8, height: 4, background: 'var(--clr-surface-2)', borderRadius: 999, overflow: 'hidden' }}>
             <div

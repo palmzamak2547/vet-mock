@@ -44,11 +44,6 @@ const { UNASSIGNED_TOPIC, isPastPaperQuestion, questionTopicId, panicRank } = me
 const { isCurrentScopeQuestion, isHighPredictionQuestion } = predictionM;
 const { isQuestionDeliverable } = deliveryM;
 const { questionInScope } = await import(pathToFileURL(path.join(root, 'src/lib/exam-scope.js')).href);
-// Subjects with a lecturer set get one entry per matching question, so a
-// card can show a whole set (its label, its length, the diseases it names)
-// instead of a deck cover that stands for the same set five times.
-const { LECTURER_SETS } = await import(pathToFileURL(path.join(root, 'src/data/lecturer-sets.js')).href);
-const lecturerSubjects = new Set(Object.keys(LECTURER_SETS));
 if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 
 // Phase 3 lazy QB rework (2026-05-17): QB exports empty until loadQB()
@@ -107,7 +102,6 @@ const byTopicKindScope = blank();
 // The same split over past-paper questions only, for the card's
 // "ฝึกเฉพาะข้อสอบเก่า" button.
 const byPastTopicKindScope = blank();
-const matchSetsScope = blank();
 const kindOf = (q) => (q.type === 'tf' ? 'tf'
   : q.type === 'match' ? 'match'
     : (q.type === 'short' || q.type === 'essay' || q.type === 'fill') ? 'writing' : 'mcq');
@@ -171,17 +165,6 @@ for (const q of deliverableQuestions) {
           const row = (byTopicKindScope[phase][subj][extra] ||= { mcq: 0, tf: 0, match: 0, writing: 0 });
           row._matchCovers = (row._matchCovers || 0) + 1;
         }
-      }
-      if (q.type === 'match' && lecturerSubjects.has(subj)) {
-        (matchSetsScope[phase][subj] ||= []).push({
-          id: q.id,
-          topic,
-          topics: Array.isArray(q.topics) ? q.topics : null,
-          items: Array.isArray(q.pairs) ? q.pairs.length : 0,
-          past: isPastPaperQuestion(q),
-          // "ชุดจับคู่ข้อสอบเก่า ชุดที่ 1 — เลือกตัวอักษร..." → the part before the dash
-          label: /^ชุดจับคู่/.test(String(q.q || '')) ? String(q.q).split(' — ')[0].trim() : null,
-        });
       }
       if (isPastPaperQuestion(q)) {
         incrementNested(byPastPaperTopicScope[phase], subj, topic);
@@ -399,11 +382,6 @@ console.log('  Subjects:', Object.keys(bySubject).length, '· Years:', Object.ke
     '// behind the "ฝึกเฉพาะข้อสอบเก่า" button on a lecturer card.',
     'export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =',
     JSON.stringify(byPastTopicKindScope, null, 2) + ';',
-    '',
-    '// One entry per matching question of a subject that has a lecturer set:',
-    '// the card shows the set (label, length, the diseases its bank names).',
-    'export const MATCH_SETS_BY_SCOPE =',
-    JSON.stringify(matchSetsScope, null, 2) + ';',
     '',
   ].join('\n');
   fs.writeFileSync(kindOut, body, 'utf8');

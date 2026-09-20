@@ -150,6 +150,16 @@ export const LECTURE_COVERS = {
     'avian-egg-breakout': { src: base('lecture-covers', 'avian-medicine-avian-egg-breakout'), alt: 'ปกสไลด์ Egg Breakout Analysis แถบชมพูฟ้า' },
     'avian-ahra-set': { src: base('lecture-covers', 'avian-medicine-avian-ahra-set'), alt: 'ปกสไลด์ Omphalitis Ascites Staphylococcus Salmonella Adenovirus พื้นดำ กรอบเหลือง' },
   },
+  // One Health 3109502, midterm 2026-09-21: the title slide of each session's
+  // deck, cropped from the students' screenshots of the course files.
+  'one-health': {
+    'oh-vet-role': { src: base('lecture-covers', 'one-health-oh-vet-role'), alt: 'ปกสไลด์ Role of Veterinarians in One Health พื้นน้ำเงินเข้ม วงกลมซ้อน' },
+    'oh-concept': { src: base('lecture-covers', 'one-health-oh-concept'), alt: 'ปกสไลด์ One World One Health Concept พื้นขาว กรอบฟ้า' },
+    'oh-disease-prevention': { src: base('lecture-covers', 'one-health-oh-disease-prevention'), alt: 'ปกสไลด์ One Health Approach to combat Emerging and Re-Emerging Diseases ตัวอักษรน้ำเงิน' },
+    'oh-global-network': { src: base('lecture-covers', 'one-health-oh-global-network'), alt: 'ปกสไลด์ Global One Health Activity Network พื้นน้ำเงินเข้ม ไอคอนสัตว์ คน สิ่งแวดล้อม' },
+    'oh-communication': { src: base('lecture-covers', 'one-health-oh-communication'), alt: 'ปกสไลด์ One Health Communication พื้นขาว กรอบฟ้า' },
+    'oh-collaboration': { src: base('lecture-covers', 'one-health-oh-collaboration'), alt: 'ปกสไลด์ Collaboration and Partnership in One Health พื้นขาว กรอบฟ้า' },
+  },
 };
 
 /** Every path this module can hand out — the lint walks exactly this. */

@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 5800;
-export const QB_SOURCE_TOTAL = 5865;
+export const QB_TOTAL = 5819;
+export const QB_SOURCE_TOTAL = 5884;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -36,7 +36,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 39,
   'livestock-pathology': 68,
   'milk-meat-hygiene': 457,
-  'one-health': 140,
+  'one-health': 159,
   'poa-clinical': 71,
   'poultry': 178,
   'practrum': 117,
@@ -86,7 +86,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 39,
   'livestock-pathology': 68,
   'milk-meat-hygiene': 457,
-  'one-health': 140,
+  'one-health': 159,
   'poa-clinical': 71,
   'poultry': 132,
   'practrum': 113,
@@ -134,7 +134,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 35,
   'livestock-pathology': 68,
   'milk-meat-hygiene': 247,
-  'one-health': 56,
+  'one-health': 68,
   'poa-clinical': 16,
   'poultry': 68,
   'practrum': 17,
@@ -179,7 +179,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'herd-health-rum': 20,
     'livestock-pathology': 68,
     'milk-meat-hygiene': 247,
-    'one-health': 49,
+    'one-health': 61,
     'poultry': 68,
     'practrum': 17,
     'rec-adv-bioscience': 4,
@@ -250,7 +250,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-safety-y4': 15,
     'herd-health-rum': 24,
     'milk-meat-hygiene': 457,
-    'one-health': 105,
+    'one-health': 124,
     'surg1': 29,
     'swine-clinic': 75,
     'swine-herd': 31,
@@ -335,7 +335,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 2447,
+    5: 2466,
   },
   '1-final': {
     2: 104,
@@ -482,11 +482,11 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'milk-raw-storage': 40,
     },
     'one-health': {
-      'oh-collaboration': 8,
-      'oh-communication': 5,
-      'oh-concept': 11,
-      'oh-disease-prevention': 14,
-      'oh-global-network': 37,
+      'oh-collaboration': 12,
+      'oh-communication': 8,
+      'oh-concept': 16,
+      'oh-disease-prevention': 22,
+      'oh-global-network': 36,
       'oh-vet-role': 30,
     },
     'surg1': {
@@ -1476,9 +1476,9 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'milk-raw-storage': 15,
     },
     'one-health': {
+      'oh-collaboration': 1,
       'oh-communication': 1,
       'oh-concept': 1,
-      'oh-global-network': 1,
     },
     'surg1': {
       'brachial-plexus-block': 3,
@@ -2035,7 +2035,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 3220,
+  5: 3239,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2047,7 +2047,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 3204,
+  5: 3223,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2411,13 +2411,13 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "one-health": {
     "oh-amr": 10,
-    "oh-collaboration": 8,
-    "oh-communication": 5,
-    "oh-concept": 11,
-    "oh-disease-prevention": 14,
+    "oh-collaboration": 12,
+    "oh-communication": 8,
+    "oh-concept": 16,
+    "oh-disease-prevention": 22,
     "oh-env-carcinogen": 1,
     "oh-foodborne": 6,
-    "oh-global-network": 37,
+    "oh-global-network": 36,
     "oh-livestock-waste": 1,
     "oh-risk-analysis": 17,
     "oh-vet-role": 30,
@@ -2956,9 +2956,9 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "milk-raw-storage": 15,
   },
   "one-health": {
+    "oh-collaboration": 1,
     "oh-communication": 1,
     "oh-concept": 1,
-    "oh-global-network": 1,
     "oh-risk-analysis": 7,
   },
   "poa-clinical": {
@@ -3175,4 +3175,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-20T04:57:37.834Z
+// Built: 2026-09-20T06:04:45.771Z

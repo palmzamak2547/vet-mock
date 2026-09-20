@@ -125,7 +125,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-mid86-milk-meat-hygiene.js', export: 'QUESTIONS_MID86_MILK_MEAT_HYGIENE', year: 5, count: 10,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-mid86-milk-meat-hygiene.js').then((m) => m.QUESTIONS_MID86_MILK_MEAT_HYGIENE) },
-  { file: 'questions-mid86-one-health.js', export: 'QUESTIONS_MID86_ONE_HEALTH', year: 5, count: 46,
+  { file: 'questions-mid86-one-health.js', export: 'QUESTIONS_MID86_ONE_HEALTH', year: 5, count: 65,
     subjects: ['one-health'],
     load: () => import('./questions-mid86-one-health.js').then((m) => m.QUESTIONS_MID86_ONE_HEALTH) },
   { file: 'questions-mid86-swine-clinic.js', export: 'QUESTIONS_MID86_SWINE_CLINIC', year: 5, count: 7,
@@ -280,4 +280,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-20T02:56:08.218Z — 90 banks · 5865 Qs
+// Built: 2026-09-20T06:04:44.613Z — 90 banks · 5884 Qs

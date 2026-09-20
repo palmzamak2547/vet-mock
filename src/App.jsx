@@ -507,6 +507,9 @@ function buildExamPool({
   // matching. 'mcq' above keeps its wider meaning (MCQ + T/F + fill) for the
   // config screen; these two are exact.
   else if (questionCategory === 'tf') pool = pool.filter((q) => q.type === 'tf');
+  // The lecturer cards' ปรนัย: exactly what regen-q-counts counts as mcq —
+  // not tf, match or a written type — so the card's number is what is served.
+  else if (questionCategory === 'mcq-only') pool = pool.filter((q) => !['tf', 'match', 'short', 'essay', 'fill'].includes(q.type));
   else if (questionCategory === 'match') pool = pool.filter((q) => q.type === 'match');
 
   // Applied last so it holds for every mode. Compound keys, because ids
@@ -2739,7 +2742,7 @@ export default function App() {
   // already names the topics and the format, so both go straight in as
   // overrides and the config screen is skipped: there is nothing left for it
   // to ask. A single deck keeps `topic` set so the results screen names it.
-  const startLecturerPractice = ({ subjectId, topics, questionCategory: category, numQuestions: wanted, pastPaperOnly = false, onlyIds = null }) => {
+  const startLecturerPractice = ({ subjectId, topics, questionCategory: category, numQuestions: wanted, pastPaperOnly = false }) => {
     if (!subjectId || !Array.isArray(topics) || !topics.length) return;
     const single = topics.length === 1 ? topics[0] : null;
     setMode('quick');
@@ -2756,8 +2759,6 @@ export default function App() {
       questionCategory: category || 'all',
       onlyTopics: topics,
       onlyPastPaper: pastPaperOnly,
-      // A set card hands over its own question id — see onlyIds in startExam.
-      onlyIds,
       numQuestions: wanted || PANIC_SUBJECT_MAX,
       useTimer: category !== 'writing',
       timePerQ: category === 'tf' ? 45 : 60,

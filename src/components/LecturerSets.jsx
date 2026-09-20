@@ -12,40 +12,14 @@
 // lecturer's format yet, the card says so and offers the mixed set instead of
 // opening an empty session.
 // ============================================================
-import { useEffect, useMemo, useState } from 'react';
 import { LECTURER_SETS, LECTURER_SET_SCOPE, FORMAT_LABEL, lecturerTopics } from '../data/lecturer-sets.js';
 import { LECTURE_COVERS } from '../data/art.js';
-import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, MATCH_SETS_BY_SCOPE } from '../data/q-kind-counts.generated.js';
+import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function thaiDate(iso) {
   const [, m, d] = String(iso || '').split('-').map(Number);
   return m ? `${d} ${TH_MONTH[m - 1]}` : '';
-}
-
-// The slides inside one matching set, shown one after another on its card.
-// Five deck covers that each said "จับคู่ 1 ชุด" read as five sets; one card
-// that cycles through the five reads as what it is. Reduced motion, or a
-// single cover, shows the first slide and stays there.
-function CoverCycle({ slides, interval = 2600 }) {
-  const [i, setI] = useState(0);
-  const still = useMemo(() => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches, []);
-  const key = slides.map((s) => s.src).join('|');
-  useEffect(() => {
-    setI(0);
-    if (still || slides.length < 2) return undefined;
-    const id = setInterval(() => { if (!document.hidden) setI((k) => (k + 1) % slides.length); }, interval);
-    return () => clearInterval(id);
-  }, [key, slides.length, interval, still]);
-  const cur = slides[Math.min(i, slides.length - 1)];
-  return (
-    <span className="vmx-lect-cycle" aria-hidden="true">
-      {slides.map((s, k) => (
-        <img key={s.src} src={s.src} alt="" loading="lazy" decoding="async" className={k === i ? 'is-on' : ''} />
-      ))}
-      {cur && <span className="vmx-lect-cycle-cap">{cur.title}{slides.length > 1 ? ` ${i + 1}/${slides.length}` : ''}</span>}
-    </span>
-  );
 }
 
 export default function LecturerSets({ subject, topics = [], onStart, onOpenInstructor, selectedPhase = LECTURER_SET_SCOPE.phase }) {
@@ -64,21 +38,15 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
     return sum + (row[kind] || 0) + (covers && kind === 'match' ? (row._matchCovers || 0) : 0);
   }, 0);
   const covers = LECTURE_COVERS[subject] || {};
+  // The pool category for a format: ปรนัย must exclude tf and match, which
+  // the plain 'mcq' category lumps in (see buildExamPool).
+  const categoryOf = (format) => (format === 'mcq' ? 'mcq-only' : format);
   // Past papers only, for the third button. Counts sum the lecturer's own
   // topics; the pool would also admit a set filed under another topic that
   // names one of these diseases, but such a set's home topic is the same
   // lecturer's today, so the number and the session agree.
   const pastTable = Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE[selectedPhase]?.[subject] || {};
   const pastCountOf = (topicIds, kind) => topicIds.reduce((sum, id) => sum + ((pastTable[id] || {})[kind] || 0), 0);
-  // For a matching lecturer the row is one card per SET — the printed sets,
-  // the session banks, the short sets — each opened on its own by id, with
-  // the covers of every disease its bank names. A deck cover would show the
-  // same set once per disease.
-  const matchSets = MATCH_SETS_BY_SCOPE[selectedPhase]?.[subject] || [];
-  const deckOf = (lec, topicId) => {
-    for (const s of lec.sessions) for (const d of s.decks) if (d.topics.includes(topicId)) return { session: s, deck: d };
-    return null;
-  };
 
   return (
     <div className="vmx-lect-list">
@@ -94,22 +62,11 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
         // A matching question is a whole printed set (one answer list, the
         // items down the page), so it is counted in ชุด, not ข้อ.
         const unit = lec.format === 'match' ? 'ชุด' : 'ข้อ';
-        const wholeCategory = inFormat > 0 ? lec.format : 'all';
+        const wholeCategory = inFormat > 0 ? categoryOf(lec.format) : 'all';
         const wholeCount = inFormat > 0 ? inFormat : inAny;
         const wholeLabel = inFormat > 0
           ? `ฝึกแบบ${formatLabel}ทุกหัวข้อของอาจารย์ (${wholeCount} ${unit})`
           : `ยังไม่มีข้อแบบ${formatLabel} ฝึกรวมทุกประเภท (${wholeCount} ข้อ)`;
-        const sets = lec.format === 'match'
-          ? matchSets
-            .filter((set) => (set.topics || [set.topic]).some((t) => all.includes(t)))
-            .map((set) => {
-              const topicsIn = (set.topics || [set.topic]).filter((t) => all.includes(t)).sort((a, b) => all.indexOf(a) - all.indexOf(b));
-              const slides = topicsIn.filter((t) => covers[t]).map((t) => ({ src: covers[t].src, title: deckOf(lec, t)?.deck.title || labelOf(t) }));
-              const home = deckOf(lec, set.topic);
-              return { ...set, topicsIn, slides, home, order: all.indexOf(set.topic) };
-            })
-            .sort((a, b) => (Number(b.past) - Number(a.past)) || (Number(!!b.topics) - Number(!!a.topics)) || (a.order - b.order) || (a.id - b.id))
-          : null;
         return (
           <article key={lec.id} className="vmx-lect" aria-label={lec.name}>
             <header className="vmx-lect-head">
@@ -127,37 +84,13 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
               <span className="vmx-lect-note">{lec.note}</span>
             </header>
 
-            {sets ? (
-            <div className="vmx-lect-strip" role="list" aria-label={`ชุดจับคู่ของ ${lec.name}`}>
-              {sets.map((set) => {
-                const title = set.label || set.home?.deck.title || labelOf(set.topic);
-                const names = set.slides.map((s) => s.title).join(', ');
-                const where = set.home ? `คาบ ${set.home.session.n} (${thaiDate(set.home.session.date)})` : '';
-                return (
-                  <button
-                    key={set.id}
-                    type="button"
-                    role="listitem"
-                    className="vmx-lect-cover is-set"
-                    aria-label={`${title}, จับคู่ ${set.items} ข้อ${set.past ? ', ข้อสอบเก่า' : ''}${names ? `, ${names}` : ''}`}
-                    onClick={() => onStart({ subjectId: subject, topics: set.topicsIn.length ? set.topicsIn : [set.topic], questionCategory: 'match', onlyIds: [set.id] })}
-                  >
-                    {set.slides.length ? <CoverCycle slides={set.slides} /> : <span className="vmx-lect-cover-blank" aria-hidden="true" />}
-                    <span className="t">{title}</span>
-                    <span className="c">จับคู่ {set.items} ข้อ{set.past ? ' / ข้อสอบเก่า' : ''}</span>
-                    <span className="s">{set.slides.length > 1 ? `${set.slides.length} โรค: ${names}` : where}</span>
-                  </button>
-                );
-              })}
-            </div>
-            ) : (
             <div className="vmx-lect-strip" role="list" aria-label={`สไลด์ที่ ${lec.name} สอน`}>
               {lec.sessions.map((s) => s.decks.map((deck) => {
                 const art = covers[deck.cover];
                 const title = deck.title || labelOf(deck.topics[0]);
                 const n = countOf(deck.topics, lec.format, { covers: true });
                 const nAll = countOf(deck.topics, 'all');
-                const usable = n > 0 ? lec.format : 'all';
+                const usable = n > 0 ? categoryOf(lec.format) : 'all';
                 const shown = n > 0 ? n : nAll;
                 const countText = n > 0
                   ? `${formatLabel} ${n} ${unit}`
@@ -180,7 +113,6 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
                 );
               }))}
             </div>
-            )}
 
             <div className="vmx-lect-actions">
               <button
@@ -195,7 +127,7 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
                 <button
                   type="button"
                   className="vmx-lect-btn"
-                  onClick={() => onStart({ subjectId: subject, topics: all, questionCategory: lec.format, numQuestions: lec.count })}
+                  onClick={() => onStart({ subjectId: subject, topics: all, questionCategory: categoryOf(lec.format), numQuestions: lec.count })}
                 >
                   จำลองชุด {lec.count} ข้อ
                 </button>
@@ -204,7 +136,7 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
                 <button
                   type="button"
                   className="vmx-lect-btn"
-                  onClick={() => onStart({ subjectId: subject, topics: all, questionCategory: lec.format, pastPaperOnly: true })}
+                  onClick={() => onStart({ subjectId: subject, topics: all, questionCategory: categoryOf(lec.format), pastPaperOnly: true })}
                 >
                   ฝึกเฉพาะข้อสอบเก่า ({pastInFormat} {unit})
                 </button>

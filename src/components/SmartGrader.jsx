@@ -69,15 +69,19 @@ function normalize(s) {
 // Word-level fuzzy match: keyword found if its normalized form
 // appears as a substring of the answer with word boundaries on
 // both sides. Also accept ±s for trivial plural/singular swap.
-function keywordCoverage(answer, keywords) {
+export function keywordCoverage(answer, keywords) {
   if (!keywords?.length) return null;
   const ans = normalize(answer);
   const found = [], missing = [];
   keywords.forEach((kw) => {
     const k = normalize(kw).trim();
     if (!k) return;
+    // Thai runs words together, so a Thai keyword has no space around it in
+    // any real answer: "สื่อสาร" sits inside "สัตวแพทย์สื่อสารความเสี่ยง". The
+    // word-boundary variants below are for Latin words only.
+    const thai = /[฀-๿]/.test(k);
     const variants = [' ' + k + ' ', ' ' + k + 's ', ' ' + k.replace(/s$/, '') + ' '];
-    const hit = variants.some((v) => v.length > 3 && ans.includes(v));
+    const hit = thai ? ans.includes(k) : variants.some((v) => v.length > 3 && ans.includes(v));
     (hit ? found : missing).push(kw);
   });
   return { found, missing, pct: keywords.length ? Math.round((found.length / keywords.length) * 100) : 0 };

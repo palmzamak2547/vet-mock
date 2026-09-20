@@ -30,9 +30,13 @@ test('a wrong pair shows what the right pairing was', async ({ page, context }) 
   for (let i = 0; i < 12; i += 1) {
     rows = await page.locator('.vmx-match-select-row').count();
     if (rows > 0) break;
-    const next = page.getByRole('button', { name: /ข้อถัดไป/ });
+    const next = page.getByRole('button', { name: /^ข้อถัดไป/ });
     if (!(await next.count())) break;
     await next.click();
+    // A written question left blank asks before moving on (useExamSession);
+    // the walk answers that dialog the way a student skipping would.
+    const skip = page.getByRole('button', { name: 'ข้ามไปข้อถัดไป', exact: true });
+    await skip.waitFor({ state: 'visible', timeout: 1500 }).then(() => skip.click()).catch(() => {});
     await page.waitForTimeout(300);
   }
   expect(rows, 'the topic should reach a matching question').toBeGreaterThan(0);
