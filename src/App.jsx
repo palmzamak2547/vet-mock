@@ -368,6 +368,7 @@ function buildExamPool({
   selectedYear,
   selectedPhase = null,
   excludeIds = null,
+  onlyTopics = null,
   bookmarks = [],
   weakQuestions = [],
   history = [],
@@ -471,6 +472,12 @@ function buildExamPool({
       });
     }
 
+    // A lecturer's part of a paper spans several topics at once, so the set
+    // is a Set of topic ids rather than a second topic argument. It runs after
+    // the single-topic branch above and narrows only; the card that opened
+    // the session printed a count from exactly these topics.
+    if (onlyTopics && onlyTopics.size) pool = pool.filter((q) => onlyTopics.has(q.topic));
+
     if (practiceMode === 'current-scope' || practiceMode === 'predicted') {
       const matchesScope = practiceMode === 'predicted'
         ? isHighPredictionQuestion
@@ -488,6 +495,12 @@ function buildExamPool({
 
   if (questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');
   else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
+  // The lecturer sets practise ONE format, because that is how each part of
+  // the paper is written: อ.เกรียงวิชญ์ sets 24 true/false items, อ.ณทยา sets
+  // matching. 'mcq' above keeps its wider meaning (MCQ + T/F + fill) for the
+  // config screen; these two are exact.
+  else if (questionCategory === 'tf') pool = pool.filter((q) => q.type === 'tf');
+  else if (questionCategory === 'match') pool = pool.filter((q) => q.type === 'match');
 
   // Applied last so it holds for every mode. Compound keys, because ids
   // collide across subjects.
@@ -1922,6 +1935,10 @@ export default function App() {
     const onlyIds = Array.isArray(overrides.onlyIds) && overrides.onlyIds.length
       ? new Set(overrides.onlyIds)
       : null;
+    // A lecturer set names several topics at once; see startLecturerPractice.
+    const _onlyTopics = Array.isArray(overrides.onlyTopics) && overrides.onlyTopics.length
+      ? new Set(overrides.onlyTopics)
+      : null;
 
     // Phase 3: QB lazy. App.jsx kicks off background load on mount so
     // by the time the user clicks "Start" this usually resolves
@@ -1962,6 +1979,7 @@ export default function App() {
       questionCategory: _questionCategory,
       selectedYear,
       selectedPhase,
+      onlyTopics: _onlyTopics,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       history,
@@ -2708,6 +2726,28 @@ export default function App() {
     setPanicPending(true);
     setView('config');
   };
+  // One lecturer's part of the paper, in that lecturer's format. The card
+  // already names the topics and the format, so both go straight in as
+  // overrides and the config screen is skipped: there is nothing left for it
+  // to ask. A single deck keeps `topic` set so the results screen names it.
+  const startLecturerPractice = ({ subjectId, topics, questionCategory: category, numQuestions: wanted }) => {
+    if (!subjectId || !Array.isArray(topics) || !topics.length) return;
+    const single = topics.length === 1 ? topics[0] : null;
+    setMode('quick');
+    setSubject(subjectId);
+    setTopic(single);
+    setPracticeMode('all');
+    startExam({
+      subject: subjectId,
+      topic: single,
+      practiceMode: 'all',
+      questionCategory: category || 'all',
+      onlyTopics: topics,
+      numQuestions: wanted || PANIC_SUBJECT_MAX,
+      useTimer: category !== 'writing',
+      timePerQ: category === 'tf' ? 45 : 60,
+    });
+  };
   // Pick a real subject from the landing → the exact sequence a subject
   // card uses in HomeView (reset practiceMode, set subject, topic-select).
   const landingPickSubject = (year, subjectId) => {
@@ -2895,7 +2935,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}

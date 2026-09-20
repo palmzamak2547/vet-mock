@@ -66,14 +66,18 @@ if (fs.existsSync(blogDir)) {
 
 const artDir = path.join(ROOT, 'public', 'art');
 if (fs.existsSync(artDir)) {
-  for (const set of fs.readdirSync(artDir)) {
-    const dir = path.join(artDir, set);
-    if (!fs.statSync(dir).isDirectory()) continue;
+  // Sets may nest (art/lecture-covers/<subject>/<topic>.webp), so walk rather
+  // than read one level: a directory is never an asset and must not be
+  // reported as an unreferenced one.
+  const walk = (dir, rel) => {
     for (const f of fs.readdirSync(dir)) {
-      const url = `/art/${set}/${f}`;
+      const full = path.join(dir, f);
+      if (fs.statSync(full).isDirectory()) { walk(full, `${rel}/${f}`); continue; }
+      const url = `${rel}/${f}`;
       if (!referenced.has(url)) warnings.push(`${url} ships but nothing references it`);
     }
-  }
+  };
+  walk(artDir, '/art');
 }
 
 for (const w of warnings) console.warn(`  ⚠ ${w}`);

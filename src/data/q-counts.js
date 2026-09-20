@@ -10,13 +10,13 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 5693;
-export const QB_SOURCE_TOTAL = 5758;
+export const QB_TOTAL = 5812;
+export const QB_SOURCE_TOTAL = 5877;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 346,
-  'avian-medicine': 412,
+  'avian-medicine': 531,
   'biochem-1': 272,
   'cliapprum': 136,
   'com1': 31,
@@ -66,7 +66,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 346,
-  'avian-medicine': 412,
+  'avian-medicine': 531,
   'biochem-1': 272,
   'cliapprum': 134,
   'com1': 31,
@@ -116,7 +116,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 // back to the whole subject.
 export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 174,
-  'avian-medicine': 111,
+  'avian-medicine': 163,
   'biochem-1': 272,
   'cliapprum': 8,
   'com1': 31,
@@ -161,7 +161,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
 export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   midterm: {
     'aquatic-clinic': 95,
-    'avian-medicine': 105,
+    'avian-medicine': 157,
     'biochem-1': 272,
     'cliapprum': 8,
     'com1': 4,
@@ -241,7 +241,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
 export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   '1-mid': {
     'aquatic-clinic': 216,
-    'avian-medicine': 388,
+    'avian-medicine': 507,
     'com1': 4,
     'com2': 14,
     'equine-medicine': 286,
@@ -262,7 +262,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': 130,
-    'avian-medicine': 106,
+    'avian-medicine': 108,
     'com1': 31,
     'com2': 39,
     'engprof1': 30,
@@ -335,12 +335,12 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 2340,
+    5: 2459,
   },
   '1-final': {
     2: 104,
     4: 302,
-    5: 1205,
+    5: 1207,
   },
   '2-mid': {
     1: 298,
@@ -372,30 +372,31 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'aqua-water-quality': 22,
     },
     'avian-medicine': {
-      'avian-adeno': 12,
-      'avian-ae': 8,
-      'avian-ahra-set': 13,
+      'avian-adeno': 23,
+      'avian-ae': 15,
+      'avian-ahra-set': 27,
       'avian-ai': 16,
-      'avian-cia': 12,
-      'avian-cocci': 19,
-      'avian-coli': 6,
-      'avian-coryza': 8,
-      'avian-fowl-cholera': 7,
-      'avian-ib': 19,
-      'avian-ibd': 14,
-      'avian-intro': 82,
-      'avian-leuko': 10,
+      'avian-cia': 13,
+      'avian-cocci': 21,
+      'avian-coli': 23,
+      'avian-coryza': 18,
+      'avian-egg-breakout': 1,
+      'avian-fowl-cholera': 17,
+      'avian-ib': 20,
+      'avian-ibd': 17,
+      'avian-intro': 84,
+      'avian-leuko': 13,
       'avian-lt': 16,
-      'avian-malaria': 9,
-      'avian-marek': 22,
-      'avian-mpv': 13,
-      'avian-myco': 17,
-      'avian-nd': 23,
-      'avian-ne': 11,
-      'avian-pox': 18,
+      'avian-malaria': 10,
+      'avian-marek': 23,
+      'avian-mpv': 14,
+      'avian-myco': 34,
+      'avian-nd': 24,
+      'avian-ne': 13,
+      'avian-pox': 19,
       'avian-reo': 13,
-      'avian-rss': 9,
-      'avian-salmonella': 11,
+      'avian-rss': 10,
+      'avian-salmonella': 23,
     },
     'com1': {
       'anemia-regen-vs-non': 1,
@@ -622,7 +623,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'avian-medicine': {
       'avian-goose-parvo': 1,
-      'avian-intro': 82,
+      'avian-intro': 84,
       'avian-serology': 13,
       'avian-vaccine-prog': 10,
     },
@@ -1395,14 +1396,18 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'avian-medicine': {
       'avian-adeno': 2,
+      'avian-ae': 3,
       'avian-ahra-set': 1,
       'avian-ai': 8,
+      'avian-cocci': 1,
+      'avian-coli': 9,
       'avian-fowl-cholera': 3,
-      'avian-ibd': 2,
+      'avian-ibd': 3,
       'avian-intro': 1,
+      'avian-leuko': 1,
       'avian-marek': 4,
-      'avian-myco': 7,
-      'avian-ne': 1,
+      'avian-myco': 10,
+      'avian-ne': 2,
       'avian-salmonella': 1,
     },
     'com1': {
@@ -2031,7 +2036,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 3113,
+  5: 3232,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2043,7 +2048,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 3097,
+  5: 3216,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2067,31 +2072,32 @@ export const Q_COUNTS_BY_TOPIC = {
     "aqua-water-quality": 22,
   },
   "avian-medicine": {
-    "avian-adeno": 12,
-    "avian-ae": 8,
-    "avian-ahra-set": 13,
+    "avian-adeno": 23,
+    "avian-ae": 15,
+    "avian-ahra-set": 27,
     "avian-ai": 16,
-    "avian-cia": 12,
-    "avian-cocci": 19,
-    "avian-coli": 6,
-    "avian-coryza": 8,
-    "avian-fowl-cholera": 7,
+    "avian-cia": 13,
+    "avian-cocci": 21,
+    "avian-coli": 23,
+    "avian-coryza": 18,
+    "avian-egg-breakout": 1,
+    "avian-fowl-cholera": 17,
     "avian-goose-parvo": 1,
-    "avian-ib": 19,
-    "avian-ibd": 14,
-    "avian-intro": 82,
-    "avian-leuko": 10,
+    "avian-ib": 20,
+    "avian-ibd": 17,
+    "avian-intro": 84,
+    "avian-leuko": 13,
     "avian-lt": 16,
-    "avian-malaria": 9,
-    "avian-marek": 22,
-    "avian-mpv": 13,
-    "avian-myco": 17,
-    "avian-nd": 23,
-    "avian-ne": 11,
-    "avian-pox": 18,
+    "avian-malaria": 10,
+    "avian-marek": 23,
+    "avian-mpv": 14,
+    "avian-myco": 34,
+    "avian-nd": 24,
+    "avian-ne": 13,
+    "avian-pox": 19,
     "avian-reo": 13,
-    "avian-rss": 9,
-    "avian-salmonella": 11,
+    "avian-rss": 10,
+    "avian-salmonella": 23,
     "avian-serology": 13,
     "avian-vaccine-prog": 10,
   },
@@ -2712,14 +2718,18 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
   "avian-medicine": {
     "avian-adeno": 2,
+    "avian-ae": 3,
     "avian-ahra-set": 1,
     "avian-ai": 8,
+    "avian-cocci": 1,
+    "avian-coli": 9,
     "avian-fowl-cholera": 3,
-    "avian-ibd": 2,
+    "avian-ibd": 3,
     "avian-intro": 1,
+    "avian-leuko": 1,
     "avian-marek": 4,
-    "avian-myco": 7,
-    "avian-ne": 1,
+    "avian-myco": 10,
+    "avian-ne": 2,
     "avian-salmonella": 1,
   },
   "biochem-1": {
@@ -3167,4 +3177,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-19T07:26:33.618Z
+// Built: 2026-09-19T19:53:05.818Z

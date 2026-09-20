@@ -10,6 +10,7 @@ import { announced } from '../data/curriculum.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { takeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
+import { hasLecturerSet } from '../data/lecturer-sets.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -27,7 +28,11 @@ const VCA_NOTES_MAP = {
   dogcat:   { subject: 'com5',     label: 'Notes COM V (Dog-Cat)' },
 };
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null }) {
+// Loaded when the tab is opened: it carries the per-kind count table (~96 KB)
+// that no other screen needs, so the topic screen's own chunk stays as it was.
+const LecturerSets = lazy(() => import('../components/LecturerSets.jsx'));
+
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null, onStartLecturer = null }) {
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
   const [shelfDocs, setShelfDocs] = useState(0);
@@ -187,6 +192,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     setView('config');
   };
 
+  // The paper split by lecturer, only where the class has been told how each
+  // part is written and only while that paper is the one in scope.
+  const showLecturers = Boolean(onStartLecturer && hasLecturerSet(subject, selectedYear, selectedPhase));
+
   // Only for the exam these cards were drawn for. A card that showed all year
   // would stop meaning "this is the one coming up".
   const showPanicCard = Boolean(
@@ -249,7 +258,35 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         >
           สื่อเรียนและโหมดสอบ
         </button>
+        {showLecturers && (
+          <button
+            type="button"
+            role="tab"
+            id="vmx-topic-tab-lecturers"
+            aria-controls="vmx-topic-panel-lecturers"
+            aria-selected={activeSection === 'lecturers'}
+            className={activeSection === 'lecturers' ? 'active' : ''}
+            onClick={() => setActiveSection('lecturers')}
+          >
+            แยกตามอาจารย์
+          </button>
+        )}
       </div>
+
+      {activeSection === 'lecturers' && showLecturers && (
+      <section id="vmx-topic-panel-lecturers" role="tabpanel" aria-labelledby="vmx-topic-tab-lecturers">
+        <div className="vmx-section-label">ข้อสอบกลางภาคแยกตามอาจารย์ผู้สอน</div>
+        <Suspense fallback={<div className="vmx-lect-intro">กำลังโหลด</div>}>
+          <LecturerSets
+            subject={subject}
+            topics={topics}
+            selectedPhase={selectedPhase}
+            onStart={onStartLecturer}
+            onOpenInstructor={openInstructorFor}
+          />
+        </Suspense>
+      </section>
+      )}
 
       {activeSection === 'resources' && (
       <section id="vmx-topic-panel-resources" role="tabpanel" aria-labelledby="vmx-topic-tab-resources">

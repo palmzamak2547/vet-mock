@@ -2561,6 +2561,56 @@ term, so read the per-file direction: a file that goes UP had a quote altered.
   around unit names (`มิลลิกรัม`, `เซลเซียส`), not speech, and that class is
   what makes the absolute number uninterpretable. Read the per-file direction.
 
+## 2026-09-20 — The paper as its lecturers write it: Avian Medicine by lecturer (5.125.0) (Claude)
+
+Palm's brief, the evening before the Avian Medicine midterm (21 ก.ย. 13:00):
+the class had been told how each lecturer's part is examined, seniors had left
+the past items, and he wanted a screen that mirrors that — **one card per
+lecturer, the slides they taught from, practice in that lecturer's format** —
+and the pattern kept for every other subject.
+
+**Evidence the sets are built from, in the order it settles things:**
+- The class announcement (screenshot of the class chat): "Midterm ครอบคลุม 4 ส.ค.
+  ถึง 15 ก.ย. — อ.เกรียงวิชญ์ ถูกผิด 24 ข้อ, อ.ณทยา จับคู่, อ.จิโรจ ข้อเขียน".
+  อ.สมศักดิ์ announced nothing; a senior's cover note records his part as ✓/✗,
+  so his card carries `announced: false` and says so.
+- The department timetable for 3107510: seven sessions, dates, lecturers,
+  topics — which map one-to-one onto the seven VET86 recordings already
+  summarised and fact-checked.
+- Title slides of 21 decks, cropped from the recording screenshots with sharp
+  (verified on one contact sheet, not 21 image reads), 640 px WebP, 412 KB in
+  total, registered as `LECTURE_COVERS` in `art.js`.
+
+**Code, generic and keyed by subject so the next subject is one data entry:**
+- `src/data/lecturer-sets.js` — `LECTURER_SETS`, scope gate, `lecturerTopics()`.
+- `src/components/LecturerSets.jsx` — lazily loaded third tab "แยกตามอาจารย์"
+  on TopicSelectView, shown only where a set exists and the paper is in scope.
+- `buildExamPool` gained `onlyTopics` (a Set — a lecturer's part spans several
+  topics) and exact categories `tf` and `match`; `startLecturerPractice` in
+  App.jsx skips the config screen because the card already chose everything.
+- `src/data/q-kind-counts.generated.js` — per-topic, per-kind, phase-scoped
+  counts from `regen-q-counts.mjs`, in its own module (96 KB that only the
+  lecturer tab loads). It carries `Q_KIND_COUNTS_QB_TOTAL`, and
+  `lint:curriculum` fails when that differs from a live recount: **the number
+  on a card is what a tap serves, or the build is red.** Where a deck has no
+  question in the lecturer's format the card says so and offers the mixed set
+  rather than opening an empty session.
+- `lint-art.mjs` now walks nested sets; it had reported the covers directory
+  itself as an unreferenced asset.
+
+**Verified on the preview build:** the tab appears for avian under ปี 5
+กลางภาค only; the Newcastle cover opened "1 / 23" of avian-nd; อ.เกรียงวิชญ์'s
+button opened a ถูก-ผิด session; อ.จิโรจ's opened ตอบสั้น with a textarea and
+no timer; 375 px shows no horizontal overflow, covers 204 px, strip scrolls.
+
+**Content, in each lecturer's format:** 119 questions added to questions-mid86-avian-medicine.js (ids 206039-206157): 98 true/false — อ.สมศักดิ์ 54 (myco 17, coli 17, fowl cholera 10, coryza 10) and อ.เกรียงวิชญ์ 44 (omphalitis/ascites/staph 14, AE 7, adeno 11, salmonella 12); 18 matching for อ.ณทยา — the two printed sets converted completely (20 items keyed against the printed answer boxes and the senior's pencil in 11.jpg) plus 14 written from the session 1, 5 and 6 recordings; 3 written for อ.จิโรจ (1 hatchery-hygiene item under avian-egg-breakout, 2 moved to avian-intro because the session-4 recording carries no egg-breakout content at all). Three authoring agents, three independent verifiers reading the same sources: 3 + 4 + 4 wording fixes, 2 + 0 + 1 drops, and one owner drop — an AE past-paper item marked True on a '4 สัปดาห์' the lecturer never said (he said 6). Every card count on the lecturer tab comes from these numbers via the kind table. Open: the Marek vaccine thaw time — the recording says 30 นาที, glossary.js says 30 วินาที; neither number ships until a reliable source settles it, and glossary.js should be checked.
+
+**Next subject, the recipe:** class announcement → timetable sessions →
+`fetch-video-transcripts --playlist=<subject>` → two-agent summaries → crop the
+covers → one `LECTURER_SETS` entry → two authoring agents (one per format pair)
+→ two verify agents → `ingest-lecturer.mjs`-style ingest → full gate. Two
+agents at a time; four tripped the limit.
+
 ## 2026-09-19 — Summaries stop reading like transcription audits (5.124.0)
 
 - Scope was the **45 ids in `data-cache/fact-checked.txt`** — the Vet 86

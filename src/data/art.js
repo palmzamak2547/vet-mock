@@ -120,6 +120,38 @@ export const SEASONAL_MOCHI = {
   'new-year': { src: base('mochi-seasonal', 'new-year'), alt: 'โมจิใส่หมวกปาร์ตี้ถือประทัดเล็ก ๆ' },
 };
 
+/**
+ * Title slides of the decks each lecturer taught from, cropped from the
+ * cohort's own recordings, keyed by subject then topic id. Shown on the
+ * lecturer cards (components/LecturerSets.jsx) so the row reads as "the
+ * slides this lecturer opened", not as a list of topic names.
+ */
+export const LECTURE_COVERS = {
+  'avian-medicine': {
+    'avian-nd': { src: base('lecture-covers', 'avian-medicine-avian-nd'), alt: 'ปกสไลด์ Newcastle Disease พื้นน้ำเงิน ลายขนนก' },
+    'avian-ib': { src: base('lecture-covers', 'avian-medicine-avian-ib'), alt: 'ปกสไลด์ Infectious Bronchitis พื้นชมพูเข้ม ลายขนนก' },
+    'avian-lt': { src: base('lecture-covers', 'avian-medicine-avian-lt'), alt: 'ปกสไลด์ Infectious Laryngotracheitis พื้นเขียว ลายขนนก' },
+    'avian-mpv': { src: base('lecture-covers', 'avian-medicine-avian-mpv'), alt: 'ปกสไลด์ Avian Metapneumovirus พื้นฟ้าอมเขียว' },
+    'avian-pox': { src: base('lecture-covers', 'avian-medicine-avian-pox'), alt: 'ปกสไลด์ Fowlpox พื้นน้ำตาล ลายขนนก' },
+    'avian-rss': { src: base('lecture-covers', 'avian-medicine-avian-rss'), alt: 'ปกสไลด์ Runting-Stunting syndrome พื้นขาว' },
+    'avian-cocci': { src: base('lecture-covers', 'avian-medicine-avian-cocci'), alt: 'ปกสไลด์ Coccidiosis พื้นเหลืองอ่อน ลายจุด' },
+    'avian-malaria': { src: base('lecture-covers', 'avian-medicine-avian-malaria'), alt: 'ปกสไลด์ Avian Malaria พื้นน้ำเงิน ลายใบไม้' },
+    'avian-ne': { src: base('lecture-covers', 'avian-medicine-avian-ne'), alt: 'ปกสไลด์ Necrotic Enteritis พื้นเขียว ลายจุด' },
+    'avian-leuko': { src: base('lecture-covers', 'avian-medicine-avian-leuko'), alt: 'ปกสไลด์ Leucocytozoonosis พื้นม่วงแดง ลายใบไม้' },
+    'avian-ibd': { src: base('lecture-covers', 'avian-medicine-avian-ibd'), alt: 'ปกสไลด์ Infectious Bursal disease พื้นน้ำเงิน ลายขนนก' },
+    'avian-marek': { src: base('lecture-covers', 'avian-medicine-avian-marek'), alt: 'ปกสไลด์ Neoplastic Diseases in Poultry พื้นเขียวเข้ม ลายใบไม้' },
+    'avian-cia': { src: base('lecture-covers', 'avian-medicine-avian-cia'), alt: 'ปกสไลด์ Chicken Infectious Anemia พื้นม่วง ลายขนนก' },
+    'avian-reo': { src: base('lecture-covers', 'avian-medicine-avian-reo'), alt: 'ปกสไลด์ Reovirus Infections พื้นเขียวอ่อน ลายขนนก' },
+    'avian-myco': { src: base('lecture-covers', 'avian-medicine-avian-myco'), alt: 'ปกสไลด์ โรคมัยโคพลาสโมซิส ตราคณะ แถบชมพูฟ้า' },
+    'avian-coryza': { src: base('lecture-covers', 'avian-medicine-avian-coryza'), alt: 'ปกสไลด์ Infectious Coryza แถบชมพูฟ้า' },
+    'avian-coli': { src: base('lecture-covers', 'avian-medicine-avian-coli'), alt: 'ปกสไลด์ โรคติดเชื้ออี.โคไล แถบชมพูฟ้า' },
+    'avian-fowl-cholera': { src: base('lecture-covers', 'avian-medicine-avian-fowl-cholera'), alt: 'ปกสไลด์ Fowl Cholera แถบชมพูฟ้า' },
+    'avian-ai': { src: base('lecture-covers', 'avian-medicine-avian-ai'), alt: 'ปกสไลด์ โรคไข้หวัดนก Avian influenza แถบชมพูฟ้า' },
+    'avian-egg-breakout': { src: base('lecture-covers', 'avian-medicine-avian-egg-breakout'), alt: 'ปกสไลด์ Egg Breakout Analysis แถบชมพูฟ้า' },
+    'avian-ahra-set': { src: base('lecture-covers', 'avian-medicine-avian-ahra-set'), alt: 'ปกสไลด์ Omphalitis Ascites Staphylococcus Salmonella Adenovirus พื้นดำ กรอบเหลือง' },
+  },
+};
+
 /** Every path this module can hand out — the lint walks exactly this. */
 export function allArtPaths() {
   const out = new Set();
@@ -128,5 +160,6 @@ export function allArtPaths() {
     for (const v of Object.values(group)) take(v);
   }
   for (const v of IG_BACKGROUNDS) take(v);
+  for (const subject of Object.values(LECTURE_COVERS)) for (const v of Object.values(subject)) take(v);
   return [...out];
 }

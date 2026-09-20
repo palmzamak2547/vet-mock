@@ -113,6 +113,12 @@ const storedPastPaperTopic = counts.Q_PAST_PAPER_COUNTS_BY_TOPIC || {};
 const deliverableTotal = QB.filter(isQuestionDeliverable).length;
 if (counts.QB_TOTAL !== deliverableTotal)
   errors.push(`q-counts QB_TOTAL=${counts.QB_TOTAL} but deliverable=${deliverableTotal} → run: npm run regen:q-counts`);
+// The per-kind table (lecturer cards) is written by the same generator into its
+// own module and carries the bank size it was built from. Any question added or
+// removed without a regen makes that number lie on a card, so it fails here.
+const kindCounts = await imp('src/data/q-kind-counts.generated.js');
+if (kindCounts.Q_KIND_COUNTS_QB_TOTAL !== deliverableTotal)
+  errors.push(`q-kind-counts generated for ${kindCounts.Q_KIND_COUNTS_QB_TOTAL} deliverable Qs but live=${deliverableTotal} → run: npm run regen:q-counts`);
 for (const k of new Set([...Object.keys(bySubject), ...Object.keys(storedSub)]))
   if ((bySubject[k] || 0) !== (storedSub[k] || 0))
     errors.push(`q-counts subject '${k}'=${storedSub[k] || 0} but live=${bySubject[k] || 0} → regen:q-counts`);

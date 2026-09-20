@@ -110,7 +110,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-mid86-aquatic-clinic.js', export: 'QUESTIONS_MID86_AQUATIC_CLINIC', year: 5, count: 186,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-mid86-aquatic-clinic.js').then((m) => m.QUESTIONS_MID86_AQUATIC_CLINIC) },
-  { file: 'questions-mid86-avian-medicine.js', export: 'QUESTIONS_MID86_AVIAN_MEDICINE', year: 5, count: 37,
+  { file: 'questions-mid86-avian-medicine.js', export: 'QUESTIONS_MID86_AVIAN_MEDICINE', year: 5, count: 156,
     subjects: ['avian-medicine'],
     load: () => import('./questions-mid86-avian-medicine.js').then((m) => m.QUESTIONS_MID86_AVIAN_MEDICINE) },
   { file: 'questions-mid86-equine-medicine.js', export: 'QUESTIONS_MID86_EQUINE_MEDICINE', year: 5, count: 119,
@@ -280,4 +280,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-19T05:11:26.890Z — 90 banks · 5758 Qs
+// Built: 2026-09-19T19:53:04.373Z — 90 banks · 5877 Qs

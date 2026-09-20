@@ -881,4 +881,2570 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
       "written"
     ]
   },
+  {
+    "id": 206039,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "เชื้อ Mycoplasma มีขนาดเล็กกว่าแบคทีเรียและไม่มีผนังเซลล์ จึงดื้อต่อยาปฏิชีวนะที่ออกฤทธิ์ต่อผนังเซลล์อย่างกลุ่มเพนิซิลลิน",
+    "answer": true,
+    "explain": "ถูก Mycoplasma ไม่มีผนังเซลล์ ยาที่ออกฤทธิ์ต่อผนังเซลล์อย่างเพนิซิลลินและอะม็อกซีซิลลินจึงไม่มีเป้าหมายให้ทำลาย อาจารย์ยกตัวอย่างยาสองตัวนี้ตรงตัว และเชื้อมีขนาดเล็กกว่าแบคทีเรียทั่วไปแต่ใหญ่กว่าไวรัส",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (Mycoplasma)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p71; VET86 8ekNMuG25gI [5:24], [3:47-4:01]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206040,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "เชื้อ Mycoplasma ที่ก่อปัญหาต่ออุตสาหกรรมการเลี้ยงไก่ ได้แก่ M. gallisepticum, M. synoviae และ M. meleagridis",
+    "answer": false,
+    "explain": "ผิด M. meleagridis (MM) เป็นเชื้อของไก่งวง พบเฉพาะในไก่งวง แม้บางครั้งแยกได้จากไก่แต่ไก่ไม่เป็นโรค เชื้อที่เป็นปัญหาในไก่และที่อาจารย์เน้นสอนคือ MG กับ MS เท่านั้น",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (Mycoplasma)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p72; VET86 8ekNMuG25gI [6:15-7:09]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206041,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "Chronic respiratory disease (CRD) ในไก่เกิดจากการติดเชื้อ Mycoplasma gallisepticum หรือ Mycoplasma synoviae",
+    "answer": true,
+    "explain": "ถูก CRD complex มี primary cause เป็น MG หรือ MS แล้วมีเชื้อทุติยภูมิอย่าง E. coli หรือ IB ซ้ำเติม ถุงลมอักเสบเกิดจาก MG และ/หรือ MS ร่วมกับการติดเชื้อทางเดินหายใจอื่นหรือ E. coli",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (Mycoplasma)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p73; VET86 8ekNMuG25gI [12:14-12:41], [8:49-9:03]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206042,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การเห็นโคโลนีรูปไข่ดาวใต้กล้องจุลทรรศน์เพียงพอที่จะระบุได้ว่าเชื้อที่เพาะได้เป็น MG ไม่ใช่ MS",
+    "answer": false,
+    "explain": "ผิด Mycoplasma ทุกสปีชีส์ในสัตว์ปีกให้โคโลนีรูปไข่ดาวเหมือนกัน ดูจากกล้องแยก MG กับ MS ไม่ได้ ต้องใช้แล็บช่วย เช่น immunofluorescence ย้อมโคโลนีด้วย conjugate ของ MG หรือ PCR ที่มี primer จำเพาะ",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 15 ลักษณะเชื้อ Mycoplasma; VET86 8ekNMuG25gI [15:20-15:34], [55:17-56:06]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206043,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "เชื้อ MG ที่ปนออกมากับมูลไก่แล้วไปปนเปื้อนเปลือกไข่ด้านนอก นับเป็น vertical transmission รูปแบบหนึ่ง",
+    "answer": false,
+    "explain": "ผิด อาจารย์ย้ำสองครั้งว่าเชื้อที่ปนเปื้อนเปลือกไข่ด้านนอกไม่ถือเป็น vertical transmission ต้องเป็นเชื้อที่เข้าไปในฟองไข่โดยเกาะที่ yolk membrane ของไข่แดงตั้งแต่ก่อนเข้าท่อนำไข่ ลูกไก่จึงฟักออกมาพร้อมเชื้อในตัว",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 19 MG transovarian transmission; VET86 8ekNMuG25gI [2:21], [22:01]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206044,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ไก่ที่มีระดับแอนติบอดีในเลือดสูงหลังทำวัคซีน MG ยังไม่รับประกันว่าป้องกันโรคได้ เพราะการป้องกันอาศัย IgA ในทางเดินหายใจ",
+    "answer": true,
+    "explain": "ถูก การป้องกัน MG ไม่ขึ้นกับระดับแอนติบอดีในเลือด IgG หรือ IgY ในกระแสเลือดไม่มีผลต่อ protection สิ่งสำคัญคือ local immunity ชนิด IgA ในท่อลมที่ยับยั้งการเจริญและการยึดเกาะของเชื้อ ซึ่งได้จากวัคซีนเชื้อเป็นเป็นหลัก",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 21 local immunity ต่อ MG; VET86 8ekNMuG25gI [29:49-31:23], [33:04-33:44]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206045,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "Serum plate agglutination (SPA) ตรวจหา IgG หรือ IgY ซึ่งไก่สร้างขึ้นประมาณ 2-3 สัปดาห์หลังได้รับแอนติเจน",
+    "answer": false,
+    "explain": "ผิด SPA ตรวจหา IgM ซึ่งเป็นอิมมูโนโกลบูลินตัวแรกที่สร้างหลังรับเชื้อ ตามทฤษฎีพบได้ราว 7-10 วัน ส่วน IgG หรือ IgY ที่สร้างราว 2-3 สัปดาห์เป็นสิ่งที่ ELISA และ HI ตรวจหา",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 14 Serum plate agglutination; VET86 8ekNMuG25gI [38:54-39:20], [40:33-41:01], [43:30]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206046,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ซีรั่มที่จะนำมาทำ SPA ควรแช่แข็งเก็บไว้ก่อนส่งตรวจ เพื่อรักษาคุณภาพของแอนติบอดีให้คงที่",
+    "answer": false,
+    "explain": "ผิด SPA ต้องใช้ซีรั่มสด ห้ามแช่แข็ง เพราะซีรั่มที่ผ่านการ freeze จะให้ผลบวกปลอม เก็บได้เพียงในตู้เย็นช่องธรรมดา 4 องศา และวัคซีนเชื้อตายที่ทำมาก่อนก็ทำให้ผลบวกปลอมได้อีกทาง",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 14 Serum plate agglutination; VET86 8ekNMuG25gI [43:41-44:41]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206047,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ในการตรวจซีรัมวิทยาของ MG วิธี SPA มีความไวสูงที่สุด ส่วนวิธี HI มีความจำเพาะสูงที่สุด",
+    "answer": true,
+    "explain": "ถูก อาจารย์จัดอันดับความไวเป็น SPA มากกว่า ELISA มากกว่า HI และความจำเพาะ HI สูงสุด ต่ำสุดคือ SPA ดังนั้น SPA จึงเหมาะเป็น screening test แล้วยืนยันผลบวกด้วยการเจือจางซีรั่ม 1:10 หรือตรวจ ELISA ซ้ำ",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 14 Serum plate agglutination; VET86 8ekNMuG25gI [47:19-47:45], [45:31-47:19]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206048,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "วัคซีน MG สายพันธุ์ TS-11 เป็นวัคซีนดูดแห้ง เก็บในตู้เย็นช่องธรรมดา 4 องศาได้เช่นเดียวกับสายพันธุ์ 6/85",
+    "answer": false,
+    "explain": "ผิด TS-11 เป็น frozen vaccine ต้องเก็บต่ำกว่า -70 องศา ขนส่งด้วย dry ice และถ้าละลายคุณสมบัติจะเสื่อม ซึ่งเป็นข้อด้อยสำคัญในทางปฏิบัติ วัคซีนที่เป็นชนิดดูดแห้งเก็บ 4 องศาได้คือ 6/85 และ FP-MG",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 16 vaccine strain ts11; VET86 8ekNMuG25gI [68:16-68:50], [69:01]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206049,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "วัคซีน TS-11 เจริญได้ดีที่ประมาณ 33.5-34 องศาและตายเมื่ออุณหภูมิเกิน 35 องศา เชื้อวัคซีนจึงอยู่เฉพาะที่ท่อลม",
+    "answer": true,
+    "explain": "ถูก TS ย่อจาก temperature sensitive ถูกตัดแต่งด้วยสารเคมีให้ไม่ทนอุณหภูมิสูงในตัวไก่ ท่อลมอยู่ราว 34 องศา ส่วนทางเดินหายใจส่วนล่างราว 38-39 องศา เชื้อวัคซีนจึงไม่ลงต่ำกว่าท่อลม ช่วยป้องกัน vertical transmission จากเชื้อวัคซีน",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 16 vaccine strain ts11; VET86 8ekNMuG25gI [63:04-64:29], [78:08]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206050,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ไก่ที่เคยติดเชื้อฝีดาษมาก่อน เมื่อทำวัคซีน FP-MG จะไม่ได้ผล เพราะภูมิคุ้มกันต่อ fowl pox ไป neutralize ตัววัคซีน",
+    "answer": true,
+    "explain": "ถูก FP-MG เป็น recombinant vaccine ที่ใช้ fowl pox virus เป็น vector แทงปีก ถ้าไก่มีภูมิต่อฝีดาษอยู่แล้ว vector ถูกทำลายก่อนจะกระตุ้นภูมิต่อ MG ข้อจำกัดอีกข้อคือยังไม่มี test ที่ตรวจแอนติบอดีจาก FP-MG ได้ ต้องดูฝีที่ปีกใน 5-7 วันแทน",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 17 vaccine FP-MG; VET86 8ekNMuG25gI [70:46-70:55], [69:12-70:36]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206051,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "วัคซีน MG สายพันธุ์ F ให้เพียงครั้งเดียวก็ไล่เชื้อ field strain ออกจากฝูงในรุ่นนั้นได้ทันที",
+    "answer": false,
+    "explain": "ผิด สายพันธุ์ F ทำ displacement ของ field strain ได้จริง แต่อาจารย์ย้ำว่าต้องให้ต่อเนื่องอย่างน้อย 2-3 รุ่นจึงจะเหลือเฉพาะเชื้อวัคซีนในฟาร์ม ข้อดีอื่นคือคงอยู่ในตัวไก่ตลอดชีวิตและเป็นสายพันธุ์ที่แรงที่สุด แต่มีโอกาสเกิดการแพ้",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 18 vaccine F-strain; VET86 8ekNMuG25gI [66:20-67:13], [75:43]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206052,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ไม่ควรให้ tiamulin รักษา Mycoplasma ในไก่ที่กินอาหารผสมยากันบิดกลุ่ม monensin หรือ narasin เพราะเกิดพิษจนไก่ตายได้",
+    "answer": true,
+    "explain": "ถูก tiamulin (กลุ่ม pleuromutilin) ยังมีค่า MIC ต่ำ แต่ถ้าให้ร่วมกับยากันบิดกลุ่ม ionophore อย่าง monensin หรือ narasin จะเกิดผลเสียถึงตาย ส่วน lasalocid ไม่มีปัญหา ความกลัวข้อนี้ทำให้ฟาร์มไม่ค่อยกล้าใช้ tiamulin",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 20 ยาที่ใช้รักษา MG; VET86 8ekNMuG25gI [84:13-85:32]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206053,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "น้ำเลี้ยงข้อที่เจาะได้จากไก่ที่ติดเชื้อ MS ในระยะเฉียบพลัน มีลักษณะสีครีมข้นคล้ายหนอง",
+    "answer": false,
+    "explain": "ผิด ระยะเฉียบพลันน้ำเลี้ยงข้อเป็นสีเหลืองคล้ายน้ำฟางข้าวและหนืด คลำข้อหรือฝ่าเท้าจะหยุ่นเหมือนลูกโป่งใส่น้ำ เมื่อเป็นเรื้อรังหรือมีเชื้อทุติยภูมิเข้าไปจึงข้นเป็นสีครีมและกดแล้วแข็ง",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 22 clinical signs of MS; VET86 8ekNMuG25gI [92:15-92:53], [95:51-96:29]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206054,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "Egg apex abnormality จากเชื้อ MS ทำให้ไข่ขาวเหลวและเปอร์เซ็นต์การฟักต่ำลง เช่นเดียวกับผลของโรค IB",
+    "answer": false,
+    "explain": "ผิด EAA จาก MS ไม่มีผลต่อไข่ขาวและไม่ลดเปอร์เซ็นต์การฟัก เพียงเปลือกด้านแหลมบางจนอาจแตกตอนเครื่องเอียงไข่ ส่วนที่ทำให้ไข่ขาวเหลวและเปอร์เซ็นต์ฟักต่ำคือ IB ซึ่งเป็นจุดที่ใช้แยกสองโรคนี้",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 13 egg apex abnormalities; VET86 8ekNMuG25gI [103:08-104:46]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206055,
+    "subject": "avian-medicine",
+    "topic": "avian-myco",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "รอยเปลือกบางของ egg apex abnormality อยู่รอบด้านแหลมของไข่ ห่างจากยอดราว 1.5-2 ซม. ซึ่งเป็นด้านที่ไม่มี air cell",
+    "answer": true,
+    "explain": "ถูก เปลือกด้านแหลมจะบาง หยาบ โปร่งแสง หรือมีรอยแตกเป็นวง ส่องไฟจะเห็นวงเปลือกบางชัด อย่าสับสนกับ air cell เพราะ air cell อยู่ด้านป้าน ในกล้องอิเล็กตรอนพบชั้น mammillary ขาดหายและเยื่อเปลือกในบางกว่าปกติ",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 13 egg apex abnormalities; VET86 8ekNMuG25gI [102:37-103:08], [104:58-105:37]",
+    "tags": [
+      "avian-myco",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206056,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "โรคติดเชื้อ E. coli ในสัตว์ปีก มีสาเหตุจากเชื้อกลุ่มที่ปัจจุบันเรียกว่า poultry pathogenic Escherichia coli",
+    "answer": false,
+    "explain": "ผิด ชื่อปัจจุบันของเชื้อก่อโรคกลุ่มนี้คือ avian pathogenic Escherichia coli ย่อว่า APEC ส่วน poultry pathogenic E. coli เป็นชื่อเดิมที่เลิกใช้แล้ว",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p61 Question 31; VET86 R0xTpIvGn98 [4:38], [28:12]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206057,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "ซีโรไทป์ของ E. coli ที่ก่อพยาธิสภาพและเป็นปัญหาในไก่ของประเทศไทย ได้แก่ O1, O2, O35 และ O87",
+    "answer": false,
+    "explain": "ผิด ซีโรไทป์ก่อโรคในไทยที่อาจารย์ให้จำคือ O1, O2, O35 และ O78 พูดซ้ำถึงสามครั้งในคาบเดียว ตัวเลขที่ต่างคือ O78 ไม่ใช่ O87 และวัคซีนเชื้อตายส่วนใหญ่ครอบคลุมสี่ซีโรไทป์นี้อยู่แล้ว",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p62 Question 32; VET86 R0xTpIvGn98 [9:28], [45:37], [51:51]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206058,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "โรคติดเชื้อ E. coli ในไก่ก่อพยาธิสภาพรุนแรงต่อระบบทางเดินหายใจและระบบทางเดินอาหารเท่าๆ กัน",
+    "answer": false,
+    "explain": "ผิด ในไก่ E. coli ราว 95% เป็นโรคทางเดินหายใจ ต่างจากสัตว์อื่นที่มักเป็นทางเดินอาหาร ท้องเสียจาก APEC พบเพียงราว 10% และมักเป็นเชื้อที่สร้างสารพิษซึ่งพบน้อย",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p63; VET86 8ekNMuG25gI [12:41-13:07]; VET86 R0xTpIvGn98 [27:45-28:38]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206059,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "ไก่ติดเชื้อ E. coli ได้ทางการกินอาหารหรือน้ำที่ปนเปื้อน ทางการหายใจ ทางเปลือกไข่ที่ปนเปื้อน และทางบาดแผล",
+    "answer": true,
+    "explain": "ถูก เชื้อเข้าทางการกินอาหารและน้ำที่ปนเปื้อน ทางฝุ่นละอองในโรงเรือนที่มีเชื้อจากทางเดินหายใจไก่ป่วย ทางรูพรุนของเปลือกไข่ที่เปื้อนมูลไก่ และทางบาดแผลที่ผิวหนังซึ่งเป็นปัจจัยโน้มนำที่อาจารย์ระบุ",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p64; VET86 R0xTpIvGn98 [13:10-14:15], [17:38-17:52], [14:55]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206060,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "กลุ่มอาการจากเชื้อ E. coli ในไก่ ได้แก่ สะดืออักเสบ เนื้อเยื่อใต้ผิวหนังอักเสบ ท่อนำไข่อักเสบ และเยื่อบุช่องท้องอักเสบ",
+    "answer": true,
+    "explain": "ถูก รูปแบบเฉพาะที่ของ colibacillosis ที่อาจารย์สอนมี yolk sac infection กับสะดืออักเสบ การติดเชื้อใต้ผิวหนังทางบาดแผล และ salpingitis ที่มักลามเป็น peritonitis โดยเชื้อเข้าท่อนำไข่ได้ทั้งจากโคลเอกาและจากถุงลมอักเสบ",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p65; VET86 R0xTpIvGn98 [16:33-18:06], [24:27], [28:52-30:48]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206061,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "รอยโรคถุงหุ้มหัวใจอักเสบ เยื่อหุ้มตับอักเสบ ถุงลมอักเสบ และเยื่อบุช่องท้องอักเสบจาก E. coli จะพบหลังไก่รับเชื้อแล้ว 7-10 วัน",
+    "answer": false,
+    "explain": "ผิด ระยะฟักตัวของ E. coli สั้นมาก อาจารย์ให้ประมาณ 2 วันหลังรับเชื้อจึงแสดงอาการ และในลูกไก่การติดเชื้อทางกระแสเลือดใช้เวลาราว 24-48 ชั่วโมง ตัวเลข 7-10 วันจึงยาวเกินจริง ระยะฟักตัวสั้นนี้ยังใช้แยกจาก MG ที่นาน 10-21 วัน",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p67; VET86 R0xTpIvGn98 [31:28], [40:31]; VET86 8ekNMuG25gI [57:29-57:40]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206062,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "การติดเชื้อ E. coli ทางกระแสเลือดในเป็ด ให้รอยโรคคล้ายกับโรคในเป็ดที่เกิดจากเชื้อ Riemerella anatipestifer",
+    "answer": true,
+    "explain": "ถูก เป็ดที่ติด E. coli พบไฟบรินคลุมตับ หัวใจ และถุงลมเหมือน new duck syndrome จากเชื้อ anatipestifer อาจารย์ย้ำว่ารอยโรคคล้ายกันจนแยกได้ด้วยการเพาะเชื้อเท่านั้น",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p68; VET86 R0xTpIvGn98 [43:21-43:58]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206063,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "Coligranuloma หรือ Hjarre's disease คือพยาธิสภาพที่พบก้อนเนื้อจำนวนมากตามผิวหนังและรูขุมขนของไก่",
+    "answer": false,
+    "explain": "ผิด coligranuloma เป็นตุ่มแกรนูโลมาคล้ายเนื้องอกที่อวัยวะภายใน เช่น ตับและลำไส้ ไม่ใช่ที่ผิวหนัง เป็นรูปแบบเรื้อรังที่พบน้อยมาก และต้องแยกจากวัณโรคสัตว์ปีกด้วยการย้อม acid fast",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p69; VET86 R0xTpIvGn98 [6:05-6:57], [31:43]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206064,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "ไก่ที่ผ่าซากพบไฟบรินคลุมตับหรือถุงหุ้มหัวใจหนาตัว หากได้รับยาปฏิชีวนะที่ถูกต้องจะมีโอกาสฟื้นตัวได้ดี",
+    "answer": false,
+    "explain": "ผิด อาจารย์บอกว่ารอยโรคแบบนี้รักษาอย่างไรก็ไม่หาย ถ้ารอดก็แคระแกร็น เพราะยาจะได้ผลต่อเมื่อสัมผัสเชื้อโดยตรง แต่ไฟบรินคลุมตัวเชื้อไว้ ที่พอรักษาทันคือระยะที่ไฟบรินยังบางเท่านั้น จึงต้องวินิจฉัยให้เร็ว",
+    "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p70; VET86 R0xTpIvGn98 [33:51-35:42]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206065,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ไก่ไม่มีกะบังลม การติดเชื้อ E. coli ในช่องอกจึงลามลงสู่ช่องท้องได้ง่าย เพราะมีเพียงถุงลมบางๆ กั้นอยู่",
+    "answer": true,
+    "explain": "ถูก นี่คือเหตุผลทางกายวิภาคที่อาจารย์ใช้อธิบายว่าทำไม E. coli ในไก่ไม่ค่อยเป็นโรคเฉพาะที่ ผ่าซากครั้งเดียวจึงพบ pericarditis, perihepatitis, airsacculitis และ peritonitis พร้อมกันหลายอวัยวะ",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [5:04-5:28]",
+    "tags": [
+      "avian-coli"
+    ]
+  },
+  {
+    "id": 206066,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การย้อม acid fast ใช้แยก coligranuloma จากวัณโรคสัตว์ปีกได้ เพราะ E. coli ติดสี acid fast ส่วน Mycobacterium avium ไม่ติด",
+    "answer": false,
+    "explain": "ผิด กลับกัน E. coli เป็นแกรมลบที่ไม่ติดสี acid fast ส่วน Mycobacterium avium ซึ่งก่อวัณโรคสัตว์ปีกติดสี acid fast เมื่อพบตุ่มคล้ายเนื้องอกตามอวัยวะภายในโดยเฉพาะไก่อายุมากที่เลี้ยงหลายปี ให้นึกถึงวัณโรคด้วย",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Colibacillosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 6 วิธีแยก E. coli จาก TB; VET86 R0xTpIvGn98 [6:43-6:57], [8:16]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206067,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "มาตรฐานคุณภาพน้ำดื่มในฟาร์มไก่ยอมให้ตรวจพบ E. coli ได้ไม่เกิน 10,000 ต่อหน่วยตรวจเช่นเดียวกับโคลิฟอร์ม",
+    "answer": false,
+    "explain": "ผิด เกณฑ์ที่อาจารย์ให้คือโคลิฟอร์มแบคทีเรียไม่ควรเกิน 10,000 แต่ E. coli ต้องตรวจไม่พบเลย การตรวจคุณภาพน้ำเป็นข้อกำหนดในการ audit ฟาร์มไก่อยู่แล้ว",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [49:26-49:51]",
+    "tags": [
+      "avian-coli"
+    ]
+  },
+  {
+    "id": 206068,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "เชื้อ E. coli ที่แยกได้จากทางเดินอาหารของไก่ปกติ มีประมาณ 10-15% ที่เป็นซีโรไทป์ก่อโรค",
+    "answer": true,
+    "explain": "ถูก เชื้อก่อโรคอยู่ในลำไส้ไก่ปกติราว 10-15% ของ E. coli ทั้งหมด ไก่แข็งแรงจึงไม่มีปัญหา แต่เมื่อไก่อ่อนแอ ภูมิคุ้มกันไม่ดี หรือเพิ่งได้รับวัคซีน เชื้อกลุ่มนี้จึงเพิ่มจำนวนและก่อโรค",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Colibacillosis)",
+    "verified": "อิงแนวข้อสอบ, images/8.jpg บรรทัด Epidemiology: 10-15% are pathogenic serotypes; VET86 R0xTpIvGn98 [7:37-7:51], [12:57]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206069,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "วัคซีนเชื้อเป็น E. coli ควรให้ห่างจากวัคซีนเชื้อเป็นทางเดินหายใจอย่าง ND, IB หรือ Mycoplasma อย่างน้อย 2 สัปดาห์",
+    "answer": true,
+    "explain": "ถูก อาจารย์บอกว่าถ้าให้ร่วมกับ ND, IB หรือ Mycoplasma ห่างกันเพียง 3-4 วันจะเกิดการแพ้วัคซีนได้ ต้องเว้นอย่างน้อย 2 สัปดาห์ วัคซีนเชื้อเป็นนี้ใช้ในไก่ไข่และไก่พันธุ์ ส่วนไก่เนื้อไม่ทำเพื่อลดความเครียดและต้นทุน",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [50:49-51:37], [10:27-11:05]",
+    "tags": [
+      "avian-coli"
+    ]
+  },
+  {
+    "id": 206070,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การติดเชื้อไวรัสเป็นสาเหตุปฐมภูมิมักไม่ทำให้เกิดหนอง เพราะเซลล์ที่ตอบสนองเป็น lymphocyte ไม่ใช่ heterophil",
+    "answer": true,
+    "explain": "ถูก หนองเกิดจาก heterophil หรือ neutrophil ที่มาตอบสนองต่อแบคทีเรีย ส่วนไวรัสกระตุ้น lymphocyte จึงไม่เกิดหนอง อาจารย์ใช้เหตุผลนี้อธิบายว่าทำไม differential diagnosis ของ E. coli จึงเป็นแบคทีเรียทั้งหมด",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [46:10-46:22]",
+    "tags": [
+      "avian-coli"
+    ]
+  },
+  {
+    "id": 206071,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "รอยโรคไฟบรินคลุมหัวใจ ไฟบรินคลุมตับ ถุงลมอักเสบ และเยื่อบุช่องท้องอักเสบในไก่ ราว 90% เกิดจากเชื้อ E. coli",
+    "answer": true,
+    "explain": "ถูก อาจารย์ให้ตัวเลขว่าชุดรอยโรค pericarditis, perihepatitis, airsacculitis และ peritonitis ประมาณ 90% เกิดจาก E. coli และเมื่อพบไฟบรินคลุมตับ หัวใจ พร้อมช่องท้องอักเสบ ให้มั่นใจได้ราว 90% ว่าเป็น E. coli",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Colibacillosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 11 fibrinous pericarditis, airsacculitis เกิดจากเชื้ออะไร; VET86 R0xTpIvGn98 [5:16-5:28], [33:25]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206072,
+    "subject": "avian-medicine",
+    "topic": "avian-coli",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ไฟบรินคลุมตับและหัวใจที่พบในไก่ที่เป็น CRD complex เกิดจากเชื้อ Mycoplasma gallisepticum โดยตรง",
+    "answer": false,
+    "explain": "ผิด ในอดีตเรียกรอยโรคนี้ว่า CRD ทั้งหมด แต่ไฟบรินคลุมตับคลุมหัวใจเกิดจาก E. coli เป็นหลัก MG อย่างเดียวในระยะเฉียบพลันให้เพียงถุงลมอักเสบ เมื่อปล่อยไว้อีก 4-5 วัน E. coli จึงเข้าแทรกและเกิดไฟบริน",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Colibacillosis)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 11 และ 12; VET86 8ekNMuG25gI [8:01-8:38], [28:01-28:59]",
+    "tags": [
+      "avian-coli",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206073,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "จุดเนื้อตายที่ตับแบบ pin point ขนาดเล็กเท่ากันกระจายทั่วตับ เข้าได้กับ fowl cholera มากกว่า E. coli",
+    "answer": true,
+    "explain": "ถูก จุดเนื้อตายที่ตับต้องแยกสามโรคคือ E. coli, fowl cholera และ Salmonella ตัวแยกคือขนาดของจุด pin point เล็กสม่ำเสมอเป็นของ Pasteurella multocida และถือเป็น pathognomonic ของแบบเรื้อรัง ส่วนจุดใหญ่บ้างเล็กบ้างคล้ายลายหินอ่อนเป็นของอีกเชื้อ",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 3 pin point necrotic foci; VET86 R0xTpIvGn98 [42:15-42:55], [73:23], [76:06]",
+    "tags": [
+      "avian-fowl-cholera",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206074,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ไก่อายุน้อยกว่า 16 สัปดาห์ไวต่อ fowl cholera มากกว่าไก่โตเต็มวัย ลูกเจี๊ยบจึงเป็นกลุ่มที่พบโรคบ่อย",
+    "answer": false,
+    "explain": "ผิด fowl cholera กลับกันกับ E. coli คือไก่อายุมากไวกว่าอายุน้อย ไก่อายุน้อยกว่า 16 สัปดาห์ค่อนข้างต้านทานโรค ลูกเจี๊ยบจึงไม่ค่อยพบ มักพบในไก่โตเต็มที่ และสายพันธุ์หนักไวกว่าสายพันธุ์เบา",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 23; images/9.jpg บรรทัด ไก่ < 16 weeks old resist; VET86 R0xTpIvGn98 [55:14], [60:32]",
+    "tags": [
+      "avian-fowl-cholera",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206075,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "เป็ดและห่านอายุมากกว่า 4 สัปดาห์ไวต่อ fowl cholera มาก อัตราการตายสูงได้ถึง 50% จึงนิยมทำวัคซีนโรคนี้ในเป็ด",
+    "answer": true,
+    "explain": "ถูก เป็ดห่านไวกว่าไก่ ในไก่อัตราการตายอยู่ราว 0-20% แต่เป็ดห่านอายุมากกว่า 4 สัปดาห์ตายได้ถึง 50% ผู้เลี้ยงเป็ดและห่านจึงทำวัคซีน fowl cholera ขณะที่ในไก่อาจไม่ทำ",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 9 fowl cholera เป็ด ห่านไวรับมากกว่าไก่; VET86 R0xTpIvGn98 [54:23], [60:32-60:58]",
+    "tags": [
+      "avian-fowl-cholera",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206076,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ไก่ที่ตายแบบ peracute จาก fowl cholera ภายใน 6 ชั่วโมง ตายเพราะเชื้อเพิ่มจำนวนในกระแสเลือดจนอวัยวะเสียหาย",
+    "answer": false,
+    "explain": "ผิด รูปแบบ peracute ไก่ไม่ได้ตายจากตัวเชื้อ แต่ตายจากท็อกซินที่เชื้อสร้าง (endotoxin) ผ่าซากอาจไม่พบรอยโรคเลยหรือพบเพียงจุดเลือดออกที่หัวใจและไขมันช่องท้อง ส่วนแบบ acute ที่ตายในราว 2 วันจึงเป็นผลจากตัวเชื้อเอง",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
+    "verified": "อิงแนวข้อสอบ, images/9.jpg บรรทัด Produce endotoxin และ sudden death within 6 hr; VET86 R0xTpIvGn98 [64:05-64:17], [69:39-70:05]",
+    "tags": [
+      "avian-fowl-cholera",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206077,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "หนูและนกป่าอย่างนกกระจอกเป็นพาหะสำคัญที่นำเชื้อ fowl cholera เข้าสู่ฟาร์มไก่ การควบคุมโรคจึงต้องคุมสัตว์ฟันแทะ",
+    "answer": true,
+    "explain": "ถูก พาหะสำคัญในฟาร์มคือหนูและนกป่า รวมถึงอุปกรณ์การเลี้ยง ไก่ที่หายป่วยยังเป็น carrier เพราะเชื้ออยู่เป็น local infection ที่เหนียงหรือข้อ มาตรการป้องกันจึงมี rodent control และคัดตัวที่ป่วยเรื้อรังออก",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 5 rodents เป็น carriers; VET86 R0xTpIvGn98 [62:37-63:16], [81:26]",
+    "tags": [
+      "avian-fowl-cholera",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206078,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "Pasteurella multocida เจริญได้ดีบน MacConkey agar เช่นเดียวกับ E. coli จึงใช้อาหารเลี้ยงเชื้อนี้แยกสองเชื้อไม่ได้",
+    "answer": false,
+    "explain": "ผิด P. multocida ไม่เจริญบน MacConkey agar ขณะที่ E. coli ขึ้นได้ตามปกติ จึงใช้แยกสองเชื้อได้ เชื้อนี้เป็นแกรมลบ ไม่เคลื่อนที่ ไม่สร้างสปอร์ และติดสีแบบ bipolar ใน blood smear",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
+    "verified": "อิงแนวข้อสอบ, images/9.jpg บรรทัด ไม่โตบน MacConkey's agar; VET86 R0xTpIvGn98 [55:41-56:44]",
+    "tags": [
+      "avian-fowl-cholera",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206079,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "Vertical transmission ของ fowl cholera ถือว่าแทบไม่มี เพราะ P. multocida ในไข่ฟักทำให้ตัวอ่อนตายก่อนฟักออก",
+    "answer": true,
+    "explain": "ถูก ถ้าแยกเชื้อไปฉีดในไข่ฟัก ไข่ตายแน่นอน ฟักออกเป็น 0% จึงไม่เรียกว่า vertical transmission เพราะลูกไก่ตายก่อน อาจารย์สรุปว่าทั้ง P. multocida, Avibacterium และ E. coli มีโอกาสพบ vertical transmission น้อยมาก",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 1 โรคไหนส่งผ่านไข่; VET86 R0xTpIvGn98 [62:00], [96:39]",
+    "tags": [
+      "avian-fowl-cholera",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206080,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "วัคซีนเชื้อเป็น fowl cholera แนะนำให้ทางหยอดตาหรือหยอดจมูก เพราะเป็นโรคที่มีอาการทางเดินหายใจ",
+    "answer": false,
+    "explain": "ผิด วัคซีนเชื้อเป็นของโรคนี้แนะนำให้ทาง wing web เพราะถ้าให้ทางหยอดตาหยอดจมูกจะแพ้รุนแรง จึงต้องเลี่ยงไปแทงปีก ในไทยยังไม่มีวัคซีนเชื้อเป็นเข้ามาขาย ส่วนใหญ่ใช้วัคซีนเชื้อตาย",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [81:51-82:33]",
+    "tags": [
+      "avian-fowl-cholera"
+    ]
+  },
+  {
+    "id": 206081,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ปัจจุบัน P. multocida มีมากกว่า 20 ซีโรไทป์ วัคซีนเชื้อตายที่ไม่ตรงซีโรไทป์จึงให้ cross protection ต่ำ",
+    "answer": true,
+    "explain": "ถูก ปัจจุบัน P. multocida มีอย่างน้อย 20 ซีโรไทป์ ตัวเลข 15-16 ซีโรไทป์เป็นข้อมูลเก่า วัคซีนแบคทีเรียที่ไม่ตรง serotype หรือ antigen จึงให้ cross protection ต่ำ ฟาร์มที่ไม่พบโรค 5-6 ปีจึงอาจถอดวัคซีนนี้ออก",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
+    "verified": "อิงแนวข้อสอบ, images/9.jpg บรรทัด มี 15-16 serotypes ทำให้วัคซีนไม่ค่อยได้ผล; VET86 R0xTpIvGn98 [57:10-58:28]",
+    "tags": [
+      "avian-fowl-cholera",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206082,
+    "subject": "avian-medicine",
+    "topic": "avian-fowl-cholera",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "วัคซีนเชื้อตาย fowl cholera ชนิด oil adjuvant ของบริษัทแนะนำให้ฉีดเข้ากล้าม ส่วน bacterin ของกรมปศุสัตว์ฉีดเข้าใต้ผิวหนัง",
+    "answer": false,
+    "explain": "ผิด สลับกัน bacterin ของกรมปศุสัตว์ที่ฆ่าเชื้อด้วยฟอร์มาลินแนะนำฉีดเข้ากล้าม ส่วนวัคซีนบริษัทที่ใส่ oil adjuvant แนะนำฉีดเข้าใต้ผิวหนัง เพราะฉีดเข้ากล้ามจะเกิด reaction มาก โปรแกรมคือเข็มแรก 6-8 สัปดาห์ และ booster อีก 4 สัปดาห์ถัดมา",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [82:50-84:22]",
+    "tags": [
+      "avian-fowl-cholera"
+    ]
+  },
+  {
+    "id": 206083,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "โรคหวัดหน้าบวมและ fowl cholera ไก่อายุน้อยต้านทานโรคได้ดีกว่าไก่อายุมาก ต่างจาก colibacillosis ที่ไก่อายุน้อยไวกว่า",
+    "answer": true,
+    "explain": "ถูก ทั้งหวัดหน้าบวมและ fowl cholera ไก่อายุมากไวหรือรุนแรงกว่า อาจารย์นิยามโตเต็มที่ว่าเริ่มให้ไข่แล้วราว 17 สัปดาห์ขึ้นไป ส่วน E. coli สัตว์ปีกอายุน้อยไวต่อโรคมากกว่าสัตว์ปีกที่โตเต็มที่",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 23; VET86 R0xTpIvGn98 [55:14], [96:02-96:15], [14:42]",
+    "tags": [
+      "avian-coryza",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206084,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "Avibacterium paragallinarum แพร่จากแม่ไก่สู่ลูกผ่านไข่ได้ในอัตราต่ำ เช่นเดียวกับ Mycoplasma gallisepticum",
+    "answer": false,
+    "explain": "ผิด การแพร่เชื้อหวัดหน้าบวมเป็นแบบ horizontal อย่างเดียว ไม่มี vertical transmission ติดโดยสัมผัสโดยตรงและทางอากาศ สมัยใช้รางน้ำเชื้อแพร่ลงน้ำจากน้ำมูกได้ไว ส่วน MG เป็นโรคที่ผ่านไข่ได้จริง",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 1 โรคไหนส่งผ่านไข่; images/9.jpg บรรทัด Horizontal transmission; VET86 R0xTpIvGn98 [96:26], [88:45-88:58]",
+    "tags": [
+      "avian-coryza",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206085,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "โรคหวัดหน้าบวมมีระยะฟักตัวสั้นราว 24-72 ชั่วโมง แต่ไก่อาจป่วยนาน 3-4 สัปดาห์ถ้าควบคุมสภาพแวดล้อมไม่ดี",
+    "answer": true,
+    "explain": "ถูก ระยะฟักตัวสั้นประมาณ 2-3 วัน แต่ข้อเสียคือ duration ยาว บางที 3-4 สัปดาห์ ยิ่งอากาศเปลี่ยนเดี๋ยวหนาวเดี๋ยวร้อน ไข่ยิ่งลดนาน สรุปรุ่นพี่เขียนระยะป่วยไว้ 2-3 สัปดาห์ แต่ตัวเลขที่ใช้ตอบคือ 3-4 สัปดาห์ตามที่อาจารย์พูดในคาบ",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [97:05-97:32]",
+    "tags": [
+      "avian-coryza"
+    ]
+  },
+  {
+    "id": 206086,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เชื้อหวัดหน้าบวมที่ผ่านการ passage ในตัวไก่หลายตัวจะมีความรุนแรงลดลง จึงใช้วิธีนี้เตรียมเป็นวัคซีน",
+    "answer": false,
+    "explain": "ผิด passage ในไก่ทำให้เชื้อรุนแรงขึ้น ไก่ carrier ในโรงเรือนจึงอันตรายเพราะแพร่เชื้อที่แรงขึ้นให้เพื่อนเมื่ออากาศเปลี่ยน ส่วนที่ทำให้ความรุนแรงลดลงคือ passage ในห้องทดลองบน agar หรือ broth ซึ่งเป็นวิธีเตรียมวัคซีน",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [98:23-98:58]",
+    "tags": [
+      "avian-coryza"
+    ]
+  },
+  {
+    "id": 206087,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ยากลุ่มซัลฟาที่ใช้รักษาหวัดหน้าบวมควรให้ติดต่อกันอย่างน้อย 5 วันเพื่อให้ได้ผลเต็มที่",
+    "answer": false,
+    "explain": "ผิด ยากลุ่มซัลฟาโดยเฉพาะซัลฟาไดเมทอกซินตกผลึกในไตได้ จึงควรให้ 2 วันหยุด 1 วัน ไม่ให้ติดต่อกัน 3-4 วัน และในไก่ไข่ต้องระวัง withdrawal time เพราะยาถ่ายทอดไปในฟองไข่ได้ ยาอื่นที่เอ่ยคือแอมพิซิลลินและอะม็อกซีซิลลินตามผล sensitivity",
+    "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
+    "verified": "VET86 R0xTpIvGn98 [109:20-110:49]",
+    "tags": [
+      "avian-coryza"
+    ]
+  },
+  {
+    "id": 206088,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ความรุนแรงของเชื้อ Avibacterium paragallinarum ขึ้นกับแคปซูล ซึ่งสำคัญต่อการ colonization และการปล่อยท็อกซิน",
+    "answer": true,
+    "explain": "ถูก อาจารย์บอกว่าตัวที่แบ่งความรุนแรงของเชื้อคือ bacterial capsule แคปซูลสำคัญต่อ colonization และท็อกซินที่ปล่อยออกมา นอกจากนี้เชื้อยังมี HA ที่มีผลต่อการ colonization และต้องการธาตุเหล็กในการเจริญ",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
+    "verified": "อิงแนวข้อสอบ, images/9.jpg บรรทัด Capsule important for colonization and lesions; VET86 R0xTpIvGn98 [91:16], [93:26-94:02]",
+    "tags": [
+      "avian-coryza",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206089,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ในประเทศไทยพบเชื้อหวัดหน้าบวมเฉพาะซีโรไทป์ A และ B วัคซีนเชื้อตายที่ใช้จึงบรรจุเพียงสองซีโรไทป์นี้",
+    "answer": false,
+    "explain": "ผิด เมื่อ 10 ปีก่อนไทยพบเฉพาะ A กับ B แต่ช่วง 10 ปีหลังเริ่มพบเพิ่ม และวัคซีนเชื้อตายปัจจุบันบรรจุครบทั้ง A, B และ C ซึ่งเป็นระบบซีโรไทป์ที่ทั่วโลกนิยมใช้",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
+    "verified": "อิงแนวข้อสอบ, images/9.jpg บรรทัด 3 serovars A, B, C และ Bacterins contained serovars; VET86 R0xTpIvGn98 [91:30-91:53], [114:21]",
+    "tags": [
+      "avian-coryza",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206090,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "โรคหวัดหน้าบวมตรวจทางซีรัมวิทยาด้วย HI test ได้ เพราะ Avibacterium paragallinarum มีคุณสมบัติ hemagglutination",
+    "answer": true,
+    "explain": "ถูก Avibacterium paragallinarum อยู่ในกลุ่มเชื้อที่มี HA ร่วมกับ Mycoplasma, Newcastle และ AI จึงใช้ HI ตรวจได้ แต่อาจารย์ชอบการ culture จาก exudate แล้วทดสอบ agglutination มากกว่าเพราะง่าย เร็ว และไม่แพง",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 2; images/9.jpg บรรทัด Serology: plate/tube agglutination, AGP, HI; VET86 R0xTpIvGn98 [93:05], [105:25-105:52]",
+    "tags": [
+      "avian-coryza",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206091,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ไก่สาวทดแทนที่จะนำเข้าฟาร์มไก่ไข่ ต้องปลอดเชื้อหวัดหน้าบวมหรือได้รับวัคซีนมาแล้วอย่างน้อย 2 เข็ม",
+    "answer": true,
+    "explain": "ถูก อาจารย์ย้ำว่า pullet ทดแทนต้องไม่มีเชื้อ infectious coryza หรือทำวัคซีนมาแล้วอย่างน้อย 2 เข็มก่อนเข้าฟาร์ม เพราะวัคซีนเชื้อตายของแบคทีเรียต้องให้อย่างน้อย 2 ครั้งจึงสร้างภูมิได้ โปรแกรมปกติคือ 8-10 สัปดาห์แล้ว booster อีก 4 สัปดาห์",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
+    "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 10 การให้วัคซีน infectious coryza; VET86 R0xTpIvGn98 [112:23], [113:16-113:45]",
+    "tags": [
+      "avian-coryza",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206092,
+    "subject": "avian-medicine",
+    "topic": "avian-coryza",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ภูมิคุ้มกันหลังทำวัคซีนหวัดหน้าบวมครบโปรแกรมอยู่ได้ราว 3 เดือน จึงต้องกระตุ้นซ้ำทุกไตรมาสตลอดช่วงให้ไข่",
+    "answer": false,
+    "explain": "ผิด เมื่อสร้างภูมิขึ้นแล้วจะอยู่ได้นานถึง 9 เดือน ซึ่งอาจารย์ถือว่าครอบคลุมตลอดชีวิตไก่ก่อนส่งโรงฆ่า ในพื้นที่ที่มีการระบาดประจำจึงให้เพียง 3-4 ครั้งห่างกัน 4 สัปดาห์ในช่วงไก่รุ่น ไม่ใช่ทุกไตรมาส",
+    "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
+    "verified": "อิงแนวข้อสอบ, images/9.jpg บรรทัด Antibodies following vaccination last for 9 months; VET86 R0xTpIvGn98 [114:38-114:51]",
+    "tags": [
+      "avian-coryza",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206093,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การระบายอากาศที่ดีในโรงเรือนปิดเป็นปัจจัยโน้มนำสำคัญที่ทำให้ไก่เนื้อเกิดภาวะท้องมาน",
+    "answer": false,
+    "explain": "ผิด ต้องเป็นการระบายอากาศที่ไม่ดี เมื่อเอาความร้อน คาร์บอนไดออกไซด์ และแอมโมเนียออกจากเล้าไม่ได้ ไก่จะหายใจไม่พอ เกิด hypoxia แล้วตามมาด้วยของเหลวขังในช่องท้อง อาจารย์ย้ำทิศทางของปัจจัยโน้มนำข้อนี้ไว้เอง",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [67:27-67:40], [15:39-16:45], [22:27]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206094,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ไก่ต้องการลมวิ่งผ่านตัวประมาณ 5 ลูกบาศก์ฟุตต่อนาที จึงจะอยู่ในโรงเรือนได้โดยไม่ร้อน",
+    "answer": true,
+    "explain": "ถูก ตัวเลข 5 ลูกบาศก์ฟุตต่อนาทีต่อตัวคือปริมาณลมที่ต้องผ่านตัวไก่ ฟาร์มจึงคำนวณจำนวนพัดลมตามจำนวนไก่ให้อากาศเข้าและออกสมดุล ไม่เก็บความร้อนและของเสียไว้ในเล้า",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [18:13-18:51]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206095,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ตู้ฟักไข่ไก่ต้องการความชื้นประมาณ 70% ซึ่งเท่ากับความชื้นทั่วไปของอากาศเมืองไทย",
+    "answer": false,
+    "explain": "ผิด ความชื้นทั่วไปของเมืองไทยราว 70% แต่ตู้ฟักต้องการเพียงราว 55% เมื่อความชื้นปกติไข่จะสูญเสียน้ำหนักราว 12% ใน 21 วัน ถ้าความชื้นต่ำไปไข่เสียน้ำหนักเกินและขาลูกไก่ครูดกับเปลือกแห้งจนเป็นแผล",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [27:43-29:22]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206096,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลูกไก่ที่จับหงายท้องแล้วพลิกกลับมายืนไม่ได้ทันที อาจมีของเหลวขังในช่องท้องจากภาวะท้องมาน",
+    "answer": true,
+    "explain": "ถูก การจับหงายท้องเป็นหนึ่งในรายการประเมินคุณภาพลูกไก่ ปกติต้องพลิกกลับมายืนทันที ถ้าพลิกไม่ได้แสดงว่ามีโครงสร้างผิดปกติ เช่น น้ำในช่องท้องมากเกินจากท้องมาน รายการอื่นคือดูขา สะดือ ท้อง ปาก น้ำหนัก และพฤติกรรมการกิน",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [30:48-32:37], [44:58-45:25]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206097,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลูกไก่ที่มาถึงฟาร์มวันแรก ควรเริ่มกินน้ำและอาหารได้ภายใน 24 ชั่วโมงหลังลงเล้า",
+    "answer": false,
+    "explain": "ผิด เป้าหมายที่อาจารย์ให้คือภายใน 6 ชั่วโมงหลังถึงฟาร์ม ลูกไก่ที่เครียดจากโรงฟักจนกินไม่ได้จะตายหลังจากนั้นราว 3-4 วันเมื่อไข่แดงสำรองหมด และ 7 วันแรกสำคัญต่อการพัฒนาระบบย่อยอาหารและภูมิคุ้มกัน",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [32:50-33:41], [13:44-14:11]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206098,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลูกไก่เนื้อที่ตายมากในวันที่ 1-2 หลังลงเล้าแล้วค่อยลดลง ถือเป็นการตายตามปกติจากการลงฟัก",
+    "answer": false,
+    "explain": "ผิด ฟาร์มมักมองว่าปกติ แต่อาจารย์บอกว่าไม่ปกติ ถ้าตีกราฟย้อนกลับจะเห็นว่ามีการตายตั้งแต่ตอนลงฟัก เป็นสัญญาณว่าแบคทีเรียติดมาจากไข่สกปรกแล้วติดที่สะดือ โรงเรือนที่ล้างสะอาดจึงรับเชื้อก่อโรคเข้ามาพร้อมลูกไก่",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [45:36-47:12]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206099,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ขี้ติดก้นหรือ vent pasting ในลูกไก่ เป็นตัวชี้วัดความเครียดจากการจัดการ เช่น ร้อนไป หนาวไป หรือขนส่งไม่ดี",
+    "answer": true,
+    "explain": "ถูก อาจารย์เรียก vent pasting ว่าเป็นอินดิเคเตอร์ของภาวะเครียดในลูกไก่ ไม่ว่าจากอุณหภูมิ ออกซิเจนไม่พอ หรือการขนส่ง เทียบกับคนที่เครียดแล้วระบบย่อยอาหารแปรปรวนจนท้องเสีย",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [43:28-44:19]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206100,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "สะดืออักเสบพบได้ตลอดการเลี้ยงไก่เนื้อ ตั้งแต่ลงเล้าจนถึงอายุจับที่ราว 40 วัน",
+    "answer": false,
+    "explain": "ผิด สะดืออักเสบพบเฉพาะช่วงแรกของการเลี้ยง ถ้าไก่รอดช่วงนี้สะดือจะปิดและหายไปเอง แต่ถ้าไม่รอดก็ตายจากการติดเชื้อ ปัญหาที่ลากยาวถึงอายุจับคือขาเสียจากการฟักที่อุณหภูมิไม่เหมาะสม",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [44:32-44:58], [27:19]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206101,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Staphylococcus aureus เป็นแบคทีเรียแกรมบวก และเป็น Staphylococcus สปีชีส์ที่พบมากที่สุดในไก่",
+    "answer": true,
+    "explain": "ถูก อาจารย์ย้ำสามรอบว่า Staph เป็นแกรมบวก ส่วน E. coli เป็นแกรมลบ และให้จำ S. aureus เพราะเป็นตัวที่พบมากที่สุดในไก่และในคน บนอาหารเลี้ยงเชื้อให้โคโลนีที่ย่อยสลายเม็ดเลือด",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [57:21-58:25]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206102,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "วัคซีน Staphylococcus ใช้ได้ผลดีและใช้กันทั่วไปในฟาร์มไก่เพื่อลดปัญหาข้อขาอักเสบ",
+    "answer": false,
+    "explain": "ผิด วัคซีน Staph มีเพียงในงานวิจัยและไม่ได้ผล เพราะเชื้อเป็น normal flora ที่มีจำนวนมากและมีปัจจัยอื่นช่วยให้เข้าตัวไก่ การควบคุมจึงเน้นหาช่องทางเข้าให้เจอแล้วปิด ทำวัคซีนโรคกดภูมิ และลดบาดแผลกับของมีคมในเล้า",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [61:38-62:31]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206103,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "วัคซีนแบคทีเรียทำได้ยากกว่าวัคซีนไวรัส เพราะโครงสร้างแอนติเจนของแบคทีเรียเป็นคาร์โบไฮเดรต",
+    "answer": true,
+    "explain": "ถูก ระบบภูมิคุ้มกันจดจำโปรตีนได้ดี ไวรัสมีโครงสร้างเป็นโปรตีนจึงทำวัคซีนง่าย ส่วนผนังแบคทีเรียแกรมบวกแกรมลบเป็นคาร์โบไฮเดรตซึ่งวัคซีนทำงานได้ไม่ดี วัคซีนแบคทีเรียจึงมีน้อยมาก",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [62:53-63:16]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206104,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลำไส้ที่เป็นแผลจากโรคบิดเป็นช่องทางให้ Staphylococcus เข้ากระแสเลือดได้โดยไม่ผ่านบาดแผลที่ข้อขา",
+    "answer": true,
+    "explain": "ถูก เมื่อโรคบิดทำให้ลำไส้เป็นแผล เชื้อเข้าทางลำไส้สู่กระแสเลือดโดยตรง จึงพบภาวะติดเชื้อในกระแสเลือดแทนข้ออักเสบ อาจารย์ถือเป็นปัจจัยร่วมระหว่าง Staph กับโรคบิด และย้ำว่าช่องทางเข้ามีได้ทั้งสะดือ ผิวหนัง ปากที่ถูกตัด และเข็มฉีดยา",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [56:31-57:21], [50:29-51:19]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206105,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "IBD ทำลายเบอร์ซาและ CAV ทำลายไทมัส ทำให้ไก่ถูกกดภูมิคุ้มกันจนติดเชื้อ Staphylococcus ตามมาได้",
+    "answer": true,
+    "explain": "ถูก อาจารย์นับ IBD และ CAV อยู่ในกลุ่มโรคกดภูมิสามโรคที่เปิดทางให้ Staph โดย IBD ทำลายเบอร์ซา CAV ทำลายไทมัส ในกรณี CAV ยังทำให้เลือดออกง่าย ปีกเป็นแผลแล้ว Staph ติดที่ปีกก่อน การทำวัคซีน IBD และ CAV จึงเป็นส่วนหนึ่งของการควบคุม",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [58:50-60:20], [61:38-62:18]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206106,
+    "subject": "avian-medicine",
+    "topic": "avian-ahra-set",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ตู้ฟักที่อุณหภูมิเย็นเกินไปทำให้ลูกไก่เนื้อฟักออกเร็วกว่ากำหนดปกติ 21 วัน",
+    "answer": false,
+    "explain": "ผิด อุณหภูมิเย็นไปทำให้ตัวอ่อนโตช้าและร่างกายไม่สมประกอบ จากปกติ 21 วันอาจต้องฟักถึง 23 วัน ส่วนอุณหภูมิร้อนไปทำให้โตเร็วจนใช้สารอาหารจากไข่แดงหมดแล้วดึงไกลโคเจนจากกล้ามเนื้อ เกิดปัญหาโครงสร้างกระดูกและขาเสียถึงอายุจับ",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [25:10-27:19]",
+    "tags": [
+      "avian-ahra-set"
+    ]
+  },
+  {
+    "id": 206107,
+    "subject": "avian-medicine",
+    "topic": "avian-ae",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "โรค AE ทำให้ไก่แสดงอาการทางเดินอาหารและระบบประสาท โดยมักพบในไก่อายุ 5 สัปดาห์ขึ้นไป",
+    "answer": false,
+    "explain": "ผิด AE มี age resistance ไก่จะเสียหายเมื่อติดเชื้อในช่วง 4 สัปดาห์แรกที่ภูมิคุ้มกันยังไม่พร้อม ไก่โตติดเชื้อแล้วไม่มีความเสียหายทางประสาทให้เห็น ลูกไก่ป่วยจะหัวสั่นและยืนพยุงตัวไม่ได้",
+    "source": "บันทึกหลังสอบ Avian Medicine (AE)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p37 Question 7; VET86 ezb2wLM_R2o [83:17-84:34]",
+    "tags": [
+      "avian-ae",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206108,
+    "subject": "avian-medicine",
+    "topic": "avian-ae",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "สามารถใช้วัคซีน AE ในไก่เนื้ออายุ 1 สัปดาห์ เพื่อป้องกันโรคในช่วงอายุ 3 สัปดาห์ได้",
+    "answer": false,
+    "explain": "ผิด การควบคุม AE ทำที่ไก่พ่อแม่พันธุ์ ให้พ่อแม่มีภูมิแล้วส่งภูมิให้ลูกป้องกันช่วงแรกที่ไวต่อโรค วัคซีนเชื้อเป็นให้ในไก่รุ่นของฝูงพันธุ์อายุราว 6 สัปดาห์ ส่วนวัคซีนที่ทำในไก่เนื้อมีเพียง ND, IB และ IBD",
+    "source": "บันทึกหลังสอบ Avian Medicine (AE)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p40 Question 10; VET86 ezb2wLM_R2o [86:20-87:11], [90:35-91:01]; VET86 R0xTpIvGn98 [10:54]",
+    "tags": [
+      "avian-ae",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206109,
+    "subject": "avian-medicine",
+    "topic": "avian-ae",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "โรค AE แพร่แบบ horizontal ทางการกิน โดยไวรัสที่ปนเปื้อนในอาหารหรือน้ำทำให้ไก่ปกติติดเชื้อได้",
+    "answer": true,
+    "explain": "ถูก AE ติดทาง oral route ซึ่งอาจารย์บอกตรงๆ ว่าคือการกินอุจจาระ น้ำดื่มที่ปนเปื้อนอุจจาระหรือฝุ่นที่มีไวรัสไปแปะในอาหาร ไวรัสเพิ่มจำนวนในทางเดินอาหารก่อน ขับออกทางอุจจาระ แล้วจึงไปที่ระบบประสาท",
+    "source": "บันทึกหลังสอบ Avian Medicine (AE)",
+    "verified": "อิงแนวข้อสอบ, MID 86 audit p42 Question 12; VET86 ezb2wLM_R2o [82:00-82:50]",
+    "tags": [
+      "avian-ae",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206110,
+    "subject": "avian-medicine",
+    "topic": "avian-ae",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "อาการเด่นของลูกไก่ที่ป่วยด้วยโรค AE คืออาการหัวสั่น ยืนสั่น และพยุงตัวไม่ค่อยได้",
+    "answer": true,
+    "explain": "ถูก ลูกไก่ที่เป็น AE จะหัวสั่น ยืนสั่น พยุงตัวไม่ได้ ถ้าเป็นลูกที่รับเชื้อจากพ่อแม่จะคอบิด คอสั่น กินน้ำกินอาหารไม่ได้แล้วตาย อาจารย์สรุปว่า AE คือโรคระบบประสาทที่ทำให้ไก่ตายช่วงแรก",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [84:09-85:39], [91:14-91:41]",
+    "tags": [
+      "avian-ae"
+    ]
+  },
+  {
+    "id": 206111,
+    "subject": "avian-medicine",
+    "topic": "avian-ae",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ไก่พ่อแม่พันธุ์ที่กำลังให้ไข่เมื่อติดเชื้อ AE จะมีไข่ลดรุนแรงราว 50% ร่วมกับอาการทางประสาท",
+    "answer": false,
+    "explain": "ผิด ไก่พ่อแม่พันธุ์ที่ติด AE ระหว่างให้ไข่ พบเพียงไข่ลดเล็กน้อยราว 15% เพราะไก่มีไข้เล็กน้อยขณะสร้างภูมิสู้ไวรัส ไม่มีอาการทางประสาทในไก่โต แต่ส่งเชื้อไปให้ลูกจนลูกป่วยและตายได้",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [84:21-85:26]",
+    "tags": [
+      "avian-ae"
+    ]
+  },
+  {
+    "id": 206112,
+    "subject": "avian-medicine",
+    "topic": "avian-ae",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ไตเตอร์ AE ที่สูงในฝูงพ่อแม่พันธุ์เกิดจากไวรัสวัคซีนถูกขับออกสู่สิ่งแวดล้อมแล้ววนกลับเข้าไก่หลายรอบ",
+    "answer": true,
+    "explain": "ถูก วัคซีนเชื้อเป็นที่ให้ตอน 6 สัปดาห์จะเพิ่มจำนวนในทางเดินอาหาร ขับออกมา แล้วไก่รับกลับเข้าไปอีกหลายไซเคิล ภูมิจึงขึ้นสูง ถ้าไวรัสวัคซีนกลายพันธุ์ไปเพิ่มจำนวนในระบบประสาทแทน จะไม่ถูกขับออกมา circulate และไตเตอร์ขึ้นไม่ดี",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [89:21-91:14]",
+    "tags": [
+      "avian-ae"
+    ]
+  },
+  {
+    "id": 206113,
+    "subject": "avian-medicine",
+    "topic": "avian-ae",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "แม้ฝูงพ่อแม่พันธุ์ไม่มีภูมิคุ้มกันต่อ AE ลูกไก่ก็จะไม่ป่วยถ้าในฟาร์มที่เลี้ยงไม่มีเชื้อ AE",
+    "answer": true,
+    "explain": "ถูก อาจารย์แก้ความเข้าใจผิดว่าอย่าโทษพ่อแม่อย่างเดียว ต่อให้พ่อแม่ไม่มีภูมิ ถ้าฟาร์มไม่มีเชื้อโรคไก่ก็ไม่เป็นอะไร ที่ป่วยเพราะมีเชื้อในฟาร์มด้วย ฟาร์มไก่เนื้อจึงต้องล้างเล้าให้สะอาดควบคู่กับภูมิจากแม่",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [88:02-88:25], [109:46-110:41]",
+    "tags": [
+      "avian-ae"
+    ]
+  },
+  {
+    "id": 206114,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Hydropericardium syndrome หรือ Angara disease จาก adenovirus มีรายงานพบในประเทศไทยแล้วหลายครั้ง",
+    "answer": false,
+    "explain": "ผิด เมืองไทยยังไม่เคยมีรายงานโรคนี้ เป็นรายงานจากต่างประเทศที่พบมากในแถบเอเชียใต้อย่างปากีสถานและอินเดีย ชื่อ Angara มาจากพื้นที่ในปากีสถานที่พบครั้งแรก อัตราการตายมีตั้งแต่ 20% ถึง 80% ตามความรุนแรงของเชื้อ",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [94:35-96:20], [104:42-105:34]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206115,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Hydropericardium จาก adenovirus มีอีกชื่อว่า litchi disease เพราะหัวใจที่มีน้ำขังในถุงหุ้มดูคล้ายลูกลิ้นจี่",
+    "answer": true,
+    "explain": "ถูก บางประเทศไม่เรียก hydropericardium แต่เรียก litchi disease ตามลักษณะหัวใจ กลไกคือไวรัสทำให้ตับและการแลกเปลี่ยนก๊าซที่ปอดมีปัญหาก่อน แล้วของเหลวจึงคั่งในถุงหุ้มหัวใจ",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [94:35-96:08]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206116,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Hydropericardium syndrome จาก adenovirus เกิดจากการระบายอากาศในโรงเรือนไม่ดี เช่นเดียวกับภาวะท้องมาน",
+    "answer": false,
+    "explain": "ผิด hydropericardium จาก adenovirus เป็นโรคติดเชื้อไวรัส อาจารย์ย้ำว่าไม่เกี่ยวกับการจัดการฟาร์มดีหรือไม่ดี ต่างจากท้องมานที่เป็นผลจากการระบายอากาศไม่ดีจนเกิด hypoxia",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [94:35-94:48], [22:27]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206117,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Gizzard erosion จาก adenovirus ต้องวินิจฉัยแยกจากพิษ gizzerosine ในอาหารสัตว์ ซึ่งทำให้กึ๋นลอกหลุดเหมือนกัน",
+    "answer": true,
+    "explain": "ถูก อาจารย์ให้แยกกับ gizzerosine ซึ่งเป็นสารพิษที่เรียนใน Nutrition ส่วนกลไกของไวรัสคือไม่ได้เพิ่มจำนวนที่กึ๋น แต่ทำให้ตับและตับอ่อนอักเสบ สารที่ผิดปกติจึงทำให้กึ๋นยุ่ยและทำงานผิดปกติ",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [96:20-97:14]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206118,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ไวรัส EDS อยู่ในจีนัส Aviadenovirus เช่นเดียวกับไวรัสที่ก่อ IBH และ hydropericardium",
+    "answer": false,
+    "explain": "ผิด EDS เป็น adenovirus คนละกลุ่มกับ fowl adenovirus อยู่ในจีนัส Atadenovirus (group III) ส่วน IBH, hydropericardium และ gizzard erosion เป็น Aviadenovirus (group I) อาจารย์สรุปว่าเป็น Avi ทั้งหมดยกเว้น EDS",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [99:22], [179:29-180:03], [93:17-93:28]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206119,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ตัวอย่างที่พบไวรัส EDS มากที่สุดสำหรับส่งตรวจทางจุลพยาธิวิทยาคือตับของแม่ไก่ที่ไข่ลด",
+    "answer": false,
+    "explain": "ผิด ไวรัส EDS ไปอยู่ที่ epithelium ของ shell gland ทำให้สร้างเปลือกไข่ไม่ได้จนไข่เปลือกนิ่มเป็นหนัง ตัวอย่างที่ต้องเก็บส่งฮิสโตคือ oviduct ซึ่งเป็นจุดที่พบเชื้อมากที่สุดและชัดเจนที่สุด",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [99:36-100:31]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206120,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ไก่ที่ติดไวรัส EDS มาตั้งแต่เล็ก ยังได้ประโยชน์จากวัคซีนก่อนเข้าไข่ ตราบที่ไวรัสยังแฝงตัวไม่โผล่ออกมา",
+    "answer": true,
+    "explain": "ถูก ไวรัสหลบอยู่ในตัวไก่จนระบบสืบพันธุ์พัฒนา อาจารย์บอกว่าติดมาก่อนทำวัคซีนไม่เป็นไร ขอแค่ไวรัสยังไม่โผล่ แล้วทำวัคซีนให้ไตเตอร์พุ่งขึ้นก่อนออกไข่ก็ลดปัญหาไข่ลดได้ โดยตรวจไตเตอร์ด้วย HI ที่ใช้ EDS 76 เป็นมาตรฐาน",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [98:16-99:10], [100:42-101:46]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206121,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ตับสีทองของไก่ต้มในข้าวมันไก่ คือลักษณะตับที่ติดเชื้อ inclusion body hepatitis",
+    "answer": false,
+    "explain": "ผิด ตับสีทองเป็น fatty liver จากการให้อาหารคาร์โบไฮเดรตและน้ำมันมากจนไขมันพอกตับ คล้ายการทำฟัวกราส์ ส่วนตับที่ติด IBH จะอักเสบ มีจุดสีแดงจากความเสียหาย และ IBH ยังทำให้เบอร์ซาฝ่อและม้ามเล็กลงจนกดภูมิด้วย",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [102:00-103:37], [109:11-109:46]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206122,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลูกไก่ที่มีภูมิจากแม่ต่อ IBH จะปลอดภัยตลอดการเลี้ยง เพราะจะไม่ติดเชื้อซ้ำเมื่อโตขึ้น",
+    "answer": false,
+    "explain": "ผิด ภูมิจากแม่ช่วยให้ไม่ตายช่วงแรก แต่ไวรัสในฟาร์มรอเวลาราว 3 สัปดาห์ให้ภูมิลดแล้วติดอีกรอบ ไก่จะไม่ตายแต่แคระแกร็นเพราะเสียพลังงานสู้กับตับอักเสบ กราฟการตายของ IBH จึงมีสองขยัก ฟาร์มไก่เนื้อต้องล้างเล้าให้ไม่มีเชื้อ",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [107:37-108:12], [110:41-111:08]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206123,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "อัลดีไฮด์ที่ใช้ฆ่า adenovirus ในฟาร์มต้องเข้มข้นราว 15% สูงกว่าฟอร์มาลินดองชิ้นเนื้อที่ใช้เพียง 4%",
+    "answer": true,
+    "explain": "ถูก adenovirus เป็นไวรัสไม่มีเปลือกหุ้ม แอลกอฮอล์และ quaternary ammonium compound ใช้ไม่ได้ ต้องเป็นกลุ่ม aldehyde หรือ hypochlorite และความเข้มข้นในฟาร์มสูงถึง 15% ซึ่งแสบตามาก ต้องรีบใช้แล้วหลบออก และต้องทำความสะอาดขี้ไก่ออกก่อนจึงจะได้ผล",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [111:22-114:08]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206124,
+    "subject": "avian-medicine",
+    "topic": "avian-adeno",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Fowl adenovirus มีรายงาน 12 ซีโรไทป์ แบ่งเป็นกรุ๊ป A ถึง E โดยหมายเลขเรียงตามลำดับที่ตรวจพบ",
+    "answer": true,
+    "explain": "ถูก ซีโรไทป์ 1 ถึง 12 ตั้งเลขตามลำดับที่เจอ เจอก่อนได้เลขก่อน และแบ่งเป็นกรุ๊ป A B C D E ในไทยซีโรไทป์ที่ก่อ IBH คือ 2 และ 11 (กรุ๊ป D) กับ 8B (กรุ๊ป E) ภูมิต่อ 2 ป้องกัน 11 ได้ แต่ภูมิต่อ 8B ป้องกัน 2 และ 11 ไม่ได้",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [93:40-94:21], [103:37-104:42]",
+    "tags": [
+      "avian-adeno"
+    ]
+  },
+  {
+    "id": 206125,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Fowl typhoid ในไก่มีสาเหตุจาก Salmonella Typhi ตัวเดียวกับที่ทำให้เกิดไข้ไทฟอยด์ในคน",
+    "answer": false,
+    "explain": "ผิด ไทฟอยด์ในไก่เกิดจาก Salmonella Gallinarum ไม่ใช่ Salmonella Typhi ซึ่งเป็นเชื้อของคน อาจารย์ย้ำว่าไม่เกี่ยวกัน Gallinarum ทำให้ตับเป็นจุดและไก่ตาย มักไม่ท้องเสีย ส่วนขี้ขาวและตายถึง 90% คือ Pullorum",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [138:05-138:44], [137:41-138:05]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206126,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ชื่อสกุล Salmonella ตั้งตามปลาแซลมอน ซึ่งเป็นแหล่งอาหารที่พบเชื้อนี้เป็นครั้งแรก",
+    "answer": false,
+    "explain": "ผิด ชื่อมาจากผู้ค้นพบคนแรกคือ Daniel Salmon ไม่ได้มาจากปลาแซลมอนอย่างที่บางปีเข้าใจผิด ส่วนชื่อซีโรวาร์ Typhi มาจาก typhoid และ Typhimurium มาจากหนู",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [134:10-134:36], [131:10-131:22]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206127,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การแช่เย็นเนื้อไก่ในตู้เย็นทำให้เชื้อ Salmonella ที่ปนเปื้อนอยู่ตายได้เหมือนการทำสุก",
+    "answer": false,
+    "explain": "ผิด การแช่เย็นไม่ทำให้เชื้อตาย เชื้อยังอยู่ Salmonella โตได้ดีที่ 37 องศาซึ่งเท่าอุณหภูมิตัวไก่ และตายเมื่อโดนความร้อน 60 องศา การทำสุกจึงฆ่าเชื้อได้ แต่ยังต้องระวังการปนเปื้อนข้ามผ่านเขียงและอ่างล้าง",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [132:37-133:16]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206128,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การล้างเนื้อไก่ดิบก่อนปรุง ช่วยลดโอกาสที่ Salmonella จะปนเปื้อนไปยังเขียงและผักในครัว",
+    "answer": false,
+    "explain": "ผิด การล้างอาจทำให้เชื้อกระจายไปปนเปื้อนอ่างล้าง เขียง และผัก ซึ่งอันตรายเพราะบางคนกินผักดิบ ถ้าซื้อจากแหล่งที่เชื่อถือได้ไม่ต้องล้างก็ทำสุกได้เลย ความกังวลหลักของ Salmonella ในเนื้อไก่คือการปนเปื้อนข้ามในครัว",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [133:04-134:10]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206129,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Salmonella Infantis ไม่ก่อโรคในไก่ แต่อยู่ในกลุ่มซีโรวาร์ที่การเลี้ยงไก่ห้ามพบ เพราะเป็นปัญหาในคน",
+    "answer": true,
+    "explain": "ถูก Infantis อยู่ในกลุ่มที่ไม่แรงเลย ในไก่ไม่มีอาการใดๆ เพียงเพิ่มจำนวนเฉยๆ แต่มีปัญหาในคน จึงเป็นหนึ่งในห้าซีโรวาร์ที่วงการไก่ซีเรียส ร่วมกับ Enteritidis และ Typhimurium ซึ่งเป็นกลุ่ม food safety ส่วน Gallinarum และ Pullorum คือกลุ่มที่ทำให้ไก่ตาย",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [136:34-137:54], [131:22-132:37]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206130,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Salmonella อยู่ในอาหารสัตว์ได้นานราว 5 เดือน ซึ่งเป็นข้อได้เปรียบของแบคทีเรียเหนือไวรัสในการแพร่กระจาย",
+    "answer": true,
+    "explain": "ถูก อาจารย์บอกว่าในอาหารสัตว์เชื้ออยู่ได้ราว 5 เดือนโดยไม่ตาย และในขี้ก็อยู่ได้นาน แบคทีเรียจึงทนในสิ่งแวดล้อมได้นานกว่าไวรัสและแพร่ได้ดี ระยะฟักตัวในไก่สั้นราวหนึ่งสัปดาห์ และติดจากการกินเป็นหลัก",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [139:34-141:01]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206131,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จากการสำรวจในฟาร์มสัตว์ปีกของไทย แหล่งที่พบเชื้อ Salmonella มากที่สุดคือหนู",
+    "answer": true,
+    "explain": "ถูก อาจารย์บอกว่าถ้าสำรวจจริงจะพบเชื้อในหนูเยอะมากในฟาร์มสัตว์ปีก และเล่า senior project ที่สวอบเปลือกไข่ตอนส่งห้างไม่พบเชื้อ แต่พอวางบนชั้น 2-3 วันกลับพบ ซึ่งชี้ไปที่หนู แมลงสาบ และจิ้งจกที่มาตอมไข่",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [141:01-142:18]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206132,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "วัคซีน Salmonella ลดการ colonization ในลำไส้ไก่ได้เพียงบางส่วน ฝูงที่ทำวัคซีนแล้วจึงยังตรวจพบเชื้อได้",
+    "answer": true,
+    "explain": "ถูก มีวัคซีนทั้งเชื้อเป็น เชื้อตาย และ subunit ให้เลือก แต่ทำได้แค่ลด ไม่มีอะไรได้ 100% อาจารย์ยกตัวอย่างลดได้ 38% แปลว่ายังบวกอีกราว 60% และการลดเชื้อในลำไส้ไม่ได้แปลว่าเชื้อในสิ่งแวดล้อมลดตาม",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [147:50-149:04]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206133,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การจุ่มไข่ฟักในน้ำยาผสมยาปฏิชีวนะ เป็นวิธีมาตรฐานที่ใช้จริงเพื่อป้องกันการถ่ายทอด Salmonella จากแม่สู่ลูก",
+    "answer": false,
+    "explain": "ผิด สมัยก่อนเคยลองจุ่มไข่ฟักในน้ำยาผสมยาปฏิชีวนะ แต่ไม่มีงานวิจัยที่เอามาใช้จริงได้ วิธีที่ใช้จริงคือทำวัคซีนในพ่อแม่ให้มีภูมิ พ่อแม่จะไม่ถ่ายทอดเชื้อและส่งภูมิให้ลูก หลักการเดียวกับ AE และ IBH",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [143:53-144:43]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206134,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จุดที่เนื้อไก่มักปนเปื้อน Salmonella ในโรงเชือด คือขั้นตอนดึงไส้ออกแล้วไส้แตกจน content เปื้อนซาก",
+    "answer": true,
+    "explain": "ถูก เชื้อเพิ่มจำนวนในไส้ตันซึ่งขับ content ออกมาทุกวัน เมื่อไก่เข้าเชือดและดึงไส้ออก บางครั้งไส้แตกจน content ไปแปะเนื้อไก่ นี่คือเหตุผลที่เชื้อซึ่งไม่ทำให้ไก่ป่วยกลายเป็นปัญหา food safety",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [135:29-136:34]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206135,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "หลักการควบคุม AE, IBH และ Salmonella เหมือนกัน คือทำให้พ่อแม่พันธุ์มีภูมิเพื่อส่งภูมิให้ลูกในช่วงแรก",
+    "answer": true,
+    "explain": "ถูก อาจารย์สรุปว่าหลักการเดียวกันหมดเลย AE IBH ซัลโมเนลลา พ่อแม่ทำวัคซีนแล้วมีภูมิ ก็ไม่ถ่ายทอดเชื้อและส่งภูมิให้ลูกรอดช่วงแรก แต่หลังจากนั้นภูมิจากแม่หมด ฟาร์มไก่เนื้อจึงต้องล้างเล้าให้ไม่มีเชื้อในพื้นที่",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [144:16-144:43], [109:46-110:41]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206136,
+    "subject": "avian-medicine",
+    "topic": "avian-salmonella",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เกณฑ์ส่งออกเนื้อไก่ไปยุโรป ยอมให้ฟาร์มไก่พ่อแม่พันธุ์พบ Salmonella ได้ไม่เกิน 10% ของตัวอย่างทั้งปี",
+    "answer": false,
+    "explain": "ผิด ยุโรปกำหนดให้ฟาร์มพ่อแม่พันธุ์พบ Salmonella ไม่เกิน 1% หรือเป็นบวกได้เพียง 10 ตัวอย่างทั้งปี ฟาร์มจึงต้องทำอย่างไรก็ได้ให้ไม่พบ และถ้าพบห้าซีโรวาร์สำคัญต้องแจ้งกรมปศุสัตว์ภายใน 24 ชั่วโมง",
+    "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
+    "verified": "VET86 ezb2wLM_R2o [156:25-157:12], [154:20-154:59]",
+    "tags": [
+      "avian-salmonella"
+    ]
+  },
+  {
+    "id": 206137,
+    "subject": "avian-medicine",
+    "topic": "avian-cocci",
+    "year": 5,
+    "type": "match",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "จับคู่ข้อความบรรยายระบาดวิทยาและรอยโรคของโรคบิดและโรคลำไส้อักเสบแบบเนื้อตาย กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "มักพบโรคนี้ในไก่เนื้ออายุ 3 – 6 สัปดาห์ เมื่ออุณหภูมิ และความชื้นเพิ่มขึ้น วัสดุรองนอนมีความชื้น ส่วนไก่ไข่จะพบในช่วงที่เป็นไก่รุ่น หรือไก่สาวในระยะที่เพิ่งย้ายขึ้นกรงตับ",
+        "right": "Eimeria spp."
+      },
+      {
+        "left": "เชื้อโรคชนิดนี้ ทำให้เกิดรอยโรคแบบขั้นบันไดสีขาวที่บริเวณ Duodenum",
+        "right": "Eimeria acervulina"
+      },
+      {
+        "left": "เชื้อโรคชนิดนี้ ทำให้เกิดรอยโรคลำไส้พอง มีของเหลวสีส้มใน jejunum",
+        "right": "Eimeria maxima"
+      },
+      {
+        "left": "เชื้อโรคชนิดนี้ ทำให้เกิดรอยโรคเนื้อตายสีขาว และจุดเลือดออกสีดำที่ผนังลำไส้ส่วน jejunum เรียกลักษณะแบบนี้ว่า Salt & pepper lesion",
+        "right": "Eimeria necatrix"
+      },
+      {
+        "left": "เชื้อโรคชนิดนี้ ทำให้เกิดรอยโรคที่มีก้อนเลือด และ tissue debris อยู่ใน caecum",
+        "right": "Eimeria tenella"
+      },
+      {
+        "left": "เชื้อโรคชนิดนี้ ทำให้เกิดรอยโรคเนื้อตายคลุม jejunum (หรือ Turkish towel) และถุงน้ำดีคั่ง",
+        "right": "Clostridium perfringens"
+      }
+    ],
+    "distractors": [
+      "Leucocytozoon spp.",
+      "Plasmodium spp."
+    ],
+    "explain": "ชุดนี้แยกกันด้วยตำแหน่งในลำไส้เป็นหลัก ข้อความที่บรรยายโรคบิดในภาพรวม คือไก่เนื้ออายุ 3-6 สัปดาห์ในช่วงอากาศร้อนชื้นและวัสดุรองพื้นชื้นจนโอโอซิสต์ sporulate ได้ กับไก่สาวที่เพิ่งย้ายขึ้นกรงตับ ตอบเป็นระดับสกุลคือ Eimeria spp. เพราะไม่ได้ชี้ไปที่ชนิดใดชนิดหนึ่ง ส่วนสี่ข้อที่เหลือชี้ชนิดด้วยรอยโรค E. acervulina อยู่ที่ duodenum เห็นเป็นเส้นสีขาวพาดขวางคล้ายขั้นบันได E. maxima อยู่ที่ jejunum ลำไส้พอง content เป็นของเหลวสีส้มถึงชมพูคล้ายอาหารไม่ย่อย และเป็นชนิดที่โอโอซิสต์ใหญ่ที่สุด E. necatrix อยู่ลำไส้เล็กส่วนกลางเช่นกัน แต่มองจากด้าน serosa เห็นจุดเนื้อตายสีขาวสลับปื้นเลือดออกสีดำที่เรียกว่า salt and pepper lesion และเป็นชนิดที่รุนแรงจนอัตราตายถึงราว 25% ถ้าเป็นมากลามไปส่วนต้นหรือไส้ตันได้ ส่วน E. tenella อยู่ที่ไส้ตัน ไส้ตันขยาย บวมน้ำ และมี cecal core คือเลือดที่แข็งตัวปนเศษเนื้อเยื่อเป็นก้อน ข้อสุดท้ายไม่ใช่บิดแต่เป็นผลของท็อกซินจาก Clostridium perfringens ลำไส้ jejunum และ ileum เปราะ มีกลิ่นเหม็น มีเนื้อตายแบบ fibrinonecrotic แปะคลุมเยื่อบุคล้ายผ้าขนหนู ร่วมกับตับและท่อน้ำดีอักเสบและถุงน้ำดีคั่ง ซึ่งมักตามหลังการติดเชื้อบิดที่ทำลายเยื่อบุลำไส้ไปก่อน การ์ดที่ไม่ใช่คำตอบคือ Leucocytozoon spp. และ Plasmodium spp. ซึ่งเป็นโปรโตซัวในเลือดที่มีแมลงเป็นพาหะ รอยโรคอยู่ที่ตับ ม้าม และการตกเลือดตามอวัยวะภายใน ไม่ใช่ที่ผนังลำไส้",
+    "verified": "อิงแนวข้อสอบ, images/6.jpg ข้อ 3, 5, 8, 4, 6, 7 (ชุดจับคู่ อ.ณทยา เฉลยเป็นตัวอักษรในกล่องสีหน้าข้อความ ตรวจตัวอักษรซ้ำกับ images/11.jpg Question 2) หน้ากระดาษข้อ 3 พิมพ์ว่า โลกนี้ ในที่นี้ใช้ โรคนี้ นอกนั้นคัดตามหน้ากระดาษ คำอธิบายอิง VET86 RWCDahVkYTk [8:25-9:04] [9:18-9:42] [11:11-13:57] [15:03-15:30] [48:45-50:52] [65:10-65:48] [73:36-74:17]",
+    "tags": [
+      "matching",
+      "avian-cocci",
+      "avian-ne",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206138,
+    "subject": "avian-medicine",
+    "topic": "avian-leuko",
+    "year": 5,
+    "type": "match",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "จับคู่ข้อความบรรยายพาหะนำโรค ปัจจัยโน้มนำ การรักษา และการดื้อยา กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "มีตัวปึ่ง ริ้น (Black fly) เป็นพาหะนำโรค ไก่ที่ติดเชื้อจะพบรอยโรค ตับโต ม้ามโต และมีจุดเลือดออกที่อวัยวะภายในต่างๆ",
+        "right": "Leucocytozoon spp."
+      },
+      {
+        "left": "มักพบไก่ป่วยเป็นโรคนี้ ในช่วงที่มีการเปลี่ยนอาหาร โดยเฉพาะอาหารที่มีปลาป่น และข้าวสาลีเยอะ หากไก่เป็นโรคนี้ จะมีอัตราการตายสูงอย่างเฉียบพลัน",
+        "right": "Clostridium perfringens"
+      },
+      {
+        "left": "มียุงเป็นพาหะนำโรค รักษาโดยการให้ยาคลอโรควิน ผสมน้ำ 20 มิลลิกรัมต่อกิโลกรัม ป้อนไก่ในวันแรก และให้ขนาด 10 มิลลิกรัมต่อกิโลกรัม ใน 4 วันต่อมา",
+        "right": "Plasmodium spp."
+      },
+      {
+        "left": "หากใช้ยาชนิดเดียวกันนานๆ อาจทำให้เชื้อดื้อยาได้ ทำให้ต้องใช้ยาอย่างน้อย 2 ชนิดในไก่รุ่นเดียวกัน (Shuttle program)",
+        "right": "Eimeria spp."
+      }
+    ],
+    "distractors": [
+      "Clostridium colinum",
+      "Clostridium botulinum"
+    ],
+    "explain": "สองข้อแรกแยกกันที่พาหะ Leucocytozoon spp. ใช้แมลงกลุ่ม Culicoides และริ้นดำ (black fly) เป็นพาหะ จึงเป็นโรคของโรงเรือนเปิดและไก่หลังบ้านช่วงเมษายนถึงพฤษภาคมและฤดูฝนที่มีน้ำท่วมขัง ผ่าซากพบตับโต ม้ามโต เลือดออกในช่องท้องและจุดเลือดออกตามอวัยวะภายใน พร้อมจุดสีขาวของ megaloschizont ส่วน Plasmodium spp. ใช้ยุงเป็นพาหะ รักษาด้วย chloroquine 20 มิลลิกรัมต่อกิโลกรัมในวันแรก แล้ว 10 มิลลิกรัมต่อกิโลกรัมอีก 4 วัน แต่ยาขมจนไก่ไม่ยอมกินเอง ต้องป้อน และมักกำจัดเชื้อได้ไม่หมดจึงเน้นป้องกันยุงมากกว่ารักษา ข้อที่พูดถึงการเปลี่ยนอาหารเป็นของ Clostridium perfringens เพราะอาหารที่มีปลาป่น ข้าวสาลี หรือข้าวบาร์เลย์มาก ทำให้ pH ในทางเดินอาหารเปลี่ยนและมี fermentation ของคาร์โบไฮเดรตกับโปรตีนมากขึ้น เชื้อจึงเพิ่มจำนวนและปล่อยท็อกซิน ไก่ตายเฉียบพลันได้ทั้งที่ยังอ้วน ข้อสุดท้ายเป็นปัญหาใหญ่ที่สุดของยาต้านบิดคือการดื้อยา จึงแนะนำให้ไก่รุ่นเดียวกันได้ยาต้านบิดอย่างน้อย 2 ชนิดสลับกันเป็น shuttle program โดยให้ทีละชนิด ไม่ให้สองชนิดพร้อมกัน ข้อความนี้จึงเป็นของโรคบิดในภาพรวม ตอบ Eimeria spp. การ์ดที่ไม่ใช่คำตอบเป็น Clostridium อีกสองชนิดในกลุ่มเดียวกัน Clostridium colinum ก่อ ulcerative enteritis ที่รอยโรคเป็นแผลหลุมชัดคล้ายกระดุมและรุนแรงเฉียบพลันกว่า ส่วน Clostridium botulinum ก่อ botulism จากท็อกซินโดยตรง ทั้งสองไม่ใช่โรคที่โยงกับการเปลี่ยนอาหาร",
+    "verified": "อิงแนวข้อสอบ, images/6.jpg ข้อ 1, 2, 10, 11 (ชุดจับคู่ อ.ณทยา เฉลยเป็นตัวอักษรในกล่องสีหน้าข้อความ ตรวจตัวอักษรซ้ำกับ images/11.jpg Question 2) คัดตามหน้ากระดาษ คำอธิบายอิง VET86 RWCDahVkYTk [60:36-61:25] [63:14-64:04] [65:10-65:48] [74:30-75:25] [47:15-47:41] [48:07-48:45] [27:43-29:12] [36:20] [41:34-42:51]",
+    "tags": [
+      "matching",
+      "avian-leuko",
+      "avian-ne",
+      "avian-malaria",
+      "avian-cocci",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206139,
+    "subject": "avian-medicine",
+    "topic": "avian-ibd",
+    "year": 5,
+    "type": "match",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "จับคู่ข้อความเกี่ยวกับวัคซีนและการป้องกันโรค กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "ในการป้องกันโรค สามารถละลายวัคซีนเชื้อให้ไก่กินในช่วงอายุ 1 – 7 วัน หรือให้โดยการสเปรย์ก็ได้",
+        "right": "Eimeria spp."
+      },
+      {
+        "left": "ป้องกันโรคนี้ ได้โดย 1) ใช้วัคซีนเชื้อตายในการป้องกันโรค 2) เลี้ยงไก่ในโรงเรือนปิด 3) ควบคุมให้มีแมลงปีกแข็งน้อยที่สุด",
+        "right": "Leucocytozoon spp."
+      },
+      {
+        "left": "ตรวจผลการให้วัคซีนได้โดย 1) ลิ้นไก่จะติดสีฟ้าหลังให้วัคซีนละลายน้ำ 2) ตรวจแอนติบอดีต่อวัคซีนหลังให้วัคซีน 14 วัน 3) หากผ่าซากไก่หลังให้วัคซีน 7 – 8 วัน ขึ้นไป จะพบว่าต่อมเบอร์ซ่ามีขนาดเล็กลง",
+        "right": "Infectious bursal disease virus"
+      },
+      {
+        "left": "เชื้อไวรัสนี้ สามารถแอบซ่อนอยู่ในเซลล์เม็ดเลือดขาวของไก่ และสามารถแบ่งตัวได้เรื่อยๆ ตลอดชีวิตของไก่ จึงนิยมนำมาใช้เป็นโฮสต์ในการผลิต recombinant vaccine",
+        "right": "Marek's disease virus"
+      },
+      {
+        "left": "วัคซีนป้องกันโรคนี้ มีทั้งชนิดเชื้อเป็น และเชื้อตาย โดยวัคซีนเชื้อเป็นทำลูกไก่เนื้ออายุ 1 วัน ไก่พ่อแม่พันธุ์ก่อนให้ไข่ แต่หากจะทำวัคซีนในพ่อแม่พันธุ์ช่วงที่ให้ไข่แล้ว ต้องให้วัคซีนเชื้อตาย ไก่ไข่ไม่จำเป็นต้องทำวัคซีนชนิดนี้ เนื่องจากเป็นสายพันธุ์เบาจึงไม่ไวต่อโรค",
+        "right": "Avian Reovirus"
+      }
+    ],
+    "distractors": [
+      "Fowlpox virus",
+      "Chicken infectious anemia virus"
+    ],
+    "explain": "วัคซีนบิดเป็นวัคซีนเชื้อเป็นที่ทำจาก sporulated oocyst ในปริมาณต่ำกว่า infection dose ให้ลูกไก่ครั้งเดียวในช่วงสัปดาห์แรกทางน้ำดื่ม สเปรย์หยาบ เจล หรือป้ายบนพื้นกล่องลูกไก่ และห้ามให้พร้อมอาหารที่ผสมยาต้านบิดเพราะยาจะฆ่าเชื้อวัคซีน ข้อความนั้นจึงเป็นของ Eimeria spp. ส่วน Leucocytozoon spp. ป้องกันด้วยวัคซีนเชื้อตายของ L. caulleryi ร่วมกับการเลี้ยงในโรงเรือนปิดและควบคุมแมลงพาหะ เพราะการรักษาด้วยยาซัลฟามักกำจัดปรสิตได้ไม่หมด ข้อที่ตรวจผลวัคซีนสามทางเป็นของ Infectious bursal disease virus เพราะวัคซีนกัมโบโรส่วนมากละลายน้ำให้กินและมีสีฟ้าผสมไว้ให้ดูที่ลิ้น ตรวจแอนติบอดีด้วย ELISA ที่ 14 วัน และวัคซีนซึ่งเป็นไวรัสอ่อนกำลังจะทำให้ต่อมเบอร์ซาฝ่อลงในราว 7 วัน ข้อที่พูดถึงไวรัสที่แฝงในเม็ดเลือดขาวและแบ่งตัวได้ตลอดชีวิตคือ Marek's disease virus ซึ่ง serotype 3 หรือ HVT ที่ไม่ก่อโรคถูกใช้เป็นโฮสต์ของวัคซีน recombinant เช่น HVT-ND และ HVT-IBD เพราะ replicate ในตัวไก่ไปตลอดจึงให้ครั้งเดียว ข้อสุดท้ายเป็นของ Avian Reovirus ที่มีวัคซีนเชื้อเป็น S1133 ให้ลูกไก่ตั้งแต่ 1 วันและพ่อแม่พันธุ์ก่อนไข่ ส่วนช่วงให้ไข่แล้วต้องใช้เชื้อตายเพื่อส่ง maternal antibody ไปที่ลูก และไก่ไข่ไม่ต้องทำเพราะเป็นโรคของไก่เนื้อสายพันธุ์หนัก การ์ดที่ไม่ใช่คำตอบคือ Fowlpox virus ซึ่งเป็น vector ของวัคซีน recombinant ได้เหมือนกันแต่ให้ทาง wing web และไม่ได้แฝงในเม็ดเลือดขาว กับ Chicken infectious anemia virus ที่วัคซีนเชื้อเป็นให้ในพ่อแม่พันธุ์ก่อนไข่ 4-5 สัปดาห์และห้ามให้ช่วงให้ไข่โดยไม่มีทางเลือกเป็นเชื้อตายในช่วงนั้นตามข้อความนี้",
+    "verified": "อิงแนวข้อสอบ, images/6.jpg ข้อ 12, 13 และ images/5.jpg ข้อ 13, 16, 17 (ชุดจับคู่ อ.ณทยา เฉลยเป็นตัวอักษรในกล่องสีหน้าข้อความ ตรวจตัวอักษรซ้ำกับ images/11.jpg) หน้ากระดาษพิมพ์คำซ้ำว่า ติดติดสีฟ้า ใน images/5.jpg ข้อ 13 และ พ่อแม่แม่พันธุ์ สองแห่งในข้อ 17 ในที่นี้ตัดคำซ้ำออก นอกนั้นคัดตามหน้ากระดาษ คำอธิบายอิง VET86 RWCDahVkYTk [23:36-25:46] [67:25-68:38], VET86 ScpsvwW0FhM [25:58-27:04] [29:05-30:34] [39:06-40:50] [58:16-59:17] [96:44-98:35] [111:15-114:04] และ VET86 7XyI0SjnuBA [117:14-117:49]",
+    "tags": [
+      "matching",
+      "avian-ibd",
+      "avian-marek",
+      "avian-reo",
+      "avian-cocci",
+      "avian-leuko",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206140,
+    "subject": "avian-medicine",
+    "topic": "avian-ne",
+    "year": 5,
+    "type": "match",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "q": "จับคู่แนวทางการรักษา การป้องกัน และการจัดการเมื่อเกิดโรค กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "สามารถป้องกันโรคนี้โดยการผสมยาในอาหารให้ไก่กินได้",
+        "right": "Eimeria spp."
+      },
+      {
+        "left": "รักษาโรคนี้ได้โดยการให้ยา Bacitracin 200 – 400 mg/gal ละลายน้ำ ให้ต่อเนื่องเป็นเวลา 5 – 7 วัน",
+        "right": "Clostridium perfringens"
+      },
+      {
+        "left": "ถ้ามีการระบาดของโรคในฟาร์ม ให้ปฏิบัติดังนี้ 1) ไก่ที่ป่วยให้ระวังโรคแทรกซ้อน และให้วิตามินเสริม 2) ให้วัคซีนเชื้อเป็นชนิดปานกลางพิเศษในโรงเรือนที่ยังไม่ป่วย และในไก่รุ่นต่อไป 3) เพิ่มความเข้มงวดของระบบความปลอดภัยทางชีวภาพ",
+        "right": "Infectious bursal disease virus"
+      },
+      {
+        "left": "วัคซีนป้องกันโรคนี้ นิยมใช้วัคซีนชนิดเชื้อเป็นชนิด cell – associated vaccine ซึ่งต้องเก็บในไนโตรเจนเหลว และฉีดใต้ผิวหนังในไก่อายุ 1 วัน หรือฉีดเข้าไข่ไก่ฟักตอนอายุ 18 วัน",
+        "right": "Marek's disease virus"
+      },
+      {
+        "left": "นิยมใช้วัคซีนเชื้อในการป้องกันโรคนี้ โดยให้วัคซีนทาง wing web เมื่อไก่อายุ 4 สัปดาห์ขึ้นไป",
+        "right": "Fowlpox virus"
+      }
+    ],
+    "distractors": [
+      "Leucocytozoon spp.",
+      "Avian Reovirus"
+    ],
+    "explain": "สองข้อแรกแยกกันที่คำว่าป้องกันกับรักษา ยาต้านบิดยังผสมในอาหารได้เพื่อป้องกันโรคบิด และอาหารไก่เนื้อสำเร็จรูปส่วนมากก็ผสมมาให้แล้ว ต่างจากยาปฏิชีวนะที่ห้ามผสมในอาหารทุกกรณี ข้อความนี้จึงเป็นของ Eimeria spp. ส่วนการรักษาด้วย bacitracin ละลายน้ำ 5-7 วันเป็นยาอันดับแรกของโรคลำไส้อักเสบแบบเนื้อตายจาก Clostridium perfringens ถ้าขาดตลาดใช้ penicillin หรือ lincomycin แทน และต้องคัดตัวป่วยออกเพราะปล่อยเชื้อให้ตัวอื่น ข้อที่ว่าด้วยการระบาดในฟาร์มเป็นของ Infectious bursal disease virus เพราะวัคซีนเชื้อเป็นชนิดปานกลางพิเศษหรือ intermediate plus เป็นของโรคกัมโบโรโดยเฉพาะ ใช้หยุดการระบาดในโรงเรือนที่ยังไม่ป่วยและในรุ่นถัดไป ไก่ที่ป่วยแล้วไม่มี B cell จึงต้องระวังโรคแทรกซ้อนอย่างบิด ให้วิตามินเป็นเพียงการพยุงอาการ และต้องเข้มงวด biosecurity เพราะไวรัสไม่มีเปลือกหุ้ม ตายยาก วนเวียนอยู่ในฟาร์ม วัคซีนที่ต้องเก็บในไนโตรเจนเหลวคือวัคซีนโรคมาเร็กซ์ชนิด cell-associated เพราะไวรัสอยู่ได้เฉพาะในเซลล์ที่ยังมีชีวิต ถ้าเซลล์ตายไวรัสก็ตาย จึงเก็บที่ลบ 196 องศา ละลายในน้ำ 27 องศาราว 30 นาที แล้วฉีดใต้ผิวหนังลูกไก่อายุ 1 วันหรือฉีดไข่ฟักอายุ 18 วัน ส่วนวัคซีนเชื้อเป็นทาง wing web ด้วยเข็ม 2 แง่งที่อายุ 4 สัปดาห์ขึ้นไปเป็นของ Fowlpox virus และตรวจผลด้วยตุ่มนูนแข็งตรงรอยแทงที่ 5-10 วัน การ์ดที่ไม่ใช่คำตอบคือ Leucocytozoon spp. ที่ป้องกันด้วยวัคซีนเชื้อตาย โรงเรือนปิด และการควบคุมแมลง กับ Avian Reovirus ที่ให้วัคซีนเชื้อเป็น S1133 ทางสเปรย์หรือฉีดใต้ผิวหนังตั้งแต่ 1 วัน ไม่ต้องใช้ไนโตรเจนเหลวและไม่ได้ให้ทาง wing web",
+    "verified": "อิงแนวข้อสอบ, images/6.jpg ข้อ 9, 14 และ images/5.jpg ข้อ 14, 15, 18 (ชุดจับคู่ อ.ณทยา เฉลยเป็นตัวอักษรในกล่องสีหน้าข้อความ ตรวจตัวอักษรซ้ำกับ images/11.jpg) หน้ากระดาษพิมพ์คำซ้ำว่า วัคซีนวัคซีน ใน images/5.jpg ข้อ 15 ในที่นี้ตัดคำซ้ำออก นอกนั้นคัดตามหน้ากระดาษ คำอธิบายอิง VET86 RWCDahVkYTk [25:59-26:26] [27:56-28:47] [54:29-55:09] [68:10-68:38], VET86 ScpsvwW0FhM [8:42] [22:37-23:38] [32:19-33:35] [58:16-64:29] [111:15-114:04] และ VET86 7XyI0SjnuBA [115:18-119:04]",
+    "tags": [
+      "matching",
+      "avian-ne",
+      "avian-cocci",
+      "avian-ibd",
+      "avian-marek",
+      "avian-pox",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 206141,
+    "subject": "avian-medicine",
+    "topic": "avian-nd",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ข้อความบรรยายลักษณะของเชื้อและการติดต่อ กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "ไวรัสมี 21 genotype แต่มีเพียง 1 serotype แอนติบอดีที่เกิดจาก genotype หนึ่งจึงยับยั้งการติดเชื้อ genotype อื่นได้ ติดต่อทาง faecal-oral ไก่ทุกอายุติดโรคได้ และไม่นับเป็น vertical transmission เพราะลูกไก่ตายในไข่ก่อนฟัก",
+        "right": "Newcastle disease virus"
+      },
+      {
+        "left": "เป็น gammacoronavirus ที่มีหลาย serotype และไม่ cross protect กัน ระยะฟักตัวสั้นเพียง 36 ชั่วโมง ติดทั่วทั้งฝูงภายใน 2 วัน และหายเองภายใน 14 วัน",
+        "right": "Infectious bronchitis virus"
+      },
+      {
+        "left": "เป็น herpesvirus DNA สายคู่ที่ไม่ค่อยกลายพันธุ์ เซลล์เป้าหมายคือ epithelial cell ของ larynx และ trachea ไก่ที่หายแล้วยังเป็นพาหะ เพราะไวรัสแฝงอยู่ใน trigeminal ganglion และถูกปล่อยออกมาเมื่อไก่เครียด",
+        "right": "Infectious laryngotracheitis virus"
+      },
+      {
+        "left": "เป็นไวรัสใน family Pneumoviridae มีนกป่าเป็น reservoir subtype ที่พบบ่อยคือ A และ B ระยะฟักตัว 3-5 วัน เชื้อมาไวไปไว ถ้าเก็บตัวอย่างช้ากว่า 7 วันหลังเห็นอาการมักตรวจไม่พบเชื้อ",
+        "right": "Avian metapneumovirus"
+      },
+      {
+        "left": "เป็น poxvirus ตัวใหญ่ DNA สายคู่ ไวรัสอยู่ในสะเก็ดแห้ง ติดผ่านบาดแผล ยุงและแมลงเป็นพาหะ หรือหายใจเอาสะเก็ดเข้าไป แพร่ระบาดช้าที่สุดในกลุ่มโรคไวรัสระบบหายใจ ระยะฟักตัว 4-10 วัน",
+        "right": "Fowlpox virus"
+      }
+    ],
+    "distractors": [
+      "Avian influenza virus",
+      "Mycoplasma gallisepticum"
+    ],
+    "explain": "จุดที่แยกห้าโรคนี้ออกจากกันคือความสัมพันธ์ระหว่างพันธุกรรมกับภูมิคุ้มกัน Newcastle disease virus แบ่งได้ 21 genotype แต่ทั้งหมดอยู่ใน serotype เดียว แอนติบอดีจากไก่ที่ติด genotype หนึ่งจึงยับยั้งการติดเชื้อ genotype อื่นได้ genotype 1 และ 2 ซึ่งไม่รุนแรงจึงถูกนำมาทำวัคซีน ขณะที่ genotype 7 เป็นตัวสำคัญในเอเชียตะวันออกเฉียงใต้ และภูมิที่เกิดจาก genotype หนึ่งข้ามไปยับยั้ง genotype อื่นได้ ไวรัสติดทาง faecal-oral จากการจิกกินสิ่งที่ปนเปื้อนมูล ไก่ทุกอายุไวต่อโรค และไม่จัดเป็น vertical transmission เพราะไข่จากแม่ที่ป่วยฟักไม่ออก ตัวอ่อนตายในเปลือก Infectious bronchitis virus กลับด้านกัน มีหลาย serotype ที่ไม่ cross protect กัน วัคซีนต้องเลือกสายพันธุ์ให้ตรงกับเชื้อในฟาร์ม เป็นโรคที่ติดต่อเก่งมาก ระยะฟักตัว 36 ชั่วโมง ทั่วฝูงใน 2 วัน และหายเองใน 14 วัน อัตราป่วยสูงแต่ตายต่ำถ้าไม่มีเชื้อแทรกซ้อน Infectious laryngotracheitis virus เป็น herpesvirus ที่ DNA สายคู่ทำให้กลายพันธุ์น้อย เข้าทำลาย epithelium ของกล่องเสียงและท่อลม และมี latency ใน trigeminal ganglion ไก่ที่หายแล้วจึงเป็นพาหะไปตลอด พอเครียดก็ปล่อยเชื้อให้เพื่อน Avian metapneumovirus อยู่ใน family Pneumoviridae มีนกป่าเป็นแหล่งรังโรค subtype A และ B พบบ่อย ระยะฟักตัว 3-5 วัน และเชื้ออยู่ในตัวไก่ช่วงสั้น ๆ ต้องเก็บตัวอย่างทันทีที่เห็นอาการ ส่วน Fowlpox virus เป็น poxvirus ขนาดใหญ่ที่อยู่ในสะเก็ดแห้งได้นาน ติดผ่านบาดแผล ยุง หรือการหายใจเอาสะเก็ดเข้าไป จึงแพร่ช้าที่สุดในกลุ่มนี้ ระยะฟักตัว 4-10 วัน และพบทั้งฟอร์มผิวหนังกับฟอร์มท่อลมในไก่ตัวเดียวกันได้ การ์ดที่ไม่ใช่คำตอบคือ Avian influenza virus ซึ่งเป็น influenza type A ที่แบ่ง subtype ตาม H และ N และเป็นโรคที่ต้องแยกจากนิวคาสเซิล กับ Mycoplasma gallisepticum ซึ่งเป็นแบคทีเรีย ไม่ใช่ไวรัส แต่ให้อาการทางเดินหายใจที่ต้องวินิจฉัยแยกจากกลุ่มนี้",
+    "verified": "VET86 7XyI0SjnuBA [17:09-21:00] [26:51-28:33] [32:48-33:29] [54:41-55:18] [57:14-60:32] [75:41-77:40] [88:18-89:07] [92:06-92:57] [97:43-98:07] [105:57-106:51] [107:30-109:19] และ VET86 F1jwpqQCGBM [97:22-97:49] สำหรับการ์ดลวง Avian influenza virus",
+    "tags": [
+      "matching",
+      "avian-nd",
+      "avian-ib",
+      "avian-lt",
+      "avian-mpv",
+      "avian-pox"
+    ]
+  },
+  {
+    "id": 206142,
+    "subject": "avian-medicine",
+    "topic": "avian-ib",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่อาการและรอยโรคที่ใช้แยกโรค กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "มูลสีเขียวถ่ายเหลว มี ulcer ที่ proventriculus ลำไส้เป็นปื้นแดง ม้ามโต ร่วมกับหัวสั่น คอบิด และอัมพาตของขาหรือปีก ส่วนถุงลมมักไม่อักเสบถ้าไม่มีเชื้อแทรกซ้อน",
+        "right": "Newcastle disease virus"
+      },
+      {
+        "left": "ลูกไก่ที่ติดเชื้อสายพันธุ์ QX ก่อนอายุ 2 สัปดาห์ โตขึ้นเป็น false layer ยืนท่า penguin posture ผ่าซากพบถุงน้ำในท่อนำไข่ และบางสายพันธุ์ทำให้ไตบวมมี urate",
+        "right": "Infectious bronchitis virus"
+      },
+      {
+        "left": "ไก่ยืดคออ้าปากหายใจเหมือนมีอะไรอุดใน trachea จามออกมาเป็นเลือดหรือเสมหะปนเลือด ปีกเปียกเหนียวจากคราบน้ำตา ผ่าซากพบปื้นเลือดออกและเนื้อตายที่ trachea จนไก่ตายเพราะขาดอากาศ",
+        "right": "Infectious laryngotracheitis virus"
+      },
+      {
+        "left": "แก้มและ infraorbital sinus บวม ผ่าใต้ผิวหนังหน้าพบหนองลักษณะวุ้นสีเหลืองใส หัวสั่นหัวบิดเล็กน้อยแต่ไม่บิดเท่านิวคาสเซิล ในแม่ไก่พบ salpingitis และไข่แดงตกในช่องท้องเป็น peritonitis",
+        "right": "Avian metapneumovirus"
+      },
+      {
+        "left": "ตุ่มสีขาวที่หงอน เหนียง เปลือกตา และขา ขยายเร็ว เปลี่ยนเป็นสีเหลืองแล้วกลายเป็นสะเก็ดสีดำ อีกฟอร์มหนึ่งเป็นเยื่อสีเหลืองคลุมปาก หลอดอาหาร และท่อลม แกะออกแล้วเป็นแผลเลือดออก",
+        "right": "Fowlpox virus"
+      }
+    ],
+    "distractors": [
+      "Avian influenza virus",
+      "Avibacterium paragallinarum"
+    ],
+    "explain": "โรคระบบหายใจห้าโรคนี้แยกกันด้วยรอยโรคนอกระบบหายใจเป็นหลัก Newcastle disease virus โจมตี epithelium ของสามระบบ จึงเห็นมูลสีเขียว ulcer ที่ proventriculus ปื้นแดงที่ลำไส้ ม้ามโต และอาการประสาทอย่างหัวสั่น คอบิด อัมพาตข้างเดียว จุดที่ต้องระวังคือไก่ไม่มี lymph node เนื้อเยื่อน้ำเหลืองที่โดนทำลายคือ gut-associated lymphoid tissue และถุงลมอักเสบเกิดต่อเมื่อมีเชื้อแทรกซ้อน Infectious bronchitis virus บางสายพันธุ์ลงไตและท่อนำไข่ สายพันธุ์ QX ที่ติดลูกไก่อายุน้อยกว่า 2 สัปดาห์ทำให้ท่อนำไข่เสียหายจนเป็น false layer ตอนโต ท้องป่องยืนคล้ายเพนกวินและมีถุงน้ำในท่อนำไข่ ส่วนไตอักเสบเห็นไตบวมมี urate ในท่อไต Infectious laryngotracheitis virus จำกัดอยู่ที่กล่องเสียงและท่อลม เลือดออกและเนื้อตายอุดทางเดินหายใจ ไก่จึงยืดคออ้าปากหายใจ จามเป็นเลือด และตายเพราะขาดอากาศ คราบน้ำตาที่ปีกเกิดจากไก่เอาปีกเช็ดตา Avian metapneumovirus ทำให้ใบหน้าบวมจากวุ้นสีเหลืองใต้ผิวหนัง หัวบิดได้แต่น้อยกว่านิวคาสเซิล และเมื่อท่อนำไข่อักเสบ ไข่ที่ตกจากรังไข่จะไม่เข้าปากแตรของท่อนำไข่ แต่ตกลงช่องท้องจนไข่แดงแตกเป็น peritonitis ส่วน Fowlpox virus ฟอร์มผิวหนังไล่จากตุ่มขาวเล็กไปเป็นตุ่มเหลืองแล้วสะเก็ดดำบนผิวหนังที่ไม่มีขน และฟอร์มท่อลมสร้าง pseudomembrane สีเหลืองที่แกะออกแล้วเป็นแผลเลือดออก การ์ดที่ไม่ใช่คำตอบคือ Avian influenza virus ที่ให้หน้าบวม เหนียงคล้ำ และเลือดออกทั่วอวัยวะภายใน กับ Avibacterium paragallinarum ที่ทำให้หน้าบวมและไซนัสอักเสบแต่เป็นแบคทีเรียซึ่งต้องวินิจฉัยแยกจากโรคหลอดลมอักเสบติดต่อ",
+    "verified": "VET86 7XyI0SjnuBA [28:33-31:36] [62:46-65:05] [77:40-80:13] [93:37-96:35] [110:10-114:09] และ VET86 F1jwpqQCGBM [103:04-104:21] สำหรับการ์ดลวง Avian influenza virus",
+    "tags": [
+      "matching",
+      "avian-ib",
+      "avian-nd",
+      "avian-lt",
+      "avian-mpv",
+      "avian-pox"
+    ]
+  },
+  {
+    "id": 206143,
+    "subject": "avian-medicine",
+    "topic": "avian-pox",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ข้อความเกี่ยวกับวัคซีนและข้อควรระวังในการใช้ กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "วัคซีนเชื้อเป็นต้องมีค่า ICPI ไม่เกิน 0.5 วัคซีนเชื้อตายให้ได้เฉพาะทาง SC หรือ IM และ recombinant HVT ให้ได้ตั้งแต่อายุ 1 วันที่โรงฟัก วัคซีนป้องกันอาการป่วยและการตายได้ แต่ไม่ป้องกันการติดเชื้อ",
+        "right": "Newcastle disease virus"
+      },
+      {
+        "left": "ต้องเลือกสายพันธุ์วัคซีนให้ตรงกับเชื้อในฟาร์ม และห้ามใช้วัคซีนเชื้อเป็นสายพันธุ์ที่ไม่เคยระบาดในประเทศ เพราะจะกลายเป็นสายพันธุ์ใหม่ที่ไม่ cross protect ส่วนวัคซีนเชื้อตายให้ก่อนไข่ช่วง 13-18 สัปดาห์ 2 ครั้ง",
+        "right": "Infectious bronchitis virus"
+      },
+      {
+        "left": "วัคซีนเชื้อเป็นชนิด CEO ป้องกันได้ดีกว่าแต่แพ้วัคซีนมากกว่าชนิด TCO ไม่ควรให้ก่อนอายุ 3 สัปดาห์ ไม่แนะนำให้ทางสเปรย์ และฝูงที่เคยมีโรคระบาดควรใช้เชื้อเป็นผสมน้ำร่วมกับ recombinant",
+        "right": "Infectious laryngotracheitis virus"
+      },
+      {
+        "left": "ไม่ได้ให้วัคซีนตลอดเหมือนโรคนิวคาสเซิลหรือโรคหลอดลมอักเสบติดต่อ แต่ให้เฉพาะฝูงที่มีปัญหาหรือฝูงถัดจากฝูงที่มีปัญหา วัคซีนเชื้อเป็น subtype A และ B cross protect กันได้ เชื้อเป็นครั้งเดียวไม่พอ ส่วนเชื้อตายให้เฉพาะพ่อแม่พันธุ์อายุ 16-20 สัปดาห์",
+        "right": "Avian metapneumovirus"
+      },
+      {
+        "left": "ให้วัคซีนเชื้อเป็นทาง wing web ด้วยเข็ม 2 แง่ง ไก่อายุต่ำกว่า 3 สัปดาห์หักเหลือแง่งเดียว ห้ามให้ตอนกำลังไข่ และตรวจผลที่ 5-10 วัน โดยสุ่มอย่างน้อย 50 ตัวต่อโรงเรือน ถ้าไม่พบตุ่มมากกว่า 10% ต้องทำใหม่ทั้งโรงเรือน",
+        "right": "Fowlpox virus"
+      }
+    ],
+    "distractors": [
+      "Avian influenza virus",
+      "Infectious bursal disease virus"
+    ],
+    "explain": "วัคซีนของโรคนิวคาสเซิลมีสามแบบ เชื้อเป็นราคาถูกให้ได้หลายทางแต่ต้องใช้สายพันธุ์ที่ ICPI ไม่เกิน 0.5 เชื้อตายกระตุ้น humoral immunity ได้สูงและส่งภูมิให้ลูกได้ดีแต่ให้ได้เฉพาะฉีดใต้ผิวหนังหรือเข้ากล้ามเนื้อ และ recombinant HVT-ND ให้ตั้งแต่วันแรกที่โรงฟัก ประโยคที่ต้องจำคือวัคซีนกันอาการป่วยและการตายได้ อาจลดการแพร่เชื้อ แต่ไม่กันการติดเชื้อ biosecurity จึงยังจำเป็น วัคซีนโรคหลอดลมอักเสบติดต่อมีข้อห้ามที่ต่างจากโรคอื่น เพราะ serotype ไม่ cross protect กัน วัคซีนเชื้อเป็นสายพันธุ์แปลกถิ่นที่หลุดไปในฝูงที่ไม่มีภูมิจะกลายเป็นเชื้อสายพันธุ์ใหม่ของประเทศ ส่วนเชื้อตายที่ให้ก่อนไข่ 13-18 สัปดาห์สองครั้งมีเป้าหมายส่งแอนติบอดีไปกันลูกไก่จากภาพ false layer วัคซีนโรคกล่องเสียงอักเสบติดต่อชนิด CEO กับ TCO แลกกันระหว่างประสิทธิภาพกับการแพ้วัคซีน ซึ่งในไก่หมายถึงอาการหวัด ไอ จาม ตาอักเสบจากตัววัคซีนเอง ไก่เล็กภูมิยังไม่พัฒนาจึงไม่ให้ก่อน 3 สัปดาห์ และถ้าให้ไม่ทั่วฝูงเชื้อวัคซีนจะพัฒนาเป็น rolling infection โรคหัวบวมต่างจากทุกโรคตรงที่ให้วัคซีนเฉพาะฝูงที่มีปัญหา และเนื่องจากเชื้อเป็นครั้งเดียวไม่พอ จึงให้เชื้อเป็นสองครั้งและเชื้อตายสองครั้งในพ่อแม่พันธุ์ ส่วนวัคซีนฝีดาษไก่แทงที่ wing web และต้องมีน้ำวัคซีนติดที่แง่งเข็มจริง ตรวจผลด้วยตุ่มนูนแข็งราว 7 วันหลังทำ และถ้าทำใหม่จะแยกตุ่มของครั้งแรกกับครั้งที่สองไม่ออกอีก การ์ดที่ไม่ใช่คำตอบคือ Avian influenza virus ซึ่งวัคซีนต้องมี H ตรงสายพันธุ์ที่ระบาดและในประเทศไทยไม่มีการขึ้นทะเบียนวัคซีนเพราะประกาศสถานะปลอดโรค กับ Infectious bursal disease virus ซึ่งวัคซีนเชื้อเป็นแบ่งเป็นชนิดอ่อน ปานกลาง และปานกลางพิเศษ และให้ทางน้ำดื่ม ไม่ใช่ wing web",
+    "verified": "VET86 7XyI0SjnuBA [43:34-45:35] [48:24-49:05] [65:30-69:13] [80:39-84:58] [99:05-101:04] [115:18-119:04] และ VET86 F1jwpqQCGBM [114:12-115:12] [116:16-117:56] กับ VET86 ScpsvwW0FhM [22:37-23:38] [25:58] สำหรับการ์ดลวงสองใบ",
+    "tags": [
+      "matching",
+      "avian-pox",
+      "avian-nd",
+      "avian-ib",
+      "avian-lt",
+      "avian-mpv"
+    ]
+  },
+  {
+    "id": 206144,
+    "subject": "avian-medicine",
+    "topic": "avian-cocci",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่คุณสมบัติของยาต้านบิด กับกลุ่มยาหรือชื่อยา (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "ฆ่าเชื้อบิดได้ทุกสปีชีส์ ออกฤทธิ์ได้ทั้งแบบ coccidiostat และ coccidiocidal โดยยับยั้งการทำงานของ mitochondria และ ATP hydrolysis จน sodium ไหลเข้าเซลล์แล้วเซลล์แตก ห้ามใช้พร้อม tiamulin เพราะเกิด toxicity",
+        "right": "Ionophore"
+      },
+      {
+        "left": "เป็น thiamine analog ออกฤทธิ์แบบ coccidiostat โดย blocking receptor ครอบคลุม E. tenella และ E. necatrix ออกฤทธิ์ระยะเดียวกับ ionophore และห้ามใช้พร้อม tiamulin เช่นกัน",
+        "right": "Amprolium"
+      },
+      {
+        "left": "ยับยั้ง electron transport system ในไมโตคอนเดรียและบล็อก DNA synthesis ฆ่าได้ทุกสปีชีส์ ออกฤทธิ์ที่ระยะ sporozoite ซึ่งเป็นช่วงแรกสุดของวงจร และต้องให้ครบวันที่กำหนด เช่น กำหนด 5 วันก็ต้องให้ 5 วัน",
+        "right": "Decoquinate"
+      },
+      {
+        "left": "ยับยั้ง ATP และ sodium-potassium pump ในเซลล์ ออกฤทธิ์ที่ secondary generation of trophozoite ไม่นิยมใช้ในไก่ไข่เพราะทำให้สีไข่แดงไม่สม่ำเสมอ เปลือกซีด และลดผลผลิต แต่ใช้ร่วมกับ ionophore ได้",
+        "right": "Nicarbazin"
+      },
+      {
+        "left": "ยับยั้งการแบ่งนิวเคลียสของเชื้อ ฆ่าได้ทุกสปีชีส์ ออกฤทธิ์ช่วงท้ายของวงจรคือระยะ schizont และระยะ gamete",
+        "right": "Diclazuril"
+      }
+    ],
+    "distractors": [
+      "Sulfonamide",
+      "Guanidine derivatives"
+    ],
+    "explain": "ยาต้านบิดแบ่งเป็นสองกลุ่มใหญ่คือ ionophore กับ chemical และแยกกันด้วยกลไกกับระยะของเชื้อที่ยาไปหยุด Ionophore อย่าง monensin และ salinomycin ครอบคลุมทุกสปีชีส์ เป็นได้ทั้ง coccidiostat ที่แค่หยุดการเจริญและ coccidiocidal ที่ฆ่าเชื้อในช่วง development วันที่ 0 ถึง 8 กลไกคือรบกวน mitochondria และ ATP hydrolysis จน sodium ไหลเข้าเซลล์แตก และข้อห้ามที่ต้องจำคือใช้พร้อม tiamulin ไม่ได้เพราะเกิด toxicity Amprolium เป็น thiamine analog ที่ block receptor ออกฤทธิ์แบบ coccidiostat เน้น E. tenella กับ E. necatrix และมีข้อห้าม tiamulin เหมือนกัน Decoquinate ยับยั้ง electron transport กับ DNA synthesis และหยุดเชื้อตั้งแต่ระยะ sporozoite สองตัวนี้จึงถูกใช้มากเพราะบล็อกวงจรตั้งแต่ต้น แต่ต้องให้ครบโดสครบวัน ไม่งั้นดื้อยา Nicarbazin ตัดที่ sodium-potassium pump ในระยะ trophozoite รุ่นสอง ปัญหาคือในไก่ไข่ทำให้สีไข่แดงไม่สม่ำเสมอ เปลือกซีด และผลผลิตลด แต่ใช้คู่กับ ionophore ได้ ส่วน Diclazuril ยับยั้งการแบ่งนิวเคลียสในช่วงท้ายคือ schizont และ gamete หลักการใช้ร่วมคือให้ยาต้านบิดทีละชนิดแล้วสลับเป็น shuttle program ไม่ให้สองชนิดพร้อมกัน และหยุดยาก่อนจับ 14 วันตามกฎหมาย การ์ดที่ไม่ใช่คำตอบคือ Sulfonamide ซึ่งฆ่าได้ทุกสปีชีส์แต่ส่วนมากใช้กับ E. necatrix ที่ก่อโรครุนแรง กับ Guanidine derivatives ที่ยับยั้ง oxidative phosphorylation ในระยะ first generation schizont แต่เกิดการดื้อยาได้มาก",
+    "verified": "VET86 RWCDahVkYTk [26:26-26:53] [29:12-30:35] [30:23-30:58] [30:58-31:37] [31:37-32:21] [32:21-32:47] [32:47-33:24] [33:24-33:49] [33:49-34:15] [36:20] [21:11-22:30]",
+    "tags": [
+      "matching",
+      "avian-cocci"
+    ]
+  },
+  {
+    "id": 206145,
+    "subject": "avian-medicine",
+    "topic": "avian-rss",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ข้อความบรรยายลักษณะเด่นของโรค กับเชื้อสาเหตุหรือกลุ่มอาการ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "ไก่เนื้อช่วง 2 สัปดาห์แรกโตไม่สม่ำเสมอ ฝูงแตกไซส์ทั้งที่อายุเท่ากัน มูลบนพื้นเป็นอาหารไม่ย่อย แข้งซีด ขนชี้ไปชี้มาแบบ helicopter wing และไม่มีวัคซีนที่จำเพาะ เพราะยังไม่รู้ว่าไวรัสตัวไหนเป็นสาเหตุแน่",
+        "right": "Runting and stunting syndrome"
+      },
+      {
+        "left": "อวัยวะเป้าหมายคือ hock joint เอ็นเหนือข้อเข่าบวมข้างเดียวหรือสองข้าง ไก่หมอบอยู่ใกล้รางน้ำรางอาหาร น้ำในข้อสีฟางข้าว เหนียวแต่ไม่ขุ่น ถ้าขุ่นแปลว่ามีแบคทีเรียแทรกซ้อน และถ้าเอ็นขาดต้องคัดทิ้ง",
+        "right": "Avian reovirus"
+      },
+      {
+        "left": "เป็น circovirus DNA สายเดี่ยว ไม่มีเปลือกหุ้ม ทนที่สุดในบรรดาไวรัส ทำลายเซลล์ต้นกำเนิดเม็ดเลือดทุกกลุ่มในไขกระดูก โรคนี้ติดผ่านไข่ได้ ฝูงจึงตายเป็น 2 พีค คืออายุ 17-24 วันในตัวที่รับเชื้อจากพ่อแม่ และ 20-34 วันในตัวที่รับเชื้อจากเพื่อนโดยไม่มีภูมิ",
+        "right": "Chicken infectious anemia virus"
+      },
+      {
+        "left": "เป็น retrovirus เซลล์เป้าหมายคือ B lymphocyte แต่อวัยวะเป้าหมายคือไขกระดูก ลูกไก่ที่รับเชื้อจากพ่อแม่จะไม่มีแอนติบอดีและไวรีเมีย subgroup J ก่อเนื้องอกสีขาวติดกับกระดูก เช่น กระดูกอกด้านใน ซี่โครง กะโหลก ซึ่งเนื้องอกติดกระดูกพบเฉพาะโรคนี้",
+        "right": "Avian leukosis virus"
+      },
+      {
+        "left": "เป็น retrovirus ที่เดิมมากับการปนเปื้อนในวัคซีนโรคมาเร็กซ์หรือวัคซีนฝีดาษ มี 3 type คือ non-neoplastic ที่ทำให้ไก่แคระแกร็น bursal lymphoma และ non-bursal lymphoma ติดต่อได้ทั้ง direct contact ผ่านไข่ และมีรายงานว่าติดจากยุงกัด",
+        "right": "Reticuloendotheliosis virus"
+      }
+    ],
+    "distractors": [
+      "Marek's disease virus",
+      "Infectious bursal disease virus"
+    ],
+    "explain": "Runting and stunting syndrome หรือ malabsorption syndrome เป็นกลุ่มอาการจาก viral enteritis ในไก่เนื้ออายุน้อยที่ villi และ enterocyte ถูกทำลายจนย่อยและดูดซึมไม่ได้ จึงเห็นฝูงแตกไซส์ มูลเป็นอาหารไม่ย่อย แข้งซีดจากการดูดซึมแคโรทีนไม่ได้ และขน helicopter wing ที่ค่อนข้างจำเพาะ ไวรัสที่พบมีหลายตัวทั้ง reovirus rotavirus และ parvovirus แต่ระบุตัวก่อโรคแน่ชัดไม่ได้ จึงไม่มีวัคซีนจำเพาะ วัคซีนรีโอที่ใช้กับข้ออักเสบช่วยลดอุบัติการณ์ได้บ้าง เมื่อพูดถึง Avian reovirus ในคำถามจับคู่จึงหมายถึงตัวที่ก่อ viral arthritis หรือ tenosynovitis ซึ่งเพิ่มจำนวนในลำไส้แล้วไวรีเมียไปที่ hock joint น้ำในข้อที่เหนียวแต่ใสเป็นของไวรัส ถ้าขุ่นต้องคิดถึงแบคทีเรียแทรกซ้อน Chicken infectious anemia virus เป็น circovirus ที่ทนที่สุด ทำลายเซลล์ต้นกำเนิดเม็ดเลือดทุกสายในไขกระดูกจนเกิด aplastic anemia ไทมัสและต่อมเบอร์ซาฝ่อ และการตายสองพีคเป็นลายเซ็นของโรคที่ติดผ่านไข่ได้ พีคแรกจากตัวที่รับเชื้อจากแม่ พีคสองจากตัวที่รับเชื้อจากเพื่อนโดยไม่มีภูมิ Avian leukosis virus ต่างจากโรคกัมโบโรตรงที่เป้าหมายเป็น B cell ในไขกระดูกไม่ใช่ต่อมเบอร์ซา ลูกที่รับเชื้อจากพ่อแม่จะไม่มีแอนติบอดีและกลายเป็นตัวปล่อยเชื้อ และ myeloid leukosis จาก subgroup J ให้เนื้องอกติดกระดูกซึ่งไม่พบในโรคเนื้องอกอื่น Reticuloendotheliosis virus เป็นโรคที่มาทีหลังจากการปนเปื้อนวัคซีน มีสามรูปแบบ และติดร่วมกับโรคมาเร็กซ์แล้วรุนแรงขึ้น การ์ดที่ไม่ใช่คำตอบคือ Marek's disease virus ซึ่งเป็น herpesvirus ที่ทำลาย T cell ให้เนื้องอกตามอวัยวะภายในและเส้นประสาทโต ไม่ติดผ่านไข่และไม่ให้เนื้องอกติดกระดูก กับ Infectious bursal disease virus ที่ทำลาย B cell ในต่อมเบอร์ซาจนบวมมีวุ้นเหลืองหุ้มแล้วฝ่อ แต่ไม่ทำให้เลือดจาง",
+    "verified": "VET86 ScpsvwW0FhM [116:33-120:51] [121:55-122:21] [123:40-124:54] [102:19-103:14] [106:00-106:28] [107:19-110:12] [88:07-89:32] [93:57-95:08] [95:08-95:32] [67:23-69:02] [69:38-70:03] [72:50-73:52] [76:44-79:13] [36:58-37:49] [43:24-45:06] [14:08-15:22]",
+    "tags": [
+      "matching",
+      "avian-rss",
+      "avian-reo",
+      "avian-cia",
+      "avian-marek"
+    ]
+  },
+  {
+    "id": 206146,
+    "subject": "avian-medicine",
+    "topic": "avian-mpv",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่แนวทางการเก็บตัวอย่างและการวินิจฉัย กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "สัตว์มีชีวิตเก็บ oropharyngeal swab และ cloacal swab โดยไม่จำเป็นต้อง swab ใน trachea ก้านไม้ที่รมฟอร์มาลินให้เอาเฉพาะปลายแกว่งในน้ำยาแล้วทิ้งก้าน ตัวอย่างสำหรับเพาะแยกเชื้อเก็บในตู้เย็นได้ 1-2 วัน ห้ามแช่ฟรีซเซอร์ ส่วนแอนติบอดีตรวจด้วย HI test หรือ ELISA",
+        "right": "Newcastle disease virus"
+      },
+      {
+        "left": "เก็บ trachea ไปแยกเชื้อในไข่ไก่ฟัก ตัวอ่อนจะเกิด curling หงิกงอ สายพันธุ์ QX ที่รุนแรง curling ชัด ส่วนสายพันธุ์อ่อนอย่างวัคซีน curl น้อย และต้องวินิจฉัยแยกจาก ILT, LPAI และ infectious coryza",
+        "right": "Infectious bronchitis virus"
+      },
+      {
+        "left": "ต้องเก็บตัวอย่างทันทีที่เห็นไก่ป่วย เพราะรอ 7 วันเชื้อจะหายไปแล้ว แนะนำ choanal cleft swab หรือถ้าไก่ตายให้กรีดแก้มที่บวมใต้ตาแล้ว swab ซึ่งพบเชื้อมากกว่าการเก็บ trachea ปอด รังไข่ หรือมดลูก",
+        "right": "Avian metapneumovirus"
+      },
+      {
+        "left": "วินิจฉัยได้จากประวัติและสะเก็ดที่หงอนเหนียงโดยแทบไม่ต้องส่งตรวจ ถ้าใส่ไข่ไก่ฟัก เยื่อ allantoic จะขึ้นตุ่ม ฟอร์มในท่อลมต้องแยกจาก ILT และ T-2 toxin ส่วนฟอร์มผิวหนังแยกจากการขาด pantothenic acid หรือ biotin ในลูกไก่",
+        "right": "Fowlpox virus"
+      }
+    ],
+    "distractors": [
+      "Infectious laryngotracheitis virus",
+      "Avian influenza virus"
+    ],
+    "explain": "การเก็บตัวอย่างของโรคนิวคาสเซิลมีรายละเอียดที่ทำให้ผลลบปลอมได้ oropharyngeal swab มีไวรัสพอสำหรับวินิจฉัยโดยไม่ต้อง swab ใน trachea ที่ทำให้ไก่บอบช้ำ ก้านไม้ถูกฆ่าเชื้อด้วยการรมฟอร์มาลิน ถ้าแช่ทั้งก้านลงน้ำยา ฟอร์มาลินจะละลายออกมาฆ่าไวรัสจนตรวจไม่เจอ และตัวอย่างที่จะเพาะแยกเชื้อห้ามแช่ฟรีซเซอร์เพราะไวรัสตาย ต่างจากงาน molecular ที่ต้องการแค่ RNA จึงแช่แข็งได้ โรคหลอดลมอักเสบติดต่อวินิจฉัยด้วยการแยกเชื้อในไข่ไก่ฟักแล้วดูตัวอ่อน curling ยิ่งสายพันธุ์รุนแรงอย่าง QX ยิ่งหงิกชัด และปัจจุบันใช้วิธี molecular ELISA และ VN ร่วมด้วย โรคหัวบวมสำคัญที่จังหวะเวลา เชื้อมาไวไปไวภายในราว 7 วัน และอยู่บริเวณหน้าไก่มากกว่าอวัยวะภายใน จึงควร swab ที่ choanal cleft หรือกรีดแก้มที่บวมแล้ว swab ส่วนฝีดาษไก่วินิจฉัยจากสะเก็ดที่หงอนเหนียงได้แทบทันที เพราะไม่มีโรคอื่นให้ภาพนี้ สิ่งที่ต้องแยกคือฟอร์มท่อลมที่คล้ายโรคกล่องเสียงอักเสบติดต่อและเนื้อตายในปากจาก T-2 toxin กับฟอร์มผิวหนังที่คล้ายการขาด pantothenic acid หรือ biotin การ์ดที่ไม่ใช่คำตอบคือ Infectious laryngotracheitis virus ที่วินิจฉัยจากประวัติ อาการ รอยโรคที่กล่องเสียงและท่อลม ร่วมกับ PCR และ ELISA โดยไม่มีข้อกำหนดเรื่องจังหวะเก็บตัวอย่างแบบโรคหัวบวม กับ Avian influenza virus ซึ่งเป็นโรคที่ต้องแยกจากนิวคาสเซิลและตรวจแอนติบอดีด้วย HI test ได้เช่นกัน แต่ไม่ใช่โรคที่ตัวอ่อนในไข่ curling",
+    "verified": "VET86 7XyI0SjnuBA [32:48-39:42] [64:13-65:05] [97:04-98:29] [114:09-115:18] [80:13-80:26]",
+    "tags": [
+      "matching",
+      "avian-mpv",
+      "avian-nd",
+      "avian-ib",
+      "avian-pox",
+      "avian-lt"
+    ]
+  },
+  {
+    "id": 206147,
+    "subject": "avian-medicine",
+    "topic": "avian-egg-breakout",
+    "year": 5,
+    "type": "short",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลูกไก่อายุ 1 วันมาถึงฟาร์ม สุ่มส่งตัวอย่างตรวจแล้วพบเชื้อ จะสรุปได้หรือไม่ว่าเชื้อนั้นถ่ายทอดจากแม่ไก่ผ่านไข่ (vertical transmission) จงอธิบายโดยแยกกรณี Aspergillus, Salmonella, Mycoplasma และไวรัส พร้อมระบุว่าเชื้อแต่ละกลุ่มปนเปื้อนได้ที่จุดใดของโรงฟักและการขนส่ง",
+    "keywords": [
+      "การพบเชื้อในลูกไก่บ่งชี้เพียงว่าเชื้อมาพร้อมลูกไก่ ไม่ใช่ vertical เสมอไป",
+      "Aspergillus ไม่ใช่ vertical ปนเปื้อนที่ตู้ฟักหรือกล่องขนส่งลูกไก่",
+      "Salmonella เป็น vertical ก็ได้ หรือติดที่ตู้ฟักหรือจากมือคนคัดลูกไก่ก็ได้",
+      "Mycoplasma ถ้าพบมักมาจากแม่ เพราะไม่น่าติดในตู้ฟักหรือตู้เกิด",
+      "ไวรัสไม่ติดระหว่างทาง ถ้าพบแสดงว่ามาจากแม่โดยตรง",
+      "เชื้อราไม่ถ่ายทอดจากแม่สู่ลูก แต่ปนเปื้อนที่โรงฟัก"
+    ],
+    "model_answer": "สรุปทันทีไม่ได้ การตรวจพบเชื้อในลูกไก่ที่มาถึงฟาร์มบ่งชี้ได้เพียงว่าเชื้อมาพร้อมกับลูกไก่ ไม่ได้บ่งชี้ว่าเป็น vertical transmission เสมอไป ต้องแยกเป็นรายเชื้อ Aspergillus ไม่ใช่ vertical แน่นอน เพราะเชื้อราไม่ถ่ายทอดจากแม่สู่ลูกผ่านไข่ แต่ปนเปื้อนที่โรงฟัก คืออาจติดจากตู้ฟัก หรือติดระหว่างการขนส่งในกล่องลูกไก่ Salmonella เป็นไปได้หลายทาง อาจถ่ายทอดจากแม่ผ่านไข่ก็ได้ อาจติดที่ตู้ฟักก็ได้ หรือติดจากมือของคนคัดลูกไก่ที่โรงฟักก็ได้ Mycoplasma มีโอกาสน้อยมากที่จะติดในตู้ฟักหรือตู้เกิด ถ้าพบในลูกไก่จึงน่าจะมาจากแม่ ส่วนไวรัสไม่ติดระหว่างทาง ถ้าพบไวรัสในลูกไก่แสดงว่ามาจากแม่โดยตรง ข้อสรุปคือต้องแยกให้ออกว่าเชื้อใดมาจากแม่แน่นอน และเชื้อใดอาจมาจากแม่หรือไม่ใช่จากแม่ก็ได้",
+    "explain": "คำว่า vertical หมายถึงเชื้อจากแม่ลงมาในฟองไข่แล้วมาถึงลูกเจี๊ยบ ส่วนโรงฟักคือที่ซึ่งไข่จากแม่ไก่จำนวนมากถูกฟักพร้อมกันและลูกไก่ถูกคัดด้วยมือคนก่อนบรรจุกล่อง ลูกไก่จึงมีโอกาสรับเชื้อจากสิ่งแวดล้อมของโรงฟักได้โดยที่แม่ไม่ได้ติดเชื้อเลย เชื้อราเป็นตัวอย่างชัดที่สุดเพราะปนเปื้อนที่ตู้ฟักหรือกล่องขนส่ง ไม่ผ่านไข่ Salmonella เป็นกรณีที่ตัดสินไม่ได้จากผลตรวจอย่างเดียว เพราะเข้าได้ทั้งจากแม่ ตู้ฟัก และมือคนคัด ขณะที่ Mycoplasma และไวรัสไม่มีเส้นทางระหว่างทางที่น่าเชื่อ การพบจึงชี้กลับไปที่ฝูงพ่อแม่พันธุ์ อีกชั้นหนึ่งที่ต้องคิดคือผลบวกจาก PCR อาจเป็นเพียงสารพันธุกรรมของซากเชื้อที่ตายแล้ว ไม่ใช่เชื้อที่ยังก่อโรคได้ และแม้ลูกไก่ที่ติดเชื้อจากแม่จะมีเพียงส่วนน้อย เช่น 5% ของฝูง ตัวเหล่านั้นก็แพร่เชื้อในแนวราบให้เพื่อนต่อได้ vertical กับ horizontal จึงเกิดพร้อมกันได้ในฝูงเดียว",
+    "verified": "VET86 F1jwpqQCGBM [49:07-49:31] [49:31-49:57] [49:57-50:23] [50:35-52:29] [61:16-61:44] และ VET86 7XyI0SjnuBA [5:00-5:24] สำหรับความหมายของโรงฟัก",
+    "tags": [
+      "written",
+      "avian-egg-breakout"
+    ]
+  },
+  {
+    "id": 206148,
+    "subject": "avian-medicine",
+    "topic": "avian-intro",
+    "year": 5,
+    "type": "short",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลูกไก่ชุดใหม่มีความสูญเสียสูงในช่วงสัปดาห์แรก (early chick mortality) ต้องไล่หาสาเหตุจากจุดใดบ้าง และเหตุใดปัญหาที่เห็นในฟาร์มจึงไม่ได้แปลว่าเป็นโรคติดเชื้อเสมอไป",
+    "keywords": [
+      "ปัญหาที่โรงฟัก",
+      "ปัญหาเรื่องการขนส่ง",
+      "คุณภาพลูกไก่เมื่อมาถึงฟาร์ม",
+      "พ่อแม่พันธุ์เจ็บป่วย",
+      "การเลี้ยงดูตั้งต้นที่ฟาร์ม",
+      "ต้องถามว่าเกิดจากเชื้อโรคหรือไม่ใช่เชื้อโรค"
+    ],
+    "model_answer": "ความสูญเสียของลูกไก่ในช่วงสัปดาห์แรกต้องไล่ทั้งสายตั้งแต่ต้นทางถึงปลายทาง คือ มีปัญหาที่โรงฟักหรือไม่ มีปัญหาเรื่องการขนส่งหรือไม่ คุณภาพลูกไก่เมื่อมาถึงฟาร์มเป็นอย่างไร พ่อแม่พันธุ์เจ็บป่วยหรือไม่ และการเลี้ยงดูตั้งต้นที่ฟาร์มเองก็เป็นปัญหาได้ เพราะลูกไก่มีปัญหา แม่ไก่มีปัญหา และการฟักมีปัญหา สำคัญเท่ากันหมด จึงต้องไล่ทั้งเรื่องการดูแลการจัดการ และเรื่องโรคที่อาจถูกนำพามากับลูกไก่ ส่วนเหตุผลที่ปัญหาในฟาร์มไม่ได้แปลว่าเป็นโรคเสมอไป คือสิ่งที่ฟาร์มเห็นอาจเป็นเพียงผลการเลี้ยงไม่ดี เช่น โตช้า แคระแกร็น ขาเจ็บ หรือไก่แตกไซส์ โดยไม่ได้ตายมาก ซึ่งแต่ละอย่างเกิดได้จากพันธุกรรม สารอาหาร สภาพการเลี้ยง หรือโรค และทุกเคสไม่ได้มีสาเหตุเดียวกัน คำถามแรกที่ต้องตอบเสมอคือ ปัญหานั้นเกิดจากเชื้อโรคหรือไม่ใช่เชื้อโรค",
+    "explain": "การไล่สาเหตุของ early chick mortality ต้องมองทั้งห่วงโซ่เพราะเชื้อโรคเข้าถึงลูกไก่ได้สามทาง คือค้างอยู่ในฟาร์มเดิมจากรุ่นก่อน มากับลูกไก่จากฝูงพ่อแม่พันธุ์และโรงฟัก หรือมาจากภายนอกผ่านคน สัตว์ และสิ่งของ ปัญหาที่โรงฟักและการขนส่งจึงเป็นจุดที่ต้องถามก่อนโทษการเลี้ยง ขณะเดียวกันโรคก็ไม่ใช่คำตอบเดียว ไก่ขาเจ็บเป็นได้ทั้งโรค พันธุกรรม สารอาหาร และสภาพการเลี้ยง ฝูงแตกไซส์เกิดได้จากลักษณะการเลี้ยงและโภชนะ หรือถ้าเป็นโรค ตัวที่แข็งแรงก็ยังโตได้ขณะที่ตัวป่วยโตไม่ทัน เพราะโรคไม่ได้กระทบทุกตัวเท่ากัน และไข่เข้าฟักไม่ดีก็เป็นได้จากบางโรคที่ลด hatchability หรือทำให้ลูกไก่ออกมาคุณภาพต่ำโดยตรง ประวัติที่ครบถ้วนจึงเป็นสิ่งที่ทำให้เลือกตรวจได้ถูกจุด แทนที่จะส่งตรวจทุกอย่างที่ตรวจได้",
+    "verified": "VET86 F1jwpqQCGBM [33:02-33:42] [36:47-39:37] [46:20-47:36] [53:40-54:18]",
+    "tags": [
+      "written",
+      "avian-intro"
+    ]
+  },
+  {
+    "id": 206149,
+    "subject": "avian-medicine",
+    "topic": "avian-intro",
+    "year": 5,
+    "type": "short",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จงอธิบายความหมายของ vertical transmission และ horizontal transmission ในฝูงไก่ พร้อมอธิบายว่าเหตุใดฝูงที่ได้รับลูกไก่ติดเชื้อจากแม่เพียงส่วนน้อยจึงกลายเป็นปัญหาทั้งฝูงได้ และเชื้อโรคที่มากับลูกไก่ต้องป้องกันตั้งแต่จุดใด",
+    "keywords": [
+      "vertical คือจากแม่ลงมาในฟองไข่แล้วมาหาลูกไก่ เป็นแนวดิ่ง",
+      "horizontal หรือ lateral คือจากไก่ตัวหนึ่งไปสู่อีกตัวหนึ่ง เป็นแนวราบ",
+      "ทั้งสองแบบเกิดพร้อมกันได้",
+      "ลูกไก่ที่ติดเชื้อจากแม่ 5% กระจายเชื้อให้เพื่อนในฝูงต่อ",
+      "ต้องป้องกันไม่ให้โรคแพร่จากแม่สู่ลูกก่อนที่ลูกไก่จะมาถึงฟาร์ม"
+    ],
+    "model_answer": "Vertical transmission คือการถ่ายทอดเชื้อจากแม่ลงมาหาลูกในแนวดิ่ง หมายถึงเชื้อจากแม่ไก่ลงมาอยู่ในฟองไข่แล้วมาถึงลูกเจี๊ยบที่ฟักออกมา ส่วน horizontal หรือ lateral transmission คือการแพร่เชื้อในแนวราบจากไก่ตัวหนึ่งไปสู่ไก่อีกตัวหนึ่งตามปกติ ทั้งสองแบบเกิดพร้อมกันได้ เช่น ลูกไก่ที่ได้รับ Salmonella จากแม่ไม่ได้มีครบ 100% สมมติมีเพียง 5% แต่เมื่อ 5% นั้นมาอยู่ในฝูง ก็กระจายเชื้อให้เพื่อนต่อในแนวราบ ปัญหาจึงกลายเป็นของทั้งฝูง ด้วยเหตุนี้เชื้อที่มากับลูกไก่จึงเป็นหนึ่งในสามทางที่เชื้อเข้าฝูงได้ นอกเหนือจากเชื้อที่ค้างอยู่ในฟาร์มเดิมและเชื้อจากภายนอก และต้องมีมาตรการป้องกันไม่ให้โรคแพร่จากแม่สู่ลูกตั้งแต่ก่อนที่ลูกไก่จะมาถึงฟาร์ม",
+    "explain": "หัวใจของนิยามอยู่ที่ฟองไข่ vertical นับเฉพาะเชื้อที่แม่ส่งลงมาในไข่ ส่วนการที่ลูกไก่ไปรับเชื้อจากเพื่อนหรือจากสิ่งแวดล้อมในโรงเรือนเป็น horizontal ทั้งหมด ตัวเลข 5% เป็นตัวอย่างที่แสดงว่าสัดส่วนลูกไก่ติดเชื้อจากแม่ไม่จำเป็นต้องสูง เพราะการแพร่แนวราบในฝูงจะขยายปัญหาต่อเอง จุดคุมจึงอยู่ที่ต้นทางก่อนลูกไก่ถึงฟาร์ม คือมาตรการไม่ให้โรคแพร่จากแม่สู่ลูก ไม่ใช่รอแก้ที่โรงเรือนลูกไก่ เชื้อที่ถ่ายทอดจากแม่ผ่านไข่ได้ในกลุ่มแบคทีเรียหลักคือ Salmonella กับ Mycoplasma ส่วนเชื้อราไม่ใช่ vertical เพราะปนเปื้อนที่โรงฟัก และการพบเชื้อในลูกไก่ที่มาถึงฟาร์มก็ยังไม่พอจะสรุปว่าเป็น vertical ต้องดูว่าเชื้อนั้นมีเส้นทางปนเปื้อนระหว่างทางได้หรือไม่",
+    "verified": "VET86 F1jwpqQCGBM [46:20-47:36] [49:07-49:31] [49:31-49:57] [49:57-50:23] [51:37-51:49]",
+    "tags": [
+      "written",
+      "avian-intro"
+    ]
+  },
+  {
+    "id": 206150,
+    "subject": "avian-medicine",
+    "topic": "avian-ibd",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ลักษณะของตัวไวรัส กับชื่อไวรัสที่เป็นสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "อยู่ใน family Birnaviridae genus Avibirnavirus เป็น RNA ไวรัสสายคู่ ไม่มีเปลือกหุ้ม จึงใช้สบู่หรือแอลกอฮอล์ฆ่าไม่ได้ กลายพันธุ์น้อยกว่านิวคาสเซิลและไข้หวัดนก เพราะต้องมีสองสายมาคู่กันจึงจะเป็นไวรัสตัวใหม่ และเฉพาะซีโรไทป์ 1 เท่านั้นที่ก่อโรคในไก่ ส่วนซีโรไทป์ 2 ก่อโรคในไก่งวง",
+        "right": "Infectious bursal disease virus"
+      },
+      {
+        "left": "เป็น herpesvirus ชนิดหนึ่ง DNA สายคู่ มีเปลือกหุ้ม ไม่ค่อยเปลี่ยนแปลงสายพันธุ์ แต่ถึงจะมีเปลือกหุ้มก็อยู่ในสิ่งแวดล้อมได้นาน มี 3 ซีโรไทป์ โดยซีโรไทป์ 1 เท่านั้นที่ก่อโรค",
+        "right": "Marek's disease virus"
+      },
+      {
+        "left": "เป็น retrovirus RNA สายเดี่ยวสายบวก มีเปลือกหุ้ม กลายพันธุ์ไม่มากเหมือนนิวคาสเซิล มีหลาย subgroup แต่ที่สำคัญในประเทศไทยคือ subgroup A และ J",
+        "right": "Avian leukosis virus"
+      },
+      {
+        "left": "เป็น circovirus รูปร่างเป็นวงกลม DNA สายเดี่ยว ไม่มีเปลือกหุ้ม จัดว่าทนที่สุดในบรรดาไวรัสทั้งหมด ทนคลอโรฟอร์มและอีเทอร์ อยู่ที่ 80 องศา 15 นาทีก็ยังไม่ตาย และผ่านตัวกรองขนาด 25 นาโนเมตรได้",
+        "right": "Chicken infectious anemia virus"
+      },
+      {
+        "left": "เป็น RNA ไวรัสสายคู่ที่จีโนมเป็นท่อน ไม่มีเปลือกหุ้ม จึงตายยากและอยู่ในฟาร์มได้นาน พบได้ทั่วไปในลำไส้หรือระบบหายใจของไก่โดยไม่ก่อโรค สเตรนที่พบโรคมากคือ S1133",
+        "right": "Avian reovirus"
+      }
+    ],
+    "distractors": [
+      "Reticuloendotheliosis virus",
+      "Newcastle disease virus"
+    ],
+    "explain": "การ์ดชุดนี้แยกไวรัสห้าตัวจากชนิดกรดนิวคลีอิกและเปลือกหุ้ม Infectious bursal disease virus อยู่ใน family Birnaviridae เป็น RNA สายคู่ที่ไม่มีเปลือกหุ้ม จึงฆ่าด้วยสบู่หรือแอลกอฮอล์ไม่ได้ และกลายพันธุ์น้อยกว่าไวรัส RNA สายเดี่ยวอย่างนิวคาสเซิลที่ไม่มี proof reading มีเพียงซีโรไทป์ 1 ที่ก่อโรคในไก่ Marek's disease virus เป็น herpesvirus DNA สายคู่ที่มีเปลือกหุ้ม แต่ยังอยู่ในสิ่งแวดล้อมได้นาน และในสามซีโรไทป์มีเพียงซีโรไทป์ 1 ที่ก่อโรค Avian leukosis virus เป็น retrovirus RNA สายเดี่ยวสายบวกที่มีเปลือกหุ้ม โดย subgroup ที่สำคัญในประเทศไทยคือ A และ J Chicken infectious anemia virus เป็น circovirus DNA สายเดี่ยวรูปวงกลม ไม่มีเปลือกหุ้ม จึงทนที่สุดในบรรดาไวรัส ทนคลอโรฟอร์ม อีเทอร์ และความร้อน 80 องศา 15 นาที ส่วน Avian reovirus เป็น RNA สายคู่ที่จีโนมเป็นท่อนและไม่มีเปลือกหุ้ม จึงอยู่ในฟาร์มได้นาน พบในลำไส้หรือระบบหายใจได้โดยไม่ก่อโรค และสเตรนที่พบโรคมากคือ S1133 การ์ดที่ไม่ใช่คำตอบคือ Reticuloendotheliosis virus ซึ่งเป็น retrovirus เช่นเดียวกับ ALV แต่การ์ดซ้ายระบุ subgroup A และ J ซึ่งเป็นเรื่องของ ALV และ Newcastle disease virus ซึ่งเป็น RNA สายเดี่ยวที่เปลี่ยนแปลงตลอดเวลา",
+    "verified": "VET86 ScpsvwW0FhM [8:03-8:53] [9:03-9:32] [38:43-39:06] [39:06-40:50] [67:23-68:11] [68:11-68:49] [86:50-87:16] [88:07-88:33] [101:07-101:53] [104:44-106:00] [110:12-111:15] และ [8:16] สำหรับการ์ดลวง Newcastle disease virus",
+    "tags": [
+      "matching",
+      "avian-ibd"
+    ]
+  },
+  {
+    "id": 206151,
+    "subject": "avian-medicine",
+    "topic": "avian-ibd",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ลักษณะและการใช้วัคซีนป้องกันโรค IBD กับชนิดของวัคซีน (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "วัคซีนเชื้อเป็นระดับที่แนะนำสำหรับฟาร์มที่ไม่เคยมีการระบาดของโรคนี้มาก่อน ระดับนี้ก็เพียงพอโดยไม่ต้องใช้ระดับที่แรงกว่า",
+        "right": "Intermediate vaccine"
+      },
+      {
+        "left": "วัคซีนเชื้อเป็นที่ยังก่อโรคได้เล็กน้อย ใช้ในฟาร์มที่เคยระบาดแล้วเพื่อหยุดการระบาดและลดความสูญเสีย ให้ลูกไก่ได้เร็วกว่าแม้ maternal antibody ยังสูง แต่ไม่ควรให้ก่อนอายุ 10 วัน ทำให้ลูกไก่ไข่โตช้า และมีผลกดภูมิคุ้มกัน จึงต้องเว้นวัคซีนโรคอื่น 1-2 สัปดาห์",
+        "right": "Intermediate Plus vaccine"
+      },
+      {
+        "left": "ตัดยีน VP2 ซึ่งเป็นยีนที่กระตุ้นการสร้างแอนติบอดี ไปใส่ในไวรัส HVT ที่ replicate ในตัวไก่ตลอดชีวิต จึงให้ครั้งเดียว ในไข่ไก่ฟักอายุ 18 วันหรือลูกไก่อายุ 1 วันฉีดใต้ผิวหนัง ออกฤทธิ์ช้ากว่าเชื้อเป็นธรรมดา ฟาร์มที่มีอุบัติการณ์มากจึงซ้ำเชื้อเป็นตอนอายุประมาณ 18 วันได้",
+        "right": "Recombinant vaccine"
+      },
+      {
+        "left": "ตัวไวรัสถูกห่อหุ้มด้วยแอนติบอดีต่อไวรัสนี้อีกชั้นหนึ่ง เมื่อฉีดเข้าไก่ แอนติบอดีของไก่จึงเห็นแต่เปลือกที่หุ้มอยู่และไม่ทำลายไวรัส เมื่อเวลาผ่านไปเปลือกที่หุ้มหลุดออกจึงทำหน้าที่เหมือนวัคซีนเชื้อเป็นธรรมดา ให้ในไข่ไก่ฟักอายุ 18 วันหรือลูกไก่อายุ 1 วันฉีดใต้ผิวหนัง",
+        "right": "Immune complex vaccine"
+      },
+      {
+        "left": "ปกติให้ในพ่อแม่พันธุ์ โดยส่วนมากแนะนำชนิดนี้มากกว่าเชื้อเป็น เพื่อส่ง maternal immunity ไปให้ลูกไก่",
+        "right": "Killed vaccine (เชื้อตาย)"
+      }
+    ],
+    "distractors": [
+      "Mild vaccine (ชนิดอ่อน)",
+      "Cell-associated vaccine"
+    ],
+    "explain": "วัคซีนเชื้อเป็นของ IBD แบ่งเป็นสามระดับ ชนิดอ่อนไม่ค่อยใช้แล้ว ชนิดปานกลางใช้ในฟาร์มที่ไม่เคยมีการระบาด ส่วนชนิดปานกลางพิเศษซึ่งยังก่อโรคได้เล็กน้อยใช้ในฟาร์มที่เคยระบาดแล้วเพื่อหยุดการระบาดและลดความสูญเสีย ข้อดีคือให้ลูกไก่ได้เร็วกว่าแม้ maternal antibody ยังสูง แต่ต้องไม่ให้ก่อนอายุ 10 วันเพราะต่อมเบอร์ซายังพัฒนาไม่ดี ทำให้ลูกไก่ไข่โตช้า และกดภูมิคุ้มกันจนต้องเว้นวัคซีนโรคอื่น 1-2 สัปดาห์ วัคซีน recombinant ตัดยีน VP2 ที่กระตุ้นการสร้างแอนติบอดีไปใส่ใน HVT ซึ่ง replicate ในตัวไก่ตลอดชีวิต จึงให้ครั้งเดียวในไข่ฟักอายุ 18 วันหรือลูกไก่อายุ 1 วัน แต่ออกฤทธิ์ช้ากว่าเชื้อเป็นธรรมดา วัคซีน immune complex คือไวรัส IBD ที่หุ้มด้วยแอนติบอดี แอนติบอดีของไก่จึงเห็นแต่เปลือกและไม่ทำลายไวรัส จนเมื่อเปลือกหลุดจึงทำหน้าที่เหมือนเชื้อเป็น ให้ทางเดียวกับ recombinant ส่วนวัคซีนเชื้อตายให้ในพ่อแม่พันธุ์เพื่อส่ง maternal immunity ให้ลูก การ์ดที่ไม่ใช่คำตอบคือชนิดอ่อนที่ไม่ค่อยใช้แล้ว และ cell-associated vaccine ซึ่งเป็นวัคซีนของโรคมาเร็กซ์",
+    "verified": "VET86 ScpsvwW0FhM [22:37-23:38] [24:10-25:58] [28:00-29:05] [29:05-30:34] [30:34-32:19] และ [58:16-59:17] สำหรับการ์ดลวง cell-associated vaccine",
+    "tags": [
+      "matching",
+      "avian-ibd"
+    ]
+  },
+  {
+    "id": 206152,
+    "subject": "avian-medicine",
+    "topic": "avian-cia",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ชนิดไก่และช่วงอายุที่พบโรค กับชื่อไวรัสที่เป็นสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "ติดในไก่เท่านั้น ไม่ติดสัตว์ปีกชนิดอื่น ไก่ไวต่อเชื้อทุกอายุ แต่ไม่พบโรคในไก่อายุมากกว่า 3 สัปดาห์ ส่วนมากเห็นอาการช่วงอายุ 2-4 สัปดาห์ โดยแสดงอาการ 10-12 วันหลังติดเชื้อ ตาย 10-20% และอาจถึง 60% ไก่อายุมากกว่า 6 สัปดาห์รับเชื้อแล้วไม่ป่วย สร้างความเสียหายมากในไก่เนื้อช่วงอายุ 3 สัปดาห์",
+        "right": "Chicken infectious anemia virus"
+      },
+      {
+        "left": "ไวต่อโรคช่วงอายุ 4-8 สัปดาห์ซึ่งเป็นช่วงที่อวัยวะเป้าหมายกำลังโต หลัง 8 สัปดาห์อวัยวะนั้นเริ่มฝ่อและไม่ active จึงไม่ค่อยติดเชื้อนี้แล้ว สายพันธุ์คลาสสิกพบในไก่อายุ 3-6 สัปดาห์ ตาย 20-30% ปัจจุบันไก่เนื้อไม่ค่อยตายจากโรคนี้แล้ว แต่ไก่ไข่ยังไวต่อโรค",
+        "right": "Infectious bursal disease virus"
+      },
+      {
+        "left": "ไม่พบในไก่เนื้อเพราะไวรัสแบ่งตัวช้า กว่าจะเพิ่มจำนวนมากใช้เวลา 5-10 สัปดาห์ ขณะที่ไก่เนื้อเลี้ยงเพียง 5-7 สัปดาห์ จึงพบมากในไก่ไข่และพบได้ในพ่อแม่พันธุ์ รูปแบบคลาสสิกพบช่วงอายุ 2-12 เดือน ตายราว 10-15% ส่วนรูปแบบเฉียบพลันพบตั้งแต่ 6 สัปดาห์และพบมากช่วง 3-6 เดือน",
+        "right": "Marek's disease virus"
+      },
+      {
+        "left": "พบบ่อยที่สุดในพ่อแม่พันธุ์ไก่เนื้อ ไก่เนื้อไม่เป็นเพราะเนื้องอกใช้เวลาก่อตัวนานกว่าระยะเลี้ยง และไก่ไข่ไม่ค่อยพบ เนื้องอกชนิด lymphoid เกิดตั้งแต่ 14 สัปดาห์ขึ้นไป ส่วนชนิด myeloid เกิดตั้งแต่ 10 สัปดาห์ขึ้นไป",
+        "right": "Avian leukosis virus"
+      },
+      {
+        "left": "พบได้ทั้งในไก่ ไก่งวง ไก่ฟ้า และนกกระทา อุบัติการณ์ไม่มากเท่าโรคเนื้องอกหลักสองโรค รูปแบบ bursal lymphoma ที่พบมากแสดงอาการช่วง 17-43 สัปดาห์ ช้ากว่าโรคมาเร็กซ์เล็กน้อยแต่คาบเกี่ยวกัน ส่วนรูปแบบ non-bursal lymphoma พบในนกอายุมากกว่า 6 สัปดาห์",
+        "right": "Reticuloendotheliosis virus"
+      },
+      {
+        "left": "พบมากในไก่เนื้อสายพันธุ์หนัก (heavy meat type) ไก่ไข่ไม่ค่อยเป็น ไก่งวงเป็นได้ ไก่ที่ติดเชื้อตอนอายุ 1 วันไวกว่าไก่โต พบอาการในไก่เนื้ออายุ 4-8 สัปดาห์ หรือในพ่อแม่พันธุ์ช่วงที่ให้ไข่สูงสุด ป่วย 5-50% ตาย 2-10%",
+        "right": "Avian reovirus"
+      }
+    ],
+    "distractors": [
+      "Fowlpox virus",
+      "Rotavirus group D"
+    ],
+    "explain": "ชุดนี้ใช้ชนิดไก่และช่วงอายุเป็นตัวแยก Chicken infectious anemia virus ติดในไก่เท่านั้น และแม้ไก่ทุกอายุไวต่อเชื้อ ก็ไม่พบโรคในไก่อายุมากกว่า 3 สัปดาห์ เพราะไก่โตสร้าง neutralizing antibody ได้แล้ว Infectious bursal disease virus จับกับช่วงที่ต่อมเบอร์ซากำลังโตคือ 4-8 สัปดาห์ หลัง 8 สัปดาห์ต่อมเริ่มฝ่อจึงไม่ค่อยติด สายพันธุ์คลาสสิกพบที่ 3-6 สัปดาห์ Marek's disease virus แบ่งตัวช้า ต้องใช้เวลา 5-10 สัปดาห์ จึงไม่พบในไก่เนื้อที่เลี้ยงไม่เกิน 7 สัปดาห์ แต่พบมากในไก่ไข่และพ่อแม่พันธุ์ รูปแบบคลาสสิกอยู่ที่ 2-12 เดือน รูปแบบเฉียบพลันพบตั้งแต่ 6 สัปดาห์และมากที่ 3-6 เดือน Avian leukosis virus พบบ่อยที่สุดในพ่อแม่พันธุ์ไก่เนื้อ เพราะเนื้องอกใช้เวลาก่อตัวนานกว่าระยะเลี้ยงไก่เนื้อ โดย lymphoid leukosis เกิดตั้งแต่ 14 สัปดาห์และ myeloid leukosis ตั้งแต่ 10 สัปดาห์ Reticuloendotheliosis virus ติดได้ทั้งไก่ ไก่งวง ไก่ฟ้า นกกระทา รูปแบบ bursal lymphoma แสดงอาการช่วง 17-43 สัปดาห์ ซึ่งช้ากว่ามาเร็กซ์เล็กน้อยแต่คาบเกี่ยวกัน ส่วน Avian reovirus พบมากในไก่เนื้อสายพันธุ์หนัก ไก่ที่ติดเชื้อตั้งแต่อายุ 1 วันไวที่สุด และเห็นอาการในไก่เนื้ออายุ 4-8 สัปดาห์หรือพ่อแม่พันธุ์ช่วงให้ไข่สูงสุด การ์ดที่ไม่ใช่คำตอบคือ Fowlpox virus และ Rotavirus group D ซึ่งไม่ตรงกับคำบรรยายใด",
+    "verified": "VET86 ScpsvwW0FhM [88:33-89:32] [89:32-90:21] [95:32-96:10] [11:25] [11:38-12:14] [17:47-19:32] [42:49-43:24] [50:06-51:22] [51:48-52:13] [67:23-68:11] [68:11-68:49] [76:44-77:21] [77:21-78:11] [79:13-80:30] [103:14-104:44] [106:00-106:28] [107:34-108:40] และ [120:51-122:21] [76:44-77:21] สำหรับการ์ดลวง",
+    "tags": [
+      "matching",
+      "avian-cia"
+    ]
+  },
+  {
+    "id": 206153,
+    "subject": "avian-medicine",
+    "topic": "avian-marek",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ตัวอย่างที่ใช้ตรวจและแนวทางการวินิจฉัย กับชื่อไวรัสที่เป็นสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "ควรผ่าซากดูรอยโรคก่อน เพราะไตเตอร์ไม่ชัดเท่ารอยโรค ปั่นเลือดในหลอด capillary แล้วเอาชั้น buffy coat ที่เป็นเม็ดเลือดขาวไปตรวจ PCR หรือเพาะเชื้อ หรือเก็บขนที่มีเลือดติดไปตรวจ PCR ตรวจซีรัมด้วย ELISA และต้องแยกจาก avian leukosis reticuloendotheliosis และแกรนูโลมาจากเชื้อรา",
+        "right": "Marek's disease virus"
+      },
+      {
+        "left": "ตรวจหาโรคในฝูงได้จากหลายจุด คือ อัลบูมินของไข่ไก่ฟัก ขี้เทาของลูกไก่อายุ 1 วัน และซีรัมกับน้ำเชื้อของพ่อแม่พันธุ์ วินิจฉัยจากอายุและตำแหน่งของเนื้องอกร่วมกับ PCR และ ELISA และใช้ PCR แยกจากโรคมาเร็กซ์เมื่อเนื้องอกมีหน้าตาคล้ายกัน",
+        "right": "Avian leukosis virus"
+      },
+      {
+        "left": "เก็บตัวอย่างจาก caecal tonsil หรือ hock joint ตรวจ PCR ได้ ตรวจซีรัมด้วย ELISA โดยใช้สเตรน S1133 เพราะ cross reaction กับอีกสองสเตรนได้ และต้องแยกจากโรคอื่นที่ทำให้เกิดรอยโรคที่ข้อ เช่น MS และ Staphylococcus",
+        "right": "Avian reovirus"
+      },
+      {
+        "left": "รอยโรคที่อวัยวะเป้าหมายเป็นจุดตัดสิน เพราะโรคอื่นไม่ทำให้อวัยวะนั้นบวมหรือมีวุ้นสีเหลือง gelatinous หุ้ม เพาะเชื้อในไข่ไก่ฟักหรือเซลล์เพาะเลี้ยงได้แต่ยากมากจึงไม่แนะนำ ตรวจ PCR ได้ และต้องแยกจากโรคหลอดลมอักเสบติดต่อกับโรคกดภูมิคุ้มกันอื่น",
+        "right": "Infectious bursal disease virus"
+      },
+      {
+        "left": "เพาะแยกไวรัสได้ ตรวจ PCR และ ELISA ต้องแยกจากโรคกดภูมิคุ้มกันอื่น โดยเฉพาะ IBD สายพันธุ์ variant ที่เกิดในไก่อายุต่ำกว่า 2 สัปดาห์ ส่วนโรคมาเร็กซ์ไม่ควรอยู่ในรายการแยกโรค เพราะเป็นในไก่อายุมากกว่า",
+        "right": "Chicken infectious anemia virus"
+      }
+    ],
+    "distractors": [
+      "Reticuloendotheliosis virus",
+      "Fowlpox virus"
+    ],
+    "explain": "การเก็บตัวอย่างต่างกันตามที่เชื้ออยู่ Marek's disease virus แฝงในเม็ดเลือดขาว จึงปั่นเลือดในหลอด capillary แล้วเอาชั้น buffy coat ไปตรวจ PCR หรือเพาะเชื้อ หรือใช้ขนที่มีเลือดติดตรวจ PCR โดยรอยโรคจากการผ่าซากชัดกว่าไตเตอร์ และต้องแยกจาก avian leukosis reticuloendotheliosis และแกรนูโลมาจากเชื้อรา Avian leukosis virus ถ่ายทอดผ่านไข่และปล่อยเชื้อในอัลบูมิน จึงตรวจฝูงได้จากอัลบูมินของไข่ฟัก ขี้เทาของลูกไก่อายุ 1 วัน และซีรัมกับน้ำเชื้อของพ่อแม่พันธุ์ วินิจฉัยจากอายุและตำแหน่งของเนื้องอกร่วมกับ PCR และ ELISA และใช้ PCR แยกจากมาเร็กซ์เมื่อเนื้องอกคล้ายกัน Avian reovirus เพิ่มจำนวนในลำไส้แล้วไวรีเมียไปที่ hock joint จึงเก็บตัวอย่างจาก caecal tonsil หรือ hock joint ส่วน ELISA ใช้สเตรน S1133 เพราะ cross reaction กับอีกสองสเตรน และต้องแยกจาก MS กับ Staphylococcus Infectious bursal disease virus ตัดสินที่รอยโรคต่อมเบอร์ซาบวมและมีวุ้นสีเหลืองหุ้ม ซึ่งโรคอื่นไม่ทำให้เกิด เพาะเชื้อได้แต่ยากมาก จึงใช้ PCR แทน และแยกจากโรคหลอดลมอักเสบติดต่อ ส่วน Chicken infectious anemia virus เพาะแยกได้ ตรวจ PCR และ ELISA และต้องแยกจาก IBD สายพันธุ์ variant ที่เกิดในไก่อายุต่ำกว่า 2 สัปดาห์ ขณะที่มาเร็กซ์เป็นในไก่อายุมากจึงไม่ควรอยู่ในรายการแยกโรค การ์ดที่ไม่ใช่คำตอบคือ Reticuloendotheliosis virus และ Fowlpox virus",
+    "verified": "VET86 ScpsvwW0FhM [55:53-57:26] [69:02-69:26] [72:13-72:37] [73:16-74:27] [74:27-74:58] [107:19] [107:34-108:40] [110:12-111:15] [21:41-22:23] [96:10-96:44] [96:21-96:44]",
+    "tags": [
+      "matching",
+      "avian-marek"
+    ]
+  },
+  {
+    "id": 206154,
+    "subject": "avian-medicine",
+    "topic": "avian-leuko",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ลักษณะทางระบาดวิทยาและการติดต่อ กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "โปรโตซัวในเลือดที่ติดในไก่ ไก่งวง เป็ด ห่าน มักเป็นปัญหาในโรงเรือนเปิดและไก่หลังบ้าน ไม่พบในไก่อุตสาหกรรมที่เป็นโรงเรือนปิด พบมากช่วงเมษายนถึงพฤษภาคมและฤดูฝนที่มีน้ำท่วมขัง ระยะฟักตัว 1-2 สัปดาห์ ไก่ที่ป่วยหรือหายแล้วเป็นแหล่งรังโรค",
+        "right": "Leucocytozoon spp."
+      },
+      {
+        "left": "โปรโตซัวในเลือดที่ไม่จำเพาะต่อโฮสต์ (non species specific) เซลล์เป้าหมายคือเม็ดเลือดแดงและผนังหลอดเลือดแดง พบในไก่ที่เลี้ยงโรงเรือนเปิด ไก่หลังบ้าน หรือไก่ชน โดยเฉพาะที่ที่มีน้ำท่วมขัง ระยะฟักตัวสั้นเพียง 5-6 วัน",
+        "right": "Plasmodium spp."
+      },
+      {
+        "left": "โปรโตซัวที่จำเพาะต่อโฮสต์ บิดในไก่ไม่ติดไก่งวงหรือคน ติดต่อแบบ fecal-oral โดยไก่ป่วยเมื่อจิกกิน sporulated oocyst เท่านั้น ส่วนที่ปล่อยออกมากับมูลเป็น unsporulated ต้องอาศัยความชื้นในสิ่งแวดล้อมจึงเปลี่ยนเป็นระยะติดต่อ ไก่แสดงอาการ 6-8 วันหลังจิกกินเชื้อ",
+        "right": "Eimeria spp."
+      },
+      {
+        "left": "แบคทีเรียแกรมบวก ไม่ใช้ออกซิเจน สร้างสปอร์ รูปแท่ง พบทั่วไปในดิน ฝุ่น มูล อาหาร แกลบ และในลำไส้ไก่ที่ไม่ป่วย โรคเกิดจากท็อกซิน type A และ C ไม่ใช่ตัวเชื้อโดยตรง สร้างท็อกซินเมื่อ microflora ในลำไส้เปลี่ยนหรือเยื่อบุลำไส้เสียหาย และพบได้ทุกอายุ",
+        "right": "Clostridium perfringens"
+      }
+    ],
+    "distractors": [
+      "Clostridium colinum",
+      "Clostridium botulinum"
+    ],
+    "explain": "Leucocytozoon spp. เป็นโปรโตซัวในเลือดของไก่ ไก่งวง เป็ด ห่าน ที่มีแมลงเป็นพาหะ จึงเป็นปัญหาของโรงเรือนเปิดและไก่หลังบ้าน ไม่พบในไก่อุตสาหกรรมโรงเรือนปิด พบมากช่วงเมษายนถึงพฤษภาคมและฤดูฝนที่มีน้ำท่วมขัง ระยะฟักตัว 1-2 สัปดาห์ และไก่ที่ป่วยหรือหายแล้วยังเป็นแหล่งรังโรค Plasmodium spp. อยู่ family เดียวกันแต่ไม่จำเพาะต่อโฮสต์ เซลล์เป้าหมายคือเม็ดเลือดแดงและผนังหลอดเลือดแดง พบในโรงเรือนเปิด ไก่หลังบ้าน หรือไก่ชน และระยะฟักตัวสั้นกว่าคือ 5-6 วัน Eimeria spp. ต่างออกไปตรงที่จำเพาะต่อโฮสต์ บิดในไก่ไม่ติดไก่งวงหรือคน ติดต่อแบบ fecal-oral โดยไก่ป่วยเมื่อกิน sporulated oocyst เท่านั้น ส่วนที่ปล่อยออกมากับมูลเป็น unsporulated ต้องอาศัยความชื้นจึงเปลี่ยนเป็นระยะติดต่อ และแสดงอาการ 6-8 วันหลังจิกกิน ส่วน Clostridium perfringens เป็นแบคทีเรียแกรมบวก ไม่ใช้ออกซิเจน สร้างสปอร์ ที่พบทั่วไปในดิน ฝุ่น มูล อาหาร แกลบ และในลำไส้ไก่ปกติ โรคเกิดจากท็อกซิน type A และ C ที่สร้างเมื่อ microflora หรือเยื่อบุลำไส้เปลี่ยน และพบได้ทุกอายุ การ์ดที่ไม่ใช่คำตอบคือ Clostridium colinum ซึ่งก่อ ulcerative enteritis และ Clostridium botulinum ซึ่งก่อโรคจากท็อกซินแต่ไม่ตรงกับคำบรรยายใด",
+    "verified": "VET86 RWCDahVkYTk [60:36-61:25] [63:14-64:04] [70:05-70:53] [74:43-74:56] [3:26-4:07] [4:46-5:26] [5:26-6:05] [43:29-44:06] [44:20-44:48] [45:02-45:41] และ [41:34-42:13] สำหรับการ์ดลวง",
+    "tags": [
+      "matching",
+      "avian-leuko"
+    ]
+  },
+  {
+    "id": 206155,
+    "subject": "avian-medicine",
+    "topic": "avian-malaria",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ลักษณะของเชื้อโปรโตซัวในเลือดแต่ละชนิด กับชื่อชนิดของเชื้อ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "ชนิดที่ก่อโรค (pathogenic) และทำให้ไก่ตายได้ พบมากในเอเชียตะวันออกเฉียงใต้และญี่ปุ่น ทำให้เกิดการอักเสบ บวมน้ำ และมีเลือดออกบริเวณ peritoneal และ perirenal และเป็นชนิดที่มีวัคซีนเชื้อตายและวัคซีน recombinant",
+        "right": "Leucocytozoon caulleryi"
+      },
+      {
+        "left": "พบในเอเชียตะวันออกเฉียงใต้เช่นกัน ทำให้ไก่เลือดจาง และทำให้ไก่เป็นอัมพาตได้",
+        "right": "Leucocytozoon sabrazesi"
+      },
+      {
+        "left": "พบในไก่และไก่พื้นเมืองในแอฟริกาและเอเชีย เป็นชนิดที่รุนแรงที่สุด อาจทำให้เกิด antigen-antibody complex เป็นตะกอนของเม็ดเลือดแดง ทำให้ม้ามโต เลือดจาง และไตอักเสบ",
+        "right": "Plasmodium gallinaceum"
+      },
+      {
+        "left": "พบในไก่งวงและไก่พื้นเมืองในเอเชีย แอฟริกา และอเมริกาใต้ ไม่รุนแรงและไม่แสดงอาการมากเท่าชนิดที่รุนแรงที่สุด",
+        "right": "Plasmodium juxtanucleare"
+      },
+      {
+        "left": "ไม่พบในไก่ แต่พบในไก่งวงที่แอฟริกา",
+        "right": "Plasmodium durae"
+      }
+    ],
+    "distractors": [
+      "Histomonas meleagridis"
+    ],
+    "explain": "ในประเทศไทยพบ Leucocytozoon เพียง 2 ชนิด Leucocytozoon caulleryi เป็นชนิดที่ก่อโรคและทำให้ตายได้ พบมากในเอเชียตะวันออกเฉียงใต้และญี่ปุ่น ทำให้เกิดการอักเสบ บวมน้ำ และเลือดออกบริเวณ peritoneal และ perirenal และเป็นชนิดที่มีวัคซีนเชื้อตายและ recombinant ส่วน Leucocytozoon sabrazesi พบในเอเชียตะวันออกเฉียงใต้เช่นกัน ทำให้ไก่เลือดจางและเป็นอัมพาตได้ ฝั่งมาลาเรียมี 3 ชนิดที่พบในเอเชีย Plasmodium gallinaceum พบในไก่และไก่พื้นเมืองในแอฟริกาและเอเชีย รุนแรงที่สุด และอาจสร้าง antigen-antibody complex เป็นตะกอนของเม็ดเลือดแดงจนม้ามโต เลือดจาง และไตอักเสบ Plasmodium juxtanucleare พบในไก่งวงและไก่พื้นเมืองในเอเชีย แอฟริกา และอเมริกาใต้ แต่ไม่รุนแรงเท่า gallinaceum และ Plasmodium durae ไม่พบในไก่ พบในไก่งวงที่แอฟริกา การ์ดที่ไม่ใช่คำตอบคือ Histomonas meleagridis ซึ่งไม่ตรงกับคำบรรยายใด",
+    "verified": "VET86 RWCDahVkYTk [61:25-61:47] [61:47-63:14] [68:10-68:38] [70:53-71:44] [73:36-74:17]",
+    "tags": [
+      "matching",
+      "avian-malaria"
+    ]
+  },
+  {
+    "id": 206156,
+    "subject": "avian-medicine",
+    "topic": "avian-ne",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่รอยโรคที่พบจากการผ่าซากไก่ กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "แผลแบบ ulcer เป็นตุ่มเป็นกระดุม เนื้อตายเป็นตุ่ม กระจายเป็น focal ตั้งแต่ลำไส้เล็กส่วนต้นจนถึงไส้ตัน มีเนื้อตายที่ตับ รอยโรคเป็นแผลหลุมที่ชัดเจน เฉียบพลันและรุนแรงกว่าโรคลำไส้อักเสบแบบเนื้อตาย",
+        "right": "Clostridium colinum"
+      },
+      {
+        "left": "ตับโต ม้ามโต เลือดออกในช่องท้อง จุดเลือดออกตามอวัยวะภายในและกล้ามเนื้อ ที่เป็นเอกลักษณ์คือจุดสีขาวของ megaloschizont ที่ตับ ม้าม หัวใจ ปอด ตับอ่อน ทางเดินอาหาร และสมอง แต่บางตัวอาจพบเพียงผอมและมีจุดเลือดออกเล็กๆ ที่ผิวหนัง",
+        "right": "Leucocytozoon spp."
+      },
+      {
+        "left": "ซากและกล้ามเนื้อซีด ตับและม้ามขนาดใหญ่ ตับมีสีเข้มหรือสีดำ เพราะเม็ดเลือดแดงที่ถูกทำลายไปสะสมที่ตับ มีน้ำในถุงหุ้มหัวใจ ใน blood smear เห็นเชื้อในเม็ดเลือดแดงและนิวเคลียสเบี้ยวไปข้างหนึ่ง",
+        "right": "Plasmodium spp."
+      },
+      {
+        "left": "รอยโรคที่ ileum และ rectum เป็น petechial haemorrhage ผนังลำไส้ซีดและหนาตัวขึ้น ซึ่งดูคล้ายลำไส้ปกติจนเคยถูกมองข้าม ถ้าเป็นหนักผนังบวมและมีเลือดกับเนื้อตายปนมากับ content",
+        "right": "Eimeria brunetti"
+      }
+    ],
+    "distractors": [
+      "Clostridium perfringens",
+      "Eimeria tenella"
+    ],
+    "explain": "Clostridium colinum ก่อ ulcerative enteritis ซึ่งรอยโรคเป็นแผลหลุมแบบ ulcer เป็นตุ่มเป็นกระดุม กระจายเป็น focal ตั้งแต่ลำไส้เล็กส่วนต้นถึงไส้ตัน มีเนื้อตายที่ตับคล้ายกัน แต่เฉียบพลันและรุนแรงกว่าโรคลำไส้อักเสบแบบเนื้อตาย Leucocytozoon spp. ให้ตับโต ม้ามโต เลือดออกในช่องท้อง จุดเลือดออกตามอวัยวะภายในและกล้ามเนื้อ และที่เป็นเอกลักษณ์คือจุดสีขาวของ megaloschizont ที่ตับ ม้าม หัวใจ ปอด ตับอ่อน ทางเดินอาหาร และสมอง แต่บางตัวอาจพบเพียงผอมและจุดเลือดออกเล็กๆ ที่ผิวหนัง Plasmodium spp. ทำให้ซากและกล้ามเนื้อซีดจากเม็ดเลือดแดงถูกทำลาย ตับและม้ามใหญ่ ตับมีสีเข้มหรือดำ มีน้ำในถุงหุ้มหัวใจ และใน blood smear เห็นเชื้อในเม็ดเลือดแดงโดยนิวเคลียสเบี้ยวไปข้างหนึ่ง ส่วน Eimeria brunetti อยู่ที่ ileum และ rectum เป็น petechial haemorrhage ผนังซีดและหนาตัวจนดูคล้ายลำไส้ปกติและเคยถูกมองข้าม ถ้าเป็นหนักผนังบวมและมีเลือดกับเนื้อตายปนใน content การ์ดที่ไม่ใช่คำตอบคือ Clostridium perfringens ซึ่งรอยโรคเด่นคือเนื้อตายคลุมลำไส้เหมือนผ้าขนหนู และ Eimeria tenella ซึ่งอยู่ที่ไส้ตันและมี cecal core",
+    "verified": "VET86 RWCDahVkYTk [42:13-42:51] [65:10-65:48] [65:34-66:36] [73:36-74:17] [16:43-17:22] [17:09-18:27] และ [48:45-50:52] [15:03-15:30] สำหรับการ์ดลวง",
+    "tags": [
+      "matching",
+      "avian-ne"
+    ]
+  },
+  {
+    "id": 206157,
+    "subject": "avian-medicine",
+    "topic": "avian-leuko",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่แนวทางการรักษาและข้อจำกัดในการควบคุมโรค กับเชื้อสาเหตุ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "รักษาด้วยยาซัลฟาผสมน้ำดื่ม ได้ผลดีช่วงที่มีปรสิตอยู่ในเลือด แต่ส่วนมากกำจัดปรสิตได้ไม่หมด ไก่จึงเป็นพาหะต่อไป จึงถือว่าป้องกันดีกว่ารักษา โดยผสม pyrimethamine ในอาหาร",
+        "right": "Leucocytozoon spp."
+      },
+      {
+        "left": "ต้องรีบให้ยาตั้งแต่เริ่มมีอาการ ใช้ hydroxychloroquine 5 วัน หรือยากลุ่มซัลฟาผสมอาหารได้ แต่ยาหลักขมมากจนไก่ไม่ยอมกินเอง มักกำจัดเชื้อไม่หมด กลับมาเป็นซ้ำหรือเป็นพาหะให้ตัวอื่น และดื้อยาค่อนข้างเร็ว จึงเน้นเลี้ยงในมุ้งหรือเล้าปิด",
+        "right": "Plasmodium spp."
+      },
+      {
+        "left": "มีวัคซีนเชื้อเป็นที่ทำจาก sporulated oocyst ในปริมาณไม่ถึง infection dose แต่ยังก่อรอยโรคได้ วัคซีนเป็น species specific จึงต้องเลือกให้ตรงกับชนิดที่มีในฟาร์ม ข้อดีคือไม่ต้องมีระยะหยุดยา ให้ครั้งเดียว และไม่ดื้อยา แต่ห้ามให้พร้อมยาต้านบิดหรืออาหารที่ผสมยาต้านบิด เพราะยาจะฆ่าเชื้อในวัคซีน",
+        "right": "Eimeria spp."
+      },
+      {
+        "left": "ยังไม่มีวัคซีนเชิงพาณิชย์ เพราะโรคเกิดจากท็อกซินที่มีหลายตัวและยังระบุไม่ได้ว่าตัวไหนก่อโรค toxoid ที่มีก็ไม่ได้ผลทุกกรณี จึงเน้นควบคุมบิด รักษาสมดุล microflora ด้วย probiotic และ competitive exclusion ลดปลาป่นและข้าวสาลีในอาหารหรือให้เอนไซม์ และคัดตัวป่วยออกเพราะปล่อยเชื้อให้ตัวอื่น",
+        "right": "Clostridium perfringens"
+      }
+    ],
+    "distractors": [
+      "Clostridium colinum",
+      "Salmonella spp."
+    ],
+    "explain": "Leucocytozoon spp. รักษาด้วยยาซัลฟาผสมน้ำดื่ม ซึ่งได้ผลดีช่วงที่มีปรสิตในเลือด แต่ส่วนมากกำจัดได้ไม่หมด ไก่จึงเป็นพาหะต่อไป จึงถือว่าป้องกันดีกว่ารักษา โดยผสม pyrimethamine ในอาหาร Plasmodium spp. ต้องรีบให้ยาตั้งแต่เริ่มมีอาการ ยาหลักคือ chloroquine ซึ่งขมจนไก่ไม่ยอมกินเองและต้องป้อน หรือใช้ hydroxychloroquine 5 วัน หรือยากลุ่มซัลฟาผสมอาหาร แต่มักกำจัดเชื้อไม่หมด กลับมาเป็นซ้ำหรือเป็นพาหะ และดื้อยาเร็ว จึงเน้นเลี้ยงในมุ้งหรือเล้าปิด Eimeria spp. มีวัคซีนเชื้อเป็นที่ทำจาก sporulated oocyst ในปริมาณไม่ถึง infection dose แต่ยังก่อรอยโรคได้ วัคซีนเป็น species specific จึงต้องเลือกให้ตรงกับชนิดในฟาร์ม ข้อดีคือไม่ต้องมีระยะหยุดยา ให้ครั้งเดียว และไม่ดื้อยา แต่ห้ามให้พร้อมยาต้านบิดหรืออาหารที่ผสมยาต้านบิด เพราะยาจะฆ่าเชื้อในวัคซีน ส่วน Clostridium perfringens ยังไม่มีวัคซีนเชิงพาณิชย์ เพราะโรคเกิดจากท็อกซินที่มีหลายตัวและยังระบุไม่ได้ว่าตัวไหนก่อโรค toxoid ที่มีก็ไม่ได้ผลทุกกรณี จึงเน้นควบคุมบิด รักษาสมดุล microflora ด้วย probiotic และ competitive exclusion ลดปลาป่นและข้าวสาลีหรือให้เอนไซม์ และคัดตัวป่วยออก การ์ดที่ไม่ใช่คำตอบคือ Clostridium colinum และ Salmonella spp.",
+    "verified": "VET86 RWCDahVkYTk [67:25-68:10] [68:10-68:38] [74:30-75:25] [75:10-75:25] [23:36-25:33] [24:38-24:52] [24:52-25:46] [51:30-53:08] [53:08-54:29] [54:29-55:09] และ [41:34-42:13] [45:02-45:41] สำหรับการ์ดลวง",
+    "tags": [
+      "matching",
+      "avian-leuko"
+    ]
+  },
 ];
