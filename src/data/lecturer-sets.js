@@ -100,10 +100,14 @@ export const LECTURER_SETS = {
         id: 'kamonpan',
         name: 'อ.สพ.ญ.ดร.กมลพรรณ เจริญกุล และ ศ.น.สพ.ดร.อลงกร อมรศิลป์',
         lecturer: 'Kamonpan Charoenkul',
+        lecturers: ['Kamonpan Charoenkul', 'Alongkorn Amonsin'],
         format: 'writing',
+        // The previous cohort's part was true/false; the class was told the
+        // paper follows that round, so the statements are offered as well.
+        alsoFormats: ['tf'],
         count: null,
         announced: true,
-        note: 'อาจารย์แจ้งในคาบว่าเป็นข้อเขียนและอิงแนวข้อสอบรอบก่อน (บันทึกของนิสิตสองแหล่งตรงกัน รุ่นก่อนหน้าเป็นถูกผิด)',
+        note: 'อาจารย์แจ้งในคาบว่าเป็นข้อเขียนและอิงแนวข้อสอบรอบก่อน (บันทึกของนิสิตสองแหล่งตรงกัน รุ่นก่อนหน้าเป็นถูกผิด จึงมีชุดถูกผิดให้ฝึกด้วย)',
         sessions: [
           {
             n: 3, date: '2026-08-26', videoId: 'nbomxmIJth0',

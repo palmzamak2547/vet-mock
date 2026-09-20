@@ -2532,6 +2532,13 @@ html.dark .vmx-panic-scrim {
 .vmx-hand-actions button.is-primary { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
 .vmx-hand-actions button:disabled { opacity: .5; cursor: default; }
 .vmx-hand-status { flex: 1 0 100%; font-size: 12px; color: var(--clr-ink-soft); }
+/* The lecturer block's reveal switch (LecturerSets.jsx). */
+.vmx-lect-reveal { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 12px; }
+.vmx-lect-reveal .vmx-reveal-toggle { margin-top: 0; }
+.vmx-lect-reveal-hint { font-size: 12px; line-height: 1.4; color: var(--clr-ink-soft); }
+.vmx-lect-and { font-size: 13px; color: var(--clr-ink-soft); }
+/* The pad keeps the page still under a pen or a finger. */
+.vmx-hand-pad { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 /* AnswerReveal: when a matching set or a written answer shows เฉลย. */
 .vmx-reveal-toggle { display: inline-flex; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin-top: 6px; }
 .vmx-reveal-toggle button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 12px; padding: 5px 11px; cursor: pointer; }
@@ -5431,6 +5438,12 @@ body.vmx-reading .vmx-pdf-body {
 }
 .vmx-lect-doc:hover { border-color: var(--clr-ink); }
 .vmx-lect-doc:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-lect-doc-set { display: inline-flex; align-items: center; gap: 4px; }
+.vmx-lect-doc.is-icon { display: inline-flex; align-items: center; padding: 4px 7px; }
+.vmx-lect-doc.is-icon svg { width: 13px; height: 13px; }
+.vmx-lect-doc.is-icon.is-busy { opacity: .5; cursor: progress; }
+.vmx-lect-doc:disabled { cursor: default; }
+.vmx-lect-dl-note { margin: 0 0 6px; font-size: 12px; color: var(--clr-ink-soft); }
 .vmx-lect-cover img, .vmx-lect-cover-blank {
   display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
   background: var(--clr-surface); border-bottom: 1px solid var(--clr-border);

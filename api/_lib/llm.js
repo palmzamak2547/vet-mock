@@ -69,7 +69,7 @@ async function callDeepSeek({ apiKey, model, thinkingOff, system, user, image, m
   return { ok: true, text, model };
 }
 
-async function callAnthropic({ apiKey, model, system, user, image, maxTokens, signal }) {
+async function callAnthropic({ apiKey, model, system, user, image, maxTokens, signal, thinking = false }) {
   // An image rides along as a content block. Anthropic is the only provider
   // here that takes one — see visionJSON.
   const content = image
@@ -78,28 +78,45 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
       { type: 'text', text: user },
     ]
     : user;
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    signal,
-    headers: {
-      'content-type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model,
-      max_tokens: maxTokens,
-      system,
-      messages: [{ role: 'user', content }],
-    }),
-  });
+  // Thinking makes the model read a hard image more carefully (handwriting).
+  // Claude 4.5 takes a token budget; 4.6 and the 5 family take the adaptive
+  // form. If a model refuses the parameter (400 naming it) the call is made
+  // once more without it, so an unfamiliar model id still answers.
+  const think = !thinking ? null
+    : /claude-(opus|sonnet|haiku)-4-5/.test(model) ? { type: 'enabled', budget_tokens: 1500 }
+    : { type: 'adaptive' };
+  const send = (withThinking) => {
+    const body = { model, max_tokens: maxTokens, system, messages: [{ role: 'user', content }] };
+    if (withThinking && think) body.thinking = think;
+    return fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      signal,
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify(body),
+    });
+  };
+  let res = await send(true);
+  if (!res.ok && res.status === 400 && think) {
+    const detail = await res.text().catch(() => '');
+    if (!/thinking|budget_tokens|adaptive/i.test(detail)) {
+      console.error('[llm] anthropic', model, res.status, cut(detail));
+      return { ok: false, status: res.status };
+    }
+    console.error('[llm] anthropic', model, 'thinking refused, retrying without', cut(detail));
+    res = await send(false);
+  }
   if (!res.ok) {
     const detail = await res.text().catch(() => '');
-    console.error('[llm] anthropic', res.status, cut(detail));
+    console.error('[llm] anthropic', model, res.status, cut(detail));
     return { ok: false, status: res.status };
   }
   const data = await res.json();
-  const text = data?.content?.[0]?.text || '';
+  // With thinking on, the text block follows the thinking block(s).
+  const text = (data?.content || []).filter((b) => b?.type === 'text').map((b) => b.text).join('');
   if (!text) return { ok: false, status: 502 };
   return { ok: true, text, model };
 }
@@ -134,30 +151,39 @@ export function extractJSON(text) {
 
 /**
  * Ask the first working provider for a JSON answer about one base64 image
- * ({ mediaType, data }). Same order as chatJSON: DeepSeek's flash model
+ * ({ mediaType, data }). Default order as chatJSON: DeepSeek's flash model
  * (`deepseek-flash`; the retired `deepseek-v4-flash-vision-exp` id is still
- * served by it), then Anthropic. Without any key: 503, the caller degrades.
+ * served by it), then Anthropic. `prefer: 'anthropic'` puts Anthropic first,
+ * `anthropicModels` names the Anthropic ids to try in order (each failed id
+ * falls to the next), `thinking` turns extended thinking on for them.
+ * Without any key: 503, the caller degrades.
  * @returns {{ ok: true, text, model } | { ok: false, status }}
  */
-export async function visionJSON({ system, user, image, maxTokens = 800, timeoutMs = 25_000, env = process.env }) {
+export async function visionJSON({ system, user, image, maxTokens = 800, timeoutMs = 25_000, prefer = 'deepseek', anthropicModels = null, thinking = false, env = process.env }) {
   if (!image?.data || !image?.mediaType) return { ok: false, status: 400 };
   const ac = new AbortController();
   const timer = setTimeout(() => ac.abort(), timeoutMs);
   try {
-    const attempts = [];
+    const deepseek = [];
+    const anthropic = [];
     if (env.DEEPSEEK_API_KEY) {
       for (const model of [env.LLM_VISION_MODEL || 'deepseek-flash', 'deepseek-v4-flash-vision-exp']) {
-        attempts.push(() => callDeepSeek({
+        deepseek.push(() => callDeepSeek({
           apiKey: env.DEEPSEEK_API_KEY, model, thinkingOff: true, system, user, image, maxTokens, signal: ac.signal,
         }));
       }
     }
     if (env.ANTHROPIC_API_KEY) {
-      attempts.push(() => callAnthropic({
-        apiKey: env.ANTHROPIC_API_KEY, model: env.AI_VISION_MODEL || env.AI_GRADER_MODEL || 'claude-sonnet-4-5-20250929',
-        system, user, image, maxTokens, signal: ac.signal,
-      }));
+      const models = Array.isArray(anthropicModels) && anthropicModels.length
+        ? anthropicModels
+        : [env.AI_VISION_MODEL || env.AI_GRADER_MODEL || 'claude-sonnet-4-5-20250929'];
+      for (const model of models) {
+        anthropic.push(() => callAnthropic({
+          apiKey: env.ANTHROPIC_API_KEY, model, system, user, image, maxTokens, signal: ac.signal, thinking,
+        }));
+      }
     }
+    const attempts = prefer === 'anthropic' ? [...anthropic, ...deepseek] : [...deepseek, ...anthropic];
     let last = { ok: false, status: 503 };
     for (const attempt of attempts) {
       try {

@@ -1230,7 +1230,15 @@ export default function App() {
   const [questionCategory, setQuestionCategory] = useState('all');
   // Practice-mode instant feedback: reveal ✓/✗ + q.explain right after
   // answering instead of waiting for submit. Exam mode ignores this.
-  const [instantFeedback, setInstantFeedback] = useState(true);
+  // Remembered across sessions since 5.126.2: the lecturer block offers the
+  // same switch, and a student who chose "เฉลยหลังทำครบ" there expects the
+  // next paper to open the same way.
+  const [instantFeedback, setInstantFeedback] = useState(() => {
+    try { return localStorage.getItem('vmx-instant-feedback') !== 'off'; } catch { return true; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('vmx-instant-feedback', instantFeedback ? 'on' : 'off'); } catch {}
+  }, [instantFeedback]);
 
   // In-flight exam runtime — extracted to src/hooks/useExamSession.js
   // 2026-05-27. The hook owns: questions · currentIdx · answers ·
@@ -2960,7 +2968,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
+              {view === 'topic-select' && <TopicSelectView initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions, readingChecklist, selectedYear, selectedPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}

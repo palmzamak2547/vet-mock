@@ -3110,7 +3110,8 @@ export const GLOSSARY_RELATED = {
   107610
  ],
  "r0|public-health": [
-  206176
+  206176,
+  206202
  ],
  "relative risk|public-health": [
   105089,
@@ -3130,6 +3131,8 @@ export const GLOSSARY_RELATED = {
   206174,
   206176,
   206180,
+  206187,
+  206190,
   202005,
   202016,
   202021,
@@ -3238,6 +3241,8 @@ export const GLOSSARY_RELATED = {
  ],
  "spillover|public-health": [
   202302,
+  206192,
+  206194,
   106053,
   106054,
   106055,
@@ -3283,6 +3288,7 @@ export const GLOSSARY_RELATED = {
   206167,
   206174,
   206176,
+  206186,
   202003,
   202008,
   202011,
@@ -3358,6 +3364,8 @@ export const GLOSSARY_RELATED = {
   202310,
   206169,
   206174,
+  206182,
+  206194,
   202002,
   202321,
   202324,

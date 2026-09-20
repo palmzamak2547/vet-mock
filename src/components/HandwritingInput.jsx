@@ -2,11 +2,18 @@
 // HandwritingInput — write by hand, get text back to edit
 // ============================================================
 // The written paper is handwritten. This is the optional third way in,
-// beside typing and the microphone: write with a finger or a pen on the
-// pad, or photograph a page written on paper, and the words appear in the
-// answer box a few seconds later — as text the student checks and edits
-// before submitting. Nothing about grading changes; the answer that is
-// graded is the text in the box.
+// beside typing and the microphone: write with a finger, a stylus or an
+// Apple Pencil on the pad, or photograph a page written on paper, and the
+// words appear in the answer box a few seconds later — as text the student
+// checks and edits before submitting. Nothing about grading changes; the
+// answer that is graded is the text in the box.
+//
+// The pad keeps every stroke as points (x, y, width). That is what makes a
+// pen feel like a pen (pressure sets the width, coalesced events keep the
+// curve, the palm is ignored once the pen is down), what lets a stroke be
+// undone, and what the model reads: not a screenshot of the pad but the
+// ink alone, cropped and redrawn at up to four times the size, so tone
+// marks and the vowels above and below the line survive.
 //
 // The transcription happens on the server (/api/transcribe-handwriting,
 // a vision model told to copy, never to correct). When that route is not
@@ -14,25 +21,28 @@
 // ============================================================
 
 import { useEffect, useRef, useState } from 'react';
+import { createPointerPolicy, strokeWidth, padHeight, inkBounds, fitScale } from '../lib/handwriting-pad.js';
 
-const PAD_HEIGHT = 220;
-const PHOTO_MAX_EDGE = 1400;
 const INK = '#141414';
 const PAPER = '#ffffff';
+const GUIDE = '#e3e3e3';
+const GUIDE_GAP = 84; // CSS px between the ruled lines on the pad
+const EXPORT_MARGIN = 24;
 
 function toBase64(dataUrl) {
   const comma = dataUrl.indexOf(',');
   return { mime: dataUrl.slice(5, dataUrl.indexOf(';')), image: dataUrl.slice(comma + 1) };
 }
 
-// A photo is downsized on the device: the model reads 1400 px fine and the
+// A photo is downsized on the device to the size the model reads at full
+// detail; pixels past that are dropped by the provider anyway, and the
 // request stays small on a phone connection.
 function photoToDataUrl(file) {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const img = new Image();
     img.onload = () => {
-      const scale = Math.min(1, PHOTO_MAX_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+      const scale = fitScale(img.naturalWidth, img.naturalHeight, { min: 0, max: 1 });
       const c = document.createElement('canvas');
       c.width = Math.max(1, Math.round(img.naturalWidth * scale));
       c.height = Math.max(1, Math.round(img.naturalHeight * scale));
@@ -41,79 +51,161 @@ function photoToDataUrl(file) {
       ctx.fillRect(0, 0, c.width, c.height);
       ctx.drawImage(img, 0, 0, c.width, c.height);
       URL.revokeObjectURL(url);
-      resolve(c.toDataURL('image/jpeg', 0.82));
+      resolve(c.toDataURL('image/jpeg', 0.9));
     };
     img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('image')); };
     img.src = url;
   });
 }
 
-export default function HandwritingInput({ onText, maxChars = 1000 }) {
-  const [open, setOpen] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [hasInk, setHasInk] = useState(false);
-  const [status, setStatus] = useState('');
-  const padRef = useRef(null);
-  const drawing = useRef(false);
-  const onTextRef = useRef(onText);
-  useEffect(() => { onTextRef.current = onText; });
-
-  // Size the pad to its box at device resolution once it is shown; the
-  // white fill is the paper the model reads against.
-  useEffect(() => {
-    if (!open) return;
-    const c = padRef.current;
-    if (!c) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 3);
-    const w = c.clientWidth || 320;
-    c.width = Math.round(w * dpr);
-    c.height = Math.round(PAD_HEIGHT * dpr);
-    const ctx = c.getContext('2d');
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = PAPER;
-    ctx.fillRect(0, 0, w, PAD_HEIGHT);
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.strokeStyle = INK;
-    setHasInk(false);
-  }, [open]);
-
-  const point = (e) => {
-    const r = padRef.current.getBoundingClientRect();
-    return [e.clientX - r.left, e.clientY - r.top];
-  };
-  const down = (e) => {
-    if (busy) return;
-    drawing.current = true;
-    padRef.current.setPointerCapture?.(e.pointerId);
-    const ctx = padRef.current.getContext('2d');
-    const [x, y] = point(e);
+// White paper, optionally ruled. The ruling is only on the visible pad; the
+// export redraws the strokes on plain white.
+function paintPaper(ctx, w, h, ruled) {
+  ctx.fillStyle = PAPER;
+  ctx.fillRect(0, 0, w, h);
+  if (!ruled) return;
+  ctx.strokeStyle = GUIDE;
+  ctx.lineWidth = 1;
+  for (let y = GUIDE_GAP; y < h - 12; y += GUIDE_GAP) {
     ctx.beginPath();
+    ctx.moveTo(12, y + 0.5);
+    ctx.lineTo(w - 12, y + 0.5);
+    ctx.stroke();
+  }
+}
+
+// Each segment at its own width, so a pen stroke thins and thickens with
+// pressure; round caps and joins hide the seams.
+function drawStroke(ctx, pts) {
+  if (!pts.length) return;
+  ctx.strokeStyle = INK;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  if (pts.length === 1) {
+    const [x, y, w] = pts[0];
+    ctx.beginPath();
+    ctx.lineWidth = w;
     ctx.moveTo(x, y);
     ctx.lineTo(x + 0.1, y + 0.1);
     ctx.stroke();
-    setHasInk(true);
-  };
-  const move = (e) => {
-    if (!drawing.current) return;
-    const ctx = padRef.current.getContext('2d');
-    const [x, y] = point(e);
-    ctx.lineTo(x, y);
+    return;
+  }
+  for (let i = 1; i < pts.length; i++) {
+    const [x0, y0, w0] = pts[i - 1];
+    const [x1, y1, w1] = pts[i];
+    ctx.beginPath();
+    ctx.lineWidth = (w0 + w1) / 2;
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
     ctx.stroke();
-  };
-  const up = () => { drawing.current = false; };
+  }
+}
 
-  const clear = () => {
+export default function HandwritingInput({ onText, maxChars = 1000 }) {
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [strokeCount, setStrokeCount] = useState(0);
+  const [status, setStatus] = useState('');
+  const [height, setHeight] = useState(() => padHeight(typeof window !== 'undefined' ? window.innerWidth : 375));
+  const padRef = useRef(null);
+  const strokes = useRef([]);      // finished strokes: arrays of [x, y, width] in CSS px
+  const current = useRef(null);    // { id: pointerId, pts }
+  const policy = useRef(createPointerPolicy());
+  const onTextRef = useRef(onText);
+  useEffect(() => { onTextRef.current = onText; });
+
+  const padSize = () => [padRef.current?.clientWidth || 320, height];
+
+  // Size the backing store to the box at device resolution and paint every
+  // stroke again — the pad survives a rotation or a resize with its ink.
+  const redraw = () => {
     const c = padRef.current;
     if (!c) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const [w, h] = padSize();
+    c.width = Math.round(w * dpr);
+    c.height = Math.round(h * dpr);
     const ctx = c.getContext('2d');
-    ctx.save();
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.fillStyle = PAPER;
-    ctx.fillRect(0, 0, c.width, c.height);
-    ctx.restore();
-    setHasInk(false);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    paintPaper(ctx, w, h, true);
+    for (const pts of strokes.current) drawStroke(ctx, pts);
+  };
+  useEffect(() => {
+    if (!open) return undefined;
+    redraw();
+    const onResize = () => { setHeight(padHeight(window.innerWidth)); redraw(); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [open, height]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const point = (ev) => {
+    const r = padRef.current.getBoundingClientRect();
+    return [ev.clientX - r.left, ev.clientY - r.top, strokeWidth(ev.pointerType, ev.pressure)];
+  };
+  const down = (e) => {
+    if (busy || current.current) return;
+    if (!policy.current.accept(e.pointerType)) return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    e.preventDefault();
+    padRef.current.setPointerCapture?.(e.pointerId);
+    const p = point(e);
+    current.current = { id: e.pointerId, pts: [p] };
+    drawStroke(padRef.current.getContext('2d'), [p]);
+  };
+  const move = (e) => {
+    const cur = current.current;
+    if (!cur || e.pointerId !== cur.id) return;
+    // A pencil reports up to 240 samples a second; the browser hands the
+    // ones between two frames as coalesced events, which keep the curve.
+    const native = e.nativeEvent;
+    const batch = typeof native.getCoalescedEvents === 'function' ? native.getCoalescedEvents() : [];
+    const list = batch.length ? batch : [native];
+    const ctx = padRef.current.getContext('2d');
+    for (const ev of list) {
+      const p = point(ev);
+      const prev = cur.pts[cur.pts.length - 1];
+      if (Math.hypot(p[0] - prev[0], p[1] - prev[1]) < 0.5) continue;
+      cur.pts.push(p);
+      drawStroke(ctx, [prev, p]);
+    }
+  };
+  const up = (e) => {
+    const cur = current.current;
+    if (!cur || (e && e.pointerId !== cur.id)) return;
+    strokes.current.push(cur.pts);
+    current.current = null;
+    setStrokeCount(strokes.current.length);
+  };
+
+  const undo = () => {
+    if (busy || !strokes.current.length) return;
+    strokes.current.pop();
+    setStrokeCount(strokes.current.length);
+    redraw();
+  };
+  const clear = () => {
+    strokes.current = [];
+    current.current = null;
+    policy.current.reset();
+    setStrokeCount(0);
+    redraw();
+  };
+
+  // The ink alone, cropped with a margin and redrawn on white at the size the
+  // model reads at full detail.
+  const exportPad = () => {
+    const [w, h] = padSize();
+    const box = inkBounds(strokes.current, { margin: EXPORT_MARGIN, width: w, height: h });
+    if (!box) return null;
+    const scale = fitScale(box.w, box.h);
+    const c = document.createElement('canvas');
+    c.width = Math.round(box.w * scale);
+    c.height = Math.round(box.h * scale);
+    const ctx = c.getContext('2d');
+    paintPaper(ctx, c.width, c.height, false);
+    ctx.setTransform(scale, 0, 0, scale, -box.x * scale, -box.y * scale);
+    for (const pts of strokes.current) drawStroke(ctx, pts);
+    return c.toDataURL('image/png');
   };
 
   async function transcribe(dataUrl) {
@@ -124,7 +216,7 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(toBase64(dataUrl)),
-        signal: AbortSignal.timeout(35000),
+        signal: AbortSignal.timeout(50000),
       });
       const data = await res.json().catch(() => null);
       if (res.status === 503) { setStatus('ยังไม่เปิดใช้บนเซิร์ฟเวอร์นี้ พิมพ์หรือพูดได้ตามเดิม'); return; }
@@ -143,8 +235,8 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   }
 
   const convertPad = () => {
-    if (!padRef.current || !hasInk) return;
-    transcribe(padRef.current.toDataURL('image/png'));
+    const dataUrl = exportPad();
+    if (dataUrl) transcribe(dataUrl);
   };
   const onFile = async (e) => {
     const file = e.target.files?.[0];
@@ -160,28 +252,31 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   if (!open) {
     return (
       <button type="button" className="vmx-hand-toggle" onClick={() => { setOpen(true); setStatus(''); }}>
-        ✍️ เขียนมือแทนพิมพ์ (เขียนบนหน้าจอ หรือถ่ายรูปที่เขียนบนกระดาษ)
+        ✍️ เขียนมือแทนพิมพ์ (นิ้ว ปากกา Apple Pencil หรือถ่ายรูปที่เขียนบนกระดาษ)
       </button>
     );
   }
 
+  const hasInk = strokeCount > 0;
   return (
     <div className="vmx-hand" aria-label="เขียนคำตอบด้วยลายมือ">
       <p className="vmx-hand-hint">
-        เขียนด้วยนิ้วหรือปากกาในกรอบ แล้วกด แปลงเป็นข้อความ — ข้อความจะไปต่อท้ายในช่องคำตอบให้ตรวจและแก้ก่อนส่ง เขียนทีละบรรทัดหรือสองบรรทัดจะอ่านได้แม่นกว่า
+        เขียนในกรอบด้วยนิ้ว ปากกา หรือ Apple Pencil (เมื่อใช้ปากกา ฝ่ามือที่วางบนจอจะไม่ถูกนับ) แล้วกด แปลงเป็นข้อความ — ข้อความจะไปต่อท้ายในช่องคำตอบให้ตรวจและแก้ก่อนส่ง เขียนตัวใหญ่ตามเส้นบรรทัด ทีละหนึ่งหรือสองบรรทัด อ่านได้แม่นกว่า
       </p>
       <canvas
         ref={padRef}
         className="vmx-hand-pad"
-        style={{ height: PAD_HEIGHT }}
+        style={{ height }}
         onPointerDown={down}
         onPointerMove={move}
         onPointerUp={up}
         onPointerCancel={up}
         onPointerLeave={up}
+        onContextMenu={(e) => e.preventDefault()}
       />
       <div className="vmx-hand-actions">
         <button type="button" className="is-primary" onClick={convertPad} disabled={busy || !hasInk}>แปลงเป็นข้อความ</button>
+        <button type="button" onClick={undo} disabled={busy || !hasInk}>ย้อนเส้นล่าสุด</button>
         <button type="button" onClick={clear} disabled={busy || !hasInk}>ล้าง</button>
         <label className="vmx-hand-file">
           ถ่ายรูปที่เขียนบนกระดาษ

@@ -27,11 +27,15 @@ export function readRevealTiming() {
   try { return localStorage.getItem(KEY) === REVEAL_ROW ? REVEAL_ROW : REVEAL_END; } catch { return REVEAL_END; }
 }
 
+export function writeRevealTiming(m) {
+  try { localStorage.setItem(KEY, m); } catch {}
+}
+
 export function useRevealTiming() {
   const [mode, set] = useState(readRevealTiming);
   const setMode = (m) => {
     set(m);
-    try { localStorage.setItem(KEY, m); } catch {}
+    writeRevealTiming(m);
   };
   return [mode, setMode];
 }

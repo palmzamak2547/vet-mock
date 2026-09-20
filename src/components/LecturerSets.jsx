@@ -12,10 +12,11 @@
 // lecturer's format yet, the card says so and offers the mixed set instead of
 // opening an empty session.
 // ============================================================
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { LECTURER_SETS, LECTURER_SET_SCOPE, FORMAT_LABEL, lecturerTopics } from '../data/lecturer-sets.js';
-import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
+import { getLibraryCatalogFast, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 import { LECTURE_COVERS } from '../data/art.js';
+import { RevealTimingToggle, REVEAL_ROW, REVEAL_END, writeRevealTiming } from './AnswerReveal.jsx';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
@@ -24,7 +25,27 @@ function thaiDate(iso) {
   return m ? `${d} ${TH_MONTH[m - 1]}` : '';
 }
 
-export default function LecturerSets({ subject, topics = [], onStart, onOpenInstructor, onOpenDoc = null, selectedPhase = LECTURER_SET_SCOPE.phase }) {
+// Save bytes under a name. Eight lines kept here rather than importing
+// pdf-export.js, which would drag pdf-lib into this lazy chunk.
+function saveBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
+}
+
+const DownloadGlyph = () => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 12.5h11" />
+  </svg>
+);
+
+export default function LecturerSets({ subject, topics = [], onStart, onOpenInstructor, onOpenDoc = null, selectedPhase = LECTURER_SET_SCOPE.phase, instantFeedback = true, setInstantFeedback = null }) {
   const set = LECTURER_SETS[subject];
 
   // The deck's own slides: a deck names its library_docs slug
@@ -42,6 +63,34 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
     return () => { live = false; };
   }, [wantDocs]);
   const openDeckDoc = (doc) => { recordRecentDoc(doc); onOpenDoc(readerPayload(doc)); };
+  // The file itself, saved under the deck's title. The library mints a
+  // same-origin URL for its own storage (so the bytes can be fetched and
+  // named); a Google Drive document is opened in a new tab instead.
+  const [dlSlug, setDlSlug] = useState(null);
+  const [dlNote, setDlNote] = useState('');
+  const downloadDeck = async (doc) => {
+    if (dlSlug) return;
+    setDlSlug(doc.slug);
+    setDlNote('');
+    try {
+      const url = await resolveDocUrl(doc);
+      if (doc.storage_provider === 'google-drive') {
+        window.open(url, '_blank', 'noopener');
+        return;
+      }
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`ดาวน์โหลดไม่สำเร็จ (${res.status})`);
+      saveBlob(await res.blob(), `${doc.title}.pdf`);
+      recordRecentDoc(doc);
+    } catch (err) {
+      // The library's own messages are Thai (offline, no access); anything
+      // else (a parser, a network stack) is not for the student to read.
+      const msg = String(err?.message || '');
+      setDlNote(/[฀-๿]/.test(msg) ? msg : 'ดาวน์โหลดไม่สำเร็จ ลองอีกครั้ง');
+    } finally {
+      setDlSlug(null);
+    }
+  };
 
   if (!set || typeof onStart !== 'function') return null;
 
@@ -72,6 +121,23 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
       <p className="vmx-lect-intro">
         กลางภาค {thaiDate(set.examDate)} — {set.coverage} แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้
       </p>
+      {/* One switch for every format: instantFeedback is what choice and
+          true/false read (ExamView revealAnswer), the stored reveal timing is
+          what matching rows and written answers read. Set together so
+          "เฉลยทีละข้อ" means the same thing on every button below. */}
+      {setInstantFeedback && (
+        <div className="vmx-lect-reveal" role="group" aria-label="เวลาที่แสดงเฉลยเมื่อฝึกตามอาจารย์">
+          <RevealTimingToggle
+            mode={instantFeedback ? REVEAL_ROW : REVEAL_END}
+            onChange={(m) => { setInstantFeedback(m === REVEAL_ROW); writeRevealTiming(m); }}
+          />
+          <span className="vmx-lect-reveal-hint">
+            {instantFeedback
+              ? 'ตอบแล้วเห็นเฉลยทีละข้อ ทั้งกากบาท ถูกผิด และจับคู่ ส่วนข้อเขียนกดดูเฉลยได้ทันที'
+              : 'เห็นเฉลยทั้งชุดหลังส่งคำตอบ เหมือนทำข้อสอบจริง'}
+          </span>
+        </div>
+      )}
       {set.lecturers.map((lec) => {
         const all = lecturerTopics(lec);
         const inFormat = countOf(all, lec.format);
@@ -86,17 +152,25 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
         const wholeLabel = inFormat > 0
           ? `ฝึกแบบ${formatLabel}ทุกหัวข้อของอาจารย์ (${wholeCount} ${unit})`
           : `ยังไม่มีข้อแบบ${formatLabel} ฝึกรวมทุกประเภท (${wholeCount} ข้อ)`;
+        // Two lecturers on one card: one profile button per name.
+        const people = Array.isArray(lec.lecturers) && lec.lecturers.length ? lec.lecturers : [lec.lecturer];
+        const names = people.length > 1 ? lec.name.split(' และ ') : [lec.name];
         return (
           <article key={lec.id} className="vmx-lect" aria-label={lec.name}>
             <header className="vmx-lect-head">
-              <button
-                type="button"
-                className="vmx-lect-name"
-                onClick={() => onOpenInstructor?.(lec.lecturer)}
-                title="ดูโปรไฟล์อาจารย์"
-              >
-                {lec.name}
-              </button>
+              {names.map((nm, i) => (
+                <Fragment key={nm}>
+                  {i > 0 && <span className="vmx-lect-and">และ</span>}
+                  <button
+                    type="button"
+                    className="vmx-lect-name"
+                    onClick={() => onOpenInstructor?.(people[i] || people[0])}
+                    title="ดูโปรไฟล์อาจารย์"
+                  >
+                    {nm}
+                  </button>
+                </Fragment>
+              ))}
               <span className={`vmx-lect-chip${lec.announced ? '' : ' is-unannounced'}`}>
                 {formatLabel}{lec.count ? ` ${lec.count} ข้อ` : ''}
               </span>
@@ -131,15 +205,29 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
                     <div className="vmx-lect-cover-foot">
                       <span className="s">คาบ {s.n} ({thaiDate(s.date)})</span>
                       {doc && (
-                        <button type="button" className="vmx-lect-doc" title={doc.title} aria-label={`เปิดสไลด์ ${title}`} onClick={() => openDeckDoc(doc)}>
-                          สไลด์ PDF
-                        </button>
+                        <span className="vmx-lect-doc-set">
+                          <button type="button" className="vmx-lect-doc" title={doc.title} aria-label={`เปิดสไลด์ ${title}`} onClick={() => openDeckDoc(doc)}>
+                            สไลด์ PDF
+                          </button>
+                          <button
+                            type="button"
+                            className={`vmx-lect-doc is-icon${dlSlug === doc.slug ? ' is-busy' : ''}`}
+                            title="ดาวน์โหลดไฟล์ PDF"
+                            aria-label={`ดาวน์โหลดสไลด์ ${title}`}
+                            disabled={dlSlug === doc.slug}
+                            onClick={() => downloadDeck(doc)}
+                          >
+                            <DownloadGlyph />
+                          </button>
+                        </span>
                       )}
                     </div>
                   </div>
                 );
               }))}
             </div>
+
+            {dlNote && <p className="vmx-lect-dl-note" role="status">{dlNote}</p>}
 
             <div className="vmx-lect-actions">
               <button
@@ -150,6 +238,22 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
               >
                 {wholeLabel}
               </button>
+              {/* A part written in one format but practised in another as
+                  well (the previous cohort's true/false for a written part). */}
+              {(lec.alsoFormats || []).map((fmt) => {
+                const n = countOf(all, fmt);
+                if (!n) return null;
+                return (
+                  <button
+                    key={fmt}
+                    type="button"
+                    className="vmx-lect-btn"
+                    onClick={() => onStart({ subjectId: subject, topics: all, questionCategory: categoryOf(fmt) })}
+                  >
+                    ฝึกแบบ{FORMAT_LABEL[fmt] || fmt}ทุกหัวข้อของอาจารย์ ({n} {fmt === 'match' ? 'ชุด' : 'ข้อ'})
+                  </button>
+                );
+              })}
               {lec.count && inFormat >= lec.count && (
                 <button
                   type="button"
