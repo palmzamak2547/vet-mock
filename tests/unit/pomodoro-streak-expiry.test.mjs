@@ -89,14 +89,17 @@ test('a session after a gap starts over at 1, and an abandoned session does not 
 
 test('local midnight is the boundary: a late session and an early one on the next day are consecutive', () => {
   localStorage.clear();
-  withClock('2026-09-10T23:50:00+07:00', (clock) => {
+  // Wall-clock strings without an offset are parsed in the runtime's own
+  // zone, which is the zone the streak is walked in — CI runs in UTC, this
+  // machine in Asia/Bangkok, and the boundary must be midnight in both.
+  withClock('2026-09-10T23:50:00', (clock) => {
     recordSession({ durationMin: 25, completed: true });
-    clock.set('2026-09-11T00:10:00+07:00');
+    clock.set('2026-09-11T00:10:00');
     recordSession({ durationMin: 25, completed: true });
     assert.equal(loadHistory().currentStreak, 2);
-    clock.set('2026-09-12T23:59:00+07:00');
+    clock.set('2026-09-12T23:59:00');
     assert.equal(loadHistory().currentStreak, 2, 'the whole of the next day counts as "yesterday was a study day"');
-    clock.set('2026-09-13T00:01:00+07:00');
+    clock.set('2026-09-13T00:01:00');
     assert.equal(loadHistory().currentStreak, 0);
   });
 });
