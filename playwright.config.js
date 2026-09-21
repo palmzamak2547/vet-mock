@@ -114,6 +114,19 @@ export default defineConfig({
         // CI supplies Xvfb and Mesa so Firefox exercises a real WebGL backend.
         ...(process.env.CI && process.platform === 'linux' ? { headless: false } : {}),
         navigationTimeout: 45_000,
+        // 2026-09-22: the runner's Firefox started refusing WebGL2 through its
+        // own graphics blocklist ("AllowWebgl2:false restricts context creation
+        // on this system"). scripts/check-ci-graphics.mjs sets the same prefs —
+        // keep the two in step, or the guard goes green while the Atlas tests
+        // it guards run with no WebGL at all.
+        launchOptions: {
+          firefoxUserPrefs: {
+            'webgl.force-enabled': true,
+            'webgl.disabled': false,
+            'webgl.out-of-process': false,
+            'gfx.webrender.software': true,
+          },
+        },
       },
     },
   ],
