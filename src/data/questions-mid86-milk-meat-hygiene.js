@@ -3889,4 +3889,160 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
       "yogurt"
     ]
   },
+  {
+    "id": 207244,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "จากกราฟการเจริญเติบโตของแบคทีเรีย การลดอุณหภูมิน้ำนมดิบทันทีหลังรีด มีผลต่อระยะใดของกราฟมากที่สุด",
+    "options": [
+      "ระยะ A โดยยืดระยะนี้ให้ยาวออกไป",
+      "ระยะ B โดยทำให้ชันขึ้นกว่าเดิม",
+      "ระยะ C โดยทำให้สั้นลงกว่าเดิม",
+      "ระยะ D โดยทำให้ลาดลงเร็วขึ้น"
+    ],
+    "answer": 0,
+    "explain": "ความเย็นออกฤทธิ์ที่ระยะ A ซึ่งเป็น lag phase คือช่วงที่แบคทีเรียยังปรับตัวและยังไม่แบ่งตัว การลดอุณหภูมิทำให้ช่วงนี้ยาวออกไป จำนวนเชื้อจึงยังไม่ขึ้น เป็นหัวใจของการถนอมน้ำนมดิบที่ฟาร์ม\n\n❌ ทำไมข้ออื่นผิด\n— ระยะ B คือ log phase ที่เชื้อแบ่งตัวเต็มที่แล้ว ความเย็นไม่ได้ทำให้ชันขึ้น\n— ระยะ C คือ stationary phase ซึ่งมาถึงช้าลงเพราะความเย็น ไม่ใช่สั้นลง\n— ระยะ D คือ death phase ความเย็นไม่ได้เร่งให้เชื้อตายเร็วขึ้น",
+    "source": "ชีทรุ่นพี่ สุขศาสตร์น้ำนม (บล็อก อ.รุ่งทิพย์)",
+    "verified": "ชีทรุ่นพี่ บล็อก 5 ข้อ 1 และ ข้อ 4",
+    "tags": [
+      "milk-raw-storage",
+      "figure"
+    ],
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20460%20230%27%20role%3D%27img%27%20aria-label%3D%27%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B9%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%20%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%8B%E0%B8%A5%E0%B8%A5%E0%B9%8C%20%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%99%E0%B8%AD%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%20%E0%B8%A1%E0%B8%B5%E0%B8%AA%E0%B8%B5%E0%B9%88%E0%B8%A3%E0%B8%B0%E0%B8%A2%E0%B8%B0%E0%B8%81%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%9A%20A%20B%20C%20D%27%3E%20%3Crect%20width%3D%27460%27%20height%3D%27230%27%20fill%3D%27%23fdf8ef%27%2F%3E%20%3Ctext%20x%3D%2720%27%20y%3D%2722%27%20font-family%3D%27Sarabun%2C%20IBM%20Plex%20Sans%20Thai%2C%20sans-serif%27%20font-size%3D%2713%27%20fill%3D%27%232b2419%27%3E%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B9%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%99%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B8%9A%3C%2Ftext%3E%20%3Cline%20x1%3D%2752%27%20y1%3D%27196%27%20x2%3D%27440%27%20y2%3D%27196%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Cline%20x1%3D%2752%27%20y1%3D%27196%27%20x2%3D%2752%27%20y2%3D%2742%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Cpolygon%20points%3D%27440%2C196%20432%2C192%20432%2C200%27%20fill%3D%27%235c4f3d%27%2F%3E%20%3Cpolygon%20points%3D%2752%2C42%2048%2C50%2056%2C50%27%20fill%3D%27%235c4f3d%27%2F%3E%20%3Cpath%20d%3D%27M60%2C184%20L118%2C184%20C152%2C182%20160%2C104%20224%2C86%20L344%2C86%20C378%2C86%20400%2C104%20424%2C132%27%20fill%3D%27none%27%20stroke%3D%27%239c3d3d%27%20stroke-width%3D%273.5%27%20stroke-linecap%3D%27round%27%2F%3E%20%3Ctext%20x%3D%2784%27%20y%3D%27176%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EA%3C%2Ftext%3E%20%3Ctext%20x%3D%27168%27%20y%3D%27140%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EB%3C%2Ftext%3E%20%3Ctext%20x%3D%27282%27%20y%3D%2776%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EC%3C%2Ftext%3E%20%3Ctext%20x%3D%27396%27%20y%3D%27112%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3ED%3C%2Ftext%3E%20%3Ctext%20x%3D%27246%27%20y%3D%27218%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%20text-anchor%3D%27middle%27%3ETime%3C%2Ftext%3E%20%3Ctext%20transform%3D%27translate(30%2C119)%20rotate(-90)%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%20text-anchor%3D%27middle%27%3ENumber%20of%20cells%20(log)%3C%2Ftext%3E%20%3C%2Fsvg%3E"
+  },
+  {
+    "id": 207245,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "จากกราฟการเจริญเติบโตของแบคทีเรีย ระยะใดที่จำนวนเซลล์แบคทีเรียเปลี่ยนแปลงมากที่สุด",
+    "options": [
+      "ระยะ A และ B",
+      "ระยะ A และ C",
+      "ระยะ B และ D",
+      "ระยะ C และ D"
+    ],
+    "answer": 2,
+    "explain": "ระยะ B คือช่วงที่จำนวนเซลล์เพิ่มขึ้นเร็วที่สุด และระยะ D คือช่วงที่จำนวนเซลล์ลดลง ทั้งสองระยะจึงเป็นช่วงที่จำนวนเซลล์เปลี่ยนแปลงมากที่สุด ต่างจากระยะ A และ C ที่เส้นกราฟแบนราบ\n\n❌ ทำไมข้ออื่นผิด\n— ระยะ A จำนวนเซลล์แทบไม่เปลี่ยน เพราะเชื้อยังปรับตัวอยู่\n— ระยะ C จำนวนเซลล์ที่เกิดใหม่เท่ากับที่ตายไป เส้นกราฟจึงคงที่\n— คู่ที่มี A หรือ C จึงมีอย่างน้อยหนึ่งระยะที่กราฟไม่เปลี่ยนแปลง",
+    "source": "ชีทรุ่นพี่ สุขศาสตร์น้ำนม (บล็อก อ.รุ่งทิพย์)",
+    "verified": "ชีทรุ่นพี่ บล็อก 5 ข้อ 2",
+    "tags": [
+      "milk-raw-storage",
+      "figure"
+    ],
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20460%20230%27%20role%3D%27img%27%20aria-label%3D%27%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B9%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%20%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%8B%E0%B8%A5%E0%B8%A5%E0%B9%8C%20%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%99%E0%B8%AD%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%20%E0%B8%A1%E0%B8%B5%E0%B8%AA%E0%B8%B5%E0%B9%88%E0%B8%A3%E0%B8%B0%E0%B8%A2%E0%B8%B0%E0%B8%81%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%9A%20A%20B%20C%20D%27%3E%20%3Crect%20width%3D%27460%27%20height%3D%27230%27%20fill%3D%27%23fdf8ef%27%2F%3E%20%3Ctext%20x%3D%2720%27%20y%3D%2722%27%20font-family%3D%27Sarabun%2C%20IBM%20Plex%20Sans%20Thai%2C%20sans-serif%27%20font-size%3D%2713%27%20fill%3D%27%232b2419%27%3E%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B9%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%99%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B8%9A%3C%2Ftext%3E%20%3Cline%20x1%3D%2752%27%20y1%3D%27196%27%20x2%3D%27440%27%20y2%3D%27196%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Cline%20x1%3D%2752%27%20y1%3D%27196%27%20x2%3D%2752%27%20y2%3D%2742%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Cpolygon%20points%3D%27440%2C196%20432%2C192%20432%2C200%27%20fill%3D%27%235c4f3d%27%2F%3E%20%3Cpolygon%20points%3D%2752%2C42%2048%2C50%2056%2C50%27%20fill%3D%27%235c4f3d%27%2F%3E%20%3Cpath%20d%3D%27M60%2C184%20L118%2C184%20C152%2C182%20160%2C104%20224%2C86%20L344%2C86%20C378%2C86%20400%2C104%20424%2C132%27%20fill%3D%27none%27%20stroke%3D%27%239c3d3d%27%20stroke-width%3D%273.5%27%20stroke-linecap%3D%27round%27%2F%3E%20%3Ctext%20x%3D%2784%27%20y%3D%27176%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EA%3C%2Ftext%3E%20%3Ctext%20x%3D%27168%27%20y%3D%27140%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EB%3C%2Ftext%3E%20%3Ctext%20x%3D%27282%27%20y%3D%2776%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EC%3C%2Ftext%3E%20%3Ctext%20x%3D%27396%27%20y%3D%27112%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3ED%3C%2Ftext%3E%20%3Ctext%20x%3D%27246%27%20y%3D%27218%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%20text-anchor%3D%27middle%27%3ETime%3C%2Ftext%3E%20%3Ctext%20transform%3D%27translate(30%2C119)%20rotate(-90)%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%20text-anchor%3D%27middle%27%3ENumber%20of%20cells%20(log)%3C%2Ftext%3E%20%3C%2Fsvg%3E"
+  },
+  {
+    "id": 207246,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "จากกราฟการเจริญเติบโตของแบคทีเรีย น้ำนมดิบเริ่มเน่าเสียจนไม่ควรนำไปบริโภคหรือแปรรูปต่อ ที่ระยะใด",
+    "options": [
+      "ระยะ A",
+      "ระยะ B",
+      "ระยะ C",
+      "ระยะ D"
+    ],
+    "answer": 2,
+    "explain": "เมื่อกราฟขึ้นถึงระยะ C จำนวนเชื้อสะสมถึงระดับสูงสุดแล้ว และสารที่เชื้อสร้างไว้ทำให้น้ำนมเสื่อมคุณภาพ จึงไม่ควรนำไปบริโภคหรือแปรรูปต่อ\n\n❌ ทำไมข้ออื่นผิด\n— ระยะ A จำนวนเชื้อยังต่ำ น้ำนมยังใช้ได้\n— ระยะ B เชื้อกำลังเพิ่มแต่ยังไม่ถึงระดับที่ทำให้เสีย\n— ระยะ D จำนวนเชื้อลดลงก็จริง แต่น้ำนมเสียไปก่อนหน้านั้นแล้ว การที่เชื้อตายไม่ได้ทำให้น้ำนมกลับมาใช้ได้",
+    "source": "ชีทรุ่นพี่ สุขศาสตร์น้ำนม (บล็อก อ.รุ่งทิพย์)",
+    "verified": "ชีทรุ่นพี่ บล็อก 5 ข้อ 3",
+    "tags": [
+      "milk-raw-storage",
+      "figure"
+    ],
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20460%20230%27%20role%3D%27img%27%20aria-label%3D%27%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B9%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%20%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%8B%E0%B8%A5%E0%B8%A5%E0%B9%8C%20%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%99%E0%B8%AD%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%20%E0%B8%A1%E0%B8%B5%E0%B8%AA%E0%B8%B5%E0%B9%88%E0%B8%A3%E0%B8%B0%E0%B8%A2%E0%B8%B0%E0%B8%81%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%9A%20A%20B%20C%20D%27%3E%20%3Crect%20width%3D%27460%27%20height%3D%27230%27%20fill%3D%27%23fdf8ef%27%2F%3E%20%3Ctext%20x%3D%2720%27%20y%3D%2722%27%20font-family%3D%27Sarabun%2C%20IBM%20Plex%20Sans%20Thai%2C%20sans-serif%27%20font-size%3D%2713%27%20fill%3D%27%232b2419%27%3E%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B9%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%99%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B8%9A%3C%2Ftext%3E%20%3Cline%20x1%3D%2752%27%20y1%3D%27196%27%20x2%3D%27440%27%20y2%3D%27196%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Cline%20x1%3D%2752%27%20y1%3D%27196%27%20x2%3D%2752%27%20y2%3D%2742%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Cpolygon%20points%3D%27440%2C196%20432%2C192%20432%2C200%27%20fill%3D%27%235c4f3d%27%2F%3E%20%3Cpolygon%20points%3D%2752%2C42%2048%2C50%2056%2C50%27%20fill%3D%27%235c4f3d%27%2F%3E%20%3Cpath%20d%3D%27M60%2C184%20L118%2C184%20C152%2C182%20160%2C104%20224%2C86%20L344%2C86%20C378%2C86%20400%2C104%20424%2C132%27%20fill%3D%27none%27%20stroke%3D%27%239c3d3d%27%20stroke-width%3D%273.5%27%20stroke-linecap%3D%27round%27%2F%3E%20%3Ctext%20x%3D%2784%27%20y%3D%27176%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EA%3C%2Ftext%3E%20%3Ctext%20x%3D%27168%27%20y%3D%27140%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EB%3C%2Ftext%3E%20%3Ctext%20x%3D%27282%27%20y%3D%2776%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EC%3C%2Ftext%3E%20%3Ctext%20x%3D%27396%27%20y%3D%27112%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3ED%3C%2Ftext%3E%20%3Ctext%20x%3D%27246%27%20y%3D%27218%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%20text-anchor%3D%27middle%27%3ETime%3C%2Ftext%3E%20%3Ctext%20transform%3D%27translate(30%2C119)%20rotate(-90)%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%20text-anchor%3D%27middle%27%3ENumber%20of%20cells%20(log)%3C%2Ftext%3E%20%3C%2Fsvg%3E"
+  },
+  {
+    "id": 207247,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "จากกราฟการเจริญเติบโตของแบคทีเรีย หากเก็บน้ำนมดิบไว้ที่อุณหภูมิสูงประมาณ 15 ถึง 20 องศาเซลเซียส กราฟจะเปลี่ยนไปอย่างไร",
+    "options": [
+      "ระยะ A สั้นลง เชื้อจึงเข้าสู่ช่วงเพิ่มจำนวนเร็วขึ้น",
+      "ระยะ A ยาวขึ้น เชื้อจึงใช้เวลาปรับตัวนานขึ้น",
+      "ระยะ B ยาวขึ้น เชื้อจึงค่อย ๆ เพิ่มจำนวนช้าลง",
+      "ระยะ C สั้นลง เชื้อจึงเข้าสู่ช่วงตายเร็วขึ้น"
+    ],
+    "answer": 0,
+    "explain": "อุณหภูมิที่สูงขึ้นทำให้แบคทีเรียปรับตัวได้เร็ว ระยะ A จึงสั้นลง และเข้าสู่ระยะ B ที่เพิ่มจำนวนเร็วเร็วขึ้นกว่าเดิม นี่คือเหตุผลที่ต้องลดอุณหภูมิน้ำนมดิบให้เร็วที่สุดหลังรีด\n\n❌ ทำไมข้ออื่นผิด\n— ระยะ A ยาวขึ้นเป็นผลของความเย็น ไม่ใช่ความอุ่น\n— ระยะ B ไม่ได้ยาวขึ้นและไม่ได้ช้าลง อุณหภูมิที่เหมาะกับเชื้อทำให้ช่วงนี้ชันขึ้น\n— ระยะ C ไม่ได้สั้นลงจากอุณหภูมิที่สูงขึ้นในช่วงนี้",
+    "source": "ชีทรุ่นพี่ สุขศาสตร์น้ำนม (บล็อก อ.รุ่งทิพย์)",
+    "verified": "ชีทรุ่นพี่ บล็อก 5 ข้อ 5",
+    "tags": [
+      "milk-raw-storage",
+      "figure"
+    ],
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20460%20230%27%20role%3D%27img%27%20aria-label%3D%27%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B9%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%20%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%88%E0%B8%B3%E0%B8%99%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%8B%E0%B8%A5%E0%B8%A5%E0%B9%8C%20%E0%B9%81%E0%B8%81%E0%B8%99%E0%B8%99%E0%B8%AD%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%A5%E0%B8%B2%20%E0%B8%A1%E0%B8%B5%E0%B8%AA%E0%B8%B5%E0%B9%88%E0%B8%A3%E0%B8%B0%E0%B8%A2%E0%B8%B0%E0%B8%81%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%9A%20A%20B%20C%20D%27%3E%20%3Crect%20width%3D%27460%27%20height%3D%27230%27%20fill%3D%27%23fdf8ef%27%2F%3E%20%3Ctext%20x%3D%2720%27%20y%3D%2722%27%20font-family%3D%27Sarabun%2C%20IBM%20Plex%20Sans%20Thai%2C%20sans-serif%27%20font-size%3D%2713%27%20fill%3D%27%232b2419%27%3E%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%9A%E0%B9%82%E0%B8%95%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%99%E0%B8%A1%E0%B8%94%E0%B8%B4%E0%B8%9A%3C%2Ftext%3E%20%3Cline%20x1%3D%2752%27%20y1%3D%27196%27%20x2%3D%27440%27%20y2%3D%27196%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Cline%20x1%3D%2752%27%20y1%3D%27196%27%20x2%3D%2752%27%20y2%3D%2742%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Cpolygon%20points%3D%27440%2C196%20432%2C192%20432%2C200%27%20fill%3D%27%235c4f3d%27%2F%3E%20%3Cpolygon%20points%3D%2752%2C42%2048%2C50%2056%2C50%27%20fill%3D%27%235c4f3d%27%2F%3E%20%3Cpath%20d%3D%27M60%2C184%20L118%2C184%20C152%2C182%20160%2C104%20224%2C86%20L344%2C86%20C378%2C86%20400%2C104%20424%2C132%27%20fill%3D%27none%27%20stroke%3D%27%239c3d3d%27%20stroke-width%3D%273.5%27%20stroke-linecap%3D%27round%27%2F%3E%20%3Ctext%20x%3D%2784%27%20y%3D%27176%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EA%3C%2Ftext%3E%20%3Ctext%20x%3D%27168%27%20y%3D%27140%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EB%3C%2Ftext%3E%20%3Ctext%20x%3D%27282%27%20y%3D%2776%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EC%3C%2Ftext%3E%20%3Ctext%20x%3D%27396%27%20y%3D%27112%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3ED%3C%2Ftext%3E%20%3Ctext%20x%3D%27246%27%20y%3D%27218%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%20text-anchor%3D%27middle%27%3ETime%3C%2Ftext%3E%20%3Ctext%20transform%3D%27translate(30%2C119)%20rotate(-90)%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%20text-anchor%3D%27middle%27%3ENumber%20of%20cells%20(log)%3C%2Ftext%3E%20%3C%2Fsvg%3E"
+  },
+  {
+    "id": 207248,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "จากแถบอุณหภูมิ แบคทีเรียกลุ่มใดมีบทบาทสำคัญที่สุดต่อคุณภาพของน้ำนมที่เก็บไว้ในตู้เย็น",
+    "options": [
+      "กลุ่ม A",
+      "กลุ่ม B",
+      "กลุ่ม C",
+      "กลุ่ม D"
+    ],
+    "answer": 0,
+    "explain": "ตู้เย็นเก็บน้ำนมที่อุณหภูมิต่ำกว่า 7 องศาเซลเซียส กลุ่มที่ยังเจริญได้ในช่วงนั้นคือกลุ่ม A ซึ่งเป็น psychrotroph เช่น Pseudomonas ที่สร้างทั้ง protease และ lipase จึงเป็นกลุ่มที่กำหนดอายุการเก็บของน้ำนมแช่เย็น\n\n❌ ทำไมข้ออื่นผิด\n— กลุ่ม B และ C ต้องการอุณหภูมิสูงกว่าตู้เย็นจึงจะเจริญได้ดี\n— กลุ่ม D เจริญที่อุณหภูมิสูงกว่า 45 องศาเซลเซียส ไม่ใช่สภาวะของตู้เย็น",
+    "source": "ชีทรุ่นพี่ สุขศาสตร์น้ำนม (บล็อก อ.รุ่งทิพย์)",
+    "verified": "ชีทรุ่นพี่ บล็อก 6 ข้อ 19",
+    "tags": [
+      "milk-microbiology",
+      "figure"
+    ],
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20380%20240%27%20role%3D%27img%27%20aria-label%3D%27%E0%B9%81%E0%B8%96%E0%B8%9A%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%20%E0%B8%A1%E0%B8%B5%E0%B8%82%E0%B8%B5%E0%B8%94%E0%B8%97%E0%B8%B5%E0%B9%88%207%2020%20%E0%B9%81%E0%B8%A5%E0%B8%B0%2045%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B8%A5%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B8%A2%E0%B8%AA%20%E0%B9%81%E0%B8%9A%E0%B9%88%E0%B8%87%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%AA%E0%B8%B5%E0%B9%88%E0%B8%8A%E0%B9%88%E0%B8%A7%E0%B8%87%20A%20B%20C%20D%27%3E%20%3Crect%20width%3D%27380%27%20height%3D%27240%27%20fill%3D%27%23fdf8ef%27%2F%3E%20%3Ctext%20x%3D%2720%27%20y%3D%2722%27%20font-family%3D%27Sarabun%2C%20IBM%20Plex%20Sans%20Thai%2C%20sans-serif%27%20font-size%3D%2713%27%20fill%3D%27%232b2419%27%3E%E0%B8%8A%E0%B9%88%E0%B8%A7%E0%B8%87%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%99%E0%B8%A1%3C%2Ftext%3E%20%3Crect%20x%3D%2760%27%20y%3D%2740%27%20width%3D%2734%27%20height%3D%27170%27%20rx%3D%2717%27%20fill%3D%27%23ffffff%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Crect%20x%3D%2768%27%20y%3D%27150%27%20width%3D%2718%27%20height%3D%2754%27%20fill%3D%27%239c3d3d%27%2F%3E%20%3Ccircle%20cx%3D%2777%27%20cy%3D%27210%27%20r%3D%2716%27%20fill%3D%27%239c3d3d%27%2F%3E%20%3Cline%20x1%3D%2794%27%20y1%3D%27178%27%20x2%3D%27140%27%20y2%3D%27178%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271%27%2F%3E%20%3Cline%20x1%3D%2794%27%20y1%3D%27132%27%20x2%3D%27140%27%20y2%3D%27132%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271%27%2F%3E%20%3Cline%20x1%3D%2794%27%20y1%3D%2786%27%20x2%3D%27140%27%20y2%3D%2786%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271%27%2F%3E%20%3Ctext%20x%3D%27148%27%20y%3D%27182%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%3E7%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27148%27%20y%3D%27136%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%3E20%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27148%27%20y%3D%2790%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%3E45%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27232%27%20y%3D%27200%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EA%3C%2Ftext%3E%20%3Ctext%20x%3D%27232%27%20y%3D%27162%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EB%3C%2Ftext%3E%20%3Ctext%20x%3D%27232%27%20y%3D%27116%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EC%3C%2Ftext%3E%20%3Ctext%20x%3D%27232%27%20y%3D%2770%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3ED%3C%2Ftext%3E%20%3Ctext%20x%3D%27252%27%20y%3D%27200%27%20font-family%3D%27sans-serif%27%20font-size%3D%2711%27%20fill%3D%27%235c4f3d%27%3E%E0%B8%95%E0%B9%88%E0%B8%B3%E0%B8%81%E0%B8%A7%E0%B9%88%E0%B8%B2%207%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27252%27%20y%3D%27162%27%20font-family%3D%27sans-serif%27%20font-size%3D%2711%27%20fill%3D%27%235c4f3d%27%3E7%20%E0%B8%96%E0%B8%B6%E0%B8%87%2020%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27252%27%20y%3D%27116%27%20font-family%3D%27sans-serif%27%20font-size%3D%2711%27%20fill%3D%27%235c4f3d%27%3E20%20%E0%B8%96%E0%B8%B6%E0%B8%87%2045%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27252%27%20y%3D%2770%27%20font-family%3D%27sans-serif%27%20font-size%3D%2711%27%20fill%3D%27%235c4f3d%27%3E%E0%B8%AA%E0%B8%B9%E0%B8%87%E0%B8%81%E0%B8%A7%E0%B9%88%E0%B8%B2%2045%20%C2%B0C%3C%2Ftext%3E%20%3C%2Fsvg%3E"
+  },
+  {
+    "id": 207249,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "จากแถบอุณหภูมิ แบคทีเรียกลุ่มใดที่ยังอาจพบได้ในนมสเตอริไลส์",
+    "options": [
+      "กลุ่ม A",
+      "กลุ่ม B",
+      "กลุ่ม C",
+      "กลุ่ม D"
+    ],
+    "answer": 3,
+    "explain": "นมสเตอริไลส์ผ่านความร้อนสูง กลุ่มที่เหลือรอดจึงเป็นกลุ่ม D ซึ่งเจริญได้ที่อุณหภูมิสูงกว่า 45 องศาเซลเซียส และมักสร้างสปอร์ทนความร้อน\n\n❌ ทำไมข้ออื่นผิด\n— กลุ่ม A เป็นพวกชอบเย็น ถูกความร้อนทำลายไปก่อน\n— กลุ่ม B และ C เป็น mesophile ที่ไม่ทนความร้อนระดับสเตอริไลส์",
+    "source": "ชีทรุ่นพี่ สุขศาสตร์น้ำนม (บล็อก อ.รุ่งทิพย์)",
+    "verified": "ชีทรุ่นพี่ บล็อก 6 ข้อ 20",
+    "tags": [
+      "milk-microbiology",
+      "figure"
+    ],
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20380%20240%27%20role%3D%27img%27%20aria-label%3D%27%E0%B9%81%E0%B8%96%E0%B8%9A%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%20%E0%B8%A1%E0%B8%B5%E0%B8%82%E0%B8%B5%E0%B8%94%E0%B8%97%E0%B8%B5%E0%B9%88%207%2020%20%E0%B9%81%E0%B8%A5%E0%B8%B0%2045%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B8%A5%E0%B9%80%E0%B8%8B%E0%B8%B5%E0%B8%A2%E0%B8%AA%20%E0%B9%81%E0%B8%9A%E0%B9%88%E0%B8%87%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99%E0%B8%AA%E0%B8%B5%E0%B9%88%E0%B8%8A%E0%B9%88%E0%B8%A7%E0%B8%87%20A%20B%20C%20D%27%3E%20%3Crect%20width%3D%27380%27%20height%3D%27240%27%20fill%3D%27%23fdf8ef%27%2F%3E%20%3Ctext%20x%3D%2720%27%20y%3D%2722%27%20font-family%3D%27Sarabun%2C%20IBM%20Plex%20Sans%20Thai%2C%20sans-serif%27%20font-size%3D%2713%27%20fill%3D%27%232b2419%27%3E%E0%B8%8A%E0%B9%88%E0%B8%A7%E0%B8%87%E0%B8%AD%E0%B8%B8%E0%B8%93%E0%B8%AB%E0%B8%A0%E0%B8%B9%E0%B8%A1%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%88%E0%B8%A3%E0%B8%B4%E0%B8%8D%E0%B8%82%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%9A%E0%B8%84%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%99%E0%B8%A1%3C%2Ftext%3E%20%3Crect%20x%3D%2760%27%20y%3D%2740%27%20width%3D%2734%27%20height%3D%27170%27%20rx%3D%2717%27%20fill%3D%27%23ffffff%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271.5%27%2F%3E%20%3Crect%20x%3D%2768%27%20y%3D%27150%27%20width%3D%2718%27%20height%3D%2754%27%20fill%3D%27%239c3d3d%27%2F%3E%20%3Ccircle%20cx%3D%2777%27%20cy%3D%27210%27%20r%3D%2716%27%20fill%3D%27%239c3d3d%27%2F%3E%20%3Cline%20x1%3D%2794%27%20y1%3D%27178%27%20x2%3D%27140%27%20y2%3D%27178%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271%27%2F%3E%20%3Cline%20x1%3D%2794%27%20y1%3D%27132%27%20x2%3D%27140%27%20y2%3D%27132%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271%27%2F%3E%20%3Cline%20x1%3D%2794%27%20y1%3D%2786%27%20x2%3D%27140%27%20y2%3D%2786%27%20stroke%3D%27%235c4f3d%27%20stroke-width%3D%271%27%2F%3E%20%3Ctext%20x%3D%27148%27%20y%3D%27182%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%3E7%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27148%27%20y%3D%27136%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%3E20%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27148%27%20y%3D%2790%27%20font-family%3D%27sans-serif%27%20font-size%3D%2712%27%20fill%3D%27%235c4f3d%27%3E45%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27232%27%20y%3D%27200%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EA%3C%2Ftext%3E%20%3Ctext%20x%3D%27232%27%20y%3D%27162%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EB%3C%2Ftext%3E%20%3Ctext%20x%3D%27232%27%20y%3D%27116%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3EC%3C%2Ftext%3E%20%3Ctext%20x%3D%27232%27%20y%3D%2770%27%20font-family%3D%27sans-serif%27%20font-size%3D%2714%27%20font-weight%3D%27700%27%20fill%3D%27%232b2419%27%3ED%3C%2Ftext%3E%20%3Ctext%20x%3D%27252%27%20y%3D%27200%27%20font-family%3D%27sans-serif%27%20font-size%3D%2711%27%20fill%3D%27%235c4f3d%27%3E%E0%B8%95%E0%B9%88%E0%B8%B3%E0%B8%81%E0%B8%A7%E0%B9%88%E0%B8%B2%207%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27252%27%20y%3D%27162%27%20font-family%3D%27sans-serif%27%20font-size%3D%2711%27%20fill%3D%27%235c4f3d%27%3E7%20%E0%B8%96%E0%B8%B6%E0%B8%87%2020%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27252%27%20y%3D%27116%27%20font-family%3D%27sans-serif%27%20font-size%3D%2711%27%20fill%3D%27%235c4f3d%27%3E20%20%E0%B8%96%E0%B8%B6%E0%B8%87%2045%20%C2%B0C%3C%2Ftext%3E%20%3Ctext%20x%3D%27252%27%20y%3D%2770%27%20font-family%3D%27sans-serif%27%20font-size%3D%2711%27%20fill%3D%27%235c4f3d%27%3E%E0%B8%AA%E0%B8%B9%E0%B8%87%E0%B8%81%E0%B8%A7%E0%B9%88%E0%B8%B2%2045%20%C2%B0C%3C%2Ftext%3E%20%3C%2Fsvg%3E"
+  },
 ];

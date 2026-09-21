@@ -150,6 +150,22 @@ export const LECTURE_COVERS = {
     'avian-egg-breakout': { src: base('lecture-covers', 'avian-medicine-avian-egg-breakout'), alt: 'ปกสไลด์ Egg Breakout Analysis แถบชมพูฟ้า' },
     'avian-ahra-set': { src: base('lecture-covers', 'avian-medicine-avian-ahra-set'), alt: 'ปกสไลด์ Omphalitis Ascites Staphylococcus Salmonella Adenovirus พื้นดำ กรอบเหลือง' },
   },
+  // Milk & Meat Hygiene 3109503, midterm 2026-09-22: page 1 of each deck on
+  // the shelf, rendered straight from the PDF rather than screenshotted, so
+  // there is no browser chrome or page badge to crop away.
+  'milk-meat-hygiene': {
+    'milk-biosec-dairy': { src: base('lecture-covers', 'milk-meat-hygiene-milk-biosec-dairy'), alt: 'ปกสไลด์ ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี ภาพโรงเรือนโคนม' },
+    'milk-overview': { src: base('lecture-covers', 'milk-meat-hygiene-milk-overview'), alt: 'ปกสไลด์ Introduction to Milk Hygiene พื้นฟ้า ภาพน้ำนมกระเซ็น' },
+    'milk-mastitis': { src: base('lecture-covers', 'milk-meat-hygiene-milk-mastitis'), alt: 'ปกสไลด์ Mastitis and milk quality ภาพเต้านมโค' },
+    'milk-raw-storage': { src: base('lecture-covers', 'milk-meat-hygiene-milk-raw-storage'), alt: 'ปกสไลด์ Storage of raw milk พื้นขาว ภาพน้ำนมกระเซ็น' },
+    'milk-quality-determination': { src: base('lecture-covers', 'milk-meat-hygiene-milk-quality-determination'), alt: 'ปกสไลด์ Determination of milk quality พื้นขาว ภาพน้ำนมกระเซ็น' },
+    'milk-quality-composition': { src: base('lecture-covers', 'milk-meat-hygiene-milk-quality-composition'), alt: 'ปกสไลด์ Composition and quality of raw milk พื้นฟ้าลายวงกลมซ้อน' },
+    'milk-raw-std': { src: base('lecture-covers', 'milk-meat-hygiene-milk-raw-std'), alt: 'ปกสไลด์ Standard of raw milk and dairy products พื้นน้ำตาลลายสี่เหลี่ยม' },
+    'milk-microbiology': { src: base('lecture-covers', 'milk-meat-hygiene-milk-microbiology'), alt: 'ปกสไลด์ Milk microbiology พื้นน้ำเงินเข้ม ลายหยดน้ำนม' },
+    'milk-borne-pathogens': { src: base('lecture-covers', 'milk-meat-hygiene-milk-borne-pathogens'), alt: 'ปกสไลด์ Milk-borne pathogens and diseases พื้นน้ำเงินเข้ม ลายหยดน้ำนม' },
+    'milk-industry-std': { src: base('lecture-covers', 'milk-meat-hygiene-milk-industry-std'), alt: 'ปกสไลด์ GMP and HACCP standards for milk collecting center and milk processing plants พื้นฟ้าอ่อน' },
+    'milk-processing': { src: base('lecture-covers', 'milk-meat-hygiene-milk-processing'), alt: 'ปกสไลด์ Processing and manufacturing technologies for milk and milk products ภาพผลิตภัณฑ์นม' },
+  },
   // FIQC 3109501, midterm 2026-09-22: the title slide of each deck, cropped
   // from the students' screenshots of the course files. Period 1 taught two
   // decks, so it has two covers under the one topic id.

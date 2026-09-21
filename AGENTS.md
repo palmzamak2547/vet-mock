@@ -2653,6 +2653,18 @@ Palm, 2026-09-21 evening, straight after sitting One Health and Avian: "ลุ�
 
 Checks: unit 9/9 on exam-wrapups, q-counts green after regen, lint:deck-refs 0, lint:question-standard no regression, lint:questions 0 errors with no new warnings on any of the 244, lint:academic-safety clean, lint:all clean apart from audit:contrast wanting a fresh dist. Every Pearson-square item was re-derived by hand, distractor derivations included. The gate result and the production proof are appended below after the run.
 
+### 5.126.6 — the covers, the slide buttons, and the first figure questions for these two papers
+
+Palm, 2026-09-21 night: "อ้าวแล้วปก Milk ล่ะ ผมให้คุณไปหมดแล้วนะ" — he had sent twelve Milk title-slide screenshots, but unlike the FIQC batch they were never written to the session images folder, so there was no file to crop. The right answer was not to ask him again: all thirteen decks are on the shelf, and page 1 of each IS the title slide, so the eleven covers are now rendered straight from the PDFs with pdftoppm at 110 dpi and resized to 640 px webp. Cleaner than a screenshot, and repeatable.
+
+**A silent no-op worth knowing about.** The first registration script guarded on the literal string `'milk-meat-hygiene': {` appearing anywhere in art.js before inserting into LECTURE_COVERS — but that key already exists in SUBJECT_MOCHI at art.js line 47, so the guard matched, the script printed "already registered" and inserted nothing. Scope such a guard to the object you are editing, and verify by resolving each id rather than trusting the script's own report.
+
+**Both lecturer sets were missing every `doc` slug**, so no card in either subject offered the "open the slides" button. All 16 decks now carry one, verified against library_docs.
+
+**First figure questions for these papers.** The senior paper leans on two diagrams that nothing in the bank practised: the bacterial growth curve labelled A-D, and the temperature scale split at 7, 20 and 45 °C. Both are hand-drawn SVG data URIs in the style of question #821 (opaque paper background so they read in either theme) rather than crops of the scan. Six questions, keys matching the transcribed senior key. **ingest-midterm.mjs did not copy `image` in its field whitelist**, so the first run would have dropped both figures silently; the field is now in the list.
+
+Checks: q-counts green after regen, and the gate and production proof are appended below.
+
 **Content, in each lecturer's format:** 119 questions added to questions-mid86-avian-medicine.js (ids 206039-206157): 98 true/false — อ.สมศักดิ์ 54 (myco 17, coli 17, fowl cholera 10, coryza 10) and อ.เกรียงวิชญ์ 44 (omphalitis/ascites/staph 14, AE 7, adeno 11, salmonella 12); 18 matching for อ.ณทยา — the two printed sets converted completely (20 items keyed against the printed answer boxes and the senior's pencil in 11.jpg) plus 14 written from the session 1, 5 and 6 recordings; 3 written for อ.จิโรจ (1 hatchery-hygiene item under avian-egg-breakout, 2 moved to avian-intro because the session-4 recording carries no egg-breakout content at all). Three authoring agents, three independent verifiers reading the same sources: 3 + 4 + 4 wording fixes, 2 + 0 + 1 drops, and one owner drop — an AE past-paper item marked True on a '4 สัปดาห์' the lecturer never said (he said 6). Every card count on the lecturer tab comes from these numbers via the kind table. Open: the Marek vaccine thaw time — the recording says 30 นาที, glossary.js says 30 วินาที; neither number ships until a reliable source settles it, and glossary.js should be checked.
 
 **Next subject, the recipe:** class announcement → timetable sessions →
