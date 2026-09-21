@@ -95,6 +95,11 @@ export function humanSource(raw) {
   pageRule('\\b(?:MID\\s*86\\s+)?audit', 'บันทึกรุ่นพี่');
   pageRule('\\bTJ', 'ชีทรุ่นพี่');
 
+  // A past paper that arrived as a graded export, cited by part and item number.
+  // The stored pointer keeps the paper's short name so it still traces back; the
+  // reader only needs to know which part and which number.
+  s = s.replace(/\bRUM\s*MID\s+(tf|mcq)\s*(\d+)\b/gi, (_w, kind, n) => `ข้อสอบเก่า ตอน${kind.toLowerCase() === 'tf' ? 'ถูก/ผิด' : 'ปรนัย'} ข้อ ${n}`);
+
   // The governed notes, written as "notes-85 avian-nd 1.2_IBV p.2".
   s = s.replace(/\bnotes-(?:85|y5)\s+[\w-]+\s*/gi, 'โน้ตวิชา ');
 

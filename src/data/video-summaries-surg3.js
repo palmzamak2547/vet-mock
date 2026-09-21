@@ -15,7 +15,7 @@ export const VIDEO_SUMMARIES_SURG3 = {
     date: "8 Jan 68",
     durationMin: 192,
     instructor: null,
-    examFormat: "คะแนนของรายวิชามี 3 ส่วน: assignment ที่ทำทุกอาทิตย์ + การเข้าห้อง + สอบอีกนิดหน่อย [61:01]. แลบ orthopedic examination อาจมี pre-test และ post-test [17:53] และใบตอบวิดีโอสุนัขเดินใช้เช็คชื่อไปในตัว เป็นคะแนนของแลบเลย โดยเข้าเรียนก็ให้เต็ม ไม่คำนึงว่าผิดหรือถูก แล้วเฉลยตอน discussion [27:06]. Lab 2 (anatomy) มี quiz ทาง QR code ให้ทำก่อนเข้าแลบ deadline 16 มกราคมก่อนเที่ยงคืน เปิดหนังสือ/เอกสาร/แอปได้ และไม่ได้เก็บคะแนนว่าถูกหรือผิด [42:50]. Lab 1 ต้องถ่ายรูปผลงาน tape muzzle อัปขึ้น Google Drive โดยต้องติดร่างสัตว์ด้วย ถ้ามีแต่รูปนิสิตไม่ได้คะแนน [15:35]. Lab 5 มี assignment sheet 4 คะแนน ส่งอาทิตย์ถัดไป ถ้าทำใน iPad ต้องปริ้นมาส่ง [126:30]. ผู้สอนย้ำว่าทักษะ special manipulation เหล่านี้ต้องทำได้ตอนสอบปี 6 ด้วย (ชื่อการสอบในคลิปฟังไม่ชัด) [26:14].",
+    examFormat: "คะแนนของรายวิชามี 3 ส่วน คือ assignment ที่ทำทุกอาทิตย์ การเข้าห้อง และสอบอีกนิดหน่อย [61:01] แลบ orthopedic examination อาจมี pre-test และ post-test [17:53] และ Lab 5 มี assignment sheet 4 คะแนน ส่งอาทิตย์ถัดไป [126:30]",
     summary: `# L1 — Orientation Surgery Lab III (Lab 1-6)
 
 > คลิป orientation ของรายวิชา Surgery Lab III มีผู้สอนหลายท่านพูดต่อกัน ครอบคลุมภาพรวมของ Lab 1-6 ทั้งเทอม

@@ -11399,5 +11399,106 @@ export const INSTRUCTOR_DIRECTORY = [
       ],
       "publicationsFound": 3
     }
+  },
+  {
+    "slug": "mintra-lukkana",
+    "nameEn": "Mintra Lukkana",
+    "nameTh": "มินตรา ลักขณา",
+    "aliases": [
+      "อาจารย์มินตรา",
+      "สพ.ญ.ดร. มินตรา ลักขณา",
+      "Mintra LUKKANA"
+    ],
+    "position": "นายสัตวแพทย์ชำนาญการพิเศษ",
+    "department": "สำนักงานมาตรฐานสินค้าเกษตรและอาหารแห่งชาติ (มกอช.)",
+    "institution": "กระทรวงเกษตรและสหกรณ์",
+    "status": "external",
+    "areas": [
+      "Agricultural commodity and food standards",
+      "Aquatic animal health",
+      "Antimicrobial resistance in aquaculture",
+      "Livestock production certification"
+    ],
+    "areaSource": "publications",
+    "papers": [
+      {
+        "title": "Antimicrobial susceptibility and enrofloxacin resistance of streptococcal bacteria from farmed Nile tilapia, Oreochromis niloticus",
+        "year": 2015,
+        "journal": "Aquaculture Research",
+        "authors": "Mintra Lukkana, Sasibha Jantrakajorn, Janenuj Wongtavatchai",
+        "url": "https://doi.org/10.1111/are.12764",
+        "doi": "10.1111/are.12764",
+        "verifiedBy": "Crossref"
+      },
+      {
+        "title": "Class 1 Integrons in Aeromonas hydrophila Isolates from Farmed Nile Tilapia (Oreochromis niloticus)",
+        "year": 2012,
+        "journal": "Journal of Veterinary Medical Science",
+        "authors": "Mintra Lukkana, Janenuj Wongtavatchai, Rungtip Chuanchuen",
+        "url": "https://doi.org/10.1292/jvms.11-0441",
+        "doi": "10.1292/jvms.11-0441",
+        "verifiedBy": "Crossref"
+      },
+      {
+        "title": "Determination of the sensitivity and specificity of bovine tuberculosis screening tests in dairy herds in Thailand",
+        "year": 2019,
+        "journal": "BMC Veterinary Research",
+        "authors": "Tawatchai Singhla, Sukolrat Boonyayatra, Songkhla Chulakasian, Mintra Lukkana, Julio Alvarez, Srinand Sreevatsan, Scott J. Wells",
+        "url": "https://doi.org/10.1186/s12917-019-1905-x",
+        "doi": "10.1186/s12917-019-1905-x",
+        "verifiedBy": "Crossref"
+      },
+      {
+        "title": "Residual levels of 17α-methyldihydrotestosterone in Nile tilapia (Oreochromis niloticus) fry following androgenic hormone treatment",
+        "year": 2018,
+        "journal": "Cogent Food & Agriculture",
+        "authors": "Nion Vinarukwong, Mintra Lukkana, Suthep Ruangwises, Janenuj Wongtavatchai",
+        "url": "https://doi.org/10.1080/23311932.2018.1526436",
+        "doi": "10.1080/23311932.2018.1526436",
+        "verifiedBy": "Crossref"
+      },
+      {
+        "title": "In vitro Suppression against Streptococcal Bacteria and Health-Promoting Effects of Probiotic Bacillus polyfermenticus",
+        "year": 2015,
+        "journal": "The Thai Journal of Veterinary Medicine",
+        "authors": "Mintra Lukkana, Sasibha Jantrakajorn, Janenuj Wongtavatchai",
+        "url": "https://doi.org/10.56808/2985-1130.2616",
+        "doi": "10.56808/2985-1130.2616",
+        "verifiedBy": "Crossref"
+      },
+      {
+        "title": "Expression of AheABC Efflux System and Plasmid Profile of Aeromonas hydrophila Isolates from Farmed Nile Tilapia",
+        "year": 2011,
+        "journal": "The Thai Journal of Veterinary Medicine",
+        "authors": "Mintra Lukkana, Janenuj Wongtavatchai, Rungtip Chuanchuen",
+        "url": "https://doi.org/10.56808/2985-1130.2347",
+        "doi": "10.56808/2985-1130.2347",
+        "verifiedBy": "Crossref"
+      }
+    ],
+    "subjects": [
+      "food-industry"
+    ],
+    "topics": [
+      "fiqc-livestock-qc"
+    ],
+    "profiles": {
+      "crossref": "https://api.crossref.org/works?query.author=Mintra+Lukkana"
+    },
+    "verification": {
+      "status": "partial",
+      "verifiedAt": "2026-09-21",
+      "sources": [
+        {
+          "label": "Crossref",
+          "url": "https://www.crossref.org/"
+        },
+        {
+          "label": "ACFS compulsory agricultural standards registry",
+          "url": "https://agristandards.acfs.go.th/"
+        }
+      ],
+      "publicationsFound": 6
+    }
   }
 ];

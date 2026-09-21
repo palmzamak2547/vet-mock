@@ -2645,7 +2645,7 @@ Palm, 2026-09-21 evening, straight after sitting One Health and Avian: "ลุ�
 
 **A lint false positive to know about.** NAMES_DOCUMENT in scripts/lib/question-standard.mjs matches "หน้าที่แล้ว" as a substring, so the ordinary phrase "พนักงานเจ้าหน้าที่แล้ว" trips the stem-names-the-source-doc defect. It was worked around by rewording one stem rather than weakening the pattern the night before a paper; the pattern wants a boundary or a negative lookbehind when someone next touches it.
 
-**Summary readability.** Palm: "ทำไมผมเห็นสรุปคลิปบางอัน ภาษามันแปลกๆ … Exam format กับจุดที่ใส่กรอบ ยาวเกินไปเยอะ ปกติเราทำดีกว่านี้ไหม". Measured across all 644 recordings: 57 examFormat over 250 characters, 39 over 400, longest 1,742; 41 head callouts over 400, longest 1,299. The nine recordings behind these two papers were rewritten — examFormat now two sentences at 213-221 characters, head callouts three lines at 162-218 — with every cut fact checked as already present in the body and every surviving [mm:ss] checked against the pre-edit text. **The other 48 examFormat and 32 callouts over budget are still out there and are the obvious next job.**
+**Summary readability.** Palm: "ทำไมผมเห็นสรุปคลิปบางอัน ภาษามันแปลกๆ … Exam format กับจุดที่ใส่กรอบ ยาวเกินไปเยอะ ปกติเราทำดีกว่านี้ไหม". Measured across all 644 recordings: 57 examFormat over 250 characters, 39 over 400, longest 1,742; 41 head callouts over 400, longest 1,299. The nine recordings behind these two papers were rewritten — examFormat now two sentences at 213-221 characters, head callouts three lines at 162-218 — with every cut fact checked as already present in the body and every surviving [mm:ss] checked against the pre-edit text. **Done as of 2026-09-21: re-measured across all 644 recordings, 0 examFormat over 250 characters and 0 head callouts over 400.** Measure the head callout as the leading run of `>` lines *continued across blank lines that are followed by another `>` line* — a detector that stops at the first non-`>` line reports zero while callouts are still over budget, which is how an earlier pass missed four of them (worst 1,299).
 
 **Shelf.** Three decks Palm had only in LINE are now on it — ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี, Milk Lecture, Milk Book (updated 4) — through ingest-library.mjs --rows-out, with the catalog INSERT run through the Supabase MCP exactly as that script's own comment prescribes, because no service-role key exists on this machine. "4. Determination of milk quality 2025.pdf" was already there; its sha256 matched determination-of-milk-quality-ba986c.
 
@@ -2792,3 +2792,108 @@ Two loose ends worth knowing:
 - Start with DA-06 (concurrent independent-device sync loses acknowledged data), MD-01/04 (PDF rotated/cropped export and document-identity race), MT-01 (occlusion mask IDs), then account boundaries and exam/SR loading. Live read-only DB inspection found no custom `user_data` trigger to merge competing writes. No production data/account/message writes were made.
 - Completed checks: 1081/1081 unit, lint:all, zero npm advisories, isolated Vite build + full prerender logic, five actual-code reproduction suites, targeted browser failures. Full E2E: 692 passed, 12 failed, 41 skipped, 3 not-run; all 15 failed/not-run cases passed with one worker, giving 707 distinct passes + 41 skips. Preserve first-run failures as QA stability work; see VERIFICATION.md. This is not production release proof.
 - Future fixes require their own authorization and behavioral regression proof. Never trade away animation frames/timing, image/DPR/model quality, content completeness, scope, owner isolation or first-write durability for speed. Preserve existing untracked `design/` and `scratchpad/`.
+
+## 2026-09-21 — examFormat and head callouts trimmed on the remaining four subjects
+
+Second half of the 5.126.5 pass. Same treatment, same rules, on the four
+subjects that release did not cover: aquatic-clinic (9 records), zoonoses (8),
+avian-medicine (7), swine-clinic (5) — 29 of 124 records were over budget.
+
+- Budget used, and it is the one the first half landed on: `examFormat` at most
+  2 sentences and 250 characters, and no `> ` line in the head callout over 400.
+  After: every `examFormat` 151-246 (was 273-1,742), every callout line 148-396
+  (was up to 1,240), 2-3 lines per callout.
+- What the long fields actually were: transcription audits. Whole paragraphs of
+  word-occurrence counts, and quotes the caption engine had cut mid-syllable
+  ("มีช้อยส์ไม่มีปคำ", "เปลี่ยน ใจนไม่เอามอเตอร์"). Those are paraphrased to what was
+  announced; a short clean quote is kept only where it carries more than a
+  paraphrase. Where nothing was announced the field says so in one clause.
+  `130fSmEeitU` also carried a stray wrapping `"` and `\"` escaping from
+  generation; gone.
+- One fact left a record entirely and was moved into the body, not dropped:
+  `2I7DU_E8vho`'s mid-session "ข้อสอบก็บอกไปแล้วนะครับ" [52:59], now a bullet under
+  Part 36. Everything else cut from a callout was grepped in that record's own
+  body first.
+- Method worth reusing: a detector that walks each subject module and reports
+  `examFormat` length plus the longest `> ` line of the preamble, and an apply
+  script that rewrites only those two field values by literal replacement,
+  re-escaping the summary template literal the way the generator does. It
+  refuses any new text that introduces a `[mm:ss]` absent from the text it
+  replaces, that runs over budget, or that carries · ★ … or นักศึกษา. Scripts
+  are throwaway; the two guards are the part to keep.
+- The head callout is the `> ` lines only. Several preambles mix them with plain
+  paragraphs; those paragraphs are left alone, and where a preamble has prose
+  between two callouts the replacement keeps each callout in its own position.
+- Checks: detector reports 0 of 124 over budget across the four files;
+  `node scripts/regen-video-meta.mjs` re-run because the meta mirror carries
+  `examFormat`; `lint:video-summaries` 0 errors (617 warnings, was 618 — all
+  pre-existing classes, mostly "no sections" because these summaries head their
+  parts with `#` not `##`); `lint:video-meta` in sync, 644 entries. Diff is 79
+  insertions / 56 deletions across the four files, and every changed line is an
+  `examFormat` or a `> ` line apart from the one body bullet above.
+- Not touched: `video-summaries-food-industry.js` and
+  `video-summaries-milk-meat-hygiene.js` (done in 5.126.5). Other modified files
+  in the tree at the time — `instructors-directory.js`, the year-4 and other
+  `video-summaries-*.js` — belong to concurrent work, not to this pass.
+
+## 2026-09-21 (night) — A graded past paper, and the arithmetic that checks our keys
+
+**The new source.** `Rum Hygiene - Mid.pdf` (78 pages) is not a compilation — it is a real
+graded paper exported from the online quiz: **30 True/False + 44 MCQ**, with the candidate's
+selection on pages 4-71 and a **per-question mark** on pages 32-38 and 72-78. That pair gives
+the key by arithmetic. See `[[graded-exports-derive-the-key]]` in memory for the method and
+its traps; the full transcript with every derived key is `work/rum-hygiene-mid/src-paper.md`.
+
+**Whose paper is it.** Not tomorrow's Milk midterm as a whole, but Palm's hunch about
+อ.จักรกริศน์ was right, and the proof is in his deck rather than in the recordings — his is the
+one session with no recording on the shelf, so absence from the summaries proves nothing.
+`65ความปลอดภัยชีวภาพโคนม9.fin.pdf` has a Thai-corrupt text layer but its surviving Latin
+vocabulary is decisive: MAJOR×90, MINOR×60, REC, RECOMMENDATION, OBSERVATION, Audit,
+Certification, Recertification, Initial/Surveillance/Follow-up/Special, GAP, Livestock Farm
+Standard, goat/Capra, Nitrofuran/Oxytetracycline screening — **and** the pasture block,
+continuous / rotation / strip / cut and carry / zero, stocking, Nitrogen Fertilizer rate,
+Cutting height, Green forage. That is this paper's spine.
+
+**What it proved about the bank.** 17 of the paper's questions were already in the milk bank,
+15 of them verbatim. Every True/False key agreed with the official mark — eleven independent
+confirmations. **One did not: #104668** keyed แลคโตสเพิ่มขึ้น, the exact option the candidate
+lost the mark on. High fresh-forage intake raises rumen acetate and therefore **milk fat**;
+the key is now ไขมันนมเพิ่มขึ้น.
+
+**Labelling.** The 15 verbatim items live in `questions-y5-milk-hygiene-pastpaper.js` — a file
+named "pastpaper" whose 157 items all carried `sourceType` undefined, so the ฝึกเฉพาะข้อสอบเก่า
+filter never saw them. The 15 are now `past-paper`. **The other 142 were deliberately left
+alone**: the 15 proven ones cite compilation pages 125-143 in a contiguous run, while the file
+spans pages 2-143 at roughly one question per page, so the rest comes from other material and
+relabelling it would be inference, not evidence.
+
+**Citation hygiene.** Palm asked whether a raw YouTube id reaches the reader. Measured, not
+assumed: all **511** citation-shaped ids in the bank sit in `verified` (458) or `source` (53),
+both of which render through `humanSource()`; **zero** appear in `explain` or a stem, every
+cited recording resolves to a session label, and zero survive formatting. A first attempt at
+this measurement was wrong and reported 1,356 leaks — its regex matched any 11-character token,
+so "Bromothymol" and "Restriction" counted. **Match an id only in the shape a citation writes
+it**: immediately before a `[mm:ss]` bracket, or after a `VET86 ` prefix.
+`src/lib/source-label.js` gained one rule, `RUM MID tf14` → `ข้อสอบเก่า ตอนถูก/ผิด ข้อ 14`,
+because the first pass wrote that provenance as prose that named the file and narrated what the
+candidate scored — both student-facing through QSourceChip.
+
+**FIQC v2.** The 21 ก.ย. update to `FOOD INDUSTRY MID 86 🏅` went 22 → 25 pages. Page-render
+hashing showed **17 of 25 pages unchanged**; only 8 differ, of which 3 are new
+(`work/fiqc-mid86/src-mid86-v2.md` has the full diff and transcription). Three of six sections
+turned out to need nothing — notably the "new" typed พ.ร.บ.การสาธารณสุข page, which is
+`src-tj.md` Block 1 re-typed word for word and already fully mined. Seven questions shipped of
+ten authored. **The verify pass earned its cost**: it caught `year: 2026` on every authored item
+(the bank's year is the curriculum year 5, and `src/lib/api.js` filters on it, so 2026 would
+have hidden all of them), a `tf` key written as the integer `1` that the schema rejects, a
+fabricated "5 steps" fact inside an explain, and explains written in note-correction voice.
+
+**A source correction worth carrying.** The sheet's ขั้นตอนการกำหนดมาตรฐาน list of **7 steps is
+out of date** — QvEF0KAC1zI [43:05] says "ตอนนี้ก็มี 9 ขั้นตอน". GAP certification at farm level
+is a separate 6-step route [50:22-51:42].
+
+**Also done.** The four key errors the answer-verification run confirmed (#202272 milk let-down
+→ ถูก as taught, #207359 whose keyed option was true as taught and is rewritten, #105644 →
+Furstenberg's rosette, #207447 with its ลดการเหม็นหืน option restored). Measured across all 644
+recordings: **0 examFormat over 250 characters and 0 head callouts over 400** — the earlier note
+saying 48 and 32 remained is corrected above.

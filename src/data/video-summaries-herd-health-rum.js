@@ -2096,8 +2096,9 @@ Goal: prepare students for **Year 5/6 fieldwork** + future practice.
     examFormat: "Multiple choice + scenario, ออกเรื่องการตรวจ Single Intradermal, DDx, F+/F- causes, 3-5 ปี incubation",
     summary: `# Bovine Tuberculosis (วัณโรคโค) + Paratuberculosis (Johne's Disease)
 
-> 🎯 **2 chronic mycobacterial diseases** ของวัว · **Bovine TB** = *M. bovis*, re-emerging zoonotic disease, diagnosed by **Single Intradermal Tuberculin Test** at caudal fold or cervical, "test-and-cull only" — no treatment. **Paratuberculosis (Johne's)** = MAP, ⭐ **3-5 year incubation** (longest of any cattle disease!), **Pea-soup green diarrhea**, no fever, animal eats normally but wastes away ⭐⭐⭐
-> ⚠️ Both: culture takes weeks-months · screening tests imperfect · control = test-and-segregate or cull
+> 🎯 **2 chronic mycobacterial diseases** ของวัว **Bovine TB** = *M. bovis* เป็น re-emerging zoonotic disease วินิจฉัยด้วย **Single Intradermal Tuberculin Test** ที่ caudal fold หรือ cervical และไม่มียารักษา
+> 🎯 **Paratuberculosis (Johne's)** = MAP ระยะฟักตัว **3-5 ปี** ยาวที่สุดในบรรดาโรคของวัว อาการคือท้องเสีย **pea-soup green** ไม่มีไข้ กินอาหารได้ปกติแต่ผอมลงเรื่อยๆ
+> ⚠️ ทั้งคู่เพาะเชื้อใช้เวลาเป็นสัปดาห์ถึงเป็นเดือน ชุดตรวจคัดกรองไม่แม่น และการควบคุมคือ test-and-segregate หรือ test-and-cull
 
 ---
 
