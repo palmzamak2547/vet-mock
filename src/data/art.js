@@ -150,6 +150,16 @@ export const LECTURE_COVERS = {
     'avian-egg-breakout': { src: base('lecture-covers', 'avian-medicine-avian-egg-breakout'), alt: 'ปกสไลด์ Egg Breakout Analysis แถบชมพูฟ้า' },
     'avian-ahra-set': { src: base('lecture-covers', 'avian-medicine-avian-ahra-set'), alt: 'ปกสไลด์ Omphalitis Ascites Staphylococcus Salmonella Adenovirus พื้นดำ กรอบเหลือง' },
   },
+  // FIQC 3109501, midterm 2026-09-22: the title slide of each deck, cropped
+  // from the students' screenshots of the course files. Period 1 taught two
+  // decks, so it has two covers under the one topic id.
+  'food-industry': {
+    'fiqc-intro': { src: base('lecture-covers', 'food-industry-fiqc-intro'), alt: 'ปกสไลด์ Food Industry and Quality Control Introduction พื้นขาว กรอบเทา' },
+    'fiqc-public-health-act': { src: base('lecture-covers', 'food-industry-fiqc-public-health-act'), alt: 'ปกสไลด์ พระราชบัญญัติการสาธารณสุข พื้นขาว กรอบน้ำเงินเทา' },
+    'fiqc-feed-qc': { src: base('lecture-covers', 'food-industry-fiqc-feed-qc'), alt: 'ปกสไลด์ อุตสาหกรรมอาหารสัตว์และการควบคุมคุณภาพ พื้นขาว กรอบเทา' },
+    'fiqc-slaughter-qc': { src: base('lecture-covers', 'food-industry-fiqc-slaughter-qc'), alt: 'ปกสไลด์ การควบคุมกระบวนการฆ่าและการจำหน่ายเนื้อสัตว์ พื้นขาว กรอบเทา' },
+    'fiqc-livestock-qc': { src: base('lecture-covers', 'food-industry-fiqc-livestock-qc'), alt: 'ปกสไลด์ มาตรฐานสินค้าเกษตรที่เกี่ยวข้องกับกระบวนการผลิตปศุสัตว์ ภาพไก่ไข่ในฟาร์ม' },
+  },
   // One Health 3109502, midterm 2026-09-21: the title slide of each session's
   // deck, cropped from the students' screenshots of the course files.
   'one-health': {

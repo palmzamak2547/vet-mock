@@ -25,11 +25,12 @@ import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { QB_TOTAL, QB_BLOCKED_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR, Q_PANIC_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
 import { CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { hasSupabase } from '../lib/supabase.js';
+import PrivateNotes from '../components/PrivateNotes.jsx';
 
 const RANGES = [[7, '7 วัน'], [30, '30 วัน'], [90, '90 วัน'], [0, 'ทั้งหมด']];
 const SECTIONS = [
   ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
-  ['content', 'คลัง'], ['community', 'ชุมชน'], ['errors', 'ข้อผิดพลาด'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
+  ['content', 'คลัง'], ['community', 'ชุมชน'], ['errors', 'ข้อผิดพลาด'], ['notes', 'บันทึก'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
 ];
 const KIND_LABEL = { feature: 'ฟีเจอร์', add: 'เพิ่ม', fix: 'แก้บั๊ก', content: 'เนื้อหา', change: 'ปรับ' };
 const KIND_TONE = { feature: 'info', add: 'info', fix: 'warn', content: 'good', change: 'good' };
@@ -618,6 +619,8 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
               </div>
             )}
           </section>
+
+          <PrivateNotes />
 
           <section id="ad-database" className="ad-card">
             <div className="ad-card-head"><h2>ฐานข้อมูล</h2><p>จำนวนแถวของทุกตาราง และสัญญาณอื่นที่เก็บอยู่</p></div>

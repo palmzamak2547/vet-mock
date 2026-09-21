@@ -251,6 +251,7 @@ Local reusable skill for future agents:
 Canonical repo knowledge map:
 - `docs/PROJECT_KNOWLEDGE_BASE.md` (read this when the vault is unavailable)
 - `docs/QUESTION-STANDARD.md` — before writing/editing questions
+- `docs/EXAM-SUBJECT-PIPELINE.md` — before taking a new exam subject from timetable to release
 - `docs/DESIGN_SYSTEM.md` + `docs/css-token-baseline.json` — before styling changes
 - `wiki/guides/content-pipeline.md` — content pipeline detail
 - `wiki/operations/testing-and-ci.md` — lint/CI gates detail
@@ -2630,6 +2631,28 @@ Palm, 2026-09-20 late afternoon, three requests in a row. (1) "พวกข้�
 
 Palm, 2026-09-20 evening, two requests. (1) "ตอนกดดาวน์โหลดสไลด์ให้มันเร็วขึ้นกว่านี้ได้ไหม": the glyph fetched the whole deck into memory (7.7 MB through /api/library-blob) before handing a blob URL over, so nothing visible happened until the last byte. Now a same-origin blob URL is given to the browser's own downloader (an anchor with download=, plus dl=1&name= on the URL; api/library-blob.js answers dl=1 with Content-Disposition attachment and the asked name, ASCII fallback plus filename*) — the download appears in the browser's list at once with its own progress; cross-origin CDN URLs keep the fetch-and-save path, Drive documents open in a tab. (2) "ผมอยากให้คุณทำ glossary ทบทวนทุกโรคที่เรามีเรียนใน avian med midterm … ส่วน one health … สรุป wrap up ของ midterm เหมือนกัน เอาเน้นๆ … ข้อมูลถูกต้อง แม่นยำ … หาตำแหน่งเอาไปใส่ดีๆ ให้คนมองเห็น": a new lazy view (src/views/WrapUpView.jsx) reads src/data/wrapups/<subject>.js through src/data/exam-wrapups.js (index, WRAPUP_SCOPE year 5 / 1-mid, hasWrapUp, loadWrapUp). Content shape: groups per lecturer (id, lecturer, format, formatNote) → items (topic, name, th, agent, keywords, emphasis[{text, src}], examined[{text, src}], pitfall, sources). Authored by two agents (one per subject) from the 2026 recording summaries, the governed notes, the past-paper and student-compilation questions, the seniors' sheet/audit and the decks, then refuted line by line by two more; ingested with ingest-wrapup.mjs (schema, forbidden tokens, curriculum topics, lecturer ids, exam date, bullet lengths, every bullet with a source) — Avian 26 items, One Health 6 items. Entry points: Home shows a "Wrap-up ก่อนสอบ" strip under the countdown (HomeView, subjects with hasWrapUp), the topic screen shows an entry card above the lecturer block (TopicSelectView); the page's "ฝึกแบบ…" buttons call startLecturerPractice with the lecturer's format and the count from q-kind-counts, "สไลด์ PDF" opens the deck and the reader's back returns to the wrap-up (pdfReturnView 'wrapup', exitLabel กลับหน้า wrap-up; the libraryDoc cleanup effect tolerates 'wrapup'). tests/unit/exam-wrapups.test.mjs checks scope, topics, lecturer ids, exam date, sources and forbidden tokens on the shipped files. (3) "ทำไมมันชอบขึ้นเป็นพวกรหัสแบบนี้ตอนอ้างอิงคลิป ตอนทำข้อสอบก็เหมือนกัน เก็บความ polish": src/lib/source-label.js is one display-only formatter used by WrapUpView and QSourceChip. humanSource() maps a recording id to its taught session through LECTURER_SETS (all 10 cited ids are covered; a recording carrying two timetabled sessions prints both), and rewrites deck/TJ/audit page lists and images/<n>.jpg scan paths into Thai. The stored pointer is untouched, so provenance and the lints that read the verified field are unaffected; an id it does not know is printed as written rather than guessed. 0 of 661 avian and one-health citations still show a code or a path. tests/unit/source-label.test.mjs has 8 cases. Provenance audit before shipping: all 89 question ids cited as examined really carry sourceType past-paper or student-compilation, and all 11 audit pages cited alone carry real exam-kind records (mcq/tf/match), not slide-content. (7) The Home strip drops a subject the moment that paper ends (Palm: "พอหลังสอบเสร็จให้มันหายไปในวันได้ไหม จะได้ไม่เบียดวิชาหลังๆ เฉพาะหน้าแรก"). exam-wrapups.js wrapUpStillAhead(subject, papers, endMsOf, nowMs, term) is deliberately called unmemoised in HomeView so the existing one-to-five-minute tick makes it disappear on its own; it takes the term because both subjects also sit a final in November and without that filter the midterm strip would have lingered two months. The topic-screen card stays, because a finished paper is still worth revising from. Simulated across exam day: both until 09:30, avian alone until 15:00, nothing after. Checks: unit 1157/1157 (exam-wrapups 7, source-label 8 added). Gate: build 1m 13s, lint:all clean, Playwright 693 passed / 11 failed in 13.5 min on a loaded machine — every one of the eleven passes in isolation except the known webkit service-worker activating-vs-activated race, which has failed the same way in gates 6 through 9 and which this diff cannot touch (git diff names no worker file). Isolation: chromium 5/5, firefox 1/1, webkit 5/6. The 320px mobile-compat failure was a 120 s navigation timeout, not a layout assertion. Provenance audited before shipping: 89/89 question ids cited as examined carry sourceType past-paper or student-compilation, and 11/11 audit pages cited alone hold exam-kind records rather than slide-content. The production proof is appended after the deploy.
 
+### 5.126.5 — Food Industry and Milk Hygiene, timetable to release in one evening
+
+Palm, 2026-09-21 evening, straight after sitting One Health and Avian: "ลุย Food Industry กันต่อ … เดี๋ยวผมเอา Milk Hygiene มาให้ต่อ … สำคัญคือ check คำตอบ และ fact ด้วย". Two papers the next day, 3109501 at 08.30 and 3109503 at 13.00, done in one evening on the workflow now written down in docs/EXAM-SUBJECT-PIPELINE.md — which exists because he also asked for it here: "ผมอยากให้จดworkflowนี้ไว้ agentอื่นรู้ด้วยก็ดีนะ เผื่อผมเปลี่ยน account หรือ limit หมด". work/exam-content-pipeline/ is gitignored, so the playbook now also lives in docs/ and is pointed at from AGENTS.md and CLAUDE.md.
+
+**What shipped.** lecturer-sets.js gained both subjects: food-industry (สิรวิทย์ 3 คาบ, มินตรา 1 คาบ) and milk-meat-hygiene (จักรกริศน์ 1, รุ่งทิพย์ 2, สหฤทัย 3, covering all 13 midterm topics). Five FIQC deck covers were cropped from Palm's title-slide screenshots into public/art/lecture-covers/ and registered in art.js; Milk has none yet and renders the blank tile. Two wrap-ups: food-industry 2 groups / 4 items / 44 bullets, milk-meat-hygiene 3 groups / 13 items / 141 bullets, both through ingest-wrapup.mjs with zero faults, both registered in exam-wrapups.js. 244 new questions through the new ingest-midterm.mjs (a parametrised ingest-fiqc.mjs, now serving both subjects): FIQC midterm topics 104 → 209, Milk 457 → 596, ids 207000-207243.
+
+**Three source corrections worth keeping.** (1) ไทยส่งออกอาหารเป็นอันดับ 19 ของโลก คิดเป็น 0.9% — QvEF0KAC1zI [6:22]. The Vet 85 compilations print 12 and the Vet 86 hand strikes it through; 19 is the current figure. (2) The senior key prints isotonic saline as 0.89%; the 2025 Determination deck and the recording both give 0.85%. (3) 3ihoAGQwxGk mis-hears the antibiotic in yeast-and-mould media as ampicillin; the deck gives chloramphenicol 5 µg/ml or chlortetracycline 100 µg/ml. All three are folded back into work/milk-mid86/src-tj-key.md so the next agent does not reproduce them.
+
+**A contradiction that turned out not to be one.** The senior key's items 52 and 53 look inconsistent about Geobacillus stearothermophilus in the European six-plate test. Two agents settled it independently against the deck and the recording: the six-plate panel is E. coli ATCC 25922 (pH 7.2), M. luteus ATCC 9341 (pH 8), B. cereus ATCC 11778 (pH 6) and B. subtilis ATCC 6633 (pH 6, 7.2, 8) — four organisms, six plates — while G. stearothermophilus belongs to the bioassay panel. Item 53 is right. Item 52 was dropped because "no clear zone means no residue" ignores the detection limit.
+
+**A real bank defect found in passing.** questions-y5-fiqc-pastpaper.js had all 49 items on the default topic fiqc-intro, although 33 are feed, slaughter or livestock-standard questions — so drilling fiqc-livestock-qc never surfaced the Q-mark or มาตรฐานบังคับ items, and fiqc-intro (the one deck the lecturer said is not examined) looked four times its real size. Re-topiced, and all 49 given the sourceType and examOrigin they were missing.
+
+**A lint false positive to know about.** NAMES_DOCUMENT in scripts/lib/question-standard.mjs matches "หน้าที่แล้ว" as a substring, so the ordinary phrase "พนักงานเจ้าหน้าที่แล้ว" trips the stem-names-the-source-doc defect. It was worked around by rewording one stem rather than weakening the pattern the night before a paper; the pattern wants a boundary or a negative lookbehind when someone next touches it.
+
+**Summary readability.** Palm: "ทำไมผมเห็นสรุปคลิปบางอัน ภาษามันแปลกๆ … Exam format กับจุดที่ใส่กรอบ ยาวเกินไปเยอะ ปกติเราทำดีกว่านี้ไหม". Measured across all 644 recordings: 57 examFormat over 250 characters, 39 over 400, longest 1,742; 41 head callouts over 400, longest 1,299. The nine recordings behind these two papers were rewritten — examFormat now two sentences at 213-221 characters, head callouts three lines at 162-218 — with every cut fact checked as already present in the body and every surviving [mm:ss] checked against the pre-edit text. **The other 48 examFormat and 32 callouts over budget are still out there and are the obvious next job.**
+
+**Shelf.** Three decks Palm had only in LINE are now on it — ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี, Milk Lecture, Milk Book (updated 4) — through ingest-library.mjs --rows-out, with the catalog INSERT run through the Supabase MCP exactly as that script's own comment prescribes, because no service-role key exists on this machine. "4. Determination of milk quality 2025.pdf" was already there; its sha256 matched determination-of-milk-quality-ba986c.
+
+**Still open.** Milk deck covers. An instructor-directory entry for มินตรา ลักขณา (external speaker from มกอช.; every existing row carries verified publications, so hers needs a real Crossref pass rather than a stub). The pig-farm GAP threshold is settled and already correct in 202262 — มกษ. 6403-2565, phase 1 สุกรขุน ≥1,500 or แม่สุกร ≥120, phase 2 500-1,499 or 95-119 — while the recording's 1,200/500 is the lecturer misremembering and saying so [60:36].
+
+Checks: unit 9/9 on exam-wrapups, q-counts green after regen, lint:deck-refs 0, lint:question-standard no regression, lint:questions 0 errors with no new warnings on any of the 244, lint:academic-safety clean, lint:all clean apart from audit:contrast wanting a fresh dist. Every Pearson-square item was re-derived by hand, distractor derivations included. The gate result and the production proof are appended below after the run.
+
 **Content, in each lecturer's format:** 119 questions added to questions-mid86-avian-medicine.js (ids 206039-206157): 98 true/false — อ.สมศักดิ์ 54 (myco 17, coli 17, fowl cholera 10, coryza 10) and อ.เกรียงวิชญ์ 44 (omphalitis/ascites/staph 14, AE 7, adeno 11, salmonella 12); 18 matching for อ.ณทยา — the two printed sets converted completely (20 items keyed against the printed answer boxes and the senior's pencil in 11.jpg) plus 14 written from the session 1, 5 and 6 recordings; 3 written for อ.จิโรจ (1 hatchery-hygiene item under avian-egg-breakout, 2 moved to avian-intro because the session-4 recording carries no egg-breakout content at all). Three authoring agents, three independent verifiers reading the same sources: 3 + 4 + 4 wording fixes, 2 + 0 + 1 drops, and one owner drop — an AE past-paper item marked True on a '4 สัปดาห์' the lecturer never said (he said 6). Every card count on the lecturer tab comes from these numbers via the kind table. Open: the Marek vaccine thaw time — the recording says 30 นาที, glossary.js says 30 วินาที; neither number ships until a reliable source settles it, and glossary.js should be checked.
 
 **Next subject, the recipe:** class announcement → timetable sessions →
@@ -2637,6 +2660,53 @@ Palm, 2026-09-20 evening, two requests. (1) "ตอนกดดาวน์โ�
 covers → one `LECTURER_SETS` entry → two authoring agents (one per format pair)
 → two verify agents → `ingest-lecturer.mjs`-style ingest → full gate. Two
 agents at a time; four tripped the limit.
+
+### Same night, 5.126.4 — handwriting stops falling to the weaker model, and a private shelf in the back office
+
+**Handwriting.** The Anthropic-first path added in 5.126.2 was measured on
+production once the key existed, and the two hardest samples failed every
+time: with extended thinking on and maxTokens 4000 the model spent the whole
+allowance inside thinking and returned a content array with no text block, so
+callAnthropic read that as a failure and the route fell through to DeepSeek —
+precisely on the images that needed the better reader. api/_lib/llm.js now
+retries once without thinking when thinking produced no text (and logs
+stop_reason and the block types when it still comes back empty), and
+api/transcribe-handwriting.js asks for 8000 tokens so the thinking pass and
+the transcription both fit. Re-measure with hw-compare.mjs after this
+deploys; before the fix, Sonnet 5 scored about 1.4% CER on the four samples
+it answered against DeepSeek's 2.5%, with DeepSeek alone at 1.0% on clean
+script and 15.9% on cursive.
+
+**A private shelf on /admin.** A general place for documents that belong to
+the owner and must not reach students. Anything under src/data/ ships inside
+the public bundle, so the route could be hidden but the bytes could not; these
+live in Postgres instead. Table public.private_notes(slug, part, title, kind,
+payload jsonb, updated_at), PK (slug, part), RLS on with **zero policies**,
+`revoke all … from anon, authenticated`. Four SECURITY DEFINER functions —
+admin_private_notes(), admin_private_note(slug), admin_private_note_put(slug,
+part, title, kind, payload), admin_private_note_delete(slug) — each opening
+with `if not public.is_admin() then raise exception 'forbidden' using errcode
+= '42501'`, REVOKEd from PUBLIC and anon (CREATE FUNCTION grants PUBLIC by
+default, so the REVOKE is not optional) and GRANTed to authenticated and
+service_role. Five impersonated attempts, as anon and as a signed-in
+non-admin, were refused.
+
+The UI is one card on /admin (บันทึก in the section nav):
+src/components/PrivateNotes.jsx with the pure half in
+src/lib/private-notes.js (splitKey, slugify; 4 unit tests). It lists notes,
+opens one, filters by number or text, deletes with a confirm, and imports
+from a local file the admin picks — the bytes go straight from disk to
+admin_private_note_put under their own session, one row per section, so a
+single request never carries a whole document. Figures ride as data URIs;
+src/lib/safe-url.js safeImageUrl already passes `data:image/*` through.
+
+Also fixed while here: the changelog carries only the handwriting fix, since
+the shelf is invisible to students and the file's own convention excludes
+that.
+
+Checks: unit 1161/1161 (private-notes 4 added), build clean, lint:all clean
+on a fresh bundle. The gate and the production proof are appended after the
+deploy.
 
 ## 2026-09-19 — Summaries stop reading like transcription audits (5.124.0)
 

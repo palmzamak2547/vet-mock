@@ -116,8 +116,23 @@ async function callAnthropic({ apiKey, model, system, user, image, maxTokens, si
   }
   const data = await res.json();
   // With thinking on, the text block follows the thinking block(s).
-  const text = (data?.content || []).filter((b) => b?.type === 'text').map((b) => b.text).join('');
-  if (!text) return { ok: false, status: 502 };
+  const readText = (d) => (d?.content || []).filter((x) => x?.type === 'text').map((x) => x.text).join('');
+  let text = readText(data);
+  if (!text && think) {
+    // The reasoning-budget trap, the Anthropic side of it: on a hard image
+    // the model can spend the whole allowance inside thinking and emit no
+    // text at all. Measured on production 2026-09-20 — the two messiest
+    // handwriting samples failed every single time and fell through to the
+    // weaker provider, which is exactly the case that needed the better one.
+    // Ask again without thinking rather than handing the answer away.
+    console.error('[llm] anthropic', model, 'no text with thinking on, stop_reason', data?.stop_reason, '— retrying without it');
+    const retry = await send(false);
+    if (retry.ok) text = readText(await retry.json());
+  }
+  if (!text) {
+    console.error('[llm] anthropic', model, 'empty text', cut(JSON.stringify({ stop_reason: data?.stop_reason, types: (data?.content || []).map((x) => x?.type) })));
+    return { ok: false, status: 502 };
+  }
   return { ok: true, text, model };
 }
 

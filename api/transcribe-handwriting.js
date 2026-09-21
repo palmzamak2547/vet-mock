@@ -103,7 +103,11 @@ export default async function handler(req, res) {
     system: SYSTEM,
     user: 'ถอดข้อความลายมือในภาพนี้ให้ครบทุกตัวอักษร รวมวรรณยุกต์และสระบนล่าง ตามที่เขียนจริง ตอบเป็น JSON เท่านั้น',
     image: { mediaType: mime, data: image },
-    maxTokens: 4000,
+    // Room for the thinking pass AND the transcription after it. At 4000 a
+    // hard image spent the lot on thinking and came back with no text, so
+    // the route fell through to the weaker provider on the samples that
+    // needed the better one (measured on production 2026-09-20).
+    maxTokens: 8000,
     timeoutMs: TIMEOUT_MS,
     prefer,
     anthropicModels,

@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 5848;
-export const QB_SOURCE_TOTAL = 5913;
+export const QB_TOTAL = 6092;
+export const QB_SOURCE_TOTAL = 6157;
 export const QB_BLOCKED_TOTAL = 65;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -31,11 +31,11 @@ export const Q_COUNTS_BY_SUBJECT = {
   'equine-medicine': 338,
   'equine-repro': 155,
   'exotic': 151,
-  'food-industry': 154,
+  'food-industry': 259,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 68,
-  'milk-meat-hygiene': 457,
+  'milk-meat-hygiene': 596,
   'one-health': 188,
   'poa-clinical': 71,
   'poultry': 178,
@@ -81,11 +81,11 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'equine-medicine': 338,
   'equine-repro': 155,
   'exotic': 108,
-  'food-industry': 138,
+  'food-industry': 243,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 68,
-  'milk-meat-hygiene': 457,
+  'milk-meat-hygiene': 596,
   'one-health': 188,
   'poa-clinical': 71,
   'poultry': 132,
@@ -129,11 +129,11 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'equine-medicine': 60,
   'equine-repro': 72,
   'exotic': 34,
-  'food-industry': 67,
+  'food-industry': 95,
   'food-safety-y4': 31,
   'herd-health-rum': 35,
   'livestock-pathology': 68,
-  'milk-meat-hygiene': 247,
+  'milk-meat-hygiene': 260,
   'one-health': 70,
   'poa-clinical': 16,
   'poultry': 68,
@@ -174,11 +174,11 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'equine-medicine': 60,
     'equine-repro': 16,
     'exotic': 34,
-    'food-industry': 67,
+    'food-industry': 95,
     'food-safety-y4': 15,
     'herd-health-rum': 20,
     'livestock-pathology': 68,
-    'milk-meat-hygiene': 247,
+    'milk-meat-hygiene': 260,
     'one-health': 63,
     'poultry': 68,
     'practrum': 17,
@@ -246,10 +246,10 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com2': 14,
     'equine-medicine': 286,
     'equine-repro': 57,
-    'food-industry': 104,
+    'food-industry': 209,
     'food-safety-y4': 15,
     'herd-health-rum': 24,
-    'milk-meat-hygiene': 457,
+    'milk-meat-hygiene': 596,
     'one-health': 153,
     'surg1': 29,
     'swine-clinic': 75,
@@ -335,7 +335,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 2495,
+    5: 2739,
   },
   '1-final': {
     2: 104,
@@ -426,10 +426,10 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'eqrepro-stallion-infect': 12,
     },
     'food-industry': {
-      'fiqc-feed-qc': 17,
-      'fiqc-intro': 46,
-      'fiqc-livestock-qc': 20,
-      'fiqc-slaughter-qc': 21,
+      'fiqc-feed-qc': 65,
+      'fiqc-intro': 29,
+      'fiqc-livestock-qc': 58,
+      'fiqc-slaughter-qc': 57,
     },
     'food-safety-y4': {
       'dose-response': 1,
@@ -467,19 +467,19 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'tuberculosis-bovine': 2,
     },
     'milk-meat-hygiene': {
-      'milk-biosec-dairy': 12,
-      'milk-borne-pathogens': 29,
-      'milk-cleaning': 14,
-      'milk-industry-std': 43,
-      'milk-mastitis': 69,
-      'milk-microbiology': 41,
-      'milk-overview': 22,
-      'milk-processing': 66,
-      'milk-products-storage': 11,
-      'milk-quality-composition': 58,
-      'milk-quality-determination': 17,
-      'milk-raw-std': 35,
-      'milk-raw-storage': 40,
+      'milk-biosec-dairy': 18,
+      'milk-borne-pathogens': 39,
+      'milk-cleaning': 20,
+      'milk-industry-std': 53,
+      'milk-mastitis': 85,
+      'milk-microbiology': 50,
+      'milk-overview': 27,
+      'milk-processing': 80,
+      'milk-products-storage': 16,
+      'milk-quality-composition': 68,
+      'milk-quality-determination': 47,
+      'milk-raw-std': 45,
+      'milk-raw-storage': 48,
     },
     'one-health': {
       'oh-collaboration': 12,
@@ -2035,7 +2035,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 3268,
+  5: 3512,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2047,7 +2047,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 3252,
+  5: 3496,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2330,12 +2330,12 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "food-industry": {
     "fiqc-aquatic": 16,
-    "fiqc-feed-qc": 17,
+    "fiqc-feed-qc": 65,
     "fiqc-haccp": 17,
-    "fiqc-intro": 46,
-    "fiqc-livestock-qc": 20,
+    "fiqc-intro": 29,
+    "fiqc-livestock-qc": 58,
     "fiqc-poultry-export": 17,
-    "fiqc-slaughter-qc": 21,
+    "fiqc-slaughter-qc": 57,
   },
   "food-safety-y4": {
     "dose-response": 1,
@@ -2395,19 +2395,19 @@ export const Q_COUNTS_BY_TOPIC = {
     "lpath-systemic": 1,
   },
   "milk-meat-hygiene": {
-    "milk-biosec-dairy": 12,
-    "milk-borne-pathogens": 29,
-    "milk-cleaning": 14,
-    "milk-industry-std": 43,
-    "milk-mastitis": 69,
-    "milk-microbiology": 41,
-    "milk-overview": 22,
-    "milk-processing": 66,
-    "milk-products-storage": 11,
-    "milk-quality-composition": 58,
-    "milk-quality-determination": 17,
-    "milk-raw-std": 35,
-    "milk-raw-storage": 40,
+    "milk-biosec-dairy": 18,
+    "milk-borne-pathogens": 39,
+    "milk-cleaning": 20,
+    "milk-industry-std": 53,
+    "milk-mastitis": 85,
+    "milk-microbiology": 50,
+    "milk-overview": 27,
+    "milk-processing": 80,
+    "milk-products-storage": 16,
+    "milk-quality-composition": 68,
+    "milk-quality-determination": 47,
+    "milk-raw-std": 45,
+    "milk-raw-storage": 48,
   },
   "one-health": {
     "oh-amr": 10,
@@ -3175,4 +3175,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-20T09:00:54.905Z
+// Built: 2026-09-21T12:00:40.163Z

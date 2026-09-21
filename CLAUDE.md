@@ -12,6 +12,7 @@ continue local content work, preserve pending edits, and do not force-push over 
 See also:
 
 - `docs/PROJECT_KNOWLEDGE_BASE.md` — current architecture and evidence map
+- `docs/EXAM-SUBJECT-PIPELINE.md` — the subject-to-release workflow, reusable per subject
 - `STABILITY.md` — regression guardrails
 - `C:\Users\palmz\.codex\skills\vetmock-project-operations\SKILL.md` — reusable local workflow
 

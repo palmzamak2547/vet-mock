@@ -372,4 +372,3521 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
       "matching"
     ]
   },
+  {
+    "id": 207105,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การตรวจคุณภาพน้ำนมดิบที่จุดรับน้ำนม (platform test) มีทั้งหมดหกวิธี ข้อใดไม่จัดอยู่ในกลุ่มนี้",
+    "options": [
+      "Dye reduction test",
+      "Test for specific gravity",
+      "Organoleptic test",
+      "Sediment test"
+    ],
+    "answer": 0,
+    "explain": "Platform test ทั้งหกวิธีคือ temperature test, organoleptic test, test for protein stability, acidity test, test for specific gravity และ sediment test ทุกวิธีให้ผลทันทีที่ชานชลาโดยไม่ต้องบ่มเชื้อ ส่วน dye reduction test ต้องหยดสีแล้วเฝ้าดูจนสีจางเป็นเวลาหลายชั่วโมง จึงจัดอยู่ในกลุ่ม laboratory test หมวด microbiological test การจำสลับกันระหว่างสองกลุ่มนี้คือจุดที่เสียคะแนนได้ทั้งข้อ",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Determination of raw milk quality",
+    "verified": "vMFY6A8LaIU [123:18-126:11]; deck Determination of milk quality 2025 — Platform tests/Laboratory tests",
+    "tags": [
+      "milk-quality-determination",
+      "platform-test"
+    ]
+  },
+  {
+    "id": 207106,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Temperature test ที่ทำเป็นอันดับแรกเมื่อน้ำนมดิบมาถึงจุดรับน้ำนม ใช้ยืนยันเรื่องใด",
+    "options": [
+      "น้ำนมมีความถ่วงจำเพาะอยู่ในช่วง 1.027 ถึง 1.035 ที่ 20 องศาเซลเซียส",
+      "น้ำนมถูกเก็บรักษาที่อุณหภูมิต่ำกว่า 10 องศาเซลเซียสมาโดยตลอด",
+      "น้ำนมมีจำนวนแบคทีเรียทั้งหมดไม่เกิน 400,000 โคโลนีต่อมิลลิลิตร",
+      "น้ำนมผ่านความร้อนแบบ LTLT ที่ 62.8 องศาเซลเซียสมาแล้ว 30 นาที"
+    ],
+    "answer": 1,
+    "explain": "เกณฑ์ของ temperature test คือน้ำนมดิบต้องอยู่ต่ำกว่า 10 องศาเซลเซียสตลอดเวลา ถ้าเกินแปลว่าเก็บรักษามาไม่ถูกต้องและจุลชีพเริ่มเจริญเติบโตแล้ว น้ำนมถังนั้นจึงไม่ควรเทรวมกับถังอื่น จำนวนแบคทีเรีย 400,000 โคโลนีต่อมิลลิลิตรเป็นเกณฑ์ของ total bacterial count ซึ่งต้องเพาะเชื้อในห้องปฏิบัติการ การให้ความร้อนแบบ LTLT เป็นกระบวนการฆ่าเชื้อไม่ใช่การตรวจ และความถ่วงจำเพาะเป็น platform test คนละวิธีที่ใช้จับการปลอมปน",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Temperature test",
+    "verified": "vMFY6A8LaIU [126:23-129:50]; deck Determination of milk quality 2025 — Temperature test",
+    "tags": [
+      "milk-quality-determination",
+      "platform-test"
+    ]
+  },
+  {
+    "id": 207107,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "น้ำนมดิบถังหนึ่งมีกลิ่นรสผิดปกติรุนแรงคล้ายมอลต์ ความผิดปกตินี้สัมพันธ์กับข้อใด",
+    "options": [
+      "การปนเปื้อนฝุ่นและฟางจากโรงเรือนที่รีดนม",
+      "การเจริญเติบโตของเชื้อ Bacillus cyanogenes ในน้ำนม",
+      "การเจริญเติบโตของเชื้อ Lactobacillus ในน้ำนม",
+      "การใช้ถังนมที่ทำจากทองแดงซึ่งเป็นโลหะคุณภาพต่ำ"
+    ],
+    "answer": 2,
+    "explain": "กลิ่นรส malty เกิดจากการเจริญเติบโตของ Lactobacillus และถือเป็นหนึ่งในสองข้อบกพร่องที่เน้นในกลุ่ม organoleptic test ถังทองแดงหรือโลหะคุณภาพต่ำทำให้เกิดข้อบกพร่องแบบ metallic-oxidized ซึ่งออกมาเป็นกลิ่นหืน กลิ่นฟางจากสิ่งแวดล้อมเรียกว่า barny ส่วน Bacillus cyanogenes ทำให้น้ำนมเปลี่ยนเป็นสีน้ำเงิน ไม่ได้ทำให้เกิดกลิ่นแบบนี้",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Organoleptic test",
+    "verified": "vMFY6A8LaIU [131:42-135:55]; deck Determination of milk quality 2025 — Organoleptic test",
+    "tags": [
+      "milk-quality-determination",
+      "organoleptic"
+    ]
+  },
+  {
+    "id": 207108,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เจ้าหน้าที่เปิดถังรับน้ำนมแล้วพบว่าน้ำนมมีสีน้ำเงิน สาเหตุที่เป็นไปได้มากที่สุดคือข้อใด",
+    "options": [
+      "มีการเติมโพแทสเซียมไดโครเมตเป็นสารกันบูดในน้ำนมถังนั้น",
+      "มีเม็ดเลือดแดงจากแม่โคที่เต้านมอักเสบเล็ดลอดเข้ามาในน้ำนม",
+      "มีการเจริญเติบโตของ Pseudomonas fluorescens ในน้ำนมถังนั้น",
+      "มีการเจริญเติบโตของ Bacillus cyanogenes ในน้ำนมถังนั้น"
+    ],
+    "answer": 3,
+    "explain": "สีของน้ำนมเป็นสิ่งที่ผู้ตรวจดูด้วยตาในขั้น organoleptic test สีน้ำเงินบ่งชี้การเจริญของ Bacillus cyanogenes โพแทสเซียมไดโครเมตทำให้น้ำนมออกสีเหลืองและรบกวนเครื่องวิเคราะห์องค์ประกอบ เม็ดเลือดแดงที่เล็ดลอดเข้ามาทำให้ได้ bloody milk ซึ่งออกสีแดง ส่วน Pseudomonas fluorescens เป็น psychrotroph ที่สร้าง protease และ lipase ทำให้นมขมและหืน แต่ไม่ให้สีน้ำเงิน",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Organoleptic test",
+    "verified": "vMFY6A8LaIU [131:42-133:10, 121:47]",
+    "tags": [
+      "milk-quality-determination",
+      "organoleptic"
+    ]
+  },
+  {
+    "id": 207109,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Alcohol test สำหรับดูเสถียรภาพของโปรตีนในน้ำนมดิบ ใช้เอทานอลความเข้มข้นเท่าใด และน้ำนมคุณภาพดีควรให้ผลระดับใด",
+    "options": [
+      "เอทานอล 68 เปอร์เซ็นต์ และควรได้ผลอย่างน้อยระดับ +6",
+      "เอทานอล 68 เปอร์เซ็นต์ และควรได้ผลอย่างน้อยระดับ +3",
+      "เอทานอล 95 เปอร์เซ็นต์ และควรได้ผลอย่างน้อยระดับ +6",
+      "เอทานอล 70 เปอร์เซ็นต์ และควรได้ผลอย่างน้อยระดับ +9"
+    ],
+    "answer": 0,
+    "explain": "วิธีนี้ใช้เอทานอล 68 เปอร์เซ็นต์เท่านั้น เพราะความเข้มข้นที่สูงกว่านี้ทำให้โปรตีนของน้ำนมเกือบทุกตัวอย่างตกตะกอนจนแยกดีเลวไม่ได้ ระดับผลอ่านจากปริมาตรเอทานอลที่ทำให้เกิด flocculation คือ +3 เมื่อเกิดที่ 3 มิลลิลิตรแรก +6 ที่ 6 มิลลิลิตร และ +9 ที่ 9 มิลลิลิตร ยิ่งเกิดที่ปริมาตรน้อยยิ่งแปลว่าโปรตีนไม่เสถียร น้ำนมดิบที่ดีจึงต้องได้อย่างน้อย +6",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Determination of protein stability",
+    "verified": "vMFY6A8LaIU [137:19-139:24]; deck Determination of milk quality 2025 — Alcohol test",
+    "tags": [
+      "milk-quality-determination",
+      "platform-test"
+    ]
+  },
+  {
+    "id": 207110,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดผลบวกจาก alcohol test จึงต้องยืนยันด้วย clot-on-boiling test เสมอ",
+    "options": [
+      "การต้มเป็นวิธีเดียวที่บอกปริมาณเซลล์โซมาติกในน้ำนมดิบได้อย่างแม่นยำ",
+      "น้ำนมเหลืองและน้ำนมจากเต้านมอักเสบให้ผลบวกได้จากอัลบูมินและเกลือที่สูงขึ้น",
+      "เอทานอลทำให้ไขมันนมแยกชั้นจนอ่านการตกตะกอนของโปรตีนได้ไม่ชัดเจน",
+      "เอทานอลตรวจการปลอมปนด้วยน้ำในน้ำนมดิบไม่ได้ ต้องอาศัยการต้มช่วยเสมอ"
+    ],
+    "answer": 1,
+    "explain": "หลักการของ alcohol test คือโปรตีนที่ไม่เสถียรจะตกตะกอน แต่ความไม่เสถียรนั้นเกิดได้จากน้ำนมเหลืองซึ่งมีอัลบูมินสูง และจากน้ำนมของโคเต้านมอักเสบซึ่งมีเกลือสูง ทั้งสองกรณีให้ผลบวกโดยที่น้ำนมไม่ได้เสียจากกรด จึงต้องยืนยันด้วย clot-on-boiling test การแยกชั้นของไขมันแก้ได้ด้วยการกวนก่อนเก็บตัวอย่าง การปลอมปนด้วยน้ำตรวจด้วยความถ่วงจำเพาะ และเซลล์โซมาติกตรวจด้วย CMT หรือเครื่องนับ ไม่ใช่ด้วยการต้ม",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Determination of protein stability",
+    "verified": "vMFY6A8LaIU [137:42-140:18]; deck Determination of milk quality 2025 — Alcohol test principle",
+    "tags": [
+      "milk-quality-determination",
+      "platform-test"
+    ]
+  },
+  {
+    "id": 207111,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ไทเทรตตัวอย่างน้ำนม 20 มิลลิลิตร ด้วย 0.1 N NaOH จนได้สีชมพูถาวรโดยใช้ NaOH ไป 4 มิลลิลิตร ค่า titratable acidity เท่ากับเท่าใด",
+    "options": [
+      "0.09 เปอร์เซ็นต์",
+      "0.72 เปอร์เซ็นต์",
+      "0.18 เปอร์เซ็นต์",
+      "0.36 เปอร์เซ็นต์"
+    ],
+    "answer": 2,
+    "explain": "สูตรคือ titratable acidity เป็นเปอร์เซ็นต์ เท่ากับ ปริมาตร 0.1 N NaOH คูณ 0.009 คูณ 100 หารด้วยปริมาตรน้ำนม แทนค่าได้ 4 คูณ 0.009 คูณ 100 หารด้วย 20 เท่ากับ 0.18 เปอร์เซ็นต์ ซึ่งเป็นขอบบนของช่วงปกติ 0.16 ถึง 0.18 เปอร์เซ็นต์ ค่า 0.36 เกิดจากการหารด้วย 10 แทน 20 ค่า 0.09 เกิดจากใช้ NaOH เพียง 2 มิลลิลิตร และ 0.72 เกิดจากใช้ NaOH 16 มิลลิลิตร",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Acidity test",
+    "verified": "vMFY6A8LaIU [141:46-144:18]; deck Determination of milk quality 2025 — Acidity test formula",
+    "tags": [
+      "milk-quality-determination",
+      "acidity",
+      "calculation"
+    ]
+  },
+  {
+    "id": 207112,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เกษตรกรรายหนึ่งเติมน้ำลงในน้ำนมดิบ อีกรายหนึ่งแยกไขมันนมออกบางส่วน ค่าความถ่วงจำเพาะของน้ำนมทั้งสองรายเปลี่ยนไปอย่างไร",
+    "options": [
+      "รายที่เติมน้ำค่าสูงขึ้น ส่วนรายที่แยกไขมันออกค่าลดลง",
+      "ทั้งสองรายมีค่าความถ่วงจำเพาะลดลงจากช่วงปกติเหมือนกัน",
+      "ทั้งสองรายมีค่าความถ่วงจำเพาะสูงขึ้นจากช่วงปกติเหมือนกัน",
+      "รายที่เติมน้ำค่าลดลง ส่วนรายที่แยกไขมันออกค่าสูงขึ้น"
+    ],
+    "answer": 3,
+    "explain": "ความถ่วงจำเพาะของน้ำนมอยู่ในช่วง 1.027 ถึง 1.035 โดยเฉลี่ย 1.032 ที่ 20 องศาเซลเซียส น้ำมีความถ่วงจำเพาะ 1.000 การเติมน้ำจึงเจือค่าลงต่ำกว่าช่วงปกติ ส่วนไขมันนมเป็นองค์ประกอบที่เบากว่าน้ำนมส่วนที่เหลือ เมื่อแยกไขมันออก สัดส่วนของของแข็งที่หนักกว่าจะเพิ่มขึ้น ค่าจึงสูงขึ้น การปลอมปนสองแบบนี้จึงดันค่าไปคนละทาง และเป็นเหตุผลที่ต้องใช้ความถ่วงจำเพาะคู่กับการวัดไขมัน",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Determination of specific gravity",
+    "verified": "vMFY6A8LaIU [144:56-146:30]; deck Determination of milk quality 2025 — Specific gravity principle",
+    "tags": [
+      "milk-quality-determination",
+      "adulteration"
+    ]
+  },
+  {
+    "id": 207113,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "อ่านค่าจาก lactometer ได้ 31.3 ขณะที่น้ำนมมีอุณหภูมิ 22 องศาเซลเซียส ต้องจัดการกับค่าที่อ่านได้อย่างไร",
+    "options": [
+      "แปลงเป็น 1.0313 แล้วบวกค่าแก้ 0.005 เพื่อเทียบกลับที่ 20 องศาเซลเซียส",
+      "แปลงเป็น 1.0313 แล้วลบค่าแก้ 0.005 เพื่อเทียบกลับที่ 20 องศาเซลเซียส",
+      "แปลงเป็น 1.313 แล้วบวกค่าแก้ 0.005 เพื่อเทียบกลับที่ 20 องศาเซลเซียส",
+      "ใช้ค่า 31.3 ได้ทันที เพราะ lactometer ชดเชยอุณหภูมิให้ในตัวอยู่แล้ว"
+    ],
+    "answer": 0,
+    "explain": "ค่าที่อ่านจาก lactometer เป็นตัวเลขสองหลัก ต้องเติม 1.0 ไว้ข้างหน้าเสมอ 31.3 จึงเป็น 1.0313 อุณหภูมิอ้างอิงของวิธีนี้คือ 20 องศาเซลเซียส ตารางค่าแก้ให้ +0.005 ที่ 22.0 องศาเซลเซียส 0 ที่ 20.0 องศาเซลเซียส และ -0.005 ที่ 18.0 องศาเซลเซียส คือวัดที่อุณหภูมิสูงกว่าค่าอ้างอิงให้บวก ต่ำกว่าให้ลบ การเขียนเป็น 1.313 คลาดเคลื่อนไปหนึ่งหลัก และเครื่องไม่ได้ชดเชยอุณหภูมิให้เอง",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Lactometer correction factor",
+    "verified": "deck Determination of milk quality 2025 — correction factor table; vMFY6A8LaIU [146:30-147:16]",
+    "tags": [
+      "milk-quality-determination",
+      "adulteration",
+      "calculation"
+    ]
+  },
+  {
+    "id": 207114,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เกณฑ์ที่ยอมรับได้ของ sediment test ในน้ำนมดิบคือเท่าใด",
+    "options": [
+      "น้อยกว่า 150 มิลลิกรัมต่อลิตร",
+      "น้อยกว่า 1.5 มิลลิกรัมต่อแกลลอน",
+      "น้อยกว่า 15 มิลลิกรัมต่อแกลลอน",
+      "น้อยกว่า 1.5 กรัมต่อแกลลอน"
+    ],
+    "answer": 1,
+    "explain": "Sediment test ใช้กรวยที่ต่อกับระบบสุญญากาศดูดน้ำนมประมาณ 1 แกลลอนผ่านแผ่นกรอง แล้วนำแผ่นกรองไปทำให้แห้งและชั่งน้ำหนัก เกณฑ์ที่ยอมรับได้คือต่ำกว่า 1.5 มิลลิกรัมต่อแกลลอน ถ้าถึงหรือเกินค่านี้ถือว่าน้ำนมสกปรก วิธีนี้จับเฉพาะการปนเปื้อนทางกายภาพ เช่น ขนโค เศษดิน เศษทราย ไม่ได้บอกจำนวนจุลชีพ",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Sediment test",
+    "verified": "vMFY6A8LaIU [147:56-149:30]; deck Determination of milk quality 2025 — Sediment test",
+    "tags": [
+      "milk-quality-determination",
+      "platform-test"
+    ]
+  },
+  {
+    "id": 207115,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การเจือจางตัวอย่างน้ำนมก่อนเพาะเชื้อ ต้องใช้สารละลายใด และเหตุใดจึงห้ามใช้น้ำกลั่นธรรมดา",
+    "options": [
+      "สารละลายกลูโคส 5 เปอร์เซ็นต์ เพราะช่วยให้แบคทีเรียที่อ่อนแอฟื้นตัวก่อนนับ",
+      "สารละลายบัฟเฟอร์ฟอสเฟต เพราะช่วยคุมค่า pH ของตัวอย่างไว้ที่ 4.6 ตลอดการนับ",
+      "Normal saline 0.85 เปอร์เซ็นต์ เพราะน้ำกลั่นทำให้จุลชีพตายจนนับได้ต่ำกว่าจริง",
+      "Normal saline 0.85 เปอร์เซ็นต์ เพราะน้ำกลั่นทำให้ไขมันนมแยกชั้นจนนับโคโลนียาก"
+    ],
+    "answer": 2,
+    "explain": "Normal saline คือโซเดียมคลอไรด์ 0.85 เปอร์เซ็นต์ ซึ่ง isotonic กับเซลล์แบคทีเรีย ถ้าใช้น้ำกลั่น แรงดันออสโมติกจะทำให้เซลล์แตกและตาย ผลที่ได้จะต่ำกว่าความจริงและสรุปผิดว่าน้ำนมสะอาด การแยกชั้นของไขมันแก้ด้วยการกวนก่อนเก็บตัวอย่าง ไม่ใช่เหตุผลของการเลือกสารเจือจาง กลูโคสจะกลายเป็นอาหารให้เชื้อเพิ่มจำนวนระหว่างรอ และ pH 4.6 คือจุดที่เคซีนตกตะกอน ไม่ใช่สภาวะที่ต้องรักษาไว้",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Dilution techniques",
+    "verified": "vMFY6A8LaIU [97:05-98:21]; deck Determination of milk quality 2025 — coagulase test uses 0.85% NaCl",
+    "tags": [
+      "milk-quality-determination",
+      "microbiology-technique"
+    ]
+  },
+  {
+    "id": 207116,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ปริมาตรตัวอย่างที่ใช้ในเทคนิค pour plate และ spread plate ต่างกันอย่างไร",
+    "options": [
+      "Pour plate ใช้ 0.1 มิลลิลิตร ส่วน spread plate ใช้ 1 มิลลิลิตร",
+      "ทั้งสองเทคนิคใช้ตัวอย่างปริมาตรเท่ากันคือ 1 มิลลิลิตรเสมอ",
+      "Pour plate ใช้ 5 มิลลิลิตร ส่วน spread plate ใช้ 0.5 มิลลิลิตร",
+      "Pour plate ใช้ 1 มิลลิลิตร ส่วน spread plate ใช้ 0.1 มิลลิลิตร"
+    ],
+    "answer": 3,
+    "explain": "Pour plate หยดตัวอย่างที่เจือจางแล้ว 1 มิลลิลิตรลงในเพลตเปล่าก่อน แล้วจึงเทอาหารเลี้ยงเชื้อตามลงไปและผสมเป็นเลขแปด ใช้กับการหา total count ส่วน spread plate หยดตัวอย่าง 0.1 มิลลิลิตร หรือ 100 ไมโครลิตร ลงบนอาหารที่แข็งอยู่แล้วแล้วเกลี่ยด้วยแท่งแก้ว ใช้กับ proteolytic count, lipolytic count และการนับ Staphylococcus การจำปริมาตรสลับกันทำให้คำนวณ dilution factor ผิดทั้งข้อ",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Inoculation of sample in plated media",
+    "verified": "vMFY6A8LaIU [109:30-111:19]; deck Determination of milk quality 2025 — Pour plate / Spread plate",
+    "tags": [
+      "milk-quality-determination",
+      "microbiology-technique"
+    ]
+  },
+  {
+    "id": 207117,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เพาะเชื้อจากน้ำนมดิบที่เจือจาง 10⁻⁴ ด้วยเทคนิค pour plate นับได้ 64 โคโลนี ควรรายงานจำนวนแบคทีเรียตั้งต้นเป็นเท่าใด",
+    "options": [
+      "6.4 × 10⁵ CFU/ml",
+      "6.4 × 10⁴ CFU/ml",
+      "6.4 × 10³ CFU/ml",
+      "1.6 × 10⁶ CFU/ml"
+    ],
+    "answer": 0,
+    "explain": "จำนวนแบคทีเรียตั้งต้นเท่ากับจำนวนโคโลนีใน 1 มิลลิลิตร คูณด้วย dilution factor คือ 64 คูณ 10⁴ เท่ากับ 640,000 แล้วเขียนให้เหลือเลขหลักเดียวหน้าจุดทศนิยมได้ 6.4 × 10⁵ CFU/ml ค่า 6.4 × 10⁴ มาจากการใช้ dilution factor 10³ ค่า 6.4 × 10³ ต่ำไปสองอันดับ และ 1.6 × 10⁶ มาจากการคูณผิด การเขียนในรูป 64 คูณ 10⁴ แม้ค่าเท่ากันแต่ไม่ถูกรูปแบบการรายงาน",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Total bacterial count",
+    "verified": "vMFY6A8LaIU [157:02-158:10]; deck Determination of milk quality 2025 — SPC worked example",
+    "tags": [
+      "milk-quality-determination",
+      "total-count",
+      "calculation"
+    ]
+  },
+  {
+    "id": 207118,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในการนับ total bacterial count ควรเลือกนับเพลตที่มีจำนวนโคโลนีอยู่ในช่วงใด และเพราะเหตุใด",
+    "options": [
+      "500 ถึง 1,000 โคโลนี เพราะเป็นช่วงที่ dilution factor มีค่าน้อยที่สุด",
+      "25 ถึง 250 โคโลนี เพราะน้อยเกินไปไม่แม่นยำ มากเกินไปก็เชื่อถือไม่ได้",
+      "1 ถึง 25 โคโลนี เพราะนับได้ครบถ้วนและไม่มีโคโลนีซ้อนทับกันเลย",
+      "250 ถึง 500 โคโลนี เพราะยิ่งมีโคโลนีมากยิ่งได้ค่าเฉลี่ยที่แม่นยำขึ้น"
+    ],
+    "answer": 1,
+    "explain": "ช่วงที่ใช้คือ 25 ถึง 250 โคโลนีต่อเพลต เพลตที่มีโคโลนีน้อยเกินไปทำให้ความคลาดเคลื่อนเชิงสุ่มสูงจนค่าที่คำนวณกลับไม่น่าเชื่อถือ ส่วนเพลตที่แน่นเกินไปมีโคโลนีซ้อนทับและแย่งอาหารกัน จำนวนที่นับได้จึงต่ำกว่าจำนวนเซลล์จริง ค่าที่ใช้ในการนับ Staphylococcus บน Baird-Parker agar ใช้ช่วง 30 ถึง 300 โคโลนี ซึ่งเป็นคนละช่วงกัน",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Total bacterial count",
+    "verified": "vMFY6A8LaIU [157:02-157:50]; deck Determination of milk quality 2025 — count 25-250 colonies",
+    "tags": [
+      "milk-quality-determination",
+      "total-count"
+    ]
+  },
+  {
+    "id": 207119,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เกณฑ์จำนวนแบคทีเรียทั้งหมด (total bacterial count) ของน้ำนมดิบและของนมพาสเจอไรซ์เป็นอย่างไร",
+    "options": [
+      "น้ำนมดิบไม่เกิน 400,000 โคโลนีต่อ 1 มิลลิลิตร และนมพาสเจอไรซ์ต้องตรวจไม่พบเลยใน 0.1 มิลลิลิตร",
+      "น้ำนมดิบไม่เกิน 10,000 โคโลนีต่อ 1 มิลลิลิตร และนมพาสเจอไรซ์ไม่เกิน 400,000 โคโลนีต่อ 0.1 มิลลิลิตร",
+      "น้ำนมดิบไม่เกิน 400,000 โคโลนีต่อ 1 มิลลิลิตร และนมพาสเจอไรซ์ไม่เกิน 10,000 โคโลนีต่อ 0.1 มิลลิลิตร",
+      "น้ำนมดิบไม่เกิน 40,000 โคโลนีต่อ 1 มิลลิลิตร และนมพาสเจอไรซ์ไม่เกิน 1,000 โคโลนีต่อ 0.1 มิลลิลิตร"
+    ],
+    "answer": 2,
+    "explain": "เกณฑ์มาตรฐานสินค้าเกษตรกำหนด total count ของน้ำนมดิบไว้ไม่เกิน 400,000 โคโลนีต่อ 1 มิลลิลิตร และของนมพาสเจอไรซ์ไม่เกิน 10,000 โคโลนีต่อ 0.1 มิลลิลิตร ส่วนที่ต้องตรวจไม่พบเลยคือนม UHT และนมสเตอริไลซ์ ไม่ใช่นมพาสเจอไรซ์ซึ่งยังมีจุลชีพที่ทนความร้อนเหลืออยู่ได้ วิธีนี้ใช้กับผลิตภัณฑ์นมหมักไม่ได้เพราะมีการเติมเชื้อลงไปตั้งแต่ต้น",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Total bacterial count",
+    "verified": "deck Determination of milk quality 2025 — TACSF 6003 total count; vMFY6A8LaIU [156:09]",
+    "tags": [
+      "milk-quality-determination",
+      "total-count",
+      "standard"
+    ]
+  },
+  {
+    "id": 207120,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เกณฑ์ปริมาณโคลิฟอร์มที่ยอมรับได้ในน้ำนมดิบและในนมพาสเจอไรซ์คือข้อใด",
+    "options": [
+      "น้ำนมดิบไม่เกิน 1,000 โคโลนีต่อมิลลิลิตร และนมพาสเจอไรซ์ไม่เกิน 100 โคโลนีต่อมิลลิลิตร",
+      "น้ำนมดิบไม่เกิน 10,000 โคโลนีต่อมิลลิลิตร และนมพาสเจอไรซ์ไม่เกิน 1,000 โคโลนีต่อมิลลิลิตร",
+      "น้ำนมดิบไม่เกิน 400,000 โคโลนีต่อมิลลิลิตร และนมพาสเจอไรซ์ไม่เกิน 10 โคโลนีต่อมิลลิลิตร",
+      "น้ำนมดิบไม่เกิน 10,000 โคโลนีต่อมิลลิลิตร และนมพาสเจอไรซ์ไม่เกิน 10 โคโลนีต่อมิลลิลิตร"
+    ],
+    "answer": 3,
+    "explain": "โคลิฟอร์มเป็นตัวชี้วัดสุขลักษณะการผลิตและการปนเปื้อนจากอุจจาระ เกณฑ์คือน้ำนมดิบไม่เกิน 10,000 โคโลนีต่อมิลลิลิตร นมพาสเจอไรซ์ไม่เกิน 10 โคโลนีต่อมิลลิลิตร และนม UHT กับนมสเตอริไลซ์ต้องตรวจไม่พบ ค่า 400,000 โคโลนีต่อมิลลิลิตรเป็นเกณฑ์ของแบคทีเรียทั้งหมดในน้ำนมดิบ ไม่ใช่ของโคลิฟอร์ม และเกณฑ์นี้นับโคลิฟอร์มทั้งกลุ่ม ไม่ได้นับเฉพาะ Escherichia coli",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Coliform bacteria",
+    "verified": "deck Determination of milk quality 2025 — TACSF 6003 coliform; 3ihoAGQwxGk [21:52-22:19]",
+    "tags": [
+      "milk-quality-determination",
+      "coliform",
+      "standard"
+    ]
+  },
+  {
+    "id": 207121,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "อาหารเลี้ยงเชื้อ Violet Red Bile agar ที่ใช้ในขั้น presumptive ของการตรวจโคลิฟอร์ม ต้องเตรียมอย่างไร",
+    "options": [
+      "ต้มให้เดือดเท่านั้น ห้ามนำไปนึ่งฆ่าเชื้อด้วยหม้อความดัน",
+      "นึ่งฆ่าเชื้อที่ 121 องศาเซลเซียส นาน 15 นาทีก่อนใช้ทุกครั้ง",
+      "กรองผ่านเมมเบรนขนาด 0.22 ไมครอนแล้วเทลงเพลตทันที",
+      "อบแห้งที่ 160 องศาเซลเซียส นาน 2 ชั่วโมงก่อนเติมน้ำกลั่น"
+    ],
+    "answer": 0,
+    "explain": "Violet Red Bile agar เป็นอาหารที่เสียสภาพเมื่อผ่านความร้อนและความดันของหม้อนึ่ง จึงต้องเตรียมด้วยการต้มให้เดือดเท่านั้น อาหารชนิดนี้ทำเป็น pour plate แล้วอ่านโคโลนีสีชมพูเป็นผล presumptive อีกทางเลือกในขั้นเดียวกันคือ lactose broth ในหลอดที่มี Durham tube ซึ่งดูความขุ่นร่วมกับแก๊ส จากนั้นจึงยืนยันด้วย Brilliant Green Bile Broth",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Coliform test",
+    "verified": "3ihoAGQwxGk [23:12-24:30]",
+    "tags": [
+      "milk-quality-determination",
+      "coliform",
+      "culture-media"
+    ]
+  },
+  {
+    "id": 207122,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ตัวอย่างน้ำนมดิบที่ทดสอบด้วย methylene blue แล้วสีจางหายภายในเวลาน้อยกว่า 2 ชั่วโมง แปลผลได้อย่างไร",
+    "options": [
+      "มีแบคทีเรียน้อยกว่า 1 ล้านต่อมิลลิลิตร จัดเป็นน้ำนมคุณภาพดีมาก",
+      "มีแบคทีเรียมากกว่า 20 ล้านต่อมิลลิลิตร จัดเป็นน้ำนมคุณภาพต่ำ",
+      "มีแบคทีเรียประมาณ 1 ถึง 4 ล้านต่อมิลลิลิตร จัดเป็นน้ำนมที่รับได้",
+      "มีแบคทีเรียประมาณ 4 ถึง 20 ล้านต่อมิลลิลิตร จัดเป็นน้ำนมที่รับได้"
+    ],
+    "answer": 1,
+    "explain": "Dye reduction test เป็นวิธีทางอ้อมที่ประมาณจำนวนแบคทีเรียจาก reduction time ยิ่งแบคทีเรียมากยิ่งใช้ออกซิเจนหมดเร็วและสีจางเร็ว เกณฑ์คือ reduction time มากกว่า 4 ชั่วโมงเท่ากับ 1 ถึง 4 ล้านต่อมิลลิลิตร ซึ่งรับได้ 2 ถึง 4 ชั่วโมงเท่ากับ 4 ถึง 20 ล้าน และน้อยกว่า 2 ชั่วโมงเท่ากับมากกว่า 20 ล้าน การตรวจทำโดยดูสีทุก 30 หรือ 60 นาที เป็นเวลานานถึง 6 ชั่วโมง",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Dye reduction test",
+    "verified": "deck Determination of milk quality 2025 — methylene blue reduction time table; vMFY6A8LaIU [163:25-164:26]",
+    "tags": [
+      "milk-quality-determination",
+      "dye-reduction"
+    ]
+  },
+  {
+    "id": 207123,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "อ่านผล resazurin test ด้วยแผ่นเทียบสี ค่าใดที่ต้องปฏิเสธน้ำนมถังนั้น",
+    "options": [
+      "แผ่นเทียบสีหมายเลข 4 ซึ่งเป็นสีม่วง",
+      "แผ่นเทียบสีหมายเลข 5 ซึ่งเป็นสีฟ้าอ่อน",
+      "แผ่นเทียบสีหมายเลข 1 ซึ่งเป็นสีชมพู",
+      "แผ่นเทียบสีหมายเลข 3 ซึ่งเป็นสีม่วงอมชมพู"
+    ],
+    "answer": 2,
+    "explain": "Resazurin เปลี่ยนสีจากน้ำเงินไปม่วง ชมพู แล้วขาวเมื่อออกซิเจนถูกใช้ไป แผ่นเทียบสีหมายเลข 6 ถึง 4 คือ น้ำเงิน ฟ้าอ่อน และม่วง จัดเป็นคุณภาพดีถึงดีมากและรับซื้อได้ หมายเลข 3 และ 2 คือ ม่วงอมชมพูและชมพูอ่อน ต้องแยกไว้ก่อน ส่วนหมายเลข 1 ซึ่งเป็นสีชมพู และหมายเลข 0 ซึ่งเป็นสีขาว ต้องปฏิเสธ เพราะสีจางถึงขั้นนั้นแปลว่ามีแบคทีเรียสูงมาก",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Resazurin test",
+    "verified": "deck Determination of milk quality 2025 — resazurin disc grade table; vMFY6A8LaIU [164:26-165:41]",
+    "tags": [
+      "milk-quality-determination",
+      "dye-reduction"
+    ]
+  },
+  {
+    "id": 207124,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "แบคทีเรียกลุ่มใดมีผลต่ออายุการเก็บรักษาของนมและผลิตภัณฑ์นมที่เก็บในตู้เย็นมากที่สุด และเพราะเหตุใด",
+    "options": [
+      "Mesophile เพราะเป็นกลุ่มที่มีจำนวนมากที่สุดในน้ำนมดิบที่เพิ่งรีดออกมา",
+      "Thermophile เพราะสร้างสปอร์ที่ทนความเย็นและงอกได้ดีในตู้เย็น",
+      "Psychrophile เพราะเป็นกลุ่มที่มี optimum temperature อยู่ที่ 4 องศาเซลเซียส",
+      "Psychrotroph เพราะเจริญได้ที่ 0 ถึง 7 องศาเซลเซียส ซึ่งคลุมอุณหภูมิตู้เย็น"
+    ],
+    "answer": 3,
+    "explain": "Psychrotroph เจริญได้ตั้งแต่ 0 ถึง 7 องศาเซลเซียส โดยมี optimum ที่ 15 ถึง 30 องศาเซลเซียส อุณหภูมิตู้เย็นที่ 4 องศาเซลเซียสจึงอยู่ในช่วงที่มันโตได้ และกลุ่มนี้ซึ่งส่วนใหญ่เป็น Pseudomonas สร้างทั้ง protease และ lipase ที่ทนความร้อน Mesophile มี optimum ที่ 20 ถึง 45 องศาเซลเซียสจึงถูกกดไว้ในตู้เย็น Thermophile เจริญที่สูงกว่า 45 องศาเซลเซียส ส่วน Psychrophile มี optimum ที่ 10 ถึง 15 องศาเซลเซียส และพบในทะเลลึกมากกว่าในน้ำนม",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Microbiological thermometer",
+    "verified": "vMFY6A8LaIU [151:02-154:14]; deck Determination of milk quality 2025 — microbiological thermometer table",
+    "tags": [
+      "milk-quality-determination",
+      "psychrotroph",
+      "shelf-life"
+    ]
+  },
+  {
+    "id": 207125,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ก่อนเพาะเชื้อเพื่อนับ thermoduric bacteria ต้องเตรียมตัวอย่างน้ำนมดิบอย่างไร และรายงานผลเป็นอะไร",
+    "options": [
+      "อุ่นที่ 62.8 องศาเซลเซียส นาน 30 นาที แล้วรายงานเป็น LPC ต่อมิลลิลิตร",
+      "อุ่นที่ 72 องศาเซลเซียส นาน 15 วินาที แล้วรายงานเป็น LPC ต่อมิลลิลิตร",
+      "อุ่นที่ 55 องศาเซลเซียส นาน 48 ชั่วโมง แล้วรายงานเป็น TBC ต่อมิลลิลิตร",
+      "แช่เย็นที่ 7 องศาเซลเซียส นาน 10 วัน แล้วรายงานเป็น PBC ต่อมิลลิลิตร"
+    ],
+    "answer": 0,
+    "explain": "หัวใจของวิธีนี้คือต้องให้ความร้อนก่อน เพื่อคัดเฉพาะเชื้อที่รอดอุณหภูมิระดับพาสเจอไรซ์ โดยใช้ 62.8 องศาเซลเซียส นาน 30 นาที ซึ่งก็คือ LTLT จากนั้นทำ pour plate สามชุดที่ 7 องศาเซลเซียส 10 วัน 32 องศาเซลเซียส 48 ชั่วโมง และ 55 องศาเซลเซียส 48 ชั่วโมง แล้วรายงานเป็น laboratory pasteurization count ส่วน 72 องศาเซลเซียส 15 วินาทีคือ HTST สภาวะ 55 องศาเซลเซียส 48 ชั่วโมงเป็นการบ่มของ thermophilic count และ 7 องศาเซลเซียส 10 วันเป็นของ psychrotrophic count",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Thermoduric count method",
+    "verified": "3ihoAGQwxGk [29:52-30:59]; deck Determination of milk quality 2025 — Thermoduric count",
+    "tags": [
+      "milk-quality-determination",
+      "thermoduric"
+    ]
+  },
+  {
+    "id": 207126,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การตรวจนับยีสต์และราในน้ำนม ใช้สภาวะการบ่มและอาหารเลี้ยงเชื้อตามข้อใด",
+    "options": [
+      "บ่มที่ 55 องศาเซลเซียส นาน 48 ชั่วโมง บน Violet Red Bile Agar ที่ปรับ pH 3.5",
+      "บ่มที่ 20 ถึง 25 องศาเซลเซียส นาน 5 ถึง 7 วัน บน Potato Dextrose Agar ที่ปรับ pH 3.5",
+      "บ่มที่ 37 องศาเซลเซียส นาน 48 ถึง 72 ชั่วโมง บน Potato Dextrose Agar ที่ปรับ pH 7.2",
+      "บ่มที่ 32 องศาเซลเซียส นาน 48 ชั่วโมง บน Standard Methods Agar ที่เติมนมพร่องไขมัน"
+    ],
+    "answer": 1,
+    "explain": "ยีสต์และราโตช้าและทนกรด จึงบ่มที่อุณหภูมิห้องคือ 20 ถึง 25 องศาเซลเซียส นาน 5 ถึง 7 วัน อาหารที่ใช้คือ Potato Dextrose Agar ที่ปรับ pH เป็น 3.5 บวกลบ 0.1 ด้วยกรดทาร์ทาริก 10 เปอร์เซ็นต์ หรือ Standard Methods Agar ที่เติมคลอร์เตตราไซคลิน 100 ไมโครกรัมต่อมิลลิลิตร หรือคลอแรมเฟนิคอล 5 ไมโครกรัมต่อมิลลิลิตร เพื่อกดแบคทีเรียไว้ การบ่มที่ 37 องศาเซลเซียส 48 ถึง 72 ชั่วโมงเป็นสภาวะของแบคทีเรีย และ Standard Methods Agar ที่เติมนมพร่องไขมันใช้นับ proteolytic bacteria",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Yeast and Mould count method",
+    "verified": "deck Determination of milk quality 2025 — Yeast and Mould count; 3ihoAGQwxGk [32:27-34:10]",
+    "tags": [
+      "milk-quality-determination",
+      "yeast-mould",
+      "culture-media"
+    ]
+  },
+  {
+    "id": 207127,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การนับ Staphylococcus spp. ในน้ำนมใช้อาหารเลี้ยงเชื้อใด และวงขุ่น (opaque zone) รอบโคโลนีเกิดขึ้นได้อย่างไร",
+    "options": [
+      "Brain Heart Infusion agar โดยเอนไซม์ lipase ของเชื้อย่อยไข่แดงที่ผสมในอาหาร",
+      "Spirit Blue agar โดยเอนไซม์ hyaluronidase ของเชื้อย่อย lipase reagent ในอาหาร",
+      "Baird-Parker agar โดยเอนไซม์ lipase ของเชื้อย่อย phosphatidylcholine ในอาหาร",
+      "Baird-Parker agar โดยเอนไซม์ coagulase ของเชื้อย่อย fibrinogen ที่ผสมในอาหาร"
+    ],
+    "answer": 2,
+    "explain": "Baird-Parker agar มี phosphatidylcholine ผสมอยู่ เมื่อ Staphylococcus aureus สร้าง lipase ออกมาย่อยสาร ดังกล่าว จะเกิดวงขุ่นรอบโคโลนีที่มีจุดดำตรงกลาง นับเพลตที่มี 30 ถึง 300 โคโลนีแล้วรายงานเป็น CFU ต่อมิลลิลิตร Brain Heart Infusion เป็นอาหารเหลวที่ใช้เลี้ยงเชื้อก่อนทำ coagulase test ไม่ใช่อาหารสำหรับนับ Spirit Blue agar ใช้นับ lipolytic bacteria และ coagulase ทำงานกับ fibrinogen ในพลาสมา ไม่ได้ทำให้เกิดวงบนอาหารแข็ง",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Determination of Staphylococcus aureus",
+    "verified": "deck Determination of milk quality 2025 — Baird-Parker; 3ihoAGQwxGk [40:18-41:48]",
+    "tags": [
+      "milk-quality-determination",
+      "staphylococcus",
+      "culture-media"
+    ]
+  },
+  {
+    "id": 207128,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ตรวจนมพาสเจอไรซ์ด้วย phosphatase test แล้วพบฟีนอลมากกว่า 4 ไมโครกรัมต่อมิลลิลิตร ข้อสรุปที่เป็นไปได้และวิธียืนยันต่อคือข้อใด",
+    "options": [
+      "พาสเจอไรซ์ไม่สมบูรณ์เพียงอย่างเดียว ยืนยันด้วยการตรวจเบตาแลคโตโกลบูลินด้วย ELISA",
+      "มีการเติมน้ำลงในน้ำนมเพียงอย่างเดียว ยืนยันด้วยการวัดความถ่วงจำเพาะด้วย lactometer",
+      "มียาปฏิชีวนะตกค้างในน้ำนม ยืนยันด้วย European six plate test ที่ใช้เพลตหลายค่า pH",
+      "พาสเจอไรซ์ไม่สมบูรณ์ หรือมีการเติมน้ำนมดิบลงไป ยืนยันด้วยการตรวจหาโคลิฟอร์ม"
+    ],
+    "answer": 3,
+    "explain": "Alkaline phosphatase ถูกทำลายด้วยอุณหภูมิพาสเจอไรซ์ทั้ง LTLT และ HTST จึงใช้เป็นตัวชี้ว่าการฆ่าเชื้อสมบูรณ์ เกณฑ์คือฟีนอลในนมพาสเจอไรซ์ต้องน้อยกว่า 4 ไมโครกรัมต่อมิลลิลิตร ถ้าเกินอธิบายได้สองทางคือการให้ความร้อนไม่ครบ หรือให้ความร้อนครบแล้วแต่มีการเติมน้ำนมดิบลงไปภายหลัง จึงยืนยันด้วยการตรวจหาโคลิฟอร์ม ถ้าพบโคลิฟอร์มแปลว่ามีการเติมน้ำนมดิบ เบตาแลคโตโกลบูลินใช้แยกนมสดจากนมผง และการวัดความถ่วงจำเพาะใช้จับการเติมน้ำ",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Phosphatase test",
+    "verified": "deck Determination of milk quality 2025 — Phosphatase test; 3ihoAGQwxGk [43:43-45:53]",
+    "tags": [
+      "milk-quality-determination",
+      "heat-treatment",
+      "phosphatase"
+    ]
+  },
+  {
+    "id": 207129,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "European six plate test ใช้เชื้อกี่ชนิด และจัดวางบนเพลตกี่เพลต",
+    "options": [
+      "ใช้เชื้อ 4 ชนิด บน 6 เพลต โดย Bacillus subtilis ใช้ถึง 3 เพลตที่ pH ต่างกัน",
+      "ใช้เชื้อ 6 ชนิด บน 6 เพลต โดยแต่ละชนิดอยู่บนเพลตของตัวเองที่ pH เดียวกัน",
+      "ใช้เชื้อ 3 ชนิด บน 6 เพลต โดย Geobacillus stearothermophilus ใช้ถึง 4 เพลต",
+      "ใช้เชื้อ 4 ชนิด บน 4 เพลต โดย Escherichia coli ใช้ถึง 2 เพลตที่ pH ต่างกัน"
+    ],
+    "answer": 0,
+    "explain": "ชุดทดสอบนี้ใช้เชื้อสี่ชนิดคือ Escherichia coli ATCC 25922 ที่ pH 7.2, Micrococcus luteus ATCC 9341 ที่ pH 8, Bacillus cereus ATCC 11778 ที่ pH 6 และ Bacillus subtilis ATCC 6633 ที่ pH 6, 7.2 และ 8 รวมเป็นหกเพลต จึงเป็นที่มาของชื่อ Geobacillus stearothermophilus เป็นเชื้อของ bioassay ไม่ได้อยู่ในชุดนี้ และวิธีนี้ใช้ได้ทั้งกับตัวอย่างน้ำนมและตัวอย่างเนื้อ",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — European six plate test",
+    "verified": "deck Determination of milk quality 2025 — ESPT bacterial culture and plate layout; 3ihoAGQwxGk [60:41-62:28]",
+    "tags": [
+      "milk-quality-determination",
+      "antimicrobial-residue"
+    ]
+  },
+  {
+    "id": 207130,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใด European six plate test จึงบอกกลุ่มของยาปฏิชีวนะที่ตกค้างได้อย่างคร่าว ๆ",
+    "options": [
+      "เพราะแต่ละเพลตบ่มที่อุณหภูมิต่างกัน ยาแต่ละกลุ่มจึงสลายตัวไปไม่เท่ากัน",
+      "เพราะยาแต่ละกลุ่มออกฤทธิ์ได้ดีที่ pH ต่างกัน จึงดูได้จากเพลตที่เกิดวงยับยั้ง",
+      "เพราะเชื้อแต่ละชนิดเปลี่ยนสีของอาหารเลี้ยงเชื้อไปคนละแบบเมื่อพบยาคนละกลุ่ม",
+      "เพราะขนาดของวงยับยั้งแปรผันตรงกับน้ำหนักโมเลกุลของยาที่ตกค้างในน้ำนม"
+    ],
+    "answer": 1,
+    "explain": "เพลตทั้งหกต่างกันที่ค่า pH และยาแต่ละกลุ่มออกฤทธิ์ได้ดีคนละช่วง pH เพลต pH 6 ให้ผลกับกลุ่มเตตราไซคลิน คลอแรมเฟนิคอล ไนโตรฟูแรน และเพนิซิลลิน เพลต pH 7.2 ให้ผลกับซัลโฟนาไมด์และฟลูออโรควิโนโลน ส่วนเพลต pH 8 ให้ผลกับไทโลซิน อีริโทรมัยซิน นีโอมัยซิน และสเตรปโตมัยซิน จึงอนุมานกลุ่มยาได้จากเพลตที่เกิดวง ต่างจาก bioassay ซึ่งบอกได้เพียงว่ามีสารตกค้างหรือไม่",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Possible antimicrobial groups from ESPT",
+    "verified": "deck Determination of milk quality 2025 — ESPT pH groups table; 3ihoAGQwxGk [62:42-62:56]",
+    "tags": [
+      "milk-quality-determination",
+      "antimicrobial-residue"
+    ]
+  },
+  {
+    "id": 207131,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Bioassay สำหรับตรวจยาปฏิชีวนะตกค้างในน้ำนม ใช้เชื้อกลุ่มใด และใช้เกณฑ์ใดตัดสินว่าพบสารตกค้าง",
+    "options": [
+      "Micrococcus luteus, Bacillus cereus และ Salmonella Typhimurium โดยวงยับยั้งกว้างกว่า 20 มิลลิเมตร",
+      "Lactobacillus bulgaricus, Streptococcus thermophilus และ Bacillus subtilis โดยไม่เกิดลิ่มนมใน 4 ชั่วโมง",
+      "Micrococcus luteus, Bacillus subtilis และ Geobacillus stearothermophilus โดยวงยับยั้งกว้างกว่า 12 มิลลิเมตร",
+      "Escherichia coli, Bacillus cereus และ Staphylococcus aureus โดยวงยับยั้งกว้างกว่า 12 มิลลิเมตร"
+    ],
+    "answer": 2,
+    "explain": "Bioassay จุ่มแผ่นกระดาษกรองในน้ำนมแล้ววางบนอาหารที่สตรีคเชื้อไว้ เชื้อที่ใช้คือ Micrococcus luteus บน Mueller-Hinton agar pH 8, Bacillus subtilis บน Mueller-Hinton agar ที่ pH 6, 7.2 และ 8 กับ minimal medium และ Geobacillus stearothermophilus บน assay medium pH 8 ต้องใช้หลายชนิดเพราะแต่ละชนิดไวต่อยาคนละกลุ่ม แผ่น disc มีเส้นผ่านศูนย์กลางราว 10 มิลลิเมตร วงยับยั้งที่กว้างกว่า 12 มิลลิเมตรจึงถือว่าพบสารตกค้าง การดูลิ่มนมเป็นหลักการของ yogurt test",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — Bioassay",
+    "verified": "deck Determination of milk quality 2025 — Bioassay bacterial culture; 3ihoAGQwxGk [57:23-59:24]",
+    "tags": [
+      "milk-quality-determination",
+      "antimicrobial-residue"
+    ]
+  },
+  {
+    "id": 207132,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "ควรบรรจุตัวอย่างน้ำนมที่จะส่งตรวจในห้องปฏิบัติการลงในภาชนะแบบใด",
+    "options": [
+      "ขวดพลาสติกใสที่ปิดสนิท เพื่อให้มองเห็นการแยกชั้นของครีมได้",
+      "ถุงพลาสติกใสแบบรูดปิด เพื่อไล่อากาศออกให้หมดก่อนนำส่ง",
+      "ขวดแก้วใสปากกว้าง เพื่อให้ดูดตัวอย่างออกมาทดสอบได้สะดวก",
+      "ขวดสีชาที่ปิดสนิท เพื่อกันแสงจากภายนอกไม่ให้เข้าถึงตัวอย่าง"
+    ],
+    "answer": 3,
+    "explain": "แสงเร่งการสูญเสียวิตามินและเร่งปฏิกิริยา oxidation ของไขมันนม ซึ่งเป็นเหตุผลเดียวกับที่ผลิตภัณฑ์นมต้องเก็บให้พ้นแสง ตัวอย่างที่จะส่งตรวจจึงควรอยู่ในภาชนะทึบแสงที่ปิดสนิท พร้อมกับเก็บที่ต่ำกว่า 10 องศาเซลเซียส และห้ามแช่แข็ง ข้อนี้ยังไม่มีการยืนยันจากคาบบรรยายปี 2569 จึงควรจำคู่กับหลักการกันแสงมากกว่าจำเป็นสีของขวดอย่างเดียว",
+    "source": "TJ 86 Block 6 ข้อ 3 (การเก็บตัวอย่างน้ำนม)",
+    "verified": "TJ Block 6 ข้อ 3; หลักการกันแสงตรงกับ TJ Block 5 ข้อ 18 และ vMFY6A8LaIU [112:01-113:27]",
+    "tags": [
+      "milk-quality-determination",
+      "sampling"
+    ]
+  },
+  {
+    "id": 207133,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่กลุ่มจุลชีพที่ต้องการตรวจนับในน้ำนม กับสภาวะการเพาะเลี้ยงที่ใช้กับกลุ่มนั้น (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "Total bacterial count",
+        "right": "บ่มที่ 32 องศาเซลเซียส นาน 48 ชั่วโมง"
+      },
+      {
+        "left": "Psychrotrophic count",
+        "right": "บ่มที่ 7 องศาเซลเซียส นาน 10 วัน"
+      },
+      {
+        "left": "Thermophilic count",
+        "right": "บ่มที่ 55 องศาเซลเซียส นาน 48 ชั่วโมง"
+      },
+      {
+        "left": "Yeast and mould count",
+        "right": "บ่มที่ 20 ถึง 25 องศาเซลเซียส นาน 5 ถึง 7 วัน"
+      },
+      {
+        "left": "Thermoduric count",
+        "right": "อุ่นน้ำนมที่ 62.8 องศาเซลเซียส 30 นาที ก่อนเพาะทั้งสามอุณหภูมิ"
+      }
+    ],
+    "distractors": [
+      "บ่มที่ 37 องศาเซลเซียส นาน 24 ชั่วโมง",
+      "บ่มที่ 70 องศาเซลเซียส นาน 15 วินาที"
+    ],
+    "explain": "ทุกวิธีในกลุ่มนี้ใช้ pour plate บน Standard Methods Agar เหมือนกัน สิ่งที่แยกออกจากกันคืออุณหภูมิและเวลาบ่ม total bacterial count บ่มที่ 32 องศาเซลเซียส 48 ชั่วโมง psychrotroph โตช้าจึงต้อง 7 องศาเซลเซียสถึง 10 วัน thermophile ใช้ 55 องศาเซลเซียส 48 ชั่วโมง ยีสต์และราใช้อุณหภูมิห้อง 20 ถึง 25 องศาเซลเซียส 5 ถึง 7 วัน ส่วน thermoduric ต่างจากทุกวิธีตรงที่ต้องอุ่นน้ำนมที่ 62.8 องศาเซลเซียส 30 นาทีก่อน แล้วจึงเพาะทั้งสามอุณหภูมิเพื่อแยก thermoduric psychrotroph, mesophile และ thermophile ออกจากกัน",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — microbiological count methods",
+    "verified": "deck Determination of milk quality 2025 — psychrotrophic/thermophilic/thermoduric/yeast-mould count; 3ihoAGQwxGk [24:30-34:10]",
+    "tags": [
+      "milk-quality-determination",
+      "microbiology-technique"
+    ]
+  },
+  {
+    "id": 207134,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-determination",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่อาหารเลี้ยงเชื้อ กับกลุ่มจุลชีพหรือคุณสมบัติที่ใช้อาหารนั้นตรวจ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "Standard Methods Agar ที่เติมนมพร่องไขมัน 1 เปอร์เซ็นต์",
+        "right": "แบคทีเรียที่สร้างเอนไซม์ย่อยโปรตีน"
+      },
+      {
+        "left": "Spirit Blue Agar ที่เติม lipase reagent",
+        "right": "แบคทีเรียที่สร้างเอนไซม์ย่อยไขมัน"
+      },
+      {
+        "left": "Violet Red Bile Agar",
+        "right": "โคลิฟอร์มในขั้น presumptive"
+      },
+      {
+        "left": "Baird-Parker Agar",
+        "right": "Staphylococcus spp."
+      },
+      {
+        "left": "Xylose Lysine Deoxycholate Agar",
+        "right": "Salmonella"
+      },
+      {
+        "left": "Potato Dextrose Agar ที่ปรับ pH 3.5",
+        "right": "ยีสต์และรา"
+      }
+    ],
+    "distractors": [
+      "แบคทีเรียที่รอดอุณหภูมิระดับพาสเจอไรซ์"
+    ],
+    "explain": "Standard Methods Agar ที่เติมนมพร่องไขมัน 1 เปอร์เซ็นต์ ให้เชื้อที่สร้างโปรติเอสย่อยเคซีนจนเห็น clear zone รอบโคโลนี Spirit Blue Agar ที่เติม lipase reagent ให้ blue zone จากเชื้อที่สร้างไลเปส Violet Red Bile Agar ให้โคโลนีสีชมพูของโคลิฟอร์มในขั้น presumptive Baird-Parker Agar มี phosphatidylcholine จึงให้โคโลนีจุดดำล้อมด้วยวงขุ่นของ Staphylococcus ส่วน XLD เป็นอาหารคัดเลือกของ Salmonella ที่ให้จุดดำตรงกลาง และ Potato Dextrose Agar ที่ปรับ pH 3.5 กดแบคทีเรียไว้จึงเหลือแต่ยีสต์และรา ส่วนเชื้อที่รอดอุณหภูมิพาสเจอไรซ์ตรวจด้วยการอุ่นตัวอย่างก่อน ไม่ได้แยกด้วยชนิดของอาหาร",
+    "source": "Determination of milk quality 2025 (อ.รุ่งทิพย์) — culture media for each count method",
+    "verified": "deck Determination of milk quality 2025 — proteolytic/lipolytic/coliform/Staphylococcus/Salmonella/yeast-mould media; 3ihoAGQwxGk [15:49-40:18]",
+    "tags": [
+      "milk-quality-determination",
+      "culture-media"
+    ]
+  },
+  {
+    "id": 207135,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในขั้นที่สี่ของการเกิดเต้านมอักเสบเกิดแผลเป็นขึ้นในเนื้อเต้านม ข้อใดอธิบายผลของแผลเป็นนี้ได้ถูกต้อง",
+    "options": [
+      "เป็นแผลถาวรที่กำจัดออกไม่ได้ และบริเวณนั้นจะสร้างน้ำนมไม่ได้อีก",
+      "เป็นแผลชั่วคราวที่หายเองในรอบการให้นมถัดไปเมื่อการอักเสบสงบลง",
+      "เป็นแผลที่ยังสร้างน้ำนมได้ตามปกติ แต่น้ำนมจะมีเซลล์โซมาติกสูงขึ้น",
+      "เป็นแผลที่ผ่าตัดเอาออกได้ ทำให้เต้านมกลับมาผลิตน้ำนมได้เท่าเดิม"
+    ],
+    "answer": 0,
+    "explain": "ขั้น tissue reaction คือระยะที่เนื้อเยื่อที่เสียหายเข้าสู่ระยะพักตัว เกิดแผลเป็น กระเปาะสร้างน้ำนมฝ่อ และเนื้อเยื่อลอกหลุด แผลเป็นนี้เป็นแบบถาวร กำจัดออกไม่ได้ และเนื้อเต้านมส่วนนั้นสูญเสียความสามารถในการสร้างน้ำนมไปเลย นี่คือเหตุผลหลักข้อหนึ่งที่ปริมาณน้ำนมลดลงอย่างต่อเนื่องแม้การติดเชื้อจะถูกรักษาหายแล้ว",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — ขั้นตอนการเกิดเต้านมอักเสบ",
+    "verified": "cHediceYO_Y [75:12-75:39]",
+    "tags": [
+      "milk-mastitis",
+      "pathogenesis"
+    ]
+  },
+  {
+    "id": 207136,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "นอกจากแผลเป็นในเนื้อเต้านมแล้ว ข้อใดเป็นสาเหตุที่ทำให้ปริมาณน้ำนมของโคที่เต้านมอักเสบลดลง",
+    "options": [
+      "แคลเซียมในน้ำนมลดลงมากจนเซลล์คัดหลั่งขาดแร่ธาตุที่ใช้สร้างน้ำนม",
+      "ความเครียดกระตุ้นการหลั่งคอร์ติซอล ร่วมกับที่โคกินอาหารได้น้อยลง",
+      "ความเครียดกระตุ้นการหลั่งออกซิโทซินมากเกินไปจนเต้านมหลั่งน้ำนมหมดก่อนรีด",
+      "แลคโตสที่สูงขึ้นดึงน้ำออกจากเต้านมกลับเข้าสู่กระแสเลือดอย่างรวดเร็ว"
+    ],
+    "answer": 1,
+    "explain": "ปริมาณน้ำนมที่ลดลงหรือ hypogalactia เป็นอาการที่เห็นชัดที่สุด และมาจากหลายทางพร้อมกัน คือแผลเป็นที่สร้างน้ำนมไม่ได้อีก กระบวนการอักเสบเอง ความเครียดที่ทำให้หลั่งคอร์ติซอลและกด galactopoietic hormone และการที่โคกลุ่มนี้กินอาหารได้ไม่ดี ออกซิโทซินในภาวะเครียดจะถูกกดไม่ใช่หลั่งเพิ่ม แลคโตสลดลงไม่ใช่สูงขึ้น และแคลเซียมค่อนข้างคงที่เพราะโคดึงจากกระดูกมาชดเชย",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — ผลของเต้านมอักเสบต่อการผลิตน้ำนม",
+    "verified": "cHediceYO_Y [106:27-107:11, 112:21-112:33]",
+    "tags": [
+      "milk-mastitis",
+      "milk-production"
+    ]
+  },
+  {
+    "id": 207137,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "รายงานผลวิเคราะห์น้ำนมจากโคที่เต้านมอักเสบมักแสดงว่าเปอร์เซ็นต์ไขมันนมเท่าเดิมหรือสูงขึ้น ข้อใดอธิบายเรื่องนี้ได้ถูกต้อง",
+    "options": [
+      "ไขมันเพิ่มขึ้นจริง เพราะอัลบูมินที่รั่วเข้ามาจับกับไขมันแล้วพาเข้าสู่น้ำนม",
+      "ไขมันเท่าเดิมจริง เพราะไขมันนมไม่ไวต่อการถูกย่อยด้วยเอนไซม์ไลเปสเลย",
+      "ไขมันลดลงจริง แต่ปริมาณน้ำนมลดลงมากกว่า ค่าเป็นเปอร์เซ็นต์จึงดูไม่เปลี่ยน",
+      "ไขมันเพิ่มขึ้นจริง เพราะการอักเสบเร่งการสังเคราะห์ไตรกลีเซอไรด์ในเต้านม"
+    ],
+    "answer": 2,
+    "explain": "ไขมันนมในภาวะเต้านมอักเสบลดลง เพราะไลเปสจากแบคทีเรียและจากตัวน้ำนมย่อยไตรกลีเซอไรด์จนเกิดกรดไขมันอิสระและกลิ่นหืน แต่เนื่องจากปริมาณน้ำนมทั้งหมดลดลงมากกว่า ค่าที่รายงานเป็นเปอร์เซ็นต์จึงดูเหมือนไม่เปลี่ยนแปลงหรือเพิ่มขึ้น นี่เป็นจุดที่อ่านผลผิดได้ง่ายที่สุด การอักเสบไม่ได้เร่งการสังเคราะห์ไขมัน อัลบูมินที่รั่วเข้ามาไปชดเชยเคซีนที่ลดลงไม่ใช่ไขมัน และไขมันนมไวต่อไลเปสมาก",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — ผลของเต้านมอักเสบต่อองค์ประกอบน้ำนม",
+    "verified": "cHediceYO_Y [114:51-115:33]",
+    "tags": [
+      "milk-mastitis",
+      "milk-composition"
+    ]
+  },
+  {
+    "id": 207138,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในน้ำนมจากโคที่เต้านมอักเสบ ระดับไอออน K⁺ เปลี่ยนแปลงไปในทิศทางใด และด้วยกลไกใด",
+    "options": [
+      "เพิ่มขึ้น เพราะโพแทสเซียมจากกระแสเลือดรั่วเข้ามาพร้อมกับโซเดียมและคลอไรด์",
+      "เพิ่มขึ้น เพราะเม็ดเลือดขาวที่ตายปลดปล่อยโพแทสเซียมออกมาสู่น้ำนม",
+      "ไม่เปลี่ยนแปลง เพราะโคดึงโพแทสเซียมจากกระดูกมาชดเชยได้เหมือนแคลเซียม",
+      "ลดลง เพราะเยื่อบุที่เสียหายทำให้โพแทสเซียมรั่วออกไปเพื่อปรับสมดุลอิเล็กโทรไลต์"
+    ],
+    "answer": 3,
+    "explain": "ปกติโพแทสเซียมมีในน้ำนมมากกว่าในเลือด ส่วนโซเดียมและคลอไรด์มีในเลือดมากกว่าในน้ำนม เมื่อเยื่อหุ้มเซลล์เยื่อบุต่อมคัดหลั่งเสียหาย โซเดียมกับคลอไรด์จากเลือดจึงรั่วเข้ามาทำให้น้ำนมเค็ม ขณะที่โพแทสเซียมรั่วออกไปทางตรงกันข้าม ผลคือโซเดียมเพิ่ม คลอไรด์เพิ่ม และโพแทสเซียมลด ส่วนแคลเซียมต่างหากที่ค่อนข้างคงที่เพราะโคดึงจากกระดูกมาชดเชย",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — การเปลี่ยนแปลงของไอออนในน้ำนม",
+    "verified": "cHediceYO_Y [115:33-116:10] และหมายเหตุท้ายบทของคาบเดียวกัน",
+    "tags": [
+      "milk-mastitis",
+      "milk-composition"
+    ]
+  },
+  {
+    "id": 207139,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ชุดค่าใดต่อไปนี้เพิ่มขึ้นทั้งหมดในน้ำนมจากโคที่เต้านมอักเสบ",
+    "options": [
+      "โซเดียม คลอไรด์ และเอนไซม์ NAGase",
+      "โซเดียม คลอไรด์ และน้ำตาลแลคโตส",
+      "โพแทสเซียม เคซีน และเอนไซม์ NAGase",
+      "โพแทสเซียม แลคโตส และไบคาร์บอเนต"
+    ],
+    "answer": 0,
+    "explain": "ภาพรวมของการเปลี่ยนแปลงคือของที่ควรอยู่ในเลือดรั่วเข้ามาในน้ำนม ได้แก่ โซเดียม คลอไรด์ ไบคาร์บอเนต อัลบูมินและโกลบูลิน ส่วนของที่ควรอยู่ในน้ำนมกลับลดลง ได้แก่ แลคโตส เคซีน และโพแทสเซียม เอนไซม์ในกลุ่ม NAGase, catalase, proteinase และ alkaline phosphatase เพิ่มขึ้นจากเม็ดเลือดขาวและเซลล์เยื่อบุที่ถูกทำลาย ชุดที่มีแลคโตส เคซีน หรือโพแทสเซียมอยู่ด้วยจึงผิดทันที",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — ผลของเต้านมอักเสบต่อองค์ประกอบน้ำนม",
+    "verified": "cHediceYO_Y [110:13-119:55]",
+    "tags": [
+      "milk-mastitis",
+      "milk-composition"
+    ]
+  },
+  {
+    "id": 207140,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดค่า pH ของน้ำนมจากโคที่เต้านมอักเสบจึงสูงขึ้น",
+    "options": [
+      "โพแทสเซียมที่เพิ่มขึ้นทำหน้าที่เป็นบัฟเฟอร์และดันค่า pH ให้สูงกว่าปกติ",
+      "แบคทีเรียที่ไม่ได้ผลิตกรดแลคติกทำให้สภาพแวดล้อมเป็นด่าง ร่วมกับไบคาร์บอเนตที่รั่วเข้ามา",
+      "แลคโตสที่เพิ่มขึ้นถูกหมักเป็นกรดแลคติกจนน้ำนมเปลี่ยนไปทางด่างในที่สุด",
+      "ไขมันนมที่ถูกย่อยเป็นกรดไขมันอิสระทำให้ค่า pH ของน้ำนมขยับขึ้นตามไปด้วย"
+    ],
+    "answer": 1,
+    "explain": "แบคทีเรียก่อเต้านมอักเสบส่วนใหญ่ไม่ใช่กลุ่มผลิตกรดแลคติก เมื่อเจริญเติบโตจึงเปลี่ยนสภาพแวดล้อมให้เป็นด่าง ประกอบกับไบคาร์บอเนตที่รั่วเข้าสู่น้ำนมผ่านรอยต่อระหว่างเซลล์เยื่อบุที่เสียหาย ค่า pH จึงสูงขึ้น ข้อยกเว้นคือกลุ่ม acid producer แลคโตสในภาวะนี้ลดลงไม่ใช่เพิ่มขึ้น กรดไขมันอิสระที่สูงขึ้นจะดัน pH ลงไม่ใช่ขึ้น และโพแทสเซียมลดลง",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — การเปลี่ยนแปลงของค่า pH",
+    "verified": "cHediceYO_Y [108:04-108:16, 116:47-117:23]",
+    "tags": [
+      "milk-mastitis",
+      "milk-composition"
+    ]
+  },
+  {
+    "id": 207141,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดแคลเซียมและฟอสฟอรัสในน้ำนมจากโคที่เต้านมอักเสบจึงเปลี่ยนแปลงไม่มากนัก",
+    "options": [
+      "เพราะเยื่อบุต่อมคัดหลั่งที่เสียหายยังกั้นแร่ธาตุทั้งสองไว้ได้อย่างสมบูรณ์",
+      "เพราะการอักเสบกระตุ้นให้เซลล์คัดหลั่งขับแคลเซียมเข้าสู่น้ำนมมากขึ้นพอดี",
+      "เพราะแม่โคดึงแคลเซียมจากกระดูกมาชดเชย ร่วมกับที่ยังได้รับจากอาหารอยู่บ้าง",
+      "เพราะแคลเซียมและฟอสฟอรัสจับกับเคซีนแน่นจนเอนไซม์ย่อยสลายไม่ได้เลย"
+    ],
+    "answer": 2,
+    "explain": "แม้โคที่เต้านมอักเสบจะกินอาหารได้น้อยลง แต่ร่างกายดึงแคลเซียมจากกระดูกเข้ามาเสริม รวมกับส่วนที่ยังได้จากอาหาร ค่าที่วัดได้จึงดูไม่ค่อยเปลี่ยนแปลง ต่างจากโซเดียม คลอไรด์และโพแทสเซียมที่ขยับชัดเจนตามความเสียหายของเยื่อหุ้มเซลล์ เยื่อบุที่เสียหายไม่ได้กั้นอะไรไว้ได้อย่างสมบูรณ์ และการอักเสบไม่ได้เร่งการขับแคลเซียมเข้าน้ำนม",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — แคลเซียมและฟอสฟอรัสในน้ำนม",
+    "verified": "cHediceYO_Y [117:37-118:04]",
+    "tags": [
+      "milk-mastitis",
+      "milk-composition"
+    ]
+  },
+  {
+    "id": 207142,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เมื่อโคเป็นเต้านมอักเสบ ค่า chloride-lactose ratio ของน้ำนมเปลี่ยนแปลงอย่างไร และเพราะเหตุใด",
+    "options": [
+      "ลดลง เพราะคลอไรด์ถูกขับออกไปพร้อมกับโพแทสเซียมที่รั่วออกจากน้ำนม",
+      "สูงขึ้น เพราะแลคโตสเพิ่มขึ้นเร็วกว่าคลอไรด์ที่ค่อย ๆ เพิ่มตามหลังมา",
+      "ไม่เปลี่ยนแปลง เพราะคลอไรด์และแลคโตสเพิ่มขึ้นในสัดส่วนที่เท่ากันพอดี",
+      "สูงขึ้น เพราะคลอไรด์รั่วเข้ามาเพิ่มขึ้นขณะที่การสร้างแลคโตสลดลง"
+    ],
+    "answer": 3,
+    "explain": "ค่านี้คำนวณจากเปอร์เซ็นต์คลอไรด์คูณ 100 หารด้วยเปอร์เซ็นต์แลคโตส ในภาวะเต้านมอักเสบตัวตั้งเพิ่มขึ้นเพราะคลอไรด์จากเลือดรั่วเข้ามา ส่วนตัวหารลดลงเพราะเอนไซม์ lactose synthetase ทำงานได้น้อยลง อัตราส่วนจึงสูงขึ้นและใช้เป็นตัวชี้ความผิดปกติได้ คลอไรด์ที่มากขึ้นยังเป็นเหตุผลที่น้ำนมมีรสเค็ม โพแทสเซียมที่รั่วออกไปไม่ได้พาคลอไรด์ออกไปด้วย",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — แลคโตสและ chloride-lactose ratio",
+    "verified": "cHediceYO_Y [110:13-112:10]",
+    "tags": [
+      "milk-mastitis",
+      "milk-composition"
+    ]
+  },
+  {
+    "id": 207143,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "โคตัวหนึ่งมีน้ำนมกลิ่นเหม็นหืน สีเปลี่ยน และมีตะกอนโปรตีนเล็ก ๆ ลอยอยู่ แต่ไม่มีไข้และไม่มีอาการทั่วร่างกายเลย จัดเป็นเต้านมอักเสบชนิดใด",
+    "options": [
+      "Sub-acute mastitis",
+      "Per-acute mastitis",
+      "Acute mastitis",
+      "Subclinical mastitis"
+    ],
+    "answer": 0,
+    "explain": "Sub-acute mastitis คือชนิดที่การอักเสบเบาบางลงจนไม่มีอาการทั่วร่างกาย แต่เห็นการเปลี่ยนแปลงของน้ำนมได้ชัด ทั้งกลิ่นเหม็นหืน สีที่เปลี่ยนไป และตะกอนโปรตีนเล็ก ๆ Per-acute mastitis เกิดเร็วและรุนแรง มีไข้และอาจทำให้แม่โคตายได้ Acute mastitis เกิดเร็วแต่เบากว่าและยังมีอาการทั่วร่างกายอยู่บ้าง ส่วน subclinical mastitis จะไม่เห็นความผิดปกติของน้ำนมด้วยตาเลย ต้องใช้การตรวจทางเคมีหรือ somatic cell count",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — การแบ่งชนิดของเต้านมอักเสบตามอาการ",
+    "verified": "cHediceYO_Y [75:50-78:25]",
+    "tags": [
+      "milk-mastitis",
+      "classification"
+    ]
+  },
+  {
+    "id": 207144,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใด subclinical mastitis จึงถูกเปรียบว่าเป็นส่วนที่จมอยู่ใต้น้ำของภูเขาน้ำแข็ง",
+    "options": [
+      "เพราะเชื้อสาเหตุจมอยู่ใน gland cistern และไม่ถูกขับออกมากับน้ำนมที่รีดได้",
+      "เพราะเต้านมและน้ำนมดูปกติทุกอย่าง แต่ผลผลิตลดลงและตรวจพบความผิดปกติทางเคมีได้",
+      "เพราะพบเฉพาะในฤดูหนาวที่อุณหภูมิต่ำ จึงถูกมองข้ามในฟาร์มเขตร้อนอย่างประเทศไทย",
+      "เพราะเกิดเฉพาะกับเต้านมคู่หลังซึ่งอยู่ในตำแหน่งที่ผู้รีดนมมองไม่เห็นขณะรีดนม"
+    ],
+    "answer": 1,
+    "explain": "Subclinical mastitis เป็นรูปแบบที่พบมากที่สุด เต้านมดูปกติ น้ำนมสีขาวปกติ แต่ปริมาณน้ำนมลดลงและเมื่อทดสอบคุณสมบัติทางเคมีหรือนับเซลล์โซมาติกจะพบความผิดปกติ สิ่งที่มองเห็นในฟาร์มจึงเป็นเพียงยอดเล็ก ๆ ขณะที่ส่วนที่ยังไม่ถูกตรวจมีอีกมาก ภาวะนี้ไม่ได้ผูกกับฤดูกาล ไม่ได้จำกัดอยู่ที่เต้านมคู่ใดคู่หนึ่ง และเชื้อไม่ได้ถูกกักอยู่ใน gland cistern",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — subclinical mastitis",
+    "verified": "cHediceYO_Y [78:25-79:46]",
+    "tags": [
+      "milk-mastitis",
+      "classification"
+    ]
+  },
+  {
+    "id": 207145,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ก่อนใช้เครื่องวัด electrical conductivity คัดกรองเต้านมอักเสบในฟาร์มหนึ่ง ต้องทำสิ่งใดก่อนจึงจะแปลผลได้",
+    "options": [
+      "เจือจางน้ำนมด้วย normal saline 0.85 เปอร์เซ็นต์ ในอัตราส่วนหนึ่งต่อสิบก่อนวัด",
+      "ตรวจ somatic cell count ของทุกเต้าด้วยวิธีจุลทรรศน์เพื่อใช้เทียบเป็นค่าอ้างอิง",
+      "หาค่า threshold ของฟาร์มนั้นจากการวัดในช่วงที่โคในฝูงดูปกติที่สุด",
+      "ปรับเครื่องให้อ่านค่าที่ 4 องศาเซลเซียส เพราะเป็นอุณหภูมิเก็บน้ำนมมาตรฐาน"
+    ],
+    "answer": 2,
+    "explain": "หลักการของวิธีนี้คือน้ำนมจากเต้าที่อักเสบมีโซเดียมและคลอไรด์สูงขึ้นและโพแทสเซียมต่ำลง การนำไฟฟ้าจึงเปลี่ยน แต่ค่าฐานต่างกันไปตามฝูงและการจัดการ จึงต้องวัดในช่วงที่โคดูปกติที่สุดเพื่อกำหนดค่า threshold ของฟาร์มนั้นก่อน แล้วจึงถือว่าค่าที่สูงกว่านั้นคือสัญญาณของปัญหา วิธีนี้วัดจากน้ำนมที่บีบลงถ้วยของเครื่องได้ทันทีโดยไม่ต้องเจือจางและไม่ต้องปรับอุณหภูมิ",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — electrical conductivity test",
+    "verified": "cHediceYO_Y [100:30-101:27]",
+    "tags": [
+      "milk-mastitis",
+      "diagnosis"
+    ]
+  },
+  {
+    "id": 207146,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เต้านมอักเสบจากแบคทีเรียกลุ่มโคลิฟอร์ม มีกลไกและลักษณะน้ำนมอย่างไร",
+    "options": [
+      "สร้าง hyaluronidase ทำให้เนื้อเยื่อถูกทำลาย น้ำนมมีสีเขียวและกลิ่นองุ่น",
+      "สร้าง coagulase ทำให้เกิดพังผืด น้ำนมข้นคล้ายหนองและแยกชั้นชัดเจน",
+      "สร้าง enterotoxin ทำให้เต้านมเน่า น้ำนมมีสีน้ำเงินและตกตะกอนเป็นแผ่น",
+      "สร้าง endotoxin ทำให้อักเสบรุนแรง น้ำนมลดลงมากและมีสีเหลือง"
+    ],
+    "answer": 3,
+    "explain": "โคลิฟอร์มเป็นแบคทีเรียแกรมลบจากสิ่งแวดล้อมและสิ่งรองนอน จัดอยู่ในกลุ่ม environmental mastitis กลไกสำคัญคือการสร้าง endotoxin ซึ่งทำให้เกิดการอักเสบอย่างรุนแรง ปริมาณน้ำนมลดลงมาก และจุดเด่นคือน้ำนมมีสีเหลือง การรักษาคาดเดายากจึงอาจต้องทำ sensitivity test hyaluronidase และ coagulase เป็นเอนไซม์ของ Staphylococcus aureus ส่วนสีเขียวและกลิ่นคล้ายองุ่นเป็นลักษณะของ Pseudomonas aeruginosa ในจานเพาะเชื้อ",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — environmental mastitis กลุ่มโคลิฟอร์ม",
+    "verified": "cHediceYO_Y [88:26-89:18]",
+    "tags": [
+      "milk-mastitis",
+      "environmental-mastitis"
+    ]
+  },
+  {
+    "id": 207147,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในแง่สาธารณสุข ผลกระทบข้อใดถือเป็นปัญหาที่แท้จริงของการมียาปฏิชีวนะตกค้างในน้ำนม",
+    "options": [
+      "การที่แบคทีเรียพัฒนาความดื้อยาขึ้นจากการสัมผัสยาในระดับต่ำอย่างต่อเนื่อง",
+      "การแพ้ยาในผู้บริโภค ซึ่งพบได้บ่อยกว่าการแพ้จากการรับประทานยาโดยตรง",
+      "การที่น้ำนมมีรสขมจนผู้บริโภคปฏิเสธผลิตภัณฑ์และผู้ผลิตขาดทุนเป็นวงกว้าง",
+      "การที่ยาตกค้างจับกับแคลเซียมในน้ำนมจนผู้บริโภคได้รับแคลเซียมไม่เพียงพอ"
+    ],
+    "answer": 0,
+    "explain": "ยาปฏิชีวนะตกค้างก่อผลหลายอย่าง ทั้งการแพ้ในผู้ที่ไวต่อยา การที่ผลิตภัณฑ์หมักเดินไม่ได้เพราะเชื้อเริ่มต้นถูกฆ่า และการดื้อยา แต่ข้อที่ถือว่าเป็นปัญหาจริงคือการดื้อยา เพราะสารตกค้างในระดับต่ำเป็นแรงกดดันให้แบคทีเรียพัฒนาความดื้อขึ้น ส่วนการแพ้จากสารตกค้างในน้ำนมพบน้อยกว่าการแพ้จากการรับประทานยาเอง รสขมมาจากโปรตีนที่ถูกย่อย ไม่ใช่จากยา และยาตกค้างไม่ได้ลดแคลเซียมในน้ำนม",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — ยาปฏิชีวนะตกค้างในน้ำนม",
+    "verified": "cHediceYO_Y [125:39-127:00]",
+    "tags": [
+      "milk-mastitis",
+      "antimicrobial-residue"
+    ]
+  },
+  {
+    "id": 207148,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่เชื้อก่อเต้านมอักเสบ กับลักษณะเฉพาะที่ใช้บ่งชี้เชื้อนั้น (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "Streptococcus agalactiae",
+        "right": "ขึ้นบน blood agar เป็นวงใสแบบ beta hemolysis และยังไวต่อ penicillin"
+      },
+      {
+        "left": "Staphylococcus aureus",
+        "right": "สร้าง coagulase ได้ต่างจาก Staphylococcus ชนิดอื่น และสร้างท็อกซินโปรตีน A"
+      },
+      {
+        "left": "Mycoplasma bovis",
+        "right": "ไม่มีผนังเซลล์ รูปร่างไม่คงที่ ยาปฏิชีวนะจึงไม่มีเป้าหมายให้ออกฤทธิ์"
+      },
+      {
+        "left": "Pseudomonas aeruginosa",
+        "right": "โคโลนีสีเขียวและมีกลิ่นคล้ายองุ่น ดื้อยาหลายชนิดพร้อมกัน"
+      },
+      {
+        "left": "Corynebacterium pyogenes",
+        "right": "มีแมลงเป็นพาหะ หนองข้นแล้วแข็งตัว และหนองมีกลิ่นคล้ายเนย"
+      }
+    ],
+    "distractors": [
+      "ย้อมติดสีแกรมลบ สร้าง endotoxin และทำให้น้ำนมมีสีเหลือง",
+      "ไม่ทำให้อักเสบรุนแรง แต่ดันเซลล์โซมาติกขึ้นสูงมาก"
+    ],
+    "explain": "Streptococcus agalactiae เป็นแกรมบวกที่อยู่ใน teat cistern และ gland cistern ให้ beta hemolysis บน blood agar และยังตอบสนองต่อ penicillin ได้ดี Staphylococcus aureus แยกจาก Staphylococcus ชนิดอื่นได้ด้วยการสร้าง coagulase และมีโปรตีน A เป็นท็อกซินที่ทำให้อักเสบรุนแรงจนกลายเป็นเรื้อรัง Mycoplasma bovis ไม่มีผนังเซลล์จึงไม่มีเป้าหมายให้ยาส่วนใหญ่ออกฤทธิ์ Pseudomonas aeruginosa สังเกตได้จากสีเขียวและกลิ่นคล้ายองุ่นในจานเพาะเชื้อ ส่วน Corynebacterium pyogenes มีแมลงเป็นพาหะและหนองมีกลิ่นคล้ายเนย ตัวเลือกที่เหลือคือกลุ่มโคลิฟอร์มและ Corynebacterium bovis",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — เชื้อก่อเต้านมอักเสบแบ่งตามสาเหตุ",
+    "verified": "cHediceYO_Y [79:57-95:03]",
+    "tags": [
+      "milk-mastitis",
+      "pathogens"
+    ]
+  },
+  {
+    "id": 207149,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่ขั้นตอนการเกิดโรคเต้านมอักเสบ กับเหตุการณ์ที่เกิดขึ้นในขั้นนั้น (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "Invasion",
+        "right": "จุลชีพผ่านเข้าสู่เต้านมทาง teat canal ซึ่งเป็นทางเข้าหลัก"
+      },
+      {
+        "left": "Multiplication และ colonization",
+        "right": "เชื้อเพิ่มจำนวน ฝังตัว สร้างท็อกซินและทำลายเนื้อเยื่อ"
+      },
+      {
+        "left": "Inflammation",
+        "right": "ขั้นที่มีผลต่อปริมาณและส่วนประกอบของน้ำนมมากที่สุด"
+      },
+      {
+        "left": "Tissue reaction",
+        "right": "เนื้อเยื่อเข้าสู่ระยะพักตัว เกิดแผลเป็นถาวรและกระเปาะสร้างน้ำนมฝ่อ"
+      }
+    ],
+    "distractors": [
+      "เต้านมกลับมาสร้างน้ำนมได้เท่าเดิมหลังจบรอบการให้นม"
+    ],
+    "explain": "ลำดับการเกิดโรคมีสี่ขั้น เริ่มที่ invasion ซึ่งจุลชีพเข้าทาง teat canal จึงเป็นเหตุผลที่ต้องมีกล้ามเนื้อหูรูดกั้นไว้ ตามด้วย multiplication และ colonization ที่เชื้อเพิ่มจำนวน ฝังตัว สร้างท็อกซินและทำลายเนื้อเยื่อพร้อมกับเม็ดเลือดขาวที่ถูกดึงเข้ามา ขั้น inflammation เป็นขั้นที่สำคัญที่สุดเพราะมีผลต่อทั้งปริมาณและส่วนประกอบของน้ำนมมากที่สุด และปิดท้ายด้วย tissue reaction ที่ทิ้งแผลเป็นถาวรไว้ เต้านมไม่ได้กลับมาผลิตได้เท่าเดิมหลังจบรอบการให้นม",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — ขั้นตอนการเกิดโรคเต้านมอักเสบ",
+    "verified": "cHediceYO_Y [71:44-75:39]",
+    "tags": [
+      "milk-mastitis",
+      "pathogenesis"
+    ]
+  },
+  {
+    "id": 207150,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-mastitis",
+    "year": 5,
+    "type": "match",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "จับคู่ข้อบกพร่องของผลิตภัณฑ์นม กับสาเหตุจากน้ำนมดิบที่มาจากโคเต้านมอักเสบ (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "เนยมีกลิ่นไม่สะอาดและเนื้อซีด",
+        "right": "น้ำนมมีความเป็นด่างสูงขึ้นและมีปริมาณเกลือมากขึ้น"
+      },
+      {
+        "left": "โยเกิร์ตเนื้อเหลวและแยกตัวเป็นลิ่ม",
+        "right": "โปรตีนส่วนใหญ่ในน้ำนมถูกย่อยสลายไปแล้ว"
+      },
+      {
+        "left": "เนยแข็งมีความชื้นสูงผิดปกติ",
+        "right": "น้ำนมดิบมีจำนวนเซลล์โซมาติกสูงมาก"
+      },
+      {
+        "left": "หางนมผงมีคุณภาพต่ำ",
+        "right": "มีโปรตีนจากระบบภูมิคุ้มกันและซีรัมปะปนในน้ำนมดิบ"
+      },
+      {
+        "left": "นมผงและนมข้นมีรสชาติไม่ดี",
+        "right": "น้ำนมดิบมีความทนต่อความร้อนลดลง"
+      },
+      {
+        "left": "ผลิตภัณฑ์นมมีกลิ่นเหม็นหืน",
+        "right": "ไขมันถูกย่อยสลายจนมีกรดไขมันอิสระสูง"
+      }
+    ],
+    "distractors": [
+      "น้ำนมดิบมีปริมาณแลคโตสสูงกว่าปกติจนหวานผิดปกติ"
+    ],
+    "explain": "ผลของเต้านมอักเสบไม่ได้จบที่น้ำนมดิบ แต่ตามไปถึงผลิตภัณฑ์ทุกชนิด ความเป็นด่างและเกลือที่สูงขึ้นทำให้เนยมีกลิ่นไม่สะอาดและเนื้อซีด โปรตีนที่ถูกย่อยจนเป็นสายสั้นทำให้โยเกิร์ตไม่จับตัวและแยกลิ่ม เซลล์โซมาติกที่สูงมากทำให้เนยแข็งอุ้มน้ำไว้จนชื้น โปรตีนจากภูมิคุ้มกันและซีรัมที่ปะปนเข้ามาทำให้หางนมผงคุณภาพต่ำ ความทนต่อความร้อนที่ลดลงทำให้ผลิตภัณฑ์ที่ต้องระเหยน้ำอย่างนมผงและนมข้นเสียรสชาติ และไขมันที่ถูกไลเปสย่อยจนมีกรดไขมันอิสระสูงทำให้เกิดกลิ่นหืน แลคโตสในภาวะนี้ลดลงไม่ใช่เพิ่มขึ้น",
+    "source": "TJ 86 Block 4 ข้อ 7, 8, 13, 14, 16, 17",
+    "verified": "TJ Block 4 ข้อ 7, 8, 13, 14, 16, 17; กลไกตรงกับ cHediceYO_Y [120:21-125:39]",
+    "tags": [
+      "milk-mastitis",
+      "dairy-products"
+    ]
+  },
+  {
+    "id": 207151,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "กฎที่ให้ส่งน้ำนมดิบถึงปลายทางภายใน 2 ชั่วโมง ตั้งขึ้นจากเหตุผลใด",
+    "options": [
+      "เพราะเอนไซม์ไลเปสในน้ำนมจะหมดฤทธิ์ไปเองภายใน 2 ชั่วโมงหลังรีด",
+      "เพราะ lag phase ของแบคทีเรียในน้ำนมกินเวลาราว 2 ชั่วโมงหลังรีด",
+      "เพราะ log phase ของแบคทีเรียในน้ำนมจบลงภายใน 2 ชั่วโมงหลังรีด",
+      "เพราะน้ำนมจะเย็นลงถึง 4 องศาเซลเซียสเองภายใน 2 ชั่วโมงหลังรีด"
+    ],
+    "answer": 1,
+    "explain": "ตัวเลข 2 ชั่วโมงไม่ใช่ข้อกำหนดทางการขนส่ง แต่มาจาก growth curve โดยตรง หลังรีดราว 2 ชั่วโมงแบคทีเรียยังอยู่ใน lag phase ราว 4 ชั่วโมงจึงเข้า log phase ราว 10 ชั่วโมงเข้า stationary phase และหลัง 16 ชั่วโมงเป็นต้นไปจึงเข้า death phase เป้าหมายของการเก็บน้ำนมดิบคือยืด lag phase ให้นานที่สุด น้ำนมไม่ได้เย็นลงเองและไลเปสไม่ได้หมดฤทธิ์ไปเอง",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — กฎ 2 ชั่วโมง",
+    "verified": "vMFY6A8LaIU [19:50-21:25]",
+    "tags": [
+      "milk-raw-storage",
+      "growth-curve"
+    ]
+  },
+  {
+    "id": 207152,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เครื่องมือที่ใช้ลดอุณหภูมิน้ำนมแบบ surface cooling มีข้อสังเกตใดที่ต้องจำ",
+    "options": [
+      "สารทำความเย็นต้องสัมผัสกับน้ำนมโดยตรงจึงจะแลกเปลี่ยนความร้อนได้อย่างรวดเร็ว",
+      "ลดอุณหภูมิได้ครั้งละประมาณ 15 องศาเซลเซียส ภายในเวลาราว 30 นาทีต่อรอบ",
+      "เครื่องเดียวกันใช้อุ่นน้ำนมเพื่อพาสเจอไรซ์ได้ และเปลี่ยนชื่อเป็น plate heat exchanger",
+      "เครื่องนี้ใช้ได้เฉพาะการทำความเย็น ถ้าจะให้ความร้อนต้องเปลี่ยนไปใช้ bulk tank cooler"
+    ],
+    "answer": 2,
+    "explain": "Surface cooling ให้น้ำนมไหลเป็นฟิล์มบางผ่านแผ่นโลหะที่มีสื่อความเย็นอยู่ข้างใน โดยสื่อความเย็นต้องไม่สัมผัสกับน้ำนม เครื่องนี้เรียกว่า plate exchanger ลดอุณหภูมิได้ราว 1 ถึง 5 องศาเซลเซียส ภายใน 5 ถึง 10 วินาที ถ้าเปลี่ยนจากสารทำความเย็นเป็นน้ำร้อนก็ใช้พาสเจอไรซ์ได้ และชื่อจะเปลี่ยนเป็น plate heat exchanger อีกแบบที่ใช้หลักการเดียวกันแต่ใช้ท่อแทนแผ่นคือ tubular exchanger",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — surface cooling",
+    "verified": "vMFY6A8LaIU [23:23-25:32]",
+    "tags": [
+      "milk-raw-storage",
+      "cooling"
+    ]
+  },
+  {
+    "id": 207153,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การลดอุณหภูมิน้ำนมดิบด้วยกรวยน้ำแข็ง ต้องเติมน้ำนมลงในถังในสัดส่วนเท่าใด และเพราะเหตุใด",
+    "options": [
+      "ประมาณ 1 ใน 3 ของถัง เพราะกรวยจะแทนที่ปริมาตรอีกราว 2 ใน 3",
+      "เต็มถังพอดี เพราะกรวยวางอยู่ด้านนอกถังและไม่ได้แทนที่ปริมาตรใด",
+      "ประมาณครึ่งถัง เพราะต้องเหลือที่ว่างไว้ให้น้ำแข็งละลายแล้วขยายตัว",
+      "ประมาณ 2 ใน 3 ของถัง เพราะกรวยจะแทนที่ปริมาตรอีกราว 1 ใน 3"
+    ],
+    "answer": 3,
+    "explain": "ถังแบบนี้ออกแบบมาให้ใส่น้ำแข็งหรือน้ำแข็งผสมเกลือลงในกรวยแล้วหย่อนกรวยลงในน้ำนม เนื่องจากกรวยแทนที่ปริมาตรราวหนึ่งในสามของถัง จึงเติมน้ำนมได้ราวสองในสาม วิธีนี้ลดอุณหภูมิน้ำนมได้ต่ำสุดราว 5 ถึง 10 องศาเซลเซียส และเหมาะกับน้ำนมปริมาณน้อยเท่านั้น น้ำแข็งที่ละลายอยู่ภายในกรวยจึงไม่ได้ทำให้ปริมาตรในถังเพิ่มขึ้น",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — การใช้กรวยน้ำแข็ง",
+    "verified": "vMFY6A8LaIU [29:16-31:23]",
+    "tags": [
+      "milk-raw-storage",
+      "cooling"
+    ]
+  },
+  {
+    "id": 207154,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Bulk tank สำหรับเก็บน้ำนมดิบต้องมีใบพัดกวนตลอดเวลา เพื่อประโยชน์ข้อใด",
+    "options": [
+      "ทำให้น้ำนมไม่แยกชั้นและไขมันนมกระจายตัวสม่ำเสมอ ไม่ลอยขึ้นเป็นชั้นครีม",
+      "ทำให้เกิดฟองอากาศซึ่งช่วยเพิ่มออกซิเจนและยับยั้งแบคทีเรียที่ไม่ใช้อากาศ",
+      "ทำให้ไขมันนมแตกตัวเป็นเม็ดเล็กลง จึงถือเป็นการ homogenize ไปในตัว",
+      "ทำให้ความร้อนจากเครื่องทำความเย็นกระจายทั่วถัง จึงไม่ต้องใช้ฉนวนอีก"
+    ],
+    "answer": 0,
+    "explain": "ใบพัดที่เรียกว่า propeller หรือ agitator ทำให้น้ำนมเคลื่อนไหวตลอดเวลา ไขมันจึงกระจายตัวสม่ำเสมอและไม่ลอยขึ้นไปรวมเป็นชั้นครีม ซึ่งสำคัญทั้งต่อการรักษาคุณภาพและต่อความยุติธรรมเวลาเจาะเก็บตัวอย่างไปตรวจองค์ประกอบ การกวนไม่ใช่การ homogenize ซึ่งต้องใช้แรงดันสูงทำให้เม็ดไขมันแตก ถังยังต้องมีฉนวนหลายชั้นอยู่ดี และฟองอากาศไม่ใช่สิ่งที่ต้องการ",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — bulk tank cooling",
+    "verified": "vMFY6A8LaIU [31:23-33:18]",
+    "tags": [
+      "milk-raw-storage",
+      "cooling"
+    ]
+  },
+  {
+    "id": 207155,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "น้ำนมเหลืองจากแม่โคที่เพิ่งคลอด จัดอยู่ในน้ำนมกลุ่มใดตามการแบ่งสามกลุ่ม",
+    "options": [
+      "Adulterated milk เพราะมีการเติมสารอื่นลงไปโดยเจตนาเพื่อเพิ่มปริมาณน้ำนม",
+      "Undesirable milk เพราะไม่ได้ผิดปกติ แต่ไม่เหมาะจะจำหน่ายหรือทำผลิตภัณฑ์",
+      "Abnormal milk เพราะคุณสมบัติทางเคมีกายภาพผิดไปจากน้ำนมปกติอย่างชัดเจน",
+      "Contaminated milk เพราะมีสารจากภายนอกเข้ามาปนหลังจากรีดน้ำนมออกมาแล้ว"
+    ],
+    "answer": 1,
+    "explain": "ความผิดปกติของน้ำนมแบ่งเป็นสามกลุ่ม abnormal milk คือผิดปกติทางกายภาพจริง เช่น สี กลิ่น รสเปลี่ยน หรือน้ำนมสีแดงจากโคที่เต้านมอักเสบ undesirable milk คือน้ำนมที่ไม่ได้ผิดปกติแต่ไม่ต้องการ ซึ่งตัวอย่างหลักคือน้ำนมเหลืองจากแม่โคระยะให้นมช่วงต้น ส่วน contaminated milk คือน้ำนมที่เกิดมาดีแต่มีสารปนเปื้อนภายหลัง เช่น ยาปฏิชีวนะหรือน้ำยาฆ่าเชื้อ การเติมสารลงไปโดยเจตนาเรียกว่า adulteration ซึ่งเป็นคนละเรื่องกับการจัดกลุ่มนี้",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — ความผิดปกติของน้ำนม 3 กลุ่ม",
+    "verified": "vMFY6A8LaIU [49:49-51:10]",
+    "tags": [
+      "milk-raw-storage",
+      "abnormal-milk"
+    ]
+  },
+  {
+    "id": 207156,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "สารกันบูดชนิดใดที่ทำให้น้ำนมมีสีเหลืองและรบกวนเครื่องวิเคราะห์องค์ประกอบ จึงไม่ควรใช้กับน้ำนมที่จะทำเป็นนมพร้อมดื่ม",
+    "options": [
+      "โซเดียมไทโอไซยาเนต",
+      "เมอร์คิวริกคลอไรด์",
+      "โพแทสเซียมไดโครเมต",
+      "ไฮโดรเจนเปอร์ออกไซด์"
+    ],
+    "answer": 2,
+    "explain": "โพแทสเซียมไดโครเมตเป็นสารกันบูดที่อนุญาตให้ใช้กับตัวอย่างน้ำนมได้ แต่มีข้อเสียคือทำให้น้ำนมเป็นสีเหลืองและอาจรบกวนเครื่องที่ใช้หาส่วนประกอบ จึงไม่ควรใช้กับน้ำนมที่จะไปทำเป็นนมพร้อมดื่ม ไฮโดรเจนเปอร์ออกไซด์เป็นตัวที่นิยมเพราะราคาถูกและกำจัดออกได้ด้วยเอนไซม์ catalase โซเดียมไทโอไซยาเนตใช้กระตุ้นระบบ lactoperoxidase ส่วนเมอร์คิวริกคลอไรด์มีปัญหาเรื่องความเป็นพิษ ไม่ใช่เรื่องสี",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — preservative สำหรับตัวอย่างน้ำนม",
+    "verified": "vMFY6A8LaIU [42:47, 121:22-121:47]; deck Determination of milk quality 2025 — preservatives table",
+    "tags": [
+      "milk-raw-storage",
+      "preservative"
+    ]
+  },
+  {
+    "id": 207157,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การใช้สารเคมีถนอมคุณภาพน้ำนมดิบมีเงื่อนไขตามข้อใด",
+    "options": [
+      "ใช้ได้กับทั้งนมพร้อมดื่มและน้ำนมที่จะแปรรูป และไม่จำเป็นต้องลดอุณหภูมิลงอีกแล้ว",
+      "ใช้เป็นวิธีแรกก่อนวิธีอื่นเสมอ เพราะสะดวกกว่าและทำให้น้ำนมสะอาดขึ้นกว่าเดิม",
+      "ใช้ได้เฉพาะนมพร้อมดื่ม เพราะการแปรรูปด้วยความร้อนจะทำลายสารกันบูดไปหมด",
+      "ใช้ได้เฉพาะน้ำนมที่จะนำไปแปรรูปต่อ และยังต้องลดอุณหภูมิให้ต่ำกว่า 10 องศาเซลเซียสอยู่ดี"
+    ],
+    "answer": 3,
+    "explain": "สารเคมีเป็นทางเลือกสุดท้ายที่ใช้เมื่อลดอุณหภูมิทันทีไม่ได้หรือใช้ความร้อนไม่ได้ ต้องอยู่ภายใต้การดูแลของเจ้าหน้าที่ศูนย์รวมน้ำนมและใช้เฉพาะสารที่ได้รับอนุญาต ใช้ได้เฉพาะน้ำนมที่จะนำไปแปรรูปต่อ ห้ามใช้กับนมพร้อมดื่มเพราะผู้บริโภคจะได้รับสารนั้นโดยตรง และการเติมสารไม่ได้ทำให้น้ำนมสะอาดขึ้น หลังเติมแล้วจึงยังต้องลดอุณหภูมิให้ต่ำกว่า 10 องศาเซลเซียสเสมอ",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — การใช้สารเคมีถนอมน้ำนมดิบ",
+    "verified": "vMFY6A8LaIU [34:28, 38:59-40:30]",
+    "tags": [
+      "milk-raw-storage",
+      "preservative"
+    ]
+  },
+  {
+    "id": 207158,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-storage",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "แบคทีเรียที่อ่อนแอจะมี lag phase นานกว่าเพราะต้องใช้เวลาปรับตัว จึงไม่สร้างปัญหาใด ๆ ต่อคุณภาพน้ำนมดิบเมื่อเทียบกับแบคทีเรียที่แข็งแรงกว่า",
+    "answer": false,
+    "explain": "lag phase ที่ยาวกว่าเป็นเพียงการเลื่อนเวลาออกไป ไม่ใช่การหยุดการเจริญเติบโต เมื่อปรับตัวได้แล้วเชื้อกลุ่มนี้ก็เข้าสู่ log phase และเพิ่มจำนวนจนทำให้น้ำนมเสียคุณภาพได้เช่นกัน โดยเฉพาะถ้าน้ำนมถูกเก็บไว้นานหรือที่อุณหภูมิไม่เหมาะสม หลักการเก็บน้ำนมดิบจึงเป็นการยืด lag phase ของเชื้อทุกกลุ่มด้วยความเย็นและการส่งถึงปลายทางเร็ว ไม่ใช่การเลือกกังวลเฉพาะเชื้อที่แข็งแรง",
+    "source": "TJ 86 Block 5 ข้อ 17",
+    "verified": "TJ Block 5 ข้อ 17; หลักการ growth curve ตรงกับ vMFY6A8LaIU [9:21-12:56]",
+    "tags": [
+      "milk-raw-storage",
+      "growth-curve"
+    ]
+  },
+  {
+    "id": 207159,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-products-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การบรรจุนมข้นหวานลงกระป๋องกำหนดให้เหลือช่องว่างอากาศไม่เกิน 1 มิลลิลิตร เพื่อเหตุผลใด",
+    "options": [
+      "จำกัดออกซิเจนเพื่อให้เชื้อราและยีสต์เจริญเติบโตได้ยากขึ้น",
+      "จำกัดออกซิเจนเพื่อป้องกันไม่ให้กระป๋องบวมเมื่อเก็บไว้นานหลายปี",
+      "เหลือที่ไว้ให้น้ำตาลตกผลึกโดยไม่ดันฝากระป๋องจนเสียรูปทรง",
+      "เหลือที่ไว้ให้ไอน้ำควบแน่นแล้วคืนความชื้นกลับสู่เนื้อนมข้น"
+    ],
+    "answer": 0,
+    "explain": "ในนมข้นหวานที่มีน้ำตาลสูง แบคทีเรียส่วนใหญ่ถูกยับยั้งไปแล้ว ตัวที่ยังเจริญได้ดีและมาทีหลังคือเชื้อราและยีสต์ ซึ่งต้องการออกซิเจน การบรรจุจึงให้เหลือช่องว่างในกระป๋องไม่เกิน 1 มิลลิลิตรเพื่อลิมิตออกซิเจน น้ำตาลที่เติมลงไปทำหน้าที่ทั้งถนอมคุณภาพและเพิ่มรสชาติ การตกผลึกของน้ำตาลเป็นเรื่องเนื้อสัมผัสไม่เกี่ยวกับช่องว่างอากาศ",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — การเก็บนมข้น",
+    "verified": "vMFY6A8LaIU [59:51-60:39]",
+    "tags": [
+      "milk-products-storage",
+      "condensed-milk"
+    ]
+  },
+  {
+    "id": 207160,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-products-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ผลิตภัณฑ์นมชนิดใดที่นำไปแช่แข็งแล้วยังใช้ได้ตามปกติ และชนิดใดที่ห้ามแช่แข็งเด็ดขาด",
+    "options": [
+      "ทั้งสามชนิดแช่แข็งได้ตามปกติ เพราะความเย็นจัดช่วยยืดอายุการเก็บให้ยาวขึ้น",
+      "เนยแช่แข็งได้ ส่วนครีมและนมเปรี้ยวห้ามแช่แข็งเพราะจะแยกชั้นและตกตะกอน",
+      "ครีมแช่แข็งได้ ส่วนเนยและนมเปรี้ยวห้ามแช่แข็งเพราะไขมันจะเหม็นหืนทันที",
+      "นมเปรี้ยวแช่แข็งได้ ส่วนเนยและครีมห้ามแช่แข็งเพราะเชื้อเริ่มต้นจะตายหมด"
+    ],
+    "answer": 1,
+    "explain": "เนยแช่แข็งได้และนำออกมาใช้ได้ทันที ส่วนครีมห้ามแช่แข็งเพราะจะแยกชั้นและตกตะกอนจนคุณภาพเสีย และนมเปรี้ยวหรือโยเกิร์ตก็ห้ามแช่แข็งด้วยเหตุผลเดียวกัน ทั้งครีมและนมเปรี้ยวต้องเก็บที่ไม่เกิน 4 องศาเซลเซียส หลักเดียวกันนี้ใช้กับน้ำนมดิบและตัวอย่างน้ำนมด้วย คือความเย็นจัดทำให้โปรตีนและชั้นครีมสลายตัว",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — การเก็บครีม เนย และนมเปรี้ยว",
+    "verified": "vMFY6A8LaIU [63:30-66:41]",
+    "tags": [
+      "milk-products-storage",
+      "freezing"
+    ]
+  },
+  {
+    "id": 207161,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-products-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดจึงไม่ควรเก็บนมผงไว้ในตู้เย็น",
+    "options": [
+      "เพราะอุณหภูมิต่ำทำให้วิตามินที่ละลายในไขมันสลายตัวอย่างรวดเร็ว",
+      "เพราะตู้เย็นมีแสงสว่างซึ่งเร่งปฏิกิริยา oxidation ของไขมันในนมผง",
+      "เพราะความชื้นในตู้เย็นทำให้นมผงจับตัวเป็นก้อนและเสื่อมคุณภาพ",
+      "เพราะความเย็นทำให้ไขมันในนมผงแยกตัวออกมาเป็นชั้นบนผิวหน้า"
+    ],
+    "answer": 2,
+    "explain": "นมผงคือน้ำนมที่ระเหยน้ำออกไปเกือบหมด ศัตรูสำคัญจึงเป็นความชื้น ภาชนะบรรจุต้องกันความชื้นได้ และห้ามเก็บในตู้เย็นหรือในที่ชื้น เพราะผงจะดูดความชื้นแล้วจับตัวเป็นก้อน ส่วนนมผงที่ชงแล้วเก็บได้ราว 24 ชั่วโมงและควรแช่เย็น นมผงที่เปิดถุงแล้วส่วนใหญ่กำหนดให้ใช้ภายใน 1 เดือน ยกเว้นนมผงขาดมันเนยซึ่งเก็บได้นานกว่า",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — การเก็บนมผง",
+    "verified": "vMFY6A8LaIU [61:46-63:30]",
+    "tags": [
+      "milk-products-storage",
+      "milk-powder"
+    ]
+  },
+  {
+    "id": 207162,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-products-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "กรดแลคติกที่แบคทีเรียสร้างขึ้นในนมเปรี้ยวให้ประโยชน์ในข้อใด",
+    "options": [
+      "ยืดอายุการเก็บ ทำให้ผลิตภัณฑ์แช่แข็งได้ และเพิ่มปริมาณไขมันในผลิตภัณฑ์",
+      "ทำลายสปอร์ของแบคทีเรียได้หมด จึงเก็บที่อุณหภูมิห้องได้นานหลายเดือน",
+      "เพิ่มค่า pH ของผลิตภัณฑ์ จึงยับยั้งเชื้อก่อโรคที่ชอบสภาพเป็นกรดได้ดี",
+      "ยืดอายุการเก็บ ให้รสเปรี้ยวที่ทำให้รสชาติดี และเพิ่มการย่อยได้ของสารอาหาร"
+    ],
+    "answer": 3,
+    "explain": "การใส่เชื้อกลุ่ม Lactobacillus และ Lactococcus ลงไปหมักทำให้เกิดกรดแลคติก ซึ่งยืด shelf life ให้รสเปรี้ยวที่ทำให้รสชาติดีขึ้น และเพิ่มความสามารถในการย่อยได้ของสารอาหารในน้ำนม แต่ยังต้องเก็บในตู้เย็นราว 4 องศาเซลเซียสและได้ไม่กี่วัน ไม่เกิน 10 วัน กรดแลคติกไม่ได้ทำลายสปอร์ ห้ามนำผลิตภัณฑ์นี้ไปแช่แข็ง และกรดทำให้ค่า pH ลดลงไม่ใช่เพิ่มขึ้น",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — นมเปรี้ยวและ fermented milk",
+    "verified": "vMFY6A8LaIU [64:33-66:02]",
+    "tags": [
+      "milk-products-storage",
+      "fermented-milk"
+    ]
+  },
+  {
+    "id": 207163,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-products-storage",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดนมสเตอริไลซ์จึงต้องมีการเติมวิตามินลงไปในผลิตภัณฑ์",
+    "options": [
+      "เพราะความร้อนที่ใช้ฆ่าเชื้อทำลายคุณค่าทางอาหารในน้ำนมไปเกือบหมด",
+      "เพราะการบรรจุในกระป๋องโลหะทำให้วิตามินทำปฏิกิริยากับผนังภาชนะ",
+      "เพราะน้ำนมดิบที่ใช้ผลิตต้องเป็นนมผงคืนรูปซึ่งไม่มีวิตามินเหลืออยู่",
+      "เพราะการเก็บที่อุณหภูมิห้องนานหลายปีทำให้วิตามินสลายตัวไปเองหมด"
+    ],
+    "answer": 0,
+    "explain": "การสเตอริไลซ์ใช้ความร้อนสูงเป็นเวลานานจนจุลชีพและสปอร์หายไปหมด โดยต้องตรวจไม่พบจุลชีพเลยใน 100 ไมโครลิตร แต่ความร้อนระดับนั้นทำลายคุณค่าทางอาหารไปด้วย โดยเฉพาะโปรตีนที่ละลายน้ำซึ่งเสียสภาพเมื่อสูงกว่า 80 องศาเซลเซียส ผลิตภัณฑ์จึงต้องเติมวิตามินกลับเข้าไป การเสื่อมของวิตามินไม่ได้เกิดจากภาชนะ และนมสเตอริไลซ์ไม่ได้จำกัดว่าต้องผลิตจากนมผง",
+    "source": "บันทึกคาบ 26 ส.ค. 2569 — sterilized milk",
+    "verified": "vMFY6A8LaIU [58:07-59:51]; 3ihoAGQwxGk [46:40-47:42]",
+    "tags": [
+      "milk-products-storage",
+      "sterilized-milk"
+    ]
+  },
+  {
+    "id": 207164,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-overview",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดน้ำนมจึงมองเห็นเป็นสีขาว",
+    "options": [
+      "เพราะแลคโตสที่ละลายอยู่ดูดกลืนแสงช่วงสีเหลืองไว้จนเหลือแต่แสงสีขาว",
+      "เพราะเคซีนและครีมส่วนใหญ่ไม่ดูดกลืนแสง แสงจึงสะท้อนออกมาทั้งหมด",
+      "เพราะแคลเซียมฟอสเฟตในน้ำนมเรืองแสงสีขาวเมื่อได้รับแสงจากภายนอก",
+      "เพราะน้ำในน้ำนมซึ่งมีอยู่ราว 87 เปอร์เซ็นต์ กระเจิงแสงทุกความยาวคลื่น"
+    ],
+    "answer": 1,
+    "explain": "องค์ประกอบอย่างเคซีนและครีมในน้ำนมส่วนใหญ่ไม่ดูดกลืนแสง แสงที่ตกกระทบจึงถูกสะท้อนออกมาเกือบทั้งหมดและตาเรามองเห็นเป็นสีขาว น้ำเป็นองค์ประกอบหลักจริงแต่ตัวน้ำเองใส แคลเซียมฟอสเฟตในน้ำนมไม่ได้เรืองแสง และแลคโตสละลายอยู่ในน้ำนมโดยไม่ทำให้เกิดสี สีที่ผิดไปจากขาวจึงเป็นสัญญาณให้ตรวจสอบ เช่น สีเหลืองในกลุ่มโคลิฟอร์ม หรือสีแดงจากเลือดที่ปน",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — ทำไมน้ำนมถึงเป็นสีขาว",
+    "verified": "cHediceYO_Y [6:02-6:27]",
+    "tags": [
+      "milk-overview",
+      "milk-properties"
+    ]
+  },
+  {
+    "id": 207165,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-overview",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดจึงห้ามนำน้ำนมไปแช่ในช่องแช่แข็ง ทั้งน้ำนมสำหรับดื่มและตัวอย่างที่จะส่งตรวจ",
+    "options": [
+      "นมดื่มจะสูญเสียแลคโตสไปกับน้ำแข็ง ส่วนตัวอย่างจะมีค่า pH สูงขึ้นจนวัดกรดไม่ได้",
+      "นมดื่มจะมีกลิ่นหืน ส่วนตัวอย่างจะเกิดผลึกน้ำแข็งที่บังโคโลนีบนจานเพาะเชื้อ",
+      "นมดื่มจะเสียโปรตีนและชั้นครีม ส่วนตัวอย่างจะมีจุลชีพตายจนนับได้น้อยกว่าจริง",
+      "นมดื่มจะมีรสเค็มขึ้น ส่วนตัวอย่างจะมีจุลชีพเพิ่มจำนวนจนนับได้มากกว่าความจริง"
+    ],
+    "answer": 2,
+    "explain": "การแช่แข็งให้ผลเสียคนละแบบกับน้ำนมสองประเภท นมสำหรับดื่มเมื่อนำออกมาละลายจะเกิดการสลายตัวของโปรตีนและบางครั้งชั้นครีมก็แยกออก ส่วนตัวอย่างที่จะส่งตรวจจะมีจุลชีพบางส่วนตาย เมื่อนำไปเพาะจึงขึ้นน้อยกว่าความจริงและสรุปผิดว่าน้ำนมสะอาด นอกจากนี้การตรวจทางเคมีก็คลาดเคลื่อนเพราะโปรตีนสลายไปบางส่วน วิธีที่ถูกคือแช่ในน้ำแข็งหรือเก็บที่ 4 องศาเซลเซียส",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — การเก็บน้ำนม",
+    "verified": "cHediceYO_Y [7:10-7:50]; vMFY6A8LaIU [113:27]",
+    "tags": [
+      "milk-overview",
+      "milk-storage"
+    ]
+  },
+  {
+    "id": 207166,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-overview",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ขอบเขตของ milk hygiene ต่างจาก milk science อย่างไร",
+    "options": [
+      "Milk hygiene เน้นความน่ากินและรสชาติของน้ำนม ส่วน milk science เน้นความปลอดภัยต่อผู้บริโภคเป็นหลัก",
+      "Milk hygiene ศึกษาเฉพาะช่วงก่อนรีดนม ส่วน milk science ศึกษาเฉพาะช่วงหลังรีดนมจนถึงผู้บริโภค",
+      "Milk hygiene เป็นศาสตร์ที่กว้างกว่าและครอบคลุม milk science ไว้เป็นหัวข้อย่อยหัวข้อหนึ่ง",
+      "Milk hygiene เน้นความปลอดภัยและคุณค่าต่อสุขภาพ ส่วน milk science รวมความน่ากิน การบรรจุและรสชาติด้วย"
+    ],
+    "answer": 3,
+    "explain": "Milk hygiene เป็นศาสตร์และการปฏิบัติที่มุ่งไปที่ความปลอดภัยของน้ำนม ความปลอดภัยในการนำน้ำนมมาบริโภค และคุณค่าของน้ำนมต่อสุขภาพ ซึ่งเป็นขอบเขตของสัตวแพทย์สาธารณสุข ส่วน milk science เป็นคำที่กว้างกว่าและรวมเรื่องความน่ากิน การบรรจุและรสชาติเข้าไปด้วย ซึ่งเป็นงานทาง food science คำว่าไฮยีนหมายถึงสุขศาสตร์ และสิ่งที่ขาดไม่ได้ในคำนิยามคือการปฏิบัติเพื่อทำให้เกิดผลนั้น",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — นิยาม milk hygiene กับ milk science",
+    "verified": "cHediceYO_Y [47:03-48:46]",
+    "tags": [
+      "milk-overview",
+      "definition"
+    ]
+  },
+  {
+    "id": 207167,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-overview",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในห่วงโซ่การผลิตน้ำนม หน้าที่ของสัตวแพทย์สาธารณสุขอยู่ที่ช่วงใดเป็นหลัก",
+    "options": [
+      "ช่วง post-harvest คือตั้งแต่รีดน้ำนมได้แล้วเข้าสู่กระบวนการต่อไป",
+      "ช่วง pre-harvest คือตั้งแต่การเลี้ยงในฟาร์มจนถึงก่อนการรีดน้ำนม",
+      "ช่วงการขายปลีกในตลาดเท่านั้น เพราะเป็นจุดที่ผู้บริโภคสัมผัสสินค้า",
+      "ช่วงการส่งออกเท่านั้น เพราะเป็นจุดที่ต้องใช้มาตรฐานสากลกำกับดูแล"
+    ],
+    "answer": 0,
+    "explain": "ห่วงโซ่อาหารแบ่งเป็น pre-harvest คือช่วงการเลี้ยงในฟาร์มก่อนรีดนม และ post-harvest คือตั้งแต่รีดน้ำนมได้แล้วส่งเข้าสู่กระบวนการ หน้าที่หลักของสัตวแพทย์สาธารณสุขอยู่ที่ post-harvest แต่เพราะความปลอดภัยอาหารต้องมองทั้งระบบตามแนวคิด One Health จึงต้องเชื่อมสองช่วงนี้เข้าด้วยกัน การตรวจคุณภาพน้ำนมเองก็ทำได้ทั้งในฟาร์ม ที่ศูนย์รวมน้ำนม ที่โรงงาน และในช่วงขายปลีกกับการส่งออก ไม่ได้จำกัดที่จุดใดจุดเดียว",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — pre-harvest กับ post-harvest",
+    "verified": "cHediceYO_Y [0:02-1:29]",
+    "tags": [
+      "milk-overview",
+      "scope"
+    ]
+  },
+  {
+    "id": 207168,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-overview",
+    "year": 5,
+    "type": "tf",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "แลคโตสเป็นตัวกำหนดปริมาตรน้ำนม โดยดึงน้ำเข้ามาด้วยแรงดันออสโมติก และในภาวะสมดุลน้ำนมจะมีแลคโตสประมาณ 4.5 ถึง 5 เปอร์เซ็นต์",
+    "answer": true,
+    "explain": "แลคโตสสร้างขึ้นในเซลล์คัดหลั่งจากกลูโคสโดยอาศัยเอนไซม์ lactose synthetase และเป็นสารที่กำหนดปริมาตรน้ำนม เพราะแรงดันออสโมติกของแลคโตสดึงน้ำเข้ามาในกระเปาะสร้างน้ำนม ในภาวะสมดุลระดับของแลคโตสอยู่ราว 4.5 ถึง 5 เปอร์เซ็นต์ ซึ่งเป็นเหตุผลว่าทำไมเมื่อการสร้างแลคโตสลดลงในภาวะเต้านมอักเสบ ปริมาณน้ำนมจึงลดลงตามไปด้วย",
+    "source": "บันทึกคาบ 19 ส.ค. 2569 — เส้นทางของกลูโคสและแลคโตส",
+    "verified": "cHediceYO_Y [40:45-41:23]",
+    "tags": [
+      "milk-overview",
+      "milk-synthesis"
+    ]
+  },
+  {
+    "id": 207169,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-biosec-dairy",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ตามหลักเกณฑ์การตรวจประเมินฟาร์มแพะนม โรงเรือนต้องมีพื้นที่ต่อแพะนม 1 ตัว ประมาณเท่าใด",
+    "options": [
+      "ประมาณ 0.5 ตารางเมตร",
+      "ประมาณ 1 ตารางเมตร",
+      "ประมาณ 2 ตารางเมตร",
+      "ประมาณ 4 ตารางเมตร"
+    ],
+    "answer": 1,
+    "explain": "หลักเกณฑ์กำหนดว่าโรงเรือนต้องมีพื้นที่เพียงพอ โดยแพะ 1 ตัวต่อพื้นที่ประมาณ 1 ตารางเมตร พื้นที่ต้องพอให้สัตว์นอนลงหรือยืนขึ้นได้สะดวกและแสดงพฤติกรรมตามธรรมชาติได้ ตัวเลขนี้เป็นคนละชุดกับพื้นที่ต่อตัวของโคนมซึ่งใหญ่กว่ามาก การจำสลับกันจึงทำให้ตอบผิดทั้งข้อ",
+    "source": "ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี (อ.จักรกริศน์) — มาตรฐานฟาร์มแพะนม ข้อ 1.3.1",
+    "verified": "deck 65ความปลอดภัยชีวภาพโคนม9.fin — หลักเกณฑ์ฟาร์มแพะนม ข้อ 1.3.1",
+    "tags": [
+      "milk-biosec-dairy",
+      "farm-standard"
+    ]
+  },
+  {
+    "id": 207170,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-biosec-dairy",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ดินสำหรับปลูกพืชอาหารสัตว์ในพื้นที่เขตร้อน มักขาดธาตุอาหารคู่ใดมากที่สุด",
+    "options": [
+      "แคลเซียมและกำมะถัน",
+      "เหล็กและสังกะสี",
+      "ไนโตรเจนและฟอสฟอรัส",
+      "โพแทสเซียมและแมกนีเซียม"
+    ],
+    "answer": 2,
+    "explain": "การจัดการทุ่งหญ้าเริ่มที่การจัดการดิน เช่น การพรวนดินก่อนปลูกและการใส่ปุ๋ยหลังเก็บเกี่ยว พื้นที่เขตร้อนมีปัญหาเรื่องความอุดมสมบูรณ์ของดิน โดยเฉพาะการขาดไนโตรเจนและฟอสฟอรัส ซึ่งเป็นสองธาตุที่ใช้กำหนดอัตราการใส่ปุ๋ยและมีผลโดยตรงต่อผลผลิตหญ้าสด ส่วนกำมะถันในบริบทของทุ่งหญ้าถูกใช้ในรูปผงกำมะถันเพื่อกำจัดเชื้อโรคในดิน ไม่ใช่ในฐานะธาตุอาหารที่ขาด",
+    "source": "ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี (อ.จักรกริศน์) — สุขศาสตร์ทุ่งหญ้า",
+    "verified": "deck 65ความปลอดภัยชีวภาพโคนม9.fin — การจัดการเรื่องดิน",
+    "tags": [
+      "milk-biosec-dairy",
+      "pasture-hygiene"
+    ]
+  },
+  {
+    "id": 207171,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-biosec-dairy",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "แปลงหญ้าที่เคยมีประวัติโรคระบาด มีวิธีจัดการทางเคมีกับดินตามข้อใด",
+    "options": [
+      "ใช้ปูนขาวโรยบนดินแล้วปล่อยทิ้งไว้โดยไม่ต้องพรวน",
+      "ใช้น้ำยาฆ่าเชื้อกลุ่มไอโอโดฟอร์ฉีดพ่นให้ทั่วแปลง",
+      "ใช้เกลือแกงหว่านให้ทั่วแปลงแล้วปล่อยน้ำเข้าท่วมขัง",
+      "ใช้ผงกำมะถันโรยบนดินแล้วพรวนดินผสมให้เข้ากัน"
+    ],
+    "answer": 3,
+    "explain": "มาตรการกำจัดเชื้อโรคและพยาธิในทุ่งหญ้ามีหลายอย่าง ได้แก่ การไถกลบแปลงที่เคยมีโรคระบาด การสลับปลูกพืชเศรษฐกิจชนิดอื่น การสับเปลี่ยนชนิดสัตว์ที่ลงแปลง การเผาทุ่งหญ้า และการใช้ผงกำมะถันโรยบนดินแล้วพรวนดินผสมให้เข้ากัน การปล่อยน้ำท่วมขังเป็นสิ่งที่ต้องหลีกเลี่ยงอยู่แล้ว เพราะแอ่งน้ำขังเอื้อต่อวงจรชีวิตของพยาธิ",
+    "source": "ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี (อ.จักรกริศน์) — มาตรการควบคุมโรคในทุ่งหญ้า",
+    "verified": "deck 65ความปลอดภัยชีวภาพโคนม9.fin — การกำจัดเชื้อโรคและพยาธิในทุ่งหญ้า",
+    "tags": [
+      "milk-biosec-dairy",
+      "pasture-hygiene"
+    ]
+  },
+  {
+    "id": 207172,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-biosec-dairy",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ระบบการใช้ทุ่งหญ้าแบบ strip grazing มีรูปแบบการจัดการอย่างไร",
+    "options": [
+      "กำหนดพื้นที่ให้สัตว์กินในบริเวณจำกัด แล้วเคลื่อนย้ายสัตว์ไปจุดใหม่ทุกวัน",
+      "แบ่งแปลงเป็นส่วน ๆ แล้ววนให้สัตว์ลงกินทีละแปลงจนกลับมาแปลงแรกอีกครั้ง",
+      "ปล่อยสัตว์กินหญ้าได้อย่างอิสระทั่วแปลงโดยไม่กำหนดพื้นที่หรือช่วงเวลา",
+      "ตัดหญ้าจากแปลงแล้วนำไปให้สัตว์กินในคอก โดยไม่ปล่อยสัตว์ลงแปลงเลย"
+    ],
+    "answer": 0,
+    "explain": "Strip grazing คือการกำหนดพื้นที่แปลงหญ้าตามความต้องการของสัตว์ต่อช่วงเวลาสั้น ๆ ปล่อยให้กินในพื้นที่จำกัดแล้วเคลื่อนย้ายไปจุดใหม่ทุกวัน ข้อดีคือใช้ผลผลิตแปลงหญ้าได้อย่างมีประสิทธิภาพและควบคุมโรคติดต่อจากทุ่งหญ้าได้ ข้อเสียคือต้องใช้แรงงานกับต้นทุนรั้ว และต้องคำนวณความต้องการหญ้าของสัตว์ในแต่ละวันอย่างแม่นยำ การแบ่งแปลงแล้ววนคือ rotation grazing ปล่อยอิสระคือ continuous stocking และการตัดหญ้าไปให้กินในคอกคือ cut and carry",
+    "source": "ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี (อ.จักรกริศน์) — ระบบการใช้ทุ่งหญ้า",
+    "verified": "deck 65ความปลอดภัยชีวภาพโคนม9.fin — strip grazing",
+    "tags": [
+      "milk-biosec-dairy",
+      "pasture-hygiene"
+    ]
+  },
+  {
+    "id": 207173,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-biosec-dairy",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ระบบ cut and carry หรือ zero grazing มีข้อดีและข้อเสียตามข้อใด",
+    "options": [
+      "หญ้าในแปลงพักได้เจริญเติบโตเต็มที่และสม่ำเสมอ แต่ต้องคำนวณความต้องการหญ้าของสัตว์อย่างแม่นยำ",
+      "ควบคุมปริมาณหญ้าที่สัตว์กินได้และไม่มีการปนเปื้อนไข่พยาธิ แต่ใช้แรงงานมากและสัตว์ขาดการออกกำลังกาย",
+      "ควบคุมปริมาณหญ้าที่สัตว์กินได้และสัตว์ได้ออกกำลังกายเต็มที่ แต่ควบคุมการปนเปื้อนไข่พยาธิไม่ได้เลย",
+      "ลงทุนต่ำที่สุดและใช้แรงงานน้อยที่สุดในบรรดาทุกระบบ แต่ใช้ประโยชน์จากแปลงหญ้าได้ไม่เต็มที่"
+    ],
+    "answer": 1,
+    "explain": "Cut and carry คือการปลูกหญ้าในแปลงแล้วตัดไปให้สัตว์กินในคอก ข้อดีคือควบคุมปริมาณหญ้าที่สัตว์กินได้ และไม่มีการปนเปื้อนจากเชื้อโรคและไข่พยาธิในแปลง ซึ่งเป็นจุดแข็งทางสุขศาสตร์ของระบบนี้ ข้อเสียคือต้องใช้แรงงานเพิ่มขึ้นและสัตว์ขาดการออกกำลังกาย การลงทุนต่ำและใช้แปลงได้ไม่เต็มที่เป็นลักษณะของ continuous stocking ส่วนการพักแปลงให้หญ้าโตเต็มที่เป็นลักษณะของ rotation grazing",
+    "source": "ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี (อ.จักรกริศน์) — ระบบการใช้ทุ่งหญ้า",
+    "verified": "deck 65ความปลอดภัยชีวภาพโคนม9.fin — cut and carry / zero grazing",
+    "tags": [
+      "milk-biosec-dairy",
+      "pasture-hygiene"
+    ]
+  },
+  {
+    "id": 207174,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-biosec-dairy",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "สัตวแพทย์ผู้ควบคุมฟาร์มมอบหมายให้บุคลากรในฟาร์มเป็นผู้ใช้ยาสัตว์ตามใบสั่งยา ข้อใดคือข้อกำหนดที่ต้องปฏิบัติ",
+    "options": [
+      "ผู้ได้รับมอบหมายไม่จำเป็นต้องผ่านการฝึกอบรม หากมีใบสั่งยากำกับอยู่แล้ว",
+      "ผู้ได้รับมอบหมายต้องเป็นเจ้าของฟาร์มเท่านั้น จะมอบหมายให้คนงานไม่ได้",
+      "ผู้ได้รับมอบหมายต้องได้รับคำแนะนำที่ชัดเจนเป็นลายลักษณ์อักษรจากสัตวแพทย์",
+      "ผู้ได้รับมอบหมายปรับขนาดยาเองได้ตามอาการ โดยไม่ต้องแจ้งสัตวแพทย์ผู้ควบคุมฟาร์ม"
+    ],
+    "answer": 2,
+    "explain": "เมื่อการใช้ยาสัตว์กระทำโดยผู้ได้รับมอบหมายตามใบสั่งยา ผู้นั้นต้องได้รับคำแนะนำที่ชัดเจนเป็นลายลักษณ์อักษรจากสัตวแพทย์ผู้มีหน้าที่รับผิดชอบ และต้องปฏิบัติตามอย่างเคร่งครัด สัตวแพทย์ยังต้องให้คำแนะนำเรื่องขนาดยา วิธีใช้ การคำนวณ การผสม และการเฝ้าระวังระยะหยุดยา ผู้ได้รับมอบหมายต้องผ่านการฝึกอบรมเกี่ยวกับการใช้ยาและมีหลักฐานการฝึกอบรมกับหลักฐานการมอบหมายให้ตรวจสอบได้ บันทึกการใช้ยายังต้องเก็บไว้อย่างน้อย 3 ปี",
+    "source": "ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี (อ.จักรกริศน์) — คำแนะนำข้อปฏิบัติการควบคุมการใช้ยาสัตว์",
+    "verified": "deck 65ความปลอดภัยชีวภาพโคนม9.fin — การใช้ยาสัตว์ ข้อ 5.2 และข้อ 2.2",
+    "tags": [
+      "milk-biosec-dairy",
+      "drug-use"
+    ]
+  },
+  {
+    "id": 207175,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ค่าทางกายภาพใดของน้ำนมโคดิบมีความคงที่มากที่สุด และใช้บอกได้ว่ามีการเติมน้ำลงในน้ำนม",
+    "options": [
+      "จุดเยือกแข็ง ซึ่งมีค่าประมาณ -0.55 องศาเซลเซียส",
+      "ความหนืด ซึ่งมีค่าประมาณ 2.0 เซนติพอยส์ ที่ 20 องศาเซลเซียส",
+      "จุดเดือด ซึ่งมีค่าประมาณ 100-101 องศาเซลเซียส",
+      "Titratable acidity ซึ่งอ่านค่าจาก pH ของน้ำนม"
+    ],
+    "answer": 0,
+    "explain": "จุดเยือกแข็งของน้ำนมโคดิบคงที่ที่ประมาณ -0.55 องศาเซลเซียส การเติมน้ำจะดันค่านี้เข้าใกล้ 0 จึงตรวจจับได้ทันที และเป็นหนึ่งใน 5 ปัจจัยที่ใช้กำหนดราคารับซื้อ ความหนืด 2.0 เซนติพอยส์ เปลี่ยนตามอุณหภูมิที่ใช้แปรรูป ระยะเวลา และ SNF จึงไม่คงที่ จุดเดือด 100-101 องศาเซลเซียส ก็ขยับลงเข้าใกล้ 100 เมื่อเติมน้ำ แต่ความแตกต่างเล็กเกินกว่าจะใช้ในทางปฏิบัติ ส่วน titratable acidity บอกความเป็นกรด ซึ่งชี้ไปที่น้ำนมเหลืองหรือภาวะเต้านมอักเสบ ไม่ใช่การเติมน้ำ",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงสมบัติทางกายภาพของน้ำนมดิบ",
+    "verified": "3ihoAGQwxGk [104:14-105:04], [161:54-163:40]",
+    "tags": [
+      "milk-quality-composition",
+      "freezing-point"
+    ]
+  },
+  {
+    "id": 207176,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ปัจจัยชุดใดทำให้องค์ประกอบของน้ำนมจากแต่ละฟาร์มแตกต่างกัน",
+    "options": [
+      "ชนิดของภาชนะบรรจุ ระยะเวลาการขนส่ง และอุณหภูมิห้องเย็น",
+      "สายพันธุ์ของโค สุขภาพของแม่โค และระยะการให้นมของแม่โค",
+      "ความเข้มข้นของสารทำความสะอาด ชนิดของท่อส่งนม และแรงดันปั๊ม",
+      "อุณหภูมิพาสเจอร์ไรซ์ ระยะเวลาให้ความร้อน และแรงดันการโฮโมจิไนซ์"
+    ],
+    "answer": 1,
+    "explain": "องค์ประกอบของน้ำนมถูกกำหนดตั้งแต่ในตัวแม่โค ปัจจัยที่ระบุไว้คือ สายพันธุ์ สุขภาพของแม่โค ระยะการให้นม การจัดการฟาร์ม และอาหารที่กิน เช่น โคในเขตยุโรปได้อาหารสมบูรณ์กว่าจึงให้มันเนยสูงกว่า ส่วนภาชนะ การขนส่ง และอุณหภูมิห้องเย็น มีผลต่อการเสื่อมเสียและจำนวนจุลินทรีย์ ไม่ใช่ต่อสัดส่วนไขมันหรือโปรตีน สารทำความสะอาดและท่อส่งนมเป็นเรื่องการปนเปื้อน ส่วนอุณหภูมิและเครื่องแลกเปลี่ยนความร้อนเป็นขั้นตอนหลังรับน้ำนมแล้ว จึงไม่ทำให้องค์ประกอบตั้งต้นต่างกัน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงองค์ประกอบของน้ำนมดิบ",
+    "verified": "3ihoAGQwxGk [106:46-107:40], [130:02]",
+    "tags": [
+      "milk-quality-composition",
+      "milk-composition"
+    ]
+  },
+  {
+    "id": 207177,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เมื่อแม่โคมีภาวะเต้านมอักเสบ องค์ประกอบของน้ำนมเปลี่ยนแปลงไปในทิศทางใด",
+    "options": [
+      "แลคโตสเพิ่มขึ้น ขณะที่เอนไซม์ในน้ำนมลดลง",
+      "แลคโตสและเอนไซม์ในน้ำนมลดลงทั้งคู่",
+      "แลคโตสลดลง ขณะที่เอนไซม์ในน้ำนมเพิ่มขึ้น",
+      "แลคโตสและเอนไซม์ในน้ำนมเพิ่มขึ้นทั้งคู่"
+    ],
+    "answer": 2,
+    "explain": "เต้านมอักเสบทำให้เซลล์สร้างน้ำนมทำงานได้น้อยลง ปริมาณแลคโตสซึ่งเป็นตัวกำหนดปริมาตรน้ำนมจึงลดลง ขณะที่เอนไซม์ในน้ำนม เช่น โปรติเอสและไลเปส เพิ่มขึ้น พร้อมกับจำนวนเซลล์โซมาติกที่สูงขึ้นเกิน 500,000 เซลล์ต่อมิลลิลิตร จึงไม่มีทางที่แลคโตสจะเพิ่มขึ้นหรือเอนไซม์จะลดลง และการที่ทั้งสองค่าลดลงพร้อมกันก็ขัดกับกลไกการอักเสบที่ปล่อยเอนไซม์ออกมามากขึ้น",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงแลคโตสและเอนไซม์ในน้ำนม",
+    "verified": "3ihoAGQwxGk [90:26-90:38], [92:11-92:25]",
+    "tags": [
+      "milk-quality-composition",
+      "mastitis"
+    ]
+  },
+  {
+    "id": 207178,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดเปรียบเทียบการใช้ alkaline phosphatase กับ beta-lactoglobulin ในการตรวจน้ำนมได้ถูกต้อง",
+    "options": [
+      "alkaline phosphatase เป็นวิธีอ้างอิงที่ทำได้ง่ายและรวดเร็ว ส่วน beta-lactoglobulin ต้องใช้ HPLC หรือ ELISA",
+      "alkaline phosphatase ต้องใช้ HPLC หรือ ELISA ส่วน beta-lactoglobulin เป็นวิธีอ้างอิงที่ทำได้ง่ายและรวดเร็ว",
+      "ทั้งสองค่าบอกได้เพียงว่าน้ำนมผ่านพาสเจอร์ไรซ์สมบูรณ์หรือไม่ และใช้แทนกันได้ในทุกกรณี",
+      "ทั้งสองค่าใช้บอกว่าน้ำนมผลิตจากนมผงหรือน้ำนมดิบ โดยอ่านผลจากการตกตะกอนของโปรตีน"
+    ],
+    "answer": 0,
+    "explain": "alkaline phosphatase ถูกทำลายที่อุณหภูมิพาสเจอร์ไรซ์ทั้งแบบ LTLT และ HTST จึงใช้เป็นวิธีอ้างอิงที่ง่ายและเร็วสำหรับบอกว่ากระบวนการสมบูรณ์หรือไม่ ส่วน beta-lactoglobulin เป็นเวย์โปรตีนที่สลายไปเมื่อทำนมผง จึงใช้แยกว่านมพาสเจอร์ไรซ์นั้นผลิตจากน้ำนมดิบหรือจากนมผงคืนรูป และต้องตรวจด้วย HPLC หรือ ELISA จึงใช้ในงานวิจัยและงานควบคุมคุณภาพเป็นหลัก สองค่านี้ตอบคนละคำถามจึงใช้แทนกันไม่ได้ และไม่มีตัวใดอ่านผลจากการตกตะกอนของโปรตีน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงเอนไซม์ในน้ำนม",
+    "verified": "3ihoAGQwxGk [86:24-88:04], [93:09-94:42]",
+    "tags": [
+      "milk-quality-composition",
+      "alkaline-phosphatase"
+    ]
+  },
+  {
+    "id": 207179,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดกล่าวถูกต้องเกี่ยวกับวิตามินในน้ำนมโค",
+    "options": [
+      "พบวิตามินที่ละลายในน้ำเป็นหลัก เช่น วิตามินซี จึงใช้ทดแทนผลไม้สดได้",
+      "พบเฉพาะวิตามินที่ละลายในไขมัน และไม่มีวิตามินที่ละลายในน้ำเลย",
+      "ปริมาณวิตามินในน้ำนมสูงกว่าแร่ธาตุ เช่น แคลเซียมและฟอสฟอรัส อย่างชัดเจน",
+      "พบวิตามินที่ละลายในไขมันเป็นหลัก เช่น วิตามินเอ จึงไม่ใช่แหล่งหลักของวิตามินซี"
+    ],
+    "answer": 3,
+    "explain": "น้ำนมมีวิตามินทั้งสองกลุ่ม แต่ที่พบมากคือกลุ่มที่ละลายในไขมัน เช่น วิตามินเอ การดื่มนมจึงไม่ช่วยเพิ่มวิตามินบีหรือวิตามินซีอย่างมีนัยสำคัญ และใช้แทนผลไม้สดไม่ได้ การบอกว่าไม่มีวิตามินที่ละลายในน้ำเลยก็ผิด เพราะมีอยู่แต่ปริมาณน้อย ส่วนแร่ธาตุนั้นน้ำนมเป็นแหล่งที่ดีของแคลเซียมและฟอสฟอรัส จึงไม่ใช่ว่าวิตามินมีมากกว่าแร่ธาตุ",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงแร่ธาตุและวิตามินในน้ำนม",
+    "verified": "3ihoAGQwxGk [91:05-91:43]; hPV3Rhh8r3Q [7:44-10:14]",
+    "tags": [
+      "milk-quality-composition",
+      "vitamin"
+    ]
+  },
+  {
+    "id": 207180,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ผู้ที่ดื่มนมแล้วท้องอืดและถ่ายเหลวทุกครั้ง แต่ไม่มีผื่นหรืออาการแพ้อื่น สาเหตุและคำแนะนำที่เหมาะสมคือข้อใด",
+    "options": [
+      "พร่องเอนไซม์แลคเตส แนะนำให้ดื่มนมที่ปราศจากแลคโตส",
+      "แพ้โปรตีนเคซีนในน้ำนม แนะนำให้เปลี่ยนไปดื่มนมข้นจืดแทน",
+      "พร่องเอนไซม์ไลเปส แนะนำให้ดื่มนมพร่องมันเนยแทนนมปกติ",
+      "แพ้เบต้าแลคโตโกลบูลิน แนะนำให้ดื่มนมยูเอชทีแทนนมพาสเจอร์ไรซ์"
+    ],
+    "answer": 0,
+    "explain": "ภาวะนี้คือ lactose intolerance ซึ่งเกิดจากการพร่องเอนไซม์แลคเตสที่ย่อยแลคโตสเป็นกลูโคสและกาแลคโตส ไม่ใช่การแพ้อาหาร ทางแก้คือดื่มนมที่ปราศจากแลคโตส หรือค่อยๆ ดื่มนมปกติให้ร่างกายปรับตัว การแพ้โปรตีนนมจะมีอาการทางภูมิแพ้ร่วมด้วย และนมข้นจืดก็ยังมีแลคโตสอยู่ ส่วนไลเปสเป็นเอนไซม์ย่อยไขมันที่สัมพันธ์กับกลิ่นหืน ไม่เกี่ยวกับอาการนี้ และเบต้าแลคโตโกลบูลินยังคงอยู่ในนมยูเอชทีที่ผลิตจากน้ำนมดิบ",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงแลคโตสและความเชื่อเรื่องการดื่มนม",
+    "verified": "3ihoAGQwxGk [90:38-91:05], [144:25-145:02]",
+    "tags": [
+      "milk-quality-composition",
+      "lactose-intolerance"
+    ]
+  },
+  {
+    "id": 207181,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การที่ผู้ส่งน้ำนมแยกมันเนยออกจากน้ำนมดิบก่อนนำมาขาย จัดเป็นปัญหาคุณภาพในข้อใด",
+    "options": [
+      "Contamination เพราะเป็นการนำสิ่งแปลกปลอมเข้าสู่น้ำนมโดยเจตนา",
+      "Adulteration เพราะเป็นการเปลี่ยนแปลงองค์ประกอบของน้ำนมโดยเจตนา",
+      "Spoilage เพราะทำให้น้ำนมเสื่อมคุณภาพจากการทำงานของจุลินทรีย์",
+      "Standardization เพราะเป็นการปรับองค์ประกอบให้ได้ตามข้อกำหนด"
+    ],
+    "answer": 1,
+    "explain": "Adulteration คือการปลอมปน ซึ่งรวมทั้งการเติมสิ่งอื่นลงไปและการดึงองค์ประกอบที่มีมูลค่าออก การแยกมันเนยออกจึงเข้านิยามนี้ และขัดกับนิยามน้ำนมโคดิบที่ระบุว่าต้องไม่ผ่านการแยกองค์ประกอบ Contamination คือการปนเปื้อนซึ่งมักเกิดโดยไม่เจตนา Spoilage คือการเสื่อมเสียจากจุลินทรีย์ ส่วน standardization เป็นการปรับไขมันในโรงงานให้ผลิตภัณฑ์สม่ำเสมอ ซึ่งทำกับน้ำนมที่รับซื้อแล้ว ไม่ใช่การดึงไขมันออกก่อนส่งขาย",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงนิยามน้ำนมโคดิบและการปลอมปน",
+    "verified": "3ihoAGQwxGk [48:44-49:09], [110:15-112:13]",
+    "tags": [
+      "milk-quality-composition",
+      "adulteration"
+    ]
+  },
+  {
+    "id": 207182,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "น้ำนมดิบตัวอย่างหนึ่งมี total solid 12.7% และมีไขมัน 3.9% ค่า SNF ของน้ำนมนี้เท่ากับเท่าใด และผ่านเกณฑ์ตามมาตรฐานหรือไม่",
+    "options": [
+      "8.8% ไม่ผ่านเกณฑ์ เพราะเกณฑ์กำหนด SNF มากกว่า 9.5%",
+      "3.9% ไม่ผ่านเกณฑ์ เพราะเกณฑ์กำหนด SNF มากกว่า 8.25%",
+      "8.8% ผ่านเกณฑ์ เพราะเกณฑ์กำหนด SNF มากกว่า 8.25%",
+      "16.6% ผ่านเกณฑ์ เพราะเกณฑ์กำหนด SNF มากกว่า 8.25%"
+    ],
+    "answer": 2,
+    "explain": "Total solid ของน้ำนมประกอบด้วยไขมันบวกเนื้อนมไม่รวมมันเนย ดังนั้น SNF เท่ากับ 12.7 ลบ 3.9 เท่ากับ 8.8% ซึ่งมากกว่าเกณฑ์ที่กำหนดไว้ว่า SNF ต้องมากกว่า 8.25% จึงผ่าน ค่า 16.6% มาจากการบวกแทนการลบ ค่า 3.9% คือไขมันซึ่งเป็นคนละส่วนกับ SNF ส่วนเลข 9.5% ไม่ใช่เกณฑ์ที่กำหนดไว้ ตัวเลขที่ต้องแยกให้ขาดคือ SNF มากกว่า 8.25% กับไขมันมากกว่า 3.2%",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วง total solid และเกณฑ์น้ำนมโคดิบ",
+    "verified": "3ihoAGQwxGk [83:17-83:29], [112:13-118:10], [149:35-150:41]",
+    "tags": [
+      "milk-quality-composition",
+      "snf"
+    ]
+  },
+  {
+    "id": 207183,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ผู้ที่ไม่ดื่มนมโคและต้องการเครื่องดื่มทดแทนที่ให้โปรตีนใกล้เคียงที่สุด ควรแนะนำข้อใด",
+    "options": [
+      "นมอัลมอนด์ เพราะให้โปรตีนสูงกว่านมโคและมีวิตามินอี",
+      "นมข้าวโพด เพราะให้โปรตีนสูงและมีแป้งเป็นองค์ประกอบ",
+      "นมข้นหวาน เพราะให้โปรตีนสูงและให้พลังงานมากกว่านมโค",
+      "นมถั่วเหลือง เพราะให้โปรตีนสูงและเป็นโปรตีนคุณภาพดี"
+    ],
+    "answer": 3,
+    "explain": "ในบรรดาเครื่องดื่มทดแทน นมถั่วเหลืองเป็นตัวเลือกที่ดีที่สุดเพราะให้โปรตีนสูง คุณภาพดี และราคาย่อมเยา นมอัลมอนด์มีแคลอรีต่ำ มีไขมันที่ดีและวิตามินอี แต่โปรตีนน้อยกว่านมโค นมข้าวโพดมีแป้งและน้ำตาลสูงจึงไม่ควรดื่มบ่อย ส่วนนมข้นหวานมีน้ำตาลราว 50% และไขมันราว 10% โดยมีนมผงเพียงราว 8% จึงเป็นแหล่งพลังงานมากกว่าแหล่งโปรตีน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. และ 16 ก.ย. 2569 ช่วงนมทางเลือกและนมข้นหวาน",
+    "verified": "3ihoAGQwxGk [99:30-100:23]; aZGyfwMEKCM [137:41-138:30]",
+    "tags": [
+      "milk-quality-composition",
+      "plant-based-milk"
+    ]
+  },
+  {
+    "id": 207184,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-quality-composition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ค่าความถ่วงจำเพาะของน้ำนมดิบขึ้นกับองค์ประกอบใด และเปลี่ยนแปลงไปในทิศทางใด",
+    "options": [
+      "ขึ้นกับไขมันและ SNF ถ้าทั้งสองค่าสูงขึ้น ความถ่วงจำเพาะจะสูงขึ้น",
+      "ขึ้นกับไขมันและ SNF ถ้าทั้งสองค่าสูงขึ้น ความถ่วงจำเพาะจะต่ำลง",
+      "ขึ้นกับปริมาณน้ำเท่านั้น ถ้าน้ำในน้ำนมมากขึ้น ความถ่วงจำเพาะจะสูงขึ้น",
+      "ขึ้นกับจำนวนเซลล์โซมาติก ถ้าเซลล์โซมาติกมากขึ้น ความถ่วงจำเพาะจะสูงขึ้น"
+    ],
+    "answer": 0,
+    "explain": "ความถ่วงจำเพาะสะท้อนปริมาณของแข็งในน้ำนม จึงขึ้นกับเปอร์เซ็นต์ไขมัน เปอร์เซ็นต์ SNF และปริมาณน้ำ ถ้าไขมันและ SNF สูงขึ้น ค่าจะสูงขึ้น แต่ถ้าน้ำมากขึ้นค่าจะต่ำลง ไม่ใช่สูงขึ้น เกณฑ์ที่ใช้คือมากกว่า 1.028 ที่ 20 องศาเซลเซียส และวัดด้วย lactodensitometer ส่วนเซลล์โซมาติกเป็นตัวชี้ภาวะเต้านมอักเสบ ไม่ได้ทำให้ความถ่วงจำเพาะเปลี่ยนอย่างมีนัยสำคัญ",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงสมบัติทางกายภาพของน้ำนมดิบ",
+    "verified": "3ihoAGQwxGk [103:19-103:48], [160:15-161:16], [165:30]",
+    "tags": [
+      "milk-quality-composition",
+      "specific-gravity"
+    ]
+  },
+  {
+    "id": 207185,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "เชื้อคู่ใดเป็นจุลชีพก่อโรคจากสัตว์สู่คนที่ต้องตรวจไม่พบในน้ำนมโคดิบตาม มกษ. 6003-2553",
+    "options": [
+      "Pseudomonas fluorescens และ Bacillus cereus",
+      "Staphylococcus epidermidis และ Micrococcus luteus",
+      "Brucella spp. และ Mycobacterium bovis",
+      "Lactobacillus bulgaricus และ Streptococcus thermophilus"
+    ],
+    "answer": 2,
+    "explain": "มาตรฐานกำหนดให้ตรวจไม่พบ Salmonella, Listeria monocytogenes, E. coli O157:H7, Brucella และ Mycobacterium bovis โดยสองตัวหลังคือคู่ซูโนซิสคลาสสิกที่ติดคนผ่านน้ำนมดิบ Pseudomonas fluorescens และ Bacillus cereus เป็นกลุ่มทำให้เสื่อมเสีย ไม่ใช่เชื้อที่ห้ามพบ Staphylococcus epidermidis เป็นสายพันธุ์ที่ไม่ก่อโรค ส่วน Micrococcus luteus เป็นเชื้อทดสอบใน bioassay หายาต้านจุลชีพตกค้าง และคู่สุดท้ายเป็นหัวเชื้อที่ใช้ผลิตโยเกิร์ต",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 36 ร่วมกับบันทึกการบรรยาย 2 ก.ย. 2569",
+    "verified": "TJ block 8 p36; 3ihoAGQwxGk [118:10-119:16], [132:37]",
+    "tags": [
+      "milk-raw-std",
+      "zoonosis"
+    ]
+  },
+  {
+    "id": 207186,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดคือนิยามของนมคืนรูป (recombined milk) ตามประกาศกระทรวงสาธารณสุข",
+    "options": [
+      "การนำองค์ประกอบของน้ำนมโคดิบมาผสมกันให้ได้ลักษณะเช่นเดียวกับน้ำนมโคหรือนมข้น",
+      "การใช้ไขมันจากพืชแทนมันเนยในน้ำนม เนื่องจากมันเนยมีราคาสูง",
+      "การระเหยน้ำออกจากน้ำนมโคดิบบางส่วน แล้วเติมน้ำตาลหรือสารให้ความหวานอื่น",
+      "การระเหยน้ำออกจากน้ำนมโคดิบจนเหลือเป็นผง และอาจเติมองค์ประกอบของนมเพิ่ม"
+    ],
+    "answer": 0,
+    "explain": "นมคืนรูปคือการนำองค์ประกอบของน้ำนมโคดิบกลับมาผสมกันจนได้ลักษณะเหมือนน้ำนมโคหรือนมข้น ตัวเลือกที่สองคือนมแปลงไขมัน (filled milk) ซึ่งใช้ไขมันพืชแทนมันเนย ตัวเลือกที่สามคือนมข้นซึ่งระเหยน้ำบางส่วนแล้วเติมน้ำตาล และตัวเลือกสุดท้ายคือนมผงซึ่งระเหยจนเหลือเป็นผง คำที่ต้องแยกให้ขาดคือ คืนรูป ผสมกลับให้เหมือนเดิม ส่วน แปลงไขมัน คือเปลี่ยนชนิดของไขมัน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงนิยามผลิตภัณฑ์นมตามประกาศกระทรวงสาธารณสุข",
+    "verified": "3ihoAGQwxGk [143:05-144:11]",
+    "tags": [
+      "milk-raw-std",
+      "milk-definition"
+    ]
+  },
+  {
+    "id": 207187,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ตามการแบ่งชนิดของนมด้วยปริมาณไขมัน ข้อใดคือเกณฑ์ของ full fat milk",
+    "options": [
+      "SNF มากกว่า 3.2% และไขมันมากกว่า 8.25%",
+      "SNF มากกว่า 8.25% และไขมันมากกว่า 3.2%",
+      "SNF มากกว่า 8.25% และไขมันอยู่ในช่วง 0.1-3.2%",
+      "SNF มากกว่า 12.7% และไขมันมากกว่า 3.9%"
+    ],
+    "answer": 1,
+    "explain": "Full fat milk กำหนดให้ SNF มากกว่า 8.25% และไขมันมากกว่า 3.2% ซึ่งเป็นค่าที่ระบุบนฉลากตามปกติ ตัวเลือกแรกสลับตัวเลขสองค่านี้ ตัวเลือกที่สามคือ skim milk ซึ่งยังเหลือไขมันอยู่ในช่วง 0.1-3.2% ขึ้นกับว่าจะนำไปผลิตอะไรต่อ ส่วน non-fat milk คือแยกไขมันออกทั้งหมด ตัวเลือกสุดท้ายนำเลข total solid 12.7% และไขมันเฉลี่ย 3.9% มาสวมเป็นเกณฑ์ ซึ่งเป็นคนละเรื่องกัน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงการแบ่งผลิตภัณฑ์นมตามปริมาณไขมัน",
+    "verified": "3ihoAGQwxGk [149:35-150:41]",
+    "tags": [
+      "milk-raw-std",
+      "full-fat-milk"
+    ]
+  },
+  {
+    "id": 207188,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดคือข้อกำหนดด้านจุลินทรีย์ของนมข้นหวานตามมาตรฐาน",
+    "options": [
+      "ยีสต์และราต้องตรวจไม่พบเลย ส่วนจุลินทรีย์ทั้งหมดพบได้ไม่เกิน 10 ต่อกรัม",
+      "ความชื้นต้องน้อยกว่า 5% และต้องตรวจไม่พบ E. coli ในทุกตัวอย่างที่สุ่ม",
+      "ต้องไม่มีการตกตะกอน และอนุญาตให้มีโคลิฟอร์มได้ไม่เกิน 10 ต่อกรัม",
+      "ยีสต์และราพบได้แต่ต้องน้อยกว่า 10 ต่อกรัม ส่วนจุลินทรีย์ทั้งหมดและโคลิฟอร์มต้องไม่พบ"
+    ],
+    "answer": 3,
+    "explain": "นมข้นหวานเป็นผลิตภัณฑ์เดียวที่มาตรฐานระบุเกณฑ์ยีสต์และราไว้ คือพบได้แต่ต้องน้อยกว่า 10 ต่อกรัม ขณะที่จุลินทรีย์ทั้งหมดและโคลิฟอร์มต้องไม่พบ อีกจุดที่ระบุไว้คือต้องมีวิตามินเอเป็นองค์ประกอบ และต้องเป็นเนื้อเดียวกันไม่มีการตกตะกอน แต่โคลิฟอร์มไม่อนุญาตให้มีได้ ส่วนความชื้นน้อยกว่า 5% และห้ามพบ E. coli เป็นเกณฑ์ของนมผง ซึ่งไม่ควรมีน้ำเป็นองค์ประกอบ",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงมาตรฐานผลิตภัณฑ์นมแต่ละชนิด",
+    "verified": "3ihoAGQwxGk [153:03-155:09]",
+    "tags": [
+      "milk-raw-std",
+      "condensed-milk"
+    ]
+  },
+  {
+    "id": 207189,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "ตาม มกษ. 6003-2553 ข้อใดคือคู่ของค่า pH และจำนวนเซลล์โซมาติกของน้ำนมโคดิบ",
+    "options": [
+      "pH 6.0-6.4 และเซลล์โซมาติกน้อยกว่า 500,000 เซลล์ต่อมิลลิลิตร",
+      "pH 6.6-6.8 และเซลล์โซมาติกน้อยกว่า 500,000 เซลล์ต่อมิลลิลิตร",
+      "pH 6.6-6.8 และเซลล์โซมาติกน้อยกว่า 1,000,000 เซลล์ต่อมิลลิลิตร",
+      "pH 4.6-4.8 และเซลล์โซมาติกน้อยกว่า 100,000 เซลล์ต่อมิลลิลิตร"
+    ],
+    "answer": 1,
+    "explain": "มาตรฐานกำหนด pH ของน้ำนมโคดิบไว้ที่ 6.6-6.8 และเซลล์โซมาติกน้อยกว่า 500,000 เซลล์ต่อมิลลิลิตร ค่า pH 4.6-4.8 คือช่วงที่เคซีนตกตะกอนซึ่งเป็นน้ำนมที่เป็นกรดแล้ว ส่วนเลข 1,000,000 เซลล์ต่อมิลลิลิตร เป็นระดับที่สูงจนถูกส่งน้ำนมคืน ไม่ใช่เกณฑ์ผ่าน และช่วง 400,000-500,000 เซลล์ต่อมิลลิลิตร คือช่วงที่ไม่มีการเพิ่มหรือลดราคารับซื้อ ซึ่งเป็นคนละตัวเลขกับเกณฑ์มาตรฐาน",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 35-36 ร่วมกับบันทึกการบรรยาย 2 ก.ย. 2569",
+    "verified": "TJ block 8 p35-p36; 3ihoAGQwxGk [112:13-118:10], [127:36-130:53]",
+    "tags": [
+      "milk-raw-std",
+      "somatic-cell-count"
+    ]
+  },
+  {
+    "id": 207190,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "ข้อใดเรียงเกณฑ์โคลิฟอร์มของน้ำนมโคดิบ น้ำนมโคสด และนมพาสเจอร์ไรซ์ ณ แหล่งผลิต ได้ถูกต้องตามลำดับ",
+    "options": [
+      "น้อยกว่า 10 ยกกำลัง 3, น้อยกว่า 100 และน้อยกว่า 10 CFU ต่อมิลลิลิตร",
+      "น้อยกว่า 10 ยกกำลัง 5, น้อยกว่า 10 ยกกำลัง 3 และน้อยกว่า 10 CFU ต่อมิลลิลิตร",
+      "น้อยกว่า 10 ยกกำลัง 4, น้อยกว่า 10 และน้อยกว่า 1 CFU ต่อมิลลิลิตร",
+      "น้อยกว่า 10 ยกกำลัง 4, น้อยกว่า 1 และน้อยกว่า 10 CFU ต่อมิลลิลิตร"
+    ],
+    "answer": 2,
+    "explain": "น้ำนมโคดิบยอมให้มีโคลิฟอร์มน้อยกว่า 10 ยกกำลัง 4 CFU ต่อมิลลิลิตร น้ำนมโคสดน้อยกว่า 10 CFU ต่อมิลลิลิตร และนมพาสเจอร์ไรซ์ ณ แหล่งผลิตน้อยกว่า 1 CFU ต่อมิลลิลิตร ค่าที่ใช้ล่าสุดแยกสองค่าหลังออกจากกัน ไม่ใช่ 10 CFU ต่อมิลลิลิตร เท่ากันทั้งสองชนิดอย่างที่เคยบันทึกรวมไว้ ตัวเลือกสุดท้ายสลับสองค่านี้ ส่วนเลข 10 ยกกำลัง 3 คือเกณฑ์แบคทีเรียทนร้อนของน้ำนมดิบ และ 10 ยกกำลัง 5 อยู่ในลำดับเดียวกับ standard plate count ที่กำหนดไว้น้อยกว่า 5 คูณ 10 ยกกำลัง 5 CFU ต่อมิลลิลิตร ทั้งหมดนี้เป็นค่าโคลิฟอร์ม ไม่ใช่ค่าของ E. coli",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ร่วมกับสรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 35",
+    "verified": "3ihoAGQwxGk [118:10-118:49], [155:21-155:35], [167:01]; TJ block 8 p35",
+    "tags": [
+      "milk-raw-std",
+      "coliform"
+    ]
+  },
+  {
+    "id": 207191,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "อุปกรณ์ในข้อใดใช้วัดความถ่วงจำเพาะของน้ำนมดิบ",
+    "options": [
+      "Plunger ซึ่งใช้ในการเก็บตัวอย่างน้ำนม",
+      "Lactodensitometer ซึ่งอ่านค่าได้จากการจุ่มในน้ำนม",
+      "Cheese trier ซึ่งเก็บตัวอย่างจากกึ่งกลางก้อน",
+      "Agitator ซึ่งกวนน้ำนมก่อนการเก็บตัวอย่าง"
+    ],
+    "answer": 1,
+    "explain": "Lactodensitometer เป็นเครื่องมือกลุ่มที่ใช้วัดความถ่วงจำเพาะของน้ำนม ซึ่งมีเกณฑ์มากกว่า 1.028 ที่ 20 องศาเซลเซียส Plunger เป็นอุปกรณ์เก็บตัวอย่าง Cheese trier มีลักษณะเป็นท่อกลวงที่กดลงไปเพื่อดันตัวอย่างจากกึ่งกลางก้อนชีสหรือเนยออกมา และ agitator คือเครื่องกวนที่ใช้ก่อนสุ่มตัวอย่างเพื่อไม่ให้มันเนยลอยอยู่ด้านบน ทั้งสามอย่างหลังเกี่ยวกับการเก็บตัวอย่าง ไม่ได้วัดค่าความถ่วงจำเพาะ",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงอุปกรณ์สุ่มตัวอย่างน้ำนม",
+    "verified": "3ihoAGQwxGk [158:41-161:16]",
+    "tags": [
+      "milk-raw-std",
+      "sampling-equipment"
+    ]
+  },
+  {
+    "id": 207192,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในเกณฑ์กำหนดราคารับซื้อน้ำนมดิบ ข้อใดระบุทิศทางของค่าที่ทำให้เกษตรกรได้ราคาดีขึ้นได้ถูกต้อง",
+    "options": [
+      "ไขมันและ SNF ยิ่งสูงยิ่งดี ส่วน standard plate count และเซลล์โซมาติกยิ่งต่ำยิ่งดี",
+      "ไขมันและ SNF ยิ่งต่ำยิ่งดี ส่วน standard plate count และเซลล์โซมาติกยิ่งสูงยิ่งดี",
+      "ไขมันและเซลล์โซมาติกยิ่งสูงยิ่งดี ส่วน SNF และ standard plate count ยิ่งต่ำยิ่งดี",
+      "ไขมันและ standard plate count ยิ่งสูงยิ่งดี ส่วน SNF และเซลล์โซมาติกยิ่งต่ำยิ่งดี"
+    ],
+    "answer": 0,
+    "explain": "ราคารับซื้อขึ้นกับ 5 ปัจจัย คือ ไขมัน SNF standard plate count เซลล์โซมาติก และจุดเยือกแข็ง ไขมันและ SNF ยิ่งสูงยิ่งได้ราคาดี เช่น ไขมันมากกว่า 4% เพิ่มให้ 0.4 บาทต่อกิโลกรัม ส่วน standard plate count และเซลล์โซมาติกยิ่งต่ำยิ่งดี โดยช่วง 400,000-500,000 คือช่วงที่ไม่เพิ่มไม่ลด สำหรับจุดเยือกแข็งต้องคงที่ที่ -0.55 องศาเซลเซียส ถ้าเปลี่ยนไปจะถูกลดราคาหรือส่งคืน จึงไม่มีกรณีที่จำนวนแบคทีเรียหรือเซลล์โซมาติกสูงแล้วได้ราคาดีขึ้น",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงมาตรฐานการรับซื้อน้ำนมโค",
+    "verified": "3ihoAGQwxGk [160:39-164:16]",
+    "tags": [
+      "milk-raw-std",
+      "milk-price"
+    ]
+  },
+  {
+    "id": 207193,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ชุดทดสอบเบื้องต้นที่ใช้ตรวจยาต้านจุลชีพตกค้างในน้ำนมดิบคือข้อใด",
+    "options": [
+      "Alcohol test และ clot on boiling test",
+      "Methylene blue reduction test และ resazurin test",
+      "Phosphatase test และ peroxidase test",
+      "Delvotest หรือชุดทดสอบ KS9 ที่ให้ผลเทียบเท่ากัน"
+    ],
+    "answer": 3,
+    "explain": "มาตรฐานกำหนดว่าต้องตรวจไม่พบยาต้านจุลชีพจากชุดทดสอบเบื้องต้น ซึ่งได้แก่ Delvotest และชุดทดสอบ KS9 ของกรมวิทยาศาสตร์การแพทย์ หรือวิธีที่เทียบเท่า Alcohol test และ clot on boiling test ใช้ดูเสถียรภาพและการตกตะกอนของโปรตีน Methylene blue reduction test และ resazurin test ใช้คาดเดาปริมาณจุลินทรีย์โดยดูการเปลี่ยนสี ส่วน phosphatase test และ peroxidase test ใช้ยืนยันประสิทธิภาพของการพาสเจอร์ไรซ์",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงเกณฑ์ยาต้านจุลชีพตกค้างของ มกษ.",
+    "verified": "3ihoAGQwxGk [115:59-116:40], [138:36-138:58]; aZGyfwMEKCM [26:00-26:26]",
+    "tags": [
+      "milk-raw-std",
+      "antimicrobial-residue"
+    ]
+  },
+  {
+    "id": 207194,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-raw-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "ตาม มกษ. 6003-2553 ความถ่วงจำเพาะที่ 20 องศาเซลเซียส และปริมาณโปรตีนของน้ำนมโคดิบต้องเป็นเท่าใด",
+    "options": [
+      "ความถ่วงจำเพาะมากกว่า 1.028 และโปรตีนไม่น้อยกว่า 3% โดยน้ำหนัก",
+      "ความถ่วงจำเพาะมากกว่า 1.028 และโปรตีนไม่น้อยกว่า 8.25% โดยน้ำหนัก",
+      "ความถ่วงจำเพาะมากกว่า 1.008 และโปรตีนไม่น้อยกว่า 3% โดยน้ำหนัก",
+      "ความถ่วงจำเพาะมากกว่า 1.128 และโปรตีนไม่น้อยกว่า 3.2% โดยน้ำหนัก"
+    ],
+    "answer": 0,
+    "explain": "มาตรฐานกำหนดความถ่วงจำเพาะมากกว่า 1.028 ที่ 20 องศาเซลเซียส และโปรตีนไม่น้อยกว่า 3% โดยน้ำหนัก เลข 8.25% คือเกณฑ์ของ SNF ไม่ใช่โปรตีน และ 3.2% คือเกณฑ์ไขมันของ full fat milk ส่วน 1.008 ต่ำเกินไปจนใกล้ค่าของน้ำ และ 1.128 สูงเกินกว่าที่น้ำนมจะเป็นไปได้ ค่าความถ่วงจำเพาะนี้วัดด้วย lactodensitometer และจะสูงขึ้นเมื่อไขมันและ SNF สูงขึ้น",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 36 ร่วมกับบันทึกการบรรยาย 2 ก.ย. 2569",
+    "verified": "TJ block 8 p36; 3ihoAGQwxGk [112:13-118:10], [164:29-167:40]",
+    "tags": [
+      "milk-raw-std",
+      "specific-gravity"
+    ]
+  },
+  {
+    "id": 207195,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "องค์กรใดเป็นผู้กำหนดคุณสมบัติของจุลินทรีย์บ่งชี้ (indicator organism) ที่ดีสำหรับอาหารและน้ำนม",
+    "options": [
+      "AOAC ซึ่งรับรองวิธีตรวจวิเคราะห์แบบรวดเร็วให้นำไปใช้ได้",
+      "ICMSF ซึ่งวางเกณฑ์การเลือกจุลินทรีย์บ่งชี้สำหรับอาหาร",
+      "CDC ซึ่งเป็นหน่วยงานเฝ้าระวังโรคระบาดของสหรัฐอเมริกา",
+      "FAO ซึ่งดูแลด้านอาหารและการเกษตรระหว่างประเทศ"
+    ],
+    "answer": 1,
+    "explain": "ICMSF เป็นผู้กำหนดว่า indicator ที่ดีต้องตรวจเจอเมื่อกระบวนการผิดพลาด ต้องอยู่รอดได้ไม่น้อยกว่ากลุ่มเชื้ออันตรายและเชื้อที่ทำให้เสื่อมเสีย ต้องคงอยู่ตลอดสายการผลิต ตรวจได้ง่ายเร็วและเชื่อถือได้ และปริมาณต้องสัมพันธ์กับเชื้อเป้าหมาย AOAC เป็นผู้รับรองวิธีตรวจแบบรวดเร็ว CDC เป็นหน่วยงานเฝ้าระวังโรคของสหรัฐอเมริกาซึ่งเป็นองค์กรภายในประเทศนั้น ส่วน FAO เป็นองค์กรระหว่างประเทศด้านอาหารและการเกษตร ไม่ได้วางเกณฑ์นี้",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง indicator bacteria",
+    "verified": "hPV3Rhh8r3Q [34:34-37:04], [116:18-117:08]; 3ihoAGQwxGk [7:46-8:38]",
+    "tags": [
+      "milk-microbiology",
+      "indicator-organism"
+    ]
+  },
+  {
+    "id": 207196,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "ผลการตรวจ laboratory pasteurized count (LPC) ที่สูงในน้ำนม บอกอะไรแก่โรงงาน",
+    "options": [
+      "มีการปนเปื้อนอุจจาระ และสะท้อนสุขลักษณะการรีดนมที่ไม่ดี",
+      "มีแบคทีเรียที่เจริญได้ในตู้เย็น และทำให้อายุการเก็บสั้นลง",
+      "มีแบคทีเรียที่รอดจากการพาสเจอร์ไรซ์ และสะท้อนปัญหาการทำความสะอาด",
+      "มีเซลล์โซมาติกสูง และสะท้อนว่าแม่โคอยู่ในภาวะเต้านมอักเสบ"
+    ],
+    "answer": 2,
+    "explain": "LPC ทำโดยนำน้ำนมไปให้ความร้อนที่ 62.8 ถึง 63 องศาเซลเซียส นาน 30 นาที ซึ่งเทียบเท่า LTLT ก่อนเพาะเลี้ยง จึงนับเฉพาะแบคทีเรียทนร้อนที่รอดจากการพาสเจอร์ไรซ์ และค่าที่สูงโยงไปถึงการล้างอุปกรณ์ที่ไม่เพียงพอ การปนเปื้อนอุจจาระดูจาก coliform count แบคทีเรียที่โตในตู้เย็นคือกลุ่ม psychrotroph ซึ่งนับด้วยการบ่มที่ 7 องศาเซลเซียส นาน 10 วัน ส่วนเซลล์โซมาติกตรวจด้วย somatic cell count ไม่ใช่การเพาะเชื้อ",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 37 ร่วมกับบันทึกการบรรยาย 9 ก.ย. 2569",
+    "verified": "TJ block 8 p37; hPV3Rhh8r3Q [37:04-39:15], [55:07]; 3ihoAGQwxGk [29:52-31:25]",
+    "tags": [
+      "milk-microbiology",
+      "thermoduric"
+    ]
+  },
+  {
+    "id": 207197,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดอธิบายความแตกต่างระหว่าง safety indicator กับ quality indicator ได้ถูกต้อง",
+    "options": [
+      "safety indicator บอกโอกาสปนเปื้อนเชื้อก่อโรค ส่วน quality indicator บอกการยอมรับได้ของผลิตภัณฑ์",
+      "safety indicator บอกการยอมรับได้ของผลิตภัณฑ์ ส่วน quality indicator บอกโอกาสปนเปื้อนเชื้อก่อโรค",
+      "safety indicator ใช้กับน้ำนมดิบเท่านั้น ส่วน quality indicator ใช้กับผลิตภัณฑ์พร้อมบริโภคเท่านั้น",
+      "safety indicator ตรวจด้วยการเพาะเชื้อเสมอ ส่วน quality indicator ตรวจด้วยวิธีทางเคมีเสมอ"
+    ],
+    "answer": 0,
+    "explain": "Safety indicator หรือ index organism บ่งบอกว่ามีโอกาสปนเปื้อนเชื้อก่อโรคอื่นหรือไม่ ส่วน quality indicator บอกคุณภาพและการยอมรับได้ของผลิตภัณฑ์ ทั้งระยะเวลาเก็บ ลักษณะทางประสาทสัมผัส และการเสื่อมเสีย ทั้งสองแบบใช้ได้ทั้งกับน้ำนมดิบและผลิตภัณฑ์ จึงไม่ได้แบ่งตามชนิดตัวอย่าง และทั้งคู่ตรวจด้วยการเพาะเชื้อเป็นหลัก ตัวที่เป็นได้ทั้งสองอย่างคือ E. coli ส่วน total bacterial count และ coliform เป็น quality indicator ที่ดีแต่ไม่ใช่ safety indicator ที่ดี",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง indicator bacteria",
+    "verified": "hPV3Rhh8r3Q [33:17-34:20], [37:04-39:15], [55:07]",
+    "tags": [
+      "milk-microbiology",
+      "safety-indicator"
+    ]
+  },
+  {
+    "id": 207198,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การปนเปื้อนจุลชีพในน้ำนมที่มีอาหารสัตว์เป็นแหล่งที่มา มักสัมพันธ์กับเชื้อในข้อใด",
+    "options": [
+      "Corynebacterium ซึ่งพบได้ภายในเต้านมของแม่โค",
+      "Micrococcus ซึ่งพบได้ภายในเต้านมของแม่โค",
+      "Lactobacillus ซึ่งพบได้ในสิ่งแวดล้อมรอบตัวแม่โค",
+      "Aspergillus ซึ่งเป็นเชื้อราที่ปนมากับอาหารสัตว์"
+    ],
+    "answer": 3,
+    "explain": "แหล่งปนเปื้อนแบ่งตามตำแหน่งได้เป็น ภายในเต้านมซึ่งพบ Streptococcus, Corynebacterium และ Micrococcus สิ่งแวดล้อมภายนอกซึ่งพบกลุ่ม Lactobacillus ที่เป็นได้ทั้งเชื้อดีและไม่ดี อาหารสัตว์ซึ่งเน้นที่ Aspergillus และอุปกรณ์รีดนม ดังนั้นเชื้อที่ผูกกับอาหารสัตว์คือ Aspergillus ส่วนอีกสามตัวผูกกับเต้านมและสิ่งแวดล้อม",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วงแหล่งปนเปื้อนแยกตามตำแหน่ง",
+    "verified": "hPV3Rhh8r3Q [71:27-72:36]",
+    "tags": [
+      "milk-microbiology",
+      "contamination-source"
+    ]
+  },
+  {
+    "id": 207199,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "อาหารที่เก็บในตู้เย็นแล้วพบสีเขียวเรืองแสงบนผิว น่าจะเกิดจากการปนเปื้อนของเชื้อกลุ่มใด",
+    "options": [
+      "Pseudomonas ซึ่งสร้างสารเรืองแสงและเจริญได้ที่อุณหภูมิตู้เย็น",
+      "Clostridium ซึ่งสร้างสปอร์และเจริญได้ในภาวะไร้ออกซิเจน",
+      "Enterococcus ซึ่งทนความร้อนและจัดอยู่ในกลุ่ม thermoduric",
+      "Lactobacillus ซึ่งผลิตกรดแลคติกและทำให้เกิดรสเปรี้ยว"
+    ],
+    "answer": 0,
+    "explain": "Pseudomonas เป็นกลุ่ม psychrotroph ที่เจริญได้ต่ำกว่า 7 องศาเซลเซียส และสร้างสารเรืองแสงจนเห็นเป็นสีเขียวบนผิวอาหารแช่เย็น นอกจากนี้ยังผลิตโปรติเอสทำให้เกิดรสขม และไลเปสทำให้เกิดกลิ่นหืน Clostridium เด่นที่การสร้างสปอร์และภาวะไร้ออกซิเจน ไม่ได้เรืองแสง Enterococcus เป็นกลุ่มทนร้อน ส่วน Lactobacillus ทำให้เปรี้ยวและตกตะกอน ไม่ทำให้เกิดสีเรืองแสง",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง spoilage bacteria",
+    "verified": "hPV3Rhh8r3Q [42:59-43:49]",
+    "tags": [
+      "milk-microbiology",
+      "pseudomonas"
+    ]
+  },
+  {
+    "id": 207200,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "ปัญหาสำคัญที่ทำให้หัวเชื้อ starter culture ทำงานได้ไม่เต็มที่ในการผลิตนมเปรี้ยวคือข้อใด",
+    "options": [
+      "การเติมน้ำตาลมากเกินไปจนแบคทีเรียหยุดผลิตกรดกลางคัน",
+      "การติดเชื้อแบคทีริโอฟาจซึ่งเข้าไปทำลายแบคทีเรียที่ใส่ลงไป",
+      "การใช้อุณหภูมิบ่มต่ำกว่า 10 องศาเซลเซียสตลอดระยะเวลาการหมัก",
+      "การเติมนมผงจนโปรตีนตกตะกอนก่อนที่การหมักจะเริ่มต้น"
+    ],
+    "answer": 1,
+    "explain": "แบคทีริโอฟาจคือไวรัสที่ทำลายแบคทีเรีย เมื่อปนเปื้อนเข้าไปจะฆ่าหัวเชื้อ ผลคือผลิตภัณฑ์ไม่เปรี้ยวตามที่ต้องการหรือได้รสชาติผิดไป จึงเป็นเหตุผลที่คุณสมบัติข้อหนึ่งของหัวเชื้อที่ดีคือต้องทนต่อไวรัสกลุ่มนี้ ปัญหาอื่นที่พบคือ culture drift ซึ่งประสิทธิภาพเปลี่ยนไปตามเวลา และการปนเปื้อนเชื้ออื่นมากับหัวเชื้อ ส่วนน้ำตาล อุณหภูมิบ่ม และนมผง เป็นตัวแปรที่โรงงานควบคุมได้เองและไม่ใช่ปัญหาหลักของหัวเชื้อ",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 37 ร่วมกับบันทึกการบรรยาย 9 ก.ย. 2569",
+    "verified": "TJ block 8 p37; hPV3Rhh8r3Q [51:14-53:38], [55:07]",
+    "tags": [
+      "milk-microbiology",
+      "starter-culture"
+    ]
+  },
+  {
+    "id": 207201,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดโรงงานจึงไม่ใช้จุลินทรีย์ที่มีอยู่ตามธรรมชาติเป็นหัวเชื้อในการผลิตผลิตภัณฑ์นมหมัก",
+    "options": [
+      "เพราะจุลินทรีย์ธรรมชาติผลิตกรดเร็วเกินไป ผลิตภัณฑ์จึงเปรี้ยวจัดทุกครั้ง",
+      "เพราะจุลินทรีย์ธรรมชาติถูกทำลายหมดในขั้นพาสเจอร์ไรซ์ จึงไม่เหลือให้ใช้",
+      "เพราะควบคุมและคาดการณ์การเจริญของเชื้อไม่ได้ ผลิตภัณฑ์จึงไม่สม่ำเสมอ",
+      "เพราะกฎหมายกำหนดให้ใช้เฉพาะหัวเชื้อที่ขึ้นทะเบียนไว้กับหน่วยงานรัฐ"
+    ],
+    "answer": 2,
+    "explain": "Natural microflora คือการนำแบคทีเรียที่พบในสิ่งแวดล้อมมาใช้หมักโดยตรง ซึ่งไม่มีประสิทธิภาพ เพราะบอกไม่ได้ว่าอีกหนึ่งหรือห้าชั่วโมงเชื้อจะเจริญไปเท่าใดและรสชาติจะออกมาแบบใด โรงงานจึงใช้หัวเชื้อที่ควบคุมและคาดการณ์ได้ ข้ออ้างว่าผลิตกรดเร็วเกินไปไม่ใช่เหตุผลหลัก เพราะการผลิตกรดได้เร็วเป็นคุณสมบัติที่ต้องการของหัวเชื้อที่ดีด้วยซ้ำ ส่วนการพาสเจอร์ไรซ์เกิดก่อนเติมหัวเชื้ออยู่แล้ว และไม่มีข้อกำหนดเรื่องการขึ้นทะเบียนหัวเชื้อในลักษณะนี้",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง starter culture",
+    "verified": "hPV3Rhh8r3Q [47:45-53:38]",
+    "tags": [
+      "milk-microbiology",
+      "starter-culture"
+    ]
+  },
+  {
+    "id": 207202,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "หัวเชื้อแลคติกแอซิดแบคทีเรียกลุ่ม mesophilic ใช้ผลิตผลิตภัณฑ์ใด และเจริญได้ดีที่อุณหภูมิใด",
+    "options": [
+      "โยเกิร์ต ที่อุณหภูมิประมาณ 30 องศาเซลเซียส",
+      "โยเกิร์ต ที่อุณหภูมิประมาณ 45 องศาเซลเซียส",
+      "ชีส ที่อุณหภูมิประมาณ 45 องศาเซลเซียส",
+      "ชีส ที่อุณหภูมิประมาณ 30 องศาเซลเซียส"
+    ],
+    "answer": 3,
+    "explain": "แลคติกแอซิดแบคทีเรียแบ่งตามอุณหภูมิเป็นสองกลุ่ม กลุ่ม mesophilic เจริญได้ดีที่ประมาณ 30 องศาเซลเซียส และใช้ผลิตชีสเป็นส่วนใหญ่ ส่วนกลุ่ม thermophilic เจริญได้ดีที่ 42 ถึง 45 องศาเซลเซียส และใช้ผลิตโยเกิร์ต คำลงท้าย philic แปลว่าชอบ ต่างจาก duric ที่แปลว่าทน ซึ่งหมายถึงกลุ่มที่ทนความร้อนได้แต่ไม่ได้ชอบอุณหภูมินั้น",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง starter culture",
+    "verified": "hPV3Rhh8r3Q [49:15-49:55]",
+    "tags": [
+      "milk-microbiology",
+      "lactic-acid-bacteria"
+    ]
+  },
+  {
+    "id": 207203,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-microbiology",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "แบคทีเรียกลุ่มทนร้อน (thermoduric) ที่พบได้ในน้ำนมได้แก่คู่ใด",
+    "options": [
+      "Micrococcus และ Enterococcus",
+      "Pseudomonas และ Alcaligenes",
+      "Salmonella และ Campylobacter",
+      "Lactobacillus และ Streptococcus"
+    ],
+    "answer": 0,
+    "explain": "Thermoduric แยกศัพท์ได้เป็น thermo คืออุณหภูมิ และ duric คือทน จึงหมายถึงกลุ่มที่ทนความร้อนระดับพาสเจอร์ไรซ์ได้ ตัวอย่างที่พบในน้ำนมคือ Micrococcus และ Enterococcus Pseudomonas และ Alcaligenes เป็นกลุ่ม psychrotroph ที่โตในตู้เย็น Salmonella และ Campylobacter เป็นเชื้อก่อโรคที่ถูกทำลายด้วยการพาสเจอร์ไรซ์ ส่วน Lactobacillus และ Streptococcus เป็นหัวเชื้อที่ใช้ผลิตนมหมัก",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง spoilage bacteria",
+    "verified": "hPV3Rhh8r3Q [42:59-43:13], [37:04-37:16]; 3ihoAGQwxGk [24:54-25:07]",
+    "tags": [
+      "milk-microbiology",
+      "thermoduric"
+    ]
+  },
+  {
+    "id": 207204,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่เชื้อก่อโรคที่ติดต่อผ่านน้ำนมกับลักษณะเด่นที่ใช้ระบุเชื้อนั้น (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "Listeria monocytogenes",
+        "right": "เจริญได้ที่อุณหภูมิตู้เย็น และทำให้หญิงตั้งครรภ์แท้งได้"
+      },
+      {
+        "left": "Campylobacter jejuni",
+        "right": "ตามมาด้วยกลุ่มอาการ Guillain-Barre และเพาะแยกยากเพราะเป็น fastidious bacteria"
+      },
+      {
+        "left": "Cronobacter",
+        "right": "สำคัญที่สุดในนมผงสำหรับทารก และทำให้อัตราการตายในเด็กสูงขึ้น"
+      },
+      {
+        "left": "Staphylococcus aureus",
+        "right": "สร้างท็อกซินที่ทนความร้อน ทำให้อาเจียนภายใน 1-6 ชั่วโมง"
+      },
+      {
+        "left": "Brucella melitensis",
+        "right": "ทำให้ไข้ขึ้นลงเป็นช่วง (undulant fever) ร่วมกับปวดตามข้อ"
+      },
+      {
+        "left": "Bacillus cereus",
+        "right": "สร้างสปอร์ที่ทนความร้อน จึงรอดจากการพาสเจอร์ไรซ์"
+      }
+    ],
+    "distractors": [
+      "ทำให้เกิดวัณโรคในโค และติดคนที่ทำงานในฟาร์มทางการหายใจ",
+      "ทำให้ท้องเสียเป็นเลือดร่วมกับภาวะไตวายเฉียบพลัน"
+    ],
+    "explain": "คีย์ประจำตัวของแต่ละเชื้อคือสิ่งที่ใช้แยกเชื้อออกจากกันเมื่อโจทย์ให้อาการมา Listeria เด่นที่ทนเย็นและผลต่อหญิงตั้งครรภ์ Campylobacter jejuni เด่นที่ Guillain-Barre และเพาะยากเพราะต้องการออกซิเจนต่ำ Cronobacter ผูกกับนมผงทารก Staphylococcus aureus เด่นที่ท็อกซินทนความร้อนซึ่งกระบวนการผลิตนมทำลายไม่ได้ อาการจึงเกิดเร็วภายใน 1-6 ชั่วโมง Brucella melitensis จากแพะแกะเด่นที่ไข้ขึ้นลงและปวดข้อ ส่วน Bacillus cereus เด่นที่สปอร์ การ์ดที่เหลือเป็นของ Mycobacterium bovis และ Shiga toxin producing E. coli",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วงตารางสรุปเชื้อก่อโรคผ่านน้ำนม 10 ชนิด",
+    "verified": "hPV3Rhh8r3Q [105:06-106:26], [76:39-79:33], [81:07-84:59], [96:58-98:24], [102:18-104:52]",
+    "tags": [
+      "milk-borne-pathogens",
+      "pathogen-key"
+    ]
+  },
+  {
+    "id": 207205,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่เชื้อที่ติดต่อผ่านน้ำนมกับโรคหรือภาวะที่เชื้อนั้นทำให้เกิด (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "Shiga toxin producing E. coli O157:H7",
+        "right": "Hemolytic uremic syndrome ซึ่งทำให้ไตวาย"
+      },
+      {
+        "left": "Mycobacterium bovis",
+        "right": "วัณโรคในโคที่ติดต่อสู่คนได้"
+      },
+      {
+        "left": "Coxiella",
+        "right": "Q fever"
+      },
+      {
+        "left": "Streptococcus agalactiae",
+        "right": "การติดเชื้อในกระแสเลือดของทารกแรกเกิด"
+      },
+      {
+        "left": "Salmonella ซีโรไทป์ Typhi",
+        "right": "ไข้ไทฟอยด์"
+      },
+      {
+        "left": "Yersinia enterocolitica",
+        "right": "ปวดท้องคล้ายไส้ติ่งอักเสบแต่ไม่ได้เป็นไส้ติ่งอักเสบ"
+      }
+    ],
+    "distractors": [
+      "กลุ่มอาการ Guillain-Barre ภายหลังภาวะท้องเสีย",
+      "อาเจียนฉับพลันจากท็อกซินที่สร้างไว้ก่อนในอาหาร"
+    ],
+    "explain": "E. coli O157:H7 สร้างชิกาท็อกซิน stx1 และ stx2 ทำให้ท้องเสียเป็นเลือดและตามมาด้วย hemolytic uremic syndrome ในผู้ป่วยราว 5-20% Mycobacterium bovis ทำให้เกิดวัณโรคในโคซึ่งเป็นซูโนซิส Coxiella คือกลุ่ม Q fever Streptococcus agalactiae น่ากังวลในทารกแรกเกิดที่ติดจากแม่ ส่วน Salmonella ซีโรไทป์ Typhi และ Paratyphi ทำให้เกิดไข้ไทฟอยด์และพาราไทฟอยด์ และ Yersinia enterocolitica เด่นที่อาการปวดท้องคล้ายไส้ติ่งอักเสบ การ์ดที่เหลือเป็นของ Campylobacter และ Staphylococcus aureus",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วงเชื้อก่อโรคผ่านน้ำนมและเชื้อที่พบน้อย",
+    "verified": "hPV3Rhh8r3Q [73:37-74:42], [89:36-96:44], [99:30-101:39], [105:06-107:47]",
+    "tags": [
+      "milk-borne-pathogens",
+      "pathogen-disease"
+    ]
+  },
+  {
+    "id": 207206,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "match",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "จับคู่เชื้อที่ติดต่อผ่านน้ำนมกับมาตรการควบคุมที่ตรงกับจุดอ่อนของเชื้อนั้น (ลากการ์ดขวาไปวาง)",
+    "pairs": [
+      {
+        "left": "Mycobacterium bovis",
+        "right": "ตรวจฝูงด้วย tuberculin skin test แล้วคัดสัตว์ที่ให้ผลบวกออก"
+      },
+      {
+        "left": "Cronobacter",
+        "right": "ชงนมผงด้วยน้ำที่ร้อนตั้งแต่ 70 องศาเซลเซียสขึ้นไป"
+      },
+      {
+        "left": "Listeria monocytogenes",
+        "right": "ปิดช่องการปนเปื้อนซ้ำหลังพาสเจอร์ไรซ์ ทั้งการล้างท่อและการบรรจุ"
+      },
+      {
+        "left": "Staphylococcus aureus",
+        "right": "คุมอุณหภูมิไม่ให้เชื้อสร้างท็อกซินขึ้นก่อนเข้ากระบวนการผลิต"
+      },
+      {
+        "left": "Campylobacter jejuni",
+        "right": "เลิกบริโภคน้ำนมดิบ ซึ่งเป็นปัจจัยเสี่ยงสำคัญที่สุดของเชื้อนี้"
+      },
+      {
+        "left": "Streptococcus agalactiae",
+        "right": "ล้างและเปลี่ยนอุปกรณ์รีดนมระหว่างแม่โคแต่ละตัว"
+      }
+    ],
+    "distractors": [
+      "ตรวจ somatic cell count ทุกถังก่อนรับซื้อน้ำนมเข้าศูนย์",
+      "เลือกหัวเชื้อ starter culture ที่ทนต่อแบคทีริโอฟาจ"
+    ],
+    "explain": "มาตรการต้องตรงกับจุดอ่อนของเชื้อ Mycobacterium bovis ควบคุมด้วยการทดสอบและคัดสัตว์ออกร่วมกับระบบความปลอดภัยทางชีวภาพ Cronobacter ควบคุมที่วิธีชงนมผง เพราะน้ำอุ่นไม่ร้อนพอที่จะฆ่าเชื้อ Listeria ตายด้วยการพาสเจอร์ไรซ์อยู่แล้ว ช่องโหว่จึงอยู่ที่การปนเปื้อนซ้ำหลังฆ่าเชื้อ Staphylococcus aureus ตายด้วยความร้อนแต่ท็อกซินไม่ตาย จึงต้องกันไม่ให้สร้างท็อกซินตั้งแต่ต้น Campylobacter jejuni ผูกกับการดื่มน้ำนมดิบ ส่วน Streptococcus agalactiae แพร่จากแม่โคตัวหนึ่งไปอีกตัวผ่านอุปกรณ์รีดนมที่ไม่ได้ล้าง",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วงการควบคุมป้องกันเชื้อก่อโรคแต่ละชนิด",
+    "verified": "hPV3Rhh8r3Q [78:02-79:33], [84:08-89:36], [96:58-97:36], [99:30-101:39]",
+    "tags": [
+      "milk-borne-pathogens",
+      "pathogen-control"
+    ]
+  },
+  {
+    "id": 207207,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ซีโรไทป์ใดของ Salmonella ที่หากตรวจพบในผลิตภัณฑ์จากสัตว์แล้วจะส่งออกไม่ได้ และเพราะเหตุใด",
+    "options": [
+      "Typhimurium และ Enteritidis เพราะเป็นซีโรไทป์ที่มีรายงานในน้ำนมมากที่สุด",
+      "Typhi และ Paratyphi เพราะคนเป็นแหล่งรังโรค การพบจึงชี้ว่ามีคนป่วยในสายการผลิต",
+      "Typhimurium และ Typhi เพราะเป็นสองซีโรไทป์ที่ทำให้โคแสดงอาการรุนแรงที่สุด",
+      "Enteritidis และ Paratyphi เพราะเป็นซีโรไทป์ที่ทนความร้อนระดับพาสเจอร์ไรซ์ได้"
+    ],
+    "answer": 1,
+    "explain": "Salmonella มีมากกว่า 2,500 ซีโรไทป์ โดย Typhi และ Paratyphi เขียนด้วยตัวตรงเพราะเป็นซีโรไทป์ ไม่ใช่สปีชีส์ และมีคนเป็นแหล่งรังโรค การตรวจพบจึงแปลว่ามีคนป่วยเข้ามาเกี่ยวข้องกับผลิตภัณฑ์ ทำให้ส่งออกไม่ได้ ส่วน Typhimurium และ Enteritidis เป็นซีโรไทป์ที่มีรายงานในน้ำนม แต่ไม่ใช่เกณฑ์ห้ามส่งออก ไม่มีซีโรไทป์ใดของ Salmonella ที่ทนความร้อนระดับพาสเจอร์ไรซ์ได้ และเชื้อกลุ่มนี้มักไม่ทำให้โคแสดงอาการรุนแรง",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง Salmonella",
+    "verified": "hPV3Rhh8r3Q [72:49-76:39]",
+    "tags": [
+      "milk-borne-pathogens",
+      "salmonella"
+    ]
+  },
+  {
+    "id": 207208,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดการเพาะแยก Campylobacter jejuni จากน้ำนมดิบจึงมักไม่พบเชื้อทั้งที่มีเชื้ออยู่",
+    "options": [
+      "เชื้อเจริญเร็วมากจนถูกแบคทีเรียชนิดอื่นในน้ำนมกลบไปหมดภายใน 24 ชั่วโมง",
+      "เชื้อถูกทำลายทันทีเมื่อเก็บตัวอย่างน้ำนมไว้ที่อุณหภูมิต่ำกว่า 10 องศาเซลเซียส",
+      "เชื้อเป็น fastidious bacteria ที่ต้องเพาะในภาวะออกซิเจนต่ำ ถ้าเพาะแบบ aerobic จะไม่ขึ้น",
+      "เชื้อสร้างสปอร์ที่ไม่งอกบนอาหารเลี้ยงเชื้อทั่วไป จึงต้องกระตุ้นด้วยความร้อนก่อนเพาะ"
+    ],
+    "answer": 2,
+    "explain": "Campylobacter jejuni เป็น fastidious bacteria ที่โตยากอยู่แล้ว และต้องการบรรยากาศที่มีออกซิเจนต่ำแบบ microaerophilic คือออกซิเจนราว 5% และคาร์บอนไดออกไซด์ราว 10% ถ้าใช้อาหารเลี้ยงเชื้อผิดประเภทหรือเพาะแบบ aerobic ตามปกติก็จะไม่ขึ้น จึงต้องใช้ห้องปฏิบัติการที่มีเครื่องมือจำเพาะ เชื้อนี้ไม่ได้เจริญเร็ว ไม่ได้สร้างสปอร์ และการเก็บตัวอย่างในความเย็นตามปกติก็ไม่ได้ทำลายเชื้อทันที",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง Campylobacter",
+    "verified": "hPV3Rhh8r3Q [96:58-99:05] และหมายเหตุท้ายบทเรื่องบรรยากาศการเพาะเลี้ยง",
+    "tags": [
+      "milk-borne-pathogens",
+      "campylobacter"
+    ]
+  },
+  {
+    "id": 207209,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "แหล่งรังโรคหลักของ Shiga toxin producing E. coli และเส้นทางที่ทำให้เชื้อไปปนเปื้อนในผักสลัดคือข้อใด",
+    "options": [
+      "สุกรและสัตว์ปีกซึ่งไม่แสดงอาการ โดยน้ำล้างโรงฆ่าสัตว์ไหลลงสู่แปลงผัก",
+      "หนูและแมลงสาบในโรงเรือน โดยเชื้อติดมากับฝุ่นและลมที่พัดเข้าแปลงผัก",
+      "คนที่เป็นพาหะในฟาร์ม โดยมือที่ปนเปื้อนสัมผัสผักระหว่างการเก็บเกี่ยว",
+      "โคและแกะซึ่งไม่แสดงอาการ โดยอุจจาระถูกนำไปทำปุ๋ยแล้วใช้ในแปลงผัก"
+    ],
+    "answer": 3,
+    "explain": "แหล่งรังโรคหลักคือสัตว์เคี้ยวเอื้อง ได้แก่ โค กระบือ แพะ แกะ ซึ่งพาเชื้อไว้โดยไม่ป่วย และพบมากในลูกโคอายุน้อย อุจจาระถูกนำไปทำปุ๋ยแล้วใช้ในแปลงผัก เชื้อจึงไปอยู่ในผักสลัดและผลไม้ที่เราล้างน้ำอย่างเดียวโดยไม่ปรุงสุก อีกเส้นทางคือการปนเปื้อนในโรงฆ่าสัตว์ของโคแล้วระบาดผ่านเนื้อบด จึงมีชื่อเรียกว่า hamburger disease ส่วนสุกร สัตว์ปีก สัตว์พาหะในโรงเรือน และมือคนงาน ไม่ใช่แหล่งรังโรคหลักของเชื้อนี้",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง Shiga toxin producing E. coli",
+    "verified": "hPV3Rhh8r3Q [91:43-96:44], [107:35]",
+    "tags": [
+      "milk-borne-pathogens",
+      "stec"
+    ]
+  },
+  {
+    "id": 207210,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การบริโภคอาหารที่มี E. coli สายพันธุ์ที่ไม่ก่อโรคในปริมาณมาก จะเกิดผลอย่างไร",
+    "options": [
+      "อาจปวดท้องและถ่ายเหลวได้ ถึงแม้เชื้อจะไม่สร้างท็อกซิน",
+      "ไม่เกิดอาการใดเลย เพราะเชื้อกลุ่มนี้ไม่สร้างท็อกซินและไม่รุกรานลำไส้",
+      "เกิดภาวะไตวายเฉียบพลันเช่นเดียวกับสายพันธุ์ที่สร้างชิกาท็อกซิน",
+      "เกิดอาการอาเจียนฉับพลันภายใน 1-6 ชั่วโมงจากท็อกซินที่ทนความร้อน"
+    ],
+    "answer": 0,
+    "explain": "E. coli แบ่งเป็นกลุ่มที่ก่อโรคและไม่ก่อโรค กลุ่มที่ก่อโรคแยกได้ 6 pathotype ตามท็อกซินที่สร้าง แต่แม้เป็นสายพันธุ์ที่ไม่ก่อโรค ถ้าได้รับเข้าไปในปริมาณมากพอก็ทำให้ปวดท้องและถ่ายเหลวได้ ภาวะไตวายจาก hemolytic uremic syndrome เป็นผลของชิกาท็อกซินซึ่งมีเฉพาะในสายพันธุ์ที่สร้างท็อกซินนี้ ส่วนการอาเจียนฉับพลันภายใน 1-6 ชั่วโมงเป็นลักษณะของ Staphylococcus aureus ไม่ใช่ E. coli",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วงโครงสร้างของ E. coli",
+    "verified": "hPV3Rhh8r3Q [89:48-91:43]",
+    "tags": [
+      "milk-borne-pathogens",
+      "escherichia-coli"
+    ]
+  },
+  {
+    "id": 207211,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การระบาดของ Listeria monocytogenes ในชีสเนื้อนุ่มที่สหรัฐอเมริกา มีสาเหตุจากข้อใด",
+    "options": [
+      "การใช้อุณหภูมิพาสเจอร์ไรซ์ต่ำกว่าเกณฑ์ จนเชื้อรอดจากกระบวนการฆ่าเชื้อ",
+      "การปนเปื้อนซ้ำหลังการพาสเจอร์ไรซ์ ทั้งจากการล้างท่อและการบรรจุที่ไม่ดี",
+      "การปนเปื้อนสปอร์ของเชื้อซึ่งทนความร้อนระดับพาสเจอร์ไรซ์ได้ตั้งแต่ต้น",
+      "การเติมหัวเชื้อที่ปนเปื้อนเชื้อก่อโรคลงไปในขั้นตอนการหมัก"
+    ],
+    "answer": 1,
+    "explain": "Listeria monocytogenes ตายได้ด้วยการพาสเจอร์ไรซ์ที่ดีพอ การระบาดครั้งนั้นซึ่งมีผู้ป่วยยืนยัน 108 รายและเสียชีวิตราว 21 ราย จึงเกิดจาก post-pasteurization contamination คือการล้างท่อหลังฆ่าเชื้อไม่ดี การบรรจุที่ปนเปื้อน และการเก็บในตู้เย็นที่อุณหภูมิไม่เหมาะสมซึ่งเชื้อยังโตต่อได้ เชื้อนี้ไม่สร้างสปอร์ จึงไม่ใช่กรณีสปอร์ทนความร้อน และสาเหตุไม่ได้อยู่ที่หัวเชื้อหรืออุณหภูมิที่ใช้ฆ่าเชื้อต่ำกว่าเกณฑ์",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วงกรณีการระบาดจริง",
+    "verified": "hPV3Rhh8r3Q [84:08-84:59], [107:47-109:01]",
+    "tags": [
+      "milk-borne-pathogens",
+      "listeria"
+    ]
+  },
+  {
+    "id": 207212,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในการสอบสวนการระบาดที่ผู้ป่วยส่วนใหญ่ดื่มน้ำนมดิบจากฟาร์มเดียวกัน ตัวอย่างใดที่ทำให้พบเชื้อต้นเหตุ",
+    "options": [
+      "ตัวอย่างแผ่นกรองน้ำนมของฟาร์มนั้นที่นำมาเพาะเชื้อ",
+      "ตัวอย่างสิ่งแวดล้อมรอบโรงเรือนของฟาร์มนั้นที่นำมาเพาะเชื้อ",
+      "ตัวอย่างน้ำนมดิบที่ฟาร์มนั้นส่งขายซึ่งนำมาเพาะเชื้อ",
+      "ตัวอย่างจากคนงานที่ทำงานในฟาร์มนั้นที่นำมาเพาะเชื้อ"
+    ],
+    "answer": 2,
+    "explain": "ทีมสอบสวนโฟกัสที่ฟาร์มที่ขายน้ำนมดิบ เพราะผู้ป่วยรายเดียวที่ดื่มนมพาสเจอร์ไรซ์จากอีกฟาร์มหนึ่งไม่ได้ติดเชื้อนี้ เมื่อเก็บแผ่นกรองน้ำนม สิ่งแวดล้อม และตัวอย่างจากคนงาน ผลออกมาเป็นลบทั้งหมด จนกระทั่งนำผลิตภัณฑ์น้ำนมดิบของฟาร์มไปเพาะจึงพบเชื้อ กรณีนี้จบลงด้วยการกำหนดให้ขายเฉพาะน้ำนมที่ผ่านการพาสเจอร์ไรซ์ และเป็นตัวอย่างว่าผลลบจากจุดหนึ่งไม่ได้แปลว่าไม่มีเชื้อในสายการผลิต",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วงกรณีศึกษาการสอบสวนการระบาด",
+    "verified": "hPV3Rhh8r3Q [111:35-115:28]",
+    "tags": [
+      "milk-borne-pathogens",
+      "outbreak-investigation"
+    ]
+  },
+  {
+    "id": 207213,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-borne-pathogens",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดจึงยังพบปัญหาจาก Bacillus cereus ในนมพาสเจอร์ไรซ์ที่เก็บในอุณหภูมิไม่เหมาะสม",
+    "options": [
+      "เซลล์ของเชื้อทนความร้อนระดับพาสเจอร์ไรซ์ได้ เพราะมีผนังเซลล์หนาเป็นพิเศษ",
+      "ท็อกซินของเชื้อถูกสร้างขึ้นใหม่ระหว่างการให้ความร้อนที่อุณหภูมิพาสเจอร์ไรซ์",
+      "เชื้อปนเปื้อนมาจากหัวเชื้อที่เติมลงไปหลังการพาสเจอร์ไรซ์เพื่อปรับรสชาติ",
+      "สปอร์ของเชื้อรอดจากการพาสเจอร์ไรซ์ แล้วงอกเพิ่มจำนวนเมื่ออุณหภูมิเหมาะสม"
+    ],
+    "answer": 3,
+    "explain": "คีย์ของ Bacillus cereus คือเป็น spore forming bacteria ตัวเชื้อถูกทำลายด้วยการพาสเจอร์ไรซ์ แต่สปอร์ทนความร้อนและค้างอยู่ในน้ำนม เมื่อเก็บที่อุณหภูมิไม่เหมาะสมสปอร์จะงอกและเพิ่มจำนวนจนเกิด food intoxication อาการมีทั้งแบบอาเจียนและแบบท้องเสีย และเชื้อยังผลิตโปรติเอสกับไลเปสทำให้เกิดตะกอนและกลิ่นผิดปกติ เชื้อกลุ่มนี้ไม่ได้ทนร้อนด้วยผนังเซลล์ ท็อกซินไม่ได้ถูกสร้างขึ้นระหว่างให้ความร้อน และไม่ได้มาจากหัวเชื้อที่เติมภายหลัง",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 9 ก.ย. 2569 ช่วง Bacillus cereus",
+    "verified": "hPV3Rhh8r3Q [42:16-42:59], [79:33-81:07], [55:07]",
+    "tags": [
+      "milk-borne-pathogens",
+      "bacillus-cereus"
+    ]
+  },
+  {
+    "id": 207214,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดจับคู่มาตรฐาน ISO กับขอบเขตของมาตรฐานนั้นได้ถูกต้อง",
+    "options": [
+      "ISO 9000 เป็นระบบจัดการความปลอดภัยของอาหาร ส่วน ISO 22000 เป็นระบบบริหารงานคุณภาพ",
+      "ISO 22000 เป็นระบบบริหารงานคุณภาพ ส่วน ISO 9000 เป็นระบบวิเคราะห์อันตรายและจุดวิกฤต",
+      "ISO 22000 เป็นระบบจัดการความปลอดภัยของอาหาร ส่วน ISO 9000 เป็นระบบบริหารงานคุณภาพ",
+      "ISO 9000 เป็นระบบวิเคราะห์อันตรายและจุดวิกฤต ส่วน ISO 22000 เป็นระบบจัดการสุขลักษณะฟาร์ม"
+    ],
+    "answer": 2,
+    "explain": "ISO 9000 คือ quality management system ซึ่งเป็นระบบบริหารงานของโรงงานอุตสาหกรรม ส่วน ISO 22000 คือระบบการจัดการที่เกี่ยวข้องกับความปลอดภัยของอาหาร จึงเป็นฉบับที่เกี่ยวข้องกับงานด้านน้ำนมโดยตรง การวิเคราะห์อันตรายและจุดวิกฤตที่ต้องควบคุมเป็นเนื้อหาของระบบ HACCP ไม่ใช่ของ ISO ทั้งสองฉบับ และระบบสุขลักษณะในฟาร์มคือ GAP ซึ่งอยู่คนละชั้นของบันไดมาตรฐาน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงบันไดมาตรฐานจาก 5 ส ถึง ISO",
+    "verified": "aZGyfwMEKCM [13:15-14:49]",
+    "tags": [
+      "milk-industry-std",
+      "iso"
+    ]
+  },
+  {
+    "id": 207215,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในลำดับชั้นของระบบคุณภาพในอุตสาหกรรมอาหาร ระบบ HACCP อยู่ตำแหน่งใด",
+    "options": [
+      "สูงกว่า GMP แต่ต่ำกว่า ISO",
+      "สูงกว่า ISO แต่ต่ำกว่า GMP",
+      "ต่ำกว่าทั้ง GMP และ ISO",
+      "สูงกว่าทั้ง GMP และ ISO"
+    ],
+    "answer": 0,
+    "explain": "บันไดของระบบคุณภาพเริ่มจาก 5 ส ขึ้นไปเป็น minimum requirement แล้วเป็น GMP ที่เป็นกฎหมายบังคับ ต่อด้วย GMP international จากนั้นคือ HACCP และสูงสุดคือ ISO ดังนั้น HACCP จึงอยู่สูงกว่า GMP แต่ยังต่ำกว่า ISO โรงงานที่ได้ ISO ถือว่าครบถ้วนที่สุด แต่อย่างน้อยทุกโรงงานต้องมี GMP ก่อน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงลำดับชั้นของมาตรฐาน",
+    "verified": "aZGyfwMEKCM [13:15-14:23], [69:23]",
+    "tags": [
+      "milk-industry-std",
+      "haccp"
+    ]
+  },
+  {
+    "id": 207216,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "ข้อใดเป็น critical limit ของจุดวิกฤตที่ต้องควบคุมในการผลิตนม UHT",
+    "options": [
+      "ขั้นตอนการฆ่าเชื้อด้วยระบบยูเอชทีในสายการผลิต",
+      "ขั้นตอนการรับน้ำนมดิบที่จุดรับของโรงงาน",
+      "อุณหภูมิมากกว่า 133 องศาเซลเซียส นานกว่า 4 วินาที",
+      "ขั้นตอนการบรรจุแบบปลอดเชื้อก่อนการแพ็ค"
+    ],
+    "answer": 2,
+    "explain": "Critical control point คือจุดในสายการผลิต ส่วน critical limit คือค่าที่จุดนั้นห้ามเกิน จึงต้องมีตัวเลขกำกับเสมอเหมือน speed limit ในตัวอย่างนม UHT จุดวิกฤตสามจุดคือ milk reception, UHT sterilization และ aseptic filling ส่วนค่าวิกฤตของจุด UHT sterilization คือมากกว่า 133 องศาเซลเซียส นานกว่า 4 วินาที โดยหน่วยเวลาที่ใช้คือวินาที ไม่ใช่นาที ค่าวิกฤตอาจเป็นเลข 0 ได้ด้วย เช่น ต้องไม่พบยาต้านจุลชีพตกค้างที่จุดรับน้ำนมดิบ",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 38 ร่วมกับบันทึกการบรรยาย 16 ก.ย. 2569",
+    "verified": "TJ block 8 p38; aZGyfwMEKCM [71:30-72:59], [83:25-84:59], [88:32]",
+    "tags": [
+      "milk-industry-std",
+      "critical-limit"
+    ]
+  },
+  {
+    "id": 207217,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "โรงงานนมสองแห่งที่ผลิตนมพาสเจอร์ไรซ์เหมือนกัน จะมีจุดวิกฤตที่ต้องควบคุมเหมือนกันหรือไม่",
+    "options": [
+      "เหมือนกันทั้งหมด เพราะกฎหมายกำหนดจุดวิกฤตของนมพาสเจอร์ไรซ์ไว้เป็นชุดเดียว",
+      "ไม่เหมือนกันทั้งหมด เพราะผังการผลิต อุปกรณ์ และคนงานของแต่ละโรงงานต่างกัน",
+      "เหมือนกันทั้งหมด ถ้าทั้งสองโรงงานอยู่ในเครือเดียวกันและใช้เครื่องจักรรุ่นเดียวกัน",
+      "ไม่เหมือนกันเลย เพราะแต่ละโรงงานต้องเลือกจุดวิกฤตที่ไม่ซ้ำกับโรงงานอื่น"
+    ],
+    "answer": 1,
+    "explain": "แผน HACCP วิเคราะห์ทีละโรงงาน เพราะคนงาน อุปกรณ์ และผังการไหลของงานต่างกัน แม้เป็นโรงงานในเครือเดียวกันก็ต้องมีแผนของตนเอง จุดวิกฤตจึงอาจทับซ้อนกันบ้าง เช่น จุดรับน้ำนมดิบที่ทุกโรงงานมีเหมือนกัน แต่จุดอื่นแตกต่างกันตามลักษณะของโรงงาน จึงไม่ใช่ทั้งเหมือนกันหมดและไม่ใช่ว่าห้ามซ้ำกันเลย",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วง HACCP และการเทียบ CCP ของสองโรงงาน",
+    "verified": "aZGyfwMEKCM [74:21-75:37], [156:48-158:23]",
+    "tags": [
+      "milk-industry-std",
+      "ccp"
+    ]
+  },
+  {
+    "id": 207218,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ระหว่างการพาสเจอร์ไรซ์เกิดไฟดับจนอุณหภูมิและเวลาไม่เป็นไปตามที่กำหนด ควรจัดการกับน้ำนมนั้นอย่างไร",
+    "options": [
+      "ทิ้งน้ำนมทั้งหมดทันที เพราะถือว่าไม่ปลอดภัยต่อผู้บริโภคแล้ว",
+      "เก็บน้ำนมไว้ที่ 8 องศาเซลเซียส แล้วบรรจุขายตามปกติ",
+      "นำน้ำนมนั้นกลับเข้ากระบวนการพาสเจอร์ไรซ์ใหม่อีกหนึ่งรอบ",
+      "นำน้ำนมไปผสมกับน้ำนมดิบล็อตใหม่แล้วบรรจุขายทันที"
+    ],
+    "answer": 2,
+    "explain": "เมื่ออุณหภูมิหรือเวลาไม่ถึงเป้า สิ่งที่ทำจริงคือนำน้ำนมกลับไปผลิตใหม่อีกรอบ ซึ่งได้นมที่มีคุณภาพเท่าเดิม ไม่ต้องทิ้ง แนวคิดเดียวกันนี้คือ corrective action ในหลักการข้อ 5 ของ HACCP การเก็บไว้ที่ 8 องศาเซลเซียสแล้วขายต่อเป็นการปล่อยผลิตภัณฑ์ที่ไม่ผ่านค่าวิกฤตออกสู่ตลาด และการผสมกับน้ำนมดิบล็อตใหม่ยิ่งเพิ่มความเสี่ยงเพราะนำเชื้อกลับเข้าไปอีก",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงข้อกำหนด GMP และการแก้ไขเมื่อกระบวนการไม่ได้ตามเป้า",
+    "verified": "aZGyfwMEKCM [22:59-24:05], [71:16-74:21]",
+    "tags": [
+      "milk-industry-std",
+      "corrective-action"
+    ]
+  },
+  {
+    "id": 207219,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ก่อนเทน้ำนมดิบของแต่ละฟาร์มลงถังรวมของศูนย์รวบรวมน้ำนมดิบ ต้องตรวจรายการใด",
+    "options": [
+      "ยาปฏิชีวนะตกค้าง methylene blue reduction test และ resazurin test",
+      "สีและกลิ่น การทดสอบเซลล์โซมาติก และ alcohol test",
+      "ปริมาณจุลินทรีย์ทั้งหมด จุดเยือกแข็ง และความถ่วงจำเพาะ",
+      "ไขมัน เนื้อนมไม่รวมมันเนย และ phosphatase test"
+    ],
+    "answer": 1,
+    "explain": "ลำดับที่กำหนดไว้คือ ตรวจสีและกลิ่นด้วยการสังเกต ตรวจเซลล์โซมาติกด้วย CMT และตรวจเสถียรภาพของโปรตีนด้วย alcohol test แยกทีละฟาร์มให้ผ่านครบสามอย่างก่อน จึงเทรวมลงถังเดียวกัน ส่วนการตรวจยาปฏิชีวนะตกค้างและการประมาณจำนวนจุลินทรีย์ด้วย methylene blue หรือ resazurin ทำหลังเทรวมแล้ว การตรวจจุดเยือกแข็ง ความถ่วงจำเพาะ และองค์ประกอบ เป็นรายการวิเคราะห์ในห้องปฏิบัติการ ส่วน phosphatase test ใช้กับนมที่ผ่านการพาสเจอร์ไรซ์แล้ว",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงจุดรับน้ำนมดิบ",
+    "verified": "aZGyfwMEKCM [24:54-26:26]",
+    "tags": [
+      "milk-industry-std",
+      "milk-collection-center"
+    ]
+  },
+  {
+    "id": 207220,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เหตุใดศูนย์รวบรวมน้ำนมดิบจึงรับซื้อน้ำนมเฉพาะจากเกษตรกรที่ขึ้นทะเบียนเป็นสมาชิก",
+    "options": [
+      "เพื่อกันน้ำนมที่ถูกปฏิเสธการรับซื้อจากศูนย์อื่นนำมาเวียนขาย",
+      "เพื่อให้เกษตรกรทุกรายได้ราคารับซื้อเท่ากันตลอดทุกฤดูกาล",
+      "เพื่อจำกัดปริมาณน้ำนมดิบไม่ให้เกินกำลังการผลิตของโรงงาน",
+      "เพื่อให้ศูนย์ไม่ต้องตรวจคุณภาพน้ำนมดิบซ้ำในทุกเที่ยวที่รับ"
+    ],
+    "answer": 0,
+    "explain": "น้ำนมที่ไม่มีคุณภาพจะถูกปฏิเสธการรับซื้อ แล้วอาจถูกนำไปตระเวนขายที่อื่น ระบบสมาชิกซึ่งขึ้นทะเบียนไม่ซ้ำซ้อนกับศูนย์อื่นจึงปิดช่องนี้ ราคารับซื้อไม่ได้เท่ากันทุกราย เพราะขึ้นกับคุณภาพน้ำนมของแต่ละฟาร์มตามระบบส่งเสริมสมาชิก การจำกัดปริมาณไม่ใช่เหตุผลของระบบนี้ และการตรวจคุณภาพยังต้องทำทุกเที่ยวอยู่ดี ไม่ว่าผู้ส่งจะเป็นสมาชิกหรือไม่",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงระบบสมาชิกของศูนย์รวบรวมน้ำนมดิบ",
+    "verified": "aZGyfwMEKCM [26:39-27:28], [35:23-36:51]",
+    "tags": [
+      "milk-industry-std",
+      "milk-collection-center"
+    ]
+  },
+  {
+    "id": 207221,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดถูกต้องเกี่ยวกับสุขลักษณะส่วนบุคคลของผู้ปฏิบัติงานในโรงงานผลิตนม",
+    "options": [
+      "ห้ามใส่แว่นตาและเครื่องประดับ แต่ใส่คอนแทคเลนส์ได้โดยต้องบันทึกไว้",
+      "ใส่แหวนแต่งงานได้ถ้าสวมถุงมือทับ และใส่คอนแทคเลนส์ได้ทุกกรณี",
+      "ห้ามใส่คอนแทคเลนส์และเครื่องประดับ แต่ใส่แว่นตาได้โดยต้องบันทึกไว้",
+      "ใส่เครื่องประดับได้ถ้าถอดออกก่อนเข้าโซนสะอาด และห้ามใส่แว่นตาทุกกรณี"
+    ],
+    "answer": 2,
+    "explain": "เครื่องประดับทุกชนิดห้ามใส่ รวมถึงแหวนแต่งงาน แม้จะสวมถุงมือทับ เพราะกลัวเศษวัสดุปนลงไปในอาหาร คอนแทคเลนส์ก็ห้าม เพราะถ้าหลุดจะมองไม่เห็นว่าตกอยู่ที่ใด ส่วนแว่นตาใส่ได้ แต่ต้องบันทึกไว้ว่าใครใส่แว่นสีอะไรและนำออกมาครบหรือไม่ นอกจากนี้ต้องสวมแมสก์ตลอดเวลาและสวมหมวกคลุมผม บางโรงงานยังให้ใส่ชุดคนละสีเพื่อแยกโซนสกปรกกับโซนสะอาด",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงสุขลักษณะส่วนบุคคล",
+    "verified": "aZGyfwMEKCM [32:46-34:30], [55:49-58:16]",
+    "tags": [
+      "milk-industry-std",
+      "personal-hygiene"
+    ]
+  },
+  {
+    "id": 207222,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ผู้ปฏิบัติงานที่มีภาวะใดต่อไปนี้ ไม่สามารถทำงานในบริเวณผลิตอาหารและน้ำนมได้",
+    "options": [
+      "เป็นโรคผิวหนัง เพราะมีข้อกำหนดห้ามไว้โดยตรง",
+      "มีแผลมีดบาดเล็กน้อย เพราะห้ามทำงานทุกตำแหน่ง",
+      "สายตาสั้นจนต้องใส่แว่น เพราะแว่นอาจตกลงในสายการผลิต",
+      "เป็นวัณโรค เพราะอาจแพร่เชื้อปนเปื้อนสู่ผลิตภัณฑ์"
+    ],
+    "answer": 3,
+    "explain": "ผู้ที่เป็นวัณโรคทำงานในโรงงานอาหารไม่ได้เลย เพราะเชื้ออาจปนเปื้อนไปกับผลิตภัณฑ์แล้วติดต่อสู่ผู้บริโภค ขณะที่โรคผิวหนังไม่มีข้อกำหนดห้ามไว้โดยตรง แต่โรงงานมักไม่รับเพราะเรื่องภาพลักษณ์ แผลมีดบาดเล็กน้อยยังทำงานได้ถ้าปิดพลาสเตอร์ สวมถุงมือ และบันทึกไว้ ยกเว้นตำแหน่งที่ต้องสัมผัสอาหารโดยตรง ส่วนการใส่แว่นตาทำได้โดยต้องบันทึกไว้",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงสุขลักษณะส่วนบุคคล",
+    "verified": "aZGyfwMEKCM [53:23-55:49]",
+    "tags": [
+      "milk-industry-std",
+      "personal-hygiene"
+    ]
+  },
+  {
+    "id": 207223,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-industry-std",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "หากตรวจพบจุลินทรีย์ก่อโรคในผลิตภัณฑ์นมของโรงงาน ผู้ผลิตมีโทษตามข้อใด",
+    "options": [
+      "ปรับไม่เกิน 20,000 บาท จำคุกไม่เกิน 2 ปี หรือทั้งจำทั้งปรับ",
+      "ปรับไม่เกิน 10,000 บาท จำคุกไม่เกิน 2 ปี หรือทั้งจำทั้งปรับ",
+      "ปรับไม่เกิน 20,000 บาท โดยไม่มีโทษจำคุกในทุกกรณี",
+      "ปรับไม่เกิน 10,000 บาท โดยไม่มีโทษจำคุกในทุกกรณี"
+    ],
+    "answer": 0,
+    "explain": "การตรวจพบจุลินทรีย์ก่อโรคหรือสิ่งที่น่าจะเป็นอันตรายต่อสุขภาพผู้บริโภค มีโทษปรับไม่เกิน 20,000 บาท จำคุกไม่เกิน 2 ปี หรือทั้งจำทั้งปรับ ส่วนโทษปรับไม่เกิน 10,000 บาท เป็นของความผิดเรื่องเครื่องมือเครื่องใช้ในการผลิตอาหารที่ไม่เป็นไปตามข้อกำหนด ซึ่งเบากว่าเพราะยังไม่มีอันตรายถึงผู้บริโภคโดยตรง",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงบทกำหนดโทษ",
+    "verified": "aZGyfwMEKCM [66:01-67:05]",
+    "tags": [
+      "milk-industry-std",
+      "penalty"
+    ]
+  },
+  {
+    "id": 207224,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-cleaning",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การทำความสะอาดแบบ cleaning in place (CIP) หมายถึงข้อใด",
+    "options": [
+      "การถอดชิ้นส่วนของท่อและถังออกมาล้างด้วยน้ำร้อนแล้วประกอบกลับ",
+      "การทำความสะอาดพื้นผิวภายในท่อ ถัง และอุปกรณ์ โดยไม่ต้องถอดชิ้นส่วน",
+      "การล้างพื้นและผนังของอาคารผลิตด้วยสารฆ่าเชื้อก่อนเริ่มการผลิต",
+      "การฆ่าเชื้อภาชนะบรรจุด้วยไฮโดรเจนเปอร์ออกไซด์ก่อนการบรรจุแบบปลอดเชื้อ"
+    ],
+    "answer": 1,
+    "explain": "สายการผลิตน้ำนมเป็นระบบท่อทึบที่ต่อเนื่องกัน จึงถอดทุกท่อออกมาฉีดล้างไม่ได้ CIP คือระบบที่ปล่อยน้ำ กรด และด่าง เข้าไปทำความสะอาดพื้นผิวภายในท่อ ถัง และอุปกรณ์ โดยไม่ต้องถอดชิ้นส่วน ทำก่อนเริ่มการผลิตหรือหลังจบการผลิต การล้างพื้นและผนังอาคารเป็นงานสุขาภิบาลทั่วไป ส่วนการฆ่าเชื้อภาชนะบรรจุเป็นขั้นตอนของการบรรจุแบบปลอดเชื้อ ไม่ใช่ CIP",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงระบบ cleaning in place",
+    "verified": "aZGyfwMEKCM [16:44-17:23], [30:20], [162:06]",
+    "tags": [
+      "milk-cleaning",
+      "cip"
+    ]
+  },
+  {
+    "id": 207225,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-cleaning",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "สารเคมีคู่ใดที่ใช้ในระบบ CIP ของโรงงานแปรรูปน้ำนม",
+    "options": [
+      "Caustic soda เป็นส่วนของกรด และ nitric acid เป็นส่วนของด่าง",
+      "Iodophores เป็นส่วนของกรด และไฮโดรเจนเปอร์ออกไซด์เป็นส่วนของด่าง",
+      "Nitric acid เป็นส่วนของกรด และ caustic soda เป็นส่วนของด่าง",
+      "แอลกอฮอล์เป็นส่วนของกรด และคลอร์เฮกซิดีนเป็นส่วนของด่าง"
+    ],
+    "answer": 2,
+    "explain": "ระบบ CIP ใช้ทั้งกรดและด่างคู่กัน โดยกรดที่ใช้คือ nitric acid และด่างคือ caustic soda ตัวเลือกแรกสลับบทบาทของสองสารนี้ Iodophores เป็นสารฆ่าเชื้อกลุ่มฮาโลเจนที่ประสิทธิภาพลดลงเมื่อมีสารอินทรีย์สะสม ส่วนแอลกอฮอล์และคลอร์เฮกซิดีนเป็น antiseptic ที่ใช้กับผิวหนังได้ ไม่ใช่สารล้างระบบท่อในโรงงาน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงสารเคมีที่ใช้ใน CIP",
+    "verified": "aZGyfwMEKCM [17:35-18:02], [121:19-121:59]",
+    "tags": [
+      "milk-cleaning",
+      "cip"
+    ]
+  },
+  {
+    "id": 207226,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-cleaning",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลำดับขั้นตอนใดถูกต้องสำหรับการล้างระบบท่อน้ำนมแบบ CIP",
+    "options": [
+      "ล้างด้วยกรด ล้างด้วยด่าง ล้างด้วยน้ำอุ่น ล้างน้ำคั่นกลาง ล้างน้ำ แล้วล้างด้วยน้ำร้อน",
+      "ล้างด้วยน้ำร้อน ล้างด้วยกรด ล้างน้ำคั่นกลาง ล้างด้วยด่าง ล้างน้ำ แล้วล้างด้วยน้ำอุ่น",
+      "ล้างด้วยด่าง ล้างด้วยน้ำอุ่น ล้างด้วยกรด ล้างน้ำคั่นกลาง ล้างน้ำ แล้วล้างด้วยน้ำร้อน",
+      "ล้างด้วยน้ำอุ่น ล้างด้วยด่าง ล้างน้ำคั่นกลาง ล้างด้วยกรด ล้างน้ำ แล้วล้างด้วยน้ำร้อน"
+    ],
+    "answer": 3,
+    "explain": "ลำดับของ CIP เริ่มจาก pre-rinse ด้วยน้ำอุ่นเพื่อชะสิ่งสกปรกออกก่อน จากนั้นล้างด้วยด่าง แล้ว intermediate rinse ด้วยน้ำก่อนเปลี่ยนเป็นกรด ตามด้วย acid wash แล้ว final rinse และปิดท้ายด้วย sanitizing rinse ด้วยน้ำร้อนก่อนเริ่มผลิตรอบถัดไป หลักการเดียวกับการถูบ้านคือต้องเก็บกวาดสิ่งสกปรกออกก่อนจึงลงสารทำความสะอาด การเริ่มด้วยกรดหรือด่างทันทีจึงผิดลำดับ",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงลำดับการล้างแบบ CIP",
+    "verified": "aZGyfwMEKCM [17:35-18:02], [158:23-159:26]",
+    "tags": [
+      "milk-cleaning",
+      "cip"
+    ]
+  },
+  {
+    "id": 207227,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-cleaning",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในระบบ CIP ขั้นล้างด้วยด่างใช้สารละลายความเข้มข้นเท่าใด และขั้นล้างด้วยน้ำอุ่นก่อนหน้าใช้เวลานานเท่าใด",
+    "options": [
+      "ด่างประมาณ 1-3% และล้างด้วยน้ำอุ่นประมาณ 10 นาที",
+      "ด่างประมาณ 1-3% และล้างด้วยน้ำอุ่นประมาณ 30 นาที",
+      "ด่างประมาณ 5-10% และล้างด้วยน้ำอุ่นประมาณ 10 นาที",
+      "ด่างประมาณ 5-10% และล้างด้วยน้ำอุ่นประมาณ 30 นาที"
+    ],
+    "answer": 0,
+    "explain": "ขั้น pre-rinse ด้วยน้ำอุ่นใช้เวลาประมาณ 10 นาที จากนั้นล้างด้วยด่างที่ความเข้มข้นประมาณ 1-3% ความเข้มข้น 5-10% สูงเกินกว่าที่ใช้จริงและเพิ่มความเสี่ยงที่สารทำความสะอาดจะตกค้างในระบบ ซึ่งเป็นการปนเปื้อนทางเคมีที่ต้องเฝ้าระวังที่จุดรับน้ำนมดิบ ส่วนเวลา 30 นาทีเป็นเลขของการพาสเจอร์ไรซ์แบบ batch ไม่ใช่ของขั้น pre-rinse",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงลำดับการล้างแบบ CIP",
+    "verified": "aZGyfwMEKCM [158:38-159:26], [157:15]",
+    "tags": [
+      "milk-cleaning",
+      "cip"
+    ]
+  },
+  {
+    "id": 207228,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-cleaning",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ระบบ CIP แบบ single use กับแบบ recirculation ต่างกันอย่างไร",
+    "options": [
+      "แบบ recirculation ทำความสะอาดได้ดีกว่ามาก เพราะสารเคมีสัมผัสพื้นผิวนานกว่า",
+      "แบบ single use ทำความสะอาดได้ดีกว่ามาก เพราะใช้สารเคมีใหม่ทุกครั้งที่ล้าง",
+      "ประสิทธิภาพการทำความสะอาดเท่ากัน ต่างกันที่ต้นทุนและการนำสารเคมีกลับมาใช้ซ้ำ",
+      "แบบ recirculation ใช้ได้เฉพาะกับถังเก็บน้ำนม ส่วนแบบ single use ใช้ได้เฉพาะกับท่อ"
+    ],
+    "answer": 2,
+    "explain": "แบบ single use ปล่อยสารเคมีไปแล้วทิ้งเลย ส่วนแบบ recirculation ดูดสารเคมีกลับมาเก็บไว้ใช้ครั้งถัดไป จุดต่างอยู่ที่ราคาและความทันสมัยของเครื่อง โรงงานที่มีทุนน้อยจึงมักใช้แบบแรก แต่ประสิทธิภาพในการทำความสะอาดของทั้งสองแบบเท่ากัน ไม่มีแบบใดล้างได้สะอาดกว่า และทั้งสองแบบใช้ได้กับทั้งท่อและถังในระบบเดียวกัน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงสารเคมีและรูปแบบของ CIP",
+    "verified": "aZGyfwMEKCM [18:15-19:05]",
+    "tags": [
+      "milk-cleaning",
+      "cip"
+    ]
+  },
+  {
+    "id": 207229,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-cleaning",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "เหตุใดถังและท่อที่สัมผัสน้ำนมจึงต้องมีผิวเรียบและไม่มีรอยปะหรือรอยตะเข็บ",
+    "options": [
+      "เพราะน้ำนมที่ตกค้างตามรอยจะกลายเป็น milk stone และไบโอฟิล์มที่ล้างออกยาก",
+      "เพราะรอยตะเข็บทำให้โลหะทำปฏิกิริยากับแลคโตสจนน้ำนมเปลี่ยนเป็นสีเหลือง",
+      "เพราะรอยตะเข็บทำให้อัตราการไหลของน้ำนมในท่อเร็วเกินกว่าเกณฑ์ที่กำหนด",
+      "เพราะผิวที่ไม่เรียบทำให้ไขมันในน้ำนมแตกตัวก่อนถึงขั้นโฮโมจิไนซ์"
+    ],
+    "answer": 0,
+    "explain": "รอยปะ รอยชุน หรือจุดอับแม้เพียงเล็กน้อย ทำให้น้ำนมตกค้างจนเกิดตะกรันนมหรือ milk stone และไบโอฟิล์ม ซึ่งล้างออกยากและกลายเป็นจุดที่แบคทีเรียเกาะสะสม ข้อกำหนดจึงให้พื้นผิวสัมผัสอาหารเรียบ เป็นชิ้นเดียวกัน ไม่เป็นสนิม และไม่ทำปฏิกิริยากับน้ำนม ส่วนสีของน้ำนม อัตราการไหล และการแตกตัวของไขมัน ไม่ได้เกิดจากรอยตะเข็บของท่อ",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 7 ข้อ 55 ร่วมกับบันทึกการบรรยาย 16 ก.ย. 2569",
+    "verified": "TJ block 7 item 55; aZGyfwMEKCM [21:27-22:06]; 3ihoAGQwxGk [116:54-118:10]",
+    "tags": [
+      "milk-cleaning",
+      "milk-stone"
+    ]
+  },
+  {
+    "id": 207230,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "โรงงานต้องการผลิตนมมาตรฐานไขมัน 4% จำนวน 1,000 กิโลกรัม โดยใช้ครีมไขมัน 40% ผสมกับหางนมไขมัน 0% ต้องใช้ครีมและหางนมอย่างละเท่าใด",
+    "options": [
+      "ครีม 100 กิโลกรัม และหางนม 900 กิโลกรัม",
+      "ครีม 250 กิโลกรัม และหางนม 750 กิโลกรัม",
+      "ครีม 400 กิโลกรัม และหางนม 600 กิโลกรัม",
+      "ครีม 40 กิโลกรัม และหางนม 960 กิโลกรัม"
+    ],
+    "answer": 0,
+    "explain": "วางตารางสี่ช่อง ครีม 40% อยู่มุมบนซ้าย หางนม 0% อยู่มุมล่างซ้าย และค่าที่ต้องการ 4% อยู่ตรงกลาง ลบกันแบบไม่ติดเครื่องหมาย จำนวนส่วนของครีมเท่ากับ 0 ลบ 4 เท่ากับ 4 ส่วน จำนวนส่วนของหางนมเท่ากับ 40 ลบ 4 เท่ากับ 36 ส่วน รวม 40 ส่วน นำ 1,000 หาร 40 ได้ 25 กิโลกรัมต่อส่วน ครีมจึงเท่ากับ 4 คูณ 25 เท่ากับ 100 กิโลกรัม และหางนมเท่ากับ 36 คูณ 25 เท่ากับ 900 กิโลกรัม ตรวจกลับได้ 100 คูณ 0.40 เท่ากับไขมัน 40 กิโลกรัม หารด้วย 1,000 เท่ากับ 4% พอดี ถ้าใช้ครีม 250 กิโลกรัม จะได้ไขมัน 10% ถ้าใช้ 400 กิโลกรัม จะได้ 16% และถ้าใช้ 40 กิโลกรัม จะได้เพียง 1.6%",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงการคำนวณ standardization",
+    "verified": "aZGyfwMEKCM [110:09-114:47]",
+    "tags": [
+      "milk-processing",
+      "standardization",
+      "calculation"
+    ]
+  },
+  {
+    "id": 207231,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ต้องการผลิตนมมาตรฐานไขมัน 1.5% จำนวน 800 กิโลกรัม จากน้ำนมไขมัน 4.5% ผสมกับหางนมไขมัน 0.5% ต้องใช้หางนมเท่าใด",
+    "options": [
+      "หางนม 400 กิโลกรัม",
+      "หางนม 600 กิโลกรัม",
+      "หางนม 200 กิโลกรัม",
+      "หางนม 700 กิโลกรัม"
+    ],
+    "answer": 1,
+    "explain": "ใช้ตารางสี่ช่องเช่นเดิม น้ำนม 4.5% อยู่มุมบน หางนม 0.5% อยู่มุมล่าง และค่าที่ต้องการ 1.5% อยู่ตรงกลาง จำนวนส่วนของน้ำนมเท่ากับ 0.5 ลบ 1.5 เท่ากับ 1 ส่วน จำนวนส่วนของหางนมเท่ากับ 4.5 ลบ 1.5 เท่ากับ 3 ส่วน รวม 4 ส่วน นำ 800 หาร 4 ได้ 200 กิโลกรัมต่อส่วน จึงใช้น้ำนม 200 กิโลกรัม และหางนม 600 กิโลกรัม ตรวจกลับได้ไขมัน 200 คูณ 0.045 เท่ากับ 9 กิโลกรัม บวก 600 คูณ 0.005 เท่ากับ 3 กิโลกรัม รวม 12 กิโลกรัม หารด้วย 800 เท่ากับ 1.5% พอดี ถ้าใช้หางนม 400 กิโลกรัม จะได้ 2.5% ถ้าใช้ 200 กิโลกรัม จะได้ 3.5% และถ้าใช้ 700 กิโลกรัม จะได้เพียง 1%",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงการคำนวณ standardization",
+    "verified": "aZGyfwMEKCM [110:09-113:29]",
+    "tags": [
+      "milk-processing",
+      "standardization",
+      "calculation"
+    ]
+  },
+  {
+    "id": 207232,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ผสมครีมไขมัน 25% กับหางนมไขมัน 1% เพื่อให้ได้นมมาตรฐานไขมัน 5% อัตราส่วนของครีมต่อหางนมเป็นเท่าใด",
+    "options": [
+      "1 ต่อ 4",
+      "1 ต่อ 5",
+      "4 ต่อ 5",
+      "5 ต่อ 1"
+    ],
+    "answer": 1,
+    "explain": "จำนวนส่วนของครีมเท่ากับค่าหางนมลบค่าที่ต้องการแบบไม่ติดเครื่องหมาย คือ 1 ลบ 5 เท่ากับ 4 ส่วน จำนวนส่วนของหางนมเท่ากับค่าครีมลบค่าที่ต้องการ คือ 25 ลบ 5 เท่ากับ 20 ส่วน อัตราส่วนครีมต่อหางนมจึงเป็น 4 ต่อ 20 ซึ่งลดรูปได้เป็น 1 ต่อ 5 ตรวจกลับโดยคิดครีม 1 ส่วนและหางนม 5 ส่วน ได้ไขมันรวมเท่ากับ 25 บวก 5 เท่ากับ 30 หารด้วย 6 ส่วน เท่ากับ 5% พอดี อัตราส่วน 5 ต่อ 1 คือการกลับข้างซึ่งจะได้ไขมันสูงถึง 21%",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงการคำนวณ standardization",
+    "verified": "aZGyfwMEKCM [110:09-112:41]",
+    "tags": [
+      "milk-processing",
+      "standardization",
+      "calculation"
+    ]
+  },
+  {
+    "id": 207233,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ต้องการผลิตนมมาตรฐานไขมัน 7% จำนวน 700 ลิตร จากครีมไขมัน 35% ผสมกับหางนมไขมัน 0% ต้องใช้ครีมกี่ลิตร",
+    "options": [
+      "100 ลิตร",
+      "140 ลิตร",
+      "175 ลิตร",
+      "200 ลิตร"
+    ],
+    "answer": 1,
+    "explain": "จำนวนส่วนของครีมเท่ากับ 0 ลบ 7 เท่ากับ 7 ส่วน จำนวนส่วนของหางนมเท่ากับ 35 ลบ 7 เท่ากับ 28 ส่วน รวม 35 ส่วน จากนั้นเทียบบัญญัติไตรยางศ์ นำ 700 คูณ 7 หารด้วย 35 เท่ากับ 140 ลิตร และใช้หางนม 560 ลิตร ตรวจกลับได้ 140 คูณ 0.35 เท่ากับไขมัน 49 ลิตร หารด้วย 700 เท่ากับ 7% พอดี ถ้าใช้ครีม 100 ลิตร จะได้ 5% ถ้าใช้ 175 ลิตร จะได้ 8.75% และถ้าใช้ 200 ลิตร จะได้ 10%",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงการคำนวณ standardization และการขยายสเกล",
+    "verified": "aZGyfwMEKCM [110:09-114:47]",
+    "tags": [
+      "milk-processing",
+      "standardization",
+      "calculation"
+    ]
+  },
+  {
+    "id": 207234,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ถ้าผสมครีมไขมัน 30% จำนวน 200 กิโลกรัม เข้ากับหางนมไขมัน 0.5% จำนวน 800 กิโลกรัม นมมาตรฐานที่ได้จะมีไขมันเท่าใด",
+    "options": [
+      "6.0%",
+      "6.4%",
+      "8.0%",
+      "15.25%"
+    ],
+    "answer": 1,
+    "explain": "คิดจากมวลของไขมันแล้วหารด้วยมวลรวม ไขมันจากครีมเท่ากับ 200 คูณ 0.30 เท่ากับ 60 กิโลกรัม ไขมันจากหางนมเท่ากับ 800 คูณ 0.005 เท่ากับ 4 กิโลกรัม รวมไขมัน 64 กิโลกรัม ในนมรวม 1,000 กิโลกรัม จึงเท่ากับ 6.4% ค่า 6.0% เกิดจากลืมนับไขมันที่ยังเหลือในหางนม ค่า 8.0% เกิดจากหารด้วยมวลของหางนม 800 แทนมวลรวม และ 15.25% เกิดจากเฉลี่ยเปอร์เซ็นต์ไขมันของสองส่วนโดยไม่ถ่วงน้ำหนักด้วยมวล ซึ่งเป็นความผิดพลาดที่พบบ่อยที่สุดของโจทย์แนวนี้",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงการคำนวณ standardization",
+    "verified": "aZGyfwMEKCM [108:34-114:47]",
+    "tags": [
+      "milk-processing",
+      "standardization",
+      "calculation"
+    ]
+  },
+  {
+    "id": 207235,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "เครื่องแยกครีมแบ่งได้เป็นกี่ชนิด และชนิดใดแยกไขมันได้ดีที่สุด",
+    "options": [
+      "3 ชนิด ได้แก่ open, semi-open และ close โดย open separator แยกได้ดีที่สุด",
+      "2 ชนิด ได้แก่ hand separator และ automatic separator โดยแบบมือหมุนแยกได้ดีที่สุด",
+      "3 ชนิด ได้แก่ open, semi-open และ close โดย close separator แยกได้ดีที่สุด",
+      "2 ชนิด ได้แก่ plate separator และ tubular separator โดยแบบท่อแยกได้ดีที่สุด"
+    ],
+    "answer": 2,
+    "explain": "เครื่องแยกครีมแบ่งตามสภาพสุญญากาศได้ 3 ชนิด คือ open, semi-open และ close โดย close separator ทำงานในระบบปิดจึงแยกเปอร์เซ็นต์ไขมันได้สูงที่สุด hand separator กับ automatic separator เป็นการแบ่งตามยุคของเครื่อง ไม่ใช่การแบ่งสามชนิดนี้ และ plate กับ tubular เป็นชนิดของเครื่องแลกเปลี่ยนความร้อน ไม่ใช่ของเครื่องแยกครีม",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 38 ร่วมกับบันทึกการบรรยาย 16 ก.ย. 2569",
+    "verified": "TJ block 8 p38; aZGyfwMEKCM [107:05-107:55], [162:06-162:18]",
+    "tags": [
+      "milk-processing",
+      "cream-separator"
+    ]
+  },
+  {
+    "id": 207236,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "หลังการทำ standardization ส่วนของครีมที่เหลือจากการผสมเรียกว่าอะไร และนำไปใช้ทำอะไรได้",
+    "options": [
+      "Surplus standardization นำไปผลิตผลิตภัณฑ์อื่นหรือเก็บไว้ผสมกับหางนมรอบถัดไป",
+      "Recombined milk นำไปผสมน้ำเพื่อคืนรูปเป็นน้ำนมพร้อมดื่มในรอบถัดไป",
+      "Filled milk นำไปผสมกับไขมันพืชเพื่อผลิตนมแปลงไขมันในรอบถัดไป",
+      "Skim milk powder นำไปอบแห้งเพื่อผลิตเป็นนมผงพร่องมันเนยในรอบถัดไป"
+    ],
+    "answer": 0,
+    "explain": "เมื่อแยกครีมออกจากน้ำนมแล้วนำครีมกับหางนมมาผสมในอัตราส่วนที่ต้องการ จะได้ standardized milk ส่วนครีมที่เหลือเรียกว่า surplus standardization ซึ่งนำไปผลิตผลิตภัณฑ์อื่นหรือเก็บไว้ผสมกับหางนมในรอบถัดไปก็ได้ Recombined milk คือการนำองค์ประกอบของน้ำนมมาผสมกลับให้เหมือนน้ำนมโค filled milk คือนมที่ใช้ไขมันพืชแทนมันเนย ส่วนนมผงพร่องมันเนยเป็นผลิตภัณฑ์ปลายทางที่ต้องผ่านการระเหยและทำแห้ง ไม่ใช่ชื่อของครีมส่วนเกิน",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วง cream separator และ standardization",
+    "verified": "aZGyfwMEKCM [108:47-109:41]",
+    "tags": [
+      "milk-processing",
+      "standardization"
+    ]
+  },
+  {
+    "id": 207237,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "การทำ homogenization ก่อนขั้นตอนให้ความร้อน ให้ประโยชน์ในแง่ใด",
+    "options": [
+      "แง่การลดกลิ่นหืนจากการทำงานของเอนไซม์ไลเปส",
+      "แง่สุขลักษณะอนามัยของกระบวนการผลิต",
+      "แง่การเพิ่มปริมาณไขมันในผลิตภัณฑ์สุดท้าย",
+      "แง่การลดระยะเวลาที่ใช้ในการให้ความร้อน"
+    ],
+    "answer": 1,
+    "explain": "โรงงานเลือกทำ homogenization ก่อนหรือหลังให้ความร้อนก็ได้ ถ้าทำก่อนจะได้ประโยชน์ในแง่สุขลักษณะอนามัย คือทำให้ไขมันแตกตัวก่อนแล้วจึงให้ความร้อน แต่ถ้าทำหลังให้ความร้อนจะช่วยลดกลิ่นหืนจากเอนไซม์ไลเปสได้ดีกว่า การโฮโมจิไนซ์ไม่ได้เพิ่มปริมาณไขมัน เพราะไขมันถูกกำหนดไว้แล้วในขั้น standardization และไม่ได้ทำให้เวลาที่ใช้ให้ความร้อนสั้นลง",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วง homogenization",
+    "verified": "aZGyfwMEKCM [116:08-116:36], [162:44-162:57]",
+    "tags": [
+      "milk-processing",
+      "homogenization"
+    ]
+  },
+  {
+    "id": 207238,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "กระบวนการ sterilization ของน้ำนมใช้อุณหภูมิและเวลาเท่าใด",
+    "options": [
+      "มากกว่า 133 องศาเซลเซียส นานกว่า 1 วินาที",
+      "มากกว่า 80 องศาเซลเซียส นานกว่า 5 วินาที",
+      "มากกว่า 100 องศาเซลเซียส นานกว่า 15 นาที",
+      "มากกว่า 63 องศาเซลเซียส นานกว่า 30 นาที"
+    ],
+    "answer": 2,
+    "explain": "Sterilization ใช้อุณหภูมิมากกว่า 100 องศาเซลเซียส นานกว่า 15 นาที ส่วนมากกว่า 133 องศาเซลเซียส นานกว่า 1 วินาที คือ UHT ซึ่งเป็นกระบวนการที่ใช้อุณหภูมิสูงที่สุดในบรรดาการฆ่าเชื้อด้วยความร้อน จุดนี้เป็นกับดักที่ตอบผิดกันมากเพราะเข้าใจว่า sterilization ต้องร้อนกว่า มากกว่า 80 องศาเซลเซียส นานกว่า 5 วินาที คือเงื่อนไขที่ยืนยันด้วย peroxidase test และมากกว่า 63 องศาเซลเซียส นาน 30 นาที คือการพาสเจอร์ไรซ์แบบ LTLT",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 2 ก.ย. 2569 ช่วงการฆ่าเชื้อด้วยความร้อน",
+    "verified": "3ihoAGQwxGk [147:39-148:57]; aZGyfwMEKCM [61:34-61:58]",
+    "tags": [
+      "milk-processing",
+      "heat-treatment"
+    ]
+  },
+  {
+    "id": 207239,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "อิงแนวข้อสอบ",
+    "q": "การพาสเจอร์ไรซ์แบบ batch ซึ่งต้มน้ำนมในถังขนาดใหญ่ ใช้อุณหภูมิและเวลาตามข้อใด",
+    "options": [
+      "มากกว่า 63 องศาเซลเซียส ไม่น้อยกว่า 30 นาที",
+      "มากกว่า 72 องศาเซลเซียส ไม่น้อยกว่า 15 วินาที",
+      "มากกว่า 80 องศาเซลเซียส ไม่น้อยกว่า 5 วินาที",
+      "มากกว่า 133 องศาเซลเซียส ไม่น้อยกว่า 4 วินาที"
+    ],
+    "answer": 0,
+    "explain": "Batch pasteurization ใช้อุณหภูมิไม่สูงมากแต่ใช้เวลานาน คือมากกว่า 63 องศาเซลเซียส ไม่น้อยกว่า 30 นาที เหมาะกับผู้ผลิตรายเล็กที่ไม่ได้ผลิตเป็นจำนวนมาก ส่วนมากกว่า 72 องศาเซลเซียส ไม่น้อยกว่า 15 วินาที คือแบบต่อเนื่องที่ใช้เครื่องแลกเปลี่ยนความร้อนในโรงงานใหญ่ ทั้งสองแบบให้นมพาสเจอร์ไรซ์ที่คุณภาพเท่ากัน ไม่ได้แบ่งเป็นพาสเจอร์ไรซ์อุณหภูมิสูงหรือต่ำ แต่ต้องบันทึกไว้ว่าใช้เงื่อนไขใด ส่วนอีกสองตัวเลือกเป็นเงื่อนไขของ peroxidase test และของ UHT",
+    "source": "สรุปรวมรุ่นพี่ Milk Hygiene TJ 86 บล็อก 8 หน้า 38 ร่วมกับบันทึกการบรรยาย 16 ก.ย. 2569",
+    "verified": "TJ block 8 p38; aZGyfwMEKCM [59:36-63:24]",
+    "tags": [
+      "milk-processing",
+      "pasteurization"
+    ]
+  },
+  {
+    "id": 207240,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "อาหารที่มีความหนืดสูงและมีอนุภาคขนาดใหญ่ เช่น ไอศกรีม ควรใช้เครื่องแลกเปลี่ยนความร้อนชนิดใด",
+    "options": [
+      "Plate heat exchanger เพราะเพิ่มจำนวนแผ่นให้มีพื้นที่สัมผัสมากขึ้นได้",
+      "Tubular heat exchanger เพราะให้ของเหลวไหลสวนทางกันภายในท่อได้",
+      "Evaporator แบบ forced circulation เพราะระเหยน้ำออกได้อย่างรวดเร็ว",
+      "Scraped surface heat exchanger เพราะมีใบมีดกวาดผิวแลกเปลี่ยนความร้อน"
+    ],
+    "answer": 3,
+    "explain": "Scraped surface heat exchanger มีใบมีดกวาดอยู่ด้านข้าง จึงเหมาะกับผลิตภัณฑ์ที่ข้นหนืดและมีอนุภาคขนาดใหญ่ เช่น ไอศกรีม โยเกิร์ต เนยถั่ว และ concentrated whey Plate heat exchanger เหมาะกับของเหลวที่ความข้นต่ำและอนุภาคเล็กหรือไม่มีเลย เช่น น้ำ นม กาแฟ Tubular heat exchanger เหมาะกับของที่ข้นขึ้นมาอีกนิด เช่น ครีมและน้ำผลไม้ ส่วน evaporator มีหน้าที่ระเหยน้ำออกในการผลิตนมข้นหวานและนมผง ไม่ใช่เครื่องแลกเปลี่ยนความร้อนสำหรับงานนี้",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงเครื่องแลกเปลี่ยนความร้อน 3 แบบ",
+    "verified": "aZGyfwMEKCM [117:03-120:13], [162:06]",
+    "tags": [
+      "milk-processing",
+      "heat-exchanger"
+    ]
+  },
+  {
+    "id": 207241,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เทคนิคการทำแห้งในการผลิตนมผงมีสองแบบ ข้อใดอธิบายได้ถูกต้อง",
+    "options": [
+      "Drum dryer ฉีดน้ำนมเป็นละอองเข้าสู่อากาศร้อน ส่วน spray dryer เทน้ำนมลงบนแผ่นร้อน",
+      "Drum dryer เทน้ำนมลงบนแผ่นร้อน ส่วน spray dryer ฉีดน้ำนมเป็นละอองเข้าสู่อากาศร้อน",
+      "ทั้งสองแบบใช้การระเหยน้ำที่อุณหภูมิต่ำกว่าจุดเยือกแข็งของน้ำนม",
+      "ทั้งสองแบบต้องทำหลังขั้นตอนการตอกเม็ด เพื่อไล่ความชื้นออกจากนมอัดเม็ด"
+    ],
+    "answer": 1,
+    "explain": "Drum dryer หรือ rolling คือการเทน้ำนมลงบนแผ่นหรือลูกกลิ้งที่ร้อนเพื่อให้น้ำระเหยขึ้นไป ส่วน spray dryer คือการฉีดน้ำนมเป็นละอองเข้าสู่อากาศร้อนความดันต่ำ ทำให้น้ำระเหยออกอย่างรวดเร็ว ใช้วิธีใดก็ได้ในการผลิตนมผง ลำดับของการผลิตคือเริ่มจาก standardized milk ผ่านพาสเจอร์ไรซ์ แล้วระเหย ทำ homogenization และทำแห้ง จึงเป็นขั้นตอนก่อนการตอกเม็ด ไม่ใช่หลัง และไม่ได้ใช้อุณหภูมิต่ำกว่าจุดเยือกแข็ง",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงการผลิตนมผง",
+    "verified": "aZGyfwMEKCM [133:21-135:32]",
+    "tags": [
+      "milk-processing",
+      "milk-powder"
+    ]
+  },
+  {
+    "id": 207242,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เวย์ที่นำไปผลิตเป็นเวย์โปรตีนได้มาจากขั้นตอนใดของการแปรรูปน้ำนม",
+    "options": [
+      "ของเหลวที่แยกออกมาหลังจากโปรตีนในน้ำนมตกตะกอนจับตัวเป็นก้อน",
+      "ของเหลวที่แยกออกมาหลังจากการปั่นแยกไขมันออกจากน้ำนมดิบ",
+      "ของเหลวที่ระเหยออกจากน้ำนมในขั้นตอนการผลิตนมข้นหวาน",
+      "ของเหลวที่แยกออกมาหลังจากการล้างระบบท่อน้ำนมด้วยน้ำร้อน"
+    ],
+    "answer": 0,
+    "explain": "หลักการผลิตชีสคือทำให้โปรตีนในน้ำนมตกตะกอนจับตัวเป็นก้อน แล้วแยกส่วนที่เป็นของเหลวออก ของเหลวสีเขียวเหลืองอ่อนที่ได้คือเวย์ ซึ่งนำไปทำเป็นเวย์โปรตีนที่ย่อยง่ายและมีคุณภาพดีแต่ราคาสูง ของเหลวที่ได้จากการปั่นแยกไขมันคือหางนมหรือ skim milk ไม่ใช่เวย์ น้ำที่ระเหยออกในการผลิตนมข้นหวานเป็นเพียงน้ำที่ถูกไล่ออกไป และน้ำล้างระบบท่อเป็นของเสียจากการทำความสะอาด",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงหลักการผลิตชีสและเวย์",
+    "verified": "aZGyfwMEKCM [140:52-141:40], [147:40-149:10]",
+    "tags": [
+      "milk-processing",
+      "whey"
+    ]
+  },
+  {
+    "id": 207243,
+    "subject": "milk-meat-hygiene",
+    "topic": "milk-processing",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "โยเกิร์ตแบบ set type ต่างจากแบบ stirred type อย่างไร",
+    "options": [
+      "set type ใช้หัวเชื้อกลุ่ม mesophilic ส่วน stirred type ใช้หัวเชื้อกลุ่ม thermophilic",
+      "set type เหลวกว่าและใช้ทำโยเกิร์ตพร้อมดื่ม ส่วน stirred type คงรูปเมื่อตักขึ้นมา",
+      "set type คงรูปเมื่อตักขึ้นมา ส่วน stirred type เหลวกว่าและใช้ทำโยเกิร์ตพร้อมดื่ม",
+      "set type ผ่านการโฮโมจิไนซ์ ส่วน stirred type ไม่ผ่านการโฮโมจิไนซ์"
+    ],
+    "answer": 2,
+    "explain": "Set type คือโยเกิร์ตที่แข็งตัวคาภาชนะ ตักขึ้นมาแล้วยังคงรูปอยู่ ส่วน stirred type ถูกกวนหลังการหมักจึงเหลวกว่าและนำไปทำโยเกิร์ตพร้อมดื่มได้ ทั้งสองแบบใช้หัวเชื้อกลุ่ม thermophilic คือ Lactobacillus bulgaricus คู่กับ Streptococcus thermophilus เหมือนกัน และผ่านการพาสเจอร์ไรซ์กับการโฮโมจิไนซ์เหมือนกัน ต่างกันที่ลักษณะเนื้อสัมผัสหลังการหมักเท่านั้น",
+    "source": "บันทึกการบรรยายสุขศาสตร์น้ำนม 16 ก.ย. 2569 ช่วงการผลิตโยเกิร์ต",
+    "verified": "aZGyfwMEKCM [149:24-151:52]",
+    "tags": [
+      "milk-processing",
+      "yogurt"
+    ]
+  },
 ];

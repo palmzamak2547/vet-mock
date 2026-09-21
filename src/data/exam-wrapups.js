@@ -18,6 +18,8 @@ export const WRAPUP_SCOPE = { year: 5, phase: '1-mid' };
 const LOADERS = {
   'avian-medicine': () => import('./wrapups/avian-medicine.js'),
   'one-health': () => import('./wrapups/one-health.js'),
+  'food-industry': () => import('./wrapups/food-industry.js'),
+  'milk-meat-hygiene': () => import('./wrapups/milk-meat-hygiene.js'),
 };
 
 export const WRAPUP_SUBJECTS = Object.keys(LOADERS);

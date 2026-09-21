@@ -117,6 +117,222 @@ export const LECTURER_SETS = {
       },
     ],
   },
+  'food-industry': {
+    examDate: '2026-09-22',
+    coverage: 'เนื้อหาตั้งแต่ 19 ส.ค. ถึง 9 ก.ย.',
+    lecturers: [
+      {
+        id: 'sirawit',
+        name: 'อ.น.สพ.ดร.สิรวิทย์ ภักดีพาณิชย์กิจ',
+        lecturer: 'Sirawit Pagdepanichkit',
+        format: 'mcq',
+        count: null,
+        announced: true,
+        note: 'ไฟล์ 1.1 FIQC introduction ไม่ออกสอบ ส่วน พ.ร.บ.การสาธารณสุข เป็นช้อยส์ประมาณ 4-5 ข้อ เฉพาะส่วนที่เกี่ยวกับงานสัตวแพทยสาธารณสุข คาบฆ่าสัตว์เป็น MCQ เน้นส่วนที่ต้องใช้ทำงานจริง คาบอาหารสัตว์ไม่ได้ประกาศจำนวนข้อ',
+        sessions: [
+          {
+            n: 1,
+            date: '2026-08-19',
+            videoId: '66FigWI5wF0',
+            decks: [
+              {
+                cover: 'fiqc-intro',
+                title: 'FIQC: Introduction',
+                topics: ['fiqc-intro'],
+              },
+              {
+                cover: 'fiqc-public-health-act',
+                title: 'พระราชบัญญัติการสาธารณสุข',
+                topics: ['fiqc-intro'],
+              },
+            ],
+          },
+          {
+            n: 2,
+            date: '2026-08-26',
+            videoId: 'WQX71m1GSds',
+            decks: [
+              {
+                cover: 'fiqc-feed-qc',
+                title: 'อุตสาหกรรมอาหารสัตว์ และการควบคุมคุณภาพ',
+                topics: ['fiqc-feed-qc'],
+              },
+            ],
+          },
+          {
+            n: 3,
+            date: '2026-09-02',
+            videoId: 'WRttiWQ7D9s',
+            decks: [
+              {
+                cover: 'fiqc-slaughter-qc',
+                title: 'การควบคุมกระบวนการฆ่า และการจำหน่ายเนื้อสัตว์',
+                topics: ['fiqc-slaughter-qc'],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'mintra',
+        name: 'สพ.ญ.ดร.มินตรา ลักขณา',
+        lecturer: 'มินตรา ลักขณา',
+        format: 'mcq',
+        count: null,
+        announced: false,
+        note: 'คาบนี้ไม่มีการประกาศรูปแบบหรือจำนวนข้อ บอกไว้เพียงว่าสอนอะไรก็ออกแบบนั้น และปีนี้ปรับจากของเดิมเล็กน้อย รูปแบบช้อยส์มาจากบันทึกของรุ่นก่อน',
+        sessions: [
+          {
+            n: 4,
+            date: '2026-09-09',
+            videoId: 'QvEF0KAC1zI',
+            decks: [
+              {
+                cover: 'fiqc-livestock-qc',
+                title: 'มาตรฐานสินค้าเกษตรที่เกี่ยวข้องกับกระบวนการผลิตปศุสัตว์และผลิตภัณฑ์จากปศุสัตว์ที่สำคัญ',
+                topics: ['fiqc-livestock-qc'],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  'milk-meat-hygiene': {
+    examDate: '2026-09-22',
+    coverage: 'เนื้อหาตั้งแต่ 5 ส.ค. ถึง 16 ก.ย.',
+    lecturers: [
+      {
+        id: 'jakkrit',
+        name: 'รศ.น.สพ.ดร.จักรกริศน์ เนื่องจำนงค์',
+        lecturer: 'จักรกริศน์ เนื่องจำนงค์',
+        format: 'mcq',
+        count: null,
+        announced: false,
+        note: 'คาบนี้ไม่มีคลิปบันทึกอยู่บนชั้นหนังสือ และไม่มีการประกาศรูปแบบข้อสอบที่บันทึกไว้ รูปแบบถูกผิดและช้อยส์มาจากชุดที่รุ่นก่อนบันทึกไว้',
+        sessions: [
+          {
+            n: 1,
+            date: '2026-08-05',
+            decks: [
+              {
+                cover: 'milk-biosec-dairy',
+                title: 'ความปลอดภัยทางชีวภาพเพื่อการผลิตน้ำนมคุณภาพดี',
+                topics: ['milk-biosec-dairy'],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'rungtip',
+        name: 'ศ.สพ.ญ.ดร.รุ่งทิพย์ ชวนชื่น',
+        lecturer: 'Rungtip Chuanchuen',
+        format: 'mcq',
+        count: null,
+        announced: true,
+        note: 'อาจารย์แจ้งว่าส่วนของท่านเป็นกากบาทล้วน ตัวเลือก 4-5 ตัว และถามแนว ค่านี้เพิ่มหรือลด ส่วนตัวเลขรายผลิตภัณฑ์ไม่ถาม ยกเว้นโคลิฟอร์มและอีโคไล',
+        sessions: [
+          {
+            n: 2,
+            date: '2026-08-19',
+            videoId: 'cHediceYO_Y',
+            decks: [
+              {
+                cover: 'milk-overview',
+                title: 'Introduction to Milk Hygiene',
+                topics: ['milk-overview'],
+              },
+              {
+                cover: 'milk-mastitis',
+                title: 'Mastitis and milk quality',
+                topics: ['milk-mastitis'],
+              },
+            ],
+          },
+          {
+            n: 3,
+            date: '2026-08-26',
+            videoId: 'vMFY6A8LaIU',
+            decks: [
+              {
+                cover: 'milk-raw-storage',
+                title: 'Storage of raw milk',
+                topics: ['milk-raw-storage', 'milk-products-storage'],
+              },
+              {
+                cover: 'milk-quality-determination',
+                title: 'Determination of milk quality',
+                topics: ['milk-quality-determination'],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'saharuetai',
+        name: 'รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์',
+        lecturer: 'Saharuetai Jeamsripong',
+        format: 'mcq',
+        count: null,
+        announced: true,
+        note: 'ส่วนนี้เป็นช้อยส์ ออกเฉพาะจุดเน้นจุดใหญ่ในคาบจุลชีววิทยา และมีโจทย์คำนวณ standardization ประมาณ 2-3 ข้อในกลางภาค',
+        sessions: [
+          {
+            n: 4,
+            date: '2026-09-02',
+            videoId: '3ihoAGQwxGk',
+            decks: [
+              {
+                cover: 'milk-quality-composition',
+                title: 'Composition and quality of raw milk',
+                topics: ['milk-quality-composition'],
+              },
+              {
+                cover: 'milk-raw-std',
+                title: 'Standard of raw milk and dairy products',
+                topics: ['milk-raw-std'],
+              },
+            ],
+          },
+          {
+            n: 5,
+            date: '2026-09-09',
+            videoId: 'hPV3Rhh8r3Q',
+            decks: [
+              {
+                cover: 'milk-microbiology',
+                title: 'Milk microbiology',
+                topics: ['milk-microbiology'],
+              },
+              {
+                cover: 'milk-borne-pathogens',
+                title: 'Milk-borne pathogens and diseases',
+                topics: ['milk-borne-pathogens'],
+              },
+            ],
+          },
+          {
+            n: 6,
+            date: '2026-09-16',
+            videoId: 'aZGyfwMEKCM',
+            decks: [
+              {
+                cover: 'milk-industry-std',
+                title: 'GMP and HACCP standards for milk collecting center and milk processing plants',
+                topics: ['milk-industry-std', 'milk-cleaning'],
+              },
+              {
+                cover: 'milk-processing',
+                title: 'Processing and manufacturing technologies for milk and milk products',
+                topics: ['milk-processing'],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   'avian-medicine': {
     examDate: '2026-09-21',
     coverage: 'เนื้อหาตั้งแต่ 4 ส.ค. ถึง 15 ก.ย.',
