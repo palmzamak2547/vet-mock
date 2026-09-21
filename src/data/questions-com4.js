@@ -1,2150 +1,6022 @@
-// ==========================================================
-// COM IV — Companion Animal Clinical Sciences IV
-// Topics: Dermatology series (8) + Immune-mediated (drugs/IMHA/SLE)
-//         + IBD + Pediatrics & Geriatrics
-// IDs: 900-1099 (room for ~200)
-//
-// Each question has the standard schema:
-//   id, subject: 'com4', topic, year, source, tags, type,
-//   q, options/answer/blanks/pairs, explain, verified?, flag?
-// ==========================================================
-
-import { IMG_HAIR_CYCLE, IMG_SPHEROCYTE } from './images-com.js';
-
+// ==========================================================
+// COM IV — Companion Animal Clinical Sciences IV
+// Topics: Dermatology series (8) + Immune-mediated (drugs/IMHA/SLE)
+//         + IBD + Pediatrics & Geriatrics
+// IDs: 900-1099 (room for ~200)
+//
+// Each question has the standard schema:
+//   id, subject: 'com4', topic, year, source, tags, type,
+//   q, options/answer/blanks/pairs, explain, verified?, flag?
+// ==========================================================
+
+import { IMG_HAIR_CYCLE, IMG_SPHEROCYTE } from './images-com.js';
+
 export const QB_COM4 = [
-  // ═══════════════════════════════════════════════════════════
-  // Dermatology Introduction (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 900, subject: 'com4', topic: 'derm-intro', year: 4, source: 'Derm_1__2_Dermatology_introduction.pdf',
-    tags: ['skin-anatomy', 'basics'], type: 'mcq',
-    q: 'ผิวหนังของสุนัขและแมว ประกอบด้วย primary layers กี่ชั้น และข้อใดถูกต้อง',
-    options: ['2 ชั้น: Epidermis + Dermis', '3 ชั้น: Epidermis + Dermis + Hypodermis (subcutis)', '4 ชั้น: Epidermis + Dermis + Hypodermis + Muscle', '5 ชั้น: Stratum corneum + lucidum + granulosum + spinosum + basale'],
-    answer: 1, explain: 'Skin = 3 primary layers: Epidermis (ชั้นนอก) + Dermis (กลาง) + Hypodermis (subcutis ชั้นใน) + adnexa (hair follicle, glands)\n\n❌ ทำไมข้ออื่นผิด\n— "2 ชั้น" = ขาด hypodermis\n— "4 ชั้น + muscle" = muscle ไม่นับเป็น skin layer\n— 5 ชั้น = Stratum sub-layers ของ epidermis (sub-classification)',
-    verified: 'Derm_1__2_Dermatology_introduction.pdf p.1' },
-
-  { id: 901, subject: 'com4', topic: 'derm-intro', year: 4, source: 'Derm_1__2_Dermatology_introduction.pdf',
-    tags: ['glands', 'eccrine'], type: 'mcq',
-    q: 'Eccrine glands (true sweat glands) ในสุนัขและแมว พบที่ไหน',
-    options: ['เฉพาะ foot pads', 'ทั่วผิวหนัง เหมือนในคน', 'เฉพาะหู', 'เฉพาะหาง'],
-    answer: 0, explain: 'Eccrine glands ในสุนัข/แมว = พบเฉพาะ foot pads, ทำให้สุนัขแมวระบายความร้อนผ่านการหายใจหอบเป็นหลัก ไม่ใช่ผ่านเหงื่อ, มี cholinergic innervation\n\n❌ ทำไมข้ออื่นผิด\n— "ทั่วผิว" = ของคน, ของสุนัขแมวคือ apocrine ทั่วตัว\n— "หู" / "หาง" = sebaceous + apocrine glands ไม่ใช่ eccrine\n\n💡 อุ้งเท้า',
-    verified: 'Derm_1__2_Dermatology_introduction.pdf p.3' },
-
-  { id: 902, subject: 'com4', topic: 'derm-intro', year: 4, source: 'Derm_1__2_Dermatology_introduction.pdf',
-    tags: ['hair-cycle'], type: 'mcq',
-    q: 'Hair cycle ระยะ "transitional phase" (ระยะเปลี่ยนผ่าน) คือระยะใด',
-    options: ['Exogen — shedding phase', 'Anagen — growth phase', 'Telogen — resting phase', 'Catagen — transitional phase'],
-    answer: 3, explain: 'Hair cycle 3 ระยะหลัก: Anagen (growth) → Catagen (transitional, สั้น) → Telogen (resting), Exogen = sub-phase ของการหลุดร่วง (ไม่นับเป็นระยะหลัก)\n\n❌ ทำไมข้ออื่นผิด\n— Anagen = growth (ไม่ใช่ transitional)\n— Telogen = resting\n— Exogen = sub-phase shedding ไม่ใช่ transitional หลัก',
-    image: IMG_HAIR_CYCLE,
-    verified: 'Derm_1__2_Dermatology_introduction.pdf p.5' },
-
-  { id: 903, subject: 'com4', topic: 'derm-intro', year: 4, source: 'Derm_1__2_Dermatology_introduction.pdf',
-    tags: ['hair-cycle', 'hormone'], type: 'mcq',
-    q: 'Hormone ใดเป็น stimulator ของ anagen phase (กระตุ้น hair growth)',
-    options: ['Glucocorticoid', 'Estrogen', 'Thyroid hormones', 'Cortisol'],
-    answer: 2, explain: 'Thyroid hormones = stimulator ของ anagen → hypothyroidism จึงทำให้ขนร่วง\n\n❌ ทำไมข้ออื่นผิด\n— Glucocorticoid + Estrogen + Cortisol = inhibitors ของ anagen → ทำให้ขนร่วง (alopecia ใน Cushing\'s, ในแมวที่ติดยา corticosteroid นาน)',
-    verified: 'Derm_1__2_Dermatology_introduction.pdf p.6' },
-
-  { id: 904, subject: 'com4', topic: 'derm-intro', year: 4, source: 'Derm_1__2_Dermatology_introduction.pdf',
-    tags: ['hair-follicle', 'cat-vs-dog'], type: 'mcq',
-    q: 'Hair follicle ของแมวต่างกับของสุนัขอย่างไร',
-    options: ['ไม่ต่างกัน โครงสร้าง follicle เหมือนกันทั้งสอง', 'แมวมี compound follicle ขนหลายเส้นจากรูเดียว', 'แมวมีแค่ primary hair ไม่มี secondary', 'แมวไม่มี sebaceous gland ติดกับรูขุมขน'],
-    answer: 1, explain: 'แมว = compound follicle (multiple hairs จากรูเดียวกัน), สุนัข = primary + secondary หลายเส้นในกลุ่ม (up to 20 hairs/group), 1° hair attached sebaceous + apocrine gland, 2° hair attached sebaceous gland\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่าง" = ผิด, มี architecture ต่างกัน\n— "แค่ primary" = ผิด, มีทั้ง primary + secondary\n— "ไม่มี sebaceous" = ผิด, มีเหมือนสุนัข',
-    verified: 'Derm_1__2_Dermatology_introduction.pdf p.4' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Parasitic Skin Diseases (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 905, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['flea', 'species'], type: 'mcq',
-    q: 'Flea species ที่พบบ่อยที่สุดในสุนัขและแมวในประเทศไทยคือ',
-    options: ['Pulex irritans', 'Xenopsylla cheopis', 'Ctenocephalides felis', 'Tunga penetrans'],
-    answer: 2, explain: 'Ctenocephalides felis felis (cat flea) = หมัดแมวที่พบบ่อยทั้งในสุนัขและแมว, C. canis = หมัดสุนัข แต่พบน้อยกว่า, ทั้งคู่กิน blood meal ของ host\n\n❌ ทำไมข้ออื่นผิด\n— Pulex irritans = หมัดคน (rare ในสัตว์)\n— Xenopsylla cheopis = หมัดหนู (vector ของกาฬโรค)\n— Tunga penetrans = sand flea (tropical แอฟริกา/อเมริกาใต้)',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.3' },
-
-  { id: 906, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['fad', 'distribution'], type: 'mcq',
-    q: 'Flea Allergic Dermatitis (FAD) ในสุนัข ตำแหน่งคลาสสิกของ lesion คือ',
-    options: ['Periocular region, perioral, รอบปาก และ planum nasale', 'Lumbosacral region, proximal tail, ventral abdomen', 'Interdigital ทั้ง 4 อุ้งเท้า, axilla และ groin fold', 'Pinnae ทั้ง 2 ข้าง, ear canal และ preauricular'],
-    answer: 1, explain: 'FAD ใน dog: Lumbosacral alopecia + dermatitis, proximal tail, ventral abdomen, severe pruritus + papules + crust + lichenification + hyperpigmentation, 2° infection (S. pseudintermedius + Malassezia pachydermatis) บ่อย\n\n❌ ทำไมข้ออื่นผิด\n— "periocular/perioral" = food allergy / atopy classic\n— "interdigital + axilla" = atopic dermatitis (CAD)\n— "pinnae + ear canal" = otitis externa (Malassezia / atopy)',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.4' },
-
-  { id: 907, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['tick', 'epidemiology'], type: 'mcq',
-    q: 'Tick infestation ในสุนัข entirely outdoor ในประเทศไทย ประมาณกี่ %',
-    options: ['< 10%', '50-80%', '80-100%', 'น้อยกว่า 5%'],
-    answer: 2, explain: 'Outdoor dogs in Thailand: 80-100% โดน tick infestation, partially outdoor 50-80%, entirely indoor < 10% (จาก hospital + grooming visits)\n\n❌ ทำไมข้ออื่นผิด\n— "<10%" / "<5%" = entirely indoor\n— "50-80%" = partially outdoor',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.2' },
-
-  { id: 908, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['tick', 'biology'], type: 'mcq',
-    q: 'หลังกินเลือด female tick จะ drop off แล้ววางไข่ประมาณกี่ฟอง',
-    options: ['100-500 ฟอง', '1,000-2,000 ฟอง', '3,000-6,000 ฟอง', 'มากกว่า 50,000 ฟอง'],
-    answer: 2, explain: 'Female tick: drops off host + hides + lays 3,000-6,000 eggs, life cycle 2-6 ปี, ทุก stage ต้องการ blood meal เพื่อ molt\n\n❌ ทำไมข้ออื่นผิด\n— "100-500" / "1000-2000" = น้อยเกินไป\n— "> 50,000" = สูงเกินไป (ไม่ใช่ insect/mosquito)',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.2' },
-
-  { id: 909, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['demodex', 'microbiology'], type: 'mcq',
-    q: 'Demodex canis อาศัยอยู่ที่ไหนบนสัตว์',
-    options: ['ผิวหนังชั้นนอก (stratum corneum)', 'Hair follicles + sebaceous glands', 'Subcutaneous tissue ชั้นใต้ผิวหนัง', 'ภายในกระแสเลือดและหลอดเลือด'],
-    answer: 1, explain: 'Demodex canis = mite อาศัยใน hair follicle + sebaceous gland (deep), ปกติเป็น commensal, พบได้บ้างในสุนัขปกติ, เป็นโรคเมื่อ immunocompromised → demodicosis\n\n❌ ทำไมข้ออื่นผิด\n— "ผิวหนังชั้นนอก" = Sarcoptes / Cheyletiella (surface)\n— "Subcutaneous" = filarial worms\n— "ในเลือด" = blood parasites (Babesia, Ehrlichia)',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.7' },
-
-  { id: 910, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['sarcoptes', 'transmission'], type: 'mcq',
-    q: 'Sarcoptes scabiei var. canis ติดต่ออย่างไร',
-    options: ['ผ่านพาหะแมลง (เห็บกัด)', 'Direct contact (สัมผัสตัวต่อตัว)', 'หายใจเอาเข้าทางอากาศ', 'พันธุกรรม (genetic)'],
-    answer: 1, explain: 'Sarcoptes = direct contact transmission, highly contagious, zoonotic (canine scabies → คนคันชั่วคราว), burrows ใน stratum corneum → severe pruritus\n\n❌ ทำไมข้ออื่นผิด\n— "พาหะแมลง" = vector-borne diseases (Babesia, Ehrlichia, Rickettsia)\n— "หายใจ" = respiratory pathogens\n— "พันธุกรรม" = genetic conditions ไม่ใช่ parasite',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.9' },
-
-  { id: 911, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['demodex', 'diagnosis'], type: 'mcq',
-    q: 'การวินิจฉัย Demodex canis วิธีหลักคือ',
-    options: ['ELISA blood test', 'Deep skin scraping', 'Fungal culture', 'Histopath เท่านั้น'],
-    answer: 1, explain: 'Deep skin scraping (squeeze + scrape จนเห็นเลือดออกเล็กน้อย) → demodex อยู่ลึกใน follicle, เห็น cigar-shaped mite (~250 μm) + ovoid eggs, trichogram + tape ก็ใช้เสริมได้\n\n❌ ทำไมข้ออื่นผิด\n— ELISA blood = ไม่มี commercial สำหรับ Demodex\n— Fungal culture = dermatophyte\n— Histopath = ใช้ในกรณีที่ scraping negative ซ้ำๆ ไม่ใช่ first-line\n\n💡 เห็น mite + egg ภายใต้กล้อง',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.7' },
-
-  { id: 912, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['sarcoptes', 'distribution'], type: 'mcq',
-    q: 'Sarcoptes scabiei ใน canine scabies ตำแหน่ง predilection คือ',
-    options: ['Pinnal margin (ขอบใบหู), elbow, hock', 'Interdigital อุ้งเท้าทั้ง 4 เท่านั้น', 'โคนหางและ dorsal lumbosacral เท่านั้น', 'กระจายทั่วตัวไม่เป็น pattern ชัด'],
-    answer: 0, explain: 'Sarcoptes predilection: ear margins (pinnal-pedal reflex test +ve), elbows, hocks, ventral abdomen, ventral chest, severe pruritus, self-trauma\n\n❌ ทำไมข้ออื่นผิด\n— อุ้งเท้า = atopic dermatitis (paw chewing)\n— โคนหาง = FAD\n— "ไม่เป็น pattern" = generic infection',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.9' },
-
-  { id: 913, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['otodectes', 'ear-mite'], type: 'mcq',
-    q: 'Otodectes cynotis ทำให้เกิดโรคใด',
-    options: ['Demodicosis', 'Sarcoptic mange', 'Otoacariasis', 'Cheyletiellosis'],
-    answer: 2, explain: 'Otodectes cynotis = ear mite, พบบ่อยในแมวมากกว่าสุนัข, clinical: dark coffee-ground exudate + pruritus หู, diagnosis: otoscope + ear swab cytology\n\n❌ ทำไมข้ออื่นผิด\n— Demodicosis = Demodex (follicle)\n— Sarcoptic mange = Sarcoptes (skin surface)\n— Cheyletiellosis = Cheyletiella (walking dandruff)\n\n💡 ear mite infestation',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.10' },
-
-  { id: 914, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'Derm_3_Parasitic_skin_diseases.pdf',
-    tags: ['cheyletiella', 'walking-dandruff'], type: 'mcq',
-    q: 'Cheyletiella spp. มีลักษณะคลินิกที่เด่นเรียกว่าอะไร',
-    options: ['Hair loss only', '"Walking dandruff"', 'Black crust จาก melanin', 'Bullae ใหญ่'],
-    answer: 1, explain: '"Walking dandruff" = Cheyletiella, large mite (~500 μm) เคลื่อนไหวบนผิวพร้อมเกล็ดผิวจน mimic ดูเหมือนรังแคที่เดินได้, zoonotic (papules ใน owner), Diagnosis: tape + microscopy\n\n❌ ทำไมข้ออื่นผิด\n— "Hair loss only" = ไม่ specific\n— "Black crust" = พิเศษ Demodicosis บางชนิด\n— "Bullae" = pemphigus (autoimmune)\n\n💡 เกล็ดผิวสีขาวเหลืองที่เคลื่อนไหวได้บนผิวหนัง',
-    verified: 'Derm_3_Parasitic_skin_diseases.pdf p.10' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Bacterial Skin Diseases (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 915, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['pyoderma', 'pathogen'], type: 'mcq',
-    q: 'เชื้อก่อโรค pyoderma ที่พบบ่อยที่สุดในสุนัขคือ',
-    options: ['Staphylococcus aureus', 'Staphylococcus pseudintermedius', 'Streptococcus canis', 'Pseudomonas aeruginosa'],
-    answer: 1, explain: 'S. pseudintermedius = most common cause of canine pyoderma, เป็น commensal บนผิวหนัง, เมื่อ skin barrier เสีย หรือ underlying disease (allergy, endocrine) → overgrowth → pyoderma, MRSP (methicillin-resistant) เป็นปัญหาเพิ่มขึ้นเรื่อยๆ\n\n❌ ทำไมข้ออื่นผิด\n— S. aureus = หลักในคน, น้อยในสุนัข\n— Streptococcus canis = พบได้ในบาง deep pyoderma แต่ไม่ใช่หลัก\n— Pseudomonas = บ่อยใน otitis externa, ไม่ใช่ pyoderma',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.3' },
-
-  { id: 916, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['pyoderma', 'classification'], type: 'mcq',
-    q: 'การจำแนก pyoderma ตามความลึกของรอยโรค (depth) แบ่งเป็นกี่ประเภท',
-    options: ['2 ประเภท: superficial vs deep', '3 ประเภท: surface, superficial, deep', '4 ประเภท: surface, superficial, deep, systemic', 'ไม่จำเป็นต้องแบ่ง'],
-    answer: 1, explain: 'Pyoderma 3 levels: Surface (ไม่ผ่าน epidermis เช่น intertrigo, pyotraumatic), Superficial (involve epidermis ± hair follicle, ไม่ข้าม basement membrane เช่น impetigo, folliculitis), Deep (ลงลึกถึง dermis/SC เช่น furunculosis, cellulitis), การจำแนกสำคัญมากเพราะระยะเวลา + วิธี treatment ต่างกัน\n\n❌ ทำไมข้ออื่นผิด\n— "2 ประเภท" = ขาด surface\n— "4 ประเภท + systemic" = systemic ไม่ใช่ depth classification\n— "ไม่จำเป็น" = ผิด, classification key for management',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.3' },
-
-  { id: 917, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['intertrigo', 'breed'], type: 'mcq',
-    q: 'Skin fold pyoderma (Intertrigo) มัก predispose ในสายพันธุ์ใดมากที่สุด',
-    options: ['Shar pei, Bulldog, Cocker spaniel, Pekinese', 'Greyhound, Whippet (lean breed)', 'Border Collie, Australian Shepherd', 'Chihuahua, Pomeranian'],
-    answer: 0, explain: 'Intertrigo predisposing: Shar pei, Bulldog, Pekinese (รอยพับเยอะ) + obese animals (รอยพับน้ำหนักทับ), location: lip folds, facial folds, vulvar folds, tail folds (cork-screw tail breeds), Tx: antibacterial shampoo + ลดน้ำหนัก ± surgical excision\n\n❌ ทำไมข้ออื่นผิด\n— Greyhound/Whippet = lean = ไม่ใช่ predisposed\n— Border Collie/Australian Shep = active breeds, no skin folds\n— Chihuahua/Pomeranian = small breed, ไม่มี skin folds มาก\n\n💡 sky fold + obese',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.4' },
-
-  { id: 918, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['impetigo', 'distribution'], type: 'mcq',
-    q: 'Juvenile impetigo มีรอยโรคที่ distribution ใด',
-    options: ['Ventral abdomen, inguinal, axillae', 'บริเวณใบหน้า คาง และใบหูทั้งสอง', 'หลัง สะโพก และโคนหางส่วนบน', 'Interdigital อุ้งเท้าทั้ง 4 ข้าง'],
-    answer: 0, explain: 'Juvenile impetigo: lesions ที่ ventral abdomen + inguinal + axillae, เป็น non-follicular pustules + erythematous skin + epidermal collarettes + crusts, Predisposing: poor hygiene, parasites, virus, poor diet, มักพบใน puppies < 1 yr\n\n❌ ทำไมข้ออื่นผิด\n— "ใบหน้า/คาง/ใบหู" = chin acne / atopic\n— "หลัง/สะโพก" = FAD\n— "อุ้งเท้า" = atopic dermatitis',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.5' },
-
-  { id: 919, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['antibiotic', 'pyoderma'], type: 'mcq',
-    q: 'Antibiotics ตัวใด ไม่เหมาะ สำหรับรักษา pyoderma เพราะ achieve therapeutic conc. ในผิวหนังไม่ดี',
-    options: ['Cephalexin 1st-gen cephalosporin', 'Doxycycline กลุ่ม tetracycline', 'Amoxicillin / Penicillin กลุ่ม β-lactam', 'Clindamycin กลุ่ม lincosamide'],
-    answer: 2, explain: 'ATB ที่ไม่เข้าผิวหนังพอ: Amoxicillin (ใช้ amoxi-clav แทน), Penicillin, Ampicillin, Streptomycin, ATB ที่เข้าผิวหนังดี: Cephalexin (1st choice), Amoxi-clav, Cefadroxil, Cefovecin, Doxycycline, Clindamycin, FQ (enrofloxacin/marbofloxacin), ต้องเลือกตาม C&S เพราะ MRSP บ่อย\n\n❌ ทำไมข้ออื่นผิด\n— Cephalexin = first-line (เข้าผิวดี)\n— Doxycycline = เข้าผิวดี (ใช้ใน MRSP บางครั้ง)\n— Clindamycin = เข้าผิวดี (alternate cephalexin)',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.11' },
-
-  { id: 920, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['antibiotic', 'dose'], type: 'mcq',
-    q: 'Cephalexin dose สำหรับ canine pyoderma คือ',
-    options: ['5 mg/kg SID หรือ 3 mg/kg BID', '100 mg/kg BID หรือ 80 mg/kg TID', '50 mg/kg SID single dose ต่อวัน', '30 mg/kg BID หรือ 22 mg/kg TID'],
-    answer: 3, explain: 'Cephalexin (canine pyoderma): 30 mg/kg BID (หรือ 22 mg/kg TID), 1st-gen cephalosporin, เข้าผิวดี, cover S. pseudintermedius, ต่อ 4-6 wk superficial / 6-12 wk deep, continue > 2 wk หลัง clinical cure\n\n❌ ทำไมข้ออื่นผิด\n— 5 mg/kg SID = ต่ำเกิน\n— 50 mg/kg SID / 100 mg/kg BID = สูงเกิน',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.12' },
-
-  { id: 921, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['treatment', 'duration'], type: 'mcq',
-    q: 'Duration ในการรักษา superficial pyoderma',
-    options: ['3-5 วัน', '1-2 สัปดาห์', '≥4-6 สัปดาห์', 'ตลอดชีวิต'],
-    answer: 2, explain: 'Superficial pyoderma: minimum 4-6 wk, ให้ต่อ ≥ 2 wk หลัง lesions หาย, prevent recurrence, check at 2-3 weekly intervals\n\n❌ ทำไมข้ออื่นผิด\n— "3-5 วัน" = สั้นเกิน, recurrence แน่\n— "1-2 wk" = สั้นเกิน\n— "ตลอดชีวิต" = ผิด (ต้องหาและแก้ underlying cause)',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.12' },
-
-  { id: 922, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['treatment', 'deep-pyoderma'], type: 'mcq',
-    q: 'Duration สำหรับรักษา deep pyoderma',
-    options: ['1-2 สัปดาห์แล้วหยุดได้เลย', '4-6 สัปดาห์เท่ากับ superficial', '6-12 สัปดาห์ + ต่อหลัง clinical cure', 'ใช้แค่ topical พอ ไม่ต้อง systemic'],
-    answer: 2, explain: 'Deep pyoderma: average 6-12 wk + ต่อ ≥ 3-4 wk หลัง clinical cure, ต้อง C&S ทุกครั้ง, clipping + antiseptic shampoo (chlorhexidine, ethyl lactate), 3 weekly check-ups, มักมี underlying cause (Demodicosis, Cushing\'s, hypothyroid)\n\n❌ ทำไมข้ออื่นผิด\n— "1-2 wk" = สั้นเกินมาก\n— "4-6 wk" = สำหรับ superficial\n— "แค่ topical" = ผิด, deep ต้อง systemic ATB ตาม C&S',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.12' },
-
-  { id: 923, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['cytology'], type: 'mcq',
-    q: 'ใน skin cytology ของ pyoderma — การพบ "degenerate neutrophils + intracellular cocci bacteria" หมายถึง',
-    options: ['Active bacterial infection', 'Contamination, ไม่ต้องกังวล', 'Eosinophilic dermatitis', 'Sterile pustular dermatosis'],
-    answer: 0, explain: 'Degenerate neutrophil (toxic change, vacuolation) + intracellular bacteria = active bacterial infection (septic process), ถ้า extracellular เท่านั้น = อาจ colonization, cocci consistent กับ Staphylococcus, rod = G-neg (Pseudomonas, E. coli) → ส่งผลต่อการเลือก ATB\n\n❌ ทำไมข้ออื่นผิด\n— Contamination = ไม่ใช่, มี degenerate neutrophil\n— Eosinophilic = พบ eosinophils ไม่ใช่ neutrophils\n— Sterile pustular = ไม่มี bacteria\n\n💡 septic suppurative inflammation',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.7' },
-
-  { id: 924, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'Derm__4_Bacterial_skin_diseases.pdf',
-    tags: ['topical-therapy'], type: 'mcq',
-    q: 'Topical antibacterial shampoo สำหรับ pyoderma มักประกอบด้วย active ingredient ใด',
-    options: ['Antifungal เท่านั้น (ketoconazole)', 'NSAIDs topical', 'Chlorhexidine, Benzoyl peroxide', 'Steroid topical'],
-    answer: 2, explain: 'Antibacterial shampoo: Chlorhexidine 2-4% (most common), Benzoyl peroxide (also follicular flushing), Ethyl lactate, Povidone-iodine, Triclosan, ใช้ 2-3 ครั้ง/wk, leave 5-15 min ก่อนล้างออก, indication: surface/superficial pyoderma + adjunct ใน deep + recurrence prevention\n\n❌ ทำไมข้ออื่นผิด\n— Ketoconazole alone = antifungal สำหรับ Malassezia\n— NSAIDs topical = ไม่ใช่ antibacterial\n— Steroid topical = anti-inflammatory แต่ไม่ kill bacteria',
-    verified: 'Derm__4_Bacterial_skin_diseases.pdf p.11' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Fungal Skin Diseases (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 925, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['dermatophyte', 'epidemiology'], type: 'mcq',
-    q: 'Dermatophytosis ในแมว ส่วนใหญ่เกิดจากเชื้อชนิดใด',
-    options: ['Microsporum gypseum', 'Microsporum canis', 'Trichophyton mentagrophytes', 'Aspergillus'],
-    answer: 1, explain: 'M. canis = 90-98% ของ feline dermatophytosis, 50-70% ของ canine, ติดผ่าน direct contact + fomites + environment, zoonotic, highly contagious\n\n❌ ทำไมข้ออื่นผิด\n— M. gypseum = soil-borne, ไม่ใช่ most common\n— T. mentagrophytes = rodent-borne, rare\n— Aspergillus = ไม่ใช่ dermatophyte (systemic mycosis)\n\n💡 90-98% ในแมว',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.2' },
-
-  { id: 926, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['dermatophyte', 'diagnosis'], type: 'mcq',
-    q: 'Wood\'s lamp examination ใช้ตรวจ dermatophytosis — fluoresce ได้ในเชื้อชนิดใด',
-    options: ['M. canis', 'M. gypseum', 'T. mentagrophytes', 'Malassezia'],
-    answer: 0, explain: 'Wood\'s lamp UV (cobalt/nickel filter) → apple-green fluorescence ใน M. canis (ประมาณ 50% ของ strains), false-positive: bacteria (Pseudomonas, Corynebacterium), crust, soap, cream, M. gypseum + T. mentagrophytes = NEGATIVE, ใช้เป็น screening test ไม่ใช่ definitive\n\n❌ ทำไมข้ออื่นผิด\n— M. gypseum / T. mentagrophytes = no fluorescence\n— Malassezia = yeast (ไม่ใช่ dermatophyte)',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.3' },
-
-  { id: 927, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['dermatophyte', 'dtm'], type: 'mcq',
-    q: 'Dermatophyte Test Medium (DTM) มี indicator อะไร และเปลี่ยนสีอย่างไรเมื่อเชื้อขึ้น',
-    options: ['Bromothymol blue, น้ำเงิน → เขียว', 'Phenol red, เหลือง → แดง (ภายใน 7-14 วัน)', 'Methylene blue, ใสขึ้น', 'ไม่มี indicator, อ่านจาก colony เท่านั้น'],
-    answer: 1, explain: 'DTM มี phenol red indicator (acid-base), dermatophyte ใช้ protein → produce alkaline metabolites → pH ขึ้น → red color change, 7-14 วัน, concept "3 Cs": Color change + Colony appearance (white-greyish fluffy) + Confirmation by macroconidia (microscopic), = definitive Dx\n\n❌ ทำไมข้ออื่นผิด\n— Bromothymol blue = pH indicator อื่น\n— Methylene blue = staining dye\n— "ไม่มี indicator" = ผิด',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.3' },
-
-  { id: 928, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['dermatophyte', 'microscopy'], type: 'mcq',
-    q: 'Microscopic feature ที่ classic ของ Trichophyton mentagrophytes คือ',
-    options: ['Fusoid macroconidia + thick wall + 6+ microconidia', 'Single large macroconidia เท่านั้น', 'Spiral hyphae + grape-like cluster ของ microconidia', 'No conidia, only hyphae'],
-    answer: 2, explain: 'T. mentagrophytes: spiral hyphae + numerous round/pyriform microconidia ใน grape-like clusters, macroconidia = multi-septate, club-shaped, มักไม่พบ\n\n❌ ทำไมข้ออื่นผิด\n— "Fusoid + thick wall + 6+ micro" = M. canis\n— "Single macro" = ไม่ใช่ pattern of any dermatophyte\n— "No conidia" = saprophyte / non-pathogenic',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.4' },
-
-  { id: 929, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['treatment', 'systemic'], type: 'mcq',
-    q: 'Systemic antifungal ที่ first-line สำหรับ dermatophytosis ในแมว',
-    options: ['Itraconazole 5-10 mg/kg SID with meal', 'Penicillin G 20,000 IU/kg IM BID', 'Metronidazole 15 mg/kg PO BID', 'Doxycycline 5 mg/kg PO BID'],
-    answer: 0, explain: 'Itraconazole 5-10 mg/kg SID with meal = first-line, alternatives: Ketoconazole 10 mg/kg/d BID, Terbinafine 30-40 mg/kg SID, Griseofulvin 50 mg/kg microsized, ต่อจนกว่า culture negative 2 ครั้ง (ห่าง 2-4 wk)\n\n❌ ทำไมข้ออื่นผิด\n— Penicillin G = bacterial\n— Metronidazole = anaerobe + protozoa\n— Doxycycline = bacterial / ricketsia',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.5' },
-
-  { id: 930, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['pseudomycetoma'], type: 'mcq',
-    q: 'Pseudomycetoma คือรูปแบบของ dermatophytosis ที่',
-    options: ['Hyphae ลงลึกถึง dermis เกิด SC nodules + draining tract', 'จำกัดอยู่ stratum corneum ชั้นผิวเท่านั้น', 'เกิดบน nail bed กับ claw fold เท่านั้น', 'เป็น contaminant ไม่ใช่ dermatophyte จริง'],
-    answer: 0, explain: 'Pseudomycetoma = unusual deep form of dermatophytosis (มัก M. canis) → hyphae ลงไปถึง dermal + subcutaneous tissue → firm intradermal/SC nodules ± ulcerated + draining tract, พบบ่อย: tail, trunk, flanks, non-pruritic, non-painful, ต้อง histopath / culture ยืนยัน\n\n❌ ทำไมข้ออื่นผิด\n— "stratum corneum ชั้นผิว" = classic dermatophytosis\n— "nail bed / claw fold" = onychomycosis\n— "contaminant" = ผิด, เป็นรูปแบบ deep ของ dermatophyte',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.4' },
-
-  { id: 931, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['dermatophyte', 'transmission'], type: 'mcq',
-    q: 'Dermatophytosis transmission หลักคือ',
-    options: ['Bite จากแมลงพาหะนำเชื้อ', 'หายใจสปอร์เข้าทางอากาศ', 'Direct contact + fomites', 'การกินอาหารปนเปื้อนเชื้อ'],
-    answer: 2, explain: 'Direct contact (cat-cat, dog-cat, cat-human) + fomites (combs, brushes, bedding) + environment (spores ทนนานหลายเดือน), zoonotic (โดยเฉพาะ M. canis ที่ติดง่ายในเด็ก/ภูมิต่ำ)\n\n❌ ทำไมข้ออื่นผิด\n— Bite แมลง = vector-borne diseases (Babesia, Lyme)\n— หายใจ = systemic mycoses (Histoplasma, Cryptococcus)\n— อาหาร = enteric pathogens',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.2' },
-
-  { id: 932, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['topical', 'lime-sulfur'], type: 'mcq',
-    q: 'Lime sulfur dip สำหรับ dermatophytosis ใช้ความเข้มข้นเท่าใด',
-    options: ['2-4%', '0.5%', '20-40%', '100% (full strength)'],
-    answer: 0, explain: 'Lime sulfur 2-4% (calcium polysulfide), effective + cheap + safe, ทาทั่วตัวทุก 5-7 วัน × 4-6 ครั้ง, เหม็นกำมะถัน + อาจทำให้ขนเหลือง, alternative: 0.2% enilconazole, 2% miconazole-chlorhexidine shampoo\n\n❌ ทำไมข้ออื่นผิด\n— 0.5% = ต่ำเกิน\n— 20-40% = สูงเกินอันตราย\n— 100% = ห้าม',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.5' },
-
-  { id: 933, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['environment'], type: 'mcq',
-    q: 'Environment disinfectant ที่แนะนำสำหรับ dermatophytosis',
-    options: ['Alcohol 70% เช็ดพื้นผิวซ้ำ', 'Quaternary ammonium compound', 'Chlorhexidine 2% scrub พื้นผิว', 'Sodium hypochlorite เจือจาง 1:10'],
-    answer: 3, explain: 'NaOCl 5% (household bleach) เจือจาง 1:10 = effective disinfectant สำหรับ dermatophyte spores, spores ทนนานหลายเดือนใน environment, aggressive cleaning + disinfectant แล้วล้างออก, throw away/wash bedding, brushes, scratching post\n\n❌ ทำไมข้ออื่นผิด\n— Alcohol 70% = ไม่ kill spores\n— Chlorhexidine = bacterial เป็นหลัก\n— QUAT = ไม่ effective ต่อ spores',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.5' },
-
-  { id: 934, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'Derm__5_Fungal_skin_diseases.pdf',
-    tags: ['malassezia'], type: 'mcq',
-    q: 'Malassezia pachydermatis ในสุนัข มัก present เป็นอย่างไร',
-    options: ['ไม่มีอาการ ผิวหนังปกติดี asymptomatic', 'ขนร่วงเป็นวงโดยไม่มี inflammation', 'Itchy + greasy seborrhea + odor + lichenification', 'Bullae + vesicle ตามรอยต่อผิวหนัง'],
-    answer: 2, explain: 'Malassezia: pruritic + greasy seborrhea + odor + ear infection (Malassezia otitis) + ventral hyperpigmentation/lichenification, cytology: peanut-shaped yeast, Tx: ketoconazole/miconazole shampoo + systemic itra/keto, มักร่วมกับ allergic dermatitis (atopic, food)\n\n❌ ทำไมข้ออื่นผิด\n— Asymptomatic = ผิด, มีอาการชัด\n— Hair loss without inflam = endocrine alopecia (Cushing\'s)\n— Bullae/vesicle = pemphigus',
-    verified: 'Derm__5_Fungal_skin_diseases.pdf p.6' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Endocrine Skin Diseases (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 935, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['hypothyroid', 'epidemiology'], type: 'mcq',
-    q: 'Endocrinopathy ที่พบบ่อยที่สุดในสุนัขคือ',
-    options: ['Hyperadrenocorticism (Cushing\'s)', 'Hypothyroidism', 'Diabetes mellitus', 'Hypoadrenocorticism (Addison\'s)'],
-    answer: 1, explain: 'Hypothyroidism = most common endocrinopathy ในสุนัข, incidence ~1 in 200 (~0.5%), middle-aged 3-8 ปี (mean 7), spay/neutered ↑ risk, "over-diagnosed" บ่อยเพราะ NTI (non-thyroidal illness/euthyroid sick) ทำให้ T4 ต่ำได้\n\n❌ ทำไมข้ออื่นผิด\n— Cushing\'s = พบบ่อยรองลงมา\n— DM = น้อยกว่าใน dog (มากในแมว)\n— Addison\'s = rare',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.2' },
-
-  { id: 936, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['hypothyroid', 'breed'], type: 'mcq',
-    q: 'Hypothyroidism มี predisposed breeds สูงสุดในข้อใด',
-    options: ['Chihuahua, Pomeranian, Yorkshire', 'Beagle, Boxer, Cocker, Doberman', 'Greyhound พันธุ์เดียวเท่านั้น', 'ทุกสายพันธุ์มีความเสี่ยงเท่ากัน'],
-    answer: 1, explain: 'Predisposed: medium-large breeds — Beagle, Boxer, Cocker, Dachshund, Dalmatian, Doberman, Lab, Golden Retriever, age 3-8 ปี (mean 7), neutered/spayed ↑ risk, ระวัง breed-specific low T4 (Sighthound, Greyhound, Husky, Scottish Deerhound — มี baseline ต่ำตามธรรมชาติ)\n\n❌ ทำไมข้ออื่นผิด\n— Toy breeds (Chihuahua/Pom) = atlantoaxial / hypoglycemia issues, ไม่ใช่ hypothyroid\n— Greyhound = baseline T4 ต่ำตามสายพันธุ์ (ไม่ใช่ disease)\n— "ทุกสายพันธุ์เท่ากัน" = ผิด',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.2' },
-
-  { id: 937, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['hypothyroid', 'pathology'], type: 'mcq',
-    q: 'Primary hypothyroidism ในสุนัข (95%) เกิดจากกลไกใดเป็นหลัก',
-    options: ['Pituitary tumor → ↓ TSH secretion', 'Iodine excess ในอาหารเรื้อรัง', 'Immune destruction + idiopathic atrophy', 'Side effect จากยา phenobarbital'],
-    answer: 2, explain: 'Primary hypothyroidism (95% of cases): immune-mediated lymphocytic thyroiditis + idiopathic atrophy of thyroid gland, 5% เป็น secondary (TSH deficiency จาก pituitary disease), congenital + iodine deficiency = rare in companion animals\n\n❌ ทำไมข้ออื่นผิด\n— Pituitary tumor = secondary 5%\n— Iodine excess = ทำให้ hyper- ไม่ใช่ hypo-\n— Phenobarb = affect test result, ไม่ทำให้ true hypothyroid',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.2' },
-
-  { id: 938, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['hypothyroid', 'lab'], type: 'mcq',
-    q: 'Total T4 (TT4) reference range ในสุนัขปกติ',
-    options: ['0.1-0.5 μg/dL', '5-10 μg/dL', '1.5-3 μg/dL', '10-50 μg/dL'],
-    answer: 2, explain: 'TT4 normal: 1.5-3 μg/dL (บางที่ 2-4), TT4 < 0.5 = very likely hypothyroid, 0.5-1 = possible, > 2 = unlikely, TT4 sensitive ไม่ specific (NTI ทำให้ต่ำได้), ใช้ร่วม cTSH (normal < 0.6 ng/mL) + Free T4\n\n❌ ทำไมข้ออื่นผิด\n— 0.1-0.5 = severely low (advanced disease)\n— 5-10 / 10-50 = สูงเกินจริง\n\n💡 บางห้องแลบ 2-4',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.6' },
-
-  { id: 939, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['hypothyroid', 'drug-interference'], type: 'mcq',
-    q: 'ยาตัวใดที่ลด TT4 + fT4 ในสุนัข แต่ไม่ทำให้เป็น clinical hypothyroidism',
-    options: ['Steroids + Phenobarbital + Sulfa + Aspirin', 'Vitamin D + Calcium supplement', 'Insulin + Levothyroxine sodium', 'Carprofen, Meloxicam, Deracoxib'],
-    answer: 0, explain: 'Glucocorticoid/steroids (dose-dependent), Phenobarbital, Sulfonamides (long-term อาจทำ true hypothyroid), Aspirin = ลด T4 levels, KBr ไม่กระทบ, NSAIDs ใหม่ (Carprofen, Meloxicam, Deracoxib) ไม่กระทบมีนัยสำคัญ, ตีความ T4 ต้องระวัง drug history\n\n❌ ทำไมข้ออื่นผิด\n— Vit D + Ca = ไม่กระทบ thyroid testing\n— Insulin/Levothyroxine = ใช้ใน DM/hypothyroid, ไม่ลด baseline T4\n— Carpro/Meloxi/Deracoxib = ไม่กระทบ ตามผลวิจัย',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.8' },
-
-  { id: 940, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['hypothyroid', 'treatment'], type: 'mcq',
-    q: 'Levothyroxine (L-T4) initial dose สำหรับ canine hypothyroidism',
-    options: ['1 mcg/kg q24h', '500 mcg/kg q12h', '20 mcg/kg PO q12-24h', 'Inject IV daily'],
-    answer: 2, explain: 'Levothyroxine 20 mcg/kg PO q12h initial (หรือ 0.5 mg/m² ใน large breed), maintenance 20 mcg/kg q24h ถ้าตอบสนองดี, ไม่ให้กับอาหาร (ลด bioavailability), ลด dose 25-50% ใน cardiac disease, monitor TT4 ที่ 4 wk หลังเริ่มยา (peak 4-6 hr post-pill), clinical signs improve: energy 1-2 wk, weight/skin 1-2 mo, hair regrow several months\n\n❌ ทำไมข้ออื่นผิด\n— 1 mcg/kg = ต่ำเกิน\n— 500 mcg/kg = สูงเกินอันตราย\n— IV daily = oral มาตรฐาน',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.9' },
-
-  { id: 941, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['cushing', 'screening'], type: 'mcq',
-    q: 'Hyperadrenocorticism (Cushing\'s) screening test ที่ใช้บ่อยที่สุดคือ',
-    options: ['Resting cortisol เดี่ยวค่าเดียว', 'CBC + serum chemistry เท่านั้น', 'Total T4 + free T4 by dialysis', 'ACTH stimulation test, LDDS, UCCR'],
-    answer: 3, explain: 'Cushing\'s screening: ACTH stim test (sensitive but expensive — ตรวจไม่ค่อยมีในไทย) + LDDS test (low-dose dexamethasone suppression, 0.01 mg/kg dex IV, sample 0/4/8h — sensitive แต่ false-positive จาก stress/NTI) + UCCR (urine cortisol:creatinine ratio, negative predictive value, screening, 3 consecutive AM samples), resting cortisol เดี่ยวไม่พอ, differentiation PDH vs ADH ใช้ HDDS / endogenous ACTH / imaging\n\n❌ ทำไมข้ออื่นผิด\n— Resting cortisol = ผันผวนมาก, ไม่ใช่ screening\n— TT4/fT4 = thyroid test, ไม่ใช่ adrenal\n— CBC alone = supportive (stress leukogram) ไม่ definitive',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.16' },
-
-  { id: 942, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['cushing', 'uccr'], type: 'mcq',
-    q: 'Urine Cortisol:Creatinine Ratio (UCCR) มีจุดเด่นในการใช้คืออะไร',
-    options: ['ใช้เป็น screening', 'ใช้เป็น confirmative test', 'ใช้แยก PDH vs ADH', 'ใช้ติดตามผลการรักษา'],
-    answer: 0, explain: 'UCCR = sensitive แต่ non-specific, เก็บปัสสาวะ AM 3 วัน consecutive, normal = unlikely Cushing\'s (high NPV), elevated = ต้องยืนยันด้วย ACTH stim หรือ LDDS เพราะ stress, illness ก็ทำให้สูงได้, เก็บที่บ้านลด stress hospital\n\n❌ ทำไมข้ออื่นผิด\n— Confirmative = ผิด (ต้อง follow-up test)\n— PDH vs ADH = ใช้ HDDS / endogenous ACTH / imaging\n— Monitor treatment = ใช้ ACTH stim หรือ pre-trilostane cortisol\n\n💡 ถ้า UCCR ปกติ มักไม่ใช่ Cushing\'s\n\n💡 high negative predictive value',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.15' },
-
-  { id: 943, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['cushing', 'lddst'], type: 'mcq',
-    q: 'Low-Dose Dexamethasone Suppression Test (LDDS) ใช้ dose เท่าใด และเก็บตอนไหน',
-    options: ['0.01 mg/kg IV → sample 0, 4, 8 ชม.', '0.1 mg/kg PO → sample 24 ชม.', '1 mg/kg IM → sample 30 นาที', 'ไม่ต้องวัดเวลา'],
-    answer: 0, explain: 'LDDS: dexamethasone 0.01 mg/kg IV → cortisol 0h (baseline), 4h, 8h, normal dog = suppress ทั้ง 4h + 8h (< 1.4 μg/dL), Cushing\'s = no/partial suppression, 4h suppress + 8h not = PDH pattern, ทั้ง 4h+8h not suppress = PDH/ADH, ทดสอบ definitive, ต้อง quiet environment\n\n❌ ทำไมข้ออื่นผิด\n— 0.1 mg/kg = HDDS (high-dose) — ใช้ differentiate PDH vs ADH\n— 1 mg/kg = สูงเกินไป\n— "ไม่วัดเวลา" = ผิด เวลาสำคัญ',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.16' },
-
-  { id: 944, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Derm_6_Endocrine_skin_diseases.pdf',
-    tags: ['cushing', 'skin-signs'], type: 'mcq',
-    q: 'Cushing\'s syndrome ในสุนัข มี skin findings ที่เด่นคือ',
-    options: ['Pruritus รุนแรง + papules กระจายทั่ว', 'Bullae + crusts ที่ mucocutaneous junction', 'Bilateral symmetrical alopecia + thin skin + calcinosis', 'Black hyperpigmentation อย่างเดียวเท่านั้น'],
-    answer: 2, explain: 'Cushing\'s skin: bilateral symmetrical truncal alopecia (sparing head/limbs initially), thin skin (translucent), comedones, calcinosis cutis (dystrophic Ca deposit), recurrent superficial pyoderma + Demodicosis (immunocompromise), "rat tail" + "pot belly" + PU/PD + polyphagia\n\n❌ ทำไมข้ออื่นผิด\n— Pruritus + papules = atopic / FAD\n— Bullae @ MC junction = pemphigus vulgaris\n— Hyperpigmentation only = post-inflammatory, ไม่ classic Cushing\'s',
-    verified: 'Derm_6_Endocrine_skin_diseases.pdf p.13' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Nutrition Skin Diseases (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 945, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['vitamin-a', 'breed'], type: 'mcq',
-    q: 'Vitamin A-responsive dermatosis ("Cocker syndrome") พบบ่อยใน breed ใด',
-    options: ['Siberian Husky', 'Cocker Spaniel', 'Bulldog', 'Poodle'],
-    answer: 1, explain: 'Vitamin A-responsive dermatosis = "Cocker\'s syndrome", adult Cocker (2-5 ปี), ไม่ใช่ true Vit A deficiency แต่ตอบสนองต่อ supraphysiologic dose, clinical: seborrhea + plugging of follicles + hyperkeratotic plaques + crusts/scale/alopecia + ceruminous otitis externa, ระวังต้อง rule out other seborrhea ก่อน supplement\n\n❌ ทำไมข้ออื่นผิด\n— Siberian Husky = Zinc-responsive\n— Bulldog = skin folds / pyoderma\n— Poodle = Sebaceous adenitis (different)',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.3' },
-
-  { id: 946, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['vitamin-a', 'dose'], type: 'mcq',
-    q: 'Treatment dose ของ Vitamin A สำหรับ Cocker\'s syndrome',
-    options: ['400 IU/kg/d (true deficiency dose)', '10,000 IU/d oral retinol', '100,000 IU/kg IM ครั้งเดียว', 'ไม่ต้อง supplement'],
-    answer: 1, explain: 'Vit A-responsive: oral retinol 10,000 IU/day (supraphysiologic, Cocker spaniel weight ~10-12 kg), clinical improvement 6-8 wk, lifelong therapy ปกติ, ระวัง toxicity (ถ้าเกิน normal req. ต้อง rule out other seborrhea ก่อน), ใน true Vit A deficiency = ไม่เกิน 400 IU/kg/d\n\n❌ ทำไมข้ออื่นผิด\n— 400 IU/kg/d = true deficiency, ไม่ supraphysiologic\n— 100,000 IU IM = อันตราย hypervitaminosis A\n— "ไม่ supplement" = ผิด',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.4' },
-
-  { id: 947, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['zinc', 'breed'], type: 'mcq',
-    q: 'Zinc-responsive dermatosis พบบ่อยใน breed ใด',
-    options: ['Cocker Spaniel + Toy Poodle', 'Border Collie + Shetland Sheepdog', 'Pug + French Bulldog', 'Siberian Husky + Alaskan Malamute'],
-    answer: 3, explain: 'Zinc-responsive dermatosis: Northern breeds (Siberian Husky, Alaskan Malamute), 2 syndromes — Type I (genetic Zn malabsorption, Husky/Mal) + Type II (Zn-deficient/high phytate diet, rapidly growing puppy), Zn เป็น cofactor RNA/DNA polymerase + EFA biosynthesis + immune\n\n❌ ทำไมข้ออื่นผิด\n— Cocker/Poodle = Vit A / sebaceous adenitis\n— Pug/Bulldog = skin fold pyoderma\n— Border Collie = collie nose / DLE',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.5' },
-
-  { id: 948, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['zinc', 'distribution'], type: 'mcq',
-    q: 'Zinc-responsive dermatosis รอยโรคพบบ่อยที่ตำแหน่งใด',
-    options: ['รอบปาก-รอบตา + nasal planum + foot pads + pressure points', 'Ventral abdomen และ inguinal region เป็นหลัก', 'Pinnae ทั้ง 2 ข้างและ ear canal เท่านั้น', 'โคนหางและ dorsal lumbosacral เท่านั้น'],
-    answer: 0, explain: 'Zinc dermatosis: erythema + alopecia + crust + scale + parakeratotic hyperkeratosis ที่ — perioral / periocular / mucocutaneous junction, nasal planum (dry adherent hyperkeratosis + fissures), footpads (thick yellow-grey crusted plaques), pressure points (elbows, hocks)\n\n❌ ทำไมข้ออื่นผิด\n— ventral abdomen / inguinal = ไม่ใช่ pattern\n— pinnae / โคนหาง alone = ไม่ใช่ Zn pattern',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.5' },
-
-  { id: 949, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['zinc', 'histopath'], type: 'mcq',
-    q: 'Histopathology ที่ classic ของ Zinc-responsive dermatosis คือ',
-    options: ['Eosinophilic infiltrate', 'Granuloma', 'Subepidermal vesicles', 'Parakeratotic hyperkeratosis'],
-    answer: 3, explain: 'Parakeratotic hyperkeratosis = nuclei retained in thickened stratum corneum (ปกติ orthokeratotic = no nuclei), เป็น classic finding ของ Zn deficiency, supportive feature: superficial perivascular dermatitis + follicular keratosis, response to Zn supplement (Zinc methionine, Zinc gluconate, Zinc sulfate)\n\n❌ ทำไมข้ออื่นผิด\n— Eosinophilic = allergic/atopy/parasites\n— Subepidermal vesicles = bullous pemphigoid\n— Granuloma = mycobacterial/fungal infection\n\n💡 retained nuclei in stratum corneum',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.5' },
-
-  { id: 950, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['efa'], type: 'mcq',
-    q: 'Essential fatty acids (EFA) ที่จำเป็นต่อสุขภาพผิวคือ',
-    options: ['Linoleic acid (ω-6) + α-Linolenic acid', 'Saturated fatty acids อย่างเดียว', 'Cholesterol และ sterol ester', 'Trans fats จากน้ำมันแปรรูป'],
-    answer: 0, explain: 'EFA: Linoleic acid (LA, ω-6) + α-Linolenic acid (ALA, ω-3) ต้องได้จากอาหาร (ร่างกายสร้างไม่ได้), maintain skin barrier + ลด TEWL (transepidermal water loss) + anti-inflammatory, supplement EPA/DHA (ω-3 จากปลา) ช่วย atopic + IBD\n\n❌ ทำไมข้ออื่นผิด\n— Saturated fatty acids = energy แต่ไม่ essential สำหรับ skin\n— Cholesterol = ไม่ใช่ EFA\n— Trans fats = pro-inflammatory',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.2' },
-
-  { id: 951, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['generic-diet'], type: 'mcq',
-    q: '"Generic dog food disease" หมายถึง',
-    options: ['Skin lesions จากกิน poor-quality cheap diet นานๆ', 'Skin reaction ต่อ generic medication', 'Allergy ต่อยี่ห้ออาหารใดยี่ห้อหนึ่ง', 'ไม่มีโรคนี้จริงเป็นความเชื่อผิด'],
-    answer: 0, explain: 'Generic dog food disease: feeding cheap "generic" pet food long-term → multiple deficiencies (protein, Zn, EFA, Vit A, Vit E) → poor coat, scaling, alopecia, recurrent infection, ตอบสนองต่อ premium balanced diet ภายในหลายเดือน\n\n❌ ทำไมข้ออื่นผิด\n— Reaction ต่อ generic med = drug reaction\n— Allergy ต่อ brand = food allergy (different mechanism)\n— "ไม่มีโรคนี้" = ผิด\n\n💡 ขาด protein/Zn/EFA',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.6' },
-
-  { id: 952, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['protein', 'deficiency'], type: 'mcq',
-    q: 'Protein deficiency ใน skin อาการเด่นคือ',
-    options: ['Skin หนาขึ้น + เม็ดสี', 'Severe pruritus เท่านั้น', 'Poor hair growth + slow healing', 'No skin changes'],
-    answer: 2, explain: 'Protein deficiency: poor hair growth (keratin = protein) + dull/dry/brittle coat + thin skin + delayed wound healing + immune compromise → recurrent infection, supplement high-quality animal protein = ฟื้นใน 4-6 wk\n\n❌ ทำไมข้ออื่นผิด\n— "Skin หนา + เม็ดสี" = endocrine alopecia (Cushing\'s) ตรงข้าม\n— Pruritus only = allergic\n— "No changes" = ผิด',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.2' },
-
-  { id: 953, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['vitamin-e'], type: 'mcq',
-    q: 'Vitamin E ในผิวมีบทบาทอะไร และ deficiency ทำให้เกิดอาการใด',
-    options: ['Antioxidant', 'Energy production', 'Bone formation', 'Hair pigmentation'],
-    answer: 0, explain: 'Vit E (α-tocopherol) = lipid-soluble antioxidant → protect cell membrane lipids, deficiency: dry coat, scaling, panniculitis, ↑ infection, synergistic กับ selenium, supplement ใน inflammatory dermatoses\n\n❌ ทำไมข้ออื่นผิด\n— Energy = carb/fat\n— Bone = Ca, P, Vit D\n— Hair pigment = Cu, Tyrosine\n\n💡 protect cell membrane → deficiency: dry coat, scaling, ↑ susceptibility',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.4' },
-
-  { id: 954, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'Derm_7_Nutrition_skin_disease.pdf',
-    tags: ['food-allergy', 'diagnosis'], type: 'mcq',
-    q: 'Gold standard ในการวินิจฉัย Food Allergy ในสุนัข/แมวคือ',
-    options: ['Serum IgE testing แบบ food allergen panel', 'Intradermal skin test ฉีดในผิวหนัง', 'Food elimination diet trial 8 wk → rechallenge', 'Hair mineral analysis จากเส้นขน'],
-    answer: 2, explain: 'Food elimination diet trial = gold standard, novel protein OR hydrolyzed diet × 8 wk strict (ไม่มี treats/chews/flavored med), ถ้า lesion + pruritus หาย → rechallenge เดิม → recurrence ภายใน 14 วัน = confirm food allergy, serum/skin tests = unreliable for food (good for environmental atopy)\n\n❌ ทำไมข้ออื่นผิด\n— Serum IgE for food = poor sensitivity/specificity\n— Intradermal = ใช้สำหรับ atopy (environmental)\n— Hair analysis = pseudoscience',
-    verified: 'Derm_7_Nutrition_skin_disease.pdf p.2' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Allergic Dermatitis (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 955, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['allergic', 'classification'], type: 'mcq',
-    q: '4 ประเภทหลักของ allergic dermatitis ในสัตว์เลี้ยงคืออะไร',
-    options: ['Pemphigus + Lupus + Drug + Bullous', 'Atopic + Food + FAD + Contact', 'Bacterial + Fungal + Parasitic + Viral', 'Type I + II + III + IV hypersensitivity'],
-    answer: 1, explain: '4 types ของ allergic dermatitis ใน vet practice: Atopic dermatitis (CAD), Food allergy (Cutaneous Adverse Food Reaction, CAFR), Flea Allergic Dermatitis (FAD), Contact dermatitis (rare, hairless areas), ทั้ง 4 มี pruritus + 2° infection เป็นหลัก\n\n❌ ทำไมข้ออื่นผิด\n— Pemphigus/Lupus = autoimmune ไม่ใช่ allergic\n— Bact/Fungal/Parasitic = infections\n— Hypersensitivity types = pathogenesis classification, ไม่ใช่ disease',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.2' },
-
-  { id: 956, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['food-allergy', 'duration'], type: 'mcq',
-    q: 'Food elimination diet trial ต้องทำต่อเนื่องนานเท่าใดถึงจะ rule out food allergy ได้',
-    options: ['1-2 สัปดาห์ก็เพียงพอ', '8-12 สัปดาห์ต่อเนื่อง', '6 เดือนขึ้นไปจึงสรุปได้', '1 ปีเต็มต่อเนื่อง'],
-    answer: 1, explain: 'Food elimination diet: 8-12 wk strict (novel protein OR hydrolyzed), clinical improvement อาจเริ่มเห็นที่ 4 wk, ไม่มี treats / chews / flavored med, ทำ pruritus score + lesion grading ก่อน-หลัง, No response = atopic dermatitis (diagnosis of exclusion), ระหว่างทำสามารถใช้ antipruritic/ATB control ได้\n\n❌ ทำไมข้ออื่นผิด\n— "1-2 wk" = สั้นเกิน, false negative\n— "6 เดือน" / "1 ปี" = นานเกินจำเป็น (ถ้าจะเห็นผล จะเห็นใน 8-12 wk)\n\n💡 ดูผลที่ 4 wk แรก',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.3' },
-
-  { id: 957, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['atopic', 'pathogenesis'], type: 'mcq',
-    q: 'Pathogenesis ของ Atopic Dermatitis (CAD) เกิดจากอะไรเป็นหลัก',
-    options: ['Bacterial infection ที่ deep dermis เป็นหลัก', 'การติดเชื้อ Demodex canis ในรูขุมขน', 'Skin barrier dysfunction + Th2 response + genetic', 'Type III immune complex จากอาหารที่แพ้'],
-    answer: 2, explain: 'CAD = multifactorial: skin barrier defect (↓ filaggrin/loricrin/ceramide → ↑ TEWL → allergen penetration ง่าย) + aberrant Th2 response (IgE-mediated to environmental allergens) + genetic + cutaneous dysbiosis, environmental allergens (dust mites, mold, pollen) ทำให้ flare\n\n❌ ทำไมข้ออื่นผิด\n— Bacterial deep = pyoderma\n— Demodex = parasitic\n— immune complex จากอาหาร = food allergy (different mechanism)',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.4' },
-
-  { id: 958, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['atopic', 'favrot'], type: 'mcq',
-    q: 'Favrot\'s criteria สำหรับ canine atopic dermatitis ใช้ทำอะไร',
-    options: ['Clinical screening — ช่วยสนับสนุน diagnosis', 'Confirmatory diagnosis (>= 5/8 = atopy)', 'แทน intradermal skin test', 'ใช้ตัดสิน prognosis'],
-    answer: 0, explain: 'Favrot\'s criteria 8 ข้อ: (1) onset < 3 yr (2) indoor mostly (3) GC-responsive (4) IBL alesional pruritus (5) front feet affected (6) ear pinnae affected (7) ear margin not affected (8) dorsolumbar not affected, ≥ 5/8 = sensitivity ~85% / specificity ~79%, ≥ 6/8 = specificity ~89%, diagnosis ของ atopy ยังต้องอาศัย exclusion (rule out parasites, infection, food allergy)\n\n❌ ทำไมข้ออื่นผิด\n— Confirmatory = ผิด, ใช้ supportive\n— แทน IDST = ผิด (IDST ระบุ allergens)\n— Prognosis = Favrot ไม่ได้ทำนาย prognosis\n\n💡 sensitivity 85% / specificity 79% ที่ 5/8 หรือ 6/8',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.7' },
-
-  { id: 959, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['atopic', 'distribution'], type: 'mcq',
-    q: 'Atopic dermatitis (CAD) ตำแหน่ง classic distribution',
-    options: ['Periorbital, otitis externa', 'Lumbosacral + ventral abdomen เท่านั้น', 'Dorsal back เท่านั้น', 'Multifocal random'],
-    answer: 0, explain: 'CAD distribution: face (periorbital, cheilitis), ears (pinna affected, margin spared) + otitis externa, paws (interdigital, pedal furunculosis), flexor surface (elbow, hock), ventral abdomen + axillae, "sparing dorsolumbar" = differentiate FAD\n\n❌ ทำไมข้ออื่นผิด\n— Lumbosacral = FAD pattern\n— Dorsal back only = ไม่ใช่ atopy\n— Multifocal random = ไม่มี pattern\n\n💡 sparing margin\n\n💡 cheilitis, flexor elbow, paws (interdigital), ear pinnae',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.6' },
-
-  { id: 960, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['atopic', 'breed'], type: 'mcq',
-    q: 'Breed ที่ predispose ต่อ Atopic Dermatitis (CAD)',
-    options: ['Greyhound + Whippet + Saluki', 'ไม่มี breed predisposition ใดๆ', 'พบเฉพาะแมวพันธุ์ Persian', 'West Highland White Terrier, Lab/Golden'],
-    answer: 3, explain: 'CAD predisposed breeds: WHWT, Lab, Golden, French Bulldog, Pug, Shih Tzu, Sharpei, Poodle, Boxer, Bulldog, GSD, onset < 3 ปี, seasonal (early disease) → year-round (chronic)\n\n❌ ทำไมข้ออื่นผิด\n— Greyhound/Whippet = ไม่ predisposed\n— Persian only = limited\n— "ไม่มี breed predisposition" = ผิด',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.5' },
-
-  { id: 961, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['atopic', 'treatment'], type: 'mcq',
-    q: 'Multimodal management ของ CAD ใช้หลัก "TRIP" คืออะไร',
-    options: ['Treat-Restore-Identify-Pruritus control', 'Topical-Rub-Inject-Pill ตามลำดับ', 'Time-Rest-Investigate-Plan ตามขั้น', 'ไม่มีหลัก TRIP นี้จริง'],
-    answer: 0, explain: '"TRIP" mnemonic: T = Treat secondary infection/infestation (ATB, antifungal, parasiticide), R = Restore skin barrier (ceramide/EFA topical or oral), I = Identify causative allergens (IDST/ASIS for environmental, food trial for food), P = Pruritus control (multiple options)\n\n❌ ทำไมข้ออื่นผิด\n— "Topical-Rub-Inject-Pill" = ไม่ใช่ standard mnemonic\n— "Time-Rest-Investigate-Plan" = ไม่ใช่\n— "ไม่มี" = ผิด',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.9' },
-
-  { id: 962, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['atopic', 'cyclosporine'], type: 'mcq',
-    q: 'Cyclosporine สำหรับ canine CAD — anti-pruritic + anti-inflammatory ในระยะใด',
-    options: ['Onset เร็วใน 1-2 ชั่วโมง', 'ห้ามใช้กับสุนัขที่ติด Demodex', 'ใช้ inject เท่านั้น', 'Onset ช้า 4-6 wk'],
-    answer: 3, explain: 'Cyclosporine (Atopica) 5 mg/kg PO q24h, onset ช้า 4-6 wk, steady-state 6-8 wk, ใช้ taper q48h หรือ q72h ได้หลัง stable, safe profile แต่ side effect: GI (vomit, gingival hyperplasia, gum bleeding), papillomatosis, hirsutism, ไม่ทำ Demodex แย่ลง (drug ลด T-cell แต่ไม่ severe enough)\n\n❌ ทำไมข้ออื่นผิด\n— Onset 1-2 hr = ผิด (ช้า)\n— Inject only = ผิด, oral standard\n— ห้ามใน Demodex = misconception, ใช้ได้\n\n💡 steady-state 6-8 wk, ใช้ taper เป็น every-other-day หรือ q72h ได้',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.10' },
-
-  { id: 963, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['atopic', 'oclacitinib'], type: 'mcq',
-    q: 'Oclacitinib (Apoquel) มี mechanism of action อย่างไร',
-    options: ['JAK1 inhibitor', 'Antihistamine (H1 blocker)', 'Direct cytotoxic to T-cells', 'Steroid analog'],
-    answer: 0, explain: 'Oclacitinib = JAK1 inhibitor, blocks IL-31 signaling (key pruritogenic cytokine ใน CAD) + IL-2/4/6/13 signaling, onset เร็ว (4-24 hr), 0.4-0.6 mg/kg PO BID × 14 d → SID maintenance, safe long-term, side effect: ↑ infection risk (UTI, pneumonia, demodex), Tumor (rare reports)\n\n❌ ทำไมข้ออื่นผิด\n— H1 blocker = AH (limited efficacy)\n— Cytotoxic to T-cells = chemotherapy\n— Steroid analog = glucocorticoid\n\n💡 block IL-31 + other pruritogenic cytokines',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.10' },
-
-  { id: 964, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Derm_8_Allergic_dermatitis.pdf',
-    tags: ['atopic', 'cytopoint'], type: 'mcq',
-    q: 'Cytopoint (lokivetmab) คืออะไร และใช้ยังไง',
-    options: ['Oral glucocorticoid steroid', 'Topical corticosteroid cream', 'Monoclonal antibody ต่อ IL-31', 'Oral antihistamine รุ่นที่สอง'],
-    answer: 2, explain: 'Lokivetmab (Cytopoint) = caninized mAb ต่อ canine IL-31, neutralize IL-31 (key itch cytokine), SC injection ครั้งเดียว ออกฤทธิ์ 4-8 wk, onset 1 day, safe even ใน young/old/concurrent disease, expensive, ใช้ใน CAD (ไม่ใช่ food allergy)\n\n❌ ทำไมข้ออื่นผิด\n— Oral steroid = prednisolone (different)\n— Topical cream = local treatment\n— Oral AH = ineffective ใน CAD',
-    verified: 'Derm_8_Allergic_dermatitis.pdf p.10' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Autoimmune Skin Diseases (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 965, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['autoimmune', 'pemphigus'], type: 'mcq',
-    q: 'Autoimmune skin disease ที่พบบ่อยที่สุดในสุนัขและแมวคือ',
-    options: ['Bullous pemphigoid', 'Pemphigus foliaceus (PF)', 'Pemphigus vulgaris', 'Discoid lupus erythematosus'],
-    answer: 1, explain: 'Pemphigus foliaceus (PF) = most common autoimmune skin disease ใน dog/cat, "leaf-like" (ภาษากรีก), superficial vesicles → ruptured → crusts + ulcers, ตำแหน่ง: nasal planum, periocular, ear pinnae, footpad, breed predispose: Akita, Chow Chow, Doberman, Newfoundland\n\n❌ ทำไมข้ออื่นผิด\n— Bullous pemphigoid = subepidermal, rare\n— Pemphigus vulgaris = severe oral lesions, rare\n— DLE = facial only (less severe than PF)',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.4' },
-
-  { id: 966, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['pemphigus', 'antigen'], type: 'mcq',
-    q: 'Pemphigus foliaceus มี autoantibody ต่อ target antigen ใด',
-    options: ['Desmoglein 3 (Dsg3)', 'Desmoglein 1 (Dsg1)', 'BPAG1, BPAG2 (basement membrane)', 'Type IV collagen'],
-    answer: 1, explain: 'PF: IgG ต่อ Dsg1 (desmoglein 1) — ใน superficial epidermis (granular layer) → loss of cell-cell adhesion → acantholysis → subcorneal pustules, Pemphigus vulgaris: Dsg3 (deeper, suprabasal) → severe oral lesions, Bullous pemphigoid: BPAG1/2 (basement membrane) → subepidermal blisters\n\n❌ ทำไมข้ออื่นผิด\n— Dsg3 = pemphigus vulgaris\n— BPAG1/2 = bullous pemphigoid\n— Type IV collagen = epidermolysis bullosa acquisita\n\n💡 desmosomal protein ใน superficial epidermis',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.3' },
-
-  { id: 967, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['pemphigus', 'classification'], type: 'mcq',
-    q: 'Pemphigus complex ประกอบด้วย 4 โรคใดบ้าง',
-    options: ['PF, PV, Pemphigus vegetans, Pemphigus erythematosus', 'PF + DLE + SLE + Bullous pemphigoid', 'PF + Atopic + Food allergy + FAD', 'PF + Demodicosis + Sarcoptes + Cheyletiellosis'],
-    answer: 0, explain: '4 forms ของ pemphigus complex: Pemphigus Foliaceus (PF, most common, Dsg1), Pemphigus Vulgaris (PV, severe oral, Dsg3), Pemphigus Vegetans (rare, vegetative lesions), Pemphigus Erythematosus (PF + lupus features)\n\n❌ ทำไมข้ออื่นผิด\n— DLE/SLE/BP = different diseases (lupus group, BP separate)\n— Atopic/Food/FAD = allergic\n— Demodex/Sarcoptes = parasitic',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.3' },
-
-  { id: 968, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['pemphigus', 'distribution'], type: 'mcq',
-    q: 'Pemphigus foliaceus ตำแหน่งคลาสสิกของรอยโรคคือ',
-    options: ['Lumbosacral region + tail base', 'Mouth ulcers รุนแรงที่ mucosa', 'Nasal planum, periocular, pinnae, footpads', 'Multifocal กระจาย random ทั่วตัว'],
-    answer: 2, explain: 'PF distribution: bridge of nose, nasal planum, periocular, pinnae, footpads (hyperkeratotic + crust), ± generalized, variable pruritus, 2° infection จาก ulceration\n\n❌ ทำไมข้ออื่นผิด\n— Lumbosacral/tail = FAD\n— Mouth ulcers severe = pemphigus VULGARIS (ไม่ใช่ foliaceus)\n— Multifocal random = ไม่ specific\n\n💡 sometimes generalized',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.4' },
-
-  { id: 969, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['pemphigus', 'cytology'], type: 'mcq',
-    q: 'Cytology ของ pemphigus foliaceus จะเห็นเซลล์ลักษณะใดเด่น',
-    options: ['Acantholytic cells + non-degenerate neutrophils', 'Eosinophils จำนวนมากเป็นเซลล์เด่น', 'Mast cells ที่มี metachromatic granule', 'Intracellular bacteria จำนวนมากใน neutrophil'],
-    answer: 0, explain: 'PF cytology (impression smear of intact pustule): acantholytic cells = rounded keratinocytes ที่หลุดจากกันเพราะ Dsg1 ถูก destroy + non-degenerate neutrophils ± eosinophils, histopath = subcorneal/intragranular pustule with acantholysis = definitive Dx, IFA/IHC = IgG ที่ intercellular space\n\n❌ ทำไมข้ออื่นผิด\n— Eosinophils alone = parasitic/allergic\n— Mast cells = mast cell tumor\n— Bacteria มาก = bacterial pyoderma',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.5' },
-
-  { id: 970, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['bullous-pemphigoid'], type: 'mcq',
-    q: 'Bullous pemphigoid ต่างจาก pemphigus อย่างไร',
-    options: ['Subepidermal blister', 'ไม่ต่างกัน', 'BP = bacterial', 'BP = parasitic'],
-    answer: 0, explain: 'Bullous pemphigoid: IgG ต่อ hemidesmosome proteins (BP180/BPAG2, BP230/BPAG1) ที่ basement membrane → subepidermal split → tense bullae (ไม่แตกง่าย เพราะลึกกว่า pemphigus), severity ≥ pemphigus, oral, mucocutaneous, skin, less common than PF\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่างกัน" = ผิด, mechanism + level ต่าง\n— BP bacterial/parasitic = ผิด (autoimmune)\n\n💡 deeper than pemphigus',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.3' },
-
-  { id: 971, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['lupus'], type: 'mcq',
-    q: 'Discoid Lupus Erythematosus (DLE) ต่างจาก Systemic Lupus Erythematosus (SLE) อย่างไร',
-    options: ['ไม่ต่างกัน', 'DLE = bacterial cause', 'DLE มีหลายอวัยวะ, SLE เฉพาะผิว', 'DLE = cutaneous-only'],
-    answer: 3, explain: 'DLE = "collie nose" — limited to face (nasal planum, periocular, ear pinnae), loss of pigment + erythema + scaling + erosion, sun-aggravated, benign, breed: Collie, GSD, Husky, SLE = multisystem autoimmune (skin + arthritis + glomerulonephritis + cytopenias), ANA + (60-90% positive)\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่างกัน" = ผิด\n— "DLE หลายอวัยวะ" = สลับกัน\n— "DLE bacterial" = ผิด (autoimmune)\n\n💡 skin + joint + kidney + hematologic\n\n💡 SLE = multi-organ\n\n💡 face, nasal planum',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.6' },
-
-  { id: 972, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['dle', 'distribution'], type: 'mcq',
-    q: 'Discoid Lupus Erythematosus (DLE) ตำแหน่ง classic คือ',
-    options: ['Generalized ทั่วทั้งตัวแบบ symmetrical', 'Distal limbs และ interdigital เท่านั้น', 'Lumbosacral region + โคนหาง', 'Nasal planum + periocular + ear pinnae'],
-    answer: 3, explain: 'DLE: face-limited "collie nose" pattern, loss of cobblestone of nasal planum + depigmentation + erythema + ulceration + scarring, UV-aggravated → worse in summer / outdoor, breeds: Collie, Shetland, GSD, Siberian Husky, Brittany\n\n❌ ทำไมข้ออื่นผิด\n— "generalized ทั่วตัว" = generalized autoimmune\n— Lumbosacral/โคนหาง = FAD\n— distal limbs = ไม่ใช่ pattern',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.6' },
-
-  { id: 973, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['autoimmune', 'diagnosis'], type: 'mcq',
-    q: 'Definitive diagnosis ของ pemphigus complex / autoimmune skin diseases ใช้',
-    options: ['Skin biopsy + histopathology', 'CBC + CRP + chemistry เท่านั้น', 'Bacterial culture + sensitivity', 'Serology IgE + allergen panel'],
-    answer: 0, explain: 'Definitive Dx: skin biopsy (intact vesicle/pustule + perilesional area) → histopath: PF = subcorneal pustule with acantholytic cells, BP = subepidermal blister, DLE = interface dermatitis with apoptotic keratinocytes + pigmentary incontinence, IFA/IHC = confirm IgG location (intercellular = pemphigus, basement membrane = BP, lupus band = DLE/SLE)\n\n❌ ทำไมข้ออื่นผิด\n— CBC/CRP = supportive only\n— Bact culture = bacterial pyoderma\n— Serology IgE = atopic test\n\n💡 + IFA/IHC ถ้าทำได้',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.5' },
-
-  { id: 974, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Derm_9_Autoimmune_skin_diseases.pdf',
-    tags: ['autoimmune', 'treatment'], type: 'mcq',
-    q: 'First-line treatment ของ pemphigus foliaceus ในสุนัข',
-    options: ['Cephalexin ขนาด antibacterial เดี่ยว', 'Topical hydrocortisone cream เท่านั้น', 'Immunosuppressive prednisolone 2-4 mg/kg/d → taper', 'รักษาตามอาการ รอ remission เอง'],
-    answer: 2, explain: 'PF treatment: induction prednisolone 2-4 mg/kg/d (immunosuppressive dose) × 4-6 wk → taper ทุก 4 wk หาก clinical remission, adjunct (steroid-sparing): Azathioprine 2 mg/kg/d (dog only — ห้ามแมว, fatal myelosuppression), Cyclosporine, Mycophenolate mofetil (MMF), Chlorambucil ในแมว, monitor liver, CBC, infection, long-term goal: lowest dose maintaining remission\n\n❌ ทำไมข้ออื่นผิด\n— Antibiotic alone = ไม่ใช่ autoimmune cause\n— Topical steroid only = local lesion เล็กๆ พอ, ไม่ enough generalized PF\n— "รอหายเอง" = autoimmune ไม่หายเอง\n\n💡 ± adjunct (azathioprine, cyclosporine, MMF) ถ้า refractory',
-    verified: 'Derm_9_Autoimmune_skin_diseases.pdf p.7' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Drugs for Immune-mediated diseases (Aj. Chaiyot Tanrattana)
-  // ═══════════════════════════════════════════════════════════
-  { id: 975, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
-    tags: ['gc', 'classification'], type: 'mcq',
-    q: 'Drugs ที่ใช้รักษา immune-mediated diseases ในสุนัข/แมว classify ได้กี่ class หลัก',
-    options: ['2 class คือ steroid + antibiotic', '5-6 classes เริ่มจาก Glucocorticoids', '1 class คือ glucocorticoid อย่างเดียว', 'ไม่มี classification ใช้ตามอาการ'],
-    answer: 1, explain: '6 main classes: GC (prednisolone, dex), Antimetabolites (azathioprine, leflunomide, MMF), Alkylating (chlorambucil, cyclophosphamide), Calcineurin inhibitors (cyclosporine, tacrolimus), Small-molecule targeted (JAK inhibitor — oclacitinib), Monoclonal antibodies (lokivetmab), ใช้ร่วมกัน multimodal\n\n❌ ทำไมข้ออื่นผิด\n— "2 class" / "1 class" = ผิด, มีหลาย\n— "ไม่มี classification" = ผิด\n\n💡 6 classes = Glucocorticoids, Antimetabolites, Alkylating, Calcineurin inhibitors, Small-molecule (JAK inhibitor), Monoclonal antibodies',
-    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.2' },
-
-  { id: 976, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
-    tags: ['gc', 'mechanism'], type: 'mcq',
-    q: 'Glucocorticoid (prednisolone) มี mechanism ของ anti-inflammatory + immunosuppressive อย่างไร',
-    options: ['ลด inflammatory mediators', 'ฆ่า bacteria โดยตรง', 'ทำให้ pH ในเลือดต่ำลง', 'เพิ่มการสร้าง RBC'],
-    answer: 0, explain: 'GC mechanism: ↓ pro-inflammatory cytokines (IL-1, TNF-α, GM-CSF, IL-3,4,5,8) + ↓ NOS → ↓ NO + ↓ Phospholipase A2 → ↓ prostaglandins/leukotrienes + ↑ Annexin-1 + ↓ adhesion molecules (ลด leukocyte emigration) + ↑ endonucleases → induce apoptosis ใน lymphocytes/eosinophils\n\n❌ ทำไมข้ออื่นผิด\n— ฆ่า bact = antibiotic\n— ↓ pH = ไม่ใช่กลไก\n— เพิ่ม RBC = erythropoietin\n\n💡 GM-CSF, prostaglandins) + ↓ leukocyte chemotaxis + ↓ T-cell function + induce lymphocyte apoptosis',
-    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.4' },
-
-  { id: 977, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
-    tags: ['gc', 'side-effects'], type: 'mcq',
-    q: 'Side effects ของ long-term glucocorticoid ในสุนัข',
-    options: ['ไม่มี side effect ที่สำคัญ', 'PU/PD/polyphagia, iatrogenic Cushing\\\'s', 'Hyperthyroidism จาก thyroid axis', 'Hypoglycemia อย่างเดียวเท่านั้น'],
-    answer: 1, explain: 'GC side effects: PU/PD, polyphagia, weight gain, panting, iatrogenic Cushing\'s (exogenous), 2° infection (UTI, demodex, pyoderma), GI ulcer, hepatopathy (ALP/ALT ↑), muscle atrophy, calcinosis cutis, delayed wound healing, immunosuppression, therefore taper to lowest effective dose ASAP\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่มี" = ผิด\n— Hyperthyroid = ตรงข้าม (GC suppress thyroid axis)\n— Hypoglycemia only = ผิด, GC ทำให้ hyperglycemia\n\n💡 immune suppress + 2° infection, GI ulcer, hepatopathy, muscle atrophy, calcinosis cutis',
-    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.5' },
-
-  { id: 978, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
-    tags: ['azathioprine'], type: 'mcq',
-    q: 'Azathioprine ใช้ในสัตว์ใด และข้อควรระวังคืออะไร',
-    options: ['ใช้ทั้งสุนัขและแมว ปลอดภัย', 'แมวเท่านั้น', 'Dogs only', 'ไม่ใช้ในสัตว์'],
-    answer: 2, explain: 'Azathioprine (purine analog antimetabolite): dogs 2 mg/kg/d × 2-3 wk → q48h taper, ใช้เป็น steroid-sparing ใน IMHA, IMT, SLE, pemphigus, ห้ามใช้แมว — TPMT (thiopurine methyltransferase) deficiency → fatal myelosuppression + hepatotoxicity, monitor CBC + ALT บ่อยใน dog, onset slow 4-6 wk\n\n❌ ทำไมข้ออื่นผิด\n— "ทั้ง dog/cat" = ผิด, ห้ามแมว\n— "แมวเท่านั้น" = ผิด อันตราย\n— "ไม่ใช้" = ผิด, ใช้ใน dog\n\n💡 ห้ามใช้ในแมว (fatal myelosuppression), monitor CBC + liver enzymes บ่อยในสุนัข',
-    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.5' },
-
-  { id: 979, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
-    tags: ['cyclosporine', 'mechanism'], type: 'mcq',
-    q: 'Cyclosporine A (Atopica) ทำงานผ่านกลไกใด',
-    options: ['Calcineurin inhibitor → ↓ T-cell', 'Direct cytotoxic to all cell lines', 'COX-2 inhibitor ลด prostaglandin', 'Broad-spectrum antibiotic'],
-    answer: 0, explain: 'Cyclosporine binds cyclophilin → inhibits calcineurin → ↓ NFAT dephosphorylation → ↓ IL-2 transcription → ↓ T-cell activation/proliferation, ใช้ใน CAD, perianal fistulas, IMHA, pemphigus, SLE, 5 mg/kg PO q24h (CAD) หรือ q12h (severe immune disease), slow onset 4-6 wk, side effects: GI (vomit, gum hyperplasia, papillomatosis, hirsutism)\n\n❌ ทำไมข้ออื่นผิด\n— Cytotoxic to all = chemotherapy\n— COX-2 = NSAIDs\n— Antibiotic = bacterial',
-    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
-
-  { id: 980, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
-    tags: ['mmf'], type: 'mcq',
-    q: 'Mycophenolate mofetil (MMF) ใช้ใน veterinary immunology อย่างไร',
-    options: ['Block COX-2 ลด prostaglandin', 'Broad-spectrum antibiotic', 'Selective lymphocyte inhibitor', 'Antifungal ยับยั้ง ergosterol'],
-    answer: 2, explain: 'MMF: prodrug → mycophenolic acid → inhibit IMPDH (inosine monophosphate dehydrogenase) → ↓ guanine nucleotide synthesis selectively in lymphocytes (lack salvage pathway) → ↓ T/B cell proliferation, used in IMHA, MG, glomerulonephritis, ราคาแพง, main side effect: GI (diarrhea), less hepatotoxic than azathioprine\n\n❌ ทำไมข้ออื่นผิด\n— COX-2 = NSAIDs\n— Antibiotic / Antifungal = wrong class\n\n💡 alternative steroid-sparing, side effect: GI (diarrhea), expensive\n\n💡 block IMP dehydrogenase',
-    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
-
-  { id: 981, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
-    tags: ['chlorambucil'], type: 'mcq',
-    q: 'Chlorambucil (alkylating agent) มักใช้ใน',
-    options: ['รักษา bacterial infection', 'ใช้แทน insulin ในแมวเบาหวาน', 'แมวที่ต้อง steroid-sparing', 'ยากำจัดหมัด anti-flea'],
-    answer: 2, explain: 'Chlorambucil = alkylating agent (cross-link DNA), ใช้ในแมวเป็น steroid-sparing เพราะ azathioprine ห้ามแมว, indication: feline autoimmune skin (PF), IBD, lymphoma, IMHA, 0.1-0.2 mg/kg/d → taper, monitor CBC (myelosuppression) + GI side effect\n\n❌ ทำไมข้ออื่นผิด\n— Bact infection = antibiotic\n— DM = insulin\n— Anti-flea = parasiticide\n\n💡 ห้ามใน cat\n\n💡 alternative azathioprine\n\n💡 autoimmune skin, IBD, hepatobiliary lymphoma',
-    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
-
-  { id: 982, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Drug_used_for_immune_mediated_diseases.pdf',
-    tags: ['ivig'], type: 'mcq',
-    q: 'IV Immunoglobulin (IVIG) ใช้ใน situation ใดเป็นพิเศษ',
-    options: ['Daily for any disease', 'Routine vaccination', 'Replace steroid permanently', 'Refractory IMHA หรือ severe case'],
-    answer: 3, explain: 'Human IVIG 0.5-1.0 g/kg single IV infusion, ใช้ใน refractory IMHA / severe cases ที่ steroid + 2nd line ไม่ตอบสนอง + PCV < 10%, mechanism: block Fc receptors, neutralize autoantibodies, มากครั้งเดียว (rare repeat), ราคาแพง, supply limited\n\n❌ ทำไมข้ออื่นผิด\n— Daily = ไม่ใช่, single dose\n— แทน steroid permanent = ผิด\n— Vaccination = different concept\n\n💡 single infusion 0.5-1.0 g/kg, expensive\n\n💡 PCV very low',
-    verified: 'Drug_used_for_immune_mediated_diseases.pdf p.6' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Immune-mediated Hemolytic Anemia (Aj. Rosama)
-  // ═══════════════════════════════════════════════════════════
-  { id: 983, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imha', 'classification'], type: 'mcq',
-    q: 'IMHA แบ่งออกเป็นกี่ types หลัก',
-    options: ['1 type — autoimmune ทั้งหมด ไม่มี subtype แยก', '4 types ตาม Ig subclass: IgG-, IgM-, IgA-, complement-mediated', '3 types ตาม clinical course: Peracute, Acute, Chronic (≥ 30 d)', '2 types: Primary (idiopathic, autoimmune) + Secondary'],
-    answer: 3, explain: 'IMHA: Primary (idiopathic/autoimmune, ไม่ทราบสาเหตุ — predisposed Cocker, English Springer, Old English Sheepdog, all ages, F>M, vaccine-associated?), Secondary (known cause: infectious — Babesia/Mycoplasma/Ehrlichia/Leptospira/FeLV/FIV, neoplasia, drugs, transfusion reaction), พบใน cat บ่อยกว่าใน secondary\n\n❌ ทำไมข้ออื่นผิด\n— "1 type" = ผิด\n— 5 types = ไม่ใช่ standard\n— "ไม่มี classification" = ผิด\n\n💡 known infection, drug, neoplasia trigger',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.6' },
-
-  { id: 984, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imha', 'breed'], type: 'mcq',
-    q: 'Breed ใดที่ predispose ต่อ Primary IMHA',
-    options: ['Cocker Spaniel, English Springer Spaniel, Old English Sheepdog, Standard Poodle, Irish Setter', 'Greyhound, Whippet, Saluki — sighthound กลุ่มเสี่ยง autoimmune โรคเลือด', 'Pug, French Bulldog, Boston Terrier — brachycephalic แพ้ภูมิตนเองง่าย', 'Pomeranian, Chihuahua, Yorkshire Terrier — toy breed มี IMHA สูงในเอเชีย'],
-    answer: 0, explain: 'Primary IMHA predisposed: Cocker Spaniel (most common), English Springer Spaniel, Old English Sheepdog, Standard Poodle, Irish Setter, F > M, all ages, idiopathic/autoimmune, vaccine-associated suspected (some cases)\n\n❌ ทำไมข้ออื่นผิด\n— Greyhound/Whippet = sighthound, low baseline T4 ตามสายพันธุ์ ไม่ใช่ IMHA\n— Pug/Bulldog = airway/skin issues\n— Pom/Chi = atlantoaxial / hypoglycemia',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.7' },
-
-  { id: 985, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imha', 'cytology'], type: 'mcq',
-    q: 'Findings ที่ classic ใน blood smear ของ IMHA',
-    options: ['Spherocytes + autoagglutination + reticulocytosis (regenerative hemolysis pattern)', 'Pancytopenia + non-regenerative anemia (bone marrow suppression pattern)', 'Schistocytes + thrombocytopenia (microangiopathic hemolysis pattern)', 'Howell-Jolly bodies + nucleated RBC + leukopenia (post-splenectomy pattern)'],
-    answer: 0, explain: 'IMHA findings: spherocytes (small dense RBC, no central pallor — partial phagocytosis), autoagglutination (positive saline test), regenerative anemia (reticulocyte ↑, polychromasia, anisocytosis) ใน 70% of cases, 30% non-regenerative (peracute, ก่อน BM response, หรือ precursor-targeted), Coombs\' test + (DAT)\n\n❌ ทำไมข้ออื่นผิด\n— Pancytopenia + non-regenerative = aplastic / BM suppression (parvo, ehrlichia, drug)\n— Schistocytes + thrombocytopenia = MAHA (DIC, HUS, vasculitis) — fragmentation hemolysis ไม่ใช่ immune\n— Howell-Jolly + nRBC = post-splenectomy / hyposplenism — splenic filter หาย',
-    image: IMG_SPHEROCYTE,
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.22' },
-
-  { id: 986, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imha', 'diagnosis'], type: 'mcq',
-    q: 'Coombs\' test ใน IMHA หาอะไร',
-    options: ['Hemoglobin variant ใน RBC (genetic hemolytic anemia screen)', 'Antibody + complement บนผิว RBC (Direct antiglobulin test, DAT)', 'RBC fragility ต่อ osmotic stress (osmotic fragility test)', 'IgG titer ต่อ pathogen ในกระแสเลือด (indirect serology test)'],
-    answer: 1, explain: 'Coombs\' test = DAT (Direct Antiglobulin Test) → detect IgG/IgM/C3 ที่ยึดติดกับ RBC surface, positive = supportive ของ IMHA, false-negative ~25% (low antibody titer หรือ pre-treatment with steroid), ห้ามอ่านผลจาก Coombs\' alone — ต้องร่วม clinical, spherocytes, autoagglutination\n\n❌ ทำไมข้ออื่นผิด\n— DNA mutation = genetic test\n— Bact culture = bacterial\n— Hormone = endocrine',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.40' },
-
-  { id: 987, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imha', 'complications'], type: 'mcq',
-    q: 'Complication ที่อันตรายและทำให้สัตว์ตายใน IMHA คือ',
-    options: ['Acute kidney injury จาก hemoglobinuria pigment nephropathy', 'Severe hyperkalemia + cardiac arrhythmia จาก mass RBC lysis', 'Pulmonary thromboembolism (PTE) + DIC + thromboembolic disease', 'Hepatic failure จาก bilirubin overload + cholestatic injury'],
-    answer: 2, explain: 'PTE = main cause of death in canine IMHA, hypercoagulable state จาก hemolysis + pro-inflammatory + activation of platelets/coag cascade, prevention: clopidogrel 1.1-4 mg/kg/d (Plavix) + aspirin 1-2 mg/kg/d (อาจ combine), monitor for sudden tachypnea, dyspnea, collapse\n\n❌ ทำไมข้ออื่นผิด\n— Hypoglycemia = ไม่ใช่ direct complication\n— Diarrhea เรื้อรัง = side effect ของ MMF (treatment)\n— Cataract = unrelated',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.18' },
-
-  { id: 988, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imha', 'treatment'], type: 'mcq',
-    q: 'Initial dose ของ prednisolone สำหรับ canine IMHA',
-    options: ['0.5 mg/kg/d — anti-inflammatory dose ใช้ใน mild flare เท่านั้น', 'Dexamethasone IV bolus เท่านั้น — pred PO ห้ามใช้ใน IMHA acute', '5-6 mg/kg/d — pulse therapy ในรายที่ไม่ตอบสนอง steroid ปกติ', '2-3 mg/kg/d (หรือ 50-60 mg/m² for dogs > 25 kg) — immunosuppressive dose'],
-    answer: 3, explain: 'Pred 2-3 mg/kg/d (or 50-60 mg/m² for large breeds > 25 kg), ลดเป็น ≤ 2 mg/kg/d ภายใน 2 wk ถ้า PCV เพิ่มหรือ stable, IV dexamethasone 0.2-0.4 mg/kg/d ถ้ากินไม่ได้, response rate ~80%, ถ้าไม่ตอบสนอง 7 วัน หรือ blood transfusion ต่อเนื่อง = start 2nd line\n\n❌ ทำไมข้ออื่นผิด\n— 0.5 mg/kg/d = ต่ำเกิน, ไม่ immunosuppressive\n— 10 mg/kg/d = สูงเกินอันตราย\n— "ไม่ใช้ steroid" = ผิด, mainstay treatment',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.48' },
-
-  { id: 989, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imha', 'second-line'], type: 'mcq',
-    q: '2nd-line drugs สำหรับ IMHA ที่ไม่ตอบสนอง prednisolone อย่างเดียว',
-    options: ['NSAIDs (carprofen, meloxicam) ลด inflammation ของ RBC membrane', 'Doxycycline + chloramphenicol ครอบคลุม secondary infection trigger', 'Azathioprine (dog only) / Cyclosporine / Mycophenolate mofetil / Leflunomide / IVIG', 'Erythropoietin + iron dextran SC กระตุ้น erythropoiesis ทดแทน RBC'],
-    answer: 2, explain: '2nd line: Azathioprine 2 mg/kg/d (dog only), Cyclosporine 5 mg/kg q12h (small breeds + cats), MMF (expensive, GI side effect), Leflunomide (refractory), IVIG 0.5-1 g/kg single infusion (severe refractory), จำได้ว่า dog IMHA ใช้ azathioprine + cyclosporine, cat IMHA ใช้ chlorambucil + cyclosporine (ห้าม azathioprine ใน cat)\n\n❌ ทำไมข้ออื่นผิด\n— NSAIDs = ไม่ใช่ immunosuppressive\n— Antibiotic alone = ไม่ใช่ autoimmune cause\n— "รอเอง" = mortality สูง',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.51' },
-
-  { id: 990, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imha', 'monitoring'], type: 'mcq',
-    q: 'Long-term monitoring ของ IMHA ในสุนัข',
-    options: ['PCV/Hct ทุก 3 wk + bilirubin + UA q8-12 wk + watch relapse 11-15%', 'CBC + bone marrow biopsy ทุก 6 mo เป็นเวลา 5 ปี', 'Coombs test ทุกเดือน + ANA titer ทุก 3 mo ไปตลอดชีวิต', 'CBC + chemistry ทุก 1 ปี ก็เพียงพอเมื่อ stable'],
-    answer: 0, explain: 'IMHA monitoring: PCV/Hct ทุก 3 wk, bilirubin (hemolysis marker), UA ± culture q8-12 wk (steroid-induced UTI), stress leukogram, ↑ ALP, polycythemia, thrombocytosis, hyperlipidemia, hyperglycemia (steroid effect) common, taper steroid 25% เมื่อ stable PCV > 30% × 2 wk, don\'t taper 2nd-line until steroid done, 3-6 months total, relapse 11-15%\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ monitor" = ผิด\n— "5 ปี" = นานเกินไป\n— "1 ปี" = นานเกิน, miss relapse',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.55' },
-
-  { id: 991, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf',
-    tags: ['imt'], type: 'mcq',
-    q: 'Immune-mediated Thrombocytopenia (IMT) ตำแหน่ง bleeding ที่เห็นได้บ่อยคือ',
-    options: ['Subarachnoid + intracranial hemorrhage เป็น hallmark sign แรก', 'Petechiae + ecchymoses (mucous membrane, skin), epistaxis, hematuria, melena, hyphema', 'Hematoma in muscle + joint hemarthrosis (เหมือน hemophilia pattern)', 'GI bleeding + retroperitoneal hemorrhage แสดงก่อน petechiae เสมอ'],
-    answer: 1, explain: 'IMT signs: petechiae (small punctate hemorrhages on gums, sclera, ventral abdomen) + ecchymoses + epistaxis + hematuria + melena + hyphema (Cocker Spaniel classic) + GI bleed, platelets ต่ำกว่า 50,000/μL = clinical bleeding, < 30,000 = severe risk, PT/aPTT ปกติ (vs. coagulopathy), differentiate spontaneous bleeding vs. trauma\n\n❌ ทำไมข้ออื่นผิด\n— SAH only = ผิด\n— Muscle hematoma = coagulopathy (factor deficiency)\n— "No bleeding" = ผิด',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf p.66' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Systemic Lupus Erythematosus (Aj. Rosama)
-  // ═══════════════════════════════════════════════════════════
-  { id: 992, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
-    tags: ['sle', 'criteria'], type: 'mcq',
-    q: 'Criteria สำคัญในการวินิจฉัย Systemic Lupus Erythematosus (SLE) ในสัตว์',
-    options: ['1 organ involved + ANA positive titer ≥ 1:40 ก็เพียงพอแล้ว', 'Coombs positive + thrombocytopenia (อย่างใดอย่างหนึ่ง) เพียงพอ', '≥ 2 organ system dysfunction + high ANA titer + most have polyarthritis', 'Skin biopsy พบ interface dermatitis + lupus band เท่านั้น'],
-    answer: 2, explain: 'SLE = multisystem autoimmune, criteria: ≥ 2 organ systems involved + high titer ANA, most common: polyarthritis (#1 sign) + skin disease + CVS + kidney (proteinuria → glomerulonephritis) + muscle (polymyositis) + pleural + cytopenias (anemia, thrombocytopenia), rare in dogs/cats, lymphopenia + CD4:CD8 = 5.2 (normal 2.25 in dog)\n\n❌ ทำไมข้ออื่นผิด\n— "1 organ + ANA" = ไม่พอ (ต้อง multisystem)\n— CBC alone = supportive\n— Skin biopsy alone = สำหรับ DLE',
-    verified: 'Systemic_Lupus_Erythematosus.pdf p.2' },
-
-  { id: 993, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
-    tags: ['sle', 'breed'], type: 'mcq',
-    q: 'Breed ใดที่ predispose ต่อ SLE ในสุนัข',
-    options: ['Pug, French Bulldog, Boston Terrier — brachycephalic แพ้ภูมิตนเอง', 'Labrador, Golden Retriever, Lab cross — large breed prevalence สูง', 'Greyhound, Whippet, Saluki — sighthound กลุ่มเสี่ยง autoimmune', 'German Shepherd, Shetland Sheepdog, Collie, Beagle, Poodle, Afghan Hound'],
-    answer: 3, explain: 'SLE predisposed: GSD, Shetland Sheepdog, Collie, Beagle, Poodle, Afghan Hound, age 2 mo - 13 yr (dogs), 1-11 yr (cats), UK + Australia = low prevalence, South France = higher, cats = extremely rare (must be FeLV-/FIV-, Siamese/Persian/Persian-mixed)\n\n❌ ทำไมข้ออื่นผิด\n— Pug/Bulldog = brachycephalic issues\n— Greyhound = sighthound\n— Lab only = ผิด',
-    verified: 'Systemic_Lupus_Erythematosus.pdf p.3' },
-
-  { id: 994, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
-    tags: ['sle', 'clinical'], type: 'mcq',
-    q: 'Clinical sign ที่พบบ่อยที่สุดใน SLE ของสุนัข',
-    options: ['Generalized pruritus + alopecia เป็นอาการหลัก (เหมือน atopic dermatitis)', 'Persistent vomiting + chronic diarrhea + weight loss (GI predominant)', 'PU/PD + truncal alopecia + pendulous abdomen (เหมือน hyperadrenocorticism)', 'Polyarthritis + skin lesion ที่ MC junction + proteinuria + cytopenias'],
-    answer: 3, explain: 'SLE ใน dog: polyarthritis = most common (synovial inflammation, joint effusion, lameness) + skin (mucocutaneous junction of facial/ear/mouth/limbs) + glomerulonephritis (proteinuria, nephrotic syndrome) + IMHA/IMT (anemia, thrombocytopenia) + polymyositis (rare) + pleural disease + myocardiopathy\n\n❌ ทำไมข้ออื่นผิด\n— Pruritus only = atopic\n— Hyperthyroid = endocrine\n— Hypothyroid only = endocrine',
-    verified: 'Systemic_Lupus_Erythematosus.pdf p.5' },
-
-  { id: 995, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
-    tags: ['sle', 'diagnosis'], type: 'mcq',
-    q: 'Diagnostic workup ของ SLE ประกอบด้วย',
-    options: ['Coombs\' test + blood chem + UA + skin biopsy + radiography + synovial fluid analysis + ANA test', 'CBC + serum chemistry + thyroid panel เป็น minimum workup เพียงพอ', 'Skin scraping + dermatophyte culture + Wood\'s lamp + cytology (parasitic R/O)', 'Fecal float + endoscopic biopsy + cobalamin/folate (GI workup)'],
-    answer: 0, explain: 'SLE workup: Coombs\' (IMHA) + Platelet count (IMT) + blood chem (BUN/Cr/albumin) + UA + UPC (proteinuria) + skin biopsy (interface dermatitis with apoptotic keratinocytes + lupus band on IFA) + radiograph (joint disease) + synovial fluid (non-septic suppurative inflammation) + ANA titer (60-90% +ve)\n\n❌ ทำไมข้ออื่นผิด\n— CBC alone = ไม่พอ\n— Skin scraping = parasitic\n— Fecal = GI parasite',
-    verified: 'Systemic_Lupus_Erythematosus.pdf p.15' },
-
-  { id: 996, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
-    tags: ['sle', 'treatment'], type: 'mcq',
-    q: 'Treatment regimen ของ SLE ในสุนัข',
-    options: ['Doxycycline 5 mg/kg BID 4 wk + supportive (treat as tick-borne disease)', 'Prednisolone 1-2 mg/kg q24h + levamisole 3-7 mg/kg q48h + supportive + monitor ANA', 'Insulin + dietary management + glucose curve ทุก 2 wk (treat as endocrine)', 'Splenectomy + chemotherapy (cyclophosphamide) ใน refractory case'],
-    answer: 1, explain: 'Canine SLE: prednisolone 1-2 mg/kg q24h immunosuppressive, ± levamisole 3-7 mg/kg q48h (immunomodulator แบบเก่า แต่ยังใช้ในไทย), cat SLE: pred ± cyclophosphamide หรือ chlorambucil (ห้าม cyclophos ใน renal failure), supportive: prescription diet, blood transfusion ถ้า severe anemia, monitor ANA titer + clinical signs, long-term (ชีวิต)\n\n❌ ทำไมข้ออื่นผิด\n— Antibiotic alone = ไม่ใช่ infection\n— Insulin = DM\n— Surgery = ผิด',
-    verified: 'Systemic_Lupus_Erythematosus.pdf p.16' },
-
-  { id: 997, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
-    tags: ['sle', 'cat'], type: 'mcq',
-    q: 'SLE ในแมวมีลักษณะพิเศษอย่างไร',
-    options: ['พบบ่อยกว่าสุนัข + breed prevalence: DSH > Siamese, onset 5-10 yr', 'พบเฉพาะแมวอ้วน + วัยกลางคน + outdoor exposure (UV-induced)', 'Extremely rare, ต้อง FeLV-/FIV', 'ไม่พบใน cat — เป็น species-specific โรคของสุนัขเท่านั้น'],
-    answer: 2, explain: 'Feline SLE: extremely rare, diagnostic criteria เข้ม: ต้องตรวจ FeLV/FIV negative ก่อน (false-positive ANA จาก viral), pure breed predisposed: Siamese, Persian, Persian-mixed, 3 yr neutered F DSH cat = case example, paronychia (nail bed inflammation) + cutaneous SLE + small crusty lesions ventral surface, polyarthritis ก็เกิด\n\n❌ ทำไมข้ออื่นผิด\n— "พบบ่อยกว่าสุนัข" = ผิด, rare than dog\n— "แมวอ้วน" = irrelevant\n— "ไม่มีใน cat" = ผิด, มีแต่ rare\n\n💡, breeds Siamese/Persian/Persian-mixed, paronychia + small crusts ventrum',
-    verified: 'Systemic_Lupus_Erythematosus.pdf p.4' },
-
-  { id: 998, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
-    tags: ['sle', 'ana'], type: 'mcq',
-    q: 'ANA (Anti-Nuclear Antibody) test ใน SLE',
-    options: ['Specific 100% — ANA positive titer ≥ 1:160 = SLE definite ไม่ต้อง workup เพิ่ม', 'Replace clinical signs — ANA positive ก็ไม่จำเป็นต้องดูอาการแล้ว', 'ใช้ใน cat เท่านั้น — dog SLE ใช้ direct Coombs test แทน ANA', 'Sensitive ~60-90% in dog SLE'],
-    answer: 3, explain: 'ANA (immunofluorescence): titer >= 1:160 considered significant in dogs, sensitivity 60-90% in canine SLE, false-positive ใน ehrlichiosis, leishmaniasis, FeLV/FIV (in cats), drug-induced lupus (procainamide, hydralazine), neoplasia, ต้องใช้ร่วม clinical (multisystem disease) เพื่อ definitive Dx\n\n❌ ทำไมข้ออื่นผิด\n— "Specific 100%" = ผิด\n— "ใน cat เท่านั้น" = ผิด, dog ใช้บ่อยกว่า\n— "Replace clinical" = ผิด, ใช้ร่วม\n\n💡 titer สูงสำคัญ, false-positive ใน infection/neoplasia/cat, ใช้ร่วม clinical criteria',
-    verified: 'Systemic_Lupus_Erythematosus.pdf p.15' },
-
-  { id: 999, subject: 'com4', topic: 'sle', year: 4, source: 'Systemic_Lupus_Erythematosus.pdf',
-    tags: ['sle', 'differential'], type: 'mcq',
-    q: 'Polyarthritis ใน SLE ต่างจาก polyarthritis แบบ erosive อย่างไร',
-    options: ['SLE polyarthritis = non-erosive (ไม่มี joint destruction บน X-ray)', 'ไม่ต่างกัน — ทั้ง SLE และ erosive ทำลาย cartilage เหมือนกัน', 'SLE = erosive type — ทำลาย bone + cartilage รุนแรงกว่า rheumatoid', 'SLE ไม่มี polyarthritis — ออกแค่ skin + kidney เท่านั้น'],
-    answer: 0, explain: 'SLE polyarthritis = NON-erosive (synovial inflammation + effusion แต่ไม่มี cartilage/bone destruction), radiograph ปกติ, synovial fluid = non-septic suppurative, vs. erosive polyarthritis (Greyhound polyarthritis, RA-like) = visible bone erosion, deformity, differentiation important for prognosis + treatment\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่ต่างกัน" = ผิด\n— "SLE = erosive" = ผิด สลับ\n— "SLE ไม่มี polyarthritis" = ผิด, มีและเป็น most common\n\n💡 vs. erosive arthritis = bone erosion + joint deformity',
-    verified: 'Systemic_Lupus_Erythematosus.pdf p.6' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Inflammatory Bowel Disease (Aj. Rosama)
-  // ═══════════════════════════════════════════════════════════
-  { id: 1000, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'definition'], type: 'mcq',
-    q: 'Inflammatory Bowel Disease (IBD) คืออะไร',
-    options: ['Chronic inflammation ของ stomach/intestine/colon โดย unknown etiology', 'Acute GI infection (parvo, distemper) ที่กลายเป็นเรื้อรังเกิน 3 wk', 'Bacterial enteritis (Campylobacter, Salmonella) ที่ดื้อ ATB ทุกตัว', 'Helminth infestation เรื้อรัง (Trichuris, hookworm) ที่ deworm ไม่หาย'],
-    answer: 0, explain: 'IBD = chronic GI inflammation (stomach + intestine + colon) etiology unknown, large bowel IBD พบใน dogs มากกว่า, pathogenesis: gut sustained reactivity to endogenous bacteria/food antigens → loss of immunologic tolerance → abnormal T-cell activation → over-production of inflammatory cytokines, histology: inflammatory infiltrate (neutrophil, eosinophil, lymphocyte, plasma cells) + mucosal pathology (villus atrophy, crypt collapse)\n\n❌ ทำไมข้ออื่นผิด\n— Acute GI = different (gastroenteritis acute)\n— Bacterial = treatable with ATB\n— Worm infestation = parasitic, treatable\n\n💡 GI signs > 3 wk, ไม่ตอบ symptomatic Tx',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.2' },
-
-  { id: 1001, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'criteria'], type: 'mcq',
-    q: 'IBD characteristic criteria 4 ข้อหลักประกอบด้วย',
-    options: ['CBC neutropenia + chem hypoalbuminemia + UA proteinuria + low cobalamin', '(1) GI signs > 3 wk, (2) ไม่ตอบ ATB/dewormer/GI protectants, (3) R/O DDx, (4) histopath benign inflammation', 'Acute vomiting < 24 hr + diarrhea + dehydration + responds to fluid + ATB', 'Polyphagia + weight gain + steatorrhea + ↓ cobalamin (EPI-like pattern)'],
-    answer: 1, explain: 'IBD diagnostic criteria 4: (1) GI signs > 3 wk (anorexia, vomit, weight loss, diarrhea, hematochezia, mucus), (2) Failure of symptomatic Tx alone, (3) Failure to document other gastroenterocolitis causes (PLE, lymphoma, dietary, parasitic), (4) Histologic confirmation of benign intestinal inflammation, IBD = diagnosis of exclusion + biopsy-confirmed\n\n❌ ทำไมข้ออื่นผิด\n— CBC abnormal = supportive only\n— Acute vomiting = ผิด (chronic > 3 wk)\n— Weight gain = ตรงข้าม (มัก loss)',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.3' },
-
-  { id: 1002, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'breed'], type: 'mcq',
-    q: 'Breed ใดที่ predispose ต่อ IBD ในสุนัข (Kathrani et al. 2011)',
-    options: ['Pug, French Bulldog, Boston Terrier — brachycephalic GI motility ผิดปกติ', 'Greyhound, Whippet, Saluki — sighthound แพ้อาหารง่ายตามสายพันธุ์', 'Weimaraner, Rottweiler, GSD, Border Collie, Boxer — large breed predisposed', 'Pomeranian, Chihuahua, Yorkshire Terrier — toy breed sensitivity GI'],
-    answer: 2, explain: 'IBD predisposed (UK study, OR vs mixed-breed): Weimaraner OR 3.68, Rottweiler OR 2.97, GSD OR 2.41, Border Collie OR 1.99, Boxer OR 1.70, genetic + immune + environmental component (gut microbiota dysbiosis)\n\n❌ ทำไมข้ออื่นผิด\n— Pug/Bulldog = brachycephalic\n— Greyhound = sighthound\n— Pomeranian = small breed concerns',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.5' },
-
-  { id: 1003, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'pathogenesis'], type: 'mcq',
-    q: 'Pathogenesis ของ IBD ตาม immunologic criteria',
-    options: ['Small intestinal bacterial overgrowth (SIBO) เท่านั้นเป็นกลไกหลักของ IBD', 'Cortisol deficiency → ลด regulatory effect ต่อ gut immune system (Addisonian-like)', 'Mutation in mucin gene (MUC2) → loss of mucus barrier → chronic ulcer formation', 'Loss of immunologic tolerance to normal flora/food antigens → T-cell activation → ↑ inflammatory cytokines'],
-    answer: 3, explain: 'IBD immunologic mechanism: gut หลุดความ tolerance ต่อ commensal bacteria + food antigens → indirect T-cell activation → cytokine over-production (IL-1, IL-6, TNF-α, IL-17) → mucosal inflammation + ↑ permeability + dysbiosis, innate + adaptive immune both involved, genetic + environmental triggers\n\n❌ ทำไมข้ออื่นผิด\n— Bacterial overgrowth = SIBO (different syndrome)\n— Collagen mutation = ไม่เกี่ยว\n— Hormonal = endocrine',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.12' },
-
-  { id: 1004, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['diarrhea', 'localization'], type: 'mcq',
-    q: 'Stool ที่มี mucus + tenesmus + frequent small volume + fresh blood (hematochezia) บ่งชี้',
-    options: ['Small bowel diarrhea — large volume + watery + melena + weight loss', 'Mixed bowel (small + large) — generalized GI inflammation pattern', 'Large bowel diarrhea (colitis) — mucus + tenesmus + frequent small + hematochezia', 'Foreign body obstruction — acute focal pain + episodic vomiting + anorexia'],
-    answer: 2, explain: 'Large bowel diarrhea (colitis) signs: mucus + tenesmus + frequent small volumes + fresh blood (hematochezia), vs. Small bowel: large volume + watery + melena (digested blood) ± weight loss + hypoalbuminemia, localization helps differential\n\n❌ ทำไมข้ออื่นผิด\n— Small bowel = large volume + melena\n— Both = ไม่ใช่ pattern เฉพาะ\n— FB = acute, focal',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.18' },
-
-  { id: 1005, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['folate-cobalamin'], type: 'mcq',
-    q: 'Folate ในเลือดบ่งบอกตำแหน่ง intestinal disease ตำแหน่งใด',
-    options: ['Proximal small intestine (duodenum + proximal jejunum) — folate absorbed here', 'Distal small intestine (ileum) — folate absorbed via intrinsic factor pathway', 'Stomach (gastric body + fundus) — folate absorbed before entering SI', 'Colon (proximal + distal) — folate absorbed by colonocyte ผ่าน bacteria'],
-    answer: 0, explain: 'Folate = absorbed in proximal SI (duodenum + proximal jejunum) → ↑ folate = SIBO (bacteria สร้าง folate), ↓ folate = proximal SI mucosal disease (IBD, lymphoma), Cobalamin = absorbed in distal SI (ileum) ผ่าน intrinsic factor → ↓ B12 = distal SI disease (EPI ก็ทำให้ ↓ จาก IF deficiency), folate + B12 ใช้ localize disease\n\n❌ ทำไมข้ออื่นผิด\n— Distal SI / ileum = cobalamin\n— Stomach = gastric biopsy\n— Colon = distal large bowel',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.20' },
-
-  { id: 1006, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['cobalamin'], type: 'mcq',
-    q: 'Cobalamin (Vitamin B12) test ในการประเมิน chronic enteropathy',
-    options: ['ไม่มีประโยชน์ — cobalamin วัดได้แค่ใน human medicine ไม่เป็น standard ใน vet', '↓ Cobalamin = distal SI (ileum) disease หรือ EPI (intrinsic factor deficiency), ต้อง supplement parenteral/oral', 'High cobalamin = SIBO (bacteria สร้างเพิ่ม) เป็น main use ของ test นี้ใน dog', 'ใช้แทน TLI test ในการประเมิน pancreatic enzyme function ก็ได้'],
-    answer: 1, explain: 'Cobalamin: ↓ in distal SI disease (IBD ileal, lymphoma, dysbiosis), also EPI (pancreatic IF deficiency, dog), supplement: parenteral cyanocobalamin 250-1500 μg SC weekly × 6 wk → q2-4 wk, or PO daily, ขาด B12 ทำให้ enterocyte function แย่ลง → vicious cycle, monitor q3-6 mo\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่มีประโยชน์" = ผิด, important marker\n— High = healthy = ผิด\n— แทน TLI = ผิด, แยกกัน',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.20' },
-
-  { id: 1007, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['TLI'], type: 'mcq',
-    q: 'TLI (Trypsin-Like Immunoreactivity) ใช้ทดสอบโรคใด',
-    options: ['Liver disease — TLI ต่ำใน hepatic failure (decreased clearance)', 'Renal failure — TLI สูงเพราะ kidney clear enzyme ไม่ออก (false elevation)', 'Exocrine Pancreatic Insufficiency (EPI) — fasting TLI ต่ำ = EPI confirmed', 'Hyperthyroidism (cat) — TLI ต่ำเพราะ pancreatic atrophy จาก thyroid'],
-    answer: 2, explain: 'TLI: ↓ TLI fasting = EPI (atrophy ของ pancreatic acinar cells, ส่วนใหญ่ใน GSD ตามพันธุกรรม), classic signs: chronic diarrhea + weight loss แม้กินเยอะ + steatorrhea + cobalamin ต่ำ (ขาด IF), Tx: pancreatic enzyme replacement (Viokase, Pancrezyme) + B12 supplementation\n\n❌ ทำไมข้ออื่นผิด\n— Liver = ALT/ALP/bile acids\n— Renal = BUN/Cr\n— Hyperthyroid = T4 (cat)',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.21' },
-
-  { id: 1008, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'differential'], type: 'mcq',
-    q: 'Differential diagnosis ของ canine chronic diarrhea ที่สำคัญรวมถึง',
-    options: ['IBD เท่านั้น — chronic diarrhea = IBD by default ใน dog ไม่ต้อง R/O อื่น', 'Acute pancreatitis + cholecystitis + hepatic lipidosis — hepatobiliary causes', 'Hyperthyroidism + diabetes mellitus + Cushing\'s — endocrine causes เป็นหลัก', 'PLE, lymphangiectasia, ARE, IBD, eosinophilic GE, LPE, intestinal lymphoma, EPI'],
-    answer: 3, explain: 'Chronic diarrhea DDx: PLE (protein-losing enteropathy), intestinal lymphangiectasia, lesion of intestinal crypts, maldigestion (EPI), malabsorptive SI disease, ARE (antibiotic-responsive enteropathy), IBD, eosinophilic GE, LPE (lymphocytic plasmacytic enteritis = histopath subtype of IBD), intestinal lymphoma (อาจ mimic IBD ใน histopath)\n\n❌ ทำไมข้ออื่นผิด\n— "IBD เท่านั้น" = ผิด, broad differential\n— Pneumonia / acute pancreatitis = ไม่ใช่ chronic diarrhea',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.22' },
-
-  { id: 1009, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'diagnosis'], type: 'mcq',
-    q: 'Definitive diagnosis ของ IBD ทำได้โดย',
-    options: ['CBC + serum chemistry + albumin level + cobalamin/folate panel เพียงพอ', 'Fecal culture + fecal PCR + parasitology — R/O infectious causes', 'Abdominal radiograph + barium contrast study ดู mucosal pattern', 'Intestinal biopsy (endoscopic หรือ surgical) + histopathology'],
-    answer: 3, explain: 'IBD definitive Dx: full-thickness biopsy (surgical) หรือ endoscopic biopsy (multi-site, multiple specimens) → histopath: inflammatory infiltrate (lymphocytic, plasmacytic, eosinophilic) + villus atrophy/fusion + crypt distortion, grade severity (mild/mod/severe), ต้อง R/O lymphoma (PARR test, IHC for clonality), CBC/chem/UA, US ใช้ supportive\n\n❌ ทำไมข้ออื่นผิด\n— CBC alone = supportive\n— X-ray = limited info\n— Stool culture = R/O bacterial\n\n💡 confirm benign chronic inflammation + R/O lymphoma',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.21' },
-
-  { id: 1010, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'treatment'], type: 'mcq',
-    q: 'First-line management ของ IBD ตาม step-wise approach',
-    options: ['Step 1: Diet trial (novel protein/hydrolyzed) → Step 2: + ATB → Step 3: + immunosuppressive (prednisolone)', 'Prednisolone 2 mg/kg ทันที — start immunosuppressive ก่อนเพื่อ rapid control', 'Intestinal resection ส่วนที่อักเสบ + biopsy + supportive (definitive Tx)', 'Metronidazole + tylosin combination 4 wk monotherapy เป็น first-line'],
-    answer: 0, explain: 'Step-wise IBD management: 1) Dietary therapy (novel protein OR hydrolyzed × 4-6 wk) — many "IBD" turn out to be food-responsive, 2) Add ATB (Metronidazole 10-20 mg/kg BID-TID, Tylosin 25 mg/kg q12h) ถ้าไม่ดีขึ้น = ARE, 3) Immunosuppressive (prednisolone 1-2 mg/kg/d) ถ้ายังไม่ดี = IBD true, 4) Steroid-sparing (azathioprine, cyclosporine, chlorambucil) refractory, supportive: B12, probiotics, motility modifier\n\n❌ ทำไมข้ออื่นผิด\n— "Steroid ทันที" = miss food-responsive cases\n— Surgery = ไม่ใช่ for IBD\n— "ATB อย่างเดียว" = miss true IBD',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.25' },
-
-  { id: 1011, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'antibiotics'], type: 'mcq',
-    q: 'ATB ที่ใช้ใน IBD/ARE management',
-    options: ['Cephalexin 22 mg/kg BID — first-line broad-spectrum oral ATB ใน gut', 'Metronidazole 10-20 mg/kg BID, Tylosin 25 mg/kg, Oxytetracycline ตามลำดับ', 'Penicillin G IM + gentamicin combo (synergistic gram-negative coverage)', 'Enrofloxacin 5 mg/kg SID (Baytril) ครอบคลุม anaerobe + aerobe ใน gut'],
-    answer: 1, explain: 'IBD/ARE antibiotics: Metronidazole (anaerobe + immunomodulator at lower dose), Tylosin (macrolide, modify gut microbiota), Oxytetracycline, ใช้ 4-6 wk หรือ longer, long-term metronidazole = neurotoxicity risk (vestibular, ataxia), ARE (antibiotic-responsive) ถ้า ATB หาย = ARE; ถ้า relapse stop = IBD true\n\n❌ ทำไมข้ออื่นผิด\n— Cephalexin = pyoderma\n— Penicillin G = bacterial systemic\n— Furosemide = diuretic',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.28' },
-
-  { id: 1012, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'sulfasalazine'], type: 'mcq',
-    q: 'Sulfasalazine ใน IBD large bowel disease — side effect ที่สำคัญในสุนัขคือ',
-    options: ['ไม่มี side effect significant — ปลอดภัยมาก ไม่ต้อง monitor เป็นพิเศษ', 'Acute renal failure — ต้องวัด BUN/Cr ทุก 2 wk เป็น dose-limiting toxicity', 'Keratoconjunctivitis sicca (KCS, dry eye) — ต้อง Schirmer tear test ก่อน + ทุก 2 wk', 'Cataract bilateral progressive — ต้อง fundoscopy + slit lamp ทุก 1 mo'],
-    answer: 2, explain: 'Sulfasalazine 10-25 mg/kg PO TID-QID dog (used in large bowel IBD/colitis), metabolize เป็น 5-aminosalicylate (anti-inflammatory @ colon) + sulfapyridine, side effect dog: KCS (sulfa-induced) → ต้อง monitor Schirmer tear test ก่อน + ทุก 2 wk, cat: salicylate toxicity → ใช้ low dose 5-12.5 mg/kg PO TID อย่างระวัง\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่มี" = ผิด\n— Renal only = ไม่ใช่ classic side effect\n— Cataract = unrelated',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.32' },
-
-  { id: 1013, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'cyclosporine'], type: 'mcq',
-    q: 'Cyclosporine dose สำหรับ IBD ในสุนัข',
-    options: ['1 mg/kg PO SID — maintenance dose only หลัง induction หาย', 'IV bolus 5 mg/kg q24h — oral absorption ของ cyclosporine ไม่แน่นอน', '20-30 mg/kg PO BID — high-dose protocol สำหรับ refractory IBD', '3-7 mg/kg PO BID — induction + maintenance dose ตาม Aj. Rosama'],
-    answer: 3, explain: 'Cyclosporine ใน IBD: 3-7 mg/kg PO BID (ข้อสอบ Aj. Rosama), alternative ใน steroid-refractory IBD, onset 4-6 wk, ระวัง side effects (gum hyperplasia, GI, papillomatosis), monitor blood level ในกรณี severe, alternative cyclosporine: chlorambucil 2 mg/m² (cat), azathioprine 2 mg/kg (dog only)\n\n❌ ทำไมข้ออื่นผิด\n— 1 mg/kg = ต่ำเกิน\n— 50 mg/kg = สูงเกินอันตราย\n— IV only = ผิด, oral standard',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.33' },
-
-  { id: 1014, subject: 'com4', topic: 'ibd', year: 4, source: 'INFLAMATORY_BOWEL_Disease.pdf',
-    tags: ['ibd', 'prognosis'], type: 'mcq',
-    q: 'Prognosis ของ IBD ในสุนัข/แมว',
-    options: ['Short-term good-to-excellent', 'Cure ได้ในทุก case ภายใน 6 เดือนถ้าเริ่ม Tx ทันท่วงที + diet เคร่งครัด', 'Always poor — IBD = terminal disease, mortality > 80% ภายใน 1 ปี', 'No relapse ตลอดชีวิตหลังจาก Tx 4 wk + diet trial — chronic แต่ไม่ recurrent'],
-    answer: 0, explain: 'IBD prognosis: short-term response 70-90% ดี, cure rare, relapse common (need long-term Tx, monitoring), poor prognostic factors: PLE (hypoalbuminemia → ascites), severe fibrosis, histiocytic ulcerative colitis (Boxer), severe hypocobalaminemia, eotaxin, Beagle/GSD with refractory disease, client compliance critical\n\n❌ ทำไมข้ออื่นผิด\n— "Cure ทุก case" = ผิด\n— "Always poor" = ผิด, มัก stable\n— "No relapse" = ผิด, common\n\n💡 cure rare, relapse common, poor ใน PLE form, fibrosis, histiocytic ulcerative colitis',
-    verified: 'INFLAMATORY_BOWEL_Disease.pdf p.35' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Pediatrics & Geriatrics (Aj. Punyamanee Yamkate)
-  // ═══════════════════════════════════════════════════════════
-  { id: 1015, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['life-stage'], type: 'mcq',
-    q: 'Life stages ของสุนัข แบ่งเป็นกี่ระยะหลัก',
-    options: ['2 ระยะ (puppy + adult)', 'Puppy (0-6/9 mo)', '10 ระยะ', 'ไม่แบ่ง'],
-    answer: 1, explain: 'Dog life stages: Puppy 0 to 6-9 months (depend on breed/size — small breed mature เร็วกว่า), Young adult 6-9 mo to 3-4 yr, Mature adult ถึง last 25% of estimated lifespan, Senior = last 25%, Cats: Kitten birth-1 yr, Young 1-6 yr, Mature 7-10 yr, Senior > 10 yr\n\n❌ ทำไมข้ออื่นผิด\n— "2 ระยะ" = oversimplify\n— "10 ระยะ" = ละเอียดเกิน\n— "ไม่แบ่ง" = ผิด, AAHA/AAFP มี standard\n\n💡 3-4 yr), Mature adult (4 yr - last 25%), Senior\n\n💡 Young adult (6-9 mo',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.2' },
-
-  { id: 1016, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['neonatal'], type: 'mcq',
-    q: 'Pediatric stages ของสุนัข/แมว ใน hour 0 - 12 wk แบ่งย่อยอย่างไร',
-    options: ['ไม่แบ่งย่อย', 'Neonate 0-2 wk', 'Newborn 1 day, Adult 1 wk', 'Senior 1 mo'],
-    answer: 1, explain: 'Pediatrics sub-stages: Neonate 0-2 wk (most physiologically dependent), Infant 2-6 wk (start opening eyes/ears, basic reflexes), Weanling 6-12 wk (transitioning solid food), Juvenile 3-6 mo (rapid growth, vaccination key window), physiology ต่างกันแต่ละช่วง\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่แบ่งย่อย" = ผิด\n— Other options = age cutoffs ผิด\n\n💡 Infant 2-6 wk, Weanling 6-12 wk, Juvenile 3-6 mo',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.4' },
-
-  { id: 1017, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['neonatal', 'thermoregulation'], type: 'mcq',
-    q: 'Thermoregulation ใน neonate dog/cat มีลักษณะใด',
-    options: ['ปกติเทียบเท่า adult ตั้งแต่แรกเกิด', 'Poor thermoregulation เสี่ยง hypothermia', 'ดีกว่า adult ควบคุมอุณหภูมิเก่ง', 'ไม่ต้องดูแลอุณหภูมิเป็นพิเศษ'],
-    answer: 1, explain: 'Neonate thermoregulation: poor — shivering ไม่ดี + vasoconstriction limited + large body surface : mass ratio (heat loss เร็ว) + little fat + high water content + cannot pant → depend on dam warmth + environment 28-32°C + humidity 55-66%, hypothermia < 96°F (35.5°C) → bradycardia, ileus, death, warm slow ≤ 2°F/hr (rapid → core shock)\n\n❌ ทำไมข้ออื่นผิด\n— "ปกติเหมือน adult" = ผิด\n— "ดีกว่า adult" = ผิด\n— "ไม่ต้องดูแล" = ผิด, อันตราย\n\n💡 ขนน้อย, ขึ้นกับ dam/queen + 55-66% humidity\n\n💡 limited shiver + high SA/mass ratio + low body fat',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.7' },
-
-  { id: 1018, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['neonatal', '4hs'], type: 'mcq',
-    q: '"4 H\'s" critical concerns ใน neonatal dog/cat คือ',
-    options: ['Hypertension, Hypercalcemia, Hyperthyroid, Hyperkalemia', 'Hypothermia, Hypovolemia, Hypoglycemia, Hypoxemia', 'Hyperthermia, Hypertonia, Hypertrophy, Hyperplasia', 'Hate, Heart, Hand, Head'],
-    answer: 1, explain: '"4 H\'s" of neonatal critical care: Hypothermia (most common, < 96°F = bradycardia/ileus), Hypovolemia/dehydration (high fluid req. 120-180 ml/kg/d), Hypoglycemia (limited gluconeogenesis + glycogen storage → seizures, brain damage), Hypoxemia (HR < 150 bpm in 1st wk = hospitalize for O₂), ทั้ง 4 ต้องประเมินทุก presentation\n\n❌ ทำไมข้ออื่นผิด\n— Other "H" combinations = ไม่ใช่ standard',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.20' },
-
-  { id: 1019, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['neonatal', 'colostrum'], type: 'mcq',
-    q: 'Colostrum ใน neonate ต้องได้ภายในเวลาเท่าใด',
-    options: ['ไม่จำเป็นต้องได้', '1 สัปดาห์', 'Within 24 hr', '1 เดือน'],
-    answer: 2, explain: 'Colostrum: critical within 24 hr of birth (gut permeability declines after 8 hr, closes 48-72 hr), IgG + IgA passively absorbed (IgM too large), maternal serum (from healthy adult dog) PO เป็น alternative ถ้า colostrum ไม่มี, check ALP/GGT — high ในช่วง 2 wk แรก (เป็น marker ของ colostrum intake), failure of passive transfer = ↑ neonatal mortality\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่จำเป็น" = ผิด\n— "1 wk" / "1 mo" = สายเกิน, gut closed แล้ว\n\n💡 ถ้าไม่มี colostrum ใช้ maternal serum oral',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.13' },
-
-  { id: 1020, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['neonatal', 'hypothermia'], type: 'mcq',
-    q: 'Hypothermia ใน neonate temperature criteria + warming approach',
-    options: ['< 96°F = hypothermia warm ช้าๆ', '< 90°F แล้วต้อง warm rapid ทันที', 'ไม่ต้อง warm ปล่อยอุ่นเอง', '> 100°F ถือว่า hypothermia'],
-    answer: 0, explain: 'Hypothermia: temp < 96°F (35.5°C) — neonate ปกติ 95-97°F (rectal), effects: bradycardia, ileus, bloat, dyspnea, immune failure, WARM SLOW: increase ≤ 2°F per hour, methods: incubator, heat lamp, circulating water blanket, warm towels, provide space to crawl away (avoid burns), environmental humidity 55-66%, rapid warming = peripheral vasodilation → cold blood return → core shock (cry, dehydration, panting)\n\n❌ ทำไมข้ออื่นผิด\n— "< 90°F" + rapid warm = อันตราย\n— "ไม่ต้องวอร์ม" = ผิด\n— "> 100°F" = hyperthermia\n\n💡 warm slow ≤ 2°F/hr, ระวัง rapid warming → vasodilation → core shock',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.21' },
-
-  { id: 1021, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['neonatal', 'fluid'], type: 'mcq',
-    q: 'Fluid maintenance rate สำหรับ neonate (0-2 wk)',
-    options: ['10-20 ml/kg/d', '300 ml/kg/d', '120-180 ml/kg/d', 'No fluids needed'],
-    answer: 2, explain: 'Neonate maintenance: 120-180 ml/kg/d, Pediatric (older): 80-120 ml/kg/d, Higher than adult เพราะ: ↑ body surface area : weight ratio, ↑ extracellular fluid, less body fat, ↑ metabolic + respiratory rate, ↓ renal concentrating ability, severe dehydration shock dose: 30-45 ml/kg dog, 20-30 ml/kg cat, routes: oral-gastric (NOT in hypothermic), SC/IP (no dextrose, normothermic), IV/IO (jugular, tibial crest, humerus)\n\n❌ ทำไมข้ออื่นผิด\n— 10-20 = adult maintenance\n— 300 = สูงเกินไป\n— No fluids = ผิด\n\n💡 pediatric',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.22' },
-
-  { id: 1022, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['neonatal', 'hypoglycemia'], type: 'mcq',
-    q: 'Hypoglycemia ใน neonate signs และ Tx',
-    options: ['Asymptomatic ไม่แสดงอาการ', 'Aggressive behavior ก้าวร้าว', 'Lethargy, decreased suckle', 'Hypertension ความดันสูง'],
-    answer: 2, explain: 'Hypoglycemia ใน neonate: signs anorexia, lethargy, ↓ suckle, crying, limp body, tremors, coma, seizures, cause: insufficient hepatic gluconeogenesis + low glycogen + immature insulin/glucagon feedback, Tx if conscious: milk replacer, corn syrup, glucose solution PO, IV: 0.5-1 ml/kg of 50% dextrose dilute 1:4 → CRI 2.5-5%, monitor q1-2h, prevent recurrence (frequent feeding 8-12 ×/d in first wk)\n\n❌ ทำไมข้ออื่นผิด\n— "Asymptomatic" = ผิด, มี neurologic\n— Aggressive = ไม่ใช่ pattern\n— Hypertension = ตรงข้าม\n\n💡 Tx: milk replacer/corn syrup PO ถ้า conscious; dextrose IV CRI ถ้า severe\n\n💡 crying, limp, tremors, seizures, coma',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.23' },
-
-  { id: 1023, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['nei'], type: 'mcq',
-    q: 'Neonatal Isoerythrolysis (NEI) พบบ่อยในสัตว์ใด และเกิดอย่างไร',
-    options: ['สุนัข บ่อย', 'หมูพันธุ์ใหญ่', 'ไม่เกิดในสัตว์', 'แมว type B blood'],
-    answer: 3, explain: 'NEI in cats: queen blood type B (British Shorthair, Devon/Cornish Rex, Abyssinian, Persian, Himalayan, Angora, Exotic, Ragdoll) มี strong anti-A IgG ใน colostrum, kitten type A/AB ที่กิน colostrum จาก B queen → severe IMHA, signs hours-days: hemoglobinuria, jaundice, anemia, sudden death, ear/tail tip necrosis, prevention: blood type ก่อนผสมพันธุ์, ถ้า mismatch detected ก่อน 24 hr → แยก kitten นมตู้/foster type A queen, severe → transfusion\n\n❌ ทำไมข้ออื่นผิด\n— สุนัข = rare (no naturally occurring isoantibody at high titer)\n— "ไม่เกิด" = ผิด\n— หมู = ไม่ใช่ companion animal\n\n💡 kitten type A/AB กิน colostrum จากแม่ type B → anti-A antibody → RBC lysis\n\n💡 British Shorthair, Persian, Rex, Ragdoll, Abyssinian',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.30' },
-
-  { id: 1024, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['fading'], type: 'mcq',
-    q: '"Fading puppy/kitten syndrome" คืออะไร',
-    options: ['ลูกสัตว์ดูปกติแรกเกิด แล้วค่อยๆ fade + die ใน 0-10 wk', 'ลูกสัตว์ที่ขนค่อยๆ เปลี่ยนสีจางลงตามวัย', 'Hereditary albinism ที่ขาดเม็ดสีแต่กำเนิด', 'สัตว์สูงวัยที่ค่อยๆ เสื่อมตามอายุ'],
-    answer: 0, explain: 'Fading puppy/kitten syndrome: multifactorial mortality, ดูปกติแรกเกิด → fade gradually → die, เกิด birth - 9-10 wk, causes: maternal (mastitis, poor mothering, nutritional) + neonatal (low BW, congenital defects, NEI) + environmental (cold, dirty) + infectious (CHV, CDV, CPV, FPV, FHV, FCV, bacteria, mycoplasma), prevention: dam health pre-mating, strict hygiene, monitor weight daily, prompt vet care\n\n❌ ทำไมข้ออื่นผิด\n— "ขนเปลี่ยนสี" = ไม่ใช่\n— Hereditary albinism = different\n— "อายุมาก" = ตรงข้าม\n\n💡 virus, bacteria\n\n💡 multifactorial: maternal/neonate/environment/infection',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.30' },
-
-  { id: 1025, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['neuter'], type: 'mcq',
-    q: 'Optimal neutering age ตาม current guideline',
-    options: ['1 month', '> 5 ปี', '≤ 5-6 months', 'ไม่แนะนำให้ neuter'],
-    answer: 2, explain: 'Neutering: ≤ 5-6 mo (เพศหญิงก่อน 1st heat) ลดความเสี่ยง mammary tumor มากที่สุด, early as 6-16 wk = TNR/shelter standard, benefits: population control + ↓ neoplasia (mammary, testicular, ovarian, prostatic) + ↓ behavior (roaming, aggression, marking), risks: orthopedic (large breed early neuter → ↑ ACL/hip dysplasia), urinary incontinence (F bitch), endocrine, obesity, individualized based on breed/size\n\n❌ ทำไมข้ออื่นผิด\n— "1 month" = เร็วเกิน\n— "> 5 ปี" = ช้าเกิน\n— "ไม่แนะนำ" = ผิด\n\n💡 พิจารณา breed, size, health risks\n\n💡 early as 6-16 wk for shelter/TNR',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.42' },
-
-  { id: 1026, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['geriatric'], type: 'mcq',
-    q: 'Senior life stage ในสุนัขกำหนดอย่างไร',
-    options: ['Last 25% of estimated lifespan', 'อายุ 5 ปีขึ้นไปทุกขนาดพันธุ์', 'อายุ 1 ปีขึ้นไปถือว่า senior', 'อายุ 20 ปีขึ้นไปเท่านั้น'],
-    answer: 0, explain: 'Senior dog = last 25% of estimated lifespan, ขึ้นกับ breed + size, Giant breeds (Great Dane, Mastiff, lifespan 7-10 yr) → senior 5-6 yr, Small breeds (Chihuahua, Toy poodle, lifespan 14-16 yr) → senior 10-12 yr, Cats: senior > 10 yr (lifespan 12-18 yr), "aging is not a disease, but normal process"\n\n❌ ทำไมข้ออื่นผิด\n— "5 ปีทุกขนาด" = ผิด, breed-dependent\n— "1 ปี" = adult\n— "20 ปี" = ส่วนใหญ่ตายก่อน\n\n💡 size/breed dependent',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.50' },
-
-  { id: 1027, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['cognitive'], type: 'mcq',
-    q: 'Cognitive Dysfunction Syndrome (CDS) ในสุนัขแก่ ใช้ DISHAA assessment ประกอบด้วย',
-    options: ['ไม่มี standard assessment', 'BCS เท่านั้น', 'อายุเท่านั้น', 'D = Disorientation'],
-    answer: 3, explain: 'DISHAA mnemonic for canine CDS (analogous Alzheimer\'s in human): D=Disorientation (lost in familiar place), I=Interaction changes (less greeting), S=Sleep-wake cycle disturbance (night pacing), H=Housesoiling, A=Activity changes (stare at wall), A=Anxiety, senior dog screening, Tx: SAMe, omega-3, antioxidants, selegiline, prescription cognitive diet (Hill\'s b/d), enrichment\n\n❌ ทำไมข้ออื่นผิด\n— "ไม่มี" = ผิด, มี standard\n— "อายุเท่านั้น" = chronological, ไม่ใช่ cognitive assessment\n— BCS = body condition (separate)\n\n💡 I = Interaction, S = Sleep-wake cycle, H = Housesoiling, A = Activity, A = Anxiety',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.58' },
-
-  { id: 1028, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['geriatric', 'screening'], type: 'mcq',
-    q: 'Senior pet check-up frequency แนะนำที่เท่าใด',
-    options: ['อย่างน้อยปีละครั้ง', 'ทุก 5 ปีก็เพียงพอ', 'ไม่ต้องตรวจถ้าไม่ป่วย', 'ทุก 1 สัปดาห์เป็นประจำ'],
-    answer: 0, explain: 'Geriatric check-up: minimum yearly, recommended every 6 months, comprehensive: PE (head-to-tail) + BCS (1-9 scale) + MCS (muscle condition score) + CBC + chemistry (BUN/Cr/ALT/ALP/glucose/cholesterol/electrolytes) + UA + thyroid (T4 — esp. cat) + BP (hypertension common in CKD/Cushing\'s) + imaging (US, X-ray) PRN, early detection: CKD, hyperthyroid (cat), hypothyroid (dog), DM, HAC, neoplasia\n\n❌ ทำไมข้ออื่นผิด\n— "5 ปี" = นานเกินไป miss disease\n— "ไม่ตรวจ" = ผิด\n— "ทุก สัปดาห์" = บ่อยเกินจำเป็น\n\n💡 CBC, chem, UA, BP, BCS/MCS, thyroid\n\n💡 ทุก 6 เดือนแนะนำ + comprehensive geriatric screening',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.65' },
-
-  { id: 1029, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf',
-    tags: ['geriatric', 'common-disease'], type: 'mcq',
-    q: 'โรคที่พบบ่อยในแมวสูงอายุ (geriatric cat > 10 yr)',
-    options: ['Distemper, Parvovirus', 'Hip dysplasia ใน puppy', 'CKD, Hyperthyroidism', 'Atresia ani'],
-    answer: 2, explain: 'Geriatric cat common: CKD (#1 in cat senior, > 30%), Hyperthyroidism (T4 ↑, weight loss + polyphagia), Diabetes mellitus (often type II, obese), Neoplasia (lymphoma most common, MCT, SCC, mammary, intestinal adenocarcinoma), Osteoarthritis (under-recognized, behavior change), Cognitive dysfunction syndrome, dental disease, cardiomyopathy (HCM)\n\n❌ ทำไมข้ออื่นผิด\n— Distemper/Parvo = puppy/young\n— Hip dysplasia in puppy = developmental young\n— Atresia ani = congenital newborn\n\n💡 DM, Neoplasia (lymphoma, MCT, mammary), Osteoarthritis, Cognitive dysfunction',
-    verified: 'Pediatrics_and_Geriatrics.pdf p.66' },
-
-  // ═══════════════════════════════════════════════════════════
-  // FINAL 86 review batch — pulled from "รวบรวมข้อสอบเก่า 86" compilation
-  // ═══════════════════════════════════════════════════════════
-
-  { id: 1030, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics + FINAL 86',
-    tags: ['geriatric', 'gi', 'physiology'], type: 'mcq',
-    q: 'การเปลี่ยนแปลงทาง GI physiology ในสัตว์สูงอายุ ที่ส่งผลให้เกิด constipation, malabsorption, และโรคทาง hepatobiliary คืออะไร',
-    options: ['↑ motility, ↑ HCl, ↑ bile production', 'เพิ่ม pancreatic enzyme secretion เท่านั้น', 'ไม่มีการเปลี่ยนแปลงใดๆ ตามอายุ', '↓ motility, ↓ HCl, ↓ bile production'],
-    answer: 3, explain: 'Geriatric GI changes (FINAL 86 emphasized ★):\n• ↓ motility → delayed gastric emptying + constipation\n• ↓ HCl secretion → malabsorption (esp. B12, Fe), bacterial overgrowth\n• ↓ bile production → fat malabsorption + cholestatic dz\n• กระทบ liver, pancreas, digestion, absorption ทั้งระบบ\n• Constipation มักเกิดจาก dehydration + CKD + DJD (เคลื่อนไหวลำบาก)\n• พบ chronic enteropathies, IBD, chronic hepatitis, pancreatitis (triaditis ในแมวรวม cholangitis)\n\n❌ ทำไมข้ออื่นผิด\n— ↑ทุกอย่าง = ตรงข้ามกับ aging\n— ไม่เปลี่ยน = false\n— ↑ pancreatic enzyme = ตรงข้าม',
-    verified: 'Pediatrics_and_Geriatrics.pdf + FINAL 86 p.42 ★ "ตอบข้อนี้ และ ผิด โจทย์บอกหลังเฟิม"' },
-
-  { id: 1031, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia + FINAL 86',
-    tags: ['imha', 'cat', 'azathioprine', 'critical'], type: 'mcq',
-    q: 'ในแมวที่เป็น IMHA และไม่ตอบสนอง prednisolone ยา 2nd-line ใดที่ ห้ามใช้ เพราะเกิด bone marrow suppression รุนแรง + acute pancreatic necrosis',
-    options: ['Cyclosporine', 'Mycophenolate mofetil (MMF)', 'Azathioprine', 'Chlorambucil', 'Leflunomide'],
-    answer: 2, explain: 'Azathioprine ห้ามใช้ในแมว ★★ (Aj. Rosama เน้น) เพราะแมวขาด thiopurine S-methyltransferase (TPMT) → metabolize ไม่ได้ → severe bone marrow suppression (pancytopenia) + acute pancreatic necrosis, ใน cat ใช้ Chlorambucil แทน (alkylating, steroid-sparing for feline IMHA/IBD/PF)\n\n❌ ทำไมข้ออื่นใช้ได้\n— Cyclosporine = ใช้ได้ทั้งสุนัขและแมว\n— MMF = ใช้ได้, GI side effect\n— Chlorambucil = TOC ในแมวสำหรับ steroid-sparing\n— Leflunomide = ใช้ได้',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + FINAL 86 p.7 (Aj. Rosama IMHA box) ★★' },
-
-  { id: 1032, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia + FINAL 86',
-    tags: ['imha', 'thromboembolism', 'antiplatelet'], type: 'mcq',
-    q: 'ใน IMHA ที่มีความเสี่ยง thromboembolism (PTE) ยา antiplatelet ใดที่นิยมใช้เป็น first-line ',
-    options: ['Heparin alone (LMWH หรือ UFH) — direct anticoagulant primary therapy', 'Warfarin PO 0.1 mg/kg titrate ถึง INR 2-3 — long-term anticoagulant', 'tPA (tissue plasminogen activator) IV bolus thrombolytic เพื่อสลายลิ่ม PTE', 'Vitamin K1 5 mg/kg PO q24h — antidote ห้าม secondary clotting cascade', 'Clopidogrel (Plavix) ± low-dose aspirin (0.5-1 mg/kg/d)'],
-    answer: 4, explain: 'Clopidogrel (Plavix) 1-3 mg/kg PO q24h = first-line antiplatelet ใน IMHA, ± low-dose aspirin 0.5 mg/kg/day (Aj. Rosama เน้น ★), ลด platelet aggregation ที่กระตุ้นจาก inflammatory state, LMWH สามารถใช้ adjunct ได้ในกรณี acute, monitoring: TEG, anti-Xa\n\n❌ ทำไมข้ออื่นผิด\n— Heparin alone = ไม่ block platelet aggregation, ใช้ adjunct\n— Warfarin = แคบ therapeutic window, ตรวจ INR ยาก, ไม่ first-line in vet\n— Vitamin K = antidote rodenticide, ตรงข้าม\n— tPA = thrombolytic, severe PTE acute, ไม่ใช่ prophylaxis',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + FINAL 86 p.7 (Aj. Rosama: Aspirin 0.5 mg/kg/วัน แก้ไข thromboembolism ★) + Clopidogrel (Plavix)' },
-
-  // ═══════════════════════════════════════════════════════════
-  // Master 86 supplemental batch — Master compilation (78p)
-  // Hypersensitivity I-IV, IMHA detail, IMT, Cushing dx, Hypothy thresholds
-  // Alopecia X, Pemphigus subtypes, SLO/TEN, GN, Neonate, Geriatric drugs
-  // ═══════════════════════════════════════════════════════════
-
-  // ── Hypersensitivity Types I-IV ───────────────────────────
-  { id: 1033, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Immune-mediated_introduction.pdf + Master 86 supplemental',
-    tags: ['hypersensitivity', 'type-1', 'mast-cell', 'classic'], type: 'mcq',
-    q: 'Type I hypersensitivity (immediate / IgE-mediated) ในระยะ "sensitization phase" เกิดอะไรขึ้น',
-    options: ['Mast cell degranulation ปล่อย histamine + prostaglandin ทันที', 'Cytotoxic T-cell ทำลาย tissue โดยตรง', 'Complement-mediated lysis ของ RBC', 'Ag-Ab complex deposit ที่ basement membrane', 'APC → Th2 → B-cell switch เป็น IgE → IgE จับ mast cell'],
-    answer: 4, explain: 'Sensitization phase = first exposure → APC → Th2 → IL-4/IL-13 → B-cell class-switch → IgE → IgE binds high-affinity FcεRI บน mast cell (no symptoms ระยะนี้), re-exposure ครั้งที่ 2 ขึ้นไป → allergen cross-links 2 IgE → mast cell degranulation → histamine, leukotrienes, prostaglandins → vasodilation, smooth muscle contraction, mucus → 5-10 นาที (rapid)\n\n❌ ทำไมข้ออื่นผิด\n— Degranulation = effector phase (ครั้งที่ 2+)\n— Cytotoxic T = Type IV\n— Complement-mediated = Type II\n— Complex deposit = Type III\n\n💡 asymptomatic',
-    verified: 'Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.1' },
-
-  { id: 1034, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Immune-mediated_introduction.pdf + Master 86 supplemental',
-    tags: ['hypersensitivity', 'type-1', 'examples'], type: 'mcq',
-    q: 'โรคใดต่อไปนี้เป็น Type I hypersensitivity (IgE-mediated) ทั้งหมด',
-    options: ['IMHA, IMT, Myasthenia Gravis', 'SLE, Glomerulonephritis, Arthus reaction', 'Contact dermatitis, Tuberculin reaction, Granuloma', 'Atopic dermatitis, Allergic rhinitis', 'Pemphigus foliaceus, Bullous pemphigoid'],
-    answer: 3, explain: 'Type I (IgE / mast cell): atopic dermatitis, allergic rhinitis, acute anaphylaxis, asthma, food allergy, ส่วน FAD = Type I + IV mixed\n\n❌ ทำไมข้ออื่นผิด\n— IMHA/IMT/MG = Type II (anti-cell/receptor Ab)\n— SLE/GN/Arthus = Type III (immune complex)\n— Contact dermatitis/TB/granuloma = Type IV (T-cell)\n— Pemphigus/Bullous = autoimmune blistering (Type II-like)\n\n💡 Acute anaphylaxis, Bronchial asthma, Food allergy',
-    verified: 'Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.1' },
-
-  { id: 1035, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Immune-mediated_introduction.pdf + Master 86 supplemental',
-    tags: ['hypersensitivity', 'type-2', 'mechanism'], type: 'mcq',
-    q: 'Type II hypersensitivity (Antibody-mediated cytotoxic) ในรูปแบบที่ Ab จับกับ receptor แล้ว block function — ตัวอย่างคือโรคใด',
-    options: ['IMHA — Ab จับ RBC antigen → phagocytosis/lysis', 'IMT — Ab จับ platelet → destruction', 'SLE — Ag-Ab complex deposit', 'Graves\\\' disease — Ab จับ TSH receptor → stimulation', 'Myasthenia Gravis'],
-    answer: 4, explain: 'Type II แบ่งย่อย 3 mechanisms: (1) Cytotoxic destruction = IMHA, IMT (Ab + cell → complement/phagocytosis); (2) Block function = Myasthenia Gravis (Ab block ACh receptor → muscle weakness); (3) Stimulating = Graves\' (Ab activates TSH receptor → hyperthyroid)\n\n💡 IMHA, IMT = cytotoxic\n💡 MG = blocking\n💡 Graves = stimulating\n\nโจทย์ถาม "block function" → MG เท่านั้น\n\n💡 Ab จับ ACh receptor → block neurotransmission',
-    verified: 'Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.2' },
-
-  { id: 1036, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Immune-mediated_introduction.pdf + Master 86 supplemental',
-    tags: ['hypersensitivity', 'type-3', 'arthus', 'classic'], type: 'mcq',
-    q: 'Type III hypersensitivity (immune complex deposition) — ตัวอย่างเฉพาะใน veterinary คือ "Blue eye" หลังฉีด CAV-1 vaccine เกิดจากกลไกใด',
-    options: ['Ag-Ab complex deposit ที่ corneal endothelium → corneal edema', 'IgE-mediated mast cell degranulation ที่ตา', 'Complement-mediated direct lysis ของ corneal endothelium', 'T-cell direct cytotoxicity ต่อ corneal cells', 'Anti-corneal autoantibody (true autoimmune)'],
-    answer: 0, explain: 'Blue eye = Type III hypersensitivity classic ในสุนัข, CAV-1 (live attenuated vaccine ของ Infectious Canine Hepatitis) → Ag-Ab complex deposit ที่ corneal endothelium → activation of complement + neutrophils → vasculitis → corneal edema → ตา "ฟ้า", transient (มักหายเอง 21 วัน), จึงเปลี่ยนใช้ CAV-2 vaccine แทน (cross-protection แต่ไม่เกิด blue eye)\n\n💡 อื่นๆ ของ Type III: SLE, Glomerulonephritis, Skin Arthus reaction (sterile abscess), post-streptococcal GN',
-    verified: 'Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.2' },
-
-  { id: 1037, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Immune-mediated_introduction.pdf + Master 86 supplemental',
-    tags: ['hypersensitivity', 'type-4', 'cell-mediated'], type: 'mcq',
-    q: 'Type IV hypersensitivity (Delayed-type / Cell-mediated) มีลักษณะใดต่างจาก Type I-III',
-    options: ['เกิดเร็วภายใน 5-10 นาทีหลังสัมผัส', 'ใช้ Antibody (IgE) เป็นหลัก', 'Complement-mediated lysis ของเซลล์', 'T-cell mediated onset 24-72 ชม.', 'Mast cell degranulation ปล่อย histamine'],
-    answer: 3, explain: 'Type IV = T-cell mediated (no Ab), 2 subtypes:\n• Th1-mediated DTH: Th1 → IFN-γ → activates macrophage → granuloma (TB, Tuberculin reaction, leprosy)\n• Cytotoxic T-cell (CTL): CD8 T-cell → kill target cell directly (contact dermatitis, transplant rejection)\n• Onset 24-72 hr (delayed) ต่างจาก Type I (5-10 นาที)\n• Examples: Allergic contact dermatitis, FAD (mixed Type I+IV), tuberculin skin test, granulomatous diseases',
-    verified: 'Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.3' },
-
-  { id: 1038, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Allergic_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['fad', 'hypersensitivity-types', 'classic'], type: 'mcq',
-    q: 'Flea Allergic Dermatitis (FAD) เป็น hypersensitivity type ใด',
-    options: ['Type I เท่านั้น', 'Type II เท่านั้น', 'Type III เท่านั้น', 'Mixed Type I + IV', 'Type IV เท่านั้น'],
-    answer: 3, explain: 'FAD = mixed Type I + IV hypersensitivity ต่อ flea saliva (histamine, enzymes, haptens), Type I → immediate pruritus + papules (1-2 hours), Type IV → delayed papular dermatitis (24-48 hours, persistent inflammation), ทำให้ต้องใช้ทั้ง flea control + corticosteroid + antipruritic\n\n💡 Atopic dermatitis (CAD) = Type I + IV เช่นกัน\n💡 Food allergy = Type I + IV ในบางกรณี\n\n💡 immediate IgE + delayed cellular reaction ต่อ flea saliva',
-    verified: 'Allergic_skin_diseases.pdf + COM IV Master 86 supplemental p.30' },
-
-  { id: 1039, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'Immune-mediated_introduction.pdf + Master 86 supplemental',
-    tags: ['immune-management', 'principles'], type: 'mcq',
-    q: '5 หลักการจัดการ Immune-mediated diseases ตาม Aj. Rosama เน้น คือ',
-    options: ['Just give steroid forever', 'Antibiotics + supportive only', 'Vaccine + nutrition', 'Surgery + radiation', '5-pillar management approach'],
-    answer: 4, explain: '5 management pillars (Aj. Rosama ★):\n1. Correct vital function — CVS, fluid, oxygenation\n2. Client communication/education — explain prognosis (variable, may relapse, lifelong drug)\n3. Remove primary cause — IMHA → screen/Tx blood parasite (Babesia, Mycoplasma, Ehrlichia); pyometra → spay; vaccine-induced → avoid\n4. Immunomodulatory drugs — corticosteroid 1st line, +/- 2nd-line (CsA, Aza, MMF, Chlorambucil)\n5. Aggressive supportive therapy — monitor + maintain vital + prevent secondary complications (PTE → antiplatelet, atopy → barrier)',
-    verified: 'Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.5 (Aj. Rosama 5 pillars ★)' },
-
-  // ── IMHA — finer mechanisms ───────────────────────────────
-  { id: 1040, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
-    tags: ['imha', 'mechanism', 'intravascular', 'classic'], type: 'mcq',
-    q: 'Intravascular hemolysis ใน IMHA — ลักษณะใดถูกต้อง',
-    options: [
-      'IgG-mediated, RBC ถูก phagocytose ที่ spleen, เห็น spherocyte',
-      'IgM → MAC → lysis',
-      'Eosinophilic infiltration in tissue',
-      'No anemia, แค่ thrombocytopenia',
-      'IgA-mediated เป็นหลัก',
+  {
+    "id": 900,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "Derm_1__2_Dermatology_introduction.pdf",
+    "tags": [
+      "skin-anatomy",
+      "basics"
     ],
-    answer: 1, explain: 'Intravascular hemolysis (less common, more severe):\n• IgM (มี 5 binding sites → activate classical pathway ดี)\n• Complement cascade → C5b-9 → MAC → RBC lysis ในหลอดเลือดเลย\n• Hemoglobin spilled → hemoglobinemia (plasma แดง) + hemoglobinuria (ปัสสาวะแดงเข้ม) + indirect hyperbilirubinemia\n• Worse prognosis, associated mortality > extravascular\n\n❌ ทำไมข้ออื่นผิด\n— IgG + spleen + spherocyte = extravascular\n— Eos = parasitic / hypersensitivity\n— No anemia = ผิด ใน IMHA มี anemia แน่นอน\n— IgA ไม่ใช่ mediator หลักใน IMHA',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7' },
-
-  { id: 1041, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
-    tags: ['imha', 'mechanism', 'extravascular', 'spherocyte'], type: 'mcq',
-    q: 'Extravascular hemolysis ใน IMHA — ตัวบ่งชี้สำคัญใน blood smear คือ',
-    options: [
-      'Schistocyte (RBC fragment) — DIC',
-      'Heinz body — oxidative damage (onion, paracetamol)',
-      'Spherocyte (loss of central pallor)',
-      'Howell-Jolly body — splenic dysfunction',
-      'Target cell — liver disease',
+    "type": "mcq",
+    "q": "ผิวหนังของสุนัขและแมว ประกอบด้วย primary layers กี่ชั้น และข้อใดถูกต้อง",
+    "options": [
+      "2 ชั้น: Epidermis + Dermis",
+      "3 ชั้น: Epidermis + Dermis + Hypodermis (subcutis)",
+      "4 ชั้น: Epidermis + Dermis + Hypodermis + Muscle",
+      "5 ชั้น: Stratum corneum + lucidum + granulosum + spinosum + basale"
     ],
-    answer: 2, explain: 'Spherocyte = pathognomonic ของ extravascular hemolysis ใน canine IMHA (cat ดูยาก เพราะ feline RBC ไม่มี central pallor ชัดเจน)\n\n💡 กลไก: Macrophage (spleen, liver) → phagocytose IgG-coated RBC → กิน membrane ส่วนหนึ่ง → RBC เหลือเล็กลง + กลม + loss of central pallor → spherocyte\n💡 Spherocyte ≥ 5/HPF + anemia + saline agglutination → strong evidence IMHA\n\n❌ ทำไมข้ออื่นผิด\n— Schistocyte = DIC, microangiopathic\n— Heinz body = oxidative\n— Howell-Jolly = splenectomy / hyposplenia\n— Target cell = liver / iron deficiency',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7' },
-
-  { id: 1042, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
-    tags: ['imha', 'diagnosis', 'coombs'], type: 'mcq',
-    q: 'Direct Coombs\' test หรือ direct antiglobulin test (DAT) ตรวจพบสิ่งใดเพื่อช่วยประเมิน IMHA',
-    options: ['Detects Ab/complement บน RBC surface', 'นับจำนวน RBC ใน circulation โดยตรง', 'วัดระดับ hemoglobin ใน plasma', 'ประเมิน bone marrow regeneration', 'นับ spherocyte ใน blood smear'],
-    answer: 0, explain: 'Direct Coombs\' test ตรวจ immunoglobulin หรือ complement ที่จับอยู่บนผิวเม็ดเลือดแดง โดยใช้ antiglobulin reagent ที่เหมาะกับชนิดสัตว์ ผลบวกเป็นหลักฐานประกอบการประเมิน IMHA และต้องแปลร่วมกับภาวะซีด หลักฐาน hemolysis และการตรวจอื่น ไม่ควรใช้ผลเพียงค่าเดียวเป็นข้อสรุปในทุกกรณี',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7; Cornell eClinpath, Mechanisms of anemia: https://eclinpath.com/hematology/anemia/mechanisms-of-anemia/; เทียบเพิ่มเติมกับ Hematology (VCA58-68).pdf หน้า 11',
-    sourceDocument: { id: '1uh-PrLaztgUHM-Dz56hOodqG5xRRl22U', url: 'https://drive.google.com/file/d/1uh-PrLaztgUHM-Dz56hOodqG5xRRl22U/view', page: 11 } },
-
-  { id: 1043, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
-    tags: ['imha', 'treatment', 'glucocorticoid', 'dose'], type: 'mcq',
-    q: 'Initial dose ของ Prednisolone สำหรับ canine IMHA (Aj. Rosama เน้น) คือ',
-    options: [
-      '0.5 mg/kg PO q24h anti-inflammatory dose',
-      '1 mg/kg PO q12h เป็น maintenance',
-      '2-4 mg/kg/day PO (หรือ 50-60 mg/m²) bid',
-      '10 mg/kg PO q12h เพื่อ immune ablation',
-      'Dexamethasone 5 mg/kg IV เท่านั้น',
+    "answer": 1,
+    "explain": "Skin = 3 primary layers: Epidermis (ชั้นนอก) + Dermis (กลาง) + Hypodermis (subcutis ชั้นใน) + adnexa (hair follicle, glands)\n\n❌ ทำไมข้ออื่นผิด\n— \"2 ชั้น\" = ขาด hypodermis\n— \"4 ชั้น + muscle\" = muscle ไม่นับเป็น skin layer\n— 5 ชั้น = Stratum sub-layers ของ epidermis (sub-classification)",
+    "verified": "Derm_1__2_Dermatology_introduction.pdf p.1"
+  },
+  {
+    "id": 901,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "Derm_1__2_Dermatology_introduction.pdf",
+    "tags": [
+      "glands",
+      "eccrine"
     ],
-    answer: 2, explain: 'Canine IMHA prednisolone: 2-4 mg/kg/day PO (หรือ 50-60 mg/m² ในตัวใหญ่ > 25 kg เพื่อหลีกเลี่ยง overdose) divided BID, response rate 80% ภายใน 1-2 wks, taper down เมื่อ HCT ขึ้น (~ 25-30%), Dexamethasone 0.2-0.4 mg/kg/day IV ใช้ในกรณี emergent (collapse) ก่อนเปลี่ยนเป็น oral, ลดยาทุก 2-4 wks ลง ~25%\n\n❌ ทำไมข้ออื่นผิด\n— 0.5 mg/kg = under-dose (anti-inflam dose ไม่ใช่ immunosuppressive)\n— 1 mg/kg = ยังต่ำเกิน\n— 10 mg/kg = สูงเกินไป (immune ablation, ไม่ใช่ standard)',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7 (Aj. Rosama dose box ★)' },
-
-  { id: 1044, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
-    tags: ['imha', 'second-line', 'cyclosporine', 'dose'], type: 'mcq',
-    q: 'Cyclosporine (CsA) เป็น 2nd-line ใน IMHA — dose ปกติคือเท่าใด และทำงานผ่านกลไกอะไร',
-    options: ['5 mg/kg PO q12h', '50 mg/kg PO q24h, จับ DNA gyrase', '0.1 mg/kg IV bolus เท่านั้น', '20 mg/kg/d IM, ระงับ B-cell โดยตรง', '1 mg/kg q72h, inhibit COX-2'],
-    answer: 0, explain: 'Cyclosporine A (Atopica/Sandimmune):\n• Dose: 5 mg/kg PO q12h ใน IMHA (CAD ใช้ q24h)\n• MOA: CsA + Cyclophilin (cytoplasmic protein) → complex inhibits Calcineurin phosphatase → blocks NFAT translocation → ↓ IL-2 transcription → ↓ T-helper cell activation/proliferation\n• Tacrolimus (FK506) ใช้กลไกคล้ายกัน แต่จับ FKBP12 แทน Cyclophilin\n• AE: GI upset (vomit/diarrhea), gingival hyperplasia, hirsutism, ↑ susceptibility to infection (esp. Toxoplasma in cat)\n• Monitor: trough level (200-400 ng/mL therapeutic)\n\n💡 จับ Cyclophilin → ยับยั้ง Calcineurin → ↓ IL-2 transcription → ↓ T-cell activation',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + Drugs_for_immune_mediated.pdf + COM IV Master 86 supplemental p.6' },
-
-  // ── IMT (Immune-Mediated Thrombocytopenia) ────────────────
-  { id: 1045, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
-    tags: ['imt', 'mechanism'], type: 'mcq',
-    q: 'Immune-Mediated Thrombocytopenia (IMT) ต่างจาก IMHA ในด้าน destruction ที่ไหน',
-    options: [
-      'IMT = intravascular destruction ใน vessel เหมือน IMHA',
-      'IMT = Type II Ab ต่อ platelet → extravascular destruction ที่ spleen',
-      'IMT = complement lysis เกิดที่ glomerulus ของ kidney',
-      'IMT เป็น reactive ไม่ใช่ autoimmune จริง',
-      'IMT = cytotoxic T-cell mediated โดยตรง',
+    "type": "mcq",
+    "q": "Eccrine glands (true sweat glands) ในสุนัขและแมว พบที่ไหน",
+    "options": [
+      "เฉพาะ foot pads",
+      "ทั่วผิวหนัง เหมือนในคน",
+      "เฉพาะหู",
+      "เฉพาะหาง"
     ],
-    answer: 1, explain: 'IMT = Type II hypersensitivity ต่อ platelet, IgG เคลือบ platelet → ที่ spleen → macrophage phagocytose → extravascular destruction, IMT ส่วนใหญ่ไม่มี intravascular component (ต่างจาก IMHA ที่อาจมีทั้ง 2 แบบ), sign: petechiae, ecchymosis, mucosal bleeding (gum, GI, urinary)\n\n💡 Diagnosis:\n— PLT count < 50,000/μL (severe < 20,000)\n— Megakaryocytes ใน BM normal/increased (ไม่ใช่ aplastic)\n— Coombs\' (DAT) อาจ positive (ถ้า co-existing Evans syndrome = IMHA + IMT)',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.8' },
-
-  { id: 1046, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
-    tags: ['imt', 'treatment', 'vincristine', 'classic'], type: 'mcq',
-    q: 'IMT — เพิ่มจาก prednisolone, ยาใดที่ Aj. Rosama เน้นเป็น 1st-line "single shot" ในกรณี emergency (severe thrombocytopenia, active bleeding) ',
-    options: [
-      'Cyclophosphamide 50 mg/m² PO q24h',
-      'Vincristine 0.02 mg/kg IV (1 dose)',
-      'Doxycycline 5 mg/kg PO q12h',
-      'Heparin 100 U/kg IV',
-      'Furosemide 2 mg/kg IV',
+    "answer": 0,
+    "explain": "Eccrine glands ในสุนัข/แมว = พบเฉพาะ foot pads, ทำให้สุนัขแมวระบายความร้อนผ่านการหายใจหอบเป็นหลัก ไม่ใช่ผ่านเหงื่อ, มี cholinergic innervation\n\n❌ ทำไมข้ออื่นผิด\n— \"ทั่วผิว\" = ของคน, ของสุนัขแมวคือ apocrine ทั่วตัว\n— \"หู\" / \"หาง\" = sebaceous + apocrine glands ไม่ใช่ eccrine\n\n💡 อุ้งเท้า",
+    "verified": "Derm_1__2_Dermatology_introduction.pdf p.3"
+  },
+  {
+    "id": 902,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "Derm_1__2_Dermatology_introduction.pdf",
+    "tags": [
+      "hair-cycle"
     ],
-    answer: 1, explain: 'Vincristine 0.02 mg/kg IV (1 shot) ใน IMT severe — Aj. Rosama เน้น ★\n\n💡 กลไก 2 ขั้น:\n1. Microtubule poisoning ต่อ macrophage → ↓ phagocytosis ของ Ab-coated platelet\n2. Stimulate megakaryocyte ให้ release more platelets\n\n💡 Onset 4-7 days, มักเห็น platelet count ขึ้นเร็วกว่า prednisolone alone, ใช้ร่วมกับ prednisolone (1 dose IV vincristine + ตามด้วย oral prednisolone)\n\n❌ ทำไมข้ออื่นผิด\n— Cyclophosphamide = 2nd-line, slow onset\n— Doxycycline = anti-rickettsial (rule out Ehrlichia)\n— Heparin = ไม่ถูกใช้ใน IMT (เพิ่ม bleeding)\n— Furosemide = ไม่เกี่ยว',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.8 (Aj. Rosama Vincristine ER ★)' },
-
-  { id: 1047, subject: 'com4', topic: 'imha', year: 4, source: 'Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental',
-    tags: ['imha', 'evans-syndrome'], type: 'mcq',
-    q: 'Evans syndrome หมายถึง',
-    options: ['IMHA + Pemphigus foliaceus', 'IMHA + IBD', 'IMHA + IMT', 'SLE + Polyarthritis', 'Cushing\\\'s + Hypothyroidism'],
-    answer: 2, explain: 'Evans syndrome = ผู้ป่วย IMHA + IMT ในตัวเดียวกัน, พบ ~10-30% ของ IMHA cases, prognosis worse (mortality สูงขึ้น), ต้องใช้ aggressive immunosuppression (prednisolone + 2nd-line ตั้งแต่แรก: vincristine + cyclosporine + พิจารณา MMF) + ต้องระวังทั้ง anemia + bleeding\n\n💡 Pneumonic Evans = "E"vil ทั้งคู่: hemolysis + thrombocytopenia\n\n💡 Hemolytic anemia + Thrombocytopenia ในตัวเดียวกัน',
-    verified: 'Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.8' },
-
-  // ── Cushing's diagnostics — finer ─────────────────────────
-  { id: 1048, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['cushing', 'leukogram', 'classic'], type: 'mcq',
-    q: '"Stress leukogram" ใน Cushing\'s syndrome ประกอบด้วย CBC pattern ใด',
-    options: [
-      'Pancytopenia ทุก cell line ลดต่ำ',
-      'Eosinophilia + Lymphocytosis เด่น',
-      'Mature neutrophilia + Lymphopenia + Eosinopenia',
-      'Leukopenia + Thrombocytopenia ร่วมกัน',
-      'Reticulocytosis อย่างเดียวเด่นชัด',
+    "type": "mcq",
+    "q": "Hair cycle ระยะ \"transitional phase\" (ระยะเปลี่ยนผ่าน) คือระยะใด",
+    "options": [
+      "Exogen — shedding phase",
+      "Anagen — growth phase",
+      "Telogen — resting phase",
+      "Catagen — transitional phase"
     ],
-    answer: 2, explain: 'Stress leukogram = หลักฐาน hypercortisolism (Cushing\'s, exogenous steroid, severe stress)\n\n💡 4 ส่วนคลาสสิก:\n• Mature Neutrophilia (no left shift) — cortisol ↓ neutrophil margination\n• Lymphopenia — cortisol → apoptosis + redistribution to BM\n• Eosinopenia — cortisol → BM sequestration\n• Monocytosis — moderate increase\n\n💡 Stress leukogram NOT specific สำหรับ Cushing\'s (เห็นได้ใน fear, severe illness, exogenous steroid) แต่เป็น screening clue, ต้องยืนยัน Cushing\'s ด้วย LDDS หรือ ACTH stim test',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.21' },
-
-  { id: 1049, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['cushing', 'ldds', 'pdh-vs-adh'], type: 'mcq',
-    q: 'Low-Dose Dexamethasone Suppression Test (LDDST) ใช้ Dexamethasone 0.01 mg/kg IV — เก็บ cortisol ที่เวลาใด และตีความอย่างไร',
-    options: ['0 และ 1 hr, ถ้า cortisol < 1.4 µg/dL = Cushing\\\'s', '0, 4, 8 hr', '0 และ 24 hr', 'Single time point ที่ 30 min', '0 และ 12 hr'],
-    answer: 1, explain: 'LDDST protocol (Aj. Sariya / Aj. Vachira ★):\n• Dose: 0.01 mg/kg Dexamethasone IV\n• Sampling: 0 (baseline), 4 hr, 8 hr\n• 8-hr cortisol > 1.4 µg/dL = Cushing\'s confirmed\n• แยก PDH vs ADH:\n  - PDH (~85%): partial suppression at 4 hr (< 50% baseline) แล้ว escape at 8 hr (rebound > 1.4)\n  - ADH (~15%): no suppression ทั้ง 4 และ 8 hr (cortisol stay high)\n• Sensitivity ~95% สำหรับ Cushing\'s diagnosis, หลังผลแล้วถ้าจะแยก PDH/ADH ต่อ → HDDST (0.1 mg/kg) หรือ abdominal US (bilateral adrenal vs unilateral)\n\n💡 8-hr cortisol > 1.4 µg/dL = Cushing; ใช้แยก PDH vs ADH',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.22' },
-
-  { id: 1050, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['cushing', 'trilostane', 'mechanism', 'classic'], type: 'mcq',
-    q: 'Trilostane (Vetoryl®) ทำงานผ่านกลไกอะไร และเป็น 1st-line treatment สำหรับ Cushing\'s ใด',
-    options: ['Adrenal cortex necrosis (cytotoxic) → ใช้ใน ADH เท่านั้น', 'Reversible 3β-HSD inhibitor → ↓ cortisol/aldosterone', 'Block ACTH release จาก pituitary', 'Antagonize cortisol receptor', 'Stimulate cortisol clearance'],
-    answer: 1, explain: 'Trilostane:\n• MOA: competitive inhibitor 3β-hydroxysteroid dehydrogenase (3β-HSD) → block early steroidogenesis → ↓ cortisol + aldosterone\n• Reversible (ต่างจาก Mitotane ที่เป็น cytotoxic adrenocorticolytic)\n• Dose: 0.5-2.5 mg/kg PO BID (start low ~ 1 mg/kg q12h) — ใช้ตาม pre-formulated dose: 20mg/dog (<2.5kg), 30mg (2.5-5kg), 60mg (5-10kg)\n• Monitor: ACTH stim test 10-14d, 30d, 90d, then q3mo, Na/K (ระวัง iatrogenic Addisonian crisis = hyponatremia + hyperkalemia)\n• 1st-line treatment of choice ใน Cushing\'s (ทั้ง PDH และ ADH ที่ไม่ผ่า)\n\n💡 Mitotane = adrenocorticolytic (necrosis) → 2nd-line\n💡 Ketoconazole = secondary, less common\n💡 Metyrapone = competitive 11β-hydroxylase inhibitor\n\n💡 1st-line PDH+ADH',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.23' },
-
-  { id: 1051, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['cushing', 'iatrogenic', 'electrolyte', 'critical'], type: 'mcq',
-    q: 'ผู้ป่วย Cushing\'s ที่กิน Trilostane มา 4 เดือน — ตรวจ Na = 132 mmol/L (low), K = 6.2 mmol/L (high), อ่อนเพลีย, vomit. การจัดการที่เหมาะสมที่สุดคือ',
-    options: ['เพิ่มขนาด Trilostane เพราะ Cushing\\\'s ยังไม่ control', 'เริ่ม Diuretic (furosemide) ลด volume', 'หยุด Trilostane + IV fluid + hydrocortisone', 'เพิ่ม Mitotane เพื่อ adrenal ablation', 'รอ 1 สัปดาห์แล้วประเมินใหม่'],
-    answer: 2, explain: 'Iatrogenic hypoadrenocorticism (Addisonian crisis from over-suppression by Trilostane) — emergency!\n\n💡 Classic electrolyte: Na ↓ + K ↑ (Na:K ratio < 27)\n💡 Signs: weakness, vomit, anorexia, dehydration, bradycardia, collapse\n\nManagement:\n1. STOP Trilostane immediately\n2. IV crystalloid (0.9% NaCl) — ลด K, expand volume\n3. Hydrocortisone Na succinate IV หรือ Dexamethasone Na phosphate (มี mineralocorticoid effect ด้วย)\n4. Treat hyperkalemia: Calcium gluconate IV (cardio-protective), insulin + dextrose ถ้า severe\n5. ACTH stim test เพื่อยืนยัน (low cortisol response)\n6. หลัง stabilize → restart Trilostane ที่ dose ลดลง 25-50% หรือ off ถาวร\n\n💡 Aj. Rosama เน้น: monitor Na/K every 3 months ใน Trilostane long-term ★',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.23 (Aj. Rosama warning ★)' },
-
-  { id: 1052, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['cushing', 'urine-test', 'screening'], type: 'mcq',
-    q: 'Urine Cortisol:Creatinine Ratio (UCCR) ใน Cushing\'s — จุดเด่นของ test นี้คือ',
-    options: [
-      'High specificity จึงใช้ confirm Cushing\'s ได้เลย',
-      'High sensitivity + low specificity → ใช้ rule-out',
-      'วัดระดับ ACTH ใน plasma โดยตรง',
-      'ใช้เฉพาะ in-hospital test เท่านั้น',
-      'แม่นกว่า LDDST ทุกกรณี',
+    "answer": 3,
+    "explain": "Hair cycle 3 ระยะหลัก: Anagen (growth) → Catagen (transitional, สั้น) → Telogen (resting), Exogen = sub-phase ของการหลุดร่วง (ไม่นับเป็นระยะหลัก)\n\n❌ ทำไมข้ออื่นผิด\n— Anagen = growth (ไม่ใช่ transitional)\n— Telogen = resting\n— Exogen = sub-phase shedding ไม่ใช่ transitional หลัก",
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20460%20200'%3E%0A%20%20%3Crect%20width%3D'460'%20height%3D'200'%20fill%3D'%23fdf8ef'%2F%3E%0A%20%20%3Ctext%20x%3D'20'%20y%3D'24'%20font-family%3D'Fraunces%2C%20Sarabun%2C%20IBM%20Plex%20Sans%20Thai%2C%20serif'%20font-size%3D'14'%20fill%3D'%232b2419'%3EHair%20growth%20cycle%20%E2%80%94%203%20phases%3C%2Ftext%3E%0A%20%20%3C!--%20Cycle%20arrows%20--%3E%0A%20%20%3Cpath%20d%3D'M%2060%20110%20Q%2060%2050%20230%2050%20Q%20400%2050%20400%20110'%20stroke%3D'%23b88940'%20stroke-width%3D'2'%20fill%3D'none'%20marker-end%3D'url(%23arr)'%2F%3E%0A%20%20%3Cpath%20d%3D'M%20400%20110%20Q%20400%20170%20230%20170%20Q%2060%20170%2060%20110'%20stroke%3D'%23b88940'%20stroke-width%3D'2'%20fill%3D'none'%20marker-end%3D'url(%23arr)'%2F%3E%0A%20%20%3Cdefs%3E%3Cmarker%20id%3D'arr'%20markerWidth%3D'10'%20markerHeight%3D'10'%20refX%3D'8'%20refY%3D'3'%20orient%3D'auto'%3E%3Cpolygon%20points%3D'0%200%2C%2010%203%2C%200%206'%20fill%3D'%23b88940'%2F%3E%3C%2Fmarker%3E%3C%2Fdefs%3E%0A%20%20%3C!--%20Phase%20circles%20--%3E%0A%20%20%3Ccircle%20cx%3D'80'%20cy%3D'110'%20r%3D'38'%20fill%3D'%23a8c0a8'%20stroke%3D'%234a6b4a'%20stroke-width%3D'2'%2F%3E%0A%20%20%3Ctext%20x%3D'80'%20y%3D'105'%20font-family%3D'sans-serif'%20font-size%3D'13'%20fill%3D'%23fff'%20text-anchor%3D'middle'%20font-weight%3D'600'%3EAnagen%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D'80'%20y%3D'122'%20font-family%3D'sans-serif'%20font-size%3D'10'%20fill%3D'%23fff'%20text-anchor%3D'middle'%3E(growth)%3C%2Ftext%3E%0A%20%20%3Ccircle%20cx%3D'230'%20cy%3D'50'%20r%3D'32'%20fill%3D'%23e8d4a8'%20stroke%3D'%23b88940'%20stroke-width%3D'2'%2F%3E%0A%20%20%3Ctext%20x%3D'230'%20y%3D'48'%20font-family%3D'sans-serif'%20font-size%3D'12'%20fill%3D'%232b2419'%20text-anchor%3D'middle'%20font-weight%3D'600'%3ECatagen%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D'230'%20y%3D'62'%20font-family%3D'sans-serif'%20font-size%3D'10'%20fill%3D'%232b2419'%20text-anchor%3D'middle'%3E(transitional)%3C%2Ftext%3E%0A%20%20%3Ccircle%20cx%3D'380'%20cy%3D'110'%20r%3D'38'%20fill%3D'%23e8b8b8'%20stroke%3D'%23c26d6d'%20stroke-width%3D'2'%2F%3E%0A%20%20%3Ctext%20x%3D'380'%20y%3D'108'%20font-family%3D'sans-serif'%20font-size%3D'13'%20fill%3D'%232b2419'%20text-anchor%3D'middle'%20font-weight%3D'600'%3ETelogen%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D'380'%20y%3D'123'%20font-family%3D'sans-serif'%20font-size%3D'10'%20fill%3D'%232b2419'%20text-anchor%3D'middle'%3E(resting)%3C%2Ftext%3E%0A%20%20%3C!--%20Footer%20--%3E%0A%20%20%3Ctext%20x%3D'230'%20y%3D'195'%20font-family%3D'italic%20serif'%20font-size%3D'11'%20fill%3D'%235c4f3d'%20text-anchor%3D'middle'%3EStimulator%3A%20thyroid%20hormone%2C%20Inhibitors%3A%20glucocorticoid%20%2B%20estrogen%20%2B%20cortisol%3C%2Ftext%3E%0A%3C%2Fsvg%3E",
+    "verified": "Derm_1__2_Dermatology_introduction.pdf p.5"
+  },
+  {
+    "id": 903,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "Derm_1__2_Dermatology_introduction.pdf",
+    "tags": [
+      "hair-cycle",
+      "hormone"
     ],
-    answer: 1, explain: 'UCCR characteristics:\n• High sensitivity (~99%) — ถ้า normal → unlikely Cushing\'s\n• Low specificity (~20-25%) — false positive จาก stress, non-adrenal illness, polyuric disease (DM, kidney disease), pheochromocytoma\n• ใช้ rule-out test เป็นหลัก (ถ้า negative สบายใจได้ ว่าไม่ใช่ Cushing\'s)\n• ถ้า positive → ต้องตรวจยืนยันด้วย LDDST หรือ ACTH stim\n• เก็บที่บ้านได้ → ลดผลกระทบจาก hospital stress (สุนัขเครียด → cortisol ↑ → false positive น้อยลง)\n• Cutoff: ratio > 22 ตามห้องแลบ',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.21' },
-
-  // ── Hypothyroidism — fine thresholds + ESS ───────────────
-  { id: 1053, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['hypothyroidism', 'tt4', 'thresholds', 'critical'], type: 'mcq',
-    q: 'ตาม slide 2026 — Total T4 (TT4) ใน canine hypothyroidism interpretation ที่ค่า 0.4 µg/dL หมายความว่าอย่างไร',
-    options: [
-      'อยู่ในเกณฑ์ Normal ของ TT4',
-      '> 2 µg/dL: hypothyroidism very unlikely',
-      '< 0.5 µg/dL: hypothyroidism very likely',
-      'แปลผลเป็น Definitely Cushing\'s ได้เลย',
-      'Cannot interpret without weight',
+    "type": "mcq",
+    "q": "Hormone ใดเป็น stimulator ของ anagen phase (กระตุ้น hair growth)",
+    "options": [
+      "Glucocorticoid",
+      "Estrogen",
+      "Thyroid hormones",
+      "Cortisol"
     ],
-    answer: 2, explain: 'TT4 thresholds (canine hypothyroidism likelihood):\n• < 0.5 µg/dL: Very likely hypothyroid\n• 0.5-1 µg/dL: Possible\n• 1-1.5 µg/dL: Unknown (gray zone)\n• 1.5-2 µg/dL: Unlikely\n• > 2 µg/dL: Very unlikely\n\n💡 TT4 alone is NOT diagnostic เพราะ low TT4 อาจเป็น Euthyroid Sick Syndrome (ESS) จาก non-thyroidal illness, drugs (phenobarb, sulfa, NSAIDs, glucocorticoid)\n💡 Always confirm: Free T4 (fT4 by equilibrium dialysis) + canine TSH (cTSH)\n💡 Reference ranges: TT4 normal 1.5-3 µg/dL, fT4 0.6-3 ng/dL, cTSH < 0.6 ng/mL',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.18' },
-
-  { id: 1054, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['hypothyroidism', 'ess', 'differential', 'critical'], type: 'mcq',
-    q: 'Euthyroid Sick Syndrome (ESS) — ต่างจาก True Hypothyroidism อย่างไร',
-    options: ['ESS = TT4 ปกติ ไม่มีการเปลี่ยนแปลง', 'ESS = TT4↓ + fT4 normal + cTSH normal', 'ESS = ต้องให้ Levothyroxine ทันที', 'ESS พบเฉพาะในแมวเท่านั้น', 'ESS = แค่ภาวะอ้วนน้ำหนักเกิน'],
-    answer: 1, explain: 'ESS (Non-Thyroidal Illness Syndrome, NTIS):\n• ↓ TT4 จาก systemic illness (deiodinase activity changes, decreased binding protein, central suppression)\n• fT4 มัก normal (free hormone preserved)\n• cTSH normal (no pituitary feedback)\n• Causes: Cushing\'s, severe sepsis, neoplasia, CKD, liver dz, drugs (phenobarbital, sulfonamides, NSAIDs, glucocorticoid, radiocontrast)\n• Treatment: rule out + treat underlying disease, NO levothyroxine (จะกด TSH + ทำให้เห็น mask hypothy ที่อาจมาจริง)\n\n💡 True hypothy: TT4 ↓ + fT4 ↓ + cTSH ↑ (>0.6 ng/mL)\n💡 ESS: TT4 ↓ + fT4 normal + cTSH normal\n💡 Aj. Sariya/Aj. Punyamanee: workup ต้องตรวจครบทั้ง 3 ตัว ก่อน Tx\n\n💡 จาก non-thyroidal illness/drugs',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.18-19 ★' },
-
-  { id: 1055, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['hypothyroidism', 'breed', 'low-baseline'], type: 'mcq',
-    q: 'Breed ใดที่มี TT4 baseline ต่ำกว่าค่าปกติทั่วไป ทำให้แปลผลผิดได้ง่าย (ดูเหมือน hypothyroid แต่จริงๆ ไม่ใช่)',
-    options: [
-      'Beagle, Golden Retriever',
-      'Greyhound, Scottish Deerhound',
-      'German Shepherd, Doberman',
-      'Pug, Chihuahua, Yorkshire',
-      'Labrador, Cocker Spaniel',
+    "answer": 2,
+    "explain": "Thyroid hormones = stimulator ของ anagen → hypothyroidism จึงทำให้ขนร่วง\n\n❌ ทำไมข้ออื่นผิด\n— Glucocorticoid + Estrogen + Cortisol = inhibitors ของ anagen → ทำให้ขนร่วง (alopecia ใน Cushing's, ในแมวที่ติดยา corticosteroid นาน)",
+    "verified": "Derm_1__2_Dermatology_introduction.pdf p.6"
+  },
+  {
+    "id": 904,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "Derm_1__2_Dermatology_introduction.pdf",
+    "tags": [
+      "hair-follicle",
+      "cat-vs-dog"
     ],
-    answer: 1, explain: 'Sighthound + Arctic breeds มี TT4 baseline ต่ำกว่าค่าปกติ:\n• Greyhound (อาจ TT4 0.5-1 µg/dL ในตัวปกติ)\n• Scottish Deerhound\n• Siberian Husky (มี zinc-responsive dermatosis ด้วย)\n• Whippet, Saluki\n• ต้องใช้ breed-specific reference range หรือ ตรวจ fT4 + cTSH ร่วม\n\n💡 ไม่ใช่ hypothyroidism แต่เป็น physiologic low T4\n\n❌ ทำไมข้ออื่นผิด\n— Beagle/Golden/Lab/GSD/Doberman/Boxer/Cocker = predisposed ต่อ true hypothy (autoimmune lymphocytic thyroiditis)',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.18' },
-
-  { id: 1056, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['hypothyroidism', 'levothyroxine', 'monitoring'], type: 'mcq',
-    q: 'หลังเริ่ม Levothyroxine 20 µg/kg PO q12h ใน hypothyroid dog — ระยะเวลาที่จะเห็น clinical improvement คือ',
-    options: ['1-2 วัน → ทุกอย่าง', 'Systemic signs', '6 เดือน ทุกอย่าง', '1 ปี', 'ไม่ดีขึ้นเลย ต้องผ่าตัด'],
-    answer: 1, explain: 'Levothyroxine response timeline:\n• Systemic signs: 2-4 wks — energy, mentation, exercise tolerance, weight loss, ↓ cholesterol\n• Dermatological signs: 8-12 wks — hair regrowth ต้องรอ anagen phase กลับมา + recovered sebaceous gland → coat quality + ↓ recurrent pyoderma\n• Recheck TT4 4-6 hr post-pill ที่ 4 wks → target post-pill TT4 ใน upper-half of reference range\n• Lifelong treatment\n• Dose adjustment ทำตาม TT4 + clinical response, ไม่ตาม cTSH (cTSH กดได้ช้ากว่า)\n\n💡 energy, weight, mentation',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.19' },
-
-  // ── Alopecia X (NEW topic) ────────────────────────────────
-  { id: 1057, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['alopecia-x', 'breed', 'classic'], type: 'mcq',
-    q: 'Alopecia X (synonyms: GH-responsive dermatosis, Castration-responsive dermatosis, "Black Skin Disease") — predisposed breeds คือ',
-    options: [
-      'Cocker Spaniel + Beagle + Basset Hound',
-      'Nordic / Plush-coated breeds เช่น Pomeranian',
-      'พบในแมวพันธุ์ขนยาวเท่านั้น ไม่พบในสุนัข',
-      'Pug + French Bulldog + Boston Terrier',
-      'Greyhound + Whippet + Italian Greyhound',
+    "type": "mcq",
+    "q": "Hair follicle ของแมวต่างกับของสุนัขอย่างไร",
+    "options": [
+      "ไม่ต่างกัน โครงสร้าง follicle เหมือนกันทั้งสอง",
+      "แมวมี compound follicle ขนหลายเส้นจากรูเดียว",
+      "แมวมีแค่ primary hair ไม่มี secondary",
+      "แมวไม่มี sebaceous gland ติดกับรูขุมขน"
     ],
-    answer: 1, explain: 'Alopecia X (mature dog 1-3 yr, male > female):\n• Pomeranian (most common in TH)\n• Chow Chow, Samoyed, Siberian Husky, Spitz, Keeshond, Alaskan Malamute\n• Miniature Poodle (less common)\n• Pattern: bilateral symmetrical alopecia เริ่มที่ neck → shoulders → caudal thighs → flanks → generalized\n• "Black skin disease" = late stage hyperpigmentation ทั้งตัว\n• Loss of primary hair → secondary hair → bald\n• Hair regrowth at trauma sites (skin scraping, biopsy) — pathognomonic clue\n• Histopath: Trichilemmal keratinization "flame follicles" (pathognomonic)',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.25' },
-
-  { id: 1058, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['alopecia-x', 'diagnosis', 'inclusion-criteria'], type: 'mcq',
-    q: 'Inclusion criteria ของ Alopecia X (diagnosis of exclusion) ประกอบด้วย',
-    options: ['แค่ alopecia + breed = enough', 'Diagnosis of exclusion', 'ต้องมี hyperthyroid + obese', 'ต้องตรวจ hormone profile หลายตัวเสมอ', 'อายุ > 10 ปี'],
-    answer: 1, explain: 'Alopecia X = diagnosis of exclusion, Inclusion criteria 7 ข้อ:\n1. Predisposed breed\n2. Onset 2-6 yr (mature, not aged)\n3. Bilateral symmetrical alopecia (not patchy)\n4. No systemic signs (ตรงข้ามกับ Cushing\'s/hypothy ที่มี PUPD/lethargy/weight gain)\n5. Normal hematology + biochemistry\n6. Normal thyroid (TT4 + fT4 + cTSH) + adrenal (LDDST/UCCR) — เพื่อ rule out endocrine\n7. Histopath: Trichilemmal keratinization (flame follicles) + variable orthokeratotic hyperkeratosis, NO acantholysis, NO epidermal atrophy\n\n💡 Pathophysiology unclear — น่าจะเกี่ยวกับ sex hormone imbalance, GH dysregulation, or hair cycle arrest\n\n💡 breed + age + bilateral + no systemic + flame follicles',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.25' },
-
-  { id: 1059, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['alopecia-x', 'treatment', 'stepwise'], type: 'mcq',
-    q: 'Alopecia X — treatment stepwise approach ที่แนะนำคือ',
-    options: [
-      'เริ่ม Levothyroxine ทันทีทุกรายโดยไม่ตรวจ thyroid',
-      'ให้ Trilostane high-dose ตั้งแต่แรกพร้อม mitotane',
-      'Stepwise: Neuter → Melatonin → Trilostane low-dose',
-      'ผ่าตัด bilateral adrenalectomy เอา adrenal ออกทั้งสอง',
-      'High-dose prednisolone ระยะยาวร่วมกับ ciclosporin',
+    "answer": 1,
+    "explain": "แมว = compound follicle (multiple hairs จากรูเดียวกัน), สุนัข = primary + secondary หลายเส้นในกลุ่ม (up to 20 hairs/group), 1° hair attached sebaceous + apocrine gland, 2° hair attached sebaceous gland\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่ต่าง\" = ผิด, มี architecture ต่างกัน\n— \"แค่ primary\" = ผิด, มีทั้ง primary + secondary\n— \"ไม่มี sebaceous\" = ผิด, มีเหมือนสุนัข",
+    "verified": "Derm_1__2_Dermatology_introduction.pdf p.4"
+  },
+  {
+    "id": 905,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "flea",
+      "species"
     ],
-    answer: 2, explain: 'Alopecia X stepwise treatment (no guaranteed cure):\n\nStep 1: Neutering (Castration/OVH)\n— First-line if intact, response 20-30%, monitor hair regrowth 4-8 wks\n\nStep 2: Melatonin 3-9 mg/dog q12h\n— 2nd-line, cure rate 40-60%, max 9 mg/dose, trial 3 months, AE: sedation, insulin resistance\n\nStep 3: Trilostane 5-10 mg/kg/day\n— Use lower dose than Cushing\'s (Cushing dose 0.5-2.5 mg/kg BID = 1-5 mg/kg/day; Alopecia X dose 5-10 mg/kg/day)\n— Response 80-90% but only ~5-10% maintain long-term\n— Hair regrowth 3-6 months\n\nOther: Microneedling (induce trauma → stimulate hair growth at site), GnRH analogues (deslorelin), methyltestosterone\n\n💡 Aj. emphasizes: trial each step ≥ 3 months before moving to next',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.25-26 ★' },
-
-  { id: 1060, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'Endocrine_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['alopecia-x', 'histopath', 'pathognomonic'], type: 'mcq',
-    q: 'Histopath finding ที่เป็น pathognomonic ของ Alopecia X คือ',
-    options: [
-      'Subcorneal pustule + acantholytic cells',
-      'Suprabasilar cleft + tombstone marker',
-      'Trichilemmal keratinization ("flame follicles")',
-      'Eosinophilic granuloma',
-      'Dermal fibrosis only',
+    "type": "mcq",
+    "q": "Flea species ที่พบบ่อยที่สุดในสุนัขและแมวในประเทศไทยคือ",
+    "options": [
+      "Pulex irritans",
+      "Xenopsylla cheopis",
+      "Ctenocephalides felis",
+      "Tunga penetrans"
     ],
-    answer: 2, explain: 'Alopecia X histopath:\n• "Flame follicles" / Trichilemmal keratinization — pathognomonic\n• Excessive keratin in hair follicle infundibulum forming flame patterns\n• Orthokeratotic hyperkeratosis (variable)\n• NO acantholysis (rules out pemphigus)\n• NO epidermal atrophy (rules out Cushing\'s)\n• NO inflammation (rules out infectious / immune-mediated)\n\n❌ ทำไมข้ออื่นผิด\n— Subcorneal pustule + acantholysis = Pemphigus foliaceus\n— Suprabasilar cleft + tombstone = Pemphigus vulgaris\n— Eosinophilic granuloma = feline EGC, parasitic\n— Dermal fibrosis = chronic process, scarring',
-    verified: 'Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.25' },
-
-  // ── Pemphigus subtypes — finer ────────────────────────────
-  { id: 1061, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Autoimmune_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['pemphigus-foliaceus', 'desmoglein', 'classic'], type: 'mcq',
-    q: 'Pemphigus Foliaceus (PF) — autoantibody target และ histopath cleft level คือ',
-    options: ['Anti-Desmoglein 3 + suprabasilar cleft (above stratum basale)', 'Anti-Desmoglein 1 + subcorneal cleft', 'Anti-hemidesmosome + dermal-epidermal junction split', 'Anti-collagen IV', 'Anti-DNA'],
-    answer: 1, explain: 'Pemphigus Foliaceus (most common autoimmune skin dz in dog):\n• Target: Anti-Desmoglein 1 (Dsg-1)\n• Cleft: Subcorneal (split just below stratum corneum)\n• Histopath: subcorneal pustule with acantholytic keratinocytes + neutrophils ± eosinophils\n• Lesion: superficial — pustule, crust, erosion (no deep ulcer)\n• Distribution: face, nose, pinnae, foot pads — classic "potato chip" crust pattern\n• Predisposed breed: Akita, Chow Chow, Doberman, Newfoundland, Bearded Collie, Shetland Sheepdog, German Shepherd\n• Prognosis: Fair to Good (with Tx)',
-    verified: 'Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.40' },
-
-  { id: 1062, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Autoimmune_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['pemphigus-vulgaris', 'desmocollin-3', 'severity'], type: 'mcq',
-    q: 'Pemphigus Vulgaris (PV) — เปรียบเทียบกับ Pemphigus Foliaceus ที่ระดับใด',
-    options: [
-      'PV เบากว่า PF เพราะอยู่ชั้นตื้น',
-      'PV รุนแรงกว่า PF target Dsg-3 ชั้นลึก',
-      'PV ไม่พบในสุนัข พบเฉพาะในคน',
-      'PV เกิดจาก IgE-mediated เท่านั้น',
-      'PV target Dsg-1 เหมือน PF ทุกอย่าง',
+    "answer": 2,
+    "explain": "Ctenocephalides felis felis (cat flea) = หมัดแมวที่พบบ่อยทั้งในสุนัขและแมว, C. canis = หมัดสุนัข แต่พบน้อยกว่า, ทั้งคู่กิน blood meal ของ host\n\n❌ ทำไมข้ออื่นผิด\n— Pulex irritans = หมัดคน (rare ในสัตว์)\n— Xenopsylla cheopis = หมัดหนู (vector ของกาฬโรค)\n— Tunga penetrans = sand flea (tropical แอฟริกา/อเมริกาใต้)",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.3"
+  },
+  {
+    "id": 906,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "fad",
+      "distribution"
     ],
-    answer: 1, explain: 'Pemphigus Vulgaris (rare แต่รุนแรง):\n• Target: Anti-Desmoglein 3 / Desmocollin 3 (Dsg-3) — found in deeper layer (stratum spinosum + basale + mucosa)\n• Cleft: Suprabasilar (above basal cell, deeper than PF)\n• Histopath: "row of tombstones" = basal cells lining the cleft like tombstones\n• Lesion: deep ulcer, erosion, mucocutaneous junction, oral mucosa involved\n• Sites: lips, mouth, nostril, anus, prepuce, vulva, mucocutaneous junctions\n• Prognosis: Guarded (more severe, mortality higher than PF, often requires aggressive immunosuppression)',
-    verified: 'Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.41' },
-
-  { id: 1063, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Autoimmune_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['bullous-pemphigoid', 'hemidesmosome'], type: 'mcq',
-    q: 'Bullous Pemphigoid — ต่างจาก Pemphigus complex อย่างไร',
-    options: ['BP target = Desmoglein', 'BP ใช้ Wood\\\'s lamp ในการ diagnose', 'BP เบากว่า PF', 'BP ไม่ใช่ autoimmune', 'BP target = Hemidesmosome'],
-    answer: 4, explain: 'Bullous Pemphigoid (BP):\n• Target: Hemidesmosome proteins BP180 (collagen XVII) + BP230 ที่ basement membrane\n• Cleft: Sub-epidermal (between epidermis and dermis) — deeper than ทุก pemphigus types\n• Lesion: large thin-walled bullae > 1 cm (pemphigus มี vesicle < 1 cm) → erosion + ulcer\n• Pruritic + painful (mucocutaneous junctions, armpit, groin, mouth)\n• Diagnosis: histopath sub-epidermal cleft + immunofluorescence (linear IgG ที่ basement membrane)\n• Treatment: high-dose prednisolone (more aggressive than PF) ± azathioprine/cyclosporine\n• Less common than pemphigus complex\n\n💡 BP180/230',
-    verified: 'Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.42' },
-
-  { id: 1064, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Autoimmune_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['pemphigus', 'cytology', 'screening'], type: 'mcq',
-    q: 'Skin cytology จาก intact pustule ของ Pemphigus Foliaceus จะเห็น',
-    options: ['Degenerate neutrophils + intracellular cocci ของ bacterial pyoderma', 'Empty pustule ไม่มีเซลล์ให้เห็น', 'Eosinophils + parasites จำนวนมาก', 'Yeast Malassezia รูป peanut', 'Acantholytic keratinocytes รูปกลม cohesive'],
-    answer: 4, explain: 'Pemphigus cytology (intact pustule, Diff-Quik stain):\n• Acantholytic keratinocytes = round, cohesive ("rafts"), distinct nucleus, basophilic cytoplasm — keratinocytes ที่หลุดจาก desmosomal connections\n• Non-degenerate neutrophils (clean nuclei, no toxic changes — เพราะ no infection)\n• NO microorganisms (sterile pustule)\n\n💡 ตรงข้ามกับ bacterial pyoderma:\n— Degenerate neutrophils (toxic, vacuolation, karyolysis)\n— Intracellular cocci (Staph)\n— ไม่มี acantholytic cells\n\n💡 Cytology = screening test ที่ต้องตามด้วย biopsy/histopath เพื่อ definitive Dx (sample multiple intact pustules, NEVER scrub-clean before biopsy)',
-    verified: 'Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.40' },
-
-  { id: 1065, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Autoimmune_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['pemphigus', 'treatment', 'azathioprine'], type: 'mcq',
-    q: 'Pemphigus Foliaceus ในสุนัขที่ไม่ตอบสนอง Prednisolone 4 mg/kg/d ภายใน 4 สัปดาห์ — 2nd-line drug ใดที่ Aj. นิยมเป็นทางเลือกแรก (ใน dog เท่านั้น, ห้ามใน cat)',
-    options: ['Mitotane 25 mg/kg PO q12h induction', 'Furosemide 2 mg/kg PO q12h ลด edema', 'Azathioprine 2 mg/kg PO sid → q48h', 'Doxycycline 5 mg/kg PO q12h เดี่ยว', 'Ivermectin รายเดือนกัน heartworm'],
-    answer: 2, explain: 'Pemphigus Foliaceus 2nd-line ในสุนัข:\n\nAzathioprine (purine antagonist, prodrug → 6-MP):\n• Dose: 2 mg/kg PO q24h × 7-14 days → 1-2 mg/kg q48h maintenance\n• Slow onset 3-5 weeks (ต้องรอ)\n• Steroid-sparing — ลด prednisolone ลง 50%\n• AE: hepatotoxic, BM suppression, GI upset, pancreatitis\n• Monitor: CBC + chem ทุก 2 wks × 2 mo, then q1-3 mo\n• STRICTLY contraindicated in cats (low TPMT activity → fatal myelosuppression + acute pancreatic necrosis)\n\n💡 Other 2nd-line options:\n— Cyclosporine 5 mg/kg PO q12h (faster onset 2 wks, but $$$, GI AE)\n— Chlorambucil 0.1-0.2 mg/kg q24-48h (ใช้ใน cat)\n— Mycophenolate mofetil (MMF) 10-20 mg/kg q12h\n— Leflunomide\n\n💡 slow onset 3-5 wks; ห้ามแมว',
-    verified: 'Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.40-41 (Aj. Chaiyot ★)' },
-
-  // ── Other autoimmune (NEW topics) ─────────────────────────
-  { id: 1066, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Autoimmune_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['slo', 'claw', 'rare'], type: 'mcq',
-    q: 'Symmetrical Lupoid Onychodystrophy (SLO) เป็นโรคใด',
-    options: ['Bacterial nail bed infection จาก S. pseudintermedius', 'Trauma-induced onychodystrophy จากเล็บฉีก', 'Demodicosis ที่จำกัดเฉพาะ claw fold', 'Autoimmune nail bed disease → claw splitting/sloughing', 'Idiopathic ที่ไม่มี pathology จริง'],
-    answer: 3, explain: 'Symmetrical Lupoid Onychodystrophy (SLO):\n• Autoimmune attack ที่ nail bed → matrix damage\n• Claw signs: splitting, sloughing (onychomadesis), distorted/twisted regrowth, paronychia, lameness, pain\n• Symmetrical — multiple claws on multiple feet\n• Predisposed: German Shepherd, Greyhound, Rottweiler, Bearded Collie\n• Histopath: interface dermatitis ที่ claw matrix with apoptotic basal cells (lupoid pattern)\n• Diagnosis: P3 amputation + histopath (gold standard)\n• Treatment: pentoxifylline + omega-3 fatty acids + tetracycline/niacinamide combo, severe → prednisolone, cyclosporine\n• Prognosis: regrowth often abnormal, lifelong management\n\n💡 GSD, Greyhound',
-    verified: 'Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.43' },
-
-  { id: 1067, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Autoimmune_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['ten', 'severe', 'drug-reaction'], type: 'mcq',
-    q: 'Toxic Epidermal Necrolysis (TEN) ในสัตว์เลี้ยง — สาเหตุที่พบบ่อยและ mortality risk คือ',
-    options: ['Self-limiting condition, mortality < 5%', 'Vitamin deficiency เรื้อรัง', 'Bacterial skin infection ลุกลาม', 'Sunburn จาก UV exposure', 'Severe drug reaction, mortality สูง'],
-    answer: 4, explain: 'TEN = severe drug-induced cutaneous reaction (analog Stevens-Johnson syndrome):\n• Mechanism: Type IV-like hypersensitivity → keratinocyte apoptosis → full-thickness epidermal necrosis\n• > 30% BSA involvement = TEN; < 10% = SJS, 10-30% = SJS-TEN overlap\n• Lesions: large flaccid bullae, sheets of sloughing skin (Nikolsky+), mucosal involvement (oral, ocular, genital)\n• Common triggers: sulfonamides (TMS), β-lactam antibiotics, NSAIDs, anticonvulsants (phenobarbital, levetiracetam), allopurinol\n• Mortality: 30-70% (sepsis, fluid loss, multi-organ failure)\n• Treatment: STOP offending drug + ICU care (fluid, electrolytes, pain control, wound care, antibiotics for 2° infection), avoid steroids early (controversial, may worsen sepsis), IVIG considered\n• Histopath: full-thickness epidermal necrosis with minimal inflammation',
-    verified: 'Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.44' },
-
-  { id: 1068, subject: 'com4', topic: 'derm-autoimmune', year: 4, source: 'Autoimmune_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['sebaceous-adenitis', 'rare'], type: 'mcq',
-    q: 'Sebaceous Adenitis เป็นโรคที่',
-    options: ['Bacterial infection ของ sebaceous gland', 'Neoplastic tumor of sebaceous origin', 'Autoimmune destruction ของ sebaceous glands', 'Type I allergic reaction ต่อ sebum', 'Parasitic disease จาก Demodex'],
-    answer: 2, explain: 'Sebaceous Adenitis (rare, presumed autoimmune):\n• Pathogenesis: lymphocytic destruction of sebaceous glands → loss of sebum → impaired skin barrier\n• Predisposed: Standard Poodle, Akita, Vizsla, Samoyed, English Springer Spaniel\n• Lesions: dorsal alopecia + adherent silvery scales + follicular casts (waxy material around hair shafts) + dull dry coat + secondary pyoderma\n• Distribution: dorsum, head, ears (Akita) → may generalize\n• Histopath: loss of sebaceous glands + lymphohistiocytic perifollicular infiltrate\n• Treatment: cyclosporine 5 mg/kg/d (2-3 mo) + topical (oil soaks, ceramide), retinoids, fish oil supplementation\n• Prognosis: lifelong management',
-    verified: 'Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.43' },
-
-  // ── Glomerulonephritis (related to immune complex Type III) ──
-  { id: 1069, subject: 'com4', topic: 'sle', year: 4, source: 'Glomerulonephritis_lecture.pdf + Master 86 supplemental',
-    tags: ['gn', 'upc', 'thresholds', 'classic'], type: 'mcq',
-    q: 'Urine Protein:Creatinine ratio (UPC) — ค่าใดบ่งชี้ glomerular proteinuria (significant) ในสุนัข',
-    options: [
-      '< 0.2 ในสุนัข = abnormal proteinuria',
-      '> 0.5 ในสุนัข = abnormal proteinuria',
-      '> 5 เท่านั้นจึงถือว่า abnormal',
-      'UPC ไม่มีประโยชน์ในการประเมิน',
-      'ต้องเก็บ urine 24 ชม. เท่านั้น',
+    "type": "mcq",
+    "q": "Flea Allergic Dermatitis (FAD) ในสุนัข ตำแหน่งคลาสสิกของ lesion คือ",
+    "options": [
+      "Periocular region, perioral, รอบปาก และ planum nasale",
+      "Lumbosacral region, proximal tail, ventral abdomen",
+      "Interdigital ทั้ง 4 อุ้งเท้า, axilla และ groin fold",
+      "Pinnae ทั้ง 2 ข้าง, ear canal และ preauricular"
     ],
-    answer: 1, explain: 'UPC ratio interpretation (IRIS guidelines):\n• Normal: ≤ 0.5 (dog), ≤ 0.4 (cat)\n• Borderline: 0.5-2.0\n• Proteinuric: > 2.0 — glomerular disease likely (GN, amyloidosis)\n\nWorkup ก่อน UPC:\n1. Rule out post-renal (UTI, sediment, culture)\n2. Rule out pre-renal (Bence-Jones, hemoglobinuria, myoglobinuria)\n3. ถ้า persistent + sediment inactive + UPC > 0.5 → renal proteinuria → workup glomerular dz\n\nGlomerular dz causes:\n— Immune complex (Type III) — chronic infection (Ehrlichia, Borrelia, Bartonella, heartworm), SLE, neoplasia\n— Amyloidosis (Shar-Pei, Abyssinian)\n— Hereditary GN (Samoyed XL, Doberman, Bull Terrier)\n\n💡 Urinary protein loss > 30 mg/kg/day → significant',
-    verified: 'Glomerulonephritis_lecture.pdf + COM IV Master 86 supplemental p.10-11' },
-
-  { id: 1070, subject: 'com4', topic: 'sle', year: 4, source: 'Glomerulonephritis_lecture.pdf + Master 86 supplemental',
-    tags: ['gn', 'aspirin', 'antithrombotic'], type: 'mcq',
-    q: 'ผู้ป่วย GN with proteinuria > 2.0 + albumin < 2.0 g/dL — ทำไมต้องให้ Aspirin 0.5-5 mg/kg q12h',
-    options: ['แก้ pain เท่านั้น', 'ป้องกัน PTE', 'เป็น diuretic', 'แก้ acidosis', 'ลด blood pressure'],
-    answer: 1, explain: 'Glomerular disease (PLN, GN, amyloidosis) → hypercoagulable state:\n• Loss of Antithrombin III (AT-III, MW 58 kDa, similar to albumin → spilled in urine)\n• Hypoalbuminemia (< 2.0 g/dL) → ↑ platelet aggregation + ↑ fibrinogen\n• Result: high risk of Pulmonary thromboembolism (PTE) — sudden death!\n\nAntithrombotic Tx:\n• Aspirin 0.5-5 mg/kg PO q12h (low dose: anti-platelet effect)\n• Alternatives: Clopidogrel (Plavix) 1-3 mg/kg PO q24h\n• LMWH for severe cases\n\n💡 ส่วนการรักษา GN อื่นๆ:\n— ACE inhibitor (enalapril, benazepril) ลด proteinuria + glomerular pressure\n— Low-protein, low-Na diet\n— Treat underlying cause (Ehrlichia → doxy; pyometra → spay; SLE → immunosuppression)\n— Furosemide ถ้ามี edema severe\n\n💡 proteinuria → loss of AT-III + ↓ albumin → hypercoagulable',
-    verified: 'Glomerulonephritis_lecture.pdf + COM IV Master 86 supplemental p.11' },
-
-  // ── Neonatal — finer physiology ───────────────────────────
-  { id: 1071, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'temp', 'thresholds'], type: 'mcq',
-    q: 'Normal rectal temperature ของ neonatal puppy/kitten ในแต่ละช่วงคือ',
-    options: [
-      'อยู่ใน Adult range (38.0-39.2°C) ตั้งแต่แรกเกิด',
-      'Wk 1 ต่ำ 35-37.2°C แล้วค่อยๆ เพิ่มตามอายุ',
-      'สูงกว่า adult > 39°C ทุกช่วงวัย',
-      'ต่ำกว่า < 33°C เท่ากันทุกช่วงวัย',
-      'คงที่ 38°C ทุกสัปดาห์ไม่เปลี่ยน',
+    "answer": 1,
+    "explain": "FAD ใน dog: Lumbosacral alopecia + dermatitis, proximal tail, ventral abdomen, severe pruritus + papules + crust + lichenification + hyperpigmentation, 2° infection (S. pseudintermedius + Malassezia pachydermatis) บ่อย\n\n❌ ทำไมข้ออื่นผิด\n— \"periocular/perioral\" = food allergy / atopy classic\n— \"interdigital + axilla\" = atopic dermatitis (CAD)\n— \"pinnae + ear canal\" = otitis externa (Malassezia / atopy)",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.4"
+  },
+  {
+    "id": 907,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "tick",
+      "epidemiology"
     ],
-    answer: 1, explain: 'Neonatal temp progression (poikilothermic — poor thermoregulation):\n• Wk 1: 35-37.2°C (95-99°F) — much lower than adult\n• Wk 2-3: 36.1-37.8°C (97-100°F)\n• Wk 4: 37.2-38.3°C (99-101°F)\n• Adult: 38.0-39.2°C\n\n💡 Hypothermia threshold = < 35.6°C (< 96°F) → critical (intestinal ileus, bradycardia, dyspnea)\n\n💡 Why poor thermoregulation:\n— No shivering reflex first 6 days\n— No vasoconstriction reflex\n— High body surface area : body weight ratio\n— Low body fat\n— Poor blood flow control\n\n💡 Warming methods (gradual!): incubator (32-34°C wk 1), heat lamp, circulating water blanket, warm bottle wrapped in towel, NEVER direct microwave heating (burns)',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.61' },
-
-  { id: 1072, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'fluid', 'shock-dose'], type: 'mcq',
-    q: 'Initial shock dose ของ IV crystalloid fluid ใน severely dehydrated neonatal puppy คือ',
-    options: ['90 ml/kg ทันที (adult dose)', '30-45 ml/kg IV ในสุนัข', '5 ml/kg/hr', '120 ml/kg/d only', 'No IV fluid in neonate'],
-    answer: 1, explain: 'Neonatal shock fluid resuscitation:\n• Initial bolus: 30-45 ml/kg IV ในสุนัข, 20-30 ml/kg ในแมว (lower than adult ที่ใช้ 90 ml/kg)\n• Reason: high body surface area, fragile cardiovascular system, easy to overload\n• Reassess after bolus — repeat if still hypotensive (max 2-3 boluses)\n\n💡 Maintenance rate (after shock corrected):\n— Neonate (< 2 wk): 120-180 ml/kg/day\n— Pediatric (2-12 wk): 80-120 ml/kg/day\n\n💡 Routes:\n— IV jugular = preferred (most accessible in neonate)\n— IO (intraosseous) = if IV fails — sites: head of tibial crest/tuberosity, wing of ileum, trochanteric fossa of femur, greater tubercle of humerus\n— SC/IP = for hypothermic patients (functional ileus → can\'t use PO/oral-gastric); add dextrose if severe dehydration\n— PO/oral-gastric = mild dehydration only, normothermic\n\n💡 Always add dextrose 2.5-5% if hypoglycemia risk',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.65' },
-
-  { id: 1073, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'io', 'access'], type: 'mcq',
-    q: 'Intraosseous (IO) access ใน neonatal puppy/kitten — ตำแหน่งใดที่นิยมใช้',
-    options: [
-      'Skull bone และ frontal sinus',
-      'Wing of scapula กับ spine',
-      'Head of tibial crest, wing of ilium',
-      'Vertebral body ของ lumbar',
-      'Mandible และ maxilla',
+    "type": "mcq",
+    "q": "Tick infestation ในสุนัข entirely outdoor ในประเทศไทย ประมาณกี่ %",
+    "options": [
+      "< 10%",
+      "50-80%",
+      "80-100%",
+      "น้อยกว่า 5%"
     ],
-    answer: 2, explain: 'IO access sites (in order of preference):\n1. Head of tibial crest / tibial tuberosity (most common in neonate)\n2. Trochanteric fossa of femur (medial side)\n3. Wing of ilium\n4. Greater tubercle of humerus\n\n💡 Indications: cardiovascular collapse, severe dehydration, IV impossible (small vessels), contraindication: fracture proximal to site, sepsis at site, osteomyelitis\n\n💡 Technique: 18-20G spinal needle หรือ EZ-IO drill, advance until "give" + aspirate marrow/blood, all IV fluids/drugs can be given IO (full-rate absorption)',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.65' },
-
-  { id: 1074, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'colostrum', 'gut-closure'], type: 'mcq',
-    q: 'Colostrum ใน neonatal puppy/kitten — ต้องได้ภายในเวลาเท่าใด และทำไม',
-    options: ['1 สัปดาห์ จะดี', 'ภายใน 24 ชม.', '1 เดือน เพียงพอ', 'ไม่จำเป็น', '6 ชม. แล้วจบ'],
-    answer: 1, explain: 'Colostrum window:\n• Optimal: first 8 hours (peak absorption)\n• Effective: 24 hours (mostly closes after this)\n• Gut closure complete: 48-72 hours\n\nWhy critical:\n• Neonate has NO maternal antibody transplacentally in dog/cat (unlike human) — เพราะ epitheliochorial placenta blocks Ab transfer\n• Colostrum = primary source of passive immunity (IgG dominant, also IgA, IgM lower)\n• Failure of passive transfer (FPT): serum IgG < 200 mg/dL → infection risk ↑↑↑\n\nIf missed colostrum:\n• Plasma transfusion (from vaccinated bitch/queen) — 22 ml/kg PO หรือ SC ใน first 24 hr, then IV/IP\n• ALP + GGT in colostrum → can measure neonatal serum ALP/GGT รังสี first 2 days as proxy of colostrum intake\n\n💡 Type B blood queens nursing type A/AB kittens → Neonatal Isoerythrolysis ภายในชั่วโมงแรกๆ — must remove kittens from queen for first 24-48 hr\n\n💡 gut closure ปิด → IgG ดูดซึมไม่ได้',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.62' },
-
-  { id: 1075, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'fading-puppy', 'pathogens'], type: 'mcq',
-    q: 'Fading Puppy/Kitten Syndrome — common infectious causes รวมถึง',
-    options: [
-      'Only one virus',
-      'Multifactorial',
-      'Just genetic',
-      'Only nutrition',
-      'Always trauma',
+    "answer": 2,
+    "explain": "Outdoor dogs in Thailand: 80-100% โดน tick infestation, partially outdoor 50-80%, entirely indoor < 10% (จาก hospital + grooming visits)\n\n❌ ทำไมข้ออื่นผิด\n— \"<10%\" / \"<5%\" = entirely indoor\n— \"50-80%\" = partially outdoor",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.2"
+  },
+  {
+    "id": 908,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "tick",
+      "biology"
     ],
-    answer: 1, explain: 'Fading puppy/kitten syndrome = multifactorial:\n\nCanine viruses: CDV, CPV-2, CHV-1, CAV-1/2\nFeline viruses: Feline panleukopenia (FPV), FHV-1, Feline calicivirus (FCV) ★ most common, FeLV, FIPV\nBacterial: Bordetella, Mycoplasma, E. coli, Streptococcus, Staphylococcus, Clostridium\nRickettsial: Ehrlichia canis, Anaplasma\nParasitic: endoparasites (hookworm, ascarids, coccidia), ectoparasites\n\nMaternal factors: poor nutrition, illness, lactation failure\nNeonatal factors: hypothermia, hypoglycemia, congenital defects (cleft palate, PDA, atresia ani), low birth weight\nEnvironmental: poor hygiene, overcrowding, stress\n\n💡 Most deaths occur 9-10 weeks after birth when maternal antibody wanes but vaccine protection not fully established (immune gap)',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.66' },
-
-  { id: 1076, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'isoerythrolysis', 'cat-blood-types'], type: 'mcq',
-    q: 'Neonatal Isoerythrolysis (NEI) ในแมว — เกิดในกลุ่มไหน และทำไม',
-    options: [
-      'เกิดได้ในลูกแมวทุกตัวไม่ขึ้นกับ blood type',
-      'Type A queen × Type B sire → kitten type A → no problem',
-      'Type B queen + Type A/AB sire → kitten ดื่ม anti-A colostrum',
-      'เกิดจาก hypertension ของแม่แมวระหว่างตั้งท้อง',
-      'ไม่พบในแมว พบเฉพาะในลูกม้า (NI)',
+    "type": "mcq",
+    "q": "หลังกินเลือด female tick จะ drop off แล้ววางไข่ประมาณกี่ฟอง",
+    "options": [
+      "100-500 ฟอง",
+      "1,000-2,000 ฟอง",
+      "3,000-6,000 ฟอง",
+      "มากกว่า 50,000 ฟอง"
     ],
-    answer: 2, explain: 'Feline NEI:\n• Cat blood types: A (most common), B, AB (rare)\n• Type B cat = naturally strong anti-A alloantibody (no prior sensitization needed!)\n• Type A cat = weak anti-B (less clinical impact)\n• NEI scenario: Type B queen + Type A or AB sire → kitten inherits A or AB → kitten nurses from queen → ingests anti-A IgG via colostrum → IgG attacks kitten\'s type A RBCs → massive hemolysis ภายใน hours\n\nPredisposed breeds (high prevalence of type B):\n— British Shorthair (~60%!), Rex (Cornish/Devon), Angora, Exotic Shorthair, Ragdoll, Persian, Himalayan, Abyssinian, Birman\n\nSigns (within 24-72 hr):\n— Sudden death, hemoglobinuria (red urine), jaundice, anemia, tachypnea, necrosis of tail tip / extremities (microthrombi)\n\nTreatment:\n— Within 24 hr: remove kittens from queen × 24-48 hr (use nurse queen type A or milk replacer); kitten can return to queen after gut closure (no more Ab absorption)\n— Severe anemia: blood transfusion type-matched\n\nPrevention: blood type queen + sire ก่อน mating, DEA cross-match',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.67' },
-
-  // ── Geriatric drug considerations ─────────────────────────
-  { id: 1077, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['geriatric', 'drug-pk', 'classic'], type: 'mcq',
-    q: 'Drug consideration ในสัตว์สูงอายุ (geriatric) — ข้อใดถูกต้อง',
-    options: [
-      'ใช้ยาเหมือน adult ทุกอย่าง',
-      'ใช้ดอสูงกว่า adult เพื่อ compensate aging',
-      'Adjustments needed (renal/hepatic ↓',
-      'หยุดยาทุกชนิดในผู้สูงอายุ',
-      'IM route ดีที่สุด',
+    "answer": 2,
+    "explain": "Female tick: drops off host + hides + lays 3,000-6,000 eggs, life cycle 2-6 ปี, ทุก stage ต้องการ blood meal เพื่อ molt\n\n❌ ทำไมข้ออื่นผิด\n— \"100-500\" / \"1000-2000\" = น้อยเกินไป\n— \"> 50,000\" = สูงเกินไป (ไม่ใช่ insect/mosquito)",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.2"
+  },
+  {
+    "id": 909,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "demodex",
+      "microbiology"
     ],
-    answer: 2, explain: 'Geriatric pharmacokinetics:\n\nAbsorption:\n— ↓ GI motility, ↓ HCl, ↓ blood flow → erratic absorption\n— Avoid IM (limited muscle mass) → use PO/IV/SC\n\nDistribution:\n— ↑ ECF (water) — but ↓ body fat\n— ↓ albumin → ↑ free drug fraction (esp. NSAIDs, warfarin, phenobarb)\n— Prefer water-soluble (e.g., β-lactam) > fat-soluble (e.g., diazepam, propofol — accumulate)\n\nMetabolism:\n— ↓ CYP450 activity → liver metabolism slow\n— Avoid prodrugs (need conversion)\n\nElimination:\n— ↓ GFR + ↓ tubular secretion → accumulation of renally-excreted drugs\n— Adjust dose: aminoglycosides, NSAIDs, fluconazole, allopurinol\n\nDrug class preferences:\n— β-lactam = good (high dose with longer interval — wide safety margin)\n— Avoid: aminoglycosides (nephrotoxic), NSAIDs (in CKD), corticosteroids long-term (immunosuppressed)\n\n💡 NSAIDs avoid in neonates < 6-8 wks (immature liver/kidney) — separate concept',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.69' },
-
-  { id: 1078, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['geriatric', 'organ-changes'], type: 'mcq',
-    q: 'การเปลี่ยนแปลงทาง respiratory system ใน geriatric dog/cat ที่สำคัญคือ',
-    options: [
-      'Increased lung elasticity ดีขึ้น',
-      'Improved cough reflex แรงขึ้น',
-      '↓ mucus clearance + ↓ cough strength',
-      'Bigger lung volume เพิ่มขึ้น',
-      'No change ไม่เปลี่ยนตามวัย',
+    "type": "mcq",
+    "q": "Demodex canis อาศัยอยู่ที่ไหนบนสัตว์",
+    "options": [
+      "ผิวหนังชั้นนอก (stratum corneum)",
+      "Hair follicles + sebaceous glands",
+      "Subcutaneous tissue ชั้นใต้ผิวหนัง",
+      "ภายในกระแสเลือดและหลอดเลือด"
     ],
-    answer: 2, explain: 'Geriatric respiratory changes:\n• ↓ mucociliary clearance — accumulation of mucus + debris\n• ↓ cough strength — weak respiratory muscles\n• ↓ chest wall compliance — calcified cartilage\n• Decreased ability to clear airway particles → recurrent pneumonia, esp. aspiration\n\nOther geriatric changes:\n— Cardiovascular: valve fibrosis (DMVD in dogs), HCM (cats), reduced cardiac output\n— Renal: ↓ GFR, ↓ concentrating ability, CKD common in cat > 10 yr (~30%)\n— Endocrine: hyperthyroid in cat, hypothyroid in dog, Cushing\'s, DM\n— Musculoskeletal: osteoarthritis, sarcopenia, ligament laxity\n— Neuro: cognitive dysfunction syndrome (CDS), DISHAA\n— Immune: ↓ T-cell function → ↑ infection + neoplasia risk',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.68' },
-
-  { id: 1079, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'common-illness', 'pathogens-gi'], type: 'mcq',
-    q: 'Common GI pathogens ใน neonatal puppy/kitten ที่ทำให้เกิด neonatal gastroenteritis คือ',
-    options: ['เฉพาะ virus เช่น parvovirus เท่านั้น', 'E. coli + Campylobacter + Streptococcus', 'เฉพาะ protozoa Giardia เท่านั้น', 'เฉพาะ Salmonella enterica เท่านั้น', 'ไม่มี pathogen GI เป็น sterile gut'],
-    answer: 1, explain: 'Neonatal GI flora & pathogens:\n\nAt birth: GI tract is sterile (meconium = sterile mix of bile + epithelial cells + amniotic fluid)\nDevelops: normal flora from environment + diet (mother grooming, colostrum)\nVulnerability: low HCl secretion (vs adult) → poor barrier → bacterial overgrowth → GI infection\n\nCommon GI pathogens:\n— E. coli (toxigenic strains) — septicemia in low-birth-weight\n— Campylobacter jejuni — diarrhea\n— Streptococcus — septicemia, navel infection\n— Clostridium perfringens — gas, diarrhea, sudden death\n— Salmonella (less common in pet, more in livestock)\n\nViruses: CPV-2 (parvovirus), CDV, FPV, Coronavirus\nProtozoa: Giardia, Cryptosporidium, Coccidia (Cystoisospora)\nHelminths: Toxocara canis/cati (transmammary, transplacental), Ancylostoma\n\n💡 multi-pathogen',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.62' },
-
-  { id: 1080, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'reflexes'], type: 'mcq',
-    q: 'Neonatal reflexes ที่ต้องทดสอบ minimum diagnostic workup ใน neonate ประกอบด้วย',
-    options: ['ตรวจแค่ heart rate อย่างเดียว', 'None — neonate ไม่มี reflex', 'Pupillary light reflex only', 'Withdrawal reflex only', 'Righting + Rooting + Sucking reflexes'],
-    answer: 4, explain: 'Neonatal primitive reflexes (minimum exam):\n1. Righting reflex (turning right-side up when placed on back) — present at birth\n2. Rooting reflex (turn head toward stimulus near mouth, search for nipple) — present at birth\n3. Sucking reflex (suck on finger/nipple) — present at birth\n\nOther reflexes & timing:\n— Flexor tone dominance: birth → wk 3-4\n— Extensor tone: wk 5-8\n— Eyes open: 5-14 days (Abyssinian later)\n— Hearing/Ears open: 6-14 days → response within 4 wks\n— Smell/olfactory: 7-14 days\n— Withdrawal reflex: 7-19 days\n— Menace reflex + voluntary voiding: 3 wks\n— Voluntary deification + urination: 3-4 wks\n— Testicular descent (cryptorchidism dx point): 4-6 wks (after 6 mo = cryptorchid)\n\n💡 If primitive reflexes absent at birth → neurological abnormality, prematurity, or septicemia\n\n💡 3 primitive reflexes',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.62' },
-
-  // ── More IBD finer ────────────────────────────────────────
-  { id: 1081, subject: 'com4', topic: 'ibd', year: 4, source: 'Inflammatory_Bowel_Disease.pdf + Master 86 supplemental',
-    tags: ['ibd', 'sulfasalazine', 'cat-toxicity', 'critical'], type: 'mcq',
-    q: 'Sulfasalazine สำหรับ canine large bowel IBD — dose และ side effect critical คือ',
-    options: ['5 mg/kg q24h — ไม่มี side effect', '10-25 mg/kg PO TID-QID × 4-6 wks', '50 mg/kg q12h IV เท่านั้น', '500 mg/kg/d ขนาดสูง', 'ใช้แบบ topical อย่างเดียว'],
-    answer: 1, explain: 'Sulfasalazine in canine large bowel IBD:\n• Mechanism: prodrug → cleaved by colonic bacteria → 5-aminosalicylate (5-ASA, mesalamine) + sulfapyridine; 5-ASA = local anti-inflammatory in colon (inhibits PGs, leukotrienes, NF-κB)\n• Dose: 10-25 mg/kg PO TID-QID × 4-6 wks → taper down 25% q2wks ถ้า KCS หรือ remission\n• CI: cats (salicylate metabolism poor → toxic, ตาย)\n\nCritical side effects in dog:\n• Keratoconjunctivitis Sicca (KCS) — Schirmer tear test ↓ — monitor ทุก 4-6 wks, reversible (มาก) ถ้าหยุดยา\n• Hepatotoxicity\n• Bone marrow suppression\n• Hypersensitivity (Doberman, sulfa-sensitive breeds)\n\n💡 Aj. emphasizes: dog STT ก่อนเริ่ม + ทุก 4 wks, ถ้า STT ↓ → switch to mesalamine (no sulfapyridine) หรือ olsalazine',
-    verified: 'Inflammatory_Bowel_Disease.pdf + COM IV Master 86 supplemental p.13' },
-
-  { id: 1082, subject: 'com4', topic: 'ibd', year: 4, source: 'Inflammatory_Bowel_Disease.pdf + Master 86 supplemental',
-    tags: ['ibd', 'cibdai', 'classic'], type: 'mcq',
-    q: 'CIBDAI (Canine IBD Activity Index) ใช้ทำอะไร',
-    options: ['ใช้ diagnose IBD แทน histopath ได้เลย', 'Score IBD severity + monitor response to Tx', 'ใช้แทน intestinal biopsy ได้ทั้งหมด', 'ทำนายการเปลี่ยนเป็น GI lymphoma', 'ประเมิน intestinal absorption + B12'],
-    answer: 1, explain: 'CIBDAI (Jergens et al. 2003):\n• Purpose: severity scoring + treatment response monitoring (NOT diagnostic — diagnosis still requires histopath)\n\n6 Parameters (each 0-3):\n1. Attitude/Activity\n2. Appetite\n3. Vomiting frequency\n4. Stool consistency\n5. Stool frequency\n6. Weight loss\n\nTotal score 0-18:\n— 0-3: clinically insignificant\n— 4-5: mild\n— 6-8: moderate\n— ≥ 9: severe\n\nUse:\n— Pre-treatment baseline\n— Monitor q 2-4 wks during therapy\n— Correlate with endoscopy + histopath\n\n💡 Newer: CCECAI (Canine Chronic Enteropathy Clinical Activity Index, Allenspach 2007) — 9 parameters incl. albumin, peripheral edema, ascites — used for severity stratification (esp. PLE)',
-    verified: 'Inflammatory_Bowel_Disease.pdf + COM IV Master 86 supplemental p.14' },
-
-  // ── Atopic dermatitis — TRIP + drugs ──────────────────────
-  { id: 1083, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Allergic_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['atopic', 'trip', 'multimodal', 'mnemonic'], type: 'mcq',
-    q: 'Multimodal management ของ Canine Atopic Dermatitis (CAD) ใช้หลัก mnemonic "TRIP" — ประกอบด้วย',
-    options: [
-      'T = Topical, R = Recovery, I = Invasive, P = Permanent',
-      'T = Treat secondary infection, R = Restore skin barrier',
-      'T = Test, R = Rest, I = Inject, P = Prescribe',
-      'No mnemonic exists',
-      'T = Time, R = Rule, I = Idea, P = Plan',
+    "answer": 1,
+    "explain": "Demodex canis = mite อาศัยใน hair follicle + sebaceous gland (deep), ปกติเป็น commensal, พบได้บ้างในสุนัขปกติ, เป็นโรคเมื่อ immunocompromised → demodicosis\n\n❌ ทำไมข้ออื่นผิด\n— \"ผิวหนังชั้นนอก\" = Sarcoptes / Cheyletiella (surface)\n— \"Subcutaneous\" = filarial worms\n— \"ในเลือด\" = blood parasites (Babesia, Ehrlichia)",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.7"
+  },
+  {
+    "id": 910,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "sarcoptes",
+      "transmission"
     ],
-    answer: 1, explain: 'TRIP mnemonic for CAD multimodal management (Aj. Chaiyot ★):\n\nT — Treat secondary infection/infestation\n— Bacterial pyoderma (Staph) → cephalexin/clindamycin + chlorhexidine shampoo\n— Malassezia (yeast) → ketoconazole/itraconazole + miconazole shampoo\n— Otitis externa → topical otic\n— Flea control if FAD overlap\n\nR — Restore skin barrier\n— Topical ceramide / phytosphingosine spray, mousse\n— Essential fatty acids supplementation (omega-3/6)\n— Bathing with moisturizing shampoo\n\nI — Identify causative allergens\n— History + environment\n— Allergen-specific IgE serology (ASIS) หรือ intradermal skin test (gold standard)\n— Allergen-specific immunotherapy (ASIT) = "allergy vaccine" — long-term cure attempt (50-70% improve)\n\nP — Pruritus control\n— Oclacitinib (Apoquel) — JAK inhibitor, fast onset 4 hr\n— Lokivetmab (Cytopoint) — anti-IL-31 monoclonal Ab, 4-8 wk\n— Cyclosporine (Atopica) 5 mg/kg q24h — chronic\n— Glucocorticoid (short term flare only — avoid chronic)\n— Antihistamines (hydroxyzine, cetirizine — 30-50% response only)\n\n💡 ASIT = best long-term option for confirmed atopy',
-    verified: 'Allergic_skin_diseases.pdf + COM IV Master 86 supplemental p.32 ★' },
-
-  { id: 1084, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'Allergic_skin_diseases.pdf + Master 86 supplemental',
-    tags: ['atopic', 'allergic-otitis', 'classic'], type: 'mcq',
-    q: 'Otitis externa ใน atopic dog — บ่อยครั้ง present เป็น first sign ของ atopy เพราะ',
-    options: [
-      'หูเป็นแหล่งสะสมของ allergen หลัก',
-      'Ear canal barrier บาง + atopy → recurrent otitis',
-      'หูมีอุณหภูมิเย็นกว่าผิวหนังทั่วไป',
-      'ไม่จริง — atopy ไม่เกี่ยวข้องกับหู',
-      'Allergen accumulate ค้างในรูหู',
+    "type": "mcq",
+    "q": "Sarcoptes scabiei var. canis ติดต่ออย่างไร",
+    "options": [
+      "ผ่านพาหะแมลง (เห็บกัด)",
+      "Direct contact (สัมผัสตัวต่อตัว)",
+      "หายใจเอาเข้าทางอากาศ",
+      "พันธุกรรม (genetic)"
     ],
-    answer: 1, explain: 'Allergic otitis externa = chronic otitis + 2° infection on background atopy:\n\n• Ear canal lined by thin skin (similar to face) — barrier easily disrupted\n• Atopy → ↑ inflammation, ↑ moisture in canal, ↑ cerumen → ideal for Malassezia pachydermatis + bacteria (Staph pseudintermedius, Pseudomonas in chronic)\n• Recurrent unilateral หรือ bilateral otitis (ปวด, scratching, head shaking, smelly discharge)\n• Often the FIRST clinical sign of atopy (มากกว่า skin lesion)\n• Other key sites: feet (interdigital), face (periocular, perilabial), axilla, groin, ventral abdomen\n\n💡 Approach: cytology (Malassezia/Staph), cleaning, topical otic with corticosteroid + antifungal + antibiotic + identify underlying atopy → systemic Tx (TRIP)\n\n💡 Predisposing breeds for allergic otitis: West Highland White, Labrador, Golden, Bulldog, Cocker (pendulous ear), Shar-Pei',
-    verified: 'Allergic_skin_diseases.pdf + COM IV Master 86 supplemental p.33' },
-
-  // ── Final neonate vitals Q ────────────────────────────────
-  { id: 1085, subject: 'com4', topic: 'peds-geri', year: 4, source: 'Pediatrics_and_Geriatrics.pdf + Master 86 supplemental',
-    tags: ['neonate', 'physical-exam', 'normal-vitals'], type: 'mcq',
-    q: 'Normal vitals สำหรับ neonatal puppy/kitten ในสัปดาห์แรกคือ',
-    options: ['HR 80, RR 12, like adult', 'BP 200/120', 'HR < 60', 'No vitals to measure in neonate', 'HR 180-200 bpm'],
-    answer: 4, explain: 'Neonatal normal vitals (week 1):\n\nCardiovascular:\n— HR: 180-220 bpm (much higher than adult — relative tachycardia)\n— Bradycardia in neonate ≠ vagal, = hypoxemia/hypothermia (adult-like reflex tachycardia not yet developed)\n\nRespiratory:\n— RR: 10-18 bpm initial → 15-35 bpm by week 1\n\nTemperature: 35-37.2°C (95-99°F) wk 1\n\nHydration:\n— USG < 1.020 (isosthenuria — immature concentrating ability), normal until 8 wks\n— Trace protein + glucose normal first 3 days\n— Water requirement: 2.5 ml/100g BW/day output\n\nHematology (wk 0-2):\n— PCV: 29-53% (declines over weeks 2-4 to 26-37% — physiologic anemia)\n— Birth weight: 100-650 g (varies by breed, ideal pup ~ 1% of bitch BW)\n— Daily weight gain: 5-10% BW/day or doubles by 7-10 days\n\nStomach capacity: 4-5 ml/100g BW\n\nCalories: 20-26 kcal/100g BW/day (puppy), 15-25 kcal/100g BW/day (kitten)\n\n💡 Red flag: HR < 150 in neonate < 1 wk = bradycardia → suspect hypoxemia → emergency!\n\n💡 RR 10-18 → 15-35 bpm, USG < 1.020, stomach 4-5 ml/100g',
-    verified: 'Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.61' },
-
-  // ═══════════════════════════════════════════════════════════
-  // TJ86 batch — รวบรวมข้อสอบเก่ารุ่นพี่ (TJ compilation, COM4 final TJ.pdf)
-  // T/F items: IMHA·IMT·GN·IBD·SLE (Aj. Rosama format ★)
-  // Aj. Punyamanee Peds/Geri (85 ≠ 84 — Vet 85 lecture differs from Vet 84)
-  // Aj. Chayot Drugs + Derm (ไม่ตรงแน่นอน ออกใหม่ 100% — flagged predicted exam)
-  // ═══════════════════════════════════════════════════════════
-
-  // ── Aj. Rosama IMHA T/F (TJ86) ────────────────────────────
-  { id: 1086, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA T/F + COM IV Master 86 supplemental',
-    tags: ['imha', 'tf', 'classification', 'tj86'], type: 'mcq',
-    q: '[T/F] การเกิดโรคมะเร็งก่อให้เกิดภาวะโลหิตจางเนื่องจากภูมิคุ้มกันไวเกิน "แบบปฐมภูมิ (primary IMHA)"',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด, มะเร็ง (neoplasia) → IMHA → จัดเป็น Secondary IMHA (2°) เสมอ\n\n💡 IMHA classification:\n— 1° IMHA (idiopathic): ไม่หา cause ได้, all ages, เมีย > ผู้, breeds: Cocker Spaniel, Old English Sheepdog, Std. Poodle, English Springer Spaniel\n— 2° IMHA (secondary): หา trigger ได้ — Infection (Ehrlichia, Babesia, Mycoplasma haemofelis), Neoplasia (lymphoma, hemangiosarcoma), Drugs (Cyclosporine, Doxycycline, sulfa), Vaccine (4-6 wks post)\n\nโจทย์บอก "มะเร็ง" → 2° ไม่ใช่ 1°',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #1 (F)' },
-
-  { id: 1087, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA T/F',
-    tags: ['imha', 'tf', 'coombs', 'tj86'], type: 'mcq',
-    q: '[T/F] Direct Coomb\'s test เป็น gold standard ในการตรวจวินิจฉัยโรค IMHA',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, Direct Antiglobulin Test (DAT/Coomb\'s) = gold standard\n\n💡 ใช้ Coomb\'s reagent (anti-IgG + anti-IgM + anti-C3) ลงบน RBC ผู้ป่วยที่ล้างแล้ว → ถ้า RBC มี Ab/complement เคลือบ → reagent cross-link → agglutination (+)\n💡 Sensitivity ~60-70%, Specificity > 90%\n💡 ก่อน Coomb\'s ทำ slide agglutination test ก่อน — positive autoagglutination = strong IMHA, ข้าม Coomb\'s ได้',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #2 (T)' },
-
-  { id: 1088, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA T/F',
-    tags: ['imha', 'tf', 'breed', 'tj86'], type: 'mcq',
-    q: '[T/F] สุนัขพันธุ์ Cocker Spaniel, Old English Sheepdog, English Springer Spaniel เป็นสุนัขที่พบภาวะ IMHA ได้บ่อย',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, Predisposed breeds for primary IMHA:\n• Cocker Spaniel (most common, ~30% ของ canine IMHA)\n• Old English Sheepdog\n• English Springer Spaniel\n• Standard Poodle\n• Miniature Pinscher, Maltese, Shih Tzu (small breeds)\n\n💡 Female predilection (เมีย > ผู้, ratio ~ 4:1)\n💡 Mean age onset 6 yr\n💡 Genetic susceptibility — DLA-DRB1 alleles in Cocker Spaniel ★',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #3 (T)' },
-
-  { id: 1089, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA T/F',
-    tags: ['imha', 'tf', 'thromboembolism', 'tj86', 'critical'], type: 'mcq',
-    q: '[T/F] การป้องกันภาวะลิ่มเลือดอุดตัน (thromboembolism) เป็นวิธีหนึ่งที่สำคัญในการป้องกันสัตว์เสียชีวิตจาก IMHA',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, สัตว์ IMHA มักตายจาก Thromboembolism (PTE) มากกว่าจาก anemia เอง ★★ (Aj. Rosama เน้น)\n\n💡 Pathogenesis:\n— Hemolysis → free heme → endothelial damage + complement activation\n— Hyperfibrinogenemia + ↑ vWF\n— Anti-erythrocyte Ab อาจ cross-react กับ platelet antigen\n— Glucocorticoid-induced hypercoagulability\n\n💡 Antithrombotic Tx (essential):\n— Clopidogrel (Plavix) 1-3 mg/kg PO q24h (1st-line)\n— Aspirin 0.5-1 mg/kg/d (low dose)\n— LMWH (acute severe)\n\n💡 Mortality ~ 30-50% in canine IMHA, majority from PTE',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #4 (T)' },
-
-  { id: 1090, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA notes',
-    tags: ['imha', 'autoagglutination', 'screening', 'tj86'], type: 'mcq',
-    q: 'Slide Autoagglutination test (screening) ใน IMHA — ผสม blood : NSS อัตราส่วนใด',
-    options: [
-      '1:1',
-      '1:4',
-      '1:10',
-      '1:20',
-      '1:100',
+    "answer": 1,
+    "explain": "Sarcoptes = direct contact transmission, highly contagious, zoonotic (canine scabies → คนคันชั่วคราว), burrows ใน stratum corneum → severe pruritus\n\n❌ ทำไมข้ออื่นผิด\n— \"พาหะแมลง\" = vector-borne diseases (Babesia, Ehrlichia, Rickettsia)\n— \"หายใจ\" = respiratory pathogens\n— \"พันธุกรรม\" = genetic conditions ไม่ใช่ parasite",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.9"
+  },
+  {
+    "id": 911,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "demodex",
+      "diagnosis"
     ],
-    answer: 1, explain: 'Saline Slide Agglutination test (screening, in-clinic):\n• Blood : NSS = 1:4 (1 drop EDTA blood + 4 drops 0.9% NaCl)\n• Mix on slide → microscope LP\n• Persistent agglutination (clumps remain after dilution) = positive autoagglutination\n• Positive = strong evidence of IMHA → ไม่ต้องทำ Coomb\'s (ก็พอ confirm)\n• Negative ≠ rule out IMHA → ต้องทำ Coomb\'s ต่อ\n• Rouleaux ≠ true agglutination (rouleaux disperses with NSS, agglutination remains)',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #5' },
-
-  { id: 1091, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA notes',
-    tags: ['imha', 'longterm', 'tapering', 'tj86', 'classic'], type: 'mcq',
-    q: 'Long-term IMHA Tx — ถ้า PCV > 30% คงที่ 2 สัปดาห์หลัง initial Tx, ขั้นตอนการ taper down ที่ Aj. Rosama แนะนำ คือ',
-    options: ['หยุด prednisolone ทันที', 'ลด prednisolone 25% ทุก 2 wk', 'เพิ่ม prednisolone', 'หยุด 2nd-line ก่อน prednisolone', 'ลดทั้งคู่พร้อมกัน 50%'],
-    answer: 1, explain: 'Long-term IMHA Tx tapering protocol (Aj. Rosama ★):\n\nCriteria สำหรับเริ่ม taper:\n• PCV > 30% คงที่ ≥ 2 สัปดาห์\n• Resolution of clinical signs (no jaundice, normal energy)\n• No evidence of ongoing hemolysis (no spherocytes, normal bilirubin)\n\nTapering rules:\n1. ลด prednisolone 25% ทุก 2 สัปดาห์ ลงเรื่อยๆ\n2. 2nd-line drug (azathioprine, CsA, MMF) คง dose ไว้ จนกว่าจะ off prednisolone\n3. หลัง off prednisolone → ค่อย taper 2nd-line\n4. Total Tx duration: minimum 4-6 เดือน, often 8-12 เดือน\n5. Monitor PCV ทุก 2-4 wks, Coomb\'s test ก่อน off ทั้งหมด\n\n💡 ถ้า PCV drop ขณะ taper → กลับ dose ก่อนหน้า + เพิ่ม 2nd-line, พิจารณา 3rd-line (chlorambucil, leflunomide)\n\n💡 2nd-line drug คง dose ไว้ก่อน',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #12' },
-
-  { id: 1092, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMHA notes',
-    tags: ['imha', 'signs', 'multi-system', 'tj86'], type: 'mcq',
-    q: 'Clinical signs ของ canine IMHA ที่พบได้รวมถึง',
-    options: [
-      'มีแค่ pale MM อย่างเดียวเท่านั้น',
-      'Pale MM + jaundice + hemoglobinuria',
-      'มีแค่อาเจียนเป็นอาการเด่น',
-      'Hyperglycemia + polyuria เป็นหลัก',
-      'มีแค่ ascites ในช่องท้องอย่างเดียว',
+    "type": "mcq",
+    "q": "การวินิจฉัย Demodex canis วิธีหลักคือ",
+    "options": [
+      "ELISA blood test",
+      "Deep skin scraping",
+      "Fungal culture",
+      "Histopath เท่านั้น"
     ],
-    answer: 1, explain: 'IMHA multi-system clinical signs:\n\nHematologic:\n• Pale MM (anemia)\n• Icterus/Jaundice (hyperbilirubinemia)\n• Hemoglobinuria (intravascular hemolysis — เข้ม brown/red urine)\n• Petechiae/Ecchymoses (if Evans syndrome with IMT)\n• Tachycardia + bounding pulse (compensation)\n• Heart murmur (anemia-related — high output)\n• Tachypnea/dyspnea (hypoxemia ± PTE)\n\nGI:\n• Anorexia, vomit, diarrhea\n• Pica (lick walls, eat dirt — relates to hypoxia)\n• Melena (GI ulceration from hypoxia or steroids)\n\nReticuloendothelial:\n• Hepatomegaly + Splenomegaly (extramedullary hematopoiesis + clearing damaged RBC)\n• Lymphadenopathy\n\nOther:\n• Lethargy, weakness, collapse\n• Fever (low grade)\n• Hyperbilirubinuria (orange/dark urine)',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #9' },
-
-  // ── IMT T/F (TJ86) ────────────────────────────────────────
-  { id: 1093, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMT T/F',
-    tags: ['imt', 'tf', 'vincristine', 'tj86'], type: 'mcq',
-    q: '[T/F] ในกรณีฉุกเฉินสัตว์ป่วยด้วยภาวะเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน สามารถใช้ยา Vincristine ขนาด 0.02 mg/kg เข้าเส้นเลือดดำ ครั้งเดียว จะทำให้เกล็ดเลือดเพิ่มขึ้นใน 2-3 วันหลังฉีด',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, Vincristine 0.02 mg/kg IV (1 dose) ใน IMT severe — Aj. Rosama เน้น ★\n\n💡 Onset: platelet ขึ้น 2-7 วันหลังฉีด (TJ86 ระบุ 2-3 วัน — เร็วในเคสที่ตอบสนองดี)\n\nกลไก 2 ขั้น:\n1. Microtubule poison → ↓ phagocytosis ของ Ab-coated platelet โดย macrophage\n2. Stimulate megakaryocyte → release platelet (thrombocytopoiesis)\n\n💡 Indications:\n— PLT < 20,000/μL with active bleeding\n— Refractory IMT not responding to prednisolone\n— Used as bridge while prednisolone takes effect\n\n💡 Single dose, combine with PO prednisolone 2-4 mg/kg/d',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #1 (T)' },
-
-  { id: 1094, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMT T/F',
-    tags: ['imt', 'tf', 'diagnosis', 'tj86'], type: 'mcq',
-    q: '[T/F] หลักการสำคัญในการวินิจฉัยโรคเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน คือการวินิจฉัยแยกแยะตัดโรคอื่นๆ ออกไป (diagnosis of exclusion) เนื่องจากวิธีตรวจจำเพาะมีน้อยและยังไม่แพร่หลายในปัจจุบัน',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, IMT = diagnosis of exclusion\n\nต้อง rule out causes อื่นๆ ของ thrombocytopenia ก่อน:\n• Infection: Ehrlichia, Anaplasma, Babesia, RMSF, Leishmania, FeLV/FIV\n• DIC: prolonged PT/PTT, low fibrinogen, ↑ D-dimer\n• Drug-induced: NSAIDs, sulfa, estrogen, chemotherapy\n• Bone marrow disease: aplastic anemia, leukemia, myelodysplasia\n• Sequestration: splenomegaly, hepatic congestion\n• Consumption: vasculitis, neoplasia, hemorrhage\n\nTests for IMT:\n— CBC + blood smear (estimate platelet)\n— Megakaryocyte count in bone marrow (normal/↑ in IMT, ↓ in aplastic)\n— Anti-platelet antibody test (PAIgG, flow cytometry) — จำเพาะแต่ไม่ widely available\n— Coomb\'s + rule out blood parasites (4Dx SNAP, PCR)',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #2 (T)' },
-
-  { id: 1095, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMT T/F',
-    tags: ['imt', 'tf', 'splenomegaly', 'tj86'], type: 'mcq',
-    q: '[T/F] สัตว์ป่วยด้วยภาวะเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน (IMT) จะตรวจพบม้ามโตเหมือนสัตว์ป่วย IMHA ทำให้แยกโรคทั้ง 2 ออกจากกันได้ยาก',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด, IMT มัก ไม่ พบม้ามโต (ต่างจาก IMHA)\n\n💡 ทำไม:\n— IMHA: Spleen + liver โต เพราะ extramedullary hematopoiesis (ตอบสนอง anemia) + clearing of damaged RBCs\n— IMT: ม้ามทำหน้าที่ destroy platelet แต่ size มัก normal — เพราะ platelet มี mass เล็ก, no compensatory hematopoiesis at scale\n\n💡 จุดแยกระหว่าง IMHA vs IMT:\n| Feature | IMHA | IMT |\n|---|---|---|\n| Anemia | Yes (regenerative) | Usually no |\n| Spherocytes | Yes (extravascular) | No |\n| Thrombocytopenia | Sometimes (Evans) | Always |\n| Bleeding/Petechiae | No (unless Evans) | Yes (mucosal) |\n| Hemoglobinuria | Yes (intravascular) | No |\n| Splenomegaly | Common | Uncommon |\n| Coomb\'s | Positive | Negative (unless Evans) |\n\n💡 Evans syndrome = IMHA + IMT → จะมี both features',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #3 (F)' },
-
-  { id: 1096, subject: 'com4', topic: 'imha', year: 4, source: 'TJ86 IMT T/F',
-    tags: ['imt', 'tf', 'aspirin', 'tj86'], type: 'mcq',
-    q: '[T/F] ยา Aspirin ขนาดยา 0.25–0.5 mg/kg ทุก 12-24 ชม. สามารถลดการจับตัวของเกล็ดเลือด (platelet aggregation) ในสุนัข แต่ยังต้องการการศึกษาเพิ่มเติม เนื่องจากการประยุกต์ใช้ในสุนัขจากผลการทดลองในคน',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก\n\n💡 Low-dose Aspirin ในสุนัข:\n— Dose: 0.25-0.5 mg/kg PO q12-24h (low-dose anti-platelet effect)\n— กลไก: Irreversible inhibition of COX-1 in platelet → ↓ thromboxane A2 → ↓ platelet aggregation\n— Used in: thromboprophylaxis ใน IMHA, glomerulonephritis (PLN), heartworm disease, cardiac dz\n— Onset: 1-2 days, effect lasts 7-10 days (platelet lifespan)\n\n💡 Caveat: dose-response data ส่วนใหญ่ extrapolated จาก human medicine — vet-specific PK/PD studies ยังจำกัด, individual variability สูง (some dogs are "aspirin-resistant")\n\n💡 Alternative: Clopidogrel (Plavix) 1-3 mg/kg PO q24h — ปัจจุบันนิยมมากกว่า aspirin (more consistent effect, P2Y12 inhibitor)\n\n💡 Aj. Rosama: ใช้ aspirin 0.5 mg/kg/วัน เพื่อแก้ thromboembolism risk ใน IMHA ★',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #4 (T)' },
-
-  // ── Glomerular dz T/F (TJ86) ──────────────────────────────
-  { id: 1097, subject: 'com4', topic: 'sle', year: 4, source: 'อ.รสมา original T/F #4 (corrected from TJ86)',
-    tags: ['gn', 'tf', 'survival', 'tj86', 'rosama-corrected'], type: 'mcq',
-    q: '[T/F] สัตว์ป่วยด้วย immune-mediated glomerulonephritis ส่วนใหญ่เสียชีวิตโดยมีค่าเฉลี่ยอัตราการรอดชีวิตเท่ากับ 30 วัน',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด — Aj. Rosama original = F (TJ86 ระบุ T เป็น typo ที่ผ่านการ recheck แก้ไปแล้ว ★)\n\n💡 Why F:\n— "30 วัน" เฉพาะเจาะจงเกินไป — actual median survival แตกต่างมากตามการ Tx:\n  • Untreated: variable, อาจหลายสัปดาห์-เดือน\n  • With aggressive Tx (immunosuppression + ACEi + diet + antithrombotic): 6-18 months ในบางราย\n  • Complete remission rare\n\n💡 Prognostic factors (worse):\n— Persistent UPC > 10\n— Hypoalbuminemia < 2 g/dL\n— Azotemia at diagnosis (BUN/Cr ↑)\n— Hypertension (SBP > 160 mmHg)\n— Pulmonary thromboembolism (PTE)\n— Refractory edema/effusion (Nephrotic syndrome)\n\n💡 Causes of death:\n1. Uremia (CKD progression) — most common\n2. PTE (acute death)\n3. Hypertensive crisis (retinal detachment, stroke)\n4. Cardiac decompensation\n\n⚠️ Q นี้ corrected หลัง Aj. Rosama original PDF ตรวจ',
-    verified: 'อ.รสมา original Fangfuay vet81 #4 (F) ★ Recheck แก้ไป' },
-
-  { id: 1098, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 GN T/F',
-    tags: ['gn', 'tf', 'symptomatic', 'tj86'], type: 'mcq',
-    q: '[T/F] การรักษาตามอาการเป็นสิ่งที่จำเป็นที่สุดในการรักษาสัตว์ป่วยด้วย Glomerulonephritis',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด, การรักษา GN ต้อง Tx underlying cause + immunosuppression + supportive ร่วมกัน — ไม่ใช่แค่ symptomatic\n\n💡 GN management 4 pillars:\n\n1. Treat underlying cause (most important):\n— Infectious: Ehrlichia → doxycycline, pyometra → spay, heartworm → adulticide\n— Neoplasia: surgical/medical Tx\n— SLE: immunosuppression\n\n2. Immunosuppression (immune complex GN):\n— Mycophenolate (MMF) 10-20 mg/kg q12h, Cyclosporine 5 mg/kg q12h\n— Prednisolone 1-2 mg/kg/d (controversial — may worsen proteinuria)\n\n3. Reduce proteinuria:\n— ACE inhibitor (enalapril, benazepril) 0.5 mg/kg q12-24h ★\n— ARB (telmisartan) — newer, less hyperkalemia\n— Low-protein, low-Na diet (renal-prescription diet)\n— Omega-3 fatty acid\n\n4. Antithrombotic + supportive:\n— Aspirin 0.5-5 mg/kg q12h หรือ Clopidogrel\n— Furosemide (only if edema severe)\n— BP control (amlodipine if SBP > 160)\n\n💡 Symptomatic alone (รักษาตามอาการเฉยๆ) = inadequate → progressive CKD → death',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 GN #5 (F)' },
-
-  { id: 1099, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 GN T/F',
-    tags: ['gn', 'tf', 'acei', 'tj86'], type: 'mcq',
-    q: '[T/F] การใช้ยาในกลุ่ม Angiotensin-Converting Enzyme Inhibitor (ACEI) เช่น Enalapril ทำให้ปริมาณของโปรตีนที่สูญเสียในปัสสาวะลดลง',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, ACEi = cornerstone Tx ของ GN-related proteinuria\n\n💡 Mechanism:\n— ACEi block conversion of angiotensin I → angiotensin II\n— ↓ angiotensin II → Efferent arteriolar vasodilation (more than afferent) → ↓ glomerular hydrostatic pressure → ↓ filtration of protein\n— Also: ↓ glomerular hypertension, ↓ podocyte injury, ↓ TGF-β fibrosis\n\nDose:\n• Enalapril 0.5 mg/kg PO q12-24h\n• Benazepril 0.25-0.5 mg/kg PO q24h (more renal-excreted, suitable for CKD)\n• Telmisartan (ARB) 1 mg/kg q24h — alternative, often preferred ในแมว CKD\n\nMonitoring:\n— UPC ratio (target ↓ 50% from baseline)\n— BUN/Cr (acceptable rise ≤ 30%)\n— K+ (watch for hyperkalemia)\n— BP (avoid hypotension)\n\nContraindications:\n— Pre-existing severe azotemia (Cr > 4)\n— Hyperkalemia (K > 6)\n— Hypotension (SBP < 100)\n— Acute kidney injury (avoid until stable)',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 GN #6 (T)' },
-
-  { id: 1100, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 GN T/F',
-    tags: ['gn', 'tf', 'diet', 'protein', 'tj86', 'critical'], type: 'mcq',
-    q: '[T/F] การให้อาหารที่มีระดับโปรตีนสูงเป็นสิ่งสำคัญที่ต้องให้แก่สัตว์ป่วยด้วยโรค Glomerulonephritis เพื่อชดเชยปริมาณของโปรตีนที่สูญเสียไปทางปัสสาวะ',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด, GN ต้องให้ low-protein diet (ไม่ใช่ high-protein!)\n\n💡 Reasoning:\n— High protein → ↑ glomerular hyperfiltration → ↑ glomerular hypertension → ↑ proteinuria → progression of GN/CKD\n— High protein → ↑ BUN load → uremic signs (vomiting, anorexia)\n— High protein → ↑ phosphate load → secondary hyperparathyroidism\n— High protein doesn\'t replace albumin lost (liver synthesizes from any AA pool)\n\n💡 Recommended diet ใน GN:\n— Restricted protein (high-quality): 2-2.5 g/kg/day in dog (vs 4-5 g normal)\n— Cat: less restriction (cats are obligate carnivores) — moderate protein but high quality\n— Low Na (< 0.3% DM)\n— Low phosphorus\n— ↑ Omega-3 (anti-inflammatory, reduces proteinuria)\n— ↑ Soluble fiber (promotes urea excretion in colon)\n\n💡 Commercial diets:\n— Hill\'s k/d\n— Royal Canin Renal\n— Purina NF Kidney Function\n\n💡 Common misconception ที่นิสิตชอบเลือกผิด: "ต้องเสริมโปรตีนเพราะโปรตีนหาย" — wrong! ทำให้แย่ลง',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 GN #7 (F) ★ สลับพลาดง่าย' },
-
-  { id: 1101, subject: 'com4', topic: 'sle', year: 4, source: 'อ.รสมา original T/F #38 (corrected from TJ86)',
-    tags: ['gn', 'tf', 'nephrotic-syndrome', 'tj86', 'rosama-corrected'], type: 'mcq',
-    q: '[T/F] สัตว์ที่ป่วยด้วยโรคในกลุ่ม Nephrotic Syndrome จะพบว่ามีอัลบูมินในเลือดต่ำ ไขมันในเลือดสูง ระดับคลอเลสเตอรอลในเลือดสูง และมีของเหลวสะสมในส่วนต่างๆ ของร่างกาย',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก — Aj. Rosama original = T (TJ86 typo ขาดคำว่า "สูง" ก่อน "คลอเลสเตอรอล" → ผ่านการ recheck แก้ไปแล้ว ★)\n\n💡 Nephrotic Syndrome tetrad (4 ข้อครบ):\n1. Proteinuria > 3.5 g/day (in human; UPC > 3.5 in vet)\n2. Hypoalbuminemia (อัลบูมินต่ำ < 2.0 g/dL)\n3. Hypercholesterolemia / Hyperlipidemia (ไขมัน + cholesterol สูง — liver compensates by ↑ lipoprotein synthesis)\n4. Edema / Effusion (ของเหลวสะสม — ascites, peripheral edema, pulmonary edema)\n\n💡 Pathogenesis cascade:\n— Glomerular damage → massive proteinuria (loss of albumin + AT-III + lipoprotein lipase regulators)\n— ↓ albumin → ↓ oncotic pressure → fluid leaks to interstitium → edema/ascites\n— Liver compensates with ↑ protein synthesis → also ↑ lipoprotein → hypercholesterolemia\n— Loss of AT-III → hypercoagulable → PTE risk\n\n⚠️ Q นี้ corrected หลัง Aj. Rosama original PDF ตรวจ',
-    verified: 'อ.รสมา original Fangfuay vet81 #38 (T) ★ ครบทั้ง 4 องค์ประกอบ' },
-
-  { id: 1102, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 GN T/F',
-    tags: ['gn', 'tf', 'hypertension', 'tj86'], type: 'mcq',
-    q: '[T/F] ความดันโลหิตสูงเป็นสาเหตุหนึ่งของการเกิด non-immune-mediated glomerulopathy ในสัตว์เลี้ยง',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, Systemic hypertension → glomerular damage (non-immune mediated)\n\n💡 Mechanism:\n— High systemic BP → transmitted to glomerulus → glomerular hyperfiltration + intraglomerular hypertension\n— Damages podocyte foot processes → proteinuria\n— Sclerotic changes in glomerulus → fibrosis → CKD progression\n— Vicious cycle: GN → renin-angiotensin activation → hypertension → worse GN\n\n💡 Other non-immune causes of glomerulopathy:\n— Hypertension (primary or secondary to CKD, Cushing\'s, hyperthyroid in cat)\n— Amyloidosis (Shar-Pei familial, Abyssinian cat)\n— Hereditary GN: Samoyed (X-linked Alport-like), Doberman, Bull Terrier, English Cocker Spaniel\n— Diabetic glomerulopathy (long-standing DM)\n— Drug-induced (NSAIDs, aminoglycosides — though more tubular)\n\n💡 BP target ใน GN: SBP < 160 mmHg, use amlodipine (1st-line), ACEi, telmisartan',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 GN #9 (T)' },
-
-  // ── IBD T/F (TJ86) ────────────────────────────────────────
-  { id: 1103, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
-    tags: ['ibd', 'tf', 'duration', 'tj86', 'critical'], type: 'mcq',
-    q: '[T/F] โรค IBD เป็นความผิดปกติของระบบทางเดินอาหารอย่างเรื้อรังในสัตว์เลี้ยง ที่เกิดขึ้นนานกว่า "2 สัปดาห์" ขึ้นไป',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด, IBD criteria: chronic GI signs > 3 สัปดาห์ (ไม่ใช่ 2 สัปดาห์)\n\n💡 IBD diagnostic criteria (Aj. Sariya / WSAVA):\n1. Chronic GI signs > 3 wks (vomit, diarrhea, weight loss)\n2. Histopath inflammation ใน intestinal biopsy (lymphocytic, plasmacytic, eosinophilic, neutrophilic)\n3. Failure to respond to: deworming, dietary trial, antibiotic trial\n4. Exclusion of other causes: parasites, infection, neoplasia, exocrine pancreatic insufficiency, hyperthyroidism (cat)\n\n💡 Step-wise approach (Aj. Sariya):\n1. Diet trial (novel/hydrolyzed) × 2-3 wks\n2. Antibiotic trial (Tylosin/Metronidazole) × 2 wks\n3. Immunosuppression (prednisolone) — diagnostic + therapeutic if responds\n4. Biopsy (endoscopic or surgical) ก่อน start immunosuppression in severe cases\n\n💡 Naming convention (newer 2010s):\n— Chronic Enteropathy (CE) = umbrella term\n— Food-Responsive Enteropathy (FRE)\n— Antibiotic-Responsive Enteropathy (ARE)\n— Steroid-Responsive Enteropathy (SRE) = traditional IBD',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #10 (F)' },
-
-  { id: 1104, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
-    tags: ['ibd', 'tf', 'lymphoma', 'differential', 'tj86'], type: 'mcq',
-    q: '[T/F] Alimentary Lymphosarcoma เป็นโรคที่อาจทำให้สัตวแพทย์ผู้ตรวจสับสนกับอาการของ IBD และอาจทำให้การวินิจฉัยผิดพลาดได้ จึงต้องวินิจฉัยให้ละเอียด',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, Alimentary (Intestinal) Lymphoma = #1 differential ที่สำคัญที่สุดของ IBD\n\n💡 Why important:\n— Both cause: chronic vomit, diarrhea, weight loss, anorexia\n— Both have: thickened intestinal wall, lymphadenopathy on US\n— Both have: hypoalbuminemia (PLE)\n— Key difference: prognosis (IBD = chronic but treatable; intestinal lymphoma = malignant)\n\n💡 Differentiation:\n| Feature | IBD | Intestinal Lymphoma |\n|---|---|---|\n| Age | Variable (any) | Older (cat > 8 yr) |\n| Cat breed | Various | DSH > Siamese |\n| Cobalamin | Often ↓ (chronic enteropathy) | ↓↓ (severe) |\n| Histopath | Lymphocytic/Plasmacytic | Lymphoblasts |\n| Immunohistochemistry | Polyclonal | Monoclonal (PARR/clonality) |\n| Wall thickness on US | < 5 mm uniform | > 5 mm, mass-like, lymph node enlargement |\n| Response to steroid alone | Yes | Partial (need chemotherapy) |\n\n💡 Especially in cat — small cell intestinal lymphoma can closely mimic IBD, gold standard = full-thickness biopsy + PARR clonality test\n\n💡 Aj. Chayot/Sariya เน้น: ในแมวสูงอายุที่ "ไม่ตอบสนอง diet trial + AB trial" → biopsy + PARR ก่อน start prednisolone',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #11 (T)' },
-
-  { id: 1105, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
-    tags: ['ibd', 'tf', 'azathioprine', 'cat-toxicity', 'tj86', 'critical'], type: 'mcq',
-    q: '[T/F] ยา Azathioprine เป็นยากดภูมิคุ้มกันที่ห้ามใช้ในแมว เนื่องจากทำให้เกิด myelosuppression และ acute pancreatic necrosis',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, Azathioprine ห้ามใช้ในแมวเด็ดขาด ★ (Aj. Rosama, Aj. Chayot เน้น)\n\n💡 Mechanism of toxicity:\n— Cats lack TPMT (Thiopurine S-methyltransferase) — enzyme ที่ metabolize azathioprine ให้เป็น inactive form\n— Without TPMT → azathioprine → 6-mercaptopurine (6-MP) accumulates → severely toxic\n\n💡 Toxicity signs:\n1. Severe myelosuppression → pancytopenia (anemia + leukopenia + thrombocytopenia) → fatal\n2. Acute pancreatic necrosis (pathognomonic in cat!)\n3. Hepatotoxicity\n\n💡 Alternative immunosuppressants in cat:\n— Chlorambucil 0.1-0.2 mg/kg PO q24-48h (1st choice steroid-sparing in feline IBD/PF/IMHA)\n— Cyclosporine 5 mg/kg PO q12h\n— Mycophenolate (MMF) — limited cat data\n— Leflunomide\n\n💡 ในสุนัข Azathioprine ใช้ได้ปลอดภัย: 2 mg/kg q24h × 7-14 days → q48h maintenance, monitor CBC q2wks, onset 3-5 wks',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #12 (T) ★★ Aj. Rosama เน้น' },
-
-  { id: 1106, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
-    tags: ['ibd', 'tf', 'crp', 'monitoring', 'tj86'], type: 'mcq',
-    q: '[T/F] ปัจจุบันการตรวจ C-Reactive Protein (CRP) ในเลือดเป็นการตรวจติดตามอาการและพยากรณ์โรค ในสัตว์ป่วยด้วย IBD',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก, CRP = useful biomarker สำหรับ monitor IBD activity และ prognosis (newer evidence ★)\n\n💡 CRP characteristics:\n— Acute phase protein produced by liver in response to IL-6\n— Major acute phase protein in dogs (> minor in cats — ใน cat ใช้ Serum Amyloid A แทน)\n— Rises within 4-24 hr of inflammation, peaks 24-48 hr\n— Normal: < 10 mg/L, IBD active: > 20-50 mg/L\n\n💡 Use in IBD:\n1. Severity assessment at diagnosis (correlates with CIBDAI/CCECAI score)\n2. Treatment monitoring — declining CRP = response\n3. Prognosis — persistently high CRP = worse outcome (PLE risk)\n4. Differentiate IBD from intestinal lymphoma — CRP often higher in IBD (inflammation > neoplasia)\n5. Detect relapse before clinical signs return\n\n💡 In cats: Serum Amyloid A (SAA) is the major acute-phase protein (CRP minor in cats), also useful biomarker',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #14 (T)' },
-
-  { id: 1107, subject: 'com4', topic: 'ibd', year: 4, source: 'TJ86 IBD T/F',
-    tags: ['ibd', 'tf', 'sulfasalazine', 'cat-ci', 'tj86'], type: 'mcq',
-    q: '[T/F] ยา Sulfasalazine เป็นยาที่ยับยั้งการออกฤทธิ์ของ Prostaglandin synthase ซึ่งสามารถใช้ได้ทั้งในสุนัขและแมว',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด, Sulfasalazine ห้ามใช้ในแมว (salicylate toxicity)\n\n💡 ผิด 2 จุด:\n\n1. กลไกออกฤทธิ์:\n— Sulfasalazine = prodrug, cleaved by colonic bacteria → 5-aminosalicylate (5-ASA, mesalamine) + sulfapyridine\n— 5-ASA ออกฤทธิ์ local in colon: inhibit PGs + leukotrienes + NF-κB + scavenge free radicals (ไม่ใช่ "prostaglandin synthase" alone)\n— Topical anti-inflammatory in colon mucosa (ไม่ดูดซึมดี → ดี)\n\n2. Species use:\n— ห้ามใช้ในแมว! เพราะ cat metabolize salicylate ช้า → toxicity (vomit, hyperthermia, hepatotoxicity, methemoglobinemia)\n— Dog ใช้ได้: 10-25 mg/kg PO TID-QID × 4-6 wks\n\n💡 Side effects in dog:\n— Keratoconjunctivitis Sicca (KCS) ★ — Schirmer tear test ↓ (monitor q4-6 wks)\n— Hepatotoxicity\n— BM suppression\n— Hypersensitivity (Doberman, sulfa-sensitive breeds)\n\n💡 Alternatives ในแมว: Tylosin, Metronidazole, prednisolone, chlorambucil',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #16 (F) ★' },
-
-  // ── SLE T/F (TJ86) ────────────────────────────────────────
-  { id: 1108, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 SLE T/F',
-    tags: ['sle', 'tf', 'breed', 'genetic', 'tj86'], type: 'mcq',
-    q: '[T/F] สุนัขพันธุ์ German Shepherd และพันธุ์ Poodle เป็นพันธุ์ที่สามารถตรวจพบป่วยด้วยโรค SLE ได้โดยมีสาเหตุจากพันธุกรรม',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก\n\n💡 SLE genetic predisposition:\n— German Shepherd (most reported breed) — DLA class II haplotype association\n— Standard Poodle\n— Collie + Shetland Sheepdog\n— Beagle, Old English Sheepdog\n— Rough Collie has familial SLE-like disease\n\n💡 Pathogenesis:\n— Loss of self-tolerance → autoantibodies against nuclear antigens (DNA, histones, ribonucleoproteins)\n— Type III hypersensitivity (immune complex deposition) in multiple organs\n— Type II hypersensitivity (anti-RBC, anti-platelet) in cytopenias\n\n💡 Multi-system involvement:\n— Skin (DLE-like, mucocutaneous)\n— Joints (polyarthritis non-erosive — most common sign)\n— Kidney (immune-complex GN)\n— Hematologic (IMHA, IMT, lymphopenia)\n— Neurologic (rare)\n— Cardiac (pericarditis, endocarditis — rare)\n\n💡 Diagnostic criteria: ANA + 2 organ systems involved (modified ARA criteria for vet)',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #17 (T)' },
-
-  { id: 1109, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 SLE T/F',
-    tags: ['sle', 'tf', 'cat', 'felv', 'tj86'], type: 'mcq',
-    q: '[T/F] ในแมว โรค SLE อาจสับสนกับการเกิดโรค FeLV จึงควรตรวจแมวป่วยด้วยชุดทดสอบ FeLV/FIV test ก่อนเสมอ',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก\n\n💡 FeLV / FIV mimic SLE in cats (must rule out first):\n\nFeLV-related conditions ที่เลียน SLE:\n— Immune-mediated polyarthritis\n— Glomerulonephritis (immune complex with FeLV antigen)\n— Cytopenias (IMHA, IMT, neutropenia)\n— Lymphoma (alimentary, mediastinal — also consider)\n\nFIV-related conditions:\n— Immune dysregulation (hyperglobulinemia, autoantibodies)\n— Polyarthritis\n— GN\n— Neurologic signs\n\n💡 Initial workup ใน feline SLE-suspect:\n1. SNAP FeLV/FIV (in-clinic 4Dx)\n2. CBC, chem, UA, UPC\n3. ANA test (lower sensitivity in cat than dog)\n4. Joint tap (if polyarthritis) — non-degenerate neutrophils, sterile\n5. Skin biopsy (if cutaneous lesions)\n6. Renal biopsy (if proteinuric GN)\n\n💡 Treatment differs:\n— True SLE → immunosuppression (prednisolone, chlorambucil)\n— FeLV-related → palliative + retroviral consideration (interferon, etc.)\n— Don\'t blast immunosuppressants ในแมว FeLV+ (ต้องระวัง opportunistic infection)',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #18 (T)' },
-
-  { id: 1110, subject: 'com4', topic: 'sle', year: 4, source: 'อ.รสมา original T/F #47 (corrected interpretation)',
-    tags: ['sle', 'tf', 'lymphopenia', 'cd4-cd8', 'tj86', 'rosama-corrected', 'critical'], type: 'mcq',
-    q: '[T/F] ในสุนัขที่ป่วยด้วยโรค SLE จะตรวจพบมีภาวะ "Lymphocytosis" ร่วมกับมีค่า CD4:CD8 ที่ "ต่ำกว่าปกติ"',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด 2 จุด! ★★ พลาดง่ายมาก\n\nจุดผิดที่ 1: Lymphocytosis ผิด → ต้องเป็น Lymphopenia (CBC SLE → lymph ต่ำลง เพราะ anti-lymphocyte Ab + redistribution)\n\nจุดผิดที่ 2: CD4:CD8 ต่ำกว่าปกติ ผิด → ต้องเป็น CD4:CD8 สูงกว่าปกติ\n\n💡 CD4:CD8 ratio ใน canine SLE (Aj. Rosama original annotation ★):\n— Normal CD4:CD8 ≈ 2:1\n— SLE: CD4:CD8 ≈ 6:1 (สูงกว่า normal 3 เท่า) — preferential CD8 loss\n— กลไก: CD8+ cytotoxic T-cells โดน autoantibody attack มากกว่า CD4+ helper → CD8 ลดลง → ratio CD4:CD8 increase\n— Reflects breakdown of T-cell tolerance\n\n💡 CBC findings in canine SLE:\n— Lymphopenia (Total lymph ↓)\n— Anemia (IMHA component, regenerative)\n— Thrombocytopenia (IMT component)\n— Neutropenia (anti-neutrophil Ab, sometimes)\n\n💡 Immunologic findings:\n— Hypergammaglobulinemia (polyclonal B-cell activation)\n— Hypocomplementemia (consumed in immune complex formation)\n— Positive ANA test (sensitivity 60-100%)\n— Anti-dsDNA (specific)\n\n⚠️ ความเข้าใจเดิมที่ว่า CD4:CD8 ต่ำใน SLE → แก้แล้ว: CD4:CD8 สูง ใน canine SLE',
-    verified: 'อ.รสมา original Fangfuay vet81 #47 (F) ★★ "สูงกว่า normal 2:1, ใน SLE 6:1"' },
-
-  { id: 1111, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 SLE T/F',
-    tags: ['sle', 'tf', 'ana', 'tj86'], type: 'mcq',
-    q: '[T/F] การตรวจ ANA test ในซีรั่มเป็นวิธีการตรวจที่สำคัญของโรค SLE ร่วมกับค่าทางห้องปฏิบัติการอื่น ๆ',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก\n\n💡 ANA (Anti-Nuclear Antibody) test in SLE:\n\nSensitivity: 60-100% (depends on substrate — Hep-2 cells > rat liver/kidney)\nSpecificity: moderate (false positive ใน chronic inflammation, neoplasia, infection)\n\nPositive ANA + ≥ 2 organ systems = supports SLE diagnosis\n\n💡 ANA patterns (helpful but not diagnostic):\n— Homogeneous (diffuse) — anti-dsDNA, anti-histone (most common in SLE)\n— Speckled — anti-Sm, anti-RNP\n— Nucleolar — anti-RNA polymerase (scleroderma-like)\n— Centromeric — limited scleroderma\n\n💡 ANA negative ≠ rule out SLE — 5-10% of SLE are ANA-negative\n\n💡 Other supportive lab:\n— Anti-dsDNA (highly specific, 90%)\n— Anti-Sm (Smith antigen, very specific)\n— Hypocomplementemia (C3, C4 ↓)\n— Coombs\' positive (if IMHA component)\n— Polyarthritis tap: non-degenerate neutrophils\n— GN: UPC > 0.5, proteinuria',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #21 (T)' },
-
-  { id: 1112, subject: 'com4', topic: 'sle', year: 4, source: 'TJ86 SLE T/F',
-    tags: ['sle', 'tf', 'levamisole', 'tj86', 'rare'], type: 'mcq',
-    q: '[T/F] ในสุนัขที่เป็นโรค SLE มีรายงานการใช้ยา Levamisole ร่วมกับ Prednisolone ซึ่งได้ผลดีในประมาณ 50% ของสุนัขป่วย',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก (ข้อสอบเก่า ★ — concept สำคัญแต่ relatively rare)\n\n💡 Levamisole in canine SLE:\n— Anthelmintic with immunomodulatory effects (T-cell function modulation, restoration of cellular immunity)\n— Combined with Prednisolone for SLE refractory cases\n— Reported response rate ~ 50% (older case series, Aj. Rosama old text)\n— Dose: Levamisole 2-5 mg/kg PO every other day\n— Plus: Prednisolone 1-2 mg/kg/d → taper\n\n💡 Caution:\n— Hepatotoxicity\n— Vomiting\n— Behavioral changes (rare)\n— Bone marrow suppression\n— Less commonly used today vs newer agents (cyclosporine, mycophenolate, chlorambucil)\n\n💡 Modern SLE management ladder (Aj. Rosama):\n1. Prednisolone 1-2 mg/kg/d → taper after remission\n2. + Cyclosporine 5 mg/kg q12h (steroid-sparing)\n3. + Cyclophosphamide หรือ Chlorambucil (severe / refractory)\n4. + MMF (mycophenolate) (newer)\n5. Azathioprine in dog (NOT cat)\n6. Levamisole (legacy option)\n\n💡 Adjunct: Hydroxychloroquine for cutaneous SLE (analog human Tx)',
-    verified: 'TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #22 (T)' },
-
-  // ── Aj. Chayot Drugs III "ออกใหม่ 100%" (TJ86) ────────────
-  { id: 1113, subject: 'com4', topic: 'immune-drugs', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
-    tags: ['drugs', 'leflunomide', 'pyrimidine', 'tj86', 'new'], type: 'mcq',
-    q: 'Leflunomide ทำงานผ่านกลไกอะไร และจัดเป็นยากลุ่มไหน',
-    options: ['Purine antagonist เหมือน Azathioprine', 'Pyrimidine antimetabolite ยับยั้ง DHODH', 'Calcineurin inhibitor เหมือน Cyclosporine', 'Alkylating agent เหมือน Chlorambucil', 'Anti-TNF monoclonal antibody'],
-    answer: 1, explain: 'Leflunomide:\n• Class: Pyrimidine antimetabolite (immunomodulator)\n• MOA: Active metabolite (teriflunomide) inhibits DHODH → ↓ de novo pyrimidine synthesis → ↓ proliferation of activated T + B lymphocytes\n• Selectively affects rapidly dividing immune cells (resting cells use salvage pathway)\n\nVet uses:\n— Refractory IMHA, IMT, SLE\n— Polyarthritis (immune-mediated)\n— Pemphigus (steroid-sparing)\n— Reactive histiocytosis\n\nDose: 2-4 mg/kg PO q24h (start low, monitor liver enzymes)\n\nAE:\n— GI (vomit, diarrhea, anorexia)\n— Hepatotoxicity (monitor ALT/ALP)\n— BM suppression (monitor CBC q2-4 wks)\n— Long t½ (~ 14-18 days) → drug accumulation\n\nNote: ในข้อ 7 ของ TJ86 — Aj. Chayot ระบุชัดเจน "ออกใหม่ 100%" → high yield สำหรับ Vet 86 ★\n\n💡 T+B cell',
-    verified: 'TJ86 Aj. Chayot Drugs III #7 (ออกใหม่ 100% ★★)' },
-
-  { id: 1114, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
-    tags: ['lokivetmab', 'cytopoint', 'il-31', 'tj86', 'new'], type: 'mcq',
-    q: 'Lokivetmab (Cytopoint®) คืออะไร และทำงานอย่างไร',
-    options: ['Antibiotic', 'Steroid', 'Anti-IL-31 mAb', 'Antihistamine', 'NSAID'],
-    answer: 2, explain: 'Lokivetmab (Cytopoint®, Zoetis):\n• Class: Caninized anti-IL-31 mAb (biologic therapy)\n• MOA: Binds and neutralizes circulating IL-31 — the "itch cytokine" produced by activated Th2 cells in atopy\n• IL-31 normally signals to: nerve endings (DRG, skin) → pruritus; keratinocytes → barrier dysfunction; Th2 axis amplification\n\nUse: Canine Atopic Dermatitis (CAD) pruritus management\n\nDosing:\n— 2 mg/kg SC ทุก 4-8 สัปดาห์ (variable response duration)\n— No oral form (Apoquel = oral version of different mech — JAK inhibitor)\n— Onset: 1-3 days, peak 7-14 days\n\nPros:\n— Highly safe (few systemic AE — minimal immunosuppression)\n— Suitable for puppies (≥ 1 mo old) — no age restriction\n— Compatible with vaccines, other meds\n— Long-lasting effect\n\nCons:\n— $$$ (expensive)\n— Doesn\'t treat underlying allergy (just blocks itch signal)\n— Some dogs become "non-responders" over time\n— Not effective for non-IL-31-driven pruritus\n\nCompare to Oclacitinib (Apoquel):\n— Apoquel = JAK1 inhibitor (oral, daily) — broader effect, faster onset (4 hr) but more AE\n— Cytopoint = anti-IL-31 (injection q4-8 wk) — narrower target, safer, fewer AE\n\n💡 CAD pruritus',
-    verified: 'TJ86 Aj. Chayot Drugs III #10 (ออกใหม่ 100% ★★)' },
-
-  { id: 1115, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
-    tags: ['bedinvetmab', 'librela', 'ngf', 'tj86', 'new'], type: 'mcq',
-    q: 'Bedinvetmab (Librela®) เป็นยาประเภทใด และใช้รักษาอะไร',
-    options: ['Broad-spectrum antibiotic', 'Sedative ลดความกังวล', 'Anti-flea กำจัดหมัด', 'Antihistamine แก้แพ้', 'Anti-NGF mAb for OA pain'],
-    answer: 4, explain: 'Bedinvetmab (Librela®, Zoetis):\n• Class: Caninized anti-NGF (Nerve Growth Factor) monoclonal antibody\n• MOA: Binds and neutralizes circulating NGF — pivotal cytokine in OA pain pathway\n  - NGF → activates TrkA + p75NTR receptors on nociceptive neurons\n  - Sensitizes peripheral + central pain pathways\n  - Drives chronic pain in OA\n— Blocking NGF → ↓ pain transmission → improved mobility\n\nApproved indication: Canine Osteoarthritis (OA) chronic pain management\n\nDose: 0.5-1 mg/kg SC monthly (q4 wks)\n\nPros:\n— Long-acting injection (monthly)\n— Excellent safety profile in dogs\n— No GI/renal/hepatic AE (unlike NSAIDs)\n— Suitable for elderly with comorbidities\n— Compatible with NSAIDs in some protocols\n\nCons:\n— $$$\n— Slow onset (1-2 wks)\n— Some dogs non-responders\n— Concerns about rapidly progressive OA in human studies (monitor)\n\n💡 Aj. Chayot ระบุ ออกใหม่ 100% → high-yield exam item ★\n\n💡 Cat equivalent = Frunevetmab (Solensia®) — felinized anti-NGF mAb (next Q)',
-    verified: 'TJ86 Aj. Chayot Drugs III #11 (ออกใหม่ 100% ★★)' },
-
-  { id: 1116, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
-    tags: ['frunevetmab', 'solensia', 'ngf', 'cat', 'tj86', 'new'], type: 'mcq',
-    q: 'Frunevetmab (Solensia®) คืออะไร — และใช้ในสัตว์ชนิดใด',
-    options: ['Anti-flea topical ในสุนัข', 'Injectable steroid ในม้า', 'Broad-spectrum antibiotic ในวัว', 'Felinized anti-NGF mAb (OA pain)', 'Core vaccine ในลูกสุนัข'],
-    answer: 3, explain: 'Frunevetmab (Solensia®, Zoetis):\n• Class: Felinized anti-NGF monoclonal antibody (IgG)\n• Species: Cats only (cat equivalent of Bedinvetmab/Librela)\n• Indication: Feline Osteoarthritis pain (incredibly common but underdiagnosed — ~ 60% of cats > 6 yr have OA)\n\nWhy important in cats:\n— Cats are notoriously bad candidates for NSAIDs long-term (renal safety concerns, esp. in elderly with CKD comorbidity)\n— Limited safe analgesics: opioid (short-term), gabapentin (chronic), buprenorphine\n— Solensia fills the gap → safe long-term OA pain control\n\nDose: 1-2.8 mg/kg SC monthly\n\nPros:\n— Safe in cats with CKD, hyperthyroid (no renal/hepatic concern from drug itself)\n— Monthly injection (good compliance)\n— Improves quality of life (jumping, playing, grooming)\n\nCons:\n— $$$\n— Onset 1-2 wks\n— Need feline-specific (cat IgG) — can\'t use canine anti-NGF in cat\n\n💡 Aj. Chayot ระบุออกใหม่ 100% — pair with Bedinvetmab ★★',
-    verified: 'TJ86 Aj. Chayot Drugs III #12 (ออกใหม่ 100% ★★)' },
-
-  { id: 1117, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'TJ86 Aj. Chayot Drugs III ออกใหม่ 100%',
-    tags: ['oclacitinib', 'apoquel', 'jak', 'age-restriction', 'tj86', 'new'], type: 'mcq',
-    q: 'Oclacitinib (Apoquel®) ใช้สำหรับ atopic dermatitis ในสุนัข — มี age restriction ใดสำคัญ',
-    options: ['ใช้ได้ทุกวัยไม่จำกัดอายุ', 'ใช้ในสุนัขที่อายุมากกว่า 12 เดือน', 'ใช้เฉพาะลูกสุนัขอายุ < 6 เดือน', 'ใช้เฉพาะสุนัขสูงวัย > 5 ปี', 'ห้ามใช้ในสุนัขทุกกรณี'],
-    answer: 1, explain: 'Oclacitinib (Apoquel®, Zoetis):\n• Class: JAK inhibitor (selectively JAK1) → blocks IL-31, IL-2, IL-4, IL-13 signaling\n• Use: CAD pruritus + Allergic dermatitis (FAD, food allergy on TRIP-P slot)\n\n🚫 Age restriction: ≥ 12 months old (1 year)\n\nReasons:\n1. Demodicosis risk in puppies (immunosuppression unmasks Demodex)\n2. Papillomatosis (viral warts) — opportunistic infection\n3. Bone marrow effects in developing animals\n4. Vaccine response considerations\n5. Long-term BM/lymphoid effects in growing dogs\n\nDose:\n— Induction: 0.4-0.6 mg/kg PO q12h × 14 days\n— Maintenance: 0.4-0.6 mg/kg PO q24h\n\nOnset: very fast (within 4 hours)\nEffective for: pruritus only — doesn\'t cure underlying atopy\n\nAE:\n— Vomit, diarrhea (mild)\n— Lethargy, polydipsia\n— Pyoderma, otitis (immunosuppression)\n— ↑ pneumonia risk\n— Demodicosis (rare in adult dogs)\n— BM suppression (rare)\n— Theoretical neoplasia risk (long-term controversial)\n\n💡 Aj. Chayot เน้น: > 12 เดือน เท่านั้น (puppy ใช้ Cytopoint ได้แทน — no age restriction) ★\n\n💡 ≥ 1 ปี',
-    verified: 'TJ86 Aj. Chayot Drugs III #8 (ออกใหม่ 100% ★)' },
-
-  // ── Aj. Punyamanee Pediatric specifics (85≠84) ────────────
-  { id: 1118, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Peds (85≠84)',
-    tags: ['neonate', 'reflexes-timing', 'withdrawal', 'tj86'], type: 'mcq',
-    q: 'Withdrawal reflex (รีเฟล็กซ์ดึงเมื่อโดนบีบ) ใน neonatal puppy/kitten ปรากฏเมื่ออายุประมาณเท่าใด',
-    options: ['ตั้งแต่แรกเกิด (at birth) ทันที', 'ไม่ปรากฏในสัตว์เลย', 'ประมาณ 6 เดือนหลังเกิด', 'ประมาณ 1 ปีหลังเกิด', '7-19 days post-birth'],
-    answer: 4, explain: 'Neonatal reflex timeline (Aj. Punyamanee — Vet 85 lecture differs from Vet 84):\n\nAt birth (present):\n— Pain reflex (response to noxious stimulus)\n— Righting reflex (turn upright when on back)\n— Rooting reflex (search for nipple)\n— Sucking reflex\n— Anogenital reflex (urination/defecation when stimulated by mother)\n\nDevelops over weeks:\n— Eyes open: 5-14 days\n— Withdrawal reflex: 7-19 days ★\n— Hearing/Ear canal opens: 6-14 days\n— Smell mature: 7-14 days\n— Menace reflex + voluntary voiding: 3 wks\n— Voluntary deification + urination: 3-4 wks\n— Adult-like locomotion: 4-5 wks\n\n💡 จุดสำคัญที่ Vet 86 ต้องจำ:\n— Pain reflex = at birth (immediate) ← TJ86 ระบุชัดเจน\n— Withdrawal reflex = 7-19 days ← develop ภายหลัง\n— สอง reflex นี้ต่างกัน! pain = primitive, withdrawal = developmental',
-    verified: 'TJ86 Aj. Punyamanee Peds #2 (85 ≠ 84)' },
-
-  { id: 1119, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Peds (85≠84)',
-    tags: ['neonate', 'colostrum', 'immunoglobulin-types', 'tj86'], type: 'mcq',
-    q: 'Colostrum ใน puppy/kitten — Immunoglobulin ใดที่ดูดซึมได้ "ดีกว่า" และทำไม',
-    options: ['IgM ดูดซึมดีกว่าเพราะเป็น pentamer', 'IgD ดูดซึมได้ดีที่สุด', 'IgE เป็นตัวหลักในนมน้ำเหลือง', 'IgG + IgA ดูดซึมดีกว่า IgM', 'ทุก isotype ดูดซึมเท่ากันหมด'],
-    answer: 3, explain: 'Colostral Ig absorption in neonate:\n\nIgG (monomer, ~ 150 kDa) — ดูดซึมได้ดีที่สุด\n— Major isotype in colostrum\n— Provides systemic passive immunity\n— Detectable in serum within hours\n\nIgA (dimer, ~ 380 kDa) — ดูดซึมรอง\n— Local mucosal protection (gut, respiratory)\n— Important for intestinal immunity\n\nIgM (pentamer, ~ 970 kDa) — ดูดซึมยาก\n— Too large to pass through enterocyte pinocytosis\n— Mostly stays in gut lumen → local effect only\n— Limited contribution to systemic passive immunity\n\n💡 Gut closure timing:\n— First 8 hr: peak absorption\n— 24 hr: closure mostly complete\n— 48-72 hr: complete closure\n— After closure → Ig pass through but NOT absorbed (local effect only)\n\n💡 Maternal serum vs colostrum:\n— Bitch/queen produces concentrated colostrum from late pregnancy\n— First milk = colostrum (high Ig)\n— After 24-48 hr → transitions to mature milk (low Ig, normal nutrient)\n\n💡 Failure of Passive Transfer (FPT):\n— Serum IgG < 200 mg/dL\n— Causes: orphan, weak suckle, agalactia (queen), late birth\n— Tx: plasma transfusion 22 ml/kg PO หรือ SC ใน first 24 hr, then IV/IP after gut closure\n\n💡 IgM โมเลกุลใหญ่ pentamer ผ่านลำไส้ยาก',
-    verified: 'TJ86 Aj. Punyamanee Peds #3' },
-
-  { id: 1120, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Peds (85≠84)',
-    tags: ['neonate', 'organ-maturation', 'hepatic-renal', 'tj86'], type: 'mcq',
-    q: 'Hepatic + renal function ใน puppy/kitten — เริ่มทำงานเทียบเท่า adult ที่อายุเท่าใด',
-    options: ['Birth (immediate adult function)', '6 months both', '1 year both', 'Never reach adult', 'Liver: 4-5 months, Kidney'],
-    answer: 4, explain: 'Organ maturation timeline (Aj. Punyamanee Vet 85):\n\nHepatic function:\n— Adult-equivalent at 4-5 months\n— CYP450 enzyme activity matures gradually\n— Albumin synthesis matures\n— Glycogenolysis + gluconeogenesis develop over weeks\n— Implication: avoid drugs with hepatic metabolism in young (e.g., phenobarbital, propofol — accumulate)\n\nRenal function:\n— Adult-equivalent at 8 weeks (GFR + tubular function)\n— Nephrogenesis completes around 2 wks postnatal\n— USG: 1.006-1.017 (isosthenuria) — normal until 8 wks\n— Trace proteinuria + glucosuria normal first 3 days (immature reabsorption)\n— Implication: avoid renal-cleared drugs (aminoglycosides, NSAIDs) in young\n\nOther organ maturation:\n— Cardiovascular: ductus arteriosus closes 2-5 days, foramen ovale closes\n— GI: HCl secretion gradually develops (low at birth = vulnerable to bacterial overgrowth)\n— Immune: passive immunity from colostrum first 6 wks → active immunity develops 6-12 wks\n— CNS: BBB matures over weeks\n\n💡 Drug considerations in neonate (< 6-8 wks):\n— AVOID:\n  • Tetracyclines (bone + teeth deposition, yellow staining)\n  • Gentamicin/aminoglycosides (nephrotoxic)\n  • Metronidazole (neurotoxicity in high dose)\n  • TMP-Sulfa (BM effects, KCS in dog)\n  • Enrofloxacin (cartilage damage)\n  • NSAIDs (renal + GI immature)\n— PREFER:\n  • β-lactams (penicillin, amoxicillin, cephalexin) — wide safety\n  • Clindamycin (with caution)',
-    verified: 'TJ86 Aj. Punyamanee Peds #11' },
-
-  { id: 1121, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Peds (85≠84)',
-    tags: ['neonate', 'drugs-avoid', 'tj86', 'classic'], type: 'mcq',
-    q: 'ยาที่ "ไม่แนะนำ" ใน lukpup/kitten อายุน้อย (< 6-8 wks) ตาม Aj. Punyamanee คือ',
-    options: ['Penicillin G + Ampicillin', 'Amoxicillin + clavulanic acid', 'Tetracycline + Gentamicin + TMS', 'Clindamycin + Erythromycin', 'Cephalexin + Cefovecin'],
-    answer: 2, explain: 'Drugs to AVOID in neonate/pediatric (< 6-8 wks):\n\n1. Tetracyclines (Tetracycline, Doxycycline)\n— Chelate Ca²⁺ → deposits in bones + teeth\n— Permanent yellow-brown tooth staining\n— Slow bone growth\n— Use only > 6 mo if possible\n\n2. Gentamicin / Aminoglycosides (Amikacin, Tobramycin, Streptomycin)\n— Nephrotoxic (immature kidney)\n— Ototoxic (cochlear + vestibular)\n— Neurotoxicity (high dose)\n— Use only ถ้าจำเป็นจริงๆ + therapeutic drug monitoring\n\n3. Metronidazole\n— Neurotoxicity in high dose / prolonged use (> 50 mg/kg/d)\n— Vestibular signs, ataxia, seizure\n— BM effects (mild)\n\n4. TMP-Sulfa (Trimethoprim-sulfonamide)\n— BM suppression\n— Hepatotoxicity\n— Keratoconjunctivitis Sicca (KCS) in dog (esp. Doberman, sulfa-sensitive breeds)\n— Hypersensitivity\n\n5. Enrofloxacin / Fluoroquinolones\n— Cartilage damage in growing animals (arthropathy)\n— Avoid in dogs < 12 mo (small breed) or < 18 mo (large breed)\n— Especially avoid in giant breeds during growth plate closure\n— Cat: retinal degeneration (high dose)\n\n💡 Note: NSAIDs also avoided in < 6-8 wks (immature liver + kidney)\n\n💡 Safe choices ใน puppy/kitten:\n— β-lactam (penicillin, amoxicillin, cephalexin)\n— Clindamycin (with caution)\n— Erythromycin (with caution, GI AE)\n\n💡 ทั้งกลุ่ม',
-    verified: 'TJ86 Aj. Punyamanee Peds #18 (แต่งคำถามรวม)' },
-
-  { id: 1122, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Peds (85≠84)',
-    tags: ['cat-age', 'definitions', 'tj86'], type: 'mcq',
-    q: 'Cat life stage definitions ตาม Aj. Punyamanee 2026 คือ',
-    options: ['Kitten 0-6 mo, Adult > 6 mo', 'Senior > 5 years', 'Kitten until 5 years', 'แมวเด็ก: 0-6 mo', 'No standard'],
-    answer: 3, explain: 'Feline life stages (Aj. Punyamanee Vet 85):\n\nNewborn / Neonate: 0-2 weeks\nInfant: 2-6 weeks\nWeanling: 6-12 weeks\nKitten: 0-6 months\nJunior: 6 months - 2 years\nAdult: 3-6 years\nMature/Middle-aged: 7-10 years\nSenior: > 10 years (≥ 11 yr per AAHA/ISFM)\nGeriatric/Super-senior: > 14-15 years (some categories use this for super-old)\n\n💡 Senior cat threshold = > 10 years ← TJ86 emphasizes\n\n💡 Common geriatric cat diseases (> 10 yr):\n— CKD (most common, ~ 30-50% of cats > 10 yr)\n— Hyperthyroidism (~ 10% of cats > 10 yr)\n— Diabetes mellitus\n— Neoplasia (lymphoma, mammary, SCC)\n— Osteoarthritis (under-recognized — ~ 60% of cats > 6 yr)\n— Cardiomyopathy (HCM)\n— Cognitive Dysfunction Syndrome (CDS)\n— Dental disease\n\n💡 ความถี่การ check-up:\n— Adult: ปีละครั้ง\n— Senior: ทุก 6 เดือน + comprehensive screening (CBC, chem, T4, BP, UA)\n\n💡 ข้อแตกต่างกับ canine:\n— Small dog senior: 9+ yr, Large/giant: 6-7+ yr\n— Cat senior: 10+ yr (ทุกสายพันธุ์)\n\n💡 geriatric category\n\n💡 แมว Senior > 10 ปี',
-    verified: 'TJ86 Aj. Punyamanee Peds #6' },
-
-  // ── Aj. Punyamanee Geriatric specifics ────────────────────
-  { id: 1123, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Geri',
-    tags: ['geriatric', 'gi-changes', 'tj86', 'critical'], type: 'mcq',
-    q: 'การเปลี่ยนแปลงทางระบบทางเดินอาหาร (GI) ในสัตว์สูงอายุ (geriatric) ตาม Aj. Punyamanee คือ',
-    options: ['GI motility เพิ่มขึ้น + HCl เพิ่ม + bile production เพิ่ม', 'เพิ่ม pancreatic enzyme เท่านั้น', 'ไม่มีการเปลี่ยนแปลง', 'GI motility เพิ่มเฉพาะลำไส้', 'GI motility ลดลง'],
-    answer: 4, explain: 'Geriatric GI changes (Aj. Punyamanee — TJ86 ระบุชัดเจนว่า "Reduced motility, HCl, Secretion, bile formation"):\n\nลดลงทุกอย่าง:\n• ↓ Motility → delayed gastric emptying + constipation\n• ↓ HCl secretion → \n  - Malabsorption (esp. B12, iron, calcium)\n  - Bacterial overgrowth (SIBO)\n  - Reduced protein digestion\n• ↓ Bile formation → \n  - Fat malabsorption\n  - Cholestatic disease\n  - Vitamin K-dependent factors deficient\n• ↓ Pancreatic enzyme → \n  - EPI-like signs\n  - Steatorrhea\n• ↓ Secretion (saliva, mucus) → dry mouth, dental disease\n\n💡 Common geriatric GI conditions:\n— Constipation (dehydration + ↓ motility + DJD/inactivity + CKD)\n— Chronic enteropathies / IBD (more common in older cats)\n— Chronic hepatitis / cholangitis (cat: triaditis = cholangitis + IBD + pancreatitis)\n— Pancreatitis\n— Inflammatory bowel disease\n— Megacolon (cat)\n— Dental disease (tooth resorption, periodontitis)\n— GI neoplasia (lymphoma, adenocarcinoma)\n\n💡 Management:\n— Frequent small meals\n— High-quality digestible diet\n— Adequate hydration\n— Probiotic supplementation\n— Regular dental care\n\n💡 HCl ลดลง, Bile formation ลดลง → ส่งผลให้เกิด constipation',
-    verified: 'TJ86 Aj. Punyamanee Geri #2 (Reduced motility, HCl, Secretion, bile formation)' },
-
-  { id: 1124, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Geri',
-    tags: ['geriatric', 'vaccination', 'risk-based', 'tj86'], type: 'mcq',
-    q: 'Vaccination ในสัตว์สูงอายุ (geriatric) ตาม Aj. Punyamanee 2026 ใช้หลักการใด',
-    options: ['Risk-based approach', 'ฉีดทุกตัวทุกชนิดเหมือน adult', 'หยุดฉีดทุกชนิดเมื่ออายุ > 10 ปี', 'ฉีดมากกว่า adult เพราะภูมิต่ำ', 'Annual core ทุกตัว ทุกปี'],
-    answer: 0, explain: 'Geriatric vaccination — Risk-based approach (AAHA/WSAVA 2024 + Aj. Punyamanee):\n\nConcept:\n— ไม่ใช่ "one-size-fits-all" — pre-tailor ตามความเสี่ยงแต่ละตัว\n— ประเมิน:\n  • Lifestyle (indoor only? park visits? boarding? grooming?)\n  • Environment (single pet vs multi-pet household?)\n  • Geographic prevalence ของโรคที่ฉีดป้องกัน\n  • Comorbidities (immunocompromised, neoplasia, advanced CKD)\n  • Vaccine titer testing (option for some core vaccines)\n\nCore vaccines (still recommended for most):\n— Dog: Rabies (legal), DHPP (CDV, CAV-2, CPV-2, CPiV), Lepto (in TH endemic)\n— Cat: Rabies, FVRCP (FHV-1, FCV, FPV)\n— FeLV (kitten + outdoor cat)\n\nNon-core (risk-based):\n— Dog: Bordetella, CIV (canine influenza), Borrelia (Lyme — TH not endemic), Crotalus (rattlesnake)\n— Cat: Chlamydia, Bordetella\n\nSenior single-pet indoor cat (low risk):\n— อาจไม่ต้องฉีด FeLV (no exposure)\n— Rabies legal requirement (อาจฉีด less often — 3-yr cycle)\n— FVRCP — titer test เป็น option แทนการฉีดประจำ\n\nAdverse reactions concern in elderly:\n— Higher risk of vaccine-associated reactions in dogs > 10 yr\n— Cat: VAS (Vaccine-Associated Sarcoma) at injection site\n— Adjuvant load consideration\n\n💡 Aj. Punyamanee เน้น: ปรับให้เหมาะกับสัตว์แต่ละตัว ไม่ใช่ฉีดสะเปะสะปะ ★\n\n💡 พิจารณาความเสี่ยงแต่ละตัว, indoor pet อาจไม่ต้องครบทุกชนิด',
-    verified: 'TJ86 Aj. Punyamanee Geri #5' },
-
-  { id: 1125, subject: 'com4', topic: 'peds-geri', year: 4, source: 'TJ86 Aj. Punyamanee Geri',
-    tags: ['geriatric', 'imaging', 'workup', 'tj86'], type: 'mcq',
-    q: 'Imaging modalities ใน geriatric workup ตาม Aj. Punyamanee — เพิ่มขึ้นจาก pediatric อย่างไร',
-    options: ['Imaging ไม่จำเป็นในสัตว์สูงวัย', 'ใช้แค่ blood test อย่างเดียวพอ', 'ใช้แค่ X-ray ก็เพียงพอแล้ว', 'เพิ่ม U/S + CT/MRI screening', 'CT/MRI ห้ามใช้ในสัตว์แก่'],
-    answer: 3, explain: 'Geriatric imaging strategy (Aj. Punyamanee — TJ86 ระบุ "เพิ่มขึ้นจาก pediatric"):\n\nWhy imaging more in geriatric:\n— Higher prevalence of neoplasia (~ 50% deaths in dogs > 10 yr)\n— Subclinical organ disease (CKD, cardiac, hepatic) common\n— Need pre-anesthetic screening before any procedure\n— Differential diagnosis broader (more potential pathologies)\n\nRecommended modalities:\n\n1. Abdominal Ultrasonography (AUS) — most useful screening:\n— Liver, spleen, kidneys, adrenals, GI, lymph nodes, urinary bladder\n— Detect: mass lesions, organ enlargement, peritoneal effusion\n— Indications: vague illness, ↑ liver enzymes, weight loss, palpable mass\n\n2. Thoracic Radiography:\n— Cardiac silhouette (DMVD in dog, HCM in cat)\n— Pulmonary patterns (CHF, neoplasia, infiltrative dz)\n— Mediastinal mass\n\n3. Echocardiography:\n— Detect chamber size, wall thickness, valve disease\n— Important in dogs > 7 yr (DMVD prevalence 75%)\n— Cats > 10 yr (HCM screening)\n\n4. CT scan:\n— Thoracic mass evaluation (better than rad)\n— Abdominal neoplasia + metastasis staging\n— Skull/bone disease\n— Spinal disease\n\n5. MRI:\n— Brain disease (CDS, neoplasia, vascular)\n— Spinal cord disease (IVDD, neoplasia, syringomyelia)\n— Soft tissue sarcoma evaluation\n\n💡 Routine senior screening (yearly minimum):\n— CBC + chem profile + UA + UPC\n— Thyroid (T4 in cat, sometimes dog)\n— BP\n— Abdominal US (q1-2 yr in cat > 10 yr — to catch lymphoma early)\n— Thoracic rad ± echocardiography (if cardiac signs)',
-    verified: 'TJ86 Aj. Punyamanee Geri #7' },
-
-
-  // ═══════════════════════════════════════════════════════════
-  // อ.รสมา + อ.ชัยยศ original PDF batch (Fangfuay vet81 source)
-  // - อ.รสมา 50 T/F items (3 colors: T/F/ไม่ออก)
-  // - อ.ชัยยศ 50 5-choice MCQs (ตรงตามแนวสอบเก่ามาก)
-  // Net-new content + concept-corrections only (skip TJ86 dupes)
-  // ═══════════════════════════════════════════════════════════
-
-  // ── อ.รสมา: New T/F net-new from original PDF ─────────────
-  { id: 1126, subject: 'com4', topic: 'sle', year: 4, source: 'อ.รสมา Fangfuay vet81 #16',
-    tags: ['amyloidosis', 'cat', 'breed', 'tf', 'rosama'], type: 'mcq',
-    q: '[T/F] ในแมวมักพบการสะสมของสาร Amyloid ที่ "ชั้น cortex" และกรวยไต พบมากในแมวพันธุ์ Abyssinian, Siamese และ Oriental Shorthair',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก\n\n💡 Feline renal amyloidosis (familial AA-type):\n— Abyssinian (most reported, autosomal dominant inheritance pattern)\n— Siamese\n— Oriental Shorthair\n— Birman occasionally\n\n💡 Amyloid deposition site in cat:\n— Renal medulla / interstitium (medullary amyloidosis pattern) ★ เด่นกว่าใน cat\n— Renal cortex (glomerular) — also affected\n— Liver (hepatic amyloidosis can lead to spontaneous hepatic rupture in Siamese/Oriental)\n\n💡 Compare to dog amyloidosis:\n— Shar-Pei: familial fever syndrome → reactive amyloidosis (medullary > glomerular)\n— Most dogs: glomerular pattern (cortex predominant) → severe proteinuria\n\n💡 Clinical signs:\n— PU/PD, weight loss, vomit, anorexia\n— Mild proteinuria (less severe than glomerular type — UPC < 2 typically)\n— Progressive azotemia\n— Hepatic rupture if liver involvement (Siamese)\n\n💡 Diagnosis: renal biopsy + Congo red stain (apple-green birefringence under polarized light)\n💡 Tx: limited — colchicine, DMSO (questionable efficacy), supportive CKD care, poor prognosis',
-    verified: 'อ.รสมา original Fangfuay vet81 #16 (T)' },
-
-  { id: 1127, subject: 'com4', topic: 'peds-geri', year: 4, source: 'อ.รสมา Fangfuay vet81 #26',
-    tags: ['neonate', 'lactose', 'milk-replacer', 'tf', 'rosama'], type: 'mcq',
-    q: '[T/F] Lactose intolerance เป็นสาเหตุของท้องเสียในลูกสุนัขที่กินนมผงเป็นประจำ',
-    options: ['ผิด (False)', 'ถูก (True)'],
-    answer: 0, explain: '❌ ผิด — Lactose intolerance ใน puppy ที่กินนมผง ไม่ใช่สาเหตุหลัก ของท้องเสีย\n\n💡 ทำไม F:\n— Puppy/Kitten มี lactase enzyme เต็มที่ ในวัยทารก (ไม่เหมือน adult mammal ที่ลด lactase หลัง weaning)\n— Commercial milk replacer (Esbilac, KMR) มี lactose level ใกล้เคียงนมแม่ + ปรับ formulation ให้ย่อยง่าย\n\n💡 สาเหตุท้องเสียจริงในลูกสุนัขกินนมผง (more likely):\n1. Improper preparation: นมเข้มข้น/เจือจางเกิน, อุณหภูมิไม่เหมาะ\n2. Overfeeding: ปริมาณเกิน stomach capacity (4-5 ml/100g BW)\n3. Wrong formula: ใช้นมวัว (cow milk) แทน species-appropriate replacer → lactose สูง + protein/fat ratio ผิด\n4. Bacterial contamination: เก็บนมผสมไว้นาน, ไม่ฆ่าเชื้ออุปกรณ์\n5. Fat malabsorption: คุณภาพ replacer ไม่ดี\n6. Infectious causes: parvovirus, coronavirus, Giardia\n7. Stress: separation from mom, environment change\n\n💡 หลักการ feeding:\n— ใช้ commercial puppy/kitten milk replacer (เคย เคย)\n— หลีกเลี่ยงนมวัว ที่มี lactose สูงเกิน\n— ปริมาณ 4-5 ml/100g BW per feed × 8-12 feedings/day\n— Warming to body temp (~ 38°C)\n— Fresh prep each time',
-    verified: 'อ.รสมา original Fangfuay vet81 #26 (F)' },
-
-  { id: 1128, subject: 'com4', topic: 'peds-geri', year: 4, source: 'อ.รสมา Fangfuay vet81 #29',
-    tags: ['geriatric', 'aging', 'antioxidant', 'tf', 'rosama', 'concept'], type: 'mcq',
-    q: '[T/F] เมื่อสัตว์อายุมากขึ้น จะมีอาการเปลี่ยนแปลงและเสื่อมลงในวัยอวัยวะหลายๆอวัยวะ แต่ "สามารถป้องกันได้" โดยการให้อาหารโภชนบำบัดสารในกลุ่ม antioxidant',
-    options: ['ผิด (False)', 'ถูก (True)'],
-    answer: 0, explain: '❌ ผิด — Aging cannot be PREVENTED — only SLOWED or MANAGED (concept พลาดง่าย)\n\n💡 ทำไม F:\n— Aging = inevitable biological process (telomere shortening, mitochondrial dysfunction, cellular senescence, accumulated oxidative damage)\n— Antioxidants ช่วย "ชะลอ" (slow) แต่ไม่ "ป้องกัน" (prevent)\n— No nutrient/supplement can stop aging\n\n💡 Antioxidants — limited benefits in geriatric:\n— Vitamin E (α-tocopherol) — membrane lipid peroxidation\n— Vitamin C — water-soluble antioxidant\n— Beta-carotene / Vit A precursors\n— CoQ10 — mitochondrial function\n— L-carnitine — fatty acid metabolism\n— SAMe — liver, cognitive function\n— Omega-3 (EPA+DHA) — anti-inflammatory\n— Phosphatidylserine, Resveratrol — cognitive\n\n💡 What antioxidants CAN do:\n— ↓ rate of cognitive decline (esp. dogs with CDS)\n— ↓ chronic inflammation\n— Support organ function in subclinical disease\n— Improve coat + skin\n— Reduce oxidative load in CKD/cardiac disease\n\n💡 What they CANNOT do:\n— Reverse aging\n— Prevent age-related neoplasia\n— Replace specific medical Tx\n— Extend lifespan dramatically\n\n💡 Wholistic approach: balanced senior diet + dental care + screening + appropriate exercise + meds for specific conditions',
-    verified: 'อ.รสมา original Fangfuay vet81 #29 (F) — "สามารถป้องกันได้" annotated X' },
-
-  { id: 1129, subject: 'com4', topic: 'peds-geri', year: 4, source: 'อ.รสมา Fangfuay vet81 #32',
-    tags: ['life-stages', 'classification', 'tf', 'rosama'], type: 'mcq',
-    q: '[T/F] ในสุนัขและแมวมีการแบ่งช่วงอายุเป็น "6 ขั้น" และขั้นที่ 6 เรียกว่า "Senile Stage"',
-    options: ['ผิด (False)', 'ถูก (True)'],
-    answer: 0, explain: '❌ ผิด — มี 5 ขั้นหลัก (Aj. Rosama annotation ★) ไม่ใช่ 6\n\n💡 AAHA/AAFP Life Stage Classification (5 main stages):\n\n1. Puppy/Kitten (Pediatric)\n— 0 to ~ 6-12 months (until reproductive maturity / growth complete)\n— Sub-stages: Neonate (0-2wk), Infant (2-6wk), Weanling (6-12wk), Junior (3-6mo)\n\n2. Young Adult (Junior/Young)\n— ~ 6-12 mo to 2-3 years\n— Reaches social + sexual maturity\n\n3. Adult (Mature)\n— 2-3 years to 6-7 years (large/giant) หรือ 8-9 years (small)\n— Peak physical condition\n\n4. Mature/Middle-aged (Senior preparation)\n— 6-7 to 9-10 yr (varies by size)\n— Pre-senior screening starts here\n\n5. Senior\n— Last 25% of estimated lifespan\n— Small/medium dog: 9+ yr, Large/Giant: 6-7+ yr\n— Cat: 10+ yr\n— Some sources sub-divide: Senior + Geriatric (super-senior)\n\n💡 "Senile Stage" terminology — outdated, derogatory (now use "Senior" or "Geriatric" instead)\n\n💡 6th stage (sub-classification, not main):\n— Some texts add "Geriatric / End-of-life" as a separate stage for the last 1-2 years\n— But mainstream = 5 main stages with "Senior" being the final\n\n💡 Important: life stage classification differs by size in dogs (large breeds age faster) — rate of aging is NOT linear with calendar years',
-    verified: 'อ.รสมา original Fangfuay vet81 #32 (F) — "5 ขั้น ขั้นที่ 6"' },
-
-  { id: 1130, subject: 'com4', topic: 'peds-geri', year: 4, source: 'อ.รสมา Fangfuay vet81 #36',
-    tags: ['neonate', 'deworming', 'protocol', 'tf', 'rosama', 'classic'], type: 'mcq',
-    q: '[T/F] ลูกสุนัขทุกตัวควรได้รับการถ่ายพยาธิตัวกลม (roundworm) และพยาธิปากขอ (hookworm) ในช่วงเวลาที่เหมาะสม',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก — Universal pediatric deworming protocol\n\n💡 Why all puppies need deworming:\n— Transplacental transmission: Toxocara canis (round worm) crosses placenta → puppy born already infected (~ 100%)\n— Transmammary transmission: Toxocara + Ancylostoma (hookworm) pass via milk\n— Zoonotic risk: T. canis = visceral/ocular larva migrans in human (esp. children)\n— High prevalence even in seemingly healthy litter\n\n💡 Deworming protocol (CAPC/ESCCAP guidelines):\n\nPuppy:\n— Start 2 weeks old → repeat every 2 weeks\n— Continue until 12 weeks (or until regular broad-spectrum monthly preventive begins)\n— Drug: Pyrantel pamoate, fenbendazole, milbemycin\n\nKitten:\n— Start 3-4 weeks → repeat every 2 weeks until 9 weeks → monthly until 6 months\n\nBitch/Queen (during pregnancy + lactation):\n— Treat dam at 6 wks gestation + 2 wks postpartum (reduces transmission)\n— Daily fenbendazole (50 mg/kg PO) from day 40 gestation through day 14 lactation = effective protocol\n\nAdults:\n— Monthly broad-spectrum preventive (esp. heartworm + endoparasite combo)\n— Or every 3 months minimum\n— Fecal exam at least 4 times in first year, at least 2x/year as adult\n\n💡 Common parasites in TH puppies:\n— Toxocara canis (roundworm) — transplacental, common\n— Ancylostoma caninum (hookworm) — transmammary, blood-sucking\n— Trichuris vulpis (whipworm) — environmental\n— Dipylidium caninum (tapeworm) — flea vector\n— Cystoisospora (coccidia) — protozoal',
-    verified: 'อ.รสมา original Fangfuay vet81 #36 (T)' },
-
-  { id: 1131, subject: 'com4', topic: 'peds-geri', year: 4, source: 'อ.รสมา Fangfuay vet81 #50',
-    tags: ['neonate', 'calcium', 'controversy', 'tf', 'rosama'], type: 'mcq',
-    q: '[T/F] ควรให้แคลเซียมเสริมในลูกสุนัขที่กำลังเจริญเติบโต เพื่อพัฒนาของกระดูกและฟันให้เหมาะสม มิฉะนั้นจะเกิดโรคข้อเสื่อมเมื่อสุนัขเข้าสู่วัยชรา',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 0, explain: '✅ ถูก ตาม Aj. Rosama original (แต่มี nuance สำคัญ ★)\n\n💡 Aj. Rosama original answer = T (legacy concept ใน Vet 81/86)\n\n⚠️ BUT modern guideline = ระวัง over-supplementation in large/giant breeds!\n\n💡 Calcium ใน growing puppy — dual perspective:\n\n✅ "เสริม" perspective (Aj. Rosama T):\n— Active growth requires Ca + P balance for bone + dental development\n— Deficient Ca → poor bone mineralization, dental issues\n— Severe deficiency → rickets, secondary nutritional hyperparathyroidism\n— Especially critical in kittens (cat can\'t convert vit D from skin sunlight as efficiently)\n\n⚠️ Modern caveat (over-supplementation harm):\n— Large/Giant breed puppies (> 25 kg adult weight): excess Ca → Developmental Orthopedic Disease (DOD)\n  • Osteochondrosis (OCD)\n  • Hip dysplasia worsening\n  • Hypertrophic osteodystrophy (HOD)\n  • Wobbler syndrome (Great Dane, Doberman)\n— Calcitonin response immature → can\'t protect against excess Ca\n— Calcium > 1.5% DM = excessive (small breed tolerate up to 2.5%, large breed should not exceed 1.2%)\n\n💡 Modern recommendation:\n— Use balanced commercial puppy diet (Ca:P ratio 1.2-1.4:1)\n— Avoid additional Ca supplementation if eating quality puppy food\n— Large breed: feed large breed puppy diet specifically (lower Ca + adjusted nutrient density)\n— Small/medium: standard puppy diet\n— Special supplementation only if veterinary-prescribed (specific deficiency, raw/homemade diet)\n\n💡 Bottom line: Adequate Ca = essential, but balanced + appropriate to breed/size = key. Over-supplementation harmful especially in giant breeds.',
-    verified: 'อ.รสมา original Fangfuay vet81 #50 (T) — context-dependent in modern practice' },
-
-  // ── อ.ชัยยศ 5-choice MCQs (NEW format + new content) ──────
-  { id: 1132, subject: 'com4', topic: 'derm-intro', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #1',
-    tags: ['hair-cycle', 'anagen', 'classic', 'chayot'], type: 'mcq',
-    q: 'ระยะที่ขนมีการเจริญและพัฒนาของเส้นขน คือระยะใด',
-    options: ['Telogen (ระยะร่วง/พัก)', 'Xelogen', 'Anagen', 'Catagen (ระยะขนแก่/transitional)', 'Chemogen'],
-    answer: 2, explain: 'Anagen = active growth phase ของ hair cycle\n\n💡 Hair cycle 3 phases หลัก:\n1. Anagen — active growth (matrix cells divide, keratinize, push hair shaft up)\n   — Duration: variable (months-years in human, 1-6 mo in dog)\n   — Stimulators: thyroid hormones, growth factors\n   — Inhibitors: glucocorticoids, estrogens, cortisol\n2. Catagen — transitional (sudden stop in growth, follicle regresses)\n   — Short duration (days-weeks)\n3. Telogen — resting phase (hair retained but not growing)\n   — Eventually shed (Exogen sub-phase)\n\n💡 Hair cycle dysregulation:\n— Hypothyroidism → ↓ Anagen → bilateral symmetrical alopecia\n— Cushing\'s → cortisol inhibits Anagen → alopecia\n— Telogen effluvium → stress/illness pushes hairs into Telogen prematurely → mass shedding\n— Alopecia X → hair cycle arrest → flame follicles\n\n❌ ทำไมข้ออื่นผิด:\n— Telogen = ระยะพัก (ไม่เจริญ)\n— Catagen = ระยะหยุด/transitional (ไม่ใช่ growth)\n— Xelogen, Chemogen = made-up terms (ไม่มีจริง)\n\n💡 ระยะเจริญ/active growth',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #1' },
-
-  { id: 1133, subject: 'com4', topic: 'derm-intro', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #4',
-    tags: ['hair-cycle', 'extrinsic-factors', 'chayot'], type: 'mcq',
-    q: 'ข้อใด "ไม่ใช่" extrinsic factor ที่มีผลต่อการเจริญของขน',
-    options: ['Thyroid hormones', 'Glucocorticoids', 'Genetics', 'Ambient temperature', 'Oestrogen'],
-    answer: 3, explain: 'Ambient temperature = External factor (ภายนอกตัว) ไม่ใช่ extrinsic factor ในความหมาย "ภายในร่างกายแต่มาจากภายนอก hair follicle"\n\n💡 Extrinsic factors of hair growth (ภายในร่างกาย แต่มาจากภายนอก hair follicle):\n— Hormones: Thyroid (stimulator), GH/IGF-1, Estrogen + Glucocorticoids + Cortisol (inhibitors), Prolactin\n— Genetics: breed-specific patterns (Chow Chow plush, Greyhound short)\n— Immunological status: autoimmune attack (alopecia areata), hypersensitivity\n— Nutritional status: protein, EFA, zinc, biotin, vitamin A/E\n— Disease: systemic illness, neoplasia\n— Drugs: chemotherapy → effluvium\n\n💡 External factors (ภายนอกร่างกาย, environmental):\n— Ambient temperature ✓ (this Q)\n— Photoperiod / day length (seasonal coat change in some breeds)\n— UV exposure\n— Humidity\n\n💡 Intrinsic factors (within hair follicle itself):\n— Local growth factors\n— Cytokines\n— Local hormones\n— Cell-cell signaling\n\nโจทย์ใช้คำ "extrinsic" → external factor (temperature) ไม่ใช่คำตอบที่ใกล้เคียง → answer = Ambient temperature\n\n💡 อุณหภูมิรอบตัว',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #4' },
-
-  { id: 1134, subject: 'com4', topic: 'derm-intro', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #6',
-    tags: ['skin-ph', 'species-difference', 'chayot'], type: 'mcq',
-    q: 'ความแตกต่างของผิวหนังคนกับสุนัข ในด้าน pH คือ',
-    options: [
-      'ผิวหนังสุนัขมี pH 7.5 (alkaline)',
-      'ผิวหนังคนมี pH เท่ากับสุนัข',
-      'ผิวหนังสุนัขมี pH 5.5 เหมือนคน',
-      'pH ไม่ต่างกัน',
-      'ผิวหนังสุนัขมี pH 4.5 (acidic)',
+    "answer": 1,
+    "explain": "Deep skin scraping (squeeze + scrape จนเห็นเลือดออกเล็กน้อย) → demodex อยู่ลึกใน follicle, เห็น cigar-shaped mite (~250 μm) + ovoid eggs, trichogram + tape ก็ใช้เสริมได้\n\n❌ ทำไมข้ออื่นผิด\n— ELISA blood = ไม่มี commercial สำหรับ Demodex\n— Fungal culture = dermatophyte\n— Histopath = ใช้ในกรณีที่ scraping negative ซ้ำๆ ไม่ใช่ first-line\n\n💡 เห็น mite + egg ภายใต้กล้อง",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.7"
+  },
+  {
+    "id": 912,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "sarcoptes",
+      "distribution"
     ],
-    answer: 0, explain: 'ผิวหนังสุนัข pH ≈ 7.5 (alkaline), ผิวหนังคน pH ≈ 5.5 (slightly acidic)\n\n💡 Implications of pH difference:\n\n1. Microbiome:\n— Cat/Dog skin alkaline → favors different commensal flora than humans\n— Higher Staphylococcus (esp. S. pseudintermedius in dog) — adapted to alkaline environment\n\n2. Shampoo selection:\n— Human shampoo NOT suitable for dog/cat! Human shampoo pH ~ 5.5 too acidic for canine skin → can disrupt barrier\n— Use dog-specific shampoo (pH 7.0-7.5) — neutral to mildly alkaline\n— Cat shampoo similar pH\n\n3. Soap reaction:\n— Animal skin more sensitive to alkaline soap dryness\n\n4. Disease management:\n— Bacterial overgrowth → benefits from medicated shampoo (chlorhexidine, benzoyl peroxide) which can shift pH\n— Fungal (yeast like Malassezia) → grows in slightly acidic environment\n\n💡 Note: cat skin pH similar to dog (~ 7.0-7.5), all carnivore skin tends to be more alkaline than primate skin',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #6' },
-
-  { id: 1135, subject: 'com4', topic: 'derm-intro', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #7,11',
-    tags: ['lesions', 'pyoderma', 'classic', 'chayot'], type: 'mcq',
-    q: '"Pustule" และ "Epidermal collarette" ในรอยโรคของ superficial pyoderma จัดเป็น primary หรือ secondary lesion ตามลำดับ',
-    options: [
-      'Pustule = secondary, Epidermal collarette = primary',
-      'Pustule = primary, Epidermal collarette = secondary',
-      'ทั้งคู่เป็น primary lesion เหมือนกัน',
-      'ทั้งคู่เป็น secondary lesion เหมือนกัน',
-      'ทั้งคู่ไม่จัดเป็น skin lesion',
+    "type": "mcq",
+    "q": "Sarcoptes scabiei ใน canine scabies ตำแหน่ง predilection คือ",
+    "options": [
+      "Pinnal margin (ขอบใบหู), elbow, hock",
+      "Interdigital อุ้งเท้าทั้ง 4 เท่านั้น",
+      "โคนหางและ dorsal lumbosacral เท่านั้น",
+      "กระจายทั่วตัวไม่เป็น pattern ชัด"
     ],
-    answer: 1, explain: 'Pustule = Primary lesion, Epidermal collarette = Secondary lesion (ของ superficial pyoderma)\n\n💡 Primary lesions (เกิดจากโรคโดยตรง):\n— Macule (เปลี่ยนสี, flat < 1 cm)\n— Papule (raised < 1 cm)\n— Plaque (raised > 1 cm flat-top)\n— Nodule (raised > 1 cm dome)\n— Vesicle (fluid-filled < 1 cm)\n— Bulla (fluid-filled > 1 cm)\n— Pustule (pus-filled — bacterial or sterile pemphigus type) ★\n— Wheal/Hive (transient edema)\n— Tumor\n— Cyst\n\n💡 Secondary lesions (เกิดตามมาจาก primary หรือจากการเกา):\n— Scale (สะเก็ด — keratin shedding)\n— Crust (สะเก็ดแห้งจาก exudate dried)\n— Lichenification (ผิวหนา/หยาบ — chronic inflammation)\n— Hyperpigmentation (สีเข้ม — chronic)\n— Hypopigmentation (สีจาง)\n— Excoriation (จากการเกา)\n— Erosion / Ulcer (loss of epidermis vs deeper)\n— Scar / Fibrosis\n— Comedone (สิวอุดตัน)\n— Epidermal collarette ★ (รอยวงกลมหลังจาก pustule แตก/หาย)\n— Fissure (รอยแตก)\n— Callus (หนังด้าน)\n\n💡 Superficial pyoderma signature:\n— Primary: Pustule (intact pustule = key dx, but transient — แตกง่าย)\n— Secondary: Epidermal collarette (ring of scale where pustule was) — most common when present to clinic',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #7, #11' },
-
-  { id: 1136, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #15,17',
-    tags: ['pyoderma', 'classification', 'depth', 'chayot'], type: 'mcq',
-    q: 'การจำแนก pyoderma — ข้อใดต่อไปนี้ "ไม่จัดอยู่" ในกลุ่ม Surface และ Superficial pyoderma',
-    options: [
-      'Impetigo (Juvenile impetigo) = superficial',
-      'Intertrigo (Skin fold pyoderma) = surface',
-      'Mucocutaneous pyoderma = surface',
-      'Juvenile folliculitis = superficial',
-      'Chin acne (Canine acne) = deep pyoderma',
+    "answer": 0,
+    "explain": "Sarcoptes predilection: ear margins (pinnal-pedal reflex test +ve), elbows, hocks, ventral abdomen, ventral chest, severe pruritus, self-trauma\n\n❌ ทำไมข้ออื่นผิด\n— อุ้งเท้า = atopic dermatitis (paw chewing)\n— โคนหาง = FAD\n— \"ไม่เป็น pattern\" = generic infection",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.9"
+  },
+  {
+    "id": 913,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "otodectes",
+      "ear-mite"
     ],
-    answer: 4, explain: 'Chin acne / Canine acne = Deep pyoderma ★ (ไม่ใช่ surface/superficial)\n\n💡 Pyoderma classification by DEPTH (Aj. Chayot ★):\n\n1. Surface pyoderma (epidermis แค่ stratum corneum):\n— Hot spots (Acute moist dermatitis / Pyotraumatic dermatitis)\n— Intertrigo (Skin fold pyoderma) — Bulldog facial fold, Pug nose, Vulvar fold\n— Mucocutaneous pyoderma — lip, nose junction\n— BOG (Bacterial Overgrowth Syndrome) — diffuse Staph overgrowth\n\n2. Superficial pyoderma (epidermis to follicle ostium):\n— Impetigo (Juvenile impetigo most common — pustules on sparsely-haired ventrum of puppy)\n— Superficial folliculitis (most common form clinically)\n— Bacterial folliculitis\n\n3. Deep pyoderma (deep dermis + subcutis):\n— Furunculosis (ruptured folliculitis → deep infection)\n— Cellulitis\n— Pyogranuloma\n— Chin acne / Canine acne ★ (Bulldog, Boxer chin) — actually deep follicular involvement\n— Pedal furunculosis (interdigital)\n— German Shepherd pyoderma (deep, recurrent)\n— Acral lick dermatitis\n— Post-grooming furunculosis\n\n💡 Folliculitis vs Furunculosis:\n— Folliculitis: hair follicle ยัง intact (superficial)\n— Furunculosis: hair follicle แตก (rupture) → contents into dermis → deep + foreign body reaction',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #15, #17' },
-
-  { id: 1137, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #18,20',
-    tags: ['pyoderma', 'antibiotics', 'first-line', 'chayot', 'classic'], type: 'mcq',
-    q: 'ยาปฏิชีวนะ "First-line" สำหรับการรักษา pyoderma เบื้องต้น ตาม Aj. Chayot คือ',
-    options: ['Trimethoprim-sulfamethoxazole (TMS)', 'Enrofloxacin (2nd line) + Marbofloxacin', 'Amoxicillin (alone — ASAP not enough)', 'Azithromycin', 'Cephalexin หรือ Amoxicillin-clavulanate'],
-    answer: 4, explain: '1st-line ABO สำหรับ canine pyoderma:\n\n1. Cephalexin (1st generation cephalosporin)\n— Dose: 22-30 mg/kg PO q12h (or q8h)\n— Excellent against S. pseudintermedius\n— Wide safety margin\n— First choice (Aj. Chayot ★)\n\n2. Amoxicillin-clavulanate (Amoxi-clav, Augmentin)\n— Dose: 12.5-25 mg/kg PO q12h\n— Beta-lactamase resistant\n— Equivalent to cephalexin\n\n💡 Why not other choices:\n— TMS: 2nd-line, KCS risk, hepatotoxic, sulfa hypersensitivity\n— Enrofloxacin / Marbofloxacin: 2nd-line ★ — reserved for resistant cases or C&S-guided, cartilage damage in young\n— Amoxicillin alone: insufficient — most Staph produce β-lactamase, requires clavulanate\n— Azithromycin: not standard, less evidence in canine pyoderma\n\n💡 Treatment duration:\n— Surface/Superficial pyoderma: 3 wks minimum, continue 1 wk past clinical resolution\n— Deep pyoderma: 6-12 weeks (3 months) — long course, monitor closely\n— Recurrent/refractory: C&S testing always, consider underlying cause (atopy, endocrine, demodex)',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #18, #20' },
-
-  { id: 1138, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #20,21',
-    tags: ['pyoderma', 'topical', 'shampoo', 'chayot'], type: 'mcq',
-    q: 'การใช้ยาแบบเฉพาะที่ (Topical therapy) สำหรับ pyoderma — ข้อใด "ไม่ถูกต้อง"',
-    options: [
-      'Shampoo: ทิ้งไว้บนตัวสัตว์ 5-15 นาที (10-15 ดีกว่า) ก่อนล้างออก, อาบทุก 2-3 วัน/สัปดาห์',
-      'การใช้ Cream หรือ Ointment สามารถใช้ได้กับรอยโรคทุกชนิด (รวม oozing/wet lesions)',
-      'มักใช้ร่วมกับ Systemic therapy เพื่อเพิ่มประสิทธิภาพ',
-      'Topical คาริ Pamphlets เหมาะกับรอยโรค focal/localized',
-      'ควรเลือกใช้เมื่อรอยโรคจำกัดเฉพาะที่',
+    "type": "mcq",
+    "q": "Otodectes cynotis ทำให้เกิดโรคใด",
+    "options": [
+      "Demodicosis",
+      "Sarcoptic mange",
+      "Otoacariasis",
+      "Cheyletiellosis"
     ],
-    answer: 1, explain: 'Cream/Ointment ไม่เหมาะกับรอยโรค "oozing/wet" ★ (incorrect statement)\n\n💡 Topical formulation matching to lesion type:\n\nWet/Oozing lesions (acute moist dermatitis, weeping pyoderma):\n— Drying agents: astringent solutions, Burrow\'s solution (aluminum acetate)\n— Powders\n— Avoid: cream/ointment (occlusive → trap moisture → worsen)\n\nDry/Crusty lesions:\n— Cream/Ointment = effective (moisturizing + delivering drug)\n— Lotions for hair-bearing areas\n\nGeneralized:\n— Shampoo with active ingredient\n  • Chlorhexidine 2-4%\n  • Benzoyl peroxide 2.5-3% (follicular flushing)\n  • Miconazole + Chlorhexidine combo (Malaseb®)\n  • Keratolytic (salicylic acid, sulfur)\n— Contact time: 5-15 minutes (ideal 10-15 min) ก่อนล้าง\n— Frequency: 2-3x/week initial → taper to 1x/week maintenance\n\n💡 Topical principles:\n1. Match formulation to lesion (wet vs dry)\n2. Adequate contact time (often skipped → reduced efficacy)\n3. Combine with systemic in moderate-severe cases\n4. Rinse thoroughly (residue can irritate)\n5. Avoid where animal can lick (toxicity)\n\n💡 Topical antibacterials: Mupirocin (small focal lesions), fusidic acid, silver sulfadiazine',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #20' },
-
-  { id: 1139, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #25,26',
-    tags: ['demodicosis', 'localized', 'self-limiting', 'chayot', 'classic'], type: 'mcq',
-    q: 'Localized canine demodicosis (อาการเฉพาะที่) — ข้อใดถูกต้อง',
-    options: ['ต้องรักษาด้วยยาทุกราย ห้ามรอดูอาการ', '90% ของ localized demodicosis หายเองได้', 'Localized = generalized ต้อง treat เหมือนกัน', 'ต้องผ่าตัดตัดรอยโรคออกทุกราย', 'ติดต่อสู่สัตว์ตัวอื่นได้ง่าย'],
-    answer: 1, explain: '90% ของ localized demodicosis = self-limiting ★ (Aj. Chayot)\n\n💡 Localized vs Generalized demodicosis:\n\nLocalized demodicosis:\n— ≤ 5 lesions (focal patches < 4 cm² each)\n— Usually on face (periocular, perilabial), forelimbs, ventral chest\n— Most common in young dogs (3-6 mo, weaning age)\n— Cause: transient immune dysregulation during development (mother → puppy passage) → immune system catches up → resolves\n— 90% spontaneous resolution within 2-3 months (no Tx needed!)\n— Just monitor + treat any 2° pyoderma (Staph)\n\nGeneralized demodicosis:\n— ≥ 6 lesions OR\n— Entire body region affected OR\n— ≥ 2 paws (pododemodicosis)\n— Always requires aggressive Tx — does NOT self-resolve\n— Poor prognosis if onset in adult (suggests underlying immune compromise, neoplasia, hyperadrenocorticism)\n\n💡 Treatment for generalized:\n— Oral isoxazolines (1st-line modern!): afoxolaner (NexGard), fluralaner (Bravecto), sarolaner (Simparica), lotilaner — monthly oral, highly effective\n— Oral milbemycin oxime daily\n— Imidacloprid/Moxidectin spot-on (Advantage Multi)\n— Old: Ivermectin oral (NOT injection — collie sensitivity), Amitraz dip (toxic, less used)\n— Treatment until 2 negative skin scrapes 1 month apart\n\n💡 DON\'T:\n— Spay/neuter during active disease (immune stress)\n— Use steroid (worsens demodex)\n— Give vaccine (may stress immune)',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #25' },
-
-  { id: 1140, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #22,28',
-    tags: ['skin-scraping', 'demodex-vs-sarcoptes', 'chayot'], type: 'mcq',
-    q: 'เทคนิคการวินิจฉัย Demodicosis vs Sarcopticosis — ใช้ skin scraping ลึก/ตื้น แตกต่างกันอย่างไร',
-    options: [
-      'ทั้งคู่ใช้ superficial skin scraping',
-      'ทั้งคู่ใช้ deep skin scraping',
-      'Demodex = Deep skin scraping (ขูดถึง dermis',
-      'Demodex ใช้ Wood\'s lamp, Sarcoptes ใช้ DTM',
-      'ไม่ต้อง scrape',
+    "answer": 2,
+    "explain": "Otodectes cynotis = ear mite, พบบ่อยในแมวมากกว่าสุนัข, clinical: dark coffee-ground exudate + pruritus หู, diagnosis: otoscope + ear swab cytology\n\n❌ ทำไมข้ออื่นผิด\n— Demodicosis = Demodex (follicle)\n— Sarcoptic mange = Sarcoptes (skin surface)\n— Cheyletiellosis = Cheyletiella (walking dandruff)\n\n💡 ear mite infestation",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.10"
+  },
+  {
+    "id": 914,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "Derm_3_Parasitic_skin_diseases.pdf",
+    "tags": [
+      "cheyletiella",
+      "walking-dandruff"
     ],
-    answer: 2, explain: 'Demodex = DEEP skin scraping, Sarcoptes = SUPERFICIAL skin scraping ★\n\n💡 Why different depths:\n\nDemodex canis — lives in hair follicle + sebaceous gland (deep!):\n— Need to express follicle content + scrape until capillary blood appears (sign of dermis depth)\n— Squeeze skin firmly → scrape deeply → blade angle ~ 45°\n— Multiple sites (5-6 areas), include affected + adjacent normal\n— Mineral oil on slide → microscope LP/HP → look for adult mites + eggs\n— Sensitivity high (~ 90%) when proper technique\n\nSarcoptes scabiei var. canis — burrows in stratum corneum (superficial!):\n— Superficial scrape (ขูดเบาๆ ผิวบน)\n— Multiple sites essential (Sarcoptes hard to find — sensitivity only ~ 30-50%!)\n— Best sites: ear margins (Pinnal-pedal reflex positive 80%), elbow, hock, ventral abdomen\n— Mineral oil mount\n— Empirical treatment if signs match (intense pruritus, distribution typical) even if scraping negative\n\n💡 Other dx techniques mentioned in TJ86/Chayot:\n— Acetate tape preparation = both bact + fungal + Cheyletiella + lice (versatile!)\n— Trichogram = hair shaft + bulb examination (Demodex eggs, dermatophyte arthroconidia)\n— Wood\'s lamp = M. canis only (positive ~ 50% of M. canis)\n— DTM (Dermatophyte Test Medium) = fungal culture (color change yellow→red within 7-14 days = positive)\n— Cytology = bacteria, yeast (Malassezia), pemphigus (acantholytic cells)\n— Skin biopsy + histopath = definitive for autoimmune, neoplasia, deep pyoderma',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #22, #28' },
-
-  { id: 1141, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #26',
-    tags: ['demodex', 'treatment', 'isoxazoline', 'chayot', 'critical'], type: 'mcq',
-    q: 'ยา "ที่ไม่แนะนำ" (avoid) ในการรักษา canine demodicosis คือ',
-    options: [
-      'Oral milbemycin oxime',
-      'Imidacloprid/moxidectin spot-on (Advantage Multi)',
-      'Ivermectin INJECTION (route problem — should be oral',
-      'Doramectin injection',
-      'Oral isoxazolines (NexGard/Bravecto/Simparica/Credelio)',
+    "type": "mcq",
+    "q": "Cheyletiella spp. มีลักษณะคลินิกที่เด่นเรียกว่าอะไร",
+    "options": [
+      "Hair loss only",
+      "\"Walking dandruff\"",
+      "Black crust จาก melanin",
+      "Bullae ใหญ่"
     ],
-    answer: 2, explain: 'Ivermectin injection ไม่แนะนำใน demodicosis ★ (route problem)\n\n💡 Why avoid Ivermectin INJECTION:\n\n1. Route problem:\n— Ivermectin in dogs should be oral (not injectable)\n— Injectable form is for cattle (large animal product) — overdose risk\n— Dose calculations differ by route\n\n2. Breed sensitivity (MDR1 mutation):\n— Collie + collie-related breeds (Australian Shepherd, Border Collie, English Shepherd, Old English Sheepdog, Shetland Sheepdog) homozygous MDR1 mutant → Ivermectin toxicity (ataxia, blindness, coma, death)\n— Heterozygotes also at increased risk\n— Always genetic test ก่อน high-dose ivermectin\n\n3. High-dose required for demodex:\n— Demodex requires 0.3-0.6 mg/kg PO q24h (much higher than heartworm preventive 6 µg/kg)\n— Long duration (months)\n— Risk of toxicity ↑ with cumulative dose\n\n💡 Modern preferred Tx for demodicosis (Aj. Chayot 2026):\n\n1st-line: Oral isoxazolines ★ (revolutionized demodex Tx)\n— Afoxolaner (NexGard) — monthly\n— Fluralaner (Bravecto) — every 3 months\n— Sarolaner (Simparica) — monthly\n— Lotilaner (Credelio) — monthly\n— Excellent efficacy (often single dose effective for localized)\n— Safe in collie breeds (no MDR1 issue)\n— Very high cure rates with 2-3 doses for generalized\n\n2nd-line:\n— Imidacloprid/Moxidectin spot-on (Advantage Multi) — weekly\n— Oral milbemycin oxime — daily\n— Doramectin SC injection (off-label, careful with collie)\n— Oral ivermectin (carefully titrated)\n\n3rd-line:\n— Amitraz dip (toxic, weekly, multi-month)',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #26' },
-
-  { id: 1142, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #31',
-    tags: ['dermatophyte', 'species', 'pet', 'chayot'], type: 'mcq',
-    q: 'ข้อใด "ไม่ใช่" สาเหตุของโรค Fungal skin disease (Dermatophytosis) ที่พบได้บ่อยในสัตว์เลี้ยง',
-    options: [
-      'Microsporum canis (most common in cat)',
-      'Microsporum gypseum (geophilic, contact with soil)',
-      'Trichophyton mentagrophytes (zoophilic, rodent contact)',
-      'Epidermophyton floccosum (anthropophilic, rare in pets)',
-      'Malassezia pachydermatis (yeast, separate category)',
+    "answer": 1,
+    "explain": "\"Walking dandruff\" = Cheyletiella, large mite (~500 μm) เคลื่อนไหวบนผิวพร้อมเกล็ดผิวจน mimic ดูเหมือนรังแคที่เดินได้, zoonotic (papules ใน owner), Diagnosis: tape + microscopy\n\n❌ ทำไมข้ออื่นผิด\n— \"Hair loss only\" = ไม่ specific\n— \"Black crust\" = พิเศษ Demodicosis บางชนิด\n— \"Bullae\" = pemphigus (autoimmune)\n\n💡 เกล็ดผิวสีขาวเหลืองที่เคลื่อนไหวได้บนผิวหนัง",
+    "verified": "Derm_3_Parasitic_skin_diseases.pdf p.10"
+  },
+  {
+    "id": 915,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "pyoderma",
+      "pathogen"
     ],
-    answer: 3, explain: 'Epidermophyton floccosum = Anthropophilic dermatophyte (specific to humans), rarely affects pets ★\n\n💡 Dermatophyte classification by reservoir:\n\n1. Zoophilic (animal-adapted, can transmit to human):\n— Microsporum canis ★ — most common in cat (60-90% of feline dermatophytosis), highly infectious\n— Trichophyton mentagrophytes — rodent reservoir → contact with mice, rats, hamsters\n— Trichophyton verrucosum — cattle\n— Microsporum nanum — pig\n\n2. Geophilic (soil-dwelling):\n— Microsporum gypseum — contact with soil, gardening dogs, rural\n— Microsporum fulvum\n\n3. Anthropophilic (human-adapted):\n— Epidermophyton floccosum ★ — humans only, doesn\'t infect pets\n— Trichophyton rubrum — humans (athlete\'s foot)\n— Trichophyton tonsurans — humans (tinea capitis)\n— Microsporum audouinii — humans\n\n💡 Common pet dermatophytes (TH):\n— Cat: M. canis (>>90%) — Persian especially susceptible\n— Dog: M. canis (50%), M. gypseum (25%), T. mentagrophytes (15%)\n— Cattle: T. verrucosum\n— Rabbit: T. mentagrophytes\n\n💡 Note: Malassezia pachydermatis = yeast (not dermatophyte) — different category, separate disease (Malassezia dermatitis)',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #31' },
-
-  { id: 1143, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #35,37',
-    tags: ['dermatophytosis', 'topical', 'systemic', 'chayot'], type: 'mcq',
-    q: 'ข้อใด "ไม่ใช่" การรักษา dermatophytosis แบบ topical (เฉพาะที่)',
-    options: [
-      'Clotrimazole 1% cream (azole)',
-      'Lime sulfur 2-4% (topical dip)',
-      'Fludrocortisone (mineralocorticoid)',
-      'Miconazole 2% cream (azole)',
-      'Enilconazole 0.2% rinse (azole)',
+    "type": "mcq",
+    "q": "เชื้อก่อโรค pyoderma ที่พบบ่อยที่สุดในสุนัขคือ",
+    "options": [
+      "Staphylococcus aureus",
+      "Staphylococcus pseudintermedius",
+      "Streptococcus canis",
+      "Pseudomonas aeruginosa"
     ],
-    answer: 2, explain: 'Fludrocortisone = mineralocorticoid steroid — ไม่ใช่ antifungal! ★ (Q นี้ trick — fludrocortisone ใช้ใน Addison\'s disease ไม่ใช่ skin)\n\n💡 Topical antifungals for dermatophytosis:\n\nImidazole/Azole class:\n— Clotrimazole 1% cream (focal lesions)\n— Miconazole 2% cream/shampoo (Dactarin, Malaseb combo)\n— Ketoconazole shampoo 2% (also has anti-Malassezia)\n— Enilconazole 0.2% rinse (extra-label in many countries) — highly effective for environmental decon too\n— Itraconazole topical (less common)\n\nLime sulfur 2-4% — classic generalized dip\n— Apply over entire body weekly\n— Smelly + stains, but cheap + effective + safe in cats\n\nOther topicals:\n— Sodium hypochlorite (bleach) 1:10 dilution → environmental decon (not directly on animal)\n— Selenium sulfide shampoo\n— Chlorhexidine-Miconazole combo (Malaseb)\n\n💡 Systemic antifungals (for generalized cases):\n— Itraconazole ★ ★ 5-10 mg/kg PO q24h × 4-8 wks (1st choice in cat — better safety than ketoconazole)\n— Terbinafine 30-40 mg/kg PO q24h (alternative, fewer drug interactions)\n— Ketoconazole (cheaper but more hepatotoxic — careful in cat)\n— Griseofulvin (older, teratogenic, less used)\n— Fluconazole (less effective for dermatophytes)\n\n💡 Treatment duration: 4-8 weeks minimum, continue 2-4 weeks past clinical resolution + 2 negative cultures (DTM)\n\n💡 Environmental management essential:\n— Sodium hypochlorite (bleach 1:10) on hard surfaces\n— Enilconazole spray\n— Frequent vacuum + discard bag\n— Wash bedding hot water + bleach',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #35, #37' },
-
-  { id: 1144, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #38,39',
-    tags: ['malassezia', 'treatment', 'imidazole', 'chayot'], type: 'mcq',
-    q: 'การรักษา Malassezia dermatitis — ข้อใด "ไม่ถูกต้อง"',
-    options: [
-      'Pulse therapy เป็นทางเลือกสำหรับสัตว์ป่วยที่มี recurrent disease (ใช้ week-on/week-off)',
-      'ยาที่นิยมใช้ได้แก่ Itraconazole, Ketoconazole, Fluconazole',
-      'ในรายที่ไม่รุนแรง อาจใช้การรักษาแบบเฉพาะที่ (topical) เท่านั้น (chlorhexidine + miconazole shampoo)',
-      'Terbinafine เป็นยาที่มีประสิทธิภาพดีกว่า และควรพิจารณาใช้ก่อนยาในกลุ่ม Imidazoles',
-      'Diagnostic: cytology examination (Diff-Quik → "shoe print" or "peanut" appearance)',
+    "answer": 1,
+    "explain": "S. pseudintermedius = most common cause of canine pyoderma, เป็น commensal บนผิวหนัง, เมื่อ skin barrier เสีย หรือ underlying disease (allergy, endocrine) → overgrowth → pyoderma, MRSP (methicillin-resistant) เป็นปัญหาเพิ่มขึ้นเรื่อยๆ\n\n❌ ทำไมข้ออื่นผิด\n— S. aureus = หลักในคน, น้อยในสุนัข\n— Streptococcus canis = พบได้ในบาง deep pyoderma แต่ไม่ใช่หลัก\n— Pseudomonas = บ่อยใน otitis externa, ไม่ใช่ pyoderma",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.3"
+  },
+  {
+    "id": 916,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "pyoderma",
+      "classification"
     ],
-    answer: 3, explain: 'Terbinafine ไม่ใช่ first-line สำหรับ Malassezia ★ — Imidazoles (azoles) เป็น first-line, Terbinafine = alternative\n\n💡 Malassezia dermatitis treatment hierarchy:\n\n1st-line: Imidazoles/Azoles ★\n— Ketoconazole PO 5-10 mg/kg q12-24h × 3-4 wks (cheapest, but hepatotoxic in cat)\n— Itraconazole PO 5 mg/kg q24h (better safety, 1st choice in cat)\n— Fluconazole PO 5-10 mg/kg q24h (less effective for Malassezia, but better CNS penetration)\n\nTopical (1st-line for mild/focal):\n— Miconazole-Chlorhexidine combo (Malaseb® shampoo) — synergistic\n— Ketoconazole 2% shampoo ★\n— Chlorhexidine 2-4% alone\n— Miconazole cream (focal lesions)\n— Bath 2-3x/week × 4 weeks\n\n2nd-line / Alternative: Terbinafine\n— Allylamine class (different mech: inhibits squalene epoxidase, vs azoles inhibit lanosterol demethylase)\n— Effective against dermatophytes (1st-line for those!)\n— Less effective for Malassezia in vitro vs azoles\n— Use when azole-resistant or hepatotoxicity concern\n— Dose: 30 mg/kg PO q24h\n\n💡 Why imidazoles 1st for Malassezia:\n— Highest in vitro efficacy against Malassezia pachydermatis\n— Long history of use\n— Multiple formulations (oral + topical)\n— Better evidence base\n\n💡 Malassezia dermatitis features:\n— Severe pruritus + odor (smelly!) ★ characteristic\n— Erythema, alopecia, greasy seborrhea, hyperpigmentation\n— Common sites: ears, axilla, groin, ventral abdomen, foot pads, lip folds\n— Predisposing: atopy, food allergy, endocrine, immunocompromised\n— Often secondary to underlying allergic disease — must address primary cause\n— Diagnosis: cytology (Diff-Quik → peanut/shoe-print yeast cells)',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #38, #39' },
-
-  { id: 1145, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #40,41,43',
-    tags: ['nutrition', 'roles', 'protein', 'chayot'], type: 'mcq',
-    q: 'บทบาทของสารอาหาร (nutrients) ที่เกี่ยวข้องกับผิวหนัง — ข้อใด "ไม่ใช่"',
-    options: ['Sebum production (sebaceous gland secretion)', 'Keratinization (cornification of epidermal cells)', 'Epidermal turnover (cell renewal)', 'Cellular barrier function', 'Thermoregulation'],
-    answer: 4, explain: 'Thermoregulation ไม่ใช่หน้าที่ของสารอาหาร (nutrients) ★ — แม้ผิวหนังจะมีบทบาท thermoregulation แต่นี่เป็นกระบวนการ physical/physiological ไม่ใช่ nutrient-driven function\n\n💡 Roles of nutrients in skin (Aj. Chayot):\n\n1. Sebum production ✓\n— Essential fatty acids (Linoleic acid, Linolenic acid, Arachidonic acid)\n— Vitamin E (antioxidant in sebum)\n— Vitamin A (sebaceous gland regulation)\n\n2. Keratinization ✓\n— Protein (keratin synthesis)\n— Vitamin A (cornification regulation)\n— Zinc (keratin cross-linking)\n— Biotin (cornified envelope)\n— Sulfur amino acids (cysteine, methionine — disulfide bonds)\n\n3. Epidermal turnover ✓\n— Vitamin A\n— B-complex vitamins (B6, B7-biotin, B9-folate, B12)\n— Zinc\n— Protein (cell renewal)\n\n4. Cellular barrier function ✓\n— Essential fatty acids (lipid lamellae structure)\n— Ceramides (synthesized from fatty acids)\n— Cholesterol\n— Antioxidants (Vit C, Vit E, selenium)\n\n5. Pigmentation (sub-role of melanogenesis):\n— Phenylalanine + Tyrosine → melanin precursors\n— Copper (tyrosinase cofactor)\n— Vitamin A (regulates melanocyte function)\n\n6. Wound healing:\n— Protein, vitamin C, zinc, vitamin A\n\n💡 Thermoregulation in skin:\n— Achieved via: sweating (eccrine glands in foot pads, panting), vasoconstriction/dilation, hair erection (piloerection), insulation by hair coat\n— Physical/physiological process, not nutrient role\n— Although nutrition affects coat quality (which affects insulation), this is indirect\n\n💡 Key Q variation in exam (asks for ROLE):\n— ASKS for nutrient role → Thermoregulation = correct "NOT a role"\n— But asks for ผิวหนังหน้าที่อะไร → Thermoregulation = correct "IS a function"\n\n💡 อุณหภูมิร่างกาย — ไม่ใช่หน้าที่หลักของ "สารอาหาร" ในผิวหนัง',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #40' },
-
-  { id: 1146, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #41,42',
-    tags: ['protein','hair','cocker-spaniel','vit-A','chayot'], type: 'mcq',
-    q: 'ข้อใด "ไม่ถูกต้อง" เกี่ยวกับโปรตีนต่อผิวหนัง + Vitamin A-responsive dermatosis',
-    options: [
-      'เส้นขนมีโปรตีนเป็นส่วนประกอบถึง 95%',
-      'Phenylalanine + Tyrosine → melanin (precursors) สำหรับสีขนเข้ม',
-      'การเจริญของเส้นขนต้องใช้โปรตีน 25-30% of daily protein requirement (long/double coat) หรือ 10% (short coat)',
-      'Vitamin A-responsive dermatosis ใน Cocker Spaniel — สุนัขขาด Vit A (deficiency)',
-      'โรคผิวหนังจากการขาดโปรตีนพบได้บ่อยในทางคลินิก',
+    "type": "mcq",
+    "q": "การจำแนก pyoderma ตามความลึกของรอยโรค (depth) แบ่งเป็นกี่ประเภท",
+    "options": [
+      "2 ประเภท: superficial vs deep",
+      "3 ประเภท: surface, superficial, deep",
+      "4 ประเภท: surface, superficial, deep, systemic",
+      "ไม่จำเป็นต้องแบ่ง"
     ],
-    answer: 4, explain: 'มี 2 ข้อผิดในชุดนี้ — ที่ explicit ผิดที่สุด:\n\n❌ "โรคผิวหนังจากการขาดโปรตีน พบได้บ่อยทางคลินิก" — ผิด, มันพบได้น้อย ★\n\n💡 Protein deficiency dermatosis:\n— Rare in commercial diet (modern pet food has adequate protein 18-30%)\n— Common in: starvation, severe systemic illness (malabsorption, cancer cachexia), homemade unbalanced diets, very poor-quality cheap food\n— Signs: dull dry coat, depigmentation, slow hair growth, hyperpigmentation, secondary pyoderma\n\n💡 Other facts (correct in this Q):\n\nHair protein composition ✓\n— Hair = 95% protein (mostly keratin)\n— Sulfur-rich (cysteine, methionine forming disulfide bonds)\n— High dietary requirement to support continuous hair growth\n\nPhenylalanine + Tyrosine ✓\n— Both AA → tyrosinase → DOPA → DOPAquinone → eumelanin (black/brown) or pheomelanin (red/yellow)\n— Deficiency → coat color change (black coat browning, "rusting" of black coat) ★\n\nDaily protein requirement for coat:\n— Short coat breeds: ~ 10% of daily protein for hair\n— Long/double coat breeds (Husky, Samoyed, Pomeranian): ~ 25-30% of daily protein for hair\n\n💡 Vitamin A-responsive dermatosis (Cocker Spaniel) ★ — annotated tricky:\n— Cocker Spaniel NOT actually Vit A deficient in serum levels\n— "Responsive" = symptoms improve when given supplemental Vit A\n— Mechanism: defect in keratinization at hair follicle level → responds to high-dose Vit A which normalizes cornification\n— Dose: Retinol 600-1000 IU/kg PO q24h × 4-6 wks\n— Improved coat quality, ↓ scaling, ↓ follicular plugging\n— Different from true Vit A deficiency (rare, generalized hyperkeratosis)',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #41, #42 (annotated "ไม่ได้ขาด แต่ responsive")' },
-
-  { id: 1147, subject: 'com4', topic: 'derm-nutrition', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #45',
-    tags: ['zinc-responsive', 'syndrome-types', 'chayot'], type: 'mcq',
-    q: 'Zinc-responsive dermatosis ใน Siberian Husky จัดเป็น Type ใด และต่างจาก Type อีกประเภทอย่างไร',
-    options: ['Type I = genetic defect; Type II = phytate diet', 'Type II ทุก breed ไม่มี Type I genetic', 'ไม่จัดเป็น syndrome เป็น contact reaction', 'Type III จาก paraneoplastic ของ cancer', 'Type IV จาก autoimmune ต่อ ZIP4'],
-    answer: 0, explain: 'Zinc-responsive dermatosis 2 types:\n\nType I — Genetic Zn absorption defect ★:\n— Breed: Siberian Husky, Alaskan Malamute, Samoyed, Bull Terrier\n— Mechanism: hereditary defect in intestinal zinc transporter (ZIP4) → poor Zn absorption from gut (similar to acrodermatitis enteropathica in human)\n— Onset: any age, often young adult\n— Lesions: alopecia + crusting + erythema → ★ periorbital + perilabial + perigenital + perianal + foot pads + pressure points\n— Signs: \"goggle\" appearance from periorbital crusts\n— Diagnosis: clinical signs + breed + skin biopsy (parakeratotic hyperkeratosis) + response to Zn\n— Tx: Zinc methionine 2 mg/kg PO q24h × 4-6 weeks → maintenance lifelong\n— NOT a true Zn dietary deficiency — diet has Zn but absorption defect\n\nType II — Phytate-induced:\n— Breed: Giant breed puppies (Great Dane, Mastiff, St. Bernard) on cereal-based / phytate-rich diet\n— Mechanism: phytate (in grain) chelates Zn → reduces bioavailability\n— Excess Ca²⁺ in puppy diets also blocks Zn absorption\n— Onset: puppy/young growth phase\n— Lesions: similar to Type I but more generalized + crusting + secondary pyoderma\n— Tx: switch to balanced commercial puppy diet + Zn supplementation\n— Resolves once diet corrected (vs Type I = lifelong supplementation)\n\n💡 Other Zn-related dermatoses:\n— Lethal acrodermatitis (Bull Terrier) — different genetic disease, severe, fatal\n— Zinc poisoning (toxic, from ingested coins/galvanized wire)\n\n💡 giant pup',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #45' },
-
-  { id: 1148, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #44,49',
-    tags: ['endocrine-skin', 'incidence-ranking', 'chayot'], type: 'mcq',
-    q: 'ในกลุ่มโรคผิวหนังที่เกี่ยวกับ endocrine ในสัตว์เลี้ยง — ข้อใด "ถูกต้องน้อยที่สุด" (พบน้อยที่สุดในกลุ่ม endocrine derm)',
-    options: ['Hypothyroidism — most common endocrine derm in dog', 'Hyperadrenocorticism (Cushing\\\'s) — common', 'Sex hormone imbalance (intact dog)', 'Alopecia X — Nordic breeds', 'Hyperthyroidism — rare in dog'],
-    answer: 4, explain: 'Hyperthyroidism = LEAST common endocrine derm in pets ★\n\n💡 Endocrine dermatology — ranking by frequency in dogs:\n\n1. Hypothyroidism (most common endocrine derm in dog) ★\n— Estimated 0.2-0.8% of all dogs\n— Predisposed: Beagle, Doberman, Lab, Golden, Boxer, Cocker, Dachshund, Dalmatian\n— Bilateral symmetrical alopecia, dry brittle coat, "tragic face" (myxedema), recurrent pyoderma + Malassezia\n\n2. Hyperadrenocorticism (Cushing\'s)\n— Common (PDH 85%, ADH 15%, iatrogenic)\n— Alopecia, thin skin, comedones, calcinosis cutis, "pot belly"\n\n3. Sex hormone imbalance\n— Sertoli cell tumor (intact male, cryptorchid) → estrogen excess → hair coat changes\n— Hyperestrogenism (intact female with ovarian cyst)\n— Castration-responsive dermatosis\n\n4. Alopecia X\n— Nordic breeds (Pomeranian, Chow Chow, Husky)\n— Rarer than top 3, but distinctive\n\n5. Hyperthyroidism — RARE in dog ★\n— Causes: thyroid carcinoma (most), iatrogenic over-supplementation\n— Skin signs minimal (some weight loss, restlessness, but not primary derm complaint)\n— Common in cat (>10 yr, ~10% prevalence) but cat presents with weight loss + polyphagia + tachycardia, not skin\n— Cat hyperthyroid + skin = unusual (occasional unkempt coat, but not derm-driven)\n\n💡 Why Hyperthyroidism rare in dog:\n— Thyroid carcinoma usually destroys glandular tissue → hypofunction or normal\n— True functional hyperthyroidism rare (vs cat where adenomatous hyperplasia common)\n— Iatrogenic from over-supplementation (rare with proper monitoring)\n\n💡 Doberman + Alopecia X = NO ★ (Q49 of this batch — Doberman not predisposed to Alopecia X, short coat breed, not Nordic)\n\n💡 common in cat แต่ไม่ค่อย derm presentation',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #44, #49' },
-
-  { id: 1149, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #50',
-    tags: ['alopecia-x', 'treatment', 'synacthen', 'chayot', 'classic'], type: 'mcq',
-    q: 'ข้อใด "ไม่ใช่" การรักษาสำหรับภาวะ Alopecia-X',
-    options: ['Trilostane (5-10 mg/kg/d, lower dose than for Cushing\\\'s)', 'Castration / OVH (response 20-30%)', 'Melatonin (3-9 mg/dog q12h)', 'Mitotane (rarely used as legacy)', 'Synacthen'],
-    answer: 4, explain: 'Synacthen ≠ Alopecia X treatment ★ — Synacthen เป็น diagnostic agent (ACTH stim test), ไม่ใช่ Tx\n\n💡 Synacthen (Cortrosyn, Tetracosactide):\n— Synthetic 1-24 amino acid sequence of ACTH (full ACTH = 39 AA, but biological activity in first 24)\n— Use: ACTH stimulation test for diagnosing:\n  • Cushing\'s syndrome (hyper-response)\n  • Addison\'s disease (hypo-response)\n  • Trilostane monitoring (assess adrenal suppression)\n— Dose for test: 5 µg/kg IV (low-dose) or 250 µg/dog (standard)\n— Sampling: pre + 60 min post (or 30+90 min)\n\n💡 Alopecia X treatment ladder (Aj. Chayot ★):\n\nStep 1: Castration / OVH (1st-line if intact)\n— Response: 20-30%\n— Hair regrowth: 4-8 wks\n— Mechanism: removes sex hormone influence on hair cycle\n\nStep 2: Melatonin\n— Dose: 3-9 mg/dog PO q12h × 3 mo trial\n— Cure rate: 40-60%\n— AE: sedation, insulin resistance\n\nStep 3: Trilostane (lower dose than Cushing)\n— Dose: 5-10 mg/kg/d\n— Response: 80-90%, but only ~5-10% maintain long-term\n\nStep 4: Other / Legacy:\n— Mitotane (rarely used, more toxic, similar mechanism to Trilostane)\n— Methyltestosterone\n— GnRH analogues (Deslorelin)\n— Microneedling (induce hair regrowth at trauma sites)\n\nNOT used:\n— Synacthen ★ (diagnostic only)\n— Levothyroxine (only if confirmed hypothyroid co-disease)\n— Glucocorticoids (worsens alopecia)\n— Surgery (no role)\n\n💡 Annotation note: "ของ 81 เปลี่ยนเป็น halothane" — typo possibly meant another Q, or shows changes in question banks year-to-year\n\n💡 = Tetracosactide, synthetic ACTH — used for ACTH stim TEST, NOT treatment!',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #50 (annotated "ของ 81 เปลี่ยนเป็น halothane")' },
-
-  { id: 1150, subject: 'com4', topic: 'derm-endocrine', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #48',
-    tags: ['cushing', 'diagnosis', 'basal-cortisol', 'chayot'], type: 'mcq',
-    q: 'ข้อใด "ไม่ใช่" วิธีวินิจฉัย Hyperadrenocorticism (Cushing\'s) ในสุนัข',
-    options: ['ACTH stimulation test', 'Urine Cortisol:Creatinine Ratio (UCCR) — screening at home', 'Low-Dose Dexamethasone Suppression Test (LDDST) — Dexa 0.01 mg/kg IV', 'Abdominal Ultrasonography (US) — bilateral vs unilateral adrenal', 'Basal cortisol level'],
-    answer: 4, explain: 'Basal cortisol level alone ≠ Cushing diagnostic test ★\n\n💡 Why basal cortisol NOT useful for Cushing:\n— Cortisol is pulsatile → varies dramatically across the day (diurnal rhythm + episodic secretion)\n— Stress, illness, time of day all affect single measurement\n— Cushing patients can have normal basal cortisol at the moment of sampling\n— High false-negative rate\n— Cannot rule in OR out Cushing\n\n💡 Where basal cortisol IS useful:\n— Screening for Addison\'s disease (Hypoadrenocorticism):\n  • If basal cortisol > 2 µg/dL → unlikely Addison\'s (high NPV)\n  • If basal cortisol < 2 µg/dL → suspicious, do ACTH stim to confirm\n— Quick rule-out for Addison\'s in collapse patient\n\n💡 Cushing diagnostic tests (use multi-step approach):\n\n1. Screening tests (high sensitivity):\n— UCCR ★ — collected at home (avoid stress), sensitivity 99%, low specificity → use to rule out\n— LDDST ★ — sensitivity 95%, also distinguishes PDH vs ADH\n\n2. Confirmatory tests:\n— ACTH stim test — sensitivity 85% PDH, 60% ADH, also for monitoring trilostane Tx\n  • Pre + 1hr post Synacthen (5 µg/kg IV)\n  • Cushing: post-cortisol > 22 µg/dL\n  • Addison: post-cortisol no rise (< pre)\n— HDDST (High-Dose Dex Suppression) — distinguishes PDH (suppresses) vs ADH (no suppression)\n\n3. Imaging:\n— Abdominal US — bilateral symmetric adrenomegaly = PDH; unilateral mass + atrophy of contralateral = ADH\n— CT/MRI — pituitary mass for macroadenoma evaluation\n\n💡 Workup order in suspected Cushing:\n1. CBC, chem (stress leukogram, ↑ ALP, ↑ chol, BUN ↓), UA (USG ↓, proteinuria)\n2. Screening: UCCR + LDDST (one or both)\n3. If positive → confirm with ACTH stim or repeat LDDST\n4. Distinguish PDH vs ADH: HDDST + abdominal US ± endogenous ACTH measurement\n5. Imaging for surgical planning (if ADH confirmed)\n\n💡 single random sample — too variable, NOT diagnostic for Cushing',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #48' },
-
-  { id: 1151, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #14',
-    tags: ['pyoderma', 'staphylococcus', 'species', 'chayot', 'classic'], type: 'mcq',
-    q: 'สาเหตุของโรคผิวหนังจากเชื้อแบคทีเรียที่พบบ่อยที่สุดในสุนัข คือ',
-    options: ['Staphylococcus aureus (มนุษย์ flora หลัก)', 'Staphylococcus schleiferi', 'Staphylococcus intermedius (old taxonomy)', 'Staphylococcus pseudintermedius', 'Streptococcus pyogenes'],
-    answer: 3, explain: 'Staphylococcus pseudintermedius (SP) — #1 cause of canine pyoderma ★\n\n💡 Taxonomy update (2007):\n— Old name: Staphylococcus intermedius group\n— DNA analysis revealed 3 distinct species: S. intermedius, S. pseudintermedius, S. delphini\n— S. pseudintermedius = the actual canine pathogen (formerly mis-called "S. intermedius")\n— S. intermedius = pigeons, foxes\n— S. delphini = dolphins, mink\n\n💡 S. pseudintermedius characteristics:\n— Coagulase-positive Staph\n— Commensal of canine skin + nasal mucosa\n— Causes: pyoderma, otitis externa, post-surgical wound infection\n— Most strains β-lactamase positive → resistant to penicillin\n— Sensitive to cephalexin, amoxi-clav, clindamycin\n\n💡 MRSP (Methicillin-Resistant S. pseudintermedius) — emerging concern ★:\n— Resistant to ALL β-lactams (cephalexin, amoxi-clav, oxacillin)\n— Often multidrug-resistant (MDR)\n— Diagnosis: C&S with mecA/mecC PCR\n— Treatment: limited — chloramphenicol, doxycycline (if susceptible), rifampin combo, vancomycin (last resort)\n— Zoonotic risk: can transmit to humans (esp. immunocompromised)\n— Hand hygiene + isolation important\n\n💡 Why Q matters:\n— Empirical Tx targets SP — Cephalexin/Amoxi-clav 1st-line works for most\n— C&S essential when:\n  • Recurrent pyoderma\n  • Failure of empirical Tx\n  • Deep pyoderma with failure\n  • Hospital-acquired infections\n\n💡 current accepted #1 in canine pyoderma',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #14' },
-
-  { id: 1152, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #9',
-    tags: ['atopy','langerhans-cell','APC','chayot'], type: 'mcq',
-    q: 'เซลล์ที่มีบทบาท "เริ่มต้น" ในการตอบสนองภูมิไวเกิน (Hypersensitivity) ในภาวะ atopic dermatitis คือ',
-    options: ['Eosinophil (effector phase)', 'Langerhans cell', 'B-cell (produces IgE later in cascade)', 'Mast cell (effector — degranulation)', 'Neutrophil'],
-    answer: 1, explain: 'Langerhans cell = primary APC ใน epidermis ★\n\n💡 Atopic Dermatitis pathway (Type I + IV mixed hypersensitivity):\n\nStep 1: Sensitization (initial exposure)\n— Allergen penetrates skin (atopic skin barrier dysfunction → easier penetration)\n— Langerhans cell (LC) — dendritic cell in epidermis (stratum spinosum) — captures allergen via FcεRI\n— LC migrates to local lymph node\n\nStep 2: T-cell activation\n— LC presents allergen to naive T-cells in lymph node\n— Th2 response dominates in atopy:\n  • IL-4, IL-13 → B-cell IgE class switch\n  • IL-5 → eosinophil recruitment\n  • IL-31 → pruritus signaling ★ (target of Lokivetmab)\n\nStep 3: IgE production + tissue priming\n— B-cells differentiate to plasma cells → produce allergen-specific IgE\n— IgE binds high-affinity FcεRI on mast cells + LCs (positive feedback)\n— "Sensitized" — no symptoms yet\n\nStep 4: Re-exposure (effector phase)\n— Allergen re-enters skin → cross-links 2 IgE on mast cell → degranulation\n— Histamine, prostaglandins, leukotrienes → vasodilation, pruritus, edema\n— Eosinophils recruited → MBP, ECP, EDN → tissue damage\n\nStep 5: Chronic phase\n— Th17 + Th22 contribution → epidermal hyperplasia, lichenification\n— Microbial dysbiosis (Staph + Malassezia overgrowth) → 2° infection\n— Barrier dysfunction worsens (filaggrin deficient, ceramide ↓)\n\n💡 Other key cells in CAD:\n— Mast cell — degranulation = effector\n— Eosinophil — late-phase + chronic inflammation\n— Th2 cell — orchestrator of allergic response\n— B-cell / Plasma cell — IgE production\n— Keratinocyte — barrier dysfunction + cytokine production (IL-33, TSLP)\n\n💡 Therapeutic targets in CAD:\n— Block IL-31: Lokivetmab (Cytopoint) anti-IL-31 mAb\n— Block JAK signaling: Oclacitinib (Apoquel) JAK1 inhibitor — blocks IL-31, IL-2, IL-4, IL-13\n— T-cell activation: Cyclosporine (calcineurin inhibitor)\n— ASIT — modify Th2 response toward Treg\n— Topical steroids — broad anti-inflammatory\n\n💡 skin-resident antigen-presenting cell, APC',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #9' },
-
-  { id: 1153, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #34',
-    tags: ['dermatophytosis', 'dtm', 'sensitivity', 'chayot'], type: 'mcq',
-    q: 'การวินิจฉัย Dermatophytosis ที่มี "Sensitivity และ Specificity สูงสุด" และเหมาะสำหรับการตรวจทางคลินิก คือ',
-    options: ['Wood\\\'s lamp (positive ใน M. canis เท่านั้น ~ 50%)', 'Trichogram (microscopic exam ของเส้นขน)', 'Dermatohistopathology (skin biopsy)', 'Dermatophyte Test Medium (DTM)', 'Acetate tape preparation'],
-    answer: 3, explain: 'DTM = best in-clinic diagnostic for dermatophytosis ★\n\n💡 Dermatophyte Test Medium (DTM):\n— Composition: Sabouraud dextrose agar + cycloheximide (suppresses contaminants) + chloramphenicol/gentamicin (antibacterial) + phenol red pH indicator ★\n— Mechanism: dermatophytes preferentially metabolize protein → alkaline byproducts → phenol red turns yellow → red (color change within 7-14 days)\n— Other (saprophytic) fungi metabolize carbohydrate first → acidic → phenol red stays yellow OR turns red only after carbohydrate exhausted (delayed)\n\n💡 Technique:\n1. Use toothbrush technique (MacKenzie brush) on suspect area + adjacent normal coat\n2. Press hairs/scales into DTM agar\n3. Incubate at room temp (or 25-30°C) × 7-14 days\n4. Daily check: color change + colony morphology\n— Positive: macroscopic white/cottony colony WITH phenol red turning RED concurrent with colony growth\n— Confirm species: microscopic exam of colony (macroconidia) — M. canis (spindle, 6-10 cells), M. gypseum (boat-shaped), T. mentagrophytes (spiral hyphae)\n\n💡 Sensitivity + Specificity:\n— DTM sensitivity ~ 80-95%\n— Specificity high if proper interpretation (color WITH growth, not delayed)\n— More reliable than Wood\'s lamp (only 50% sensitivity for M. canis only)\n— More accessible than histopath\n\n💡 Other dx methods:\n\n1. Wood\'s lamp (UV 365 nm):\n— Quick screen but unreliable\n— Only ~ 50% of M. canis fluoresce apple-green (pteridine pigments)\n— NOT useful for: M. gypseum, T. mentagrophytes (these don\'t fluoresce)\n— False positives: scale, lint, medications\n\n2. Trichogram (hair pluck → mineral oil → microscope):\n— See: arthroconidia outside hair shaft (ectothrix M. canis), endothrix (T. tonsurans, rare in pet)\n— Quick but lower sensitivity\n\n3. Skin biopsy + histopath / PAS stain:\n— Definitive but invasive, expensive\n— Useful for atypical presentations or pseudomycetoma (Persian cat) — deeper infection\n\n4. PCR:\n— Highest sensitivity (newer commercial tests)\n— Species ID + susceptibility\n— Increasingly available, but $$$\n\n💡 Aj. Chayot recommends DTM as practical clinical gold standard for in-clinic diagnostics\n\n💡 fungal culture with phenol red indicator',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #34' },
-
-  // ── Aj. Rosama T/F that overlap but worth re-emphasizing ──
-  { id: 1154, subject: 'com4', topic: 'imha', year: 4, source: 'อ.รสมา Fangfuay vet81 #9 + clinical reasoning',
-    tags: ['neonate', 'growth-assessment', 'tf', 'rosama'], type: 'mcq',
-    q: '[T/F] การประเมินว่าลูกสุนัขเจริญเติบโตดีหรือไม่ ควรใช้ข้อมูล 2 ข้อมูลคือ "น้ำหนักตัว" และ "Muscle tone"',
-    options: ['ถูก (True)', 'ผิด (False)'],
-    answer: 1, explain: '❌ ผิด — Aj. Rosama original = F (annotated X mark on "muscle tone")\n\n💡 การประเมิน growth puppy ที่ถูกต้อง:\n\nใช้ 2 indicators หลัก:\n1. น้ำหนักตัว (Body weight) ✓\n   — Daily weight gain in first 2 wks: ~ 5-10% BW/day\n   — Doubles by 7-10 days\n   — Tracking with growth chart appropriate for breed/size\n2. Body Condition Score (BCS) ✓ — 1-9 scale, target 4-5/9\n   — Or alternatively: Body temperature (proxy of metabolism + maternal care)\n\nMuscle tone ไม่ใช่ key indicator ของ growth assessment เพราะ:\n— Muscle tone = neuromuscular development (not growth)\n— Reflects neurologic maturity, not nutritional adequacy\n— Useful for assessing alertness/vigor but separate from "growth"\n\n💡 Comprehensive growth monitoring:\n— Weight (daily first 2 wks, then 2-3x/week until weaning)\n— BCS (palpate ribs, waist)\n— Activity + suckling vigor\n— Body temperature (warm = healthy, cool = sick neonate)\n— Hydration status (skin tent, MM moisture)\n— Stool consistency\n— Crying behavior (excessive = pain, hunger, hypothermia)\n\n💡 Red flags requiring intervention:\n— Failure to gain for 2+ days\n— Weight loss (any after first 24 hr)\n— Lethargy, weak suckle\n— Hypothermia (< 35°C)\n— Constant crying\n— Diarrhea / vomiting\n— Cyanotic mucous membrane',
-    verified: 'อ.รสมา original Fangfuay vet81 #9 (F) — annotated X on muscle tone' },
-
-  { id: 1155, subject: 'com4', topic: 'derm-allergic', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #43',
-    tags: ['drug-thyroid', 'sick-euthyroid', 'chayot', 'classic'], type: 'mcq',
-    q: 'ยา/สารใด "ไม่มีผล" ต่อระดับ Thyroid hormone (TT4) ในสุนัข',
-    options: ['Sulfonamides (TMS)', 'Glucocorticoids (Prednisolone, Dexamethasone)', 'NSAIDs', 'Anti-emetics', 'Anticonvulsants (Phenobarbital, Bromide)'],
-    answer: 3, explain: 'Anti-emetics ไม่ส่งผลต่อ thyroid hormone ★\n\n💡 Drugs that affect TT4 (cause Euthyroid Sick Syndrome / falsely low TT4):\n\nSulfonamides (TMS):\n— Inhibit thyroid peroxidase (TPO) → ↓ T4 synthesis\n— Long-term TMS → can cause true hypothyroidism\n— Doberman especially sensitive\n\nGlucocorticoids (Prednisolone, Dexamethasone):\n— Suppress TSH → central inhibition\n— Decrease binding protein (TBG) → ↓ TT4 (but FT4 may stay normal)\n— Inhibit peripheral T4 → T3 conversion (5\'-deiodinase)\n\nNSAIDs (Carprofen, Meloxicam):\n— Compete with T4 for binding protein\n— ↓ TT4 (FT4 may rise transiently)\n— Long-term effects modest\n\nAnticonvulsants (Phenobarbital, Bromide):\n— Phenobarb induces hepatic CYP450 → ↑ T4 metabolism → ↓ serum T4\n— Phenobarb-induced hypothyroidism well-recognized\n— Don\'t treat with levothyroxine unless clinically hypothyroid (just adjust phenobarb monitoring)\n\nOther drugs that affect:\n— Radiocontrast media (Iodine load)\n— Furosemide (acute decrease TT4)\n— Salicylates / Aspirin\n— Heparin (affects assay)\n— Dopamine, Dobutamine (transient suppression)\n\n💡 Anti-emetics — minimal/no effect:\n— Maropitant (Cerenia) — NK1 antagonist\n— Metoclopramide — D2 antagonist + 5-HT3 antagonist (high dose)\n— Ondansetron — 5-HT3 antagonist\n— Mirtazapine — appetite stimulant + anti-emetic\n— No thyroid effect documented\n\n💡 Clinical implication:\n— ก่อน Tx hypothyroid → review drug history!\n— Stop offending drug (if possible) for 4-6 wks → recheck T4\n— Order full thyroid panel: TT4 + FT4 + cTSH (FT4 + cTSH less affected by drugs)\n— Don\'t over-diagnose hypothyroid based on single low TT4\n\n💡 Maropitant, Metoclopramide, Ondansetron — minimal thyroid effect',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #43' },
-
-  { id: 1156, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #12',
-    tags: ['lichenification', 'chronic', 'lesions', 'chayot'], type: 'mcq',
-    q: 'รอยโรค "Lichenification" บ่งบอกว่าสัตว์มีโรคใด',
-    options: ['Acute bacterial infection', 'Sterile pustule (pemphigus)', 'Chronic dermatitis', 'Vesicle (autoimmune)', 'Necrosis'],
-    answer: 2, explain: 'Lichenification = Chronic dermatitis hallmark ★\n\n💡 Lichenification:\n— Definition: thickening + ↑ skin markings + leathery texture\n— Cause: chronic inflammation + repeated rubbing/scratching\n— Sites: areas accessed by licking/scratching — feet, axilla, ventral neck, inguinal, perineum, periocular\n— Often hyperpigmented (chronic inflammation → melanin production)\n— Secondary lesion (not primary — develops over time)\n\n💡 Common causes of chronic dermatitis with lichenification:\n— Atopic dermatitis (CAD) ★ — chronic flexor surface lichenification\n— Food allergy\n— Flea Allergic Dermatitis (FAD) chronic\n— Demodicosis chronic\n— Malassezia dermatitis chronic\n— Endocrine disease (chronic Cushing, hypothyroid → recurrent secondary infection)\n— Acral lick dermatitis (psychogenic, OCD)\n— Mucocutaneous pyoderma chronic (German Shepherd)\n\n💡 Other secondary lesions of chronic disease:\n— Hyperpigmentation ★ — dark/brown discoloration (chronic inflammation)\n— Hypopigmentation — loss of pigment (autoimmune attack on melanocytes)\n— Alopecia (from chronic friction or follicular damage)\n— Scarring/Fibrosis\n— Calcinosis cutis (chronic Cushing)\n— Comedones (chronic blocked follicles)\n— Excoriation (constant scratching)\n\n💡 Approach to chronic dermatitis with lichenification:\n1. Identify and treat underlying primary cause (allergy, parasite, endocrine)\n2. Resolve secondary infections (Staph + Malassezia common)\n3. Restore skin barrier (ceramide, omega-3 supplementation, moisturizing shampoo)\n4. Pruritus control (oclacitinib, lokivetmab, cyclosporine)\n5. Patient + owner compliance (long-term management often required)\n\n💡 Important DDx clue:\n— Lichenification + ventral abdomen distribution → think Atopy (esp. flexor surfaces)\n— Lichenification + lumbar/tail base → think FAD (flea allergy)\n— Lichenification + face/feet/ears → CAD or Malassezia\n\n💡 ผิวหนา + ลายชัด + leathery + พบใน atopy/FAD/endocrine',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #12' },
-
-  { id: 1157, subject: 'com4', topic: 'derm-parasitic', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #30',
-    tags: ['parasitic', 'pruritus', 'inflammation', 'chayot', 'concept'], type: 'mcq',
-    q: 'ข้อใด "ไม่ถูกต้อง" เกี่ยวกับโรคผิวหนังจากปรสิตในสุนัข',
-    options: [
-      'มักมีอาการคันที่รุนแรง (intense pruritus)',
-      'การตัดวงจรชีวิตของปรสิตเป็นสิ่งสำคัญในการควบคุมโรค',
-      'รอยโรคที่มักพบคือ non-pruritic, non-inflammatory alopecia (ผิด',
-      'อาจมี secondary bacterial infection (Staph)',
-      'ส่วนใหญ่ติดต่อระหว่างสัตว์ได้',
+    "answer": 1,
+    "explain": "Pyoderma 3 levels: Surface (ไม่ผ่าน epidermis เช่น intertrigo, pyotraumatic), Superficial (involve epidermis ± hair follicle, ไม่ข้าม basement membrane เช่น impetigo, folliculitis), Deep (ลงลึกถึง dermis/SC เช่น furunculosis, cellulitis), การจำแนกสำคัญมากเพราะระยะเวลา + วิธี treatment ต่างกัน\n\n❌ ทำไมข้ออื่นผิด\n— \"2 ประเภท\" = ขาด surface\n— \"4 ประเภท + systemic\" = systemic ไม่ใช่ depth classification\n— \"ไม่จำเป็น\" = ผิด, classification key for management",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.3"
+  },
+  {
+    "id": 917,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "intertrigo",
+      "breed"
     ],
-    answer: 2, explain: 'ผิด — Parasitic dermatosis เป็น "pruritic + inflammatory" ไม่ใช่ "non-pruritic, non-inflammatory" ★\n\n💡 Parasitic skin disease characteristics:\n— Pruritic (intense itching) — almost always present\n  • Sarcoptes: severe pruritus, sleep-disturbing\n  • Demodex (generalized): variable pruritus, more if 2° infection\n  • Cheyletiella: moderate pruritus, "walking dandruff"\n  • Flea/FAD: severe pruritus at flea bite + allergic response\n— Inflammatory — papules, erythema, edema, secondary lesions\n— Often with secondary bacterial infection (chronic scratching disrupts barrier → Staph overgrowth)\n— Alopecia (from scratching + follicular damage) — NOT primary lesion\n\n💡 "Non-pruritic, non-inflammatory alopecia" = pattern of endocrine disease:\n— Hypothyroidism\n— Cushing\'s syndrome\n— Sex hormone imbalance\n— Alopecia X (Nordic breeds)\n\n💡 Common parasitic dermatoses (highly pruritic):\n\n1. Sarcoptes scabiei var. canis (Sarcoptic mange):\n— Burrows in stratum corneum\n— Severe pruritus (worse than any other!)\n— Predilection: ear margins, elbow, hock, ventral abdomen\n— Pinnal-pedal reflex positive (rub ear edge → ipsilateral hindleg scratches) — 80% sensitivity\n— Highly contagious + zoonotic (transient on humans)\n\n2. Demodex canis (Demodicosis):\n— Hair follicle + sebaceous gland\n— Localized: minimal pruritus\n— Generalized: variable pruritus, often 2° pyoderma → severe pruritus\n— Not contagious (commensal flora)\n\n3. Cheyletiella spp. ("Walking dandruff"):\n— Surface mite\n— Moderate pruritus + scaling on dorsum\n— Mite visible to naked eye (white dots moving on dark fur)\n— Contagious, mild zoonosis\n\n4. Otodectes cynotis (Ear mite):\n— Ear canal infestation\n— Severe pruritus → head shaking, scratching ears\n— "Coffee ground" exudate on otoscopy\n\n5. Flea / FAD:\n— Allergic reaction to flea saliva\n— Severe pruritus at lumbosacral + tail base + ventral abdomen\n— "Flea triangle" classic distribution',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #30' },
-
-  { id: 1158, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #33',
-    tags: ['dermatophytosis', 'predispose', 'concept', 'chayot'], type: 'mcq',
-    q: 'ข้อใด "ไม่ถูกต้อง" เกี่ยวกับ Dermatophytosis',
-    options: [
-      'Microsporum canis = most common cause in cat',
-      'T. mentagrophytes มักพบในสัตว์ที่สัมผัสสัตว์ฟันแทะ (rodents)',
-      'M. gypseum มักพบในสัตว์เลี้ยงนอกบ้าน (outdoor) ที่สัมผัสดิน',
-      'การวินิจฉัยที่ดีที่สุดสำหรับ in-clinic คือ DTM culture',
-      'โรคนี้เกิดจากเชื้อราโดยไม่เกี่ยวกับภาวะผิดปกติอื่นของร่างกาย',
+    "type": "mcq",
+    "q": "Skin fold pyoderma (Intertrigo) มัก predispose ในสายพันธุ์ใดมากที่สุด",
+    "options": [
+      "Shar pei, Bulldog, Cocker spaniel, Pekinese",
+      "Greyhound, Whippet (lean breed)",
+      "Border Collie, Australian Shepherd",
+      "Chihuahua, Pomeranian"
     ],
-    answer: 4, explain: 'ผิด — Dermatophytosis เกี่ยวข้องกับสภาพร่างกาย/immune status อย่างมาก ★\n\n💡 Predisposing factors for Dermatophytosis:\n\n1. Immunosuppression / Immunocompromise:\n— FeLV / FIV in cats — increases susceptibility\n— Cushing\'s syndrome (chronic hypercortisolism)\n— Diabetes mellitus\n— Neoplasia / chemotherapy\n— Immunosuppressive drugs (cyclosporine, prednisolone, MMF)\n— Stress (boarding, breeding kennels)\n— Pregnancy/lactation (immune fluctuation)\n— Old age / very young (immature immune)\n\n2. Skin barrier compromise:\n— Trauma, skin disease (atopy, parasites)\n— Excessive bathing → barrier disruption\n— Chronic moisture\n\n3. Environmental + host:\n— Long-haired breeds more susceptible (Persian cat)\n— Crowded environments (catteries, boarding)\n— Tropical/humid climate (TH ★)\n— Indoor multi-pet households\n\n4. Age:\n— Young (< 1 yr): immature immune\n— Old: declining immune function\n\n💡 Clinical implications:\n— Recurrent dermatophytosis in adult dog/cat → investigate underlying disease!\n  • CBC, chem profile\n  • FeLV/FIV (cat)\n  • Endocrine workup (Cushing, hypothyroid)\n  • Skin biopsy if atypical\n— Persistent dermatophytosis despite Tx → check immune status\n— Multiple animals affected → environmental decon + screen all pets\n\n💡 Other "dermatophytosis basics" (correct):\n— M. canis = most common (dog 50%, cat 90%) ★\n— T. mentagrophytes = rodent contact, hunting dogs\n— M. gypseum = soil exposure, geophilic\n— M. canis = Wood\'s lamp positive ~ 50%\n— DTM = best in-clinic dx (not 100% but good sens + practical)\n— Treatment 4-8 wks systemic (itraconazole 1st choice cat)\n— Environmental decon essential (fomites = textile, bedding)',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #33' },
-
-  { id: 1159, subject: 'com4', topic: 'derm-fungal', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #32',
-    tags: ['acetate-tape', 'cytology', 'broad-dx', 'chayot'], type: 'mcq',
-    q: 'การวินิจฉัยใด "สามารถใช้วินิจฉัย" ทั้งโรคจากแบคทีเรีย "และ" โรคจากเชื้อรา (ในเดียวเทคนิค)',
-    options: ['Dermatophyte Test Medium (DTM) — รา only', 'Dermatohistopathology (skin biopsy) — มี evidence ของหลายโรค แต่ไม่ใช่เทคนิคหลัก in-clinic', 'Trichogram (เส้นขน) — ราเน้น', 'Acetate tape preparation', 'Fungal culture — รา only'],
-    answer: 3, explain: 'Acetate tape preparation = versatile in-clinic dx (Aj. Chayot ★)\n\n💡 Acetate tape technique:\n1. Press clear acetate tape (Scotch tape) firmly on affected skin lesion (or hair coat for surface organisms)\n2. Lift tape with debris/cells/organisms attached\n3. Place tape (sticky-side down) on glass slide with drop of stain (Diff-Quik or methylene blue)\n4. Microscopic exam (10x → 40x → 100x oil)\n\n💡 What you can find on tape prep:\n\nBacteria ★:\n— Cocci (Staphylococcus, Streptococcus) — clusters, single cocci\n— Bacilli (rod-shaped, less common)\n— Filamentous (Actinomyces, Nocardia)\n— Diff-Quik blue/purple\n\nYeast ★:\n— Malassezia pachydermatis — "shoe print" / "peanut" / "footprint" appearance ★\n— Diff-Quik dark blue\n\nFungi:\n— Arthroconidia (dermatophyte) — barrel-shaped, attached to hair shaft\n— Hyphae (less commonly)\n\nParasites (surface):\n— Cheyletiella — "walking dandruff" mite\n— Lice (Pediculus)\n— Some surface mite eggs\n\nCells:\n— Inflammatory cells (neutrophils, eosinophils)\n— Acanthocytes/keratinocytes\n— Melanophages\n\n💡 Compare diagnostic techniques:\n\n| Technique | Bacteria | Yeast | Fungi | Mites | Cells |\n|---|---|---|---|---|---|\n| Acetate tape ★ | ✓ | ✓✓ | ✓ | ✓ (surface) | ✓ |\n| Cytology smear | ✓✓ | ✓ | ✓ | × | ✓✓ |\n| DTM culture | × | × | ✓✓✓ | × | × |\n| Skin scraping (deep) | × | × | × | ✓✓ (Demodex) | × |\n| Skin scraping (superficial) | × | × | × | ✓ (Sarcoptes) | × |\n| Trichogram | × | × | ✓ (arthroconidia) | × | hair shaft |\n| Wood\'s lamp | × | × | ✓ (M. canis only) | × | × |\n| Histopath | ✓ | ✓ | ✓ | ✓ | ✓✓✓ |\n\n💡 Tips:\n— Tape prep is fastest, cheapest, no scraping discomfort\n— Best for superficial conditions (yeast, Cocci, surface mites)\n— Doesn\'t reach deep parasites (Demodex needs deep scrape)\n— Good first-line in-clinic screening\n\n💡 เก็บ surface debris → Diff-Quik → ดูได้ทั้ง bacteria, yeast (Malassezia), fungi (arthroconidia), Cheyletiella',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #32' },
-
-  { id: 1160, subject: 'com4', topic: 'derm-bacterial', year: 4, source: 'อ.ชัยยศ Fangfuay vet81 #18 + Q23',
-    tags: ['pyoderma', 'second-line', 'marbofloxacin', 'chayot'], type: 'mcq',
-    q: 'ยาปฏิชีวนะที่เหมาะสมในการศึกษาโรคผิวหนังจากแบคทีเรีย เมื่อสงสัยภาวะ "ดื้อยา" และผลเพาะเชื้อบ่งชี้ (Second-line antibiotic) คือ',
-    options: ['Cephalexin (1st line)', 'Amoxicillin-clavulanic acid (1st line)', 'Marbofloxacin', 'Streptomycin (aminoglycoside — not standard for skin)', 'TMS (alternative 1st-line, but not for resistant)'],
-    answer: 2, explain: 'Marbofloxacin = 2nd-line ABO for resistant pyoderma ★\n\n💡 Pyoderma antibiotic ladder:\n\n1st-line (empirical):\n— Cephalexin 22-30 mg/kg PO q12h ★\n— Amoxicillin-clavulanate 12.5-25 mg/kg PO q12h\n— Cefadroxil, Cefovecin (Convenia injectable q14d)\n\n2nd-line (when 1st-line fails or resistance suspected):\n— Fluoroquinolones ★\n  • Marbofloxacin 2-5.5 mg/kg PO q24h\n  • Enrofloxacin 5-20 mg/kg PO q24h (cat: avoid > 5 mg/kg/d → retinal degeneration!)\n  • Pradofloxacin 3 mg/kg PO q24h (newer)\n— Clindamycin 5.5-11 mg/kg PO q12h\n— Doxycycline 5-10 mg/kg PO q12-24h\n\n3rd-line (per C&S only — MRSP suspected):\n— Chloramphenicol\n— Rifampin (combo only — never alone)\n— Vancomycin (last resort, IV only)\n— Linezolid\n\n💡 When to use 2nd-line:\n1. Failed 1st-line trial (≥ 2-3 wks adequate dose, no improvement)\n2. Recurrent pyoderma with prior antibiotic exposure\n3. C&S indicates resistance to 1st-line\n4. Hospital-acquired infection\n5. Deep pyoderma severe (sometimes initial choice if MRSP suspected)\n\n💡 Antibiotic stewardship principles:\n— C&S testing in: recurrent, deep, refractory, prior antibiotic exposure, immunocompromised host\n— Avoid empirical fluoroquinolones if 1st-line not tried\n— Adequate duration: superficial 3 wks, deep 6-12 wks (1 wk past resolution)\n— Adjunctive topical to reduce systemic dose/duration\n\n💡 MRSP threat:\n— Methicillin-resistant S. pseudintermedius — global emergence\n— Resistant to ALL β-lactams (including amoxi-clav, cephalexin, oxacillin)\n— Often multidrug-resistant\n— Diagnosis: C&S + mecA gene PCR\n— Tx: limited options — chloramphenicol, doxy (if susceptible), rifampin combo\n— Zoonotic risk — hand hygiene + barriers\n\n💡 2nd line, fluoroquinolone — for resistant Staph cases per C&S',
-    verified: 'อ.ชัยยศ Fangfuay vet81 #23' },
-
+    "answer": 0,
+    "explain": "Intertrigo predisposing: Shar pei, Bulldog, Pekinese (รอยพับเยอะ) + obese animals (รอยพับน้ำหนักทับ), location: lip folds, facial folds, vulvar folds, tail folds (cork-screw tail breeds), Tx: antibacterial shampoo + ลดน้ำหนัก ± surgical excision\n\n❌ ทำไมข้ออื่นผิด\n— Greyhound/Whippet = lean = ไม่ใช่ predisposed\n— Border Collie/Australian Shep = active breeds, no skin folds\n— Chihuahua/Pomeranian = small breed, ไม่มี skin folds มาก\n\n💡 sky fold + obese",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.4"
+  },
+  {
+    "id": 918,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "impetigo",
+      "distribution"
+    ],
+    "type": "mcq",
+    "q": "Juvenile impetigo มีรอยโรคที่ distribution ใด",
+    "options": [
+      "Ventral abdomen, inguinal, axillae",
+      "บริเวณใบหน้า คาง และใบหูทั้งสอง",
+      "หลัง สะโพก และโคนหางส่วนบน",
+      "Interdigital อุ้งเท้าทั้ง 4 ข้าง"
+    ],
+    "answer": 0,
+    "explain": "Juvenile impetigo: lesions ที่ ventral abdomen + inguinal + axillae, เป็น non-follicular pustules + erythematous skin + epidermal collarettes + crusts, Predisposing: poor hygiene, parasites, virus, poor diet, มักพบใน puppies < 1 yr\n\n❌ ทำไมข้ออื่นผิด\n— \"ใบหน้า/คาง/ใบหู\" = chin acne / atopic\n— \"หลัง/สะโพก\" = FAD\n— \"อุ้งเท้า\" = atopic dermatitis",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.5"
+  },
+  {
+    "id": 919,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "antibiotic",
+      "pyoderma"
+    ],
+    "type": "mcq",
+    "q": "Antibiotics ตัวใด ไม่เหมาะ สำหรับรักษา pyoderma เพราะ achieve therapeutic conc. ในผิวหนังไม่ดี",
+    "options": [
+      "Cephalexin 1st-gen cephalosporin",
+      "Doxycycline กลุ่ม tetracycline",
+      "Amoxicillin / Penicillin กลุ่ม β-lactam",
+      "Clindamycin กลุ่ม lincosamide"
+    ],
+    "answer": 2,
+    "explain": "ATB ที่ไม่เข้าผิวหนังพอ: Amoxicillin (ใช้ amoxi-clav แทน), Penicillin, Ampicillin, Streptomycin, ATB ที่เข้าผิวหนังดี: Cephalexin (1st choice), Amoxi-clav, Cefadroxil, Cefovecin, Doxycycline, Clindamycin, FQ (enrofloxacin/marbofloxacin), ต้องเลือกตาม C&S เพราะ MRSP บ่อย\n\n❌ ทำไมข้ออื่นผิด\n— Cephalexin = first-line (เข้าผิวดี)\n— Doxycycline = เข้าผิวดี (ใช้ใน MRSP บางครั้ง)\n— Clindamycin = เข้าผิวดี (alternate cephalexin)",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.11"
+  },
+  {
+    "id": 920,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "antibiotic",
+      "dose"
+    ],
+    "type": "mcq",
+    "q": "Cephalexin dose สำหรับ canine pyoderma คือ",
+    "options": [
+      "5 mg/kg SID หรือ 3 mg/kg BID",
+      "100 mg/kg BID หรือ 80 mg/kg TID",
+      "50 mg/kg SID single dose ต่อวัน",
+      "30 mg/kg BID หรือ 22 mg/kg TID"
+    ],
+    "answer": 3,
+    "explain": "Cephalexin (canine pyoderma): 30 mg/kg BID (หรือ 22 mg/kg TID), 1st-gen cephalosporin, เข้าผิวดี, cover S. pseudintermedius, ต่อ 4-6 wk superficial / 6-12 wk deep, continue > 2 wk หลัง clinical cure\n\n❌ ทำไมข้ออื่นผิด\n— 5 mg/kg SID = ต่ำเกิน\n— 50 mg/kg SID / 100 mg/kg BID = สูงเกิน",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.12"
+  },
+  {
+    "id": 921,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "treatment",
+      "duration"
+    ],
+    "type": "mcq",
+    "q": "Duration ในการรักษา superficial pyoderma",
+    "options": [
+      "3-5 วัน",
+      "1-2 สัปดาห์",
+      "≥4-6 สัปดาห์",
+      "ตลอดชีวิต"
+    ],
+    "answer": 2,
+    "explain": "Superficial pyoderma: minimum 4-6 wk, ให้ต่อ ≥ 2 wk หลัง lesions หาย, prevent recurrence, check at 2-3 weekly intervals\n\n❌ ทำไมข้ออื่นผิด\n— \"3-5 วัน\" = สั้นเกิน, recurrence แน่\n— \"1-2 wk\" = สั้นเกิน\n— \"ตลอดชีวิต\" = ผิด (ต้องหาและแก้ underlying cause)",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.12"
+  },
+  {
+    "id": 922,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "treatment",
+      "deep-pyoderma"
+    ],
+    "type": "mcq",
+    "q": "Duration สำหรับรักษา deep pyoderma",
+    "options": [
+      "1-2 สัปดาห์แล้วหยุดได้เลย",
+      "4-6 สัปดาห์เท่ากับ superficial",
+      "6-12 สัปดาห์ + ต่อหลัง clinical cure",
+      "ใช้แค่ topical พอ ไม่ต้อง systemic"
+    ],
+    "answer": 2,
+    "explain": "Deep pyoderma: average 6-12 wk + ต่อ ≥ 3-4 wk หลัง clinical cure, ต้อง C&S ทุกครั้ง, clipping + antiseptic shampoo (chlorhexidine, ethyl lactate), 3 weekly check-ups, มักมี underlying cause (Demodicosis, Cushing's, hypothyroid)\n\n❌ ทำไมข้ออื่นผิด\n— \"1-2 wk\" = สั้นเกินมาก\n— \"4-6 wk\" = สำหรับ superficial\n— \"แค่ topical\" = ผิด, deep ต้อง systemic ATB ตาม C&S",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.12"
+  },
+  {
+    "id": 923,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "cytology"
+    ],
+    "type": "mcq",
+    "q": "ใน skin cytology ของ pyoderma — การพบ \"degenerate neutrophils + intracellular cocci bacteria\" หมายถึง",
+    "options": [
+      "Active bacterial infection",
+      "Contamination, ไม่ต้องกังวล",
+      "Eosinophilic dermatitis",
+      "Sterile pustular dermatosis"
+    ],
+    "answer": 0,
+    "explain": "Degenerate neutrophil (toxic change, vacuolation) + intracellular bacteria = active bacterial infection (septic process), ถ้า extracellular เท่านั้น = อาจ colonization, cocci consistent กับ Staphylococcus, rod = G-neg (Pseudomonas, E. coli) → ส่งผลต่อการเลือก ATB\n\n❌ ทำไมข้ออื่นผิด\n— Contamination = ไม่ใช่, มี degenerate neutrophil\n— Eosinophilic = พบ eosinophils ไม่ใช่ neutrophils\n— Sterile pustular = ไม่มี bacteria\n\n💡 septic suppurative inflammation",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.7"
+  },
+  {
+    "id": 924,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "Derm__4_Bacterial_skin_diseases.pdf",
+    "tags": [
+      "topical-therapy"
+    ],
+    "type": "mcq",
+    "q": "Topical antibacterial shampoo สำหรับ pyoderma มักประกอบด้วย active ingredient ใด",
+    "options": [
+      "Antifungal เท่านั้น (ketoconazole)",
+      "NSAIDs topical",
+      "Chlorhexidine, Benzoyl peroxide",
+      "Steroid topical"
+    ],
+    "answer": 2,
+    "explain": "Antibacterial shampoo: Chlorhexidine 2-4% (most common), Benzoyl peroxide (also follicular flushing), Ethyl lactate, Povidone-iodine, Triclosan, ใช้ 2-3 ครั้ง/wk, leave 5-15 min ก่อนล้างออก, indication: surface/superficial pyoderma + adjunct ใน deep + recurrence prevention\n\n❌ ทำไมข้ออื่นผิด\n— Ketoconazole alone = antifungal สำหรับ Malassezia\n— NSAIDs topical = ไม่ใช่ antibacterial\n— Steroid topical = anti-inflammatory แต่ไม่ kill bacteria",
+    "verified": "Derm__4_Bacterial_skin_diseases.pdf p.11"
+  },
+  {
+    "id": 925,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "dermatophyte",
+      "epidemiology"
+    ],
+    "type": "mcq",
+    "q": "Dermatophytosis ในแมว ส่วนใหญ่เกิดจากเชื้อชนิดใด",
+    "options": [
+      "Microsporum gypseum",
+      "Microsporum canis",
+      "Trichophyton mentagrophytes",
+      "Aspergillus"
+    ],
+    "answer": 1,
+    "explain": "M. canis = 90-98% ของ feline dermatophytosis, 50-70% ของ canine, ติดผ่าน direct contact + fomites + environment, zoonotic, highly contagious\n\n❌ ทำไมข้ออื่นผิด\n— M. gypseum = soil-borne, ไม่ใช่ most common\n— T. mentagrophytes = rodent-borne, rare\n— Aspergillus = ไม่ใช่ dermatophyte (systemic mycosis)\n\n💡 90-98% ในแมว",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.2"
+  },
+  {
+    "id": 926,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "dermatophyte",
+      "diagnosis"
+    ],
+    "type": "mcq",
+    "q": "Wood's lamp examination ใช้ตรวจ dermatophytosis — fluoresce ได้ในเชื้อชนิดใด",
+    "options": [
+      "M. canis",
+      "M. gypseum",
+      "T. mentagrophytes",
+      "Malassezia"
+    ],
+    "answer": 0,
+    "explain": "Wood's lamp UV (cobalt/nickel filter) → apple-green fluorescence ใน M. canis (ประมาณ 50% ของ strains), false-positive: bacteria (Pseudomonas, Corynebacterium), crust, soap, cream, M. gypseum + T. mentagrophytes = NEGATIVE, ใช้เป็น screening test ไม่ใช่ definitive\n\n❌ ทำไมข้ออื่นผิด\n— M. gypseum / T. mentagrophytes = no fluorescence\n— Malassezia = yeast (ไม่ใช่ dermatophyte)",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.3"
+  },
+  {
+    "id": 927,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "dermatophyte",
+      "dtm"
+    ],
+    "type": "mcq",
+    "q": "Dermatophyte Test Medium (DTM) มี indicator อะไร และเปลี่ยนสีอย่างไรเมื่อเชื้อขึ้น",
+    "options": [
+      "Bromothymol blue, น้ำเงิน → เขียว",
+      "Phenol red, เหลือง → แดง (ภายใน 7-14 วัน)",
+      "Methylene blue, ใสขึ้น",
+      "ไม่มี indicator, อ่านจาก colony เท่านั้น"
+    ],
+    "answer": 1,
+    "explain": "DTM มี phenol red indicator (acid-base), dermatophyte ใช้ protein → produce alkaline metabolites → pH ขึ้น → red color change, 7-14 วัน, concept \"3 Cs\": Color change + Colony appearance (white-greyish fluffy) + Confirmation by macroconidia (microscopic), = definitive Dx\n\n❌ ทำไมข้ออื่นผิด\n— Bromothymol blue = pH indicator อื่น\n— Methylene blue = staining dye\n— \"ไม่มี indicator\" = ผิด",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.3"
+  },
+  {
+    "id": 928,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "dermatophyte",
+      "microscopy"
+    ],
+    "type": "mcq",
+    "q": "Microscopic feature ที่ classic ของ Trichophyton mentagrophytes คือ",
+    "options": [
+      "Fusoid macroconidia + thick wall + 6+ microconidia",
+      "Single large macroconidia เท่านั้น",
+      "Spiral hyphae + grape-like cluster ของ microconidia",
+      "No conidia, only hyphae"
+    ],
+    "answer": 2,
+    "explain": "T. mentagrophytes: spiral hyphae + numerous round/pyriform microconidia ใน grape-like clusters, macroconidia = multi-septate, club-shaped, มักไม่พบ\n\n❌ ทำไมข้ออื่นผิด\n— \"Fusoid + thick wall + 6+ micro\" = M. canis\n— \"Single macro\" = ไม่ใช่ pattern of any dermatophyte\n— \"No conidia\" = saprophyte / non-pathogenic",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.4"
+  },
+  {
+    "id": 929,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "treatment",
+      "systemic"
+    ],
+    "type": "mcq",
+    "q": "Systemic antifungal ที่ first-line สำหรับ dermatophytosis ในแมว",
+    "options": [
+      "Itraconazole 5-10 mg/kg SID with meal",
+      "Penicillin G 20,000 IU/kg IM BID",
+      "Metronidazole 15 mg/kg PO BID",
+      "Doxycycline 5 mg/kg PO BID"
+    ],
+    "answer": 0,
+    "explain": "Itraconazole 5-10 mg/kg SID with meal = first-line, alternatives: Ketoconazole 10 mg/kg/d BID, Terbinafine 30-40 mg/kg SID, Griseofulvin 50 mg/kg microsized, ต่อจนกว่า culture negative 2 ครั้ง (ห่าง 2-4 wk)\n\n❌ ทำไมข้ออื่นผิด\n— Penicillin G = bacterial\n— Metronidazole = anaerobe + protozoa\n— Doxycycline = bacterial / ricketsia",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.5"
+  },
+  {
+    "id": 930,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "pseudomycetoma"
+    ],
+    "type": "mcq",
+    "q": "Pseudomycetoma คือรูปแบบของ dermatophytosis ที่",
+    "options": [
+      "Hyphae ลงลึกถึง dermis เกิด SC nodules + draining tract",
+      "จำกัดอยู่ stratum corneum ชั้นผิวเท่านั้น",
+      "เกิดบน nail bed กับ claw fold เท่านั้น",
+      "เป็น contaminant ไม่ใช่ dermatophyte จริง"
+    ],
+    "answer": 0,
+    "explain": "Pseudomycetoma = unusual deep form of dermatophytosis (มัก M. canis) → hyphae ลงไปถึง dermal + subcutaneous tissue → firm intradermal/SC nodules ± ulcerated + draining tract, พบบ่อย: tail, trunk, flanks, non-pruritic, non-painful, ต้อง histopath / culture ยืนยัน\n\n❌ ทำไมข้ออื่นผิด\n— \"stratum corneum ชั้นผิว\" = classic dermatophytosis\n— \"nail bed / claw fold\" = onychomycosis\n— \"contaminant\" = ผิด, เป็นรูปแบบ deep ของ dermatophyte",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.4"
+  },
+  {
+    "id": 931,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "dermatophyte",
+      "transmission"
+    ],
+    "type": "mcq",
+    "q": "Dermatophytosis transmission หลักคือ",
+    "options": [
+      "Bite จากแมลงพาหะนำเชื้อ",
+      "หายใจสปอร์เข้าทางอากาศ",
+      "Direct contact + fomites",
+      "การกินอาหารปนเปื้อนเชื้อ"
+    ],
+    "answer": 2,
+    "explain": "Direct contact (cat-cat, dog-cat, cat-human) + fomites (combs, brushes, bedding) + environment (spores ทนนานหลายเดือน), zoonotic (โดยเฉพาะ M. canis ที่ติดง่ายในเด็ก/ภูมิต่ำ)\n\n❌ ทำไมข้ออื่นผิด\n— Bite แมลง = vector-borne diseases (Babesia, Lyme)\n— หายใจ = systemic mycoses (Histoplasma, Cryptococcus)\n— อาหาร = enteric pathogens",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.2"
+  },
+  {
+    "id": 932,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "topical",
+      "lime-sulfur"
+    ],
+    "type": "mcq",
+    "q": "Lime sulfur dip สำหรับ dermatophytosis ใช้ความเข้มข้นเท่าใด",
+    "options": [
+      "2-4%",
+      "0.5%",
+      "20-40%",
+      "100% (full strength)"
+    ],
+    "answer": 0,
+    "explain": "Lime sulfur 2-4% (calcium polysulfide), effective + cheap + safe, ทาทั่วตัวทุก 5-7 วัน × 4-6 ครั้ง, เหม็นกำมะถัน + อาจทำให้ขนเหลือง, alternative: 0.2% enilconazole, 2% miconazole-chlorhexidine shampoo\n\n❌ ทำไมข้ออื่นผิด\n— 0.5% = ต่ำเกิน\n— 20-40% = สูงเกินอันตราย\n— 100% = ห้าม",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.5"
+  },
+  {
+    "id": 933,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "environment"
+    ],
+    "type": "mcq",
+    "q": "Environment disinfectant ที่แนะนำสำหรับ dermatophytosis",
+    "options": [
+      "Alcohol 70% เช็ดพื้นผิวซ้ำ",
+      "Quaternary ammonium compound",
+      "Chlorhexidine 2% scrub พื้นผิว",
+      "Sodium hypochlorite เจือจาง 1:10"
+    ],
+    "answer": 3,
+    "explain": "NaOCl 5% (household bleach) เจือจาง 1:10 = effective disinfectant สำหรับ dermatophyte spores, spores ทนนานหลายเดือนใน environment, aggressive cleaning + disinfectant แล้วล้างออก, throw away/wash bedding, brushes, scratching post\n\n❌ ทำไมข้ออื่นผิด\n— Alcohol 70% = ไม่ kill spores\n— Chlorhexidine = bacterial เป็นหลัก\n— QUAT = ไม่ effective ต่อ spores",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.5"
+  },
+  {
+    "id": 934,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "Derm__5_Fungal_skin_diseases.pdf",
+    "tags": [
+      "malassezia"
+    ],
+    "type": "mcq",
+    "q": "Malassezia pachydermatis ในสุนัข มัก present เป็นอย่างไร",
+    "options": [
+      "ไม่มีอาการ ผิวหนังปกติดี asymptomatic",
+      "ขนร่วงเป็นวงโดยไม่มี inflammation",
+      "Itchy + greasy seborrhea + odor + lichenification",
+      "Bullae + vesicle ตามรอยต่อผิวหนัง"
+    ],
+    "answer": 2,
+    "explain": "Malassezia: pruritic + greasy seborrhea + odor + ear infection (Malassezia otitis) + ventral hyperpigmentation/lichenification, cytology: peanut-shaped yeast, Tx: ketoconazole/miconazole shampoo + systemic itra/keto, มักร่วมกับ allergic dermatitis (atopic, food)\n\n❌ ทำไมข้ออื่นผิด\n— Asymptomatic = ผิด, มีอาการชัด\n— Hair loss without inflam = endocrine alopecia (Cushing's)\n— Bullae/vesicle = pemphigus",
+    "verified": "Derm__5_Fungal_skin_diseases.pdf p.6"
+  },
+  {
+    "id": 935,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "hypothyroid",
+      "epidemiology"
+    ],
+    "type": "mcq",
+    "q": "Endocrinopathy ที่พบบ่อยที่สุดในสุนัขคือ",
+    "options": [
+      "Hyperadrenocorticism (Cushing's)",
+      "Hypothyroidism",
+      "Diabetes mellitus",
+      "Hypoadrenocorticism (Addison's)"
+    ],
+    "answer": 1,
+    "explain": "Hypothyroidism = most common endocrinopathy ในสุนัข, incidence ~1 in 200 (~0.5%), middle-aged 3-8 ปี (mean 7), spay/neutered ↑ risk, \"over-diagnosed\" บ่อยเพราะ NTI (non-thyroidal illness/euthyroid sick) ทำให้ T4 ต่ำได้\n\n❌ ทำไมข้ออื่นผิด\n— Cushing's = พบบ่อยรองลงมา\n— DM = น้อยกว่าใน dog (มากในแมว)\n— Addison's = rare",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.2"
+  },
+  {
+    "id": 936,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "hypothyroid",
+      "breed"
+    ],
+    "type": "mcq",
+    "q": "Hypothyroidism มี predisposed breeds สูงสุดในข้อใด",
+    "options": [
+      "Chihuahua, Pomeranian, Yorkshire",
+      "Beagle, Boxer, Cocker, Doberman",
+      "Greyhound พันธุ์เดียวเท่านั้น",
+      "ทุกสายพันธุ์มีความเสี่ยงเท่ากัน"
+    ],
+    "answer": 1,
+    "explain": "Predisposed: medium-large breeds — Beagle, Boxer, Cocker, Dachshund, Dalmatian, Doberman, Lab, Golden Retriever, age 3-8 ปี (mean 7), neutered/spayed ↑ risk, ระวัง breed-specific low T4 (Sighthound, Greyhound, Husky, Scottish Deerhound — มี baseline ต่ำตามธรรมชาติ)\n\n❌ ทำไมข้ออื่นผิด\n— Toy breeds (Chihuahua/Pom) = atlantoaxial / hypoglycemia issues, ไม่ใช่ hypothyroid\n— Greyhound = baseline T4 ต่ำตามสายพันธุ์ (ไม่ใช่ disease)\n— \"ทุกสายพันธุ์เท่ากัน\" = ผิด",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.2"
+  },
+  {
+    "id": 937,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "hypothyroid",
+      "pathology"
+    ],
+    "type": "mcq",
+    "q": "Primary hypothyroidism ในสุนัข (95%) เกิดจากกลไกใดเป็นหลัก",
+    "options": [
+      "Pituitary tumor → ↓ TSH secretion",
+      "Iodine excess ในอาหารเรื้อรัง",
+      "Immune destruction + idiopathic atrophy",
+      "Side effect จากยา phenobarbital"
+    ],
+    "answer": 2,
+    "explain": "Primary hypothyroidism (95% of cases): immune-mediated lymphocytic thyroiditis + idiopathic atrophy of thyroid gland, 5% เป็น secondary (TSH deficiency จาก pituitary disease), congenital + iodine deficiency = rare in companion animals\n\n❌ ทำไมข้ออื่นผิด\n— Pituitary tumor = secondary 5%\n— Iodine excess = ทำให้ hyper- ไม่ใช่ hypo-\n— Phenobarb = affect test result, ไม่ทำให้ true hypothyroid",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.2"
+  },
+  {
+    "id": 938,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "hypothyroid",
+      "lab"
+    ],
+    "type": "mcq",
+    "q": "Total T4 (TT4) reference range ในสุนัขปกติ",
+    "options": [
+      "0.1-0.5 μg/dL",
+      "5-10 μg/dL",
+      "1.5-3 μg/dL",
+      "10-50 μg/dL"
+    ],
+    "answer": 2,
+    "explain": "TT4 normal: 1.5-3 μg/dL (บางที่ 2-4), TT4 < 0.5 = very likely hypothyroid, 0.5-1 = possible, > 2 = unlikely, TT4 sensitive ไม่ specific (NTI ทำให้ต่ำได้), ใช้ร่วม cTSH (normal < 0.6 ng/mL) + Free T4\n\n❌ ทำไมข้ออื่นผิด\n— 0.1-0.5 = severely low (advanced disease)\n— 5-10 / 10-50 = สูงเกินจริง\n\n💡 บางห้องแลบ 2-4",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.6"
+  },
+  {
+    "id": 939,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "hypothyroid",
+      "drug-interference"
+    ],
+    "type": "mcq",
+    "q": "ยาตัวใดที่ลด TT4 + fT4 ในสุนัข แต่ไม่ทำให้เป็น clinical hypothyroidism",
+    "options": [
+      "Steroids + Phenobarbital + Sulfa + Aspirin",
+      "Vitamin D + Calcium supplement",
+      "Insulin + Levothyroxine sodium",
+      "Carprofen, Meloxicam, Deracoxib"
+    ],
+    "answer": 0,
+    "explain": "Glucocorticoid/steroids (dose-dependent), Phenobarbital, Sulfonamides (long-term อาจทำ true hypothyroid), Aspirin = ลด T4 levels, KBr ไม่กระทบ, NSAIDs ใหม่ (Carprofen, Meloxicam, Deracoxib) ไม่กระทบมีนัยสำคัญ, ตีความ T4 ต้องระวัง drug history\n\n❌ ทำไมข้ออื่นผิด\n— Vit D + Ca = ไม่กระทบ thyroid testing\n— Insulin/Levothyroxine = ใช้ใน DM/hypothyroid, ไม่ลด baseline T4\n— Carpro/Meloxi/Deracoxib = ไม่กระทบ ตามผลวิจัย",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.8"
+  },
+  {
+    "id": 940,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "hypothyroid",
+      "treatment"
+    ],
+    "type": "mcq",
+    "q": "Levothyroxine (L-T4) initial dose สำหรับ canine hypothyroidism",
+    "options": [
+      "1 mcg/kg q24h",
+      "500 mcg/kg q12h",
+      "20 mcg/kg PO q12-24h",
+      "Inject IV daily"
+    ],
+    "answer": 2,
+    "explain": "Levothyroxine 20 mcg/kg PO q12h initial (หรือ 0.5 mg/m² ใน large breed), maintenance 20 mcg/kg q24h ถ้าตอบสนองดี, ไม่ให้กับอาหาร (ลด bioavailability), ลด dose 25-50% ใน cardiac disease, monitor TT4 ที่ 4 wk หลังเริ่มยา (peak 4-6 hr post-pill), clinical signs improve: energy 1-2 wk, weight/skin 1-2 mo, hair regrow several months\n\n❌ ทำไมข้ออื่นผิด\n— 1 mcg/kg = ต่ำเกิน\n— 500 mcg/kg = สูงเกินอันตราย\n— IV daily = oral มาตรฐาน",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.9"
+  },
+  {
+    "id": 941,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "cushing",
+      "screening"
+    ],
+    "type": "mcq",
+    "q": "Hyperadrenocorticism (Cushing's) screening test ที่ใช้บ่อยที่สุดคือ",
+    "options": [
+      "Resting cortisol เดี่ยวค่าเดียว",
+      "CBC + serum chemistry เท่านั้น",
+      "Total T4 + free T4 by dialysis",
+      "ACTH stimulation test, LDDS, UCCR"
+    ],
+    "answer": 3,
+    "explain": "Cushing's screening: ACTH stim test (sensitive but expensive — ตรวจไม่ค่อยมีในไทย) + LDDS test (low-dose dexamethasone suppression, 0.01 mg/kg dex IV, sample 0/4/8h — sensitive แต่ false-positive จาก stress/NTI) + UCCR (urine cortisol:creatinine ratio, negative predictive value, screening, 3 consecutive AM samples), resting cortisol เดี่ยวไม่พอ, differentiation PDH vs ADH ใช้ HDDS / endogenous ACTH / imaging\n\n❌ ทำไมข้ออื่นผิด\n— Resting cortisol = ผันผวนมาก, ไม่ใช่ screening\n— TT4/fT4 = thyroid test, ไม่ใช่ adrenal\n— CBC alone = supportive (stress leukogram) ไม่ definitive",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.16"
+  },
+  {
+    "id": 942,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "cushing",
+      "uccr"
+    ],
+    "type": "mcq",
+    "q": "Urine Cortisol:Creatinine Ratio (UCCR) มีจุดเด่นในการใช้คืออะไร",
+    "options": [
+      "ใช้เป็น screening",
+      "ใช้เป็น confirmative test",
+      "ใช้แยก PDH vs ADH",
+      "ใช้ติดตามผลการรักษา"
+    ],
+    "answer": 0,
+    "explain": "UCCR = sensitive แต่ non-specific, เก็บปัสสาวะ AM 3 วัน consecutive, normal = unlikely Cushing's (high NPV), elevated = ต้องยืนยันด้วย ACTH stim หรือ LDDS เพราะ stress, illness ก็ทำให้สูงได้, เก็บที่บ้านลด stress hospital\n\n❌ ทำไมข้ออื่นผิด\n— Confirmative = ผิด (ต้อง follow-up test)\n— PDH vs ADH = ใช้ HDDS / endogenous ACTH / imaging\n— Monitor treatment = ใช้ ACTH stim หรือ pre-trilostane cortisol\n\n💡 ถ้า UCCR ปกติ มักไม่ใช่ Cushing's\n\n💡 high negative predictive value",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.15"
+  },
+  {
+    "id": 943,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "cushing",
+      "lddst"
+    ],
+    "type": "mcq",
+    "q": "Low-Dose Dexamethasone Suppression Test (LDDS) ใช้ dose เท่าใด และเก็บตอนไหน",
+    "options": [
+      "0.01 mg/kg IV → sample 0, 4, 8 ชม.",
+      "0.1 mg/kg PO → sample 24 ชม.",
+      "1 mg/kg IM → sample 30 นาที",
+      "ไม่ต้องวัดเวลา"
+    ],
+    "answer": 0,
+    "explain": "LDDS: dexamethasone 0.01 mg/kg IV → cortisol 0h (baseline), 4h, 8h, normal dog = suppress ทั้ง 4h + 8h (< 1.4 μg/dL), Cushing's = no/partial suppression, 4h suppress + 8h not = PDH pattern, ทั้ง 4h+8h not suppress = PDH/ADH, ทดสอบ definitive, ต้อง quiet environment\n\n❌ ทำไมข้ออื่นผิด\n— 0.1 mg/kg = HDDS (high-dose) — ใช้ differentiate PDH vs ADH\n— 1 mg/kg = สูงเกินไป\n— \"ไม่วัดเวลา\" = ผิด เวลาสำคัญ",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.16"
+  },
+  {
+    "id": 944,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Derm_6_Endocrine_skin_diseases.pdf",
+    "tags": [
+      "cushing",
+      "skin-signs"
+    ],
+    "type": "mcq",
+    "q": "Cushing's syndrome ในสุนัข มี skin findings ที่เด่นคือ",
+    "options": [
+      "Pruritus รุนแรง + papules กระจายทั่ว",
+      "Bullae + crusts ที่ mucocutaneous junction",
+      "Bilateral symmetrical alopecia + thin skin + calcinosis",
+      "Black hyperpigmentation อย่างเดียวเท่านั้น"
+    ],
+    "answer": 2,
+    "explain": "Cushing's skin: bilateral symmetrical truncal alopecia (sparing head/limbs initially), thin skin (translucent), comedones, calcinosis cutis (dystrophic Ca deposit), recurrent superficial pyoderma + Demodicosis (immunocompromise), \"rat tail\" + \"pot belly\" + PU/PD + polyphagia\n\n❌ ทำไมข้ออื่นผิด\n— Pruritus + papules = atopic / FAD\n— Bullae @ MC junction = pemphigus vulgaris\n— Hyperpigmentation only = post-inflammatory, ไม่ classic Cushing's",
+    "verified": "Derm_6_Endocrine_skin_diseases.pdf p.13"
+  },
+  {
+    "id": 945,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "vitamin-a",
+      "breed"
+    ],
+    "type": "mcq",
+    "q": "Vitamin A-responsive dermatosis (\"Cocker syndrome\") พบบ่อยใน breed ใด",
+    "options": [
+      "Siberian Husky",
+      "Cocker Spaniel",
+      "Bulldog",
+      "Poodle"
+    ],
+    "answer": 1,
+    "explain": "Vitamin A-responsive dermatosis = \"Cocker's syndrome\", adult Cocker (2-5 ปี), ไม่ใช่ true Vit A deficiency แต่ตอบสนองต่อ supraphysiologic dose, clinical: seborrhea + plugging of follicles + hyperkeratotic plaques + crusts/scale/alopecia + ceruminous otitis externa, ระวังต้อง rule out other seborrhea ก่อน supplement\n\n❌ ทำไมข้ออื่นผิด\n— Siberian Husky = Zinc-responsive\n— Bulldog = skin folds / pyoderma\n— Poodle = Sebaceous adenitis (different)",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.3"
+  },
+  {
+    "id": 946,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "vitamin-a",
+      "dose"
+    ],
+    "type": "mcq",
+    "q": "Treatment dose ของ Vitamin A สำหรับ Cocker's syndrome",
+    "options": [
+      "400 IU/kg/d (true deficiency dose)",
+      "10,000 IU/d oral retinol",
+      "100,000 IU/kg IM ครั้งเดียว",
+      "ไม่ต้อง supplement"
+    ],
+    "answer": 1,
+    "explain": "Vit A-responsive: oral retinol 10,000 IU/day (supraphysiologic, Cocker spaniel weight ~10-12 kg), clinical improvement 6-8 wk, lifelong therapy ปกติ, ระวัง toxicity (ถ้าเกิน normal req. ต้อง rule out other seborrhea ก่อน), ใน true Vit A deficiency = ไม่เกิน 400 IU/kg/d\n\n❌ ทำไมข้ออื่นผิด\n— 400 IU/kg/d = true deficiency, ไม่ supraphysiologic\n— 100,000 IU IM = อันตราย hypervitaminosis A\n— \"ไม่ supplement\" = ผิด",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.4"
+  },
+  {
+    "id": 947,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "zinc",
+      "breed"
+    ],
+    "type": "mcq",
+    "q": "Zinc-responsive dermatosis พบบ่อยใน breed ใด",
+    "options": [
+      "Cocker Spaniel + Toy Poodle",
+      "Border Collie + Shetland Sheepdog",
+      "Pug + French Bulldog",
+      "Siberian Husky + Alaskan Malamute"
+    ],
+    "answer": 3,
+    "explain": "Zinc-responsive dermatosis: Northern breeds (Siberian Husky, Alaskan Malamute), 2 syndromes — Type I (genetic Zn malabsorption, Husky/Mal) + Type II (Zn-deficient/high phytate diet, rapidly growing puppy), Zn เป็น cofactor RNA/DNA polymerase + EFA biosynthesis + immune\n\n❌ ทำไมข้ออื่นผิด\n— Cocker/Poodle = Vit A / sebaceous adenitis\n— Pug/Bulldog = skin fold pyoderma\n— Border Collie = collie nose / DLE",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.5"
+  },
+  {
+    "id": 948,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "zinc",
+      "distribution"
+    ],
+    "type": "mcq",
+    "q": "Zinc-responsive dermatosis รอยโรคพบบ่อยที่ตำแหน่งใด",
+    "options": [
+      "รอบปาก-รอบตา + nasal planum + foot pads + pressure points",
+      "Ventral abdomen และ inguinal region เป็นหลัก",
+      "Pinnae ทั้ง 2 ข้างและ ear canal เท่านั้น",
+      "โคนหางและ dorsal lumbosacral เท่านั้น"
+    ],
+    "answer": 0,
+    "explain": "Zinc dermatosis: erythema + alopecia + crust + scale + parakeratotic hyperkeratosis ที่ — perioral / periocular / mucocutaneous junction, nasal planum (dry adherent hyperkeratosis + fissures), footpads (thick yellow-grey crusted plaques), pressure points (elbows, hocks)\n\n❌ ทำไมข้ออื่นผิด\n— ventral abdomen / inguinal = ไม่ใช่ pattern\n— pinnae / โคนหาง alone = ไม่ใช่ Zn pattern",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.5"
+  },
+  {
+    "id": 949,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "zinc",
+      "histopath"
+    ],
+    "type": "mcq",
+    "q": "Histopathology ที่ classic ของ Zinc-responsive dermatosis คือ",
+    "options": [
+      "Eosinophilic infiltrate",
+      "Granuloma",
+      "Subepidermal vesicles",
+      "Parakeratotic hyperkeratosis"
+    ],
+    "answer": 3,
+    "explain": "Parakeratotic hyperkeratosis = nuclei retained in thickened stratum corneum (ปกติ orthokeratotic = no nuclei), เป็น classic finding ของ Zn deficiency, supportive feature: superficial perivascular dermatitis + follicular keratosis, response to Zn supplement (Zinc methionine, Zinc gluconate, Zinc sulfate)\n\n❌ ทำไมข้ออื่นผิด\n— Eosinophilic = allergic/atopy/parasites\n— Subepidermal vesicles = bullous pemphigoid\n— Granuloma = mycobacterial/fungal infection\n\n💡 retained nuclei in stratum corneum",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.5"
+  },
+  {
+    "id": 950,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "efa"
+    ],
+    "type": "mcq",
+    "q": "Essential fatty acids (EFA) ที่จำเป็นต่อสุขภาพผิวคือ",
+    "options": [
+      "Linoleic acid (ω-6) + α-Linolenic acid",
+      "Saturated fatty acids อย่างเดียว",
+      "Cholesterol และ sterol ester",
+      "Trans fats จากน้ำมันแปรรูป"
+    ],
+    "answer": 0,
+    "explain": "EFA: Linoleic acid (LA, ω-6) + α-Linolenic acid (ALA, ω-3) ต้องได้จากอาหาร (ร่างกายสร้างไม่ได้), maintain skin barrier + ลด TEWL (transepidermal water loss) + anti-inflammatory, supplement EPA/DHA (ω-3 จากปลา) ช่วย atopic + IBD\n\n❌ ทำไมข้ออื่นผิด\n— Saturated fatty acids = energy แต่ไม่ essential สำหรับ skin\n— Cholesterol = ไม่ใช่ EFA\n— Trans fats = pro-inflammatory",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.2"
+  },
+  {
+    "id": 951,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "generic-diet"
+    ],
+    "type": "mcq",
+    "q": "\"Generic dog food disease\" หมายถึง",
+    "options": [
+      "Skin lesions จากกิน poor-quality cheap diet นานๆ",
+      "Skin reaction ต่อ generic medication",
+      "Allergy ต่อยี่ห้ออาหารใดยี่ห้อหนึ่ง",
+      "ไม่มีโรคนี้จริงเป็นความเชื่อผิด"
+    ],
+    "answer": 0,
+    "explain": "Generic dog food disease: feeding cheap \"generic\" pet food long-term → multiple deficiencies (protein, Zn, EFA, Vit A, Vit E) → poor coat, scaling, alopecia, recurrent infection, ตอบสนองต่อ premium balanced diet ภายในหลายเดือน\n\n❌ ทำไมข้ออื่นผิด\n— Reaction ต่อ generic med = drug reaction\n— Allergy ต่อ brand = food allergy (different mechanism)\n— \"ไม่มีโรคนี้\" = ผิด\n\n💡 ขาด protein/Zn/EFA",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.6"
+  },
+  {
+    "id": 952,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "protein",
+      "deficiency"
+    ],
+    "type": "mcq",
+    "q": "Protein deficiency ใน skin อาการเด่นคือ",
+    "options": [
+      "Skin หนาขึ้น + เม็ดสี",
+      "Severe pruritus เท่านั้น",
+      "Poor hair growth + slow healing",
+      "No skin changes"
+    ],
+    "answer": 2,
+    "explain": "Protein deficiency: poor hair growth (keratin = protein) + dull/dry/brittle coat + thin skin + delayed wound healing + immune compromise → recurrent infection, supplement high-quality animal protein = ฟื้นใน 4-6 wk\n\n❌ ทำไมข้ออื่นผิด\n— \"Skin หนา + เม็ดสี\" = endocrine alopecia (Cushing's) ตรงข้าม\n— Pruritus only = allergic\n— \"No changes\" = ผิด",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.2"
+  },
+  {
+    "id": 953,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "vitamin-e"
+    ],
+    "type": "mcq",
+    "q": "Vitamin E ในผิวมีบทบาทอะไร และ deficiency ทำให้เกิดอาการใด",
+    "options": [
+      "Antioxidant",
+      "Energy production",
+      "Bone formation",
+      "Hair pigmentation"
+    ],
+    "answer": 0,
+    "explain": "Vit E (α-tocopherol) = lipid-soluble antioxidant → protect cell membrane lipids, deficiency: dry coat, scaling, panniculitis, ↑ infection, synergistic กับ selenium, supplement ใน inflammatory dermatoses\n\n❌ ทำไมข้ออื่นผิด\n— Energy = carb/fat\n— Bone = Ca, P, Vit D\n— Hair pigment = Cu, Tyrosine\n\n💡 protect cell membrane → deficiency: dry coat, scaling, ↑ susceptibility",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.4"
+  },
+  {
+    "id": 954,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "Derm_7_Nutrition_skin_disease.pdf",
+    "tags": [
+      "food-allergy",
+      "diagnosis"
+    ],
+    "type": "mcq",
+    "q": "Gold standard ในการวินิจฉัย Food Allergy ในสุนัข/แมวคือ",
+    "options": [
+      "Serum IgE testing แบบ food allergen panel",
+      "Intradermal skin test ฉีดในผิวหนัง",
+      "Food elimination diet trial 8 wk → rechallenge",
+      "Hair mineral analysis จากเส้นขน"
+    ],
+    "answer": 2,
+    "explain": "Food elimination diet trial = gold standard, novel protein OR hydrolyzed diet × 8 wk strict (ไม่มี treats/chews/flavored med), ถ้า lesion + pruritus หาย → rechallenge เดิม → recurrence ภายใน 14 วัน = confirm food allergy, serum/skin tests = unreliable for food (good for environmental atopy)\n\n❌ ทำไมข้ออื่นผิด\n— Serum IgE for food = poor sensitivity/specificity\n— Intradermal = ใช้สำหรับ atopy (environmental)\n— Hair analysis = pseudoscience",
+    "verified": "Derm_7_Nutrition_skin_disease.pdf p.2"
+  },
+  {
+    "id": 955,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "allergic",
+      "classification"
+    ],
+    "type": "mcq",
+    "q": "4 ประเภทหลักของ allergic dermatitis ในสัตว์เลี้ยงคืออะไร",
+    "options": [
+      "Pemphigus + Lupus + Drug + Bullous",
+      "Atopic + Food + FAD + Contact",
+      "Bacterial + Fungal + Parasitic + Viral",
+      "Type I + II + III + IV hypersensitivity"
+    ],
+    "answer": 1,
+    "explain": "4 types ของ allergic dermatitis ใน vet practice: Atopic dermatitis (CAD), Food allergy (Cutaneous Adverse Food Reaction, CAFR), Flea Allergic Dermatitis (FAD), Contact dermatitis (rare, hairless areas), ทั้ง 4 มี pruritus + 2° infection เป็นหลัก\n\n❌ ทำไมข้ออื่นผิด\n— Pemphigus/Lupus = autoimmune ไม่ใช่ allergic\n— Bact/Fungal/Parasitic = infections\n— Hypersensitivity types = pathogenesis classification, ไม่ใช่ disease",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.2"
+  },
+  {
+    "id": 956,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "food-allergy",
+      "duration"
+    ],
+    "type": "mcq",
+    "q": "Food elimination diet trial ต้องทำต่อเนื่องนานเท่าใดถึงจะ rule out food allergy ได้",
+    "options": [
+      "1-2 สัปดาห์ก็เพียงพอ",
+      "8-12 สัปดาห์ต่อเนื่อง",
+      "6 เดือนขึ้นไปจึงสรุปได้",
+      "1 ปีเต็มต่อเนื่อง"
+    ],
+    "answer": 1,
+    "explain": "Food elimination diet: 8-12 wk strict (novel protein OR hydrolyzed), clinical improvement อาจเริ่มเห็นที่ 4 wk, ไม่มี treats / chews / flavored med, ทำ pruritus score + lesion grading ก่อน-หลัง, No response = atopic dermatitis (diagnosis of exclusion), ระหว่างทำสามารถใช้ antipruritic/ATB control ได้\n\n❌ ทำไมข้ออื่นผิด\n— \"1-2 wk\" = สั้นเกิน, false negative\n— \"6 เดือน\" / \"1 ปี\" = นานเกินจำเป็น (ถ้าจะเห็นผล จะเห็นใน 8-12 wk)\n\n💡 ดูผลที่ 4 wk แรก",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.3"
+  },
+  {
+    "id": 957,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "atopic",
+      "pathogenesis"
+    ],
+    "type": "mcq",
+    "q": "Pathogenesis ของ Atopic Dermatitis (CAD) เกิดจากอะไรเป็นหลัก",
+    "options": [
+      "Bacterial infection ที่ deep dermis เป็นหลัก",
+      "การติดเชื้อ Demodex canis ในรูขุมขน",
+      "Skin barrier dysfunction + Th2 response + genetic",
+      "Type III immune complex จากอาหารที่แพ้"
+    ],
+    "answer": 2,
+    "explain": "CAD = multifactorial: skin barrier defect (↓ filaggrin/loricrin/ceramide → ↑ TEWL → allergen penetration ง่าย) + aberrant Th2 response (IgE-mediated to environmental allergens) + genetic + cutaneous dysbiosis, environmental allergens (dust mites, mold, pollen) ทำให้ flare\n\n❌ ทำไมข้ออื่นผิด\n— Bacterial deep = pyoderma\n— Demodex = parasitic\n— immune complex จากอาหาร = food allergy (different mechanism)",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.4"
+  },
+  {
+    "id": 958,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "atopic",
+      "favrot"
+    ],
+    "type": "mcq",
+    "q": "Favrot's criteria สำหรับ canine atopic dermatitis ใช้ทำอะไร",
+    "options": [
+      "Clinical screening — ช่วยสนับสนุน diagnosis",
+      "Confirmatory diagnosis (>= 5/8 = atopy)",
+      "แทน intradermal skin test",
+      "ใช้ตัดสิน prognosis"
+    ],
+    "answer": 0,
+    "explain": "Favrot's criteria 8 ข้อ: (1) onset < 3 yr (2) indoor mostly (3) GC-responsive (4) IBL alesional pruritus (5) front feet affected (6) ear pinnae affected (7) ear margin not affected (8) dorsolumbar not affected, ≥ 5/8 = sensitivity ~85% / specificity ~79%, ≥ 6/8 = specificity ~89%, diagnosis ของ atopy ยังต้องอาศัย exclusion (rule out parasites, infection, food allergy)\n\n❌ ทำไมข้ออื่นผิด\n— Confirmatory = ผิด, ใช้ supportive\n— แทน IDST = ผิด (IDST ระบุ allergens)\n— Prognosis = Favrot ไม่ได้ทำนาย prognosis\n\n💡 sensitivity 85% / specificity 79% ที่ 5/8 หรือ 6/8",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.7"
+  },
+  {
+    "id": 959,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "atopic",
+      "distribution"
+    ],
+    "type": "mcq",
+    "q": "Atopic dermatitis (CAD) ตำแหน่ง classic distribution",
+    "options": [
+      "Periorbital, otitis externa",
+      "Lumbosacral + ventral abdomen เท่านั้น",
+      "Dorsal back เท่านั้น",
+      "Multifocal random"
+    ],
+    "answer": 0,
+    "explain": "CAD distribution: face (periorbital, cheilitis), ears (pinna affected, margin spared) + otitis externa, paws (interdigital, pedal furunculosis), flexor surface (elbow, hock), ventral abdomen + axillae, \"sparing dorsolumbar\" = differentiate FAD\n\n❌ ทำไมข้ออื่นผิด\n— Lumbosacral = FAD pattern\n— Dorsal back only = ไม่ใช่ atopy\n— Multifocal random = ไม่มี pattern\n\n💡 sparing margin\n\n💡 cheilitis, flexor elbow, paws (interdigital), ear pinnae",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.6"
+  },
+  {
+    "id": 960,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "atopic",
+      "breed"
+    ],
+    "type": "mcq",
+    "q": "Breed ที่ predispose ต่อ Atopic Dermatitis (CAD)",
+    "options": [
+      "Greyhound + Whippet + Saluki",
+      "ไม่มี breed predisposition ใดๆ",
+      "พบเฉพาะแมวพันธุ์ Persian",
+      "West Highland White Terrier, Lab/Golden"
+    ],
+    "answer": 3,
+    "explain": "CAD predisposed breeds: WHWT, Lab, Golden, French Bulldog, Pug, Shih Tzu, Sharpei, Poodle, Boxer, Bulldog, GSD, onset < 3 ปี, seasonal (early disease) → year-round (chronic)\n\n❌ ทำไมข้ออื่นผิด\n— Greyhound/Whippet = ไม่ predisposed\n— Persian only = limited\n— \"ไม่มี breed predisposition\" = ผิด",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.5"
+  },
+  {
+    "id": 961,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "atopic",
+      "treatment"
+    ],
+    "type": "mcq",
+    "q": "Multimodal management ของ CAD ใช้หลัก \"TRIP\" คืออะไร",
+    "options": [
+      "Treat-Restore-Identify-Pruritus control",
+      "Topical-Rub-Inject-Pill ตามลำดับ",
+      "Time-Rest-Investigate-Plan ตามขั้น",
+      "ไม่มีหลัก TRIP นี้จริง"
+    ],
+    "answer": 0,
+    "explain": "\"TRIP\" mnemonic: T = Treat secondary infection/infestation (ATB, antifungal, parasiticide), R = Restore skin barrier (ceramide/EFA topical or oral), I = Identify causative allergens (IDST/ASIS for environmental, food trial for food), P = Pruritus control (multiple options)\n\n❌ ทำไมข้ออื่นผิด\n— \"Topical-Rub-Inject-Pill\" = ไม่ใช่ standard mnemonic\n— \"Time-Rest-Investigate-Plan\" = ไม่ใช่\n— \"ไม่มี\" = ผิด",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.9"
+  },
+  {
+    "id": 962,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "atopic",
+      "cyclosporine"
+    ],
+    "type": "mcq",
+    "q": "Cyclosporine สำหรับ canine CAD — anti-pruritic + anti-inflammatory ในระยะใด",
+    "options": [
+      "Onset เร็วใน 1-2 ชั่วโมง",
+      "ห้ามใช้กับสุนัขที่ติด Demodex",
+      "ใช้ inject เท่านั้น",
+      "Onset ช้า 4-6 wk"
+    ],
+    "answer": 3,
+    "explain": "Cyclosporine (Atopica) 5 mg/kg PO q24h, onset ช้า 4-6 wk, steady-state 6-8 wk, ใช้ taper q48h หรือ q72h ได้หลัง stable, safe profile แต่ side effect: GI (vomit, gingival hyperplasia, gum bleeding), papillomatosis, hirsutism, ไม่ทำ Demodex แย่ลง (drug ลด T-cell แต่ไม่ severe enough)\n\n❌ ทำไมข้ออื่นผิด\n— Onset 1-2 hr = ผิด (ช้า)\n— Inject only = ผิด, oral standard\n— ห้ามใน Demodex = misconception, ใช้ได้\n\n💡 steady-state 6-8 wk, ใช้ taper เป็น every-other-day หรือ q72h ได้",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.10"
+  },
+  {
+    "id": 963,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "atopic",
+      "oclacitinib"
+    ],
+    "type": "mcq",
+    "q": "Oclacitinib (Apoquel) มี mechanism of action อย่างไร",
+    "options": [
+      "JAK1 inhibitor",
+      "Antihistamine (H1 blocker)",
+      "Direct cytotoxic to T-cells",
+      "Steroid analog"
+    ],
+    "answer": 0,
+    "explain": "Oclacitinib = JAK1 inhibitor, blocks IL-31 signaling (key pruritogenic cytokine ใน CAD) + IL-2/4/6/13 signaling, onset เร็ว (4-24 hr), 0.4-0.6 mg/kg PO BID × 14 d → SID maintenance, safe long-term, side effect: ↑ infection risk (UTI, pneumonia, demodex), Tumor (rare reports)\n\n❌ ทำไมข้ออื่นผิด\n— H1 blocker = AH (limited efficacy)\n— Cytotoxic to T-cells = chemotherapy\n— Steroid analog = glucocorticoid\n\n💡 block IL-31 + other pruritogenic cytokines",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.10"
+  },
+  {
+    "id": 964,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Derm_8_Allergic_dermatitis.pdf",
+    "tags": [
+      "atopic",
+      "cytopoint"
+    ],
+    "type": "mcq",
+    "q": "Cytopoint (lokivetmab) คืออะไร และใช้ยังไง",
+    "options": [
+      "Oral glucocorticoid steroid",
+      "Topical corticosteroid cream",
+      "Monoclonal antibody ต่อ IL-31",
+      "Oral antihistamine รุ่นที่สอง"
+    ],
+    "answer": 2,
+    "explain": "Lokivetmab (Cytopoint) = caninized mAb ต่อ canine IL-31, neutralize IL-31 (key itch cytokine), SC injection ครั้งเดียว ออกฤทธิ์ 4-8 wk, onset 1 day, safe even ใน young/old/concurrent disease, expensive, ใช้ใน CAD (ไม่ใช่ food allergy)\n\n❌ ทำไมข้ออื่นผิด\n— Oral steroid = prednisolone (different)\n— Topical cream = local treatment\n— Oral AH = ineffective ใน CAD",
+    "verified": "Derm_8_Allergic_dermatitis.pdf p.10"
+  },
+  {
+    "id": 965,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "autoimmune",
+      "pemphigus"
+    ],
+    "type": "mcq",
+    "q": "Autoimmune skin disease ที่พบบ่อยที่สุดในสุนัขและแมวคือ",
+    "options": [
+      "Bullous pemphigoid",
+      "Pemphigus foliaceus (PF)",
+      "Pemphigus vulgaris",
+      "Discoid lupus erythematosus"
+    ],
+    "answer": 1,
+    "explain": "Pemphigus foliaceus (PF) = most common autoimmune skin disease ใน dog/cat, \"leaf-like\" (ภาษากรีก), superficial vesicles → ruptured → crusts + ulcers, ตำแหน่ง: nasal planum, periocular, ear pinnae, footpad, breed predispose: Akita, Chow Chow, Doberman, Newfoundland\n\n❌ ทำไมข้ออื่นผิด\n— Bullous pemphigoid = subepidermal, rare\n— Pemphigus vulgaris = severe oral lesions, rare\n— DLE = facial only (less severe than PF)",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.4"
+  },
+  {
+    "id": 966,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "pemphigus",
+      "antigen"
+    ],
+    "type": "mcq",
+    "q": "Pemphigus foliaceus มี autoantibody ต่อ target antigen ใด",
+    "options": [
+      "Desmoglein 3 (Dsg3)",
+      "Desmoglein 1 (Dsg1)",
+      "BPAG1, BPAG2 (basement membrane)",
+      "Type IV collagen"
+    ],
+    "answer": 1,
+    "explain": "PF: IgG ต่อ Dsg1 (desmoglein 1) — ใน superficial epidermis (granular layer) → loss of cell-cell adhesion → acantholysis → subcorneal pustules, Pemphigus vulgaris: Dsg3 (deeper, suprabasal) → severe oral lesions, Bullous pemphigoid: BPAG1/2 (basement membrane) → subepidermal blisters\n\n❌ ทำไมข้ออื่นผิด\n— Dsg3 = pemphigus vulgaris\n— BPAG1/2 = bullous pemphigoid\n— Type IV collagen = epidermolysis bullosa acquisita\n\n💡 desmosomal protein ใน superficial epidermis",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.3"
+  },
+  {
+    "id": 967,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "pemphigus",
+      "classification"
+    ],
+    "type": "mcq",
+    "q": "Pemphigus complex ประกอบด้วย 4 โรคใดบ้าง",
+    "options": [
+      "PF, PV, Pemphigus vegetans, Pemphigus erythematosus",
+      "PF + DLE + SLE + Bullous pemphigoid",
+      "PF + Atopic + Food allergy + FAD",
+      "PF + Demodicosis + Sarcoptes + Cheyletiellosis"
+    ],
+    "answer": 0,
+    "explain": "4 forms ของ pemphigus complex: Pemphigus Foliaceus (PF, most common, Dsg1), Pemphigus Vulgaris (PV, severe oral, Dsg3), Pemphigus Vegetans (rare, vegetative lesions), Pemphigus Erythematosus (PF + lupus features)\n\n❌ ทำไมข้ออื่นผิด\n— DLE/SLE/BP = different diseases (lupus group, BP separate)\n— Atopic/Food/FAD = allergic\n— Demodex/Sarcoptes = parasitic",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.3"
+  },
+  {
+    "id": 968,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "pemphigus",
+      "distribution"
+    ],
+    "type": "mcq",
+    "q": "Pemphigus foliaceus ตำแหน่งคลาสสิกของรอยโรคคือ",
+    "options": [
+      "Lumbosacral region + tail base",
+      "Mouth ulcers รุนแรงที่ mucosa",
+      "Nasal planum, periocular, pinnae, footpads",
+      "Multifocal กระจาย random ทั่วตัว"
+    ],
+    "answer": 2,
+    "explain": "PF distribution: bridge of nose, nasal planum, periocular, pinnae, footpads (hyperkeratotic + crust), ± generalized, variable pruritus, 2° infection จาก ulceration\n\n❌ ทำไมข้ออื่นผิด\n— Lumbosacral/tail = FAD\n— Mouth ulcers severe = pemphigus VULGARIS (ไม่ใช่ foliaceus)\n— Multifocal random = ไม่ specific\n\n💡 sometimes generalized",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.4"
+  },
+  {
+    "id": 969,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "pemphigus",
+      "cytology"
+    ],
+    "type": "mcq",
+    "q": "Cytology ของ pemphigus foliaceus จะเห็นเซลล์ลักษณะใดเด่น",
+    "options": [
+      "Acantholytic cells + non-degenerate neutrophils",
+      "Eosinophils จำนวนมากเป็นเซลล์เด่น",
+      "Mast cells ที่มี metachromatic granule",
+      "Intracellular bacteria จำนวนมากใน neutrophil"
+    ],
+    "answer": 0,
+    "explain": "PF cytology (impression smear of intact pustule): acantholytic cells = rounded keratinocytes ที่หลุดจากกันเพราะ Dsg1 ถูก destroy + non-degenerate neutrophils ± eosinophils, histopath = subcorneal/intragranular pustule with acantholysis = definitive Dx, IFA/IHC = IgG ที่ intercellular space\n\n❌ ทำไมข้ออื่นผิด\n— Eosinophils alone = parasitic/allergic\n— Mast cells = mast cell tumor\n— Bacteria มาก = bacterial pyoderma",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.5"
+  },
+  {
+    "id": 970,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "bullous-pemphigoid"
+    ],
+    "type": "mcq",
+    "q": "Bullous pemphigoid ต่างจาก pemphigus อย่างไร",
+    "options": [
+      "Subepidermal blister",
+      "ไม่ต่างกัน",
+      "BP = bacterial",
+      "BP = parasitic"
+    ],
+    "answer": 0,
+    "explain": "Bullous pemphigoid: IgG ต่อ hemidesmosome proteins (BP180/BPAG2, BP230/BPAG1) ที่ basement membrane → subepidermal split → tense bullae (ไม่แตกง่าย เพราะลึกกว่า pemphigus), severity ≥ pemphigus, oral, mucocutaneous, skin, less common than PF\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่ต่างกัน\" = ผิด, mechanism + level ต่าง\n— BP bacterial/parasitic = ผิด (autoimmune)\n\n💡 deeper than pemphigus",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.3"
+  },
+  {
+    "id": 971,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "lupus"
+    ],
+    "type": "mcq",
+    "q": "Discoid Lupus Erythematosus (DLE) ต่างจาก Systemic Lupus Erythematosus (SLE) อย่างไร",
+    "options": [
+      "ไม่ต่างกัน",
+      "DLE = bacterial cause",
+      "DLE มีหลายอวัยวะ, SLE เฉพาะผิว",
+      "DLE = cutaneous-only"
+    ],
+    "answer": 3,
+    "explain": "DLE = \"collie nose\" — limited to face (nasal planum, periocular, ear pinnae), loss of pigment + erythema + scaling + erosion, sun-aggravated, benign, breed: Collie, GSD, Husky, SLE = multisystem autoimmune (skin + arthritis + glomerulonephritis + cytopenias), ANA + (60-90% positive)\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่ต่างกัน\" = ผิด\n— \"DLE หลายอวัยวะ\" = สลับกัน\n— \"DLE bacterial\" = ผิด (autoimmune)\n\n💡 skin + joint + kidney + hematologic\n\n💡 SLE = multi-organ\n\n💡 face, nasal planum",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.6"
+  },
+  {
+    "id": 972,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "dle",
+      "distribution"
+    ],
+    "type": "mcq",
+    "q": "Discoid Lupus Erythematosus (DLE) ตำแหน่ง classic คือ",
+    "options": [
+      "Generalized ทั่วทั้งตัวแบบ symmetrical",
+      "Distal limbs และ interdigital เท่านั้น",
+      "Lumbosacral region + โคนหาง",
+      "Nasal planum + periocular + ear pinnae"
+    ],
+    "answer": 3,
+    "explain": "DLE: face-limited \"collie nose\" pattern, loss of cobblestone of nasal planum + depigmentation + erythema + ulceration + scarring, UV-aggravated → worse in summer / outdoor, breeds: Collie, Shetland, GSD, Siberian Husky, Brittany\n\n❌ ทำไมข้ออื่นผิด\n— \"generalized ทั่วตัว\" = generalized autoimmune\n— Lumbosacral/โคนหาง = FAD\n— distal limbs = ไม่ใช่ pattern",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.6"
+  },
+  {
+    "id": 973,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "autoimmune",
+      "diagnosis"
+    ],
+    "type": "mcq",
+    "q": "Definitive diagnosis ของ pemphigus complex / autoimmune skin diseases ใช้",
+    "options": [
+      "Skin biopsy + histopathology",
+      "CBC + CRP + chemistry เท่านั้น",
+      "Bacterial culture + sensitivity",
+      "Serology IgE + allergen panel"
+    ],
+    "answer": 0,
+    "explain": "Definitive Dx: skin biopsy (intact vesicle/pustule + perilesional area) → histopath: PF = subcorneal pustule with acantholytic cells, BP = subepidermal blister, DLE = interface dermatitis with apoptotic keratinocytes + pigmentary incontinence, IFA/IHC = confirm IgG location (intercellular = pemphigus, basement membrane = BP, lupus band = DLE/SLE)\n\n❌ ทำไมข้ออื่นผิด\n— CBC/CRP = supportive only\n— Bact culture = bacterial pyoderma\n— Serology IgE = atopic test\n\n💡 + IFA/IHC ถ้าทำได้",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.5"
+  },
+  {
+    "id": 974,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Derm_9_Autoimmune_skin_diseases.pdf",
+    "tags": [
+      "autoimmune",
+      "treatment"
+    ],
+    "type": "mcq",
+    "q": "First-line treatment ของ pemphigus foliaceus ในสุนัข",
+    "options": [
+      "Cephalexin ขนาด antibacterial เดี่ยว",
+      "Topical hydrocortisone cream เท่านั้น",
+      "Immunosuppressive prednisolone 2-4 mg/kg/d → taper",
+      "รักษาตามอาการ รอ remission เอง"
+    ],
+    "answer": 2,
+    "explain": "PF treatment: induction prednisolone 2-4 mg/kg/d (immunosuppressive dose) × 4-6 wk → taper ทุก 4 wk หาก clinical remission, adjunct (steroid-sparing): Azathioprine 2 mg/kg/d (dog only — ห้ามแมว, fatal myelosuppression), Cyclosporine, Mycophenolate mofetil (MMF), Chlorambucil ในแมว, monitor liver, CBC, infection, long-term goal: lowest dose maintaining remission\n\n❌ ทำไมข้ออื่นผิด\n— Antibiotic alone = ไม่ใช่ autoimmune cause\n— Topical steroid only = local lesion เล็กๆ พอ, ไม่ enough generalized PF\n— \"รอหายเอง\" = autoimmune ไม่หายเอง\n\n💡 ± adjunct (azathioprine, cyclosporine, MMF) ถ้า refractory",
+    "verified": "Derm_9_Autoimmune_skin_diseases.pdf p.7"
+  },
+  {
+    "id": 975,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Drug_used_for_immune_mediated_diseases.pdf",
+    "tags": [
+      "gc",
+      "classification"
+    ],
+    "type": "mcq",
+    "q": "Drugs ที่ใช้รักษา immune-mediated diseases ในสุนัข/แมว classify ได้กี่ class หลัก",
+    "options": [
+      "2 class คือ steroid + antibiotic",
+      "5-6 classes เริ่มจาก Glucocorticoids",
+      "1 class คือ glucocorticoid อย่างเดียว",
+      "ไม่มี classification ใช้ตามอาการ"
+    ],
+    "answer": 1,
+    "explain": "6 main classes: GC (prednisolone, dex), Antimetabolites (azathioprine, leflunomide, MMF), Alkylating (chlorambucil, cyclophosphamide), Calcineurin inhibitors (cyclosporine, tacrolimus), Small-molecule targeted (JAK inhibitor — oclacitinib), Monoclonal antibodies (lokivetmab), ใช้ร่วมกัน multimodal\n\n❌ ทำไมข้ออื่นผิด\n— \"2 class\" / \"1 class\" = ผิด, มีหลาย\n— \"ไม่มี classification\" = ผิด\n\n💡 6 classes = Glucocorticoids, Antimetabolites, Alkylating, Calcineurin inhibitors, Small-molecule (JAK inhibitor), Monoclonal antibodies",
+    "verified": "Drug_used_for_immune_mediated_diseases.pdf p.2"
+  },
+  {
+    "id": 976,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Drug_used_for_immune_mediated_diseases.pdf",
+    "tags": [
+      "gc",
+      "mechanism"
+    ],
+    "type": "mcq",
+    "q": "Glucocorticoid (prednisolone) มี mechanism ของ anti-inflammatory + immunosuppressive อย่างไร",
+    "options": [
+      "ลด inflammatory mediators",
+      "ฆ่า bacteria โดยตรง",
+      "ทำให้ pH ในเลือดต่ำลง",
+      "เพิ่มการสร้าง RBC"
+    ],
+    "answer": 0,
+    "explain": "GC mechanism: ↓ pro-inflammatory cytokines (IL-1, TNF-α, GM-CSF, IL-3,4,5,8) + ↓ NOS → ↓ NO + ↓ Phospholipase A2 → ↓ prostaglandins/leukotrienes + ↑ Annexin-1 + ↓ adhesion molecules (ลด leukocyte emigration) + ↑ endonucleases → induce apoptosis ใน lymphocytes/eosinophils\n\n❌ ทำไมข้ออื่นผิด\n— ฆ่า bact = antibiotic\n— ↓ pH = ไม่ใช่กลไก\n— เพิ่ม RBC = erythropoietin\n\n💡 GM-CSF, prostaglandins) + ↓ leukocyte chemotaxis + ↓ T-cell function + induce lymphocyte apoptosis",
+    "verified": "Drug_used_for_immune_mediated_diseases.pdf p.4"
+  },
+  {
+    "id": 977,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Drug_used_for_immune_mediated_diseases.pdf",
+    "tags": [
+      "gc",
+      "side-effects"
+    ],
+    "type": "mcq",
+    "q": "Side effects ของ long-term glucocorticoid ในสุนัข",
+    "options": [
+      "ไม่มี side effect ที่สำคัญ",
+      "PU/PD/polyphagia, iatrogenic Cushing\\'s",
+      "Hyperthyroidism จาก thyroid axis",
+      "Hypoglycemia อย่างเดียวเท่านั้น"
+    ],
+    "answer": 1,
+    "explain": "GC side effects: PU/PD, polyphagia, weight gain, panting, iatrogenic Cushing's (exogenous), 2° infection (UTI, demodex, pyoderma), GI ulcer, hepatopathy (ALP/ALT ↑), muscle atrophy, calcinosis cutis, delayed wound healing, immunosuppression, therefore taper to lowest effective dose ASAP\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่มี\" = ผิด\n— Hyperthyroid = ตรงข้าม (GC suppress thyroid axis)\n— Hypoglycemia only = ผิด, GC ทำให้ hyperglycemia\n\n💡 immune suppress + 2° infection, GI ulcer, hepatopathy, muscle atrophy, calcinosis cutis",
+    "verified": "Drug_used_for_immune_mediated_diseases.pdf p.5"
+  },
+  {
+    "id": 978,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Drug_used_for_immune_mediated_diseases.pdf",
+    "tags": [
+      "azathioprine"
+    ],
+    "type": "mcq",
+    "q": "Azathioprine ใช้ในสัตว์ใด และข้อควรระวังคืออะไร",
+    "options": [
+      "ใช้ทั้งสุนัขและแมว ปลอดภัย",
+      "แมวเท่านั้น",
+      "Dogs only",
+      "ไม่ใช้ในสัตว์"
+    ],
+    "answer": 2,
+    "explain": "Azathioprine (purine analog antimetabolite): dogs 2 mg/kg/d × 2-3 wk → q48h taper, ใช้เป็น steroid-sparing ใน IMHA, IMT, SLE, pemphigus, ห้ามใช้แมว — TPMT (thiopurine methyltransferase) deficiency → fatal myelosuppression + hepatotoxicity, monitor CBC + ALT บ่อยใน dog, onset slow 4-6 wk\n\n❌ ทำไมข้ออื่นผิด\n— \"ทั้ง dog/cat\" = ผิด, ห้ามแมว\n— \"แมวเท่านั้น\" = ผิด อันตราย\n— \"ไม่ใช้\" = ผิด, ใช้ใน dog\n\n💡 ห้ามใช้ในแมว (fatal myelosuppression), monitor CBC + liver enzymes บ่อยในสุนัข",
+    "verified": "Drug_used_for_immune_mediated_diseases.pdf p.5"
+  },
+  {
+    "id": 979,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Drug_used_for_immune_mediated_diseases.pdf",
+    "tags": [
+      "cyclosporine",
+      "mechanism"
+    ],
+    "type": "mcq",
+    "q": "Cyclosporine A (Atopica) ทำงานผ่านกลไกใด",
+    "options": [
+      "Calcineurin inhibitor → ↓ T-cell",
+      "Direct cytotoxic to all cell lines",
+      "COX-2 inhibitor ลด prostaglandin",
+      "Broad-spectrum antibiotic"
+    ],
+    "answer": 0,
+    "explain": "Cyclosporine binds cyclophilin → inhibits calcineurin → ↓ NFAT dephosphorylation → ↓ IL-2 transcription → ↓ T-cell activation/proliferation, ใช้ใน CAD, perianal fistulas, IMHA, pemphigus, SLE, 5 mg/kg PO q24h (CAD) หรือ q12h (severe immune disease), slow onset 4-6 wk, side effects: GI (vomit, gum hyperplasia, papillomatosis, hirsutism)\n\n❌ ทำไมข้ออื่นผิด\n— Cytotoxic to all = chemotherapy\n— COX-2 = NSAIDs\n— Antibiotic = bacterial",
+    "verified": "Drug_used_for_immune_mediated_diseases.pdf p.6"
+  },
+  {
+    "id": 980,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Drug_used_for_immune_mediated_diseases.pdf",
+    "tags": [
+      "mmf"
+    ],
+    "type": "mcq",
+    "q": "Mycophenolate mofetil (MMF) ใช้ใน veterinary immunology อย่างไร",
+    "options": [
+      "Block COX-2 ลด prostaglandin",
+      "Broad-spectrum antibiotic",
+      "Selective lymphocyte inhibitor",
+      "Antifungal ยับยั้ง ergosterol"
+    ],
+    "answer": 2,
+    "explain": "MMF: prodrug → mycophenolic acid → inhibit IMPDH (inosine monophosphate dehydrogenase) → ↓ guanine nucleotide synthesis selectively in lymphocytes (lack salvage pathway) → ↓ T/B cell proliferation, used in IMHA, MG, glomerulonephritis, ราคาแพง, main side effect: GI (diarrhea), less hepatotoxic than azathioprine\n\n❌ ทำไมข้ออื่นผิด\n— COX-2 = NSAIDs\n— Antibiotic / Antifungal = wrong class\n\n💡 alternative steroid-sparing, side effect: GI (diarrhea), expensive\n\n💡 block IMP dehydrogenase",
+    "verified": "Drug_used_for_immune_mediated_diseases.pdf p.6"
+  },
+  {
+    "id": 981,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Drug_used_for_immune_mediated_diseases.pdf",
+    "tags": [
+      "chlorambucil"
+    ],
+    "type": "mcq",
+    "q": "Chlorambucil (alkylating agent) มักใช้ใน",
+    "options": [
+      "รักษา bacterial infection",
+      "ใช้แทน insulin ในแมวเบาหวาน",
+      "แมวที่ต้อง steroid-sparing",
+      "ยากำจัดหมัด anti-flea"
+    ],
+    "answer": 2,
+    "explain": "Chlorambucil = alkylating agent (cross-link DNA), ใช้ในแมวเป็น steroid-sparing เพราะ azathioprine ห้ามแมว, indication: feline autoimmune skin (PF), IBD, lymphoma, IMHA, 0.1-0.2 mg/kg/d → taper, monitor CBC (myelosuppression) + GI side effect\n\n❌ ทำไมข้ออื่นผิด\n— Bact infection = antibiotic\n— DM = insulin\n— Anti-flea = parasiticide\n\n💡 ห้ามใน cat\n\n💡 alternative azathioprine\n\n💡 autoimmune skin, IBD, hepatobiliary lymphoma",
+    "verified": "Drug_used_for_immune_mediated_diseases.pdf p.6"
+  },
+  {
+    "id": 982,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Drug_used_for_immune_mediated_diseases.pdf",
+    "tags": [
+      "ivig"
+    ],
+    "type": "mcq",
+    "q": "IV Immunoglobulin (IVIG) ใช้ใน situation ใดเป็นพิเศษ",
+    "options": [
+      "Daily for any disease",
+      "Routine vaccination",
+      "Replace steroid permanently",
+      "Refractory IMHA หรือ severe case"
+    ],
+    "answer": 3,
+    "explain": "Human IVIG 0.5-1.0 g/kg single IV infusion, ใช้ใน refractory IMHA / severe cases ที่ steroid + 2nd line ไม่ตอบสนอง + PCV < 10%, mechanism: block Fc receptors, neutralize autoantibodies, มากครั้งเดียว (rare repeat), ราคาแพง, supply limited\n\n❌ ทำไมข้ออื่นผิด\n— Daily = ไม่ใช่, single dose\n— แทน steroid permanent = ผิด\n— Vaccination = different concept\n\n💡 single infusion 0.5-1.0 g/kg, expensive\n\n💡 PCV very low",
+    "verified": "Drug_used_for_immune_mediated_diseases.pdf p.6"
+  },
+  {
+    "id": 983,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imha",
+      "classification"
+    ],
+    "type": "mcq",
+    "q": "IMHA แบ่งออกเป็นกี่ types หลัก",
+    "options": [
+      "1 type — autoimmune ทั้งหมด ไม่มี subtype แยก",
+      "4 types ตาม Ig subclass: IgG-, IgM-, IgA-, complement-mediated",
+      "3 types ตาม clinical course: Peracute, Acute, Chronic (≥ 30 d)",
+      "2 types: Primary (idiopathic, autoimmune) + Secondary"
+    ],
+    "answer": 3,
+    "explain": "IMHA: Primary (idiopathic/autoimmune, ไม่ทราบสาเหตุ — predisposed Cocker, English Springer, Old English Sheepdog, all ages, F>M, vaccine-associated?), Secondary (known cause: infectious — Babesia/Mycoplasma/Ehrlichia/Leptospira/FeLV/FIV, neoplasia, drugs, transfusion reaction), พบใน cat บ่อยกว่าใน secondary\n\n❌ ทำไมข้ออื่นผิด\n— \"1 type\" = ผิด\n— 5 types = ไม่ใช่ standard\n— \"ไม่มี classification\" = ผิด\n\n💡 known infection, drug, neoplasia trigger",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.6"
+  },
+  {
+    "id": 984,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imha",
+      "breed"
+    ],
+    "type": "mcq",
+    "q": "Breed ใดที่ predispose ต่อ Primary IMHA",
+    "options": [
+      "Cocker Spaniel, English Springer Spaniel, Old English Sheepdog, Standard Poodle, Irish Setter",
+      "Greyhound, Whippet, Saluki — sighthound กลุ่มเสี่ยง autoimmune โรคเลือด",
+      "Pug, French Bulldog, Boston Terrier — brachycephalic แพ้ภูมิตนเองง่าย",
+      "Pomeranian, Chihuahua, Yorkshire Terrier — toy breed มี IMHA สูงในเอเชีย"
+    ],
+    "answer": 0,
+    "explain": "Primary IMHA predisposed: Cocker Spaniel (most common), English Springer Spaniel, Old English Sheepdog, Standard Poodle, Irish Setter, F > M, all ages, idiopathic/autoimmune, vaccine-associated suspected (some cases)\n\n❌ ทำไมข้ออื่นผิด\n— Greyhound/Whippet = sighthound, low baseline T4 ตามสายพันธุ์ ไม่ใช่ IMHA\n— Pug/Bulldog = airway/skin issues\n— Pom/Chi = atlantoaxial / hypoglycemia",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.7"
+  },
+  {
+    "id": 985,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imha",
+      "cytology"
+    ],
+    "type": "mcq",
+    "q": "Findings ที่ classic ใน blood smear ของ IMHA",
+    "options": [
+      "Spherocytes + autoagglutination + reticulocytosis (regenerative hemolysis pattern)",
+      "Pancytopenia + non-regenerative anemia (bone marrow suppression pattern)",
+      "Schistocytes + thrombocytopenia (microangiopathic hemolysis pattern)",
+      "Howell-Jolly bodies + nucleated RBC + leukopenia (post-splenectomy pattern)"
+    ],
+    "answer": 0,
+    "explain": "IMHA findings: spherocytes (small dense RBC, no central pallor — partial phagocytosis), autoagglutination (positive saline test), regenerative anemia (reticulocyte ↑, polychromasia, anisocytosis) ใน 70% of cases, 30% non-regenerative (peracute, ก่อน BM response, หรือ precursor-targeted), Coombs' test + (DAT)\n\n❌ ทำไมข้ออื่นผิด\n— Pancytopenia + non-regenerative = aplastic / BM suppression (parvo, ehrlichia, drug)\n— Schistocytes + thrombocytopenia = MAHA (DIC, HUS, vasculitis) — fragmentation hemolysis ไม่ใช่ immune\n— Howell-Jolly + nRBC = post-splenectomy / hyposplenism — splenic filter หาย",
+    "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20460%20200'%3E%0A%20%20%3Crect%20width%3D'460'%20height%3D'200'%20fill%3D'%23fdf8ef'%2F%3E%0A%20%20%3Ctext%20x%3D'20'%20y%3D'24'%20font-family%3D'Fraunces%2C%20Sarabun%2C%20IBM%20Plex%20Sans%20Thai%2C%20serif'%20font-size%3D'14'%20fill%3D'%232b2419'%3ENormal%20RBC%20vs%20spherocyte%20(IMHA%20hallmark)%3C%2Ftext%3E%0A%20%20%3C!--%20Normal%20RBC%20(biconcave%20with%20central%20pallor)%20--%3E%0A%20%20%3Ctext%20x%3D'115'%20y%3D'50'%20font-family%3D'sans-serif'%20font-size%3D'12'%20fill%3D'%232b2419'%20text-anchor%3D'middle'%20font-weight%3D'600'%3ENormal%20RBC%3C%2Ftext%3E%0A%20%20%3Ccircle%20cx%3D'80'%20cy%3D'100'%20r%3D'22'%20fill%3D'%23e8b8b8'%20stroke%3D'%23c26d6d'%20stroke-width%3D'1.5'%2F%3E%0A%20%20%3Ccircle%20cx%3D'80'%20cy%3D'100'%20r%3D'9'%20fill%3D'%23fdf8ef'%2F%3E%0A%20%20%3Ccircle%20cx%3D'150'%20cy%3D'110'%20r%3D'22'%20fill%3D'%23e8b8b8'%20stroke%3D'%23c26d6d'%20stroke-width%3D'1.5'%2F%3E%0A%20%20%3Ccircle%20cx%3D'150'%20cy%3D'110'%20r%3D'9'%20fill%3D'%23fdf8ef'%2F%3E%0A%20%20%3Ccircle%20cx%3D'115'%20cy%3D'150'%20r%3D'22'%20fill%3D'%23e8b8b8'%20stroke%3D'%23c26d6d'%20stroke-width%3D'1.5'%2F%3E%0A%20%20%3Ccircle%20cx%3D'115'%20cy%3D'150'%20r%3D'9'%20fill%3D'%23fdf8ef'%2F%3E%0A%20%20%3Ctext%20x%3D'115'%20y%3D'180'%20font-family%3D'sans-serif'%20font-size%3D'10'%20fill%3D'%235c4f3d'%20text-anchor%3D'middle'%3Ebiconcave%20%2B%20central%20pallor%3C%2Ftext%3E%0A%20%20%3C!--%20Divider%20--%3E%0A%20%20%3Cline%20x1%3D'235'%20y1%3D'40'%20x2%3D'235'%20y2%3D'185'%20stroke%3D'%235c4f3d'%20stroke-width%3D'1'%20stroke-dasharray%3D'4%2C4'%2F%3E%0A%20%20%3C!--%20Spherocyte%20(smaller%2C%20dense%2C%20no%20pallor)%20--%3E%0A%20%20%3Ctext%20x%3D'350'%20y%3D'50'%20font-family%3D'sans-serif'%20font-size%3D'12'%20fill%3D'%237d3d3d'%20text-anchor%3D'middle'%20font-weight%3D'600'%3ESpherocyte%3C%2Ftext%3E%0A%20%20%3Ccircle%20cx%3D'305'%20cy%3D'100'%20r%3D'14'%20fill%3D'%23a87575'%20stroke%3D'%237d3d3d'%20stroke-width%3D'1.5'%2F%3E%0A%20%20%3Ccircle%20cx%3D'370'%20cy%3D'105'%20r%3D'14'%20fill%3D'%23a87575'%20stroke%3D'%237d3d3d'%20stroke-width%3D'1.5'%2F%3E%0A%20%20%3Ccircle%20cx%3D'335'%20cy%3D'140'%20r%3D'14'%20fill%3D'%23a87575'%20stroke%3D'%237d3d3d'%20stroke-width%3D'1.5'%2F%3E%0A%20%20%3Ccircle%20cx%3D'400'%20cy%3D'145'%20r%3D'14'%20fill%3D'%23a87575'%20stroke%3D'%237d3d3d'%20stroke-width%3D'1.5'%2F%3E%0A%20%20%3Ctext%20x%3D'350'%20y%3D'180'%20font-family%3D'sans-serif'%20font-size%3D'10'%20fill%3D'%235c4f3d'%20text-anchor%3D'middle'%3Esmall%20%2B%20dense%20%2B%20NO%20pallor%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D'350'%20y%3D'195'%20font-family%3D'italic%20serif'%20font-size%3D'10'%20fill%3D'%237d3d3d'%20text-anchor%3D'middle'%3Epartial%20phagocytosis%20by%20spleen%3C%2Ftext%3E%0A%3C%2Fsvg%3E",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.22"
+  },
+  {
+    "id": 986,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imha",
+      "diagnosis"
+    ],
+    "type": "mcq",
+    "q": "Coombs' test ใน IMHA หาอะไร",
+    "options": [
+      "Hemoglobin variant ใน RBC (genetic hemolytic anemia screen)",
+      "Antibody + complement บนผิว RBC (Direct antiglobulin test, DAT)",
+      "RBC fragility ต่อ osmotic stress (osmotic fragility test)",
+      "IgG titer ต่อ pathogen ในกระแสเลือด (indirect serology test)"
+    ],
+    "answer": 1,
+    "explain": "Coombs' test = DAT (Direct Antiglobulin Test) → detect IgG/IgM/C3 ที่ยึดติดกับ RBC surface, positive = supportive ของ IMHA, false-negative ~25% (low antibody titer หรือ pre-treatment with steroid), ห้ามอ่านผลจาก Coombs' alone — ต้องร่วม clinical, spherocytes, autoagglutination\n\n❌ ทำไมข้ออื่นผิด\n— DNA mutation = genetic test\n— Bact culture = bacterial\n— Hormone = endocrine",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.40"
+  },
+  {
+    "id": 987,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imha",
+      "complications"
+    ],
+    "type": "mcq",
+    "q": "Complication ที่อันตรายและทำให้สัตว์ตายใน IMHA คือ",
+    "options": [
+      "Acute kidney injury จาก hemoglobinuria pigment nephropathy",
+      "Severe hyperkalemia + cardiac arrhythmia จาก mass RBC lysis",
+      "Pulmonary thromboembolism (PTE) + DIC + thromboembolic disease",
+      "Hepatic failure จาก bilirubin overload + cholestatic injury"
+    ],
+    "answer": 2,
+    "explain": "PTE = main cause of death in canine IMHA, hypercoagulable state จาก hemolysis + pro-inflammatory + activation of platelets/coag cascade, prevention: clopidogrel 1.1-4 mg/kg/d (Plavix) + aspirin 1-2 mg/kg/d (อาจ combine), monitor for sudden tachypnea, dyspnea, collapse\n\n❌ ทำไมข้ออื่นผิด\n— Hypoglycemia = ไม่ใช่ direct complication\n— Diarrhea เรื้อรัง = side effect ของ MMF (treatment)\n— Cataract = unrelated",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.18"
+  },
+  {
+    "id": 988,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imha",
+      "treatment"
+    ],
+    "type": "mcq",
+    "q": "Initial dose ของ prednisolone สำหรับ canine IMHA",
+    "options": [
+      "0.5 mg/kg/d — anti-inflammatory dose ใช้ใน mild flare เท่านั้น",
+      "Dexamethasone IV bolus เท่านั้น — pred PO ห้ามใช้ใน IMHA acute",
+      "5-6 mg/kg/d — pulse therapy ในรายที่ไม่ตอบสนอง steroid ปกติ",
+      "2-3 mg/kg/d (หรือ 50-60 mg/m² for dogs > 25 kg) — immunosuppressive dose"
+    ],
+    "answer": 3,
+    "explain": "Pred 2-3 mg/kg/d (or 50-60 mg/m² for large breeds > 25 kg), ลดเป็น ≤ 2 mg/kg/d ภายใน 2 wk ถ้า PCV เพิ่มหรือ stable, IV dexamethasone 0.2-0.4 mg/kg/d ถ้ากินไม่ได้, response rate ~80%, ถ้าไม่ตอบสนอง 7 วัน หรือ blood transfusion ต่อเนื่อง = start 2nd line\n\n❌ ทำไมข้ออื่นผิด\n— 0.5 mg/kg/d = ต่ำเกิน, ไม่ immunosuppressive\n— 10 mg/kg/d = สูงเกินอันตราย\n— \"ไม่ใช้ steroid\" = ผิด, mainstay treatment",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.48"
+  },
+  {
+    "id": 989,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imha",
+      "second-line"
+    ],
+    "type": "mcq",
+    "q": "2nd-line drugs สำหรับ IMHA ที่ไม่ตอบสนอง prednisolone อย่างเดียว",
+    "options": [
+      "NSAIDs (carprofen, meloxicam) ลด inflammation ของ RBC membrane",
+      "Doxycycline + chloramphenicol ครอบคลุม secondary infection trigger",
+      "Azathioprine (dog only) / Cyclosporine / Mycophenolate mofetil / Leflunomide / IVIG",
+      "Erythropoietin + iron dextran SC กระตุ้น erythropoiesis ทดแทน RBC"
+    ],
+    "answer": 2,
+    "explain": "2nd line: Azathioprine 2 mg/kg/d (dog only), Cyclosporine 5 mg/kg q12h (small breeds + cats), MMF (expensive, GI side effect), Leflunomide (refractory), IVIG 0.5-1 g/kg single infusion (severe refractory), จำได้ว่า dog IMHA ใช้ azathioprine + cyclosporine, cat IMHA ใช้ chlorambucil + cyclosporine (ห้าม azathioprine ใน cat)\n\n❌ ทำไมข้ออื่นผิด\n— NSAIDs = ไม่ใช่ immunosuppressive\n— Antibiotic alone = ไม่ใช่ autoimmune cause\n— \"รอเอง\" = mortality สูง",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.51"
+  },
+  {
+    "id": 990,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imha",
+      "monitoring"
+    ],
+    "type": "mcq",
+    "q": "Long-term monitoring ของ IMHA ในสุนัข",
+    "options": [
+      "PCV/Hct ทุก 3 wk + bilirubin + UA q8-12 wk + watch relapse 11-15%",
+      "CBC + bone marrow biopsy ทุก 6 mo เป็นเวลา 5 ปี",
+      "Coombs test ทุกเดือน + ANA titer ทุก 3 mo ไปตลอดชีวิต",
+      "CBC + chemistry ทุก 1 ปี ก็เพียงพอเมื่อ stable"
+    ],
+    "answer": 0,
+    "explain": "IMHA monitoring: PCV/Hct ทุก 3 wk, bilirubin (hemolysis marker), UA ± culture q8-12 wk (steroid-induced UTI), stress leukogram, ↑ ALP, polycythemia, thrombocytosis, hyperlipidemia, hyperglycemia (steroid effect) common, taper steroid 25% เมื่อ stable PCV > 30% × 2 wk, don't taper 2nd-line until steroid done, 3-6 months total, relapse 11-15%\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่ monitor\" = ผิด\n— \"5 ปี\" = นานเกินไป\n— \"1 ปี\" = นานเกิน, miss relapse",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.55"
+  },
+  {
+    "id": 991,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf",
+    "tags": [
+      "imt"
+    ],
+    "type": "mcq",
+    "q": "Immune-mediated Thrombocytopenia (IMT) ตำแหน่ง bleeding ที่เห็นได้บ่อยคือ",
+    "options": [
+      "Subarachnoid + intracranial hemorrhage เป็น hallmark sign แรก",
+      "Petechiae + ecchymoses (mucous membrane, skin), epistaxis, hematuria, melena, hyphema",
+      "Hematoma in muscle + joint hemarthrosis (เหมือน hemophilia pattern)",
+      "GI bleeding + retroperitoneal hemorrhage แสดงก่อน petechiae เสมอ"
+    ],
+    "answer": 1,
+    "explain": "IMT signs: petechiae (small punctate hemorrhages on gums, sclera, ventral abdomen) + ecchymoses + epistaxis + hematuria + melena + hyphema (Cocker Spaniel classic) + GI bleed, platelets ต่ำกว่า 50,000/μL = clinical bleeding, < 30,000 = severe risk, PT/aPTT ปกติ (vs. coagulopathy), differentiate spontaneous bleeding vs. trauma\n\n❌ ทำไมข้ออื่นผิด\n— SAH only = ผิด\n— Muscle hematoma = coagulopathy (factor deficiency)\n— \"No bleeding\" = ผิด",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf p.66"
+  },
+  {
+    "id": 992,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Systemic_Lupus_Erythematosus.pdf",
+    "tags": [
+      "sle",
+      "criteria"
+    ],
+    "type": "mcq",
+    "q": "Criteria สำคัญในการวินิจฉัย Systemic Lupus Erythematosus (SLE) ในสัตว์",
+    "options": [
+      "1 organ involved + ANA positive titer ≥ 1:40 ก็เพียงพอแล้ว",
+      "Coombs positive + thrombocytopenia (อย่างใดอย่างหนึ่ง) เพียงพอ",
+      "≥ 2 organ system dysfunction + high ANA titer + most have polyarthritis",
+      "Skin biopsy พบ interface dermatitis + lupus band เท่านั้น"
+    ],
+    "answer": 2,
+    "explain": "SLE = multisystem autoimmune, criteria: ≥ 2 organ systems involved + high titer ANA, most common: polyarthritis (#1 sign) + skin disease + CVS + kidney (proteinuria → glomerulonephritis) + muscle (polymyositis) + pleural + cytopenias (anemia, thrombocytopenia), rare in dogs/cats, lymphopenia + CD4:CD8 = 5.2 (normal 2.25 in dog)\n\n❌ ทำไมข้ออื่นผิด\n— \"1 organ + ANA\" = ไม่พอ (ต้อง multisystem)\n— CBC alone = supportive\n— Skin biopsy alone = สำหรับ DLE",
+    "verified": "Systemic_Lupus_Erythematosus.pdf p.2"
+  },
+  {
+    "id": 993,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Systemic_Lupus_Erythematosus.pdf",
+    "tags": [
+      "sle",
+      "breed"
+    ],
+    "type": "mcq",
+    "q": "Breed ใดที่ predispose ต่อ SLE ในสุนัข",
+    "options": [
+      "Pug, French Bulldog, Boston Terrier — brachycephalic แพ้ภูมิตนเอง",
+      "Labrador, Golden Retriever, Lab cross — large breed prevalence สูง",
+      "Greyhound, Whippet, Saluki — sighthound กลุ่มเสี่ยง autoimmune",
+      "German Shepherd, Shetland Sheepdog, Collie, Beagle, Poodle, Afghan Hound"
+    ],
+    "answer": 3,
+    "explain": "SLE predisposed: GSD, Shetland Sheepdog, Collie, Beagle, Poodle, Afghan Hound, age 2 mo - 13 yr (dogs), 1-11 yr (cats), UK + Australia = low prevalence, South France = higher, cats = extremely rare (must be FeLV-/FIV-, Siamese/Persian/Persian-mixed)\n\n❌ ทำไมข้ออื่นผิด\n— Pug/Bulldog = brachycephalic issues\n— Greyhound = sighthound\n— Lab only = ผิด",
+    "verified": "Systemic_Lupus_Erythematosus.pdf p.3"
+  },
+  {
+    "id": 994,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Systemic_Lupus_Erythematosus.pdf",
+    "tags": [
+      "sle",
+      "clinical"
+    ],
+    "type": "mcq",
+    "q": "Clinical sign ที่พบบ่อยที่สุดใน SLE ของสุนัข",
+    "options": [
+      "Generalized pruritus + alopecia เป็นอาการหลัก (เหมือน atopic dermatitis)",
+      "Persistent vomiting + chronic diarrhea + weight loss (GI predominant)",
+      "PU/PD + truncal alopecia + pendulous abdomen (เหมือน hyperadrenocorticism)",
+      "Polyarthritis + skin lesion ที่ MC junction + proteinuria + cytopenias"
+    ],
+    "answer": 3,
+    "explain": "SLE ใน dog: polyarthritis = most common (synovial inflammation, joint effusion, lameness) + skin (mucocutaneous junction of facial/ear/mouth/limbs) + glomerulonephritis (proteinuria, nephrotic syndrome) + IMHA/IMT (anemia, thrombocytopenia) + polymyositis (rare) + pleural disease + myocardiopathy\n\n❌ ทำไมข้ออื่นผิด\n— Pruritus only = atopic\n— Hyperthyroid = endocrine\n— Hypothyroid only = endocrine",
+    "verified": "Systemic_Lupus_Erythematosus.pdf p.5"
+  },
+  {
+    "id": 995,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Systemic_Lupus_Erythematosus.pdf",
+    "tags": [
+      "sle",
+      "diagnosis"
+    ],
+    "type": "mcq",
+    "q": "Diagnostic workup ของ SLE ประกอบด้วย",
+    "options": [
+      "Coombs' test + blood chem + UA + skin biopsy + radiography + synovial fluid analysis + ANA test",
+      "CBC + serum chemistry + thyroid panel เป็น minimum workup เพียงพอ",
+      "Skin scraping + dermatophyte culture + Wood's lamp + cytology (parasitic R/O)",
+      "Fecal float + endoscopic biopsy + cobalamin/folate (GI workup)"
+    ],
+    "answer": 0,
+    "explain": "SLE workup: Coombs' (IMHA) + Platelet count (IMT) + blood chem (BUN/Cr/albumin) + UA + UPC (proteinuria) + skin biopsy (interface dermatitis with apoptotic keratinocytes + lupus band on IFA) + radiograph (joint disease) + synovial fluid (non-septic suppurative inflammation) + ANA titer (60-90% +ve)\n\n❌ ทำไมข้ออื่นผิด\n— CBC alone = ไม่พอ\n— Skin scraping = parasitic\n— Fecal = GI parasite",
+    "verified": "Systemic_Lupus_Erythematosus.pdf p.15"
+  },
+  {
+    "id": 996,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Systemic_Lupus_Erythematosus.pdf",
+    "tags": [
+      "sle",
+      "treatment"
+    ],
+    "type": "mcq",
+    "q": "Treatment regimen ของ SLE ในสุนัข",
+    "options": [
+      "Doxycycline 5 mg/kg BID 4 wk + supportive (treat as tick-borne disease)",
+      "Prednisolone 1-2 mg/kg q24h + levamisole 3-7 mg/kg q48h + supportive + monitor ANA",
+      "Insulin + dietary management + glucose curve ทุก 2 wk (treat as endocrine)",
+      "Splenectomy + chemotherapy (cyclophosphamide) ใน refractory case"
+    ],
+    "answer": 1,
+    "explain": "Canine SLE: prednisolone 1-2 mg/kg q24h immunosuppressive, ± levamisole 3-7 mg/kg q48h (immunomodulator แบบเก่า แต่ยังใช้ในไทย), cat SLE: pred ± cyclophosphamide หรือ chlorambucil (ห้าม cyclophos ใน renal failure), supportive: prescription diet, blood transfusion ถ้า severe anemia, monitor ANA titer + clinical signs, long-term (ชีวิต)\n\n❌ ทำไมข้ออื่นผิด\n— Antibiotic alone = ไม่ใช่ infection\n— Insulin = DM\n— Surgery = ผิด",
+    "verified": "Systemic_Lupus_Erythematosus.pdf p.16"
+  },
+  {
+    "id": 997,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Systemic_Lupus_Erythematosus.pdf",
+    "tags": [
+      "sle",
+      "cat"
+    ],
+    "type": "mcq",
+    "q": "SLE ในแมวมีลักษณะพิเศษอย่างไร",
+    "options": [
+      "พบบ่อยกว่าสุนัข + breed prevalence: DSH > Siamese, onset 5-10 yr",
+      "พบเฉพาะแมวอ้วน + วัยกลางคน + outdoor exposure (UV-induced)",
+      "Extremely rare, ต้อง FeLV-/FIV",
+      "ไม่พบใน cat — เป็น species-specific โรคของสุนัขเท่านั้น"
+    ],
+    "answer": 2,
+    "explain": "Feline SLE: extremely rare, diagnostic criteria เข้ม: ต้องตรวจ FeLV/FIV negative ก่อน (false-positive ANA จาก viral), pure breed predisposed: Siamese, Persian, Persian-mixed, 3 yr neutered F DSH cat = case example, paronychia (nail bed inflammation) + cutaneous SLE + small crusty lesions ventral surface, polyarthritis ก็เกิด\n\n❌ ทำไมข้ออื่นผิด\n— \"พบบ่อยกว่าสุนัข\" = ผิด, rare than dog\n— \"แมวอ้วน\" = irrelevant\n— \"ไม่มีใน cat\" = ผิด, มีแต่ rare\n\n💡, breeds Siamese/Persian/Persian-mixed, paronychia + small crusts ventrum",
+    "verified": "Systemic_Lupus_Erythematosus.pdf p.4"
+  },
+  {
+    "id": 998,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Systemic_Lupus_Erythematosus.pdf",
+    "tags": [
+      "sle",
+      "ana"
+    ],
+    "type": "mcq",
+    "q": "ANA (Anti-Nuclear Antibody) test ใน SLE",
+    "options": [
+      "Specific 100% — ANA positive titer ≥ 1:160 = SLE definite ไม่ต้อง workup เพิ่ม",
+      "Replace clinical signs — ANA positive ก็ไม่จำเป็นต้องดูอาการแล้ว",
+      "ใช้ใน cat เท่านั้น — dog SLE ใช้ direct Coombs test แทน ANA",
+      "Sensitive ~60-90% in dog SLE"
+    ],
+    "answer": 3,
+    "explain": "ANA (immunofluorescence): titer >= 1:160 considered significant in dogs, sensitivity 60-90% in canine SLE, false-positive ใน ehrlichiosis, leishmaniasis, FeLV/FIV (in cats), drug-induced lupus (procainamide, hydralazine), neoplasia, ต้องใช้ร่วม clinical (multisystem disease) เพื่อ definitive Dx\n\n❌ ทำไมข้ออื่นผิด\n— \"Specific 100%\" = ผิด\n— \"ใน cat เท่านั้น\" = ผิด, dog ใช้บ่อยกว่า\n— \"Replace clinical\" = ผิด, ใช้ร่วม\n\n💡 titer สูงสำคัญ, false-positive ใน infection/neoplasia/cat, ใช้ร่วม clinical criteria",
+    "verified": "Systemic_Lupus_Erythematosus.pdf p.15"
+  },
+  {
+    "id": 999,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Systemic_Lupus_Erythematosus.pdf",
+    "tags": [
+      "sle",
+      "differential"
+    ],
+    "type": "mcq",
+    "q": "Polyarthritis ใน SLE ต่างจาก polyarthritis แบบ erosive อย่างไร",
+    "options": [
+      "SLE polyarthritis = non-erosive (ไม่มี joint destruction บน X-ray)",
+      "ไม่ต่างกัน — ทั้ง SLE และ erosive ทำลาย cartilage เหมือนกัน",
+      "SLE = erosive type — ทำลาย bone + cartilage รุนแรงกว่า rheumatoid",
+      "SLE ไม่มี polyarthritis — ออกแค่ skin + kidney เท่านั้น"
+    ],
+    "answer": 0,
+    "explain": "SLE polyarthritis = NON-erosive (synovial inflammation + effusion แต่ไม่มี cartilage/bone destruction), radiograph ปกติ, synovial fluid = non-septic suppurative, vs. erosive polyarthritis (Greyhound polyarthritis, RA-like) = visible bone erosion, deformity, differentiation important for prognosis + treatment\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่ต่างกัน\" = ผิด\n— \"SLE = erosive\" = ผิด สลับ\n— \"SLE ไม่มี polyarthritis\" = ผิด, มีและเป็น most common\n\n💡 vs. erosive arthritis = bone erosion + joint deformity",
+    "verified": "Systemic_Lupus_Erythematosus.pdf p.6"
+  },
+  {
+    "id": 1000,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "definition"
+    ],
+    "type": "mcq",
+    "q": "Inflammatory Bowel Disease (IBD) คืออะไร",
+    "options": [
+      "Chronic inflammation ของ stomach/intestine/colon โดย unknown etiology",
+      "Acute GI infection (parvo, distemper) ที่กลายเป็นเรื้อรังเกิน 3 wk",
+      "Bacterial enteritis (Campylobacter, Salmonella) ที่ดื้อ ATB ทุกตัว",
+      "Helminth infestation เรื้อรัง (Trichuris, hookworm) ที่ deworm ไม่หาย"
+    ],
+    "answer": 0,
+    "explain": "IBD = chronic GI inflammation (stomach + intestine + colon) etiology unknown, large bowel IBD พบใน dogs มากกว่า, pathogenesis: gut sustained reactivity to endogenous bacteria/food antigens → loss of immunologic tolerance → abnormal T-cell activation → over-production of inflammatory cytokines, histology: inflammatory infiltrate (neutrophil, eosinophil, lymphocyte, plasma cells) + mucosal pathology (villus atrophy, crypt collapse)\n\n❌ ทำไมข้ออื่นผิด\n— Acute GI = different (gastroenteritis acute)\n— Bacterial = treatable with ATB\n— Worm infestation = parasitic, treatable\n\n💡 GI signs > 3 wk, ไม่ตอบ symptomatic Tx",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.2"
+  },
+  {
+    "id": 1001,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "criteria"
+    ],
+    "type": "mcq",
+    "q": "IBD characteristic criteria 4 ข้อหลักประกอบด้วย",
+    "options": [
+      "CBC neutropenia + chem hypoalbuminemia + UA proteinuria + low cobalamin",
+      "(1) GI signs > 3 wk, (2) ไม่ตอบ ATB/dewormer/GI protectants, (3) R/O DDx, (4) histopath benign inflammation",
+      "Acute vomiting < 24 hr + diarrhea + dehydration + responds to fluid + ATB",
+      "Polyphagia + weight gain + steatorrhea + ↓ cobalamin (EPI-like pattern)"
+    ],
+    "answer": 1,
+    "explain": "IBD diagnostic criteria 4: (1) GI signs > 3 wk (anorexia, vomit, weight loss, diarrhea, hematochezia, mucus), (2) Failure of symptomatic Tx alone, (3) Failure to document other gastroenterocolitis causes (PLE, lymphoma, dietary, parasitic), (4) Histologic confirmation of benign intestinal inflammation, IBD = diagnosis of exclusion + biopsy-confirmed\n\n❌ ทำไมข้ออื่นผิด\n— CBC abnormal = supportive only\n— Acute vomiting = ผิด (chronic > 3 wk)\n— Weight gain = ตรงข้าม (มัก loss)",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.3"
+  },
+  {
+    "id": 1002,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "breed"
+    ],
+    "type": "mcq",
+    "q": "Breed ใดที่ predispose ต่อ IBD ในสุนัข (Kathrani et al. 2011)",
+    "options": [
+      "Pug, French Bulldog, Boston Terrier — brachycephalic GI motility ผิดปกติ",
+      "Greyhound, Whippet, Saluki — sighthound แพ้อาหารง่ายตามสายพันธุ์",
+      "Weimaraner, Rottweiler, GSD, Border Collie, Boxer — large breed predisposed",
+      "Pomeranian, Chihuahua, Yorkshire Terrier — toy breed sensitivity GI"
+    ],
+    "answer": 2,
+    "explain": "IBD predisposed (UK study, OR vs mixed-breed): Weimaraner OR 3.68, Rottweiler OR 2.97, GSD OR 2.41, Border Collie OR 1.99, Boxer OR 1.70, genetic + immune + environmental component (gut microbiota dysbiosis)\n\n❌ ทำไมข้ออื่นผิด\n— Pug/Bulldog = brachycephalic\n— Greyhound = sighthound\n— Pomeranian = small breed concerns",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.5"
+  },
+  {
+    "id": 1003,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "pathogenesis"
+    ],
+    "type": "mcq",
+    "q": "Pathogenesis ของ IBD ตาม immunologic criteria",
+    "options": [
+      "Small intestinal bacterial overgrowth (SIBO) เท่านั้นเป็นกลไกหลักของ IBD",
+      "Cortisol deficiency → ลด regulatory effect ต่อ gut immune system (Addisonian-like)",
+      "Mutation in mucin gene (MUC2) → loss of mucus barrier → chronic ulcer formation",
+      "Loss of immunologic tolerance to normal flora/food antigens → T-cell activation → ↑ inflammatory cytokines"
+    ],
+    "answer": 3,
+    "explain": "IBD immunologic mechanism: gut หลุดความ tolerance ต่อ commensal bacteria + food antigens → indirect T-cell activation → cytokine over-production (IL-1, IL-6, TNF-α, IL-17) → mucosal inflammation + ↑ permeability + dysbiosis, innate + adaptive immune both involved, genetic + environmental triggers\n\n❌ ทำไมข้ออื่นผิด\n— Bacterial overgrowth = SIBO (different syndrome)\n— Collagen mutation = ไม่เกี่ยว\n— Hormonal = endocrine",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.12"
+  },
+  {
+    "id": 1004,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "diarrhea",
+      "localization"
+    ],
+    "type": "mcq",
+    "q": "Stool ที่มี mucus + tenesmus + frequent small volume + fresh blood (hematochezia) บ่งชี้",
+    "options": [
+      "Small bowel diarrhea — large volume + watery + melena + weight loss",
+      "Mixed bowel (small + large) — generalized GI inflammation pattern",
+      "Large bowel diarrhea (colitis) — mucus + tenesmus + frequent small + hematochezia",
+      "Foreign body obstruction — acute focal pain + episodic vomiting + anorexia"
+    ],
+    "answer": 2,
+    "explain": "Large bowel diarrhea (colitis) signs: mucus + tenesmus + frequent small volumes + fresh blood (hematochezia), vs. Small bowel: large volume + watery + melena (digested blood) ± weight loss + hypoalbuminemia, localization helps differential\n\n❌ ทำไมข้ออื่นผิด\n— Small bowel = large volume + melena\n— Both = ไม่ใช่ pattern เฉพาะ\n— FB = acute, focal",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.18"
+  },
+  {
+    "id": 1005,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "folate-cobalamin"
+    ],
+    "type": "mcq",
+    "q": "Folate ในเลือดบ่งบอกตำแหน่ง intestinal disease ตำแหน่งใด",
+    "options": [
+      "Proximal small intestine (duodenum + proximal jejunum) — folate absorbed here",
+      "Distal small intestine (ileum) — folate absorbed via intrinsic factor pathway",
+      "Stomach (gastric body + fundus) — folate absorbed before entering SI",
+      "Colon (proximal + distal) — folate absorbed by colonocyte ผ่าน bacteria"
+    ],
+    "answer": 0,
+    "explain": "Folate = absorbed in proximal SI (duodenum + proximal jejunum) → ↑ folate = SIBO (bacteria สร้าง folate), ↓ folate = proximal SI mucosal disease (IBD, lymphoma), Cobalamin = absorbed in distal SI (ileum) ผ่าน intrinsic factor → ↓ B12 = distal SI disease (EPI ก็ทำให้ ↓ จาก IF deficiency), folate + B12 ใช้ localize disease\n\n❌ ทำไมข้ออื่นผิด\n— Distal SI / ileum = cobalamin\n— Stomach = gastric biopsy\n— Colon = distal large bowel",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.20"
+  },
+  {
+    "id": 1006,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "cobalamin"
+    ],
+    "type": "mcq",
+    "q": "Cobalamin (Vitamin B12) test ในการประเมิน chronic enteropathy",
+    "options": [
+      "ไม่มีประโยชน์ — cobalamin วัดได้แค่ใน human medicine ไม่เป็น standard ใน vet",
+      "↓ Cobalamin = distal SI (ileum) disease หรือ EPI (intrinsic factor deficiency), ต้อง supplement parenteral/oral",
+      "High cobalamin = SIBO (bacteria สร้างเพิ่ม) เป็น main use ของ test นี้ใน dog",
+      "ใช้แทน TLI test ในการประเมิน pancreatic enzyme function ก็ได้"
+    ],
+    "answer": 1,
+    "explain": "Cobalamin: ↓ in distal SI disease (IBD ileal, lymphoma, dysbiosis), also EPI (pancreatic IF deficiency, dog), supplement: parenteral cyanocobalamin 250-1500 μg SC weekly × 6 wk → q2-4 wk, or PO daily, ขาด B12 ทำให้ enterocyte function แย่ลง → vicious cycle, monitor q3-6 mo\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่มีประโยชน์\" = ผิด, important marker\n— High = healthy = ผิด\n— แทน TLI = ผิด, แยกกัน",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.20"
+  },
+  {
+    "id": 1007,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "TLI"
+    ],
+    "type": "mcq",
+    "q": "TLI (Trypsin-Like Immunoreactivity) ใช้ทดสอบโรคใด",
+    "options": [
+      "Liver disease — TLI ต่ำใน hepatic failure (decreased clearance)",
+      "Renal failure — TLI สูงเพราะ kidney clear enzyme ไม่ออก (false elevation)",
+      "Exocrine Pancreatic Insufficiency (EPI) — fasting TLI ต่ำ = EPI confirmed",
+      "Hyperthyroidism (cat) — TLI ต่ำเพราะ pancreatic atrophy จาก thyroid"
+    ],
+    "answer": 2,
+    "explain": "TLI: ↓ TLI fasting = EPI (atrophy ของ pancreatic acinar cells, ส่วนใหญ่ใน GSD ตามพันธุกรรม), classic signs: chronic diarrhea + weight loss แม้กินเยอะ + steatorrhea + cobalamin ต่ำ (ขาด IF), Tx: pancreatic enzyme replacement (Viokase, Pancrezyme) + B12 supplementation\n\n❌ ทำไมข้ออื่นผิด\n— Liver = ALT/ALP/bile acids\n— Renal = BUN/Cr\n— Hyperthyroid = T4 (cat)",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.21"
+  },
+  {
+    "id": 1008,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "differential"
+    ],
+    "type": "mcq",
+    "q": "Differential diagnosis ของ canine chronic diarrhea ที่สำคัญรวมถึง",
+    "options": [
+      "IBD เท่านั้น — chronic diarrhea = IBD by default ใน dog ไม่ต้อง R/O อื่น",
+      "Acute pancreatitis + cholecystitis + hepatic lipidosis — hepatobiliary causes",
+      "Hyperthyroidism + diabetes mellitus + Cushing's — endocrine causes เป็นหลัก",
+      "PLE, lymphangiectasia, ARE, IBD, eosinophilic GE, LPE, intestinal lymphoma, EPI"
+    ],
+    "answer": 3,
+    "explain": "Chronic diarrhea DDx: PLE (protein-losing enteropathy), intestinal lymphangiectasia, lesion of intestinal crypts, maldigestion (EPI), malabsorptive SI disease, ARE (antibiotic-responsive enteropathy), IBD, eosinophilic GE, LPE (lymphocytic plasmacytic enteritis = histopath subtype of IBD), intestinal lymphoma (อาจ mimic IBD ใน histopath)\n\n❌ ทำไมข้ออื่นผิด\n— \"IBD เท่านั้น\" = ผิด, broad differential\n— Pneumonia / acute pancreatitis = ไม่ใช่ chronic diarrhea",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.22"
+  },
+  {
+    "id": 1009,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "diagnosis"
+    ],
+    "type": "mcq",
+    "q": "Definitive diagnosis ของ IBD ทำได้โดย",
+    "options": [
+      "CBC + serum chemistry + albumin level + cobalamin/folate panel เพียงพอ",
+      "Fecal culture + fecal PCR + parasitology — R/O infectious causes",
+      "Abdominal radiograph + barium contrast study ดู mucosal pattern",
+      "Intestinal biopsy (endoscopic หรือ surgical) + histopathology"
+    ],
+    "answer": 3,
+    "explain": "IBD definitive Dx: full-thickness biopsy (surgical) หรือ endoscopic biopsy (multi-site, multiple specimens) → histopath: inflammatory infiltrate (lymphocytic, plasmacytic, eosinophilic) + villus atrophy/fusion + crypt distortion, grade severity (mild/mod/severe), ต้อง R/O lymphoma (PARR test, IHC for clonality), CBC/chem/UA, US ใช้ supportive\n\n❌ ทำไมข้ออื่นผิด\n— CBC alone = supportive\n— X-ray = limited info\n— Stool culture = R/O bacterial\n\n💡 confirm benign chronic inflammation + R/O lymphoma",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.21"
+  },
+  {
+    "id": 1010,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "treatment"
+    ],
+    "type": "mcq",
+    "q": "First-line management ของ IBD ตาม step-wise approach",
+    "options": [
+      "Step 1: Diet trial (novel protein/hydrolyzed) → Step 2: + ATB → Step 3: + immunosuppressive (prednisolone)",
+      "Prednisolone 2 mg/kg ทันที — start immunosuppressive ก่อนเพื่อ rapid control",
+      "Intestinal resection ส่วนที่อักเสบ + biopsy + supportive (definitive Tx)",
+      "Metronidazole + tylosin combination 4 wk monotherapy เป็น first-line"
+    ],
+    "answer": 0,
+    "explain": "Step-wise IBD management: 1) Dietary therapy (novel protein OR hydrolyzed × 4-6 wk) — many \"IBD\" turn out to be food-responsive, 2) Add ATB (Metronidazole 10-20 mg/kg BID-TID, Tylosin 25 mg/kg q12h) ถ้าไม่ดีขึ้น = ARE, 3) Immunosuppressive (prednisolone 1-2 mg/kg/d) ถ้ายังไม่ดี = IBD true, 4) Steroid-sparing (azathioprine, cyclosporine, chlorambucil) refractory, supportive: B12, probiotics, motility modifier\n\n❌ ทำไมข้ออื่นผิด\n— \"Steroid ทันที\" = miss food-responsive cases\n— Surgery = ไม่ใช่ for IBD\n— \"ATB อย่างเดียว\" = miss true IBD",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.25"
+  },
+  {
+    "id": 1011,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "antibiotics"
+    ],
+    "type": "mcq",
+    "q": "ATB ที่ใช้ใน IBD/ARE management",
+    "options": [
+      "Cephalexin 22 mg/kg BID — first-line broad-spectrum oral ATB ใน gut",
+      "Metronidazole 10-20 mg/kg BID, Tylosin 25 mg/kg, Oxytetracycline ตามลำดับ",
+      "Penicillin G IM + gentamicin combo (synergistic gram-negative coverage)",
+      "Enrofloxacin 5 mg/kg SID (Baytril) ครอบคลุม anaerobe + aerobe ใน gut"
+    ],
+    "answer": 1,
+    "explain": "IBD/ARE antibiotics: Metronidazole (anaerobe + immunomodulator at lower dose), Tylosin (macrolide, modify gut microbiota), Oxytetracycline, ใช้ 4-6 wk หรือ longer, long-term metronidazole = neurotoxicity risk (vestibular, ataxia), ARE (antibiotic-responsive) ถ้า ATB หาย = ARE; ถ้า relapse stop = IBD true\n\n❌ ทำไมข้ออื่นผิด\n— Cephalexin = pyoderma\n— Penicillin G = bacterial systemic\n— Furosemide = diuretic",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.28"
+  },
+  {
+    "id": 1012,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "sulfasalazine"
+    ],
+    "type": "mcq",
+    "q": "Sulfasalazine ใน IBD large bowel disease — side effect ที่สำคัญในสุนัขคือ",
+    "options": [
+      "ไม่มี side effect significant — ปลอดภัยมาก ไม่ต้อง monitor เป็นพิเศษ",
+      "Acute renal failure — ต้องวัด BUN/Cr ทุก 2 wk เป็น dose-limiting toxicity",
+      "Keratoconjunctivitis sicca (KCS, dry eye) — ต้อง Schirmer tear test ก่อน + ทุก 2 wk",
+      "Cataract bilateral progressive — ต้อง fundoscopy + slit lamp ทุก 1 mo"
+    ],
+    "answer": 2,
+    "explain": "Sulfasalazine 10-25 mg/kg PO TID-QID dog (used in large bowel IBD/colitis), metabolize เป็น 5-aminosalicylate (anti-inflammatory @ colon) + sulfapyridine, side effect dog: KCS (sulfa-induced) → ต้อง monitor Schirmer tear test ก่อน + ทุก 2 wk, cat: salicylate toxicity → ใช้ low dose 5-12.5 mg/kg PO TID อย่างระวัง\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่มี\" = ผิด\n— Renal only = ไม่ใช่ classic side effect\n— Cataract = unrelated",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.32"
+  },
+  {
+    "id": 1013,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "cyclosporine"
+    ],
+    "type": "mcq",
+    "q": "Cyclosporine dose สำหรับ IBD ในสุนัข",
+    "options": [
+      "1 mg/kg PO SID — maintenance dose only หลัง induction หาย",
+      "IV bolus 5 mg/kg q24h — oral absorption ของ cyclosporine ไม่แน่นอน",
+      "20-30 mg/kg PO BID — high-dose protocol สำหรับ refractory IBD",
+      "3-7 mg/kg PO BID — induction + maintenance dose ตาม Aj. Rosama"
+    ],
+    "answer": 3,
+    "explain": "Cyclosporine ใน IBD: 3-7 mg/kg PO BID (ข้อสอบ Aj. Rosama), alternative ใน steroid-refractory IBD, onset 4-6 wk, ระวัง side effects (gum hyperplasia, GI, papillomatosis), monitor blood level ในกรณี severe, alternative cyclosporine: chlorambucil 2 mg/m² (cat), azathioprine 2 mg/kg (dog only)\n\n❌ ทำไมข้ออื่นผิด\n— 1 mg/kg = ต่ำเกิน\n— 50 mg/kg = สูงเกินอันตราย\n— IV only = ผิด, oral standard",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.33"
+  },
+  {
+    "id": 1014,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "INFLAMATORY_BOWEL_Disease.pdf",
+    "tags": [
+      "ibd",
+      "prognosis"
+    ],
+    "type": "mcq",
+    "q": "Prognosis ของ IBD ในสุนัข/แมว",
+    "options": [
+      "Short-term good-to-excellent",
+      "Cure ได้ในทุก case ภายใน 6 เดือนถ้าเริ่ม Tx ทันท่วงที + diet เคร่งครัด",
+      "Always poor — IBD = terminal disease, mortality > 80% ภายใน 1 ปี",
+      "No relapse ตลอดชีวิตหลังจาก Tx 4 wk + diet trial — chronic แต่ไม่ recurrent"
+    ],
+    "answer": 0,
+    "explain": "IBD prognosis: short-term response 70-90% ดี, cure rare, relapse common (need long-term Tx, monitoring), poor prognostic factors: PLE (hypoalbuminemia → ascites), severe fibrosis, histiocytic ulcerative colitis (Boxer), severe hypocobalaminemia, eotaxin, Beagle/GSD with refractory disease, client compliance critical\n\n❌ ทำไมข้ออื่นผิด\n— \"Cure ทุก case\" = ผิด\n— \"Always poor\" = ผิด, มัก stable\n— \"No relapse\" = ผิด, common\n\n💡 cure rare, relapse common, poor ใน PLE form, fibrosis, histiocytic ulcerative colitis",
+    "verified": "INFLAMATORY_BOWEL_Disease.pdf p.35"
+  },
+  {
+    "id": 1015,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "life-stage"
+    ],
+    "type": "mcq",
+    "q": "Life stages ของสุนัข แบ่งเป็นกี่ระยะหลัก",
+    "options": [
+      "2 ระยะ (puppy + adult)",
+      "Puppy (0-6/9 mo)",
+      "10 ระยะ",
+      "ไม่แบ่ง"
+    ],
+    "answer": 1,
+    "explain": "Dog life stages: Puppy 0 to 6-9 months (depend on breed/size — small breed mature เร็วกว่า), Young adult 6-9 mo to 3-4 yr, Mature adult ถึง last 25% of estimated lifespan, Senior = last 25%, Cats: Kitten birth-1 yr, Young 1-6 yr, Mature 7-10 yr, Senior > 10 yr\n\n❌ ทำไมข้ออื่นผิด\n— \"2 ระยะ\" = oversimplify\n— \"10 ระยะ\" = ละเอียดเกิน\n— \"ไม่แบ่ง\" = ผิด, AAHA/AAFP มี standard\n\n💡 3-4 yr), Mature adult (4 yr - last 25%), Senior\n\n💡 Young adult (6-9 mo",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.2"
+  },
+  {
+    "id": 1016,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "neonatal"
+    ],
+    "type": "mcq",
+    "q": "Pediatric stages ของสุนัข/แมว ใน hour 0 - 12 wk แบ่งย่อยอย่างไร",
+    "options": [
+      "ไม่แบ่งย่อย",
+      "Neonate 0-2 wk",
+      "Newborn 1 day, Adult 1 wk",
+      "Senior 1 mo"
+    ],
+    "answer": 1,
+    "explain": "Pediatrics sub-stages: Neonate 0-2 wk (most physiologically dependent), Infant 2-6 wk (start opening eyes/ears, basic reflexes), Weanling 6-12 wk (transitioning solid food), Juvenile 3-6 mo (rapid growth, vaccination key window), physiology ต่างกันแต่ละช่วง\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่แบ่งย่อย\" = ผิด\n— Other options = age cutoffs ผิด\n\n💡 Infant 2-6 wk, Weanling 6-12 wk, Juvenile 3-6 mo",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.4"
+  },
+  {
+    "id": 1017,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "neonatal",
+      "thermoregulation"
+    ],
+    "type": "mcq",
+    "q": "Thermoregulation ใน neonate dog/cat มีลักษณะใด",
+    "options": [
+      "ปกติเทียบเท่า adult ตั้งแต่แรกเกิด",
+      "Poor thermoregulation เสี่ยง hypothermia",
+      "ดีกว่า adult ควบคุมอุณหภูมิเก่ง",
+      "ไม่ต้องดูแลอุณหภูมิเป็นพิเศษ"
+    ],
+    "answer": 1,
+    "explain": "Neonate thermoregulation: poor — shivering ไม่ดี + vasoconstriction limited + large body surface : mass ratio (heat loss เร็ว) + little fat + high water content + cannot pant → depend on dam warmth + environment 28-32°C + humidity 55-66%, hypothermia < 96°F (35.5°C) → bradycardia, ileus, death, warm slow ≤ 2°F/hr (rapid → core shock)\n\n❌ ทำไมข้ออื่นผิด\n— \"ปกติเหมือน adult\" = ผิด\n— \"ดีกว่า adult\" = ผิด\n— \"ไม่ต้องดูแล\" = ผิด, อันตราย\n\n💡 ขนน้อย, ขึ้นกับ dam/queen + 55-66% humidity\n\n💡 limited shiver + high SA/mass ratio + low body fat",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.7"
+  },
+  {
+    "id": 1018,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "neonatal",
+      "4hs"
+    ],
+    "type": "mcq",
+    "q": "\"4 H's\" critical concerns ใน neonatal dog/cat คือ",
+    "options": [
+      "Hypertension, Hypercalcemia, Hyperthyroid, Hyperkalemia",
+      "Hypothermia, Hypovolemia, Hypoglycemia, Hypoxemia",
+      "Hyperthermia, Hypertonia, Hypertrophy, Hyperplasia",
+      "Hate, Heart, Hand, Head"
+    ],
+    "answer": 1,
+    "explain": "\"4 H's\" of neonatal critical care: Hypothermia (most common, < 96°F = bradycardia/ileus), Hypovolemia/dehydration (high fluid req. 120-180 ml/kg/d), Hypoglycemia (limited gluconeogenesis + glycogen storage → seizures, brain damage), Hypoxemia (HR < 150 bpm in 1st wk = hospitalize for O₂), ทั้ง 4 ต้องประเมินทุก presentation\n\n❌ ทำไมข้ออื่นผิด\n— Other \"H\" combinations = ไม่ใช่ standard",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.20"
+  },
+  {
+    "id": 1019,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "neonatal",
+      "colostrum"
+    ],
+    "type": "mcq",
+    "q": "Colostrum ใน neonate ต้องได้ภายในเวลาเท่าใด",
+    "options": [
+      "ไม่จำเป็นต้องได้",
+      "1 สัปดาห์",
+      "Within 24 hr",
+      "1 เดือน"
+    ],
+    "answer": 2,
+    "explain": "Colostrum: critical within 24 hr of birth (gut permeability declines after 8 hr, closes 48-72 hr), IgG + IgA passively absorbed (IgM too large), maternal serum (from healthy adult dog) PO เป็น alternative ถ้า colostrum ไม่มี, check ALP/GGT — high ในช่วง 2 wk แรก (เป็น marker ของ colostrum intake), failure of passive transfer = ↑ neonatal mortality\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่จำเป็น\" = ผิด\n— \"1 wk\" / \"1 mo\" = สายเกิน, gut closed แล้ว\n\n💡 ถ้าไม่มี colostrum ใช้ maternal serum oral",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.13"
+  },
+  {
+    "id": 1020,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "neonatal",
+      "hypothermia"
+    ],
+    "type": "mcq",
+    "q": "Hypothermia ใน neonate temperature criteria + warming approach",
+    "options": [
+      "< 96°F = hypothermia warm ช้าๆ",
+      "< 90°F แล้วต้อง warm rapid ทันที",
+      "ไม่ต้อง warm ปล่อยอุ่นเอง",
+      "> 100°F ถือว่า hypothermia"
+    ],
+    "answer": 0,
+    "explain": "Hypothermia: temp < 96°F (35.5°C) — neonate ปกติ 95-97°F (rectal), effects: bradycardia, ileus, bloat, dyspnea, immune failure, WARM SLOW: increase ≤ 2°F per hour, methods: incubator, heat lamp, circulating water blanket, warm towels, provide space to crawl away (avoid burns), environmental humidity 55-66%, rapid warming = peripheral vasodilation → cold blood return → core shock (cry, dehydration, panting)\n\n❌ ทำไมข้ออื่นผิด\n— \"< 90°F\" + rapid warm = อันตราย\n— \"ไม่ต้องวอร์ม\" = ผิด\n— \"> 100°F\" = hyperthermia\n\n💡 warm slow ≤ 2°F/hr, ระวัง rapid warming → vasodilation → core shock",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.21"
+  },
+  {
+    "id": 1021,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "neonatal",
+      "fluid"
+    ],
+    "type": "mcq",
+    "q": "Fluid maintenance rate สำหรับ neonate (0-2 wk)",
+    "options": [
+      "10-20 ml/kg/d",
+      "300 ml/kg/d",
+      "120-180 ml/kg/d",
+      "No fluids needed"
+    ],
+    "answer": 2,
+    "explain": "Neonate maintenance: 120-180 ml/kg/d, Pediatric (older): 80-120 ml/kg/d, Higher than adult เพราะ: ↑ body surface area : weight ratio, ↑ extracellular fluid, less body fat, ↑ metabolic + respiratory rate, ↓ renal concentrating ability, severe dehydration shock dose: 30-45 ml/kg dog, 20-30 ml/kg cat, routes: oral-gastric (NOT in hypothermic), SC/IP (no dextrose, normothermic), IV/IO (jugular, tibial crest, humerus)\n\n❌ ทำไมข้ออื่นผิด\n— 10-20 = adult maintenance\n— 300 = สูงเกินไป\n— No fluids = ผิด\n\n💡 pediatric",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.22"
+  },
+  {
+    "id": 1022,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "neonatal",
+      "hypoglycemia"
+    ],
+    "type": "mcq",
+    "q": "Hypoglycemia ใน neonate signs และ Tx",
+    "options": [
+      "Asymptomatic ไม่แสดงอาการ",
+      "Aggressive behavior ก้าวร้าว",
+      "Lethargy, decreased suckle",
+      "Hypertension ความดันสูง"
+    ],
+    "answer": 2,
+    "explain": "Hypoglycemia ใน neonate: signs anorexia, lethargy, ↓ suckle, crying, limp body, tremors, coma, seizures, cause: insufficient hepatic gluconeogenesis + low glycogen + immature insulin/glucagon feedback, Tx if conscious: milk replacer, corn syrup, glucose solution PO, IV: 0.5-1 ml/kg of 50% dextrose dilute 1:4 → CRI 2.5-5%, monitor q1-2h, prevent recurrence (frequent feeding 8-12 ×/d in first wk)\n\n❌ ทำไมข้ออื่นผิด\n— \"Asymptomatic\" = ผิด, มี neurologic\n— Aggressive = ไม่ใช่ pattern\n— Hypertension = ตรงข้าม\n\n💡 Tx: milk replacer/corn syrup PO ถ้า conscious; dextrose IV CRI ถ้า severe\n\n💡 crying, limp, tremors, seizures, coma",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.23"
+  },
+  {
+    "id": 1023,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "nei"
+    ],
+    "type": "mcq",
+    "q": "Neonatal Isoerythrolysis (NEI) พบบ่อยในสัตว์ใด และเกิดอย่างไร",
+    "options": [
+      "สุนัข บ่อย",
+      "หมูพันธุ์ใหญ่",
+      "ไม่เกิดในสัตว์",
+      "แมว type B blood"
+    ],
+    "answer": 3,
+    "explain": "NEI in cats: queen blood type B (British Shorthair, Devon/Cornish Rex, Abyssinian, Persian, Himalayan, Angora, Exotic, Ragdoll) มี strong anti-A IgG ใน colostrum, kitten type A/AB ที่กิน colostrum จาก B queen → severe IMHA, signs hours-days: hemoglobinuria, jaundice, anemia, sudden death, ear/tail tip necrosis, prevention: blood type ก่อนผสมพันธุ์, ถ้า mismatch detected ก่อน 24 hr → แยก kitten นมตู้/foster type A queen, severe → transfusion\n\n❌ ทำไมข้ออื่นผิด\n— สุนัข = rare (no naturally occurring isoantibody at high titer)\n— \"ไม่เกิด\" = ผิด\n— หมู = ไม่ใช่ companion animal\n\n💡 kitten type A/AB กิน colostrum จากแม่ type B → anti-A antibody → RBC lysis\n\n💡 British Shorthair, Persian, Rex, Ragdoll, Abyssinian",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.30"
+  },
+  {
+    "id": 1024,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "fading"
+    ],
+    "type": "mcq",
+    "q": "\"Fading puppy/kitten syndrome\" คืออะไร",
+    "options": [
+      "ลูกสัตว์ดูปกติแรกเกิด แล้วค่อยๆ fade + die ใน 0-10 wk",
+      "ลูกสัตว์ที่ขนค่อยๆ เปลี่ยนสีจางลงตามวัย",
+      "Hereditary albinism ที่ขาดเม็ดสีแต่กำเนิด",
+      "สัตว์สูงวัยที่ค่อยๆ เสื่อมตามอายุ"
+    ],
+    "answer": 0,
+    "explain": "Fading puppy/kitten syndrome: multifactorial mortality, ดูปกติแรกเกิด → fade gradually → die, เกิด birth - 9-10 wk, causes: maternal (mastitis, poor mothering, nutritional) + neonatal (low BW, congenital defects, NEI) + environmental (cold, dirty) + infectious (CHV, CDV, CPV, FPV, FHV, FCV, bacteria, mycoplasma), prevention: dam health pre-mating, strict hygiene, monitor weight daily, prompt vet care\n\n❌ ทำไมข้ออื่นผิด\n— \"ขนเปลี่ยนสี\" = ไม่ใช่\n— Hereditary albinism = different\n— \"อายุมาก\" = ตรงข้าม\n\n💡 virus, bacteria\n\n💡 multifactorial: maternal/neonate/environment/infection",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.30"
+  },
+  {
+    "id": 1025,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "neuter"
+    ],
+    "type": "mcq",
+    "q": "Optimal neutering age ตาม current guideline",
+    "options": [
+      "1 month",
+      "> 5 ปี",
+      "≤ 5-6 months",
+      "ไม่แนะนำให้ neuter"
+    ],
+    "answer": 2,
+    "explain": "Neutering: ≤ 5-6 mo (เพศหญิงก่อน 1st heat) ลดความเสี่ยง mammary tumor มากที่สุด, early as 6-16 wk = TNR/shelter standard, benefits: population control + ↓ neoplasia (mammary, testicular, ovarian, prostatic) + ↓ behavior (roaming, aggression, marking), risks: orthopedic (large breed early neuter → ↑ ACL/hip dysplasia), urinary incontinence (F bitch), endocrine, obesity, individualized based on breed/size\n\n❌ ทำไมข้ออื่นผิด\n— \"1 month\" = เร็วเกิน\n— \"> 5 ปี\" = ช้าเกิน\n— \"ไม่แนะนำ\" = ผิด\n\n💡 พิจารณา breed, size, health risks\n\n💡 early as 6-16 wk for shelter/TNR",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.42"
+  },
+  {
+    "id": 1026,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "geriatric"
+    ],
+    "type": "mcq",
+    "q": "Senior life stage ในสุนัขกำหนดอย่างไร",
+    "options": [
+      "Last 25% of estimated lifespan",
+      "อายุ 5 ปีขึ้นไปทุกขนาดพันธุ์",
+      "อายุ 1 ปีขึ้นไปถือว่า senior",
+      "อายุ 20 ปีขึ้นไปเท่านั้น"
+    ],
+    "answer": 0,
+    "explain": "Senior dog = last 25% of estimated lifespan, ขึ้นกับ breed + size, Giant breeds (Great Dane, Mastiff, lifespan 7-10 yr) → senior 5-6 yr, Small breeds (Chihuahua, Toy poodle, lifespan 14-16 yr) → senior 10-12 yr, Cats: senior > 10 yr (lifespan 12-18 yr), \"aging is not a disease, but normal process\"\n\n❌ ทำไมข้ออื่นผิด\n— \"5 ปีทุกขนาด\" = ผิด, breed-dependent\n— \"1 ปี\" = adult\n— \"20 ปี\" = ส่วนใหญ่ตายก่อน\n\n💡 size/breed dependent",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.50"
+  },
+  {
+    "id": 1027,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "cognitive"
+    ],
+    "type": "mcq",
+    "q": "Cognitive Dysfunction Syndrome (CDS) ในสุนัขแก่ ใช้ DISHAA assessment ประกอบด้วย",
+    "options": [
+      "ไม่มี standard assessment",
+      "BCS เท่านั้น",
+      "อายุเท่านั้น",
+      "D = Disorientation"
+    ],
+    "answer": 3,
+    "explain": "DISHAA mnemonic for canine CDS (analogous Alzheimer's in human): D=Disorientation (lost in familiar place), I=Interaction changes (less greeting), S=Sleep-wake cycle disturbance (night pacing), H=Housesoiling, A=Activity changes (stare at wall), A=Anxiety, senior dog screening, Tx: SAMe, omega-3, antioxidants, selegiline, prescription cognitive diet (Hill's b/d), enrichment\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่มี\" = ผิด, มี standard\n— \"อายุเท่านั้น\" = chronological, ไม่ใช่ cognitive assessment\n— BCS = body condition (separate)\n\n💡 I = Interaction, S = Sleep-wake cycle, H = Housesoiling, A = Activity, A = Anxiety",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.58"
+  },
+  {
+    "id": 1028,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "geriatric",
+      "screening"
+    ],
+    "type": "mcq",
+    "q": "Senior pet check-up frequency แนะนำที่เท่าใด",
+    "options": [
+      "อย่างน้อยปีละครั้ง",
+      "ทุก 5 ปีก็เพียงพอ",
+      "ไม่ต้องตรวจถ้าไม่ป่วย",
+      "ทุก 1 สัปดาห์เป็นประจำ"
+    ],
+    "answer": 0,
+    "explain": "Geriatric check-up: minimum yearly, recommended every 6 months, comprehensive: PE (head-to-tail) + BCS (1-9 scale) + MCS (muscle condition score) + CBC + chemistry (BUN/Cr/ALT/ALP/glucose/cholesterol/electrolytes) + UA + thyroid (T4 — esp. cat) + BP (hypertension common in CKD/Cushing's) + imaging (US, X-ray) PRN, early detection: CKD, hyperthyroid (cat), hypothyroid (dog), DM, HAC, neoplasia\n\n❌ ทำไมข้ออื่นผิด\n— \"5 ปี\" = นานเกินไป miss disease\n— \"ไม่ตรวจ\" = ผิด\n— \"ทุก สัปดาห์\" = บ่อยเกินจำเป็น\n\n💡 CBC, chem, UA, BP, BCS/MCS, thyroid\n\n💡 ทุก 6 เดือนแนะนำ + comprehensive geriatric screening",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.65"
+  },
+  {
+    "id": 1029,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf",
+    "tags": [
+      "geriatric",
+      "common-disease"
+    ],
+    "type": "mcq",
+    "q": "โรคที่พบบ่อยในแมวสูงอายุ (geriatric cat > 10 yr)",
+    "options": [
+      "Distemper, Parvovirus",
+      "Hip dysplasia ใน puppy",
+      "CKD, Hyperthyroidism",
+      "Atresia ani"
+    ],
+    "answer": 2,
+    "explain": "Geriatric cat common: CKD (#1 in cat senior, > 30%), Hyperthyroidism (T4 ↑, weight loss + polyphagia), Diabetes mellitus (often type II, obese), Neoplasia (lymphoma most common, MCT, SCC, mammary, intestinal adenocarcinoma), Osteoarthritis (under-recognized, behavior change), Cognitive dysfunction syndrome, dental disease, cardiomyopathy (HCM)\n\n❌ ทำไมข้ออื่นผิด\n— Distemper/Parvo = puppy/young\n— Hip dysplasia in puppy = developmental young\n— Atresia ani = congenital newborn\n\n💡 DM, Neoplasia (lymphoma, MCT, mammary), Osteoarthritis, Cognitive dysfunction",
+    "verified": "Pediatrics_and_Geriatrics.pdf p.66"
+  },
+  {
+    "id": 1030,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics + FINAL 86",
+    "tags": [
+      "geriatric",
+      "gi",
+      "physiology"
+    ],
+    "type": "mcq",
+    "q": "การเปลี่ยนแปลงทาง GI physiology ในสัตว์สูงอายุ ที่ส่งผลให้เกิด constipation, malabsorption, และโรคทาง hepatobiliary คืออะไร",
+    "options": [
+      "↑ motility, ↑ HCl, ↑ bile production",
+      "เพิ่ม pancreatic enzyme secretion เท่านั้น",
+      "ไม่มีการเปลี่ยนแปลงใดๆ ตามอายุ",
+      "↓ motility, ↓ HCl, ↓ bile production"
+    ],
+    "answer": 3,
+    "explain": "Geriatric GI changes (FINAL 86 emphasized ★):\n• ↓ motility → delayed gastric emptying + constipation\n• ↓ HCl secretion → malabsorption (esp. B12, Fe), bacterial overgrowth\n• ↓ bile production → fat malabsorption + cholestatic dz\n• กระทบ liver, pancreas, digestion, absorption ทั้งระบบ\n• Constipation มักเกิดจาก dehydration + CKD + DJD (เคลื่อนไหวลำบาก)\n• พบ chronic enteropathies, IBD, chronic hepatitis, pancreatitis (triaditis ในแมวรวม cholangitis)\n\n❌ ทำไมข้ออื่นผิด\n— ↑ทุกอย่าง = ตรงข้ามกับ aging\n— ไม่เปลี่ยน = false\n— ↑ pancreatic enzyme = ตรงข้าม",
+    "verified": "Pediatrics_and_Geriatrics.pdf + FINAL 86 p.42 ★ \"ตอบข้อนี้ และ ผิด โจทย์บอกหลังเฟิม\""
+  },
+  {
+    "id": 1031,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia + FINAL 86",
+    "tags": [
+      "imha",
+      "cat",
+      "azathioprine",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "ในแมวที่เป็น IMHA และไม่ตอบสนอง prednisolone ยา 2nd-line ใดที่ ห้ามใช้ เพราะเกิด bone marrow suppression รุนแรง + acute pancreatic necrosis",
+    "options": [
+      "Cyclosporine",
+      "Mycophenolate mofetil (MMF)",
+      "Azathioprine",
+      "Chlorambucil",
+      "Leflunomide"
+    ],
+    "answer": 2,
+    "explain": "Azathioprine ห้ามใช้ในแมว ★★ (Aj. Rosama เน้น) เพราะแมวขาด thiopurine S-methyltransferase (TPMT) → metabolize ไม่ได้ → severe bone marrow suppression (pancytopenia) + acute pancreatic necrosis, ใน cat ใช้ Chlorambucil แทน (alkylating, steroid-sparing for feline IMHA/IBD/PF)\n\n❌ ทำไมข้ออื่นใช้ได้\n— Cyclosporine = ใช้ได้ทั้งสุนัขและแมว\n— MMF = ใช้ได้, GI side effect\n— Chlorambucil = TOC ในแมวสำหรับ steroid-sparing\n— Leflunomide = ใช้ได้",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + FINAL 86 p.7 (Aj. Rosama IMHA box) ★★"
+  },
+  {
+    "id": 1032,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia + FINAL 86",
+    "tags": [
+      "imha",
+      "thromboembolism",
+      "antiplatelet"
+    ],
+    "type": "mcq",
+    "q": "ใน IMHA ที่มีความเสี่ยง thromboembolism (PTE) ยา antiplatelet ใดที่นิยมใช้เป็น first-line ",
+    "options": [
+      "Heparin alone (LMWH หรือ UFH) — direct anticoagulant primary therapy",
+      "Warfarin PO 0.1 mg/kg titrate ถึง INR 2-3 — long-term anticoagulant",
+      "tPA (tissue plasminogen activator) IV bolus thrombolytic เพื่อสลายลิ่ม PTE",
+      "Vitamin K1 5 mg/kg PO q24h — antidote ห้าม secondary clotting cascade",
+      "Clopidogrel (Plavix) ± low-dose aspirin (0.5-1 mg/kg/d)"
+    ],
+    "answer": 4,
+    "explain": "Clopidogrel (Plavix) 1-3 mg/kg PO q24h = first-line antiplatelet ใน IMHA, ± low-dose aspirin 0.5 mg/kg/day (Aj. Rosama เน้น ★), ลด platelet aggregation ที่กระตุ้นจาก inflammatory state, LMWH สามารถใช้ adjunct ได้ในกรณี acute, monitoring: TEG, anti-Xa\n\n❌ ทำไมข้ออื่นผิด\n— Heparin alone = ไม่ block platelet aggregation, ใช้ adjunct\n— Warfarin = แคบ therapeutic window, ตรวจ INR ยาก, ไม่ first-line in vet\n— Vitamin K = antidote rodenticide, ตรงข้าม\n— tPA = thrombolytic, severe PTE acute, ไม่ใช่ prophylaxis",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + FINAL 86 p.7 (Aj. Rosama: Aspirin 0.5 mg/kg/วัน แก้ไข thromboembolism ★) + Clopidogrel (Plavix)"
+  },
+  {
+    "id": 1033,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Immune-mediated_introduction.pdf + Master 86 supplemental",
+    "tags": [
+      "hypersensitivity",
+      "type-1",
+      "mast-cell",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Type I hypersensitivity (immediate / IgE-mediated) ในระยะ \"sensitization phase\" เกิดอะไรขึ้น",
+    "options": [
+      "Mast cell degranulation ปล่อย histamine + prostaglandin ทันที",
+      "Cytotoxic T-cell ทำลาย tissue โดยตรง",
+      "Complement-mediated lysis ของ RBC",
+      "Ag-Ab complex deposit ที่ basement membrane",
+      "APC → Th2 → B-cell switch เป็น IgE → IgE จับ mast cell"
+    ],
+    "answer": 4,
+    "explain": "Sensitization phase = first exposure → APC → Th2 → IL-4/IL-13 → B-cell class-switch → IgE → IgE binds high-affinity FcεRI บน mast cell (no symptoms ระยะนี้), re-exposure ครั้งที่ 2 ขึ้นไป → allergen cross-links 2 IgE → mast cell degranulation → histamine, leukotrienes, prostaglandins → vasodilation, smooth muscle contraction, mucus → 5-10 นาที (rapid)\n\n❌ ทำไมข้ออื่นผิด\n— Degranulation = effector phase (ครั้งที่ 2+)\n— Cytotoxic T = Type IV\n— Complement-mediated = Type II\n— Complex deposit = Type III\n\n💡 asymptomatic",
+    "verified": "Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.1"
+  },
+  {
+    "id": 1034,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Immune-mediated_introduction.pdf + Master 86 supplemental",
+    "tags": [
+      "hypersensitivity",
+      "type-1",
+      "examples"
+    ],
+    "type": "mcq",
+    "q": "โรคใดต่อไปนี้เป็น Type I hypersensitivity (IgE-mediated) ทั้งหมด",
+    "options": [
+      "IMHA, IMT, Myasthenia Gravis",
+      "SLE, Glomerulonephritis, Arthus reaction",
+      "Contact dermatitis, Tuberculin reaction, Granuloma",
+      "Atopic dermatitis, Allergic rhinitis",
+      "Pemphigus foliaceus, Bullous pemphigoid"
+    ],
+    "answer": 3,
+    "explain": "Type I (IgE / mast cell): atopic dermatitis, allergic rhinitis, acute anaphylaxis, asthma, food allergy, ส่วน FAD = Type I + IV mixed\n\n❌ ทำไมข้ออื่นผิด\n— IMHA/IMT/MG = Type II (anti-cell/receptor Ab)\n— SLE/GN/Arthus = Type III (immune complex)\n— Contact dermatitis/TB/granuloma = Type IV (T-cell)\n— Pemphigus/Bullous = autoimmune blistering (Type II-like)\n\n💡 Acute anaphylaxis, Bronchial asthma, Food allergy",
+    "verified": "Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.1"
+  },
+  {
+    "id": 1035,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Immune-mediated_introduction.pdf + Master 86 supplemental",
+    "tags": [
+      "hypersensitivity",
+      "type-2",
+      "mechanism"
+    ],
+    "type": "mcq",
+    "q": "Type II hypersensitivity (Antibody-mediated cytotoxic) ในรูปแบบที่ Ab จับกับ receptor แล้ว block function — ตัวอย่างคือโรคใด",
+    "options": [
+      "IMHA — Ab จับ RBC antigen → phagocytosis/lysis",
+      "IMT — Ab จับ platelet → destruction",
+      "SLE — Ag-Ab complex deposit",
+      "Graves\\' disease — Ab จับ TSH receptor → stimulation",
+      "Myasthenia Gravis"
+    ],
+    "answer": 4,
+    "explain": "Type II แบ่งย่อย 3 mechanisms: (1) Cytotoxic destruction = IMHA, IMT (Ab + cell → complement/phagocytosis); (2) Block function = Myasthenia Gravis (Ab block ACh receptor → muscle weakness); (3) Stimulating = Graves' (Ab activates TSH receptor → hyperthyroid)\n\n💡 IMHA, IMT = cytotoxic\n💡 MG = blocking\n💡 Graves = stimulating\n\nโจทย์ถาม \"block function\" → MG เท่านั้น\n\n💡 Ab จับ ACh receptor → block neurotransmission",
+    "verified": "Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.2"
+  },
+  {
+    "id": 1036,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Immune-mediated_introduction.pdf + Master 86 supplemental",
+    "tags": [
+      "hypersensitivity",
+      "type-3",
+      "arthus",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Type III hypersensitivity (immune complex deposition) — ตัวอย่างเฉพาะใน veterinary คือ \"Blue eye\" หลังฉีด CAV-1 vaccine เกิดจากกลไกใด",
+    "options": [
+      "Ag-Ab complex deposit ที่ corneal endothelium → corneal edema",
+      "IgE-mediated mast cell degranulation ที่ตา",
+      "Complement-mediated direct lysis ของ corneal endothelium",
+      "T-cell direct cytotoxicity ต่อ corneal cells",
+      "Anti-corneal autoantibody (true autoimmune)"
+    ],
+    "answer": 0,
+    "explain": "Blue eye = Type III hypersensitivity classic ในสุนัข, CAV-1 (live attenuated vaccine ของ Infectious Canine Hepatitis) → Ag-Ab complex deposit ที่ corneal endothelium → activation of complement + neutrophils → vasculitis → corneal edema → ตา \"ฟ้า\", transient (มักหายเอง 21 วัน), จึงเปลี่ยนใช้ CAV-2 vaccine แทน (cross-protection แต่ไม่เกิด blue eye)\n\n💡 อื่นๆ ของ Type III: SLE, Glomerulonephritis, Skin Arthus reaction (sterile abscess), post-streptococcal GN",
+    "verified": "Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.2"
+  },
+  {
+    "id": 1037,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Immune-mediated_introduction.pdf + Master 86 supplemental",
+    "tags": [
+      "hypersensitivity",
+      "type-4",
+      "cell-mediated"
+    ],
+    "type": "mcq",
+    "q": "Type IV hypersensitivity (Delayed-type / Cell-mediated) มีลักษณะใดต่างจาก Type I-III",
+    "options": [
+      "เกิดเร็วภายใน 5-10 นาทีหลังสัมผัส",
+      "ใช้ Antibody (IgE) เป็นหลัก",
+      "Complement-mediated lysis ของเซลล์",
+      "T-cell mediated onset 24-72 ชม.",
+      "Mast cell degranulation ปล่อย histamine"
+    ],
+    "answer": 3,
+    "explain": "Type IV = T-cell mediated (no Ab), 2 subtypes:\n• Th1-mediated DTH: Th1 → IFN-γ → activates macrophage → granuloma (TB, Tuberculin reaction, leprosy)\n• Cytotoxic T-cell (CTL): CD8 T-cell → kill target cell directly (contact dermatitis, transplant rejection)\n• Onset 24-72 hr (delayed) ต่างจาก Type I (5-10 นาที)\n• Examples: Allergic contact dermatitis, FAD (mixed Type I+IV), tuberculin skin test, granulomatous diseases",
+    "verified": "Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.3"
+  },
+  {
+    "id": 1038,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Allergic_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "fad",
+      "hypersensitivity-types",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Flea Allergic Dermatitis (FAD) เป็น hypersensitivity type ใด",
+    "options": [
+      "Type I เท่านั้น",
+      "Type II เท่านั้น",
+      "Type III เท่านั้น",
+      "Mixed Type I + IV",
+      "Type IV เท่านั้น"
+    ],
+    "answer": 3,
+    "explain": "FAD = mixed Type I + IV hypersensitivity ต่อ flea saliva (histamine, enzymes, haptens), Type I → immediate pruritus + papules (1-2 hours), Type IV → delayed papular dermatitis (24-48 hours, persistent inflammation), ทำให้ต้องใช้ทั้ง flea control + corticosteroid + antipruritic\n\n💡 Atopic dermatitis (CAD) = Type I + IV เช่นกัน\n💡 Food allergy = Type I + IV ในบางกรณี\n\n💡 immediate IgE + delayed cellular reaction ต่อ flea saliva",
+    "verified": "Allergic_skin_diseases.pdf + COM IV Master 86 supplemental p.30"
+  },
+  {
+    "id": 1039,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "Immune-mediated_introduction.pdf + Master 86 supplemental",
+    "tags": [
+      "immune-management",
+      "principles"
+    ],
+    "type": "mcq",
+    "q": "5 หลักการจัดการ Immune-mediated diseases ตาม Aj. Rosama เน้น คือ",
+    "options": [
+      "Just give steroid forever",
+      "Antibiotics + supportive only",
+      "Vaccine + nutrition",
+      "Surgery + radiation",
+      "5-pillar management approach"
+    ],
+    "answer": 4,
+    "explain": "5 management pillars (Aj. Rosama ★):\n1. Correct vital function — CVS, fluid, oxygenation\n2. Client communication/education — explain prognosis (variable, may relapse, lifelong drug)\n3. Remove primary cause — IMHA → screen/Tx blood parasite (Babesia, Mycoplasma, Ehrlichia); pyometra → spay; vaccine-induced → avoid\n4. Immunomodulatory drugs — corticosteroid 1st line, +/- 2nd-line (CsA, Aza, MMF, Chlorambucil)\n5. Aggressive supportive therapy — monitor + maintain vital + prevent secondary complications (PTE → antiplatelet, atopy → barrier)",
+    "verified": "Immune-mediated_introduction.pdf + COM IV Master 86 supplemental p.5 (Aj. Rosama 5 pillars ★)"
+  },
+  {
+    "id": 1040,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental",
+    "tags": [
+      "imha",
+      "mechanism",
+      "intravascular",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Intravascular hemolysis ใน IMHA — ลักษณะใดถูกต้อง",
+    "options": [
+      "IgG-mediated, RBC ถูก phagocytose ที่ spleen, เห็น spherocyte",
+      "IgM → MAC → lysis",
+      "Eosinophilic infiltration in tissue",
+      "No anemia, แค่ thrombocytopenia",
+      "IgA-mediated เป็นหลัก"
+    ],
+    "answer": 1,
+    "explain": "Intravascular hemolysis (less common, more severe):\n• IgM (มี 5 binding sites → activate classical pathway ดี)\n• Complement cascade → C5b-9 → MAC → RBC lysis ในหลอดเลือดเลย\n• Hemoglobin spilled → hemoglobinemia (plasma แดง) + hemoglobinuria (ปัสสาวะแดงเข้ม) + indirect hyperbilirubinemia\n• Worse prognosis, associated mortality > extravascular\n\n❌ ทำไมข้ออื่นผิด\n— IgG + spleen + spherocyte = extravascular\n— Eos = parasitic / hypersensitivity\n— No anemia = ผิด ใน IMHA มี anemia แน่นอน\n— IgA ไม่ใช่ mediator หลักใน IMHA",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7"
+  },
+  {
+    "id": 1041,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental",
+    "tags": [
+      "imha",
+      "mechanism",
+      "extravascular",
+      "spherocyte"
+    ],
+    "type": "mcq",
+    "q": "Extravascular hemolysis ใน IMHA — ตัวบ่งชี้สำคัญใน blood smear คือ",
+    "options": [
+      "Schistocyte (RBC fragment) — DIC",
+      "Heinz body — oxidative damage (onion, paracetamol)",
+      "Spherocyte (loss of central pallor)",
+      "Howell-Jolly body — splenic dysfunction",
+      "Target cell — liver disease"
+    ],
+    "answer": 2,
+    "explain": "Spherocyte = pathognomonic ของ extravascular hemolysis ใน canine IMHA (cat ดูยาก เพราะ feline RBC ไม่มี central pallor ชัดเจน)\n\n💡 กลไก: Macrophage (spleen, liver) → phagocytose IgG-coated RBC → กิน membrane ส่วนหนึ่ง → RBC เหลือเล็กลง + กลม + loss of central pallor → spherocyte\n💡 Spherocyte ≥ 5/HPF + anemia + saline agglutination → strong evidence IMHA\n\n❌ ทำไมข้ออื่นผิด\n— Schistocyte = DIC, microangiopathic\n— Heinz body = oxidative\n— Howell-Jolly = splenectomy / hyposplenia\n— Target cell = liver / iron deficiency",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7"
+  },
+  {
+    "id": 1042,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental",
+    "tags": [
+      "imha",
+      "diagnosis",
+      "coombs"
+    ],
+    "type": "mcq",
+    "q": "Direct Coombs' test หรือ direct antiglobulin test (DAT) ตรวจพบสิ่งใดเพื่อช่วยประเมิน IMHA",
+    "options": [
+      "Detects Ab/complement บน RBC surface",
+      "นับจำนวน RBC ใน circulation โดยตรง",
+      "วัดระดับ hemoglobin ใน plasma",
+      "ประเมิน bone marrow regeneration",
+      "นับ spherocyte ใน blood smear"
+    ],
+    "answer": 0,
+    "explain": "Direct Coombs' test ตรวจ immunoglobulin หรือ complement ที่จับอยู่บนผิวเม็ดเลือดแดง โดยใช้ antiglobulin reagent ที่เหมาะกับชนิดสัตว์ ผลบวกเป็นหลักฐานประกอบการประเมิน IMHA และต้องแปลร่วมกับภาวะซีด หลักฐาน hemolysis และการตรวจอื่น ไม่ควรใช้ผลเพียงค่าเดียวเป็นข้อสรุปในทุกกรณี",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7; Cornell eClinpath, Mechanisms of anemia: https://eclinpath.com/hematology/anemia/mechanisms-of-anemia/; เทียบเพิ่มเติมกับ Hematology (VCA58-68).pdf หน้า 11",
+    "sourceDocument": {
+      "id": "1uh-PrLaztgUHM-Dz56hOodqG5xRRl22U",
+      "url": "https://drive.google.com/file/d/1uh-PrLaztgUHM-Dz56hOodqG5xRRl22U/view",
+      "page": 11
+    }
+  },
+  {
+    "id": 1043,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental",
+    "tags": [
+      "imha",
+      "treatment",
+      "glucocorticoid",
+      "dose"
+    ],
+    "type": "mcq",
+    "q": "Initial dose ของ Prednisolone สำหรับ canine IMHA (Aj. Rosama เน้น) คือ",
+    "options": [
+      "0.5 mg/kg PO q24h anti-inflammatory dose",
+      "1 mg/kg PO q12h เป็น maintenance",
+      "2-4 mg/kg/day PO (หรือ 50-60 mg/m²) bid",
+      "10 mg/kg PO q12h เพื่อ immune ablation",
+      "Dexamethasone 5 mg/kg IV เท่านั้น"
+    ],
+    "answer": 2,
+    "explain": "Canine IMHA prednisolone: 2-4 mg/kg/day PO (หรือ 50-60 mg/m² ในตัวใหญ่ > 25 kg เพื่อหลีกเลี่ยง overdose) divided BID, response rate 80% ภายใน 1-2 wks, taper down เมื่อ HCT ขึ้น (~ 25-30%), Dexamethasone 0.2-0.4 mg/kg/day IV ใช้ในกรณี emergent (collapse) ก่อนเปลี่ยนเป็น oral, ลดยาทุก 2-4 wks ลง ~25%\n\n❌ ทำไมข้ออื่นผิด\n— 0.5 mg/kg = under-dose (anti-inflam dose ไม่ใช่ immunosuppressive)\n— 1 mg/kg = ยังต่ำเกิน\n— 10 mg/kg = สูงเกินไป (immune ablation, ไม่ใช่ standard)",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.7 (Aj. Rosama dose box ★)"
+  },
+  {
+    "id": 1044,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental",
+    "tags": [
+      "imha",
+      "second-line",
+      "cyclosporine",
+      "dose"
+    ],
+    "type": "mcq",
+    "q": "Cyclosporine (CsA) เป็น 2nd-line ใน IMHA — dose ปกติคือเท่าใด และทำงานผ่านกลไกอะไร",
+    "options": [
+      "5 mg/kg PO q12h",
+      "50 mg/kg PO q24h, จับ DNA gyrase",
+      "0.1 mg/kg IV bolus เท่านั้น",
+      "20 mg/kg/d IM, ระงับ B-cell โดยตรง",
+      "1 mg/kg q72h, inhibit COX-2"
+    ],
+    "answer": 0,
+    "explain": "Cyclosporine A (Atopica/Sandimmune):\n• Dose: 5 mg/kg PO q12h ใน IMHA (CAD ใช้ q24h)\n• MOA: CsA + Cyclophilin (cytoplasmic protein) → complex inhibits Calcineurin phosphatase → blocks NFAT translocation → ↓ IL-2 transcription → ↓ T-helper cell activation/proliferation\n• Tacrolimus (FK506) ใช้กลไกคล้ายกัน แต่จับ FKBP12 แทน Cyclophilin\n• AE: GI upset (vomit/diarrhea), gingival hyperplasia, hirsutism, ↑ susceptibility to infection (esp. Toxoplasma in cat)\n• Monitor: trough level (200-400 ng/mL therapeutic)\n\n💡 จับ Cyclophilin → ยับยั้ง Calcineurin → ↓ IL-2 transcription → ↓ T-cell activation",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + Drugs_for_immune_mediated.pdf + COM IV Master 86 supplemental p.6"
+  },
+  {
+    "id": 1045,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental",
+    "tags": [
+      "imt",
+      "mechanism"
+    ],
+    "type": "mcq",
+    "q": "Immune-Mediated Thrombocytopenia (IMT) ต่างจาก IMHA ในด้าน destruction ที่ไหน",
+    "options": [
+      "IMT = intravascular destruction ใน vessel เหมือน IMHA",
+      "IMT = Type II Ab ต่อ platelet → extravascular destruction ที่ spleen",
+      "IMT = complement lysis เกิดที่ glomerulus ของ kidney",
+      "IMT เป็น reactive ไม่ใช่ autoimmune จริง",
+      "IMT = cytotoxic T-cell mediated โดยตรง"
+    ],
+    "answer": 1,
+    "explain": "IMT = Type II hypersensitivity ต่อ platelet, IgG เคลือบ platelet → ที่ spleen → macrophage phagocytose → extravascular destruction, IMT ส่วนใหญ่ไม่มี intravascular component (ต่างจาก IMHA ที่อาจมีทั้ง 2 แบบ), sign: petechiae, ecchymosis, mucosal bleeding (gum, GI, urinary)\n\n💡 Diagnosis:\n— PLT count < 50,000/μL (severe < 20,000)\n— Megakaryocytes ใน BM normal/increased (ไม่ใช่ aplastic)\n— Coombs' (DAT) อาจ positive (ถ้า co-existing Evans syndrome = IMHA + IMT)",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.8"
+  },
+  {
+    "id": 1046,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental",
+    "tags": [
+      "imt",
+      "treatment",
+      "vincristine",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "IMT — เพิ่มจาก prednisolone, ยาใดที่ Aj. Rosama เน้นเป็น 1st-line \"single shot\" ในกรณี emergency (severe thrombocytopenia, active bleeding) ",
+    "options": [
+      "Cyclophosphamide 50 mg/m² PO q24h",
+      "Vincristine 0.02 mg/kg IV (1 dose)",
+      "Doxycycline 5 mg/kg PO q12h",
+      "Heparin 100 U/kg IV",
+      "Furosemide 2 mg/kg IV"
+    ],
+    "answer": 1,
+    "explain": "Vincristine 0.02 mg/kg IV (1 shot) ใน IMT severe — Aj. Rosama เน้น ★\n\n💡 กลไก 2 ขั้น:\n1. Microtubule poisoning ต่อ macrophage → ↓ phagocytosis ของ Ab-coated platelet\n2. Stimulate megakaryocyte ให้ release more platelets\n\n💡 Onset 4-7 days, มักเห็น platelet count ขึ้นเร็วกว่า prednisolone alone, ใช้ร่วมกับ prednisolone (1 dose IV vincristine + ตามด้วย oral prednisolone)\n\n❌ ทำไมข้ออื่นผิด\n— Cyclophosphamide = 2nd-line, slow onset\n— Doxycycline = anti-rickettsial (rule out Ehrlichia)\n— Heparin = ไม่ถูกใช้ใน IMT (เพิ่ม bleeding)\n— Furosemide = ไม่เกี่ยว",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.8 (Aj. Rosama Vincristine ER ★)"
+  },
+  {
+    "id": 1047,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "Immune-mediated_Hemolytic_anemia.pdf + Master 86 supplemental",
+    "tags": [
+      "imha",
+      "evans-syndrome"
+    ],
+    "type": "mcq",
+    "q": "Evans syndrome หมายถึง",
+    "options": [
+      "IMHA + Pemphigus foliaceus",
+      "IMHA + IBD",
+      "IMHA + IMT",
+      "SLE + Polyarthritis",
+      "Cushing\\'s + Hypothyroidism"
+    ],
+    "answer": 2,
+    "explain": "Evans syndrome = ผู้ป่วย IMHA + IMT ในตัวเดียวกัน, พบ ~10-30% ของ IMHA cases, prognosis worse (mortality สูงขึ้น), ต้องใช้ aggressive immunosuppression (prednisolone + 2nd-line ตั้งแต่แรก: vincristine + cyclosporine + พิจารณา MMF) + ต้องระวังทั้ง anemia + bleeding\n\n💡 Pneumonic Evans = \"E\"vil ทั้งคู่: hemolysis + thrombocytopenia\n\n💡 Hemolytic anemia + Thrombocytopenia ในตัวเดียวกัน",
+    "verified": "Immune-mediated_Hemolytic_anemia.pdf + COM IV Master 86 supplemental p.8"
+  },
+  {
+    "id": 1048,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "cushing",
+      "leukogram",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "\"Stress leukogram\" ใน Cushing's syndrome ประกอบด้วย CBC pattern ใด",
+    "options": [
+      "Pancytopenia ทุก cell line ลดต่ำ",
+      "Eosinophilia + Lymphocytosis เด่น",
+      "Mature neutrophilia + Lymphopenia + Eosinopenia",
+      "Leukopenia + Thrombocytopenia ร่วมกัน",
+      "Reticulocytosis อย่างเดียวเด่นชัด"
+    ],
+    "answer": 2,
+    "explain": "Stress leukogram = หลักฐาน hypercortisolism (Cushing's, exogenous steroid, severe stress)\n\n💡 4 ส่วนคลาสสิก:\n• Mature Neutrophilia (no left shift) — cortisol ↓ neutrophil margination\n• Lymphopenia — cortisol → apoptosis + redistribution to BM\n• Eosinopenia — cortisol → BM sequestration\n• Monocytosis — moderate increase\n\n💡 Stress leukogram NOT specific สำหรับ Cushing's (เห็นได้ใน fear, severe illness, exogenous steroid) แต่เป็น screening clue, ต้องยืนยัน Cushing's ด้วย LDDS หรือ ACTH stim test",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.21"
+  },
+  {
+    "id": 1049,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "cushing",
+      "ldds",
+      "pdh-vs-adh"
+    ],
+    "type": "mcq",
+    "q": "Low-Dose Dexamethasone Suppression Test (LDDST) ใช้ Dexamethasone 0.01 mg/kg IV — เก็บ cortisol ที่เวลาใด และตีความอย่างไร",
+    "options": [
+      "0 และ 1 hr, ถ้า cortisol < 1.4 µg/dL = Cushing\\'s",
+      "0, 4, 8 hr",
+      "0 และ 24 hr",
+      "Single time point ที่ 30 min",
+      "0 และ 12 hr"
+    ],
+    "answer": 1,
+    "explain": "LDDST protocol (Aj. Sariya / Aj. Vachira ★):\n• Dose: 0.01 mg/kg Dexamethasone IV\n• Sampling: 0 (baseline), 4 hr, 8 hr\n• 8-hr cortisol > 1.4 µg/dL = Cushing's confirmed\n• แยก PDH vs ADH:\n  - PDH (~85%): partial suppression at 4 hr (< 50% baseline) แล้ว escape at 8 hr (rebound > 1.4)\n  - ADH (~15%): no suppression ทั้ง 4 และ 8 hr (cortisol stay high)\n• Sensitivity ~95% สำหรับ Cushing's diagnosis, หลังผลแล้วถ้าจะแยก PDH/ADH ต่อ → HDDST (0.1 mg/kg) หรือ abdominal US (bilateral adrenal vs unilateral)\n\n💡 8-hr cortisol > 1.4 µg/dL = Cushing; ใช้แยก PDH vs ADH",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.22"
+  },
+  {
+    "id": 1050,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "cushing",
+      "trilostane",
+      "mechanism",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Trilostane (Vetoryl®) ทำงานผ่านกลไกอะไร และเป็น 1st-line treatment สำหรับ Cushing's ใด",
+    "options": [
+      "Adrenal cortex necrosis (cytotoxic) → ใช้ใน ADH เท่านั้น",
+      "Reversible 3β-HSD inhibitor → ↓ cortisol/aldosterone",
+      "Block ACTH release จาก pituitary",
+      "Antagonize cortisol receptor",
+      "Stimulate cortisol clearance"
+    ],
+    "answer": 1,
+    "explain": "Trilostane:\n• MOA: competitive inhibitor 3β-hydroxysteroid dehydrogenase (3β-HSD) → block early steroidogenesis → ↓ cortisol + aldosterone\n• Reversible (ต่างจาก Mitotane ที่เป็น cytotoxic adrenocorticolytic)\n• Dose: 0.5-2.5 mg/kg PO BID (start low ~ 1 mg/kg q12h) — ใช้ตาม pre-formulated dose: 20mg/dog (<2.5kg), 30mg (2.5-5kg), 60mg (5-10kg)\n• Monitor: ACTH stim test 10-14d, 30d, 90d, then q3mo, Na/K (ระวัง iatrogenic Addisonian crisis = hyponatremia + hyperkalemia)\n• 1st-line treatment of choice ใน Cushing's (ทั้ง PDH และ ADH ที่ไม่ผ่า)\n\n💡 Mitotane = adrenocorticolytic (necrosis) → 2nd-line\n💡 Ketoconazole = secondary, less common\n💡 Metyrapone = competitive 11β-hydroxylase inhibitor\n\n💡 1st-line PDH+ADH",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.23"
+  },
+  {
+    "id": 1051,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "cushing",
+      "iatrogenic",
+      "electrolyte",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "ผู้ป่วย Cushing's ที่กิน Trilostane มา 4 เดือน — ตรวจ Na = 132 mmol/L (low), K = 6.2 mmol/L (high), อ่อนเพลีย, vomit. การจัดการที่เหมาะสมที่สุดคือ",
+    "options": [
+      "เพิ่มขนาด Trilostane เพราะ Cushing\\'s ยังไม่ control",
+      "เริ่ม Diuretic (furosemide) ลด volume",
+      "หยุด Trilostane + IV fluid + hydrocortisone",
+      "เพิ่ม Mitotane เพื่อ adrenal ablation",
+      "รอ 1 สัปดาห์แล้วประเมินใหม่"
+    ],
+    "answer": 2,
+    "explain": "Iatrogenic hypoadrenocorticism (Addisonian crisis from over-suppression by Trilostane) — emergency!\n\n💡 Classic electrolyte: Na ↓ + K ↑ (Na:K ratio < 27)\n💡 Signs: weakness, vomit, anorexia, dehydration, bradycardia, collapse\n\nManagement:\n1. STOP Trilostane immediately\n2. IV crystalloid (0.9% NaCl) — ลด K, expand volume\n3. Hydrocortisone Na succinate IV หรือ Dexamethasone Na phosphate (มี mineralocorticoid effect ด้วย)\n4. Treat hyperkalemia: Calcium gluconate IV (cardio-protective), insulin + dextrose ถ้า severe\n5. ACTH stim test เพื่อยืนยัน (low cortisol response)\n6. หลัง stabilize → restart Trilostane ที่ dose ลดลง 25-50% หรือ off ถาวร\n\n💡 Aj. Rosama เน้น: monitor Na/K every 3 months ใน Trilostane long-term ★",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.23 (Aj. Rosama warning ★)"
+  },
+  {
+    "id": 1052,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "cushing",
+      "urine-test",
+      "screening"
+    ],
+    "type": "mcq",
+    "q": "Urine Cortisol:Creatinine Ratio (UCCR) ใน Cushing's — จุดเด่นของ test นี้คือ",
+    "options": [
+      "High specificity จึงใช้ confirm Cushing's ได้เลย",
+      "High sensitivity + low specificity → ใช้ rule-out",
+      "วัดระดับ ACTH ใน plasma โดยตรง",
+      "ใช้เฉพาะ in-hospital test เท่านั้น",
+      "แม่นกว่า LDDST ทุกกรณี"
+    ],
+    "answer": 1,
+    "explain": "UCCR characteristics:\n• High sensitivity (~99%) — ถ้า normal → unlikely Cushing's\n• Low specificity (~20-25%) — false positive จาก stress, non-adrenal illness, polyuric disease (DM, kidney disease), pheochromocytoma\n• ใช้ rule-out test เป็นหลัก (ถ้า negative สบายใจได้ ว่าไม่ใช่ Cushing's)\n• ถ้า positive → ต้องตรวจยืนยันด้วย LDDST หรือ ACTH stim\n• เก็บที่บ้านได้ → ลดผลกระทบจาก hospital stress (สุนัขเครียด → cortisol ↑ → false positive น้อยลง)\n• Cutoff: ratio > 22 ตามห้องแลบ",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.21"
+  },
+  {
+    "id": 1053,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "hypothyroidism",
+      "tt4",
+      "thresholds",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "ตาม slide 2026 — Total T4 (TT4) ใน canine hypothyroidism interpretation ที่ค่า 0.4 µg/dL หมายความว่าอย่างไร",
+    "options": [
+      "อยู่ในเกณฑ์ Normal ของ TT4",
+      "> 2 µg/dL: hypothyroidism very unlikely",
+      "< 0.5 µg/dL: hypothyroidism very likely",
+      "แปลผลเป็น Definitely Cushing's ได้เลย",
+      "Cannot interpret without weight"
+    ],
+    "answer": 2,
+    "explain": "TT4 thresholds (canine hypothyroidism likelihood):\n• < 0.5 µg/dL: Very likely hypothyroid\n• 0.5-1 µg/dL: Possible\n• 1-1.5 µg/dL: Unknown (gray zone)\n• 1.5-2 µg/dL: Unlikely\n• > 2 µg/dL: Very unlikely\n\n💡 TT4 alone is NOT diagnostic เพราะ low TT4 อาจเป็น Euthyroid Sick Syndrome (ESS) จาก non-thyroidal illness, drugs (phenobarb, sulfa, NSAIDs, glucocorticoid)\n💡 Always confirm: Free T4 (fT4 by equilibrium dialysis) + canine TSH (cTSH)\n💡 Reference ranges: TT4 normal 1.5-3 µg/dL, fT4 0.6-3 ng/dL, cTSH < 0.6 ng/mL",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.18"
+  },
+  {
+    "id": 1054,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "hypothyroidism",
+      "ess",
+      "differential",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "Euthyroid Sick Syndrome (ESS) — ต่างจาก True Hypothyroidism อย่างไร",
+    "options": [
+      "ESS = TT4 ปกติ ไม่มีการเปลี่ยนแปลง",
+      "ESS = TT4↓ + fT4 normal + cTSH normal",
+      "ESS = ต้องให้ Levothyroxine ทันที",
+      "ESS พบเฉพาะในแมวเท่านั้น",
+      "ESS = แค่ภาวะอ้วนน้ำหนักเกิน"
+    ],
+    "answer": 1,
+    "explain": "ESS (Non-Thyroidal Illness Syndrome, NTIS):\n• ↓ TT4 จาก systemic illness (deiodinase activity changes, decreased binding protein, central suppression)\n• fT4 มัก normal (free hormone preserved)\n• cTSH normal (no pituitary feedback)\n• Causes: Cushing's, severe sepsis, neoplasia, CKD, liver dz, drugs (phenobarbital, sulfonamides, NSAIDs, glucocorticoid, radiocontrast)\n• Treatment: rule out + treat underlying disease, NO levothyroxine (จะกด TSH + ทำให้เห็น mask hypothy ที่อาจมาจริง)\n\n💡 True hypothy: TT4 ↓ + fT4 ↓ + cTSH ↑ (>0.6 ng/mL)\n💡 ESS: TT4 ↓ + fT4 normal + cTSH normal\n💡 Aj. Sariya/Aj. Punyamanee: workup ต้องตรวจครบทั้ง 3 ตัว ก่อน Tx\n\n💡 จาก non-thyroidal illness/drugs",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.18-19 ★"
+  },
+  {
+    "id": 1055,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "hypothyroidism",
+      "breed",
+      "low-baseline"
+    ],
+    "type": "mcq",
+    "q": "Breed ใดที่มี TT4 baseline ต่ำกว่าค่าปกติทั่วไป ทำให้แปลผลผิดได้ง่าย (ดูเหมือน hypothyroid แต่จริงๆ ไม่ใช่)",
+    "options": [
+      "Beagle, Golden Retriever",
+      "Greyhound, Scottish Deerhound",
+      "German Shepherd, Doberman",
+      "Pug, Chihuahua, Yorkshire",
+      "Labrador, Cocker Spaniel"
+    ],
+    "answer": 1,
+    "explain": "Sighthound + Arctic breeds มี TT4 baseline ต่ำกว่าค่าปกติ:\n• Greyhound (อาจ TT4 0.5-1 µg/dL ในตัวปกติ)\n• Scottish Deerhound\n• Siberian Husky (มี zinc-responsive dermatosis ด้วย)\n• Whippet, Saluki\n• ต้องใช้ breed-specific reference range หรือ ตรวจ fT4 + cTSH ร่วม\n\n💡 ไม่ใช่ hypothyroidism แต่เป็น physiologic low T4\n\n❌ ทำไมข้ออื่นผิด\n— Beagle/Golden/Lab/GSD/Doberman/Boxer/Cocker = predisposed ต่อ true hypothy (autoimmune lymphocytic thyroiditis)",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.18"
+  },
+  {
+    "id": 1056,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "hypothyroidism",
+      "levothyroxine",
+      "monitoring"
+    ],
+    "type": "mcq",
+    "q": "หลังเริ่ม Levothyroxine 20 µg/kg PO q12h ใน hypothyroid dog — ระยะเวลาที่จะเห็น clinical improvement คือ",
+    "options": [
+      "1-2 วัน → ทุกอย่าง",
+      "Systemic signs",
+      "6 เดือน ทุกอย่าง",
+      "1 ปี",
+      "ไม่ดีขึ้นเลย ต้องผ่าตัด"
+    ],
+    "answer": 1,
+    "explain": "Levothyroxine response timeline:\n• Systemic signs: 2-4 wks — energy, mentation, exercise tolerance, weight loss, ↓ cholesterol\n• Dermatological signs: 8-12 wks — hair regrowth ต้องรอ anagen phase กลับมา + recovered sebaceous gland → coat quality + ↓ recurrent pyoderma\n• Recheck TT4 4-6 hr post-pill ที่ 4 wks → target post-pill TT4 ใน upper-half of reference range\n• Lifelong treatment\n• Dose adjustment ทำตาม TT4 + clinical response, ไม่ตาม cTSH (cTSH กดได้ช้ากว่า)\n\n💡 energy, weight, mentation",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.19"
+  },
+  {
+    "id": 1057,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "alopecia-x",
+      "breed",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Alopecia X (synonyms: GH-responsive dermatosis, Castration-responsive dermatosis, \"Black Skin Disease\") — predisposed breeds คือ",
+    "options": [
+      "Cocker Spaniel + Beagle + Basset Hound",
+      "Nordic / Plush-coated breeds เช่น Pomeranian",
+      "พบในแมวพันธุ์ขนยาวเท่านั้น ไม่พบในสุนัข",
+      "Pug + French Bulldog + Boston Terrier",
+      "Greyhound + Whippet + Italian Greyhound"
+    ],
+    "answer": 1,
+    "explain": "Alopecia X (mature dog 1-3 yr, male > female):\n• Pomeranian (most common in TH)\n• Chow Chow, Samoyed, Siberian Husky, Spitz, Keeshond, Alaskan Malamute\n• Miniature Poodle (less common)\n• Pattern: bilateral symmetrical alopecia เริ่มที่ neck → shoulders → caudal thighs → flanks → generalized\n• \"Black skin disease\" = late stage hyperpigmentation ทั้งตัว\n• Loss of primary hair → secondary hair → bald\n• Hair regrowth at trauma sites (skin scraping, biopsy) — pathognomonic clue\n• Histopath: Trichilemmal keratinization \"flame follicles\" (pathognomonic)",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.25"
+  },
+  {
+    "id": 1058,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "alopecia-x",
+      "diagnosis",
+      "inclusion-criteria"
+    ],
+    "type": "mcq",
+    "q": "Inclusion criteria ของ Alopecia X (diagnosis of exclusion) ประกอบด้วย",
+    "options": [
+      "แค่ alopecia + breed = enough",
+      "Diagnosis of exclusion",
+      "ต้องมี hyperthyroid + obese",
+      "ต้องตรวจ hormone profile หลายตัวเสมอ",
+      "อายุ > 10 ปี"
+    ],
+    "answer": 1,
+    "explain": "Alopecia X = diagnosis of exclusion, Inclusion criteria 7 ข้อ:\n1. Predisposed breed\n2. Onset 2-6 yr (mature, not aged)\n3. Bilateral symmetrical alopecia (not patchy)\n4. No systemic signs (ตรงข้ามกับ Cushing's/hypothy ที่มี PUPD/lethargy/weight gain)\n5. Normal hematology + biochemistry\n6. Normal thyroid (TT4 + fT4 + cTSH) + adrenal (LDDST/UCCR) — เพื่อ rule out endocrine\n7. Histopath: Trichilemmal keratinization (flame follicles) + variable orthokeratotic hyperkeratosis, NO acantholysis, NO epidermal atrophy\n\n💡 Pathophysiology unclear — น่าจะเกี่ยวกับ sex hormone imbalance, GH dysregulation, or hair cycle arrest\n\n💡 breed + age + bilateral + no systemic + flame follicles",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.25"
+  },
+  {
+    "id": 1059,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "alopecia-x",
+      "treatment",
+      "stepwise"
+    ],
+    "type": "mcq",
+    "q": "Alopecia X — treatment stepwise approach ที่แนะนำคือ",
+    "options": [
+      "เริ่ม Levothyroxine ทันทีทุกรายโดยไม่ตรวจ thyroid",
+      "ให้ Trilostane high-dose ตั้งแต่แรกพร้อม mitotane",
+      "Stepwise: Neuter → Melatonin → Trilostane low-dose",
+      "ผ่าตัด bilateral adrenalectomy เอา adrenal ออกทั้งสอง",
+      "High-dose prednisolone ระยะยาวร่วมกับ ciclosporin"
+    ],
+    "answer": 2,
+    "explain": "Alopecia X stepwise treatment (no guaranteed cure):\n\nStep 1: Neutering (Castration/OVH)\n— First-line if intact, response 20-30%, monitor hair regrowth 4-8 wks\n\nStep 2: Melatonin 3-9 mg/dog q12h\n— 2nd-line, cure rate 40-60%, max 9 mg/dose, trial 3 months, AE: sedation, insulin resistance\n\nStep 3: Trilostane 5-10 mg/kg/day\n— Use lower dose than Cushing's (Cushing dose 0.5-2.5 mg/kg BID = 1-5 mg/kg/day; Alopecia X dose 5-10 mg/kg/day)\n— Response 80-90% but only ~5-10% maintain long-term\n— Hair regrowth 3-6 months\n\nOther: Microneedling (induce trauma → stimulate hair growth at site), GnRH analogues (deslorelin), methyltestosterone\n\n💡 Aj. emphasizes: trial each step ≥ 3 months before moving to next",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.25-26 ★"
+  },
+  {
+    "id": 1060,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "Endocrine_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "alopecia-x",
+      "histopath",
+      "pathognomonic"
+    ],
+    "type": "mcq",
+    "q": "Histopath finding ที่เป็น pathognomonic ของ Alopecia X คือ",
+    "options": [
+      "Subcorneal pustule + acantholytic cells",
+      "Suprabasilar cleft + tombstone marker",
+      "Trichilemmal keratinization (\"flame follicles\")",
+      "Eosinophilic granuloma",
+      "Dermal fibrosis only"
+    ],
+    "answer": 2,
+    "explain": "Alopecia X histopath:\n• \"Flame follicles\" / Trichilemmal keratinization — pathognomonic\n• Excessive keratin in hair follicle infundibulum forming flame patterns\n• Orthokeratotic hyperkeratosis (variable)\n• NO acantholysis (rules out pemphigus)\n• NO epidermal atrophy (rules out Cushing's)\n• NO inflammation (rules out infectious / immune-mediated)\n\n❌ ทำไมข้ออื่นผิด\n— Subcorneal pustule + acantholysis = Pemphigus foliaceus\n— Suprabasilar cleft + tombstone = Pemphigus vulgaris\n— Eosinophilic granuloma = feline EGC, parasitic\n— Dermal fibrosis = chronic process, scarring",
+    "verified": "Endocrine_skin_diseases.pdf + COM IV Master 86 supplemental p.25"
+  },
+  {
+    "id": 1061,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Autoimmune_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "pemphigus-foliaceus",
+      "desmoglein",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Pemphigus Foliaceus (PF) — autoantibody target และ histopath cleft level คือ",
+    "options": [
+      "Anti-Desmoglein 3 + suprabasilar cleft (above stratum basale)",
+      "Anti-Desmoglein 1 + subcorneal cleft",
+      "Anti-hemidesmosome + dermal-epidermal junction split",
+      "Anti-collagen IV",
+      "Anti-DNA"
+    ],
+    "answer": 1,
+    "explain": "Pemphigus Foliaceus (most common autoimmune skin dz in dog):\n• Target: Anti-Desmoglein 1 (Dsg-1)\n• Cleft: Subcorneal (split just below stratum corneum)\n• Histopath: subcorneal pustule with acantholytic keratinocytes + neutrophils ± eosinophils\n• Lesion: superficial — pustule, crust, erosion (no deep ulcer)\n• Distribution: face, nose, pinnae, foot pads — classic \"potato chip\" crust pattern\n• Predisposed breed: Akita, Chow Chow, Doberman, Newfoundland, Bearded Collie, Shetland Sheepdog, German Shepherd\n• Prognosis: Fair to Good (with Tx)",
+    "verified": "Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.40"
+  },
+  {
+    "id": 1062,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Autoimmune_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "pemphigus-vulgaris",
+      "desmocollin-3",
+      "severity"
+    ],
+    "type": "mcq",
+    "q": "Pemphigus Vulgaris (PV) — เปรียบเทียบกับ Pemphigus Foliaceus ที่ระดับใด",
+    "options": [
+      "PV เบากว่า PF เพราะอยู่ชั้นตื้น",
+      "PV รุนแรงกว่า PF target Dsg-3 ชั้นลึก",
+      "PV ไม่พบในสุนัข พบเฉพาะในคน",
+      "PV เกิดจาก IgE-mediated เท่านั้น",
+      "PV target Dsg-1 เหมือน PF ทุกอย่าง"
+    ],
+    "answer": 1,
+    "explain": "Pemphigus Vulgaris (rare แต่รุนแรง):\n• Target: Anti-Desmoglein 3 / Desmocollin 3 (Dsg-3) — found in deeper layer (stratum spinosum + basale + mucosa)\n• Cleft: Suprabasilar (above basal cell, deeper than PF)\n• Histopath: \"row of tombstones\" = basal cells lining the cleft like tombstones\n• Lesion: deep ulcer, erosion, mucocutaneous junction, oral mucosa involved\n• Sites: lips, mouth, nostril, anus, prepuce, vulva, mucocutaneous junctions\n• Prognosis: Guarded (more severe, mortality higher than PF, often requires aggressive immunosuppression)",
+    "verified": "Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.41"
+  },
+  {
+    "id": 1063,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Autoimmune_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "bullous-pemphigoid",
+      "hemidesmosome"
+    ],
+    "type": "mcq",
+    "q": "Bullous Pemphigoid — ต่างจาก Pemphigus complex อย่างไร",
+    "options": [
+      "BP target = Desmoglein",
+      "BP ใช้ Wood\\'s lamp ในการ diagnose",
+      "BP เบากว่า PF",
+      "BP ไม่ใช่ autoimmune",
+      "BP target = Hemidesmosome"
+    ],
+    "answer": 4,
+    "explain": "Bullous Pemphigoid (BP):\n• Target: Hemidesmosome proteins BP180 (collagen XVII) + BP230 ที่ basement membrane\n• Cleft: Sub-epidermal (between epidermis and dermis) — deeper than ทุก pemphigus types\n• Lesion: large thin-walled bullae > 1 cm (pemphigus มี vesicle < 1 cm) → erosion + ulcer\n• Pruritic + painful (mucocutaneous junctions, armpit, groin, mouth)\n• Diagnosis: histopath sub-epidermal cleft + immunofluorescence (linear IgG ที่ basement membrane)\n• Treatment: high-dose prednisolone (more aggressive than PF) ± azathioprine/cyclosporine\n• Less common than pemphigus complex\n\n💡 BP180/230",
+    "verified": "Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.42"
+  },
+  {
+    "id": 1064,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Autoimmune_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "pemphigus",
+      "cytology",
+      "screening"
+    ],
+    "type": "mcq",
+    "q": "Skin cytology จาก intact pustule ของ Pemphigus Foliaceus จะเห็น",
+    "options": [
+      "Degenerate neutrophils + intracellular cocci ของ bacterial pyoderma",
+      "Empty pustule ไม่มีเซลล์ให้เห็น",
+      "Eosinophils + parasites จำนวนมาก",
+      "Yeast Malassezia รูป peanut",
+      "Acantholytic keratinocytes รูปกลม cohesive"
+    ],
+    "answer": 4,
+    "explain": "Pemphigus cytology (intact pustule, Diff-Quik stain):\n• Acantholytic keratinocytes = round, cohesive (\"rafts\"), distinct nucleus, basophilic cytoplasm — keratinocytes ที่หลุดจาก desmosomal connections\n• Non-degenerate neutrophils (clean nuclei, no toxic changes — เพราะ no infection)\n• NO microorganisms (sterile pustule)\n\n💡 ตรงข้ามกับ bacterial pyoderma:\n— Degenerate neutrophils (toxic, vacuolation, karyolysis)\n— Intracellular cocci (Staph)\n— ไม่มี acantholytic cells\n\n💡 Cytology = screening test ที่ต้องตามด้วย biopsy/histopath เพื่อ definitive Dx (sample multiple intact pustules, NEVER scrub-clean before biopsy)",
+    "verified": "Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.40"
+  },
+  {
+    "id": 1065,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Autoimmune_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "pemphigus",
+      "treatment",
+      "azathioprine"
+    ],
+    "type": "mcq",
+    "q": "Pemphigus Foliaceus ในสุนัขที่ไม่ตอบสนอง Prednisolone 4 mg/kg/d ภายใน 4 สัปดาห์ — 2nd-line drug ใดที่ Aj. นิยมเป็นทางเลือกแรก (ใน dog เท่านั้น, ห้ามใน cat)",
+    "options": [
+      "Mitotane 25 mg/kg PO q12h induction",
+      "Furosemide 2 mg/kg PO q12h ลด edema",
+      "Azathioprine 2 mg/kg PO sid → q48h",
+      "Doxycycline 5 mg/kg PO q12h เดี่ยว",
+      "Ivermectin รายเดือนกัน heartworm"
+    ],
+    "answer": 2,
+    "explain": "Pemphigus Foliaceus 2nd-line ในสุนัข:\n\nAzathioprine (purine antagonist, prodrug → 6-MP):\n• Dose: 2 mg/kg PO q24h × 7-14 days → 1-2 mg/kg q48h maintenance\n• Slow onset 3-5 weeks (ต้องรอ)\n• Steroid-sparing — ลด prednisolone ลง 50%\n• AE: hepatotoxic, BM suppression, GI upset, pancreatitis\n• Monitor: CBC + chem ทุก 2 wks × 2 mo, then q1-3 mo\n• STRICTLY contraindicated in cats (low TPMT activity → fatal myelosuppression + acute pancreatic necrosis)\n\n💡 Other 2nd-line options:\n— Cyclosporine 5 mg/kg PO q12h (faster onset 2 wks, but $$$, GI AE)\n— Chlorambucil 0.1-0.2 mg/kg q24-48h (ใช้ใน cat)\n— Mycophenolate mofetil (MMF) 10-20 mg/kg q12h\n— Leflunomide\n\n💡 slow onset 3-5 wks; ห้ามแมว",
+    "verified": "Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.40-41 (Aj. Chaiyot ★)"
+  },
+  {
+    "id": 1066,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Autoimmune_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "slo",
+      "claw",
+      "rare"
+    ],
+    "type": "mcq",
+    "q": "Symmetrical Lupoid Onychodystrophy (SLO) เป็นโรคใด",
+    "options": [
+      "Bacterial nail bed infection จาก S. pseudintermedius",
+      "Trauma-induced onychodystrophy จากเล็บฉีก",
+      "Demodicosis ที่จำกัดเฉพาะ claw fold",
+      "Autoimmune nail bed disease → claw splitting/sloughing",
+      "Idiopathic ที่ไม่มี pathology จริง"
+    ],
+    "answer": 3,
+    "explain": "Symmetrical Lupoid Onychodystrophy (SLO):\n• Autoimmune attack ที่ nail bed → matrix damage\n• Claw signs: splitting, sloughing (onychomadesis), distorted/twisted regrowth, paronychia, lameness, pain\n• Symmetrical — multiple claws on multiple feet\n• Predisposed: German Shepherd, Greyhound, Rottweiler, Bearded Collie\n• Histopath: interface dermatitis ที่ claw matrix with apoptotic basal cells (lupoid pattern)\n• Diagnosis: P3 amputation + histopath (gold standard)\n• Treatment: pentoxifylline + omega-3 fatty acids + tetracycline/niacinamide combo, severe → prednisolone, cyclosporine\n• Prognosis: regrowth often abnormal, lifelong management\n\n💡 GSD, Greyhound",
+    "verified": "Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.43"
+  },
+  {
+    "id": 1067,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Autoimmune_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "ten",
+      "severe",
+      "drug-reaction"
+    ],
+    "type": "mcq",
+    "q": "Toxic Epidermal Necrolysis (TEN) ในสัตว์เลี้ยง — สาเหตุที่พบบ่อยและ mortality risk คือ",
+    "options": [
+      "Self-limiting condition, mortality < 5%",
+      "Vitamin deficiency เรื้อรัง",
+      "Bacterial skin infection ลุกลาม",
+      "Sunburn จาก UV exposure",
+      "Severe drug reaction, mortality สูง"
+    ],
+    "answer": 4,
+    "explain": "TEN = severe drug-induced cutaneous reaction (analog Stevens-Johnson syndrome):\n• Mechanism: Type IV-like hypersensitivity → keratinocyte apoptosis → full-thickness epidermal necrosis\n• > 30% BSA involvement = TEN; < 10% = SJS, 10-30% = SJS-TEN overlap\n• Lesions: large flaccid bullae, sheets of sloughing skin (Nikolsky+), mucosal involvement (oral, ocular, genital)\n• Common triggers: sulfonamides (TMS), β-lactam antibiotics, NSAIDs, anticonvulsants (phenobarbital, levetiracetam), allopurinol\n• Mortality: 30-70% (sepsis, fluid loss, multi-organ failure)\n• Treatment: STOP offending drug + ICU care (fluid, electrolytes, pain control, wound care, antibiotics for 2° infection), avoid steroids early (controversial, may worsen sepsis), IVIG considered\n• Histopath: full-thickness epidermal necrosis with minimal inflammation",
+    "verified": "Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.44"
+  },
+  {
+    "id": 1068,
+    "subject": "com4",
+    "topic": "derm-autoimmune",
+    "year": 4,
+    "source": "Autoimmune_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "sebaceous-adenitis",
+      "rare"
+    ],
+    "type": "mcq",
+    "q": "Sebaceous Adenitis เป็นโรคที่",
+    "options": [
+      "Bacterial infection ของ sebaceous gland",
+      "Neoplastic tumor of sebaceous origin",
+      "Autoimmune destruction ของ sebaceous glands",
+      "Type I allergic reaction ต่อ sebum",
+      "Parasitic disease จาก Demodex"
+    ],
+    "answer": 2,
+    "explain": "Sebaceous Adenitis (rare, presumed autoimmune):\n• Pathogenesis: lymphocytic destruction of sebaceous glands → loss of sebum → impaired skin barrier\n• Predisposed: Standard Poodle, Akita, Vizsla, Samoyed, English Springer Spaniel\n• Lesions: dorsal alopecia + adherent silvery scales + follicular casts (waxy material around hair shafts) + dull dry coat + secondary pyoderma\n• Distribution: dorsum, head, ears (Akita) → may generalize\n• Histopath: loss of sebaceous glands + lymphohistiocytic perifollicular infiltrate\n• Treatment: cyclosporine 5 mg/kg/d (2-3 mo) + topical (oil soaks, ceramide), retinoids, fish oil supplementation\n• Prognosis: lifelong management",
+    "verified": "Autoimmune_skin_diseases.pdf + COM IV Master 86 supplemental p.43"
+  },
+  {
+    "id": 1069,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Glomerulonephritis_lecture.pdf + Master 86 supplemental",
+    "tags": [
+      "gn",
+      "upc",
+      "thresholds",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Urine Protein:Creatinine ratio (UPC) — ค่าใดบ่งชี้ glomerular proteinuria (significant) ในสุนัข",
+    "options": [
+      "< 0.2 ในสุนัข = abnormal proteinuria",
+      "> 0.5 ในสุนัข = abnormal proteinuria",
+      "> 5 เท่านั้นจึงถือว่า abnormal",
+      "UPC ไม่มีประโยชน์ในการประเมิน",
+      "ต้องเก็บ urine 24 ชม. เท่านั้น"
+    ],
+    "answer": 1,
+    "explain": "UPC ratio interpretation (IRIS guidelines):\n• Normal: ≤ 0.5 (dog), ≤ 0.4 (cat)\n• Borderline: 0.5-2.0\n• Proteinuric: > 2.0 — glomerular disease likely (GN, amyloidosis)\n\nWorkup ก่อน UPC:\n1. Rule out post-renal (UTI, sediment, culture)\n2. Rule out pre-renal (Bence-Jones, hemoglobinuria, myoglobinuria)\n3. ถ้า persistent + sediment inactive + UPC > 0.5 → renal proteinuria → workup glomerular dz\n\nGlomerular dz causes:\n— Immune complex (Type III) — chronic infection (Ehrlichia, Borrelia, Bartonella, heartworm), SLE, neoplasia\n— Amyloidosis (Shar-Pei, Abyssinian)\n— Hereditary GN (Samoyed XL, Doberman, Bull Terrier)\n\n💡 Urinary protein loss > 30 mg/kg/day → significant",
+    "verified": "Glomerulonephritis_lecture.pdf + COM IV Master 86 supplemental p.10-11"
+  },
+  {
+    "id": 1070,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "Glomerulonephritis_lecture.pdf + Master 86 supplemental",
+    "tags": [
+      "gn",
+      "aspirin",
+      "antithrombotic"
+    ],
+    "type": "mcq",
+    "q": "ผู้ป่วย GN with proteinuria > 2.0 + albumin < 2.0 g/dL — ทำไมต้องให้ Aspirin 0.5-5 mg/kg q12h",
+    "options": [
+      "แก้ pain เท่านั้น",
+      "ป้องกัน PTE",
+      "เป็น diuretic",
+      "แก้ acidosis",
+      "ลด blood pressure"
+    ],
+    "answer": 1,
+    "explain": "Glomerular disease (PLN, GN, amyloidosis) → hypercoagulable state:\n• Loss of Antithrombin III (AT-III, MW 58 kDa, similar to albumin → spilled in urine)\n• Hypoalbuminemia (< 2.0 g/dL) → ↑ platelet aggregation + ↑ fibrinogen\n• Result: high risk of Pulmonary thromboembolism (PTE) — sudden death!\n\nAntithrombotic Tx:\n• Aspirin 0.5-5 mg/kg PO q12h (low dose: anti-platelet effect)\n• Alternatives: Clopidogrel (Plavix) 1-3 mg/kg PO q24h\n• LMWH for severe cases\n\n💡 ส่วนการรักษา GN อื่นๆ:\n— ACE inhibitor (enalapril, benazepril) ลด proteinuria + glomerular pressure\n— Low-protein, low-Na diet\n— Treat underlying cause (Ehrlichia → doxy; pyometra → spay; SLE → immunosuppression)\n— Furosemide ถ้ามี edema severe\n\n💡 proteinuria → loss of AT-III + ↓ albumin → hypercoagulable",
+    "verified": "Glomerulonephritis_lecture.pdf + COM IV Master 86 supplemental p.11"
+  },
+  {
+    "id": 1071,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "temp",
+      "thresholds"
+    ],
+    "type": "mcq",
+    "q": "Normal rectal temperature ของ neonatal puppy/kitten ในแต่ละช่วงคือ",
+    "options": [
+      "อยู่ใน Adult range (38.0-39.2°C) ตั้งแต่แรกเกิด",
+      "Wk 1 ต่ำ 35-37.2°C แล้วค่อยๆ เพิ่มตามอายุ",
+      "สูงกว่า adult > 39°C ทุกช่วงวัย",
+      "ต่ำกว่า < 33°C เท่ากันทุกช่วงวัย",
+      "คงที่ 38°C ทุกสัปดาห์ไม่เปลี่ยน"
+    ],
+    "answer": 1,
+    "explain": "Neonatal temp progression (poikilothermic — poor thermoregulation):\n• Wk 1: 35-37.2°C (95-99°F) — much lower than adult\n• Wk 2-3: 36.1-37.8°C (97-100°F)\n• Wk 4: 37.2-38.3°C (99-101°F)\n• Adult: 38.0-39.2°C\n\n💡 Hypothermia threshold = < 35.6°C (< 96°F) → critical (intestinal ileus, bradycardia, dyspnea)\n\n💡 Why poor thermoregulation:\n— No shivering reflex first 6 days\n— No vasoconstriction reflex\n— High body surface area : body weight ratio\n— Low body fat\n— Poor blood flow control\n\n💡 Warming methods (gradual!): incubator (32-34°C wk 1), heat lamp, circulating water blanket, warm bottle wrapped in towel, NEVER direct microwave heating (burns)",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.61"
+  },
+  {
+    "id": 1072,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "fluid",
+      "shock-dose"
+    ],
+    "type": "mcq",
+    "q": "Initial shock dose ของ IV crystalloid fluid ใน severely dehydrated neonatal puppy คือ",
+    "options": [
+      "90 ml/kg ทันที (adult dose)",
+      "30-45 ml/kg IV ในสุนัข",
+      "5 ml/kg/hr",
+      "120 ml/kg/d only",
+      "No IV fluid in neonate"
+    ],
+    "answer": 1,
+    "explain": "Neonatal shock fluid resuscitation:\n• Initial bolus: 30-45 ml/kg IV ในสุนัข, 20-30 ml/kg ในแมว (lower than adult ที่ใช้ 90 ml/kg)\n• Reason: high body surface area, fragile cardiovascular system, easy to overload\n• Reassess after bolus — repeat if still hypotensive (max 2-3 boluses)\n\n💡 Maintenance rate (after shock corrected):\n— Neonate (< 2 wk): 120-180 ml/kg/day\n— Pediatric (2-12 wk): 80-120 ml/kg/day\n\n💡 Routes:\n— IV jugular = preferred (most accessible in neonate)\n— IO (intraosseous) = if IV fails — sites: head of tibial crest/tuberosity, wing of ileum, trochanteric fossa of femur, greater tubercle of humerus\n— SC/IP = for hypothermic patients (functional ileus → can't use PO/oral-gastric); add dextrose if severe dehydration\n— PO/oral-gastric = mild dehydration only, normothermic\n\n💡 Always add dextrose 2.5-5% if hypoglycemia risk",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.65"
+  },
+  {
+    "id": 1073,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "io",
+      "access"
+    ],
+    "type": "mcq",
+    "q": "Intraosseous (IO) access ใน neonatal puppy/kitten — ตำแหน่งใดที่นิยมใช้",
+    "options": [
+      "Skull bone และ frontal sinus",
+      "Wing of scapula กับ spine",
+      "Head of tibial crest, wing of ilium",
+      "Vertebral body ของ lumbar",
+      "Mandible และ maxilla"
+    ],
+    "answer": 2,
+    "explain": "IO access sites (in order of preference):\n1. Head of tibial crest / tibial tuberosity (most common in neonate)\n2. Trochanteric fossa of femur (medial side)\n3. Wing of ilium\n4. Greater tubercle of humerus\n\n💡 Indications: cardiovascular collapse, severe dehydration, IV impossible (small vessels), contraindication: fracture proximal to site, sepsis at site, osteomyelitis\n\n💡 Technique: 18-20G spinal needle หรือ EZ-IO drill, advance until \"give\" + aspirate marrow/blood, all IV fluids/drugs can be given IO (full-rate absorption)",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.65"
+  },
+  {
+    "id": 1074,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "colostrum",
+      "gut-closure"
+    ],
+    "type": "mcq",
+    "q": "Colostrum ใน neonatal puppy/kitten — ต้องได้ภายในเวลาเท่าใด และทำไม",
+    "options": [
+      "1 สัปดาห์ จะดี",
+      "ภายใน 24 ชม.",
+      "1 เดือน เพียงพอ",
+      "ไม่จำเป็น",
+      "6 ชม. แล้วจบ"
+    ],
+    "answer": 1,
+    "explain": "Colostrum window:\n• Optimal: first 8 hours (peak absorption)\n• Effective: 24 hours (mostly closes after this)\n• Gut closure complete: 48-72 hours\n\nWhy critical:\n• Neonate has NO maternal antibody transplacentally in dog/cat (unlike human) — เพราะ epitheliochorial placenta blocks Ab transfer\n• Colostrum = primary source of passive immunity (IgG dominant, also IgA, IgM lower)\n• Failure of passive transfer (FPT): serum IgG < 200 mg/dL → infection risk ↑↑↑\n\nIf missed colostrum:\n• Plasma transfusion (from vaccinated bitch/queen) — 22 ml/kg PO หรือ SC ใน first 24 hr, then IV/IP\n• ALP + GGT in colostrum → can measure neonatal serum ALP/GGT รังสี first 2 days as proxy of colostrum intake\n\n💡 Type B blood queens nursing type A/AB kittens → Neonatal Isoerythrolysis ภายในชั่วโมงแรกๆ — must remove kittens from queen for first 24-48 hr\n\n💡 gut closure ปิด → IgG ดูดซึมไม่ได้",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.62"
+  },
+  {
+    "id": 1075,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "fading-puppy",
+      "pathogens"
+    ],
+    "type": "mcq",
+    "q": "Fading Puppy/Kitten Syndrome — common infectious causes รวมถึง",
+    "options": [
+      "Only one virus",
+      "Multifactorial",
+      "Just genetic",
+      "Only nutrition",
+      "Always trauma"
+    ],
+    "answer": 1,
+    "explain": "Fading puppy/kitten syndrome = multifactorial:\n\nCanine viruses: CDV, CPV-2, CHV-1, CAV-1/2\nFeline viruses: Feline panleukopenia (FPV), FHV-1, Feline calicivirus (FCV) ★ most common, FeLV, FIPV\nBacterial: Bordetella, Mycoplasma, E. coli, Streptococcus, Staphylococcus, Clostridium\nRickettsial: Ehrlichia canis, Anaplasma\nParasitic: endoparasites (hookworm, ascarids, coccidia), ectoparasites\n\nMaternal factors: poor nutrition, illness, lactation failure\nNeonatal factors: hypothermia, hypoglycemia, congenital defects (cleft palate, PDA, atresia ani), low birth weight\nEnvironmental: poor hygiene, overcrowding, stress\n\n💡 Most deaths occur 9-10 weeks after birth when maternal antibody wanes but vaccine protection not fully established (immune gap)",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.66"
+  },
+  {
+    "id": 1076,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "isoerythrolysis",
+      "cat-blood-types"
+    ],
+    "type": "mcq",
+    "q": "Neonatal Isoerythrolysis (NEI) ในแมว — เกิดในกลุ่มไหน และทำไม",
+    "options": [
+      "เกิดได้ในลูกแมวทุกตัวไม่ขึ้นกับ blood type",
+      "Type A queen × Type B sire → kitten type A → no problem",
+      "Type B queen + Type A/AB sire → kitten ดื่ม anti-A colostrum",
+      "เกิดจาก hypertension ของแม่แมวระหว่างตั้งท้อง",
+      "ไม่พบในแมว พบเฉพาะในลูกม้า (NI)"
+    ],
+    "answer": 2,
+    "explain": "Feline NEI:\n• Cat blood types: A (most common), B, AB (rare)\n• Type B cat = naturally strong anti-A alloantibody (no prior sensitization needed!)\n• Type A cat = weak anti-B (less clinical impact)\n• NEI scenario: Type B queen + Type A or AB sire → kitten inherits A or AB → kitten nurses from queen → ingests anti-A IgG via colostrum → IgG attacks kitten's type A RBCs → massive hemolysis ภายใน hours\n\nPredisposed breeds (high prevalence of type B):\n— British Shorthair (~60%!), Rex (Cornish/Devon), Angora, Exotic Shorthair, Ragdoll, Persian, Himalayan, Abyssinian, Birman\n\nSigns (within 24-72 hr):\n— Sudden death, hemoglobinuria (red urine), jaundice, anemia, tachypnea, necrosis of tail tip / extremities (microthrombi)\n\nTreatment:\n— Within 24 hr: remove kittens from queen × 24-48 hr (use nurse queen type A or milk replacer); kitten can return to queen after gut closure (no more Ab absorption)\n— Severe anemia: blood transfusion type-matched\n\nPrevention: blood type queen + sire ก่อน mating, DEA cross-match",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.67"
+  },
+  {
+    "id": 1077,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "geriatric",
+      "drug-pk",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Drug consideration ในสัตว์สูงอายุ (geriatric) — ข้อใดถูกต้อง",
+    "options": [
+      "ใช้ยาเหมือน adult ทุกอย่าง",
+      "ใช้ดอสูงกว่า adult เพื่อ compensate aging",
+      "Adjustments needed (renal/hepatic ↓",
+      "หยุดยาทุกชนิดในผู้สูงอายุ",
+      "IM route ดีที่สุด"
+    ],
+    "answer": 2,
+    "explain": "Geriatric pharmacokinetics:\n\nAbsorption:\n— ↓ GI motility, ↓ HCl, ↓ blood flow → erratic absorption\n— Avoid IM (limited muscle mass) → use PO/IV/SC\n\nDistribution:\n— ↑ ECF (water) — but ↓ body fat\n— ↓ albumin → ↑ free drug fraction (esp. NSAIDs, warfarin, phenobarb)\n— Prefer water-soluble (e.g., β-lactam) > fat-soluble (e.g., diazepam, propofol — accumulate)\n\nMetabolism:\n— ↓ CYP450 activity → liver metabolism slow\n— Avoid prodrugs (need conversion)\n\nElimination:\n— ↓ GFR + ↓ tubular secretion → accumulation of renally-excreted drugs\n— Adjust dose: aminoglycosides, NSAIDs, fluconazole, allopurinol\n\nDrug class preferences:\n— β-lactam = good (high dose with longer interval — wide safety margin)\n— Avoid: aminoglycosides (nephrotoxic), NSAIDs (in CKD), corticosteroids long-term (immunosuppressed)\n\n💡 NSAIDs avoid in neonates < 6-8 wks (immature liver/kidney) — separate concept",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.69"
+  },
+  {
+    "id": 1078,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "geriatric",
+      "organ-changes"
+    ],
+    "type": "mcq",
+    "q": "การเปลี่ยนแปลงทาง respiratory system ใน geriatric dog/cat ที่สำคัญคือ",
+    "options": [
+      "Increased lung elasticity ดีขึ้น",
+      "Improved cough reflex แรงขึ้น",
+      "↓ mucus clearance + ↓ cough strength",
+      "Bigger lung volume เพิ่มขึ้น",
+      "No change ไม่เปลี่ยนตามวัย"
+    ],
+    "answer": 2,
+    "explain": "Geriatric respiratory changes:\n• ↓ mucociliary clearance — accumulation of mucus + debris\n• ↓ cough strength — weak respiratory muscles\n• ↓ chest wall compliance — calcified cartilage\n• Decreased ability to clear airway particles → recurrent pneumonia, esp. aspiration\n\nOther geriatric changes:\n— Cardiovascular: valve fibrosis (DMVD in dogs), HCM (cats), reduced cardiac output\n— Renal: ↓ GFR, ↓ concentrating ability, CKD common in cat > 10 yr (~30%)\n— Endocrine: hyperthyroid in cat, hypothyroid in dog, Cushing's, DM\n— Musculoskeletal: osteoarthritis, sarcopenia, ligament laxity\n— Neuro: cognitive dysfunction syndrome (CDS), DISHAA\n— Immune: ↓ T-cell function → ↑ infection + neoplasia risk",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.68"
+  },
+  {
+    "id": 1079,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "common-illness",
+      "pathogens-gi"
+    ],
+    "type": "mcq",
+    "q": "Common GI pathogens ใน neonatal puppy/kitten ที่ทำให้เกิด neonatal gastroenteritis คือ",
+    "options": [
+      "เฉพาะ virus เช่น parvovirus เท่านั้น",
+      "E. coli + Campylobacter + Streptococcus",
+      "เฉพาะ protozoa Giardia เท่านั้น",
+      "เฉพาะ Salmonella enterica เท่านั้น",
+      "ไม่มี pathogen GI เป็น sterile gut"
+    ],
+    "answer": 1,
+    "explain": "Neonatal GI flora & pathogens:\n\nAt birth: GI tract is sterile (meconium = sterile mix of bile + epithelial cells + amniotic fluid)\nDevelops: normal flora from environment + diet (mother grooming, colostrum)\nVulnerability: low HCl secretion (vs adult) → poor barrier → bacterial overgrowth → GI infection\n\nCommon GI pathogens:\n— E. coli (toxigenic strains) — septicemia in low-birth-weight\n— Campylobacter jejuni — diarrhea\n— Streptococcus — septicemia, navel infection\n— Clostridium perfringens — gas, diarrhea, sudden death\n— Salmonella (less common in pet, more in livestock)\n\nViruses: CPV-2 (parvovirus), CDV, FPV, Coronavirus\nProtozoa: Giardia, Cryptosporidium, Coccidia (Cystoisospora)\nHelminths: Toxocara canis/cati (transmammary, transplacental), Ancylostoma\n\n💡 multi-pathogen",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.62"
+  },
+  {
+    "id": 1080,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "reflexes"
+    ],
+    "type": "mcq",
+    "q": "Neonatal reflexes ที่ต้องทดสอบ minimum diagnostic workup ใน neonate ประกอบด้วย",
+    "options": [
+      "ตรวจแค่ heart rate อย่างเดียว",
+      "None — neonate ไม่มี reflex",
+      "Pupillary light reflex only",
+      "Withdrawal reflex only",
+      "Righting + Rooting + Sucking reflexes"
+    ],
+    "answer": 4,
+    "explain": "Neonatal primitive reflexes (minimum exam):\n1. Righting reflex (turning right-side up when placed on back) — present at birth\n2. Rooting reflex (turn head toward stimulus near mouth, search for nipple) — present at birth\n3. Sucking reflex (suck on finger/nipple) — present at birth\n\nOther reflexes & timing:\n— Flexor tone dominance: birth → wk 3-4\n— Extensor tone: wk 5-8\n— Eyes open: 5-14 days (Abyssinian later)\n— Hearing/Ears open: 6-14 days → response within 4 wks\n— Smell/olfactory: 7-14 days\n— Withdrawal reflex: 7-19 days\n— Menace reflex + voluntary voiding: 3 wks\n— Voluntary deification + urination: 3-4 wks\n— Testicular descent (cryptorchidism dx point): 4-6 wks (after 6 mo = cryptorchid)\n\n💡 If primitive reflexes absent at birth → neurological abnormality, prematurity, or septicemia\n\n💡 3 primitive reflexes",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.62"
+  },
+  {
+    "id": 1081,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "Inflammatory_Bowel_Disease.pdf + Master 86 supplemental",
+    "tags": [
+      "ibd",
+      "sulfasalazine",
+      "cat-toxicity",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "Sulfasalazine สำหรับ canine large bowel IBD — dose และ side effect critical คือ",
+    "options": [
+      "5 mg/kg q24h — ไม่มี side effect",
+      "10-25 mg/kg PO TID-QID × 4-6 wks",
+      "50 mg/kg q12h IV เท่านั้น",
+      "500 mg/kg/d ขนาดสูง",
+      "ใช้แบบ topical อย่างเดียว"
+    ],
+    "answer": 1,
+    "explain": "Sulfasalazine in canine large bowel IBD:\n• Mechanism: prodrug → cleaved by colonic bacteria → 5-aminosalicylate (5-ASA, mesalamine) + sulfapyridine; 5-ASA = local anti-inflammatory in colon (inhibits PGs, leukotrienes, NF-κB)\n• Dose: 10-25 mg/kg PO TID-QID × 4-6 wks → taper down 25% q2wks ถ้า KCS หรือ remission\n• CI: cats (salicylate metabolism poor → toxic, ตาย)\n\nCritical side effects in dog:\n• Keratoconjunctivitis Sicca (KCS) — Schirmer tear test ↓ — monitor ทุก 4-6 wks, reversible (มาก) ถ้าหยุดยา\n• Hepatotoxicity\n• Bone marrow suppression\n• Hypersensitivity (Doberman, sulfa-sensitive breeds)\n\n💡 Aj. emphasizes: dog STT ก่อนเริ่ม + ทุก 4 wks, ถ้า STT ↓ → switch to mesalamine (no sulfapyridine) หรือ olsalazine",
+    "verified": "Inflammatory_Bowel_Disease.pdf + COM IV Master 86 supplemental p.13"
+  },
+  {
+    "id": 1082,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "Inflammatory_Bowel_Disease.pdf + Master 86 supplemental",
+    "tags": [
+      "ibd",
+      "cibdai",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "CIBDAI (Canine IBD Activity Index) ใช้ทำอะไร",
+    "options": [
+      "ใช้ diagnose IBD แทน histopath ได้เลย",
+      "Score IBD severity + monitor response to Tx",
+      "ใช้แทน intestinal biopsy ได้ทั้งหมด",
+      "ทำนายการเปลี่ยนเป็น GI lymphoma",
+      "ประเมิน intestinal absorption + B12"
+    ],
+    "answer": 1,
+    "explain": "CIBDAI (Jergens et al. 2003):\n• Purpose: severity scoring + treatment response monitoring (NOT diagnostic — diagnosis still requires histopath)\n\n6 Parameters (each 0-3):\n1. Attitude/Activity\n2. Appetite\n3. Vomiting frequency\n4. Stool consistency\n5. Stool frequency\n6. Weight loss\n\nTotal score 0-18:\n— 0-3: clinically insignificant\n— 4-5: mild\n— 6-8: moderate\n— ≥ 9: severe\n\nUse:\n— Pre-treatment baseline\n— Monitor q 2-4 wks during therapy\n— Correlate with endoscopy + histopath\n\n💡 Newer: CCECAI (Canine Chronic Enteropathy Clinical Activity Index, Allenspach 2007) — 9 parameters incl. albumin, peripheral edema, ascites — used for severity stratification (esp. PLE)",
+    "verified": "Inflammatory_Bowel_Disease.pdf + COM IV Master 86 supplemental p.14"
+  },
+  {
+    "id": 1083,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Allergic_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "atopic",
+      "trip",
+      "multimodal",
+      "mnemonic"
+    ],
+    "type": "mcq",
+    "q": "Multimodal management ของ Canine Atopic Dermatitis (CAD) ใช้หลัก mnemonic \"TRIP\" — ประกอบด้วย",
+    "options": [
+      "T = Topical, R = Recovery, I = Invasive, P = Permanent",
+      "T = Treat secondary infection, R = Restore skin barrier",
+      "T = Test, R = Rest, I = Inject, P = Prescribe",
+      "No mnemonic exists",
+      "T = Time, R = Rule, I = Idea, P = Plan"
+    ],
+    "answer": 1,
+    "explain": "TRIP mnemonic for CAD multimodal management (Aj. Chaiyot ★):\n\nT — Treat secondary infection/infestation\n— Bacterial pyoderma (Staph) → cephalexin/clindamycin + chlorhexidine shampoo\n— Malassezia (yeast) → ketoconazole/itraconazole + miconazole shampoo\n— Otitis externa → topical otic\n— Flea control if FAD overlap\n\nR — Restore skin barrier\n— Topical ceramide / phytosphingosine spray, mousse\n— Essential fatty acids supplementation (omega-3/6)\n— Bathing with moisturizing shampoo\n\nI — Identify causative allergens\n— History + environment\n— Allergen-specific IgE serology (ASIS) หรือ intradermal skin test (gold standard)\n— Allergen-specific immunotherapy (ASIT) = \"allergy vaccine\" — long-term cure attempt (50-70% improve)\n\nP — Pruritus control\n— Oclacitinib (Apoquel) — JAK inhibitor, fast onset 4 hr\n— Lokivetmab (Cytopoint) — anti-IL-31 monoclonal Ab, 4-8 wk\n— Cyclosporine (Atopica) 5 mg/kg q24h — chronic\n— Glucocorticoid (short term flare only — avoid chronic)\n— Antihistamines (hydroxyzine, cetirizine — 30-50% response only)\n\n💡 ASIT = best long-term option for confirmed atopy",
+    "verified": "Allergic_skin_diseases.pdf + COM IV Master 86 supplemental p.32 ★"
+  },
+  {
+    "id": 1084,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "Allergic_skin_diseases.pdf + Master 86 supplemental",
+    "tags": [
+      "atopic",
+      "allergic-otitis",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Otitis externa ใน atopic dog — บ่อยครั้ง present เป็น first sign ของ atopy เพราะ",
+    "options": [
+      "หูเป็นแหล่งสะสมของ allergen หลัก",
+      "Ear canal barrier บาง + atopy → recurrent otitis",
+      "หูมีอุณหภูมิเย็นกว่าผิวหนังทั่วไป",
+      "ไม่จริง — atopy ไม่เกี่ยวข้องกับหู",
+      "Allergen accumulate ค้างในรูหู"
+    ],
+    "answer": 1,
+    "explain": "Allergic otitis externa = chronic otitis + 2° infection on background atopy:\n\n• Ear canal lined by thin skin (similar to face) — barrier easily disrupted\n• Atopy → ↑ inflammation, ↑ moisture in canal, ↑ cerumen → ideal for Malassezia pachydermatis + bacteria (Staph pseudintermedius, Pseudomonas in chronic)\n• Recurrent unilateral หรือ bilateral otitis (ปวด, scratching, head shaking, smelly discharge)\n• Often the FIRST clinical sign of atopy (มากกว่า skin lesion)\n• Other key sites: feet (interdigital), face (periocular, perilabial), axilla, groin, ventral abdomen\n\n💡 Approach: cytology (Malassezia/Staph), cleaning, topical otic with corticosteroid + antifungal + antibiotic + identify underlying atopy → systemic Tx (TRIP)\n\n💡 Predisposing breeds for allergic otitis: West Highland White, Labrador, Golden, Bulldog, Cocker (pendulous ear), Shar-Pei",
+    "verified": "Allergic_skin_diseases.pdf + COM IV Master 86 supplemental p.33"
+  },
+  {
+    "id": 1085,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "Pediatrics_and_Geriatrics.pdf + Master 86 supplemental",
+    "tags": [
+      "neonate",
+      "physical-exam",
+      "normal-vitals"
+    ],
+    "type": "mcq",
+    "q": "Normal vitals สำหรับ neonatal puppy/kitten ในสัปดาห์แรกคือ",
+    "options": [
+      "HR 80, RR 12, like adult",
+      "BP 200/120",
+      "HR < 60",
+      "No vitals to measure in neonate",
+      "HR 180-200 bpm"
+    ],
+    "answer": 4,
+    "explain": "Neonatal normal vitals (week 1):\n\nCardiovascular:\n— HR: 180-220 bpm (much higher than adult — relative tachycardia)\n— Bradycardia in neonate ≠ vagal, = hypoxemia/hypothermia (adult-like reflex tachycardia not yet developed)\n\nRespiratory:\n— RR: 10-18 bpm initial → 15-35 bpm by week 1\n\nTemperature: 35-37.2°C (95-99°F) wk 1\n\nHydration:\n— USG < 1.020 (isosthenuria — immature concentrating ability), normal until 8 wks\n— Trace protein + glucose normal first 3 days\n— Water requirement: 2.5 ml/100g BW/day output\n\nHematology (wk 0-2):\n— PCV: 29-53% (declines over weeks 2-4 to 26-37% — physiologic anemia)\n— Birth weight: 100-650 g (varies by breed, ideal pup ~ 1% of bitch BW)\n— Daily weight gain: 5-10% BW/day or doubles by 7-10 days\n\nStomach capacity: 4-5 ml/100g BW\n\nCalories: 20-26 kcal/100g BW/day (puppy), 15-25 kcal/100g BW/day (kitten)\n\n💡 Red flag: HR < 150 in neonate < 1 wk = bradycardia → suspect hypoxemia → emergency!\n\n💡 RR 10-18 → 15-35 bpm, USG < 1.020, stomach 4-5 ml/100g",
+    "verified": "Pediatrics_and_Geriatrics.pdf + COM IV Master 86 supplemental p.61"
+  },
+  {
+    "id": 1086,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMHA T/F + COM IV Master 86 supplemental",
+    "tags": [
+      "imha",
+      "tf",
+      "classification",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] การเกิดโรคมะเร็งก่อให้เกิดภาวะโลหิตจางเนื่องจากภูมิคุ้มกันไวเกิน \"แบบปฐมภูมิ (primary IMHA)\"",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด, มะเร็ง (neoplasia) → IMHA → จัดเป็น Secondary IMHA (2°) เสมอ\n\n💡 IMHA classification:\n— 1° IMHA (idiopathic): ไม่หา cause ได้, all ages, เมีย > ผู้, breeds: Cocker Spaniel, Old English Sheepdog, Std. Poodle, English Springer Spaniel\n— 2° IMHA (secondary): หา trigger ได้ — Infection (Ehrlichia, Babesia, Mycoplasma haemofelis), Neoplasia (lymphoma, hemangiosarcoma), Drugs (Cyclosporine, Doxycycline, sulfa), Vaccine (4-6 wks post)\n\nโจทย์บอก \"มะเร็ง\" → 2° ไม่ใช่ 1°",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #1 (F)"
+  },
+  {
+    "id": 1087,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMHA T/F",
+    "tags": [
+      "imha",
+      "tf",
+      "coombs",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] Direct Coomb's test เป็น gold standard ในการตรวจวินิจฉัยโรค IMHA",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, Direct Antiglobulin Test (DAT/Coomb's) = gold standard\n\n💡 ใช้ Coomb's reagent (anti-IgG + anti-IgM + anti-C3) ลงบน RBC ผู้ป่วยที่ล้างแล้ว → ถ้า RBC มี Ab/complement เคลือบ → reagent cross-link → agglutination (+)\n💡 Sensitivity ~60-70%, Specificity > 90%\n💡 ก่อน Coomb's ทำ slide agglutination test ก่อน — positive autoagglutination = strong IMHA, ข้าม Coomb's ได้",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #2 (T)"
+  },
+  {
+    "id": 1088,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMHA T/F",
+    "tags": [
+      "imha",
+      "tf",
+      "breed",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] สุนัขพันธุ์ Cocker Spaniel, Old English Sheepdog, English Springer Spaniel เป็นสุนัขที่พบภาวะ IMHA ได้บ่อย",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, Predisposed breeds for primary IMHA:\n• Cocker Spaniel (most common, ~30% ของ canine IMHA)\n• Old English Sheepdog\n• English Springer Spaniel\n• Standard Poodle\n• Miniature Pinscher, Maltese, Shih Tzu (small breeds)\n\n💡 Female predilection (เมีย > ผู้, ratio ~ 4:1)\n💡 Mean age onset 6 yr\n💡 Genetic susceptibility — DLA-DRB1 alleles in Cocker Spaniel ★",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #3 (T)"
+  },
+  {
+    "id": 1089,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMHA T/F",
+    "tags": [
+      "imha",
+      "tf",
+      "thromboembolism",
+      "tj86",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "[T/F] การป้องกันภาวะลิ่มเลือดอุดตัน (thromboembolism) เป็นวิธีหนึ่งที่สำคัญในการป้องกันสัตว์เสียชีวิตจาก IMHA",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, สัตว์ IMHA มักตายจาก Thromboembolism (PTE) มากกว่าจาก anemia เอง ★★ (Aj. Rosama เน้น)\n\n💡 Pathogenesis:\n— Hemolysis → free heme → endothelial damage + complement activation\n— Hyperfibrinogenemia + ↑ vWF\n— Anti-erythrocyte Ab อาจ cross-react กับ platelet antigen\n— Glucocorticoid-induced hypercoagulability\n\n💡 Antithrombotic Tx (essential):\n— Clopidogrel (Plavix) 1-3 mg/kg PO q24h (1st-line)\n— Aspirin 0.5-1 mg/kg/d (low dose)\n— LMWH (acute severe)\n\n💡 Mortality ~ 30-50% in canine IMHA, majority from PTE",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #4 (T)"
+  },
+  {
+    "id": 1090,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMHA notes",
+    "tags": [
+      "imha",
+      "autoagglutination",
+      "screening",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "Slide Autoagglutination test (screening) ใน IMHA — ผสม blood : NSS อัตราส่วนใด",
+    "options": [
+      "1:1",
+      "1:4",
+      "1:10",
+      "1:20",
+      "1:100"
+    ],
+    "answer": 1,
+    "explain": "Saline Slide Agglutination test (screening, in-clinic):\n• Blood : NSS = 1:4 (1 drop EDTA blood + 4 drops 0.9% NaCl)\n• Mix on slide → microscope LP\n• Persistent agglutination (clumps remain after dilution) = positive autoagglutination\n• Positive = strong evidence of IMHA → ไม่ต้องทำ Coomb's (ก็พอ confirm)\n• Negative ≠ rule out IMHA → ต้องทำ Coomb's ต่อ\n• Rouleaux ≠ true agglutination (rouleaux disperses with NSS, agglutination remains)",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #5"
+  },
+  {
+    "id": 1091,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMHA notes",
+    "tags": [
+      "imha",
+      "longterm",
+      "tapering",
+      "tj86",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Long-term IMHA Tx — ถ้า PCV > 30% คงที่ 2 สัปดาห์หลัง initial Tx, ขั้นตอนการ taper down ที่ Aj. Rosama แนะนำ คือ",
+    "options": [
+      "หยุด prednisolone ทันที",
+      "ลด prednisolone 25% ทุก 2 wk",
+      "เพิ่ม prednisolone",
+      "หยุด 2nd-line ก่อน prednisolone",
+      "ลดทั้งคู่พร้อมกัน 50%"
+    ],
+    "answer": 1,
+    "explain": "Long-term IMHA Tx tapering protocol (Aj. Rosama ★):\n\nCriteria สำหรับเริ่ม taper:\n• PCV > 30% คงที่ ≥ 2 สัปดาห์\n• Resolution of clinical signs (no jaundice, normal energy)\n• No evidence of ongoing hemolysis (no spherocytes, normal bilirubin)\n\nTapering rules:\n1. ลด prednisolone 25% ทุก 2 สัปดาห์ ลงเรื่อยๆ\n2. 2nd-line drug (azathioprine, CsA, MMF) คง dose ไว้ จนกว่าจะ off prednisolone\n3. หลัง off prednisolone → ค่อย taper 2nd-line\n4. Total Tx duration: minimum 4-6 เดือน, often 8-12 เดือน\n5. Monitor PCV ทุก 2-4 wks, Coomb's test ก่อน off ทั้งหมด\n\n💡 ถ้า PCV drop ขณะ taper → กลับ dose ก่อนหน้า + เพิ่ม 2nd-line, พิจารณา 3rd-line (chlorambucil, leflunomide)\n\n💡 2nd-line drug คง dose ไว้ก่อน",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #12"
+  },
+  {
+    "id": 1092,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMHA notes",
+    "tags": [
+      "imha",
+      "signs",
+      "multi-system",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "Clinical signs ของ canine IMHA ที่พบได้รวมถึง",
+    "options": [
+      "มีแค่ pale MM อย่างเดียวเท่านั้น",
+      "Pale MM + jaundice + hemoglobinuria",
+      "มีแค่อาเจียนเป็นอาการเด่น",
+      "Hyperglycemia + polyuria เป็นหลัก",
+      "มีแค่ ascites ในช่องท้องอย่างเดียว"
+    ],
+    "answer": 1,
+    "explain": "IMHA multi-system clinical signs:\n\nHematologic:\n• Pale MM (anemia)\n• Icterus/Jaundice (hyperbilirubinemia)\n• Hemoglobinuria (intravascular hemolysis — เข้ม brown/red urine)\n• Petechiae/Ecchymoses (if Evans syndrome with IMT)\n• Tachycardia + bounding pulse (compensation)\n• Heart murmur (anemia-related — high output)\n• Tachypnea/dyspnea (hypoxemia ± PTE)\n\nGI:\n• Anorexia, vomit, diarrhea\n• Pica (lick walls, eat dirt — relates to hypoxia)\n• Melena (GI ulceration from hypoxia or steroids)\n\nReticuloendothelial:\n• Hepatomegaly + Splenomegaly (extramedullary hematopoiesis + clearing damaged RBC)\n• Lymphadenopathy\n\nOther:\n• Lethargy, weakness, collapse\n• Fever (low grade)\n• Hyperbilirubinuria (orange/dark urine)",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMHA #9"
+  },
+  {
+    "id": 1093,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMT T/F",
+    "tags": [
+      "imt",
+      "tf",
+      "vincristine",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ในกรณีฉุกเฉินสัตว์ป่วยด้วยภาวะเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน สามารถใช้ยา Vincristine ขนาด 0.02 mg/kg เข้าเส้นเลือดดำ ครั้งเดียว จะทำให้เกล็ดเลือดเพิ่มขึ้นใน 2-3 วันหลังฉีด",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, Vincristine 0.02 mg/kg IV (1 dose) ใน IMT severe — Aj. Rosama เน้น ★\n\n💡 Onset: platelet ขึ้น 2-7 วันหลังฉีด (TJ86 ระบุ 2-3 วัน — เร็วในเคสที่ตอบสนองดี)\n\nกลไก 2 ขั้น:\n1. Microtubule poison → ↓ phagocytosis ของ Ab-coated platelet โดย macrophage\n2. Stimulate megakaryocyte → release platelet (thrombocytopoiesis)\n\n💡 Indications:\n— PLT < 20,000/μL with active bleeding\n— Refractory IMT not responding to prednisolone\n— Used as bridge while prednisolone takes effect\n\n💡 Single dose, combine with PO prednisolone 2-4 mg/kg/d",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #1 (T)"
+  },
+  {
+    "id": 1094,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMT T/F",
+    "tags": [
+      "imt",
+      "tf",
+      "diagnosis",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] หลักการสำคัญในการวินิจฉัยโรคเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน คือการวินิจฉัยแยกแยะตัดโรคอื่นๆ ออกไป (diagnosis of exclusion) เนื่องจากวิธีตรวจจำเพาะมีน้อยและยังไม่แพร่หลายในปัจจุบัน",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, IMT = diagnosis of exclusion\n\nต้อง rule out causes อื่นๆ ของ thrombocytopenia ก่อน:\n• Infection: Ehrlichia, Anaplasma, Babesia, RMSF, Leishmania, FeLV/FIV\n• DIC: prolonged PT/PTT, low fibrinogen, ↑ D-dimer\n• Drug-induced: NSAIDs, sulfa, estrogen, chemotherapy\n• Bone marrow disease: aplastic anemia, leukemia, myelodysplasia\n• Sequestration: splenomegaly, hepatic congestion\n• Consumption: vasculitis, neoplasia, hemorrhage\n\nTests for IMT:\n— CBC + blood smear (estimate platelet)\n— Megakaryocyte count in bone marrow (normal/↑ in IMT, ↓ in aplastic)\n— Anti-platelet antibody test (PAIgG, flow cytometry) — จำเพาะแต่ไม่ widely available\n— Coomb's + rule out blood parasites (4Dx SNAP, PCR)",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #2 (T)"
+  },
+  {
+    "id": 1095,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMT T/F",
+    "tags": [
+      "imt",
+      "tf",
+      "splenomegaly",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] สัตว์ป่วยด้วยภาวะเกล็ดเลือดต่ำเนื่องจากภูมิคุ้มกันไวเกิน (IMT) จะตรวจพบม้ามโตเหมือนสัตว์ป่วย IMHA ทำให้แยกโรคทั้ง 2 ออกจากกันได้ยาก",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด, IMT มัก ไม่ พบม้ามโต (ต่างจาก IMHA)\n\n💡 ทำไม:\n— IMHA: Spleen + liver โต เพราะ extramedullary hematopoiesis (ตอบสนอง anemia) + clearing of damaged RBCs\n— IMT: ม้ามทำหน้าที่ destroy platelet แต่ size มัก normal — เพราะ platelet มี mass เล็ก, no compensatory hematopoiesis at scale\n\n💡 จุดแยกระหว่าง IMHA vs IMT:\n| Feature | IMHA | IMT |\n|---|---|---|\n| Anemia | Yes (regenerative) | Usually no |\n| Spherocytes | Yes (extravascular) | No |\n| Thrombocytopenia | Sometimes (Evans) | Always |\n| Bleeding/Petechiae | No (unless Evans) | Yes (mucosal) |\n| Hemoglobinuria | Yes (intravascular) | No |\n| Splenomegaly | Common | Uncommon |\n| Coomb's | Positive | Negative (unless Evans) |\n\n💡 Evans syndrome = IMHA + IMT → จะมี both features",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #3 (F)"
+  },
+  {
+    "id": 1096,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "TJ86 IMT T/F",
+    "tags": [
+      "imt",
+      "tf",
+      "aspirin",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ยา Aspirin ขนาดยา 0.25–0.5 mg/kg ทุก 12-24 ชม. สามารถลดการจับตัวของเกล็ดเลือด (platelet aggregation) ในสุนัข แต่ยังต้องการการศึกษาเพิ่มเติม เนื่องจากการประยุกต์ใช้ในสุนัขจากผลการทดลองในคน",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก\n\n💡 Low-dose Aspirin ในสุนัข:\n— Dose: 0.25-0.5 mg/kg PO q12-24h (low-dose anti-platelet effect)\n— กลไก: Irreversible inhibition of COX-1 in platelet → ↓ thromboxane A2 → ↓ platelet aggregation\n— Used in: thromboprophylaxis ใน IMHA, glomerulonephritis (PLN), heartworm disease, cardiac dz\n— Onset: 1-2 days, effect lasts 7-10 days (platelet lifespan)\n\n💡 Caveat: dose-response data ส่วนใหญ่ extrapolated จาก human medicine — vet-specific PK/PD studies ยังจำกัด, individual variability สูง (some dogs are \"aspirin-resistant\")\n\n💡 Alternative: Clopidogrel (Plavix) 1-3 mg/kg PO q24h — ปัจจุบันนิยมมากกว่า aspirin (more consistent effect, P2Y12 inhibitor)\n\n💡 Aj. Rosama: ใช้ aspirin 0.5 mg/kg/วัน เพื่อแก้ thromboembolism risk ใน IMHA ★",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 IMT #4 (T)"
+  },
+  {
+    "id": 1097,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "อ.รสมา original T/F #4 (corrected from TJ86)",
+    "tags": [
+      "gn",
+      "tf",
+      "survival",
+      "tj86",
+      "rosama-corrected"
+    ],
+    "type": "mcq",
+    "q": "[T/F] สัตว์ป่วยด้วย immune-mediated glomerulonephritis ส่วนใหญ่เสียชีวิตโดยมีค่าเฉลี่ยอัตราการรอดชีวิตเท่ากับ 30 วัน",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด — Aj. Rosama original = F (TJ86 ระบุ T เป็น typo ที่ผ่านการ recheck แก้ไปแล้ว ★)\n\n💡 Why F:\n— \"30 วัน\" เฉพาะเจาะจงเกินไป — actual median survival แตกต่างมากตามการ Tx:\n  • Untreated: variable, อาจหลายสัปดาห์-เดือน\n  • With aggressive Tx (immunosuppression + ACEi + diet + antithrombotic): 6-18 months ในบางราย\n  • Complete remission rare\n\n💡 Prognostic factors (worse):\n— Persistent UPC > 10\n— Hypoalbuminemia < 2 g/dL\n— Azotemia at diagnosis (BUN/Cr ↑)\n— Hypertension (SBP > 160 mmHg)\n— Pulmonary thromboembolism (PTE)\n— Refractory edema/effusion (Nephrotic syndrome)\n\n💡 Causes of death:\n1. Uremia (CKD progression) — most common\n2. PTE (acute death)\n3. Hypertensive crisis (retinal detachment, stroke)\n4. Cardiac decompensation\n\n⚠️ Q นี้ corrected หลัง Aj. Rosama original PDF ตรวจ",
+    "verified": "อ.รสมา original Fangfuay vet81 #4 (F) ★ Recheck แก้ไป"
+  },
+  {
+    "id": 1098,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "TJ86 GN T/F",
+    "tags": [
+      "gn",
+      "tf",
+      "symptomatic",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] การรักษาตามอาการเป็นสิ่งที่จำเป็นที่สุดในการรักษาสัตว์ป่วยด้วย Glomerulonephritis",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด, การรักษา GN ต้อง Tx underlying cause + immunosuppression + supportive ร่วมกัน — ไม่ใช่แค่ symptomatic\n\n💡 GN management 4 pillars:\n\n1. Treat underlying cause (most important):\n— Infectious: Ehrlichia → doxycycline, pyometra → spay, heartworm → adulticide\n— Neoplasia: surgical/medical Tx\n— SLE: immunosuppression\n\n2. Immunosuppression (immune complex GN):\n— Mycophenolate (MMF) 10-20 mg/kg q12h, Cyclosporine 5 mg/kg q12h\n— Prednisolone 1-2 mg/kg/d (controversial — may worsen proteinuria)\n\n3. Reduce proteinuria:\n— ACE inhibitor (enalapril, benazepril) 0.5 mg/kg q12-24h ★\n— ARB (telmisartan) — newer, less hyperkalemia\n— Low-protein, low-Na diet (renal-prescription diet)\n— Omega-3 fatty acid\n\n4. Antithrombotic + supportive:\n— Aspirin 0.5-5 mg/kg q12h หรือ Clopidogrel\n— Furosemide (only if edema severe)\n— BP control (amlodipine if SBP > 160)\n\n💡 Symptomatic alone (รักษาตามอาการเฉยๆ) = inadequate → progressive CKD → death",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 GN #5 (F)"
+  },
+  {
+    "id": 1099,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "TJ86 GN T/F",
+    "tags": [
+      "gn",
+      "tf",
+      "acei",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] การใช้ยาในกลุ่ม Angiotensin-Converting Enzyme Inhibitor (ACEI) เช่น Enalapril ทำให้ปริมาณของโปรตีนที่สูญเสียในปัสสาวะลดลง",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, ACEi = cornerstone Tx ของ GN-related proteinuria\n\n💡 Mechanism:\n— ACEi block conversion of angiotensin I → angiotensin II\n— ↓ angiotensin II → Efferent arteriolar vasodilation (more than afferent) → ↓ glomerular hydrostatic pressure → ↓ filtration of protein\n— Also: ↓ glomerular hypertension, ↓ podocyte injury, ↓ TGF-β fibrosis\n\nDose:\n• Enalapril 0.5 mg/kg PO q12-24h\n• Benazepril 0.25-0.5 mg/kg PO q24h (more renal-excreted, suitable for CKD)\n• Telmisartan (ARB) 1 mg/kg q24h — alternative, often preferred ในแมว CKD\n\nMonitoring:\n— UPC ratio (target ↓ 50% from baseline)\n— BUN/Cr (acceptable rise ≤ 30%)\n— K+ (watch for hyperkalemia)\n— BP (avoid hypotension)\n\nContraindications:\n— Pre-existing severe azotemia (Cr > 4)\n— Hyperkalemia (K > 6)\n— Hypotension (SBP < 100)\n— Acute kidney injury (avoid until stable)",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.1 GN #6 (T)"
+  },
+  {
+    "id": 1100,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "TJ86 GN T/F",
+    "tags": [
+      "gn",
+      "tf",
+      "diet",
+      "protein",
+      "tj86",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "[T/F] การให้อาหารที่มีระดับโปรตีนสูงเป็นสิ่งสำคัญที่ต้องให้แก่สัตว์ป่วยด้วยโรค Glomerulonephritis เพื่อชดเชยปริมาณของโปรตีนที่สูญเสียไปทางปัสสาวะ",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด, GN ต้องให้ low-protein diet (ไม่ใช่ high-protein!)\n\n💡 Reasoning:\n— High protein → ↑ glomerular hyperfiltration → ↑ glomerular hypertension → ↑ proteinuria → progression of GN/CKD\n— High protein → ↑ BUN load → uremic signs (vomiting, anorexia)\n— High protein → ↑ phosphate load → secondary hyperparathyroidism\n— High protein doesn't replace albumin lost (liver synthesizes from any AA pool)\n\n💡 Recommended diet ใน GN:\n— Restricted protein (high-quality): 2-2.5 g/kg/day in dog (vs 4-5 g normal)\n— Cat: less restriction (cats are obligate carnivores) — moderate protein but high quality\n— Low Na (< 0.3% DM)\n— Low phosphorus\n— ↑ Omega-3 (anti-inflammatory, reduces proteinuria)\n— ↑ Soluble fiber (promotes urea excretion in colon)\n\n💡 Commercial diets:\n— Hill's k/d\n— Royal Canin Renal\n— Purina NF Kidney Function\n\n💡 Common misconception ที่นิสิตชอบเลือกผิด: \"ต้องเสริมโปรตีนเพราะโปรตีนหาย\" — wrong! ทำให้แย่ลง",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 GN #7 (F) ★ สลับพลาดง่าย"
+  },
+  {
+    "id": 1101,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "อ.รสมา original T/F #38 (corrected from TJ86)",
+    "tags": [
+      "gn",
+      "tf",
+      "nephrotic-syndrome",
+      "tj86",
+      "rosama-corrected"
+    ],
+    "type": "mcq",
+    "q": "[T/F] สัตว์ที่ป่วยด้วยโรคในกลุ่ม Nephrotic Syndrome จะพบว่ามีอัลบูมินในเลือดต่ำ ไขมันในเลือดสูง ระดับคลอเลสเตอรอลในเลือดสูง และมีของเหลวสะสมในส่วนต่างๆ ของร่างกาย",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก — Aj. Rosama original = T (TJ86 typo ขาดคำว่า \"สูง\" ก่อน \"คลอเลสเตอรอล\" → ผ่านการ recheck แก้ไปแล้ว ★)\n\n💡 Nephrotic Syndrome tetrad (4 ข้อครบ):\n1. Proteinuria > 3.5 g/day (in human; UPC > 3.5 in vet)\n2. Hypoalbuminemia (อัลบูมินต่ำ < 2.0 g/dL)\n3. Hypercholesterolemia / Hyperlipidemia (ไขมัน + cholesterol สูง — liver compensates by ↑ lipoprotein synthesis)\n4. Edema / Effusion (ของเหลวสะสม — ascites, peripheral edema, pulmonary edema)\n\n💡 Pathogenesis cascade:\n— Glomerular damage → massive proteinuria (loss of albumin + AT-III + lipoprotein lipase regulators)\n— ↓ albumin → ↓ oncotic pressure → fluid leaks to interstitium → edema/ascites\n— Liver compensates with ↑ protein synthesis → also ↑ lipoprotein → hypercholesterolemia\n— Loss of AT-III → hypercoagulable → PTE risk\n\n⚠️ Q นี้ corrected หลัง Aj. Rosama original PDF ตรวจ",
+    "verified": "อ.รสมา original Fangfuay vet81 #38 (T) ★ ครบทั้ง 4 องค์ประกอบ"
+  },
+  {
+    "id": 1102,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "TJ86 GN T/F",
+    "tags": [
+      "gn",
+      "tf",
+      "hypertension",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ความดันโลหิตสูงเป็นสาเหตุหนึ่งของการเกิด non-immune-mediated glomerulopathy ในสัตว์เลี้ยง",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, Systemic hypertension → glomerular damage (non-immune mediated)\n\n💡 Mechanism:\n— High systemic BP → transmitted to glomerulus → glomerular hyperfiltration + intraglomerular hypertension\n— Damages podocyte foot processes → proteinuria\n— Sclerotic changes in glomerulus → fibrosis → CKD progression\n— Vicious cycle: GN → renin-angiotensin activation → hypertension → worse GN\n\n💡 Other non-immune causes of glomerulopathy:\n— Hypertension (primary or secondary to CKD, Cushing's, hyperthyroid in cat)\n— Amyloidosis (Shar-Pei familial, Abyssinian cat)\n— Hereditary GN: Samoyed (X-linked Alport-like), Doberman, Bull Terrier, English Cocker Spaniel\n— Diabetic glomerulopathy (long-standing DM)\n— Drug-induced (NSAIDs, aminoglycosides — though more tubular)\n\n💡 BP target ใน GN: SBP < 160 mmHg, use amlodipine (1st-line), ACEi, telmisartan",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 GN #9 (T)"
+  },
+  {
+    "id": 1103,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "TJ86 IBD T/F",
+    "tags": [
+      "ibd",
+      "tf",
+      "duration",
+      "tj86",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "[T/F] โรค IBD เป็นความผิดปกติของระบบทางเดินอาหารอย่างเรื้อรังในสัตว์เลี้ยง ที่เกิดขึ้นนานกว่า \"2 สัปดาห์\" ขึ้นไป",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด, IBD criteria: chronic GI signs > 3 สัปดาห์ (ไม่ใช่ 2 สัปดาห์)\n\n💡 IBD diagnostic criteria (Aj. Sariya / WSAVA):\n1. Chronic GI signs > 3 wks (vomit, diarrhea, weight loss)\n2. Histopath inflammation ใน intestinal biopsy (lymphocytic, plasmacytic, eosinophilic, neutrophilic)\n3. Failure to respond to: deworming, dietary trial, antibiotic trial\n4. Exclusion of other causes: parasites, infection, neoplasia, exocrine pancreatic insufficiency, hyperthyroidism (cat)\n\n💡 Step-wise approach (Aj. Sariya):\n1. Diet trial (novel/hydrolyzed) × 2-3 wks\n2. Antibiotic trial (Tylosin/Metronidazole) × 2 wks\n3. Immunosuppression (prednisolone) — diagnostic + therapeutic if responds\n4. Biopsy (endoscopic or surgical) ก่อน start immunosuppression in severe cases\n\n💡 Naming convention (newer 2010s):\n— Chronic Enteropathy (CE) = umbrella term\n— Food-Responsive Enteropathy (FRE)\n— Antibiotic-Responsive Enteropathy (ARE)\n— Steroid-Responsive Enteropathy (SRE) = traditional IBD",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #10 (F)"
+  },
+  {
+    "id": 1104,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "TJ86 IBD T/F",
+    "tags": [
+      "ibd",
+      "tf",
+      "lymphoma",
+      "differential",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] Alimentary Lymphosarcoma เป็นโรคที่อาจทำให้สัตวแพทย์ผู้ตรวจสับสนกับอาการของ IBD และอาจทำให้การวินิจฉัยผิดพลาดได้ จึงต้องวินิจฉัยให้ละเอียด",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, Alimentary (Intestinal) Lymphoma = #1 differential ที่สำคัญที่สุดของ IBD\n\n💡 Why important:\n— Both cause: chronic vomit, diarrhea, weight loss, anorexia\n— Both have: thickened intestinal wall, lymphadenopathy on US\n— Both have: hypoalbuminemia (PLE)\n— Key difference: prognosis (IBD = chronic but treatable; intestinal lymphoma = malignant)\n\n💡 Differentiation:\n| Feature | IBD | Intestinal Lymphoma |\n|---|---|---|\n| Age | Variable (any) | Older (cat > 8 yr) |\n| Cat breed | Various | DSH > Siamese |\n| Cobalamin | Often ↓ (chronic enteropathy) | ↓↓ (severe) |\n| Histopath | Lymphocytic/Plasmacytic | Lymphoblasts |\n| Immunohistochemistry | Polyclonal | Monoclonal (PARR/clonality) |\n| Wall thickness on US | < 5 mm uniform | > 5 mm, mass-like, lymph node enlargement |\n| Response to steroid alone | Yes | Partial (need chemotherapy) |\n\n💡 Especially in cat — small cell intestinal lymphoma can closely mimic IBD, gold standard = full-thickness biopsy + PARR clonality test\n\n💡 Aj. Chayot/Sariya เน้น: ในแมวสูงอายุที่ \"ไม่ตอบสนอง diet trial + AB trial\" → biopsy + PARR ก่อน start prednisolone",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #11 (T)"
+  },
+  {
+    "id": 1105,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "TJ86 IBD T/F",
+    "tags": [
+      "ibd",
+      "tf",
+      "azathioprine",
+      "cat-toxicity",
+      "tj86",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ยา Azathioprine เป็นยากดภูมิคุ้มกันที่ห้ามใช้ในแมว เนื่องจากทำให้เกิด myelosuppression และ acute pancreatic necrosis",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, Azathioprine ห้ามใช้ในแมวเด็ดขาด ★ (Aj. Rosama, Aj. Chayot เน้น)\n\n💡 Mechanism of toxicity:\n— Cats lack TPMT (Thiopurine S-methyltransferase) — enzyme ที่ metabolize azathioprine ให้เป็น inactive form\n— Without TPMT → azathioprine → 6-mercaptopurine (6-MP) accumulates → severely toxic\n\n💡 Toxicity signs:\n1. Severe myelosuppression → pancytopenia (anemia + leukopenia + thrombocytopenia) → fatal\n2. Acute pancreatic necrosis (pathognomonic in cat!)\n3. Hepatotoxicity\n\n💡 Alternative immunosuppressants in cat:\n— Chlorambucil 0.1-0.2 mg/kg PO q24-48h (1st choice steroid-sparing in feline IBD/PF/IMHA)\n— Cyclosporine 5 mg/kg PO q12h\n— Mycophenolate (MMF) — limited cat data\n— Leflunomide\n\n💡 ในสุนัข Azathioprine ใช้ได้ปลอดภัย: 2 mg/kg q24h × 7-14 days → q48h maintenance, monitor CBC q2wks, onset 3-5 wks",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #12 (T) ★★ Aj. Rosama เน้น"
+  },
+  {
+    "id": 1106,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "TJ86 IBD T/F",
+    "tags": [
+      "ibd",
+      "tf",
+      "crp",
+      "monitoring",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ปัจจุบันการตรวจ C-Reactive Protein (CRP) ในเลือดเป็นการตรวจติดตามอาการและพยากรณ์โรค ในสัตว์ป่วยด้วย IBD",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก, CRP = useful biomarker สำหรับ monitor IBD activity และ prognosis (newer evidence ★)\n\n💡 CRP characteristics:\n— Acute phase protein produced by liver in response to IL-6\n— Major acute phase protein in dogs (> minor in cats — ใน cat ใช้ Serum Amyloid A แทน)\n— Rises within 4-24 hr of inflammation, peaks 24-48 hr\n— Normal: < 10 mg/L, IBD active: > 20-50 mg/L\n\n💡 Use in IBD:\n1. Severity assessment at diagnosis (correlates with CIBDAI/CCECAI score)\n2. Treatment monitoring — declining CRP = response\n3. Prognosis — persistently high CRP = worse outcome (PLE risk)\n4. Differentiate IBD from intestinal lymphoma — CRP often higher in IBD (inflammation > neoplasia)\n5. Detect relapse before clinical signs return\n\n💡 In cats: Serum Amyloid A (SAA) is the major acute-phase protein (CRP minor in cats), also useful biomarker",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #14 (T)"
+  },
+  {
+    "id": 1107,
+    "subject": "com4",
+    "topic": "ibd",
+    "year": 4,
+    "source": "TJ86 IBD T/F",
+    "tags": [
+      "ibd",
+      "tf",
+      "sulfasalazine",
+      "cat-ci",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ยา Sulfasalazine เป็นยาที่ยับยั้งการออกฤทธิ์ของ Prostaglandin synthase ซึ่งสามารถใช้ได้ทั้งในสุนัขและแมว",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด, Sulfasalazine ห้ามใช้ในแมว (salicylate toxicity)\n\n💡 ผิด 2 จุด:\n\n1. กลไกออกฤทธิ์:\n— Sulfasalazine = prodrug, cleaved by colonic bacteria → 5-aminosalicylate (5-ASA, mesalamine) + sulfapyridine\n— 5-ASA ออกฤทธิ์ local in colon: inhibit PGs + leukotrienes + NF-κB + scavenge free radicals (ไม่ใช่ \"prostaglandin synthase\" alone)\n— Topical anti-inflammatory in colon mucosa (ไม่ดูดซึมดี → ดี)\n\n2. Species use:\n— ห้ามใช้ในแมว! เพราะ cat metabolize salicylate ช้า → toxicity (vomit, hyperthermia, hepatotoxicity, methemoglobinemia)\n— Dog ใช้ได้: 10-25 mg/kg PO TID-QID × 4-6 wks\n\n💡 Side effects in dog:\n— Keratoconjunctivitis Sicca (KCS) ★ — Schirmer tear test ↓ (monitor q4-6 wks)\n— Hepatotoxicity\n— BM suppression\n— Hypersensitivity (Doberman, sulfa-sensitive breeds)\n\n💡 Alternatives ในแมว: Tylosin, Metronidazole, prednisolone, chlorambucil",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 IBD #16 (F) ★"
+  },
+  {
+    "id": 1108,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "TJ86 SLE T/F",
+    "tags": [
+      "sle",
+      "tf",
+      "breed",
+      "genetic",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] สุนัขพันธุ์ German Shepherd และพันธุ์ Poodle เป็นพันธุ์ที่สามารถตรวจพบป่วยด้วยโรค SLE ได้โดยมีสาเหตุจากพันธุกรรม",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก\n\n💡 SLE genetic predisposition:\n— German Shepherd (most reported breed) — DLA class II haplotype association\n— Standard Poodle\n— Collie + Shetland Sheepdog\n— Beagle, Old English Sheepdog\n— Rough Collie has familial SLE-like disease\n\n💡 Pathogenesis:\n— Loss of self-tolerance → autoantibodies against nuclear antigens (DNA, histones, ribonucleoproteins)\n— Type III hypersensitivity (immune complex deposition) in multiple organs\n— Type II hypersensitivity (anti-RBC, anti-platelet) in cytopenias\n\n💡 Multi-system involvement:\n— Skin (DLE-like, mucocutaneous)\n— Joints (polyarthritis non-erosive — most common sign)\n— Kidney (immune-complex GN)\n— Hematologic (IMHA, IMT, lymphopenia)\n— Neurologic (rare)\n— Cardiac (pericarditis, endocarditis — rare)\n\n💡 Diagnostic criteria: ANA + 2 organ systems involved (modified ARA criteria for vet)",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #17 (T)"
+  },
+  {
+    "id": 1109,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "TJ86 SLE T/F",
+    "tags": [
+      "sle",
+      "tf",
+      "cat",
+      "felv",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ในแมว โรค SLE อาจสับสนกับการเกิดโรค FeLV จึงควรตรวจแมวป่วยด้วยชุดทดสอบ FeLV/FIV test ก่อนเสมอ",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก\n\n💡 FeLV / FIV mimic SLE in cats (must rule out first):\n\nFeLV-related conditions ที่เลียน SLE:\n— Immune-mediated polyarthritis\n— Glomerulonephritis (immune complex with FeLV antigen)\n— Cytopenias (IMHA, IMT, neutropenia)\n— Lymphoma (alimentary, mediastinal — also consider)\n\nFIV-related conditions:\n— Immune dysregulation (hyperglobulinemia, autoantibodies)\n— Polyarthritis\n— GN\n— Neurologic signs\n\n💡 Initial workup ใน feline SLE-suspect:\n1. SNAP FeLV/FIV (in-clinic 4Dx)\n2. CBC, chem, UA, UPC\n3. ANA test (lower sensitivity in cat than dog)\n4. Joint tap (if polyarthritis) — non-degenerate neutrophils, sterile\n5. Skin biopsy (if cutaneous lesions)\n6. Renal biopsy (if proteinuric GN)\n\n💡 Treatment differs:\n— True SLE → immunosuppression (prednisolone, chlorambucil)\n— FeLV-related → palliative + retroviral consideration (interferon, etc.)\n— Don't blast immunosuppressants ในแมว FeLV+ (ต้องระวัง opportunistic infection)",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #18 (T)"
+  },
+  {
+    "id": 1110,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "อ.รสมา original T/F #47 (corrected interpretation)",
+    "tags": [
+      "sle",
+      "tf",
+      "lymphopenia",
+      "cd4-cd8",
+      "tj86",
+      "rosama-corrected",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ในสุนัขที่ป่วยด้วยโรค SLE จะตรวจพบมีภาวะ \"Lymphocytosis\" ร่วมกับมีค่า CD4:CD8 ที่ \"ต่ำกว่าปกติ\"",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด 2 จุด! ★★ พลาดง่ายมาก\n\nจุดผิดที่ 1: Lymphocytosis ผิด → ต้องเป็น Lymphopenia (CBC SLE → lymph ต่ำลง เพราะ anti-lymphocyte Ab + redistribution)\n\nจุดผิดที่ 2: CD4:CD8 ต่ำกว่าปกติ ผิด → ต้องเป็น CD4:CD8 สูงกว่าปกติ\n\n💡 CD4:CD8 ratio ใน canine SLE (Aj. Rosama original annotation ★):\n— Normal CD4:CD8 ≈ 2:1\n— SLE: CD4:CD8 ≈ 6:1 (สูงกว่า normal 3 เท่า) — preferential CD8 loss\n— กลไก: CD8+ cytotoxic T-cells โดน autoantibody attack มากกว่า CD4+ helper → CD8 ลดลง → ratio CD4:CD8 increase\n— Reflects breakdown of T-cell tolerance\n\n💡 CBC findings in canine SLE:\n— Lymphopenia (Total lymph ↓)\n— Anemia (IMHA component, regenerative)\n— Thrombocytopenia (IMT component)\n— Neutropenia (anti-neutrophil Ab, sometimes)\n\n💡 Immunologic findings:\n— Hypergammaglobulinemia (polyclonal B-cell activation)\n— Hypocomplementemia (consumed in immune complex formation)\n— Positive ANA test (sensitivity 60-100%)\n— Anti-dsDNA (specific)\n\n⚠️ ความเข้าใจเดิมที่ว่า CD4:CD8 ต่ำใน SLE → แก้แล้ว: CD4:CD8 สูง ใน canine SLE",
+    "verified": "อ.รสมา original Fangfuay vet81 #47 (F) ★★ \"สูงกว่า normal 2:1, ใน SLE 6:1\""
+  },
+  {
+    "id": 1111,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "TJ86 SLE T/F",
+    "tags": [
+      "sle",
+      "tf",
+      "ana",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "[T/F] การตรวจ ANA test ในซีรั่มเป็นวิธีการตรวจที่สำคัญของโรค SLE ร่วมกับค่าทางห้องปฏิบัติการอื่น ๆ",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก\n\n💡 ANA (Anti-Nuclear Antibody) test in SLE:\n\nSensitivity: 60-100% (depends on substrate — Hep-2 cells > rat liver/kidney)\nSpecificity: moderate (false positive ใน chronic inflammation, neoplasia, infection)\n\nPositive ANA + ≥ 2 organ systems = supports SLE diagnosis\n\n💡 ANA patterns (helpful but not diagnostic):\n— Homogeneous (diffuse) — anti-dsDNA, anti-histone (most common in SLE)\n— Speckled — anti-Sm, anti-RNP\n— Nucleolar — anti-RNA polymerase (scleroderma-like)\n— Centromeric — limited scleroderma\n\n💡 ANA negative ≠ rule out SLE — 5-10% of SLE are ANA-negative\n\n💡 Other supportive lab:\n— Anti-dsDNA (highly specific, 90%)\n— Anti-Sm (Smith antigen, very specific)\n— Hypocomplementemia (C3, C4 ↓)\n— Coombs' positive (if IMHA component)\n— Polyarthritis tap: non-degenerate neutrophils\n— GN: UPC > 0.5, proteinuria",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #21 (T)"
+  },
+  {
+    "id": 1112,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "TJ86 SLE T/F",
+    "tags": [
+      "sle",
+      "tf",
+      "levamisole",
+      "tj86",
+      "rare"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ในสุนัขที่เป็นโรค SLE มีรายงานการใช้ยา Levamisole ร่วมกับ Prednisolone ซึ่งได้ผลดีในประมาณ 50% ของสุนัขป่วย",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก (ข้อสอบเก่า ★ — concept สำคัญแต่ relatively rare)\n\n💡 Levamisole in canine SLE:\n— Anthelmintic with immunomodulatory effects (T-cell function modulation, restoration of cellular immunity)\n— Combined with Prednisolone for SLE refractory cases\n— Reported response rate ~ 50% (older case series, Aj. Rosama old text)\n— Dose: Levamisole 2-5 mg/kg PO every other day\n— Plus: Prednisolone 1-2 mg/kg/d → taper\n\n💡 Caution:\n— Hepatotoxicity\n— Vomiting\n— Behavioral changes (rare)\n— Bone marrow suppression\n— Less commonly used today vs newer agents (cyclosporine, mycophenolate, chlorambucil)\n\n💡 Modern SLE management ladder (Aj. Rosama):\n1. Prednisolone 1-2 mg/kg/d → taper after remission\n2. + Cyclosporine 5 mg/kg q12h (steroid-sparing)\n3. + Cyclophosphamide หรือ Chlorambucil (severe / refractory)\n4. + MMF (mycophenolate) (newer)\n5. Azathioprine in dog (NOT cat)\n6. Levamisole (legacy option)\n\n💡 Adjunct: Hydroxychloroquine for cutaneous SLE (analog human Tx)",
+    "verified": "TJ86 รวบรวมข้อสอบเก่ารุ่นพี่ p.2 SLE #22 (T)"
+  },
+  {
+    "id": 1113,
+    "subject": "com4",
+    "topic": "immune-drugs",
+    "year": 4,
+    "source": "TJ86 Aj. Chayot Drugs III ออกใหม่ 100%",
+    "tags": [
+      "drugs",
+      "leflunomide",
+      "pyrimidine",
+      "tj86",
+      "new"
+    ],
+    "type": "mcq",
+    "q": "Leflunomide ทำงานผ่านกลไกอะไร และจัดเป็นยากลุ่มไหน",
+    "options": [
+      "Purine antagonist เหมือน Azathioprine",
+      "Pyrimidine antimetabolite ยับยั้ง DHODH",
+      "Calcineurin inhibitor เหมือน Cyclosporine",
+      "Alkylating agent เหมือน Chlorambucil",
+      "Anti-TNF monoclonal antibody"
+    ],
+    "answer": 1,
+    "explain": "Leflunomide:\n• Class: Pyrimidine antimetabolite (immunomodulator)\n• MOA: Active metabolite (teriflunomide) inhibits DHODH → ↓ de novo pyrimidine synthesis → ↓ proliferation of activated T + B lymphocytes\n• Selectively affects rapidly dividing immune cells (resting cells use salvage pathway)\n\nVet uses:\n— Refractory IMHA, IMT, SLE\n— Polyarthritis (immune-mediated)\n— Pemphigus (steroid-sparing)\n— Reactive histiocytosis\n\nDose: 2-4 mg/kg PO q24h (start low, monitor liver enzymes)\n\nAE:\n— GI (vomit, diarrhea, anorexia)\n— Hepatotoxicity (monitor ALT/ALP)\n— BM suppression (monitor CBC q2-4 wks)\n— Long t½ (~ 14-18 days) → drug accumulation\n\n💡 T+B cell",
+    "verified": "TJ86 Drugs III ข้อ 7"
+  },
+  {
+    "id": 1114,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "TJ86 Aj. Chayot Drugs III ออกใหม่ 100%",
+    "tags": [
+      "lokivetmab",
+      "cytopoint",
+      "il-31",
+      "tj86",
+      "new"
+    ],
+    "type": "mcq",
+    "q": "Lokivetmab (Cytopoint®) คืออะไร และทำงานอย่างไร",
+    "options": [
+      "Antibiotic",
+      "Steroid",
+      "Anti-IL-31 mAb",
+      "Antihistamine",
+      "NSAID"
+    ],
+    "answer": 2,
+    "explain": "Lokivetmab (Cytopoint®, Zoetis):\n• Class: Caninized anti-IL-31 mAb (biologic therapy)\n• MOA: Binds and neutralizes circulating IL-31 — the \"itch cytokine\" produced by activated Th2 cells in atopy\n• IL-31 normally signals to: nerve endings (DRG, skin) → pruritus; keratinocytes → barrier dysfunction; Th2 axis amplification\n\nUse: Canine Atopic Dermatitis (CAD) pruritus management\n\nDosing:\n— 2 mg/kg SC ทุก 4-8 สัปดาห์ (variable response duration)\n— No oral form (Apoquel = oral version of different mech — JAK inhibitor)\n— Onset: 1-3 days, peak 7-14 days\n\nPros:\n— Highly safe (few systemic AE — minimal immunosuppression)\n— Suitable for puppies (≥ 1 mo old) — no age restriction\n— Compatible with vaccines, other meds\n— Long-lasting effect\n\nCons:\n— $$$ (expensive)\n— Doesn't treat underlying allergy (just blocks itch signal)\n— Some dogs become \"non-responders\" over time\n— Not effective for non-IL-31-driven pruritus\n\nCompare to Oclacitinib (Apoquel):\n— Apoquel = JAK1 inhibitor (oral, daily) — broader effect, faster onset (4 hr) but more AE\n— Cytopoint = anti-IL-31 (injection q4-8 wk) — narrower target, safer, fewer AE\n\n💡 CAD pruritus",
+    "verified": "TJ86 Drugs III ข้อ 10"
+  },
+  {
+    "id": 1115,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Chayot Drugs III ออกใหม่ 100%",
+    "tags": [
+      "bedinvetmab",
+      "librela",
+      "ngf",
+      "tj86",
+      "new"
+    ],
+    "type": "mcq",
+    "q": "Bedinvetmab (Librela®) เป็นยาประเภทใด และใช้รักษาอะไร",
+    "options": [
+      "Broad-spectrum antibiotic",
+      "Sedative ลดความกังวล",
+      "Anti-flea กำจัดหมัด",
+      "Antihistamine แก้แพ้",
+      "Anti-NGF mAb for OA pain"
+    ],
+    "answer": 4,
+    "explain": "Bedinvetmab (Librela®, Zoetis):\n• Class: Caninized anti-NGF (Nerve Growth Factor) monoclonal antibody\n• MOA: Binds and neutralizes circulating NGF — pivotal cytokine in OA pain pathway\n  - NGF → activates TrkA + p75NTR receptors on nociceptive neurons\n  - Sensitizes peripheral + central pain pathways\n  - Drives chronic pain in OA\n— Blocking NGF → ↓ pain transmission → improved mobility\n\nApproved indication: Canine Osteoarthritis (OA) chronic pain management\n\nDose: 0.5-1 mg/kg SC monthly (q4 wks)\n\nPros:\n— Long-acting injection (monthly)\n— Excellent safety profile in dogs\n— No GI/renal/hepatic AE (unlike NSAIDs)\n— Suitable for elderly with comorbidities\n— Compatible with NSAIDs in some protocols\n\nCons:\n— $$$\n— Slow onset (1-2 wks)\n— Some dogs non-responders\n— Concerns about rapidly progressive OA in human studies (monitor)\n\n💡 Cat equivalent = Frunevetmab (Solensia®) — felinized anti-NGF mAb (next Q)",
+    "verified": "TJ86 Drugs III ข้อ 11"
+  },
+  {
+    "id": 1116,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Chayot Drugs III ออกใหม่ 100%",
+    "tags": [
+      "frunevetmab",
+      "solensia",
+      "ngf",
+      "cat",
+      "tj86",
+      "new"
+    ],
+    "type": "mcq",
+    "q": "Frunevetmab (Solensia®) คืออะไร — และใช้ในสัตว์ชนิดใด",
+    "options": [
+      "Anti-flea topical ในสุนัข",
+      "Injectable steroid ในม้า",
+      "Broad-spectrum antibiotic ในวัว",
+      "Felinized anti-NGF mAb (OA pain)",
+      "Core vaccine ในลูกสุนัข"
+    ],
+    "answer": 3,
+    "explain": "Frunevetmab (Solensia®, Zoetis):\n• Class: Felinized anti-NGF monoclonal antibody (IgG)\n• Species: Cats only (cat equivalent of Bedinvetmab/Librela)\n• Indication: Feline Osteoarthritis pain (incredibly common but underdiagnosed — ~ 60% of cats > 6 yr have OA)\n\nWhy important in cats:\n— Cats are notoriously bad candidates for NSAIDs long-term (renal safety concerns, esp. in elderly with CKD comorbidity)\n— Limited safe analgesics: opioid (short-term), gabapentin (chronic), buprenorphine\n— Solensia fills the gap → safe long-term OA pain control\n\nDose: 1-2.8 mg/kg SC monthly\n\nPros:\n— Safe in cats with CKD, hyperthyroid (no renal/hepatic concern from drug itself)\n— Monthly injection (good compliance)\n— Improves quality of life (jumping, playing, grooming)\n\nCons:\n— $$$\n— Onset 1-2 wks\n— Need feline-specific (cat IgG) — can't use canine anti-NGF in cat\n\n💡 จำคู่กับ Bedinvetmab",
+    "verified": "TJ86 Drugs III ข้อ 12"
+  },
+  {
+    "id": 1117,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "TJ86 Aj. Chayot Drugs III ออกใหม่ 100%",
+    "tags": [
+      "oclacitinib",
+      "apoquel",
+      "jak",
+      "age-restriction",
+      "tj86",
+      "new"
+    ],
+    "type": "mcq",
+    "q": "Oclacitinib (Apoquel®) ใช้สำหรับ atopic dermatitis ในสุนัข — มี age restriction ใดสำคัญ",
+    "options": [
+      "ใช้ได้ทุกวัยไม่จำกัดอายุ",
+      "ใช้ในสุนัขที่อายุมากกว่า 12 เดือน",
+      "ใช้เฉพาะลูกสุนัขอายุ < 6 เดือน",
+      "ใช้เฉพาะสุนัขสูงวัย > 5 ปี",
+      "ห้ามใช้ในสุนัขทุกกรณี"
+    ],
+    "answer": 1,
+    "explain": "Oclacitinib (Apoquel®, Zoetis):\n• Class: JAK inhibitor (selectively JAK1) → blocks IL-31, IL-2, IL-4, IL-13 signaling\n• Use: CAD pruritus + Allergic dermatitis (FAD, food allergy on TRIP-P slot)\n\n🚫 Age restriction: ≥ 12 months old (1 year)\n\nReasons:\n1. Demodicosis risk in puppies (immunosuppression unmasks Demodex)\n2. Papillomatosis (viral warts) — opportunistic infection\n3. Bone marrow effects in developing animals\n4. Vaccine response considerations\n5. Long-term BM/lymphoid effects in growing dogs\n\nDose:\n— Induction: 0.4-0.6 mg/kg PO q12h × 14 days\n— Maintenance: 0.4-0.6 mg/kg PO q24h\n\nOnset: very fast (within 4 hours)\nEffective for: pruritus only — doesn't cure underlying atopy\n\nAE:\n— Vomit, diarrhea (mild)\n— Lethargy, polydipsia\n— Pyoderma, otitis (immunosuppression)\n— ↑ pneumonia risk\n— Demodicosis (rare in adult dogs)\n— BM suppression (rare)\n— Theoretical neoplasia risk (long-term controversial)\n\n💡 ใช้ได้เฉพาะสุนัขอายุมากกว่า 12 เดือน ลูกสุนัขใช้ Cytopoint แทนได้ เพราะไม่มีข้อจำกัดเรื่องอายุ\n\n💡 ≥ 1 ปี",
+    "verified": "TJ86 Drugs III ข้อ 8"
+  },
+  {
+    "id": 1118,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Punyamanee Peds (85≠84)",
+    "tags": [
+      "neonate",
+      "reflexes-timing",
+      "withdrawal",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "Withdrawal reflex (รีเฟล็กซ์ดึงเมื่อโดนบีบ) ใน neonatal puppy/kitten ปรากฏเมื่ออายุประมาณเท่าใด",
+    "options": [
+      "ตั้งแต่แรกเกิด (at birth) ทันที",
+      "ไม่ปรากฏในสัตว์เลย",
+      "ประมาณ 6 เดือนหลังเกิด",
+      "ประมาณ 1 ปีหลังเกิด",
+      "7-19 days post-birth"
+    ],
+    "answer": 4,
+    "explain": "Neonatal reflex timeline (Aj. Punyamanee — Vet 85 lecture differs from Vet 84):\n\nAt birth (present):\n— Pain reflex (response to noxious stimulus)\n— Righting reflex (turn upright when on back)\n— Rooting reflex (search for nipple)\n— Sucking reflex\n— Anogenital reflex (urination/defecation when stimulated by mother)\n\nDevelops over weeks:\n— Eyes open: 5-14 days\n— Withdrawal reflex: 7-19 days ★\n— Hearing/Ear canal opens: 6-14 days\n— Smell mature: 7-14 days\n— Menace reflex + voluntary voiding: 3 wks\n— Voluntary deification + urination: 3-4 wks\n— Adult-like locomotion: 4-5 wks\n\n💡 จุดสำคัญที่ Vet 86 ต้องจำ:\n— Pain reflex = at birth (immediate) ← TJ86 ระบุชัดเจน\n— Withdrawal reflex = 7-19 days ← develop ภายหลัง\n— สอง reflex นี้ต่างกัน! pain = primitive, withdrawal = developmental",
+    "verified": "TJ86 Aj. Punyamanee Peds #2 (85 ≠ 84)"
+  },
+  {
+    "id": 1119,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Punyamanee Peds (85≠84)",
+    "tags": [
+      "neonate",
+      "colostrum",
+      "immunoglobulin-types",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "Colostrum ใน puppy/kitten — Immunoglobulin ใดที่ดูดซึมได้ \"ดีกว่า\" และทำไม",
+    "options": [
+      "IgM ดูดซึมดีกว่าเพราะเป็น pentamer",
+      "IgD ดูดซึมได้ดีที่สุด",
+      "IgE เป็นตัวหลักในนมน้ำเหลือง",
+      "IgG + IgA ดูดซึมดีกว่า IgM",
+      "ทุก isotype ดูดซึมเท่ากันหมด"
+    ],
+    "answer": 3,
+    "explain": "Colostral Ig absorption in neonate:\n\nIgG (monomer, ~ 150 kDa) — ดูดซึมได้ดีที่สุด\n— Major isotype in colostrum\n— Provides systemic passive immunity\n— Detectable in serum within hours\n\nIgA (dimer, ~ 380 kDa) — ดูดซึมรอง\n— Local mucosal protection (gut, respiratory)\n— Important for intestinal immunity\n\nIgM (pentamer, ~ 970 kDa) — ดูดซึมยาก\n— Too large to pass through enterocyte pinocytosis\n— Mostly stays in gut lumen → local effect only\n— Limited contribution to systemic passive immunity\n\n💡 Gut closure timing:\n— First 8 hr: peak absorption\n— 24 hr: closure mostly complete\n— 48-72 hr: complete closure\n— After closure → Ig pass through but NOT absorbed (local effect only)\n\n💡 Maternal serum vs colostrum:\n— Bitch/queen produces concentrated colostrum from late pregnancy\n— First milk = colostrum (high Ig)\n— After 24-48 hr → transitions to mature milk (low Ig, normal nutrient)\n\n💡 Failure of Passive Transfer (FPT):\n— Serum IgG < 200 mg/dL\n— Causes: orphan, weak suckle, agalactia (queen), late birth\n— Tx: plasma transfusion 22 ml/kg PO หรือ SC ใน first 24 hr, then IV/IP after gut closure\n\n💡 IgM โมเลกุลใหญ่ pentamer ผ่านลำไส้ยาก",
+    "verified": "TJ86 Aj. Punyamanee Peds #3"
+  },
+  {
+    "id": 1120,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Punyamanee Peds (85≠84)",
+    "tags": [
+      "neonate",
+      "organ-maturation",
+      "hepatic-renal",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "Hepatic + renal function ใน puppy/kitten — เริ่มทำงานเทียบเท่า adult ที่อายุเท่าใด",
+    "options": [
+      "Birth (immediate adult function)",
+      "6 months both",
+      "1 year both",
+      "Never reach adult",
+      "Liver: 4-5 months, Kidney"
+    ],
+    "answer": 4,
+    "explain": "Organ maturation timeline (Aj. Punyamanee Vet 85):\n\nHepatic function:\n— Adult-equivalent at 4-5 months\n— CYP450 enzyme activity matures gradually\n— Albumin synthesis matures\n— Glycogenolysis + gluconeogenesis develop over weeks\n— Implication: avoid drugs with hepatic metabolism in young (e.g., phenobarbital, propofol — accumulate)\n\nRenal function:\n— Adult-equivalent at 8 weeks (GFR + tubular function)\n— Nephrogenesis completes around 2 wks postnatal\n— USG: 1.006-1.017 (isosthenuria) — normal until 8 wks\n— Trace proteinuria + glucosuria normal first 3 days (immature reabsorption)\n— Implication: avoid renal-cleared drugs (aminoglycosides, NSAIDs) in young\n\nOther organ maturation:\n— Cardiovascular: ductus arteriosus closes 2-5 days, foramen ovale closes\n— GI: HCl secretion gradually develops (low at birth = vulnerable to bacterial overgrowth)\n— Immune: passive immunity from colostrum first 6 wks → active immunity develops 6-12 wks\n— CNS: BBB matures over weeks\n\n💡 Drug considerations in neonate (< 6-8 wks):\n— AVOID:\n  • Tetracyclines (bone + teeth deposition, yellow staining)\n  • Gentamicin/aminoglycosides (nephrotoxic)\n  • Metronidazole (neurotoxicity in high dose)\n  • TMP-Sulfa (BM effects, KCS in dog)\n  • Enrofloxacin (cartilage damage)\n  • NSAIDs (renal + GI immature)\n— PREFER:\n  • β-lactams (penicillin, amoxicillin, cephalexin) — wide safety\n  • Clindamycin (with caution)",
+    "verified": "TJ86 Aj. Punyamanee Peds #11"
+  },
+  {
+    "id": 1121,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Punyamanee Peds (85≠84)",
+    "tags": [
+      "neonate",
+      "drugs-avoid",
+      "tj86",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "ยาที่ \"ไม่แนะนำ\" ใน lukpup/kitten อายุน้อย (< 6-8 wks) ตาม Aj. Punyamanee คือ",
+    "options": [
+      "Penicillin G + Ampicillin",
+      "Amoxicillin + clavulanic acid",
+      "Tetracycline + Gentamicin + TMS",
+      "Clindamycin + Erythromycin",
+      "Cephalexin + Cefovecin"
+    ],
+    "answer": 2,
+    "explain": "Drugs to AVOID in neonate/pediatric (< 6-8 wks):\n\n1. Tetracyclines (Tetracycline, Doxycycline)\n— Chelate Ca²⁺ → deposits in bones + teeth\n— Permanent yellow-brown tooth staining\n— Slow bone growth\n— Use only > 6 mo if possible\n\n2. Gentamicin / Aminoglycosides (Amikacin, Tobramycin, Streptomycin)\n— Nephrotoxic (immature kidney)\n— Ototoxic (cochlear + vestibular)\n— Neurotoxicity (high dose)\n— Use only ถ้าจำเป็นจริงๆ + therapeutic drug monitoring\n\n3. Metronidazole\n— Neurotoxicity in high dose / prolonged use (> 50 mg/kg/d)\n— Vestibular signs, ataxia, seizure\n— BM effects (mild)\n\n4. TMP-Sulfa (Trimethoprim-sulfonamide)\n— BM suppression\n— Hepatotoxicity\n— Keratoconjunctivitis Sicca (KCS) in dog (esp. Doberman, sulfa-sensitive breeds)\n— Hypersensitivity\n\n5. Enrofloxacin / Fluoroquinolones\n— Cartilage damage in growing animals (arthropathy)\n— Avoid in dogs < 12 mo (small breed) or < 18 mo (large breed)\n— Especially avoid in giant breeds during growth plate closure\n— Cat: retinal degeneration (high dose)\n\n💡 Note: NSAIDs also avoided in < 6-8 wks (immature liver + kidney)\n\n💡 Safe choices ใน puppy/kitten:\n— β-lactam (penicillin, amoxicillin, cephalexin)\n— Clindamycin (with caution)\n— Erythromycin (with caution, GI AE)\n\n💡 ทั้งกลุ่ม",
+    "verified": "TJ86 Aj. Punyamanee Peds #18 (แต่งคำถามรวม)"
+  },
+  {
+    "id": 1122,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Punyamanee Peds (85≠84)",
+    "tags": [
+      "cat-age",
+      "definitions",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "Cat life stage definitions ตาม Aj. Punyamanee 2026 คือ",
+    "options": [
+      "Kitten 0-6 mo, Adult > 6 mo",
+      "Senior > 5 years",
+      "Kitten until 5 years",
+      "แมวเด็ก: 0-6 mo",
+      "No standard"
+    ],
+    "answer": 3,
+    "explain": "Feline life stages (Aj. Punyamanee Vet 85):\n\nNewborn / Neonate: 0-2 weeks\nInfant: 2-6 weeks\nWeanling: 6-12 weeks\nKitten: 0-6 months\nJunior: 6 months - 2 years\nAdult: 3-6 years\nMature/Middle-aged: 7-10 years\nSenior: > 10 years (≥ 11 yr per AAHA/ISFM)\nGeriatric/Super-senior: > 14-15 years (some categories use this for super-old)\n\n💡 Senior cat threshold = > 10 years ← TJ86 emphasizes\n\n💡 Common geriatric cat diseases (> 10 yr):\n— CKD (most common, ~ 30-50% of cats > 10 yr)\n— Hyperthyroidism (~ 10% of cats > 10 yr)\n— Diabetes mellitus\n— Neoplasia (lymphoma, mammary, SCC)\n— Osteoarthritis (under-recognized — ~ 60% of cats > 6 yr)\n— Cardiomyopathy (HCM)\n— Cognitive Dysfunction Syndrome (CDS)\n— Dental disease\n\n💡 ความถี่การ check-up:\n— Adult: ปีละครั้ง\n— Senior: ทุก 6 เดือน + comprehensive screening (CBC, chem, T4, BP, UA)\n\n💡 ข้อแตกต่างกับ canine:\n— Small dog senior: 9+ yr, Large/giant: 6-7+ yr\n— Cat senior: 10+ yr (ทุกสายพันธุ์)\n\n💡 geriatric category\n\n💡 แมว Senior > 10 ปี",
+    "verified": "TJ86 Aj. Punyamanee Peds #6"
+  },
+  {
+    "id": 1123,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Punyamanee Geri",
+    "tags": [
+      "geriatric",
+      "gi-changes",
+      "tj86",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "การเปลี่ยนแปลงทางระบบทางเดินอาหาร (GI) ในสัตว์สูงอายุ (geriatric) ตาม Aj. Punyamanee คือ",
+    "options": [
+      "GI motility เพิ่มขึ้น + HCl เพิ่ม + bile production เพิ่ม",
+      "เพิ่ม pancreatic enzyme เท่านั้น",
+      "ไม่มีการเปลี่ยนแปลง",
+      "GI motility เพิ่มเฉพาะลำไส้",
+      "GI motility ลดลง"
+    ],
+    "answer": 4,
+    "explain": "Geriatric GI changes (Aj. Punyamanee — TJ86 ระบุชัดเจนว่า \"Reduced motility, HCl, Secretion, bile formation\"):\n\nลดลงทุกอย่าง:\n• ↓ Motility → delayed gastric emptying + constipation\n• ↓ HCl secretion → \n  - Malabsorption (esp. B12, iron, calcium)\n  - Bacterial overgrowth (SIBO)\n  - Reduced protein digestion\n• ↓ Bile formation → \n  - Fat malabsorption\n  - Cholestatic disease\n  - Vitamin K-dependent factors deficient\n• ↓ Pancreatic enzyme → \n  - EPI-like signs\n  - Steatorrhea\n• ↓ Secretion (saliva, mucus) → dry mouth, dental disease\n\n💡 Common geriatric GI conditions:\n— Constipation (dehydration + ↓ motility + DJD/inactivity + CKD)\n— Chronic enteropathies / IBD (more common in older cats)\n— Chronic hepatitis / cholangitis (cat: triaditis = cholangitis + IBD + pancreatitis)\n— Pancreatitis\n— Inflammatory bowel disease\n— Megacolon (cat)\n— Dental disease (tooth resorption, periodontitis)\n— GI neoplasia (lymphoma, adenocarcinoma)\n\n💡 Management:\n— Frequent small meals\n— High-quality digestible diet\n— Adequate hydration\n— Probiotic supplementation\n— Regular dental care\n\n💡 HCl ลดลง, Bile formation ลดลง → ส่งผลให้เกิด constipation",
+    "verified": "TJ86 Aj. Punyamanee Geri #2 (Reduced motility, HCl, Secretion, bile formation)"
+  },
+  {
+    "id": 1124,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Punyamanee Geri",
+    "tags": [
+      "geriatric",
+      "vaccination",
+      "risk-based",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "Vaccination ในสัตว์สูงอายุ (geriatric) ตาม Aj. Punyamanee 2026 ใช้หลักการใด",
+    "options": [
+      "Risk-based approach",
+      "ฉีดทุกตัวทุกชนิดเหมือน adult",
+      "หยุดฉีดทุกชนิดเมื่ออายุ > 10 ปี",
+      "ฉีดมากกว่า adult เพราะภูมิต่ำ",
+      "Annual core ทุกตัว ทุกปี"
+    ],
+    "answer": 0,
+    "explain": "Geriatric vaccination — Risk-based approach (AAHA/WSAVA 2024 + Aj. Punyamanee):\n\nConcept:\n— ไม่ใช่ \"one-size-fits-all\" — pre-tailor ตามความเสี่ยงแต่ละตัว\n— ประเมิน:\n  • Lifestyle (indoor only? park visits? boarding? grooming?)\n  • Environment (single pet vs multi-pet household?)\n  • Geographic prevalence ของโรคที่ฉีดป้องกัน\n  • Comorbidities (immunocompromised, neoplasia, advanced CKD)\n  • Vaccine titer testing (option for some core vaccines)\n\nCore vaccines (still recommended for most):\n— Dog: Rabies (legal), DHPP (CDV, CAV-2, CPV-2, CPiV), Lepto (in TH endemic)\n— Cat: Rabies, FVRCP (FHV-1, FCV, FPV)\n— FeLV (kitten + outdoor cat)\n\nNon-core (risk-based):\n— Dog: Bordetella, CIV (canine influenza), Borrelia (Lyme — TH not endemic), Crotalus (rattlesnake)\n— Cat: Chlamydia, Bordetella\n\nSenior single-pet indoor cat (low risk):\n— อาจไม่ต้องฉีด FeLV (no exposure)\n— Rabies legal requirement (อาจฉีด less often — 3-yr cycle)\n— FVRCP — titer test เป็น option แทนการฉีดประจำ\n\nAdverse reactions concern in elderly:\n— Higher risk of vaccine-associated reactions in dogs > 10 yr\n— Cat: VAS (Vaccine-Associated Sarcoma) at injection site\n— Adjuvant load consideration\n\n💡 Aj. Punyamanee เน้น: ปรับให้เหมาะกับสัตว์แต่ละตัว ไม่ใช่ฉีดสะเปะสะปะ ★\n\n💡 พิจารณาความเสี่ยงแต่ละตัว, indoor pet อาจไม่ต้องครบทุกชนิด",
+    "verified": "TJ86 Aj. Punyamanee Geri #5"
+  },
+  {
+    "id": 1125,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "TJ86 Aj. Punyamanee Geri",
+    "tags": [
+      "geriatric",
+      "imaging",
+      "workup",
+      "tj86"
+    ],
+    "type": "mcq",
+    "q": "Imaging modalities ใน geriatric workup ตาม Aj. Punyamanee — เพิ่มขึ้นจาก pediatric อย่างไร",
+    "options": [
+      "Imaging ไม่จำเป็นในสัตว์สูงวัย",
+      "ใช้แค่ blood test อย่างเดียวพอ",
+      "ใช้แค่ X-ray ก็เพียงพอแล้ว",
+      "เพิ่ม U/S + CT/MRI screening",
+      "CT/MRI ห้ามใช้ในสัตว์แก่"
+    ],
+    "answer": 3,
+    "explain": "Geriatric imaging strategy (Aj. Punyamanee — TJ86 ระบุ \"เพิ่มขึ้นจาก pediatric\"):\n\nWhy imaging more in geriatric:\n— Higher prevalence of neoplasia (~ 50% deaths in dogs > 10 yr)\n— Subclinical organ disease (CKD, cardiac, hepatic) common\n— Need pre-anesthetic screening before any procedure\n— Differential diagnosis broader (more potential pathologies)\n\nRecommended modalities:\n\n1. Abdominal Ultrasonography (AUS) — most useful screening:\n— Liver, spleen, kidneys, adrenals, GI, lymph nodes, urinary bladder\n— Detect: mass lesions, organ enlargement, peritoneal effusion\n— Indications: vague illness, ↑ liver enzymes, weight loss, palpable mass\n\n2. Thoracic Radiography:\n— Cardiac silhouette (DMVD in dog, HCM in cat)\n— Pulmonary patterns (CHF, neoplasia, infiltrative dz)\n— Mediastinal mass\n\n3. Echocardiography:\n— Detect chamber size, wall thickness, valve disease\n— Important in dogs > 7 yr (DMVD prevalence 75%)\n— Cats > 10 yr (HCM screening)\n\n4. CT scan:\n— Thoracic mass evaluation (better than rad)\n— Abdominal neoplasia + metastasis staging\n— Skull/bone disease\n— Spinal disease\n\n5. MRI:\n— Brain disease (CDS, neoplasia, vascular)\n— Spinal cord disease (IVDD, neoplasia, syringomyelia)\n— Soft tissue sarcoma evaluation\n\n💡 Routine senior screening (yearly minimum):\n— CBC + chem profile + UA + UPC\n— Thyroid (T4 in cat, sometimes dog)\n— BP\n— Abdominal US (q1-2 yr in cat > 10 yr — to catch lymphoma early)\n— Thoracic rad ± echocardiography (if cardiac signs)",
+    "verified": "TJ86 Aj. Punyamanee Geri #7"
+  },
+  {
+    "id": 1126,
+    "subject": "com4",
+    "topic": "sle",
+    "year": 4,
+    "source": "อ.รสมา Fangfuay vet81 #16",
+    "tags": [
+      "amyloidosis",
+      "cat",
+      "breed",
+      "tf",
+      "rosama"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ในแมวมักพบการสะสมของสาร Amyloid ที่ \"ชั้น cortex\" และกรวยไต พบมากในแมวพันธุ์ Abyssinian, Siamese และ Oriental Shorthair",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก\n\n💡 Feline renal amyloidosis (familial AA-type):\n— Abyssinian (most reported, autosomal dominant inheritance pattern)\n— Siamese\n— Oriental Shorthair\n— Birman occasionally\n\n💡 Amyloid deposition site in cat:\n— Renal medulla / interstitium (medullary amyloidosis pattern) ★ เด่นกว่าใน cat\n— Renal cortex (glomerular) — also affected\n— Liver (hepatic amyloidosis can lead to spontaneous hepatic rupture in Siamese/Oriental)\n\n💡 Compare to dog amyloidosis:\n— Shar-Pei: familial fever syndrome → reactive amyloidosis (medullary > glomerular)\n— Most dogs: glomerular pattern (cortex predominant) → severe proteinuria\n\n💡 Clinical signs:\n— PU/PD, weight loss, vomit, anorexia\n— Mild proteinuria (less severe than glomerular type — UPC < 2 typically)\n— Progressive azotemia\n— Hepatic rupture if liver involvement (Siamese)\n\n💡 Diagnosis: renal biopsy + Congo red stain (apple-green birefringence under polarized light)\n💡 Tx: limited — colchicine, DMSO (questionable efficacy), supportive CKD care, poor prognosis",
+    "verified": "อ.รสมา original Fangfuay vet81 #16 (T)"
+  },
+  {
+    "id": 1127,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "อ.รสมา Fangfuay vet81 #26",
+    "tags": [
+      "neonate",
+      "lactose",
+      "milk-replacer",
+      "tf",
+      "rosama"
+    ],
+    "type": "mcq",
+    "q": "[T/F] Lactose intolerance เป็นสาเหตุของท้องเสียในลูกสุนัขที่กินนมผงเป็นประจำ",
+    "options": [
+      "ผิด (False)",
+      "ถูก (True)"
+    ],
+    "answer": 0,
+    "explain": "❌ ผิด — Lactose intolerance ใน puppy ที่กินนมผง ไม่ใช่สาเหตุหลัก ของท้องเสีย\n\n💡 ทำไม F:\n— Puppy/Kitten มี lactase enzyme เต็มที่ ในวัยทารก (ไม่เหมือน adult mammal ที่ลด lactase หลัง weaning)\n— Commercial milk replacer (Esbilac, KMR) มี lactose level ใกล้เคียงนมแม่ + ปรับ formulation ให้ย่อยง่าย\n\n💡 สาเหตุท้องเสียจริงในลูกสุนัขกินนมผง (more likely):\n1. Improper preparation: นมเข้มข้น/เจือจางเกิน, อุณหภูมิไม่เหมาะ\n2. Overfeeding: ปริมาณเกิน stomach capacity (4-5 ml/100g BW)\n3. Wrong formula: ใช้นมวัว (cow milk) แทน species-appropriate replacer → lactose สูง + protein/fat ratio ผิด\n4. Bacterial contamination: เก็บนมผสมไว้นาน, ไม่ฆ่าเชื้ออุปกรณ์\n5. Fat malabsorption: คุณภาพ replacer ไม่ดี\n6. Infectious causes: parvovirus, coronavirus, Giardia\n7. Stress: separation from mom, environment change\n\n💡 หลักการ feeding:\n— ใช้ commercial puppy/kitten milk replacer (เคย เคย)\n— หลีกเลี่ยงนมวัว ที่มี lactose สูงเกิน\n— ปริมาณ 4-5 ml/100g BW per feed × 8-12 feedings/day\n— Warming to body temp (~ 38°C)\n— Fresh prep each time",
+    "verified": "อ.รสมา original Fangfuay vet81 #26 (F)"
+  },
+  {
+    "id": 1128,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "อ.รสมา Fangfuay vet81 #29",
+    "tags": [
+      "geriatric",
+      "aging",
+      "antioxidant",
+      "tf",
+      "rosama",
+      "concept"
+    ],
+    "type": "mcq",
+    "q": "[T/F] เมื่อสัตว์อายุมากขึ้น จะมีอาการเปลี่ยนแปลงและเสื่อมลงในวัยอวัยวะหลายๆอวัยวะ แต่ \"สามารถป้องกันได้\" โดยการให้อาหารโภชนบำบัดสารในกลุ่ม antioxidant",
+    "options": [
+      "ผิด (False)",
+      "ถูก (True)"
+    ],
+    "answer": 0,
+    "explain": "❌ ผิด — Aging cannot be PREVENTED — only SLOWED or MANAGED (concept พลาดง่าย)\n\n💡 ทำไม F:\n— Aging = inevitable biological process (telomere shortening, mitochondrial dysfunction, cellular senescence, accumulated oxidative damage)\n— Antioxidants ช่วย \"ชะลอ\" (slow) แต่ไม่ \"ป้องกัน\" (prevent)\n— No nutrient/supplement can stop aging\n\n💡 Antioxidants — limited benefits in geriatric:\n— Vitamin E (α-tocopherol) — membrane lipid peroxidation\n— Vitamin C — water-soluble antioxidant\n— Beta-carotene / Vit A precursors\n— CoQ10 — mitochondrial function\n— L-carnitine — fatty acid metabolism\n— SAMe — liver, cognitive function\n— Omega-3 (EPA+DHA) — anti-inflammatory\n— Phosphatidylserine, Resveratrol — cognitive\n\n💡 What antioxidants CAN do:\n— ↓ rate of cognitive decline (esp. dogs with CDS)\n— ↓ chronic inflammation\n— Support organ function in subclinical disease\n— Improve coat + skin\n— Reduce oxidative load in CKD/cardiac disease\n\n💡 What they CANNOT do:\n— Reverse aging\n— Prevent age-related neoplasia\n— Replace specific medical Tx\n— Extend lifespan dramatically\n\n💡 Wholistic approach: balanced senior diet + dental care + screening + appropriate exercise + meds for specific conditions",
+    "verified": "อ.รสมา original Fangfuay vet81 #29 (F) — \"สามารถป้องกันได้\" annotated X"
+  },
+  {
+    "id": 1129,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "อ.รสมา Fangfuay vet81 #32",
+    "tags": [
+      "life-stages",
+      "classification",
+      "tf",
+      "rosama"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ในสุนัขและแมวมีการแบ่งช่วงอายุเป็น \"6 ขั้น\" และขั้นที่ 6 เรียกว่า \"Senile Stage\"",
+    "options": [
+      "ผิด (False)",
+      "ถูก (True)"
+    ],
+    "answer": 0,
+    "explain": "❌ ผิด — มี 5 ขั้นหลัก (Aj. Rosama annotation ★) ไม่ใช่ 6\n\n💡 AAHA/AAFP Life Stage Classification (5 main stages):\n\n1. Puppy/Kitten (Pediatric)\n— 0 to ~ 6-12 months (until reproductive maturity / growth complete)\n— Sub-stages: Neonate (0-2wk), Infant (2-6wk), Weanling (6-12wk), Junior (3-6mo)\n\n2. Young Adult (Junior/Young)\n— ~ 6-12 mo to 2-3 years\n— Reaches social + sexual maturity\n\n3. Adult (Mature)\n— 2-3 years to 6-7 years (large/giant) หรือ 8-9 years (small)\n— Peak physical condition\n\n4. Mature/Middle-aged (Senior preparation)\n— 6-7 to 9-10 yr (varies by size)\n— Pre-senior screening starts here\n\n5. Senior\n— Last 25% of estimated lifespan\n— Small/medium dog: 9+ yr, Large/Giant: 6-7+ yr\n— Cat: 10+ yr\n— Some sources sub-divide: Senior + Geriatric (super-senior)\n\n💡 \"Senile Stage\" terminology — outdated, derogatory (now use \"Senior\" or \"Geriatric\" instead)\n\n💡 6th stage (sub-classification, not main):\n— Some texts add \"Geriatric / End-of-life\" as a separate stage for the last 1-2 years\n— But mainstream = 5 main stages with \"Senior\" being the final\n\n💡 Important: life stage classification differs by size in dogs (large breeds age faster) — rate of aging is NOT linear with calendar years",
+    "verified": "อ.รสมา original Fangfuay vet81 #32 (F) — \"5 ขั้น ขั้นที่ 6\""
+  },
+  {
+    "id": 1130,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "อ.รสมา Fangfuay vet81 #36",
+    "tags": [
+      "neonate",
+      "deworming",
+      "protocol",
+      "tf",
+      "rosama",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ลูกสุนัขทุกตัวควรได้รับการถ่ายพยาธิตัวกลม (roundworm) และพยาธิปากขอ (hookworm) ในช่วงเวลาที่เหมาะสม",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก — Universal pediatric deworming protocol\n\n💡 Why all puppies need deworming:\n— Transplacental transmission: Toxocara canis (round worm) crosses placenta → puppy born already infected (~ 100%)\n— Transmammary transmission: Toxocara + Ancylostoma (hookworm) pass via milk\n— Zoonotic risk: T. canis = visceral/ocular larva migrans in human (esp. children)\n— High prevalence even in seemingly healthy litter\n\n💡 Deworming protocol (CAPC/ESCCAP guidelines):\n\nPuppy:\n— Start 2 weeks old → repeat every 2 weeks\n— Continue until 12 weeks (or until regular broad-spectrum monthly preventive begins)\n— Drug: Pyrantel pamoate, fenbendazole, milbemycin\n\nKitten:\n— Start 3-4 weeks → repeat every 2 weeks until 9 weeks → monthly until 6 months\n\nBitch/Queen (during pregnancy + lactation):\n— Treat dam at 6 wks gestation + 2 wks postpartum (reduces transmission)\n— Daily fenbendazole (50 mg/kg PO) from day 40 gestation through day 14 lactation = effective protocol\n\nAdults:\n— Monthly broad-spectrum preventive (esp. heartworm + endoparasite combo)\n— Or every 3 months minimum\n— Fecal exam at least 4 times in first year, at least 2x/year as adult\n\n💡 Common parasites in TH puppies:\n— Toxocara canis (roundworm) — transplacental, common\n— Ancylostoma caninum (hookworm) — transmammary, blood-sucking\n— Trichuris vulpis (whipworm) — environmental\n— Dipylidium caninum (tapeworm) — flea vector\n— Cystoisospora (coccidia) — protozoal",
+    "verified": "อ.รสมา original Fangfuay vet81 #36 (T)"
+  },
+  {
+    "id": 1131,
+    "subject": "com4",
+    "topic": "peds-geri",
+    "year": 4,
+    "source": "อ.รสมา Fangfuay vet81 #50",
+    "tags": [
+      "neonate",
+      "calcium",
+      "controversy",
+      "tf",
+      "rosama"
+    ],
+    "type": "mcq",
+    "q": "[T/F] ควรให้แคลเซียมเสริมในลูกสุนัขที่กำลังเจริญเติบโต เพื่อพัฒนาของกระดูกและฟันให้เหมาะสม มิฉะนั้นจะเกิดโรคข้อเสื่อมเมื่อสุนัขเข้าสู่วัยชรา",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 0,
+    "explain": "✅ ถูก ตาม Aj. Rosama original (แต่มี nuance สำคัญ ★)\n\n💡 Aj. Rosama original answer = T (legacy concept ใน Vet 81/86)\n\n⚠️ BUT modern guideline = ระวัง over-supplementation in large/giant breeds!\n\n💡 Calcium ใน growing puppy — dual perspective:\n\n✅ \"เสริม\" perspective (Aj. Rosama T):\n— Active growth requires Ca + P balance for bone + dental development\n— Deficient Ca → poor bone mineralization, dental issues\n— Severe deficiency → rickets, secondary nutritional hyperparathyroidism\n— Especially critical in kittens (cat can't convert vit D from skin sunlight as efficiently)\n\n⚠️ Modern caveat (over-supplementation harm):\n— Large/Giant breed puppies (> 25 kg adult weight): excess Ca → Developmental Orthopedic Disease (DOD)\n  • Osteochondrosis (OCD)\n  • Hip dysplasia worsening\n  • Hypertrophic osteodystrophy (HOD)\n  • Wobbler syndrome (Great Dane, Doberman)\n— Calcitonin response immature → can't protect against excess Ca\n— Calcium > 1.5% DM = excessive (small breed tolerate up to 2.5%, large breed should not exceed 1.2%)\n\n💡 Modern recommendation:\n— Use balanced commercial puppy diet (Ca:P ratio 1.2-1.4:1)\n— Avoid additional Ca supplementation if eating quality puppy food\n— Large breed: feed large breed puppy diet specifically (lower Ca + adjusted nutrient density)\n— Small/medium: standard puppy diet\n— Special supplementation only if veterinary-prescribed (specific deficiency, raw/homemade diet)\n\n💡 Bottom line: Adequate Ca = essential, but balanced + appropriate to breed/size = key. Over-supplementation harmful especially in giant breeds.",
+    "verified": "อ.รสมา original Fangfuay vet81 #50 (T) — context-dependent in modern practice"
+  },
+  {
+    "id": 1132,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #1",
+    "tags": [
+      "hair-cycle",
+      "anagen",
+      "classic",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ระยะที่ขนมีการเจริญและพัฒนาของเส้นขน คือระยะใด",
+    "options": [
+      "Telogen (ระยะร่วง/พัก)",
+      "Xelogen",
+      "Anagen",
+      "Catagen (ระยะขนแก่/transitional)",
+      "Chemogen"
+    ],
+    "answer": 2,
+    "explain": "Anagen = active growth phase ของ hair cycle\n\n💡 Hair cycle 3 phases หลัก:\n1. Anagen — active growth (matrix cells divide, keratinize, push hair shaft up)\n   — Duration: variable (months-years in human, 1-6 mo in dog)\n   — Stimulators: thyroid hormones, growth factors\n   — Inhibitors: glucocorticoids, estrogens, cortisol\n2. Catagen — transitional (sudden stop in growth, follicle regresses)\n   — Short duration (days-weeks)\n3. Telogen — resting phase (hair retained but not growing)\n   — Eventually shed (Exogen sub-phase)\n\n💡 Hair cycle dysregulation:\n— Hypothyroidism → ↓ Anagen → bilateral symmetrical alopecia\n— Cushing's → cortisol inhibits Anagen → alopecia\n— Telogen effluvium → stress/illness pushes hairs into Telogen prematurely → mass shedding\n— Alopecia X → hair cycle arrest → flame follicles\n\n❌ ทำไมข้ออื่นผิด:\n— Telogen = ระยะพัก (ไม่เจริญ)\n— Catagen = ระยะหยุด/transitional (ไม่ใช่ growth)\n— Xelogen, Chemogen = made-up terms (ไม่มีจริง)\n\n💡 ระยะเจริญ/active growth",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #1"
+  },
+  {
+    "id": 1133,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #4",
+    "tags": [
+      "hair-cycle",
+      "extrinsic-factors",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ข้อใด \"ไม่ใช่\" extrinsic factor ที่มีผลต่อการเจริญของขน",
+    "options": [
+      "Thyroid hormones",
+      "Glucocorticoids",
+      "Genetics",
+      "Ambient temperature",
+      "Oestrogen"
+    ],
+    "answer": 3,
+    "explain": "Ambient temperature = External factor (ภายนอกตัว) ไม่ใช่ extrinsic factor ในความหมาย \"ภายในร่างกายแต่มาจากภายนอก hair follicle\"\n\n💡 Extrinsic factors of hair growth (ภายในร่างกาย แต่มาจากภายนอก hair follicle):\n— Hormones: Thyroid (stimulator), GH/IGF-1, Estrogen + Glucocorticoids + Cortisol (inhibitors), Prolactin\n— Genetics: breed-specific patterns (Chow Chow plush, Greyhound short)\n— Immunological status: autoimmune attack (alopecia areata), hypersensitivity\n— Nutritional status: protein, EFA, zinc, biotin, vitamin A/E\n— Disease: systemic illness, neoplasia\n— Drugs: chemotherapy → effluvium\n\n💡 External factors (ภายนอกร่างกาย, environmental):\n— Ambient temperature ✓ (this Q)\n— Photoperiod / day length (seasonal coat change in some breeds)\n— UV exposure\n— Humidity\n\n💡 Intrinsic factors (within hair follicle itself):\n— Local growth factors\n— Cytokines\n— Local hormones\n— Cell-cell signaling\n\nโจทย์ใช้คำ \"extrinsic\" → external factor (temperature) ไม่ใช่คำตอบที่ใกล้เคียง → answer = Ambient temperature\n\n💡 อุณหภูมิรอบตัว",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #4"
+  },
+  {
+    "id": 1134,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #6",
+    "tags": [
+      "skin-ph",
+      "species-difference",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ความแตกต่างของผิวหนังคนกับสุนัข ในด้าน pH คือ",
+    "options": [
+      "ผิวหนังสุนัขมี pH 7.5 (alkaline)",
+      "ผิวหนังคนมี pH เท่ากับสุนัข",
+      "ผิวหนังสุนัขมี pH 5.5 เหมือนคน",
+      "pH ไม่ต่างกัน",
+      "ผิวหนังสุนัขมี pH 4.5 (acidic)"
+    ],
+    "answer": 0,
+    "explain": "ผิวหนังสุนัข pH ≈ 7.5 (alkaline), ผิวหนังคน pH ≈ 5.5 (slightly acidic)\n\n💡 Implications of pH difference:\n\n1. Microbiome:\n— Cat/Dog skin alkaline → favors different commensal flora than humans\n— Higher Staphylococcus (esp. S. pseudintermedius in dog) — adapted to alkaline environment\n\n2. Shampoo selection:\n— Human shampoo NOT suitable for dog/cat! Human shampoo pH ~ 5.5 too acidic for canine skin → can disrupt barrier\n— Use dog-specific shampoo (pH 7.0-7.5) — neutral to mildly alkaline\n— Cat shampoo similar pH\n\n3. Soap reaction:\n— Animal skin more sensitive to alkaline soap dryness\n\n4. Disease management:\n— Bacterial overgrowth → benefits from medicated shampoo (chlorhexidine, benzoyl peroxide) which can shift pH\n— Fungal (yeast like Malassezia) → grows in slightly acidic environment\n\n💡 Note: cat skin pH similar to dog (~ 7.0-7.5), all carnivore skin tends to be more alkaline than primate skin",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #6"
+  },
+  {
+    "id": 1135,
+    "subject": "com4",
+    "topic": "derm-intro",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #7,11",
+    "tags": [
+      "lesions",
+      "pyoderma",
+      "classic",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "\"Pustule\" และ \"Epidermal collarette\" ในรอยโรคของ superficial pyoderma จัดเป็น primary หรือ secondary lesion ตามลำดับ",
+    "options": [
+      "Pustule = secondary, Epidermal collarette = primary",
+      "Pustule = primary, Epidermal collarette = secondary",
+      "ทั้งคู่เป็น primary lesion เหมือนกัน",
+      "ทั้งคู่เป็น secondary lesion เหมือนกัน",
+      "ทั้งคู่ไม่จัดเป็น skin lesion"
+    ],
+    "answer": 1,
+    "explain": "Pustule = Primary lesion, Epidermal collarette = Secondary lesion (ของ superficial pyoderma)\n\n💡 Primary lesions (เกิดจากโรคโดยตรง):\n— Macule (เปลี่ยนสี, flat < 1 cm)\n— Papule (raised < 1 cm)\n— Plaque (raised > 1 cm flat-top)\n— Nodule (raised > 1 cm dome)\n— Vesicle (fluid-filled < 1 cm)\n— Bulla (fluid-filled > 1 cm)\n— Pustule (pus-filled — bacterial or sterile pemphigus type) ★\n— Wheal/Hive (transient edema)\n— Tumor\n— Cyst\n\n💡 Secondary lesions (เกิดตามมาจาก primary หรือจากการเกา):\n— Scale (สะเก็ด — keratin shedding)\n— Crust (สะเก็ดแห้งจาก exudate dried)\n— Lichenification (ผิวหนา/หยาบ — chronic inflammation)\n— Hyperpigmentation (สีเข้ม — chronic)\n— Hypopigmentation (สีจาง)\n— Excoriation (จากการเกา)\n— Erosion / Ulcer (loss of epidermis vs deeper)\n— Scar / Fibrosis\n— Comedone (สิวอุดตัน)\n— Epidermal collarette ★ (รอยวงกลมหลังจาก pustule แตก/หาย)\n— Fissure (รอยแตก)\n— Callus (หนังด้าน)\n\n💡 Superficial pyoderma signature:\n— Primary: Pustule (intact pustule = key dx, but transient — แตกง่าย)\n— Secondary: Epidermal collarette (ring of scale where pustule was) — most common when present to clinic",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #7, #11"
+  },
+  {
+    "id": 1136,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #15,17",
+    "tags": [
+      "pyoderma",
+      "classification",
+      "depth",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "การจำแนก pyoderma — ข้อใดต่อไปนี้ \"ไม่จัดอยู่\" ในกลุ่ม Surface และ Superficial pyoderma",
+    "options": [
+      "Impetigo (Juvenile impetigo) = superficial",
+      "Intertrigo (Skin fold pyoderma) = surface",
+      "Mucocutaneous pyoderma = surface",
+      "Juvenile folliculitis = superficial",
+      "Chin acne (Canine acne) = deep pyoderma"
+    ],
+    "answer": 4,
+    "explain": "Chin acne / Canine acne = Deep pyoderma ★ (ไม่ใช่ surface/superficial)\n\n💡 Pyoderma classification by DEPTH (Aj. Chayot ★):\n\n1. Surface pyoderma (epidermis แค่ stratum corneum):\n— Hot spots (Acute moist dermatitis / Pyotraumatic dermatitis)\n— Intertrigo (Skin fold pyoderma) — Bulldog facial fold, Pug nose, Vulvar fold\n— Mucocutaneous pyoderma — lip, nose junction\n— BOG (Bacterial Overgrowth Syndrome) — diffuse Staph overgrowth\n\n2. Superficial pyoderma (epidermis to follicle ostium):\n— Impetigo (Juvenile impetigo most common — pustules on sparsely-haired ventrum of puppy)\n— Superficial folliculitis (most common form clinically)\n— Bacterial folliculitis\n\n3. Deep pyoderma (deep dermis + subcutis):\n— Furunculosis (ruptured folliculitis → deep infection)\n— Cellulitis\n— Pyogranuloma\n— Chin acne / Canine acne ★ (Bulldog, Boxer chin) — actually deep follicular involvement\n— Pedal furunculosis (interdigital)\n— German Shepherd pyoderma (deep, recurrent)\n— Acral lick dermatitis\n— Post-grooming furunculosis\n\n💡 Folliculitis vs Furunculosis:\n— Folliculitis: hair follicle ยัง intact (superficial)\n— Furunculosis: hair follicle แตก (rupture) → contents into dermis → deep + foreign body reaction",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #15, #17"
+  },
+  {
+    "id": 1137,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #18,20",
+    "tags": [
+      "pyoderma",
+      "antibiotics",
+      "first-line",
+      "chayot",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "ยาปฏิชีวนะ \"First-line\" สำหรับการรักษา pyoderma เบื้องต้น ตาม Aj. Chayot คือ",
+    "options": [
+      "Trimethoprim-sulfamethoxazole (TMS)",
+      "Enrofloxacin (2nd line) + Marbofloxacin",
+      "Amoxicillin (alone — ASAP not enough)",
+      "Azithromycin",
+      "Cephalexin หรือ Amoxicillin-clavulanate"
+    ],
+    "answer": 4,
+    "explain": "1st-line ABO สำหรับ canine pyoderma:\n\n1. Cephalexin (1st generation cephalosporin)\n— Dose: 22-30 mg/kg PO q12h (or q8h)\n— Excellent against S. pseudintermedius\n— Wide safety margin\n— First choice (Aj. Chayot ★)\n\n2. Amoxicillin-clavulanate (Amoxi-clav, Augmentin)\n— Dose: 12.5-25 mg/kg PO q12h\n— Beta-lactamase resistant\n— Equivalent to cephalexin\n\n💡 Why not other choices:\n— TMS: 2nd-line, KCS risk, hepatotoxic, sulfa hypersensitivity\n— Enrofloxacin / Marbofloxacin: 2nd-line ★ — reserved for resistant cases or C&S-guided, cartilage damage in young\n— Amoxicillin alone: insufficient — most Staph produce β-lactamase, requires clavulanate\n— Azithromycin: not standard, less evidence in canine pyoderma\n\n💡 Treatment duration:\n— Surface/Superficial pyoderma: 3 wks minimum, continue 1 wk past clinical resolution\n— Deep pyoderma: 6-12 weeks (3 months) — long course, monitor closely\n— Recurrent/refractory: C&S testing always, consider underlying cause (atopy, endocrine, demodex)",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #18, #20"
+  },
+  {
+    "id": 1138,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #20,21",
+    "tags": [
+      "pyoderma",
+      "topical",
+      "shampoo",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "การใช้ยาแบบเฉพาะที่ (Topical therapy) สำหรับ pyoderma — ข้อใด \"ไม่ถูกต้อง\"",
+    "options": [
+      "Shampoo: ทิ้งไว้บนตัวสัตว์ 5-15 นาที (10-15 ดีกว่า) ก่อนล้างออก, อาบทุก 2-3 วัน/สัปดาห์",
+      "การใช้ Cream หรือ Ointment สามารถใช้ได้กับรอยโรคทุกชนิด (รวม oozing/wet lesions)",
+      "มักใช้ร่วมกับ Systemic therapy เพื่อเพิ่มประสิทธิภาพ",
+      "Topical คาริ Pamphlets เหมาะกับรอยโรค focal/localized",
+      "ควรเลือกใช้เมื่อรอยโรคจำกัดเฉพาะที่"
+    ],
+    "answer": 1,
+    "explain": "Cream/Ointment ไม่เหมาะกับรอยโรค \"oozing/wet\" ★ (incorrect statement)\n\n💡 Topical formulation matching to lesion type:\n\nWet/Oozing lesions (acute moist dermatitis, weeping pyoderma):\n— Drying agents: astringent solutions, Burrow's solution (aluminum acetate)\n— Powders\n— Avoid: cream/ointment (occlusive → trap moisture → worsen)\n\nDry/Crusty lesions:\n— Cream/Ointment = effective (moisturizing + delivering drug)\n— Lotions for hair-bearing areas\n\nGeneralized:\n— Shampoo with active ingredient\n  • Chlorhexidine 2-4%\n  • Benzoyl peroxide 2.5-3% (follicular flushing)\n  • Miconazole + Chlorhexidine combo (Malaseb®)\n  • Keratolytic (salicylic acid, sulfur)\n— Contact time: 5-15 minutes (ideal 10-15 min) ก่อนล้าง\n— Frequency: 2-3x/week initial → taper to 1x/week maintenance\n\n💡 Topical principles:\n1. Match formulation to lesion (wet vs dry)\n2. Adequate contact time (often skipped → reduced efficacy)\n3. Combine with systemic in moderate-severe cases\n4. Rinse thoroughly (residue can irritate)\n5. Avoid where animal can lick (toxicity)\n\n💡 Topical antibacterials: Mupirocin (small focal lesions), fusidic acid, silver sulfadiazine",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #20"
+  },
+  {
+    "id": 1139,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #25,26",
+    "tags": [
+      "demodicosis",
+      "localized",
+      "self-limiting",
+      "chayot",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "Localized canine demodicosis (อาการเฉพาะที่) — ข้อใดถูกต้อง",
+    "options": [
+      "ต้องรักษาด้วยยาทุกราย ห้ามรอดูอาการ",
+      "90% ของ localized demodicosis หายเองได้",
+      "Localized = generalized ต้อง treat เหมือนกัน",
+      "ต้องผ่าตัดตัดรอยโรคออกทุกราย",
+      "ติดต่อสู่สัตว์ตัวอื่นได้ง่าย"
+    ],
+    "answer": 1,
+    "explain": "90% ของ localized demodicosis = self-limiting ★ (Aj. Chayot)\n\n💡 Localized vs Generalized demodicosis:\n\nLocalized demodicosis:\n— ≤ 5 lesions (focal patches < 4 cm² each)\n— Usually on face (periocular, perilabial), forelimbs, ventral chest\n— Most common in young dogs (3-6 mo, weaning age)\n— Cause: transient immune dysregulation during development (mother → puppy passage) → immune system catches up → resolves\n— 90% spontaneous resolution within 2-3 months (no Tx needed!)\n— Just monitor + treat any 2° pyoderma (Staph)\n\nGeneralized demodicosis:\n— ≥ 6 lesions OR\n— Entire body region affected OR\n— ≥ 2 paws (pododemodicosis)\n— Always requires aggressive Tx — does NOT self-resolve\n— Poor prognosis if onset in adult (suggests underlying immune compromise, neoplasia, hyperadrenocorticism)\n\n💡 Treatment for generalized:\n— Oral isoxazolines (1st-line modern!): afoxolaner (NexGard), fluralaner (Bravecto), sarolaner (Simparica), lotilaner — monthly oral, highly effective\n— Oral milbemycin oxime daily\n— Imidacloprid/Moxidectin spot-on (Advantage Multi)\n— Old: Ivermectin oral (NOT injection — collie sensitivity), Amitraz dip (toxic, less used)\n— Treatment until 2 negative skin scrapes 1 month apart\n\n💡 DON'T:\n— Spay/neuter during active disease (immune stress)\n— Use steroid (worsens demodex)\n— Give vaccine (may stress immune)",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #25"
+  },
+  {
+    "id": 1140,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #22,28",
+    "tags": [
+      "skin-scraping",
+      "demodex-vs-sarcoptes",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "เทคนิคการวินิจฉัย Demodicosis vs Sarcopticosis — ใช้ skin scraping ลึก/ตื้น แตกต่างกันอย่างไร",
+    "options": [
+      "ทั้งคู่ใช้ superficial skin scraping",
+      "ทั้งคู่ใช้ deep skin scraping",
+      "Demodex = Deep skin scraping (ขูดถึง dermis",
+      "Demodex ใช้ Wood's lamp, Sarcoptes ใช้ DTM",
+      "ไม่ต้อง scrape"
+    ],
+    "answer": 2,
+    "explain": "Demodex = DEEP skin scraping, Sarcoptes = SUPERFICIAL skin scraping ★\n\n💡 Why different depths:\n\nDemodex canis — lives in hair follicle + sebaceous gland (deep!):\n— Need to express follicle content + scrape until capillary blood appears (sign of dermis depth)\n— Squeeze skin firmly → scrape deeply → blade angle ~ 45°\n— Multiple sites (5-6 areas), include affected + adjacent normal\n— Mineral oil on slide → microscope LP/HP → look for adult mites + eggs\n— Sensitivity high (~ 90%) when proper technique\n\nSarcoptes scabiei var. canis — burrows in stratum corneum (superficial!):\n— Superficial scrape (ขูดเบาๆ ผิวบน)\n— Multiple sites essential (Sarcoptes hard to find — sensitivity only ~ 30-50%!)\n— Best sites: ear margins (Pinnal-pedal reflex positive 80%), elbow, hock, ventral abdomen\n— Mineral oil mount\n— Empirical treatment if signs match (intense pruritus, distribution typical) even if scraping negative\n\n💡 Other dx techniques mentioned in TJ86/Chayot:\n— Acetate tape preparation = both bact + fungal + Cheyletiella + lice (versatile!)\n— Trichogram = hair shaft + bulb examination (Demodex eggs, dermatophyte arthroconidia)\n— Wood's lamp = M. canis only (positive ~ 50% of M. canis)\n— DTM (Dermatophyte Test Medium) = fungal culture (color change yellow→red within 7-14 days = positive)\n— Cytology = bacteria, yeast (Malassezia), pemphigus (acantholytic cells)\n— Skin biopsy + histopath = definitive for autoimmune, neoplasia, deep pyoderma",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #22, #28"
+  },
+  {
+    "id": 1141,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #26",
+    "tags": [
+      "demodex",
+      "treatment",
+      "isoxazoline",
+      "chayot",
+      "critical"
+    ],
+    "type": "mcq",
+    "q": "ยา \"ที่ไม่แนะนำ\" (avoid) ในการรักษา canine demodicosis คือ",
+    "options": [
+      "Oral milbemycin oxime",
+      "Imidacloprid/moxidectin spot-on (Advantage Multi)",
+      "Ivermectin INJECTION (route problem — should be oral",
+      "Doramectin injection",
+      "Oral isoxazolines (NexGard/Bravecto/Simparica/Credelio)"
+    ],
+    "answer": 2,
+    "explain": "Ivermectin injection ไม่แนะนำใน demodicosis ★ (route problem)\n\n💡 Why avoid Ivermectin INJECTION:\n\n1. Route problem:\n— Ivermectin in dogs should be oral (not injectable)\n— Injectable form is for cattle (large animal product) — overdose risk\n— Dose calculations differ by route\n\n2. Breed sensitivity (MDR1 mutation):\n— Collie + collie-related breeds (Australian Shepherd, Border Collie, English Shepherd, Old English Sheepdog, Shetland Sheepdog) homozygous MDR1 mutant → Ivermectin toxicity (ataxia, blindness, coma, death)\n— Heterozygotes also at increased risk\n— Always genetic test ก่อน high-dose ivermectin\n\n3. High-dose required for demodex:\n— Demodex requires 0.3-0.6 mg/kg PO q24h (much higher than heartworm preventive 6 µg/kg)\n— Long duration (months)\n— Risk of toxicity ↑ with cumulative dose\n\n💡 Modern preferred Tx for demodicosis (Aj. Chayot 2026):\n\n1st-line: Oral isoxazolines ★ (revolutionized demodex Tx)\n— Afoxolaner (NexGard) — monthly\n— Fluralaner (Bravecto) — every 3 months\n— Sarolaner (Simparica) — monthly\n— Lotilaner (Credelio) — monthly\n— Excellent efficacy (often single dose effective for localized)\n— Safe in collie breeds (no MDR1 issue)\n— Very high cure rates with 2-3 doses for generalized\n\n2nd-line:\n— Imidacloprid/Moxidectin spot-on (Advantage Multi) — weekly\n— Oral milbemycin oxime — daily\n— Doramectin SC injection (off-label, careful with collie)\n— Oral ivermectin (carefully titrated)\n\n3rd-line:\n— Amitraz dip (toxic, weekly, multi-month)",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #26"
+  },
+  {
+    "id": 1142,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #31",
+    "tags": [
+      "dermatophyte",
+      "species",
+      "pet",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ข้อใด \"ไม่ใช่\" สาเหตุของโรค Fungal skin disease (Dermatophytosis) ที่พบได้บ่อยในสัตว์เลี้ยง",
+    "options": [
+      "Microsporum canis (most common in cat)",
+      "Microsporum gypseum (geophilic, contact with soil)",
+      "Trichophyton mentagrophytes (zoophilic, rodent contact)",
+      "Epidermophyton floccosum (anthropophilic, rare in pets)",
+      "Malassezia pachydermatis (yeast, separate category)"
+    ],
+    "answer": 3,
+    "explain": "Epidermophyton floccosum = Anthropophilic dermatophyte (specific to humans), rarely affects pets ★\n\n💡 Dermatophyte classification by reservoir:\n\n1. Zoophilic (animal-adapted, can transmit to human):\n— Microsporum canis ★ — most common in cat (60-90% of feline dermatophytosis), highly infectious\n— Trichophyton mentagrophytes — rodent reservoir → contact with mice, rats, hamsters\n— Trichophyton verrucosum — cattle\n— Microsporum nanum — pig\n\n2. Geophilic (soil-dwelling):\n— Microsporum gypseum — contact with soil, gardening dogs, rural\n— Microsporum fulvum\n\n3. Anthropophilic (human-adapted):\n— Epidermophyton floccosum ★ — humans only, doesn't infect pets\n— Trichophyton rubrum — humans (athlete's foot)\n— Trichophyton tonsurans — humans (tinea capitis)\n— Microsporum audouinii — humans\n\n💡 Common pet dermatophytes (TH):\n— Cat: M. canis (>>90%) — Persian especially susceptible\n— Dog: M. canis (50%), M. gypseum (25%), T. mentagrophytes (15%)\n— Cattle: T. verrucosum\n— Rabbit: T. mentagrophytes\n\n💡 Note: Malassezia pachydermatis = yeast (not dermatophyte) — different category, separate disease (Malassezia dermatitis)",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #31"
+  },
+  {
+    "id": 1143,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #35,37",
+    "tags": [
+      "dermatophytosis",
+      "topical",
+      "systemic",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ข้อใด \"ไม่ใช่\" การรักษา dermatophytosis แบบ topical (เฉพาะที่)",
+    "options": [
+      "Clotrimazole 1% cream (azole)",
+      "Lime sulfur 2-4% (topical dip)",
+      "Fludrocortisone (mineralocorticoid)",
+      "Miconazole 2% cream (azole)",
+      "Enilconazole 0.2% rinse (azole)"
+    ],
+    "answer": 2,
+    "explain": "Fludrocortisone = mineralocorticoid steroid — ไม่ใช่ antifungal! ★ (Q นี้ trick — fludrocortisone ใช้ใน Addison's disease ไม่ใช่ skin)\n\n💡 Topical antifungals for dermatophytosis:\n\nImidazole/Azole class:\n— Clotrimazole 1% cream (focal lesions)\n— Miconazole 2% cream/shampoo (Dactarin, Malaseb combo)\n— Ketoconazole shampoo 2% (also has anti-Malassezia)\n— Enilconazole 0.2% rinse (extra-label in many countries) — highly effective for environmental decon too\n— Itraconazole topical (less common)\n\nLime sulfur 2-4% — classic generalized dip\n— Apply over entire body weekly\n— Smelly + stains, but cheap + effective + safe in cats\n\nOther topicals:\n— Sodium hypochlorite (bleach) 1:10 dilution → environmental decon (not directly on animal)\n— Selenium sulfide shampoo\n— Chlorhexidine-Miconazole combo (Malaseb)\n\n💡 Systemic antifungals (for generalized cases):\n— Itraconazole ★ ★ 5-10 mg/kg PO q24h × 4-8 wks (1st choice in cat — better safety than ketoconazole)\n— Terbinafine 30-40 mg/kg PO q24h (alternative, fewer drug interactions)\n— Ketoconazole (cheaper but more hepatotoxic — careful in cat)\n— Griseofulvin (older, teratogenic, less used)\n— Fluconazole (less effective for dermatophytes)\n\n💡 Treatment duration: 4-8 weeks minimum, continue 2-4 weeks past clinical resolution + 2 negative cultures (DTM)\n\n💡 Environmental management essential:\n— Sodium hypochlorite (bleach 1:10) on hard surfaces\n— Enilconazole spray\n— Frequent vacuum + discard bag\n— Wash bedding hot water + bleach",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #35, #37"
+  },
+  {
+    "id": 1144,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #38,39",
+    "tags": [
+      "malassezia",
+      "treatment",
+      "imidazole",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "การรักษา Malassezia dermatitis — ข้อใด \"ไม่ถูกต้อง\"",
+    "options": [
+      "Pulse therapy เป็นทางเลือกสำหรับสัตว์ป่วยที่มี recurrent disease (ใช้ week-on/week-off)",
+      "ยาที่นิยมใช้ได้แก่ Itraconazole, Ketoconazole, Fluconazole",
+      "ในรายที่ไม่รุนแรง อาจใช้การรักษาแบบเฉพาะที่ (topical) เท่านั้น (chlorhexidine + miconazole shampoo)",
+      "Terbinafine เป็นยาที่มีประสิทธิภาพดีกว่า และควรพิจารณาใช้ก่อนยาในกลุ่ม Imidazoles",
+      "Diagnostic: cytology examination (Diff-Quik → \"shoe print\" or \"peanut\" appearance)"
+    ],
+    "answer": 3,
+    "explain": "Terbinafine ไม่ใช่ first-line สำหรับ Malassezia ★ — Imidazoles (azoles) เป็น first-line, Terbinafine = alternative\n\n💡 Malassezia dermatitis treatment hierarchy:\n\n1st-line: Imidazoles/Azoles ★\n— Ketoconazole PO 5-10 mg/kg q12-24h × 3-4 wks (cheapest, but hepatotoxic in cat)\n— Itraconazole PO 5 mg/kg q24h (better safety, 1st choice in cat)\n— Fluconazole PO 5-10 mg/kg q24h (less effective for Malassezia, but better CNS penetration)\n\nTopical (1st-line for mild/focal):\n— Miconazole-Chlorhexidine combo (Malaseb® shampoo) — synergistic\n— Ketoconazole 2% shampoo ★\n— Chlorhexidine 2-4% alone\n— Miconazole cream (focal lesions)\n— Bath 2-3x/week × 4 weeks\n\n2nd-line / Alternative: Terbinafine\n— Allylamine class (different mech: inhibits squalene epoxidase, vs azoles inhibit lanosterol demethylase)\n— Effective against dermatophytes (1st-line for those!)\n— Less effective for Malassezia in vitro vs azoles\n— Use when azole-resistant or hepatotoxicity concern\n— Dose: 30 mg/kg PO q24h\n\n💡 Why imidazoles 1st for Malassezia:\n— Highest in vitro efficacy against Malassezia pachydermatis\n— Long history of use\n— Multiple formulations (oral + topical)\n— Better evidence base\n\n💡 Malassezia dermatitis features:\n— Severe pruritus + odor (smelly!) ★ characteristic\n— Erythema, alopecia, greasy seborrhea, hyperpigmentation\n— Common sites: ears, axilla, groin, ventral abdomen, foot pads, lip folds\n— Predisposing: atopy, food allergy, endocrine, immunocompromised\n— Often secondary to underlying allergic disease — must address primary cause\n— Diagnosis: cytology (Diff-Quik → peanut/shoe-print yeast cells)",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #38, #39"
+  },
+  {
+    "id": 1145,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #40,41,43",
+    "tags": [
+      "nutrition",
+      "roles",
+      "protein",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "บทบาทของสารอาหาร (nutrients) ที่เกี่ยวข้องกับผิวหนัง — ข้อใด \"ไม่ใช่\"",
+    "options": [
+      "Sebum production (sebaceous gland secretion)",
+      "Keratinization (cornification of epidermal cells)",
+      "Epidermal turnover (cell renewal)",
+      "Cellular barrier function",
+      "Thermoregulation"
+    ],
+    "answer": 4,
+    "explain": "Thermoregulation ไม่ใช่หน้าที่ของสารอาหาร (nutrients) ★ — แม้ผิวหนังจะมีบทบาท thermoregulation แต่นี่เป็นกระบวนการ physical/physiological ไม่ใช่ nutrient-driven function\n\n💡 Roles of nutrients in skin (Aj. Chayot):\n\n1. Sebum production ✓\n— Essential fatty acids (Linoleic acid, Linolenic acid, Arachidonic acid)\n— Vitamin E (antioxidant in sebum)\n— Vitamin A (sebaceous gland regulation)\n\n2. Keratinization ✓\n— Protein (keratin synthesis)\n— Vitamin A (cornification regulation)\n— Zinc (keratin cross-linking)\n— Biotin (cornified envelope)\n— Sulfur amino acids (cysteine, methionine — disulfide bonds)\n\n3. Epidermal turnover ✓\n— Vitamin A\n— B-complex vitamins (B6, B7-biotin, B9-folate, B12)\n— Zinc\n— Protein (cell renewal)\n\n4. Cellular barrier function ✓\n— Essential fatty acids (lipid lamellae structure)\n— Ceramides (synthesized from fatty acids)\n— Cholesterol\n— Antioxidants (Vit C, Vit E, selenium)\n\n5. Pigmentation (sub-role of melanogenesis):\n— Phenylalanine + Tyrosine → melanin precursors\n— Copper (tyrosinase cofactor)\n— Vitamin A (regulates melanocyte function)\n\n6. Wound healing:\n— Protein, vitamin C, zinc, vitamin A\n\n💡 Thermoregulation in skin:\n— Achieved via: sweating (eccrine glands in foot pads, panting), vasoconstriction/dilation, hair erection (piloerection), insulation by hair coat\n— Physical/physiological process, not nutrient role\n— Although nutrition affects coat quality (which affects insulation), this is indirect\n\n💡 Key Q variation in exam (asks for ROLE):\n— ASKS for nutrient role → Thermoregulation = correct \"NOT a role\"\n— But asks for ผิวหนังหน้าที่อะไร → Thermoregulation = correct \"IS a function\"\n\n💡 อุณหภูมิร่างกาย — ไม่ใช่หน้าที่หลักของ \"สารอาหาร\" ในผิวหนัง",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #40"
+  },
+  {
+    "id": 1146,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #41,42",
+    "tags": [
+      "protein",
+      "hair",
+      "cocker-spaniel",
+      "vit-A",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ข้อใด \"ไม่ถูกต้อง\" เกี่ยวกับโปรตีนต่อผิวหนัง + Vitamin A-responsive dermatosis",
+    "options": [
+      "เส้นขนมีโปรตีนเป็นส่วนประกอบถึง 95%",
+      "Phenylalanine + Tyrosine → melanin (precursors) สำหรับสีขนเข้ม",
+      "การเจริญของเส้นขนต้องใช้โปรตีน 25-30% of daily protein requirement (long/double coat) หรือ 10% (short coat)",
+      "Vitamin A-responsive dermatosis ใน Cocker Spaniel — สุนัขขาด Vit A (deficiency)",
+      "โรคผิวหนังจากการขาดโปรตีนพบได้บ่อยในทางคลินิก"
+    ],
+    "answer": 4,
+    "explain": "มี 2 ข้อผิดในชุดนี้ — ที่ explicit ผิดที่สุด:\n\n❌ \"โรคผิวหนังจากการขาดโปรตีน พบได้บ่อยทางคลินิก\" — ผิด, มันพบได้น้อย ★\n\n💡 Protein deficiency dermatosis:\n— Rare in commercial diet (modern pet food has adequate protein 18-30%)\n— Common in: starvation, severe systemic illness (malabsorption, cancer cachexia), homemade unbalanced diets, very poor-quality cheap food\n— Signs: dull dry coat, depigmentation, slow hair growth, hyperpigmentation, secondary pyoderma\n\n💡 Other facts (correct in this Q):\n\nHair protein composition ✓\n— Hair = 95% protein (mostly keratin)\n— Sulfur-rich (cysteine, methionine forming disulfide bonds)\n— High dietary requirement to support continuous hair growth\n\nPhenylalanine + Tyrosine ✓\n— Both AA → tyrosinase → DOPA → DOPAquinone → eumelanin (black/brown) or pheomelanin (red/yellow)\n— Deficiency → coat color change (black coat browning, \"rusting\" of black coat) ★\n\nDaily protein requirement for coat:\n— Short coat breeds: ~ 10% of daily protein for hair\n— Long/double coat breeds (Husky, Samoyed, Pomeranian): ~ 25-30% of daily protein for hair\n\n💡 Vitamin A-responsive dermatosis (Cocker Spaniel) ★ — annotated tricky:\n— Cocker Spaniel NOT actually Vit A deficient in serum levels\n— \"Responsive\" = symptoms improve when given supplemental Vit A\n— Mechanism: defect in keratinization at hair follicle level → responds to high-dose Vit A which normalizes cornification\n— Dose: Retinol 600-1000 IU/kg PO q24h × 4-6 wks\n— Improved coat quality, ↓ scaling, ↓ follicular plugging\n— Different from true Vit A deficiency (rare, generalized hyperkeratosis)",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #41, #42 (annotated \"ไม่ได้ขาด แต่ responsive\")"
+  },
+  {
+    "id": 1147,
+    "subject": "com4",
+    "topic": "derm-nutrition",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #45",
+    "tags": [
+      "zinc-responsive",
+      "syndrome-types",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "Zinc-responsive dermatosis ใน Siberian Husky จัดเป็น Type ใด และต่างจาก Type อีกประเภทอย่างไร",
+    "options": [
+      "Type I = genetic defect; Type II = phytate diet",
+      "Type II ทุก breed ไม่มี Type I genetic",
+      "ไม่จัดเป็น syndrome เป็น contact reaction",
+      "Type III จาก paraneoplastic ของ cancer",
+      "Type IV จาก autoimmune ต่อ ZIP4"
+    ],
+    "answer": 0,
+    "explain": "Zinc-responsive dermatosis 2 types:\n\nType I — Genetic Zn absorption defect ★:\n— Breed: Siberian Husky, Alaskan Malamute, Samoyed, Bull Terrier\n— Mechanism: hereditary defect in intestinal zinc transporter (ZIP4) → poor Zn absorption from gut (similar to acrodermatitis enteropathica in human)\n— Onset: any age, often young adult\n— Lesions: alopecia + crusting + erythema → ★ periorbital + perilabial + perigenital + perianal + foot pads + pressure points\n— Signs: \"goggle\" appearance from periorbital crusts\n— Diagnosis: clinical signs + breed + skin biopsy (parakeratotic hyperkeratosis) + response to Zn\n— Tx: Zinc methionine 2 mg/kg PO q24h × 4-6 weeks → maintenance lifelong\n— NOT a true Zn dietary deficiency — diet has Zn but absorption defect\n\nType II — Phytate-induced:\n— Breed: Giant breed puppies (Great Dane, Mastiff, St. Bernard) on cereal-based / phytate-rich diet\n— Mechanism: phytate (in grain) chelates Zn → reduces bioavailability\n— Excess Ca²⁺ in puppy diets also blocks Zn absorption\n— Onset: puppy/young growth phase\n— Lesions: similar to Type I but more generalized + crusting + secondary pyoderma\n— Tx: switch to balanced commercial puppy diet + Zn supplementation\n— Resolves once diet corrected (vs Type I = lifelong supplementation)\n\n💡 Other Zn-related dermatoses:\n— Lethal acrodermatitis (Bull Terrier) — different genetic disease, severe, fatal\n— Zinc poisoning (toxic, from ingested coins/galvanized wire)\n\n💡 giant pup",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #45"
+  },
+  {
+    "id": 1148,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #44,49",
+    "tags": [
+      "endocrine-skin",
+      "incidence-ranking",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ในกลุ่มโรคผิวหนังที่เกี่ยวกับ endocrine ในสัตว์เลี้ยง — ข้อใด \"ถูกต้องน้อยที่สุด\" (พบน้อยที่สุดในกลุ่ม endocrine derm)",
+    "options": [
+      "Hypothyroidism — most common endocrine derm in dog",
+      "Hyperadrenocorticism (Cushing\\'s) — common",
+      "Sex hormone imbalance (intact dog)",
+      "Alopecia X — Nordic breeds",
+      "Hyperthyroidism — rare in dog"
+    ],
+    "answer": 4,
+    "explain": "Hyperthyroidism = LEAST common endocrine derm in pets ★\n\n💡 Endocrine dermatology — ranking by frequency in dogs:\n\n1. Hypothyroidism (most common endocrine derm in dog) ★\n— Estimated 0.2-0.8% of all dogs\n— Predisposed: Beagle, Doberman, Lab, Golden, Boxer, Cocker, Dachshund, Dalmatian\n— Bilateral symmetrical alopecia, dry brittle coat, \"tragic face\" (myxedema), recurrent pyoderma + Malassezia\n\n2. Hyperadrenocorticism (Cushing's)\n— Common (PDH 85%, ADH 15%, iatrogenic)\n— Alopecia, thin skin, comedones, calcinosis cutis, \"pot belly\"\n\n3. Sex hormone imbalance\n— Sertoli cell tumor (intact male, cryptorchid) → estrogen excess → hair coat changes\n— Hyperestrogenism (intact female with ovarian cyst)\n— Castration-responsive dermatosis\n\n4. Alopecia X\n— Nordic breeds (Pomeranian, Chow Chow, Husky)\n— Rarer than top 3, but distinctive\n\n5. Hyperthyroidism — RARE in dog ★\n— Causes: thyroid carcinoma (most), iatrogenic over-supplementation\n— Skin signs minimal (some weight loss, restlessness, but not primary derm complaint)\n— Common in cat (>10 yr, ~10% prevalence) but cat presents with weight loss + polyphagia + tachycardia, not skin\n— Cat hyperthyroid + skin = unusual (occasional unkempt coat, but not derm-driven)\n\n💡 Why Hyperthyroidism rare in dog:\n— Thyroid carcinoma usually destroys glandular tissue → hypofunction or normal\n— True functional hyperthyroidism rare (vs cat where adenomatous hyperplasia common)\n— Iatrogenic from over-supplementation (rare with proper monitoring)\n\n💡 Doberman + Alopecia X = NO ★ (Q49 of this batch — Doberman not predisposed to Alopecia X, short coat breed, not Nordic)\n\n💡 common in cat แต่ไม่ค่อย derm presentation",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #44, #49"
+  },
+  {
+    "id": 1149,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #50",
+    "tags": [
+      "alopecia-x",
+      "treatment",
+      "synacthen",
+      "chayot",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "ข้อใด \"ไม่ใช่\" การรักษาสำหรับภาวะ Alopecia-X",
+    "options": [
+      "Trilostane (5-10 mg/kg/d, lower dose than for Cushing\\'s)",
+      "Castration / OVH (response 20-30%)",
+      "Melatonin (3-9 mg/dog q12h)",
+      "Mitotane (rarely used as legacy)",
+      "Synacthen"
+    ],
+    "answer": 4,
+    "explain": "Synacthen ≠ Alopecia X treatment ★ — Synacthen เป็น diagnostic agent (ACTH stim test), ไม่ใช่ Tx\n\n💡 Synacthen (Cortrosyn, Tetracosactide):\n— Synthetic 1-24 amino acid sequence of ACTH (full ACTH = 39 AA, but biological activity in first 24)\n— Use: ACTH stimulation test for diagnosing:\n  • Cushing's syndrome (hyper-response)\n  • Addison's disease (hypo-response)\n  • Trilostane monitoring (assess adrenal suppression)\n— Dose for test: 5 µg/kg IV (low-dose) or 250 µg/dog (standard)\n— Sampling: pre + 60 min post (or 30+90 min)\n\n💡 Alopecia X treatment ladder (Aj. Chayot ★):\n\nStep 1: Castration / OVH (1st-line if intact)\n— Response: 20-30%\n— Hair regrowth: 4-8 wks\n— Mechanism: removes sex hormone influence on hair cycle\n\nStep 2: Melatonin\n— Dose: 3-9 mg/dog PO q12h × 3 mo trial\n— Cure rate: 40-60%\n— AE: sedation, insulin resistance\n\nStep 3: Trilostane (lower dose than Cushing)\n— Dose: 5-10 mg/kg/d\n— Response: 80-90%, but only ~5-10% maintain long-term\n\nStep 4: Other / Legacy:\n— Mitotane (rarely used, more toxic, similar mechanism to Trilostane)\n— Methyltestosterone\n— GnRH analogues (Deslorelin)\n— Microneedling (induce hair regrowth at trauma sites)\n\nNOT used:\n— Synacthen ★ (diagnostic only)\n— Levothyroxine (only if confirmed hypothyroid co-disease)\n— Glucocorticoids (worsens alopecia)\n— Surgery (no role)\n\n💡 Annotation note: \"ของ 81 เปลี่ยนเป็น halothane\" — typo possibly meant another Q, or shows changes in question banks year-to-year\n\n💡 = Tetracosactide, synthetic ACTH — used for ACTH stim TEST, NOT treatment!",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #50 (annotated \"ของ 81 เปลี่ยนเป็น halothane\")"
+  },
+  {
+    "id": 1150,
+    "subject": "com4",
+    "topic": "derm-endocrine",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #48",
+    "tags": [
+      "cushing",
+      "diagnosis",
+      "basal-cortisol",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ข้อใด \"ไม่ใช่\" วิธีวินิจฉัย Hyperadrenocorticism (Cushing's) ในสุนัข",
+    "options": [
+      "ACTH stimulation test",
+      "Urine Cortisol:Creatinine Ratio (UCCR) — screening at home",
+      "Low-Dose Dexamethasone Suppression Test (LDDST) — Dexa 0.01 mg/kg IV",
+      "Abdominal Ultrasonography (US) — bilateral vs unilateral adrenal",
+      "Basal cortisol level"
+    ],
+    "answer": 4,
+    "explain": "Basal cortisol level alone ≠ Cushing diagnostic test ★\n\n💡 Why basal cortisol NOT useful for Cushing:\n— Cortisol is pulsatile → varies dramatically across the day (diurnal rhythm + episodic secretion)\n— Stress, illness, time of day all affect single measurement\n— Cushing patients can have normal basal cortisol at the moment of sampling\n— High false-negative rate\n— Cannot rule in OR out Cushing\n\n💡 Where basal cortisol IS useful:\n— Screening for Addison's disease (Hypoadrenocorticism):\n  • If basal cortisol > 2 µg/dL → unlikely Addison's (high NPV)\n  • If basal cortisol < 2 µg/dL → suspicious, do ACTH stim to confirm\n— Quick rule-out for Addison's in collapse patient\n\n💡 Cushing diagnostic tests (use multi-step approach):\n\n1. Screening tests (high sensitivity):\n— UCCR ★ — collected at home (avoid stress), sensitivity 99%, low specificity → use to rule out\n— LDDST ★ — sensitivity 95%, also distinguishes PDH vs ADH\n\n2. Confirmatory tests:\n— ACTH stim test — sensitivity 85% PDH, 60% ADH, also for monitoring trilostane Tx\n  • Pre + 1hr post Synacthen (5 µg/kg IV)\n  • Cushing: post-cortisol > 22 µg/dL\n  • Addison: post-cortisol no rise (< pre)\n— HDDST (High-Dose Dex Suppression) — distinguishes PDH (suppresses) vs ADH (no suppression)\n\n3. Imaging:\n— Abdominal US — bilateral symmetric adrenomegaly = PDH; unilateral mass + atrophy of contralateral = ADH\n— CT/MRI — pituitary mass for macroadenoma evaluation\n\n💡 Workup order in suspected Cushing:\n1. CBC, chem (stress leukogram, ↑ ALP, ↑ chol, BUN ↓), UA (USG ↓, proteinuria)\n2. Screening: UCCR + LDDST (one or both)\n3. If positive → confirm with ACTH stim or repeat LDDST\n4. Distinguish PDH vs ADH: HDDST + abdominal US ± endogenous ACTH measurement\n5. Imaging for surgical planning (if ADH confirmed)\n\n💡 single random sample — too variable, NOT diagnostic for Cushing",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #48"
+  },
+  {
+    "id": 1151,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #14",
+    "tags": [
+      "pyoderma",
+      "staphylococcus",
+      "species",
+      "chayot",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "สาเหตุของโรคผิวหนังจากเชื้อแบคทีเรียที่พบบ่อยที่สุดในสุนัข คือ",
+    "options": [
+      "Staphylococcus aureus (มนุษย์ flora หลัก)",
+      "Staphylococcus schleiferi",
+      "Staphylococcus intermedius (old taxonomy)",
+      "Staphylococcus pseudintermedius",
+      "Streptococcus pyogenes"
+    ],
+    "answer": 3,
+    "explain": "Staphylococcus pseudintermedius (SP) — #1 cause of canine pyoderma ★\n\n💡 Taxonomy update (2007):\n— Old name: Staphylococcus intermedius group\n— DNA analysis revealed 3 distinct species: S. intermedius, S. pseudintermedius, S. delphini\n— S. pseudintermedius = the actual canine pathogen (formerly mis-called \"S. intermedius\")\n— S. intermedius = pigeons, foxes\n— S. delphini = dolphins, mink\n\n💡 S. pseudintermedius characteristics:\n— Coagulase-positive Staph\n— Commensal of canine skin + nasal mucosa\n— Causes: pyoderma, otitis externa, post-surgical wound infection\n— Most strains β-lactamase positive → resistant to penicillin\n— Sensitive to cephalexin, amoxi-clav, clindamycin\n\n💡 MRSP (Methicillin-Resistant S. pseudintermedius) — emerging concern ★:\n— Resistant to ALL β-lactams (cephalexin, amoxi-clav, oxacillin)\n— Often multidrug-resistant (MDR)\n— Diagnosis: C&S with mecA/mecC PCR\n— Treatment: limited — chloramphenicol, doxycycline (if susceptible), rifampin combo, vancomycin (last resort)\n— Zoonotic risk: can transmit to humans (esp. immunocompromised)\n— Hand hygiene + isolation important\n\n💡 Why Q matters:\n— Empirical Tx targets SP — Cephalexin/Amoxi-clav 1st-line works for most\n— C&S essential when:\n  • Recurrent pyoderma\n  • Failure of empirical Tx\n  • Deep pyoderma with failure\n  • Hospital-acquired infections\n\n💡 current accepted #1 in canine pyoderma",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #14"
+  },
+  {
+    "id": 1152,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #9",
+    "tags": [
+      "atopy",
+      "langerhans-cell",
+      "APC",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "เซลล์ที่มีบทบาท \"เริ่มต้น\" ในการตอบสนองภูมิไวเกิน (Hypersensitivity) ในภาวะ atopic dermatitis คือ",
+    "options": [
+      "Eosinophil (effector phase)",
+      "Langerhans cell",
+      "B-cell (produces IgE later in cascade)",
+      "Mast cell (effector — degranulation)",
+      "Neutrophil"
+    ],
+    "answer": 1,
+    "explain": "Langerhans cell = primary APC ใน epidermis ★\n\n💡 Atopic Dermatitis pathway (Type I + IV mixed hypersensitivity):\n\nStep 1: Sensitization (initial exposure)\n— Allergen penetrates skin (atopic skin barrier dysfunction → easier penetration)\n— Langerhans cell (LC) — dendritic cell in epidermis (stratum spinosum) — captures allergen via FcεRI\n— LC migrates to local lymph node\n\nStep 2: T-cell activation\n— LC presents allergen to naive T-cells in lymph node\n— Th2 response dominates in atopy:\n  • IL-4, IL-13 → B-cell IgE class switch\n  • IL-5 → eosinophil recruitment\n  • IL-31 → pruritus signaling ★ (target of Lokivetmab)\n\nStep 3: IgE production + tissue priming\n— B-cells differentiate to plasma cells → produce allergen-specific IgE\n— IgE binds high-affinity FcεRI on mast cells + LCs (positive feedback)\n— \"Sensitized\" — no symptoms yet\n\nStep 4: Re-exposure (effector phase)\n— Allergen re-enters skin → cross-links 2 IgE on mast cell → degranulation\n— Histamine, prostaglandins, leukotrienes → vasodilation, pruritus, edema\n— Eosinophils recruited → MBP, ECP, EDN → tissue damage\n\nStep 5: Chronic phase\n— Th17 + Th22 contribution → epidermal hyperplasia, lichenification\n— Microbial dysbiosis (Staph + Malassezia overgrowth) → 2° infection\n— Barrier dysfunction worsens (filaggrin deficient, ceramide ↓)\n\n💡 Other key cells in CAD:\n— Mast cell — degranulation = effector\n— Eosinophil — late-phase + chronic inflammation\n— Th2 cell — orchestrator of allergic response\n— B-cell / Plasma cell — IgE production\n— Keratinocyte — barrier dysfunction + cytokine production (IL-33, TSLP)\n\n💡 Therapeutic targets in CAD:\n— Block IL-31: Lokivetmab (Cytopoint) anti-IL-31 mAb\n— Block JAK signaling: Oclacitinib (Apoquel) JAK1 inhibitor — blocks IL-31, IL-2, IL-4, IL-13\n— T-cell activation: Cyclosporine (calcineurin inhibitor)\n— ASIT — modify Th2 response toward Treg\n— Topical steroids — broad anti-inflammatory\n\n💡 skin-resident antigen-presenting cell, APC",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #9"
+  },
+  {
+    "id": 1153,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #34",
+    "tags": [
+      "dermatophytosis",
+      "dtm",
+      "sensitivity",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "การวินิจฉัย Dermatophytosis ที่มี \"Sensitivity และ Specificity สูงสุด\" และเหมาะสำหรับการตรวจทางคลินิก คือ",
+    "options": [
+      "Wood\\'s lamp (positive ใน M. canis เท่านั้น ~ 50%)",
+      "Trichogram (microscopic exam ของเส้นขน)",
+      "Dermatohistopathology (skin biopsy)",
+      "Dermatophyte Test Medium (DTM)",
+      "Acetate tape preparation"
+    ],
+    "answer": 3,
+    "explain": "DTM = best in-clinic diagnostic for dermatophytosis ★\n\n💡 Dermatophyte Test Medium (DTM):\n— Composition: Sabouraud dextrose agar + cycloheximide (suppresses contaminants) + chloramphenicol/gentamicin (antibacterial) + phenol red pH indicator ★\n— Mechanism: dermatophytes preferentially metabolize protein → alkaline byproducts → phenol red turns yellow → red (color change within 7-14 days)\n— Other (saprophytic) fungi metabolize carbohydrate first → acidic → phenol red stays yellow OR turns red only after carbohydrate exhausted (delayed)\n\n💡 Technique:\n1. Use toothbrush technique (MacKenzie brush) on suspect area + adjacent normal coat\n2. Press hairs/scales into DTM agar\n3. Incubate at room temp (or 25-30°C) × 7-14 days\n4. Daily check: color change + colony morphology\n— Positive: macroscopic white/cottony colony WITH phenol red turning RED concurrent with colony growth\n— Confirm species: microscopic exam of colony (macroconidia) — M. canis (spindle, 6-10 cells), M. gypseum (boat-shaped), T. mentagrophytes (spiral hyphae)\n\n💡 Sensitivity + Specificity:\n— DTM sensitivity ~ 80-95%\n— Specificity high if proper interpretation (color WITH growth, not delayed)\n— More reliable than Wood's lamp (only 50% sensitivity for M. canis only)\n— More accessible than histopath\n\n💡 Other dx methods:\n\n1. Wood's lamp (UV 365 nm):\n— Quick screen but unreliable\n— Only ~ 50% of M. canis fluoresce apple-green (pteridine pigments)\n— NOT useful for: M. gypseum, T. mentagrophytes (these don't fluoresce)\n— False positives: scale, lint, medications\n\n2. Trichogram (hair pluck → mineral oil → microscope):\n— See: arthroconidia outside hair shaft (ectothrix M. canis), endothrix (T. tonsurans, rare in pet)\n— Quick but lower sensitivity\n\n3. Skin biopsy + histopath / PAS stain:\n— Definitive but invasive, expensive\n— Useful for atypical presentations or pseudomycetoma (Persian cat) — deeper infection\n\n4. PCR:\n— Highest sensitivity (newer commercial tests)\n— Species ID + susceptibility\n— Increasingly available, but $$$\n\n💡 Aj. Chayot recommends DTM as practical clinical gold standard for in-clinic diagnostics\n\n💡 fungal culture with phenol red indicator",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #34"
+  },
+  {
+    "id": 1154,
+    "subject": "com4",
+    "topic": "imha",
+    "year": 4,
+    "source": "อ.รสมา Fangfuay vet81 #9 + clinical reasoning",
+    "tags": [
+      "neonate",
+      "growth-assessment",
+      "tf",
+      "rosama"
+    ],
+    "type": "mcq",
+    "q": "[T/F] การประเมินว่าลูกสุนัขเจริญเติบโตดีหรือไม่ ควรใช้ข้อมูล 2 ข้อมูลคือ \"น้ำหนักตัว\" และ \"Muscle tone\"",
+    "options": [
+      "ถูก (True)",
+      "ผิด (False)"
+    ],
+    "answer": 1,
+    "explain": "❌ ผิด — Aj. Rosama original = F (annotated X mark on \"muscle tone\")\n\n💡 การประเมิน growth puppy ที่ถูกต้อง:\n\nใช้ 2 indicators หลัก:\n1. น้ำหนักตัว (Body weight) ✓\n   — Daily weight gain in first 2 wks: ~ 5-10% BW/day\n   — Doubles by 7-10 days\n   — Tracking with growth chart appropriate for breed/size\n2. Body Condition Score (BCS) ✓ — 1-9 scale, target 4-5/9\n   — Or alternatively: Body temperature (proxy of metabolism + maternal care)\n\nMuscle tone ไม่ใช่ key indicator ของ growth assessment เพราะ:\n— Muscle tone = neuromuscular development (not growth)\n— Reflects neurologic maturity, not nutritional adequacy\n— Useful for assessing alertness/vigor but separate from \"growth\"\n\n💡 Comprehensive growth monitoring:\n— Weight (daily first 2 wks, then 2-3x/week until weaning)\n— BCS (palpate ribs, waist)\n— Activity + suckling vigor\n— Body temperature (warm = healthy, cool = sick neonate)\n— Hydration status (skin tent, MM moisture)\n— Stool consistency\n— Crying behavior (excessive = pain, hunger, hypothermia)\n\n💡 Red flags requiring intervention:\n— Failure to gain for 2+ days\n— Weight loss (any after first 24 hr)\n— Lethargy, weak suckle\n— Hypothermia (< 35°C)\n— Constant crying\n— Diarrhea / vomiting\n— Cyanotic mucous membrane",
+    "verified": "อ.รสมา original Fangfuay vet81 #9 (F) — annotated X on muscle tone"
+  },
+  {
+    "id": 1155,
+    "subject": "com4",
+    "topic": "derm-allergic",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #43",
+    "tags": [
+      "drug-thyroid",
+      "sick-euthyroid",
+      "chayot",
+      "classic"
+    ],
+    "type": "mcq",
+    "q": "ยา/สารใด \"ไม่มีผล\" ต่อระดับ Thyroid hormone (TT4) ในสุนัข",
+    "options": [
+      "Sulfonamides (TMS)",
+      "Glucocorticoids (Prednisolone, Dexamethasone)",
+      "NSAIDs",
+      "Anti-emetics",
+      "Anticonvulsants (Phenobarbital, Bromide)"
+    ],
+    "answer": 3,
+    "explain": "Anti-emetics ไม่ส่งผลต่อ thyroid hormone ★\n\n💡 Drugs that affect TT4 (cause Euthyroid Sick Syndrome / falsely low TT4):\n\nSulfonamides (TMS):\n— Inhibit thyroid peroxidase (TPO) → ↓ T4 synthesis\n— Long-term TMS → can cause true hypothyroidism\n— Doberman especially sensitive\n\nGlucocorticoids (Prednisolone, Dexamethasone):\n— Suppress TSH → central inhibition\n— Decrease binding protein (TBG) → ↓ TT4 (but FT4 may stay normal)\n— Inhibit peripheral T4 → T3 conversion (5'-deiodinase)\n\nNSAIDs (Carprofen, Meloxicam):\n— Compete with T4 for binding protein\n— ↓ TT4 (FT4 may rise transiently)\n— Long-term effects modest\n\nAnticonvulsants (Phenobarbital, Bromide):\n— Phenobarb induces hepatic CYP450 → ↑ T4 metabolism → ↓ serum T4\n— Phenobarb-induced hypothyroidism well-recognized\n— Don't treat with levothyroxine unless clinically hypothyroid (just adjust phenobarb monitoring)\n\nOther drugs that affect:\n— Radiocontrast media (Iodine load)\n— Furosemide (acute decrease TT4)\n— Salicylates / Aspirin\n— Heparin (affects assay)\n— Dopamine, Dobutamine (transient suppression)\n\n💡 Anti-emetics — minimal/no effect:\n— Maropitant (Cerenia) — NK1 antagonist\n— Metoclopramide — D2 antagonist + 5-HT3 antagonist (high dose)\n— Ondansetron — 5-HT3 antagonist\n— Mirtazapine — appetite stimulant + anti-emetic\n— No thyroid effect documented\n\n💡 Clinical implication:\n— ก่อน Tx hypothyroid → review drug history!\n— Stop offending drug (if possible) for 4-6 wks → recheck T4\n— Order full thyroid panel: TT4 + FT4 + cTSH (FT4 + cTSH less affected by drugs)\n— Don't over-diagnose hypothyroid based on single low TT4\n\n💡 Maropitant, Metoclopramide, Ondansetron — minimal thyroid effect",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #43"
+  },
+  {
+    "id": 1156,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #12",
+    "tags": [
+      "lichenification",
+      "chronic",
+      "lesions",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "รอยโรค \"Lichenification\" บ่งบอกว่าสัตว์มีโรคใด",
+    "options": [
+      "Acute bacterial infection",
+      "Sterile pustule (pemphigus)",
+      "Chronic dermatitis",
+      "Vesicle (autoimmune)",
+      "Necrosis"
+    ],
+    "answer": 2,
+    "explain": "Lichenification = Chronic dermatitis hallmark ★\n\n💡 Lichenification:\n— Definition: thickening + ↑ skin markings + leathery texture\n— Cause: chronic inflammation + repeated rubbing/scratching\n— Sites: areas accessed by licking/scratching — feet, axilla, ventral neck, inguinal, perineum, periocular\n— Often hyperpigmented (chronic inflammation → melanin production)\n— Secondary lesion (not primary — develops over time)\n\n💡 Common causes of chronic dermatitis with lichenification:\n— Atopic dermatitis (CAD) ★ — chronic flexor surface lichenification\n— Food allergy\n— Flea Allergic Dermatitis (FAD) chronic\n— Demodicosis chronic\n— Malassezia dermatitis chronic\n— Endocrine disease (chronic Cushing, hypothyroid → recurrent secondary infection)\n— Acral lick dermatitis (psychogenic, OCD)\n— Mucocutaneous pyoderma chronic (German Shepherd)\n\n💡 Other secondary lesions of chronic disease:\n— Hyperpigmentation ★ — dark/brown discoloration (chronic inflammation)\n— Hypopigmentation — loss of pigment (autoimmune attack on melanocytes)\n— Alopecia (from chronic friction or follicular damage)\n— Scarring/Fibrosis\n— Calcinosis cutis (chronic Cushing)\n— Comedones (chronic blocked follicles)\n— Excoriation (constant scratching)\n\n💡 Approach to chronic dermatitis with lichenification:\n1. Identify and treat underlying primary cause (allergy, parasite, endocrine)\n2. Resolve secondary infections (Staph + Malassezia common)\n3. Restore skin barrier (ceramide, omega-3 supplementation, moisturizing shampoo)\n4. Pruritus control (oclacitinib, lokivetmab, cyclosporine)\n5. Patient + owner compliance (long-term management often required)\n\n💡 Important DDx clue:\n— Lichenification + ventral abdomen distribution → think Atopy (esp. flexor surfaces)\n— Lichenification + lumbar/tail base → think FAD (flea allergy)\n— Lichenification + face/feet/ears → CAD or Malassezia\n\n💡 ผิวหนา + ลายชัด + leathery + พบใน atopy/FAD/endocrine",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #12"
+  },
+  {
+    "id": 1157,
+    "subject": "com4",
+    "topic": "derm-parasitic",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #30",
+    "tags": [
+      "parasitic",
+      "pruritus",
+      "inflammation",
+      "chayot",
+      "concept"
+    ],
+    "type": "mcq",
+    "q": "ข้อใด \"ไม่ถูกต้อง\" เกี่ยวกับโรคผิวหนังจากปรสิตในสุนัข",
+    "options": [
+      "มักมีอาการคันที่รุนแรง (intense pruritus)",
+      "การตัดวงจรชีวิตของปรสิตเป็นสิ่งสำคัญในการควบคุมโรค",
+      "รอยโรคที่มักพบคือ non-pruritic, non-inflammatory alopecia (ผิด",
+      "อาจมี secondary bacterial infection (Staph)",
+      "ส่วนใหญ่ติดต่อระหว่างสัตว์ได้"
+    ],
+    "answer": 2,
+    "explain": "ผิด — Parasitic dermatosis เป็น \"pruritic + inflammatory\" ไม่ใช่ \"non-pruritic, non-inflammatory\" ★\n\n💡 Parasitic skin disease characteristics:\n— Pruritic (intense itching) — almost always present\n  • Sarcoptes: severe pruritus, sleep-disturbing\n  • Demodex (generalized): variable pruritus, more if 2° infection\n  • Cheyletiella: moderate pruritus, \"walking dandruff\"\n  • Flea/FAD: severe pruritus at flea bite + allergic response\n— Inflammatory — papules, erythema, edema, secondary lesions\n— Often with secondary bacterial infection (chronic scratching disrupts barrier → Staph overgrowth)\n— Alopecia (from scratching + follicular damage) — NOT primary lesion\n\n💡 \"Non-pruritic, non-inflammatory alopecia\" = pattern of endocrine disease:\n— Hypothyroidism\n— Cushing's syndrome\n— Sex hormone imbalance\n— Alopecia X (Nordic breeds)\n\n💡 Common parasitic dermatoses (highly pruritic):\n\n1. Sarcoptes scabiei var. canis (Sarcoptic mange):\n— Burrows in stratum corneum\n— Severe pruritus (worse than any other!)\n— Predilection: ear margins, elbow, hock, ventral abdomen\n— Pinnal-pedal reflex positive (rub ear edge → ipsilateral hindleg scratches) — 80% sensitivity\n— Highly contagious + zoonotic (transient on humans)\n\n2. Demodex canis (Demodicosis):\n— Hair follicle + sebaceous gland\n— Localized: minimal pruritus\n— Generalized: variable pruritus, often 2° pyoderma → severe pruritus\n— Not contagious (commensal flora)\n\n3. Cheyletiella spp. (\"Walking dandruff\"):\n— Surface mite\n— Moderate pruritus + scaling on dorsum\n— Mite visible to naked eye (white dots moving on dark fur)\n— Contagious, mild zoonosis\n\n4. Otodectes cynotis (Ear mite):\n— Ear canal infestation\n— Severe pruritus → head shaking, scratching ears\n— \"Coffee ground\" exudate on otoscopy\n\n5. Flea / FAD:\n— Allergic reaction to flea saliva\n— Severe pruritus at lumbosacral + tail base + ventral abdomen\n— \"Flea triangle\" classic distribution",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #30"
+  },
+  {
+    "id": 1158,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #33",
+    "tags": [
+      "dermatophytosis",
+      "predispose",
+      "concept",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ข้อใด \"ไม่ถูกต้อง\" เกี่ยวกับ Dermatophytosis",
+    "options": [
+      "Microsporum canis = most common cause in cat",
+      "T. mentagrophytes มักพบในสัตว์ที่สัมผัสสัตว์ฟันแทะ (rodents)",
+      "M. gypseum มักพบในสัตว์เลี้ยงนอกบ้าน (outdoor) ที่สัมผัสดิน",
+      "การวินิจฉัยที่ดีที่สุดสำหรับ in-clinic คือ DTM culture",
+      "โรคนี้เกิดจากเชื้อราโดยไม่เกี่ยวกับภาวะผิดปกติอื่นของร่างกาย"
+    ],
+    "answer": 4,
+    "explain": "ผิด — Dermatophytosis เกี่ยวข้องกับสภาพร่างกาย/immune status อย่างมาก ★\n\n💡 Predisposing factors for Dermatophytosis:\n\n1. Immunosuppression / Immunocompromise:\n— FeLV / FIV in cats — increases susceptibility\n— Cushing's syndrome (chronic hypercortisolism)\n— Diabetes mellitus\n— Neoplasia / chemotherapy\n— Immunosuppressive drugs (cyclosporine, prednisolone, MMF)\n— Stress (boarding, breeding kennels)\n— Pregnancy/lactation (immune fluctuation)\n— Old age / very young (immature immune)\n\n2. Skin barrier compromise:\n— Trauma, skin disease (atopy, parasites)\n— Excessive bathing → barrier disruption\n— Chronic moisture\n\n3. Environmental + host:\n— Long-haired breeds more susceptible (Persian cat)\n— Crowded environments (catteries, boarding)\n— Tropical/humid climate (TH ★)\n— Indoor multi-pet households\n\n4. Age:\n— Young (< 1 yr): immature immune\n— Old: declining immune function\n\n💡 Clinical implications:\n— Recurrent dermatophytosis in adult dog/cat → investigate underlying disease!\n  • CBC, chem profile\n  • FeLV/FIV (cat)\n  • Endocrine workup (Cushing, hypothyroid)\n  • Skin biopsy if atypical\n— Persistent dermatophytosis despite Tx → check immune status\n— Multiple animals affected → environmental decon + screen all pets\n\n💡 Other \"dermatophytosis basics\" (correct):\n— M. canis = most common (dog 50%, cat 90%) ★\n— T. mentagrophytes = rodent contact, hunting dogs\n— M. gypseum = soil exposure, geophilic\n— M. canis = Wood's lamp positive ~ 50%\n— DTM = best in-clinic dx (not 100% but good sens + practical)\n— Treatment 4-8 wks systemic (itraconazole 1st choice cat)\n— Environmental decon essential (fomites = textile, bedding)",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #33"
+  },
+  {
+    "id": 1159,
+    "subject": "com4",
+    "topic": "derm-fungal",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #32",
+    "tags": [
+      "acetate-tape",
+      "cytology",
+      "broad-dx",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "การวินิจฉัยใด \"สามารถใช้วินิจฉัย\" ทั้งโรคจากแบคทีเรีย \"และ\" โรคจากเชื้อรา (ในเดียวเทคนิค)",
+    "options": [
+      "Dermatophyte Test Medium (DTM) — รา only",
+      "Dermatohistopathology (skin biopsy) — มี evidence ของหลายโรค แต่ไม่ใช่เทคนิคหลัก in-clinic",
+      "Trichogram (เส้นขน) — ราเน้น",
+      "Acetate tape preparation",
+      "Fungal culture — รา only"
+    ],
+    "answer": 3,
+    "explain": "Acetate tape preparation = versatile in-clinic dx (Aj. Chayot ★)\n\n💡 Acetate tape technique:\n1. Press clear acetate tape (Scotch tape) firmly on affected skin lesion (or hair coat for surface organisms)\n2. Lift tape with debris/cells/organisms attached\n3. Place tape (sticky-side down) on glass slide with drop of stain (Diff-Quik or methylene blue)\n4. Microscopic exam (10x → 40x → 100x oil)\n\n💡 What you can find on tape prep:\n\nBacteria ★:\n— Cocci (Staphylococcus, Streptococcus) — clusters, single cocci\n— Bacilli (rod-shaped, less common)\n— Filamentous (Actinomyces, Nocardia)\n— Diff-Quik blue/purple\n\nYeast ★:\n— Malassezia pachydermatis — \"shoe print\" / \"peanut\" / \"footprint\" appearance ★\n— Diff-Quik dark blue\n\nFungi:\n— Arthroconidia (dermatophyte) — barrel-shaped, attached to hair shaft\n— Hyphae (less commonly)\n\nParasites (surface):\n— Cheyletiella — \"walking dandruff\" mite\n— Lice (Pediculus)\n— Some surface mite eggs\n\nCells:\n— Inflammatory cells (neutrophils, eosinophils)\n— Acanthocytes/keratinocytes\n— Melanophages\n\n💡 Compare diagnostic techniques:\n\n| Technique | Bacteria | Yeast | Fungi | Mites | Cells |\n|---|---|---|---|---|---|\n| Acetate tape ★ | ✓ | ✓✓ | ✓ | ✓ (surface) | ✓ |\n| Cytology smear | ✓✓ | ✓ | ✓ | × | ✓✓ |\n| DTM culture | × | × | ✓✓✓ | × | × |\n| Skin scraping (deep) | × | × | × | ✓✓ (Demodex) | × |\n| Skin scraping (superficial) | × | × | × | ✓ (Sarcoptes) | × |\n| Trichogram | × | × | ✓ (arthroconidia) | × | hair shaft |\n| Wood's lamp | × | × | ✓ (M. canis only) | × | × |\n| Histopath | ✓ | ✓ | ✓ | ✓ | ✓✓✓ |\n\n💡 Tips:\n— Tape prep is fastest, cheapest, no scraping discomfort\n— Best for superficial conditions (yeast, Cocci, surface mites)\n— Doesn't reach deep parasites (Demodex needs deep scrape)\n— Good first-line in-clinic screening\n\n💡 เก็บ surface debris → Diff-Quik → ดูได้ทั้ง bacteria, yeast (Malassezia), fungi (arthroconidia), Cheyletiella",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #32"
+  },
+  {
+    "id": 1160,
+    "subject": "com4",
+    "topic": "derm-bacterial",
+    "year": 4,
+    "source": "อ.ชัยยศ Fangfuay vet81 #18 + Q23",
+    "tags": [
+      "pyoderma",
+      "second-line",
+      "marbofloxacin",
+      "chayot"
+    ],
+    "type": "mcq",
+    "q": "ยาปฏิชีวนะที่เหมาะสมในการศึกษาโรคผิวหนังจากแบคทีเรีย เมื่อสงสัยภาวะ \"ดื้อยา\" และผลเพาะเชื้อบ่งชี้ (Second-line antibiotic) คือ",
+    "options": [
+      "Cephalexin (1st line)",
+      "Amoxicillin-clavulanic acid (1st line)",
+      "Marbofloxacin",
+      "Streptomycin (aminoglycoside — not standard for skin)",
+      "TMS (alternative 1st-line, but not for resistant)"
+    ],
+    "answer": 2,
+    "explain": "Marbofloxacin = 2nd-line ABO for resistant pyoderma ★\n\n💡 Pyoderma antibiotic ladder:\n\n1st-line (empirical):\n— Cephalexin 22-30 mg/kg PO q12h ★\n— Amoxicillin-clavulanate 12.5-25 mg/kg PO q12h\n— Cefadroxil, Cefovecin (Convenia injectable q14d)\n\n2nd-line (when 1st-line fails or resistance suspected):\n— Fluoroquinolones ★\n  • Marbofloxacin 2-5.5 mg/kg PO q24h\n  • Enrofloxacin 5-20 mg/kg PO q24h (cat: avoid > 5 mg/kg/d → retinal degeneration!)\n  • Pradofloxacin 3 mg/kg PO q24h (newer)\n— Clindamycin 5.5-11 mg/kg PO q12h\n— Doxycycline 5-10 mg/kg PO q12-24h\n\n3rd-line (per C&S only — MRSP suspected):\n— Chloramphenicol\n— Rifampin (combo only — never alone)\n— Vancomycin (last resort, IV only)\n— Linezolid\n\n💡 When to use 2nd-line:\n1. Failed 1st-line trial (≥ 2-3 wks adequate dose, no improvement)\n2. Recurrent pyoderma with prior antibiotic exposure\n3. C&S indicates resistance to 1st-line\n4. Hospital-acquired infection\n5. Deep pyoderma severe (sometimes initial choice if MRSP suspected)\n\n💡 Antibiotic stewardship principles:\n— C&S testing in: recurrent, deep, refractory, prior antibiotic exposure, immunocompromised host\n— Avoid empirical fluoroquinolones if 1st-line not tried\n— Adequate duration: superficial 3 wks, deep 6-12 wks (1 wk past resolution)\n— Adjunctive topical to reduce systemic dose/duration\n\n💡 MRSP threat:\n— Methicillin-resistant S. pseudintermedius — global emergence\n— Resistant to ALL β-lactams (including amoxi-clav, cephalexin, oxacillin)\n— Often multidrug-resistant\n— Diagnosis: C&S + mecA gene PCR\n— Tx: limited options — chloramphenicol, doxy (if susceptible), rifampin combo\n— Zoonotic risk — hand hygiene + barriers\n\n💡 2nd line, fluoroquinolone — for resistant Staph cases per C&S",
+    "verified": "อ.ชัยยศ Fangfuay vet81 #23"
+  },
 ];

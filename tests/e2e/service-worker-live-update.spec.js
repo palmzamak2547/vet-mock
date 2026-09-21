@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test';
+import { test as base, expect as defaultExpect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { UPDATE_UNSAFE_VIEWS as legacyUnsafeViews } from '../fixtures/legacy-update-e6ab5ea2/update-safety.js';
@@ -136,19 +136,34 @@ const test = base.extend({
 });
 
 test.use({ serviceWorkers: 'allow' });
-test.setTimeout(45_000);
+// Every wait in this file is a wait on a service worker: the browser starting
+// one so it can answer, or serving a document's entry chunk through it. On a
+// loaded runner those steps regularly outlast the suite's 15s default, and a
+// document whose entry chunk has not run yet reports the attribute as null.
+// An expect timeout is how long a condition may take to become true, so
+// nothing below is weakened — the worker is only measured on its own clock.
+const expect = defaultExpect.configure({ timeout: 30_000 });
+test.setTimeout(90_000);
 
-async function workerVersion(page) {
-  return page.evaluate(() => new Promise(resolve => {
-    const worker = navigator.serviceWorker.controller;
-    if (!worker) { resolve(null); return; }
-    const channel = new MessageChannel();
-    const timer = setTimeout(() => { channel.port1.close(); resolve(null); }, 1000);
-    channel.port1.onmessage = event => {
-      clearTimeout(timer); channel.port1.close(); resolve(event.data?.version || null);
-    };
-    worker.postMessage('GET_VERSION', [channel.port2]);
-  }));
+// `which` picks the document's own controller or the registration's active
+// worker. A browser may have to start the worker before it can answer, so a
+// single round trip is never proof of anything: null means "nothing answered
+// yet", and every call site polls rather than reading it as a version.
+async function workerVersion(page, which = 'controller') {
+  return page.evaluate(async (pick) => {
+    const worker = pick === 'controller'
+      ? navigator.serviceWorker.controller
+      : (await navigator.serviceWorker.getRegistration('/app/'))?.active;
+    if (!worker) return null;
+    return new Promise(resolve => {
+      const channel = new MessageChannel();
+      const timer = setTimeout(() => { channel.port1.close(); resolve(null); }, 5000);
+      channel.port1.onmessage = event => {
+        clearTimeout(timer); channel.port1.close(); resolve(event.data?.version || null);
+      };
+      worker.postMessage('GET_VERSION', [channel.port2]);
+    });
+  }, which);
 }
 
 async function triggerUpdateCheck(page) {
@@ -184,10 +199,18 @@ async function waitForInstalledUpdate(page) {
 
 async function waitForNaturalActivation(observer) {
   expect(await observer.evaluate(() => navigator.serviceWorker.controller)).toBeNull();
-  await expect.poll(() => observer.evaluate(async () => {
-    const registration = await navigator.serviceWorker.getRegistration('/app/');
-    return { active: registration?.active?.state, waiting: Boolean(registration?.waiting) };
-  })).toEqual({ active: 'activated', waiting: false });
+  // Ask the new worker itself instead of reading a state string off this page.
+  // WebKit never delivers the activating→activated transition to a client it
+  // does not control, so an uncontrolled observer reports 'activating' for the
+  // rest of its life while a window opened beside it is already controlled by
+  // the activated worker — measured directly: a stalled observer and a fresh
+  // page reporting activated, controlled and build B at the same instant.
+  // Nothing waiting plus the new worker answering is that same guarantee,
+  // taken where the browser actually keeps it current.
+  await expect.poll(async () => ({
+    waiting: await observer.evaluate(async () => Boolean((await navigator.serviceWorker.getRegistration('/app/'))?.waiting)),
+    version: await workerVersion(observer, 'active'),
+  })).toEqual({ waiting: false, version: 'browser-test-B' });
 }
 
 async function reopenAfterAllDocumentsClose(context, origin, documents, observer) {
@@ -227,7 +250,7 @@ test('updates preserve every open document while new documents get the new UI', 
       return preload.defaultPrevented;
     });
     expect(defaultPrevented).toBe(false);
-    expect(await workerVersion(tab)).toBe('browser-test-A');
+    await expect.poll(() => workerVersion(tab)).toBe('browser-test-A');
     expect(await tab.evaluate(() => window.controllerChanges)).toBe(changes[index]);
     expect(await tab.evaluate(() => window.documentIdentity)).toBe(identities[index]);
     await expect(tab.locator('body')).toHaveAttribute('data-build', 'A');
@@ -242,7 +265,7 @@ test('updates preserve every open document while new documents get the new UI', 
     await offline.goto(updateServer.origin + '/app/unvisited-offline-route', { waitUntil: 'domcontentloaded' });
     await expect(offline.locator('body')).toHaveAttribute('data-build', 'A');
     await expect(offline.locator('html')).toHaveAttribute('data-entry-build', 'A');
-    expect(await workerVersion(offline)).toBe('browser-test-A');
+    await expect.poll(() => workerVersion(offline)).toBe('browser-test-A');
     expect(updateServer.failedRequests()).toBeGreaterThan(0);
     await offline.close();
   } finally { updateServer.reconnect(); }
@@ -250,11 +273,11 @@ test('updates preserve every open document while new documents get the new UI', 
   const modern = await context.newPage(); await modern.goto(updateServer.origin + '/app/pdf');
   await expect(modern.locator('body')).toHaveAttribute('data-build', 'B');
   await expect(modern.locator('html')).toHaveAttribute('data-entry-build', 'B');
-  expect(await workerVersion(modern)).toBe('browser-test-A');
+  await expect.poll(() => workerVersion(modern)).toBe('browser-test-A');
   await modern.getByLabel('Study draft').fill('งานในหน้ารุ่นใหม่');
   const modernIdentity = await modern.evaluate(() => window.documentIdentity);
   await page.close(); await second.close();
-  expect(await workerVersion(modern)).toBe('browser-test-A');
+  await expect.poll(() => workerVersion(modern)).toBe('browser-test-A');
   expect(await modern.evaluate(() => window.documentIdentity)).toBe(modernIdentity);
   await expect(modern.getByLabel('Study draft')).toHaveValue('งานในหน้ารุ่นใหม่');
   await reopenAfterAllDocumentsClose(context, updateServer.origin, [modern], updateServer.observer);
@@ -268,7 +291,7 @@ test('failed B precaching still opens the cached A shell offline after natural a
   const identity = await page.evaluate(() => window.documentIdentity);
   updateServer.deploy('B', { failShell: true });
   await triggerUpdateCheck(page); await waitForInstalledUpdate(page);
-  expect(await workerVersion(page)).toBe('browser-test-A');
+  await expect.poll(() => workerVersion(page)).toBe('browser-test-A');
   expect(await page.evaluate(() => window.documentIdentity)).toBe(identity);
   await expect(page.getByLabel('Study draft')).toHaveValue('งานเดิมยังอยู่');
 
@@ -309,8 +332,8 @@ for (const legacyTrigger of ['hidden tab', 'navigation', 'repeated update signal
     await expect(modern.locator('html')).toHaveAttribute('data-entry-build', 'B');
     await modern.getByLabel('Study draft').fill('งานในแท็บรุ่นใหม่');
     const modernIdentity = await modern.evaluate(() => window.documentIdentity);
-    expect(await workerVersion(page)).toBe('browser-test-A');
-    expect(await workerVersion(modern)).toBe('browser-test-A');
+    await expect.poll(() => workerVersion(page)).toBe('browser-test-A');
+    await expect.poll(() => workerVersion(modern)).toBe('browser-test-A');
     expect(await page.evaluate(() => window.documentIdentity)).toBe(legacyIdentity);
     await expect(page.getByLabel('Study draft')).toHaveValue('งานจากรุ่นเดิมต้องไม่หาย');
     await page.close();
@@ -319,7 +342,7 @@ for (const legacyTrigger of ['hidden tab', 'navigation', 'repeated update signal
       document.dispatchEvent(new Event('visibilitychange')); delete document.visibilityState;
       window.dispatchEvent(new Event('vmx-sw-apply-update'));
     });
-    expect(await workerVersion(modern)).toBe('browser-test-A');
+    await expect.poll(() => workerVersion(modern)).toBe('browser-test-A');
     expect(await modern.evaluate(() => window.documentIdentity)).toBe(modernIdentity);
     await expect(modern.getByLabel('Study draft')).toHaveValue('งานในแท็บรุ่นใหม่');
     await reopenAfterAllDocumentsClose(context, updateServer.origin, [modern], updateServer.observer);

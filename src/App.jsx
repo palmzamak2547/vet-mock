@@ -1274,6 +1274,13 @@ export default function App() {
     sessionBudget: mode === 'exam',
     onFinish: useCallback(() => finishExamRef.current?.(), []),
   });
+  // `session` is a NEW object every render, and the callbacks on it are bound
+  // to that render's ownerId. Anything memoised with an empty dep array that
+  // reaches for `session` therefore holds the FIRST render's copy — built
+  // while auth was still resolving and ownerId was null. Callers that go
+  // through this ref get the current binding instead. See replayQuestions.
+  const sessionRef = useRef(session);
+  sessionRef.current = session;
   const {
     questions, setQuestions,
     answers, setAnswers,
@@ -2620,9 +2627,16 @@ export default function App() {
     }
     finishingRef.current = false; // arm the finish latch for the redo round
     setUseTimer(false); // redo rounds never on a clock — focused review
-    session.replayQuestions(qs);
+    // Through the ref, NOT the closure. This callback is memoised once, so a
+    // direct `session.replayQuestions` was the first render's binding, whose
+    // ownerId was null because auth had not resolved yet. It stamped
+    // sessionOwner=null on every redo round, and finishExam then refused to
+    // submit with "บัญชีเปลี่ยนระหว่างทำข้อสอบ" — so a signed-in student could
+    // redo their wrong questions but never see the results page. Same fault as
+    // the finishTourStart fix above, reached through a different caller.
+    sessionRef.current.replayQuestions(qs);
     setView('exam');
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- session/setView stable
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- setView stable; session via sessionRef
   }, []);
 
   // Open ONE named question as a single-question round.

@@ -14,7 +14,10 @@
 export const QUESTIONS_Y5_AVIAN_2026_B = [
   {
     "id": 105772,
-    "tags": ["riemerella-anatipestifer","fibrinous-polyserositis"],
+    "tags": [
+      "riemerella-anatipestifer",
+      "fibrinous-polyserositis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -27,14 +30,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Riemerella anatipestifer"
     ],
     "answer": 3,
-    "explain": "ภาพรวมของ Riemerella anatipestifer คือลูกเป็ดอายุ 1-7 สัปดาห์ อาการทางประสาทแบบ incoordination และ tremors ของหัวและคอ ร่วมกับ polyserositis ที่มี fibrinous exudate คลุมอวัยวะภายใน และเอกสารระบุการเพาะเชื้อบน chocolate agar เป็น definitive diagnosis ส่วน E. coli ก่อ polyserositis ได้จริงแต่ไม่ใช่ภาพที่ผูกกับ chocolate agar และอาการทางประสาทแบบนี้ Pasteurella multocida ทำให้ตายเฉียบพลันมากกว่าจะมาด้วยคอบิดตัวสั่น และ Salmonella Typhimurium ในเป็ดเป็นกลุ่ม motile serovar ที่ประเด็นหลักคือความปลอดภัยอาหารในคน",
+    "explain": "ภาพรวมของ Riemerella anatipestifer คือลูกเป็ดอายุ 1-7 สัปดาห์ อาการทางประสาทแบบ incoordination และ tremors ของหัวและคอ ร่วมกับ polyserositis ที่มี fibrinous exudate คลุมอวัยวะภายใน โดยการเพาะเชื้อบน chocolate agar เป็น definitive diagnosis ส่วน E. coli ก่อ polyserositis ได้จริงแต่ไม่ใช่ภาพที่ผูกกับ chocolate agar และอาการทางประสาทแบบนี้ Pasteurella multocida ทำให้ตายเฉียบพลันมากกว่าจะมาด้วยคอบิดตัวสั่น และ Salmonella Typhimurium ในเป็ดเป็นกลุ่ม motile serovar ที่ประเด็นหลักคือความปลอดภัยอาหารในคน",
     "verified": "Avian Med KFC น.2",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105773,
-    "tags": ["duck-viral-enteritis","annular-band-lesion"],
+    "tags": [
+      "duck-viral-enteritis",
+      "annular-band-lesion"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -54,7 +60,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105774,
-    "tags": ["duck-viral-hepatitis","picornavirus"],
+    "tags": [
+      "duck-viral-hepatitis",
+      "picornavirus"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -67,14 +76,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Duck Tembusu flavivirus"
     ],
     "answer": 0,
-    "explain": "DVH type 1 เกิดจาก Picornavirus-1 รุนแรงที่สุด ก่อโรคในลูกเป็ดอายุน้อยกว่า 5 สัปดาห์ pathognomonic lesion คือตับที่มีเลือดออก และเอกสารระบุตรงว่าในไทยมีแค่ DVH type 1 ส่วน Astrovirus เป็น DVH type 2 ซึ่งก่อโรคในลูกเป็ดอายุ 6-10 สัปดาห์ Anatid herpesvirus 1 คือ duck plague ที่รอยโรคอยู่ที่หลอดอาหารและลำไส้ และ Tembusu ก่อ encephalitis ไม่ใช่ตับเลือดออก",
+    "explain": "DVH type 1 เกิดจาก Picornavirus-1 รุนแรงที่สุด ก่อโรคในลูกเป็ดอายุน้อยกว่า 5 สัปดาห์ pathognomonic lesion คือตับที่มีเลือดออก และในไทยพบเพียง DVH type 1 ส่วน Astrovirus เป็น DVH type 2 ซึ่งก่อโรคในลูกเป็ดอายุ 6-10 สัปดาห์ Anatid herpesvirus 1 คือ duck plague ที่รอยโรคอยู่ที่หลอดอาหารและลำไส้ และ Tembusu ก่อ encephalitis ไม่ใช่ตับเลือดออก",
     "verified": "Avian Med KFC น.4",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105775,
-    "tags": ["duck-tembusu-virus","vector-control"],
+    "tags": [
+      "duck-tembusu-virus",
+      "vector-control"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -94,7 +106,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105776,
-    "tags": ["goose-parvovirus","age-related-susceptibility"],
+    "tags": [
+      "goose-parvovirus",
+      "age-related-susceptibility"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-goose-parvo",
     "year": 5,
@@ -114,7 +129,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105777,
-    "tags": ["avian-encephalomyelitis","antibody-kinetics"],
+    "tags": [
+      "avian-encephalomyelitis",
+      "antibody-kinetics"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -134,7 +152,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105778,
-    "tags": ["avian-encephalomyelitis","vaccine-administration-route","viral-tropism"],
+    "tags": [
+      "avian-encephalomyelitis",
+      "vaccine-administration-route",
+      "viral-tropism"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -147,14 +169,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เชื้อถูก MDA ที่ผ่านมาทางไข่แดงจับทำลายในลำไส้"
     ],
     "answer": 1,
-    "explain": "วงจรปกติของ AE คือเชื้อเพิ่มจำนวนที่ลำไส้ก่อน แล้วเข้ากระแสเลือดเป็น viremia จึงไปกระตุ้นภูมิ สายพันธุ์ที่ปรับให้โตในเนื้อเยื่อประสาทจะเพิ่มจำนวนในลำไส้ไม่ได้ พอเข้าลำไส้ก็ตาย ไม่เข้ากระแสเลือด ร่างกายจึงไม่สร้างภูมิเลย คลอรีนในน้ำเป็นปัญหาจริงของการให้วัคซีนเชื้อเป็นทางน้ำ แต่ไม่ใช่คำอธิบายที่เอกสารให้กับกรณี strain นี้ IgA ที่เยื่อเมือกและ MDA ก็ไม่ใช่เหตุผลที่เอกสารระบุ",
+    "explain": "วงจรปกติของ AE คือเชื้อเพิ่มจำนวนที่ลำไส้ก่อน แล้วเข้ากระแสเลือดเป็น viremia จึงไปกระตุ้นภูมิ สายพันธุ์ที่ปรับให้โตในเนื้อเยื่อประสาทจะเพิ่มจำนวนในลำไส้ไม่ได้ พอเข้าลำไส้ก็ตาย ไม่เข้ากระแสเลือด ร่างกายจึงไม่สร้างภูมิเลย คลอรีนในน้ำเป็นปัญหาจริงของการให้วัคซีนเชื้อเป็นทางน้ำ แต่ไม่ใช่คำอธิบายของกรณี strain นี้ ส่วน IgA ที่เยื่อเมือกและ MDA ก็ไม่ใช่เหตุผลเช่นกัน",
     "verified": "Avian Med KFC น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105779,
-    "tags": ["ascites-syndrome","pulmonary-hypertension"],
+    "tags": [
+      "ascites-syndrome",
+      "pulmonary-hypertension"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -174,7 +199,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105780,
-    "tags": ["incubation-humidity","leg-deformity"],
+    "tags": [
+      "incubation-humidity",
+      "leg-deformity"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -194,7 +222,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105781,
-    "tags": ["Staphylococcus-aureus","reovirus","arthritis"],
+    "tags": [
+      "Staphylococcus-aureus",
+      "reovirus",
+      "arthritis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -207,14 +239,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "อาจติดไวรัสร่วม เช่น Reovirus ยาจึงไม่ได้ผล"
     ],
     "answer": 3,
-    "explain": "เอกสารเขียนตรงว่าการรักษาด้วยยาปฏิชีวนะจะไม่ได้ผลถ้าไก่ติดไวรัสร่วมด้วย เช่น Reovirus ส่วน S. aureus เป็น Gram positive ที่ยา penicillin, streptomycin และ tetracycline ยังใช้ได้อยู่ตามเอกสาร การที่เชื้อเป็น normal flora บนตัวไก่เป็นจริงแต่ไม่ได้แปลว่ารักษาไม่ได้ผล เพราะปัญหาคือมี portal of entry และ biofilm ไม่ใช่กลไกที่เอกสารยกมาอธิบาย",
+    "explain": "การรักษาด้วยยาปฏิชีวนะจะไม่ได้ผลถ้าไก่ติดไวรัสร่วมด้วย เช่น Reovirus ส่วน S. aureus เป็น Gram positive ที่ยา penicillin, streptomycin และ tetracycline ยังใช้ได้อยู่ การที่เชื้อเป็น normal flora บนตัวไก่เป็นจริงแต่ไม่ได้แปลว่ารักษาไม่ได้ผล เพราะปัญหาคือมี portal of entry และ biofilm ก็ไม่ใช่กลไกที่อธิบายกรณีนี้",
     "verified": "Avian Med KFC น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105782,
-    "tags": ["pullorum-disease","fowl-typhoid"],
+    "tags": [
+      "pullorum-disease",
+      "fowl-typhoid"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -234,7 +269,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105783,
-    "tags": ["pullorum-disease","fowl-typhoid","biosecurity"],
+    "tags": [
+      "pullorum-disease",
+      "fowl-typhoid",
+      "biosecurity"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -254,7 +293,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105784,
-    "tags": ["inclusion-body-hepatitis","fowl-adenovirus"],
+    "tags": [
+      "inclusion-body-hepatitis",
+      "fowl-adenovirus"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -274,7 +316,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105785,
-    "tags": ["fowl-adenovirus","disinfectant-selection"],
+    "tags": [
+      "fowl-adenovirus",
+      "disinfectant-selection"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -287,14 +332,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Alcohol 70 เปอร์เซ็นต์ พ่นฝอย"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุตรงว่าการฆ่าเชื้อต้องใช้กลุ่ม aldehydes ได้แก่ formaldehyde และ glutaraldehyde หรือ hypochlorite จึงจะทำลายเชื้อในโรงเรือนได้ เหตุผลอยู่ที่การเป็นไวรัสไม่มีเปลือกหุ้ม สารกลุ่ม quaternary ammonium, chlorhexidine และ alcohol ทำงานได้ดีกับไวรัสที่มีเปลือกหุ้มไขมัน จึงไม่ใช่ตัวเลือกสำหรับ adenovirus",
+    "explain": "การฆ่าเชื้อต้องใช้กลุ่ม aldehydes ได้แก่ formaldehyde และ glutaraldehyde หรือ hypochlorite จึงจะทำลายเชื้อในโรงเรือนได้ เหตุผลอยู่ที่การเป็นไวรัสไม่มีเปลือกหุ้ม สารกลุ่ม quaternary ammonium, chlorhexidine และ alcohol ทำงานได้ดีกับไวรัสที่มีเปลือกหุ้มไขมัน จึงไม่ใช่ตัวเลือกสำหรับ adenovirus",
     "verified": "Avian Med KFC น.8",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105786,
-    "tags": ["egg-drop-syndrome","HI-test"],
+    "tags": [
+      "egg-drop-syndrome",
+      "HI-test"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -307,14 +355,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Haemagglutination inhibition"
     ],
     "answer": 3,
-    "explain": "เอกสารเขียนไว้ตรงตัวว่า HI is the test of choice for serological diagnosis ของ Egg drop syndrome และหน้าเรื่องการตรวจซีรัมก็จัด HI ไว้คู่กับ ND IB และ AI ส่วน AGP ในเอกสารถูกกล่าวถึงในบริบทของ AE, virus neutralization ไม่ได้ถูกระบุเป็นวิธีหลักของ EDS และ ELISA แม้ตรวจได้กว้างแต่ไม่ใช่คำที่เอกสารเลือกใช้กับโรคนี้",
+    "explain": "HI เป็น test of choice สำหรับการวินิจฉัยทางซีรัมวิทยาของ Egg drop syndrome และยังเป็นวิธีมาตรฐานคู่กับ ND IB และ AI ส่วน AGP ใช้ในบริบทของ AE, virus neutralization ไม่ใช่วิธีหลักของ EDS และ ELISA แม้ตรวจได้กว้างแต่ไม่ใช่วิธีที่เลือกใช้กับโรคนี้",
     "verified": "Avian Med KFC น.8",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105787,
-    "tags": ["egg-drop-syndrome","vaccination-timing"],
+    "tags": [
+      "egg-drop-syndrome",
+      "vaccination-timing"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -334,7 +385,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105788,
-    "tags": ["ornithobacterium-rhinotracheale","airsacculitis"],
+    "tags": [
+      "ornithobacterium-rhinotracheale",
+      "airsacculitis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -354,7 +408,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105789,
-    "tags": ["ornithobacterium-rhinotracheale","killed-vaccine"],
+    "tags": [
+      "ornithobacterium-rhinotracheale",
+      "killed-vaccine"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -374,7 +431,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105790,
-    "tags": ["campylobacter","microaerophilic-culture"],
+    "tags": [
+      "campylobacter",
+      "microaerophilic-culture"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -387,14 +447,18 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "0% O2, 10% CO2, 90% N2"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุ microaerophilic condition ของ Campylobacter ไว้ที่ 5% O2, 10% CO2 และ 85% N2 จุดสำคัญคือออกซิเจนต้องน้อยกว่าอากาศปกติแต่ต้องมี ไม่ใช่ศูนย์ สัดส่วนที่มีออกซิเจน 20% คืออากาศปกติซึ่งเชื้อโตไม่ได้ สัดส่วนที่ออกซิเจนเป็นศูนย์คือภาวะไร้ออกซิเจนแบบ anaerobe และสัดส่วนที่กลับตัวเลข O2 กับ CO2 ก็ไม่ใช่ค่าที่เอกสารให้",
+    "explain": "microaerophilic condition ของ Campylobacter คือ 5% O2, 10% CO2 และ 85% N2 จุดสำคัญคือออกซิเจนต้องน้อยกว่าอากาศปกติแต่ต้องมี ไม่ใช่ศูนย์ สัดส่วนที่มีออกซิเจน 20% คืออากาศปกติซึ่งเชื้อโตไม่ได้ สัดส่วนที่ออกซิเจนเป็นศูนย์คือภาวะไร้ออกซิเจนแบบ anaerobe และสัดส่วนที่กลับตัวเลข O2 กับ CO2 ก็ไม่ใช่ค่าที่ถูกต้อง",
     "verified": "Avian Med KFC น.9",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105791,
-    "tags": ["campylobacter","filter-paper-technique","motility"],
+    "tags": [
+      "campylobacter",
+      "filter-paper-technique",
+      "motility"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -414,7 +478,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105792,
-    "tags": ["listeria","intracellular-bacteria","gram-positive"],
+    "tags": [
+      "listeria",
+      "intracellular-bacteria",
+      "gram-positive"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -427,14 +495,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Gram negative ที่ต้องการ CO2 5-10% ในการเจริญ"
     ],
     "answer": 0,
-    "explain": "เอกสารเปิดหัวข้อ listeriosis ด้วย Gram positive, facultative intracellular ซึ่งมีผลต่อการเลือกยาที่ต้องเข้าเซลล์ได้ และรักษาด้วย tetracycline เชื้อที่ต้องการ CO2 5-10% ในเอกสารคือ ORT และ Campylobacter ซึ่งเป็น Gram negative ส่วนการสร้างสปอร์เป็นคุณสมบัติของ Clostridium และ Bacillus ไม่ใช่ Listeria",
+    "explain": "Listeria เป็น Gram positive และ facultative intracellular ซึ่งมีผลต่อการเลือกยาที่ต้องเข้าเซลล์ได้ และรักษาด้วย tetracycline เชื้อที่ต้องการ CO2 5-10% คือ ORT และ Campylobacter ซึ่งเป็น Gram negative ส่วนการสร้างสปอร์เป็นคุณสมบัติของ Clostridium และ Bacillus ไม่ใช่ Listeria",
     "verified": "Avian Med KFC น.10",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105793,
-    "tags": ["histomoniasis","typhlohepatitis"],
+    "tags": [
+      "histomoniasis",
+      "typhlohepatitis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -454,7 +525,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105794,
-    "tags": ["histomoniasis","deworming"],
+    "tags": [
+      "histomoniasis",
+      "deworming"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -467,14 +541,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "โปรแกรมถ่ายพยาธิ เพราะเชื้ออาศัยในพยาธิตัวกลม"
     ],
     "answer": 3,
-    "explain": "เอกสารระบุ prevention ว่าเป็น deworming program เพราะเชื้ออยู่ในพยาธิตัวกลม ร่วมกับ biosecurity ฟังดูขัดความรู้สึกเพราะเป็นโรคโปรโตซัว แต่ตรรกะคือตัดพาหะที่พาเชื้อเข้ามา ยา ionophore ใช้ป้องกันบิดไม่ใช่ histomoniasis เอกสารไม่ได้กล่าวถึงวัคซีนของโรคนี้ และการควบคุมแมลงดูดเลือดเป็นมาตรการของโรคที่มีพาหะเป็นแมลง เช่น Tembusu",
+    "explain": "การป้องกัน histomoniasis คือโปรแกรมถ่ายพยาธิ เพราะเชื้ออาศัยอยู่ในพยาธิตัวกลม ร่วมกับ biosecurity ฟังดูขัดความรู้สึกเพราะเป็นโรคโปรโตซัว แต่ตรรกะคือตัดพาหะที่พาเชื้อเข้ามา ยา ionophore ใช้ป้องกันบิดไม่ใช่ histomoniasis วัคซีนไม่ใช่มาตรการป้องกันของโรคนี้ และการควบคุมแมลงดูดเลือดเป็นมาตรการของโรคที่มีพาหะเป็นแมลง เช่น Tembusu",
     "verified": "Avian Med KFC น.10",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105795,
-    "tags": ["aspergillosis","aspergillus-fumigatus"],
+    "tags": [
+      "aspergillosis",
+      "aspergillus-fumigatus"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -494,7 +571,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105796,
-    "tags": ["candidiasis","trichothecene","differential-diagnosis"],
+    "tags": [
+      "candidiasis",
+      "trichothecene",
+      "differential-diagnosis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -514,7 +595,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105797,
-    "tags": ["favus","dermatophyte"],
+    "tags": [
+      "favus",
+      "dermatophyte"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -534,7 +618,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105798,
-    "tags": ["mycotoxicosis","species-susceptibility","age-related-susceptibility"],
+    "tags": [
+      "mycotoxicosis",
+      "species-susceptibility",
+      "age-related-susceptibility"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -554,7 +642,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105799,
-    "tags": ["aflatoxin-B1","hepatotoxicity","immunosuppression"],
+    "tags": [
+      "aflatoxin-B1",
+      "hepatotoxicity",
+      "immunosuppression"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -567,14 +659,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "รังไข่ฝ่อ มีถุงน้ำที่ท่อนำไข่ ไข่ลดแต่ไม่ตาย"
     ],
     "answer": 1,
-    "explain": "Aflatoxin ก่อ hepatotoxicity รอยโรคที่เอกสารระบุคือตับและไตขยายใหญ่มีสีซีด เลือดออกง่ายเพราะ clotting factors ต่ำและ capillary เปราะ ร่วมกับ bursa thymus testis ฝ่อจนภูมิตก ตัวเลือกอื่นเป็นสารพิษตัวอื่นที่ถูกวางผิดที่ ไตซีดบวมแข็งกับผลึกยูเรตคือ ochratoxin กึ๋นกร่อนกับ watery diarrhoea คือ citrinin และถุงน้ำที่ท่อนำไข่คือ zearalenone",
+    "explain": "Aflatoxin ก่อ hepatotoxicity รอยโรคคือตับและไตขยายใหญ่มีสีซีด เลือดออกง่ายเพราะ clotting factors ต่ำและ capillary เปราะ ร่วมกับ bursa thymus testis ฝ่อจนภูมิตก ตัวเลือกอื่นเป็นสารพิษตัวอื่นที่ถูกวางผิดที่ ไตซีดบวมแข็งกับผลึกยูเรตคือ ochratoxin กึ๋นกร่อนกับ watery diarrhoea คือ citrinin และถุงน้ำที่ท่อนำไข่คือ zearalenone",
     "verified": "Avian Med KFC น.13",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105800,
-    "tags": ["ochratoxin-A","nephrotoxicity"],
+    "tags": [
+      "ochratoxin-A",
+      "nephrotoxicity"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -594,7 +689,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105801,
-    "tags": ["T-2-toxin","lasalocid","coccidiosis"],
+    "tags": [
+      "T-2-toxin",
+      "lasalocid",
+      "coccidiosis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -614,7 +713,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105802,
-    "tags": ["mycotoxin-binder","glucomannan"],
+    "tags": [
+      "mycotoxin-binder",
+      "glucomannan"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -634,7 +736,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105803,
-    "tags": ["mycotoxicosis","feed-analysis"],
+    "tags": [
+      "mycotoxicosis",
+      "feed-analysis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -654,7 +759,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105804,
-    "tags": ["broiler-vaccination-program","ND","ibd"],
+    "tags": [
+      "broiler-vaccination-program",
+      "ND",
+      "ibd"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -674,7 +783,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105805,
-    "tags": ["ibd","vaccination-timing","vaccine-administration-route"],
+    "tags": [
+      "ibd",
+      "vaccination-timing",
+      "vaccine-administration-route"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -687,14 +800,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "อายุ 14-18 วัน โดยการละลายน้ำ"
     ],
     "answer": 3,
-    "explain": "ตารางในเอกสารเรียงไว้สามแถว วันที่ 1 ให้ ND บวก IB แบบ spray ร่วมกับ ND เชื้อตายหรือ HVT-ND ฉีด SC วันที่ 7-14 ให้ ND บวก IB ละลายน้ำหรือ spray และวันที่ 14-18 ให้ IBD ละลายน้ำ ตัวเลือกที่เหลือหยิบช่วงอายุและวิธีของแถวอื่นมาจับคู่ผิด",
+    "explain": "โปรแกรมวัคซีนไก่เนื้อแบ่งเป็นสามช่วง วันที่ 1 ให้ ND บวก IB แบบ spray ร่วมกับ ND เชื้อตายหรือ HVT-ND ฉีด SC วันที่ 7-14 ให้ ND บวก IB ละลายน้ำหรือ spray และวันที่ 14-18 ให้ IBD ละลายน้ำ ตัวเลือกที่เหลือหยิบช่วงอายุและวิธีของช่วงอื่นมาจับคู่ผิด",
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
   },
   {
     "id": 105806,
-    "tags": ["paired-sera","sampling-timing"],
+    "tags": [
+      "paired-sera",
+      "sampling-timing"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -707,14 +823,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "เจาะก่อนป่วย 7 วัน แล้วเจาะซ้ำตอนหายป่วย"
     ],
     "answer": 0,
-    "explain": "เอกสารระบุให้เจาะเลือดตรวจเวลาเป็นโรค ซึ่งคือ acute phase แล้วเจาะซ้ำอีก 7-14 วันต่อมาเป็น convalescent phase เพื่อเปรียบเทียบระดับ antibody เป็น paired sera การเจาะครั้งเดียวให้แค่ค่าเดี่ยวซึ่งแยกไม่ออกว่ามาจากวัคซีน MDA หรือการติดเชื้อ ระยะ 24 ชั่วโมงสั้นเกินกว่าที่ titer จะเปลี่ยน และการเจาะก่อนป่วยล่วงหน้าเป็นไปไม่ได้ในทางปฏิบัติ",
+    "explain": "ควรเจาะเลือดตรวจตอนเป็นโรค ซึ่งคือ acute phase แล้วเจาะซ้ำอีก 7-14 วันต่อมาเป็น convalescent phase เพื่อเปรียบเทียบระดับ antibody เป็น paired sera การเจาะครั้งเดียวให้แค่ค่าเดี่ยวซึ่งแยกไม่ออกว่ามาจากวัคซีน MDA หรือการติดเชื้อ ระยะ 24 ชั่วโมงสั้นเกินกว่าที่ titer จะเปลี่ยน และการเจาะก่อนป่วยล่วงหน้าเป็นไปไม่ได้ในทางปฏิบัติ",
     "verified": "Avian Med KFC น.16",
     "sourceType": "student-compilation",
     "examOrigin": "Avian Medicine final recall (Vet 85 compilation)"
   },
   {
     "id": 105807,
-    "tags": ["paired-sera","fourfold-titer-rise"],
+    "tags": [
+      "paired-sera",
+      "fourfold-titer-rise"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -734,7 +853,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105808,
-    "tags": ["disease-freedom","serology-interpretation","PCR"],
+    "tags": [
+      "disease-freedom",
+      "serology-interpretation",
+      "PCR"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -754,7 +877,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105809,
-    "tags": ["vaccine-response-monitoring","sampling-timing"],
+    "tags": [
+      "vaccine-response-monitoring",
+      "sampling-timing"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -774,7 +900,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105810,
-    "tags": ["MDA","breeder-serology"],
+    "tags": [
+      "MDA",
+      "breeder-serology"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -794,7 +923,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105811,
-    "tags": ["pooled-samples","serology-interpretation"],
+    "tags": [
+      "pooled-samples",
+      "serology-interpretation"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -814,7 +946,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105812,
-    "tags": ["blood-collection","sample-volume"],
+    "tags": [
+      "blood-collection",
+      "sample-volume"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -827,14 +962,17 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ต้องแช่เลือดในน้ำแข็งทันทีทุกครั้งก่อนส่งแลป"
     ],
     "answer": 2,
-    "explain": "เอกสารระบุปริมาณราว 1 cc ต่อตัว ลูกเจี๊ยบราว 0.5 cc และใช้เข็มขนาด 22 ในไก่โต ไซริงค์ 1-3 cc ส่วนตำแหน่งนิยมเจาะจาก jugular vein โดยไก่ใหญ่อาจใช้ wing vein จึงไม่ใช่ห้ามเจาะ jugular และเอกสารบอกตรงข้ามกับตัวเลือกสุดท้ายว่าไม่ต้องแช่เย็นทันที ให้วางนอนไว้ที่อุณหภูมิห้องราว 3 ชั่วโมงจะแยกซีรัมได้ง่ายกว่า",
+    "explain": "ปริมาณเลือดที่เจาะราว 1 cc ต่อตัว ลูกเจี๊ยบราว 0.5 cc และใช้เข็มขนาด 22 ในไก่โต ไซริงค์ 1-3 cc ส่วนตำแหน่งนิยมเจาะจาก jugular vein โดยไก่ใหญ่อาจใช้ wing vein จึงไม่ใช่ห้ามเจาะ jugular และไม่ต้องแช่เย็นทันทีอย่างที่ตัวเลือกสุดท้ายว่าไว้ ให้วางนอนไว้ที่อุณหภูมิห้องราว 3 ชั่วโมงจะแยกซีรัมได้ง่ายกว่า",
     "verified": "Avian Med KFC น.17",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
   },
   {
     "id": 105813,
-    "tags": ["serum-separation","sample-handling"],
+    "tags": [
+      "serum-separation",
+      "sample-handling"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -854,7 +992,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105814,
-    "tags": ["MDA","vaccination-timing"],
+    "tags": [
+      "MDA",
+      "vaccination-timing"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -874,7 +1015,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105815,
-    "tags": ["mycoplasma-gallisepticum","vertical-transmission"],
+    "tags": [
+      "mycoplasma-gallisepticum",
+      "vertical-transmission"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -894,7 +1038,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105816,
-    "tags": ["MDA","HPAI"],
+    "tags": [
+      "MDA",
+      "HPAI"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -914,7 +1061,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105817,
-    "tags": ["live-vaccine","mucosal-IgA"],
+    "tags": [
+      "live-vaccine",
+      "mucosal-IgA"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-vaccine-prog",
     "year": 5,
@@ -934,7 +1084,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105818,
-    "tags": ["HI-test","ND"],
+    "tags": [
+      "HI-test",
+      "ND"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-serology",
     "year": 5,
@@ -954,7 +1107,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105819,
-    "tags": ["salmonella-enteritidis","intracellular-bacteria"],
+    "tags": [
+      "salmonella-enteritidis",
+      "intracellular-bacteria"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -974,7 +1130,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105820,
-    "tags": ["ND","ICPI","pathotyping"],
+    "tags": [
+      "ND",
+      "ICPI",
+      "pathotyping"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-nd",
     "year": 5,
@@ -994,7 +1154,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105821,
-    "tags": ["ND","pathotyping","viscerotropic-velogenic"],
+    "tags": [
+      "ND",
+      "pathotyping",
+      "viscerotropic-velogenic"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-nd",
     "year": 5,
@@ -1014,7 +1178,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105822,
-    "tags": ["ND","broiler-vaccination-program"],
+    "tags": [
+      "ND",
+      "broiler-vaccination-program"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-nd",
     "year": 5,
@@ -1034,7 +1201,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105823,
-    "tags": ["ND","live-vaccine","killed-vaccine"],
+    "tags": [
+      "ND",
+      "live-vaccine",
+      "killed-vaccine"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-nd",
     "year": 5,
@@ -1054,7 +1225,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105824,
-    "tags": ["IBV","S1-gene","genotype"],
+    "tags": [
+      "IBV",
+      "S1-gene",
+      "genotype"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ib",
     "year": 5,
@@ -1074,7 +1249,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105825,
-    "tags": ["IBV","false-layer"],
+    "tags": [
+      "IBV",
+      "false-layer"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ib",
     "year": 5,
@@ -1094,7 +1272,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105826,
-    "tags": ["IBV","nephropathogenic-IB","urate-deposition"],
+    "tags": [
+      "IBV",
+      "nephropathogenic-IB",
+      "urate-deposition"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ib",
     "year": 5,
@@ -1114,7 +1296,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105827,
-    "tags": ["ILT","latency","trigeminal-ganglion"],
+    "tags": [
+      "ILT",
+      "latency",
+      "trigeminal-ganglion"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-lt",
     "year": 5,
@@ -1134,7 +1320,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105828,
-    "tags": ["ILT","CEO-vaccine","rolling-infection"],
+    "tags": [
+      "ILT",
+      "CEO-vaccine",
+      "rolling-infection"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-lt",
     "year": 5,
@@ -1154,7 +1344,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105829,
-    "tags": ["ILT","intranuclear-inclusion-body"],
+    "tags": [
+      "ILT",
+      "intranuclear-inclusion-body"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-lt",
     "year": 5,
@@ -1174,7 +1367,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105830,
-    "tags": ["ILT","vaccine-route"],
+    "tags": [
+      "ILT",
+      "vaccine-route"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-lt",
     "year": 5,
@@ -1194,7 +1390,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105831,
-    "tags": ["aMPV","vaccine-program"],
+    "tags": [
+      "aMPV",
+      "vaccine-program"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-mpv",
     "year": 5,
@@ -1214,7 +1413,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105832,
-    "tags": ["aMPV","hemagglutination"],
+    "tags": [
+      "aMPV",
+      "hemagglutination"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-mpv",
     "year": 5,
@@ -1234,7 +1436,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105833,
-    "tags": ["aMPV","sample-timing"],
+    "tags": [
+      "aMPV",
+      "sample-timing"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-mpv",
     "year": 5,
@@ -1254,7 +1459,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105834,
-    "tags": ["aMPV","morbidity-mortality","turkey"],
+    "tags": [
+      "aMPV",
+      "morbidity-mortality",
+      "turkey"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-mpv",
     "year": 5,
@@ -1274,7 +1483,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105835,
-    "tags": ["fowl-pox","cutaneous-form","diphtheritic-form"],
+    "tags": [
+      "fowl-pox",
+      "cutaneous-form",
+      "diphtheritic-form"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -1294,7 +1507,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105836,
-    "tags": ["fowl-pox","wing-web"],
+    "tags": [
+      "fowl-pox",
+      "wing-web"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -1314,7 +1530,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105837,
-    "tags": ["fowl-pox","mosquito-vector"],
+    "tags": [
+      "fowl-pox",
+      "mosquito-vector"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -1334,7 +1553,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105838,
-    "tags": ["fowl-pox","recombinant-vaccine","viral-vector"],
+    "tags": [
+      "fowl-pox",
+      "recombinant-vaccine",
+      "viral-vector"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-pox",
     "year": 5,
@@ -1354,7 +1577,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105839,
-    "tags": ["MG","ts-11","live-vaccine"],
+    "tags": [
+      "MG",
+      "ts-11",
+      "live-vaccine"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1374,7 +1601,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105840,
-    "tags": ["mycoplasma","beta-lactam","cell-wall"],
+    "tags": [
+      "mycoplasma",
+      "beta-lactam",
+      "cell-wall"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1394,7 +1625,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105841,
-    "tags": ["MG","live-vaccine","antibiotic-interference"],
+    "tags": [
+      "MG",
+      "live-vaccine",
+      "antibiotic-interference"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1414,7 +1649,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105842,
-    "tags": ["MS","egg-apex-abnormality"],
+    "tags": [
+      "MS",
+      "egg-apex-abnormality"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1434,7 +1672,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105843,
-    "tags": ["MS","MG","NAD-requirement"],
+    "tags": [
+      "MS",
+      "MG",
+      "NAD-requirement"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1454,7 +1696,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105844,
-    "tags": ["MS","infectious-synovitis","synovial-fluid"],
+    "tags": [
+      "MS",
+      "infectious-synovitis",
+      "synovial-fluid"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1474,7 +1720,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105845,
-    "tags": ["mycoplasma","serum-plate-agglutination","IgM"],
+    "tags": [
+      "mycoplasma",
+      "serum-plate-agglutination",
+      "IgM"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1494,7 +1744,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105846,
-    "tags": ["MG","FP-MG-vaccine","recombinant-vaccine"],
+    "tags": [
+      "MG",
+      "FP-MG-vaccine",
+      "recombinant-vaccine"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
     "year": 5,
@@ -1514,7 +1768,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105847,
-    "tags": ["infectious-coryza","satellite-colony","NAD-requirement"],
+    "tags": [
+      "infectious-coryza",
+      "satellite-colony",
+      "NAD-requirement"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-coryza",
     "year": 5,
@@ -1534,7 +1792,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105848,
-    "tags": ["infectious-coryza","bacterin","vaccine-program"],
+    "tags": [
+      "infectious-coryza",
+      "bacterin",
+      "vaccine-program"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-coryza",
     "year": 5,
@@ -1554,7 +1816,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105849,
-    "tags": ["infectious-coryza","carrier-state","infraorbital-sinus"],
+    "tags": [
+      "infectious-coryza",
+      "carrier-state",
+      "infraorbital-sinus"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-coryza",
     "year": 5,
@@ -1574,7 +1840,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105850,
-    "tags": ["fowl-cholera","necrotic-foci"],
+    "tags": [
+      "fowl-cholera",
+      "necrotic-foci"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-fowl-cholera",
     "year": 5,
@@ -1594,7 +1863,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105851,
-    "tags": ["fowl-cholera","host-susceptibility","age-susceptibility"],
+    "tags": [
+      "fowl-cholera",
+      "host-susceptibility",
+      "age-susceptibility"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-fowl-cholera",
     "year": 5,
@@ -1614,7 +1887,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105852,
-    "tags": ["fowl-cholera","bipolar-staining"],
+    "tags": [
+      "fowl-cholera",
+      "bipolar-staining"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-fowl-cholera",
     "year": 5,
@@ -1634,7 +1910,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105853,
-    "tags": ["colibacillosis","serotype"],
+    "tags": [
+      "colibacillosis",
+      "serotype"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-coli",
     "year": 5,
@@ -1654,7 +1933,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105854,
-    "tags": ["coligranuloma","avian-tuberculosis","differential-diagnosis"],
+    "tags": [
+      "coligranuloma",
+      "avian-tuberculosis",
+      "differential-diagnosis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-coli",
     "year": 5,
@@ -1667,14 +1950,18 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Coligranuloma และต้องแยกจากโรค Marek แบบอวัยวะภายใน"
     ],
     "answer": 2,
-    "explain": "พบ coligranuloma คล้ายเนื้องอกตาม visceral organ เรียกอีกอย่างว่า Hjarre's disease และเขียนกำกับไว้ว่าไม่ใช่วัณโรค จึงเป็นการเน้นว่าต้องแยกจากวัณโรคสัตว์ปีก ส่วน colisepticemia หมายถึงการติดเชื้อเข้ากระแสเลือด ไม่ใช่ชื่อของรอยโรคก้อน granuloma และแม้ Marek แบบอวัยวะภายในจะเป็นก้อนเหมือนกัน แต่ไม่ใช่โรคที่สรุปยกมาเปรียบเทียบตรงจุดนี้",
+    "explain": "พบ coligranuloma คล้ายเนื้องอกตาม visceral organ เรียกอีกอย่างว่า Hjarre's disease ซึ่งไม่ใช่วัณโรค จึงต้องแยกจากวัณโรคสัตว์ปีกให้ได้ ส่วน colisepticemia หมายถึงการติดเชื้อเข้ากระแสเลือด ไม่ใช่ชื่อของรอยโรคก้อน granuloma และแม้ Marek แบบอวัยวะภายในจะเป็นก้อนเหมือนกัน แต่ไม่ใช่โรคที่ต้องแยกตรงจุดนี้",
     "verified": "KFC MED Mid น.12",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
   },
   {
     "id": 105855,
-    "tags": ["colibacillosis","colisepticemia","polyserositis"],
+    "tags": [
+      "colibacillosis",
+      "colisepticemia",
+      "polyserositis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-coli",
     "year": 5,
@@ -1694,7 +1981,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105856,
-    "tags": ["avian-influenza","hemagglutinin","cross-protection"],
+    "tags": [
+      "avian-influenza",
+      "hemagglutinin",
+      "cross-protection"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1714,7 +2005,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105857,
-    "tags": ["avian-influenza","HPAI","LPAI"],
+    "tags": [
+      "avian-influenza",
+      "HPAI",
+      "LPAI"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1734,7 +2029,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105858,
-    "tags": ["avian-influenza","control-zone"],
+    "tags": [
+      "avian-influenza",
+      "control-zone"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1754,7 +2052,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105859,
-    "tags": ["avian-influenza","WOAH","stamp-out-policy"],
+    "tags": [
+      "avian-influenza",
+      "WOAH",
+      "stamp-out-policy"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1774,7 +2076,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105860,
-    "tags": ["vertical-transmission","CIA"],
+    "tags": [
+      "vertical-transmission",
+      "CIA"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1794,7 +2099,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105861,
-    "tags": ["avian-influenza","HPAI","LPAI"],
+    "tags": [
+      "avian-influenza",
+      "HPAI",
+      "LPAI"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
     "year": 5,
@@ -1814,7 +2123,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105862,
-    "tags": ["ibd","bursal-atrophy"],
+    "tags": [
+      "ibd",
+      "bursal-atrophy"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1834,7 +2146,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105863,
-    "tags": ["coccidiosis","Eimeria-necatrix","lesion-site"],
+    "tags": [
+      "coccidiosis",
+      "Eimeria-necatrix",
+      "lesion-site"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-cocci",
     "year": 5,
@@ -1854,7 +2170,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105864,
-    "tags": ["coccidiosis","Eimeria-acervulina","lesion-site"],
+    "tags": [
+      "coccidiosis",
+      "Eimeria-acervulina",
+      "lesion-site"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-cocci",
     "year": 5,
@@ -1874,7 +2194,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105865,
-    "tags": ["Marek","avian-leukosis","transmission"],
+    "tags": [
+      "Marek",
+      "avian-leukosis",
+      "transmission"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1894,7 +2218,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105866,
-    "tags": ["CIA","mortality-pattern","vertical-transmission"],
+    "tags": [
+      "CIA",
+      "mortality-pattern",
+      "vertical-transmission"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1914,7 +2242,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105867,
-    "tags": ["ibd","immune-complex-vaccine"],
+    "tags": [
+      "ibd",
+      "immune-complex-vaccine"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1934,7 +2265,10 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105868,
-    "tags": ["necrotic-enteritis","Clostridium-perfringens"],
+    "tags": [
+      "necrotic-enteritis",
+      "Clostridium-perfringens"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1954,7 +2288,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105869,
-    "tags": ["leucocytozoonosis","Culicoides","megaloschizont"],
+    "tags": [
+      "leucocytozoonosis",
+      "Culicoides",
+      "megaloschizont"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1974,7 +2312,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105870,
-    "tags": ["reovirus","viral-arthritis","tenosynovitis"],
+    "tags": [
+      "reovirus",
+      "viral-arthritis",
+      "tenosynovitis"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -1987,14 +2329,18 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Viral nephritis หรือ urolithiasis โดยมีเป้าหมายที่ไตและท่อไต"
     ],
     "answer": 0,
-    "explain": "สรุปเขียนกำกับด้วยลูกศรสีชมพูว่าข้อสอบใช้ชื่อโรค ซึ่งชื่อโรคสำคัญของ reovirus คือโรคไวรัสข้ออักเสบ หรือ viral arthritis หรือ tenosynovitis โดยระบุอวัยวะเป้าหมายเป็น hock joint และเอ็นที่เกี่ยวข้องคือ gastrocnemius, digital flexor และ metatarsal extensor tendons ตัวเลือกอื่นเป็นชื่อกลุ่มโรคที่มีจริงแต่ไม่ใช่ของ reovirus ในไก่",
+    "explain": "ชื่อโรคสำคัญของ reovirus ในไก่คือโรคไวรัสข้ออักเสบ หรือ viral arthritis หรือ tenosynovitis โดยอวัยวะเป้าหมายคือ hock joint และเอ็นที่เกี่ยวข้องคือ gastrocnemius, digital flexor และ metatarsal extensor tendons ตัวเลือกอื่นเป็นชื่อกลุ่มโรคที่มีจริงแต่ไม่ใช่ของ reovirus ในไก่",
     "verified": "KFC MED Mid น.8",
     "sourceType": "student-compilation",
     "examOrigin": "จุดที่รุ่นพี่ Vet 85 ทำเครื่องหมายว่าข้อสอบใช้ชื่อโรคในสรุปสรุป"
   },
   {
     "id": 105871,
-    "tags": ["serology","sample-size","pooled-serum"],
+    "tags": [
+      "serology",
+      "sample-size",
+      "pooled-serum"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -2014,7 +2360,11 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
   },
   {
     "id": 105872,
-    "tags": ["ibd","serotype","age-susceptibility"],
+    "tags": [
+      "ibd",
+      "serotype",
+      "age-susceptibility"
+    ],
     "subject": "avian-medicine",
     "topic": "avian-intro",
     "year": 5,
@@ -2031,5 +2381,5 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "verified": "KFC MED Mid น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
-  }
+  },
 ];

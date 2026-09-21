@@ -18,10 +18,30 @@ export function questionTopicId(question) {
 // senior summaries also use this field. The source-text fallback keeps
 // still-older banks compatible until metadata is normalized.
 export function isPastPaperQuestion(question) {
-  if (question?.sourceType) return question.sourceType === 'past-paper';
+  if (question?.sourceType === 'past-paper') return true;
+  // `lecture-derived` is written from the recording, never sat by anyone.
+  if (question?.sourceType === 'lecture-derived') return false;
+  // Anything else — most often `student-compilation` — still has to answer for
+  // itself through examOrigin. The two markers say DIFFERENT things:
+  // sourceType is how the question reached us, examOrigin is whose paper it
+  // was on. A question tagged student-compilation whose origin reads
+  // "Aj. Sirawit FIQC Vet 85 Midterm" was sat by Vet 85; it merely travelled
+  // here through a senior's compilation.
+  //
+  // Returning early on any nonempty sourceType hid exactly those: Food
+  // Industry counted 0 past papers while holding 20 that name a cohort and a
+  // paper, so the "ฝึกเฉพาะข้อสอบเก่า" button never rendered for that subject
+  // at all, and panicRank put them behind freshly written items. "อิงแนวข้อสอบ"
+  // is still not a paper and still does not count — it names no cohort.
   const origin = String(question?.examOrigin || '');
-  return (!NON_PAPER_ORIGIN_PATTERN.test(origin) && PAST_PAPER_ORIGIN_PATTERN.test(origin))
-    || PAST_PAPER_SOURCE_PATTERN.test(String(question?.source || ''));
+  const originNamesAPaper = !NON_PAPER_ORIGIN_PATTERN.test(origin) && PAST_PAPER_ORIGIN_PATTERN.test(origin);
+  // The free-text `source` fallback stays for LEGACY rows only — the ones with
+  // no sourceType at all. It matches the bare word ข้อสอบ, which appears in
+  // plenty of compilation citations, so letting a typed row reach it counted
+  // 32 "อิงแนวข้อสอบ" items as sat papers. A row that carries a sourceType has
+  // to earn it through examOrigin, which names a cohort or does not.
+  if (question?.sourceType) return originNamesAPaper;
+  return originNamesAPaper || PAST_PAPER_SOURCE_PATTERN.test(String(question?.source || ''));
 }
 
 // Questions written FROM a senior cohort's compilation — the starred and

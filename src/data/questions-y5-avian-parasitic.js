@@ -15,14 +15,17 @@
 // ============================================================
 
 export const QB_Y5_AVIAN_PARASITIC = [
-  // ── Coccidiosis (โรคบิด) ───────────────────────────────────
   {
     "id": 205001,
     "subject": "avian-medicine",
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["Eimeria", "host-specificity", "coccidiosis"],
+    "tags": [
+      "Eimeria",
+      "host-specificity",
+      "coccidiosis"
+    ],
     "q": "โรคบิดในไก่เกิดจากโปรโตซัวสกุล Eimeria ในไฟลัม Apicomplexa ข้อใดอธิบายความจำเพาะต่อโฮสต์ของเชื้อกลุ่มนี้ได้ถูกต้อง",
     "options": [
       "จำเพาะต่อโฮสต์ ชนิดที่ก่อโรคในไก่ไม่ก่อโรคในไก่งวงและไม่ติดคน",
@@ -31,7 +34,7 @@ export const QB_Y5_AVIAN_PARASITIC = [
       "ก่อโรคในสัตว์ปีกได้ทุกชนิด แต่ต้องมีแมลงดูดเลือดเป็นพาหะนำเชื้อ"
     ],
     "answer": 0,
-    "explain": "เชื้อบิดจำเพาะต่อโฮสต์ ชนิดที่ก่อโรคในไก่จะก่อโรคเฉพาะในไก่ ไม่ติดไก่งวงและไม่ติดคน และไม่ก่อโรคในสัตว์ชนิดอื่น ในไก่มีทั้งหมด 9 ชนิด\n\n❌ ทำไมข้ออื่นผิด\n— เชื้อบิดของไก่ไม่ใช่โรคสัตว์สู่คน ในคาบนี้โรคเดียวที่พูดถึงว่าติดคนได้คือนิวคาสเซิล\n— วงจรของเชื้อบิดจบในไก่ตัวเดียว ไม่มีโฮสต์กึ่งกลางและไม่ต้องมีโฮสต์ที่สอง\n— เชื้อบิดติดต่อทางการจิกกินโอโอซิสต์ที่ปนเปื้อนมูล ไม่มีแมลงเป็นพาหะ ส่วนโรคในเลือดอย่าง Leucocytozoon และ Plasmodium จึงต้องมีแมลง\n\n💡 บิดแยกกันสองชั้น แยกตามโฮสต์ และแยกตามตำแหน่งในลำไส้ของแต่ละชนิด",
+    "explain": "เชื้อบิดจำเพาะต่อโฮสต์ ชนิดที่ก่อโรคในไก่จะก่อโรคเฉพาะในไก่ ไม่ติดไก่งวงและไม่ติดคน และไม่ก่อโรคในสัตว์ชนิดอื่น ในไก่มีทั้งหมด 9 ชนิด\n\n❌ ทำไมข้ออื่นผิด\n— เชื้อบิดของไก่ไม่ใช่โรคสัตว์สู่คน ต่างจากนิวคาสเซิลซึ่งเป็นโรคของสัตว์ปีกที่ติดคนได้\n— วงจรของเชื้อบิดจบในไก่ตัวเดียว ไม่มีโฮสต์กึ่งกลางและไม่ต้องมีโฮสต์ที่สอง\n— เชื้อบิดติดต่อทางการจิกกินโอโอซิสต์ที่ปนเปื้อนมูล ไม่มีแมลงเป็นพาหะ ส่วนโรคในเลือดอย่าง Leucocytozoon และ Plasmodium จึงต้องมีแมลง\n\n💡 บิดแยกกันสองชั้น แยกตามโฮสต์ และแยกตามตำแหน่งในลำไส้ของแต่ละชนิด",
     "source": "Avian Medicine คาบ 6 (Coccidiosis, Necrotic enteritis, Leukocytozoonosis, Avian malaria) คลิปบันทึกการสอน 8 ก.ย. 2569",
     "verified": "คลิป RWCDahVkYTk ช่วง [3:26-3:52]",
     "sourceType": "lecture-derived",
@@ -39,7 +42,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205002,
@@ -47,7 +52,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["oocyst", "sporulation", "transmission"],
+    "tags": [
+      "oocyst",
+      "sporulation",
+      "transmission"
+    ],
     "q": "ไก่จะติดเชื้อบิดเมื่อจิกกินโอโอซิสต์ระยะใด และโอโอซิสต์ที่ไก่ติดเชื้อปล่อยออกมากับมูลอยู่ในระยะใด",
     "options": [
       "กิน unsporulated oocyst และมูลไก่ปล่อย sporulated oocyst ออกมา",
@@ -65,7 +74,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205003,
@@ -73,7 +84,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["Eimeria-acervulina", "duodenum", "lesion"],
+    "tags": [
+      "Eimeria-acervulina",
+      "duodenum",
+      "lesion"
+    ],
     "q": "ไก่เนื้อฝูงหนึ่งท้องเสียเป็นน้ำ มีเมือกแต่ไม่มีเลือดปน ผ่าซากพบขีดสีขาวเรียงพาดขวางคล้ายขั้นบันไดที่ลำไส้เล็กส่วนต้น และผนังลำไส้หนาตัวขึ้น เชื้อบิดชนิดใดเป็นสาเหตุ",
     "options": [
       "Eimeria tenella",
@@ -90,7 +105,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205004,
@@ -98,7 +115,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["Eimeria-maxima", "jejunum", "oocyst-size"],
+    "tags": [
+      "Eimeria-maxima",
+      "jejunum",
+      "oocyst-size"
+    ],
     "q": "ขูดผนังลำไส้เล็กส่วนกลางของไก่ที่สงสัยโรคบิดไปส่องกล้อง พบโอโอซิสต์ขนาดใหญ่กว่าชนิดอื่นชัดเจน และในลำไส้มีของเหลวคล้ายอาหารไม่ย่อยสีส้มถึงชมพู ควรนึกถึงเชื้อชนิดใดมากที่สุด",
     "options": [
       "Eimeria acervulina",
@@ -115,7 +136,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205005,
@@ -123,7 +146,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["Eimeria-tenella", "cecum", "cecal-core"],
+    "tags": [
+      "Eimeria-tenella",
+      "cecum",
+      "cecal-core"
+    ],
     "q": "ไก่ถ่ายเป็นมูกเลือด ผ่าซากพบไส้ตันขยายขนาดและบวมน้ำ มีเลือดอยู่ในไส้ตัน และพบก้อนที่เกิดจากเลือดแข็งตัวปนกับเศษเนื้อตายอุดอยู่ข้างใน รอยโรคชุดนี้เข้ากับเชื้อชนิดใด และก้อนนั้นเรียกว่าอะไร",
     "options": [
       "Eimeria tenella และก้อนนั้นเรียกว่า cecal core",
@@ -140,7 +167,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205006,
@@ -148,7 +177,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["Eimeria-necatrix", "salt-and-pepper", "mortality"],
+    "tags": [
+      "Eimeria-necatrix",
+      "salt-and-pepper",
+      "mortality"
+    ],
     "q": "ไก่รุ่นอายุ 9 ถึง 14 สัปดาห์ถ่ายเหลวมีเมือกและเลือดปน ตายค่อนข้างมาก ผ่าซากมองจากผิวนอกของลำไส้เล็กส่วนกลางเห็นจุดเนื้อตายสีขาวกลมเล็กกระจายสลับกับปื้นเลือดออกสีดำ ลักษณะนี้เรียกว่าอะไรและเกิดจากเชื้อใด",
     "options": [
       "Salt and pepper lesion จาก Eimeria maxima",
@@ -165,7 +198,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205007,
@@ -173,7 +208,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["anticoccidial", "feed-additive", "regulation"],
+    "tags": [
+      "anticoccidial",
+      "feed-additive",
+      "regulation"
+    ],
     "q": "ตามข้อกำหนดปัจจุบันของการผสมยาในอาหารไก่ ข้อใดถูกต้อง",
     "options": [
       "ผสมยาปฏิชีวนะในอาหารเพื่อป้องกันโรคได้ แต่ห้ามผสมยาต้านบิดในอาหารทุกกรณี",
@@ -190,7 +229,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205008,
@@ -198,7 +239,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["anticoccidial", "coccidiostat", "mechanism"],
+    "tags": [
+      "anticoccidial",
+      "coccidiostat",
+      "mechanism"
+    ],
     "q": "ยาต้านบิดที่ออกฤทธิ์แบบ coccidiostat ต่างจากแบบ coccidiocidal อย่างไร",
     "options": [
       "coccidiostat ฆ่าเชื้อบิดได้ทุกระยะ ส่วน coccidiocidal เพียงหยุดการเจริญไว้ชั่วคราว",
@@ -215,7 +260,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205009,
@@ -223,7 +270,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["coccidiosis-vaccine", "drug-interaction", "live-vaccine"],
+    "tags": [
+      "coccidiosis-vaccine",
+      "drug-interaction",
+      "live-vaccine"
+    ],
     "q": "ฟาร์มไก่เนื้อให้วัคซีนป้องกันโรคบิดแก่ลูกไก่ แต่ใช้อาหารสำเร็จรูปที่มียาต้านบิดผสมมาแล้ว ผลที่เกิดขึ้นคือข้อใด",
     "options": [
       "วัคซีนไม่ได้ผล เพราะยาในอาหารจะฆ่าเชื้อบิดในวัคซีนที่ไก่กินเข้าไป",
@@ -240,7 +291,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205010,
@@ -248,7 +301,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-cocci",
     "year": 5,
     "type": "mcq",
-    "tags": ["ionophore", "tiamulin", "drug-interaction"],
+    "tags": [
+      "ionophore",
+      "tiamulin",
+      "drug-interaction"
+    ],
     "q": "ยาต้านบิดกลุ่ม ionophore เช่น monensin และ salinomycin ห้ามใช้ร่วมกับยาปฏิชีวนะชนิดใด เพราะจะทำให้เกิดพิษ",
     "options": [
       "Bacitracin",
@@ -265,18 +322,24 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"],
-    "predictionEvidence": ["Avian Medicine คาบ 6 คลิป RWCDahVkYTk [29:00] ผู้สอนระบุเองว่าเรื่องยาที่ใช้ร่วมกันไม่ได้เป็นจุดที่ออกสอบบ่อย"]
+    "predictionSignals": [
+      "current-lecture"
+    ],
+    "predictionEvidence": [
+      "Avian Medicine คาบ 6 คลิป RWCDahVkYTk [29:00] ผู้สอนระบุเองว่าเรื่องยาที่ใช้ร่วมกันไม่ได้เป็นจุดที่ออกสอบบ่อย"
+    ]
   },
-
-  // ── Necrotic enteritis ─────────────────────────────────────
   {
     "id": 205011,
     "subject": "avian-medicine",
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "Clostridium-perfringens", "toxin"],
+    "tags": [
+      "necrotic-enteritis",
+      "Clostridium-perfringens",
+      "toxin"
+    ],
     "q": "โรคลำไส้อักเสบแบบเนื้อตาย (necrotic enteritis) ในไก่ เกิดขึ้นด้วยกลไกใด",
     "options": [
       "เกิดจาก Clostridium perfringens บุกรุกเข้ากระแสเลือดแล้วไปทำลายตับโดยตรง",
@@ -293,7 +356,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205012,
@@ -301,7 +366,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "predisposing", "coccidiosis"],
+    "tags": [
+      "necrotic-enteritis",
+      "predisposing",
+      "coccidiosis"
+    ],
     "q": "Clostridium perfringens พบได้ทั่วไปในดิน ฝุ่น มูล และวัสดุรองพื้น และพบในลำไส้ไก่ที่ไม่ป่วยได้ ปัจจัยที่กระตุ้นให้เชื้อสร้างสารพิษจนเกิด necrotic enteritis บ่อยที่สุดคือข้อใด",
     "options": [
       "การติดเชื้อบิด และการเปลี่ยนอาหาร",
@@ -318,7 +387,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205013,
@@ -326,7 +397,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "antibiotic-ban", "history"],
+    "tags": [
+      "necrotic-enteritis",
+      "antibiotic-ban",
+      "history"
+    ],
     "q": "เหตุใดจึงเริ่มพบ necrotic enteritis ในไก่มากขึ้นหลังราวปี 2000 ทั้งที่ก่อนหน้านั้นแทบไม่มีการพูดถึงโรคนี้",
     "options": [
       "เพราะเปลี่ยนมาเลี้ยงไก่ในโรงเรือนปิดที่อากาศถ่ายเทน้อยลงกว่าเดิม",
@@ -343,7 +418,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205014,
@@ -351,7 +428,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "lesion", "pseudomembrane"],
+    "tags": [
+      "necrotic-enteritis",
+      "lesion",
+      "pseudomembrane"
+    ],
     "q": "รอยโรคจากการผ่าซากไก่ที่ตายด้วย necrotic enteritis ตรงกับข้อใด",
     "options": [
       "ไส้ตันขยายขนาด มีเลือดและก้อนเลือดแข็งอุดอยู่ข้างใน",
@@ -369,7 +450,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205015,
@@ -377,7 +460,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "sudden-death", "carcass"],
+    "tags": [
+      "necrotic-enteritis",
+      "sudden-death",
+      "carcass"
+    ],
     "q": "ในฝูงที่เกิด necrotic enteritis ไก่ที่ตายเฉียบพลันโดยไม่แสดงอาการมาก่อน มีสภาพซากต่างจากไก่ที่แสดงอาการมาก่อนตายอย่างไร",
     "options": [
       "ตัวที่ตายเฉียบพลันยังอ้วนสมบูรณ์ ส่วนตัวที่แสดงอาการมาก่อนจะผอม",
@@ -394,7 +481,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205016,
@@ -402,7 +491,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "vaccine", "toxoid"],
+    "tags": [
+      "necrotic-enteritis",
+      "vaccine",
+      "toxoid"
+    ],
     "q": "สถานะของวัคซีนป้องกัน necrotic enteritis ในปัจจุบันเป็นอย่างไร",
     "options": [
       "มีวัคซีนเชื้อเป็นใช้แพร่หลาย และให้พร้อมกับวัคซีนบิดได้เลย",
@@ -419,7 +512,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205017,
@@ -427,7 +522,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "bacitracin", "treatment"],
+    "tags": [
+      "necrotic-enteritis",
+      "bacitracin",
+      "treatment"
+    ],
     "q": "ไก่ไข่ฝูงหนึ่งได้รับวินิจฉัยเป็น necrotic enteritis ยาตัวแรกที่ควรนึกถึงคือข้อใด และถ้ายาตัวนั้นขาดตลาดจะใช้อะไรแทน",
     "options": [
       "Penicillin เป็นตัวแรก ถ้าขาดตลาดใช้ monensin หรือ salinomycin",
@@ -444,7 +543,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205018,
@@ -452,7 +553,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "culture", "double-zone-hemolysis"],
+    "tags": [
+      "necrotic-enteritis",
+      "culture",
+      "double-zone-hemolysis"
+    ],
     "q": "เพาะเชื้อจากลำไส้ไก่ที่สงสัย necrotic enteritis ลงบนอาหารเลี้ยงเชื้อที่มีเลือด ผลที่สนับสนุนการวินิจฉัยคือข้อใด",
     "options": [
       "มีวงใสรอบโคโลนีเพียงชั้นเดียว และย้อมแกรมเป็นแกรมบวก",
@@ -469,7 +574,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205019,
@@ -477,7 +584,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-ne",
     "year": 5,
     "type": "mcq",
-    "tags": ["necrotic-enteritis", "prevention", "feed"],
+    "tags": [
+      "necrotic-enteritis",
+      "prevention",
+      "feed"
+    ],
     "q": "แนวทางป้องกัน necrotic enteritis ข้อใดสอดคล้องกับปัจจัยเสี่ยงของโรคนี้",
     "options": [
       "ลดปลาป่นและข้าวสาลีในสูตรอาหาร และเสริมเอนไซม์เมื่อต้องใช้วัตถุดิบเหล่านี้มาก",
@@ -494,17 +605,21 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
-
-  // ── Leukocytozoonosis ──────────────────────────────────────
   {
     "id": 205020,
     "subject": "avian-medicine",
     "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
-    "tags": ["Leucocytozoon", "vector", "Culicoides"],
+    "tags": [
+      "Leucocytozoon",
+      "vector",
+      "Culicoides"
+    ],
     "q": "โรค leukocytozoonosis ในไก่ติดต่อโดยมีแมลงกลุ่มใดเป็นพาหะ",
     "options": [
       "Culicoides และแมลงกลุ่ม black fly",
@@ -521,7 +636,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205021,
@@ -529,7 +646,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
-    "tags": ["Leucocytozoon", "epidemiology", "open-house"],
+    "tags": [
+      "Leucocytozoon",
+      "epidemiology",
+      "open-house"
+    ],
     "q": "โรค leukocytozoonosis มักเป็นปัญหาในการเลี้ยงไก่รูปแบบใด และช่วงเวลาใดของปี",
     "options": [
       "โรงเรือนปิดที่เลี้ยงหนาแน่น มักพบช่วงฤดูหนาวที่อากาศแห้งและความชื้นต่ำ",
@@ -546,7 +667,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205022,
@@ -554,7 +677,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
-    "tags": ["Leucocytozoon", "species", "Thailand"],
+    "tags": [
+      "Leucocytozoon",
+      "species",
+      "Thailand"
+    ],
     "q": "Leucocytozoon มีหลายสิบชนิด แต่ชนิดที่สำคัญในไก่มีเพียง 4 ชนิด ข้อใดถูกต้องเกี่ยวกับชนิดที่พบในประเทศไทย",
     "options": [
       "พบ 4 ชนิด และทั้ง 4 ชนิดก่อโรครุนแรงเท่ากันหมด",
@@ -571,7 +698,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205023,
@@ -579,7 +708,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
-    "tags": ["Leucocytozoon", "megaloschizont", "necropsy"],
+    "tags": [
+      "Leucocytozoon",
+      "megaloschizont",
+      "necropsy"
+    ],
     "q": "ผ่าซากไก่พื้นเมืองที่ตายด้วย leukocytozoonosis ลักษณะรอยโรคที่เข้ากับโรคนี้คือข้อใด",
     "options": [
       "ไส้ตันขยายขนาดและมีก้อนเลือดแข็งปนเศษเนื้อตายอุดอยู่ข้างใน",
@@ -596,7 +729,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205024,
@@ -604,7 +739,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
-    "tags": ["Leucocytozoon", "blood-smear", "differential"],
+    "tags": [
+      "Leucocytozoon",
+      "blood-smear",
+      "differential"
+    ],
     "q": "การวินิจฉัย leukocytozoonosis ยืนยันได้จากการตรวจใด และต้องวินิจฉัยแยกจากโรคใด",
     "options": [
       "ตรวจฟิล์มเลือดหาแกมีโทไซต์ที่ทำให้เม็ดเลือดผิดรูป และแยกจากมาลาเรียในสัตว์ปีก",
@@ -621,7 +760,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205025,
@@ -629,7 +770,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
-    "tags": ["Leucocytozoon", "treatment", "carrier"],
+    "tags": [
+      "Leucocytozoon",
+      "treatment",
+      "carrier"
+    ],
     "q": "ข้อใดอธิบายผลของการรักษา leukocytozoonosis ในไก่ได้ถูกต้อง",
     "options": [
       "ยากำจัดปรสิตได้หมดภายในไม่กี่วัน ไก่ที่หายแล้วจึงไม่เป็นพาหะอีก",
@@ -646,7 +791,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205026,
@@ -654,7 +801,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
-    "tags": ["Leucocytozoon", "vaccine", "prevention"],
+    "tags": [
+      "Leucocytozoon",
+      "vaccine",
+      "prevention"
+    ],
     "q": "ข้อใดถูกต้องเกี่ยวกับการป้องกัน leukocytozoonosis",
     "options": [
       "ไม่มีวัคซีนของโรคนี้เลย ป้องกันได้ด้วยการควบคุมแมลงพาหะเท่านั้น",
@@ -671,7 +822,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205027,
@@ -679,7 +832,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-leuko",
     "year": 5,
     "type": "mcq",
-    "tags": ["Leucocytozoon", "incubation", "carrier"],
+    "tags": [
+      "Leucocytozoon",
+      "incubation",
+      "carrier"
+    ],
     "q": "ข้อใดถูกต้องเกี่ยวกับระยะฟักตัวและแหล่งแพร่เชื้อของ leukocytozoonosis",
     "options": [
       "ระยะฟักตัว 5 ถึง 6 วัน และไก่ที่หายจากโรคแล้วไม่เป็นแหล่งแพร่เชื้ออีก",
@@ -696,17 +853,21 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
-
-  // ── Avian malaria ──────────────────────────────────────────
   {
     "id": 205028,
     "subject": "avian-medicine",
     "topic": "avian-malaria",
     "year": 5,
     "type": "mcq",
-    "tags": ["Plasmodium", "mosquito", "host-specificity"],
+    "tags": [
+      "Plasmodium",
+      "mosquito",
+      "host-specificity"
+    ],
     "q": "มาลาเรียในสัตว์ปีกจากเชื้อ Plasmodium มีลักษณะการติดต่อและความจำเพาะต่อโฮสต์อย่างไร",
     "options": [
       "มียุงเป็นพาหะ และเชื้อไม่จำเพาะต่อชนิดโฮสต์",
@@ -723,7 +884,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205029,
@@ -731,7 +894,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-malaria",
     "year": 5,
     "type": "mcq",
-    "tags": ["Plasmodium", "incubation", "epidemiology"],
+    "tags": [
+      "Plasmodium",
+      "incubation",
+      "epidemiology"
+    ],
     "q": "มาลาเรียในสัตว์ปีกมักพบในไก่ที่เลี้ยงแบบใด และมีระยะฟักตัวนานเท่าใด",
     "options": [
       "โรงเรือนปิดที่เลี้ยงหนาแน่น ระยะฟักตัว 5 ถึง 6 วัน",
@@ -748,7 +915,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205030,
@@ -756,7 +925,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-malaria",
     "year": 5,
     "type": "mcq",
-    "tags": ["Plasmodium", "species", "severity"],
+    "tags": [
+      "Plasmodium",
+      "species",
+      "severity"
+    ],
     "q": "ข้อใดจับคู่ชนิดของ Plasmodium ในสัตว์ปีกกับข้อมูลของเชื้อได้ถูกต้อง",
     "options": [
       "P. juxtanucleare รุนแรงที่สุด และ P. gallinaceum พบเฉพาะในไก่งวง",
@@ -774,7 +947,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205031,
@@ -782,7 +957,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-malaria",
     "year": 5,
     "type": "mcq",
-    "tags": ["Plasmodium", "life-cycle", "endothelium"],
+    "tags": [
+      "Plasmodium",
+      "life-cycle",
+      "endothelium"
+    ],
     "q": "เมื่อยุงกัดไก่และปล่อยสปอโรซอยต์จากต่อมน้ำลายเข้ากระแสเลือด สปอโรซอยต์ของ Plasmodium เข้าไปเจริญในเซลล์ใดก่อน",
     "options": [
       "เม็ดเลือดแดงโดยตรง แล้วกลายเป็นแกมีโทไซต์ทันที",
@@ -799,7 +978,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205032,
@@ -807,7 +988,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-malaria",
     "year": 5,
     "type": "mcq",
-    "tags": ["Plasmodium", "clinical-signs", "mortality"],
+    "tags": [
+      "Plasmodium",
+      "clinical-signs",
+      "mortality"
+    ],
     "q": "ไก่ที่ติดมาลาเรียในสัตว์ปีกอย่างรุนแรงแสดงอาการอย่างไร และอัตราการตายเป็นเท่าใด",
     "options": [
       "เลือดจาง อ้าปากหายใจ ขี้เขียว เป็นอัมพาต อัตราการตายอาจสูงถึง 90 เปอร์เซ็นต์",
@@ -824,7 +1009,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205033,
@@ -832,7 +1019,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-malaria",
     "year": 5,
     "type": "mcq",
-    "tags": ["Plasmodium", "necropsy", "anemia"],
+    "tags": [
+      "Plasmodium",
+      "necropsy",
+      "anemia"
+    ],
     "q": "รอยโรคจากการผ่าซากไก่ที่ตายด้วยมาลาเรียในสัตว์ปีกคือข้อใด",
     "options": [
       "ไส้ตันขยายขนาดมีเลือดอยู่ข้างใน และตับมีจุดเนื้อตายกระจาย",
@@ -849,7 +1040,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205034,
@@ -857,7 +1050,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-malaria",
     "year": 5,
     "type": "mcq",
-    "tags": ["Plasmodium", "immune-complex", "nephritis"],
+    "tags": [
+      "Plasmodium",
+      "immune-complex",
+      "nephritis"
+    ],
     "q": "P. gallinaceum ทำให้เกิดภาวะใดในไก่ ผ่านการสร้าง antigen antibody complex",
     "options": [
       "ตับแข็งและท่อน้ำดีตีบ",
@@ -874,7 +1071,9 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
+    "predictionSignals": [
+      "current-lecture"
+    ]
   },
   {
     "id": 205035,
@@ -882,7 +1081,11 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "topic": "avian-malaria",
     "year": 5,
     "type": "mcq",
-    "tags": ["Plasmodium", "prevention", "drug-resistance"],
+    "tags": [
+      "Plasmodium",
+      "prevention",
+      "drug-resistance"
+    ],
     "q": "เหตุใดมาลาเรียในสัตว์ปีกจึงถือว่าควรเน้นการป้องกันมากกว่าการรักษา",
     "options": [
       "เพราะยารักษาราคาสูงมากและต้องฉีดเข้าเส้นเลือดไก่ทุกตัว",
@@ -899,6 +1102,8 @@ export const QB_Y5_AVIAN_PARASITIC = [
     "curriculumVersion": "2569-1",
     "answerStatus": "verified",
     "predictionTier": "medium",
-    "predictionSignals": ["current-lecture"]
-  }
+    "predictionSignals": [
+      "current-lecture"
+    ]
+  },
 ];

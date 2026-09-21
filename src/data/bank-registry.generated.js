@@ -119,10 +119,10 @@ export const BANK_REGISTRY = [
   { file: 'questions-mid86-equine-repro.js', export: 'QUESTIONS_MID86_EQUINE_REPRO', year: 5, count: 11,
     subjects: ['equine-repro'],
     load: () => import('./questions-mid86-equine-repro.js').then((m) => m.QUESTIONS_MID86_EQUINE_REPRO) },
-  { file: 'questions-mid86-food-industry.js', export: 'QUESTIONS_MID86_FOOD_INDUSTRY', year: 5, count: 153,
+  { file: 'questions-mid86-food-industry.js', export: 'QUESTIONS_MID86_FOOD_INDUSTRY', year: 5, count: 154,
     subjects: ['food-industry'],
     load: () => import('./questions-mid86-food-industry.js').then((m) => m.QUESTIONS_MID86_FOOD_INDUSTRY) },
-  { file: 'questions-mid86-milk-meat-hygiene.js', export: 'QUESTIONS_MID86_MILK_MEAT_HYGIENE', year: 5, count: 358,
+  { file: 'questions-mid86-milk-meat-hygiene.js', export: 'QUESTIONS_MID86_MILK_MEAT_HYGIENE', year: 5, count: 359,
     subjects: ['milk-meat-hygiene'],
     load: () => import('./questions-mid86-milk-meat-hygiene.js').then((m) => m.QUESTIONS_MID86_MILK_MEAT_HYGIENE) },
   { file: 'questions-mid86-one-health.js', export: 'QUESTIONS_MID86_ONE_HEALTH', year: 5, count: 94,
@@ -280,4 +280,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-21T15:23:28.460Z — 90 banks · 6394 Qs
+// Built: 2026-09-21T16:52:02.259Z — 90 banks · 6396 Qs

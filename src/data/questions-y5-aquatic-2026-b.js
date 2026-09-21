@@ -13,7 +13,10 @@
 export const QUESTIONS_Y5_AQUATIC_2026_B = [
   {
     "id": 105873,
-    "tags": ["WOAH","aquatic-code"],
+    "tags": [
+      "WOAH",
+      "aquatic-code"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -33,7 +36,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105874,
-    "tags": ["veterinary-authority","department-of-livestock-development"],
+    "tags": [
+      "veterinary-authority",
+      "department-of-livestock-development"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -53,7 +59,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105875,
-    "tags": ["competent-authority","department-of-fisheries"],
+    "tags": [
+      "competent-authority",
+      "department-of-fisheries"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -73,7 +82,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105876,
-    "tags": ["three-sisters","standard-setting-organization"],
+    "tags": [
+      "three-sisters",
+      "standard-setting-organization"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -93,7 +105,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105877,
-    "tags": ["WOAH","rinderpest"],
+    "tags": [
+      "WOAH",
+      "rinderpest"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -113,7 +128,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105878,
-    "tags": ["aquatic-code","import-risk-analysis"],
+    "tags": [
+      "aquatic-code",
+      "import-risk-analysis"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -133,7 +151,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105879,
-    "tags": ["aquatic-manual","responsible-antimicrobial-use"],
+    "tags": [
+      "aquatic-manual",
+      "responsible-antimicrobial-use"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -153,7 +174,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105880,
-    "tags": ["WAHIS","disease-reporting"],
+    "tags": [
+      "WAHIS",
+      "disease-reporting"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -173,7 +197,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105881,
-    "tags": ["SPS-agreement","WTO"],
+    "tags": [
+      "SPS-agreement",
+      "WTO"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -193,7 +220,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105882,
-    "tags": ["SPS-agreement","scientific-justification"],
+    "tags": [
+      "SPS-agreement",
+      "scientific-justification"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -213,7 +243,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105883,
-    "tags": ["NACA","regional-organization"],
+    "tags": [
+      "NACA",
+      "regional-organization"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -233,7 +266,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105884,
-    "tags": ["aquatic-disease-list","crustacean-disease"],
+    "tags": [
+      "aquatic-disease-list",
+      "crustacean-disease"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -253,7 +289,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105885,
-    "tags": ["animal-definition","marine-mammal"],
+    "tags": [
+      "animal-definition",
+      "marine-mammal"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -273,7 +312,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105886,
-    "tags": ["GAP","aquaculture-standard"],
+    "tags": [
+      "GAP",
+      "aquaculture-standard"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -293,7 +335,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105887,
-    "tags": ["ACFS","disease-surveillance"],
+    "tags": [
+      "ACFS",
+      "disease-surveillance"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -313,7 +358,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105888,
-    "tags": ["medicated-feed","department-of-livestock-development"],
+    "tags": [
+      "medicated-feed",
+      "department-of-livestock-development"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -333,7 +381,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105889,
-    "tags": ["drug-prescription","scope-of-practice"],
+    "tags": [
+      "drug-prescription",
+      "scope-of-practice"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -353,7 +404,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105890,
-    "tags": ["SPF-shrimp","gas-bubble-disease"],
+    "tags": [
+      "SPF-shrimp",
+      "gas-bubble-disease"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -373,7 +427,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105891,
-    "tags": ["WOAH","standard-setting-process"],
+    "tags": [
+      "WOAH",
+      "standard-setting-process"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -393,7 +450,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105892,
-    "tags": ["WOAH","aquatic-animal-commission"],
+    "tags": [
+      "WOAH",
+      "aquatic-animal-commission"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -413,7 +473,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105893,
-    "tags": ["SEAFDEC","regional-organization"],
+    "tags": [
+      "SEAFDEC",
+      "regional-organization"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
     "year": 5,
@@ -433,7 +496,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105894,
-    "tags": ["Streptococcus-agalactiae","gram-positive"],
+    "tags": [
+      "Streptococcus-agalactiae",
+      "gram-positive"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -446,14 +512,18 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
       "Edwardsiella tarda"
     ],
     "answer": 2,
-    "explain": "Streptococcus เป็นเชื้อ Gram positive เพียงกลุ่มเดียวในบรรดาแบคทีเรียก่อโรคปลาที่เรียนในคาบนี้ และให้ white pinpoint colony with hemolysis ส่วน Aeromonas, Flavobacterium และ Edwardsiella ล้วนเป็น Gram negative",
+    "explain": "ในสี่ตัวเลือกนี้ Streptococcus เป็นเชื้อ Gram positive กลุ่มเดียว และให้ white pinpoint colony with hemolysis ส่วน Aeromonas, Flavobacterium และ Edwardsiella ล้วนเป็น Gram negative",
     "verified": "Aquamed final (Vet 85) น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากโน้ตเลกเชอร์ Aquatic Med 3107520 (สรุป Vet 85)"
   },
   {
     "id": 105895,
-    "tags": ["streptococcosis","exophthalmos","nile-tilapia"],
+    "tags": [
+      "streptococcosis",
+      "exophthalmos",
+      "nile-tilapia"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -473,7 +543,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105896,
-    "tags": ["Edwardsiella","hole-in-the-head"],
+    "tags": [
+      "Edwardsiella",
+      "hole-in-the-head"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -493,7 +566,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105897,
-    "tags": ["Francisella","granuloma"],
+    "tags": [
+      "Francisella",
+      "granuloma"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -513,7 +589,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105898,
-    "tags": ["bacterial-culture","cranial-kidney"],
+    "tags": [
+      "bacterial-culture",
+      "cranial-kidney"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -533,7 +612,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105899,
-    "tags": ["chloramphenicol","banned-drug"],
+    "tags": [
+      "chloramphenicol",
+      "banned-drug"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -553,7 +635,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105900,
-    "tags": ["viral-nervous-necrosis","vertical-transmission"],
+    "tags": [
+      "viral-nervous-necrosis",
+      "vertical-transmission"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -573,7 +658,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105901,
-    "tags": ["TiLV","syncytial-hepatitis"],
+    "tags": [
+      "TiLV",
+      "syncytial-hepatitis"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -593,7 +681,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105902,
-    "tags": ["koi-herpesvirus","quarantine-period"],
+    "tags": [
+      "koi-herpesvirus",
+      "quarantine-period"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -613,7 +704,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105903,
-    "tags": ["Megalocytivirus","ISKNV","aquatic-disease-list"],
+    "tags": [
+      "Megalocytivirus",
+      "ISKNV",
+      "aquatic-disease-list"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -633,7 +728,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105904,
-    "tags": ["potassium-permanganate","pond-volume","dose-calculation"],
+    "tags": [
+      "potassium-permanganate",
+      "pond-volume",
+      "dose-calculation"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -653,7 +752,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105905,
-    "tags": ["enrofloxacin","dose-calculation","medicated-feed"],
+    "tags": [
+      "enrofloxacin",
+      "dose-calculation",
+      "medicated-feed"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -673,7 +776,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105906,
-    "tags": ["potassium-permanganate","dissolved-oxygen"],
+    "tags": [
+      "potassium-permanganate",
+      "dissolved-oxygen"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-fish-diseases",
     "year": 5,
@@ -693,7 +799,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105907,
-    "tags": ["AHPND","Vibrio-parahaemolyticus","PirAB-toxin"],
+    "tags": [
+      "AHPND",
+      "Vibrio-parahaemolyticus",
+      "PirAB-toxin"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -713,7 +823,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105908,
-    "tags": ["AHPND","hepatopancreas"],
+    "tags": [
+      "AHPND",
+      "hepatopancreas"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -733,7 +846,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105909,
-    "tags": ["EHP","slow-growth","FCR"],
+    "tags": [
+      "EHP",
+      "slow-growth",
+      "FCR"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -753,7 +870,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105910,
-    "tags": ["EHP","pond-disinfection","spore-inactivation"],
+    "tags": [
+      "EHP",
+      "pond-disinfection",
+      "spore-inactivation"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -773,7 +894,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105911,
-    "tags": ["IHHNV","runt-deformity-syndrome"],
+    "tags": [
+      "IHHNV",
+      "runt-deformity-syndrome"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -793,7 +917,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105912,
-    "tags": ["MrNV","white-tail-disease","giant-freshwater-prawn"],
+    "tags": [
+      "MrNV",
+      "white-tail-disease",
+      "giant-freshwater-prawn"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -813,7 +941,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105913,
-    "tags": ["DIV1","hematopoietic-tissue"],
+    "tags": [
+      "DIV1",
+      "hematopoietic-tissue"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -833,7 +964,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105914,
-    "tags": ["WSSV","host-range","mass-mortality"],
+    "tags": [
+      "WSSV",
+      "host-range",
+      "mass-mortality"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -853,7 +988,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105915,
-    "tags": ["broodstock-screening","non-lethal-sampling"],
+    "tags": [
+      "broodstock-screening",
+      "non-lethal-sampling"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -873,7 +1011,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105916,
-    "tags": ["IMNV","pathognomonic-lesion","muscle-opacity"],
+    "tags": [
+      "IMNV",
+      "pathognomonic-lesion",
+      "muscle-opacity"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-shrimp-diseases",
     "year": 5,
@@ -893,7 +1035,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105917,
-    "tags": ["ammonia-toxicity","pH"],
+    "tags": [
+      "ammonia-toxicity",
+      "pH"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-water-quality",
     "year": 5,
@@ -913,7 +1058,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105918,
-    "tags": ["water-hardness","toxicity-modifying-factor"],
+    "tags": [
+      "water-hardness",
+      "toxicity-modifying-factor"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-water-quality",
     "year": 5,
@@ -933,7 +1081,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105919,
-    "tags": ["adverse-outcome-pathway","molecular-initiating-event"],
+    "tags": [
+      "adverse-outcome-pathway",
+      "molecular-initiating-event"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-water-quality",
     "year": 5,
@@ -953,7 +1104,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105920,
-    "tags": ["adverse-outcome-pathway","aromatase-inhibition","fadrozole"],
+    "tags": [
+      "adverse-outcome-pathway",
+      "aromatase-inhibition",
+      "fadrozole"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-water-quality",
     "year": 5,
@@ -973,7 +1128,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105921,
-    "tags": ["metallothionein","heavy-metal","biomarker"],
+    "tags": [
+      "metallothionein",
+      "heavy-metal",
+      "biomarker"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-water-quality",
     "year": 5,
@@ -993,7 +1152,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105922,
-    "tags": ["organophosphate","carbamate","acetylcholinesterase-inhibition"],
+    "tags": [
+      "organophosphate",
+      "carbamate",
+      "acetylcholinesterase-inhibition"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-water-quality",
     "year": 5,
@@ -1013,7 +1176,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105923,
-    "tags": ["saxitoxin","paralytic-shellfish-poisoning"],
+    "tags": [
+      "saxitoxin",
+      "paralytic-shellfish-poisoning"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-water-quality",
     "year": 5,
@@ -1033,7 +1199,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105924,
-    "tags": ["microcystin","protein-phosphatase-inhibition","hepatotoxicity"],
+    "tags": [
+      "microcystin",
+      "protein-phosphatase-inhibition",
+      "hepatotoxicity"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-water-quality",
     "year": 5,
@@ -1053,7 +1223,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105925,
-    "tags": ["quarantine-period","public-aquarium"],
+    "tags": [
+      "quarantine-period",
+      "public-aquarium"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-aquarium-vet",
     "year": 5,
@@ -1073,7 +1246,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105926,
-    "tags": ["pH","marine-aquarium"],
+    "tags": [
+      "pH",
+      "marine-aquarium"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-aquarium-vet",
     "year": 5,
@@ -1093,7 +1269,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105927,
-    "tags": ["nitrate","nitrogen-cycle"],
+    "tags": [
+      "nitrate",
+      "nitrogen-cycle"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-aquarium-vet",
     "year": 5,
@@ -1113,7 +1292,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105928,
-    "tags": ["backwash","sand-filter"],
+    "tags": [
+      "backwash",
+      "sand-filter"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-life-support",
     "year": 5,
@@ -1133,7 +1315,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105929,
-    "tags": ["ozone","protein-skimmer"],
+    "tags": [
+      "ozone",
+      "protein-skimmer"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-life-support",
     "year": 5,
@@ -1153,7 +1338,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105930,
-    "tags": ["ORP","ozone"],
+    "tags": [
+      "ORP",
+      "ozone"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-life-support",
     "year": 5,
@@ -1173,7 +1361,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105931,
-    "tags": ["cetacean","gallbladder"],
+    "tags": [
+      "cetacean",
+      "gallbladder"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-conservation",
     "year": 5,
@@ -1193,7 +1384,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105932,
-    "tags": ["blubber","thermoregulation","buoyancy"],
+    "tags": [
+      "blubber",
+      "thermoregulation",
+      "buoyancy"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-conservation",
     "year": 5,
@@ -1213,7 +1408,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105933,
-    "tags": ["blowhole","cetacean-classification"],
+    "tags": [
+      "blowhole",
+      "cetacean-classification"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-conservation",
     "year": 5,
@@ -1233,7 +1431,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105934,
-    "tags": ["Sirenia","tusk"],
+    "tags": [
+      "Sirenia",
+      "tusk"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-conservation",
     "year": 5,
@@ -1253,7 +1454,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105935,
-    "tags": ["melioidosis","Burkholderia-pseudomallei"],
+    "tags": [
+      "melioidosis",
+      "Burkholderia-pseudomallei"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-conservation",
     "year": 5,
@@ -1273,7 +1477,10 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105936,
-    "tags": ["cetacean","tidal-volume"],
+    "tags": [
+      "cetacean",
+      "tidal-volume"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-conservation",
     "year": 5,
@@ -1293,7 +1500,11 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
   },
   {
     "id": 105937,
-    "tags": ["seagrass","Halophila-ovalis","dugong"],
+    "tags": [
+      "seagrass",
+      "Halophila-ovalis",
+      "dugong"
+    ],
     "subject": "aquatic-clinic",
     "topic": "aqua-conservation",
     "year": 5,
@@ -1310,5 +1521,5 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "verified": "Aquamed final (Vet 85) น.19",
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากสไลด์บรรยาย Aquatic Med 3107520 (สรุป Vet 85)"
-  }
+  },
 ];

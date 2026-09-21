@@ -2897,3 +2897,167 @@ is a separate 6-step route [50:22-51:42].
 Furstenberg's rosette, #207447 with its ลดการเหม็นหืน option restored). Measured across all 644
 recordings: **0 examFormat over 250 characters and 0 head callouts over 400** — the earlier note
 saying 48 and 32 remained is corrected above.
+
+## 2026-09-22 (small hours) — What the app was telling students, and two counts that were wrong
+
+Palm read the app rather than the code, and every bug below started as something
+he noticed on screen. That is the pattern worth keeping: the lints in this repo
+check provenance, vocabulary and answer tells, and not one of them asked the
+plainer question — *does this read like something written for the person holding
+the phone?*
+
+**Explanations were narrating their own sources.** "กระดาษคำตอบระบุว่า…",
+"เขียนกำกับว่า…", "ตารางเกณฑ์รับซื้อที่แนบมา" — 230 of them, when the reader has no
+answer sheet, no marker's handwriting and nothing attached. All 230 rewritten in
+the voice of the answer with every number preserved, verified by a second pass
+that was told to hunt for lost facts specifically. `scripts/lint-answer-voice.mjs`
+is now in `lint:all`, so the class cannot return. Refine its rules rather than
+deleting them: `ตามเอกสารทีหลัง` (follow up with the paperwork later) is innocent
+and was the one false positive.
+
+**Seven questions promised what would be on the exam** — "ออกใหม่ 100%",
+"ออกทุกปี", "รุ่นพี่บันทึกว่าออกแน่" — several inside `verified`, which
+QSourceChip prints to the screen, next to a lecturer's name and a star rating.
+Gone. Where the line also taught something (an age limit, a drug pairing) the
+teaching was kept and only the claim removed.
+
+**`isPastPaperQuestion` was undercounting by 250.** It returned early on any
+nonempty `sourceType`, so a question tagged `student-compilation` whose
+`examOrigin` read "Aj. Sirawit FIQC Vet 85 Midterm" was not a past paper. The two
+fields answer different questions: **sourceType is how the question reached us,
+examOrigin is whose paper it sat on.** Food Industry counted 0 and therefore
+rendered no "ฝึกเฉพาะข้อสอบเก่า" button on either lecturer card; it now counts 20
+(สิรวิทย์ 8, มินตรา 11, final 1) and Milk went 110 → 158. The same predicate drives
+`panicRank`, so Panic Mode was mis-ordering too.
+
+Two traps while fixing it, both caught by asserting the guardrails rather than
+reading the headline number: opening the legacy free-text `source` fallback to
+typed rows counted 32 `อิงแนวข้อสอบ` items as sat papers (that fallback is for rows
+with **no** sourceType only); and six survivors turned out to be items written
+hours earlier carrying `sourceType: past-paper` **and** `examOrigin: อิงแนวข้อสอบ`,
+which contradict each other. Assert `อิงแนวข้อสอบ → 0` and `lecture-derived → 0`
+after any change here.
+
+**A signed-in student could never finish a redo round.** `replayQuestions` was
+`useCallback(…, [])`, so `session.replayQuestions` inside it was the first
+render's binding, made while auth was still resolving and `ownerId` was null. It
+stamped `sessionOwner=null`, and `finishExam`'s owner check then refused every
+submit with "บัญชีเปลี่ยนระหว่างทำข้อสอบ" — the results page never appeared. Signed-out
+users never saw it, because `null === null`. `session` is a new object each
+render; reach it through `sessionRef.current`. `tests/unit/session-owner-staleness.test.mjs`
+pins the whole class, not just this line. The same fault had already been fixed
+once for `finishTourStart`; the comment there was right and the next caller
+still walked into it.
+
+**Also:** a stem read "…ตามที่ข้อสอบให้เลือก", and removing that suffix revealed it
+was the only thing keeping two copies of one question apart — a third asks it in
+English. 17 questions still tell the reader to "ดูภาพประกอบ" with no image
+attached; that is spun out as its own task, because deleting a student's practice
+material is his call.
+
+### Measuring, when the machine is busy
+
+Three separate red runs tonight were measurement error, not regressions, and each
+cost a cycle to disprove:
+
+- CI Smoke failed twice on `AllowWebgl2:false restricts context creation` — the
+  runner's Firefox blocklist, not this app (5.126.6 passed the same job; the diff
+  touched no graphics file). Fixed with `firefoxUserPrefs` in **both**
+  `scripts/check-ci-graphics.mjs` and the `firefox-desktop` project — setting it
+  only in the guard turns the guard green while the tests it guards run blind.
+- A local gate came back 10 red across four projects; the same six specs then
+  passed 88/0 at one worker. A unit test failed in the suite and passed 3/3 alone.
+- A later gate came back **36** red, and the failure list named
+  `tests/e2e/tmp-swprobe.spec.js` — a file this session never created and that no
+  longer exists on disk. A spawned session was writing, running and deleting spec
+  files in the same working tree.
+
+**Correction, same night.** The spawned session root-caused the webkit-mobile
+service-worker flake, and it was NOT contention — I had filed it with the other
+red runs and that was wrong. **WebKit never delivers a service worker's
+activating → activated transition to a client the worker does not control**, so
+the spec's uncontrolled observer page read "activating" for ever. The tell that
+separates a wedged browser from a slow machine: raising the budget from 15 s to
+60 s changed nothing. Measured at --repeat-each=24 --workers=10, 48 of 240
+failed before the fix and 240 of 240 passed after.
+
+The contention diagnosis still holds for the ten-failure run across
+mobile-compat / counts-agree / data-recovery, proved by re-running those six
+specs to 88/0, and for the 36-failure run that named a spec file this session
+never created. But "the machine was busy" is a cheap explanation and it was only
+half true here. Reach for the measurement that tells the two apart — a longer
+timeout that changes nothing means the browser is wedged, not slow — and put
+load last on the list, not first.
+
+**So: do not gate while another session is running, and treat a red run whose
+diff cannot reach the failing subsystem as a measurement to repeat, not a
+regression to chase — but say so with the diff as evidence.** The flaky
+`service-worker-live-update` spec on webkit-mobile is recorded separately and has
+its own fix task; do not silence its assertion, which pins the lazy-update
+guarantee.
+
+
+## 2026-09-21 (night) — The live-update spec stops failing on a reading WebKit never refreshes
+
+`tests/e2e/service-worker-live-update.spec.js` blocked two releases in one night, always on
+**webkit-mobile** and never anywhere else. It was three races, not one, and none of them was
+the app: `git diff 56608a4d 7dd03d5b` is question data and generated docs, nothing that can
+reach the worker or the shell. **No assertion changed its expected value.**
+
+### The reading that can never come true
+
+`waitForNaturalActivation` polled `registration.active.state` from the uncontrolled
+`/__observer` page and waited for `'activated'`. **WebKit never delivers the
+activating→activated transition to a client it does not control**, so that page reports
+`'activating'` for the rest of its life. Measured at the moment of failure: the observer read
+`{active:"activating",waiting:false}` while a window opened beside it in the same instant read
+`{active:"activated",waiting:false}`, was controlled, and carried build B. Raising the budget
+from 15 s to 60 s changed nothing, because nothing was ever going to change — that is how this
+was told apart from a slow machine. It now asks the active worker for its version over the same
+`GET_VERSION` channel the rest of the spec uses, with nothing left waiting: the same guarantee,
+read where the browser keeps it current.
+
+### The one-second question
+
+`workerVersion()` gave the worker 1000 ms to answer and resolved `null` on timeout, and eight
+call sites read that `null` as a version through `expect(await …)`. A browser that has to start
+the worker before it can answer outlasts that on a loaded runner; two reproduced failures were
+exactly `Expected "browser-test-A" / Received null`, at lines that assert a tab kept its build.
+All eight call sites poll now and the round trip gets 5 s inside each poll.
+
+### The clock
+
+Every wait in the file is a wait on a service worker — starting one, letting it answer, letting
+it serve the entry chunk of a document it just opened. The file's `expect` timeout is 30 s (was
+the suite's 15 s) and its test timeout 90 s (was 45 s), by the same reasoning as the 2026-09-19
+raise from 5 s: an expect timeout is how long a condition may take to become true and cannot
+make a false assertion pass. This is also the only answer offered to the CI failure on
+`7dd03d5b`, where `html[data-entry-build]` read `null` on the offline document — **that one
+never reproduced on this machine in ~700 webkit runs**, so treat it as addressed, not proven.
+If it returns, the next thing to measure is whether the worker failed to serve
+`/assets/entry-A.js` or `/update-safety.js` from CacheStorage at all: a module whose static
+import fails never runs, so the attribute stays null however long the assertion waits, and
+`cacheFirst` in `public/sw.js` has no catch around its cache read.
+
+### Measured
+
+| Run | Before | After |
+| --- | --- | --- |
+| webkit-mobile, `--repeat-each=24 --workers=10`, twice (240 cases) | **48 failed** (all at `waitForNaturalActivation`) | **240 passed** |
+| webkit-mobile, ten separate serial runs (`--workers=1`) | — | **50 of 50 passed** |
+| `npm run gate`, all four projects | — | build, lint:all, unit all clean; e2e **705 passed / 1 failed / 42 skipped** in 9.2 min |
+
+The one gate failure is `video-navigation.spec.js:46` on webkit-mobile, a `goForward()` history
+race in an unrelated spec that passes 6/6 on its own. All 20 live-update cases (5 tests × 4
+projects) passed inside that gate.
+
+### Worth keeping
+
+- **A stuck browser reading and a slow machine look identical until you raise the budget.** The
+  60-second run is what proved the worker was already activated; before that, every reading said
+  "contention".
+- **Do not assert a service worker's lifecycle state from a client the worker does not control.**
+  Ask the worker.
+- `clients.claim()` rejects in WebKit on this fixture (a probe that awaited it never wrote its
+  marker in 359 activations, while the prune half finished in 6–167 ms). Activation completes
+  anyway — a rejected `waitUntil` does not block it — so `public/sw.js` needs nothing here.

@@ -182,10 +182,10 @@ export const QUESTIONS_MID86_SWINE_CLINIC = [
         "right": "จุดเลือดออกและ ecchymosis หลายอวัยวะจาก embolic septicaemia"
       }
     ],
-    "explain": "ข้อนี้เป็นข้อที่อาจารย์พรชลิตออกทุกปีตามที่รุ่นพี่บันทึกไว้ว่า ทำไปทุกโรคที่เรียน จุดที่ต้องแยกให้ออกคือคู่ที่มักสับสนสองคู่\n\nคู่แรก APP กับ pneumonic pasteurellosis รอยโรค APP เป็นแบบเลือดออกและ fibrinonecrotic มีฝีและเยื่อหุ้มปอดหนาติดกัน ส่วน pasteurellosis มีเส้นแบ่งเขตรอยโรคชัดและเยื่อหุ้มปอดใสแห้ง\n\nคู่ที่สอง M. hyopneumoniae กับ Pasteurella ทั้งคู่เป็น cranioventral แต่ M. hyopneumoniae ให้สีม่วงถึงเทาและปอดแฟบ ส่วน Pasteurella ให้ขอบเขตชัดพร้อม pleuritis\n\nอีกสามเชื้อที่โจทย์เดิมถามต่อคือ M. hyorhinis ที่ให้ serofibrinous polyserositis และข้ออักเสบ, M. hyosynoviae ที่ให้ข้ออักเสบร่วมกับ osteochondrosis และ Streptococcus suis ที่เป็น early colonizer และให้ septicaemia, meningitis, endocarditis, pneumonia และ arthritis",
+    "explain": "จุดที่ต้องแยกให้ออกคือคู่ที่มักสับสนสองคู่\n\nคู่แรก APP กับ pneumonic pasteurellosis รอยโรค APP เป็นแบบเลือดออกและ fibrinonecrotic มีฝีและเยื่อหุ้มปอดหนาติดกัน ส่วน pasteurellosis มีเส้นแบ่งเขตรอยโรคชัดและเยื่อหุ้มปอดใสแห้ง\n\nคู่ที่สอง M. hyopneumoniae กับ Pasteurella ทั้งคู่เป็น cranioventral แต่ M. hyopneumoniae ให้สีม่วงถึงเทาและปอดแฟบ ส่วน Pasteurella ให้ขอบเขตชัดพร้อม pleuritis\n\nเชื้ออื่นในชุดเดียวกันมีรอยโรคเด่นต่างกันคือ M. hyorhinis ที่ให้ serofibrinous polyserositis และข้ออักเสบ, M. hyosynoviae ที่ให้ข้ออักเสบร่วมกับ osteochondrosis และ Streptococcus suis ที่เป็น early colonizer และให้ septicaemia, meningitis, endocarditis, pneumonia และ arthritis",
     "source": "Swine Med Mid 86.pdf หน้า 5 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
-    "verified": "Swine Med Mid 86.pdf p.5 โจทย์ข้อ 3 ของ อ.พรชลิต \"จงบอกรอยโรค (พยาธิสภาพ) ที่สำคัญของเชื้อต่อไปนี้\" ข้อย่อย 3.1 ถึง 3.9 พร้อมโน้ตว่า ออกทุกปี ทำไปทุกโรคที่เรียน",
+    "verified": "Swine Med Mid 86 p.5 ข้อ 3.1 ถึง 3.9 จงบอกรอยโรคที่สำคัญของเชื้อต่อไปนี้",
     "tags": [
       "lesions",
       "respiratory",
@@ -208,7 +208,7 @@ export const QUESTIONS_MID86_SWINE_CLINIC = [
       "เยื่อหุ้มสมองอักเสบ ลิ้นหัวใจอักเสบ ปอดอักเสบ และข้ออักเสบ"
     ],
     "answer": 3,
-    "explain": "Streptococcus suis เป็น early colonizer ของทางเดินหายใจส่วนต้น ก่อโรคเด่นในลูกสุกรหลังหย่านม รอยโรคที่สำคัญคือ septicaemia แล้วตามด้วย meningitis, endocarditis, pneumonia และ arthritis ซึ่งเป็นชุดรอยโรคที่อาจารย์ให้ไว้ในข้อ 3.9 ของโจทย์รอยโรค\n\n❌ ทำไมข้ออื่นผิด\n— โพรงจมูกฝ่อและ conchae หายไปเป็นภาพของ atrophic rhinitis\n— ลำไส้เล็กส่วนปลายหนาตัวเป็นคลื่นเข้าได้กับ ileitis จาก Lawsonia intracellularis\n— ตุ่มน้ำที่ไรกีบและกล้ามเนื้อหัวใจซีดเป็นทางเข้าได้กับกลุ่มโรค vesicular เช่น FMD\n\n💡 S. suis serotype 2 เป็นซีโรไทป์ที่พบมากที่สุดทั้งในสุกรและในคน จึงเป็นทั้งปัญหาสุขภาพสัตว์และอาชีวอนามัยของผู้ทำงานกับสุกร",
+    "explain": "Streptococcus suis เป็น early colonizer ของทางเดินหายใจส่วนต้น ก่อโรคเด่นในลูกสุกรหลังหย่านม รอยโรคที่สำคัญคือ septicaemia แล้วตามด้วย meningitis, endocarditis, pneumonia และ arthritis\n\n❌ ทำไมข้ออื่นผิด\n— โพรงจมูกฝ่อและ conchae หายไปเป็นภาพของ atrophic rhinitis\n— ลำไส้เล็กส่วนปลายหนาตัวเป็นคลื่นเข้าได้กับ ileitis จาก Lawsonia intracellularis\n— ตุ่มน้ำที่ไรกีบและกล้ามเนื้อหัวใจซีดเป็นทางเข้าได้กับกลุ่มโรค vesicular เช่น FMD\n\n💡 S. suis serotype 2 เป็นซีโรไทป์ที่พบมากที่สุดทั้งในสุกรและในคน จึงเป็นทั้งปัญหาสุขภาพสัตว์และอาชีวอนามัยของผู้ทำงานกับสุกร",
     "source": "Swine Med Mid 86.pdf หน้า 5 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Swine Med Mid 86.pdf p.5 โจทย์ข้อ 3.9 Streptococcus suis พร้อมคำตอบที่เขียนกำกับไว้",

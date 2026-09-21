@@ -32,7 +32,10 @@ const RULES = [
   ['prior-paper', /ข้อสอบเดิม|โจทย์เดิม|โจทย์ข้อนี้|ข้อสอบข้อนี้|แนวข้อสอบเดิม|ข้อสอบรอบก่อน/, 'talks about the paper instead of the fact'],
   ['senior-sheet', /ชีทรุ่นพี่|สรุปรุ่นพี่|บันทึกรุ่นพี่|โพย/, 'names a senior compilation'],
   ['lecturer', /ผู้บรรยาย|อาจารย์(?:สอน|บอก|เน้น|ย้ำ|ยก|ต้องการ|ระบุ|พูด)|ที่อาจารย์|ในคาบ(?:นี้|เรียน|)?\s*(?:ระบุ|บอก|สอน|พูด|ย้ำ|เน้น)?/, 'names the lecturer or the class'],
-  ['deck', /สไลด์(?:ระบุ|บอก|เขียน|หน้า)|เอกสารระบุ|ในเอกสาร|ตามเอกสาร/, 'names the deck or a document'],
+  // "ตามเอกสาร" is only narration when it means "according to the document".
+  // "ปล่อยให้เข้าฆ่าก่อนแล้วตามเอกสารทีหลัง" is a slaughterhouse following up on
+  // its own paperwork, so the verb that follows decides it.
+  ['deck', /สไลด์(?:ระบุ|บอก|เขียน|หน้า)|เอกสารระบุ|ในเอกสาร(?:นี้|ระบุ|กล่าว|เขียน)|ตามเอกสาร(?:ที่|นี้|ระบุ)/, 'names the deck or a document'],
 ];
 
 const banks = fs.readdirSync(`${ROOT}/src/data`).filter((f) => /^questions-.*\.js$/.test(f));

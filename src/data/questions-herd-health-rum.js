@@ -1,22 +1,22 @@
-// ============================================================
-// Herd Health Management in Ruminants (Y4 Sem 1)
-// ============================================================
-//
-// AUTO-MERGED from tmp/y4-patches/herd-health-rum.json via
-// scripts/apply-y4-patches.mjs.
-// Built: 2026-05-17
-//
-// Subject slug: herd-health-rum
-// ID range: 94500–94538 (39 Qs)
-// Topics: acute-ruminal-acidosis, anaplasmosis, anthrax, babesiosis, brdc, brucellosis, bvd-persistent-infection, enzootic-bovine-leukosis, ephemeral-fever, fec-anthelmintic-resistance, fertility-kpi, fluid-therapy, fmd, grass-tetany, hemorrhagic-septicemia, incidence-rate-calculation, ketosis, lumpy-skin-disease, malignant-catarrhal-fever, mastitis-treatment-clinical, mastitis-treatment-drycow, milk-fever, milk-quality-standard, on-farm-culture, paratuberculosis, pregnancy-toxemia, responsible-amr, subacute-ruminal-acidosis, toxic-mastitis, transition-cow-management, tuberculosis-bovine, urinary-calculi
-// Flagged: 0
-//
-// Sources: Y4 Sem 1 past-paper PDFs (Vet 86 study folder).
-// Each Q cross-checked against ≥2 sources per extraction-agent brief.
-// Academic-safety vocab sanitized across q/options/explain/verified/
-// examOrigin/source per Palm rule (lint:academic-safety gates commits).
-// ============================================================
-
+// ============================================================
+// Herd Health Management in Ruminants (Y4 Sem 1)
+// ============================================================
+//
+// AUTO-MERGED from tmp/y4-patches/herd-health-rum.json via
+// scripts/apply-y4-patches.mjs.
+// Built: 2026-05-17
+//
+// Subject slug: herd-health-rum
+// ID range: 94500–94538 (39 Qs)
+// Topics: acute-ruminal-acidosis, anaplasmosis, anthrax, babesiosis, brdc, brucellosis, bvd-persistent-infection, enzootic-bovine-leukosis, ephemeral-fever, fec-anthelmintic-resistance, fertility-kpi, fluid-therapy, fmd, grass-tetany, hemorrhagic-septicemia, incidence-rate-calculation, ketosis, lumpy-skin-disease, malignant-catarrhal-fever, mastitis-treatment-clinical, mastitis-treatment-drycow, milk-fever, milk-quality-standard, on-farm-culture, paratuberculosis, pregnancy-toxemia, responsible-amr, subacute-ruminal-acidosis, toxic-mastitis, transition-cow-management, tuberculosis-bovine, urinary-calculi
+// Flagged: 0
+//
+// Sources: Y4 Sem 1 past-paper PDFs (Vet 86 study folder).
+// Each Q cross-checked against ≥2 sources per extraction-agent brief.
+// Academic-safety vocab sanitized across q/options/explain/verified/
+// examOrigin/source per Palm rule (lint:academic-safety gates commits).
+// ============================================================
+
 export const QB_HERD_HEALTH_RUM = [
   {
     "id": 94500,
@@ -992,7 +992,7 @@ export const QB_HERD_HEALTH_RUM = [
       "Incidence rate = 10 × 30 = 300%"
     ],
     "answer": 0,
-    "explain": "Incidence Rate (per month) formula:\n\nIR = (Number of clinical cases at days at risk × 100) / Total days at risk in a month\n\nStep 1: Total days at risk in a month:\n- 50 cows × 30 days = 1,500 cow-days\n\nStep 2: ปรับ days at risk (หักช่วงรักษา 7 วัน × 10 ตัว):\n- 10 ตัวรักษา 7 วัน = 70 cow-days ไม่อยู่ในสถานะเสี่ยง\n- Adjusted total = 1,500 − 70 = 1,430 cow-days at risk\n\nStep 3: Numerator = Cases × days at risk per case × 100:\n- 10 × 7 × 100 = 7,000? \n\nตามสูตรในเอกสาร: Incidence rate = (10 × 7 × 100) / 1430 = 700 / 1430 ≈ 4.89% per month\n\nInterpretation:\nผลลัพธ์ 4.89% หมายถึง ในเดือนกับเชยาน (?) โดยในฟาร์มมีโอกาสเกิดโรคเต้านมอักเสบประมาณ 4.89% เมื่อประเมินจากจำนวนวันที่เสี่ยง (Days at Risk)\n\nKey Concepts:\n- ความแตกต่าง: Incidence rate (รวมเวลาเสี่ยง) vs Cumulative incidence (% ของ cohort)\n- ต้อง subtract วันที่สัตว์ \"out of risk\" (เพิ่งติดโรค, ตาย, ออกฟาร์ม, ถูกแยกออกในช่วงรักษา)\n- ทำให้คำนวณได้แม่นยำกว่าการดู % แบบรวม",
+    "explain": "Incidence Rate (per month) formula:\n\nIR = (Number of clinical cases at days at risk × 100) / Total days at risk in a month\n\nStep 1: Total days at risk in a month:\n- 50 cows × 30 days = 1,500 cow-days\n\nStep 2: ปรับ days at risk (หักช่วงรักษา 7 วัน × 10 ตัว):\n- 10 ตัวรักษา 7 วัน = 70 cow-days ไม่อยู่ในสถานะเสี่ยง\n- Adjusted total = 1,500 − 70 = 1,430 cow-days at risk\n\nStep 3: Numerator = Cases × days at risk per case × 100:\n- 10 × 7 × 100 = 7,000\n\nIncidence rate = (10 × 7 × 100) / 1430 = 7,000 / 1430 ≈ 4.89% per month\n\nInterpretation:\nผลลัพธ์ 4.89% หมายถึง ในหนึ่งเดือน โคในฝูงนี้มีโอกาสเกิดโรคเต้านมอักเสบประมาณ 4.89% เมื่อประเมินจากจำนวนวันที่เสี่ยง (Days at Risk)\n\nKey Concepts:\n- ความแตกต่าง: Incidence rate (รวมเวลาเสี่ยง) vs Cumulative incidence (% ของ cohort)\n- ต้อง subtract วันที่สัตว์ \"out of risk\" (เพิ่งติดโรค, ตาย, ออกฟาร์ม, ถูกแยกออกในช่วงรักษา)\n- ทำให้คำนวณได้แม่นยำกว่าการดู % แบบรวม",
     "verified": "pp's ruminant.pdf p.1 Incidence Rate worked example (50 cows × 30 days = 1500, adjust -70 = 1430, 10×7×100/1430 = 4.89%)"
-  }
+  },
 ];
