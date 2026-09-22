@@ -210,3 +210,31 @@ test('only a failed list load hides the list; a failed open shows its own notice
   assert.match(notice, />\s*ลองอีกครั้ง\s*</);
   assert.ok(at < SRC.indexOf('<ModalityTabs'), 'the notice must sit above the tabs and the grid');
 });
+
+test('a failed open is brought into view: a student scrolled down to the card would not see the notice at the top', () => {
+  // The notice sits above the tabs. On a phone the cards are tall, so the case
+  // that failed is often far below it; before, the whole list vanished and the
+  // error was all that was left on the page. Each new failure scrolls the
+  // notice just into view.
+  const at = SRC.indexOf('{openError && (');
+  assert.notEqual(at, -1);
+  const notice = SRC.slice(at, SRC.indexOf('\n      )}', at));
+  assert.match(notice, /<div ref=\{openErrorRef\} role="alert"/, 'the notice has no ref to scroll to');
+
+  const anchor = 'useEffect(() => {\n    if (openError) ';
+  const start = SRC.indexOf(anchor);
+  assert.notEqual(start, -1, 'nothing brings a new failure into view');
+  const end = SRC.indexOf('\n  }, [openError]);', start);
+  assert.notEqual(end, -1, 'the scroll must follow openError');
+  const calls = [];
+  const run = (openError, current) => vm.runInNewContext('(' + SRC.slice(start + 'useEffect('.length, end) + '\n  })()', {
+    openError, openErrorRef: { current },
+  });
+  const el = { scrollIntoView: (opts) => calls.push(JSON.parse(JSON.stringify(opts ?? null))) };
+  run(null, el);
+  assert.deepEqual(calls, [], 'clearing the notice must not scroll');
+  run({ caseData: A, message: '' }, el);
+  assert.deepEqual(calls, [{ block: 'nearest' }], 'a new failure must scroll only as far as needed to show it');
+  run({ caseData: A, message: '' }, null); // unmounted between render and effect
+  run({ caseData: A, message: '' }, {}); // an engine without scrollIntoView
+});

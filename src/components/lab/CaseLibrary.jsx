@@ -65,6 +65,12 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
   const [error, setError] = useState(null);
   const [openError, setOpenError] = useState(null);
   const [openingId, setOpeningId] = useState(null);
+  // The notice sits above the grid, and on a phone the case that failed is
+  // often far below it: scroll each new failure just into view.
+  const openErrorRef = useRef(null);
+  useEffect(() => {
+    if (openError) openErrorRef.current?.scrollIntoView?.({ block: 'nearest' });
+  }, [openError]);
   // Modality filter persists across mounts so a user who picked "X-ray"
   // last time doesn't see "All" again on the next visit.
   const [modalityFilter, setModalityFilter] = useState(() => {
@@ -196,7 +202,7 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
       )}
 
       {openError && (
-        <div role="alert" style={openErrorStyle}>
+        <div ref={openErrorRef} role="alert" style={openErrorStyle}>
           <span style={{ flex: '1 1 220px', minWidth: 0, overflowWrap: 'anywhere' }}>
             เปิดเคส <strong>{openError.caseData.title}</strong> ไม่สำเร็จ{openError.message ? `: ${openError.message}` : ''}
           </span>
