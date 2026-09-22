@@ -348,13 +348,15 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                       <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: 'var(--clr-ocean-text)', lineHeight: 1.35 }}>
                         {t.title}
                         {/* Counted from corrections.js, so a row can only claim
-                            a disagreement that is actually written down. */}
+                            a disagreement that is actually written down. The
+                            words are the article header's own: a bare "!6"
+                            explained only by a title meant nothing on a phone. */}
                         {conflictCountFor(t.subject, t.topic) > 0 && (
                           <span
                             title="มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย"
-                            style={{ marginLeft: 7, fontSize: 11, fontWeight: 700, color: 'var(--clr-rose-text)', fontFamily: 'var(--vmx-mono)' }}
+                            style={{ display: 'inline-block', marginLeft: 7, padding: '0 8px', border: '1px solid currentColor', borderRadius: 999, fontSize: 11.5, fontWeight: 600, lineHeight: 1.6, color: 'var(--clr-rose-text)', whiteSpace: 'nowrap', verticalAlign: 'middle' }}
                           >
-                            !{conflictCountFor(t.subject, t.topic)}
+                            หลักฐานไม่ตรงกับที่บรรยาย {conflictCountFor(t.subject, t.topic)} จุด
                           </span>
                         )}
                       </span>
