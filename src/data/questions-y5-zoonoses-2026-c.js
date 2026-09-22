@@ -434,7 +434,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106093,
-    "tags": ["Ebola","transmission-route"],
+    "tags": ["Ebola","transmission-route","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-ebola-nipah",
     "year": 5,
@@ -454,7 +454,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106094,
-    "tags": ["Rift-Valley-fever","abortion"],
+    "tags": ["Rift-Valley-fever","abortion","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-vbz",
     "year": 5,
@@ -474,7 +474,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106095,
-    "tags": ["yellow-fever","vaccination"],
+    "tags": ["yellow-fever","vaccination","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-vbz",
     "year": 5,
@@ -494,7 +494,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106096,
-    "tags": ["Japanese-encephalitis","amplifier-host"],
+    "tags": ["Japanese-encephalitis","amplifier-host","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-vbz",
     "year": 5,
@@ -514,7 +514,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106097,
-    "tags": ["West-Nile-virus","amplifier-host"],
+    "tags": ["West-Nile-virus","amplifier-host","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-vbz",
     "year": 5,
@@ -534,7 +534,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106098,
-    "tags": ["SFTSV","emergence-timeline"],
+    "tags": ["SFTSV","emergence-timeline","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-vbz",
     "year": 5,
@@ -554,7 +554,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106099,
-    "tags": ["vector-borne-zoonosis","vector-control"],
+    "tags": ["vector-borne-zoonosis","vector-control","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-vbz",
     "year": 5,
@@ -574,7 +574,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106100,
-    "tags": ["antigenic-shift","gene-reassortment"],
+    "tags": ["antigenic-shift","gene-reassortment","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-ai-basic",
     "year": 5,
@@ -594,7 +594,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106101,
-    "tags": ["mixing-vessel","sialic-acid-receptor"],
+    "tags": ["mixing-vessel","sialic-acid-receptor","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-ai-basic",
     "year": 5,
@@ -614,7 +614,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106102,
-    "tags": ["HPAI","multiple-basic-amino-acid"],
+    "tags": ["HPAI","multiple-basic-amino-acid","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-ai-basic",
     "year": 5,
@@ -634,7 +634,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106103,
-    "tags": ["H7N9","LPAI","case-fatality-rate"],
+    "tags": ["H7N9","LPAI","case-fatality-rate","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-ai-basic",
     "year": 5,
@@ -674,7 +674,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106105,
-    "tags": ["H5N1","thailand-outbreak","mammalian-spillover"],
+    "tags": ["H5N1","thailand-outbreak","mammalian-spillover","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-ai-basic",
     "year": 5,
@@ -694,7 +694,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106106,
-    "tags": ["pandemic-H1N1-2009","emergence-origin"],
+    "tags": ["pandemic-H1N1-2009","emergence-origin","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-siv-civ",
     "year": 5,
@@ -714,7 +714,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106107,
-    "tags": ["canine-influenza","H3N2","avian-origin"],
+    "tags": ["canine-influenza","H3N2","avian-origin","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-siv-civ",
     "year": 5,
@@ -734,7 +734,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106108,
-    "tags": ["TRIG-cassette","swine-influenza","gene-reassortment"],
+    "tags": ["TRIG-cassette","swine-influenza","gene-reassortment","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-siv-civ",
     "year": 5,
@@ -754,7 +754,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106109,
-    "tags": ["MERS-CoV","DPP4","viral-receptor"],
+    "tags": ["MERS-CoV","DPP4","viral-receptor","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-corona",
     "year": 5,
@@ -794,7 +794,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106111,
-    "tags": ["Betacoronavirus","virus-taxonomy"],
+    "tags": ["Betacoronavirus","virus-taxonomy","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-corona",
     "year": 5,
@@ -814,7 +814,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106112,
-    "tags": ["MERS-CoV","nosocomial-transmission"],
+    "tags": ["MERS-CoV","nosocomial-transmission","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-corona",
     "year": 5,
@@ -874,7 +874,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106115,
-    "tags": ["Alphacoronavirus","FIP","virus-taxonomy"],
+    "tags": ["Alphacoronavirus","FIP","virus-taxonomy","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-corona",
     "year": 5,
@@ -914,7 +914,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106117,
-    "tags": ["rabies","DFA","brain-sampling"],
+    "tags": ["rabies","DFA","brain-sampling","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -934,7 +934,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106118,
-    "tags": ["rabies","pathogenesis","neural-spread"],
+    "tags": ["rabies","pathogenesis","neural-spread","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -954,7 +954,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106119,
-    "tags": ["rabies","ring-vaccination"],
+    "tags": ["rabies","ring-vaccination","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -974,7 +974,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106120,
-    "tags": ["rabies","post-exposure-vaccination","exposed-animal"],
+    "tags": ["rabies","post-exposure-vaccination","exposed-animal","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -994,7 +994,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106121,
-    "tags": ["rabies","ten-day-observation","biting-animal"],
+    "tags": ["rabies","ten-day-observation","biting-animal","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1014,7 +1014,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106122,
-    "tags": ["rabies","wound-washing","first-aid"],
+    "tags": ["rabies","wound-washing","first-aid","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1034,7 +1034,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106123,
-    "tags": ["rabies","vaccination-coverage","herd-immunity"],
+    "tags": ["rabies","vaccination-coverage","herd-immunity","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1054,7 +1054,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106124,
-    "tags": ["rabies","Negri-bodies","histopathology"],
+    "tags": ["rabies","Negri-bodies","histopathology","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1074,7 +1074,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106125,
-    "tags": ["rabies","surveillance-period"],
+    "tags": ["rabies","surveillance-period","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-rabies",
     "year": 5,
@@ -1794,7 +1794,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106161,
-    "tags": ["dermatophytosis","dtm","fungal-culture"],
+    "tags": ["dermatophytosis","dtm","fungal-culture","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-mycoses",
     "year": 5,
@@ -1814,7 +1814,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106162,
-    "tags": ["sporotrichosis","Sporothrix-schenckii","cutaneous-inoculation"],
+    "tags": ["sporotrichosis","Sporothrix-schenckii","cutaneous-inoculation","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-mycoses",
     "year": 5,
@@ -1834,7 +1834,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106163,
-    "tags": ["aspergillosis","environmental-source","zoonosis-classification"],
+    "tags": ["aspergillosis","environmental-source","zoonosis-classification","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-mycoses",
     "year": 5,
@@ -1854,7 +1854,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
   },
   {
     "id": 106164,
-    "tags": ["cryptococcosis","pigeon-droppings","environmental-source"],
+    "tags": ["cryptococcosis","pigeon-droppings","environmental-source","อิงแนวข้อสอบ"],
     "subject": "zoonoses",
     "topic": "zoo-mycoses",
     "year": 5,

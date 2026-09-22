@@ -209,3 +209,16 @@ test('a year-5 compilation row that names no paper is in Panic band 1, not band 
   assert.deepEqual(hidden, [],
     `${hidden.length} compilation rows would never appear in Panic Mode; tag them อิงแนวข้อสอบ`);
 });
+
+test('zoonoses rows written from the Vet 85 midterm summary are band 1 and never a sat paper', async () => {
+  const { panicRank, isPastPaperQuestion } = await import('../../src/lib/question-metadata.js');
+  const rows = await loadYear5Bank();
+  const written = rows.filter((q) => q.subject === 'zoonoses' && /แต่งจากสรุป/.test(String(q.examOrigin || '')));
+  assert.ok(written.length > 0, 'no zoonoses row says it was written from the summary any more');
+  // The origin reads "mid", which is why sourceType stays lecture-derived: as
+  // student-compilation these would all count as papers someone sat.
+  assert.deepEqual(written.filter(isPastPaperQuestion).map((q) => q.id), [],
+    'a row written from a summary is being counted as a past paper');
+  assert.deepEqual(written.filter((q) => panicRank(q) !== 1).map((q) => q.id), [],
+    'a zoonoses row written from the midterm summary is outside Panic band 1');
+});
