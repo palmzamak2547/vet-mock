@@ -8,7 +8,7 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const agents = read('../../AGENTS.md');
@@ -45,4 +45,63 @@ test('every timing in the G table names the log line or CI run it came from (STA
   for (const row of rows) {
     assert.match(row, /gate[\w.-]*\s*`|CI run \d{8,}/, `name the source of: ${row}`);
   }
+});
+
+// ── ORG-15: the guide above the session log ─────────────────────
+// The guide is everything before the first dated entry or the session-log
+// heading. Every path it names must exist, so a guide line cannot keep
+// pointing at a file, folder or script that was removed.
+const GUIDE_END = /^## (?:\d{4}-\d{2}-\d{2}\b|.*\bSession log\b)/m;
+const guideOf = (text) => {
+  const m = text.match(GUIDE_END);
+  return m ? text.slice(0, m.index) : text;
+};
+const guide = guideOf(agents);
+const ROOT = new URL('../../', import.meta.url);
+const TOP = /^(?:src|api|scripts|tests|docs|supabase|public|wiki|db)\//;
+
+test('the guide states none of the facts that went stale (ORG-15)', () => {
+  assert.doesNotMatch(agents, /v5\.122\.1/, 'the source version is read from package.json, not written here');
+  assert.doesNotMatch(agents, /db:push/, 'the schema lives in supabase/migrations, not a pushed drizzle schema');
+  assert.doesNotMatch(agents, /shadcn-space/, 'no component folder of that name exists');
+});
+
+test('every repo path the guide names exists (ORG-15)', () => {
+  const missing = [];
+  for (const [, token] of guide.matchAll(/`([^`\s]+)`/g)) {
+    if (!TOP.test(token)) continue;
+    // A glob or brace names a family of files; its folder must still exist.
+    const glob = token.search(/[*{<]/);
+    const path = glob < 0 ? token : token.slice(0, token.lastIndexOf('/', glob) + 1);
+    if (!existsSync(new URL(path, ROOT))) missing.push(token);
+  }
+  assert.deepEqual(missing, [], 'the guide names paths that are not in the repository');
+});
+
+test('the guide names every stylesheet the app imports (ORG-15)', () => {
+  const sources = [];
+  const walk = (dir) => {
+    for (const name of readdirSync(dir)) {
+      const url = new URL(name, dir);
+      if (statSync(url).isDirectory()) {
+        if (name !== 'data') walk(new URL(`${name}/`, dir)); // question banks import no CSS
+      } else if (/\.(?:js|jsx|mjs)$/.test(name)) sources.push(readFileSync(url, 'utf8'));
+    }
+  };
+  walk(new URL('src/', ROOT));
+  const imported = new Set();
+  for (const text of sources) {
+    for (const [, name] of text.matchAll(/^import\s+['"](?:\.{1,2}\/)+(styles[\w-]*\.css)['"]/gm)) imported.add(name);
+  }
+  assert.ok(imported.has('styles.css'), 'the scan finds the main stylesheet');
+  const unnamed = [...imported].filter((name) => !guide.includes(`src/${name}`)).sort();
+  assert.deepEqual(unnamed, [], 'name these in the Styles row of Where Things Live');
+});
+
+test('every npm script the guide tells an agent to run exists (ORG-15)', () => {
+  const { scripts } = JSON.parse(readFileSync(new URL('package.json', ROOT), 'utf8'));
+  const named = [...guide.matchAll(/npm run ([\w:-]+)/g)].map((m) => m[1]);
+  assert.ok(named.includes('lint:all'), 'the scan finds the commands block');
+  const missing = [...new Set(named)].filter((name) => !(name in scripts)).sort();
+  assert.deepEqual(missing, [], 'the guide names npm scripts that package.json does not have');
 });
