@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { RenderingEngine, Enums } from '@cornerstonejs/core';
+import { RenderingEngine, Enums, cache } from '@cornerstonejs/core';
 import {
   ToolGroupManager,
   WindowLevelTool,
@@ -12,6 +12,7 @@ import {
 } from '@cornerstonejs/tools';
 import dicomParser from 'dicom-parser';
 import { ensureCornerstoneInit, getDicomImageLoader } from '../../lib/dicom/cornerstone-init.js';
+import { rememberParsedDataSet, forgetParsedDataSet } from '../../lib/dicom/parsed-dataset.js';
 import NorbergOverlay from './NorbergOverlay.jsx';
 import VHSOverlay from './VHSOverlay.jsx';
 import { useMediaQuery } from '../../lib/dicom/use-media-query.js';
@@ -84,6 +85,8 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
     // This mount's entry in the loader's file registry, so the cleanup can
     // release exactly that entry and no other viewport's.
     let fileIndex = null;
+    // The parsed file this mount shared with the tag inspector, if any.
+    let parsedDataSet = null;
     const seq = ++engineSeq;
     const engineId = `lab-engine-${seq}`;
     const viewportId = `lab-vp-${seq}`;
@@ -162,14 +165,20 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
           height: dims?.[1] ?? '?',
           mmPerPx: spacing,
         });
-        // Parse PatientSpeciesDescription (0010,2201) once, in parallel
-        // with the Cornerstone load. Used by VHS overlay to pick the
-        // right reference range (canine 8.5–10.5 vs feline 6.7–8.1).
+        // PatientSpeciesDescription (0010,2201) picks the VHS overlay's
+        // reference range (canine 8.5–10.5 vs feline 6.7–8.1). The loader
+        // has just parsed this file to draw it, so read the tag from that
+        // dataset and hand it to the tag inspector too, instead of reading
+        // and parsing the whole file again. Parse here only if the loader's
+        // copy is missing.
         try {
-          const buf = await file.arrayBuffer();
-          const ds = dicomParser.parseDicom(new Uint8Array(buf));
+          const ds = loader.wadouri.dataSetCacheManager.get(String(fileIndex))
+            || dicomParser.parseDicom(new Uint8Array(await file.arrayBuffer()));
+          if (cancelled) return;
+          parsedDataSet = ds;
+          rememberParsedDataSet(file, ds);
           const sp = ds.string('x00102201') || '';
-          if (!cancelled && sp) setSpecies(sp);
+          if (sp) setSpecies(sp);
         } catch { /* dicom-parser failed; species stays empty */ }
         setStatus('ready');
         setActiveTool('wl');
@@ -190,12 +199,20 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
       } catch { /* noop */ }
       // The loader's file registry is a module-global list that only grows,
       // so every DICOM ever opened stayed referenced for the life of the tab.
-      // Release only the entry this mount registered; the other viewport in
-      // compare mode keeps its own. The parsed dataset cache is separate and
-      // is left alone here.
+      // Release only what this mount loaded; the other viewport in compare
+      // mode has its own dicomfile:N and keeps it.
       if (Number.isInteger(fileIndex)) {
+        // The decoded image lives in Cornerstone's image cache, and the loader
+        // stamps it with a sharedCacheKey, so LRU never evicts it and an
+        // unforced remove throws. Force it: that also runs the loader's
+        // decache, which unloads the parsed file.
+        const imageId = `dicomfile:${fileIndex}`;
+        try {
+          if (cache.getImageLoadObject(imageId)) cache.removeImageLoadObject(imageId, { force: true });
+        } catch { /* noop */ }
         try { getDicomImageLoader().wadouri.fileManager.remove(fileIndex); } catch { /* noop */ }
       }
+      if (parsedDataSet) forgetParsedDataSet(file, parsedDataSet);
     };
   }, [file]);
 

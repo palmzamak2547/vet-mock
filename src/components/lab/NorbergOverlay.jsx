@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef, useId } from 'react';
+import { Enums } from '@cornerstonejs/core';
 import { saveAttempt, reasonLabel } from '../../lib/dicom/save-attempt.js';
 import { useMediaQuery } from '../../lib/dicom/use-media-query.js';
 
@@ -33,16 +34,32 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
   const [cardCollapsed, setCardCollapsed] = useState(false);
   // World-space points (3D). Persist across tool toggles until Reset.
   const [worldPoints, setWorldPoints] = useState([]);
-  // Tick re-renders SVG positions when the camera moves (zoom/pan).
-  // Polling is cheaper than wiring into Cornerstone's event system and
-  // 80 ms is well below perceptual lag for an annotation overlay.
+  // Tick re-renders SVG positions when the camera moves (zoom/pan). It
+  // advances on Cornerstone's camera and render events, at most once per
+  // animation frame, so a still image re-renders nothing. An 80 ms poll
+  // used to re-render 12 times a second for as long as the tool was on.
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
     if (!active || worldPoints.length === 0) return;
-    const id = setInterval(() => setTick((t) => t + 1), 80);
-    return () => clearInterval(id);
-  }, [active, worldPoints.length]);
+    const element = viewportRef?.()?.element;
+    if (!element) return;
+    let frame = null;
+    const onViewportChange = () => {
+      if (frame !== null) return;
+      frame = requestAnimationFrame(() => {
+        frame = null;
+        setTick((t) => t + 1);
+      });
+    };
+    element.addEventListener(Enums.Events.CAMERA_MODIFIED, onViewportChange);
+    element.addEventListener(Enums.Events.IMAGE_RENDERED, onViewportChange);
+    return () => {
+      element.removeEventListener(Enums.Events.CAMERA_MODIFIED, onViewportChange);
+      element.removeEventListener(Enums.Events.IMAGE_RENDERED, onViewportChange);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [active, worldPoints.length, viewportRef]);
 
   // Global "clear" listener — the toolbar 🗑 Clear button dispatches
   // this so a single click wipes both Cornerstone annotations and
@@ -114,12 +131,14 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
         return { x: -100, y: -100 };
       }
     });
-    // `tick` is the camera clock: every poll bumps it so the points are
-    // projected against the camera as it is now. Listing the setter here
+    // `tick` is the camera clock: every camera move bumps it so the points
+    // are projected against the camera as it is now. Listing the setter here
     // instead (a stable identity) froze the markers where they were first
-    // drawn while the image panned and zoomed underneath them.
+    // drawn while the image panned and zoomed underneath them. `active`
+    // re-projects on the first render after the tool is selected again:
+    // the clock stops while the tool is off, and the image may have moved.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [worldPoints, viewportRef, tick]);
+  }, [worldPoints, viewportRef, tick, active]);
 
   // Hit-test radius for grabbing existing points (in CSS pixels).
   // Slightly bigger than the visible 7 px circle so it's tappable.
